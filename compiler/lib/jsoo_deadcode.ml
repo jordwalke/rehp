@@ -228,7 +228,7 @@ let f ((pc, blocks, free_pc) as program) =
   in
   mark_reachable st pc;
 
-  if debug () then
+  if false && debug () then
     print_program (fun pc xi -> annot st pc xi) (pc, blocks, free_pc);
 
   let all_blocks = blocks in

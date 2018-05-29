@@ -212,6 +212,7 @@ exception Not_an_ident
 let is_ident =
   let l = Array.init 256 (fun i ->
     let c = Char.chr i in
+    (* This needs to be customized to Php's conventions *)
     if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c = '_' || c = '$'
     then 1
     else if (c >= '0' && c <='9')

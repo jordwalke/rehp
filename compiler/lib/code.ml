@@ -400,7 +400,7 @@ let print_block annot pc block =
   Format.eprintf "@."
 
 let print_program annot (pc, blocks, _) =
-  Format.eprintf "Entry point: %d@.@." pc;
+  Format.eprintf "Entry pointhere: %d@.@." pc;
   AddrMap.iter (print_block annot) blocks
 
 (****)

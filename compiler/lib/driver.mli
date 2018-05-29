@@ -25,6 +25,7 @@ val f :
   ?global:[`Auto | `Function | `Bind_to of string | `Custom of string ] ->
   ?profile:profile ->
   ?dynlink:bool ->
+  ?backend:Backend.t ->
   ?linkall:bool ->
   ?source_map:(string option * Source_map.t) ->
   ?custom_header:string ->
@@ -34,3 +35,4 @@ val from_string : string array -> string -> Pretty_print.t -> unit
 
 val profiles : (int * profile) list
 val profile : int -> profile option
+val backends : (string * Backend.t) list
