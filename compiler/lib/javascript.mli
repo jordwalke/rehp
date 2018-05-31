@@ -54,7 +54,7 @@ and binop =
   | EqEq | NotEq | EqEqEq | NotEqEq
   | Lt | Le | Gt | Ge | InstanceOf | In
   | Lsl | Lsr | Asr
-  | Plus | Minus
+  | FloatPlus | IntPlus | Plus | Minus 
   | Mul | Div | Mod
 
 and unop = Not | Neg | Pl | Typeof | Void | Delete | Bnot | IncrA | DecrA | IncrB | DecrB
@@ -74,19 +74,24 @@ and expression =
   | EBin of binop * expression * expression
   | EUn of unop * expression
   | ECall of expression * arguments * location
-  | EAccess of expression * expression
-  | EDot of expression * identifier
-  | ENew of expression * arguments option
   | EVar of ident
   | EFun of function_expression
+  | EArityTest of expression
   | EStr of string * [`Bytes | `Utf8]
-      (* A string can either be composed of a sequence of bytes, or be
-         UTF-8 encoded. In the second case, the string may contain
-         escape sequences. *)
+    (* A string can either be composed of a sequence of bytes, or be
+       UTF-8 encoded. In the second case, the string may contain
+       escape sequences. *)
+  | EArrAccess of expression * expression
+  | EArrLen of expression
   | EArr of array_litteral
+  | EStructAccess of expression * expression
+  | EStruct of array_litteral
+  | EDot of expression * identifier
+  | EAccess of expression * expression
+  | ENew of expression * arguments option
+  | EObj of property_name_and_value_list
   | EBool of bool
   | ENum of float
-  | EObj of property_name_and_value_list
   | EQuote of string
   | ERegexp of string * string option
 

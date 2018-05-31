@@ -721,9 +721,13 @@ let register_global ?(force=false) g i rem =
     let args =
       match g.named_value.(i) with
       | None -> []
-      | Some name ->
+      | Some name -> (
         Code.Var.name (access_global g i) name;
-        [Pc (IString name)] in
+        let _ = print_string (" defines global data:" ^ name) in
+        let _ = print_newline () in
+        [Pc (IString name)]
+      ) in
+
     Let (Var.fresh (),
          Prim (Extern "caml_register_global",
                (Pc (Int (Int32.of_int i)) ::
@@ -2252,11 +2256,16 @@ let from_compilation_units ~includes:_ ~debug ~debug_data l =
     | `V3 ->
       (* We fix the bytecode to replace max_int/min_int *)
       List.iter (fun (u,code) ->
+        print_string (u.Cmo_format.cu_name);
         if u.Cmo_format.cu_name = "Pervasives" then begin
           fix_min_max_int code
         end) l
     | `V4_02 | `V4_03 | `V4_04 | `V4_06 -> ()
   end;
+  List.iter (fun (u,_) ->
+    let _ = print_string ("COMPILATION UNIT NAME:" ^ u.Cmo_format.cu_name) in
+    let _ = print_newline () in ()
+  ) l;
   let code =
     let l = List.map (fun (_,c) -> Bytes.to_string c) l in
     String.concat "" l in
@@ -2275,6 +2284,8 @@ let from_compilation_units ~includes:_ ~debug ~debug_data l =
           end;
           Let (x, Constant cst) :: l
         | Some name ->
+          let _ = print_string (" references global data:" ^ name) in
+          let _ = print_newline () in
           Var.name x name;
           Let (x, Prim (Extern "caml_js_get",[Pv gdata; Pc (IString name)])) :: l
       end
@@ -2299,6 +2310,8 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
   | `Pre magic ->
     begin match Util.MagicNumber.kind magic with
       | `Cmo ->
+        let _ = print_string ("IN CMO FORMAT PRE") in
+        let _ = print_newline () in
         if Option.Optim.check_magic () && magic <> Util.MagicNumber.current_cmo
         then raise Util.MagicNumber.(Bad_magic_version magic);
         let compunit_pos = input_binary_int ic in
@@ -2316,6 +2329,8 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
         let a,b,c = from_compilation_units ~includes ~debug ~debug_data [compunit, code] in
         a,b,c,false
       | `Cma ->
+        let _ = print_string ("IN CMA FORMAT PRE") in
+        let _ = print_newline () in
         if Option.Optim.check_magic () && magic <> Util.MagicNumber.current_cma
         then raise Util.MagicNumber.(Bad_magic_version magic);
         let pos_toc = input_binary_int ic in  (* Go to table of contents *)
@@ -2343,6 +2358,7 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
   | `Post magic ->
     begin match Util.MagicNumber.kind magic with
       | `Exe ->
+        let _ = print_string ("IN EXE FORMAT POST") in
         if Option.Optim.check_magic () && magic <> Util.MagicNumber.current_exe
         then raise Util.MagicNumber.(Bad_magic_version magic);
         let a,b,c = exe_from_channel ~includes ~toplevel ?expunge ~dynlink ~debug ~debug_data ic in

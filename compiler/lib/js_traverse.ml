@@ -121,8 +121,13 @@ class map : mapper = object(m)
   | EUn(b,e1) -> EUn(b,m#expression  e1)
   | ECall(e1,e2,loc) ->
     ECall(m#expression  e1,List.map m#expression e2,loc)
-  | EAccess(e1,e2) ->
-    EAccess(m#expression  e1,m#expression  e2)
+
+  | EAccess(e1, e2) ->
+    EAccess(m#expression e1, m#expression e2)
+  | EStructAccess (e1, e2) ->
+    EStructAccess(m#expression e1, m#expression e2)
+  | EArrAccess(e1,e2) ->
+    EArrAccess(m#expression  e1,m#expression e2)
   | EDot(e1,id) -> EDot(m#expression  e1, id)
   | ENew(e1,Some args) ->
     ENew(m#expression  e1,Some (List.map m#expression args))
@@ -134,6 +139,9 @@ class map : mapper = object(m)
       | None -> None
       | Some i -> Some (m#ident i) in
     EFun (idopt, List.map m#ident params, m#sources body ,nid)
+  | EArityTest e -> EArityTest (m#expression e)
+  | EArrLen e -> EArrLen (m#expression e)
+  | EStruct l -> EStruct (List.map (fun x -> m#expression_o x) l)
   | EArr l ->
     EArr (List.map (fun x -> m#expression_o x) l)
   | EObj l ->

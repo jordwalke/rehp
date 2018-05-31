@@ -64,13 +64,21 @@ this but should be addressed for completeness.
 - Classes and prototypes. Anything function with a capital identifier can be a
 class, by convention. Then maybe we can make the class callable without new
 just in case it wasn't actually a class.
+- Implement caml_call (need to know number of arguments).
+- Investigate Closure::bindTo();
+- Make sure all arguments created inside of runtime are converted to a
+JavaScript reference array.
+- All the transforms and normalization should have a preprocessing pass instead
+of being embedded in the printing.
+- Fix min_int/max_int for 64 bits. Infinity/Nan as well. Maybe keep everything
+31 bits. See parse_bytecode's fix_min_max_int.
 
   JS: x && y
   Php: x ? y : x;
 
   JS: x || y;
   Php: x ? x : y;
-  
+
 *)
 
 (* Transforming OO style prototype objects:
@@ -83,8 +91,6 @@ just in case it wasn't actually a class.
     'methName' => function() {$this->doIt()}
   }
   new X($arg)
-
-  
 
 *)
 
@@ -135,16 +141,16 @@ We can use length tracked structs for most allocations, while still using array
 access. Fortunately, our Js based DSL that we cross compile distinguishes
 between struct access and JS property access.
 
-class Struct3 implements ArrayAccess { 
+class Struct3 implements ArrayAccess {
   private one = NULL;
   private two = NULL;
   private three = NULL;
-  function __construct(a, b, c) { 
+  function __construct(a, b, c) {
     $this->one = a;
     $this->two = b;
     $this->three = c;
-  } 
-} 
+  }
+}
 
 $o = new Struct3(0, 'anotherProperty', 'hi');
 
@@ -245,7 +251,7 @@ module Make(D : sig
   (* Identifiers might contain dollar signs which aren't valid members of an
      identifier in Php. *)
   let rec escape ?(prepend="") s search replace =
-    let has = String.contains s search in 
+    let has = String.contains s search in
     if not has then prepend ^ s
     else
       let len = String.length s in
@@ -330,11 +336,11 @@ module Make(D : sig
   11 AdditiveExpression
   12 MultiplicativeExpression
   13 UnaryExpression
+  NewExpression
   14 PostfixExpression
   # For Php, functions can't be left hand side of call without parens
   FunctionExpression
   15 LeftHandsideExpression
-  NewExpression
   CallExpression
   16 MemberExpression
   PrimaryExpression
@@ -359,7 +365,7 @@ module Make(D : sig
     | EqEq | NotEq | EqEqEq | NotEqEq -> 8, 8, 9
     | Gt | Ge | Lt | Le | InstanceOf | In -> 9, 9, 10
     | Lsl | Lsr | Asr -> 10, 10, 11
-    | Plus | Minus -> 11, 11, 12
+    | FloatPlus | IntPlus | Plus | Minus -> 11, 11, 12
     | Mul | Div | Mod -> 12, 12, 13
 
   let op_str op =
@@ -392,7 +398,9 @@ module Make(D : sig
     | Lsl     -> "<<"
     | Lsr     -> ">>>"
     | Asr     -> ">>"
-    | Plus    -> "+"
+    | FloatPlus -> "+"
+    | IntPlus -> "+"
+    | Plus    -> "."
     | Minus   -> "-"
     | Mul     -> "*"
     | Div     -> "/"
@@ -431,9 +439,11 @@ module Make(D : sig
     | EBin (op, e, _) ->
       let (out, lft, _rght) = op_prec op in
       l <= out && need_paren lft e
-    | ECall (e, _, _) | EAccess (e, _) | EDot (e, _) ->
+    | EArityTest e  (* Since EArityTest is just expanded to a call *)
+    | EArrLen e     (* Since EArrLen is just expanded to a EDot *)
+    | ECall (e, _, _) | EAccess (e, _) | EStructAccess (e, _) | EArrAccess (e, _) | EDot (e, _) ->
       l <= 15 && need_paren 15 e
-    | EVar _ | EStr _ | EArr _ | EBool _ | ENum _ | EQuote _ | ERegexp _| EUn _ | ENew _ ->
+    | EVar _ | EStr _ | EStruct _ | EArr _ | EBool _ | ENum _ | EQuote _ | ERegexp _| EUn _ | ENew _ ->
       false
     | EFun _ | EObj _ ->
       true
@@ -486,13 +496,20 @@ module Make(D : sig
     match e with
       EVar v ->
       ident f v
+    (* JS:  (e1, e2)
+     * Php: ((e1 || true) ? e2 : e2)
+     *)
     | ESeq (e1, e2) ->
-      (* JavaScript:  (e1, e2)
-         Php:         ((e1 || true) ? e2 : e2)
-       *)
       expression l f (ECond( EBin (Or, e1, EBool true), e2, e2))
+    | EArityTest e ->
+      let ident = S {name="rehp_arg_count";var=None} in
+      let call = ECall (EVar ident, [e], Javascript.N) in
+      expression l f call
+    | EArrLen e ->
+      let len_check = EDot (e, "length") in
+      expression l f len_check
     | EFun (i, ll, b, pc) ->
-      if l > 14 then begin PP.start_group f 1; PP.string f "(" end;
+      (if l > 14 then begin PP.start_group f 1; PP.string f "(" end);
       PP.start_group f 1;
       PP.start_group f 0;
       PP.start_group f 0;
@@ -564,7 +581,7 @@ module Make(D : sig
     | EUn (Delete, e) ->
       let ident = S {name="unset";var=None} in
       let call = ECall (EVar ident, [e], Javascript.N) in
-      expression l f call 
+      expression l f call
     | EUn ((IncrA | DecrA | IncrB | DecrB) as op,e) ->
       if l > 13 then begin PP.start_group f 1; PP.string f "(" end;
       if op = IncrA || op = DecrA
@@ -584,7 +601,7 @@ module Make(D : sig
     | EBin (InstanceOf, e1, e2) ->
       let ident = S {name="instance_of";var=None} in
       let call = ECall (EVar ident, [e1; e2], Javascript.N) in
-      expression l f call 
+      expression l f call
     | EBin (In, e1, e2) ->
       let (out, lft, rght) = op_prec InstanceOf in
       if l > out then begin PP.start_group f 1; PP.string f "(" end;
@@ -599,7 +616,7 @@ module Make(D : sig
     | EBin (Lsr, e1, e2) ->
       let ident = S {name="unsigned_right_shift";var=None} in
       let call = ECall (EVar ident, [e1; e2], Javascript.N) in
-      expression l f call 
+      expression l f call
     | EBin (op, e1, e2) ->
       let (out, lft, rght) = op_prec op in
       if l > out then begin PP.start_group f 1; PP.string f "(" end;
@@ -609,13 +626,16 @@ module Make(D : sig
       PP.space f;
       expression rght f e2;
       if l > out then begin PP.string f ")"; PP.end_group f end
+    | EStruct el
     | EArr el ->
       PP.start_group f 1;
       PP.string f "[";
       element_list f el;
       PP.string f "]";
       PP.end_group f
-    | EAccess (e, e') ->
+    | EAccess (e, e')
+    | EStructAccess (e, e')
+    | EArrAccess (e, e') ->
       if l > 15 then begin PP.start_group f 1; PP.string f "(" end;
       PP.start_group f 1;
       expression 15 f e;
@@ -636,10 +656,34 @@ module Make(D : sig
       (* if l > 15 then begin PP.string f ")"; PP.end_group f end *)
     | ENew (e, args) ->
       let args = match args with
-      | None -> []  
+      | None -> []
       | Some args -> args in
       let call = ECall (EDot (e, "jsNew"), args, N) in
-      expression l f call 
+      expression l f call
+    (* | ENew (e, None) -> (*FIX: should omit parentheses when possible*) *)
+    (*   if l > 13 then begin PP.start_group f 1; PP.string f "(" end; *)
+    (*   PP.start_group f 1; *)
+    (*   PP.string f "new"; *)
+    (*   PP.space f; *)
+    (*   expression 16 f e; *)
+    (*   PP.break f; *)
+    (*   PP.string f "()"; *)
+    (*   PP.end_group f; *)
+    (*   if l > 13 then begin PP.string f ")"; PP.end_group f end *)
+    (* | ENew (e, Some el) -> *)
+    (*   if l > 13 then begin PP.start_group f 1; PP.string f "(" end; *)
+    (*   PP.start_group f 1; *)
+    (*   PP.string f "new"; *)
+    (*   PP.space f; *)
+    (*   expression 16 f e; *)
+    (*   PP.break f; *)
+    (*   PP.start_group f 1; *)
+    (*   PP.string f "("; *)
+    (*   arguments f el; *)
+    (*   PP.string f ")"; *)
+    (*   PP.end_group f; *)
+    (*   PP.end_group f; *)
+    (*   if l > 13 then begin PP.string f ")"; PP.end_group f end *)
     | ECond (e, e1, e2) ->
       if l > 2 then begin PP.start_group f 1; PP.string f "(" end;
       PP.start_group f 1;
@@ -806,7 +850,7 @@ module Make(D : sig
       (* TODO: This is buggy if e1 has side effects (unlikely, but fix) *)
       let unsigned_right_shift = S {name="unsigned_right_shift";var=None} in
       let call = ECall (EVar unsigned_right_shift, [e1; e2], Javascript.N) in
-      let rearranged = Expression_statement (EBin (Eq, e1, call)) in 
+      let rearranged = Expression_statement (EBin (Eq, e1, call)) in
       statement ~last f (rearranged, loc)
     | Expression_statement e ->
       (* Parentheses are required when the expression
@@ -966,10 +1010,10 @@ module Make(D : sig
       PP.string f "as"; PP.break f;
       PP.space f;
       (match e1 with
-       | Left e -> expression 0 f e; PP.string f "=> $____"; 
+       | Left e -> expression 0 f e; PP.string f "=> $____";
        | Right v ->
          variable_declaration_list ~separator:"," false f [v]);
-         PP.string f "=> $____"; 
+         PP.string f "=> $____";
       PP.string f ")";
       PP.end_group f;
       PP.end_group f;

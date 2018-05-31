@@ -66,7 +66,8 @@ let rec enot_rec e =
 
     | J.EBool b ->
         (J.EBool (not b), 0)
-    | J.ECall _ | J.EAccess _ | J.EDot _ | J.ENew _ | J.EVar _ | J.EFun _
+    | J.EArityTest _ | J.EArrLen _ | J.EStruct _
+    | J.ECall _ | J.EAccess _ | J.EStructAccess _ | J.EArrAccess _ | J.EDot _ | J.ENew _ | J.EVar _ | J.EFun _
     | J.EStr _ | J.EArr _ | J.ENum _ | J.EObj _ | J.EQuote _ | J.ERegexp _
     | J.EUn
         (( J.IncrA
@@ -187,9 +188,13 @@ let if_statement e loc iftrue truestop iffalse falsestop =
 
 
 let rec get_variable acc = function
+  | J.EArityTest e -> get_variable acc e
+  | J.EArrLen e -> get_variable acc e
   | J.ESeq (e1,e2)
   | J.EBin (_,e1,e2)
-  | J.EAccess (e1,e2) -> get_variable (get_variable acc e1) e2
+  | J.EAccess(e1, e2) -> get_variable (get_variable acc e1) e2
+  | J.EStructAccess (e1, e2) -> get_variable (get_variable acc e1) e2
+  | J.EArrAccess (e1,e2) -> get_variable (get_variable acc e1) e2
   | J.ECond (e1,e2,e3) ->
     get_variable (
       get_variable (
@@ -211,6 +216,7 @@ let rec get_variable acc = function
   | J.ENum _
   | J.EQuote _
   | J.ERegexp _ -> acc
+  | J.EStruct a
   | J.EArr a -> List.fold_left (fun acc i ->
                   match i with
                     | None -> acc

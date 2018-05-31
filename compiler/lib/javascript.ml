@@ -64,7 +64,7 @@ and binop =
   | EqEq | NotEq | EqEqEq | NotEqEq
   | Lt | Le | Gt | Ge | InstanceOf | In
   | Lsl | Lsr | Asr
-  | Plus | Minus
+  | FloatPlus | IntPlus | Plus | Minus 
   | Mul | Div | Mod
 
 and unop = Not | Neg | Pl | Typeof | Void | Delete | Bnot | IncrA | DecrA | IncrB | DecrB
@@ -78,22 +78,33 @@ and property_name =
   | PNS of string
   | PNN of float
 
+(* Probably need to distinguish between platform array (parsed from JS) and
+   stdlib arrays. Currently they're one and the same. *)
 and expression =
     ESeq of expression * expression
   | ECond of expression * expression * expression
   | EBin of binop * expression * expression
   | EUn of unop * expression
   | ECall of expression * arguments * location
-  | EAccess of expression * expression
-  | EDot of expression * identifier
-  | ENew of expression * arguments option
   | EVar of ident
   | EFun of function_expression
+  | EArityTest of expression
   | EStr of string * [`Bytes | `Utf8]
+  (* An ML Array.  *)
+  | EArrAccess of expression * expression
+  | EArrLen of expression
   | EArr of array_litteral
+  (* An ML fixed-size struct (record/variant) *)
+  | EStructAccess of expression * expression
+  | EStruct of array_litteral
+  (* Target specific object structure - no ML equivalent. Typically for interop. *)
+  | EDot of expression * identifier
+  | EAccess of expression * expression
+  | ENew of expression * arguments option
+  | EObj of property_name_and_value_list
+
   | EBool of bool
   | ENum of float
-  | EObj of property_name_and_value_list
   | EQuote of string
   | ERegexp of string * string option
 
