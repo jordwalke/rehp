@@ -1717,7 +1717,7 @@ and compile_closure ctx at_toplevel (pc, args) =
   List.map (fun (st, loc) -> (J.Statement st, loc)) res
 
 
-let generate_shared_value ~global_object_name ctx =
+let generate_shared_value ctx =
   let strings =
     J.Statement (
       J.Variable_statement (
@@ -1725,7 +1725,7 @@ let generate_shared_value ~global_object_name ctx =
          | None -> []
          | Some v ->
            [J.V v,
-            Some (J.EDot (s_var global_object_name, "runtime"),J.N)])
+            Some (J.EDot (s_var Option.global_object, "jsoo_runtime"),J.N)])
         @ List.map (fun (s,v) ->
           v,
           Some (str_js s,J.N))
@@ -1746,13 +1746,13 @@ let generate_shared_value ~global_object_name ctx =
     strings::applies
   else [strings]
 
-let compile_program ~global_object_name ctx pc =
+let compile_program ctx pc =
   let res = compile_closure ctx true (pc, []) in
-  let res = generate_shared_value ~global_object_name ctx @ res in
+  let res = generate_shared_value ctx @ res in
   if debug () then Format.eprintf "@.@.";
   res
 
-let f ((pc, blocks, _) as p) ~global_object_name ~exported_runtime live_vars debug =
+let f ((pc, blocks, _) as p) ~exported_runtime live_vars debug =
   let t' = Util.Timer.make () in
   let share =
     Share.get ~alias_prims:exported_runtime p
@@ -1763,6 +1763,6 @@ let f ((pc, blocks, _) as p) ~global_object_name ~exported_runtime live_vars deb
     else None
   in
   let ctx = Ctx.initial ~exported_runtime blocks live_vars share debug  in
-  let p = compile_program ~global_object_name ctx pc in
+  let p = compile_program ctx pc in
   if times () then Format.eprintf "  code gen.: %a@." Util.Timer.print t';
   p

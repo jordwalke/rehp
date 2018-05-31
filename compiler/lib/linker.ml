@@ -176,7 +176,7 @@ let all_return p =
   try loop_all_sources p; true with May_not_return -> false
 *)
 
-let check_primitive ~global_object_name name pi code req =
+let check_primitive name pi code req =
   let free =
     if Option.Optim.warn_unused ()
     then new check_and_warn name pi
@@ -186,7 +186,7 @@ let check_primitive ~global_object_name name pi code req =
   let freename = List.fold_left (fun freename x -> StringSet.remove x freename) freename req in
   let freename = StringSet.diff freename Reserved.keyword in
   let freename = StringSet.diff freename Reserved.provided in
-  let freename = StringSet.remove global_object_name freename in
+  let freename = StringSet.remove Option.global_object freename in
   if not(StringSet.mem name free#get_def_name)
   then begin
     Util.warn "warning: primitive code does not define value with the expected name: %s (%s)@." name (loc pi)
@@ -236,7 +236,7 @@ let find_named_value code =
   ignore(p#program code);
   !all
 
-let add_file ~global_object_name f =
+let add_file f =
   List.iter
     (fun (provide,req,versions,weakdef,(code:Javascript.program)) ->
        let vmatch = match versions with
@@ -270,7 +270,7 @@ let add_file ~global_object_name f =
 
             Hashtbl.add provided name (id,pi,weakdef);
             Hashtbl.add provided_rev id (name,pi);
-            check_primitive ~global_object_name name pi code req
+            check_primitive name pi code req
          );
          Hashtbl.add code_pieces id (code, req)
        end
@@ -304,8 +304,8 @@ let check_deps () =
     end
   ) code_pieces
 
-let load_files ~global_object_name l =
-  List.iter (add_file ~global_object_name)  l;
+let load_files l =
+  List.iter add_file l;
   check_deps ()
 
 (* resolve *)

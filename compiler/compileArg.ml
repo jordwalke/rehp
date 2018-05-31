@@ -31,7 +31,6 @@ type t = {
   input_file : string option;
   params : (string * string) list;
   static_env : (string * string) list;
-  global_object_name : string option;
   wrap_with_fun : string option;
   (* toplevel *)
   dynlink : bool;
@@ -100,10 +99,6 @@ let options =
     let doc = "root dir for source map." in
     Arg.(value & opt (some string) None & info ["source-map-root"] ~doc)
   in
-  let global_object_name =
-    let doc = "Name of the global object." in
-    Arg.(value & opt (some string) None & info ["global-object"] ~doc)
-  in
   let wrap_with_function =
     let doc = "Wrap the generated JavaScript code inside a function that needs to be applied with the global object." in
     Arg.(value & opt (some string) None & info ["wrap-with-fun"] ~doc)
@@ -167,7 +162,6 @@ let options =
       linkall
       toplevel
       export_file
-      global_object_name
       wrap_with_fun
       include_dir
       fs_files
@@ -250,7 +244,6 @@ let options =
       profile;
       static_env;
 
-      global_object_name;
       wrap_with_fun;
 
       dynlink;
@@ -282,7 +275,6 @@ let options =
           $ linkall
           $ toplevel
           $ export_file
-          $ global_object_name
           $ wrap_with_function
 
           $ include_dir
