@@ -1106,7 +1106,8 @@ and compile infos pc state instrs =
       compile infos (pc + 2) (State.env_acc n state) instrs
     | GETGLOBAL ->
       let i = getu code (pc + 1) in
-      let (_, state, instrs) = get_global state instrs i in
+      let (x, state, instrs) = get_global state instrs i in
+      Format.printf "GETGLOBALFIELD %a = @." Var.print x;
       compile infos (pc + 2) state instrs
     | PUSHGETGLOBAL ->
       let state = State.push state in
@@ -1118,7 +1119,7 @@ and compile infos pc state instrs =
       let (x, state, instrs) = get_global state instrs i in
       let j = getu code (pc + 2) in
       let (y, state) = State.fresh_var state in
-      if debug_parser () then Format.printf "%a = %a[%d]@." Var.print y Var.print x j;
+      Format.printf "GETGLOBALFIELD %a = %a[%d]@." Var.print y Var.print x j;
       compile infos (pc + 3) state (Let (y, Field (x, j)) :: instrs)
     | PUSHGETGLOBALFIELD ->
       let state = State.push state in
@@ -1126,7 +1127,7 @@ and compile infos pc state instrs =
       let (x, state, instrs) = get_global state instrs i in
       let j = getu code (pc + 2) in
       let (y, state) = State.fresh_var state in
-      if debug_parser () then Format.printf "%a = %a[%d]@." Var.print y Var.print x j;
+      Format.printf "PUSHGETGLOBAL %a = %a[%d]@." Var.print y Var.print x j;
       compile infos (pc + 3) state (Let (y, Field (x, j)) :: instrs)
     | SETGLOBAL ->
       let i = getu code (pc + 1) in
@@ -2033,6 +2034,8 @@ let exe_from_channel ~includes ?(toplevel=false) ?(expunge=fun _ -> `Keep) ?(dyn
       let nn = Ident.create_persistent name in
       let i = Tbl.find (fun x1 x2 -> String.compare (Ident.name x1) (Ident.name x2)) nn orig_symbols.num_tbl in
       globals.override.(i) <- Some v;
+      let _ = print_string ("OVERRIDDING GLOBAL" ^ name) in
+      let _ = print_newline () in
       if debug_parser () then Format.eprintf "overriding global %s@." name
     with Not_found -> ()
   ) override_global;
@@ -2232,6 +2235,8 @@ module Reloc = struct
     let globals = make_globals (Array.length constants) constants primitives in
     resize_globals globals t.pos;
     Hashtbl.iter (fun name i ->
+      let _ = print_string ("MAKING GLOBAL REFERENCE " ^ name) in
+      let _ = print_newline () in
       globals.named_value.(i) <- Some name;
     ) t.names;
     (* Initialize module override mechanism *)
