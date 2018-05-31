@@ -50,6 +50,7 @@ let f {
   CompileArg.common;
   profile; source_map; runtime_files; input_file; output_file;
   params ; static_env;
+  global_object_name;
   wrap_with_fun;
   dynlink; linkall; toplevel; nocmis; runtime_only;
   include_dir; fs_files; backend; fs_output; fs_external; export_file } =
@@ -68,6 +69,10 @@ let f {
   List.iter (fun (s,v) -> Eval.set_static_env s v) static_env;
   let t = Util.Timer.make () in
 
+  let global_object_name =
+    match global_object_name with None -> Option.global_object | Some n -> n in
+  let _ = print_string ("GLOBAL NAME:" ^ global_object_name) in
+  let _ = print_newline () in
   let include_dir = List.map (fun d ->
     match Util.path_require_findlib d with
     | Some d ->
@@ -97,7 +102,7 @@ let f {
         with Not_found -> `Skip)
   in
 
-  Linker.load_files runtime_files;
+  Linker.load_files ~global_object_name runtime_files;
   let paths =
     try List.append include_dir [Util.find_pkg_dir "stdlib"]
     with Not_found -> include_dir in
@@ -145,7 +150,7 @@ let f {
   | None ->
     let p = PseudoFs.f p cmis fs_files paths in
     let fmt = Pretty_print.to_out_channel stdout in
-    Driver.f ~standalone ?profile ~linkall ~global ~dynlink ?backend
+    Driver.f ~global_object_name ~standalone ?profile ~linkall ~global ~dynlink ?backend
       ?source_map ?custom_header fmt d p
   | Some file ->
     gen_file file (fun chan ->
@@ -154,14 +159,14 @@ let f {
         then PseudoFs.f p cmis fs_files paths
         else p in
       let fmt = Pretty_print.to_out_channel chan in
-      Driver.f ~standalone ?profile ~linkall ~global ~dynlink ?backend
+      Driver.f ~global_object_name ~standalone ?profile ~linkall ~global ~dynlink ?backend
         ?source_map ?custom_header fmt d p;
     );
     Util.opt_iter (fun file ->
       gen_file file (fun chan ->
         let pfs = PseudoFs.f_empty cmis fs_files paths in
         let pfs_fmt = Pretty_print.to_out_channel chan in
-        Driver.f ~standalone ?profile ?custom_header ~global ?backend pfs_fmt d pfs
+        Driver.f ~global_object_name ~standalone ?profile ?custom_header ~global ?backend pfs_fmt d pfs
       )
     ) fs_output
   end;

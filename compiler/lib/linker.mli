@@ -25,7 +25,7 @@ val parse_file : string ->
    bool *
    Javascript.program) list
 
-val load_files : string list -> unit
+val load_files : global_object_name:string -> string list -> unit
 
 type state
 val init : unit -> state

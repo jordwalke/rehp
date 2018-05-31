@@ -25,13 +25,12 @@ val f :
   ?global:[`Auto | `Function | `Bind_to of string | `Custom of string ] ->
   ?profile:profile ->
   ?dynlink:bool ->
+  global_object_name:string ->
   ?backend:Backend.t ->
   ?linkall:bool ->
   ?source_map:(string option * Source_map.t) ->
   ?custom_header:string ->
   Pretty_print.t -> Parse_bytecode.Debug.data -> Code.program -> unit
-
-val from_string : string array -> string -> Pretty_print.t -> unit
 
 val profiles : (int * profile) list
 val profile : int -> profile option
