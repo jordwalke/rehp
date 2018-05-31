@@ -11,7 +11,8 @@
     "@opam/ocaml-migrate-parsetree": "*",
     "@opam/ppx_tools_versioned": "*",
     "@opam/uchar": "*",
-    "@opam/js_of_ocaml-compiler": "*"
+    "@opam/js_of_ocaml-compiler": "*",
+    "refmterr": "*"
   },
   "peerDependencies": {
     "ocaml": "~4.6.0"
@@ -23,7 +24,7 @@
   "esy": {
     "build": [
       [
-        "/Users/jwalke/.esy/3__________________________________________________________________/i/refmterr-3.1.5-37263047/bin/refmterr", "jbuilder", "build", "--dev", "-p", "js_of_ocaml,js_of_ocaml-compiler"
+        "refmterr", "jbuilder", "build", "--dev", "-p", "js_of_ocaml,js_of_ocaml-compiler"
       ]
     ],
     "install": [
