@@ -53,6 +53,8 @@ let is_file_directive cmt =
   with _ -> false
 
 let parse_file f =
+  let _ = print_string ("Linker PARSING FILE:" ^ f) in
+  let _ = print_newline () in
   let file =
     try
       match Util.path_require_findlib f with
@@ -230,6 +232,33 @@ class traverse_and_find_named_values all =
       self#expression x
   end
 
+class traverse_and_convert_to_php =
+  object
+    inherit Js_traverse.map as self
+    method expression x = match x with
+      | EVar (S {name="this"; var=None}) ->
+        EAccess (EVar (S {name="GLOBALS"; var=None}), EStr ("jsContext", `Utf8))
+      | ENew (e, args) ->
+        let args = match args with
+        | None -> []
+        | Some args -> args in
+        ECall (EDot (e, "jsNew"), args, N)
+      | _ -> self#expression(x)
+    method source x = match x with
+      | Statement s -> Statement (self#statement s)
+      | Function_declaration(id, params, body, nid) ->
+        Statement(
+          let open Javascript in
+          let fn = ECall (
+            EVar (S {name="JSFunction"; var=None}),
+            [self#expression(EFun (Some id, params, body , nid))],
+            N
+          ) in
+          let eopt = Some (fn, nid) in
+          Variable_statement [(id, eopt)]
+        )
+  end
+
 let find_named_value code =
   let all = ref StringSet.empty in
   let p = new traverse_and_find_named_values all in
@@ -239,6 +268,8 @@ let find_named_value code =
 let add_file f =
   List.iter
     (fun (provide,req,versions,weakdef,(code:Javascript.program)) ->
+       let p = new traverse_and_convert_to_php  in
+       let code = p#program code in
        let vmatch = match versions with
          | [] -> true
          | l -> List.exists version_match l in
@@ -313,6 +344,9 @@ let rec resolve_dep_name_rev visited path nm =
   let id =
     try
       let x, _, _ = Hashtbl.find provided nm in
+      (* This is where free global variables are detected. *)
+      let _ = print_string ("RESOLVING " ^ nm) in
+      let _ = print_newline () in
       x
     with Not_found ->
       error "missing dependency '%s'@." nm

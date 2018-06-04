@@ -90,16 +90,20 @@ and expression =
   | EFun of function_expression
   | EArityTest of expression
   | EStr of string * [`Bytes | `Utf8]
-  (* An ML Array.  *)
+  (* Instructions for accessing standard library arrays.  *)
   | EArrAccess of expression * expression
   | EArrLen of expression
   | EArr of array_litteral
-  (* An ML fixed-size struct (record/variant) *)
+  (* An ML fixed-size struct (record/variant) - when the compiler knows the
+     layout of memory. *)
   | EStructAccess of expression * expression
-  | EStruct of array_litteral
-  (* Target specific object structure - no ML equivalent. Typically for interop. *)
-  | EDot of expression * identifier
-  | EAccess of expression * expression
+  | EStruct of arguments
+  (* Like Struct but for cases where you have a tag *)
+  | ETag of expression * arguments
+  (* Target specific object structure - no ML equivalent. Typically for
+     interop, or when parsing platform stubs written in Php etc.*)
+  | EDot of expression * identifier        (* An x->y operation *)
+  | EAccess of expression * expression     (* An x[y] operation - type of x/y not specified *)
   | ENew of expression * arguments option
   | EObj of property_name_and_value_list
 

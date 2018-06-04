@@ -258,7 +258,7 @@ module Make(D : sig
     | EArrLen e     (* Since EArrLen is just expanded to a EDot *)
     | ECall (e, _, _) | EAccess (e, _) | EStructAccess (e, _) | EArrAccess (e, _) | EDot (e, _) ->
       l <= 15 && need_paren 15 e
-    | EVar _ | EStr _ | EStruct _ | EArr _ | EBool _ | ENum _ | EQuote _ | ERegexp _| EUn _ | ENew _ ->
+    | EVar _ | EStr _ | EStruct _ | ETag _ | EArr _ | EBool _ | ENum _ | EQuote _ | ERegexp _| EUn _ | ENew _ ->
       false
     | EFun _ | EObj _ ->
       true
@@ -457,7 +457,18 @@ module Make(D : sig
       PP.space f;
       expression rght f e2;
       if l > out then begin PP.string f ")"; PP.end_group f end
-    | EStruct el
+    | EStruct el ->
+      PP.start_group f 1;
+      PP.string f "[";
+      arguments f el;
+      PP.string f "]";
+      PP.end_group f
+    | ETag (i, el) ->
+      PP.start_group f 1;
+      PP.string f "[";
+      arguments f (i :: el);
+      PP.string f "]";
+      PP.end_group f
     | EArr el ->
       PP.start_group f 1;
       PP.string f "[";

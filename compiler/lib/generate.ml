@@ -313,14 +313,14 @@ let rec constant_rec ~ctx x level instrs =
   | Float f ->
     float_const f, instrs
   | Float_array a ->
-    J.EStruct (Some (int Obj.double_array_tag) ::
-            Array.to_list (Array.map (fun f -> Some (float_const f)) a)),
+    J.EStruct ((int Obj.double_array_tag) ::
+            Array.to_list (Array.map (fun f -> (float_const f)) a)),
     instrs
   | Int64 i ->
-    J.EStruct [Some (int 255);
-            Some (int (Int64.to_int i land 0xffffff));
-            Some (int (Int64.to_int (Int64.shift_right i 24) land 0xffffff));
-            Some (int (Int64.to_int (Int64.shift_right i 48) land 0xffff))],
+    J.EStruct [(int 255);
+            (int (Int64.to_int i land 0xffffff));
+            (int (Int64.to_int (Int64.shift_right i 24) land 0xffffff));
+            (int (Int64.to_int (Int64.shift_right i 48) land 0xffff))],
     instrs
   | Tuple (tag, a) ->
     let constant_max_depth = Option.Param.constant_max_depth () in
@@ -360,14 +360,14 @@ let rec constant_rec ~ctx x level instrs =
                    let instrs =
                      (J.Variable_statement [J.V v, Some (js,J.N)],J.N) :: instrs
                    in
-                   Some (J.EVar (J.V v))::acc,instrs
+                   J.EVar (J.V v) :: acc,instrs
                  | _ ->
-                   Some js :: acc,instrs)
+                   js :: acc,instrs)
               ([],instrs) l
           else
-            List.rev_map (fun x -> Some x) l, instrs
+            List.rev l, instrs
         in
-        J.EStruct (Some (int tag) :: l), instrs
+        J.EStruct (int tag :: l), instrs
     end
   | Int i-> int32 i, instrs
 
@@ -993,10 +993,10 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
       List.fold_right
         (fun x (args, prop, queue) ->
            let ((prop', cx), queue) = access_queue queue x in
-           (Some cx :: args, or_p prop prop', queue))
+           (cx :: args, or_p prop prop', queue))
         (Array.to_list a) ([], const_p, queue)
     in
-    (J.EArr (Some (int tag) :: contents), prop, queue),[]
+    (J.ETag (int tag, contents), prop, queue),[]
   | Field (x, n) ->
     let ((px, cx), queue) = access_queue queue x in
     (J.EStructAccess (cx, int (n + 1)), or_p px mutable_p, queue),[]

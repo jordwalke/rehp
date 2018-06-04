@@ -85,7 +85,8 @@ and expression =
   | EArrLen of expression
   | EArr of array_litteral
   | EStructAccess of expression * expression
-  | EStruct of array_litteral
+  | EStruct of arguments
+  | ETag of expression * arguments
   | EDot of expression * identifier
   | EAccess of expression * expression
   | ENew of expression * arguments option

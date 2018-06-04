@@ -97,6 +97,7 @@ let f {
         with Not_found -> `Skip)
   in
 
+  (* Benchmarking shows this takes on the order of 100ms *)
   Linker.load_files runtime_files;
   let paths =
     try List.append include_dir [Util.find_pkg_dir "stdlib"]
