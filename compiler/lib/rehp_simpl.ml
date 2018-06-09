@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-module J = Javascript
+module J = Rehp
 
 let rec enot_rec e =
   let (_, cost) as res =

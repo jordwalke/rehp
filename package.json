@@ -5,6 +5,7 @@
     "@opam/camlp4": "*",
     "@opam/lwt": "*",
     "@esy-ocaml/substs": "^0.0.1",
+    "@esy-ocaml/reason": "^3.2.0",
     "@esy-ocaml/esy-installer": "^0.0.0",
     "@opam/jbuilder": " >= 1.0.0-beta17",
     "@opam/deriving": "*",
@@ -18,6 +19,7 @@
     "ocaml": "~4.6.0"
   },
   "devDependencies": {
+    "@esy-ocaml/merlin": "^3.0.0",
     "ocaml": " >= 4.6.0"
   },
   "optDependencies": {},

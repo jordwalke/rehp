@@ -1,5 +1,16 @@
 <?php
 
+# TODO:
+# Create constructor.
+# Set a field on prototype.
+# Create instance.
+# Verify instance has prototype field.
+# Set new field on existing prototype object.
+# Verify instance has new field.
+# Reset entire prototype to new object.
+# Verify old instance has their original fields.
+# Make new instance.
+# Verify new instance only has the new object's fields.
 # Benchmarking Custom object with fixed fields vs. fixed array.
 # Performance of objects with fixed fields vs. arrays:
 # Initially discussed here, but fixed to use random int so as not to trigger
@@ -57,9 +68,7 @@
 # Arrays:
 #   30ms mem:17,301,504
 
-function foooooo
- ($joo_global_object)
- {'use strict';
+  $joo_global_object = isset($jsoo_global_object) ? $jsoo_global_object : (object)array();
 
   # Length of function args. Can't be a lambda, or it won't work!
   $rehp_arg_count = function($f) {
@@ -793,7 +802,3 @@ $expect($arr[3], $GLOBALS['jsUndefined']);
 $arr->addThisProperty = "hi";
 $expect(implode(",", $arr->__all_own_enumerable_keys()), '0,1,2,4,addThisProperty');
 
-}
-
-
-foooooo((object)array());

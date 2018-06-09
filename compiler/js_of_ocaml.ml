@@ -182,7 +182,7 @@ let _ =
       "%s: You found a bug. \
        Please report it at https://github.com/ocsigen/js_of_ocaml/issues :@."
       Sys.argv.(0);
-    Format.eprintf "Error: %s@." (Printexc.to_string exc);
+    Format.eprintf "Error now: %s@." (Printexc.to_string exc);
     prerr_string backtrace;
     exit 1
   | Util.MagicNumber.Bad_magic_number s ->
@@ -202,11 +202,13 @@ let _ =
     Format.eprintf "%s: Error: The Js_of_ocaml compiler has been compiled with ocaml version %s.@." Sys.argv.(0) Sys.ocaml_version;
     Format.eprintf "%s: Error: Its seems that your ocaml bytecode has been compiled with %s version of ocaml.@." Sys.argv.(0) comp;
     exit 1
-  | Failure s ->
-    Format.eprintf "%s: Error: %s@." Sys.argv.(0) s;
+  | Failure s as exc ->
+    let backtrace = Printexc.get_backtrace () in
+    Format.eprintf "%s: Error there: %s %s@." Sys.argv.(0) s (Printexc.to_string exc);
+    prerr_string backtrace;
     exit 1
   | exc ->
     let backtrace = Printexc.get_backtrace () in
-    Format.eprintf "%s: Error: %s@." Sys.argv.(0) (Printexc.to_string exc);
+    Format.eprintf "%s: Error here: %s@." Sys.argv.(0) (Printexc.to_string exc);
     prerr_string backtrace;
     exit 1

@@ -18,35 +18,20 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+type location = Rehp_shared.location  =
+  | Pi of Parse_info.t
+  | N
+  | U
 
-include Rehp_shared
+type identifier = string
+type ident_string = Rehp_shared.ident_string = {
+  name : identifier;
+  var : Code.Var.t option }
+type ident = Rehp_shared.ident =
+  | S of Rehp_shared.ident_string
+  | V of Code.Var.t
 
-module Label : sig
-    type t
-    val zero : t
-    val succ : t -> t
-    val to_string : t -> string
-    val of_string : string -> t
-end = struct
-  type t =
-    | L of int
-    | S of string
-
-  let printer = VarPrinter.create ()
-
-  let zero = L 0
-  let succ = function
-    | L t -> L (succ t)
-    | S _ -> assert false
-  let to_string = function
-    | L t -> VarPrinter.to_string printer t
-    | S s -> s
-  let of_string s = S s
-end
-
-(* A.3 Expressions *)
-
-type array_litteral = element_list
+and array_litteral = element_list
 
 and element_list = expression option list
 
@@ -57,7 +42,7 @@ and binop =
   | EqEq | NotEq | EqEqEq | NotEqEq
   | Lt | Le | Gt | Ge | InstanceOf | In
   | Lsl | Lsr | Asr
-  | Plus | Minus
+  | FloatPlus | IntPlus | Plus | Minus 
   | Mul | Div | Mod
 
 and unop = Not | Neg | Pl | Typeof | Void | Delete | Bnot | IncrA | DecrA | IncrB | DecrB
@@ -72,16 +57,25 @@ and expression =
   | EBin of binop * expression * expression
   | EUn of unop * expression
   | ECall of expression * arguments * location
-  | EAccess of expression * expression
-  | EDot of expression * identifier
-  | ENew of expression * arguments option
   | EVar of ident
   | EFun of function_expression
+  | EArityTest of expression
   | EStr of string * [`Bytes | `Utf8]
+    (* A string can either be composed of a sequence of bytes, or be
+       UTF-8 encoded. In the second case, the string may contain
+       escape sequences. *)
+  | EArrAccess of expression * expression
+  | EArrLen of expression
   | EArr of array_litteral
+  | EStructAccess of expression * expression
+  | EStruct of arguments
+  | ETag of expression * arguments
+  | EDot of expression * identifier
+  | EAccess of expression * expression
+  | ENew of expression * arguments option
+  | EObj of property_name_and_value_list
   | EBool of bool
   | ENum of float
-  | EObj of property_name_and_value_list
   | EQuote of string
   | ERegexp of string * string option
 
@@ -97,22 +91,26 @@ and statement =
   | If_statement of expression * (statement * location) * (statement * location) option
   | Do_while_statement of (statement * location) * expression
   | While_statement of expression * (statement * location)
-  | For_statement of  (expression option,variable_declaration list) either * expression option * expression option * (statement * location)
+  | For_statement of (expression option,variable_declaration list) either * expression option * expression option * (statement * location)
   | ForIn_statement of  (expression,variable_declaration) either * expression * (statement * location)
-  | Continue_statement of Label.t option
-  | Break_statement of Label.t option
+  | Continue_statement of Javascript.Label.t option
+  | Break_statement of Javascript.Label.t option
   | Return_statement of expression option
-  (* | With_statement of expression * statement *)
-  | Labelled_statement of Label.t * (statement * location)
+(*
+  | With_statement
+*)
+  | Labelled_statement of Javascript.Label.t * (statement * location)
   | Switch_statement of
       expression * case_clause list * statement_list option * case_clause list
   | Throw_statement of expression
   | Try_statement of block * (ident * block) option * block option
+
   | Debugger_statement
 
 and ('left,'right) either =
   | Left of 'left
   | Right of 'right
+
 
 and block = statement_list
 
@@ -128,11 +126,13 @@ and initialiser = expression * location
 
 (* A.5 Functions and programs *)
 
+and free_var_info = (int Util.StringMap.t * int Code.VarMap.t) option
+
 and function_declaration =
-  ident * formal_parameter_list * function_body * location
+  ident * formal_parameter_list * function_body * free_var_info * location
 
 and function_expression =
-  ident option * formal_parameter_list * function_body * location
+  ident option * formal_parameter_list * function_body * free_var_info * location
 
 and formal_parameter_list = ident list
 
@@ -146,77 +146,12 @@ and source_element =
     Statement of statement
   | Function_declaration of function_declaration
 
-let compare_ident t1 t2 =
-  match t1, t2 with
-    | V v1, V v2 -> Code.Var.compare v1 v2
-    | S {name=s1;var=v1}, S{name=s2;var=v2} -> begin
-      match String.compare s1 s2 with
-        | 0 -> begin match v1,v2 with
-            | None,None -> 0
-            | None, _ -> -1
-            | _, None -> 1
-            | Some v1, Some v2 -> Code.Var.compare v1 v2
-        end
-        | n -> n
-    end
-    | S _, V _ -> -1
-    | V _, S _ -> 1
+val compare_ident : ident -> ident -> int
+val string_of_number : float -> string
+val is_ident : string -> bool
+module IdentSet : Set.S with type elt = ident
+module IdentMap : Map.S with type key = ident
 
+val from_javascript : Javascript.source_elements -> source_elements
 
-let string_of_number v =
-  if v = infinity
-  then "Infinity"
-  else if v = neg_infinity
-  then "-Infinity"
-  else if v <> v
-  then "NaN"
-  (* [1/-0] = -inf seems to be the only way to detect -0 in JavaScript *)
-  else if v = 0. && (1. /. v) = neg_infinity
-  then "-0"
-  else
-    let vint = int_of_float v in
-    (* compiler 1000 into 1e3 *)
-    if float_of_int vint = v
-    then
-      let rec div n i =
-        if n <> 0 && n mod 10 = 0
-        then div (n/10) (succ i)
-        else
-        if i > 2
-        then Printf.sprintf "%de%d" n i
-        else string_of_int vint in
-      div vint 0
-    else
-      let s1 = Printf.sprintf "%.12g" v in
-      if v = float_of_string s1
-      then s1
-      else
-        let s2 = Printf.sprintf "%.15g" v in
-        if v = float_of_string s2
-        then s2
-        else  Printf.sprintf "%.18g" v
-
-exception Not_an_ident
-let is_ident =
-  let l = Array.init 256 (fun i ->
-    let c = Char.chr i in
-    if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c = '_' || c = '$'
-    then 1
-    else if (c >= '0' && c <='9')
-    then 2
-    else 0
-  ) in
-  fun s ->
-    not (Util.StringSet.mem s Reserved.keyword) &&
-    try
-      for i = 0 to String.length s - 1 do
-        let code = l.(Char.code(s.[i])) in
-        if i = 0
-        then (if code <> 1 then raise Not_an_ident)
-        else (if code <  1 then raise Not_an_ident)
-      done;
-      true
-    with Not_an_ident -> false
-
-module IdentSet = Set.Make(struct type t = ident let compare = compare_ident end)
-module IdentMap = Map.Make(struct type t = ident let compare = compare_ident end)
+val from_javascript_expression : Javascript.expression -> expression

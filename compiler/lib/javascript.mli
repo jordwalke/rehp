@@ -19,29 +19,32 @@
  *)
 
 module Label : sig
-  type t
-  val zero : t
-  val succ : t -> t
-  val to_string : t -> string
-  val of_string : string -> t
+    type t
+    val zero : t
+    val succ : t -> t
+    val to_string : t -> string
+    val of_string : string -> t
 end
 
-type location =
+type location = Rehp_shared.location  =
   | Pi of Parse_info.t
-  | N (* No location; use the one above *)
-  | U (* Unknown location *)
-
-(* A.3 Expressions *)
-
+  | N
+  | U
 type identifier = string
-
-type ident_string = {
+type ident_string = Rehp_shared.ident_string = {
   name : identifier;
   var : Code.Var.t option }
-
-type ident =
+type ident = Rehp_shared.ident =
   | S of ident_string
   | V of Code.Var.t
+
+type property_name = Rehp_shared.property_name =
+    PNI of identifier
+  | PNS of string
+  | PNN of float
+
+
+(* A.3 Expressions *)
 
 and array_litteral = element_list
 
@@ -54,19 +57,14 @@ and binop =
   | EqEq | NotEq | EqEqEq | NotEqEq
   | Lt | Le | Gt | Ge | InstanceOf | In
   | Lsl | Lsr | Asr
-  | FloatPlus | IntPlus | Plus | Minus 
+  | Plus | Minus
   | Mul | Div | Mod
 
 and unop = Not | Neg | Pl | Typeof | Void | Delete | Bnot | IncrA | DecrA | IncrB | DecrB
 
 and arguments = expression list
 
-and property_name_and_value_list = (property_name * expression) list
-
-and property_name =
-    PNI of identifier
-  | PNS of string
-  | PNN of float
+and property_name_and_value_list = (Rehp_shared.property_name * expression) list
 
 and expression =
     ESeq of expression * expression
@@ -74,25 +72,19 @@ and expression =
   | EBin of binop * expression * expression
   | EUn of unop * expression
   | ECall of expression * arguments * location
+  | EAccess of expression * expression
+  | EDot of expression * identifier
+  | ENew of expression * arguments option
   | EVar of ident
   | EFun of function_expression
-  | EArityTest of expression
   | EStr of string * [`Bytes | `Utf8]
-    (* A string can either be composed of a sequence of bytes, or be
-       UTF-8 encoded. In the second case, the string may contain
-       escape sequences. *)
-  | EArrAccess of expression * expression
-  | EArrLen of expression
+      (* A string can either be composed of a sequence of bytes, or be
+         UTF-8 encoded. In the second case, the string may contain
+         escape sequences. *)
   | EArr of array_litteral
-  | EStructAccess of expression * expression
-  | EStruct of arguments
-  | ETag of expression * arguments
-  | EDot of expression * identifier
-  | EAccess of expression * expression
-  | ENew of expression * arguments option
-  | EObj of property_name_and_value_list
   | EBool of bool
   | ENum of float
+  | EObj of property_name_and_value_list
   | EQuote of string
   | ERegexp of string * string option
 

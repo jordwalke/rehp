@@ -212,7 +212,7 @@ let report_missing_primitives missing =
   end
 
 let gen_missing js missing =
-    let open Javascript in
+    let open Rehp in
     let miss = StringSet.fold (fun prim acc ->
         let p = S {name=prim;var=None} in
         (p,
@@ -227,7 +227,7 @@ let gen_missing js missing =
                          ECall(EVar (S {name="caml_failwith";var=None}),
                                [EBin(Plus,EStr(prim,`Utf8),
                                      EStr(" not implemented",`Utf8))], N))),
-                     N],N)
+                     N], None, N)
                 ),
            N
          )) :: acc
@@ -249,7 +249,7 @@ let link ~standalone ~linkall ~export_runtime js =
   let t = Util.Timer.make () in
   if times ()
   then Format.eprintf "Start Linking...@.";
-  let traverse = new Js_traverse.free in
+  let traverse = new Rehp_traverse.free in
   let js = traverse#program js in
   let free = traverse#get_free_name in
 
@@ -278,9 +278,9 @@ let link ~standalone ~linkall ~export_runtime js =
   let js =
     if export_runtime
     then
-      let open Javascript in
+      let open Rehp in
       let all = Linker.all linkinfos in
-      let all = List.map (fun name -> PNI name,EVar (S {name ;var=None})) all  in
+      let all = List.map (fun name -> Rehp_shared.PNI name,EVar (S {name ;var=None})) all  in
       (Statement (Expression_statement(
          EBin(Eq,
               EDot(EVar (S {name=global_object;var=None}),"jsoo_runtime"),
@@ -295,7 +295,7 @@ let check_js js =
   if times ()
   then Format.eprintf "Start Checks...@.";
 
-  let traverse = new Js_traverse.free in
+  let traverse = new Rehp_traverse.free in
   let js = traverse#program js in
   let free = traverse#get_free_name in
 
@@ -339,7 +339,7 @@ let coloring js =
   let t = Util.Timer.make () in
   if times ()
   then Format.eprintf "Start Coloring...@.";
-  let traverse = new Js_traverse.free in
+  let traverse = new Rehp_traverse.free in
   let js = traverse#program js in
   let free = traverse#get_free_name in
   VarPrinter.add_reserved (StringSet.elements free);
@@ -355,7 +355,16 @@ let output_js formatter ~standalone ~custom_header ?source_map () js =
   Js_output.program formatter ?source_map js;
   if times () then Format.eprintf "  write: %a@." Util.Timer.print t
 
+(* TODO:
+ * Should also convert any top level EFuns that do not have any free vars
+ * (except globals), to Function_declarations. Replacing identifiers throughout
+ * with identifiers that don't use dollar signs.
+ *)
+
 let output_php formatter ~standalone ~custom_header ?source_map () js =
+  (* Update the free variable book-keeping before printing. *)
+  let mapper = Rehp_mapper_free.mapper in
+  let (_, js) = mapper.program mapper Rehp_mapper_free.empty js in
   let t = Util.Timer.make () in
   if times ()
   then Format.eprintf "Start Writing file (Php)...@.";
@@ -364,20 +373,20 @@ let output_php formatter ~standalone ~custom_header ?source_map () js =
   if times () then Format.eprintf "  write: %a@." Util.Timer.print t
 
 let pack js =
-  let module J = Javascript in
+  let module J = Rehp in
   (* pre pack optim *)
   let js =
     if Option.Optim.share_constant ()
     then
       let t1 = Util.Timer.make () in
-      let js = (new Js_traverse.share_constant)#program js in
+      let js = (new Rehp_traverse.share_constant)#program js in
       if times () then Format.eprintf "    share constant: %a@." Util.Timer.print t1;
       js
     else js in
   if Option.Optim.compact_vardecl ()
   then
     let t2 = Util.Timer.make () in
-    let js = (new Js_traverse.compact_vardecl)#program js in
+    let js = (new Rehp_traverse.compact_vardecl)#program js in
     if times () then Format.eprintf "    compact var decl: %a@." Util.Timer.print t2;
     js
   else js
@@ -385,23 +394,23 @@ let pack js =
 let post_pack_optimizations js =
   (* post pack optim *)
   let t3 = Util.Timer.make () in
-  let js = (new Js_traverse.simpl)#program js in
+  let js = (new Rehp_traverse.simpl)#program js in
   if times () then Format.eprintf "    simpl: %a@." Util.Timer.print t3;
   let t4 = Util.Timer.make () in
-  let js = (new Js_traverse.clean)#program js in
+  let js = (new Rehp_traverse.clean)#program js in
   if times () then Format.eprintf "    clean: %a@." Util.Timer.print t4;
   if (Option.Optim.shortvar ())
   then
     let t5 = Util.Timer.make () in
     let keep = StringSet.empty in
-    let js = (new Js_traverse.rename_variable keep)#program js in
+    let js = (new Rehp_traverse.rename_variable keep)#program js in
     if times () then Format.eprintf "    shortten vars: %a@." Util.Timer.print t5;
     js
   else js
 
   
 let pack_js ~global js =
-  let module J = Javascript in
+  let module J = Rehp in
   let t = Util.Timer.make () in
   if times ()
   then Format.eprintf "Start Optimizing js...@.";
@@ -414,7 +423,7 @@ let pack_js ~global js =
     else js in
 
   let js =
-    let f = J.EFun (None, [J.S {J.name = global_object; var=None }], use_strict js, J.U) in
+    let f = J.EFun (None, [J.S {J.name = global_object; var=None }], use_strict js, None, J.U) in
     let expr =
       match global with
       | `Function -> f
@@ -429,7 +438,7 @@ let pack_js ~global js =
                 J.Return_statement(
                   Some (J.EVar (J.S {J.name="this";var=None})))),
               J.N
-            ], J.N), [], J.N) in
+            ], None, J.N), [], J.N) in
         J.ECall (f, [global], J.N)
     in
     match global with
@@ -447,7 +456,7 @@ let pack_js ~global js =
   js
 
 let pack_php ~global js =
-  let module J = Javascript in
+  let module J = Rehp in
   let t = Util.Timer.make () in
   if times ()
   then Format.eprintf "Start Optimizing js...@.";
@@ -460,7 +469,7 @@ let pack_php ~global js =
     else js in
 
   let js =
-    let f = J.EFun (None, [J.S {J.name = global_object; var=None }], use_strict js, J.U) in
+    let f = J.EFun (None, [J.S {J.name = global_object; var=None }], use_strict js, None, J.U) in
     let expr =
       match global with
       | `Function -> f
@@ -475,7 +484,7 @@ let pack_php ~global js =
                 J.Return_statement(
                   Some (J.EVar (J.S {J.name="this";var=None})))),
               J.N
-            ], J.N), [], J.N) in
+            ], None, J.N), [], J.N) in
         J.ECall (f, [global], J.N)
     in
     match global with

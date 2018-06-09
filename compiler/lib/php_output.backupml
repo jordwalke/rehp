@@ -176,7 +176,8 @@ let stats = Option.Debug.find "output"
 *)
 let supports_nonlambdas = false;
 
-open Javascript
+open Rehp
+open Rehp_shared
 
 module PP = Pretty_print
 
@@ -515,13 +516,13 @@ module Make(D : sig
       expression l f (ECond( EBin (Or, e1, EBool true), e2, e2))
     | EArityTest e ->
       let ident = S {name="rehp_arg_count";var=None} in
-      let call = ECall (EVar ident, [e], Javascript.N) in
+      let call = ECall (EVar ident, [e], Rehp.N) in
       expression l f call
     (* I'm not sure if this is necessary any more. *)
     | EArrLen e ->
       let len_check = EDot (e, "length") in
       expression l f len_check
-    | EFun (_i, ll, b, pc) ->
+    | EFun (_i, ll, b, fv, pc) ->
       (if l > 14 then begin PP.start_group f 1; PP.string f "(" end);
       PP.start_group f 1;
       PP.start_group f 0;
@@ -537,6 +538,14 @@ module Make(D : sig
       PP.string f ")";
       PP.end_group f;
       PP.end_group f;
+      (match fv with
+      | Some(name_map, _) when not (Util.StringMap.is_empty name_map) ->
+        PP.start_group f 1;
+        PP.string f " use (";
+        PP.string f (String.concat "," (List.map (fun (k, _v) -> "$" ^ escape_ident k) (Util.StringMap.bindings name_map)));
+        PP.string f ")";
+        PP.end_group f;
+      | _ -> ());
       PP.break f;
       PP.start_group f 1;
       PP.string f "{";
@@ -565,7 +574,7 @@ module Make(D : sig
     | EBool b ->
       PP.string f (if b then "true" else "false")
     | ENum v ->
-      let s = Javascript.string_of_number v in
+      let s = Rehp.string_of_number v in
       let need_parent =
         if s.[0] = '-'
         then l > 13  (* Negative numbers may need to be parenthesized. *)
@@ -594,7 +603,7 @@ module Make(D : sig
       if l > 13 then begin PP.string f ")"; PP.end_group f end
     | EUn (Delete, e) ->
       let ident = S {name="unset";var=None} in
-      let call = ECall (EVar ident, [e], Javascript.N) in
+      let call = ECall (EVar ident, [e], Rehp.N) in
       expression l f call
     | EUn ((IncrA | DecrA | IncrB | DecrB) as op,e) ->
       if l > 13 then begin PP.start_group f 1; PP.string f "(" end;
@@ -614,7 +623,7 @@ module Make(D : sig
       if l > 13 then begin PP.string f ")"; PP.end_group f end
     | EBin (InstanceOf, e1, e2) ->
       let ident = S {name="instance_of";var=None} in
-      let call = ECall (EVar ident, [e1; e2], Javascript.N) in
+      let call = ECall (EVar ident, [e1; e2], Rehp.N) in
       expression l f call
     | EBin (In, e1, e2) ->
       let (out, lft, rght) = op_prec InstanceOf in
@@ -629,7 +638,7 @@ module Make(D : sig
       if l > out then begin PP.string f ")"; PP.end_group f end
     | EBin (Lsr, e1, e2) ->
       let ident = S {name="unsigned_right_shift";var=None} in
-      let call = ECall (EVar ident, [e1; e2], Javascript.N) in
+      let call = ECall (EVar ident, [e1; e2], Rehp.N) in
       expression l f call
     | EBin (op, e1, e2) ->
       let (out, lft, rght) = op_prec op in
@@ -886,7 +895,7 @@ module Make(D : sig
     | Expression_statement (EBin (LsrEq, e1, e2)) ->
       (* TODO: This is buggy if e1 has side effects (unlikely, but fix) *)
       let unsigned_right_shift = S {name="unsigned_right_shift";var=None} in
-      let call = ECall (EVar unsigned_right_shift, [e1; e2], Javascript.N) in
+      let call = ECall (EVar unsigned_right_shift, [e1; e2], Rehp.N) in
       let rearranged = Expression_statement (EBin (Eq, e1, call)) in
       statement ~last f (rearranged, loc)
     | Expression_statement e ->
@@ -1042,7 +1051,7 @@ module Make(D : sig
       PP.break f;
       PP.start_group f 1;
       PP.string f "(";
-      expression 0 f ( ECall ((EDot (e2, "__all_enumerable_keys")), [], Javascript.N));
+      expression 0 f ( ECall ((EDot (e2, "__all_enumerable_keys")), [], Rehp.N));
       PP.space f;
       PP.string f "as"; PP.break f;
       PP.space f;
@@ -1078,7 +1087,7 @@ module Make(D : sig
           None   ->
           PP.string f "return";
           last_semi()
-        | Some (EFun (i, l, b, pc)) ->
+        | Some (EFun (i, l, b, _fv, pc)) ->
           PP.start_group f 1;
           PP.start_group f 0;
           PP.start_group f 0;
@@ -1226,14 +1235,15 @@ module Make(D : sig
   (* Function declarations cannot nest in Php, so we need to turn nested
      function declarations into lambdas. is_export is true iff it is a top level
      declaration in the file's namespace. *)
+  (* TODO: All of this should be converted in the linker.ml conversion to Php. *)
   and source_element f ~is_export ?skip_last_semi se =
     match se with
     | (Statement s, loc) -> statement f ?last:skip_last_semi (s, loc)
-    | (Function_declaration (i, l, b, loc'), loc) ->
+    | (Function_declaration (i, l, b, fv, loc'), loc) ->
       if not is_export || supports_nonlambdas then
-        let lam = EFun (None, l , b , loc') in
+        let lam = EFun (None, l , b , fv, loc') in
         (* Maybe this final J.N needs to be changed. *)
-        let as_var = Variable_statement [i, Some (lam, Javascript.N)] in
+        let as_var = Variable_statement [i, Some (lam, Rehp.N)] in
         statement f ?last:skip_last_semi (as_var, loc)
       else (
         output_debug_info f loc;

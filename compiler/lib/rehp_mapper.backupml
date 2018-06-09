@@ -1,0 +1,517 @@
+(* type 'processors tree_processor = { *)
+(*   expression     : 'expression; *)
+(*   switch_case                     : 'switch_case; *)
+(*   initialiser     : 'initialiser; *)
+(*   statement     : 'statement; *)
+(*   statements     : 'statements; *)
+(*   source     : 'source; *)
+(*   sources         : 'sources; *)
+(*   ident     : 'ident; *)
+(*   program     : 'program; *)
+(* } *)
+(* (* What a mapper maps to for each method. *) *)
+(* constraint 'processors = *)
+(*   'expression * 'switch_case * 'initialiser * 'statement * 'statements * 'source * 'sources * 'ident * 'program *)
+
+type ('i, 'o) ast_reducer = {
+  expression :  (('i, 'o) ast_reducer -> 'i -> Rehp.expression -> 'o * Rehp.expression);
+  switch_case : (('i, 'o) ast_reducer -> 'i -> Rehp.expression -> 'o * Rehp.expression);
+  initialiser : (('i, 'o) ast_reducer -> 'i -> (Rehp.expression * Rehp.location) -> 'o * (Rehp.expression * Rehp.location));
+  statement : (('i, 'o) ast_reducer -> 'i -> Rehp.statement -> 'o * Rehp.statement);
+  statements : (('i, 'o) ast_reducer -> 'i -> Rehp.statement_list -> 'o * Rehp.statement_list);
+  source : (('i, 'o) ast_reducer -> 'i -> Rehp.source_element -> 'o * Rehp.source_element);
+  sources : (('i, 'o) ast_reducer -> 'i -> Rehp.source_elements -> 'o * Rehp.source_elements);
+  ident : (('i, 'o) ast_reducer -> 'i -> Rehp.ident -> 'o * Rehp.ident);
+  program : (('i, 'o) ast_reducer -> 'i -> Rehp.program -> 'o * Rehp.program);
+}
+
+
+(* No inputs to each stage, and no other output but the computed AST *)
+type simple_ast_mapper = (unit, unit) ast_reducer
+
+let opt_out_map empty f x =
+  match x with
+    | None -> (empty, None)
+    | Some data ->
+      let (out, mapped) = f data in
+      (out, Some mapped)
+
+(* Only requirement is that joiner(empty, itm) equals itm *)
+(* By default the joiner will be invoked in the order expressions/statements appear. *)
+let create_ast_reducer empty joiner = {
+  ident = (fun _self _input i -> (empty, i));
+  statements = (fun self input l ->
+    let mapped =
+      List.map (fun (s, pc) ->
+        let (s_out, s_mapped) = self.statement self input s in
+        (s_out, (s_mapped, pc))) l in
+    let (outputs, mapped_results) = List.split mapped in
+    (joiner outputs, mapped_results)    
+  );
+  statement = (fun self input x -> match x with
+    | Block b -> (
+      let (out, mapped_statements) = self.statements self input b in
+      (out, Block (mapped_statements))
+    ) 
+    | Variable_statement l ->
+      let (outputs, mapped_results) =
+        List.split (
+          List.map
+            (fun (id, eo) ->
+              let (ident_out, ident_mapped) = self.ident self input id in
+              let (init_out, init_mapped) = opt_out_map empty (self.initialiser self input) eo in
+              (joiner [ident_out; init_out], (ident_mapped, init_mapped) )
+            )
+            l
+        ) in
+      (joiner outputs, Variable_statement mapped_results)
+    | Empty_statement -> (empty, Empty_statement)
+    | Debugger_statement -> (empty, Debugger_statement)
+    | Expression_statement e -> 
+      let (output, mapped) = self.expression self input e in
+      (output, Expression_statement mapped)
+    | If_statement (e, s, sopt) ->
+        let statement_location (statement, loc) =
+          let (out, mapped) = self.statement self input statement in
+          (out, (mapped, loc))
+        in
+        let (expr_output, expr_mapped) = self.expression self input e in
+        let (if_output, if_mapped) = statement_location s in
+        let (sopt_output, sopt_mapped) = opt_out_map empty statement_location sopt in
+        let output = (joiner [expr_output; if_output; sopt_output]) in
+        (output, If_statement (expr_mapped, if_mapped, sopt_mapped))
+    | Do_while_statement ((s, loc), e) ->
+      let (s_out, s_mapped) = self.statement self input s in
+      let (e_out, e_mapped) = self.expression self input e in
+      (joiner [s_out; e_out], Do_while_statement ((s_mapped, loc), e_mapped))
+    | While_statement(e, (s, loc)) ->
+      let (s_out, s_mapped) = self.statement self input s in
+      let (e_out, e_mapped) = self.expression self input e in
+      (joiner [s_out; e_out], While_statement(e_mapped, (s_mapped, loc)))
+    | For_statement(e1, e2, e3, (s, loc)) ->
+        let (e1_out, e1_mapped) =
+          match e1 with
+          | Rehp.Left x -> 
+            let (x_out, x_mapped) = opt_out_map empty (self.expression self input) x in
+            (x_out, Rehp.Left x_mapped)
+          | Right l ->
+            let l= List.map (
+              fun (id, eo) ->
+                let (ident_out, ident_mapped) = self.ident self input id in
+                let (init_out, init_mapped) = opt_out_map empty (self.initialiser self input) eo in
+                (joiner [ident_out; init_out], (ident_mapped, init_mapped))
+              ) l in
+            let (outs, mappeds) = List.split l in
+            (joiner outs, Right(mappeds))
+        in
+        let (e2_out, e2_mapped) = opt_out_map empty (self.expression self input) e2 in
+        let (e3_out, e3_mapped) = opt_out_map empty (self.expression self input) e3 in
+        let (s_out, s_mapped) = self.statement self input s in
+        let outs = joiner [e1_out; e2_out; e3_out; s_out] in
+        (outs, For_statement (e1_mapped, e2_mapped, e3_mapped, (s_mapped, loc)))
+    | ForIn_statement (e1, e2, (s, loc)) ->
+        let (e1_out, e1_mapped) =
+          match e1 with
+          | Left e         ->
+            let (e_out, e_mapped) = self.expression self input e in (e_out, Rehp.Left(e_mapped))
+          | Right ((id,e)) -> 
+            let (ident_out, ident_mapped) = self.ident self input id in
+            let (init_out, init_mapped) = opt_out_map empty (self.initialiser self input) e in
+            (joiner [ident_out; init_out], Right ((ident_mapped, init_mapped)))
+        in
+        let (e2_out, e2_mapped) = self.expression self input e2 in
+        let (s_out, s_mapped) = self.statement self input s in
+        let outs = joiner [e1_out; e2_out; s_out] in
+        (outs, ForIn_statement (e1_mapped, e2_mapped, (s_mapped, loc)))
+    | Continue_statement s -> (empty, Continue_statement s)
+    | Break_statement s -> (empty, Break_statement s)
+    | Return_statement e ->
+      let (e_out, e_mapped) = opt_out_map empty (self.expression self input) e in
+      (e_out, Return_statement e_mapped)
+    | Labelled_statement (l, (s, loc)) ->
+      let (st_out, st_mapped) = self.statement self input s in
+      (st_out, Labelled_statement (l, (st_mapped, loc)))
+    | Throw_statement e -> 
+      let (e_out, e_mapped) = self.expression self input e in
+      (e_out, Throw_statement e_mapped)
+    | Switch_statement (e, l, def, l') ->
+      let (e_out, e_mapped) = self.expression self input e in
+      let (d_out, d_mapped) = opt_out_map empty (self.statements self input) def  in
+      let (l_out, l_mapped) = List.split(List.map (fun (e, s) ->
+        let (e_out, e_mapped) = self.switch_case self input e in
+        let (stm_out, stm_mapped) = self.statements self input s in
+        let outs = joiner [e_out; stm_out] in
+        (outs, (e_mapped, stm_mapped))
+      ) l) in
+      let (l'_out, l'_mapped) = List.split(List.map (fun (e, s) ->
+        let (e_out, e_mapped) = self.switch_case self input e in
+        let (stm_out, stm_mapped) = self.statements self input s in
+        let outs = joiner [e_out; stm_out] in
+        (outs, (e_mapped, stm_mapped))
+      ) l') in
+      let outs = joiner (e_out :: d_out :: (l_out @ l'_out)) in
+      (outs, Switch_statement (e_mapped, l_mapped, d_mapped, l'_mapped))
+    | Try_statement (b, catch, final) ->
+      let ident_and_statements (ident, st) =
+        let (ident_out, ident_mapped) = self.ident self input ident in
+        let (st_out, st_mapped) = self.statements self input st in
+        (joiner [ident_out; st_out], (ident_mapped, st_mapped))
+      in
+      let (b_out, b_mapped) = self.statements self input b in
+      let (catch_out, catch_mapped) = opt_out_map empty ident_and_statements catch in
+      let (final_out, final_mapped) = opt_out_map empty (self.statements self input) final in
+      (joiner [b_out; catch_out; final_out], Try_statement (b_mapped, catch_mapped, final_mapped))
+  );
+
+  switch_case = (fun self input e -> self.expression self input e);
+
+  expression = (fun self input x -> let open Rehp in match x with
+    | ESeq(e1,e2) -> 
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (e2_out, e2_mapped) = self.expression self input e2 in
+      (joiner [e1_out; e2_out], Rehp.ESeq(e1_mapped, e2_mapped))
+    | ECond(e1,e2,e3) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (e2_out, e2_mapped) = self.expression self input e2 in
+      let (e3_out, e3_mapped) = self.expression self input e3 in
+      (joiner [e1_out; e2_out; e3_out], ECond(e1_mapped, e2_mapped, e3_mapped))
+    | EBin(b,e1,e2) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (e2_out, e2_mapped) = self.expression self input e2 in
+      (joiner [e1_out; e2_out], Rehp.EBin(b, e1_mapped, e2_mapped))
+    | EUn(b, e1) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      (e1_out, EUn(b, e1_mapped))
+    | ECall(e1,e2,loc) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (e2_outs, e2_mappeds) = List.split(List.map (self.expression self input) e2) in
+      (joiner (e1_out :: e2_outs), ECall(e1_mapped, e2_mappeds, loc))
+    | EAccess(e1, e2) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (e2_out, e2_mapped) = self.expression self input e2 in
+      (joiner [e1_out; e2_out], EAccess(e1_mapped, e2_mapped))
+    | EStructAccess (e1, e2) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (e2_out, e2_mapped) = self.expression self input e2 in
+      (joiner [e1_out; e2_out], EStructAccess(e1_mapped, e2_mapped))
+    | EArrAccess(e1,e2) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (e2_out, e2_mapped) = self.expression self input e2 in
+      (joiner [e1_out; e2_out], EArrAccess(e1_mapped, e2_mapped))
+    | EDot(e1,id) -> 
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      (e1_out, EDot(e1_mapped, id))
+    | ENew(e1, Some args) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      let (args_outs, args_mappeds) = List.split(List.map (self.expression self input) args) in
+      (joiner (e1_out :: args_outs), ENew(e1_mapped, Some args_mappeds))
+    | ENew(e1,None) ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      (e1_out, ENew (e1_mapped, None))
+    | EVar v ->
+      let (e_out, e_mapped) = self.ident self input v in
+      (e_out, EVar e_mapped)
+    | EFun (idopt, params, body, fv, nid) ->
+      let (ident_out, ident_mapped) = opt_out_map empty (self.ident self input) idopt in
+      let (params_outs, params_mappeds) = List.split(List.map (self.ident self input) params) in
+      let (sources_out, sources_mapped) = self.sources self input body in
+      (joiner (ident_out :: (params_outs @ [sources_out])), EFun (ident_mapped, params_mappeds, sources_mapped, fv, nid))
+    | EArityTest e1 ->
+      let (e1_out, e1_mapped) = self.expression self input e1 in
+      (e1_out, EArityTest e1_mapped)
+    | EArrLen e ->
+      let (e_out, e_mapped) = self.expression self input e in
+      (e_out, EArrLen e_mapped)
+    | EStruct l ->
+      let (outs, mappeds) = List.split(List.map (self.expression self input) l) in
+      (joiner outs, EStruct mappeds)
+    | ETag (i, l) ->
+      let (i_out, i_mapped) = self.expression self input i in
+      let (outs, mappeds) = List.split(List.map (self.expression self input) l) in
+      (joiner (i_out :: outs), ETag (i_mapped, mappeds))
+    | EArr l -> 
+      let (outs, mappeds) = List.split(List.map (opt_out_map empty (self.expression self input)) l) in
+      (joiner outs, EArr mappeds)
+    | EObj l ->
+      let (outs, mappeds) = List.split(List.map (fun (i, e) -> let (out, mapped) = self.expression self input e in (out, (i, mapped))) l) in
+      (joiner outs, EObj mappeds)
+    | (EStr _ as x)
+    | (EBool _ as x)
+    | (ENum _ as x)
+    | (EQuote _ as x)
+    | (ERegexp _ as x) -> (empty, x)
+  );
+
+  initialiser = (fun self input (e,pc) -> let (o, m) = self.expression self input e in (o, (m, pc)));
+
+  (* TODO: The free vars should also be mapped over. But if you wait to add
+     them until the end, that isn't required. *)
+  source = (fun self input -> function
+    | Statement s -> let (out, mapped) = self.statement self input s in (out, Rehp.Statement mapped)
+    | Function_declaration(id, params, body, fv, nid) ->
+      let (params_outs, params_mappeds) = List.split(List.map (self.ident self input) params) in
+      let (ident_out, ident_mapped) = self.ident self input id in
+      let (sources_out, sources_mapped) = self.sources self input body in
+      let outs = joiner (ident_out :: (params_outs @ [sources_out])) in
+      (outs, Function_declaration(ident_mapped, params_mappeds, sources_mapped, fv, nid))
+  );
+
+  sources = (fun self input x ->
+    let (outs, mappeds) = List.split(List.map (
+      fun (s, loc) -> 
+        let (source_out, source_mapped) = self.source self input s in
+        (source_out, (source_mapped, loc))) x)
+    in
+    (joiner outs, mappeds)
+  );
+
+  program = (fun self input x -> self.sources self input x);
+}
+
+let simple_base_mapper : simple_ast_mapper =
+  let unit_joiner = fun _lst -> () in
+  create_ast_reducer () unit_joiner
+
+(* var substitution example *)
+let substitution_mapper identity_sub = {
+  simple_base_mapper with
+  ident = fun _self _input ident -> identity_sub ident 
+}
+
+(* Node counter example *)
+let count_joiner lst =
+  let _ = print_string (String.concat "," (List.map string_of_int lst)) in
+  let _ = print_newline () in
+  List.fold_left (+) 0 lst 
+
+let simple_counter_mapper : (unit, int) ast_reducer = {
+  (create_ast_reducer 0 count_joiner)
+  with
+  ident = fun _self _input ident -> (1, ident)
+}
+
+module Free = struct
+  type var_state = {
+    (* Variables counts used in scope *)
+    use_name : int StringMap.t;
+    use : int Code.VarMap.t;
+    (* Variables counts defined in scope *)
+    def_name : int StringMap.t;
+    def : int Code.VarMap.t;
+  }
+
+  let empty_vars = {
+    use_name = int StringMap.empty;
+    use = int Code.VarMap.empty;
+    def_name = int StringMap.empty;
+    def = int Code.VarMap.empty;
+  }
+
+  let free_var_joiner = List.fold_left (
+    fun cur next ->
+      let free_name = get_free_name next in
+      let free = get_free next in
+      { cur with
+        def = Code.VarMap.union cur.def next.def;
+        use = Code.VarMap.union cur.use next.use;
+        use_name = StringMap.union cur.use_name next.use_name;
+        def_name = StringMap.union cur.def_name next.def_name;
+      }
+  )
+
+  let increment a = match a with | None -> 1 | Some a' -> a' + 1
+  let decrement a = match a with | None -> raise Not_found | Some a' -> a' - 1
+
+  let update k f sm =
+    let exists = StringMap.mem name var_state.def_name in
+    let cur = if exists then Some (StringMap.mem find name var_state.def_name) else None in
+    let sm = if exists then (StringMap.remove k) else sm in
+    StringMap.add k (f cur) sm
+
+  let update_var_map k f sm =
+    let exists = Code.VarMap.mem name var_state.def_name in
+    let cur = if exists then Some (Code.VarMap.mem find name var_state.def_name) else None in
+    let sm = if exists then (Code.VarMap.remove k) else sm in
+    Code.VarMap.add k (f cur) sm
+    
+
+  let def_var var_state = function
+    | S {name} -> {var_state with def_name = update name increment var_state.def_name}
+    | V v -> {var_state with def = update_var_map v increment var_state.def}
+
+  let free_var_mapper : (unit, var_state) ast_reducer = {
+    (create_ast_reducer empty_vars free_var_joiner) with
+    expression = (fun self input x -> match x with
+      | EVar v -> (
+        let next_state = match v with
+        | S {name} -> {input with use_name = StringMap.add name StringMap.empty}
+        | V v -> {state_ with use = Code.VarMap.add v Code.VarMap.empty} in
+        EVar v
+      )
+      | EFun (ident,params,body,_,nid) ->
+        let var_state = List.fold_left def_var var_state params in
+        (* Need to remove the defined vars before calling downward *)
+        (* Why even store the "def_vars" in the state at all? *)
+        let (var_state_body, body_mapped) = self.sources self var_state  in
+        let body = tbody#sources body in
+        let ident = match ident with
+          | Some (V v) when not(Code.VarMap.mem v tbody#state.use) -> None
+          | Some (S {name; _})when not(StringMap.mem name tbody#state.use_name) -> None
+          | Some id -> tbody#def_var id;ident
+          | None -> None in
+        (* Seems like a hacky way to abuse the block method to track free vars? *)
+        tbody#block params;
+        m#merge_info tbody;
+        let free_names = m#get_free_name in
+        let free_vars = m#get_free in
+        EFun (ident,params,body,Some(free_names, free_vars),nid)
+      | _ -> super#expression x
+    )
+  }
+
+  let free_var = object
+    val mutable state_ : t = empty
+    method state = state_
+
+    method get_free =
+      Code.VarMap.diff m#state.use m#state.def
+
+    method get_def = m#state.def
+
+    method get_free_name =
+      StringMap.diff m#state.use_name m#state.def_name
+
+    method get_def_name = m#state.def_name
+
+    method get_use_name = m#state.use_name
+    method get_use = m#state.use
+
+    method merge_info from =
+      let free_name = from#get_free_name in
+      let free = from#get_free in
+      let count = IdentMap.fold (fun v k acc ->
+          let n = try IdentMap.find v acc with Not_found -> 0 in
+          IdentMap.add v (k + n) acc
+        ) from#state.count m#state.count in
+      state_ <- { state_ with
+        use_name = StringMap.union state_.use_name free_name;
+        use = Code.VarMap.union state_.use free;
+        count }
+
+    method use_var x =
+      let n = try IdentMap.find x state_.count with Not_found -> 0 in
+      let count = IdentMap.add x (succ n) state_.count in
+      match x with
+        | S {name; _}  ->
+          state_ <- { state_ with use_name = StringMap.add name state_.use_name;count }
+        | V v ->
+          state_ <- { state_ with use = Code.VarMap.add v state_.use;count  }
+    method def_var x =
+      let n = try IdentMap.find x state_.count with Not_found -> 0 in
+      let count = IdentMap.add x (succ n) state_.count in
+      match x with
+      | S {name; _} ->
+        state_ <- { state_ with def_name = StringMap.add name state_.def_name;count }
+      | V v ->
+        state_ <- { state_ with def = Code.VarMap.add v state_.def;count  }
+
+    method expression x = match x with
+      | EVar v -> m#use_var v; x
+      | EFun (ident,params,body,_,nid) ->
+        let tbody  = ({< state_ = empty; level = succ level  >} :> 'test) in
+        let () = List.iter tbody#def_var params in
+        let body = tbody#sources body in
+        let ident = match ident with
+          | Some (V v) when not(Code.VarMap.mem v tbody#state.use) -> None
+          | Some (S {name; _})when not(StringMap.mem name tbody#state.use_name) -> None
+          | Some id -> tbody#def_var id;ident
+          | None -> None in
+        (* Seems like a hacky way to abuse the block method to track free vars? *)
+        tbody#block params;
+        m#merge_info tbody;
+        let free_names = m#get_free_name in
+        let free_vars = m#get_free in
+        EFun (ident,params,body,Some(free_names, free_vars),nid)
+      | _ -> super#expression x
+
+    method source x = match x with
+      | Function_declaration (id,params, body, _, nid) ->
+        let tbody = {< state_ = empty; level = succ level >} in
+        let () = List.iter tbody#def_var params in
+        let body = tbody#sources body in
+        tbody#block params;
+        m#def_var id;
+        m#merge_info tbody;
+        let free_names = m#get_free_name in
+        let free_vars = m#get_free in
+        Function_declaration (id,params, body, Some(free_names, free_vars), nid)
+      | Statement _ -> super#source x
+
+    method block ?catch:_ _ = ()
+
+
+    method statement x = match x with
+      | Variable_statement l ->
+        let l = List.map (fun (id,eopt) ->
+          m#def_var id;
+          match eopt with
+            | None -> (id,None)
+            | Some (e,pc) ->
+              let e = m#expression e in
+              (id,Some (e,pc))) l in
+        Variable_statement l
+      | For_statement (Right l, e2, e3, (s, loc)) ->
+        let l = List.map (fun (id,eopt) ->
+            m#def_var id;
+            match eopt with
+              | None -> (id,None)
+              | Some (e,pc) ->
+                let e = m#expression e in
+                (id,Some (e,pc))) l in
+        For_statement (Right l, m#expression_o e2, m#expression_o e3,
+                       (m#statement s, loc))
+      | ForIn_statement (Right (id,eopt), e2, (s, loc)) ->
+        m#def_var id;
+        let r = match eopt with
+          | None -> (id,None)
+          | Some (e,pc) ->
+            let e = m#expression e in
+            (id,Some (e,pc)) in
+        ForIn_statement (Right r,m#expression e2, (m#statement s, loc))
+      | Try_statement (b,w,f) ->
+        let b = m#statements b in
+        let tbody = {< state_ = empty; level = level >} in
+        let w = match w with
+          | None -> None
+          | Some (id,block) ->
+            let block = tbody#statements block in
+            let () = tbody#def_var id in
+            tbody#block ~catch:true [id];
+            (* special merge here *)
+            (* we need to propagate both def and use .. *)
+            (* .. except 'id' because its scope is limitied to 'block' *)
+            let clean set sets = match id with
+              | S {name; _} -> set,StringMap.remove name sets
+              | V i -> Code.VarMap.remove i set, sets in
+            let def,def_name = clean tbody#state.def tbody#state.def_name in
+            let use,use_name = clean tbody#state.use tbody#state.use_name in
+            let count = IdentMap.fold (fun v k acc ->
+                let n = try IdentMap.find v acc with Not_found -> 0 in
+                IdentMap.add v (k + n) acc
+              ) tbody#state.count m#state.count in
+            state_ <- {
+              use = Code.VarMap.union state_.use use;
+              use_name = StringMap.union state_.use_name use_name;
+              def = Code.VarMap.union state_.def def;
+              def_name = StringMap.union state_.def_name def_name;
+              count};
+            Some (id,block)
+        in
+        let f = match f with
+          | None -> None
+          | Some block -> Some (m#statements block)
+        in
+        Try_statement (b,w,f)
+      | _ -> super#statement x
+  end
+end

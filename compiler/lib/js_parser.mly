@@ -329,13 +329,13 @@ function_declaration:
  | pi=T_FUNCTION name=variable args=parenthesised(separated_list(T_COMMA, variable))
    block=curly_block(source_element*)
    { let elements, _pi_start, pi_end = block in
-     (name, args, elements, J.Pi pi_end), J.Pi pi }
+     (name, args, elements, None, J.Pi pi_end), J.Pi pi }
 
 function_expression:
  | pi=T_FUNCTION name=variable? args=parenthesised(separated_list(T_COMMA, variable))
    block=curly_block(source_element*)
    { let elements, _pi_start, _pi_end = block in
-     pi, J.EFun (name, args, elements, J.Pi pi) }
+     pi, J.EFun (name, args, elements, None, J.Pi pi) }
 
 (*************************************************************************)
 (* 1 expression                                                          *)

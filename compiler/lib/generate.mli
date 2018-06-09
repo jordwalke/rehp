@@ -21,4 +21,4 @@
 val f :
   Code.program -> exported_runtime:bool
   -> int array -> Parse_bytecode.Debug.data ->
-  Javascript.program
+  Rehp.program

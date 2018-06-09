@@ -73,17 +73,18 @@ let f {
       try p@(Parse_js.parse lex) with Parse_js.Parsing_error pi -> error_of_pi pi;
     else
       p in
+  let p = Rehp.from_javascript p in
 
-  let free = new Js_traverse.free in
+  let free = new Rehp_traverse.free in
   let _pfree = free#program p in
   let toplevel_def = free#get_def_name in
   let () = VarPrinter.add_reserved (Util.StringSet.elements toplevel_def) in
   let true_ = (fun () -> true) in
   let open Option in
-  let passes : ((unit -> bool) * (unit -> Js_traverse.mapper)) list =
-    [ Optim.shortvar, (fun () -> ((new Js_traverse.rename_variable toplevel_def) :> Js_traverse.mapper) );
-      true_, (fun () -> new Js_traverse.simpl);
-      true_, (fun () -> new Js_traverse.clean);
+  let passes : ((unit -> bool) * (unit -> Rehp_traverse.mapper)) list =
+    [ Optim.shortvar, (fun () -> ((new Rehp_traverse.rename_variable toplevel_def) :> Rehp_traverse.mapper) );
+      true_, (fun () -> new Rehp_traverse.simpl);
+      true_, (fun () -> new Rehp_traverse.clean);
     ] in
 
   let p = List.fold_left (fun p (t,m) -> if t() then (m())#program p else p) p passes in

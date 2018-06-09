@@ -17,21 +17,22 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-open Javascript
+open Rehp
+open Rehp_shared
 
 class type mapper = object
-  method expression : Javascript.expression -> Javascript.expression
-  method expression_o : Javascript.expression option -> Javascript.expression option
-  method switch_case : Javascript.expression -> Javascript.expression
-  method initialiser : (Javascript.expression * Javascript.location) -> (Javascript.expression * Javascript.location)
-  method initialiser_o : (Javascript.expression * Javascript.location) option -> (Javascript.expression * Javascript.location) option
-  method statement : Javascript.statement -> Javascript.statement
-  method statement_o : (Javascript.statement * Javascript.location) option -> (Javascript.statement * Javascript.location) option
-  method statements : Javascript.statement_list -> Javascript.statement_list
-  method source : Javascript.source_element -> Javascript.source_element
-  method sources : Javascript.source_elements -> Javascript.source_elements
-  method ident : Javascript.ident -> Javascript.ident
-  method program : Javascript.program -> Javascript.program
+  method expression : Rehp.expression -> Rehp.expression
+  method expression_o : Rehp.expression option -> Rehp.expression option
+  method switch_case : Rehp.expression -> Rehp.expression
+  method initialiser : (Rehp.expression * Rehp.location) -> (Rehp.expression * Rehp.location)
+  method initialiser_o : (Rehp.expression * Rehp.location) option -> (Rehp.expression * Rehp.location) option
+  method statement : Rehp.statement -> Rehp.statement
+  method statement_o : (Rehp.statement * Rehp.location) option -> (Rehp.statement * Rehp.location) option
+  method statements : Rehp.statement_list -> Rehp.statement_list
+  method source : Rehp.source_element -> Rehp.source_element
+  method sources : Rehp.source_elements -> Rehp.source_elements
+  method ident : Rehp.ident -> Rehp.ident
+  method program : Rehp.program -> Rehp.program
 end
 
 
@@ -134,11 +135,11 @@ class map : mapper = object(m)
   | ENew(e1,None) ->
     ENew(m#expression  e1,None)
   | EVar v -> EVar (m#ident v)
-  | EFun (idopt, params, body ,nid) ->
+  | EFun (idopt, params, body, fv, nid) ->
     let idopt = match idopt with
       | None -> None
       | Some i -> Some (m#ident i) in
-    EFun (idopt, List.map m#ident params, m#sources body ,nid)
+    EFun (idopt, List.map m#ident params, m#sources body, fv, nid)
   | EArityTest e -> EArityTest (m#expression e)
   | EArrLen e -> EArrLen (m#expression e)
   | EStruct l -> EStruct (List.map (fun x -> m#expression x) l)
@@ -163,10 +164,12 @@ class map : mapper = object(m)
     | None -> None
     | Some i -> Some (m#initialiser i)
 
+  (* TODO: The free vars should also be mapped over. But if you wait to add
+     them until the end, that isn't required. *)
   method source x = match x with
     | Statement s -> Statement (m#statement s)
-    | Function_declaration(id,params,body,nid) ->
-      Function_declaration(m#ident id, List.map m#ident params, m#sources body,nid)
+    | Function_declaration(id,params,body, fv, nid) ->
+      Function_declaration(m#ident id, List.map m#ident params, m#sources body, fv, nid)
 
   method sources x = List.map (fun (s, loc) -> (m#source s, loc)) x
 
@@ -277,7 +280,7 @@ type t = {
   def_name : StringSet.t;
   def : S.t;
   use : S.t;
-  count : int Javascript.IdentMap.t ;
+  count : int Rehp.IdentMap.t ;
 }
 
 let empty = {
@@ -285,7 +288,7 @@ let empty = {
   use = S.empty;
   use_name = StringSet.empty;
   def_name = StringSet.empty;
-  count = Javascript.IdentMap.empty;
+  count = Rehp.IdentMap.empty;
 }
 
 (* def/used/free variable *)
@@ -294,10 +297,10 @@ class type freevar =
   object('a)
     inherit mapper
     method merge_info : 'a -> unit
-    method block : ?catch:bool -> Javascript.ident list -> unit
+    method block : ?catch:bool -> Rehp.ident list -> unit
 
-    method def_var : Javascript.ident -> unit
-    method use_var : Javascript.ident -> unit
+    method def_var : Rehp.ident -> unit
+    method use_var : Rehp.ident -> unit
     method state : t
     method get_free_name : Util.StringSet.t
     method get_free : Code.VarSet.t
@@ -306,6 +309,10 @@ class type freevar =
     method get_use_name : Util.StringSet.t
     method get_use : Code.VarSet.t
   end
+
+(* In order for function free variables to be accurate, this traversal
+ * operation has to be done after all the other transformations so captured
+ * names aren't modified, and so dead code removal is taken into account. *)
 
 class free =
   object(m : 'test)
@@ -358,7 +365,7 @@ class free =
 
   method expression x = match x with
     | EVar v -> m#use_var v; x
-    | EFun (ident,params,body,nid) ->
+    | EFun (ident,params,body,fv,nid) ->
       let tbody  = ({< state_ = empty; level = succ level  >} :> 'test) in
       let () = List.iter tbody#def_var params in
       let body = tbody#sources body in
@@ -367,20 +374,25 @@ class free =
         | Some (S {name; _})when not(StringSet.mem name tbody#state.use_name) -> None
         | Some id -> tbody#def_var id;ident
         | None -> None in
+      (* Seems like a hacky way to abuse the block method to track free vars? *)
       tbody#block params;
       m#merge_info tbody;
-      EFun (ident,params,body,nid)
+      (* let free_names = m#get_free_name in *)
+      (* let free_vars = m#get_free in *)
+      EFun (ident,params,body,fv,nid)
     | _ -> super#expression x
 
   method source x = match x with
-    | Function_declaration (id,params, body, nid) ->
+    | Function_declaration (id,params, body, fv, nid) ->
       let tbody = {< state_ = empty; level = succ level >} in
       let () = List.iter tbody#def_var params in
       let body = tbody#sources body in
       tbody#block params;
       m#def_var id;
       m#merge_info tbody;
-      Function_declaration (id,params, body, nid)
+      (* let free_names = m#get_free_name in *)
+      (* let free_vars = m#get_free in *)
+      Function_declaration (id,params, body, fv, nid)
     | Statement _ -> super#source x
 
   method block ?catch:_ _ = ()
@@ -500,8 +512,8 @@ class rename_variable keeps = object
   method source x =
     let x = super#source x in
     match x with
-      | Function_declaration (id,params,body,nid) ->
-        Function_declaration (id,List.map sub_#ident params,sub_#sources body,nid)
+      | Function_declaration (id,params,body, fv, nid) ->
+        Function_declaration (id,List.map sub_#ident params,sub_#sources body, fv, nid)
       | Statement _ -> x
 
 end
@@ -603,23 +615,23 @@ class compact_vardecl = object(m)
     method source x =
       let x = super#source x in
       match x with
-        | Function_declaration (id,params, body, nid) ->
+        | Function_declaration (id,params, body, fv, nid) ->
           let all = IdentSet.diff insert_ exc_ in
           let body = m#pack all body in
           m#except id;
-          Function_declaration (id,params, body, nid)
+          Function_declaration (id,params, body, fv, nid)
         | Statement _ -> x
 
     method expression x =
       let x = super#expression x in
       match x with
-        | EFun (ident,params,body,nid) ->
+        | EFun (ident,params,body,_fv,nid) ->
           let all = IdentSet.diff insert_ exc_ in
           let body = m#pack all body in
           (match ident with
             | Some id -> m#except id;
             | None -> ());
-          EFun (ident,params,body,nid)
+          EFun (ident,params,body,None,nid)
         | _ -> x
 
     method statements l =
@@ -808,8 +820,8 @@ class simpl = object(m)
       let st = m#statements (List.rev st_rev) in
       let st = List.map (function
           | (Variable_statement
-              [addr, Some (EFun (None, params, body, loc'), loc)], _) ->
-            (Function_declaration (addr, params, body, loc'), loc)
+              [addr, Some (EFun (None, params, body, fv, loc'), loc)], _) ->
+            (Function_declaration (addr, params, body, fv, loc'), loc)
           | (s, loc) -> (Statement s, loc)) st in
       List.rev_append st sources_rev in
 

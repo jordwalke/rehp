@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-open Javascript
+open Rehp
 open Util
 let debug = Option.Debug.find "shortvar"
 
@@ -29,8 +29,8 @@ module Var = Code.Var
 module type Strategy = sig
   type t
   val create : int -> t
-  val record_block : t -> Js_traverse.t -> catch:bool -> Javascript.ident list -> unit
-  val allocate_variables : t -> count:int Javascript.IdentMap.t -> string array
+  val record_block : t -> Rehp_traverse.t -> catch:bool -> Rehp.ident list -> unit
+  val allocate_variables : t -> count:int Rehp.IdentMap.t -> string array
 end
 
 module Min : Strategy = struct
@@ -264,7 +264,7 @@ while compiling the OCaml toplevel:
 
   let record_block state scope ~catch params =
     let offset = if catch then 5 else 0 in
-    let all = S.union scope.Js_traverse.def scope.Js_traverse.use in
+    let all = S.union scope.Rehp_traverse.def scope.Rehp_traverse.use in
     add_constraints state all ~offset params;
 end
 
@@ -280,7 +280,7 @@ module Preserve : Strategy = struct
 
   type t = {
     size   : int;
-    mutable scopes : (S.t * Js_traverse.t) list
+    mutable scopes : (S.t * Rehp_traverse.t) list
   }
   let create size = { size ; scopes = [] }
 
@@ -289,7 +289,7 @@ module Preserve : Strategy = struct
       | true, [V x] -> S.singleton x
       | true, [S _] -> S.empty
       | true, _   -> assert false
-      | false, _  -> scope.Js_traverse.def
+      | false, _  -> scope.Rehp_traverse.def
     in
     t.scopes <- (defs,scope) :: t.scopes
   let allocate_variables t ~count:_ =
@@ -298,8 +298,8 @@ module Preserve : Strategy = struct
       let assigned =
         List.fold_left StringSet.union StringSet.empty
           [
-            state.Js_traverse.def_name;
-            state.Js_traverse.use_name;
+            state.Rehp_traverse.def_name;
+            state.Rehp_traverse.use_name;
             Reserved.keyword
           ]
       in
@@ -308,7 +308,7 @@ module Preserve : Strategy = struct
         if name <> ""
         then StringSet.add name acc
         else acc
-      ) (S.union state.Js_traverse.use state.Js_traverse.def) assigned  in
+      ) (S.union state.Rehp_traverse.use state.Rehp_traverse.def) assigned  in
       let _assigned = S.fold (fun var assigned ->
         assert (names.(Var.idx var) = "");
         let name =
@@ -335,7 +335,7 @@ module Preserve : Strategy = struct
 end
 
 class traverse record_block = object(m)
-  inherit Js_traverse.free as super
+  inherit Rehp_traverse.free as super
   method! block ?(catch=false) params =
     record_block m#state ~catch params;
     super#block params
@@ -352,8 +352,8 @@ let program' (module Strategy : Strategy) p =
     Util.failwith_ "Some variables escaped (#%d)" (S.cardinal (mapper#get_free))
     (* S.iter(fun s -> (Format.eprintf "%s@." (Var.to_string s))) coloring#get_free *)
   end;
-  let names = Strategy.allocate_variables state ~count:mapper#state.Js_traverse.count in
-  (* if debug () then output_debug_information state coloring#state.Js_traverse.count; *)
+  let names = Strategy.allocate_variables state ~count:mapper#state.Rehp_traverse.count in
+  (* if debug () then output_debug_information state coloring#state.Rehp_traverse.count; *)
   let color = function
     | V v ->
       let name = names.(Var.idx v) in
@@ -361,7 +361,7 @@ let program' (module Strategy : Strategy) p =
       S {name;var=Some v}
     | x -> x
   in
-  (new Js_traverse.subst color)#program p
+  (new Rehp_traverse.subst color)#program p
 
 
 let program p =

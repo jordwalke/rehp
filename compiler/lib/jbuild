@@ -8,7 +8,7 @@
     (yojson -> source_map_yojson.ml.in)
     (       -> source_map_unsupported.ml.in))
   ))
-  (flags (:standard -w -7-37 -safe-string))
+  (flags (:standard -w -7-37 -safe-string -g))
   (modules (:standard \ control))
   ))
 
@@ -28,12 +28,12 @@
 (rule
  ((targets (js_parser.mli js_parser.ml))
   (mode fallback)
-  (action (ignore-stderr (run menhir --external-tokens Js_token --explain ${path:js_parser.mly})))))
+  (action (run menhir --external-tokens Js_token --explain ${path:js_parser.mly}))))
 
 (rule
  ((targets (annot_parser.mli annot_parser.ml))
   (mode fallback)
-  (action (ignore-stderr (run menhir --explain ${path:annot_parser.mly})))))
+  (action (run menhir --explain ${path:annot_parser.mly}))))
 
 (rule
  ((targets (util.ml))

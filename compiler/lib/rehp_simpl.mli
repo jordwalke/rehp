@@ -18,6 +18,18 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-val program :
-  Pretty_print.t -> ?source_map:(string option * Source_map.t) ->
-  Javascript.program -> unit
+open Rehp
+
+val if_statement :
+  expression -> location ->
+  statement * location -> bool -> statement * location -> bool ->
+  (statement * location) list
+
+val get_variable : Code.VarSet.t -> expression -> Code.VarSet.t
+
+val block :
+  (Rehp.statement * location) list ->
+  Rehp.statement * location
+val unblock :
+  Rehp.statement * location ->
+  (Rehp.statement * location) list

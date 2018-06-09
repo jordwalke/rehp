@@ -127,13 +127,13 @@ let parse_file f =
 
 
 class check_and_warn name pi = object
-  inherit Js_traverse.free as super
+  inherit Rehp_traverse.free as super
   method merge_info from =
     let def = from#get_def_name in
     let use = from#get_use_name in
     let diff = StringSet.diff def use in
     let diff = StringSet.remove name diff in
-    let diff = StringSet.filter (fun s -> String.length s <> 0 && s.[0] <> '_') diff in
+    let diff = StringSet.filter (fun s -> String.length s <> 0) diff in
     if not (StringSet.is_empty diff)
     then Util.warn "WARN unused for primitive %s at %s:@. %s@."
         name (loc pi) (String.concat ", " (StringSet.elements diff));
@@ -182,7 +182,7 @@ let check_primitive name pi code req =
   let free =
     if Option.Optim.warn_unused ()
     then new check_and_warn name pi
-    else new Js_traverse.free in
+    else new Rehp_traverse.free in
   let _code = free#program code in
   let freename = free#get_free_name in
   let freename = List.fold_left (fun freename x -> StringSet.remove x freename) freename req in
@@ -210,7 +210,7 @@ let version_match =
 
 type state = {
   ids : IntSet.t;
-  codes : Javascript.program list ;
+  codes : Rehp.program list ;
 }
 
 let last_code_id = ref 0
@@ -221,9 +221,9 @@ let always_included = ref []
 
 class traverse_and_find_named_values all =
   object
-    inherit Js_traverse.map as self
+    inherit Rehp_traverse.map as self
     method expression x =
-      let open Javascript in
+      let open Rehp in
       (match x with
         | ECall(EVar (S {name="caml_named_value"; _}),[EStr (v,_)],_) ->
           all:=StringSet.add v !all
@@ -232,9 +232,35 @@ class traverse_and_find_named_values all =
       self#expression x
   end
 
+(*
+
+                                   stdlib-stubs
+                                      .
+                                    .     [Parse_js]
+                                  .
+                               JS
+                              .
+                            .             [Rehp.from_javascript]
+                          .
+                        .
+                     Rehp
+                      .
+                      .   [traverse_and_convert_to_php]
+                      .
+                     Rehp
+                      .
+                      .   [annotate free_variables]
+                      .
+                     Rehp
+                      .
+                      .
+                      .
+                     php
+
+*)
 class traverse_and_convert_to_php =
   object
-    inherit Js_traverse.map as self
+    inherit Rehp_traverse.map as self
     method expression x = match x with
       | EVar (S {name="this"; var=None}) ->
         EAccess (EVar (S {name="GLOBALS"; var=None}), EStr ("jsContext", `Utf8))
@@ -246,12 +272,12 @@ class traverse_and_convert_to_php =
       | _ -> self#expression(x)
     method source x = match x with
       | Statement s -> Statement (self#statement s)
-      | Function_declaration(id, params, body, nid) ->
+      | Function_declaration(id, params, body, fv, nid) ->
         Statement(
-          let open Javascript in
+          let open Rehp in
           let fn = ECall (
             EVar (S {name="JSFunction"; var=None}),
-            [self#expression(EFun (Some id, params, body , nid))],
+            [self#expression(EFun (Some id, params, body, fv, nid))],
             N
           ) in
           let eopt = Some (fn, nid) in
@@ -268,6 +294,7 @@ let find_named_value code =
 let add_file f =
   List.iter
     (fun (provide,req,versions,weakdef,(code:Javascript.program)) ->
+       let code = Rehp.from_javascript code in
        let p = new traverse_and_convert_to_php  in
        let code = p#program code in
        let vmatch = match versions with
@@ -281,10 +308,10 @@ let add_file f =
           | None ->
             always_included := id :: !always_included
           | Some (pi,name,kind,ka) ->
-            let module J = Javascript in
+            let module J = Rehp in
             let rec find = function
               | [] -> None
-              | (J.Function_declaration (J.S{J.name=n; _},l,_,_), _)::_ when name=n ->
+              | (J.Function_declaration (J.S{J.name=n; _},l,_,_, _), _)::_ when name=n ->
                 Some(List.length l)
               | _::rem -> find rem in
             let arity = find code in
@@ -314,7 +341,7 @@ let get_provided () =
 let check_deps () =
   let provided = get_provided () in
   Hashtbl.iter (fun id (code,requires) ->
-    let traverse = new Js_traverse.free in
+    let traverse = new Rehp_traverse.free in
     let _js = traverse#program code in
     let free = traverse#get_free_name in
     let requires = List.fold_right StringSet.add requires StringSet.empty in

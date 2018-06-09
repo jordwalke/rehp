@@ -40,7 +40,7 @@ open Code
 open Util
 module Primitive = Jsoo_primitive
 module Subst = Jsoo_subst
-module J = Javascript
+module J = Rehp
 
 (****)
 
@@ -443,7 +443,7 @@ let enqueue expr_queue prop x ce loc cardinal acc =
         [], expr_queue
     else flush_queue expr_queue flush_p []
   in
-  let deps = Js_simpl.get_variable Code.VarSet.empty ce in
+  let deps = Rehp_simpl.get_variable Code.VarSet.empty ce in
   let deps = List.fold_left (fun deps (x',elt) ->
     if Code.VarSet.mem ( x') deps
     then Code.VarSet.union elt.deps deps
@@ -459,7 +459,7 @@ type state =
     backs : (int, AddrSet.t) Hashtbl.t;
     preds : (int, int) Hashtbl.t;
     mutable loops : AddrSet.t;
-    mutable loop_stack : (addr * (J.Label.t * bool ref)) list;
+    mutable loop_stack : (addr * (Javascript.Label.t * bool ref)) list;
     mutable visited_blocks : AddrSet.t;
     mutable interm_idx : int;
     ctx : Ctx.t; mutable blocks : Code.block AddrMap.t;
@@ -711,6 +711,7 @@ let generate_apply_fun ctx n =
           [J.Statement
              (J.Return_statement
                 (Some (apply_fun_raw ctx f' params'))), J.N],
+          None,
           J.N)
 
 let apply_fun ctx f params loc =
@@ -1007,7 +1008,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
       | (st, J.N) :: rem -> (st, J.U) :: rem
       | _                -> clo
     in
-    let clo = J.EFun (None, List.map (fun v -> J.V v) args, clo, loc) in
+    let clo = J.EFun (None, List.map (fun v -> J.V v) args, clo, None, loc) in
     (clo, flush_p, queue), []
   | Constant c ->
     let js, instrs = constant ~ctx c level in
@@ -1038,6 +1039,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
             in
             let lex = Parse_js.lexer_from_string ?offset nm in
             let e = Parse_js.parse_expr lex in
+            let e = Rehp.from_javascript_expression e in
             (e, const_p, queue)
           with Parse_js.Parsing_error pi ->
             failwith (Printf.sprintf "Parsing error %S at l:%d col:%d" nm (pi.Parse_info.line + 1) pi.Parse_info.col)
@@ -1122,7 +1124,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
           | Pc (String nm | IString nm) :: x :: r ->
             let ((prop, cx), queue) = access_queue' ~ctx queue x in
             let (prop', r', queue) = build_fields queue r in
-            (or_p prop prop', (J.PNS nm, cx) :: r', queue)
+            (or_p prop prop', (Rehp_shared.PNS nm, cx) :: r', queue)
           | _ ->
             assert false
         in
@@ -1144,7 +1146,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
         let e = J.EFun (Some f, args,
                         [J.Statement (
                            J.Return_statement (
-                             Some call)), J.N ], J.N) in
+                             Some call)), J.N ], None, J.N) in
         e, const_p, queue
       | Extern "caml_alloc_dummy_function", _ ->
         assert false
@@ -1292,7 +1294,7 @@ and compile_block st queue (pc : addr) frontier interm =
     end;
     if AddrSet.mem pc st.loops then begin
       let lab =
-        match st.loop_stack with (_, (l, _)) :: _ -> J.Label.succ l | [] -> J.Label.zero in
+        match st.loop_stack with (_, (l, _)) :: _ -> Javascript.Label.succ l | [] -> Javascript.Label.zero in
       st.loop_stack <- (pc, (lab, ref false)) :: st.loop_stack
     end;
     let succs = Hashtbl.find st.succs pc in
@@ -1484,7 +1486,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
           J.EBin (J.Lt, n', unsigned cx)
         | CLe n          -> J.EBin (J.Le, int32 n, cx) in
       never1&&never2,
-      Js_simpl.if_statement e' loc
+      Rehp_simpl.if_statement e' loc
         (J.Block iftrue, J.N) never1
         (J.Block iffalse, J.N) never2
     | DTree.Switch a ->
@@ -1576,11 +1578,11 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
           loc (J.EStructAccess(var x, J.ENum 0.))
           (DTree.build_switch a2) in
       let code =
-        Js_simpl.if_statement
+        Rehp_simpl.if_statement
           (J.EBin(J.EqEqEq, J.EUn (J.Typeof, var x),
                   str_js "number"))
           loc
-          (Js_simpl.block b1) false (Js_simpl.block b2) false in
+          (Rehp_simpl.block b1) false (Rehp_simpl.block b2) false in
       flush_all queue code
   in
   if debug () then begin
@@ -1740,8 +1742,8 @@ let generate_shared_value ctx =
   then
     let applies = List.map (fun (n,v) ->
       match generate_apply_fun ctx n with
-      | J.EFun (_,param,body,nid) ->
-        J.Function_declaration (v,param,body,nid), J.U
+      | J.EFun (_,param,body,None, nid) ->
+        J.Function_declaration (v,param,body,None, nid), J.U
       | _ -> assert false) (IntMap.bindings ctx.Ctx.share.Share.vars.Share.applies) in
     strings::applies
   else [strings]
