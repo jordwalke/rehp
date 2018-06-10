@@ -94,19 +94,16 @@ let output_append = (cur, next) => {
   dec: append(cur.dec, next.dec),
   use: append(cur.use, next.use),
 };
-let default_output_join = lst =>
-  List.fold_left(output_append, empty_output, lst);
 
 let mapper = {
-  let super = Rehp_mapper.create(empty_output, default_output_join);
+  let super = Rehp_mapper.create(empty_output, output_append);
   {
     ...super,
     expression: (self, input, x) =>
       switch (x) {
       | EVar(v) =>
         let out = {use: use_one_var(v), dec: empty};
-        print_str_map_keys(out.use.names);
-        (out, EVar(v));
+        (out, x);
       | EFun((ident, params, body, _, nid)) =>
         let new_scope = List.fold_left(bump_var, empty, params);
         let (new_scope, dec) =
@@ -121,7 +118,7 @@ let mapper = {
         /* Declarations reset at function boundaries. */
         let body_uses = remove(body_out.use, new_scope);
         let body_uses = remove(body_uses, body_out.dec);
-        let out = {use: body_uses, dec: dec};
+        let out = {use: body_uses, dec};
         let vars = (out.use.names, out.use.vars);
         (out, EFun((ident, params, body_mapped, Some(vars), nid)));
       | _ => super.expression(self, input, x)
