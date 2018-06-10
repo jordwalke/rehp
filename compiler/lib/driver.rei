@@ -1,4 +1,4 @@
-(* Js_of_ocaml compiler
+/* Js_of_ocaml compiler
  * http://www.ocsigen.org/js_of_ocaml/
  * Copyright (C) 2010 Jérôme Vouillon
  * Laboratoire PPS - CNRS Université Paris Diderot
@@ -16,23 +16,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *)
+ */
 
-type profile
+type profile;
 
-val f :
-  ?standalone:bool ->
-  ?global:[`Auto | `Function | `Bind_to of string | `Custom of string ] ->
-  ?profile:profile ->
-  ?dynlink:bool ->
-  ?backend:Backend.t ->
-  ?linkall:bool ->
-  ?source_map:(string option * Source_map.t) ->
-  ?custom_header:string ->
-  Pretty_print.t -> Parse_bytecode.Debug.data -> Code.program -> unit
+let f:
+  (
+    ~standalone: bool=?,
+    ~global: [ | `Auto | `Function | `Bind_to(string) | `Custom(string)]=?,
+    ~profile: profile=?,
+    ~dynlink: bool=?,
+    ~backend: Backend.t=?,
+    ~linkall: bool=?,
+    ~source_map: (option(string), Source_map.t)=?,
+    ~custom_header: string=?,
+    Pretty_print.t,
+    Parse_bytecode.Debug.data,
+    Code.program
+  ) =>
+  unit;
 
-val from_string : string array -> string -> Pretty_print.t -> unit
+let from_string: (array(string), string, Pretty_print.t) => unit;
 
-val profiles : (int * profile) list
-val profile : int -> profile option
-val backends : (string * Backend.t) list
+let profiles: list((int, profile));
+let profile: int => option(profile);
+let backends: list((string, Backend.t));
