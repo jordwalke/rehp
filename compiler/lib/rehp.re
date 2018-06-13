@@ -18,6 +18,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/*
+ * Rehp: A constrained intermediate language to model a subset of Php.
+ *
+ * Constraints:
+ * All mutually recursive functions should be within the same expression
+ * nesting.
+ * Variables may be declared at any depth of the expression tree as long as
+ * they do not partake in mutual recursion.
+ */
+
 include Rehp_shared;
 open Rehp_shared;
 
@@ -159,19 +169,25 @@ and case_clause = (expression, statement_list)
 and initialiser = (expression, location)
 /****/
 /* A.5 Functions and programs */
-and free_var_info = option((Util.StringMap.t(int), Code.VarMap.t(int)))
+and var_info = option((Util.StringMap.t(int), Code.VarMap.t(int)))
 and function_declaration = (
   ident,
   formal_parameter_list,
   function_body,
-  free_var_info,
+  /* Global use */
+  var_info,
+  /* Lexical use */
+  var_info,
   location,
 )
 and function_expression = (
   option(ident),
   formal_parameter_list,
   function_body,
-  free_var_info,
+  /* Global use */
+  var_info,
+  /* Lexical use */
+  var_info,
   location,
 )
 and formal_parameter_list = list(ident)
@@ -385,6 +401,7 @@ and from_js_expression =
       ident_lst,
       from_js_source_elements_and_locs(body),
       None,
+      None,
       loc,
     ))
   | Javascript.EStr(x, y) => EStr(x, y)
@@ -516,6 +533,7 @@ and from_js_source_element =
       ident,
       formal_parameter_list,
       from_js_source_elements_and_locs(function_body),
+      None,
       None,
       location,
     ))

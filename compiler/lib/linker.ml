@@ -258,31 +258,80 @@ class traverse_and_find_named_values all =
                      php
 
 *)
+
+let escape_js_regex s = Util.escape s '\\' "\\\\"
+
+let escape_js_string_for_single_quote = escape_js_regex
+
 class traverse_and_convert_to_php =
-  object
-    inherit Rehp_traverse.map as self
+  object(self)
+    inherit Rehp_traverse.map as super
     method expression x = match x with
-      | EVar (S {name="this"; var=None}) ->
-        EAccess (EVar (S {name="GLOBALS"; var=None}), EStr ("jsContext", `Utf8))
-      | ENew (e, args) ->
+      | EVar (S {name="this"; var=None}) -> EVar (S {name="jsContext"; var=None})
+      | ERegexp (s, Some opt) ->
+        ECall (EDot (EVar (S {name="RegExp"; var=None}), "jsNew"), [EStr (escape_js_regex s, `Utf8); EStr (opt, `Utf8)], N)
+      | ERegexp (s, None) ->
+        ECall (EDot (EVar (S {name="RegExp"; var=None}), "jsNew"), [EStr (escape_js_regex s, `Utf8)], N)
+      | EBin (Plus, e1, e2) ->
+        ECall (EVar (S {name="jsPlus"; var=None}), [self#expression e1; self#expression e2], N)
+      | EUn (Typeof, e) ->
+        ECall (EVar (S {name="typeof"; var=None}), [self#expression e], N)
+      | EStr (s, en) -> 
+        ECall (EDot (EVar (S {name="String"; var=None}), "jsNew"), [EStr (escape_js_string_for_single_quote s, en)], N)
+      | ENew (e, args) -> (
         let args = match args with
         | None -> []
-        | Some args -> args in
-        ECall (EDot (e, "jsNew"), args, N)
-      | _ -> self#expression(x)
+        | Some args -> List.map self#expression args in
+        ECall (EDot (self#expression e, "jsNew"), args, N)
+      )
+      | _ -> super#expression(x)
+    method statement s = match s with 
+      | Variable_statement lst ->
+        let mapped_lst = List.map (fun (id, eopt) -> (
+          match eopt with
+            | None -> (self#ident id, Some(Rehp.EVar (S {name="jsUndefined"; var=None}), Rehp.N))
+            | Some (e, loc) -> (self#ident id, Some (self#expression e, loc))
+        )) lst in
+        Variable_statement mapped_lst
+      (* We limit this to a few known expressions that don't include side
+         effects since we repeat the expression e1. *)
+      | Expression_statement (EBin(PlusEq, (EVar _ as e1), e2))
+      | Expression_statement (EBin(PlusEq, (EDot (EVar _, _) as e1), e2)) ->
+        let e1' = self#expression e1 in
+        let e2' = self#expression e2 in
+        let call = Rehp.ECall (EVar (S {name="jsPlus"; var=None}), [e1'; e2'], N) in
+        Expression_statement (EBin(Eq, e1', call))
+      | _ -> super#statement s
+    method func_decl_to_var id params body gv fv nid =
+      Rehp.Statement(
+        let open Rehp in
+        let fn = ECall (
+          EVar (S {name="JSFunction"; var=None}),
+          [EFun (Some (self#ident id), List.map self#ident params, self#sources body, gv, fv, nid)],
+          N
+        ) in
+        let eopt = Some (fn, nid) in
+        Variable_statement [(self#ident id, eopt)]
+      )
     method source x = match x with
       | Statement s -> Statement (self#statement s)
-      | Function_declaration(id, params, body, fv, nid) ->
-        Statement(
-          let open Rehp in
-          let fn = ECall (
-            EVar (S {name="JSFunction"; var=None}),
-            [self#expression(EFun (Some id, params, body, fv, nid))],
-            N
-          ) in
-          let eopt = Some (fn, nid) in
-          Variable_statement [(id, eopt)]
-        )
+      (* Patch the caml_new_string function on the way in. So we can redefine
+         it to wrap the php strings. *)
+      | Function_declaration(S {name="caml_new_string"; var=None} as ident, params, body, gv, fv, nid) ->
+        let open Rehp in
+        let s = EVar (S {name="s"; var=None}) in
+        let caml_new_string = EVar (S {name="caml_new_string"; var=None}) in
+        let instance_of = EVar (S {name="instance_of"; var=None}) in
+        let string_class = EVar (S {name="String"; var=None}) in
+        let instance_check = EUn(Not, (ECall(instance_of, [s; string_class], N))) in
+        let new_string = ECall (EDot (string_class, "jsNew"), [s], N) in
+        let recurse_call = ECall (self#expression caml_new_string, [new_string], N) in
+        let new_return = Return_statement (Some(recurse_call)) in
+        let new_stm = Statement (If_statement( instance_check, (new_return, N), None)) in
+        let new_body = (new_stm, N) :: (self#sources body) in
+        self#func_decl_to_var ident params new_body gv fv nid
+      | Function_declaration(id, params, body, gv, fv, nid) ->
+        self#func_decl_to_var id params body gv fv nid
   end
 
 let find_named_value code =
@@ -311,7 +360,7 @@ let add_file f =
             let module J = Rehp in
             let rec find = function
               | [] -> None
-              | (J.Function_declaration (J.S{J.name=n; _},l,_,_, _), _)::_ when name=n ->
+              | (J.Function_declaration (J.S{J.name=n; _},l,_,_, _, _), _)::_ when name=n ->
                 Some(List.length l)
               | _::rem -> find rem in
             let arity = find code in

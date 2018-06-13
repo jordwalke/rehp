@@ -5,15 +5,14 @@
     "@opam/camlp4": "*",
     "@opam/lwt": "*",
     "@esy-ocaml/substs": "^0.0.1",
-    "@esy-ocaml/reason": "^3.2.0",
+    "@esy-ocaml/reason": "link:/Users/jwalke/github/reason/_release/reason/package",
     "@esy-ocaml/esy-installer": "^0.0.0",
     "@opam/jbuilder": " >= 1.0.0-beta17",
     "@opam/deriving": "*",
     "@opam/ocaml-migrate-parsetree": "*",
     "@opam/ppx_tools_versioned": "*",
     "@opam/uchar": "*",
-    "@opam/js_of_ocaml-compiler": "*",
-    "refmterr": "*"
+    "@opam/js_of_ocaml-compiler": "*"
   },
   "peerDependencies": {
     "ocaml": "~4.6.0"
@@ -26,7 +25,7 @@
   "esy": {
     "build": [
       [
-        "refmterr", "jbuilder", "build", "--dev", "-p", "js_of_ocaml,js_of_ocaml-compiler"
+        "/Users/jwalke/.esy/3__________________________________________________________________/i/refmterr-3.0.7-bf8507a2/bin/refmterr", "jbuilder", "build", "--dev", "-p", "js_of_ocaml,js_of_ocaml-compiler"
       ]
     ],
     "install": [

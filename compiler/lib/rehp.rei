@@ -161,19 +161,21 @@ and case_clause = (expression, statement_list)
 and initialiser = (expression, location)
 /****/
 /* A.5 Functions and programs */
-and free_var_info = option((Util.StringMap.t(int), Code.VarMap.t(int)))
+and var_info = option((Util.StringMap.t(int), Code.VarMap.t(int)))
 and function_declaration = (
   ident,
   formal_parameter_list,
   function_body,
-  free_var_info,
+  var_info,
+  var_info,
   location,
 )
 and function_expression = (
   option(ident),
   formal_parameter_list,
   function_body,
-  free_var_info,
+  var_info,
+  var_info,
   location,
 )
 and formal_parameter_list = list(ident)

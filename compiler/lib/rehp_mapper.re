@@ -379,7 +379,7 @@ let create = (empty, joiner: ('a, 'a) => 'a) => {
           let (e_out, e_mapped) = self.ident(self, input, v);
           /* Optimized allocation */
           e_mapped === v ? (e_out, x) : (e_out, EVar(e_mapped));
-        | EFun((idopt, params, body, fv, nid)) =>
+        | EFun((idopt, params, body, gv, fv, nid)) =>
           let (ident_out, ident_mapped) =
             opt_output(empty, self.ident(self, input), idopt);
           let (params_outs, params_mappeds) =
@@ -388,7 +388,7 @@ let create = (empty, joiner: ('a, 'a) => 'a) => {
             self.sources(self, input, body);
           (
             join_all([ident_out, ...params_outs @ [sources_out]]),
-            EFun((ident_mapped, params_mappeds, sources_mapped, fv, nid)),
+            EFun((ident_mapped, params_mappeds, sources_mapped, gv, fv, nid)),
           );
         | EArityTest(e1) =>
           let (e1_out, e1_mapped) = self.expression(self, input, e1);
@@ -440,7 +440,7 @@ let create = (empty, joiner: ('a, 'a) => 'a) => {
           let (out, mapped) = self.statement(self, input, s);
           (out, Rehp.Statement(mapped));
         }
-      | Function_declaration((id, params, body, fv, nid)) => {
+      | Function_declaration((id, params, body, gv, fv, nid)) => {
           let (params_outs, params_mappeds) =
             List.split(List.map(self.ident(self, input), params));
           let (ident_out, ident_mapped) = self.ident(self, input, id);
@@ -453,6 +453,7 @@ let create = (empty, joiner: ('a, 'a) => 'a) => {
               ident_mapped,
               params_mappeds,
               sources_mapped,
+              gv,
               fv,
               nid,
             )),

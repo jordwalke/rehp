@@ -309,6 +309,7 @@ let gen_missing = (js, missing) => {
                     ),
                   ],
                   None,
+                  None,
                   N,
                 )),
               ),
@@ -592,6 +593,7 @@ let pack_js = (~global, js) => {
         [J.S({J.name: global_object, var: None})],
         use_strict(js),
         None,
+        None,
         J.U,
       ));
     let expr =
@@ -616,6 +618,7 @@ let pack_js = (~global, js) => {
                   J.N,
                 ),
               ],
+              None,
               None,
               J.N,
             )),
@@ -676,6 +679,7 @@ let pack_php = (~global, js) => {
         [J.S({J.name: global_object, var: None})],
         use_strict(js),
         None,
+        None,
         J.U,
       ));
     let expr =
@@ -685,28 +689,7 @@ let pack_php = (~global, js) => {
       | `Custom(name) =>
         J.ECall(f, [J.EVar(J.S({J.name, var: None}))], J.N)
       | `Auto =>
-        let global =
-          J.ECall(
-            J.EFun((
-              None,
-              [],
-              [
-                (
-                  J.Statement(
-                    J.Return_statement(
-                      Some(J.EVar(J.S({J.name: "this", var: None}))),
-                    ),
-                  ),
-                  J.N,
-                ),
-              ],
-              None,
-              J.N,
-            )),
-            [],
-            J.N,
-          );
-        J.ECall(f, [global], J.N);
+        J.ECall(f, [J.EVar(J.S({J.name:"joo_global_object", var: None}))], J.N)
       };
 
     switch (global) {

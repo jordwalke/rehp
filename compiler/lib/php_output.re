@@ -31,6 +31,9 @@
 
 /*
  TODO:
+ - Single quotes don't escape dollar signs, but don't escape anything including
+ \0. For single quoted strings, we need to escape all backslashes with \\.
+ - Return EFun doesn't annotate global info or lexical info.
  - Mark Used Variables.
  - Instanceof
  - Escape dollar signs in strings (single quoted strings are closer).
@@ -174,7 +177,6 @@ let stats = Option.Debug.find("output");
      would work the same for lambdas and functions. Perhaps it's best to just keep
      everything as lambdas. (but see function_exists and is_callable).
    */
-let supports_nonlambdas = false;
 
 open Rehp;
 open Rehp_shared;
@@ -280,35 +282,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     };
   };
 
-  /* Identifiers might contain dollar signs which aren't valid members of an
-     identifier in Php. */
-  let rec escape = (~prepend="", s, search, replace) => {
-    let has = String.contains(s, search);
-    if (! has) {
-      prepend ++ s;
-    } else {
-      let len = String.length(s);
-      let index_of = String.index(s, search);
-      let next_prepend =
-        prepend
-        ++ (
-          if (index_of === 0) {
-            "";
-          } else {
-            String.sub(s, 0, index_of + 1 - 1);
-          }
-        );
-      let next_prepend = next_prepend ++ replace;
-      let remaining =
-        if (index_of === len - 1) {
-          "";
-        } else {
-          String.sub(s, index_of + 1, len - index_of - 1);
-        };
-      escape(~prepend=next_prepend, remaining, search, replace);
-    };
-  };
-
   let output_debug_info_ident = (f, nm, v) =>
     if (source_map_enabled) {
       switch (Code.Var.get_loc(v)) {
@@ -342,20 +315,24 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
        That's pretty unlikely and good enough for now. We can do a more thorough
        renaming later.
      */
-  let escape_ident = s => escape(s, '$', "____");
+  let escape_ident = s => Util.escape(s, '$', "____");
 
-  let jsNullName = "$jsNull";
-  let jsUndefinedName = "$jsUndefined";
-  let ident = f =>
+  let jsNullName = "$null";
+  let jsUndefinedName = "$undefined";
+  let ident = (~prefix="", f) =>
     fun
-    | S({name: "null", var: None}) => PP.string(f, jsNullName)
-    | S({name: "undefined", var: None}) => PP.string(f, jsUndefinedName)
-    | S({name, var: None}) => PP.string(f, "$" ++ escape_ident(name))
+    | S({name: "null", var: None}) => PP.string(f, prefix ++ jsNullName)
+    | S({name: "undefined", var: None}) =>
+      PP.string(f, prefix ++ jsUndefinedName)
+    | S({name, var: None}) =>
+      PP.string(f, prefix ++ "$" ++ escape_ident(name))
     | S({name, var: Some(v)}) => {
         output_debug_info_ident(f, name, v);
-        PP.string(f, "$" ++ escape_ident(name));
+        PP.string(f, prefix ++ "$" ++ escape_ident(name));
       }
     | V(_v) => assert(false);
+
+  let ident_ref = ident(~prefix="&");
 
   let classIdent = f =>
     fun
@@ -367,14 +344,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | V(_v) => assert(false);
 
   /* TODO: Escape function identifiers. */
-  let func_ident = f =>
-    fun
-    | S({name, var: None}) => PP.string(f, name)
-    | S({name, var: Some(v)}) => {
-        output_debug_info_ident(f, name, v);
-        PP.string(f, name);
-      }
-    | V(_v) => assert(false);
+  /* let func_ident = f => */
+  /*   fun */
+  /*   | S({name, var: None}) => PP.string(f, name) */
+  /*   | S({name, var: Some(v)}) => { */
+  /*       output_debug_info_ident(f, name, v); */
+  /*       PP.string(f, name); */
+  /*     } */
+  /*   | V(_v) => assert(false); */
 
   let opt_identifier = (f, i) =>
     switch (i) {
@@ -395,6 +372,16 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       formal_parameter_list(f, r);
     };
 
+  let rec formal_use_list = (f, l) =>
+    switch (l) {
+    | [] => ()
+    | [i] => ident_ref(f, i)
+    | [i, ...r] =>
+      ident_ref(f, i);
+      PP.string(f, ",");
+      PP.break(f);
+      formal_use_list(f, r);
+    };
   /*
      0 Expression
      1 AssignementExpression
@@ -551,9 +538,9 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | EStructAccess(e, _)
     | EArrAccess(e, _)
     | EDot(e, _) => l <= 15 && need_paren(15, e)
+    | EStruct(_) /* Since structs are now calls to functions */
+    | ETag(_) /* Since ETag is expanded to function call. */
     | EArr(_) => false /* Since EArr is expanded to ECall(ident, ..) */
-    | EStruct(_)
-    | ETag(_)
     | EVar(_)
     | EStr(_)
     | EBool(_)
@@ -629,7 +616,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | EArrLen(e) =>
       let len_check = EDot(e, "length");
       expression(l, f, len_check);
-    | EFun((_i, ll, b, fv, pc)) =>
+    | EFun((_i, ll, b, gv, fv, pc)) =>
       if (l > 14) {
         PP.start_group(f, 1);
         PP.string(f, "(");
@@ -648,28 +635,11 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.string(f, ")");
       PP.end_group(f);
       PP.end_group(f);
-      switch (fv) {
-      | Some((name_map, _)) when ! Util.StringMap.is_empty(name_map) =>
-        PP.start_group(f, 1);
-        PP.break(f);
-        PP.string(f, " use (");
-        PP.break(f);
-        PP.start_group(f, 1);
-        formal_parameter_list(
-          f,
-          List.map(
-            ((k, _v)) => S({name: k, var: None}),
-            Util.StringMap.bindings(name_map),
-          ),
-        );
-        PP.end_group(f);
-        PP.string(f, ")");
-        PP.end_group(f);
-      | _ => ()
-      };
+      function_use(f, fv);
       PP.start_group(f, 1);
       PP.string(f, "{");
       PP.break(f);
+      function_globals(f, gv);
       function_body(f, b);
       output_debug_info(f, pc);
       PP.string(f, "}");
@@ -810,6 +780,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       let ident = S({name: "unsigned_right_shift", var: None});
       let call = ECall(EVar(ident), [e1, e2], Rehp.N);
       expression(l, f, call);
+    | EBin(Lsl, e1, e2) =>
+      let ident = S({name: "left_shift", var: None});
+      let call = ECall(EVar(ident), [e1, e2], Rehp.N);
+      expression(l, f, call);
+    | EBin(Asr, e1, e2) =>
+      let ident = S({name: "right_shift", var: None});
+      let call = ECall(EVar(ident), [e1, e2], Rehp.N);
+      expression(l, f, call);
     | EBin(op, e1, e2) =>
       let (out, lft, rght) = op_prec(op);
       if (l > out) {
@@ -827,15 +805,15 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       };
     | EStruct(el) =>
       PP.start_group(f, 1);
-      PP.string(f, "[");
+      PP.string(f, "R(");
       arguments(f, el);
-      PP.string(f, "]");
+      PP.string(f, ")");
       PP.end_group(f);
     | ETag(tag, el) =>
       PP.start_group(f, 1);
-      PP.string(f, "[");
+      PP.string(f, "V(");
       arguments(f, [tag, ...el]);
-      PP.string(f, "]");
+      PP.string(f, ")");
       PP.end_group(f);
     /* Arrays can be generated by generate.ml or occur from parsing stubs */
     | EArr(el) =>
@@ -1007,8 +985,41 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   /*     end; */
   /*     PP.string f ","; PP.break f; element_list f r */
   /* In Php, you cannot omit the final semi */
-  and function_body = (f, b) =>
-    source_elements(f, ~is_export=false, ~skip_last_semi=false, b)
+  and function_use = (f, fv) =>
+    switch (fv) {
+    | Some((name_map, _)) when ! Util.StringMap.is_empty(name_map) =>
+      PP.start_group(f, 1);
+      PP.break(f);
+      PP.string(f, "use (");
+      PP.break(f);
+      PP.start_group(f, 2);
+      formal_use_list(
+        f,
+        List.map(
+          ((k, _v)) => S({name: k, var: None}),
+          Util.StringMap.bindings(name_map),
+        ),
+      );
+      PP.end_group(f);
+      PP.string(f, ")");
+      PP.end_group(f);
+    | _ => ()
+    }
+  and function_globals = (f, global_vars) =>
+    switch (global_vars) {
+    | Some((name_map, _)) when ! Util.StringMap.is_empty(name_map) =>
+      List.iter(
+        ((k, _v)) => {
+          PP.string(f, "global ");
+          ident(f, S({name: k, var: None}));
+          PP.string(f, ";");
+          PP.break(f);
+        },
+        Util.StringMap.bindings(name_map),
+      )
+    | _ => ()
+    }
+  and function_body = (f, b) => source_elements(f, ~skip_last_semi=false, b)
   and arguments = (f, l) =>
     switch (l) {
     | [] => ()
@@ -1120,6 +1131,18 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       /* TODO: This is buggy if e1 has side effects (unlikely, but fix) */
       let unsigned_right_shift = S({name: "unsigned_right_shift", var: None});
       let call = ECall(EVar(unsigned_right_shift), [e1, e2], Rehp.N);
+      let rearranged = Expression_statement(EBin(Eq, e1, call));
+      statement(~last, f, (rearranged, loc));
+    | Expression_statement(EBin(AsrEq, e1, e2)) =>
+      /* TODO: This is buggy if e1 has side effects (unlikely, but fix) */
+      let right_shift = S({name: "right_shift", var: None});
+      let call = ECall(EVar(right_shift), [e1, e2], Rehp.N);
+      let rearranged = Expression_statement(EBin(Eq, e1, call));
+      statement(~last, f, (rearranged, loc));
+    | Expression_statement(EBin(Lsl, e1, e2)) =>
+      /* TODO: This is buggy if e1 has side effects (unlikely, but fix) */
+      let left_shift = S({name: "left_shift", var: None});
+      let call = ECall(EVar(left_shift), [e1, e2], Rehp.N);
       let rearranged = Expression_statement(EBin(Eq, e1, call));
       statement(~last, f, (rearranged, loc));
     | Expression_statement(e) =>
@@ -1327,7 +1350,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       | None =>
         PP.string(f, "return");
         last_semi();
-      | Some(EFun((i, l, b, _fv, pc))) =>
+      | Some(EFun((i, l, b, gv, _fv, pc))) =>
         PP.start_group(f, 1);
         PP.start_group(f, 0);
         PP.start_group(f, 0);
@@ -1344,6 +1367,8 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.break(f);
         PP.start_group(f, 1);
         PP.string(f, "{");
+        PP.break(f);
+        function_globals(f, gv);
         function_body(f, b);
         output_debug_info(f, pc);
         PP.string(f, "}");
@@ -1484,51 +1509,25 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
      function declarations into lambdas. is_export is true iff it is a top level
      declaration in the file's namespace. */
   /* TODO: All of this should be converted in the linker.ml conversion to Php. */
-  and source_element = (f, ~is_export, ~skip_last_semi=?, se) =>
+  and source_element = (f, ~skip_last_semi=?, se) =>
     switch (se) {
     | (Statement(s), loc) => statement(f, ~last=?skip_last_semi, (s, loc))
-    | (Function_declaration((i, l, b, fv, loc')), loc) =>
-      if (! is_export || supports_nonlambdas) {
-        let lam = EFun( (None, l, b, fv, loc') );
-        /* Maybe this final J.N needs to be changed. */
-        let as_var = Variable_statement([(i, Some((lam, Rehp.N)))]);
-        statement(f, ~last=?skip_last_semi, (as_var, loc));
-      } else {
-        output_debug_info(f, loc);
-        PP.start_group(f, 1);
-        PP.start_group(f, 0);
-        PP.start_group(f, 0);
-        PP.string(f, "function");
-        PP.space(f);
-        func_ident(f, i);
-        PP.end_group(f);
-        PP.break(f);
-        PP.start_group(f, 1);
-        PP.string(f, "(");
-        formal_parameter_list(f, l);
-        PP.string(f, ")");
-        PP.end_group(f);
-        PP.end_group(f);
-        PP.break(f);
-        PP.start_group(f, 1);
-        PP.string(f, "{");
-        function_body(f, b);
-        output_debug_info(f, loc');
-        PP.string(f, "}");
-        PP.end_group(f);
-        PP.end_group(f);
-      }
+    | (Function_declaration((i, l, b, gv, fv, loc')), loc) =>
+      let lam = EFun((None, l, b, gv, fv, loc'));
+      /* Maybe this final J.N needs to be changed. */
+      let as_var = Variable_statement([(i, Some((lam, Rehp.N)))]);
+      statement(f, ~last=?skip_last_semi, (as_var, loc));
     }
-  and source_elements = (f, ~is_export, ~skip_last_semi=?, se) =>
+  and source_elements = (f, ~skip_last_semi=?, se) =>
     switch (se) {
     | [] => ()
-    | [s] => source_element(f, ~is_export, ~skip_last_semi?, s)
+    | [s] => source_element(f, ~skip_last_semi?, s)
     | [s, ...r] =>
-      source_element(f, ~is_export, s);
+      source_element(f, s);
       PP.break(f);
-      source_elements(~is_export, f, ~skip_last_semi?, r);
+      source_elements(f, ~skip_last_semi?, r);
     }
-  and program = (f, s) => source_elements(~is_export=true, f, s);
+  and program = (f, s) => source_elements(f, s);
 };
 
 let part_of_ident = {
@@ -1540,7 +1539,7 @@ let part_of_ident = {
         c >= 'a'
         && c <= 'z'
         || c >= 'A'
-        && c <= 'Z'
+        && c <= 'z'
         || c >= '0'
         && c <= '9'
         || c == '_'

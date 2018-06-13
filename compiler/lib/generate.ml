@@ -712,6 +712,7 @@ let generate_apply_fun ctx n =
              (J.Return_statement
                 (Some (apply_fun_raw ctx f' params'))), J.N],
           None,
+          None,
           J.N)
 
 let apply_fun ctx f params loc =
@@ -856,6 +857,8 @@ let _ =
     (fun ctx cx loc ->
        let p = Share.get_prim (runtime_fun ctx) "caml_new_string" ctx.Ctx.share in
        J.ECall (p, [J.EBin (J.Plus,str_js "",cx)], loc));
+  register_un_prim "log" `Mutable
+    (fun cx loc -> J.ECall (s_var "polymorphic_log", [cx], loc));
   register_bin_prim "caml_array_unsafe_get" `Mutable
     (fun cx cy _ -> J.EArrAccess (cx, plus_int cy one));
   register_bin_prim "%int_add" `Pure
@@ -1008,7 +1011,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
       | (st, J.N) :: rem -> (st, J.U) :: rem
       | _                -> clo
     in
-    let clo = J.EFun (None, List.map (fun v -> J.V v) args, clo, None, loc) in
+    let clo = J.EFun (None, List.map (fun v -> J.V v) args, clo, None, None, loc) in
     (clo, flush_p, queue), []
   | Constant c ->
     let js, instrs = constant ~ctx c level in
@@ -1146,7 +1149,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
         let e = J.EFun (Some f, args,
                         [J.Statement (
                            J.Return_statement (
-                             Some call)), J.N ], None, J.N) in
+                             Some call)), J.N ], None, None, J.N) in
         e, const_p, queue
       | Extern "caml_alloc_dummy_function", _ ->
         assert false
@@ -1742,8 +1745,8 @@ let generate_shared_value ctx =
   then
     let applies = List.map (fun (n,v) ->
       match generate_apply_fun ctx n with
-      | J.EFun (_,param,body,None, nid) ->
-        J.Function_declaration (v,param,body,None, nid), J.U
+      | J.EFun (_,param,body,None, None, nid) ->
+        J.Function_declaration (v,param,body,None, None, nid), J.U
       | _ -> assert false) (IntMap.bindings ctx.Ctx.share.Share.vars.Share.applies) in
     strings::applies
   else [strings]

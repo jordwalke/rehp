@@ -335,7 +335,7 @@ module Make(D : sig
     | EArrLen e ->
       let len_check = EDot (e, "length") in
       expression l f len_check
-    | EFun (i, l, b, _fv, pc) ->
+    | EFun (i, l, b, _gv, _fv, pc) ->
       PP.start_group f 1;
       PP.start_group f 0;
       PP.start_group f 0;
@@ -872,7 +872,7 @@ module Make(D : sig
           None   ->
           PP.string f "return";
           last_semi()
-        | Some (EFun (i, l, b, _fv, pc)) ->
+        | Some (EFun (i, l, b, _gv, _fv, pc)) ->
           PP.start_group f 1;
           PP.start_group f 0;
           PP.start_group f 0;
@@ -1020,7 +1020,7 @@ module Make(D : sig
     match se with
       (Statement s, loc) ->
       statement f ?last:skip_last_semi (s, loc)
-    | (Function_declaration (i, l, b, _fv, loc'), loc) ->
+    | (Function_declaration (i, l, b, _gv, _fv, loc'), loc) ->
       output_debug_info f loc;
       PP.start_group f 1;
       PP.start_group f 0;

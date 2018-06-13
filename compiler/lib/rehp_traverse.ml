@@ -135,11 +135,11 @@ class map : mapper = object(m)
   | ENew(e1,None) ->
     ENew(m#expression  e1,None)
   | EVar v -> EVar (m#ident v)
-  | EFun (idopt, params, body, fv, nid) ->
+  | EFun (idopt, params, body, gv, fv, nid) ->
     let idopt = match idopt with
       | None -> None
       | Some i -> Some (m#ident i) in
-    EFun (idopt, List.map m#ident params, m#sources body, fv, nid)
+    EFun (idopt, List.map m#ident params, m#sources body, gv, fv, nid)
   | EArityTest e -> EArityTest (m#expression e)
   | EArrLen e -> EArrLen (m#expression e)
   | EStruct l -> EStruct (List.map (fun x -> m#expression x) l)
@@ -168,8 +168,8 @@ class map : mapper = object(m)
      them until the end, that isn't required. *)
   method source x = match x with
     | Statement s -> Statement (m#statement s)
-    | Function_declaration(id,params,body, fv, nid) ->
-      Function_declaration(m#ident id, List.map m#ident params, m#sources body, fv, nid)
+    | Function_declaration(id,params,body, gv, fv, nid) ->
+      Function_declaration(m#ident id, List.map m#ident params, m#sources body, gv, fv, nid)
 
   method sources x = List.map (fun (s, loc) -> (m#source s, loc)) x
 
@@ -365,7 +365,7 @@ class free =
 
   method expression x = match x with
     | EVar v -> m#use_var v; x
-    | EFun (ident,params,body,fv,nid) ->
+    | EFun (ident,params,body,gv,fv,nid) ->
       let tbody  = ({< state_ = empty; level = succ level  >} :> 'test) in
       let () = List.iter tbody#def_var params in
       let body = tbody#sources body in
@@ -379,11 +379,11 @@ class free =
       m#merge_info tbody;
       (* let free_names = m#get_free_name in *)
       (* let free_vars = m#get_free in *)
-      EFun (ident,params,body,fv,nid)
+      EFun (ident,params,body,gv,fv,nid)
     | _ -> super#expression x
 
   method source x = match x with
-    | Function_declaration (id,params, body, fv, nid) ->
+    | Function_declaration (id,params, body, gv, fv, nid) ->
       let tbody = {< state_ = empty; level = succ level >} in
       let () = List.iter tbody#def_var params in
       let body = tbody#sources body in
@@ -392,7 +392,7 @@ class free =
       m#merge_info tbody;
       (* let free_names = m#get_free_name in *)
       (* let free_vars = m#get_free in *)
-      Function_declaration (id,params, body, fv, nid)
+      Function_declaration (id,params, body, gv, fv, nid)
     | Statement _ -> super#source x
 
   method block ?catch:_ _ = ()
@@ -512,8 +512,8 @@ class rename_variable keeps = object
   method source x =
     let x = super#source x in
     match x with
-      | Function_declaration (id,params,body, fv, nid) ->
-        Function_declaration (id,List.map sub_#ident params,sub_#sources body, fv, nid)
+      | Function_declaration (id,params,body, gv, fv, nid) ->
+        Function_declaration (id,List.map sub_#ident params,sub_#sources body, gv, fv, nid)
       | Statement _ -> x
 
 end
@@ -615,23 +615,23 @@ class compact_vardecl = object(m)
     method source x =
       let x = super#source x in
       match x with
-        | Function_declaration (id,params, body, fv, nid) ->
+        | Function_declaration (id,params, body, gv, fv, nid) ->
           let all = IdentSet.diff insert_ exc_ in
           let body = m#pack all body in
           m#except id;
-          Function_declaration (id,params, body, fv, nid)
+          Function_declaration (id,params, body, gv, fv, nid)
         | Statement _ -> x
 
     method expression x =
       let x = super#expression x in
       match x with
-        | EFun (ident,params,body,_fv,nid) ->
+        | EFun (ident,params,body,_gv, _fv,nid) ->
           let all = IdentSet.diff insert_ exc_ in
           let body = m#pack all body in
           (match ident with
             | Some id -> m#except id;
             | None -> ());
-          EFun (ident,params,body,None,nid)
+          EFun (ident,params,body,None,None,nid)
         | _ -> x
 
     method statements l =
@@ -820,8 +820,8 @@ class simpl = object(m)
       let st = m#statements (List.rev st_rev) in
       let st = List.map (function
           | (Variable_statement
-              [addr, Some (EFun (None, params, body, fv, loc'), loc)], _) ->
-            (Function_declaration (addr, params, body, fv, loc'), loc)
+              [addr, Some (EFun (None, params, body, gv, fv, loc'), loc)], _) ->
+            (Function_declaration (addr, params, body, gv, fv, loc'), loc)
           | (s, loc) -> (Statement s, loc)) st in
       List.rev_append st sources_rev in
 

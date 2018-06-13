@@ -31,9 +31,9 @@ type output = {
 let empty = {names: StringMap.empty, vars: Code.VarMap.empty};
 let empty_output = {dec: empty, use: empty};
 
-let print_str_map_keys = sm => {
+let print_str_map_keys = (title, sm) => {
   let (keys, _) = List.split(Util.StringMap.bindings(sm));
-  print_string("KEYS:" ++ String.concat(",", keys));
+  print_string(title ++ String.concat(",", keys));
   print_newline();
 };
 
@@ -90,57 +90,217 @@ let remove = (cur, remove) => {
     StringMap.filter((k, _) => ! StringMap.mem(k, remove.names), cur.names),
 };
 
+let intersect = (cur, intersect_with) => {
+  vars:
+    Code.VarMap.filter(
+      (k, _) => Code.VarMap.mem(k, intersect_with.vars),
+      cur.vars,
+    ),
+  names:
+    StringMap.filter(
+      (k, _) => StringMap.mem(k, intersect_with.names),
+      cur.names,
+    ),
+};
+
 let output_append = (cur, next) => {
   dec: append(cur.dec, next.dec),
   use: append(cur.use, next.use),
 };
 
+let top_level_identifiers_st = (new_vars_so_far, st) =>
+  switch (st) {
+  /*
+   * This doesn't handle the case where a variable is used *before* it is
+   * defined somewhere. That's okay, we'll consider that to be invalid
+   * Rehp IR.
+   */
+  | Rehp.Variable_statement(l) =>
+    let augment_env = (env, (id, _eopt)) => bump_var(env, id);
+    List.fold_left(augment_env, new_vars_so_far, l);
+  | For_statement(Right(l), _e2, _e3, (_s, _loc)) =>
+    let augment_env = (env, (id, _eopt)) => bump_var(env, id);
+    let added_vars = List.fold_left(augment_env, empty, l);
+    append(new_vars_so_far, added_vars);
+  | ForIn_statement(Right((id, _eopt)), _e2, (_s, _loc)) =>
+    let added_vars = use_one_var(id);
+    append(new_vars_so_far, added_vars);
+  /*
+   * TODO: Probably need to go one level deeper on the try body.
+   */
+  | Try_statement(_, _, _) => new_vars_so_far
+  | _ => new_vars_so_far
+  };
+
+let top_level_identifiers_st_loc = (new_vars_so_far, (st, _loc)) =>
+  top_level_identifiers_st(new_vars_so_far, st);
+
+let top_level_identifiers = (new_vars_so_far, (src, _)) =>
+  switch (src) {
+  | Rehp.Function_declaration((id, _, _, _, _, _)) =>
+    bump_var(new_vars_so_far, id)
+  | Statement(stmt) => top_level_identifiers_st(new_vars_so_far, stmt)
+  };
+
+let rec fold_sources =
+        (self, cur_input, cur_output, cur_rev_mappeds, remaining) =>
+  switch (remaining) {
+  | [] => (cur_output, List.rev(cur_rev_mappeds))
+  | [(s, loc), ...tl] =>
+    let (this_out, this_mapped) =
+      self.Rehp_mapper.source(self, cur_input, s);
+    let next_out = output_append(cur_output, this_out);
+    let next_input = append(cur_input, next_out.dec);
+    fold_sources(
+      self,
+      next_input,
+      next_out,
+      [(this_mapped, loc), ...cur_rev_mappeds],
+      tl,
+    );
+  };
+let rec fold_statements =
+        (self, cur_input, cur_output, cur_rev_mappeds, remaining) =>
+  switch (remaining) {
+  | [] => (cur_output, List.rev(cur_rev_mappeds))
+  | [(s, loc), ...tl] =>
+    let (this_out, this_mapped) =
+      self.Rehp_mapper.statement(self, cur_input, s);
+    let next_out = output_append(cur_output, this_out);
+    let next_input = append(cur_input, next_out.dec);
+    fold_statements(
+      self,
+      next_input,
+      next_out,
+      [(this_mapped, loc), ...cur_rev_mappeds],
+      tl,
+    );
+  };
 let mapper = {
   let super = Rehp_mapper.create(empty_output, output_append);
   {
     ...super,
     expression: (self, input, x) =>
       switch (x) {
+      | EArr(_) =>
+        let (super_out, res) = super.expression(self, input, x);
+        let out =
+          output_append(
+            super_out,
+            {
+              use: use_one_var(S({name: "ArrayLiteral", var: None})),
+              dec: empty,
+            },
+          );
+        (out, res);
       | EVar(v) =>
         let out = {use: use_one_var(v), dec: empty};
         (out, x);
-      | EFun((ident, params, body, _, nid)) =>
-        let new_scope = List.fold_left(bump_var, empty, params);
-        let (new_scope, dec) =
+      | EFun((ident, params, body, _, _, nid)) =>
+        let new_vars = List.fold_left(bump_var, empty, params);
+        /*
+         * Specs mandate that an EFun's name (which is often omitted) may only
+         * be available to the function body's scope - not containing.
+         * Contrast that with Function_declaration.
+         */
+        let new_vars =
           switch (ident) {
-          | Some(i) => (bump_var(new_scope, i), use_one_var(i))
-          | None => (new_scope, empty)
+          | Some(i) => bump_var(new_vars, i)
+          | None => new_vars
           };
-        let augmented_input = append(input, new_scope);
+        let augmented_input = append(input, new_vars);
         let (body_out, body_mapped) =
           self.sources(self, augmented_input, body);
         /* Rehp models an IR with "function scope" for variables. */
         /* Declarations reset at function boundaries. */
-        let body_uses = remove(body_out.use, new_scope);
+        /*
+         * TODO: Don't just remove but decrement instead.
+         */
+        let body_uses = remove(body_out.use, new_vars);
         let body_uses = remove(body_uses, body_out.dec);
-        let out = {use: body_uses, dec};
-        let vars = (out.use.names, out.use.vars);
-        (out, EFun((ident, params, body_mapped, Some(vars), nid)));
+        let body_uses_scope = intersect(body_uses, input);
+        let body_uses_global = remove(body_uses, input);
+        let out = {use: body_uses, dec: empty};
+        let from_scope = (body_uses_scope.names, body_uses_scope.vars);
+        let from_glob = (body_uses_global.names, body_uses_global.vars);
+        print_str_map_keys("\nuses:", out.use.names);
+        print_str_map_keys("input:", augmented_input.names);
+        print_str_map_keys("globals:", body_uses_global.names);
+        (
+          out,
+          EFun((
+            ident,
+            params,
+            body_mapped,
+            Some(from_glob),
+            Some(from_scope),
+            nid,
+          )),
+        );
       | _ => super.expression(self, input, x)
       },
     source: (self, input, x) =>
       switch (x) {
-      | Rehp.Function_declaration((id, params, body, _, nid)) =>
-        let new_scope = List.fold_left(bump_var, empty, params);
-        let new_scope = bump_var(new_scope, id);
-        let augmented_input = append(input, new_scope);
+      | Rehp.Function_declaration((id, params, body, _, _, nid)) =>
+        let new_vars = List.fold_left(bump_var, empty, params);
+        let new_vars = bump_var(new_vars, id);
+        let augmented_input = append(input, new_vars);
         let (body_out, body_mapped) =
           self.sources(self, augmented_input, body);
-        let body_uses = remove(body_out.use, new_scope);
+        /*
+         * TODO: Don't just remove but decrement instead.
+         */
+        let body_uses = remove(body_out.use, new_vars);
         let body_uses = remove(body_uses, body_out.dec);
+        let body_uses_scope = intersect(body_uses, input);
+        let body_uses_global = remove(body_uses, input);
         let out = {use: body_uses, dec: use_one_var(id)};
-        let vars = (out.use.names, out.use.vars);
+        let from_scope = (body_uses_scope.names, body_uses_scope.vars);
+        let from_glob = (body_uses_global.names, body_uses_global.vars);
+        print_str_map_keys("\nfunction decl uses:", out.use.names);
+        print_str_map_keys("input:", augmented_input.names);
+        print_str_map_keys("globals:", body_uses_global.names);
         (
           out,
-          Function_declaration((id, params, body_mapped, Some(vars), nid)),
+          Function_declaration((
+            id,
+            params,
+            body_mapped,
+            Some(from_glob),
+            Some(from_scope),
+            nid,
+          )),
         );
       | Statement(_) => super.source(self, input, x)
       },
+    /*
+     * Ensures that all the declared variables in a function body contributes
+     * to the `input` lexical scope of the next binding. This satisfies very
+     * linearly declared environments, but is not sufficient for mutually
+     * recursive bindings.
+     *
+     * To support mutually recursive bindings, we will first do a single
+     * shallow analysis of all the variable bindings and functions declared.
+     * For each one, we bump their declaration-scope counts. We need to be
+     * careful not to bump them twice though (actually that might not matter
+     * for input).
+     */
+    sources: (self, input, x) => {
+      /*
+       * This will end up appending to the scope twice once we recurse, but
+       * since everything is immutable we don't need to worry about maintaining
+       * an exact count of nested scopes per ident.
+       */
+      let top_level_idents = List.fold_left(top_level_identifiers, input, x);
+      let input_with_mutual_bindings = append(input, top_level_idents);
+      fold_sources(self, input_with_mutual_bindings, empty_output, [], x);
+    },
+    statements: (self, input, l) => {
+      let top_level_idents =
+        List.fold_left(top_level_identifiers_st_loc, input, l);
+      let input_with_mutual_bindings = append(input, top_level_idents);
+      fold_statements(self, input_with_mutual_bindings, empty_output, [], l);
+    },
     statement: (self, input, x) =>
       switch (x) {
       /*
@@ -150,31 +310,32 @@ let mapper = {
        */
       | Variable_statement(l) =>
         let augment_env = (env, (id, _eopt)) => bump_var(env, id);
-        let added_env_vars = List.fold_left(augment_env, empty, l);
-        let augmented_input = append(input, added_env_vars);
+        let added_vars = List.fold_left(augment_env, empty, l);
+        /* print_str_map_keys("added variables:", added_vars.names); */
+        let augmented_input = append(input, added_vars);
         let (super_out, res) = super.statement(self, augmented_input, x);
         let out = {
           use: super_out.use,
-          dec: append(super_out.dec, added_env_vars),
+          dec: append(super_out.dec, added_vars),
         };
         (out, res);
       | For_statement(Right(l), _e2, _e3, (_s, _loc)) =>
         let augment_env = (env, (id, _eopt)) => bump_var(env, id);
-        let added_env_vars = List.fold_left(augment_env, empty, l);
-        let augmented_input = append(input, added_env_vars);
+        let added_vars = List.fold_left(augment_env, empty, l);
+        let augmented_input = append(input, added_vars);
         let (super_out, res) = super.statement(self, augmented_input, x);
         let out = {
           use: super_out.use,
-          dec: append(super_out.dec, added_env_vars),
+          dec: append(super_out.dec, added_vars),
         };
         (out, res);
       | ForIn_statement(Right((id, _eopt)), _e2, (_s, _loc)) =>
-        let added_env_vars = use_one_var(id);
-        let augmented_input = append(input, added_env_vars);
+        let added_vars = use_one_var(id);
+        let augmented_input = append(input, added_vars);
         let (super_out, res) = super.statement(self, augmented_input, x);
         let out = {
           use: super_out.use,
-          dec: append(super_out.dec, added_env_vars),
+          dec: append(super_out.dec, added_vars),
         };
         (out, res);
       /*
@@ -187,12 +348,12 @@ let mapper = {
          */
         let ident_and_statements = ((ident, st)) => {
           let (_ident_out, ident_mapped) = self.ident(self, input, ident);
-          let added_env_vars = use_one_var(ident);
-          let augmented_input = append(input, added_env_vars);
+          let added_vars = use_one_var(ident);
+          let augmented_input = append(input, added_vars);
           let (st_out, st_mapped) =
             self.statements(self, augmented_input, st);
 
-          let st_uses = remove(st_out.use, added_env_vars);
+          let st_uses = remove(st_out.use, added_vars);
           let out = {use: st_uses, dec: st_out.dec};
           (out, (ident_mapped, st_mapped));
         };
