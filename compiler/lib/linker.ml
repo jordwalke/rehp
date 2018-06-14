@@ -261,8 +261,6 @@ class traverse_and_find_named_values all =
 
 let escape_js_regex s = Util.escape s '\\' "\\\\"
 
-let escape_js_string_for_single_quote = escape_js_regex
-
 class traverse_and_convert_to_php =
   object(self)
     inherit Rehp_traverse.map as super
@@ -274,10 +272,12 @@ class traverse_and_convert_to_php =
         ECall (EDot (EVar (S {name="RegExp"; var=None}), "jsNew"), [EStr (escape_js_regex s, `Utf8)], N)
       | EBin (Plus, e1, e2) ->
         ECall (EVar (S {name="jsPlus"; var=None}), [self#expression e1; self#expression e2], N)
+      | EBin (EqEqEq, e1, e2) ->
+        ECall (EVar (S {name="jsEqEqEq"; var=None}), [self#expression e1; self#expression e2], N)
       | EUn (Typeof, e) ->
         ECall (EVar (S {name="typeof"; var=None}), [self#expression e], N)
       | EStr (s, en) -> 
-        ECall (EDot (EVar (S {name="String"; var=None}), "jsNew"), [EStr (escape_js_string_for_single_quote s, en)], N)
+        ECall (EDot (EVar (S {name="String"; var=None}), "jsNew"), [EStr (s, en)], N)
       | ENew (e, args) -> (
         let args = match args with
         | None -> []
@@ -289,7 +289,7 @@ class traverse_and_convert_to_php =
       | Variable_statement lst ->
         let mapped_lst = List.map (fun (id, eopt) -> (
           match eopt with
-            | None -> (self#ident id, Some(Rehp.EVar (S {name="jsUndefined"; var=None}), Rehp.N))
+            | None -> (self#ident id, Some(Rehp.EVar (S {name="undefined"; var=None}), Rehp.N))
             | Some (e, loc) -> (self#ident id, Some (self#expression e, loc))
         )) lst in
         Variable_statement mapped_lst

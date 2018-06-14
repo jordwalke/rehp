@@ -67,7 +67,7 @@ let bump_var = (vars, x) =>
 
 let use_one_var = v => bump_var(empty, v);
 
-let count_merger = (_k, count1, count2) =>
+let merge_sum = (_k, count1, count2) =>
   switch (count1, count2) {
   | (None, None) => None /* Okay, what situation is this? */
   | (Some(n), None) => Some(n)
@@ -75,9 +75,28 @@ let count_merger = (_k, count1, count2) =>
   | (Some(m), Some(n)) => n + m === 0 ? None : Some(n + m)
   };
 
+/*
+ * Subtracts lexical scope from another lexical scope.
+ */
+let merge_sub = (_k, count1, count2) =>
+  switch (count1, count2) {
+  | (None, None) => None /* Okay, what situation is this? */
+  | (Some(n), None) => Some(n)
+  | (None, Some(_n)) => None /* Subtract all lexical scope */
+  | (Some(m), Some(n)) =>
+    let next_count = n - m;
+    assert(next_count >= 0);
+    next_count === 0 ? None : Some(next_count);
+  };
+
 let append = (cur, next) => {
-  vars: Code.VarMap.merge(count_merger, cur.vars, next.vars),
-  names: StringMap.merge(count_merger, cur.names, next.names),
+  vars: Code.VarMap.merge(merge_sum, cur.vars, next.vars),
+  names: StringMap.merge(merge_sum, cur.names, next.names),
+};
+
+let unappend = (cur, next) => {
+  vars: Code.VarMap.merge(merge_sub, cur.vars, next.vars),
+  names: StringMap.merge(merge_sub, cur.names, next.names),
 };
 
 let remove = (cur, remove) => {
@@ -197,18 +216,20 @@ let mapper = {
         let out = {use: use_one_var(v), dec: empty};
         (out, x);
       | EFun((ident, params, body, _, _, nid)) =>
-        let new_vars = List.fold_left(bump_var, empty, params);
+        /* New vars scoped to the body of function */
+        let new_body_vars = List.fold_left(bump_var, empty, params);
         /*
          * Specs mandate that an EFun's name (which is often omitted) may only
          * be available to the function body's scope - not containing.
          * Contrast that with Function_declaration.
+         * The scenario of named lambdas doesn't actually come up in Rehp.
          */
-        let new_vars =
-          switch (ident) {
-          | Some(i) => bump_var(new_vars, i)
-          | None => new_vars
-          };
-        let augmented_input = append(input, new_vars);
+        /* let new_body_vars = */
+        /*   switch (ident) { */
+        /*   | Some(i) => bump_var(new_body_vars, i) */
+        /*   | None => new_body_vars */
+        /*   }; */
+        let augmented_input = append(input, new_body_vars);
         let (body_out, body_mapped) =
           self.sources(self, augmented_input, body);
         /* Rehp models an IR with "function scope" for variables. */
@@ -216,15 +237,20 @@ let mapper = {
         /*
          * TODO: Don't just remove but decrement instead.
          */
-        let body_uses = remove(body_out.use, new_vars);
-        let body_uses = remove(body_uses, body_out.dec);
-        let body_uses_scope = intersect(body_uses, input);
-        let body_uses_global = remove(body_uses, input);
-        let out = {use: body_uses, dec: empty};
+        let body_uses_from_outside = remove(body_out.use, new_body_vars);
+        let body_uses_from_outside =
+          remove(body_uses_from_outside, body_out.dec);
+        let body_uses_scope = intersect(body_uses_from_outside, input);
+        let body_uses_global = remove(body_uses_from_outside, input);
+        let out = {use: body_uses_from_outside, dec: empty};
         let from_scope = (body_uses_scope.names, body_uses_scope.vars);
         let from_glob = (body_uses_global.names, body_uses_global.vars);
+        /* uses:_aZ_,_bp_,render$1 */
+        /* new_body_vars:_bq_,_br_ */
+        /* globals: */
         print_str_map_keys("\nuses:", out.use.names);
-        print_str_map_keys("input:", augmented_input.names);
+        print_str_map_keys("new_body_vars:", new_body_vars.names);
+        print_str_map_keys("uses from scope:", body_uses_scope.names);
         print_str_map_keys("globals:", body_uses_global.names);
         (
           out,
@@ -242,19 +268,24 @@ let mapper = {
     source: (self, input, x) =>
       switch (x) {
       | Rehp.Function_declaration((id, params, body, _, _, nid)) =>
-        let new_vars = List.fold_left(bump_var, empty, params);
-        let new_vars = bump_var(new_vars, id);
-        let augmented_input = append(input, new_vars);
+        /* New vars scoped to the body of function */
+        let new_body_vars = List.fold_left(bump_var, empty, params);
+        /* Still true even if this will be rewritten as Variable binding to EFun. */
+        /* Vars that augment the surrounding environment */
+        let new_outside_vars = use_one_var(id);
+        let augmented_input =
+          append(append(input, new_body_vars), new_outside_vars);
         let (body_out, body_mapped) =
           self.sources(self, augmented_input, body);
         /*
          * TODO: Don't just remove but decrement instead.
          */
-        let body_uses = remove(body_out.use, new_vars);
-        let body_uses = remove(body_uses, body_out.dec);
-        let body_uses_scope = intersect(body_uses, input);
-        let body_uses_global = remove(body_uses, input);
-        let out = {use: body_uses, dec: use_one_var(id)};
+        let body_uses_from_outside = remove(body_out.use, new_body_vars);
+        let body_uses_from_outside =
+          remove(body_uses_from_outside, body_out.dec);
+        let body_uses_scope = intersect(body_uses_from_outside, input);
+        let body_uses_global = remove(body_uses_from_outside, input);
+        let out = {use: body_uses_from_outside, dec: new_outside_vars};
         let from_scope = (body_uses_scope.names, body_uses_scope.vars);
         let from_glob = (body_uses_global.names, body_uses_global.vars);
         print_str_map_keys("\nfunction decl uses:", out.use.names);

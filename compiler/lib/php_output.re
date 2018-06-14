@@ -32,11 +32,17 @@
 /*
  TODO:
  - Single quotes don't escape dollar signs, but don't escape anything including
- \0. For single quoted strings, we need to escape all backslashes with \\.
+ \0. For single quoted strings, we need to escape all backslashes with \\. This
+ is implemented but add test cases.
+ - Fix floats and ints. Try to kep them in their proper form as much as
+ possible.
+ - Consider restoring context in try catch/finally.
  - Return EFun doesn't annotate global info or lexical info.
  - Mark Used Variables.
  - Instanceof
  - Escape dollar signs in strings (single quoted strings are closer).
+   - Update: it's easier to use double quotes, then escape dollar signs than it
+   is to use single quotes and escape..
  - Needs braces in if/else.
  - Need to handle named first class functions "J.EFun (Some f, args,)" which
    have no php equivalent. This only happens for caml_alloc_dummy_function so we
@@ -316,6 +322,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
        renaming later.
      */
   let escape_ident = s => Util.escape(s, '$', "____");
+  let escape_dollar_str = s => Util.escape(s, '$', "\\$");
 
   let jsNullName = "$null";
   let jsUndefinedName = "$undefined";
@@ -353,13 +360,13 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   /*     } */
   /*   | V(_v) => assert(false); */
 
-  let opt_identifier = (f, i) =>
-    switch (i) {
-    | None => ()
-    | Some(i) =>
-      PP.space(f);
-      ident(f, i);
-    };
+  /* let opt_identifier = (f, i) => */
+  /*   switch (i) { */
+  /*   | None => () */
+  /*   | Some(i) => */
+  /*     PP.space(f); */
+  /*     ident(f, i); */
+  /*   }; */
 
   let rec formal_parameter_list = (f, l) =>
     switch (l) {
@@ -441,6 +448,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | Ge
     | Lt
     | Le
+    /* Won't even be rendered infix. */
     | InstanceOf
     | In => (9, 9, 10)
     | Lsl
@@ -528,6 +536,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     switch (e) {
     | ESeq(e, _) => l <= 0 && need_paren(0, e)
     | ECond(e, _, _) => l <= 2 && need_paren(3, e)
+    /*
+     * Instanceof is just a function call now.
+     * TODO: Eliminate this in a prepass stage.
+     */
+    | EBin(Lsr, e, _)
+    | EBin(Asr, e, _)
+    | EBin(Lsl, e, _)
+    | EBin(InstanceOf, e, _) => l <= 15 && need_paren(15, e)
     | EBin(op, e, _) =>
       let (out, lft, _rght) = op_prec(op);
       l <= out && need_paren(lft, e);
@@ -553,7 +569,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | EObj(_) => true
     };
 
-  let best_string_quote = _ => '\'';
+  let best_string_quote = _ => '"';
 
   let array_str1 = Array.init(256, i => String.make(1, Char.chr(i)));
   let array_conv =
@@ -609,8 +625,15 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | ESeq(e1, e2) =>
       expression(l, f, ECond(EBin(Or, e1, EBool(true)), e2, e2))
     | EArityTest(e) =>
-      let ident = S({name: "rehp_arg_count", var: None});
-      let call = ECall(EVar(ident), [e], Rehp.N);
+      /*
+       * TODO: Perform this at an earlier stage so it can be ordinary lexical
+       * variable in scope.
+       * (new ReflectionFunction($f))->getNumberOfRequiredParameters() == 2
+       */
+      let class_ident = S({name: "ReflectionFunction", var: None});
+      let neww = ENew(EVar(class_ident), Some([e]));
+      let dot = EDot(neww, "getNumberOfRequiredParameters");
+      let call = ECall(dot, [], Rehp.N);
       expression(l, f, call);
     /* I'm not sure if this is necessary any more. */
     | EArrLen(e) =>
@@ -670,7 +693,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       };
     | EStr(s, kind) =>
       let quote = best_string_quote(s);
-      pp_string(f, ~utf=kind == `Utf8, ~quote, s);
+      pp_string(f, ~utf=kind == `Utf8, ~quote, escape_dollar_str(s));
     | EBool(b) => PP.string(f, if (b) {"true"} else {"false"})
     | ENum(v) =>
       let s = Rehp.string_of_number(v);
@@ -756,9 +779,12 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.end_group(f);
       };
     | EBin(InstanceOf, e1, e2) =>
-      let ident = S({name: "instance_of", var: None});
-      let call = ECall(EVar(ident), [e1, e2], Rehp.N);
-      expression(l, f, call);
+      /*
+       * TODO: Perform this transform in a prepass on all code.
+       * THIS IS COPY/PASTED FROM ECall for now. Remove InstanceOf as Php
+       * output.
+       */
+      render_global_call(f, l, "instance_of", [e1, e2])
     | EBin(In, e1, e2) =>
       let (out, lft, rght) = op_prec(InstanceOf);
       if (l > out) {
@@ -777,17 +803,9 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.end_group(f);
       };
     | EBin(Lsr, e1, e2) =>
-      let ident = S({name: "unsigned_right_shift", var: None});
-      let call = ECall(EVar(ident), [e1, e2], Rehp.N);
-      expression(l, f, call);
-    | EBin(Lsl, e1, e2) =>
-      let ident = S({name: "left_shift", var: None});
-      let call = ECall(EVar(ident), [e1, e2], Rehp.N);
-      expression(l, f, call);
-    | EBin(Asr, e1, e2) =>
-      let ident = S({name: "right_shift", var: None});
-      let call = ECall(EVar(ident), [e1, e2], Rehp.N);
-      expression(l, f, call);
+      render_global_call(f, l, "unsigned_right_shift", [e1, e2])
+    | EBin(Lsl, e1, e2) => render_global_call(f, l, "left_shift", [e1, e2])
+    | EBin(Asr, e1, e2) => render_global_call(f, l, "right_shift", [e1, e2])
     | EBin(op, e1, e2) =>
       let (out, lft, rght) = op_prec(op);
       if (l > out) {
@@ -933,6 +951,25 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.string(f, s);
       PP.string(f, ")");
     }
+  and render_global_call = (f, l, name, args) => {
+    if (l > 15) {
+      PP.start_group(f, 1);
+      PP.string(f, "(");
+    };
+    PP.start_group(f, 1);
+    PP.string(f, name);
+    PP.break(f);
+    PP.start_group(f, 1);
+    PP.string(f, "(");
+    arguments(f, args);
+    PP.string(f, ")");
+    PP.end_group(f);
+    PP.end_group(f);
+    if (l > 15) {
+      PP.string(f, ")");
+      PP.end_group(f);
+    };
+  }
   and expression_or_undefined = (l, f, e) =>
     switch (e) {
     | None => PP.string(f, jsUndefinedName)
@@ -1350,31 +1387,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       | None =>
         PP.string(f, "return");
         last_semi();
-      | Some(EFun((i, l, b, gv, _fv, pc))) =>
-        PP.start_group(f, 1);
-        PP.start_group(f, 0);
-        PP.start_group(f, 0);
-        PP.string(f, "return function");
-        opt_identifier(f, i);
-        PP.end_group(f);
-        PP.break(f);
-        PP.start_group(f, 1);
-        PP.string(f, "(");
-        formal_parameter_list(f, l);
-        PP.string(f, ")");
-        PP.end_group(f);
-        PP.end_group(f);
-        PP.break(f);
-        PP.start_group(f, 1);
-        PP.string(f, "{");
-        PP.break(f);
-        function_globals(f, gv);
-        function_body(f, b);
-        output_debug_info(f, pc);
-        PP.string(f, "}");
-        last_semi();
-        PP.end_group(f);
-        PP.end_group(f);
       | Some(e) =>
         PP.start_group(f, 7);
         PP.string(f, "return");
@@ -1508,7 +1520,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   /* Function declarations cannot nest in Php, so we need to turn nested
      function declarations into lambdas. is_export is true iff it is a top level
      declaration in the file's namespace. */
-  /* TODO: All of this should be converted in the linker.ml conversion to Php. */
+  /* TODO: All of this should be converted in a separate pass. */
   and source_element = (f, ~skip_last_semi=?, se) =>
     switch (se) {
     | (Statement(s), loc) => statement(f, ~last=?skip_last_semi, (s, loc))

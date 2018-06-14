@@ -35,6 +35,23 @@
 /*     'program_out, */
 /*   ); */
 
+/**
+ * TODO: Add test case for this scenario:
+
+   $render(
+     $containerRoot,
+     $element (
+      V(
+        0,
+        function($_bp_) use ( &$_aZ_,&$render____1 ) {
+          return function($_bq_,$_br_) {
+           return $render____1($_aZ_,$_bp_,$_bq_,$_br_);
+          };
+        }
+       )
+     )
+ */
+
 type t('i, 'o) = {
   expression: ('self, 'i, Rehp.expression) => ('o, Rehp.expression),
   switch_case: ('self, 'i, Rehp.expression) => ('o, Rehp.expression),

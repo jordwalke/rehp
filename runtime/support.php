@@ -73,6 +73,7 @@ global $null;
 global $undefined;
 
 # Length of function args. Can't be a lambda, or it won't work!
+# return (new ReflectionFunction($f))->getNumberOfRequiredParameters() == 2 
 $rehp_arg_count = function($f) {
   return (new ReflectionFunction($f))->getNumberOfRequiredParameters();
 };
@@ -93,16 +94,23 @@ $JSFunction = function($the_fun) {
   return new JSFunction($the_fun);
 };
 
-# TODO: Walk to detect multiple levels of inheriting.
-$instance_of = function ($obj, $constructor) {
+# TODO: Walk to detect multiple levels of inheriting. Standard library didn't
+# require multiple prototype levels.
+function instance_of($obj, $constructor) {
   return $obj->constructor === $constructor;
+}
+
+$instance_of = function ($obj, $constructor) {
+  return instance_of($obj, $constructor);
 };
 
 # Still requires that consumers be transformed into the form:
 # typeof ident => isset(ident) ? typeof(ident) : 'undefined'
 # typeof notIdent => typeof(ident)
 # isset(expr) ? 
-$typeof = function($thing) use(&$instance_of, &$String) {
+# Even without that fix, the standard library will be ported over correctly.
+function typeof($thing) {
+  global $String;
   global $null;
   if ($thing === null) {
     return 'undefined';
@@ -113,7 +121,7 @@ $typeof = function($thing) use(&$instance_of, &$String) {
   if (is_callable($thing)) {
     return 'function';
   }
-  if ($instance_of($thing, $String)) {
+  if (instance_of($thing, $String)) {
     return "string";
   }
   $gotten_type = gettype($thing);
@@ -123,11 +131,17 @@ $typeof = function($thing) use(&$instance_of, &$String) {
   return $gotten_type;
 };
 
+# Version callable from ported standard library.
+# Wraps result in $String.
+$typeof = function($thing) use(&$String) {
+  return $String->jsNew(typeof($thing));
+};
+
 
 # >>> Unsigned shift right:
 # https://stackoverflow.com/a/43359819
 # Then the >> operator could be derived from this by preserving the sign.
-$unsigned_right_shift = function($a, $b) {
+function unsigned_right_shift($a, $b) {
   if ($b >= 32 || $b < -32) {
     $m = (int)($b/32);
     $b = $b-($m*32);
@@ -147,7 +161,7 @@ $unsigned_right_shift = function($a, $b) {
     $a = ($a >> $b); 
   } 
   return $a; 
-};
+}
 
 # Bit shifters: To emulate 32 bits on 64 bit platforms, we shift off any
 # leading 32 bits.
@@ -156,7 +170,7 @@ $unsigned_right_shift = function($a, $b) {
 
 # https://stackoverflow.com/a/25587827
 # https://stackoverflow.com/questions/6303241/find-windows-32-or-64-bit-using-php
-$left_shift = function($a, $b) {
+function left_shift($a, $b) {
   $shifted = $a << $b; 
   if (PHP_INT_SIZE === 8) {
     # 64 bit.
@@ -165,9 +179,9 @@ $left_shift = function($a, $b) {
     # Size four means 32bit
     return $shifted;
   }
-};
+}
 
-$right_shift = function($a, $b) {
+function right_shift($a, $b) {
   if (PHP_INT_SIZE === 8) {
     # 64 bit.
     $a_normalized = ($a << 32) >> 32; 
@@ -176,16 +190,18 @@ $right_shift = function($a, $b) {
     $a_normalized = $a;
   }
   return $a_normalized >> $b; 
-};
+}
 
 // Struct class (records)
 class R implements ArrayAccess {
-  private $fields = array();
+  public $fields = array();
+  public $length = 0;
   function __construct() { 
     $count = func_num_args();
     for($i=0; $i < $count; $i++) {
       $this->fields[$i] = func_get_arg($i);
     }
+    $this->length = $count;
   } 
   public function offsetSet($offset, $value) {
     $this->fields[$offset] = $value;
@@ -203,16 +219,19 @@ class R implements ArrayAccess {
   }
 }
 function R() {
-  return new R(func_get_args());
+  return new R(...func_get_args());
 }
-// "Tagged" variants class
+// "Tagged" variants class. Fixed size
 class V implements ArrayAccess {
-  private $fields = array();
+  public $fields = NULL;
+  public $length = 0;
   function __construct() { 
+    $this->fields = array();
     $count = func_num_args();
     for($i=0; $i < $count; $i++) {
       $this->fields[$i] = func_get_arg($i);
     }
+    $this->length = $count;
   } 
   public function offsetSet($offset, $value) {
     $this->fields[$offset] = $value;
@@ -231,7 +250,7 @@ class V implements ArrayAccess {
 }
 
 function V() {
-  return new V(func_get_args());
+  return new V(...func_get_args());
 }
 
 # Models the layout of Caml exceptions.
@@ -363,7 +382,7 @@ class JSInstance implements ArrayAccess {
       # conveniently $undefined.
       return $ret;
     } else {
-      throw new ErrorException("Undefined is not a function!");
+      throw new ErrorException("Undefined is not a function! " . " No Method " . $name);
     }
   }
   # Implements the for in loop.
@@ -622,6 +641,24 @@ class JSFunction implements ArrayAccess {
   public function offsetGet($offset) {
     return $this->$offset;
   }
+
+  # In case methods are attached to constructors like
+  # $String->fromCharCode = ..
+  function __call($name, $args) {
+    global $jsContext;
+    $gotten = $this->$name;
+    if (is_callable($gotten)) {
+      $prev_global_context=$jsContext;
+      $jsContext=$this;
+      $ret = $gotten->apply($jsContext, $args);
+      $jsContext=$prev_global_context;
+      # And if functions don't return anything, that is NULL by default, which is
+      # conveniently $undefined.
+      return $ret;
+    } else {
+      throw new ErrorException("Undefined is not a function! " . " No Method " . $name);
+    }
+  }
 }
 
 # In JS, Object is a function constructor for objects.
@@ -653,17 +690,17 @@ $Object = $GLOBALS['Object'];
   //   }
   // }
 
-$expect = function($x, $toEqual) use(&$eqeqeq, &$String, &$instance_of) {
-  if (!$eqeqeq($x, $toEqual)) {
+$expect = function($x, $toEqual) use(&$jsEqEqEq, &$String) {
+  if (!$jsEqEqEq($x, $toEqual)) {
     print("Expected:");
-    if($instance_of($x, $String)) {
+    if(instance_of($x, $String)) {
       var_dump("StringInstance");
       var_dump($x->__php_str);
     } else {
       var_dump($x);
     }
     print("To equal:");
-    if($instance_of($toEqual, $String)) {
+    if(instance_of($toEqual, $String)) {
       var_dump("StringInstance");
       var_dump($toEqual->__php_str);
     } else {
@@ -673,7 +710,7 @@ $expect = function($x, $toEqual) use(&$eqeqeq, &$String, &$instance_of) {
   }
 };
 # TODO: This needs fixing
-$max_int=$unsigned_right_shift(-1,1) | 0;
+$max_int=unsigned_right_shift(-1,1) | 0;
 $min_int=$max_int + 1 | 0;
 
 $caml_global_data=$Object->jsNew();
@@ -682,18 +719,18 @@ $joo_global_object = isset($jsoo_global_object) ? $jsoo_global_object : $Object-
 
 
 # The worst initialization API in history: JS Arrays.
-$Array = $JSFunction(function() use(&$typeof, &$Array, &$instance_of) {
+$Array = $JSFunction(function() use(&$Array) {
   global $jsContext;
   global $undefined;
   $arg_count = func_num_args();
   # TODO: Check length not neg.
 
-  if($arg_count === 1 && $typeof(func_get_arg(0)) === "number") {
+  if($arg_count === 1 && typeof(func_get_arg(0)) === "number") {
     for($i = 0; $i < func_get_arg(0); $i++) {
       $jsContext[$i] = $undefined;
     }
     $jsContext->length = func_get_arg(0);
-  } else if ($arg_count === 1 && $instance_of(func_get_arg(0), $Array)) {
+  } else if ($arg_count === 1 && instance_of(func_get_arg(0), $Array)) {
     $literal = func_get_arg(0);
     for($i = 0; $i < $literal->length; $i++) {
       $jsContext[$i] = $literal[$i];
@@ -734,19 +771,31 @@ $ArrayLiteral = function() use($Array) {
 $String = $JSFunction(function($literal) {
   global $jsContext;
   $jsContext->__php_str = $literal;
+  $jsContext->length = strlen($literal);
 });
 $String->displayName="String";
 $String->fromCharCode = $JSFunction(function($code) use(&$String) {
   return $String->jsNew(chr($code));
 });
-$String->prototype->length = $JSFunction(function() {
-  strlen($jsContext->__php_str);
+# Adapted from sstur's js2php: BSD.
+$String->prototype->charCodeAt = $JSFunction(function($i) use(&$String) {
+  global $jsContext;
+  $ch = mb_substr($jsContext->__php_str, $i, 1);
+  if ($ch === false) return NAN;
+  $len = strlen($ch);
+  if ($len === 1) {
+    $code = ord($ch[0]);
+  } else {
+    $ch = mb_convert_encoding($ch, 'UCS-2LE', 'UTF-8');
+    $code = ord($ch[1]) * 256 + ord($ch[0]);
+  }
+  return (float)$code;
 });
 $String->prototype->concat = $JSFunction(function($other) use (&$String, &$jsContext) {
   return $String->jsNew($jsContext->__php_str . $other->__php_str);
 });
 $String->prototype->lastIndexOf = $JSFunction(function($find, $offset) use (&$jsContext, &$String) {
-  $str = $jsContext->value;
+  $str = $jsContext->__php_str;
   global $undefined;
   if ($offset !== $undefind) {
     $offset = to_number($offset);
@@ -757,8 +806,11 @@ $String->prototype->lastIndexOf = $JSFunction(function($find, $offset) use (&$js
   $index = mb_strrpos($str, $search);
   return ($index === false) ? -1.0 : (float)$index;
 });
+
 # Adapted from sstur's js2php: BSD.
-$String->prototype->slice = $JSFunction(function($start, $end = null) use (&$String, &$jsContext) {
+$String->prototype->slice = $JSFunction(function($start) use (&$String, &$jsContext) {
+  global $undefined;
+  $end = func_num_args() > 1 ? func_get_arg(1) : $undefined;
   $self = $jsContext;
   $len = $self->length;
   if ($len === 0) {
@@ -772,7 +824,7 @@ $String->prototype->slice = $JSFunction(function($start, $end = null) use (&$Str
   if ($start >= $len) {
     return '';
   }
-  $end = ($end === null) ? $len : (int)$end;
+  $end = ($end === $undefined) ? $len : (int)$end;
   if ($end < 0) {
     $end = $len + $end;
   }
@@ -784,15 +836,63 @@ $String->prototype->slice = $JSFunction(function($start, $end = null) use (&$Str
   }
   return mb_substr($self->__php_str, $start, $end - $start);
 });
+
+# From: https://github.com/sstur/js2php/blob/master/php/classes/String.php
+$String->prototype->substr = $JSFunction(function($start) {
+  global $jsContext;
+  global $undefined;
+  $num = func_num_args() > 1 ? func_get_arg(1) : $undefined;
+  $len = $jsContext->length;
+  if ($len === 0) {
+    return '';
+  }
+  $start = (int)$start;
+  if ($start < 0) {
+    $start = $len + $start;
+    if ($start < 0) $start = 0;
+  }
+  if ($start >= $len) {
+    return '';
+  }
+  if ($num === $undefined) {
+    return mb_substr($jsContext->__php_str, $start);
+  } else {
+    return mb_substr($jsContext->__php_str, $start, $num);
+  }
+});
+# From: https://github.com/sstur/js2php/blob/master/php/classes/String.php
+$String->prototype->substring = $JSFunction(function($start) {
+  global $undefined;
+  $end = func_num_args() > 1 ? func_get_arg(1) : $undefined;
+  $len = $jsContext->length;
+  //if second param is absent
+  if (func_num_args() === 1) {
+    $end = $len;
+  }
+  $start = (int)$start;
+  $end = (int)$end;
+  if ($start < 0) $start = 0;
+  if ($start > $len) $start = $len;
+  if ($end < 0) $end = 0;
+  if ($end > $len) $end = $len;
+  if ($start === $end) {
+    return '';
+  }
+  if ($end < $start) {
+    list($start, $end) = array($end, $start);
+  }
+  return mb_substr($jsContext->__php_str, $start, $end - $start);
+});
+
 $String->prototype->toString = $JSFunction(function() {
   global $jsContext;
   return $jsContext;
 });
 # From: https://github.com/sstur/js2php/blob/master/php/classes/String.php
-$String->prototype->match = $JSFunction(function($regex) use (&$RegExp, &$instance_of) {
+$String->prototype->match = $JSFunction(function($regex) use (&$RegExp) {
   global $jsContext;
   $str = $jsContext;
-  if (!($instance_of($regex, $RegExp))) {
+  if (!(instance_of($regex, $RegExp))) {
     $regex = $RegExp->jsNew($regex);
   }
   if (!$regex->globalFlag) {
@@ -967,16 +1067,16 @@ $RegExp->toReplacementString=function ($str) {
 };
 
 
-$jsPlus = function($l, $r) use(&$typeof, &$to_string) {
-  if ($typeof($l) === "string") {
-    if ($typeof($r) === "string") {
+$jsPlus = function($l, $r) use(&$to_string) {
+  if (typeof($l) === "string") {
+    if (typeof($r) === "string") {
       return $l->concat($r);
     } else {
       return $l->concat($to_string($r));
     }
   } else {
     $l = $to_string($l);
-    if ($typeof($r) === "string") {
+    if (typeof($r) === "string") {
       // throw new ErrorException("Left is " . $to_string($l) . " right is " . $r);
       return $to_string($l)->concat($r);
     } else {
@@ -1005,6 +1105,9 @@ function to_number($value) {
   }
   if (is_bool($value)) {
     return ($value ? 1.0 : 0.0);
+  }
+  if(is_callable($value)) {
+    throw new ErrorException("Error: Trying to convert function to string.");
   }
   // Not supported now
   // if ($value instanceof JSInstance) {
@@ -1048,26 +1151,26 @@ $MathConstructor = $JSFunction(function() {
   $jsContext->SQRT1_2 = M_SQRT1_2;
   $jsContext->SQRT2 = M_SQRT2;
 });
-$MathConstructor->prototype->random = function() use (&$randMax) {
+$MathConstructor->prototype->random = $JSFunction(function() use (&$randMax) {
   return (float)(mt_rand() / ($randMax + 1));
-};
-$MathConstructor->prototype->round = function($num) {
+});
+$MathConstructor->prototype->round = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)round($num);
-};
-$MathConstructor->prototype->ceil = function($num) {
+});
+$MathConstructor->prototype->ceil = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)ceil($num);
-};
-$MathConstructor->prototype->floor = function($num) {
+});
+$MathConstructor->prototype->floor = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)floor($num);
-};
-$MathConstructor->prototype->abs = function($num) {
+});
+$MathConstructor->prototype->abs = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)abs($num);
-};
-$MathConstructor->prototype->max = function() {
+});
+$MathConstructor->prototype->max = $JSFunction(function() {
   $max = -INF;
   foreach (func_get_args() as $num) {
     $num = to_number($num);
@@ -1075,8 +1178,8 @@ $MathConstructor->prototype->max = function() {
     if ($num > $max) $max = $num;
   }
   return (float)$max;
-};
-$MathConstructor->prototype->min = function() {
+});
+$MathConstructor->prototype->min = $JSFunction(function() {
   $min = INF;
   foreach (func_get_args() as $num) {
     $num = to_number($num);
@@ -1084,51 +1187,52 @@ $MathConstructor->prototype->min = function() {
     if ($num < $min) $min = $num;
   }
   return (float)$min;
-};
-$MathConstructor->prototype->pow = function($num, $exp) {
+});
+$MathConstructor->prototype->pow = $JSFunction(function($num, $exp) {
   $num = to_number($num);
   $exp = to_number($exp);
   if (is_nan($num) || is_nan($exp)) {
     return NAN;
   }
   return (float)pow($num, $exp);
-};
-$MathConstructor->prototype->log = function($num) {
+});
+$MathConstructor->prototype->log = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)log($num);
-};
-$MathConstructor->prototype->exp = function($num) {
+});
+$MathConstructor->prototype->exp = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)exp($num);
-};
-$MathConstructor->prototype->sqrt = function($num) {
+});
+$MathConstructor->prototype->sqrt = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)sqrt($num);
-};
-$MathConstructor->prototype->sin = function($num) {
+});
+$MathConstructor->prototype->sin = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)sin($num);
-};
-$MathConstructor->prototype->cos = function($num) {
+});
+$MathConstructor->prototype->cos = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)cos($num);
-};
-$MathConstructor->prototype->tan = function($num) {
+});
+$MathConstructor->prototype->tan = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)tan($num);
-};
-$MathConstructor->prototype->atan = function($num) {
+});
+$MathConstructor->prototype->atan = $JSFunction(function($num) {
   $num = to_number($num);
   return is_nan($num) ? NAN : (float)atan($num);
-};
-$MathConstructor->prototype->atan2 = function($y, $x) {
+});
+$MathConstructor->prototype->atan2 = $JSFunction(function($y, $x) {
   $y = to_number($y);
   $x = to_number($x);
   if (is_nan($y) || is_nan($x)) {
     return NAN;
   }
   return (float)atan2($y, $x);
-};
+});
+
 
 $Math=$MathConstructor->jsNew();
 
@@ -1169,7 +1273,7 @@ $caml_fresh_oo_id=function($caml_oo_last_id) {
 };
 $caml_method_cache=$ArrayLiteral();
 # Not needed for most basic programs.
-$caml_get_public_method=function($obj, $tag, $cacheid) use ($caml_method_cache, $right_shift) {
+$caml_get_public_method=function($obj, $tag, $cacheid) use ($caml_method_cache) {
   global $null;
   $meths=$obj[1];
   $ofs=$caml_method_cache[$cacheid];
@@ -1185,7 +1289,7 @@ $caml_get_public_method=function($obj, $tag, $cacheid) use ($caml_method_cache, 
   $hi=($meths[1] * 2 + 1);
   $mi;
   while($li < $hi) {
-    $mi = $right_shift($li + $hi, 1) | 1;
+    $mi = right_shift($li + $hi, 1) | 1;
     if($tag < $meths[$mi + 1]) {
       $hi = $mi - 2;
     } else{
@@ -1218,8 +1322,8 @@ $caml_bytes_unsafe_get = function($s, $i) {
 # $_d_=[255,16777215,16777215,32751];
 # $_e_=[255,0,0,16];
 # $_f_=[255,0,0,15536];
-$caml_int64_float_of_bits=function($x) use($right_shift, $Math) {
-  $exp = $right_shift($x[3] & 0x7fff, 4);
+$caml_int64_float_of_bits=function($x) use($Math) {
+  $exp = right_shift($x[3] & 0x7fff, 4);
   if ($exp == 2047) {
     if (($x[1]|$x[2]|($x[3]&0xf)) == 0)
       return ($x[3] & 0x8000)?(-INF):INF;
@@ -1240,16 +1344,22 @@ $caml_int64_float_of_bits=function($x) use($right_shift, $Math) {
   return $res;
 };
 
-$polymorphic_log= function($itm) {
-  print("LOG:");
-  var_dump(itm);
+$polymorphic_log= function($itm) use($String) {
+  if (instance_of($itm->c, $String)) {
+    print("LOG:" . $itm->c->__php_str);
+  } else {
+    print("LOG Non String:");
+    var_dump($itm->c->constructor == $String);
+    // var_dump($itm);
+  }
 };
 
-$eqeqeq=function($a, $b) use(&$instance_of, &$String) {
+# Restore some of the properties of === when strings are wrapped etc.
+$jsEqEqEq=function($a, $b) use(&$String) {
   if($a===$b) {
     return true;
   }
-  if ($instance_of($a, $String) && $instance_of($b, $String)) {
+  if (instance_of($a, $String) && instance_of($b, $String)) {
     return $b->__php_str === $a->__php_str;
   }
   return false;
@@ -1458,23 +1568,34 @@ $joo_global_object->caml_ml_open_descriptor_out=$caml_ml_open_descriptor_out;
 # Php equality table: https://ruempler.eu/2015/01/03/the-php-equality-table/
 # JS equality table: https://dorey.github.io/JavaScript-Equality-Table/
 
-$expect($typeof($identifierThatDoesntExist), "undefined"); # Php null is our representation of undefined.
-$expect($typeof(null), "undefined"); # Php null is our representation of undefined.
-$expect($typeof($null), "object");
-$expect($typeof($undefined), "undefined");
+$expect($typeof($identifierThatDoesntExist), $String->jsNew("undefined")); # Php null is our representation of undefined.
+$expect(typeof($identifierThatDoesntExist), "undefined"); # Php null is our representation of undefined.
+$expect($typeof(null), $String->jsNew("undefined")); # Php null is our representation of undefined.
+$expect(typeof(null), "undefined"); # Php null is our representation of undefined.
+$expect($typeof($null), $String->jsNew("object"));
+$expect(typeof($null), "object");
+$expect($typeof($undefined), $String->jsNew("undefined"));
+$expect(typeof($undefined), "undefined");
 $expect($undefined === $null, false);
 $expect($undefined == $null, true);
-$expect($typeof('asdf'), "string");
-$expect($typeof("asdf"), "string");
-$expect($typeof(function() {}), "function");
-$expect($typeof(234.0), "number");
-$expect($typeof(2), "number");
-$expect($typeof($asdf->foo), "undefined");
+$expect($typeof('asdf'), $String->jsNew("string"));
+$expect(typeof('asdf'), "string");
+$expect($typeof("asdf"), $String->jsNew("string"));
+$expect(typeof("asdf"), "string");
+$expect($typeof(function() {}), $String->jsNew("function"));
+$expect(typeof(function() {}), "function");
+$expect($typeof(234.0), $String->jsNew("number"));
+$expect(typeof(234.0), "number");
+$expect($typeof(2), $String->jsNew("number"));
+$expect(typeof(2), "number");
+$expect($typeof($asdf->foo), $String->jsNew("undefined"));
+$expect(typeof($asdf->foo), "undefined");
 $expect($asdf->foo, $undefined);
-$expect($typeof(true), "boolean");
+$expect($typeof(true), $String->jsNew("boolean"));
+$expect(typeof(true), "boolean");
 
 // var_dump(shift_left_32(0, 1));
-$expect($right_shift(234321341324, 5), -59433124);
+$expect(right_shift(234321341324, 5), -59433124);
 
 
 # This:
@@ -1558,9 +1679,19 @@ $expect(implode(',', $arr->__all_own_enumerable_keys()), '0,1,2,4,addThisPropert
 //   $expect($camlException[2], 'msg');
 // }
 $one=$String->jsNew('testMe');
-$expect($instance_of($one, $String), true);
+$expect(instance_of($one, $String), true);
 $two=$String->jsNew('testMe');
 $expect($one,$two);
+
+$expect("abc" === "abc", true);
+$abc = $String->jsNew('abc');
+$abc2 = $String->jsNew('abc');
+$expect($abc, $abc2);
+$expect($jsEqEqEq($abc, $abc2), true);
+$expect($abc === $abc2, false);
+$expect("abc" === "abc", true); // Probably shouldn't rely on this.
+
+$expect($jsEqEqEq($abc, "abc"), false); // One is wrapped
 
 $str = $String->jsNew('xabcdef');
 $reg = $RegExp->jsNew('a(b|c)', 'i');
@@ -1584,4 +1715,22 @@ $test_dir=$String->jsNew('/static/');
 $expect($test_dir->match($RegExp->jsNew('[^\\/]*\\/'))[0], $String->jsNew('/'));
 
 $one_escaped=$String->jsNew('\0');
+
+$expect($rehp_arg_count(function() { }), 0);
+$outside = function($a, $b) {
+};
+$run = function() use(&$outside, &$rehp_arg_count, &$expect) {
+  $expect($rehp_arg_count($outside), 2);
+};
+$run();
+
+$variant = V(0, "hello", "there");
+$expect($variant[0], 0);
+$expect(count($variant->fields), 3);
+$expect($variant->length, 3);
+$record = R(0, "hello", "there");
+$expect($record[0], 0);
+$expect($record->length, 3);
+
+// $expect($Math->min(-1, 0, 300), -1);
 
