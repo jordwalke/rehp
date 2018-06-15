@@ -1732,5 +1732,7 @@ $record = R(0, "hello", "there");
 $expect($record[0], 0);
 $expect($record->length, 3);
 
+$noArgs = $JSFunction(function(){});
+
 // $expect($Math->min(-1, 0, 300), -1);
 

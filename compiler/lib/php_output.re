@@ -31,6 +31,8 @@
 
 /*
  TODO:
+ - Grabbing methods and then calling them likely doesn't work
+ $f=$String->fromCharCode; (Only matters for stdlib).
  - Single quotes don't escape dollar signs, but don't escape anything including
  \0. For single quoted strings, we need to escape all backslashes with \\. This
  is implemented but add test cases.
