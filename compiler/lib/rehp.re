@@ -35,6 +35,11 @@ open Rehp_shared;
 
 type array_litteral = element_list
 and element_list = list(option(expression))
+
+/*
+ * Many of these still need to be split up into their stubs forms and their
+ * Rehp forms.
+ */
 and binop =
   | Eq
   | StarEq
@@ -61,8 +66,8 @@ and binop =
   | Le
   | Gt
   | Ge
-  | InstanceOf
-  | In
+  | InstanceOf /* Only for stubs */
+  | In         /* Only for stubs */
   | Lsl
   | Lsr
   | Asr
@@ -73,13 +78,15 @@ and binop =
   | Mul
   | Div
   | Mod
+
+/* TODO: Add IsInt */
 and unop =
   | Not
   | Neg
   | Pl
-  | Typeof
-  | Void
-  | Delete
+  | Typeof /* Only for stubs */
+  | Void /* Only for stubs */
+  | Delete /* Only for stubs */
   | Bnot
   | IncrA
   | DecrA

@@ -53,19 +53,37 @@ function raw_array_append_one(a,x) {
   return b
 }
 
+//Provides: arity_test (const)
+function arity_test(f) {
+  return f.length;
+}
+
+//Provides: is_dummy_func (const)
+function is_dummy_func(f) {
+  return f.fun;
+}
+
+//Provides: apply_args
+function apply_args(f, args) {
+  return f.apply(null, args);
+}
+
 //Provides: caml_call_gen (const, shallow)
 //Requires: raw_array_sub
 //Requires: raw_array_append_one
+//Requires: arity_test
+//Requires: is_dummy_func
+//Requires: apply_args
 function caml_call_gen(f, args) {
-  if(f.fun)
+  if(is_dummy_func(f))
     return caml_call_gen(f.fun, args);
-  var n = f.length;
+  var n = arity_test(f);
   var argsLen = args.length;
   var d = n - argsLen;
   if (d == 0)
-    return f.apply(null, args);
+    return apply_args(f, args);
   else if (d < 0)
-    return caml_call_gen(f.apply(null,
+    return caml_call_gen(apply_args(f,
                                  raw_array_sub(args,0,n)),
                          raw_array_sub(args,n,argsLen - n));
   else
@@ -178,6 +196,16 @@ function caml_exn_with_js_backtrace(exn, force) {
 function caml_js_error_of_exception(exn) {
   if(exn.js_error) { return exn.js_error; }
   return null;
+}
+
+//Provides: caml_alloc_dummy_function (const, const)
+function caml_alloc_dummy_function (size, arity) {
+  // TODO: Support arguments identifier.
+  function f() {
+    return f.fun.apply(this, arguments);
+  };
+  f.length = arity;
+  return f;
 }
 
 //Provides: caml_invalid_argument (const)

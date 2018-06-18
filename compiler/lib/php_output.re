@@ -31,6 +31,29 @@
 
 /*
  TODO:
+ - Create test case for the following:
+
+    let rec f = (x, y) => 1
+    and z = Some((f, "Second Part Of Tuple:"));
+
+    switch (z) {
+    | None => ()
+    | Some((f, str)) => ReactPrint.printSection(str ++ string_of_int(f(0, 0)))
+    };
+
+  Which generates the following: A closure function which also has an
+  identifier and uses that identifier. Both the `f` and the `_eJ_` are in
+  scope inside of the closure, but only f is in scope outside the closure.
+  
+     let f = function _eJ_(_eH_,_eI_) {
+       return  _eJ_.fun(_eH_,_eI_)
+     };
+     let k=[];
+     let  _c$_=1;
+     caml_update_dummy(f, function(x,y) {return 1});
+     caml_update_dummy(z,[0,[0,f,_da_]]);
+ 
+ - TODO: Add IsInt.
  - Grabbing methods and then calling them likely doesn't work
  $f=$String->fromCharCode; (Only matters for stdlib).
  - Single quotes don't escape dollar signs, but don't escape anything including
@@ -323,6 +346,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
        That's pretty unlikely and good enough for now. We can do a more thorough
        renaming later.
      */
+
   let escape_ident = s => Util.escape(s, '$', "____");
   let escape_dollar_str = s => Util.escape(s, '$', "\\$");
 
@@ -629,14 +653,20 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | EArityTest(e) =>
       /*
        * TODO: Perform this at an earlier stage so it can be ordinary lexical
-       * variable in scope.
+       * variable in scope. Will hack this together with string printing for
+       * now.
        * (new ReflectionFunction($f))->getNumberOfRequiredParameters() == 2
        */
-      let class_ident = S({name: "ReflectionFunction", var: None});
-      let neww = ENew(EVar(class_ident), Some([e]));
-      let dot = EDot(neww, "getNumberOfRequiredParameters");
-      let call = ECall(dot, [], Rehp.N);
-      expression(l, f, call);
+      PP.start_group(f, 1);
+      PP.string(f, "(");
+      expression(l, f, e);
+      PP.string(f, " instanceof JSFunction ? ");
+      expression(l, f, e);
+      PP.string(f, "->length : (new ReflectionFunction(");
+      expression(l, f, e);
+      PP.string(f, "))->getNumberOfRequiredParameters())");
+      PP.break(f);
+      PP.end_group(f);
     /* I'm not sure if this is necessary any more. */
     | EArrLen(e) =>
       let len_check = EDot(e, "length");

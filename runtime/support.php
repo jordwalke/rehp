@@ -72,10 +72,22 @@ global $jsContext;
 global $null;
 global $undefined;
 
+# Reflection vs. wrapping of functions:
+# Wrapping of functions in class.
+# echo '<?php class F1 {public function __construct($f, $len){$this->f =$f; $this->len=$len;} } $start = microtime(true); $s = array(); class MyArrayObject{ public $name, $age; public function __construct( $name, $age ) { $this->name = new F1(function($a, $b){}, 2); $this->age = $this->name->len; } }; for($x=0;$x<100000;$x++){ $o = new MyArrayObject("Adam", rand()); $s[] = $o; }; $time_elapsed_secs = (microtime(true) - $start) * 1000; echo "time:"; print($time_elapsed_secs); echo ""; echo " peakMem:"; echo memory_get_peak_usage();' | php
+# Using reflection (surprisingly much faster).
+# echo '<?php $start = microtime(true); $s = array(); class MyArrayObject{ public $name, $age; public function __construct( $name, $age ) { $this->name = function($a, $b){}; $this->age = (new ReflectionFunction($this->name))->getNumberOfRequiredParameters(); } }; for($x=0;$x<100000;$x++){ $o = new MyArrayObject("Adam", rand()); $s[] = $o; }; $time_elapsed_secs = (microtime(true) - $start) * 1000; echo "time:"; print($time_elapsed_secs); echo ""; echo " peakMem:"; echo memory_get_peak_usage();' | php
+# In hhvm they're roughly equivalent
+
 # Length of function args. Can't be a lambda, or it won't work!
 # return (new ReflectionFunction($f))->getNumberOfRequiredParameters() == 2 
 $rehp_arg_count = function($f) {
   return (new ReflectionFunction($f))->getNumberOfRequiredParameters();
+};
+$rehp_apply_args = function($f, $args) {
+  return $args instanceof JSArrayLikeInstance ?
+    call_user_func_array($f, $args->__toPhpArray()) :
+    call_user_func_array($f, $args);
 };
 $GLOBALS['rehp_arg_count'] = $rehp_arg_count; # Just so class defs can access it.
 # JS null:
@@ -97,7 +109,8 @@ $JSFunction = function($the_fun) {
 # TODO: Walk to detect multiple levels of inheriting. Standard library didn't
 # require multiple prototype levels.
 function instance_of($obj, $constructor) {
-  return $obj->constructor === $constructor;
+  return is_object($obj) && ($obj instanceof Closure) ? false :
+    $obj->constructor === $constructor;
 }
 
 $instance_of = function ($obj, $constructor) {
@@ -468,7 +481,7 @@ class JSInstance implements ArrayAccess {
   }
 }
 
-class JSArrayLikeInstance extends JSInstance implements ArrayAccess {
+class JSArrayLikeInstance extends JSInstance implements ArrayAccess, Countable {
   function __construct($jsFunction, $args) { 
     parent::__construct($jsFunction, $args);
   }
@@ -484,6 +497,19 @@ class JSArrayLikeInstance extends JSInstance implements ArrayAccess {
     }
     return $ret;
   }
+  public function count () {
+    return $this->length;
+  }
+
+  public function __toPhpArray() {
+    # Make it a normal array for purposes of calling call_user_func_array
+    $array_of_args = [];
+    for($i=0; $i < $this->length; $i++) {
+      array_push($array_of_args, $this[$i]);
+    }
+    return $array_of_args;
+  }
+  
   public function __all_own_enumerable_keys() {
     $includingNonEnum = parent::__all_own_keys();
     $count = count($includingNonEnum);
@@ -528,6 +554,8 @@ class HasNoKeys {
 
 
 # Only functions that might be used as classes need to use this.
+# This also serves as the "dummy function" since it can be mutated.
+# That's kind of a misuse. Refactor later.
 class JSFunction implements ArrayAccess {
   public $__properties__ = NULL;
   # This function's very own prototype captured reference. Probably not the one
@@ -573,10 +601,16 @@ class JSFunction implements ArrayAccess {
   }
 
   # Implements JavaScript f.apply()
-  public function apply($context, $array_of_args) {
+  public function apply($context, $orig_array_of_args) {
     global $jsContext;
     global $undefined;
-    $origCount = count($array_of_args);
+    $origCount = count($orig_array_of_args);
+    if ($orig_array_of_args instanceof JSArrayLikeInstance) {
+      # Make it a normal array for purposes of calling call_user_func_array
+      $array_of_args = $orig_array_of_args->__toPhpArray();
+    } else {
+      $array_of_args = $orig_array_of_args;
+    }
     for($i=$origCount; $i < $this->length; $i++) {
       array_push($array_of_args, $undefined);
     }
@@ -1731,6 +1765,15 @@ $expect($variant->length, 3);
 $record = R(0, "hello", "there");
 $expect($record[0], 0);
 $expect($record->length, 3);
+
+$expect($rehp_apply_args($JSFunction(function($a, $b){return $a+$b;}), [9, 4]), 13);
+
+echo count($ArrayLiteral(9, 4));
+
+$expect($rehp_apply_args($JSFunction(function($a, $b){return $a+$b;}), $ArrayLiteral(9, 4)), 13);
+
+
+
 
 $noArgs = $JSFunction(function(){});
 

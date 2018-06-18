@@ -1133,26 +1133,6 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
         in
         let (prop, fields, queue) = build_fields queue fields in
         (J.EObj fields, prop, queue)
-      | Extern "caml_alloc_dummy_function", [_ ; size] ->
-        let i,queue =
-          let ((_px, cx), queue) = access_queue' ~ctx queue size in
-          match cx with
-          | J.ENum i -> Int32.of_float i, queue
-          | _ -> assert false
-        in
-        let args = Array.to_list (
-          Array.init (Int32.to_int i)
-            (fun _ -> J.V (Var.fresh ()))) in
-        let f = J.V (Var.fresh ()) in
-        let call = J.ECall (J.EDot (J.EVar f , "fun"),
-                            List.map (fun v -> J.EVar v) args, loc) in
-        let e = J.EFun (Some f, args,
-                        [J.Statement (
-                           J.Return_statement (
-                             Some call)), J.N ], None, None, J.N) in
-        e, const_p, queue
-      | Extern "caml_alloc_dummy_function", _ ->
-        assert false
       | Extern name, l ->
         begin
           let name = Primitive.resolve name in

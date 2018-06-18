@@ -265,6 +265,13 @@ class traverse_and_convert_to_php =
   object(self)
     inherit Rehp_traverse.map as super
     method expression x = match x with
+      (* Would be made obsolete by swappable stubs *)
+      | ECall (EVar (S {name="arity_test"; var=None}), [e], _) -> EArityTest(e)
+      | ECall (EVar (S {name="is_dummy_func"; var=None}), [e], _) ->
+        EBin (InstanceOf, e, EVar (S {name="JSFunction"; var=None}))
+      | ECall (EVar (S {name="apply_args"; var=None}), [e1; e2], l) ->
+        ECall (EVar (S {name="rehp_apply_args"; var=None}), [e1; e2], l)
+      (* Other *)
       | EVar (S {name="this"; var=None}) -> EVar (S {name="jsContext"; var=None})
       | ERegexp (s, Some opt) ->
         ECall (EDot (EVar (S {name="RegExp"; var=None}), "jsNew"), [EStr (escape_js_regex s, `Utf8); EStr (opt, `Utf8)], N)
@@ -305,6 +312,8 @@ class traverse_and_convert_to_php =
     method func_decl_to_var id params body gv fv nid =
       Rehp.Statement(
         let open Rehp in
+        (* Fragile assumption: That we wrap function declarations, but not
+           first class functions *)
         let fn = ECall (
           EVar (S {name="JSFunction"; var=None}),
           [EFun (Some (self#ident id), List.map self#ident params, self#sources body, gv, fv, nid)],

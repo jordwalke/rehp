@@ -219,10 +219,12 @@ let mapper = {
         /* New vars scoped to the body of function */
         let new_body_vars = List.fold_left(bump_var, empty, params);
         /*
-         * Specs mandate that an EFun's name (which is often omitted) may only
-         * be available to the function body's scope - not containing.
-         * Contrast that with Function_declaration.
-         * The scenario of named lambdas doesn't actually come up in Rehp.
+         * Rehp intermediate representation assumes that EFun's identifier
+         * (which is almost always omitted in practice) may only be available
+         * to the function body's scope - not containing scope. There isn't a
+         * straightforward way to represent that in Php. It should be delegated
+         * to stubs, and we can remove the ability for Efun to have
+         * identifiiers.
          */
         /* let new_body_vars = */
         /*   switch (ident) { */
