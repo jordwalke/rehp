@@ -79,8 +79,8 @@ and binop =
   | Div
   | Mod
 
+/* TODO: Add IsInt */
 and unop =
-  | IsIntNumber
   | Not
   | Neg
   | Pl

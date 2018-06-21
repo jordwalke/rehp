@@ -69,7 +69,6 @@ and binop =
   | Div
   | Mod
 and unop =
-  | IsIntNumber
   | Not
   | Neg
   | Pl

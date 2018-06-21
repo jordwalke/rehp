@@ -53,7 +53,7 @@
      caml_update_dummy(f, function(x,y) {return 1});
      caml_update_dummy(z,[0,[0,f,_da_]]);
  
- - TODO: Add IsIntNumber.
+ - TODO: Add IsInt.
  - Grabbing methods and then calling them likely doesn't work
  $f=$String->fromCharCode; (Only matters for stdlib).
  - Single quotes don't escape dollar signs, but don't escape anything including
@@ -540,7 +540,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | IncrB
     | DecrA
     | DecrB
-    | IsIntNumber
     | Typeof
     | Void
     | Delete => assert(false)
@@ -746,20 +745,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.string(f, s);
       if (need_parent) {
         PP.string(f, ")");
-      };
-    | EUn(IsIntNumber, e) =>
-      if (l > 13) {
-        PP.start_group(f, 1);
-        PP.string(f, "(");
-      };
-      PP.start_group(f, 0);
-      PP.string(f, "is_int(");
-      expression(13, f, e);
-      PP.end_group(f);
-      PP.string(f, ")");
-      if (l > 13) {
-        PP.string(f, ")");
-        PP.end_group(f);
       };
     | EUn(Typeof, e) =>
       if (l > 13) {
