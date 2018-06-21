@@ -239,6 +239,7 @@ module Ctx = struct
 end
 
 let var x = J.EVar (J.V x)
+(* TODO: Rehp: keep ints as ints. *)
 let int n = J.ENum (float n)
 let int32 n = J.ENum (Int32.to_float n)
 let unsigned x = J.EBin (J.Lsr,x,int 0)
@@ -1176,7 +1177,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
            'typeof x==="number"'; if the string is shared,
            less efficient code is generated. *)
         let ((px, cx), queue) = access_queue' ~ctx  queue x in
-        (J.EBin(J.EqEqEq, J.EUn (J.Typeof, cx), str_js "number"),
+        (J.EUn(J.IsIntNumber, cx),
          px, queue)
       | Ult, [x; y] ->
         let ((px, cx), queue) = access_queue' ~ctx  queue x in
@@ -1560,10 +1561,11 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
       let b2 = compile_decision_tree st queue handler backs frontier interm succs
           loc (J.EStructAccess(var x, J.ENum 0.))
           (DTree.build_switch a2) in
+      (* This was originally a test for typeof==="number" but IsIntNumber is
+         more specific *)
       let code =
         Rehp_simpl.if_statement
-          (J.EBin(J.EqEqEq, J.EUn (J.Typeof, var x),
-                  str_js "number"))
+          (J.EUn (J.IsIntNumber, var x))
           loc
           (Rehp_simpl.block b1) false (Rehp_simpl.block b2) false in
       flush_all queue code

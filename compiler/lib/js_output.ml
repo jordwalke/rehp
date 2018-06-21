@@ -231,7 +231,7 @@ module Make(D : sig
     | Pl  -> "+"
     | Bnot -> "~"
     | IncrA | IncrB | DecrA | DecrB
-    | Typeof | Void | Delete -> assert false
+    | IsIntNumber | Typeof | Void | Delete -> assert false
 
   (*XXX May need to be updated... *)
   let rec ends_with_if_without_else st =
