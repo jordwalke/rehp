@@ -200,7 +200,9 @@ function caml_js_error_of_exception(exn) {
 
 //Provides: caml_alloc_dummy_function (const, const)
 function caml_alloc_dummy_function (size, arity) {
-  // TODO: Support arguments identifier.
+  // TODO: Support arguments identifier, but this entire body is ignored by Php
+  // backend because overriding .fun property overrides the function
+  // invocation.
   function f() {
     return f.fun.apply(this, arguments);
   };
