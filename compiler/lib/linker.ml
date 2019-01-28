@@ -284,7 +284,7 @@ let add_file f =
             let module J = Javascript in
             let rec find = function
               | [] -> None
-              | (J.Function_declaration (J.S{J.name=n; _},l,_,_), _)::_ when name=n ->
+              | (J.Function_declaration (Id.S{Id.name=n; _},l,_, _), _)::_ when name=n ->
                 Some(List.length l)
               | _::rem -> find rem in
             let arity = find code in
