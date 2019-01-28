@@ -34,6 +34,8 @@ let loc pi = match pi with
      Printf.sprintf "%s:%d" src line
   | None
   | Some _ -> "unknown location"
+  
+let error s = Format.ksprintf (fun s -> failwith s) s
 
 let parse_annot loc s =
   let buf = Lexing.from_string s in
@@ -43,13 +45,12 @@ let parse_annot loc s =
       | `Provides (_,n,k,ka) -> Some (`Provides (Some loc,n,k,ka))
       | `Version (_,l) -> Some (`Version  (Some loc, l))
       | `Weakdef _ -> Some (`Weakdef (Some loc))
+      | `ForBackend _ -> error "ForBackend Not Supported With Linker"
   with
     | Not_found -> None
     | _exc ->
     (* Format.eprintf "Not found for %s : %s @." (Printexc.to_string exc) s; *)
     None
-
-let error s = Format.ksprintf (fun s -> failwith s) s
 
 let is_file_directive cmt =
   let lexbuf = Lexing.from_string cmt in

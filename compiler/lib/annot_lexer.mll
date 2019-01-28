@@ -25,6 +25,7 @@ let identifier = ['a'-'z''A'-'Z''_']+
 rule initial = parse
   | "Provides" {TProvides}
   | "Requires" {TRequires}
+  | "ForBackend" {TForBackend}
   | "pure" {TA_Pure }
   | "const" {TA_Const }
   | "mutable" {TA_Mutable }
