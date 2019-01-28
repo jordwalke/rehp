@@ -1,0 +1,31 @@
+{
+  "build": [
+    [
+      "sed",
+      "-i'.orig'",
+      "-e",
+      "s/directory = \"+camlp4\"/# directory = \"+camlp4\"/g",
+      "camlp4/META.in"
+    ],
+    [
+      "./configure",
+      "--bindir=$cur__bin",
+      "--libdir=$cur__lib",
+      "--pkgdir=$cur__lib"
+    ],
+    [
+      "make",
+      "all"
+    ],
+    [
+      "make",
+      "install",
+      "install-META"
+    ],
+    [
+      "sh",
+      "-c",
+      "(opam-installer --prefix=$cur__install || true)"
+    ]
+  ]
+}

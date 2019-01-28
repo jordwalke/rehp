@@ -1,3 +1,6 @@
+node_modules
+_esy
+
 # Boring file regexps:
 
 # C object files

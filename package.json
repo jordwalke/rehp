@@ -1,0 +1,51 @@
+{
+  "name": "dev",
+  "version": "3.1.0",
+  "dependencies": {
+    "@opam/camlp4": "*",
+    "@opam/lwt": "*",
+    "@esy-ocaml/substs": "^0.0.1",
+    "@esy-ocaml/reason": "^3.3.0",
+    "refmterr": "*",
+    "@opam/jbuilder": " >= 1.0.0-beta17",
+    "@opam/deriving": "*",
+    "@opam/ocaml-migrate-parsetree": "*",
+    "@opam/ppx_tools_versioned": "*",
+    "@opam/uchar": "*",
+    "@opam/js_of_ocaml-lwt": "3.1.0"
+  },
+  "peerDependencies": {
+    "ocaml": "~4.6.0"
+  },
+  "devDependencies": {
+    "@esy-ocaml/merlin": "^3.0.5005",
+    "ocaml": " ~ 4.6.0"
+  },
+  "optDependencies": {},
+  "esy": {
+    "build": [
+      [ "refmterr", "jbuilder", "build", "rehack_tests/hello_world/hello_world.bc"],
+      [ "refmterr", "jbuilder", "build", "rehack_tests/strings/strings.bc"]
+    ],
+    "install": [
+      ["esy-installer", "js_of_ocaml.install"],
+      ["esy-installer", "js_of_ocaml-compiler.install"]
+    ],
+    "buildsInSource": "_build"
+  },
+  "resolutions": {
+    "js_of_ocaml": "./js_of_ocaml.opam",
+    "js_of_ocaml-compiles": "./js_of_ocaml.opam"
+  },
+  "_esy_opam_patches": [],
+  "opam": {
+    "url": "https://github.com/ocsigen/js_of_ocaml/archive/3.1.0.tar.gz",
+    "checksum": "b7a03bea097ac6bda3aaaf4b12b82581",
+    "files": [],
+    "patches": [],
+    "version": "3.1.0"
+  },
+  "scripts": {
+    "test": "./buildTest.sh"
+  }
+}

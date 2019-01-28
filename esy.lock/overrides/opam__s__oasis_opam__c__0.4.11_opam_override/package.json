@@ -1,0 +1,28 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < oasis-0.4.11.patch' : 'true'}"
+    ],
+    [
+      "ocaml",
+      "setup.ml",
+      "-configure",
+      "--prefix",
+      "#{self.install}"
+    ],
+    [
+      "ocaml",
+      "setup.ml",
+      "-build"
+    ]
+  ],
+  "install": [
+    [
+      "ocaml",
+      "setup.ml",
+      "-install"
+    ]
+  ]
+}
