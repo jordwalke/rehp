@@ -26,6 +26,7 @@ let debug_sourcemap = Debug.find "sourcemap"
 
 type code = string
 
+
 (* Copied from ocaml/typing/ident.ml *)
 module IdentTable = struct
 
@@ -284,6 +285,72 @@ end = struct
             | Event_after _ -> loc.Location.loc_end
             | _ -> loc.Location.loc_start in
         let src = unit.source in
+        (* Problem: For the following Reason code:
+         *
+         *  -----------------------------------------------------------------------------
+         *  let greeting = "hello world";
+         *  print_endline(greeting);
+         *  let greeting = "hello world with unicode: Ɋ";
+         *  print_endline(greeting);       /* THIS IS LINE 4 */
+         *
+         *  let unicodeLength = String.length(String.make(Random.int(30), 'i'));
+         *  print_endline(
+         *    "String.length(\"Ɋ\") should be two:" ++ string_of_int(unicodeLength),
+         *  );
+         *  print_endline(String.make(1, "Ɋ".[0]) ++ String.make(1, "Ɋ".[1]));
+         *
+         *  We get the following debug data output:
+         *  -----------------------------------------------------------------------------
+         *
+         *  We get the following debug data: (lots of things claiming to be on line 4 that aren't!
+         *  For example _g_ (the number 30)
+         *
+         *     /*<<rehack_tests/strings/strings.re 2 0>>*/  /*<<rehack_tests/strings/strings.re 2 0>>*/ print_endline(
+         *      greeting
+         *    );
+         *     /*<<rehack_tests/strings/strings.re 4 0>>*/  /*<<rehack_tests/strings/strings.re 4 0>>*/ print_endline(
+         *      greeting__0
+         *    );
+         *     /*<<rehack_tests/strings/strings.re 4 0>>*/ var  /*<<rehack_tests/strings/strings.re 4 0>>*/ _f_ =
+         *      105,
+         *      /*<<rehack_tests/strings/strings.re 4 0>>*/ _g_ = 30,
+         *      /*<<rehack_tests/strings/strings.re 6 46>>*/ _h_ =
+         *       /*<<rehack_tests/strings/strings.re 6 46>>*/ int__1(_g_),
+         *      /*<<rehack_tests/strings/strings.re 6 34>>*/ unicodeLength =
+         *       /*<<rehack_tests/strings/strings.re 6 34>>*/ caml_ml_string_length(
+         *         /*<<rehack_tests/strings/strings.re 6 34>>*/ make__0(_h_, _f_)
+         *      ),
+         *      /*<<rehack_tests/strings/strings.re 8 44>>*/ _i_ =
+         *       /*<<rehack_tests/strings/strings.re 8 44>>*/ string_of_int(unicodeLength),
+         *      /*<<rehack_tests/strings/strings.re 8 2>>*/ _k_ =
+         *       /*<<rehack_tests/strings/strings.re 8 2>>*/ _a_(_j_, _i_);
+         *     /*<<rehack_tests/strings/strings.re 7 0>>*/  /*<<rehack_tests/strings/strings.re 7 0>>*/ print_endline(
+         *      _k_
+         *    );
+         *     /*<<rehack_tests/strings/strings.re 4 0>>*/ var  /*<<rehack_tests/strings/strings.re 10 57>>*/ _l_ =
+         *      138,
+         *      /*<<rehack_tests/strings/strings.re 10 57>>*/ _m_ = 1,
+         *      /*<<rehack_tests/strings/strings.re 10 42>>*/ _n_ =
+         *       /*<<rehack_tests/strings/strings.re 10 42>>*/ make__0(_m_, _l_),
+         *      /*<<rehack_tests/strings/strings.re 10 29>>*/ _o_ = 201,
+         *      /*<<rehack_tests/strings/strings.re 10 29>>*/ _p_ = 1,
+         *      /*<<rehack_tests/strings/strings.re 10 14>>*/ _q_ =
+         *       /*<<rehack_tests/strings/strings.re 10 14>>*/ make__0(_p_, _o_),
+         *      /*<<rehack_tests/strings/strings.re 10 14>>*/ _r_ =
+         *       /*<<rehack_tests/strings/strings.re 10 14>>*/ _a_(_q_, _n_);
+         *     /*<<rehack_tests/strings/strings.re 10 0>>*/  /*<<rehack_tests/strings/strings.re 10 0>>*/ print_endline(
+         *      _r_
+         *    );
+         *
+         *  But if you log the following:
+         *  You will see that there are only two debug events for line 4,
+         *  likely the _correct_ line print_endline(greeting);
+         *  -----------------------------------------------------------------------------
+         *
+         *  let _ = print_string ((if after then "<after>" else "") ^ (if before then "<before>" else "") ^ " DEBUG EVENT FOUND AT: " ^ (pos.Lexing.pos_fname) ^ ":" ^ string_of_int(pos.Lexing.pos_lnum) ^ ":" ^ string_of_int (pos.Lexing.pos_cnum - pos.Lexing.pos_bol)) in
+         *  let _ = print_string ("  " ^ (if after then "<after>" else "") ^ (if before then "<before>" else "") ^ " DEBUG END   FOUND AT: " ^ (loc.Location.loc_end.Lexing.pos_fname) ^ ":" ^ string_of_int(loc.Location.loc_end.Lexing.pos_lnum) ^ ":" ^ string_of_int (loc.Location.loc_end.Lexing.pos_cnum - loc.Location.loc_end.Lexing.pos_bol)) in
+         *  let _ = print_newline () in
+         *)
         Some {Parse_info.name = Some pos.Lexing.pos_fname;
               src;
               line=pos.Lexing.pos_lnum - 1;

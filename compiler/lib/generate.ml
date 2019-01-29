@@ -798,6 +798,13 @@ let internal_primitives = Hashtbl.create 31
 let internal_prim name =
   try Hashtbl.find internal_primitives name with Not_found -> None
 
+(* Registers the primitive [name] with [Jsoo_primitive] so that [Driver] can see
+ * them, along with all the other primitives added when observed by [Linker].
+ * Registering them with [Jsoo_primitive] merely makes their presence known.
+ * In order for them to be useful, either the linker must link in
+ * implementations of them, or they must be considered "internal" primitives,
+ * which [Generate] registers whenever it registers with [Jsoo_primitive].
+ * "internal primitives" also have a Rehp implementation. *)
 let register_prim name k f =
   Primitive.register name k None None;
   Hashtbl.add internal_primitives name (Some f)
@@ -856,7 +863,14 @@ let _ =
   register_un_prim_ctx  "%caml_format_int_special" `Pure
     (fun ctx cx loc ->
        let p = Share.get_prim (runtime_fun ctx) "caml_new_string" ctx.Ctx.share in
-       J.ECall (p, [J.EBin (J.Plus,str_js "",cx)], loc));
+  (**
+   * TODO: This makes an assumption that any backend may concatenate an integer
+   * with a string. Instead setup a high level Rehp operation for
+   * int_to_string.
+   *)
+   J.ECall (p, [J.EBin (J.Plus,str_js "",cx)], loc));
+  register_un_prim "polymorphic_log" `Mutable
+    (fun cx loc -> J.ECall (s_var "polymorphic_log", [cx], loc));
   register_bin_prim "caml_array_unsafe_get" `Mutable
     (fun cx cy _ -> J.EAccess (cx, plus_int cy one));
   register_bin_prim "%int_add" `Pure
@@ -878,6 +892,7 @@ let _ =
   register_bin_prim "%int_lsl" `Pure
     (fun cx cy _ -> J.EBin (J.Lsl, cx, cy));
   register_bin_prim "%int_lsr" `Pure
+    (* Is this to_int redundant? Doesn't the Lsr operation truncate 32 bits? *)
     (fun cx cy _ -> to_int (J.EBin (J.Lsr, cx, cy)));
   register_bin_prim "%int_asr" `Pure
     (fun cx cy _ -> J.EBin (J.Asr, cx, cy));
