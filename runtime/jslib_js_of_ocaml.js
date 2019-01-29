@@ -185,6 +185,15 @@ function caml_js_expr(s) {
   js_print_stderr("caml_js_expr: fallback to runtime evaluation");
   return eval(s.toString());}
 
+//Provides: caml_js_raw_expr (const)
+//Requires: js_print_stderr
+//Requires: MlBytes, eval
+function caml_js_raw_expr(s) {
+  js_print_stderr(
+    "caml_js_raw_expr: This should never happen - all raw code must be directly supplied to caml_js_raw_expr."
+  );
+  return eval(s.toString());}
+
 //Provides: caml_pure_js_expr const (const)
 //Requires: js_print_stderr
 //Requires: MlBytes

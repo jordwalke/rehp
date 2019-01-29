@@ -35,6 +35,7 @@ let optimizable blocks pc _ =
         List.for_all b.body ~f:(function
           | Let (_, Prim (Extern "caml_js_eval_string",_)) -> false
           | Let (_, Prim (Extern "debugger",_)) -> false
+          | Let (_, Prim (Extern "caml_js_raw_expr",_)) -> false
           | Let
               (_,
                Prim(Extern

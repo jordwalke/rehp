@@ -91,7 +91,8 @@ and arguments = expression list
 and property_name_and_value_list = (Id.property_name * expression) list
 
 and expression =
-    ESeq of expression * expression
+    ERaw of string
+  | ESeq of expression * expression
   | ECond of expression * expression * expression
   | EBin of binop * expression * expression
   | EUn of unop * expression
@@ -115,6 +116,8 @@ and expression =
 
 and statement =
     Block of block
+  (* provides, requires, content *)
+  | Raw_statement of string list * string list * string
   | Variable_statement of variable_declaration list
   | Empty_statement
   | Expression_statement of expression

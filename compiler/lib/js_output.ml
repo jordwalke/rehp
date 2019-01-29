@@ -246,7 +246,9 @@ module Make(D : sig
 
   let rec need_paren l e =
     match e with
-      ESeq (e, _) ->
+    (* Who knows what the raw expression could hold! *)
+      ERaw s -> true
+    | ESeq (e, _) ->
       l <= 0 && need_paren 0 e
     | ECond (e, _, _) ->
       l <= 2 && need_paren 3 e
@@ -316,7 +318,12 @@ module Make(D : sig
 
   let rec expression l f e =
     match e with
-      EVar v ->
+      ERaw s ->
+      (* Non breaking space because what if this is on the rhs of a return? *)
+      PP.non_breaking_space f;
+      PP.string f s;
+      PP.non_breaking_space f;
+    | EVar v ->
       ident f v
     | ESeq (e1, e2) ->
       if l > 0 then begin PP.start_group f 1; PP.string f "(" end;
@@ -648,6 +655,10 @@ module Make(D : sig
     match s with
     | Block b ->
       block f b
+    | Raw_statement (_, _, s) ->
+      PP.break f;
+      PP.string f s;
+      PP.break f;
     | Variable_statement l ->
       variable_declaration_list (not last) f l
     | Empty_statement ->
