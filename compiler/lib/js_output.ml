@@ -32,6 +32,8 @@ open Stdlib
 let stats = Debug.find "output"
 
 open Javascript
+open Loc
+open Id
 
 module PP = Pretty_print
 
@@ -135,7 +137,7 @@ module Make(D : sig
     match l with
       []     -> ()
     | [i]    -> ident f i
-    | i :: r -> ident f i; PP.string f ","; PP.break f;
+    | i :: r -> ident f i; PP.string f ","; PP.non_breaking_space f;
       formal_parameter_list f r
 
 (*
@@ -333,38 +335,44 @@ module Make(D : sig
       expression 0 f e2;
       if l > 0 then begin PP.string f ")"; PP.end_group f end
     | EFun (i, l, b, pc) ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.start_group f 0;
       PP.start_group f 0;
       PP.string f "function";
       opt_identifier f i;
       PP.end_group f;
-      PP.break f;
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.string f "(";
       formal_parameter_list f l;
       PP.string f ")";
       PP.end_group f;
       PP.end_group f;
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "{";
+      PP.start_group f 2;
+      PP.break f;
       function_body f b;
       output_debug_info f pc;
-      PP.string f "}";
       PP.end_group f;
+      PP.break f;
+      PP.string f "}";
       PP.end_group f
     | ECall (e, el,loc) ->
       if l > 15 then begin PP.start_group f 1; PP.string f "(" end;
       output_debug_info f loc;
-      PP.start_group f 1;
+      PP.start_group f 0;
       expression 15 f e;
-      PP.break f;
-      PP.start_group f 1;
-      PP.string f "(";
-      arguments f el;
-      PP.string f ")";
-      PP.end_group f;
+      if el == [] then 
+        PP.string f "()"
+      else (
+        PP.string f "(";
+        PP.start_group f 2;
+        PP.break f;
+        arguments f el;
+        PP.end_group f;
+        PP.break f;
+        PP.string f ")";
+      );
       PP.end_group f;
       if l > 15 then begin PP.string f ")"; PP.end_group f end
     | EStr (s, kind) ->
@@ -450,15 +458,21 @@ module Make(D : sig
       let (out, lft, rght) = op_prec op in
       if l > out then begin PP.start_group f 1; PP.string f "(" end;
       expression lft f e1;
-      PP.space f;
+      PP.start_group f 2;
+      PP.non_breaking_space f;
       PP.string f (op_str op);
       PP.space f;
       expression rght f e2;
+      PP.end_group f;
       if l > out then begin PP.string f ")"; PP.end_group f end
     | EArr el ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.string f "[";
+      PP.start_group f 2;
+      PP.break f;
       element_list f el;
+      PP.end_group f;
+      PP.break f;
       PP.string f "]";
       PP.end_group f
     | EAccess (e, e') ->
@@ -491,40 +505,46 @@ module Make(D : sig
       if l > 15 then begin PP.string f ")"; PP.end_group f end
     | ENew (e, Some el) ->
       if l > 15 then begin PP.start_group f 1; PP.string f "(" end;
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.string f "new";
       PP.space f;
       expression 16 f e;
-      PP.break f;
-      PP.start_group f 1;
       PP.string f "(";
+      PP.start_group f 2;
+      PP.break f;
       arguments f el;
-      PP.string f ")";
       PP.end_group f;
+      PP.break f;
+      PP.string f ")";
       PP.end_group f;
       if l > 15 then begin PP.string f ")"; PP.end_group f end
     | ECond (e, e1, e2) ->
       if l > 2 then begin PP.start_group f 1; PP.string f "(" end;
+      (* Needs to be 1, so that the space when broken adds up to two *)
       PP.start_group f 1;
       PP.start_group f 0;
       expression 3 f e;
       PP.end_group f;
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "?";
-      expression 1 f e1;
-      PP.end_group f;
       PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
+      expression 1 f e1;
+      PP.non_breaking_space f;
       PP.string f ":";
+      PP.break f;
+      PP.non_breaking_space f;
       expression 1 f e2;
-      PP.end_group f;
       PP.end_group f;
       if l > 2 then begin PP.string f ")"; PP.end_group f end
     | EObj lst ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.string f "{";
+      PP.start_group f 2;
+      PP.break f;
       property_name_and_value_list f lst;
+      PP.end_group f;
+      PP.break f;
       PP.string f "}";
       PP.end_group f
     | ERegexp (s,opt) -> begin
@@ -554,14 +574,14 @@ module Make(D : sig
       PP.start_group f 0;
       property_name f pn;
       PP.string f ":";
-      PP.break f;
+      PP.non_breaking_space f;
       expression 1 f e;
       PP.end_group f
     | (pn, e) :: r ->
       PP.start_group f 0;
       property_name f pn;
       PP.string f ":";
-      PP.break f;
+      PP.non_breaking_space f;
       expression 1 f e;
       PP.end_group f;
       PP.string f ",";
@@ -584,24 +604,26 @@ module Make(D : sig
       end;
       PP.string f ","; PP.break f; element_list f r
 
-  and function_body f b = source_elements f ~skip_last_semi:true b
+  and function_body f b = source_elements f ~skip_last_semi:false ~spaced: false b
 
   and arguments f l =
     match l with
       []     -> ()
     | [e]    -> PP.start_group f 0; expression 1 f e; PP.end_group f
     | e :: r -> PP.start_group f 0; expression 1 f e; PP.end_group f;
-      PP.string f ","; PP.break f; arguments f r
+      PP.string f ","; PP.space f; arguments f r
 
   and variable_declaration f (i, init) =
     match init with
       None   ->
       ident f i
     | Some (e,pc) ->
-      PP.start_group f 1;
+      PP.start_group f 2;
       output_debug_info f pc;
       ident f i;
+      PP.non_breaking_space f;
       PP.string f "=";
+      PP.non_breaking_space f;
       PP.break f;
       expression 1 f e;
       PP.end_group f
@@ -610,35 +632,36 @@ module Make(D : sig
     match l with
       []     -> assert false
     | [d]    -> variable_declaration f d
-    | d :: r -> variable_declaration f d; PP.string f ","; PP.break f;
+    | d :: r -> variable_declaration f d; PP.string f ","; PP.space f;
       variable_declaration_list_aux f r
 
   and variable_declaration_list close f = function
     | []  -> ()
     | [(i, None)] ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.string f "var";
-      PP.space f;
+      PP.non_breaking_space f;
       ident f i;
       if close then PP.string f ";";
       PP.end_group f
     | [(i, Some (e,pc))] ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       output_debug_info f pc;
       PP.string f "var";
-      PP.space f;
+      PP.non_breaking_space f;
       ident f i;
+      PP.non_breaking_space f;
       PP.string f "=";
-      PP.break1 f;
+      PP.non_breaking_space f;
       PP.start_group f 0;
       expression 1 f e;
       if close then PP.string f ";";
       PP.end_group f;
       PP.end_group f
     | l ->
-      PP.start_group f 1;
+      PP.start_group f 2;
       PP.string f "var";
-      PP.space f;
+      PP.non_breaking_space f;
       variable_declaration_list_aux f l;
       if close then PP.string f ";";
       PP.end_group f
@@ -688,76 +711,84 @@ module Make(D : sig
       statement ~last f (If_statement (e, (Block ([s1]), N), s2), N)
     | If_statement (e, s1, Some ((Block _, _) as s2)) ->
       PP.start_group f 0;
-      PP.start_group f 1;
       PP.string f "if";
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "(";
+      PP.start_group f 2;
+      PP.break f;
       expression 0 f e;
+      PP.end_group f;
+      PP.break f;
       PP.string f ")";
+      PP.non_breaking_space f;
       PP.end_group f;
-      PP.end_group f;
-      PP.break1 f;
       PP.start_group f 0;
       statement f s1;
       PP.end_group f;
       PP.break f;
       PP.string f "else";
-      PP.break1 f;
+      PP.non_breaking_space f;
       PP.start_group f 0;
       statement ~last f s2;
-      PP.end_group f;
       PP.end_group f
     | If_statement (e, s1, Some s2) ->
       PP.start_group f 0;
-      PP.start_group f 1;
       PP.string f "if";
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "(";
+      PP.start_group f 2;
+      PP.break f;
       expression 0 f e;
+      PP.end_group f;
+      PP.break f;
       PP.string f ")";
+      PP.non_breaking_space f;
       PP.end_group f;
-      PP.end_group f;
-      PP.break1 f;
       PP.start_group f 0;
       statement f s1;
       PP.end_group f;
       PP.break f;
       PP.string f "else";
-      PP.space ~indent:1 f;
+      PP.non_breaking_space f;
       PP.start_group f 0;
       statement ~last f s2;
-      PP.end_group f;
       PP.end_group f
     | If_statement (e, s1, None) ->
-      PP.start_group f 1;
+      let block_one =
+        match s1 with
+        | (Block(_), _loc) -> s1
+        | _ -> (Block([s1]), N)
+      in
+      PP.start_group f 0;
       PP.start_group f 0;
       PP.string f "if";
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "(";
+      PP.start_group f 0;
+      PP.break f;
       expression 0 f e;
+      PP.end_group f;
+      PP.break f;
       PP.string f ")";
       PP.end_group f;
-      PP.end_group f;
-      PP.break f;
+      PP.non_breaking_space f;
       PP.start_group f 0;
-      statement ~last f s1;
+      statement ~last f block_one;
       PP.end_group f;
-      PP.end_group f
+      PP.end_group f;
     | While_statement (e, s) ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.start_group f 0;
       PP.string f "while";
-      PP.break f;
-      PP.start_group f 1;
       PP.string f "(";
+      PP.start_group f 2;
+      PP.break f;
       expression 0 f e;
-      PP.string f ")";
-      PP.end_group f;
       PP.end_group f;
       PP.break f;
+      PP.string f ")";
+      PP.non_breaking_space f;
+      PP.end_group f;
       PP.start_group f 0;
       statement ~last f s;
       PP.end_group f;
@@ -771,13 +802,15 @@ module Make(D : sig
       PP.end_group f;
       PP.break f;
       PP.string f "while";
-      PP.break1 f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "(";
+      PP.start_group f 2;
+      PP.break f;
       expression 0 f e;
+      PP.end_group f;
+      PP.break f;
       PP.string f ")";
       last_semi();
-      PP.end_group f;
       PP.end_group f
     | Do_while_statement (s, e) ->
       PP.start_group f 0;
@@ -788,41 +821,45 @@ module Make(D : sig
       PP.end_group f;
       PP.break f;
       PP.string f "while";
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "(";
+      PP.start_group f 1;
+      PP.break f;
       expression 0 f e;
+      PP.end_group f;
+      PP.break f;
       PP.string f ")";
       last_semi();
-      PP.end_group f;
       PP.end_group f
     | For_statement (e1, e2, e3, s) ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.start_group f 0;
       PP.string f "for";
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "(";
+      PP.start_group f 2;
+      PP.break f;
       (match e1 with
        | Left e -> opt_expression 0 f e
        | Right l -> variable_declaration_list false f l);
-      PP.string f ";"; PP.break f;
+      PP.string f ";"; PP.space f;
       opt_expression 0 f e2;
-      PP.string f ";"; PP.break f;
+      PP.string f ";"; PP.space f;
       opt_expression 0 f e3;
-      PP.string f ")";
-      PP.end_group f;
       PP.end_group f;
       PP.break f;
+      PP.string f ")";
+      PP.end_group f;
       PP.start_group f 0;
+      PP.non_breaking_space f;
       statement ~last f s;
       PP.end_group f;
       PP.end_group f
     | ForIn_statement (e1, e2, s) ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.start_group f 0;
       PP.string f "for";
-      PP.break f;
+      PP.non_breaking_space f;
       PP.start_group f 1;
       PP.string f "(";
       (match e1 with
@@ -835,7 +872,7 @@ module Make(D : sig
       PP.string f ")";
       PP.end_group f;
       PP.end_group f;
-      PP.break f;
+      PP.non_breaking_space f;
       PP.start_group f 0;
       statement ~last f s;
       PP.end_group f;
@@ -860,30 +897,33 @@ module Make(D : sig
           PP.string f "return";
           last_semi()
         | Some (EFun (i, l, b, pc)) ->
-          PP.start_group f 1;
+          PP.start_group f 0;
           PP.start_group f 0;
           PP.start_group f 0;
           PP.string f "return function";
           opt_identifier f i;
           PP.end_group f;
-          PP.break f;
-          PP.start_group f 1;
           PP.string f "(";
+          PP.start_group f 2;
+          PP.break f;
           formal_parameter_list f l;
+          PP.end_group f;
+          PP.break f;
           PP.string f ")";
           PP.end_group f;
+          PP.non_breaking_space f;
+          PP.string f "{";
+          PP.start_group f 2;
+          PP.break f;
+          function_body f b;
           PP.end_group f;
           PP.break f;
-          PP.start_group f 1;
-          PP.string f "{";
-          function_body f b;
           output_debug_info f pc;
           PP.string f "}";
           last_semi();
-          PP.end_group f;
           PP.end_group f
         | Some e ->
-          PP.start_group f 7;
+          PP.start_group f 0;
           PP.string f "return";
           PP.non_breaking_space f;
           PP.start_group f 0;
@@ -891,6 +931,7 @@ module Make(D : sig
           last_semi();
           PP.end_group f;
           PP.end_group f
+          (* NEVER HAVE AN EXPRESSION PRINTED BEGINNING WITH A NEWLINE/BREAK! *)
           (* There MUST be a space between the return and its
              argument. A line return will not work *)
       end
@@ -900,31 +941,32 @@ module Make(D : sig
       PP.break f;
       statement ~last f s
     | Switch_statement (e, cc, def, cc') ->
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.start_group f 0;
       PP.string f "switch";
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "(";
+      PP.start_group f 2;
+      PP.break f;
       expression 0 f e;
+      PP.end_group f;
+      PP.break f;
       PP.string f ")";
       PP.end_group f;
-      PP.end_group f;
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space f;
       PP.string f "{";
+      PP.start_group f 2;
+      PP.break f;
       let output_one last (e,sl) =
-        PP.start_group f 1;
-        PP.start_group f 1;
+        PP.start_group f 0;
         PP.string f "case";
         PP.space f;
         expression 0 f e;
         PP.string f ":";
         PP.end_group f;
+        PP.start_group f 2;
         PP.break f;
-        PP.start_group f 0;
         statement_list ~skip_last_semi:last f sl;
-        PP.end_group f;
         PP.end_group f;
         PP.break f in
       let rec loop last = function
@@ -936,17 +978,21 @@ module Make(D : sig
           None ->
           ()
         | Some def ->
-          PP.start_group f 1;
-          PP.string f "default:";
-          PP.break f;
           PP.start_group f 0;
+          PP.break f;
+          PP.string f "default:";
+          PP.end_group f;
+          PP.start_group f 2;
+          PP.break f;
           statement_list ~skip_last_semi:(cc' = []) f def;
           PP.end_group f;
-          PP.end_group f
+          PP.break f;
       end;
       loop true cc';
-      PP.string f "}";
       PP.end_group f;
+      
+      
+      PP.string f "}";
       PP.end_group f
     | Throw_statement e ->
       PP.start_group f 6;
@@ -962,18 +1008,20 @@ module Make(D : sig
     | Try_statement (b, ctch, fin) ->
       PP.start_group f 0;
       PP.string f "try";
-      PP.space ~indent:1 f;
+      PP.non_breaking_space f;
+      PP.start_group f 0;
       block f b;
+      PP.end_group f;
       begin match ctch with
           None ->
           ()
         | Some (i, b) ->
           PP.break f;
-          PP.start_group f 1;
+          PP.start_group f 0;
           PP.string f "catch(";
           ident f i;
           PP.string f ")";
-          PP.break f;
+          PP.non_breaking_space f;
           block f b;
           PP.end_group f
       end;
@@ -997,11 +1045,13 @@ module Make(D : sig
     | s :: r -> statement f s; PP.break f; statement_list f ?skip_last_semi r
 
   and block f b =
-    PP.start_group f 1;
     PP.string f "{";
-    statement_list ~skip_last_semi:true f b;
+    PP.start_group f 2;
+    PP.break f;
+    statement_list ~skip_last_semi:false f b;
+    PP.end_group f;
+    PP.break f;
     PP.string f "}";
-    PP.end_group f
 
   and source_element f ?skip_last_semi se =
     match se with
@@ -1009,38 +1059,51 @@ module Make(D : sig
       statement f ?last:skip_last_semi (s, loc)
     | (Function_declaration (i, l, b, loc'), loc) ->
       output_debug_info f loc;
-      PP.start_group f 1;
+      PP.start_group f 0;
       PP.start_group f 0;
       PP.start_group f 0;
       PP.string f "function";
-      PP.space f;
+      PP.non_breaking_space f;
       ident f i;
       PP.end_group f;
-      PP.break f;
       PP.start_group f 1;
       PP.string f "(";
       formal_parameter_list f l;
       PP.string f ")";
       PP.end_group f;
       PP.end_group f;
-      PP.break f;
-      PP.start_group f 1;
+      PP.non_breaking_space(f);
       PP.string f "{";
+      PP.start_group f 2;
+      PP.break f;
       function_body f b;
+      PP.end_group f;
+      PP.break f;
       output_debug_info f loc';
       PP.string f "}";
-      PP.end_group f;
       PP.end_group f
 
-  and source_elements f ?skip_last_semi se =
+  and source_elements f ?skip_last_semi ~spaced se =
     match se with
       []     -> ()
     | [s]    -> source_element f ?skip_last_semi s
-    | s :: r -> source_element f s; PP.break f; source_elements f ?skip_last_semi r
+    | s :: r -> begin
+      source_element f s;
+      (match spaced, s, r with 
+      (* Break after every source element except when it's between 2 vars *)
+      | (false, _, _)
+      | (
+          _,
+          (Statement (Variable_statement _), _),
+          ((Statement (Variable_statement _), _)::_)
+        ) -> PP.break f
+      | _ -> PP.break f; PP.break f);
+      source_elements f ?skip_last_semi ~spaced r
+    end
 
 
   and program f s =
-    source_elements f s
+    source_elements f ~spaced:true s
 
 end
 
@@ -1060,7 +1123,9 @@ let need_space a b =
   (* https://github.com/ocsigen/js_of_ocaml/issues/507 *)
   (a = '-' && b = '-')
 
-let program f ?source_map p =
+(* js_output must be responsible for printing any footer portion of the
+ * custom_header because the source maps must be the final item in the file.  *)
+let program f ?custom_header ?source_map p =
   let smo = match source_map with
     | None -> None
     | Some (_,sm) -> Some sm in
@@ -1069,6 +1134,12 @@ let program f ?source_map p =
     end) in
   PP.set_needed_space_function f need_space;
   PP.start_group f 0; O.program f p; PP.end_group f; PP.newline f;
+   match custom_header with
+   | None -> ()
+   | Some (_hd, _indent, ft) -> begin
+     PP.newline f;
+     PP.string f (Printf.sprintf "%s" ft);
+   end;
   (match source_map with
    | None -> ()
    | Some (out_file,sm) ->
