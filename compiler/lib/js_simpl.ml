@@ -80,7 +80,7 @@ let rec enot_rec e =
 let enot e = fst (enot_rec e)
 
 let unblock st = match st with J.Block l, _ -> l | _ -> [st]
-let block l = match l with | [x] -> x | l -> J.Block l,J.N
+let block l = match l with | [x] -> x | l -> J.Block l,Loc.N
 
 exception Not_expression
 
@@ -160,7 +160,7 @@ let rec if_statement_2 e loc iftrue truestop iffalse falsestop =
           [(J.If_statement (e, iftrue, Some iffalse), loc)]
       end
 
-let unopt b = match b with Some b -> b | None -> (J.Block [], J.N)
+let unopt b = match b with Some b -> b | None -> (J.Block [], Loc.N)
 
 let if_statement e loc iftrue truestop iffalse falsestop =
   (*FIX: should be done at an earlier stage*)
@@ -203,8 +203,8 @@ let rec get_variable acc = function
   | J.ENew (e1,None) -> get_variable acc e1
   | J.ECall (e1,el,_)
   | J.ENew (e1,Some el) -> List.fold_left get_variable acc (e1::el)
-  | J.EVar (J.V v) -> Code.Var.Set.add v acc
-  | J.EVar (J.S _) -> acc
+  | J.EVar (Id.V v) -> Code.Var.Set.add v acc
+  | J.EVar (Id.S _) -> acc
   | J.EFun _
   | J.EStr _
   | J.EBool _

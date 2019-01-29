@@ -18,32 +18,42 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+type ('left,'right) either = ('left, 'right) Stdlib.either =
+  | Left of 'left
+  | Right of 'right
+
+
 module Label : sig
-  type t
-  val zero : t
-  val succ : t -> t
-  val to_string : t -> string
-  val of_string : string -> t
+    type t
+    val zero : t
+    val succ : t -> t
+    val to_string : t -> string
+    val of_string : string -> t
 end
 
-type location =
+(* These types are reexported from Id and Loc because the generated
+   parser refers to them *)
+type location = Loc.t  =
   | Pi of Parse_info.t
-  | N (* No location; use the one above *)
-  | U (* Unknown location *)
-
-(* A.3 Expressions *)
-
+  | N
+  | U
 type identifier = string
-
-type ident_string = {
+type ident_string = Id.ident_string = {
   name : identifier;
   var : Code.Var.t option }
-
-type ident =
+type ident = Id.t =
   | S of ident_string
   | V of Code.Var.t
 
-and array_litteral = element_list
+type property_name = Id.property_name =
+    PNI of identifier
+  | PNS of string
+  | PNN of float
+
+
+(* A.3 Expressions *)
+
+type array_litteral = element_list
 
 and element_list = expression option list
 
@@ -61,12 +71,7 @@ and unop = Not | Neg | Pl | Typeof | Void | Delete | Bnot | IncrA | DecrA | Incr
 
 and arguments = expression list
 
-and property_name_and_value_list = (property_name * expression) list
-
-and property_name =
-    PNI of identifier
-  | PNS of string
-  | PNN of float
+and property_name_and_value_list = (Id.property_name * expression) list
 
 and expression =
     ESeq of expression * expression
@@ -75,7 +80,7 @@ and expression =
   | EUn of unop * expression
   | ECall of expression * arguments * location
   | EAccess of expression * expression
-  | EDot of expression * identifier
+  | EDot of expression * Id.identifier
   | ENew of expression * arguments option
   | EVar of ident
   | EFun of function_expression
@@ -118,10 +123,6 @@ and statement =
 
   | Debugger_statement
 
-and ('left,'right) either =
-  | Left of 'left
-  | Right of 'right
-
 
 and block = statement_list
 
@@ -155,8 +156,4 @@ and source_element =
     Statement of statement
   | Function_declaration of function_declaration
 
-val compare_ident : ident -> ident -> int
 val string_of_number : float -> string
-val is_ident : string -> bool
-module IdentSet : Set.S with type elt = ident
-module IdentMap : Map.S with type key = ident

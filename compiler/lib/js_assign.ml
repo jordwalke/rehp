@@ -29,7 +29,7 @@ module type Strategy = sig
   type t
   val create : int -> t
   val record_block : t -> Js_traverse.t -> catch:bool -> Javascript.ident list -> unit
-  val allocate_variables : t -> count:int Javascript.IdentMap.t -> string array
+  val allocate_variables : t -> count:int Id.IdentMap.t -> string array
 end
 
 module Min : Strategy = struct
@@ -181,7 +181,7 @@ while compiling the OCaml toplevel:
    *   close_out ch *)
 
   let allocate_variables t ~count =
-    let weight v = try IdentMap.find (V (Var.of_idx v)) count with Not_found -> 0 in
+    let weight v = try Id.IdentMap.find (Id.V (Var.of_idx v)) count with Not_found -> 0 in
     let constr = t.constr in
     let len = Array.length constr in
     let idx = Array.make len 0 in
@@ -253,7 +253,7 @@ while compiling the OCaml toplevel:
       end;
       for i = 0 to len - 1 do
         match params.(i) with
-        | V x ->
+        | Id.V x ->
           global.parameters.(i + offset) <- x :: global.parameters.(i + offset)
         | _ -> ()
       done;
@@ -284,8 +284,8 @@ module Preserve : Strategy = struct
 
   let record_block t scope ~catch param =
     let defs = match catch, param with
-      | true, [V x] -> S.singleton x
-      | true, [S _] -> S.empty
+      | true, [Id.V x] -> S.singleton x
+      | true, [Id.S _] -> S.empty
       | true, _   -> assert false
       | false, _  -> scope.Js_traverse.def
     in
@@ -353,10 +353,10 @@ let program' (module Strategy : Strategy) p =
   let names = Strategy.allocate_variables state ~count:mapper#state.Js_traverse.count in
   (* if debug () then output_debug_information state coloring#state.Js_traverse.count; *)
   let color = function
-    | V v ->
+    | Id.V v ->
       let name = names.(Var.idx v) in
       assert (name <> "");
-      S {name;var=Some v}
+      Id.S {name;var=Some v}
     | x -> x
   in
   (new Js_traverse.subst color)#program p

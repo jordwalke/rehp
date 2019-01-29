@@ -45,7 +45,7 @@ type t = {
   def_name : StringSet.t;
   def : Code.Var.Set.t;
   use : Code.Var.Set.t;
-  count : int IdentMap.t;
+  count : int Id.IdentMap.t;
 }
 
 
@@ -74,7 +74,7 @@ class share_constant : mapper
 
 class compact_vardecl : object('a)
   inherit free
-  method exc  : IdentSet.t
+  method exc  : Id.IdentSet.t
 end
 
 class clean : mapper

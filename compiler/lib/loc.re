@@ -1,4 +1,4 @@
-(* Js_of_ocaml compiler
+/* Js_of_ocaml compiler
  * http://www.ocsigen.org/js_of_ocaml/
  * Copyright (C) 2010 Jérôme Vouillon
  * Laboratoire PPS - CNRS Université Paris Diderot
@@ -16,20 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *)
+ */
 
-open Javascript
+/* Types shared between JS and Rehp. */
 
-val if_statement :
-  expression -> Loc.t ->
-  statement * Loc.t -> bool -> statement * Loc.t -> bool ->
-  (statement * Loc.t) list
-
-val get_variable : Code.Var.Set.t -> expression -> Code.Var.Set.t
-
-val block :
-  (Javascript.statement * Loc.t) list ->
-  Javascript.statement * Loc.t
-val unblock :
-  Javascript.statement * Loc.t ->
-  (Javascript.statement * Loc.t) list
+type t =
+  | Pi(Parse_info.t)
+  | N
+  | U;

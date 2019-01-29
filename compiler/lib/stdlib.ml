@@ -287,3 +287,25 @@ module Array = struct
     done;
     !r
 end
+
+type ('left, 'right) either =
+    Left of 'left
+  | Right of 'right
+
+let rec escape ?(prepend="") s search replace =
+  let has = String.contains s search in
+  if not has then
+    prepend ^ s
+  else
+    let len = String.length s in
+    let index_of = String.index s search in
+    let next_prepend =
+      prepend
+      ^ (if index_of == 0 then "" else String.sub s 0 (index_of + 1 - 1)) in
+    let next_prepend = next_prepend ^ replace in
+    let remaining =
+      if index_of == len - 1 then
+        ""
+      else String.sub s (index_of + 1) (len - index_of - 1)
+    in
+    escape ~prepend:next_prepend remaining search replace
