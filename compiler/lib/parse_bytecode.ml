@@ -764,6 +764,15 @@ module State = struct
       (x :: params, state)
 end
 
+type parsed_code = (Code.program * StringSet.t * Debug.data)
+
+type parsed_compilation_unit = string * Ident.t list * parsed_code
+
+type parse_result =
+  | Parsed_library of parsed_compilation_unit list
+  | Parsed_module of parsed_compilation_unit
+  | Parsed_standalone of string * parsed_code
+
 let primitive_name state i =
   let g = State.globals state in
   assert (i >= 0 && i <= Array.length g.primitives);
@@ -1906,7 +1915,41 @@ let match_exn_traps (blocks : 'a Addr.Map.t) =
 
 let parse_bytecode ~debug code globals debug_data =
   let state = State.initial globals in
-  Code.Var.reset ();
+  (* This used to call [Code.Var.reset ()] here but that breaks separate
+     compilation of .cma libraries because separate compilation of .cma
+     libraries loop through all of the contained .cmo's calling parse_bytecode,
+     and only after all are parsed, would we then perform the [Generate] step
+     which still needs all of the variable names to be retained.
+
+     You must either do:
+
+       (preparedbytes, debug_data, etc) = for each .cmo:
+         Code.Var.reset()
+         prepare debug data and do reloc.
+       programs = for each (preparedbytes, debug_data, etc):
+         parse_bytecode(preparedbytes, debug_data, etc)
+       for each program:
+         generate(program)
+
+     OR:
+       Code.Var.reset()
+       (preparedbytes, debug_data, etc) = for each .cmo:
+         prepare debug data and do reloc.
+       programs = for each (preparedbytes, debug_data, etc):
+         parse_bytecode(preparedbytes, debug_data, etc)
+       for each program:
+         generate(program)
+
+     What won't work:
+       (preparedbytes, debug_data, etc) = for each .cmo:
+         prepare debug data and do reloc.
+       programs = for each (preparedbytes, debug_data, etc):
+         Code.Var.reset()
+         parse_bytecode(preparedbytes, debug_data, etc)
+       for each program:
+         generate(program)
+
+  *)
   let blocks =
     Blocks.analyse
       (if debug = `Full then debug_data else Debug.create ()) code in
@@ -1974,7 +2017,7 @@ let read_toc ic =
   !section_table
 
 let exe_from_channel ~includes ?(toplevel=false) ?(expunge=fun _ -> `Keep) ?(dynlink=false) ~debug ~debug_data ic =
-
+  Code.Var.reset ();
   let toc = read_toc ic in
 
   let prim_size = seek_section toc ic "PRIM" in
@@ -2143,6 +2186,7 @@ let exe_from_channel ~includes ?(toplevel=false) ?(expunge=fun _ -> `Keep) ?(dyn
 
 (* As input: list of primitives + size of global table *)
 let from_bytes primitives (code : code) =
+  Code.Var.reset ();
   let globals = make_globals 0 [||] primitives in
   let debug_data = Debug.create () in
   let p = parse_bytecode ~debug:`No code globals debug_data in
@@ -2262,14 +2306,25 @@ module Reloc = struct
 
 end
 
-let from_compilation_units ~includes:_ ~toplevel ~debug ~debug_data l =
+let rec from_compilation_units ~includes ~debug l =
+  List.map
+    (fun (compunit, codebytes, reloc, debug_data) ->
+      let globals = Reloc.make_globals reloc in
+      (from_relocated_compilation_unit ~includes ~debug ~debug_data ~globals (compunit, codebytes))
+    )
+    l
+
+and from_compilation_unit ~includes ~debug ~debug_data (compunit, codebytes) =
   let reloc = Reloc.create () in
-  List.iter l ~f:(fun (compunit, code) -> Reloc.step1 reloc compunit code);
-  List.iter l ~f:(fun (compunit, code) -> Reloc.step2 reloc compunit code);
+  Reloc.step1 reloc compunit codebytes;
+  Reloc.step2 reloc compunit codebytes;
   let globals = Reloc.make_globals reloc in
-  let code =
-    let l = List.map l ~f:(fun (_,c) -> Bytes.to_string c) in
-    String.concat ~sep:"" l in
+  from_relocated_compilation_unit ~includes ~debug ~debug_data ~globals (compunit, codebytes)
+
+(* The global data is derived from a set of relocated compilation units *)
+and from_relocated_compilation_unit ~includes:_ ~debug ~debug_data ~globals (compunit, codebytes) =
+
+  let code = Bytes.to_string codebytes in
   let prog = parse_bytecode ~debug code globals debug_data in
   let gdata = Var.fresh_n "global_data" in
   let body = Array.fold_right_i globals.vars
@@ -2287,26 +2342,20 @@ let from_compilation_units ~includes:_ ~toplevel ~debug ~debug_data l =
               end;
               Let (x, Constant cst) :: l
             | Some name ->
+              (* TODO: This is where you would inject an operation for module
+               * loading that should incorporate with the module template. *)
               Var.name x name;
               Let (x, Prim (Extern "caml_js_get",[Pv gdata; Pc (IString name)])) :: l
           end
         | _ -> l)
   in
   let body = Let (gdata, Prim (Extern "caml_get_global_data", [])) :: body in
-  let cmis =
-    if toplevel && Config.Flag.include_cmis ()
-    then
-      List.fold_left l
-        ~init:StringSet.empty
-        ~f:(fun acc (compunit,_) ->
-        StringSet.add (compunit.Cmo_format.cu_name) acc
-      )
-    else StringSet.empty in
-  prepend prog body,cmis, debug_data
+  (compunit.Cmo_format.cu_name,
+   compunit.Cmo_format.cu_required_globals,
+   (prepend prog body,StringSet.empty, debug_data))
 
 let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
       ?(dynlink=false) ?(debug=`No) ic =
-  let debug_data = Debug.create () in
   let format =
     try
       let header = really_input_string ic Magic_number.size in
@@ -2321,6 +2370,7 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
   | `Pre magic ->
     begin match Magic_number.kind magic with
       | `Cmo ->
+        Code.Var.reset ();
         if Config.Flag.check_magic () && magic <> Magic_number.current_cmo
         then raise Magic_number.(Bad_magic_version magic);
         let compunit_pos = input_binary_int ic in
@@ -2329,14 +2379,14 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
         seek_in ic compunit.Cmo_format.cu_pos;
         let code = Bytes.create compunit.Cmo_format.cu_codesize in
         really_input ic code 0 compunit.Cmo_format.cu_codesize;
+        let debug_data = Debug.create () in
         if debug = `No || compunit.Cmo_format.cu_debug = 0 then ()
         else
           begin
             seek_in ic compunit.Cmo_format.cu_debug;
             Debug.read_event_list debug_data ~crcs:[] ~includes ~orig:0 ic;
           end;
-        let a,b,c = from_compilation_units ~toplevel ~includes ~debug ~debug_data [compunit, code] in
-        a,b,c,false
+        Parsed_module (from_compilation_unit ~includes ~debug ~debug_data (compunit, code))
       | `Cma ->
         if Config.Flag.check_magic () && magic <> Magic_number.current_cma
         then raise Magic_number.(Bad_magic_version magic);
@@ -2346,6 +2396,11 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
         let orig = ref 0 in
         let units =
           List.map lib.Cmo_format.lib_units ~f:(fun compunit ->
+            (* See note in parse_bytecode. *)
+            Code.Var.reset ();
+            let debug_data = Debug.create () in
+            (* Does the debug data need to _only_ have events from the units
+             * passed to parse_bytecode? *)
             seek_in ic compunit.Cmo_format.cu_pos;
             let code = Bytes.create compunit.Cmo_format.cu_codesize in
             really_input ic code 0 compunit.Cmo_format.cu_codesize;
@@ -2353,24 +2408,28 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
             else
               begin
                 seek_in ic compunit.Cmo_format.cu_debug;
-                Debug.read_event_list debug_data ~crcs:[] ~includes ~orig:!orig ic
+                Debug.read_event_list debug_data ~crcs:[] ~includes ~orig:0 ic
               end;
             orig := !orig + compunit.Cmo_format.cu_codesize;
-            compunit, code)
+            let reloc = Reloc.create () in
+            Reloc.step1 reloc compunit code;
+            Reloc.step2 reloc compunit code;
+            compunit, code, reloc, debug_data
+          )
         in
-        let a,b,c = from_compilation_units ~toplevel ~includes ~debug ~debug_data units in
-        a,b,c,false
+        Parsed_library ((from_compilation_units ~includes ~debug) units)
       | _ ->
         raise Magic_number.(Bad_magic_number (to_string magic))
     end
   | `Post magic ->
     begin match Magic_number.kind magic with
       | `Exe ->
+        let debug_data = Debug.create () in
         if Config.Flag.check_magic () && magic <> Magic_number.current_exe
         then raise Magic_number.(Bad_magic_version magic);
         let a,b,c = exe_from_channel ~includes ~toplevel ?expunge ~dynlink ~debug ~debug_data ic in
         Code.invariant a;
-        a,b,c,true
+        Parsed_standalone ("Executable", (a,b,c))
       | _ ->
         raise Magic_number.(Bad_magic_number (to_string magic))
     end

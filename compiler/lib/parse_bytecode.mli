@@ -27,11 +27,28 @@ module Debug : sig
   val paths    : data -> units:StringSet.t -> StringSet.t
 end
 
+type parsed_code = (Code.program * StringSet.t * Debug.data)
+
+type parsed_compilation_unit =
+  (* Name of the compilation unit. *)
+  string *
+  (* Ordered list of dependency compilation units *)
+  Ident.t list *
+  parsed_code
+
+type parse_result =
+  | Parsed_library of parsed_compilation_unit list
+  | Parsed_module of parsed_compilation_unit
+  | Parsed_standalone of
+    (* Executable name (or equivalent) *)
+    string *
+    parsed_code
+
 val from_channel :
   ?includes: string list ->
   ?toplevel:bool -> ?expunge:(string -> [`Keep | `Skip]) ->
   ?dynlink:bool -> ?debug:[`Full | `Names | `No] -> in_channel ->
-  Code.program * StringSet.t * Debug.data * bool
+  parse_result
 
 val from_string : string array -> string -> Code.program * Debug.data
 

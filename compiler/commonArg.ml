@@ -72,9 +72,14 @@ let is_quiet =
   Arg.(value & flag & info ["quiet"; "q"] ~doc)
 
 let custom_header =
-  let doc =
-    "Provide a custom header for the generated JavaScript file, useful for making the \
-     script an executable file with #!/usr/bin/env node"
+  let doc = "Provide a custom header for the generated compiler output, \
+             useful for making the script an \
+             executable file with #!/usr/bin/env node \
+             or integrating with module loaders. Certain strings will be \
+             replaced with the names of relevant compilation units. \
+              ____CompilationUnitName and ____compilationUnitName \
+              ____CompilationOutput \
+              ____ForEachDependencyCompilationUnitName and ____forEachDependencyCompilationUnitName"
   in
   Arg.(value & opt (some string) None & info ["custom-header"] ~doc)
 

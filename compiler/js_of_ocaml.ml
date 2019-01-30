@@ -47,6 +47,23 @@ let gen_file file f =
     Sys.rename f_tmp file
   with exc -> Sys.remove f_tmp; raise exc
 
+(* Ensures a directory exists. Will fail if path is a non-dir file.
+   Containing directory must already exist. *)
+let ensure_dir dir =
+  let exists = Sys.file_exists dir in
+  if exists then
+    (if not (Sys.is_directory dir) then
+      raise (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory."))
+    )
+  else
+    Unix.mkdir dir 0o777
+
+let prepend_fs_support p =
+  let instrs = [
+    Code.(Let(Var.fresh (), Prim (Extern "caml_fs_init", [])))
+  ] in
+  Code.prepend p instrs
+
 let f
     { CompileArg.common
     ; profile
@@ -54,9 +71,9 @@ let f
     ; runtime_files
     ; input_file
     ; output_file
+    ; backend
     ; params
     ; static_env
-    ; wrap_with_fun
     ; dynlink
     ; linkall
     ; toplevel
@@ -67,10 +84,16 @@ let f
     ; fs_output
     ; fs_external
     ; export_file } =
+
   let dynlink = dynlink || toplevel || runtime_only in
+  let backend = match backend with
+  | None -> Backend.Js
+  | Some(be) -> be
+  in
   let custom_header = common.CommonArg.custom_header in
-  let global =
-    match wrap_with_fun with Some fun_name -> `Bind_to fun_name | None -> `Auto
+  let custom_header = match (backend, custom_header) with
+    | (_, Some(ch)) -> ch
+    | (_, None) -> "/*____CompilationOutput*/"
   in
   CommonArg.eval common;
   ( match output_file with
@@ -110,6 +133,7 @@ let f
         close_in ic;
         Some (fun s -> try Hashtbl.find t s; `Keep with Not_found -> `Skip)
   in
+  (* Benchmarking shows this takes on the order of 100ms *)
   Linker.load_files runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"] with Not_found ->
@@ -124,14 +148,21 @@ let f
     then `Names
     else `No
   in
-  let p, cmis, d, standalone =
-    if runtime_only
-    then
-      ( Parse_bytecode.predefined_exceptions ()
-      , StringSet.empty
-      , Parse_bytecode.Debug.create ()
-      , true )
+  let parse_result =
+    if runtime_only then
+      Parse_bytecode.Parsed_standalone (
+        "Runtime",
+        (
+          Parse_bytecode.predefined_exceptions (),
+          StringSet.empty,
+          Parse_bytecode.Debug.create ()
+        )
+      )
     else
+      (* Previously, the variable resetting was called from within
+         parse_bytecode, but with separate compilation of .cmas, the variables
+         cannot be reset in between each contained .cmo compilation unit.
+       *)
       match input_file with
       | None ->
           Parse_bytecode.from_channel
@@ -154,71 +185,83 @@ let f
           in
           close_in ch; res
   in
-  let () =
-    if (not runtime_only) && source_map <> None && Parse_bytecode.Debug.is_empty d
-    then
-      warn
-        "Warning: '--source-map' is enabled but the bytecode program was compiled with \
-         no debugging information.\n\
-         Warning: Consider passing '-g' option to ocamlc.\n\
-         %!"
-  in
-  let cmis = if nocmis then StringSet.empty else cmis in
-  let p =
-    let l =
-      List.map static_env ~f:(fun (k, v) ->
-          Primitive.add_external "caml_set_static_env";
-          let args = [Code.Pc (IString k); Code.Pc (IString v)] in
-          Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))) )
+  let output p cmis d standalone compunit_name ordered_compunit_deps complete_output_file =
+    let () =
+      if not runtime_only && source_map <> None &&  Parse_bytecode.Debug.is_empty d
+      then
+        warn
+          "Warning: '--source-map' is enabled but the bytecode program \
+           was compiled with no debugging information.\n\
+           Warning: Consider passing '-g' option to ocamlc.\n%!"
     in
-    Code.prepend p l
-  in
-  let p =
-    if fs_external
-    then
-      let instrs = [Code.(Let (Var.fresh (), Prim (Extern "caml_fs_init", [])))] in
-      Code.prepend p instrs
-    else p
-  in
-  if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
-  let paths = paths @ StringSet.elements (Parse_bytecode.Debug.paths d ~units:cmis) in
-  ( match output_file with
-  | None ->
+    let cmis = if nocmis then StringSet.empty else cmis in
+    (* Pseudo filesystem should allow registering files from the outside *)
+    let p =
+      let l =
+        List.map static_env ~f:(fun (k, v) ->
+            Primitive.add_external "caml_set_static_env";
+            let args = [Code.Pc (IString k); Code.Pc (IString v)] in
+            Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))) )
+      in
+      Code.prepend p l
+    in
+    let p = if fs_external then prepend_fs_support p else p in
+    if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
+    let custom_header =
+      Module_loader.substitute_and_split custom_header compunit_name ordered_compunit_deps in
+    (* The -o file to output to. *)
+    begin match complete_output_file with
+    | None ->
       let p = PseudoFs.f p cmis fs_files paths in
       let fmt = Pretty_print.to_out_channel stdout in
-      Driver.f
-        ~standalone
-        ?profile
-        ~linkall
-        ~global
-        ~dynlink
-        ?source_map
-        ?custom_header
-        fmt
-        d
-        p
-  | Some file ->
+      Driver.f ~standalone ?profile ~linkall ~dynlink
+        ?source_map fmt d p
+    | Some file ->
       gen_file file (fun chan ->
-          let p = if fs_output = None then PseudoFs.f p cmis fs_files paths else p in
-          let fmt = Pretty_print.to_out_channel chan in
-          Driver.f
-            ~standalone
-            ?profile
-            ~linkall
-            ~global
-            ~dynlink
-            ?source_map
-            ?custom_header
-            fmt
-            d
-            p );
-      Option.iter fs_output ~f:(fun file ->
-          gen_file file (fun chan ->
-              let pfs = PseudoFs.f_empty cmis fs_files paths in
-              let pfs_fmt = Pretty_print.to_out_channel chan in
-              Driver.f ~standalone ?profile ?custom_header ~global pfs_fmt d pfs ) ) );
-  if times () then Format.eprintf "compilation: %a@." Timer.print t;
-  Debug.stop_profiling ()
+        let p =
+          if fs_output = None
+          then PseudoFs.f p cmis fs_files paths
+          else p in
+        let fmt = Pretty_print.to_out_channel chan in
+        Driver.f ~standalone ?profile ~linkall ~dynlink
+          ?source_map fmt d p;
+      );
+      Stdlib.Option.iter ~f:(fun file ->
+        gen_file file (fun chan ->
+          let pfs = PseudoFs.f_empty cmis fs_files paths in
+          let pfs_fmt = Pretty_print.to_out_channel chan in
+          Driver.f ~standalone ?profile pfs_fmt d pfs
+        )
+      ) fs_output
+    end;
+    if times () then Format.eprintf "compilation: %a@." Timer.print t;
+    Debug.stop_profiling ()
+  in
+  match parse_result with
+    | Parsed_standalone (compunit_name, (p, cmis, d)) ->
+        output p cmis d true compunit_name [] output_file
+    | Parsed_module (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
+        output p cmis d false compunit_name (List.map Ident.name ordered_compunit_deps) output_file
+    | Parsed_library lst ->
+      begin match output_file with
+      | None -> ()
+      | Some file -> ensure_dir file
+      end;
+      List.iter (fun (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
+        (* If compiling a library and passing the -o flag, it is assumed that -o
+           is the location of the directory where individual outputs go, and
+           that the individual files will reside inside of it. If the output is
+           supplied as [-o path/to/lib-name.php] then you will get the
+           following files [-o path/to/my-lib.php/MyLibrary__Utils.php] where
+           MyLibrary__Utils is the compiler's internal compilation unit name. *)
+        let ordered_compunit_deps = List.map Ident.name ordered_compunit_deps in
+        let complete_output_file = match output_file with
+        | None -> None
+        | Some file -> Some begin
+          Filename.concat file (compunit_name ^ "."  ^ Backend.extension backend)
+        end in
+        output p cmis d false compunit_name ordered_compunit_deps complete_output_file
+      ) lst
 
 let main = Cmdliner.Term.(pure f $ CompileArg.options), CompileArg.info
 

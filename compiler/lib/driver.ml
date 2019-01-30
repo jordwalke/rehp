@@ -484,3 +484,6 @@ let profile i =
   try
     Some (List.assoc i profiles)
   with Not_found -> None
+
+
+let backends = Backend.[(to_string(Js), Js)];

@@ -30,7 +30,6 @@ type t =
   ; input_file : string option
   ; params : (string * string) list
   ; static_env : (string * string) list
-  ; wrap_with_fun : string option
   ; (* toplevel *)
     dynlink : bool
   ; linkall : bool

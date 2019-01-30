@@ -19,11 +19,20 @@
 
 open Js_of_ocaml_compiler
 
+let expand_directories js_files =
+  let dir_contents = List.map (fun file ->
+    if Sys.is_directory file then
+      let dir = file in
+      List.map (fun one_name -> Filename.concat dir one_name) (Array.to_list (Sys.readdir dir))
+    else [file]
+  ) js_files in
+  List.concat dir_contents
+
 let f {LinkerArg.output_file; source_map; resolve_sourcemap_url; js_files} =
   let output =
     match output_file with None -> stdout | Some file -> open_out_bin file
   in
-  Link_js.link ~output ~files:js_files ~source_map ~resolve_sourcemap_url;
+  Link_js.link ~output ~files:(expand_directories js_files) ~source_map ~resolve_sourcemap_url;
   match output_file with None -> () | Some _ -> close_out output
 
 let main = Cmdliner.Term.(pure f $ LinkerArg.options), LinkerArg.info

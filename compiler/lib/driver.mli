@@ -34,3 +34,5 @@ val from_string : string array -> string -> Pretty_print.t -> unit
 
 val profiles : (int * profile) list
 val profile : int -> profile option
+
+val backends : (string * Backend.t) list
