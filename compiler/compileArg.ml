@@ -43,11 +43,13 @@ type t =
     include_dir : string list
   ; fs_files : string list
   ; fs_output : string option
-  ; fs_external : bool }
+  ; fs_external : bool
+  ; backend: Backend.t option }
 
 let options =
   let toplevel_section = "OPTIONS (TOPLEVEL)" in
   let filesystem_section = "OPTIONS (FILESYSTEM)" in
+  let backend_section = "OPTIONS (BACKEND)" in
   let js_files =
     let doc =
       "Link JavaScript files [$(docv)]. "
@@ -167,6 +169,11 @@ let options =
       & opt (some string) None
       & info ["ofs"] ~docs:filesystem_section ~docv:"FILE" ~doc)
   in
+  let backend =
+    let doc = "Configure the backend to compile to." in
+    let backend = Driver.backends in
+    Arg.(value & opt (some (enum backend)) None & info ["backend"] ~docs:backend_section ~doc)
+  in
   let build_t
       common
       set_param
@@ -179,6 +186,7 @@ let options =
       include_dir
       fs_files
       fs_output
+      backend
       fs_external
       nocmis
       profile
@@ -261,6 +269,7 @@ let options =
       ; runtime_only
       ; fs_files
       ; fs_output
+      ; backend
       ; fs_external
       ; nocmis
       ; output_file
@@ -281,6 +290,7 @@ let options =
       $ include_dir
       $ fs_files
       $ fs_output
+      $ backend
       $ fs_external
       $ nocmis
       $ profile
