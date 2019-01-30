@@ -254,8 +254,11 @@ let inline closures live_vars outer_optimizable pc (blocks,free_pc)=
               ; handler = None
               ; params = []} ->
               let len = List.length l in
+              (* If the variable assigned the result of an extern call is the one
+                returned. *)
               if Code.Var.compare y y' = 0
               && Primitive.has_arity prim len
+              (* If the args of the lambda are forwarded to the extern *)
               && args_equal l args
               then
                 (Let (x, Prim (Extern "%closure", [Pc (IString prim)])) :: rem,

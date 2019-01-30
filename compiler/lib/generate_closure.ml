@@ -66,6 +66,7 @@ let rec tailcall pc blocks visited tc =
         (fun pc (visited,tc) -> tailcall pc blocks visited tc)
         (visited, tc)
 
+(* Collects adjacent closures. *)
 let rec collect_closures blocks l =
   match l with
   | Let (f_name, Closure (args, ((pc,_) as cont))) :: rem ->

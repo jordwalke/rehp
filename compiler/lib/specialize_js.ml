@@ -26,9 +26,17 @@ let specialize_instr info i rem =
   match i with
   | Let (x, Prim (Extern "caml_format_int", [y;z])) ->
     begin match the_string_of info y with
+      (* Specializes calls to format_int when format string is "%d". Allows
+       * dropping the dependency on formatting standard library for simple
+       * cases. For certain optimizable cases, turns calls to extern
+       * caml_format_int into calls to a fake "extern" created on the fly.*)
       | Some "%d" ->
         begin match the_int info z with
+          (* Specialization when the int is also known statically *)
           | Some i -> Let(x,Constant(String (Int32.to_string i)))
+          (* If the int isn't known statically we can at least create a new
+           * pseudo extern on the fly that represents "int formatting with the
+           * simplest case of format string being %d" *)
           | None -> Let (x, Prim (Extern "%caml_format_int_special", [z]))
         end
       | _ -> i

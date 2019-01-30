@@ -286,7 +286,13 @@ let add_file f =
               | [] -> None
               | (J.Function_declaration (Id.S{Id.name=n; _},l,_, _), _)::_ when name=n ->
                 Some(List.length l)
-              | _::rem -> find rem in
+              | _::rem -> find rem
+            in
+            (* Arity is tracked for each runtime js stub because inline.ml will
+             * optimize bytecode by eliminating simple closure around externs
+             * that do nothing but forward arguments to them. This is useful
+             * when creating differently typed wrappers around poorly typed
+             * externs. *)
             let arity = find code in
             let named_values = find_named_value code in
             Primitive.register name kind ka arity;
@@ -296,7 +302,9 @@ let add_file f =
               let _,ploc,weakdef = Hashtbl.find provided name in
               if not weakdef
               then
-            warn "warning: overriding primitive %S\n  old: %s\n  new: %s@." name (loc ploc) (loc pi)
+                (* Perhaps make this warning disabled - overriding can be very
+                 * useful. Or maybe just make those weakdefs? *)
+                warn "warning: overriding primitive %S\n  old: %s\n  new: %s@." name (loc ploc) (loc pi)
             end;
 
             Hashtbl.add provided name (id,pi,weakdef);
@@ -342,6 +350,7 @@ let rec resolve_dep_name_rev visited path nm =
   let id =
     try
       let x, _, _ = Hashtbl.find provided nm in
+      (* This is where free global variables are detected. *)
       x
     with Not_found ->
       error "missing dependency '%s'@." nm
@@ -375,6 +384,7 @@ let init () =
   ; codes = []
   }
 
+(* linkall means "link all primitives even if they're not used" *)
 let resolve_deps ?(linkall = false) visited_rev used =
   (* link the special files *)
   let missing,visited_rev =
