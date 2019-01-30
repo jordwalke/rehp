@@ -3,6 +3,7 @@
   (public_names js_of_ocaml jsoo_minify jsoo_link)
   (package js_of_ocaml-compiler)
   (libraries
+    unix
     js_of_ocaml-compiler
     cmdliner
     (select empty-findlib.ml from
