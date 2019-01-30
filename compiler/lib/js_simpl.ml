@@ -69,6 +69,7 @@ let rec enot_rec e =
     | J.ERaw _
     | J.ECall _ | J.EAccess _ | J.EDot _ | J.ENew _ | J.EVar _ | J.EFun _
     | J.EStr _ | J.EArr _ | J.ENum _ | J.EObj _ | J.EQuote _ | J.ERegexp _
+    (* jordwalke: isn't this a bug? IncrA/Decr can have side effects! *)
     | J.EUn
         (( J.IncrA
          | J.IncrB

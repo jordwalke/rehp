@@ -1186,6 +1186,8 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
             in
             (J.ECall (prim, args, loc), prop, queue)
         end
+      (* TODO: Stop using 1 - x to represent "Not". This won't work in all
+       * language backends.  *)
       | Not, [x] ->
         let ((px, cx), queue) = access_queue' ~ctx  queue x in
         (J.EBin (J.Minus, one, cx), px, queue)
