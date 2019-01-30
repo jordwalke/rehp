@@ -1046,6 +1046,8 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
         (J.EAccess (cx, plus_int cy one),
          or_p mutable_p (or_p px py), queue)
       | Extern "caml_js_var", [Pc (String nm | IString nm)]
+      | Extern ("caml_js_raw_expr"), [Pc (String nm | IString nm)] ->
+        (ERaw nm, const_p, queue)
       | Extern ("caml_js_expr"|"caml_pure_js_expr"), [Pc (String nm | IString nm)] ->
         begin
           try
