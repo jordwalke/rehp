@@ -106,15 +106,6 @@ function caml_get_global_data () { return caml_global_data; }
 
 //Raise exception
 
-
-//Provides: caml_raise_constant (const)
-//Version: < 4.02
-function caml_raise_constant (tag) { throw [0, tag]; }
-
-//Provides: caml_raise_constant (const)
-//Version: >= 4.02
-function caml_raise_constant (tag) { throw tag; }
-
 //Provides: caml_return_exn_constant (const)
 //Version: < 4.02
 function caml_return_exn_constant (tag) { return [0, tag]; }
@@ -123,27 +114,7 @@ function caml_return_exn_constant (tag) { return [0, tag]; }
 //Version: >= 4.02
 function caml_return_exn_constant (tag) { return tag; }
 
-//Provides: caml_raise_with_arg (const, const)
-function caml_raise_with_arg (tag, arg) { throw [0, tag, arg]; }
-
-//Provides: caml_raise_with_string (const, const)
-//Requires: caml_raise_with_arg,caml_new_string
-function caml_raise_with_string (tag, msg) {
-  caml_raise_with_arg (tag, caml_new_string (msg));
-}
-
-//Provides: caml_raise_sys_error (const)
-//Requires: caml_raise_with_string, caml_global_data
-function caml_raise_sys_error (msg) {
-  caml_raise_with_string(caml_global_data.Sys_error, msg);
-}
-
-//Provides: caml_failwith (const)
-//Requires: caml_raise_with_string, caml_global_data
-function caml_failwith (msg) {
-  caml_raise_with_string(caml_global_data.Failure, msg);
-}
-
+// Wraps JS caught exceptions as ocaml ones.
 //Provides: caml_wrap_exception const (const)
 //Requires: caml_global_data,caml_js_to_string,caml_named_value
 //Requires: caml_return_exn_constant
@@ -165,20 +136,73 @@ function caml_wrap_exception(e) {
   if(e instanceof joo_global_object.Error && caml_named_value("jsError"))
     return [0,caml_named_value("jsError"),e];
   //fallback: wrapped in Failure
-  return [0,caml_global_data.Failure,caml_js_to_string (String(e))];
+  return [0,caml_global_data.Failure,caml_js_to_string (new String(e))];
 }
 
 // Experimental
-//Provides: caml_exn_with_js_backtrace
+//Provides: caml_wrap_thrown_exception
 //Requires: caml_global_data
-function caml_exn_with_js_backtrace(exn, force) {
-  //never reraise for constant exn
-  if(!exn.js_error || force || exn[0] == 248) exn.js_error = new joo_global_object.Error("Js exception containing backtrace");
+function caml_wrap_thrown_exception(exn) {
+  exn.stack_trace = new joo_global_object.Error("Js exception containing backtrace");
   return exn;
 }
+
+// Experimental (shouldn't "reraised" exceptions be chained?)
+//Provides: caml_wrap_thrown_exception_reraise
+//Requires: caml_wrap_thrown_exception
+function caml_wrap_thrown_exception_reraise(exn) {
+  //never reraise for constant exn
+  if(!exn.stack_trace || exn[0] == 248) {
+    return caml_wrap_thrown_exception(exn);
+  }
+  return exn;
+}
+// Experimental
+//Provides: caml_wrap_thrown_exception_traceless
+function caml_wrap_thrown_exception_traceless(exn, force) {
+  return exn;
+}
+
+//Provides: caml_raise_constant (const)
+//Requires: caml_wrap_thrown_exception
+//Version: < 4.02
+function caml_raise_constant (tag) { throw caml_wrap_thrown_exception([0, tag]); }
+
+//Provides: caml_raise_constant (const)
+//Requires: caml_wrap_thrown_exception
+//Version: >= 4.02
+function caml_raise_constant (tag) { throw caml_wrap_thrown_exception(tag); }
+
+
+// TODO: Detect what kind of exception throwing is configured in the --enable
+// flags and use that. In the mean time, use the most conservative exception
+// wrapping.
+
+//Provides: caml_raise_with_arg (const, const)
+//Requires: caml_wrap_thrown_exception
+function caml_raise_with_arg (tag, arg) { throw caml_wrap_thrown_exception([0, tag, arg]); }
+
+//Provides: caml_raise_with_string (const, const)
+//Requires: caml_raise_with_arg,caml_new_string
+function caml_raise_with_string (tag, msg) {
+  caml_raise_with_arg (tag, caml_new_string (msg));
+}
+
+//Provides: caml_raise_sys_error (const)
+//Requires: caml_raise_with_string, caml_global_data
+function caml_raise_sys_error (msg) {
+  caml_raise_with_string(caml_global_data.Sys_error, msg);
+}
+
+//Provides: caml_failwith (const)
+//Requires: caml_raise_with_string, caml_global_data
+function caml_failwith (msg) {
+  caml_raise_with_string(caml_global_data.Failure, msg);
+}
+
 //Provides: caml_js_error_of_exception
 function caml_js_error_of_exception(exn) {
-  if(exn.js_error) { return exn.js_error; }
+  if(exn.stack_trace) { return exn.stack_trace; }
   return null;
 }
 

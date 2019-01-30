@@ -169,7 +169,9 @@ module Share = struct
          "caml_trampoline_return";
          "caml_wrap_exception";
          "caml_list_of_js_array";
-         "caml_exn_with_js_backtrace"]
+         "caml_wrap_thrown_exception_traceless";
+         "caml_wrap_thrown_exception_reraise";
+         "caml_wrap_thrown_exception"]
         ~init:count
         ~f:(fun acc x -> add_special_prim_if_exists x acc)
     in
@@ -966,18 +968,18 @@ let _ =
    tag the ocaml exception with a Javascript error (that contain js stacktrace).
    {[ throw e ]}
    becomes
-   {[ throw (caml_exn_with_js_backtrace(e,false)) ]}
+   {[ throw (thrown_exception(e,false)) ]}
 *)
 let throw_statement ctx cx k loc =
   match (k : [`Normal|`Reraise|`Notrace]) with
   | _ when not (Config.Flag.improved_stacktrace ()) ->
     [J.Throw_statement cx,loc]
   | `Notrace ->
-    [J.Throw_statement cx,loc]
+    [J.Throw_statement (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception_traceless",[cx],loc)),loc]
   | `Normal ->
-    [J.Throw_statement (J.ECall (runtime_fun ctx "caml_exn_with_js_backtrace",[cx;bool (J.ENum 1.)],loc)),loc]
+    [J.Throw_statement (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception",[cx],loc)),loc]
   | `Reraise ->
-    [J.Throw_statement (J.ECall (runtime_fun ctx "caml_exn_with_js_backtrace",[cx;bool (J.ENum 0.)],loc)),loc]
+    [J.Throw_statement (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception_reraise",[cx],loc)),loc]
 
 let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
   match e with
