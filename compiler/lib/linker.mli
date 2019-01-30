@@ -24,12 +24,13 @@ type fragment =
   ; requires : string list
   ; version_constraint : ((int -> int -> bool) * string) list list
   ; weakdef : bool
+  ; backends : string list
   ; code : Javascript.program
   }
 
 val parse_file : string -> fragment list
 
-val load_files : string list -> unit
+val load_files : ?backend:Backend.t -> string list -> unit
 
 type state
 

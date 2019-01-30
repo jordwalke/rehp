@@ -34,23 +34,23 @@ let loc pi = match pi with
      Printf.sprintf "%s:%d" src line
   | None
   | Some _ -> "unknown location"
-  
-let error s = Format.ksprintf (fun s -> failwith s) s
 
 let parse_annot loc s =
   let buf = Lexing.from_string s in
   try
     match Annot_parser.annot Annot_lexer.initial buf with
       | `Requires (_,l) -> Some (`Requires (Some loc,l))
+      | `ForBackend (_,l) -> Some (`ForBackend (Some loc, l))
       | `Provides (_,n,k,ka) -> Some (`Provides (Some loc,n,k,ka))
       | `Version (_,l) -> Some (`Version  (Some loc, l))
       | `Weakdef _ -> Some (`Weakdef (Some loc))
-      | `ForBackend _ -> error "ForBackend Not Supported With Linker"
   with
     | Not_found -> None
     | _exc ->
     (* Format.eprintf "Not found for %s : %s @." (Printexc.to_string exc) s; *)
     None
+
+let error s = Format.ksprintf (fun s -> failwith s) s
 
 let is_file_directive cmt =
   let lexbuf = Lexing.from_string cmt in
@@ -117,6 +117,7 @@ let parse_file f =
           ; requires = []
           ; version_constraint = []
           ; weakdef = false
+          ; backends = []
           ; code }
         in
         List.fold_left annot
@@ -128,6 +129,8 @@ let parse_file f =
               {fragment with requires = mn @ fragment.requires}
             | `Version (_,l) ->
               {fragment with version_constraint = l::fragment.version_constraint}
+            | `ForBackend (_,be) ->
+              {fragment with backends = be @ fragment.backends}
             | `Weakdef _ ->
               {fragment with weakdef = true})
       with Parse_js.Parsing_error pi ->
@@ -267,19 +270,65 @@ let find_named_value code =
   ignore(p#program code);
   !all
 
-let add_file f =
+(* Handles calls to raw backend specific runtime functions like:
+
+      //Provides: caml_wrap_exception (mutable)
+      var caml_wrap_exception = raw_backend("php", [
+        "$caml_wrap_exception_php = function($e)  {",
+          "}",
+        "};"
+      ]);
+*)
+let rec strings_in_arr so_far l = match l with
+  | [] -> Some so_far
+  | Some(Javascript.EStr (s, _)) :: tl -> strings_in_arr (so_far ^ "\n" ^ s) tl
+  | None :: tl -> strings_in_arr (so_far ^ "\n") tl
+  | _-> None
+
+let rec process_raw prov req lst =
+  let open Javascript in
+  match lst with
+  | [] -> []
+  | (Statement (Variable_statement [(
+      ident,
+      Some (ECall (EVar(S {name = "raw_backend"}), [EArr itms], _), _)
+      )]), js_loc) :: rest -> (
+      match strings_in_arr "" itms with
+      | Some impl ->
+          (Statement (Raw_statement (prov, req, impl)), js_loc) :: process_raw prov req rest
+      |  None -> (
+        match js_loc with
+        | Pi pi ->
+          Format.eprintf
+          "Arguments for raw_backend are incorrect at %s. Must supply an array of strings to raw_backend."
+          (loc (Some pi));
+          failwith "Error while parsing JavaScript"
+        | _ ->
+          Format.eprintf "Arguments for raw_backend are incorrect at unknown location";
+          failwith "Error while parsing JavaScript"
+      )
+    )
+  | hd :: tl -> hd :: process_raw prov req tl
+
+let add_file ~backend f =
+  let backend = Backend.to_string backend in
   List.iter (parse_file f)
-    ~f:(fun {provides; requires; version_constraint;weakdef;code} ->
+    ~f:(fun {provides; requires; version_constraint;backends; weakdef;code} ->
        let vmatch = match version_constraint with
          | [] -> true
          | l -> List.exists l ~f:version_match in
-       if vmatch
+       let bmatch = match backends with
+         | [] -> true
+         | l -> List.exists (fun backend' -> backend' = backend) l in
+       if vmatch && bmatch
        then begin
          incr last_code_id;
          let id = !last_code_id in
          (match provides with
           | None ->
+            let code = process_raw [] req code in
             always_included := {filename = f; program = code} :: !always_included
+            Hashtbl.add code_pieces id (code, req)
           | Some (pi,name,kind,ka) ->
             let module J = Javascript in
             let rec find = function
@@ -294,9 +343,27 @@ let add_file f =
              * when creating differently typed wrappers around poorly typed
              * externs. *)
             let arity = find code in
-            let named_values = find_named_value code in
+            let arity =
+              match (arity, ka) with
+              | (None, Some ((hd :: tl) as ka')) ->
+                Some (List.length ka')
+              | (Some ar, Some ka) when ar != List.length ka ->
+                Util.warn
+                  "warning: primitive function %S has arity %d but its Provides describes %d arguments.\n"
+                  name
+                  ar
+                  (List.length ka);
+                Some ar
+              | _ -> None
+            in
             Primitive.register name kind ka arity;
-            StringSet.iter Primitive.register_named_value named_values;
+            (* The only reason named values are extracted in the js stubs are so
+             * that specialize_js.ml can avoid registering ones that are never
+             * used. We can sacrifice this optimization in order to not need to
+             * traverse the js code at link time. Eventually some module system
+             * will prevent the bundling of unused code. *)
+            (* let named_values = find_named_value code in *)
+            (* StringSet.iter Primitive.register_named_value named_values; *)
             if Hashtbl.mem provided name
             then begin
               let _,ploc,weakdef = Hashtbl.find provided name in
@@ -309,7 +376,8 @@ let add_file f =
 
             Hashtbl.add provided name (id,pi,weakdef);
             Hashtbl.add provided_rev id (name,pi);
-            check_primitive ~name pi ~code ~requires;
+            (* check_primitive name pi code req *)
+            let code = process_raw [name] req code in
             Hashtbl.add code_pieces id (code, requires))
        end
     )
@@ -341,9 +409,9 @@ let check_deps () =
     end
   ) code_pieces
 
-let load_files l =
-  List.iter l ~f:add_file;
-  check_deps ()
+let load_files ?(backend=Backend.Js) l =
+  List.iter l ~f:(add_file ~backend)
+  (*;  check_deps () *)
 
 (* resolve *)
 let rec resolve_dep_name_rev visited path nm =
