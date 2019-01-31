@@ -19,6 +19,6 @@
  *)
 
 val f :
-  Code.program -> exported_runtime:bool
+  Code.program -> exported_runtime:Code.Var.t option
   -> int array -> Parse_bytecode.Debug.data ->
-  Javascript.program
+  Rehp.program
