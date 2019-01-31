@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-open Javascript
+open Rehp
 
 val if_statement :
   expression -> Loc.t ->
@@ -28,8 +28,8 @@ val if_statement :
 val get_variable : Code.Var.Set.t -> expression -> Code.Var.Set.t
 
 val block :
-  (Javascript.statement * Loc.t) list ->
-  Javascript.statement * Loc.t
+  (Rehp.statement * Loc.t) list ->
+  Rehp.statement * Loc.t
 val unblock :
-  Javascript.statement * Loc.t ->
-  (Javascript.statement * Loc.t) list
+  Rehp.statement * Loc.t ->
+  (Rehp.statement * Loc.t) list

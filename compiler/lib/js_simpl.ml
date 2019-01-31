@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-module J = Javascript
+module J = Rehp
 
 let rec enot_rec e =
   let (_, cost) as res =
@@ -61,13 +61,13 @@ let rec enot_rec e =
         end
     | J.EUn (J.Not, e) ->
         (e, 0)
-    | J.EUn ((J.Neg | J.Pl | J.Typeof | J.Void | J.Delete | J.Bnot ), _) ->
+    | J.EUn ((J.Neg | J.Pl | J.IsInt | J.Typeof | J.Void | J.Delete | J.Bnot ), _) ->
         (J.EUn (J.Not, e), 0)
 
     | J.EBool b ->
         (J.EBool (not b), 0)
-    | J.ERaw _
-    | J.ECall _ | J.EAccess _ | J.EDot _ | J.ENew _ | J.EVar _ | J.EFun _
+    | J.EArityTest _ | J.EArrLen _ | J.ETag _ | J.EStruct _
+    | J.ERaw _ | J.ECall _ | J.EAccess _ | J.EStructAccess _ | J.EArrAccess _ | J.EDot _ | J.ENew _ | J.EVar _ | J.EFun _
     | J.EStr _ | J.EArr _ | J.ENum _ | J.EObj _ | J.EQuote _ | J.ERegexp _
     (* jordwalke: isn't this a bug? IncrA/Decr can have side effects! *)
     | J.EUn
@@ -189,9 +189,13 @@ let if_statement e loc iftrue truestop iffalse falsestop =
 
 
 let rec get_variable acc = function
+  | J.EArityTest e -> get_variable acc e
+  | J.EArrLen e -> get_variable acc e
   | J.ESeq (e1,e2)
   | J.EBin (_,e1,e2)
-  | J.EAccess (e1,e2) -> get_variable (get_variable acc e1) e2
+  | J.EAccess(e1, e2) -> get_variable (get_variable acc e1) e2
+  | J.EStructAccess (e1, e2) -> get_variable (get_variable acc e1) e2
+  | J.EArrAccess (e1,e2) -> get_variable (get_variable acc e1) e2
   | J.ECond (e1,e2,e3) ->
     get_variable (
       get_variable (
@@ -214,6 +218,8 @@ let rec get_variable acc = function
   | J.EQuote _
   | J.ERaw _
   | J.ERegexp _ -> acc
+  | J.EStruct el -> List.fold_left get_variable acc el
+  | J.ETag (i, el) -> List.fold_left get_variable acc (i :: el)
   | J.EArr a -> List.fold_left (fun acc i ->
                   match i with
                     | None -> acc
