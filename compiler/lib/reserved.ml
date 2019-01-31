@@ -68,12 +68,8 @@ let keyword = List.fold_left
     "await"
 ]
 
-
-let provided = List.fold_left
-    ~f:(fun acc x -> StringSet.add x acc)
-    ~init:StringSet.empty
- [
-
+let js_globals = [
+  "joo_global_object";
   "event";
   "location";
   "window";
@@ -119,3 +115,46 @@ let provided = List.fold_left
   "module";
   "require";
 ]
+
+(* TODO: These should be implicit in the stubs (free vars) *)
+(* NOTE: keep these in sync with the headers in runtime/rehack/php *)
+let php_globals = [
+  "joo_global_object";
+  "Object";
+  "Func";
+  "ObjectLiteral";
+  "ArrayLiteral";
+  "Array";
+  "RegExp";
+  "String";
+  "Math";
+  "plus";
+  "eqEq";
+  "eqEqEq";
+  "typeof";
+  "Date";
+  "Boolean";
+  "Number";
+  "unsigned_right_shift_32";
+  "left_shift_32";
+  "right_shift_32";
+  "max_int";
+  "min_int";
+  "Infinity";
+  "require";
+  "module";
+  "NaN";
+  "isNaN";
+]
+
+(* TODO: Functorize this across language backends.*)
+(* TODO: Create (and functorize) the php keywords.*)
+let provided_js = List.fold_left
+    ~f:(fun acc x -> StringSet.add x acc)
+    ~init:StringSet.empty
+    js_globals
+
+let provided_php = List.fold_left
+    ~f:(fun acc x -> StringSet.add x acc)
+    ~init:StringSet.empty
+    php_globals

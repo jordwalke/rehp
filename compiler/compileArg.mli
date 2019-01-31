@@ -22,7 +22,7 @@ open Js_of_ocaml_compiler
 type t =
   { common : CommonArg.t
   ; (* compile option *)
-    profile : Driver.profile option
+    profile : RehpDriver.profile option
   ; source_map : (string option * Source_map.t) option
   ; runtime_files : string list
   ; runtime_only : bool

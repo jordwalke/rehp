@@ -24,7 +24,7 @@ open Cmdliner
 type t =
   { common : CommonArg.t
   ; (* compile option *)
-    profile : Driver.profile option
+    profile : RehpDriver.profile option
   ; source_map : (string option * Source_map.t) option
   ; runtime_files : string list
   ; runtime_only : bool
@@ -70,7 +70,7 @@ let options =
   in
   let profile =
     let doc = "Set optimization profile : [$(docv)]." in
-    let profile = List.map Driver.profiles ~f:(fun (i, p) -> string_of_int i, p) in
+    let profile = List.map RehpDriver.profiles ~f:(fun (i, p) -> string_of_int i, p) in
     Arg.(value & opt (some (enum profile)) None & info ["opt"] ~docv:"NUM" ~doc)
   in
   let noruntime =
@@ -163,7 +163,7 @@ let options =
   in
   let backend =
     let doc = "Configure the backend to compile to." in
-    let backend = Driver.backends in
+    let backend = RehpDriver.backends in
     Arg.(value & opt (some (enum backend)) None & info ["backend"] ~docs:backend_section ~doc)
   in
   let build_t

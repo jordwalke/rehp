@@ -134,7 +134,7 @@ let f
         Some (fun s -> try Hashtbl.find t s; `Keep with Not_found -> `Skip)
   in
   (* Benchmarking shows this takes on the order of 100ms *)
-  Linker.load_files runtime_files;
+  Linker.load_files ~backend runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"] with Not_found ->
       include_dir
@@ -214,8 +214,8 @@ let f
     | None ->
       let p = PseudoFs.f p cmis fs_files paths in
       let fmt = Pretty_print.to_out_channel stdout in
-      Driver.f ~standalone ?profile ~linkall ~dynlink
-        ?source_map fmt d p
+      RehpDriver.f ~standalone ?profile ~linkall ~dynlink ~backend
+        ?source_map ~custom_header fmt d p
     | Some file ->
       gen_file file (fun chan ->
         let p =
@@ -223,14 +223,14 @@ let f
           then PseudoFs.f p cmis fs_files paths
           else p in
         let fmt = Pretty_print.to_out_channel chan in
-        Driver.f ~standalone ?profile ~linkall ~dynlink
-          ?source_map fmt d p;
+        RehpDriver.f ~standalone ?profile ~linkall ~dynlink ~backend
+          ?source_map ~custom_header fmt d p;
       );
       Stdlib.Option.iter ~f:(fun file ->
         gen_file file (fun chan ->
           let pfs = PseudoFs.f_empty cmis fs_files paths in
           let pfs_fmt = Pretty_print.to_out_channel chan in
-          Driver.f ~standalone ?profile pfs_fmt d pfs
+          RehpDriver.f ~standalone ?profile ~custom_header ~backend pfs_fmt d pfs
         )
       ) fs_output
     end;

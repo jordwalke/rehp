@@ -1,4 +1,4 @@
-(* Js_of_ocaml compiler
+/* Js_of_ocaml compiler
  * http://www.ocsigen.org/js_of_ocaml/
  * Copyright (C) 2010 Jérôme Vouillon
  * Laboratoire PPS - CNRS Université Paris Diderot
@@ -16,36 +16,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-*)
+ */
 
-open Stdlib
-type fragment =
-  { provides : (Parse_info.t option * string * Primitive.kind * Primitive.kind_arg list option) option
-  ; requires : string list
-  ; version_constraint : ((int -> int -> bool) * string) list list
-  ; weakdef : bool
-  ; backends : string list
-  ; code : Javascript.program
-  }
+type profile;
 
-val parse_file : string -> fragment list
+let f:
+  (
+    ~standalone: bool=?,
+    ~profile: profile=?,
+    ~dynlink: bool=?,
+    ~backend: Backend.t=?,
+    ~linkall: bool=?,
+    ~source_map: (option(string), Source_map.t)=?,
+    ~custom_header: (string, int, string),
+    Pretty_print.t,
+    Parse_bytecode.Debug.data,
+    Code.program
+  ) =>
+  unit;
 
-val load_files : ?backend:Backend.t -> string list -> unit
-
-type state
-
-type always_required =
-  { filename : string;
-    program : Javascript.program }
-
-type output = {
-  runtime_code: Javascript.program;
-  always_required_codes: always_required list;
-}
-
-val init : unit -> state
-val resolve_deps : ?linkall:bool -> state -> StringSet.t -> state * StringSet.t
-val link : state -> output
-val get_provided : unit -> StringSet.t
-val all : state -> string list
-
+let profiles: list((int, profile));
+let profile: int => option(profile);
+let backends: list((string, Backend.t));

@@ -25,6 +25,7 @@ type fragment =
   ; requires : string list
   ; version_constraint : ((int -> int -> bool) * string) list list
   ; weakdef : bool
+  ; backends : string list
   ; code : Javascript.program
   }
 
@@ -144,20 +145,6 @@ let parse_file f =
   res
 
 
-class check_and_warn name pi = object
-  inherit Js_traverse.free as super
-  method merge_info from =
-    let def = from#get_def_name in
-    let use = from#get_use_name in
-    let diff = StringSet.diff def use in
-    let diff = StringSet.remove name diff in
-    let diff = StringSet.filter (fun s -> String.length s <> 0 && s.[0] <> '_') diff in
-    if not (StringSet.is_empty diff)
-    then warn "WARN unused for primitive %s at %s:@. %s@."
-        name (loc pi) (String.concat ~sep:", " (StringSet.elements diff));
-    super#merge_info from
-end
-
 (*
 exception May_not_return
 
@@ -196,38 +183,13 @@ let all_return p =
   try loop_all_sources p; true with May_not_return -> false
 *)
 
-let check_primitive ~name pi ~code ~requires =
-  let free =
-    if Config.Flag.warn_unused ()
-    then new check_and_warn name pi
-    else new Js_traverse.free in
-  let _code = free#program code in
-  let freename = free#get_free_name in
-  let freename = List.fold_left requires
-      ~init:freename
-      ~f:(fun freename x -> StringSet.remove x freename)
-  in
-  let freename = StringSet.diff freename Reserved.keyword in
-  let freename = StringSet.diff freename Reserved.provided in
-  let freename = StringSet.remove Constant.global_object freename in
-  if not(StringSet.mem name free#get_def_name)
-  then begin
-    warn "warning: primitive code does not define value with the expected name: %s (%s)@." name (loc pi)
-  end;
-  if not(StringSet.is_empty freename)
-  then begin
-    warn "warning: free variables in primitive code %S (%s)@." name (loc pi);
-    warn "vars: %s@." (String.concat ~sep:", " (StringSet.elements freename))
-  end
-  (* ; *)
-  (* return checks disabled *)
-  (* if false && not (all_return code) *)
-  (* then Format.eprintf "warning: returns may be missing for primitive code %S (%s)@." name (loc pi) *)
 
 let version_match =
   List.for_all ~f:(fun (op,str) ->
       op (Ocaml_version.(compare current (split str))) 0
     )
+
+(* TODO: All of these Javascript ASTs should be raw Rehp asts *)
 
 type always_required =
   { filename : string;
@@ -241,7 +203,7 @@ type state = {
 }
 
 type output = {
-  runtime_code: Javascript.program ;
+  runtime_code: Javascript.program;
   always_required_codes: always_required list;
 }
 
@@ -250,25 +212,6 @@ let provided = Hashtbl.create 31
 let provided_rev = Hashtbl.create 31
 let code_pieces = Hashtbl.create 31
 let always_included = ref []
-
-class traverse_and_find_named_values all =
-  object
-    inherit Js_traverse.map as self
-    method expression x =
-      let open Javascript in
-      (match x with
-        | ECall(EVar (S {name="caml_named_value"; _}),[EStr (v,_)],_) ->
-          all:=StringSet.add v !all
-        | _ -> ()
-      );
-      self#expression x
-  end
-
-let find_named_value code =
-  let all = ref StringSet.empty in
-  let p = new traverse_and_find_named_values all in
-  ignore(p#program code);
-  !all
 
 (* Handles calls to raw backend specific runtime functions like:
 
@@ -326,9 +269,9 @@ let add_file ~backend f =
          let id = !last_code_id in
          (match provides with
           | None ->
-            let code = process_raw [] req code in
-            always_included := {filename = f; program = code} :: !always_included
-            Hashtbl.add code_pieces id (code, req)
+            let code = process_raw [] requires code in
+            always_included := {filename = f; program = code} :: !always_included;
+            Hashtbl.add code_pieces id (code, requires)
           | Some (pi,name,kind,ka) ->
             let module J = Javascript in
             let rec find = function
@@ -348,7 +291,7 @@ let add_file ~backend f =
               | (None, Some ((hd :: tl) as ka')) ->
                 Some (List.length ka')
               | (Some ar, Some ka) when ar != List.length ka ->
-                Util.warn
+                warn
                   "warning: primitive function %S has arity %d but its Provides describes %d arguments.\n"
                   name
                   ar
@@ -377,37 +320,13 @@ let add_file ~backend f =
             Hashtbl.add provided name (id,pi,weakdef);
             Hashtbl.add provided_rev id (name,pi);
             (* check_primitive name pi code req *)
-            let code = process_raw [name] req code in
+            let code = process_raw [name] requires code in
             Hashtbl.add code_pieces id (code, requires))
        end
     )
 
 let get_provided () =
   Hashtbl.fold (fun k _ acc -> StringSet.add k acc) provided StringSet.empty
-
-let check_deps () =
-  let provided = get_provided () in
-  Hashtbl.iter (fun id (code, requires) ->
-    let traverse = new Js_traverse.free in
-    let _js = traverse#program code in
-    let free = traverse#get_free_name in
-    let requires = List.fold_right requires ~init:StringSet.empty ~f:StringSet.add in
-    let real = StringSet.inter free provided in
-    let missing = StringSet.diff real requires in
-    if not (StringSet.is_empty missing)
-    then begin
-      try
-        let (name,ploc) = Hashtbl.find provided_rev id in
-        warn "code providing %s (%s) may miss dependencies: %s\n"
-          name
-          (loc ploc)
-          (String.concat ~sep:", " (StringSet.elements missing))
-      with Not_found ->
-        (* there is no //Provides for this piece of code *)
-        (* FIXME handle missing deps in this case *)
-        ()
-    end
-  ) code_pieces
 
 let load_files ?(backend=Backend.Js) l =
   List.iter l ~f:(add_file ~backend)
@@ -481,13 +400,6 @@ let resolve_deps ?(linkall = false) visited_rev used =
         used (StringSet.empty, visited_rev) in
   visited_rev, missing
 
-let link program state =
-  let runtime = List.flatten (List.rev (program::state.codes)) in
-  let always_required = state.always_required_codes in
-  {
-    runtime_code = runtime;
-    always_required_codes = always_required;
-  }
 
 let all state =
   IntSet.fold (fun id acc ->
@@ -497,3 +409,12 @@ let all state =
     with Not_found ->
       acc
   ) state.ids []
+
+
+let link state =
+  let runtime = List.flatten (List.rev (state.codes)) in
+  let always_required = state.always_required_codes in
+  {
+    runtime_code = runtime;
+    always_required_codes = always_required;
+  }

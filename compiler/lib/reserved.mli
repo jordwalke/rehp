@@ -18,4 +18,5 @@
  *)
 open Stdlib
 val keyword : StringSet.t
-val provided : StringSet.t
+val provided_js : StringSet.t
+val provided_php : StringSet.t
