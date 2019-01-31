@@ -17,26 +17,26 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 open Stdlib
-open Javascript
+open Rehp
 
 class type mapper = object
   method expression : expression -> expression
   method expression_o : expression option -> expression option
   method switch_case : expression -> expression
-  method initialiser : (expression * location) -> (expression * location)
-  method initialiser_o : (expression * location) option -> (expression * location) option
+  method initialiser : (expression * Loc.t) -> (expression * Loc.t)
+  method initialiser_o : (expression * Loc.t) option -> (expression * Loc.t) option
   method statement : statement -> statement
   method statements : statement_list -> statement_list
-  method statement_o : (statement * location) option -> (statement * location) option
+  method statement_o : (statement * Loc.t) option -> (statement * Loc.t) option
   method source : source_element -> source_element
   method sources : source_elements -> source_elements
-  method ident : ident -> ident
+  method ident : Id.t -> Id.t
   method program : program -> program
 end
 
 class map : mapper
 
-class subst : (ident -> ident) ->  object
+class subst : (Id.t -> Id.t) ->  object
     inherit mapper
   end
 
@@ -53,10 +53,10 @@ class type freevar =
   object('a)
     inherit mapper
     method merge_info : 'a -> unit
-    method block : ?catch:bool -> ident list -> unit
+    method block : ?catch:bool -> Id.t list -> unit
 
-    method def_var : ident -> unit
-    method use_var : ident -> unit
+    method def_var : Id.t -> unit
+    method use_var : Id.t -> unit
     method state : t
     method get_free_name : StringSet.t
     method get_free : Code.Var.Set.t

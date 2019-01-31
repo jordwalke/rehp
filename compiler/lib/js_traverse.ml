@@ -18,21 +18,21 @@
  *)
 
 open Stdlib
-open Javascript
+open Rehp
 
 class type mapper = object
-  method expression : Javascript.expression -> Javascript.expression
-  method expression_o : Javascript.expression option -> Javascript.expression option
-  method switch_case : Javascript.expression -> Javascript.expression
-  method initialiser : (Javascript.expression * Javascript.location) -> (Javascript.expression * Javascript.location)
-  method initialiser_o : (Javascript.expression * Javascript.location) option -> (Javascript.expression * Javascript.location) option
-  method statement : Javascript.statement -> Javascript.statement
-  method statement_o : (Javascript.statement * Javascript.location) option -> (Javascript.statement * Javascript.location) option
-  method statements : Javascript.statement_list -> Javascript.statement_list
-  method source : Javascript.source_element -> Javascript.source_element
-  method sources : Javascript.source_elements -> Javascript.source_elements
-  method ident : Javascript.ident -> Javascript.ident
-  method program : Javascript.program -> Javascript.program
+  method expression : Rehp.expression -> Rehp.expression
+  method expression_o : Rehp.expression option -> Rehp.expression option
+  method switch_case : Rehp.expression -> Rehp.expression
+  method initialiser : (Rehp.expression * Loc.t) -> (Rehp.expression * Loc.t)
+  method initialiser_o : (Rehp.expression * Loc.t) option -> (Rehp.expression * Loc.t) option
+  method statement : Rehp.statement -> Rehp.statement
+  method statement_o : (Rehp.statement * Loc.t) option -> (Rehp.statement * Loc.t) option
+  method statements : Rehp.statement_list -> Rehp.statement_list
+  method source : Rehp.source_element -> Rehp.source_element
+  method sources : Rehp.source_elements -> Rehp.source_elements
+  method ident : Id.t -> Id.t
+  method program : Rehp.program -> Rehp.program
 end
 
 
@@ -66,7 +66,7 @@ class map : mapper = object(m)
         let e1 =
           match e1 with
           | Left o ->
-              Util.Left(m#expression_o o)
+              Left(m#expression_o o)
           | Right l ->
               Right(List.map l ~f:(fun (id, eo) -> m#ident id,m#initialiser_o eo))
         in
@@ -75,7 +75,7 @@ class map : mapper = object(m)
     | ForIn_statement (e1, e2, (s, loc)) ->
         let e1 =
           match e1 with
-          | Util.Left e         -> Util.Left(m#expression e)
+          | Left e         -> Left(m#expression e)
           | Right ((id,e)) -> Right ((m#ident id,m#initialiser_o e))
         in
         ForIn_statement (e1, m#expression e2, (m#statement s, loc))
@@ -126,17 +126,25 @@ class map : mapper = object(m)
     ECall(m#expression  e1,List.map e2 ~f:m#expression,loc)
   | EAccess(e1,e2) ->
     EAccess(m#expression  e1,m#expression  e2)
+  | EStructAccess (e1, e2) ->
+    EStructAccess(m#expression e1, m#expression e2)
+  | EArrAccess(e1,e2) ->
+    EArrAccess(m#expression e1, m#expression e2)
   | EDot(e1,id) -> EDot(m#expression  e1, id)
   | ENew(e1,Some args) ->
     ENew(m#expression  e1,Some (List.map args ~f:m#expression))
   | ENew(e1,None) ->
     ENew(m#expression  e1,None)
   | EVar v -> EVar (m#ident v)
-  | EFun (idopt, params, body ,nid) ->
+  | EFun (idopt, params, body, nid) ->
     let idopt = match idopt with
       | None -> None
       | Some i -> Some (m#ident i) in
     EFun (idopt, List.map params ~f:m#ident, m#sources body ,nid)
+  | EArityTest e -> EArityTest (m#expression e)
+  | EArrLen e -> EArrLen (m#expression e)
+  | EStruct l -> EStruct (List.map (fun x -> m#expression x) l)
+  | ETag (i, l) -> ETag (m#expression(i), List.map (fun x -> m#expression x) l)
   | EArr l ->
     EArr (List.map l ~f:(fun x -> m#expression_o x))
   | EObj l ->
@@ -157,6 +165,8 @@ class map : mapper = object(m)
     | None -> None
     | Some i -> Some (m#initialiser i)
 
+  (* TODO: The free vars should also be mapped over. But if you wait to add
+     them until the end, that isn't required. *)
   method source x = match x with
     | Statement s -> Statement (m#statement s)
     | Function_declaration(id,params,body,nid) ->
@@ -299,6 +309,10 @@ class type freevar =
     method get_use : Code.Var.Set.t
   end
 
+(* In order for function free variables to be accurate, this traversal
+ * operation has to be done after all the other transformations so captured
+ * names aren't modified, and so dead code removal is taken into account. *)
+
 class free =
   object(m : 'test)
     inherit map as super
@@ -359,8 +373,11 @@ class free =
         | Some (S {name; _})when not(StringSet.mem name tbody#state.use_name) -> None
         | Some id -> tbody#def_var id;ident
         | None -> None in
+      (* Seems like a hacky way to abuse the block method to track free vars? *)
       tbody#block params;
       m#merge_info tbody;
+      (* let free_names = m#get_free_name in *)
+      (* let free_vars = m#get_free in *)
       EFun (ident,params,body,nid)
     | _ -> super#expression x
 
@@ -372,6 +389,8 @@ class free =
       tbody#block params;
       m#def_var id;
       m#merge_info tbody;
+      (* let free_names = m#get_free_name in *)
+      (* let free_vars = m#get_free in *)
       Function_declaration (id,params, body, nid)
     | Statement _ -> super#source x
 
@@ -642,31 +661,31 @@ end
 class clean = object(m)
   inherit map as super
 
-  method statements l =
-    let rev_append_st x l = match x with
-      | (Block b, _) -> List.rev_append b l
-      | x -> x::l in
-    let l = super#statements l in
-    let vars_rev,vars_loc,instr_rev =
-      List.fold_left l
-        ~init:([],N,[])
-        ~f:(fun (vars_rev,vars_loc,instr_rev) (x, loc) ->
-          match x with
-          | Variable_statement l when Config.Flag.compact () ->
-            let vars_loc = match vars_loc with
-              | Pi _ as x -> x
-              | _           -> loc in
-            (List.rev_append l vars_rev,vars_loc,instr_rev)
-          | Empty_statement
-          | Expression_statement (EVar _) -> vars_rev,vars_loc,instr_rev
-          | _ when vars_rev = [] -> ([],vars_loc,rev_append_st (x, loc) instr_rev)
-          | _ -> ([],vars_loc,rev_append_st (x, loc) ((Variable_statement (List.rev vars_rev), vars_loc)::instr_rev))
-        )
-    in
-    let instr_rev = match vars_rev with
-      | [] -> instr_rev
-      | vars_rev -> (Variable_statement (List.rev vars_rev), vars_loc) :: instr_rev
-    in List.rev instr_rev
+  (* This "cleaning" doesn't conform to almost every modern Javascript style
+   * guide. Most minifiers will perform this as part of compressing, but
+   * otherwise is largely considered _less_ readable. *)
+  (* method statements l = *)
+  (*   let rev_append_st x l = match x with *)
+  (*     | (Block b, _) -> List.rev_append b l *)
+  (*     | x -> x::l in *)
+  (*   let l = super#statements l in *)
+  (*   let vars_rev,vars_loc,instr_rev = *)
+  (*     List.fold_left (fun (vars_rev,vars_loc,instr_rev) (x, loc) -> *)
+  (*       match x with *)
+  (*         | Variable_statement l when Option.Optim.compact () -> *)
+  (*           let vars_loc = match vars_loc with *)
+  (*             | Loc.Pi _ as x -> x *)
+  (*             | _           -> loc in *)
+  (*           (List.rev_append l vars_rev,vars_loc,instr_rev) *)
+  (*         | Empty_statement *)
+  (*         | Expression_statement (EVar _) -> vars_rev,vars_loc,instr_rev *)
+  (*         | _ when vars_rev = [] -> ([],vars_loc,rev_append_st (x, loc) instr_rev) *)
+  (*         | _ -> ([],vars_loc,rev_append_st (x, loc) ((Variable_statement (List.rev vars_rev), vars_loc)::instr_rev)) *)
+  (*     ) ([],N,[]) l in *)
+  (*   let instr_rev = match vars_rev with *)
+  (*     | [] -> instr_rev *)
+  (*     | vars_rev -> (Variable_statement (List.rev vars_rev), vars_loc) :: instr_rev *)
+  (*   in List.rev instr_rev *)
 
    method statement s =
      let s = super#statement s in
@@ -712,9 +731,6 @@ end
 let translate_assign_op = function
   | Div -> SlashEq
   | Mod -> ModEq
-  | Lsl -> LslEq
-  | Asr -> AsrEq
-  | Lsr -> LsrEq
   | Band -> BandEq
   | Bor -> BorEq
   | Bxor -> BxorEq
@@ -752,10 +768,12 @@ let assign_op = function
         | _,true ->
           Some (EBin (StarEq, exp,exp'))
     end
-  | (exp,EBin (Div | Mod | Lsl | Asr |  Lsr | Band | Bxor | Bor as unop, exp',y)) when exp = exp' ->
+  | (exp,EBin (Div | Mod | Band | Bxor | Bor as unop, exp',y)) when exp = exp' ->
     Some (EBin (translate_assign_op unop, exp,y))
   | _ -> None
 
+(* Performs very simple local simplifications on code that don't require
+   analysis of side effects *)
 class simpl = object(m)
   inherit map as super
   method expression e =
@@ -807,6 +825,12 @@ class simpl = object(m)
           let x = List.map l1 ~f:(function
             | (ident,None) -> (Variable_statement [(ident,None)], loc)
             | (ident,Some (exp,pc)) ->
+              (* var x = x + x
+                 Can be simplified into x *= 2 because x must have already been in scope so
+                 no other var declaration necessary. This optimizations forms an assumption
+                 on the nature of scope in Rehp. (TODO: Document this as part of Rehp's
+                 semantics).
+              *)
               match assign_op (EVar ident,exp) with
               | Some e -> (Expression_statement e, loc)
               | None -> (Variable_statement [(ident,Some (exp,pc))],loc)) in
