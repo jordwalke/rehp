@@ -210,7 +210,7 @@ function caml_bytes_unsafe_get (s, i) {
   default: /* PARTIAL */
     if (i >= s.c.length) return 0;
   case 0: /* BYTES */
-    return s.c.charCodeAt(i);
+    return s.c.charCodeAt(i) | 0;
   case 4: /* ARRAY */
     return s.c[i]
   }
