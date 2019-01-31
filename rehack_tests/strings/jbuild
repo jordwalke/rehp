@@ -1,0 +1,9 @@
+(jbuild_version 1)
+
+(executable
+ (
+  (name strings)
+  (package js_of_ocaml)
+  (public_name strings.exe)
+ )
+)

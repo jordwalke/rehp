@@ -1,0 +1,9 @@
+(jbuild_version 1)
+
+(executable
+ (
+  (name hello_world)
+  (package js_of_ocaml)
+  (public_name hello_world.exe)
+ )
+)
