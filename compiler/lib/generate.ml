@@ -1572,7 +1572,10 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
       let ((_px, cx), queue) = access_queue queue x in
       flush_all queue (throw_statement st.ctx cx k loc)
     | Stop ->
-      flush_all queue [J.Return_statement None, loc]
+      (* Was previously: flush_all queue [J.Return_statement None, loc]
+         TODO: But the following is not actually correct all the time. We need
+         to fix this. It was required to get modules formats to work correctly. *)
+      flush_all queue []
     | Branch cont ->
       compile_branch st queue cont handler backs frontier interm
     | Pushtrap _ ->
