@@ -128,17 +128,17 @@ let specialize_instr info i rem =
       with Exit ->
         i
       end :: rem
-  | Let (x, Prim (Extern "caml_js_get", [o; f])) ->
+  | Let (x, Prim (Extern ("caml_js_get"|"caml_js_property_get" as fn_name), [o; f])) ->
       begin match the_string_of info f with
         Some s ->
-          Let (x, Prim (Extern "caml_js_get", [o; Pc (String s)]))
+          Let (x, Prim (Extern fn_name, [o; Pc (String s)]))
       | _ ->
           i
       end :: rem
-  | Let (x, Prim (Extern "caml_js_set", [o; f; v])) ->
+  | Let (x, Prim (Extern ("caml_js_set"|"caml_js_property_set" as fn_name), [o; f; v])) ->
       begin match the_string_of info f with
         Some s ->
-          Let (x, Prim (Extern "caml_js_set", [o; Pc (String s); v]))
+          Let (x, Prim (Extern fn_name, [o; Pc (String s); v]))
       | _ ->
           i
       end :: rem

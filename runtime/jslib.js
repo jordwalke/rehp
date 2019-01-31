@@ -22,12 +22,64 @@
 //Provides: caml_js_pure_expr const
 function caml_js_pure_expr (f) { return f(); }
 
-//Provides: caml_js_set (mutable, const, const)
-function caml_js_set(o,f,v) { o[f]=v;return 0}
-//Provides: caml_js_get mutable (const, const)
-function caml_js_get(o,f) { return o[f]; }
 //Provides: caml_js_delete (mutable, const)
 function caml_js_delete(o,f) { delete o[f]; return 0}
+
+// Like caml_js_get but doesn't have optimizations to inline x['foo'] into
+// property access x.foo. This function should never be called at runtime
+// because all uses of `caml_js_dict_get` should have already been optimized
+// away by generate.ml into EAccess. If not, then caml_js_dict_get was used
+// incorrectly.
+//Provides: caml_js_dict_get mutable (const, const)
+function caml_js_dict_get(o,f) {
+  js_print_stderr("caml_js_dict_get: This should never happen - all accesses should have been optimized by now.");
+  return o[f];
+}
+
+// Like caml_js_get but *only* accepts inline x.foo which will be optimized
+// away by generate.ml. This function should never be called at runtime.
+// Generate.ml should perform this operation ahead of time.
+//Provides: caml_js_property_get mutable (const, const)
+//Requires: js_print_stderr
+function caml_js_property_get(o, s) {
+  js_print_stderr("caml_js_property_get: This should never happen - all accesses should have been optimized by now.");
+  return o[s];
+}
+
+// An intelligent "get" which will either use an `x['y']` or `caml_js_get(x,
+// y)` depending on how much information is available.
+//Provides: caml_js_get mutable (const, const)
+function caml_js_get(o,f) { return o[f]; }
+
+// Like caml_js_set but doesn't have optimizations to inline x['foo'] into
+// property access x.foo. This function should never be called at runtime
+// because all uses of `caml_js_dict_set` should have already been optimized
+// away by generate.ml into EAccess. If not, then caml_js_dict_set was used
+// incorrectly.
+//Provides: caml_js_dict_set (mutable, const, const)
+function caml_js_dict_set(o, f, v) {
+  js_print_stderr("caml_js_dict_set: This should never happen - all accesses should have been optimized by now.");
+  o[f]=v;
+  return 0;
+}
+
+// Like caml_js_set but *only* accepts inline x.foo which will be optimized
+// away by generate.ml. This function should never be called at runtime.
+// Generate.ml should perform this operation ahead of time.
+//Provides: caml_js_property_set (mutable, const, const)
+//Requires: js_print_stderr
+function caml_js_property_set(o, f, v) {
+  js_print_stderr("caml_js_property_set: This should never happen - all accesses should have been optimized by now.");
+  o[f]=v;
+  return 0;
+}
+
+// An intelligent "set" which will either use an `x.y` or `caml_js_set(x, y)`
+// depending on how much information is available.
+//Provides: caml_js_set (mutable, const, const)
+function caml_js_set(o,f,v) { o[f]=v;return 0}
+
+
 
 //Provides: caml_js_instanceof (const, const)
 function caml_js_instanceof(o,c) { return o instanceof c; }

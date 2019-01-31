@@ -29,7 +29,11 @@ module Unsafe = struct
   external coerce : _ t -> _ t = "%identity"
 
   external get : 'a -> 'b -> 'c = "caml_js_get"
+  external dict_get : 'a -> 'b -> 'c = "caml_js_dict_get"
+  external property_get : 'a -> 'b -> 'c = "caml_js_property_get"
   external set : 'a -> 'b -> 'c -> unit = "caml_js_set"
+  external dict_set : 'a -> 'b -> 'c -> unit = "caml_js_dict_set"
+  external property_set : 'a -> 'b -> 'c -> unit = "caml_js_property_set"
   external delete : 'a -> 'b -> unit = "caml_js_delete"
   external call : 'a -> 'b -> any array -> 'c = "caml_js_call"
   external fun_call : 'a -> any array -> 'b = "caml_js_fun_call"

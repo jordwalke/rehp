@@ -954,6 +954,12 @@ let _ =
     (fun cx cy cz _ -> J.EBin (J.Eq, J.EAccess (cx, cy), cz));
   register_bin_prim "caml_js_get" `Mutable
     (fun cx cy _ -> J.EAccess (cx, cy));
+  (* Like caml_js_get but will never optimized to EDot *)
+  register_bin_prim "caml_js_dict_get" `Mutable
+    (fun cx cy _ -> J.EAccess (cx, cy));
+  (* Like caml_js_set but will never optimized to EDot *)
+  register_bin_prim "caml_js_dict_set" `Mutable
+    (fun cx cy _ -> J.EAccess (cx, cy));
   register_bin_prim "caml_js_delete" `Mutable
     (fun cx cy _ -> J.EUn(J.Delete, J.EAccess (cx, cy)));
   register_bin_prim "caml_js_equals" `Mutable
@@ -1120,10 +1126,14 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
         in
         (J.ENew (cc, if args = [] then None else Some args),
          or_p pc prop, queue)
-      | Extern "caml_js_get", [Pv o; Pc (String f | IString f)] when Id.is_ident f ->
+      (* caml_js_property_get is like caml_js_get but will _only_ be
+         optimized to EDot and cannot use the runtime fallback *)
+      | Extern ("caml_js_get" | "caml_js_property_get"), [Pv o; Pc (String f | IString f)] when Id.is_ident f ->
         let ((po, co), queue) = access_queue queue o in
         (J.EDot (co, f), or_p po mutable_p, queue)
-      | Extern "caml_js_set", [Pv o; Pc (String f | IString f); v] when Id.is_ident f ->
+      (* caml_js_property_set is like caml_js_set but will _only_ be
+         optimized to EDot and cannot use the runtime fallback *)
+      | Extern ("caml_js_set" | "caml_js_property_set"), [Pv o; Pc (String f | IString f); v] when Id.is_ident f ->
         let ((po, co), queue) = access_queue queue o in
         let ((pv, cv), queue) = access_queue' ~ctx queue v in
         (J.EBin (J.Eq, J.EDot (co, f), cv),

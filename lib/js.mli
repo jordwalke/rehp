@@ -670,9 +670,26 @@ module Unsafe : sig
     (** Get the value of an object property.  The expression [get o s]
         returns the value of property [s] of object [o]. *)
 
+  external dict_get : 'a -> 'b -> 'c = "caml_js_dict_get"
+    (** Like [get], but will always use the dictionary syntax else fail at
+        runtime *)
+
+  external property_get : 'a -> 'b -> 'c = "caml_js_property_get"
+    (** Like [get], but will always use the property access syntax or fail at
+        runtime *)
+
+
   external set : 'a -> 'b -> 'c -> unit = "caml_js_set"
     (** Set an object property.  The expression [set o s v]
         set the property [s] of object [o] to value [v]. *)
+
+  external dict_set : 'a -> 'b -> 'c -> unit = "caml_js_dict_set"
+    (** Like [set] but always compiles to the dictionary set syntax or fails
+        at runtime. *)
+
+  external property_set : 'a -> 'b -> 'c -> unit = "caml_js_property_set"
+    (** Like [set] but always compiles to the property set syntax or fails
+        at runtime. *)
 
   external delete : 'a -> 'b -> unit = "caml_js_delete"
     (** Delete an object property.  The expression [delete o s]
