@@ -67,12 +67,28 @@ function caml_js_fun_call(f, a) {
   }
   return f.apply(null, caml_js_from_array(a));
 }
+
+// TODO: Are the mutable annotations correct?
+// TODO: Replace this with inline calls in generate.ml.
+//Provides: caml_js_fun_call1 (const, mutable)
+function caml_js_fun_call1(f, a) {
+  return f(a);
+}
+
+// TODO: Are the mutable annotations correct?
+// TODO: Replace this with inline calls in generate.ml.
+//Provides: caml_js_fun_call2 (const, mutable, mutable)
+function caml_js_fun_call2(f, a, b) {
+  return f(a, b);
+}
+
 //Provides: caml_js_meth_call (mutable, const, shallow)
 //Requires: MlBytes
 //Requires: caml_js_from_array
 function caml_js_meth_call(o, f, args) {
   return o[f.toString()].apply(o, caml_js_from_array(args));
 }
+
 //Provides: caml_js_new (const, shallow)
 //Requires: caml_js_from_array
 function caml_js_new(c, a) {

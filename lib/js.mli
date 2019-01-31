@@ -705,6 +705,16 @@ module Unsafe : sig
         [fun_call f a] calls the Javascript function [f] with the
         arguments given by the array [a]. *)
 
+  external fun_call1 : 'a -> 'b -> 'c = "caml_js_fun_call1"
+    (** Performs a Javascript function call with one argument. The expression
+        [fun_call f a] calls the Javascript function [f] with the argument
+        a. *)
+
+  external fun_call2 : 'a -> 'b -> 'c -> 'd = "caml_js_fun_call2"
+    (** Performs a Javascript function call with two arguments. The expression
+        [fun_call f a b] calls the Javascript function [f] with the arguments a
+        and b. *)
+
   external meth_call : 'a -> string -> any array -> 'b = "caml_js_meth_call"
     (** Performs a Javascript method call.  The expression
         [meth_call o m a] calls the Javascript method [m] of object [o]
