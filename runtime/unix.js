@@ -13,7 +13,7 @@ function unix_time () {
 function unix_gmtime (t) {
   var d = new Date (t * 1000);
   var januaryfirst = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  var doy = Math.floor((d - januaryfirst) / 86400000);
+  var doy = Math.floor((d.getTime() - januaryfirst.getTime()) / 86400000);
   return [0, d.getUTCSeconds(), d.getUTCMinutes(), d.getUTCHours(),
           d.getUTCDate(), d.getUTCMonth(), d.getUTCFullYear() - 1900,
           d.getUTCDay(), doy,
@@ -24,7 +24,7 @@ function unix_gmtime (t) {
 function unix_localtime (t) {
   var d = new Date (t * 1000);
   var januaryfirst = new Date(d.getFullYear(), 0, 1);
-  var doy = Math.floor((d - januaryfirst) / 86400000);
+  var doy = Math.floor((d.getTime() - januaryfirst.getTime()) / 86400000);
   var jan = new Date(d.getFullYear(), 0, 1);
   var jul = new Date(d.getFullYear(), 6, 1);
   var stdTimezoneOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
