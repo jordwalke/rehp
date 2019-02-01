@@ -1,0 +1,232 @@
+HELLO
+
+
+
+
+-------------------
+Child Container 
+-------------------
+
+
+
+
+-------------------
+Gets Derived State From Props
+-------------------
+
+
+Init:
+
+IOne({
+   state: -,
+   subtree: ITwo(
+   IOne({
+      state: "ButtonInContainerThatCountsSizeChanges",
+      subtree: IOne({
+        state: "buttonClass",
+        subtree: IEmpty
+      })
+    }),
+   IOne({
+      state: "size changed times:0",
+      subtree: IEmpty
+    })
+  )
+ })
+
+
+Update Without Changing Props:
+
+IOne({
+   state: -,
+   subtree: ITwo(
+   IOne({
+      state: "ButtonInContainerThatCountsSizeChanges",
+      subtree: IOne({
+        state: "buttonClass",
+        subtree: IEmpty
+      })
+    }),
+   IOne({
+      state: "size changed times:0",
+      subtree: IEmpty
+    })
+  )
+ })
+
+
+Update With Changing Props:
+
+IOne({
+   state: -,
+   subtree: ITwo(
+   IOne({
+      state: "ButtonInContainerThatCountsSizeChanges",
+      subtree: IOne({
+        state: "buttonClass",
+        subtree: IEmpty
+      })
+    }),
+   IOne({
+      state: "size changed times:1",
+      subtree: IEmpty
+    })
+  )
+ })
+
+
+
+
+------------------------------
+App With Controlled Input
+------------------------------
+
+
+Init:
+
+IOne({
+   state: "AppInstance",
+   subtree: ITwo(
+   IOne({
+      state: "divRenderedByAppContainsInput",
+      subtree: IOne({
+        state: "initialInputText",
+        subtree: IOne({
+          state: "divRenderedByInput",
+          subtree: IEmpty
+        })
+      })
+    }),
+   IOne({
+      state: 0,
+      subtree: IOne({
+        state: "MyReducer:0",
+        subtree: IEmpty
+      })
+    })
+  )
+ })
+
+
+Update:
+
+IOne({
+   state: "AppInstance",
+   subtree: ITwo(
+   IOne({
+      state: "divRenderedByAppContainsInput",
+      subtree: IOne({
+        state: "haha I am controlling your input",
+        subtree: IOne({
+          state: "divRenderedByInput",
+          subtree: IEmpty
+        })
+      })
+    }),
+   IOne({
+      state: 0,
+      subtree: IOne({
+        state: "MyReducer:0",
+        subtree: IEmpty
+      })
+    })
+  )
+ })
+
+
+
+
+------------------------------
+App With Request Animation Frame 
+----------------------
+
+
+Init:
+
+IOne({
+   state: "initialAnimationFrameSetup",
+   subtree: ITwo(
+   IOne({
+      state: "rafFirstDiv",
+      subtree: IEmpty
+    }),
+   IOne({
+      state: "rafSecond",
+      subtree: IOne({
+        state: "rafDeepDiv4",
+        subtree: IEmpty
+      })
+    })
+  )
+ })
+
+
+Update After raf tick:
+
+IOne({
+   state: "initialAnimationFrameSetup->animFiredWithDeepDivState(rafDeepDiv4)",
+   subtree: ITwo(
+   IOne({
+      state: "rafFirstDiv",
+      subtree: IEmpty
+    }),
+   IOne({
+      state: "rafSecond",
+      subtree: IOne({
+        state: "rafDeepDiv5",
+        subtree: IEmpty
+      })
+    })
+  )
+ })
+
+
+Update After raf tick:
+
+IOne({
+   state: "initialAnimationFrameSetup->animFiredWithDeepDivState(rafDeepDiv4)->animFiredWithDeepDivState(rafDeepDiv5)",
+   subtree: ITwo(
+   IOne({
+      state: "rafFirstDiv",
+      subtree: IEmpty
+    }),
+   IOne({
+      state: "rafSecond",
+      subtree: IOne({
+        state: "rafDeepDiv2",
+        subtree: IEmpty
+      })
+    })
+  )
+ })
+
+
+
+
+------------------------------
+App With Polymoprhic State 
+----------------------------
+
+
+Init:
+
+IOne({
+   state: -,
+   subtree: IOne({
+     state: "zero",
+     subtree: IEmpty
+   })
+ })
+
+
+Another Type Init:
+
+IOne({
+   state: -,
+   subtree: IOne({
+     state: "zero",
+     subtree: IEmpty
+   })
+ })
+Total ms (Title): %d 0
+Second Part Of Tuple:1

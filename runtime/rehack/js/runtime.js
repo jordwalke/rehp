@@ -271,6 +271,12 @@ function MlBytes(tag, contents, length) {
 
 MlBytes.prototype.toString = function() {return caml_to_js_string(this);};
 
+MlBytes.prototype.slice =
+  function() {
+    var content = this.t == 4 ? this.c.slice() : this.c;
+    return new MlBytes(this.t, content, this.l);
+  };
+
 function caml_new_string(s) {return new MlBytes(0, s, s.length);}
 
 function caml_raise_with_string(tag, msg) {
@@ -770,7 +776,7 @@ MlNodeFile.prototype.write =
   function(offset, buf, buf_offset, len) {
     var a = caml_array_of_string(buf);
     if (! (a instanceof joo_global_object.Uint8Array)) {a = new (joo_global_object.Uint8Array)(a);}
-    var buffer = new Buffer(a);
+    var buffer = Buffer.from(a);
     this.fs.writeSync(this.fd, buffer, buf_offset, len, offset);
     return 0;
   };
@@ -779,7 +785,7 @@ MlNodeFile.prototype.read =
   function(offset, buf, buf_offset, len) {
     var a = caml_array_of_string(buf);
     if (! (a instanceof joo_global_object.Uint8Array)) {a = new (joo_global_object.Uint8Array)(a);}
-    var buffer = new Buffer(a);
+    var buffer = Buffer.from(a);
     this.fs.readSync(this.fd, buffer, buf_offset, len, offset);
     for (var i = 0; i < len; i++) {
       caml_bytes_set(buf, buf_offset + i, buffer[buf_offset + i]);
@@ -790,7 +796,7 @@ MlNodeFile.prototype.read =
 MlNodeFile.prototype.read_one =
   function(offset) {
     var a = new (joo_global_object.Uint8Array)(1);
-    var buffer = new Buffer(a);
+    var buffer = Buffer.from(a);
     this.fs.readSync(this.fd, buffer, 0, 1, offset);
     return buffer[0];
   };
@@ -866,14 +872,16 @@ MlNodeDevice.prototype.rename =
 MlNodeDevice.prototype.constructor = MlNodeDevice;
 
 var caml_root = caml_current_dir.match(/[^\/]*\//)[0];
+
+function fs_node_supported() {
+  return typeof joo_global_object.process !== "undefined" &&
+    typeof joo_global_object.process.versions !== "undefined" &&
+    typeof joo_global_object.process.versions.node !== "undefined";
+}
+
 var jsoo_mount_point = [];
 
-if (
-  typeof module !==
-    "undefined" && module.exports &&
-    typeof require !==
-      "undefined"
-) {
+if (fs_node_supported()) {
   jsoo_mount_point.push({path: caml_root,device: new MlNodeDevice(caml_root)});
 }
 else {
@@ -1016,517 +1024,10 @@ function caml_sys_getenv(name) {
   var g = joo_global_object;
   var n = name.toString();
   if (g.process && g.process.env && g.process.env[n] != undefined) {return caml_js_to_string(g.process.env[n]);}
+  if (
+  joo_global_object.jsoo_static_env && joo_global_object.jsoo_static_env[n]
+  ) {return caml_js_to_string(joo_global_object.jsoo_static_env[n]);}
   caml_raise_not_found();
-}
-
-var log2_ok = Math.log2 && Math.log2(1.12355820928894744e+307) == 1020;
-
-function jsoo_floor_log2(x) {
-  if (log2_ok) {return Math.floor(Math.log2(x));}
-  var i = 0;
-  if (x == 0) {return - Infinity;}
-  if (x >= 1) {
-    while(x >= 2) {x /= 2;i++;}
-  }
-  else {while(x < 1) {x *= 2;i--;}}
-  ;
-  return i;
-}
-
-
-
-  /* Uses isFinite */
-
-
-
-
-  /* Uses isNaN */
-
-
-function caml_int64_bits_of_float(x) {
-  if (! isFinite(x)) {
-    if (isNaN(x)) {return [255,1,0,32752];}
-    return x > 0 ? [255,0,0,32752] : [255,0,0,65520];
-  }
-  var sign = x == 0 && 1 / x == - Infinity ? 32768 : x >= 0 ? 0 : 32768;
-  if (sign) {x = - x;}
-  var exp = jsoo_floor_log2(x) + 1023;
-  if (exp <= 0) {
-    exp = 0;
-    x /= Math.pow(2, - 1026);
-  }
-  else {
-    x /= Math.pow(2, exp - 1027);
-    if (x < 16) {x *= 2;exp -= 1;}
-    if (exp == 0) {x /= 2;}
-  }
-  var k = Math.pow(2, 24);
-  var r3 = x | 0;
-  x = (x - r3) * k;
-  var r2 = x | 0;
-  x = (x - r2) * k;
-  var r1 = x | 0;
-  r3 = r3 & 15 | sign | exp << 4;
-  return [255,r1,r2,r3];
-}
-
-function caml_int64_to_bytes(x) {
-  return [
-    x[3] >> 8,
-    x[3] & 255,
-    x[2] >> 16,
-    x[2] >> 8 & 255,
-    x[2] & 255,
-    x[1] >> 16,
-    x[1] >> 8 & 255,
-    x[1] & 255
-  ];
-}
-
-var caml_output_val = function() {
-  function Writer() {this.chunk = [];}
-  Writer.prototype =
-    {
-      chunk_idx: 20,
-      block_len: 0,
-      obj_counter: 0,
-      size_32: 0,
-      size_64: 0,
-      write: function(size, value) {
-        for (var i = size - 8; i >= 0; i -= 8) this.chunk[this.chunk_idx++] = value >> i & 255;
-      },
-      write_code: function(size, code, value) {
-        this.chunk[this.chunk_idx++] = code;
-        for (var i = size - 8; i >= 0; i -= 8) this.chunk[this.chunk_idx++] = value >> i & 255;
-      },
-      finalize: function() {
-        this.block_len = this.chunk_idx - 20;
-        this.chunk_idx = 0;
-        this.write(32, 2224400062);
-        this.write(32, this.block_len);
-        this.write(32, this.obj_counter);
-        this.write(32, this.size_32);
-        this.write(32, this.size_64);
-        return this.chunk;
-      }
-    };
-  return function(v) {
-    var writer = new Writer();
-    var stack = [];
-    function extern_rec(v) {
-      if (v instanceof Array && v[0] === (v[0] | 0)) {
-        if (v[0] == 255) {
-          writer.write(8, 18);
-          for (var i = 0; i < 3; i++) writer.write(8, "_j\0".charCodeAt(i));
-          var b = caml_int64_to_bytes(v);
-          for (var i = 0; i < 8; i++) writer.write(8, b[i]);
-          writer.size_32 += 4;
-          writer.size_64 += 3;
-          return;
-        }
-        if (v[0] == 251) {
-          caml_failwith("output_value: abstract value (Abstract)");
-        }
-        if (v[0] < 16 && v.length - 1 < 8) writer.write(
-          8,
-          128 + v[0] + (v.length - 1 << 4)
-        );
-        else writer.write_code(32, 8, v.length - 1 << 10 | v[0]);
-        writer.size_32 += v.length;
-        writer.size_64 += v.length;
-        if (v.length > 1) {stack.push(v, 1);}
-      }
-      else if (v instanceof MlBytes) {
-        var len = caml_ml_string_length(v);
-        if (len < 32) writer.write(
-          8,
-          32 + len
-        );
-        else if (len < 256) writer.write_code(
-          8,
-          9,
-          len
-        );
-        else writer.write_code(32, 10, len);
-        for (var i = 0; i < len; i++) writer.write(
-          8,
-          caml_string_unsafe_get(v, i)
-        );
-        writer.size_32 += 1 + ((len + 4) / 4 | 0);
-        writer.size_64 += 1 + ((len + 8) / 8 | 0);
-      }
-      else {
-        if (v != (v | 0)) {
-          var type_of_v = typeof v;
-          caml_failwith("output_value: abstract value (" + type_of_v + ")");
-        }
-        else if (v >= 0 && v < 64) {
-          writer.write(8, 64 + v);
-        }
-        else {
-          if (v >= - (1 << 7) && v < 1 << 7) writer.write_code(8, 0, v);
-          else if (v >= - (1 << 15) && v < 1 << 15) writer.write_code(16, 1, v);
-          else writer.write_code(32, 2, v);
-        }
-      }
-    }
-    extern_rec(v);
-    while(stack.length > 0) {
-      var i = stack.pop();
-      var v = stack.pop();
-      if (i + 1 < v.length) {stack.push(v, i + 1);}
-      extern_rec(v[i]);
-    }
-    writer.finalize();
-    return writer.chunk;
-  };
-}();
-
-function caml_ba_get_size(dims) {
-  var n_dims = dims.length;
-  var size = 1;
-  for (var i = 0; i < n_dims; i++) {
-    if (dims[i] < 0) {
-      caml_invalid_argument("Bigarray.create: negative dimension");
-    }
-    size = size * dims[i];
-  }
-  return size;
-}
-
-var caml_ba_views;
-
-function caml_ba_init_views() {
-  if (! caml_ba_views) {
-    var g = joo_global_object;
-    caml_ba_views =
-      [
-        [
-          g.Float32Array,
-          g.Float64Array,
-          g.Int8Array,
-          g.Uint8Array,
-          g.Int16Array,
-          g.Uint16Array,
-          g.Int32Array,
-          g.Int32Array,
-          g.Int32Array,
-          g.Int32Array,
-          g.Float32Array,
-          g.Float64Array,
-          g.Uint8Array
-        ],
-        [0,0,0,0,0,0,0,1,0,0,2,2,0]
-      ];
-  }
-}
-
-function caml_js_from_array(a) {return raw_array_sub(a, 1, a.length - 1);}
-
-function caml_array_bound_error() {
-  caml_invalid_argument("index out of bounds");
-}
-
-function caml_ba_create_from(data, data2, data_type, kind, layout, dims) {
-  var n_dims = dims.length;
-  var size = caml_ba_get_size(dims);
-  function offset_c(index) {
-    var ofs = 0;
-    if (n_dims != index.length) {
-      caml_invalid_argument("Bigarray.get/set: bad number of dimensions");
-    }
-    for (var i = 0; i < n_dims; i++) {
-      if (index[i] < 0 || index[i] >= dims[i]) {caml_array_bound_error();}
-      ofs = ofs * dims[i] + index[i];
-    }
-    return ofs;
-  }
-  function offset_fortran(index) {
-    var ofs = 0;
-    if (n_dims != index.length) {
-      caml_invalid_argument("Bigarray.get/set: wrong number of indices");
-    }
-    for (var i = n_dims - 1; i >= 0; i--) {
-      if (index[i] < 1 || index[i] > dims[i]) {caml_array_bound_error();}
-      ofs = ofs * dims[i] + (index[i] - 1);
-    }
-    return ofs;
-  }
-  var offset = layout == 0 ? offset_c : offset_fortran;
-  var dim0 = dims[0];
-  function get_std(index) {
-    var ofs = offset(index);
-    var v = data[ofs];
-    return v;
-  }
-  function get_int64(index) {
-    var off = offset(index);
-    var l = data[off];
-    var h = data2[off];
-    return [
-      255,
-      l & 16777215,
-      l >>> 24 & 255 | (h & 65535) << 8,
-      h >>> 16 & 65535
-    ];
-  }
-  function get_complex(index) {
-    var off = offset(index);
-    var r = data[off];
-    var i = data2[off];
-    return [254,r,i];
-  }
-  var get = data_type == 1 ?
-    get_int64 :
-    data_type == 2 ? get_complex : get_std;
-  function get1_c(i) {
-    if (i < 0 || i >= dim0) {caml_array_bound_error();}
-    return data[i];
-  }
-  function get1_fortran(i) {
-    if (i < 1 || i > dim0) {caml_array_bound_error();}
-    return data[i - 1];
-  }
-  function get1_any(i) {return get([i]);}
-  var get1 = data_type == 0 ? layout == 0 ? get1_c : get1_fortran : get1_any;
-  function set_std_raw(off, v) {data[off] = v;}
-  function set_int64_raw(off, v) {
-    data[off] = v[1] | (v[2] & 255) << 24;
-    data2[off] = v[2] >>> 8 & 65535 | v[3] << 16;
-  }
-  function set_complex_raw(off, v) {data[off] = v[1];data2[off] = v[2];}
-  function set_std(index, v) {
-    var ofs = offset(index);
-    return set_std_raw(ofs, v);
-  }
-  function set_int64(index, v) {return set_int64_raw(offset(index), v);}
-  function set_complex(index, v) {return set_complex_raw(offset(index), v);}
-  var set = data_type == 1 ?
-    set_int64 :
-    data_type == 2 ? set_complex : set_std;
-  function set1_c(i, v) {
-    if (i < 0 || i >= dim0) {caml_array_bound_error();}
-    data[i] = v;
-  }
-  function set1_fortran(i, v) {
-    if (i < 1 || i > dim0) {caml_array_bound_error();}
-    data[i - 1] = v;
-  }
-  function set1_any(i, v) {set([i], v);}
-  var set1 = data_type == 0 ? layout == 0 ? set1_c : set1_fortran : set1_any;
-  function nth_dim(i) {
-    if (i < 0 || i >= n_dims) {caml_invalid_argument("Bigarray.dim");}
-    return dims[i];
-  }
-  function fill(v) {
-    if (data_type == 0) {
-      for (var i = 0; i < data.length; i++) set_std_raw(i, v);
-    }
-    if (data_type == 1) {
-      for (var i = 0; i < data.length; i++) set_int64_raw(i, v);
-    }
-    if (data_type == 2) {
-      for (var i = 0; i < data.length; i++) set_complex_raw(i, v);
-    }
-  }
-  function blit(from) {
-    if (n_dims != from.num_dims) {
-      caml_invalid_argument("Bigarray.blit: dimension mismatch");
-    }
-    for (var i = 0; i < n_dims; i++) if (dims[i] != from.nth_dim(i)) {
-      caml_invalid_argument("Bigarray.blit: dimension mismatch");
-    }
-    data.set(from.data);
-    if (data_type != 0) {data2.set(from.data2);}
-  }
-  function sub(ofs, len) {
-    var changed_dim;
-    var mul = 1;
-    if (layout == 0) {
-      for (var i = 1; i < n_dims; i++) mul = mul * dims[i];
-      changed_dim = 0;
-    }
-    else {
-      for (var i = 0; i < n_dims - 1; i++) mul = mul * dims[i];
-      changed_dim = n_dims - 1;
-      ofs = ofs - 1;
-    }
-    if (ofs < 0 || len < 0 || ofs + len > dims[changed_dim]) {caml_invalid_argument("Bigarray.sub: bad sub-array");}
-    var new_data = data.subarray(ofs * mul, (ofs + len) * mul);
-    var new_data2 = data_type == 0 ?
-      null :
-      data2.subarray(ofs * mul, (ofs + len) * mul);
-    var new_dims = [];
-    for (var i = 0; i < n_dims; i++) new_dims[i] = dims[i];
-    new_dims[changed_dim] = len;
-    return caml_ba_create_from(
-      new_data,
-      new_data2,
-      data_type,
-      kind,
-      layout,
-      new_dims
-    );
-  }
-  function slice(vind) {
-    var num_inds = vind.length;
-    var index = [];
-    var sub_dims = [];
-    var ofs;
-    if (num_inds >= n_dims) {
-      caml_invalid_argument("Bigarray.slice: too many indices");
-    }
-    if (layout == 0) {
-      for (var i = 0; i < num_inds; i++) index[i] = vind[i];
-      for (; i < n_dims; i++) index[i] = 0;
-      ofs = offset(index);
-      sub_dims = dims.slice(num_inds);
-    }
-    else {
-      for (var i = 0; i < num_inds; i++) index[n_dims - num_inds + i] = vind[i];
-      for (var i = 0; i < n_dims - num_inds; i++) index[i] = 1;
-      ofs = offset(index);
-      sub_dims = dims.slice(0, num_inds);
-    }
-    var size = caml_ba_get_size(sub_dims);
-    var new_data = data.subarray(ofs, ofs + size);
-    var new_data2 = data_type == 0 ? null : data2.subarray(ofs, ofs + size);
-    return caml_ba_create_from(
-      new_data,
-      new_data2,
-      data_type,
-      kind,
-      layout,
-      sub_dims
-    );
-  }
-  function reshape(vdim) {
-    var new_dim = [];
-    var num_dims = vdim.length;
-    if (num_dims < 1) {
-      caml_invalid_argument("Bigarray.reshape: bad number of dimensions");
-    }
-    var num_elts = 1;
-    for (var i = 0; i < num_dims; i++) {
-      new_dim[i] = vdim[i];
-      if (new_dim[i] < 0) {
-        caml_invalid_argument("Bigarray.reshape: negative dimension");
-      }
-      num_elts = num_elts * new_dim[i];
-    }
-    if (num_elts != size) {
-      caml_invalid_argument("Bigarray.reshape: size mismatch");
-    }
-    return caml_ba_create_from(data, data2, data_type, kind, layout, new_dim);
-  }
-  function compare(b, total) {
-    if (layout != b.layout) {return b.layout - layout;}
-    if (n_dims != b.num_dims) {return b.num_dims - n_dims;}
-    for (var i = 0; i < n_dims; i++) if (nth_dim(i) != b.nth_dim(i)) {
-      return nth_dim(i) < b.nth_dim(i) ? - 1 : 1;
-    }
-    switch (kind) {
-      case 0:
-      case 1:
-      case 10:
-      case 11:
-        var x, y;
-        for (var i = 0; i < data.length; i++) {
-          x = data[i];
-          y = b.data[i];
-          if (x < y) {return - 1;}
-          if (x > y) {return 1;}
-          if (x != y) {
-            if (x != y) {
-              if (! total) {return NaN;}
-              if (x == x) {return 1;}
-              if (y == y) {return - 1;}
-            }
-          }
-          if (data2) {
-            x = data2[i];
-            y = b.data2[i];
-            if (x < y) {return - 1;}
-            if (x > y) {return 1;}
-            if (x != y) {
-              if (x != y) {
-                if (! total) {return NaN;}
-                if (x == x) {return 1;}
-                if (y == y) {return - 1;}
-              }
-            }
-          }
-        }
-        ;
-        break;
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 8:
-      case 9:
-      case 12:
-        for (var i = 0; i < data.length; i++) {
-          if (data[i] < b.data[i]) {return - 1;}
-          if (data[i] > b.data[i]) {return 1;}
-        }
-        ;
-        break;
-      case 7:
-        for (var i = 0; i < data.length; i++) {
-          if (data2[i] < b.data2[i]) {return - 1;}
-          if (data2[i] > b.data2[i]) {return 1;}
-          if (data[i] < b.data[i]) {return - 1;}
-          if (data[i] > b.data[i]) {return 1;}
-        }
-        ;
-        break
-      }
-    return 0;
-  }
-  return {
-    data: data,
-    data2: data2,
-    data_type: data_type,
-    num_dims: n_dims,
-    nth_dim: nth_dim,
-    kind: kind,
-    layout: layout,
-    size: size,
-    sub: sub,
-    slice: slice,
-    blit: blit,
-    fill: fill,
-    reshape: reshape,
-    get: get,
-    get1: get1,
-    set: set,
-    set1: set1,
-    compare: compare
-  };
-}
-
-function caml_ba_create(kind, layout, dims_ml) {
-  caml_ba_init_views();
-  var dims = caml_js_from_array(dims_ml);
-  var size = caml_ba_get_size(dims);
-  var view = caml_ba_views[0][kind];
-  if (! view) {caml_invalid_argument("Bigarray.create: unsupported kind");}
-  var data = new view(size);
-  var data_type = caml_ba_views[1][kind];
-  var data2 = null;
-  if (data_type != 0) {data2 = new view(size);}
-  return caml_ba_create_from(data, data2, data_type, kind, layout, dims);
-}
-
-function bigstring_alloc(_, size) {return caml_ba_create(12, 0, [0,size]);}
-
-function bigstring_marshal_stub(v, _fl) {
-  var arr = caml_output_val(v);
-  var bs = bigstring_alloc(0, arr.length);
-  for (var i = 0; i < arr.length; i++) {caml_ba_set_1(bs, i, arr[i]);}
-  return bs;
 }
 
 function caml_sys_rename(o, n) {
@@ -1638,6 +1139,10 @@ function caml_raise_end_of_file() {
   caml_raise_constant(caml_global_data.End_of_file);
 }
 
+function caml_array_bound_error() {
+  caml_invalid_argument("index out of bounds");
+}
+
 function caml_ml_input_char(chanid) {
   var chan = caml_ml_channels[chanid];
   caml_ml_may_refill_input(chanid);
@@ -1690,6 +1195,16 @@ var caml_runtime_warnings = 0;
 
 function caml_ml_enable_runtime_warnings(bool) {caml_runtime_warnings = bool;return 0;
 }
+
+
+
+  /* Uses isFinite */
+
+
+
+
+  /* Uses isNaN */
+
 
 function caml_classify_float(x) {
   if (isFinite(x)) {
@@ -2343,6 +1858,8 @@ function caml_input_value_from_reader(reader, ofs) {
   return res;
 }
 
+function caml_js_from_array(a) {return raw_array_sub(a, 1, a.length - 1);}
+
 function caml_ba_slice(ba, vind) {return ba.slice(caml_js_from_array(vind));}
 
 function caml_raise_zero_divide() {
@@ -2535,13 +2052,6 @@ function caml_js_fun_call(f, a) {
   return f.apply(null, caml_js_from_array(a));
 }
 
-function bigstring_marshal_blit_stub(s, ofs, len, v, _fl) {
-  var t = caml_output_val(v);
-  if (t.length > len) {caml_failwith("Marshal.to_buffer: buffer overflow");}
-  for (var i = 0; i < t.length; i++) {caml_ba_set_1(s, i + ofs, t[i]);}
-  return t.length;
-}
-
 function caml_js_pure_expr(f) {return f();}
 
 function caml_sys_exit(code) {
@@ -2563,6 +2073,20 @@ function caml_ml_input(chanid, s, i, l) {
 
 function caml_ba_reshape(ba, vind) {
   return ba.reshape(caml_js_from_array(vind));
+}
+
+var log2_ok = Math.log2 && Math.log2(1.12355820928894744e+307) == 1020;
+
+function jsoo_floor_log2(x) {
+  if (log2_ok) {return Math.floor(Math.log2(x));}
+  var i = 0;
+  if (x == 0) {return - Infinity;}
+  if (x >= 1) {
+    while(x >= 2) {x /= 2;i++;}
+  }
+  else {while(x < 1) {x *= 2;i--;}}
+  ;
+  return i;
 }
 
 function caml_int32_bits_of_float(x) {
@@ -2671,12 +2195,325 @@ function caml_int64_to_float(x) {
   return (x[3] << 16) * Math.pow(2, 32) + x[2] * Math.pow(2, 24) + x[1];
 }
 
+function caml_ba_get_size(dims) {
+  var n_dims = dims.length;
+  var size = 1;
+  for (var i = 0; i < n_dims; i++) {
+    if (dims[i] < 0) {
+      caml_invalid_argument("Bigarray.create: negative dimension");
+    }
+    size = size * dims[i];
+  }
+  return size;
+}
+
+function caml_ba_create_from(data, data2, data_type, kind, layout, dims) {
+  var n_dims = dims.length;
+  var size = caml_ba_get_size(dims);
+  function offset_c(index) {
+    var ofs = 0;
+    if (n_dims != index.length) {
+      caml_invalid_argument("Bigarray.get/set: bad number of dimensions");
+    }
+    for (var i = 0; i < n_dims; i++) {
+      if (index[i] < 0 || index[i] >= dims[i]) {caml_array_bound_error();}
+      ofs = ofs * dims[i] + index[i];
+    }
+    return ofs;
+  }
+  function offset_fortran(index) {
+    var ofs = 0;
+    if (n_dims != index.length) {
+      caml_invalid_argument("Bigarray.get/set: wrong number of indices");
+    }
+    for (var i = n_dims - 1; i >= 0; i--) {
+      if (index[i] < 1 || index[i] > dims[i]) {caml_array_bound_error();}
+      ofs = ofs * dims[i] + (index[i] - 1);
+    }
+    return ofs;
+  }
+  var offset = layout == 0 ? offset_c : offset_fortran;
+  var dim0 = dims[0];
+  function get_std(index) {
+    var ofs = offset(index);
+    var v = data[ofs];
+    return v;
+  }
+  function get_int64(index) {
+    var off = offset(index);
+    var l = data[off];
+    var h = data2[off];
+    return [
+      255,
+      l & 16777215,
+      l >>> 24 & 255 | (h & 65535) << 8,
+      h >>> 16 & 65535
+    ];
+  }
+  function get_complex(index) {
+    var off = offset(index);
+    var r = data[off];
+    var i = data2[off];
+    return [254,r,i];
+  }
+  var get = data_type == 1 ?
+    get_int64 :
+    data_type == 2 ? get_complex : get_std;
+  function get1_c(i) {
+    if (i < 0 || i >= dim0) {caml_array_bound_error();}
+    return data[i];
+  }
+  function get1_fortran(i) {
+    if (i < 1 || i > dim0) {caml_array_bound_error();}
+    return data[i - 1];
+  }
+  function get1_any(i) {return get([i]);}
+  var get1 = data_type == 0 ? layout == 0 ? get1_c : get1_fortran : get1_any;
+  function set_std_raw(off, v) {data[off] = v;}
+  function set_int64_raw(off, v) {
+    data[off] = v[1] | (v[2] & 255) << 24;
+    data2[off] = v[2] >>> 8 & 65535 | v[3] << 16;
+  }
+  function set_complex_raw(off, v) {data[off] = v[1];data2[off] = v[2];}
+  function set_std(index, v) {
+    var ofs = offset(index);
+    return set_std_raw(ofs, v);
+  }
+  function set_int64(index, v) {return set_int64_raw(offset(index), v);}
+  function set_complex(index, v) {return set_complex_raw(offset(index), v);}
+  var set = data_type == 1 ?
+    set_int64 :
+    data_type == 2 ? set_complex : set_std;
+  function set1_c(i, v) {
+    if (i < 0 || i >= dim0) {caml_array_bound_error();}
+    data[i] = v;
+  }
+  function set1_fortran(i, v) {
+    if (i < 1 || i > dim0) {caml_array_bound_error();}
+    data[i - 1] = v;
+  }
+  function set1_any(i, v) {set([i], v);}
+  var set1 = data_type == 0 ? layout == 0 ? set1_c : set1_fortran : set1_any;
+  function nth_dim(i) {
+    if (i < 0 || i >= n_dims) {caml_invalid_argument("Bigarray.dim");}
+    return dims[i];
+  }
+  function fill(v) {
+    if (data_type == 0) {
+      for (var i = 0; i < data.length; i++) set_std_raw(i, v);
+    }
+    if (data_type == 1) {
+      for (var i = 0; i < data.length; i++) set_int64_raw(i, v);
+    }
+    if (data_type == 2) {
+      for (var i = 0; i < data.length; i++) set_complex_raw(i, v);
+    }
+  }
+  function blit(from) {
+    if (n_dims != from.num_dims) {
+      caml_invalid_argument("Bigarray.blit: dimension mismatch");
+    }
+    for (var i = 0; i < n_dims; i++) if (dims[i] != from.nth_dim(i)) {
+      caml_invalid_argument("Bigarray.blit: dimension mismatch");
+    }
+    data.set(from.data);
+    if (data_type != 0) {data2.set(from.data2);}
+  }
+  function sub(ofs, len) {
+    var changed_dim;
+    var mul = 1;
+    if (layout == 0) {
+      for (var i = 1; i < n_dims; i++) mul = mul * dims[i];
+      changed_dim = 0;
+    }
+    else {
+      for (var i = 0; i < n_dims - 1; i++) mul = mul * dims[i];
+      changed_dim = n_dims - 1;
+      ofs = ofs - 1;
+    }
+    if (ofs < 0 || len < 0 || ofs + len > dims[changed_dim]) {caml_invalid_argument("Bigarray.sub: bad sub-array");}
+    var new_data = data.subarray(ofs * mul, (ofs + len) * mul);
+    var new_data2 = data_type == 0 ?
+      null :
+      data2.subarray(ofs * mul, (ofs + len) * mul);
+    var new_dims = [];
+    for (var i = 0; i < n_dims; i++) new_dims[i] = dims[i];
+    new_dims[changed_dim] = len;
+    return caml_ba_create_from(
+      new_data,
+      new_data2,
+      data_type,
+      kind,
+      layout,
+      new_dims
+    );
+  }
+  function slice(vind) {
+    var num_inds = vind.length;
+    var index = [];
+    var sub_dims = [];
+    var ofs;
+    if (num_inds >= n_dims) {
+      caml_invalid_argument("Bigarray.slice: too many indices");
+    }
+    if (layout == 0) {
+      for (var i = 0; i < num_inds; i++) index[i] = vind[i];
+      for (; i < n_dims; i++) index[i] = 0;
+      ofs = offset(index);
+      sub_dims = dims.slice(num_inds);
+    }
+    else {
+      for (var i = 0; i < num_inds; i++) index[n_dims - num_inds + i] = vind[i];
+      for (var i = 0; i < n_dims - num_inds; i++) index[i] = 1;
+      ofs = offset(index);
+      sub_dims = dims.slice(0, num_inds);
+    }
+    var size = caml_ba_get_size(sub_dims);
+    var new_data = data.subarray(ofs, ofs + size);
+    var new_data2 = data_type == 0 ? null : data2.subarray(ofs, ofs + size);
+    return caml_ba_create_from(
+      new_data,
+      new_data2,
+      data_type,
+      kind,
+      layout,
+      sub_dims
+    );
+  }
+  function reshape(vdim) {
+    var new_dim = [];
+    var num_dims = vdim.length;
+    if (num_dims < 1) {
+      caml_invalid_argument("Bigarray.reshape: bad number of dimensions");
+    }
+    var num_elts = 1;
+    for (var i = 0; i < num_dims; i++) {
+      new_dim[i] = vdim[i];
+      if (new_dim[i] < 0) {
+        caml_invalid_argument("Bigarray.reshape: negative dimension");
+      }
+      num_elts = num_elts * new_dim[i];
+    }
+    if (num_elts != size) {
+      caml_invalid_argument("Bigarray.reshape: size mismatch");
+    }
+    return caml_ba_create_from(data, data2, data_type, kind, layout, new_dim);
+  }
+  function compare(b, total) {
+    if (layout != b.layout) {return b.layout - layout;}
+    if (n_dims != b.num_dims) {return b.num_dims - n_dims;}
+    for (var i = 0; i < n_dims; i++) if (nth_dim(i) != b.nth_dim(i)) {
+      return nth_dim(i) < b.nth_dim(i) ? - 1 : 1;
+    }
+    switch (kind) {
+      case 0:
+      case 1:
+      case 10:
+      case 11:
+        var x, y;
+        for (var i = 0; i < data.length; i++) {
+          x = data[i];
+          y = b.data[i];
+          if (x < y) {return - 1;}
+          if (x > y) {return 1;}
+          if (x != y) {
+            if (x != y) {
+              if (! total) {return NaN;}
+              if (x == x) {return 1;}
+              if (y == y) {return - 1;}
+            }
+          }
+          if (data2) {
+            x = data2[i];
+            y = b.data2[i];
+            if (x < y) {return - 1;}
+            if (x > y) {return 1;}
+            if (x != y) {
+              if (x != y) {
+                if (! total) {return NaN;}
+                if (x == x) {return 1;}
+                if (y == y) {return - 1;}
+              }
+            }
+          }
+        }
+        ;
+        break;
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 8:
+      case 9:
+      case 12:
+        for (var i = 0; i < data.length; i++) {
+          if (data[i] < b.data[i]) {return - 1;}
+          if (data[i] > b.data[i]) {return 1;}
+        }
+        ;
+        break;
+      case 7:
+        for (var i = 0; i < data.length; i++) {
+          if (data2[i] < b.data2[i]) {return - 1;}
+          if (data2[i] > b.data2[i]) {return 1;}
+          if (data[i] < b.data[i]) {return - 1;}
+          if (data[i] > b.data[i]) {return 1;}
+        }
+        ;
+        break
+      }
+    return 0;
+  }
+  return {
+    data: data,
+    data2: data2,
+    data_type: data_type,
+    num_dims: n_dims,
+    nth_dim: nth_dim,
+    kind: kind,
+    layout: layout,
+    size: size,
+    sub: sub,
+    slice: slice,
+    blit: blit,
+    fill: fill,
+    reshape: reshape,
+    get: get,
+    get1: get1,
+    set: set,
+    set1: set1,
+    compare: compare
+  };
+}
+
 function bigstring_of_array_buffer(ab) {
   var ta = new (joo_global_object.Uint8Array)(ab);
   return caml_ba_create_from(ta, null, 0, 12, 0, [ta.length]);
 }
 
-function bigstring_destroy_stub(_v) {return 0;}
+function bigstring_destroy_stub(v_bstr) {
+  if (v_bstr.data2 != null) {
+    caml_invalid_argument("bigstring_destroy: unsupported kind");
+  }
+  if (v_bstr.hasOwnProperty("__is_deallocated")) {
+    caml_invalid_argument(
+      "bigstring_destroy: bigstring is already deallocated"
+    );
+  }
+  var destroyed_data = new (v_bstr.data.__proto__.constructor)(0);
+  var destroyed_bigstring = caml_ba_create_from(
+    destroyed_data,
+    null,
+    v_bstr.data_type,
+    v_bstr.kind,
+    v_bstr.layout,
+    [0]
+  );
+  destroyed_bigstring.__is_deallocated = true;
+  Object.assign(v_bstr, destroyed_bigstring);
+  return 0;
+}
 
 function caml_raw_backtrace_length() {return 0;}
 
@@ -2825,6 +2662,19 @@ function caml_format_float(fmt, x) {
       break
     }
   return caml_finish_formatting(f, s);
+}
+
+function caml_int64_to_bytes(x) {
+  return [
+    x[3] >> 8,
+    x[3] & 255,
+    x[2] >> 16,
+    x[2] >> 8 & 255,
+    x[2] & 255,
+    x[1] >> 16,
+    x[1] >> 8 & 255,
+    x[1] & 255
+  ];
 }
 
 function caml_bytes_set64(s, i, i64) {
@@ -3022,9 +2872,38 @@ function caml_bytes_equal(s1, s2) {
   return s1.c == s2.c ? 1 : 0;
 }
 
+var caml_ba_views;
+
+function caml_ba_init_views() {
+  if (! caml_ba_views) {
+    var g = joo_global_object;
+    caml_ba_views =
+      [
+        [
+          g.Float32Array,
+          g.Float64Array,
+          g.Int8Array,
+          g.Uint8Array,
+          g.Int16Array,
+          g.Uint16Array,
+          g.Int32Array,
+          g.Int32Array,
+          g.Int32Array,
+          g.Int32Array,
+          g.Float32Array,
+          g.Float64Array,
+          g.Uint8Array
+        ],
+        [0,0,0,0,0,0,0,1,0,0,2,2,0]
+      ];
+  }
+}
+
 function caml_sys_const_ostype_cygwin() {return 0;}
 
 function caml_register_global(n, v, name_opt) {
+  if (name_opt && joo_global_object.toplevelReloc) {n = joo_global_object.toplevelReloc(name_opt);
+  }
   caml_global_data[n + 1] = v;
   if (name_opt) {caml_global_data[name_opt] = v;}
 }
@@ -3173,6 +3052,132 @@ function caml_new_lex_engine(tbl, start_state, lexbuf) {
     }
   }
 }
+
+function caml_int64_bits_of_float(x) {
+  if (! isFinite(x)) {
+    if (isNaN(x)) {return [255,1,0,32752];}
+    return x > 0 ? [255,0,0,32752] : [255,0,0,65520];
+  }
+  var sign = x == 0 && 1 / x == - Infinity ? 32768 : x >= 0 ? 0 : 32768;
+  if (sign) {x = - x;}
+  var exp = jsoo_floor_log2(x) + 1023;
+  if (exp <= 0) {
+    exp = 0;
+    x /= Math.pow(2, - 1026);
+  }
+  else {
+    x /= Math.pow(2, exp - 1027);
+    if (x < 16) {x *= 2;exp -= 1;}
+    if (exp == 0) {x /= 2;}
+  }
+  var k = Math.pow(2, 24);
+  var r3 = x | 0;
+  x = (x - r3) * k;
+  var r2 = x | 0;
+  x = (x - r2) * k;
+  var r1 = x | 0;
+  r3 = r3 & 15 | sign | exp << 4;
+  return [255,r1,r2,r3];
+}
+
+var caml_output_val = function() {
+  function Writer() {this.chunk = [];}
+  Writer.prototype =
+    {
+      chunk_idx: 20,
+      block_len: 0,
+      obj_counter: 0,
+      size_32: 0,
+      size_64: 0,
+      write: function(size, value) {
+        for (var i = size - 8; i >= 0; i -= 8) this.chunk[this.chunk_idx++] = value >> i & 255;
+      },
+      write_code: function(size, code, value) {
+        this.chunk[this.chunk_idx++] = code;
+        for (var i = size - 8; i >= 0; i -= 8) this.chunk[this.chunk_idx++] = value >> i & 255;
+      },
+      finalize: function() {
+        this.block_len = this.chunk_idx - 20;
+        this.chunk_idx = 0;
+        this.write(32, 2224400062);
+        this.write(32, this.block_len);
+        this.write(32, this.obj_counter);
+        this.write(32, this.size_32);
+        this.write(32, this.size_64);
+        return this.chunk;
+      }
+    };
+  return function(v) {
+    var writer = new Writer();
+    var stack = [];
+    function extern_rec(v) {
+      if (v instanceof Array && v[0] === (v[0] | 0)) {
+        if (v[0] == 255) {
+          writer.write(8, 18);
+          for (var i = 0; i < 3; i++) writer.write(8, "_j\0".charCodeAt(i));
+          var b = caml_int64_to_bytes(v);
+          for (var i = 0; i < 8; i++) writer.write(8, b[i]);
+          writer.size_32 += 4;
+          writer.size_64 += 3;
+          return;
+        }
+        if (v[0] == 251) {
+          caml_failwith("output_value: abstract value (Abstract)");
+        }
+        if (v[0] < 16 && v.length - 1 < 8) writer.write(
+          8,
+          128 + v[0] + (v.length - 1 << 4)
+        );
+        else writer.write_code(32, 8, v.length - 1 << 10 | v[0]);
+        writer.size_32 += v.length;
+        writer.size_64 += v.length;
+        if (v.length > 1) {stack.push(v, 1);}
+      }
+      else if (v instanceof MlBytes) {
+        var len = caml_ml_string_length(v);
+        if (len < 32) writer.write(
+          8,
+          32 + len
+        );
+        else if (len < 256) writer.write_code(
+          8,
+          9,
+          len
+        );
+        else writer.write_code(32, 10, len);
+        for (var i = 0; i < len; i++) writer.write(
+          8,
+          caml_string_unsafe_get(v, i)
+        );
+        writer.size_32 += 1 + ((len + 4) / 4 | 0);
+        writer.size_64 += 1 + ((len + 8) / 8 | 0);
+      }
+      else {
+        if (v != (v | 0)) {
+          var type_of_v = typeof v;
+          caml_failwith("output_value: abstract value (" + type_of_v + ")");
+        }
+        else if (v >= 0 && v < 64) {
+          writer.write(8, 64 + v);
+        }
+        else {
+          if (v >= - (1 << 7) && v < 1 << 7) writer.write_code(8, 0, v);
+          else if (v >= - (1 << 15) && v < 1 << 15) writer.write_code(16, 1, v);
+          else writer.write_code(32, 2, v);
+        }
+      }
+    }
+    extern_rec(v);
+    while(stack.length > 0) {
+      var i = stack.pop();
+      var v = stack.pop();
+      if (i + 1 < v.length) {stack.push(v, i + 1);}
+      extern_rec(v[i]);
+    }
+    writer.finalize();
+    return writer.chunk;
+  };
+}();
 
 function caml_js_from_float(x) {return x;}
 
@@ -3465,11 +3470,6 @@ function caml_create_file_extern(name, content) {
 }
 
 function caml_obj_set_tag(x, tag) {x[0] = tag;return 0;}
-
-function bigstring_unmarshal_stub(s, ofs) {
-  var reader = new BigStringReader(s, typeof ofs == "number" ? ofs : ofs[0]);
-  return caml_input_value_from_reader(reader, ofs);
-}
 
 function caml_int32_bswap(x) {
   return (x & 255) << 24 |
@@ -3901,6 +3901,19 @@ function caml_js_object(a) {
 
 function caml_runtime_parameters(_unit) {return caml_new_string("");}
 
+function caml_ba_create(kind, layout, dims_ml) {
+  caml_ba_init_views();
+  var dims = caml_js_from_array(dims_ml);
+  var size = caml_ba_get_size(dims);
+  var view = caml_ba_views[0][kind];
+  if (! view) {caml_invalid_argument("Bigarray.create: unsupported kind");}
+  var data = new view(size);
+  var data_type = caml_ba_views[1][kind];
+  var data2 = null;
+  if (data_type != 0) {data2 = new view(size);}
+  return caml_ba_create_from(data, data2, data_type, kind, layout, dims);
+}
+
 function caml_array_blit(a1, i1, a2, i2, len) {
   if (i2 <= i1) {
     for (var j = 1; j <= len; j++) a2[i2 + j] = a1[i1 + j];
@@ -4043,7 +4056,8 @@ function caml_bytes_of_string(s) {return s;}
 function caml_hash_mix_int64(h, v) {
   var lo = v[1] | v[2] << 24;
   var hi = v[2] >>> 8 | v[3] << 16;
-  h = caml_hash_mix_int(h, hi ^ lo);
+  h = caml_hash_mix_int(h, lo);
+  h = caml_hash_mix_int(h, hi);
   return h;
 }
 
@@ -4202,6 +4216,14 @@ function caml_int64_and(x, y) {
 
 function caml_sys_const_word_size() {return 32;}
 
+function caml_set_static_env(k, v) {
+  if (! joo_global_object.jsoo_static_env) {
+    joo_global_object.jsoo_static_env = {};
+  }
+  joo_global_object.jsoo_static_env[k] = v;
+  return 0;
+}
+
 function caml_ba_change_layout(ba, layout) {
   if (ba.layout == layout) {return ba;}
   var dims = [];
@@ -4217,6 +4239,11 @@ function caml_ba_change_layout(ba, layout) {
 }
 
 function caml_wrap_thrown_exception_traceless(exn, force) {return exn;}
+
+function caml_input_value_from_bytes(s, ofs) {
+  var reader = new MlBytesReader(s, typeof ofs == "number" ? ofs : ofs[0]);
+  return caml_input_value_from_reader(reader, ofs);
+}
 
 function caml_js_new(c, a) {
   switch (a.length) {
@@ -4254,6 +4281,8 @@ function caml_format_int(fmt, i) {
   }
   return caml_finish_formatting(f, s);
 }
+
+function bigstring_alloc(_, size) {return caml_ba_create(12, 0, [0,size]);}
 
 function caml_js_from_string(s) {return s.toString();}
 
@@ -4326,11 +4355,6 @@ function caml_ephe_set_data(x, data) {
   return 0;
 }
 
-function bigstring_marshal_data_size_stub(s, ofs) {
-  if (caml_ba_uint8_get32(s, ofs) != (2224400062 | 0)) {caml_failwith("Marshal.data_size: bad object");}
-  return caml_ba_uint8_get32(s, ofs + 4);
-}
-
 function caml_make_float_vect(len) {
   var len = len + 1 | 0;
   var b = new Array(len);
@@ -4356,6 +4380,8 @@ function caml_js_raw_expr(s) {
 }
 
 function caml_js_typeof(o) {return typeof o;}
+
+function caml_restore_raw_backtrace(exn, bt) {return 0;}
 
 function caml_js_wrap_meth_callback_unsafe(f) {
   return function() {f.apply(null, raw_array_cons(arguments, this));};
@@ -4759,6 +4785,10 @@ function caml_ba_fill(ba, init) {ba.fill(init);return 0;}
 
 function caml_gc_get() {return [0,0,0,0,0,0,0,0,0];}
 
+function caml_output_value_to_bytes(v, _fl) {
+  return caml_string_of_array(caml_output_val(v));
+}
+
 function caml_modf_float(x) {
   if (isFinite(x)) {
     var neg = 1 / x < 0;
@@ -5107,10 +5137,6 @@ joo_global_object.jsoo_runtime =
     caml_ephe_data_offset: caml_ephe_data_offset,
     caml_ephe_key_offset: caml_ephe_key_offset,
     caml_hash_mix_bigstring: caml_hash_mix_bigstring,
-    bigstring_marshal_blit_stub: bigstring_marshal_blit_stub,
-    bigstring_marshal_stub: bigstring_marshal_stub,
-    bigstring_unmarshal_stub: bigstring_unmarshal_stub,
-    bigstring_marshal_data_size_stub: bigstring_marshal_data_size_stub,
     bigstring_of_array_buffer: bigstring_of_array_buffer,
     bigstring_to_array_buffer: bigstring_to_array_buffer,
     bigstring_find: bigstring_find,
@@ -5188,6 +5214,7 @@ joo_global_object.jsoo_runtime =
     caml_js_pure_expr: caml_js_pure_expr,
     MlNodeFile: MlNodeFile,
     MlNodeDevice: MlNodeDevice,
+    fs_node_supported: fs_node_supported,
     MlFakeFile: MlFakeFile,
     MlFakeDevice: MlFakeDevice,
     caml_read_file_content: caml_read_file_content,
@@ -5279,7 +5306,9 @@ joo_global_object.jsoo_runtime =
     caml_sys_get_argv: caml_sys_get_argv,
     caml_sys_exit: caml_sys_exit,
     caml_sys_getenv: caml_sys_getenv,
+    caml_set_static_env: caml_set_static_env,
     caml_get_current_callstack: caml_get_current_callstack,
+    caml_restore_raw_backtrace: caml_restore_raw_backtrace,
     caml_raw_backtrace_slot: caml_raw_backtrace_slot,
     caml_raw_backtrace_next_slot: caml_raw_backtrace_next_slot,
     caml_raw_backtrace_length: caml_raw_backtrace_length,
@@ -5429,10 +5458,12 @@ joo_global_object.jsoo_runtime =
     caml_lex_engine: caml_lex_engine,
     caml_lex_array: caml_lex_array,
     caml_output_value_to_buffer: caml_output_value_to_buffer,
+    caml_output_value_to_bytes: caml_output_value_to_bytes,
     caml_output_value_to_string: caml_output_value_to_string,
     caml_output_val: caml_output_val,
     caml_marshal_data_size: caml_marshal_data_size,
     caml_input_value_from_reader: caml_input_value_from_reader,
+    caml_input_value_from_bytes: caml_input_value_from_bytes,
     caml_input_value_from_string: caml_input_value_from_string,
     caml_float_of_bytes: caml_float_of_bytes,
     BigStringReader: BigStringReader,
