@@ -53,24 +53,84 @@ function raw_array_append_one(a,x) {
   return b
 }
 
+//Provides: caml_arity_test (const)
+function caml_arity_test(f) {
+  return f.length;
+}
+
+//Provides: caml_arity_test (const)
+//ForBackend: php
+var caml_arity_test = raw_backend([
+  "$caml_arity_test = function($f) {",
+  "  $php_f = ($f instanceof Func) ? $f->fun : $f;",
+  "  if (is_object($php_f) && ($php_f instanceof \Closure)) {",
+  "    return (new \ReflectionFunction($php_f))->getNumberOfRequiredParameters();",
+  "  } else {",
+  "    throw new \ErrorException(\"Passed non closure to rehack_arity\");",
+  "  }",
+  "};"
+]);
+
 //Provides: caml_call_gen (const, shallow)
 //Requires: raw_array_sub
 //Requires: raw_array_append_one
+//Requires: caml_arity_test
 function caml_call_gen(f, args) {
   if(f.fun)
     return caml_call_gen(f.fun, args);
-  var n = f.length;
+  var n = caml_arity_test(f);
   var argsLen = args.length;
   var d = n - argsLen;
   if (d == 0)
     return f.apply(null, args);
   else if (d < 0)
-    return caml_call_gen(f.apply(null,
-                                 raw_array_sub(args,0,n)),
+    return caml_call_gen(f.apply(null, raw_array_sub(args,0,n)),
                          raw_array_sub(args,n,argsLen - n));
   else
     return function (x){ return caml_call_gen(f, raw_array_append_one(args,x)); };
 }
+
+
+//Needs to be rewritten because we don't want to support recursion in the
+//stubs. We want to move to them being raw text, and recursive use has
+//non-local effects in some backends like php - (requires boxing).
+//Provides: caml_call_gen (const, shallow)
+//Requires: raw_array_sub
+//Requires: raw_array_append_one
+//Requires: caml_arity_test
+//Requires: Func
+//ForBackend: php
+var caml_call_gen = raw_backend([
+  "  $caml_call_gen = new Ref();",
+  "  $caml_call_gen->contents =",
+  "    function($f, $args) use ($Func,$caml_arity_test,$caml_call_gen,$raw_array_append_one,$raw_array_sub) {",
+  "      if (instance_of($f, $Func)) {",
+  "        return $caml_call_gen->contents($f->fun, $args);",
+  "      }",
+  "      $n = $caml_arity_test($f);",
+  "      $argsLen = $args->length;",
+  "      $d = $n - $argsLen;",
+  "      if ($d === 0) {",
+  "        return \call_user_func_array($f, $args->__toPhpArray());",
+  "      } else {",
+  "        if ($d < 0) {",
+  "          return $caml_call_gen->contents(",
+  "            \call_user_func_array($f, $raw_array_sub($args, 0, $n)->__toPhpArray()),",
+  "            $raw_array_sub($args, $n, $argsLen - $n)",
+  "          );",
+  "        } else {",
+  "          return function($x) use ($args,$caml_call_gen,$f,$raw_array_append_one) {",
+  "            return $caml_call_gen->contents(",
+  "              $f,",
+  "              $raw_array_append_one($args, $x)",
+  "            );",
+  "          };",
+  "        }",
+  "      }",
+  "    };",
+  "  $caml_call_gen=$caml_call_gen->contents;"
+]);
+
 
 //Provides: caml_named_values
 var caml_named_values = {};
@@ -163,6 +223,95 @@ function caml_wrap_thrown_exception_traceless(exn, force) {
   return exn;
 }
 
+/**
+ * In JavaScript, anything is throwable. To create a similar semantics,
+ * we always wrap every catch in a destructured (Throwable $t), and ensure
+ * everything only ever throws something that is wrapped.
+ * For the purpose of php, this might as well be called caml_unwrap_exception
+ * since it also unwraps any Throwable shells that were necessary to throw
+ * records upward.
+ */
+
+
+//Provides: String
+//ForBackend: php
+var String = raw_backend([
+  "$String = $joo_global_object->String;",
+]);
+
+// Wraps JS caught exceptions as ocaml ones.
+//Provides: caml_wrap_exception (mutable)
+//Requires: String, caml_named_value, caml_global_data
+//ForBackend: php
+var caml_wrap_exception = raw_backend([
+  "$caml_wrap_exception = function($e) use($String, $caml_global_data) {",
+  "  if ($e instanceof RehpExceptionBox) {",
+  "    return $e->contents;",
+  "  }",
+  "  // Check for __isArrayLike because some exceptions are manually constructed in stubs",
+  "  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {",
+  "    return $e;",
+  "  }",
+  "  // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily",
+  "  // map it to Stack_overflow.",
+  "  // Wrap Error in Js.Error exception",
+  "  if($e instanceof \Throwable) { // && $caml_named_value(\"phpError\"))",
+  "    // return [0,caml_named_value(\"phpError\"),e];",
+  "    return R(0, $String->new(\"phpError\"), $e);",
+  "  }",
+  "  //fallback: wrapped in Failure",
+  "  // Again, with proper stubs this will refer to the actual Failure - always",
+  "  // kept in sync.",
+  "  return R(0, $caml_global_data->Failure, $e);",
+  "};"
+]);
+
+
+// Php only allows raising exception objects, so RehpExceptionBox
+// is like a record array that can also be thrown.
+
+//Provides: caml_wrap_thrown_exception
+//Requires: String, caml_named_value, caml_global_data
+//ForBackend: php
+var caml_wrap_thrown_exception = raw_backend([
+  "$caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {",
+  "  if ($e instanceof RehpExceptionBox) {",
+  "    return $e;",
+  "  }",
+  "  // Check for __isArrayLike because some exceptions are manually constructed in stubs",
+  "  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {",
+  "    return new RehpExceptionBox($e);",
+  "  }",
+  "  // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily",
+  "  // map it to Stack_overflow.",
+  "",
+  "  // Wrap Error in Js.Error exception",
+  "  if($e instanceof \Exception) { // && $caml_named_value(\"phpError\"))",
+  "    // return [0,caml_named_value(\"phpError\"),e];",
+  "    return new RehpExceptionBox(R(0, $String->new(\"phpError\"), $e), $e->getCode(), $e);",
+  "  }",
+  "  //fallback: wrapped in Failure",
+  "  // Again, with proper stubs this will refer to the actual Failure - always",
+  "  // kept in sync.",
+  "  return new RehpExceptionBox(R(0, $caml_global_data->Failure, $e));",
+  "};"
+]);
+
+//Provides: caml_wrap_thrown_exception_reraise
+//Requires: caml_wrap_thrown_exception
+//ForBackend: php
+var caml_wrap_thrown_exception_reraise = raw_backend([
+  "$caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;"
+]);
+
+//Provides: caml_wrap_thrown_exception_traceless
+//Requires: caml_wrap_thrown_exception
+//ForBackend: php
+var caml_wrap_thrown_exception_traceless = raw_backend([
+  "$caml_wrap_thrown_exception_traceless = $caml_wrap_thrown_exception;"
+]);
+
+
 //Provides: caml_raise_constant (const)
 //Requires: caml_wrap_thrown_exception
 //Version: < 4.02
@@ -206,6 +355,60 @@ function caml_js_error_of_exception(exn) {
   return null;
 }
 
+
+// Creates a dummy function to be used in mutually recursive code.
+// Instead of the compiler emitting
+//
+//    var f=function dum(a,b){return dum.fun(a,b)},
+//        z=[];
+//    caml_update_dummy(f,function(x,y){return 1});
+//    caml_update_dummy(z,[0,[0,f,_bq_]]);
+//
+// It can emit:
+//
+//    var f=caml_alloc_dummy_function(1,2),
+//        z=[];
+//    caml_update_dummy(f,function(x,y){return 1});
+//    caml_update_dummy(z,[0,[0,f,_bq_]]);
+//
+//Provides: caml_alloc_dummy_function (const, const)
+function caml_alloc_dummy_function (size, arity) {
+  function f() {
+    return f.fun.apply(this, arguments);
+  };
+  f.length = arity;
+  return f;
+}
+
+//Provides: caml_alloc_dummy_function (const, const)
+//Requires: ArrayLiteral, Func
+//ForBackend: php
+var caml_alloc_dummy_function = raw_backend([
+  "    $caml_alloc_dummy_function = $Func(",
+  "      function($size, $arity) use (",
+  "        $ArrayLiteral,",
+  "        $Func,",
+  "        $joo_global_object",
+  "      ) {",
+  "        print(\"WARNING: caml_alloc_dummy_function is not yet tested\");",
+  "        $f = new Ref();",
+  "        $f->contents = $Func(",
+  "          function() use ($ArrayLiteral, $f, $joo_global_object) {",
+  "            return $f->contents",
+  "              ->fun",
+  "              ->apply(",
+  "                $joo_global_object->context,",
+  "                $ArrayLiteral(\func_get_args())",
+  "              );",
+  "          }",
+  "        );",
+  "        $f->contents->length = $arity;",
+  "        return $f->contents;",
+  "      }",
+  "    );",
+]);
+
+
 //Provides: caml_invalid_argument (const)
 //Requires: caml_raise_with_string, caml_global_data
 function caml_invalid_argument (msg) {
@@ -236,12 +439,51 @@ function caml_array_bound_error () {
   caml_invalid_argument("index out of bounds");
 }
 
+// Updates previously created dummy cells which could be dummy functions, or
+// If it was possible to get rid of this, then every function could efficiently and automatically support partial application
+// by being defined like:
+//
+//      var addTwo = function(x, y) {
+//        return y === undefined ? function(y) {return addTwo(x, y)} :
+//        x + y;
+//      };
+//
+// Which would allow some inlining such as:
+//
+//      var addTwo = function(x, y) {
+//        return y === undefined ? function(y) {return x + y} :
+//        x + y;
+//      };
+//
+// (Assuming undefined is never a valid value)
+// (anything that checks argument length or function.length is slower!)
+//
+// dummy arrays waiting to hold cyclical structures.
 //Provides: caml_update_dummy
 function caml_update_dummy (x, y) {
   if( typeof y==="function" ) { x.fun = y; return 0; }
   if( y.fun ) { x.fun = y.fun; return 0; }
   var i = y.length; while (i--) x[i] = y[i]; return 0;
 }
+
+// dummy arrays waiting to hold cyclical structures.
+//Provides: caml_update_dummy
+//ForBackend: php
+var caml_update_dummy = raw_backend([
+  "  $caml_update_dummy = function($x, $y) {",
+  "    if(PHP\is_callable($y)) {",
+  "      $x->fun = $y;",
+  "      return 0;",
+  "    }",
+  "    if(isset($y->fun)) {",
+  "      $x->fun = $y->fun;",
+  "      return 0;",
+  "    }",
+  "    $i = $y->length;",
+  "    while ($i--) $x[$i] = $y[$i];",
+  "    return 0;",
+  "  };"
+])
 
 //Provides: caml_obj_is_block const (const)
 function caml_obj_is_block (x) { return +(x instanceof Array); }
@@ -355,7 +597,7 @@ function caml_floatarray_create(len){
 }
 
 //Provides: caml_compare_val (const, const, const)
-//Requires: MlBytes, caml_int64_compare, caml_int_compare, caml_string_compare
+//Requires: MlBytes, caml_int64_compare, caml_int_compare, caml_string_compare, NaN, is_in
 //Requires: caml_invalid_argument
 function caml_compare_val (a, b, total) {
   var stack = [];
@@ -415,7 +657,7 @@ function caml_compare_val (a, b, total) {
       } else if (b instanceof MlBytes ||
                  (b instanceof Array && b[0] === (b[0]|0))) {
         return -1;
-      } else if (typeof a != "number" && a && a.compare) {
+      } else if (typeof a != "number" && a && 'compare' in a) {
         var cmp = a.compare(b,total);
         if (cmp != 0) return cmp;
       } else if (typeof a == "function") {
@@ -523,8 +765,24 @@ function caml_int_of_string (s) {
   return res | 0;
 }
 
+//Provides: parseInt
+//ForBackend: js
+var parseInt = raw_backend([
+  "  // Consumes parseInt",
+]);
+
+//Provides: parseInt
+//ForBackend: php
+var parseInt = raw_backend([
+  "    $parseInt = function($str, $base) {",
+  "      print('oh hi markk');",
+  "      return PHP\intval($str, $base);",
+  "    };",
+]);
+
+
 //Provides: caml_float_of_string (const)
-//Requires: caml_failwith, caml_jsbytes_of_string
+//Requires: caml_failwith, caml_jsbytes_of_string, parseInt
 function caml_float_of_string(s) {
   var res;
   s = caml_jsbytes_of_string (s);
@@ -653,7 +911,7 @@ function caml_format_int(fmt, i) {
 }
 
 //Provides: caml_format_float const
-//Requires: caml_parse_format, caml_finish_formatting
+//Requires: isFinite, caml_parse_format, caml_finish_formatting, isNaN
 function caml_format_float (fmt, x) {
   var s, f = caml_parse_format(fmt);
   var prec = (f.prec < 0)?6:f.prec;
@@ -1270,3 +1528,162 @@ function caml_spacetime_only_works_for_native_code() {
 function caml_is_js() {
   return 1;
 }
+
+//Provides: polymorphic_log
+function polymorphic_log(x) {
+  if (typeof x == "string") {
+    joo_global_object.console.log(x);
+  } else if (x instanceof MlBytes) {
+    joo_global_object.console.log(x.c);
+  } else {
+    joo_global_object.console.log(x);
+  }
+}
+
+//Provides: unsigned_right_shift_32
+//ForBackend: php
+var unsigned_right_shift_32 = raw_backend([
+  "$unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;"
+]);
+
+//Provides: left_shift_32
+//ForBackend: php
+var left_shift_32 = raw_backend([
+  "$left_shift_32=$joo_global_object->left_shift_32;"
+]);
+
+//Provides: right_shift_32
+//ForBackend: php
+var right_shift_32 = raw_backend([
+  "$right_shift_32=$joo_global_object->right_shift_32;"
+]);
+
+//Provides: ArrayLiteral
+//ForBackend: php
+var ArrayLiteral = raw_backend([
+  "$ArrayLiteral=$joo_global_object->ArrayLiteral;"
+]);
+
+//Provides: RegExp
+//ForBackend: php
+var Regex = raw_backend([
+  "$RegExp=$joo_global_object->RegExp;"
+]);
+
+//Provides: Func
+//ForBackend: php
+var Func = raw_backend([
+  "$Func=$joo_global_object->Func;"
+]);
+
+//Provides: polymorphic_log
+//ForBackend: php
+var polymorphic_log = raw_backend([
+  "$polymorphic_log=$joo_global_object->polymorphic_log;"
+]);
+
+
+//Provides: is_int
+//ForBackend: php
+var is_int = raw_backend([
+  "  $is_int=$joo_global_object->is_int;"
+]);
+
+//Provides: NaN
+//ForBackend: js
+var NaN = raw_backend([
+  "  // Consumes NaN"
+]);
+
+//Provides: NaN
+//ForBackend: php
+var NaN = raw_backend([
+  "  $NaN=\NAN;"
+]);
+
+//Provides: ObjectLiteral
+//ForBackend: php
+var ObjectLiteral = raw_backend([
+  "  $ObjectLiteral = $joo_global_object->ObjectLiteral;"
+]);
+
+//Provides: Error
+//ForBackend: js
+var Error = raw_backend([
+  "  /* Uses Error */"
+]);
+
+// Should probably make a version that accepts more than just a string
+// (ErrorException only accepts a string).
+//Provides: Error
+//Requires: ObjectLiteral
+//ForBackend: php
+var Error = raw_backend([
+  "  $Error = $ObjectLiteral(darray[",
+  "     // Define to return a PHP exception subclass.",
+  "    \"new\" => function($payload) {",
+  "       return new \ErrorException($payload->__php_str);",
+  "    }",
+  "  ]);"
+]);
+
+//Provides: SyntaxError
+//ForBackend: js
+var SyntaxError = raw_backend([
+  "  /* Uses SyntaxError */"
+]);
+
+//Provides: SyntaxError
+//Requires: ObjectLiteral
+//ForBackend: php
+var SyntaxError = raw_backend([
+  "  $SyntaxError = $ObjectLiteral(darray[",
+  "     // Define to return a PHP exception subclass.",
+  "    \"new\" => function($payload) {",
+  "       return new \ErrorException('SyntaxError: ' .$payload->__php_str);",
+  "    }",
+  "  ]);"
+]);
+
+//Provides: isNaN
+//ForBackend: js
+var isNaN = raw_backend([
+  "  /* Uses isNaN */"
+]);
+
+//Provides: isNaN
+//ForBackend: php
+var isNaN = raw_backend([
+  "  $isNaN = function($value) {",
+  "   return PHP\is_nan(to_number($value));",
+  "  };"
+]);
+
+//Provides: isFinite
+//ForBackend: js
+var isFinite = raw_backend([
+  "  /* Uses isFinite */"
+]);
+
+//Provides: isFinite
+//ForBackend: php
+var isFinite = raw_backend([
+  "  $isFinite = function($value) {",
+  "   $value = to_number($value);",
+  "   return !($value === \INF || $value === -\INF || PHP\is_nan($value));",
+  "  };"
+]);
+
+// This won't even be used. It's only a temporary placeholder required while
+// compiling JS to PHP.
+//Provides: is_in
+//ForBackend: js
+var is_in = raw_backend(["var is_in = 0;"]);
+
+//Provides: is_in
+//ForBackend: php
+var is_in = raw_backend([
+  "  $is_in = function($key, $val) {",
+  "   return isset($val[$key]);",
+  "  };"
+]);

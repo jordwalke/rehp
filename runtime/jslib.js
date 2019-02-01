@@ -112,6 +112,16 @@ function caml_js_html_entities(s) {
   return str;
 }
 
+//Provides: caml_js_html_entities (const)
+//ForBackend: php
+var caml_js_html_entities = raw_backend([
+  "    $caml_js_html_entities = function() {",
+  "      throw new \Exception(",
+  "        'caml_js_html_entities is not supported in PHP backend'",
+  "      );",
+  "    };",
+]);
+
 /////////// Debugging console
 //Provides: caml_js_get_console const
 function caml_js_get_console () {

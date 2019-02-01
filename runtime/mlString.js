@@ -446,13 +446,40 @@ function caml_jsbytes_of_string (s) {
 }
 
 //Provides: caml_js_to_string const
-//Requires: caml_is_ascii, caml_utf8_of_utf16, MlBytes
+//Requires: caml_is_ascii, caml_utf8_of_utf16, MlBytes, Error
 function caml_js_to_string (s) {
+  if(typeof s !== "string") {
+    throw new Error("caml_js_to_string called with non-string");
+  }
   var tag = 9 /* BYTES | ASCII */;
   if (!caml_is_ascii(s))
     tag = 8 /* BYTES | NOT_ASCII */, s = caml_utf8_of_utf16(s);
   return new MlBytes(tag, s, s.length);
 }
+
+// The compiler can emit calls to caml_js_to_string("php-string") but
+// converting stubs from JS->php can result in
+// caml_js_to_string($String->new("str")).
+//Provides: caml_js_to_string const
+//Requires: caml_is_ascii, caml_utf8_of_utf16, MlBytes, Error, Func, String
+//ForBackend: php
+var caml_js_to_string = raw_backend([
+  "$caml_js_to_string = $Func(",
+  "  function($s) use ($Error,$MlBytes,$String,$caml_is_ascii,$eqEqEq,$typeof) {",
+  "    if (PHP\is_string($s)) {",
+  "      $s=$String->new($s);",
+  "    }",
+  "    if (!$eqEqEq($typeof($s), $String->new(\"string\"))) {",
+  "      throw $Error->new(",
+  "              $String->new(\"caml_js_to_string called with non-string\")",
+  "            );",
+  "    }",
+  "    $tag = 9;",
+  "    if (! $caml_is_ascii($s)) {($tag = 8) || true ? $s = $s : ($s = $s);}",
+  "    return $MlBytes->new($tag, $s, $s->length);",
+  "  }",
+  ");",
+]);
 
 //Provides: caml_create_string const
 //Requires: MlBytes,caml_invalid_argument
@@ -470,6 +497,21 @@ function caml_create_bytes(len) {
 //Provides: caml_new_string const (const)
 //Requires: MlBytes
 function caml_new_string (s) { return new MlBytes(0,s,s.length); }
+
+//Provides: caml_new_string_impl const (const)
+//Requires: MlBytes
+//ForBackend: php
+function caml_new_string_impl (s) { return new MlBytes(0,s,s.length); }
+
+//Provides: caml_new_string const (const)
+//Requires: MlBytes, caml_new_string_impl
+//ForBackend: php
+function caml_new_string (s) {
+  if(!(s instanceof String)) {
+    return caml_new_string_impl(new String(s));
+  }
+  return caml_new_string_impl(s);
+}
 
 //Provides: caml_string_of_array
 //Requires: MlBytes

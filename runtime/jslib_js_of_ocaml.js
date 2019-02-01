@@ -39,7 +39,7 @@ function caml_js_to_array(a) { return raw_array_cons(a,0); }
 
 //Provides: caml_js_var mutable (const)
 //Requires: js_print_stderr
-//Requires: MlBytes
+//Requires: MlBytes, eval
 function caml_js_var(x) {
   var x = x.toString();
   //Checks that x has the form ident[.ident]*
@@ -142,6 +142,45 @@ function caml_js_wrap_callback_arguments(f) {
     return caml_js_wrap_callback(f)(arguments);
   }
 }
+
+//Provides: caml_js_wrap_callback const (const)
+//Requires: caml_call_gen, ArrayLiteral, Func, caml_call_gen
+//ForBackend: php
+var caml_js_wrap_callback = raw_backend([
+  "  $caml_js_wrap_callback = $Func(",
+  "    function($f) use ($Array,$ArrayLiteral,$Func,$caml_call_gen) {",
+  "      print(\"WARNING: caml_js_wrap_callback is not yet tested\");",
+  "      return $Func(",
+  "        function() use ($Array,$ArrayLiteral,$caml_call_gen,$f) {",
+  "          $arguments=\func_get_args();",
+  "          if (PHP\count($arguments) > 0) {",
+  "            return $caml_call_gen($f, $Array->new($arguments));",
+  "          } else {",
+  "            return $caml_call_gen($f, $ArrayLiteral(NULL));",
+  "          }",
+  "        }",
+  "      );",
+  "    }",
+  "  );"
+]);
+
+//Provides: caml_js_wrap_callback_arguments
+//Requires: caml_js_wrap_callback, Func, caml_js_wrap_callback
+//ForBackend: php
+var caml_js_wrap_callback_arguments = raw_backend([
+  "  $caml_js_wrap_callback_arguments = $Func(",
+  "    function($f) use ($Func, $caml_js_wrap_callback) {",
+  "      print(\"WARNING: caml_js_wrap_callback_arguments is not yet tested\");",
+  "      return $Func(",
+  "        function() use ($caml_js_wrap_callback, $f) {",
+  "          $arguments=\func_get_args();",
+  "          return $caml_js_wrap_callback($f)($arguments);",
+  "        }",
+  "      );",
+  "    }",
+  "  );"
+]);
+
 //Provides: caml_js_wrap_callback_strict const
 //Requires: caml_call_gen
 function caml_js_wrap_callback_strict(arity, f) {
@@ -153,6 +192,37 @@ function caml_js_wrap_callback_strict(arity, f) {
     return caml_call_gen(f, args);
   };
 }
+//Provides: caml_js_wrap_callback_strict const
+//Requires: Func, ArrayLiteral, caml_call_gen
+//ForBackend: php
+var caml_js_wrap_callback_strict = raw_backend([
+  "    $caml_js_wrap_callback_strict = $Func(",
+  "      function($arity, $f) use (",
+  "        $Func,",
+  "        $Math,",
+  "        $ArrayLiteral,",
+  "        $caml_call_gen",
+  "      ) {",
+  "        print(\"WARNING: caml_js_wrap_callback_strict is not yet tested\");",
+  "        return $Func(",
+  "          function() use (",
+  "            $Math,",
+  "            $ArrayLiteral,",
+  "            $arity,",
+  "            $caml_call_gen,",
+  "            $f",
+  "          ) {",
+  "            $func_args = \func_get_args();",
+  "            $n = PHP\count($func_args);",
+  "            if ($n !== $arity) {",
+  "              $func_args = PHP\array_slice($func_args, 0, $Math->min($n, $arity));",
+  "            }",
+  "            return $caml_call_gen($f, $ArrayLiteral($func_args));",
+  "          }",
+  "        );",
+  "      }",
+  "    );",
+]);
 //Provides: caml_js_wrap_meth_callback const (const)
 //Requires: caml_call_gen,raw_array_cons
 function caml_js_wrap_meth_callback(f) {
@@ -160,6 +230,40 @@ function caml_js_wrap_meth_callback(f) {
     return caml_call_gen(f,raw_array_cons(arguments,this));
   }
 }
+//Provides: caml_js_wrap_meth_callback const (const)
+//Requires: ArrayLiteral, Func, caml_call_gen, raw_array_cons
+//ForBackend: php
+var caml_js_wrap_meth_callback = raw_backend([
+  "    $caml_js_wrap_meth_callback = $Func(",
+  "      function($f) use (",
+  "        $ArrayLiteral,",
+  "        $Func,",
+  "        $caml_call_gen,",
+  "        $raw_array_cons,",
+  "        $joo_global_object",
+  "      ) {",
+  "        print(\"WARNING: caml_js_wrap_meth_callback is not yet tested\");",
+  "        return $Func(",
+  "          function() use (",
+  "            $caml_call_gen,",
+  "            $f,",
+  "            $joo_global_object,",
+  "            $raw_array_cons,",
+  "            $ArrayLiteral",
+  "          ) {",
+  "            return $caml_call_gen(",
+  "              $f,",
+  "              $raw_array_cons(",
+  "                $ArrayLiteral(\func_get_args()),",
+  "                $joo_global_object->context",
+  "              )",
+  "            );",
+  "          }",
+  "        );",
+  "      }",
+  "    );",
+]);
+
 //Provides: caml_js_wrap_meth_callback_arguments const (const)
 //Requires: caml_call_gen,raw_array_cons
 function caml_js_wrap_meth_callback_arguments(f) {
@@ -167,6 +271,34 @@ function caml_js_wrap_meth_callback_arguments(f) {
     return caml_call_gen(f,[this,arguments]);
   }
 }
+//Provides: caml_js_wrap_meth_callback_arguments const (const)
+//Requires: ArrayLiteral, Func, caml_call_gen
+//ForBackend: php
+var caml_js_wrap_meth_callback_arguments = raw_backend([
+  "    $caml_js_wrap_meth_callback_arguments = $Func(",
+  "      function($f) use (",
+  "        $ArrayLiteral,",
+  "        $Func,",
+  "        $caml_call_gen,",
+  "        $joo_global_object",
+  "      ) {",
+  "        print(\"WARNING: caml_js_wrap_meth_callback_arguments is not yet tested\");",
+  "        return $Func(",
+  "          function() use ($ArrayLiteral, $caml_call_gen, $f, $joo_global_object) {",
+  "            return $caml_call_gen(",
+  "              $f,",
+  "              $ArrayLiteral(",
+  "                varray[",
+  "                  $joo_global_object->context,",
+  "                  $ArrayLiteral(\func_get_args())",
+  "                ]",
+  "              )",
+  "            );",
+  "          }",
+  "        );",
+  "      }",
+  "    );",
+]);
 //Provides: caml_js_wrap_meth_callback_strict const
 //Requires: caml_call_gen, raw_array_cons
 function caml_js_wrap_meth_callback_strict(arity, f) {
@@ -179,11 +311,78 @@ function caml_js_wrap_meth_callback_strict(arity, f) {
     return caml_call_gen(f, args);
   };
 }
+//Provides: caml_js_wrap_meth_callback_strict const
+//Requires: ArrayLiteral,Func,caml_call_gen,raw_array_cons
+//ForBackend: php
+var caml_js_wrap_meth_callback_strict = raw_backend([
+  "    $caml_js_wrap_meth_callback_strict = $Func(",
+  "      function($arity, $f) use (",
+  "        $ArrayLiteral,",
+  "        $Func,",
+  "        $caml_call_gen,",
+  "        $joo_global_object",
+  "      ) {",
+  "        print(\"WARNING: caml_js_wrap_meth_callback_strict is not yet tested\");",
+  "        return $Func(",
+  "          function() use (",
+  "            $ArrayLiteral,",
+  "            $arity,",
+  "            $caml_call_gen,",
+  "            $f,",
+  "            $joo_global_object",
+  "          ) {",
+  "            $func_args = \func_get_args();",
+  "            $n = PHP\count($func_args);",
+  "            $args = varray[$joo_global_object->context];",
+  "            if ($n === $arity) {",
+  "              $args = PHP\array_merge($args, $func_args);",
+  "            } else {",
+  "              for ($i = 1; $i < $n && $i <= $arity; $i++) {",
+  "                $args[$i] = $func_args[$i];",
+  "              }",
+  "            }",
+  "            return $caml_call_gen($f, $ArrayLiteral($args));",
+  "          }",
+  "        );",
+  "      }",
+  "    );",
+]);
 //Provides: caml_js_wrap_meth_callback_unsafe const (const)
 //Requires: caml_call_gen,raw_array_cons
 function caml_js_wrap_meth_callback_unsafe(f) {
   return function () { f.apply(null, raw_array_cons(arguments,this)); }
 }
+//Provides: caml_js_wrap_meth_callback_unsafe const (const)
+//Requires: ArrayLiteral, Func, raw_array_cons
+//ForBackend: php
+var caml_js_wrap_meth_callback_unsafe = raw_backend([
+  "    $caml_js_wrap_meth_callback_unsafe = $Func(",
+  "      function($f) use (",
+  "        $ArrayLiteral,",
+  "        $Func,",
+  "        $joo_global_object,",
+  "        $raw_array_cons",
+  "      ) {",
+  "        print(\"WARNING: caml_js_wrap_meth_callback_unsafe is not yet tested\");",
+  "        return $Func(",
+  "          function() use (",
+  "            $ArrayLiteral,",
+  "            $f,",
+  "            $joo_global_object,",
+  "            $raw_array_cons",
+  "          ) {",
+  "            $f->apply(",
+  "              varray[],",
+  "              $raw_array_cons(",
+  "                $ArrayLiteral(\func_get_args()),",
+  "                $joo_global_object->context",
+  "              )",
+  "            );",
+  "          }",
+  "        );",
+  "      }",
+  "    );",
+]);
 //Provides: caml_js_equals mutable (const, const)
 function caml_js_equals (x, y) { return +(x == y); }
 //Provides: caml_js_to_byte_string const
@@ -191,28 +390,28 @@ function caml_js_equals (x, y) { return +(x == y); }
 function caml_js_to_byte_string (s) {return caml_new_string (s);}
 
 //Provides: caml_js_eval_string (const)
-//Requires: MlBytes
+//Requires: MlBytes, eval
 function caml_js_eval_string (s) {return eval(s.toString());}
 
 //Provides: caml_js_expr (const)
 //Requires: js_print_stderr
-//Requires: MlBytes
+//Requires: MlBytes, eval
 function caml_js_expr(s) {
   js_print_stderr("caml_js_expr: fallback to runtime evaluation");
   return eval(s.toString());}
 
 //Provides: caml_js_raw_expr (const)
 //Requires: js_print_stderr
-//Requires: MlBytes
+//Requires: MlBytes, eval
 function caml_js_raw_expr(s) {
   js_print_stderr(
     "caml_js_raw_expr: This should never happen - all raw code must be directly supplied to caml_js_raw_expr."
   );
-  throw new Error("Unsupported dynamic raw js expression");}
+  return eval(s.toString());}
 
 //Provides: caml_pure_js_expr const (const)
 //Requires: js_print_stderr
-//Requires: MlBytes
+//Requires: MlBytes, eval
 function caml_pure_js_expr (s){
   js_print_stderr("caml_pure_js_expr: fallback to runtime evaluation");
   return eval(s.toString());}
@@ -236,3 +435,15 @@ function caml_js_export_var (){
   else
     return joo_global_object;
 }
+
+//Provides: eval
+//ForBackend: js
+var eval = raw_backend([
+  "  // Uses eval"
+]);
+
+//Provides: eval
+//ForBackend: php
+var eval = raw_backend([
+  "  $eval = function($str){throw new \ErrorException(\"Eval not supported\");};"
+]);
