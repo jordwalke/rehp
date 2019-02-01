@@ -318,10 +318,10 @@ module Preserve : Strategy = struct
             then expected_name
             else
               let i = ref 0 in
-              while StringSet.mem (Printf.sprintf "%s$%d" expected_name !i) assigned do
+              while StringSet.mem (Printf.sprintf "%s__%d" expected_name !i) assigned do
                 incr i
               done;
-              Printf.sprintf "%s$%d" expected_name !i
+              Printf.sprintf "%s__%d" expected_name !i
           | None -> Var.to_string var
         in
         names.(Var.idx var) <- name;

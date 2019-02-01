@@ -28,8 +28,8 @@ type t = {
   mutable stable : bool;
 }
 
-let c1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$"
-let c2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"
+let c1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
+let c2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 let name_raw t v nm = Hashtbl.add t.names v nm
 let propagate_name t v v' =
@@ -77,17 +77,17 @@ let get_name t v = try Some (Hashtbl.find t.names v) with Not_found -> None
 let rec format_ident x =
   assert (x >= 0);
   let char c x = String.make 1 (c.[x]) in
-  if x < 54 then
+  if x < 53 then
     char c1 x
   else
-    format_ident ((x - 54) / 64) ^ char c2 ((x - 54) mod 64)
+    format_ident ((x - 53) / 63) ^ char c2 ((x - 53) mod 63)
 
 let format_var t i x =
   let s = format_ident x in
   if t.stable
   then Format.sprintf "v%d" i
   else if t.pretty
-  then Format.sprintf "_%s_" s
+  then Format.sprintf "%s" s
   else s
 
 let reserved = ref StringSet.empty
