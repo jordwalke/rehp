@@ -1738,12 +1738,7 @@ let generate_shared_value ctx =
   let strings =
     J.Statement (
       J.Variable_statement (
-        (match ctx.Ctx.exported_runtime with
-         | None -> []
-         | Some v ->
-           [Id.V v,
-            Some (J.EDot (s_var Constant.global_object, "jsoo_runtime"),Loc.N)])
-        @ List.map
+        List.map
           (StringMap.bindings ctx.Ctx.share.Share.vars.Share.strings)
           ~f:(fun (s,v) -> v, Some (str_js s,Loc.N))  
         @ List.map
