@@ -228,7 +228,7 @@ language. It also makes some steps (not enough yet) to make `js_of_ocaml` treat
 stubs as raw code and not do any analysis on it (other than arity analysis for
 optimization).
 
-In order to do this, we recommend further simplifying how runtime depenencies
+In order to do this, we recommend further simplifying how runtime dependencies
 are pulled in, also using language modules to represent them. Currently, it is
 not the case and there is one large runtime file generated.
 
