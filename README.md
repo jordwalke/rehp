@@ -58,8 +58,8 @@ then run `esy` from your project root as usual.
   "@opam/js_of_ocaml": "*"
 },
 "resolutions": {
-  "@opam/js_of_ocaml": "jordwalke/rehp#c9b8028ae5781e7a7e5ea0a630f744865f1b4f63:js_of_ocaml.opam",
-  "@opam/js_of_ocaml-compiler": "jordwalke/rehp#c9b8028ae5781e7a7e5ea0a630f744865f1b4f63:js_of_ocaml-compiler.opam"
+  "@opam/js_of_ocaml": "jordwalke/rehp:js_of_ocaml.opam#c9b8028ae5781e7a7e5ea0a630f744865f1b4f63",
+  "@opam/js_of_ocaml-compiler": "jordwalke/rehp:js_of_ocaml-compiler.opam#c9b8028ae5781e7a7e5ea0a630f744865f1b4f63"
 }
 ```
 
