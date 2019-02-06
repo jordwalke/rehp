@@ -53,14 +53,13 @@ directly consume this repo. Just add the following to your `package.json` and
 then run `esy` from your project root as usual.
 
 ```json
-
 "dependencies": {
   "@opam/js_of_ocaml": "*"
 },
 "resolutions": {
-  "@opam/js_of_ocaml": "jordwalke/rehp#c9b8028ae5781e7a7e5ea0a630f744865f1b4f63:js_of_ocaml.opam",
-  "@opam/js_of_ocaml-compiler": "jordwalke/rehp#c9b8028ae5781e7a7e5ea0a630f744865f1b4f63:js_of_ocaml-compiler.opam"
-}
+  "@opam/js_of_ocaml": "jordwalke/rehp:js_of_ocaml.opam#f65bbc",
+  "@opam/js_of_ocaml-compiler": "jordwalke/rehp:js_of_ocaml-compiler.opam#f65bbc"
+},
 ```
 
 Then you can try the PHP compiler by doing:
