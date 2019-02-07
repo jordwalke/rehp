@@ -1,4 +1,4 @@
-<?php
+<?hh
 
 /**
  * Main executable compiled output. Runtime included in compilation output.
