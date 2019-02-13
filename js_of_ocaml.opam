@@ -15,6 +15,7 @@ depends: [
   "ocaml-migrate-parsetree"
   "ppx_tools_versioned"
   "uchar"
+  "reason"
   "js_of_ocaml-compiler"
 ]
 conflicts: [

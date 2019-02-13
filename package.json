@@ -5,13 +5,15 @@
     "@opam/camlp4": "*",
     "@opam/lwt": "*",
     "@esy-ocaml/substs": "^0.0.1",
-    "@esy-ocaml/reason": "^3.3.0",
+    "@esy-ocaml/reason": "^3.4.0",
     "refmterr": "*",
-    "@opam/jbuilder": " >= 1.0.0-beta17",
+    "@opam/dune": "*",
     "@opam/deriving": "*",
     "@opam/ocaml-migrate-parsetree": "*",
     "@opam/ppx_tools_versioned": "*",
     "@opam/uchar": "*",
+    "js_of_ocaml": "*",
+    "js_of_ocaml-compiler": "*",
     "@opam/js_of_ocaml-lwt": "3.1.0"
   },
   "peerDependencies": {
@@ -24,18 +26,13 @@
   "optDependencies": {},
   "esy": {
     "build": [
-      [ "refmterr", "jbuilder", "build", "rehack_tests/hello_world/hello_world.bc"],
-      [ "refmterr", "jbuilder", "build", "rehack_tests/strings/strings.bc"]
-    ],
-    "install": [
-      ["esy-installer", "js_of_ocaml.install"],
-      ["esy-installer", "js_of_ocaml-compiler.install"]
-    ],
-    "buildsInSource": "_build"
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"]
+    ]
   },
   "resolutions": {
-    "js_of_ocaml": "./js_of_ocaml.opam",
-    "js_of_ocaml-compiles": "./js_of_ocaml.opam"
+    "js_of_ocaml": "link:./js_of_ocaml.opam",
+    "js_of_ocaml-compiler": "link:./js_of_ocaml-compiler.opam"
   },
   "_esy_opam_patches": [],
   "opam": {
