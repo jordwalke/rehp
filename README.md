@@ -46,7 +46,19 @@ dramatically (Java, VimScript).
 - Allows writing multiple backend implementations of C stubs in one file. In
   addition to `// @Provides`, you may now also supply `// @ForBackend`.
 
-# Try:
+# Try Running Tests
+
+Make sure you have `esy --version` > `0.5.4`. If not install using the
+instructions on [the esy site](https://esy.sh).
+
+Then `git clone` this repo and run the following to intall/build then test.
+
+```
+esy
+esy test
+```
+
+# Try From Your Project:
 
 You can try out `rehp` on your project, by using [esy](https://esy.sh) to
 directly consume this repo. Just add the following to your `package.json` and

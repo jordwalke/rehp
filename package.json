@@ -12,8 +12,6 @@
     "@opam/ocaml-migrate-parsetree": "*",
     "@opam/ppx_tools_versioned": "*",
     "@opam/uchar": "*",
-    "js_of_ocaml": "*",
-    "js_of_ocaml-compiler": "*",
     "@opam/js_of_ocaml-lwt": "3.1.0"
   },
   "peerDependencies": {
@@ -26,21 +24,14 @@
   "optDependencies": {},
   "esy": {
     "build": [
+      [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"]
+    ],
+    "install": [
+      ["esy-installer", "js_of_ocaml.install"],
+      ["esy-installer", "js_of_ocaml-compiler.install"]
     ]
-  },
-  "resolutions": {
-    "js_of_ocaml": "link:./js_of_ocaml.opam",
-    "js_of_ocaml-compiler": "link:./js_of_ocaml-compiler.opam"
-  },
-  "_esy_opam_patches": [],
-  "opam": {
-    "url": "https://github.com/ocsigen/js_of_ocaml/archive/3.1.0.tar.gz",
-    "checksum": "b7a03bea097ac6bda3aaaf4b12b82581",
-    "files": [],
-    "patches": [],
-    "version": "3.1.0"
   },
   "scripts": {
     "test": "./buildTest.sh"
