@@ -179,6 +179,7 @@ final class Format {
     $format_pp_token = function($state, $size, $param) use ($Not_found,$add_tab,$break_line,$break_new_line,$break_same_line,$caml_call1,$caml_wrap_exception,$is_int,$pp_force_break_line,$pp_output_newline,$pp_output_string,$pp_skip_token,$runtime) {
       if ($is_int($param)) {
         switch($param) {
+          // FALLTHROUGH
           case 0:
             $vB = $state[3];
             if ($vB) {
@@ -200,14 +201,17 @@ final class Format {
               return 0;
             }
             return 0;
+          // FALLTHROUGH
           case 1:
             $vC = $state[2];
             if ($vC) {$ls = $vC[2];$state[2] = $ls;return 0;}
             return 0;
+          // FALLTHROUGH
           case 2:
             $vD = $state[3];
             if ($vD) {$ls__0 = $vD[2];$state[3] = $ls__0;return 0;}
             return 0;
+          // FALLTHROUGH
           case 3:
             $vE = $state[2];
             if ($vE) {
@@ -216,9 +220,11 @@ final class Format {
               return $break_line($state, $width);
             }
             return $pp_output_newline($state);
+          // FALLTHROUGH
           case 4:
             $vF = $state[10] !== ($state[6] - $state[9] | 0) ? 1 : (0);
             return $vF ? $pp_skip_token($state) : ($vF);
+          // FALLTHROUGH
           default:
             $vG = $state[5];
             if ($vG) {
@@ -234,12 +240,14 @@ final class Format {
       }
       else {
         switch($param[0]) {
+          // FALLTHROUGH
           case 0:
             $s = $param[1];
             $state[9] = $state[9] - $size | 0;
             $pp_output_string($state, $s);
             $state[11] = 0;
             return 0;
+          // FALLTHROUGH
           case 1:
             $off = $param[2];
             $n = $param[1];
@@ -249,16 +257,21 @@ final class Format {
               $width__0 = $match__1[2];
               $ty = $match__1[1];
               switch($ty) {
+                // FALLTHROUGH
                 case 0:
                   return $break_same_line($state, $n);
+                // FALLTHROUGH
                 case 1:
                   return $break_new_line($state, $off, $width__0);
+                // FALLTHROUGH
                 case 2:
                   return $break_new_line($state, $off, $width__0);
+                // FALLTHROUGH
                 case 3:
                   return $state[9] < $size
                     ? $break_new_line($state, $off, $width__0)
                     : ($break_same_line($state, $n));
+                // FALLTHROUGH
                 case 4:
                   return $state[11]
                     ? $break_same_line($state, $n)
@@ -267,11 +280,13 @@ final class Format {
                      : ((($state[6] - $width__0 | 0) + $off | 0) < $state[10]
                       ? $break_new_line($state, $off, $width__0)
                       : ($break_same_line($state, $n))));
+                // FALLTHROUGH
                 default:
                   return $break_same_line($state, $n);
                 }
             }
             return 0;
+          // FALLTHROUGH
           case 2:
             $off__0 = $param[2];
             $n__0 = $param[1];
@@ -313,6 +328,7 @@ final class Format {
                 : ($break_new_line($state, $tab + $off__0 | 0, $state[6]));
             }
             return 0;
+          // FALLTHROUGH
           case 3:
             $ty__0 = $param[2];
             $off__1 = $param[1];
@@ -322,10 +338,12 @@ final class Format {
             $bl_type = 1 === $ty__0 ? 1 : ($state[9] < $size ? $ty__0 : (5));
             $state[2] = V(0, V(0, $bl_type, $offset__0), $state[2]);
             return 0;
+          // FALLTHROUGH
           case 4:
             $tbox = $param[1];
             $state[3] = V(0, $tbox, $state[3]);
             return 0;
+          // FALLTHROUGH
           default:
             $tag_name__0 = $param[1];
             $marker__0 = $caml_call1($state[24], $tag_name__0);
@@ -397,6 +415,7 @@ final class Format {
         if ($left_tot < $state[12]) {return $clear_scan_stack($state);}
         if (! $is_int($tok)) {
           switch($tok[0]) {
+            // FALLTHROUGH
             case 3:
               $vu = 1 - $ty;
               $vv = $vu
@@ -405,7 +424,9 @@ final class Format {
                  : (($state[1] = $t) || true ? 0 : (0))
                 : ($vu);
               return $vv;
+            // FALLTHROUGH
             case 1:
+            // FALLTHROUGH
             case 2:
               $vt = $ty
                 ? ($queue_elem[1] = $state[13] + $size | 0) || true
@@ -1129,30 +1150,40 @@ final class Format {
     $output_formatting_lit = function($ppf, $fmting_lit) use ($is_int,$pp_close_box,$pp_close_tag,$pp_force_newline,$pp_print_break,$pp_print_char,$pp_print_flush,$pp_print_newline) {
       if ($is_int($fmting_lit)) {
         switch($fmting_lit) {
+          // FALLTHROUGH
           case 0:
             return $pp_close_box($ppf, 0);
+          // FALLTHROUGH
           case 1:
             return $pp_close_tag($ppf, 0);
+          // FALLTHROUGH
           case 2:
             return $pp_print_flush($ppf, 0);
+          // FALLTHROUGH
           case 3:
             return $pp_force_newline($ppf, 0);
+          // FALLTHROUGH
           case 4:
             return $pp_print_newline($ppf, 0);
+          // FALLTHROUGH
           case 5:
             return $pp_print_char($ppf, 64);
+          // FALLTHROUGH
           default:
             return $pp_print_char($ppf, 37);
           }
       }
       else {
         switch($fmting_lit[0]) {
+          // FALLTHROUGH
           case 0:
             $offset = $fmting_lit[3];
             $width = $fmting_lit[2];
             return $pp_print_break($ppf, $width, $offset);
+          // FALLTHROUGH
           case 1:
             return 0;
+          // FALLTHROUGH
           default:
             $c = $fmting_lit[1];
             $pp_print_char($ppf, 64);
@@ -1165,11 +1196,13 @@ final class Format {
         if ($is_int($acc)) {return 0;}
         else {
           switch($acc[0]) {
+            // FALLTHROUGH
             case 0:
               $f = $acc[2];
               $p = $acc[1];
               $output_acc->contents($ppf, $p);
               return $output_formatting_lit($ppf, $f);
+            // FALLTHROUGH
             case 1:
               $tn = $acc[2];
               $to = $acc[1];
@@ -1188,6 +1221,7 @@ final class Format {
               $bty = $match[2];
               $indent = $match[1];
               return $pp_open_box_gen($ppf, $indent, $bty);
+            // FALLTHROUGH
             case 2:
               $tq = $acc[1];
               if ($is_int($tq)) {$switch__1 = 1;}
@@ -1220,6 +1254,7 @@ final class Format {
                 $switch__0 = 2;
               }
               break;
+            // FALLTHROUGH
             case 3:
               $tw = $acc[1];
               if ($is_int($tw)) {$switch__3 = 1;}
@@ -1252,6 +1287,7 @@ final class Format {
                 $switch__0 = 3;
               }
               break;
+            // FALLTHROUGH
             case 4:
               $tC = $acc[1];
               if ($is_int($tC)) {$switch__5 = 1;}
@@ -1284,6 +1320,7 @@ final class Format {
                 $switch__0 = 2;
               }
               break;
+            // FALLTHROUGH
             case 5:
               $tI = $acc[1];
               if ($is_int($tI)) {$switch__7 = 1;}
@@ -1316,15 +1353,18 @@ final class Format {
                 $switch__0 = 3;
               }
               break;
+            // FALLTHROUGH
             case 6:
               $f__0 = $acc[2];
               $p__4 = $acc[1];
               $output_acc->contents($ppf, $p__4);
               return $caml_call1($f__0, $ppf);
+            // FALLTHROUGH
             case 7:
               $p__5 = $acc[1];
               $output_acc->contents($ppf, $p__5);
               return $pp_print_flush($ppf, 0);
+            // FALLTHROUGH
             default:
               $msg = $acc[2];
               $p__6 = $acc[1];
@@ -1333,9 +1373,11 @@ final class Format {
             }
         }
         switch($switch__0) {
+          // FALLTHROUGH
           case 0:
             $output_acc->contents($ppf, $p__1);
             return $pp_print_as_size($ppf, $size, $s__0);
+          // FALLTHROUGH
           case 1:
             $output_acc->contents($ppf, $p__3);
             return $pp_print_as_size(
@@ -1343,9 +1385,11 @@ final class Format {
               $size__0,
               $caml_call2($String[1], 1, $c__0)
             );
+          // FALLTHROUGH
           case 2:
             $output_acc->contents($ppf, $p__0);
             return $pp_print_string($ppf, $s);
+          // FALLTHROUGH
           default:
             $output_acc->contents($ppf, $p__2);
             return $pp_print_char($ppf, $c);
@@ -1356,11 +1400,13 @@ final class Format {
         if ($is_int($acc)) {return 0;}
         else {
           switch($acc[0]) {
+            // FALLTHROUGH
             case 0:
               $f = $acc[2];
               $p = $acc[1];
               $strput_acc->contents($ppf, $p);
               return $output_formatting_lit($ppf, $f);
+            // FALLTHROUGH
             case 1:
               $sV = $acc[2];
               $sW = $acc[1];
@@ -1379,6 +1425,7 @@ final class Format {
               $bty = $match[2];
               $indent = $match[1];
               return $pp_open_box_gen($ppf, $indent, $bty);
+            // FALLTHROUGH
             case 2:
               $sY = $acc[1];
               if ($is_int($sY)) {$switch__1 = 1;}
@@ -1411,6 +1458,7 @@ final class Format {
                 $switch__0 = 2;
               }
               break;
+            // FALLTHROUGH
             case 3:
               $s4 = $acc[1];
               if ($is_int($s4)) {$switch__3 = 1;}
@@ -1443,6 +1491,7 @@ final class Format {
                 $switch__0 = 3;
               }
               break;
+            // FALLTHROUGH
             case 4:
               $s_ = $acc[1];
               if ($is_int($s_)) {$switch__5 = 1;}
@@ -1475,6 +1524,7 @@ final class Format {
                 $switch__0 = 2;
               }
               break;
+            // FALLTHROUGH
             case 5:
               $tf = $acc[1];
               if ($is_int($tf)) {$switch__7 = 1;}
@@ -1507,6 +1557,7 @@ final class Format {
                 $switch__0 = 3;
               }
               break;
+            // FALLTHROUGH
             case 6:
               $tl = $acc[1];
               if (! $is_int($tl) && 0 === $tl[0]) {
@@ -1526,10 +1577,12 @@ final class Format {
               $f__0 = $acc[2];
               $strput_acc->contents($ppf, $tl);
               return $pp_print_string($ppf, $caml_call1($f__0, 0));
+            // FALLTHROUGH
             case 7:
               $p__5 = $acc[1];
               $strput_acc->contents($ppf, $p__5);
               return $pp_print_flush($ppf, 0);
+            // FALLTHROUGH
             default:
               $msg = $acc[2];
               $p__6 = $acc[1];
@@ -1538,9 +1591,11 @@ final class Format {
             }
         }
         switch($switch__0) {
+          // FALLTHROUGH
           case 0:
             $strput_acc->contents($ppf, $p__1);
             return $pp_print_as_size($ppf, $size, $s__0);
+          // FALLTHROUGH
           case 1:
             $strput_acc->contents($ppf, $p__3);
             return $pp_print_as_size(
@@ -1548,9 +1603,11 @@ final class Format {
               $size__0,
               $caml_call2($String[1], 1, $c__0)
             );
+          // FALLTHROUGH
           case 2:
             $strput_acc->contents($ppf, $p__0);
             return $pp_print_string($ppf, $s);
+          // FALLTHROUGH
           default:
             $strput_acc->contents($ppf, $p__2);
             return $pp_print_char($ppf, $c);

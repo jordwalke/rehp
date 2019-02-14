@@ -554,17 +554,24 @@ final class Scanf {
       $switcher = $param + -88 | 0;
       if (! (32 < $unsigned_right_shift_32($switcher, 0))) {
         switch($switcher) {
+          // FALLTHROUGH
           case 10:
             return 0;
+          // FALLTHROUGH
           case 12:
             return 1;
+          // FALLTHROUGH
           case 17:
             return 2;
+          // FALLTHROUGH
           case 23:
             return 3;
+          // FALLTHROUGH
           case 29:
             return 4;
+          // FALLTHROUGH
           case 0:
+          // FALLTHROUGH
           case 32:
             return 5;
           }
@@ -573,22 +580,27 @@ final class Scanf {
     };
     $token_int_literal = function($conv, $ib) use ($Pervasives,$String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_get,$cst_0b,$cst_0o,$cst_0u,$cst_0x,$token_string) {
       switch($conv) {
+        // FALLTHROUGH
         case 0:
           $xW = $token_string($ib);
           $tok = $caml_call2($Pervasives[16], $cst_0b, $xW);
           break;
+        // FALLTHROUGH
         case 3:
           $xX = $token_string($ib);
           $tok = $caml_call2($Pervasives[16], $cst_0o, $xX);
           break;
+        // FALLTHROUGH
         case 4:
           $xY = $token_string($ib);
           $tok = $caml_call2($Pervasives[16], $cst_0u, $xY);
           break;
+        // FALLTHROUGH
         case 5:
           $xZ = $token_string($ib);
           $tok = $caml_call2($Pervasives[16], $cst_0x, $xZ);
           break;
+        // FALLTHROUGH
         default:
           $tok = $token_string($ib);
         }
@@ -708,9 +720,12 @@ final class Scanf {
       $switcher = $c + -43 | 0;
       if (! (2 < $unsigned_right_shift_32($switcher, 0))) {
         switch($switcher) {
+          // FALLTHROUGH
           case 0:
             return $store_char($width, $ib, $c);
+          // FALLTHROUGH
           case 1:break;
+          // FALLTHROUGH
           default:
             return $store_char($width, $ib, $c);
           }
@@ -755,16 +770,22 @@ final class Scanf {
     };
     $scan_int_conversion = function($conv, $width, $ib) use ($scan_binary_int,$scan_decimal_digit_plus,$scan_hexadecimal_int,$scan_octal_int,$scan_optionally_signed_decimal_int,$scan_optionally_signed_int) {
       switch($conv) {
+        // FALLTHROUGH
         case 0:
           return $scan_binary_int($width, $ib);
+        // FALLTHROUGH
         case 1:
           return $scan_optionally_signed_decimal_int($width, $ib);
+        // FALLTHROUGH
         case 2:
           return $scan_optionally_signed_int($width, $ib);
+        // FALLTHROUGH
         case 3:
           return $scan_octal_int($width, $ib);
+        // FALLTHROUGH
         case 4:
           return $scan_decimal_digit_plus($width, $ib);
+        // FALLTHROUGH
         default:
           return $scan_hexadecimal_int($width, $ib);
         }
@@ -1107,10 +1128,13 @@ final class Scanf {
         if (! (117 <= $c)) {
           $switcher = $c + -110 | 0;
           switch($switcher) {
+            // FALLTHROUGH
             case 0:
               return 10;
+            // FALLTHROUGH
             case 4:
               return 13;
+            // FALLTHROUGH
             case 6:
               return 9;
             }
@@ -1161,6 +1185,7 @@ final class Scanf {
           if (28 < $unsigned_right_shift_32($switcher, 0)) {$switch__0 = 0;}
           else {
             switch($switcher) {
+              // FALLTHROUGH
               case 28:
                 $get_digit = function($param) use ($bad_input_escape,$ib,$next_char,$unsigned_right_shift_32) {
                   $c = $next_char($ib);
@@ -1178,13 +1203,19 @@ final class Scanf {
                   $ib,
                   $char_for_hexadecimal_code($c1, $c2)
                 );
+              // FALLTHROUGH
               case 0:
+              // FALLTHROUGH
               case 6:
+              // FALLTHROUGH
               case 18:
+              // FALLTHROUGH
               case 22:
+              // FALLTHROUGH
               case 24:
                 $switch__0 = 1;
                 break;
+              // FALLTHROUGH
               default:
                 $switch__0 = 0;
               }
@@ -1404,10 +1435,13 @@ final class Scanf {
     };
     $get_counter = function($ib, $counter) use ($char_count,$line_count,$token_count) {
       switch($counter) {
+        // FALLTHROUGH
         case 0:
           return $line_count($ib);
+        // FALLTHROUGH
         case 1:
           return $char_count($ib);
+        // FALLTHROUGH
         default:
           return $token_count($ib);
         }
@@ -1436,62 +1470,77 @@ final class Scanf {
       ) {return $caml_call1($k, 0);}
       else {
         switch($fmt__0[0]) {
+          // FALLTHROUGH
           case 0:
             $fmt__1 = $fmt__0[1];
             $fmt__0 = $fmt__1;
             continue;
+          // FALLTHROUGH
           case 1:
             $fmt__2 = $fmt__0[1];
             $fmt__0 = $fmt__2;
             continue;
+          // FALLTHROUGH
           case 2:
             $fmt__3 = $fmt__0[2];
             $fmt__0 = $fmt__3;
             continue;
+          // FALLTHROUGH
           case 3:
             $fmt__4 = $fmt__0[2];
             $fmt__0 = $fmt__4;
             continue;
+          // FALLTHROUGH
           case 4:
             $fmt__5 = $fmt__0[4];
             $fmt__0 = $fmt__5;
             continue;
+          // FALLTHROUGH
           case 5:
             $fmt__6 = $fmt__0[4];
             $fmt__0 = $fmt__6;
             continue;
+          // FALLTHROUGH
           case 6:
             $fmt__7 = $fmt__0[4];
             $fmt__0 = $fmt__7;
             continue;
+          // FALLTHROUGH
           case 7:
             $fmt__8 = $fmt__0[4];
             $fmt__0 = $fmt__8;
             continue;
+          // FALLTHROUGH
           case 8:
             $fmt__9 = $fmt__0[4];
             $fmt__0 = $fmt__9;
             continue;
+          // FALLTHROUGH
           case 9:
             $fmt__10 = $fmt__0[2];
             $fmt__0 = $fmt__10;
             continue;
+          // FALLTHROUGH
           case 10:
             $fmt__11 = $fmt__0[1];
             $fmt__0 = $fmt__11;
             continue;
+          // FALLTHROUGH
           case 11:
             $fmt__12 = $fmt__0[2];
             $fmt__0 = $fmt__12;
             continue;
+          // FALLTHROUGH
           case 12:
             $fmt__13 = $fmt__0[2];
             $fmt__0 = $fmt__13;
             continue;
+          // FALLTHROUGH
           case 13:
             $fmt__14 = $fmt__0[3];
             $fmt__0 = $fmt__14;
             continue;
+          // FALLTHROUGH
           case 14:
             $rest = $fmt__0[3];
             $fmtty = $fmt__0[2];
@@ -1510,18 +1559,22 @@ final class Scanf {
               $take_fmtty_format_readers__0->contents,
               $ArrayLiteral(0, $k, $wV, $rest)
             );
+          // FALLTHROUGH
           case 15:
             $fmt__15 = $fmt__0[1];
             $fmt__0 = $fmt__15;
             continue;
+          // FALLTHROUGH
           case 16:
             $fmt__16 = $fmt__0[1];
             $fmt__0 = $fmt__16;
             continue;
+          // FALLTHROUGH
           case 17:
             $fmt__17 = $fmt__0[2];
             $fmt__0 = $fmt__17;
             continue;
+          // FALLTHROUGH
           case 18:
             $wW = $fmt__0[1];
             if (0 === $wW[0]) {
@@ -1546,6 +1599,7 @@ final class Scanf {
             );
             $fmt__0 = $fmt__21;
             continue;
+          // FALLTHROUGH
           case 19:
             $fmt_rest = $fmt__0[1];
             return function($reader) use ($caml_call1,$fmt_rest,$k,$take_format_readers) {
@@ -1554,18 +1608,22 @@ final class Scanf {
               };
               return $take_format_readers->contents($new_k, $fmt_rest);
             };
+          // FALLTHROUGH
           case 20:
             $fmt__22 = $fmt__0[3];
             $fmt__0 = $fmt__22;
             continue;
+          // FALLTHROUGH
           case 21:
             $fmt__23 = $fmt__0[2];
             $fmt__0 = $fmt__23;
             continue;
+          // FALLTHROUGH
           case 22:
             $fmt__24 = $fmt__0[1];
             $fmt__0 = $fmt__24;
             continue;
+          // FALLTHROUGH
           case 23:
             $rest__2 = $fmt__0[2];
             $ign = $fmt__0[1];
@@ -1582,6 +1640,7 @@ final class Scanf {
               $take_ignored_format_readers->contents,
               $ArrayLiteral(0, $k, $ign, $rest__2)
             );
+          // FALLTHROUGH
           default:
             $fmt__25 = $fmt__0[3];
             $fmt__0 = $fmt__25;
@@ -1606,42 +1665,52 @@ final class Scanf {
         }
         else {
           switch($fmtty__0[0]) {
+            // FALLTHROUGH
             case 0:
               $fmtty__1 = $fmtty__0[1];
               $fmtty__0 = $fmtty__1;
               continue;
+            // FALLTHROUGH
             case 1:
               $fmtty__2 = $fmtty__0[1];
               $fmtty__0 = $fmtty__2;
               continue;
+            // FALLTHROUGH
             case 2:
               $fmtty__3 = $fmtty__0[1];
               $fmtty__0 = $fmtty__3;
               continue;
+            // FALLTHROUGH
             case 3:
               $fmtty__4 = $fmtty__0[1];
               $fmtty__0 = $fmtty__4;
               continue;
+            // FALLTHROUGH
             case 4:
               $fmtty__5 = $fmtty__0[1];
               $fmtty__0 = $fmtty__5;
               continue;
+            // FALLTHROUGH
             case 5:
               $fmtty__6 = $fmtty__0[1];
               $fmtty__0 = $fmtty__6;
               continue;
+            // FALLTHROUGH
             case 6:
               $fmtty__7 = $fmtty__0[1];
               $fmtty__0 = $fmtty__7;
               continue;
+            // FALLTHROUGH
             case 7:
               $fmtty__8 = $fmtty__0[1];
               $fmtty__0 = $fmtty__8;
               continue;
+            // FALLTHROUGH
             case 8:
               $fmtty__9 = $fmtty__0[2];
               $fmtty__0 = $fmtty__9;
               continue;
+            // FALLTHROUGH
             case 9:
               $rest = $fmtty__0[3];
               $ty2 = $fmtty__0[2];
@@ -1655,18 +1724,22 @@ final class Scanf {
               );
               $fmtty__0 = $fmtty__10;
               continue;
+            // FALLTHROUGH
             case 10:
               $fmtty__11 = $fmtty__0[1];
               $fmtty__0 = $fmtty__11;
               continue;
+            // FALLTHROUGH
             case 11:
               $fmtty__12 = $fmtty__0[1];
               $fmtty__0 = $fmtty__12;
               continue;
+            // FALLTHROUGH
             case 12:
               $fmtty__13 = $fmtty__0[1];
               $fmtty__0 = $fmtty__13;
               continue;
+            // FALLTHROUGH
             case 13:
               $fmt_rest = $fmtty__0[1];
               return function($reader) use ($caml_call1,$fmt,$fmt_rest,$k,$take_fmtty_format_readers) {
@@ -1679,6 +1752,7 @@ final class Scanf {
                   $fmt
                 );
               };
+            // FALLTHROUGH
             default:
               $fmt_rest__0 = $fmtty__0[1];
               return function($reader) use ($caml_call1,$fmt,$fmt_rest__0,$k,$take_fmtty_format_readers) {
@@ -1698,6 +1772,7 @@ final class Scanf {
       function($counter, $k, $ign, $fmt) use ($ArrayLiteral,$caml_call1,$caml_trampoline_return,$is_int,$take_fmtty_format_readers__0,$take_format_readers,$take_format_readers__0) {
         if ($is_int($ign)) {
           switch($ign) {
+            // FALLTHROUGH
             case 0:
               if ($counter < 50) {
                 $counter__1 = $counter + 1 | 0;
@@ -1707,6 +1782,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 1:
               if ($counter < 50) {
                 $counter__2 = $counter + 1 | 0;
@@ -1716,6 +1792,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 2:
               return function($reader) use ($caml_call1,$fmt,$k,$take_format_readers) {
                 $new_k = function($readers_rest) use ($caml_call1,$k,$reader) {
@@ -1723,6 +1800,7 @@ final class Scanf {
                 };
                 return $take_format_readers->contents($new_k, $fmt);
               };
+            // FALLTHROUGH
             default:
               if ($counter < 50) {
                 $counter__3 = $counter + 1 | 0;
@@ -1736,6 +1814,7 @@ final class Scanf {
         }
         else {
           switch($ign[0]) {
+            // FALLTHROUGH
             case 0:
               if ($counter < 50) {
                 $counter__4 = $counter + 1 | 0;
@@ -1745,6 +1824,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 1:
               if ($counter < 50) {
                 $counter__5 = $counter + 1 | 0;
@@ -1754,6 +1834,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 2:
               if ($counter < 50) {
                 $counter__6 = $counter + 1 | 0;
@@ -1763,6 +1844,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 3:
               if ($counter < 50) {
                 $counter__7 = $counter + 1 | 0;
@@ -1772,6 +1854,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 4:
               if ($counter < 50) {
                 $counter__8 = $counter + 1 | 0;
@@ -1781,6 +1864,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 5:
               if ($counter < 50) {
                 $counter__9 = $counter + 1 | 0;
@@ -1790,6 +1874,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 6:
               if ($counter < 50) {
                 $counter__10 = $counter + 1 | 0;
@@ -1799,6 +1884,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 7:
               if ($counter < 50) {
                 $counter__11 = $counter + 1 | 0;
@@ -1808,6 +1894,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 8:
               if ($counter < 50) {
                 $counter__12 = $counter + 1 | 0;
@@ -1817,6 +1904,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             case 9:
               $fmtty = $ign[2];
               if ($counter < 50) {
@@ -1832,6 +1920,7 @@ final class Scanf {
                 $take_fmtty_format_readers__0->contents,
                 $ArrayLiteral(0, $k, $fmtty, $fmt)
               );
+            // FALLTHROUGH
             case 10:
               if ($counter < 50) {
                 $counter__13 = $counter + 1 | 0;
@@ -1841,6 +1930,7 @@ final class Scanf {
                 $take_format_readers__0,
                 $ArrayLiteral(0, $k, $fmt)
               );
+            // FALLTHROUGH
             default:
               if ($counter < 50) {
                 $counter__14 = $counter + 1 | 0;
@@ -1909,11 +1999,13 @@ final class Scanf {
         ) {return 0;}
         else {
           switch($fmt__0[0]) {
+            // FALLTHROUGH
             case 0:
               $rest = $fmt__0[1];
               $scan_char(0, $ib);
               $c = $token_char($ib);
               return V(0, $c, $make_scanf->contents($ib, $rest, $readers));
+            // FALLTHROUGH
             case 1:
               $rest__0 = $fmt__0[1];
               $scan_caml_char(0, $ib);
@@ -1923,11 +2015,13 @@ final class Scanf {
                 $c__0,
                 $make_scanf->contents($ib, $rest__0, $readers)
               );
+            // FALLTHROUGH
             case 2:
               $wr = $fmt__0[2];
               $ws = $fmt__0[1];
               if (! $is_int($wr)) {
                 switch($wr[0]) {
+                  // FALLTHROUGH
                   case 17:
                     $rest__1 = $wr[2];
                     $fmting_lit = $wr[1];
@@ -1947,6 +2041,7 @@ final class Scanf {
                       $scan__0,
                       $token_string
                     );
+                  // FALLTHROUGH
                   case 18:
                     $wt = $wr[1];
                     if (0 === $wt[0]) {
@@ -1995,6 +2090,7 @@ final class Scanf {
                 $scan,
                 $token_string
               );
+            // FALLTHROUGH
             case 3:
               $rest__4 = $fmt__0[2];
               $pad = $fmt__0[1];
@@ -2010,6 +2106,7 @@ final class Scanf {
                 $scan__3,
                 $token_string
               );
+            // FALLTHROUGH
             case 4:
               $rest__5 = $fmt__0[4];
               $prec = $fmt__0[3];
@@ -2032,6 +2129,7 @@ final class Scanf {
                   return $token_int($c__1, $wR);
                 }
               );
+            // FALLTHROUGH
             case 5:
               $rest__6 = $fmt__0[4];
               $prec__0 = $fmt__0[3];
@@ -2054,6 +2152,7 @@ final class Scanf {
                   return $token_int32($c__2, $wQ);
                 }
               );
+            // FALLTHROUGH
             case 6:
               $rest__7 = $fmt__0[4];
               $prec__1 = $fmt__0[3];
@@ -2076,6 +2175,7 @@ final class Scanf {
                   return $token_nativeint($c__3, $wP);
                 }
               );
+            // FALLTHROUGH
             case 7:
               $rest__8 = $fmt__0[4];
               $prec__2 = $fmt__0[3];
@@ -2098,6 +2198,7 @@ final class Scanf {
                   return $token_int64($c__4, $wO);
                 }
               );
+            // FALLTHROUGH
             case 8:
               $wu = $fmt__0[1];
               if (15 === $wu) {
@@ -2140,6 +2241,7 @@ final class Scanf {
                 $scan_float,
                 $token_float
               );
+            // FALLTHROUGH
             case 9:
               $rest__12 = $fmt__0[2];
               $pad__7 = $fmt__0[1];
@@ -2155,10 +2257,12 @@ final class Scanf {
                 $scan__8,
                 $token_bool
               );
+            // FALLTHROUGH
             case 10:
               $rest__13 = $fmt__0[1];
               if ($end_of_input($ib)) {$fmt__0 = $rest__13;continue;}
               return $bad_input($cst_end_of_input_not_found);
+            // FALLTHROUGH
             case 11:
               $fmt__3 = $fmt__0[2];
               $str__0 = $fmt__0[1];
@@ -2168,12 +2272,14 @@ final class Scanf {
               $caml_call2($String[8], $wv, $str__0);
               $fmt__0 = $fmt__3;
               continue;
+            // FALLTHROUGH
             case 12:
               $fmt__4 = $fmt__0[2];
               $chr = $fmt__0[1];
               $check_char($ib, $chr);
               $fmt__0 = $fmt__4;
               continue;
+            // FALLTHROUGH
             case 13:
               $rest__14 = $fmt__0[3];
               $fmtty = $fmt__0[2];
@@ -2198,6 +2304,7 @@ final class Scanf {
                 $fmt__5,
                 $make_scanf->contents($ib, $rest__14, $readers)
               );
+            // FALLTHROUGH
             case 14:
               $rest__15 = $fmt__0[3];
               $fmtty__0 = $fmt__0[2];
@@ -2239,10 +2346,13 @@ final class Scanf {
                   $readers
                 )
               );
+            // FALLTHROUGH
             case 15:
               return $caml_call1($Pervasives[1], $cst_scanf_bad_conversion_a);
+            // FALLTHROUGH
             case 16:
               return $caml_call1($Pervasives[1], $cst_scanf_bad_conversion_t);
+            // FALLTHROUGH
             case 17:
               $fmt__11 = $fmt__0[2];
               $formatting_lit = $fmt__0[1];
@@ -2253,6 +2363,7 @@ final class Scanf {
               $caml_call2($String[8], $wG, $wF);
               $fmt__0 = $fmt__11;
               continue;
+            // FALLTHROUGH
             case 18:
               $wH = $fmt__0[1];
               if (0 === $wH[0]) {
@@ -2281,6 +2392,7 @@ final class Scanf {
               );
               $fmt__0 = $fmt__15;
               continue;
+            // FALLTHROUGH
             case 19:
               $fmt_rest = $fmt__0[1];
               if ($readers) {
@@ -2294,6 +2406,7 @@ final class Scanf {
                 );
               }
               return $caml_call1($Pervasives[1], $cst_scanf_missing_reader);
+            // FALLTHROUGH
             case 20:
               $wI = $fmt__0[3];
               $wJ = $fmt__0[2];
@@ -2318,6 +2431,7 @@ final class Scanf {
               $scan_chars_in_char_set($wJ, 0, $width, $ib);
               $s__1 = $token_string($ib);
               return V(0, $s__1, $make_scanf->contents($ib, $wI, $readers));
+            // FALLTHROUGH
             case 21:
               $rest__19 = $fmt__0[2];
               $counter = $fmt__0[1];
@@ -2327,6 +2441,7 @@ final class Scanf {
                 $count,
                 $make_scanf->contents($ib, $rest__19, $readers)
               );
+            // FALLTHROUGH
             case 22:
               $rest__20 = $fmt__0[1];
               $c__5 = $checked_peek_char($ib);
@@ -2335,6 +2450,7 @@ final class Scanf {
                 $c__5,
                 $make_scanf->contents($ib, $rest__20, $readers)
               );
+            // FALLTHROUGH
             case 23:
               $rest__21 = $fmt__0[2];
               $ign = $fmt__0[1];
@@ -2345,6 +2461,7 @@ final class Scanf {
               throw $runtime->caml_wrap_thrown_exception(
                       V(0, $Assert_failure, $v_)
                     );
+            // FALLTHROUGH
             default:
               return $caml_call1(
                 $Pervasives[1],

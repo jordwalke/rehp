@@ -735,106 +735,130 @@ final class CamlinternalOO {
       $clo = $next(0);
       if ($is_int($clo)) {
         switch($clo) {
+          // FALLTHROUGH
           case 0:
             $x = $next(0);
             return $get_const($x);
+          // FALLTHROUGH
           case 1:
             $n = $next(0);
             return $get_var($n);
+          // FALLTHROUGH
           case 2:
             $e = $next(0);
             $n__0 = $next(0);
             return $get_env($e, $n__0);
+          // FALLTHROUGH
           case 3:
             $n__1 = $next(0);
             return $get_meth($n__1);
+          // FALLTHROUGH
           case 4:
             $n__2 = $next(0);
             return $set_var($n__2);
+          // FALLTHROUGH
           case 5:
             $f = $next(0);
             $x__0 = $next(0);
             return $app_const($f, $x__0);
+          // FALLTHROUGH
           case 6:
             $f__0 = $next(0);
             $n__3 = $next(0);
             return $app_var($f__0, $n__3);
+          // FALLTHROUGH
           case 7:
             $f__1 = $next(0);
             $e__0 = $next(0);
             $n__4 = $next(0);
             return $app_env($f__1, $e__0, $n__4);
+          // FALLTHROUGH
           case 8:
             $f__2 = $next(0);
             $n__5 = $next(0);
             return $app_meth($f__2, $n__5);
+          // FALLTHROUGH
           case 9:
             $f__3 = $next(0);
             $x__1 = $next(0);
             $y = $next(0);
             return $app_const_const($f__3, $x__1, $y);
+          // FALLTHROUGH
           case 10:
             $f__4 = $next(0);
             $x__2 = $next(0);
             $n__6 = $next(0);
             return $app_const_var($f__4, $x__2, $n__6);
+          // FALLTHROUGH
           case 11:
             $f__5 = $next(0);
             $x__3 = $next(0);
             $e__1 = $next(0);
             $n__7 = $next(0);
             return $app_const_env($f__5, $x__3, $e__1, $n__7);
+          // FALLTHROUGH
           case 12:
             $f__6 = $next(0);
             $x__4 = $next(0);
             $n__8 = $next(0);
             return $app_const_meth($f__6, $x__4, $n__8);
+          // FALLTHROUGH
           case 13:
             $f__7 = $next(0);
             $n__9 = $next(0);
             $x__5 = $next(0);
             return $app_var_const($f__7, $n__9, $x__5);
+          // FALLTHROUGH
           case 14:
             $f__8 = $next(0);
             $e__2 = $next(0);
             $n__10 = $next(0);
             $x__6 = $next(0);
             return $app_env_const($f__8, $e__2, $n__10, $x__6);
+          // FALLTHROUGH
           case 15:
             $f__9 = $next(0);
             $n__11 = $next(0);
             $x__7 = $next(0);
             return $app_meth_const($f__9, $n__11, $x__7);
+          // FALLTHROUGH
           case 16:
             $n__12 = $next(0);
             $x__8 = $next(0);
             return $meth_app_const($n__12, $x__8);
+          // FALLTHROUGH
           case 17:
             $n__13 = $next(0);
             $m = $next(0);
             return $meth_app_var($n__13, $m);
+          // FALLTHROUGH
           case 18:
             $n__14 = $next(0);
             $e__3 = $next(0);
             $m__0 = $next(0);
             return $meth_app_env($n__14, $e__3, $m__0);
+          // FALLTHROUGH
           case 19:
             $n__15 = $next(0);
             $m__1 = $next(0);
             return $meth_app_meth($n__15, $m__1);
+          // FALLTHROUGH
           case 20:
             $m__2 = $next(0);
             $x__9 = $next(0);
             return $send_const($m__2, $x__9, $new_cache($table));
+          // FALLTHROUGH
           case 21:
             $m__3 = $next(0);
             $n__16 = $next(0);
             return $send_var($m__3, $n__16, $new_cache($table));
+          // FALLTHROUGH
           case 22:
             $m__4 = $next(0);
             $e__4 = $next(0);
             $n__17 = $next(0);
             return $send_env($m__4, $e__4, $n__17, $new_cache($table));
+          // FALLTHROUGH
           default:
             $m__5 = $next(0);
             $n__18 = $next(0);

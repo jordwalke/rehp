@@ -35,10 +35,13 @@ final class Runtime {
     $caml_string_unsafe_get = $Func(
       function($s, $i) {
         switch($s->t & 6) {
+          // FALLTHROUGH
           default:
             if ($i >= $s->c->length) {return 0;}
+          // FALLTHROUGH
           case 0:
             return $s->c->charCodeAt($i);
+          // FALLTHROUGH
           case 4:
             return $s->c[$i];
           }
@@ -156,10 +159,12 @@ final class Runtime {
         $i = 0;$len = $caml_ml_string_length($s);$base = 10;$sign = 1;
         if ($len > 0) {
           switch($caml_string_unsafe_get($s, $i)) {
+            // FALLTHROUGH
             case 45:
               $i++;
               $sign = - 1;
               break;
+            // FALLTHROUGH
             case 43:
               $i++;
               $sign = 1;
@@ -168,17 +173,23 @@ final class Runtime {
         }
         if ($i + 1 < $len && $caml_string_unsafe_get($s, $i) == 48) {
           switch($caml_string_unsafe_get($s, $i + 1)) {
+            // FALLTHROUGH
             case 120:
+            // FALLTHROUGH
             case 88:
               $base = 16;
               $i = $plus($i, 2);
               break;
+            // FALLTHROUGH
             case 111:
+            // FALLTHROUGH
             case 79:
               $base = 8;
               $i = $plus($i, 2);
               break;
+            // FALLTHROUGH
             case 98:
+            // FALLTHROUGH
             case 66:
               $base = 2;
               $i = $plus($i, 2);
@@ -374,13 +385,17 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     $caml_to_js_string = $Func(
       function($s) use ($caml_convert_string_to_bytes,$caml_is_ascii) {
         switch($s->t) {
+          // FALLTHROUGH
           case 9:
             return $s->c;
+          // FALLTHROUGH
           default:
             $caml_convert_string_to_bytes($s);
+          // FALLTHROUGH
           case 0:
             if ($caml_is_ascii($s->c)) {$s->t = 9;return $s->c;}
             $s->t = 8;
+          // FALLTHROUGH
           case 8:
             return $s->c;
           }
@@ -534,27 +549,41 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         for ($i = 0;$i < $len;$i++) {
           $c = $fmt->charAt($i);
           switch($c) {
+            // FALLTHROUGH
             case $String->new("-"):
               $f->justify = $String->new("-");
               break;
+            // FALLTHROUGH
             case $String->new("+"):
+            // FALLTHROUGH
             case $String->new(" "):
               $f->signstyle = $c;
               break;
+            // FALLTHROUGH
             case $String->new("0"):
               $f->filler = $String->new("0");
               break;
+            // FALLTHROUGH
             case $String->new("#"):
               $f->alternate = true;
               break;
+            // FALLTHROUGH
             case $String->new("1"):
+            // FALLTHROUGH
             case $String->new("2"):
+            // FALLTHROUGH
             case $String->new("3"):
+            // FALLTHROUGH
             case $String->new("4"):
+            // FALLTHROUGH
             case $String->new("5"):
+            // FALLTHROUGH
             case $String->new("6"):
+            // FALLTHROUGH
             case $String->new("7"):
+            // FALLTHROUGH
             case $String->new("8"):
+            // FALLTHROUGH
             case $String->new("9"):
               $f->width = 0;
               while
@@ -566,6 +595,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
                }
               $i--;
               break;
+            // FALLTHROUGH
             case $String->new("."):
               $f->prec = 0;
               $i++;
@@ -577,23 +607,35 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
                  $i++;
                }
               $i--;
+            // FALLTHROUGH
             case $String->new("d"):
+            // FALLTHROUGH
             case $String->new("i"):$f->signedconv = true;
+            // FALLTHROUGH
             case $String->new("u"):$f->base = 10;break;
+            // FALLTHROUGH
             case $String->new("x"):$f->base = 16;break;
+            // FALLTHROUGH
             case $String->new("X"):
               $f->base = 16;
               $f->uppercase = true;
               break;
+            // FALLTHROUGH
             case $String->new("o"):$f->base = 8;break;
+            // FALLTHROUGH
             case $String->new("e"):
+            // FALLTHROUGH
             case $String->new("f"):
+            // FALLTHROUGH
             case $String->new("g"):
               $f->signedconv = true;
               $f->conv = $c;
               break;
+            // FALLTHROUGH
             case $String->new("E"):
+            // FALLTHROUGH
             case $String->new("F"):
+            // FALLTHROUGH
             case $String->new("G"):
               $f->signedconv = true;
               $f->uppercase = true;
@@ -708,13 +750,17 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $ncomp = $ArrayLiteral();
         for ($i = 0;$i < $comp->length;$i++) {
           switch($comp[$i]) {
+            // FALLTHROUGH
             case $String->new(".."):
               if ($ncomp->length > 1) {$ncomp->pop();}
               break;
+            // FALLTHROUGH
             case $String->new("."):break;
+            // FALLTHROUGH
             case $String->new(""):
               if ($ncomp->length == 0) {$ncomp->push($String->new(""));}
               break;
+            // FALLTHROUGH
             default:
               $ncomp->push($comp[$i]);
               break;
@@ -748,10 +794,13 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     $caml_bytes_unsafe_get = $Func(
       function($s, $i) {
         switch($s->t & 6) {
+          // FALLTHROUGH
           default:
             if ($i >= $s->c->length) {return 0;}
+          // FALLTHROUGH
           case 0:
             return $s->c->charCodeAt($i) | 0;
+          // FALLTHROUGH
           case 4:
             return $s->c[$i];
           }
@@ -1304,30 +1353,39 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           $res = 0;
           foreach($f->__all_enumerable_keys() as $key=> $____) {
             switch($key) {
+              // FALLTHROUGH
               case $String->new("rdonly"):
                 $res |= $consts->O_RDONLY;
                 break;
+              // FALLTHROUGH
               case $String->new("wronly"):
                 $res |= $consts->O_WRONLY;
                 break;
+              // FALLTHROUGH
               case $String->new("append"):
                 $res |= $consts->O_WRONLY | $consts->O_APPEND;
                 break;
+              // FALLTHROUGH
               case $String->new("create"):
                 $res |= $consts->O_CREAT;
                 break;
+              // FALLTHROUGH
               case $String->new("truncate"):
                 $res |= $consts->O_TRUNC;
                 break;
+              // FALLTHROUGH
               case $String->new("excl"):
                 $res |= $consts->O_EXCL;
                 break;
+              // FALLTHROUGH
               case $String->new("binary"):
                 $res |= $consts->O_BINARY;
                 break;
+              // FALLTHROUGH
               case $String->new("text"):
                 $res |= $consts->O_TEXT;
                 break;
+              // FALLTHROUGH
               case $String->new("nonblock"):
                 $res |= $consts->O_NONBLOCK;
                 break;
@@ -1666,9 +1724,11 @@ $caml_js_to_string = $Func(
         ) {
           $output = $caml_global_data->fds[$chan->fd]->output;
           switch($output->length) {
+            // FALLTHROUGH
             case 2:
               $output($chanid, $chan->buffer);
               break;
+            // FALLTHROUGH
             default:
               $output($chan->buffer);
             }
@@ -1994,23 +2054,27 @@ $caml_js_to_string = $Func(
                       }
                       else {
                         switch($ta) {
+                          // FALLTHROUGH
                           case 248:
                             {
                               $x = $caml_int_compare($a[2], $b[2]);
                               if ($x != 0) {return $x;}
                               break;
                             }
+                          // FALLTHROUGH
                           case 251:
                             {
                               $caml_invalid_argument($String->new("equal: abstract value")
                               );
                             }
+                          // FALLTHROUGH
                           case 255:
                             {
                               $x = $caml_int64_compare($a, $b);
                               if ($x != 0) {return $x;}
                               break;
                             }
+                          // FALLTHROUGH
                           default:
                             if (! $eqEq($a->length, $b->length)) {
                               return $a->length < $b->length ? - 1 : (1);
@@ -2141,13 +2205,17 @@ $caml_js_to_string = $Func(
         }
         $w = 0;
         switch($len & 3) {
+          // FALLTHROUGH
           case 3:
             $w = $left_shift_32($s[$i + 2], 16);
+          // FALLTHROUGH
           case 2:
             $w |= $left_shift_32($s[$i + 1], 8);
+          // FALLTHROUGH
           case 1:
             $w |= $s[$i];
             $h = $caml_hash_mix_int($h, $w);
+          // FALLTHROUGH
           default:
           }
         $h &= $len;
@@ -2415,13 +2483,17 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
         }
         $w = 0;
         switch($len & 3) {
+          // FALLTHROUGH
           case 3:
             $w = $left_shift_32($s->charCodeAt($i + 2), 16);
+          // FALLTHROUGH
           case 2:
             $w |= $left_shift_32($s->charCodeAt($i + 1), 8);
+          // FALLTHROUGH
           case 1:
             $w |= $s->charCodeAt($i);
             $h = $caml_hash_mix_int($h, $w);
+          // FALLTHROUGH
           default:
           }
         $h &= $len;
@@ -2472,26 +2544,34 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
               }
               else {
                 switch($code) {
+                  // FALLTHROUGH
                   case 0:
                     return $reader->read8s();
+                  // FALLTHROUGH
                   case 1:
                     return $reader->read16s();
+                  // FALLTHROUGH
                   case 2:
                     return $reader->read32s();
+                  // FALLTHROUGH
                   case 3:
                     $caml_failwith(
                       $String->new("input_value: integer too large")
                     );
                     break;
+                  // FALLTHROUGH
                   case 4:
                     $offset = $reader->read8u();
                     return $intern_obj_table[$obj_counter - $offset];
+                  // FALLTHROUGH
                   case 5:
                     $offset = $reader->read16u();
                     return $intern_obj_table[$obj_counter - $offset];
+                  // FALLTHROUGH
                   case 6:
                     $offset = $reader->read32u();
                     return $intern_obj_table[$obj_counter - $offset];
+                  // FALLTHROUGH
                   case 8:
                     $header = $reader->read32u();
                     $tag = $header & 255;
@@ -2503,11 +2583,13 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                     }
                     $stack->push($v, $size);
                     return $v;
+                  // FALLTHROUGH
                   case 19:
                     $caml_failwith(
                       $String->new("input_value: data block too large")
                     );
                     break;
+                  // FALLTHROUGH
                   case 9:
                     $len = $reader->read8u();
                     $v = $reader->readstr($len);
@@ -2515,6 +2597,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $intern_obj_table[$obj_counter++] = $v;
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 10:
                     $len = $reader->read32u();
                     $v = $reader->readstr($len);
@@ -2522,6 +2605,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $intern_obj_table[$obj_counter++] = $v;
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 12:
                     $t = $Array->new(8);
                     ;
@@ -2531,6 +2615,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $intern_obj_table[$obj_counter++] = $v;
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 11:
                     $t = $Array->new(8);
                     ;
@@ -2540,6 +2625,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $intern_obj_table[$obj_counter++] = $v;
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 14:
                     $len = $reader->read8u();
                     $v = $Array->new($len + 1);
@@ -2554,6 +2640,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $v[$i] = $caml_float_of_bytes($t);
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 13:
                     $len = $reader->read8u();
                     $v = $Array->new($len + 1);
@@ -2568,6 +2655,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $v[$i] = $caml_float_of_bytes($t);
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 7:
                     $len = $reader->read32u();
                     $v = $Array->new($len + 1);
@@ -2582,6 +2670,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $v[$i] = $caml_float_of_bytes($t);
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 15:
                     $len = $reader->read32u();
                     $v = $Array->new($len + 1);
@@ -2593,15 +2682,19 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $v[$i] = $caml_float_of_bytes($t);
                     }
                     return $v;
+                  // FALLTHROUGH
                   case 16:
+                  // FALLTHROUGH
                   case 17:
                     $caml_failwith($String->new("input_value: code pointer"));
                     break;
+                  // FALLTHROUGH
                   case 18:
                     $c = NULL;$s = $String->new("");
                     while(($c = $reader->read8u()) != 0) $s =
                        $plus($s, $String->fromCharCode($c));
                     switch($s) {
+                      // FALLTHROUGH
                       case $String->new("_j"):
                         $t = $Array->new(8);
                         ;
@@ -2611,34 +2704,41 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                           $intern_obj_table[$obj_counter++] = $v;
                         }
                         return $v;
+                      // FALLTHROUGH
                       case $String->new("_i"):
                         $v = $reader->read32s();
                         if ($intern_obj_table) {
                           $intern_obj_table[$obj_counter++] = $v;
                         }
                         return $v;
+                      // FALLTHROUGH
                       case $String->new("_n"):
                         switch($reader->read8u()) {
+                          // FALLTHROUGH
                           case 1:
                             $v = $reader->read32s();
                             if ($intern_obj_table) {
                               $intern_obj_table[$obj_counter++] = $v;
                             }
                             return $v;
+                          // FALLTHROUGH
                           case 2:
                             $caml_failwith(
                               $String->new("input_value: native integer value too large")
                             );
+                          // FALLTHROUGH
                           default:
                             $caml_failwith(
                               $String->new("input_value: ill-formed native integer")
                             );
                           }
+                      // FALLTHROUGH
                       default:
                         $caml_failwith(
                           $String->new("input_value: unknown custom block identifier")
                         );
                       }
+                  // FALLTHROUGH
                   default:
                     $caml_failwith(
                       $String->new("input_value: ill-formed message")
@@ -2760,19 +2860,23 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
             function($shape, $struct, $idx) use ($ArrayLiteral,$ObjectLiteral,$String,$eqEqEq,$loop,$typeof,$undef_module) {
               if ($eqEqEq($typeof($shape), $String->new("number"))) {
                 switch($shape) {
+                  // FALLTHROUGH
                   case 0:
                     $struct[$idx] =
                       $ObjectLiteral((object)darray["fun"=>$undef_module]);
                     break;
+                  // FALLTHROUGH
                   case 1:
                     $struct[$idx] = $ArrayLiteral(246, $undef_module);
                     break;
+                  // FALLTHROUGH
                   default:
                     $struct[$idx] = $ArrayLiteral();
                   }
               }
               else {
                 switch($shape[0]) {
+                  // FALLTHROUGH
                   case 0:
                     $struct[$idx] = $ArrayLiteral(0);
                     for ($i = 1;$i < $shape[1]->length;$i++) $loop->contents(
@@ -2781,6 +2885,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       $i
                     );
                     break;
+                  // FALLTHROUGH
                   default:
                     $struct[$idx] = $shape[1];
                   }
@@ -2932,20 +3037,28 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
     $caml_js_fun_call = $Func(
       function($f, $a) use ($caml_js_from_array) {
         switch($a->length) {
+          // FALLTHROUGH
           case 1:
             return $f();
+          // FALLTHROUGH
           case 2:
             return $f($a[1]);
+          // FALLTHROUGH
           case 3:
             return $f($a[1], $a[2]);
+          // FALLTHROUGH
           case 4:
             return $f($a[1], $a[2], $a[3]);
+          // FALLTHROUGH
           case 5:
             return $f($a[1], $a[2], $a[3], $a[4]);
+          // FALLTHROUGH
           case 6:
             return $f($a[1], $a[2], $a[3], $a[4], $a[5]);
+          // FALLTHROUGH
           case 7:
             return $f($a[1], $a[2], $a[3], $a[4], $a[5], $a[6]);
+          // FALLTHROUGH
           case 8:
             return $f($a[1], $a[2], $a[3], $a[4], $a[5], $a[6], $a[7]);
           }
@@ -3454,9 +3567,13 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                 $eqEq($nth_dim($i), $b->nth_dim($i))
               ) {return $nth_dim($i) < $b->nth_dim($i) ? - 1 : (1);}
               switch($kind) {
+                // FALLTHROUGH
                 case 0:
+                // FALLTHROUGH
                 case 1:
+                // FALLTHROUGH
                 case 10:
+                // FALLTHROUGH
                 case 11:
                   $x = NULL;$y = NULL;
                   for ($i = 0;$i < $data->length;$i++) {
@@ -3487,13 +3604,21 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                   }
                   ;
                   break;
+                // FALLTHROUGH
                 case 2:
+                // FALLTHROUGH
                 case 3:
+                // FALLTHROUGH
                 case 4:
+                // FALLTHROUGH
                 case 5:
+                // FALLTHROUGH
                 case 6:
+                // FALLTHROUGH
                 case 8:
+                // FALLTHROUGH
                 case 9:
+                // FALLTHROUGH
                 case 12:
                   for ($i = 0;$i < $data->length;$i++) {
                     if ($data[$i] < $b->data[$i]) {return - 1;}
@@ -3501,6 +3626,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                   }
                   ;
                   break;
+                // FALLTHROUGH
                 case 7:
                   for ($i = 0;$i < $data->length;$i++) {
                     if ($data2[$i] < $b->data2[$i]) {return - 1;}
@@ -3761,6 +3887,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
           }
           else {
             switch($f->conv) {
+              // FALLTHROUGH
               case $String->new("e"):
                 $s = $x->toExponential($prec);
                 $i = $s->length;
@@ -3772,9 +3899,11 @@ $right_shift_32=$joo_global_object->right_shift_32;
                     );
                 }
                 break;
+              // FALLTHROUGH
               case $String->new("f"):
                 $s = $x->toFixed($prec);
                 break;
+              // FALLTHROUGH
               case $String->new("g"):
                 $prec = $prec ? $prec : (1);
                 $s = $x->toExponential($prec - 1);
@@ -4595,30 +4724,39 @@ $right_shift_32=$joo_global_object->right_shift_32;
         $f = $ObjectLiteral((object)darray[]);
         while($flags) {
            switch($flags[1]) {
+             // FALLTHROUGH
              case 0:
                $f->rdonly = 1;
                break;
+             // FALLTHROUGH
              case 1:
                $f->wronly = 1;
                break;
+             // FALLTHROUGH
              case 2:
                $f->append = 1;
                break;
+             // FALLTHROUGH
              case 3:
                $f->create = 1;
                break;
+             // FALLTHROUGH
              case 4:
                $f->truncate = 1;
                break;
+             // FALLTHROUGH
              case 5:
                $f->excl = 1;
                break;
+             // FALLTHROUGH
              case 6:
                $f->binary = 1;
                break;
+             // FALLTHROUGH
              case 7:
                $f->text = 1;
                break;
+             // FALLTHROUGH
              case 8:
                $f->nonblock = 1;
                break;
@@ -4700,20 +4838,28 @@ $right_shift_32=$joo_global_object->right_shift_32;
     $caml_ojs_new_arr = $Func(
       function($c, $a) use ($Func,$joo_global_object) {
         switch($a->length) {
+          // FALLTHROUGH
           case 0:
             return $c->new();
+          // FALLTHROUGH
           case 1:
             return $c->new($a[0]);
+          // FALLTHROUGH
           case 2:
             return $c->new($a[0], $a[1]);
+          // FALLTHROUGH
           case 3:
             return $c->new($a[0], $a[1], $a[2]);
+          // FALLTHROUGH
           case 4:
             return $c->new($a[0], $a[1], $a[2], $a[3]);
+          // FALLTHROUGH
           case 5:
             return $c->new($a[0], $a[1], $a[2], $a[3], $a[4]);
+          // FALLTHROUGH
           case 6:
             return $c->new($a[0], $a[1], $a[2], $a[3], $a[4], $a[5]);
+          // FALLTHROUGH
           case 7:
             return $c->new($a[0], $a[1], $a[2], $a[3], $a[4], $a[5], $a[6]);
           }
@@ -5204,13 +5350,18 @@ $right_shift_32=$joo_global_object->right_shift_32;
               ) {$value = $value->toJSON($key);}
               if ($eqEqEq($typeof($rep), $String->new("function"))) {$value = $rep->call($holder, $key, $value);}
               switch($typeof($value)) {
+                // FALLTHROUGH
                 case $String->new("string"):return $quote($value);
+                // FALLTHROUGH
                 case $String->new("number"):
                   return $isFinite($value)
                     ? $String($value)
                     : ($String->new("null"));
+                // FALLTHROUGH
                 case $String->new("boolean"):
+                // FALLTHROUGH
                 case $String->new("null"):return $String($value);
+                // FALLTHROUGH
                 case $String->new("object"):
                   if (! $value) {return $String->new("null");}
                   $gap = $plus($gap, $indent);
@@ -5813,11 +5964,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $caml_hash_mix_string = $Func(
       function($h, $v) use ($caml_convert_string_to_bytes,$caml_hash_mix_string_arr,$caml_hash_mix_string_str) {
         switch($v->t & 6) {
+          // FALLTHROUGH
           default:
             $caml_convert_string_to_bytes($v);
+          // FALLTHROUGH
           case 0:
             $h = $caml_hash_mix_string_str($h, $v->c);
             break;
+          // FALLTHROUGH
           case 2:
             $h = $caml_hash_mix_string_arr($h, $v->c);
           }
@@ -5847,17 +6001,21 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
            $v = $queue[$rd++];
            if (instance_of($v, $Array) && $eqEqEq($v[0], $v[0] | 0)) {
              switch($v[0]) {
+               // FALLTHROUGH
                case 248:
                  $h = $caml_hash_mix_int($h, $v[2]);
                  $num--;
                  break;
+               // FALLTHROUGH
                case 250:
                  $queue[--$rd] = $v[1];
                  break;
+               // FALLTHROUGH
                case 255:
                  $h = $caml_hash_mix_int64($h, $v);
                  $num--;
                  break;
+               // FALLTHROUGH
                default:
                  $tag = $left_shift_32($v->length - 1, 10) | $v[0];
                  $h = $caml_hash_mix_int($h, $tag);
@@ -6058,20 +6216,28 @@ $caml_wrap_thrown_exception_traceless = $caml_wrap_thrown_exception;
     $caml_js_new = $Func(
       function($c, $a) use ($Func,$caml_js_from_array,$joo_global_object) {
         switch($a->length) {
+          // FALLTHROUGH
           case 1:
             return $c->new();
+          // FALLTHROUGH
           case 2:
             return $c->new($a[1]);
+          // FALLTHROUGH
           case 3:
             return $c->new($a[1], $a[2]);
+          // FALLTHROUGH
           case 4:
             return $c->new($a[1], $a[2], $a[3]);
+          // FALLTHROUGH
           case 5:
             return $c->new($a[1], $a[2], $a[3], $a[4]);
+          // FALLTHROUGH
           case 6:
             return $c->new($a[1], $a[2], $a[3], $a[4], $a[5]);
+          // FALLTHROUGH
           case 7:
             return $c->new($a[1], $a[2], $a[3], $a[4], $a[5], $a[6]);
+          // FALLTHROUGH
           case 8:
             return $c->new($a[1], $a[2], $a[3], $a[4], $a[5], $a[6], $a[7]);
           }
@@ -6450,8 +6616,10 @@ $RegExp=$joo_global_object->RegExp;
           function($s, $ofs, $len) use ($ArrayLiteral,$caml_convert_string_to_bytes,$caml_string_of_array,$left_shift_32,$md5,$plus,$right_shift_32) {
             $buf = $ArrayLiteral();
             switch($s->t & 6) {
+              // FALLTHROUGH
               default:
                 $caml_convert_string_to_bytes($s);
+              // FALLTHROUGH
               case 0:
                 $b = $s->c;
                 for ($i = 0;$i < $len;$i += 4) {
@@ -6468,6 +6636,7 @@ $RegExp=$joo_global_object->RegExp;
                   $left_shift_32($b->charCodeAt($plus($i, $ofs)), 8 * ($i & 3)
                   );
                 break;
+              // FALLTHROUGH
               case 4:
                 $a = $s->c;
                 for ($i = 0;$i < $len;$i += 4) {
@@ -6572,16 +6741,20 @@ $RegExp=$joo_global_object->RegExp;
         function($shape, $real, $x) use ($String,$caml_CamlinternalMod_update_mod,$caml_update_dummy,$eqEqEq,$typeof) {
           if ($eqEqEq($typeof($shape), $String->new("number"))) {
             switch($shape) {
+              // FALLTHROUGH
               case 0:
                 $real->fun = $x;
                 break;
+              // FALLTHROUGH
               case 1:
+              // FALLTHROUGH
               default:
                 $caml_update_dummy($real, $x);
               }
           }
           else {
             switch($shape[0]) {
+              // FALLTHROUGH
               case 0:
                 for ($i = 1;$i < $shape[1]->length;$i++) $caml_CamlinternalMod_update_mod->contents(
                   $shape[1][$i],
@@ -6589,6 +6762,7 @@ $RegExp=$joo_global_object->RegExp;
                   $x[$i]
                 );
                 break;
+              // FALLTHROUGH
               default:
               }
           }
@@ -6721,12 +6895,15 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         }
         else {
           switch($style) {
+            // FALLTHROUGH
             case 43:
               $sign_str = $String->new("+");
               break;
+            // FALLTHROUGH
             case 32:
               $sign_str = $String->new(" ");
               break;
+            // FALLTHROUGH
             default:break;
             }
         }
@@ -6861,14 +7038,17 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
               if ($count < 0 || $limit < 0) {return;}
               if (instance_of($obj, $Array) && $eqEqEq($obj[0], $obj[0] | 0)) {
                 switch($obj[0]) {
+                  // FALLTHROUGH
                   case 248:
                     $count--;
                     $hash_accu = $hash_accu * 65599 + $obj[2] | 0;
                     break;
+                  // FALLTHROUGH
                   case 250:
                     $limit++;
                     $hash_aux->contents($obj);
                     break;
+                  // FALLTHROUGH
                   case 255:
                     $count--;
                     $hash_accu =
@@ -6876,6 +7056,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                         $obj[1] +
                         $left_shift_32($obj[2], 24) | 0;
                     break;
+                  // FALLTHROUGH
                   default:
                     $count--;
                     $hash_accu = $hash_accu * 19 + $obj[0] | 0;
@@ -6886,13 +7067,16 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                 if (instance_of($obj, $MlBytes)) {
                   $count--;
                   switch($obj->t & 6) {
+                    // FALLTHROUGH
                     default:
                       $caml_convert_string_to_bytes($obj);
+                    // FALLTHROUGH
                     case 0:
                       for ($b = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu =
                         $hash_accu * 19 +
                           $b->charCodeAt($i) | 0;
                       break;
+                    // FALLTHROUGH
                     case 2:
                       for ($a = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu = $hash_accu * 19 + $a[$i] | 0;
                     }
@@ -7000,15 +7184,18 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $errflag = $env[$env_errflag];
         for (;;) {
           switch($cmd) {
+            // FALLTHROUGH
             case 0:
               $state = 0;
               $errflag = 0;
+            // FALLTHROUGH
             case 6:
               $n = $tables->defred[$state];
               if ($n != 0) {$cmd = $reduce;break;}
               if ($env[$env_curr_char] >= 0) {$cmd = $testshift;break;}
               $res = $READ_TOKEN;
               goto exit_break;
+            // FALLTHROUGH
             case 1:
               if (instance_of($arg, $Array)) {
                 $env[$env_curr_char] =
@@ -7019,6 +7206,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                 $env[$env_curr_char] = $tables[$tbl_transl_const][$arg + 1];
                 $env[$env_lval] = 0;
               }
+            // FALLTHROUGH
             case 7:
               $n1 = $tables->sindex[$state];
               $n2 = $plus($n1, $env[$env_curr_char]);
@@ -7040,6 +7228,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                 $res = $CALL_ERROR_FUNCTION;
                 goto exit_break;
               }
+            // FALLTHROUGH
             case 5:
               if ($errflag < 3) {
                 $errflag = 3;
@@ -7065,9 +7254,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                 $cmd = $loop;
                 break;
               }
+            // FALLTHROUGH
             case 8:
               $env[$env_curr_char] = - 1;
               if ($errflag > 0) {$errflag--;}
+            // FALLTHROUGH
             case 9:
               $state = $tables->table[$n2];
               $sp++;
@@ -7075,6 +7266,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                 $res = $GROW_STACKS_1;
                 goto exit_break;
               }
+            // FALLTHROUGH
             case 2:
               $env[$env_s_stack][$sp + 1] = $state;
               $env[$env_v_stack][$sp + 1] = $env[$env_lval];
@@ -7082,6 +7274,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
               $env[$env_symb_end_stack][$sp + 1] = $env[$env_symb_end];
               $cmd = $loop;
               break;
+            // FALLTHROUGH
             case 10:
               $m = $tables->len[$n];
               $env[$env_asp] = $sp;
@@ -7103,9 +7296,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                 $res = $GROW_STACKS_2;
                 goto exit_break;
               }
+            // FALLTHROUGH
             case 3:
               $res = $COMPUTE_SEMANTIC_ACTION;
               goto exit_break;
+            // FALLTHROUGH
             case 4:
               $env[$env_s_stack][$sp + 1] = $state;
               $env[$env_v_stack][$sp + 1] = $arg;
@@ -7118,6 +7313,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
               }
               $cmd = $loop;
               break;
+            // FALLTHROUGH
             default:
               return $RAISE_PARSE_ERROR;
             }

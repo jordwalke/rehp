@@ -345,7 +345,16 @@ final class Bytes {
               ? 13 === $match ? 1 : (0)
               : (8 <= $match ? 1 : (0));
           }
-          switch($switch__0) {case 0:$bG = 4;break;case 1:$bG = 2;break;}
+          switch($switch__0) {
+            // FALLTHROUGH
+            case 0:
+              $bG = 4;
+              break;
+            // FALLTHROUGH
+            case 1:
+              $bG = 2;
+              break;
+            }
           $n[1] = $n[1] + $bG | 0;
           $bH = $i__0 + 1 | 0;
           if ($bB !== $i__0) {$i__0 = $bH;continue;}
@@ -374,30 +383,35 @@ final class Bytes {
               }
               else {
                 switch($c) {
+                  // FALLTHROUGH
                   case 8:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 98);
                     $switch__2 = 3;
                     break;
+                  // FALLTHROUGH
                   case 9:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 116);
                     $switch__2 = 3;
                     break;
+                  // FALLTHROUGH
                   case 10:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 110);
                     $switch__2 = 3;
                     break;
+                  // FALLTHROUGH
                   case 13:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 114);
                     $switch__2 = 3;
                     break;
+                  // FALLTHROUGH
                   default:
                     $switch__2 = 0;
                   }
@@ -405,6 +419,7 @@ final class Bytes {
             }
           }
           switch($switch__2) {
+            // FALLTHROUGH
             case 0:
               $caml_bytes_unsafe_set($s__0, $n[1], 92);
               $n[1] += 1;
@@ -418,11 +433,13 @@ final class Bytes {
               $n[1] += 1;
               $caml_bytes_unsafe_set($s__0, $n[1], 48 + ($c % 10 | 0) | 0);
               break;
+            // FALLTHROUGH
             case 1:
               $caml_bytes_unsafe_set($s__0, $n[1], 92);
               $n[1] += 1;
               $caml_bytes_unsafe_set($s__0, $n[1], $c);
               break;
+            // FALLTHROUGH
             case 2:
               $caml_bytes_unsafe_set($s__0, $n[1], $c);
               break;

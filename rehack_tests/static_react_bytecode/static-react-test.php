@@ -177,10 +177,13 @@ $caml_arity_test = function($f) {
   $caml_bytes_unsafe_get = $Func(
     function($s, $i) {
       switch($s->t & 6) {
+        // FALLTHROUGH
         default:
           if ($i >= $s->c->length) {return 0;}
+        // FALLTHROUGH
         case 0:
           return $s->c->charCodeAt($i) | 0;
+        // FALLTHROUGH
         case 4:
           return $s->c[$i];
         }
@@ -407,13 +410,17 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   $caml_to_js_string = $Func(
     function($s) use ($caml_convert_string_to_bytes,$caml_is_ascii) {
       switch($s->t) {
+        // FALLTHROUGH
         case 9:
           return $s->c;
+        // FALLTHROUGH
         default:
           $caml_convert_string_to_bytes($s);
+        // FALLTHROUGH
         case 0:
           if ($caml_is_ascii($s->c)) {$s->t = 9;return $s->c;}
           $s->t = 8;
+        // FALLTHROUGH
         case 8:
           return $s->c;
         }
@@ -562,23 +569,27 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
                     }
                     else {
                       switch($ta) {
+                        // FALLTHROUGH
                         case 248:
                           {
                             $x = $caml_int_compare($a[2], $b[2]);
                             if ($x != 0) {return $x;}
                             break;
                           }
+                        // FALLTHROUGH
                         case 251:
                           {
                             $caml_invalid_argument($String->new("equal: abstract value")
                             );
                           }
+                        // FALLTHROUGH
                         case 255:
                           {
                             $x = $caml_int64_compare($a, $b);
                             if ($x != 0) {return $x;}
                             break;
                           }
+                        // FALLTHROUGH
                         default:
                           if (! $eqEq($a->length, $b->length)) {
                             return $a->length < $b->length ? - 1 : (1);
@@ -680,27 +691,41 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       for ($i = 0;$i < $len;$i++) {
         $c = $fmt->charAt($i);
         switch($c) {
+          // FALLTHROUGH
           case $String->new("-"):
             $f->justify = $String->new("-");
             break;
+          // FALLTHROUGH
           case $String->new("+"):
+          // FALLTHROUGH
           case $String->new(" "):
             $f->signstyle = $c;
             break;
+          // FALLTHROUGH
           case $String->new("0"):
             $f->filler = $String->new("0");
             break;
+          // FALLTHROUGH
           case $String->new("#"):
             $f->alternate = true;
             break;
+          // FALLTHROUGH
           case $String->new("1"):
+          // FALLTHROUGH
           case $String->new("2"):
+          // FALLTHROUGH
           case $String->new("3"):
+          // FALLTHROUGH
           case $String->new("4"):
+          // FALLTHROUGH
           case $String->new("5"):
+          // FALLTHROUGH
           case $String->new("6"):
+          // FALLTHROUGH
           case $String->new("7"):
+          // FALLTHROUGH
           case $String->new("8"):
+          // FALLTHROUGH
           case $String->new("9"):
             $f->width = 0;
             while
@@ -712,6 +737,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
              }
             $i--;
             break;
+          // FALLTHROUGH
           case $String->new("."):
             $f->prec = 0;
             $i++;
@@ -723,23 +749,35 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
                $i++;
              }
             $i--;
+          // FALLTHROUGH
           case $String->new("d"):
+          // FALLTHROUGH
           case $String->new("i"):$f->signedconv = true;
+          // FALLTHROUGH
           case $String->new("u"):$f->base = 10;break;
+          // FALLTHROUGH
           case $String->new("x"):$f->base = 16;break;
+          // FALLTHROUGH
           case $String->new("X"):
             $f->base = 16;
             $f->uppercase = true;
             break;
+          // FALLTHROUGH
           case $String->new("o"):$f->base = 8;break;
+          // FALLTHROUGH
           case $String->new("e"):
+          // FALLTHROUGH
           case $String->new("f"):
+          // FALLTHROUGH
           case $String->new("g"):
             $f->signedconv = true;
             $f->conv = $c;
             break;
+          // FALLTHROUGH
           case $String->new("E"):
+          // FALLTHROUGH
           case $String->new("F"):
+          // FALLTHROUGH
           case $String->new("G"):
             $f->signedconv = true;
             $f->uppercase = true;
@@ -823,6 +861,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         }
         else {
           switch($f->conv) {
+            // FALLTHROUGH
             case $String->new("e"):
               $s = $x->toExponential($prec);
               $i = $s->length;
@@ -834,9 +873,11 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
                   );
               }
               break;
+            // FALLTHROUGH
             case $String->new("f"):
               $s = $x->toFixed($prec);
               break;
+            // FALLTHROUGH
             case $String->new("g"):
               $prec = $prec ? $prec : (1);
               $s = $x->toExponential($prec - 1);
@@ -891,10 +932,13 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   $caml_string_unsafe_get = $Func(
     function($s, $i) {
       switch($s->t & 6) {
+        // FALLTHROUGH
         default:
           if ($i >= $s->c->length) {return 0;}
+        // FALLTHROUGH
         case 0:
           return $s->c->charCodeAt($i);
+        // FALLTHROUGH
         case 4:
           return $s->c[$i];
         }
@@ -906,10 +950,12 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       $i = 0;$len = $caml_ml_string_length($s);$base = 10;$sign = 1;
       if ($len > 0) {
         switch($caml_string_unsafe_get($s, $i)) {
+          // FALLTHROUGH
           case 45:
             $i++;
             $sign = - 1;
             break;
+          // FALLTHROUGH
           case 43:
             $i++;
             $sign = 1;
@@ -918,17 +964,23 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       }
       if ($i + 1 < $len && $caml_string_unsafe_get($s, $i) == 48) {
         switch($caml_string_unsafe_get($s, $i + 1)) {
+          // FALLTHROUGH
           case 120:
+          // FALLTHROUGH
           case 88:
             $base = 16;
             $i = $plus($i, 2);
             break;
+          // FALLTHROUGH
           case 111:
+          // FALLTHROUGH
           case 79:
             $base = 8;
             $i = $plus($i, 2);
             break;
+          // FALLTHROUGH
           case 98:
+          // FALLTHROUGH
           case 66:
             $base = 2;
             $i = $plus($i, 2);
@@ -1001,9 +1053,11 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       ) {
         $output = $caml_global_data->fds[$chan->fd]->output;
         switch($output->length) {
+          // FALLTHROUGH
           case 2:
             $output($chanid, $chan->buffer);
             break;
+          // FALLTHROUGH
           default:
             $output($chan->buffer);
           }
@@ -1035,13 +1089,17 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       $ncomp = $ArrayLiteral();
       for ($i = 0;$i < $comp->length;$i++) {
         switch($comp[$i]) {
+          // FALLTHROUGH
           case $String->new(".."):
             if ($ncomp->length > 1) {$ncomp->pop();}
             break;
+          // FALLTHROUGH
           case $String->new("."):break;
+          // FALLTHROUGH
           case $String->new(""):
             if ($ncomp->length == 0) {$ncomp->push($String->new(""));}
             break;
+          // FALLTHROUGH
           default:
             $ncomp->push($comp[$i]);
             break;
@@ -1520,30 +1578,39 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $res = 0;
         foreach($f->__all_enumerable_keys() as $key=> $____) {
           switch($key) {
+            // FALLTHROUGH
             case $String->new("rdonly"):
               $res |= $consts->O_RDONLY;
               break;
+            // FALLTHROUGH
             case $String->new("wronly"):
               $res |= $consts->O_WRONLY;
               break;
+            // FALLTHROUGH
             case $String->new("append"):
               $res |= $consts->O_WRONLY | $consts->O_APPEND;
               break;
+            // FALLTHROUGH
             case $String->new("create"):
               $res |= $consts->O_CREAT;
               break;
+            // FALLTHROUGH
             case $String->new("truncate"):
               $res |= $consts->O_TRUNC;
               break;
+            // FALLTHROUGH
             case $String->new("excl"):
               $res |= $consts->O_EXCL;
               break;
+            // FALLTHROUGH
             case $String->new("binary"):
               $res |= $consts->O_BINARY;
               break;
+            // FALLTHROUGH
             case $String->new("text"):
               $res |= $consts->O_TEXT;
               break;
+            // FALLTHROUGH
             case $String->new("nonblock"):
               $res |= $consts->O_NONBLOCK;
               break;
@@ -1700,30 +1767,39 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       $f = $ObjectLiteral((object)darray[]);
       while($flags) {
          switch($flags[1]) {
+           // FALLTHROUGH
            case 0:
              $f->rdonly = 1;
              break;
+           // FALLTHROUGH
            case 1:
              $f->wronly = 1;
              break;
+           // FALLTHROUGH
            case 2:
              $f->append = 1;
              break;
+           // FALLTHROUGH
            case 3:
              $f->create = 1;
              break;
+           // FALLTHROUGH
            case 4:
              $f->truncate = 1;
              break;
+           // FALLTHROUGH
            case 5:
              $f->excl = 1;
              break;
+           // FALLTHROUGH
            case 6:
              $f->binary = 1;
              break;
+           // FALLTHROUGH
            case 7:
              $f->text = 1;
              break;
+           // FALLTHROUGH
            case 8:
              $f->nonblock = 1;
              break;
@@ -2458,7 +2534,16 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             ? 13 === $match ? 1 : (0)
             : (8 <= $match ? 1 : (0));
         }
-        switch($switch__0) {case 0:$et = 4;break;case 1:$et = 2;break;}
+        switch($switch__0) {
+          // FALLTHROUGH
+          case 0:
+            $et = 4;
+            break;
+          // FALLTHROUGH
+          case 1:
+            $et = 2;
+            break;
+          }
         $n[1] = $n[1] + $et | 0;
         $eu = $i__0 + 1 | 0;
         if ($eo !== $i__0) {$i__0 = $eu;continue;}
@@ -2487,30 +2572,35 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             }
             else {
               switch($c) {
+                // FALLTHROUGH
                 case 8:
                   $caml_bytes_unsafe_set($s__0, $n[1], 92);
                   $n[1] += 1;
                   $caml_bytes_unsafe_set($s__0, $n[1], 98);
                   $switch__2 = 3;
                   break;
+                // FALLTHROUGH
                 case 9:
                   $caml_bytes_unsafe_set($s__0, $n[1], 92);
                   $n[1] += 1;
                   $caml_bytes_unsafe_set($s__0, $n[1], 116);
                   $switch__2 = 3;
                   break;
+                // FALLTHROUGH
                 case 10:
                   $caml_bytes_unsafe_set($s__0, $n[1], 92);
                   $n[1] += 1;
                   $caml_bytes_unsafe_set($s__0, $n[1], 110);
                   $switch__2 = 3;
                   break;
+                // FALLTHROUGH
                 case 13:
                   $caml_bytes_unsafe_set($s__0, $n[1], 92);
                   $n[1] += 1;
                   $caml_bytes_unsafe_set($s__0, $n[1], 114);
                   $switch__2 = 3;
                   break;
+                // FALLTHROUGH
                 default:
                   $switch__2 = 0;
                 }
@@ -2518,6 +2608,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           }
         }
         switch($switch__2) {
+          // FALLTHROUGH
           case 0:
             $caml_bytes_unsafe_set($s__0, $n[1], 92);
             $n[1] += 1;
@@ -2531,11 +2622,13 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $n[1] += 1;
             $caml_bytes_unsafe_set($s__0, $n[1], 48 + ($c % 10 | 0) | 0);
             break;
+          // FALLTHROUGH
           case 1:
             $caml_bytes_unsafe_set($s__0, $n[1], 92);
             $n[1] += 1;
             $caml_bytes_unsafe_set($s__0, $n[1], $c);
             break;
+          // FALLTHROUGH
           case 2:
             $caml_bytes_unsafe_set($s__0, $n[1], $c);
             break;
@@ -2799,22 +2892,31 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         return $a($indentForDepth->contents($n__0 + -1 | 0), $m);
       }
       switch($n__0) {
+        // FALLTHROUGH
         case 0:
           return $n;
+        // FALLTHROUGH
         case 1:
           return $o;
+        // FALLTHROUGH
         case 2:
           return $p;
+        // FALLTHROUGH
         case 3:
           return $q;
+        // FALLTHROUGH
         case 4:
           return $r;
+        // FALLTHROUGH
         case 5:
           return $s;
+        // FALLTHROUGH
         case 6:
           return $t;
+        // FALLTHROUGH
         case 7:
           return $u;
+        // FALLTHROUGH
         default:
           return $v;
         }
@@ -3183,6 +3285,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       if ($is_int($jsx)) {return 0;}
       else {
         switch($jsx[0]) {
+          // FALLTHROUGH
           case 0:
             $renderable = $jsx[1];
             $nextReplacer = function($instSwapper) use ($caml_call1,$thisReplacer) {
@@ -3197,6 +3300,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
               );
             };
             return V(0, $init($nextReplacer, $renderable));
+          // FALLTHROUGH
           case 1:
             $stateRendererB = $jsx[2];
             $stateRendererA = $jsx[1];
@@ -3230,6 +3334,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
               $initSubtree->contents($nextReplacerA, $stateRendererA),
               $dS
             );
+          // FALLTHROUGH
           default:
             $elems = $jsx[1];
             $initElem = function($i, $e) use ($caml_call1,$flatten,$initSubtree,$splitList__0,$thisReplacer) {
@@ -3273,6 +3378,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       if ($is_int($subtree)) {return 0;}
       else {
         switch($subtree[0]) {
+          // FALLTHROUGH
           case 0:
             $r = $match[1];
             $rPrev = $prevJsx[1];
@@ -3281,6 +3387,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             return 0 === $match__0
               ? V(0, $reconcile->contents($i, $r))
               : ($subtree);
+          // FALLTHROUGH
           case 1:
             $rb = $match[2];
             $ra = $match[1];
@@ -3290,6 +3397,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $ia = $subtree[1];
             $dQ = $reconcileSubtree->contents($ib, $rbPrev, $rb);
             return V(1, $reconcileSubtree->contents($ia, $raPrev, $ra), $dQ);
+          // FALLTHROUGH
           default:
             $eLst = $match[1];
             $eLstPrev = $prevJsx[1];
@@ -3389,9 +3497,11 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       if ($is_int($subtree)) {return $av;}
       else {
         switch($subtree[0]) {
+          // FALLTHROUGH
           case 0:
             $n = $subtree[1];
             return $a($ay, $a($at->contents(V(0, $a($ax, $s)), $n), $aw));
+          // FALLTHROUGH
           case 1:
             $n2 = $subtree[2];
             $n1 = $subtree[1];
@@ -3422,6 +3532,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                 )
               )
             );
+          // FALLTHROUGH
           default:
             $lst = $subtree[1];
             $dL = V(0, $a($aG, $s));

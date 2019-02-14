@@ -370,6 +370,7 @@ final class Arg {
           ? $caml_check_bound($argv[1], $initpos)[$initpos + 1]
           : ($cst__2);
         switch($error[0]) {
+          // FALLTHROUGH
           case 0:
             $n8 = $error[1];
             if ($caml_string_notequal($n8, $cst_help__3)) {
@@ -378,16 +379,19 @@ final class Arg {
               }
             }
             break;
+          // FALLTHROUGH
           case 1:
             $expected = $error[3];
             $arg = $error[2];
             $opt = $error[1];
             $caml_call6($Printf[5], $b, $nj, $progname, $arg, $opt, $expected);
             break;
+          // FALLTHROUGH
           case 2:
             $s = $error[1];
             $caml_call4($Printf[5], $b, $nk, $progname, $s);
             break;
+          // FALLTHROUGH
           default:
             $s__0 = $error[1];
             $caml_call4($Printf[5], $b, $nl, $progname, $s__0);
@@ -478,9 +482,11 @@ final class Arg {
                   $_ = $treat_action->contents =
                     function($param) use ($Array,$Invalid_argument,$List,$Pervasives,$Stop,$allow_expand,$argv,$bool_of_string_opt,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound,$consume_arg,$cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic,$cst__3,$cst__4,$cst__5,$cst_a_boolean,$cst_a_float,$cst_a_float__0,$cst_an_integer,$cst_an_integer__0,$cst_one_of,$current,$float_of_string_opt,$get_arg,$int_of_string_opt,$make_symlist,$no_arg,$runtime,$s,$treat_action) {
                       switch($param[0]) {
+                        // FALLTHROUGH
                         case 0:
                           $f = $param[1];
                           return $caml_call1($f, 0);
+                        // FALLTHROUGH
                         case 1:
                           $f__0 = $param[1];
                           $arg = $get_arg(0);
@@ -493,25 +499,30 @@ final class Arg {
                           throw $runtime->caml_wrap_thrown_exception(
                                   V(0, $Stop, V(1, $s, $arg, $cst_a_boolean))
                                 );
+                        // FALLTHROUGH
                         case 2:
                           $r = $param[1];
                           $no_arg(0);
                           $r[1] = 1;
                           return 0;
+                        // FALLTHROUGH
                         case 3:
                           $r__0 = $param[1];
                           $no_arg(0);
                           $r__0[1] = 0;
                           return 0;
+                        // FALLTHROUGH
                         case 4:
                           $f__1 = $param[1];
                           $arg__0 = $get_arg(0);
                           $caml_call1($f__1, $arg__0);
                           return $consume_arg(0);
+                        // FALLTHROUGH
                         case 5:
                           $r__1 = $param[1];
                           $r__1[1] = $get_arg(0);
                           return $consume_arg(0);
+                        // FALLTHROUGH
                         case 6:
                           $f__2 = $param[1];
                           $arg__1 = $get_arg(0);
@@ -524,6 +535,7 @@ final class Arg {
                           throw $runtime->caml_wrap_thrown_exception(
                                   V(0, $Stop, V(1, $s, $arg__1, $cst_an_integer))
                                 );
+                        // FALLTHROUGH
                         case 7:
                           $r__2 = $param[1];
                           $arg__2 = $get_arg(0);
@@ -536,6 +548,7 @@ final class Arg {
                           throw $runtime->caml_wrap_thrown_exception(
                                   V(0, $Stop, V(1, $s, $arg__2, $cst_an_integer__0))
                                 );
+                        // FALLTHROUGH
                         case 8:
                           $f__3 = $param[1];
                           $arg__3 = $get_arg(0);
@@ -548,6 +561,7 @@ final class Arg {
                           throw $runtime->caml_wrap_thrown_exception(
                                   V(0, $Stop, V(1, $s, $arg__3, $cst_a_float))
                                 );
+                        // FALLTHROUGH
                         case 9:
                           $r__3 = $param[1];
                           $arg__4 = $get_arg(0);
@@ -560,6 +574,7 @@ final class Arg {
                           throw $runtime->caml_wrap_thrown_exception(
                                   V(0, $Stop, V(1, $s, $arg__4, $cst_a_float__0))
                                 );
+                        // FALLTHROUGH
                         case 10:
                           $specs = $param[1];
                           return $caml_call2(
@@ -567,6 +582,7 @@ final class Arg {
                             $treat_action->contents,
                             $specs
                           );
+                        // FALLTHROUGH
                         case 11:
                           $f__4 = $param[2];
                           $symb = $param[1];
@@ -588,6 +604,7 @@ final class Arg {
                                     )
                                   )
                                 );
+                        // FALLTHROUGH
                         case 12:
                           $f__5 = $param[1];
                           for (;;) {
@@ -600,6 +617,7 @@ final class Arg {
                             }
                             return 0;
                           }
+                        // FALLTHROUGH
                         default:
                           $f__6 = $param[1];
                           if (1 - $allow_expand) {

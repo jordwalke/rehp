@@ -108,6 +108,7 @@ final class Stream {
         for (;;) {
           if (! $is_int($d__0)) {
             switch($d__0[0]) {
+              // FALLTHROUGH
               case 1:
                 $d2 = $d__0[2];
                 $d1 = $d__0[1];
@@ -126,6 +127,7 @@ final class Stream {
                           V(0, $Assert_failure, $g1)
                         );
                 }
+              // FALLTHROUGH
               case 2:
                 $f = $d__0[1];
                 $hg = $caml_obj_tag($f);
@@ -136,6 +138,7 @@ final class Stream {
                    : ($f));
                 $d__0 = $d__1;
                 continue;
+              // FALLTHROUGH
               case 3:
                 $hh = $d__0[1];
                 $hi = $hh[1];
@@ -155,6 +158,7 @@ final class Stream {
                 }
                 $hh[1] = $g2;
                 return 0;
+              // FALLTHROUGH
               case 4:
                 $b = $d__0[1];
                 if ($b[3] <= $b[4]) {$fill_buff($b);}
@@ -173,9 +177,11 @@ final class Stream {
         if ($is_int($hb)) {return 0;}
         else {
           switch($hb[0]) {
+            // FALLTHROUGH
             case 0:
               $a = $hb[1];
               return V(0, $a);
+            // FALLTHROUGH
             case 1:
               $d = $get_data->contents($s[1], $s[2]);
               if ($is_int($d)) {return 0;}
@@ -189,6 +195,7 @@ final class Stream {
                         V(0, $Assert_failure, $g3)
                       );
               }
+            // FALLTHROUGH
             case 2:
               $f = $hb[1];
               $hc = $caml_obj_tag($f);
@@ -197,6 +204,7 @@ final class Stream {
                 : (246 === $hc ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
               $s[2] = $hd;
               continue;
+            // FALLTHROUGH
             case 3:
               $he = $hb[1];
               $hf = $he[1];
@@ -204,6 +212,7 @@ final class Stream {
               $x = $caml_call1($he[2], $s[1]);
               $he[1] = V(0, $x);
               return $x;
+            // FALLTHROUGH
             default:
               $b = $hb[1];
               if ($b[3] <= $b[4]) {$fill_buff($b);}
@@ -223,15 +232,18 @@ final class Stream {
         $g_ = $s[2];
         if (! $is_int($g_)) {
           switch($g_[0]) {
+            // FALLTHROUGH
             case 0:
               $d = $g_[2];
               $s[1] = $s[1] + 1 | 0;
               $s[2] = $d;
               return 0;
+            // FALLTHROUGH
             case 3:
               $ha = $g_[1];
               if ($ha[1]) {$s[1] = $s[1] + 1 | 0;$ha[1] = 0;return 0;}
               break;
+            // FALLTHROUGH
             case 4:
               $b = $g_[1];
               $s[1] = $s[1] + 1 | 0;
@@ -440,6 +452,7 @@ final class Stream {
         }
         else {
           switch($param[0]) {
+            // FALLTHROUGH
             case 0:
               $d = $param[2];
               $a = $param[1];
@@ -448,6 +461,7 @@ final class Stream {
               $caml_call1($Pervasives[30], $cst__0);
               $dump_data->contents($f, $d);
               return $caml_call1($Pervasives[30], $cst__1);
+            // FALLTHROUGH
             case 1:
               $d2 = $param[2];
               $d1 = $param[1];
@@ -456,10 +470,13 @@ final class Stream {
               $caml_call1($Pervasives[30], $cst__2);
               $dump_data->contents($f, $d2);
               return $caml_call1($Pervasives[30], $cst__3);
+            // FALLTHROUGH
             case 2:
               return $caml_call1($Pervasives[30], $cst_Slazy);
+            // FALLTHROUGH
             case 3:
               return $caml_call1($Pervasives[30], $cst_Sgen);
+            // FALLTHROUGH
             default:
               return $caml_call1($Pervasives[30], $cst_Sbuffio);
             }

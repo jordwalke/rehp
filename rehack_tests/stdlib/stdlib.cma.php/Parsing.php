@@ -113,6 +113,7 @@ final class Parsing {
           $match = $runtime->caml_parse_engine($tables, $env, $cmd__0, $arg__0
           );
           switch($match) {
+            // FALLTHROUGH
             case 0:
               $arg__1 = $caml_call1($lexer, $lexbuf);
               $env[9] = $lexbuf[11];
@@ -120,18 +121,22 @@ final class Parsing {
               $cmd__0 = 1;
               $arg__0 = $arg__1;
               continue;
+            // FALLTHROUGH
             case 1:
               throw $runtime->caml_wrap_thrown_exception($Parse_error);
+            // FALLTHROUGH
             case 2:
               $grow_stacks(0);
               $cmd__0 = 2;
               $arg__0 = 0;
               continue;
+            // FALLTHROUGH
             case 3:
               $grow_stacks(0);
               $cmd__0 = 3;
               $arg__0 = 0;
               continue;
+            // FALLTHROUGH
             case 4:
               try {
                 $fg = $env[13];
@@ -156,6 +161,7 @@ final class Parsing {
               $cmd__0 = $cmd__1;
               $arg__0 = $arg__2;
               continue;
+            // FALLTHROUGH
             default:
               $caml_call1($tables[14], $cst_syntax_error);
               $cmd__0 = 5;

@@ -847,8 +847,10 @@ final class Set {
           function($n, $l) use ($Assert_failure,$create,$fm,$runtime,$sub,$unsigned_right_shift_32) {
             if (! (3 < $unsigned_right_shift_32($n, 0))) {
               switch($n) {
+                // FALLTHROUGH
                 case 0:
                   return V(0, 0, $l);
+                // FALLTHROUGH
                 case 1:
                   if ($l) {
                     $l__3 = $l[2];
@@ -856,6 +858,7 @@ final class Set {
                     return V(0, V(0, 0, $x0, 0, 1), $l__3);
                   }
                   break;
+                // FALLTHROUGH
                 case 2:
                   if ($l) {
                     $fx = $l[2];
@@ -867,6 +870,7 @@ final class Set {
                     }
                   }
                   break;
+                // FALLTHROUGH
                 default:
                   if ($l) {
                     $fy = $l[2];

@@ -256,10 +256,13 @@ final class Printexc {
         return $caml_call3($Printf[4], $oA, $pn, $pm);
       }
       switch($match) {
+        // FALLTHROUGH
         case 0:
           return $cst__1;
+        // FALLTHROUGH
         case 1:
           return $cst__2;
+        // FALLTHROUGH
         default:
           $po = $field($x, 1);
           return $caml_call2($Printf[4], $oB, $po);

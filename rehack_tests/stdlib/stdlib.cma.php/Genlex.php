@@ -238,23 +238,39 @@ final class Genlex {
               else {
                 if (33 <= $zQ) {
                   switch($zQ + -33 | 0) {
+                    // FALLTHROUGH
                     case 0:
+                    // FALLTHROUGH
                     case 2:
+                    // FALLTHROUGH
                     case 3:
+                    // FALLTHROUGH
                     case 4:
+                    // FALLTHROUGH
                     case 5:
+                    // FALLTHROUGH
                     case 9:
+                    // FALLTHROUGH
                     case 10:
+                    // FALLTHROUGH
                     case 12:
+                    // FALLTHROUGH
                     case 14:
+                    // FALLTHROUGH
                     case 25:
+                    // FALLTHROUGH
                     case 27:
+                    // FALLTHROUGH
                     case 28:
+                    // FALLTHROUGH
                     case 29:
+                    // FALLTHROUGH
                     case 30:
+                    // FALLTHROUGH
                     case 31:
                       $switch__0 = 0;
                       break;
+                    // FALLTHROUGH
                     default:
                       $switch__0 = 1;
                     }
@@ -332,10 +348,12 @@ final class Genlex {
                 else {
                   $switcher = $zK + 65 | 0;
                   switch($switcher) {
+                    // FALLTHROUGH
                     case 34:
                       $caml_call1($Stream[12], $strm);
                       $reset_buffer(0);
                       return V(0, V(4, $string->contents($strm)));
+                    // FALLTHROUGH
                     case 39:
                       $caml_call1($Stream[12], $strm);
                       try {$c = $char__0->contents($strm);}
@@ -358,6 +376,7 @@ final class Genlex {
                       throw $runtime->caml_wrap_thrown_exception(
                               V(0, $Stream[2], $cst__0)
                             );
+                    // FALLTHROUGH
                     case 40:
                       $caml_call1($Stream[12], $strm);
                       if ($counter < 50) {
@@ -368,47 +387,79 @@ final class Genlex {
                         $maybe_comment->contents,
                         $ArrayLiteral(0, $strm)
                       );
+                    // FALLTHROUGH
                     case 45:
                       $caml_call1($Stream[12], $strm);
                       return $neg_number($strm);
+                    // FALLTHROUGH
                     case 9:
+                    // FALLTHROUGH
                     case 10:
+                    // FALLTHROUGH
                     case 12:
+                    // FALLTHROUGH
                     case 13:
+                    // FALLTHROUGH
                     case 26:
+                    // FALLTHROUGH
                     case 32:
                       $caml_call1($Stream[12], $strm);
                       continue;
+                    // FALLTHROUGH
                     case 48:
+                    // FALLTHROUGH
                     case 49:
+                    // FALLTHROUGH
                     case 50:
+                    // FALLTHROUGH
                     case 51:
+                    // FALLTHROUGH
                     case 52:
+                    // FALLTHROUGH
                     case 53:
+                    // FALLTHROUGH
                     case 54:
+                    // FALLTHROUGH
                     case 55:
+                    // FALLTHROUGH
                     case 56:
+                    // FALLTHROUGH
                     case 57:
                       $caml_call1($Stream[12], $strm);
                       $reset_buffer(0);
                       $store($zJ);
                       return $number($strm);
+                    // FALLTHROUGH
                     case 33:
+                    // FALLTHROUGH
                     case 35:
+                    // FALLTHROUGH
                     case 36:
+                    // FALLTHROUGH
                     case 37:
+                    // FALLTHROUGH
                     case 38:
+                    // FALLTHROUGH
                     case 42:
+                    // FALLTHROUGH
                     case 43:
+                    // FALLTHROUGH
                     case 47:
+                    // FALLTHROUGH
                     case 58:
+                    // FALLTHROUGH
                     case 60:
+                    // FALLTHROUGH
                     case 61:
+                    // FALLTHROUGH
                     case 62:
+                    // FALLTHROUGH
                     case 63:
+                    // FALLTHROUGH
                     case 64:
                       $switch__0 = 2;
                       break;
+                    // FALLTHROUGH
                     default:
                       $switch__0 = 0;
                     }
@@ -419,13 +470,17 @@ final class Genlex {
                 if (5 < $unsigned_right_shift_32($zL, 0)) {$switch__0 = 1;}
                 else {
                   switch($zL) {
+                    // FALLTHROUGH
                     case 4:
                       $switch__0 = 1;
                       break;
+                    // FALLTHROUGH
                     case 1:
+                    // FALLTHROUGH
                     case 3:
                       $switch__0 = 2;
                       break;
+                    // FALLTHROUGH
                     default:
                       $switch__0 = 0;
                     }
@@ -433,14 +488,17 @@ final class Genlex {
               }
             }
             switch($switch__0) {
+              // FALLTHROUGH
               case 0:
                 $caml_call1($Stream[12], $strm);
                 return V(0, $keyword_or_error($zJ));
+              // FALLTHROUGH
               case 1:
                 $caml_call1($Stream[12], $strm);
                 $reset_buffer(0);
                 $store($zJ);
                 return $ident($strm);
+              // FALLTHROUGH
               default:
                 $caml_call1($Stream[12], $strm);
                 $reset_buffer(0);
@@ -537,12 +595,15 @@ final class Genlex {
               $switcher = $zB + -110 | 0;
               if (! (6 < $unsigned_right_shift_32($switcher, 0))) {
                 switch($switcher) {
+                  // FALLTHROUGH
                   case 0:
                     $caml_call1($Stream[12], $strm);
                     return 10;
+                  // FALLTHROUGH
                   case 4:
                     $caml_call1($Stream[12], $strm);
                     return 13;
+                  // FALLTHROUGH
                   case 6:
                     $caml_call1($Stream[12], $strm);
                     return 9;
@@ -594,6 +655,7 @@ final class Genlex {
             $switcher = $match[1] + -40 | 0;
             if (! (2 < $unsigned_right_shift_32($switcher, 0))) {
               switch($switcher) {
+                // FALLTHROUGH
                 case 0:
                   $caml_call1($Stream[12], $strm);
                   if ($counter < 50) {
@@ -604,7 +666,9 @@ final class Genlex {
                     $maybe_nested_comment->contents,
                     $ArrayLiteral(0, $strm)
                   );
+                // FALLTHROUGH
                 case 1:break;
+                // FALLTHROUGH
                 default:
                   $caml_call1($Stream[12], $strm);
                   if ($counter < 50) {

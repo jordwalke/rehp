@@ -1480,6 +1480,8 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.start_group(f, 2);
       PP.break(f);
       let output_one = (_last, (e, sl)) => {
+        PP.string(f, "// FALLTHROUGH");
+        PP.break(f);
         PP.start_group(f, 0);
         PP.string(f, "case");
         PP.space(f);
@@ -1505,6 +1507,8 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       switch (def) {
       | None => ()
       | Some(def) =>
+        PP.string(f, "// FALLTHROUGH");
+        PP.break(f);
         PP.start_group(f, 0);
         PP.string(f, "default:");
         PP.end_group(f);

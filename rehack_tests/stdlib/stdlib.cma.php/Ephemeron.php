@@ -250,11 +250,14 @@ final class Ephemeron {
                 if ($hkey === $hk) {
                   $match = $caml_call2($H[3], $c, $key);
                   switch($match) {
+                    // FALLTHROUGH
                     case 0:
                       $h[1] = $h[1] + -1 | 0;
                       return $next;
+                    // FALLTHROUGH
                     case 1:
                       return V(0, $hk, $c, $remove_bucket->contents($next));
+                    // FALLTHROUGH
                     default:
                       $h[1] = $h[1] + -1 | 0;
                       $param__0 = $next;
@@ -280,14 +283,17 @@ final class Ephemeron {
             if ($hkey === $hk) {
               $match = $caml_call2($H[3], $c, $key);
               switch($match) {
+                // FALLTHROUGH
                 case 0:
                   $match__0 = $caml_call1($H[4], $c);
                   if ($match__0) {$d = $match__0[1];return $d;}
                   $param__0 = $rest;
                   continue;
+                // FALLTHROUGH
                 case 1:
                   $param__0 = $rest;
                   continue;
+                // FALLTHROUGH
                 default:
                   $param__0 = $rest;
                   continue;
@@ -314,14 +320,17 @@ final class Ephemeron {
             if ($hkey === $hk) {
               $match = $caml_call2($H[3], $c, $key);
               switch($match) {
+                // FALLTHROUGH
                 case 0:
                   $d = $caml_call1($H[4], $c);
                   if ($d) {return $d;}
                   $param__0 = $rest;
                   continue;
+                // FALLTHROUGH
                 case 1:
                   $param__0 = $rest;
                   continue;
+                // FALLTHROUGH
                 default:
                   $param__0 = $rest;
                   continue;
@@ -356,6 +365,7 @@ final class Ephemeron {
                 if ($hkey === $hk) {
                   $match = $caml_call2($H[3], $c, $key);
                   switch($match) {
+                    // FALLTHROUGH
                     case 0:
                       $match__0 = $caml_call1($H[4], $c);
                       if ($match__0) {
@@ -364,9 +374,11 @@ final class Ephemeron {
                       }
                       $param__0 = $rest;
                       continue;
+                    // FALLTHROUGH
                     case 1:
                       $param__0 = $rest;
                       continue;
+                    // FALLTHROUGH
                     default:
                       $param__0 = $rest;
                       continue;

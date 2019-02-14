@@ -68,14 +68,19 @@ final class Char {
           }
           else {
             switch($c) {
+              // FALLTHROUGH
               case 8:
                 return $cst_b;
+              // FALLTHROUGH
               case 9:
                 return $cst_t;
+              // FALLTHROUGH
               case 10:
                 return $cst_n;
+              // FALLTHROUGH
               case 13:
                 return $cst_r;
+              // FALLTHROUGH
               default:
                 $switch__0 = 0;
               }
