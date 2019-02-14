@@ -61,8 +61,11 @@ esy test
 # Try From Your Project:
 
 You can try out `rehp` on your project, by using [esy](https://esy.sh) to
-directly consume this repo. Just add the following to your `package.json` and
-then run `esy` from your project root as usual.
+directly consume this repo. See [hello-rehp](https://github.com/robz/hello-rehp) 
+as an example.
+
+Just add the following to your `package.json` and then run `esy` from your project 
+root as usual. 
 
 ```json
 "dependencies": {
