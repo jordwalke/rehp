@@ -262,7 +262,7 @@ let add_file ~backend f =
          | l -> List.exists l ~f:version_match in
        let bmatch = match backends with
          | [] -> true
-         | l -> List.exists (fun backend' -> backend' = backend) l in
+         | l -> List.exists l ~f:(fun backend' -> backend' = backend) in
        if vmatch && bmatch
        then begin
          incr last_code_id;
