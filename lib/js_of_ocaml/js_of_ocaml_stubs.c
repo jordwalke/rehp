@@ -20,6 +20,14 @@ void caml_js_delete () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_delete!\n");
   exit(1);
 }
+void caml_js_dict_get () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_dict_get!\n");
+  exit(1);
+}
+void caml_js_dict_set () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_dict_set!\n");
+  exit(1);
+}
 void caml_js_equals () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_equals!\n");
   exit(1);
@@ -54,6 +62,14 @@ void caml_js_from_string () {
 }
 void caml_js_fun_call () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call!\n");
+  exit(1);
+}
+void caml_js_fun_call1 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call1!\n");
+  exit(1);
+}
+void caml_js_fun_call2 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call2!\n");
   exit(1);
 }
 void caml_js_get () {
@@ -92,8 +108,20 @@ void caml_js_on_ie () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_on_ie!\n");
   exit(1);
 }
+void caml_js_property_get () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_property_get!\n");
+  exit(1);
+}
+void caml_js_property_set () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_property_set!\n");
+  exit(1);
+}
 void caml_js_pure_expr () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_pure_expr!\n");
+  exit(1);
+}
+void caml_js_raw_expr () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_raw_expr!\n");
   exit(1);
 }
 void caml_js_set () {

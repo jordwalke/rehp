@@ -35,13 +35,25 @@ module Unsafe = struct
 
   external get : 'a -> 'b -> 'c = "caml_js_get"
 
+  external dict_get : 'a -> 'b -> 'c = "caml_js_dict_get"
+
+  external property_get : 'a -> 'b -> 'c = "caml_js_property_get"
+
   external set : 'a -> 'b -> 'c -> unit = "caml_js_set"
+
+  external dict_set : 'a -> 'b -> 'c -> unit = "caml_js_dict_set"
+
+  external property_set : 'a -> 'b -> 'c -> unit = "caml_js_property_set"
 
   external delete : 'a -> 'b -> unit = "caml_js_delete"
 
   external call : 'a -> 'b -> any array -> 'c = "caml_js_call"
 
   external fun_call : 'a -> any array -> 'b = "caml_js_fun_call"
+
+  external fun_call1 : 'a -> 'b -> 'c = "caml_js_fun_call1"
+
+  external fun_call2 : 'a -> 'b -> 'c -> 'd = "caml_js_fun_call2"
 
   external meth_call : 'a -> string -> any array -> 'b = "caml_js_meth_call"
 
@@ -56,6 +68,8 @@ module Unsafe = struct
   external pure_expr : (unit -> 'a) -> 'a = "caml_js_pure_expr"
 
   external eval_string : string -> 'a = "caml_js_eval_string"
+
+  external raw_expr : string -> 'a = "caml_js_raw_expr"
 
   external js_expr : string -> 'a = "caml_js_expr"
 

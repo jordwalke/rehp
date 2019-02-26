@@ -841,9 +841,26 @@ module Unsafe : sig
   (** Get the value of an object property.  The expression [get o s]
         returns the value of property [s] of object [o]. *)
 
+  external dict_get : 'a -> 'b -> 'c = "caml_js_dict_get"
+  (** Like [get], but will always use the dictionary syntax else fail at
+        runtime *)
+
+  external property_get : 'a -> 'b -> 'c = "caml_js_property_get"
+    (** Like [get], but will always use the property access syntax or fail at
+        runtime *)
+
+
   external set : 'a -> 'b -> 'c -> unit = "caml_js_set"
   (** Set an object property.  The expression [set o s v]
         set the property [s] of object [o] to value [v]. *)
+
+  external dict_set : 'a -> 'b -> 'c -> unit = "caml_js_dict_set"
+  (** Like [set] but always compiles to the dictionary set syntax or fails
+       at runtime. *)
+
+  external property_set : 'a -> 'b -> 'c -> unit = "caml_js_property_set"
+  (** Like [set] but always compiles to the property set syntax or fails
+      at runtime. *)
 
   external delete : 'a -> 'b -> unit = "caml_js_delete"
   (** Delete an object property.  The expression [delete o s]
@@ -858,6 +875,16 @@ module Unsafe : sig
   (** Performs a Javascript function call.  The expression
         [fun_call f a] calls the Javascript function [f] with the
         arguments given by the array [a]. *)
+
+  external fun_call1 : 'a -> 'b -> 'c = "caml_js_fun_call1"
+  (** Performs a Javascript function call with one argument. The expression
+        [fun_call f a] calls the Javascript function [f] with the argument
+        a. *)
+
+  external fun_call2 : 'a -> 'b -> 'c -> 'd = "caml_js_fun_call2"
+  (** Performs a Javascript function call with two arguments. The expression
+        [fun_call f a b] calls the Javascript function [f] with the arguments a
+        and b. *)
 
   external meth_call : 'a -> string -> any array -> 'b = "caml_js_meth_call"
   (** Performs a Javascript method call.  The expression
@@ -885,6 +912,9 @@ module Unsafe : sig
 
   external eval_string : string -> 'a = "caml_js_eval_string"
   (** Evaluate Javascript code *)
+
+  external raw_expr : string -> 'a = "caml_js_raw_expr"
+  (** Injects dangerous, unparsed, code into the compiled output. *)
 
   external js_expr : string -> 'a = "caml_js_expr"
   (** [js_expr e] will parse the JavaScript expression [e] if [e]
