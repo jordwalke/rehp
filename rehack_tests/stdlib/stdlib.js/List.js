@@ -12,22 +12,24 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_compare = runtime.caml_compare;
-var caml_new_string = runtime.caml_new_string;
+var caml_compare = runtime["caml_compare"];
+var caml_new_string = runtime["caml_new_string"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_List_map2 = caml_new_string("List.map2");
 var cst_List_iter2 = caml_new_string("List.iter2");
 var cst_List_fold_left2 = caml_new_string("List.fold_left2");
@@ -42,9 +44,9 @@ var cst_nth = caml_new_string("nth");
 var cst_List_nth = caml_new_string("List.nth");
 var cst_tl = caml_new_string("tl");
 var cst_hd = caml_new_string("hd");
-var Pervasives = global_data.Pervasives;
-var Not_found = global_data.Not_found;
-var Assert_failure = global_data.Assert_failure;
+var Pervasives = global_data["Pervasives"];
+var Not_found = global_data["Not_found"];
+var Assert_failure = global_data["Assert_failure"];
 var aE = [0,0,0];
 var aF = [0,caml_new_string("list.ml"),262,11];
 
@@ -489,7 +491,7 @@ function assoc(x, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime.caml_wrap_thrown_exception(Not_found);
+    throw runtime["caml_wrap_thrown_exception"](Not_found);
   }
 }
 
@@ -521,7 +523,7 @@ function assq(x, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime.caml_wrap_thrown_exception(Not_found);
+    throw runtime["caml_wrap_thrown_exception"](Not_found);
   }
 }
 
@@ -603,7 +605,7 @@ function find(p, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime.caml_wrap_thrown_exception(Not_found);
+    throw runtime["caml_wrap_thrown_exception"](Not_found);
   }
 }
 
@@ -728,7 +730,7 @@ function chop(k, l) {
       var l__0 = l__1;
       continue;
     }
-    throw runtime.caml_wrap_thrown_exception([0,Assert_failure,aF]);
+    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,aF]);
   }
 }
 
@@ -1172,7 +1174,7 @@ var List = [
   merge
 ];
 
-runtime.caml_register_global(19, List, "List_");
+runtime["caml_register_global"](19, List, "List_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().List_;

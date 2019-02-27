@@ -39,36 +39,36 @@ final class Filename {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_ml_string_length = $runtime->caml_ml_string_length;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_string_equal = $runtime->caml_string_equal;
-    $caml_string_get = $runtime->caml_string_get;
-    $caml_string_notequal = $runtime->caml_string_notequal;
-    $caml_sys_getenv = $runtime->caml_sys_getenv;
-    $caml_trampoline = $runtime->caml_trampoline;
-    $caml_trampoline_return = $runtime->caml_trampoline_return;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_ml_string_length = $runtime["caml_ml_string_length"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_string_equal = $runtime["caml_string_equal"];
+    $caml_string_get = $runtime["caml_string_get"];
+    $caml_string_notequal = $runtime["caml_string_notequal"];
+    $caml_sys_getenv = $runtime["caml_sys_getenv"];
+    $caml_trampoline = $runtime["caml_trampoline"];
+    $caml_trampoline_return = $runtime["caml_trampoline_return"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Filename_chop_extension = $caml_new_string("Filename.chop_extension");
     $cst__10 = $caml_new_string("");
     $cst_Filename_chop_suffix = $caml_new_string("Filename.chop_suffix");
@@ -97,15 +97,15 @@ final class Filename {
     $dir_sep__1 = $caml_new_string("/");
     $cst_Cygwin = $caml_new_string("Cygwin");
     $cst_Win32 = $caml_new_string("Win32");
-    $Pervasives = $global_data->Pervasives;
-    $Sys_error = $global_data->Sys_error;
-    $CamlinternalLazy = $global_data->CamlinternalLazy;
-    $Random = $global_data->Random;
-    $Printf = $global_data->Printf;
-    $String = $global_data->String_;
-    $Buffer = $global_data->Buffer;
-    $Not_found = $global_data->Not_found;
-    $Sys = $global_data->Sys;
+    $Pervasives = $global_data["Pervasives"];
+    $Sys_error = $global_data["Sys_error"];
+    $CamlinternalLazy = $global_data["CamlinternalLazy"];
+    $Random = $global_data["Random"];
+    $Printf = $global_data["Printf"];
+    $String = $global_data["String_"];
+    $Buffer = $global_data["Buffer"];
+    $Not_found = $global_data["Not_found"];
+    $Sys = $global_data["Sys"];
     $Bh = R(0, 7, 0);
     $Bg = R(0, 1, R(0, 3, R(0, 5, 0)));
     $Bf = R(
@@ -269,7 +269,7 @@ final class Filename {
     catch(\Throwable $B9) {
       $B9 = $caml_wrap_exception($B9);
       if ($B9 !== $Not_found) {
-        throw $runtime->caml_wrap_thrown_exception_reraise($B9);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($B9);
       }
       $temp_dir_name = $cst_tmp;
     }
@@ -362,7 +362,7 @@ final class Filename {
     catch(\Throwable $BK) {
       $BK = $caml_wrap_exception($BK);
       if ($BK !== $Not_found) {
-        throw $runtime->caml_wrap_thrown_exception_reraise($BK);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($BK);
       }
       $temp_dir_name__0 = $cst__8;
     }
@@ -671,7 +671,7 @@ final class Filename {
       }
     );
     $temp_file_name = function($temp_dir, $prefix, $suffix) use ($Bf,$CamlinternalLazy,$Printf,$Random,$caml_call1,$caml_call4,$concat,$prng,$runtime) {
-      $Bv = $runtime->caml_obj_tag($prng);
+      $Bv = $runtime["caml_obj_tag"]($prng);
       $Bw = 250 === $Bv
         ? $prng[1]
         : (246 === $Bv ? $caml_call1($CamlinternalLazy[2], $prng) : ($prng));
@@ -700,20 +700,22 @@ final class Filename {
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
           try {
-            $runtime->caml_sys_close($runtime->caml_sys_open($name, $Bg, 384));
+            $runtime["caml_sys_close"](
+              $runtime["caml_sys_open"]($name, $Bg, 384)
+            );
             return $name;
           }
           catch(\Throwable $e) {
             $e = $caml_wrap_exception($e);
             if ($e[1] === $Sys_error) {
               if (1e3 <= $counter__0) {
-                throw $runtime->caml_wrap_thrown_exception_reraise($e);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
               }
               $counter__1 = $counter__0 + 1 | 0;
               $counter__0 = $counter__1;
               continue;
             }
-            throw $runtime->caml_wrap_thrown_exception_reraise($e);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
           }
         }
       };
@@ -756,13 +758,13 @@ final class Filename {
             $e = $caml_wrap_exception($e);
             if ($e[1] === $Sys_error) {
               if (1e3 <= $counter__0) {
-                throw $runtime->caml_wrap_thrown_exception_reraise($e);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
               }
               $counter__1 = $counter__0 + 1 | 0;
               $counter__0 = $counter__1;
               continue;
             }
-            throw $runtime->caml_wrap_thrown_exception_reraise($e);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
           }
         }
       };
@@ -791,7 +793,7 @@ final class Filename {
       $quote__1
     );
     
-    $runtime->caml_register_global(40, $Filename, "Filename");
+    $runtime["caml_register_global"](40, $Filename, "Filename");
 
   }
 }

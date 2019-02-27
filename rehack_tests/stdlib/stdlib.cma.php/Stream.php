@@ -36,27 +36,27 @@ final class Stream {
     $runtime = $joo_global_object->jsoo_runtime;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_bytes_unsafe_get = $runtime->caml_bytes_unsafe_get;
-    $caml_fresh_oo_id = $runtime->caml_fresh_oo_id;
-    $caml_ml_bytes_length = $runtime->caml_ml_bytes_length;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_obj_tag = $runtime->caml_obj_tag;
+    $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
+    $caml_fresh_oo_id = $runtime["caml_fresh_oo_id"];
+    $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_obj_tag = $runtime["caml_obj_tag"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_count = $caml_new_string("{count = ");
     $cst_data = $caml_new_string("; data = ");
     $cst = $caml_new_string("}");
@@ -72,10 +72,10 @@ final class Stream {
     $cst_Sbuffio = $caml_new_string("Sbuffio");
     $cst_Stream_Failure = $caml_new_string("Stream.Failure");
     $cst_Stream_Error = $caml_new_string("Stream.Error");
-    $Assert_failure = $global_data->Assert_failure;
-    $CamlinternalLazy = $global_data->CamlinternalLazy;
-    $Pervasives = $global_data->Pervasives;
-    $List = $global_data->List_;
+    $Assert_failure = $global_data["Assert_failure"];
+    $CamlinternalLazy = $global_data["CamlinternalLazy"];
+    $Pervasives = $global_data["Pervasives"];
+    $List = $global_data["List_"];
     $g1 = R(0, $caml_new_string("stream.ml"), 53, 12);
     $g2 = R(0, 0);
     $g3 = R(0, $caml_new_string("stream.ml"), 82, 12);
@@ -122,9 +122,7 @@ final class Stream {
                     $a = $match[1];
                     return V(0, $a, V(1, $d11, $d2));
                   }
-                  throw $runtime->caml_wrap_thrown_exception(
-                          V(0, $Assert_failure, $g1)
-                        );
+                  throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $g1));
                 }
               // FALLTHROUGH
               case 2:
@@ -190,9 +188,7 @@ final class Stream {
                   $s[2] = $d;
                   return V(0, $a__0);
                 }
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $g3)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $g3));
               }
             // FALLTHROUGH
             case 2:
@@ -292,11 +288,11 @@ final class Stream {
     $next = function($s) use ($Failure,$junk,$peek,$runtime) {
       $match = $peek($s);
       if ($match) {$a = $match[1];$junk($s);return $a;}
-      throw $runtime->caml_wrap_thrown_exception($Failure);
+      throw $runtime["caml_wrap_thrown_exception"]($Failure);
     };
     $empty = function($s) use ($Failure,$peek,$runtime) {
       $match = $peek($s);
-      if ($match) {throw $runtime->caml_wrap_thrown_exception($Failure);}
+      if ($match) {throw $runtime["caml_wrap_thrown_exception"]($Failure);}
       return 0;
     };
     $iter = function($f, $strm) use ($caml_call1,$junk,$peek) {
@@ -325,10 +321,10 @@ final class Stream {
       return $from(
         function($param) use ($count,$runtime,$s) {
           $c = $count[1];
-          return $c < $runtime->caml_ml_string_length($s)
+          return $c < $runtime["caml_ml_string_length"]($s)
             ? ($count[1] += 1) || true
-             ? V(0, $runtime->caml_string_get($s, $c))
-             : (V(0, $runtime->caml_string_get($s, $c)))
+             ? V(0, $runtime["caml_string_get"]($s, $c))
+             : (V(0, $runtime["caml_string_get"]($s, $c)))
             : (0);
         }
       );
@@ -340,8 +336,8 @@ final class Stream {
           $c = $count[1];
           return $c < $caml_ml_bytes_length($s)
             ? ($count[1] += 1) || true
-             ? V(0, $runtime->caml_bytes_get($s, $c))
-             : (V(0, $runtime->caml_bytes_get($s, $c)))
+             ? V(0, $runtime["caml_bytes_get"]($s, $c))
+             : (V(0, $runtime["caml_bytes_get"]($s, $c)))
             : (0);
         }
       );
@@ -349,7 +345,7 @@ final class Stream {
     $of_channel = function($ic) use ($runtime) {
       return V(
         0,
-        V(0, 0, V(4, V(0, $ic, $runtime->caml_create_bytes(4096), 0, 0)))
+        V(0, 0, V(4, V(0, $ic, $runtime["caml_create_bytes"](4096), 0, 0)))
       );
     };
     $iapp = function($i, $s) use ($data) {
@@ -508,7 +504,7 @@ final class Stream {
       $dump
     );
     
-    $runtime->caml_register_global(22, $Stream, "Stream");
+    $runtime["caml_register_global"](22, $Stream, "Stream");
 
   }
 }

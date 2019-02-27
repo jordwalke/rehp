@@ -130,7 +130,7 @@ final class Complex {
       $pow
     );
     
-    $runtime->caml_register_global(19, $Complex, "Complex");
+    $runtime["caml_register_global"](19, $Complex, "Complex");
 
   }
 }

@@ -45,24 +45,24 @@ final class List_ {
     $runtime = $joo_global_object->jsoo_runtime;
     $right_shift_32 = $runtime->right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_compare = $runtime->caml_compare;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_compare = $runtime["caml_compare"];
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_List_map2 = $caml_new_string("List.map2");
     $cst_List_iter2 = $caml_new_string("List.iter2");
     $cst_List_fold_left2 = $caml_new_string("List.fold_left2");
@@ -77,9 +77,9 @@ final class List_ {
     $cst_List_nth = $caml_new_string("List.nth");
     $cst_tl = $caml_new_string("tl");
     $cst_hd = $caml_new_string("hd");
-    $Pervasives = $global_data->Pervasives;
-    $Not_found = $global_data->Not_found;
-    $Assert_failure = $global_data->Assert_failure;
+    $Pervasives = $global_data["Pervasives"];
+    $Not_found = $global_data["Not_found"];
+    $Assert_failure = $global_data["Assert_failure"];
     $aE = R(0, 0, 0);
     $aF = R(0, $caml_new_string("list.ml"), 262, 11);
     $length_aux = function($len, $param) {
@@ -503,7 +503,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime->caml_wrap_thrown_exception($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
       }
     };
     $assoc_opt = function($x, $param) use ($caml_compare) {
@@ -533,7 +533,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime->caml_wrap_thrown_exception($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
       }
     };
     $assq_opt = function($x, $param) {
@@ -615,7 +615,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime->caml_wrap_thrown_exception($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
       }
     };
     $find_opt = function($p, $param) use ($caml_call1) {
@@ -736,7 +736,7 @@ final class List_ {
           $l__0 = $l__1;
           continue;
         }
-        throw $runtime->caml_wrap_thrown_exception(V(0, $Assert_failure, $aF));
+        throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $aF));
       }
     };
     $stable_sort = function($cmp, $l) use ($caml_call2,$chop,$length,$rev_append,$right_shift_32) {
@@ -1199,7 +1199,7 @@ final class List_ {
       $merge->contents
     );
     
-    $runtime->caml_register_global(19, $List, "List_");
+    $runtime["caml_register_global"](19, $List, "List_");
 
   }
 }

@@ -17,34 +17,36 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_bytes_unsafe_set = runtime.caml_bytes_unsafe_set;
-var caml_create_bytes = runtime.caml_create_bytes;
-var caml_ml_bytes_length = runtime.caml_ml_bytes_length;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_get = runtime.caml_string_get;
+var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Buffer_truncate = caml_new_string("Buffer.truncate");
 var cst_Buffer_add_channel = caml_new_string("Buffer.add_channel");
 var cst_Buffer_add_substring_add_subbytes = caml_new_string(
@@ -56,14 +58,14 @@ var cst_Buffer_add_cannot_grow_buffer = caml_new_string(
 var cst_Buffer_nth = caml_new_string("Buffer.nth");
 var cst_Buffer_blit = caml_new_string("Buffer.blit");
 var cst_Buffer_sub = caml_new_string("Buffer.sub");
-var Pervasives = global_data.Pervasives;
-var End_of_file = global_data.End_of_file;
-var Not_found = global_data.Not_found;
-var String = global_data.String_;
-var Assert_failure = global_data.Assert_failure;
-var Sys = global_data.Sys;
-var Bytes = global_data.Bytes;
-var Uchar = global_data.Uchar;
+var Pervasives = global_data["Pervasives"];
+var End_of_file = global_data["End_of_file"];
+var Not_found = global_data["Not_found"];
+var String = global_data["String_"];
+var Assert_failure = global_data["Assert_failure"];
+var Sys = global_data["Sys"];
+var Bytes = global_data["Bytes"];
+var Uchar = global_data["Uchar"];
 var hq = [0,caml_new_string("buffer.ml"),205,9];
 var hp = [0,caml_new_string("buffer.ml"),141,19];
 var ho = [0,caml_new_string("buffer.ml"),159,8];
@@ -100,7 +102,13 @@ function blit(src, srcoff, dst, dstoff, len) {
       if (! ((src[2] - len | 0) < srcoff)) {
         if (0 <= dstoff) {
           if (! ((caml_ml_bytes_length(dst) - len | 0) < dstoff)) {
-            return runtime.caml_blit_bytes(src[1], srcoff, dst, dstoff, len);
+            return runtime["caml_blit_bytes"](
+              src[1],
+              srcoff,
+              dst,
+              dstoff,
+              len
+            );
           }
         }
       }
@@ -111,7 +119,7 @@ function blit(src, srcoff, dst, dstoff, len) {
 
 function nth(b, ofs) {
   if (0 <= ofs) {
-    if (! (b[2] <= ofs)) {return runtime.caml_bytes_unsafe_get(b[1], ofs);}
+    if (! (b[2] <= ofs)) {return runtime["caml_bytes_unsafe_get"](b[1], ofs);}
   }
   return caml_call1(Pervasives[1], cst_Buffer_nth);
 }
@@ -162,7 +170,7 @@ function add_utf_8_uchar(b, u) {
       if (2047 < u__0) {
         if (65535 < u__0) {
           if (1114111 < u__0) {
-            throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hk]);
+            throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hk]);
           }
           var pos = b[2];
           if (b[3] < (pos + 4 | 0)) {resize(b, 4);}
@@ -199,7 +207,7 @@ function add_utf_8_uchar(b, u) {
     }
     return add_char(b, u__0);
   }
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hl]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hl]);
 }
 
 function add_utf_16be_uchar(b, u) {
@@ -207,7 +215,7 @@ function add_utf_16be_uchar(b, u) {
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hm]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hm]);
       }
       var u__1 = u__0 + -65536 | 0;
       var hi = 55296 | u__1 >>> 10 | 0;
@@ -228,7 +236,7 @@ function add_utf_16be_uchar(b, u) {
     b[2] = pos__0 + 2 | 0;
     return 0;
   }
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hn]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hn]);
 }
 
 function add_utf_16le_uchar(b, u) {
@@ -236,7 +244,7 @@ function add_utf_16le_uchar(b, u) {
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,ho]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,ho]);
       }
       var u__1 = u__0 + -65536 | 0;
       var hi = 55296 | u__1 >>> 10 | 0;
@@ -257,7 +265,7 @@ function add_utf_16le_uchar(b, u) {
     b[2] = pos__0 + 2 | 0;
     return 0;
   }
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hp]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hp]);
 }
 
 function add_substring(b, s, offset, len) {
@@ -299,7 +307,7 @@ function add_channel_rec(b, ic, len) {
     if (hu) {
       var n = caml_call4(Pervasives[72], ic, b[1], b[2], len__0);
       b[2] = b[2] + n | 0;
-      if (0 === n) {throw runtime.caml_wrap_thrown_exception(End_of_file);}
+      if (0 === n) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
       var len__1 = len__0 - n | 0;
       var len__0 = len__1;
       continue;
@@ -323,7 +331,7 @@ function output_buffer(oc, b) {
 function closing(param) {
   if (40 === param) {return 41;}
   if (123 === param) {return 125;}
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hq]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hq]);
 }
 
 function advance_to_closing(opening, closing, k, s, start) {
@@ -331,7 +339,9 @@ function advance_to_closing(opening, closing, k, s, start) {
     var k__0 = k;
     var i__0 = i;
     for (; ; ) {
-      if (lim <= i__0) {throw runtime.caml_wrap_thrown_exception(Not_found);}
+      if (lim <= i__0) {
+        throw runtime["caml_wrap_thrown_exception"](Not_found);
+      }
       if (caml_string_get(s, i__0) === opening) {
         var i__1 = i__0 + 1 | 0;
         var k__1 = k__0 + 1 | 0;
@@ -372,7 +382,7 @@ function advance_to_non_alpha(s, start) {
 }
 
 function find_ident(s, start, lim) {
-  if (lim <= start) {throw runtime.caml_wrap_thrown_exception(Not_found);}
+  if (lim <= start) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
   var c = caml_string_get(s, start);
   if (40 !== c) {
     if (123 !== c) {
@@ -472,7 +482,7 @@ var Buffer = [
   truncate
 ];
 
-runtime.caml_register_global(22, Buffer, "Buffer");
+runtime["caml_register_global"](22, Buffer, "Buffer");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Buffer;

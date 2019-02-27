@@ -20,46 +20,48 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_equal = runtime.caml_equal;
-var caml_fresh_oo_id = runtime.caml_fresh_oo_id;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_get = runtime.caml_string_get;
-var caml_string_notequal = runtime.caml_string_notequal;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_equal = runtime["caml_equal"];
+var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_string_notequal = runtime["caml_string_notequal"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
 function caml_call6(f, a0, a1, a2, a3, a4, a5) {
   return f.length == 6 ?
     f(a0, a1, a2, a3, a4, a5) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4,a5]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst__6 = caml_new_string("");
 var cst__7 = caml_new_string("\n");
 var cst_a_boolean = caml_new_string("a boolean");
@@ -95,17 +97,17 @@ var cst_none = caml_new_string("<none>");
 var cst_Arg_Bad = caml_new_string("Arg.Bad");
 var cst_Arg_Help = caml_new_string("Arg.Help");
 var cst_Arg_Stop = caml_new_string("Arg.Stop");
-var Not_found = global_data.Not_found;
-var Printf = global_data.Printf;
-var Pervasives = global_data.Pervasives;
-var Array = global_data.Array_;
-var Buffer = global_data.Buffer;
-var End_of_file = global_data.End_of_file;
-var List = global_data.List_;
-var String = global_data.String_;
-var Sys = global_data.Sys;
-var Invalid_argument = global_data.Invalid_argument;
-var Failure = global_data.Failure;
+var Not_found = global_data["Not_found"];
+var Printf = global_data["Printf"];
+var Pervasives = global_data["Pervasives"];
+var Array = global_data["Array_"];
+var Buffer = global_data["Buffer"];
+var End_of_file = global_data["End_of_file"];
+var List = global_data["List_"];
+var String = global_data["String_"];
+var Sys = global_data["Sys"];
+var Invalid_argument = global_data["Invalid_argument"];
+var Failure = global_data["Failure"];
 var nw = [0,[2,0,[0,0]],caml_new_string("%s%c")];
 var nq = [0,[2,0,0],caml_new_string("%s")];
 var nr = [0,[2,0,0],caml_new_string("%s")];
@@ -204,7 +206,7 @@ function assoc3(x, l) {
       var l__0 = t;
       continue;
     }
-    throw runtime.caml_wrap_thrown_exception(Not_found);
+    throw runtime["caml_wrap_thrown_exception"](Not_found);
   }
 }
 
@@ -247,7 +249,7 @@ function print_spec(buf, param) {
 }
 
 function help_action(param) {
-  throw runtime.caml_wrap_thrown_exception([0,Stop,nd]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Stop,nd]);
 }
 
 function add_help(speclist) {
@@ -255,7 +257,7 @@ function add_help(speclist) {
   catch(op) {
     op = caml_wrap_exception(op);
     if (op !== Not_found) {
-      throw runtime.caml_wrap_thrown_exception_reraise(op);
+      throw runtime["caml_wrap_thrown_exception_reraise"](op);
     }
     var oi = [
       0,
@@ -268,7 +270,7 @@ function add_help(speclist) {
   catch(oo) {
     oo = caml_wrap_exception(oo);
     if (oo !== Not_found) {
-      throw runtime.caml_wrap_thrown_exception_reraise(oo);
+      throw runtime["caml_wrap_thrown_exception_reraise"](oo);
     }
     var ok = [
       0,
@@ -306,25 +308,25 @@ function bool_of_string_opt(x) {
   catch(od) {
     od = caml_wrap_exception(od);
     if (od[1] === Invalid_argument) {return 0;}
-    throw runtime.caml_wrap_thrown_exception_reraise(od);
+    throw runtime["caml_wrap_thrown_exception_reraise"](od);
   }
 }
 
 function int_of_string_opt(x) {
-  try {var oa = [0,runtime.caml_int_of_string(x)];return oa;}
+  try {var oa = [0,runtime["caml_int_of_string"](x)];return oa;}
   catch(ob) {
     ob = caml_wrap_exception(ob);
     if (ob[1] === Failure) {return 0;}
-    throw runtime.caml_wrap_thrown_exception_reraise(ob);
+    throw runtime["caml_wrap_thrown_exception_reraise"](ob);
   }
 }
 
 function float_of_string_opt(x) {
-  try {var n9 = [0,runtime.caml_float_of_string(x)];return n9;}
+  try {var n9 = [0,runtime["caml_float_of_string"](x)];return n9;}
   catch(n_) {
     n_ = caml_wrap_exception(n_);
     if (n_[1] === Failure) {return 0;}
-    throw runtime.caml_wrap_thrown_exception_reraise(n_);
+    throw runtime["caml_wrap_thrown_exception_reraise"](n_);
   }
 }
 
@@ -380,7 +382,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
           catch(n6) {
             n6 = caml_wrap_exception(n6);
             if (n6 !== Not_found) {
-              throw runtime.caml_wrap_thrown_exception_reraise(n6);
+              throw runtime["caml_wrap_thrown_exception_reraise"](n6);
             }
             try {
               var match = split(s);
@@ -392,9 +394,9 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
             catch(n7) {
               n7 = caml_wrap_exception(n7);
               if (n7 === Not_found) {
-                throw runtime.caml_wrap_thrown_exception([0,Stop,[0,s]]);
+                throw runtime["caml_wrap_thrown_exception"]([0,Stop,[0,s]]);
               }
-              throw runtime.caml_wrap_thrown_exception_reraise(n7);
+              throw runtime["caml_wrap_thrown_exception_reraise"](n7);
             }
             var action = n1;
             var follow__0 = follow;
@@ -403,8 +405,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
             function no_arg(param) {
               if (follow) {
                 var arg = follow[1];
-                throw runtime.caml_wrap_thrown_exception(
-                        [0,Stop,[1,s,arg,cst_no_argument]]
+                throw runtime["caml_wrap_thrown_exception"]([0,Stop,[1,s,arg,cst_no_argument]]
                       );
               }
               return 0;
@@ -419,7 +420,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                 var n5 = current[1] + 1 | 0;
                 return caml_check_bound(argv[1], n5)[n5 + 1];
               }
-              throw runtime.caml_wrap_thrown_exception([0,Stop,[2,s]]);
+              throw runtime["caml_wrap_thrown_exception"]([0,Stop,[2,s]]);
             }
             return get_arg;
           };
@@ -446,8 +447,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                     caml_call1(f__0, s__0);
                     return consume_arg(0);
                   }
-                  throw runtime.caml_wrap_thrown_exception(
-                          [0,Stop,[1,s,arg,cst_a_boolean]]
+                  throw runtime["caml_wrap_thrown_exception"]([0,Stop,[1,s,arg,cst_a_boolean]]
                         );
                 case 2:
                   var r = param[1];
@@ -477,8 +477,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                     caml_call1(f__2, x);
                     return consume_arg(0);
                   }
-                  throw runtime.caml_wrap_thrown_exception(
-                          [0,Stop,[1,s,arg__1,cst_an_integer]]
+                  throw runtime["caml_wrap_thrown_exception"]([0,Stop,[1,s,arg__1,cst_an_integer]]
                         );
                 case 7:
                   var r__2 = param[1];
@@ -489,7 +488,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                     r__2[1] = x__0;
                     return consume_arg(0);
                   }
-                  throw runtime.caml_wrap_thrown_exception(
+                  throw runtime["caml_wrap_thrown_exception"](
                           [0,Stop,[1,s,arg__2,cst_an_integer__0]]
                         );
                 case 8:
@@ -501,8 +500,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                     caml_call1(f__3, x__1);
                     return consume_arg(0);
                   }
-                  throw runtime.caml_wrap_thrown_exception(
-                          [0,Stop,[1,s,arg__3,cst_a_float]]
+                  throw runtime["caml_wrap_thrown_exception"]([0,Stop,[1,s,arg__3,cst_a_float]]
                         );
                 case 9:
                   var r__3 = param[1];
@@ -513,8 +511,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                     r__3[1] = x__2;
                     return consume_arg(0);
                   }
-                  throw runtime.caml_wrap_thrown_exception(
-                          [0,Stop,[1,s,arg__4,cst_a_float__0]]
+                  throw runtime["caml_wrap_thrown_exception"]([0,Stop,[1,s,arg__4,cst_a_float__0]]
                         );
                 case 10:
                   var specs = param[1];
@@ -528,7 +525,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                     return consume_arg(0);
                   }
                   var n3 = make_symlist(cst__5, cst__4, cst__3, symb);
-                  throw runtime.caml_wrap_thrown_exception(
+                  throw runtime["caml_wrap_thrown_exception"](
                           [
                             0,
                             Stop,
@@ -549,7 +546,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                 default:
                   var f__6 = param[1];
                   if (1 - allow_expand) {
-                    throw runtime.caml_wrap_thrown_exception(
+                    throw runtime["caml_wrap_thrown_exception"](
                             [
                               0,
                               Invalid_argument,
@@ -591,13 +588,13 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
         exn = caml_wrap_exception(exn);
         if (exn[1] === Bad) {
           var m = exn[2];
-          throw runtime.caml_wrap_thrown_exception(convert_error([3,m]));
+          throw runtime["caml_wrap_thrown_exception"](convert_error([3,m]));
         }
         if (exn[1] === Stop) {
           var e = exn[2];
-          throw runtime.caml_wrap_thrown_exception(convert_error(e));
+          throw runtime["caml_wrap_thrown_exception"](convert_error(e));
         }
-        throw runtime.caml_wrap_thrown_exception_reraise(exn);
+        throw runtime["caml_wrap_thrown_exception_reraise"](exn);
       }
       current[1] += 1;
       continue;
@@ -662,7 +659,7 @@ function parse(l, f, msg) {
       caml_call2(Printf[2], nn, msg__1);
       return caml_call1(Pervasives[87], 0);
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(exn);
+    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
   }
 }
 
@@ -680,7 +677,7 @@ function parse_dynamic(l, f, msg) {
       caml_call2(Printf[2], np, msg__1);
       return caml_call1(Pervasives[87], 0);
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(exn);
+    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
   }
 }
 
@@ -704,7 +701,7 @@ function parse_expand(l, f, msg) {
       caml_call2(Printf[2], nr, msg__1);
       return caml_call1(Pervasives[87], 0);
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(exn);
+    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
   }
 }
 
@@ -730,11 +727,11 @@ function second_word(s) {
       catch(nW) {
         nW = caml_wrap_exception(nW);
         if (nW === Not_found) {return len;}
-        throw runtime.caml_wrap_thrown_exception_reraise(nW);
+        throw runtime["caml_wrap_thrown_exception_reraise"](nW);
       }
       return loop(n + 1 | 0);
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(nV);
+    throw runtime["caml_wrap_thrown_exception_reraise"](nV);
   }
   return loop(n__0 + 1 | 0);
 }
@@ -841,7 +838,7 @@ function read_aux(trim, sep, file) {
         var nH = 0 < caml_call1(Buffer[7], buf) ? 1 : 0;
         return nH ? stash(0) : nH;
       }
-      throw runtime.caml_wrap_thrown_exception_reraise(nJ);
+      throw runtime["caml_wrap_thrown_exception_reraise"](nJ);
     }
   }
   read(0);
@@ -895,7 +892,7 @@ var Arg = [
   write_arg0
 ];
 
-runtime.caml_register_global(58, Arg, "Arg");
+runtime["caml_register_global"](58, Arg, "Arg");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Arg;

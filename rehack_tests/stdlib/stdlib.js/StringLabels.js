@@ -10,8 +10,8 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime.caml_get_global_data();
-var String = global_data.String_;
+var global_data = runtime["caml_get_global_data"]();
+var String = global_data["String_"];
 var make = String[1];
 var init = String[2];
 var copy = String[3];
@@ -86,7 +86,7 @@ var StringLabels = [
   split_on_char
 ];
 
-runtime.caml_register_global(1, StringLabels, "StringLabels");
+runtime["caml_register_global"](1, StringLabels, "StringLabels");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().StringLabels;

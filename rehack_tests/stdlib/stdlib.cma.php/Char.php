@@ -30,15 +30,15 @@ final class Char {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_bytes_unsafe_set = $runtime->caml_bytes_unsafe_set;
-    $caml_create_bytes = $runtime->caml_create_bytes;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
+    $caml_create_bytes = $runtime["caml_create_bytes"];
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst = $caml_new_string("\\\\");
     $cst__0 = $caml_new_string("\\'");
     $cst_b = $caml_new_string("\\b");
@@ -46,7 +46,7 @@ final class Char {
     $cst_n = $caml_new_string("\\n");
     $cst_r = $caml_new_string("\\r");
     $cst_Char_chr = $caml_new_string("Char.chr");
-    $Pervasives = $global_data->Pervasives;
+    $Pervasives = $global_data["Pervasives"];
     $chr = function($n) use ($Pervasives,$caml_call1,$cst_Char_chr) {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $caml_call1($Pervasives[1], $cst_Char_chr);
@@ -144,7 +144,7 @@ final class Char {
       $equal
     );
     
-    $runtime->caml_register_global(8, $Char, "Char");
+    $runtime["caml_register_global"](8, $Char, "Char");
 
   }
 }

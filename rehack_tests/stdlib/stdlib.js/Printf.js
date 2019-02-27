@@ -14,27 +14,29 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime.caml_get_global_data();
-var Buffer = global_data.Buffer;
-var CamlinternalFormat = global_data.CamlinternalFormat;
-var Pervasives = global_data.Pervasives;
+var global_data = runtime["caml_get_global_data"]();
+var Buffer = global_data["Buffer"];
+var CamlinternalFormat = global_data["CamlinternalFormat"];
+var Pervasives = global_data["Pervasives"];
 
 function kfprintf(k, o, param) {
   var fmt = param[1];
@@ -102,7 +104,7 @@ var Printf = [
   ksprintf
 ];
 
-runtime.caml_register_global(3, Printf, "Printf");
+runtime["caml_register_global"](3, Printf, "Printf");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Printf;

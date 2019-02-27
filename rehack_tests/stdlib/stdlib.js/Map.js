@@ -12,29 +12,31 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime.caml_new_string;
+var caml_new_string = runtime["caml_new_string"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Map_remove_min_elt = caml_new_string("Map.remove_min_elt");
 var cst_Map_bal = caml_new_string("Map.bal");
 var cst_Map_bal__0 = caml_new_string("Map.bal");
 var cst_Map_bal__1 = caml_new_string("Map.bal");
 var cst_Map_bal__2 = caml_new_string("Map.bal");
-var Not_found = global_data.Not_found;
-var Pervasives = global_data.Pervasives;
-var Assert_failure = global_data.Assert_failure;
+var Not_found = global_data["Not_found"];
+var Pervasives = global_data["Pervasives"];
+var Assert_failure = global_data["Assert_failure"];
 var ge = [0,0,0,0];
 var gf = [0,caml_new_string("map.ml"),393,10];
 var gg = [0,0,0];
@@ -140,7 +142,7 @@ function Make(Ord) {
         var param__0 = param__1;
         continue;
       }
-      throw runtime.caml_wrap_thrown_exception(Not_found);
+      throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
   }
   function find_first_aux(v0, d0, f, param) {
@@ -177,7 +179,7 @@ function Make(Ord) {
         var param__0 = r;
         continue;
       }
-      throw runtime.caml_wrap_thrown_exception(Not_found);
+      throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
   }
   function find_first_opt_aux(v0, d0, f, param) {
@@ -251,7 +253,7 @@ function Make(Ord) {
         var param__0 = l;
         continue;
       }
-      throw runtime.caml_wrap_thrown_exception(Not_found);
+      throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
   }
   function find_last_opt_aux(v0, d0, f, param) {
@@ -335,7 +337,7 @@ function Make(Ord) {
         var v = param__0[2];
         return [0,v,d];
       }
-      throw runtime.caml_wrap_thrown_exception(Not_found);
+      throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
   }
   function min_binding_opt(param) {
@@ -361,7 +363,7 @@ function Make(Ord) {
         if (gG) {var param__0 = gG;continue;}
         return [0,gI,gH];
       }
-      throw runtime.caml_wrap_thrown_exception(Not_found);
+      throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
   }
   function max_binding_opt(param) {
@@ -661,7 +663,7 @@ function Make(Ord) {
       var gv = caml_call3(f, v2, d1__0, [0,d2__0]);
       return concat_or_join(merge(f, l1__0, l2__0), v2, gv, gu);
     }
-    throw runtime.caml_wrap_thrown_exception([0,Assert_failure,gf]);
+    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,gf]);
   }
   function union(f, s1, s2) {
     if (s1) {
@@ -959,7 +961,7 @@ var Map = [
   }
 ];
 
-runtime.caml_register_global(11, Map, "Map");
+runtime["caml_register_global"](11, Map, "Map");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Map;

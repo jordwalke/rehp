@@ -38,33 +38,33 @@ final class Genlex {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_create_bytes = $runtime->caml_create_bytes;
-    $caml_float_of_string = $runtime->caml_float_of_string;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_trampoline = $runtime->caml_trampoline;
-    $caml_trampoline_return = $runtime->caml_trampoline_return;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_create_bytes = $runtime["caml_create_bytes"];
+    $caml_float_of_string = $runtime["caml_float_of_string"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_trampoline = $runtime["caml_trampoline"];
+    $caml_trampoline_return = $runtime["caml_trampoline_return"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst = $caml_new_string("");
     $cst__0 = $caml_new_string("");
     $cst__1 = $caml_new_string("");
@@ -72,14 +72,14 @@ final class Genlex {
     $cst__4 = $caml_new_string("");
     $cst__3 = $caml_new_string("");
     $cst_Illegal_character = $caml_new_string("Illegal character ");
-    $Stream = $global_data->Stream;
-    $Char = $global_data->Char;
-    $String = $global_data->String_;
-    $Hashtbl = $global_data->Hashtbl;
-    $Not_found = $global_data->Not_found;
-    $Pervasives = $global_data->Pervasives;
-    $List = $global_data->List_;
-    $Bytes = $global_data->Bytes;
+    $Stream = $global_data["Stream"];
+    $Char = $global_data["Char"];
+    $String = $global_data["String_"];
+    $Hashtbl = $global_data["Hashtbl"];
+    $Not_found = $global_data["Not_found"];
+    $Pervasives = $global_data["Pervasives"];
+    $List = $global_data["List_"];
+    $Bytes = $global_data["Bytes"];
     $initial_buffer = $caml_create_bytes(32);
     $buffer = V(0, $initial_buffer);
     $bufpos = V(0, 0);
@@ -89,12 +89,12 @@ final class Genlex {
       return 0;
     };
     $store = function($c) use ($Bytes,$buffer,$bufpos,$caml_call5,$caml_create_bytes,$runtime) {
-      if ($runtime->caml_ml_bytes_length($buffer[1]) <= $bufpos[1]) {
+      if ($runtime["caml_ml_bytes_length"]($buffer[1]) <= $bufpos[1]) {
         $newbuffer = $caml_create_bytes(2 * $bufpos[1] | 0);
         $caml_call5($Bytes[11], $buffer[1], 0, $newbuffer, 0, $bufpos[1]);
         $buffer[1] = $newbuffer;
       }
-      $runtime->caml_bytes_set($buffer[1], $bufpos[1], $c);
+      $runtime["caml_bytes_set"]($buffer[1], $bufpos[1], $c);
       $bufpos[1] += 1;
       return 0;
     };
@@ -121,7 +121,7 @@ final class Genlex {
         catch(\Throwable $z1) {
           $z1 = $caml_wrap_exception($z1);
           if ($z1 === $Not_found) {return V(1, $id);}
-          throw $runtime->caml_wrap_thrown_exception_reraise($z1);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($z1);
         }
       };
       $keyword_or_error = function($c) use ($Hashtbl,$Not_found,$Pervasives,$Stream,$String,$caml_call2,$caml_wrap_exception,$cst_Illegal_character,$kwd_table,$runtime) {
@@ -131,9 +131,9 @@ final class Genlex {
           $zZ = $caml_wrap_exception($zZ);
           if ($zZ === $Not_found) {
             $zX = $caml_call2($Pervasives[16], $cst_Illegal_character, $s);
-            throw $runtime->caml_wrap_thrown_exception(V(0, $Stream[2], $zX));
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Stream[2], $zX));
           }
-          throw $runtime->caml_wrap_thrown_exception_reraise($zZ);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($zZ);
         }
       };
       $end_exponent_part = function($strm) use ($Stream,$caml_call1,$caml_float_of_string,$get_string,$store,$unsigned_right_shift_32) {
@@ -216,7 +216,7 @@ final class Genlex {
               }
             }
           }
-          return V(0, V(2, $runtime->caml_int_of_string($get_string(0))));
+          return V(0, V(2, $runtime["caml_int_of_string"]($get_string(0))));
         }
       };
       $ident2 = function($strm) use ($Stream,$caml_call1,$get_string,$ident_or_keyword,$store,$unsigned_right_shift_32) {
@@ -359,11 +359,9 @@ final class Genlex {
                       catch(\Throwable $zM) {
                         $zM = $caml_wrap_exception($zM);
                         if ($zM === $Stream[1]) {
-                          throw $runtime->caml_wrap_thrown_exception(
-                                  V(0, $Stream[2], $cst)
-                                );
+                          throw $runtime["caml_wrap_thrown_exception"](V(0, $Stream[2], $cst));
                         }
-                        throw $runtime->caml_wrap_thrown_exception_reraise($zM);
+                        throw $runtime["caml_wrap_thrown_exception_reraise"]($zM);
                       }
                       $match__0 = $caml_call1($Stream[11], $strm);
                       if ($match__0) {
@@ -372,9 +370,7 @@ final class Genlex {
                           return V(0, V(5, $c));
                         }
                       }
-                      throw $runtime->caml_wrap_thrown_exception(
-                              V(0, $Stream[2], $cst__0)
-                            );
+                      throw $runtime["caml_wrap_thrown_exception"](V(0, $Stream[2], $cst__0));
                     // FALLTHROUGH
                     case 40:
                       $caml_call1($Stream[12], $strm);
@@ -543,11 +539,9 @@ final class Genlex {
                 catch(\Throwable $zI) {
                   $zI = $caml_wrap_exception($zI);
                   if ($zI === $Stream[1]) {
-                    throw $runtime->caml_wrap_thrown_exception(
-                            V(0, $Stream[2], $cst__1)
-                          );
+                    throw $runtime["caml_wrap_thrown_exception"](V(0, $Stream[2], $cst__1));
                   }
-                  throw $runtime->caml_wrap_thrown_exception_reraise($zI);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($zI);
                 }
                 $store($c);
                 continue;
@@ -556,7 +550,7 @@ final class Genlex {
               $store($zH);
               continue;
             }
-            throw $runtime->caml_wrap_thrown_exception($Stream[1]);
+            throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
           }
         };
       $_ = $char__0->contents =
@@ -570,17 +564,15 @@ final class Genlex {
               catch(\Throwable $zG) {
                 $zG = $caml_wrap_exception($zG);
                 if ($zG === $Stream[1]) {
-                  throw $runtime->caml_wrap_thrown_exception(
-                          V(0, $Stream[2], $cst__2)
-                        );
+                  throw $runtime["caml_wrap_thrown_exception"](V(0, $Stream[2], $cst__2));
                 }
-                throw $runtime->caml_wrap_thrown_exception_reraise($zG);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($zG);
               }
             }
             $caml_call1($Stream[12], $strm);
             return $zE;
           }
-          throw $runtime->caml_wrap_thrown_exception($Stream[1]);
+          throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
         };
       $_ = $escape->contents =
         function($strm) use ($Char,$Stream,$caml_call1,$cst__3,$cst__4,$runtime,$unsigned_right_shift_32) {
@@ -629,20 +621,16 @@ final class Genlex {
                         );
                       }
                     }
-                    throw $runtime->caml_wrap_thrown_exception(
-                            V(0, $Stream[2], $cst__4)
-                          );
+                    throw $runtime["caml_wrap_thrown_exception"](V(0, $Stream[2], $cst__4));
                   }
                 }
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Stream[2], $cst__3)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Stream[2], $cst__3));
               }
             }
             $caml_call1($Stream[12], $strm);
             return $zB;
           }
-          throw $runtime->caml_wrap_thrown_exception($Stream[1]);
+          throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
         };
       $comment__0 = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$maybe_end_comment,$maybe_nested_comment,$runtime,$unsigned_right_shift_32) {
         for (;;) {
@@ -680,7 +668,7 @@ final class Genlex {
             $caml_call1($Stream[12], $strm);
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Stream[1]);
+          throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
         }
       };
       $_ = $maybe_nested_comment->contents =
@@ -703,7 +691,7 @@ final class Genlex {
             }
             return $caml_trampoline_return($comment__0, varray[0,$strm]);
           }
-          throw $runtime->caml_wrap_thrown_exception($Stream[1]);
+          throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
         };
       $_ = $maybe_end_comment->contents =
         function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment__0,$runtime) {
@@ -720,7 +708,7 @@ final class Genlex {
               }
               return $caml_trampoline_return($comment__0, varray[0,$strm]);
             }
-            throw $runtime->caml_wrap_thrown_exception($Stream[1]);
+            throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
           }
         };
       $_ = $comment->contents =
@@ -736,7 +724,7 @@ final class Genlex {
     };
     $Genlex = V(0, $make_lexer);
     
-    $runtime->caml_register_global(15, $Genlex, "Genlex");
+    $runtime["caml_register_global"](15, $Genlex, "Genlex");
 
   }
 }

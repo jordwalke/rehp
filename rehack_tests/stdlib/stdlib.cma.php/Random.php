@@ -37,43 +37,43 @@ final class Random {
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $left_shift_32 = $runtime->left_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_greaterthan = $runtime->caml_greaterthan;
-    $caml_int64_of_int32 = $runtime->caml_int64_of_int32;
-    $caml_int64_or = $runtime->caml_int64_or;
-    $caml_int64_shift_left = $runtime->caml_int64_shift_left;
-    $caml_int64_sub = $runtime->caml_int64_sub;
-    $caml_lessequal = $runtime->caml_lessequal;
-    $caml_mod = $runtime->caml_mod;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_string_get = $runtime->caml_string_get;
-    $caml_sys_random_seed = $runtime->caml_sys_random_seed;
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_greaterthan = $runtime["caml_greaterthan"];
+    $caml_int64_of_int32 = $runtime["caml_int64_of_int32"];
+    $caml_int64_or = $runtime["caml_int64_or"];
+    $caml_int64_shift_left = $runtime["caml_int64_shift_left"];
+    $caml_int64_sub = $runtime["caml_int64_sub"];
+    $caml_lessequal = $runtime["caml_lessequal"];
+    $caml_mod = $runtime["caml_mod"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_string_get = $runtime["caml_string_get"];
+    $caml_sys_random_seed = $runtime["caml_sys_random_seed"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Random_int64 = $caml_new_string("Random.int64");
     $cst_Random_int32 = $caml_new_string("Random.int32");
     $cst_Random_int = $caml_new_string("Random.int");
     $cst_x = $caml_new_string("x");
-    $Int32 = $global_data->Int32;
-    $Int64 = $global_data->Int64;
-    $Pervasives = $global_data->Pervasives;
-    $Digest = $global_data->Digest;
-    $Array = $global_data->Array_;
-    $Nativeint = $global_data->Nativeint;
+    $Int32 = $global_data["Int32"];
+    $Int64 = $global_data["Int64"];
+    $Pervasives = $global_data["Pervasives"];
+    $Digest = $global_data["Digest"];
+    $Array = $global_data["Array_"];
+    $Nativeint = $global_data["Nativeint"];
     $pX = R(255, 1, 0, 0);
     $pY = R(255, 0, 0, 0);
     $pZ = R(
@@ -135,7 +135,7 @@ final class Random {
       801085050
     );
     $new_state = function($param) use ($runtime) {
-      return V(0, $runtime->caml_make_vect(55, 0), 0);
+      return V(0, $runtime["caml_make_vect"](55, 0), 0);
     };
     $assign = function($st1, $st2) use ($Array,$caml_call5) {
       $caml_call5($Array[10], $st2[1], 0, $st1[1], 0, 55);
@@ -243,11 +243,11 @@ final class Random {
         $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);
         $b3 = $caml_int64_shift_left($caml_int64_of_int32($bits($s) & 7), 60);
         $r = $caml_int64_or($b1, $caml_int64_or($b2, $b3));
-        $v = $runtime->caml_int64_mod($r, $n);
+        $v = $runtime["caml_int64_mod"]($r, $n);
         if (
           $caml_greaterthan(
             $caml_int64_sub($r, $v),
-            $runtime->caml_int64_add($caml_int64_sub($Int64[7], $n), $pX)
+            $runtime["caml_int64_add"]($caml_int64_sub($Int64[7], $n), $pX)
           )
         ) {continue;}
         return $v;
@@ -261,7 +261,7 @@ final class Random {
     $nativeint = 32 === $Nativeint[7]
       ? function($s, $bound) use ($int32) {return $int32($s, $bound);}
       : (function($s, $bound) use ($caml_int64_of_int32,$int64,$runtime) {
-       return $runtime->caml_int64_to_int32(
+       return $runtime["caml_int64_to_int32"](
          $int64($s, $caml_int64_of_int32($bound))
        );
      });
@@ -340,7 +340,7 @@ final class Random {
       $set_state
     );
     
-    $runtime->caml_register_global(16, $Random, "Random");
+    $runtime["caml_register_global"](16, $Random, "Random");
 
   }
 }

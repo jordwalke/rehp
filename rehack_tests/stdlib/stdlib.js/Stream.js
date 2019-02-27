@@ -14,27 +14,29 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_bytes_unsafe_get = runtime.caml_bytes_unsafe_get;
-var caml_fresh_oo_id = runtime.caml_fresh_oo_id;
-var caml_ml_bytes_length = runtime.caml_ml_bytes_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_obj_tag = runtime.caml_obj_tag;
+var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
+var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_count = caml_new_string("{count = ");
 var cst_data = caml_new_string("; data = ");
 var cst = caml_new_string("}");
@@ -50,10 +52,10 @@ var cst_Sgen = caml_new_string("Sgen");
 var cst_Sbuffio = caml_new_string("Sbuffio");
 var cst_Stream_Failure = caml_new_string("Stream.Failure");
 var cst_Stream_Error = caml_new_string("Stream.Error");
-var Assert_failure = global_data.Assert_failure;
-var CamlinternalLazy = global_data.CamlinternalLazy;
-var Pervasives = global_data.Pervasives;
-var List = global_data.List_;
+var Assert_failure = global_data["Assert_failure"];
+var CamlinternalLazy = global_data["CamlinternalLazy"];
+var Pervasives = global_data["Pervasives"];
+var List = global_data["List_"];
 var g1 = [0,caml_new_string("stream.ml"),53,12];
 var g2 = [0,0];
 var g3 = [0,caml_new_string("stream.ml"),82,12];
@@ -93,7 +95,7 @@ function get_data(count, d) {
               var a = match[1];
               return [0,a,[1,d11,d2]];
             }
-            throw runtime.caml_wrap_thrown_exception([0,Assert_failure,g1]);
+            throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,g1]);
           }
         case 2:
           var f = d__0[1];
@@ -141,7 +143,7 @@ function peek_data(s) {
         if (typeof d === "number") return 0;
         else {
           if (0 === d[0]) {var a__0 = d[1];s[2] = d;return [0,a__0];}
-          throw runtime.caml_wrap_thrown_exception([0,Assert_failure,g3]);
+          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,g3]);
         }
       case 2:
         var f = hb[1];
@@ -240,12 +242,12 @@ function npeek(n, param) {
 function next(s) {
   var match = peek(s);
   if (match) {var a = match[1];junk(s);return a;}
-  throw runtime.caml_wrap_thrown_exception(Failure);
+  throw runtime["caml_wrap_thrown_exception"](Failure);
 }
 
 function empty(s) {
   var match = peek(s);
-  if (match) {throw runtime.caml_wrap_thrown_exception(Failure);}
+  if (match) {throw runtime["caml_wrap_thrown_exception"](Failure);}
   return 0;
 }
 
@@ -273,8 +275,8 @@ function of_string(s) {
   return from(
     function(param) {
       var c = count[1];
-      return c < runtime.caml_ml_string_length(s) ?
-        (count[1] += 1,[0,runtime.caml_string_get(s, c)]) :
+      return c < runtime["caml_ml_string_length"](s) ?
+        (count[1] += 1,[0,runtime["caml_string_get"](s, c)]) :
         0;
     }
   );
@@ -286,14 +288,14 @@ function of_bytes(s) {
     function(param) {
       var c = count[1];
       return c < caml_ml_bytes_length(s) ?
-        (count[1] += 1,[0,runtime.caml_bytes_get(s, c)]) :
+        (count[1] += 1,[0,runtime["caml_bytes_get"](s, c)]) :
         0;
     }
   );
 }
 
 function of_channel(ic) {
-  return [0,[0,0,[4,[0,ic,runtime.caml_create_bytes(4096),0,0]]]];
+  return [0,[0,0,[4,[0,ic,runtime["caml_create_bytes"](4096),0,0]]]];
 }
 
 function iapp(i, s) {var g7 = data(s);return [0,[0,0,[1,data(i),g7]]];}
@@ -417,7 +419,7 @@ var Stream = [
   dump
 ];
 
-runtime.caml_register_global(22, Stream, "Stream");
+runtime["caml_register_global"](22, Stream, "Stream");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Stream;

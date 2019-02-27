@@ -15,46 +15,48 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_make_vect = runtime.caml_make_vect;
-var caml_mod = runtime.caml_mod;
-var caml_new_string = runtime.caml_new_string;
-var caml_obj_truncate = runtime.caml_obj_truncate;
-var caml_weak_blit = runtime.caml_weak_blit;
-var caml_weak_check = runtime.caml_weak_check;
-var caml_weak_create = runtime.caml_weak_create;
-var caml_weak_get = runtime.caml_weak_get;
-var caml_weak_get_copy = runtime.caml_weak_get_copy;
-var caml_weak_set = runtime.caml_weak_set;
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_make_vect = runtime["caml_make_vect"];
+var caml_mod = runtime["caml_mod"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_obj_truncate = runtime["caml_obj_truncate"];
+var caml_weak_blit = runtime["caml_weak_blit"];
+var caml_weak_check = runtime["caml_weak_check"];
+var caml_weak_create = runtime["caml_weak_create"];
+var caml_weak_get = runtime["caml_weak_get"];
+var caml_weak_get_copy = runtime["caml_weak_get_copy"];
+var caml_weak_set = runtime["caml_weak_set"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Weak_Make_hash_bucket_cannot_grow_more = caml_new_string(
   "Weak.Make: hash bucket cannot grow more"
 );
 var cst_Weak_fill = caml_new_string("Weak.fill");
-var Pervasives = global_data.Pervasives;
-var Sys = global_data.Sys;
-var Array = global_data.Array_;
-var Not_found = global_data.Not_found;
-var Invalid_argument = global_data.Invalid_argument;
+var Pervasives = global_data["Pervasives"];
+var Sys = global_data["Sys"];
+var Array = global_data["Array_"];
+var Not_found = global_data["Not_found"];
+var Invalid_argument = global_data["Invalid_argument"];
 
 function length(x) {return x.length - 1 - 2 | 0;}
 
@@ -76,7 +78,8 @@ function fill(ar, ofs, len, x) {
       }
     }
   }
-  throw runtime.caml_wrap_thrown_exception([0,Invalid_argument,cst_Weak_fill]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Weak_fill]
+        );
 }
 
 function Make(H) {
@@ -404,7 +407,7 @@ function Make(H) {
       t,
       d,
       function(h, index) {
-        throw runtime.caml_wrap_thrown_exception(Not_found);
+        throw runtime["caml_wrap_thrown_exception"](Not_found);
       }
     );
   }
@@ -527,7 +530,7 @@ function Make(H) {
   function stats(t) {
     var len = t[1].length - 1;
     var lens = caml_call2(Array[15], length, t[1]);
-    function rG(rR, rQ) {return runtime.caml_int_compare(rR, rQ);}
+    function rG(rR, rQ) {return runtime["caml_int_compare"](rR, rQ);}
     caml_call2(Array[25], rG, lens);
     var rH = 0;
     function rI(rP, rO) {return rP + rO | 0;}
@@ -580,7 +583,7 @@ var Weak = [
   Make
 ];
 
-runtime.caml_register_global(7, Weak, "Weak");
+runtime["caml_register_global"](7, Weak, "Weak");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Weak;

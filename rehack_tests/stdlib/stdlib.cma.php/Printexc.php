@@ -41,37 +41,39 @@ final class Printexc {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_get_exception_raw_backtrace = $runtime->caml_get_exception_raw_backtrace;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_obj_tag = $runtime->caml_obj_tag;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_get_exception_raw_backtrace = $runtime[
+       "caml_get_exception_raw_backtrace"
+     ];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_obj_tag = $runtime["caml_obj_tag"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call6 = function($f, $a0, $a1, $a2, $a3, $a4, $a5) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 6
         ? $f($a0, $a1, $a2, $a3, $a4, $a5)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4,$a5]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4,$a5]));
     };
     $caml_call7 = function($f, $a0, $a1, $a2, $a3, $a4, $a5, $a6) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 7
         ? $f($a0, $a1, $a2, $a3, $a4, $a5, $a6)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4,$a5,$a6]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4,$a5,$a6]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst__0 = $caml_new_string("");
     $cst_Program_not_linked_with_g_cannot_print_stack_backtrace = $caml_new_string(
       "(Program not linked with -g, cannot print stack backtrace)\n"
@@ -132,15 +134,15 @@ final class Printexc {
       ),
       $caml_new_string("File \"%s\", line %d, characters %d-%d: %s")
     );
-    $Printf = $global_data->Printf;
-    $Pervasives = $global_data->Pervasives;
-    $Out_of_memory = $global_data->Out_of_memory;
-    $Buffer = $global_data->Buffer;
-    $Stack_overflow = $global_data->Stack_overflow;
-    $Match_failure = $global_data->Match_failure;
-    $Assert_failure = $global_data->Assert_failure;
-    $Undefined_recursive_module = $global_data->Undefined_recursive_module;
-    $Obj = $global_data->Obj;
+    $Printf = $global_data["Printf"];
+    $Pervasives = $global_data["Pervasives"];
+    $Out_of_memory = $global_data["Out_of_memory"];
+    $Buffer = $global_data["Buffer"];
+    $Stack_overflow = $global_data["Stack_overflow"];
+    $Match_failure = $global_data["Match_failure"];
+    $Assert_failure = $global_data["Assert_failure"];
+    $Undefined_recursive_module = $global_data["Undefined_recursive_module"];
+    $Obj = $global_data["Obj"];
     $oz = R(
       0,
       R(11, $caml_new_string(", "), R(2, 0, R(2, 0, 0))),
@@ -341,7 +343,7 @@ final class Printexc {
         $pg = $to_string($x);
         $caml_call2($Printf[3], $oC, $pg);
         $caml_call1($Pervasives[51], $Pervasives[28]);
-        throw $runtime->caml_wrap_thrown_exception_reraise($x);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($x);
       }
     };
     $catch__0 = function($fct, $arg) use ($Pervasives,$Printf,$caml_call1,$caml_call2,$caml_wrap_exception,$oD,$to_string) {
@@ -355,7 +357,7 @@ final class Printexc {
       }
     };
     $convert_raw_backtrace = function($bt) use ($runtime) {
-      $pd = V(0, $runtime->caml_convert_raw_backtrace($bt));
+      $pd = V(0, $runtime["caml_convert_raw_backtrace"]($bt));
       return $pd;
     };
     $format_backtrace_slot = function($pos, $slot) use ($Printf,$caml_call2,$caml_call7,$cst_Called_from,$cst_Raised_at,$cst_Raised_by_primitive_operation_at,$cst_Re_raised_at,$cst__3,$cst_inlined,$oE,$oF) {
@@ -504,16 +506,16 @@ final class Printexc {
       return 0;
     };
     $oJ = function($oZ) use ($runtime) {
-      return $runtime->caml_raw_backtrace_next_slot($oZ);
+      return $runtime["caml_raw_backtrace_next_slot"]($oZ);
     };
     $oK = function($oY) use ($runtime) {
-      return $runtime->caml_convert_raw_backtrace_slot($oY);
+      return $runtime["caml_convert_raw_backtrace_slot"]($oY);
     };
     $oL = function($oX, $oW) use ($runtime) {
-      return $runtime->caml_raw_backtrace_slot($oX, $oW);
+      return $runtime["caml_raw_backtrace_slot"]($oX, $oW);
     };
     $oM = function($oV) use ($runtime) {
-      return $runtime->caml_raw_backtrace_length($oV);
+      return $runtime["caml_raw_backtrace_length"]($oV);
     };
     $oN = V(
       0,
@@ -523,13 +525,13 @@ final class Printexc {
       $format_backtrace_slot
     );
     $oO = function($oU) use ($runtime) {
-      return $runtime->caml_get_current_callstack($oU);
+      return $runtime["caml_get_current_callstack"]($oU);
     };
     $oP = function($oT) use ($caml_get_exception_raw_backtrace) {
       return $caml_get_exception_raw_backtrace($oT);
     };
     $oQ = function($oS) use ($runtime) {
-      return $runtime->caml_backtrace_status($oS);
+      return $runtime["caml_backtrace_status"]($oS);
     };
     $Printexc = V(
       0,
@@ -539,7 +541,7 @@ final class Printexc {
       $print_backtrace,
       $get_backtrace,
       function($oR) use ($runtime) {
-        return $runtime->caml_record_backtrace($oR);
+        return $runtime["caml_record_backtrace"]($oR);
       },
       $oQ,
       $register_printer,
@@ -558,7 +560,7 @@ final class Printexc {
       $exn_slot_name
     );
     
-    $runtime->caml_register_global(45, $Printexc, "Printexc");
+    $runtime["caml_register_global"](45, $Printexc, "Printexc");
 
   }
 }

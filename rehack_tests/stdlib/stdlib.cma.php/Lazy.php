@@ -30,14 +30,14 @@ final class Lazy {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_obj_tag = $runtime->caml_obj_tag;
-    $global_data = $runtime->caml_get_global_data();
-    $Obj = $global_data->Obj;
-    $CamlinternalLazy = $global_data->CamlinternalLazy;
+    $caml_obj_tag = $runtime["caml_obj_tag"];
+    $global_data = $runtime["caml_get_global_data"]();
+    $Obj = $global_data["Obj"];
+    $CamlinternalLazy = $global_data["CamlinternalLazy"];
     $Undefined = $CamlinternalLazy[1];
     $force_val = $CamlinternalLazy[5];
     $from_fun = function($f) use ($Obj,$runtime) {
-      $x = $runtime->caml_obj_block($Obj[6], 1);
+      $x = $runtime["caml_obj_block"]($Obj[6], 1);
       $x[1] = $f;
       return $x;
     };
@@ -46,7 +46,7 @@ final class Lazy {
       if ($t !== $Obj[10]) {
         if ($t !== $Obj[6]) {if ($t !== $Obj[14]) {return $v;}}
       }
-      return $runtime->caml_lazy_make_forward($v);
+      return $runtime["caml_lazy_make_forward"]($v);
     };
     $is_val = function($l) use ($Obj,$caml_obj_tag) {
       return $caml_obj_tag($l) !== $Obj[6] ? 1 : (0);
@@ -63,7 +63,7 @@ final class Lazy {
       $is_val
     );
     
-    $runtime->caml_register_global(2, $Lazy, "Lazy");
+    $runtime["caml_register_global"](2, $Lazy, "Lazy");
 
   }
 }

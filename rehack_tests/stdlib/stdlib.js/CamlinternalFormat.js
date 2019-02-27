@@ -19,44 +19,46 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_blit_string = runtime.caml_blit_string;
-var caml_bytes_set = runtime.caml_bytes_set;
-var caml_create_bytes = runtime.caml_create_bytes;
-var caml_format_int = runtime.caml_format_int;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_notequal = runtime.caml_notequal;
-var caml_string_get = runtime.caml_string_get;
-var caml_string_notequal = runtime.caml_string_notequal;
-var caml_trampoline = runtime.caml_trampoline;
-var caml_trampoline_return = runtime.caml_trampoline_return;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_blit_string = runtime["caml_blit_string"];
+var caml_bytes_set = runtime["caml_bytes_set"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_format_int = runtime["caml_format_int"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_notequal = runtime["caml_notequal"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_string_notequal = runtime["caml_string_notequal"];
+var caml_trampoline = runtime["caml_trampoline"];
+var caml_trampoline_return = runtime["caml_trampoline_return"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_c = caml_new_string("%c");
 var cst_s = caml_new_string("%s");
 var cst_i = caml_new_string("%i");
@@ -198,16 +200,16 @@ var cst = caml_new_string(".*");
 var cst_CamlinternalFormat_Type_mismatch = caml_new_string(
   "CamlinternalFormat.Type_mismatch"
 );
-var Assert_failure = global_data.Assert_failure;
-var CamlinternalFormatBasics = global_data.CamlinternalFormatBasics;
-var Pervasives = global_data.Pervasives;
-var Buffer = global_data.Buffer;
-var Failure = global_data.Failure;
-var Not_found = global_data.Not_found;
-var String = global_data.String_;
-var Sys = global_data.Sys;
-var Char = global_data.Char;
-var Bytes = global_data.Bytes;
+var Assert_failure = global_data["Assert_failure"];
+var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
+var Pervasives = global_data["Pervasives"];
+var Buffer = global_data["Buffer"];
+var Failure = global_data["Failure"];
+var Not_found = global_data["Not_found"];
+var String = global_data["String_"];
+var Sys = global_data["Sys"];
+var Char = global_data["Char"];
+var Bytes = global_data["Bytes"];
 var hy = [0,caml_new_string("camlinternalFormat.ml"),846,23];
 var hJ = [0,caml_new_string("camlinternalFormat.ml"),810,21];
 var hB = [0,caml_new_string("camlinternalFormat.ml"),811,21];
@@ -552,7 +554,7 @@ function create_char_set(param) {return caml_call2(Bytes[1], 32, 0);}
 function add_in_char_set(char_set, c) {
   var str_ind = c >>> 3 | 0;
   var mask = 1 << (c & 7);
-  var m4 = runtime.caml_bytes_get(char_set, str_ind) | mask;
+  var m4 = runtime["caml_bytes_get"](char_set, str_ind) | mask;
   return caml_bytes_set(char_set, str_ind, caml_call1(Pervasives[17], m4));
 }
 
@@ -651,7 +653,7 @@ var default_float_precision = -6;
 function buffer_create(init_size) {return [0,0,caml_create_bytes(init_size)];}
 
 function buffer_check_size(buf, overhead) {
-  var len = runtime.caml_ml_bytes_length(buf[2]);
+  var len = runtime["caml_ml_bytes_length"](buf[2]);
   var min_len = buf[1] + overhead | 0;
   var mZ = len < min_len ? 1 : 0;
   if (mZ) {
@@ -1737,7 +1739,7 @@ function trans(ty1, match) {
       var switch__0 = 6;
       break;
     default:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hy])
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hy])
     }
   else switch (ty1[0]) {
     case 0:
@@ -2094,7 +2096,7 @@ function trans(ty1, match) {
           var switch__9 = 1
         }
       if (switch__9) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hH]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hH]);
       }
       break;
     case 9:
@@ -2142,7 +2144,7 @@ function trans(ty1, match) {
           var switch__10 = 1
         }
       if (switch__10) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hI]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hI]);
       }
       break;
     case 10:
@@ -2151,7 +2153,7 @@ function trans(ty1, match) {
         var rest2__9 = match[1];
         return [10,trans(l_, rest2__9)];
       }
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hJ]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hJ]);
     case 11:
       var ma = ty1[1];
       if (typeof match === "number") var switch__11 = 1;
@@ -2167,7 +2169,7 @@ function trans(ty1, match) {
           var switch__11 = 1
         }
       if (switch__11) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hK]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hK]);
       }
       break;
     case 12:
@@ -2189,7 +2191,7 @@ function trans(ty1, match) {
           var switch__12 = 1
         }
       if (switch__12) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hL]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hL]);
       }
       break;
     case 13:
@@ -2215,7 +2217,7 @@ function trans(ty1, match) {
           var switch__13 = 1
         }
       if (switch__13) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hM]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hM]);
       }
       break;
     default:
@@ -2245,26 +2247,26 @@ function trans(ty1, match) {
           var switch__14 = 1
         }
       if (switch__14) {
-        throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hN]);
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hN]);
       }
     }
   switch (switch__0) {
     case 0:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hB]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hB]);
     case 1:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hC]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hC]);
     case 2:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hD]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hD]);
     case 3:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hE]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hE]);
     case 4:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hF]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hF]);
     case 5:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hz]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hz]);
     case 6:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hA]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hA]);
     default:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hG])
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hG])
     }
 }
 
@@ -2521,7 +2523,7 @@ function fmtty_of_precision_fmtty(prec, fmtty) {
 var Type_mismatch = [
   248,
   cst_CamlinternalFormat_Type_mismatch,
-  runtime.caml_fresh_oo_id(0)
+  runtime["caml_fresh_oo_id"](0)
 ];
 
 function type_padding(pad, match) {
@@ -2537,7 +2539,7 @@ function type_padding(pad, match) {
       var padty__0 = pad[1];
       return [0,[1,padty__0],rest];
     }
-    throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+    throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
   }
 }
 
@@ -2555,7 +2557,7 @@ function type_padprec(pad, prec, fmtty) {
       var pad__1 = match[1];
       return [0,pad__1,1,rest__0];
     }
-    throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+    throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
   }
   var rest__1 = match[2];
   var pad__2 = match[1];
@@ -2566,7 +2568,7 @@ function type_padprec(pad, prec, fmtty) {
 function type_format(fmt, fmtty) {
   var lR = type_format_gen(fmt, fmtty);
   if (typeof lR[2] === "number") {var fmt__0 = lR[1];return fmt__0;}
-  throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+  throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
 }
 
 function type_ignored_param_one(ign, fmt, fmtty) {
@@ -2590,7 +2592,7 @@ function type_ignored_param(ign, fmt, fmtty) {
         var fmt__0 = match[1];
         return [0,[23,2,fmt__0],fmtty__0];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     default:
       return type_ignored_param_one(ign, fmt, fmtty)
     }
@@ -2692,7 +2694,7 @@ function type_format_gen(fmt, match) {
         var fmt__2 = match__2[1];
         return [0,[2,lo,fmt__2],fmtty__1];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 3:
       var fmt_rest__2 = fmt[2];
       var pad__0 = fmt[1];
@@ -2706,7 +2708,7 @@ function type_format_gen(fmt, match) {
         var fmt__3 = match__3[1];
         return [0,[3,lr,fmt__3],fmtty__2];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 4:
       var fmt_rest__3 = fmt[4];
       var prec = fmt[3];
@@ -2723,7 +2725,7 @@ function type_format_gen(fmt, match) {
         var fmt__4 = match__4[1];
         return [0,[4,iconv,lv,lu,fmt__4],fmtty__3];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 5:
       var fmt_rest__4 = fmt[4];
       var prec__0 = fmt[3];
@@ -2740,7 +2742,7 @@ function type_format_gen(fmt, match) {
         var fmt__5 = match__5[1];
         return [0,[5,iconv__0,lz,ly,fmt__5],fmtty__4];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 6:
       var fmt_rest__5 = fmt[4];
       var prec__1 = fmt[3];
@@ -2757,7 +2759,7 @@ function type_format_gen(fmt, match) {
         var fmt__6 = match__6[1];
         return [0,[6,iconv__1,lD,lC,fmt__6],fmtty__5];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 7:
       var fmt_rest__6 = fmt[4];
       var prec__2 = fmt[3];
@@ -2774,7 +2776,7 @@ function type_format_gen(fmt, match) {
         var fmt__7 = match__7[1];
         return [0,[7,iconv__2,lH,lG,fmt__7],fmtty__6];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 8:
       var fmt_rest__7 = fmt[4];
       var prec__3 = fmt[3];
@@ -2791,7 +2793,7 @@ function type_format_gen(fmt, match) {
         var fmt__8 = match__8[1];
         return [0,[8,fconv,lL,lK,fmt__8],fmtty__7];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 9:
       var fmt_rest__8 = fmt[2];
       var pad__6 = fmt[1];
@@ -2805,7 +2807,7 @@ function type_format_gen(fmt, match) {
         var fmt__9 = match__9[1];
         return [0,[9,lO,fmt__9],fmtty__8];
       }
-      throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+      throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
     case 10:
       var fmt_rest__9 = fmt[1];
       var match__10 = type_format_gen(fmt_rest__9, match);
@@ -2834,7 +2836,7 @@ function type_format_gen(fmt, match) {
         var sub_fmtty__0 = fmt[2];
         var pad_opt = fmt[1];
         if (caml_notequal([0,sub_fmtty__0], [0,sub_fmtty])) {
-          throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+          throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
         }
         var match__13 = type_format_gen(fmt_rest__12, fmtty_rest__9);
         var fmtty__12 = match__13[2];
@@ -2855,7 +2857,7 @@ function type_format_gen(fmt, match) {
           [0,caml_call1(CamlinternalFormatBasics[2], sub_fmtty__1)],
           lP
         )
-        ) {throw runtime.caml_wrap_thrown_exception(Type_mismatch);}
+        ) {throw runtime["caml_wrap_thrown_exception"](Type_mismatch);}
         var match__14 = type_format_gen(
           fmt_rest__13,
           caml_call1(CamlinternalFormatBasics[2], fmtty_rest__10)
@@ -2934,7 +2936,7 @@ function type_format_gen(fmt, match) {
       var ign = fmt[1];
       return type_ignored_param(ign, rest, match)
     }
-  throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+  throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
 }
 
 function type_ignored_format_substitution(sub_fmtty, fmt, match) {
@@ -3063,7 +3065,7 @@ function type_ignored_format_substitution(sub_fmtty, fmt, match) {
         var sub_fmtty_rest__15 = sub_fmtty[2];
         var sub2_fmtty__0 = sub_fmtty[1];
         if (caml_notequal([0,sub2_fmtty__0], [0,sub2_fmtty])) {
-          throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+          throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
         }
         var match__8 = type_ignored_format_substitution(
           sub_fmtty_rest__15,
@@ -3089,14 +3091,14 @@ function type_ignored_format_substitution(sub_fmtty, fmt, match) {
           [0,caml_call1(CamlinternalFormatBasics[2], sub1_fmtty__0)],
           lk
         )
-        ) {throw runtime.caml_wrap_thrown_exception(Type_mismatch);}
+        ) {throw runtime["caml_wrap_thrown_exception"](Type_mismatch);}
         var ll = [0,caml_call1(CamlinternalFormatBasics[2], sub2_fmtty__1)];
         if (
         caml_notequal(
           [0,caml_call1(CamlinternalFormatBasics[2], sub2_fmtty__2)],
           ll
         )
-        ) {throw runtime.caml_wrap_thrown_exception(Type_mismatch);}
+        ) {throw runtime["caml_wrap_thrown_exception"](Type_mismatch);}
         var sub_fmtty__0 = trans(symm(sub1_fmtty), sub2_fmtty__1);
         var match__9 = fmtty_rel_det(sub_fmtty__0);
         var f4 = match__9[4];
@@ -3171,7 +3173,7 @@ function type_ignored_format_substitution(sub_fmtty, fmt, match) {
       }
       break
     }
-  throw runtime.caml_wrap_thrown_exception(Type_mismatch);
+  throw runtime["caml_wrap_thrown_exception"](Type_mismatch);
 }
 
 function recast(fmt, fmtty) {
@@ -3481,7 +3483,7 @@ function convert_nativeint(iconv, n) {
 }
 
 function convert_int64(iconv, n) {
-  return runtime.caml_int64_format(format_of_iconvL(iconv), n);
+  return runtime["caml_int64_format"](format_of_iconvL(iconv), n);
 }
 
 function convert_float(fconv, prec, x) {
@@ -3503,10 +3505,10 @@ function convert_float(fconv, prec, x) {
       }
     else var switch__0 = 0;
     if (! switch__0) {var sign = 45;}
-    var str = runtime.caml_hexstring_of_float(x, prec, sign);
+    var str = runtime["caml_hexstring_of_float"](x, prec, sign);
     return 19 <= fconv ? caml_call1(String[29], str) : str;
   }
-  var str__0 = runtime.caml_format_float(format_of_fconv(fconv, prec), x);
+  var str__0 = runtime["caml_format_float"](format_of_fconv(fconv, prec), x);
   if (15 === fconv) {
     var len = caml_ml_string_length(str__0);
     var is_valid = function(i) {
@@ -3524,7 +3526,7 @@ function convert_float(fconv, prec, x) {
         continue;
       }
     };
-    var match = runtime.caml_classify_float(x);
+    var match = runtime["caml_classify_float"](x);
     return 3 === match ?
       x < 0 ? cst_neg_infinity : cst_infinity :
       4 <= match ?
@@ -3923,7 +3925,7 @@ function make_printf__0(counter, k, o, acc, fmt) {
       var fmt__0 = fmt__6;
       continue;
     case 19:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hO]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hO]);
     case 20:
       var rest__15 = fmt__0[3];
       var new_acc = [8,acc__0,cst_Printf_bad_conversion];
@@ -3992,7 +3994,7 @@ function make_ignored_param__0(counter, k, o, acc, ign, fmt) {
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 2:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hP]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hP]);
     default:
       if (counter < 50) {
         var counter__2 = counter + 1 | 0;
@@ -4159,9 +4161,9 @@ function make_from_fmtty__0(counter, k, o, acc, fmtty, fmt) {
         return make_from_fmtty(k, o, acc, rest__11, fmt);
       };
     case 13:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hQ]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hQ]);
     default:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hR])
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hR])
     }
 }
 
@@ -4414,7 +4416,7 @@ function make_iprintf__0(counter, k, o, fmt) {
       var fmt__0 = fmt__6;
       continue;
     case 19:
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,hS]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,hS]);
     case 20:
       var rest__21 = fmt__0[3];
       var kc = make_iprintf(k__0, o, rest__21);
@@ -4651,7 +4653,7 @@ function failwith_message(param) {
 }
 
 function open_box_of_string(str) {
-  if (runtime.caml_string_equal(str, cst__23)) {return hT;}
+  if (runtime["caml_string_equal"](str, cst__23)) {return hT;}
   var len = caml_ml_string_length(str);
   function invalid_box(param) {return caml_call1(failwith_message(hU), str);}
   function parse_spaces(i) {
@@ -4694,7 +4696,7 @@ function open_box_of_string(str) {
   var nend = parse_int(nstart, nstart);
   if (nstart === nend) var indent = 0;
   else try {
-    var jF = runtime.caml_int_of_string(
+    var jF = runtime["caml_int_of_string"](
       caml_call3(String[4], str, nstart, nend - nstart | 0)
     );
     var indent = jF;
@@ -4702,7 +4704,7 @@ function open_box_of_string(str) {
   catch(jG) {
     jG = caml_wrap_exception(jG);
     if (jG[1] !== Failure) {
-      throw runtime.caml_wrap_thrown_exception_reraise(jG);
+      throw runtime["caml_wrap_thrown_exception_reraise"](jG);
     }
     var jE = invalid_box(0);
     var indent = jE;
@@ -5614,7 +5616,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         var str_ind_2 = match__3[1];
         var str_ind_3 = parse_spaces(str_ind_2, end_ind);
         if (62 !== caml_string_get(str, str_ind_3)) {
-          throw runtime.caml_wrap_thrown_exception(Not_found);
+          throw runtime["caml_wrap_thrown_exception"](Not_found);
         }
         var s = caml_call3(
           String[4],
@@ -5631,7 +5633,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       iR = caml_wrap_exception(iR);
       if (iR !== Not_found) {
         if (iR[1] !== Failure) {
-          throw runtime.caml_wrap_thrown_exception_reraise(iR);
+          throw runtime["caml_wrap_thrown_exception_reraise"](iR);
         }
       }
       var iO = 0;
@@ -5653,13 +5655,15 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     try {
       var iH = str_ind === end_ind ? 1 : 0;
       var iI = iH || (60 !== caml_string_get(str, str_ind) ? 1 : 0);
-      if (iI) {throw runtime.caml_wrap_thrown_exception(Not_found);}
+      if (iI) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
       var str_ind_1 = parse_spaces(str_ind + 1 | 0, end_ind);
       var match__0 = caml_string_get(str, str_ind_1);
       var switch__0 = 48 <= match__0 ?
         58 <= match__0 ? 0 : 1 :
         45 === match__0 ? 1 : 0;
-      if (! switch__0) {throw runtime.caml_wrap_thrown_exception(Not_found);}
+      if (! switch__0) {
+        throw runtime["caml_wrap_thrown_exception"](Not_found);
+      }
       var match__1 = parse_integer(str_ind_1, end_ind);
       var width = match__1[2];
       var str_ind_2 = match__1[1];
@@ -5688,7 +5692,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           var str_ind_4 = match__3[1];
           var str_ind_5 = parse_spaces(str_ind_4, end_ind);
           if (62 !== caml_string_get(str, str_ind_5)) {
-            throw runtime.caml_wrap_thrown_exception(Not_found);
+            throw runtime["caml_wrap_thrown_exception"](Not_found);
           }
           var s__0 = caml_call3(
             String[4],
@@ -5704,13 +5708,15 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         }
         else var switch__1 = 0;
       }
-      if (! switch__1) {throw runtime.caml_wrap_thrown_exception(Not_found);}
+      if (! switch__1) {
+        throw runtime["caml_wrap_thrown_exception"](Not_found);
+      }
     }
     catch(iN) {
       iN = caml_wrap_exception(iN);
       if (iN !== Not_found) {
         if (iN[1] !== Failure) {
-          throw runtime.caml_wrap_thrown_exception_reraise(iN);
+          throw runtime["caml_wrap_thrown_exception_reraise"](iN);
         }
       }
       var next_ind = str_ind;
@@ -5723,13 +5729,13 @@ function fmt_ebb_of_string(legacy_behavior, str) {
   function parse_tag(is_open_tag, str_ind, end_ind) {
     try {
       if (str_ind === end_ind) {
-        throw runtime.caml_wrap_thrown_exception(Not_found);
+        throw runtime["caml_wrap_thrown_exception"](Not_found);
       }
       var match__0 = caml_string_get(str, str_ind);
       if (60 === match__0) {
         var ind = caml_call3(String[18], str, str_ind + 1 | 0, 62);
         if (end_ind <= ind) {
-          throw runtime.caml_wrap_thrown_exception(Not_found);
+          throw runtime["caml_wrap_thrown_exception"](Not_found);
         }
         var sub_str = caml_call3(
           String[4],
@@ -5748,7 +5754,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         var iF = [0,[18,formatting__0,fmt_rest__0]];
         return iF;
       }
-      throw runtime.caml_wrap_thrown_exception(Not_found);
+      throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
     catch(iG) {
       iG = caml_wrap_exception(iG);
@@ -5758,7 +5764,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         var formatting = is_open_tag ? [0,sub_format] : [1,sub_format];
         return [0,[18,formatting,fmt_rest]];
       }
-      throw runtime.caml_wrap_thrown_exception_reraise(iG);
+      throw runtime["caml_wrap_thrown_exception_reraise"](iG);
     }
   }
   function parse_after_at(str_ind, end_ind) {
@@ -5851,7 +5857,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         catch(iE) {
           iE = caml_wrap_exception(iE);
           if (iE[1] === Failure) {return 0;}
-          throw runtime.caml_wrap_thrown_exception_reraise(iE);
+          throw runtime["caml_wrap_thrown_exception_reraise"](iE);
         }
       }
     }
@@ -6049,7 +6055,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       var next_ind = match__0[1];
       return [0,next_ind,- n | 0];
     }
-    throw runtime.caml_wrap_thrown_exception([0,Assert_failure,ie]);
+    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,ie]);
   }
   function search_subformat_end(str_ind, end_ind, c) {
     var str_ind__0 = str_ind;
@@ -6154,7 +6160,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       }
     }
     else if (76 === symb) {return 2;}
-    throw runtime.caml_wrap_thrown_exception([0,Assert_failure,ih]);
+    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,ih]);
   }
   function incompatible_flag(pct_ind, str_ind, symb, option) {
     var subfmt = caml_call3(String[4], str, pct_ind, str_ind - pct_ind | 0);
@@ -6230,7 +6236,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       }
       if (0 === plus__0) {
         if (0 === space__0) {
-          throw runtime.caml_wrap_thrown_exception([0,Assert_failure,ii]);
+          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,ii]);
         }
         if (legacy_behavior__0) {var space__0 = 0;continue;}
         return incompatible_flag(pct_ind, str_ind, symb, cst__33);
@@ -6277,7 +6283,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
                 return 19
               }
           }
-          throw runtime.caml_wrap_thrown_exception([0,Assert_failure,ij]);
+          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,ij]);
         }
         if (73 <= symb) {
           var switcher__1 = symb + -101 | 0;
@@ -6357,7 +6363,7 @@ function format_of_string_fmtty(str, fmtty) {
       var iq = string_of_fmtty(fmtty);
       return caml_call2(failwith_message(il), str, iq);
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(is);
+    throw runtime["caml_wrap_thrown_exception_reraise"](is);
   }
 }
 
@@ -6372,7 +6378,7 @@ function format_of_string_format(str, param) {
     if (ip === Type_mismatch) {
       return caml_call2(failwith_message(im), str, str__0);
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(ip);
+    throw runtime["caml_wrap_thrown_exception_reraise"](ip);
   }
 }
 
@@ -6404,7 +6410,7 @@ var CamlinternalFormat = [
   recast
 ];
 
-runtime.caml_register_global(198, CamlinternalFormat, "CamlinternalFormat");
+runtime["caml_register_global"](198, CamlinternalFormat, "CamlinternalFormat");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalFormat;

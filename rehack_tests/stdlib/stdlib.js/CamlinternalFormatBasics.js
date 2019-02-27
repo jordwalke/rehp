@@ -233,7 +233,7 @@ function concat_fmt(fmt1, fmt2) {
 
 var CamlinternalFormatBasics = [0,concat_fmtty,erase_rel,concat_fmt];
 
-runtime.caml_register_global(
+runtime["caml_register_global"](
   0,
   CamlinternalFormatBasics,
   "CamlinternalFormatBasics"

@@ -35,27 +35,27 @@ final class Printf {
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $global_data = $runtime->caml_get_global_data();
-    $Buffer = $global_data->Buffer;
-    $CamlinternalFormat = $global_data->CamlinternalFormat;
-    $Pervasives = $global_data->Pervasives;
+    $global_data = $runtime["caml_get_global_data"]();
+    $Buffer = $global_data["Buffer"];
+    $CamlinternalFormat = $global_data["CamlinternalFormat"];
+    $Pervasives = $global_data["Pervasives"];
     $kfprintf = function($k, $o, $param) use ($CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
       $fmt = $param[1];
       $m_ = 0;
@@ -120,7 +120,7 @@ final class Printf {
       $ksprintf
     );
     
-    $runtime->caml_register_global(3, $Printf, "Printf");
+    $runtime["caml_register_global"](3, $Printf, "Printf");
 
   }
 }

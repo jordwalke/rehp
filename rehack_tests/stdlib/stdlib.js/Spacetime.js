@@ -11,18 +11,19 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime.caml_new_string;
-var caml_spacetime_enabled = runtime.caml_spacetime_enabled;
-var caml_spacetime_only_works_for_native_code = runtime.caml_spacetime_only_works_for_native_code;
+var caml_new_string = runtime["caml_new_string"];
+var caml_spacetime_enabled = runtime["caml_spacetime_enabled"];
+var caml_spacetime_only_works_for_native_code = runtime
+ ["caml_spacetime_only_works_for_native_code"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Series_is_closed__0 = caml_new_string("Series is closed");
 var cst_Series_is_closed = caml_new_string("Series is closed");
-var Pervasives = global_data.Pervasives;
+var Pervasives = global_data["Pervasives"];
 var enabled = caml_spacetime_enabled(0);
 
 function if_spacetime_enabled(f) {return enabled ? caml_call1(f, 0) : 0;}
@@ -65,7 +66,7 @@ function take(time, param) {
   return if_spacetime_enabled(
     function(param) {
       if (closed) {caml_call1(Pervasives[2], cst_Series_is_closed__0);}
-      runtime.caml_gc_minor(0);
+      runtime["caml_gc_minor"](0);
       return caml_spacetime_only_works_for_native_code(time, channel);
     }
   );
@@ -83,7 +84,7 @@ function save_event_for_automatic_snapshots(event_name) {
 
 var Spacetime = [0,enabled,Series,Snapshot,save_event_for_automatic_snapshots];
 
-runtime.caml_register_global(3, Spacetime, "Spacetime");
+runtime["caml_register_global"](3, Spacetime, "Spacetime");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Spacetime;

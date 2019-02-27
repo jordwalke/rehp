@@ -31,26 +31,26 @@ final class Gc {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_ml_string_length = $runtime->caml_ml_string_length;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_ml_string_length = $runtime["caml_ml_string_length"];
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $global_data = $runtime->caml_get_global_data();
-    $Sys = $global_data->Sys;
-    $Printf = $global_data->Printf;
+    $global_data = $runtime["caml_get_global_data"]();
+    $Sys = $global_data["Sys"];
+    $Printf = $global_data["Printf"];
     $pr = R(
       0,
       R(
@@ -180,7 +180,7 @@ final class Gc {
       $caml_new_string("heap_chunks: %d\n")
     );
     $print_stat = function($c) use ($Printf,$caml_call2,$caml_call3,$caml_call4,$caml_ml_string_length,$pA,$pB,$pC,$pD,$pE,$pF,$pG,$pH,$pI,$pJ,$pK,$pr,$ps,$pt,$pu,$pv,$pw,$px,$py,$pz,$runtime) {
-      $st = $runtime->caml_gc_stat(0);
+      $st = $runtime["caml_gc_stat"](0);
       $caml_call3($Printf[1], $c, $pr, $st[4]);
       $caml_call3($Printf[1], $c, $ps, $st[5]);
       $caml_call3($Printf[1], $c, $pt, $st[14]);
@@ -203,7 +203,7 @@ final class Gc {
       return $caml_call3($Printf[1], $c, $pK, $st[7]);
     };
     $allocated_bytes = function($param) use ($Sys,$runtime) {
-      $match = $runtime->caml_gc_counters(0);
+      $match = $runtime["caml_gc_counters"](0);
       $ma = $match[3];
       $pro = $match[2];
       $mi = $match[1];
@@ -212,17 +212,17 @@ final class Gc {
     $create_alarm = function($f) {return V(0, 1);};
     $delete_alarm = function($a) {$a[1] = 0;return 0;};
     $pL = function($pR) use ($runtime) {
-      return $runtime->caml_final_release($pR);
+      return $runtime["caml_final_release"]($pR);
     };
     $pM = function($pQ, $pP) use ($runtime) {
-      return $runtime->caml_final_register_called_without_value($pQ, $pP);
+      return $runtime["caml_final_register_called_without_value"]($pQ, $pP);
     };
     $Gc = V(
       0,
       $print_stat,
       $allocated_bytes,
       function($pO, $pN) use ($runtime) {
-        return $runtime->caml_final_register($pO, $pN);
+        return $runtime["caml_final_register"]($pO, $pN);
       },
       $pM,
       $pL,
@@ -230,7 +230,7 @@ final class Gc {
       $delete_alarm
     );
     
-    $runtime->caml_register_global(22, $Gc, "Gc");
+    $runtime["caml_register_global"](22, $Gc, "Gc");
 
   }
 }

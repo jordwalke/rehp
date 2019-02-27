@@ -35,47 +35,47 @@ final class Weak {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_make_vect = $runtime->caml_make_vect;
-    $caml_mod = $runtime->caml_mod;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_obj_truncate = $runtime->caml_obj_truncate;
-    $caml_weak_blit = $runtime->caml_weak_blit;
-    $caml_weak_check = $runtime->caml_weak_check;
-    $caml_weak_create = $runtime->caml_weak_create;
-    $caml_weak_get = $runtime->caml_weak_get;
-    $caml_weak_get_copy = $runtime->caml_weak_get_copy;
-    $caml_weak_set = $runtime->caml_weak_set;
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_make_vect = $runtime["caml_make_vect"];
+    $caml_mod = $runtime["caml_mod"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_obj_truncate = $runtime["caml_obj_truncate"];
+    $caml_weak_blit = $runtime["caml_weak_blit"];
+    $caml_weak_check = $runtime["caml_weak_check"];
+    $caml_weak_create = $runtime["caml_weak_create"];
+    $caml_weak_get = $runtime["caml_weak_get"];
+    $caml_weak_get_copy = $runtime["caml_weak_get_copy"];
+    $caml_weak_set = $runtime["caml_weak_set"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Weak_Make_hash_bucket_cannot_grow_more = $caml_new_string(
       "Weak.Make: hash bucket cannot grow more"
     );
     $cst_Weak_fill = $caml_new_string("Weak.fill");
-    $Pervasives = $global_data->Pervasives;
-    $Sys = $global_data->Sys;
-    $Array = $global_data->Array_;
-    $Not_found = $global_data->Not_found;
-    $Invalid_argument = $global_data->Invalid_argument;
+    $Pervasives = $global_data["Pervasives"];
+    $Sys = $global_data["Sys"];
+    $Array = $global_data["Array_"];
+    $Not_found = $global_data["Not_found"];
+    $Invalid_argument = $global_data["Invalid_argument"];
     $length = function($x) {return $x->length - 1 - 2 | 0;};
     $fill = function($ar, $ofs, $len, $x) use ($Invalid_argument,$caml_weak_set,$cst_Weak_fill,$length,$runtime) {
       if (0 <= $ofs) {
@@ -95,7 +95,7 @@ final class Weak {
           }
         }
       }
-      throw $runtime->caml_wrap_thrown_exception(
+      throw $runtime["caml_wrap_thrown_exception"](
               V(0, $Invalid_argument, $cst_Weak_fill)
             );
     };
@@ -455,7 +455,7 @@ final class Weak {
           $t,
           $d,
           function($h, $index) use ($Not_found,$runtime) {
-            throw $runtime->caml_wrap_thrown_exception($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
           }
         );
       };
@@ -581,7 +581,7 @@ final class Weak {
         $len = $t[1]->length - 1;
         $lens = $caml_call2($Array[15], $length, $t[1]);
         $rG = function($rR, $rQ) use ($runtime) {
-          return $runtime->caml_int_compare($rR, $rQ);
+          return $runtime["caml_int_compare"]($rR, $rQ);
         };
         $caml_call2($Array[25], $rG, $lens);
         $rH = 0;
@@ -639,7 +639,7 @@ final class Weak {
       $Make
     );
     
-    $runtime->caml_register_global(7, $Weak, "Weak");
+    $runtime["caml_register_global"](7, $Weak, "Weak");
 
   }
 }

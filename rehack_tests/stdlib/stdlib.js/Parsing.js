@@ -12,35 +12,35 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_fresh_oo_id = runtime.caml_fresh_oo_id;
-var caml_make_vect = runtime.caml_make_vect;
-var caml_new_string = runtime.caml_new_string;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
+var caml_make_vect = runtime["caml_make_vect"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_syntax_error = caml_new_string("syntax error");
 var cst_Parsing_YYexit = caml_new_string("Parsing.YYexit");
 var cst_Parsing_Parse_error = caml_new_string("Parsing.Parse_error");
-var Obj = global_data.Obj;
-var Array = global_data.Array_;
-var Lexing = global_data.Lexing;
+var Obj = global_data["Obj"];
+var Array = global_data["Array_"];
+var Lexing = global_data["Lexing"];
 var YYexit = [248,cst_Parsing_YYexit,caml_fresh_oo_id(0)];
 var Parse_error = [248,cst_Parsing_Parse_error,caml_fresh_oo_id(0)];
 var env = [
@@ -95,7 +95,7 @@ function yyparse(tables, start, lexer, lexbuf) {
     var cmd__0 = cmd;
     var arg__0 = arg;
     for (; ; ) {
-      var match = runtime.caml_parse_engine(tables, env, cmd__0, arg__0);
+      var match = runtime["caml_parse_engine"](tables, env, cmd__0, arg__0);
       switch (match) {
         case 0:
           var arg__1 = caml_call1(lexer, lexbuf);
@@ -105,7 +105,7 @@ function yyparse(tables, start, lexer, lexbuf) {
           var arg__0 = arg__1;
           continue;
         case 1:
-          throw runtime.caml_wrap_thrown_exception(Parse_error);
+          throw runtime["caml_wrap_thrown_exception"](Parse_error);
         case 2:
           grow_stacks(0);
           var cmd__0 = 2;
@@ -127,7 +127,7 @@ function yyparse(tables, start, lexer, lexbuf) {
           catch(fj) {
             fj = caml_wrap_exception(fj);
             if (fj !== Parse_error) {
-              throw runtime.caml_wrap_thrown_exception_reraise(fj);
+              throw runtime["caml_wrap_thrown_exception_reraise"](fj);
             }
             var fe = 0;
             var ff = 5;
@@ -170,12 +170,12 @@ function yyparse(tables, start, lexer, lexbuf) {
     current_lookahead_fun[1] =
       function(tok) {
         if (caml_call1(Obj[1], tok)) {
-          var fd = runtime.caml_obj_tag(tok);
+          var fd = runtime["caml_obj_tag"](tok);
           return caml_check_bound(tables[3], fd)[fd + 1] === curr_char ? 1 : 0;
         }
         return caml_check_bound(tables[2], tok)[tok + 1] === curr_char ? 1 : 0;
       };
-    throw runtime.caml_wrap_thrown_exception_reraise(exn);
+    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
   }
 }
 
@@ -193,7 +193,7 @@ function symbol_start_pos(param) {
         var st = caml_check_bound(env[3], e9)[e9 + 1];
         var e_ = (env[11] - i__0 | 0) + 1 | 0;
         var en = caml_check_bound(env[4], e_)[e_ + 1];
-        if (runtime.caml_notequal(st, en)) {return st;}
+        if (runtime["caml_notequal"](st, en)) {return st;}
         var i__1 = i__0 + -1 | 0;
         var i__0 = i__1;
         continue;
@@ -246,7 +246,7 @@ var Parsing = [
   rhs_end_pos,
   clear_parser,
   Parse_error,
-  function(e5) {return runtime.caml_set_parser_trace(e5);},
+  function(e5) {return runtime["caml_set_parser_trace"](e5);},
   YYexit,
   yyparse,
   peek_val,
@@ -254,7 +254,7 @@ var Parsing = [
   parse_error
 ];
 
-runtime.caml_register_global(7, Parsing, "Parsing");
+runtime["caml_register_global"](7, Parsing, "Parsing");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Parsing;

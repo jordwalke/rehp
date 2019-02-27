@@ -30,19 +30,19 @@ final class Uchar {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_format_int = $runtime->caml_format_int;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_format_int = $runtime["caml_format_int"];
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_is_not_a_latin1_character = $caml_new_string(
       " is not a latin1 character"
     );
@@ -54,7 +54,7 @@ final class Uchar {
     $cst_X = $caml_new_string("%X");
     $err_no_pred = $caml_new_string("U+0000 has no predecessor");
     $err_no_succ = $caml_new_string("U+10FFFF has no successor");
-    $Pervasives = $global_data->Pervasives;
+    $Pervasives = $global_data["Pervasives"];
     $err_not_sv = function($i) use ($Pervasives,$caml_call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
       return $caml_call2(
         $Pervasives[16],
@@ -119,7 +119,7 @@ final class Uchar {
     $unsafe_to_char = function($bb) {return $bb;};
     $equal = function($ba, $a_) {return $ba === $a_ ? 1 : (0);};
     $compare = function($a9, $a8) use ($runtime) {
-      return $runtime->caml_int_compare($a9, $a8);
+      return $runtime["caml_int_compare"]($a9, $a8);
     };
     $hash = function($a7) {return $a7;};
     $a4 = function($a6) {return $a6;};
@@ -144,7 +144,7 @@ final class Uchar {
       $hash
     );
     
-    $runtime->caml_register_global(8, $Uchar, "Uchar");
+    $runtime["caml_register_global"](8, $Uchar, "Uchar");
 
   }
 }

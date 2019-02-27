@@ -33,25 +33,25 @@ final class Bytes {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_blit_bytes = $runtime->caml_blit_bytes;
-    $caml_bytes_unsafe_get = $runtime->caml_bytes_unsafe_get;
-    $caml_bytes_unsafe_set = $runtime->caml_bytes_unsafe_set;
-    $caml_create_bytes = $runtime->caml_create_bytes;
-    $caml_fill_bytes = $runtime->caml_fill_bytes;
-    $caml_ml_bytes_length = $runtime->caml_ml_bytes_length;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_blit_bytes = $runtime["caml_blit_bytes"];
+    $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
+    $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
+    $caml_create_bytes = $runtime["caml_create_bytes"];
+    $caml_fill_bytes = $runtime["caml_fill_bytes"];
+    $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_String_rcontains_from_Bytes_rcontains_from = $caml_new_string(
       "String.rcontains_from / Bytes.rcontains_from"
     );
@@ -78,9 +78,9 @@ final class Bytes {
     $cst_String_fill_Bytes_fill = $caml_new_string("String.fill / Bytes.fill");
     $cst_Bytes_extend = $caml_new_string("Bytes.extend");
     $cst_String_sub_Bytes_sub = $caml_new_string("String.sub / Bytes.sub");
-    $Not_found = $global_data->Not_found;
-    $Char = $global_data->Char;
-    $Pervasives = $global_data->Pervasives;
+    $Not_found = $global_data["Not_found"];
+    $Char = $global_data["Char"];
+    $Pervasives = $global_data["Pervasives"];
     $make = function($n, $c) use ($caml_create_bytes,$caml_fill_bytes) {
       $s = $caml_create_bytes($n);
       $caml_fill_bytes($s, 0, $n, $c);
@@ -178,10 +178,16 @@ final class Bytes {
     $blit_string = function($s1, $ofs1, $s2, $ofs2, $len) use ($Pervasives,$caml_call1,$caml_ml_bytes_length,$cst_String_blit_Bytes_blit_string,$runtime) {
       if (0 <= $len) {
         if (0 <= $ofs1) {
-          if (! (($runtime->caml_ml_string_length($s1) - $len | 0) < $ofs1)) {
+          if (! (($runtime["caml_ml_string_length"]($s1) - $len | 0) < $ofs1)
+          ) {
             if (0 <= $ofs2) {
               if (! (($caml_ml_bytes_length($s2) - $len | 0) < $ofs2)) {
-                return $runtime->caml_blit_string($s1, $ofs1, $s2, $ofs2, $len
+                return $runtime["caml_blit_string"](
+                  $s1,
+                  $ofs1,
+                  $s2,
+                  $ofs2,
+                  $len
                 );
               }
             }
@@ -519,7 +525,7 @@ final class Bytes {
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
         $i__1 = $i__0 + 1 | 0;
@@ -568,7 +574,7 @@ final class Bytes {
           $i__0 = $i__1;
           continue;
         }
-        throw $runtime->caml_wrap_thrown_exception($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
       }
     };
     $rindex = function($s, $c) use ($caml_ml_bytes_length,$rindex_rec) {
@@ -615,7 +621,7 @@ final class Bytes {
           catch(\Throwable $bt) {
             $bt = $caml_wrap_exception($bt);
             if ($bt === $Not_found) {return 0;}
-            throw $runtime->caml_wrap_thrown_exception_reraise($bt);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($bt);
           }
         }
       }
@@ -634,7 +640,7 @@ final class Bytes {
           catch(\Throwable $br) {
             $br = $caml_wrap_exception($br);
             if ($br === $Not_found) {return 0;}
-            throw $runtime->caml_wrap_thrown_exception_reraise($br);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($br);
           }
         }
       }
@@ -644,7 +650,7 @@ final class Bytes {
       );
     };
     $compare = function($x, $y) use ($runtime) {
-      return $runtime->caml_bytes_compare($x, $y);
+      return $runtime["caml_bytes_compare"]($x, $y);
     };
     $uppercase = function($s) use ($Char,$map) {return $map($Char[4], $s);};
     $lowercase = function($s) use ($Char,$map) {return $map($Char[3], $s);};
@@ -699,13 +705,13 @@ final class Bytes {
       $uncapitalize_ascii,
       $compare,
       function($bn, $bm) use ($runtime) {
-        return $runtime->caml_bytes_equal($bn, $bm);
+        return $runtime["caml_bytes_equal"]($bn, $bm);
       },
       $bl,
       $bk
     );
     
-    $runtime->caml_register_global(15, $Bytes, "Bytes");
+    $runtime["caml_register_global"](15, $Bytes, "Bytes");
 
   }
 }

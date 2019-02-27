@@ -19,37 +19,40 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_get_exception_raw_backtrace = runtime.caml_get_exception_raw_backtrace;
-var caml_new_string = runtime.caml_new_string;
-var caml_obj_tag = runtime.caml_obj_tag;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_get_exception_raw_backtrace = runtime
+ ["caml_get_exception_raw_backtrace"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call6(f, a0, a1, a2, a3, a4, a5) {
   return f.length == 6 ?
     f(a0, a1, a2, a3, a4, a5) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4,a5]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5]);
 }
 
 function caml_call7(f, a0, a1, a2, a3, a4, a5, a6) {
   return f.length == 7 ?
     f(a0, a1, a2, a3, a4, a5, a6) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4,a5,a6]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5,a6]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst__0 = caml_new_string("");
 var cst_Program_not_linked_with_g_cannot_print_stack_backtrace = caml_new_string(
   "(Program not linked with -g, cannot print stack backtrace)\n"
@@ -100,15 +103,15 @@ var locfmt = [
   ],
   caml_new_string('File "%s", line %d, characters %d-%d: %s')
 ];
-var Printf = global_data.Printf;
-var Pervasives = global_data.Pervasives;
-var Out_of_memory = global_data.Out_of_memory;
-var Buffer = global_data.Buffer;
-var Stack_overflow = global_data.Stack_overflow;
-var Match_failure = global_data.Match_failure;
-var Assert_failure = global_data.Assert_failure;
-var Undefined_recursive_module = global_data.Undefined_recursive_module;
-var Obj = global_data.Obj;
+var Printf = global_data["Printf"];
+var Pervasives = global_data["Pervasives"];
+var Out_of_memory = global_data["Out_of_memory"];
+var Buffer = global_data["Buffer"];
+var Stack_overflow = global_data["Stack_overflow"];
+var Match_failure = global_data["Match_failure"];
+var Assert_failure = global_data["Assert_failure"];
+var Undefined_recursive_module = global_data["Undefined_recursive_module"];
+var Obj = global_data["Obj"];
 var oz = [0,[11,caml_new_string(", "),[2,0,[2,0,0]]],caml_new_string(", %s%s")
 ];
 var oI = [0,[2,0,[12,10,0]],caml_new_string("%s\n")];
@@ -294,7 +297,7 @@ function print(fct, arg) {
     var pg = to_string(x);
     caml_call2(Printf[3], oC, pg);
     caml_call1(Pervasives[51], Pervasives[28]);
-    throw runtime.caml_wrap_thrown_exception_reraise(x);
+    throw runtime["caml_wrap_thrown_exception_reraise"](x);
   }
 }
 
@@ -310,7 +313,7 @@ function catch__0(fct, arg) {
 }
 
 function convert_raw_backtrace(bt) {
-  var pd = [0,runtime.caml_convert_raw_backtrace(bt)];
+  var pd = [0,runtime["caml_convert_raw_backtrace"](bt)];
   return pd;
 }
 
@@ -444,13 +447,13 @@ function set_uncaught_exception_handler(fn) {
   return 0;
 }
 
-function oJ(oZ) {return runtime.caml_raw_backtrace_next_slot(oZ);}
+function oJ(oZ) {return runtime["caml_raw_backtrace_next_slot"](oZ);}
 
-function oK(oY) {return runtime.caml_convert_raw_backtrace_slot(oY);}
+function oK(oY) {return runtime["caml_convert_raw_backtrace_slot"](oY);}
 
-function oL(oX, oW) {return runtime.caml_raw_backtrace_slot(oX, oW);}
+function oL(oX, oW) {return runtime["caml_raw_backtrace_slot"](oX, oW);}
 
-function oM(oV) {return runtime.caml_raw_backtrace_length(oV);}
+function oM(oV) {return runtime["caml_raw_backtrace_length"](oV);}
 
 var oN = [
   0,
@@ -460,11 +463,11 @@ var oN = [
   format_backtrace_slot
 ];
 
-function oO(oU) {return runtime.caml_get_current_callstack(oU);}
+function oO(oU) {return runtime["caml_get_current_callstack"](oU);}
 
 function oP(oT) {return caml_get_exception_raw_backtrace(oT);}
 
-function oQ(oS) {return runtime.caml_backtrace_status(oS);}
+function oQ(oS) {return runtime["caml_backtrace_status"](oS);}
 
 var Printexc = [
   0,
@@ -473,7 +476,7 @@ var Printexc = [
   catch__0,
   print_backtrace,
   get_backtrace,
-  function(oR) {return runtime.caml_record_backtrace(oR);},
+  function(oR) {return runtime["caml_record_backtrace"](oR);},
   oQ,
   register_printer,
   oP,
@@ -491,7 +494,7 @@ var Printexc = [
   exn_slot_name
 ];
 
-runtime.caml_register_global(45, Printexc, "Printexc");
+runtime["caml_register_global"](45, Printexc, "Printexc");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Printexc;

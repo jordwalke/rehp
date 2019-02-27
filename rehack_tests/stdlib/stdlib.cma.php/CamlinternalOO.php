@@ -39,45 +39,45 @@ final class CamlinternalOO {
     $runtime = $joo_global_object->jsoo_runtime;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_div = $runtime->caml_div;
-    $caml_get_public_method = $runtime->caml_get_public_method;
-    $caml_make_vect = $runtime->caml_make_vect;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_obj_block = $runtime->caml_obj_block;
-    $caml_set_oo_id = $runtime->caml_set_oo_id;
-    $caml_string_compare = $runtime->caml_string_compare;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_div = $runtime["caml_div"];
+    $caml_get_public_method = $runtime["caml_get_public_method"];
+    $caml_make_vect = $runtime["caml_make_vect"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_obj_block = $runtime["caml_obj_block"];
+    $caml_set_oo_id = $runtime["caml_set_oo_id"];
+    $caml_string_compare = $runtime["caml_string_compare"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst = $caml_new_string("");
-    $Assert_failure = $global_data->Assert_failure;
-    $Sys = $global_data->Sys;
-    $Obj = $global_data->Obj;
-    $Undefined_recursive_module = $global_data->Undefined_recursive_module;
-    $Array = $global_data->Array_;
-    $List = $global_data->List_;
-    $Not_found = $global_data->Not_found;
-    $Map = $global_data->Map;
+    $Assert_failure = $global_data["Assert_failure"];
+    $Sys = $global_data["Sys"];
+    $Obj = $global_data["Obj"];
+    $Undefined_recursive_module = $global_data["Undefined_recursive_module"];
+    $Array = $global_data["Array_"];
+    $List = $global_data["List_"];
+    $Not_found = $global_data["Not_found"];
+    $Map = $global_data["Map"];
     $yk = R(0, $caml_new_string("camlinternalOO.ml"), 438, 17);
     $yj = R(0, $caml_new_string("camlinternalOO.ml"), 420, 13);
     $yi = R(0, $caml_new_string("camlinternalOO.ml"), 417, 13);
@@ -94,12 +94,12 @@ final class CamlinternalOO {
     $dummy_item = 0;
     $public_method_label = function($s) use ($runtime) {
       $accu = V(0, 0);
-      $zv = $runtime->caml_ml_string_length($s) + -1 | 0;
+      $zv = $runtime["caml_ml_string_length"]($s) + -1 | 0;
       $zu = 0;
       if (! ($zv < 0)) {
         $i = $zu;
         for (;;) {
-          $zw = $runtime->caml_string_get($s, $i);
+          $zw = $runtime["caml_string_get"]($s, $i);
           $accu[1] = (223 * $accu[1] | 0) + $zw | 0;
           $zx = $i + 1 | 0;
           if ($zv !== $i) {$i = $zx;continue;}
@@ -119,7 +119,7 @@ final class CamlinternalOO {
     };
     $Meths = $caml_call1($Map[1], V(0, $compare__0));
     $compare__1 = function($x, $y) use ($runtime) {
-      return $runtime->caml_int_compare($x, $y);
+      return $runtime["caml_int_compare"]($x, $y);
     };
     $Labs = $caml_call1($Map[1], V(0, $compare__1));
     $dummy_table = V(
@@ -147,7 +147,7 @@ final class CamlinternalOO {
       $methods = $caml_make_vect(($len * 2 | 0) + 2 | 0, $dummy_met);
       $caml_check_bound($methods, 0)[1] = $len;
       $zn = $Sys[10];
-      $zo = ($runtime->caml_mul($fit_size->contents($len), $zn) / 8 | 0) + -1 |
+      $zo = ($runtime["caml_mul"]($fit_size->contents($len), $zn) / 8 | 0) + -1 |
         0;
       $caml_check_bound($methods, 1)[2] = $zo;
       $zq = $len + -1 | 0;
@@ -208,7 +208,7 @@ final class CamlinternalOO {
           $table[4] = $caml_call3($Labs[4], $label, 1, $table[4]);
           return $label;
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($zk);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($zk);
       }
     };
     $get_method_labels = function($table, $names) use ($Array,$caml_call2,$get_method_label) {
@@ -232,7 +232,7 @@ final class CamlinternalOO {
         if ($zg === $Not_found) {
           return $caml_check_bound($table[2], $label)[$label + 1];
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($zg);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($zg);
       }
     };
     $to_list = function($arr) use ($Array,$caml_call1) {
@@ -281,7 +281,7 @@ final class CamlinternalOO {
         catch(\Throwable $zc) {
           $zc = $caml_wrap_exception($zc);
           if ($zc !== $Not_found) {
-            throw $runtime->caml_wrap_thrown_exception_reraise($zc);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($zc);
           }
           $y_ = 1;
           $za = $y_;
@@ -346,16 +346,16 @@ final class CamlinternalOO {
         $yU = $caml_wrap_exception($yU);
         if ($yU === $Not_found) {
           $index = $new_slot($table);
-          if ($runtime->caml_string_notequal($name, $cst)) {
+          if ($runtime["caml_string_notequal"]($name, $cst)) {
             $table[7] = $caml_call3($Vars[4], $name, $index, $table[7]);
           }
           return $index;
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($yU);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($yU);
       }
     };
     $to_array = function($arr) use ($runtime) {
-      return $runtime->caml_equal($arr, 0) ? V(0) : ($arr);
+      return $runtime["caml_equal"]($arr, 0) ? V(0) : ($arr);
     };
     $new_methods_variables = function($table, $meths, $vals) use ($caml_check_bound,$caml_make_vect,$get_method_label,$new_variable,$to_array) {
       $meths__0 = $to_array($meths);
@@ -397,11 +397,9 @@ final class CamlinternalOO {
       catch(\Throwable $yJ) {
         $yJ = $caml_wrap_exception($yJ);
         if ($yJ === $Not_found) {
-          throw $runtime->caml_wrap_thrown_exception(
-                  V(0, $Assert_failure, $ye)
-                );
+          throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $ye));
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($yJ);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($yJ);
       }
     };
     $get_variables = function($table, $names) use ($Array,$caml_call2,$get_variable) {
@@ -473,7 +471,7 @@ final class CamlinternalOO {
     };
     $dummy_class = function($loc) use ($Undefined_recursive_module,$runtime) {
       $undef = function($param) use ($Undefined_recursive_module,$loc,$runtime) {
-        throw $runtime->caml_wrap_thrown_exception(
+        throw $runtime["caml_wrap_thrown_exception"](
                 V(0, $Undefined_recursive_module, $loc)
               );
       };
@@ -522,23 +520,23 @@ final class CamlinternalOO {
     };
     $set_data = function($tables, $v) use ($Assert_failure,$runtime,$yf) {
       if ($tables) {$tables[2] = $v;return 0;}
-      throw $runtime->caml_wrap_thrown_exception(V(0, $Assert_failure, $yf));
+      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yf));
     };
     $set_next = function($tables, $v) use ($Assert_failure,$runtime,$yg) {
       if ($tables) {$tables[3] = $v;return 0;}
-      throw $runtime->caml_wrap_thrown_exception(V(0, $Assert_failure, $yg));
+      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yg));
     };
     $get_key = function($param) use ($Assert_failure,$runtime,$yh) {
       if ($param) {return $param[1];}
-      throw $runtime->caml_wrap_thrown_exception(V(0, $Assert_failure, $yh));
+      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yh));
     };
     $get_data = function($param) use ($Assert_failure,$runtime,$yi) {
       if ($param) {return $param[2];}
-      throw $runtime->caml_wrap_thrown_exception(V(0, $Assert_failure, $yi));
+      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yi));
     };
     $get_next = function($param) use ($Assert_failure,$runtime,$yj) {
       if ($param) {return $param[3];}
-      throw $runtime->caml_wrap_thrown_exception(V(0, $Assert_failure, $yj));
+      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yj));
     };
     $build_path = function($n, $keys, $tables) use ($caml_check_bound,$set_data) {
       $res = V(0, 0, 0, 0);
@@ -574,9 +572,7 @@ final class CamlinternalOO {
                     $tables_data
                   );
                 }
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $yk)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yk));
               }
               $next = $get_next($tables__0);
               if ($next) {$tables__0 = $next;continue;}
@@ -918,7 +914,7 @@ final class CamlinternalOO {
       $stats
     );
     
-    $runtime->caml_register_global(18, $CamlinternalOO, "CamlinternalOO");
+    $runtime["caml_register_global"](18, $CamlinternalOO, "CamlinternalOO");
 
   }
 }

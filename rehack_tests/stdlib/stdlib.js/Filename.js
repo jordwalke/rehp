@@ -18,35 +18,37 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_equal = runtime.caml_string_equal;
-var caml_string_get = runtime.caml_string_get;
-var caml_string_notequal = runtime.caml_string_notequal;
-var caml_sys_getenv = runtime.caml_sys_getenv;
-var caml_trampoline = runtime.caml_trampoline;
-var caml_trampoline_return = runtime.caml_trampoline_return;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_equal = runtime["caml_string_equal"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_string_notequal = runtime["caml_string_notequal"];
+var caml_sys_getenv = runtime["caml_sys_getenv"];
+var caml_trampoline = runtime["caml_trampoline"];
+var caml_trampoline_return = runtime["caml_trampoline_return"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Filename_chop_extension = caml_new_string("Filename.chop_extension");
 var cst__10 = caml_new_string("");
 var cst_Filename_chop_suffix = caml_new_string("Filename.chop_suffix");
@@ -75,15 +77,15 @@ var parent_dir_name__1 = caml_new_string("..");
 var dir_sep__1 = caml_new_string("/");
 var cst_Cygwin = caml_new_string("Cygwin");
 var cst_Win32 = caml_new_string("Win32");
-var Pervasives = global_data.Pervasives;
-var Sys_error = global_data.Sys_error;
-var CamlinternalLazy = global_data.CamlinternalLazy;
-var Random = global_data.Random;
-var Printf = global_data.Printf;
-var String = global_data.String_;
-var Buffer = global_data.Buffer;
-var Not_found = global_data.Not_found;
-var Sys = global_data.Sys;
+var Pervasives = global_data["Pervasives"];
+var Sys_error = global_data["Sys_error"];
+var CamlinternalLazy = global_data["CamlinternalLazy"];
+var Random = global_data["Random"];
+var Printf = global_data["Printf"];
+var String = global_data["String_"];
+var Buffer = global_data["Buffer"];
+var Not_found = global_data["Not_found"];
+var Sys = global_data["Sys"];
 var Bh = [0,7,0];
 var Bg = [0,1,[0,3,[0,5,0]]];
 var Bf = [0,[2,0,[4,6,[0,2,6],0,[2,0,0]]],caml_new_string("%s%06x%s")];
@@ -242,7 +244,7 @@ try {var Br = caml_sys_getenv(cst_TMPDIR);var temp_dir_name = Br;}
 catch(B9) {
   B9 = caml_wrap_exception(B9);
   if (B9 !== Not_found) {
-    throw runtime.caml_wrap_thrown_exception_reraise(B9);
+    throw runtime["caml_wrap_thrown_exception_reraise"](B9);
   }
   var temp_dir_name = cst_tmp;
 }
@@ -330,7 +332,7 @@ try {var Bq = caml_sys_getenv(cst_TEMP);var temp_dir_name__0 = Bq;}
 catch(BK) {
   BK = caml_wrap_exception(BK);
   if (BK !== Not_found) {
-    throw runtime.caml_wrap_thrown_exception_reraise(BK);
+    throw runtime["caml_wrap_thrown_exception_reraise"](BK);
   }
   var temp_dir_name__0 = cst__8;
 }
@@ -609,7 +611,7 @@ function remove_extension(name) {
 var prng = [246,function(Bx) {return caml_call1(Random[11][2], 0);}];
 
 function temp_file_name(temp_dir, prefix, suffix) {
-  var Bv = runtime.caml_obj_tag(prng);
+  var Bv = runtime["caml_obj_tag"](prng);
   var Bw = 250 === Bv ?
     prng[1] :
     246 === Bv ? caml_call1(CamlinternalLazy[2], prng) : prng;
@@ -634,20 +636,20 @@ function temp_file(opt, prefix, suffix) {
     for (; ; ) {
       var name = temp_file_name(temp_dir, prefix, suffix);
       try {
-        runtime.caml_sys_close(runtime.caml_sys_open(name, Bg, 384));
+        runtime["caml_sys_close"](runtime["caml_sys_open"](name, Bg, 384));
         return name;
       }
       catch(e) {
         e = caml_wrap_exception(e);
         if (e[1] === Sys_error) {
           if (1e3 <= counter__0) {
-            throw runtime.caml_wrap_thrown_exception_reraise(e);
+            throw runtime["caml_wrap_thrown_exception_reraise"](e);
           }
           var counter__1 = counter__0 + 1 | 0;
           var counter__0 = counter__1;
           continue;
         }
-        throw runtime.caml_wrap_thrown_exception_reraise(e);
+        throw runtime["caml_wrap_thrown_exception_reraise"](e);
       }
     }
   }
@@ -686,13 +688,13 @@ function open_temp_file(opt, Bt, Bs, prefix, suffix) {
         e = caml_wrap_exception(e);
         if (e[1] === Sys_error) {
           if (1e3 <= counter__0) {
-            throw runtime.caml_wrap_thrown_exception_reraise(e);
+            throw runtime["caml_wrap_thrown_exception_reraise"](e);
           }
           var counter__1 = counter__0 + 1 | 0;
           var counter__0 = counter__1;
           continue;
         }
-        throw runtime.caml_wrap_thrown_exception_reraise(e);
+        throw runtime["caml_wrap_thrown_exception_reraise"](e);
       }
     }
   }
@@ -722,7 +724,7 @@ var Filename = [
   quote__1
 ];
 
-runtime.caml_register_global(40, Filename, "Filename");
+runtime["caml_register_global"](40, Filename, "Filename");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Filename;

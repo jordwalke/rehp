@@ -22,35 +22,37 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_bytes_get = runtime.caml_bytes_get;
-var caml_int_of_string = runtime.caml_int_of_string;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_get = runtime.caml_string_get;
-var caml_string_notequal = runtime.caml_string_notequal;
-var caml_trampoline = runtime.caml_trampoline;
-var caml_trampoline_return = runtime.caml_trampoline_return;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_bytes_get = runtime["caml_bytes_get"];
+var caml_int_of_string = runtime["caml_int_of_string"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_string_notequal = runtime["caml_string_notequal"];
+var caml_trampoline = runtime["caml_trampoline"];
+var caml_trampoline_return = runtime["caml_trampoline_return"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_end_of_input_not_found = caml_new_string("end of input not found");
 var cst_scanf_bad_conversion_a = caml_new_string('scanf: bad conversion "%a"');
 var cst_scanf_bad_conversion_t = caml_new_string('scanf: bad conversion "%t"');
@@ -99,18 +101,18 @@ var cst_octal = caml_new_string("octal");
 var cst_hexadecimal = caml_new_string("hexadecimal");
 var cst_a_Char = caml_new_string("a Char");
 var cst_a_String = caml_new_string("a String");
-var CamlinternalFormat = global_data.CamlinternalFormat;
-var CamlinternalFormatBasics = global_data.CamlinternalFormatBasics;
-var String = global_data.String_;
-var Failure = global_data.Failure;
-var Pervasives = global_data.Pervasives;
-var Assert_failure = global_data.Assert_failure;
-var Buffer = global_data.Buffer;
-var End_of_file = global_data.End_of_file;
-var Invalid_argument = global_data.Invalid_argument;
-var Printf = global_data.Printf;
-var List = global_data.List_;
-var Not_found = global_data.Not_found;
+var CamlinternalFormat = global_data["CamlinternalFormat"];
+var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
+var String = global_data["String_"];
+var Failure = global_data["Failure"];
+var Pervasives = global_data["Pervasives"];
+var Assert_failure = global_data["Assert_failure"];
+var Buffer = global_data["Buffer"];
+var End_of_file = global_data["End_of_file"];
+var Invalid_argument = global_data["Invalid_argument"];
+var Printf = global_data["Printf"];
+var List = global_data["List_"];
+var Not_found = global_data["Not_found"];
 var v9 = [0,91];
 var v8 = [0,123];
 var v_ = [0,caml_new_string("scanf.ml"),1455,13];
@@ -250,7 +252,7 @@ function next_char(ib) {
       ib[1] = 1;
       return null_char;
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(yd);
+    throw runtime["caml_wrap_thrown_exception_reraise"](yd);
   }
 }
 
@@ -258,7 +260,7 @@ function peek_char(ib) {return ib[3] ? ib[2] : next_char(ib);}
 
 function checked_peek_char(ib) {
   var c = peek_char(ib);
-  if (ib[1]) {throw runtime.caml_wrap_thrown_exception(End_of_file);}
+  if (ib[1]) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
   return c;
 }
 
@@ -328,7 +330,9 @@ function from_string(s) {
   var i = [0,0];
   var len = caml_ml_string_length(s);
   function next(param) {
-    if (len <= i[1]) {throw runtime.caml_wrap_thrown_exception(End_of_file);}
+    if (len <= i[1]) {
+      throw runtime["caml_wrap_thrown_exception"](End_of_file);
+    }
     var c = caml_string_get(s, i[1]);
     i[1] += 1;
     return c;
@@ -344,21 +348,21 @@ var len = 1024;
 
 function scan_close_at_end(ic) {
   caml_call1(Pervasives[81], ic);
-  throw runtime.caml_wrap_thrown_exception(End_of_file);
+  throw runtime["caml_wrap_thrown_exception"](End_of_file);
 }
 
 function scan_raise_at_end(ic) {
-  throw runtime.caml_wrap_thrown_exception(End_of_file);
+  throw runtime["caml_wrap_thrown_exception"](End_of_file);
 }
 
 function from_ic(scan_close_ic, iname, ic) {
-  var buf = runtime.caml_create_bytes(1024);
+  var buf = runtime["caml_create_bytes"](1024);
   var i = [0,0];
   var lim = [0,0];
   var eof = [0,0];
   function next(param) {
     if (i[1] < lim[1]) {var c = caml_bytes_get(buf, i[1]);i[1] += 1;return c;}
-    if (eof[1]) {throw runtime.caml_wrap_thrown_exception(End_of_file);}
+    if (eof[1]) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
     lim[1] = caml_call4(Pervasives[72], ic, buf, 0, len);
     return 0 === lim[1] ?
       (eof[1] = 1,caml_call1(scan_close_ic, ic)) :
@@ -416,16 +420,16 @@ function memo_from_ic(scan_close_ic, ic) {
       memo[1] = [0,[0,ic,ib],memo[1]];
       return ib;
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(x4);
+    throw runtime["caml_wrap_thrown_exception_reraise"](x4);
   }
 }
 
 function memo_from_channel(x2) {return memo_from_ic(scan_raise_at_end, x2);}
 
-var Scan_failure = [248,cst_Scanf_Scan_failure,runtime.caml_fresh_oo_id(0)];
+var Scan_failure = [248,cst_Scanf_Scan_failure,runtime["caml_fresh_oo_id"](0)];
 
 function bad_input(s) {
-  throw runtime.caml_wrap_thrown_exception([0,Scan_failure,s]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Scan_failure,s]);
 }
 
 function bad_input_escape(c) {return bad_input(caml_call2(Printf[4], vV, c));}
@@ -519,7 +523,7 @@ function integer_conversion_of_char(param) {
       case 32:return 5
       }
   }
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,v0]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,v0]);
 }
 
 function token_int_literal(conv, ib) {
@@ -557,7 +561,7 @@ function token_int(conv, ib) {
 }
 
 function token_float(ib) {
-  return runtime.caml_float_of_string(token_string(ib));
+  return runtime["caml_float_of_string"](token_string(ib));
 }
 
 function token_nativeint(conv, ib) {
@@ -569,7 +573,7 @@ function token_int32(conv, ib) {
 }
 
 function token_int64(conv, ib) {
-  return runtime.caml_int64_of_string(token_int_literal(conv, ib));
+  return runtime["caml_int64_of_string"](token_int_literal(conv, ib));
 }
 
 function scan_decimal_digit_star(width, ib) {
@@ -1319,7 +1323,7 @@ function scan_chars_in_char_set(char_set, scan_indic, width, ib) {
 function scanf_bad_input(ib, x) {
   if (x[1] === Scan_failure) var s = x[2];
   else {
-    if (x[1] !== Failure) {throw runtime.caml_wrap_thrown_exception(x);}
+    if (x[1] !== Failure) {throw runtime["caml_wrap_thrown_exception"](x);}
     var s = x[2];
   }
   var i = char_count(ib);
@@ -1999,7 +2003,7 @@ function make_scanf(ib, fmt, readers) {
       catch(exn) {
         exn = caml_wrap_exception(exn);
         if (exn[1] !== Failure) {
-          throw runtime.caml_wrap_thrown_exception_reraise(exn);
+          throw runtime["caml_wrap_thrown_exception_reraise"](exn);
         }
         var msg = exn[2];
         var ww = bad_input(msg);
@@ -2028,7 +2032,7 @@ function make_scanf(ib, fmt, readers) {
       catch(exn) {
         exn = caml_wrap_exception(exn);
         if (exn[1] !== Failure) {
-          throw runtime.caml_wrap_thrown_exception_reraise(exn);
+          throw runtime["caml_wrap_thrown_exception_reraise"](exn);
         }
         var msg__0 = exn[2];
         var wy = bad_input(msg__0);
@@ -2127,7 +2131,7 @@ function make_scanf(ib, fmt, readers) {
       var fmt__16 = match__7[1];
       var match__8 = make_scanf(ib, fmt__16, readers);
       if (match__8) {var arg_rest = match__8[2];return arg_rest;}
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,v_]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,v_]);
     default:
       return caml_call1(
         Pervasives[1],
@@ -2164,7 +2168,7 @@ function kscanf(ib, ef, param) {
       else if (exc === End_of_file) var switch__0 = 0;
       else {
         if (exc[1] !== Invalid_argument) {
-          throw runtime.caml_wrap_thrown_exception_reraise(exc);
+          throw runtime["caml_wrap_thrown_exception_reraise"](exc);
         }
         var msg = exc[2];
         var wl = caml_call1(String[13], str);
@@ -2200,7 +2204,7 @@ function bscanf_format(ib, format, f) {
   catch(exn) {
     exn = caml_wrap_exception(exn);
     if (exn[1] !== Failure) {
-      throw runtime.caml_wrap_thrown_exception_reraise(exn);
+      throw runtime["caml_wrap_thrown_exception_reraise"](exn);
     }
     var msg = exn[2];
     var wh = bad_input(msg);
@@ -2283,7 +2287,7 @@ var Scanf = [
   kfscanf
 ];
 
-runtime.caml_register_global(66, Scanf, "Scanf");
+runtime["caml_register_global"](66, Scanf, "Scanf");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Scanf;

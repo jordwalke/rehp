@@ -12,48 +12,50 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_bytes_get = runtime.caml_bytes_get;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_create_bytes = runtime.caml_create_bytes;
-var caml_ml_bytes_length = runtime.caml_ml_bytes_length;
-var caml_new_string = runtime.caml_new_string;
+var caml_bytes_get = runtime["caml_bytes_get"];
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var caml_new_string = runtime["caml_new_string"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Lexing_lex_refill_cannot_grow_buffer = caml_new_string(
   "Lexing.lex_refill: cannot grow buffer"
 );
 var dummy_pos = [0,caml_new_string(""),0,0,-1];
 var zero_pos = [0,caml_new_string(""),1,0,0];
-var Bytes = global_data.Bytes;
-var Pervasives = global_data.Pervasives;
-var Sys = global_data.Sys;
+var Bytes = global_data["Bytes"];
+var Pervasives = global_data["Pervasives"];
+var Sys = global_data["Sys"];
 
 function engine(tbl, state, buf) {
-  var result = runtime.caml_lex_engine(tbl, state, buf);
+  var result = runtime["caml_lex_engine"](tbl, state, buf);
   if (0 <= result) {
     buf[11] = buf[12];
     var e4 = buf[12];
@@ -63,7 +65,7 @@ function engine(tbl, state, buf) {
 }
 
 function new_engine(tbl, state, buf) {
-  var result = runtime.caml_new_lex_engine(tbl, state, buf);
+  var result = runtime["caml_new_lex_engine"](tbl, state, buf);
   if (0 <= result) {
     buf[11] = buf[12];
     var e3 = buf[12];
@@ -174,7 +176,7 @@ function from_string(s) {
   var eK = 0;
   var eL = 0;
   var eM = 0;
-  var eN = runtime.caml_ml_string_length(s);
+  var eN = runtime["caml_ml_string_length"](s);
   var eO = caml_call1(Bytes[5], s);
   return [
     0,
@@ -266,7 +268,7 @@ var Lexing = [
   new_engine
 ];
 
-runtime.caml_register_global(6, Lexing, "Lexing");
+runtime["caml_register_global"](6, Lexing, "Lexing");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Lexing;

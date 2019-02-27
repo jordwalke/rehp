@@ -29,8 +29,8 @@ final class ListLabels {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $global_data = $runtime->caml_get_global_data();
-    $List = $global_data->List_;
+    $global_data = $runtime["caml_get_global_data"]();
+    $List = $global_data["List_"];
     $length = $List[1];
     $compare_lengths = $List[2];
     $compare_length_with = $List[3];
@@ -139,7 +139,7 @@ final class ListLabels {
       $merge
     );
     
-    $runtime->caml_register_global(1, $ListLabels, "ListLabels");
+    $runtime["caml_register_global"](1, $ListLabels, "ListLabels");
 
   }
 }

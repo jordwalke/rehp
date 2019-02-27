@@ -32,33 +32,33 @@ final class Parsing {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_fresh_oo_id = $runtime->caml_fresh_oo_id;
-    $caml_make_vect = $runtime->caml_make_vect;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_fresh_oo_id = $runtime["caml_fresh_oo_id"];
+    $caml_make_vect = $runtime["caml_make_vect"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_syntax_error = $caml_new_string("syntax error");
     $cst_Parsing_YYexit = $caml_new_string("Parsing.YYexit");
     $cst_Parsing_Parse_error = $caml_new_string("Parsing.Parse_error");
-    $Obj = $global_data->Obj;
-    $Array = $global_data->Array_;
-    $Lexing = $global_data->Lexing;
+    $Obj = $global_data["Obj"];
+    $Array = $global_data["Array_"];
+    $Lexing = $global_data["Lexing"];
     $YYexit = V(248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0));
     $Parse_error = V(248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0));
     $env = V(
@@ -109,7 +109,11 @@ final class Parsing {
         $cmd__0 = $cmd;
         $arg__0 = $arg;
         for (;;) {
-          $match = $runtime->caml_parse_engine($tables, $env, $cmd__0, $arg__0
+          $match = $runtime["caml_parse_engine"](
+            $tables,
+            $env,
+            $cmd__0,
+            $arg__0
           );
           switch($match) {
             // FALLTHROUGH
@@ -122,7 +126,7 @@ final class Parsing {
               continue;
             // FALLTHROUGH
             case 1:
-              throw $runtime->caml_wrap_thrown_exception($Parse_error);
+              throw $runtime["caml_wrap_thrown_exception"]($Parse_error);
             // FALLTHROUGH
             case 2:
               $grow_stacks(0);
@@ -150,7 +154,7 @@ final class Parsing {
               catch(\Throwable $fj) {
                 $fj = $caml_wrap_exception($fj);
                 if ($fj !== $Parse_error) {
-                  throw $runtime->caml_wrap_thrown_exception_reraise($fj);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($fj);
                 }
                 $fe = 0;
                 $ff = 5;
@@ -194,7 +198,7 @@ final class Parsing {
         $current_lookahead_fun[1] =
           function($tok) use ($Obj,$caml_call1,$caml_check_bound,$curr_char,$runtime,$tables) {
             if ($caml_call1($Obj[1], $tok)) {
-              $fd = $runtime->caml_obj_tag($tok);
+              $fd = $runtime["caml_obj_tag"]($tok);
               return $caml_check_bound($tables[3], $fd)[$fd + 1] === $curr_char
                 ? 1
                 : (0);
@@ -203,7 +207,7 @@ final class Parsing {
               ? 1
               : (0);
           };
-        throw $runtime->caml_wrap_thrown_exception_reraise($exn);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
       }
     };
     $peek_val = function($env, $n) use ($caml_check_bound) {
@@ -219,7 +223,7 @@ final class Parsing {
             $st = $caml_check_bound($env[3], $e9)[$e9 + 1];
             $e_ = ($env[11] - $i__0 | 0) + 1 | 0;
             $en = $caml_check_bound($env[4], $e_)[$e_ + 1];
-            if ($runtime->caml_notequal($st, $en)) {return $st;}
+            if ($runtime["caml_notequal"]($st, $en)) {return $st;}
             $i__1 = $i__0 + -1 | 0;
             $i__0 = $i__1;
             continue;
@@ -269,7 +273,7 @@ final class Parsing {
       $clear_parser,
       $Parse_error,
       function($e5) use ($runtime) {
-        return $runtime->caml_set_parser_trace($e5);
+        return $runtime["caml_set_parser_trace"]($e5);
       },
       $YYexit,
       $yyparse,
@@ -278,7 +282,7 @@ final class Parsing {
       $parse_error
     );
     
-    $runtime->caml_register_global(7, $Parsing, "Parsing");
+    $runtime["caml_register_global"](7, $Parsing, "Parsing");
 
   }
 }

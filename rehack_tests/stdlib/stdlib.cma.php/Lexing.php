@@ -32,47 +32,47 @@ final class Lexing {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_bytes_get = $runtime->caml_bytes_get;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_create_bytes = $runtime->caml_create_bytes;
-    $caml_ml_bytes_length = $runtime->caml_ml_bytes_length;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_bytes_get = $runtime["caml_bytes_get"];
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_create_bytes = $runtime["caml_create_bytes"];
+    $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Lexing_lex_refill_cannot_grow_buffer = $caml_new_string(
       "Lexing.lex_refill: cannot grow buffer"
     );
     $dummy_pos = R(0, $caml_new_string(""), 0, 0, -1);
     $zero_pos = R(0, $caml_new_string(""), 1, 0, 0);
-    $Bytes = $global_data->Bytes;
-    $Pervasives = $global_data->Pervasives;
-    $Sys = $global_data->Sys;
+    $Bytes = $global_data["Bytes"];
+    $Pervasives = $global_data["Pervasives"];
+    $Sys = $global_data["Sys"];
     $engine = function($tbl, $state, $buf) use ($runtime) {
-      $result = $runtime->caml_lex_engine($tbl, $state, $buf);
+      $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
         $e4 = $buf[12];
@@ -81,7 +81,7 @@ final class Lexing {
       return $result;
     };
     $new_engine = function($tbl, $state, $buf) use ($runtime) {
-      $result = $runtime->caml_new_lex_engine($tbl, $state, $buf);
+      $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
         $e3 = $buf[12];
@@ -202,7 +202,7 @@ final class Lexing {
       $eK = 0;
       $eL = 0;
       $eM = 0;
-      $eN = $runtime->caml_ml_string_length($s);
+      $eN = $runtime["caml_ml_string_length"]($s);
       $eO = $caml_call1($Bytes[5], $s);
       return V(
         0,
@@ -283,7 +283,7 @@ final class Lexing {
       $new_engine
     );
     
-    $runtime->caml_register_global(6, $Lexing, "Lexing");
+    $runtime["caml_register_global"](6, $Lexing, "Lexing");
 
   }
 }

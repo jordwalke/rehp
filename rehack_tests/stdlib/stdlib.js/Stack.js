@@ -10,20 +10,22 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime.caml_new_string;
+var caml_new_string = runtime["caml_new_string"];
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Stack_Empty = caml_new_string("Stack.Empty");
-var List = global_data.List_;
-var Empty = [248,cst_Stack_Empty,runtime.caml_fresh_oo_id(0)];
+var List = global_data["List_"];
+var Empty = [248,cst_Stack_Empty,runtime["caml_fresh_oo_id"](0)];
 
 function create(param) {return [0,0,0];}
 
@@ -42,13 +44,13 @@ function pop(s) {
     s[2] = s[2] + -1 | 0;
     return hd;
   }
-  throw runtime.caml_wrap_thrown_exception(Empty);
+  throw runtime["caml_wrap_thrown_exception"](Empty);
 }
 
 function top(s) {
   var gS = s[1];
   if (gS) {var hd = gS[1];return hd;}
-  throw runtime.caml_wrap_thrown_exception(Empty);
+  throw runtime["caml_wrap_thrown_exception"](Empty);
 }
 
 function is_empty(s) {return 0 === s[1] ? 1 : 0;}
@@ -61,7 +63,7 @@ function fold(f, acc, s) {return caml_call3(List[20], f, acc, s[1]);}
 
 var Stack = [0,Empty,create,push,pop,top,clear,copy,is_empty,length,iter,fold];
 
-runtime.caml_register_global(2, Stack, "Stack");
+runtime["caml_register_global"](2, Stack, "Stack");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Stack;

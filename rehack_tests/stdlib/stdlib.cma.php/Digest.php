@@ -36,33 +36,33 @@ final class Digest {
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $left_shift_32 = $runtime->left_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_bytes_unsafe_set = $runtime->caml_bytes_unsafe_set;
-    $caml_create_bytes = $runtime->caml_create_bytes;
-    $caml_md5_string = $runtime->caml_md5_string;
-    $caml_ml_string_length = $runtime->caml_ml_string_length;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_string_get = $runtime->caml_string_get;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
+    $caml_create_bytes = $runtime["caml_create_bytes"];
+    $caml_md5_string = $runtime["caml_md5_string"];
+    $caml_ml_string_length = $runtime["caml_ml_string_length"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_string_get = $runtime["caml_string_get"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Digest_from_hex__0 = $caml_new_string("Digest.from_hex");
     $cst_Digest_from_hex = $caml_new_string("Digest.from_hex");
     $cst_Digest_to_hex = $caml_new_string("Digest.to_hex");
     $cst_Digest_substring = $caml_new_string("Digest.substring");
-    $Invalid_argument = $global_data->Invalid_argument;
-    $Pervasives = $global_data->Pervasives;
-    $Char = $global_data->Char;
-    $Bytes = $global_data->Bytes;
-    $String = $global_data->String_;
+    $Invalid_argument = $global_data["Invalid_argument"];
+    $Pervasives = $global_data["Pervasives"];
+    $Char = $global_data["Char"];
+    $Bytes = $global_data["Bytes"];
+    $String = $global_data["String_"];
     $compare = $String[33];
     $equal = $String[34];
     $string = function($str) use ($caml_md5_string,$caml_ml_string_length) {
@@ -84,11 +84,11 @@ final class Digest {
     };
     $file = function($filename) use ($Pervasives,$caml_call1,$caml_wrap_exception,$runtime) {
       $ic = $caml_call1($Pervasives[68], $filename);
-      try {$d = $runtime->caml_md5_chan($ic, -1);}
+      try {$d = $runtime["caml_md5_chan"]($ic, -1);}
       catch(\Throwable $e) {
         $e = $caml_wrap_exception($e);
         $caml_call1($Pervasives[81], $ic);
-        throw $runtime->caml_wrap_thrown_exception_reraise($e);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
       }
       $caml_call1($Pervasives[81], $ic);
       return $d;
@@ -140,7 +140,7 @@ final class Digest {
           $switcher = $c + -48 | 0;
           if (! (9 < $unsigned_right_shift_32($switcher, 0))) {return $c - 48 | 0;}
         }
-        throw $runtime->caml_wrap_thrown_exception(
+        throw $runtime["caml_wrap_thrown_exception"](
                 V(0, $Invalid_argument, $cst_Digest_from_hex__0)
               );
       };
@@ -152,7 +152,7 @@ final class Digest {
       $i = 0;
       for (;;) {
         $pS = $byte__0(2 * $i | 0);
-        $runtime->caml_bytes_set($result, $i, $caml_call1($Char[1], $pS));
+        $runtime["caml_bytes_set"]($result, $i, $caml_call1($Char[1], $pS));
         $pT = $i + 1 | 0;
         if (15 !== $i) {$i = $pT;continue;}
         return $caml_call1($Bytes[42], $result);
@@ -173,7 +173,7 @@ final class Digest {
       $from_hex
     );
     
-    $runtime->caml_register_global(9, $Digest, "Digest");
+    $runtime["caml_register_global"](9, $Digest, "Digest");
 
   }
 }

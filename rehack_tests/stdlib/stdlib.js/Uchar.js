@@ -10,18 +10,18 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_format_int = runtime.caml_format_int;
-var caml_new_string = runtime.caml_new_string;
+var caml_format_int = runtime["caml_format_int"];
+var caml_new_string = runtime["caml_new_string"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_is_not_a_latin1_character = caml_new_string(
   " is not a latin1 character"
 );
@@ -33,7 +33,7 @@ var cst_is_not_an_Unicode_scalar_value = caml_new_string(
 var cst_X = caml_new_string("%X");
 var err_no_pred = caml_new_string("U+0000 has no predecessor");
 var err_no_succ = caml_new_string("U+10FFFF has no successor");
-var Pervasives = global_data.Pervasives;
+var Pervasives = global_data["Pervasives"];
 
 function err_not_sv(i) {
   return caml_call2(
@@ -101,7 +101,7 @@ function unsafe_to_char(bb) {return bb;}
 
 function equal(ba, a_) {return ba === a_ ? 1 : 0;}
 
-function compare(a9, a8) {return runtime.caml_int_compare(a9, a8);}
+function compare(a9, a8) {return runtime["caml_int_compare"](a9, a8);}
 
 function hash(a7) {return a7;}
 
@@ -128,7 +128,7 @@ var Uchar = [
   hash
 ];
 
-runtime.caml_register_global(8, Uchar, "Uchar");
+runtime["caml_register_global"](8, Uchar, "Uchar");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Uchar;

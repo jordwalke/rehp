@@ -33,15 +33,15 @@ final class Queue {
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $cst_Queue_Empty = $runtime->caml_new_string("Queue.Empty");
-    $Empty = V(248, $cst_Queue_Empty, $runtime->caml_fresh_oo_id(0));
+    $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
+    $Empty = V(248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0));
     $create = function($param) {return V(0, 0, 0, 0);};
     $clear = function($q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
     $add = function($x, $q) {
@@ -66,7 +66,7 @@ final class Queue {
     $peek = function($q) use ($Empty,$runtime) {
       $gZ = $q[2];
       if ($gZ) {$content = $gZ[1];return $content;}
-      throw $runtime->caml_wrap_thrown_exception($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
     $take = function($q) use ($Empty,$clear,$runtime) {
       $gW = $q[2];
@@ -79,7 +79,7 @@ final class Queue {
            : (($q[2] = $gY) || true ? $gX : ($gX))
           : ($clear($q) || true ? $gX : ($gX));
       }
-      throw $runtime->caml_wrap_thrown_exception($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
     $copy = function($q_res, $prev, $cell) {
       $prev__0 = $prev;
@@ -179,7 +179,7 @@ final class Queue {
       $transfer
     );
     
-    $runtime->caml_register_global(1, $Queue, "Queue");
+    $runtime["caml_register_global"](1, $Queue, "Queue");
 
   }
 }

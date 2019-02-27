@@ -12,24 +12,24 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_blit_bytes = runtime.caml_blit_bytes;
-var caml_bytes_unsafe_get = runtime.caml_bytes_unsafe_get;
-var caml_bytes_unsafe_set = runtime.caml_bytes_unsafe_set;
-var caml_create_bytes = runtime.caml_create_bytes;
-var caml_fill_bytes = runtime.caml_fill_bytes;
-var caml_ml_bytes_length = runtime.caml_ml_bytes_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_blit_bytes = runtime["caml_blit_bytes"];
+var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
+var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_fill_bytes = runtime["caml_fill_bytes"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_String_rcontains_from_Bytes_rcontains_from = caml_new_string(
   "String.rcontains_from / Bytes.rcontains_from"
 );
@@ -56,9 +56,9 @@ var cst_Bytes_blit = caml_new_string("Bytes.blit");
 var cst_String_fill_Bytes_fill = caml_new_string("String.fill / Bytes.fill");
 var cst_Bytes_extend = caml_new_string("Bytes.extend");
 var cst_String_sub_Bytes_sub = caml_new_string("String.sub / Bytes.sub");
-var Not_found = global_data.Not_found;
-var Char = global_data.Char;
-var Pervasives = global_data.Pervasives;
+var Not_found = global_data["Not_found"];
+var Char = global_data["Char"];
+var Pervasives = global_data["Pervasives"];
 
 function make(n, c) {
   var s = caml_create_bytes(n);
@@ -163,10 +163,10 @@ function blit(s1, ofs1, s2, ofs2, len) {
 function blit_string(s1, ofs1, s2, ofs2, len) {
   if (0 <= len) {
     if (0 <= ofs1) {
-      if (! ((runtime.caml_ml_string_length(s1) - len | 0) < ofs1)) {
+      if (! ((runtime["caml_ml_string_length"](s1) - len | 0) < ofs1)) {
         if (0 <= ofs2) {
           if (! ((caml_ml_bytes_length(s2) - len | 0) < ofs2)) {
-            return runtime.caml_blit_string(s1, ofs1, s2, ofs2, len);
+            return runtime["caml_blit_string"](s1, ofs1, s2, ofs2, len);
           }
         }
       }
@@ -469,7 +469,7 @@ function uncapitalize_ascii(s) {return apply1(Char[5], s);}
 function index_rec(s, lim, i, c) {
   var i__0 = i;
   for (; ; ) {
-    if (lim <= i__0) {throw runtime.caml_wrap_thrown_exception(Not_found);}
+    if (lim <= i__0) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
     if (caml_bytes_unsafe_get(s, i__0) === c) {return i__0;}
     var i__1 = i__0 + 1 | 0;
     var i__0 = i__1;
@@ -518,7 +518,7 @@ function rindex_rec(s, i, c) {
       var i__0 = i__1;
       continue;
     }
-    throw runtime.caml_wrap_thrown_exception(Not_found);
+    throw runtime["caml_wrap_thrown_exception"](Not_found);
   }
 }
 
@@ -568,7 +568,7 @@ function contains_from(s, i, c) {
       catch(bt) {
         bt = caml_wrap_exception(bt);
         if (bt === Not_found) {return 0;}
-        throw runtime.caml_wrap_thrown_exception_reraise(bt);
+        throw runtime["caml_wrap_thrown_exception_reraise"](bt);
       }
     }
   }
@@ -587,7 +587,7 @@ function rcontains_from(s, i, c) {
       catch(br) {
         br = caml_wrap_exception(br);
         if (br === Not_found) {return 0;}
-        throw runtime.caml_wrap_thrown_exception_reraise(br);
+        throw runtime["caml_wrap_thrown_exception_reraise"](br);
       }
     }
   }
@@ -597,7 +597,7 @@ function rcontains_from(s, i, c) {
   );
 }
 
-function compare(x, y) {return runtime.caml_bytes_compare(x, y);}
+function compare(x, y) {return runtime["caml_bytes_compare"](x, y);}
 
 function uppercase(s) {return map(Char[4], s);}
 
@@ -653,12 +653,12 @@ var Bytes = [
   capitalize_ascii,
   uncapitalize_ascii,
   compare,
-  function(bn, bm) {return runtime.caml_bytes_equal(bn, bm);},
+  function(bn, bm) {return runtime["caml_bytes_equal"](bn, bm);},
   bl,
   bk
 ];
 
-runtime.caml_register_global(15, Bytes, "Bytes");
+runtime["caml_register_global"](15, Bytes, "Bytes");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Bytes;

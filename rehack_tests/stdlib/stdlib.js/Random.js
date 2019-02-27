@@ -15,43 +15,43 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_greaterthan = runtime.caml_greaterthan;
-var caml_int64_of_int32 = runtime.caml_int64_of_int32;
-var caml_int64_or = runtime.caml_int64_or;
-var caml_int64_shift_left = runtime.caml_int64_shift_left;
-var caml_int64_sub = runtime.caml_int64_sub;
-var caml_lessequal = runtime.caml_lessequal;
-var caml_mod = runtime.caml_mod;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_get = runtime.caml_string_get;
-var caml_sys_random_seed = runtime.caml_sys_random_seed;
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_greaterthan = runtime["caml_greaterthan"];
+var caml_int64_of_int32 = runtime["caml_int64_of_int32"];
+var caml_int64_or = runtime["caml_int64_or"];
+var caml_int64_shift_left = runtime["caml_int64_shift_left"];
+var caml_int64_sub = runtime["caml_int64_sub"];
+var caml_lessequal = runtime["caml_lessequal"];
+var caml_mod = runtime["caml_mod"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_sys_random_seed = runtime["caml_sys_random_seed"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Random_int64 = caml_new_string("Random.int64");
 var cst_Random_int32 = caml_new_string("Random.int32");
 var cst_Random_int = caml_new_string("Random.int");
 var cst_x = caml_new_string("x");
-var Int32 = global_data.Int32;
-var Int64 = global_data.Int64;
-var Pervasives = global_data.Pervasives;
-var Digest = global_data.Digest;
-var Array = global_data.Array_;
-var Nativeint = global_data.Nativeint;
+var Int32 = global_data["Int32"];
+var Int64 = global_data["Int64"];
+var Pervasives = global_data["Pervasives"];
+var Digest = global_data["Digest"];
+var Array = global_data["Array_"];
+var Nativeint = global_data["Nativeint"];
 var pX = [255,1,0,0];
 var pY = [255,0,0,0];
 var pZ = [
@@ -113,7 +113,7 @@ var pZ = [
   801085050
 ];
 
-function new_state(param) {return [0,runtime.caml_make_vect(55, 0),0];}
+function new_state(param) {return [0,runtime["caml_make_vect"](55, 0),0];}
 
 function assign(st1, st2) {
   caml_call5(Array[10], st2[1], 0, st1[1], 0, 55);
@@ -223,11 +223,11 @@ function int64aux(s, n) {
     var b2 = caml_int64_shift_left(caml_int64_of_int32(bits(s)), 30);
     var b3 = caml_int64_shift_left(caml_int64_of_int32(bits(s) & 7), 60);
     var r = caml_int64_or(b1, caml_int64_or(b2, b3));
-    var v = runtime.caml_int64_mod(r, n);
+    var v = runtime["caml_int64_mod"](r, n);
     if (
     caml_greaterthan(
       caml_int64_sub(r, v),
-      runtime.caml_int64_add(caml_int64_sub(Int64[7], n), pX)
+      runtime["caml_int64_add"](caml_int64_sub(Int64[7], n), pX)
     )
     ) {continue;}
     return v;
@@ -243,7 +243,7 @@ function int64(s, bound) {
 var nativeint = 32 === Nativeint[7] ?
   function(s, bound) {return int32(s, bound);} :
   function(s, bound) {
-   return runtime.caml_int64_to_int32(int64(s, caml_int64_of_int32(bound)));
+   return runtime["caml_int64_to_int32"](int64(s, caml_int64_of_int32(bound)));
  };
 
 function rawfloat(s) {
@@ -299,7 +299,7 @@ var Random = [
   set_state
 ];
 
-runtime.caml_register_global(16, Random, "Random");
+runtime["caml_register_global"](16, Random, "Random");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Random;

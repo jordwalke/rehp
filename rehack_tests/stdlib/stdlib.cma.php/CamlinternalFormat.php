@@ -67,44 +67,44 @@ final class CamlinternalFormat {
     $left_shift_32 = $runtime->left_shift_32;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_blit_string = $runtime->caml_blit_string;
-    $caml_bytes_set = $runtime->caml_bytes_set;
-    $caml_create_bytes = $runtime->caml_create_bytes;
-    $caml_format_int = $runtime->caml_format_int;
-    $caml_ml_string_length = $runtime->caml_ml_string_length;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_notequal = $runtime->caml_notequal;
-    $caml_string_get = $runtime->caml_string_get;
-    $caml_string_notequal = $runtime->caml_string_notequal;
-    $caml_trampoline = $runtime->caml_trampoline;
-    $caml_trampoline_return = $runtime->caml_trampoline_return;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_blit_string = $runtime["caml_blit_string"];
+    $caml_bytes_set = $runtime["caml_bytes_set"];
+    $caml_create_bytes = $runtime["caml_create_bytes"];
+    $caml_format_int = $runtime["caml_format_int"];
+    $caml_ml_string_length = $runtime["caml_ml_string_length"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_notequal = $runtime["caml_notequal"];
+    $caml_string_get = $runtime["caml_string_get"];
+    $caml_string_notequal = $runtime["caml_string_notequal"];
+    $caml_trampoline = $runtime["caml_trampoline"];
+    $caml_trampoline_return = $runtime["caml_trampoline_return"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_c = $caml_new_string("%c");
     $cst_s = $caml_new_string("%s");
     $cst_i = $caml_new_string("%i");
@@ -249,16 +249,16 @@ final class CamlinternalFormat {
     $cst_CamlinternalFormat_Type_mismatch = $caml_new_string(
       "CamlinternalFormat.Type_mismatch"
     );
-    $Assert_failure = $global_data->Assert_failure;
-    $CamlinternalFormatBasics = $global_data->CamlinternalFormatBasics;
-    $Pervasives = $global_data->Pervasives;
-    $Buffer = $global_data->Buffer;
-    $Failure = $global_data->Failure;
-    $Not_found = $global_data->Not_found;
-    $String = $global_data->String_;
-    $Sys = $global_data->Sys;
-    $Char = $global_data->Char;
-    $Bytes = $global_data->Bytes;
+    $Assert_failure = $global_data["Assert_failure"];
+    $CamlinternalFormatBasics = $global_data["CamlinternalFormatBasics"];
+    $Pervasives = $global_data["Pervasives"];
+    $Buffer = $global_data["Buffer"];
+    $Failure = $global_data["Failure"];
+    $Not_found = $global_data["Not_found"];
+    $String = $global_data["String_"];
+    $Sys = $global_data["Sys"];
+    $Char = $global_data["Char"];
+    $Bytes = $global_data["Bytes"];
     $hy = R(0, $caml_new_string("camlinternalFormat.ml"), 846, 23);
     $hJ = R(0, $caml_new_string("camlinternalFormat.ml"), 810, 21);
     $hB = R(0, $caml_new_string("camlinternalFormat.ml"), 811, 21);
@@ -634,7 +634,7 @@ final class CamlinternalFormat {
     $add_in_char_set = function($char_set, $c) use ($Pervasives,$caml_bytes_set,$caml_call1,$left_shift_32,$runtime,$unsigned_right_shift_32) {
       $str_ind = $unsigned_right_shift_32($c, 3) | 0;
       $mask = $left_shift_32(1, $c & 7);
-      $m4 = $runtime->caml_bytes_get($char_set, $str_ind) | $mask;
+      $m4 = $runtime["caml_bytes_get"]($char_set, $str_ind) | $mask;
       return $caml_bytes_set(
         $char_set,
         $str_ind,
@@ -755,7 +755,7 @@ final class CamlinternalFormat {
       return V(0, 0, $caml_create_bytes($init_size));
     };
     $buffer_check_size = function($buf, $overhead) use ($Bytes,$Pervasives,$caml_call2,$caml_call5,$caml_create_bytes,$runtime) {
-      $len = $runtime->caml_ml_bytes_length($buf[2]);
+      $len = $runtime["caml_ml_bytes_length"]($buf[2]);
       $min_len = $buf[1] + $overhead | 0;
       $mZ = $len < $min_len ? 1 : (0);
       if ($mZ) {
@@ -2172,9 +2172,7 @@ final class CamlinternalFormat {
                 break;
               // FALLTHROUGH
               default:
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $hy)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hy));
               }
           }
         }
@@ -2640,9 +2638,7 @@ final class CamlinternalFormat {
                   }
               }
               if ($switch__9) {
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $hH)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hH));
               }
               break;
             // FALLTHROUGH
@@ -2701,9 +2697,7 @@ final class CamlinternalFormat {
                   }
               }
               if ($switch__10) {
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $hI)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hI));
               }
               break;
             // FALLTHROUGH
@@ -2713,9 +2707,7 @@ final class CamlinternalFormat {
                 $rest2__9 = $match[1];
                 return V(10, $trans->contents($l_, $rest2__9));
               }
-              throw $runtime->caml_wrap_thrown_exception(
-                      V(0, $Assert_failure, $hJ)
-                    );
+              throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hJ));
             // FALLTHROUGH
             case 11:
               $ma = $ty1[1];
@@ -2737,9 +2729,7 @@ final class CamlinternalFormat {
                   }
               }
               if ($switch__11) {
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $hK)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hK));
               }
               break;
             // FALLTHROUGH
@@ -2768,9 +2758,7 @@ final class CamlinternalFormat {
                   }
               }
               if ($switch__12) {
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $hL)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hL));
               }
               break;
             // FALLTHROUGH
@@ -2804,9 +2792,7 @@ final class CamlinternalFormat {
                   }
               }
               if ($switch__13) {
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $hM)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hM));
               }
               break;
             // FALLTHROUGH
@@ -2845,53 +2831,35 @@ final class CamlinternalFormat {
                   }
               }
               if ($switch__14) {
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $hN)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hN));
               }
             }
         }
         switch($switch__0) {
           // FALLTHROUGH
           case 0:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hB)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hB));
           // FALLTHROUGH
           case 1:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hC)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hC));
           // FALLTHROUGH
           case 2:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hD)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hD));
           // FALLTHROUGH
           case 3:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hE)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hE));
           // FALLTHROUGH
           case 4:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hF)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hF));
           // FALLTHROUGH
           case 5:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hz)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hz));
           // FALLTHROUGH
           case 6:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hA)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hA));
           // FALLTHROUGH
           default:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hG)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hG));
           }
       };
     $fmtty_of_padding_fmtty = function($pad, $fmtty) use ($is_int) {
@@ -3230,7 +3198,7 @@ final class CamlinternalFormat {
     $Type_mismatch = V(
       248,
       $cst_CamlinternalFormat_Type_mismatch,
-      $runtime->caml_fresh_oo_id(0)
+      $runtime["caml_fresh_oo_id"](0)
     );
     $type_padding = function($pad, $match) use ($Type_mismatch,$is_int,$runtime) {
       if ($is_int($pad)) {
@@ -3247,7 +3215,7 @@ final class CamlinternalFormat {
           $padty__0 = $pad[1];
           return V(0, V(1, $padty__0), $rest);
         }
-        throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+        throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
       }
     };
     $type_padprec = function($pad, $prec, $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_padding) {
@@ -3264,7 +3232,7 @@ final class CamlinternalFormat {
           $pad__1 = $match[1];
           return V(0, $pad__1, 1, $rest__0);
         }
-        throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+        throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
       }
       $rest__1 = $match[2];
       $pad__2 = $match[1];
@@ -3274,7 +3242,7 @@ final class CamlinternalFormat {
     $type_format = function($fmt, $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_format_gen) {
       $lR = $type_format_gen->contents($fmt, $fmtty);
       if ($is_int($lR[2])) {$fmt__0 = $lR[1];return $fmt__0;}
-      throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+      throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
     };
     $type_ignored_param_one = function($ign, $fmt, $fmtty) use ($type_format_gen) {
       $match = $type_format_gen->contents($fmt, $fmtty);
@@ -3300,7 +3268,7 @@ final class CamlinternalFormat {
               $fmt__0 = $match[1];
               return V(0, V(23, 2, $fmt__0), $fmtty__0);
             }
-            throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
           // FALLTHROUGH
           default:
             return $type_ignored_param_one($ign, $fmt, $fmtty);
@@ -3441,7 +3409,7 @@ final class CamlinternalFormat {
                 $fmt__2 = $match__2[1];
                 return V(0, V(2, $lo, $fmt__2), $fmtty__1);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 3:
               $fmt_rest__2 = $fmt[2];
@@ -3459,7 +3427,7 @@ final class CamlinternalFormat {
                 $fmt__3 = $match__3[1];
                 return V(0, V(3, $lr, $fmt__3), $fmtty__2);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 4:
               $fmt_rest__3 = $fmt[4];
@@ -3480,7 +3448,7 @@ final class CamlinternalFormat {
                 $fmt__4 = $match__4[1];
                 return V(0, V(4, $iconv, $lv, $lu, $fmt__4), $fmtty__3);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 5:
               $fmt_rest__4 = $fmt[4];
@@ -3501,7 +3469,7 @@ final class CamlinternalFormat {
                 $fmt__5 = $match__5[1];
                 return V(0, V(5, $iconv__0, $lz, $ly, $fmt__5), $fmtty__4);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 6:
               $fmt_rest__5 = $fmt[4];
@@ -3522,7 +3490,7 @@ final class CamlinternalFormat {
                 $fmt__6 = $match__6[1];
                 return V(0, V(6, $iconv__1, $lD, $lC, $fmt__6), $fmtty__5);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 7:
               $fmt_rest__6 = $fmt[4];
@@ -3543,7 +3511,7 @@ final class CamlinternalFormat {
                 $fmt__7 = $match__7[1];
                 return V(0, V(7, $iconv__2, $lH, $lG, $fmt__7), $fmtty__6);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 8:
               $fmt_rest__7 = $fmt[4];
@@ -3564,7 +3532,7 @@ final class CamlinternalFormat {
                 $fmt__8 = $match__8[1];
                 return V(0, V(8, $fconv, $lL, $lK, $fmt__8), $fmtty__7);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 9:
               $fmt_rest__8 = $fmt[2];
@@ -3582,7 +3550,7 @@ final class CamlinternalFormat {
                 $fmt__9 = $match__9[1];
                 return V(0, V(9, $lO, $fmt__9), $fmtty__8);
               }
-              throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
             // FALLTHROUGH
             case 10:
               $fmt_rest__9 = $fmt[1];
@@ -3615,7 +3583,7 @@ final class CamlinternalFormat {
                 $sub_fmtty__0 = $fmt[2];
                 $pad_opt = $fmt[1];
                 if ($caml_notequal(V(0, $sub_fmtty__0), V(0, $sub_fmtty))) {
-                  throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
                 }
                 $match__13 = $type_format_gen->contents(
                   $fmt_rest__12,
@@ -3646,7 +3614,8 @@ final class CamlinternalFormat {
                     ),
                     $lP
                   )
-                ) {throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+                ) {
+                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
                 }
                 $match__14 = $type_format_gen->contents(
                   $fmt_rest__13,
@@ -3759,7 +3728,7 @@ final class CamlinternalFormat {
               return $type_ignored_param($ign, $rest, $match);
             }
         }
-        throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+        throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
       };
     $_ = $type_ignored_format_substitution->contents =
       function($sub_fmtty, $fmt, $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$fmtty_rel_det,$is_int,$runtime,$symm,$trans,$type_format_gen,$type_ignored_format_substitution) {
@@ -3895,7 +3864,9 @@ final class CamlinternalFormat {
                 $sub2_fmtty = $match[1];
                 $sub_fmtty_rest__15 = $sub_fmtty[2];
                 $sub2_fmtty__0 = $sub_fmtty[1];
-                if ($caml_notequal(V(0, $sub2_fmtty__0), V(0, $sub2_fmtty))) {throw $runtime->caml_wrap_thrown_exception($Type_mismatch);}
+                if ($caml_notequal(V(0, $sub2_fmtty__0), V(0, $sub2_fmtty))) {
+                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
+                }
                 $match__8 = $type_ignored_format_substitution->contents(
                   $sub_fmtty_rest__15,
                   $fmt,
@@ -3927,7 +3898,8 @@ final class CamlinternalFormat {
                     ),
                     $lk
                   )
-                ) {throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+                ) {
+                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
                 }
                 $ll = V(
                   0,
@@ -3941,7 +3913,8 @@ final class CamlinternalFormat {
                     ),
                     $ll
                   )
-                ) {throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+                ) {
+                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
                 }
                 $sub_fmtty__0 = $trans->contents(
                   $symm->contents($sub1_fmtty),
@@ -4036,7 +4009,7 @@ final class CamlinternalFormat {
               break;
             }
         }
-        throw $runtime->caml_wrap_thrown_exception($Type_mismatch);
+        throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch);
       };
     $recast = function($fmt, $fmtty) use ($CamlinternalFormatBasics,$caml_call1,$symm,$type_format) {
       $lj = $symm->contents($fmtty);
@@ -4422,7 +4395,7 @@ final class CamlinternalFormat {
       return $caml_format_int($format_of_iconvn($iconv), $n);
     };
     $convert_int64 = function($iconv, $n) use ($format_of_iconvL,$runtime) {
-      return $runtime->caml_int64_format($format_of_iconvL($iconv), $n);
+      return $runtime["caml_int64_format"]($format_of_iconvL($iconv), $n);
     };
     $convert_float = function($fconv, $prec, $x) use ($Pervasives,$String,$caml_call1,$caml_call2,$caml_ml_string_length,$caml_string_get,$cst__16,$cst_infinity,$cst_nan,$cst_neg_infinity,$format_of_fconv,$runtime,$unsigned_right_shift_32) {
       if (16 <= $fconv) {
@@ -4447,10 +4420,10 @@ final class CamlinternalFormat {
         }
         else {$switch__0 = 0;}
         if (! $switch__0) {$sign = 45;}
-        $str = $runtime->caml_hexstring_of_float($x, $prec, $sign);
+        $str = $runtime["caml_hexstring_of_float"]($x, $prec, $sign);
         return 19 <= $fconv ? $caml_call1($String[29], $str) : ($str);
       }
-      $str__0 = $runtime->caml_format_float(
+      $str__0 = $runtime["caml_format_float"](
         $format_of_fconv($fconv, $prec),
         $x
       );
@@ -4471,7 +4444,7 @@ final class CamlinternalFormat {
             continue;
           }
         };
-        $match = $runtime->caml_classify_float($x);
+        $match = $runtime["caml_classify_float"]($x);
         return 3 === $match
           ? $x < 0 ? $cst_neg_infinity : ($cst_infinity)
           : (4 <= $match
@@ -4933,9 +4906,7 @@ final class CamlinternalFormat {
             continue;
           // FALLTHROUGH
           case 19:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hO)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hO));
           // FALLTHROUGH
           case 20:
             $rest__15 = $fmt__0[3];
@@ -5039,9 +5010,7 @@ final class CamlinternalFormat {
               );
             // FALLTHROUGH
             case 2:
-              throw $runtime->caml_wrap_thrown_exception(
-                      V(0, $Assert_failure, $hP)
-                    );
+              throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hP));
             // FALLTHROUGH
             default:
               if ($counter < 50) {
@@ -5384,14 +5353,10 @@ final class CamlinternalFormat {
               };
             // FALLTHROUGH
             case 13:
-              throw $runtime->caml_wrap_thrown_exception(
-                      V(0, $Assert_failure, $hQ)
-                    );
+              throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hQ));
             // FALLTHROUGH
             default:
-              throw $runtime->caml_wrap_thrown_exception(
-                      V(0, $Assert_failure, $hR)
-                    );
+              throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hR));
             }
         }
       };
@@ -5769,9 +5734,7 @@ final class CamlinternalFormat {
             continue;
           // FALLTHROUGH
           case 19:
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $hS)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $hS));
           // FALLTHROUGH
           case 20:
             $rest__21 = $fmt__0[3];
@@ -6060,7 +6023,7 @@ final class CamlinternalFormat {
       return $make_printf->contents($k, 0, 0, $fmt);
     };
     $open_box_of_string = function($str) use ($Failure,$String,$caml_call1,$caml_call3,$caml_ml_string_length,$caml_string_get,$caml_string_notequal,$caml_wrap_exception,$cst__23,$cst__24,$cst_b,$cst_h,$cst_hov,$cst_hv,$cst_v,$failwith_message,$hT,$hU,$runtime,$unsigned_right_shift_32) {
-      if ($runtime->caml_string_equal($str, $cst__23)) {return $hT;}
+      if ($runtime["caml_string_equal"]($str, $cst__23)) {return $hT;}
       $len = $caml_ml_string_length($str);
       $invalid_box = function($param) use ($caml_call1,$failwith_message,$hU,$str) {
         return $caml_call1($failwith_message($hU), $str);
@@ -6108,7 +6071,7 @@ final class CamlinternalFormat {
       if ($nstart === $nend) {$indent = 0;}
       else {
         try {
-          $jF = $runtime->caml_int_of_string(
+          $jF = $runtime["caml_int_of_string"](
             $caml_call3($String[4], $str, $nstart, $nend - $nstart | 0)
           );
           $indent = $jF;
@@ -6116,7 +6079,7 @@ final class CamlinternalFormat {
         catch(\Throwable $jG) {
           $jG = $caml_wrap_exception($jG);
           if ($jG[1] !== $Failure) {
-            throw $runtime->caml_wrap_thrown_exception_reraise($jG);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($jG);
           }
           $jE = $invalid_box(0);
           $indent = $jE;
@@ -7285,7 +7248,7 @@ final class CamlinternalFormat {
             $str_ind_2 = $match__3[1];
             $str_ind_3 = $parse_spaces->contents($str_ind_2, $end_ind);
             if (62 !== $caml_string_get($str, $str_ind_3)) {
-              throw $runtime->caml_wrap_thrown_exception($Not_found);
+              throw $runtime["caml_wrap_thrown_exception"]($Not_found);
             }
             $s = $caml_call3(
               $String[4],
@@ -7304,7 +7267,7 @@ final class CamlinternalFormat {
           $iR = $caml_wrap_exception($iR);
           if ($iR !== $Not_found) {
             if ($iR[1] !== $Failure) {
-              throw $runtime->caml_wrap_thrown_exception_reraise($iR);
+              throw $runtime["caml_wrap_thrown_exception_reraise"]($iR);
             }
           }
           $iO = 0;
@@ -7326,14 +7289,14 @@ final class CamlinternalFormat {
         try {
           $iH = $str_ind === $end_ind ? 1 : (0);
           $iI = $iH || (60 !== $caml_string_get($str, $str_ind) ? 1 : (0));
-          if ($iI) {throw $runtime->caml_wrap_thrown_exception($Not_found);}
+          if ($iI) {throw $runtime["caml_wrap_thrown_exception"]($Not_found);}
           $str_ind_1 = $parse_spaces->contents($str_ind + 1 | 0, $end_ind);
           $match__0 = $caml_string_get($str, $str_ind_1);
           $switch__0 = 48 <= $match__0
             ? 58 <= $match__0 ? 0 : (1)
             : (45 === $match__0 ? 1 : (0));
           if (! $switch__0) {
-            throw $runtime->caml_wrap_thrown_exception($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
           }
           $match__1 = $parse_integer->contents($str_ind_1, $end_ind);
           $width = $match__1[2];
@@ -7367,7 +7330,7 @@ final class CamlinternalFormat {
               $str_ind_4 = $match__3[1];
               $str_ind_5 = $parse_spaces->contents($str_ind_4, $end_ind);
               if (62 !== $caml_string_get($str, $str_ind_5)) {
-                throw $runtime->caml_wrap_thrown_exception($Not_found);
+                throw $runtime["caml_wrap_thrown_exception"]($Not_found);
               }
               $s__0 = $caml_call3(
                 $String[4],
@@ -7386,14 +7349,14 @@ final class CamlinternalFormat {
             else {$switch__1 = 0;}
           }
           if (! $switch__1) {
-            throw $runtime->caml_wrap_thrown_exception($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
           }
         }
         catch(\Throwable $iN) {
           $iN = $caml_wrap_exception($iN);
           if ($iN !== $Not_found) {
             if ($iN[1] !== $Failure) {
-              throw $runtime->caml_wrap_thrown_exception_reraise($iN);
+              throw $runtime["caml_wrap_thrown_exception_reraise"]($iN);
             }
           }
           $next_ind = $str_ind;
@@ -7406,13 +7369,13 @@ final class CamlinternalFormat {
       $parse_tag = function($is_open_tag, $str_ind, $end_ind) use ($Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$check_open_box,$parse,$runtime,$str,$sub_format) {
         try {
           if ($str_ind === $end_ind) {
-            throw $runtime->caml_wrap_thrown_exception($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
           }
           $match__0 = $caml_string_get($str, $str_ind);
           if (60 === $match__0) {
             $ind = $caml_call3($String[18], $str, $str_ind + 1 | 0, 62);
             if ($end_ind <= $ind) {
-              throw $runtime->caml_wrap_thrown_exception($Not_found);
+              throw $runtime["caml_wrap_thrown_exception"]($Not_found);
             }
             $sub_str = $caml_call3(
               $String[4],
@@ -7434,7 +7397,7 @@ final class CamlinternalFormat {
             $iF = V(0, V(18, $formatting__0, $fmt_rest__0));
             return $iF;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
         catch(\Throwable $iG) {
           $iG = $caml_wrap_exception($iG);
@@ -7446,7 +7409,7 @@ final class CamlinternalFormat {
               : (V(1, $sub_format));
             return V(0, V(18, $formatting, $fmt_rest));
           }
-          throw $runtime->caml_wrap_thrown_exception_reraise($iG);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($iG);
         }
       };
       $_ = $parse_after_at->contents =
@@ -7557,7 +7520,7 @@ final class CamlinternalFormat {
               catch(\Throwable $iE) {
                 $iE = $caml_wrap_exception($iE);
                 if ($iE[1] === $Failure) {return 0;}
-                throw $runtime->caml_wrap_thrown_exception_reraise($iE);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($iE);
               }
             }
           }
@@ -7815,9 +7778,7 @@ final class CamlinternalFormat {
               return V(0, $next_ind, - $n | 0);
             }
           }
-          throw $runtime->caml_wrap_thrown_exception(
-                  V(0, $Assert_failure, $ie)
-                );
+          throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $ie));
         };
       $_ = $search_subformat_end->contents =
         function($str_ind, $end_ind, $c) use ($caml_call3,$caml_string_get,$cst_character,$cst_character__0,$expected_character,$failwith_message,$ig,$search_subformat_end,$str,$unexpected_end_of_format) {
@@ -7962,9 +7923,7 @@ final class CamlinternalFormat {
             }
           }
           else {if (76 === $symb) {return 2;}}
-          throw $runtime->caml_wrap_thrown_exception(
-                  V(0, $Assert_failure, $ih)
-                );
+          throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $ih));
         };
       $_ = $incompatible_flag->contents =
         function($pct_ind, $str_ind, $symb, $option) use ($String,$caml_call3,$caml_call5,$failwith_message,$ik,$str) {
@@ -8081,9 +8040,7 @@ final class CamlinternalFormat {
             }
             if (0 === $plus__0) {
               if (0 === $space__0) {
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $ii)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $ii));
               }
               if ($legacy_behavior__0) {$space__0 = 0;continue;}
               return $incompatible_flag->contents(
@@ -8156,9 +8113,7 @@ final class CamlinternalFormat {
                       }
                   }
                 }
-                throw $runtime->caml_wrap_thrown_exception(
-                        V(0, $Assert_failure, $ij)
-                      );
+                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $ij));
               }
               if (73 <= $symb) {
                 $switcher__1 = $symb + -101 | 0;
@@ -8272,7 +8227,7 @@ final class CamlinternalFormat {
           $iq = $string_of_fmtty($fmtty);
           return $caml_call2($failwith_message($il), $str, $iq);
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($is);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($is);
       }
     };
     $format_of_string_format = function($str, $param) use ($Type_mismatch,$caml_call2,$caml_wrap_exception,$failwith_message,$fmt_ebb_of_string,$fmtty_of_fmt,$im,$runtime,$type_format) {
@@ -8289,7 +8244,7 @@ final class CamlinternalFormat {
         if ($ip === $Type_mismatch) {
           return $caml_call2($failwith_message($im), $str, $str__0);
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($ip);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($ip);
       }
     };
     $CamlinternalFormat = V(
@@ -8320,7 +8275,7 @@ final class CamlinternalFormat {
       $recast
     );
     
-    $runtime->caml_register_global(
+    $runtime["caml_register_global"](
       198,
       $CamlinternalFormat,
       "CamlinternalFormat"

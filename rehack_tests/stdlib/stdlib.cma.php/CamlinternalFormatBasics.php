@@ -377,7 +377,7 @@ final class CamlinternalFormatBasics {
       $concat_fmt->contents
     );
     
-    $runtime->caml_register_global(
+    $runtime["caml_register_global"](
       0,
       $CamlinternalFormatBasics,
       "CamlinternalFormatBasics"

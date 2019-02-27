@@ -29,19 +29,19 @@ final class Callback {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_register_named_value = $runtime->caml_register_named_value;
-    $global_data = $runtime->caml_get_global_data();
-    $Obj = $global_data->Obj;
+    $caml_register_named_value = $runtime["caml_register_named_value"];
+    $global_data = $runtime["caml_get_global_data"]();
+    $Obj = $global_data["Obj"];
     $register = function($name, $v) use ($caml_register_named_value) {
       return $caml_register_named_value($name, $v);
     };
     $register_exception = function($name, $exn) use ($Obj,$caml_register_named_value,$runtime) {
-      $slot = $runtime->caml_obj_tag($exn) === $Obj[8] ? $exn : ($exn[1]);
+      $slot = $runtime["caml_obj_tag"]($exn) === $Obj[8] ? $exn : ($exn[1]);
       return $caml_register_named_value($name, $slot);
     };
     $Callback = V(0, $register, $register_exception);
     
-    $runtime->caml_register_global(1, $Callback, "Callback");
+    $runtime["caml_register_global"](1, $Callback, "Callback");
 
   }
 }

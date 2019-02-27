@@ -12,26 +12,28 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_blit_string = runtime.caml_blit_string;
-var caml_bytes_unsafe_get = runtime.caml_bytes_unsafe_get;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_equal = runtime.caml_string_equal;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_blit_string = runtime["caml_blit_string"];
+var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_equal = runtime["caml_string_equal"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_String_rcontains_from_Bytes_rcontains_from = caml_new_string(
   "String.rcontains_from / Bytes.rcontains_from"
 );
@@ -53,9 +55,9 @@ var cst_String_index_from_Bytes_index_from = caml_new_string(
 var cst__0 = caml_new_string("");
 var cst = caml_new_string("");
 var cst_String_concat = caml_new_string("String.concat");
-var Not_found = global_data.Not_found;
-var Bytes = global_data.Bytes;
-var Pervasives = global_data.Pervasives;
+var Not_found = global_data["Not_found"];
+var Bytes = global_data["Bytes"];
+var Pervasives = global_data["Pervasives"];
 var bts = Bytes[42];
 var bos = Bytes[43];
 
@@ -136,7 +138,7 @@ function concat(sep, l) {
     return caml_call1(
       bts,
       unsafe_blits(
-        runtime.caml_create_bytes(sum_lengths(0, seplen, l)),
+        runtime["caml_create_bytes"](sum_lengths(0, seplen, l)),
         0,
         sep,
         seplen,
@@ -241,7 +243,7 @@ function escaped(s) {
 function index_rec(s, lim, i, c) {
   var i__0 = i;
   for (; ; ) {
-    if (lim <= i__0) {throw runtime.caml_wrap_thrown_exception(Not_found);}
+    if (lim <= i__0) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
     if (caml_bytes_unsafe_get(s, i__0) === c) {return i__0;}
     var i__1 = i__0 + 1 | 0;
     var i__0 = i__1;
@@ -290,7 +292,7 @@ function rindex_rec(s, i, c) {
       var i__0 = i__1;
       continue;
     }
-    throw runtime.caml_wrap_thrown_exception(Not_found);
+    throw runtime["caml_wrap_thrown_exception"](Not_found);
   }
 }
 
@@ -340,7 +342,7 @@ function contains_from(s, i, c) {
       catch(cf) {
         cf = caml_wrap_exception(cf);
         if (cf === Not_found) {return 0;}
-        throw runtime.caml_wrap_thrown_exception_reraise(cf);
+        throw runtime["caml_wrap_thrown_exception_reraise"](cf);
       }
     }
   }
@@ -359,7 +361,7 @@ function rcontains_from(s, i, c) {
       catch(cd) {
         cd = caml_wrap_exception(cd);
         if (cd === Not_found) {return 0;}
-        throw runtime.caml_wrap_thrown_exception_reraise(cd);
+        throw runtime["caml_wrap_thrown_exception_reraise"](cd);
       }
     }
   }
@@ -389,7 +391,7 @@ function uncapitalize_ascii(s) {
   return caml_call1(bts, caml_call1(Bytes[39], b9));
 }
 
-function compare(x, y) {return runtime.caml_string_compare(x, y);}
+function compare(x, y) {return runtime["caml_string_compare"](x, y);}
 
 function split_on_char(sep, s) {
   var r = [0,0];
@@ -471,7 +473,7 @@ var String = [
   split_on_char
 ];
 
-runtime.caml_register_global(12, String, "String_");
+runtime["caml_register_global"](12, String, "String_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().String_;

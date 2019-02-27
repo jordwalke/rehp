@@ -14,32 +14,32 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_bytes_unsafe_set = runtime.caml_bytes_unsafe_set;
-var caml_create_bytes = runtime.caml_create_bytes;
-var caml_md5_string = runtime.caml_md5_string;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_get = runtime.caml_string_get;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_md5_string = runtime["caml_md5_string"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Digest_from_hex__0 = caml_new_string("Digest.from_hex");
 var cst_Digest_from_hex = caml_new_string("Digest.from_hex");
 var cst_Digest_to_hex = caml_new_string("Digest.to_hex");
 var cst_Digest_substring = caml_new_string("Digest.substring");
-var Invalid_argument = global_data.Invalid_argument;
-var Pervasives = global_data.Pervasives;
-var Char = global_data.Char;
-var Bytes = global_data.Bytes;
-var String = global_data.String_;
+var Invalid_argument = global_data["Invalid_argument"];
+var Pervasives = global_data["Pervasives"];
+var Char = global_data["Char"];
+var Bytes = global_data["Bytes"];
+var String = global_data["String_"];
 var compare = String[33];
 var equal = String[34];
 
@@ -64,11 +64,11 @@ function subbytes(b, ofs, len) {
 
 function file(filename) {
   var ic = caml_call1(Pervasives[68], filename);
-  try {var d = runtime.caml_md5_chan(ic, -1);}
+  try {var d = runtime["caml_md5_chan"](ic, -1);}
   catch(e) {
     e = caml_wrap_exception(e);
     caml_call1(Pervasives[81], ic);
-    throw runtime.caml_wrap_thrown_exception_reraise(e);
+    throw runtime["caml_wrap_thrown_exception_reraise"](e);
   }
   caml_call1(Pervasives[81], ic);
   return d;
@@ -113,7 +113,7 @@ function from_hex(s) {
       var switcher = c + -48 | 0;
       if (! (9 < switcher >>> 0)) {return c - 48 | 0;}
     }
-    throw runtime.caml_wrap_thrown_exception(
+    throw runtime["caml_wrap_thrown_exception"](
             [0,Invalid_argument,cst_Digest_from_hex__0]
           );
   }
@@ -125,7 +125,7 @@ function from_hex(s) {
   var i = 0;
   for (; ; ) {
     var pS = byte__0(2 * i | 0);
-    runtime.caml_bytes_set(result, i, caml_call1(Char[1], pS));
+    runtime["caml_bytes_set"](result, i, caml_call1(Char[1], pS));
     var pT = i + 1 | 0;
     if (15 !== i) {var i = pT;continue;}
     return caml_call1(Bytes[42], result);
@@ -147,7 +147,7 @@ var Digest = [
   from_hex
 ];
 
-runtime.caml_register_global(9, Digest, "Digest");
+runtime["caml_register_global"](9, Digest, "Digest");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Digest;

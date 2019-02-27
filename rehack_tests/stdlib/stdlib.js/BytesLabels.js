@@ -10,8 +10,8 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime.caml_get_global_data();
-var Bytes = global_data.Bytes;
+var global_data = runtime["caml_get_global_data"]();
+var Bytes = global_data["Bytes"];
 var make = Bytes[1];
 var init = Bytes[2];
 var empty = Bytes[3];
@@ -102,7 +102,7 @@ var BytesLabels = [
   unsafe_of_string
 ];
 
-runtime.caml_register_global(1, BytesLabels, "BytesLabels");
+runtime["caml_register_global"](1, BytesLabels, "BytesLabels");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().BytesLabels;

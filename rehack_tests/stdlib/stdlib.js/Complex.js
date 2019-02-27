@@ -110,7 +110,7 @@ var Complex = [
   pow
 ];
 
-runtime.caml_register_global(19, Complex, "Complex");
+runtime["caml_register_global"](19, Complex, "Complex");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Complex;

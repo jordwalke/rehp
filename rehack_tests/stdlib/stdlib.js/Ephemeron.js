@@ -17,37 +17,39 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_make_vect = runtime.caml_make_vect;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_make_vect = runtime["caml_make_vect"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
-var Obj = global_data.Obj;
-var Sys = global_data.Sys;
-var Not_found = global_data.Not_found;
-var Pervasives = global_data.Pervasives;
-var Array = global_data.Array_;
-var Hashtbl = global_data.Hashtbl;
-var CamlinternalLazy = global_data.CamlinternalLazy;
-var Random = global_data.Random;
+var global_data = runtime["caml_get_global_data"]();
+var Obj = global_data["Obj"];
+var Sys = global_data["Sys"];
+var Not_found = global_data["Not_found"];
+var Pervasives = global_data["Pervasives"];
+var Array = global_data["Array_"];
+var Hashtbl = global_data["Hashtbl"];
+var CamlinternalLazy = global_data["CamlinternalLazy"];
+var Random = global_data["Random"];
 var z4 = [0,0];
 var z3 = [0,0];
 var z2 = [0,0];
@@ -72,7 +74,7 @@ function MakeSeeded(H) {
     else var random = caml_call1(Hashtbl[17], 0);
     var s = power_2_above(16, initial_size);
     if (random) {
-      var Bb = runtime.caml_obj_tag(prng);
+      var Bb = runtime["caml_obj_tag"](prng);
       var Bc = 250 === Bb ?
         prng[1] :
         246 === Bb ? caml_call1(CamlinternalLazy[2], prng) : prng;
@@ -246,7 +248,7 @@ function MakeSeeded(H) {
         var param__0 = rest;
         continue;
       }
-      throw runtime.caml_wrap_thrown_exception(Not_found);
+      throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
   }
   function find(h, key) {
@@ -343,7 +345,7 @@ function MakeSeeded(H) {
           var param__0 = next;
           continue;
         }
-        throw runtime.caml_wrap_thrown_exception(Not_found);
+        throw runtime["caml_wrap_thrown_exception"](Not_found);
       }
     }
     var i = key_index(h, hkey);
@@ -358,7 +360,7 @@ function MakeSeeded(H) {
         var AP = h[2].length - 1 << 1 < h[1] ? 1 : 0;
         return AP ? resize(h) : AP;
       }
-      throw runtime.caml_wrap_thrown_exception_reraise(AR);
+      throw runtime["caml_wrap_thrown_exception_reraise"](AR);
     }
   }
   function mem(h, key) {
@@ -1126,7 +1128,7 @@ var Ephemeron = [
   ]
 ];
 
-runtime.caml_register_global(11, Ephemeron, "Ephemeron");
+runtime["caml_register_global"](11, Ephemeron, "Ephemeron");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Ephemeron;

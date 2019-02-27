@@ -14,40 +14,40 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_blit_string = runtime.caml_blit_string;
-var caml_create_bytes = runtime.caml_create_bytes;
-var caml_float_of_string = runtime.caml_float_of_string;
-var caml_int64_float_of_bits = runtime.caml_int64_float_of_bits;
-var caml_int_of_string = runtime.caml_int_of_string;
-var caml_ml_bytes_length = runtime.caml_ml_bytes_length;
-var caml_ml_channel_size = runtime.caml_ml_channel_size;
-var caml_ml_channel_size_64 = runtime.caml_ml_channel_size_64;
-var caml_ml_close_channel = runtime.caml_ml_close_channel;
-var caml_ml_flush = runtime.caml_ml_flush;
-var caml_ml_input = runtime.caml_ml_input;
-var caml_ml_input_char = runtime.caml_ml_input_char;
-var caml_ml_open_descriptor_in = runtime.caml_ml_open_descriptor_in;
-var caml_ml_open_descriptor_out = runtime.caml_ml_open_descriptor_out;
-var caml_ml_output = runtime.caml_ml_output;
-var caml_ml_output_bytes = runtime.caml_ml_output_bytes;
-var caml_ml_output_char = runtime.caml_ml_output_char;
-var caml_ml_set_binary_mode = runtime.caml_ml_set_binary_mode;
-var caml_ml_set_channel_name = runtime.caml_ml_set_channel_name;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_string_notequal = runtime.caml_string_notequal;
-var caml_sys_open = runtime.caml_sys_open;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_blit_string = runtime["caml_blit_string"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_float_of_string = runtime["caml_float_of_string"];
+var caml_int64_float_of_bits = runtime["caml_int64_float_of_bits"];
+var caml_int_of_string = runtime["caml_int_of_string"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var caml_ml_channel_size = runtime["caml_ml_channel_size"];
+var caml_ml_channel_size_64 = runtime["caml_ml_channel_size_64"];
+var caml_ml_close_channel = runtime["caml_ml_close_channel"];
+var caml_ml_flush = runtime["caml_ml_flush"];
+var caml_ml_input = runtime["caml_ml_input"];
+var caml_ml_input_char = runtime["caml_ml_input_char"];
+var caml_ml_open_descriptor_in = runtime["caml_ml_open_descriptor_in"];
+var caml_ml_open_descriptor_out = runtime["caml_ml_open_descriptor_out"];
+var caml_ml_output = runtime["caml_ml_output"];
+var caml_ml_output_bytes = runtime["caml_ml_output_bytes"];
+var caml_ml_output_char = runtime["caml_ml_output_char"];
+var caml_ml_set_binary_mode = runtime["caml_ml_set_binary_mode"];
+var caml_ml_set_channel_name = runtime["caml_ml_set_channel_name"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_string_notequal = runtime["caml_string_notequal"];
+var caml_sys_open = runtime["caml_sys_open"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst__0 = caml_new_string("%,");
 var cst_really_input = caml_new_string("really_input");
 var cst_input = caml_new_string("input");
@@ -64,11 +64,11 @@ var cst_true = caml_new_string("true");
 var cst_false = caml_new_string("false");
 var cst_char_of_int = caml_new_string("char_of_int");
 var cst_Pervasives_Exit = caml_new_string("Pervasives.Exit");
-var End_of_file = global_data.End_of_file;
-var CamlinternalFormatBasics = global_data.CamlinternalFormatBasics;
-var Sys_error = global_data.Sys_error;
-var Failure = global_data.Failure;
-var Invalid_argument = global_data.Invalid_argument;
+var End_of_file = global_data["End_of_file"];
+var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
+var Sys_error = global_data["Sys_error"];
+var Failure = global_data["Failure"];
+var Invalid_argument = global_data["Invalid_argument"];
 var n = [0,0,[0,6,0]];
 var m = [0,0,[0,7,0]];
 var l = [0,1,[0,3,[0,4,[0,6,0]]]];
@@ -83,18 +83,18 @@ var e = [255,0,0,16];
 var f = [255,0,0,15536];
 
 function failwith(s) {
-  throw runtime.caml_wrap_thrown_exception([0,Failure,s]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Failure,s]);
 }
 
 function invalid_arg(s) {
-  throw runtime.caml_wrap_thrown_exception([0,Invalid_argument,s]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,s]);
 }
 
-var Exit = [248,cst_Pervasives_Exit,runtime.caml_fresh_oo_id(0)];
+var Exit = [248,cst_Pervasives_Exit,runtime["caml_fresh_oo_id"](0)];
 
-function min(x, y) {return runtime.caml_lessequal(x, y) ? x : y;}
+function min(x, y) {return runtime["caml_lessequal"](x, y) ? x : y;}
 
-function max(x, y) {return runtime.caml_greaterequal(x, y) ? x : y;}
+function max(x, y) {return runtime["caml_greaterequal"](x, y) ? x : y;}
 
 function abs(x) {return 0 <= x ? x : - x | 0;}
 
@@ -146,7 +146,7 @@ function int_of_string_opt(s) {
   catch(aB) {
     aB = caml_wrap_exception(aB);
     if (aB[1] === Failure) {return 0;}
-    throw runtime.caml_wrap_thrown_exception_reraise(aB);
+    throw runtime["caml_wrap_thrown_exception_reraise"](aB);
   }
 }
 
@@ -156,7 +156,7 @@ function valid_float_lexem(s) {
     var i__0 = i;
     for (; ; ) {
       if (l <= i__0) {return g(s, cst);}
-      var match = runtime.caml_string_get(s, i__0);
+      var match = runtime["caml_string_get"](s, i__0);
       var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
       if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return s;
@@ -166,7 +166,7 @@ function valid_float_lexem(s) {
 }
 
 function string_of_float(f) {
-  return valid_float_lexem(runtime.caml_format_float(cst_12g, f));
+  return valid_float_lexem(runtime["caml_format_float"](cst_12g, f));
 }
 
 function float_of_string_opt(s) {
@@ -174,7 +174,7 @@ function float_of_string_opt(s) {
   catch(az) {
     az = caml_wrap_exception(az);
     if (az[1] === Failure) {return 0;}
-    throw runtime.caml_wrap_thrown_exception_reraise(az);
+    throw runtime["caml_wrap_thrown_exception_reraise"](az);
   }
 }
 
@@ -208,7 +208,7 @@ function flush_all(param) {
         catch(ax) {
           ax = caml_wrap_exception(ax);
           if (ax[1] !== Sys_error) {
-            throw runtime.caml_wrap_thrown_exception_reraise(ax);
+            throw runtime["caml_wrap_thrown_exception_reraise"](ax);
           }
         }
         var param__0 = l;
@@ -217,7 +217,7 @@ function flush_all(param) {
       return 0;
     }
   }
-  return iter(runtime.caml_ml_out_channels_list(0));
+  return iter(runtime["caml_ml_out_channels_list"](0));
 }
 
 function output_bytes(oc, s) {
@@ -246,7 +246,9 @@ function output_substring(oc, s, ofs, len) {
   return invalid_arg(cst_output_substring);
 }
 
-function output_value(chan, v) {return runtime.caml_output_value(chan, v, 0);}
+function output_value(chan, v) {
+  return runtime["caml_output_value"](chan, v, 0);
+}
 
 function close_out(oc) {caml_ml_flush(oc);return caml_ml_close_channel(oc);}
 
@@ -280,7 +282,7 @@ function unsafe_really_input(ic, s, ofs, len) {
   for (; ; ) {
     if (0 < len__0) {
       var r = caml_ml_input(ic, s, ofs__0, len__0);
-      if (0 === r) {throw runtime.caml_wrap_thrown_exception(End_of_file);}
+      if (0 === r) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
       var len__1 = len__0 - r | 0;
       var ofs__1 = ofs__0 + r | 0;
       var ofs__0 = ofs__1;
@@ -315,7 +317,7 @@ function input_line(chan) {
         var param__1 = param__0[2];
         var hd = param__0[1];
         var len = caml_ml_bytes_length(hd);
-        runtime.caml_blit_bytes(hd, 0, buf, pos__0 - len | 0, len);
+        runtime["caml_blit_bytes"](hd, 0, buf, pos__0 - len | 0, len);
         var pos__1 = pos__0 - len | 0;
         var pos__0 = pos__1;
         var param__0 = param__1;
@@ -328,12 +330,12 @@ function input_line(chan) {
     var accu__0 = accu;
     var len__0 = len;
     for (; ; ) {
-      var n = runtime.caml_ml_input_scan_line(chan);
+      var n = runtime["caml_ml_input_scan_line"](chan);
       if (0 === n) {
         if (accu__0) {
           return build_result(caml_create_bytes(len__0), len__0, accu__0);
         }
-        throw runtime.caml_wrap_thrown_exception(End_of_file);
+        throw runtime["caml_wrap_thrown_exception"](End_of_file);
       }
       if (0 < n) {
         var res = caml_create_bytes(n + -1 | 0);
@@ -439,21 +441,24 @@ function at_exit(f) {
 
 function do_at_exit(param) {return caml_call1(exit_function[1], 0);}
 
-function exit(retcode) {do_at_exit(0);return runtime.caml_sys_exit(retcode);}
+function exit(retcode) {
+  do_at_exit(0);
+  return runtime["caml_sys_exit"](retcode);
+}
 
 function p(ap) {return caml_ml_channel_size_64(ap);}
 
-function q(ao) {return runtime.caml_ml_pos_in_64(ao);}
+function q(ao) {return runtime["caml_ml_pos_in_64"](ao);}
 
-function r(an, am) {return runtime.caml_ml_seek_in_64(an, am);}
+function r(an, am) {return runtime["caml_ml_seek_in_64"](an, am);}
 
 function s(al) {return caml_ml_channel_size_64(al);}
 
-function t(ak) {return runtime.caml_ml_pos_out_64(ak);}
+function t(ak) {return runtime["caml_ml_pos_out_64"](ak);}
 
 var u = [
   0,
-  function(aj, ai) {return runtime.caml_ml_seek_out_64(aj, ai);},
+  function(aj, ai) {return runtime["caml_ml_seek_out_64"](aj, ai);},
   t,
   s,
   r,
@@ -467,13 +472,13 @@ function w(af) {return caml_ml_close_channel(af);}
 
 function x(ae) {return caml_ml_channel_size(ae);}
 
-function y(ad) {return runtime.caml_ml_pos_in(ad);}
+function y(ad) {return runtime["caml_ml_pos_in"](ad);}
 
-function z(ac, ab) {return runtime.caml_ml_seek_in(ac, ab);}
+function z(ac, ab) {return runtime["caml_ml_seek_in"](ac, ab);}
 
-function A(aa) {return runtime.caml_input_value(aa);}
+function A(aa) {return runtime["caml_input_value"](aa);}
 
-function B(_) {return runtime.caml_ml_input_int(_);}
+function B(_) {return runtime["caml_ml_input_int"](_);}
 
 function C(Z) {return caml_ml_input_char(Z);}
 
@@ -483,11 +488,11 @@ function E(X, W) {return caml_ml_set_binary_mode(X, W);}
 
 function F(V) {return caml_ml_channel_size(V);}
 
-function G(U) {return runtime.caml_ml_pos_out(U);}
+function G(U) {return runtime["caml_ml_pos_out"](U);}
 
-function H(T, S) {return runtime.caml_ml_seek_out(T, S);}
+function H(T, S) {return runtime["caml_ml_seek_out"](T, S);}
 
-function I(R, Q) {return runtime.caml_ml_output_int(R, Q);}
+function I(R, Q) {return runtime["caml_ml_output_int"](R, Q);}
 
 function J(P, O) {return caml_ml_output_char(P, O);}
 
@@ -588,7 +593,7 @@ var Pervasives = [
   do_at_exit
 ];
 
-runtime.caml_register_global(37, Pervasives, "Pervasives");
+runtime["caml_register_global"](37, Pervasives, "Pervasives");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Pervasives;

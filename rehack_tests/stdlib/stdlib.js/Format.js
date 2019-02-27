@@ -15,29 +15,31 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst__4 = caml_new_string(".");
 var cst__2 = caml_new_string(">");
 var cst__3 = caml_new_string("</");
@@ -45,12 +47,12 @@ var cst__0 = caml_new_string(">");
 var cst__1 = caml_new_string("<");
 var cst = caml_new_string("\n");
 var cst_Format_Empty_queue = caml_new_string("Format.Empty_queue");
-var CamlinternalFormat = global_data.CamlinternalFormat;
-var Pervasives = global_data.Pervasives;
-var String = global_data.String_;
-var Buffer = global_data.Buffer;
-var List = global_data.List_;
-var Not_found = global_data.Not_found;
+var CamlinternalFormat = global_data["CamlinternalFormat"];
+var Pervasives = global_data["Pervasives"];
+var String = global_data["String_"];
+var Buffer = global_data["Buffer"];
+var List = global_data["List_"];
+var Not_found = global_data["Not_found"];
 var sG = [3,0,3];
 var sF = [0,caml_new_string("")];
 
@@ -64,12 +66,12 @@ function add_queue(x, q) {
   return vR ? (q[1] = c,vR[2] = c,0) : (q[1] = c,q[2] = c,0);
 }
 
-var Empty_queue = [248,cst_Format_Empty_queue,runtime.caml_fresh_oo_id(0)];
+var Empty_queue = [248,cst_Format_Empty_queue,runtime["caml_fresh_oo_id"](0)];
 
 function peek_queue(param) {
   var vQ = param[2];
   if (vQ) {var x = vQ[1];return x;}
-  throw runtime.caml_wrap_thrown_exception(Empty_queue);
+  throw runtime["caml_wrap_thrown_exception"](Empty_queue);
 }
 
 function take_queue(q) {
@@ -81,7 +83,7 @@ function take_queue(q) {
     if (0 === tl) {q[1] = 0;}
     return x;
   }
-  throw runtime.caml_wrap_thrown_exception(Empty_queue);
+  throw runtime["caml_wrap_thrown_exception"](Empty_queue);
 }
 
 function pp_enqueue(state, token) {
@@ -162,7 +164,7 @@ function format_pp_token(state, size, param) {
           if (ls) {
             var l = ls[2];
             var x = ls[1];
-            return runtime.caml_lessthan(n, x) ?
+            return runtime["caml_lessthan"](n, x) ?
               [0,n,ls] :
               [0,x,add_tab(n, l)];
           }
@@ -256,11 +258,11 @@ function format_pp_token(state, size, param) {
             if (param__0) {
               var l = param__0[2];
               var x = param__0[1];
-              if (runtime.caml_greaterequal(x, n)) {return x;}
+              if (runtime["caml_greaterequal"](x, n)) {return x;}
               var param__0 = l;
               continue;
             }
-            throw runtime.caml_wrap_thrown_exception(Not_found);
+            throw runtime["caml_wrap_thrown_exception"](Not_found);
           }
         };
         var vJ = tabs__0[1];
@@ -270,7 +272,7 @@ function format_pp_token(state, size, param) {
           catch(vL) {
             vL = caml_wrap_exception(vL);
             if (vL !== Not_found) {
-              throw runtime.caml_wrap_thrown_exception_reraise(vL);
+              throw runtime["caml_wrap_thrown_exception_reraise"](vL);
             }
             var x__0 = x;
           }
@@ -330,7 +332,7 @@ function advance_left(state) {
   catch(vx) {
     vx = caml_wrap_exception(vx);
     if (vx === Empty_queue) {return 0;}
-    throw runtime.caml_wrap_thrown_exception_reraise(vx);
+    throw runtime["caml_wrap_thrown_exception_reraise"](vx);
   }
 }
 
@@ -1038,7 +1040,7 @@ function pp_print_text(ppf, s) {
   }
   for (; ; ) {
     if (right[1] !== len) {
-      var match = runtime.caml_string_get(s, right[1]);
+      var match = runtime["caml_string_get"](s, right[1]);
       if (10 === match) {
         flush(0);
         pp_force_newline(ppf, 0);
@@ -1649,7 +1651,7 @@ var Format = [
   pp_get_all_formatter_output_functions
 ];
 
-runtime.caml_register_global(15, Format, "Format");
+runtime["caml_register_global"](15, Format, "Format");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Format;

@@ -34,27 +34,27 @@ final class Set {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Set_remove_min_elt = $caml_new_string("Set.remove_min_elt");
     $cst_Set_bal = $caml_new_string("Set.bal");
     $cst_Set_bal__0 = $caml_new_string("Set.bal");
     $cst_Set_bal__1 = $caml_new_string("Set.bal");
     $cst_Set_bal__2 = $caml_new_string("Set.bal");
-    $Not_found = $global_data->Not_found;
-    $Pervasives = $global_data->Pervasives;
-    $List = $global_data->List_;
-    $Assert_failure = $global_data->Assert_failure;
+    $Not_found = $global_data["Not_found"];
+    $Pervasives = $global_data["Pervasives"];
+    $List = $global_data["List_"];
+    $Assert_failure = $global_data["Assert_failure"];
     $fk = R(0, 0, 0, 0);
     $fl = R(0, 0, 0);
     $fm = R(0, $caml_new_string("set.ml"), 510, 18);
@@ -220,7 +220,7 @@ final class Set {
             $v = $param__0[2];
             return $v;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $min_elt_opt = function($param) {
@@ -244,7 +244,7 @@ final class Set {
             if ($f5) {$param__0 = $f5;continue;}
             return $f6;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $max_elt_opt = function($param) {
@@ -669,7 +669,7 @@ final class Set {
             $param__0 = $param__1;
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $find_first_aux = function($v0, $f, $param) use ($caml_call1) {
@@ -698,7 +698,7 @@ final class Set {
             $param__0 = $r;
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $find_first_opt_aux = function($v0, $f, $param) use ($caml_call1) {
@@ -756,7 +756,7 @@ final class Set {
             $param__0 = $l;
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $find_last_opt_aux = function($v0, $f, $param) use ($caml_call1) {
@@ -902,9 +902,7 @@ final class Set {
               $right = $match__0[1];
               return V(0, $create($left, $mid, $right), $l__2);
             }
-            throw $runtime->caml_wrap_thrown_exception(
-                    V(0, $Assert_failure, $fm)
-                  );
+            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $fm));
           };
         return $sub->contents($caml_call1($List[1], $l), $l)[1];
       };
@@ -1049,7 +1047,7 @@ final class Set {
       }
     );
     
-    $runtime->caml_register_global(12, $Set, "Set");
+    $runtime["caml_register_global"](12, $Set, "Set");
 
   }
 }

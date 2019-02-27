@@ -10,8 +10,8 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime.caml_get_global_data();
-var List = global_data.List_;
+var global_data = runtime["caml_get_global_data"]();
+var List = global_data["List_"];
 var length = List[1];
 var compare_lengths = List[2];
 var compare_length_with = List[3];
@@ -120,7 +120,7 @@ var ListLabels = [
   merge
 ];
 
-runtime.caml_register_global(1, ListLabels, "ListLabels");
+runtime["caml_register_global"](1, ListLabels, "ListLabels");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().ListLabels;

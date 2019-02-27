@@ -11,21 +11,21 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_array_sub = runtime.caml_array_sub;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_make_vect = runtime.caml_make_vect;
-var caml_new_string = runtime.caml_new_string;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_array_sub = runtime["caml_array_sub"];
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_make_vect = runtime["caml_make_vect"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Array_map2_arrays_must_have_the_same_length = caml_new_string(
   "Array.map2: arrays must have the same length"
 );
@@ -37,11 +37,11 @@ var cst_Array_fill = caml_new_string("Array.fill");
 var cst_Array_sub = caml_new_string("Array.sub");
 var cst_Array_init = caml_new_string("Array.init");
 var cst_Array_Bottom = caml_new_string("Array.Bottom");
-var Assert_failure = global_data.Assert_failure;
-var Pervasives = global_data.Pervasives;
+var Assert_failure = global_data["Assert_failure"];
+var Pervasives = global_data["Pervasives"];
 var dw = [0,caml_new_string("array.ml"),233,4];
 
-function make_float(eu) {return runtime.caml_make_float_vect(eu);}
+function make_float(eu) {return runtime["caml_make_float_vect"](eu);}
 
 var Floatarray = [0];
 
@@ -92,7 +92,7 @@ function append(a1, a2) {
     copy(a2) :
     0 === a2.length - 1 ?
      caml_array_sub(a1, 0, l1) :
-     runtime.caml_array_append(a1, a2);
+     runtime["caml_array_append"](a1, a2);
 }
 
 function sub(a, ofs, len) {
@@ -131,7 +131,7 @@ function blit(a1, ofs1, a2, ofs2, len) {
       if (! ((a1.length - 1 - len | 0) < ofs1)) {
         if (0 <= ofs2) {
           if (! ((a2.length - 1 - len | 0) < ofs2)) {
-            return runtime.caml_array_blit(a1, ofs1, a2, ofs2, len);
+            return runtime["caml_array_blit"](a1, ofs1, a2, ofs2, len);
           }
         }
       }
@@ -380,7 +380,7 @@ function mem(x, a) {
     var i__0 = i;
     for (; ; ) {
       if (i__0 === n) {return 0;}
-      if (0 === runtime.caml_compare(a[i__0 + 1], x)) {return 1;}
+      if (0 === runtime["caml_compare"](a[i__0 + 1], x)) {return 1;}
       var i__1 = i__0 + 1 | 0;
       var i__0 = i__1;
       continue;
@@ -404,7 +404,7 @@ function memq(x, a) {
   return loop(0);
 }
 
-var Bottom = [248,cst_Array_Bottom,runtime.caml_fresh_oo_id(0)];
+var Bottom = [248,cst_Array_Bottom,runtime["caml_fresh_oo_id"](0)];
 
 function sort(cmp, a) {
   function maxson(l, i) {
@@ -426,7 +426,7 @@ function sort(cmp, a) {
       if (! (0 <= caml_call2(cmp, caml_check_bound(a, i31)[i31 + 1], dZ))) {return i31 + 1 | 0;}
     }
     if (i31 < l) {return i31;}
-    throw runtime.caml_wrap_thrown_exception([0,Bottom,i]);
+    throw runtime["caml_wrap_thrown_exception"]([0,Bottom,i]);
   }
   function trickledown(l, i, e) {
     var i__0 = i;
@@ -449,7 +449,7 @@ function sort(cmp, a) {
         var i__0 = exn[2];
         return caml_check_bound(a, i__0)[i__0 + 1] = e;
       }
-      throw runtime.caml_wrap_thrown_exception_reraise(exn);
+      throw runtime["caml_wrap_thrown_exception_reraise"](exn);
     }
   }
   function bubbledown(l, i) {
@@ -467,7 +467,7 @@ function sort(cmp, a) {
     catch(exn) {
       exn = caml_wrap_exception(exn);
       if (exn[1] === Bottom) {var i__0 = exn[2];return i__0;}
-      throw runtime.caml_wrap_thrown_exception_reraise(exn);
+      throw runtime["caml_wrap_thrown_exception_reraise"](exn);
     }
   }
   function trickleup(i, e) {
@@ -481,7 +481,7 @@ function sort(cmp, a) {
         if (0 < father) {var i__0 = father;continue;}
         return caml_check_bound(a, 0)[1] = e;
       }
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,dw]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,dw]);
     }
   }
   var l = a.length - 1;
@@ -621,7 +621,7 @@ var Array = [
   make_matrix,
   make_matrix,
   append,
-  function(dx) {return runtime.caml_array_concat(dx);},
+  function(dx) {return runtime["caml_array_concat"](dx);},
   sub,
   copy,
   fill,
@@ -646,7 +646,7 @@ var Array = [
   Floatarray
 ];
 
-runtime.caml_register_global(10, Array, "Array_");
+runtime["caml_register_global"](10, Array, "Array_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Array_;

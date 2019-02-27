@@ -31,13 +31,13 @@ final class MoreLabels {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $global_data = $runtime->caml_get_global_data();
-    $Set = $global_data->Set;
-    $Map = $global_data->Map;
-    $Hashtbl = $global_data->Hashtbl;
+    $global_data = $runtime["caml_get_global_data"]();
+    $Set = $global_data["Set"];
+    $Map = $global_data["Map"];
+    $Hashtbl = $global_data["Hashtbl"];
     $MoreLabels = V(0, $Hashtbl, $Map, $Set);
     
-    $runtime->caml_register_global(3, $MoreLabels, "MoreLabels");
+    $runtime["caml_register_global"](3, $MoreLabels, "MoreLabels");
 
   }
 }

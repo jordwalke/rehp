@@ -11,34 +11,36 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime.caml_new_string;
-var caml_obj_tag = runtime.caml_obj_tag;
+var caml_new_string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Obj_extension_constructor__0 = caml_new_string(
   "Obj.extension_constructor"
 );
 var cst_Obj_extension_constructor = caml_new_string(
   "Obj.extension_constructor"
 );
-var Pervasives = global_data.Pervasives;
-var Marshal = global_data.Marshal;
+var Pervasives = global_data["Pervasives"];
+var Marshal = global_data["Marshal"];
 
 function is_block(a) {return 1 - (typeof a === "number");}
 
-function double_field(x, i) {return runtime.caml_array_get(x, i);}
+function double_field(x, i) {return runtime["caml_array_get"](x, i);}
 
-function set_double_field(x, i, v) {return runtime.caml_array_set(x, i, v);}
+function set_double_field(x, i, v) {
+  return runtime["caml_array_set"](x, i, v);
+}
 
-function marshal(obj) {return runtime.caml_output_value_to_string(obj, 0);}
+function marshal(obj) {return runtime["caml_output_value_to_string"](obj, 0);}
 
 function unmarshal(str, pos) {
   var dv = pos + caml_call2(Marshal[8], str, pos) | 0;
@@ -92,31 +94,31 @@ function extension_id(slot) {return slot[2];}
 
 function length(x) {return x.length - 1 + -2 | 0;}
 
-function cU(du, dt) {return runtime.caml_ephe_blit_data(du, dt);}
+function cU(du, dt) {return runtime["caml_ephe_blit_data"](du, dt);}
 
-function cV(ds) {return runtime.caml_ephe_check_data(ds);}
+function cV(ds) {return runtime["caml_ephe_check_data"](ds);}
 
-function cW(dr) {return runtime.caml_ephe_unset_data(dr);}
+function cW(dr) {return runtime["caml_ephe_unset_data"](dr);}
 
-function cX(dq, dp) {return runtime.caml_ephe_set_data(dq, dp);}
+function cX(dq, dp) {return runtime["caml_ephe_set_data"](dq, dp);}
 
-function cY(dn) {return runtime.caml_ephe_get_data_copy(dn);}
+function cY(dn) {return runtime["caml_ephe_get_data_copy"](dn);}
 
-function cZ(dm) {return runtime.caml_ephe_get_data(dm);}
+function cZ(dm) {return runtime["caml_ephe_get_data"](dm);}
 
 function c0(dl, dk, dj, di, dh) {
-  return runtime.caml_ephe_blit_key(dl, dk, dj, di, dh);
+  return runtime["caml_ephe_blit_key"](dl, dk, dj, di, dh);
 }
 
-function c1(dg, df) {return runtime.caml_ephe_check_key(dg, df);}
+function c1(dg, df) {return runtime["caml_ephe_check_key"](dg, df);}
 
-function c2(de, dd) {return runtime.caml_ephe_unset_key(de, dd);}
+function c2(de, dd) {return runtime["caml_ephe_unset_key"](de, dd);}
 
-function c3(dc, db, da) {return runtime.caml_ephe_set_key(dc, db, da);}
+function c3(dc, db, da) {return runtime["caml_ephe_set_key"](dc, db, da);}
 
-function c4(c_, c9) {return runtime.caml_ephe_get_key_copy(c_, c9);}
+function c4(c_, c9) {return runtime["caml_ephe_get_key_copy"](c_, c9);}
 
-function c5(c8, c7) {return runtime.caml_ephe_get_key(c8, c7);}
+function c5(c8, c7) {return runtime["caml_ephe_get_key"](c8, c7);}
 
 var Obj = [
   0,
@@ -147,7 +149,7 @@ var Obj = [
   unmarshal,
   [
     0,
-    function(c6) {return runtime.caml_ephe_create(c6);},
+    function(c6) {return runtime["caml_ephe_create"](c6);},
     length,
     c5,
     c4,
@@ -164,7 +166,7 @@ var Obj = [
   ]
 ];
 
-runtime.caml_register_global(4, Obj, "Obj");
+runtime["caml_register_global"](4, Obj, "Obj");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Obj;

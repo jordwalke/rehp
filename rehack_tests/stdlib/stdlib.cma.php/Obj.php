@@ -32,36 +32,36 @@ final class Obj {
     $runtime = $joo_global_object->jsoo_runtime;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_obj_tag = $runtime->caml_obj_tag;
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_obj_tag = $runtime["caml_obj_tag"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Obj_extension_constructor__0 = $caml_new_string(
       "Obj.extension_constructor"
     );
     $cst_Obj_extension_constructor = $caml_new_string(
       "Obj.extension_constructor"
     );
-    $Pervasives = $global_data->Pervasives;
-    $Marshal = $global_data->Marshal;
+    $Pervasives = $global_data["Pervasives"];
+    $Marshal = $global_data["Marshal"];
     $is_block = function($a) use ($is_int) {return 1 - $is_int($a);};
     $double_field = function($x, $i) use ($runtime) {
-      return $runtime->caml_array_get($x, $i);
+      return $runtime["caml_array_get"]($x, $i);
     };
     $set_double_field = function($x, $i, $v) use ($runtime) {
-      return $runtime->caml_array_set($x, $i, $v);
+      return $runtime["caml_array_set"]($x, $i, $v);
     };
     $marshal = function($obj) use ($runtime) {
-      return $runtime->caml_output_value_to_string($obj, 0);
+      return $runtime["caml_output_value_to_string"]($obj, 0);
     };
     $unmarshal = function($str, $pos) use ($Marshal,$caml_call2) {
       $dv = $pos + $caml_call2($Marshal[8], $str, $pos) | 0;
@@ -112,40 +112,40 @@ final class Obj {
     $extension_id = function($slot) {return $slot[2];};
     $length = function($x) {return $x->length - 1 + -2 | 0;};
     $cU = function($du, $dt) use ($runtime) {
-      return $runtime->caml_ephe_blit_data($du, $dt);
+      return $runtime["caml_ephe_blit_data"]($du, $dt);
     };
     $cV = function($ds) use ($runtime) {
-      return $runtime->caml_ephe_check_data($ds);
+      return $runtime["caml_ephe_check_data"]($ds);
     };
     $cW = function($dr) use ($runtime) {
-      return $runtime->caml_ephe_unset_data($dr);
+      return $runtime["caml_ephe_unset_data"]($dr);
     };
     $cX = function($dq, $dp) use ($runtime) {
-      return $runtime->caml_ephe_set_data($dq, $dp);
+      return $runtime["caml_ephe_set_data"]($dq, $dp);
     };
     $cY = function($dn) use ($runtime) {
-      return $runtime->caml_ephe_get_data_copy($dn);
+      return $runtime["caml_ephe_get_data_copy"]($dn);
     };
     $cZ = function($dm) use ($runtime) {
-      return $runtime->caml_ephe_get_data($dm);
+      return $runtime["caml_ephe_get_data"]($dm);
     };
     $c0 = function($dl, $dk, $dj, $di, $dh) use ($runtime) {
-      return $runtime->caml_ephe_blit_key($dl, $dk, $dj, $di, $dh);
+      return $runtime["caml_ephe_blit_key"]($dl, $dk, $dj, $di, $dh);
     };
     $c1 = function($dg, $df) use ($runtime) {
-      return $runtime->caml_ephe_check_key($dg, $df);
+      return $runtime["caml_ephe_check_key"]($dg, $df);
     };
     $c2 = function($de, $dd) use ($runtime) {
-      return $runtime->caml_ephe_unset_key($de, $dd);
+      return $runtime["caml_ephe_unset_key"]($de, $dd);
     };
     $c3 = function($dc, $db, $da) use ($runtime) {
-      return $runtime->caml_ephe_set_key($dc, $db, $da);
+      return $runtime["caml_ephe_set_key"]($dc, $db, $da);
     };
     $c4 = function($c_, $c9) use ($runtime) {
-      return $runtime->caml_ephe_get_key_copy($c_, $c9);
+      return $runtime["caml_ephe_get_key_copy"]($c_, $c9);
     };
     $c5 = function($c8, $c7) use ($runtime) {
-      return $runtime->caml_ephe_get_key($c8, $c7);
+      return $runtime["caml_ephe_get_key"]($c8, $c7);
     };
     $Obj = V(
       0,
@@ -176,7 +176,9 @@ final class Obj {
       $unmarshal,
       V(
         0,
-        function($c6) use ($runtime) {return $runtime->caml_ephe_create($c6);},
+        function($c6) use ($runtime) {
+          return $runtime["caml_ephe_create"]($c6);
+        },
         $length,
         $c5,
         $c4,
@@ -193,7 +195,7 @@ final class Obj {
       )
     );
     
-    $runtime->caml_register_global(4, $Obj, "Obj");
+    $runtime["caml_register_global"](4, $Obj, "Obj");
 
   }
 }

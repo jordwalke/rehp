@@ -34,20 +34,20 @@ final class Strings {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_int_of_string = $runtime->caml_int_of_string;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_int_of_string = $runtime["caml_int_of_string"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = $caml_new_string(
       "The variable v_ should not conflict with any other variables in scope"
     );
@@ -97,11 +97,11 @@ final class Strings {
     $cst_Nans_are_should_output_false = $caml_new_string(
       "Nans are == (should output false):"
     );
-    $Pervasives = $global_data->Pervasives;
-    $String = $global_data->String_;
-    $Not_found = $global_data->Not_found;
-    $StringHelper = $global_data->StringHelper;
-    $Failure = $global_data->Failure;
+    $Pervasives = $global_data["Pervasives"];
+    $String = $global_data["String_"];
+    $Not_found = $global_data["Not_found"];
+    $StringHelper = $global_data["StringHelper"];
+    $Failure = $global_data["Failure"];
     $r = R(0, 1, R(0, 2, R(0, 3, R(0, 4, 0))));
     $s = R(0, 1, R(0, 2, R(0, 3, R(0, 4, 0))));
     
@@ -137,7 +137,7 @@ final class Strings {
     catch(\Throwable $G) {
       $G = $caml_wrap_exception($G);
       if ($G !== $Not_found) {
-        throw $runtime->caml_wrap_thrown_exception_reraise($G);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($G);
       }
       $h = -1;
       $index__0 = $h;
@@ -194,7 +194,7 @@ final class Strings {
     catch(\Throwable $F) {
       $F = $caml_wrap_exception($F);
       if ($F[1] !== $Failure) {
-        throw $runtime->caml_wrap_thrown_exception_reraise($F);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($F);
       }
       $l = 102;
       $m = $l;
@@ -218,7 +218,7 @@ final class Strings {
     catch(\Throwable $E) {
       $E = $caml_wrap_exception($E);
       if ($E[1] !== $Failure) {
-        throw $runtime->caml_wrap_thrown_exception_reraise($E);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($E);
       }
       $n = 102;
       $o = $n;
@@ -243,7 +243,7 @@ final class Strings {
     
     $one__0 = V(0, $r);
     $two = V(0, $s);
-    $t = $caml_call1($Pervasives[18], $runtime->caml_equal($one__0, $two));
+    $t = $caml_call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
     $u = $caml_call2($Pervasives[16], $cst_ARE_T, $t);
     
     $caml_call1($Pervasives[30], $u);
@@ -289,7 +289,7 @@ final class Strings {
       $anotherName
     );
     
-    $runtime->caml_register_global(39, $Strings, "Strings");
+    $runtime["caml_register_global"](39, $Strings, "Strings");
 
   }
 }

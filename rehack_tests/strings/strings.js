@@ -14,19 +14,19 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_int_of_string = runtime.caml_int_of_string;
-var caml_new_string = runtime.caml_new_string;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_int_of_string = runtime["caml_int_of_string"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = caml_new_string(
   "The variable v_ should not conflict with any other variables in scope"
 );
@@ -76,11 +76,11 @@ var cst_Nans_are_should_output_true = caml_new_string(
 var cst_Nans_are_should_output_false = caml_new_string(
   "Nans are == (should output false):"
 );
-var Pervasives = global_data.Pervasives;
-var String = global_data.String_;
-var Not_found = global_data.Not_found;
-var StringHelper = global_data.StringHelper;
-var Failure = global_data.Failure;
+var Pervasives = global_data["Pervasives"];
+var String = global_data["String_"];
+var Not_found = global_data["Not_found"];
+var StringHelper = global_data["StringHelper"];
+var Failure = global_data["Failure"];
 var r = [0,1,[0,2,[0,3,[0,4,0]]]];
 var s = [0,1,[0,2,[0,3,[0,4,0]]]];
 
@@ -115,7 +115,9 @@ var unicodeLength = 2;
 try {var D = caml_call2(String[14], cst_asdf, 95);var index__0 = D;}
 catch(G) {
   G = caml_wrap_exception(G);
-  if (G !== Not_found) {throw runtime.caml_wrap_thrown_exception_reraise(G);}
+  if (G !== Not_found) {
+    throw runtime["caml_wrap_thrown_exception_reraise"](G);
+  }
   var h = -1;
   var index__0 = h;
 }
@@ -168,7 +170,9 @@ myFunction(cst_tmp);
 try {var C = createIntFromString(cst_WHEREAMI);var m = C;}
 catch(F) {
   F = caml_wrap_exception(F);
-  if (F[1] !== Failure) {throw runtime.caml_wrap_thrown_exception_reraise(F);}
+  if (F[1] !== Failure) {
+    throw runtime["caml_wrap_thrown_exception_reraise"](F);
+  }
   var l = 102;
   var m = l;
 }
@@ -185,7 +189,9 @@ else caml_call1(Pervasives[2], cst_Did_not_properly_catch_Failure_exception);
 try {var B = createIntFromString(cst_20);var o = B;}
 catch(E) {
   E = caml_wrap_exception(E);
-  if (E[1] !== Failure) {throw runtime.caml_wrap_thrown_exception_reraise(E);}
+  if (E[1] !== Failure) {
+    throw runtime["caml_wrap_thrown_exception_reraise"](E);
+  }
   var n = 102;
   var o = n;
 }
@@ -207,7 +213,7 @@ else caml_call1(
 
 var one__0 = [0,r];
 var two = [0,s];
-var t = caml_call1(Pervasives[18], runtime.caml_equal(one__0, two));
+var t = caml_call1(Pervasives[18], runtime["caml_equal"](one__0, two));
 var u = caml_call2(Pervasives[16], cst_ARE_T, t);
 
 caml_call1(Pervasives[30], u);
@@ -253,7 +259,7 @@ var Strings = [
   anotherName
 ];
 
-runtime.caml_register_global(39, Strings, "Strings");
+runtime["caml_register_global"](39, Strings, "Strings");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Strings;

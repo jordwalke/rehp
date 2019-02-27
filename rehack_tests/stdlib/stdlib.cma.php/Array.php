@@ -31,22 +31,22 @@ final class Array_ {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_array_sub = $runtime->caml_array_sub;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_make_vect = $runtime->caml_make_vect;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_array_sub = $runtime["caml_array_sub"];
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_make_vect = $runtime["caml_make_vect"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Array_map2_arrays_must_have_the_same_length = $caml_new_string(
       "Array.map2: arrays must have the same length"
     );
@@ -58,11 +58,11 @@ final class Array_ {
     $cst_Array_sub = $caml_new_string("Array.sub");
     $cst_Array_init = $caml_new_string("Array.init");
     $cst_Array_Bottom = $caml_new_string("Array.Bottom");
-    $Assert_failure = $global_data->Assert_failure;
-    $Pervasives = $global_data->Pervasives;
+    $Assert_failure = $global_data["Assert_failure"];
+    $Pervasives = $global_data["Pervasives"];
     $dw = R(0, $caml_new_string("array.ml"), 233, 4);
     $make_float = function($eu) use ($runtime) {
-      return $runtime->caml_make_float_vect($eu);
+      return $runtime["caml_make_float_vect"]($eu);
     };
     $Floatarray = V(0);
     $init = function($l, $f) use ($Pervasives,$caml_call1,$caml_make_vect,$cst_Array_init) {
@@ -109,7 +109,7 @@ final class Array_ {
         ? $copy($a2)
         : (0 === $a2->length - 1
          ? $caml_array_sub($a1, 0, $l1)
-         : ($runtime->caml_array_append($a1, $a2)));
+         : ($runtime["caml_array_append"]($a1, $a2)));
     };
     $sub = function($a, $ofs, $len) use ($Pervasives,$caml_array_sub,$caml_call1,$cst_Array_sub) {
       if (0 <= $ofs) {
@@ -145,7 +145,13 @@ final class Array_ {
           if (! (($a1->length - 1 - $len | 0) < $ofs1)) {
             if (0 <= $ofs2) {
               if (! (($a2->length - 1 - $len | 0) < $ofs2)) {
-                return $runtime->caml_array_blit($a1, $ofs1, $a2, $ofs2, $len);
+                return $runtime["caml_array_blit"](
+                  $a1,
+                  $ofs1,
+                  $a2,
+                  $ofs2,
+                  $len
+                );
               }
             }
           }
@@ -380,7 +386,7 @@ final class Array_ {
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $n) {return 0;}
-          if (0 === $runtime->caml_compare($a[$i__0 + 1], $x)) {return 1;}
+          if (0 === $runtime["caml_compare"]($a[$i__0 + 1], $x)) {return 1;}
           $i__1 = $i__0 + 1 | 0;
           $i__0 = $i__1;
           continue;
@@ -402,7 +408,7 @@ final class Array_ {
       };
       return $loop(0);
     };
-    $Bottom = V(248, $cst_Array_Bottom, $runtime->caml_fresh_oo_id(0));
+    $Bottom = V(248, $cst_Array_Bottom, $runtime["caml_fresh_oo_id"](0));
     $sort = function($cmp, $a) use ($Assert_failure,$Bottom,$caml_call2,$caml_check_bound,$caml_wrap_exception,$dw,$runtime) {
       $maxson = function($l, $i) use ($Bottom,$a,$caml_call2,$caml_check_bound,$cmp,$runtime) {
         $i31 = (($i + $i | 0) + $i | 0) + 1 | 0;
@@ -430,7 +436,7 @@ final class Array_ {
           ) {return $i31 + 1 | 0;}
         }
         if ($i31 < $l) {return $i31;}
-        throw $runtime->caml_wrap_thrown_exception(V(0, $Bottom, $i));
+        throw $runtime["caml_wrap_thrown_exception"](V(0, $Bottom, $i));
       };
       $trickledown = function($l, $i, $e) use ($a,$caml_call2,$caml_check_bound,$cmp,$maxson) {
         $i__0 = $i;
@@ -453,7 +459,7 @@ final class Array_ {
             $i__0 = $exn[2];
             return $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
           }
-          throw $runtime->caml_wrap_thrown_exception_reraise($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
         }
       };
       $bubbledown = function($l, $i) use ($a,$caml_check_bound,$maxson) {
@@ -471,7 +477,7 @@ final class Array_ {
         catch(\Throwable $exn) {
           $exn = $caml_wrap_exception($exn);
           if ($exn[1] === $Bottom) {$i__0 = $exn[2];return $i__0;}
-          throw $runtime->caml_wrap_thrown_exception_reraise($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
         }
       };
       $trickleup = function($i, $e) use ($Assert_failure,$a,$caml_call2,$caml_check_bound,$cmp,$dw,$runtime) {
@@ -492,9 +498,7 @@ final class Array_ {
             if (0 < $father) {$i__0 = $father;continue;}
             return $caml_check_bound($a, 0)[1] = $e;
           }
-          throw $runtime->caml_wrap_thrown_exception(
-                  V(0, $Assert_failure, $dw)
-                );
+          throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $dw));
         }
       };
       $l = $a->length - 1;
@@ -662,7 +666,9 @@ final class Array_ {
       $make_matrix,
       $make_matrix,
       $append,
-      function($dx) use ($runtime) {return $runtime->caml_array_concat($dx);},
+      function($dx) use ($runtime) {
+        return $runtime["caml_array_concat"]($dx);
+      },
       $sub,
       $copy,
       $fill,
@@ -687,7 +693,7 @@ final class Array_ {
       $Floatarray
     );
     
-    $runtime->caml_register_global(10, $Array, "Array_");
+    $runtime["caml_register_global"](10, $Array, "Array_");
 
   }
 }

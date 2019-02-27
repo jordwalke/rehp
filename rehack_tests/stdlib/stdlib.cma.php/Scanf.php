@@ -49,36 +49,36 @@ final class Scanf {
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_bytes_get = $runtime->caml_bytes_get;
-    $caml_int_of_string = $runtime->caml_int_of_string;
-    $caml_ml_string_length = $runtime->caml_ml_string_length;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_string_get = $runtime->caml_string_get;
-    $caml_string_notequal = $runtime->caml_string_notequal;
-    $caml_trampoline = $runtime->caml_trampoline;
-    $caml_trampoline_return = $runtime->caml_trampoline_return;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_bytes_get = $runtime["caml_bytes_get"];
+    $caml_int_of_string = $runtime["caml_int_of_string"];
+    $caml_ml_string_length = $runtime["caml_ml_string_length"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_string_get = $runtime["caml_string_get"];
+    $caml_string_notequal = $runtime["caml_string_notequal"];
+    $caml_trampoline = $runtime["caml_trampoline"];
+    $caml_trampoline_return = $runtime["caml_trampoline_return"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_end_of_input_not_found = $caml_new_string("end of input not found");
     $cst_scanf_bad_conversion_a = $caml_new_string(
       "scanf: bad conversion \"%a\""
@@ -138,18 +138,18 @@ final class Scanf {
     $cst_hexadecimal = $caml_new_string("hexadecimal");
     $cst_a_Char = $caml_new_string("a Char");
     $cst_a_String = $caml_new_string("a String");
-    $CamlinternalFormat = $global_data->CamlinternalFormat;
-    $CamlinternalFormatBasics = $global_data->CamlinternalFormatBasics;
-    $String = $global_data->String_;
-    $Failure = $global_data->Failure;
-    $Pervasives = $global_data->Pervasives;
-    $Assert_failure = $global_data->Assert_failure;
-    $Buffer = $global_data->Buffer;
-    $End_of_file = $global_data->End_of_file;
-    $Invalid_argument = $global_data->Invalid_argument;
-    $Printf = $global_data->Printf;
-    $List = $global_data->List_;
-    $Not_found = $global_data->Not_found;
+    $CamlinternalFormat = $global_data["CamlinternalFormat"];
+    $CamlinternalFormatBasics = $global_data["CamlinternalFormatBasics"];
+    $String = $global_data["String_"];
+    $Failure = $global_data["Failure"];
+    $Pervasives = $global_data["Pervasives"];
+    $Assert_failure = $global_data["Assert_failure"];
+    $Buffer = $global_data["Buffer"];
+    $End_of_file = $global_data["End_of_file"];
+    $Invalid_argument = $global_data["Invalid_argument"];
+    $Printf = $global_data["Printf"];
+    $List = $global_data["List_"];
+    $Not_found = $global_data["Not_found"];
     $v9 = R(0, 91);
     $v8 = R(0, 123);
     $v_ = R(0, $caml_new_string("scanf.ml"), 1455, 13);
@@ -296,7 +296,7 @@ final class Scanf {
           $ib[1] = 1;
           return $null_char;
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($yd);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($yd);
       }
     };
     $peek_char = function($ib) use ($next_char) {
@@ -304,7 +304,9 @@ final class Scanf {
     };
     $checked_peek_char = function($ib) use ($End_of_file,$peek_char,$runtime) {
       $c = $peek_char($ib);
-      if ($ib[1]) {throw $runtime->caml_wrap_thrown_exception($End_of_file);}
+      if ($ib[1]) {
+        throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+      }
       return $c;
     };
     $end_of_input = function($ib) use ($peek_char) {
@@ -371,7 +373,7 @@ final class Scanf {
       $len = $caml_ml_string_length($s);
       $next = function($param) use ($End_of_file,$caml_string_get,$i,$len,$runtime,$s) {
         if ($len <= $i[1]) {
-          throw $runtime->caml_wrap_thrown_exception($End_of_file);
+          throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
         }
         $c = $caml_string_get($s, $i[1]);
         $i[1] += 1;
@@ -386,13 +388,13 @@ final class Scanf {
     $len = 1024;
     $scan_close_at_end = function($ic) use ($End_of_file,$Pervasives,$caml_call1,$runtime) {
       $caml_call1($Pervasives[81], $ic);
-      throw $runtime->caml_wrap_thrown_exception($End_of_file);
+      throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
     };
     $scan_raise_at_end = function($ic) use ($End_of_file,$runtime) {
-      throw $runtime->caml_wrap_thrown_exception($End_of_file);
+      throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
     };
     $from_ic = function($scan_close_ic, $iname, $ic) use ($End_of_file,$Pervasives,$caml_bytes_get,$caml_call1,$caml_call4,$create,$len,$runtime) {
-      $buf = $runtime->caml_create_bytes(1024);
+      $buf = $runtime["caml_create_bytes"](1024);
       $i = V(0, 0);
       $lim = V(0, 0);
       $eof = V(0, 0);
@@ -403,7 +405,7 @@ final class Scanf {
           return $c;
         }
         if ($eof[1]) {
-          throw $runtime->caml_wrap_thrown_exception($End_of_file);
+          throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
         }
         $lim[1] = $caml_call4($Pervasives[72], $ic, $buf, 0, $len);
         return 0 === $lim[1]
@@ -467,7 +469,7 @@ final class Scanf {
           $memo[1] = V(0, V(0, $ic, $ib), $memo[1]);
           return $ib;
         }
-        throw $runtime->caml_wrap_thrown_exception_reraise($x4);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($x4);
       }
     };
     $memo_from_channel = function($x2) use ($memo_from_ic,$scan_raise_at_end) {
@@ -476,10 +478,10 @@ final class Scanf {
     $Scan_failure = V(
       248,
       $cst_Scanf_Scan_failure,
-      $runtime->caml_fresh_oo_id(0)
+      $runtime["caml_fresh_oo_id"](0)
     );
     $bad_input = function($s) use ($Scan_failure,$runtime) {
-      throw $runtime->caml_wrap_thrown_exception(V(0, $Scan_failure, $s));
+      throw $runtime["caml_wrap_thrown_exception"](V(0, $Scan_failure, $s));
     };
     $bad_input_escape = function($c) use ($Printf,$bad_input,$caml_call2,$vV) {
       return $bad_input($caml_call2($Printf[4], $vV, $c));
@@ -575,7 +577,7 @@ final class Scanf {
             return 5;
           }
       }
-      throw $runtime->caml_wrap_thrown_exception(V(0, $Assert_failure, $v0));
+      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $v0));
     };
     $token_int_literal = function($conv, $ib) use ($Pervasives,$String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_get,$cst_0b,$cst_0o,$cst_0u,$cst_0x,$token_string) {
       switch($conv) {
@@ -615,7 +617,7 @@ final class Scanf {
       return $caml_int_of_string($token_int_literal($conv, $ib));
     };
     $token_float = function($ib) use ($runtime,$token_string) {
-      return $runtime->caml_float_of_string($token_string($ib));
+      return $runtime["caml_float_of_string"]($token_string($ib));
     };
     $token_nativeint = function($conv, $ib) use ($caml_int_of_string,$token_int_literal) {
       return $caml_int_of_string($token_int_literal($conv, $ib));
@@ -624,7 +626,7 @@ final class Scanf {
       return $caml_int_of_string($token_int_literal($conv, $ib));
     };
     $token_int64 = function($conv, $ib) use ($runtime,$token_int_literal) {
-      return $runtime->caml_int64_of_string($token_int_literal($conv, $ib));
+      return $runtime["caml_int64_of_string"]($token_int_literal($conv, $ib));
     };
     $scan_decimal_digit_star = function($width, $ib) use ($eof,$ignore_char,$peek_char,$store_char) {
       $width__0 = $width;
@@ -1422,7 +1424,7 @@ final class Scanf {
       if ($x[1] === $Scan_failure) {$s = $x[2];}
       else {
         if ($x[1] !== $Failure) {
-          throw $runtime->caml_wrap_thrown_exception($x);
+          throw $runtime["caml_wrap_thrown_exception"]($x);
         }
         $s = $x[2];
       }
@@ -2289,7 +2291,7 @@ final class Scanf {
               catch(\Throwable $exn) {
                 $exn = $caml_wrap_exception($exn);
                 if ($exn[1] !== $Failure) {
-                  throw $runtime->caml_wrap_thrown_exception_reraise($exn);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
                 }
                 $msg = $exn[2];
                 $ww = $bad_input($msg);
@@ -2323,7 +2325,7 @@ final class Scanf {
               catch(\Throwable $exn) {
                 $exn = $caml_wrap_exception($exn);
                 if ($exn[1] !== $Failure) {
-                  throw $runtime->caml_wrap_thrown_exception_reraise($exn);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
                 }
                 $msg__0 = $exn[2];
                 $wy = $bad_input($msg__0);
@@ -2454,9 +2456,7 @@ final class Scanf {
               $fmt__16 = $match__7[1];
               $match__8 = $make_scanf->contents($ib, $fmt__16, $readers);
               if ($match__8) {$arg_rest = $match__8[2];return $arg_rest;}
-              throw $runtime->caml_wrap_thrown_exception(
-                      V(0, $Assert_failure, $v_)
-                    );
+              throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $v_));
             // FALLTHROUGH
             default:
               return $caml_call1(
@@ -2497,7 +2497,7 @@ final class Scanf {
               if ($exc === $End_of_file) {$switch__0 = 0;}
               else {
                 if ($exc[1] !== $Invalid_argument) {
-                  throw $runtime->caml_wrap_thrown_exception_reraise($exc);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exc);
                 }
                 $msg = $exc[2];
                 $wl = $caml_call1($String[13], $str);
@@ -2541,7 +2541,7 @@ final class Scanf {
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($exn[1] !== $Failure) {
-          throw $runtime->caml_wrap_thrown_exception_reraise($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
         }
         $msg = $exn[2];
         $wh = $bad_input($msg);
@@ -2622,7 +2622,7 @@ final class Scanf {
       $kfscanf
     );
     
-    $runtime->caml_register_global(66, $Scanf, "Scanf");
+    $runtime["caml_register_global"](66, $Scanf, "Scanf");
 
   }
 }

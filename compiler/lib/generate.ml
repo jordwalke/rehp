@@ -279,7 +279,7 @@ let s_var name = J.EVar (Id.S {Id.name=name; Id.var = None})
 let runtime_fun ctx name =
   match ctx.Ctx.exported_runtime with
   | Some runtime ->
-    J.EDot (J.EVar (Id.V runtime), name)
+    J.EAccess (J.EVar (Id.V runtime), J.EStr(name, `Utf8) )
   | None -> s_var name
 
 let str_js s = J.EStr (s,`Bytes)
@@ -357,7 +357,7 @@ let rec constant_rec ~ctx x level instrs =
             ~f:(fun (l, instrs) cc ->
                let (js, instrs) = constant_rec ~ctx cc level instrs in
                js::l, instrs)
-    
+
         in
         let (l, instrs) =
           if split then
@@ -1139,7 +1139,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
          optimized to EDot and cannot use the runtime fallback *)
       | Extern ("caml_js_get" | "caml_js_property_get"), [Pv o; Pc (String f | IString f)] when Id.is_ident f ->
         let ((po, co), queue) = access_queue queue o in
-        (J.EDot (co, f), or_p po mutable_p, queue)
+        (J.EAccess (co, J.EStr(f, `Utf8)), or_p po mutable_p, queue)
       (* caml_js_property_set is like caml_js_set but will _only_ be
          optimized to EDot and cannot use the runtime fallback *)
       | Extern ("caml_js_set" | "caml_js_property_set"), [Pv o; Pc (String f | IString f); v] when Id.is_ident f ->
@@ -1740,7 +1740,7 @@ let generate_shared_value ctx =
       J.Variable_statement (
         List.map
           (StringMap.bindings ctx.Ctx.share.Share.vars.Share.strings)
-          ~f:(fun (s,v) -> v, Some (str_js s,Loc.N))  
+          ~f:(fun (s,v) -> v, Some (str_js s,Loc.N))
         @ List.map
           (StringMap.bindings ctx.Ctx.share.Share.vars.Share.prims)
           ~f:(fun (s,v) -> v, Some (runtime_fun ctx s,Loc.N))

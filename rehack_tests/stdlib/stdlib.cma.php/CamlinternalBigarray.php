@@ -31,7 +31,7 @@ final class CamlinternalBigarray {
     $runtime = $joo_global_object->jsoo_runtime;
     $CamlinternalBigarray = V(0);
     
-    $runtime->caml_register_global(
+    $runtime["caml_register_global"](
       0,
       $CamlinternalBigarray,
       "CamlinternalBigarray"

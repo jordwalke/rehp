@@ -10,8 +10,8 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime.caml_get_global_data();
-var Array = global_data.Array_;
+var global_data = runtime["caml_get_global_data"]();
+var Array = global_data["Array_"];
 var make_float = Array[1];
 var init = Array[2];
 var make_matrix = Array[3];
@@ -72,7 +72,7 @@ var ArrayLabels = [
   Floatarray
 ];
 
-runtime.caml_register_global(1, ArrayLabels, "ArrayLabels");
+runtime["caml_register_global"](1, ArrayLabels, "ArrayLabels");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().ArrayLabels;

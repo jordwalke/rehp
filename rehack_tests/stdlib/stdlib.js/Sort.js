@@ -10,15 +10,15 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime.caml_new_string;
+var caml_new_string = runtime["caml_new_string"];
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_Sort_array = caml_new_string("Sort.array");
-var Invalid_argument = global_data.Invalid_argument;
+var Invalid_argument = global_data["Invalid_argument"];
 
 function merge(order, l1, l2) {
   if (l1) {
@@ -109,8 +109,7 @@ function array(cmp, arr) {
         var cH = 1 - caml_call2(cmp, pivot, arr[hi__0 + 1]);
         var cI = cH || 1 - caml_call2(cmp, arr[lo__0 + 1], pivot);
         if (cI) {
-          throw runtime.caml_wrap_thrown_exception(
-                  [0,Invalid_argument,cst_Sort_array]
+          throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Sort_array]
                 );
         }
         b:
@@ -180,7 +179,7 @@ function array(cmp, arr) {
 
 var Sort = [0,list,array,merge];
 
-runtime.caml_register_global(2, Sort, "Sort");
+runtime["caml_register_global"](2, Sort, "Sort");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Sort;

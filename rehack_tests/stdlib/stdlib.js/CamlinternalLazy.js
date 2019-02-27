@@ -10,28 +10,28 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime.caml_new_string;
-var caml_obj_set_tag = runtime.caml_obj_set_tag;
-var caml_obj_tag = runtime.caml_obj_tag;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_new_string = runtime["caml_new_string"];
+var caml_obj_set_tag = runtime["caml_obj_set_tag"];
+var caml_obj_tag = runtime["caml_obj_tag"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst_CamlinternalLazy_Undefined = caml_new_string(
   "CamlinternalLazy.Undefined"
 );
-var Obj = global_data.Obj;
+var Obj = global_data["Obj"];
 var Undefined = [
   248,
   cst_CamlinternalLazy_Undefined,
-  runtime.caml_fresh_oo_id(0)
+  runtime["caml_fresh_oo_id"](0)
 ];
 
 function raise_undefined(param) {
-  throw runtime.caml_wrap_thrown_exception(Undefined);
+  throw runtime["caml_wrap_thrown_exception"](Undefined);
 }
 
 function force_lazy_block(blk) {
@@ -46,8 +46,10 @@ function force_lazy_block(blk) {
   catch(e) {
     e = caml_wrap_exception(e);
     blk[1] =
-      function(param) {throw runtime.caml_wrap_thrown_exception_reraise(e);};
-    throw runtime.caml_wrap_thrown_exception_reraise(e);
+      function(param) {
+        throw runtime["caml_wrap_thrown_exception_reraise"](e);
+      };
+    throw runtime["caml_wrap_thrown_exception_reraise"](e);
   }
 }
 
@@ -81,7 +83,7 @@ var CamlinternalLazy = [
   force_val
 ];
 
-runtime.caml_register_global(2, CamlinternalLazy, "CamlinternalLazy");
+runtime["caml_register_global"](2, CamlinternalLazy, "CamlinternalLazy");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalLazy;

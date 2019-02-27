@@ -31,18 +31,20 @@ final class Spacetime {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_spacetime_enabled = $runtime->caml_spacetime_enabled;
-    $caml_spacetime_only_works_for_native_code = $runtime->caml_spacetime_only_works_for_native_code;
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_spacetime_enabled = $runtime["caml_spacetime_enabled"];
+    $caml_spacetime_only_works_for_native_code = $runtime[
+       "caml_spacetime_only_works_for_native_code"
+     ];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Series_is_closed__0 = $caml_new_string("Series is closed");
     $cst_Series_is_closed = $caml_new_string("Series is closed");
-    $Pervasives = $global_data->Pervasives;
+    $Pervasives = $global_data["Pervasives"];
     $enabled = $caml_spacetime_enabled(0);
     $if_spacetime_enabled = function($f) use ($caml_call1,$enabled) {
       return $enabled ? $caml_call1($f, 0) : (0);
@@ -87,7 +89,7 @@ final class Spacetime {
           if ($closed) {
             $caml_call1($Pervasives[2], $cst_Series_is_closed__0);
           }
-          $runtime->caml_gc_minor(0);
+          $runtime["caml_gc_minor"](0);
           return $caml_spacetime_only_works_for_native_code($time, $channel);
         }
       );
@@ -108,7 +110,7 @@ final class Spacetime {
       $save_event_for_automatic_snapshots
     );
     
-    $runtime->caml_register_global(3, $Spacetime, "Spacetime");
+    $runtime["caml_register_global"](3, $Spacetime, "Spacetime");
 
   }
 }

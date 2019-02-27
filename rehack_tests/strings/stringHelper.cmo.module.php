@@ -29,10 +29,10 @@ final class StringHelper {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $helperVal = $runtime->caml_new_string("hello");
+    $helperVal = $runtime["caml_new_string"]("hello");
     $StringHelper = V(0, $helperVal);
     
-    $runtime->caml_register_global(1, $StringHelper, "StringHelper");
+    $runtime["caml_register_global"](1, $StringHelper, "StringHelper");
 
   }
 }

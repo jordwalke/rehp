@@ -30,21 +30,21 @@ final class Stack {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Stack_Empty = $caml_new_string("Stack.Empty");
-    $List = $global_data->List_;
-    $Empty = V(248, $cst_Stack_Empty, $runtime->caml_fresh_oo_id(0));
+    $List = $global_data["List_"];
+    $Empty = V(248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0));
     $create = function($param) {return V(0, 0, 0);};
     $clear = function($s) {$s[1] = 0;$s[2] = 0;return 0;};
     $copy = function($s) {return V(0, $s[1], $s[2]);};
@@ -62,12 +62,12 @@ final class Stack {
         $s[2] = $s[2] + -1 | 0;
         return $hd;
       }
-      throw $runtime->caml_wrap_thrown_exception($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
     $top = function($s) use ($Empty,$runtime) {
       $gS = $s[1];
       if ($gS) {$hd = $gS[1];return $hd;}
-      throw $runtime->caml_wrap_thrown_exception($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
     $is_empty = function($s) {return 0 === $s[1] ? 1 : (0);};
     $length = function($s) {return $s[2];};
@@ -92,7 +92,7 @@ final class Stack {
       $fold
     );
     
-    $runtime->caml_register_global(2, $Stack, "Stack");
+    $runtime["caml_register_global"](2, $Stack, "Stack");
 
   }
 }

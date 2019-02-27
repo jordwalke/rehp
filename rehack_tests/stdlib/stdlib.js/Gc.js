@@ -11,26 +11,28 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_ml_string_length = runtime.caml_ml_string_length;
-var caml_new_string = runtime.caml_new_string;
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var caml_new_string = runtime["caml_new_string"];
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
   return f.length == 4 ?
     f(a0, a1, a2, a3) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime.caml_get_global_data();
-var Sys = global_data.Sys;
-var Printf = global_data.Printf;
+var global_data = runtime["caml_get_global_data"]();
+var Sys = global_data["Sys"];
+var Printf = global_data["Printf"];
 var pr = [
   0,
   [11,caml_new_string("minor_collections: "),[4,0,0,0,[12,10,0]]],
@@ -113,7 +115,7 @@ var pK = [
 ];
 
 function print_stat(c) {
-  var st = runtime.caml_gc_stat(0);
+  var st = runtime["caml_gc_stat"](0);
   caml_call3(Printf[1], c, pr, st[4]);
   caml_call3(Printf[1], c, ps, st[5]);
   caml_call3(Printf[1], c, pt, st[14]);
@@ -137,7 +139,7 @@ function print_stat(c) {
 }
 
 function allocated_bytes(param) {
-  var match = runtime.caml_gc_counters(0);
+  var match = runtime["caml_gc_counters"](0);
   var ma = match[3];
   var pro = match[2];
   var mi = match[1];
@@ -148,24 +150,24 @@ function create_alarm(f) {return [0,1];}
 
 function delete_alarm(a) {a[1] = 0;return 0;}
 
-function pL(pR) {return runtime.caml_final_release(pR);}
+function pL(pR) {return runtime["caml_final_release"](pR);}
 
 function pM(pQ, pP) {
-  return runtime.caml_final_register_called_without_value(pQ, pP);
+  return runtime["caml_final_register_called_without_value"](pQ, pP);
 }
 
 var Gc = [
   0,
   print_stat,
   allocated_bytes,
-  function(pO, pN) {return runtime.caml_final_register(pO, pN);},
+  function(pO, pN) {return runtime["caml_final_register"](pO, pN);},
   pM,
   pL,
   create_alarm,
   delete_alarm
 ];
 
-runtime.caml_register_global(22, Gc, "Gc");
+runtime["caml_register_global"](22, Gc, "Gc");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Gc;

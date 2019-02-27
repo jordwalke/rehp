@@ -32,31 +32,31 @@ final class Map {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Map_remove_min_elt = $caml_new_string("Map.remove_min_elt");
     $cst_Map_bal = $caml_new_string("Map.bal");
     $cst_Map_bal__0 = $caml_new_string("Map.bal");
     $cst_Map_bal__1 = $caml_new_string("Map.bal");
     $cst_Map_bal__2 = $caml_new_string("Map.bal");
-    $Not_found = $global_data->Not_found;
-    $Pervasives = $global_data->Pervasives;
-    $Assert_failure = $global_data->Assert_failure;
+    $Not_found = $global_data["Not_found"];
+    $Pervasives = $global_data["Pervasives"];
+    $Assert_failure = $global_data["Assert_failure"];
     $ge = R(0, 0, 0, 0);
     $gf = R(0, $caml_new_string("map.ml"), 393, 10);
     $gg = R(0, 0, 0);
@@ -187,7 +187,7 @@ final class Map {
             $param__0 = $param__1;
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $find_first_aux = function($v0, $d0, $f, $param) use ($caml_call1) {
@@ -224,7 +224,7 @@ final class Map {
             $param__0 = $r;
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $find_first_opt_aux = function($v0, $d0, $f, $param) use ($caml_call1) {
@@ -300,7 +300,7 @@ final class Map {
             $param__0 = $l;
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $find_last_opt_aux = function($v0, $d0, $f, $param) use ($caml_call1) {
@@ -386,7 +386,7 @@ final class Map {
             $v = $param__0[2];
             return V(0, $v, $d);
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $min_binding_opt = function($param) {
@@ -412,7 +412,7 @@ final class Map {
             if ($gG) {$param__0 = $gG;continue;}
             return V(0, $gI, $gH);
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $max_binding_opt = function($param) {
@@ -751,9 +751,7 @@ final class Map {
               $gu
             );
           }
-          throw $runtime->caml_wrap_thrown_exception(
-                  V(0, $Assert_failure, $gf)
-                );
+          throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $gf));
         };
       $_ = $union->contents =
         function($f, $s1, $s2) use ($caml_call3,$concat_or_join,$join,$split,$union) {
@@ -1074,7 +1072,7 @@ final class Map {
       }
     );
     
-    $runtime->caml_register_global(11, $Map, "Map");
+    $runtime["caml_register_global"](11, $Map, "Map");
 
   }
 }

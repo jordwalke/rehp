@@ -29,8 +29,8 @@ final class StringLabels {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $global_data = $runtime->caml_get_global_data();
-    $String = $global_data->String_;
+    $global_data = $runtime["caml_get_global_data"]();
+    $String = $global_data["String_"];
     $make = $String[1];
     $init = $String[2];
     $copy = $String[3];
@@ -105,7 +105,7 @@ final class StringLabels {
       $split_on_char
     );
     
-    $runtime->caml_register_global(1, $StringLabels, "StringLabels");
+    $runtime["caml_register_global"](1, $StringLabels, "StringLabels");
 
   }
 }

@@ -12,15 +12,15 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var cst_Queue_Empty = runtime.caml_new_string("Queue.Empty");
-var Empty = [248,cst_Queue_Empty,runtime.caml_fresh_oo_id(0)];
+var cst_Queue_Empty = runtime["caml_new_string"]("Queue.Empty");
+var Empty = [248,cst_Queue_Empty,runtime["caml_fresh_oo_id"](0)];
 
 function create(param) {return [0,0,0,0];}
 
@@ -37,7 +37,7 @@ function add(x, q) {
 function peek(q) {
   var gZ = q[2];
   if (gZ) {var content = gZ[1];return content;}
-  throw runtime.caml_wrap_thrown_exception(Empty);
+  throw runtime["caml_wrap_thrown_exception"](Empty);
 }
 
 function take(q) {
@@ -47,7 +47,7 @@ function take(q) {
     var gY = gW[2];
     return gY ? (q[1] = q[1] + -1 | 0,q[2] = gY,gX) : (clear(q),gX);
   }
-  throw runtime.caml_wrap_thrown_exception(Empty);
+  throw runtime["caml_wrap_thrown_exception"](Empty);
 }
 
 function copy(q_res, prev, cell) {
@@ -139,7 +139,7 @@ var Queue = [
   transfer
 ];
 
-runtime.caml_register_global(1, Queue, "Queue");
+runtime["caml_register_global"](1, Queue, "Queue");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Queue;

@@ -37,30 +37,30 @@ final class Format {
     $runtime = $joo_global_object->jsoo_runtime;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_ml_string_length = $runtime->caml_ml_string_length;
-    $caml_new_string = $runtime->caml_new_string;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_ml_string_length = $runtime["caml_ml_string_length"];
+    $caml_new_string = $runtime["caml_new_string"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst__4 = $caml_new_string(".");
     $cst__2 = $caml_new_string(">");
     $cst__3 = $caml_new_string("</");
@@ -68,12 +68,12 @@ final class Format {
     $cst__1 = $caml_new_string("<");
     $cst = $caml_new_string("\n");
     $cst_Format_Empty_queue = $caml_new_string("Format.Empty_queue");
-    $CamlinternalFormat = $global_data->CamlinternalFormat;
-    $Pervasives = $global_data->Pervasives;
-    $String = $global_data->String_;
-    $Buffer = $global_data->Buffer;
-    $List = $global_data->List_;
-    $Not_found = $global_data->Not_found;
+    $CamlinternalFormat = $global_data["CamlinternalFormat"];
+    $Pervasives = $global_data["Pervasives"];
+    $String = $global_data["String_"];
+    $Buffer = $global_data["Buffer"];
+    $List = $global_data["List_"];
+    $Not_found = $global_data["Not_found"];
     $sG = R(3, 0, 3);
     $sF = R(0, $caml_new_string(""));
     $make_queue = function($param) {return V(0, 0, 0);};
@@ -92,12 +92,12 @@ final class Format {
     $Empty_queue = V(
       248,
       $cst_Format_Empty_queue,
-      $runtime->caml_fresh_oo_id(0)
+      $runtime["caml_fresh_oo_id"](0)
     );
     $peek_queue = function($param) use ($Empty_queue,$runtime) {
       $vQ = $param[2];
       if ($vQ) {$x = $vQ[1];return $x;}
-      throw $runtime->caml_wrap_thrown_exception($Empty_queue);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue);
     };
     $take_queue = function($q) use ($Empty_queue,$runtime) {
       $vP = $q[2];
@@ -108,7 +108,7 @@ final class Format {
         if (0 === $tl) {$q[1] = 0;}
         return $x;
       }
-      throw $runtime->caml_wrap_thrown_exception($Empty_queue);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue);
     };
     $pp_enqueue = function($state, $token) use ($add_queue) {
       $len = $token[3];
@@ -189,7 +189,7 @@ final class Format {
                   if ($ls) {
                     $l = $ls[2];
                     $x = $ls[1];
-                    return $runtime->caml_lessthan($n, $x)
+                    return $runtime["caml_lessthan"]($n, $x)
                       ? V(0, $n, $ls)
                       : (V(0, $x, $add_tab->contents($n, $l)));
                   }
@@ -300,11 +300,11 @@ final class Format {
                   if ($param__0) {
                     $l = $param__0[2];
                     $x = $param__0[1];
-                    if ($runtime->caml_greaterequal($x, $n)) {return $x;}
+                    if ($runtime["caml_greaterequal"]($x, $n)) {return $x;}
                     $param__0 = $l;
                     continue;
                   }
-                  throw $runtime->caml_wrap_thrown_exception($Not_found);
+                  throw $runtime["caml_wrap_thrown_exception"]($Not_found);
                 }
               };
               $vJ = $tabs__0[1];
@@ -314,7 +314,7 @@ final class Format {
                 catch(\Throwable $vL) {
                   $vL = $caml_wrap_exception($vL);
                   if ($vL !== $Not_found) {
-                    throw $runtime->caml_wrap_thrown_exception_reraise($vL);
+                    throw $runtime["caml_wrap_thrown_exception_reraise"]($vL);
                   }
                   $x__0 = $x;
                 }
@@ -378,7 +378,7 @@ final class Format {
       catch(\Throwable $vx) {
         $vx = $caml_wrap_exception($vx);
         if ($vx === $Empty_queue) {return 0;}
-        throw $runtime->caml_wrap_thrown_exception_reraise($vx);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($vx);
       }
     };
     $enqueue_advance = function($state, $tok) use ($advance_left,$pp_enqueue) {
@@ -1118,7 +1118,7 @@ final class Format {
       };
       for (;;) {
         if ($right[1] !== $len) {
-          $match = $runtime->caml_string_get($s, $right[1]);
+          $match = $runtime["caml_string_get"]($s, $right[1]);
           if (10 === $match) {
             $flush(0);
             $pp_force_newline($ppf, 0);
@@ -1833,7 +1833,7 @@ final class Format {
       $pp_get_all_formatter_output_functions
     );
     
-    $runtime->caml_register_global(15, $Format, "Format");
+    $runtime["caml_register_global"](15, $Format, "Format");
 
   }
 }

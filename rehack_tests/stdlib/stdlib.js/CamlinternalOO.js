@@ -17,44 +17,46 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime.caml_check_bound;
-var caml_div = runtime.caml_div;
-var caml_get_public_method = runtime.caml_get_public_method;
-var caml_make_vect = runtime.caml_make_vect;
-var caml_new_string = runtime.caml_new_string;
-var caml_obj_block = runtime.caml_obj_block;
-var caml_set_oo_id = runtime.caml_set_oo_id;
-var caml_string_compare = runtime.caml_string_compare;
-var caml_wrap_exception = runtime.caml_wrap_exception;
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_div = runtime["caml_div"];
+var caml_get_public_method = runtime["caml_get_public_method"];
+var caml_make_vect = runtime["caml_make_vect"];
+var caml_new_string = runtime["caml_new_string"];
+var caml_obj_block = runtime["caml_obj_block"];
+var caml_set_oo_id = runtime["caml_set_oo_id"];
+var caml_string_compare = runtime["caml_string_compare"];
+var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime.caml_call_gen(f, [a0]);
+  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime.caml_call_gen(f, [a0,a1]);
+  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : runtime.caml_call_gen(f, [a0,a1,a2]);
+  return f.length == 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
   return f.length == 5 ?
     f(a0, a1, a2, a3, a4) :
-    runtime.caml_call_gen(f, [a0,a1,a2,a3,a4]);
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime.caml_get_global_data();
+var global_data = runtime["caml_get_global_data"]();
 var cst = caml_new_string("");
-var Assert_failure = global_data.Assert_failure;
-var Sys = global_data.Sys;
-var Obj = global_data.Obj;
-var Undefined_recursive_module = global_data.Undefined_recursive_module;
-var Array = global_data.Array_;
-var List = global_data.List_;
-var Not_found = global_data.Not_found;
-var Map = global_data.Map;
+var Assert_failure = global_data["Assert_failure"];
+var Sys = global_data["Sys"];
+var Obj = global_data["Obj"];
+var Undefined_recursive_module = global_data["Undefined_recursive_module"];
+var Array = global_data["Array_"];
+var List = global_data["List_"];
+var Not_found = global_data["Not_found"];
+var Map = global_data["Map"];
 var yk = [0,caml_new_string("camlinternalOO.ml"),438,17];
 var yj = [0,caml_new_string("camlinternalOO.ml"),420,13];
 var yi = [0,caml_new_string("camlinternalOO.ml"),417,13];
@@ -71,12 +73,12 @@ var dummy_item = 0;
 
 function public_method_label(s) {
   var accu = [0,0];
-  var zv = runtime.caml_ml_string_length(s) + -1 | 0;
+  var zv = runtime["caml_ml_string_length"](s) + -1 | 0;
   var zu = 0;
   if (! (zv < 0)) {
     var i = zu;
     for (; ; ) {
-      var zw = runtime.caml_string_get(s, i);
+      var zw = runtime["caml_string_get"](s, i);
       accu[1] = (223 * accu[1] | 0) + zw | 0;
       var zx = i + 1 | 0;
       if (zv !== i) {var i = zx;continue;}
@@ -96,7 +98,7 @@ function compare__0(x, y) {return caml_string_compare(x, y);}
 
 var Meths = caml_call1(Map[1], [0,compare__0]);
 
-function compare__1(x, y) {return runtime.caml_int_compare(x, y);}
+function compare__1(x, y) {return runtime["caml_int_compare"](x, y);}
 
 var Labs = caml_call1(Map[1], [0,compare__1]);
 var dummy_table = [0,0,[0,dummy_item],Meths[1],Labs[1],0,0,Vars[1],0];
@@ -113,7 +115,7 @@ function new_table(pub_labels) {
   var methods = caml_make_vect((len * 2 | 0) + 2 | 0, dummy_met);
   caml_check_bound(methods, 0)[1] = len;
   var zn = Sys[10];
-  var zo = (runtime.caml_mul(fit_size(len), zn) / 8 | 0) + -1 | 0;
+  var zo = (runtime["caml_mul"](fit_size(len), zn) / 8 | 0) + -1 | 0;
   caml_check_bound(methods, 1)[2] = zo;
   var zq = len + -1 | 0;
   var zp = 0;
@@ -168,7 +170,7 @@ function get_method_label(table, name) {
       table[4] = caml_call3(Labs[4], label, 1, table[4]);
       return label;
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(zk);
+    throw runtime["caml_wrap_thrown_exception_reraise"](zk);
   }
 }
 
@@ -191,7 +193,7 @@ function get_method(table, label) {
     if (zg === Not_found) {
       return caml_check_bound(table[2], label)[label + 1];
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(zg);
+    throw runtime["caml_wrap_thrown_exception_reraise"](zg);
   }
 }
 
@@ -225,7 +227,7 @@ function narrow(table, vars, virt_meths, concr_meths) {
     catch(zc) {
       zc = caml_wrap_exception(zc);
       if (zc !== Not_found) {
-        throw runtime.caml_wrap_thrown_exception_reraise(zc);
+        throw runtime["caml_wrap_thrown_exception_reraise"](zc);
       }
       var y_ = 1;
       var za = y_;
@@ -289,16 +291,16 @@ function new_variable(table, name) {
     yU = caml_wrap_exception(yU);
     if (yU === Not_found) {
       var index = new_slot(table);
-      if (runtime.caml_string_notequal(name, cst)) {
+      if (runtime["caml_string_notequal"](name, cst)) {
         table[7] = caml_call3(Vars[4], name, index, table[7]);
       }
       return index;
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(yU);
+    throw runtime["caml_wrap_thrown_exception_reraise"](yU);
   }
 }
 
-function to_array(arr) {return runtime.caml_equal(arr, 0) ? [0] : arr;}
+function to_array(arr) {return runtime["caml_equal"](arr, 0) ? [0] : arr;}
 
 function new_methods_variables(table, meths, vals) {
   var meths__0 = to_array(meths);
@@ -341,9 +343,9 @@ function get_variable(table, name) {
   catch(yJ) {
     yJ = caml_wrap_exception(yJ);
     if (yJ === Not_found) {
-      throw runtime.caml_wrap_thrown_exception([0,Assert_failure,ye]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,ye]);
     }
-    throw runtime.caml_wrap_thrown_exception_reraise(yJ);
+    throw runtime["caml_wrap_thrown_exception_reraise"](yJ);
   }
 }
 
@@ -412,8 +414,7 @@ function make_class_store(pub_meths, class_init, init_table) {
 
 function dummy_class(loc) {
   function undef(param) {
-    throw runtime.caml_wrap_thrown_exception(
-            [0,Undefined_recursive_module,loc]
+    throw runtime["caml_wrap_thrown_exception"]([0,Undefined_recursive_module,loc]
           );
   }
   return [0,undef,undef,undef,0];
@@ -468,27 +469,27 @@ function create_object_and_run_initializers(obj_0, table) {
 
 function set_data(tables, v) {
   if (tables) {tables[2] = v;return 0;}
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,yf]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,yf]);
 }
 
 function set_next(tables, v) {
   if (tables) {tables[3] = v;return 0;}
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,yg]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,yg]);
 }
 
 function get_key(param) {
   if (param) {return param[1];}
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,yh]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,yh]);
 }
 
 function get_data(param) {
   if (param) {return param[2];}
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,yi]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,yi]);
 }
 
 function get_next(param) {
   if (param) {return param[3];}
-  throw runtime.caml_wrap_thrown_exception([0,Assert_failure,yj]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,yj]);
 }
 
 function build_path(n, keys, tables) {
@@ -520,7 +521,7 @@ function lookup_keys(i, keys, tables) {
           if (tables_data) {
             return lookup_keys(i + -1 | 0, keys, tables_data);
           }
-          throw runtime.caml_wrap_thrown_exception([0,Assert_failure,yk]);
+          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,yk]);
         }
         var next = get_next(tables__0);
         if (next) {var tables__0 = next;continue;}
@@ -835,7 +836,7 @@ var CamlinternalOO = [
   stats
 ];
 
-runtime.caml_register_global(18, CamlinternalOO, "CamlinternalOO");
+runtime["caml_register_global"](18, CamlinternalOO, "CamlinternalOO");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalOO;

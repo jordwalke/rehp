@@ -39,38 +39,38 @@ final class Ephemeron {
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $left_shift_32 = $runtime->left_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_check_bound = $runtime->caml_check_bound;
-    $caml_make_vect = $runtime->caml_make_vect;
-    $caml_wrap_exception = $runtime->caml_wrap_exception;
+    $caml_check_bound = $runtime["caml_check_bound"];
+    $caml_make_vect = $runtime["caml_make_vect"];
+    $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, varray[$a0]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $global_data = $runtime->caml_get_global_data();
-    $Obj = $global_data->Obj;
-    $Sys = $global_data->Sys;
-    $Not_found = $global_data->Not_found;
-    $Pervasives = $global_data->Pervasives;
-    $Array = $global_data->Array_;
-    $Hashtbl = $global_data->Hashtbl;
-    $CamlinternalLazy = $global_data->CamlinternalLazy;
-    $Random = $global_data->Random;
+    $global_data = $runtime["caml_get_global_data"]();
+    $Obj = $global_data["Obj"];
+    $Sys = $global_data["Sys"];
+    $Not_found = $global_data["Not_found"];
+    $Pervasives = $global_data["Pervasives"];
+    $Array = $global_data["Array_"];
+    $Hashtbl = $global_data["Hashtbl"];
+    $CamlinternalLazy = $global_data["CamlinternalLazy"];
+    $Random = $global_data["Random"];
     $z4 = R(0, 0);
     $z3 = R(0, 0);
     $z2 = R(0, 0);
@@ -99,7 +99,7 @@ final class Ephemeron {
         else {$random = $caml_call1($Hashtbl[17], 0);}
         $s = $power_2_above(16, $initial_size);
         if ($random) {
-          $Bb = $runtime->caml_obj_tag($prng);
+          $Bb = $runtime["caml_obj_tag"]($prng);
           $Bc = 250 === $Bb
             ? $prng[1]
             : (246 === $Bb
@@ -301,7 +301,7 @@ final class Ephemeron {
             $param__0 = $rest;
             continue;
           }
-          throw $runtime->caml_wrap_thrown_exception($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
       };
       $find = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$find_rec,$key_index) {
@@ -414,7 +414,7 @@ final class Ephemeron {
               $param__0 = $next;
               continue;
             }
-            throw $runtime->caml_wrap_thrown_exception($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
           }
         };
         $i = $key_index($h, $hkey);
@@ -429,7 +429,7 @@ final class Ephemeron {
             $AP = $left_shift_32($h[2]->length - 1, 1) < $h[1] ? 1 : (0);
             return $AP ? $resize($h) : ($AP);
           }
-          throw $runtime->caml_wrap_thrown_exception_reraise($AR);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($AR);
         }
       };
       $mem = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
@@ -1291,7 +1291,7 @@ final class Ephemeron {
       )
     );
     
-    $runtime->caml_register_global(11, $Ephemeron, "Ephemeron");
+    $runtime["caml_register_global"](11, $Ephemeron, "Ephemeron");
 
   }
 }

@@ -29,8 +29,8 @@ final class BytesLabels {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $global_data = $runtime->caml_get_global_data();
-    $Bytes = $global_data->Bytes;
+    $global_data = $runtime["caml_get_global_data"]();
+    $Bytes = $global_data["Bytes"];
     $make = $Bytes[1];
     $init = $Bytes[2];
     $empty = $Bytes[3];
@@ -121,7 +121,7 @@ final class BytesLabels {
       $unsafe_of_string
     );
     
-    $runtime->caml_register_global(1, $BytesLabels, "BytesLabels");
+    $runtime["caml_register_global"](1, $BytesLabels, "BytesLabels");
 
   }
 }

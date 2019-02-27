@@ -32,15 +32,15 @@ final class Sort {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $caml_new_string = $runtime->caml_new_string;
+    $caml_new_string = $runtime["caml_new_string"];
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
+        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $global_data = $runtime->caml_get_global_data();
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_Sort_array = $caml_new_string("Sort.array");
-    $Invalid_argument = $global_data->Invalid_argument;
+    $Invalid_argument = $global_data["Invalid_argument"];
     $_ = $merge->contents =
       function($order, $l1, $l2) use ($caml_call2,$merge) {
         if ($l1) {
@@ -134,7 +134,7 @@ final class Sort {
               $cH = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
               $cI = $cH || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
               if ($cI) {
-                throw $runtime->caml_wrap_thrown_exception(
+                throw $runtime["caml_wrap_thrown_exception"](
                         V(0, $Invalid_argument, $cst_Sort_array)
                       );
               }
@@ -209,7 +209,7 @@ final class Sort {
     };
     $Sort = V(0, $list, $array, $merge->contents);
     
-    $runtime->caml_register_global(2, $Sort, "Sort");
+    $runtime["caml_register_global"](2, $Sort, "Sort");
 
   }
 }
