@@ -471,7 +471,7 @@ var String = [
   split_on_char
 ];
 
-runtime.caml_register_global(12, String, "String");
+runtime.caml_register_global(12, String, "String_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().String_;

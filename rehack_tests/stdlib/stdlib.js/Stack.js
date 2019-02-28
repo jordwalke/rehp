@@ -22,7 +22,7 @@ function caml_call3(f, a0, a1, a2) {
 
 var global_data = runtime.caml_get_global_data();
 var cst_Stack_Empty = caml_new_string("Stack.Empty");
-var List = global_data.List;
+var List = global_data.List_;
 var Empty = [248,cst_Stack_Empty,runtime.caml_fresh_oo_id(0)];
 
 function create(param) {return [0,0,0];}

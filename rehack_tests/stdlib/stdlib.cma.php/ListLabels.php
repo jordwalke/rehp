@@ -30,7 +30,7 @@ final class ListLabels {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $global_data = $runtime->caml_get_global_data();
-    $List = $global_data->List;
+    $List = $global_data->List_;
     $length = $List[1];
     $compare_lengths = $List[2];
     $compare_length_with = $List[3];

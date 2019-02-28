@@ -11,7 +11,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var global_data = runtime.caml_get_global_data();
-var List = global_data.List;
+var List = global_data.List_;
 var length = List[1];
 var compare_lengths = List[2];
 var compare_length_with = List[3];

@@ -77,7 +77,7 @@ var cst_Nans_are_should_output_false = caml_new_string(
   "Nans are == (should output false):"
 );
 var Pervasives = global_data.Pervasives;
-var String = global_data.String;
+var String = global_data.String_;
 var Not_found = global_data.Not_found;
 var StringHelper = global_data.StringHelper;
 var Failure = global_data.Failure;

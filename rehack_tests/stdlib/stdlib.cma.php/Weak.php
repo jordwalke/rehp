@@ -74,7 +74,7 @@ final class Weak {
     $cst_Weak_fill = $caml_new_string("Weak.fill");
     $Pervasives = $global_data->Pervasives;
     $Sys = $global_data->Sys;
-    $Array = $global_data->Array;
+    $Array = $global_data->Array_;
     $Not_found = $global_data->Not_found;
     $Invalid_argument = $global_data->Invalid_argument;
     $length = function($x) {return $x->length - 1 - 2 | 0;};

@@ -75,11 +75,11 @@ final class Genlex {
     $cst_Illegal_character = $caml_new_string("Illegal character ");
     $Stream = $global_data->Stream;
     $Char = $global_data->Char;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $Hashtbl = $global_data->Hashtbl;
     $Not_found = $global_data->Not_found;
     $Pervasives = $global_data->Pervasives;
-    $List = $global_data->List;
+    $List = $global_data->List_;
     $Bytes = $global_data->Bytes;
     $initial_buffer = $caml_create_bytes(32);
     $buffer = V(0, $initial_buffer);

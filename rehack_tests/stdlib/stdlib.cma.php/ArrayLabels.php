@@ -30,7 +30,7 @@ final class ArrayLabels {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $global_data = $runtime->caml_get_global_data();
-    $Array = $global_data->Array;
+    $Array = $global_data->Array_;
     $make_float = $Array[1];
     $init = $Array[2];
     $make_matrix = $Array[3];

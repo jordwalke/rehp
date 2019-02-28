@@ -1200,7 +1200,7 @@ final class List_ {
       $merge->contents
     );
     
-    $runtime->caml_register_global(19, $List, "List");
+    $runtime->caml_register_global(19, $List, "List_");
 
   }
 }

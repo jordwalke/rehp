@@ -39,7 +39,7 @@ var Invalid_argument = global_data.Invalid_argument;
 var Pervasives = global_data.Pervasives;
 var Char = global_data.Char;
 var Bytes = global_data.Bytes;
-var String = global_data.String;
+var String = global_data.String_;
 var compare = String[33];
 var equal = String[34];
 

@@ -68,7 +68,7 @@ final class Ephemeron {
     $Sys = $global_data->Sys;
     $Not_found = $global_data->Not_found;
     $Pervasives = $global_data->Pervasives;
-    $Array = $global_data->Array;
+    $Array = $global_data->Array_;
     $Hashtbl = $global_data->Hashtbl;
     $CamlinternalLazy = $global_data->CamlinternalLazy;
     $Random = $global_data->Random;

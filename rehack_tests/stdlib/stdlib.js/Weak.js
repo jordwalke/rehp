@@ -52,7 +52,7 @@ var cst_Weak_Make_hash_bucket_cannot_grow_more = caml_new_string(
 var cst_Weak_fill = caml_new_string("Weak.fill");
 var Pervasives = global_data.Pervasives;
 var Sys = global_data.Sys;
-var Array = global_data.Array;
+var Array = global_data.Array_;
 var Not_found = global_data.Not_found;
 var Invalid_argument = global_data.Invalid_argument;
 

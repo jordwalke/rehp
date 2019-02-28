@@ -73,7 +73,7 @@ final class Random {
     $Int64 = $global_data->Int64;
     $Pervasives = $global_data->Pervasives;
     $Digest = $global_data->Digest;
-    $Array = $global_data->Array;
+    $Array = $global_data->Array_;
     $Nativeint = $global_data->Nativeint;
     $pX = R(255, 1, 0, 0);
     $pY = R(255, 0, 0, 0);

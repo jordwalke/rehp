@@ -103,7 +103,7 @@ final class Filename {
     $CamlinternalLazy = $global_data->CamlinternalLazy;
     $Random = $global_data->Random;
     $Printf = $global_data->Printf;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $Buffer = $global_data->Buffer;
     $Not_found = $global_data->Not_found;
     $Sys = $global_data->Sys;

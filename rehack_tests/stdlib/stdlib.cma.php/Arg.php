@@ -121,11 +121,11 @@ final class Arg {
     $Not_found = $global_data->Not_found;
     $Printf = $global_data->Printf;
     $Pervasives = $global_data->Pervasives;
-    $Array = $global_data->Array;
+    $Array = $global_data->Array_;
     $Buffer = $global_data->Buffer;
     $End_of_file = $global_data->End_of_file;
-    $List = $global_data->List;
-    $String = $global_data->String;
+    $List = $global_data->List_;
+    $String = $global_data->String_;
     $Sys = $global_data->Sys;
     $Invalid_argument = $global_data->Invalid_argument;
     $Failure = $global_data->Failure;

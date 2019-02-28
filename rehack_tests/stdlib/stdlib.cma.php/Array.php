@@ -688,7 +688,7 @@ final class Array_ {
       $Floatarray
     );
     
-    $runtime->caml_register_global(10, $Array, "Array");
+    $runtime->caml_register_global(10, $Array, "Array_");
 
   }
 }

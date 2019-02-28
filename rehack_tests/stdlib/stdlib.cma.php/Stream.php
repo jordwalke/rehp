@@ -76,7 +76,7 @@ final class Stream {
     $Assert_failure = $global_data->Assert_failure;
     $CamlinternalLazy = $global_data->CamlinternalLazy;
     $Pervasives = $global_data->Pervasives;
-    $List = $global_data->List;
+    $List = $global_data->List_;
     $g1 = R(0, $caml_new_string("stream.ml"), 53, 12);
     $g2 = R(0, 0);
     $g3 = R(0, $caml_new_string("stream.ml"), 82, 12);

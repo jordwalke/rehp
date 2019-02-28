@@ -256,7 +256,7 @@ final class CamlinternalFormat {
     $Buffer = $global_data->Buffer;
     $Failure = $global_data->Failure;
     $Not_found = $global_data->Not_found;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $Sys = $global_data->Sys;
     $Char = $global_data->Char;
     $Bytes = $global_data->Bytes;

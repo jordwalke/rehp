@@ -68,11 +68,11 @@ final class Hashtbl {
     $Sys = $global_data->Sys;
     $Not_found = $global_data->Not_found;
     $Pervasives = $global_data->Pervasives;
-    $Array = $global_data->Array;
+    $Array = $global_data->Array_;
     $Assert_failure = $global_data->Assert_failure;
     $CamlinternalLazy = $global_data->CamlinternalLazy;
     $Random = $global_data->Random;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $qg = R(0, 0);
     $qf = R(0, $caml_new_string("hashtbl.ml"), 108, 23);
     $hash = function($x) use ($caml_hash) {return $caml_hash(10, 100, 0, $x);};

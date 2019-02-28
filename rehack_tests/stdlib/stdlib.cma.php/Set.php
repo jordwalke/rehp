@@ -54,7 +54,7 @@ final class Set {
     $cst_Set_bal__2 = $caml_new_string("Set.bal");
     $Not_found = $global_data->Not_found;
     $Pervasives = $global_data->Pervasives;
-    $List = $global_data->List;
+    $List = $global_data->List_;
     $Assert_failure = $global_data->Assert_failure;
     $fk = R(0, 0, 0, 0);
     $fl = R(0, 0, 0);

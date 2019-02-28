@@ -26,6 +26,18 @@ let debug_sourcemap = Debug.find "sourcemap"
 
 type code = string
 
+(*
+ * String and Array tend to be a reserved class name.
+ *)
+let normalize_module_name s =
+  match s with
+    | "String" -> "String_"
+    | "string" -> "string_"
+    | "Array" -> "Array_"
+    | "array" -> "array_"
+    | "List" -> "List_"
+    | "list" -> "list_"
+    | _ -> s;
 
 (* Copied from ocaml/typing/ident.ml *)
 module IdentTable = struct
@@ -798,7 +810,7 @@ let register_global ?(force=false) g i rem =
       | None -> []
       | Some name ->
         Code.Var.name (access_global g i) name;
-        [Pc (IString name)] in
+        [Pc (IString (normalize_module_name name))] in
     Let (Var.fresh (),
          Prim (Extern "caml_register_global",
                (Pc (Int (Int32.of_int i)) ::
@@ -2345,7 +2357,7 @@ and from_relocated_compilation_unit ~includes:_ ~debug ~debug_data ~globals (com
               (* TODO: This is where you would inject an operation for module
                * loading that should incorporate with the module template. *)
               Var.name x name;
-              Let (x, Prim (Extern "caml_js_get",[Pv gdata; Pc (IString name)])) :: l
+              Let (x, Prim (Extern "caml_js_get",[Pv gdata; Pc (IString (normalize_module_name name))])) :: l
           end
         | _ -> l)
   in

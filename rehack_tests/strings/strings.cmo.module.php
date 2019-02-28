@@ -99,7 +99,7 @@ final class Strings {
       "Nans are == (should output false):"
     );
     $Pervasives = $global_data->Pervasives;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $Not_found = $global_data->Not_found;
     $StringHelper = $global_data->StringHelper;
     $Failure = $global_data->Failure;

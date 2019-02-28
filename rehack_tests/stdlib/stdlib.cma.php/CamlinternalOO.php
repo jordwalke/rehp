@@ -75,8 +75,8 @@ final class CamlinternalOO {
     $Sys = $global_data->Sys;
     $Obj = $global_data->Obj;
     $Undefined_recursive_module = $global_data->Undefined_recursive_module;
-    $Array = $global_data->Array;
-    $List = $global_data->List;
+    $Array = $global_data->Array_;
+    $List = $global_data->List_;
     $Not_found = $global_data->Not_found;
     $Map = $global_data->Map;
     $yk = R(0, $caml_new_string("camlinternalOO.ml"), 438, 17);

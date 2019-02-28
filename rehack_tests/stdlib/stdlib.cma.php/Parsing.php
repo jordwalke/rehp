@@ -58,7 +58,7 @@ final class Parsing {
     $cst_Parsing_YYexit = $caml_new_string("Parsing.YYexit");
     $cst_Parsing_Parse_error = $caml_new_string("Parsing.Parse_error");
     $Obj = $global_data->Obj;
-    $Array = $global_data->Array;
+    $Array = $global_data->Array_;
     $Lexing = $global_data->Lexing;
     $YYexit = V(248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0));
     $Parse_error = V(248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0));

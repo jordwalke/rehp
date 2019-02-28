@@ -112,25 +112,7 @@ let split_on = (on, str) =>
     ));
   };
 
-/**
- * String and Array tend to be a reserved class name.
- */
-let normalize_module_name = s =>
-  if (s == "String") {
-    "String_";
-  } else if (s == "string") {
-    "string_";
-  } else if (s == "Array") {
-    "Array_";
-  } else if (s == "array") {
-    "array_";
-  } else if (s == "List") {
-    "List_";
-  } else if (s == "list") {
-    "list_";
-  } else {
-    s;
-  };
+let normalize_module_name = Js_of_ocaml_compiler.Parse_bytecode.normalize_module_name;
 
 let substitute_and_split = (txt, compunit_name, ordered_compunit_deps) => {
   let compunit_name = normalize_module_name(compunit_name);

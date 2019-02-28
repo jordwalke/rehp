@@ -141,7 +141,7 @@ final class Scanf {
     $cst_a_String = $caml_new_string("a String");
     $CamlinternalFormat = $global_data->CamlinternalFormat;
     $CamlinternalFormatBasics = $global_data->CamlinternalFormatBasics;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $Failure = $global_data->Failure;
     $Pervasives = $global_data->Pervasives;
     $Assert_failure = $global_data->Assert_failure;
@@ -149,7 +149,7 @@ final class Scanf {
     $End_of_file = $global_data->End_of_file;
     $Invalid_argument = $global_data->Invalid_argument;
     $Printf = $global_data->Printf;
-    $List = $global_data->List;
+    $List = $global_data->List_;
     $Not_found = $global_data->Not_found;
     $v9 = R(0, 91);
     $v8 = R(0, 123);

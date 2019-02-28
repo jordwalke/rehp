@@ -71,9 +71,9 @@ final class Format {
     $cst_Format_Empty_queue = $caml_new_string("Format.Empty_queue");
     $CamlinternalFormat = $global_data->CamlinternalFormat;
     $Pervasives = $global_data->Pervasives;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $Buffer = $global_data->Buffer;
-    $List = $global_data->List;
+    $List = $global_data->List_;
     $Not_found = $global_data->Not_found;
     $sG = R(3, 0, 3);
     $sF = R(0, $caml_new_string(""));

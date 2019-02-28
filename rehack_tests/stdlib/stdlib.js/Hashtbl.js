@@ -44,11 +44,11 @@ var cst = caml_new_string("");
 var Sys = global_data.Sys;
 var Not_found = global_data.Not_found;
 var Pervasives = global_data.Pervasives;
-var Array = global_data.Array;
+var Array = global_data.Array_;
 var Assert_failure = global_data.Assert_failure;
 var CamlinternalLazy = global_data.CamlinternalLazy;
 var Random = global_data.Random;
-var String = global_data.String;
+var String = global_data.String_;
 var qg = [0,0];
 var qf = [0,caml_new_string("hashtbl.ml"),108,23];
 

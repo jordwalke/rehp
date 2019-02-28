@@ -80,7 +80,7 @@ final class Buffer {
     $Pervasives = $global_data->Pervasives;
     $End_of_file = $global_data->End_of_file;
     $Not_found = $global_data->Not_found;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $Assert_failure = $global_data->Assert_failure;
     $Sys = $global_data->Sys;
     $Bytes = $global_data->Bytes;

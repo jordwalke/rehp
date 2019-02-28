@@ -30,7 +30,7 @@ final class StringLabels {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $global_data = $runtime->caml_get_global_data();
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $make = $String[1];
     $init = $String[2];
     $copy = $String[3];

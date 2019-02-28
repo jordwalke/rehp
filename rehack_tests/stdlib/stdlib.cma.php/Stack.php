@@ -44,7 +44,7 @@ final class Stack {
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_Stack_Empty = $caml_new_string("Stack.Empty");
-    $List = $global_data->List;
+    $List = $global_data->List_;
     $Empty = V(248, $cst_Stack_Empty, $runtime->caml_fresh_oo_id(0));
     $create = function($param) {return V(0, 0, 0);};
     $clear = function($s) {$s[1] = 0;$s[2] = 0;return 0;};

@@ -63,7 +63,7 @@ final class Digest {
     $Pervasives = $global_data->Pervasives;
     $Char = $global_data->Char;
     $Bytes = $global_data->Bytes;
-    $String = $global_data->String;
+    $String = $global_data->String_;
     $compare = $String[33];
     $equal = $String[34];
     $string = function($str) use ($caml_md5_string,$caml_ml_string_length) {
