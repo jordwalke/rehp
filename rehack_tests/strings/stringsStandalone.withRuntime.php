@@ -129,10 +129,13 @@ function main() {
   $caml_bytes_unsafe_get = $Func(
     function($s, $i) {
       switch($s->t & 6) {
+        // FALLTHROUGH
         default:
           if ($i >= $s->c->length) {return 0;}
+        // FALLTHROUGH
         case 0:
           return $s->c->charCodeAt($i) | 0;
+        // FALLTHROUGH
         case 4:
           return $s->c[$i];
         }
@@ -260,13 +263,17 @@ function main() {
   $caml_to_js_string = $Func(
     function($s) use ($caml_convert_string_to_bytes,$caml_is_ascii) {
       switch($s->t) {
+        // FALLTHROUGH
         case 9:
           return $s->c;
+        // FALLTHROUGH
         default:
           $caml_convert_string_to_bytes($s);
+        // FALLTHROUGH
         case 0:
           if ($caml_is_ascii($s->c)) {$s->t = 9;return $s->c;}
           $s->t = 8;
+        // FALLTHROUGH
         case 8:
           return $s->c;
         }
@@ -445,23 +452,27 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
                     }
                     else {
                       switch($ta) {
+                        // FALLTHROUGH
                         case 248:
                           {
                             $x = $caml_int_compare($a[2], $b[2]);
                             if ($x != 0) {return $x;}
                             break;
                           }
+                        // FALLTHROUGH
                         case 251:
                           {
                             $caml_invalid_argument($String->new("equal: abstract value")
                             );
                           }
+                        // FALLTHROUGH
                         case 255:
                           {
                             $x = $caml_int64_compare($a, $b);
                             if ($x != 0) {return $x;}
                             break;
                           }
+                        // FALLTHROUGH
                         default:
                           if (! $eqEq($a->length, $b->length)) {
                             return $a->length < $b->length ? - 1 : (1);
@@ -572,10 +583,13 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   $caml_string_unsafe_get = $Func(
     function($s, $i) {
       switch($s->t & 6) {
+        // FALLTHROUGH
         default:
           if ($i >= $s->c->length) {return 0;}
+        // FALLTHROUGH
         case 0:
           return $s->c->charCodeAt($i);
+        // FALLTHROUGH
         case 4:
           return $s->c[$i];
         }
@@ -587,10 +601,12 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       $i = 0;$len = $caml_ml_string_length($s);$base = 10;$sign = 1;
       if ($len > 0) {
         switch($caml_string_unsafe_get($s, $i)) {
+          // FALLTHROUGH
           case 45:
             $i++;
             $sign = - 1;
             break;
+          // FALLTHROUGH
           case 43:
             $i++;
             $sign = 1;
@@ -599,17 +615,23 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       }
       if ($i + 1 < $len && $caml_string_unsafe_get($s, $i) == 48) {
         switch($caml_string_unsafe_get($s, $i + 1)) {
+          // FALLTHROUGH
           case 120:
+          // FALLTHROUGH
           case 88:
             $base = 16;
             $i = $plus($i, 2);
             break;
+          // FALLTHROUGH
           case 111:
+          // FALLTHROUGH
           case 79:
             $base = 8;
             $i = $plus($i, 2);
             break;
+          // FALLTHROUGH
           case 98:
+          // FALLTHROUGH
           case 66:
             $base = 2;
             $i = $plus($i, 2);
@@ -682,9 +704,11 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       ) {
         $output = $caml_global_data->fds[$chan->fd]->output;
         switch($output->length) {
+          // FALLTHROUGH
           case 2:
             $output($chanid, $chan->buffer);
             break;
+          // FALLTHROUGH
           default:
             $output($chan->buffer);
           }
@@ -716,13 +740,17 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       $ncomp = $ArrayLiteral();
       for ($i = 0;$i < $comp->length;$i++) {
         switch($comp[$i]) {
+          // FALLTHROUGH
           case $String->new(".."):
             if ($ncomp->length > 1) {$ncomp->pop();}
             break;
+          // FALLTHROUGH
           case $String->new("."):break;
+          // FALLTHROUGH
           case $String->new(""):
             if ($ncomp->length == 0) {$ncomp->push($String->new(""));}
             break;
+          // FALLTHROUGH
           default:
             $ncomp->push($comp[$i]);
             break;
@@ -1216,30 +1244,39 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $res = 0;
         foreach($f->__all_enumerable_keys() as $key=> $____) {
           switch($key) {
+            // FALLTHROUGH
             case $String->new("rdonly"):
               $res |= $consts->O_RDONLY;
               break;
+            // FALLTHROUGH
             case $String->new("wronly"):
               $res |= $consts->O_WRONLY;
               break;
+            // FALLTHROUGH
             case $String->new("append"):
               $res |= $consts->O_WRONLY | $consts->O_APPEND;
               break;
+            // FALLTHROUGH
             case $String->new("create"):
               $res |= $consts->O_CREAT;
               break;
+            // FALLTHROUGH
             case $String->new("truncate"):
               $res |= $consts->O_TRUNC;
               break;
+            // FALLTHROUGH
             case $String->new("excl"):
               $res |= $consts->O_EXCL;
               break;
+            // FALLTHROUGH
             case $String->new("binary"):
               $res |= $consts->O_BINARY;
               break;
+            // FALLTHROUGH
             case $String->new("text"):
               $res |= $consts->O_TEXT;
               break;
+            // FALLTHROUGH
             case $String->new("nonblock"):
               $res |= $consts->O_NONBLOCK;
               break;
@@ -1396,30 +1433,39 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       $f = $ObjectLiteral((object)darray[]);
       while($flags) {
          switch($flags[1]) {
+           // FALLTHROUGH
            case 0:
              $f->rdonly = 1;
              break;
+           // FALLTHROUGH
            case 1:
              $f->wronly = 1;
              break;
+           // FALLTHROUGH
            case 2:
              $f->append = 1;
              break;
+           // FALLTHROUGH
            case 3:
              $f->create = 1;
              break;
+           // FALLTHROUGH
            case 4:
              $f->truncate = 1;
              break;
+           // FALLTHROUGH
            case 5:
              $f->excl = 1;
              break;
+           // FALLTHROUGH
            case 6:
              $f->binary = 1;
              break;
+           // FALLTHROUGH
            case 7:
              $f->text = 1;
              break;
+           // FALLTHROUGH
            case 8:
              $f->nonblock = 1;
              break;

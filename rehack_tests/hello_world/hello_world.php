@@ -188,13 +188,17 @@ $caml_utf16_of_utf8 = $Func(
 $caml_to_js_string = $Func(
   function($s) use ($caml_convert_string_to_bytes,$caml_is_ascii) {
     switch($s->t) {
+      // FALLTHROUGH
       case 9:
         return $s->c;
+      // FALLTHROUGH
       default:
         $caml_convert_string_to_bytes($s);
+      // FALLTHROUGH
       case 0:
         if ($caml_is_ascii($s->c)) {$s->t = 9;return $s->c;}
         $s->t = 8;
+      // FALLTHROUGH
       case 8:
         return $s->c;
       }
@@ -264,9 +268,11 @@ $caml_ml_flush = $Func(
     ) {
       $output = $caml_global_data->fds[$chan->fd]->output;
       switch($output->length) {
+        // FALLTHROUGH
         case 2:
           $output($chanid, $chan->buffer);
           break;
+        // FALLTHROUGH
         default:
           $output($chan->buffer);
         }
@@ -296,13 +302,17 @@ $caml_make_path = $Func(
     $ncomp = $ArrayLiteral();
     for ($i = 0;$i < $comp->length;$i++) {
       switch($comp[$i]) {
+        // FALLTHROUGH
         case $String->new(".."):
           if ($ncomp->length > 1) {$ncomp->pop();}
           break;
+        // FALLTHROUGH
         case $String->new("."):break;
+        // FALLTHROUGH
         case $String->new(""):
           if ($ncomp->length == 0) {$ncomp->push($String->new(""));}
           break;
+        // FALLTHROUGH
         default:
           $ncomp->push($comp[$i]);
           break;
@@ -336,10 +346,13 @@ $caml_string_bound_error = $Func(
 $caml_bytes_unsafe_get = $Func(
   function($s, $i) {
     switch($s->t & 6) {
+      // FALLTHROUGH
       default:
         if ($i >= $s->c->length) {return 0;}
+      // FALLTHROUGH
       case 0:
         return $s->c->charCodeAt($i) | 0;
+      // FALLTHROUGH
       case 4:
         return $s->c[$i];
       }
@@ -882,30 +895,39 @@ $MlNodeDevice->prototype->open =
       $res = 0;
       foreach($f->__all_enumerable_keys() as $key=> $____) {
         switch($key) {
+          // FALLTHROUGH
           case $String->new("rdonly"):
             $res |= $consts->O_RDONLY;
             break;
+          // FALLTHROUGH
           case $String->new("wronly"):
             $res |= $consts->O_WRONLY;
             break;
+          // FALLTHROUGH
           case $String->new("append"):
             $res |= $consts->O_WRONLY | $consts->O_APPEND;
             break;
+          // FALLTHROUGH
           case $String->new("create"):
             $res |= $consts->O_CREAT;
             break;
+          // FALLTHROUGH
           case $String->new("truncate"):
             $res |= $consts->O_TRUNC;
             break;
+          // FALLTHROUGH
           case $String->new("excl"):
             $res |= $consts->O_EXCL;
             break;
+          // FALLTHROUGH
           case $String->new("binary"):
             $res |= $consts->O_BINARY;
             break;
+          // FALLTHROUGH
           case $String->new("text"):
             $res |= $consts->O_TEXT;
             break;
+          // FALLTHROUGH
           case $String->new("nonblock"):
             $res |= $consts->O_NONBLOCK;
             break;
@@ -1060,30 +1082,39 @@ $caml_sys_open = $Func(
     $f = $ObjectLiteral((object)darray[]);
     while($flags) {
        switch($flags[1]) {
+         // FALLTHROUGH
          case 0:
            $f->rdonly = 1;
            break;
+         // FALLTHROUGH
          case 1:
            $f->wronly = 1;
            break;
+         // FALLTHROUGH
          case 2:
            $f->append = 1;
            break;
+         // FALLTHROUGH
          case 3:
            $f->create = 1;
            break;
+         // FALLTHROUGH
          case 4:
            $f->truncate = 1;
            break;
+         // FALLTHROUGH
          case 5:
            $f->excl = 1;
            break;
+         // FALLTHROUGH
          case 6:
            $f->binary = 1;
            break;
+         // FALLTHROUGH
          case 7:
            $f->text = 1;
            break;
+         // FALLTHROUGH
          case 8:
            $f->nonblock = 1;
            break;
