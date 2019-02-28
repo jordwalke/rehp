@@ -30,7 +30,7 @@ final class Gc {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {

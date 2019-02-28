@@ -37,8 +37,8 @@ final class CamlinternalOO {
 
     $fit_size = new Ref();$lookup_keys = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $is_int = $runtime->is_int;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $is_int = $runtime["is_int"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_div = $runtime["caml_div"];
     $caml_get_public_method = $runtime["caml_get_public_method"];

@@ -29,7 +29,7 @@ final class Uchar {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_format_int = $runtime["caml_format_int"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {

@@ -30,7 +30,7 @@ final class Spacetime {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_spacetime_enabled = $runtime["caml_spacetime_enabled"];
     $caml_spacetime_only_works_for_native_code = $runtime[

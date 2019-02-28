@@ -31,8 +31,8 @@ final class Bytes {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_blit_bytes = $runtime["caml_blit_bytes"];
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];

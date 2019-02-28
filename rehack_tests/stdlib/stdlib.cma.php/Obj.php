@@ -30,8 +30,8 @@ final class Obj {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $is_int = $runtime->is_int;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $is_int = $runtime["is_int"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {

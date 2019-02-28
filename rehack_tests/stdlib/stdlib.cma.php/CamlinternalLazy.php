@@ -29,7 +29,7 @@ final class CamlinternalLazy {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_obj_set_tag = $runtime["caml_obj_set_tag"];
     $caml_obj_tag = $runtime["caml_obj_tag"];

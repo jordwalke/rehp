@@ -30,8 +30,8 @@ final class Sort {
 
     $merge = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2

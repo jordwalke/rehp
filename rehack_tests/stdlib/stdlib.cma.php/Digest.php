@@ -33,9 +33,9 @@ final class Digest {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $left_shift_32 = $runtime->left_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $left_shift_32 = $runtime["left_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_md5_string = $runtime["caml_md5_string"];

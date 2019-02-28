@@ -39,7 +39,7 @@ final class Arg {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_equal = $runtime["caml_equal"];
     $caml_fresh_oo_id = $runtime["caml_fresh_oo_id"];

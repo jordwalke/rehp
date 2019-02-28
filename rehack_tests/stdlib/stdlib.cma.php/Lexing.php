@@ -31,7 +31,7 @@ final class Lexing {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_bytes_get = $runtime["caml_bytes_get"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_create_bytes = $runtime["caml_create_bytes"];

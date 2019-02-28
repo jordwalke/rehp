@@ -326,7 +326,7 @@ let identifierRenamingJs = rehp => rehp;
 let var = s => Rehp.EVar(Id.S({Id.name: s, Id.var: None}));
 let runtimeVar = (runtimeName, name) => (
   Id.S({Id.name, Id.var: None}),
-  Some((Rehp.EDot(Rehp.EVar(Id.V(runtimeName)), name), Loc.N)),
+  Some((Rehp.EAccess(Rehp.EVar(Id.V(runtimeName)), Rehp.EStr(name, `Utf8)), Loc.N)),
 );
 /**
  * Prepends `let runtime = global_object.jsoo_runtime`. This also allows the

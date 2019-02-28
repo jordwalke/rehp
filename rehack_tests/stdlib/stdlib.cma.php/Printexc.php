@@ -39,8 +39,8 @@ final class Printexc {
 
     $other_fields = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_get_exception_raw_backtrace = $runtime[
        "caml_get_exception_raw_backtrace"

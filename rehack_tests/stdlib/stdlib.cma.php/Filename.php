@@ -37,8 +37,8 @@ final class Filename {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_string_equal = $runtime["caml_string_equal"];

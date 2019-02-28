@@ -36,8 +36,8 @@ final class Genlex {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_float_of_string = $runtime["caml_float_of_string"];
     $caml_new_string = $runtime["caml_new_string"];

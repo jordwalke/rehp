@@ -30,7 +30,7 @@ final class Marshal {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_marshal_data_size = $runtime["caml_marshal_data_size"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $caml_new_string = $runtime["caml_new_string"];

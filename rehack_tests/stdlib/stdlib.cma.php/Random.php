@@ -34,9 +34,9 @@ final class Random {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $left_shift_32 = $runtime->left_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $left_shift_32 = $runtime["left_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_greaterthan = $runtime["caml_greaterthan"];
     $caml_int64_of_int32 = $runtime["caml_int64_of_int32"];

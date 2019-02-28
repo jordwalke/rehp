@@ -30,7 +30,7 @@ final class Nativeint {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $left_shift_32 = $runtime->left_shift_32;
+    $left_shift_32 = $runtime["left_shift_32"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();

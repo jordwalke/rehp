@@ -33,7 +33,7 @@ final class Strings {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_int_of_string = $runtime["caml_int_of_string"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];

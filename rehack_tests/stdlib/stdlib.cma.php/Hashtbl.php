@@ -36,8 +36,8 @@ final class Hashtbl {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $left_shift_32 = $runtime->left_shift_32;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $left_shift_32 = $runtime["left_shift_32"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_compare = $runtime["caml_compare"];
     $caml_hash = $runtime["caml_hash"];

@@ -34,7 +34,7 @@ final class Pervasives {
 
     $j = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_blit_string = $runtime["caml_blit_string"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_float_of_string = $runtime["caml_float_of_string"];

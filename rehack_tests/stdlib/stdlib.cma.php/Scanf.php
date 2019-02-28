@@ -46,9 +46,9 @@ final class Scanf {
     $take_format_readers = new Ref();
     $take_ignored_format_readers = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
-    $is_int = $runtime->is_int;
-    $caml_arity_test = $runtime->caml_arity_test;
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
+    $is_int = $runtime["is_int"];
+    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_bytes_get = $runtime["caml_bytes_get"];
     $caml_int_of_string = $runtime["caml_int_of_string"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
