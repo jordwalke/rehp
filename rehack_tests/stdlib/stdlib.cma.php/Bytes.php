@@ -33,7 +33,6 @@ final class Bytes {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_blit_bytes = $runtime->caml_blit_bytes;
     $caml_bytes_unsafe_get = $runtime->caml_bytes_unsafe_get;
     $caml_bytes_unsafe_set = $runtime->caml_bytes_unsafe_set;
@@ -42,15 +41,15 @@ final class Bytes {
     $caml_ml_bytes_length = $runtime->caml_ml_bytes_length;
     $caml_new_string = $runtime->caml_new_string;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_String_rcontains_from_Bytes_rcontains_from = $caml_new_string(

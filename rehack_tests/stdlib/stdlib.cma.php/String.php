@@ -33,27 +33,26 @@ final class String_ {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_blit_string = $runtime->caml_blit_string;
     $caml_bytes_unsafe_get = $runtime->caml_bytes_unsafe_get;
     $caml_ml_string_length = $runtime->caml_ml_string_length;
     $caml_new_string = $runtime->caml_new_string;
     $caml_string_equal = $runtime->caml_string_equal;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_String_rcontains_from_Bytes_rcontains_from = $caml_new_string(

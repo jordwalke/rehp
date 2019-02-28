@@ -437,7 +437,19 @@ let rec expression = (input, x) =>
     let (outs, mappeds) = List.split(List.map(expression(input), l));
     (joinAll([iOut, ...outs]), Php.ETag(iMapped, mappeds));
   /* Should have already converted EArr to functions. */
-  | Rehp.EArr(l) => assert(false)
+  | Rehp.EArr(l) => (
+      emptyOutput,
+      Php.EArr(
+        List.map(
+          elem =>
+            switch (elem) {
+            | Some(elem) => Some(snd(expression(input, elem)))
+            | None => None
+            },
+          l,
+        ),
+      ),
+    )
   | Rehp.EArityTest(_) => assert(false)
   | Rehp.EObj(l) =>
     let (outs, mappeds) =

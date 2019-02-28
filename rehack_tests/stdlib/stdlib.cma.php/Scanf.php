@@ -49,7 +49,6 @@ final class Scanf {
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_bytes_get = $runtime->caml_bytes_get;
     $caml_int_of_string = $runtime->caml_int_of_string;
     $caml_ml_string_length = $runtime->caml_ml_string_length;
@@ -59,25 +58,25 @@ final class Scanf {
     $caml_trampoline = $runtime->caml_trampoline;
     $caml_trampoline_return = $runtime->caml_trampoline_return;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_end_of_input_not_found = $caml_new_string("end of input not found");
@@ -1268,11 +1267,11 @@ final class Scanf {
       };
       return $find_start($width);
     };
-    $scan_caml_string = function($width, $ib) use ($ArrayLiteral,$caml_trampoline,$caml_trampoline_return,$character_mismatch,$check_next_char_for_string,$checked_peek_char,$ignore_char,$scan_backslash_char,$store_char) {
+    $scan_caml_string = function($width, $ib) use ($caml_trampoline,$caml_trampoline_return,$character_mismatch,$check_next_char_for_string,$checked_peek_char,$ignore_char,$scan_backslash_char,$store_char) {
       $scan_backslash = new Ref();
       $skip_newline = new Ref();
       $skip_spaces = new Ref();
-      $find_stop__0 = function($counter, $width) use ($ArrayLiteral,$caml_trampoline_return,$check_next_char_for_string,$ib,$ignore_char,$scan_backslash,$store_char) {
+      $find_stop__0 = function($counter, $width) use ($caml_trampoline_return,$check_next_char_for_string,$ib,$ignore_char,$scan_backslash,$store_char) {
         $width__0 = $width;
         for (;;) {
           $c = $check_next_char_for_string($width__0, $ib);
@@ -1285,7 +1284,7 @@ final class Scanf {
             }
             return $caml_trampoline_return(
               $scan_backslash->contents,
-              $ArrayLiteral(0, $w7)
+              varray[0,$w7]
             );
           }
           $width__1 = $store_char($width__0, $ib, $c);
@@ -1294,7 +1293,7 @@ final class Scanf {
         }
       };
       $_ = $scan_backslash->contents =
-        function($counter, $width) use ($ArrayLiteral,$caml_trampoline_return,$check_next_char_for_string,$find_stop__0,$ib,$ignore_char,$scan_backslash_char,$skip_newline,$skip_spaces) {
+        function($counter, $width) use ($caml_trampoline_return,$check_next_char_for_string,$find_stop__0,$ib,$ignore_char,$scan_backslash_char,$skip_newline,$skip_spaces) {
           $match = $check_next_char_for_string($width, $ib);
           if (10 === $match) {
             $w4 = $ignore_char($width, $ib);
@@ -1304,7 +1303,7 @@ final class Scanf {
             }
             return $caml_trampoline_return(
               $skip_spaces->contents,
-              $ArrayLiteral(0, $w4)
+              varray[0,$w4]
             );
           }
           if (13 === $match) {
@@ -1315,7 +1314,7 @@ final class Scanf {
             }
             return $caml_trampoline_return(
               $skip_newline->contents,
-              $ArrayLiteral(0, $w5)
+              varray[0,$w5]
             );
           }
           $w6 = $scan_backslash_char($width, $ib);
@@ -1323,10 +1322,10 @@ final class Scanf {
             $counter__2 = $counter + 1 | 0;
             return $find_stop__0($counter__2, $w6);
           }
-          return $caml_trampoline_return($find_stop__0, $ArrayLiteral(0, $w6));
+          return $caml_trampoline_return($find_stop__0, varray[0,$w6]);
         };
       $_ = $skip_newline->contents =
-        function($counter, $width) use ($ArrayLiteral,$caml_trampoline_return,$check_next_char_for_string,$find_stop__0,$ib,$ignore_char,$skip_spaces,$store_char) {
+        function($counter, $width) use ($caml_trampoline_return,$check_next_char_for_string,$find_stop__0,$ib,$ignore_char,$skip_spaces,$store_char) {
           $match = $check_next_char_for_string($width, $ib);
           if (10 === $match) {
             $w2 = $ignore_char($width, $ib);
@@ -1336,7 +1335,7 @@ final class Scanf {
             }
             return $caml_trampoline_return(
               $skip_spaces->contents,
-              $ArrayLiteral(0, $w2)
+              varray[0,$w2]
             );
           }
           $w3 = $store_char($width, $ib, 13);
@@ -1344,10 +1343,10 @@ final class Scanf {
             $counter__1 = $counter + 1 | 0;
             return $find_stop__0($counter__1, $w3);
           }
-          return $caml_trampoline_return($find_stop__0, $ArrayLiteral(0, $w3));
+          return $caml_trampoline_return($find_stop__0, varray[0,$w3]);
         };
       $_ = $skip_spaces->contents =
-        function($counter, $width) use ($ArrayLiteral,$caml_trampoline_return,$check_next_char_for_string,$find_stop__0,$ib,$ignore_char) {
+        function($counter, $width) use ($caml_trampoline_return,$check_next_char_for_string,$find_stop__0,$ib,$ignore_char) {
           $width__0 = $width;
           for (;;) {
             $match = $check_next_char_for_string($width__0, $ib);
@@ -1360,10 +1359,7 @@ final class Scanf {
               $counter__0 = $counter + 1 | 0;
               return $find_stop__0($counter__0, $width__0);
             }
-            return $caml_trampoline_return(
-              $find_stop__0,
-              $ArrayLiteral(0, $width__0)
-            );
+            return $caml_trampoline_return($find_stop__0, varray[0,$width__0]);
           }
         };
       $find_stop = function($width) use ($caml_trampoline,$find_stop__0) {
@@ -1463,7 +1459,7 @@ final class Scanf {
       );
       return V(0, $stp, $sub_str);
     };
-    $take_format_readers__0 = function($counter, $k, $fmt) use ($ArrayLiteral,$CamlinternalFormat,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$is_int,$take_fmtty_format_readers__0,$take_format_readers,$take_ignored_format_readers) {
+    $take_format_readers__0 = function($counter, $k, $fmt) use ($CamlinternalFormat,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$is_int,$take_fmtty_format_readers__0,$take_format_readers,$take_ignored_format_readers) {
       $fmt__0 = $fmt;
       for (;;) if (
         $is_int($fmt__0)
@@ -1557,7 +1553,7 @@ final class Scanf {
             }
             return $caml_trampoline_return(
               $take_fmtty_format_readers__0->contents,
-              $ArrayLiteral(0, $k, $wV, $rest)
+              varray[0,$k,$wV,$rest]
             );
           // FALLTHROUGH
           case 15:
@@ -1638,7 +1634,7 @@ final class Scanf {
             }
             return $caml_trampoline_return(
               $take_ignored_format_readers->contents,
-              $ArrayLiteral(0, $k, $ign, $rest__2)
+              varray[0,$k,$ign,$rest__2]
             );
           // FALLTHROUGH
           default:
@@ -1649,7 +1645,7 @@ final class Scanf {
       }
     };
     $_ = $take_fmtty_format_readers__0->contents =
-      function($counter, $k, $fmtty, $fmt) use ($ArrayLiteral,$CamlinternalFormat,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$is_int,$take_fmtty_format_readers,$take_format_readers__0) {
+      function($counter, $k, $fmtty, $fmt) use ($CamlinternalFormat,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$is_int,$take_fmtty_format_readers,$take_format_readers__0) {
         $fmtty__0 = $fmtty;
         for (;;) if (
           $is_int($fmtty__0)
@@ -1660,7 +1656,7 @@ final class Scanf {
           }
           return $caml_trampoline_return(
             $take_format_readers__0,
-            $ArrayLiteral(0, $k, $fmt)
+            varray[0,$k,$fmt]
           );
         }
         else {
@@ -1769,7 +1765,7 @@ final class Scanf {
         }
       };
     $_ = $take_ignored_format_readers->contents =
-      function($counter, $k, $ign, $fmt) use ($ArrayLiteral,$caml_call1,$caml_trampoline_return,$is_int,$take_fmtty_format_readers__0,$take_format_readers,$take_format_readers__0) {
+      function($counter, $k, $ign, $fmt) use ($caml_call1,$caml_trampoline_return,$is_int,$take_fmtty_format_readers__0,$take_format_readers,$take_format_readers__0) {
         if ($is_int($ign)) {
           switch($ign) {
             // FALLTHROUGH
@@ -1780,7 +1776,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 1:
@@ -1790,7 +1786,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 2:
@@ -1808,7 +1804,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             }
         }
@@ -1822,7 +1818,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 1:
@@ -1832,7 +1828,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 2:
@@ -1842,7 +1838,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 3:
@@ -1852,7 +1848,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 4:
@@ -1862,7 +1858,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 5:
@@ -1872,7 +1868,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 6:
@@ -1882,7 +1878,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 7:
@@ -1892,7 +1888,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 8:
@@ -1902,7 +1898,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             case 9:
@@ -1918,7 +1914,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_fmtty_format_readers__0->contents,
-                $ArrayLiteral(0, $k, $fmtty, $fmt)
+                varray[0,$k,$fmtty,$fmt]
               );
             // FALLTHROUGH
             case 10:
@@ -1928,7 +1924,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             // FALLTHROUGH
             default:
@@ -1938,7 +1934,7 @@ final class Scanf {
               }
               return $caml_trampoline_return(
                 $take_format_readers__0,
-                $ArrayLiteral(0, $k, $fmt)
+                varray[0,$k,$fmt]
               );
             }
         }

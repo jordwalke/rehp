@@ -38,32 +38,31 @@ final class Buffer {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_bytes_unsafe_set = $runtime->caml_bytes_unsafe_set;
     $caml_create_bytes = $runtime->caml_create_bytes;
     $caml_ml_bytes_length = $runtime->caml_ml_bytes_length;
     $caml_ml_string_length = $runtime->caml_ml_string_length;
     $caml_new_string = $runtime->caml_new_string;
     $caml_string_get = $runtime->caml_string_get;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3, $a4)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_Buffer_truncate = $caml_new_string("Buffer.truncate");

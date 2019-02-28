@@ -36,7 +36,6 @@ final class Digest {
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $left_shift_32 = $runtime->left_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_bytes_unsafe_set = $runtime->caml_bytes_unsafe_set;
     $caml_create_bytes = $runtime->caml_create_bytes;
     $caml_md5_string = $runtime->caml_md5_string;
@@ -44,15 +43,15 @@ final class Digest {
     $caml_new_string = $runtime->caml_new_string;
     $caml_string_get = $runtime->caml_string_get;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_Digest_from_hex__0 = $caml_new_string("Digest.from_hex");

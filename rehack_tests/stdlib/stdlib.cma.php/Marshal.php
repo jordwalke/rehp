@@ -31,14 +31,13 @@ final class Marshal {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_marshal_data_size = $runtime->caml_marshal_data_size;
     $caml_ml_bytes_length = $runtime->caml_ml_bytes_length;
     $caml_new_string = $runtime->caml_new_string;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_Marshal_from_bytes = $caml_new_string("Marshal.from_bytes");

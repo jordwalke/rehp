@@ -91,12 +91,6 @@ let mapper = {
         [self.expression(self, e1), self.expression(self, e2)],
         N,
       )
-    | EArr(l) =>
-      ECall(
-        EVar(S({name: "ArrayLiteral", var: None})),
-        List.map(exprOrUndef(self.expression(self)), l),
-        Loc.N,
-      )
     /*
      * TODO: Only perform this preparation for code that was compiled from JS
      * stubs. No code compiled from ocaml bytecode should be emitting Regexes.

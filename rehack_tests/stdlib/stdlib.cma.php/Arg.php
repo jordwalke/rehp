@@ -40,7 +40,6 @@ final class Arg {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_check_bound = $runtime->caml_check_bound;
     $caml_equal = $runtime->caml_equal;
     $caml_fresh_oo_id = $runtime->caml_fresh_oo_id;
@@ -49,38 +48,35 @@ final class Arg {
     $caml_string_get = $runtime->caml_string_get;
     $caml_string_notequal = $runtime->caml_string_notequal;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3, $a4)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
-    $caml_call6 = function($f, $a0, $a1, $a2, $a3, $a4, $a5) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call6 = function($f, $a0, $a1, $a2, $a3, $a4, $a5) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 6
         ? $f($a0, $a1, $a2, $a3, $a4, $a5)
-        : ($runtime->caml_call_gen(
-         $f,
-         $ArrayLiteral($a0, $a1, $a2, $a3, $a4, $a5)
-       ));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4,$a5]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst__6 = $caml_new_string("");

@@ -48,16 +48,16 @@ final class Runtime {
       }
     );
     $caml_int64_add = $Func(
-      function($x, $y) use ($ArrayLiteral,$plus,$right_shift_32) {
+      function($x, $y) use ($plus,$right_shift_32) {
         $z1 = $plus($x[1], $y[1]);
         $z2 = $plus($x[2], $y[2]) + $right_shift_32($z1, 24);
         $z3 = $plus($x[3], $y[3]) + $right_shift_32($z2, 24);
-        return $ArrayLiteral(255, $z1 & 16777215, $z2 & 16777215, $z3 & 65535);
+        return varray[255,$z1 & 16777215,$z2 & 16777215,$z3 & 65535];
       }
     );
     $caml_int64_offset = $Math->pow(2, - 24);
     $caml_int64_mul = $Func(
-      function($x, $y) use ($ArrayLiteral,$caml_int64_offset) {
+      function($x, $y) use ($caml_int64_offset) {
         $z1 = $x[1] * $y[1];
         $z2 = ($z1 * $caml_int64_offset | 0) + $x[2] * $y[1] + $x[1] * $y[2];
         $z3 = ($z2 * $caml_int64_offset | 0) + $x[3] * $y[1] +
@@ -65,25 +65,25 @@ final class Runtime {
             $y[2] +
           $x[1] *
             $y[3];
-        return $ArrayLiteral(255, $z1 & 16777215, $z2 & 16777215, $z3 & 65535);
+        return varray[255,$z1 & 16777215,$z2 & 16777215,$z3 & 65535];
       }
     );
     $caml_int64_neg = $Func(
-      function($x) use ($ArrayLiteral,$right_shift_32) {
+      function($x) use ($right_shift_32) {
         $y1 = - $x[1];
         $y2 = - $x[2] + $right_shift_32($y1, 24);
         $y3 = - $x[3] + $right_shift_32($y2, 24);
-        return $ArrayLiteral(255, $y1 & 16777215, $y2 & 16777215, $y3 & 65535);
+        return varray[255,$y1 & 16777215,$y2 & 16777215,$y3 & 65535];
       }
     );
     $caml_int64_of_int32 = $Func(
-      function($x) use ($ArrayLiteral,$right_shift_32) {
-        return $ArrayLiteral(
+      function($x) {
+        return varray[
           255,
           $x & 16777215,
           $right_shift_32($x, 24) & 16777215,
           $right_shift_32($x, 31) & 65535
-        );
+        ];
       }
     );
     $caml_obj_dup = $Func(
@@ -95,11 +95,11 @@ final class Runtime {
       }
     );
     $caml_int64_sub = $Func(
-      function($x, $y) use ($ArrayLiteral,$right_shift_32) {
+      function($x, $y) use ($right_shift_32) {
         $z1 = $x[1] - $y[1];
         $z2 = $x[2] - $y[2] + $right_shift_32($z1, 24);
         $z3 = $x[3] - $y[3] + $right_shift_32($z2, 24);
-        return $ArrayLiteral(255, $z1 & 16777215, $z2 & 16777215, $z3 & 65535);
+        return varray[255,$z1 & 16777215,$z2 & 16777215,$z3 & 65535];
       }
     );
     $caml_int64_ucompare = $Func(
@@ -131,11 +131,11 @@ final class Runtime {
       }
     );
     $caml_int64_udivmod = $Func(
-      function($x, $y) use ($ArrayLiteral,$caml_int64_lsl1,$caml_int64_lsr1,$caml_int64_sub,$caml_int64_ucompare,$caml_obj_dup) {
+      function($x, $y) use ($caml_int64_lsl1,$caml_int64_lsr1,$caml_int64_sub,$caml_int64_ucompare,$caml_obj_dup) {
         $offset = 0;
         $modulus = $caml_obj_dup($x);
         $divisor = $caml_obj_dup($y);
-        $quotient = $ArrayLiteral(255, 0, 0, 0);
+        $quotient = varray[255,0,0,0];
         while($caml_int64_ucompare($modulus, $divisor) > 0) {$offset++;$caml_int64_lsl1($divisor);}
         while($offset >= 0) {
            $offset--;
@@ -146,7 +146,7 @@ final class Runtime {
            }
            $caml_int64_lsr1($divisor);
          }
-        return $ArrayLiteral(0, $quotient, $modulus);
+        return varray[0,$quotient,$modulus];
       }
     );
     $caml_int64_ult = $Func(
@@ -155,7 +155,7 @@ final class Runtime {
       }
     );
     $caml_parse_sign_and_base = $Func(
-      function($s) use ($ArrayLiteral,$caml_ml_string_length,$caml_string_unsafe_get,$plus) {
+      function($s) use ($caml_ml_string_length,$caml_string_unsafe_get,$plus) {
         $i = 0;$len = $caml_ml_string_length($s);$base = 10;$sign = 1;
         if ($len > 0) {
           switch($caml_string_unsafe_get($s, $i)) {
@@ -196,7 +196,7 @@ final class Runtime {
               break;
             }
         }
-        return $ArrayLiteral($i, $sign, $base);
+        return varray[$i,$sign,$base];
       }
     );
     
@@ -209,7 +209,7 @@ $String = $joo_global_object->String;
     $caml_named_value = $Func(
       function($nm) use ($caml_named_values) {return $caml_named_values[$nm];}
     );
-    $caml_global_data = $ArrayLiteral(0);
+    $caml_global_data = varray[0];
     
     
     
@@ -237,8 +237,8 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     
     
     $caml_raise_with_arg = $Func(
-      function($tag, $arg) use ($ArrayLiteral,$caml_wrap_thrown_exception) {
-        throw $caml_wrap_thrown_exception($ArrayLiteral(0, $tag, $arg));
+      function($tag, $arg) use ($caml_wrap_thrown_exception) {
+        throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]);
       }
     );
     $caml_str_repeat = $Func(
@@ -460,12 +460,12 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       }
     );
     $caml_int64_of_string = $Func(
-      function($s) use ($ArrayLiteral,$String,$caml_failwith,$caml_int64_add,$caml_int64_mul,$caml_int64_neg,$caml_int64_of_int32,$caml_int64_udivmod,$caml_int64_ult,$caml_ml_string_length,$caml_parse_digit,$caml_parse_sign_and_base,$caml_string_unsafe_get,$eqEq) {
+      function($s) use ($String,$caml_failwith,$caml_int64_add,$caml_int64_mul,$caml_int64_neg,$caml_int64_of_int32,$caml_int64_udivmod,$caml_int64_ult,$caml_ml_string_length,$caml_parse_digit,$caml_parse_sign_and_base,$caml_string_unsafe_get,$eqEq) {
         $r = $caml_parse_sign_and_base($s);
         $i = $r[0];$sign = $r[1];$base = $r[2];
         $base64 = $caml_int64_of_int32($base);
         $threshold = $caml_int64_udivmod(
-           $ArrayLiteral(255, 16777215, 268435455, 65535),
+           varray[255,16777215,268435455,65535],
            $base64
          )[1
          ];
@@ -493,10 +493,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         if (! $eqEq($i, $caml_ml_string_length($s))) {
           $caml_failwith($String->new("int_of_string"));
         }
-        if (
-          $r[2] ==
-            10 && $caml_int64_ult($ArrayLiteral(255, 0, 0, 32768), $res)
-        ) {$caml_failwith($String->new("int_of_string"));}
+        if ($r[2] == 10 && $caml_int64_ult(varray[255,0,0,32768], $res)) {$caml_failwith($String->new("int_of_string"));}
         if ($sign < 0) {$res = $caml_int64_neg($res);}
         return $res;
       }
@@ -741,13 +738,13 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     }
     
     $caml_make_path = $Func(
-      function($name) use ($ArrayLiteral,$MlBytes,$String,$caml_current_dir,$plus) {
+      function($name) use ($MlBytes,$String,$caml_current_dir,$plus) {
         $name = instance_of($name, $MlBytes) ? $name->toString() : ($name);
         if ($name->charCodeAt(0) != 47) {
           $name = $plus($caml_current_dir, $name);
         }
         $comp = $name->split($String->new("/"));
-        $ncomp = $ArrayLiteral();
+        $ncomp = varray[];
         for ($i = 0;$i < $comp->length;$i++) {
           switch($comp[$i]) {
             // FALLTHROUGH
@@ -1017,7 +1014,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     
     $MlFakeDevice->prototype->readdir =
       $Func(
-        function($name) use ($ArrayLiteral,$ObjectLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
+        function($name) use ($ObjectLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
           $name_slash = $eqEq($name, $String->new(""))
             ? $String->new("")
             : ($plus($name, $String->new("/")));
@@ -1028,7 +1025,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
             )
           );
           $seen = $ObjectLiteral((object)darray[]);
-          $a = $ArrayLiteral();
+          $a = varray[];
           foreach(
             $joo_global_object->context->content->__all_enumerable_keys()
             as
@@ -1044,7 +1041,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     
     $MlFakeDevice->prototype->is_dir =
       $Func(
-        function($name) use ($ArrayLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
+        function($name) use ($RegExp,$String,$eqEq,$joo_global_object,$plus) {
           $name_slash = $eqEq($name, $String->new(""))
             ? $String->new("")
             : ($plus($name, $String->new("/")));
@@ -1054,7 +1051,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
               $String->new("([^/]*)")
             )
           );
-          $a = $ArrayLiteral();
+          $a = varray[];
           foreach(
             $joo_global_object->context->content->__all_enumerable_keys()
             as
@@ -1434,7 +1431,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           );
       }
     );
-    $jsoo_mount_point = $ArrayLiteral();
+    $jsoo_mount_point = varray[];
     
     if ($fs_node_supported()) {
       $jsoo_mount_point->push(
@@ -1839,18 +1836,13 @@ $caml_js_to_string = $Func(
       }
     );
     $caml_int64_of_bytes = $Func(
-      function($a) use ($ArrayLiteral,$left_shift_32) {
-        return $ArrayLiteral(
+      function($a) {
+        return varray[
           255,
-          $a[7] |
-            $left_shift_32($a[6], 8) |
-            $left_shift_32($a[5], 16),
-          $a[4] |
-            $left_shift_32($a[3], 8) |
-            $left_shift_32($a[2], 16),
-          $a[1] |
-            $left_shift_32($a[0], 8)
-        );
+          $a[7] | $left_shift_32($a[6], 8) | $left_shift_32($a[5], 16),
+          $a[4] | $left_shift_32($a[3], 8) | $left_shift_32($a[2], 16),
+          $a[1] | $left_shift_32($a[0], 8)
+        ];
       }
     );
     $caml_float_of_bytes = $Func(
@@ -1966,7 +1958,7 @@ $caml_js_to_string = $Func(
       }
     );
     $caml_ba_uint8_get64 = $Func(
-      function($ba, $i0) use ($ArrayLiteral,$left_shift_32) {
+      function($ba, $i0) use ($left_shift_32) {
         $b1 = $ba->get1($i0);
         $b2 = $left_shift_32($ba->get1($i0 + 1), 8);
         $b3 = $left_shift_32($ba->get1($i0 + 2), 16);
@@ -1975,7 +1967,7 @@ $caml_js_to_string = $Func(
         $b6 = $left_shift_32($ba->get1($i0 + 5), 16);
         $b7 = $ba->get1($i0 + 6);
         $b8 = $left_shift_32($ba->get1($i0 + 7), 8);
-        return $ArrayLiteral(255, $b1 | $b2 | $b3, $b4 | $b5 | $b6, $b7 | $b8);
+        return varray[255,$b1 | $b2 | $b3,$b4 | $b5 | $b6,$b7 | $b8];
       }
     );
     $caml_int64_compare = $Func(
@@ -2019,8 +2011,8 @@ $caml_js_to_string = $Func(
     
     
     $caml_compare_val = $Func(
-      function($a, $b, $total) use ($Array,$ArrayLiteral,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
-        $stack = $ArrayLiteral();
+      function($a, $b, $total) use ($Array,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
+        $stack = varray[];
         for (;;) {
           if (! ($total && $eqEqEq($a, $b))) {
             if (instance_of($a, $MlBytes)) {
@@ -2249,25 +2241,20 @@ $caml_wrap_exception = function($e) use($String, $caml_global_data) {
     
     $caml_final_register_called_without_value = $Func(function() {return 0;});
     $caml_sys_random_seed = $Func(
-      function() use ($ArrayLiteral,$Date,$Math) {
+      function() use ($Date,$Math) {
         $x = $Date->new()->getTime() ^ 4294967295 * $Math->random();
-        return $ArrayLiteral(0, $x);
+        return varray[0,$x];
       }
     );
     $caml_list_of_js_array = $Func(
-      function($a) use ($ArrayLiteral) {
+      function($a) {
         $l = 0;
-        for ($i = $a->length - 1;$i >= 0;$i--) {
-          $e = $a[$i];
-          $l = $ArrayLiteral(0, $e, $l);
-        }
+        for ($i = $a->length - 1;$i >= 0;$i--) {$e = $a[$i];$l = varray[0,$e,$l];}
         return $l;
       }
     );
     $caml_ba_get_2 = $Func(
-      function($ba, $i0, $i1) use ($ArrayLiteral) {
-        return $ba->get($ArrayLiteral($i0, $i1));
-      }
+      function($ba, $i0, $i1) {return $ba->get(varray[$i0,$i1]);}
     );
     $caml_set_parser_trace = $Func(function() {return 0;});
     $win_handle_fd = $Func(function($x) {return $x;});
@@ -2390,21 +2377,14 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
         else {$caml_raise_no_such_file($dir);}
       }
     );
-    $caml_gc_counters = $Func(
-      function() use ($ArrayLiteral) {return $ArrayLiteral(254, 0, 0, 0);}
-    );
+    $caml_gc_counters = $Func(function() {return varray[254,0,0,0];});
     $caml_js_delete = $Func(function($o, $f) {unset($o[$f]);return 0;});
     $caml_list_mount_point = $Func(
-      function() use ($ArrayLiteral,$caml_new_string,$jsoo_mount_point) {
+      function() use ($jsoo_mount_point) {
         $prev = 0;
         for ($i = 0;$i < $jsoo_mount_point->length;$i++) {
           $old = $prev;
-          $prev =
-            $ArrayLiteral(
-              0,
-              $caml_new_string($jsoo_mount_point[$i]->path),
-              $old
-            );
+          $prev = varray[0,$caml_new_string($jsoo_mount_point[$i]->path),$old];
         }
         return $prev;
       }
@@ -2507,23 +2487,23 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
     );
     $caml_ba_blit = $Func(function($src, $dst) {$dst->blit($src);return 0;});
     $caml_input_value_from_reader = $Func(
-      function($reader, $ofs) use ($Array,$ArrayLiteral,$Func,$String,$caml_failwith,$caml_float_of_bytes,$caml_int64_of_bytes,$eqEq,$plus,$right_shift_32,$typeof) {
+      function($reader, $ofs) use ($Array,$Func,$String,$caml_failwith,$caml_float_of_bytes,$caml_int64_of_bytes,$eqEq,$plus,$right_shift_32,$typeof) {
         $_magic = $reader->read32u();
         $_block_len = $reader->read32u();
         $num_objects = $reader->read32u();
         $_size_32 = $reader->read32u();
         $_size_64 = $reader->read32u();
-        $stack = $ArrayLiteral();
-        $intern_obj_table = $num_objects > 0 ? $ArrayLiteral() : (varray[]);
+        $stack = varray[];
+        $intern_obj_table = $num_objects > 0 ? varray[] : (varray[]);
         $obj_counter = 0;
         $intern_rec = $Func(
-          function() use ($Array,$ArrayLiteral,$String,$caml_failwith,$caml_float_of_bytes,$caml_int64_of_bytes,$intern_obj_table,$obj_counter,$plus,$reader,$right_shift_32,$stack) {
+          function() use ($Array,$String,$caml_failwith,$caml_float_of_bytes,$caml_int64_of_bytes,$intern_obj_table,$obj_counter,$plus,$reader,$right_shift_32,$stack) {
             $code = $reader->read8u();
             if ($code >= 64) {
               if ($code >= 128) {
                 $tag = $code & 15;
                 $size = $right_shift_32($code, 4) & 7;
-                $v = $ArrayLiteral($tag);
+                $v = varray[$tag];
                 if ($size == 0) {return $v;}
                 if ($intern_obj_table) {
                   $intern_obj_table[$obj_counter++] = $v;
@@ -2576,7 +2556,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                     $header = $reader->read32u();
                     $tag = $header & 255;
                     $size = $right_shift_32($header, 10);
-                    $v = $ArrayLiteral($tag);
+                    $v = varray[$tag];
                     if ($size == 0) {return $v;}
                     if ($intern_obj_table) {
                       $intern_obj_table[$obj_counter++] = $v;
@@ -2818,14 +2798,14 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
       }
     );
     $caml_int64_of_float = $Func(
-      function($x) use ($ArrayLiteral,$Math,$caml_int64_offset) {
+      function($x) use ($Math) {
         if ($x < 0) {$x = $Math->ceil($x);}
-        return $ArrayLiteral(
+        return varray[
           255,
           $x & 16777215,
           $Math->floor($x * $caml_int64_offset) & 16777215,
           $Math->floor($x * $caml_int64_offset * $caml_int64_offset) & 65535
-        );
+        ];
       }
     );
     $caml_ml_channel_size_64 = $Func(
@@ -2835,9 +2815,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
       }
     );
     $caml_ba_set_2 = $Func(
-      function($ba, $i0, $i1, $v) use ($ArrayLiteral) {
-        return $ba->set($ArrayLiteral($i0, $i1), $v);
-      }
+      function($ba, $i0, $i1, $v) {return $ba->set(varray[$i0,$i1], $v);}
     );
     $caml_string_unsafe_set = $Func(
       function($s, $i, $c) use ($caml_bytes_unsafe_set) {
@@ -2845,7 +2823,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
       }
     );
     $caml_CamlinternalMod_init_mod = $Func(
-      function($loc, $shape) use ($ArrayLiteral,$Func,$ObjectLiteral,$String,$caml_global_data,$caml_raise_with_arg,$eqEqEq,$typeof) {
+      function($loc, $shape) use ($Func,$ObjectLiteral,$String,$caml_global_data,$caml_raise_with_arg,$eqEqEq,$typeof) {
         $loop = new Ref();
         $undef_module = $Func(
           function($_x) use ($caml_global_data,$caml_raise_with_arg,$loc) {
@@ -2857,7 +2835,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
         );
         $_ = $loop->contents =
           $Func(
-            function($shape, $struct, $idx) use ($ArrayLiteral,$ObjectLiteral,$String,$eqEqEq,$loop,$typeof,$undef_module) {
+            function($shape, $struct, $idx) use ($ObjectLiteral,$String,$eqEqEq,$loop,$typeof,$undef_module) {
               if ($eqEqEq($typeof($shape), $String->new("number"))) {
                 switch($shape) {
                   // FALLTHROUGH
@@ -2867,18 +2845,18 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                     break;
                   // FALLTHROUGH
                   case 1:
-                    $struct[$idx] = $ArrayLiteral(246, $undef_module);
+                    $struct[$idx] = varray[246,$undef_module];
                     break;
                   // FALLTHROUGH
                   default:
-                    $struct[$idx] = $ArrayLiteral();
+                    $struct[$idx] = varray[];
                   }
               }
               else {
                 switch($shape[0]) {
                   // FALLTHROUGH
                   case 0:
-                    $struct[$idx] = $ArrayLiteral(0);
+                    $struct[$idx] = varray[0];
                     for ($i = 1;$i < $shape[1]->length;$i++) $loop->contents(
                       $shape[1][$i],
                       $struct[$idx],
@@ -2892,7 +2870,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
               }
             }
           );
-        $res = $ArrayLiteral();
+        $res = varray[];
         $loop->contents($shape, $res, 0);
         return $res[0];
       }
@@ -3020,14 +2998,14 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
       }
     );
     $caml_input_value = $Func(
-      function($chanid) use ($ArrayLiteral,$caml_create_bytes,$caml_input_value_from_string,$caml_marshal_data_size,$caml_ml_channels,$plus) {
+      function($chanid) use ($caml_create_bytes,$caml_input_value_from_string,$caml_marshal_data_size,$caml_ml_channels,$plus) {
         $chan = $caml_ml_channels[$chanid];
         $buf = $caml_create_bytes(8);
         $chan->file->read($chan->offset, $buf, 0, 8);
         $len = $caml_marshal_data_size($buf, 0) + 20;
         $buf = $caml_create_bytes($len);
         $chan->file->read($chan->offset, $buf, 0, $len);
-        $offset = $ArrayLiteral(0);
+        $offset = varray[0];
         $res = $caml_input_value_from_string($buf, $offset);
         $chan->offset = $plus($chan->offset, $offset[0]);
         return $res;
@@ -3135,12 +3113,12 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
       function() use ($caml_global_data) {return $caml_global_data;}
     );
     $unix_gmtime = $Func(
-      function($t) use ($ArrayLiteral,$Date,$Math) {
+      function($t) use ($Date,$Math) {
         $d = $Date->new($t * 1e3);
         $januaryfirst = $Date->new($Date->UTC($d->getUTCFullYear(), 0, 1));
         $doy = $Math->floor(($d->getTime() - $januaryfirst->getTime()) / 864e5
         );
-        return $ArrayLiteral(
+        return varray[
           0,
           $d->getUTCSeconds(),
           $d->getUTCMinutes(),
@@ -3151,7 +3129,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
           $d->getUTCDay(),
           $doy,
           false | 0
-        );
+        ];
       }
     );
     $caml_ba_uint8_get16 = $Func(
@@ -3162,36 +3140,36 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
       }
     );
     $caml_int64_shift_right_unsigned = $Func(
-      function($x, $s) use ($ArrayLiteral,$left_shift_32,$right_shift_32) {
+      function($x, $s) {
         $s = $s & 63;
         if ($s == 0) {return $x;}
         if ($s < 24) {
-          return $ArrayLiteral(
+          return varray[
             255,
             ($right_shift_32($x[1], $s) | $left_shift_32($x[2], 24 - $s)) & 16777215,
             ($right_shift_32($x[2], $s) | $left_shift_32($x[3], 24 - $s)) & 16777215,
             $right_shift_32($x[3], $s)
-          );
+          ];
         }
         if ($s < 48) {
-          return $ArrayLiteral(
+          return varray[
             255,
             ($right_shift_32($x[2], $s - 24) | $left_shift_32($x[3], 48 - $s)) & 16777215,
             $right_shift_32($x[3], $s - 24),
             0
-          );
+          ];
         }
-        return $ArrayLiteral(255, $right_shift_32($x[3], $s - 48), 0, 0);
+        return varray[255,$right_shift_32($x[3], $s - 48),0,0];
       }
     );
     $caml_sys_const_backend_type = $Func(
-      function() use ($ArrayLiteral,$String,$caml_new_string) {
-        return $ArrayLiteral(0, $caml_new_string($String->new("js_of_ocaml")));
+      function() {
+        return varray[0,$caml_new_string($String->new("js_of_ocaml"))];
       }
     );
     $caml_sys_get_config = $Func(
-      function() use ($ArrayLiteral,$String,$caml_new_string) {
-        return $ArrayLiteral(0, $caml_new_string($String->new("Unix")), 32, 0);
+      function() {
+        return varray[0,$caml_new_string($String->new("Unix")),32,0];
       }
     );
     $caml_compare = $Func(
@@ -3205,14 +3183,14 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
       }
     );
     $caml_ml_out_channels_list = $Func(
-      function() use ($ArrayLiteral,$caml_ml_channels) {
+      function() use ($caml_ml_channels) {
         $l = 0;
         for ($c = 0;$c < $caml_ml_channels->length;$c++) {
           if (
             $caml_ml_channels[$c] &&
               $caml_ml_channels[$c]->opened &&
               $caml_ml_channels[$c]->out
-          ) {$l = $ArrayLiteral(0, $caml_ml_channels[$c]->fd, $l);}
+          ) {$l = varray[0,$caml_ml_channels[$c]->fd,$l];}
         }
         return $l;
       }
@@ -3259,7 +3237,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
     );
     $_ = $caml_ba_create_from->contents =
       $Func(
-        function($data, $data2, $data_type, $kind, $layout, $dims) use ($ArrayLiteral,$Func,$NaN,$ObjectLiteral,$String,$caml_array_bound_error,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$eqEq,$left_shift_32,$plus,$unsigned_right_shift_32) {
+        function($data, $data2, $data_type, $kind, $layout, $dims) use ($Func,$NaN,$ObjectLiteral,$String,$caml_array_bound_error,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$eqEq,$left_shift_32,$plus,$unsigned_right_shift_32) {
           $n_dims = $dims->length;
           $size = $caml_ba_get_size($dims);
           $offset_c = $Func(
@@ -3302,25 +3280,25 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
             }
           );
           $get_int64 = $Func(
-            function($index) use ($ArrayLiteral,$data,$data2,$left_shift_32,$offset,$unsigned_right_shift_32) {
+            function($index) use ($data,$data2,$offset) {
               $off = $offset($index);
               $l = $data[$off];
               $h = $data2[$off];
-              return $ArrayLiteral(
+              return varray[
                 255,
                 $l & 16777215,
                 $unsigned_right_shift_32($l, 24) & 255 |
                   $left_shift_32($h & 65535, 8),
                 $unsigned_right_shift_32($h, 16) & 65535
-              );
+              ];
             }
           );
           $get_complex = $Func(
-            function($index) use ($ArrayLiteral,$data,$data2,$offset) {
+            function($index) use ($data,$data2,$offset) {
               $off = $offset($index);
               $r = $data[$off];
               $i = $data2[$off];
-              return $ArrayLiteral(254, $r, $i);
+              return varray[254,$r,$i];
             }
           );
           $get = $data_type == 1
@@ -3338,10 +3316,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
               return $data[$i - 1];
             }
           );
-          $get1_any = $Func(
-            function($i) use ($ArrayLiteral,$get) {
-              return $get($ArrayLiteral($i));
-            }
+          $get1_any = $Func(function($i) use ($get) {return $get(varray[$i]);}
           );
           $get1 = $data_type == 0
             ? $layout == 0 ? $get1_c : ($get1_fortran)
@@ -3395,9 +3370,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
             }
           );
           $set1_any = $Func(
-            function($i, $v) use ($ArrayLiteral,$set) {
-              $set($ArrayLiteral($i), $v);
-            }
+            function($i, $v) use ($set) {$set(varray[$i], $v);}
           );
           $set1 = $data_type == 0
             ? $layout == 0 ? $set1_c : ($set1_fortran)
@@ -3443,7 +3416,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
             }
           );
           $sub = $Func(
-            function($ofs, $len) use ($ArrayLiteral,$String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$plus) {
+            function($ofs, $len) use ($String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$plus) {
               $changed_dim = NULL;
               $mul = 1;
               if ($layout == 0) {
@@ -3472,7 +3445,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
               $new_data2 = $data_type == 0
                 ? varray[]
                 : ($data2->subarray($ofs * $mul, $plus($ofs, $len) * $mul));
-              $new_dims = $ArrayLiteral();
+              $new_dims = varray[];
               for ($i = 0;$i < $n_dims;$i++) $new_dims[$i] = $dims[$i];
               $new_dims[$changed_dim] = $len;
               return $caml_ba_create_from->contents(
@@ -3486,10 +3459,10 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
             }
           );
           $slice = $Func(
-            function($vind) use ($ArrayLiteral,$String,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$offset,$plus) {
+            function($vind) use ($String,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$offset,$plus) {
               $num_inds = $vind->length;
-              $index = $ArrayLiteral();
-              $sub_dims = $ArrayLiteral();
+              $index = varray[];
+              $sub_dims = varray[];
               $ofs = NULL;
               if ($num_inds >= $n_dims) {
                 $caml_invalid_argument(
@@ -3525,8 +3498,8 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
             }
           );
           $reshape = $Func(
-            function($vdim) use ($ArrayLiteral,$String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$eqEq,$kind,$layout,$size) {
-              $new_dim = $ArrayLiteral();
+            function($vdim) use ($String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$eqEq,$kind,$layout,$size) {
+              $new_dim = varray[];
               $num_dims = $vdim->length;
               if ($num_dims < 1) {
                 $caml_invalid_argument(
@@ -3664,7 +3637,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
         }
       );
     $bigstring_of_array_buffer = $Func(
-      function($ab) use ($ArrayLiteral,$caml_ba_create_from,$joo_global_object) {
+      function($ab) use ($caml_ba_create_from,$joo_global_object) {
         $ta = $joo_global_object->Uint8Array->new($ab);
         return $caml_ba_create_from->contents(
           $ta,
@@ -3672,12 +3645,12 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
           0,
           12,
           0,
-          $ArrayLiteral($ta->length)
+          varray[$ta->length]
         );
       }
     );
     $bigstring_destroy_stub = $Func(
-      function($v_bstr) use ($ArrayLiteral,$Object,$String,$caml_ba_create_from,$caml_invalid_argument) {
+      function($v_bstr) use ($Object,$String,$caml_ba_create_from,$caml_invalid_argument) {
         if ($v_bstr->data2 != varray[]) {
           $caml_invalid_argument(
             $String->new("bigstring_destroy: unsupported kind")
@@ -3696,7 +3669,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
           $v_bstr->data_type,
           $v_bstr->kind,
           $v_bstr->layout,
-          $ArrayLiteral(0)
+          varray[0]
         );
         $destroyed_bigstring->__is_deallocated = true;
         $Object->assign($v_bstr, $destroyed_bigstring);
@@ -3956,20 +3929,17 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_int64_to_bytes = $Func(
-      function($x) use ($ArrayLiteral,$right_shift_32) {
-        return $ArrayLiteral(
+      function($x) {
+        return varray[
           $right_shift_32($x[3], 8),
-          $x[3] &
-            255,
+          $x[3] & 255,
           $right_shift_32($x[2], 16),
           $right_shift_32($x[2], 8) & 255,
-          $x[2] &
-            255,
+          $x[2] & 255,
           $right_shift_32($x[1], 16),
           $right_shift_32($x[1], 8) & 255,
-          $x[1] &
-            255
-        );
+          $x[1] & 255
+        ];
       }
     );
     $caml_bytes_set64 = $Func(
@@ -3997,13 +3967,13 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_int64_bswap = $Func(
-      function($x) use ($ArrayLiteral,$left_shift_32,$right_shift_32) {
-        return $ArrayLiteral(
+      function($x) {
+        return varray[
           255,
           $right_shift_32($x[3] & 65280, 8) | $left_shift_32($x[3] & 255, 8) | $x[2] & 16711680,
           $right_shift_32($x[2] & 65280, 8) | $left_shift_32($x[2] & 255, 8) | $x[1] & 16711680,
           $right_shift_32($x[1] & 65280, 8) | $left_shift_32($x[1] & 255, 8)
-        );
+        ];
       }
     );
     $caml_div = $Func(
@@ -4048,11 +4018,9 @@ $right_shift_32=$joo_global_object->right_shift_32;
     );
     $caml_gc_major = $Func(function() {return 0;});
     $caml_ephe_get_data_copy = $Func(
-      function($x) use ($ArrayLiteral,$caml_ephe_data_offset,$caml_obj_dup) {
+      function($x) use ($caml_ephe_data_offset) {
         if ($x[$caml_ephe_data_offset] === NULL) {return 0;}
-        else {
-          return $ArrayLiteral(0, $caml_obj_dup($x[$caml_ephe_data_offset]));
-        }
+        else {return varray[0,$caml_obj_dup($x[$caml_ephe_data_offset])];}
       }
     );
     $caml_lex_array = $Func(
@@ -4130,10 +4098,10 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_sys_get_argv = $Func(
-      function() use ($ArrayLiteral,$String,$caml_js_to_string,$joo_global_object,$raw_array_sub) {
+      function() use ($String,$caml_js_to_string,$joo_global_object,$raw_array_sub) {
         $g = $joo_global_object;
         $main = $String->new("a.out");
-        $args = $ArrayLiteral();
+        $args = varray[];
         if ($g->process && $g->process->argv && $g->process->argv->length > 1
         ) {
           $argv = $g->process->argv;
@@ -4141,11 +4109,11 @@ $right_shift_32=$joo_global_object->right_shift_32;
           $args = $raw_array_sub($argv, 2, $argv->length - 2);
         }
         $p = $caml_js_to_string($main);
-        $args2 = $ArrayLiteral(0, $p);
+        $args2 = varray[0,$p];
         for ($i = 0;$i < $args->length;$i++) $args2->push(
           $caml_js_to_string($args[$i])
         );
-        return $ArrayLiteral(0, $p, $args2);
+        return varray[0,$p,$args2];
       }
     );
     $caml_js_to_bool = $Func(function($x) {return + $x;});
@@ -4165,14 +4133,12 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_weak_get_copy = $Func(
-      function($x, $i) use ($Array,$ArrayLiteral,$String,$caml_ephe_key_offset,$caml_invalid_argument,$caml_obj_dup,$caml_weak_get,$plus) {
+      function($x, $i) use ($Array,$String,$caml_ephe_key_offset,$caml_invalid_argument,$caml_weak_get,$plus) {
         if ($i < 0 || $plus($caml_ephe_key_offset, $i) >= $x->length) {$caml_invalid_argument($String->new("Weak.get_copy"));}
         $y = $caml_weak_get($x, $i);
         if ($y === 0) {return $y;}
         $z = $y[1];
-        if (instance_of($z, $Array)) {
-          return $ArrayLiteral(0, $caml_obj_dup($z));
-        }
+        if (instance_of($z, $Array)) {return varray[0,$caml_obj_dup($z)];}
         return $y;
       }
     );
@@ -4206,12 +4172,12 @@ $right_shift_32=$joo_global_object->right_shift_32;
     );
     $caml_ba_views = NULL;
     $caml_ba_init_views = $Func(
-      function() use ($ArrayLiteral,$caml_ba_views,$joo_global_object) {
+      function() use ($caml_ba_views,$joo_global_object) {
         if (! $caml_ba_views) {
           $g = $joo_global_object;
           $caml_ba_views =
-            $ArrayLiteral(
-              $ArrayLiteral(
+            varray[
+              varray[
                 $g->Float32Array,
                 $g->Float64Array,
                 $g->Int8Array,
@@ -4225,9 +4191,9 @@ $right_shift_32=$joo_global_object->right_shift_32;
                 $g->Float32Array,
                 $g->Float64Array,
                 $g->Uint8Array
-              ),
-              $ArrayLiteral(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 2, 0)
-            );
+              ],
+              varray[0,0,0,0,0,0,0,1,0,0,2,2,0]
+            ];
         }
       }
     );
@@ -4402,12 +4368,10 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_int64_bits_of_float = $Func(
-      function($x) use ($ArrayLiteral,$Infinity,$Math,$isFinite,$isNaN,$jsoo_floor_log2,$left_shift_32) {
+      function($x) use ($Infinity,$Math,$isFinite,$isNaN,$jsoo_floor_log2,$left_shift_32) {
         if (! $isFinite($x)) {
-          if ($isNaN($x)) {return $ArrayLiteral(255, 1, 0, 32752);}
-          return $x > 0
-            ? $ArrayLiteral(255, 0, 0, 32752)
-            : ($ArrayLiteral(255, 0, 0, 65520));
+          if ($isNaN($x)) {return varray[255,1,0,32752];}
+          return $x > 0 ? varray[255,0,0,32752] : (varray[255,0,0,65520]);
         }
         $sign = $x == 0 && 1 / $x == - $Infinity
           ? 32768
@@ -4430,14 +4394,14 @@ $right_shift_32=$joo_global_object->right_shift_32;
         $x = ($x - $r2) * $k;
         $r1 = $x | 0;
         $r3 = $r3 & 15 | $sign | $left_shift_32($exp, 4);
-        return $ArrayLiteral(255, $r1, $r2, $r3);
+        return varray[255,$r1,$r2,$r3];
       }
     );
     $caml_output_val = $Func(
-      function() use ($Array,$ArrayLiteral,$Func,$MlBytes,$ObjectLiteral,$String,$caml_failwith,$caml_int64_to_bytes,$caml_ml_string_length,$caml_string_unsafe_get,$eqEq,$eqEqEq,$joo_global_object,$left_shift_32,$plus,$right_shift_32,$typeof) {
+      function() use ($Array,$Func,$MlBytes,$ObjectLiteral,$String,$caml_failwith,$caml_int64_to_bytes,$caml_ml_string_length,$caml_string_unsafe_get,$eqEq,$eqEqEq,$joo_global_object,$left_shift_32,$plus,$right_shift_32,$typeof) {
         $Writer = $Func(
-          function() use ($ArrayLiteral,$joo_global_object) {
-            $joo_global_object->context->chunk = $ArrayLiteral();
+          function() use ($joo_global_object) {
+            $joo_global_object->context->chunk = varray[];
           }
         );
         $Writer->prototype =
@@ -4495,9 +4459,9 @@ $right_shift_32=$joo_global_object->right_shift_32;
              )]
           );
         return $Func(
-          function($v) use ($Array,$ArrayLiteral,$Func,$MlBytes,$String,$Writer,$caml_failwith,$caml_int64_to_bytes,$caml_ml_string_length,$caml_string_unsafe_get,$eqEq,$eqEqEq,$left_shift_32,$plus,$typeof) {
+          function($v) use ($Array,$Func,$MlBytes,$String,$Writer,$caml_failwith,$caml_int64_to_bytes,$caml_ml_string_length,$caml_string_unsafe_get,$eqEq,$eqEqEq,$left_shift_32,$plus,$typeof) {
             $writer = $Writer->new();
-            $stack = $ArrayLiteral();
+            $stack = varray[];
             $extern_rec = $Func(
               function($v) use ($Array,$MlBytes,$String,$caml_failwith,$caml_int64_to_bytes,$caml_ml_string_length,$caml_string_unsafe_get,$eqEq,$eqEqEq,$left_shift_32,$plus,$stack,$typeof,$writer) {
                 if (instance_of($v, $Array) && $eqEqEq($v[0], $v[0] | 0)) {
@@ -4625,10 +4589,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_gc_stat = $Func(
-      function() use ($ArrayLiteral) {
-        return $ArrayLiteral(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-        );
-      }
+      function() {return varray[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];}
     );
     $caml_lessequal = $Func(
       function($x, $y) use ($caml_compare_val) {
@@ -4643,7 +4604,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
     );
     $caml_gc_set = $Func(function($_control) {return 0;});
     $caml_js_get = $Func(function($o, $f) {return $o[$f];});
-    $caml_method_cache = $ArrayLiteral();
+    $caml_method_cache = varray[];
     $caml_get_public_method = $Func(
       function($obj, $tag, $cacheid) use ($caml_method_cache,$eqEq,$eqEqEq,$plus,$right_shift_32) {
         $meths = $obj[1];
@@ -4663,11 +4624,11 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_js_get_console = $Func(
-      function() use ($ArrayLiteral,$Func,$ObjectLiteral,$String,$joo_global_object) {
+      function() use ($Func,$ObjectLiteral,$joo_global_object) {
         $c = $joo_global_object->console
           ? $joo_global_object->console
           : ($ObjectLiteral((object)darray[]));
-        $m = $ArrayLiteral(
+        $m = varray[
           $String->new("log"),
           $String->new("debug"),
           $String->new("info"),
@@ -4682,7 +4643,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
           $String->new("groupEnd"),
           $String->new("time"),
           $String->new("timeEnd")
-        );
+        ];
         $f = $Func(function() {});
         for ($i = 0;$i < $m->length;$i++) if (! $c[$m[$i]]) {$c[$m[$i]] = $f;}
         return $c;
@@ -4990,9 +4951,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
         return $array[$index + 1];
       }
     );
-    $caml_get_current_callstack = $Func(
-      function() use ($ArrayLiteral) {return $ArrayLiteral(0);}
-    );
+    $caml_get_current_callstack = $Func(function() {return varray[0];});
     $caml_int64_mod = $Func(
       function($x, $y) use ($caml_int64_is_zero,$caml_int64_neg,$caml_int64_udivmod,$caml_raise_zero_divide) {
         if ($caml_int64_is_zero($y)) {$caml_raise_zero_divide();}
@@ -5005,13 +4964,13 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_create_file_extern = $Func(
-      function($name, $content) use ($ArrayLiteral,$ObjectLiteral,$joo_global_object) {
+      function($name, $content) use ($ObjectLiteral,$joo_global_object) {
         if ($joo_global_object->caml_create_file) {
           $joo_global_object->caml_create_file($name, $content);
         }
         else {
           if (! $joo_global_object->caml_fs_tmp) {
-            $joo_global_object->caml_fs_tmp = $ArrayLiteral();
+            $joo_global_object->caml_fs_tmp = varray[];
           }
           $joo_global_object->caml_fs_tmp->push(
             $ObjectLiteral((object)darray["name"=>$name,"content"=>$content])
@@ -5048,8 +5007,8 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_ba_set_3 = $Func(
-      function($ba, $i0, $i1, $i2, $v) use ($ArrayLiteral) {
-        return $ba->set($ArrayLiteral($i0, $i1, $i2), $v);
+      function($ba, $i0, $i1, $i2, $v) {
+        return $ba->set(varray[$i0,$i1,$i2], $v);
       }
     );
     $caml_js_instanceof = $Func(function($o, $c) {return instance_of($o, $c);}
@@ -5070,27 +5029,26 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $caml_int64_shift_left = $Func(
-      function($x, $s) use ($ArrayLiteral,$left_shift_32,$right_shift_32) {
+      function($x, $s) {
         $s = $s & 63;
         if ($s == 0) {return $x;}
         if ($s < 24) {
-          return $ArrayLiteral(
+          return varray[
             255,
             $left_shift_32($x[1], $s) & 16777215,
             ($left_shift_32($x[2], $s) | $right_shift_32($x[1], 24 - $s)) & 16777215,
             ($left_shift_32($x[3], $s) | $right_shift_32($x[2], 24 - $s)) & 65535
-          );
+          ];
         }
         if ($s < 48) {
-          return $ArrayLiteral(
+          return varray[
             255,
             0,
             $left_shift_32($x[1], $s - 24) & 16777215,
             ($left_shift_32($x[2], $s - 24) | $right_shift_32($x[1], 48 - $s)) & 65535
-          );
+          ];
         }
-        return $ArrayLiteral(255, 0, 0, $left_shift_32($x[1], $s - 48) & 65535
-        );
+        return varray[255,0,0,$left_shift_32($x[1], $s - 48) & 65535];
       }
     );
     
@@ -5158,7 +5116,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $unix_localtime = $Func(
-      function($t) use ($ArrayLiteral,$Date,$Math) {
+      function($t) use ($Date,$Math) {
         $d = $Date->new($t * 1e3);
         $januaryfirst = $Date->new($d->getFullYear(), 0, 1);
         $doy = $Math->floor(($d->getTime() - $januaryfirst->getTime()) / 864e5
@@ -5169,7 +5127,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
           $jan->getTimezoneOffset(),
           $jul->getTimezoneOffset()
         );
-        return $ArrayLiteral(
+        return varray[
           0,
           $d->getSeconds(),
           $d->getMinutes(),
@@ -5180,13 +5138,13 @@ $right_shift_32=$joo_global_object->right_shift_32;
           $d->getDay(),
           $doy,
           $d->getTimezoneOffset() < $stdTimezoneOffset | 0
-        );
+        ];
       }
     );
     $caml_weak_create = $Func(
-      function($n) use ($ArrayLiteral,$String,$caml_ephe_key_offset,$caml_invalid_argument,$plus) {
+      function($n) use ($String,$caml_ephe_key_offset,$caml_invalid_argument,$plus) {
         if ($n < 0) {$caml_invalid_argument($String->new("Weak.create"));}
-        $x = $ArrayLiteral(251, $String->new("caml_ephe_list_head"));
+        $x = varray[251,$String->new("caml_ephe_list_head")];
         $x->length = $plus($caml_ephe_key_offset, $n);
         return $x;
       }
@@ -5217,7 +5175,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
     if (! $eqEqEq($typeof($JSON), $String->new("object"))) {$JSON = $ObjectLiteral((object)darray[]);}
     
     $Func(
-      function() use ($ArrayLiteral,$Boolean,$Date,$Error,$Func,$JSON,$Number,$Object,$ObjectLiteral,$RegExp,$String,$SyntaxError,$eqEqEq,$eval,$isFinite,$joo_global_object,$plus,$typeof) {
+      function() use ($Boolean,$Date,$Error,$Func,$JSON,$Number,$Object,$ObjectLiteral,$RegExp,$String,$SyntaxError,$eqEqEq,$eval,$isFinite,$joo_global_object,$plus,$typeof) {
         $str = new Ref();
         $String->new("use strict");
         $rx_one = $RegExp->new($String->new("^[\\],:{}\\s]*\$"));
@@ -5336,7 +5294,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
         );
         $_ = $str->contents =
           $Func(
-            function($key, $holder) use ($ArrayLiteral,$Object,$String,$eqEqEq,$gap,$indent,$isFinite,$plus,$quote,$rep,$str,$typeof) {
+            function($key, $holder) use ($Object,$String,$eqEqEq,$gap,$indent,$isFinite,$plus,$quote,$rep,$str,$typeof) {
               $i = NULL;
               $k = NULL;
               $v = NULL;
@@ -5365,7 +5323,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
                 case $String->new("object"):
                   if (! $value) {return $String->new("null");}
                   $gap = $plus($gap, $indent);
-                  $partial = $ArrayLiteral();
+                  $partial = varray[];
                   if (
                     $eqEqEq(
                       $Object->prototype->toString->apply($value),
@@ -5587,11 +5545,11 @@ $right_shift_32=$joo_global_object->right_shift_32;
       }
     );
     $unix_mktime = $Func(
-      function($tm) use ($ArrayLiteral,$Date,$Math,$unix_localtime) {
+      function($tm) use ($Date,$Math,$unix_localtime) {
         $d = $Date->new($tm[6] + 1900, $tm[5], $tm[4], $tm[3], $tm[2], $tm[1]);
         $t = $Math->floor($d->getTime() / 1e3);
         $tm2 = $unix_localtime($t);
-        return $ArrayLiteral(0, $t, $tm2);
+        return varray[0,$t,$tm2];
       }
     );
     $caml_bytes_get64 = $Func(
@@ -5791,10 +5749,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
     );
     $caml_gc_quick_stat = $Func(
-      function() use ($ArrayLiteral) {
-        return $ArrayLiteral(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-        );
-      }
+      function() {return varray[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];}
     );
     $caml_ml_input_int = $Func(
       function($chanid) use ($caml_ml_channels,$caml_ml_refill_input,$caml_raise_end_of_file,$left_shift_32,$plus) {
@@ -5928,9 +5883,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
     );
     $caml_ba_get_3 = $Func(
-      function($ba, $i0, $i1, $i2) use ($ArrayLiteral) {
-        return $ba->get($ArrayLiteral($i0, $i1, $i2));
-      }
+      function($ba, $i0, $i1, $i2) {return $ba->get(varray[$i0,$i1,$i2]);}
     );
     $caml_ephe_blit_key = $caml_weak_blit;
     $caml_js_error_of_exception = $Func(
@@ -5980,7 +5933,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     );
     $HASH_QUEUE_SIZE = 256;
     $caml_hash = $Func(
-      function($count, $limit, $seed, $obj) use ($Array,$ArrayLiteral,$HASH_QUEUE_SIZE,$MlBytes,$String,$caml_hash_mix_final,$caml_hash_mix_float,$caml_hash_mix_int,$caml_hash_mix_int64,$caml_hash_mix_string,$eqEqEq,$left_shift_32,$plus,$typeof) {
+      function($count, $limit, $seed, $obj) use ($Array,$HASH_QUEUE_SIZE,$MlBytes,$String,$caml_hash_mix_final,$caml_hash_mix_float,$caml_hash_mix_int,$caml_hash_mix_int64,$caml_hash_mix_string,$eqEqEq,$left_shift_32,$plus,$typeof) {
         $queue = NULL;
         $rd = NULL;
         $wr = NULL;
@@ -5994,7 +5947,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         if ($sz < 0 || $sz > $HASH_QUEUE_SIZE) {$sz = $HASH_QUEUE_SIZE;}
         $num = $count;
         $h = $seed;
-        $queue = $ArrayLiteral($obj);
+        $queue = varray[$obj];
         $rd = 0;
         $wr = 1;
         while($rd < $wr && $num > 0) {
@@ -6085,15 +6038,15 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
     );
     $caml_frexp_float = $Func(
-      function($x) use ($ArrayLiteral,$Math,$isFinite,$jsoo_floor_log2) {
-        if ($x == 0 || ! $isFinite($x)) {return $ArrayLiteral(0, $x, 0);}
+      function($x) use ($Math,$isFinite,$jsoo_floor_log2) {
+        if ($x == 0 || ! $isFinite($x)) {return varray[0,$x,0];}
         $neg = $x < 0;
         if ($neg) {$x = - $x;}
         $exp = $jsoo_floor_log2($x) + 1;
         $x *= $Math->pow(2, - $exp);
         if ($x < 0.5) {$x *= 2;$exp -= 1;}
         if ($neg) {$x = - $x;}
-        return $ArrayLiteral(0, $x, $exp);
+        return varray[0,$x,$exp];
       }
     );
     $caml_bytes_get32 = $Func(
@@ -6131,8 +6084,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
     );
     $caml_ephe_set_key = $Func(
-      function($x, $i, $v) use ($ArrayLiteral,$caml_weak_set) {
-        return $caml_weak_set($x, $i, $ArrayLiteral(0, $v));
+      function($x, $i, $v) use ($caml_weak_set) {
+        return $caml_weak_set($x, $i, varray[0,$v]);
       }
     );
     $caml_ml_pos_out_64 = $Func(
@@ -6168,8 +6121,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
     );
     $caml_int64_and = $Func(
-      function($x, $y) use ($ArrayLiteral) {
-        return $ArrayLiteral(255, $x[1] & $y[1], $x[2] & $y[2], $x[3] & $y[3]);
+      function($x, $y) {
+        return varray[255,$x[1] & $y[1],$x[2] & $y[2],$x[3] & $y[3]];
       }
     );
     $caml_sys_const_word_size = $Func(function() {return 32;});
@@ -6184,9 +6137,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
     );
     $caml_ba_change_layout = $Func(
-      function($ba, $layout) use ($ArrayLiteral,$caml_ba_create_from,$eqEq) {
+      function($ba, $layout) use ($caml_ba_create_from,$eqEq) {
         if ($eqEq($ba->layout, $layout)) {return $ba;}
-        $dims = $ArrayLiteral();
+        $dims = varray[];
         for ($i = 0;$i < $ba->num_dims;$i++) $dims[$i] = $ba->nth_dim($i);
         return $caml_ba_create_from->contents(
           $ba->data,
@@ -6282,8 +6235,8 @@ $left_shift_32=$joo_global_object->left_shift_32;
       }
     );
     $bigstring_alloc = $Func(
-      function($_, $size) use ($ArrayLiteral,$caml_ba_create) {
-        return $caml_ba_create(12, 0, $ArrayLiteral(0, $size));
+      function($_, $size) use ($caml_ba_create) {
+        return $caml_ba_create(12, 0, varray[0,$size]);
       }
     );
     $caml_js_from_string = $Func(function($s) {return $s->toString();});
@@ -6347,8 +6300,8 @@ $left_shift_32=$joo_global_object->left_shift_32;
       }
     );
     $caml_array_concat = $Func(
-      function($l) use ($ArrayLiteral) {
-        $a = $ArrayLiteral(0);
+      function($l) {
+        $a = varray[0];
         while($l !== 0) {
            $b = $l[1];
            for ($i = 1;$i < $b->length;$i++) $a->push($b[$i]);
@@ -6443,9 +6396,7 @@ $RegExp=$joo_global_object->RegExp;
     
     
     $caml_ba_dim_3 = $Func(function($ba) {return $ba->nth_dim(2);});
-    $caml_get_exception_raw_backtrace = $Func(
-      function() use ($ArrayLiteral) {return $ArrayLiteral(0);}
-    );
+    $caml_get_exception_raw_backtrace = $Func(function() {return varray[0];});
     $caml_ephe_check_data = $Func(
       function($x) use ($caml_ephe_data_offset) {
         if ($x[$caml_ephe_data_offset] === NULL) {return 0;}
@@ -6467,15 +6418,13 @@ $RegExp=$joo_global_object->RegExp;
       }
     );
     $caml_int64_or = $Func(
-      function($x, $y) use ($ArrayLiteral) {
-        return $ArrayLiteral(255, $x[1] | $y[1], $x[2] | $y[2], $x[3] | $y[3]);
+      function($x, $y) {
+        return varray[255,$x[1] | $y[1],$x[2] | $y[2],$x[3] | $y[3]];
       }
     );
     $caml_js_from_bool = $Func(function($x) {return ! ! $x;});
     $caml_ml_set_channel_name = $Func(function() {return 0;});
-    $caml_lazy_make_forward = $Func(
-      function($v) use ($ArrayLiteral) {return $ArrayLiteral(250, $v);}
-    );
+    $caml_lazy_make_forward = $Func(function($v) {return varray[250,$v];});
     $caml_create_string = $Func(
       function($len) use ($MlBytes,$String,$caml_invalid_argument) {
         if ($len < 0) {$caml_invalid_argument($String->new("String.create"));}
@@ -6493,7 +6442,7 @@ $RegExp=$joo_global_object->RegExp;
     );
     $caml_ba_layout = $Func(function($ba) {return $ba->layout;});
     $caml_md5_string = $Func(
-      function() use ($Array,$ArrayLiteral,$Func,$caml_convert_string_to_bytes,$caml_string_of_array,$left_shift_32,$plus,$right_shift_32,$unsigned_right_shift_32) {
+      function() use ($Array,$Func,$caml_convert_string_to_bytes,$caml_string_of_array,$left_shift_32,$plus,$right_shift_32,$unsigned_right_shift_32) {
         $add = $Func(function($x, $y) use ($plus) {return $plus($x, $y) | 0;});
         $xx = $Func(
           function($q, $a, $b, $x, $s, $t) use ($add,$left_shift_32,$unsigned_right_shift_32) {
@@ -6526,7 +6475,7 @@ $RegExp=$joo_global_object->RegExp;
           }
         );
         $md5 = $Func(
-          function($buffer, $length) use ($Array,$ArrayLiteral,$add,$ff,$gg,$hh,$ii,$left_shift_32,$right_shift_32) {
+          function($buffer, $length) use ($Array,$add,$ff,$gg,$hh,$ii,$left_shift_32,$right_shift_32) {
             $i = $length;
             $buffer[$right_shift_32($i, 2)] |=
               $left_shift_32(128, 8 * ($i & 3));
@@ -6534,7 +6483,7 @@ $RegExp=$joo_global_object->RegExp;
             $buffer[$right_shift_32($i, 2) - 1] = $left_shift_32($length, 3);
             $buffer[$right_shift_32($i, 2)] =
               $right_shift_32($length, 29) & 536870911;
-            $w = $ArrayLiteral(1732584193, 4023233417, 2562383102, 271733878);
+            $w = varray[1732584193,4023233417,2562383102,271733878];
             for ($i = 0;$i < $buffer->length;$i += 16) {
               $a = $w[0];$b = $w[1];$c = $w[2];$d = $w[3];
               $a = $ff($a, $b, $c, $d, $buffer[$i + 0], 7, 3614090360);
@@ -6613,8 +6562,8 @@ $RegExp=$joo_global_object->RegExp;
           }
         );
         return $Func(
-          function($s, $ofs, $len) use ($ArrayLiteral,$caml_convert_string_to_bytes,$caml_string_of_array,$left_shift_32,$md5,$plus,$right_shift_32) {
-            $buf = $ArrayLiteral();
+          function($s, $ofs, $len) use ($caml_convert_string_to_bytes,$caml_string_of_array,$left_shift_32,$md5,$plus,$right_shift_32) {
+            $buf = varray[];
             switch($s->t & 6) {
               // FALLTHROUGH
               default:
@@ -6668,12 +6617,12 @@ $RegExp=$joo_global_object->RegExp;
       }
     );
     $caml_int64_shift_right = $Func(
-      function($x, $s) use ($ArrayLiteral,$left_shift_32,$right_shift_32,$unsigned_right_shift_32) {
+      function($x, $s) use ($left_shift_32,$right_shift_32) {
         $s = $s & 63;
         if ($s == 0) {return $x;}
         $h = $right_shift_32($left_shift_32($x[3], 16), 16);
         if ($s < 24) {
-          return $ArrayLiteral(
+          return varray[
             255,
             ($right_shift_32($x[1], $s) | $left_shift_32($x[2], 24 - $s)) & 16777215,
             ($right_shift_32($x[2], $s) | $left_shift_32($h, 24 - $s)) & 16777215,
@@ -6681,11 +6630,11 @@ $RegExp=$joo_global_object->RegExp;
               $right_shift_32($left_shift_32($x[3], 16), $s),
               16
             )
-          );
+          ];
         }
         $sign = $right_shift_32($left_shift_32($x[3], 16), 31);
         if ($s < 48) {
-          return $ArrayLiteral(
+          return varray[
             255,
             ($right_shift_32($x[2], $s - 24) | $left_shift_32($x[3], 48 - $s)) & 16777215,
             $right_shift_32(
@@ -6693,19 +6642,17 @@ $RegExp=$joo_global_object->RegExp;
               16
             ) & 16777215,
             $sign & 65535
-          );
+          ];
         }
-        return $ArrayLiteral(
+        return varray[
           255,
           $right_shift_32($left_shift_32($x[3], 16), $s - 32) & 16777215,
           $sign & 16777215,
           $sign & 65535
-        );
+        ];
       }
     );
-    $caml_convert_raw_backtrace = $Func(
-      function() use ($ArrayLiteral) {return $ArrayLiteral(0);}
-    );
+    $caml_convert_raw_backtrace = $Func(function() {return varray[0];});
     $caml_array_set = $Func(
       function($array, $index, $newval) use ($caml_array_bound_error) {
         if ($index < 0 || $index >= $array->length - 1) {$caml_array_bound_error();}
@@ -6771,9 +6718,9 @@ $RegExp=$joo_global_object->RegExp;
         }
       );
     $caml_ephe_get_data = $Func(
-      function($x) use ($ArrayLiteral,$caml_ephe_data_offset) {
+      function($x) use ($caml_ephe_data_offset) {
         if ($x[$caml_ephe_data_offset] === NULL) {return 0;}
-        else {return $ArrayLiteral(0, $x[$caml_ephe_data_offset]);}
+        else {return varray[0,$x[$caml_ephe_data_offset]];}
       }
     );
     $caml_trampoline_return = $Func(
@@ -6790,13 +6737,13 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     
     
     $caml_ml_output_int = $Func(
-      function($chanid, $i) use ($ArrayLiteral,$caml_ml_output,$caml_string_of_array,$right_shift_32) {
-        $arr = $ArrayLiteral(
+      function($chanid, $i) use ($caml_ml_output,$caml_string_of_array) {
+        $arr = varray[
           $right_shift_32($i, 24) & 255,
           $right_shift_32($i, 16) & 255,
           $right_shift_32($i, 8) & 255,
           $i & 255
-        );
+        ];
         $s = $caml_string_of_array($arr);
         $caml_ml_output($chanid, $s, 0, 4);
         return 0;
@@ -7003,28 +6950,24 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $caml_backtrace_status = $Func(function() {return 0;});
     $caml_install_signal_handler = $Func(function() {return 0;});
     $caml_ba_fill = $Func(function($ba, $init) {$ba->fill($init);return 0;});
-    $caml_gc_get = $Func(
-      function() use ($ArrayLiteral) {
-        return $ArrayLiteral(0, 0, 0, 0, 0, 0, 0, 0, 0);
-      }
-    );
+    $caml_gc_get = $Func(function() {return varray[0,0,0,0,0,0,0,0,0];});
     $caml_output_value_to_bytes = $Func(
       function($v, $_fl) use ($caml_output_val,$caml_string_of_array) {
         return $caml_string_of_array($caml_output_val($v));
       }
     );
     $caml_modf_float = $Func(
-      function($x) use ($ArrayLiteral,$Math,$NaN,$isFinite,$isNaN) {
+      function($x) use ($Math,$isFinite,$isNaN) {
         if ($isFinite($x)) {
           $neg = 1 / $x < 0;
           $x = $Math->abs($x);
           $i = $Math->floor($x);
           $f = $x - $i;
           if ($neg) {$i = - $i;$f = - $f;}
-          return $ArrayLiteral(0, $f, $i);
+          return varray[0,$f,$i];
         }
-        if ($isNaN($x)) {return $ArrayLiteral(0, $NaN, $NaN);}
-        return $ArrayLiteral(0, 1 / $x, $x);
+        if ($isNaN($x)) {return varray[0,$NaN,$NaN];}
+        return varray[0,1 / $x,$x];
       }
     );
     $caml_hash_univ_param = $Func(
@@ -7374,8 +7317,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       }
     );
     $caml_int64_xor = $Func(
-      function($x, $y) use ($ArrayLiteral) {
-        return $ArrayLiteral(255, $x[1] ^ $y[1], $x[2] ^ $y[2], $x[3] ^ $y[3]);
+      function($x, $y) {
+        return varray[255,$x[1] ^ $y[1],$x[2] ^ $y[2],$x[3] ^ $y[3]];
       }
     );
     $caml_bytes_greaterthan = $Func(

@@ -39,7 +39,6 @@ final class Filename {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_ml_string_length = $runtime->caml_ml_string_length;
     $caml_new_string = $runtime->caml_new_string;
     $caml_string_equal = $runtime->caml_string_equal;
@@ -49,25 +48,25 @@ final class Filename {
     $caml_trampoline = $runtime->caml_trampoline;
     $caml_trampoline_return = $runtime->caml_trampoline_return;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_Filename_chop_extension = $caml_new_string("Filename.chop_extension");
@@ -368,7 +367,7 @@ final class Filename {
       $temp_dir_name__0 = $cst__8;
     }
     
-    $quote__0 = function($s) use ($ArrayLiteral,$Buffer,$caml_call1,$caml_call2,$caml_ml_string_length,$caml_string_get,$caml_trampoline,$caml_trampoline_return) {
+    $quote__0 = function($s) use ($Buffer,$caml_call1,$caml_call2,$caml_ml_string_length,$caml_string_get,$caml_trampoline,$caml_trampoline_return) {
       $loop_bs = new Ref();
       $l = $caml_ml_string_length($s);
       $b = $caml_call1($Buffer[1], $l + 20 | 0);
@@ -386,7 +385,7 @@ final class Filename {
         }
         return 0;
       };
-      $loop__0 = function($counter, $i) use ($ArrayLiteral,$Buffer,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop_bs,$s) {
+      $loop__0 = function($counter, $i) use ($Buffer,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop_bs,$s) {
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $l) {return $caml_call2($Buffer[10], $b, 34);}
@@ -399,7 +398,7 @@ final class Filename {
             }
             return $caml_trampoline_return(
               $loop_bs->contents,
-              $ArrayLiteral(0, $BG, $i__0)
+              varray[0,$BG,$i__0]
             );
           }
           if (92 === $c) {
@@ -410,7 +409,7 @@ final class Filename {
             }
             return $caml_trampoline_return(
               $loop_bs->contents,
-              $ArrayLiteral(0, $BH, $i__0)
+              varray[0,$BH,$i__0]
             );
           }
           $caml_call2($Buffer[10], $b, $c);
@@ -420,7 +419,7 @@ final class Filename {
         }
       };
       $_ = $loop_bs->contents =
-        function($counter, $n, $i) use ($ArrayLiteral,$Buffer,$add_bs,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop__0,$s) {
+        function($counter, $n, $i) use ($Buffer,$add_bs,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop__0,$s) {
           $n__0 = $n;
           $i__0 = $i;
           for (;;) {
@@ -437,7 +436,7 @@ final class Filename {
                 $counter__1 = $counter + 1 | 0;
                 return $loop__0($counter__1, $BF);
               }
-              return $caml_trampoline_return($loop__0, $ArrayLiteral(0, $BF));
+              return $caml_trampoline_return($loop__0, varray[0,$BF]);
             }
             if (92 === $match) {
               $i__1 = $i__0 + 1 | 0;
@@ -451,7 +450,7 @@ final class Filename {
               $counter__0 = $counter + 1 | 0;
               return $loop__0($counter__0, $i__0);
             }
-            return $caml_trampoline_return($loop__0, $ArrayLiteral(0, $i__0));
+            return $caml_trampoline_return($loop__0, varray[0,$i__0]);
           }
         };
       $loop = function($i) use ($caml_trampoline,$loop__0) {

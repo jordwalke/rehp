@@ -317,7 +317,7 @@ $String = $joo_global_object->String;
   $caml_named_value = $Func(
     function($nm) use ($caml_named_values) {return $caml_named_values[$nm];}
   );
-  $caml_global_data = $ArrayLiteral(0);
+  $caml_global_data = varray[0];
   
   
   
@@ -345,8 +345,8 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   
   $caml_raise_with_arg = $Func(
-    function($tag, $arg) use ($ArrayLiteral,$caml_wrap_thrown_exception) {
-      throw $caml_wrap_thrown_exception($ArrayLiteral(0, $tag, $arg));
+    function($tag, $arg) use ($caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]);
     }
   );
   $caml_new_string_impl = $Func(
@@ -417,8 +417,8 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   
   $caml_compare_val = $Func(
-    function($a, $b, $total) use ($Array,$ArrayLiteral,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
-      $stack = $ArrayLiteral();
+    function($a, $b, $total) use ($Array,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
+      $stack = varray[];
       for (;;) {
         if (! ($total && $eqEqEq($a, $b))) {
           if (instance_of($a, $MlBytes)) {
@@ -597,7 +597,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   );
   $caml_ml_string_length = $Func(function($s) {return $s->l;});
   $caml_parse_sign_and_base = $Func(
-    function($s) use ($ArrayLiteral,$caml_ml_string_length,$caml_string_unsafe_get,$plus) {
+    function($s) use ($caml_ml_string_length,$caml_string_unsafe_get,$plus) {
       $i = 0;$len = $caml_ml_string_length($s);$base = 10;$sign = 1;
       if ($len > 0) {
         switch($caml_string_unsafe_get($s, $i)) {
@@ -638,7 +638,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
             break;
           }
       }
-      return $ArrayLiteral($i, $sign, $base);
+      return varray[$i,$sign,$base];
     }
   );
   $caml_parse_digit = $Func(
@@ -731,13 +731,13 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   }
   
   $caml_make_path = $Func(
-    function($name) use ($ArrayLiteral,$MlBytes,$String,$caml_current_dir,$plus) {
+    function($name) use ($MlBytes,$String,$caml_current_dir,$plus) {
       $name = instance_of($name, $MlBytes) ? $name->toString() : ($name);
       if ($name->charCodeAt(0) != 47) {
         $name = $plus($caml_current_dir, $name);
       }
       $comp = $name->split($String->new("/"));
-      $ncomp = $ArrayLiteral();
+      $ncomp = varray[];
       for ($i = 0;$i < $comp->length;$i++) {
         switch($comp[$i]) {
           // FALLTHROUGH
@@ -912,7 +912,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   $MlFakeDevice->prototype->readdir =
     $Func(
-      function($name) use ($ArrayLiteral,$ObjectLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
+      function($name) use ($ObjectLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
         $name_slash = $eqEq($name, $String->new(""))
           ? $String->new("")
           : ($plus($name, $String->new("/")));
@@ -921,7 +921,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           )
         );
         $seen = $ObjectLiteral((object)darray[]);
-        $a = $ArrayLiteral();
+        $a = varray[];
         foreach(
           $joo_global_object->context->content->__all_enumerable_keys()
           as
@@ -937,7 +937,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   $MlFakeDevice->prototype->is_dir =
     $Func(
-      function($name) use ($ArrayLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
+      function($name) use ($RegExp,$String,$eqEq,$joo_global_object,$plus) {
         $name_slash = $eqEq($name, $String->new(""))
           ? $String->new("")
           : ($plus($name, $String->new("/")));
@@ -945,7 +945,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           $plus($plus($String->new("^"), $name_slash), $String->new("([^/]*)")
           )
         );
-        $a = $ArrayLiteral();
+        $a = varray[];
         foreach(
           $joo_global_object->context->content->__all_enumerable_keys()
           as
@@ -1322,7 +1322,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         );
     }
   );
-  $jsoo_mount_point = $ArrayLiteral();
+  $jsoo_mount_point = varray[];
   
   if ($fs_node_supported()) {
     $jsoo_mount_point->push(
@@ -1563,14 +1563,14 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     }
   );
   $caml_ml_out_channels_list = $Func(
-    function() use ($ArrayLiteral,$caml_ml_channels) {
+    function() use ($caml_ml_channels) {
       $l = 0;
       for ($c = 0;$c < $caml_ml_channels->length;$c++) {
         if (
           $caml_ml_channels[$c] &&
             $caml_ml_channels[$c]->opened &&
             $caml_ml_channels[$c]->out
-        ) {$l = $ArrayLiteral(0, $caml_ml_channels[$c]->fd, $l);}
+        ) {$l = varray[0,$caml_ml_channels[$c]->fd,$l];}
       }
       return $l;
     }

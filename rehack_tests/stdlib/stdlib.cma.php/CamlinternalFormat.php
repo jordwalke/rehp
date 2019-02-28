@@ -67,7 +67,6 @@ final class CamlinternalFormat {
     $left_shift_32 = $runtime->left_shift_32;
     $is_int = $runtime->is_int;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_blit_string = $runtime->caml_blit_string;
     $caml_bytes_set = $runtime->caml_bytes_set;
     $caml_create_bytes = $runtime->caml_create_bytes;
@@ -80,30 +79,30 @@ final class CamlinternalFormat {
     $caml_trampoline = $runtime->caml_trampoline;
     $caml_trampoline_return = $runtime->caml_trampoline_return;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 4
         ? $f($a0, $a1, $a2, $a3)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3, $a4)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst_c = $caml_new_string("%c");
@@ -882,7 +881,7 @@ final class CamlinternalFormat {
           return 78;
         }
     };
-    $bprint_char_set = function($buf, $char_set) use ($ArrayLiteral,$Char,$Pervasives,$buffer_add_char,$caml_call1,$caml_trampoline,$caml_trampoline_return,$is_in_char_set,$rev_char_set,$unsigned_right_shift_32) {
+    $bprint_char_set = function($buf, $char_set) use ($Char,$Pervasives,$buffer_add_char,$caml_call1,$caml_trampoline,$caml_trampoline_return,$is_in_char_set,$rev_char_set,$unsigned_right_shift_32) {
       $print_first = new Ref();
       $print_in = new Ref();
       $print_out = new Ref();
@@ -917,7 +916,7 @@ final class CamlinternalFormat {
             : ($buffer_add_char($buf, 64))
            : ($buffer_add_char($buf, $c)));
       };
-      $print_out__0 = function($counter, $set, $i) use ($ArrayLiteral,$Pervasives,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_first) {
+      $print_out__0 = function($counter, $set, $i) use ($Pervasives,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_first) {
         $i__0 = $i;
         for (;;) {
           $mT = $i__0 < 256 ? 1 : (0);
@@ -929,7 +928,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $print_first->contents,
-                $ArrayLiteral(0, $set, $i__0)
+                varray[0,$set,$i__0]
               );
             }
             $i__1 = $i__0 + 1 | 0;
@@ -940,7 +939,7 @@ final class CamlinternalFormat {
         }
       };
       $_ = $print_first->contents =
-        function($counter, $set, $i) use ($ArrayLiteral,$Pervasives,$buf,$caml_call1,$caml_trampoline_return,$print_char,$print_out__0,$print_second,$unsigned_right_shift_32) {
+        function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$print_char,$print_out__0,$print_second,$unsigned_right_shift_32) {
           $match = $caml_call1($Pervasives[17], $i);
           $switcher = $match + -45 | 0;
           if (48 < $unsigned_right_shift_32($switcher, 0)) {
@@ -954,9 +953,7 @@ final class CamlinternalFormat {
                 $counter__1 = $counter + 1 | 0;
                 return $print_out__0($counter__1, $set, $mS);
               }
-              return $caml_trampoline_return(
-                $print_out__0,
-                $ArrayLiteral(0, $set, $mS)
+              return $caml_trampoline_return($print_out__0, varray[0,$set,$mS]
               );
             }
           }
@@ -967,11 +964,11 @@ final class CamlinternalFormat {
           }
           return $caml_trampoline_return(
             $print_second->contents,
-            $ArrayLiteral(0, $set, $mR)
+            varray[0,$set,$mR]
           );
         };
       $_ = $print_second->contents =
-        function($counter, $set, $i) use ($ArrayLiteral,$Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_in,$print_out__0,$unsigned_right_shift_32) {
+        function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_in,$print_out__0,$unsigned_right_shift_32) {
           if ($is_in_char_set($set, $caml_call1($Pervasives[17], $i))) {
             $match = $caml_call1($Pervasives[17], $i);
             $switcher = $match + -45 | 0;
@@ -999,7 +996,7 @@ final class CamlinternalFormat {
                   }
                   return $caml_trampoline_return(
                     $print_out__0,
-                    $ArrayLiteral(0, $set, $mP)
+                    varray[0,$set,$mP]
                   );
                 }
               }
@@ -1015,7 +1012,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $print_in->contents,
-                $ArrayLiteral(0, $set, $mN, $mM)
+                varray[0,$set,$mN,$mM]
               );
             }
             $print_char($buf, $i + -1 | 0);
@@ -1025,10 +1022,7 @@ final class CamlinternalFormat {
               $counter__2 = $counter + 1 | 0;
               return $print_out__0($counter__2, $set, $mO);
             }
-            return $caml_trampoline_return(
-              $print_out__0,
-              $ArrayLiteral(0, $set, $mO)
-            );
+            return $caml_trampoline_return($print_out__0, varray[0,$set,$mO]);
           }
           $print_char($buf, $i + -1 | 0);
           $mQ = $i + 1 | 0;
@@ -1036,13 +1030,10 @@ final class CamlinternalFormat {
             $counter__3 = $counter + 1 | 0;
             return $print_out__0($counter__3, $set, $mQ);
           }
-          return $caml_trampoline_return(
-            $print_out__0,
-            $ArrayLiteral(0, $set, $mQ)
-          );
+          return $caml_trampoline_return($print_out__0, varray[0,$set,$mQ]);
         };
       $_ = $print_in->contents =
-        function($counter, $set, $i, $j) use ($ArrayLiteral,$Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_out__0) {
+        function($counter, $set, $i, $j) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_out__0) {
           $j__0 = $j;
           for (;;) {
             if (256 !== $j__0) {
@@ -1058,9 +1049,7 @@ final class CamlinternalFormat {
                 $counter__0 = $counter + 1 | 0;
                 return $print_out__0($counter__0, $set, $mL);
               }
-              return $caml_trampoline_return(
-                $print_out__0,
-                $ArrayLiteral(0, $set, $mL)
+              return $caml_trampoline_return($print_out__0, varray[0,$set,$mL]
               );
             }
             return $mK;
@@ -2918,7 +2907,7 @@ final class CamlinternalFormat {
         }
         return $fmtty;
       };
-    $fmtty_of_fmt__0 = function($counter, $fmtty) use ($ArrayLiteral,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_custom,$fmtty_of_fmt,$fmtty_of_formatting_gen,$fmtty_of_ignored_format,$fmtty_of_padding_fmtty,$fmtty_of_precision_fmtty,$is_int) {
+    $fmtty_of_fmt__0 = function($counter, $fmtty) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_custom,$fmtty_of_fmt,$fmtty_of_formatting_gen,$fmtty_of_ignored_format,$fmtty_of_padding_fmtty,$fmtty_of_precision_fmtty,$is_int) {
       $fmtty__0 = $fmtty;
       for (;;) if (
         $is_int($fmtty__0)
@@ -3087,7 +3076,7 @@ final class CamlinternalFormat {
             }
             return $caml_trampoline_return(
               $fmtty_of_ignored_format->contents,
-              $ArrayLiteral(0, $ign, $rest__18)
+              varray[0,$ign,$rest__18]
             );
           // FALLTHROUGH
           default:
@@ -3101,7 +3090,7 @@ final class CamlinternalFormat {
       }
     };
     $_ = $fmtty_of_ignored_format->contents =
-      function($counter, $ign, $fmt) use ($ArrayLiteral,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_fmt,$fmtty_of_fmt__0,$is_int) {
+      function($counter, $ign, $fmt) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_fmt,$fmtty_of_fmt__0,$is_int) {
         if ($is_int($ign)) {
           switch($ign) {
             // FALLTHROUGH
@@ -3110,20 +3099,14 @@ final class CamlinternalFormat {
                 $counter__0 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__0, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 1:
               if ($counter < 50) {
                 $counter__1 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__1, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 2:
               return V(14, $fmtty_of_fmt->contents($fmt));
@@ -3133,10 +3116,7 @@ final class CamlinternalFormat {
                 $counter__2 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__2, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             }
         }
         else {
@@ -3147,90 +3127,63 @@ final class CamlinternalFormat {
                 $counter__3 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__3, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 1:
               if ($counter < 50) {
                 $counter__4 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__4, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 2:
               if ($counter < 50) {
                 $counter__5 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__5, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 3:
               if ($counter < 50) {
                 $counter__6 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__6, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 4:
               if ($counter < 50) {
                 $counter__7 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__7, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 5:
               if ($counter < 50) {
                 $counter__8 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__8, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 6:
               if ($counter < 50) {
                 $counter__9 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__9, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 7:
               if ($counter < 50) {
                 $counter__10 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__10, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 8:
               if ($counter < 50) {
                 $counter__11 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__11, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             case 9:
               $fmtty = $ign[2];
@@ -3242,20 +3195,14 @@ final class CamlinternalFormat {
                 $counter__12 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__12, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             // FALLTHROUGH
             default:
               if ($counter < 50) {
                 $counter__13 = $counter + 1 | 0;
                 return $fmtty_of_fmt__0($counter__13, $fmt);
               }
-              return $caml_trampoline_return(
-                $fmtty_of_fmt__0,
-                $ArrayLiteral(0, $fmt)
-              );
+              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
             }
         }
       };
@@ -4717,7 +4664,7 @@ final class CamlinternalFormat {
         };
       }
     };
-    $make_printf__0 = function($counter, $k, $o, $acc, $fmt) use ($ArrayLiteral,$Assert_failure,$CamlinternalFormatBasics,$Pervasives,$caml_call1,$caml_call2,$caml_format_int,$caml_trampoline_return,$convert_int,$convert_int32,$convert_int64,$convert_nativeint,$cst_Printf_bad_conversion,$cst_u__0,$format_caml_char,$hO,$is_int,$make_custom__0,$make_float_padding_precision,$make_ignored_param__0,$make_int_padding_precision,$make_padding,$make_printf,$recast,$runtime,$string_of_fmtty,$string_to_caml_string) {
+    $make_printf__0 = function($counter, $k, $o, $acc, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$Pervasives,$caml_call1,$caml_call2,$caml_format_int,$caml_trampoline_return,$convert_int,$convert_int32,$convert_int64,$convert_nativeint,$cst_Printf_bad_conversion,$cst_u__0,$format_caml_char,$hO,$is_int,$make_custom__0,$make_float_padding_precision,$make_ignored_param__0,$make_int_padding_precision,$make_padding,$make_printf,$recast,$runtime,$string_of_fmtty,$string_to_caml_string) {
       $k__0 = $k;
       $acc__0 = $acc;
       $fmt__0 = $fmt;
@@ -5027,7 +4974,7 @@ final class CamlinternalFormat {
             }
             return $caml_trampoline_return(
               $make_ignored_param__0->contents,
-              $ArrayLiteral(0, $k__0, $o, $acc__0, $ign, $rest__18)
+              varray[0,$k__0,$o,$acc__0,$ign,$rest__18]
             );
           // FALLTHROUGH
           default:
@@ -5049,13 +4996,13 @@ final class CamlinternalFormat {
             }
             return $caml_trampoline_return(
               $make_custom__0->contents,
-              $ArrayLiteral(0, $k__0, $o, $acc__0, $rest__19, $arity, $k_)
+              varray[0,$k__0,$o,$acc__0,$rest__19,$arity,$k_]
             );
           }
       }
     };
     $_ = $make_ignored_param__0->contents =
-      function($counter, $k, $o, $acc, $ign, $fmt) use ($ArrayLiteral,$Assert_failure,$caml_trampoline_return,$hP,$is_int,$make_from_fmtty__0,$make_invalid_arg,$runtime) {
+      function($counter, $k, $o, $acc, $ign, $fmt) use ($Assert_failure,$caml_trampoline_return,$hP,$is_int,$make_from_fmtty__0,$make_invalid_arg,$runtime) {
         if ($is_int($ign)) {
           switch($ign) {
             // FALLTHROUGH
@@ -5072,7 +5019,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 1:
@@ -5088,7 +5035,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 2:
@@ -5109,7 +5056,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             }
         }
@@ -5129,7 +5076,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 1:
@@ -5145,7 +5092,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 2:
@@ -5161,7 +5108,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 3:
@@ -5177,7 +5124,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 4:
@@ -5193,7 +5140,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 5:
@@ -5209,7 +5156,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 6:
@@ -5225,7 +5172,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 7:
@@ -5241,7 +5188,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 8:
@@ -5257,7 +5204,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             case 9:
@@ -5275,7 +5222,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_from_fmtty__0->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmtty, $fmt)
+                varray[0,$k,$o,$acc,$fmtty,$fmt]
               );
             // FALLTHROUGH
             case 10:
@@ -5291,7 +5238,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             // FALLTHROUGH
             default:
@@ -5307,13 +5254,13 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $make_invalid_arg->contents,
-                $ArrayLiteral(0, $k, $o, $acc, $fmt)
+                varray[0,$k,$o,$acc,$fmt]
               );
             }
         }
       };
     $_ = $make_from_fmtty__0->contents =
-      function($counter, $k, $o, $acc, $fmtty, $fmt) use ($ArrayLiteral,$Assert_failure,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$hQ,$hR,$is_int,$make_from_fmtty,$make_invalid_arg,$runtime,$symm,$trans) {
+      function($counter, $k, $o, $acc, $fmtty, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$hQ,$hR,$is_int,$make_from_fmtty,$make_invalid_arg,$runtime,$symm,$trans) {
         if ($is_int($fmtty)) {
           if ($counter < 50) {
             $counter__0 = $counter + 1 | 0;
@@ -5322,7 +5269,7 @@ final class CamlinternalFormat {
           }
           return $caml_trampoline_return(
             $make_invalid_arg->contents,
-            $ArrayLiteral(0, $k, $o, $acc, $fmt)
+            varray[0,$k,$o,$acc,$fmt]
           );
         }
         else {
@@ -5449,7 +5396,7 @@ final class CamlinternalFormat {
         }
       };
     $_ = $make_invalid_arg->contents =
-      function($counter, $k, $o, $acc, $fmt) use ($ArrayLiteral,$caml_trampoline_return,$cst_Printf_bad_conversion__0,$make_printf__0) {
+      function($counter, $k, $o, $acc, $fmt) use ($caml_trampoline_return,$cst_Printf_bad_conversion__0,$make_printf__0) {
         $k7 = V(8, $acc, $cst_Printf_bad_conversion__0);
         if ($counter < 50) {
           $counter__0 = $counter + 1 | 0;
@@ -5457,11 +5404,11 @@ final class CamlinternalFormat {
         }
         return $caml_trampoline_return(
           $make_printf__0,
-          $ArrayLiteral(0, $k, $o, $k7, $fmt)
+          varray[0,$k,$o,$k7,$fmt]
         );
       };
     $_ = $make_custom__0->contents =
-      function($counter, $k, $o, $acc, $rest, $arity, $f) use ($ArrayLiteral,$caml_call1,$caml_trampoline_return,$make_custom,$make_printf__0) {
+      function($counter, $k, $o, $acc, $rest, $arity, $f) use ($caml_call1,$caml_trampoline_return,$make_custom,$make_printf__0) {
         if ($arity) {
           $arity__0 = $arity[1];
           return function($x) use ($acc,$arity__0,$caml_call1,$f,$k,$make_custom,$o,$rest) {
@@ -5482,7 +5429,7 @@ final class CamlinternalFormat {
         }
         return $caml_trampoline_return(
           $make_printf__0,
-          $ArrayLiteral(0, $k, $o, $k6, $rest)
+          varray[0,$k,$o,$k6,$rest]
         );
       };
     $_ = $make_printf->contents =
@@ -5575,7 +5522,7 @@ final class CamlinternalFormat {
         return function($kV) use ($const__0,$kQ) {return $const__0($kQ, $kV);};
       }
     };
-    $make_iprintf__0 = function($counter, $k, $o, $fmt) use ($ArrayLiteral,$Assert_failure,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$const__0,$fn_of_custom_arity__0,$fn_of_padding_precision,$hS,$is_int,$make_ignored_param,$make_iprintf,$recast,$runtime) {
+    $make_iprintf__0 = function($counter, $k, $o, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$const__0,$fn_of_custom_arity__0,$fn_of_padding_precision,$hS,$is_int,$make_ignored_param,$make_iprintf,$recast,$runtime) {
       $k__0 = $k;
       $fmt__0 = $fmt;
       for (;;) if (
@@ -5876,13 +5823,13 @@ final class CamlinternalFormat {
             }
             return $caml_trampoline_return(
               $fn_of_custom_arity__0->contents,
-              $ArrayLiteral(0, $k__0, $o, $rest__25, $arity)
+              varray[0,$k__0,$o,$rest__25,$arity]
             );
           }
       }
     };
     $_ = $fn_of_custom_arity__0->contents =
-      function($counter, $k, $o, $fmt, $param) use ($ArrayLiteral,$caml_trampoline_return,$const__0,$fn_of_custom_arity,$make_iprintf__0) {
+      function($counter, $k, $o, $fmt, $param) use ($caml_trampoline_return,$const__0,$fn_of_custom_arity,$make_iprintf__0) {
         if ($param) {
           $arity = $param[1];
           $jP = $fn_of_custom_arity->contents($k, $o, $fmt, $arity);
@@ -5894,10 +5841,7 @@ final class CamlinternalFormat {
           $counter__0 = $counter + 1 | 0;
           return $make_iprintf__0($counter__0, $k, $o, $fmt);
         }
-        return $caml_trampoline_return(
-          $make_iprintf__0,
-          $ArrayLiteral(0, $k, $o, $fmt)
-        );
+        return $caml_trampoline_return($make_iprintf__0, varray[0,$k,$o,$fmt]);
       };
     $_ = $make_iprintf->contents =
       function($k, $o, $fmt) use ($caml_trampoline,$make_iprintf__0) {
@@ -6238,7 +6182,7 @@ final class CamlinternalFormat {
         return V(0, V(1, $s__0), $prec__0, $fmt__0);
       }
     };
-    $fmt_ebb_of_string = function($legacy_behavior, $str) use ($ArrayLiteral,$Assert_failure,$Failure,$Not_found,$Pervasives,$String,$Sys,$add_in_char_set,$caml_call1,$caml_call2,$caml_call3,$caml_call4,$caml_call5,$caml_ml_string_length,$caml_notequal,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$create_char_set,$cst_0,$cst_0__0,$cst_0__1,$cst_0__2,$cst__25,$cst__26,$cst__27,$cst__28,$cst__29,$cst__30,$cst__31,$cst__32,$cst__33,$cst__34,$cst__35,$cst__36,$cst__37,$cst__38,$cst__39,$cst_character,$cst_character__0,$cst_digit,$cst_non_zero_widths_are_unsupported_for_c_conversions,$cst_padding,$cst_padding__0,$cst_precision,$cst_precision__0,$cst_precision__1,$cst_precision__2,$cst_unexpected_end_of_format,$failwith_message,$fmtty_of_fmt,$formatting_lit,$freeze_char_set,$h0,$h1,$h2,$h3,$h4,$h5,$h6,$h7,$h8,$h9,$hV,$hW,$hX,$hY,$hZ,$h_,$ia,$ib,$ic,$id,$ie,$ig,$ih,$ii,$ij,$ik,$is_int,$make_padding_fmt_ebb,$make_padprec_fmt_ebb,$open_box_of_string,$rev_char_set,$runtime,$sub_format,$unsigned_right_shift_32) {
+    $fmt_ebb_of_string = function($legacy_behavior, $str) use ($Assert_failure,$Failure,$Not_found,$Pervasives,$String,$Sys,$add_in_char_set,$caml_call1,$caml_call2,$caml_call3,$caml_call4,$caml_call5,$caml_ml_string_length,$caml_notequal,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$create_char_set,$cst_0,$cst_0__0,$cst_0__1,$cst_0__2,$cst__25,$cst__26,$cst__27,$cst__28,$cst__29,$cst__30,$cst__31,$cst__32,$cst__33,$cst__34,$cst__35,$cst__36,$cst__37,$cst__38,$cst__39,$cst_character,$cst_character__0,$cst_digit,$cst_non_zero_widths_are_unsupported_for_c_conversions,$cst_padding,$cst_padding__0,$cst_precision,$cst_precision__0,$cst_precision__1,$cst_precision__2,$cst_unexpected_end_of_format,$failwith_message,$fmtty_of_fmt,$formatting_lit,$freeze_char_set,$h0,$h1,$h2,$h3,$h4,$h5,$h6,$h7,$h8,$h9,$hV,$hW,$hX,$hY,$hZ,$h_,$ia,$ib,$ic,$id,$ie,$ig,$ih,$ii,$ij,$ik,$is_int,$make_padding_fmt_ebb,$make_padprec_fmt_ebb,$open_box_of_string,$rev_char_set,$runtime,$sub_format,$unsigned_right_shift_32) {
       $check_open_box = new Ref();
       $compute_float_conv = new Ref();
       $compute_int_conv = new Ref();
@@ -7620,7 +7564,7 @@ final class CamlinternalFormat {
           return 0;
         };
       $_ = $parse_char_set->contents =
-        function($str_ind, $end_ind) use ($ArrayLiteral,$Pervasives,$add_in_char_set,$caml_call1,$caml_call2,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$create_char_set,$failwith_message,$freeze_char_set,$ic,$rev_char_set,$str,$unexpected_end_of_format) {
+        function($str_ind, $end_ind) use ($Pervasives,$add_in_char_set,$caml_call1,$caml_call2,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$create_char_set,$failwith_message,$freeze_char_set,$ic,$rev_char_set,$str,$unexpected_end_of_format) {
           $parse_char_set_after_char__0 = new Ref();
           $parse_char_set_after_minus = new Ref();
           if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
@@ -7643,7 +7587,7 @@ final class CamlinternalFormat {
           $fail_single_percent = function($str_ind) use ($caml_call2,$failwith_message,$ic,$str) {
             return $caml_call2($failwith_message($ic), $str, $str_ind);
           };
-          $parse_char_set_content = function($counter, $str_ind, $end_ind) use ($ArrayLiteral,$add_char,$caml_string_get,$caml_trampoline_return,$parse_char_set_after_char__0,$str,$unexpected_end_of_format) {
+          $parse_char_set_content = function($counter, $str_ind, $end_ind) use ($add_char,$caml_string_get,$caml_trampoline_return,$parse_char_set_after_char__0,$str,$unexpected_end_of_format) {
             $str_ind__0 = $str_ind;
             for (;;) {
               if ($str_ind__0 === $end_ind) {
@@ -7669,12 +7613,12 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $parse_char_set_after_char__0->contents,
-                $ArrayLiteral(0, $iB, $end_ind, $c)
+                varray[0,$iB,$end_ind,$c]
               );
             }
           };
           $_ = $parse_char_set_after_char__0->contents =
-            function($counter, $str_ind, $end_ind, $c) use ($ArrayLiteral,$add_char,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_after_minus,$parse_char_set_content,$str,$unexpected_end_of_format) {
+            function($counter, $str_ind, $end_ind, $c) use ($add_char,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_after_minus,$parse_char_set_content,$str,$unexpected_end_of_format) {
               $str_ind__0 = $str_ind;
               $c__0 = $c;
               for (;;) {
@@ -7708,7 +7652,7 @@ final class CamlinternalFormat {
                       }
                       return $caml_trampoline_return(
                         $parse_char_set_after_minus->contents,
-                        $ArrayLiteral(0, $iA, $end_ind, $c__0)
+                        varray[0,$iA,$end_ind,$c__0]
                       );
                     }
                     $switch__0 = 1;
@@ -7724,7 +7668,7 @@ final class CamlinternalFormat {
                     }
                     return $caml_trampoline_return(
                       $parse_char_set_content,
-                      $ArrayLiteral(0, $iz, $end_ind)
+                      varray[0,$iz,$end_ind]
                     );
                   }
                 }
@@ -7737,7 +7681,7 @@ final class CamlinternalFormat {
               }
             };
           $_ = $parse_char_set_after_minus->contents =
-            function($counter, $str_ind, $end_ind, $c) use ($ArrayLiteral,$add_char,$add_range,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_content,$str,$unexpected_end_of_format) {
+            function($counter, $str_ind, $end_ind, $c) use ($add_char,$add_range,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_content,$str,$unexpected_end_of_format) {
               if ($str_ind === $end_ind) {
                 $unexpected_end_of_format($end_ind);
               }
@@ -7757,7 +7701,7 @@ final class CamlinternalFormat {
                 }
                 return $caml_trampoline_return(
                   $parse_char_set_content,
-                  $ArrayLiteral(0, $ix, $end_ind)
+                  varray[0,$ix,$end_ind]
                 );
               }
               if (93 === $c__0) {
@@ -7773,7 +7717,7 @@ final class CamlinternalFormat {
               }
               return $caml_trampoline_return(
                 $parse_char_set_content,
-                $ArrayLiteral(0, $iy, $end_ind)
+                varray[0,$iy,$end_ind]
               );
             };
           $parse_char_set_after_char = function($str_ind, $end_ind, $c) use ($caml_trampoline,$parse_char_set_after_char__0) {

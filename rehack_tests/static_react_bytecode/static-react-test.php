@@ -256,7 +256,7 @@ $String = $joo_global_object->String;
   $caml_named_value = $Func(
     function($nm) use ($caml_named_values) {return $caml_named_values[$nm];}
   );
-  $caml_global_data = $ArrayLiteral(0);
+  $caml_global_data = varray[0];
   
   
   
@@ -284,8 +284,8 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   
   $caml_raise_with_arg = $Func(
-    function($tag, $arg) use ($ArrayLiteral,$caml_wrap_thrown_exception) {
-      throw $caml_wrap_thrown_exception($ArrayLiteral(0, $tag, $arg));
+    function($tag, $arg) use ($caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]);
     }
   );
   $caml_str_repeat = $Func(
@@ -534,8 +534,8 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   
   $caml_compare_val = $Func(
-    function($a, $b, $total) use ($Array,$ArrayLiteral,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
-      $stack = $ArrayLiteral();
+    function($a, $b, $total) use ($Array,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
+      $stack = varray[];
       for (;;) {
         if (! ($total && $eqEqEq($a, $b))) {
           if (instance_of($a, $MlBytes)) {
@@ -946,7 +946,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   );
   $caml_ml_string_length = $Func(function($s) {return $s->l;});
   $caml_parse_sign_and_base = $Func(
-    function($s) use ($ArrayLiteral,$caml_ml_string_length,$caml_string_unsafe_get,$plus) {
+    function($s) use ($caml_ml_string_length,$caml_string_unsafe_get,$plus) {
       $i = 0;$len = $caml_ml_string_length($s);$base = 10;$sign = 1;
       if ($len > 0) {
         switch($caml_string_unsafe_get($s, $i)) {
@@ -987,7 +987,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
             break;
           }
       }
-      return $ArrayLiteral($i, $sign, $base);
+      return varray[$i,$sign,$base];
     }
   );
   $caml_parse_digit = $Func(
@@ -1080,13 +1080,13 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   }
   
   $caml_make_path = $Func(
-    function($name) use ($ArrayLiteral,$MlBytes,$String,$caml_current_dir,$plus) {
+    function($name) use ($MlBytes,$String,$caml_current_dir,$plus) {
       $name = instance_of($name, $MlBytes) ? $name->toString() : ($name);
       if ($name->charCodeAt(0) != 47) {
         $name = $plus($caml_current_dir, $name);
       }
       $comp = $name->split($String->new("/"));
-      $ncomp = $ArrayLiteral();
+      $ncomp = varray[];
       for ($i = 0;$i < $comp->length;$i++) {
         switch($comp[$i]) {
           // FALLTHROUGH
@@ -1261,7 +1261,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   $MlFakeDevice->prototype->readdir =
     $Func(
-      function($name) use ($ArrayLiteral,$ObjectLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
+      function($name) use ($ObjectLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
         $name_slash = $eqEq($name, $String->new(""))
           ? $String->new("")
           : ($plus($name, $String->new("/")));
@@ -1270,7 +1270,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           )
         );
         $seen = $ObjectLiteral((object)darray[]);
-        $a = $ArrayLiteral();
+        $a = varray[];
         foreach(
           $joo_global_object->context->content->__all_enumerable_keys()
           as
@@ -1286,7 +1286,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   $MlFakeDevice->prototype->is_dir =
     $Func(
-      function($name) use ($ArrayLiteral,$RegExp,$String,$eqEq,$joo_global_object,$plus) {
+      function($name) use ($RegExp,$String,$eqEq,$joo_global_object,$plus) {
         $name_slash = $eqEq($name, $String->new(""))
           ? $String->new("")
           : ($plus($name, $String->new("/")));
@@ -1294,7 +1294,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           $plus($plus($String->new("^"), $name_slash), $String->new("([^/]*)")
           )
         );
-        $a = $ArrayLiteral();
+        $a = varray[];
         foreach(
           $joo_global_object->context->content->__all_enumerable_keys()
           as
@@ -1656,7 +1656,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         );
     }
   );
-  $jsoo_mount_point = $ArrayLiteral();
+  $jsoo_mount_point = varray[];
   
   if ($fs_node_supported()) {
     $jsoo_mount_point->push(
@@ -1897,14 +1897,14 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     }
   );
   $caml_ml_out_channels_list = $Func(
-    function() use ($ArrayLiteral,$caml_ml_channels) {
+    function() use ($caml_ml_channels) {
       $l = 0;
       for ($c = 0;$c < $caml_ml_channels->length;$c++) {
         if (
           $caml_ml_channels[$c] &&
             $caml_ml_channels[$c]->opened &&
             $caml_ml_channels[$c]->out
-        ) {$l = $ArrayLiteral(0, $caml_ml_channels[$c]->fd, $l);}
+        ) {$l = varray[0,$caml_ml_channels[$c]->fd,$l];}
       }
       return $l;
     }
@@ -2071,25 +2071,25 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     : (function() use ($caml_failwith) {
      $caml_failwith("native_debug" . " not implemented");
    });
-  $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$caml_call_gen) {
+  $caml_call1 = function($f, $a0) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) == 1
       ? $f($a0)
-      : ($caml_call_gen($f, $ArrayLiteral($a0)));
+      : ($caml_call_gen($f, varray[$a0]));
   };
-  $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$caml_call_gen) {
+  $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) == 2
       ? $f($a0, $a1)
-      : ($caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+      : ($caml_call_gen($f, varray[$a0,$a1]));
   };
-  $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$caml_call_gen) {
+  $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) == 3
       ? $f($a0, $a1, $a2)
-      : ($caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+      : ($caml_call_gen($f, varray[$a0,$a1,$a2]));
   };
-  $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($ArrayLiteral,$caml_arity_test,$caml_call_gen) {
+  $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) == 4
       ? $f($a0, $a1, $a2, $a3)
-      : ($caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3)));
+      : ($caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
   };
   $Out_of_memory = R(248, $caml_new_string("Out_of_memory"), -1);
   $Sys_error = R(248, $caml_new_string("Sys_error"), -2);
@@ -3208,8 +3208,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $inst[6]
     );
   };
-  $newSelf = function($replacer, $subreplacer) use ($ArrayLiteral,$caml_call1,$caml_call2,$caml_update_dummy,$reconcile,$withState) {
-    $self = $ArrayLiteral();
+  $newSelf = function($replacer, $subreplacer) use ($caml_call1,$caml_call2,$caml_update_dummy,$reconcile,$withState) {
+    $self = varray[];
     $dT = function($extractor, $e, $inst) use ($caml_call1,$caml_call2,$reconcile,$withState) {
       $dX = $caml_call1($extractor, $e);
       $nextState = $caml_call2($inst[5][2], $inst, $dX);
@@ -3423,8 +3423,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
     );
   };
-  $create = function($param) use ($ArrayLiteral,$Invalid_argument,$as,$caml_call1,$caml_update_dummy,$caml_wrap_thrown_exception) {
-    $root = $ArrayLiteral();
+  $create = function($param) use ($Invalid_argument,$as,$caml_call1,$caml_update_dummy,$caml_wrap_thrown_exception) {
+    $root = varray[];
     $dO = 0;
     $caml_update_dummy(
       $root,
@@ -4084,7 +4084,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $endSeconds = $caml_sys_time(0);
       $log($a($bp, $string_of_int(($endSeconds - $startSeconds) * 1e3 | 0)));
       $f__0 = $caml_alloc_dummy_function(1, 2);
-      $z__0 = $ArrayLiteral();
+      $z__0 = varray[];
       $caml_update_dummy($f__0, function($x, $y) {return 1;});
       $caml_update_dummy($z__0, V(0, V(0, $f__0, $bq)));
       if ($z__0) {

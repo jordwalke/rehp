@@ -38,32 +38,31 @@ final class Genlex {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime->unsigned_right_shift_32;
     $caml_arity_test = $runtime->caml_arity_test;
-    $ArrayLiteral = $runtime->ArrayLiteral;
     $caml_create_bytes = $runtime->caml_create_bytes;
     $caml_float_of_string = $runtime->caml_float_of_string;
     $caml_new_string = $runtime->caml_new_string;
     $caml_trampoline = $runtime->caml_trampoline;
     $caml_trampoline_return = $runtime->caml_trampoline_return;
     $caml_wrap_exception = $runtime->caml_wrap_exception;
-    $caml_call1 = function($f, $a0) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 1
         ? $f($a0)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0)));
+        : ($runtime->caml_call_gen($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 2
         ? $f($a0, $a1)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 3
         ? $f($a0, $a1, $a2)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($ArrayLiteral,$caml_arity_test,$runtime) {
+    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) == 5
         ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime->caml_call_gen($f, $ArrayLiteral($a0, $a1, $a2, $a3, $a4)));
+        : ($runtime->caml_call_gen($f, varray[$a0,$a1,$a2,$a3,$a4]));
     };
     $global_data = $runtime->caml_get_global_data();
     $cst = $caml_new_string("");
@@ -104,7 +103,7 @@ final class Genlex {
       $buffer[1] = $initial_buffer;
       return $s;
     };
-    $make_lexer = function($keywords) use ($ArrayLiteral,$Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$unsigned_right_shift_32) {
+    $make_lexer = function($keywords) use ($Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$unsigned_right_shift_32) {
       $char__0 = new Ref();
       $comment = new Ref();
       $escape = new Ref();
@@ -329,7 +328,7 @@ final class Genlex {
           return V(0, $ident_or_keyword($get_string(0)));
         }
       };
-      $next_token__0 = function($counter, $strm) use ($ArrayLiteral,$Stream,$caml_call1,$caml_trampoline_return,$caml_wrap_exception,$char__0,$cst,$cst__0,$ident,$ident2,$keyword_or_error,$maybe_comment,$neg_number,$number,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
+      $next_token__0 = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$caml_wrap_exception,$char__0,$cst,$cst__0,$ident,$ident2,$keyword_or_error,$maybe_comment,$neg_number,$number,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -385,7 +384,7 @@ final class Genlex {
                       }
                       return $caml_trampoline_return(
                         $maybe_comment->contents,
-                        $ArrayLiteral(0, $strm)
+                        varray[0,$strm]
                       );
                     // FALLTHROUGH
                     case 45:
@@ -510,7 +509,7 @@ final class Genlex {
         }
       };
       $_ = $maybe_comment->contents =
-        function($counter, $strm) use ($ArrayLiteral,$Stream,$caml_call1,$caml_trampoline_return,$comment,$keyword_or_error,$next_token__0) {
+        function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment,$keyword_or_error,$next_token__0) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
             if (42 === $match[1]) {
@@ -520,10 +519,7 @@ final class Genlex {
                 $counter__0 = $counter + 1 | 0;
                 return $next_token__0($counter__0, $strm);
               }
-              return $caml_trampoline_return(
-                $next_token__0,
-                $ArrayLiteral(0, $strm)
-              );
+              return $caml_trampoline_return($next_token__0, varray[0,$strm]);
             }
           }
           return V(0, $keyword_or_error(40));
@@ -648,7 +644,7 @@ final class Genlex {
           }
           throw $runtime->caml_wrap_thrown_exception($Stream[1]);
         };
-      $comment__0 = function($counter, $strm) use ($ArrayLiteral,$Stream,$caml_call1,$caml_trampoline_return,$maybe_end_comment,$maybe_nested_comment,$runtime,$unsigned_right_shift_32) {
+      $comment__0 = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$maybe_end_comment,$maybe_nested_comment,$runtime,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -664,7 +660,7 @@ final class Genlex {
                   }
                   return $caml_trampoline_return(
                     $maybe_nested_comment->contents,
-                    $ArrayLiteral(0, $strm)
+                    varray[0,$strm]
                   );
                 // FALLTHROUGH
                 case 1:break;
@@ -677,7 +673,7 @@ final class Genlex {
                   }
                   return $caml_trampoline_return(
                     $maybe_end_comment->contents,
-                    $ArrayLiteral(0, $strm)
+                    varray[0,$strm]
                   );
                 }
             }
@@ -688,7 +684,7 @@ final class Genlex {
         }
       };
       $_ = $maybe_nested_comment->contents =
-        function($counter, $strm) use ($ArrayLiteral,$Stream,$caml_call1,$caml_trampoline_return,$comment,$comment__0,$runtime) {
+        function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment,$comment__0,$runtime) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
             if (42 === $match[1]) {
@@ -698,25 +694,19 @@ final class Genlex {
                 $counter__1 = $counter + 1 | 0;
                 return $comment__0($counter__1, $strm);
               }
-              return $caml_trampoline_return(
-                $comment__0,
-                $ArrayLiteral(0, $strm)
-              );
+              return $caml_trampoline_return($comment__0, varray[0,$strm]);
             }
             $caml_call1($Stream[12], $strm);
             if ($counter < 50) {
               $counter__0 = $counter + 1 | 0;
               return $comment__0($counter__0, $strm);
             }
-            return $caml_trampoline_return(
-              $comment__0,
-              $ArrayLiteral(0, $strm)
-            );
+            return $caml_trampoline_return($comment__0, varray[0,$strm]);
           }
           throw $runtime->caml_wrap_thrown_exception($Stream[1]);
         };
       $_ = $maybe_end_comment->contents =
-        function($counter, $strm) use ($ArrayLiteral,$Stream,$caml_call1,$caml_trampoline_return,$comment__0,$runtime) {
+        function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment__0,$runtime) {
           for (;;) {
             $match = $caml_call1($Stream[11], $strm);
             if ($match) {
@@ -728,10 +718,7 @@ final class Genlex {
                 $counter__0 = $counter + 1 | 0;
                 return $comment__0($counter__0, $strm);
               }
-              return $caml_trampoline_return(
-                $comment__0,
-                $ArrayLiteral(0, $strm)
-              );
+              return $caml_trampoline_return($comment__0, varray[0,$strm]);
             }
             throw $runtime->caml_wrap_thrown_exception($Stream[1]);
           }
