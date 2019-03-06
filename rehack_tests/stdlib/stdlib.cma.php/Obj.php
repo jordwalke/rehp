@@ -86,7 +86,7 @@ final class Obj {
     $extension_constructor = function($x) use ($Pervasives,$caml_call1,$caml_obj_tag,$cst_Obj_extension_constructor,$cst_Obj_extension_constructor__0,$is_block) {
       if ($is_block($x)) {
         if ($caml_obj_tag($x) !== 248) {
-          if (1 <= $x->length - 1) {
+          if (1 <= $x->count - 1) {
             $slot = $x[1];
             $switch__0 = 1;
           }
@@ -110,7 +110,7 @@ final class Obj {
     };
     $extension_name = function($slot) {return $slot[1];};
     $extension_id = function($slot) {return $slot[2];};
-    $length = function($x) {return $x->length - 1 + -2 | 0;};
+    $length = function($x) {return $x->count - 1 + -2 | 0;};
     $cU = function($du, $dt) use ($runtime) {
       return $runtime["caml_ephe_blit_data"]($du, $dt);
     };

@@ -112,7 +112,7 @@ final class Ephemeron {
       };
       $clear = function($h) use ($caml_check_bound) {
         $h[1] = 0;
-        $len = $h[2]->length - 1;
+        $len = $h[2]->count - 1;
         $A_ = $len + -1 | 0;
         $A9 = 0;
         if (! ($A_ < 0)) {
@@ -127,7 +127,7 @@ final class Ephemeron {
         return 0;
       };
       $reset = function($h) use ($caml_make_vect,$clear) {
-        $len = $h[2]->length - 1;
+        $len = $h[2]->count - 1;
         return $len === $h[4]
           ? $clear($h)
           : (($h[1] = 0) || true
@@ -141,7 +141,7 @@ final class Ephemeron {
         return V(0, $h[1], $A8, $A7, $A6);
       };
       $key_index = function($h, $hkey) {
-        return $hkey & ($h[2]->length - 1 + -1 | 0);
+        return $hkey & ($h[2]->count - 1 + -1 | 0);
       };
       $clean = function($h) use ($H,$caml_call1,$caml_check_bound) {
         $do_bucket = new Ref();
@@ -164,7 +164,7 @@ final class Ephemeron {
             }
           };
         $d = $h[2];
-        $A4 = $d->length - 1 + -1 | 0;
+        $A4 = $d->count - 1 + -1 | 0;
         $A3 = 0;
         if (! ($A4 < 0)) {
           $i = $A3;
@@ -180,7 +180,7 @@ final class Ephemeron {
       };
       $resize = function($h) use ($Sys,$caml_check_bound,$caml_make_vect,$clean,$insert_bucket,$key_index,$unsigned_right_shift_32) {
         $odata = $h[2];
-        $osize = $odata->length - 1;
+        $osize = $odata->count - 1;
         $nsize = $osize * 2 | 0;
         $clean($h);
         $AX = $nsize < $Sys[14] ? 1 : (0);
@@ -232,7 +232,7 @@ final class Ephemeron {
         );
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = $h[1] + 1 | 0;
-        $AW = $left_shift_32($h[2]->length - 1, 1) < $h[1] ? 1 : (0);
+        $AW = $left_shift_32($h[2]->count - 1, 1) < $h[1] ? 1 : (0);
         return $AW ? $resize($h) : ($AW);
       };
       $remove = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
@@ -426,7 +426,7 @@ final class Ephemeron {
             $container = $caml_call2($H[1], $key, $info);
             $caml_check_bound($h[2], $i)[$i + 1] = V(0, $hkey, $container, $l);
             $h[1] = $h[1] + 1 | 0;
-            $AP = $left_shift_32($h[2]->length - 1, 1) < $h[1] ? 1 : (0);
+            $AP = $left_shift_32($h[2]->count - 1, 1) < $h[1] ? 1 : (0);
             return $AP ? $resize($h) : ($AP);
           }
           throw $runtime["caml_wrap_thrown_exception_reraise"]($AR);
@@ -483,7 +483,7 @@ final class Ephemeron {
           }
         };
         $d = $h[2];
-        $AM = $d->length - 1 + -1 | 0;
+        $AM = $d->count - 1 + -1 | 0;
         $AL = 0;
         if (! ($AM < 0)) {
           $i = $AL;
@@ -526,7 +526,7 @@ final class Ephemeron {
         };
         $d = $h[2];
         $accu = V(0, $init);
-        $AI = $d->length - 1 + -1 | 0;
+        $AI = $d->count - 1 + -1 | 0;
         $AH = 0;
         if (! ($AI < 0)) {
           $i = $AH;
@@ -573,7 +573,7 @@ final class Ephemeron {
             }
           };
         $d = $h[2];
-        $AF = $d->length - 1 + -1 | 0;
+        $AF = $d->count - 1 + -1 | 0;
         $AE = 0;
         if (! ($AF < 0)) {
           $i = $AE;
@@ -619,7 +619,7 @@ final class Ephemeron {
               0;
         };
         $caml_call2($Array[13], $AC, $AB);
-        return V(0, $h[1], $h[2]->length - 1, $mbl, $histo);
+        return V(0, $h[1], $h[2]->count - 1, $mbl, $histo);
       };
       $bucket_length_alive = function($accu, $param) use ($H,$caml_call1) {
         $accu__0 = $accu;
@@ -659,7 +659,7 @@ final class Ephemeron {
               0;
         };
         $caml_call2($Array[13], $Aw, $Av);
-        return V(0, $size[1], $h[2]->length - 1, $mbl, $histo);
+        return V(0, $size[1], $h[2]->count - 1, $mbl, $histo);
       };
       return V(
         0,
@@ -1037,9 +1037,9 @@ final class Ephemeron {
     };
     $MakeSeeded__2 = function($H) use ($MakeSeeded,$caml_call2,$caml_check_bound,$caml_make_vect,$check_key__0,$create__1,$get_data__1,$get_key__0,$length,$set_data__1,$set_key__0,$unset_data__1) {
       $create = function($k, $d) use ($caml_check_bound,$create__1,$set_data__1,$set_key__0) {
-        $c = $create__1($k->length - 1);
+        $c = $create__1($k->count - 1);
         $set_data__1($c, $d);
-        $Aj = $k->length - 1 + -1 | 0;
+        $Aj = $k->count - 1 + -1 | 0;
         $Ai = 0;
         if (! ($Aj < 0)) {
           $i = $Ai;
@@ -1054,7 +1054,7 @@ final class Ephemeron {
       };
       $hash = function($seed, $k) use ($H,$caml_call2,$caml_check_bound) {
         $h = V(0, 0);
-        $Ae = $k->length - 1 + -1 | 0;
+        $Ae = $k->count - 1 + -1 | 0;
         $Ad = 0;
         if (! ($Ae < 0)) {
           $i = $Ad;
@@ -1070,7 +1070,7 @@ final class Ephemeron {
         return $h[1];
       };
       $equal = function($c, $k) use ($H,$caml_call2,$caml_check_bound,$get_key__0,$length) {
-        $len = $k->length - 1;
+        $len = $k->count - 1;
         $len__0 = $length($c);
         if ($len !== $len__0) {return 1;}
         $equal_array = function($k, $c, $i) use ($H,$caml_call2,$caml_check_bound,$get_key__0) {
@@ -1125,7 +1125,7 @@ final class Ephemeron {
       };
       $set_key_data = function($c, $k, $d) use ($caml_check_bound,$set_data__1,$set_key__0,$unset_data__1) {
         $unset_data__1($c);
-        $Aa = $k->length - 1 + -1 | 0;
+        $Aa = $k->count - 1 + -1 | 0;
         $z_ = 0;
         if (! ($Aa < 0)) {
           $i = $z_;

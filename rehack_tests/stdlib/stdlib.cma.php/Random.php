@@ -154,8 +154,8 @@ final class Random {
         $qb = $left_shift_32($caml_string_get($d, 1), 8);
         return (($caml_string_get($d, 0) + $qb | 0) + $qa | 0) + $p_ | 0;
       };
-      $seed__0 = 0 === $seed->length - 1 ? V(0, 0) : ($seed);
-      $l = $seed__0->length - 1;
+      $seed__0 = 0 === $seed->count - 1 ? V(0, 0) : ($seed);
+      $l = $seed__0->count - 1;
       $i__0 = 0;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;

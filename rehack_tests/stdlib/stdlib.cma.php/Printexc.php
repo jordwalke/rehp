@@ -238,13 +238,13 @@ final class Printexc {
     };
     $_ = $other_fields->contents =
       function($x, $i) use ($Printf,$caml_call3,$cst__0,$field,$other_fields,$oz) {
-        if ($x->length - 1 <= $i) {return $cst__0;}
+        if ($x->count - 1 <= $i) {return $cst__0;}
         $pp = $other_fields->contents($x, $i + 1 | 0);
         $pq = $field($x, $i);
         return $caml_call3($Printf[4], $oz, $pq, $pp);
       };
     $fields = function($x) use ($Printf,$caml_call2,$caml_call3,$cst__1,$cst__2,$field,$oA,$oB,$other_fields,$unsigned_right_shift_32) {
-      $match = $x->length - 1;
+      $match = $x->count - 1;
       if (2 < $unsigned_right_shift_32($match, 0)) {
         $pm = $other_fields->contents($x, 2);
         $pn = $field($x, 1);
@@ -385,7 +385,7 @@ final class Printexc {
     $print_exception_backtrace = function($outchan, $backtrace) use ($Printf,$caml_call2,$caml_call3,$caml_check_bound,$format_backtrace_slot,$oG,$oH) {
       if ($backtrace) {
         $a = $backtrace[1];
-        $o5 = $a->length - 1 + -1 | 0;
+        $o5 = $a->count - 1 + -1 | 0;
         $o4 = 0;
         if (! ($o5 < 0)) {
           $i = $o4;
@@ -423,7 +423,7 @@ final class Printexc {
       if ($backtrace) {
         $a = $backtrace[1];
         $b = $caml_call1($Buffer[1], 1024);
-        $o2 = $a->length - 1 + -1 | 0;
+        $o2 = $a->count - 1 + -1 | 0;
         $o1 = 0;
         if (! ($o2 < 0)) {
           $i = $o1;
@@ -476,7 +476,7 @@ final class Printexc {
             continue;
           }
         };
-        return $exists_usable($backtrace->length - 1 + -1 | 0)
+        return $exists_usable($backtrace->count - 1 + -1 | 0)
           ? V(0, $backtrace)
           : (0);
       }

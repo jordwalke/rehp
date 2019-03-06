@@ -82,7 +82,7 @@ final class Hashtbl {
       return $caml_hash(10, 100, $seed, $x);
     };
     $ongoing_traversal = function($h) {
-      $rk = $h->length - 1 < 4 ? 1 : (0);
+      $rk = $h->count - 1 < 4 ? 1 : (0);
       $rl = $rk || ($h[4] < 0 ? 1 : (0));
       return $rl;
     };
@@ -149,7 +149,7 @@ final class Hashtbl {
     };
     $clear = function($h) use ($caml_check_bound) {
       $h[1] = 0;
-      $len = $h[2]->length - 1;
+      $len = $h[2]->count - 1;
       $rd = $len + -1 | 0;
       $rc = 0;
       if (! ($rd < 0)) {
@@ -164,8 +164,8 @@ final class Hashtbl {
       return 0;
     };
     $reset = function($h) use ($Pervasives,$caml_call1,$caml_make_vect,$clear) {
-      $len = $h[2]->length - 1;
-      if (4 <= $h->length - 1) {
+      $len = $h[2]->count - 1;
+      if (4 <= $h->count - 1) {
         if ($len !== $caml_call1($Pervasives[6], $h[4])) {
           $h[1] = 0;
           $h[2] = $caml_make_vect($caml_call1($Pervasives[6], $h[4]), 0);
@@ -214,7 +214,7 @@ final class Hashtbl {
     $length = function($h) {return $h[1];};
     $resize = function($indexfun, $h) use ($Sys,$caml_call2,$caml_check_bound,$caml_make_vect,$ongoing_traversal) {
       $odata = $h[2];
-      $osize = $odata->length - 1;
+      $osize = $odata->count - 1;
       $nsize = $osize * 2 | 0;
       $q1 = $nsize < $Sys[14] ? 1 : (0);
       if ($q1) {
@@ -276,11 +276,11 @@ final class Hashtbl {
       return $q7;
     };
     $key_index = function($h, $key) use ($caml_hash,$runtime) {
-      return 3 <= $h->length - 1
-        ? $caml_hash(10, 100, $h[3], $key) & ($h[2]->length - 1 + -1 | 0)
+      return 3 <= $h->count - 1
+        ? $caml_hash(10, 100, $h[3], $key) & ($h[2]->count - 1 + -1 | 0)
         : ($runtime["caml_mod"](
          $runtime["caml_hash_univ_param"](10, 100, $key),
-         $h[2]->length -
+         $h[2]->count -
            1
        ));
     };
@@ -289,7 +289,7 @@ final class Hashtbl {
       $bucket = V(0, $key, $data, $caml_check_bound($h[2], $i)[$i + 1]);
       $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
       $h[1] = $h[1] + 1 | 0;
-      $q0 = $left_shift_32($h[2]->length - 1, 1) < $h[1] ? 1 : (0);
+      $q0 = $left_shift_32($h[2]->count - 1, 1) < $h[1] ? 1 : (0);
       return $q0 ? $resize($key_index, $h) : ($q0);
     };
     $remove_bucket = function($h, $i, $key, $prec, $c) use ($caml_check_bound,$caml_compare) {
@@ -450,7 +450,7 @@ final class Hashtbl {
       if ($qU) {
         $caml_check_bound($h[2], $i)[$i + 1] = V(0, $key, $data, $l);
         $h[1] = $h[1] + 1 | 0;
-        $qV = $left_shift_32($h[2]->length - 1, 1) < $h[1] ? 1 : (0);
+        $qV = $left_shift_32($h[2]->count - 1, 1) < $h[1] ? 1 : (0);
         if ($qV) {return $resize($key_index, $h);}
         $qW = $qV;
       }
@@ -494,7 +494,7 @@ final class Hashtbl {
       if (1 - $old_trav) {$flip_ongoing_traversal($h);}
       try {
         $d = $h[2];
-        $qO = $d->length - 1 + -1 | 0;
+        $qO = $d->count - 1 + -1 | 0;
         $qN = 0;
         if (! ($qO < 0)) {
           $i = $qN;
@@ -552,7 +552,7 @@ final class Hashtbl {
       $old_trav = $ongoing_traversal($h);
       if (1 - $old_trav) {$flip_ongoing_traversal($h);}
       try {
-        $qK = $d->length - 1 + -1 | 0;
+        $qK = $d->count - 1 + -1 | 0;
         $qJ = 0;
         if (! ($qK < 0)) {
           $i = $qJ;
@@ -603,7 +603,7 @@ final class Hashtbl {
       try {
         $d = $h[2];
         $accu = V(0, $init);
-        $qF = $d->length - 1 + -1 | 0;
+        $qF = $d->count - 1 + -1 | 0;
         $qE = 0;
         if (! ($qF < 0)) {
           $i = $qE;
@@ -657,11 +657,11 @@ final class Hashtbl {
         return $histo[$l + 1] = $caml_check_bound($histo, $l)[$l + 1] + 1 | 0;
       };
       $caml_call2($Array[13], $qC, $qB);
-      return V(0, $h[1], $h[2]->length - 1, $mbl, $histo);
+      return V(0, $h[1], $h[2]->count - 1, $mbl, $histo);
     };
     $MakeSeeded = function($H) use ($Not_found,$caml_call2,$caml_check_bound,$clear,$copy,$create,$filter_map_inplace,$fold,$iter,$left_shift_32,$length,$reset,$resize,$runtime,$stats) {
       $key_index = function($h, $key) use ($H,$caml_call2) {
-        $qx = $h[2]->length - 1 + -1 | 0;
+        $qx = $h[2]->count - 1 + -1 | 0;
         return $caml_call2($H[2], $h[3], $key) & $qx;
       };
       $add = function($h, $key, $data) use ($caml_check_bound,$key_index,$left_shift_32,$resize) {
@@ -669,7 +669,7 @@ final class Hashtbl {
         $bucket = V(0, $key, $data, $caml_check_bound($h[2], $i)[$i + 1]);
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = $h[1] + 1 | 0;
-        $qw = $left_shift_32($h[2]->length - 1, 1) < $h[1] ? 1 : (0);
+        $qw = $left_shift_32($h[2]->count - 1, 1) < $h[1] ? 1 : (0);
         return $qw ? $resize($key_index, $h) : ($qw);
       };
       $remove_bucket = function($h, $i, $key, $prec, $c) use ($H,$caml_call2,$caml_check_bound) {
@@ -832,7 +832,7 @@ final class Hashtbl {
         if ($qq) {
           $caml_check_bound($h[2], $i)[$i + 1] = V(0, $key, $data, $l);
           $h[1] = $h[1] + 1 | 0;
-          $qr = $left_shift_32($h[2]->length - 1, 1) < $h[1] ? 1 : (0);
+          $qr = $left_shift_32($h[2]->count - 1, 1) < $h[1] ? 1 : (0);
           if ($qr) {return $resize($key_index, $h);}
           $qs = $qr;
         }
