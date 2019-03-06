@@ -708,7 +708,7 @@ final class Filename {
           catch(\Throwable $e) {
             $e = $caml_wrap_exception($e);
             if ($e[1] === $Sys_error) {
-              if (1e3 <= $counter__0) {
+              if (1000 <= $counter__0) {
                 throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
               }
               $counter__1 = $counter__0 + 1 | 0;
@@ -757,7 +757,7 @@ final class Filename {
           catch(\Throwable $e) {
             $e = $caml_wrap_exception($e);
             if ($e[1] === $Sys_error) {
-              if (1e3 <= $counter__0) {
+              if (1000 <= $counter__0) {
                 throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
               }
               $counter__1 = $counter__0 + 1 | 0;

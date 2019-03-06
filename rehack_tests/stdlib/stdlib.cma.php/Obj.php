@@ -80,7 +80,7 @@ final class Obj {
     $double_tag = 253;
     $double_array_tag = 254;
     $custom_tag = 255;
-    $int_tag = 1e3;
+    $int_tag = 1000;
     $out_of_heap_tag = 1001;
     $unaligned_tag = 1002;
     $extension_constructor = function($x) use ($Pervasives,$caml_call1,$caml_obj_tag,$cst_Obj_extension_constructor,$cst_Obj_extension_constructor__0,$is_block) {

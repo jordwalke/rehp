@@ -2283,7 +2283,7 @@ $caml_wrap_exception = function($e) use($String, $caml_global_data) {
     $caml_set_parser_trace = $Func(function() {return 0;});
     $win_handle_fd = $Func(function($x) {return $x;});
     $unix_gettimeofday = $Func(
-      function() use ($Date) {return $Date->new()->getTime() / 1e3;}
+      function() use ($Date) {return $Date->new()->getTime() / 1000;}
     );
     $caml_ba_uint8_set16 = $Func(
       function($ba, $i0, $v) use ($unsigned_right_shift_32) {
@@ -3138,9 +3138,10 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
     );
     $unix_gmtime = $Func(
       function($t) use ($Date,$Math) {
-        $d = $Date->new($t * 1e3);
+        $d = $Date->new($t * 1000);
         $januaryfirst = $Date->new($Date->UTC($d->getUTCFullYear(), 0, 1));
-        $doy = $Math->floor(($d->getTime() - $januaryfirst->getTime()) / 864e5
+        $doy = $Math->floor(
+          ($d->getTime() - $januaryfirst->getTime()) / 86400000
         );
         return varray[
           0,
@@ -5141,9 +5142,10 @@ $right_shift_32=$joo_global_object->right_shift_32;
     );
     $unix_localtime = $Func(
       function($t) use ($Date,$Math) {
-        $d = $Date->new($t * 1e3);
+        $d = $Date->new($t * 1000);
         $januaryfirst = $Date->new($d->getFullYear(), 0, 1);
-        $doy = $Math->floor(($d->getTime() - $januaryfirst->getTime()) / 864e5
+        $doy = $Math->floor(
+          ($d->getTime() - $januaryfirst->getTime()) / 86400000
         );
         $jan = $Date->new($d->getFullYear(), 0, 1);
         $jul = $Date->new($d->getFullYear(), 6, 1);
@@ -5571,7 +5573,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
     $unix_mktime = $Func(
       function($tm) use ($Date,$Math,$unix_localtime) {
         $d = $Date->new($tm[6] + 1900, $tm[5], $tm[4], $tm[3], $tm[2], $tm[1]);
-        $t = $Math->floor($d->getTime() / 1e3);
+        $t = $Math->floor($d->getTime() / 1000);
         $tm2 = $unix_localtime($t);
         return varray[0,$t,$tm2];
       }
@@ -6048,7 +6050,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       function($x) use ($Array,$MlBytes) {
         return instance_of($x, $Array)
           ? $x[0]
-          : (instance_of($x, $MlBytes) ? 252 : (1e3));
+          : (instance_of($x, $MlBytes) ? 252 : (1000));
       }
     );
     $caml_js_export_var = $Func(

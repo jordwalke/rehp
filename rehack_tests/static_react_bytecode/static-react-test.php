@@ -1961,7 +1961,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     function($x) use ($Array,$MlBytes) {
       return instance_of($x, $Array)
         ? $x[0]
-        : (instance_of($x, $MlBytes) ? 252 : (1e3));
+        : (instance_of($x, $MlBytes) ? 252 : (1000));
     }
   );
   $caml_register_global = $Func(
@@ -2810,7 +2810,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     for (;;) {
       if (0 === $maxLength__0) {return 1;}
       $tag = $caml_obj_tag($o__0);
-      $match = $tag === 1e3 ? 1 : (0);
+      $match = $tag === 1000 ? 1 : (0);
       if (0 === $match) {
         $size = $o__0->count - 1;
         $d9 = $tag === 0 ? 1 : (0);
@@ -3011,7 +3011,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         ? $caml_call2($self[3], $self, $o)
         : ($caml_call2($self[2], $self, $o));
     }
-    return $tag === 1e3
+    return $tag === 1000
       ? $caml_call2($self[1], $self, $o)
       : ($tag === 253
        ? $caml_call2($self[4], $self, $o)
@@ -4082,7 +4082,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $bY = $i__0 + 1 | 0;
       if (0 !== $i__0) {$i__0 = $bY;goto a_continue;}
       $endSeconds = $caml_sys_time(0);
-      $log($a($bp, $string_of_int(($endSeconds - $startSeconds) * 1e3 | 0)));
+      $log($a($bp, $string_of_int(($endSeconds - $startSeconds) * 1000 | 0)));
       $f__0 = $caml_alloc_dummy_function(1, 2);
       $z__0 = varray[];
       $caml_update_dummy($f__0, function($x, $y) {return 1;});

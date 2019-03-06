@@ -190,5 +190,3 @@ and source_elements = list((source_element, Loc.t))
 and source_element =
   | Statement(statement)
   | Function_declaration(function_declaration);
-
-let string_of_number: float => string;

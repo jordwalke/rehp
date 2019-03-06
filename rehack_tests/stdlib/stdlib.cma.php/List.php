@@ -187,7 +187,7 @@ final class List_ {
       };
     $init = function($len, $f) use ($Pervasives,$caml_call1,$cst_List_init,$init_aux,$init_tailrec_aux,$rev) {
       return 0 <= $len
-        ? 1e4 < $len
+        ? 10000 < $len
          ? $rev($init_tailrec_aux(0, 0, $len, $f))
          : ($init_aux->contents(0, $len, $f))
         : ($caml_call1($Pervasives[1], $cst_List_init));

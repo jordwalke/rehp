@@ -193,6 +193,41 @@
    compiled from the standard library.
    */
 
+/**
+ * Redundantly coppied from the JS implementation, but it has deviated because
+ * in PHP, we can't compile integer `1000` to `1e3` because `1e3` !== `1000`.
+ */
+let string_of_number_php = v =>
+  if (v == infinity) {
+    "Infinity";
+  } else if (v == neg_infinity) {
+    "-Infinity";
+  } else if (v != v) {
+    "NaN";
+  } else if
+    /* [1/-0] = -inf seems to be the only way to detect -0 in JavaScript */
+    (v == 0. && 1. /. v == neg_infinity) {
+    "-0";
+  } else {
+    let vint = int_of_float(v);
+    /* compiler 1000 into 1e3 */
+    if (float_of_int(vint) == v) {
+      Printf.sprintf("%d", vint);
+    } else {
+      let s1 = Printf.sprintf("%.12g", v);
+      if (v == float_of_string(s1)) {
+        s1;
+      } else {
+        let s2 = Printf.sprintf("%.15g", v);
+        if (v == float_of_string(s2)) {
+          s2;
+        } else {
+          Printf.sprintf("%.18g", v);
+        };
+      };
+    };
+  };
+
 let stats = Debug.find("output");
 
 /* In order to support lambdas for Php, we need to be able to refer to the
@@ -681,7 +716,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       pp_string(f, ~utf=kind == `Utf8, ~quote, escape_dollar_str(s));
     | EBool(b) => PP.string(f, if (b) {"true"} else {"false"})
     | ENum(v) =>
-      let s = Rehp.string_of_number(v);
+      let s = string_of_number_php(v);
       let need_parent =
         if (s.[0] == '-') {
           l > 13;
