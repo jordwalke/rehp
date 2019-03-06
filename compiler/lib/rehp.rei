@@ -83,6 +83,8 @@ and expression =
   | EFun(function_expression)
   | EArityTest(expression)
   | EStr(string, [ | `Bytes | `Utf8])
+  /* Max index of an allocated structure (Vector/Record) */
+  | EVectlength(expression)
   /* A string can either be composed of a sequence of bytes, or be
      UTF-8 encoded. In the second case, the string may contain
      escape sequences. */

@@ -1055,7 +1055,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
     let res = match p, l with
         Vectlength, [x] ->
         let ((px, cx), queue) = access_queue' ~ctx queue x in
-        (J.EBin (J.Minus, EArrLen cx, one), px, queue)
+        (J.EVectlength cx, px, queue)
       | Array_get, [x; y] ->
         let ((px, cx), queue) = access_queue' ~ctx queue x in
         let ((py, cy), queue) = access_queue' ~ctx queue y in

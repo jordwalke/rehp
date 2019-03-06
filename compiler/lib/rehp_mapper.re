@@ -281,6 +281,7 @@ let create = () => {
       | EArityTest(e1) =>
         let e1Mapped = self.expression(self, e1);
         EArityTest(e1Mapped);
+      | EVectlength(e) => EVectlength(self.expression(self, e))
       | EArrLen(e) => EArrLen(self.expression(self, e))
       | EStruct(l) => foldExprs(false, [], self, x, wrapInStruct, l)
       | ETag(i, l) =>

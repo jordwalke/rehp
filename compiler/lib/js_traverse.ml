@@ -142,6 +142,7 @@ class map : mapper = object(m)
       | Some i -> Some (m#ident i) in
     EFun (idopt, List.map params ~f:m#ident, m#sources body ,nid)
   | EArityTest e -> EArityTest (m#expression e)
+  | EVectlength e -> EVectlength (m#expression e)
   | EArrLen e -> EArrLen (m#expression e)
   | EStruct l -> EStruct (List.map (fun x -> m#expression x) l)
   | ETag (i, l) -> ETag (m#expression(i), List.map (fun x -> m#expression x) l)

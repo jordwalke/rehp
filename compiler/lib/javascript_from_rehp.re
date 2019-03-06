@@ -91,6 +91,8 @@ and from_expression = e =>
   | EStructAccess(e1, e2)
   | EArrAccess(e1, e2) =>
     Javascript.EAccess(from_expression(e1), from_expression(e2))
+  | EVectlength(e) =>
+    EBin(Minus, EDot(from_expression(e), "length"), ENum(1.0))
   | EArrLen(e) => EDot(from_expression(e), "length")
   | EArityTest(e) => EDot(from_expression(e), "length")
   | ECond(e1, e2, e3) =>

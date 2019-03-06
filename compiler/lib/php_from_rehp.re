@@ -427,6 +427,10 @@ let rec expression = (input, x) =>
       )),
     );
 
+  | Rehp.EVectlength(e) =>
+    let (eOut, eMapped) = expression(input, e);
+    let eMapped = Php.(EBin(Minus, EDot(eMapped, "count"), ENum(1.0)));
+    (eOut, eMapped);
   | Rehp.EArrLen(e) =>
     let (eOut, eMapped) = expression(input, e);
     (eOut, EArrLen(eMapped));

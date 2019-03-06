@@ -124,6 +124,8 @@ and expression =
   | EFun(function_expression)
   | EArityTest(expression)
   | EStr(string, [ | `Bytes | `Utf8])
+  /* Max index of an allocated structure (Vector/Record) */
+  | EVectlength(expression)
   /* Instructions for accessing standard library arrays.  */
   | EArrAccess(expression, expression)
   | EArrLen(expression)
