@@ -937,7 +937,7 @@ let _ =
        J.EBin (J.Eq, J.EArrAccess (cx, plus_int cy one), cz));
   register_un_prim "caml_alloc_dummy" `Pure (fun _ _ -> J.EArr []);
   register_un_prim "caml_obj_dup" `Mutable
-    (fun cx loc -> J.ECall (J.EDot (cx, "slice"), [], loc));
+    (fun cx loc -> J.ECopy (cx, loc));
   register_un_prim "caml_int_of_float" `Pure (fun cx _loc -> to_int cx);
   register_un_math_prim "caml_abs_float" "abs";
   register_un_math_prim "caml_acos_float" "acos";

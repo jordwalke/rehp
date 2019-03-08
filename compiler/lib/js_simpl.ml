@@ -67,7 +67,7 @@ let rec enot_rec e =
     | J.EBool b ->
         (J.EBool (not b), 0)
     | J.EArityTest _ | J.EArrLen _ | J.ETag _ | J.EStruct _
-    | J.ERaw _ | J.ECall _ | J.EAccess _ | J.EStructAccess _ | J.EVectlength _ | J.EArrAccess _ | J.EDot _ | J.ENew _ | J.EVar _ | J.EFun _
+    | J.ERaw _ | J.ECall _ | J.ECopy _ | J.EAccess _ | J.EStructAccess _ | J.EVectlength _ | J.EArrAccess _ | J.EDot _ | J.ENew _ | J.EVar _ | J.EFun _
     | J.EStr _ | J.EArr _ | J.ENum _ | J.EObj _ | J.EQuote _ | J.ERegexp _
     (* jordwalke: isn't this a bug? IncrA/Decr can have side effects! *)
     | J.EUn
@@ -210,6 +210,7 @@ let rec get_variable acc = function
   | J.ENew (e1,None) -> get_variable acc e1
   | J.ECall (e1,el,_)
   | J.ENew (e1,Some el) -> List.fold_left get_variable acc (e1::el)
+  | J.ECopy (e1,_) -> get_variable acc e1
   | J.EVar (Id.V v) -> Code.Var.Set.add v acc
   | J.EVar (Id.S _) -> acc
   | J.EFun _

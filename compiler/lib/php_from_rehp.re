@@ -336,6 +336,9 @@ let rec expression = (input, x) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Outs, e2_mappeds) = List.split(List.map(expression(input), e2));
     (joinAll([e1Out, ...e2Outs]), Php.ECall(e1Mapped, e2_mappeds, loc));
+  | Rehp.ECopy(e1, loc) =>
+    let (e1Out, e1Mapped) = expression(input, e1);
+    (e1Out, Php.ECall(Php.EDot(e1Mapped, "toVector"), [], loc));
   | Rehp.EAccess(e1, e2) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);
@@ -429,7 +432,7 @@ let rec expression = (input, x) =>
 
   | Rehp.EVectlength(e) =>
     let (eOut, eMapped) = expression(input, e);
-    let eMapped = Php.(EBin(Minus, EDot(eMapped, "count"), ENum(1.0)));
+    let eMapped = Php.(EBin(Minus, EDot(eMapped, "count()"), ENum(1.0)));
     (eOut, eMapped);
   | Rehp.EArrLen(e) =>
     let (eOut, eMapped) = expression(input, e);

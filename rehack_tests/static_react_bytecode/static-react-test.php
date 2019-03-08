@@ -2799,7 +2799,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     }
     return $invalid_arg($h);
   };
-  $default__0 = V(0, $i->slice(), 0);
+  $default__0 = V(0, $i->toVector(), 0);
   $int__1 = function($bound) use ($default__0,$int__0) {
     return $int__0($default__0, $bound);
   };
@@ -2812,7 +2812,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $tag = $caml_obj_tag($o__0);
       $match = $tag === 1000 ? 1 : (0);
       if (0 === $match) {
-        $size = $o__0->count - 1;
+        $size = $o__0->count() - 1;
         $d9 = $tag === 0 ? 1 : (0);
         if ($d9) {
           $d_ = 2 === $size ? 1 : (0);
@@ -2863,7 +2863,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         continue;
       }
     };
-    return $extractFields($maxNum, 0, $o->count - 1);
+    return $extractFields($maxNum, 0, $o->count() - 1);
   };
   $getBreakData = function($itms) use ($caml_ml_string_length,$contains,$fold_left,$l) {
     $match = $fold_left(

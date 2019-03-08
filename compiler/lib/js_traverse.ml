@@ -124,6 +124,8 @@ class map : mapper = object(m)
   | EUn(b,e1) -> EUn(b,m#expression  e1)
   | ECall(e1,e2,loc) ->
     ECall(m#expression  e1,List.map e2 ~f:m#expression,loc)
+  | ECopy(e1,loc) ->
+    ECopy(m#expression e1,loc)
   | EAccess(e1,e2) ->
     EAccess(m#expression  e1,m#expression  e2)
   | EStructAccess (e1, e2) ->

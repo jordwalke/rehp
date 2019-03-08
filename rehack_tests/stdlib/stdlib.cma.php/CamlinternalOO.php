@@ -86,7 +86,7 @@ final class CamlinternalOO {
     $yf = R(0, $caml_new_string("camlinternalOO.ml"), 408, 13);
     $ye = R(0, $caml_new_string("camlinternalOO.ml"), 281, 50);
     $copy = function($o) use ($caml_set_oo_id) {
-      $o__0 = $o->slice();
+      $o__0 = $o->toVector();
       return $caml_set_oo_id($o__0);
     };
     $params = V(0, 1, 1, 1, 3, 16);
@@ -143,7 +143,7 @@ final class CamlinternalOO {
       };
     $new_table = function($pub_labels) use ($Labs,$Meths,$Sys,$Vars,$caml_check_bound,$caml_make_vect,$dummy_met,$fit_size,$initial_object_size,$runtime,$table_count) {
       $table_count[1] += 1;
-      $len = $pub_labels->count - 1;
+      $len = $pub_labels->count() - 1;
       $methods = $caml_make_vect(($len * 2 | 0) + 2 | 0, $dummy_met);
       $caml_check_bound($methods, 0)[1] = $len;
       $zn = $Sys[10];
@@ -176,7 +176,7 @@ final class CamlinternalOO {
       );
     };
     $resize = function($array, $new_size) use ($Array,$caml_call5,$caml_make_vect,$dummy_met) {
-      $old_size = $array[2]->count - 1;
+      $old_size = $array[2]->count() - 1;
       $zl = $old_size < $new_size ? 1 : (0);
       if ($zl) {
         $new_buck = $caml_make_vect($new_size, $dummy_met);
@@ -194,7 +194,7 @@ final class CamlinternalOO {
     $method_count = V(0, 0);
     $inst_var_count = V(0, 0);
     $new_method = function($table) use ($resize) {
-      $index = $table[2]->count - 1;
+      $index = $table[2]->count() - 1;
       $resize($table, $index + 1 | 0);
       return $index;
     };
@@ -359,8 +359,8 @@ final class CamlinternalOO {
     };
     $new_methods_variables = function($table, $meths, $vals) use ($caml_check_bound,$caml_make_vect,$get_method_label,$new_variable,$to_array) {
       $meths__0 = $to_array($meths);
-      $nmeths = $meths__0->count - 1;
-      $nvals = $vals->count - 1;
+      $nmeths = $meths__0->count() - 1;
+      $nvals = $vals->count() - 1;
       $res = $caml_make_vect($nmeths + $nvals | 0, 0);
       $yL = $nmeths + -1 | 0;
       $yK = 0;
@@ -588,8 +588,13 @@ final class CamlinternalOO {
     $lookup_tables = function($root, $keys) use ($build_path,$get_data,$lookup_keys) {
       $root_data = $get_data($root);
       return $root_data
-        ? $lookup_keys->contents($keys->count - 1 + -1 | 0, $keys, $root_data)
-        : ($build_path($keys->count - 1 + -1 | 0, $keys, $root));
+        ? $lookup_keys->contents(
+         $keys->count() - 1 +
+           -1 | 0,
+         $keys,
+         $root_data
+       )
+        : ($build_path($keys->count() - 1 + -1 | 0, $keys, $root));
     };
     $get_const = function($x) {return function($obj) use ($x) {return $x;};};
     $get_var = function($n) {
@@ -862,7 +867,7 @@ final class CamlinternalOO {
       return $clo;
     };
     $set_methods = function($table, $methods) use ($caml_check_bound,$method_impl,$set_method) {
-      $len = $methods->count - 1;
+      $len = $methods->count() - 1;
       $i = V(0, 0);
       for (;;) {
         if ($i[1] < $len) {

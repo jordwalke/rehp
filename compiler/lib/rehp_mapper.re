@@ -242,6 +242,9 @@ let create = () => {
         let e1Mapped = self.expression(self, e1);
         let e2Mappeds = List.map(self.expression(self), e2);
         ECall(e1Mapped, e2Mappeds, loc);
+      | ECopy(e1, loc) =>
+        let e1Mapped = self.expression(self, e1);
+        ECopy(e1Mapped, loc);
       | EAccess(e1, e2) =>
         let e1Mapped = self.expression(self, e1);
         let e2Mapped = self.expression(self, e2);

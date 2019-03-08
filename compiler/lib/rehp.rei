@@ -79,6 +79,7 @@ and expression =
   | EBin(binop, expression, expression)
   | EUn(unop, expression)
   | ECall(expression, arguments, Loc.t)
+  | ECopy(expression, Loc.t)
   | EVar(Id.t)
   | EFun(function_expression)
   | EArityTest(expression)

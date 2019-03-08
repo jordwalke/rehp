@@ -362,7 +362,7 @@ final class Arg {
       $initpos = $current[1];
       $convert_error = function($error) use ($Bad,$Buffer,$Help,$Printf,$argv,$caml_call1,$caml_call4,$caml_call6,$caml_check_bound,$caml_equal,$caml_string_notequal,$cst__2,$cst_help__3,$cst_help__4,$errmsg,$initpos,$ng,$nh,$ni,$nj,$nk,$nl,$speclist,$usage_b) {
         $b = $caml_call1($Buffer[1], 200);
-        $progname = $initpos < $argv[1]->count - 1
+        $progname = $initpos < $argv[1]->count() - 1
           ? $caml_check_bound($argv[1], $initpos)[$initpos + 1]
           : ($cst__2);
         switch($error[0]) {
@@ -402,7 +402,7 @@ final class Arg {
       };
       $current[1] += 1;
       for (;;) {
-        if ($current[1] < $argv[1]->count - 1) {
+        if ($current[1] < $argv[1]->count() - 1) {
           try {
             $n0 = $current[1];
             $s = $caml_check_bound($argv[1], $n0)[$n0 + 1];
@@ -452,7 +452,7 @@ final class Arg {
                 $get_arg__0 = function($s, $follow) use ($Stop,$argv,$caml_check_bound,$current,$runtime) {
                   $get_arg = function($param) use ($Stop,$argv,$caml_check_bound,$current,$follow,$runtime,$s) {
                     if ($follow) {$arg = $follow[1];return $arg;}
-                    if (($current[1] + 1 | 0) < $argv[1]->count - 1) {
+                    if (($current[1] + 1 | 0) < $argv[1]->count() - 1) {
                       $n5 = $current[1] + 1 | 0;
                       return $caml_check_bound($argv[1], $n5)[$n5 + 1];
                     }
@@ -600,7 +600,7 @@ final class Arg {
                         case 12:
                           $f__5 = $param[1];
                           for (;;) {
-                            if ($current[1] < ($argv[1]->count - 1 + -1 | 0)) {
+                            if ($current[1] < ($argv[1]->count() - 1 + -1 | 0)) {
                               $n4 = $current[1] + 1 | 0;
                               $caml_call1($f__5, $caml_check_bound($argv[1], $n4)[$n4 + 1]
                               );
@@ -636,7 +636,7 @@ final class Arg {
                             $argv[1],
                             $current[1] + 1 |
                               0,
-                            ($argv[1]->count - 1 - $current[1] | 0) + -1 |
+                            ($argv[1]->count() - 1 - $current[1] | 0) + -1 |
                               0
                           );
                           $argv[1] =

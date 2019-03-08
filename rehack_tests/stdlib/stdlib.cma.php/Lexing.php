@@ -141,7 +141,7 @@ final class Lexing {
         $lexbuf[7] = $lexbuf[7] - $s | 0;
         $lexbuf[3] = $lexbuf[3] - $s | 0;
         $t = $lexbuf[10];
-        $e1 = $t->count - 1 + -1 | 0;
+        $e1 = $t->count() - 1 + -1 | 0;
         $e0 = 0;
         if (! ($e1 < 0)) {
           $i = $e0;

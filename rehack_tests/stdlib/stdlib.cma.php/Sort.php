@@ -178,8 +178,8 @@ final class Sort {
           }
           a_break:
         };
-      $qsort->contents(0, $arr->count - 1 + -1 | 0);
-      $cE = $arr->count - 1 + -1 | 0;
+      $qsort->contents(0, $arr->count() - 1 + -1 | 0);
+      $cE = $arr->count() - 1 + -1 | 0;
       $cD = 1;
       if (! ($cE < 1)) {
         $i = $cD;

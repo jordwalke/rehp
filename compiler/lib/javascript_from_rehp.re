@@ -102,6 +102,8 @@ and from_expression = e =>
   | EUn(unop, e) => from_unop(unop, from_expression(e))
   | ECall(e, args, loc) =>
     ECall(from_expression(e), from_arguments(args), loc)
+  | ECopy(e, loc) =>
+    ECall(EDot(from_expression(e), "slice"), [], loc)
   | EVar(ident) => EVar(ident)
   | EFun((ident_opt, ident_lst, body, loc)) =>
     EFun((ident_opt, ident_lst, from_source_elements_and_locs(body), loc))

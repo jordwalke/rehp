@@ -76,7 +76,7 @@ final class Weak {
     $Array = $global_data["Array_"];
     $Not_found = $global_data["Not_found"];
     $Invalid_argument = $global_data["Invalid_argument"];
-    $length = function($x) {return $x->count - 1 - 2 | 0;};
+    $length = function($x) {return $x->count() - 1 - 2 | 0;};
     $fill = function($ar, $ofs, $len, $x) use ($Invalid_argument,$caml_weak_set,$cst_Weak_fill,$length,$runtime) {
       if (0 <= $ofs) {
         if (0 <= $len) {
@@ -106,7 +106,7 @@ final class Weak {
       };
       $emptybucket = $weak_create(0);
       $get_index = function($t, $h) use ($Pervasives,$caml_mod) {
-        return $caml_mod($h & $Pervasives[7], $t[1]->count - 1);
+        return $caml_mod($h & $Pervasives[7], $t[1]->count() - 1);
       };
       $limit = 7;
       $create = function($sz) use ($Sys,$caml_make_vect,$emptybucket,$limit) {
@@ -122,7 +122,7 @@ final class Weak {
         );
       };
       $clear = function($t) use ($caml_check_bound,$emptybucket,$limit) {
-        $sA = $t[1]->count - 1 + -1 | 0;
+        $sA = $t[1]->count() - 1 + -1 | 0;
         $sz = 0;
         if (! ($sA < 0)) {
           $i = $sz;
@@ -295,11 +295,11 @@ final class Weak {
           $sb = $sa ? $prev_len <= $t[3] ? 1 : (0) : ($sa);
           if ($sb) {$t[4] = $t[4] + -1 | 0;}
         }
-        $t[5] = $caml_mod($t[5] + 1 | 0, $t[1]->count - 1);
+        $t[5] = $caml_mod($t[5] + 1 | 0, $t[1]->count() - 1);
         return 0;
       };
       $resize = function($t) use ($Pervasives,$add_aux,$caml_check_bound,$caml_mod,$caml_weak_blit,$create,$get_index,$iter_weak,$next_sz) {
-        $oldlen = $t[1]->count - 1;
+        $oldlen = $t[1]->count() - 1;
         $newlen = $next_sz($oldlen);
         if ($oldlen < $newlen) {
           $newt = $create($newlen);
@@ -321,7 +321,7 @@ final class Weak {
           $t[2] = $newt[2];
           $t[3] = $newt[3];
           $t[4] = $newt[4];
-          $t[5] = $caml_mod($t[5], $newt[1]->count - 1);
+          $t[5] = $caml_mod($t[5], $newt[1]->count() - 1);
           return 0;
         }
         $t[3] = $Pervasives[7];
@@ -370,7 +370,7 @@ final class Weak {
                     break;
                   }
                 }
-                $r5 = (($t[1]->count - 1) / 2 | 0) < $t[4] ? 1 : (0);
+                $r5 = (($t[1]->count() - 1) / 2 | 0) < $t[4] ? 1 : (0);
                 return $r5 ? $resize($t) : ($r5);
               }
               if ($caml_weak_check($bucket, $i__0)) {
@@ -578,7 +578,7 @@ final class Weak {
         return $loop(0, 0);
       };
       $stats = function($t) use ($Array,$caml_call2,$caml_call3,$caml_check_bound,$count,$length,$runtime) {
-        $len = $t[1]->count - 1;
+        $len = $t[1]->count() - 1;
         $lens = $caml_call2($Array[15], $length, $t[1]);
         $rG = function($rR, $rQ) use ($runtime) {
           return $runtime["caml_int_compare"]($rR, $rQ);
