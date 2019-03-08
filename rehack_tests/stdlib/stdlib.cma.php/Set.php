@@ -55,10 +55,10 @@ final class Set {
     $Pervasives = $global_data["Pervasives"];
     $List = $global_data["List_"];
     $Assert_failure = $global_data["Assert_failure"];
-    $fk = Vector{0, 0, 0, 0};
-    $fl = Vector{0, 0, 0};
-    $fm = Vector{0, $caml_new_string("set.ml"), 510, 18};
-    $Make = function($Ord) use ($Assert_failure,$List,$Not_found,$Pervasives,$caml_call1,$caml_call2,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$cst_Set_remove_min_elt,$fk,$fl,$fm,$runtime,$unsigned_right_shift_32) {
+    $fl = Vector{0, 0, 0, 0};
+    $fm = Vector{0, 0, 0};
+    $fn = Vector{0, $caml_new_string("set.ml"), 510, 18};
+    $Make = function($Ord) use ($Assert_failure,$List,$Not_found,$Pervasives,$caml_call1,$caml_call2,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$cst_Set_remove_min_elt,$fl,$fm,$fn,$runtime,$unsigned_right_shift_32) {
       $add = new Ref();
       $add_max_element = new Ref();
       $add_min_element = new Ref();
@@ -94,8 +94,8 @@ final class Set {
           $hr = $h__0;
         }
         else {$hr = 0;}
-        $gd = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
-        return Vector{0, $l, $v, $r, $gd};
+        $ge = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
+        return Vector{0, $l, $v, $r, $ge};
       };
       $bal = function($l, $v, $r) use ($Pervasives,$caml_call1,$create,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$height) {
         if ($l) {
@@ -113,16 +113,16 @@ final class Set {
             $lr = $l[3];
             $lv = $l[2];
             $ll = $l[1];
-            $f9 = $height($lr);
-            if ($f9 <= $height($ll)) {
+            $f_ = $height($lr);
+            if ($f_ <= $height($ll)) {
               return $create($ll, $lv, $create($lr, $v, $r));
             }
             if ($lr) {
               $lrr = $lr[3];
               $lrv = $lr[2];
               $lrl = $lr[1];
-              $f_ = $create($lrr, $v, $r);
-              return $create($create($ll, $lv, $lrl), $lrv, $f_);
+              $ga = $create($lrr, $v, $r);
+              return $create($create($ll, $lv, $lrl), $lrv, $ga);
             }
             return $caml_call1($Pervasives[1], $cst_Set_bal);
           }
@@ -133,23 +133,23 @@ final class Set {
             $rr = $r[3];
             $rv = $r[2];
             $rl = $r[1];
-            $ga = $height($rl);
-            if ($ga <= $height($rr)) {
+            $gb = $height($rl);
+            if ($gb <= $height($rr)) {
               return $create($create($l, $v, $rl), $rv, $rr);
             }
             if ($rl) {
               $rlr = $rl[3];
               $rlv = $rl[2];
               $rll = $rl[1];
-              $gb = $create($rlr, $rv, $rr);
-              return $create($create($l, $v, $rll), $rlv, $gb);
+              $gc = $create($rlr, $rv, $rr);
+              return $create($create($l, $v, $rll), $rlv, $gc);
             }
             return $caml_call1($Pervasives[1], $cst_Set_bal__1);
           }
           return $caml_call1($Pervasives[1], $cst_Set_bal__2);
         }
-        $gc = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
-        return Vector{0, $l, $v, $r, $gc};
+        $gd = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
+        return Vector{0, $l, $v, $r, $gd};
       };
       $_ = $add->contents =
         function($x, $t) use ($Ord,$add,$bal,$caml_call2) {
@@ -215,8 +215,8 @@ final class Set {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $f8 = $param__0[1];
-            if ($f8) {$param__0 = $f8;continue;}
+            $f9 = $param__0[1];
+            if ($f9) {$param__0 = $f9;continue;}
             $v = $param__0[2];
             return $v;
           }
@@ -227,8 +227,8 @@ final class Set {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $f7 = $param__0[1];
-            if ($f7) {$param__0 = $f7;continue;}
+            $f8 = $param__0[1];
+            if ($f8) {$param__0 = $f8;continue;}
             $v = $param__0[2];
             return Vector{0, $v};
           }
@@ -239,10 +239,10 @@ final class Set {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $f5 = $param__0[3];
-            $f6 = $param__0[2];
-            if ($f5) {$param__0 = $f5;continue;}
-            return $f6;
+            $f6 = $param__0[3];
+            $f7 = $param__0[2];
+            if ($f6) {$param__0 = $f6;continue;}
+            return $f7;
           }
           throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
@@ -251,10 +251,10 @@ final class Set {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $f3 = $param__0[3];
-            $f4 = $param__0[2];
-            if ($f3) {$param__0 = $f3;continue;}
-            return Vector{0, $f4};
+            $f4 = $param__0[3];
+            $f5 = $param__0[2];
+            if ($f4) {$param__0 = $f4;continue;}
+            return Vector{0, $f5};
           }
           return 0;
         }
@@ -262,11 +262,11 @@ final class Set {
       $_ = $remove_min_elt->contents =
         function($param) use ($Pervasives,$bal,$caml_call1,$cst_Set_remove_min_elt,$remove_min_elt) {
           if ($param) {
-            $f2 = $param[1];
-            if ($f2) {
+            $f3 = $param[1];
+            if ($f3) {
               $r = $param[3];
               $v = $param[2];
-              return $bal($remove_min_elt->contents($f2), $v, $r);
+              return $bal($remove_min_elt->contents($f3), $v, $r);
             }
             $r__0 = $param[3];
             return $r__0;
@@ -276,8 +276,8 @@ final class Set {
       $merge = function($t, $match) use ($bal,$min_elt,$remove_min_elt) {
         if ($t) {
           if ($match) {
-            $f1 = $remove_min_elt->contents($match);
-            return $bal($t, $min_elt($match), $f1);
+            $f2 = $remove_min_elt->contents($match);
+            return $bal($t, $min_elt($match), $f2);
           }
           return $t;
         }
@@ -286,15 +286,15 @@ final class Set {
       $concat = function($t, $match) use ($join,$min_elt,$remove_min_elt) {
         if ($t) {
           if ($match) {
-            $f0 = $remove_min_elt->contents($match);
-            return $join->contents($t, $min_elt($match), $f0);
+            $f1 = $remove_min_elt->contents($match);
+            return $join->contents($t, $min_elt($match), $f1);
           }
           return $t;
         }
         return $match;
       };
       $_ = $split->contents =
-        function($x, $param) use ($Ord,$caml_call2,$fk,$join,$split) {
+        function($x, $param) use ($Ord,$caml_call2,$fl,$join,$split) {
           if ($param) {
             $r = $param[3];
             $v = $param[2];
@@ -314,7 +314,7 @@ final class Set {
             $ll = $match__0[1];
             return Vector{0, $ll, $pres__0, $join->contents($rl, $v, $r)};
           }
-          return $fk;
+          return $fl;
         };
       $empty = 0;
       $is_empty = function($param) {return $param ? 0 : (1);};
@@ -326,8 +326,8 @@ final class Set {
             $v = $param__0[2];
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
-            $fZ = 0 === $c ? 1 : (0);
-            if ($fZ) {return $fZ;}
+            $f0 = 0 === $c ? 1 : (0);
+            if ($f0) {return $f0;}
             $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
@@ -369,16 +369,16 @@ final class Set {
                 $match__0 = $split->contents($v1, $match);
                 $r2__0 = $match__0[3];
                 $l2__0 = $match__0[1];
-                $fX = $union->contents($r1, $r2__0);
-                return $join->contents($union->contents($l1, $l2__0), $v1, $fX
+                $fY = $union->contents($r1, $r2__0);
+                return $join->contents($union->contents($l1, $l2__0), $v1, $fY
                 );
               }
               if (1 === $h1) {return $add->contents($v1, $match);}
               $match__1 = $split->contents($v2, $t1);
               $r1__0 = $match__1[3];
               $l1__0 = $match__1[1];
-              $fY = $union->contents($r1__0, $r2);
-              return $join->contents($union->contents($l1__0, $l2), $v2, $fY);
+              $fZ = $union->contents($r1__0, $r2);
+              return $join->contents($union->contents($l1__0, $l2), $v2, $fZ);
             }
             return $t1;
           }
@@ -391,16 +391,16 @@ final class Set {
               $r1 = $s1[3];
               $v1 = $s1[2];
               $l1 = $s1[1];
-              $fT = $split->contents($v1, $match);
-              $fU = $fT[1];
-              if (0 === $fT[2]) {
-                $r2 = $fT[3];
-                $fV = $inter->contents($r1, $r2);
-                return $concat($inter->contents($l1, $fU), $fV);
+              $fU = $split->contents($v1, $match);
+              $fV = $fU[1];
+              if (0 === $fU[2]) {
+                $r2 = $fU[3];
+                $fW = $inter->contents($r1, $r2);
+                return $concat($inter->contents($l1, $fV), $fW);
               }
-              $r2__0 = $fT[3];
-              $fW = $inter->contents($r1, $r2__0);
-              return $join->contents($inter->contents($l1, $fU), $v1, $fW);
+              $r2__0 = $fU[3];
+              $fX = $inter->contents($r1, $r2__0);
+              return $join->contents($inter->contents($l1, $fV), $v1, $fX);
             }
             return 0;
           }
@@ -413,16 +413,16 @@ final class Set {
               $r1 = $t1[3];
               $v1 = $t1[2];
               $l1 = $t1[1];
-              $fP = $split->contents($v1, $match);
-              $fQ = $fP[1];
-              if (0 === $fP[2]) {
-                $r2 = $fP[3];
-                $fR = $diff->contents($r1, $r2);
-                return $join->contents($diff->contents($l1, $fQ), $v1, $fR);
+              $fQ = $split->contents($v1, $match);
+              $fR = $fQ[1];
+              if (0 === $fQ[2]) {
+                $r2 = $fQ[3];
+                $fS = $diff->contents($r1, $r2);
+                return $join->contents($diff->contents($l1, $fR), $v1, $fS);
               }
-              $r2__0 = $fP[3];
-              $fS = $diff->contents($r1, $r2__0);
-              return $concat($diff->contents($l1, $fQ), $fS);
+              $r2__0 = $fQ[3];
+              $fT = $diff->contents($r1, $r2__0);
+              return $concat($diff->contents($l1, $fR), $fT);
             }
             return $t1;
           }
@@ -472,8 +472,8 @@ final class Set {
         }
       };
       $compare = function($s1, $s2) use ($compare_aux,$cons_enum) {
-        $fO = $cons_enum($s2, 0);
-        return $compare_aux($cons_enum($s1, 0), $fO);
+        $fP = $cons_enum($s2, 0);
+        return $compare_aux($cons_enum($s1, 0), $fP);
       };
       $equal = function($s1, $s2) use ($compare) {
         return 0 === $compare($s1, $s2) ? 1 : (0);
@@ -493,18 +493,18 @@ final class Set {
                 $l1 = $s1__0[1];
                 $c = $caml_call2($Ord[1], $v1, $v2);
                 if (0 === $c) {
-                  $fL = $subset->contents($l1, $l2);
-                  if ($fL) {$s1__0 = $r1;$s2__0 = $r2;continue;}
-                  return $fL;
-                }
-                if (0 <= $c) {
-                  $fM = $subset->contents(Vector{0, 0, $v1, $r1, 0}, $r2);
-                  if ($fM) {$s1__0 = $l1;continue;}
+                  $fM = $subset->contents($l1, $l2);
+                  if ($fM) {$s1__0 = $r1;$s2__0 = $r2;continue;}
                   return $fM;
                 }
-                $fN = $subset->contents(Vector{0, $l1, $v1, 0, 0}, $l2);
-                if ($fN) {$s1__0 = $r1;continue;}
-                return $fN;
+                if (0 <= $c) {
+                  $fN = $subset->contents(Vector{0, 0, $v1, $r1, 0}, $r2);
+                  if ($fN) {$s1__0 = $l1;continue;}
+                  return $fN;
+                }
+                $fO = $subset->contents(Vector{0, $l1, $v1, 0, 0}, $l2);
+                if ($fO) {$s1__0 = $r1;continue;}
+                return $fO;
               }
               return 0;
             }
@@ -553,14 +553,14 @@ final class Set {
               $r = $param__0[3];
               $v = $param__0[2];
               $l = $param__0[1];
-              $fI = $caml_call1($p, $v);
-              if ($fI) {
-                $fJ = $for_all->contents($p, $l);
-                if ($fJ) {$param__0 = $r;continue;}
-                $fK = $fJ;
+              $fJ = $caml_call1($p, $v);
+              if ($fJ) {
+                $fK = $for_all->contents($p, $l);
+                if ($fK) {$param__0 = $r;continue;}
+                $fL = $fK;
               }
-              else {$fK = $fI;}
-              return $fK;
+              else {$fL = $fJ;}
+              return $fL;
             }
             return 1;
           }
@@ -573,16 +573,16 @@ final class Set {
               $r = $param__0[3];
               $v = $param__0[2];
               $l = $param__0[1];
-              $fF = $caml_call1($p, $v);
-              if ($fF) {
-                $fG = $fF;
+              $fG = $caml_call1($p, $v);
+              if ($fG) {
+                $fH = $fG;
               }
               else {
-                $fH = $exists->contents($p, $l);
-                if (! $fH) {$param__0 = $r;continue;}
-                $fG = $fH;
+                $fI = $exists->contents($p, $l);
+                if (! $fI) {$param__0 = $r;continue;}
+                $fH = $fI;
               }
-              return $fG;
+              return $fH;
             }
             return 0;
           }
@@ -605,7 +605,7 @@ final class Set {
           return 0;
         };
       $_ = $partition->contents =
-        function($p, $param) use ($caml_call1,$concat,$fl,$join,$partition) {
+        function($p, $param) use ($caml_call1,$concat,$fm,$join,$partition) {
           if ($param) {
             $r = $param[3];
             $v = $param[2];
@@ -618,21 +618,21 @@ final class Set {
             $rf = $match__0[2];
             $rt = $match__0[1];
             if ($pv) {
-              $fD = $concat($lf, $rf);
-              return Vector{0, $join->contents($lt, $v, $rt), $fD};
+              $fE = $concat($lf, $rf);
+              return Vector{0, $join->contents($lt, $v, $rt), $fE};
             }
-            $fE = $join->contents($lf, $v, $rf);
-            return Vector{0, $concat($lt, $rt), $fE};
+            $fF = $join->contents($lf, $v, $rf);
+            return Vector{0, $concat($lt, $rt), $fF};
           }
-          return $fl;
+          return $fm;
         };
       $_ = $cardinal->contents =
         function($param) use ($cardinal) {
           if ($param) {
             $r = $param[3];
             $l = $param[1];
-            $fC = $cardinal->contents($r);
-            return ($cardinal->contents($l) + 1 | 0) + $fC | 0;
+            $fD = $cardinal->contents($r);
+            return ($cardinal->contents($l) + 1 | 0) + $fD | 0;
           }
           return 0;
         };
@@ -809,16 +809,16 @@ final class Set {
           $switch__0 = 0;
         }
         else {
-          $fB = $max_elt($l);
-          $switch__0 = 0 <= $caml_call2($Ord[1], $fB, $v) ? 1 : (0);
+          $fC = $max_elt($l);
+          $switch__0 = 0 <= $caml_call2($Ord[1], $fC, $v) ? 1 : (0);
         }
         if (! $switch__0) {
           if (0 === $r) {
             $switch__1 = 0;
           }
           else {
-            $fA = $min_elt($r);
-            $switch__1 = 0 <= $caml_call2($Ord[1], $v, $fA) ? 1 : (0);
+            $fB = $min_elt($r);
+            $switch__1 = 0 <= $caml_call2($Ord[1], $v, $fB) ? 1 : (0);
           }
           if (! $switch__1) {return $join->contents($l, $v, $r);}
         }
@@ -840,10 +840,10 @@ final class Set {
           }
           return 0;
         };
-      $of_sorted_list = function($l) use ($Assert_failure,$List,$caml_call1,$create,$fm,$runtime,$unsigned_right_shift_32) {
+      $of_sorted_list = function($l) use ($Assert_failure,$List,$caml_call1,$create,$fn,$runtime,$unsigned_right_shift_32) {
         $sub = new Ref();
         $_ = $sub->contents =
-          function($n, $l) use ($Assert_failure,$create,$fm,$runtime,$sub,$unsigned_right_shift_32) {
+          function($n, $l) use ($Assert_failure,$create,$fn,$runtime,$sub,$unsigned_right_shift_32) {
             if (! (3 < $unsigned_right_shift_32($n, 0))) {
               switch($n) {
                 // FALLTHROUGH
@@ -860,10 +860,10 @@ final class Set {
                 // FALLTHROUGH
                 case 2:
                   if ($l) {
-                    $fx = $l[2];
-                    if ($fx) {
-                      $l__4 = $fx[2];
-                      $x1 = $fx[1];
+                    $fy = $l[2];
+                    if ($fy) {
+                      $l__4 = $fy[2];
+                      $x1 = $fy[1];
                       $x0__0 = $l[1];
                       return Vector{
                         0,
@@ -876,13 +876,13 @@ final class Set {
                 // FALLTHROUGH
                 default:
                   if ($l) {
-                    $fy = $l[2];
-                    if ($fy) {
-                      $fz = $fy[2];
-                      if ($fz) {
-                        $l__5 = $fz[2];
-                        $x2 = $fz[1];
-                        $x1__0 = $fy[1];
+                    $fz = $l[2];
+                    if ($fz) {
+                      $fA = $fz[2];
+                      if ($fA) {
+                        $l__5 = $fA[2];
+                        $x2 = $fA[1];
+                        $x1__0 = $fz[1];
                         $x0__1 = $l[1];
                         return Vector{
                           0,
@@ -912,46 +912,46 @@ final class Set {
               $right = $match__0[1];
               return Vector{0, $create($left, $mid, $right), $l__2};
             }
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $fm});
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $fn});
           };
         return $sub->contents($caml_call1($List[1], $l), $l)[1];
       };
       $of_list = function($l) use ($List,$Ord,$add,$caml_call2,$empty,$of_sorted_list,$singleton) {
         if ($l) {
-          $fp = $l[2];
-          $fq = $l[1];
-          if ($fp) {
-            $fr = $fp[2];
-            $fs = $fp[1];
-            if ($fr) {
-              $ft = $fr[2];
-              $fu = $fr[1];
-              if ($ft) {
-                $fv = $ft[2];
-                $fw = $ft[1];
-                if ($fv) {
-                  if ($fv[2]) {
+          $fq = $l[2];
+          $fr = $l[1];
+          if ($fq) {
+            $fs = $fq[2];
+            $ft = $fq[1];
+            if ($fs) {
+              $fu = $fs[2];
+              $fv = $fs[1];
+              if ($fu) {
+                $fw = $fu[2];
+                $fx = $fu[1];
+                if ($fw) {
+                  if ($fw[2]) {
                     return $of_sorted_list($caml_call2($List[51], $Ord[1], $l));
                   }
-                  $x4 = $fv[1];
+                  $x4 = $fw[1];
                   return $add->contents(
                     $x4,
                     $add->contents(
-                      $fw,
-                      $add->contents($fu, $add->contents($fs, $singleton($fq)))
+                      $fx,
+                      $add->contents($fv, $add->contents($ft, $singleton($fr)))
                     )
                   );
                 }
                 return $add->contents(
-                  $fw,
-                  $add->contents($fu, $add->contents($fs, $singleton($fq)))
+                  $fx,
+                  $add->contents($fv, $add->contents($ft, $singleton($fr)))
                 );
               }
-              return $add->contents($fu, $add->contents($fs, $singleton($fq)));
+              return $add->contents($fv, $add->contents($ft, $singleton($fr)));
             }
-            return $add->contents($fs, $singleton($fq));
+            return $add->contents($ft, $singleton($fr));
           }
-          return $singleton($fq);
+          return $singleton($fr);
         }
         return $empty;
       };
@@ -1014,45 +1014,45 @@ final class Set {
     };
     $Set = Vector{
       0,
-      function($fn) use ($Make) {
-        $fo = $Make($fn);
+      function($fo) use ($Make) {
+        $fp = $Make($fo);
         return Vector{
           0,
-          $fo[17],
-          $fo[18],
-          $fo[19],
-          $fo[4],
-          $fo[5],
-          $fo[20],
-          $fo[21],
-          $fo[22],
-          $fo[23],
-          $fo[26],
-          $fo[27],
-          $fo[28],
-          $fo[29],
-          $fo[51],
-          $fo[30],
-          $fo[31],
-          $fo[32],
-          $fo[33],
-          $fo[34],
-          $fo[35],
-          $fo[37],
-          $fo[9],
-          $fo[10],
-          $fo[11],
-          $fo[12],
-          $fo[38],
-          $fo[39],
-          $fo[16],
-          $fo[40],
-          $fo[49],
-          $fo[42],
-          $fo[44],
-          $fo[46],
-          $fo[48],
-          $fo[53]
+          $fp[17],
+          $fp[18],
+          $fp[19],
+          $fp[4],
+          $fp[5],
+          $fp[20],
+          $fp[21],
+          $fp[22],
+          $fp[23],
+          $fp[26],
+          $fp[27],
+          $fp[28],
+          $fp[29],
+          $fp[51],
+          $fp[30],
+          $fp[31],
+          $fp[32],
+          $fp[33],
+          $fp[34],
+          $fp[35],
+          $fp[37],
+          $fp[9],
+          $fp[10],
+          $fp[11],
+          $fp[12],
+          $fp[38],
+          $fp[39],
+          $fp[16],
+          $fp[40],
+          $fp[49],
+          $fp[42],
+          $fp[44],
+          $fp[46],
+          $fp[48],
+          $fp[53]
         };
       }
     };

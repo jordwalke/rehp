@@ -53,11 +53,11 @@ final class Nativeint {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$eD = Vector{0, $runtime["caml_int_of_string"]($s)};return $eD;}
-      catch(\Throwable $eE) {
-        $eE = $caml_wrap_exception($eE);
-        if ($eE[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($eE);
+      try {$eE = Vector{0, $runtime["caml_int_of_string"]($s)};return $eE;}
+      catch(\Throwable $eF) {
+        $eF = $caml_wrap_exception($eF);
+        if ($eF[1] === $Failure) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($eF);
       }
     };
     $compare = function($x, $y) use ($runtime) {

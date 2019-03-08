@@ -54,10 +54,10 @@ final class Stack {
       return 0;
     };
     $pop = function($s) use ($Empty,$runtime) {
-      $gT = $s[1];
-      if ($gT) {
-        $tl = $gT[2];
-        $hd = $gT[1];
+      $gU = $s[1];
+      if ($gU) {
+        $tl = $gU[2];
+        $hd = $gU[1];
         $s[1] = $tl;
         $s[2] = $s[2] + -1 | 0;
         return $hd;
@@ -65,8 +65,8 @@ final class Stack {
       throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
     $top = function($s) use ($Empty,$runtime) {
-      $gS = $s[1];
-      if ($gS) {$hd = $gS[1];return $hd;}
+      $gT = $s[1];
+      if ($gT) {$hd = $gT[1];return $hd;}
       throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
     $is_empty = function($s) {return 0 === $s[1] ? 1 : (0);};

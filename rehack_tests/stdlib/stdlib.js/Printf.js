@@ -40,22 +40,22 @@ var Pervasives = global_data["Pervasives"];
 
 function kfprintf(k, o, param) {
   var fmt = param[1];
-  var m_ = 0;
-  function na(o, acc) {
+  var na = 0;
+  function nb(o, acc) {
     caml_call2(CamlinternalFormat[9], o, acc);
     return caml_call1(k, o);
   }
-  return caml_call4(CamlinternalFormat[7], na, o, m_, fmt);
+  return caml_call4(CamlinternalFormat[7], nb, o, na, fmt);
 }
 
 function kbprintf(k, b, param) {
   var fmt = param[1];
-  var m8 = 0;
-  function m9(b, acc) {
+  var m9 = 0;
+  function m_(b, acc) {
     caml_call2(CamlinternalFormat[10], b, acc);
     return caml_call1(k, b);
   }
-  return caml_call4(CamlinternalFormat[7], m9, b, m8, fmt);
+  return caml_call4(CamlinternalFormat[7], m_, b, m9, fmt);
 }
 
 function ikfprintf(k, oc, param) {
@@ -64,13 +64,13 @@ function ikfprintf(k, oc, param) {
 }
 
 function fprintf(oc, fmt) {
-  return kfprintf(function(m7) {return 0;}, oc, fmt);
+  return kfprintf(function(m8) {return 0;}, oc, fmt);
 }
 
-function bprintf(b, fmt) {return kbprintf(function(m6) {return 0;}, b, fmt);}
+function bprintf(b, fmt) {return kbprintf(function(m7) {return 0;}, b, fmt);}
 
 function ifprintf(oc, fmt) {
-  return ikfprintf(function(m5) {return 0;}, oc, fmt);
+  return ikfprintf(function(m6) {return 0;}, oc, fmt);
 }
 
 function printf(fmt) {return fprintf(Pervasives[27], fmt);}

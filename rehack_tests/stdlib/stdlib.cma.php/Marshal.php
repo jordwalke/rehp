@@ -85,16 +85,16 @@ final class Marshal {
     $from_string = function($buff, $ofs) use ($Bytes,$caml_call1,$from_bytes) {
       return $from_bytes($caml_call1($Bytes[43], $buff), $ofs);
     };
-    $cP = function($cT) use ($runtime) {
-      return $runtime["caml_input_value"]($cT);
+    $cQ = function($cU) use ($runtime) {
+      return $runtime["caml_input_value"]($cU);
     };
     $Marshal = Vector{
       0,
-      function($cS, $cR, $cQ) use ($runtime) {
-        return $runtime["caml_output_value"]($cS, $cR, $cQ);
+      function($cT, $cS, $cR) use ($runtime) {
+        return $runtime["caml_output_value"]($cT, $cS, $cR);
       },
       $to_buffer,
-      $cP,
+      $cQ,
       $from_bytes,
       $from_string,
       $header_size,

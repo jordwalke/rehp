@@ -46,13 +46,13 @@ final class Queue {
     $clear = function($q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
     $add = function($x, $q) {
       $cell = Vector{0, $x, 0};
-      $g0 = $q[3];
-      return $g0
+      $g1 = $q[3];
+      return $g1
         ? ($q[1] = $q[1] + 1 | 0) || true
-         ? ($g0[2] = $cell) || true
+         ? ($g1[2] = $cell) || true
           ? ($q[3] = $cell) || true ? 0 : (0)
           : (($q[3] = $cell) || true ? 0 : (0))
-         : (($g0[2] = $cell) || true
+         : (($g1[2] = $cell) || true
           ? ($q[3] = $cell) || true ? 0 : (0)
           : (($q[3] = $cell) || true ? 0 : (0)))
         : (($q[1] = 1) || true
@@ -64,20 +64,20 @@ final class Queue {
           : (($q[3] = $cell) || true ? 0 : (0))));
     };
     $peek = function($q) use ($Empty,$runtime) {
-      $gZ = $q[2];
-      if ($gZ) {$content = $gZ[1];return $content;}
+      $g0 = $q[2];
+      if ($g0) {$content = $g0[1];return $content;}
       throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
     $take = function($q) use ($Empty,$clear,$runtime) {
-      $gW = $q[2];
-      if ($gW) {
-        $gX = $gW[1];
-        $gY = $gW[2];
-        return $gY
+      $gX = $q[2];
+      if ($gX) {
+        $gY = $gX[1];
+        $gZ = $gX[2];
+        return $gZ
           ? ($q[1] = $q[1] + -1 | 0) || true
-           ? ($q[2] = $gY) || true ? $gX : ($gX)
-           : (($q[2] = $gY) || true ? $gX : ($gX))
-          : ($clear($q) || true ? $gX : ($gX));
+           ? ($q[2] = $gZ) || true ? $gY : ($gY)
+           : (($q[2] = $gZ) || true ? $gY : ($gY))
+          : ($clear($q) || true ? $gY : ($gY));
       }
       throw $runtime["caml_wrap_thrown_exception"]($Empty);
     };
@@ -139,15 +139,15 @@ final class Queue {
       return $fold($f, $accu, $q[2]);
     };
     $transfer = function($q1, $q2) use ($clear) {
-      $gU = 0 < $q1[1] ? 1 : (0);
-      if ($gU) {
-        $gV = $q2[3];
-        return $gV
+      $gV = 0 < $q1[1] ? 1 : (0);
+      if ($gV) {
+        $gW = $q2[3];
+        return $gW
           ? ($q2[1] = $q2[1] + $q1[1] | 0) || true
-           ? ($gV[2] = $q1[2]) || true
+           ? ($gW[2] = $q1[2]) || true
             ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
             : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1)))
-           : (($gV[2] = $q1[2]) || true
+           : (($gW[2] = $q1[2]) || true
             ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
             : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))))
           : (($q2[1] = $q1[1]) || true
@@ -158,7 +158,7 @@ final class Queue {
             ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
             : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1)))));
       }
-      return $gU;
+      return $gV;
     };
     $Queue = Vector{
       0,

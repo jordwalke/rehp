@@ -75,8 +75,8 @@ final class Lexing {
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
-        $e4 = $buf[12];
-        $buf[12] = Vector{0, $e4[1], $e4[2], $e4[3], $buf[4] + $buf[6] | 0};
+        $e5 = $buf[12];
+        $buf[12] = Vector{0, $e5[1], $e5[2], $e5[3], $buf[4] + $buf[6] | 0};
       }
       return $result;
     };
@@ -84,8 +84,8 @@ final class Lexing {
       $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
-        $e3 = $buf[12];
-        $buf[12] = Vector{0, $e3[1], $e3[2], $e3[3], $buf[4] + $buf[6] | 0};
+        $e4 = $buf[12];
+        $buf[12] = Vector{0, $e4[1], $e4[2], $e4[3], $buf[4] + $buf[6] | 0};
       }
       return $result;
     };
@@ -141,15 +141,15 @@ final class Lexing {
         $lexbuf[7] = $lexbuf[7] - $s | 0;
         $lexbuf[3] = $lexbuf[3] - $s | 0;
         $t = $lexbuf[10];
-        $e1 = $t->count() - 1 + -1 | 0;
-        $e0 = 0;
-        if (! ($e1 < 0)) {
-          $i = $e0;
+        $e2 = $t->count() - 1 + -1 | 0;
+        $e1 = 0;
+        if (! ($e2 < 0)) {
+          $i = $e1;
           for (;;) {
             $v = $caml_check_bound($t, $i)[$i + 1];
             if (0 <= $v) {$caml_check_bound($t, $i)[$i + 1] = $v - $s | 0;}
-            $e2 = $i + 1 | 0;
-            if ($e1 !== $i) {$i = $e2;continue;}
+            $e3 = $i + 1 | 0;
+            if ($e2 !== $i) {$i = $e3;continue;}
             break;
           }
         }
@@ -159,21 +159,22 @@ final class Lexing {
       return 0;
     };
     $from_function = function($f) use ($caml_create_bytes,$lex_refill,$zero_pos) {
-      $eP = Vector{0};
-      $eQ = 0;
+      $eQ = Vector{0};
       $eR = 0;
       $eS = 0;
       $eT = 0;
       $eU = 0;
       $eV = 0;
       $eW = 0;
-      $eX = $caml_create_bytes(1024);
-      $eY = $caml_create_bytes(512);
+      $eX = 0;
+      $eY = $caml_create_bytes(1024);
+      $eZ = $caml_create_bytes(512);
       return Vector{
         0,
-        function($eZ) use ($eY,$f,$lex_refill) {
-          return $lex_refill($f, $eY, $eZ);
+        function($e0) use ($eZ,$f,$lex_refill) {
+          return $lex_refill($f, $eZ, $e0);
         },
+        $eY,
         $eX,
         $eW,
         $eV,
@@ -182,7 +183,6 @@ final class Lexing {
         $eS,
         $eR,
         $eQ,
-        $eP,
         $zero_pos,
         $zero_pos
       };
@@ -195,18 +195,19 @@ final class Lexing {
       );
     };
     $from_string = function($s) use ($Bytes,$caml_call1,$runtime,$zero_pos) {
-      $eG = Vector{0};
-      $eH = 1;
-      $eI = 0;
+      $eH = Vector{0};
+      $eI = 1;
       $eJ = 0;
       $eK = 0;
       $eL = 0;
       $eM = 0;
-      $eN = $runtime["caml_ml_string_length"]($s);
-      $eO = $caml_call1($Bytes[5], $s);
+      $eN = 0;
+      $eO = $runtime["caml_ml_string_length"]($s);
+      $eP = $caml_call1($Bytes[5], $s);
       return Vector{
         0,
         function($lexbuf) {$lexbuf[9] = 1;return 0;},
+        $eP,
         $eO,
         $eN,
         $eM,
@@ -215,7 +216,6 @@ final class Lexing {
         $eJ,
         $eI,
         $eH,
-        $eG,
         $zero_pos,
         $zero_pos
       };
@@ -256,8 +256,8 @@ final class Lexing {
     $flush_input = function($lb) {
       $lb[6] = 0;
       $lb[4] = 0;
-      $eF = $lb[12];
-      $lb[12] = Vector{0, $eF[1], $eF[2], $eF[3], 0};
+      $eG = $lb[12];
+      $lb[12] = Vector{0, $eG[1], $eG[2], $eG[3], 0};
       $lb[3] = 0;
       return 0;
     };

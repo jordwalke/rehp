@@ -51,8 +51,8 @@ var Assert_failure = global_data["Assert_failure"];
 var CamlinternalLazy = global_data["CamlinternalLazy"];
 var Random = global_data["Random"];
 var String = global_data["String_"];
-var qg = [0,0];
-var qf = [0,caml_new_string("hashtbl.ml"),108,23];
+var qh = [0,0];
+var qg = [0,caml_new_string("hashtbl.ml"),108,23];
 
 function hash(x) {return caml_hash(10, 100, 0, x);}
 
@@ -61,28 +61,28 @@ function hash_param(n1, n2, x) {return caml_hash(n1, n2, 0, x);}
 function seeded_hash(seed, x) {return caml_hash(10, 100, seed, x);}
 
 function ongoing_traversal(h) {
-  var rk = h.length - 1 < 4 ? 1 : 0;
-  var rl = rk || (h[4] < 0 ? 1 : 0);
-  return rl;
+  var rl = h.length - 1 < 4 ? 1 : 0;
+  var rm = rl || (h[4] < 0 ? 1 : 0);
+  return rm;
 }
 
 function flip_ongoing_traversal(h) {h[4] = - h[4] | 0;return 0;}
 
-try {var qi = caml_sys_getenv(cst_OCAMLRUNPARAM);var params = qi;}
-catch(ri) {
-  ri = caml_wrap_exception(ri);
-  if (ri !== Not_found) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](ri);
+try {var qj = caml_sys_getenv(cst_OCAMLRUNPARAM);var params = qj;}
+catch(rj) {
+  rj = caml_wrap_exception(rj);
+  if (rj !== Not_found) {
+    throw runtime["caml_wrap_thrown_exception_reraise"](rj);
   }
-  try {var qh = caml_sys_getenv(cst_CAMLRUNPARAM);var qe = qh;}
-  catch(rj) {
-    rj = caml_wrap_exception(rj);
-    if (rj !== Not_found) {
-      throw runtime["caml_wrap_thrown_exception_reraise"](rj);
+  try {var qi = caml_sys_getenv(cst_CAMLRUNPARAM);var qf = qi;}
+  catch(rk) {
+    rk = caml_wrap_exception(rk);
+    if (rk !== Not_found) {
+      throw runtime["caml_wrap_thrown_exception_reraise"](rk);
     }
-    var qe = cst;
+    var qf = cst;
   }
-  var params = qe;
+  var params = qf;
 }
 
 var randomized_default = caml_call2(String[22], params, 82);
@@ -92,7 +92,7 @@ function randomize(param) {randomized[1] = 1;return 0;}
 
 function is_randomized(param) {return randomized[1];}
 
-var prng = [246,function(rh) {return caml_call1(Random[11][2], 0);}];
+var prng = [246,function(ri) {return caml_call1(Random[11][2], 0);}];
 
 function power_2_above(x, n) {
   var x__0 = x;
@@ -113,11 +113,11 @@ function create(opt, initial_size) {
   else var random = randomized[1];
   var s = power_2_above(16, initial_size);
   if (random) {
-    var rf = runtime["caml_obj_tag"](prng);
-    var rg = 250 === rf ?
+    var rg = runtime["caml_obj_tag"](prng);
+    var rh = 250 === rg ?
       prng[1] :
-      246 === rf ? caml_call1(CamlinternalLazy[2], prng) : prng;
-    var seed = caml_call1(Random[11][4], rg);
+      246 === rg ? caml_call1(CamlinternalLazy[2], prng) : prng;
+    var seed = caml_call1(Random[11][4], rh);
   }
   else var seed = 0;
   return [0,0,caml_make_vect(s, 0),seed,s];
@@ -126,14 +126,14 @@ function create(opt, initial_size) {
 function clear(h) {
   h[1] = 0;
   var len = h[2].length - 1;
-  var rd = len + -1 | 0;
-  var rc = 0;
-  if (! (rd < 0)) {
-    var i = rc;
+  var re = len + -1 | 0;
+  var rd = 0;
+  if (! (re < 0)) {
+    var i = rd;
     for (; ; ) {
       caml_check_bound(h[2], i)[i + 1] = 0;
-      var re = i + 1 | 0;
-      if (rd !== i) {var i = re;continue;}
+      var rf = i + 1 | 0;
+      if (re !== i) {var i = rf;continue;}
       break;
     }
   }
@@ -172,7 +172,7 @@ function copy_bucketlist(param) {
             var param__0 = next;
             continue;
           }
-          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,qf]);
+          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,qg]);
         }
         return 0;
       }
@@ -185,10 +185,10 @@ function copy_bucketlist(param) {
 }
 
 function copy(h) {
-  var q_ = h[4];
-  var ra = h[3];
-  var rb = caml_call2(Array[15], copy_bucketlist, h[2]);
-  return [0,h[1],rb,ra,q_];
+  var ra = h[4];
+  var rb = h[3];
+  var rc = caml_call2(Array[15], copy_bucketlist, h[2]);
+  return [0,h[1],rc,rb,ra];
 }
 
 function length(h) {return h[1];}
@@ -197,8 +197,8 @@ function resize(indexfun, h) {
   var odata = h[2];
   var osize = odata.length - 1;
   var nsize = osize * 2 | 0;
-  var q1 = nsize < Sys[14] ? 1 : 0;
-  if (q1) {
+  var q2 = nsize < Sys[14] ? 1 : 0;
+  if (q2) {
     var ndata = caml_make_vect(nsize, 0);
     var ndata_tail = caml_make_vect(nsize, 0);
     var inplace = 1 - ongoing_traversal(h);
@@ -223,37 +223,37 @@ function resize(indexfun, h) {
         return 0;
       }
     };
-    var q3 = osize + -1 | 0;
-    var q2 = 0;
-    if (! (q3 < 0)) {
-      var i__0 = q2;
+    var q4 = osize + -1 | 0;
+    var q3 = 0;
+    if (! (q4 < 0)) {
+      var i__0 = q3;
       for (; ; ) {
         insert_bucket(caml_check_bound(odata, i__0)[i__0 + 1]);
-        var q9 = i__0 + 1 | 0;
-        if (q3 !== i__0) {var i__0 = q9;continue;}
+        var q_ = i__0 + 1 | 0;
+        if (q4 !== i__0) {var i__0 = q_;continue;}
         break;
       }
     }
     if (inplace) {
-      var q5 = nsize + -1 | 0;
-      var q4 = 0;
-      if (! (q5 < 0)) {
-        var i = q4;
+      var q6 = nsize + -1 | 0;
+      var q5 = 0;
+      if (! (q6 < 0)) {
+        var i = q5;
         for (; ; ) {
           var match = caml_check_bound(ndata_tail, i)[i + 1];
           if (match) {match[3] = 0;}
-          var q8 = i + 1 | 0;
-          if (q5 !== i) {var i = q8;continue;}
+          var q9 = i + 1 | 0;
+          if (q6 !== i) {var i = q9;continue;}
           break;
         }
       }
-      var q6 = 0;
+      var q7 = 0;
     }
-    else var q6 = inplace;
-    var q7 = q6;
+    else var q7 = inplace;
+    var q8 = q7;
   }
-  else var q7 = q1;
-  return q7;
+  else var q8 = q2;
+  return q8;
 }
 
 function key_index(h, key) {
@@ -270,8 +270,8 @@ function add(h, key, data) {
   var bucket = [0,key,data,caml_check_bound(h[2], i)[i + 1]];
   caml_check_bound(h[2], i)[i + 1] = bucket;
   h[1] = h[1] + 1 | 0;
-  var q0 = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-  return q0 ? resize(key_index, h) : q0;
+  var q1 = h[2].length - 1 << 1 < h[1] ? 1 : 0;
+  return q1 ? resize(key_index, h) : q1;
 }
 
 function remove_bucket(h, i, key, prec, c) {
@@ -316,8 +316,8 @@ function find_rec(key, param) {
 }
 
 function find(h, key) {
-  var qZ = key_index(h, key);
-  var match = caml_check_bound(h[2], qZ)[qZ + 1];
+  var q0 = key_index(h, key);
+  var match = caml_check_bound(h[2], q0)[q0 + 1];
   if (match) {
     var k1 = match[1];
     var d1 = match[2];
@@ -357,8 +357,8 @@ function find_rec_opt(key, param) {
 }
 
 function find_opt(h, key) {
-  var qY = key_index(h, key);
-  var match = caml_check_bound(h[2], qY)[qY + 1];
+  var qZ = key_index(h, key);
+  var match = caml_check_bound(h[2], qZ)[qZ + 1];
   if (match) {
     var k1 = match[1];
     var d1 = match[2];
@@ -399,8 +399,8 @@ function find_all(h, key) {
       return 0;
     }
   }
-  var qX = key_index(h, key);
-  return find_in_bucket(caml_check_bound(h[2], qX)[qX + 1]);
+  var qY = key_index(h, key);
+  return find_in_bucket(caml_check_bound(h[2], qY)[qY + 1]);
 }
 
 function replace_bucket(key, data, param) {
@@ -424,16 +424,16 @@ function replace_bucket(key, data, param) {
 function replace(h, key, data) {
   var i = key_index(h, key);
   var l = caml_check_bound(h[2], i)[i + 1];
-  var qU = replace_bucket(key, data, l);
-  if (qU) {
+  var qV = replace_bucket(key, data, l);
+  if (qV) {
     caml_check_bound(h[2], i)[i + 1] = [0,key,data,l];
     h[1] = h[1] + 1 | 0;
-    var qV = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-    if (qV) {return resize(key_index, h);}
-    var qW = qV;
+    var qW = h[2].length - 1 << 1 < h[1] ? 1 : 0;
+    if (qW) {return resize(key_index, h);}
+    var qX = qW;
   }
-  else var qW = qU;
-  return qW;
+  else var qX = qV;
+  return qX;
 }
 
 function mem(h, key) {
@@ -443,16 +443,16 @@ function mem(h, key) {
       if (param__0) {
         var k = param__0[1];
         var next = param__0[3];
-        var qT = 0 === caml_compare(k, key) ? 1 : 0;
-        if (qT) {return qT;}
+        var qU = 0 === caml_compare(k, key) ? 1 : 0;
+        if (qU) {return qU;}
         var param__0 = next;
         continue;
       }
       return 0;
     }
   }
-  var qS = key_index(h, key);
-  return mem_in_bucket(caml_check_bound(h[2], qS)[qS + 1]);
+  var qT = key_index(h, key);
+  return mem_in_bucket(caml_check_bound(h[2], qT)[qT + 1]);
 }
 
 function iter(f, h) {
@@ -474,20 +474,20 @@ function iter(f, h) {
   if (1 - old_trav) {flip_ongoing_traversal(h);}
   try {
     var d = h[2];
-    var qO = d.length - 1 + -1 | 0;
-    var qN = 0;
-    if (! (qO < 0)) {
-      var i = qN;
+    var qP = d.length - 1 + -1 | 0;
+    var qO = 0;
+    if (! (qP < 0)) {
+      var i = qO;
       for (; ; ) {
         do_bucket(caml_check_bound(d, i)[i + 1]);
-        var qR = i + 1 | 0;
-        if (qO !== i) {var i = qR;continue;}
+        var qS = i + 1 | 0;
+        if (qP !== i) {var i = qS;continue;}
         break;
       }
     }
-    var qP = 1 - old_trav;
-    var qQ = qP ? flip_ongoing_traversal(h) : qP;
-    return qQ;
+    var qQ = 1 - old_trav;
+    var qR = qQ ? flip_ongoing_traversal(h) : qQ;
+    return qR;
   }
   catch(exn) {
     exn = caml_wrap_exception(exn);
@@ -528,20 +528,20 @@ function filter_map_inplace(f, h) {
   var old_trav = ongoing_traversal(h);
   if (1 - old_trav) {flip_ongoing_traversal(h);}
   try {
-    var qK = d.length - 1 + -1 | 0;
-    var qJ = 0;
-    if (! (qK < 0)) {
-      var i = qJ;
+    var qL = d.length - 1 + -1 | 0;
+    var qK = 0;
+    if (! (qL < 0)) {
+      var i = qK;
       for (; ; ) {
         filter_map_inplace_bucket(f, h, i, 0, caml_check_bound(h[2], i)[i + 1]
         );
-        var qM = i + 1 | 0;
-        if (qK !== i) {var i = qM;continue;}
+        var qN = i + 1 | 0;
+        if (qL !== i) {var i = qN;continue;}
         break;
       }
     }
-    var qL = 0;
-    return qL;
+    var qM = 0;
+    return qM;
   }
   catch(exn) {
     exn = caml_wrap_exception(exn);
@@ -573,21 +573,21 @@ function fold(f, h, init) {
   try {
     var d = h[2];
     var accu = [0,init];
-    var qF = d.length - 1 + -1 | 0;
-    var qE = 0;
-    if (! (qF < 0)) {
-      var i = qE;
+    var qG = d.length - 1 + -1 | 0;
+    var qF = 0;
+    if (! (qG < 0)) {
+      var i = qF;
       for (; ; ) {
-        var qH = accu[1];
-        accu[1] = do_bucket(caml_check_bound(d, i)[i + 1], qH);
-        var qI = i + 1 | 0;
-        if (qF !== i) {var i = qI;continue;}
+        var qI = accu[1];
+        accu[1] = do_bucket(caml_check_bound(d, i)[i + 1], qI);
+        var qJ = i + 1 | 0;
+        if (qG !== i) {var i = qJ;continue;}
         break;
       }
     }
     if (1 - old_trav) {flip_ongoing_traversal(h);}
-    var qG = accu[1];
-    return qG;
+    var qH = accu[1];
+    return qH;
   }
   catch(exn) {
     exn = caml_wrap_exception(exn);
@@ -613,35 +613,35 @@ function bucket_length(accu, param) {
 }
 
 function stats(h) {
-  var qy = h[2];
-  var qz = 0;
-  function qA(m, b) {
-    var qD = bucket_length(0, b);
-    return caml_call2(Pervasives[5], m, qD);
+  var qz = h[2];
+  var qA = 0;
+  function qB(m, b) {
+    var qE = bucket_length(0, b);
+    return caml_call2(Pervasives[5], m, qE);
   }
-  var mbl = caml_call3(Array[17], qA, qz, qy);
+  var mbl = caml_call3(Array[17], qB, qA, qz);
   var histo = caml_make_vect(mbl + 1 | 0, 0);
-  var qB = h[2];
-  function qC(b) {
+  var qC = h[2];
+  function qD(b) {
     var l = bucket_length(0, b);
     return histo[l + 1] = caml_check_bound(histo, l)[l + 1] + 1 | 0;
   }
-  caml_call2(Array[13], qC, qB);
+  caml_call2(Array[13], qD, qC);
   return [0,h[1],h[2].length - 1,mbl,histo];
 }
 
 function MakeSeeded(H) {
   function key_index(h, key) {
-    var qx = h[2].length - 1 + -1 | 0;
-    return caml_call2(H[2], h[3], key) & qx;
+    var qy = h[2].length - 1 + -1 | 0;
+    return caml_call2(H[2], h[3], key) & qy;
   }
   function add(h, key, data) {
     var i = key_index(h, key);
     var bucket = [0,key,data,caml_check_bound(h[2], i)[i + 1]];
     caml_check_bound(h[2], i)[i + 1] = bucket;
     h[1] = h[1] + 1 | 0;
-    var qw = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-    return qw ? resize(key_index, h) : qw;
+    var qx = h[2].length - 1 << 1 < h[1] ? 1 : 0;
+    return qx ? resize(key_index, h) : qx;
   }
   function remove_bucket(h, i, key, prec, c) {
     var prec__0 = prec;
@@ -682,8 +682,8 @@ function MakeSeeded(H) {
     }
   }
   function find(h, key) {
-    var qv = key_index(h, key);
-    var match = caml_check_bound(h[2], qv)[qv + 1];
+    var qw = key_index(h, key);
+    var match = caml_check_bound(h[2], qw)[qw + 1];
     if (match) {
       var k1 = match[1];
       var d1 = match[2];
@@ -721,8 +721,8 @@ function MakeSeeded(H) {
     }
   }
   function find_opt(h, key) {
-    var qu = key_index(h, key);
-    var match = caml_check_bound(h[2], qu)[qu + 1];
+    var qv = key_index(h, key);
+    var match = caml_check_bound(h[2], qv)[qv + 1];
     if (match) {
       var k1 = match[1];
       var d1 = match[2];
@@ -760,8 +760,8 @@ function MakeSeeded(H) {
         return 0;
       }
     }
-    var qt = key_index(h, key);
-    return find_in_bucket(caml_check_bound(h[2], qt)[qt + 1]);
+    var qu = key_index(h, key);
+    return find_in_bucket(caml_check_bound(h[2], qu)[qu + 1]);
   }
   function replace_bucket(key, data, param) {
     var param__0 = param;
@@ -783,16 +783,16 @@ function MakeSeeded(H) {
   function replace(h, key, data) {
     var i = key_index(h, key);
     var l = caml_check_bound(h[2], i)[i + 1];
-    var qq = replace_bucket(key, data, l);
-    if (qq) {
+    var qr = replace_bucket(key, data, l);
+    if (qr) {
       caml_check_bound(h[2], i)[i + 1] = [0,key,data,l];
       h[1] = h[1] + 1 | 0;
-      var qr = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-      if (qr) {return resize(key_index, h);}
-      var qs = qr;
+      var qs = h[2].length - 1 << 1 < h[1] ? 1 : 0;
+      if (qs) {return resize(key_index, h);}
+      var qt = qs;
     }
-    else var qs = qq;
-    return qs;
+    else var qt = qr;
+    return qt;
   }
   function mem(h, key) {
     function mem_in_bucket(param) {
@@ -801,16 +801,16 @@ function MakeSeeded(H) {
         if (param__0) {
           var k = param__0[1];
           var next = param__0[3];
-          var qp = caml_call2(H[1], k, key);
-          if (qp) {return qp;}
+          var qq = caml_call2(H[1], k, key);
+          if (qq) {return qq;}
           var param__0 = next;
           continue;
         }
         return 0;
       }
     }
-    var qo = key_index(h, key);
-    return mem_in_bucket(caml_check_bound(h[2], qo)[qo + 1]);
+    var qp = key_index(h, key);
+    return mem_in_bucket(caml_check_bound(h[2], qp)[qp + 1]);
   }
   return [
     0,
@@ -852,8 +852,8 @@ function Make(H) {
   var fold = include[14];
   var length = include[15];
   var stats = include[16];
-  var qn = include[1];
-  function create(sz) {return caml_call2(qn, qg, sz);}
+  var qo = include[1];
+  function create(sz) {return caml_call2(qo, qh, sz);}
   return [
     0,
     create,
@@ -900,7 +900,7 @@ var Hashtbl = [
   hash,
   seeded_hash,
   hash_param,
-  function(qm, ql, qk, qj) {return caml_hash(qm, ql, qk, qj);}
+  function(qn, qm, ql, qk) {return caml_hash(qn, qm, ql, qk);}
 ];
 
 runtime["caml_register_global"](13, Hashtbl, "Hashtbl");

@@ -39,33 +39,33 @@ final class Int64 {
     $min_int = Vector{255, 0, 0, 32768};
     $max_int = Vector{255, 16777215, 16777215, 32767};
     $Failure = $global_data["Failure"];
-    $eA = Vector{255, 16777215, 16777215, 65535};
-    $ez = Vector{255, 0, 0, 0};
+    $eB = Vector{255, 16777215, 16777215, 65535};
+    $eA = Vector{255, 0, 0, 0};
+    $ez = Vector{255, 1, 0, 0};
     $ey = Vector{255, 1, 0, 0};
-    $ex = Vector{255, 1, 0, 0};
-    $succ = function($n) use ($ex,$runtime) {
-      return $runtime["caml_int64_add"]($n, $ex);
+    $succ = function($n) use ($ey,$runtime) {
+      return $runtime["caml_int64_add"]($n, $ey);
     };
-    $pred = function($n) use ($ey,$runtime) {
-      return $runtime["caml_int64_sub"]($n, $ey);
+    $pred = function($n) use ($ez,$runtime) {
+      return $runtime["caml_int64_sub"]($n, $ez);
     };
-    $abs = function($n) use ($ez,$runtime) {
-      return $runtime["caml_greaterequal"]($n, $ez)
+    $abs = function($n) use ($eA,$runtime) {
+      return $runtime["caml_greaterequal"]($n, $eA)
         ? $n
         : ($runtime["caml_int64_neg"]($n));
     };
-    $lognot = function($n) use ($eA,$runtime) {
-      return $runtime["caml_int64_xor"]($n, $eA);
+    $lognot = function($n) use ($eB,$runtime) {
+      return $runtime["caml_int64_xor"]($n, $eB);
     };
     $to_string = function($n) use ($cst_d,$runtime) {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
     $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$eB = Vector{0, $runtime["caml_int64_of_string"]($s)};return $eB;}
-      catch(\Throwable $eC) {
-        $eC = $caml_wrap_exception($eC);
-        if ($eC[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($eC);
+      try {$eC = Vector{0, $runtime["caml_int64_of_string"]($s)};return $eC;}
+      catch(\Throwable $eD) {
+        $eD = $caml_wrap_exception($eD);
+        if ($eD[1] === $Failure) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($eD);
       }
     };
     $compare = function($x, $y) use ($runtime) {

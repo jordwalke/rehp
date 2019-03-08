@@ -142,24 +142,24 @@ final class Parsing {
             // FALLTHROUGH
             case 4:
               try {
-                $fg = $env[13];
-                $fh = $caml_call1(
-                  $caml_check_bound($tables[1], $fg)[$fg + 1],
+                $fh = $env[13];
+                $fi = $caml_call1(
+                  $caml_check_bound($tables[1], $fh)[$fh + 1],
                   $env
                 );
-                $fi = 4;
-                $cmd__1 = $fi;
-                $arg__2 = $fh;
+                $fj = 4;
+                $cmd__1 = $fj;
+                $arg__2 = $fi;
               }
-              catch(\Throwable $fj) {
-                $fj = $caml_wrap_exception($fj);
-                if ($fj !== $Parse_error) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($fj);
+              catch(\Throwable $fk) {
+                $fk = $caml_wrap_exception($fk);
+                if ($fk !== $Parse_error) {
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($fk);
                 }
-                $fe = 0;
-                $ff = 5;
-                $cmd__1 = $ff;
-                $arg__2 = $fe;
+                $ff = 0;
+                $fg = 5;
+                $cmd__1 = $fg;
+                $arg__2 = $ff;
               }
               $cmd__0 = $cmd__1;
               $arg__0 = $arg__2;
@@ -183,7 +183,7 @@ final class Parsing {
       $env[6] = $env[14] + 1 | 0;
       $env[7] = $start;
       $env[10] = $lexbuf[12];
-      try {$fc = $loop(0, 0);return $fc;}
+      try {$fd = $loop(0, 0);return $fd;}
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         $curr_char = $env[7];
@@ -198,8 +198,8 @@ final class Parsing {
         $current_lookahead_fun[1] =
           function($tok) use ($Obj,$caml_call1,$caml_check_bound,$curr_char,$runtime,$tables) {
             if ($caml_call1($Obj[1], $tok)) {
-              $fd = $runtime["caml_obj_tag"]($tok);
-              return $caml_check_bound($tables[3], $fd)[$fd + 1] === $curr_char
+              $fe = $runtime["caml_obj_tag"]($tok);
+              return $caml_check_bound($tables[3], $fe)[$fe + 1] === $curr_char
                 ? 1
                 : (0);
             }
@@ -211,40 +211,40 @@ final class Parsing {
       }
     };
     $peek_val = function($env, $n) use ($caml_check_bound) {
-      $fb = $env[11] - $n | 0;
-      return $caml_check_bound($env[2], $fb)[$fb + 1];
+      $fc = $env[11] - $n | 0;
+      return $caml_check_bound($env[2], $fc)[$fc + 1];
     };
     $symbol_start_pos = function($param) use ($caml_check_bound,$env,$runtime) {
       $loop = function($i) use ($caml_check_bound,$env,$runtime) {
         $i__0 = $i;
         for (;;) {
           if (0 < $i__0) {
-            $e9 = ($env[11] - $i__0 | 0) + 1 | 0;
-            $st = $caml_check_bound($env[3], $e9)[$e9 + 1];
             $e_ = ($env[11] - $i__0 | 0) + 1 | 0;
-            $en = $caml_check_bound($env[4], $e_)[$e_ + 1];
+            $st = $caml_check_bound($env[3], $e_)[$e_ + 1];
+            $fa = ($env[11] - $i__0 | 0) + 1 | 0;
+            $en = $caml_check_bound($env[4], $fa)[$fa + 1];
             if ($runtime["caml_notequal"]($st, $en)) {return $st;}
             $i__1 = $i__0 + -1 | 0;
             $i__0 = $i__1;
             continue;
           }
-          $fa = $env[11];
-          return $caml_check_bound($env[4], $fa)[$fa + 1];
+          $fb = $env[11];
+          return $caml_check_bound($env[4], $fb)[$fb + 1];
         }
       };
       return $loop($env[12]);
     };
     $symbol_end_pos = function($param) use ($caml_check_bound,$env) {
-      $e8 = $env[11];
-      return $caml_check_bound($env[4], $e8)[$e8 + 1];
+      $e9 = $env[11];
+      return $caml_check_bound($env[4], $e9)[$e9 + 1];
     };
     $rhs_start_pos = function($n) use ($caml_check_bound,$env) {
-      $e7 = $env[11] - ($env[12] - $n | 0) | 0;
-      return $caml_check_bound($env[3], $e7)[$e7 + 1];
+      $e8 = $env[11] - ($env[12] - $n | 0) | 0;
+      return $caml_check_bound($env[3], $e8)[$e8 + 1];
     };
     $rhs_end_pos = function($n) use ($caml_check_bound,$env) {
-      $e6 = $env[11] - ($env[12] - $n | 0) | 0;
-      return $caml_check_bound($env[4], $e6)[$e6 + 1];
+      $e7 = $env[11] - ($env[12] - $n | 0) | 0;
+      return $caml_check_bound($env[4], $e7)[$e7 + 1];
     };
     $symbol_start = function($param) use ($symbol_start_pos) {
       return $symbol_start_pos(0)[4];
@@ -272,8 +272,8 @@ final class Parsing {
       $rhs_end_pos,
       $clear_parser,
       $Parse_error,
-      function($e5) use ($runtime) {
-        return $runtime["caml_set_parser_trace"]($e5);
+      function($e6) use ($runtime) {
+        return $runtime["caml_set_parser_trace"]($e6);
       },
       $YYexit,
       $yyparse,

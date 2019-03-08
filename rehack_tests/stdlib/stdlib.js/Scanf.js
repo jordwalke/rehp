@@ -113,12 +113,12 @@ var Invalid_argument = global_data["Invalid_argument"];
 var Printf = global_data["Printf"];
 var List = global_data["List_"];
 var Not_found = global_data["Not_found"];
-var v9 = [0,91];
-var v8 = [0,123];
-var v_ = [0,caml_new_string("scanf.ml"),1455,13];
-var wa = [0,[3,0,[10,0]],caml_new_string("%S%!")];
-var v7 = [0,37,caml_new_string("")];
-var v6 = [
+var v_ = [0,91];
+var v9 = [0,123];
+var wa = [0,caml_new_string("scanf.ml"),1455,13];
+var wb = [0,[3,0,[10,0]],caml_new_string("%S%!")];
+var v8 = [0,37,caml_new_string("")];
+var v7 = [
   0,
   [
     11,
@@ -127,7 +127,7 @@ var v6 = [
   ],
   caml_new_string("scanf: bad input at char number %i: %s")
 ];
-var v5 = [
+var v6 = [
   0,
   [
     11,
@@ -136,17 +136,17 @@ var v5 = [
   ],
   caml_new_string("the character %C cannot start a boolean")
 ];
-var v4 = [
+var v5 = [
   0,
   [11,caml_new_string("bad character hexadecimal encoding \\"),[0,[0,0]]],
   caml_new_string("bad character hexadecimal encoding \\%c%c")
 ];
-var v3 = [
+var v4 = [
   0,
   [11,caml_new_string("bad character decimal encoding \\"),[0,[0,[0,0]]]],
   caml_new_string("bad character decimal encoding \\%c%c%c")
 ];
-var v2 = [
+var v3 = [
   0,
   [
     11,
@@ -162,7 +162,7 @@ var v2 = [
   ],
   caml_new_string("character %C is not a valid %s digit")
 ];
-var v1 = [
+var v2 = [
   0,
   [
     11,
@@ -171,13 +171,13 @@ var v1 = [
   ],
   caml_new_string("character %C is not a decimal digit")
 ];
-var v0 = [0,caml_new_string("scanf.ml"),555,9];
-var vZ = [
+var v1 = [0,caml_new_string("scanf.ml"),555,9];
+var v0 = [
   0,
   [11,caml_new_string("invalid boolean '"),[2,0,[12,39,0]]],
   caml_new_string("invalid boolean '%s'")
 ];
-var vY = [
+var vZ = [
   0,
   [
     11,
@@ -186,7 +186,7 @@ var vY = [
   ],
   caml_new_string("looking for %C, found %C")
 ];
-var vX = [
+var vY = [
   0,
   [
     11,
@@ -207,7 +207,7 @@ var vX = [
     "scanning of %s failed: premature end of file occurred before end of token"
   )
 ];
-var vW = [
+var vX = [
   0,
   [
     11,
@@ -228,7 +228,7 @@ var vW = [
     "scanning of %s failed: the specified length was too short for token"
   )
 ];
-var vV = [
+var vW = [
   0,
   [11,caml_new_string("illegal escape character "),[1,0]],
   caml_new_string("illegal escape character %C")
@@ -244,15 +244,15 @@ function next_char(ib) {
     if (10 === c) {ib[5] = ib[5] + 1 | 0;}
     return c;
   }
-  catch(yd) {
-    yd = caml_wrap_exception(yd);
-    if (yd === End_of_file) {
+  catch(ye) {
+    ye = caml_wrap_exception(ye);
+    if (ye === End_of_file) {
       ib[2] = null_char;
       ib[3] = 0;
       ib[1] = 1;
       return null_char;
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](yd);
+    throw runtime["caml_wrap_thrown_exception_reraise"](ye);
   }
 }
 
@@ -271,13 +271,13 @@ function eof(ib) {return ib[1];}
 function beginning_of_input(ib) {return 0 === ib[4] ? 1 : 0;}
 
 function name_of_input(ib) {
-  var yc = ib[9];
-  if (typeof yc === "number") return 0 === yc ?
+  var yd = ib[9];
+  if (typeof yd === "number") return 0 === yd ?
     cst_unnamed_function :
     cst_unnamed_character_string;
   else {
-    if (0 === yc[0]) {return cst_unnamed_Pervasives_input_channel;}
-    var fname = yc[1];
+    if (0 === yd[0]) {return cst_unnamed_Pervasives_input_channel;}
+    var fname = yd[1];
     return fname;
   }
 }
@@ -340,9 +340,9 @@ function from_string(s) {
   return create(1, next);
 }
 
-var vS = 0;
+var vT = 0;
 
-function from_function(yb) {return create(vS, yb);}
+function from_function(yc) {return create(vT, yc);}
 
 var len = 1024;
 
@@ -371,12 +371,12 @@ function from_ic(scan_close_ic, iname, ic) {
   return create(iname, next);
 }
 
-function from_ic_close_at_end(x_, ya) {
-  return from_ic(scan_close_at_end, x_, ya);
+function from_ic_close_at_end(ya, yb) {
+  return from_ic(scan_close_at_end, ya, yb);
 }
 
-function from_ic_raise_at_end(x8, x9) {
-  return from_ic(scan_raise_at_end, x8, x9);
+function from_ic_raise_at_end(x9, x_) {
+  return from_ic(scan_raise_at_end, x9, x_);
 }
 
 var stdin = from_ic(scan_raise_at_end, [1,cst,Pervasives[26]], Pervasives[26]);
@@ -389,22 +389,22 @@ function open_in_file(open_in, fname) {
   return stdin;
 }
 
-var vT = Pervasives[67];
+var vU = Pervasives[67];
 
-function open_in(x7) {return open_in_file(vT, x7);}
+function open_in(x8) {return open_in_file(vU, x8);}
 
-var vU = Pervasives[68];
+var vV = Pervasives[68];
 
-function open_in_bin(x6) {return open_in_file(vU, x6);}
+function open_in_bin(x7) {return open_in_file(vV, x7);}
 
 function from_channel(ic) {return from_ic_raise_at_end([0,ic], ic);}
 
 function close_in(ib) {
-  var x5 = ib[9];
-  if (typeof x5 === "number") return 0;
+  var x6 = ib[9];
+  if (typeof x6 === "number") return 0;
   else {
-    if (0 === x5[0]) {var ic = x5[1];return caml_call1(Pervasives[81], ic);}
-    var ic__0 = x5[2];
+    if (0 === x6[0]) {var ic = x6[1];return caml_call1(Pervasives[81], ic);}
+    var ic__0 = x6[2];
     return caml_call1(Pervasives[81], ic__0);
   }
 }
@@ -412,19 +412,19 @@ function close_in(ib) {
 var memo = [0,0];
 
 function memo_from_ic(scan_close_ic, ic) {
-  try {var x3 = caml_call2(List[40], ic, memo[1]);return x3;}
-  catch(x4) {
-    x4 = caml_wrap_exception(x4);
-    if (x4 === Not_found) {
+  try {var x4 = caml_call2(List[40], ic, memo[1]);return x4;}
+  catch(x5) {
+    x5 = caml_wrap_exception(x5);
+    if (x5 === Not_found) {
       var ib = from_ic(scan_close_ic, [0,ic], ic);
       memo[1] = [0,[0,ic,ib],memo[1]];
       return ib;
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](x4);
+    throw runtime["caml_wrap_thrown_exception_reraise"](x5);
   }
 }
 
-function memo_from_channel(x2) {return memo_from_ic(scan_raise_at_end, x2);}
+function memo_from_channel(x3) {return memo_from_ic(scan_raise_at_end, x3);}
 
 var Scan_failure = [248,cst_Scanf_Scan_failure,runtime["caml_fresh_oo_id"](0)];
 
@@ -432,14 +432,14 @@ function bad_input(s) {
   throw runtime["caml_wrap_thrown_exception"]([0,Scan_failure,s]);
 }
 
-function bad_input_escape(c) {return bad_input(caml_call2(Printf[4], vV, c));}
+function bad_input_escape(c) {return bad_input(caml_call2(Printf[4], vW, c));}
 
 function bad_token_length(message) {
-  return bad_input(caml_call2(Printf[4], vW, message));
+  return bad_input(caml_call2(Printf[4], vX, message));
 }
 
 function bad_end_of_input(message) {
-  return bad_input(caml_call2(Printf[4], vX, message));
+  return bad_input(caml_call2(Printf[4], vY, message));
 }
 
 function bad_float(param) {
@@ -451,7 +451,7 @@ function bad_hex_float(param) {
 }
 
 function character_mismatch_err(c, ci) {
-  return caml_call3(Printf[4], vY, c, ci);
+  return caml_call3(Printf[4], vZ, c, ci);
 }
 
 function character_mismatch(c, ci) {
@@ -461,16 +461,16 @@ function character_mismatch(c, ci) {
 function skip_whites(ib) {
   for (; ; ) {
     var c = peek_char(ib);
-    var x0 = 1 - eof(ib);
-    if (x0) {
-      var x1 = c + -9 | 0;
-      var switch__0 = 4 < x1 >>> 0 ?
-        23 === x1 ? 1 : 0 :
-        1 < (x1 + -2 | 0) >>> 0 ? 1 : 0;
+    var x1 = 1 - eof(ib);
+    if (x1) {
+      var x2 = c + -9 | 0;
+      var switch__0 = 4 < x2 >>> 0 ?
+        23 === x2 ? 1 : 0 :
+        1 < (x2 + -2 | 0) >>> 0 ? 1 : 0;
       if (switch__0) {invalidate_current_char(ib);continue;}
       return 0;
     }
-    return x0;
+    return x1;
   }
 }
 
@@ -500,7 +500,7 @@ function token_bool(ib) {
   var s = token_string(ib);
   return caml_string_notequal(s, cst_false) ?
     caml_string_notequal(s, cst_true) ?
-     bad_input(caml_call2(Printf[4], vZ, s)) :
+     bad_input(caml_call2(Printf[4], v0, s)) :
      1 :
     0;
 }
@@ -523,26 +523,26 @@ function integer_conversion_of_char(param) {
       case 32:return 5
       }
   }
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,v0]);
+  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,v1]);
 }
 
 function token_int_literal(conv, ib) {
   switch (conv) {
     case 0:
-      var xW = token_string(ib);
-      var tok = caml_call2(Pervasives[16], cst_0b, xW);
+      var xX = token_string(ib);
+      var tok = caml_call2(Pervasives[16], cst_0b, xX);
       break;
     case 3:
-      var xX = token_string(ib);
-      var tok = caml_call2(Pervasives[16], cst_0o, xX);
+      var xY = token_string(ib);
+      var tok = caml_call2(Pervasives[16], cst_0o, xY);
       break;
     case 4:
-      var xY = token_string(ib);
-      var tok = caml_call2(Pervasives[16], cst_0u, xY);
+      var xZ = token_string(ib);
+      var tok = caml_call2(Pervasives[16], cst_0u, xZ);
       break;
     case 5:
-      var xZ = token_string(ib);
-      var tok = caml_call2(Pervasives[16], cst_0x, xZ);
+      var x0 = token_string(ib);
+      var tok = caml_call2(Pervasives[16], cst_0x, x0);
       break;
     default:
       var tok = token_string(ib)
@@ -602,7 +602,7 @@ function scan_decimal_digit_plus(width, ib) {
   if (0 === width) {return bad_token_length(cst_decimal_digits);}
   var c = checked_peek_char(ib);
   var switcher = c + -48 | 0;
-  if (9 < switcher >>> 0) {return bad_input(caml_call2(Printf[4], v1, c));}
+  if (9 < switcher >>> 0) {return bad_input(caml_call2(Printf[4], v2, c));}
   var width__0 = store_char(width, ib, c);
   return scan_decimal_digit_star(width__0, ib);
 }
@@ -637,7 +637,7 @@ function scan_digit_plus(basis, digitp, width, ib) {
     var width__0 = store_char(width, ib, c);
     return scan_digit_star(digitp, width__0, ib);
   }
-  return bad_input(caml_call3(Printf[4], v2, c, basis));
+  return bad_input(caml_call3(Printf[4], v3, c, basis));
 }
 
 function is_binary_digit(param) {
@@ -645,8 +645,8 @@ function is_binary_digit(param) {
   return 1 < switcher >>> 0 ? 0 : 1;
 }
 
-function scan_binary_int(xU, xV) {
-  return scan_digit_plus(cst_binary, is_binary_digit, xU, xV);
+function scan_binary_int(xV, xW) {
+  return scan_digit_plus(cst_binary, is_binary_digit, xV, xW);
 }
 
 function is_octal_digit(param) {
@@ -654,20 +654,20 @@ function is_octal_digit(param) {
   return 7 < switcher >>> 0 ? 0 : 1;
 }
 
-function scan_octal_int(xS, xT) {
-  return scan_digit_plus(cst_octal, is_octal_digit, xS, xT);
+function scan_octal_int(xT, xU) {
+  return scan_digit_plus(cst_octal, is_octal_digit, xT, xU);
 }
 
 function is_hexa_digit(param) {
-  var xR = param + -48 | 0;
-  var switch__0 = 22 < xR >>> 0 ?
-    5 < (xR + -49 | 0) >>> 0 ? 0 : 1 :
-    6 < (xR + -10 | 0) >>> 0 ? 1 : 0;
+  var xS = param + -48 | 0;
+  var switch__0 = 22 < xS >>> 0 ?
+    5 < (xS + -49 | 0) >>> 0 ? 0 : 1 :
+    6 < (xS + -10 | 0) >>> 0 ? 1 : 0;
   return switch__0 ? 1 : 0;
 }
 
-function scan_hexadecimal_int(xP, xQ) {
-  return scan_digit_plus(cst_hexadecimal, is_hexa_digit, xP, xQ);
+function scan_hexadecimal_int(xQ, xR) {
+  return scan_digit_plus(cst_hexadecimal, is_hexa_digit, xQ, xR);
 }
 
 function scan_sign(width, ib) {
@@ -786,18 +786,18 @@ function check_case_insensitive_string(width, ib, error, str) {
   }
   var len = caml_ml_string_length(str);
   var width__0 = [0,width];
-  var xM = len + -1 | 0;
-  var xL = 0;
-  if (! (xM < 0)) {
-    var i = xL;
+  var xN = len + -1 | 0;
+  var xM = 0;
+  if (! (xN < 0)) {
+    var i = xM;
     for (; ; ) {
       var c = peek_char(ib);
-      var xN = lowercase(caml_string_get(str, i));
-      if (lowercase(c) !== xN) {caml_call1(error, 0);}
+      var xO = lowercase(caml_string_get(str, i));
+      if (lowercase(c) !== xO) {caml_call1(error, 0);}
       if (0 === width__0[1]) {caml_call1(error, 0);}
       width__0[1] = store_char(width__0[1], ib, c);
-      var xO = i + 1 | 0;
-      if (xM !== i) {var i = xO;continue;}
+      var xP = i + 1 | 0;
+      if (xN !== i) {var i = xP;continue;}
       break;
     }
   }
@@ -805,22 +805,22 @@ function check_case_insensitive_string(width, ib, error, str) {
 }
 
 function scan_hex_float(width, precision, ib) {
-  var xy = 0 === width ? 1 : 0;
-  var xz = xy || end_of_input(ib);
-  if (xz) {bad_hex_float(0);}
+  var xz = 0 === width ? 1 : 0;
+  var xA = xz || end_of_input(ib);
+  if (xA) {bad_hex_float(0);}
   var width__0 = scan_sign(width, ib);
-  var xA = 0 === width__0 ? 1 : 0;
-  var xB = xA || end_of_input(ib);
-  if (xB) {bad_hex_float(0);}
+  var xB = 0 === width__0 ? 1 : 0;
+  var xC = xB || end_of_input(ib);
+  if (xC) {bad_hex_float(0);}
   var c = peek_char(ib);
   if (78 <= c) {
     var switcher = c + -79 | 0;
     if (30 < switcher >>> 0) {
       if (! (32 <= switcher)) {
         var width__1 = store_char(width__0, ib, c);
-        var xC = 0 === width__1 ? 1 : 0;
-        var xD = xC || end_of_input(ib);
-        if (xD) {bad_hex_float(0);}
+        var xD = 0 === width__1 ? 1 : 0;
+        var xE = xD || end_of_input(ib);
+        if (xE) {bad_hex_float(0);}
         return check_case_insensitive_string(
           width__1,
           ib,
@@ -835,9 +835,9 @@ function scan_hex_float(width, precision, ib) {
   else {
     if (48 === c) {
       var width__3 = store_char(width__0, ib, c);
-      var xG = 0 === width__3 ? 1 : 0;
-      var xH = xG || end_of_input(ib);
-      if (xH) {bad_hex_float(0);}
+      var xH = 0 === width__3 ? 1 : 0;
+      var xI = xH || end_of_input(ib);
+      if (xI) {bad_hex_float(0);}
       var width__4 = check_case_insensitive_string(
         width__3,
         ib,
@@ -847,10 +847,10 @@ function scan_hex_float(width, precision, ib) {
       if (0 !== width__4) {
         if (! end_of_input(ib)) {
           var match = peek_char(ib);
-          var xI = match + -46 | 0;
-          var switch__1 = 34 < xI >>> 0 ?
-            66 === xI ? 1 : 0 :
-            32 < (xI + -1 | 0) >>> 0 ? 1 : 0;
+          var xJ = match + -46 | 0;
+          var switch__1 = 34 < xJ >>> 0 ?
+            66 === xJ ? 1 : 0 :
+            32 < (xJ + -1 | 0) >>> 0 ? 1 : 0;
           var width__5 = switch__1 ?
             width__4 :
             scan_hexadecimal_int(width__4, ib);
@@ -888,9 +888,9 @@ function scan_hex_float(width, precision, ib) {
                   var c__1 = peek_char(ib);
                   if (80 !== c__1) {if (112 !== c__1) {return width__8;}}
                   var width__9 = store_char(width__8, ib, c__1);
-                  var xJ = 0 === width__9 ? 1 : 0;
-                  var xK = xJ || end_of_input(ib);
-                  if (xK) {bad_hex_float(0);}
+                  var xK = 0 === width__9 ? 1 : 0;
+                  var xL = xK || end_of_input(ib);
+                  if (xL) {bad_hex_float(0);}
                   return scan_optionally_signed_decimal_int(width__9, ib);
                 }
               }
@@ -906,9 +906,9 @@ function scan_hex_float(width, precision, ib) {
   }
   if (switch__0) {
     var width__2 = store_char(width__0, ib, c);
-    var xE = 0 === width__2 ? 1 : 0;
-    var xF = xE || end_of_input(ib);
-    if (xF) {bad_hex_float(0);}
+    var xF = 0 === width__2 ? 1 : 0;
+    var xG = xF || end_of_input(ib);
+    if (xG) {bad_hex_float(0);}
     return check_case_insensitive_string(
       width__2,
       ib,
@@ -920,13 +920,13 @@ function scan_hex_float(width, precision, ib) {
 }
 
 function scan_caml_float_rest(width, precision, ib) {
-  var xu = 0 === width ? 1 : 0;
-  var xv = xu || end_of_input(ib);
-  if (xv) {bad_float(0);}
+  var xv = 0 === width ? 1 : 0;
+  var xw = xv || end_of_input(ib);
+  if (xw) {bad_float(0);}
   var width__0 = scan_decimal_digit_star(width, ib);
-  var xw = 0 === width__0 ? 1 : 0;
-  var xx = xw || end_of_input(ib);
-  if (xx) {bad_float(0);}
+  var xx = 0 === width__0 ? 1 : 0;
+  var xy = xx || end_of_input(ib);
+  if (xy) {bad_float(0);}
   var c = peek_char(ib);
   var switcher = c + -69 | 0;
   if (32 < switcher >>> 0) {
@@ -947,28 +947,28 @@ function scan_caml_float_rest(width, precision, ib) {
 }
 
 function scan_caml_float(width, precision, ib) {
-  var xg = 0 === width ? 1 : 0;
-  var xh = xg || end_of_input(ib);
-  if (xh) {bad_float(0);}
+  var xh = 0 === width ? 1 : 0;
+  var xi = xh || end_of_input(ib);
+  if (xi) {bad_float(0);}
   var width__0 = scan_sign(width, ib);
-  var xi = 0 === width__0 ? 1 : 0;
-  var xj = xi || end_of_input(ib);
-  if (xj) {bad_float(0);}
+  var xj = 0 === width__0 ? 1 : 0;
+  var xk = xj || end_of_input(ib);
+  if (xk) {bad_float(0);}
   var c = peek_char(ib);
   if (49 <= c) {
     if (! (58 <= c)) {
       var width__1 = store_char(width__0, ib, c);
-      var xk = 0 === width__1 ? 1 : 0;
-      var xl = xk || end_of_input(ib);
-      if (xl) {bad_float(0);}
+      var xl = 0 === width__1 ? 1 : 0;
+      var xm = xl || end_of_input(ib);
+      if (xm) {bad_float(0);}
       return scan_caml_float_rest(width__1, precision, ib);
     }
   }
   else if (48 <= c) {
     var width__2 = store_char(width__0, ib, c);
-    var xm = 0 === width__2 ? 1 : 0;
-    var xn = xm || end_of_input(ib);
-    if (xn) {bad_float(0);}
+    var xn = 0 === width__2 ? 1 : 0;
+    var xo = xn || end_of_input(ib);
+    if (xo) {bad_float(0);}
     var c__0 = peek_char(ib);
     if (88 !== c__0) {
       if (120 !== c__0) {
@@ -976,13 +976,13 @@ function scan_caml_float(width, precision, ib) {
       }
     }
     var width__3 = store_char(width__2, ib, c__0);
-    var xo = 0 === width__3 ? 1 : 0;
-    var xp = xo || end_of_input(ib);
-    if (xp) {bad_float(0);}
+    var xp = 0 === width__3 ? 1 : 0;
+    var xq = xp || end_of_input(ib);
+    if (xq) {bad_float(0);}
     var width__4 = scan_hexadecimal_int(width__3, ib);
-    var xq = 0 === width__4 ? 1 : 0;
-    var xr = xq || end_of_input(ib);
-    if (xr) {bad_float(0);}
+    var xr = 0 === width__4 ? 1 : 0;
+    var xs = xr || end_of_input(ib);
+    if (xs) {bad_float(0);}
     var c__1 = peek_char(ib);
     var switcher = c__1 + -80 | 0;
     if (32 < switcher >>> 0) if (-34 === switcher) {
@@ -1022,9 +1022,9 @@ function scan_caml_float(width, precision, ib) {
         var c__2 = peek_char(ib);
         if (80 !== c__2) {if (112 !== c__2) {return width__8;}}
         var width__9 = store_char(width__8, ib, c__2);
-        var xs = 0 === width__9 ? 1 : 0;
-        var xt = xs || end_of_input(ib);
-        if (xt) {bad_hex_float(0);}
+        var xt = 0 === width__9 ? 1 : 0;
+        var xu = xt || end_of_input(ib);
+        if (xu) {bad_hex_float(0);}
         return scan_optionally_signed_decimal_int(width__9, ib);
       }
     }
@@ -1047,10 +1047,10 @@ function scan_string(stp, width, ib) {
         var width__0 = width__1;
         continue;
       }
-      var xf = c + -9 | 0;
-      var switch__0 = 4 < xf >>> 0 ?
-        23 === xf ? 1 : 0 :
-        1 < (xf + -2 | 0) >>> 0 ? 1 : 0;
+      var xg = c + -9 | 0;
+      var switch__0 = 4 < xg >>> 0 ?
+        23 === xg ? 1 : 0 :
+        1 < (xg + -2 | 0) >>> 0 ? 1 : 0;
       if (switch__0) {return width__0;}
       var width__2 = store_char(width__0, ib, c);
       var width__0 = width__2;
@@ -1078,11 +1078,11 @@ function char_for_backslash(c) {
 function decimal_value_of_char(c) {return c - 48 | 0;}
 
 function char_for_decimal_code(c0, c1, c2) {
-  var xd = decimal_value_of_char(c2);
-  var xe = 10 * decimal_value_of_char(c1) | 0;
-  var c = ((100 * decimal_value_of_char(c0) | 0) + xe | 0) + xd | 0;
+  var xe = decimal_value_of_char(c2);
+  var xf = 10 * decimal_value_of_char(c1) | 0;
+  var c = ((100 * decimal_value_of_char(c0) | 0) + xf | 0) + xe | 0;
   if (0 <= c) {if (! (255 < c)) {return caml_call1(Pervasives[17], c);}}
-  return bad_input(caml_call4(Printf[4], v3, c0, c1, c2));
+  return bad_input(caml_call4(Printf[4], v4, c0, c1, c2));
 }
 
 function hexadecimal_value_of_char(d) {
@@ -1090,10 +1090,10 @@ function hexadecimal_value_of_char(d) {
 }
 
 function char_for_hexadecimal_code(c1, c2) {
-  var xc = hexadecimal_value_of_char(c2);
-  var c = (16 * hexadecimal_value_of_char(c1) | 0) + xc | 0;
+  var xd = hexadecimal_value_of_char(c2);
+  var c = (16 * hexadecimal_value_of_char(c1) | 0) + xd | 0;
   if (0 <= c) {if (! (255 < c)) {return caml_call1(Pervasives[17], c);}}
-  return bad_input(caml_call3(Printf[4], v4, c1, c2));
+  return bad_input(caml_call3(Printf[4], v5, c1, c2));
 }
 
 function check_next_char(message, width, ib) {
@@ -1102,12 +1102,12 @@ function check_next_char(message, width, ib) {
   return eof(ib) ? bad_end_of_input(message) : c;
 }
 
-function check_next_char_for_char(xa, xb) {
-  return check_next_char(cst_a_Char, xa, xb);
+function check_next_char_for_char(xb, xc) {
+  return check_next_char(cst_a_Char, xb, xc);
 }
 
-function check_next_char_for_string(w9, w_) {
-  return check_next_char(cst_a_String, w9, w_);
+function check_next_char_for_string(w_, xa) {
+  return check_next_char(cst_a_String, w_, xa);
 }
 
 function scan_backslash_char(width, ib) {
@@ -1119,10 +1119,10 @@ function scan_backslash_char(width, ib) {
       case 28:
         var get_digit = function(param) {
           var c = next_char(ib);
-          var w8 = c + -48 | 0;
-          var switch__0 = 22 < w8 >>> 0 ?
-            5 < (w8 + -49 | 0) >>> 0 ? 0 : 1 :
-            6 < (w8 + -10 | 0) >>> 0 ? 1 : 0;
+          var w9 = c + -48 | 0;
+          var switch__0 = 22 < w9 >>> 0 ?
+            5 < (w9 + -49 | 0) >>> 0 ? 0 : 1 :
+            6 < (w9 + -10 | 0) >>> 0 ? 1 : 0;
           return switch__0 ? c : bad_input_escape(c);
         };
         var c1 = get_digit(0);
@@ -1193,12 +1193,12 @@ function scan_caml_string(width, ib) {
       var c = check_next_char_for_string(width__0, ib);
       if (34 === c) {return ignore_char(width__0, ib);}
       if (92 === c) {
-        var w7 = ignore_char(width__0, ib);
+        var w8 = ignore_char(width__0, ib);
         if (counter < 50) {
           var counter__0 = counter + 1 | 0;
-          return scan_backslash(counter__0, w7);
+          return scan_backslash(counter__0, w8);
         }
-        return caml_trampoline_return(scan_backslash, [0,w7]);
+        return caml_trampoline_return(scan_backslash, [0,w8]);
       }
       var width__1 = store_char(width__0, ib, c);
       var width__0 = width__1;
@@ -1208,44 +1208,44 @@ function scan_caml_string(width, ib) {
   function scan_backslash(counter, width) {
     var match = check_next_char_for_string(width, ib);
     if (10 === match) {
-      var w4 = ignore_char(width, ib);
-      if (counter < 50) {
-        var counter__0 = counter + 1 | 0;
-        return skip_spaces(counter__0, w4);
-      }
-      return caml_trampoline_return(skip_spaces, [0,w4]);
-    }
-    if (13 === match) {
       var w5 = ignore_char(width, ib);
       if (counter < 50) {
-        var counter__1 = counter + 1 | 0;
-        return skip_newline(counter__1, w5);
+        var counter__0 = counter + 1 | 0;
+        return skip_spaces(counter__0, w5);
       }
-      return caml_trampoline_return(skip_newline, [0,w5]);
+      return caml_trampoline_return(skip_spaces, [0,w5]);
     }
-    var w6 = scan_backslash_char(width, ib);
+    if (13 === match) {
+      var w6 = ignore_char(width, ib);
+      if (counter < 50) {
+        var counter__1 = counter + 1 | 0;
+        return skip_newline(counter__1, w6);
+      }
+      return caml_trampoline_return(skip_newline, [0,w6]);
+    }
+    var w7 = scan_backslash_char(width, ib);
     if (counter < 50) {
       var counter__2 = counter + 1 | 0;
-      return find_stop__0(counter__2, w6);
+      return find_stop__0(counter__2, w7);
     }
-    return caml_trampoline_return(find_stop__0, [0,w6]);
+    return caml_trampoline_return(find_stop__0, [0,w7]);
   }
   function skip_newline(counter, width) {
     var match = check_next_char_for_string(width, ib);
     if (10 === match) {
-      var w2 = ignore_char(width, ib);
+      var w3 = ignore_char(width, ib);
       if (counter < 50) {
         var counter__0 = counter + 1 | 0;
-        return skip_spaces(counter__0, w2);
+        return skip_spaces(counter__0, w3);
       }
-      return caml_trampoline_return(skip_spaces, [0,w2]);
+      return caml_trampoline_return(skip_spaces, [0,w3]);
     }
-    var w3 = store_char(width, ib, 13);
+    var w4 = store_char(width, ib, 13);
     if (counter < 50) {
       var counter__1 = counter + 1 | 0;
-      return find_stop__0(counter__1, w3);
+      return find_stop__0(counter__1, w4);
     }
-    return caml_trampoline_return(find_stop__0, [0,w3]);
+    return caml_trampoline_return(find_stop__0, [0,w4]);
   }
   function skip_spaces(counter, width) {
     var width__0 = width;
@@ -1277,7 +1277,7 @@ function scan_bool(ib) {
   var c = checked_peek_char(ib);
   var m = 102 === c ?
     5 :
-    116 === c ? 4 : bad_input(caml_call2(Printf[4], v5, c));
+    116 === c ? 4 : bad_input(caml_call2(Printf[4], v6, c));
   return scan_string(0, m, ib);
 }
 
@@ -1286,36 +1286,36 @@ function scan_chars_in_char_set(char_set, scan_indic, width, ib) {
     var i__0 = i;
     for (; ; ) {
       var c = peek_char(ib);
-      var wY = 0 < i__0 ? 1 : 0;
-      if (wY) {
-        var wZ = 1 - eof(ib);
-        if (wZ) {
-          var w0 = caml_call2(CamlinternalFormat[1], char_set, c);
-          var w1 = w0 ? c !== stp ? 1 : 0 : w0;
+      var wZ = 0 < i__0 ? 1 : 0;
+      if (wZ) {
+        var w0 = 1 - eof(ib);
+        if (w0) {
+          var w1 = caml_call2(CamlinternalFormat[1], char_set, c);
+          var w2 = w1 ? c !== stp ? 1 : 0 : w1;
         }
-        else var w1 = wZ;
+        else var w2 = w0;
       }
-      else var w1 = wY;
-      if (w1) {
+      else var w2 = wZ;
+      if (w2) {
         store_char(Pervasives[7], ib, c);
         var i__1 = i__0 + -1 | 0;
         var i__0 = i__1;
         continue;
       }
-      return w1;
+      return w2;
     }
   }
   if (scan_indic) {
     var c = scan_indic[1];
     scan_chars(width, c);
-    var wX = 1 - eof(ib);
-    if (wX) {
+    var wY = 1 - eof(ib);
+    if (wY) {
       var ci = peek_char(ib);
       return c === ci ?
         invalidate_current_char(ib) :
         character_mismatch(c, ci);
     }
-    return wX;
+    return wY;
   }
   return scan_chars(width, -1);
 }
@@ -1327,7 +1327,7 @@ function scanf_bad_input(ib, x) {
     var s = x[2];
   }
   var i = char_count(ib);
-  return bad_input(caml_call3(Printf[4], v6, i, s));
+  return bad_input(caml_call3(Printf[4], v7, i, s));
 }
 
 function get_counter(ib, counter) {
@@ -1347,7 +1347,7 @@ function width_of_pad_opt(pad_opt) {
 }
 
 function stopper_of_formatting_lit(fmting) {
-  if (6 === fmting) {return v7;}
+  if (6 === fmting) {return v8;}
   var str = caml_call1(CamlinternalFormat[17], fmting);
   var stp = caml_string_get(str, 1);
   var sub_str = caml_call3(
@@ -1424,15 +1424,15 @@ function take_format_readers__0(counter, k, fmt) {
     case 14:
       var rest = fmt__0[3];
       var fmtty = fmt__0[2];
-      var wU = caml_call1(CamlinternalFormat[22], fmtty);
-      var wV = caml_call1(CamlinternalFormatBasics[2], wU);
+      var wV = caml_call1(CamlinternalFormat[22], fmtty);
+      var wW = caml_call1(CamlinternalFormatBasics[2], wV);
       if (counter < 50) {
         var counter__1 = counter + 1 | 0;
-        return take_fmtty_format_readers__0(counter__1, k, wV, rest);
+        return take_fmtty_format_readers__0(counter__1, k, wW, rest);
       }
       return caml_trampoline_return(
         take_fmtty_format_readers__0,
-        [0,k,wV,rest]
+        [0,k,wW,rest]
       );
     case 15:
       var fmt__15 = fmt__0[1];
@@ -1447,10 +1447,10 @@ function take_format_readers__0(counter, k, fmt) {
       var fmt__0 = fmt__17;
       continue;
     case 18:
-      var wW = fmt__0[1];
-      if (0 === wW[0]) {
+      var wX = fmt__0[1];
+      if (0 === wX[0]) {
         var rest__0 = fmt__0[2];
-        var match = wW[1];
+        var match = wX[1];
         var fmt__18 = match[1];
         var fmt__19 = caml_call2(CamlinternalFormatBasics[3], fmt__18, rest__0
         );
@@ -1458,7 +1458,7 @@ function take_format_readers__0(counter, k, fmt) {
         continue;
       }
       var rest__1 = fmt__0[2];
-      var match__0 = wW[1];
+      var match__0 = wX[1];
       var fmt__20 = match__0[1];
       var fmt__21 = caml_call2(CamlinternalFormatBasics[3], fmt__20, rest__1);
       var fmt__0 = fmt__21;
@@ -1553,8 +1553,8 @@ function take_fmtty_format_readers__0(counter, k, fmtty, fmt) {
       var rest = fmtty__0[3];
       var ty2 = fmtty__0[2];
       var ty1 = fmtty__0[1];
-      var wT = caml_call1(CamlinternalFormat[22], ty1);
-      var ty = caml_call2(CamlinternalFormat[23], wT, ty2);
+      var wU = caml_call1(CamlinternalFormat[22], ty1);
+      var ty = caml_call2(CamlinternalFormat[23], wU, ty2);
       var fmtty__10 = caml_call2(CamlinternalFormatBasics[1], ty, rest);
       var fmtty__0 = fmtty__10;
       continue;
@@ -1725,17 +1725,17 @@ function pad_prec_scanf(ib, fmt, readers, pad, prec, scan, token) {
       if (0 === pad[1]) {
         return caml_call1(Pervasives[1], cst_scanf_bad_conversion__0);
       }
-      var wS = pad[2];
+      var wT = pad[2];
       if (typeof prec === "number") {
         if (0 === prec) {
-          caml_call3(scan, wS, Pervasives[7], ib);
+          caml_call3(scan, wT, Pervasives[7], ib);
           var x__1 = caml_call1(token, ib);
           return [0,x__1,make_scanf(ib, fmt, readers)];
         }
         return caml_call1(Pervasives[1], cst_scanf_bad_conversion__1);
       }
       var p__0 = prec[1];
-      caml_call3(scan, wS, p__0, ib);
+      caml_call3(scan, wT, p__0, ib);
       var x__2 = caml_call1(token, ib);
       return [0,x__2,make_scanf(ib, fmt, readers)];
     }
@@ -1760,13 +1760,13 @@ function make_scanf(ib, fmt, readers) {
       var c__0 = token_char(ib);
       return [0,c__0,make_scanf(ib, rest__0, readers)];
     case 2:
-      var wr = fmt__0[2];
-      var ws = fmt__0[1];
-      if (! (typeof wr === "number")) {
-        switch (wr[0]) {
+      var ws = fmt__0[2];
+      var wt = fmt__0[1];
+      if (! (typeof ws === "number")) {
+        switch (ws[0]) {
           case 17:
-            var rest__1 = wr[2];
-            var fmting_lit = wr[1];
+            var rest__1 = ws[2];
+            var fmting_lit = ws[1];
             var match = stopper_of_formatting_lit(fmting_lit);
             var str = match[2];
             var stp = match[1];
@@ -1778,41 +1778,41 @@ function make_scanf(ib, fmt, readers) {
               ib,
               str_rest,
               readers,
-              ws,
+              wt,
               0,
               scan__0,
               token_string
             );
           case 18:
-            var wt = wr[1];
-            if (0 === wt[0]) {
-              var rest__2 = wr[2];
-              var match__0 = wt[1];
+            var wu = ws[1];
+            if (0 === wu[0]) {
+              var rest__2 = ws[2];
+              var match__0 = wu[1];
               var fmt__1 = match__0[1];
               var scan__1 = function(width, param, ib) {
-                return scan_string(v8, width, ib);
+                return scan_string(v9, width, ib);
               };
               return pad_prec_scanf(
                 ib,
                 caml_call2(CamlinternalFormatBasics[3], fmt__1, rest__2),
                 readers,
-                ws,
+                wt,
                 0,
                 scan__1,
                 token_string
               );
             }
-            var rest__3 = wr[2];
-            var match__1 = wt[1];
+            var rest__3 = ws[2];
+            var match__1 = wu[1];
             var fmt__2 = match__1[1];
             var scan__2 = function(width, param, ib) {
-              return scan_string(v9, width, ib);
+              return scan_string(v_, width, ib);
             };
             return pad_prec_scanf(
               ib,
               caml_call2(CamlinternalFormatBasics[3], fmt__2, rest__3),
               readers,
-              ws,
+              wt,
               0,
               scan__2,
               token_string
@@ -1822,7 +1822,7 @@ function make_scanf(ib, fmt, readers) {
       var scan = function(width, param, ib) {
         return scan_string(0, width, ib);
       };
-      return pad_prec_scanf(ib, wr, readers, ws, 0, scan, token_string);
+      return pad_prec_scanf(ib, ws, readers, wt, 0, scan, token_string);
     case 3:
       var rest__4 = fmt__0[2];
       var pad = fmt__0[1];
@@ -1856,7 +1856,7 @@ function make_scanf(ib, fmt, readers) {
         pad__0,
         prec,
         scan__4,
-        function(wR) {return token_int(c__1, wR);}
+        function(wS) {return token_int(c__1, wS);}
       );
     case 5:
       var rest__6 = fmt__0[4];
@@ -1876,7 +1876,7 @@ function make_scanf(ib, fmt, readers) {
         pad__1,
         prec__0,
         scan__5,
-        function(wQ) {return token_int32(c__2, wQ);}
+        function(wR) {return token_int32(c__2, wR);}
       );
     case 6:
       var rest__7 = fmt__0[4];
@@ -1896,7 +1896,7 @@ function make_scanf(ib, fmt, readers) {
         pad__2,
         prec__1,
         scan__6,
-        function(wP) {return token_nativeint(c__3, wP);}
+        function(wQ) {return token_nativeint(c__3, wQ);}
       );
     case 7:
       var rest__8 = fmt__0[4];
@@ -1916,11 +1916,11 @@ function make_scanf(ib, fmt, readers) {
         pad__3,
         prec__2,
         scan__7,
-        function(wO) {return token_int64(c__4, wO);}
+        function(wP) {return token_int64(c__4, wP);}
       );
     case 8:
-      var wu = fmt__0[1];
-      if (15 === wu) {
+      var wv = fmt__0[1];
+      if (15 === wv) {
         var rest__9 = fmt__0[4];
         var prec__3 = fmt__0[3];
         var pad__4 = fmt__0[2];
@@ -1934,7 +1934,7 @@ function make_scanf(ib, fmt, readers) {
           token_float
         );
       }
-      if (16 <= wu) {
+      if (16 <= wv) {
         var rest__10 = fmt__0[4];
         var prec__4 = fmt__0[3];
         var pad__5 = fmt__0[2];
@@ -1963,7 +1963,7 @@ function make_scanf(ib, fmt, readers) {
     case 9:
       var rest__12 = fmt__0[2];
       var pad__7 = fmt__0[1];
-      var scan__8 = function(param, wN, ib) {return scan_bool(ib);};
+      var scan__8 = function(param, wO, ib) {return scan_bool(ib);};
       return pad_prec_scanf(
         ib,
         rest__12,
@@ -1980,8 +1980,8 @@ function make_scanf(ib, fmt, readers) {
     case 11:
       var fmt__3 = fmt__0[2];
       var str__0 = fmt__0[1];
-      var wv = function(wM) {return check_char(ib, wM);};
-      caml_call2(String[8], wv, str__0);
+      var ww = function(wN) {return check_char(ib, wN);};
+      caml_call2(String[8], ww, str__0);
       var fmt__0 = fmt__3;
       continue;
     case 12:
@@ -1997,8 +1997,8 @@ function make_scanf(ib, fmt, readers) {
       scan_caml_string(width_of_pad_opt(pad_opt), ib);
       var s = token_string(ib);
       try {
-        var wx = caml_call2(CamlinternalFormat[14], s, fmtty);
-        var fmt__5 = wx;
+        var wy = caml_call2(CamlinternalFormat[14], s, fmtty);
+        var fmt__5 = wy;
       }
       catch(exn) {
         exn = caml_wrap_exception(exn);
@@ -2006,8 +2006,8 @@ function make_scanf(ib, fmt, readers) {
           throw runtime["caml_wrap_thrown_exception_reraise"](exn);
         }
         var msg = exn[2];
-        var ww = bad_input(msg);
-        var fmt__5 = ww;
+        var wx = bad_input(msg);
+        var fmt__5 = wx;
       }
       return [0,fmt__5,make_scanf(ib, rest__14, readers)];
     case 14:
@@ -2021,12 +2021,12 @@ function make_scanf(ib, fmt, readers) {
         var fmt__8 = match__2[1];
         var match__3 = caml_call2(CamlinternalFormat[13], 0, s__0);
         var fmt__9 = match__3[1];
-        var wB = caml_call1(CamlinternalFormat[22], fmtty__0);
-        var wC = caml_call1(CamlinternalFormatBasics[2], wB);
-        var fmt__10 = caml_call2(CamlinternalFormat[12], fmt__9, wC);
-        var wD = caml_call1(CamlinternalFormatBasics[2], fmtty__0);
-        var wE = caml_call2(CamlinternalFormat[12], fmt__8, wD);
-        var fmt__7 = wE;
+        var wC = caml_call1(CamlinternalFormat[22], fmtty__0);
+        var wD = caml_call1(CamlinternalFormatBasics[2], wC);
+        var fmt__10 = caml_call2(CamlinternalFormat[12], fmt__9, wD);
+        var wE = caml_call1(CamlinternalFormatBasics[2], fmtty__0);
+        var wF = caml_call2(CamlinternalFormat[12], fmt__8, wE);
+        var fmt__7 = wF;
         var fmt__6 = fmt__10;
       }
       catch(exn) {
@@ -2035,11 +2035,11 @@ function make_scanf(ib, fmt, readers) {
           throw runtime["caml_wrap_thrown_exception_reraise"](exn);
         }
         var msg__0 = exn[2];
-        var wy = bad_input(msg__0);
-        var wz = wy[2];
-        var wA = wy[1];
-        var fmt__7 = wA;
-        var fmt__6 = wz;
+        var wz = bad_input(msg__0);
+        var wA = wz[2];
+        var wB = wz[1];
+        var fmt__7 = wB;
+        var fmt__6 = wA;
       }
       return [
         0,
@@ -2057,16 +2057,16 @@ function make_scanf(ib, fmt, readers) {
     case 17:
       var fmt__11 = fmt__0[2];
       var formatting_lit = fmt__0[1];
-      var wF = caml_call1(CamlinternalFormat[17], formatting_lit);
-      var wG = function(wL) {return check_char(ib, wL);};
-      caml_call2(String[8], wG, wF);
+      var wG = caml_call1(CamlinternalFormat[17], formatting_lit);
+      var wH = function(wM) {return check_char(ib, wM);};
+      caml_call2(String[8], wH, wG);
       var fmt__0 = fmt__11;
       continue;
     case 18:
-      var wH = fmt__0[1];
-      if (0 === wH[0]) {
+      var wI = fmt__0[1];
+      if (0 === wI[0]) {
         var rest__16 = fmt__0[2];
-        var match__4 = wH[1];
+        var match__4 = wI[1];
         var fmt__12 = match__4[1];
         check_char(ib, 64);
         check_char(ib, 123);
@@ -2079,7 +2079,7 @@ function make_scanf(ib, fmt, readers) {
         continue;
       }
       var rest__17 = fmt__0[2];
-      var match__5 = wH[1];
+      var match__5 = wI[1];
       var fmt__14 = match__5[1];
       check_char(ib, 64);
       check_char(ib, 91);
@@ -2096,25 +2096,25 @@ function make_scanf(ib, fmt, readers) {
       }
       return caml_call1(Pervasives[1], cst_scanf_missing_reader);
     case 20:
-      var wI = fmt__0[3];
-      var wJ = fmt__0[2];
-      var wK = fmt__0[1];
-      if (! (typeof wI === "number") && 17 === wI[0]) {
-        var rest__18 = wI[2];
-        var fmting_lit__0 = wI[1];
+      var wJ = fmt__0[3];
+      var wK = fmt__0[2];
+      var wL = fmt__0[1];
+      if (! (typeof wJ === "number") && 17 === wJ[0]) {
+        var rest__18 = wJ[2];
+        var fmting_lit__0 = wJ[1];
         var match__6 = stopper_of_formatting_lit(fmting_lit__0);
         var str__1 = match__6[2];
         var stp__0 = match__6[1];
-        var width__0 = width_of_pad_opt(wK);
-        scan_chars_in_char_set(wJ, [0,stp__0], width__0, ib);
+        var width__0 = width_of_pad_opt(wL);
+        scan_chars_in_char_set(wK, [0,stp__0], width__0, ib);
         var s__2 = token_string(ib);
         var str_rest__0 = [11,str__1,rest__18];
         return [0,s__2,make_scanf(ib, str_rest__0, readers)];
       }
-      var width = width_of_pad_opt(wK);
-      scan_chars_in_char_set(wJ, 0, width, ib);
+      var width = width_of_pad_opt(wL);
+      scan_chars_in_char_set(wK, 0, width, ib);
       var s__1 = token_string(ib);
-      return [0,s__1,make_scanf(ib, wI, readers)];
+      return [0,s__1,make_scanf(ib, wJ, readers)];
     case 21:
       var rest__19 = fmt__0[2];
       var counter = fmt__0[1];
@@ -2131,7 +2131,7 @@ function make_scanf(ib, fmt, readers) {
       var fmt__16 = match__7[1];
       var match__8 = make_scanf(ib, fmt__16, readers);
       if (match__8) {var arg_rest = match__8[2];return arg_rest;}
-      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,v_]);
+      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,wa]);
     default:
       return caml_call1(
         Pervasives[1],
@@ -2160,7 +2160,7 @@ function kscanf(ib, ef, param) {
   }
   function k(readers, f) {
     reset_token(ib);
-    try {var wq = [0,make_scanf(ib, fmt, readers)];var wk = wq;}
+    try {var wr = [0,make_scanf(ib, fmt, readers)];var wl = wr;}
     catch(exc) {
       exc = caml_wrap_exception(exc);
       if (exc[1] === Scan_failure) var switch__0 = 0;
@@ -2171,19 +2171,19 @@ function kscanf(ib, ef, param) {
           throw runtime["caml_wrap_thrown_exception_reraise"](exc);
         }
         var msg = exc[2];
-        var wl = caml_call1(String[13], str);
-        var wm = caml_call2(Pervasives[16], wl, cst__1);
-        var wn = caml_call2(Pervasives[16], cst_in_format, wm);
-        var wo = caml_call2(Pervasives[16], msg, wn);
-        var wp = caml_call1(Pervasives[1], wo);
-        var wj = wp;
+        var wm = caml_call1(String[13], str);
+        var wn = caml_call2(Pervasives[16], wm, cst__1);
+        var wo = caml_call2(Pervasives[16], cst_in_format, wn);
+        var wp = caml_call2(Pervasives[16], msg, wo);
+        var wq = caml_call1(Pervasives[1], wp);
+        var wk = wq;
         var switch__0 = 1;
       }
-      if (! switch__0) {var wj = [1,exc];}
-      var wk = wj;
+      if (! switch__0) {var wk = [1,exc];}
+      var wl = wk;
     }
-    if (0 === wk[0]) {var args = wk[1];return apply(f, args);}
-    var exc = wk[1];
+    if (0 === wl[0]) {var args = wl[1];return apply(f, args);}
+    var exc = wl[1];
     return caml_call2(ef, ib, exc);
   }
   return take_format_readers(k, fmt);
@@ -2200,15 +2200,15 @@ function scanf(fmt) {return kscanf(stdin, scanf_bad_input, fmt);}
 function bscanf_format(ib, format, f) {
   scan_caml_string(Pervasives[7], ib);
   var str = token_string(ib);
-  try {var wi = caml_call2(CamlinternalFormat[15], str, format);var fmt = wi;}
+  try {var wj = caml_call2(CamlinternalFormat[15], str, format);var fmt = wj;}
   catch(exn) {
     exn = caml_wrap_exception(exn);
     if (exn[1] !== Failure) {
       throw runtime["caml_wrap_thrown_exception_reraise"](exn);
     }
     var msg = exn[2];
-    var wh = bad_input(msg);
-    var fmt = wh;
+    var wi = bad_input(msg);
+    var fmt = wi;
   }
   return caml_call1(f, fmt);
 }
@@ -2221,16 +2221,16 @@ function string_to_String(s) {
   var l = caml_ml_string_length(s);
   var b = caml_call1(Buffer[1], l + 2 | 0);
   caml_call2(Buffer[10], b, 34);
-  var wf = l + -1 | 0;
-  var we = 0;
-  if (! (wf < 0)) {
-    var i = we;
+  var wg = l + -1 | 0;
+  var wf = 0;
+  if (! (wg < 0)) {
+    var i = wf;
     for (; ; ) {
       var c = caml_string_get(s, i);
       if (34 === c) {caml_call2(Buffer[10], b, 92);}
       caml_call2(Buffer[10], b, c);
-      var wg = i + 1 | 0;
-      if (wf !== i) {var i = wg;continue;}
+      var wh = i + 1 | 0;
+      if (wg !== i) {var i = wh;continue;}
       break;
     }
   }
@@ -2239,14 +2239,14 @@ function string_to_String(s) {
 }
 
 function format_from_string(s, fmt) {
-  function wd(x) {return x;}
-  return sscanf_format(string_to_String(s), fmt, wd);
+  function we(x) {return x;}
+  return sscanf_format(string_to_String(s), fmt, we);
 }
 
 function unescaped(s) {
-  function wb(x) {return x;}
-  var wc = caml_call2(Pervasives[16], s, cst__2);
-  return caml_call1(sscanf(caml_call2(Pervasives[16], cst__3, wc), wa), wb);
+  function wc(x) {return x;}
+  var wd = caml_call2(Pervasives[16], s, cst__2);
+  return caml_call1(sscanf(caml_call2(Pervasives[16], cst__3, wd), wb), wc);
 }
 
 function kfscanf(ic, ef, fmt) {return kscanf(memo_from_channel(ic), ef, fmt);}

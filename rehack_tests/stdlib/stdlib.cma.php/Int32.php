@@ -49,11 +49,11 @@ final class Int32 {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$ev = Vector{0, $runtime["caml_int_of_string"]($s)};return $ev;}
-      catch(\Throwable $ew) {
-        $ew = $caml_wrap_exception($ew);
-        if ($ew[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($ew);
+      try {$ew = Vector{0, $runtime["caml_int_of_string"]($s)};return $ew;}
+      catch(\Throwable $ex) {
+        $ex = $caml_wrap_exception($ex);
+        if ($ex[1] === $Failure) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($ex);
       }
     };
     $compare = function($x, $y) use ($runtime) {

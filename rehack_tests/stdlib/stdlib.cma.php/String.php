@@ -88,12 +88,12 @@ final class String_ {
       return $caml_call1($bts, $caml_call2($Bytes[2], $n, $f));
     };
     $copy = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $cx = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[4], $cx));
+      $cy = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[4], $cy));
     };
     $sub = function($s, $ofs, $len) use ($Bytes,$bos,$bts,$caml_call1,$caml_call3) {
-      $cw = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call3($Bytes[7], $cw, $ofs, $len));
+      $cx = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call3($Bytes[7], $cx, $ofs, $len));
     };
     $fill = $Bytes[10];
     $blit = $Bytes[12];
@@ -105,18 +105,18 @@ final class String_ {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
-          $cu = $param__0[2];
-          $cv = $param__0[1];
-          if ($cu) {
+          $cv = $param__0[2];
+          $cw = $param__0[1];
+          if ($cv) {
             $acc__1 = $ensure_ge(
-              ($caml_ml_string_length($cv) + $seplen | 0) + $acc__0 | 0,
+              ($caml_ml_string_length($cw) + $seplen | 0) + $acc__0 | 0,
               $acc__0
             );
             $acc__0 = $acc__1;
-            $param__0 = $cu;
+            $param__0 = $cv;
             continue;
           }
-          return $caml_ml_string_length($cv) + $acc__0 | 0;
+          return $caml_ml_string_length($cw) + $acc__0 | 0;
         }
         return $acc__0;
       }
@@ -126,29 +126,29 @@ final class String_ {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
-          $cs = $param__0[2];
-          $ct = $param__0[1];
-          if ($cs) {
+          $ct = $param__0[2];
+          $cu = $param__0[1];
+          if ($ct) {
             $caml_blit_string(
-              $ct,
+              $cu,
               0,
               $dst,
               $pos__0,
-              $caml_ml_string_length($ct)
+              $caml_ml_string_length($cu)
             );
             $caml_blit_string(
               $sep,
               0,
               $dst,
-              $pos__0 + $caml_ml_string_length($ct) | 0,
+              $pos__0 + $caml_ml_string_length($cu) | 0,
               $seplen
             );
-            $pos__1 = ($pos__0 + $caml_ml_string_length($ct) | 0) + $seplen | 0;
+            $pos__1 = ($pos__0 + $caml_ml_string_length($cu) | 0) + $seplen | 0;
             $pos__0 = $pos__1;
-            $param__0 = $cs;
+            $param__0 = $ct;
             continue;
           }
-          $caml_blit_string($ct, 0, $dst, $pos__0, $caml_ml_string_length($ct)
+          $caml_blit_string($cu, 0, $dst, $pos__0, $caml_ml_string_length($cu)
           );
           return $dst;
         }
@@ -172,46 +172,46 @@ final class String_ {
       return $cst;
     };
     $iter = function($f, $s) use ($caml_bytes_unsafe_get,$caml_call1,$caml_ml_string_length) {
-      $cq = $caml_ml_string_length($s) + -1 | 0;
-      $cp = 0;
-      if (! ($cq < 0)) {
-        $i = $cp;
+      $cr = $caml_ml_string_length($s) + -1 | 0;
+      $cq = 0;
+      if (! ($cr < 0)) {
+        $i = $cq;
         for (;;) {
           $caml_call1($f, $caml_bytes_unsafe_get($s, $i));
-          $cr = $i + 1 | 0;
-          if ($cq !== $i) {$i = $cr;continue;}
+          $cs = $i + 1 | 0;
+          if ($cr !== $i) {$i = $cs;continue;}
           break;
         }
       }
       return 0;
     };
     $iteri = function($f, $s) use ($caml_bytes_unsafe_get,$caml_call2,$caml_ml_string_length) {
-      $cn = $caml_ml_string_length($s) + -1 | 0;
-      $cm = 0;
-      if (! ($cn < 0)) {
-        $i = $cm;
+      $co = $caml_ml_string_length($s) + -1 | 0;
+      $cn = 0;
+      if (! ($co < 0)) {
+        $i = $cn;
         for (;;) {
           $caml_call2($f, $i, $caml_bytes_unsafe_get($s, $i));
-          $co = $i + 1 | 0;
-          if ($cn !== $i) {$i = $co;continue;}
+          $cp = $i + 1 | 0;
+          if ($co !== $i) {$i = $cp;continue;}
           break;
         }
       }
       return 0;
     };
     $map = function($f, $s) use ($Bytes,$bos,$bts,$caml_call1,$caml_call2) {
-      $cl = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call2($Bytes[17], $f, $cl));
+      $cm = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call2($Bytes[17], $f, $cm));
     };
     $mapi = function($f, $s) use ($Bytes,$bos,$bts,$caml_call1,$caml_call2) {
-      $ck = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call2($Bytes[18], $f, $ck));
+      $cl = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call2($Bytes[18], $f, $cl));
     };
     $is_space = function($param) use ($unsigned_right_shift_32) {
-      $cj = $param + -9 | 0;
-      $switch__0 = 4 < $unsigned_right_shift_32($cj, 0)
-        ? 23 === $cj ? 1 : (0)
-        : (2 === $cj ? 0 : (1));
+      $ck = $param + -9 | 0;
+      $switch__0 = 4 < $unsigned_right_shift_32($ck, 0)
+        ? 23 === $ck ? 1 : (0)
+        : (2 === $ck ? 0 : (1));
       return $switch__0 ? 1 : (0);
     };
     $trim = function($s) use ($Bytes,$bos,$bts,$caml_bytes_unsafe_get,$caml_call1,$caml_ml_string_length,$caml_string_equal,$cst__0,$is_space) {
@@ -224,8 +224,8 @@ final class String_ {
           )
         ) {return $s;}
       }
-      $ci = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[19], $ci));
+      $cj = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[19], $cj));
     };
     $escaped = function($s) use ($Bytes,$bos,$bts,$caml_bytes_unsafe_get,$caml_call1,$caml_ml_string_length,$unsigned_right_shift_32) {
       $needs_escape = function($i) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$s,$unsigned_right_shift_32) {
@@ -234,16 +234,16 @@ final class String_ {
           if ($caml_ml_string_length($s) <= $i__0) {return 0;}
           $match = $caml_bytes_unsafe_get($s, $i__0);
           if (32 <= $match) {
-            $ch = $match + -34 | 0;
-            if (58 < $unsigned_right_shift_32($ch, 0)) {
-              if (93 <= $ch) {
+            $ci = $match + -34 | 0;
+            if (58 < $unsigned_right_shift_32($ci, 0)) {
+              if (93 <= $ci) {
                 $switch__0 = 0;
                 $switch__1 = 0;
               }
               else {$switch__1 = 1;}
             }
             else {
-              if (56 < $unsigned_right_shift_32($ch + -1 | 0, 0)) {$switch__0 = 1;$switch__1 = 0;}
+              if (56 < $unsigned_right_shift_32($ci + -1 | 0, 0)) {$switch__0 = 1;$switch__1 = 0;}
               else {$switch__1 = 1;}
             }
             if ($switch__1) {$i__1 = $i__0 + 1 | 0;$i__0 = $i__1;continue;}
@@ -257,8 +257,8 @@ final class String_ {
         }
       };
       if ($needs_escape(0)) {
-        $cg = $caml_call1($bos, $s);
-        return $caml_call1($bts, $caml_call1($Bytes[20], $cg));
+        $ch = $caml_call1($bos, $s);
+        return $caml_call1($bts, $caml_call1($Bytes[20], $ch));
       }
       return $s;
     };
@@ -358,11 +358,11 @@ final class String_ {
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {
         if (! ($l < $i)) {
-          try {$index_rec($s, $l, $i, $c);$ce = 1;return $ce;}
-          catch(\Throwable $cf) {
-            $cf = $caml_wrap_exception($cf);
-            if ($cf === $Not_found) {return 0;}
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($cf);
+          try {$index_rec($s, $l, $i, $c);$cf = 1;return $cf;}
+          catch(\Throwable $cg) {
+            $cg = $caml_wrap_exception($cg);
+            if ($cg === $Not_found) {return 0;}
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($cg);
           }
         }
       }
@@ -377,11 +377,11 @@ final class String_ {
     $rcontains_from = function($s, $i, $c) use ($Not_found,$Pervasives,$caml_call1,$caml_ml_string_length,$caml_wrap_exception,$cst_String_rcontains_from_Bytes_rcontains_from,$rindex_rec,$runtime) {
       if (0 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {
-          try {$rindex_rec($s, $i, $c);$cc = 1;return $cc;}
-          catch(\Throwable $cd) {
-            $cd = $caml_wrap_exception($cd);
-            if ($cd === $Not_found) {return 0;}
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($cd);
+          try {$rindex_rec($s, $i, $c);$cd = 1;return $cd;}
+          catch(\Throwable $ce) {
+            $ce = $caml_wrap_exception($ce);
+            if ($ce === $Not_found) {return 0;}
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($ce);
           }
         }
       }
@@ -391,20 +391,20 @@ final class String_ {
       );
     };
     $uppercase_ascii = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $cb = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[36], $cb));
+      $cc = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[36], $cc));
     };
     $lowercase_ascii = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $ca = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[37], $ca));
+      $cb = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[37], $cb));
     };
     $capitalize_ascii = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $b_ = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[38], $b_));
+      $ca = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[38], $ca));
     };
     $uncapitalize_ascii = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $b9 = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[39], $b9));
+      $b_ = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[39], $b_));
     };
     $compare = function($x, $y) use ($runtime) {
       return $runtime["caml_string_compare"]($x, $y);
@@ -412,39 +412,39 @@ final class String_ {
     $split_on_char = function($sep, $s) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$sub) {
       $r = Vector{0, 0};
       $j = Vector{0, $caml_ml_string_length($s)};
-      $b5 = $caml_ml_string_length($s) + -1 | 0;
-      if (! ($b5 < 0)) {
-        $i = $b5;
+      $b6 = $caml_ml_string_length($s) + -1 | 0;
+      if (! ($b6 < 0)) {
+        $i = $b6;
         for (;;) {
           if ($caml_bytes_unsafe_get($s, $i) === $sep) {
-            $b7 = $r[1];
+            $b8 = $r[1];
             $r[1] =
-              Vector{0, $sub($s, $i + 1 | 0, ($j[1] - $i | 0) + -1 | 0), $b7};
+              Vector{0, $sub($s, $i + 1 | 0, ($j[1] - $i | 0) + -1 | 0), $b8};
             $j[1] = $i;
           }
-          $b8 = $i + -1 | 0;
-          if (0 !== $i) {$i = $b8;continue;}
+          $b9 = $i + -1 | 0;
+          if (0 !== $i) {$i = $b9;continue;}
           break;
         }
       }
-      $b6 = $r[1];
-      return Vector{0, $sub($s, 0, $j[1]), $b6};
+      $b7 = $r[1];
+      return Vector{0, $sub($s, 0, $j[1]), $b7};
     };
     $uppercase = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $b4 = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[32], $b4));
+      $b5 = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[32], $b5));
     };
     $lowercase = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $b3 = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[33], $b3));
+      $b4 = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[33], $b4));
     };
     $capitalize = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $b2 = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[34], $b2));
+      $b3 = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[34], $b3));
     };
     $uncapitalize = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
-      $b1 = $caml_call1($bos, $s);
-      return $caml_call1($bts, $caml_call1($Bytes[35], $b1));
+      $b2 = $caml_call1($bos, $s);
+      return $caml_call1($bts, $caml_call1($Bytes[35], $b2));
     };
     $String = Vector{
       0,
@@ -481,8 +481,8 @@ final class String_ {
       $capitalize_ascii,
       $uncapitalize_ascii,
       $compare,
-      function($b0, $bZ) use ($caml_string_equal) {
-        return $caml_string_equal($b0, $bZ);
+      function($b1, $b0) use ($caml_string_equal) {
+        return $caml_string_equal($b1, $b0);
       },
       $split_on_char
     };

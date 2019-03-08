@@ -58,34 +58,34 @@ final class Printf {
     $Pervasives = $global_data["Pervasives"];
     $kfprintf = function($k, $o, $param) use ($CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
       $fmt = $param[1];
-      $m_ = 0;
-      $na = function($o, $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
+      $na = 0;
+      $nb = function($o, $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
         $caml_call2($CamlinternalFormat[9], $o, $acc);
         return $caml_call1($k, $o);
       };
-      return $caml_call4($CamlinternalFormat[7], $na, $o, $m_, $fmt);
+      return $caml_call4($CamlinternalFormat[7], $nb, $o, $na, $fmt);
     };
     $kbprintf = function($k, $b, $param) use ($CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
       $fmt = $param[1];
-      $m8 = 0;
-      $m9 = function($b, $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
+      $m9 = 0;
+      $m_ = function($b, $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
         $caml_call2($CamlinternalFormat[10], $b, $acc);
         return $caml_call1($k, $b);
       };
-      return $caml_call4($CamlinternalFormat[7], $m9, $b, $m8, $fmt);
+      return $caml_call4($CamlinternalFormat[7], $m_, $b, $m9, $fmt);
     };
     $ikfprintf = function($k, $oc, $param) use ($CamlinternalFormat,$caml_call3) {
       $fmt = $param[1];
       return $caml_call3($CamlinternalFormat[8], $k, $oc, $fmt);
     };
     $fprintf = function($oc, $fmt) use ($kfprintf) {
-      return $kfprintf(function($m7) {return 0;}, $oc, $fmt);
+      return $kfprintf(function($m8) {return 0;}, $oc, $fmt);
     };
     $bprintf = function($b, $fmt) use ($kbprintf) {
-      return $kbprintf(function($m6) {return 0;}, $b, $fmt);
+      return $kbprintf(function($m7) {return 0;}, $b, $fmt);
     };
     $ifprintf = function($oc, $fmt) use ($ikfprintf) {
-      return $ikfprintf(function($m5) {return 0;}, $oc, $fmt);
+      return $ikfprintf(function($m6) {return 0;}, $oc, $fmt);
     };
     $printf = function($fmt) use ($Pervasives,$fprintf) {
       return $fprintf($Pervasives[27], $fmt);

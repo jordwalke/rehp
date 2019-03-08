@@ -99,7 +99,7 @@ final class Digest {
     $input = function($chan) use ($Pervasives,$caml_call2) {
       return $caml_call2($Pervasives[74], $chan, 16);
     };
-    $char_hex = function($n) {$pW = 10 <= $n ? 87 : (48);return $n + $pW | 0;};
+    $char_hex = function($n) {$pX = 10 <= $n ? 87 : (48);return $n + $pX | 0;};
     $to_hex = function($d) use ($Bytes,$Pervasives,$caml_bytes_unsafe_set,$caml_call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$char_hex,$cst_Digest_to_hex,$unsigned_right_shift_32) {
       if (16 !== $caml_ml_string_length($d)) {
         $caml_call1($Pervasives[1], $cst_Digest_to_hex);
@@ -120,8 +120,8 @@ final class Digest {
             0,
           $char_hex($x & 15)
         );
-        $pV = $i + 1 | 0;
-        if (15 !== $i) {$i = $pV;continue;}
+        $pW = $i + 1 | 0;
+        if (15 !== $i) {$i = $pW;continue;}
         return $caml_call1($Bytes[42], $result);
       }
     };
@@ -145,16 +145,16 @@ final class Digest {
               );
       };
       $byte__0 = function($i) use ($caml_string_get,$digit,$left_shift_32,$s) {
-        $pU = $digit($caml_string_get($s, $i + 1 | 0));
-        return $left_shift_32($digit($caml_string_get($s, $i)), 4) + $pU | 0;
+        $pV = $digit($caml_string_get($s, $i + 1 | 0));
+        return $left_shift_32($digit($caml_string_get($s, $i)), 4) + $pV | 0;
       };
       $result = $caml_create_bytes(16);
       $i = 0;
       for (;;) {
-        $pS = $byte__0(2 * $i | 0);
-        $runtime["caml_bytes_set"]($result, $i, $caml_call1($Char[1], $pS));
-        $pT = $i + 1 | 0;
-        if (15 !== $i) {$i = $pT;continue;}
+        $pT = $byte__0(2 * $i | 0);
+        $runtime["caml_bytes_set"]($result, $i, $caml_call1($Char[1], $pT));
+        $pU = $i + 1 | 0;
+        if (15 !== $i) {$i = $pU;continue;}
         return $caml_call1($Bytes[42], $result);
       }
     };

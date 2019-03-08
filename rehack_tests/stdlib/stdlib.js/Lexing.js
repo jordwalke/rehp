@@ -58,8 +58,8 @@ function engine(tbl, state, buf) {
   var result = runtime["caml_lex_engine"](tbl, state, buf);
   if (0 <= result) {
     buf[11] = buf[12];
-    var e4 = buf[12];
-    buf[12] = [0,e4[1],e4[2],e4[3],buf[4] + buf[6] | 0];
+    var e5 = buf[12];
+    buf[12] = [0,e5[1],e5[2],e5[3],buf[4] + buf[6] | 0];
   }
   return result;
 }
@@ -68,8 +68,8 @@ function new_engine(tbl, state, buf) {
   var result = runtime["caml_new_lex_engine"](tbl, state, buf);
   if (0 <= result) {
     buf[11] = buf[12];
-    var e3 = buf[12];
-    buf[12] = [0,e3[1],e3[2],e3[3],buf[4] + buf[6] | 0];
+    var e4 = buf[12];
+    buf[12] = [0,e4[1],e4[2],e4[3],buf[4] + buf[6] | 0];
   }
   return result;
 }
@@ -116,15 +116,15 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
     lexbuf[7] = lexbuf[7] - s | 0;
     lexbuf[3] = lexbuf[3] - s | 0;
     var t = lexbuf[10];
-    var e1 = t.length - 1 + -1 | 0;
-    var e0 = 0;
-    if (! (e1 < 0)) {
-      var i = e0;
+    var e2 = t.length - 1 + -1 | 0;
+    var e1 = 0;
+    if (! (e2 < 0)) {
+      var i = e1;
       for (; ; ) {
         var v = caml_check_bound(t, i)[i + 1];
         if (0 <= v) {caml_check_bound(t, i)[i + 1] = v - s | 0;}
-        var e2 = i + 1 | 0;
-        if (e1 !== i) {var i = e2;continue;}
+        var e3 = i + 1 | 0;
+        if (e2 !== i) {var i = e3;continue;}
         break;
       }
     }
@@ -135,19 +135,20 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
 }
 
 function from_function(f) {
-  var eP = [0];
-  var eQ = 0;
+  var eQ = [0];
   var eR = 0;
   var eS = 0;
   var eT = 0;
   var eU = 0;
   var eV = 0;
   var eW = 0;
-  var eX = caml_create_bytes(1024);
-  var eY = caml_create_bytes(512);
+  var eX = 0;
+  var eY = caml_create_bytes(1024);
+  var eZ = caml_create_bytes(512);
   return [
     0,
-    function(eZ) {return lex_refill(f, eY, eZ);},
+    function(e0) {return lex_refill(f, eZ, e0);},
+    eY,
     eX,
     eW,
     eV,
@@ -156,7 +157,6 @@ function from_function(f) {
     eS,
     eR,
     eQ,
-    eP,
     zero_pos,
     zero_pos
   ];
@@ -169,18 +169,19 @@ function from_channel(ic) {
 }
 
 function from_string(s) {
-  var eG = [0];
-  var eH = 1;
-  var eI = 0;
+  var eH = [0];
+  var eI = 1;
   var eJ = 0;
   var eK = 0;
   var eL = 0;
   var eM = 0;
-  var eN = runtime["caml_ml_string_length"](s);
-  var eO = caml_call1(Bytes[5], s);
+  var eN = 0;
+  var eO = runtime["caml_ml_string_length"](s);
+  var eP = caml_call1(Bytes[5], s);
   return [
     0,
     function(lexbuf) {lexbuf[9] = 1;return 0;},
+    eP,
     eO,
     eN,
     eM,
@@ -189,7 +190,6 @@ function from_string(s) {
     eJ,
     eI,
     eH,
-    eG,
     zero_pos,
     zero_pos
   ];
@@ -240,8 +240,8 @@ function new_line(lexbuf) {
 function flush_input(lb) {
   lb[6] = 0;
   lb[4] = 0;
-  var eF = lb[12];
-  lb[12] = [0,eF[1],eF[2],eF[3],0];
+  var eG = lb[12];
+  lb[12] = [0,eG[1],eG[2],eG[3],0];
   lb[3] = 0;
   return 0;
 }

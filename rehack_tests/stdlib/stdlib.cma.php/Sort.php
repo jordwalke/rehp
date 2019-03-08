@@ -62,31 +62,31 @@ final class Sort {
       $_ = $initlist->contents =
         function($param) use ($caml_call2,$initlist,$order) {
           if ($param) {
-            $cL = $param[2];
-            $cM = $param[1];
-            if ($cL) {
-              $rest = $cL[2];
-              $e2 = $cL[1];
-              $cN = $initlist->contents($rest);
-              $cO = $caml_call2($order, $cM, $e2)
-                ? Vector{0, $cM, Vector{0, $e2, 0}}
-                : (Vector{0, $e2, Vector{0, $cM, 0}});
-              return Vector{0, $cO, $cN};
+            $cM = $param[2];
+            $cN = $param[1];
+            if ($cM) {
+              $rest = $cM[2];
+              $e2 = $cM[1];
+              $cO = $initlist->contents($rest);
+              $cP = $caml_call2($order, $cN, $e2)
+                ? Vector{0, $cN, Vector{0, $e2, 0}}
+                : (Vector{0, $e2, Vector{0, $cN, 0}});
+              return Vector{0, $cP, $cO};
             }
-            return Vector{0, Vector{0, $cM, 0}, 0};
+            return Vector{0, Vector{0, $cN, 0}, 0};
           }
           return 0;
         };
       $_ = $merge2->contents =
         function($x) use ($merge,$merge2,$order) {
           if ($x) {
-            $cJ = $x[2];
-            if ($cJ) {
-              $rest = $cJ[2];
-              $l2 = $cJ[1];
+            $cK = $x[2];
+            if ($cK) {
+              $rest = $cK[2];
+              $l2 = $cK[1];
               $l1 = $x[1];
-              $cK = $merge2->contents($rest);
-              return Vector{0, $merge->contents($order, $l1, $l2), $cK};
+              $cL = $merge2->contents($rest);
+              return Vector{0, $merge->contents($order, $l1, $l2), $cL};
             }
           }
           return $x;
@@ -120,8 +120,8 @@ final class Sort {
           $lo__0 = $lo;
           $hi__0 = $hi;
           for (;;) {
-            $cG = 6 <= ($hi__0 - $lo__0 | 0) ? 1 : (0);
-            if ($cG) {
+            $cH = 6 <= ($hi__0 - $lo__0 | 0) ? 1 : (0);
+            if ($cH) {
               $mid = $unsigned_right_shift_32($lo__0 + $hi__0 | 0, 1) | 0;
               if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
               if ($caml_call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
@@ -131,9 +131,9 @@ final class Sort {
               $pivot = $arr[$mid + 1];
               $i = Vector{0, $lo__0 + 1 | 0};
               $j = Vector{0, $hi__0 + -1 | 0};
-              $cH = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
-              $cI = $cH || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
-              if ($cI) {
+              $cI = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
+              $cJ = $cI || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
+              if ($cJ) {
                 throw $runtime["caml_wrap_thrown_exception"](
                         Vector{0, $Invalid_argument, $cst_Sort_array}
                       );
@@ -172,17 +172,17 @@ final class Sort {
               }
               b_break:
             }
-            return $cG;
+            return $cH;
             a_continue:;
             
           }
           a_break:
         };
       $qsort->contents(0, $arr->count() - 1 + -1 | 0);
-      $cE = $arr->count() - 1 + -1 | 0;
-      $cD = 1;
-      if (! ($cE < 1)) {
-        $i = $cD;
+      $cF = $arr->count() - 1 + -1 | 0;
+      $cE = 1;
+      if (! ($cF < 1)) {
+        $i = $cE;
         for (;;) {
           $val_i = $arr[$i + 1];
           if (1 - $caml_call2($cmp, $arr[($i + -1 | 0) + 1], $val_i)) {
@@ -200,8 +200,8 @@ final class Sort {
               break;
             }
           }
-          $cF = $i + 1 | 0;
-          if ($cE !== $i) {$i = $cF;continue;}
+          $cG = $i + 1 | 0;
+          if ($cF !== $i) {$i = $cG;continue;}
           break;
         }
       }

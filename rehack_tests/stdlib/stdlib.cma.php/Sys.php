@@ -50,11 +50,11 @@ final class Sys {
     $word_size = 32;
     $int_size = 32;
     $getenv_opt = function($s) use ($Not_found,$caml_wrap_exception,$runtime) {
-      try {$cB = Vector{0, $runtime["caml_sys_getenv"]($s)};return $cB;}
-      catch(\Throwable $cC) {
-        $cC = $caml_wrap_exception($cC);
-        if ($cC === $Not_found) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($cC);
+      try {$cC = Vector{0, $runtime["caml_sys_getenv"]($s)};return $cC;}
+      catch(\Throwable $cD) {
+        $cD = $caml_wrap_exception($cD);
+        if ($cD === $Not_found) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($cD);
       }
     };
     $interactive = Vector{0, 0};
@@ -101,8 +101,8 @@ final class Sys {
        )
         : ($set_signal($sigint, 0));
     };
-    $cy = function($cA) use ($runtime) {
-      return $runtime["caml_ml_runtime_warnings_enabled"]($cA);
+    $cz = function($cB) use ($runtime) {
+      return $runtime["caml_ml_runtime_warnings_enabled"]($cB);
     };
     $Sys = Vector{
       0,
@@ -152,10 +152,10 @@ final class Sys {
       $Break,
       $catch_break,
       $ocaml_version,
-      function($cz) use ($runtime) {
-        return $runtime["caml_ml_enable_runtime_warnings"]($cz);
+      function($cA) use ($runtime) {
+        return $runtime["caml_ml_enable_runtime_warnings"]($cA);
       },
-      $cy
+      $cz
     };
     
     $runtime["caml_register_global"](3, $Sys, "Sys");

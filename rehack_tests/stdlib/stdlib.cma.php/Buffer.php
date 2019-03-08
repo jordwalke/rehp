@@ -84,13 +84,13 @@ final class Buffer {
     $Sys = $global_data["Sys"];
     $Bytes = $global_data["Bytes"];
     $Uchar = $global_data["Uchar"];
-    $hq = Vector{0, $caml_new_string("buffer.ml"), 205, 9};
-    $hp = Vector{0, $caml_new_string("buffer.ml"), 141, 19};
-    $ho = Vector{0, $caml_new_string("buffer.ml"), 159, 8};
-    $hn = Vector{0, $caml_new_string("buffer.ml"), 120, 19};
-    $hm = Vector{0, $caml_new_string("buffer.ml"), 138, 8};
-    $hl = Vector{0, $caml_new_string("buffer.ml"), 84, 19};
-    $hk = Vector{0, $caml_new_string("buffer.ml"), 117, 8};
+    $hr = Vector{0, $caml_new_string("buffer.ml"), 205, 9};
+    $hq = Vector{0, $caml_new_string("buffer.ml"), 141, 19};
+    $hp = Vector{0, $caml_new_string("buffer.ml"), 159, 8};
+    $ho = Vector{0, $caml_new_string("buffer.ml"), 120, 19};
+    $hn = Vector{0, $caml_new_string("buffer.ml"), 138, 8};
+    $hm = Vector{0, $caml_new_string("buffer.ml"), 84, 19};
+    $hl = Vector{0, $caml_new_string("buffer.ml"), 117, 8};
     $create = function($n) use ($Sys,$caml_create_bytes) {
       $n__0 = 1 <= $n ? $n : (1);
       $n__1 = $Sys[13] < $n__0 ? $Sys[13] : ($n__0);
@@ -177,14 +177,14 @@ final class Buffer {
       $b[2] = $pos + 1 | 0;
       return 0;
     };
-    $add_utf_8_uchar = function($b, $u) use ($Assert_failure,$Uchar,$add_char,$caml_bytes_unsafe_set,$caml_call1,$hk,$hl,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_8_uchar = function($b, $u) use ($Assert_failure,$Uchar,$add_char,$caml_bytes_unsafe_set,$caml_call1,$hl,$hm,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $caml_call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (127 < $u__0) {
           if (2047 < $u__0) {
             if (65535 < $u__0) {
               if (1114111 < $u__0) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hk});
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hl});
               }
               $pos = $b[2];
               if ($b[3] < ($pos + 4 | 0)) {$resize($b, 4);}
@@ -239,14 +239,14 @@ final class Buffer {
         }
         return $add_char($b, $u__0);
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hl});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hm});
     };
-    $add_utf_16be_uchar = function($b, $u) use ($Assert_failure,$Uchar,$caml_bytes_unsafe_set,$caml_call1,$hm,$hn,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_16be_uchar = function($b, $u) use ($Assert_failure,$Uchar,$caml_bytes_unsafe_set,$caml_call1,$hn,$ho,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $caml_call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hm});
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hn});
           }
           $u__1 = $u__0 + -65536 | 0;
           $hi = 55296 | $unsigned_right_shift_32($u__1, 10) | 0;
@@ -280,14 +280,14 @@ final class Buffer {
         $b[2] = $pos__0 + 2 | 0;
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hn});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ho});
     };
-    $add_utf_16le_uchar = function($b, $u) use ($Assert_failure,$Uchar,$caml_bytes_unsafe_set,$caml_call1,$ho,$hp,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_16le_uchar = function($b, $u) use ($Assert_failure,$Uchar,$caml_bytes_unsafe_set,$caml_call1,$hp,$hq,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $caml_call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ho});
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hp});
           }
           $u__1 = $u__0 + -65536 | 0;
           $hi = 55296 | $unsigned_right_shift_32($u__1, 10) | 0;
@@ -323,19 +323,19 @@ final class Buffer {
         $b[2] = $pos__0 + 2 | 0;
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hp});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hq});
     };
     $add_substring = function($b, $s, $offset, $len) use ($Bytes,$Pervasives,$caml_call1,$caml_call5,$caml_ml_string_length,$cst_Buffer_add_substring_add_subbytes,$resize) {
-      $hv = $offset < 0 ? 1 : (0);
-      if ($hv) {
-        $hw = $hv;
+      $hw = $offset < 0 ? 1 : (0);
+      if ($hw) {
+        $hx = $hw;
       }
       else {
-        $hx = $len < 0 ? 1 : (0);
-        $hw = $hx ||
+        $hy = $len < 0 ? 1 : (0);
+        $hx = $hy ||
           (($caml_ml_string_length($s) - $len | 0) < $offset ? 1 : (0));
       }
-      if ($hw) {
+      if ($hx) {
         $caml_call1($Pervasives[1], $cst_Buffer_add_substring_add_subbytes);
       }
       $new_position = $b[2] + $len | 0;
@@ -364,8 +364,8 @@ final class Buffer {
     $add_channel_rec = function($b, $ic, $len) use ($End_of_file,$Pervasives,$caml_call4,$runtime) {
       $len__0 = $len;
       for (;;) {
-        $hu = 0 < $len__0 ? 1 : (0);
-        if ($hu) {
+        $hv = 0 < $len__0 ? 1 : (0);
+        if ($hv) {
           $n = $caml_call4($Pervasives[72], $ic, $b[1], $b[2], $len__0);
           $b[2] = $b[2] + $n | 0;
           if (0 === $n) {
@@ -375,23 +375,23 @@ final class Buffer {
           $len__0 = $len__1;
           continue;
         }
-        return $hu;
+        return $hv;
       }
     };
     $add_channel = function($b, $ic, $len) use ($Pervasives,$Sys,$add_channel_rec,$caml_call1,$cst_Buffer_add_channel,$resize) {
-      $hs = $len < 0 ? 1 : (0);
-      $ht = $hs || ($Sys[13] < $len ? 1 : (0));
-      if ($ht) {$caml_call1($Pervasives[1], $cst_Buffer_add_channel);}
+      $ht = $len < 0 ? 1 : (0);
+      $hu = $ht || ($Sys[13] < $len ? 1 : (0));
+      if ($hu) {$caml_call1($Pervasives[1], $cst_Buffer_add_channel);}
       if ($b[3] < ($b[2] + $len | 0)) {$resize($b, $len);}
       return $add_channel_rec($b, $ic, $len);
     };
     $output_buffer = function($oc, $b) use ($Pervasives,$caml_call4) {
       return $caml_call4($Pervasives[56], $oc, $b[1], 0, $b[2]);
     };
-    $closing = function($param) use ($Assert_failure,$hq,$runtime) {
+    $closing = function($param) use ($Assert_failure,$hr,$runtime) {
       if (40 === $param) {return 41;}
       if (123 === $param) {return 125;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hq});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hr});
     };
     $advance_to_closing = function($opening, $closing, $k, $s, $start) use ($Not_found,$caml_ml_string_length,$caml_string_get,$runtime) {
       $advance = function($k, $i, $lim) use ($Not_found,$caml_string_get,$closing,$opening,$runtime,$s) {
@@ -511,8 +511,8 @@ final class Buffer {
             $i__0 = $i__5;
             continue;
           }
-          $hr = 92 === $previous__0 ? 1 : (0);
-          return $hr ? $add_char($b, $previous__0) : ($hr);
+          $hs = 92 === $previous__0 ? 1 : (0);
+          return $hs ? $add_char($b, $previous__0) : ($hs);
         }
       };
       return $subst(32, 0);

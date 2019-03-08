@@ -142,11 +142,11 @@ function bool_of_string_opt(param) {
 function string_of_int(n) {return caml_new_string("" + n);}
 
 function int_of_string_opt(s) {
-  try {var aA = [0,caml_int_of_string(s)];return aA;}
-  catch(aB) {
-    aB = caml_wrap_exception(aB);
-    if (aB[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](aB);
+  try {var aB = [0,caml_int_of_string(s)];return aB;}
+  catch(aC) {
+    aC = caml_wrap_exception(aC);
+    if (aC[1] === Failure) {return 0;}
+    throw runtime["caml_wrap_thrown_exception_reraise"](aC);
   }
 }
 
@@ -170,11 +170,11 @@ function string_of_float(f) {
 }
 
 function float_of_string_opt(s) {
-  try {var ay = [0,caml_float_of_string(s)];return ay;}
-  catch(az) {
-    az = caml_wrap_exception(az);
-    if (az[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](az);
+  try {var az = [0,caml_float_of_string(s)];return az;}
+  catch(aA) {
+    aA = caml_wrap_exception(aA);
+    if (aA[1] === Failure) {return 0;}
+    throw runtime["caml_wrap_thrown_exception_reraise"](aA);
   }
 }
 
@@ -205,10 +205,10 @@ function flush_all(param) {
         var l = param__0[2];
         var a = param__0[1];
         try {caml_ml_flush(a);}
-        catch(ax) {
-          ax = caml_wrap_exception(ax);
-          if (ax[1] !== Sys_error) {
-            throw runtime["caml_wrap_thrown_exception_reraise"](ax);
+        catch(ay) {
+          ay = caml_wrap_exception(ay);
+          if (ay[1] !== Sys_error) {
+            throw runtime["caml_wrap_thrown_exception_reraise"](ay);
           }
         }
         var param__0 = l;
@@ -253,8 +253,8 @@ function output_value(chan, v) {
 function close_out(oc) {caml_ml_flush(oc);return caml_ml_close_channel(oc);}
 
 function close_out_noerr(oc) {
-  try {caml_ml_flush(oc);}catch(aw) {}
-  try {var au = caml_ml_close_channel(oc);return au;}catch(av) {return 0;}
+  try {caml_ml_flush(oc);}catch(ax) {}
+  try {var av = caml_ml_close_channel(oc);return av;}catch(aw) {return 0;}
 }
 
 function open_in_gen(mode, perm, name) {
@@ -364,7 +364,7 @@ function input_line(chan) {
 }
 
 function close_in_noerr(ic) {
-  try {var as = caml_ml_close_channel(ic);return as;}catch(at) {return 0;}
+  try {var at = caml_ml_close_channel(ic);return at;}catch(au) {return 0;}
 }
 
 function print_char(c) {return caml_ml_output_char(stdout, c);}
@@ -423,13 +423,13 @@ function string_of_format(param) {var str = param[2];return str;}
 
 var exit_function = [0,flush_all];
 
-function o(param, aq) {
-  var str2 = aq[2];
-  var fmt2 = aq[1];
+function o(param, ar) {
+  var str2 = ar[2];
+  var fmt2 = ar[1];
   var str1 = param[2];
   var fmt1 = param[1];
-  var ar = g(str1, g(cst__0, str2));
-  return [0,caml_call2(CamlinternalFormatBasics[3], fmt1, fmt2),ar];
+  var as = g(str1, g(cst__0, str2));
+  return [0,caml_call2(CamlinternalFormatBasics[3], fmt1, fmt2),as];
 }
 
 function at_exit(f) {
@@ -446,19 +446,19 @@ function exit(retcode) {
   return runtime["caml_sys_exit"](retcode);
 }
 
-function p(ap) {return caml_ml_channel_size_64(ap);}
+function p(aq) {return caml_ml_channel_size_64(aq);}
 
-function q(ao) {return runtime["caml_ml_pos_in_64"](ao);}
+function q(ap) {return runtime["caml_ml_pos_in_64"](ap);}
 
-function r(an, am) {return runtime["caml_ml_seek_in_64"](an, am);}
+function r(ao, an) {return runtime["caml_ml_seek_in_64"](ao, an);}
 
-function s(al) {return caml_ml_channel_size_64(al);}
+function s(am) {return caml_ml_channel_size_64(am);}
 
-function t(ak) {return runtime["caml_ml_pos_out_64"](ak);}
+function t(al) {return runtime["caml_ml_pos_out_64"](al);}
 
 var u = [
   0,
-  function(aj, ai) {return runtime["caml_ml_seek_out_64"](aj, ai);},
+  function(ak, aj) {return runtime["caml_ml_seek_out_64"](ak, aj);},
   t,
   s,
   r,
@@ -466,19 +466,19 @@ var u = [
   p
 ];
 
-function v(ah, ag) {return caml_ml_set_binary_mode(ah, ag);}
+function v(ai, ah) {return caml_ml_set_binary_mode(ai, ah);}
 
-function w(af) {return caml_ml_close_channel(af);}
+function w(ag) {return caml_ml_close_channel(ag);}
 
-function x(ae) {return caml_ml_channel_size(ae);}
+function x(af) {return caml_ml_channel_size(af);}
 
-function y(ad) {return runtime["caml_ml_pos_in"](ad);}
+function y(ae) {return runtime["caml_ml_pos_in"](ae);}
 
-function z(ac, ab) {return runtime["caml_ml_seek_in"](ac, ab);}
+function z(ad, ac) {return runtime["caml_ml_seek_in"](ad, ac);}
 
-function A(aa) {return runtime["caml_input_value"](aa);}
+function A(ab) {return runtime["caml_input_value"](ab);}
 
-function B(_) {return runtime["caml_ml_input_int"](_);}
+function B(aa) {return runtime["caml_ml_input_int"](aa);}
 
 function C(Z) {return caml_ml_input_char(Z);}
 

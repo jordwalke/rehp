@@ -112,39 +112,39 @@ final class Genlex {
       $maybe_nested_comment = new Ref();
       $string = new Ref();
       $kwd_table = $caml_call2($Hashtbl[1], 0, 17);
-      $zy = function($s) use ($Hashtbl,$caml_call3,$kwd_table) {
+      $zz = function($s) use ($Hashtbl,$caml_call3,$kwd_table) {
         return $caml_call3($Hashtbl[5], $kwd_table, $s, Vector{0, $s});
       };
-      $caml_call2($List[15], $zy, $keywords);
+      $caml_call2($List[15], $zz, $keywords);
       $ident_or_keyword = function($id) use ($Hashtbl,$Not_found,$caml_call2,$caml_wrap_exception,$kwd_table,$runtime) {
-        try {$z0 = $caml_call2($Hashtbl[6], $kwd_table, $id);return $z0;}
-        catch(\Throwable $z1) {
-          $z1 = $caml_wrap_exception($z1);
-          if ($z1 === $Not_found) {return Vector{1, $id};}
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($z1);
+        try {$z1 = $caml_call2($Hashtbl[6], $kwd_table, $id);return $z1;}
+        catch(\Throwable $z2) {
+          $z2 = $caml_wrap_exception($z2);
+          if ($z2 === $Not_found) {return Vector{1, $id};}
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($z2);
         }
       };
       $keyword_or_error = function($c) use ($Hashtbl,$Not_found,$Pervasives,$Stream,$String,$caml_call2,$caml_wrap_exception,$cst_Illegal_character,$kwd_table,$runtime) {
         $s = $caml_call2($String[1], 1, $c);
-        try {$zY = $caml_call2($Hashtbl[6], $kwd_table, $s);return $zY;}
-        catch(\Throwable $zZ) {
-          $zZ = $caml_wrap_exception($zZ);
-          if ($zZ === $Not_found) {
-            $zX = $caml_call2($Pervasives[16], $cst_Illegal_character, $s);
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $zX});
+        try {$zZ = $caml_call2($Hashtbl[6], $kwd_table, $s);return $zZ;}
+        catch(\Throwable $z0) {
+          $z0 = $caml_wrap_exception($z0);
+          if ($z0 === $Not_found) {
+            $zY = $caml_call2($Pervasives[16], $cst_Illegal_character, $s);
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $zY});
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($zZ);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($z0);
         }
       };
       $end_exponent_part = function($strm) use ($Stream,$caml_call1,$caml_float_of_string,$get_string,$store,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zW = $match[1];
-            $switcher = $zW + -48 | 0;
+            $zX = $match[1];
+            $switcher = $zX + -48 | 0;
             if (! (9 < $unsigned_right_shift_32($switcher, 0))) {
               $caml_call1($Stream[12], $strm);
-              $store($zW);
+              $store($zX);
               continue;
             }
           }
@@ -154,11 +154,11 @@ final class Genlex {
       $exponent_part = function($strm) use ($Stream,$caml_call1,$end_exponent_part,$store) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
-          $zV = $match[1];
-          $switch__0 = 43 === $zV ? 0 : (45 === $zV ? 0 : (1));
+          $zW = $match[1];
+          $switch__0 = 43 === $zW ? 0 : (45 === $zW ? 0 : (1));
           if (! $switch__0) {
             $caml_call1($Stream[12], $strm);
-            $store($zV);
+            $store($zW);
             return $end_exponent_part($strm);
           }
         }
@@ -168,18 +168,18 @@ final class Genlex {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zT = $match[1];
-            $zU = $zT + -69 | 0;
-            if (32 < $unsigned_right_shift_32($zU, 0)) {
-              $switcher = $zU + 21 | 0;
+            $zU = $match[1];
+            $zV = $zU + -69 | 0;
+            if (32 < $unsigned_right_shift_32($zV, 0)) {
+              $switcher = $zV + 21 | 0;
               if (! (9 < $unsigned_right_shift_32($switcher, 0))) {
                 $caml_call1($Stream[12], $strm);
-                $store($zT);
+                $store($zU);
                 continue;
               }
             }
             else {
-              $switcher__0 = $zU + -1 | 0;
+              $switcher__0 = $zV + -1 | 0;
               if (30 < $unsigned_right_shift_32($switcher__0, 0)) {
                 $caml_call1($Stream[12], $strm);
                 $store(69);
@@ -194,9 +194,9 @@ final class Genlex {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zS = $match[1];
-            if (58 <= $zS) {
-              $switch__0 = 69 === $zS ? 0 : (101 === $zS ? 0 : (1));
+            $zT = $match[1];
+            if (58 <= $zT) {
+              $switch__0 = 69 === $zT ? 0 : (101 === $zT ? 0 : (1));
               if (! $switch__0) {
                 $caml_call1($Stream[12], $strm);
                 $store(69);
@@ -204,14 +204,14 @@ final class Genlex {
               }
             }
             else {
-              if (46 === $zS) {
+              if (46 === $zT) {
                 $caml_call1($Stream[12], $strm);
                 $store(46);
                 return $decimal_part($strm);
               }
-              if (48 <= $zS) {
+              if (48 <= $zT) {
                 $caml_call1($Stream[12], $strm);
-                $store($zS);
+                $store($zT);
                 continue;
               }
             }
@@ -226,20 +226,20 @@ final class Genlex {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zQ = $match[1];
-            if (94 <= $zQ) {
-              $zR = $zQ + -95 | 0;
-              $switch__0 = 30 < $unsigned_right_shift_32($zR, 0)
-                ? 32 <= $zR ? 1 : (0)
-                : (29 === $zR ? 0 : (1));
+            $zR = $match[1];
+            if (94 <= $zR) {
+              $zS = $zR + -95 | 0;
+              $switch__0 = 30 < $unsigned_right_shift_32($zS, 0)
+                ? 32 <= $zS ? 1 : (0)
+                : (29 === $zS ? 0 : (1));
             }
             else {
-              if (65 <= $zQ) {
-                $switch__0 = 92 === $zQ ? 0 : (1);
+              if (65 <= $zR) {
+                $switch__0 = 92 === $zR ? 0 : (1);
               }
               else {
-                if (33 <= $zQ) {
-                  switch($zQ + -33 | 0) {
+                if (33 <= $zR) {
+                  switch($zR + -33 | 0) {
                     // FALLTHROUGH
                     case 0:
                     // FALLTHROUGH
@@ -282,7 +282,7 @@ final class Genlex {
             }
             if (! $switch__0) {
               $caml_call1($Stream[12], $strm);
-              $store($zQ);
+              $store($zR);
               continue;
             }
           }
@@ -292,13 +292,13 @@ final class Genlex {
       $neg_number = function($strm) use ($Stream,$caml_call1,$ident2,$number,$reset_buffer,$store,$unsigned_right_shift_32) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
-          $zP = $match[1];
-          $switcher = $zP + -48 | 0;
+          $zQ = $match[1];
+          $switcher = $zQ + -48 | 0;
           if (! (9 < $unsigned_right_shift_32($switcher, 0))) {
             $caml_call1($Stream[12], $strm);
             $reset_buffer(0);
             $store(45);
-            $store($zP);
+            $store($zQ);
             return $number($strm);
           }
         }
@@ -310,21 +310,21 @@ final class Genlex {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zN = $match[1];
-            if (91 <= $zN) {
-              $zO = $zN + -95 | 0;
-              $switch__0 = 27 < $unsigned_right_shift_32($zO, 0)
-                ? 97 <= $zO ? 0 : (1)
-                : (1 === $zO ? 1 : (0));
+            $zO = $match[1];
+            if (91 <= $zO) {
+              $zP = $zO + -95 | 0;
+              $switch__0 = 27 < $unsigned_right_shift_32($zP, 0)
+                ? 97 <= $zP ? 0 : (1)
+                : (1 === $zP ? 1 : (0));
             }
             else {
-              $switch__0 = 48 <= $zN
-                ? 6 < $unsigned_right_shift_32($zN + -58 | 0, 0) ? 0 : (1)
-                : (39 === $zN ? 0 : (1));
+              $switch__0 = 48 <= $zO
+                ? 6 < $unsigned_right_shift_32($zO + -58 | 0, 0) ? 0 : (1)
+                : (39 === $zO ? 0 : (1));
             }
             if (! $switch__0) {
               $caml_call1($Stream[12], $strm);
-              $store($zN);
+              $store($zO);
               continue;
             }
           }
@@ -335,20 +335,20 @@ final class Genlex {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zJ = $match[1];
-            if (124 <= $zJ) {
-              $switch__0 = 127 <= $zJ
-                ? 192 <= $zJ ? 1 : (0)
-                : (125 === $zJ ? 0 : (2));
+            $zK = $match[1];
+            if (124 <= $zK) {
+              $switch__0 = 127 <= $zK
+                ? 192 <= $zK ? 1 : (0)
+                : (125 === $zK ? 0 : (2));
             }
             else {
-              $zK = $zJ + -65 | 0;
-              if (57 < $unsigned_right_shift_32($zK, 0)) {
-                if (58 <= $zK) {
+              $zL = $zK + -65 | 0;
+              if (57 < $unsigned_right_shift_32($zL, 0)) {
+                if (58 <= $zL) {
                   $switch__0 = 0;
                 }
                 else {
-                  $switcher = $zK + 65 | 0;
+                  $switcher = $zL + 65 | 0;
                   switch($switcher) {
                     // FALLTHROUGH
                     case 34:
@@ -359,12 +359,12 @@ final class Genlex {
                     case 39:
                       $caml_call1($Stream[12], $strm);
                       try {$c = $char__0->contents($strm);}
-                      catch(\Throwable $zM) {
-                        $zM = $caml_wrap_exception($zM);
-                        if ($zM === $Stream[1]) {
+                      catch(\Throwable $zN) {
+                        $zN = $caml_wrap_exception($zN);
+                        if ($zN === $Stream[1]) {
                           throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst});
                         }
-                        throw $runtime["caml_wrap_thrown_exception_reraise"]($zM);
+                        throw $runtime["caml_wrap_thrown_exception_reraise"]($zN);
                       }
                       $match__0 = $caml_call1($Stream[11], $strm);
                       if ($match__0) {
@@ -425,7 +425,7 @@ final class Genlex {
                     case 57:
                       $caml_call1($Stream[12], $strm);
                       $reset_buffer(0);
-                      $store($zJ);
+                      $store($zK);
                       return $number($strm);
                     // FALLTHROUGH
                     case 33:
@@ -464,10 +464,10 @@ final class Genlex {
                 }
               }
               else {
-                $zL = $zK + -26 | 0;
-                if (5 < $unsigned_right_shift_32($zL, 0)) {$switch__0 = 1;}
+                $zM = $zL + -26 | 0;
+                if (5 < $unsigned_right_shift_32($zM, 0)) {$switch__0 = 1;}
                 else {
-                  switch($zL) {
+                  switch($zM) {
                     // FALLTHROUGH
                     case 4:
                       $switch__0 = 1;
@@ -489,18 +489,18 @@ final class Genlex {
               // FALLTHROUGH
               case 0:
                 $caml_call1($Stream[12], $strm);
-                return Vector{0, $keyword_or_error($zJ)};
+                return Vector{0, $keyword_or_error($zK)};
               // FALLTHROUGH
               case 1:
                 $caml_call1($Stream[12], $strm);
                 $reset_buffer(0);
-                $store($zJ);
+                $store($zK);
                 return $ident($strm);
               // FALLTHROUGH
               default:
                 $caml_call1($Stream[12], $strm);
                 $reset_buffer(0);
-                $store($zJ);
+                $store($zK);
                 return $ident2($strm);
               }
           }
@@ -531,26 +531,26 @@ final class Genlex {
           for (;;) {
             $match = $caml_call1($Stream[11], $strm);
             if ($match) {
-              $zH = $match[1];
-              if (34 === $zH) {
+              $zI = $match[1];
+              if (34 === $zI) {
                 $caml_call1($Stream[12], $strm);
                 return $get_string(0);
               }
-              if (92 === $zH) {
+              if (92 === $zI) {
                 $caml_call1($Stream[12], $strm);
                 try {$c = $escape->contents($strm);}
-                catch(\Throwable $zI) {
-                  $zI = $caml_wrap_exception($zI);
-                  if ($zI === $Stream[1]) {
+                catch(\Throwable $zJ) {
+                  $zJ = $caml_wrap_exception($zJ);
+                  if ($zJ === $Stream[1]) {
                     throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__1});
                   }
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($zI);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($zJ);
                 }
                 $store($c);
                 continue;
               }
               $caml_call1($Stream[12], $strm);
-              $store($zH);
+              $store($zI);
               continue;
             }
             throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
@@ -560,20 +560,20 @@ final class Genlex {
         function($strm) use ($Stream,$caml_call1,$caml_wrap_exception,$cst__2,$escape,$runtime) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zE = $match[1];
-            if (92 === $zE) {
+            $zF = $match[1];
+            if (92 === $zF) {
               $caml_call1($Stream[12], $strm);
-              try {$zF = $escape->contents($strm);return $zF;}
-              catch(\Throwable $zG) {
-                $zG = $caml_wrap_exception($zG);
-                if ($zG === $Stream[1]) {
+              try {$zG = $escape->contents($strm);return $zG;}
+              catch(\Throwable $zH) {
+                $zH = $caml_wrap_exception($zH);
+                if ($zH === $Stream[1]) {
                   throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__2});
                 }
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($zG);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($zH);
               }
             }
             $caml_call1($Stream[12], $strm);
-            return $zE;
+            return $zF;
           }
           throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
         };
@@ -581,9 +581,9 @@ final class Genlex {
         function($strm) use ($Char,$Stream,$caml_call1,$cst__3,$cst__4,$runtime,$unsigned_right_shift_32) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
-            $zB = $match[1];
-            if (58 <= $zB) {
-              $switcher = $zB + -110 | 0;
+            $zC = $match[1];
+            if (58 <= $zC) {
+              $switcher = $zC + -110 | 0;
               if (! (6 < $unsigned_right_shift_32($switcher, 0))) {
                 switch($switcher) {
                   // FALLTHROUGH
@@ -602,25 +602,25 @@ final class Genlex {
               }
             }
             else {
-              if (48 <= $zB) {
+              if (48 <= $zC) {
                 $caml_call1($Stream[12], $strm);
                 $match__0 = $caml_call1($Stream[11], $strm);
                 if ($match__0) {
-                  $zC = $match__0[1];
-                  $switcher__0 = $zC + -48 | 0;
+                  $zD = $match__0[1];
+                  $switcher__0 = $zD + -48 | 0;
                   if (! (9 < $unsigned_right_shift_32($switcher__0, 0))) {
                     $caml_call1($Stream[12], $strm);
                     $match__1 = $caml_call1($Stream[11], $strm);
                     if ($match__1) {
-                      $zD = $match__1[1];
-                      $switcher__1 = $zD + -48 | 0;
+                      $zE = $match__1[1];
+                      $switcher__1 = $zE + -48 | 0;
                       if (! (9 < $unsigned_right_shift_32($switcher__1, 0))) {
                         $caml_call1($Stream[12], $strm);
                         return $caml_call1(
                           $Char[1],
-                          ((($zB + -48 | 0) * 100 | 0) +
-                             (($zC + -48 | 0) * 10 | 0) | 0) +
-                            ($zD + -48 | 0) | 0
+                          ((($zC + -48 | 0) * 100 | 0) +
+                             (($zD + -48 | 0) * 10 | 0) | 0) +
+                            ($zE + -48 | 0) | 0
                         );
                       }
                     }
@@ -631,7 +631,7 @@ final class Genlex {
               }
             }
             $caml_call1($Stream[12], $strm);
-            return $zB;
+            return $zC;
           }
           throw $runtime["caml_wrap_thrown_exception"]($Stream[1]);
         };
@@ -701,9 +701,9 @@ final class Genlex {
           for (;;) {
             $match = $caml_call1($Stream[11], $strm);
             if ($match) {
-              $zA = $match[1];
-              if (41 === $zA) {$caml_call1($Stream[12], $strm);return 0;}
-              if (42 === $zA) {$caml_call1($Stream[12], $strm);continue;}
+              $zB = $match[1];
+              if (41 === $zB) {$caml_call1($Stream[12], $strm);return 0;}
+              if (42 === $zB) {$caml_call1($Stream[12], $strm);continue;}
               $caml_call1($Stream[12], $strm);
               if ($counter < 50) {
                 $counter__0 = $counter + 1 | 0;
@@ -719,10 +719,10 @@ final class Genlex {
           return $caml_trampoline($comment__0(0, $strm));
         };
       return function($input) use ($Stream,$caml_call1,$next_token) {
-        $zz = function($count) use ($input,$next_token) {
+        $zA = function($count) use ($input,$next_token) {
           return $next_token($input);
         };
-        return $caml_call1($Stream[3], $zz);
+        return $caml_call1($Stream[3], $zA);
       };
     };
     $Genlex = Vector{0, $make_lexer};

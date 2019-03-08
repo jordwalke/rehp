@@ -36,11 +36,11 @@ function lognot(n) {return n ^ -1;}
 function to_string(n) {return runtime["caml_format_int"](cst_d, n);}
 
 function of_string_opt(s) {
-  try {var eD = [0,runtime["caml_int_of_string"](s)];return eD;}
-  catch(eE) {
-    eE = caml_wrap_exception(eE);
-    if (eE[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](eE);
+  try {var eE = [0,runtime["caml_int_of_string"](s)];return eE;}
+  catch(eF) {
+    eF = caml_wrap_exception(eF);
+    if (eF[1] === Failure) {return 0;}
+    throw runtime["caml_wrap_thrown_exception_reraise"](eF);
   }
 }
 

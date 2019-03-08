@@ -36,10 +36,10 @@ function copy(s) {return [0,s[1],s[2]];}
 function push(x, s) {s[1] = [0,x,s[1]];s[2] = s[2] + 1 | 0;return 0;}
 
 function pop(s) {
-  var gT = s[1];
-  if (gT) {
-    var tl = gT[2];
-    var hd = gT[1];
+  var gU = s[1];
+  if (gU) {
+    var tl = gU[2];
+    var hd = gU[1];
     s[1] = tl;
     s[2] = s[2] + -1 | 0;
     return hd;
@@ -48,8 +48,8 @@ function pop(s) {
 }
 
 function top(s) {
-  var gS = s[1];
-  if (gS) {var hd = gS[1];return hd;}
+  var gT = s[1];
+  if (gT) {var hd = gT[1];return hd;}
   throw runtime["caml_wrap_thrown_exception"](Empty);
 }
 

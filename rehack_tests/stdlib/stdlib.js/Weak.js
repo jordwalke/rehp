@@ -64,13 +64,13 @@ function fill(ar, ofs, len, x) {
   if (0 <= ofs) {
     if (0 <= len) {
       if (! (length(ar) < (ofs + len | 0))) {
-        var sD = (ofs + len | 0) + -1 | 0;
-        if (! (sD < ofs)) {
+        var sE = (ofs + len | 0) + -1 | 0;
+        if (! (sE < ofs)) {
           var i = ofs;
           for (; ; ) {
             caml_weak_set(ar, i, x);
-            var sE = i + 1 | 0;
-            if (sD !== i) {var i = sE;continue;}
+            var sF = i + 1 | 0;
+            if (sE !== i) {var i = sF;continue;}
             break;
           }
         }
@@ -83,7 +83,7 @@ function fill(ar, ofs, len, x) {
 }
 
 function Make(H) {
-  function weak_create(sC) {return caml_weak_create(sC);}
+  function weak_create(sD) {return caml_weak_create(sD);}
   var emptybucket = weak_create(0);
   function get_index(t, h) {
     return caml_mod(h & Pervasives[7], t[1].length - 1);
@@ -102,15 +102,15 @@ function Make(H) {
     ];
   }
   function clear(t) {
-    var sA = t[1].length - 1 + -1 | 0;
-    var sz = 0;
-    if (! (sA < 0)) {
-      var i = sz;
+    var sB = t[1].length - 1 + -1 | 0;
+    var sA = 0;
+    if (! (sB < 0)) {
+      var i = sA;
       for (; ; ) {
         caml_check_bound(t[1], i)[i + 1] = emptybucket;
         caml_check_bound(t[2], i)[i + 1] = [0];
-        var sB = i + 1 | 0;
-        if (sA !== i) {var i = sB;continue;}
+        var sC = i + 1 | 0;
+        if (sB !== i) {var i = sC;continue;}
         break;
       }
     }
@@ -138,10 +138,10 @@ function Make(H) {
         continue;
       }
     }
-    var su = t[1];
-    var sv = 0;
-    function sw(sx, sy) {return fold_bucket(sv, sx, sy);}
-    return caml_call3(Array[18], sw, su, init);
+    var sv = t[1];
+    var sw = 0;
+    function sx(sy, sz) {return fold_bucket(sw, sy, sz);}
+    return caml_call3(Array[18], sx, sv, init);
   }
   function iter(f, t) {
     function iter_bucket(i, b) {
@@ -161,10 +161,10 @@ function Make(H) {
         continue;
       }
     }
-    var sq = t[1];
-    var sr = 0;
-    function ss(st) {return iter_bucket(sr, st);}
-    return caml_call2(Array[13], ss, sq);
+    var sr = t[1];
+    var ss = 0;
+    function st(su) {return iter_bucket(ss, su);}
+    return caml_call2(Array[13], st, sr);
   }
   function iter_weak(f, t) {
     function iter_bucket(i, j, b) {
@@ -179,18 +179,18 @@ function Make(H) {
         continue;
       }
     }
-    var sl = t[1];
-    var sm = 0;
-    function sn(so, sp) {return iter_bucket(sm, so, sp);}
-    return caml_call2(Array[14], sn, sl);
+    var sm = t[1];
+    var sn = 0;
+    function so(sp, sq) {return iter_bucket(sn, sp, sq);}
+    return caml_call2(Array[14], so, sm);
   }
   function count_bucket(i, b, accu) {
     var i__0 = i;
     var accu__0 = accu;
     for (; ; ) {
       if (length(b) <= i__0) {return accu__0;}
-      var sk = caml_weak_check(b, i__0) ? 1 : 0;
-      var accu__1 = accu__0 + sk | 0;
+      var sl = caml_weak_check(b, i__0) ? 1 : 0;
+      var accu__1 = accu__0 + sl | 0;
       var i__1 = i__0 + 1 | 0;
       var i__0 = i__1;
       var accu__0 = accu__1;
@@ -198,21 +198,21 @@ function Make(H) {
     }
   }
   function count(t) {
-    var se = 0;
-    var sf = t[1];
-    var sg = 0;
-    function sh(si, sj) {return count_bucket(sg, si, sj);}
-    return caml_call3(Array[18], sh, sf, se);
+    var sf = 0;
+    var sg = t[1];
+    var sh = 0;
+    function si(sj, sk) {return count_bucket(sh, sj, sk);}
+    return caml_call3(Array[18], si, sg, sf);
   }
   function next_sz(n) {
     return caml_call2(Pervasives[4], ((3 * n | 0) / 2 | 0) + 3 | 0, Sys[14]);
   }
   function prev_sz(n) {return (((n + -3 | 0) * 2 | 0) + 2 | 0) / 3 | 0;}
   function test_shrink_bucket(t) {
-    var r7 = t[5];
-    var bucket = caml_check_bound(t[1], r7)[r7 + 1];
     var r8 = t[5];
-    var hbucket = caml_check_bound(t[2], r8)[r8 + 1];
+    var bucket = caml_check_bound(t[1], r8)[r8 + 1];
+    var r9 = t[5];
+    var hbucket = caml_check_bound(t[2], r9)[r9 + 1];
     var len = length(bucket);
     var prev_len = prev_sz(len);
     var live = count_bucket(0, bucket, 0);
@@ -221,8 +221,8 @@ function Make(H) {
         var i__0 = i;
         var j__0 = j;
         for (; ; ) {
-          var sc = prev_len <= j__0 ? 1 : 0;
-          if (sc) {
+          var sd = prev_len <= j__0 ? 1 : 0;
+          if (sd) {
             if (caml_weak_check(bucket, i__0)) {
               var i__1 = i__0 + 1 | 0;
               var i__0 = i__1;
@@ -230,8 +230,8 @@ function Make(H) {
             }
             if (caml_weak_check(bucket, j__0)) {
               caml_weak_blit(bucket, j__0, bucket, i__0, 1);
-              var sd = caml_check_bound(hbucket, j__0)[j__0 + 1];
-              caml_check_bound(hbucket, i__0)[i__0 + 1] = sd;
+              var se = caml_check_bound(hbucket, j__0)[j__0 + 1];
+              caml_check_bound(hbucket, i__0)[i__0 + 1] = se;
               var j__1 = j__0 + -1 | 0;
               var i__2 = i__0 + 1 | 0;
               var i__0 = i__2;
@@ -242,23 +242,23 @@ function Make(H) {
             var j__0 = j__2;
             continue;
           }
-          return sc;
+          return sd;
         }
       };
       loop(0, length(bucket) + -1 | 0);
       if (0 === prev_len) {
-        var r9 = t[5];
-        caml_check_bound(t[1], r9)[r9 + 1] = emptybucket;
         var r_ = t[5];
-        caml_check_bound(t[2], r_)[r_ + 1] = [0];
+        caml_check_bound(t[1], r_)[r_ + 1] = emptybucket;
+        var sa = t[5];
+        caml_check_bound(t[2], sa)[sa + 1] = [0];
       }
       else {
         caml_obj_truncate(bucket, prev_len + 2 | 0);
         caml_obj_truncate(hbucket, prev_len);
       }
-      var sa = t[3] < len ? 1 : 0;
-      var sb = sa ? prev_len <= t[3] ? 1 : 0 : sa;
-      if (sb) {t[4] = t[4] + -1 | 0;}
+      var sb = t[3] < len ? 1 : 0;
+      var sc = sb ? prev_len <= t[3] ? 1 : 0 : sb;
+      if (sc) {t[4] = t[4] + -1 | 0;}
     }
     t[5] = caml_mod(t[5] + 1 | 0, t[1].length - 1);
     return 0;
@@ -314,20 +314,20 @@ function Make(H) {
           caml_check_bound(newhashes, sz)[sz + 1] = h;
           caml_check_bound(t[1], index)[index + 1] = newbucket;
           caml_check_bound(t[2], index)[index + 1] = newhashes;
-          var r3 = sz <= t[3] ? 1 : 0;
-          var r4 = r3 ? t[3] < newsz ? 1 : 0 : r3;
-          if (r4) {
+          var r4 = sz <= t[3] ? 1 : 0;
+          var r5 = r4 ? t[3] < newsz ? 1 : 0 : r4;
+          if (r5) {
             t[4] = t[4] + 1 | 0;
             var i__1 = 0;
             for (; ; ) {
               test_shrink_bucket(t);
-              var r6 = i__1 + 1 | 0;
-              if (2 !== i__1) {var i__1 = r6;continue;}
+              var r7 = i__1 + 1 | 0;
+              if (2 !== i__1) {var i__1 = r7;continue;}
               break;
             }
           }
-          var r5 = ((t[1].length - 1) / 2 | 0) < t[4] ? 1 : 0;
-          return r5 ? resize(t) : r5;
+          var r6 = ((t[1].length - 1) / 2 | 0) < t[4] ? 1 : 0;
+          return r6 ? resize(t) : r6;
         }
         if (caml_weak_check(bucket, i__0)) {
           var i__2 = i__0 + 1 | 0;
@@ -342,14 +342,14 @@ function Make(H) {
   }
   function add(t, d) {
     var h = caml_call1(H[2], d);
-    var rY = get_index(t, h);
-    var rZ = [0,d];
+    var rZ = get_index(t, h);
+    var r0 = [0,d];
     return add_aux(
       t,
-      function(r2, r1, r0) {return caml_weak_set(r2, r1, r0);},
-      rZ,
+      function(r3, r2, r1) {return caml_weak_set(r3, r2, r1);},
+      r0,
       h,
-      rY
+      rZ
     );
   }
   function find_or(t, d, ifnotfound) {
@@ -390,11 +390,11 @@ function Make(H) {
       t,
       d,
       function(h, index) {
-        var rU = [0,d];
+        var rV = [0,d];
         add_aux(
           t,
-          function(rX, rW, rV) {return caml_weak_set(rX, rW, rV);},
-          rU,
+          function(rY, rX, rW) {return caml_weak_set(rY, rX, rW);},
+          rV,
           h,
           index
         );
@@ -474,17 +474,17 @@ function Make(H) {
     return loop(0);
   }
   function remove(t, d) {
-    var rT = 0;
+    var rU = 0;
     return find_shadow(
       t,
       d,
       function(w, i) {return caml_weak_set(w, i, 0);},
-      rT
+      rU
     );
   }
   function mem(t, d) {
-    var rS = 0;
-    return find_shadow(t, d, function(w, i) {return 1;}, rS);
+    var rT = 0;
+    return find_shadow(t, d, function(w, i) {return 1;}, rT);
   }
   function find_all(t, d) {
     var h = caml_call1(H[2], d);
@@ -530,17 +530,17 @@ function Make(H) {
   function stats(t) {
     var len = t[1].length - 1;
     var lens = caml_call2(Array[15], length, t[1]);
-    function rG(rR, rQ) {return runtime["caml_int_compare"](rR, rQ);}
-    caml_call2(Array[25], rG, lens);
-    var rH = 0;
-    function rI(rP, rO) {return rP + rO | 0;}
-    var totlen = caml_call3(Array[17], rI, rH, lens);
-    var rJ = len + -1 | 0;
-    var rL = len / 2 | 0;
-    var rK = caml_check_bound(lens, rJ)[rJ + 1];
-    var rM = caml_check_bound(lens, rL)[rL + 1];
-    var rN = caml_check_bound(lens, 0)[1];
-    return [0,len,count(t),totlen,rN,rM,rK];
+    function rH(rS, rR) {return runtime["caml_int_compare"](rS, rR);}
+    caml_call2(Array[25], rH, lens);
+    var rI = 0;
+    function rJ(rQ, rP) {return rQ + rP | 0;}
+    var totlen = caml_call3(Array[17], rJ, rI, lens);
+    var rK = len + -1 | 0;
+    var rM = len / 2 | 0;
+    var rL = caml_check_bound(lens, rK)[rK + 1];
+    var rN = caml_check_bound(lens, rM)[rM + 1];
+    var rO = caml_check_bound(lens, 0)[1];
+    return [0,len,count(t),totlen,rO,rN,rL];
   }
   return [
     0,
@@ -560,26 +560,26 @@ function Make(H) {
   ];
 }
 
-function rm(rF, rE, rD, rC, rB) {return caml_weak_blit(rF, rE, rD, rC, rB);}
+function rn(rG, rF, rE, rD, rC) {return caml_weak_blit(rG, rF, rE, rD, rC);}
 
-function rn(rA, rz) {return caml_weak_check(rA, rz);}
+function ro(rB, rA) {return caml_weak_check(rB, rA);}
 
-function ro(ry, rx) {return caml_weak_get_copy(ry, rx);}
+function rp(rz, ry) {return caml_weak_get_copy(rz, ry);}
 
-function rp(rw, rv) {return caml_weak_get(rw, rv);}
+function rq(rx, rw) {return caml_weak_get(rx, rw);}
 
-function rq(ru, rt, rs) {return caml_weak_set(ru, rt, rs);}
+function rr(rv, ru, rt) {return caml_weak_set(rv, ru, rt);}
 
 var Weak = [
   0,
-  function(rr) {return caml_weak_create(rr);},
+  function(rs) {return caml_weak_create(rs);},
   length,
+  rr,
   rq,
   rp,
   ro,
-  rn,
   fill,
-  rm,
+  rn,
   Make
 ];
 
