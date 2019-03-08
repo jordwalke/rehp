@@ -1671,22 +1671,22 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   
   
   
-  $Out_of_memory = R(248, $caml_new_string("Out_of_memory"), -1);
-  $Sys_error = R(248, $caml_new_string("Sys_error"), -2);
-  $Failure = R(248, $caml_new_string("Failure"), -3);
-  $Invalid_argument = R(248, $caml_new_string("Invalid_argument"), -4);
-  $End_of_file = R(248, $caml_new_string("End_of_file"), -5);
-  $Division_by_zero = R(248, $caml_new_string("Division_by_zero"), -6);
-  $Not_found = R(248, $caml_new_string("Not_found"), -7);
-  $Match_failure = R(248, $caml_new_string("Match_failure"), -8);
-  $Stack_overflow = R(248, $caml_new_string("Stack_overflow"), -9);
-  $Sys_blocked_io = R(248, $caml_new_string("Sys_blocked_io"), -10);
-  $Assert_failure = R(248, $caml_new_string("Assert_failure"), -11);
-  $Undefined_recursive_module = R(
+  $Out_of_memory = Vector{248, $caml_new_string("Out_of_memory"), -1};
+  $Sys_error = Vector{248, $caml_new_string("Sys_error"), -2};
+  $Failure = Vector{248, $caml_new_string("Failure"), -3};
+  $Invalid_argument = Vector{248, $caml_new_string("Invalid_argument"), -4};
+  $End_of_file = Vector{248, $caml_new_string("End_of_file"), -5};
+  $Division_by_zero = Vector{248, $caml_new_string("Division_by_zero"), -6};
+  $Not_found = Vector{248, $caml_new_string("Not_found"), -7};
+  $Match_failure = Vector{248, $caml_new_string("Match_failure"), -8};
+  $Stack_overflow = Vector{248, $caml_new_string("Stack_overflow"), -9};
+  $Sys_blocked_io = Vector{248, $caml_new_string("Sys_blocked_io"), -10};
+  $Assert_failure = Vector{248, $caml_new_string("Assert_failure"), -11};
+  $Undefined_recursive_module = Vector{
     248,
     $caml_new_string("Undefined_recursive_module"),
     -12
-  );
+  };
   $helperVal = $caml_new_string("hello");
   $greeting = $caml_new_string("hello world");
   $greeting__0 = $caml_new_string("hello world with unicode: \xc9\x8a");
@@ -1721,7 +1721,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   
   $c = $caml_new_string("true");
   $d = $caml_new_string("false");
-  $a = R(255, 1, 0, 32752);
+  $a = Vector{255, 1, 0, 32752};
   $e = $caml_new_string("String.sub / Bytes.sub");
   $f = $caml_new_string("");
   $w = $caml_new_string(
@@ -1750,17 +1750,17 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $D = $caml_new_string("Properly caught conversion from string '20' to int ");
   $K = $caml_new_string("Did not properly catch conversion from string to int"
   );
-  $E = R(0, 1, R(0, 2, R(0, 3, R(0, 4, 0))));
-  $F = R(0, 1, R(0, 2, R(0, 3, R(0, 4, 0))));
+  $E = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
+  $F = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
   $G = $caml_new_string("ARE == T: ");
   $H = $caml_new_string("ARE === F: ");
   $I = $caml_new_string("Nans are === (should output true):");
   $J = $caml_new_string("Nans are == (should output false):");
   $failwith = function($s) use ($Failure,$caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(V(0, $Failure, $s));
+    throw $caml_wrap_thrown_exception(Vector{0, $Failure, $s});
   };
   $invalid_arg = function($s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(V(0, $Invalid_argument, $s));
+    throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s});
   };
   
   $caml_fresh_oo_id(0);
@@ -1853,12 +1853,12 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   };
   $trim = function($s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
     $len = $caml_ml_bytes_length($s);
-    $i = V(0, 0);
+    $i = Vector{0, 0};
     for (;;) {
       if ($i[1] < $len) {
         if ($is_space($caml_bytes_unsafe_get($s, $i[1]))) {$i[1] += 1;continue;}
       }
-      $j = V(0, $len + -1 | 0);
+      $j = Vector{0, $len + -1 | 0};
       for (;;) {
         if ($i[1] <= $j[1]) {
           if ($is_space($caml_bytes_unsafe_get($s, $j[1]))) {$j[1] += -1;continue;}
@@ -2000,8 +2000,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   }
   else {$failwith($K);}
   
-  $one__0 = V(0, $E);
-  $two = V(0, $F);
+  $one__0 = Vector{0, $E};
+  $two = Vector{0, $F};
   
   $print_string($b($G, $string_of_bool($caml_equal($one__0, $two))));
   

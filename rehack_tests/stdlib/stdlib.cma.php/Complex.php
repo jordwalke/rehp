@@ -29,16 +29,20 @@ final class Complex {
     
 
     $runtime = $joo_global_object->jsoo_runtime;$Math = $runtime["Math"];
-    $zero = R(254, 0, 0);
-    $one = R(254, 1, 0);
-    $i = R(254, 0, 1);
-    $Cm = R(254, 0, 0);
-    $add = function($x, $y) {return V(254, $x[1] + $y[1], $x[2] + $y[2]);};
-    $sub = function($x, $y) {return V(254, $x[1] - $y[1], $x[2] - $y[2]);};
-    $neg = function($x) {return V(254, - $x[1], - $x[2]);};
-    $conj = function($x) {return V(254, $x[1], - $x[2]);};
+    $zero = Vector{254, 0, 0};
+    $one = Vector{254, 1, 0};
+    $i = Vector{254, 0, 1};
+    $Cm = Vector{254, 0, 0};
+    $add = function($x, $y) {
+      return Vector{254, $x[1] + $y[1], $x[2] + $y[2]};
+    };
+    $sub = function($x, $y) {
+      return Vector{254, $x[1] - $y[1], $x[2] - $y[2]};
+    };
+    $neg = function($x) {return Vector{254, - $x[1], - $x[2]};};
+    $conj = function($x) {return Vector{254, $x[1], - $x[2]};};
     $mul = function($x, $y) {
-      return V(
+      return Vector{
         254,
         $x[1] *
           $y[1] -
@@ -48,21 +52,25 @@ final class Complex {
           $y[2] +
           $x[2] *
             $y[1]
-      );
+      };
     };
     $div = function($x, $y) use ($Math) {
       if ($Math->abs($y[2]) <= $Math->abs($y[1])) {
         $r = $y[2] / $y[1];
         $d = $y[1] + $r * $y[2];
-        return V(254, ($x[1] + $r * $x[2]) / $d, ($x[2] - $r * $x[1]) / $d);
+        return Vector{
+          254,
+          ($x[1] + $r * $x[2]) / $d,
+          ($x[2] - $r * $x[1]) / $d
+        };
       }
       $r__0 = $y[1] / $y[2];
       $d__0 = $y[2] + $r__0 * $y[1];
-      return V(
+      return Vector{
         254,
         ($r__0 * $x[1] + $x[2]) / $d__0,
         ($r__0 * $x[2] - $x[1]) / $d__0
-      );
+      };
     };
     $inv = function($x) use ($div,$one) {return $div($one, $x);};
     $norm2 = function($x) {return $x[1] * $x[1] + $x[2] * $x[2];};
@@ -77,7 +85,7 @@ final class Complex {
     };
     $arg = function($x) use ($Math) {return $Math->atan2($x[2], $x[1]);};
     $polar = function($n, $a) use ($Math) {
-      return V(254, $Math->cos($a) * $n, $Math->sin($a) * $n);
+      return Vector{254, $Math->cos($a) * $n, $Math->sin($a) * $n};
     };
     $sqrt = function($x) use ($Cm,$Math) {
       if ($x[1] == 0) {if ($x[2] == 0) {return $Cm;}}
@@ -93,22 +101,22 @@ final class Complex {
         $w = $Math->sqrt($i) *
           $Math->sqrt(0.5 * ($q__0 + $Math->sqrt(1 + $q__0 * $q__0)));
       }
-      if (0 <= $x[1]) {return V(254, $w, 0.5 * $x[2] / $w);}
+      if (0 <= $x[1]) {return Vector{254, $w, 0.5 * $x[2] / $w};}
       $w__0 = 0 <= $x[2] ? $w : (- $w);
-      return V(254, 0.5 * $i / $w, $w__0);
+      return Vector{254, 0.5 * $i / $w, $w__0};
     };
     $exp = function($x) use ($Math) {
       $e = $Math->exp($x[1]);
-      return V(254, $e * $Math->cos($x[2]), $e * $Math->sin($x[2]));
+      return Vector{254, $e * $Math->cos($x[2]), $e * $Math->sin($x[2])};
     };
     $log = function($x) use ($Math,$norm) {
       $Cn = $Math->atan2($x[2], $x[1]);
-      return V(254, $Math->log($norm($x)), $Cn);
+      return Vector{254, $Math->log($norm($x)), $Cn};
     };
     $pow = function($x, $y) use ($exp,$log,$mul) {
       return $exp($mul($y, $log($x)));
     };
-    $Complex = V(
+    $Complex = Vector{
       0,
       $zero,
       $one,
@@ -128,7 +136,7 @@ final class Complex {
       $exp,
       $log,
       $pow
-    );
+    };
     
     $runtime["caml_register_global"](19, $Complex, "Complex");
 

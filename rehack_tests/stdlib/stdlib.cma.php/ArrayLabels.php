@@ -59,7 +59,7 @@ final class ArrayLabels {
     $stable_sort = $Array[26];
     $fast_sort = $Array[27];
     $Floatarray = $Array[28];
-    $ArrayLabels = V(
+    $ArrayLabels = Vector{
       0,
       $init,
       $make_matrix,
@@ -89,7 +89,7 @@ final class ArrayLabels {
       $stable_sort,
       $fast_sort,
       $Floatarray
-    );
+    };
     
     $runtime["caml_register_global"](1, $ArrayLabels, "ArrayLabels");
 

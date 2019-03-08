@@ -106,13 +106,13 @@ final class Filename {
     $Buffer = $global_data["Buffer"];
     $Not_found = $global_data["Not_found"];
     $Sys = $global_data["Sys"];
-    $Bh = R(0, 7, 0);
-    $Bg = R(0, 1, R(0, 3, R(0, 5, 0)));
-    $Bf = R(
+    $Bh = Vector{0, 7, 0};
+    $Bg = Vector{0, 1, Vector{0, 3, Vector{0, 5, 0}}};
+    $Bf = Vector{
       0,
-      R(2, 0, R(4, 6, R(0, 2, 6), 0, R(2, 0, 0))),
+      Vector{2, 0, Vector{4, 6, Vector{0, 2, 6}, 0, Vector{2, 0, 0}}},
       $caml_new_string("%s%06x%s")
-    );
+    };
     $generic_quote = function($quotequote, $s) use ($Buffer,$caml_call1,$caml_call2,$caml_ml_string_length,$caml_string_get) {
       $l = $caml_ml_string_length($s);
       $b = $caml_call1($Buffer[1], $l + 20 | 0);
@@ -483,9 +483,9 @@ final class Filename {
           $caml_ml_string_length($s) + -2 |
             0
         );
-        return V(0, $caml_call3($String[4], $s, 0, 2), $BB);
+        return Vector{0, $caml_call3($String[4], $s, 0, 2), $BB};
       }
-      return V(0, $cst__9, $s);
+      return Vector{0, $cst__9, $s};
     };
     $dirname__0 = function($s) use ($Pervasives,$caml_call2,$current_dir_name__0,$drive_and_path,$generic_dirname,$is_dir_sep__0) {
       $match = $drive_and_path($s);
@@ -523,7 +523,7 @@ final class Filename {
         $switch__0 = 1;
       }
       else {
-        $Bi = V(
+        $Bi = Vector{
           0,
           $current_dir_name__0,
           $parent_dir_name__0,
@@ -536,12 +536,12 @@ final class Filename {
           $quote__0,
           $basename__0,
           $dirname__0
-        );
+        };
         $switch__0 = 0;
       }
     }
     else {
-      $Bi = V(
+      $Bi = Vector{
         0,
         $current_dir_name__1,
         $parent_dir_name__1,
@@ -554,7 +554,7 @@ final class Filename {
         $quote,
         $basename__1,
         $dirname__1
-      );
+      };
       $switch__0 = 0;
     }
     
@@ -664,12 +664,12 @@ final class Filename {
            0
        ));
     };
-    $prng = V(
+    $prng = Vector{
       246,
       function($Bx) use ($Random,$caml_call1) {
         return $caml_call1($Random[11][2], 0);
       }
-    );
+    };
     $temp_file_name = function($temp_dir, $prefix, $suffix) use ($Bf,$CamlinternalLazy,$Printf,$Random,$caml_call1,$caml_call4,$concat,$prng,$runtime) {
       $Bv = $runtime["caml_obj_tag"]($prng);
       $Bw = 250 === $Bv
@@ -681,7 +681,7 @@ final class Filename {
         $caml_call4($Printf[4], $Bf, $prefix, $rnd, $suffix)
       );
     };
-    $current_temp_dir_name = V(0, $temp_dir_name__1);
+    $current_temp_dir_name = Vector{0, $temp_dir_name__1};
     $set_temp_dir_name = function($s) use ($current_temp_dir_name) {
       $current_temp_dir_name[1] = $s;
       return 0;
@@ -742,16 +742,16 @@ final class Filename {
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
           try {
-            $Bu = V(
+            $Bu = Vector{
               0,
               $name,
               $caml_call3(
                 $Pervasives[50],
-                V(0, 1, V(0, 3, V(0, 5, $mode))),
+                Vector{0, 1, Vector{0, 3, Vector{0, 5, $mode}}},
                 $perms,
                 $name
               )
-            );
+            };
             return $Bu;
           }
           catch(\Throwable $e) {
@@ -770,7 +770,7 @@ final class Filename {
       };
       return $try_name(0);
     };
-    $Filename = V(
+    $Filename = Vector{
       0,
       $current_dir_name__2,
       $parent_dir_name__2,
@@ -791,7 +791,7 @@ final class Filename {
       $set_temp_dir_name,
       $temp_dir_name__1,
       $quote__1
-    );
+    };
     
     $runtime["caml_register_global"](40, $Filename, "Filename");
 

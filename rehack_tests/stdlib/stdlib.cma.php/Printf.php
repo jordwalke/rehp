@@ -105,7 +105,7 @@ final class Printf {
     $sprintf = function($fmt) use ($ksprintf) {
       return $ksprintf(function($s) {return $s;}, $fmt);
     };
-    $Printf = V(
+    $Printf = Vector{
       0,
       $fprintf,
       $printf,
@@ -118,7 +118,7 @@ final class Printf {
       $ksprintf,
       $kbprintf,
       $ksprintf
-    );
+    };
     
     $runtime["caml_register_global"](3, $Printf, "Printf");
 

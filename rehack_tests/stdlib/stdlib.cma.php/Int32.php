@@ -49,7 +49,7 @@ final class Int32 {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$ev = V(0, $runtime["caml_int_of_string"]($s));return $ev;}
+      try {$ev = Vector{0, $runtime["caml_int_of_string"]($s)};return $ev;}
       catch(\Throwable $ew) {
         $ew = $caml_wrap_exception($ew);
         if ($ew[1] === $Failure) {return 0;}
@@ -62,7 +62,7 @@ final class Int32 {
     $equal = function($x, $y) use ($compare) {
       return 0 === $compare($x, $y) ? 1 : (0);
     };
-    $Int32 = V(
+    $Int32 = Vector{
       0,
       $zero,
       $one,
@@ -77,7 +77,7 @@ final class Int32 {
       $to_string,
       $compare,
       $equal
-    );
+    };
     
     $runtime["caml_register_global"](11, $Int32, "Int32");
 

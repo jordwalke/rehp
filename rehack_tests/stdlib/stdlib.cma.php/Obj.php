@@ -65,7 +65,7 @@ final class Obj {
     };
     $unmarshal = function($str, $pos) use ($Marshal,$caml_call2) {
       $dv = $pos + $caml_call2($Marshal[8], $str, $pos) | 0;
-      return V(0, $caml_call2($Marshal[4], $str, $pos), $dv);
+      return Vector{0, $caml_call2($Marshal[4], $str, $pos), $dv};
     };
     $first_non_constant_constructor_tag = 0;
     $last_non_constant_constructor_tag = 245;
@@ -147,7 +147,7 @@ final class Obj {
     $c5 = function($c8, $c7) use ($runtime) {
       return $runtime["caml_ephe_get_key"]($c8, $c7);
     };
-    $Obj = V(
+    $Obj = Vector{
       0,
       $is_block,
       $double_field,
@@ -174,7 +174,7 @@ final class Obj {
       $extension_id,
       $marshal,
       $unmarshal,
-      V(
+      Vector{
         0,
         function($c6) use ($runtime) {
           return $runtime["caml_ephe_create"]($c6);
@@ -192,8 +192,8 @@ final class Obj {
         $cW,
         $cV,
         $cU
-      )
-    );
+      }
+    };
     
     $runtime["caml_register_global"](4, $Obj, "Obj");
 

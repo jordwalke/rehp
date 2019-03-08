@@ -34,7 +34,7 @@ final class Oo {
     $copy = $CamlinternalOO[22];
     $new_method = $CamlinternalOO[1];
     $public_method_label = $CamlinternalOO[1];
-    $Oo = V(0, $copy, $new_method, $public_method_label);
+    $Oo = Vector{0, $copy, $new_method, $public_method_label};
     
     $runtime["caml_register_global"](1, $Oo, "Oo");
 

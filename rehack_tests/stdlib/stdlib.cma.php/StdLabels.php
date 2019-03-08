@@ -29,7 +29,7 @@ final class StdLabels {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $StdLabels = V(0, 0, 0, 0, 0);
+    $StdLabels = Vector{0, 0, 0, 0, 0};
     
     $runtime["caml_register_global"](0, $StdLabels, "StdLabels");
 

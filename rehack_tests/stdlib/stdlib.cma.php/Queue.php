@@ -41,11 +41,11 @@ final class Queue {
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
-    $Empty = V(248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0));
-    $create = function($param) {return V(0, 0, 0, 0);};
+    $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)};
+    $create = function($param) {return Vector{0, 0, 0, 0};};
     $clear = function($q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
     $add = function($x, $q) {
-      $cell = V(0, $x, 0);
+      $cell = Vector{0, $x, 0};
       $g0 = $q[3];
       return $g0
         ? ($q[1] = $q[1] + 1 | 0) || true
@@ -88,7 +88,7 @@ final class Queue {
         if ($cell__0) {
           $content = $cell__0[1];
           $next = $cell__0[2];
-          $res = V(0, $content, 0);
+          $res = Vector{0, $content, 0};
           if ($prev__0) {
             $prev__0[2] = $res;
           }
@@ -102,7 +102,7 @@ final class Queue {
       }
     };
     $copy__0 = function($q) use ($copy) {
-      return $copy(V(0, $q[1], 0, 0), 0, $q[2]);
+      return $copy(Vector{0, $q[1], 0, 0}, 0, $q[2]);
     };
     $is_empty = function($q) {return 0 === $q[1] ? 1 : (0);};
     $length = function($q) {return $q[1];};
@@ -160,7 +160,7 @@ final class Queue {
       }
       return $gU;
     };
-    $Queue = V(
+    $Queue = Vector{
       0,
       $Empty,
       $create,
@@ -177,7 +177,7 @@ final class Queue {
       $iter__0,
       $fold__0,
       $transfer
-    );
+    };
     
     $runtime["caml_register_global"](1, $Queue, "Queue");
 

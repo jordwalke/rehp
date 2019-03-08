@@ -74,9 +74,9 @@ final class Random {
     $Digest = $global_data["Digest"];
     $Array = $global_data["Array_"];
     $Nativeint = $global_data["Nativeint"];
-    $pX = R(255, 1, 0, 0);
-    $pY = R(255, 0, 0, 0);
-    $pZ = R(
+    $pX = Vector{255, 1, 0, 0};
+    $pY = Vector{255, 0, 0, 0};
+    $pZ = Vector{
       0,
       987910699,
       495797812,
@@ -133,9 +133,9 @@ final class Random {
       652377910,
       409934019,
       801085050
-    );
+    };
     $new_state = function($param) use ($runtime) {
-      return V(0, $runtime["caml_make_vect"](55, 0), 0);
+      return Vector{0, $runtime["caml_make_vect"](55, 0), 0};
     };
     $assign = function($st1, $st2) use ($Array,$caml_call5) {
       $caml_call5($Array[10], $st2[1], 0, $st1[1], 0, 55);
@@ -154,14 +154,14 @@ final class Random {
         $qb = $left_shift_32($caml_string_get($d, 1), 8);
         return (($caml_string_get($d, 0) + $qb | 0) + $qa | 0) + $p_ | 0;
       };
-      $seed__0 = 0 === $seed->count() - 1 ? V(0, 0) : ($seed);
+      $seed__0 = 0 === $seed->count() - 1 ? Vector{0, 0} : ($seed);
       $l = $seed__0->count() - 1;
       $i__0 = 0;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;
         $p9 = $i__0 + 1 | 0;
         if (54 !== $i__0) {$i__0 = $p9;continue;}
-        $accu = V(0, $cst_x);
+        $accu = Vector{0, $cst_x};
         $p4 = 54 + $caml_call2($Pervasives[5], 55, $l) | 0;
         $p3 = 0;
         if (! ($p4 < 0)) {
@@ -274,7 +274,7 @@ final class Random {
       return $rawfloat($s) * $bound;
     };
     $bool = function($s) use ($bits) {return 0 === ($bits($s) & 1) ? 1 : (0);};
-    $default__0 = V(0, $pZ->toVector(), 0);
+    $default__0 = Vector{0, $pZ->toVector(), 0};
     $bits__0 = function($param) use ($bits,$default__0) {
       return $bits($default__0);
     };
@@ -300,7 +300,7 @@ final class Random {
       return $full_init($default__0, $seed);
     };
     $init = function($seed) use ($default__0,$full_init) {
-      return $full_init($default__0, V(0, $seed));
+      return $full_init($default__0, Vector{0, $seed});
     };
     $self_init = function($param) use ($caml_sys_random_seed,$full_init__0) {
       return $full_init__0($caml_sys_random_seed(0));
@@ -311,7 +311,7 @@ final class Random {
     $set_state = function($s) use ($assign,$default__0) {
       return $assign($default__0, $s);
     };
-    $Random = V(
+    $Random = Vector{
       0,
       $init,
       $full_init__0,
@@ -323,7 +323,7 @@ final class Random {
       $int64__0,
       $float__1,
       $bool__0,
-      V(
+      Vector{
         0,
         $make,
         $make_self_init,
@@ -335,10 +335,10 @@ final class Random {
         $int64,
         $float__0,
         $bool
-      ),
+      },
       $get_state,
       $set_state
-    );
+    };
     
     $runtime["caml_register_global"](16, $Random, "Random");
 

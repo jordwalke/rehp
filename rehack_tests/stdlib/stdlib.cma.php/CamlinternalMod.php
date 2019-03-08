@@ -35,7 +35,7 @@ final class CamlinternalMod {
     $runtime = $joo_global_object->jsoo_runtime;
     $update_mod = $runtime["caml_CamlinternalMod_update_mod"];
     $init_mod = $runtime["caml_CamlinternalMod_init_mod"];
-    $CamlinternalMod = V(0, $init_mod, $update_mod);
+    $CamlinternalMod = Vector{0, $init_mod, $update_mod};
     
     $runtime["caml_register_global"](8, $CamlinternalMod, "CamlinternalMod");
 

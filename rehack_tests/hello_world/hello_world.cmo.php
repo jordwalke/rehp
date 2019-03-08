@@ -14,6 +14,6 @@ $Pervasives = $global_data["Pervasives"];
 
 $caml_call1($Pervasives[30], $cst_hello_world);
 
-$Hello_world = V(0);
+$Hello_world = Vector{0};
 
 $runtime["caml_register_global"](2, $Hello_world, "Hello_world");

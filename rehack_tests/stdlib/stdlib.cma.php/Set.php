@@ -55,9 +55,9 @@ final class Set {
     $Pervasives = $global_data["Pervasives"];
     $List = $global_data["List_"];
     $Assert_failure = $global_data["Assert_failure"];
-    $fk = R(0, 0, 0, 0);
-    $fl = R(0, 0, 0);
-    $fm = R(0, $caml_new_string("set.ml"), 510, 18);
+    $fk = Vector{0, 0, 0, 0};
+    $fl = Vector{0, 0, 0};
+    $fm = Vector{0, $caml_new_string("set.ml"), 510, 18};
     $Make = function($Ord) use ($Assert_failure,$List,$Not_found,$Pervasives,$caml_call1,$caml_call2,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$cst_Set_remove_min_elt,$fk,$fl,$fm,$runtime,$unsigned_right_shift_32) {
       $add = new Ref();
       $add_max_element = new Ref();
@@ -95,7 +95,7 @@ final class Set {
         }
         else {$hr = 0;}
         $gd = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
-        return V(0, $l, $v, $r, $gd);
+        return Vector{0, $l, $v, $r, $gd};
       };
       $bal = function($l, $v, $r) use ($Pervasives,$caml_call1,$create,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$height) {
         if ($l) {
@@ -149,7 +149,7 @@ final class Set {
           return $caml_call1($Pervasives[1], $cst_Set_bal__2);
         }
         $gc = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
-        return V(0, $l, $v, $r, $gc);
+        return Vector{0, $l, $v, $r, $gc};
       };
       $_ = $add->contents =
         function($x, $t) use ($Ord,$add,$bal,$caml_call2) {
@@ -166,9 +166,9 @@ final class Set {
             $ll = $add->contents($x, $l);
             return $l === $ll ? $t : ($bal($ll, $v, $r));
           }
-          return V(0, 0, $x, 0, 1);
+          return Vector{0, 0, $x, 0, 1};
         };
-      $singleton = function($x) {return V(0, 0, $x, 0, 1);};
+      $singleton = function($x) {return Vector{0, 0, $x, 0, 1};};
       $_ = $add_min_element->contents =
         function($x, $param) use ($add_min_element,$bal,$singleton) {
           if ($param) {
@@ -230,7 +230,7 @@ final class Set {
             $f7 = $param__0[1];
             if ($f7) {$param__0 = $f7;continue;}
             $v = $param__0[2];
-            return V(0, $v);
+            return Vector{0, $v};
           }
           return 0;
         }
@@ -254,7 +254,7 @@ final class Set {
             $f3 = $param__0[3];
             $f4 = $param__0[2];
             if ($f3) {$param__0 = $f3;continue;}
-            return V(0, $f4);
+            return Vector{0, $f4};
           }
           return 0;
         }
@@ -300,19 +300,19 @@ final class Set {
             $v = $param[2];
             $l = $param[1];
             $c = $caml_call2($Ord[1], $x, $v);
-            if (0 === $c) {return V(0, $l, 1, $r);}
+            if (0 === $c) {return Vector{0, $l, 1, $r};}
             if (0 <= $c) {
               $match = $split->contents($x, $r);
               $rr = $match[3];
               $pres = $match[2];
               $lr = $match[1];
-              return V(0, $join->contents($l, $v, $lr), $pres, $rr);
+              return Vector{0, $join->contents($l, $v, $lr), $pres, $rr};
             }
             $match__0 = $split->contents($x, $l);
             $rl = $match__0[3];
             $pres__0 = $match__0[2];
             $ll = $match__0[1];
-            return V(0, $ll, $pres__0, $join->contents($rl, $v, $r));
+            return Vector{0, $ll, $pres__0, $join->contents($rl, $v, $r)};
           }
           return $fk;
         };
@@ -436,7 +436,7 @@ final class Set {
             $r = $s__0[3];
             $v = $s__0[2];
             $s__1 = $s__0[1];
-            $e__1 = V(0, $v, $r, $e__0);
+            $e__1 = Vector{0, $v, $r, $e__0};
             $s__0 = $s__1;
             $e__0 = $e__1;
             continue;
@@ -498,11 +498,11 @@ final class Set {
                   return $fL;
                 }
                 if (0 <= $c) {
-                  $fM = $subset->contents(V(0, 0, $v1, $r1, 0), $r2);
+                  $fM = $subset->contents(Vector{0, 0, $v1, $r1, 0}, $r2);
                   if ($fM) {$s1__0 = $l1;continue;}
                   return $fM;
                 }
-                $fN = $subset->contents(V(0, $l1, $v1, 0, 0), $l2);
+                $fN = $subset->contents(Vector{0, $l1, $v1, 0, 0}, $l2);
                 if ($fN) {$s1__0 = $r1;continue;}
                 return $fN;
               }
@@ -619,10 +619,10 @@ final class Set {
             $rt = $match__0[1];
             if ($pv) {
               $fD = $concat($lf, $rf);
-              return V(0, $join->contents($lt, $v, $rt), $fD);
+              return Vector{0, $join->contents($lt, $v, $rt), $fD};
             }
             $fE = $join->contents($lf, $v, $rf);
-            return V(0, $concat($lt, $rt), $fE);
+            return Vector{0, $concat($lt, $rt), $fE};
           }
           return $fl;
         };
@@ -645,7 +645,7 @@ final class Set {
               $r = $param__0[3];
               $v = $param__0[2];
               $param__1 = $param__0[1];
-              $accu__1 = V(0, $v, $elements_aux->contents($accu__0, $r));
+              $accu__1 = Vector{0, $v, $elements_aux->contents($accu__0, $r)};
               $accu__0 = $accu__1;
               $param__0 = $param__1;
               continue;
@@ -713,7 +713,7 @@ final class Set {
             $param__0 = $r;
             continue;
           }
-          return V(0, $v0__0);
+          return Vector{0, $v0__0};
         }
       };
       $find_first_opt = function($f, $param) use ($caml_call1,$find_first_opt_aux) {
@@ -771,7 +771,7 @@ final class Set {
             $param__0 = $l;
             continue;
           }
-          return V(0, $v0__0);
+          return Vector{0, $v0__0};
         }
       };
       $find_last_opt = function($f, $param) use ($caml_call1,$find_last_opt_aux) {
@@ -796,7 +796,7 @@ final class Set {
             $v = $param__0[2];
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
-            if (0 === $c) {return V(0, $v);}
+            if (0 === $c) {return Vector{0, $v};}
             $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
@@ -848,13 +848,13 @@ final class Set {
               switch($n) {
                 // FALLTHROUGH
                 case 0:
-                  return V(0, 0, $l);
+                  return Vector{0, 0, $l};
                 // FALLTHROUGH
                 case 1:
                   if ($l) {
                     $l__3 = $l[2];
                     $x0 = $l[1];
-                    return V(0, V(0, 0, $x0, 0, 1), $l__3);
+                    return Vector{0, Vector{0, 0, $x0, 0, 1}, $l__3};
                   }
                   break;
                 // FALLTHROUGH
@@ -865,7 +865,11 @@ final class Set {
                       $l__4 = $fx[2];
                       $x1 = $fx[1];
                       $x0__0 = $l[1];
-                      return V(0, V(0, V(0, 0, $x0__0, 0, 1), $x1, 0, 2), $l__4);
+                      return Vector{
+                        0,
+                        Vector{0, Vector{0, 0, $x0__0, 0, 1}, $x1, 0, 2},
+                        $l__4
+                      };
                     }
                   }
                   break;
@@ -880,11 +884,17 @@ final class Set {
                         $x2 = $fz[1];
                         $x1__0 = $fy[1];
                         $x0__1 = $l[1];
-                        return V(
+                        return Vector{
                           0,
-                          V(0, V(0, 0, $x0__1, 0, 1), $x1__0, V(0, 0, $x2, 0, 1), 2),
+                          Vector{
+                            0,
+                            Vector{0, 0, $x0__1, 0, 1},
+                            $x1__0,
+                            Vector{0, 0, $x2, 0, 1},
+                            2
+                          },
                           $l__5
-                        );
+                        };
                       }
                     }
                   }
@@ -900,9 +910,9 @@ final class Set {
               $match__0 = $sub->contents(($n - $nl | 0) + -1 | 0, $l__1);
               $l__2 = $match__0[2];
               $right = $match__0[1];
-              return V(0, $create($left, $mid, $right), $l__2);
+              return Vector{0, $create($left, $mid, $right), $l__2};
             }
-            throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $fm));
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $fm});
           };
         return $sub->contents($caml_call1($List[1], $l), $l)[1];
       };
@@ -945,7 +955,7 @@ final class Set {
         }
         return $empty;
       };
-      return V(
+      return Vector{
         0,
         $height,
         $create,
@@ -1000,13 +1010,13 @@ final class Set {
         $map->contents,
         $of_sorted_list,
         $of_list
-      );
+      };
     };
-    $Set = V(
+    $Set = Vector{
       0,
       function($fn) use ($Make) {
         $fo = $Make($fn);
-        return V(
+        return Vector{
           0,
           $fo[17],
           $fo[18],
@@ -1043,9 +1053,9 @@ final class Set {
           $fo[46],
           $fo[48],
           $fo[53]
-        );
+        };
       }
-    );
+    };
     
     $runtime["caml_register_global"](12, $Set, "Set");
 

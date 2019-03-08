@@ -76,11 +76,11 @@ final class Stream {
     $CamlinternalLazy = $global_data["CamlinternalLazy"];
     $Pervasives = $global_data["Pervasives"];
     $List = $global_data["List_"];
-    $g1 = R(0, $caml_new_string("stream.ml"), 53, 12);
-    $g2 = R(0, 0);
-    $g3 = R(0, $caml_new_string("stream.ml"), 82, 12);
-    $Failure = V(248, $cst_Stream_Failure, $caml_fresh_oo_id(0));
-    $Error = V(248, $cst_Stream_Error, $caml_fresh_oo_id(0));
+    $g1 = Vector{0, $caml_new_string("stream.ml"), 53, 12};
+    $g2 = Vector{0, 0};
+    $g3 = Vector{0, $caml_new_string("stream.ml"), 82, 12};
+    $Failure = Vector{248, $cst_Stream_Failure, $caml_fresh_oo_id(0)};
+    $Error = Vector{248, $cst_Stream_Error, $caml_fresh_oo_id(0)};
     $count = function($param) {
       if ($param) {$match = $param[1];$count = $match[1];return $count;}
       return 0;
@@ -120,9 +120,9 @@ final class Stream {
                   if (0 === $match[0]) {
                     $d11 = $match[2];
                     $a = $match[1];
-                    return V(0, $a, V(1, $d11, $d2));
+                    return Vector{0, $a, Vector{1, $d11, $d2}};
                   }
-                  throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $g1));
+                  throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g1});
                 }
               // FALLTHROUGH
               case 2:
@@ -144,14 +144,14 @@ final class Stream {
                   if ($hj) {
                     $a__0 = $hj[1];
                     $hh[1] = 0;
-                    return V(0, $a__0, $d__0);
+                    return Vector{0, $a__0, $d__0};
                   }
                   return 0;
                 }
                 $match__0 = $caml_call1($hh[2], $count);
                 if ($match__0) {
                   $a__1 = $match__0[1];
-                  return V(0, $a__1, $d__0);
+                  return Vector{0, $a__1, $d__0};
                 }
                 $hh[1] = $g2;
                 return 0;
@@ -162,7 +162,7 @@ final class Stream {
                 if (0 === $b[3]) {return 0;}
                 $r = $caml_bytes_unsafe_get($b[2], $b[4]);
                 $b[4] = $b[4] + 1 | 0;
-                return V(0, $r, $d__0);
+                return Vector{0, $r, $d__0};
               }
           }
           return $d__0;
@@ -177,7 +177,7 @@ final class Stream {
             // FALLTHROUGH
             case 0:
               $a = $hb[1];
-              return V(0, $a);
+              return Vector{0, $a};
             // FALLTHROUGH
             case 1:
               $d = $get_data->contents($s[1], $s[2]);
@@ -186,9 +186,9 @@ final class Stream {
                 if (0 === $d[0]) {
                   $a__0 = $d[1];
                   $s[2] = $d;
-                  return V(0, $a__0);
+                  return Vector{0, $a__0};
                 }
-                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $g3));
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g3});
               }
             // FALLTHROUGH
             case 2:
@@ -205,7 +205,7 @@ final class Stream {
               $hf = $he[1];
               if ($hf) {$a__1 = $hf[1];return $a__1;}
               $x = $caml_call1($he[2], $s[1]);
-              $he[1] = V(0, $x);
+              $he[1] = Vector{0, $x};
               return $x;
             // FALLTHROUGH
             default:
@@ -213,7 +213,7 @@ final class Stream {
               if ($b[3] <= $b[4]) {$fill_buff($b);}
               return 0 === $b[3]
                 ? ($s[2] = 0) || true ? 0 : (0)
-                : (V(0, $caml_bytes_unsafe_get($b[2], $b[4])));
+                : (Vector{0, $caml_bytes_unsafe_get($b[2], $b[4])});
             }
         }
       }
@@ -266,11 +266,12 @@ final class Stream {
             $k = $match__0[3];
             $d = $match__0[2];
             $al = $match__0[1];
-            return V(0, V(0, $a, $al), V(0, $a, $d), $k + 1 | 0);
+            return Vector{0, Vector{0, $a, $al}, Vector{0, $a, $d}, $k + 1 | 0
+            };
           }
-          return V(0, 0, $s[2], 0);
+          return Vector{0, 0, $s[2], 0};
         }
-        return V(0, 0, $s[2], 0);
+        return Vector{0, 0, $s[2], 0};
       };
     $npeek_data = function($n, $s) use ($nget_data) {
       $match = $nget_data->contents($n, $s);
@@ -310,126 +311,132 @@ final class Stream {
       };
       return $do_rec(0);
     };
-    $from = function($f) {return V(0, V(0, 0, V(3, V(0, 0, $f))));};
+    $from = function($f) {
+      return Vector{0, Vector{0, 0, Vector{3, Vector{0, 0, $f}}}};
+    };
     $of_list = function($l) use ($List,$caml_call3) {
       $g8 = 0;
-      $g9 = function($x, $l) {return V(0, $x, $l);};
-      return V(0, V(0, 0, $caml_call3($List[21], $g9, $l, $g8)));
+      $g9 = function($x, $l) {return Vector{0, $x, $l};};
+      return Vector{0, Vector{0, 0, $caml_call3($List[21], $g9, $l, $g8)}};
     };
     $of_string = function($s) use ($from,$runtime) {
-      $count = V(0, 0);
+      $count = Vector{0, 0};
       return $from(
         function($param) use ($count,$runtime,$s) {
           $c = $count[1];
           return $c < $runtime["caml_ml_string_length"]($s)
             ? ($count[1] += 1) || true
-             ? V(0, $runtime["caml_string_get"]($s, $c))
-             : (V(0, $runtime["caml_string_get"]($s, $c)))
+             ? Vector{0, $runtime["caml_string_get"]($s, $c)}
+             : (Vector{0, $runtime["caml_string_get"]($s, $c)})
             : (0);
         }
       );
     };
     $of_bytes = function($s) use ($caml_ml_bytes_length,$from,$runtime) {
-      $count = V(0, 0);
+      $count = Vector{0, 0};
       return $from(
         function($param) use ($caml_ml_bytes_length,$count,$runtime,$s) {
           $c = $count[1];
           return $c < $caml_ml_bytes_length($s)
             ? ($count[1] += 1) || true
-             ? V(0, $runtime["caml_bytes_get"]($s, $c))
-             : (V(0, $runtime["caml_bytes_get"]($s, $c)))
+             ? Vector{0, $runtime["caml_bytes_get"]($s, $c)}
+             : (Vector{0, $runtime["caml_bytes_get"]($s, $c)})
             : (0);
         }
       );
     };
     $of_channel = function($ic) use ($runtime) {
-      return V(
+      return Vector{
         0,
-        V(0, 0, V(4, V(0, $ic, $runtime["caml_create_bytes"](4096), 0, 0)))
-      );
+        Vector{
+          0,
+          0,
+          Vector{4, Vector{0, $ic, $runtime["caml_create_bytes"](4096), 0, 0}}
+        }
+      };
     };
     $iapp = function($i, $s) use ($data) {
       $g7 = $data($s);
-      return V(0, V(0, 0, V(1, $data($i), $g7)));
+      return Vector{0, Vector{0, 0, Vector{1, $data($i), $g7}}};
     };
     $icons = function($i, $s) use ($data) {
-      return V(0, V(0, 0, V(0, $i, $data($s))));
+      return Vector{0, Vector{0, 0, Vector{0, $i, $data($s)}}};
     };
-    $ising = function($i) {return V(0, V(0, 0, V(0, $i, 0)));};
+    $ising = function($i) {return Vector{0, Vector{0, 0, Vector{0, $i, 0}}};};
     $lapp = function($f, $s) use ($caml_call1,$data) {
-      return V(
+      return Vector{
         0,
-        V(
+        Vector{
           0,
           0,
-          V(
+          Vector{
             2,
-            V(
+            Vector{
               246,
               function($param) use ($caml_call1,$data,$f,$s) {
                 $g6 = $data($s);
-                return V(1, $data($caml_call1($f, 0)), $g6);
+                return Vector{1, $data($caml_call1($f, 0)), $g6};
               }
-            )
-          )
-        )
-      );
+            }
+          }
+        }
+      };
     };
     $lcons = function($f, $s) use ($caml_call1,$data) {
-      return V(
+      return Vector{
         0,
-        V(
+        Vector{
           0,
           0,
-          V(
+          Vector{
             2,
-            V(
+            Vector{
               246,
               function($param) use ($caml_call1,$data,$f,$s) {
                 $g5 = $data($s);
-                return V(0, $caml_call1($f, 0), $g5);
+                return Vector{0, $caml_call1($f, 0), $g5};
               }
-            )
-          )
-        )
-      );
+            }
+          }
+        }
+      };
     };
     $lsing = function($f) use ($caml_call1) {
-      return V(
+      return Vector{
         0,
-        V(
+        Vector{
           0,
           0,
-          V(
+          Vector{
             2,
-            V(
+            Vector{
               246,
               function($param) use ($caml_call1,$f) {
-                return V(0, $caml_call1($f, 0), 0);
+                return Vector{0, $caml_call1($f, 0), 0};
               }
-            )
-          )
-        )
-      );
+            }
+          }
+        }
+      };
     };
     $sempty = 0;
     $slazy = function($f) use ($caml_call1,$data) {
-      return V(
+      return Vector{
         0,
-        V(
+        Vector{
           0,
           0,
-          V(
+          Vector{
             2,
-            V(
+            Vector{
               246,
               function($param) use ($caml_call1,$data,$f) {
                 return $data($caml_call1($f, 0));
               }
-            )
-          )
-        )
-      );
+            }
+          }
+        }
+      };
     };
     $dump = function($f, $s) use ($Pervasives,$caml_call1,$count,$cst,$cst_count,$cst_data,$data,$dump_data) {
       $caml_call1($Pervasives[30], $cst_count);
@@ -477,7 +484,7 @@ final class Stream {
             }
         }
       };
-    $Stream = V(
+    $Stream = Vector{
       0,
       $Failure,
       $Error,
@@ -502,7 +509,7 @@ final class Stream {
       $sempty,
       $slazy,
       $dump
-    );
+    };
     
     $runtime["caml_register_global"](22, $Stream, "Stream");
 

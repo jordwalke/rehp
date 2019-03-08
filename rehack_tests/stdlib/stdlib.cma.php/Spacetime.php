@@ -52,11 +52,11 @@ final class Spacetime {
     $create = function($path) use ($Pervasives,$caml_call1,$caml_spacetime_enabled,$caml_spacetime_only_works_for_native_code) {
       if ($caml_spacetime_enabled(0)) {
         $channel = $caml_call1($Pervasives[48], $path);
-        $t = V(0, $channel, 0);
+        $t = Vector{0, $channel, 0};
         $caml_spacetime_only_works_for_native_code($t[1]);
         return $t;
       }
-      return V(0, $Pervasives[27], 1);
+      return Vector{0, $Pervasives[27], 1};
     };
     $save_event = function($time, $t, $event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
       return $if_spacetime_enabled(
@@ -80,7 +80,7 @@ final class Spacetime {
         }
       );
     };
-    $Series = V(0, $create, $save_event, $save_and_close);
+    $Series = Vector{0, $create, $save_event, $save_and_close};
     $take = function($time, $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed__0,$if_spacetime_enabled,$runtime) {
       $channel = $param[1];
       $closed = $param[2];
@@ -94,7 +94,7 @@ final class Spacetime {
         }
       );
     };
-    $Snapshot = V(0, $take);
+    $Snapshot = Vector{0, $take};
     $save_event_for_automatic_snapshots = function($event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
       return $if_spacetime_enabled(
         function($param) use ($caml_spacetime_only_works_for_native_code,$event_name) {
@@ -102,13 +102,13 @@ final class Spacetime {
         }
       );
     };
-    $Spacetime = V(
+    $Spacetime = Vector{
       0,
       $enabled,
       $Series,
       $Snapshot,
       $save_event_for_automatic_snapshots
-    );
+    };
     
     $runtime["caml_register_global"](3, $Spacetime, "Spacetime");
 

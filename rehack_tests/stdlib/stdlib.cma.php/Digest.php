@@ -141,7 +141,7 @@ final class Digest {
           if (! (9 < $unsigned_right_shift_32($switcher, 0))) {return $c - 48 | 0;}
         }
         throw $runtime["caml_wrap_thrown_exception"](
-                V(0, $Invalid_argument, $cst_Digest_from_hex__0)
+                Vector{0, $Invalid_argument, $cst_Digest_from_hex__0}
               );
       };
       $byte__0 = function($i) use ($caml_string_get,$digit,$left_shift_32,$s) {
@@ -158,7 +158,7 @@ final class Digest {
         return $caml_call1($Bytes[42], $result);
       }
     };
-    $Digest = V(
+    $Digest = Vector{
       0,
       $compare,
       $equal,
@@ -171,7 +171,7 @@ final class Digest {
       $input,
       $to_hex,
       $from_hex
-    );
+    };
     
     $runtime["caml_register_global"](9, $Digest, "Digest");
 

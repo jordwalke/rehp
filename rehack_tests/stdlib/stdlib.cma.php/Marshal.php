@@ -88,7 +88,7 @@ final class Marshal {
     $cP = function($cT) use ($runtime) {
       return $runtime["caml_input_value"]($cT);
     };
-    $Marshal = V(
+    $Marshal = Vector{
       0,
       function($cS, $cR, $cQ) use ($runtime) {
         return $runtime["caml_output_value"]($cS, $cR, $cQ);
@@ -100,7 +100,7 @@ final class Marshal {
       $header_size,
       $data_size,
       $total_size
-    );
+    };
     
     $runtime["caml_register_global"](6, $Marshal, "Marshal");
 

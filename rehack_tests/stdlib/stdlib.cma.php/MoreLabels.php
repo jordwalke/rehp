@@ -35,7 +35,7 @@ final class MoreLabels {
     $Set = $global_data["Set"];
     $Map = $global_data["Map"];
     $Hashtbl = $global_data["Hashtbl"];
-    $MoreLabels = V(0, $Hashtbl, $Map, $Set);
+    $MoreLabels = Vector{0, $Hashtbl, $Map, $Set};
     
     $runtime["caml_register_global"](3, $MoreLabels, "MoreLabels");
 

@@ -306,12 +306,12 @@ final class Bytes {
     };
     $trim = function($s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
       $len = $caml_ml_bytes_length($s);
-      $i = V(0, 0);
+      $i = Vector{0, 0};
       for (;;) {
         if ($i[1] < $len) {
           if ($is_space($caml_bytes_unsafe_get($s, $i[1]))) {$i[1] += 1;continue;}
         }
-        $j = V(0, $len + -1 | 0);
+        $j = Vector{0, $len + -1 | 0};
         for (;;) {
           if ($i[1] <= $j[1]) {
             if ($is_space($caml_bytes_unsafe_get($s, $j[1]))) {$j[1] += -1;continue;}
@@ -323,7 +323,7 @@ final class Bytes {
       }
     };
     $escaped = function($s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
-      $n = V(0, 0);
+      $n = Vector{0, 0};
       $bB = $caml_ml_bytes_length($s) + -1 | 0;
       $bA = 0;
       if (! ($bB < 0)) {
@@ -540,7 +540,7 @@ final class Bytes {
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {return 0;}
-        if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return V(0, $i__0);}
+        if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
         $i__1 = $i__0 + 1 | 0;
         $i__0 = $i__1;
         continue;
@@ -593,7 +593,7 @@ final class Bytes {
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
-          if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return V(0, $i__0);}
+          if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
           $i__1 = $i__0 + -1 | 0;
           $i__0 = $i__1;
           continue;
@@ -662,7 +662,7 @@ final class Bytes {
     };
     $bk = function($bp) {return $bp;};
     $bl = function($bo) {return $bo;};
-    $Bytes = V(
+    $Bytes = Vector{
       0,
       $make,
       $init,
@@ -709,7 +709,7 @@ final class Bytes {
       },
       $bl,
       $bk
-    );
+    };
     
     $runtime["caml_register_global"](15, $Bytes, "Bytes");
 

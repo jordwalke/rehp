@@ -150,134 +150,139 @@ final class Scanf {
     $Printf = $global_data["Printf"];
     $List = $global_data["List_"];
     $Not_found = $global_data["Not_found"];
-    $v9 = R(0, 91);
-    $v8 = R(0, 123);
-    $v_ = R(0, $caml_new_string("scanf.ml"), 1455, 13);
-    $wa = R(0, R(3, 0, R(10, 0)), $caml_new_string("%S%!"));
-    $v7 = R(0, 37, $caml_new_string(""));
-    $v6 = R(
+    $v9 = Vector{0, 91};
+    $v8 = Vector{0, 123};
+    $v_ = Vector{0, $caml_new_string("scanf.ml"), 1455, 13};
+    $wa = Vector{0, Vector{3, 0, Vector{10, 0}}, $caml_new_string("%S%!")};
+    $v7 = Vector{0, 37, $caml_new_string("")};
+    $v6 = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("scanf: bad input at char number "),
-        R(4, 3, 0, 0, R(11, $caml_new_string(": "), R(2, 0, 0)))
-      ),
+        Vector{4, 3, 0, 0, Vector{11, $caml_new_string(": "), Vector{2, 0, 0}}
+        }
+      },
       $caml_new_string("scanf: bad input at char number %i: %s")
-    );
-    $v5 = R(
+    };
+    $v5 = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("the character "),
-        R(1, R(11, $caml_new_string(" cannot start a boolean"), 0))
-      ),
+        Vector{1, Vector{11, $caml_new_string(" cannot start a boolean"), 0}}
+      },
       $caml_new_string("the character %C cannot start a boolean")
-    );
-    $v4 = R(
+    };
+    $v4 = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("bad character hexadecimal encoding \\"),
-        R(0, R(0, 0))
-      ),
+        Vector{0, Vector{0, 0}}
+      },
       $caml_new_string("bad character hexadecimal encoding \\%c%c")
-    );
-    $v3 = R(
+    };
+    $v3 = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("bad character decimal encoding \\"),
-        R(0, R(0, R(0, 0)))
-      ),
+        Vector{0, Vector{0, Vector{0, 0}}}
+      },
       $caml_new_string("bad character decimal encoding \\%c%c%c")
-    );
-    $v2 = R(
+    };
+    $v2 = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("character "),
-        R(
+        Vector{
           1,
-          R(
+          Vector{
             11,
             $caml_new_string(" is not a valid "),
-            R(2, 0, R(11, $caml_new_string(" digit"), 0))
-          )
-        )
-      ),
+            Vector{2, 0, Vector{11, $caml_new_string(" digit"), 0}}
+          }
+        }
+      },
       $caml_new_string("character %C is not a valid %s digit")
-    );
-    $v1 = R(
+    };
+    $v1 = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("character "),
-        R(1, R(11, $caml_new_string(" is not a decimal digit"), 0))
-      ),
+        Vector{1, Vector{11, $caml_new_string(" is not a decimal digit"), 0}}
+      },
       $caml_new_string("character %C is not a decimal digit")
-    );
-    $v0 = R(0, $caml_new_string("scanf.ml"), 555, 9);
-    $vZ = R(
+    };
+    $v0 = Vector{0, $caml_new_string("scanf.ml"), 555, 9};
+    $vZ = Vector{
       0,
-      R(11, $caml_new_string("invalid boolean '"), R(2, 0, R(12, 39, 0))),
+      Vector{
+        11,
+        $caml_new_string("invalid boolean '"),
+        Vector{2, 0, Vector{12, 39, 0}}
+      },
       $caml_new_string("invalid boolean '%s'")
-    );
-    $vY = R(
+    };
+    $vY = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("looking for "),
-        R(1, R(11, $caml_new_string(", found "), R(1, 0)))
-      ),
+        Vector{1, Vector{11, $caml_new_string(", found "), Vector{1, 0}}}
+      },
       $caml_new_string("looking for %C, found %C")
-    );
-    $vX = R(
+    };
+    $vX = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("scanning of "),
-        R(
+        Vector{
           2,
           0,
-          R(
+          Vector{
             11,
             $caml_new_string(
               " failed: premature end of file occurred before end of token"
             ),
             0
-          )
-        )
-      ),
+          }
+        }
+      },
       $caml_new_string(
         "scanning of %s failed: premature end of file occurred before end of token"
       )
-    );
-    $vW = R(
+    };
+    $vW = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("scanning of "),
-        R(
+        Vector{
           2,
           0,
-          R(
+          Vector{
             11,
             $caml_new_string(
               " failed: the specified length was too short for token"
             ),
             0
-          )
-        )
-      ),
+          }
+        }
+      },
       $caml_new_string(
         "scanning of %s failed: the specified length was too short for token"
       )
-    );
-    $vV = R(
+    };
+    $vV = Vector{
       0,
-      R(11, $caml_new_string("illegal escape character "), R(1, 0)),
+      Vector{11, $caml_new_string("illegal escape character "), Vector{1, 0}},
       $caml_new_string("illegal escape character %C")
-    );
+    };
     $null_char = 0;
     $next_char = function($ib) use ($End_of_file,$caml_call1,$caml_wrap_exception,$null_char,$runtime) {
       try {
@@ -355,7 +360,7 @@ final class Scanf {
     };
     $default_token_buffer_size = 1024;
     $create = function($iname, $next) use ($Buffer,$caml_call1,$default_token_buffer_size,$null_char) {
-      return V(
+      return Vector{
         0,
         0,
         $null_char,
@@ -366,10 +371,10 @@ final class Scanf {
         $next,
         $caml_call1($Buffer[1], $default_token_buffer_size),
         $iname
-      );
+      };
     };
     $from_string = function($s) use ($End_of_file,$caml_ml_string_length,$caml_string_get,$create,$runtime) {
-      $i = V(0, 0);
+      $i = Vector{0, 0};
       $len = $caml_ml_string_length($s);
       $next = function($param) use ($End_of_file,$caml_string_get,$i,$len,$runtime,$s) {
         if ($len <= $i[1]) {
@@ -395,9 +400,9 @@ final class Scanf {
     };
     $from_ic = function($scan_close_ic, $iname, $ic) use ($End_of_file,$Pervasives,$caml_bytes_get,$caml_call1,$caml_call4,$create,$len,$runtime) {
       $buf = $runtime["caml_create_bytes"](1024);
-      $i = V(0, 0);
-      $lim = V(0, 0);
-      $eof = V(0, 0);
+      $i = Vector{0, 0};
+      $lim = Vector{0, 0};
+      $eof = Vector{0, 0};
       $next = function($param) use ($End_of_file,$Pervasives,$buf,$caml_bytes_get,$caml_call1,$caml_call4,$eof,$i,$ic,$len,$lim,$runtime,$scan_close_ic) {
         if ($i[1] < $lim[1]) {
           $c = $caml_bytes_get($buf, $i[1]);
@@ -426,13 +431,13 @@ final class Scanf {
     };
     $stdin = $from_ic(
       $scan_raise_at_end,
-      V(1, $cst, $Pervasives[26]),
+      Vector{1, $cst, $Pervasives[26]},
       $Pervasives[26]
     );
     $open_in_file = function($open_in, $fname) use ($caml_call1,$caml_string_notequal,$cst__0,$from_ic_close_at_end,$stdin) {
       if ($caml_string_notequal($fname, $cst__0)) {
         $ic = $caml_call1($open_in, $fname);
-        return $from_ic_close_at_end(V(1, $fname, $ic), $ic);
+        return $from_ic_close_at_end(Vector{1, $fname, $ic}, $ic);
       }
       return $stdin;
     };
@@ -445,7 +450,7 @@ final class Scanf {
       return $open_in_file($vU, $x6);
     };
     $from_channel = function($ic) use ($from_ic_raise_at_end) {
-      return $from_ic_raise_at_end(V(0, $ic), $ic);
+      return $from_ic_raise_at_end(Vector{0, $ic}, $ic);
     };
     $close_in = function($ib) use ($Pervasives,$caml_call1,$is_int) {
       $x5 = $ib[9];
@@ -459,14 +464,14 @@ final class Scanf {
         return $caml_call1($Pervasives[81], $ic__0);
       }
     };
-    $memo = V(0, 0);
+    $memo = Vector{0, 0};
     $memo_from_ic = function($scan_close_ic, $ic) use ($List,$Not_found,$caml_call2,$caml_wrap_exception,$from_ic,$memo,$runtime) {
       try {$x3 = $caml_call2($List[40], $ic, $memo[1]);return $x3;}
       catch(\Throwable $x4) {
         $x4 = $caml_wrap_exception($x4);
         if ($x4 === $Not_found) {
-          $ib = $from_ic($scan_close_ic, V(0, $ic), $ic);
-          $memo[1] = V(0, V(0, $ic, $ib), $memo[1]);
+          $ib = $from_ic($scan_close_ic, Vector{0, $ic}, $ic);
+          $memo[1] = Vector{0, Vector{0, $ic, $ib}, $memo[1]};
           return $ib;
         }
         throw $runtime["caml_wrap_thrown_exception_reraise"]($x4);
@@ -475,13 +480,13 @@ final class Scanf {
     $memo_from_channel = function($x2) use ($memo_from_ic,$scan_raise_at_end) {
       return $memo_from_ic($scan_raise_at_end, $x2);
     };
-    $Scan_failure = V(
+    $Scan_failure = Vector{
       248,
       $cst_Scanf_Scan_failure,
       $runtime["caml_fresh_oo_id"](0)
-    );
+    };
     $bad_input = function($s) use ($Scan_failure,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Scan_failure, $s));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Scan_failure, $s});
     };
     $bad_input_escape = function($c) use ($Printf,$bad_input,$caml_call2,$vV) {
       return $bad_input($caml_call2($Printf[4], $vV, $c));
@@ -577,7 +582,7 @@ final class Scanf {
             return 5;
           }
       }
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $v0));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $v0});
     };
     $token_int_literal = function($conv, $ib) use ($Pervasives,$String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_get,$cst_0b,$cst_0o,$cst_0u,$cst_0x,$token_string) {
       switch($conv) {
@@ -816,17 +821,17 @@ final class Scanf {
     };
     $scan_float = function($width, $precision, $ib) use ($Pervasives,$caml_call2,$eof,$peek_char,$scan_exponent_part,$scan_fractional_part,$scan_integer_part,$store_char) {
       $width__0 = $scan_integer_part($width, $ib);
-      if (0 === $width__0) {return V(0, $width__0, $precision);}
+      if (0 === $width__0) {return Vector{0, $width__0, $precision};}
       $c = $peek_char($ib);
-      if ($eof($ib)) {return V(0, $width__0, $precision);}
+      if ($eof($ib)) {return Vector{0, $width__0, $precision};}
       if (46 === $c) {
         $width__1 = $store_char($width__0, $ib, $c);
         $precision__0 = $caml_call2($Pervasives[4], $width__1, $precision);
         $width__2 = $width__1 -
           ($precision__0 - $scan_fractional_part($precision__0, $ib) | 0) | 0;
-        return V(0, $scan_exponent_part($width__2, $ib), $precision__0);
+        return Vector{0, $scan_exponent_part($width__2, $ib), $precision__0};
       }
-      return V(0, $scan_exponent_part($width__0, $ib), $precision);
+      return Vector{0, $scan_exponent_part($width__0, $ib), $precision};
     };
     $check_case_insensitive_string = function($width, $ib, $error, $str) use ($Pervasives,$caml_call1,$caml_ml_string_length,$caml_string_get,$peek_char,$store_char,$unsigned_right_shift_32) {
       $lowercase = function($c) use ($Pervasives,$caml_call1,$unsigned_right_shift_32) {
@@ -836,7 +841,7 @@ final class Scanf {
           : ($caml_call1($Pervasives[17], ($c - 65 | 0) + 97 | 0));
       };
       $len = $caml_ml_string_length($str);
-      $width__0 = V(0, $width);
+      $width__0 = Vector{0, $width};
       $xM = $len + -1 | 0;
       $xL = 0;
       if (! ($xM < 0)) {
@@ -1459,7 +1464,7 @@ final class Scanf {
         $caml_ml_string_length($str) + -2 |
           0
       );
-      return V(0, $stp, $sub_str);
+      return Vector{0, $stp, $sub_str};
     };
     $take_format_readers__0 = function($counter, $k, $fmt) use ($CamlinternalFormat,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$is_int,$take_fmtty_format_readers__0,$take_format_readers,$take_ignored_format_readers) {
       $fmt__0 = $fmt;
@@ -1602,7 +1607,7 @@ final class Scanf {
             $fmt_rest = $fmt__0[1];
             return function($reader) use ($caml_call1,$fmt_rest,$k,$take_format_readers) {
               $new_k = function($readers_rest) use ($caml_call1,$k,$reader) {
-                return $caml_call1($k, V(0, $reader, $readers_rest));
+                return $caml_call1($k, Vector{0, $reader, $readers_rest});
               };
               return $take_format_readers->contents($new_k, $fmt_rest);
             };
@@ -1742,7 +1747,7 @@ final class Scanf {
               $fmt_rest = $fmtty__0[1];
               return function($reader) use ($caml_call1,$fmt,$fmt_rest,$k,$take_fmtty_format_readers) {
                 $new_k = function($readers_rest) use ($caml_call1,$k,$reader) {
-                  return $caml_call1($k, V(0, $reader, $readers_rest));
+                  return $caml_call1($k, Vector{0, $reader, $readers_rest});
                 };
                 return $take_fmtty_format_readers->contents(
                   $new_k,
@@ -1755,7 +1760,7 @@ final class Scanf {
               $fmt_rest__0 = $fmtty__0[1];
               return function($reader) use ($caml_call1,$fmt,$fmt_rest__0,$k,$take_fmtty_format_readers) {
                 $new_k = function($readers_rest) use ($caml_call1,$k,$reader) {
-                  return $caml_call1($k, V(0, $reader, $readers_rest));
+                  return $caml_call1($k, Vector{0, $reader, $readers_rest});
                 };
                 return $take_fmtty_format_readers->contents(
                   $new_k,
@@ -1794,7 +1799,7 @@ final class Scanf {
             case 2:
               return function($reader) use ($caml_call1,$fmt,$k,$take_format_readers) {
                 $new_k = function($readers_rest) use ($caml_call1,$k,$reader) {
-                  return $caml_call1($k, V(0, $reader, $readers_rest));
+                  return $caml_call1($k, Vector{0, $reader, $readers_rest});
                 };
                 return $take_format_readers->contents($new_k, $fmt);
               };
@@ -1958,14 +1963,14 @@ final class Scanf {
           if (0 === $prec) {
             $caml_call3($scan, $Pervasives[7], $Pervasives[7], $ib);
             $x = $caml_call1($token, $ib);
-            return V(0, $x, $make_scanf->contents($ib, $fmt, $readers));
+            return Vector{0, $x, $make_scanf->contents($ib, $fmt, $readers)};
           }
           return $caml_call1($Pervasives[1], $cst_scanf_bad_conversion);
         }
         $p = $prec[1];
         $caml_call3($scan, $Pervasives[7], $p, $ib);
         $x__0 = $caml_call1($token, $ib);
-        return V(0, $x__0, $make_scanf->contents($ib, $fmt, $readers));
+        return Vector{0, $x__0, $make_scanf->contents($ib, $fmt, $readers)};
       }
       else {
         if (0 === $pad[0]) {
@@ -1977,14 +1982,18 @@ final class Scanf {
             if (0 === $prec) {
               $caml_call3($scan, $wS, $Pervasives[7], $ib);
               $x__1 = $caml_call1($token, $ib);
-              return V(0, $x__1, $make_scanf->contents($ib, $fmt, $readers));
+              return Vector{
+                0,
+                $x__1,
+                $make_scanf->contents($ib, $fmt, $readers)
+              };
             }
             return $caml_call1($Pervasives[1], $cst_scanf_bad_conversion__1);
           }
           $p__0 = $prec[1];
           $caml_call3($scan, $wS, $p__0, $ib);
           $x__2 = $caml_call1($token, $ib);
-          return V(0, $x__2, $make_scanf->contents($ib, $fmt, $readers));
+          return Vector{0, $x__2, $make_scanf->contents($ib, $fmt, $readers)};
         }
         return $caml_call1($Pervasives[1], $cst_scanf_bad_conversion__2);
       }
@@ -2002,17 +2011,18 @@ final class Scanf {
               $rest = $fmt__0[1];
               $scan_char(0, $ib);
               $c = $token_char($ib);
-              return V(0, $c, $make_scanf->contents($ib, $rest, $readers));
+              return Vector{0, $c, $make_scanf->contents($ib, $rest, $readers)
+              };
             // FALLTHROUGH
             case 1:
               $rest__0 = $fmt__0[1];
               $scan_caml_char(0, $ib);
               $c__0 = $token_char($ib);
-              return V(
+              return Vector{
                 0,
                 $c__0,
                 $make_scanf->contents($ib, $rest__0, $readers)
-              );
+              };
             // FALLTHROUGH
             case 2:
               $wr = $fmt__0[2];
@@ -2027,9 +2037,9 @@ final class Scanf {
                     $str = $match[2];
                     $stp = $match[1];
                     $scan__0 = function($width, $param, $ib) use ($scan_string,$stp) {
-                      return $scan_string(V(0, $stp), $width, $ib);
+                      return $scan_string(Vector{0, $stp}, $width, $ib);
                     };
-                    $str_rest = V(11, $str, $rest__1);
+                    $str_rest = Vector{11, $str, $rest__1};
                     return $pad_prec_scanf(
                       $ib,
                       $str_rest,
@@ -2297,11 +2307,11 @@ final class Scanf {
                 $ww = $bad_input($msg);
                 $fmt__5 = $ww;
               }
-              return V(
+              return Vector{
                 0,
                 $fmt__5,
                 $make_scanf->contents($ib, $rest__14, $readers)
-              );
+              };
             // FALLTHROUGH
             case 14:
               $rest__15 = $fmt__0[3];
@@ -2334,16 +2344,16 @@ final class Scanf {
                 $fmt__7 = $wA;
                 $fmt__6 = $wz;
               }
-              return V(
+              return Vector{
                 0,
-                V(0, $fmt__7, $s__0),
+                Vector{0, $fmt__7, $s__0},
                 $make_scanf->contents(
                   $ib,
                   $caml_call2($CamlinternalFormatBasics[3], $fmt__6, $rest__15
                   ),
                   $readers
                 )
-              );
+              };
             // FALLTHROUGH
             case 15:
               return $caml_call1($Pervasives[1], $cst_scanf_bad_conversion_a);
@@ -2397,11 +2407,11 @@ final class Scanf {
                 $readers_rest = $readers[2];
                 $reader = $readers[1];
                 $x = $caml_call1($reader, $ib);
-                return V(
+                return Vector{
                   0,
                   $x,
                   $make_scanf->contents($ib, $fmt_rest, $readers_rest)
-                );
+                };
               }
               return $caml_call1($Pervasives[1], $cst_scanf_missing_reader);
             // FALLTHROUGH
@@ -2416,38 +2426,47 @@ final class Scanf {
                 $str__1 = $match__6[2];
                 $stp__0 = $match__6[1];
                 $width__0 = $width_of_pad_opt($wK);
-                $scan_chars_in_char_set($wJ, V(0, $stp__0), $width__0, $ib);
+                $scan_chars_in_char_set(
+                  $wJ,
+                  Vector{0, $stp__0},
+                  $width__0,
+                  $ib
+                );
                 $s__2 = $token_string($ib);
-                $str_rest__0 = V(11, $str__1, $rest__18);
-                return V(
+                $str_rest__0 = Vector{11, $str__1, $rest__18};
+                return Vector{
                   0,
                   $s__2,
                   $make_scanf->contents($ib, $str_rest__0, $readers)
-                );
+                };
               }
               $width = $width_of_pad_opt($wK);
               $scan_chars_in_char_set($wJ, 0, $width, $ib);
               $s__1 = $token_string($ib);
-              return V(0, $s__1, $make_scanf->contents($ib, $wI, $readers));
+              return Vector{
+                0,
+                $s__1,
+                $make_scanf->contents($ib, $wI, $readers)
+              };
             // FALLTHROUGH
             case 21:
               $rest__19 = $fmt__0[2];
               $counter = $fmt__0[1];
               $count = $get_counter($ib, $counter);
-              return V(
+              return Vector{
                 0,
                 $count,
                 $make_scanf->contents($ib, $rest__19, $readers)
-              );
+              };
             // FALLTHROUGH
             case 22:
               $rest__20 = $fmt__0[1];
               $c__5 = $checked_peek_char($ib);
-              return V(
+              return Vector{
                 0,
                 $c__5,
                 $make_scanf->contents($ib, $rest__20, $readers)
-              );
+              };
             // FALLTHROUGH
             case 23:
               $rest__21 = $fmt__0[2];
@@ -2456,7 +2475,7 @@ final class Scanf {
               $fmt__16 = $match__7[1];
               $match__8 = $make_scanf->contents($ib, $fmt__16, $readers);
               if ($match__8) {$arg_rest = $match__8[2];return $arg_rest;}
-              throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $v_));
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $v_});
             // FALLTHROUGH
             default:
               return $caml_call1(
@@ -2486,7 +2505,9 @@ final class Scanf {
       };
       $k = function($readers, $f) use ($End_of_file,$Failure,$Invalid_argument,$Pervasives,$Scan_failure,$String,$apply,$caml_call1,$caml_call2,$caml_wrap_exception,$cst__1,$cst_in_format,$ef,$fmt,$ib,$make_scanf,$reset_token,$runtime,$str) {
         $reset_token($ib);
-        try {$wq = V(0, $make_scanf->contents($ib, $fmt, $readers));$wk = $wq;
+        try {
+          $wq = Vector{0, $make_scanf->contents($ib, $fmt, $readers)};
+          $wk = $wq;
         }
         catch(\Throwable $exc) {
           $exc = $caml_wrap_exception($exc);
@@ -2510,7 +2531,7 @@ final class Scanf {
               }
             }
           }
-          if (! $switch__0) {$wj = V(1, $exc);}
+          if (! $switch__0) {$wj = Vector{1, $exc};}
           $wk = $wj;
         }
         if (0 === $wk[0]) {$args = $wk[1];return $apply($f, $args);}
@@ -2590,9 +2611,9 @@ final class Scanf {
     $fscanf = function($ic, $fmt) use ($kscanf,$memo_from_channel,$scanf_bad_input) {
       return $kscanf($memo_from_channel($ic), $scanf_bad_input, $fmt);
     };
-    $Scanf = V(
+    $Scanf = Vector{
       0,
-      V(
+      Vector{
         0,
         $stdin,
         $open_in,
@@ -2607,7 +2628,7 @@ final class Scanf {
         $beginning_of_input,
         $name_of_input,
         $stdin
-      ),
+      },
       $Scan_failure,
       $bscanf,
       $sscanf,
@@ -2620,7 +2641,7 @@ final class Scanf {
       $unescaped,
       $fscanf,
       $kfscanf
-    );
+    };
     
     $runtime["caml_register_global"](66, $Scanf, "Scanf");
 

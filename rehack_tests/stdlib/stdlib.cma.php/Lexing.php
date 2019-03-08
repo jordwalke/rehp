@@ -66,8 +66,8 @@ final class Lexing {
     $cst_Lexing_lex_refill_cannot_grow_buffer = $caml_new_string(
       "Lexing.lex_refill: cannot grow buffer"
     );
-    $dummy_pos = R(0, $caml_new_string(""), 0, 0, -1);
-    $zero_pos = R(0, $caml_new_string(""), 1, 0, 0);
+    $dummy_pos = Vector{0, $caml_new_string(""), 0, 0, -1};
+    $zero_pos = Vector{0, $caml_new_string(""), 1, 0, 0};
     $Bytes = $global_data["Bytes"];
     $Pervasives = $global_data["Pervasives"];
     $Sys = $global_data["Sys"];
@@ -76,7 +76,7 @@ final class Lexing {
       if (0 <= $result) {
         $buf[11] = $buf[12];
         $e4 = $buf[12];
-        $buf[12] = V(0, $e4[1], $e4[2], $e4[3], $buf[4] + $buf[6] | 0);
+        $buf[12] = Vector{0, $e4[1], $e4[2], $e4[3], $buf[4] + $buf[6] | 0};
       }
       return $result;
     };
@@ -85,7 +85,7 @@ final class Lexing {
       if (0 <= $result) {
         $buf[11] = $buf[12];
         $e3 = $buf[12];
-        $buf[12] = V(0, $e3[1], $e3[2], $e3[3], $buf[4] + $buf[6] | 0);
+        $buf[12] = Vector{0, $e3[1], $e3[2], $e3[3], $buf[4] + $buf[6] | 0};
       }
       return $result;
     };
@@ -159,7 +159,7 @@ final class Lexing {
       return 0;
     };
     $from_function = function($f) use ($caml_create_bytes,$lex_refill,$zero_pos) {
-      $eP = V(0);
+      $eP = Vector{0};
       $eQ = 0;
       $eR = 0;
       $eS = 0;
@@ -169,7 +169,7 @@ final class Lexing {
       $eW = 0;
       $eX = $caml_create_bytes(1024);
       $eY = $caml_create_bytes(512);
-      return V(
+      return Vector{
         0,
         function($eZ) use ($eY,$f,$lex_refill) {
           return $lex_refill($f, $eY, $eZ);
@@ -185,7 +185,7 @@ final class Lexing {
         $eP,
         $zero_pos,
         $zero_pos
-      );
+      };
     };
     $from_channel = function($ic) use ($Pervasives,$caml_call4,$from_function) {
       return $from_function(
@@ -195,7 +195,7 @@ final class Lexing {
       );
     };
     $from_string = function($s) use ($Bytes,$caml_call1,$runtime,$zero_pos) {
-      $eG = V(0);
+      $eG = Vector{0};
       $eH = 1;
       $eI = 0;
       $eJ = 0;
@@ -204,7 +204,7 @@ final class Lexing {
       $eM = 0;
       $eN = $runtime["caml_ml_string_length"]($s);
       $eO = $caml_call1($Bytes[5], $s);
-      return V(
+      return Vector{
         0,
         function($lexbuf) {$lexbuf[9] = 1;return 0;},
         $eO,
@@ -218,7 +218,7 @@ final class Lexing {
         $eG,
         $zero_pos,
         $zero_pos
-      );
+      };
     };
     $lexeme = function($lexbuf) use ($Bytes,$caml_call3) {
       $len = $lexbuf[6] - $lexbuf[5] | 0;
@@ -231,7 +231,7 @@ final class Lexing {
     $sub_lexeme_opt = function($lexbuf, $i1, $i2) use ($Bytes,$caml_call3) {
       if (0 <= $i1) {
         $len = $i2 - $i1 | 0;
-        return V(0, $caml_call3($Bytes[8], $lexbuf[2], $i1, $len));
+        return Vector{0, $caml_call3($Bytes[8], $lexbuf[2], $i1, $len)};
       }
       return 0;
     };
@@ -239,7 +239,7 @@ final class Lexing {
       return $caml_bytes_get($lexbuf[2], $i);
     };
     $sub_lexeme_char_opt = function($lexbuf, $i) use ($caml_bytes_get) {
-      return 0 <= $i ? V(0, $caml_bytes_get($lexbuf[2], $i)) : (0);
+      return 0 <= $i ? Vector{0, $caml_bytes_get($lexbuf[2], $i)} : (0);
     };
     $lexeme_char = function($lexbuf, $i) use ($caml_bytes_get) {
       return $caml_bytes_get($lexbuf[2], $lexbuf[5] + $i | 0);
@@ -250,18 +250,18 @@ final class Lexing {
     $lexeme_end_p = function($lexbuf) {return $lexbuf[12];};
     $new_line = function($lexbuf) {
       $lcp = $lexbuf[12];
-      $lexbuf[12] = V(0, $lcp[1], $lcp[2] + 1 | 0, $lcp[4], $lcp[4]);
+      $lexbuf[12] = Vector{0, $lcp[1], $lcp[2] + 1 | 0, $lcp[4], $lcp[4]};
       return 0;
     };
     $flush_input = function($lb) {
       $lb[6] = 0;
       $lb[4] = 0;
       $eF = $lb[12];
-      $lb[12] = V(0, $eF[1], $eF[2], $eF[3], 0);
+      $lb[12] = Vector{0, $eF[1], $eF[2], $eF[3], 0};
       $lb[3] = 0;
       return 0;
     };
-    $Lexing = V(
+    $Lexing = Vector{
       0,
       $dummy_pos,
       $from_channel,
@@ -281,7 +281,7 @@ final class Lexing {
       $sub_lexeme_char_opt,
       $engine,
       $new_engine
-    );
+    };
     
     $runtime["caml_register_global"](6, $Lexing, "Lexing");
 

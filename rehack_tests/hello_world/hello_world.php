@@ -1296,22 +1296,22 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
 
 
 
-$Out_of_memory = R(248, $caml_new_string("Out_of_memory"), -1);
-$Sys_error = R(248, $caml_new_string("Sys_error"), -2);
-$Failure = R(248, $caml_new_string("Failure"), -3);
-$Invalid_argument = R(248, $caml_new_string("Invalid_argument"), -4);
-$End_of_file = R(248, $caml_new_string("End_of_file"), -5);
-$Division_by_zero = R(248, $caml_new_string("Division_by_zero"), -6);
-$Not_found = R(248, $caml_new_string("Not_found"), -7);
-$Match_failure = R(248, $caml_new_string("Match_failure"), -8);
-$Stack_overflow = R(248, $caml_new_string("Stack_overflow"), -9);
-$Sys_blocked_io = R(248, $caml_new_string("Sys_blocked_io"), -10);
-$Assert_failure = R(248, $caml_new_string("Assert_failure"), -11);
-$Undefined_recursive_module = R(
+$Out_of_memory = Vector{248, $caml_new_string("Out_of_memory"), -1};
+$Sys_error = Vector{248, $caml_new_string("Sys_error"), -2};
+$Failure = Vector{248, $caml_new_string("Failure"), -3};
+$Invalid_argument = Vector{248, $caml_new_string("Invalid_argument"), -4};
+$End_of_file = Vector{248, $caml_new_string("End_of_file"), -5};
+$Division_by_zero = Vector{248, $caml_new_string("Division_by_zero"), -6};
+$Not_found = Vector{248, $caml_new_string("Not_found"), -7};
+$Match_failure = Vector{248, $caml_new_string("Match_failure"), -8};
+$Stack_overflow = Vector{248, $caml_new_string("Stack_overflow"), -9};
+$Sys_blocked_io = Vector{248, $caml_new_string("Sys_blocked_io"), -10};
+$Assert_failure = Vector{248, $caml_new_string("Assert_failure"), -11};
+$Undefined_recursive_module = Vector{
   248,
   $caml_new_string("Undefined_recursive_module"),
   -12
-);
+};
 
 $caml_register_global(
   11,

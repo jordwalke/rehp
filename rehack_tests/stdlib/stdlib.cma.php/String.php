@@ -281,7 +281,7 @@ final class String_ {
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {return 0;}
-        if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return V(0, $i__0);}
+        if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
         $i__1 = $i__0 + 1 | 0;
         $i__0 = $i__1;
         continue;
@@ -334,7 +334,7 @@ final class String_ {
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
-          if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return V(0, $i__0);}
+          if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
           $i__1 = $i__0 + -1 | 0;
           $i__0 = $i__1;
           continue;
@@ -410,8 +410,8 @@ final class String_ {
       return $runtime["caml_string_compare"]($x, $y);
     };
     $split_on_char = function($sep, $s) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$sub) {
-      $r = V(0, 0);
-      $j = V(0, $caml_ml_string_length($s));
+      $r = Vector{0, 0};
+      $j = Vector{0, $caml_ml_string_length($s)};
       $b5 = $caml_ml_string_length($s) + -1 | 0;
       if (! ($b5 < 0)) {
         $i = $b5;
@@ -419,7 +419,7 @@ final class String_ {
           if ($caml_bytes_unsafe_get($s, $i) === $sep) {
             $b7 = $r[1];
             $r[1] =
-              V(0, $sub($s, $i + 1 | 0, ($j[1] - $i | 0) + -1 | 0), $b7);
+              Vector{0, $sub($s, $i + 1 | 0, ($j[1] - $i | 0) + -1 | 0), $b7};
             $j[1] = $i;
           }
           $b8 = $i + -1 | 0;
@@ -428,7 +428,7 @@ final class String_ {
         }
       }
       $b6 = $r[1];
-      return V(0, $sub($s, 0, $j[1]), $b6);
+      return Vector{0, $sub($s, 0, $j[1]), $b6};
     };
     $uppercase = function($s) use ($Bytes,$bos,$bts,$caml_call1) {
       $b4 = $caml_call1($bos, $s);
@@ -446,7 +446,7 @@ final class String_ {
       $b1 = $caml_call1($bos, $s);
       return $caml_call1($bts, $caml_call1($Bytes[35], $b1));
     };
-    $String = V(
+    $String = Vector{
       0,
       $make,
       $init,
@@ -485,7 +485,7 @@ final class String_ {
         return $caml_string_equal($b0, $bZ);
       },
       $split_on_char
-    );
+    };
     
     $runtime["caml_register_global"](12, $String, "String_");
 

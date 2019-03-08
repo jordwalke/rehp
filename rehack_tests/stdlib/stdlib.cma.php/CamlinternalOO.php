@@ -78,22 +78,22 @@ final class CamlinternalOO {
     $List = $global_data["List_"];
     $Not_found = $global_data["Not_found"];
     $Map = $global_data["Map"];
-    $yk = R(0, $caml_new_string("camlinternalOO.ml"), 438, 17);
-    $yj = R(0, $caml_new_string("camlinternalOO.ml"), 420, 13);
-    $yi = R(0, $caml_new_string("camlinternalOO.ml"), 417, 13);
-    $yh = R(0, $caml_new_string("camlinternalOO.ml"), 414, 13);
-    $yg = R(0, $caml_new_string("camlinternalOO.ml"), 411, 13);
-    $yf = R(0, $caml_new_string("camlinternalOO.ml"), 408, 13);
-    $ye = R(0, $caml_new_string("camlinternalOO.ml"), 281, 50);
+    $yk = Vector{0, $caml_new_string("camlinternalOO.ml"), 438, 17};
+    $yj = Vector{0, $caml_new_string("camlinternalOO.ml"), 420, 13};
+    $yi = Vector{0, $caml_new_string("camlinternalOO.ml"), 417, 13};
+    $yh = Vector{0, $caml_new_string("camlinternalOO.ml"), 414, 13};
+    $yg = Vector{0, $caml_new_string("camlinternalOO.ml"), 411, 13};
+    $yf = Vector{0, $caml_new_string("camlinternalOO.ml"), 408, 13};
+    $ye = Vector{0, $caml_new_string("camlinternalOO.ml"), 281, 50};
     $copy = function($o) use ($caml_set_oo_id) {
       $o__0 = $o->toVector();
       return $caml_set_oo_id($o__0);
     };
-    $params = V(0, 1, 1, 1, 3, 16);
+    $params = Vector{0, 1, 1, 1, 3, 16};
     $initial_object_size = 2;
     $dummy_item = 0;
     $public_method_label = function($s) use ($runtime) {
-      $accu = V(0, 0);
+      $accu = Vector{0, 0};
       $zv = $runtime["caml_ml_string_length"]($s) + -1 | 0;
       $zu = 0;
       if (! ($zv < 0)) {
@@ -113,27 +113,27 @@ final class CamlinternalOO {
     $compare = function($x, $y) use ($caml_string_compare) {
       return $caml_string_compare($x, $y);
     };
-    $Vars = $caml_call1($Map[1], V(0, $compare));
+    $Vars = $caml_call1($Map[1], Vector{0, $compare});
     $compare__0 = function($x, $y) use ($caml_string_compare) {
       return $caml_string_compare($x, $y);
     };
-    $Meths = $caml_call1($Map[1], V(0, $compare__0));
+    $Meths = $caml_call1($Map[1], Vector{0, $compare__0});
     $compare__1 = function($x, $y) use ($runtime) {
       return $runtime["caml_int_compare"]($x, $y);
     };
-    $Labs = $caml_call1($Map[1], V(0, $compare__1));
-    $dummy_table = V(
+    $Labs = $caml_call1($Map[1], Vector{0, $compare__1});
+    $dummy_table = Vector{
       0,
       0,
-      V(0, $dummy_item),
+      Vector{0, $dummy_item},
       $Meths[1],
       $Labs[1],
       0,
       0,
       $Vars[1],
       0
-    );
-    $table_count = V(0, 0);
+    };
+    $table_count = Vector{0, 0};
     $dummy_met = $caml_obj_block(0, 0);
     $_ = $fit_size->contents =
       function($n) use ($fit_size) {
@@ -163,7 +163,7 @@ final class CamlinternalOO {
           break;
         }
       }
-      return V(
+      return Vector{
         0,
         $initial_object_size,
         $methods,
@@ -173,7 +173,7 @@ final class CamlinternalOO {
         0,
         $Vars[1],
         0
-      );
+      };
     };
     $resize = function($array, $new_size) use ($Array,$caml_call5,$caml_make_vect,$dummy_met) {
       $old_size = $array[2]->count() - 1;
@@ -191,8 +191,8 @@ final class CamlinternalOO {
       $resize($array, $label + 1 | 0);
       return $caml_check_bound($array[2], $label)[$label + 1] = $element;
     };
-    $method_count = V(0, 0);
-    $inst_var_count = V(0, 0);
+    $method_count = Vector{0, 0};
+    $inst_var_count = Vector{0, 0};
     $new_method = function($table) use ($resize) {
       $index = $table[2]->count() - 1;
       $resize($table, $index + 1 | 0);
@@ -221,7 +221,7 @@ final class CamlinternalOO {
       $method_count[1] += 1;
       return $caml_call2($Labs[27], $label, $table[4])
         ? $put($table, $label, $element)
-        : (($table[6] = V(0, V(0, $label, $element), $table[6])) || true
+        : (($table[6] = Vector{0, Vector{0, $label, $element}, $table[6]}) || true
          ? 0
          : (0));
     };
@@ -251,9 +251,9 @@ final class CamlinternalOO {
       };
       $concr_meth_labs = $caml_call2($List[17], $y0, $concr_meths__0);
       $table[5] =
-        V(
+        Vector{
           0,
-          V(
+          Vector{
             0,
             $table[3],
             $table[4],
@@ -261,9 +261,9 @@ final class CamlinternalOO {
             $table[7],
             $virt_meth_labs,
             $vars__0
-          ),
+          },
           $table[5]
-        );
+        };
       $y1 = $Vars[1];
       $y2 = $table[7];
       $y3 = function($lab, $info, $tvars) use ($List,$Vars,$caml_call2,$caml_call3,$vars__0) {
@@ -272,8 +272,8 @@ final class CamlinternalOO {
           : ($tvars);
       };
       $table[7] = $caml_call3($Vars[13], $y3, $y2, $y1);
-      $by_name = V(0, $Meths[1]);
-      $by_label = V(0, $Labs[1]);
+      $by_name = Vector{0, $Meths[1]};
+      $by_label = Vector{0, $Labs[1]};
       $y4 = function($met, $label) use ($Labs,$Meths,$Not_found,$by_label,$by_name,$caml_call2,$caml_call3,$caml_wrap_exception,$runtime,$table) {
         $by_name[1] = $caml_call3($Meths[4], $met, $label, $by_name[1]);
         $y9 = $by_label[1];
@@ -304,7 +304,7 @@ final class CamlinternalOO {
         $lab = $met[1];
         return $caml_call2($List[31], $lab, $virt_meth_labs)
           ? $hm
-          : (V(0, $met, $hm));
+          : (Vector{0, $met, $hm});
       };
       $table[6] = $caml_call3($List[21], $y8, $y7, $y6);
       return 0;
@@ -330,7 +330,7 @@ final class CamlinternalOO {
         $lab = $met[1];
         return $caml_call2($List[31], $lab, $virt_meths)
           ? $hm
-          : (V(0, $met, $hm));
+          : (Vector{0, $met, $hm});
       };
       $table[6] = $caml_call3($List[21], $yX, $yW, $saved_hidden_meths);
       return 0;
@@ -355,7 +355,7 @@ final class CamlinternalOO {
       }
     };
     $to_array = function($arr) use ($runtime) {
-      return $runtime["caml_equal"]($arr, 0) ? V(0) : ($arr);
+      return $runtime["caml_equal"]($arr, 0) ? Vector{0} : ($arr);
     };
     $new_methods_variables = function($table, $meths, $vals) use ($caml_check_bound,$caml_make_vect,$get_method_label,$new_variable,$to_array) {
       $meths__0 = $to_array($meths);
@@ -397,7 +397,7 @@ final class CamlinternalOO {
       catch(\Throwable $yJ) {
         $yJ = $caml_wrap_exception($yJ);
         if ($yJ === $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $ye));
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ye});
         }
         throw $runtime["caml_wrap_thrown_exception_reraise"]($yJ);
       }
@@ -409,11 +409,11 @@ final class CamlinternalOO {
       return $caml_call2($Array[15], $yG, $names);
     };
     $add_initializer = function($table, $f) {
-      $table[8] = V(0, $f, $table[8]);
+      $table[8] = Vector{0, $f, $table[8]};
       return 0;
     };
     $create_table = function($public_methods) use ($Array,$Labs,$Meths,$caml_call2,$caml_call3,$new_table,$public_method_label) {
-      if ($public_methods === 0) {return $new_table(V(0));}
+      if ($public_methods === 0) {return $new_table(Vector{0});}
       $tags = $caml_call2($Array[15], $public_method_label, $public_methods);
       $table = $new_table($tags);
       $yF = function($i, $met) use ($Labs,$Meths,$caml_call3,$table) {
@@ -447,19 +447,23 @@ final class CamlinternalOO {
       $yy = function($nm) use ($cla,$get_method,$get_method_label) {
         return $get_method($cla, $get_method_label($cla, $nm));
       };
-      $yz = V(0, $caml_call2($Array[15], $yy, $yx), $yw);
+      $yz = Vector{0, $caml_call2($Array[15], $yy, $yx), $yw};
       $yA = $to_array($vals);
       $yB = function($yD) use ($cla,$get_variable) {
         return $get_variable($cla, $yD);
       };
-      $yC = V(0, V(0, $init), V(0, $caml_call2($Array[15], $yB, $yA), $yz));
+      $yC = Vector{
+        0,
+        Vector{0, $init},
+        Vector{0, $caml_call2($Array[15], $yB, $yA), $yz}
+      };
       return $caml_call1($Array[6], $yC);
     };
     $make_class = function($pub_meths, $class_init) use ($caml_call1,$create_table,$init_class) {
       $table = $create_table($pub_meths);
       $env_init = $caml_call1($class_init, $table);
       $init_class($table);
-      return V(0, $caml_call1($env_init, 0), $class_init, $env_init, 0);
+      return Vector{0, $caml_call1($env_init, 0), $class_init, $env_init, 0};
     };
     $make_class_store = function($pub_meths, $class_init, $init_table) use ($caml_call1,$create_table,$init_class) {
       $table = $create_table($pub_meths);
@@ -472,10 +476,10 @@ final class CamlinternalOO {
     $dummy_class = function($loc) use ($Undefined_recursive_module,$runtime) {
       $undef = function($param) use ($Undefined_recursive_module,$loc,$runtime) {
         throw $runtime["caml_wrap_thrown_exception"](
-                V(0, $Undefined_recursive_module, $loc)
+                Vector{0, $Undefined_recursive_module, $loc}
               );
       };
-      return V(0, $undef, $undef, $undef, 0);
+      return Vector{0, $undef, $undef, $undef, 0};
     };
     $create_object = function($table) use ($Obj,$caml_obj_block,$caml_set_oo_id) {
       $obj = $caml_obj_block($Obj[8], $table[1]);
@@ -520,33 +524,33 @@ final class CamlinternalOO {
     };
     $set_data = function($tables, $v) use ($Assert_failure,$runtime,$yf) {
       if ($tables) {$tables[2] = $v;return 0;}
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yf));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yf});
     };
     $set_next = function($tables, $v) use ($Assert_failure,$runtime,$yg) {
       if ($tables) {$tables[3] = $v;return 0;}
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yg));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yg});
     };
     $get_key = function($param) use ($Assert_failure,$runtime,$yh) {
       if ($param) {return $param[1];}
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yh));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yh});
     };
     $get_data = function($param) use ($Assert_failure,$runtime,$yi) {
       if ($param) {return $param[2];}
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yi));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yi});
     };
     $get_next = function($param) use ($Assert_failure,$runtime,$yj) {
       if ($param) {return $param[3];}
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yj));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yj});
     };
     $build_path = function($n, $keys, $tables) use ($caml_check_bound,$set_data) {
-      $res = V(0, 0, 0, 0);
-      $r = V(0, $res);
+      $res = Vector{0, 0, 0, 0};
+      $r = Vector{0, $res};
       $ys = 0;
       if (! ($n < 0)) {
         $i = $ys;
         for (;;) {
           $yt = $r[1];
-          $r[1] = V(0, $caml_check_bound($keys, $i)[$i + 1], $yt, 0);
+          $r[1] = Vector{0, $caml_check_bound($keys, $i)[$i + 1], $yt, 0};
           $yu = $i + 1 | 0;
           if ($n !== $i) {$i = $yu;continue;}
           break;
@@ -572,11 +576,11 @@ final class CamlinternalOO {
                     $tables_data
                   );
                 }
-                throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $yk));
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yk});
               }
               $next = $get_next($tables__0);
               if ($next) {$tables__0 = $next;continue;}
-              $next__0 = V(0, $key, 0, 0);
+              $next__0 = Vector{0, $key, 0, 0};
               $set_next($tables__0, $next__0);
               return $build_path($i + -1 | 0, $keys, $next__0);
             }
@@ -868,7 +872,7 @@ final class CamlinternalOO {
     };
     $set_methods = function($table, $methods) use ($caml_check_bound,$method_impl,$set_method) {
       $len = $methods->count() - 1;
-      $i = V(0, 0);
+      $i = Vector{0, 0};
       for (;;) {
         if ($i[1] < $len) {
           $yl = $i[1];
@@ -882,9 +886,9 @@ final class CamlinternalOO {
       }
     };
     $stats = function($param) use ($inst_var_count,$method_count,$table_count) {
-      return V(0, $table_count[1], $method_count[1], $inst_var_count[1]);
+      return Vector{0, $table_count[1], $method_count[1], $inst_var_count[1]};
     };
-    $CamlinternalOO = V(
+    $CamlinternalOO = Vector{
       0,
       $public_method_label,
       $new_method,
@@ -916,7 +920,7 @@ final class CamlinternalOO {
       $lookup_tables,
       $params,
       $stats
-    );
+    };
     
     $runtime["caml_register_global"](18, $CamlinternalOO, "CamlinternalOO");
 

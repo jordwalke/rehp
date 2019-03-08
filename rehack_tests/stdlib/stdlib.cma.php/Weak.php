@@ -96,7 +96,7 @@ final class Weak {
         }
       }
       throw $runtime["caml_wrap_thrown_exception"](
-              V(0, $Invalid_argument, $cst_Weak_fill)
+              Vector{0, $Invalid_argument, $cst_Weak_fill}
             );
     };
     $Make = function($H) use ($Array,$Not_found,$Pervasives,$Sys,$caml_call1,$caml_call2,$caml_call3,$caml_call5,$caml_check_bound,$caml_make_vect,$caml_mod,$caml_obj_truncate,$caml_weak_blit,$caml_weak_check,$caml_weak_create,$caml_weak_get,$caml_weak_get_copy,$caml_weak_set,$cst_Weak_Make_hash_bucket_cannot_grow_more,$length,$runtime) {
@@ -112,14 +112,14 @@ final class Weak {
       $create = function($sz) use ($Sys,$caml_make_vect,$emptybucket,$limit) {
         $sz__0 = 7 <= $sz ? $sz : (7);
         $sz__1 = $Sys[14] < $sz__0 ? $Sys[14] : ($sz__0);
-        return V(
+        return Vector{
           0,
           $caml_make_vect($sz__1, $emptybucket),
-          $caml_make_vect($sz__1, V(0)),
+          $caml_make_vect($sz__1, Vector{0}),
           $limit,
           0,
           0
-        );
+        };
       };
       $clear = function($t) use ($caml_check_bound,$emptybucket,$limit) {
         $sA = $t[1]->count() - 1 + -1 | 0;
@@ -128,7 +128,7 @@ final class Weak {
           $i = $sz;
           for (;;) {
             $caml_check_bound($t[1], $i)[$i + 1] = $emptybucket;
-            $caml_check_bound($t[2], $i)[$i + 1] = V(0);
+            $caml_check_bound($t[2], $i)[$i + 1] = Vector{0};
             $sB = $i + 1 | 0;
             if ($sA !== $i) {$i = $sB;continue;}
             break;
@@ -285,7 +285,7 @@ final class Weak {
             $r9 = $t[5];
             $caml_check_bound($t[1], $r9)[$r9 + 1] = $emptybucket;
             $r_ = $t[5];
-            $caml_check_bound($t[2], $r_)[$r_ + 1] = V(0);
+            $caml_check_bound($t[2], $r_)[$r_ + 1] = Vector{0};
           }
           else {
             $caml_obj_truncate($bucket, $prev_len + 2 | 0);
@@ -387,7 +387,7 @@ final class Weak {
       $add = function($t, $d) use ($H,$add_aux,$caml_call1,$caml_weak_set,$get_index) {
         $h = $caml_call1($H[2], $d);
         $rY = $get_index($t, $h);
-        $rZ = V(0, $d);
+        $rZ = Vector{0, $d};
         return $add_aux->contents(
           $t,
           function($r2, $r1, $r0) use ($caml_weak_set) {
@@ -436,7 +436,7 @@ final class Weak {
           $t,
           $d,
           function($h, $index) use ($add_aux,$caml_weak_set,$d,$t) {
-            $rU = V(0, $d);
+            $rU = Vector{0, $d};
             $add_aux->contents(
               $t,
               function($rX, $rW, $rV) use ($caml_weak_set) {
@@ -555,7 +555,7 @@ final class Weak {
                   $match__0 = $caml_weak_get($bucket, $i__0);
                   if ($match__0) {
                     $v__0 = $match__0[1];
-                    $accu__1 = V(0, $v__0, $accu__0);
+                    $accu__1 = Vector{0, $v__0, $accu__0};
                     $i__1 = $i__0 + 1 | 0;
                     $i__0 = $i__1;
                     $accu__0 = $accu__1;
@@ -592,9 +592,9 @@ final class Weak {
         $rK = $caml_check_bound($lens, $rJ)[$rJ + 1];
         $rM = $caml_check_bound($lens, $rL)[$rL + 1];
         $rN = $caml_check_bound($lens, 0)[1];
-        return V(0, $len, $count($t), $totlen, $rN, $rM, $rK);
+        return Vector{0, $len, $count($t), $totlen, $rN, $rM, $rK};
       };
-      return V(
+      return Vector{
         0,
         $create,
         $clear,
@@ -609,7 +609,7 @@ final class Weak {
         $fold,
         $count,
         $stats
-      );
+      };
     };
     $rm = function($rF, $rE, $rD, $rC, $rB) use ($caml_weak_blit) {
       return $caml_weak_blit($rF, $rE, $rD, $rC, $rB);
@@ -626,7 +626,7 @@ final class Weak {
     $rq = function($ru, $rt, $rs) use ($caml_weak_set) {
       return $caml_weak_set($ru, $rt, $rs);
     };
-    $Weak = V(
+    $Weak = Vector{
       0,
       function($rr) use ($caml_weak_create) {return $caml_weak_create($rr);},
       $length,
@@ -637,7 +637,7 @@ final class Weak {
       $fill,
       $rm,
       $Make
-    );
+    };
     
     $runtime["caml_register_global"](7, $Weak, "Weak");
 

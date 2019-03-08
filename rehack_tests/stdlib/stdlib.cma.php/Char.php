@@ -132,7 +132,7 @@ final class Char {
     $equal = function($c1, $c2) use ($compare) {
       return 0 === $compare($c1, $c2) ? 1 : (0);
     };
-    $Char = V(
+    $Char = Vector{
       0,
       $chr,
       $escaped,
@@ -142,7 +142,7 @@ final class Char {
       $uppercase_ascii,
       $compare,
       $equal
-    );
+    };
     
     $runtime["caml_register_global"](8, $Char, "Char");
 

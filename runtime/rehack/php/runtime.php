@@ -7883,73 +7883,73 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     
     $caml_register_global(
       0,
-      V(248, $caml_new_string("Out_of_memory"), 0),
+      Vector{248, $caml_new_string("Out_of_memory"), 0},
       "Out_of_memory"
     );
     
     $caml_register_global(
       1,
-      V(248, $caml_new_string("Sys_error"), -1),
+      Vector{248, $caml_new_string("Sys_error"), -1},
       "Sys_error"
     );
     
     $caml_register_global(
       2,
-      V(248, $caml_new_string("Failure"), -2),
+      Vector{248, $caml_new_string("Failure"), -2},
       "Failure"
     );
     
     $caml_register_global(
       3,
-      V(248, $caml_new_string("Invalid_argument"), -3),
+      Vector{248, $caml_new_string("Invalid_argument"), -3},
       "Invalid_argument"
     );
     
     $caml_register_global(
       4,
-      V(248, $caml_new_string("End_of_file"), -4),
+      Vector{248, $caml_new_string("End_of_file"), -4},
       "End_of_file"
     );
     
     $caml_register_global(
       5,
-      V(248, $caml_new_string("Division_by_zero"), -5),
+      Vector{248, $caml_new_string("Division_by_zero"), -5},
       "Division_by_zero"
     );
     
     $caml_register_global(
       6,
-      V(248, $caml_new_string("Not_found"), -6),
+      Vector{248, $caml_new_string("Not_found"), -6},
       "Not_found"
     );
     
     $caml_register_global(
       7,
-      V(248, $caml_new_string("Match_failure"), -7),
+      Vector{248, $caml_new_string("Match_failure"), -7},
       "Match_failure"
     );
     
     $caml_register_global(
       8,
-      V(248, $caml_new_string("Stack_overflow"), -8),
+      Vector{248, $caml_new_string("Stack_overflow"), -8},
       "Stack_overflow"
     );
     
     $caml_register_global(
       9,
-      V(248, $caml_new_string("Sys_blocked_io"), -9),
+      Vector{248, $caml_new_string("Sys_blocked_io"), -9},
       "Sys_blocked_io"
     );
     
     $caml_register_global(
       10,
-      V(248, $caml_new_string("Assert_failure"), -10),
+      Vector{248, $caml_new_string("Assert_failure"), -10},
       "Assert_failure"
     );
     
     $caml_register_global(
       11,
-      V(248, $caml_new_string("Undefined_recursive_module"), -11),
+      Vector{248, $caml_new_string("Undefined_recursive_module"), -11},
       "Undefined_recursive_module"
     );
 

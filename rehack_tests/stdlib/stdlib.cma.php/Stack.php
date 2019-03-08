@@ -44,12 +44,12 @@ final class Stack {
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Stack_Empty = $caml_new_string("Stack.Empty");
     $List = $global_data["List_"];
-    $Empty = V(248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0));
-    $create = function($param) {return V(0, 0, 0);};
+    $Empty = Vector{248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0)};
+    $create = function($param) {return Vector{0, 0, 0};};
     $clear = function($s) {$s[1] = 0;$s[2] = 0;return 0;};
-    $copy = function($s) {return V(0, $s[1], $s[2]);};
+    $copy = function($s) {return Vector{0, $s[1], $s[2]};};
     $push = function($x, $s) {
-      $s[1] = V(0, $x, $s[1]);
+      $s[1] = Vector{0, $x, $s[1]};
       $s[2] = $s[2] + 1 | 0;
       return 0;
     };
@@ -77,7 +77,7 @@ final class Stack {
     $fold = function($f, $acc, $s) use ($List,$caml_call3) {
       return $caml_call3($List[20], $f, $acc, $s[1]);
     };
-    $Stack = V(
+    $Stack = Vector{
       0,
       $Empty,
       $create,
@@ -90,7 +90,7 @@ final class Stack {
       $length,
       $iter,
       $fold
-    );
+    };
     
     $runtime["caml_register_global"](2, $Stack, "Stack");
 

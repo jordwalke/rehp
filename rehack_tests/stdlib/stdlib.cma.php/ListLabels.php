@@ -83,7 +83,7 @@ final class ListLabels {
     $fast_sort = $List[50];
     $sort_uniq = $List[51];
     $merge = $List[52];
-    $ListLabels = V(
+    $ListLabels = Vector{
       0,
       $length,
       $hd,
@@ -137,7 +137,7 @@ final class ListLabels {
       $fast_sort,
       $sort_uniq,
       $merge
-    );
+    };
     
     $runtime["caml_register_global"](1, $ListLabels, "ListLabels");
 

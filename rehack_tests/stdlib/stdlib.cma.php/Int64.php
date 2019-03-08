@@ -33,16 +33,16 @@ final class Int64 {
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_d = $caml_new_string("%d");
-    $zero = R(255, 0, 0, 0);
-    $one = R(255, 1, 0, 0);
-    $minus_one = R(255, 16777215, 16777215, 65535);
-    $min_int = R(255, 0, 0, 32768);
-    $max_int = R(255, 16777215, 16777215, 32767);
+    $zero = Vector{255, 0, 0, 0};
+    $one = Vector{255, 1, 0, 0};
+    $minus_one = Vector{255, 16777215, 16777215, 65535};
+    $min_int = Vector{255, 0, 0, 32768};
+    $max_int = Vector{255, 16777215, 16777215, 32767};
     $Failure = $global_data["Failure"];
-    $eA = R(255, 16777215, 16777215, 65535);
-    $ez = R(255, 0, 0, 0);
-    $ey = R(255, 1, 0, 0);
-    $ex = R(255, 1, 0, 0);
+    $eA = Vector{255, 16777215, 16777215, 65535};
+    $ez = Vector{255, 0, 0, 0};
+    $ey = Vector{255, 1, 0, 0};
+    $ex = Vector{255, 1, 0, 0};
     $succ = function($n) use ($ex,$runtime) {
       return $runtime["caml_int64_add"]($n, $ex);
     };
@@ -61,7 +61,7 @@ final class Int64 {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
     $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$eB = V(0, $runtime["caml_int64_of_string"]($s));return $eB;}
+      try {$eB = Vector{0, $runtime["caml_int64_of_string"]($s)};return $eB;}
       catch(\Throwable $eC) {
         $eC = $caml_wrap_exception($eC);
         if ($eC[1] === $Failure) {return 0;}
@@ -74,7 +74,7 @@ final class Int64 {
     $equal = function($x, $y) use ($compare) {
       return 0 === $compare($x, $y) ? 1 : (0);
     };
-    $Int64 = V(
+    $Int64 = Vector{
       0,
       $zero,
       $one,
@@ -89,7 +89,7 @@ final class Int64 {
       $to_string,
       $compare,
       $equal
-    );
+    };
     
     $runtime["caml_register_global"](11, $Int64, "Int64");
 

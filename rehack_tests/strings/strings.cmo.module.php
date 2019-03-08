@@ -102,8 +102,8 @@ final class Strings {
     $Not_found = $global_data["Not_found"];
     $StringHelper = $global_data["StringHelper"];
     $Failure = $global_data["Failure"];
-    $r = R(0, 1, R(0, 2, R(0, 3, R(0, 4, 0))));
-    $s = R(0, 1, R(0, 2, R(0, 3, R(0, 4, 0))));
+    $r = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
+    $s = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
     
     $caml_call1($Pervasives[34], $greeting);
     
@@ -241,8 +241,8 @@ final class Strings {
       );
     }
     
-    $one__0 = V(0, $r);
-    $two = V(0, $s);
+    $one__0 = Vector{0, $r};
+    $two = Vector{0, $s};
     $t = $caml_call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
     $u = $caml_call2($Pervasives[16], $cst_ARE_T, $t);
     
@@ -273,7 +273,7 @@ final class Strings {
     
     $caml_call1($Pervasives[35], 0);
     
-    $Strings = V(
+    $Strings = Vector{
       0,
       $greeting__0,
       $unicodeLength,
@@ -287,7 +287,7 @@ final class Strings {
       $two,
       $n__0,
       $anotherName
-    );
+    };
     
     $runtime["caml_register_global"](39, $Strings, "Strings");
 

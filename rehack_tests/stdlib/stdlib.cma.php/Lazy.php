@@ -51,7 +51,7 @@ final class Lazy {
     $is_val = function($l) use ($Obj,$caml_obj_tag) {
       return $caml_obj_tag($l) !== $Obj[6] ? 1 : (0);
     };
-    $Lazy = V(
+    $Lazy = Vector{
       0,
       $Undefined,
       $force_val,
@@ -61,7 +61,7 @@ final class Lazy {
       $from_fun,
       $from_val,
       $is_val
-    );
+    };
     
     $runtime["caml_register_global"](2, $Lazy, "Lazy");
 

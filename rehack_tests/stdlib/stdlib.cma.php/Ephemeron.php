@@ -71,9 +71,9 @@ final class Ephemeron {
     $Hashtbl = $global_data["Hashtbl"];
     $CamlinternalLazy = $global_data["CamlinternalLazy"];
     $Random = $global_data["Random"];
-    $z4 = R(0, 0);
-    $z3 = R(0, 0);
-    $z2 = R(0, 0);
+    $z4 = Vector{0, 0};
+    $z3 = Vector{0, 0};
+    $z2 = Vector{0, 0};
     $MakeSeeded = function($H) use ($Array,$CamlinternalLazy,$Hashtbl,$Not_found,$Pervasives,$Random,$Sys,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect,$caml_wrap_exception,$insert_bucket,$left_shift_32,$runtime,$unsigned_right_shift_32) {
       $power_2_above = function($x, $n) use ($Sys) {
         $x__0 = $x;
@@ -85,12 +85,12 @@ final class Ephemeron {
           continue;
         }
       };
-      $prng = V(
+      $prng = Vector{
         246,
         function($Bd) use ($Random,$caml_call1) {
           return $caml_call1($Random[11][2], 0);
         }
-      );
+      };
       $create = function($opt, $initial_size) use ($CamlinternalLazy,$Hashtbl,$Random,$caml_call1,$caml_make_vect,$power_2_above,$prng,$runtime) {
         if ($opt) {
           $sth = $opt[1];
@@ -108,7 +108,7 @@ final class Ephemeron {
           $seed = $caml_call1($Random[11][4], $Bc);
         }
         else {$seed = 0;}
-        return V(0, 0, $caml_make_vect($s, 0), $seed, $s);
+        return Vector{0, 0, $caml_make_vect($s, 0), $seed, $s};
       };
       $clear = function($h) use ($caml_check_bound) {
         $h[1] = 0;
@@ -138,7 +138,7 @@ final class Ephemeron {
         $A6 = $h[4];
         $A7 = $h[3];
         $A8 = $caml_call1($Array[8], $h[2]);
-        return V(0, $h[1], $A8, $A7, $A6);
+        return Vector{0, $h[1], $A8, $A7, $A6};
       };
       $key_index = function($h, $hkey) {
         return $hkey & ($h[2]->count() - 1 + -1 | 0);
@@ -154,7 +154,7 @@ final class Ephemeron {
                 $c = $param__0[2];
                 $hkey = $param__0[1];
                 if ($caml_call1($H[7], $c)) {
-                  return V(0, $hkey, $c, $do_bucket->contents($rest));
+                  return Vector{0, $hkey, $c, $do_bucket->contents($rest)};
                 }
                 $h[1] = $h[1] + -1 | 0;
                 $param__0 = $rest;
@@ -199,12 +199,12 @@ final class Ephemeron {
                 $insert_bucket->contents($rest);
                 $nidx = $key_index($h, $hkey);
                 return $ndata[$nidx + 1] =
-                  V(
+                  Vector{
                     0,
                     $hkey,
                     $data,
                     $caml_check_bound($ndata, $nidx)[$nidx + 1]
-                  );
+                  };
               }
               return 0;
             };
@@ -228,8 +228,12 @@ final class Ephemeron {
         $hkey = $caml_call2($H[2], $h[3], $key);
         $i = $key_index($h, $hkey);
         $container = $caml_call2($H[1], $key, $info);
-        $bucket = V(0, $hkey, $container, $caml_check_bound($h[2], $i)[$i + 1]
-        );
+        $bucket = Vector{
+          0,
+          $hkey,
+          $container,
+          $caml_check_bound($h[2], $i)[$i + 1]
+        };
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = $h[1] + 1 | 0;
         $AW = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
@@ -255,7 +259,7 @@ final class Ephemeron {
                       return $next;
                     // FALLTHROUGH
                     case 1:
-                      return V(0, $hk, $c, $remove_bucket->contents($next));
+                      return Vector{0, $hk, $c, $remove_bucket->contents($next)};
                     // FALLTHROUGH
                     default:
                       $h[1] = $h[1] + -1 | 0;
@@ -263,7 +267,7 @@ final class Ephemeron {
                       continue;
                     }
                 }
-                return V(0, $hk, $c, $remove_bucket->contents($next));
+                return Vector{0, $hk, $c, $remove_bucket->contents($next)};
               }
               return 0;
             }
@@ -369,7 +373,7 @@ final class Ephemeron {
                       $match__0 = $caml_call1($H[4], $c);
                       if ($match__0) {
                         $d = $match__0[1];
-                        return V(0, $d, $find_in_bucket->contents($rest));
+                        return Vector{0, $d, $find_in_bucket->contents($rest)};
                       }
                       $param__0 = $rest;
                       continue;
@@ -424,7 +428,7 @@ final class Ephemeron {
           $AR = $caml_wrap_exception($AR);
           if ($AR === $Not_found) {
             $container = $caml_call2($H[1], $key, $info);
-            $caml_check_bound($h[2], $i)[$i + 1] = V(0, $hkey, $container, $l);
+            $caml_check_bound($h[2], $i)[$i + 1] = Vector{0, $hkey, $container, $l};
             $h[1] = $h[1] + 1 | 0;
             $AP = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
             return $AP ? $resize($h) : ($AP);
@@ -525,7 +529,7 @@ final class Ephemeron {
           }
         };
         $d = $h[2];
-        $accu = V(0, $init);
+        $accu = Vector{0, $init};
         $AI = $d->count() - 1 + -1 | 0;
         $AH = 0;
         if (! ($AI < 0)) {
@@ -560,7 +564,7 @@ final class Ephemeron {
                     if ($match__1) {
                       $new_d = $match__1[1];
                       $caml_call3($H[6], $c, $k, $new_d);
-                      return V(0, $hk, $c, $do_bucket->contents($rest));
+                      return Vector{0, $hk, $c, $do_bucket->contents($rest)};
                     }
                     $param__0 = $rest;
                     continue;
@@ -619,7 +623,7 @@ final class Ephemeron {
               0;
         };
         $caml_call2($Array[13], $AC, $AB);
-        return V(0, $h[1], $h[2]->count() - 1, $mbl, $histo);
+        return Vector{0, $h[1], $h[2]->count() - 1, $mbl, $histo};
       };
       $bucket_length_alive = function($accu, $param) use ($H,$caml_call1) {
         $accu__0 = $accu;
@@ -641,7 +645,7 @@ final class Ephemeron {
         }
       };
       $stats_alive = function($h) use ($Array,$Pervasives,$bucket_length_alive,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect) {
-        $size = V(0, 0);
+        $size = Vector{0, 0};
         $As = $h[2];
         $At = 0;
         $Au = function($m, $b) use ($Pervasives,$bucket_length_alive,$caml_call2) {
@@ -659,9 +663,9 @@ final class Ephemeron {
               0;
         };
         $caml_call2($Array[13], $Aw, $Av);
-        return V(0, $size[1], $h[2]->count() - 1, $mbl, $histo);
+        return Vector{0, $size[1], $h[2]->count() - 1, $mbl, $histo};
       };
-      return V(
+      return Vector{
         0,
         $create,
         $clear,
@@ -681,7 +685,7 @@ final class Ephemeron {
         $stats,
         $clean,
         $stats_alive
-      );
+      };
     };
     $obj_opt = function($x) {return $x;};
     $create = function($param) use ($Obj,$caml_call1) {
@@ -745,7 +749,7 @@ final class Ephemeron {
         return $set_data($c, $d);
       };
       return $MakeSeeded(
-        V(
+        Vector{
           0,
           $create__0,
           $hash,
@@ -754,7 +758,7 @@ final class Ephemeron {
           $get_key,
           $set_key_data,
           $check_key
-        )
+        }
       );
     };
     $Make = function($H) use ($MakeSeeded__0,$caml_call1,$caml_call2,$z2) {
@@ -762,7 +766,7 @@ final class Ephemeron {
       $hash = function($seed, $x) use ($H,$caml_call1) {
         return $caml_call1($H[2], $x);
       };
-      $include = $MakeSeeded__0(V(0, $equal, $hash));
+      $include = $MakeSeeded__0(Vector{0, $equal, $hash});
       $clear = $include[2];
       $reset = $include[3];
       $copy = $include[4];
@@ -784,7 +788,7 @@ final class Ephemeron {
       $create = function($sz) use ($Ar,$caml_call2,$z2) {
         return $caml_call2($Ar, $z2, $sz);
       };
-      return V(
+      return Vector{
         0,
         $create,
         $clear,
@@ -804,7 +808,7 @@ final class Ephemeron {
         $stats,
         $clean,
         $stats_alive
-      );
+      };
     };
     $create__0 = function($param) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][1], 2);
@@ -906,7 +910,7 @@ final class Ephemeron {
           if ($match__0) {
             $k2 = $match__0[1];
             $k1 = $match[1];
-            return V(0, V(0, $k1, $k2));
+            return Vector{0, Vector{0, $k1, $k2}};
           }
         }
         return 0;
@@ -924,7 +928,7 @@ final class Ephemeron {
         return $Ap ? $check_key2($c) : ($Ap);
       };
       return $MakeSeeded(
-        V(
+        Vector{
           0,
           $create,
           $hash,
@@ -933,7 +937,7 @@ final class Ephemeron {
           $get_key,
           $set_key_data,
           $check_key
-        )
+        }
       );
     };
     $Make__0 = function($H1, $H2) use ($MakeSeeded__1,$caml_call1,$caml_call2,$z3) {
@@ -942,11 +946,11 @@ final class Ephemeron {
         return $caml_call1($H2[2], $x);
       };
       $equal__0 = $H1[1];
-      $Al = V(0, $equal, $hash);
+      $Al = Vector{0, $equal, $hash};
       $hash__0 = function($seed, $x) use ($H1,$caml_call1) {
         return $caml_call1($H1[2], $x);
       };
-      $Am = V(0, $equal__0, $hash__0);
+      $Am = Vector{0, $equal__0, $hash__0};
       $include = (function($Ao) use ($Am,$MakeSeeded__1) {
          return $MakeSeeded__1($Am, $Ao);
        })($Al);
@@ -971,7 +975,7 @@ final class Ephemeron {
       $create = function($sz) use ($An,$caml_call2,$z3) {
         return $caml_call2($An, $z3, $sz);
       };
-      return V(
+      return Vector{
         0,
         $create,
         $clear,
@@ -991,7 +995,7 @@ final class Ephemeron {
         $stats,
         $clean,
         $stats_alive
-      );
+      };
     };
     $create__1 = function($n) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][1], $n);
@@ -1053,7 +1057,7 @@ final class Ephemeron {
         return $c;
       };
       $hash = function($seed, $k) use ($H,$caml_call2,$caml_check_bound) {
-        $h = V(0, 0);
+        $h = Vector{0, 0};
         $Ae = $k->count() - 1 + -1 | 0;
         $Ad = 0;
         if (! ($Ae < 0)) {
@@ -1097,7 +1101,7 @@ final class Ephemeron {
       };
       $get_key = function($c) use ($caml_check_bound,$caml_make_vect,$get_key__0,$length) {
         $len = $length($c);
-        if (0 === $len) {return V(0, V(0));}
+        if (0 === $len) {return Vector{0, Vector{0}};}
         $match = $get_key__0($c, 0);
         if ($match) {
           $k0 = $match[1];
@@ -1115,7 +1119,7 @@ final class Ephemeron {
                 }
                 return 0;
               }
-              return V(0, $a);
+              return Vector{0, $a};
             }
           };
           $a = $caml_make_vect($len, $k0);
@@ -1157,7 +1161,7 @@ final class Ephemeron {
         return $check($c, $length($c) + -1 | 0);
       };
       return $MakeSeeded(
-        V(
+        Vector{
           0,
           $create,
           $hash,
@@ -1166,7 +1170,7 @@ final class Ephemeron {
           $get_key,
           $set_key_data,
           $check_key
-        )
+        }
       );
     };
     $Make__1 = function($H) use ($MakeSeeded__2,$caml_call1,$caml_call2,$z4) {
@@ -1174,7 +1178,7 @@ final class Ephemeron {
       $hash = function($seed, $x) use ($H,$caml_call1) {
         return $caml_call1($H[2], $x);
       };
-      $include = $MakeSeeded__2(V(0, $equal, $hash));
+      $include = $MakeSeeded__2(Vector{0, $equal, $hash});
       $clear = $include[2];
       $reset = $include[3];
       $copy = $include[4];
@@ -1196,7 +1200,7 @@ final class Ephemeron {
       $create = function($sz) use ($caml_call2,$z4,$z6) {
         return $caml_call2($z6, $z4, $sz);
       };
-      return V(
+      return Vector{
         0,
         $create,
         $clear,
@@ -1216,11 +1220,11 @@ final class Ephemeron {
         $stats,
         $clean,
         $stats_alive
-      );
+      };
     };
-    $Ephemeron = V(
+    $Ephemeron = Vector{
       0,
-      V(
+      Vector{
         0,
         $create,
         $get_key,
@@ -1237,8 +1241,8 @@ final class Ephemeron {
         $blit_data,
         $Make,
         $MakeSeeded__0
-      ),
-      V(
+      },
+      Vector{
         0,
         $create__0,
         $get_key1,
@@ -1262,8 +1266,8 @@ final class Ephemeron {
         $blit_data__0,
         $Make__0,
         $MakeSeeded__1
-      ),
-      V(
+      },
+      Vector{
         0,
         $create__1,
         $get_key__0,
@@ -1280,16 +1284,16 @@ final class Ephemeron {
         $blit_data__1,
         $Make__1,
         $MakeSeeded__2
-      ),
-      V(
+      },
+      Vector{
         0,
         function($z5) use ($MakeSeeded) {
           return $MakeSeeded(
-            V(0, $z5[3], $z5[1], $z5[2], $z5[5], $z5[4], $z5[6], $z5[7])
+            Vector{0, $z5[3], $z5[1], $z5[2], $z5[5], $z5[4], $z5[6], $z5[7]}
           );
         }
-      )
-    );
+      }
+    };
     
     $runtime["caml_register_global"](11, $Ephemeron, "Ephemeron");
 

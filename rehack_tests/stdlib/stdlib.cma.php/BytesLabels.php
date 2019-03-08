@@ -74,7 +74,7 @@ final class BytesLabels {
     $equal = $Bytes[41];
     $unsafe_to_string = $Bytes[42];
     $unsafe_of_string = $Bytes[43];
-    $BytesLabels = V(
+    $BytesLabels = Vector{
       0,
       $make,
       $init,
@@ -119,7 +119,7 @@ final class BytesLabels {
       $equal,
       $unsafe_to_string,
       $unsafe_of_string
-    );
+    };
     
     $runtime["caml_register_global"](1, $BytesLabels, "BytesLabels");
 

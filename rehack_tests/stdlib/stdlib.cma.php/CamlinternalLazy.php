@@ -44,11 +44,11 @@ final class CamlinternalLazy {
       "CamlinternalLazy.Undefined"
     );
     $Obj = $global_data["Obj"];
-    $Undefined = V(
+    $Undefined = Vector{
       248,
       $cst_CamlinternalLazy_Undefined,
       $runtime["caml_fresh_oo_id"](0)
-    );
+    };
     $raise_undefined = function($param) use ($Undefined,$runtime) {
       throw $runtime["caml_wrap_thrown_exception"]($Undefined);
     };
@@ -90,14 +90,14 @@ final class CamlinternalLazy {
         ? $lzv[1]
         : ($t !== $Obj[6] ? $lzv : ($force_val_lazy_block($lzv)));
     };
-    $CamlinternalLazy = V(
+    $CamlinternalLazy = Vector{
       0,
       $Undefined,
       $force_lazy_block,
       $force_val_lazy_block,
       $force,
       $force_val
-    );
+    };
     
     $runtime["caml_register_global"](2, $CamlinternalLazy, "CamlinternalLazy");
 

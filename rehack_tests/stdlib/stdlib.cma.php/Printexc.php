@@ -86,7 +86,7 @@ final class Printexc {
     $cst_Called_from = $caml_new_string("Called from");
     $cst_inlined = $caml_new_string(" (inlined)");
     $cst__3 = $caml_new_string("");
-    $partial = R(4, 0, 0, 0, 0);
+    $partial = Vector{4, 0, 0, 0, 0};
     $cst_Out_of_memory = $caml_new_string("Out of memory");
     $cst_Stack_overflow = $caml_new_string("Stack overflow");
     $cst_Pattern_matching_failed = $caml_new_string("Pattern matching failed");
@@ -97,43 +97,49 @@ final class Printexc {
     $cst__1 = $caml_new_string("");
     $cst__2 = $caml_new_string("");
     $cst = $caml_new_string("_");
-    $locfmt = R(
+    $locfmt = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string("File \""),
-        R(
+        Vector{
           2,
           0,
-          R(
+          Vector{
             11,
             $caml_new_string("\", line "),
-            R(
+            Vector{
               4,
               0,
               0,
               0,
-              R(
+              Vector{
                 11,
                 $caml_new_string(", characters "),
-                R(
+                Vector{
                   4,
                   0,
                   0,
                   0,
-                  R(
+                  Vector{
                     12,
                     45,
-                    R(4, 0, 0, 0, R(11, $caml_new_string(": "), R(2, 0, 0)))
-                  )
-                )
-              )
-            )
-          )
-        )
-      ),
+                    Vector{
+                      4,
+                      0,
+                      0,
+                      0,
+                      Vector{11, $caml_new_string(": "), Vector{2, 0, 0}}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       $caml_new_string("File \"%s\", line %d, characters %d-%d: %s")
-    );
+    };
     $Printf = $global_data["Printf"];
     $Pervasives = $global_data["Pervasives"];
     $Out_of_memory = $global_data["Out_of_memory"];
@@ -143,89 +149,101 @@ final class Printexc {
     $Assert_failure = $global_data["Assert_failure"];
     $Undefined_recursive_module = $global_data["Undefined_recursive_module"];
     $Obj = $global_data["Obj"];
-    $oz = R(
+    $oz = Vector{
       0,
-      R(11, $caml_new_string(", "), R(2, 0, R(2, 0, 0))),
+      Vector{11, $caml_new_string(", "), Vector{2, 0, Vector{2, 0, 0}}},
       $caml_new_string(", %s%s")
-    );
-    $oI = R(0, R(2, 0, R(12, 10, 0)), $caml_new_string("%s\n"));
-    $oG = R(0, R(2, 0, R(12, 10, 0)), $caml_new_string("%s\n"));
-    $oH = R(
+    };
+    $oI = Vector{0, Vector{2, 0, Vector{12, 10, 0}}, $caml_new_string("%s\n")};
+    $oG = Vector{0, Vector{2, 0, Vector{12, 10, 0}}, $caml_new_string("%s\n")};
+    $oH = Vector{
       0,
-      R(
+      Vector{
         11,
         $caml_new_string(
           "(Program not linked with -g, cannot print stack backtrace)\n"
         ),
         0
-      ),
+      },
       $caml_new_string(
         "(Program not linked with -g, cannot print stack backtrace)\n"
       )
-    );
-    $oE = R(
+    };
+    $oE = Vector{
       0,
-      R(
+      Vector{
         2,
         0,
-        R(
+        Vector{
           11,
           $caml_new_string(" file \""),
-          R(
+          Vector{
             2,
             0,
-            R(
+            Vector{
               12,
               34,
-              R(
+              Vector{
                 2,
                 0,
-                R(
+                Vector{
                   11,
                   $caml_new_string(", line "),
-                  R(
+                  Vector{
                     4,
                     0,
                     0,
                     0,
-                    R(
+                    Vector{
                       11,
                       $caml_new_string(", characters "),
-                      R(4, 0, 0, 0, R(12, 45, $partial))
-                    )
-                  )
-                )
-              )
-            )
-          )
-        )
-      ),
+                      Vector{4, 0, 0, 0, Vector{12, 45, $partial}}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       $caml_new_string("%s file \"%s\"%s, line %d, characters %d-%d")
-    );
-    $oF = R(
+    };
+    $oF = Vector{
       0,
-      R(2, 0, R(11, $caml_new_string(" unknown location"), 0)),
+      Vector{2, 0, Vector{11, $caml_new_string(" unknown location"), 0}},
       $caml_new_string("%s unknown location")
-    );
-    $oD = R(
+    };
+    $oD = Vector{
       0,
-      R(11, $caml_new_string("Uncaught exception: "), R(2, 0, R(12, 10, 0))),
+      Vector{
+        11,
+        $caml_new_string("Uncaught exception: "),
+        Vector{2, 0, Vector{12, 10, 0}}
+      },
       $caml_new_string("Uncaught exception: %s\n")
-    );
-    $oC = R(
+    };
+    $oC = Vector{
       0,
-      R(11, $caml_new_string("Uncaught exception: "), R(2, 0, R(12, 10, 0))),
+      Vector{
+        11,
+        $caml_new_string("Uncaught exception: "),
+        Vector{2, 0, Vector{12, 10, 0}}
+      },
       $caml_new_string("Uncaught exception: %s\n")
-    );
-    $oA = R(
+    };
+    $oA = Vector{
       0,
-      R(12, 40, R(2, 0, R(2, 0, R(12, 41, 0)))),
+      Vector{12, 40, Vector{2, 0, Vector{2, 0, Vector{12, 41, 0}}}},
       $caml_new_string("(%s%s)")
-    );
-    $oB = R(0, R(12, 40, R(2, 0, R(12, 41, 0))), $caml_new_string("(%s)"));
-    $oy = R(0, R(4, 0, 0, 0, 0), $caml_new_string("%d"));
-    $ox = R(0, R(3, 0, 0), $caml_new_string("%S"));
-    $printers = V(0, 0);
+    };
+    $oB = Vector{
+      0,
+      Vector{12, 40, Vector{2, 0, Vector{12, 41, 0}}},
+      $caml_new_string("(%s)")
+    };
+    $oy = Vector{0, Vector{4, 0, 0, 0, 0}, $caml_new_string("%d")};
+    $ox = Vector{0, Vector{3, 0, 0}, $caml_new_string("%S")};
+    $printers = Vector{0, 0};
     $field = function($x, $i) use ($Obj,$Pervasives,$Printf,$caml_call1,$caml_call2,$caml_obj_tag,$cst,$ox,$oy) {
       $f = $x[$i + 1];
       return $caml_call1($Obj[1], $f)
@@ -357,7 +375,7 @@ final class Printexc {
       }
     };
     $convert_raw_backtrace = function($bt) use ($runtime) {
-      $pd = V(0, $runtime["caml_convert_raw_backtrace"]($bt));
+      $pd = Vector{0, $runtime["caml_convert_raw_backtrace"]($bt)};
       return $pd;
     };
     $format_backtrace_slot = function($pos, $slot) use ($Printf,$caml_call2,$caml_call7,$cst_Called_from,$cst_Raised_at,$cst_Raised_by_primitive_operation_at,$cst_Re_raised_at,$cst__3,$cst_inlined,$oE,$oF) {
@@ -375,12 +393,14 @@ final class Printexc {
         $o_ = $slot[6] ? $cst_inlined : ($cst__3);
         $pa = $slot[2];
         $pb = $info($slot[1]);
-        return V(0, $caml_call7($Printf[4], $oE, $pb, $pa, $o_, $o9, $o8, $o7)
-        );
+        return Vector{
+          0,
+          $caml_call7($Printf[4], $oE, $pb, $pa, $o_, $o9, $o8, $o7)
+        };
       }
       if ($slot[1]) {return 0;}
       $pc = $info(0);
-      return V(0, $caml_call2($Printf[4], $oF, $pc));
+      return Vector{0, $caml_call2($Printf[4], $oF, $pc)};
     };
     $print_exception_backtrace = function($outchan, $backtrace) use ($Printf,$caml_call2,$caml_call3,$caml_check_bound,$format_backtrace_slot,$oG,$oH) {
       if ($backtrace) {
@@ -456,7 +476,7 @@ final class Printexc {
     };
     $backtrace_slot_location = function($param) {
       return 0 === $param[0]
-        ? V(0, V(0, $param[2], $param[3], $param[4], $param[5]))
+        ? Vector{0, Vector{0, $param[2], $param[3], $param[4], $param[5]}}
         : (0);
     };
     $backtrace_slots = function($raw_backtrace) use ($caml_check_bound,$convert_raw_backtrace) {
@@ -477,7 +497,7 @@ final class Printexc {
           }
         };
         return $exists_usable($backtrace->count() - 1 + -1 | 0)
-          ? V(0, $backtrace)
+          ? Vector{0, $backtrace}
           : (0);
       }
       return 0;
@@ -486,7 +506,7 @@ final class Printexc {
       return $raw_backtrace_to_string($caml_get_exception_raw_backtrace(0));
     };
     $register_printer = function($fn) use ($printers) {
-      $printers[1] = V(0, $fn, $printers[1]);
+      $printers[1] = Vector{0, $fn, $printers[1]};
       return 0;
     };
     $exn_slot = function($x) use ($caml_obj_tag) {
@@ -500,9 +520,9 @@ final class Printexc {
       $slot = $exn_slot($x);
       return $slot[1];
     };
-    $uncaught_exception_handler = V(0, 0);
+    $uncaught_exception_handler = Vector{0, 0};
     $set_uncaught_exception_handler = function($fn) use ($uncaught_exception_handler) {
-      $uncaught_exception_handler[1] = V(0, $fn);
+      $uncaught_exception_handler[1] = Vector{0, $fn};
       return 0;
     };
     $oJ = function($oZ) use ($runtime) {
@@ -517,13 +537,13 @@ final class Printexc {
     $oM = function($oV) use ($runtime) {
       return $runtime["caml_raw_backtrace_length"]($oV);
     };
-    $oN = V(
+    $oN = Vector{
       0,
       $backtrace_slot_is_raise,
       $backtrace_slot_is_inline,
       $backtrace_slot_location,
       $format_backtrace_slot
-    );
+    };
     $oO = function($oU) use ($runtime) {
       return $runtime["caml_get_current_callstack"]($oU);
     };
@@ -533,7 +553,7 @@ final class Printexc {
     $oQ = function($oS) use ($runtime) {
       return $runtime["caml_backtrace_status"]($oS);
     };
-    $Printexc = V(
+    $Printexc = Vector{
       0,
       $to_string,
       $print,
@@ -558,7 +578,7 @@ final class Printexc {
       $oJ,
       $exn_slot_id,
       $exn_slot_name
-    );
+    };
     
     $runtime["caml_register_global"](45, $Printexc, "Printexc");
 

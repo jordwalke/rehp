@@ -57,9 +57,9 @@ final class Map {
     $Not_found = $global_data["Not_found"];
     $Pervasives = $global_data["Pervasives"];
     $Assert_failure = $global_data["Assert_failure"];
-    $ge = R(0, 0, 0, 0);
-    $gf = R(0, $caml_new_string("map.ml"), 393, 10);
-    $gg = R(0, 0, 0);
+    $ge = Vector{0, 0, 0, 0};
+    $gf = Vector{0, $caml_new_string("map.ml"), 393, 10};
+    $gg = Vector{0, 0, 0};
     $Make = function($Ord) use ($Assert_failure,$Not_found,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$cst_Map_remove_min_elt,$ge,$gf,$gg,$runtime) {
       $add = new Ref();
       $add_max_binding = new Ref();
@@ -89,9 +89,9 @@ final class Map {
         $hl = $height($l);
         $hr = $height($r);
         $gR = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
-        return V(0, $l, $x, $d, $r, $gR);
+        return Vector{0, $l, $x, $d, $r, $gR};
       };
-      $singleton = function($x, $d) {return V(0, 0, $x, $d, 0, 1);};
+      $singleton = function($x, $d) {return Vector{0, 0, $x, $d, 0, 1};};
       $bal = function($l, $x, $d, $r) use ($Pervasives,$caml_call1,$create,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$height) {
         if ($l) {
           $h = $l[5];
@@ -148,7 +148,7 @@ final class Map {
           return $caml_call1($Pervasives[1], $cst_Map_bal__2);
         }
         $gQ = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
-        return V(0, $l, $x, $d, $r, $gQ);
+        return Vector{0, $l, $x, $d, $r, $gQ};
       };
       $empty = 0;
       $is_empty = function($param) {return $param ? 0 : (1);};
@@ -162,7 +162,7 @@ final class Map {
             $l = $m[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {
-              return $d === $data ? $m : (V(0, $l, $x, $data, $r, $h));
+              return $d === $data ? $m : (Vector{0, $l, $x, $data, $r, $h});
             }
             if (0 <= $c) {
               $rr = $add->contents($x, $data, $r);
@@ -171,7 +171,7 @@ final class Map {
             $ll = $add->contents($x, $data, $l);
             return $l === $ll ? $m : ($bal($ll, $v, $d, $r));
           }
-          return V(0, 0, $x, $data, 0, 1);
+          return Vector{0, 0, $x, $data, 0, 1};
         };
       $find = function($x, $param) use ($Not_found,$Ord,$caml_call2,$runtime) {
         $param__0 = $param;
@@ -209,7 +209,7 @@ final class Map {
             $param__0 = $r;
             continue;
           }
-          return V(0, $v0__0, $d0__0);
+          return Vector{0, $v0__0, $d0__0};
         }
       };
       $find_first = function($f, $param) use ($Not_found,$caml_call1,$find_first_aux,$runtime) {
@@ -246,7 +246,7 @@ final class Map {
             $param__0 = $r;
             continue;
           }
-          return V(0, V(0, $v0__0, $d0__0));
+          return Vector{0, Vector{0, $v0__0, $d0__0}};
         }
       };
       $find_first_opt = function($f, $param) use ($caml_call1,$find_first_opt_aux) {
@@ -285,7 +285,7 @@ final class Map {
             $param__0 = $l;
             continue;
           }
-          return V(0, $v0__0, $d0__0);
+          return Vector{0, $v0__0, $d0__0};
         }
       };
       $find_last = function($f, $param) use ($Not_found,$caml_call1,$find_last_aux,$runtime) {
@@ -322,7 +322,7 @@ final class Map {
             $param__0 = $l;
             continue;
           }
-          return V(0, V(0, $v0__0, $d0__0));
+          return Vector{0, Vector{0, $v0__0, $d0__0}};
         }
       };
       $find_last_opt = function($f, $param) use ($caml_call1,$find_last_opt_aux) {
@@ -351,7 +351,7 @@ final class Map {
             $v = $param__0[2];
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
-            if (0 === $c) {return V(0, $d);}
+            if (0 === $c) {return Vector{0, $d};}
             $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
@@ -384,7 +384,7 @@ final class Map {
             if ($gK) {$param__0 = $gK;continue;}
             $d = $param__0[3];
             $v = $param__0[2];
-            return V(0, $v, $d);
+            return Vector{0, $v, $d};
           }
           throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
@@ -397,7 +397,7 @@ final class Map {
             if ($gJ) {$param__0 = $gJ;continue;}
             $d = $param__0[3];
             $v = $param__0[2];
-            return V(0, V(0, $v, $d));
+            return Vector{0, Vector{0, $v, $d}};
           }
           return 0;
         }
@@ -410,7 +410,7 @@ final class Map {
             $gH = $param__0[3];
             $gI = $param__0[2];
             if ($gG) {$param__0 = $gG;continue;}
-            return V(0, $gI, $gH);
+            return Vector{0, $gI, $gH};
           }
           throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
@@ -423,7 +423,7 @@ final class Map {
             $gE = $param__0[3];
             $gF = $param__0[2];
             if ($gD) {$param__0 = $gD;continue;}
-            return V(0, V(0, $gF, $gE));
+            return Vector{0, Vector{0, $gF, $gE}};
           }
           return 0;
         }
@@ -483,10 +483,10 @@ final class Map {
             $l = $m[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {
-              $match = $caml_call1($f, V(0, $d));
+              $match = $caml_call1($f, Vector{0, $d});
               if ($match) {
                 $data = $match[1];
-                return $d === $data ? $m : (V(0, $l, $x, $data, $r, $h));
+                return $d === $data ? $m : (Vector{0, $l, $x, $data, $r, $h});
               }
               return $gj($l, $r);
             }
@@ -500,7 +500,7 @@ final class Map {
           $match__0 = $caml_call1($f, 0);
           if ($match__0) {
             $data__0 = $match__0[1];
-            return V(0, 0, $x, $data__0, 0, 1);
+            return Vector{0, 0, $x, $data__0, 0, 1};
           }
           return 0;
         };
@@ -532,7 +532,7 @@ final class Map {
             $l__0 = $map->contents($f, $l);
             $d__0 = $caml_call1($f, $d);
             $r__0 = $map->contents($f, $r);
-            return V(0, $l__0, $v, $d__0, $r__0, $h);
+            return Vector{0, $l__0, $v, $d__0, $r__0, $h};
           }
           return 0;
         };
@@ -547,7 +547,7 @@ final class Map {
             $l__0 = $mapi->contents($f, $l);
             $d__0 = $caml_call2($f, $v, $d);
             $r__0 = $mapi->contents($f, $r);
-            return V(0, $l__0, $v, $d__0, $r__0, $h);
+            return Vector{0, $l__0, $v, $d__0, $r__0, $h};
           }
           return 0;
         };
@@ -693,19 +693,19 @@ final class Map {
             $v = $param[2];
             $l = $param[1];
             $c = $caml_call2($Ord[1], $x, $v);
-            if (0 === $c) {return V(0, $l, V(0, $d), $r);}
+            if (0 === $c) {return Vector{0, $l, Vector{0, $d}, $r};}
             if (0 <= $c) {
               $match = $split->contents($x, $r);
               $rr = $match[3];
               $pres = $match[2];
               $lr = $match[1];
-              return V(0, $join->contents($l, $v, $d, $lr), $pres, $rr);
+              return Vector{0, $join->contents($l, $v, $d, $lr), $pres, $rr};
             }
             $match__0 = $split->contents($x, $l);
             $rl = $match__0[3];
             $pres__0 = $match__0[2];
             $ll = $match__0[1];
-            return V(0, $ll, $pres__0, $join->contents($rl, $v, $d, $r));
+            return Vector{0, $ll, $pres__0, $join->contents($rl, $v, $d, $r)};
           }
           return $ge;
         };
@@ -723,7 +723,7 @@ final class Map {
               $d2 = $match[2];
               $l2 = $match[1];
               $gs = $merge->contents($f, $r1, $r2);
-              $gt = $caml_call3($f, $v1, V(0, $d1), $d2);
+              $gt = $caml_call3($f, $v1, Vector{0, $d1}, $d2);
               return $concat_or_join(
                 $merge->contents($f, $l1, $l2),
                 $v1,
@@ -743,7 +743,7 @@ final class Map {
             $d1__0 = $match__0[2];
             $l1__0 = $match__0[1];
             $gu = $merge->contents($f, $r1__0, $r2__0);
-            $gv = $caml_call3($f, $v2, $d1__0, V(0, $d2__0));
+            $gv = $caml_call3($f, $v2, $d1__0, Vector{0, $d2__0});
             return $concat_or_join(
               $merge->contents($f, $l1__0, $l2__0),
               $v2,
@@ -751,7 +751,7 @@ final class Map {
               $gu
             );
           }
-          throw $runtime["caml_wrap_thrown_exception"](V(0, $Assert_failure, $gf));
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $gf});
         };
       $_ = $union->contents =
         function($f, $s1, $s2) use ($caml_call3,$concat_or_join,$join,$split,$union) {
@@ -841,10 +841,10 @@ final class Map {
             $rt = $match__0[1];
             if ($pvd) {
               $gq = $concat($lf, $rf);
-              return V(0, $join->contents($lt, $v, $d, $rt), $gq);
+              return Vector{0, $join->contents($lt, $v, $d, $rt), $gq};
             }
             $gr = $join->contents($lf, $v, $d, $rf);
-            return V(0, $concat($lt, $rt), $gr);
+            return Vector{0, $concat($lt, $rt), $gr};
           }
           return $gg;
         };
@@ -857,7 +857,7 @@ final class Map {
             $d = $m__0[3];
             $v = $m__0[2];
             $m__1 = $m__0[1];
-            $e__1 = V(0, $v, $d, $r, $e__0);
+            $e__1 = Vector{0, $v, $d, $r, $e__0};
             $m__0 = $m__1;
             $e__0 = $e__1;
             continue;
@@ -960,11 +960,11 @@ final class Map {
               $d = $param__0[3];
               $v = $param__0[2];
               $param__1 = $param__0[1];
-              $accu__1 = V(
+              $accu__1 = Vector{
                 0,
-                V(0, $v, $d),
+                Vector{0, $v, $d},
                 $bindings_aux->contents($accu__0, $r)
-              );
+              };
               $accu__0 = $accu__1;
               $param__0 = $param__1;
               continue;
@@ -975,7 +975,7 @@ final class Map {
       $bindings = function($s) use ($bindings_aux) {
         return $bindings_aux->contents(0, $s);
       };
-      return V(
+      return Vector{
         0,
         $height,
         $create,
@@ -1026,13 +1026,13 @@ final class Map {
         $bindings,
         $min_binding,
         $min_binding_opt
-      );
+      };
     };
-    $Map = V(
+    $Map = Vector{
       0,
       function($gh) use ($Make) {
         $gi = $Make($gh);
-        return V(
+        return Vector{
           0,
           $gi[5],
           $gi[6],
@@ -1068,9 +1068,9 @@ final class Map {
           $gi[16],
           $gi[27],
           $gi[28]
-        );
+        };
       }
-    );
+    };
     
     $runtime["caml_register_global"](11, $Map, "Map");
 

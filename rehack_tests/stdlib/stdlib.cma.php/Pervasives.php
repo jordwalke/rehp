@@ -91,25 +91,25 @@ final class Pervasives {
     $Sys_error = $global_data["Sys_error"];
     $Failure = $global_data["Failure"];
     $Invalid_argument = $global_data["Invalid_argument"];
-    $n = R(0, 0, R(0, 6, 0));
-    $m = R(0, 0, R(0, 7, 0));
-    $l = R(0, 1, R(0, 3, R(0, 4, R(0, 6, 0))));
-    $k = R(0, 1, R(0, 3, R(0, 4, R(0, 7, 0))));
-    $h = R(0, 1);
-    $i = R(0, 0);
-    $a = R(255, 0, 0, 32752);
-    $b = R(255, 0, 0, 65520);
-    $c = R(255, 1, 0, 32752);
-    $d = R(255, 16777215, 16777215, 32751);
-    $e = R(255, 0, 0, 16);
-    $f = R(255, 0, 0, 15536);
+    $n = Vector{0, 0, Vector{0, 6, 0}};
+    $m = Vector{0, 0, Vector{0, 7, 0}};
+    $l = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 6, 0}}}};
+    $k = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 7, 0}}}};
+    $h = Vector{0, 1};
+    $i = Vector{0, 0};
+    $a = Vector{255, 0, 0, 32752};
+    $b = Vector{255, 0, 0, 65520};
+    $c = Vector{255, 1, 0, 32752};
+    $d = Vector{255, 16777215, 16777215, 32751};
+    $e = Vector{255, 0, 0, 16};
+    $f = Vector{255, 0, 0, 15536};
     $failwith = function($s) use ($Failure,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Failure, $s));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Failure, $s});
     };
     $invalid_arg = function($s) use ($Invalid_argument,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](V(0, $Invalid_argument, $s));
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Invalid_argument, $s});
     };
-    $Exit = V(248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0));
+    $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)};
     $min = function($x, $y) use ($runtime) {
       return $runtime["caml_lessequal"]($x, $y) ? $x : ($y);
     };
@@ -157,7 +157,7 @@ final class Pervasives {
       return $caml_new_string("" . $n);
     };
     $int_of_string_opt = function($s) use ($Failure,$caml_int_of_string,$caml_wrap_exception,$runtime) {
-      try {$aA = V(0, $caml_int_of_string($s));return $aA;}
+      try {$aA = Vector{0, $caml_int_of_string($s)};return $aA;}
       catch(\Throwable $aB) {
         $aB = $caml_wrap_exception($aB);
         if ($aB[1] === $Failure) {return 0;}
@@ -184,7 +184,7 @@ final class Pervasives {
       return $valid_float_lexem($runtime["caml_format_float"]($cst_12g, $f));
     };
     $float_of_string_opt = function($s) use ($Failure,$caml_float_of_string,$caml_wrap_exception,$runtime) {
-      try {$ay = V(0, $caml_float_of_string($s));return $ay;}
+      try {$ay = Vector{0, $caml_float_of_string($s)};return $ay;}
       catch(\Throwable $az) {
         $az = $caml_wrap_exception($az);
         if ($az[1] === $Failure) {return 0;}
@@ -196,7 +196,7 @@ final class Pervasives {
         if ($l1) {
           $tl = $l1[2];
           $hd = $l1[1];
-          return V(0, $hd, $j->contents($tl, $l2));
+          return Vector{0, $hd, $j->contents($tl, $l2)};
         }
         return $l2;
       };
@@ -368,7 +368,7 @@ final class Pervasives {
               return $build_result(
                 $caml_create_bytes($len__1),
                 $len__1,
-                V(0, $res, $accu__0)
+                Vector{0, $res, $accu__0}
               );
             }
             return $res;
@@ -376,7 +376,7 @@ final class Pervasives {
           $beg = $caml_create_bytes(- $n | 0);
           $caml_ml_input($chan, $beg, 0, - $n | 0);
           $len__2 = $len__0 - $n | 0;
-          $accu__1 = V(0, $beg, $accu__0);
+          $accu__1 = Vector{0, $beg, $accu__0};
           $accu__0 = $accu__1;
           $len__0 = $len__2;
           continue;
@@ -453,15 +453,18 @@ final class Pervasives {
       return $float_of_string_opt($read_line(0));
     };
     $string_of_format = function($param) {$str = $param[2];return $str;};
-    $exit_function = V(0, $flush_all);
+    $exit_function = Vector{0, $flush_all};
     $o = function($param, $aq) use ($CamlinternalFormatBasics,$caml_call2,$cst__0,$g) {
       $str2 = $aq[2];
       $fmt2 = $aq[1];
       $str1 = $param[2];
       $fmt1 = $param[1];
       $ar = $g($str1, $g($cst__0, $str2));
-      return V(0, $caml_call2($CamlinternalFormatBasics[3], $fmt1, $fmt2), $ar
-      );
+      return Vector{
+        0,
+        $caml_call2($CamlinternalFormatBasics[3], $fmt1, $fmt2),
+        $ar
+      };
     };
     $at_exit = function($f) use ($caml_call1,$exit_function) {
       $g = $exit_function[1];
@@ -494,7 +497,7 @@ final class Pervasives {
     $t = function($ak) use ($runtime) {
       return $runtime["caml_ml_pos_out_64"]($ak);
     };
-    $u = V(
+    $u = Vector{
       0,
       function($aj, $ai) use ($runtime) {
         return $runtime["caml_ml_seek_out_64"]($aj, $ai);
@@ -504,7 +507,7 @@ final class Pervasives {
       $r,
       $q,
       $p
-    );
+    };
     $v = function($ah, $ag) use ($caml_ml_set_binary_mode) {
       return $caml_ml_set_binary_mode($ah, $ag);
     };
@@ -551,7 +554,7 @@ final class Pervasives {
     $K = function($N, $M) use ($caml_ml_output_char) {
       return $caml_ml_output_char($N, $M);
     };
-    $Pervasives = V(
+    $Pervasives = Vector{
       0,
       $invalid_arg,
       $failwith,
@@ -644,7 +647,7 @@ final class Pervasives {
       $valid_float_lexem,
       $unsafe_really_input,
       $do_at_exit
-    );
+    };
     
     $runtime["caml_register_global"](37, $Pervasives, "Pervasives");
 

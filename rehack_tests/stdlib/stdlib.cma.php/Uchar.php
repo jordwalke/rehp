@@ -123,7 +123,7 @@ final class Uchar {
     };
     $hash = function($a7) {return $a7;};
     $a4 = function($a6) {return $a6;};
-    $Uchar = V(
+    $Uchar = Vector{
       0,
       $min,
       $max,
@@ -142,7 +142,7 @@ final class Uchar {
       $equal,
       $compare,
       $hash
-    );
+    };
     
     $runtime["caml_register_global"](8, $Uchar, "Uchar");
 

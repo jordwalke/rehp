@@ -66,7 +66,7 @@ final class StringLabels {
     $compare = $String[33];
     $equal = $String[34];
     $split_on_char = $String[35];
-    $StringLabels = V(
+    $StringLabels = Vector{
       0,
       $make,
       $init,
@@ -103,7 +103,7 @@ final class StringLabels {
       $compare,
       $equal,
       $split_on_char
-    );
+    };
     
     $runtime["caml_register_global"](1, $StringLabels, "StringLabels");
 

@@ -53,7 +53,7 @@ final class Nativeint {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$eD = V(0, $runtime["caml_int_of_string"]($s));return $eD;}
+      try {$eD = Vector{0, $runtime["caml_int_of_string"]($s)};return $eD;}
       catch(\Throwable $eE) {
         $eE = $caml_wrap_exception($eE);
         if ($eE[1] === $Failure) {return 0;}
@@ -66,7 +66,7 @@ final class Nativeint {
     $equal = function($x, $y) use ($compare) {
       return 0 === $compare($x, $y) ? 1 : (0);
     };
-    $Nativeint = V(
+    $Nativeint = Vector{
       0,
       $zero,
       $one,
@@ -82,7 +82,7 @@ final class Nativeint {
       $to_string,
       $compare,
       $equal
-    );
+    };
     
     $runtime["caml_register_global"](12, $Nativeint, "Nativeint");
 

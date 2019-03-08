@@ -2091,22 +2091,22 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       ? $f($a0, $a1, $a2, $a3)
       : ($caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
   };
-  $Out_of_memory = R(248, $caml_new_string("Out_of_memory"), -1);
-  $Sys_error = R(248, $caml_new_string("Sys_error"), -2);
-  $Failure = R(248, $caml_new_string("Failure"), -3);
-  $Invalid_argument = R(248, $caml_new_string("Invalid_argument"), -4);
-  $End_of_file = R(248, $caml_new_string("End_of_file"), -5);
-  $Division_by_zero = R(248, $caml_new_string("Division_by_zero"), -6);
-  $Not_found = R(248, $caml_new_string("Not_found"), -7);
-  $Match_failure = R(248, $caml_new_string("Match_failure"), -8);
-  $Stack_overflow = R(248, $caml_new_string("Stack_overflow"), -9);
-  $Sys_blocked_io = R(248, $caml_new_string("Sys_blocked_io"), -10);
-  $Assert_failure = R(248, $caml_new_string("Assert_failure"), -11);
-  $Undefined_recursive_module = R(
+  $Out_of_memory = Vector{248, $caml_new_string("Out_of_memory"), -1};
+  $Sys_error = Vector{248, $caml_new_string("Sys_error"), -2};
+  $Failure = Vector{248, $caml_new_string("Failure"), -3};
+  $Invalid_argument = Vector{248, $caml_new_string("Invalid_argument"), -4};
+  $End_of_file = Vector{248, $caml_new_string("End_of_file"), -5};
+  $Division_by_zero = Vector{248, $caml_new_string("Division_by_zero"), -6};
+  $Not_found = Vector{248, $caml_new_string("Not_found"), -7};
+  $Match_failure = Vector{248, $caml_new_string("Match_failure"), -8};
+  $Stack_overflow = Vector{248, $caml_new_string("Stack_overflow"), -9};
+  $Sys_blocked_io = Vector{248, $caml_new_string("Sys_blocked_io"), -10};
+  $Assert_failure = Vector{248, $caml_new_string("Assert_failure"), -11};
+  $Undefined_recursive_module = Vector{
     248,
     $caml_new_string("Undefined_recursive_module"),
     -12
-  );
+  };
   
   $caml_register_global(
     11,
@@ -2142,7 +2142,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $f = $caml_new_string("");
   $e = $caml_new_string("String.concat");
   $h = $caml_new_string("Random.int");
-  $i = R(
+  $i = Vector{
     0,
     987910699,
     495797812,
@@ -2199,8 +2199,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     652377910,
     409934019,
     801085050
-  );
-  $k = R(0, 0, 0);
+  };
+  $k = Vector{0, 0, 0};
   $m = $caml_new_string("  ");
   $n = $caml_new_string("");
   $o = $caml_new_string("  ");
@@ -2217,10 +2217,10 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $ad = $caml_new_string("@max-length");
   $ab = $caml_new_string("~unknown");
   $_ = $caml_new_string("~lazy");
-  $Y = R(0, $caml_new_string("[|"), $caml_new_string("|]"));
+  $Y = Vector{0, $caml_new_string("[|"), $caml_new_string("|]")};
   $V = $caml_new_string(")");
   $W = $caml_new_string("closure(");
-  $T = R(0, $caml_new_string("{"), $caml_new_string("}"));
+  $T = Vector{0, $caml_new_string("{"), $caml_new_string("}")};
   $K = $caml_new_string(",\n");
   $E = $caml_new_string("");
   $F = $caml_new_string("]");
@@ -2241,7 +2241,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $D = $caml_new_string(", ");
   $B = $caml_new_string("");
   $C = $caml_new_string(", ");
-  $l = R(0, 0, 0);
+  $l = Vector{0, 0, 0};
   $ao = $caml_new_string("\n");
   $an = $caml_new_string("\n");
   $am = $caml_new_string("\n");
@@ -2285,42 +2285,42 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $aV = $caml_new_string("\n\n");
   $a1 = $caml_new_string("");
   $a3 = $caml_new_string("deafult");
-  $a2 = R(0, $caml_new_string("buttonClass"));
+  $a2 = Vector{0, $caml_new_string("buttonClass")};
   $a5 = $caml_new_string("deafult");
-  $a4 = R(0, $caml_new_string("childContainer"));
+  $a4 = Vector{0, $caml_new_string("childContainer")};
   $a6 = $caml_new_string("size changed times:");
-  $a7 = R(0, $caml_new_string("ButtonInContainerThatCountsSizeChanges"));
+  $a7 = Vector{0, $caml_new_string("ButtonInContainerThatCountsSizeChanges")};
   $a9 = $caml_new_string("deafult");
-  $a8 = R(0, $caml_new_string("divRenderedByInput"));
+  $a8 = Vector{0, $caml_new_string("divRenderedByInput")};
   $ba = $caml_new_string("divClicked!");
   $a_ = $caml_new_string("MyReducer:");
   $be = $caml_new_string("AppInstance");
-  $bb = R(0, $caml_new_string("initialInputText"));
+  $bb = Vector{0, $caml_new_string("initialInputText")};
   $bd = $caml_new_string("haha I am controlling your input");
-  $bc = R(0, $caml_new_string("divRenderedByAppContainsInput"));
+  $bc = Vector{0, $caml_new_string("divRenderedByAppContainsInput")};
   $bi = $caml_new_string(")");
   $bj = $caml_new_string("->animFiredWithDeepDivState(");
   $bk = $caml_new_string("rafDeepDiv");
-  $bl = R(0, $caml_new_string("rafSecond"));
-  $bm = R(0, $caml_new_string("rafFirstDiv"));
+  $bl = Vector{0, $caml_new_string("rafSecond")};
+  $bm = Vector{0, $caml_new_string("rafFirstDiv")};
   $bh = $caml_new_string("initialAnimationFrameSetup");
-  $bg = R(0, $caml_new_string("TODO"));
+  $bg = Vector{0, $caml_new_string("TODO")};
   $bn = $caml_new_string("default");
   $bo = $caml_new_string("HELLO");
-  $br = R(0, $caml_new_string("stateless"));
+  $br = Vector{0, $caml_new_string("stateless")};
   $bs = $caml_new_string(
     "\n\n-------------------\nChild Container \n-------------------"
   );
-  $bZ = R(0, $caml_new_string("stateless"));
-  $b1 = R(0, $caml_new_string("Foo"));
+  $bZ = Vector{0, $caml_new_string("stateless")};
+  $b1 = Vector{0, $caml_new_string("Foo")};
   $bt = $caml_new_string(
     "\n\n-------------------\nGets Derived State From Props\n-------------------"
   );
-  $bv = R(0, $caml_new_string("Foo"));
+  $bv = Vector{0, $caml_new_string("Foo")};
   $bw = $caml_new_string("Init:");
-  $by = R(0, $caml_new_string("Foo"));
+  $by = Vector{0, $caml_new_string("Foo")};
   $bz = $caml_new_string("Update Without Changing Props:");
-  $bB = R(0, $caml_new_string("Foo"));
+  $bB = Vector{0, $caml_new_string("Foo")};
   $bC = $caml_new_string("Update With Changing Props:");
   $bD = $caml_new_string(
     "\n\n------------------------------\nApp With Controlled Input\n------------------------------"
@@ -2330,8 +2330,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $bJ = $caml_new_string(
     "\n\n------------------------------\nApp With Request Animation Frame \n----------------------"
   );
-  $bK = R(0, 2, 3);
-  $bL = R(0, $caml_new_string(""));
+  $bK = Vector{0, 2, 3};
+  $bL = Vector{0, $caml_new_string("")};
   $bM = $caml_new_string("Init:");
   $bN = $caml_new_string("Update After raf tick:");
   $bO = $caml_new_string("Update After raf tick:");
@@ -2346,7 +2346,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $bp = $caml_new_string("Total ms (Title): %d ");
   $bq = $caml_new_string("Second Part Of Tuple:");
   $invalid_arg = function($s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(V(0, $Invalid_argument, $s));
+    throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s});
   };
   
   $caml_fresh_oo_id(0);
@@ -2386,7 +2386,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       if ($l1) {
         $tl = $l1[2];
         $hd = $l1[1];
-        return V(0, $hd, $append->contents($tl, $l2));
+        return Vector{0, $hd, $append->contents($tl, $l2)};
       }
       return $l2;
     };
@@ -2433,7 +2433,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       if ($l1__0) {
         $l1__1 = $l1__0[2];
         $a = $l1__0[1];
-        $l2__1 = V(0, $a, $l2__0);
+        $l2__1 = Vector{0, $a, $l2__0};
         $l1__0 = $l1__1;
         $l2__0 = $l2__1;
         continue;
@@ -2457,7 +2457,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $l = $param[2];
         $a = $param[1];
         $r = $caml_call1($f, $a);
-        return V(0, $r, $map->contents($f, $l));
+        return Vector{0, $r, $map->contents($f, $l)};
       }
       return 0;
     };
@@ -2467,7 +2467,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $l = $param[2];
         $a = $param[1];
         $r = $caml_call2($f, $i, $a);
-        return V(0, $r, $d->contents($i + 1 | 0, $f, $l));
+        return Vector{0, $r, $d->contents($i + 1 | 0, $f, $l)};
       }
       return 0;
     };
@@ -2507,7 +2507,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     return $r;
   };
   $escaped = function($s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
-    $n = V(0, 0);
+    $n = Vector{0, 0};
     $eo = $caml_ml_bytes_length($s) + -1 | 0;
     $en = 0;
     if (! ($eo < 0)) {
@@ -2799,7 +2799,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     }
     return $invalid_arg($h);
   };
-  $default__0 = V(0, $i->toVector(), 0);
+  $default__0 = Vector{0, $i->toVector(), 0};
   $int__1 = function($bound) use ($default__0,$int__0) {
     return $int__0($default__0, $bound);
   };
@@ -2833,12 +2833,12 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   };
   $_ = $extractList->contents =
     function($maxNum, $o) use ($extractList,$is_int,$k) {
-      if (0 === $maxNum) {return V(0, 1 - $is_int($o), 0);}
+      if (0 === $maxNum) {return Vector{0, 1 - $is_int($o), 0};}
       if ($is_int($o)) {return $k;}
       $match = $extractList->contents($maxNum + -1 | 0, $o[2]);
       $rest = $match[2];
       $restWasTruncated = $match[1];
-      return V(0, $restWasTruncated, V(0, $o[1], $rest));
+      return Vector{0, $restWasTruncated, Vector{0, $o[1], $rest}};
     };
   $extractFields = function($maxNum, $o) {
     $extractFields = function($maxNum, $fieldsSoFar, $numFields) use ($o) {
@@ -2847,15 +2847,15 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $numFields__0 = $numFields;
       for (;;) {
         if (0 === $maxNum__0) {
-          return V(0, 0 < $numFields__0 ? 1 : (0), $fieldsSoFar__0);
+          return Vector{0, 0 < $numFields__0 ? 1 : (0), $fieldsSoFar__0};
         }
-        if (0 === $numFields__0) {return V(0, 0, $fieldsSoFar__0);}
+        if (0 === $numFields__0) {return Vector{0, 0, $fieldsSoFar__0};}
         $numFields__1 = $numFields__0 + -1 | 0;
-        $fieldsSoFar__1 = V(
+        $fieldsSoFar__1 = Vector{
           0,
           $o[($numFields__0 + -1 | 0) + 1],
           $fieldsSoFar__0
-        );
+        };
         $maxNum__1 = $maxNum__0 + -1 | 0;
         $maxNum__0 = $maxNum__1;
         $fieldsSoFar__0 = $fieldsSoFar__1;
@@ -2872,19 +2872,19 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $curTotalLen = $param[1];
         $containsNewline = $contains($itm, 10);
         $curDidBreak__0 = $curDidBreak || $containsNewline;
-        return V(
+        return Vector{
           0,
           ($curTotalLen + $caml_ml_string_length($itm) | 0) + 2 |
             0,
           $curDidBreak__0
-        );
+        };
       },
       $l,
       $itms
     );
     $someChildBroke = $match[2];
     $allItemsLen = $match[1];
-    return V(0, $allItemsLen, $someChildBroke);
+    return Vector{0, $allItemsLen, $someChildBroke};
   };
   $_ = $indentForDepth->contents =
     function($n__0) use ($a,$indentForDepth,$m,$n,$o,$p,$q,$r,$s,$t,$u,$unsigned_right_shift_32,$v) {
@@ -2932,7 +2932,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
       function($o) use ($caml_call3,$dNext,$self) {
-        return $caml_call3($self[13], $self, V(0, $dNext), $o);
+        return $caml_call3($self[13], $self, Vector{0, $dNext}, $o);
       },
       $lst
     );
@@ -2969,7 +2969,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
       function($o) use ($caml_call3,$dNext,$self) {
-        return $caml_call3($self[13], $self, V(0, $dNext), $o);
+        return $caml_call3($self[13], $self, Vector{0, $dNext}, $o);
       },
       $lst
     );
@@ -3022,9 +3022,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
          : ($tag === 246
           ? $caml_call2($self[8], $self, $o)
           : ($detectList($j, $o)
-           ? $caml_call3($self[12], $self, V(0, $depth), $o)
+           ? $caml_call3($self[12], $self, Vector{0, $depth}, $o)
            : ($tag === 0
-            ? $caml_call3($self[11], $self, V(0, $depth), $o)
+            ? $caml_call3($self[11], $self, Vector{0, $depth}, $o)
             : ($caml_call2($self[7], $self, $o))))))));
   };
   $R = function($self, $opt, $o) use ($printListShape) {
@@ -3065,7 +3065,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     return $a($aj, $a($caml_call2($self[2], $self, $s), $ai));
   };
   $ak = function($self, $s) {return $s;};
-  $base = V(
+  $base = Vector{
     0,
     function($self, $i) use ($string_of_int) {return $string_of_int($i);},
     $ak,
@@ -3080,7 +3080,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $S,
     $R,
     $Q
-  );
+  };
   $makeStandardChannelsConsole = function($objectPrinter) use ($a,$al,$am,$an,$ao,$caml_call3,$native_debug,$native_error,$native_log,$native_warn) {
     $d1 = function($a__0) use ($a,$al,$caml_call3,$native_debug,$objectPrinter) {
       return $native_debug(
@@ -3102,7 +3102,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $caml_call3($objectPrinter[13], $objectPrinter, 0, $a)
       );
     };
-    return V(
+    return Vector{
       0,
       function($a__0) use ($a,$ao,$caml_call3,$native_log,$objectPrinter) {
         return $native_log(
@@ -3113,7 +3113,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $d3,
       $d2,
       $d1
-    );
+    };
   };
   $defaultGlobalConsole = $makeStandardChannelsConsole($base);
   $log = function($a) use ($caml_call1,$defaultGlobalConsole) {
@@ -3135,11 +3135,11 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $hdb = $listB__0[1];
             $listA__1 = $listA__0[2];
             $hda = $listA__0[1];
-            $revSoFar__1 = V(
+            $revSoFar__1 = Vector{
               0,
               $caml_call4($f, $iSoFar__0, $hda, $hdb, $hdc),
               $revSoFar__0
-            );
+            };
             $iSoFar__1 = $iSoFar__0 + 1 | 0;
             $iSoFar__0 = $iSoFar__1;
             $revSoFar__0 = $revSoFar__1;
@@ -3151,7 +3151,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         }
       }
       else {if (! $listB__0) {if (! $listC__0) {return $rev($revSoFar__0);}}}
-      throw $caml_wrap_thrown_exception(V(0, $Invalid_argument, $ap));
+      throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $ap});
     }
   };
   $mapi3__0 = function($f, $listA, $listB, $listC) use ($mapi3) {
@@ -3167,17 +3167,17 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $hd = $lst__0[1];
         $match = $revCount__0 === $splitAt ? 1 : (0);
         if (0 === $match) {
-          $revSoFar__1 = V(0, $hd, $revSoFar__0);
+          $revSoFar__1 = Vector{0, $hd, $revSoFar__0};
           $revCount__1 = $revCount__0 + 1 | 0;
           $revCount__0 = $revCount__1;
           $revSoFar__0 = $revSoFar__1;
           $lst__0 = $tl;
           continue;
         }
-        return V(0, $rev($revSoFar__0), $hd, $tl);
+        return Vector{0, $rev($revSoFar__0), $hd, $tl};
       }
       throw $caml_wrap_thrown_exception(
-              V(0, $Invalid_argument, $a($aq, $string_of_int($splitAt)))
+              Vector{0, $Invalid_argument, $a($aq, $string_of_int($splitAt))}
             );
     }
   };
@@ -3191,22 +3191,22 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $reducer = $param[3];
       $subelems = $param[2];
       $state = $param[1];
-      return V(0, $state, $reducer, $nonEventHandler, $subelems);
+      return Vector{0, $state, $reducer, $nonEventHandler, $subelems};
     }
     $spec = $param[1];
     return $spec;
   };
   $withState = function($inst, $state) {
     $dZ = $inst[5];
-    return V(
+    return Vector{
       0,
       $inst[1],
       $inst[2],
       $inst[3],
       $inst[4],
-      V(0, $state, $dZ[2], $dZ[3], $dZ[4]),
+      Vector{0, $state, $dZ[2], $dZ[3], $dZ[4]},
       $inst[6]
-    );
+    };
   };
   $newSelf = function($replacer, $subreplacer) use ($caml_call1,$caml_call2,$caml_update_dummy,$reconcile,$withState) {
     $self = varray[];
@@ -3228,7 +3228,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     };
     $caml_update_dummy(
       $self,
-      V(
+      Vector{
         0,
         function($actionExtractor, $ev) use ($caml_call1,$caml_call2,$reconcile,$replacer,$withState) {
           $action = $caml_call1($actionExtractor, $ev);
@@ -3243,7 +3243,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         },
         $dU,
         $dT
-      )
+      }
     );
     return $self;
   };
@@ -3256,7 +3256,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           $match = $inst[6] !== $nextSubtree ? 1 : (0);
           return 0 === $match
             ? $inst
-            : (V(
+            : (Vector{
              0,
              $inst[1],
              $inst[2],
@@ -3264,13 +3264,13 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
              $inst[4],
              $inst[5],
              $nextSubtree
-           ));
+           });
         }
       );
     };
     $self = $newSelf($replacer, $subreplacer);
     $nextSpec = $spec($caml_call2($renderable, 0, $self));
-    return V(
+    return Vector{
       0,
       $replacer,
       $subreplacer,
@@ -3278,7 +3278,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $renderable,
       $nextSpec,
       $initSubtree->contents($subreplacer, $nextSpec[4])
-    );
+    };
   };
   $_ = $initSubtree->contents =
     function($thisReplacer, $jsx) use ($caml_call1,$flatten,$init,$initSubtree,$is_int,$mapi,$splitList__0) {
@@ -3295,11 +3295,11 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                   $inst = $subtree[1];
                   $next = $caml_call1($instSwapper, $inst);
                   $match = $inst !== $next ? 1 : (0);
-                  return 0 === $match ? $subtree : (V(0, $next));
+                  return 0 === $match ? $subtree : (Vector{0, $next});
                 }
               );
             };
-            return V(0, $init($nextReplacer, $renderable));
+            return Vector{0, $init($nextReplacer, $renderable)};
           // FALLTHROUGH
           case 1:
             $stateRendererB = $jsx[2];
@@ -3312,7 +3312,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                   $a = $subtree[1];
                   $next = $caml_call1($aSwapper, $a);
                   $match = $next === $a ? 1 : (0);
-                  return 0 === $match ? V(1, $next, $b) : ($subtree);
+                  return 0 === $match ? Vector{1, $next, $b} : ($subtree);
                 }
               );
             };
@@ -3324,16 +3324,16 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                   $a = $subtree[1];
                   $next = $caml_call1($bSwapper, $b);
                   $match = $next === $b ? 1 : (0);
-                  return 0 === $match ? V(1, $a, $next) : ($subtree);
+                  return 0 === $match ? Vector{1, $a, $next} : ($subtree);
                 }
               );
             };
             $dS = $initSubtree->contents($nextReplacerB, $stateRendererB);
-            return V(
+            return Vector{
               1,
               $initSubtree->contents($nextReplacerA, $stateRendererA),
               $dS
-            );
+            };
           // FALLTHROUGH
           default:
             $elems = $jsx[1];
@@ -3350,12 +3350,16 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                     $next = $caml_call1($swapper, $inst);
                     $match__0 = $next === $inst ? 1 : (0);
                     return 0 === $match__0
-                      ? V(
+                      ? Vector{
                        2,
                        $flatten->contents(
-                         V(0, $pre, V(0, V(0, $next, 0), V(0, $post, 0)))
+                         Vector{
+                           0,
+                           $pre,
+                           Vector{0, Vector{0, $next, 0}, Vector{0, $post, 0}}
+                         }
                        )
-                     )
+                     }
                       : ($subtree);
                   }
                 );
@@ -3363,15 +3367,25 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
               return $initSubtree->contents($subreplacer, $e);
             };
             $sub = $mapi($initElem, $elems);
-            return V(2, $sub);
+            return Vector{2, $sub};
           }
       }
     };
   $_ = $reconcile->contents =
     function($inst, $renderable) use ($caml_call2,$reconcileSubtree,$spec) {
-      $nextSpec = $spec($caml_call2($renderable, V(0, $inst[5][1]), $inst[3]));
+      $nextSpec = $spec(
+        $caml_call2($renderable, Vector{0, $inst[5][1]}, $inst[3])
+      );
       $dR = $reconcileSubtree->contents($inst[6], $inst[5][4], $nextSpec[4]);
-      return V(0, $inst[1], $inst[2], $inst[3], $renderable, $nextSpec, $dR);
+      return Vector{
+        0,
+        $inst[1],
+        $inst[2],
+        $inst[3],
+        $renderable,
+        $nextSpec,
+        $dR
+      };
     };
   $_ = $reconcileSubtree->contents =
     function($subtree, $prevJsx, $match) use ($is_int,$mapi3__0,$reconcile,$reconcileSubtree) {
@@ -3385,7 +3399,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $i = $subtree[1];
             $match__0 = $r === $rPrev ? 1 : (0);
             return 0 === $match__0
-              ? V(0, $reconcile->contents($i, $r))
+              ? Vector{0, $reconcile->contents($i, $r)}
               : ($subtree);
           // FALLTHROUGH
           case 1:
@@ -3396,7 +3410,11 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $ib = $subtree[2];
             $ia = $subtree[1];
             $dQ = $reconcileSubtree->contents($ib, $rbPrev, $rb);
-            return V(1, $reconcileSubtree->contents($ia, $raPrev, $ra), $dQ);
+            return Vector{
+              1,
+              $reconcileSubtree->contents($ia, $raPrev, $ra),
+              $dQ
+            };
           // FALLTHROUGH
           default:
             $eLst = $match[1];
@@ -3410,25 +3428,25 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
               $eLst,
               $eLstPrev
             );
-            return V(2, $nextSeq);
+            return Vector{2, $nextSeq};
           }
       }
     };
   $control = function($param, $controlledState) use ($caml_call2) {
     $renderable = $param[1];
-    return V(
+    return Vector{
       0,
       function($state, $self) use ($caml_call2,$controlledState,$renderable) {
-        return $caml_call2($renderable, V(0, $controlledState), $self);
+        return $caml_call2($renderable, Vector{0, $controlledState}, $self);
       }
-    );
+    };
   };
   $create = function($param) use ($Invalid_argument,$as,$caml_call1,$caml_update_dummy,$caml_wrap_thrown_exception) {
     $root = varray[];
     $dO = 0;
     $caml_update_dummy(
       $root,
-      V(
+      Vector{
         0,
         function($swapper) use ($Invalid_argument,$as,$caml_call1,$caml_wrap_thrown_exception,$root) {
           $dP = $root[2];
@@ -3436,14 +3454,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $ei = $dP[1];
             $curInst = $ei[2];
             $curElems = $ei[1];
-            $nextEi = V(0, $curElems, $caml_call1($swapper, $curInst));
-            $root[2] = V(0, $nextEi);
+            $nextEi = Vector{0, $curElems, $caml_call1($swapper, $curInst)};
+            $root[2] = Vector{0, $nextEi};
             return 0;
           }
-          throw $caml_wrap_thrown_exception(V(0, $Invalid_argument, $as));
+          throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $as});
         },
         $dO
-      )
+      }
     );
     return $root;
   };
@@ -3453,22 +3471,22 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $ei = $dN[1];
       $curSubtree = $ei[2];
       $curElems = $ei[1];
-      $nextEi = V(
+      $nextEi = Vector{
         0,
         $elems,
         $reconcileSubtree->contents($curSubtree, $curElems, $elems)
-      );
-      $root[2] = V(0, $nextEi);
+      };
+      $root[2] = Vector{0, $nextEi};
       return 0;
     }
-    $nextEi__0 = V(0, $elems, $initSubtree->contents($root[1], $elems));
-    $root[2] = V(0, $nextEi__0);
+    $nextEi__0 = Vector{0, $elems, $initSubtree->contents($root[1], $elems)};
+    $root[2] = Vector{0, $nextEi__0};
     return 0;
   };
-  $counter = V(0, 0);
-  $subscribers = V(0, 0);
+  $counter = Vector{0, 0};
+  $subscribers = Vector{0, 0};
   $request = function($cb) use ($counter,$subscribers) {
-    $subscribers[1] = V(0, $cb, $subscribers[1]);
+    $subscribers[1] = Vector{0, $cb, $subscribers[1]};
     $counter[1] = $counter[1] + 1 | 0;
     return $counter[1];
   };
@@ -3485,7 +3503,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     return 0;
   };
   $element = function($x) {return $x;};
-  $suppress = V(0, 0);
+  $suppress = Vector{0, 0};
   $_ = $printInstanceCollection->contents =
     function($opt, $subtree) use ($a,$aA,$aB,$aC,$aD,$aE,$aF,$aG,$aH,$aI,$aJ,$at,$au,$av,$aw,$ax,$ay,$az,$concat,$is_int,$map,$printInstanceCollection) {
       if ($opt) {
@@ -3500,7 +3518,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           // FALLTHROUGH
           case 0:
             $n = $subtree[1];
-            return $a($ay, $a($at->contents(V(0, $a($ax, $s)), $n), $aw));
+            return $a($ay, $a($at->contents(Vector{0, $a($ax, $s)}, $n), $aw));
           // FALLTHROUGH
           case 1:
             $n2 = $subtree[2];
@@ -3513,7 +3531,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                 $a(
                   $dNext,
                   $a(
-                    $printInstanceCollection->contents(V(0, $dNext), $n2),
+                    $printInstanceCollection->contents(Vector{0, $dNext}, $n2),
                     $dJ
                   )
                 )
@@ -3526,7 +3544,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                 $a(
                   $dNext,
                   $a(
-                    $printInstanceCollection->contents(V(0, $dNext), $n1),
+                    $printInstanceCollection->contents(Vector{0, $dNext}, $n1),
                     $dK
                   )
                 )
@@ -3535,7 +3553,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           // FALLTHROUGH
           default:
             $lst = $subtree[1];
-            $dL = V(0, $a($aG, $s));
+            $dL = Vector{0, $a($aG, $s)};
             return $a(
               $aI,
               $a(
@@ -3571,7 +3589,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           $s,
           $a(
             $aN,
-            $a($printInstanceCollection->contents(V(0, $a($aM, $s)), $dG), $dF
+            $a(
+              $printInstanceCollection->contents(Vector{0, $a($aM, $s)}, $dG),
+              $dF
             )
           )
         )
@@ -3608,16 +3628,16 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $className = $sth;
     }
     else {$className = $a1;}
-    return V(
+    return Vector{
       1,
-      V(
+      Vector{
         0,
         $className,
         function($inst, $param) {$str = $param[1];return $str;},
         $domEventHandler,
         $children
-      )
-    );
+      }
+    };
   };
   $render__1 = function($opt, $size, $children, $dz, $self) use ($a2,$a3,$element,$nonReducer,$render__0) {
     if ($opt) {
@@ -3632,19 +3652,19 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     else {$state = $txt;}
     $dA = 0;
     $dB = 0;
-    return V(
+    return Vector{
       0,
       $state,
       $element(
-        V(
+        Vector{
           0,
           function($dC, $dD) use ($a2,$dA,$dB,$render__0) {
             return $render__0($dB, $a2, $dA, $dC, $dD);
           }
-        )
+        }
       ),
       $nonReducer
-    );
+    };
   };
   $render__2 = function($opt, $children, $dv, $self) use ($a4,$a5,$element,$nonReducer,$render__0) {
     if ($opt) {
@@ -3658,19 +3678,19 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     }
     else {$state = $txt;}
     $dw = 0;
-    return V(
+    return Vector{
       0,
       $state,
       $element(
-        V(
+        Vector{
           0,
           function($dx, $dy) use ($a4,$children,$dw,$render__0) {
             return $render__0($dw, $a4, $children, $dx, $dy);
           }
-        )
+        }
       ),
       $nonReducer
-    );
+    };
   };
   $render__3 = function($opt, $size, $children, $di, $self) use ($a,$a6,$a7,$element,$render__0,$render__1,$string_of_int) {
     ;
@@ -3678,7 +3698,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $sth = $di[1];
       $state = $sth;
     }
-    else {$state = V(0, $size, 0);}
+    else {$state = Vector{0, $size, 0};}
     $curChangeCount = $state[2];
     $curSize = $state[1];
     $match = $curSize !== $size ? 1 : (0);
@@ -3687,34 +3707,34 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       : ($curChangeCount + 1 | 0);
     $dj = function($param, $du) use ($state) {return $state;};
     $dk = 0;
-    $dl = V(0, $a($a6, $string_of_int($nextChangeCount)));
+    $dl = Vector{0, $a($a6, $string_of_int($nextChangeCount))};
     $dm = 0;
     $dn = $element(
-      V(
+      Vector{
         0,
         function($ds, $dt) use ($dk,$dl,$dm,$render__0) {
           return $render__0($dm, $dl, $dk, $ds, $dt);
         }
-      )
+      }
     );
     $dp = 0;
-    return V(
+    return Vector{
       0,
-      V(0, $size, $nextChangeCount),
-      V(
+      Vector{0, $size, $nextChangeCount},
+      Vector{
         1,
         $element(
-          V(
+          Vector{
             0,
             function($dq, $dr) use ($a7,$children,$dp,$render__1) {
               return $render__1($a7, $dp, $children, $dq, $dr);
             }
-          )
+          }
         ),
         $dn
-      ),
+      },
       $dj
-    );
+    };
   };
   $render__4 = function($opt, $children, $db, $self) use ($a8,$a9,$element,$render__0) {
     if ($opt) {
@@ -3730,19 +3750,19 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $dc = function($param, $dh) use ($state) {return $state;};
     $dd = 0;
     $de = 0;
-    return V(
+    return Vector{
       0,
       $state,
       $element(
-        V(
+        Vector{
           0,
           function($df, $dg) use ($a8,$dd,$de,$render__0) {
             return $render__0($de, $a8, $dd, $df, $dg);
           }
-        )
+        }
       ),
       $dc
-    );
+    };
   };
   $render__5 = function($children, $opt, $self) use ($a,$a_,$ba,$caml_int_of_string,$print_string,$render__0,$string_of_int) {
     if ($opt) {
@@ -3755,22 +3775,22 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       return $caml_int_of_string($next);
     };
     $c6 = 0;
-    $c7 = V(0, $a($a_, $string_of_int($state)));
-    $c8 = V(
+    $c7 = Vector{0, $a($a_, $string_of_int($state))};
+    $c8 = Vector{
       0,
       function($e) use ($ba,$print_string) {return $print_string($ba);}
-    );
-    return V(
+    };
+    return Vector{
       0,
       $state,
-      V(
+      Vector{
         0,
         function($c9, $c_) use ($c6,$c7,$c8,$render__0) {
           return $render__0($c8, $c7, $c6, $c9, $c_);
         }
-      ),
+      },
       $c5
-    );
+    };
   };
   $render__6 = function($shouldControlInput, $children, $opt, $self) use ($bb,$bc,$bd,$be,$control,$element,$nonReducer,$render__0,$render__4,$render__5) {
     if ($opt) {
@@ -3780,63 +3800,63 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     else {$state = $be;}
     $cV = 0;
     $input = $element(
-      V(
+      Vector{
         0,
         function($c3, $c4) use ($bb,$cV,$render__4) {
           return $render__4($bb, $cV, $c3, $c4);
         }
-      )
+      }
     );
     $input__0 = 0 === $shouldControlInput ? $input : ($control($input, $bd));
     $cW = 0;
     $cX = $element(
-      V(
+      Vector{
         0,
         function($c1, $c2) use ($cW,$render__5) {
           return $render__5($cW, $c1, $c2);
         }
-      )
+      }
     );
     $cY = 0;
-    return V(
+    return Vector{
       0,
       $state,
-      V(
+      Vector{
         1,
         $element(
-          V(
+          Vector{
             0,
             function($cZ, $c0) use ($bc,$cY,$input__0,$render__0) {
               return $render__0($cY, $bc, $input__0, $cZ, $c0);
             }
-          )
+          }
         ),
         $cX
-      ),
+      },
       $nonReducer
-    );
+    };
   };
   $render__7 = function($anyProp, $size, $children, $opt, $self) use ($render__0) {
     if ($opt) {
       $sth = $opt[1];
       $state = $sth;
     }
-    else {$state = V(0, $anyProp, $anyProp);}
+    else {$state = Vector{0, $anyProp, $anyProp};}
     $cP = function($param, $action) use ($state) {return $state;};
     $cQ = 0;
-    $cR = V(0, $size);
+    $cR = Vector{0, $size};
     $cS = 0;
-    return V(
+    return Vector{
       0,
       $state,
-      V(
+      Vector{
         0,
         function($cT, $cU) use ($cQ,$cR,$cS,$render__0) {
           return $render__0($cS, $cR, $cQ, $cT, $cU);
         }
-      ),
+      },
       $cP
-    );
+    };
   };
   $bf = function($x, $getDefault) use ($caml_call1) {
     if ($x) {$x__0 = $x[1];return $x__0;}
@@ -3863,44 +3883,44 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       return $a($state__0, $a($bj, $a($divStateStr, $bi)));
     };
     $cA = 0;
-    $cB = V(0, $a($bk, $string_of_int($int__1(10))));
+    $cB = Vector{0, $a($bk, $string_of_int($int__1(10)))};
     $cC = 0;
     $cD = $element(
-      V(
+      Vector{
         0,
         function($cM, $cN) use ($cA,$cB,$cC,$render__0) {
           return $render__0($cC, $cB, $cA, $cM, $cN);
         }
-      )
+      }
     );
     $cE = 0;
     $cF = $element(
-      V(
+      Vector{
         0,
         function($cK, $cL) use ($bl,$cD,$cE,$render__0) {
           return $render__0($cE, $bl, $cD, $cK, $cL);
         }
-      )
+      }
     );
     $cG = 0;
     $cH = 0;
-    return V(
+    return Vector{
       0,
       $state__0,
-      V(
+      Vector{
         1,
         $element(
-          V(
+          Vector{
             0,
             function($cI, $cJ) use ($bm,$cG,$cH,$render__0) {
               return $render__0($cH, $bm, $cG, $cI, $cJ);
             }
-          )
+          }
         ),
         $cF
-      ),
+      },
       $cz
-    );
+    };
   };
   $render__9 = function($opt, $children) use ($bn,$render__0) {
     if ($opt) {
@@ -3909,7 +3929,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     }
     else {$txt = $bn;}
     $cu = 0;
-    $cv = V(0, $txt);
+    $cv = Vector{0, $txt};
     $cw = 0;
     return function($cx, $cy) use ($cu,$cv,$cw,$render__0) {
       return $render__0($cw, $cv, $cu, $cx, $cy);
@@ -3925,23 +3945,23 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $i__0 = 0;
   
   for (;;) {
-    $stateless = $element(V(0, $render__9($br, 0)));
+    $stateless = $element(Vector{0, $render__9($br, 0)});
     $printSection($bs);
     $containerRoot = $create(0);
     $j__0 = 0;
     for (;;) {
-      $b0 = $element(V(0, $render__9($bZ, 0)));
+      $b0 = $element(Vector{0, $render__9($bZ, 0)});
       $render(
         $containerRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($cr) use ($b1,$render__2) {
                return function($cs, $ct) use ($b1,$cr,$render__2) {
                  return $render__2($b1, $cr, $cs, $ct);
                };
              })($b0)
-          )
+          }
         )
       );
       $b2 = $j__0 + 1 | 0;
@@ -3952,14 +3972,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $counterRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($stateless, $co) use ($bv,$render__3) {
                return function($cp, $cq) use ($bv,$co,$render__3,$stateless) {
                  return $render__3($bv, $co, $stateless, $cp, $cq);
                };
              })($stateless, $bu)
-          )
+          }
         )
       );
       $printRoot($bw, $counterRoot);
@@ -3967,14 +3987,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $counterRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($stateless, $cl) use ($by,$render__3) {
                return function($cm, $cn) use ($by,$cl,$render__3,$stateless) {
                  return $render__3($by, $cl, $stateless, $cm, $cn);
                };
              })($stateless, $bx)
-          )
+          }
         )
       );
       $printRoot($bz, $counterRoot);
@@ -3982,14 +4002,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $counterRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($stateless, $ci) use ($bB,$render__3) {
                return function($cj, $ck) use ($bB,$ci,$render__3,$stateless) {
                  return $render__3($bB, $ci, $stateless, $cj, $ck);
                };
              })($stateless, $bA)
-          )
+          }
         )
       );
       $printRoot($bC, $counterRoot);
@@ -3999,14 +4019,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $appRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($stateless, $cf) use ($render__6) {
                return function($cg, $ch) use ($cf,$render__6,$stateless) {
                  return $render__6($cf, $stateless, $cg, $ch);
                };
              })($stateless, $bE)
-          )
+          }
         )
       );
       $printRoot($bF, $appRoot);
@@ -4015,14 +4035,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $appRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($cb, $cc) use ($render__6) {
                return function($cd, $ce) use ($cb,$cc,$render__6) {
                  return $render__6($cc, $cb, $cd, $ce);
                };
              })($bG, $bH)
-          )
+          }
         )
       );
       $printRoot($bI, $appRoot);
@@ -4031,12 +4051,12 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $animRoot,
         $element(
-          V(
+          Vector{
             0,
             function($b_, $ca) use ($bK,$bL,$render__8) {
               return $render__8($bL, $bK, $b_, $ca);
             }
-          )
+          }
         )
       );
       $printRoot($bM, $animRoot);
@@ -4051,14 +4071,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $polyRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($b7) use ($bR,$bS,$render__7) {
                return function($b8, $b9) use ($b7,$bR,$bS,$render__7) {
                  return $render__7($bS, $bR, $b7, $b8, $b9);
                };
              })($bQ)
-          )
+          }
         )
       );
       $printRoot($bT, $polyRoot);
@@ -4068,14 +4088,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $render(
         $anotherPolyRoot,
         $element(
-          V(
+          Vector{
             0,
             (function($b3, $b4) use ($bV,$render__7) {
                return function($b5, $b6) use ($b3,$b4,$bV,$render__7) {
                  return $render__7($b4, $bV, $b3, $b5, $b6);
                };
              })($bU, $bW)
-          )
+          }
         )
       );
       $printRoot($bX, $anotherPolyRoot);
@@ -4086,7 +4106,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $f__0 = $caml_alloc_dummy_function(1, 2);
       $z__0 = varray[];
       $caml_update_dummy($f__0, function($x, $y) {return 1;});
-      $caml_update_dummy($z__0, V(0, V(0, $f__0, $bq)));
+      $caml_update_dummy($z__0, Vector{0, Vector{0, $f__0, $bq}});
       if ($z__0) {
         $match = $z__0[1];
         $str = $match[2];

@@ -74,12 +74,12 @@ final class Format {
     $Buffer = $global_data["Buffer"];
     $List = $global_data["List_"];
     $Not_found = $global_data["Not_found"];
-    $sG = R(3, 0, 3);
-    $sF = R(0, $caml_new_string(""));
-    $make_queue = function($param) {return V(0, 0, 0);};
+    $sG = Vector{3, 0, 3};
+    $sF = Vector{0, $caml_new_string("")};
+    $make_queue = function($param) {return Vector{0, 0, 0};};
     $clear_queue = function($q) {$q[1] = 0;$q[2] = 0;return 0;};
     $add_queue = function($x, $q) {
-      $c = V(0, $x, 0);
+      $c = Vector{0, $x, 0};
       $vR = $q[1];
       return $vR
         ? ($q[1] = $c) || true
@@ -89,11 +89,11 @@ final class Format {
          ? ($q[2] = $c) || true ? 0 : (0)
          : (($q[2] = $c) || true ? 0 : (0)));
     };
-    $Empty_queue = V(
+    $Empty_queue = Vector{
       248,
       $cst_Format_Empty_queue,
       $runtime["caml_fresh_oo_id"](0)
-    );
+    };
     $peek_queue = function($param) use ($Empty_queue,$runtime) {
       $vQ = $param[2];
       if ($vQ) {$x = $vQ[1];return $x;}
@@ -190,10 +190,10 @@ final class Format {
                     $l = $ls[2];
                     $x = $ls[1];
                     return $runtime["caml_lessthan"]($n, $x)
-                      ? V(0, $n, $ls)
-                      : (V(0, $x, $add_tab->contents($n, $l)));
+                      ? Vector{0, $n, $ls}
+                      : (Vector{0, $x, $add_tab->contents($n, $l)});
                   }
-                  return V(0, $n, 0);
+                  return Vector{0, $n, 0};
                 };
               $tabs[1] =
                 $add_tab->contents($state[6] - $state[9] | 0, $tabs[1]);
@@ -335,19 +335,19 @@ final class Format {
             if ($state[8] < $insertion_point__0) {$pp_force_break_line($state);}
             $offset__0 = $state[9] - $off__1 | 0;
             $bl_type = 1 === $ty__0 ? 1 : ($state[9] < $size ? $ty__0 : (5));
-            $state[2] = V(0, V(0, $bl_type, $offset__0), $state[2]);
+            $state[2] = Vector{0, Vector{0, $bl_type, $offset__0}, $state[2]};
             return 0;
           // FALLTHROUGH
           case 4:
             $tbox = $param[1];
-            $state[3] = V(0, $tbox, $state[3]);
+            $state[3] = Vector{0, $tbox, $state[3]};
             return 0;
           // FALLTHROUGH
           default:
             $tag_name__0 = $param[1];
             $marker__0 = $caml_call1($state[24], $tag_name__0);
             $pp_output_string($state, $marker__0);
-            $state[5] = V(0, $tag_name__0, $state[5]);
+            $state[5] = Vector{0, $tag_name__0, $state[5]};
             return 0;
           }
       }
@@ -386,10 +386,12 @@ final class Format {
       return $advance_left($state);
     };
     $make_queue_elem = function($size, $tok, $len) {
-      return V(0, $size, $tok, $len);
+      return Vector{0, $size, $tok, $len};
     };
     $enqueue_string_as = function($state, $size, $s) use ($enqueue_advance,$make_queue_elem) {
-      return $enqueue_advance($state, $make_queue_elem($size, V(0, $s), $size)
+      return $enqueue_advance(
+        $state,
+        $make_queue_elem($size, Vector{0, $s}, $size)
       );
     };
     $enqueue_string = function($state, $s) use ($caml_ml_string_length,$enqueue_string_as) {
@@ -397,7 +399,7 @@ final class Format {
       return $enqueue_string_as($state, $len, $s);
     };
     $q_elem = $make_queue_elem(-1, $sF, 0);
-    $scan_stack_bottom = V(0, V(0, -1, $q_elem), 0);
+    $scan_stack_bottom = Vector{0, Vector{0, -1, $q_elem}, 0};
     $clear_scan_stack = function($state) use ($scan_stack_bottom) {
       $state[1] = $scan_stack_bottom;
       return 0;
@@ -442,13 +444,18 @@ final class Format {
     $scan_push = function($state, $b, $tok) use ($pp_enqueue,$set_size) {
       $pp_enqueue($state, $tok);
       if ($b) {$set_size($state, 1);}
-      $state[1] = V(0, V(0, $state[13], $tok), $state[1]);
+      $state[1] = Vector{0, Vector{0, $state[13], $tok}, $state[1]};
       return 0;
     };
     $pp_open_box_gen = function($state, $indent, $br_ty) use ($enqueue_string,$make_queue_elem,$scan_push) {
       $state[14] = $state[14] + 1 | 0;
       if ($state[14] < $state[15]) {
-        $elem = $make_queue_elem(- $state[13] | 0, V(3, $indent, $br_ty), 0);
+        $elem = $make_queue_elem(
+          -
+          $state[13] | 0,
+          Vector{3, $indent, $br_ty},
+          0
+        );
         return $scan_push($state, 0, $elem);
       }
       $vr = $state[14] === $state[15] ? 1 : (0);
@@ -461,7 +468,7 @@ final class Format {
       $vp = 1 < $state[14] ? 1 : (0);
       if ($vp) {
         if ($state[14] < $state[15]) {
-          $pp_enqueue($state, V(0, 0, 1, 0));
+          $pp_enqueue($state, Vector{0, 0, 1, 0});
           $set_size($state, 1);
           $set_size($state, 0);
         }
@@ -473,14 +480,16 @@ final class Format {
     };
     $pp_open_tag = function($state, $tag_name) use ($caml_call1,$pp_enqueue) {
       if ($state[22]) {
-        $state[4] = V(0, $tag_name, $state[4]);
+        $state[4] = Vector{0, $tag_name, $state[4]};
         $caml_call1($state[26], $tag_name);
       }
       $vo = $state[23];
-      return $vo ? $pp_enqueue($state, V(0, 0, V(5, $tag_name), 0)) : ($vo);
+      return $vo
+        ? $pp_enqueue($state, Vector{0, 0, Vector{5, $tag_name}, 0})
+        : ($vo);
     };
     $pp_close_tag = function($state, $param) use ($caml_call1,$pp_enqueue) {
-      if ($state[23]) {$pp_enqueue($state, V(0, 0, 5, 0));}
+      if ($state[23]) {$pp_enqueue($state, Vector{0, 0, 5, 0});}
       $vl = $state[22];
       if ($vl) {
         $vm = $state[4];
@@ -505,7 +514,7 @@ final class Format {
       return $pp_set_mark_tags($state, $b);
     };
     $pp_get_formatter_tag_functions = function($state, $param) {
-      return V(0, $state[24], $state[25], $state[26], $state[27]);
+      return Vector{0, $state[24], $state[25], $state[26], $state[27]};
     };
     $pp_set_formatter_tag_functions = function($state, $param) {
       $pct = $param[4];
@@ -606,7 +615,7 @@ final class Format {
         $elem = $make_queue_elem(
           -
           $state[13] | 0,
-          V(1, $width, $offset),
+          Vector{1, $width, $offset},
           $width
         );
         return $scan_push($state, 1, $elem);
@@ -623,7 +632,7 @@ final class Format {
       $state[14] = $state[14] + 1 | 0;
       $ve = $state[14] < $state[15] ? 1 : (0);
       if ($ve) {
-        $elem = $make_queue_elem(0, V(4, V(0, V(0, 0))), 0);
+        $elem = $make_queue_elem(0, Vector{4, Vector{0, Vector{0, 0}}}, 0);
         return $enqueue_advance($state, $elem);
       }
       return $ve;
@@ -649,7 +658,7 @@ final class Format {
         $elem = $make_queue_elem(
           -
           $state[13] | 0,
-          V(2, $width, $offset),
+          Vector{2, $width, $offset},
           $width
         );
         return $scan_push($state, 1, $elem);
@@ -730,7 +739,14 @@ final class Format {
       return 0;
     };
     $pp_get_formatter_out_functions = function($state, $param) {
-      return V(0, $state[17], $state[18], $state[19], $state[20], $state[21]);
+      return Vector{
+        0,
+        $state[17],
+        $state[18],
+        $state[19],
+        $state[20],
+        $state[21]
+      };
     };
     $pp_set_formatter_output_functions = function($state, $f, $g) {
       $state[17] = $f;
@@ -738,7 +754,7 @@ final class Format {
       return 0;
     };
     $pp_get_formatter_output_functions = function($state, $param) {
-      return V(0, $state[17], $state[18]);
+      return Vector{0, $state[17], $state[18]};
     };
     $display_newline = function($state, $param) use ($caml_call3,$cst) {
       return $caml_call3($state[17], $cst, 0, 1);
@@ -794,8 +810,8 @@ final class Format {
       $pp_queue = $make_queue(0);
       $sys_tok = $make_queue_elem(-1, $sG, 0);
       $add_queue($sys_tok, $pp_queue);
-      $sys_scan_stack = V(0, V(0, 1, $sys_tok), $scan_stack_bottom);
-      return V(
+      $sys_scan_stack = Vector{0, Vector{0, 1, $sys_tok}, $scan_stack_bottom};
+      return Vector{
         0,
         $sys_scan_stack,
         0,
@@ -825,7 +841,7 @@ final class Format {
         $default_pp_print_open_tag,
         $default_pp_print_close_tag,
         $pp_queue
-      );
+      };
     };
     $formatter_of_out_functions = function($out_funs) use ($pp_make_formatter) {
       return $pp_make_formatter(
@@ -887,7 +903,7 @@ final class Format {
     $flush_str_formatter = function($param) use ($flush_buffer_formatter,$stdbuf,$str_formatter) {
       return $flush_buffer_formatter($stdbuf, $str_formatter);
     };
-    $make_symbolic_output_buffer = function($param) {return V(0, 0);};
+    $make_symbolic_output_buffer = function($param) {return Vector{0, 0};};
     $clear_symbolic_output_buffer = function($sob) {$sob[1] = 0;return 0;};
     $get_symbolic_output_buffer = function($sob) use ($List,$caml_call1) {
       return $caml_call1($List[9], $sob[1]);
@@ -898,7 +914,7 @@ final class Format {
       return $items;
     };
     $add_symbolic_output_item = function($sob, $item) {
-      $sob[1] = V(0, $item, $sob[1]);
+      $sob[1] = Vector{0, $item, $sob[1]};
       return 0;
     };
     $formatter_of_symbolic_output_buffer = function($sob) use ($String,$add_symbolic_output_item,$caml_call3,$pp_make_formatter) {
@@ -911,14 +927,14 @@ final class Format {
       $symbolic_string = function($sob, $s, $i, $n) use ($String,$add_symbolic_output_item,$caml_call3) {
         return $add_symbolic_output_item(
           $sob,
-          V(0, $caml_call3($String[4], $s, $i, $n))
+          Vector{0, $caml_call3($String[4], $s, $i, $n)}
         );
       };
       $symbolic_spaces = function($sob, $n) use ($add_symbolic_output_item) {
-        return $add_symbolic_output_item($sob, V(1, $n));
+        return $add_symbolic_output_item($sob, Vector{1, $n});
       };
       $symbolic_indent = function($sob, $n) use ($add_symbolic_output_item) {
-        return $add_symbolic_output_item($sob, V(2, $n));
+        return $add_symbolic_output_item($sob, Vector{2, $n});
       };
       $f = function($uJ, $uK, $uL) use ($sob,$symbolic_string) {
         return $symbolic_string($sob, $uJ, $uK, $uL);
@@ -1093,7 +1109,7 @@ final class Format {
           if ($tP) {
             $caml_call2($pp_v, $ppf, $tQ);
             $caml_call2($pp_sep, $ppf, 0);
-            $opt__1 = V(0, $pp_sep);
+            $opt__1 = Vector{0, $pp_sep};
             $opt__0 = $opt__1;
             $param__0 = $tP;
             continue;
@@ -1105,8 +1121,8 @@ final class Format {
     };
     $pp_print_text = function($ppf, $s) use ($String,$caml_call3,$caml_ml_string_length,$pp_force_newline,$pp_print_space,$pp_print_string,$runtime) {
       $len = $caml_ml_string_length($s);
-      $left = V(0, 0);
-      $right = V(0, 0);
+      $left = Vector{0, 0};
+      $right = Vector{0, 0};
       $flush = function($param) use ($String,$caml_call3,$left,$pp_print_string,$ppf,$right,$s) {
         $pp_print_string(
           $ppf,
@@ -1679,7 +1695,7 @@ final class Format {
       return 0;
     };
     $pp_get_all_formatter_output_functions = function($state, $param) {
-      return V(0, $state[17], $state[18], $state[19], $state[20]);
+      return Vector{0, $state[17], $state[18], $state[19], $state[20]};
     };
     $set_all_formatter_output_functions = function($sJ, $sK, $sL, $sM) use ($pp_set_all_formatter_output_functions,$std_formatter) {
       return $pp_set_all_formatter_output_functions(
@@ -1702,7 +1718,7 @@ final class Format {
       $sH = $formatter_of_buffer($b);
       return $caml_call4($CamlinternalFormat[7], $k, $sH, 0, $fmt);
     };
-    $Format = V(
+    $Format = Vector{
       0,
       $pp_open_box,
       $open_box,
@@ -1831,7 +1847,7 @@ final class Format {
       $get_all_formatter_output_functions,
       $pp_set_all_formatter_output_functions,
       $pp_get_all_formatter_output_functions
-    );
+    };
     
     $runtime["caml_register_global"](15, $Format, "Format");
 

@@ -59,9 +59,9 @@ final class Parsing {
     $Obj = $global_data["Obj"];
     $Array = $global_data["Array_"];
     $Lexing = $global_data["Lexing"];
-    $YYexit = V(248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0));
-    $Parse_error = V(248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0));
-    $env = V(
+    $YYexit = Vector{248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0)};
+    $Parse_error = Vector{248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0)};
+    $env = Vector{
       0,
       $caml_make_vect(100, 0),
       $caml_make_vect(100, 0),
@@ -79,7 +79,7 @@ final class Parsing {
       0,
       0,
       0
-    );
+    };
     $grow_stacks = function($param) use ($Array,$Lexing,$caml_call5,$caml_make_vect,$env) {
       $oldsize = $env[5];
       $newsize = $oldsize * 2 | 0;
@@ -103,7 +103,7 @@ final class Parsing {
       $env[8] = 0;
       return 0;
     };
-    $current_lookahead_fun = V(0, function($param) {return 0;});
+    $current_lookahead_fun = Vector{0, function($param) {return 0;}};
     $yyparse = function($tables, $start, $lexer, $lexbuf) use ($Obj,$Parse_error,$YYexit,$caml_call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$current_lookahead_fun,$env,$grow_stacks,$runtime) {
       $loop = function($cmd, $arg) use ($Parse_error,$caml_call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$env,$grow_stacks,$lexbuf,$lexer,$runtime,$tables) {
         $cmd__0 = $cmd;
@@ -260,7 +260,7 @@ final class Parsing {
       return $caml_call1($current_lookahead_fun[1], $tok);
     };
     $parse_error = function($param) {return 0;};
-    $Parsing = V(
+    $Parsing = Vector{
       0,
       $symbol_start,
       $symbol_end,
@@ -280,7 +280,7 @@ final class Parsing {
       $peek_val,
       $is_current_lookahead,
       $parse_error
-    );
+    };
     
     $runtime["caml_register_global"](7, $Parsing, "Parsing");
 
