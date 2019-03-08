@@ -28,7 +28,7 @@ type t = {
   mutable stable : bool;
 }
 
-let c1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
+let c1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let c2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 let name_raw t v nm = Hashtbl.add t.names v nm
@@ -77,10 +77,10 @@ let get_name t v = try Some (Hashtbl.find t.names v) with Not_found -> None
 let rec format_ident x =
   assert (x >= 0);
   let char c x = String.make 1 (c.[x]) in
-  if x < 53 then
+  if x < 52 then
     char c1 x
   else
-    format_ident ((x - 53) / 63) ^ char c2 ((x - 53) mod 63)
+    format_ident ((x - 52) / 63) ^ char c2 ((x - 52) mod 63)
 
 let format_var t i x =
   let s = format_ident x in
