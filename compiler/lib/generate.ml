@@ -703,7 +703,7 @@ let parallel_renaming params args continuation queue =
 (*                     [f; J.EArr (List.map (fun x -> Some x) params)], Loc.N)) *)
 let apply_fun_raw ctx f params =
   let n = List.length params in
-  J.ECond (J.EBin (J.EqEq, J.EArityTest f,
+  J.ECond (J.EBin (J.EqEqEq, J.EArityTest f,
                    J.ENum (float n)),
            J.ECall (f, params, Loc.N),
            J.ECall (runtime_fun ctx "caml_call_gen",
