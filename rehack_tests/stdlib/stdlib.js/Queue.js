@@ -12,11 +12,11 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 var cst_Queue_Empty = runtime["caml_new_string"]("Queue.Empty");

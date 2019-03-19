@@ -34,7 +34,7 @@ final class Char {
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) == 1
+      return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };

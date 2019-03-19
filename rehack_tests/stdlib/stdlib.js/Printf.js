@@ -14,21 +14,21 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ?
+  return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
-  return f.length == 4 ?
+  return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }

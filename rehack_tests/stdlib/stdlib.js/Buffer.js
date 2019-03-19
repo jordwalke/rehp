@@ -25,23 +25,23 @@ var caml_new_string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ?
+  return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
-  return f.length == 4 ?
+  return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
-  return f.length == 5 ?
+  return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }

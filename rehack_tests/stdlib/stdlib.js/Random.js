@@ -28,15 +28,15 @@ var caml_string_get = runtime["caml_string_get"];
 var caml_sys_random_seed = runtime["caml_sys_random_seed"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 function caml_call5(f, a0, a1, a2, a3, a4) {
-  return f.length == 5 ?
+  return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }

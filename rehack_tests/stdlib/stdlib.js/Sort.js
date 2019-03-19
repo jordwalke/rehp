@@ -13,7 +13,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_new_string = runtime["caml_new_string"];
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 var global_data = runtime["caml_get_global_data"]();

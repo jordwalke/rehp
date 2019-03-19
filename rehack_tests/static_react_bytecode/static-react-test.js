@@ -1385,19 +1385,19 @@ var native_warn =
       function() {caml_failwith("native_debug" + " not implemented");};
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : caml_call_gen(f, [a0]);
+  return f.length === 1 ? f(a0) : caml_call_gen(f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : caml_call_gen(f, [a0,a1]);
+  return f.length === 2 ? f(a0, a1) : caml_call_gen(f, [a0,a1]);
 }
 
 function caml_call3(f, a0, a1, a2) {
-  return f.length == 3 ? f(a0, a1, a2) : caml_call_gen(f, [a0,a1,a2]);
+  return f.length === 3 ? f(a0, a1, a2) : caml_call_gen(f, [a0,a1,a2]);
 }
 
 function caml_call4(f, a0, a1, a2, a3) {
-  return f.length == 4 ? f(a0, a1, a2, a3) : caml_call_gen(f, [a0,a1,a2,a3]);
+  return f.length === 4 ? f(a0, a1, a2, a3) : caml_call_gen(f, [a0,a1,a2,a3]);
 }
 
 var Out_of_memory = [248,caml_new_string("Out_of_memory"),-1];

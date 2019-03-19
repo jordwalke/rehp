@@ -14,11 +14,11 @@ var caml_format_int = runtime["caml_format_int"];
 var caml_new_string = runtime["caml_new_string"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 function caml_call2(f, a0, a1) {
-  return f.length == 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 var global_data = runtime["caml_get_global_data"]();

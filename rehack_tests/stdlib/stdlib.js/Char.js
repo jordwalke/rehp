@@ -15,7 +15,7 @@ var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_new_string = runtime["caml_new_string"];
 
 function caml_call1(f, a0) {
-  return f.length == 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 var global_data = runtime["caml_get_global_data"]();
