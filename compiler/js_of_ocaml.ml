@@ -51,17 +51,16 @@ let gen_file file f =
    Containing directory must already exist. *)
 let ensure_dir dir =
   let exists = Sys.file_exists dir in
-  if exists then
-    (if not (Sys.is_directory dir) then
-      raise (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory."))
-    )
-  else
-    Unix.mkdir dir 0o777
+  if exists
+  then (
+    if not (Sys.is_directory dir)
+    then
+      raise
+        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")) )
+  else Unix.mkdir dir 0o777
 
 let prepend_fs_support p =
-  let instrs = [
-    Code.(Let(Var.fresh (), Prim (Extern "caml_fs_init", [])))
-  ] in
+  let instrs = [Code.(Let (Var.fresh (), Prim (Extern "caml_fs_init", [])))] in
   Code.prepend p instrs
 
 let f
@@ -84,16 +83,13 @@ let f
     ; fs_output
     ; fs_external
     ; export_file } =
-
   let dynlink = dynlink || toplevel || runtime_only in
-  let backend = match backend with
-  | None -> Backend.Js
-  | Some(be) -> be
-  in
+  let backend = match backend with None -> Backend.Js | Some be -> be in
   let custom_header = common.CommonArg.custom_header in
-  let custom_header = match (backend, custom_header) with
-    | (_, Some(ch)) -> ch
-    | (_, None) -> "/*____CompilationOutput*/"
+  let custom_header =
+    match backend, custom_header with
+    | _, Some ch -> ch
+    | _, None -> "/*____CompilationOutput*/"
   in
   CommonArg.eval common;
   ( match output_file with
@@ -149,15 +145,13 @@ let f
     else `No
   in
   let parse_result =
-    if runtime_only then
-      Parse_bytecode.Parsed_standalone (
-        "Runtime",
-        (
-          Parse_bytecode.predefined_exceptions (),
-          StringSet.empty,
-          Parse_bytecode.Debug.create ()
-        )
-      )
+    if runtime_only
+    then
+      Parse_bytecode.Parsed_standalone
+        ( "Runtime"
+        , ( Parse_bytecode.predefined_exceptions ()
+          , StringSet.empty
+          , Parse_bytecode.Debug.create () ) )
     else
       (* Previously, the variable resetting was called from within
          parse_bytecode, but with separate compilation of .cmas, the variables
@@ -185,14 +179,16 @@ let f
           in
           close_in ch; res
   in
-  let output p cmis d standalone compunit_name ordered_compunit_deps complete_output_file =
+  let output p cmis d standalone compunit_name ordered_compunit_deps complete_output_file
+      =
     let () =
-      if not runtime_only && source_map <> None &&  Parse_bytecode.Debug.is_empty d
+      if (not runtime_only) && source_map <> None && Parse_bytecode.Debug.is_empty d
       then
         warn
-          "Warning: '--source-map' is enabled but the bytecode program \
-           was compiled with no debugging information.\n\
-           Warning: Consider passing '-g' option to ocamlc.\n%!"
+          "Warning: '--source-map' is enabled but the bytecode program was compiled \
+           with no debugging information.\n\
+           Warning: Consider passing '-g' option to ocamlc.\n\
+           %!"
     in
     let cmis = if nocmis then StringSet.empty else cmis in
     (* Pseudo filesystem should allow registering files from the outside *)
@@ -208,60 +204,86 @@ let f
     let p = if fs_external then prepend_fs_support p else p in
     if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
     let custom_header =
-      Module_loader.substitute_and_split custom_header compunit_name ordered_compunit_deps in
+      Module_loader.substitute_and_split
+        custom_header
+        compunit_name
+        ordered_compunit_deps
+    in
     (* The -o file to output to. *)
-    begin match complete_output_file with
+    ( match complete_output_file with
     | None ->
-      let p = PseudoFs.f p cmis fs_files paths in
-      let fmt = Pretty_print.to_out_channel stdout in
-      RehpDriver.f ~standalone ?profile ~linkall ~dynlink ~backend
-        ?source_map ~custom_header fmt d p
+        let p = PseudoFs.f p cmis fs_files paths in
+        let fmt = Pretty_print.to_out_channel stdout in
+        RehpDriver.f
+          ~standalone
+          ?profile
+          ~linkall
+          ~dynlink
+          ~backend
+          ?source_map
+          ~custom_header
+          fmt
+          d
+          p
     | Some file ->
-      gen_file file (fun chan ->
-        let p =
-          if fs_output = None
-          then PseudoFs.f p cmis fs_files paths
-          else p in
-        let fmt = Pretty_print.to_out_channel chan in
-        RehpDriver.f ~standalone ?profile ~linkall ~dynlink ~backend
-          ?source_map ~custom_header fmt d p;
-      );
-      Stdlib.Option.iter ~f:(fun file ->
         gen_file file (fun chan ->
-          let pfs = PseudoFs.f_empty cmis fs_files paths in
-          let pfs_fmt = Pretty_print.to_out_channel chan in
-          RehpDriver.f ~standalone ?profile ~custom_header ~backend pfs_fmt d pfs
-        )
-      ) fs_output
-    end;
+            let p = if fs_output = None then PseudoFs.f p cmis fs_files paths else p in
+            let fmt = Pretty_print.to_out_channel chan in
+            RehpDriver.f
+              ~standalone
+              ?profile
+              ~linkall
+              ~dynlink
+              ~backend
+              ?source_map
+              ~custom_header
+              fmt
+              d
+              p );
+        Stdlib.Option.iter
+          ~f:(fun file ->
+            gen_file file (fun chan ->
+                let pfs = PseudoFs.f_empty cmis fs_files paths in
+                let pfs_fmt = Pretty_print.to_out_channel chan in
+                RehpDriver.f ~standalone ?profile ~custom_header ~backend pfs_fmt d pfs
+            ) )
+          fs_output );
     if times () then Format.eprintf "compilation: %a@." Timer.print t;
     Debug.stop_profiling ()
   in
   match parse_result with
-    | Parsed_standalone (compunit_name, (p, cmis, d)) ->
-        output p cmis d true compunit_name [] output_file
-    | Parsed_module (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
-        output p cmis d false compunit_name (List.map Ident.name ordered_compunit_deps) output_file
-    | Parsed_library lst ->
-      begin match output_file with
-      | None -> ()
-      | Some file -> ensure_dir file
-      end;
-      List.iter (fun (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
-        (* If compiling a library and passing the -o flag, it is assumed that -o
+  | Parsed_standalone (compunit_name, (p, cmis, d)) ->
+      output p cmis d true compunit_name [] output_file
+  | Parsed_module (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
+      output
+        p
+        cmis
+        d
+        false
+        compunit_name
+        (List.map Ident.name ordered_compunit_deps)
+        output_file
+  | Parsed_library lst ->
+      (match output_file with None -> () | Some file -> ensure_dir file);
+      List.iter
+        (fun (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
+          (* If compiling a library and passing the -o flag, it is assumed that -o
            is the location of the directory where individual outputs go, and
            that the individual files will reside inside of it. If the output is
            supplied as [-o path/to/lib-name.php] then you will get the
            following files [-o path/to/my-lib.php/MyLibrary__Utils.php] where
            MyLibrary__Utils is the compiler's internal compilation unit name. *)
-        let ordered_compunit_deps = List.map Ident.name ordered_compunit_deps in
-        let complete_output_file = match output_file with
-        | None -> None
-        | Some file -> Some begin
-          Filename.concat file (compunit_name ^ "."  ^ Backend.extension backend)
-        end in
-        output p cmis d false compunit_name ordered_compunit_deps complete_output_file
-      ) lst
+          let ordered_compunit_deps = List.map Ident.name ordered_compunit_deps in
+          let complete_output_file =
+            match output_file with
+            | None -> None
+            | Some file ->
+                Some
+                  (Filename.concat file (compunit_name ^ "." ^ Backend.extension backend))
+          in
+          output p cmis d false compunit_name ordered_compunit_deps complete_output_file
+          )
+        lst
 
 let main = Cmdliner.Term.(pure f $ CompileArg.options), CompileArg.info
 
