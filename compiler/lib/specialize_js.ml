@@ -80,6 +80,14 @@ let specialize_instr info i rem =
       | _ ->
           i
       end :: rem
+  | Let (x, Prim (Extern "caml_js_fun_call1", [f; a])) ->
+      begin 
+          Let (x, Prim (Extern "%caml_js_opt_fun_call", f :: [a]))
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_fun_call2", [f; a; b])) ->
+      begin 
+          Let (x, Prim (Extern "%caml_js_opt_fun_call", f :: [a; b]))
+      end :: rem
   | Let (x, Prim (Extern "caml_js_meth_call", [o; m; a])) ->
       begin match the_string_of info m with
         Some m ->
