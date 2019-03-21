@@ -1137,7 +1137,11 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
          or_p pc prop, queue)
       (* caml_js_property_get is like caml_js_get but will _only_ be
          optimized to EDot and cannot use the runtime fallback *)
-      | Extern ("caml_js_get" | "caml_js_property_get"), [Pv o; Pc (String f | IString f)] when Id.is_ident f ->
+      | Extern ("caml_js_property_get"), [Pv o; Pc (String f | IString f)] when Id.is_ident f ->
+        let ((po, co), queue) = access_queue queue o in
+        (J.EDot (co, f), or_p po mutable_p, queue)
+      | Extern ("caml_js_get"), [Pv o; Pc (String f | IString f)] when Id.is_ident f ->
+        print_endline("generatez " ^ f ^ " is a caml_js_get");
         let ((po, co), queue) = access_queue queue o in
         (J.EAccess (co, J.EStr(f, `Utf8)), or_p po mutable_p, queue)
       (* caml_js_property_set is like caml_js_set but will _only_ be
