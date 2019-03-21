@@ -2357,7 +2357,9 @@ and from_relocated_compilation_unit ~includes:_ ~debug ~debug_data ~globals (com
               (* TODO: This is where you would inject an operation for module
                * loading that should incorporate with the module template. *)
               Var.name x name;
-              Let (x, Prim (Extern "caml_js_get",[Pv gdata; Pc (IString (normalize_module_name name))])) :: l
+              (* Currently, global data is a very loose dictionary registry
+               * so it's appropriate to force this to be a dictionary *)
+              Let (x, Prim (Extern "caml_js_dict_get",[Pv gdata; Pc (IString (normalize_module_name name))])) :: l
           end
         | _ -> l)
   in
