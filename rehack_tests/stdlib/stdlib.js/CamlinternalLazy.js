@@ -10,7 +10,6 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime["caml_new_string"];
 var caml_obj_set_tag = runtime["caml_obj_set_tag"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
@@ -20,7 +19,7 @@ function caml_call1(f, a0) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_CamlinternalLazy_Undefined = caml_new_string(
+var cst_CamlinternalLazy_Undefined = runtime["caml_new_string"](
   "CamlinternalLazy.Undefined"
 );
 var Obj = global_data["Obj"];

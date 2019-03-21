@@ -30,7 +30,6 @@ final class CamlinternalLazy {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_new_string = $runtime["caml_new_string"];
     $caml_obj_set_tag = $runtime["caml_obj_set_tag"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
@@ -40,7 +39,7 @@ final class CamlinternalLazy {
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_CamlinternalLazy_Undefined = $caml_new_string(
+    $cst_CamlinternalLazy_Undefined = $runtime["caml_new_string"](
       "CamlinternalLazy.Undefined"
     );
     $Obj = $global_data["Obj"];

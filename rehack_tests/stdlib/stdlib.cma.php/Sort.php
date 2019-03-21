@@ -32,14 +32,13 @@ final class Sort {
     $runtime = $joo_global_object->jsoo_runtime;
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_new_string = $runtime["caml_new_string"];
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Sort_array = $caml_new_string("Sort.array");
+    $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
     $Invalid_argument = $global_data["Invalid_argument"];
     $_ = $merge->contents =
       function($order, $l1, $l2) use ($caml_call2,$merge) {

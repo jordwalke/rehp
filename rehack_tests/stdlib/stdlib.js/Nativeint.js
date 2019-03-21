@@ -11,10 +11,9 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 var global_data = runtime["caml_get_global_data"]();
-var cst_d = caml_new_string("%d");
+var cst_d = runtime["caml_new_string"]("%d");
 var Failure = global_data["Failure"];
 var Sys = global_data["Sys"];
 var zero = 0;

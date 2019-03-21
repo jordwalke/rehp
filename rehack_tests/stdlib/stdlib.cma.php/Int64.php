@@ -29,10 +29,9 @@ final class Int64 {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_d = $caml_new_string("%d");
+    $cst_d = $runtime["caml_new_string"]("%d");
     $zero = Vector{255, 0, 0, 0};
     $one = Vector{255, 1, 0, 0};
     $minus_one = Vector{255, 16777215, 16777215, 65535};

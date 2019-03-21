@@ -30,7 +30,6 @@ final class Stack {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_new_string = $runtime["caml_new_string"];
     $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
@@ -42,7 +41,7 @@ final class Stack {
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Stack_Empty = $caml_new_string("Stack.Empty");
+    $cst_Stack_Empty = $runtime["caml_new_string"]("Stack.Empty");
     $List = $global_data["List_"];
     $Empty = Vector{248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0)};
     $create = function($param) {return Vector{0, 0, 0};};

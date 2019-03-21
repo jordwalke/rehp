@@ -10,14 +10,13 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime["caml_new_string"];
 
 function caml_call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Sort_array = caml_new_string("Sort.array");
+var cst_Sort_array = runtime["caml_new_string"]("Sort.array");
 var Invalid_argument = global_data["Invalid_argument"];
 
 function merge(order, l1, l2) {
