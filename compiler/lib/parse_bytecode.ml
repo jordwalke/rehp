@@ -802,21 +802,31 @@ let access_global g i =
     g.vars.(i) <- Some x;
     x
 
-let register_global ?(force=false) g i rem =
+let register_global ?(force=false) ~kind g i rem =
   if force || g.is_exported.(i)
-  then
+  then (
+    (* stdlib.js defines caml_register_global as having an optional name *)
     let args =
+      (* The term "named_values" does not refer to the ones tracked
+         in caml_register_named_value *)
       match g.named_value.(i) with
-      | None -> []
+      | None ->
+          (Format.eprintf "      register_global YES %s\n" "BUT NO NAME!!!!!!!!!!!!";
+          [])
       | Some name ->
+        Format.eprintf "      register_global YES %s\n" name;
         Code.Var.name (access_global g i) name;
         [Pc (IString (normalize_module_name name))] in
     Let (Var.fresh (),
-         Prim (Extern "caml_register_global",
+         (* The problem is this is sometimes an exception, not module (exe mod) *)
+         Prim (Extern kind,
                (Pc (Int (Int32.of_int i)) ::
                 Pv (access_global g i) ::
                 args))) :: rem
-  else rem
+  ) else (
+    Format.eprintf "      register_global NO (not exported name)\n";
+    rem
+  )
 
 let get_global state instrs i =
   State.size_globals state (i + 1);
@@ -1221,7 +1231,9 @@ and compile infos pc state instrs =
           instrs in
       let (x, state) = State.fresh_var state in
       if debug_parser () then Format.printf "%a = 0@." Var.print x;
-      let instrs = register_global g i instrs in
+      Format.eprintf "SETGLOBAL %a\n" Var.print x;
+      (* This is where modules are registered *)
+      let instrs = register_global "caml_register_global_module" g i instrs in
       compile infos (pc + 2) state (Let (x, Const 0l) :: instrs)
     | ATOM0 ->
       let (x, state) = State.fresh_var state in
@@ -2090,14 +2102,14 @@ let exe_from_channel ~includes ?(toplevel=false) ?(expunge=fun _ -> `Keep) ?(dyn
       let nn = Ident.create_persistent name in
       let i = Tbl.find (fun x1 x2 -> String.compare (Ident.name x1) (Ident.name x2)) nn orig_symbols.num_tbl in
       globals.override.(i) <- Some v;
-      if debug_parser () then Format.eprintf "overriding global %s@." name
+      Format.eprintf "overriding global %s@." name
     with Not_found -> ());
 
   if toplevel || dynlink then
     begin
       (* export globals *)
       Tbl.iter (fun id n ->
-        (* Format.eprintf "export %d %d %s@." id.Ident.flags id.Ident.stamp id.Ident.name; *)
+        Format.eprintf "export %d %d %s@." id.Ident.flags id.Ident.stamp id.Ident.name;
         globals.named_value.(n) <- Some (Ident.name id);
         globals.is_exported.(n) <- true) symbols.num_tbl;
       (* @vouillon: *)
@@ -2118,7 +2130,14 @@ let exe_from_channel ~includes ?(toplevel=false) ?(expunge=fun _ -> `Keep) ?(dyn
       ~init:[]
       ~f:(fun body (i,name) ->
         globals.named_value.(i) <- Some name;
-    let body = register_global ~force:true globals i body in
+    Format.eprintf "retering a predefined exceptoin\n";
+    let body =
+      register_global
+        ~kind:"caml_register_global_builtin_exn"
+        ~force:true
+        globals
+        i
+        body in
     globals.is_exported.(i) <- false;
     body)
   in
@@ -2127,7 +2146,9 @@ let exe_from_channel ~includes ?(toplevel=false) ?(expunge=fun _ -> `Keep) ?(dyn
       ~f:(fun i _ l ->
     match globals.vars.(i) with
       Some x when globals.is_const.(i) ->
-      let l = register_global globals i l in
+      (* These seem to mostly only be applied in entire bytecode executables *)
+      Format.eprintf "globals.constants calling register_global %a\n" Var.print x;
+      let l = register_global ~kind:"caml_register_global_module" globals i l in
       Let (x, Constant (Constants.parse globals.constants.(i))) :: l
       | _ -> l)
   in
@@ -2196,6 +2217,12 @@ let exe_from_channel ~includes ?(toplevel=false) ?(expunge=fun _ -> `Keep) ?(dyn
     else StringSet.empty in
   prepend p body, cmis, debug_data
 
+(* This is only used for the top level. Global data is not referred to by name
+ * here instead is accessed via numeric index. Is that because the top level
+ * overwrites the string names when you add new modules to the top level?  The
+ * integer indexes are somehow more stable? (Maybe for lazy's?) Theory: The
+ * numerically named/accessed global data is used exclusively in the top level,
+ * and we can use special calls just for those. *)
 (* As input: list of primitives + size of global table *)
 let from_bytes primitives (code : code) =
   Code.Var.reset ();
@@ -2209,6 +2236,7 @@ let from_bytes primitives (code : code) =
       ~f:(fun i var l ->
         match var with
         | Some x when globals.is_const.(i) ->
+          (Format.eprintf "THE MYTHICAL NUMERIC GLOBAL FIELD WITH NO NAME!");
           Let (x, Field (gdata, i)) :: l
         | _ -> l)
   in
@@ -2339,26 +2367,50 @@ and from_relocated_compilation_unit ~includes:_ ~debug ~debug_data ~globals (com
   let code = Bytes.to_string codebytes in
   let prog = parse_bytecode ~debug code globals debug_data in
   let gdata = Var.fresh_n "global_data" in
+  (* This section only deals with consuming global (named) values that have
+   * been exported from other modules or declaring globals for local use.
+   * If those globals are exported (such as the module itself), that exporting
+   * isn't handled here, it's handled in SETGLOBAL. *)
   let body = Array.fold_right_i globals.vars
       ~init:[]
       ~f:(fun i var l ->
         match var with
         | Some x when globals.is_const.(i) ->
+          (* Global constants that are not named values include things like strings *)
           begin match globals.named_value.(i) with
             | None ->
-              let l = register_global globals i l in
+              (* Just because you register it doesn't mean its exported *)
+                let nm = begin match Code.Var.get_name x with
+                | None -> "Unknown name"
+                | Some n -> n
+                end in
+              Format.eprintf "Global Const with Named Value ? %s\n" nm;
+              (* This likely never has any effect because these globals aren't
+               * exported. This call could possibly just be removed *)
+              let l = register_global ~kind:"should_never_be_exported" globals i l in
               let cst = Constants.parse globals.constants.(i) in
               begin match cst, Code.Var.get_name x with
-                | (String str|IString str), None -> Code.Var.name x (Printf.sprintf "cst_%s" str)
-                | _ -> ()
+                | (String str|IString str), None ->
+                  begin
+                    Code.Var.name x (Printf.sprintf "cst_%s" str)
+                  end
+                | _ -> (
+                    
+                    Format.eprintf "Global Const But Not Named Value UNKNOWN%s\n" "!"
+                    )
               end;
               Let (x, Constant cst) :: l
             | Some name ->
+              (* Global constants that are named values include modules and built in exceptions. *)
+              (* Global constant, named value *)
               (* TODO: This is where you would inject an operation for module
-               * loading that should incorporate with the module template. *)
+               * loading that should incorporate with the module template.
+               * This isn't where the final module global registering occurs.
+               *)
               Var.name x name;
               (* Currently, global data is a very loose dictionary registry
                * so it's appropriate to force this to be a dictionary *)
+              Format.eprintf "Global Const Named Value at index %d %s\n" i (normalize_module_name name);
               Let (x, Prim (Extern "caml_js_dict_get",[Pv gdata; Pc (IString (normalize_module_name name))])) :: l
           end
         | _ -> l)
@@ -2448,6 +2500,8 @@ let from_channel ?(includes=[]) ?(toplevel=false) ?expunge
         raise Magic_number.(Bad_magic_number (to_string magic))
     end
 
+(* When compiling from monolithic bytecode, these end up getting registered as
+ * regular globals *)
 let predefined_exceptions () =
   let body =
     let open Code in
@@ -2463,7 +2517,7 @@ let predefined_exceptions () =
       ; Let (v_index, Constant (Int (Int32.of_int (- index))))
       ; Let (exn, Block (248, [|v_name; v_index|]))
       ; Let (Var.fresh (),
-             Prim (Extern "caml_register_global",
+             Prim (Extern "caml_register_global_builtin_exn",
                    [ Pc (Int (Int32.of_int index))
                    ; Pv exn
                    ; Pv v_name_js]))

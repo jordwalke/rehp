@@ -151,9 +151,18 @@ function caml_named_value(nm) {
 //Provides: caml_global_data
 var caml_global_data = [0];
 
-//Provides: caml_register_global (const, shallow, const)
+//Provides: caml_register_global_module (const, shallow, const)
 //Requires: caml_global_data
-function caml_register_global (n, v, name_opt) {
+function caml_register_global_module (n, v, name_opt) {
+  if(name_opt && joo_global_object.toplevelReloc)
+    n = joo_global_object.toplevelReloc(name_opt);
+  caml_global_data[n + 1] = v;
+  if(name_opt) caml_global_data[name_opt] = v;
+}
+
+//Provides: caml_register_global_builtin_exn (const, shallow, const)
+//Requires: caml_global_data
+function caml_register_global_builtin_exn (n, v, name_opt) {
   if(name_opt && joo_global_object.toplevelReloc)
     n = joo_global_object.toplevelReloc(name_opt);
   caml_global_data[n + 1] = v;
