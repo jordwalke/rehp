@@ -45,7 +45,7 @@ final class Sys {
     $win32 = $runtime["caml_sys_const_ostype_win32"](0);
     $cygwin = $runtime["caml_sys_const_ostype_cygwin"](0);
     $max_array_length = $runtime["caml_sys_const_max_wosize"](0);
-    $max_string_length = (4 * $max_array_length | 0) + -1 | 0;
+    $max_string_length = (int) ((int) (4 * $max_array_length) + -1);
     $big_endian = 0;
     $word_size = 32;
     $int_size = 32;

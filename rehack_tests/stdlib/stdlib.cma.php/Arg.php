@@ -252,7 +252,14 @@ final class Arg {
     $split = function($s) use ($String,$caml_call2,$caml_call3,$caml_ml_string_length) {
       $i = $caml_call2($String[14], $s, 61);
       $len = $caml_ml_string_length($s);
-      $ox = $caml_call3($String[4], $s, $i + 1 | 0, $len - ($i + 1 | 0) | 0);
+      $ox = $caml_call3(
+        $String[4],
+        $s,
+        (int)
+        ($i + 1),
+        (int)
+        ($len - (int) ($i + 1))
+      );
       return Vector{0, $caml_call3($String[4], $s, 0, $i), $ox};
     };
     $make_symlist = function($prefix, $sep, $suffix, $l) use ($List,$Pervasives,$caml_call2,$caml_call3,$cst_none) {
@@ -464,8 +471,8 @@ final class Arg {
                 $get_arg__0 = function($s, $follow) use ($Stop,$argv,$caml_check_bound,$current,$runtime) {
                   $get_arg = function($param) use ($Stop,$argv,$caml_check_bound,$current,$follow,$runtime,$s) {
                     if ($follow) {$arg = $follow[1];return $arg;}
-                    if (($current[1] + 1 | 0) < $argv[1]->count() - 1) {
-                      $n6 = $current[1] + 1 | 0;
+                    if ((int) ($current[1] + 1) < $argv[1]->count() - 1) {
+                      $n6 = (int) ($current[1] + 1);
                       return $caml_check_bound($argv[1], $n6)[$n6 + 1];
                     }
                     throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stop, Vector{2, $s}});
@@ -612,8 +619,8 @@ final class Arg {
                         case 12:
                           $f__5 = $param[1];
                           for (;;) {
-                            if ($current[1] < ($argv[1]->count() - 1 + -1 | 0)) {
-                              $n5 = $current[1] + 1 | 0;
+                            if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
+                              $n5 = (int) ($current[1] + 1);
                               $caml_call1($f__5, $caml_check_bound($argv[1], $n5)[$n5 + 1]
                               );
                               $consume_arg(0);
@@ -640,16 +647,16 @@ final class Arg {
                             $Array[7],
                             $argv[1],
                             0,
-                            $current[1] + 1 |
-                              0
+                            (int)
+                            ($current[1] + 1)
                           );
                           $after = $caml_call3(
                             $Array[7],
                             $argv[1],
-                            $current[1] + 1 |
-                              0,
-                            ($argv[1]->count() - 1 - $current[1] | 0) + -1 |
-                              0
+                            (int)
+                            ($current[1] + 1),
+                            (int)
+                            ((int) ($argv[1]->count() - 1 - $current[1]) + -1)
                           );
                           $argv[1] =
                             $caml_call1(
@@ -803,7 +810,7 @@ final class Arg {
         for (;;) {
           if ($len <= $n__0) {return $len;}
           if (32 === $caml_string_get($s, $n__0)) {
-            $n__1 = $n__0 + 1 | 0;
+            $n__1 = (int) ($n__0 + 1);
             $n__0 = $n__1;
             continue;
           }
@@ -820,11 +827,11 @@ final class Arg {
             if ($nX === $Not_found) {return $len;}
             throw $runtime["caml_wrap_thrown_exception_reraise"]($nX);
           }
-          return $loop($n + 1 | 0);
+          return $loop((int) ($n + 1));
         }
         throw $runtime["caml_wrap_thrown_exception_reraise"]($nW);
       }
-      return $loop($n__0 + 1 | 0);
+      return $loop((int) ($n__0 + 1));
     };
     $max_arg_len = function($cur, $param) use ($Pervasives,$caml_call2,$caml_ml_string_length,$second_word) {
       $doc = $param[3];
@@ -833,7 +840,7 @@ final class Arg {
       if (11 === $spec[0]) {
         return $caml_call2($Pervasives[5], $cur, $caml_ml_string_length($kwd));
       }
-      $nV = $caml_ml_string_length($kwd) + $second_word($doc) | 0;
+      $nV = (int) ($caml_ml_string_length($kwd) + $second_word($doc));
       return $caml_call2($Pervasives[5], $cur, $nV);
     };
     $replace_leading_tab = function($s) use ($String,$caml_call2) {
@@ -851,7 +858,8 @@ final class Arg {
         if (11 === $nN[0]) {
           $msg__0 = $ksd[3];
           $cutcol__0 = $second_word($msg__0);
-          $nR = $caml_call2($Pervasives[5], 0, $len - $cutcol__0 | 0) + 3 | 0;
+          $nR = (int)
+          ($caml_call2($Pervasives[5], 0, (int) ($len - $cutcol__0)) + 3);
           $spaces__0 = $caml_call2($String[1], $nR, 32);
           $nS = $replace_leading_tab($msg__0);
           $nT = $caml_call2($Pervasives[16], $spaces__0, $nS);
@@ -865,7 +873,7 @@ final class Arg {
         $msg = $ksd[3];
         $cutcol = $second_word($msg);
         $kwd_len = $caml_ml_string_length($nO);
-        $diff = ($len - $kwd_len | 0) - $cutcol | 0;
+        $diff = (int) ((int) ($len - $kwd_len) - $cutcol);
         if (0 < $diff) {
           $spaces = $caml_call2($String[1], $diff, 32);
           $nP = $replace_leading_tab($msg);
@@ -874,7 +882,8 @@ final class Arg {
             $String[4],
             $msg,
             $cutcol,
-            $caml_ml_string_length($msg) - $cutcol | 0
+            (int)
+            ($caml_ml_string_length($msg) - $cutcol)
           );
           $nQ = $caml_call2($Pervasives[16], $spaces, $suffix);
           return Vector{
@@ -905,8 +914,8 @@ final class Arg {
     $trim_cr = function($s) use ($String,$caml_call3,$caml_ml_string_length,$caml_string_get) {
       $len = $caml_ml_string_length($s);
       if (0 < $len) {
-        if (13 === $caml_string_get($s, $len + -1 | 0)) {
-          return $caml_call3($String[4], $s, 0, $len + -1 | 0);
+        if (13 === $caml_string_get($s, (int) ($len + -1))) {
+          return $caml_call3($String[4], $s, 0, (int) ($len + -1));
         }
       }
       return $s;

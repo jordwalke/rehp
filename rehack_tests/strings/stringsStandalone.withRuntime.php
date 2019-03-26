@@ -1769,7 +1769,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $b = function($s1, $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
     $l1 = $caml_ml_string_length($s1);
     $l2 = $caml_ml_string_length($s2);
-    $s = $caml_create_bytes($l1 + $l2 | 0);
+    $s = $caml_create_bytes((int) ($l1 + $l2));
     $caml_blit_string($s1, 0, $s, 0, $l1);
     $caml_blit_string($s2, 0, $s, $l1, $l2);
     return $s;
@@ -1835,7 +1835,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $sub = function($s, $ofs, $len) use ($caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length,$e,$invalid_arg) {
     if (0 <= $ofs) {
       if (0 <= $len) {
-        if (! (($caml_ml_bytes_length($s) - $len | 0) < $ofs)) {
+        if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {
           $r = $caml_create_bytes($len);
           $caml_blit_bytes($s, $ofs, $r, 0, $len);
           return $r;
@@ -1845,7 +1845,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     return $invalid_arg($e);
   };
   $is_space = function($param) use ($unsigned_right_shift_32) {
-    $Y = $param + -9 | 0;
+    $Y = (int) ($param + -9);
     $switch__0 = 4 < $unsigned_right_shift_32($Y, 0)
       ? 23 === $Y ? 1 : (0)
       : (2 === $Y ? 0 : (1));
@@ -1858,13 +1858,13 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       if ($i[1] < $len) {
         if ($is_space($caml_bytes_unsafe_get($s, $i[1]))) {$i[1] += 1;continue;}
       }
-      $j = Vector{0, $len + -1 | 0};
+      $j = Vector{0, (int) ($len + -1)};
       for (;;) {
         if ($i[1] <= $j[1]) {
           if ($is_space($caml_bytes_unsafe_get($s, $j[1]))) {$j[1] += -1;continue;}
         }
         return $i[1] <= $j[1]
-          ? $sub($s, $i[1], ($j[1] - $i[1] | 0) + 1 | 0)
+          ? $sub($s, $i[1], (int) ((int) ($j[1] - $i[1]) + 1))
           : ($empty);
       }
     }
@@ -1873,7 +1873,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $bts = function($W) {return $W;};
   $make__0 = function($n, $c) use ($bts,$make) {return $bts($make($n, $c));};
   $is_space__0 = function($param) use ($unsigned_right_shift_32) {
-    $V = $param + -9 | 0;
+    $V = (int) ($param + -9);
     $switch__0 = 4 < $unsigned_right_shift_32($V, 0)
       ? 23 === $V ? 1 : (0)
       : (2 === $V ? 0 : (1));
@@ -1885,7 +1885,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       if (
         !
         $is_space__0(
-          $caml_bytes_unsafe_get($s, $caml_ml_string_length($s) + -1 | 0)
+          $caml_bytes_unsafe_get($s, (int) ($caml_ml_string_length($s) + -1))
         )
       ) {return $s;}
     }
@@ -1896,7 +1896,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     for (;;) {
       if ($lim <= $i__0) {throw $caml_wrap_thrown_exception($Not_found);}
       if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-      $i__1 = $i__0 + 1 | 0;
+      $i__1 = (int) ($i__0 + 1);
       $i__0 = $i__1;
       continue;
     }
@@ -1939,7 +1939,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   
   $print_endline($q);
   
-  $print_int($one + $six | 0);
+  $print_int((int) ($one + $six));
   
   $print_newline(0);
   

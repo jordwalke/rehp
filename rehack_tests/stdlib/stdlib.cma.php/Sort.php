@@ -119,17 +119,18 @@ final class Sort {
           $lo__0 = $lo;
           $hi__0 = $hi;
           for (;;) {
-            $cH = 6 <= ($hi__0 - $lo__0 | 0) ? 1 : (0);
+            $cH = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
             if ($cH) {
-              $mid = $unsigned_right_shift_32($lo__0 + $hi__0 | 0, 1) | 0;
+              $mid = (int)
+              $unsigned_right_shift_32((int) ($lo__0 + $hi__0), 1);
               if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
               if ($caml_call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
                 $swap($arr, $mid, $hi__0);
                 if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
               }
               $pivot = $arr[$mid + 1];
-              $i = Vector{0, $lo__0 + 1 | 0};
-              $j = Vector{0, $hi__0 + -1 | 0};
+              $i = Vector{0, (int) ($lo__0 + 1)};
+              $j = Vector{0, (int) ($hi__0 + -1)};
               $cI = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
               $cJ = $cI || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
               if ($cJ) {
@@ -156,7 +157,7 @@ final class Sort {
                     continue;
                   }
                 }
-                if (($j[1] - $lo__0 | 0) <= ($hi__0 - $i[1] | 0)) {
+                if ((int) ($j[1] - $lo__0) <= (int) ($hi__0 - $i[1])) {
                   $qsort->contents($lo__0, $j[1]);
                   $lo__1 = $i[1];
                   $lo__0 = $lo__1;
@@ -177,20 +178,21 @@ final class Sort {
           }
           a_break:
         };
-      $qsort->contents(0, $arr->count() - 1 + -1 | 0);
-      $cF = $arr->count() - 1 + -1 | 0;
+      $qsort->contents(0, (int) ($arr->count() - 1 + -1));
+      $cF = (int) ($arr->count() - 1 + -1);
       $cE = 1;
       if (! ($cF < 1)) {
         $i = $cE;
         for (;;) {
           $val_i = $arr[$i + 1];
-          if (1 - $caml_call2($cmp, $arr[($i + -1 | 0) + 1], $val_i)) {
-            $arr[$i + 1] = $arr[($i + -1 | 0) + 1];
-            $j = Vector{0, $i + -1 | 0};
+          if (1 - $caml_call2($cmp, $arr[(int) ($i + -1) + 1], $val_i)) {
+            $arr[$i + 1] = $arr[(int) ($i + -1) + 1];
+            $j = Vector{0, (int) ($i + -1)};
             for (;;) {
               if (1 <= $j[1]) {
-                if (! $caml_call2($cmp, $arr[($j[1] + -1 | 0) + 1], $val_i)) {
-                  $arr[$j[1] + 1] = $arr[($j[1] + -1 | 0) + 1];
+                if (! $caml_call2($cmp, $arr[(int) ($j[1] + -1) + 1], $val_i)
+                ) {
+                  $arr[$j[1] + 1] = $arr[(int) ($j[1] + -1) + 1];
                   $j[1] += -1;
                   continue;
                 }
@@ -199,7 +201,7 @@ final class Sort {
               break;
             }
           }
-          $cG = $i + 1 | 0;
+          $cG = (int) ($i + 1);
           if ($cF !== $i) {$i = $cG;continue;}
           break;
         }

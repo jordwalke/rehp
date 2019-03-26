@@ -116,7 +116,7 @@ final class Pervasives {
     $max = function($x, $y) use ($runtime) {
       return $runtime["caml_greaterequal"]($x, $y) ? $x : ($y);
     };
-    $abs = function($x) {return 0 <= $x ? $x : (- $x | 0);};
+    $abs = function($x) {return 0 <= $x ? $x : ((int) - $x);};
     $lnot = function($x) {return $x ^ -1;};
     $infinity = $caml_int64_float_of_bits($a);
     $neg_infinity = $caml_int64_float_of_bits($b);
@@ -129,7 +129,7 @@ final class Pervasives {
     $g = function($s1, $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
       $l1 = $caml_ml_string_length($s1);
       $l2 = $caml_ml_string_length($s2);
-      $s = $caml_create_bytes($l1 + $l2 | 0);
+      $s = $caml_create_bytes((int) ($l1 + $l2));
       $caml_blit_string($s1, 0, $s, 0, $l1);
       $caml_blit_string($s2, 0, $s, $l1, $l2);
       return $s;
@@ -174,7 +174,7 @@ final class Pervasives {
           $switch__0 = 48 <= $match
             ? 58 <= $match ? 0 : (1)
             : (45 === $match ? 1 : (0));
-          if ($switch__0) {$i__1 = $i__0 + 1 | 0;$i__0 = $i__1;continue;}
+          if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
           return $s;
         }
       };
@@ -245,7 +245,7 @@ final class Pervasives {
     $output = function($oc, $s, $ofs, $len) use ($caml_ml_bytes_length,$caml_ml_output_bytes,$cst_output,$invalid_arg) {
       if (0 <= $ofs) {
         if (0 <= $len) {
-          if (! (($caml_ml_bytes_length($s) - $len | 0) < $ofs)) {return $caml_ml_output_bytes($oc, $s, $ofs, $len);}
+          if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {return $caml_ml_output_bytes($oc, $s, $ofs, $len);}
         }
       }
       return $invalid_arg($cst_output);
@@ -253,7 +253,7 @@ final class Pervasives {
     $output_substring = function($oc, $s, $ofs, $len) use ($caml_ml_output,$caml_ml_string_length,$cst_output_substring,$invalid_arg) {
       if (0 <= $ofs) {
         if (0 <= $len) {
-          if (! (($caml_ml_string_length($s) - $len | 0) < $ofs)) {return $caml_ml_output($oc, $s, $ofs, $len);}
+          if (! ((int) ($caml_ml_string_length($s) - $len) < $ofs)) {return $caml_ml_output($oc, $s, $ofs, $len);}
         }
       }
       return $invalid_arg($cst_output_substring);
@@ -284,7 +284,7 @@ final class Pervasives {
     $input = function($ic, $s, $ofs, $len) use ($caml_ml_bytes_length,$caml_ml_input,$cst_input,$invalid_arg) {
       if (0 <= $ofs) {
         if (0 <= $len) {
-          if (! (($caml_ml_bytes_length($s) - $len | 0) < $ofs)) {return $caml_ml_input($ic, $s, $ofs, $len);}
+          if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {return $caml_ml_input($ic, $s, $ofs, $len);}
         }
       }
       return $invalid_arg($cst_input);
@@ -298,8 +298,8 @@ final class Pervasives {
           if (0 === $r) {
             throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
           }
-          $len__1 = $len__0 - $r | 0;
-          $ofs__1 = $ofs__0 + $r | 0;
+          $len__1 = (int) ($len__0 - $r);
+          $ofs__1 = (int) ($ofs__0 + $r);
           $ofs__0 = $ofs__1;
           $len__0 = $len__1;
           continue;
@@ -310,7 +310,7 @@ final class Pervasives {
     $really_input = function($ic, $s, $ofs, $len) use ($caml_ml_bytes_length,$cst_really_input,$invalid_arg,$unsafe_really_input) {
       if (0 <= $ofs) {
         if (0 <= $len) {
-          if (! (($caml_ml_bytes_length($s) - $len | 0) < $ofs)) {return $unsafe_really_input($ic, $s, $ofs, $len);}
+          if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {return $unsafe_really_input($ic, $s, $ofs, $len);}
         }
       }
       return $invalid_arg($cst_really_input);
@@ -333,10 +333,11 @@ final class Pervasives {
               $hd,
               0,
               $buf,
-              $pos__0 - $len | 0,
+              (int)
+              ($pos__0 - $len),
               $len
             );
-            $pos__1 = $pos__0 - $len | 0;
+            $pos__1 = (int) ($pos__0 - $len);
             $pos__0 = $pos__1;
             $param__0 = $param__1;
             continue;
@@ -360,11 +361,11 @@ final class Pervasives {
             throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
           }
           if (0 < $n) {
-            $res = $caml_create_bytes($n + -1 | 0);
-            $caml_ml_input($chan, $res, 0, $n + -1 | 0);
+            $res = $caml_create_bytes((int) ($n + -1));
+            $caml_ml_input($chan, $res, 0, (int) ($n + -1));
             $caml_ml_input_char($chan);
             if ($accu__0) {
-              $len__1 = ($len__0 + $n | 0) + -1 | 0;
+              $len__1 = (int) ((int) ($len__0 + $n) + -1);
               return $build_result(
                 $caml_create_bytes($len__1),
                 $len__1,
@@ -373,9 +374,9 @@ final class Pervasives {
             }
             return $res;
           }
-          $beg = $caml_create_bytes(- $n | 0);
-          $caml_ml_input($chan, $beg, 0, - $n | 0);
-          $len__2 = $len__0 - $n | 0;
+          $beg = $caml_create_bytes((int) - $n);
+          $caml_ml_input($chan, $beg, 0, (int) - $n);
+          $len__2 = (int) ($len__0 - $n);
           $accu__1 = Vector{0, $beg, $accu__0};
           $accu__0 = $accu__1;
           $len__0 = $len__2;

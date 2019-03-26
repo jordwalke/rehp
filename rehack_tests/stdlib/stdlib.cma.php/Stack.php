@@ -49,7 +49,7 @@ final class Stack {
     $copy = function($s) {return Vector{0, $s[1], $s[2]};};
     $push = function($x, $s) {
       $s[1] = Vector{0, $x, $s[1]};
-      $s[2] = $s[2] + 1 | 0;
+      $s[2] = (int) ($s[2] + 1);
       return 0;
     };
     $pop = function($s) use ($Empty,$runtime) {
@@ -58,7 +58,7 @@ final class Stack {
         $tl = $gU[2];
         $hd = $gU[1];
         $s[1] = $tl;
-        $s[2] = $s[2] + -1 | 0;
+        $s[2] = (int) ($s[2] + -1);
         return $hd;
       }
       throw $runtime["caml_wrap_thrown_exception"]($Empty);

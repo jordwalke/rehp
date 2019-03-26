@@ -93,9 +93,9 @@ final class Char {
       }
       $s = $caml_create_bytes(4);
       $caml_bytes_unsafe_set($s, 0, 92);
-      $caml_bytes_unsafe_set($s, 1, 48 + ($c / 100 | 0) | 0);
-      $caml_bytes_unsafe_set($s, 2, 48 + (($c / 10 | 0) % 10 | 0) | 0);
-      $caml_bytes_unsafe_set($s, 3, 48 + ($c % 10 | 0) | 0);
+      $caml_bytes_unsafe_set($s, 1, (int) (48 + (int) ($c / 100)));
+      $caml_bytes_unsafe_set($s, 2, (int) (48 + (int) ((int) ($c / 10) % 10)));
+      $caml_bytes_unsafe_set($s, 3, (int) (48 + (int) ($c % 10)));
       return $s;
     };
     $lowercase = function($c) {
@@ -107,7 +107,7 @@ final class Char {
           if ($switch__2) {return $c;}
         }
       }
-      return $c + 32 | 0;
+      return (int) ($c + 32);
     };
     $uppercase = function($c) {
       $switch__0 = 97 <= $c ? 122 < $c ? 0 : (1) : (0);
@@ -118,17 +118,17 @@ final class Char {
           if ($switch__2) {return $c;}
         }
       }
-      return $c + -32 | 0;
+      return (int) ($c + -32);
     };
     $lowercase_ascii = function($c) {
-      if (65 <= $c) {if (! (90 < $c)) {return $c + 32 | 0;}}
+      if (65 <= $c) {if (! (90 < $c)) {return (int) ($c + 32);}}
       return $c;
     };
     $uppercase_ascii = function($c) {
-      if (97 <= $c) {if (! (122 < $c)) {return $c + -32 | 0;}}
+      if (97 <= $c) {if (! (122 < $c)) {return (int) ($c + -32);}}
       return $c;
     };
-    $compare = function($c1, $c2) {return $c1 - $c2 | 0;};
+    $compare = function($c1, $c2) {return (int) ($c1 - $c2);};
     $equal = function($c1, $c2) use ($compare) {
       return 0 === $compare($c1, $c2) ? 1 : (0);
     };

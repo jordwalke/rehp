@@ -88,7 +88,7 @@ final class Map {
       $create = function($l, $x, $d, $r) use ($height) {
         $hl = $height($l);
         $hr = $height($r);
-        $gS = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
+        $gS = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $x, $d, $r, $gS};
       };
       $singleton = function($x, $d) {return Vector{0, 0, $x, $d, 0, 1};};
@@ -103,7 +103,7 @@ final class Map {
           $hr = $h__0;
         }
         else {$hr = 0;}
-        if (($hr + 2 | 0) < $hl) {
+        if ((int) ($hr + 2) < $hl) {
           if ($l) {
             $lr = $l[4];
             $ld = $l[3];
@@ -125,7 +125,7 @@ final class Map {
           }
           return $caml_call1($Pervasives[1], $cst_Map_bal__0);
         }
-        if (($hl + 2 | 0) < $hr) {
+        if ((int) ($hl + 2) < $hr) {
           if ($r) {
             $rr = $r[4];
             $rd = $r[3];
@@ -147,7 +147,7 @@ final class Map {
           }
           return $caml_call1($Pervasives[1], $cst_Map_bal__2);
         }
-        $gR = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
+        $gR = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $x, $d, $r, $gR};
       };
       $empty = 0;
@@ -654,9 +654,9 @@ final class Map {
               $ld = $l[3];
               $lv = $l[2];
               $ll = $l[1];
-              return ($rh + 2 | 0) < $lh
+              return (int) ($rh + 2) < $lh
                 ? $bal($ll, $lv, $ld, $join->contents($lr, $v, $d, $r))
-                : (($lh + 2 | 0) < $rh
+                : ((int) ($lh + 2) < $rh
                  ? $bal($join->contents($l, $v, $d, $rl), $rv, $rd, $rr)
                  : ($create($l, $v, $d, $r)));
             }
@@ -946,7 +946,7 @@ final class Map {
             $r = $param[4];
             $l = $param[1];
             $gl = $cardinal->contents($r);
-            return ($cardinal->contents($l) + 1 | 0) + $gl | 0;
+            return (int) ((int) ($cardinal->contents($l) + 1) + $gl);
           }
           return 0;
         };

@@ -161,7 +161,7 @@ final class Stream {
                 if ($b[3] <= $b[4]) {$fill_buff($b);}
                 if (0 === $b[3]) {return 0;}
                 $r = $caml_bytes_unsafe_get($b[2], $b[4]);
-                $b[4] = $b[4] + 1 | 0;
+                $b[4] = (int) ($b[4] + 1);
                 return Vector{0, $r, $d__0};
               }
           }
@@ -230,19 +230,19 @@ final class Stream {
             // FALLTHROUGH
             case 0:
               $d = $ha[2];
-              $s[1] = $s[1] + 1 | 0;
+              $s[1] = (int) ($s[1] + 1);
               $s[2] = $d;
               return 0;
             // FALLTHROUGH
             case 3:
               $hb = $ha[1];
-              if ($hb[1]) {$s[1] = $s[1] + 1 | 0;$hb[1] = 0;return 0;}
+              if ($hb[1]) {$s[1] = (int) ($s[1] + 1);$hb[1] = 0;return 0;}
               break;
             // FALLTHROUGH
             case 4:
               $b = $ha[1];
-              $s[1] = $s[1] + 1 | 0;
-              $b[4] = $b[4] + 1 | 0;
+              $s[1] = (int) ($s[1] + 1);
+              $b[4] = (int) ($b[4] + 1);
               return 0;
             }
         }
@@ -262,11 +262,16 @@ final class Stream {
           if ($match) {
             $a = $match[1];
             $junk_data($s);
-            $match__0 = $nget_data->contents($n + -1 | 0, $s);
+            $match__0 = $nget_data->contents((int) ($n + -1), $s);
             $k = $match__0[3];
             $d = $match__0[2];
             $al = $match__0[1];
-            return Vector{0, Vector{0, $a, $al}, Vector{0, $a, $d}, $k + 1 | 0
+            return Vector{
+              0,
+              Vector{0, $a, $al},
+              Vector{0, $a, $d},
+              (int)
+              ($k + 1)
             };
           }
           return Vector{0, 0, $s[2], 0};
@@ -278,7 +283,7 @@ final class Stream {
       $len = $match[3];
       $d = $match[2];
       $al = $match[1];
-      $s[1] = $s[1] - $len | 0;
+      $s[1] = (int) ($s[1] - $len);
       $s[2] = $d;
       return $al;
     };

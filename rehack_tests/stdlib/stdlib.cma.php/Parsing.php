@@ -82,7 +82,7 @@ final class Parsing {
     };
     $grow_stacks = function($param) use ($Array,$Lexing,$caml_call5,$caml_make_vect,$env) {
       $oldsize = $env[5];
-      $newsize = $oldsize * 2 | 0;
+      $newsize = (int) ($oldsize * 2);
       $new_s = $caml_make_vect($newsize, 0);
       $new_v = $caml_make_vect($newsize, 0);
       $new_start = $caml_make_vect($newsize, $Lexing[1]);
@@ -180,7 +180,7 @@ final class Parsing {
       $init_curr_char = $env[7];
       $init_lval = $env[8];
       $init_errflag = $env[16];
-      $env[6] = $env[14] + 1 | 0;
+      $env[6] = (int) ($env[14] + 1);
       $env[7] = $start;
       $env[10] = $lexbuf[12];
       try {$fd = $loop(0, 0);return $fd;}
@@ -211,7 +211,7 @@ final class Parsing {
       }
     };
     $peek_val = function($env, $n) use ($caml_check_bound) {
-      $fc = $env[11] - $n | 0;
+      $fc = (int) ($env[11] - $n);
       return $caml_check_bound($env[2], $fc)[$fc + 1];
     };
     $symbol_start_pos = function($param) use ($caml_check_bound,$env,$runtime) {
@@ -219,12 +219,12 @@ final class Parsing {
         $i__0 = $i;
         for (;;) {
           if (0 < $i__0) {
-            $e_ = ($env[11] - $i__0 | 0) + 1 | 0;
+            $e_ = (int) ((int) ($env[11] - $i__0) + 1);
             $st = $caml_check_bound($env[3], $e_)[$e_ + 1];
-            $fa = ($env[11] - $i__0 | 0) + 1 | 0;
+            $fa = (int) ((int) ($env[11] - $i__0) + 1);
             $en = $caml_check_bound($env[4], $fa)[$fa + 1];
             if ($runtime["caml_notequal"]($st, $en)) {return $st;}
-            $i__1 = $i__0 + -1 | 0;
+            $i__1 = (int) ($i__0 + -1);
             $i__0 = $i__1;
             continue;
           }
@@ -239,11 +239,11 @@ final class Parsing {
       return $caml_check_bound($env[4], $e9)[$e9 + 1];
     };
     $rhs_start_pos = function($n) use ($caml_check_bound,$env) {
-      $e8 = $env[11] - ($env[12] - $n | 0) | 0;
+      $e8 = (int) ($env[11] - (int) ($env[12] - $n));
       return $caml_check_bound($env[3], $e8)[$e8 + 1];
     };
     $rhs_end_pos = function($n) use ($caml_check_bound,$env) {
-      $e7 = $env[11] - ($env[12] - $n | 0) | 0;
+      $e7 = (int) ($env[11] - (int) ($env[12] - $n));
       return $caml_check_bound($env[4], $e7)[$e7 + 1];
     };
     $symbol_start = function($param) use ($symbol_start_pos) {

@@ -39,14 +39,14 @@ final class Nativeint {
     $zero = 0;
     $one = 1;
     $minus_one = -1;
-    $succ = function($n) {return $n + 1 | 0;};
-    $pred = function($n) {return $n - 1 | 0;};
+    $succ = function($n) {return (int) ($n + 1);};
+    $pred = function($n) {return (int) ($n - 1);};
     $abs = function($n) use ($runtime) {
-      return $runtime["caml_greaterequal"]($n, 0) ? $n : (- $n | 0);
+      return $runtime["caml_greaterequal"]($n, 0) ? $n : ((int) - $n);
     };
     $size = $Sys[10];
-    $min_int = $left_shift_32(1, $size + -1 | 0);
-    $max_int = $min_int - 1 | 0;
+    $min_int = $left_shift_32(1, (int) ($size + -1));
+    $max_int = (int) ($min_int - 1);
     $lognot = function($n) {return $n ^ -1;};
     $to_string = function($n) use ($cst_d,$runtime) {
       return $runtime["caml_format_int"]($cst_d, $n);

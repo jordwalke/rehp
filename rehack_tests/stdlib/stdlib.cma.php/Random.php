@@ -152,29 +152,30 @@ final class Random {
         $qa = $left_shift_32($caml_string_get($d, 3), 24);
         $qb = $left_shift_32($caml_string_get($d, 2), 16);
         $qc = $left_shift_32($caml_string_get($d, 1), 8);
-        return (($caml_string_get($d, 0) + $qc | 0) + $qb | 0) + $qa | 0;
+        return (int)
+        ((int) ((int) ($caml_string_get($d, 0) + $qc) + $qb) + $qa);
       };
       $seed__0 = 0 === $seed->count() - 1 ? Vector{0, 0} : ($seed);
       $l = $seed__0->count() - 1;
       $i__0 = 0;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;
-        $p_ = $i__0 + 1 | 0;
+        $p_ = (int) ($i__0 + 1);
         if (54 !== $i__0) {$i__0 = $p_;continue;}
         $accu = Vector{0, $cst_x};
-        $p5 = 54 + $caml_call2($Pervasives[5], 55, $l) | 0;
+        $p5 = (int) (54 + $caml_call2($Pervasives[5], 55, $l));
         $p4 = 0;
         if (! ($p5 < 0)) {
           $i = $p4;
           for (;;) {
-            $j = $i % 55 | 0;
+            $j = (int) ($i % 55);
             $k = $caml_mod($i, $l);
             $p6 = $caml_check_bound($seed__0, $k)[$k + 1];
             $accu[1] = $combine($accu[1], $p6);
             $p7 = $extract($accu[1]);
             $p8 = ($caml_check_bound($s[1], $j)[$j + 1] ^ $p7) & 1073741823;
             $caml_check_bound($s[1], $j)[$j + 1] = $p8;
-            $p9 = $i + 1 | 0;
+            $p9 = (int) ($i + 1);
             if ($p5 !== $i) {$i = $p9;continue;}
             break;
           }
@@ -197,12 +198,13 @@ final class Random {
       return $result;
     };
     $bits = function($s) use ($caml_check_bound,$unsigned_right_shift_32) {
-      $s[2] = ($s[2] + 1 | 0) % 55 | 0;
+      $s[2] = (int) ((int) ($s[2] + 1) % 55);
       $p1 = $s[2];
       $curval = $caml_check_bound($s[1], $p1)[$p1 + 1];
-      $p2 = ($s[2] + 24 | 0) % 55 | 0;
-      $newval = $caml_check_bound($s[1], $p2)[$p2 + 1] +
-        ($curval ^ ($unsigned_right_shift_32($curval, 25) | 0) & 31) | 0;
+      $p2 = (int) ((int) ($s[2] + 24) % 55);
+      $newval = (int)
+      ($caml_check_bound($s[1], $p2)[$p2 + 1] +
+         ($curval ^ (int) $unsigned_right_shift_32($curval, 25) & 31));
       $newval30 = $newval & 1073741823;
       $p3 = $s[2];
       $caml_check_bound($s[1], $p3)[$p3 + 1] = $newval30;
@@ -212,7 +214,7 @@ final class Random {
       for (;;) {
         $r = $bits($s);
         $v = $caml_mod($r, $n);
-        if (((1073741823 - $n | 0) + 1 | 0) < ($r - $v | 0)) {continue;}
+        if ((int) ((int) (1073741823 - $n) + 1) < (int) ($r - $v)) {continue;}
         return $v;
       }
     };
@@ -228,7 +230,14 @@ final class Random {
         $b2 = $left_shift_32($bits($s) & 1, 30);
         $r = $b1 | $b2;
         $v = $caml_mod($r, $n);
-        if ($caml_greaterthan($r - $v | 0, ($Int32[7] - $n | 0) + 1 | 0)) {continue;}
+        if (
+          $caml_greaterthan(
+            (int)
+            ($r - $v),
+            (int)
+            ((int) ($Int32[7] - $n) + 1)
+          )
+        ) {continue;}
         return $v;
       }
     };

@@ -81,14 +81,14 @@ final class Uchar {
         ? $hi_bound
         : ($u === 1114111
          ? $caml_call1($Pervasives[1], $err_no_succ)
-         : ($u + 1 | 0));
+         : ((int) ($u + 1)));
     };
     $pred = function($u) use ($Pervasives,$caml_call1,$err_no_pred,$lo_bound) {
       return $u === 57344
         ? $lo_bound
         : ($u === 0
          ? $caml_call1($Pervasives[1], $err_no_pred)
-         : ($u + -1 | 0));
+         : ((int) ($u + -1)));
     };
     $is_valid = function($i) {
       $bf = 0 <= $i ? 1 : (0);

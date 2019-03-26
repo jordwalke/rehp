@@ -2354,7 +2354,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $a = function($s1, $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
     $l1 = $caml_ml_string_length($s1);
     $l2 = $caml_ml_string_length($s2);
-    $s = $caml_create_bytes($l1 + $l2 | 0);
+    $s = $caml_create_bytes((int) ($l1 + $l2));
     $caml_blit_string($s1, 0, $s, 0, $l1);
     $caml_blit_string($s2, 0, $s, $l1, $l2);
     return $s;
@@ -2372,7 +2372,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $switch__0 = 48 <= $match
           ? 58 <= $match ? 0 : (1)
           : (45 === $match ? 1 : (0));
-        if ($switch__0) {$i__1 = $i__0 + 1 | 0;$i__0 = $i__1;continue;}
+        if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
         return $s;
       }
     };
@@ -2467,7 +2467,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $l = $param[2];
         $a = $param[1];
         $r = $caml_call2($f, $i, $a);
-        return Vector{0, $r, $d->contents($i + 1 | 0, $f, $l)};
+        return Vector{0, $r, $d->contents((int) ($i + 1), $f, $l)};
       }
       return 0;
     };
@@ -2508,14 +2508,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   };
   $escaped = function($s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
     $n = Vector{0, 0};
-    $ep = $caml_ml_bytes_length($s) + -1 | 0;
+    $ep = (int) ($caml_ml_bytes_length($s) + -1);
     $eo = 0;
     if (! ($ep < 0)) {
       $i__0 = $eo;
       for (;;) {
         $match = $caml_bytes_unsafe_get($s, $i__0);
         if (32 <= $match) {
-          $et = $match + -34 | 0;
+          $et = (int) ($match + -34);
           if (58 < $unsigned_right_shift_32($et, 0)) {
             if (93 <= $et) {
               $switch__0 = 0;
@@ -2524,7 +2524,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             else {$switch__1 = 1;}
           }
           else {
-            if (56 < $unsigned_right_shift_32($et + -1 | 0, 0)) {$switch__0 = 1;$switch__1 = 0;}
+            if (56 < $unsigned_right_shift_32((int) ($et + -1), 0)) {$switch__0 = 1;$switch__1 = 0;}
             else {$switch__1 = 1;}
           }
           if ($switch__1) {$eu = 1;$switch__0 = 2;}
@@ -2544,8 +2544,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $eu = 2;
             break;
           }
-        $n[1] = $n[1] + $eu | 0;
-        $ev = $i__0 + 1 | 0;
+        $n[1] = (int) ($n[1] + $eu);
+        $ev = (int) ($i__0 + 1);
         if ($ep !== $i__0) {$i__0 = $ev;continue;}
         break;
       }
@@ -2553,7 +2553,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     if ($n[1] === $caml_ml_bytes_length($s)) {return $copy($s);}
     $s__0 = $caml_create_bytes($n[1]);
     $n[1] = 0;
-    $er = $caml_ml_bytes_length($s) + -1 | 0;
+    $er = (int) ($caml_ml_bytes_length($s) + -1);
     $eq = 0;
     if (! ($er < 0)) {
       $i = $eq;
@@ -2612,15 +2612,17 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           case 0:
             $caml_bytes_unsafe_set($s__0, $n[1], 92);
             $n[1] += 1;
-            $caml_bytes_unsafe_set($s__0, $n[1], 48 + ($c / 100 | 0) | 0);
+            $caml_bytes_unsafe_set($s__0, $n[1], (int) (48 + (int) ($c / 100))
+            );
             $n[1] += 1;
             $caml_bytes_unsafe_set(
               $s__0,
               $n[1],
-              48 + (($c / 10 | 0) % 10 | 0) | 0
+              (int)
+              (48 + (int) ((int) ($c / 10) % 10))
             );
             $n[1] += 1;
-            $caml_bytes_unsafe_set($s__0, $n[1], 48 + ($c % 10 | 0) | 0);
+            $caml_bytes_unsafe_set($s__0, $n[1], (int) (48 + (int) ($c % 10)));
             break;
           // FALLTHROUGH
           case 1:
@@ -2634,7 +2636,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             break;
           }
         $n[1] += 1;
-        $es = $i + 1 | 0;
+        $es = (int) ($i + 1);
         if ($er !== $i) {$i = $es;continue;}
         break;
       }
@@ -2655,14 +2657,15 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $el = $param__0[1];
         if ($ek) {
           $acc__1 = $ensure_ge(
-            ($caml_ml_string_length($el) + $seplen | 0) + $acc__0 | 0,
+            (int)
+            ((int) ($caml_ml_string_length($el) + $seplen) + $acc__0),
             $acc__0
           );
           $acc__0 = $acc__1;
           $param__0 = $ek;
           continue;
         }
-        return $caml_ml_string_length($el) + $acc__0 | 0;
+        return (int) ($caml_ml_string_length($el) + $acc__0);
       }
       return $acc__0;
     }
@@ -2681,10 +2684,12 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $sep,
             0,
             $dst,
-            $pos__0 + $caml_ml_string_length($ej) | 0,
+            (int)
+            ($pos__0 + $caml_ml_string_length($ej)),
             $seplen
           );
-          $pos__1 = ($pos__0 + $caml_ml_string_length($ej) | 0) + $seplen | 0;
+          $pos__1 = (int)
+          ((int) ($pos__0 + $caml_ml_string_length($ej)) + $seplen);
           $pos__0 = $pos__1;
           $param__0 = $ei;
           continue;
@@ -2717,7 +2722,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         if ($caml_ml_string_length($s) <= $i__0) {return 0;}
         $match = $caml_bytes_unsafe_get($s, $i__0);
         if (32 <= $match) {
-          $eh = $match + -34 | 0;
+          $eh = (int) ($match + -34);
           if (58 < $unsigned_right_shift_32($eh, 0)) {
             if (93 <= $eh) {
               $switch__0 = 0;
@@ -2726,10 +2731,10 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             else {$switch__1 = 1;}
           }
           else {
-            if (56 < $unsigned_right_shift_32($eh + -1 | 0, 0)) {$switch__0 = 1;$switch__1 = 0;}
+            if (56 < $unsigned_right_shift_32((int) ($eh + -1), 0)) {$switch__0 = 1;$switch__1 = 0;}
             else {$switch__1 = 1;}
           }
-          if ($switch__1) {$i__1 = $i__0 + 1 | 0;$i__0 = $i__1;continue;}
+          if ($switch__1) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
         }
         else {
           $switch__0 = 11 <= $match
@@ -2746,7 +2751,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     for (;;) {
       if ($lim <= $i__0) {throw $caml_wrap_thrown_exception($Not_found);}
       if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-      $i__1 = $i__0 + 1 | 0;
+      $i__1 = (int) ($i__0 + 1);
       $i__0 = $i__1;
       continue;
     }
@@ -2774,12 +2779,13 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $caml_fresh_oo_id(0);
   
   $bits = function($s) use ($caml_check_bound,$unsigned_right_shift_32) {
-    $s[2] = ($s[2] + 1 | 0) % 55 | 0;
+    $s[2] = (int) ((int) ($s[2] + 1) % 55);
     $ec = $s[2];
     $curval = $caml_check_bound($s[1], $ec)[$ec + 1];
-    $ed = ($s[2] + 24 | 0) % 55 | 0;
-    $newval = $caml_check_bound($s[1], $ed)[$ed + 1] +
-      ($curval ^ ($unsigned_right_shift_32($curval, 25) | 0) & 31) | 0;
+    $ed = (int) ((int) ($s[2] + 24) % 55);
+    $newval = (int)
+    ($caml_check_bound($s[1], $ed)[$ed + 1] +
+       ($curval ^ (int) $unsigned_right_shift_32($curval, 25) & 31));
     $newval30 = $newval & 1073741823;
     $ee = $s[2];
     $caml_check_bound($s[1], $ee)[$ee + 1] = $newval30;
@@ -2789,7 +2795,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     for (;;) {
       $r = $bits($s);
       $v = $caml_mod($r, $n);
-      if (((1073741823 - $n | 0) + 1 | 0) < ($r - $v | 0)) {continue;}
+      if ((int) ((int) (1073741823 - $n) + 1) < (int) ($r - $v)) {continue;}
       return $v;
     }
   };
@@ -2818,7 +2824,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           $ea = 2 === $size ? 1 : (0);
           if ($ea) {
             $o__1 = $o__0[2];
-            $maxLength__1 = $maxLength__0 + -1 | 0;
+            $maxLength__1 = (int) ($maxLength__0 + -1);
             $maxLength__0 = $maxLength__1;
             $o__0 = $o__1;
             continue;
@@ -2835,7 +2841,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     function($maxNum, $o) use ($extractList,$is_int,$k) {
       if (0 === $maxNum) {return Vector{0, 1 - $is_int($o), 0};}
       if ($is_int($o)) {return $k;}
-      $match = $extractList->contents($maxNum + -1 | 0, $o[2]);
+      $match = $extractList->contents((int) ($maxNum + -1), $o[2]);
       $rest = $match[2];
       $restWasTruncated = $match[1];
       return Vector{0, $restWasTruncated, Vector{0, $o[1], $rest}};
@@ -2850,13 +2856,13 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           return Vector{0, 0 < $numFields__0 ? 1 : (0), $fieldsSoFar__0};
         }
         if (0 === $numFields__0) {return Vector{0, 0, $fieldsSoFar__0};}
-        $numFields__1 = $numFields__0 + -1 | 0;
+        $numFields__1 = (int) ($numFields__0 + -1);
         $fieldsSoFar__1 = Vector{
           0,
-          $o[($numFields__0 + -1 | 0) + 1],
+          $o[(int) ($numFields__0 + -1) + 1],
           $fieldsSoFar__0
         };
-        $maxNum__1 = $maxNum__0 + -1 | 0;
+        $maxNum__1 = (int) ($maxNum__0 + -1);
         $maxNum__0 = $maxNum__1;
         $fieldsSoFar__0 = $fieldsSoFar__1;
         $numFields__0 = $numFields__1;
@@ -2874,8 +2880,8 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $curDidBreak__0 = $curDidBreak || $containsNewline;
         return Vector{
           0,
-          ($curTotalLen + $caml_ml_string_length($itm) | 0) + 2 |
-            0,
+          (int)
+          ((int) ($curTotalLen + $caml_ml_string_length($itm)) + 2),
           $curDidBreak__0
         };
       },
@@ -2889,7 +2895,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $_ = $indentForDepth->contents =
     function($n__0) use ($a,$indentForDepth,$m,$n,$o,$p,$q,$r,$s,$t,$u,$unsigned_right_shift_32,$v) {
       if (8 < $unsigned_right_shift_32($n__0, 0)) {
-        return $a($indentForDepth->contents($n__0 + -1 | 0), $m);
+        return $a($indentForDepth->contents((int) ($n__0 + -1)), $m);
       }
       switch($n__0) {
         // FALLTHROUGH
@@ -2927,7 +2933,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $match = $extractFields($j, $o);
     $lst = $match[2];
     $wasTruncated = $match[1];
-    $dNext = 1 + $depth | 0;
+    $dNext = (int) (1 + $depth);
     $indent = $indentForDepth->contents($depth);
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
@@ -2941,7 +2947,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $allItemsLen = $match__0[1];
     if (
       !
-      (70 <= (($caml_ml_string_length($indent) + 2 | 0) + $allItemsLen | 0))
+      (70 <=
+         (int)
+         ((int) ($caml_ml_string_length($indent) + 2) + $allItemsLen))
     ) {
       if (! $someChildBroke) {
         $truncationMsg__0 = 0 === $wasTruncated
@@ -2964,7 +2972,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $match = $extractList->contents($j, $o);
     $lst = $match[2];
     $wasTruncated = $match[1];
-    $dNext = 1 + $depth | 0;
+    $dNext = (int) (1 + $depth);
     $indent = $indentForDepth->contents($depth);
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
@@ -2978,7 +2986,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $allItemsLen = $match__0[1];
     if (
       !
-      (70 <= (($caml_ml_string_length($indent) + 2 | 0) + $allItemsLen | 0))
+      (70 <=
+         (int)
+         ((int) ($caml_ml_string_length($indent) + 2) + $allItemsLen))
     ) {
       if (! $someChildBroke) {
         $truncationMsg__0 = 0 === $wasTruncated
@@ -3044,7 +3054,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     return $printTreeShape($T, $self, $depth, $o);
   };
   $U = function($self, $f) use ($V,$W,$a,$string_of_int) {
-    return $a($W, $a($string_of_int($f | 0), $V));
+    return $a($W, $a($string_of_int((int) $f), $V));
   };
   $X = function($self, $opt, $o) use ($Y,$printTreeShape) {
     if ($opt) {
@@ -3140,7 +3150,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
               $caml_call4($f, $iSoFar__0, $hda, $hdb, $hdc),
               $revSoFar__0
             };
-            $iSoFar__1 = $iSoFar__0 + 1 | 0;
+            $iSoFar__1 = (int) ($iSoFar__0 + 1);
             $iSoFar__0 = $iSoFar__1;
             $revSoFar__0 = $revSoFar__1;
             $listA__0 = $listA__1;
@@ -3168,7 +3178,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $match = $revCount__0 === $splitAt ? 1 : (0);
         if (0 === $match) {
           $revSoFar__1 = Vector{0, $hd, $revSoFar__0};
-          $revCount__1 = $revCount__0 + 1 | 0;
+          $revCount__1 = (int) ($revCount__0 + 1);
           $revCount__0 = $revCount__1;
           $revSoFar__0 = $revSoFar__1;
           $lst__0 = $tl;
@@ -3487,7 +3497,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $subscribers = Vector{0, 0};
   $request = function($cb) use ($counter,$subscribers) {
     $subscribers[1] = Vector{0, $cb, $subscribers[1]};
-    $counter[1] = $counter[1] + 1 | 0;
+    $counter[1] = (int) ($counter[1] + 1);
     return $counter[1];
   };
   $tick = function($param) use ($caml_call1,$iter,$subscribers) {
@@ -3704,7 +3714,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $match = $curSize !== $size ? 1 : (0);
     $nextChangeCount = 0 === $match
       ? $curChangeCount
-      : ($curChangeCount + 1 | 0);
+      : ((int) ($curChangeCount + 1));
     $dk = function($param, $dv) use ($state) {return $state;};
     $dl = 0;
     $dm = Vector{0, $a($a7, $string_of_int($nextChangeCount))};
@@ -3964,7 +3974,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           }
         )
       );
-      $b3 = $j__0 + 1 | 0;
+      $b3 = (int) ($j__0 + 1);
       if (10 !== $j__0) {$j__0 = $b3;continue;}
       $printSection($bu);
       $counterRoot = $create(0);
@@ -4099,10 +4109,12 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         )
       );
       $printRoot($bY, $anotherPolyRoot);
-      $bZ = $i__0 + 1 | 0;
+      $bZ = (int) ($i__0 + 1);
       if (0 !== $i__0) {$i__0 = $bZ;goto a_continue;}
       $endSeconds = $caml_sys_time(0);
-      $log($a($bq, $string_of_int(($endSeconds - $startSeconds) * 1000 | 0)));
+      $log(
+        $a($bq, $string_of_int((int) (($endSeconds - $startSeconds) * 1000)))
+      );
       $f__0 = $caml_alloc_dummy_function(1, 2);
       $z__0 = varray[];
       $caml_update_dummy($f__0, function($x, $y) {return 1;});

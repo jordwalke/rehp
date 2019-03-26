@@ -88,7 +88,7 @@ final class List_ {
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
-          $len__1 = $len__0 + 1 | 0;
+          $len__1 = (int) ($len__0 + 1);
           $len__0 = $len__1;
           $param__0 = $param__1;
           continue;
@@ -116,7 +116,7 @@ final class List_ {
               $l__1 = $l__0[2];
               $a = $l__0[1];
               if (0 === $n__0) {return $a;}
-              $n__1 = $n__0 + -1 | 0;
+              $n__1 = (int) ($n__0 + -1);
               $l__0 = $l__1;
               $n__0 = $n__1;
               continue;
@@ -138,7 +138,7 @@ final class List_ {
               $l__1 = $l__0[2];
               $a = $l__0[1];
               if (0 === $n__0) {return Vector{0, $a};}
-              $n__1 = $n__0 + -1 | 0;
+              $n__1 = (int) ($n__0 + -1);
               $l__0 = $l__1;
               $n__0 = $n__1;
               continue;
@@ -172,7 +172,7 @@ final class List_ {
       $i__0 = $i;
       for (;;) {
         if ($n <= $i__0) {return $acc__0;}
-        $i__1 = $i__0 + 1 | 0;
+        $i__1 = (int) ($i__0 + 1);
         $acc__1 = Vector{0, $caml_call1($f, $i__0), $acc__0};
         $acc__0 = $acc__1;
         $i__0 = $i__1;
@@ -183,7 +183,7 @@ final class List_ {
       function($i, $n, $f) use ($caml_call1,$init_aux) {
         if ($n <= $i) {return 0;}
         $r = $caml_call1($f, $i);
-        return Vector{0, $r, $init_aux->contents($i + 1 | 0, $n, $f)};
+        return Vector{0, $r, $init_aux->contents((int) ($i + 1), $n, $f)};
       };
     $init = function($len, $f) use ($Pervasives,$caml_call1,$cst_List_init,$init_aux,$init_tailrec_aux,$rev) {
       return 0 <= $len
@@ -218,7 +218,7 @@ final class List_ {
           $l = $param[2];
           $a = $param[1];
           $r = $caml_call2($f, $i, $a);
-          return Vector{0, $r, $aD->contents($i + 1 | 0, $f, $l)};
+          return Vector{0, $r, $aD->contents((int) ($i + 1), $f, $l)};
         }
         return 0;
       };
@@ -262,7 +262,7 @@ final class List_ {
           $param__1 = $param__0[2];
           $a = $param__0[1];
           $caml_call2($f, $i__0, $a);
-          $i__1 = $i__0 + 1 | 0;
+          $i__1 = (int) ($i__0 + 1);
           $i__0 = $i__1;
           $param__0 = $param__1;
           continue;
@@ -735,7 +735,7 @@ final class List_ {
         if (0 === $k__0) {return $l__0;}
         if ($l__0) {
           $l__1 = $l__0[2];
-          $k__1 = $k__0 + -1 | 0;
+          $k__1 = (int) ($k__0 + -1);
           $k__0 = $k__1;
           $l__0 = $l__1;
           continue;
@@ -839,7 +839,7 @@ final class List_ {
           }
         }
         $n1 = $right_shift_32($n, 1);
-        $n2 = $n - $n1 | 0;
+        $n2 = (int) ($n - $n1);
         $l2 = $chop($n1, $l);
         $s1 = $rev_sort->contents($n1, $l);
         $s2 = $rev_sort->contents($n2, $l2);
@@ -886,7 +886,7 @@ final class List_ {
             }
           }
           $n1 = $right_shift_32($n, 1);
-          $n2 = $n - $n1 | 0;
+          $n2 = (int) ($n - $n1);
           $l2 = $chop($n1, $l);
           $s1 = $sort($n1, $l);
           $s2 = $sort($n2, $l2);
@@ -1044,7 +1044,7 @@ final class List_ {
           }
         }
         $n1 = $right_shift_32($n, 1);
-        $n2 = $n - $n1 | 0;
+        $n2 = (int) ($n - $n1);
         $l2 = $chop($n1, $l);
         $s1 = $rev_sort->contents($n1, $l);
         $s2 = $rev_sort->contents($n2, $l2);
@@ -1128,7 +1128,7 @@ final class List_ {
             }
           }
           $n1 = $right_shift_32($n, 1);
-          $n2 = $n - $n1 | 0;
+          $n2 = (int) ($n - $n1);
           $l2 = $chop($n1, $l);
           $s1 = $sort($n1, $l);
           $s2 = $sort($n2, $l2);
@@ -1161,7 +1161,7 @@ final class List_ {
         if ($l__0) {
           $l__1 = $l__0[2];
           if (0 < $n__0) {
-            $n__1 = $n__0 + -1 | 0;
+            $n__1 = (int) ($n__0 + -1);
             $l__0 = $l__1;
             $n__0 = $n__1;
             continue;

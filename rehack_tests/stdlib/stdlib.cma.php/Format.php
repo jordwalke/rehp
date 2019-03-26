@@ -112,7 +112,7 @@ final class Format {
     };
     $pp_enqueue = function($state, $token) use ($add_queue) {
       $len = $token[3];
-      $state[13] = $state[13] + $len | 0;
+      $state[13] = (int) ($state[13] + $len);
       return $add_queue($token, $state[28]);
     };
     $pp_clear_queue = function($state) use ($clear_queue) {
@@ -136,17 +136,17 @@ final class Format {
     $break_new_line = function($state, $offset, $width) use ($Pervasives,$caml_call2,$pp_output_indent,$pp_output_newline) {
       $pp_output_newline($state);
       $state[11] = 1;
-      $indent = ($state[6] - $width | 0) + $offset | 0;
+      $indent = (int) ((int) ($state[6] - $width) + $offset);
       $real_indent = $caml_call2($Pervasives[4], $state[8], $indent);
       $state[10] = $real_indent;
-      $state[9] = $state[6] - $state[10] | 0;
+      $state[9] = (int) ($state[6] - $state[10]);
       return $pp_output_indent($state, $state[10]);
     };
     $break_line = function($state, $width) use ($break_new_line) {
       return $break_new_line($state, 0, $width);
     };
     $break_same_line = function($state, $width) use ($pp_output_spaces) {
-      $state[9] = $state[9] - $width | 0;
+      $state[9] = (int) ($state[9] - $width);
       return $pp_output_spaces($state, $width);
     };
     $pp_force_break_line = function($state) use ($break_line,$pp_output_newline) {
@@ -171,8 +171,8 @@ final class Format {
       $match = $take_queue($state[28]);
       $size = $match[1];
       $len = $match[3];
-      $state[12] = $state[12] - $len | 0;
-      $state[9] = $state[9] + $size | 0;
+      $state[12] = (int) ($state[12] - $len);
+      $state[9] = (int) ($state[9] + $size);
       return 0;
     };
     $format_pp_token = function($state, $size, $param) use ($Not_found,$add_tab,$break_line,$break_new_line,$break_same_line,$caml_call1,$caml_wrap_exception,$is_int,$pp_force_break_line,$pp_output_newline,$pp_output_string,$pp_skip_token,$runtime) {
@@ -196,7 +196,7 @@ final class Format {
                   return Vector{0, $n, 0};
                 };
               $tabs[1] =
-                $add_tab->contents($state[6] - $state[9] | 0, $tabs[1]);
+                $add_tab->contents((int) ($state[6] - $state[9]), $tabs[1]);
               return 0;
             }
             return 0;
@@ -221,7 +221,7 @@ final class Format {
             return $pp_output_newline($state);
           // FALLTHROUGH
           case 4:
-            $vG = $state[10] !== ($state[6] - $state[9] | 0) ? 1 : (0);
+            $vG = $state[10] !== (int) ($state[6] - $state[9]) ? 1 : (0);
             return $vG ? $pp_skip_token($state) : ($vG);
           // FALLTHROUGH
           default:
@@ -242,7 +242,7 @@ final class Format {
           // FALLTHROUGH
           case 0:
             $s = $param[1];
-            $state[9] = $state[9] - $size | 0;
+            $state[9] = (int) ($state[9] - $size);
             $pp_output_string($state, $s);
             $state[11] = 0;
             return 0;
@@ -276,7 +276,8 @@ final class Format {
                     ? $break_same_line($state, $n)
                     : ($state[9] < $size
                      ? $break_new_line($state, $off, $width__0)
-                     : ((($state[6] - $width__0 | 0) + $off | 0) < $state[10]
+                     : ((int)
+                     ((int) ($state[6] - $width__0) + $off) < $state[10]
                       ? $break_new_line($state, $off, $width__0)
                       : ($break_same_line($state, $n))));
                 // FALLTHROUGH
@@ -289,7 +290,7 @@ final class Format {
           case 2:
             $off__0 = $param[2];
             $n__0 = $param[1];
-            $insertion_point = $state[6] - $state[9] | 0;
+            $insertion_point = (int) ($state[6] - $state[9]);
             $vJ = $state[3];
             if ($vJ) {
               $match__2 = $vJ[1];
@@ -321,19 +322,19 @@ final class Format {
                 $tab = $x__0;
               }
               else {$tab = $insertion_point;}
-              $offset = $tab - $insertion_point | 0;
+              $offset = (int) ($tab - $insertion_point);
               return 0 <= $offset
-                ? $break_same_line($state, $offset + $n__0 | 0)
-                : ($break_new_line($state, $tab + $off__0 | 0, $state[6]));
+                ? $break_same_line($state, (int) ($offset + $n__0))
+                : ($break_new_line($state, (int) ($tab + $off__0), $state[6]));
             }
             return 0;
           // FALLTHROUGH
           case 3:
             $ty__0 = $param[2];
             $off__1 = $param[1];
-            $insertion_point__0 = $state[6] - $state[9] | 0;
+            $insertion_point__0 = (int) ($state[6] - $state[9]);
             if ($state[8] < $insertion_point__0) {$pp_force_break_line($state);}
-            $offset__0 = $state[9] - $off__1 | 0;
+            $offset__0 = (int) ($state[9] - $off__1);
             $bl_type = 1 === $ty__0 ? 1 : ($state[9] < $size ? $ty__0 : (5));
             $state[2] = Vector{0, Vector{0, $bl_type, $offset__0}, $state[2]};
             return 0;
@@ -360,14 +361,14 @@ final class Format {
         $tok = $match[2];
         $vz = $size < 0 ? 1 : (0);
         $vA = $vz
-          ? ($state[13] - $state[12] | 0) < $state[9] ? 1 : (0)
+          ? (int) ($state[13] - $state[12]) < $state[9] ? 1 : (0)
           : ($vz);
         $vB = 1 - $vA;
         if ($vB) {
           $take_queue($state[28]);
           $size__0 = 0 <= $size ? $size : ($pp_infinity);
           $format_pp_token($state, $size__0, $tok);
-          $state[12] = $len + $state[12] | 0;
+          $state[12] = (int) ($len + $state[12]);
           continue;
         }
         return $vB;
@@ -420,7 +421,7 @@ final class Format {
             case 3:
               $vv = 1 - $ty;
               $vw = $vv
-                ? ($queue_elem[1] = $state[13] + $size | 0) || true
+                ? ($queue_elem[1] = (int) ($state[13] + $size)) || true
                  ? ($state[1] = $t) || true ? 0 : (0)
                  : (($state[1] = $t) || true ? 0 : (0))
                 : ($vv);
@@ -430,7 +431,7 @@ final class Format {
             // FALLTHROUGH
             case 2:
               $vu = $ty
-                ? ($queue_elem[1] = $state[13] + $size | 0) || true
+                ? ($queue_elem[1] = (int) ($state[13] + $size)) || true
                  ? ($state[1] = $t) || true ? 0 : (0)
                  : (($state[1] = $t) || true ? 0 : (0))
                 : ($ty);
@@ -448,11 +449,12 @@ final class Format {
       return 0;
     };
     $pp_open_box_gen = function($state, $indent, $br_ty) use ($enqueue_string,$make_queue_elem,$scan_push) {
-      $state[14] = $state[14] + 1 | 0;
+      $state[14] = (int) ($state[14] + 1);
       if ($state[14] < $state[15]) {
         $elem = $make_queue_elem(
+          (int)
           -
-          $state[13] | 0,
+          $state[13],
           Vector{3, $indent, $br_ty},
           0
         );
@@ -472,7 +474,7 @@ final class Format {
           $set_size($state, 1);
           $set_size($state, 0);
         }
-        $state[14] = $state[14] + -1 | 0;
+        $state[14] = (int) ($state[14] + -1);
         $vr = 0;
       }
       else {$vr = $vq;}
@@ -613,8 +615,9 @@ final class Format {
       $vg = $state[14] < $state[15] ? 1 : (0);
       if ($vg) {
         $elem = $make_queue_elem(
+          (int)
           -
-          $state[13] | 0,
+          $state[13],
           Vector{1, $width, $offset},
           $width
         );
@@ -629,7 +632,7 @@ final class Format {
       return $pp_print_break($state, 0, 0);
     };
     $pp_open_tbox = function($state, $param) use ($enqueue_advance,$make_queue_elem) {
-      $state[14] = $state[14] + 1 | 0;
+      $state[14] = (int) ($state[14] + 1);
       $vf = $state[14] < $state[15] ? 1 : (0);
       if ($vf) {
         $elem = $make_queue_elem(0, Vector{4, Vector{0, Vector{0, 0}}}, 0);
@@ -644,7 +647,7 @@ final class Format {
         if ($vd) {
           $elem = $make_queue_elem(0, 2, 0);
           $enqueue_advance($state, $elem);
-          $state[14] = $state[14] + -1 | 0;
+          $state[14] = (int) ($state[14] + -1);
           $ve = 0;
         }
         else {$ve = $vd;}
@@ -656,8 +659,9 @@ final class Format {
       $vb = $state[14] < $state[15] ? 1 : (0);
       if ($vb) {
         $elem = $make_queue_elem(
+          (int)
           -
-          $state[13] | 0,
+          $state[13],
           Vector{2, $width, $offset},
           $width
         );
@@ -693,13 +697,13 @@ final class Format {
       if ($u8) {
         $n__0 = $pp_limit($n);
         $state[7] = $n__0;
-        $state[8] = $state[6] - $state[7] | 0;
+        $state[8] = (int) ($state[6] - $state[7]);
         return $pp_rinit($state);
       }
       return $u8;
     };
     $pp_set_max_indent = function($state, $n) use ($pp_set_min_space_left) {
-      return $pp_set_min_space_left($state, $state[6] - $n | 0);
+      return $pp_set_min_space_left($state, (int) ($state[6] - $n));
     };
     $pp_get_max_indent = function($state, $param) {return $state[8];};
     $pp_set_margin = function($state, $n) use ($Pervasives,$caml_call2,$pp_limit,$pp_set_max_indent) {
@@ -713,10 +717,10 @@ final class Format {
         else {
           $u7 = $caml_call2(
             $Pervasives[5],
-            $state[6] -
-              $state[7] | 0,
-            $state[6] / 2 |
-              0
+            (int)
+            ($state[6] - $state[7]),
+            (int)
+            ($state[6] / 2)
           );
           $new_max_indent = $caml_call2($Pervasives[5], $u7, 1);
         }
@@ -767,7 +771,7 @@ final class Format {
         if ($u5) {
           if (80 < $n__0) {
             $caml_call3($state[17], $blank_line, 0, 80);
-            $n__1 = $n__0 + -80 | 0;
+            $n__1 = (int) ($n__0 + -80);
             $n__0 = $n__1;
             continue;
           }
@@ -1126,7 +1130,7 @@ final class Format {
       $flush = function($param) use ($String,$caml_call3,$left,$pp_print_string,$ppf,$right,$s) {
         $pp_print_string(
           $ppf,
-          $caml_call3($String[4], $s, $left[1], $right[1] - $left[1] | 0)
+          $caml_call3($String[4], $s, $left[1], (int) ($right[1] - $left[1]))
         );
         $right[1] += 1;
         $left[1] = $right[1];
@@ -1159,7 +1163,7 @@ final class Format {
       $pp_print_flush($ppf, 0);
       $len = $caml_call1($Buffer[7], $buf);
       return 2 <= $len
-        ? $caml_call3($Buffer[4], $buf, 1, $len + -2 | 0)
+        ? $caml_call3($Buffer[4], $buf, 1, (int) ($len + -2))
         : ($caml_call1($Buffer[2], $buf));
     };
     $output_formatting_lit = function($ppf, $fmting_lit) use ($is_int,$pp_close_box,$pp_close_tag,$pp_force_newline,$pp_print_break,$pp_print_char,$pp_print_flush,$pp_print_newline) {

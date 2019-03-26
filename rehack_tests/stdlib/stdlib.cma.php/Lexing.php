@@ -76,7 +76,8 @@ final class Lexing {
       if (0 <= $result) {
         $buf[11] = $buf[12];
         $e5 = $buf[12];
-        $buf[12] = Vector{0, $e5[1], $e5[2], $e5[3], $buf[4] + $buf[6] | 0};
+        $buf[12] =
+          Vector{0, $e5[1], $e5[2], $e5[3], (int) ($buf[4] + $buf[6])};
       }
       return $result;
     };
@@ -85,7 +86,8 @@ final class Lexing {
       if (0 <= $result) {
         $buf[11] = $buf[12];
         $e4 = $buf[12];
-        $buf[12] = Vector{0, $e4[1], $e4[2], $e4[3], $buf[4] + $buf[6] | 0};
+        $buf[12] =
+          Vector{0, $e4[1], $e4[2], $e4[3], (int) ($buf[4] + $buf[6])};
       }
       return $result;
     };
@@ -96,9 +98,10 @@ final class Lexing {
         $caml_ml_bytes_length($aux_buffer)
       );
       $n = 0 < $read ? $read : (($lexbuf[9] = 1) || true ? 0 : (0));
-      if ($caml_ml_bytes_length($lexbuf[2]) < ($lexbuf[3] + $n | 0)) {
+      if ($caml_ml_bytes_length($lexbuf[2]) < (int) ($lexbuf[3] + $n)) {
         if (
-          (($lexbuf[3] - $lexbuf[5] | 0) + $n | 0) <= $caml_ml_bytes_length($lexbuf[2])
+          (int)
+          ((int) ($lexbuf[3] - $lexbuf[5]) + $n) <= $caml_ml_bytes_length($lexbuf[2])
         ) {
           $caml_call5(
             $Bytes[11],
@@ -106,17 +109,18 @@ final class Lexing {
             $lexbuf[5],
             $lexbuf[2],
             0,
-            $lexbuf[3] -
-              $lexbuf[5] | 0
+            (int)
+            ($lexbuf[3] - $lexbuf[5])
           );
         }
         else {
           $newlen = $caml_call2(
             $Pervasives[4],
-            2 * $caml_ml_bytes_length($lexbuf[2]) | 0,
+            (int)
+            (2 * $caml_ml_bytes_length($lexbuf[2])),
             $Sys[13]
           );
-          if ($newlen < (($lexbuf[3] - $lexbuf[5] | 0) + $n | 0)) {
+          if ($newlen < (int) ((int) ($lexbuf[3] - $lexbuf[5]) + $n)) {
             $caml_call1(
               $Pervasives[2],
               $cst_Lexing_lex_refill_cannot_grow_buffer
@@ -129,33 +133,35 @@ final class Lexing {
             $lexbuf[5],
             $newbuf,
             0,
-            $lexbuf[3] -
-              $lexbuf[5] | 0
+            (int)
+            ($lexbuf[3] - $lexbuf[5])
           );
           $lexbuf[2] = $newbuf;
         }
         $s = $lexbuf[5];
-        $lexbuf[4] = $lexbuf[4] + $s | 0;
-        $lexbuf[6] = $lexbuf[6] - $s | 0;
+        $lexbuf[4] = (int) ($lexbuf[4] + $s);
+        $lexbuf[6] = (int) ($lexbuf[6] - $s);
         $lexbuf[5] = 0;
-        $lexbuf[7] = $lexbuf[7] - $s | 0;
-        $lexbuf[3] = $lexbuf[3] - $s | 0;
+        $lexbuf[7] = (int) ($lexbuf[7] - $s);
+        $lexbuf[3] = (int) ($lexbuf[3] - $s);
         $t = $lexbuf[10];
-        $e2 = $t->count() - 1 + -1 | 0;
+        $e2 = (int) ($t->count() - 1 + -1);
         $e1 = 0;
         if (! ($e2 < 0)) {
           $i = $e1;
           for (;;) {
             $v = $caml_check_bound($t, $i)[$i + 1];
-            if (0 <= $v) {$caml_check_bound($t, $i)[$i + 1] = $v - $s | 0;}
-            $e3 = $i + 1 | 0;
+            if (0 <= $v) {
+              $caml_check_bound($t, $i)[$i + 1] = (int) ($v - $s);
+            }
+            $e3 = (int) ($i + 1);
             if ($e2 !== $i) {$i = $e3;continue;}
             break;
           }
         }
       }
       $caml_call5($Bytes[11], $aux_buffer, 0, $lexbuf[2], $lexbuf[3], $n);
-      $lexbuf[3] = $lexbuf[3] + $n | 0;
+      $lexbuf[3] = (int) ($lexbuf[3] + $n);
       return 0;
     };
     $from_function = function($f) use ($caml_create_bytes,$lex_refill,$zero_pos) {
@@ -221,16 +227,16 @@ final class Lexing {
       };
     };
     $lexeme = function($lexbuf) use ($Bytes,$caml_call3) {
-      $len = $lexbuf[6] - $lexbuf[5] | 0;
+      $len = (int) ($lexbuf[6] - $lexbuf[5]);
       return $caml_call3($Bytes[8], $lexbuf[2], $lexbuf[5], $len);
     };
     $sub_lexeme = function($lexbuf, $i1, $i2) use ($Bytes,$caml_call3) {
-      $len = $i2 - $i1 | 0;
+      $len = (int) ($i2 - $i1);
       return $caml_call3($Bytes[8], $lexbuf[2], $i1, $len);
     };
     $sub_lexeme_opt = function($lexbuf, $i1, $i2) use ($Bytes,$caml_call3) {
       if (0 <= $i1) {
-        $len = $i2 - $i1 | 0;
+        $len = (int) ($i2 - $i1);
         return Vector{0, $caml_call3($Bytes[8], $lexbuf[2], $i1, $len)};
       }
       return 0;
@@ -242,7 +248,7 @@ final class Lexing {
       return 0 <= $i ? Vector{0, $caml_bytes_get($lexbuf[2], $i)} : (0);
     };
     $lexeme_char = function($lexbuf, $i) use ($caml_bytes_get) {
-      return $caml_bytes_get($lexbuf[2], $lexbuf[5] + $i | 0);
+      return $caml_bytes_get($lexbuf[2], (int) ($lexbuf[5] + $i));
     };
     $lexeme_start = function($lexbuf) {return $lexbuf[11][4];};
     $lexeme_end = function($lexbuf) {return $lexbuf[12][4];};
@@ -250,7 +256,7 @@ final class Lexing {
     $lexeme_end_p = function($lexbuf) {return $lexbuf[12];};
     $new_line = function($lexbuf) {
       $lcp = $lexbuf[12];
-      $lexbuf[12] = Vector{0, $lcp[1], $lcp[2] + 1 | 0, $lcp[4], $lcp[4]};
+      $lexbuf[12] = Vector{0, $lcp[1], (int) ($lcp[2] + 1), $lcp[4], $lcp[4]};
       return 0;
     };
     $flush_input = function($lb) {

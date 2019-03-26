@@ -64,7 +64,7 @@ final class Obj {
       return $runtime["caml_output_value_to_string"]($obj, 0);
     };
     $unmarshal = function($str, $pos) use ($Marshal,$caml_call2) {
-      $dw = $pos + $caml_call2($Marshal[8], $str, $pos) | 0;
+      $dw = (int) ($pos + $caml_call2($Marshal[8], $str, $pos));
       return Vector{0, $caml_call2($Marshal[4], $str, $pos), $dw};
     };
     $first_non_constant_constructor_tag = 0;
@@ -110,7 +110,7 @@ final class Obj {
     };
     $extension_name = function($slot) {return $slot[1];};
     $extension_id = function($slot) {return $slot[2];};
-    $length = function($x) {return $x->count() - 1 + -2 | 0;};
+    $length = function($x) {return (int) ($x->count() - 1 + -2);};
     $cV = function($dv, $du) use ($runtime) {
       return $runtime["caml_ephe_blit_data"]($dv, $du);
     };

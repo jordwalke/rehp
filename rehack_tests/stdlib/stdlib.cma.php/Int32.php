@@ -36,10 +36,10 @@ final class Int32 {
     $zero = 0;
     $one = 1;
     $minus_one = -1;
-    $succ = function($n) {return $n + 1 | 0;};
-    $pred = function($n) {return $n - 1 | 0;};
+    $succ = function($n) {return (int) ($n + 1);};
+    $pred = function($n) {return (int) ($n - 1);};
     $abs = function($n) use ($runtime) {
-      return $runtime["caml_greaterequal"]($n, 0) ? $n : (- $n | 0);
+      return $runtime["caml_greaterequal"]($n, 0) ? $n : ((int) - $n);
     };
     $min_int = -2147483648;
     $max_int = 2147483647;

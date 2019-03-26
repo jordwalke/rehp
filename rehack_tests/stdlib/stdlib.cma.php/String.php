@@ -109,14 +109,15 @@ final class String_ {
           $cw = $param__0[1];
           if ($cv) {
             $acc__1 = $ensure_ge(
-              ($caml_ml_string_length($cw) + $seplen | 0) + $acc__0 | 0,
+              (int)
+              ((int) ($caml_ml_string_length($cw) + $seplen) + $acc__0),
               $acc__0
             );
             $acc__0 = $acc__1;
             $param__0 = $cv;
             continue;
           }
-          return $caml_ml_string_length($cw) + $acc__0 | 0;
+          return (int) ($caml_ml_string_length($cw) + $acc__0);
         }
         return $acc__0;
       }
@@ -140,10 +141,12 @@ final class String_ {
               $sep,
               0,
               $dst,
-              $pos__0 + $caml_ml_string_length($cu) | 0,
+              (int)
+              ($pos__0 + $caml_ml_string_length($cu)),
               $seplen
             );
-            $pos__1 = ($pos__0 + $caml_ml_string_length($cu) | 0) + $seplen | 0;
+            $pos__1 = (int)
+            ((int) ($pos__0 + $caml_ml_string_length($cu)) + $seplen);
             $pos__0 = $pos__1;
             $param__0 = $ct;
             continue;
@@ -172,13 +175,13 @@ final class String_ {
       return $cst;
     };
     $iter = function($f, $s) use ($caml_bytes_unsafe_get,$caml_call1,$caml_ml_string_length) {
-      $cr = $caml_ml_string_length($s) + -1 | 0;
+      $cr = (int) ($caml_ml_string_length($s) + -1);
       $cq = 0;
       if (! ($cr < 0)) {
         $i = $cq;
         for (;;) {
           $caml_call1($f, $caml_bytes_unsafe_get($s, $i));
-          $cs = $i + 1 | 0;
+          $cs = (int) ($i + 1);
           if ($cr !== $i) {$i = $cs;continue;}
           break;
         }
@@ -186,13 +189,13 @@ final class String_ {
       return 0;
     };
     $iteri = function($f, $s) use ($caml_bytes_unsafe_get,$caml_call2,$caml_ml_string_length) {
-      $co = $caml_ml_string_length($s) + -1 | 0;
+      $co = (int) ($caml_ml_string_length($s) + -1);
       $cn = 0;
       if (! ($co < 0)) {
         $i = $cn;
         for (;;) {
           $caml_call2($f, $i, $caml_bytes_unsafe_get($s, $i));
-          $cp = $i + 1 | 0;
+          $cp = (int) ($i + 1);
           if ($co !== $i) {$i = $cp;continue;}
           break;
         }
@@ -208,7 +211,7 @@ final class String_ {
       return $caml_call1($bts, $caml_call2($Bytes[18], $f, $cl));
     };
     $is_space = function($param) use ($unsigned_right_shift_32) {
-      $ck = $param + -9 | 0;
+      $ck = (int) ($param + -9);
       $switch__0 = 4 < $unsigned_right_shift_32($ck, 0)
         ? 23 === $ck ? 1 : (0)
         : (2 === $ck ? 0 : (1));
@@ -220,7 +223,8 @@ final class String_ {
         if (
           !
           $is_space(
-            $caml_bytes_unsafe_get($s, $caml_ml_string_length($s) + -1 | 0)
+            $caml_bytes_unsafe_get($s, (int) ($caml_ml_string_length($s) + -1)
+            )
           )
         ) {return $s;}
       }
@@ -234,7 +238,7 @@ final class String_ {
           if ($caml_ml_string_length($s) <= $i__0) {return 0;}
           $match = $caml_bytes_unsafe_get($s, $i__0);
           if (32 <= $match) {
-            $ci = $match + -34 | 0;
+            $ci = (int) ($match + -34);
             if (58 < $unsigned_right_shift_32($ci, 0)) {
               if (93 <= $ci) {
                 $switch__0 = 0;
@@ -243,10 +247,14 @@ final class String_ {
               else {$switch__1 = 1;}
             }
             else {
-              if (56 < $unsigned_right_shift_32($ci + -1 | 0, 0)) {$switch__0 = 1;$switch__1 = 0;}
+              if (56 < $unsigned_right_shift_32((int) ($ci + -1), 0)) {$switch__0 = 1;$switch__1 = 0;}
               else {$switch__1 = 1;}
             }
-            if ($switch__1) {$i__1 = $i__0 + 1 | 0;$i__0 = $i__1;continue;}
+            if ($switch__1) {
+              $i__1 = (int) ($i__0 + 1);
+              $i__0 = $i__1;
+              continue;
+            }
           }
           else {
             $switch__0 = 11 <= $match
@@ -269,7 +277,7 @@ final class String_ {
           throw $runtime["caml_wrap_thrown_exception"]($Not_found);
         }
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-        $i__1 = $i__0 + 1 | 0;
+        $i__1 = (int) ($i__0 + 1);
         $i__0 = $i__1;
         continue;
       }
@@ -282,7 +290,7 @@ final class String_ {
       for (;;) {
         if ($lim <= $i__0) {return 0;}
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-        $i__1 = $i__0 + 1 | 0;
+        $i__1 = (int) ($i__0 + 1);
         $i__0 = $i__1;
         continue;
       }
@@ -311,7 +319,7 @@ final class String_ {
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-          $i__1 = $i__0 + -1 | 0;
+          $i__1 = (int) ($i__0 + -1);
           $i__0 = $i__1;
           continue;
         }
@@ -319,7 +327,7 @@ final class String_ {
       }
     };
     $rindex = function($s, $c) use ($caml_ml_string_length,$rindex_rec) {
-      return $rindex_rec($s, $caml_ml_string_length($s) + -1 | 0, $c);
+      return $rindex_rec($s, (int) ($caml_ml_string_length($s) + -1), $c);
     };
     $rindex_from = function($s, $i, $c) use ($Pervasives,$caml_call1,$caml_ml_string_length,$cst_String_rindex_from_Bytes_rindex_from,$rindex_rec) {
       if (-1 <= $i) {
@@ -335,7 +343,7 @@ final class String_ {
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-          $i__1 = $i__0 + -1 | 0;
+          $i__1 = (int) ($i__0 + -1);
           $i__0 = $i__1;
           continue;
         }
@@ -343,7 +351,7 @@ final class String_ {
       }
     };
     $rindex_opt = function($s, $c) use ($caml_ml_string_length,$rindex_rec_opt) {
-      return $rindex_rec_opt($s, $caml_ml_string_length($s) + -1 | 0, $c);
+      return $rindex_rec_opt($s, (int) ($caml_ml_string_length($s) + -1), $c);
     };
     $rindex_from_opt = function($s, $i, $c) use ($Pervasives,$caml_call1,$caml_ml_string_length,$cst_String_rindex_from_opt_Bytes_rindex_from_opt,$rindex_rec_opt) {
       if (-1 <= $i) {
@@ -412,17 +420,21 @@ final class String_ {
     $split_on_char = function($sep, $s) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$sub) {
       $r = Vector{0, 0};
       $j = Vector{0, $caml_ml_string_length($s)};
-      $b6 = $caml_ml_string_length($s) + -1 | 0;
+      $b6 = (int) ($caml_ml_string_length($s) + -1);
       if (! ($b6 < 0)) {
         $i = $b6;
         for (;;) {
           if ($caml_bytes_unsafe_get($s, $i) === $sep) {
             $b8 = $r[1];
             $r[1] =
-              Vector{0, $sub($s, $i + 1 | 0, ($j[1] - $i | 0) + -1 | 0), $b8};
+              Vector{
+                0,
+                $sub($s, (int) ($i + 1), (int) ((int) ($j[1] - $i) + -1)),
+                $b8
+              };
             $j[1] = $i;
           }
-          $b9 = $i + -1 | 0;
+          $b9 = (int) ($i + -1);
           if (0 !== $i) {$i = $b9;continue;}
           break;
         }

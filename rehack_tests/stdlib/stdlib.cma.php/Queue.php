@@ -48,7 +48,7 @@ final class Queue {
       $cell = Vector{0, $x, 0};
       $g1 = $q[3];
       return $g1
-        ? ($q[1] = $q[1] + 1 | 0) || true
+        ? ($q[1] = (int) ($q[1] + 1)) || true
          ? ($g1[2] = $cell) || true
           ? ($q[3] = $cell) || true ? 0 : (0)
           : (($q[3] = $cell) || true ? 0 : (0))
@@ -74,7 +74,7 @@ final class Queue {
         $gY = $gX[1];
         $gZ = $gX[2];
         return $gZ
-          ? ($q[1] = $q[1] + -1 | 0) || true
+          ? ($q[1] = (int) ($q[1] + -1)) || true
            ? ($q[2] = $gZ) || true ? $gY : ($gY)
            : (($q[2] = $gZ) || true ? $gY : ($gY))
           : ($clear($q) || true ? $gY : ($gY));
@@ -143,7 +143,7 @@ final class Queue {
       if ($gV) {
         $gW = $q2[3];
         return $gW
-          ? ($q2[1] = $q2[1] + $q1[1] | 0) || true
+          ? ($q2[1] = (int) ($q2[1] + $q1[1])) || true
            ? ($gW[2] = $q1[2]) || true
             ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
             : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1)))

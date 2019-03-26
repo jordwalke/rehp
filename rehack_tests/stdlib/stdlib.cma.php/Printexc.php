@@ -257,7 +257,7 @@ final class Printexc {
     $_ = $other_fields->contents =
       function($x, $i) use ($Printf,$caml_call3,$cst__0,$field,$oA,$other_fields) {
         if ($x->count() - 1 <= $i) {return $cst__0;}
-        $pq = $other_fields->contents($x, $i + 1 | 0);
+        $pq = $other_fields->contents($x, (int) ($i + 1));
         $pr = $field($x, $i);
         return $caml_call3($Printf[4], $oA, $pr, $pq);
       };
@@ -307,8 +307,8 @@ final class Printexc {
               $file,
               $line,
               $char__0,
-              $char__0 + 5 |
-                0,
+              (int)
+              ($char__0 + 5),
               $cst_Pattern_matching_failed
             );
           }
@@ -323,8 +323,8 @@ final class Printexc {
               $file__0,
               $line__0,
               $char__1,
-              $char__1 + 6 |
-                0,
+              (int)
+              ($char__1 + 6),
               $cst_Assertion_failed
             );
           }
@@ -339,8 +339,8 @@ final class Printexc {
               $file__1,
               $line__1,
               $char__2,
-              $char__2 + 6 |
-                0,
+              (int)
+              ($char__2 + 6),
               $cst_Undefined_recursive_module
             );
           }
@@ -405,7 +405,7 @@ final class Printexc {
     $print_exception_backtrace = function($outchan, $backtrace) use ($Printf,$caml_call2,$caml_call3,$caml_check_bound,$format_backtrace_slot,$oH,$oI) {
       if ($backtrace) {
         $a = $backtrace[1];
-        $o6 = $a->count() - 1 + -1 | 0;
+        $o6 = (int) ($a->count() - 1 + -1);
         $o5 = 0;
         if (! ($o6 < 0)) {
           $i = $o5;
@@ -418,7 +418,7 @@ final class Printexc {
               $str = $match[1];
               $caml_call3($Printf[1], $outchan, $oH, $str);
             }
-            $o7 = $i + 1 | 0;
+            $o7 = (int) ($i + 1);
             if ($o6 !== $i) {$i = $o7;continue;}
             break;
           }
@@ -443,7 +443,7 @@ final class Printexc {
       if ($backtrace) {
         $a = $backtrace[1];
         $b = $caml_call1($Buffer[1], 1024);
-        $o3 = $a->count() - 1 + -1 | 0;
+        $o3 = (int) ($a->count() - 1 + -1);
         $o2 = 0;
         if (! ($o3 < 0)) {
           $i = $o2;
@@ -456,7 +456,7 @@ final class Printexc {
               $str = $match[1];
               $caml_call3($Printf[5], $b, $oJ, $str);
             }
-            $o4 = $i + 1 | 0;
+            $o4 = (int) ($i + 1);
             if ($o3 !== $i) {$i = $o4;continue;}
             break;
           }
@@ -491,12 +491,12 @@ final class Printexc {
             $o1 = $usable_slot($caml_check_bound($backtrace, $i__0)[$i__0 + 1]
             );
             if ($o1) {return $o1;}
-            $i__1 = $i__0 + -1 | 0;
+            $i__1 = (int) ($i__0 + -1);
             $i__0 = $i__1;
             continue;
           }
         };
-        return $exists_usable($backtrace->count() - 1 + -1 | 0)
+        return $exists_usable((int) ($backtrace->count() - 1 + -1))
           ? Vector{0, $backtrace}
           : (0);
       }

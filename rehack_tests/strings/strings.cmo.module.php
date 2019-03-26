@@ -152,7 +152,7 @@ final class Strings {
     
     $caml_call1($Pervasives[34], $cst_Prints_seven);
     
-    $caml_call1($Pervasives[32], $one + $six | 0);
+    $caml_call1($Pervasives[32], (int) ($one + $six));
     
     $caml_call1($Pervasives[35], 0);
     

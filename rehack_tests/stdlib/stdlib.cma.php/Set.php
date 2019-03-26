@@ -94,7 +94,7 @@ final class Set {
           $hr = $h__0;
         }
         else {$hr = 0;}
-        $ge = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
+        $ge = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $ge};
       };
       $bal = function($l, $v, $r) use ($Pervasives,$caml_call1,$create,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$height) {
@@ -108,7 +108,7 @@ final class Set {
           $hr = $h__0;
         }
         else {$hr = 0;}
-        if (($hr + 2 | 0) < $hl) {
+        if ((int) ($hr + 2) < $hl) {
           if ($l) {
             $lr = $l[3];
             $lv = $l[2];
@@ -128,7 +128,7 @@ final class Set {
           }
           return $caml_call1($Pervasives[1], $cst_Set_bal__0);
         }
-        if (($hl + 2 | 0) < $hr) {
+        if ((int) ($hl + 2) < $hr) {
           if ($r) {
             $rr = $r[3];
             $rv = $r[2];
@@ -148,7 +148,7 @@ final class Set {
           }
           return $caml_call1($Pervasives[1], $cst_Set_bal__2);
         }
-        $gd = $hr <= $hl ? $hl + 1 | 0 : ($hr + 1 | 0);
+        $gd = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $gd};
       };
       $_ = $add->contents =
@@ -201,9 +201,9 @@ final class Set {
               $lr = $l[3];
               $lv = $l[2];
               $ll = $l[1];
-              return ($rh + 2 | 0) < $lh
+              return (int) ($rh + 2) < $lh
                 ? $bal($ll, $lv, $join->contents($lr, $v, $r))
-                : (($lh + 2 | 0) < $rh
+                : ((int) ($lh + 2) < $rh
                  ? $bal($join->contents($l, $v, $rl), $rv, $rr)
                  : ($create($l, $v, $r)));
             }
@@ -632,7 +632,7 @@ final class Set {
             $r = $param[3];
             $l = $param[1];
             $fD = $cardinal->contents($r);
-            return ($cardinal->contents($l) + 1 | 0) + $fD | 0;
+            return (int) ((int) ($cardinal->contents($l) + 1) + $fD);
           }
           return 0;
         };
@@ -900,14 +900,14 @@ final class Set {
                   }
                 }
             }
-            $nl = $n / 2 | 0;
+            $nl = (int) ($n / 2);
             $match = $sub->contents($nl, $l);
             $l__0 = $match[2];
             $left = $match[1];
             if ($l__0) {
               $l__1 = $l__0[2];
               $mid = $l__0[1];
-              $match__0 = $sub->contents(($n - $nl | 0) + -1 | 0, $l__1);
+              $match__0 = $sub->contents((int) ((int) ($n - $nl) + -1), $l__1);
               $l__2 = $match__0[2];
               $right = $match__0[1];
               return Vector{0, $create($left, $mid, $right), $l__2};

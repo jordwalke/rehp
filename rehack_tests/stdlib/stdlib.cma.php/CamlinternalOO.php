@@ -94,20 +94,22 @@ final class CamlinternalOO {
     $dummy_item = 0;
     $public_method_label = function($s) use ($runtime) {
       $accu = Vector{0, 0};
-      $zw = $runtime["caml_ml_string_length"]($s) + -1 | 0;
+      $zw = (int) ($runtime["caml_ml_string_length"]($s) + -1);
       $zv = 0;
       if (! ($zw < 0)) {
         $i = $zv;
         for (;;) {
           $zx = $runtime["caml_string_get"]($s, $i);
-          $accu[1] = (223 * $accu[1] | 0) + $zx | 0;
-          $zy = $i + 1 | 0;
+          $accu[1] = (int) ((int) (223 * $accu[1]) + $zx);
+          $zy = (int) ($i + 1);
           if ($zw !== $i) {$i = $zy;continue;}
           break;
         }
       }
       $accu[1] = $accu[1] & 2147483647;
-      $tag = 1073741823 < $accu[1] ? $accu[1] . 2147483648 | 0 : ($accu[1]);
+      $tag = 1073741823 < $accu[1]
+        ? (int) ($accu[1] . 2147483648)
+        : ($accu[1]);
       return $tag;
     };
     $compare = function($x, $y) use ($caml_string_compare) {
@@ -138,27 +140,27 @@ final class CamlinternalOO {
     $_ = $fit_size->contents =
       function($n) use ($fit_size) {
         return 2 < $n
-          ? $fit_size->contents(($n + 1 | 0) / 2 | 0) * 2 | 0
+          ? (int) ($fit_size->contents((int) ((int) ($n + 1) / 2)) * 2)
           : ($n);
       };
     $new_table = function($pub_labels) use ($Labs,$Meths,$Sys,$Vars,$caml_check_bound,$caml_make_vect,$dummy_met,$fit_size,$initial_object_size,$runtime,$table_count) {
       $table_count[1] += 1;
       $len = $pub_labels->count() - 1;
-      $methods = $caml_make_vect(($len * 2 | 0) + 2 | 0, $dummy_met);
+      $methods = $caml_make_vect((int) ((int) ($len * 2) + 2), $dummy_met);
       $caml_check_bound($methods, 0)[1] = $len;
       $zo = $Sys[10];
-      $zp = ($runtime["caml_mul"]($fit_size->contents($len), $zo) / 8 | 0) + -1 |
-        0;
+      $zp = (int)
+      ((int) ($runtime["caml_mul"]($fit_size->contents($len), $zo) / 8) + -1);
       $caml_check_bound($methods, 1)[2] = $zp;
-      $zr = $len + -1 | 0;
+      $zr = (int) ($len + -1);
       $zq = 0;
       if (! ($zr < 0)) {
         $i = $zq;
         for (;;) {
-          $zt = ($i * 2 | 0) + 3 | 0;
+          $zt = (int) ((int) ($i * 2) + 3);
           $zs = $caml_check_bound($pub_labels, $i)[$i + 1];
           $caml_check_bound($methods, $zt)[$zt + 1] = $zs;
-          $zu = $i + 1 | 0;
+          $zu = (int) ($i + 1);
           if ($zr !== $i) {$i = $zu;continue;}
           break;
         }
@@ -188,14 +190,14 @@ final class CamlinternalOO {
       return $zn;
     };
     $put = function($array, $label, $element) use ($caml_check_bound,$resize) {
-      $resize($array, $label + 1 | 0);
+      $resize($array, (int) ($label + 1));
       return $caml_check_bound($array[2], $label)[$label + 1] = $element;
     };
     $method_count = Vector{0, 0};
     $inst_var_count = Vector{0, 0};
     $new_method = function($table) use ($resize) {
       $index = $table[2]->count() - 1;
-      $resize($table, $index + 1 | 0);
+      $resize($table, (int) ($index + 1));
       return $index;
     };
     $get_method_label = function($table, $name) use ($Labs,$Meths,$Not_found,$caml_call2,$caml_call3,$caml_wrap_exception,$new_method,$runtime) {
@@ -337,7 +339,7 @@ final class CamlinternalOO {
     };
     $new_slot = function($table) {
       $index = $table[1];
-      $table[1] = $index + 1 | 0;
+      $table[1] = (int) ($index + 1);
       return $index;
     };
     $new_variable = function($table, $name) use ($Not_found,$Vars,$caml_call2,$caml_call3,$caml_wrap_exception,$cst,$new_slot,$runtime) {
@@ -361,8 +363,8 @@ final class CamlinternalOO {
       $meths__0 = $to_array($meths);
       $nmeths = $meths__0->count() - 1;
       $nvals = $vals->count() - 1;
-      $res = $caml_make_vect($nmeths + $nvals | 0, 0);
-      $yM = $nmeths + -1 | 0;
+      $res = $caml_make_vect((int) ($nmeths + $nvals), 0);
+      $yM = (int) ($nmeths + -1);
       $yL = 0;
       if (! ($yM < 0)) {
         $i__0 = $yL;
@@ -372,20 +374,20 @@ final class CamlinternalOO {
             $caml_check_bound($meths__0, $i__0)[$i__0 + 1]
           );
           $caml_check_bound($res, $i__0)[$i__0 + 1] = $yS;
-          $yT = $i__0 + 1 | 0;
+          $yT = (int) ($i__0 + 1);
           if ($yM !== $i__0) {$i__0 = $yT;continue;}
           break;
         }
       }
-      $yO = $nvals + -1 | 0;
+      $yO = (int) ($nvals + -1);
       $yN = 0;
       if (! ($yO < 0)) {
         $i = $yN;
         for (;;) {
-          $yQ = $i + $nmeths | 0;
+          $yQ = (int) ($i + $nmeths);
           $yP = $new_variable($table, $caml_check_bound($vals, $i)[$i + 1]);
           $caml_check_bound($res, $yQ)[$yQ + 1] = $yP;
-          $yR = $i + 1 | 0;
+          $yR = (int) ($i + 1);
           if ($yO !== $i) {$i = $yR;continue;}
           break;
         }
@@ -417,7 +419,7 @@ final class CamlinternalOO {
       $tags = $caml_call2($Array[15], $public_method_label, $public_methods);
       $table = $new_table($tags);
       $yG = function($i, $met) use ($Labs,$Meths,$caml_call3,$table) {
-        $lab = ($i * 2 | 0) + 2 | 0;
+        $lab = (int) ((int) ($i * 2) + 2);
         $table[3] = $caml_call3($Meths[4], $met, $lab, $table[3]);
         $table[4] = $caml_call3($Labs[4], $lab, 1, $table[4]);
         return 0;
@@ -426,12 +428,15 @@ final class CamlinternalOO {
       return $table;
     };
     $init_class = function($table) use ($List,$Sys,$caml_call1,$caml_check_bound,$caml_div,$inst_var_count,$resize) {
-      $inst_var_count[1] = ($inst_var_count[1] + $table[1] | 0) + -1 | 0;
+      $inst_var_count[1] =
+        (int)
+        ((int) ($inst_var_count[1] + $table[1]) + -1);
       $table[8] = $caml_call1($List[9], $table[8]);
       $yF = $Sys[10];
       return $resize(
         $table,
-        3 + $caml_div($caml_check_bound($table[2], 1)[2] * 16 | 0, $yF) | 0
+        (int)
+        (3 + $caml_div((int) ($caml_check_bound($table[2], 1)[2] * 16), $yF))
       );
     };
     $inherits = function($cla, $vals, $virt_meths, $concr_meths, $param, $top) use ($Array,$caml_call1,$caml_call2,$get_method,$get_method_label,$get_variable,$narrow,$to_array,$widen) {
@@ -551,7 +556,7 @@ final class CamlinternalOO {
         for (;;) {
           $yu = $r[1];
           $r[1] = Vector{0, $caml_check_bound($keys, $i)[$i + 1], $yu, 0};
-          $yv = $i + 1 | 0;
+          $yv = (int) ($i + 1);
           if ($n !== $i) {$i = $yv;continue;}
           break;
         }
@@ -570,8 +575,8 @@ final class CamlinternalOO {
                 $tables_data = $get_data($tables__0);
                 if ($tables_data) {
                   return $lookup_keys->contents(
-                    $i + -1 |
-                      0,
+                    (int)
+                    ($i + -1),
                     $keys,
                     $tables_data
                   );
@@ -582,7 +587,7 @@ final class CamlinternalOO {
               if ($next) {$tables__0 = $next;continue;}
               $next__0 = Vector{0, $key, 0, 0};
               $set_next($tables__0, $next__0);
-              return $build_path($i + -1 | 0, $keys, $next__0);
+              return $build_path((int) ($i + -1), $keys, $next__0);
             }
           };
           return $lookup_key($tables);
@@ -593,12 +598,12 @@ final class CamlinternalOO {
       $root_data = $get_data($root);
       return $root_data
         ? $lookup_keys->contents(
-         $keys->count() - 1 +
-           -1 | 0,
+         (int)
+         ($keys->count() - 1 + -1),
          $keys,
          $root_data
        )
-        : ($build_path($keys->count() - 1 + -1 | 0, $keys, $root));
+        : ($build_path((int) ($keys->count() - 1 + -1), $keys, $root));
     };
     $get_const = function($x) {return function($obj) use ($x) {return $x;};};
     $get_var = function($n) {
@@ -716,12 +721,12 @@ final class CamlinternalOO {
     };
     $new_cache = function($table) use ($Sys,$caml_check_bound,$caml_div,$new_method) {
       $n = $new_method($table);
-      if (0 === ($n % 2 | 0)) {$switch__0 = 0;}
+      if (0 === (int) ($n % 2)) {$switch__0 = 0;}
       else {
         $yo = $Sys[10];
         if (
-          (2 + $caml_div($caml_check_bound($table[2], 1)[2] * 16 | 0, $yo) | 0) <
-            $n
+          (int)
+          (2 + $caml_div((int) ($caml_check_bound($table[2], 1)[2] * 16), $yo)) < $n
         ) {$switch__0 = 0;}
         else {$n__0 = $new_method($table);$switch__0 = 1;}
       }

@@ -220,7 +220,7 @@ final class Gc {
       $ma = $match[3];
       $pro = $match[2];
       $mi = $match[1];
-      return ($mi + $ma - $pro) * ($Sys[10] / 8 | 0);
+      return ($mi + $ma - $pro) * (int) ($Sys[10] / 8);
     };
     $create_alarm = function($f) {return Vector{0, 1};};
     $delete_alarm = function($a) {$a[1] = 0;return 0;};
