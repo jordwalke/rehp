@@ -711,7 +711,7 @@ let apply_fun ctx f params loc =
 
 (****)
 
-let to_int cx = J.EBin (J.Bor, cx, J.ENum 0.)
+let to_int cx = J.EUn (J.ToInt, cx)
 
 (* 32 bit ints *)
 

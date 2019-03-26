@@ -485,6 +485,9 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
   | Rehp.Not =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, Php.EUn(Php.Not, exprMapped));
+  | ToInt =>
+    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    (outMapped, EUn(ToInt, exprMapped));
   | Neg =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(Neg, exprMapped));

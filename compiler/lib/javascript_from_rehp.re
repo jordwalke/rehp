@@ -9,6 +9,7 @@ open Javascript;
 module Expand = {
   let isIntCheck = jsExpr =>
     EBin(EqEqEq, EUn(Typeof, jsExpr), EStr("number", `Bytes));
+  let toInt = jsExpr => EBin(Bor, jsExpr, ENum(0.0));
 };
 
 let rec from_statement_list = lst =>
@@ -27,6 +28,7 @@ and from_unop = (unop, jsExpr) =>
   switch (unop) {
   | Rehp.Not => EUn(Javascript.Not, jsExpr)
   | IsInt => Expand.isIntCheck(jsExpr)
+  | ToInt => Expand.toInt(jsExpr)
   | Neg => EUn(Javascript.Neg, jsExpr)
   | Pl => EUn(Javascript.Pl, jsExpr)
   | Typeof => EUn(Javascript.Typeof, jsExpr)
@@ -102,8 +104,7 @@ and from_expression = e =>
   | EUn(unop, e) => from_unop(unop, from_expression(e))
   | ECall(e, args, loc) =>
     ECall(from_expression(e), from_arguments(args), loc)
-  | ECopy(e, loc) =>
-    ECall(EDot(from_expression(e), "slice"), [], loc)
+  | ECopy(e, loc) => ECall(EDot(from_expression(e), "slice"), [], loc)
   | EVar(ident) => EVar(ident)
   | EFun((ident_opt, ident_lst, body, loc)) =>
     EFun((ident_opt, ident_lst, from_source_elements_and_locs(body), loc))

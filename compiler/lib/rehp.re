@@ -89,7 +89,6 @@ and binop =
   | Mul
   | Div
   | Mod
-/* TODO: Add IsInt */
 and unop =
   | Not
   | Neg
@@ -102,6 +101,8 @@ and unop =
   /* High level instruction to test if a valid has integer runtime
    * representation. */
   | IsInt
+  /* Backend specific integer conversion */
+  | ToInt
   | Void /* Only for stubs */
   | Delete /* Only for stubs */
   | Bnot

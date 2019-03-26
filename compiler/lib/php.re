@@ -63,6 +63,7 @@ and binop =
   | Div
   | Mod
 and unop =
+  | ToInt
   | Not
   | Neg
   | Pl

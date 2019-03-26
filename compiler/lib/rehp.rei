@@ -63,6 +63,7 @@ and unop =
   | Pl
   | Typeof
   | IsInt
+  | ToInt
   | Void
   | Delete
   | Bnot

@@ -61,7 +61,7 @@ let rec enot_rec e =
         end
     | J.EUn (J.Not, e) ->
         (e, 0)
-    | J.EUn ((J.Neg | J.Pl | J.IsInt | J.Typeof | J.Void | J.Delete | J.Bnot ), _) ->
+    | J.EUn ((J.Neg | J.Pl | J.IsInt | J.Typeof | J.Void | J.Delete | J.Bnot | J.ToInt), _) ->
         (J.EUn (J.Not, e), 0)
 
     | J.EBool b ->
