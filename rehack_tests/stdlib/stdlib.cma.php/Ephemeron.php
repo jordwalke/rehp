@@ -305,7 +305,7 @@ final class Ephemeron {
             $param__0 = $rest;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$find_rec,$key_index) {
@@ -418,7 +418,7 @@ final class Ephemeron {
               $param__0 = $next;
               continue;
             }
-            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
           }
         };
         $i = $key_index($h, $hkey);
@@ -433,7 +433,7 @@ final class Ephemeron {
             $AQ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
             return $AQ ? $resize($h) : ($AQ);
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($AS);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($AS) as \Throwable;
         }
       };
       $mem = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {

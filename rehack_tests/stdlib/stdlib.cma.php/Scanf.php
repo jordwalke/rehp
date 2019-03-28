@@ -301,7 +301,7 @@ final class Scanf {
           $ib[1] = 1;
           return $null_char;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($ye);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($ye) as \Throwable;
       }
     };
     $peek_char = function($ib) use ($next_char) {
@@ -310,7 +310,7 @@ final class Scanf {
     $checked_peek_char = function($ib) use ($End_of_file,$peek_char,$runtime) {
       $c = $peek_char($ib);
       if ($ib[1]) {
-        throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+        throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
       }
       return $c;
     };
@@ -380,7 +380,7 @@ final class Scanf {
       $len = $caml_ml_string_length($s);
       $next = function($param) use ($End_of_file,$caml_string_get,$i,$len,$runtime,$s) {
         if ($len <= $i[1]) {
-          throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+          throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
         }
         $c = $caml_string_get($s, $i[1]);
         $i[1] += 1;
@@ -395,10 +395,10 @@ final class Scanf {
     $len = 1024;
     $scan_close_at_end = function($ic) use ($End_of_file,$Pervasives,$caml_call1,$runtime) {
       $caml_call1($Pervasives[81], $ic);
-      throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+      throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
     };
     $scan_raise_at_end = function($ic) use ($End_of_file,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+      throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
     };
     $from_ic = function($scan_close_ic, $iname, $ic) use ($End_of_file,$Pervasives,$caml_bytes_get,$caml_call1,$caml_call4,$create,$len,$runtime) {
       $buf = $runtime["caml_create_bytes"](1024);
@@ -412,7 +412,7 @@ final class Scanf {
           return $c;
         }
         if ($eof[1]) {
-          throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+          throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
         }
         $lim[1] = $caml_call4($Pervasives[72], $ic, $buf, 0, $len);
         return 0 === $lim[1]
@@ -476,7 +476,7 @@ final class Scanf {
           $memo[1] = Vector{0, Vector{0, $ic, $ib}, $memo[1]};
           return $ib;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($x5);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($x5) as \Throwable;
       }
     };
     $memo_from_channel = function($x3) use ($memo_from_ic,$scan_raise_at_end) {
@@ -488,7 +488,7 @@ final class Scanf {
       $runtime["caml_fresh_oo_id"](0)
     };
     $bad_input = function($s) use ($Scan_failure,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Scan_failure, $s});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Scan_failure, $s}) as \Throwable;
     };
     $bad_input_escape = function($c) use ($Printf,$bad_input,$caml_call2,$vW) {
       return $bad_input($caml_call2($Printf[4], $vW, $c));
@@ -584,7 +584,7 @@ final class Scanf {
             return 5;
           }
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $v1});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $v1}) as \Throwable;
     };
     $token_int_literal = function($conv, $ib) use ($Pervasives,$String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_get,$cst_0b,$cst_0o,$cst_0u,$cst_0x,$token_string) {
       switch($conv) {
@@ -1442,7 +1442,7 @@ final class Scanf {
       if ($x[1] === $Scan_failure) {$s = $x[2];}
       else {
         if ($x[1] !== $Failure) {
-          throw $runtime["caml_wrap_thrown_exception"]($x);
+          throw $runtime["caml_wrap_thrown_exception"]($x) as \Throwable;
         }
         $s = $x[2];
       }
@@ -2314,7 +2314,7 @@ final class Scanf {
               catch(\Throwable $exn) {
                 $exn = $caml_wrap_exception($exn);
                 if ($exn[1] !== $Failure) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
                 }
                 $msg = $exn[2];
                 $wx = $bad_input($msg);
@@ -2348,7 +2348,7 @@ final class Scanf {
               catch(\Throwable $exn) {
                 $exn = $caml_wrap_exception($exn);
                 if ($exn[1] !== $Failure) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
                 }
                 $msg__0 = $exn[2];
                 $wz = $bad_input($msg__0);
@@ -2488,7 +2488,7 @@ final class Scanf {
               $fmt__16 = $match__7[1];
               $match__8 = $make_scanf->contents($ib, $fmt__16, $readers);
               if ($match__8) {$arg_rest = $match__8[2];return $arg_rest;}
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $wa});
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $wa}) as \Throwable;
             // FALLTHROUGH
             default:
               return $caml_call1(
@@ -2531,7 +2531,7 @@ final class Scanf {
               if ($exc === $End_of_file) {$switch__0 = 0;}
               else {
                 if ($exc[1] !== $Invalid_argument) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exc);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exc) as \Throwable;
                 }
                 $msg = $exc[2];
                 $wm = $caml_call1($String[13], $str);
@@ -2575,7 +2575,7 @@ final class Scanf {
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($exn[1] !== $Failure) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
         $msg = $exn[2];
         $wi = $bad_input($msg);

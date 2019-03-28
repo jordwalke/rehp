@@ -137,7 +137,7 @@ final class Strings {
     catch(\Throwable $G) {
       $G = $caml_wrap_exception($G);
       if ($G !== $Not_found) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($G);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($G) as \Throwable;
       }
       $h = -1;
       $index__0 = $h;
@@ -194,7 +194,7 @@ final class Strings {
     catch(\Throwable $F) {
       $F = $caml_wrap_exception($F);
       if ($F[1] !== $Failure) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($F);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($F) as \Throwable;
       }
       $l = 102;
       $m = $l;
@@ -218,7 +218,7 @@ final class Strings {
     catch(\Throwable $E) {
       $E = $caml_wrap_exception($E);
       if ($E[1] !== $Failure) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($E);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($E) as \Throwable;
       }
       $n = 102;
       $o = $n;

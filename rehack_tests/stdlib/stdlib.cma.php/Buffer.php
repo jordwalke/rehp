@@ -184,7 +184,7 @@ final class Buffer {
           if (2047 < $u__0) {
             if (65535 < $u__0) {
               if (1114111 < $u__0) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hl});
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hl}) as \Throwable;
               }
               $pos = $b[2];
               if ($b[3] < (int) ($pos + 4)) {$resize($b, 4);}
@@ -245,14 +245,14 @@ final class Buffer {
         }
         return $add_char($b, $u__0);
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hm});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hm}) as \Throwable;
     };
     $add_utf_16be_uchar = function($b, $u) use ($Assert_failure,$Uchar,$caml_bytes_unsafe_set,$caml_call1,$hn,$ho,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $caml_call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hn});
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hn}) as \Throwable;
           }
           $u__1 = (int) ($u__0 + -65536);
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
@@ -289,14 +289,14 @@ final class Buffer {
         $b[2] = (int) ($pos__0 + 2);
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ho});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ho}) as \Throwable;
     };
     $add_utf_16le_uchar = function($b, $u) use ($Assert_failure,$Uchar,$caml_bytes_unsafe_set,$caml_call1,$hp,$hq,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $caml_call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hp});
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hp}) as \Throwable;
           }
           $u__1 = (int) ($u__0 + -65536);
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
@@ -335,7 +335,7 @@ final class Buffer {
         $b[2] = (int) ($pos__0 + 2);
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hq});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hq}) as \Throwable;
     };
     $add_substring = function($b, $s, $offset, $len) use ($Bytes,$Pervasives,$caml_call1,$caml_call5,$caml_ml_string_length,$cst_Buffer_add_substring_add_subbytes,$resize) {
       $hw = $offset < 0 ? 1 : (0);
@@ -381,7 +381,7 @@ final class Buffer {
           $n = $caml_call4($Pervasives[72], $ic, $b[1], $b[2], $len__0);
           $b[2] = (int) ($b[2] + $n);
           if (0 === $n) {
-            throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+            throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
           }
           $len__1 = (int) ($len__0 - $n);
           $len__0 = $len__1;
@@ -403,7 +403,7 @@ final class Buffer {
     $closing = function($param) use ($Assert_failure,$hr,$runtime) {
       if (40 === $param) {return 41;}
       if (123 === $param) {return 125;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hr});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hr}) as \Throwable;
     };
     $advance_to_closing = function($opening, $closing, $k, $s, $start) use ($Not_found,$caml_ml_string_length,$caml_string_get,$runtime) {
       $advance = function($k, $i, $lim) use ($Not_found,$caml_string_get,$closing,$opening,$runtime,$s) {
@@ -411,7 +411,7 @@ final class Buffer {
         $i__0 = $i;
         for (;;) {
           if ($lim <= $i__0) {
-            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
           }
           if ($caml_string_get($s, $i__0) === $opening) {
             $i__1 = (int) ($i__0 + 1);
@@ -456,7 +456,7 @@ final class Buffer {
     };
     $find_ident = function($s, $start, $lim) use ($Not_found,$String,$advance_to_closing,$advance_to_non_alpha,$caml_call3,$caml_string_get,$closing,$runtime) {
       if ($lim <= $start) {
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       }
       $c = $caml_string_get($s, $start);
       if (40 !== $c) {

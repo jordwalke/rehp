@@ -262,7 +262,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     
     $caml_raise_with_arg = $Func(
       function($tag, $arg) use ($caml_wrap_thrown_exception) {
-        throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]);
+        throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]) as \Throwable;
       }
     );
     $caml_str_repeat = $Func(
@@ -1666,7 +1666,7 @@ $caml_js_to_string = $Func(
     
     $caml_raise_constant = $Func(
       function($tag) use ($caml_wrap_thrown_exception) {
-        throw $caml_wrap_thrown_exception($tag);
+        throw $caml_wrap_thrown_exception($tag) as \Throwable;
       }
     );
     $caml_raise_not_found = $Func(
@@ -5484,7 +5484,9 @@ $right_shift_32=$joo_global_object->right_shift_32;
                      $eqEqEq($typeof($replacer), $String->new("object")) ||
                        !
                        $eqEqEq($typeof($replacer->length), $String->new("number")))
-                ) {throw $Error->new($String->new("JSON.stringify"));}
+                ) {
+                  throw $Error->new($String->new("JSON.stringify")) as \Throwable;
+                }
                 return $str->contents(
                   $String->new(""),
                   $ObjectLiteral((object)darray[""=>$value])
@@ -5552,7 +5554,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
                    )
                     : ($j);
                 }
-                throw $SyntaxError->new($String->new("JSON.parse"));
+                throw $SyntaxError->new($String->new("JSON.parse")) as \Throwable;
               }
             );
         }

@@ -285,7 +285,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   $caml_raise_with_arg = $Func(
     function($tag, $arg) use ($caml_wrap_thrown_exception) {
-      throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]);
+      throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]) as \Throwable;
     }
   );
   $caml_str_repeat = $Func(
@@ -1943,7 +1943,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   );
   $caml_raise_constant = $Func(
     function($tag) use ($caml_wrap_thrown_exception) {
-      throw $caml_wrap_thrown_exception($tag);
+      throw $caml_wrap_thrown_exception($tag) as \Throwable;
     }
   );
   $caml_raise_zero_divide = $Func(
@@ -2346,7 +2346,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $bq = $caml_new_string("Total ms (Title): %d ");
   $br = $caml_new_string("Second Part Of Tuple:");
   $invalid_arg = function($s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s});
+    throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
   };
   
   $caml_fresh_oo_id(0);
@@ -2408,7 +2408,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           catch(\Throwable $ew) {
             $ew = $caml_wrap_exception($ew);
             if ($ew[1] !== $Sys_error) {
-              throw $caml_wrap_thrown_exception_reraise($ew);
+              throw $caml_wrap_thrown_exception_reraise($ew) as \Throwable;
             }
           }
           $param__0 = $l;
@@ -2749,7 +2749,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
     $i__0 = $i;
     for (;;) {
-      if ($lim <= $i__0) {throw $caml_wrap_thrown_exception($Not_found);}
+      if ($lim <= $i__0) {
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+      }
       if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
       $i__1 = (int) ($i__0 + 1);
       $i__0 = $i__1;
@@ -2764,7 +2766,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         catch(\Throwable $eg) {
           $eg = $caml_wrap_exception($eg);
           if ($eg === $Not_found) {return 0;}
-          throw $caml_wrap_thrown_exception_reraise($eg);
+          throw $caml_wrap_thrown_exception_reraise($eg) as \Throwable;
         }
       }
     }
@@ -3161,7 +3163,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         }
       }
       else {if (! $listB__0) {if (! $listC__0) {return $rev($revSoFar__0);}}}
-      throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $aq});
+      throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $aq}) as \Throwable;
     }
   };
   $mapi3__0 = function($f, $listA, $listB, $listC) use ($mapi3) {
@@ -3188,7 +3190,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       }
       throw $caml_wrap_thrown_exception(
               Vector{0, $Invalid_argument, $a($ar, $string_of_int($splitAt))}
-            );
+            ) as \Throwable;
     }
   };
   $splitList__0 = function($splitAt, $lst) use ($splitList) {
@@ -3468,7 +3470,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
             $root[2] = Vector{0, $nextEi};
             return 0;
           }
-          throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $at});
+          throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $at}) as \Throwable;
         },
         $dP
       }

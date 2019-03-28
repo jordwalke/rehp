@@ -210,7 +210,7 @@ final class CamlinternalOO {
           $table[4] = $caml_call3($Labs[4], $label, 1, $table[4]);
           return $label;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($zl);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($zl) as \Throwable;
       }
     };
     $get_method_labels = function($table, $names) use ($Array,$caml_call2,$get_method_label) {
@@ -234,7 +234,7 @@ final class CamlinternalOO {
         if ($zh === $Not_found) {
           return $caml_check_bound($table[2], $label)[$label + 1];
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($zh);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($zh) as \Throwable;
       }
     };
     $to_list = function($arr) use ($Array,$caml_call1) {
@@ -283,7 +283,7 @@ final class CamlinternalOO {
         catch(\Throwable $zd) {
           $zd = $caml_wrap_exception($zd);
           if ($zd !== $Not_found) {
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($zd);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($zd) as \Throwable;
           }
           $za = 1;
           $zb = $za;
@@ -353,7 +353,7 @@ final class CamlinternalOO {
           }
           return $index;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($yV);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($yV) as \Throwable;
       }
     };
     $to_array = function($arr) use ($runtime) {
@@ -399,9 +399,9 @@ final class CamlinternalOO {
       catch(\Throwable $yK) {
         $yK = $caml_wrap_exception($yK);
         if ($yK === $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yf});
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yf}) as \Throwable;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($yK);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($yK) as \Throwable;
       }
     };
     $get_variables = function($table, $names) use ($Array,$caml_call2,$get_variable) {
@@ -482,7 +482,7 @@ final class CamlinternalOO {
       $undef = function($param) use ($Undefined_recursive_module,$loc,$runtime) {
         throw $runtime["caml_wrap_thrown_exception"](
                 Vector{0, $Undefined_recursive_module, $loc}
-              );
+              ) as \Throwable;
       };
       return Vector{0, $undef, $undef, $undef, 0};
     };
@@ -529,23 +529,23 @@ final class CamlinternalOO {
     };
     $set_data = function($tables, $v) use ($Assert_failure,$runtime,$yg) {
       if ($tables) {$tables[2] = $v;return 0;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yg});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yg}) as \Throwable;
     };
     $set_next = function($tables, $v) use ($Assert_failure,$runtime,$yh) {
       if ($tables) {$tables[3] = $v;return 0;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yh});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yh}) as \Throwable;
     };
     $get_key = function($param) use ($Assert_failure,$runtime,$yi) {
       if ($param) {return $param[1];}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yi});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yi}) as \Throwable;
     };
     $get_data = function($param) use ($Assert_failure,$runtime,$yj) {
       if ($param) {return $param[2];}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yj});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yj}) as \Throwable;
     };
     $get_next = function($param) use ($Assert_failure,$runtime,$yk) {
       if ($param) {return $param[3];}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yk});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yk}) as \Throwable;
     };
     $build_path = function($n, $keys, $tables) use ($caml_check_bound,$set_data) {
       $res = Vector{0, 0, 0, 0};
@@ -581,7 +581,7 @@ final class CamlinternalOO {
                     $tables_data
                   );
                 }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yl});
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yl}) as \Throwable;
               }
               $next = $get_next($tables__0);
               if ($next) {$tables__0 = $next;continue;}

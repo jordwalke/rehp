@@ -346,7 +346,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   
   $caml_raise_with_arg = $Func(
     function($tag, $arg) use ($caml_wrap_thrown_exception) {
-      throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]);
+      throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]) as \Throwable;
     }
   );
   $caml_new_string_impl = $Func(
@@ -1757,10 +1757,10 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $I = $caml_new_string("Nans are === (should output true):");
   $J = $caml_new_string("Nans are == (should output false):");
   $failwith = function($s) use ($Failure,$caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(Vector{0, $Failure, $s});
+    throw $caml_wrap_thrown_exception(Vector{0, $Failure, $s}) as \Throwable;
   };
   $invalid_arg = function($s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s});
+    throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
   };
   
   $caml_fresh_oo_id(0);
@@ -1796,7 +1796,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           catch(\Throwable $Z) {
             $Z = $caml_wrap_exception($Z);
             if ($Z[1] !== $Sys_error) {
-              throw $caml_wrap_thrown_exception_reraise($Z);
+              throw $caml_wrap_thrown_exception_reraise($Z) as \Throwable;
             }
           }
           $param__0 = $l;
@@ -1894,7 +1894,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
     $i__0 = $i;
     for (;;) {
-      if ($lim <= $i__0) {throw $caml_wrap_thrown_exception($Not_found);}
+      if ($lim <= $i__0) {
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+      }
       if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
       $i__1 = (int) ($i__0 + 1);
       $i__0 = $i__1;
@@ -1928,7 +1930,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   try {$R = $index($Q, 95);$index__1 = $R;}
   catch(\Throwable $U) {
     $U = $caml_wrap_exception($U);
-    if ($U !== $Not_found) {throw $caml_wrap_thrown_exception_reraise($U);}
+    if ($U !== $Not_found) {
+      throw $caml_wrap_thrown_exception_reraise($U) as \Throwable;
+    }
     $o = -1;
     $index__1 = $o;
   }
@@ -1975,7 +1979,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   try {$P = $createIntFromString($O);$z = $P;}
   catch(\Throwable $T) {
     $T = $caml_wrap_exception($T);
-    if ($T[1] !== $Failure) {throw $caml_wrap_thrown_exception_reraise($T);}
+    if ($T[1] !== $Failure) {
+      throw $caml_wrap_thrown_exception_reraise($T) as \Throwable;
+    }
     $y = 102;
     $z = $y;
   }
@@ -1989,7 +1995,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   try {$M = $createIntFromString($L);$C = $M;}
   catch(\Throwable $S) {
     $S = $caml_wrap_exception($S);
-    if ($S[1] !== $Failure) {throw $caml_wrap_thrown_exception_reraise($S);}
+    if ($S[1] !== $Failure) {
+      throw $caml_wrap_thrown_exception_reraise($S) as \Throwable;
+    }
     $B = 102;
     $C = $B;
   }

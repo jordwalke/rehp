@@ -436,7 +436,7 @@ final class Array_ {
           ) {return (int) ($i31 + 1);}
         }
         if ($i31 < $l) {return $i31;}
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Bottom, $i});
+        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Bottom, $i}) as \Throwable;
       };
       $trickledown = function($l, $i, $e) use ($a,$caml_call2,$caml_check_bound,$cmp,$maxson) {
         $i__0 = $i;
@@ -459,7 +459,7 @@ final class Array_ {
             $i__0 = $exn[2];
             return $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
       };
       $bubbledown = function($l, $i) use ($a,$caml_check_bound,$maxson) {
@@ -477,7 +477,7 @@ final class Array_ {
         catch(\Throwable $exn) {
           $exn = $caml_wrap_exception($exn);
           if ($exn[1] === $Bottom) {$i__0 = $exn[2];return $i__0;}
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
       };
       $trickleup = function($i, $e) use ($Assert_failure,$a,$caml_call2,$caml_check_bound,$cmp,$dx,$runtime) {
@@ -498,7 +498,7 @@ final class Array_ {
             if (0 < $father) {$i__0 = $father;continue;}
             return $caml_check_bound($a, 0)[1] = $e;
           }
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $dx});
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $dx}) as \Throwable;
         }
       };
       $l = $a->count() - 1;

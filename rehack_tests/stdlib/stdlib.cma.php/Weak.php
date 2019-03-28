@@ -97,7 +97,7 @@ final class Weak {
       }
       throw $runtime["caml_wrap_thrown_exception"](
               Vector{0, $Invalid_argument, $cst_Weak_fill}
-            );
+            ) as \Throwable;
     };
     $Make = function($H) use ($Array,$Not_found,$Pervasives,$Sys,$caml_call1,$caml_call2,$caml_call3,$caml_call5,$caml_check_bound,$caml_make_vect,$caml_mod,$caml_obj_truncate,$caml_weak_blit,$caml_weak_check,$caml_weak_create,$caml_weak_get,$caml_weak_get_copy,$caml_weak_set,$cst_Weak_Make_hash_bucket_cannot_grow_more,$length,$runtime) {
       $add_aux = new Ref();
@@ -459,7 +459,7 @@ final class Weak {
           $t,
           $d,
           function($h, $index) use ($Not_found,$runtime) {
-            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
           }
         );
       };

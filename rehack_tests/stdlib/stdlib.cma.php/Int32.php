@@ -52,7 +52,7 @@ final class Int32 {
       catch(\Throwable $ex) {
         $ex = $caml_wrap_exception($ex);
         if ($ex[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($ex);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($ex) as \Throwable;
       }
     };
     $compare = function($x, $y) use ($runtime) {

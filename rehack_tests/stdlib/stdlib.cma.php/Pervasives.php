@@ -104,10 +104,10 @@ final class Pervasives {
     $e = Vector{255, 0, 0, 16};
     $f = Vector{255, 0, 0, 15536};
     $failwith = function($s) use ($Failure,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Failure, $s});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Failure, $s}) as \Throwable;
     };
     $invalid_arg = function($s) use ($Invalid_argument,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Invalid_argument, $s});
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Invalid_argument, $s}) as \Throwable;
     };
     $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)};
     $min = function($x, $y) use ($runtime) {
@@ -161,7 +161,7 @@ final class Pervasives {
       catch(\Throwable $aC) {
         $aC = $caml_wrap_exception($aC);
         if ($aC[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($aC);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($aC) as \Throwable;
       }
     };
     $valid_float_lexem = function($s) use ($caml_ml_string_length,$cst,$g,$runtime) {
@@ -188,7 +188,7 @@ final class Pervasives {
       catch(\Throwable $aA) {
         $aA = $caml_wrap_exception($aA);
         if ($aA[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($aA);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($aA) as \Throwable;
       }
     };
     $_ = $j->contents =
@@ -225,7 +225,7 @@ final class Pervasives {
             catch(\Throwable $ay) {
               $ay = $caml_wrap_exception($ay);
               if ($ay[1] !== $Sys_error) {
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($ay);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($ay) as \Throwable;
               }
             }
             $param__0 = $l;
@@ -296,7 +296,7 @@ final class Pervasives {
         if (0 < $len__0) {
           $r = $caml_ml_input($ic, $s, $ofs__0, $len__0);
           if (0 === $r) {
-            throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+            throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
           }
           $len__1 = (int) ($len__0 - $r);
           $ofs__1 = (int) ($ofs__0 + $r);
@@ -358,7 +358,7 @@ final class Pervasives {
                 $accu__0
               );
             }
-            throw $runtime["caml_wrap_thrown_exception"]($End_of_file);
+            throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
           }
           if (0 < $n) {
             $res = $caml_create_bytes((int) ($n + -1));

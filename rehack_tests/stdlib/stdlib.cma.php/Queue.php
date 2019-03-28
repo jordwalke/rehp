@@ -66,7 +66,7 @@ final class Queue {
     $peek = function($q) use ($Empty,$runtime) {
       $g0 = $q[2];
       if ($g0) {$content = $g0[1];return $content;}
-      throw $runtime["caml_wrap_thrown_exception"]($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
     $take = function($q) use ($Empty,$clear,$runtime) {
       $gX = $q[2];
@@ -79,7 +79,7 @@ final class Queue {
            : (($q[2] = $gZ) || true ? $gY : ($gY))
           : ($clear($q) || true ? $gY : ($gY));
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
     $copy = function($q_res, $prev, $cell) {
       $prev__0 = $prev;

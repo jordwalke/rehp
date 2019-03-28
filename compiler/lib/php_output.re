@@ -1566,6 +1566,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.non_breaking_space(f);
       PP.start_group(f, 0);
       expression(0, f, e);
+      PP.string(f, " as \\Throwable");
       last_semi();
       PP.end_group(f);
       PP.end_group(f);

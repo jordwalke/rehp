@@ -269,7 +269,7 @@ final class Filename {
     catch(\Throwable $B_) {
       $B_ = $caml_wrap_exception($B_);
       if ($B_ !== $Not_found) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($B_);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($B_) as \Throwable;
       }
       $temp_dir_name = $cst_tmp;
     }
@@ -362,7 +362,7 @@ final class Filename {
     catch(\Throwable $BL) {
       $BL = $caml_wrap_exception($BL);
       if ($BL !== $Not_found) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($BL);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($BL) as \Throwable;
       }
       $temp_dir_name__0 = $cst__8;
     }
@@ -710,13 +710,13 @@ final class Filename {
             $e = $caml_wrap_exception($e);
             if ($e[1] === $Sys_error) {
               if (1000 <= $counter__0) {
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
               }
               $counter__1 = (int) ($counter__0 + 1);
               $counter__0 = $counter__1;
               continue;
             }
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
           }
         }
       };
@@ -759,13 +759,13 @@ final class Filename {
             $e = $caml_wrap_exception($e);
             if ($e[1] === $Sys_error) {
               if (1000 <= $counter__0) {
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
               }
               $counter__1 = (int) ($counter__0 + 1);
               $counter__0 = $counter__1;
               continue;
             }
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
           }
         }
       };

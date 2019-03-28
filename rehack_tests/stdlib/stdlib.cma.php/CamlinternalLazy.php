@@ -49,7 +49,7 @@ final class CamlinternalLazy {
       $runtime["caml_fresh_oo_id"](0)
     };
     $raise_undefined = function($param) use ($Undefined,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"]($Undefined);
+      throw $runtime["caml_wrap_thrown_exception"]($Undefined) as \Throwable;
     };
     $force_lazy_block = function($blk) use ($Obj,$caml_call1,$caml_obj_set_tag,$caml_wrap_exception,$raise_undefined,$runtime) {
       $closure = $blk[1];
@@ -64,9 +64,9 @@ final class CamlinternalLazy {
         $e = $caml_wrap_exception($e);
         $blk[1] =
           function($param) use ($e,$runtime) {
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
           };
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
       }
     };
     $force_val_lazy_block = function($blk) use ($Obj,$caml_call1,$caml_obj_set_tag,$raise_undefined) {

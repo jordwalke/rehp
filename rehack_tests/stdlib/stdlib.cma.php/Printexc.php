@@ -361,7 +361,7 @@ final class Printexc {
         $ph = $to_string($x);
         $caml_call2($Printf[3], $oD, $ph);
         $caml_call1($Pervasives[51], $Pervasives[28]);
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($x);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($x) as \Throwable;
       }
     };
     $catch__0 = function($fct, $arg) use ($Pervasives,$Printf,$caml_call1,$caml_call2,$caml_wrap_exception,$oE,$to_string) {

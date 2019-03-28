@@ -54,7 +54,7 @@ final class Sys {
       catch(\Throwable $cD) {
         $cD = $caml_wrap_exception($cD);
         if ($cD === $Not_found) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($cD);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($cD) as \Throwable;
       }
     };
     $interactive = Vector{0, 0};
@@ -95,7 +95,7 @@ final class Sys {
          Vector{
            0,
            function($param) use ($Break,$runtime) {
-             throw $runtime["caml_wrap_thrown_exception"]($Break);
+             throw $runtime["caml_wrap_thrown_exception"]($Break) as \Throwable;
            }
          }
        )

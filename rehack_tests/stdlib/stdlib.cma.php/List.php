@@ -503,7 +503,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       }
     };
     $assoc_opt = function($x, $param) use ($caml_compare) {
@@ -533,7 +533,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       }
     };
     $assq_opt = function($x, $param) {
@@ -615,7 +615,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       }
     };
     $find_opt = function($p, $param) use ($caml_call1) {
@@ -740,7 +740,7 @@ final class List_ {
           $l__0 = $l__1;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $aG});
+        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $aG}) as \Throwable;
       }
     };
     $stable_sort = function($cmp, $l) use ($caml_call2,$chop,$length,$rev_append,$right_shift_32) {

@@ -61,12 +61,12 @@ final class Stack {
         $s[2] = (int) ($s[2] + -1);
         return $hd;
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
     $top = function($s) use ($Empty,$runtime) {
       $gT = $s[1];
       if ($gT) {$hd = $gT[1];return $hd;}
-      throw $runtime["caml_wrap_thrown_exception"]($Empty);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
     $is_empty = function($s) {return 0 === $s[1] ? 1 : (0);};
     $length = function($s) {return $s[2];};

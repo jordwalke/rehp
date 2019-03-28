@@ -122,7 +122,7 @@ final class Stream {
                     $a = $match[1];
                     return Vector{0, $a, Vector{1, $d11, $d2}};
                   }
-                  throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g2});
+                  throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g2}) as \Throwable;
                 }
               // FALLTHROUGH
               case 2:
@@ -188,7 +188,7 @@ final class Stream {
                   $s[2] = $d;
                   return Vector{0, $a__0};
                 }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g4});
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g4}) as \Throwable;
               }
             // FALLTHROUGH
             case 2:
@@ -294,11 +294,13 @@ final class Stream {
     $next = function($s) use ($Failure,$junk,$peek,$runtime) {
       $match = $peek($s);
       if ($match) {$a = $match[1];$junk($s);return $a;}
-      throw $runtime["caml_wrap_thrown_exception"]($Failure);
+      throw $runtime["caml_wrap_thrown_exception"]($Failure) as \Throwable;
     };
     $empty = function($s) use ($Failure,$peek,$runtime) {
       $match = $peek($s);
-      if ($match) {throw $runtime["caml_wrap_thrown_exception"]($Failure);}
+      if ($match) {
+        throw $runtime["caml_wrap_thrown_exception"]($Failure) as \Throwable;
+      }
       return 0;
     };
     $iter = function($f, $strm) use ($caml_call1,$junk,$peek) {

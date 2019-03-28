@@ -220,7 +220,7 @@ final class Set {
             $v = $param__0[2];
             return $v;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $min_elt_opt = function($param) {
@@ -244,7 +244,7 @@ final class Set {
             if ($f6) {$param__0 = $f6;continue;}
             return $f7;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $max_elt_opt = function($param) {
@@ -669,7 +669,7 @@ final class Set {
             $param__0 = $param__1;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find_first_aux = function($v0, $f, $param) use ($caml_call1) {
@@ -698,7 +698,7 @@ final class Set {
             $param__0 = $r;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find_first_opt_aux = function($v0, $f, $param) use ($caml_call1) {
@@ -756,7 +756,7 @@ final class Set {
             $param__0 = $l;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find_last_opt_aux = function($v0, $f, $param) use ($caml_call1) {
@@ -912,7 +912,7 @@ final class Set {
               $right = $match__0[1];
               return Vector{0, $create($left, $mid, $right), $l__2};
             }
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $fn});
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $fn}) as \Throwable;
           };
         return $sub->contents($caml_call1($List[1], $l), $l)[1];
       };

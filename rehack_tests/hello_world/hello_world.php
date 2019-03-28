@@ -43,7 +43,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
 
 $caml_raise_with_arg = $Func(
   function($tag, $arg) use ($caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]);
+    throw $caml_wrap_thrown_exception(varray[0,$tag,$arg]) as \Throwable;
   }
 );
 $caml_str_repeat = $Func(
@@ -1362,7 +1362,7 @@ $flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channe
         catch(\Throwable $b) {
           $b = $caml_wrap_exception($b);
           if ($b[1] !== $Sys_error) {
-            throw $caml_wrap_thrown_exception_reraise($b);
+            throw $caml_wrap_thrown_exception_reraise($b) as \Throwable;
           }
         }
         $param__0 = $l;

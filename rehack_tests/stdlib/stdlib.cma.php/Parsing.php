@@ -126,7 +126,7 @@ final class Parsing {
               continue;
             // FALLTHROUGH
             case 1:
-              throw $runtime["caml_wrap_thrown_exception"]($Parse_error);
+              throw $runtime["caml_wrap_thrown_exception"]($Parse_error) as \Throwable;
             // FALLTHROUGH
             case 2:
               $grow_stacks(0);
@@ -154,7 +154,7 @@ final class Parsing {
               catch(\Throwable $fk) {
                 $fk = $caml_wrap_exception($fk);
                 if ($fk !== $Parse_error) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($fk);
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($fk) as \Throwable;
                 }
                 $ff = 0;
                 $fg = 5;
@@ -207,7 +207,7 @@ final class Parsing {
               ? 1
               : (0);
           };
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
     $peek_val = function($env, $n) use ($caml_check_bound) {

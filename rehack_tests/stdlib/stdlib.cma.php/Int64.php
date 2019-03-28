@@ -64,7 +64,7 @@ final class Int64 {
       catch(\Throwable $eD) {
         $eD = $caml_wrap_exception($eD);
         if ($eD[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($eD);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($eD) as \Throwable;
       }
     };
     $compare = function($x, $y) use ($runtime) {

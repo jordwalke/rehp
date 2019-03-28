@@ -88,7 +88,7 @@ final class Digest {
       catch(\Throwable $e) {
         $e = $caml_wrap_exception($e);
         $caml_call1($Pervasives[81], $ic);
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($e);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
       }
       $caml_call1($Pervasives[81], $ic);
       return $d;
@@ -145,7 +145,7 @@ final class Digest {
         }
         throw $runtime["caml_wrap_thrown_exception"](
                 Vector{0, $Invalid_argument, $cst_Digest_from_hex__0}
-              );
+              ) as \Throwable;
       };
       $byte__0 = function($i) use ($caml_string_get,$digit,$left_shift_32,$s) {
         $pV = $digit($caml_string_get($s, (int) ($i + 1)));

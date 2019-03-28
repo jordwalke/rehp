@@ -136,7 +136,7 @@ final class Sort {
               if ($cJ) {
                 throw $runtime["caml_wrap_thrown_exception"](
                         Vector{0, $Invalid_argument, $cst_Sort_array}
-                      );
+                      ) as \Throwable;
               }
               for (;;) {
                 if ($i[1] < $j[1]) {

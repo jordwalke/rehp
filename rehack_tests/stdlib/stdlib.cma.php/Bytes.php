@@ -543,7 +543,7 @@ final class Bytes {
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
         $i__1 = (int) ($i__0 + 1);
@@ -592,7 +592,7 @@ final class Bytes {
           $i__0 = $i__1;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       }
     };
     $rindex = function($s, $c) use ($caml_ml_bytes_length,$rindex_rec) {
@@ -639,7 +639,7 @@ final class Bytes {
           catch(\Throwable $bu) {
             $bu = $caml_wrap_exception($bu);
             if ($bu === $Not_found) {return 0;}
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($bu);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($bu) as \Throwable;
           }
         }
       }
@@ -658,7 +658,7 @@ final class Bytes {
           catch(\Throwable $bs) {
             $bs = $caml_wrap_exception($bs);
             if ($bs === $Not_found) {return 0;}
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($bs);
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($bs) as \Throwable;
           }
         }
       }

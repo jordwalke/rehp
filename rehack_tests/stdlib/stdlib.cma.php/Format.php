@@ -97,7 +97,7 @@ final class Format {
     $peek_queue = function($param) use ($Empty_queue,$runtime) {
       $vR = $param[2];
       if ($vR) {$x = $vR[1];return $x;}
-      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue) as \Throwable;
     };
     $take_queue = function($q) use ($Empty_queue,$runtime) {
       $vQ = $q[2];
@@ -108,7 +108,7 @@ final class Format {
         if (0 === $tl) {$q[1] = 0;}
         return $x;
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue);
+      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue) as \Throwable;
     };
     $pp_enqueue = function($state, $token) use ($add_queue) {
       $len = $token[3];
@@ -305,7 +305,7 @@ final class Format {
                     $param__0 = $l;
                     continue;
                   }
-                  throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+                  throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
                 }
               };
               $vK = $tabs__0[1];
@@ -315,7 +315,7 @@ final class Format {
                 catch(\Throwable $vM) {
                   $vM = $caml_wrap_exception($vM);
                   if ($vM !== $Not_found) {
-                    throw $runtime["caml_wrap_thrown_exception_reraise"]($vM);
+                    throw $runtime["caml_wrap_thrown_exception_reraise"]($vM) as \Throwable;
                   }
                   $x__0 = $x;
                 }
@@ -379,7 +379,7 @@ final class Format {
       catch(\Throwable $vy) {
         $vy = $caml_wrap_exception($vy);
         if ($vy === $Empty_queue) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($vy);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($vy) as \Throwable;
       }
     };
     $enqueue_advance = function($state, $tok) use ($advance_left,$pp_enqueue) {

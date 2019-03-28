@@ -56,7 +56,7 @@ final class Nativeint {
       catch(\Throwable $eF) {
         $eF = $caml_wrap_exception($eF);
         if ($eF[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($eF);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($eF) as \Throwable;
       }
     };
     $compare = function($x, $y) use ($runtime) {

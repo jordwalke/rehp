@@ -187,7 +187,7 @@ final class Map {
             $param__0 = $param__1;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find_first_aux = function($v0, $d0, $f, $param) use ($caml_call1) {
@@ -224,7 +224,7 @@ final class Map {
             $param__0 = $r;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find_first_opt_aux = function($v0, $d0, $f, $param) use ($caml_call1) {
@@ -300,7 +300,7 @@ final class Map {
             $param__0 = $l;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find_last_opt_aux = function($v0, $d0, $f, $param) use ($caml_call1) {
@@ -386,7 +386,7 @@ final class Map {
             $v = $param__0[2];
             return Vector{0, $v, $d};
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $min_binding_opt = function($param) {
@@ -412,7 +412,7 @@ final class Map {
             if ($gH) {$param__0 = $gH;continue;}
             return Vector{0, $gJ, $gI};
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $max_binding_opt = function($param) {
@@ -751,7 +751,7 @@ final class Map {
               $gv
             );
           }
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $gg});
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $gg}) as \Throwable;
         };
       $_ = $union->contents =
         function($f, $s1, $s2) use ($caml_call3,$concat_or_join,$join,$split,$union) {

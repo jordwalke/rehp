@@ -92,13 +92,13 @@ final class Hashtbl {
     catch(\Throwable $rj) {
       $rj = $caml_wrap_exception($rj);
       if ($rj !== $Not_found) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($rj);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($rj) as \Throwable;
       }
       try {$qi = $caml_sys_getenv($cst_CAMLRUNPARAM);$qf = $qi;}
       catch(\Throwable $rk) {
         $rk = $caml_wrap_exception($rk);
         if ($rk !== $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($rk);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($rk) as \Throwable;
         }
         $qf = $cst;
       }
@@ -194,7 +194,7 @@ final class Hashtbl {
                 $param__0 = $next;
                 continue;
               }
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $qg});
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $qg}) as \Throwable;
             }
             return 0;
           }
@@ -333,7 +333,7 @@ final class Hashtbl {
           $param__0 = $next;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       }
     };
     $find = function($h, $key) use ($Not_found,$caml_check_bound,$caml_compare,$find_rec,$key_index,$runtime) {
@@ -357,11 +357,11 @@ final class Hashtbl {
               ? $d3
               : ($find_rec($key, $next3));
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+      throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
     };
     $find_rec_opt = function($key, $param) use ($caml_compare) {
       $param__0 = $param;
@@ -512,10 +512,10 @@ final class Hashtbl {
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($old_trav) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
         $flip_ongoing_traversal($h);
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
     $filter_map_inplace_bucket = function($f, $h, $i, $prec, $slot) use ($caml_call2,$caml_check_bound) {
@@ -575,10 +575,10 @@ final class Hashtbl {
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($old_trav) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
         $flip_ongoing_traversal($h);
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
     $fold = function($f, $h, $init) use ($caml_call3,$caml_check_bound,$caml_wrap_exception,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
@@ -622,10 +622,10 @@ final class Hashtbl {
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($old_trav) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
         $flip_ongoing_traversal($h);
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn);
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
     $bucket_length = function($accu, $param) {
@@ -715,7 +715,7 @@ final class Hashtbl {
             $param__0 = $next;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
       $find = function($h, $key) use ($H,$Not_found,$caml_call2,$caml_check_bound,$find_rec,$key_index,$runtime) {
@@ -739,11 +739,11 @@ final class Hashtbl {
                 ? $d3
                 : ($find_rec($key, $next3));
             }
-            throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+            throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found);
+        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       };
       $find_rec_opt = function($key, $param) use ($H,$caml_call2) {
         $param__0 = $param;
