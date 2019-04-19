@@ -184,17 +184,16 @@ final class Format {
             if ($vC) {
               $match = $vC[1];
               $tabs = $match[1];
-              $_ = $add_tab->contents =
-                function($n, $ls) use ($add_tab,$runtime) {
-                  if ($ls) {
-                    $l = $ls[2];
-                    $x = $ls[1];
-                    return $runtime["caml_lessthan"]($n, $x)
-                      ? Vector{0, $n, $ls}
-                      : (Vector{0, $x, $add_tab->contents($n, $l)});
-                  }
-                  return Vector{0, $n, 0};
-                };
+              $add_tab->contents = function($n, $ls) use ($add_tab,$runtime) {
+                if ($ls) {
+                  $l = $ls[2];
+                  $x = $ls[1];
+                  return $runtime["caml_lessthan"]($n, $x)
+                    ? Vector{0, $n, $ls}
+                    : (Vector{0, $x, $add_tab->contents($n, $l)});
+                }
+                return Vector{0, $n, 0};
+              };
               $tabs[1] =
                 $add_tab->contents((int) ($state[6] - $state[9]), $tabs[1]);
               return 0;
@@ -1210,428 +1209,423 @@ final class Format {
           }
       }
     };
-    $_ = $output_acc->contents =
-      function($ppf, $acc) use ($CamlinternalFormat,$Pervasives,$String,$caml_call1,$caml_call2,$compute_tag,$is_int,$output_acc,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string) {
-        if ($is_int($acc)) {return 0;}
-        else {
-          switch($acc[0]) {
-            // FALLTHROUGH
-            case 0:
-              $f = $acc[2];
-              $p = $acc[1];
-              $output_acc->contents($ppf, $p);
-              return $output_formatting_lit($ppf, $f);
-            // FALLTHROUGH
-            case 1:
-              $to = $acc[2];
-              $tp = $acc[1];
-              if (0 === $to[0]) {
-                $acc__0 = $to[1];
-                $output_acc->contents($ppf, $tp);
-                return $pp_open_tag(
-                  $ppf,
-                  $compute_tag($output_acc->contents, $acc__0)
-                );
-              }
-              $acc__1 = $to[1];
+    $output_acc->contents = function($ppf, $acc) use ($CamlinternalFormat,$Pervasives,$String,$caml_call1,$caml_call2,$compute_tag,$is_int,$output_acc,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string) {
+      if ($is_int($acc)) {return 0;}
+      else {
+        switch($acc[0]) {
+          // FALLTHROUGH
+          case 0:
+            $f = $acc[2];
+            $p = $acc[1];
+            $output_acc->contents($ppf, $p);
+            return $output_formatting_lit($ppf, $f);
+          // FALLTHROUGH
+          case 1:
+            $to = $acc[2];
+            $tp = $acc[1];
+            if (0 === $to[0]) {
+              $acc__0 = $to[1];
               $output_acc->contents($ppf, $tp);
-              $tq = $compute_tag($output_acc->contents, $acc__1);
-              $match = $caml_call1($CamlinternalFormat[21], $tq);
-              $bty = $match[2];
-              $indent = $match[1];
-              return $pp_open_box_gen($ppf, $indent, $bty);
-            // FALLTHROUGH
-            case 2:
-              $tr = $acc[1];
-              if ($is_int($tr)) {$switch__1 = 1;}
-              else {
-                if (0 === $tr[0]) {
-                  $tt = $tr[2];
-                  if ($is_int($tt)) {$switch__2 = 1;}
-                  else {
-                    if (1 === $tt[0]) {
-                      $tu = $acc[2];
-                      $tv = $tt[2];
-                      $tw = $tr[1];
-                      $s__0 = $tu;
-                      $size = $tv;
-                      $p__1 = $tw;
-                      $switch__0 = 0;
-                      $switch__1 = 0;
-                      $switch__2 = 0;
-                    }
-                    else {$switch__2 = 1;}
-                  }
-                  if ($switch__2) {$switch__1 = 1;}
-                }
-                else {$switch__1 = 1;}
-              }
-              if ($switch__1) {
-                $ts = $acc[2];
-                $s = $ts;
-                $p__0 = $tr;
-                $switch__0 = 2;
-              }
-              break;
-            // FALLTHROUGH
-            case 3:
-              $tx = $acc[1];
-              if ($is_int($tx)) {$switch__3 = 1;}
-              else {
-                if (0 === $tx[0]) {
-                  $tz = $tx[2];
-                  if ($is_int($tz)) {$switch__4 = 1;}
-                  else {
-                    if (1 === $tz[0]) {
-                      $tA = $acc[2];
-                      $tB = $tz[2];
-                      $tC = $tx[1];
-                      $c__0 = $tA;
-                      $size__0 = $tB;
-                      $p__3 = $tC;
-                      $switch__0 = 1;
-                      $switch__3 = 0;
-                      $switch__4 = 0;
-                    }
-                    else {$switch__4 = 1;}
-                  }
-                  if ($switch__4) {$switch__3 = 1;}
-                }
-                else {$switch__3 = 1;}
-              }
-              if ($switch__3) {
-                $ty = $acc[2];
-                $c = $ty;
-                $p__2 = $tx;
-                $switch__0 = 3;
-              }
-              break;
-            // FALLTHROUGH
-            case 4:
-              $tD = $acc[1];
-              if ($is_int($tD)) {$switch__5 = 1;}
-              else {
-                if (0 === $tD[0]) {
-                  $tF = $tD[2];
-                  if ($is_int($tF)) {$switch__6 = 1;}
-                  else {
-                    if (1 === $tF[0]) {
-                      $tG = $acc[2];
-                      $tH = $tF[2];
-                      $tI = $tD[1];
-                      $s__0 = $tG;
-                      $size = $tH;
-                      $p__1 = $tI;
-                      $switch__0 = 0;
-                      $switch__5 = 0;
-                      $switch__6 = 0;
-                    }
-                    else {$switch__6 = 1;}
-                  }
-                  if ($switch__6) {$switch__5 = 1;}
-                }
-                else {$switch__5 = 1;}
-              }
-              if ($switch__5) {
-                $tE = $acc[2];
-                $s = $tE;
-                $p__0 = $tD;
-                $switch__0 = 2;
-              }
-              break;
-            // FALLTHROUGH
-            case 5:
-              $tJ = $acc[1];
-              if ($is_int($tJ)) {$switch__7 = 1;}
-              else {
-                if (0 === $tJ[0]) {
-                  $tL = $tJ[2];
-                  if ($is_int($tL)) {$switch__8 = 1;}
-                  else {
-                    if (1 === $tL[0]) {
-                      $tM = $acc[2];
-                      $tN = $tL[2];
-                      $tO = $tJ[1];
-                      $c__0 = $tM;
-                      $size__0 = $tN;
-                      $p__3 = $tO;
-                      $switch__0 = 1;
-                      $switch__7 = 0;
-                      $switch__8 = 0;
-                    }
-                    else {$switch__8 = 1;}
-                  }
-                  if ($switch__8) {$switch__7 = 1;}
-                }
-                else {$switch__7 = 1;}
-              }
-              if ($switch__7) {
-                $tK = $acc[2];
-                $c = $tK;
-                $p__2 = $tJ;
-                $switch__0 = 3;
-              }
-              break;
-            // FALLTHROUGH
-            case 6:
-              $f__0 = $acc[2];
-              $p__4 = $acc[1];
-              $output_acc->contents($ppf, $p__4);
-              return $caml_call1($f__0, $ppf);
-            // FALLTHROUGH
-            case 7:
-              $p__5 = $acc[1];
-              $output_acc->contents($ppf, $p__5);
-              return $pp_print_flush($ppf, 0);
-            // FALLTHROUGH
-            default:
-              $msg = $acc[2];
-              $p__6 = $acc[1];
-              $output_acc->contents($ppf, $p__6);
-              return $caml_call1($Pervasives[1], $msg);
+              return $pp_open_tag(
+                $ppf,
+                $compute_tag($output_acc->contents, $acc__0)
+              );
             }
-        }
-        switch($switch__0) {
-          // FALLTHROUGH
-          case 0:
-            $output_acc->contents($ppf, $p__1);
-            return $pp_print_as_size($ppf, $size, $s__0);
-          // FALLTHROUGH
-          case 1:
-            $output_acc->contents($ppf, $p__3);
-            return $pp_print_as_size(
-              $ppf,
-              $size__0,
-              $caml_call2($String[1], 1, $c__0)
-            );
+            $acc__1 = $to[1];
+            $output_acc->contents($ppf, $tp);
+            $tq = $compute_tag($output_acc->contents, $acc__1);
+            $match = $caml_call1($CamlinternalFormat[21], $tq);
+            $bty = $match[2];
+            $indent = $match[1];
+            return $pp_open_box_gen($ppf, $indent, $bty);
           // FALLTHROUGH
           case 2:
-            $output_acc->contents($ppf, $p__0);
-            return $pp_print_string($ppf, $s);
+            $tr = $acc[1];
+            if ($is_int($tr)) {$switch__1 = 1;}
+            else {
+              if (0 === $tr[0]) {
+                $tt = $tr[2];
+                if ($is_int($tt)) {$switch__2 = 1;}
+                else {
+                  if (1 === $tt[0]) {
+                    $tu = $acc[2];
+                    $tv = $tt[2];
+                    $tw = $tr[1];
+                    $s__0 = $tu;
+                    $size = $tv;
+                    $p__1 = $tw;
+                    $switch__0 = 0;
+                    $switch__1 = 0;
+                    $switch__2 = 0;
+                  }
+                  else {$switch__2 = 1;}
+                }
+                if ($switch__2) {$switch__1 = 1;}
+              }
+              else {$switch__1 = 1;}
+            }
+            if ($switch__1) {
+              $ts = $acc[2];
+              $s = $ts;
+              $p__0 = $tr;
+              $switch__0 = 2;
+            }
+            break;
+          // FALLTHROUGH
+          case 3:
+            $tx = $acc[1];
+            if ($is_int($tx)) {$switch__3 = 1;}
+            else {
+              if (0 === $tx[0]) {
+                $tz = $tx[2];
+                if ($is_int($tz)) {$switch__4 = 1;}
+                else {
+                  if (1 === $tz[0]) {
+                    $tA = $acc[2];
+                    $tB = $tz[2];
+                    $tC = $tx[1];
+                    $c__0 = $tA;
+                    $size__0 = $tB;
+                    $p__3 = $tC;
+                    $switch__0 = 1;
+                    $switch__3 = 0;
+                    $switch__4 = 0;
+                  }
+                  else {$switch__4 = 1;}
+                }
+                if ($switch__4) {$switch__3 = 1;}
+              }
+              else {$switch__3 = 1;}
+            }
+            if ($switch__3) {
+              $ty = $acc[2];
+              $c = $ty;
+              $p__2 = $tx;
+              $switch__0 = 3;
+            }
+            break;
+          // FALLTHROUGH
+          case 4:
+            $tD = $acc[1];
+            if ($is_int($tD)) {$switch__5 = 1;}
+            else {
+              if (0 === $tD[0]) {
+                $tF = $tD[2];
+                if ($is_int($tF)) {$switch__6 = 1;}
+                else {
+                  if (1 === $tF[0]) {
+                    $tG = $acc[2];
+                    $tH = $tF[2];
+                    $tI = $tD[1];
+                    $s__0 = $tG;
+                    $size = $tH;
+                    $p__1 = $tI;
+                    $switch__0 = 0;
+                    $switch__5 = 0;
+                    $switch__6 = 0;
+                  }
+                  else {$switch__6 = 1;}
+                }
+                if ($switch__6) {$switch__5 = 1;}
+              }
+              else {$switch__5 = 1;}
+            }
+            if ($switch__5) {
+              $tE = $acc[2];
+              $s = $tE;
+              $p__0 = $tD;
+              $switch__0 = 2;
+            }
+            break;
+          // FALLTHROUGH
+          case 5:
+            $tJ = $acc[1];
+            if ($is_int($tJ)) {$switch__7 = 1;}
+            else {
+              if (0 === $tJ[0]) {
+                $tL = $tJ[2];
+                if ($is_int($tL)) {$switch__8 = 1;}
+                else {
+                  if (1 === $tL[0]) {
+                    $tM = $acc[2];
+                    $tN = $tL[2];
+                    $tO = $tJ[1];
+                    $c__0 = $tM;
+                    $size__0 = $tN;
+                    $p__3 = $tO;
+                    $switch__0 = 1;
+                    $switch__7 = 0;
+                    $switch__8 = 0;
+                  }
+                  else {$switch__8 = 1;}
+                }
+                if ($switch__8) {$switch__7 = 1;}
+              }
+              else {$switch__7 = 1;}
+            }
+            if ($switch__7) {
+              $tK = $acc[2];
+              $c = $tK;
+              $p__2 = $tJ;
+              $switch__0 = 3;
+            }
+            break;
+          // FALLTHROUGH
+          case 6:
+            $f__0 = $acc[2];
+            $p__4 = $acc[1];
+            $output_acc->contents($ppf, $p__4);
+            return $caml_call1($f__0, $ppf);
+          // FALLTHROUGH
+          case 7:
+            $p__5 = $acc[1];
+            $output_acc->contents($ppf, $p__5);
+            return $pp_print_flush($ppf, 0);
           // FALLTHROUGH
           default:
-            $output_acc->contents($ppf, $p__2);
-            return $pp_print_char($ppf, $c);
+            $msg = $acc[2];
+            $p__6 = $acc[1];
+            $output_acc->contents($ppf, $p__6);
+            return $caml_call1($Pervasives[1], $msg);
           }
-      };
-    $_ = $strput_acc->contents =
-      function($ppf, $acc) use ($CamlinternalFormat,$Pervasives,$String,$caml_call1,$caml_call2,$compute_tag,$is_int,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string,$strput_acc) {
-        if ($is_int($acc)) {return 0;}
-        else {
-          switch($acc[0]) {
-            // FALLTHROUGH
-            case 0:
-              $f = $acc[2];
-              $p = $acc[1];
-              $strput_acc->contents($ppf, $p);
-              return $output_formatting_lit($ppf, $f);
-            // FALLTHROUGH
-            case 1:
-              $sW = $acc[2];
-              $sX = $acc[1];
-              if (0 === $sW[0]) {
-                $acc__0 = $sW[1];
-                $strput_acc->contents($ppf, $sX);
-                return $pp_open_tag(
-                  $ppf,
-                  $compute_tag($strput_acc->contents, $acc__0)
+      }
+      switch($switch__0) {
+        // FALLTHROUGH
+        case 0:
+          $output_acc->contents($ppf, $p__1);
+          return $pp_print_as_size($ppf, $size, $s__0);
+        // FALLTHROUGH
+        case 1:
+          $output_acc->contents($ppf, $p__3);
+          return $pp_print_as_size(
+            $ppf,
+            $size__0,
+            $caml_call2($String[1], 1, $c__0)
+          );
+        // FALLTHROUGH
+        case 2:
+          $output_acc->contents($ppf, $p__0);
+          return $pp_print_string($ppf, $s);
+        // FALLTHROUGH
+        default:
+          $output_acc->contents($ppf, $p__2);
+          return $pp_print_char($ppf, $c);
+        }
+    };
+    $strput_acc->contents = function($ppf, $acc) use ($CamlinternalFormat,$Pervasives,$String,$caml_call1,$caml_call2,$compute_tag,$is_int,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string,$strput_acc) {
+      if ($is_int($acc)) {return 0;}
+      else {
+        switch($acc[0]) {
+          // FALLTHROUGH
+          case 0:
+            $f = $acc[2];
+            $p = $acc[1];
+            $strput_acc->contents($ppf, $p);
+            return $output_formatting_lit($ppf, $f);
+          // FALLTHROUGH
+          case 1:
+            $sW = $acc[2];
+            $sX = $acc[1];
+            if (0 === $sW[0]) {
+              $acc__0 = $sW[1];
+              $strput_acc->contents($ppf, $sX);
+              return $pp_open_tag(
+                $ppf,
+                $compute_tag($strput_acc->contents, $acc__0)
+              );
+            }
+            $acc__1 = $sW[1];
+            $strput_acc->contents($ppf, $sX);
+            $sY = $compute_tag($strput_acc->contents, $acc__1);
+            $match = $caml_call1($CamlinternalFormat[21], $sY);
+            $bty = $match[2];
+            $indent = $match[1];
+            return $pp_open_box_gen($ppf, $indent, $bty);
+          // FALLTHROUGH
+          case 2:
+            $sZ = $acc[1];
+            if ($is_int($sZ)) {$switch__1 = 1;}
+            else {
+              if (0 === $sZ[0]) {
+                $s1 = $sZ[2];
+                if ($is_int($s1)) {$switch__2 = 1;}
+                else {
+                  if (1 === $s1[0]) {
+                    $s2 = $acc[2];
+                    $s3 = $s1[2];
+                    $s4 = $sZ[1];
+                    $s__0 = $s2;
+                    $size = $s3;
+                    $p__1 = $s4;
+                    $switch__0 = 0;
+                    $switch__1 = 0;
+                    $switch__2 = 0;
+                  }
+                  else {$switch__2 = 1;}
+                }
+                if ($switch__2) {$switch__1 = 1;}
+              }
+              else {$switch__1 = 1;}
+            }
+            if ($switch__1) {
+              $s0 = $acc[2];
+              $s = $s0;
+              $p__0 = $sZ;
+              $switch__0 = 2;
+            }
+            break;
+          // FALLTHROUGH
+          case 3:
+            $s5 = $acc[1];
+            if ($is_int($s5)) {$switch__3 = 1;}
+            else {
+              if (0 === $s5[0]) {
+                $s7 = $s5[2];
+                if ($is_int($s7)) {$switch__4 = 1;}
+                else {
+                  if (1 === $s7[0]) {
+                    $s8 = $acc[2];
+                    $s9 = $s7[2];
+                    $s_ = $s5[1];
+                    $c__0 = $s8;
+                    $size__0 = $s9;
+                    $p__3 = $s_;
+                    $switch__0 = 1;
+                    $switch__3 = 0;
+                    $switch__4 = 0;
+                  }
+                  else {$switch__4 = 1;}
+                }
+                if ($switch__4) {$switch__3 = 1;}
+              }
+              else {$switch__3 = 1;}
+            }
+            if ($switch__3) {
+              $s6 = $acc[2];
+              $c = $s6;
+              $p__2 = $s5;
+              $switch__0 = 3;
+            }
+            break;
+          // FALLTHROUGH
+          case 4:
+            $ta = $acc[1];
+            if ($is_int($ta)) {$switch__5 = 1;}
+            else {
+              if (0 === $ta[0]) {
+                $tc = $ta[2];
+                if ($is_int($tc)) {$switch__6 = 1;}
+                else {
+                  if (1 === $tc[0]) {
+                    $td = $acc[2];
+                    $te = $tc[2];
+                    $tf = $ta[1];
+                    $s__0 = $td;
+                    $size = $te;
+                    $p__1 = $tf;
+                    $switch__0 = 0;
+                    $switch__5 = 0;
+                    $switch__6 = 0;
+                  }
+                  else {$switch__6 = 1;}
+                }
+                if ($switch__6) {$switch__5 = 1;}
+              }
+              else {$switch__5 = 1;}
+            }
+            if ($switch__5) {
+              $tb = $acc[2];
+              $s = $tb;
+              $p__0 = $ta;
+              $switch__0 = 2;
+            }
+            break;
+          // FALLTHROUGH
+          case 5:
+            $tg = $acc[1];
+            if ($is_int($tg)) {$switch__7 = 1;}
+            else {
+              if (0 === $tg[0]) {
+                $ti = $tg[2];
+                if ($is_int($ti)) {$switch__8 = 1;}
+                else {
+                  if (1 === $ti[0]) {
+                    $tj = $acc[2];
+                    $tk = $ti[2];
+                    $tl = $tg[1];
+                    $c__0 = $tj;
+                    $size__0 = $tk;
+                    $p__3 = $tl;
+                    $switch__0 = 1;
+                    $switch__7 = 0;
+                    $switch__8 = 0;
+                  }
+                  else {$switch__8 = 1;}
+                }
+                if ($switch__8) {$switch__7 = 1;}
+              }
+              else {$switch__7 = 1;}
+            }
+            if ($switch__7) {
+              $th = $acc[2];
+              $c = $th;
+              $p__2 = $tg;
+              $switch__0 = 3;
+            }
+            break;
+          // FALLTHROUGH
+          case 6:
+            $tm = $acc[1];
+            if (! $is_int($tm) && 0 === $tm[0]) {
+              $tn = $tm[2];
+              if (! $is_int($tn) && 1 === $tn[0]) {
+                $f__1 = $acc[2];
+                $size__1 = $tn[2];
+                $p__4 = $tm[1];
+                $strput_acc->contents($ppf, $p__4);
+                return $pp_print_as_size($ppf, $size__1, $caml_call1($f__1, 0)
                 );
               }
-              $acc__1 = $sW[1];
-              $strput_acc->contents($ppf, $sX);
-              $sY = $compute_tag($strput_acc->contents, $acc__1);
-              $match = $caml_call1($CamlinternalFormat[21], $sY);
-              $bty = $match[2];
-              $indent = $match[1];
-              return $pp_open_box_gen($ppf, $indent, $bty);
-            // FALLTHROUGH
-            case 2:
-              $sZ = $acc[1];
-              if ($is_int($sZ)) {$switch__1 = 1;}
-              else {
-                if (0 === $sZ[0]) {
-                  $s1 = $sZ[2];
-                  if ($is_int($s1)) {$switch__2 = 1;}
-                  else {
-                    if (1 === $s1[0]) {
-                      $s2 = $acc[2];
-                      $s3 = $s1[2];
-                      $s4 = $sZ[1];
-                      $s__0 = $s2;
-                      $size = $s3;
-                      $p__1 = $s4;
-                      $switch__0 = 0;
-                      $switch__1 = 0;
-                      $switch__2 = 0;
-                    }
-                    else {$switch__2 = 1;}
-                  }
-                  if ($switch__2) {$switch__1 = 1;}
-                }
-                else {$switch__1 = 1;}
-              }
-              if ($switch__1) {
-                $s0 = $acc[2];
-                $s = $s0;
-                $p__0 = $sZ;
-                $switch__0 = 2;
-              }
-              break;
-            // FALLTHROUGH
-            case 3:
-              $s5 = $acc[1];
-              if ($is_int($s5)) {$switch__3 = 1;}
-              else {
-                if (0 === $s5[0]) {
-                  $s7 = $s5[2];
-                  if ($is_int($s7)) {$switch__4 = 1;}
-                  else {
-                    if (1 === $s7[0]) {
-                      $s8 = $acc[2];
-                      $s9 = $s7[2];
-                      $s_ = $s5[1];
-                      $c__0 = $s8;
-                      $size__0 = $s9;
-                      $p__3 = $s_;
-                      $switch__0 = 1;
-                      $switch__3 = 0;
-                      $switch__4 = 0;
-                    }
-                    else {$switch__4 = 1;}
-                  }
-                  if ($switch__4) {$switch__3 = 1;}
-                }
-                else {$switch__3 = 1;}
-              }
-              if ($switch__3) {
-                $s6 = $acc[2];
-                $c = $s6;
-                $p__2 = $s5;
-                $switch__0 = 3;
-              }
-              break;
-            // FALLTHROUGH
-            case 4:
-              $ta = $acc[1];
-              if ($is_int($ta)) {$switch__5 = 1;}
-              else {
-                if (0 === $ta[0]) {
-                  $tc = $ta[2];
-                  if ($is_int($tc)) {$switch__6 = 1;}
-                  else {
-                    if (1 === $tc[0]) {
-                      $td = $acc[2];
-                      $te = $tc[2];
-                      $tf = $ta[1];
-                      $s__0 = $td;
-                      $size = $te;
-                      $p__1 = $tf;
-                      $switch__0 = 0;
-                      $switch__5 = 0;
-                      $switch__6 = 0;
-                    }
-                    else {$switch__6 = 1;}
-                  }
-                  if ($switch__6) {$switch__5 = 1;}
-                }
-                else {$switch__5 = 1;}
-              }
-              if ($switch__5) {
-                $tb = $acc[2];
-                $s = $tb;
-                $p__0 = $ta;
-                $switch__0 = 2;
-              }
-              break;
-            // FALLTHROUGH
-            case 5:
-              $tg = $acc[1];
-              if ($is_int($tg)) {$switch__7 = 1;}
-              else {
-                if (0 === $tg[0]) {
-                  $ti = $tg[2];
-                  if ($is_int($ti)) {$switch__8 = 1;}
-                  else {
-                    if (1 === $ti[0]) {
-                      $tj = $acc[2];
-                      $tk = $ti[2];
-                      $tl = $tg[1];
-                      $c__0 = $tj;
-                      $size__0 = $tk;
-                      $p__3 = $tl;
-                      $switch__0 = 1;
-                      $switch__7 = 0;
-                      $switch__8 = 0;
-                    }
-                    else {$switch__8 = 1;}
-                  }
-                  if ($switch__8) {$switch__7 = 1;}
-                }
-                else {$switch__7 = 1;}
-              }
-              if ($switch__7) {
-                $th = $acc[2];
-                $c = $th;
-                $p__2 = $tg;
-                $switch__0 = 3;
-              }
-              break;
-            // FALLTHROUGH
-            case 6:
-              $tm = $acc[1];
-              if (! $is_int($tm) && 0 === $tm[0]) {
-                $tn = $tm[2];
-                if (! $is_int($tn) && 1 === $tn[0]) {
-                  $f__1 = $acc[2];
-                  $size__1 = $tn[2];
-                  $p__4 = $tm[1];
-                  $strput_acc->contents($ppf, $p__4);
-                  return $pp_print_as_size(
-                    $ppf,
-                    $size__1,
-                    $caml_call1($f__1, 0)
-                  );
-                }
-              }
-              $f__0 = $acc[2];
-              $strput_acc->contents($ppf, $tm);
-              return $pp_print_string($ppf, $caml_call1($f__0, 0));
-            // FALLTHROUGH
-            case 7:
-              $p__5 = $acc[1];
-              $strput_acc->contents($ppf, $p__5);
-              return $pp_print_flush($ppf, 0);
-            // FALLTHROUGH
-            default:
-              $msg = $acc[2];
-              $p__6 = $acc[1];
-              $strput_acc->contents($ppf, $p__6);
-              return $caml_call1($Pervasives[1], $msg);
             }
-        }
-        switch($switch__0) {
+            $f__0 = $acc[2];
+            $strput_acc->contents($ppf, $tm);
+            return $pp_print_string($ppf, $caml_call1($f__0, 0));
           // FALLTHROUGH
-          case 0:
-            $strput_acc->contents($ppf, $p__1);
-            return $pp_print_as_size($ppf, $size, $s__0);
-          // FALLTHROUGH
-          case 1:
-            $strput_acc->contents($ppf, $p__3);
-            return $pp_print_as_size(
-              $ppf,
-              $size__0,
-              $caml_call2($String[1], 1, $c__0)
-            );
-          // FALLTHROUGH
-          case 2:
-            $strput_acc->contents($ppf, $p__0);
-            return $pp_print_string($ppf, $s);
+          case 7:
+            $p__5 = $acc[1];
+            $strput_acc->contents($ppf, $p__5);
+            return $pp_print_flush($ppf, 0);
           // FALLTHROUGH
           default:
-            $strput_acc->contents($ppf, $p__2);
-            return $pp_print_char($ppf, $c);
+            $msg = $acc[2];
+            $p__6 = $acc[1];
+            $strput_acc->contents($ppf, $p__6);
+            return $caml_call1($Pervasives[1], $msg);
           }
-      };
+      }
+      switch($switch__0) {
+        // FALLTHROUGH
+        case 0:
+          $strput_acc->contents($ppf, $p__1);
+          return $pp_print_as_size($ppf, $size, $s__0);
+        // FALLTHROUGH
+        case 1:
+          $strput_acc->contents($ppf, $p__3);
+          return $pp_print_as_size(
+            $ppf,
+            $size__0,
+            $caml_call2($String[1], 1, $c__0)
+          );
+        // FALLTHROUGH
+        case 2:
+          $strput_acc->contents($ppf, $p__0);
+          return $pp_print_string($ppf, $s);
+        // FALLTHROUGH
+        default:
+          $strput_acc->contents($ppf, $p__2);
+          return $pp_print_char($ppf, $c);
+        }
+    };
     $kfprintf = function($k, $ppf, $param) use ($CamlinternalFormat,$caml_call1,$caml_call4,$output_acc) {
       $fmt = $param[1];
       $sU = 0;

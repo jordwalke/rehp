@@ -2381,15 +2381,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $string_of_float = function($f) use ($c,$caml_format_float,$valid_float_lexem) {
     return $valid_float_lexem($caml_format_float($c, $f));
   };
-  $_ = $append->contents =
-    function($l1, $l2) use ($append) {
-      if ($l1) {
-        $tl = $l1[2];
-        $hd = $l1[1];
-        return Vector{0, $hd, $append->contents($tl, $l2)};
-      }
-      return $l2;
-    };
+  $append->contents = function($l1, $l2) use ($append) {
+    if ($l1) {
+      $tl = $l1[2];
+      $hd = $l1[1];
+      return Vector{0, $hd, $append->contents($tl, $l2)};
+    }
+    return $l2;
+  };
   
   $caml_ml_open_descriptor_in(0);
   
@@ -2442,35 +2441,32 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     }
   };
   $rev = function($l) use ($rev_append) {return $rev_append($l, 0);};
-  $_ = $flatten->contents =
-    function($param) use ($append,$flatten) {
-      if ($param) {
-        $r = $param[2];
-        $l = $param[1];
-        return $append->contents($l, $flatten->contents($r));
-      }
-      return 0;
-    };
-  $_ = $map->contents =
-    function($f, $param) use ($caml_call1,$map) {
-      if ($param) {
-        $l = $param[2];
-        $a = $param[1];
-        $r = $caml_call1($f, $a);
-        return Vector{0, $r, $map->contents($f, $l)};
-      }
-      return 0;
-    };
-  $_ = $d->contents =
-    function($i, $f, $param) use ($caml_call2,$d) {
-      if ($param) {
-        $l = $param[2];
-        $a = $param[1];
-        $r = $caml_call2($f, $i, $a);
-        return Vector{0, $r, $d->contents((int) ($i + 1), $f, $l)};
-      }
-      return 0;
-    };
+  $flatten->contents = function($param) use ($append,$flatten) {
+    if ($param) {
+      $r = $param[2];
+      $l = $param[1];
+      return $append->contents($l, $flatten->contents($r));
+    }
+    return 0;
+  };
+  $map->contents = function($f, $param) use ($caml_call1,$map) {
+    if ($param) {
+      $l = $param[2];
+      $a = $param[1];
+      $r = $caml_call1($f, $a);
+      return Vector{0, $r, $map->contents($f, $l)};
+    }
+    return 0;
+  };
+  $d->contents = function($i, $f, $param) use ($caml_call2,$d) {
+    if ($param) {
+      $l = $param[2];
+      $a = $param[1];
+      $r = $caml_call2($f, $i, $a);
+      return Vector{0, $r, $d->contents((int) ($i + 1), $f, $l)};
+    }
+    return 0;
+  };
   $mapi = function($f, $l) use ($d) {return $d->contents(0, $f, $l);};
   $iter = function($f, $param) use ($caml_call1) {
     $param__0 = $param;
@@ -2839,15 +2835,14 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       return $caml_equal($o__0, 0);
     }
   };
-  $_ = $extractList->contents =
-    function($maxNum, $o) use ($extractList,$is_int,$k) {
-      if (0 === $maxNum) {return Vector{0, 1 - $is_int($o), 0};}
-      if ($is_int($o)) {return $k;}
-      $match = $extractList->contents((int) ($maxNum + -1), $o[2]);
-      $rest = $match[2];
-      $restWasTruncated = $match[1];
-      return Vector{0, $restWasTruncated, Vector{0, $o[1], $rest}};
-    };
+  $extractList->contents = function($maxNum, $o) use ($extractList,$is_int,$k) {
+    if (0 === $maxNum) {return Vector{0, 1 - $is_int($o), 0};}
+    if ($is_int($o)) {return $k;}
+    $match = $extractList->contents((int) ($maxNum + -1), $o[2]);
+    $rest = $match[2];
+    $restWasTruncated = $match[1];
+    return Vector{0, $restWasTruncated, Vector{0, $o[1], $rest}};
+  };
   $extractFields = function($maxNum, $o) {
     $extractFields = function($maxNum, $fieldsSoFar, $numFields) use ($o) {
       $maxNum__0 = $maxNum;
@@ -2894,41 +2889,40 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $allItemsLen = $match[1];
     return Vector{0, $allItemsLen, $someChildBroke};
   };
-  $_ = $indentForDepth->contents =
-    function($n__0) use ($a,$indentForDepth,$m,$n,$o,$p,$q,$r,$s,$t,$u,$unsigned_right_shift_32,$v) {
-      if (8 < $unsigned_right_shift_32($n__0, 0)) {
-        return $a($indentForDepth->contents((int) ($n__0 + -1)), $m);
+  $indentForDepth->contents = function($n__0) use ($a,$indentForDepth,$m,$n,$o,$p,$q,$r,$s,$t,$u,$unsigned_right_shift_32,$v) {
+    if (8 < $unsigned_right_shift_32($n__0, 0)) {
+      return $a($indentForDepth->contents((int) ($n__0 + -1)), $m);
+    }
+    switch($n__0) {
+      // FALLTHROUGH
+      case 0:
+        return $n;
+      // FALLTHROUGH
+      case 1:
+        return $o;
+      // FALLTHROUGH
+      case 2:
+        return $p;
+      // FALLTHROUGH
+      case 3:
+        return $q;
+      // FALLTHROUGH
+      case 4:
+        return $r;
+      // FALLTHROUGH
+      case 5:
+        return $s;
+      // FALLTHROUGH
+      case 6:
+        return $t;
+      // FALLTHROUGH
+      case 7:
+        return $u;
+      // FALLTHROUGH
+      default:
+        return $v;
       }
-      switch($n__0) {
-        // FALLTHROUGH
-        case 0:
-          return $n;
-        // FALLTHROUGH
-        case 1:
-          return $o;
-        // FALLTHROUGH
-        case 2:
-          return $p;
-        // FALLTHROUGH
-        case 3:
-          return $q;
-        // FALLTHROUGH
-        case 4:
-          return $r;
-        // FALLTHROUGH
-        case 5:
-          return $s;
-        // FALLTHROUGH
-        case 6:
-          return $t;
-        // FALLTHROUGH
-        case 7:
-          return $u;
-        // FALLTHROUGH
-        default:
-          return $v;
-        }
-    };
+  };
   $printTreeShape = function($pair, $self, $depth, $o) use ($A,$B,$C,$D,$a,$caml_call1,$caml_call3,$caml_ml_string_length,$concat,$extractFields,$getBreakData,$indentForDepth,$j,$map,$w,$x,$y,$z) {
     $right = $pair[2];
     $left = $pair[1];
@@ -3292,158 +3286,145 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $initSubtree->contents($subreplacer, $nextSpec[4])
     };
   };
-  $_ = $initSubtree->contents =
-    function($thisReplacer, $jsx) use ($caml_call1,$flatten,$init,$initSubtree,$is_int,$mapi,$splitList__0) {
-      if ($is_int($jsx)) {return 0;}
-      else {
-        switch($jsx[0]) {
-          // FALLTHROUGH
-          case 0:
-            $renderable = $jsx[1];
-            $nextReplacer = function($instSwapper) use ($caml_call1,$thisReplacer) {
-              return $caml_call1(
-                $thisReplacer,
-                function($subtree) use ($caml_call1,$instSwapper) {
-                  $inst = $subtree[1];
-                  $next = $caml_call1($instSwapper, $inst);
-                  $match = $inst !== $next ? 1 : (0);
-                  return 0 === $match ? $subtree : (Vector{0, $next});
-                }
-              );
-            };
-            return Vector{0, $init($nextReplacer, $renderable)};
-          // FALLTHROUGH
-          case 1:
-            $stateRendererB = $jsx[2];
-            $stateRendererA = $jsx[1];
-            $nextReplacerA = function($aSwapper) use ($caml_call1,$thisReplacer) {
-              return $caml_call1(
-                $thisReplacer,
-                function($subtree) use ($aSwapper,$caml_call1) {
-                  $b = $subtree[2];
-                  $a = $subtree[1];
-                  $next = $caml_call1($aSwapper, $a);
-                  $match = $next === $a ? 1 : (0);
-                  return 0 === $match ? Vector{1, $next, $b} : ($subtree);
-                }
-              );
-            };
-            $nextReplacerB = function($bSwapper) use ($caml_call1,$thisReplacer) {
-              return $caml_call1(
-                $thisReplacer,
-                function($subtree) use ($bSwapper,$caml_call1) {
-                  $b = $subtree[2];
-                  $a = $subtree[1];
-                  $next = $caml_call1($bSwapper, $b);
-                  $match = $next === $b ? 1 : (0);
-                  return 0 === $match ? Vector{1, $a, $next} : ($subtree);
-                }
-              );
-            };
-            $dT = $initSubtree->contents($nextReplacerB, $stateRendererB);
-            return Vector{
-              1,
-              $initSubtree->contents($nextReplacerA, $stateRendererA),
-              $dT
-            };
-          // FALLTHROUGH
-          default:
-            $elems = $jsx[1];
-            $initElem = function($i, $e) use ($caml_call1,$flatten,$initSubtree,$splitList__0,$thisReplacer) {
-              $subreplacer = function($swapper) use ($caml_call1,$flatten,$i,$splitList__0,$thisReplacer) {
-                return $caml_call1(
-                  $thisReplacer,
-                  function($subtree) use ($caml_call1,$flatten,$i,$splitList__0,$swapper) {
-                    $iLst = $subtree[1];
-                    $match = $splitList__0($i, $iLst);
-                    $post = $match[3];
-                    $inst = $match[2];
-                    $pre = $match[1];
-                    $next = $caml_call1($swapper, $inst);
-                    $match__0 = $next === $inst ? 1 : (0);
-                    return 0 === $match__0
-                      ? Vector{
-                       2,
-                       $flatten->contents(
-                         Vector{
-                           0,
-                           $pre,
-                           Vector{0, Vector{0, $next, 0}, Vector{0, $post, 0}}
-                         }
-                       )
-                     }
-                      : ($subtree);
-                  }
-                );
-              };
-              return $initSubtree->contents($subreplacer, $e);
-            };
-            $sub = $mapi($initElem, $elems);
-            return Vector{2, $sub};
-          }
-      }
-    };
-  $_ = $reconcile->contents =
-    function($inst, $renderable) use ($caml_call2,$reconcileSubtree,$spec) {
-      $nextSpec = $spec(
-        $caml_call2($renderable, Vector{0, $inst[5][1]}, $inst[3])
-      );
-      $dS = $reconcileSubtree->contents($inst[6], $inst[5][4], $nextSpec[4]);
-      return Vector{
-        0,
-        $inst[1],
-        $inst[2],
-        $inst[3],
-        $renderable,
-        $nextSpec,
-        $dS
-      };
-    };
-  $_ = $reconcileSubtree->contents =
-    function($subtree, $prevJsx, $match) use ($is_int,$mapi3__0,$reconcile,$reconcileSubtree) {
-      if ($is_int($subtree)) {return 0;}
-      else {
-        switch($subtree[0]) {
-          // FALLTHROUGH
-          case 0:
-            $r = $match[1];
-            $rPrev = $prevJsx[1];
-            $i = $subtree[1];
-            $match__0 = $r === $rPrev ? 1 : (0);
-            return 0 === $match__0
-              ? Vector{0, $reconcile->contents($i, $r)}
-              : ($subtree);
-          // FALLTHROUGH
-          case 1:
-            $rb = $match[2];
-            $ra = $match[1];
-            $rbPrev = $prevJsx[2];
-            $raPrev = $prevJsx[1];
-            $ib = $subtree[2];
-            $ia = $subtree[1];
-            $dR = $reconcileSubtree->contents($ib, $rbPrev, $rb);
-            return Vector{
-              1,
-              $reconcileSubtree->contents($ia, $raPrev, $ra),
-              $dR
-            };
-          // FALLTHROUGH
-          default:
-            $eLst = $match[1];
-            $eLstPrev = $prevJsx[1];
-            $iLst = $subtree[1];
-            $nextSeq = $mapi3__0(
-              function($i, $itm, $r, $rPrev) use ($reconcileSubtree) {
-                return $reconcileSubtree->contents($itm, $rPrev, $r);
-              },
-              $iLst,
-              $eLst,
-              $eLstPrev
+  $initSubtree->contents = function($thisReplacer, $jsx) use ($caml_call1,$flatten,$init,$initSubtree,$is_int,$mapi,$splitList__0) {
+    if ($is_int($jsx)) {return 0;}
+    else {
+      switch($jsx[0]) {
+        // FALLTHROUGH
+        case 0:
+          $renderable = $jsx[1];
+          $nextReplacer = function($instSwapper) use ($caml_call1,$thisReplacer) {
+            return $caml_call1(
+              $thisReplacer,
+              function($subtree) use ($caml_call1,$instSwapper) {
+                $inst = $subtree[1];
+                $next = $caml_call1($instSwapper, $inst);
+                $match = $inst !== $next ? 1 : (0);
+                return 0 === $match ? $subtree : (Vector{0, $next});
+              }
             );
-            return Vector{2, $nextSeq};
-          }
-      }
+          };
+          return Vector{0, $init($nextReplacer, $renderable)};
+        // FALLTHROUGH
+        case 1:
+          $stateRendererB = $jsx[2];
+          $stateRendererA = $jsx[1];
+          $nextReplacerA = function($aSwapper) use ($caml_call1,$thisReplacer) {
+            return $caml_call1(
+              $thisReplacer,
+              function($subtree) use ($aSwapper,$caml_call1) {
+                $b = $subtree[2];
+                $a = $subtree[1];
+                $next = $caml_call1($aSwapper, $a);
+                $match = $next === $a ? 1 : (0);
+                return 0 === $match ? Vector{1, $next, $b} : ($subtree);
+              }
+            );
+          };
+          $nextReplacerB = function($bSwapper) use ($caml_call1,$thisReplacer) {
+            return $caml_call1(
+              $thisReplacer,
+              function($subtree) use ($bSwapper,$caml_call1) {
+                $b = $subtree[2];
+                $a = $subtree[1];
+                $next = $caml_call1($bSwapper, $b);
+                $match = $next === $b ? 1 : (0);
+                return 0 === $match ? Vector{1, $a, $next} : ($subtree);
+              }
+            );
+          };
+          $dT = $initSubtree->contents($nextReplacerB, $stateRendererB);
+          return Vector{
+            1,
+            $initSubtree->contents($nextReplacerA, $stateRendererA),
+            $dT
+          };
+        // FALLTHROUGH
+        default:
+          $elems = $jsx[1];
+          $initElem = function($i, $e) use ($caml_call1,$flatten,$initSubtree,$splitList__0,$thisReplacer) {
+            $subreplacer = function($swapper) use ($caml_call1,$flatten,$i,$splitList__0,$thisReplacer) {
+              return $caml_call1(
+                $thisReplacer,
+                function($subtree) use ($caml_call1,$flatten,$i,$splitList__0,$swapper) {
+                  $iLst = $subtree[1];
+                  $match = $splitList__0($i, $iLst);
+                  $post = $match[3];
+                  $inst = $match[2];
+                  $pre = $match[1];
+                  $next = $caml_call1($swapper, $inst);
+                  $match__0 = $next === $inst ? 1 : (0);
+                  return 0 === $match__0
+                    ? Vector{
+                     2,
+                     $flatten->contents(
+                       Vector{
+                         0,
+                         $pre,
+                         Vector{0, Vector{0, $next, 0}, Vector{0, $post, 0}}
+                       }
+                     )
+                   }
+                    : ($subtree);
+                }
+              );
+            };
+            return $initSubtree->contents($subreplacer, $e);
+          };
+          $sub = $mapi($initElem, $elems);
+          return Vector{2, $sub};
+        }
+    }
+  };
+  $reconcile->contents = function($inst, $renderable) use ($caml_call2,$reconcileSubtree,$spec) {
+    $nextSpec = $spec(
+      $caml_call2($renderable, Vector{0, $inst[5][1]}, $inst[3])
+    );
+    $dS = $reconcileSubtree->contents($inst[6], $inst[5][4], $nextSpec[4]);
+    return Vector{0, $inst[1], $inst[2], $inst[3], $renderable, $nextSpec, $dS
     };
+  };
+  $reconcileSubtree->contents = function($subtree, $prevJsx, $match) use ($is_int,$mapi3__0,$reconcile,$reconcileSubtree) {
+    if ($is_int($subtree)) {return 0;}
+    else {
+      switch($subtree[0]) {
+        // FALLTHROUGH
+        case 0:
+          $r = $match[1];
+          $rPrev = $prevJsx[1];
+          $i = $subtree[1];
+          $match__0 = $r === $rPrev ? 1 : (0);
+          return 0 === $match__0
+            ? Vector{0, $reconcile->contents($i, $r)}
+            : ($subtree);
+        // FALLTHROUGH
+        case 1:
+          $rb = $match[2];
+          $ra = $match[1];
+          $rbPrev = $prevJsx[2];
+          $raPrev = $prevJsx[1];
+          $ib = $subtree[2];
+          $ia = $subtree[1];
+          $dR = $reconcileSubtree->contents($ib, $rbPrev, $rb);
+          return Vector{1, $reconcileSubtree->contents($ia, $raPrev, $ra), $dR
+          };
+        // FALLTHROUGH
+        default:
+          $eLst = $match[1];
+          $eLstPrev = $prevJsx[1];
+          $iLst = $subtree[1];
+          $nextSeq = $mapi3__0(
+            function($i, $itm, $r, $rPrev) use ($reconcileSubtree) {
+              return $reconcileSubtree->contents($itm, $rPrev, $r);
+            },
+            $iLst,
+            $eLst,
+            $eLstPrev
+          );
+          return Vector{2, $nextSeq};
+        }
+    }
+  };
   $control = function($param, $controlledState) use ($caml_call2) {
     $renderable = $param[1];
     return Vector{
@@ -3516,105 +3497,103 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   };
   $element = function($x) {return $x;};
   $suppress = Vector{0, 0};
-  $_ = $printInstanceCollection->contents =
-    function($opt, $subtree) use ($a,$aA,$aB,$aC,$aD,$aE,$aF,$aG,$aH,$aI,$aJ,$aK,$au,$av,$aw,$ax,$ay,$az,$concat,$is_int,$map,$printInstanceCollection) {
-      if ($opt) {
-        $sth = $opt[1];
-        $s = $sth;
-      }
-      else {$s = $aK;}
-      $dNext = $a($av, $s);
-      if ($is_int($subtree)) {return $aw;}
-      else {
-        switch($subtree[0]) {
-          // FALLTHROUGH
-          case 0:
-            $n = $subtree[1];
-            return $a($az, $a($au->contents(Vector{0, $a($ay, $s)}, $n), $ax));
-          // FALLTHROUGH
-          case 1:
-            $n2 = $subtree[2];
-            $n1 = $subtree[1];
-            $dK = $a($aB, $a($s, $aA));
-            $dL = $a(
-              $aD,
-              $a(
-                $aC,
-                $a(
-                  $dNext,
-                  $a(
-                    $printInstanceCollection->contents(Vector{0, $dNext}, $n2),
-                    $dK
-                  )
-                )
-              )
-            );
-            return $a(
-              $aF,
-              $a(
-                $aE,
-                $a(
-                  $dNext,
-                  $a(
-                    $printInstanceCollection->contents(Vector{0, $dNext}, $n1),
-                    $dL
-                  )
-                )
-              )
-            );
-          // FALLTHROUGH
-          default:
-            $lst = $subtree[1];
-            $dM = Vector{0, $a($aH, $s)};
-            return $a(
-              $aJ,
-              $a(
-                $concat(
-                  $aI,
-                  $map->contents(
-                    function($dN) use ($dM,$printInstanceCollection) {
-                      return $printInstanceCollection->contents($dM, $dN);
-                    },
-                    $lst
-                  )
-                ),
-                $aG
-              )
-            );
-          }
-      }
-    };
-  $_ = $au->contents =
-    function($opt, $n) use ($a,$aL,$aM,$aN,$aO,$aP,$aQ,$aR,$aS,$aT,$aU,$aV,$caml_obj_tag,$escaped__0,$is_int,$printInstanceCollection,$string_of_int) {
-      if ($opt) {
-        $sth = $opt[1];
-        $s = $sth;
-      }
-      else {$s = $aV;}
-      $match = $n[5];
-      $state = $match[1];
-      $dG = $a($aM, $a($s, $aL));
-      $dH = $n[6];
-      $dI = $a(
-        $aP,
-        $a(
-          $s,
-          $a(
-            $aO,
+  $printInstanceCollection->contents = function($opt, $subtree) use ($a,$aA,$aB,$aC,$aD,$aE,$aF,$aG,$aH,$aI,$aJ,$aK,$au,$av,$aw,$ax,$ay,$az,$concat,$is_int,$map,$printInstanceCollection) {
+    if ($opt) {
+      $sth = $opt[1];
+      $s = $sth;
+    }
+    else {$s = $aK;}
+    $dNext = $a($av, $s);
+    if ($is_int($subtree)) {return $aw;}
+    else {
+      switch($subtree[0]) {
+        // FALLTHROUGH
+        case 0:
+          $n = $subtree[1];
+          return $a($az, $a($au->contents(Vector{0, $a($ay, $s)}, $n), $ax));
+        // FALLTHROUGH
+        case 1:
+          $n2 = $subtree[2];
+          $n1 = $subtree[1];
+          $dK = $a($aB, $a($s, $aA));
+          $dL = $a(
+            $aD,
             $a(
-              $printInstanceCollection->contents(Vector{0, $a($aN, $s)}, $dH),
-              $dG
+              $aC,
+              $a(
+                $dNext,
+                $a(
+                  $printInstanceCollection->contents(Vector{0, $dNext}, $n2),
+                  $dK
+                )
+              )
             )
+          );
+          return $a(
+            $aF,
+            $a(
+              $aE,
+              $a(
+                $dNext,
+                $a(
+                  $printInstanceCollection->contents(Vector{0, $dNext}, $n1),
+                  $dL
+                )
+              )
+            )
+          );
+        // FALLTHROUGH
+        default:
+          $lst = $subtree[1];
+          $dM = Vector{0, $a($aH, $s)};
+          return $a(
+            $aJ,
+            $a(
+              $concat(
+                $aI,
+                $map->contents(
+                  function($dN) use ($dM,$printInstanceCollection) {
+                    return $printInstanceCollection->contents($dM, $dN);
+                  },
+                  $lst
+                )
+              ),
+              $aG
+            )
+          );
+        }
+    }
+  };
+  $au->contents = function($opt, $n) use ($a,$aL,$aM,$aN,$aO,$aP,$aQ,$aR,$aS,$aT,$aU,$aV,$caml_obj_tag,$escaped__0,$is_int,$printInstanceCollection,$string_of_int) {
+    if ($opt) {
+      $sth = $opt[1];
+      $s = $sth;
+    }
+    else {$s = $aV;}
+    $match = $n[5];
+    $state = $match[1];
+    $dG = $a($aM, $a($s, $aL));
+    $dH = $n[6];
+    $dI = $a(
+      $aP,
+      $a(
+        $s,
+        $a(
+          $aO,
+          $a(
+            $printInstanceCollection->contents(Vector{0, $a($aN, $s)}, $dH),
+            $dG
           )
         )
-      );
-      $dJ = $is_int($state)
-        ? $string_of_int($state)
-        : ($caml_obj_tag($state) === 252
-         ? $a($aT, $a($escaped__0($state), $aS))
-         : ($aU));
-      return $a($aR, $a($s, $a($aQ, $a($dJ, $dI))));
-    };
+      )
+    );
+    $dJ = $is_int($state)
+      ? $string_of_int($state)
+      : ($caml_obj_tag($state) === 252
+       ? $a($aT, $a($escaped__0($state), $aS))
+       : ($aU));
+    return $a($aR, $a($s, $a($aQ, $a($dJ, $dI))));
+  };
   $printSection = function($s) use ($a,$aW,$log,$suppress) {
     return $suppress[1] ? 0 : ($log($a($aW, $s)));
   };

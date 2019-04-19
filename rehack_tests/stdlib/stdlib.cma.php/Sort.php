@@ -40,56 +40,53 @@ final class Sort {
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
     $Invalid_argument = $global_data["Invalid_argument"];
-    $_ = $merge->contents =
-      function($order, $l1, $l2) use ($caml_call2,$merge) {
-        if ($l1) {
-          $t1 = $l1[2];
-          $h1 = $l1[1];
-          if ($l2) {
-            $t2 = $l2[2];
-            $h2 = $l2[1];
-            return $caml_call2($order, $h1, $h2)
-              ? Vector{0, $h1, $merge->contents($order, $t1, $l2)}
-              : (Vector{0, $h2, $merge->contents($order, $l1, $t2)});
-          }
-          return $l1;
+    $merge->contents = function($order, $l1, $l2) use ($caml_call2,$merge) {
+      if ($l1) {
+        $t1 = $l1[2];
+        $h1 = $l1[1];
+        if ($l2) {
+          $t2 = $l2[2];
+          $h2 = $l2[1];
+          return $caml_call2($order, $h1, $h2)
+            ? Vector{0, $h1, $merge->contents($order, $t1, $l2)}
+            : (Vector{0, $h2, $merge->contents($order, $l1, $t2)});
         }
-        return $l2;
-      };
+        return $l1;
+      }
+      return $l2;
+    };
     $list = function($order, $l) use ($caml_call2,$merge) {
       $initlist = new Ref();$merge2 = new Ref();
-      $_ = $initlist->contents =
-        function($param) use ($caml_call2,$initlist,$order) {
-          if ($param) {
-            $cM = $param[2];
-            $cN = $param[1];
-            if ($cM) {
-              $rest = $cM[2];
-              $e2 = $cM[1];
-              $cO = $initlist->contents($rest);
-              $cP = $caml_call2($order, $cN, $e2)
-                ? Vector{0, $cN, Vector{0, $e2, 0}}
-                : (Vector{0, $e2, Vector{0, $cN, 0}});
-              return Vector{0, $cP, $cO};
-            }
-            return Vector{0, Vector{0, $cN, 0}, 0};
+      $initlist->contents = function($param) use ($caml_call2,$initlist,$order) {
+        if ($param) {
+          $cM = $param[2];
+          $cN = $param[1];
+          if ($cM) {
+            $rest = $cM[2];
+            $e2 = $cM[1];
+            $cO = $initlist->contents($rest);
+            $cP = $caml_call2($order, $cN, $e2)
+              ? Vector{0, $cN, Vector{0, $e2, 0}}
+              : (Vector{0, $e2, Vector{0, $cN, 0}});
+            return Vector{0, $cP, $cO};
           }
-          return 0;
-        };
-      $_ = $merge2->contents =
-        function($x) use ($merge,$merge2,$order) {
-          if ($x) {
-            $cK = $x[2];
-            if ($cK) {
-              $rest = $cK[2];
-              $l2 = $cK[1];
-              $l1 = $x[1];
-              $cL = $merge2->contents($rest);
-              return Vector{0, $merge->contents($order, $l1, $l2), $cL};
-            }
+          return Vector{0, Vector{0, $cN, 0}, 0};
+        }
+        return 0;
+      };
+      $merge2->contents = function($x) use ($merge,$merge2,$order) {
+        if ($x) {
+          $cK = $x[2];
+          if ($cK) {
+            $rest = $cK[2];
+            $l2 = $cK[1];
+            $l1 = $x[1];
+            $cL = $merge2->contents($rest);
+            return Vector{0, $merge->contents($order, $l1, $l2), $cL};
           }
-          return $x;
-        };
+        }
+        return $x;
+      };
       $mergeall = function($llist) use ($merge2) {
         $llist__0 = $llist;
         for (;;) {
@@ -114,70 +111,68 @@ final class Sort {
     };
     $array = function($cmp, $arr) use ($Invalid_argument,$caml_call2,$cst_Sort_array,$runtime,$swap,$unsigned_right_shift_32) {
       $qsort = new Ref();
-      $_ = $qsort->contents =
-        function($lo, $hi) use ($Invalid_argument,$arr,$caml_call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
-          $lo__0 = $lo;
-          $hi__0 = $hi;
-          for (;;) {
-            $cH = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
-            if ($cH) {
-              $mid = (int)
-              $unsigned_right_shift_32((int) ($lo__0 + $hi__0), 1);
+      $qsort->contents = function($lo, $hi) use ($Invalid_argument,$arr,$caml_call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
+        $lo__0 = $lo;
+        $hi__0 = $hi;
+        for (;;) {
+          $cH = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
+          if ($cH) {
+            $mid = (int) $unsigned_right_shift_32((int) ($lo__0 + $hi__0), 1);
+            if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
+            if ($caml_call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
+              $swap($arr, $mid, $hi__0);
               if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
-              if ($caml_call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
-                $swap($arr, $mid, $hi__0);
-                if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
-              }
-              $pivot = $arr[$mid + 1];
-              $i = Vector{0, (int) ($lo__0 + 1)};
-              $j = Vector{0, (int) ($hi__0 + -1)};
-              $cI = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
-              $cJ = $cI || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
-              if ($cJ) {
-                throw $runtime["caml_wrap_thrown_exception"](
-                        Vector{0, $Invalid_argument, $cst_Sort_array}
-                      ) as \Throwable;
-              }
-              for (;;) {
-                if ($i[1] < $j[1]) {
-                  for (;;) {
-                    if ($caml_call2($cmp, $pivot, $arr[$i[1] + 1])) {
-                      for (;;) {
-                        if ($caml_call2($cmp, $arr[$j[1] + 1], $pivot)) {
-                          if ($i[1] < $j[1]) {$swap($arr, $i[1], $j[1]);}
-                          $i[1] += 1;
-                          $j[1] += -1;
-                          goto b_continue;
-                        }
-                        $j[1] += -1;
-                        continue;
-                      }
-                    }
-                    $i[1] += 1;
-                    continue;
-                  }
-                }
-                if ((int) ($j[1] - $lo__0) <= (int) ($hi__0 - $i[1])) {
-                  $qsort->contents($lo__0, $j[1]);
-                  $lo__1 = $i[1];
-                  $lo__0 = $lo__1;
-                  goto a_continue;
-                }
-                $qsort->contents($i[1], $hi__0);
-                $hi__1 = $j[1];
-                $hi__0 = $hi__1;
-                goto a_continue;
-                b_continue:;
-                
-              }
-              b_break:
             }
-            return $cH;
-            a_continue:;
-            
+            $pivot = $arr[$mid + 1];
+            $i = Vector{0, (int) ($lo__0 + 1)};
+            $j = Vector{0, (int) ($hi__0 + -1)};
+            $cI = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
+            $cJ = $cI || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
+            if ($cJ) {
+              throw $runtime["caml_wrap_thrown_exception"](
+                      Vector{0, $Invalid_argument, $cst_Sort_array}
+                    ) as \Throwable;
+            }
+            for (;;) {
+              if ($i[1] < $j[1]) {
+                for (;;) {
+                  if ($caml_call2($cmp, $pivot, $arr[$i[1] + 1])) {
+                    for (;;) {
+                      if ($caml_call2($cmp, $arr[$j[1] + 1], $pivot)) {
+                        if ($i[1] < $j[1]) {$swap($arr, $i[1], $j[1]);}
+                        $i[1] += 1;
+                        $j[1] += -1;
+                        goto b_continue;
+                      }
+                      $j[1] += -1;
+                      continue;
+                    }
+                  }
+                  $i[1] += 1;
+                  continue;
+                }
+              }
+              if ((int) ($j[1] - $lo__0) <= (int) ($hi__0 - $i[1])) {
+                $qsort->contents($lo__0, $j[1]);
+                $lo__1 = $i[1];
+                $lo__0 = $lo__1;
+                goto a_continue;
+              }
+              $qsort->contents($i[1], $hi__0);
+              $hi__1 = $j[1];
+              $hi__0 = $hi__1;
+              goto a_continue;
+              b_continue:;
+              
+            }
+            b_break:
           }
-          a_break:
-        };
+          return $cH;
+          a_continue:;
+          
+        }
+        a_break:
+      };
       $qsort->contents(0, (int) ($arr->count() - 1 + -1));
       $cF = (int) ($arr->count() - 1 + -1);
       $cE = 1;

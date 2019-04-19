@@ -254,13 +254,12 @@ final class Printexc {
           : ($cst))
         : ($caml_call2($Printf[4], $oz, $f));
     };
-    $_ = $other_fields->contents =
-      function($x, $i) use ($Printf,$caml_call3,$cst__0,$field,$oA,$other_fields) {
-        if ($x->count() - 1 <= $i) {return $cst__0;}
-        $pq = $other_fields->contents($x, (int) ($i + 1));
-        $pr = $field($x, $i);
-        return $caml_call3($Printf[4], $oA, $pr, $pq);
-      };
+    $other_fields->contents = function($x, $i) use ($Printf,$caml_call3,$cst__0,$field,$oA,$other_fields) {
+      if ($x->count() - 1 <= $i) {return $cst__0;}
+      $pq = $other_fields->contents($x, (int) ($i + 1));
+      $pr = $field($x, $i);
+      return $caml_call3($Printf[4], $oA, $pr, $pq);
+    };
     $fields = function($x) use ($Printf,$caml_call2,$caml_call3,$cst__1,$cst__2,$field,$oB,$oC,$other_fields,$unsigned_right_shift_32) {
       $match = $x->count() - 1;
       if (2 < $unsigned_right_shift_32($match, 0)) {

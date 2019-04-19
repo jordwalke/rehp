@@ -145,24 +145,23 @@ final class Ephemeron {
       };
       $clean = function($h) use ($H,$caml_call1,$caml_check_bound) {
         $do_bucket = new Ref();
-        $_ = $do_bucket->contents =
-          function($param) use ($H,$caml_call1,$do_bucket,$h) {
-            $param__0 = $param;
-            for (;;) {
-              if ($param__0) {
-                $rest = $param__0[3];
-                $c = $param__0[2];
-                $hkey = $param__0[1];
-                if ($caml_call1($H[7], $c)) {
-                  return Vector{0, $hkey, $c, $do_bucket->contents($rest)};
-                }
-                $h[1] = (int) ($h[1] + -1);
-                $param__0 = $rest;
-                continue;
+        $do_bucket->contents = function($param) use ($H,$caml_call1,$do_bucket,$h) {
+          $param__0 = $param;
+          for (;;) {
+            if ($param__0) {
+              $rest = $param__0[3];
+              $c = $param__0[2];
+              $hkey = $param__0[1];
+              if ($caml_call1($H[7], $c)) {
+                return Vector{0, $hkey, $c, $do_bucket->contents($rest)};
               }
-              return 0;
+              $h[1] = (int) ($h[1] + -1);
+              $param__0 = $rest;
+              continue;
             }
-          };
+            return 0;
+          }
+        };
         $d = $h[2];
         $A5 = (int) ($d->count() - 1 + -1);
         $A4 = 0;
@@ -190,24 +189,23 @@ final class Ephemeron {
         if ($AZ) {
           $ndata = $caml_make_vect($nsize, 0);
           $h[2] = $ndata;
-          $_ = $insert_bucket->contents =
-            function($param) use ($caml_check_bound,$h,$insert_bucket,$key_index,$ndata) {
-              if ($param) {
-                $rest = $param[3];
-                $data = $param[2];
-                $hkey = $param[1];
-                $insert_bucket->contents($rest);
-                $nidx = $key_index($h, $hkey);
-                return $ndata[$nidx + 1] =
-                  Vector{
-                    0,
-                    $hkey,
-                    $data,
-                    $caml_check_bound($ndata, $nidx)[$nidx + 1]
-                  };
-              }
-              return 0;
-            };
+          $insert_bucket->contents = function($param) use ($caml_check_bound,$h,$insert_bucket,$key_index,$ndata) {
+            if ($param) {
+              $rest = $param[3];
+              $data = $param[2];
+              $hkey = $param[1];
+              $insert_bucket->contents($rest);
+              $nidx = $key_index($h, $hkey);
+              return $ndata[$nidx + 1] =
+                Vector{
+                  0,
+                  $hkey,
+                  $data,
+                  $caml_check_bound($ndata, $nidx)[$nidx + 1]
+                };
+            }
+            return 0;
+          };
           $A1 = (int) ($osize + -1);
           $A0 = 0;
           if (! ($A1 < 0)) {
@@ -242,36 +240,35 @@ final class Ephemeron {
       $remove = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
         $remove_bucket = new Ref();
         $hkey = $caml_call2($H[2], $h[3], $key);
-        $_ = $remove_bucket->contents =
-          function($param) use ($H,$caml_call2,$h,$hkey,$key,$remove_bucket) {
-            $param__0 = $param;
-            for (;;) {
-              if ($param__0) {
-                $next = $param__0[3];
-                $c = $param__0[2];
-                $hk = $param__0[1];
-                if ($hkey === $hk) {
-                  $match = $caml_call2($H[3], $c, $key);
-                  switch($match) {
-                    // FALLTHROUGH
-                    case 0:
-                      $h[1] = (int) ($h[1] + -1);
-                      return $next;
-                    // FALLTHROUGH
-                    case 1:
-                      return Vector{0, $hk, $c, $remove_bucket->contents($next)};
-                    // FALLTHROUGH
-                    default:
-                      $h[1] = (int) ($h[1] + -1);
-                      $param__0 = $next;
-                      continue;
-                    }
-                }
-                return Vector{0, $hk, $c, $remove_bucket->contents($next)};
+        $remove_bucket->contents = function($param) use ($H,$caml_call2,$h,$hkey,$key,$remove_bucket) {
+          $param__0 = $param;
+          for (;;) {
+            if ($param__0) {
+              $next = $param__0[3];
+              $c = $param__0[2];
+              $hk = $param__0[1];
+              if ($hkey === $hk) {
+                $match = $caml_call2($H[3], $c, $key);
+                switch($match) {
+                  // FALLTHROUGH
+                  case 0:
+                    $h[1] = (int) ($h[1] + -1);
+                    return $next;
+                  // FALLTHROUGH
+                  case 1:
+                    return Vector{0, $hk, $c, $remove_bucket->contents($next)};
+                  // FALLTHROUGH
+                  default:
+                    $h[1] = (int) ($h[1] + -1);
+                    $param__0 = $next;
+                    continue;
+                  }
               }
-              return 0;
+              return Vector{0, $hk, $c, $remove_bucket->contents($next)};
             }
-          };
+            return 0;
+          }
+        };
         $i = $key_index($h, $hkey);
         $AW = $remove_bucket->contents($caml_check_bound($h[2], $i)[$i + 1]);
         return $caml_check_bound($h[2], $i)[$i + 1] = $AW;
@@ -357,42 +354,41 @@ final class Ephemeron {
       $find_all = function($h, $key) use ($H,$caml_call1,$caml_call2,$caml_check_bound,$key_index) {
         $find_in_bucket = new Ref();
         $hkey = $caml_call2($H[2], $h[3], $key);
-        $_ = $find_in_bucket->contents =
-          function($param) use ($H,$caml_call1,$caml_call2,$find_in_bucket,$hkey,$key) {
-            $param__0 = $param;
-            for (;;) {
-              if ($param__0) {
-                $rest = $param__0[3];
-                $c = $param__0[2];
-                $hk = $param__0[1];
-                if ($hkey === $hk) {
-                  $match = $caml_call2($H[3], $c, $key);
-                  switch($match) {
-                    // FALLTHROUGH
-                    case 0:
-                      $match__0 = $caml_call1($H[4], $c);
-                      if ($match__0) {
-                        $d = $match__0[1];
-                        return Vector{0, $d, $find_in_bucket->contents($rest)};
-                      }
-                      $param__0 = $rest;
-                      continue;
-                    // FALLTHROUGH
-                    case 1:
-                      $param__0 = $rest;
-                      continue;
-                    // FALLTHROUGH
-                    default:
-                      $param__0 = $rest;
-                      continue;
+        $find_in_bucket->contents = function($param) use ($H,$caml_call1,$caml_call2,$find_in_bucket,$hkey,$key) {
+          $param__0 = $param;
+          for (;;) {
+            if ($param__0) {
+              $rest = $param__0[3];
+              $c = $param__0[2];
+              $hk = $param__0[1];
+              if ($hkey === $hk) {
+                $match = $caml_call2($H[3], $c, $key);
+                switch($match) {
+                  // FALLTHROUGH
+                  case 0:
+                    $match__0 = $caml_call1($H[4], $c);
+                    if ($match__0) {
+                      $d = $match__0[1];
+                      return Vector{0, $d, $find_in_bucket->contents($rest)};
                     }
-                }
-                $param__0 = $rest;
-                continue;
+                    $param__0 = $rest;
+                    continue;
+                  // FALLTHROUGH
+                  case 1:
+                    $param__0 = $rest;
+                    continue;
+                  // FALLTHROUGH
+                  default:
+                    $param__0 = $rest;
+                    continue;
+                  }
               }
-              return 0;
+              $param__0 = $rest;
+              continue;
             }
-          };
+            return 0;
+          }
+        };
         $AT = $key_index($h, $hkey);
         return $find_in_bucket->contents(
           $caml_check_bound($h[2], $AT)[$AT + 1]
@@ -546,36 +542,35 @@ final class Ephemeron {
       };
       $filter_map_inplace = function($f, $h) use ($H,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound) {
         $do_bucket = new Ref();
-        $_ = $do_bucket->contents =
-          function($param) use ($H,$caml_call1,$caml_call2,$caml_call3,$do_bucket,$f) {
-            $param__0 = $param;
-            for (;;) {
-              if ($param__0) {
-                $rest = $param__0[3];
-                $c = $param__0[2];
-                $hk = $param__0[1];
-                $match = $caml_call1($H[5], $c);
-                $match__0 = $caml_call1($H[4], $c);
-                if ($match) {
-                  if ($match__0) {
-                    $d = $match__0[1];
-                    $k = $match[1];
-                    $match__1 = $caml_call2($f, $k, $d);
-                    if ($match__1) {
-                      $new_d = $match__1[1];
-                      $caml_call3($H[6], $c, $k, $new_d);
-                      return Vector{0, $hk, $c, $do_bucket->contents($rest)};
-                    }
-                    $param__0 = $rest;
-                    continue;
+        $do_bucket->contents = function($param) use ($H,$caml_call1,$caml_call2,$caml_call3,$do_bucket,$f) {
+          $param__0 = $param;
+          for (;;) {
+            if ($param__0) {
+              $rest = $param__0[3];
+              $c = $param__0[2];
+              $hk = $param__0[1];
+              $match = $caml_call1($H[5], $c);
+              $match__0 = $caml_call1($H[4], $c);
+              if ($match) {
+                if ($match__0) {
+                  $d = $match__0[1];
+                  $k = $match[1];
+                  $match__1 = $caml_call2($f, $k, $d);
+                  if ($match__1) {
+                    $new_d = $match__1[1];
+                    $caml_call3($H[6], $c, $k, $new_d);
+                    return Vector{0, $hk, $c, $do_bucket->contents($rest)};
                   }
+                  $param__0 = $rest;
+                  continue;
                 }
-                $param__0 = $rest;
-                continue;
               }
-              return 0;
+              $param__0 = $rest;
+              continue;
             }
-          };
+            return 0;
+          }
+        };
         $d = $h[2];
         $AG = (int) ($d->count() - 1 + -1);
         $AF = 0;

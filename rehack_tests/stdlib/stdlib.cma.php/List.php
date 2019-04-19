@@ -179,12 +179,11 @@ final class List_ {
         continue;
       }
     };
-    $_ = $init_aux->contents =
-      function($i, $n, $f) use ($caml_call1,$init_aux) {
-        if ($n <= $i) {return 0;}
-        $r = $caml_call1($f, $i);
-        return Vector{0, $r, $init_aux->contents((int) ($i + 1), $n, $f)};
-      };
+    $init_aux->contents = function($i, $n, $f) use ($caml_call1,$init_aux) {
+      if ($n <= $i) {return 0;}
+      $r = $caml_call1($f, $i);
+      return Vector{0, $r, $init_aux->contents((int) ($i + 1), $n, $f)};
+    };
     $init = function($len, $f) use ($Pervasives,$caml_call1,$cst_List_init,$init_aux,$init_tailrec_aux,$rev) {
       return 0 <= $len
         ? 10000 < $len
@@ -192,36 +191,33 @@ final class List_ {
          : ($init_aux->contents(0, $len, $f))
         : ($caml_call1($Pervasives[1], $cst_List_init));
     };
-    $_ = $flatten->contents =
-      function($param) use ($Pervasives,$caml_call2,$flatten) {
-        if ($param) {
-          $r = $param[2];
-          $l = $param[1];
-          $a4 = $flatten->contents($r);
-          return $caml_call2($Pervasives[25], $l, $a4);
-        }
-        return 0;
-      };
-    $_ = $map->contents =
-      function($f, $param) use ($caml_call1,$map) {
-        if ($param) {
-          $l = $param[2];
-          $a = $param[1];
-          $r = $caml_call1($f, $a);
-          return Vector{0, $r, $map->contents($f, $l)};
-        }
-        return 0;
-      };
-    $_ = $aD->contents =
-      function($i, $f, $param) use ($aD,$caml_call2) {
-        if ($param) {
-          $l = $param[2];
-          $a = $param[1];
-          $r = $caml_call2($f, $i, $a);
-          return Vector{0, $r, $aD->contents((int) ($i + 1), $f, $l)};
-        }
-        return 0;
-      };
+    $flatten->contents = function($param) use ($Pervasives,$caml_call2,$flatten) {
+      if ($param) {
+        $r = $param[2];
+        $l = $param[1];
+        $a4 = $flatten->contents($r);
+        return $caml_call2($Pervasives[25], $l, $a4);
+      }
+      return 0;
+    };
+    $map->contents = function($f, $param) use ($caml_call1,$map) {
+      if ($param) {
+        $l = $param[2];
+        $a = $param[1];
+        $r = $caml_call1($f, $a);
+        return Vector{0, $r, $map->contents($f, $l)};
+      }
+      return 0;
+    };
+    $aD->contents = function($i, $f, $param) use ($aD,$caml_call2) {
+      if ($param) {
+        $l = $param[2];
+        $a = $param[1];
+        $r = $caml_call2($f, $i, $a);
+        return Vector{0, $r, $aD->contents((int) ($i + 1), $f, $l)};
+      }
+      return 0;
+    };
     $mapi = function($f, $l) use ($aD) {return $aD->contents(0, $f, $l);};
     $rev_map = function($f, $l) use ($caml_call1) {
       $rmap_f = function($accu, $param) use ($caml_call1,$f) {
@@ -286,30 +282,28 @@ final class List_ {
         return $accu__0;
       }
     };
-    $_ = $fold_right->contents =
-      function($f, $l, $accu) use ($caml_call2,$fold_right) {
-        if ($l) {
-          $l__0 = $l[2];
-          $a = $l[1];
-          return $caml_call2($f, $a, $fold_right->contents($f, $l__0, $accu));
+    $fold_right->contents = function($f, $l, $accu) use ($caml_call2,$fold_right) {
+      if ($l) {
+        $l__0 = $l[2];
+        $a = $l[1];
+        return $caml_call2($f, $a, $fold_right->contents($f, $l__0, $accu));
+      }
+      return $accu;
+    };
+    $map2->contents = function($f, $l1, $l2) use ($Pervasives,$caml_call1,$caml_call2,$cst_List_map2,$map2) {
+      if ($l1) {
+        if ($l2) {
+          $l2__0 = $l2[2];
+          $a2 = $l2[1];
+          $l1__0 = $l1[2];
+          $a1 = $l1[1];
+          $r = $caml_call2($f, $a1, $a2);
+          return Vector{0, $r, $map2->contents($f, $l1__0, $l2__0)};
         }
-        return $accu;
-      };
-    $_ = $map2->contents =
-      function($f, $l1, $l2) use ($Pervasives,$caml_call1,$caml_call2,$cst_List_map2,$map2) {
-        if ($l1) {
-          if ($l2) {
-            $l2__0 = $l2[2];
-            $a2 = $l2[1];
-            $l1__0 = $l1[2];
-            $a1 = $l1[1];
-            $r = $caml_call2($f, $a1, $a2);
-            return Vector{0, $r, $map2->contents($f, $l1__0, $l2__0)};
-          }
-        }
-        else {if (! $l2) {return 0;}}
-        return $caml_call1($Pervasives[1], $cst_List_map2);
-      };
+      }
+      else {if (! $l2) {return 0;}}
+      return $caml_call1($Pervasives[1], $cst_List_map2);
+    };
     $rev_map2 = function($f, $l1, $l2) use ($Pervasives,$caml_call1,$caml_call2,$cst_List_rev_map2) {
       $rmap2_f = function($accu, $l1, $l2) use ($Pervasives,$caml_call1,$caml_call2,$cst_List_rev_map2,$f) {
         $accu__0 = $accu;
@@ -377,25 +371,24 @@ final class List_ {
         return $caml_call1($Pervasives[1], $cst_List_fold_left2);
       }
     };
-    $_ = $fold_right2->contents =
-      function($f, $l1, $l2, $accu) use ($Pervasives,$caml_call1,$caml_call3,$cst_List_fold_right2,$fold_right2) {
-        if ($l1) {
-          if ($l2) {
-            $l2__0 = $l2[2];
-            $a2 = $l2[1];
-            $l1__0 = $l1[2];
-            $a1 = $l1[1];
-            return $caml_call3(
-              $f,
-              $a1,
-              $a2,
-              $fold_right2->contents($f, $l1__0, $l2__0, $accu)
-            );
-          }
+    $fold_right2->contents = function($f, $l1, $l2, $accu) use ($Pervasives,$caml_call1,$caml_call3,$cst_List_fold_right2,$fold_right2) {
+      if ($l1) {
+        if ($l2) {
+          $l2__0 = $l2[2];
+          $a2 = $l2[1];
+          $l1__0 = $l1[2];
+          $a1 = $l1[1];
+          return $caml_call3(
+            $f,
+            $a1,
+            $a2,
+            $fold_right2->contents($f, $l1__0, $l2__0, $accu)
+          );
         }
-        else {if (! $l2) {return $accu;}}
-        return $caml_call1($Pervasives[1], $cst_List_fold_right2);
-      };
+      }
+      else {if (! $l2) {return $accu;}}
+      return $caml_call1($Pervasives[1], $cst_List_fold_right2);
+    };
     $for_all = function($p, $param) use ($caml_call1) {
       $param__0 = $param;
       for (;;) {
@@ -581,30 +574,28 @@ final class List_ {
         return 0;
       }
     };
-    $_ = $remove_assoc->contents =
-      function($x, $param) use ($caml_compare,$remove_assoc) {
-        if ($param) {
-          $l = $param[2];
-          $pair = $param[1];
-          $a = $pair[1];
-          return 0 === $caml_compare($a, $x)
-            ? $l
-            : (Vector{0, $pair, $remove_assoc->contents($x, $l)});
-        }
-        return 0;
-      };
-    $_ = $remove_assq->contents =
-      function($x, $param) use ($remove_assq) {
-        if ($param) {
-          $l = $param[2];
-          $pair = $param[1];
-          $a = $pair[1];
-          return $a === $x
-            ? $l
-            : (Vector{0, $pair, $remove_assq->contents($x, $l)});
-        }
-        return 0;
-      };
+    $remove_assoc->contents = function($x, $param) use ($caml_compare,$remove_assoc) {
+      if ($param) {
+        $l = $param[2];
+        $pair = $param[1];
+        $a = $pair[1];
+        return 0 === $caml_compare($a, $x)
+          ? $l
+          : (Vector{0, $pair, $remove_assoc->contents($x, $l)});
+      }
+      return 0;
+    };
+    $remove_assq->contents = function($x, $param) use ($remove_assq) {
+      if ($param) {
+        $l = $param[2];
+        $pair = $param[1];
+        $a = $pair[1];
+        return $a === $x
+          ? $l
+          : (Vector{0, $pair, $remove_assq->contents($x, $l)});
+      }
+      return 0;
+    };
     $find = function($p, $param) use ($Not_found,$caml_call1,$runtime) {
       $param__0 = $param;
       for (;;) {
@@ -680,54 +671,51 @@ final class List_ {
       };
       return $part(0, 0, $l);
     };
-    $_ = $split->contents =
-      function($param) use ($aF,$split) {
-        if ($param) {
-          $l = $param[2];
-          $match = $param[1];
-          $y = $match[2];
-          $x = $match[1];
-          $match__0 = $split->contents($l);
-          $ry = $match__0[2];
-          $rx = $match__0[1];
-          return Vector{0, Vector{0, $x, $rx}, Vector{0, $y, $ry}};
+    $split->contents = function($param) use ($aF,$split) {
+      if ($param) {
+        $l = $param[2];
+        $match = $param[1];
+        $y = $match[2];
+        $x = $match[1];
+        $match__0 = $split->contents($l);
+        $ry = $match__0[2];
+        $rx = $match__0[1];
+        return Vector{0, Vector{0, $x, $rx}, Vector{0, $y, $ry}};
+      }
+      return $aF;
+    };
+    $combine->contents = function($l1, $l2) use ($Pervasives,$caml_call1,$combine,$cst_List_combine) {
+      if ($l1) {
+        if ($l2) {
+          $l2__0 = $l2[2];
+          $a2 = $l2[1];
+          $l1__0 = $l1[2];
+          $a1 = $l1[1];
+          return Vector{
+            0,
+            Vector{0, $a1, $a2},
+            $combine->contents($l1__0, $l2__0)
+          };
         }
-        return $aF;
-      };
-    $_ = $combine->contents =
-      function($l1, $l2) use ($Pervasives,$caml_call1,$combine,$cst_List_combine) {
-        if ($l1) {
-          if ($l2) {
-            $l2__0 = $l2[2];
-            $a2 = $l2[1];
-            $l1__0 = $l1[2];
-            $a1 = $l1[1];
-            return Vector{
-              0,
-              Vector{0, $a1, $a2},
-              $combine->contents($l1__0, $l2__0)
-            };
-          }
+      }
+      else {if (! $l2) {return 0;}}
+      return $caml_call1($Pervasives[1], $cst_List_combine);
+    };
+    $merge->contents = function($cmp, $l1, $match) use ($caml_call2,$merge) {
+      if ($l1) {
+        if ($match) {
+          $t2 = $match[2];
+          $h2 = $match[1];
+          $t1 = $l1[2];
+          $h1 = $l1[1];
+          return 0 < $caml_call2($cmp, $h1, $h2)
+            ? Vector{0, $h2, $merge->contents($cmp, $l1, $t2)}
+            : (Vector{0, $h1, $merge->contents($cmp, $t1, $match)});
         }
-        else {if (! $l2) {return 0;}}
-        return $caml_call1($Pervasives[1], $cst_List_combine);
-      };
-    $_ = $merge->contents =
-      function($cmp, $l1, $match) use ($caml_call2,$merge) {
-        if ($l1) {
-          if ($match) {
-            $t2 = $match[2];
-            $h2 = $match[1];
-            $t1 = $l1[2];
-            $h1 = $l1[1];
-            return 0 < $caml_call2($cmp, $h1, $h2)
-              ? Vector{0, $h2, $merge->contents($cmp, $l1, $t2)}
-              : (Vector{0, $h1, $merge->contents($cmp, $t1, $match)});
-          }
-          return $l1;
-        }
-        return $match;
-      };
+        return $l1;
+      }
+      return $match;
+    };
     $chop = function($k, $l) use ($Assert_failure,$aG,$runtime) {
       $k__0 = $k;
       $l__0 = $l;
@@ -845,53 +833,52 @@ final class List_ {
         $s2 = $rev_sort->contents($n2, $l2);
         return $rev_merge_rev($s1, $s2, 0);
       };
-      $_ = $rev_sort->contents =
-        function($n, $l) use ($caml_call2,$chop,$cmp,$rev_merge,$right_shift_32,$sort) {
-          if (2 === $n) {
-            if ($l) {
-              $aN = $l[2];
-              if ($aN) {
-                $x2 = $aN[1];
-                $x1 = $l[1];
-                return 0 < $caml_call2($cmp, $x1, $x2)
-                  ? Vector{0, $x1, Vector{0, $x2, 0}}
-                  : (Vector{0, $x2, Vector{0, $x1, 0}});
-              }
+      $rev_sort->contents = function($n, $l) use ($caml_call2,$chop,$cmp,$rev_merge,$right_shift_32,$sort) {
+        if (2 === $n) {
+          if ($l) {
+            $aN = $l[2];
+            if ($aN) {
+              $x2 = $aN[1];
+              $x1 = $l[1];
+              return 0 < $caml_call2($cmp, $x1, $x2)
+                ? Vector{0, $x1, Vector{0, $x2, 0}}
+                : (Vector{0, $x2, Vector{0, $x1, 0}});
             }
           }
-          else {
-            if (3 === $n) {
-              if ($l) {
-                $aO = $l[2];
-                if ($aO) {
-                  $aP = $aO[2];
-                  if ($aP) {
-                    $x3 = $aP[1];
-                    $x2__0 = $aO[1];
-                    $x1__0 = $l[1];
-                    return 0 < $caml_call2($cmp, $x1__0, $x2__0)
-                      ? 0 < $caml_call2($cmp, $x2__0, $x3)
-                       ? Vector{0, $x1__0, Vector{0, $x2__0, Vector{0, $x3, 0}}}
-                       : (0 < $caml_call2($cmp, $x1__0, $x3)
-                        ? Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}}
-                        : (Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}))
-                      : (0 < $caml_call2($cmp, $x1__0, $x3)
-                       ? Vector{0, $x2__0, Vector{0, $x1__0, Vector{0, $x3, 0}}}
-                       : (0 < $caml_call2($cmp, $x2__0, $x3)
-                        ? Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}}
-                        : (Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}})));
-                  }
+        }
+        else {
+          if (3 === $n) {
+            if ($l) {
+              $aO = $l[2];
+              if ($aO) {
+                $aP = $aO[2];
+                if ($aP) {
+                  $x3 = $aP[1];
+                  $x2__0 = $aO[1];
+                  $x1__0 = $l[1];
+                  return 0 < $caml_call2($cmp, $x1__0, $x2__0)
+                    ? 0 < $caml_call2($cmp, $x2__0, $x3)
+                     ? Vector{0, $x1__0, Vector{0, $x2__0, Vector{0, $x3, 0}}}
+                     : (0 < $caml_call2($cmp, $x1__0, $x3)
+                      ? Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}}
+                      : (Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}))
+                    : (0 < $caml_call2($cmp, $x1__0, $x3)
+                     ? Vector{0, $x2__0, Vector{0, $x1__0, Vector{0, $x3, 0}}}
+                     : (0 < $caml_call2($cmp, $x2__0, $x3)
+                      ? Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}}
+                      : (Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}})));
                 }
               }
             }
           }
-          $n1 = $right_shift_32($n, 1);
-          $n2 = (int) ($n - $n1);
-          $l2 = $chop($n1, $l);
-          $s1 = $sort($n1, $l);
-          $s2 = $sort($n2, $l2);
-          return $rev_merge($s1, $s2, 0);
-        };
+        }
+        $n1 = $right_shift_32($n, 1);
+        $n2 = (int) ($n - $n1);
+        $l2 = $chop($n1, $l);
+        $s1 = $sort($n1, $l);
+        $s2 = $sort($n2, $l2);
+        return $rev_merge($s1, $s2, 0);
+      };
       $len = $length($l);
       return 2 <= $len ? $sort($len, $l) : ($l);
     };
@@ -1050,90 +1037,89 @@ final class List_ {
         $s2 = $rev_sort->contents($n2, $l2);
         return $rev_merge_rev($s1, $s2, 0);
       };
-      $_ = $rev_sort->contents =
-        function($n, $l) use ($caml_call2,$chop,$cmp,$rev_merge,$right_shift_32,$sort) {
-          if (2 === $n) {
-            if ($l) {
-              $aH = $l[2];
-              if ($aH) {
-                $x2 = $aH[1];
-                $x1 = $l[1];
-                $c = $caml_call2($cmp, $x1, $x2);
-                return 0 === $c
-                  ? Vector{0, $x1, 0}
-                  : (0 < $c
-                   ? Vector{0, $x1, Vector{0, $x2, 0}}
-                   : (Vector{0, $x2, Vector{0, $x1, 0}}));
-              }
+      $rev_sort->contents = function($n, $l) use ($caml_call2,$chop,$cmp,$rev_merge,$right_shift_32,$sort) {
+        if (2 === $n) {
+          if ($l) {
+            $aH = $l[2];
+            if ($aH) {
+              $x2 = $aH[1];
+              $x1 = $l[1];
+              $c = $caml_call2($cmp, $x1, $x2);
+              return 0 === $c
+                ? Vector{0, $x1, 0}
+                : (0 < $c
+                 ? Vector{0, $x1, Vector{0, $x2, 0}}
+                 : (Vector{0, $x2, Vector{0, $x1, 0}}));
             }
           }
-          else {
-            if (3 === $n) {
-              if ($l) {
-                $aI = $l[2];
-                if ($aI) {
-                  $aJ = $aI[2];
-                  if ($aJ) {
-                    $x3 = $aJ[1];
-                    $x2__0 = $aI[1];
-                    $x1__0 = $l[1];
-                    $c__0 = $caml_call2($cmp, $x1__0, $x2__0);
-                    if (0 === $c__0) {
-                      $c__1 = $caml_call2($cmp, $x2__0, $x3);
-                      return 0 === $c__1
-                        ? Vector{0, $x2__0, 0}
-                        : (0 < $c__1
-                         ? Vector{0, $x2__0, Vector{0, $x3, 0}}
-                         : (Vector{0, $x3, Vector{0, $x2__0, 0}}));
+        }
+        else {
+          if (3 === $n) {
+            if ($l) {
+              $aI = $l[2];
+              if ($aI) {
+                $aJ = $aI[2];
+                if ($aJ) {
+                  $x3 = $aJ[1];
+                  $x2__0 = $aI[1];
+                  $x1__0 = $l[1];
+                  $c__0 = $caml_call2($cmp, $x1__0, $x2__0);
+                  if (0 === $c__0) {
+                    $c__1 = $caml_call2($cmp, $x2__0, $x3);
+                    return 0 === $c__1
+                      ? Vector{0, $x2__0, 0}
+                      : (0 < $c__1
+                       ? Vector{0, $x2__0, Vector{0, $x3, 0}}
+                       : (Vector{0, $x3, Vector{0, $x2__0, 0}}));
+                  }
+                  if (0 < $c__0) {
+                    $c__2 = $caml_call2($cmp, $x2__0, $x3);
+                    if (0 === $c__2) {
+                      return Vector{0, $x1__0, Vector{0, $x2__0, 0}};
                     }
-                    if (0 < $c__0) {
-                      $c__2 = $caml_call2($cmp, $x2__0, $x3);
-                      if (0 === $c__2) {
-                        return Vector{0, $x1__0, Vector{0, $x2__0, 0}};
-                      }
-                      if (0 < $c__2) {
-                        return Vector{
-                          0,
-                          $x1__0,
-                          Vector{0, $x2__0, Vector{0, $x3, 0}}
-                        };
-                      }
-                      $c__3 = $caml_call2($cmp, $x1__0, $x3);
-                      return 0 === $c__3
-                        ? Vector{0, $x1__0, Vector{0, $x2__0, 0}}
-                        : (0 < $c__3
-                         ? Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}}
-                         : (Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}));
-                    }
-                    $c__4 = $caml_call2($cmp, $x1__0, $x3);
-                    if (0 === $c__4) {
-                      return Vector{0, $x2__0, Vector{0, $x1__0, 0}};
-                    }
-                    if (0 < $c__4) {
+                    if (0 < $c__2) {
                       return Vector{
                         0,
-                        $x2__0,
-                        Vector{0, $x1__0, Vector{0, $x3, 0}}
+                        $x1__0,
+                        Vector{0, $x2__0, Vector{0, $x3, 0}}
                       };
                     }
-                    $c__5 = $caml_call2($cmp, $x2__0, $x3);
-                    return 0 === $c__5
-                      ? Vector{0, $x2__0, Vector{0, $x1__0, 0}}
-                      : (0 < $c__5
-                       ? Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}}
-                       : (Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}}));
+                    $c__3 = $caml_call2($cmp, $x1__0, $x3);
+                    return 0 === $c__3
+                      ? Vector{0, $x1__0, Vector{0, $x2__0, 0}}
+                      : (0 < $c__3
+                       ? Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}}
+                       : (Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}));
                   }
+                  $c__4 = $caml_call2($cmp, $x1__0, $x3);
+                  if (0 === $c__4) {
+                    return Vector{0, $x2__0, Vector{0, $x1__0, 0}};
+                  }
+                  if (0 < $c__4) {
+                    return Vector{
+                      0,
+                      $x2__0,
+                      Vector{0, $x1__0, Vector{0, $x3, 0}}
+                    };
+                  }
+                  $c__5 = $caml_call2($cmp, $x2__0, $x3);
+                  return 0 === $c__5
+                    ? Vector{0, $x2__0, Vector{0, $x1__0, 0}}
+                    : (0 < $c__5
+                     ? Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}}
+                     : (Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}}));
                 }
               }
             }
           }
-          $n1 = $right_shift_32($n, 1);
-          $n2 = (int) ($n - $n1);
-          $l2 = $chop($n1, $l);
-          $s1 = $sort($n1, $l);
-          $s2 = $sort($n2, $l2);
-          return $rev_merge($s1, $s2, 0);
-        };
+        }
+        $n1 = $right_shift_32($n, 1);
+        $n2 = (int) ($n - $n1);
+        $l2 = $chop($n1, $l);
+        $s1 = $sort($n1, $l);
+        $s2 = $sort($n2, $l2);
+        return $rev_merge($s1, $s2, 0);
+      };
       $len = $length($l);
       return 2 <= $len ? $sort($len, $l) : ($l);
     };

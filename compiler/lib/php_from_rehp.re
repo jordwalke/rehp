@@ -303,12 +303,9 @@ let rec foldVars =
       /* TODO: Add a !exists(curOut.dec) to fix the valid_float_lexem case */
       if (!exists(curOut.dec, id)
           && (exists(curOut.use, id) || exists(rhsOut.use, id))) {
-        let dummyId = Php.EVar(Id.S({name: "$_", var: None}));
-        let updateExpr =
-          Php.EBin(Php.Eq, EDot(EVar(identMapped), "contents"), mapped);
         let (out, dummy) = (
           outAppend(curOut, rhsOut),
-          (dummyId, Some((updateExpr, loc))),
+          (Php.EDot(EVar(identMapped), "contents"), Some((mapped, loc))),
         );
         let next = [dummy, ...curRevMappeds];
         foldVars(mapper, out, curInput, next, tl);

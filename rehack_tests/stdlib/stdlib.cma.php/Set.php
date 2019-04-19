@@ -151,66 +151,62 @@ final class Set {
         $gd = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $gd};
       };
-      $_ = $add->contents =
-        function($x, $t) use ($Ord,$add,$bal,$caml_call2) {
-          if ($t) {
-            $r = $t[3];
-            $v = $t[2];
-            $l = $t[1];
-            $c = $caml_call2($Ord[1], $x, $v);
-            if (0 === $c) {return $t;}
-            if (0 <= $c) {
-              $rr = $add->contents($x, $r);
-              return $r === $rr ? $t : ($bal($l, $v, $rr));
-            }
-            $ll = $add->contents($x, $l);
-            return $l === $ll ? $t : ($bal($ll, $v, $r));
+      $add->contents = function($x, $t) use ($Ord,$add,$bal,$caml_call2) {
+        if ($t) {
+          $r = $t[3];
+          $v = $t[2];
+          $l = $t[1];
+          $c = $caml_call2($Ord[1], $x, $v);
+          if (0 === $c) {return $t;}
+          if (0 <= $c) {
+            $rr = $add->contents($x, $r);
+            return $r === $rr ? $t : ($bal($l, $v, $rr));
           }
-          return Vector{0, 0, $x, 0, 1};
-        };
+          $ll = $add->contents($x, $l);
+          return $l === $ll ? $t : ($bal($ll, $v, $r));
+        }
+        return Vector{0, 0, $x, 0, 1};
+      };
       $singleton = function($x) {return Vector{0, 0, $x, 0, 1};};
-      $_ = $add_min_element->contents =
-        function($x, $param) use ($add_min_element,$bal,$singleton) {
-          if ($param) {
-            $r = $param[3];
-            $v = $param[2];
-            $l = $param[1];
-            return $bal($add_min_element->contents($x, $l), $v, $r);
+      $add_min_element->contents = function($x, $param) use ($add_min_element,$bal,$singleton) {
+        if ($param) {
+          $r = $param[3];
+          $v = $param[2];
+          $l = $param[1];
+          return $bal($add_min_element->contents($x, $l), $v, $r);
+        }
+        return $singleton($x);
+      };
+      $add_max_element->contents = function($x, $param) use ($add_max_element,$bal,$singleton) {
+        if ($param) {
+          $r = $param[3];
+          $v = $param[2];
+          $l = $param[1];
+          return $bal($l, $v, $add_max_element->contents($x, $r));
+        }
+        return $singleton($x);
+      };
+      $join->contents = function($l, $v, $r) use ($add_max_element,$add_min_element,$bal,$create,$join) {
+        if ($l) {
+          if ($r) {
+            $rh = $r[4];
+            $rr = $r[3];
+            $rv = $r[2];
+            $rl = $r[1];
+            $lh = $l[4];
+            $lr = $l[3];
+            $lv = $l[2];
+            $ll = $l[1];
+            return (int) ($rh + 2) < $lh
+              ? $bal($ll, $lv, $join->contents($lr, $v, $r))
+              : ((int) ($lh + 2) < $rh
+               ? $bal($join->contents($l, $v, $rl), $rv, $rr)
+               : ($create($l, $v, $r)));
           }
-          return $singleton($x);
-        };
-      $_ = $add_max_element->contents =
-        function($x, $param) use ($add_max_element,$bal,$singleton) {
-          if ($param) {
-            $r = $param[3];
-            $v = $param[2];
-            $l = $param[1];
-            return $bal($l, $v, $add_max_element->contents($x, $r));
-          }
-          return $singleton($x);
-        };
-      $_ = $join->contents =
-        function($l, $v, $r) use ($add_max_element,$add_min_element,$bal,$create,$join) {
-          if ($l) {
-            if ($r) {
-              $rh = $r[4];
-              $rr = $r[3];
-              $rv = $r[2];
-              $rl = $r[1];
-              $lh = $l[4];
-              $lr = $l[3];
-              $lv = $l[2];
-              $ll = $l[1];
-              return (int) ($rh + 2) < $lh
-                ? $bal($ll, $lv, $join->contents($lr, $v, $r))
-                : ((int) ($lh + 2) < $rh
-                 ? $bal($join->contents($l, $v, $rl), $rv, $rr)
-                 : ($create($l, $v, $r)));
-            }
-            return $add_max_element->contents($v, $l);
-          }
-          return $add_min_element->contents($v, $r);
-        };
+          return $add_max_element->contents($v, $l);
+        }
+        return $add_min_element->contents($v, $r);
+      };
       $min_elt = function($param) use ($Not_found,$runtime) {
         $param__0 = $param;
         for (;;) {
@@ -259,20 +255,19 @@ final class Set {
           return 0;
         }
       };
-      $_ = $remove_min_elt->contents =
-        function($param) use ($Pervasives,$bal,$caml_call1,$cst_Set_remove_min_elt,$remove_min_elt) {
-          if ($param) {
-            $f3 = $param[1];
-            if ($f3) {
-              $r = $param[3];
-              $v = $param[2];
-              return $bal($remove_min_elt->contents($f3), $v, $r);
-            }
-            $r__0 = $param[3];
-            return $r__0;
+      $remove_min_elt->contents = function($param) use ($Pervasives,$bal,$caml_call1,$cst_Set_remove_min_elt,$remove_min_elt) {
+        if ($param) {
+          $f3 = $param[1];
+          if ($f3) {
+            $r = $param[3];
+            $v = $param[2];
+            return $bal($remove_min_elt->contents($f3), $v, $r);
           }
-          return $caml_call1($Pervasives[1], $cst_Set_remove_min_elt);
-        };
+          $r__0 = $param[3];
+          return $r__0;
+        }
+        return $caml_call1($Pervasives[1], $cst_Set_remove_min_elt);
+      };
       $merge = function($t, $match) use ($bal,$min_elt,$remove_min_elt) {
         if ($t) {
           if ($match) {
@@ -293,29 +288,28 @@ final class Set {
         }
         return $match;
       };
-      $_ = $split->contents =
-        function($x, $param) use ($Ord,$caml_call2,$fl,$join,$split) {
-          if ($param) {
-            $r = $param[3];
-            $v = $param[2];
-            $l = $param[1];
-            $c = $caml_call2($Ord[1], $x, $v);
-            if (0 === $c) {return Vector{0, $l, 1, $r};}
-            if (0 <= $c) {
-              $match = $split->contents($x, $r);
-              $rr = $match[3];
-              $pres = $match[2];
-              $lr = $match[1];
-              return Vector{0, $join->contents($l, $v, $lr), $pres, $rr};
-            }
-            $match__0 = $split->contents($x, $l);
-            $rl = $match__0[3];
-            $pres__0 = $match__0[2];
-            $ll = $match__0[1];
-            return Vector{0, $ll, $pres__0, $join->contents($rl, $v, $r)};
+      $split->contents = function($x, $param) use ($Ord,$caml_call2,$fl,$join,$split) {
+        if ($param) {
+          $r = $param[3];
+          $v = $param[2];
+          $l = $param[1];
+          $c = $caml_call2($Ord[1], $x, $v);
+          if (0 === $c) {return Vector{0, $l, 1, $r};}
+          if (0 <= $c) {
+            $match = $split->contents($x, $r);
+            $rr = $match[3];
+            $pres = $match[2];
+            $lr = $match[1];
+            return Vector{0, $join->contents($l, $v, $lr), $pres, $rr};
           }
-          return $fl;
-        };
+          $match__0 = $split->contents($x, $l);
+          $rl = $match__0[3];
+          $pres__0 = $match__0[2];
+          $ll = $match__0[1];
+          return Vector{0, $ll, $pres__0, $join->contents($rl, $v, $r)};
+        }
+        return $fl;
+      };
       $empty = 0;
       $is_empty = function($param) {return $param ? 0 : (1);};
       $mem = function($x, $param) use ($Ord,$caml_call2) {
@@ -335,99 +329,94 @@ final class Set {
           return 0;
         }
       };
-      $_ = $remove->contents =
-        function($x, $t) use ($Ord,$bal,$caml_call2,$merge,$remove) {
-          if ($t) {
-            $r = $t[3];
-            $v = $t[2];
-            $l = $t[1];
-            $c = $caml_call2($Ord[1], $x, $v);
-            if (0 === $c) {return $merge($l, $r);}
-            if (0 <= $c) {
-              $rr = $remove->contents($x, $r);
-              return $r === $rr ? $t : ($bal($l, $v, $rr));
+      $remove->contents = function($x, $t) use ($Ord,$bal,$caml_call2,$merge,$remove) {
+        if ($t) {
+          $r = $t[3];
+          $v = $t[2];
+          $l = $t[1];
+          $c = $caml_call2($Ord[1], $x, $v);
+          if (0 === $c) {return $merge($l, $r);}
+          if (0 <= $c) {
+            $rr = $remove->contents($x, $r);
+            return $r === $rr ? $t : ($bal($l, $v, $rr));
+          }
+          $ll = $remove->contents($x, $l);
+          return $l === $ll ? $t : ($bal($ll, $v, $r));
+        }
+        return 0;
+      };
+      $union->contents = function($t1, $match) use ($add,$join,$split,$union) {
+        if ($t1) {
+          if ($match) {
+            $h2 = $match[4];
+            $r2 = $match[3];
+            $v2 = $match[2];
+            $l2 = $match[1];
+            $h1 = $t1[4];
+            $r1 = $t1[3];
+            $v1 = $t1[2];
+            $l1 = $t1[1];
+            if ($h2 <= $h1) {
+              if (1 === $h2) {return $add->contents($v2, $t1);}
+              $match__0 = $split->contents($v1, $match);
+              $r2__0 = $match__0[3];
+              $l2__0 = $match__0[1];
+              $fY = $union->contents($r1, $r2__0);
+              return $join->contents($union->contents($l1, $l2__0), $v1, $fY);
             }
-            $ll = $remove->contents($x, $l);
-            return $l === $ll ? $t : ($bal($ll, $v, $r));
+            if (1 === $h1) {return $add->contents($v1, $match);}
+            $match__1 = $split->contents($v2, $t1);
+            $r1__0 = $match__1[3];
+            $l1__0 = $match__1[1];
+            $fZ = $union->contents($r1__0, $r2);
+            return $join->contents($union->contents($l1__0, $l2), $v2, $fZ);
+          }
+          return $t1;
+        }
+        return $match;
+      };
+      $inter->contents = function($s1, $match) use ($concat,$inter,$join,$split) {
+        if ($s1) {
+          if ($match) {
+            $r1 = $s1[3];
+            $v1 = $s1[2];
+            $l1 = $s1[1];
+            $fU = $split->contents($v1, $match);
+            $fV = $fU[1];
+            if (0 === $fU[2]) {
+              $r2 = $fU[3];
+              $fW = $inter->contents($r1, $r2);
+              return $concat($inter->contents($l1, $fV), $fW);
+            }
+            $r2__0 = $fU[3];
+            $fX = $inter->contents($r1, $r2__0);
+            return $join->contents($inter->contents($l1, $fV), $v1, $fX);
           }
           return 0;
-        };
-      $_ = $union->contents =
-        function($t1, $match) use ($add,$join,$split,$union) {
-          if ($t1) {
-            if ($match) {
-              $h2 = $match[4];
-              $r2 = $match[3];
-              $v2 = $match[2];
-              $l2 = $match[1];
-              $h1 = $t1[4];
-              $r1 = $t1[3];
-              $v1 = $t1[2];
-              $l1 = $t1[1];
-              if ($h2 <= $h1) {
-                if (1 === $h2) {return $add->contents($v2, $t1);}
-                $match__0 = $split->contents($v1, $match);
-                $r2__0 = $match__0[3];
-                $l2__0 = $match__0[1];
-                $fY = $union->contents($r1, $r2__0);
-                return $join->contents($union->contents($l1, $l2__0), $v1, $fY
-                );
-              }
-              if (1 === $h1) {return $add->contents($v1, $match);}
-              $match__1 = $split->contents($v2, $t1);
-              $r1__0 = $match__1[3];
-              $l1__0 = $match__1[1];
-              $fZ = $union->contents($r1__0, $r2);
-              return $join->contents($union->contents($l1__0, $l2), $v2, $fZ);
+        }
+        return 0;
+      };
+      $diff->contents = function($t1, $match) use ($concat,$diff,$join,$split) {
+        if ($t1) {
+          if ($match) {
+            $r1 = $t1[3];
+            $v1 = $t1[2];
+            $l1 = $t1[1];
+            $fQ = $split->contents($v1, $match);
+            $fR = $fQ[1];
+            if (0 === $fQ[2]) {
+              $r2 = $fQ[3];
+              $fS = $diff->contents($r1, $r2);
+              return $join->contents($diff->contents($l1, $fR), $v1, $fS);
             }
-            return $t1;
+            $r2__0 = $fQ[3];
+            $fT = $diff->contents($r1, $r2__0);
+            return $concat($diff->contents($l1, $fR), $fT);
           }
-          return $match;
-        };
-      $_ = $inter->contents =
-        function($s1, $match) use ($concat,$inter,$join,$split) {
-          if ($s1) {
-            if ($match) {
-              $r1 = $s1[3];
-              $v1 = $s1[2];
-              $l1 = $s1[1];
-              $fU = $split->contents($v1, $match);
-              $fV = $fU[1];
-              if (0 === $fU[2]) {
-                $r2 = $fU[3];
-                $fW = $inter->contents($r1, $r2);
-                return $concat($inter->contents($l1, $fV), $fW);
-              }
-              $r2__0 = $fU[3];
-              $fX = $inter->contents($r1, $r2__0);
-              return $join->contents($inter->contents($l1, $fV), $v1, $fX);
-            }
-            return 0;
-          }
-          return 0;
-        };
-      $_ = $diff->contents =
-        function($t1, $match) use ($concat,$diff,$join,$split) {
-          if ($t1) {
-            if ($match) {
-              $r1 = $t1[3];
-              $v1 = $t1[2];
-              $l1 = $t1[1];
-              $fQ = $split->contents($v1, $match);
-              $fR = $fQ[1];
-              if (0 === $fQ[2]) {
-                $r2 = $fQ[3];
-                $fS = $diff->contents($r1, $r2);
-                return $join->contents($diff->contents($l1, $fR), $v1, $fS);
-              }
-              $r2__0 = $fQ[3];
-              $fT = $diff->contents($r1, $r2__0);
-              return $concat($diff->contents($l1, $fR), $fT);
-            }
-            return $t1;
-          }
-          return 0;
-        };
+          return $t1;
+        }
+        return 0;
+      };
       $cons_enum = function($s, $e) {
         $s__0 = $s;
         $e__0 = $e;
@@ -478,181 +467,171 @@ final class Set {
       $equal = function($s1, $s2) use ($compare) {
         return 0 === $compare($s1, $s2) ? 1 : (0);
       };
-      $_ = $subset->contents =
-        function($s1, $s2) use ($Ord,$caml_call2,$subset) {
-          $s1__0 = $s1;
-          $s2__0 = $s2;
-          for (;;) {
-            if ($s1__0) {
-              if ($s2__0) {
-                $r2 = $s2__0[3];
-                $v2 = $s2__0[2];
-                $l2 = $s2__0[1];
-                $r1 = $s1__0[3];
-                $v1 = $s1__0[2];
-                $l1 = $s1__0[1];
-                $c = $caml_call2($Ord[1], $v1, $v2);
-                if (0 === $c) {
-                  $fM = $subset->contents($l1, $l2);
-                  if ($fM) {$s1__0 = $r1;$s2__0 = $r2;continue;}
-                  return $fM;
-                }
-                if (0 <= $c) {
-                  $fN = $subset->contents(Vector{0, 0, $v1, $r1, 0}, $r2);
-                  if ($fN) {$s1__0 = $l1;continue;}
-                  return $fN;
-                }
-                $fO = $subset->contents(Vector{0, $l1, $v1, 0, 0}, $l2);
-                if ($fO) {$s1__0 = $r1;continue;}
-                return $fO;
+      $subset->contents = function($s1, $s2) use ($Ord,$caml_call2,$subset) {
+        $s1__0 = $s1;
+        $s2__0 = $s2;
+        for (;;) {
+          if ($s1__0) {
+            if ($s2__0) {
+              $r2 = $s2__0[3];
+              $v2 = $s2__0[2];
+              $l2 = $s2__0[1];
+              $r1 = $s1__0[3];
+              $v1 = $s1__0[2];
+              $l1 = $s1__0[1];
+              $c = $caml_call2($Ord[1], $v1, $v2);
+              if (0 === $c) {
+                $fM = $subset->contents($l1, $l2);
+                if ($fM) {$s1__0 = $r1;$s2__0 = $r2;continue;}
+                return $fM;
               }
-              return 0;
-            }
-            return 1;
-          }
-        };
-      $_ = $iter->contents =
-        function($f, $param) use ($caml_call1,$iter) {
-          $param__0 = $param;
-          for (;;) {
-            if ($param__0) {
-              $param__1 = $param__0[3];
-              $v = $param__0[2];
-              $l = $param__0[1];
-              $iter->contents($f, $l);
-              $caml_call1($f, $v);
-              $param__0 = $param__1;
-              continue;
+              if (0 <= $c) {
+                $fN = $subset->contents(Vector{0, 0, $v1, $r1, 0}, $r2);
+                if ($fN) {$s1__0 = $l1;continue;}
+                return $fN;
+              }
+              $fO = $subset->contents(Vector{0, $l1, $v1, 0, 0}, $l2);
+              if ($fO) {$s1__0 = $r1;continue;}
+              return $fO;
             }
             return 0;
           }
-        };
-      $_ = $fold->contents =
-        function($f, $s, $accu) use ($caml_call2,$fold) {
-          $s__0 = $s;
-          $accu__0 = $accu;
-          for (;;) {
-            if ($s__0) {
-              $s__1 = $s__0[3];
-              $v = $s__0[2];
-              $l = $s__0[1];
-              $accu__1 = $caml_call2($f, $v, $fold->contents($f, $l, $accu__0)
-              );
-              $s__0 = $s__1;
-              $accu__0 = $accu__1;
-              continue;
-            }
-            return $accu__0;
-          }
-        };
-      $_ = $for_all->contents =
-        function($p, $param) use ($caml_call1,$for_all) {
-          $param__0 = $param;
-          for (;;) {
-            if ($param__0) {
-              $r = $param__0[3];
-              $v = $param__0[2];
-              $l = $param__0[1];
-              $fJ = $caml_call1($p, $v);
-              if ($fJ) {
-                $fK = $for_all->contents($p, $l);
-                if ($fK) {$param__0 = $r;continue;}
-                $fL = $fK;
-              }
-              else {$fL = $fJ;}
-              return $fL;
-            }
-            return 1;
-          }
-        };
-      $_ = $exists->contents =
-        function($p, $param) use ($caml_call1,$exists) {
-          $param__0 = $param;
-          for (;;) {
-            if ($param__0) {
-              $r = $param__0[3];
-              $v = $param__0[2];
-              $l = $param__0[1];
-              $fG = $caml_call1($p, $v);
-              if ($fG) {
-                $fH = $fG;
-              }
-              else {
-                $fI = $exists->contents($p, $l);
-                if (! $fI) {$param__0 = $r;continue;}
-                $fH = $fI;
-              }
-              return $fH;
-            }
-            return 0;
-          }
-        };
-      $_ = $filter->contents =
-        function($p, $t) use ($caml_call1,$concat,$filter,$join) {
-          if ($t) {
-            $r = $t[3];
-            $v = $t[2];
-            $l = $t[1];
-            $l__0 = $filter->contents($p, $l);
-            $pv = $caml_call1($p, $v);
-            $r__0 = $filter->contents($p, $r);
-            if ($pv) {
-              if ($l === $l__0) {if ($r === $r__0) {return $t;}}
-              return $join->contents($l__0, $v, $r__0);
-            }
-            return $concat($l__0, $r__0);
+          return 1;
+        }
+      };
+      $iter->contents = function($f, $param) use ($caml_call1,$iter) {
+        $param__0 = $param;
+        for (;;) {
+          if ($param__0) {
+            $param__1 = $param__0[3];
+            $v = $param__0[2];
+            $l = $param__0[1];
+            $iter->contents($f, $l);
+            $caml_call1($f, $v);
+            $param__0 = $param__1;
+            continue;
           }
           return 0;
-        };
-      $_ = $partition->contents =
-        function($p, $param) use ($caml_call1,$concat,$fm,$join,$partition) {
-          if ($param) {
-            $r = $param[3];
-            $v = $param[2];
-            $l = $param[1];
-            $match = $partition->contents($p, $l);
-            $lf = $match[2];
-            $lt = $match[1];
-            $pv = $caml_call1($p, $v);
-            $match__0 = $partition->contents($p, $r);
-            $rf = $match__0[2];
-            $rt = $match__0[1];
-            if ($pv) {
-              $fE = $concat($lf, $rf);
-              return Vector{0, $join->contents($lt, $v, $rt), $fE};
-            }
-            $fF = $join->contents($lf, $v, $rf);
-            return Vector{0, $concat($lt, $rt), $fF};
+        }
+      };
+      $fold->contents = function($f, $s, $accu) use ($caml_call2,$fold) {
+        $s__0 = $s;
+        $accu__0 = $accu;
+        for (;;) {
+          if ($s__0) {
+            $s__1 = $s__0[3];
+            $v = $s__0[2];
+            $l = $s__0[1];
+            $accu__1 = $caml_call2($f, $v, $fold->contents($f, $l, $accu__0));
+            $s__0 = $s__1;
+            $accu__0 = $accu__1;
+            continue;
           }
-          return $fm;
-        };
-      $_ = $cardinal->contents =
-        function($param) use ($cardinal) {
-          if ($param) {
-            $r = $param[3];
-            $l = $param[1];
-            $fD = $cardinal->contents($r);
-            return (int) ((int) ($cardinal->contents($l) + 1) + $fD);
+          return $accu__0;
+        }
+      };
+      $for_all->contents = function($p, $param) use ($caml_call1,$for_all) {
+        $param__0 = $param;
+        for (;;) {
+          if ($param__0) {
+            $r = $param__0[3];
+            $v = $param__0[2];
+            $l = $param__0[1];
+            $fJ = $caml_call1($p, $v);
+            if ($fJ) {
+              $fK = $for_all->contents($p, $l);
+              if ($fK) {$param__0 = $r;continue;}
+              $fL = $fK;
+            }
+            else {$fL = $fJ;}
+            return $fL;
+          }
+          return 1;
+        }
+      };
+      $exists->contents = function($p, $param) use ($caml_call1,$exists) {
+        $param__0 = $param;
+        for (;;) {
+          if ($param__0) {
+            $r = $param__0[3];
+            $v = $param__0[2];
+            $l = $param__0[1];
+            $fG = $caml_call1($p, $v);
+            if ($fG) {
+              $fH = $fG;
+            }
+            else {
+              $fI = $exists->contents($p, $l);
+              if (! $fI) {$param__0 = $r;continue;}
+              $fH = $fI;
+            }
+            return $fH;
           }
           return 0;
-        };
-      $_ = $elements_aux->contents =
-        function($accu, $param) use ($elements_aux) {
-          $accu__0 = $accu;
-          $param__0 = $param;
-          for (;;) {
-            if ($param__0) {
-              $r = $param__0[3];
-              $v = $param__0[2];
-              $param__1 = $param__0[1];
-              $accu__1 = Vector{0, $v, $elements_aux->contents($accu__0, $r)};
-              $accu__0 = $accu__1;
-              $param__0 = $param__1;
-              continue;
-            }
-            return $accu__0;
+        }
+      };
+      $filter->contents = function($p, $t) use ($caml_call1,$concat,$filter,$join) {
+        if ($t) {
+          $r = $t[3];
+          $v = $t[2];
+          $l = $t[1];
+          $l__0 = $filter->contents($p, $l);
+          $pv = $caml_call1($p, $v);
+          $r__0 = $filter->contents($p, $r);
+          if ($pv) {
+            if ($l === $l__0) {if ($r === $r__0) {return $t;}}
+            return $join->contents($l__0, $v, $r__0);
           }
-        };
+          return $concat($l__0, $r__0);
+        }
+        return 0;
+      };
+      $partition->contents = function($p, $param) use ($caml_call1,$concat,$fm,$join,$partition) {
+        if ($param) {
+          $r = $param[3];
+          $v = $param[2];
+          $l = $param[1];
+          $match = $partition->contents($p, $l);
+          $lf = $match[2];
+          $lt = $match[1];
+          $pv = $caml_call1($p, $v);
+          $match__0 = $partition->contents($p, $r);
+          $rf = $match__0[2];
+          $rt = $match__0[1];
+          if ($pv) {
+            $fE = $concat($lf, $rf);
+            return Vector{0, $join->contents($lt, $v, $rt), $fE};
+          }
+          $fF = $join->contents($lf, $v, $rf);
+          return Vector{0, $concat($lt, $rt), $fF};
+        }
+        return $fm;
+      };
+      $cardinal->contents = function($param) use ($cardinal) {
+        if ($param) {
+          $r = $param[3];
+          $l = $param[1];
+          $fD = $cardinal->contents($r);
+          return (int) ((int) ($cardinal->contents($l) + 1) + $fD);
+        }
+        return 0;
+      };
+      $elements_aux->contents = function($accu, $param) use ($elements_aux) {
+        $accu__0 = $accu;
+        $param__0 = $param;
+        for (;;) {
+          if ($param__0) {
+            $r = $param__0[3];
+            $v = $param__0[2];
+            $param__1 = $param__0[1];
+            $accu__1 = Vector{0, $v, $elements_aux->contents($accu__0, $r)};
+            $accu__0 = $accu__1;
+            $param__0 = $param__1;
+            continue;
+          }
+          return $accu__0;
+        }
+      };
       $elements = function($s) use ($elements_aux) {
         return $elements_aux->contents(0, $s);
       };
@@ -824,96 +803,94 @@ final class Set {
         }
         return $union->contents($l, $add->contents($v, $r));
       };
-      $_ = $map->contents =
-        function($f, $t) use ($caml_call1,$map,$try_join) {
-          if ($t) {
-            $r = $t[3];
-            $v = $t[2];
-            $l = $t[1];
-            $l__0 = $map->contents($f, $l);
-            $v__0 = $caml_call1($f, $v);
-            $r__0 = $map->contents($f, $r);
-            if ($l === $l__0) {
-              if ($v === $v__0) {if ($r === $r__0) {return $t;}}
-            }
-            return $try_join($l__0, $v__0, $r__0);
+      $map->contents = function($f, $t) use ($caml_call1,$map,$try_join) {
+        if ($t) {
+          $r = $t[3];
+          $v = $t[2];
+          $l = $t[1];
+          $l__0 = $map->contents($f, $l);
+          $v__0 = $caml_call1($f, $v);
+          $r__0 = $map->contents($f, $r);
+          if ($l === $l__0) {
+            if ($v === $v__0) {if ($r === $r__0) {return $t;}}
           }
-          return 0;
-        };
+          return $try_join($l__0, $v__0, $r__0);
+        }
+        return 0;
+      };
       $of_sorted_list = function($l) use ($Assert_failure,$List,$caml_call1,$create,$fn,$runtime,$unsigned_right_shift_32) {
         $sub = new Ref();
-        $_ = $sub->contents =
-          function($n, $l) use ($Assert_failure,$create,$fn,$runtime,$sub,$unsigned_right_shift_32) {
-            if (! (3 < $unsigned_right_shift_32($n, 0))) {
-              switch($n) {
-                // FALLTHROUGH
-                case 0:
-                  return Vector{0, 0, $l};
-                // FALLTHROUGH
-                case 1:
-                  if ($l) {
-                    $l__3 = $l[2];
-                    $x0 = $l[1];
-                    return Vector{0, Vector{0, 0, $x0, 0, 1}, $l__3};
+        $sub->contents = function($n, $l) use ($Assert_failure,$create,$fn,$runtime,$sub,$unsigned_right_shift_32) {
+          if (! (3 < $unsigned_right_shift_32($n, 0))) {
+            switch($n) {
+              // FALLTHROUGH
+              case 0:
+                return Vector{0, 0, $l};
+              // FALLTHROUGH
+              case 1:
+                if ($l) {
+                  $l__3 = $l[2];
+                  $x0 = $l[1];
+                  return Vector{0, Vector{0, 0, $x0, 0, 1}, $l__3};
+                }
+                break;
+              // FALLTHROUGH
+              case 2:
+                if ($l) {
+                  $fy = $l[2];
+                  if ($fy) {
+                    $l__4 = $fy[2];
+                    $x1 = $fy[1];
+                    $x0__0 = $l[1];
+                    return Vector{
+                      0,
+                      Vector{0, Vector{0, 0, $x0__0, 0, 1}, $x1, 0, 2},
+                      $l__4
+                    };
                   }
-                  break;
-                // FALLTHROUGH
-                case 2:
-                  if ($l) {
-                    $fy = $l[2];
-                    if ($fy) {
-                      $l__4 = $fy[2];
-                      $x1 = $fy[1];
-                      $x0__0 = $l[1];
+                }
+                break;
+              // FALLTHROUGH
+              default:
+                if ($l) {
+                  $fz = $l[2];
+                  if ($fz) {
+                    $fA = $fz[2];
+                    if ($fA) {
+                      $l__5 = $fA[2];
+                      $x2 = $fA[1];
+                      $x1__0 = $fz[1];
+                      $x0__1 = $l[1];
                       return Vector{
                         0,
-                        Vector{0, Vector{0, 0, $x0__0, 0, 1}, $x1, 0, 2},
-                        $l__4
+                        Vector{
+                          0,
+                          Vector{0, 0, $x0__1, 0, 1},
+                          $x1__0,
+                          Vector{0, 0, $x2, 0, 1},
+                          2
+                        },
+                        $l__5
                       };
                     }
                   }
-                  break;
-                // FALLTHROUGH
-                default:
-                  if ($l) {
-                    $fz = $l[2];
-                    if ($fz) {
-                      $fA = $fz[2];
-                      if ($fA) {
-                        $l__5 = $fA[2];
-                        $x2 = $fA[1];
-                        $x1__0 = $fz[1];
-                        $x0__1 = $l[1];
-                        return Vector{
-                          0,
-                          Vector{
-                            0,
-                            Vector{0, 0, $x0__1, 0, 1},
-                            $x1__0,
-                            Vector{0, 0, $x2, 0, 1},
-                            2
-                          },
-                          $l__5
-                        };
-                      }
-                    }
-                  }
                 }
-            }
-            $nl = (int) ($n / 2);
-            $match = $sub->contents($nl, $l);
-            $l__0 = $match[2];
-            $left = $match[1];
-            if ($l__0) {
-              $l__1 = $l__0[2];
-              $mid = $l__0[1];
-              $match__0 = $sub->contents((int) ((int) ($n - $nl) + -1), $l__1);
-              $l__2 = $match__0[2];
-              $right = $match__0[1];
-              return Vector{0, $create($left, $mid, $right), $l__2};
-            }
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $fn}) as \Throwable;
-          };
+              }
+          }
+          $nl = (int) ($n / 2);
+          $match = $sub->contents($nl, $l);
+          $l__0 = $match[2];
+          $left = $match[1];
+          if ($l__0) {
+            $l__1 = $l__0[2];
+            $mid = $l__0[1];
+            $match__0 = $sub->contents((int) ((int) ($n - $nl) + -1), $l__1);
+            $l__2 = $match__0[2];
+            $right = $match__0[1];
+            return Vector{0, $create($left, $mid, $right), $l__2};
+          }
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $fn}) as \Throwable;
+        };
         return $sub->contents($caml_call1($List[1], $l), $l)[1];
       };
       $of_list = function($l) use ($List,$Ord,$add,$caml_call2,$empty,$of_sorted_list,$singleton) {

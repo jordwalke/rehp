@@ -84,7 +84,7 @@ for($i=0; $i < $search_dirs_count; $i++) {
 
 function normalize_classname($classname) {
   $matches = array();
-  $match = preg_match('/.+\\\\(.+)/', $classname, $matches);
+  $match = preg_match('/.+\\\\(.+)/', $classname, &$matches);
   if (!$match) {
     $normalized = $classname;
   } else {

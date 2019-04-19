@@ -191,15 +191,14 @@ final class Pervasives {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($aA) as \Throwable;
       }
     };
-    $_ = $j->contents =
-      function($l1, $l2) use ($j) {
-        if ($l1) {
-          $tl = $l1[2];
-          $hd = $l1[1];
-          return Vector{0, $hd, $j->contents($tl, $l2)};
-        }
-        return $l2;
-      };
+    $j->contents = function($l1, $l2) use ($j) {
+      if ($l1) {
+        $tl = $l1[2];
+        $hd = $l1[1];
+        return Vector{0, $hd, $j->contents($tl, $l2)};
+      }
+      return $l2;
+    };
     $stdin = $caml_ml_open_descriptor_in(0);
     $stdout = $caml_ml_open_descriptor_out(1);
     $stderr = $caml_ml_open_descriptor_out(2);

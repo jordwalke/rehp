@@ -418,41 +418,40 @@ final class Filename {
           continue;
         }
       };
-      $_ = $loop_bs->contents =
-        function($counter, $n, $i) use ($Buffer,$add_bs,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop__0,$s) {
-          $n__0 = $n;
-          $i__0 = $i;
-          for (;;) {
-            if ($i__0 === $l) {
-              $caml_call2($Buffer[10], $b, 34);
-              return $add_bs($n__0);
-            }
-            $match = $caml_string_get($s, $i__0);
-            if (34 === $match) {
-              $add_bs((int) ((int) (2 * $n__0) + 1));
-              $caml_call2($Buffer[10], $b, 34);
-              $BG = (int) ($i__0 + 1);
-              if ($counter < 50) {
-                $counter__1 = (int) ($counter + 1);
-                return $loop__0($counter__1, $BG);
-              }
-              return $caml_trampoline_return($loop__0, varray[0,$BG]);
-            }
-            if (92 === $match) {
-              $i__1 = (int) ($i__0 + 1);
-              $n__1 = (int) ($n__0 + 1);
-              $n__0 = $n__1;
-              $i__0 = $i__1;
-              continue;
-            }
-            $add_bs($n__0);
-            if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
-              return $loop__0($counter__0, $i__0);
-            }
-            return $caml_trampoline_return($loop__0, varray[0,$i__0]);
+      $loop_bs->contents = function($counter, $n, $i) use ($Buffer,$add_bs,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop__0,$s) {
+        $n__0 = $n;
+        $i__0 = $i;
+        for (;;) {
+          if ($i__0 === $l) {
+            $caml_call2($Buffer[10], $b, 34);
+            return $add_bs($n__0);
           }
-        };
+          $match = $caml_string_get($s, $i__0);
+          if (34 === $match) {
+            $add_bs((int) ((int) (2 * $n__0) + 1));
+            $caml_call2($Buffer[10], $b, 34);
+            $BG = (int) ($i__0 + 1);
+            if ($counter < 50) {
+              $counter__1 = (int) ($counter + 1);
+              return $loop__0($counter__1, $BG);
+            }
+            return $caml_trampoline_return($loop__0, varray[0,$BG]);
+          }
+          if (92 === $match) {
+            $i__1 = (int) ($i__0 + 1);
+            $n__1 = (int) ($n__0 + 1);
+            $n__0 = $n__1;
+            $i__0 = $i__1;
+            continue;
+          }
+          $add_bs($n__0);
+          if ($counter < 50) {
+            $counter__0 = (int) ($counter + 1);
+            return $loop__0($counter__0, $i__0);
+          }
+          return $caml_trampoline_return($loop__0, varray[0,$i__0]);
+        }
+      };
       $loop = function($i) use ($caml_trampoline,$loop__0) {
         return $caml_trampoline($loop__0(0, $i));
       };

@@ -137,12 +137,11 @@ final class CamlinternalOO {
     };
     $table_count = Vector{0, 0};
     $dummy_met = $caml_obj_block(0, 0);
-    $_ = $fit_size->contents =
-      function($n) use ($fit_size) {
-        return 2 < $n
-          ? (int) ($fit_size->contents((int) ((int) ($n + 1) / 2)) * 2)
-          : ($n);
-      };
+    $fit_size->contents = function($n) use ($fit_size) {
+      return 2 < $n
+        ? (int) ($fit_size->contents((int) ((int) ($n + 1) / 2)) * 2)
+        : ($n);
+    };
     $new_table = function($pub_labels) use ($Labs,$Meths,$Sys,$Vars,$caml_check_bound,$caml_make_vect,$dummy_met,$fit_size,$initial_object_size,$runtime,$table_count) {
       $table_count[1] += 1;
       $len = $pub_labels->count() - 1;
@@ -564,36 +563,35 @@ final class CamlinternalOO {
       $set_data($tables, $r[1]);
       return $res;
     };
-    $_ = $lookup_keys->contents =
-      function($i, $keys, $tables) use ($Assert_failure,$build_path,$caml_check_bound,$get_data,$get_key,$get_next,$lookup_keys,$runtime,$set_next,$yl) {
-        if (0 <= $i) {
-          $key = $caml_check_bound($keys, $i)[$i + 1];
-          $lookup_key = function($tables) use ($Assert_failure,$build_path,$get_data,$get_key,$get_next,$i,$key,$keys,$lookup_keys,$runtime,$set_next,$yl) {
-            $tables__0 = $tables;
-            for (;;) {
-              if ($get_key($tables__0) === $key) {
-                $tables_data = $get_data($tables__0);
-                if ($tables_data) {
-                  return $lookup_keys->contents(
-                    (int)
-                    ($i + -1),
-                    $keys,
-                    $tables_data
-                  );
-                }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yl}) as \Throwable;
+    $lookup_keys->contents = function($i, $keys, $tables) use ($Assert_failure,$build_path,$caml_check_bound,$get_data,$get_key,$get_next,$lookup_keys,$runtime,$set_next,$yl) {
+      if (0 <= $i) {
+        $key = $caml_check_bound($keys, $i)[$i + 1];
+        $lookup_key = function($tables) use ($Assert_failure,$build_path,$get_data,$get_key,$get_next,$i,$key,$keys,$lookup_keys,$runtime,$set_next,$yl) {
+          $tables__0 = $tables;
+          for (;;) {
+            if ($get_key($tables__0) === $key) {
+              $tables_data = $get_data($tables__0);
+              if ($tables_data) {
+                return $lookup_keys->contents(
+                  (int)
+                  ($i + -1),
+                  $keys,
+                  $tables_data
+                );
               }
-              $next = $get_next($tables__0);
-              if ($next) {$tables__0 = $next;continue;}
-              $next__0 = Vector{0, $key, 0, 0};
-              $set_next($tables__0, $next__0);
-              return $build_path((int) ($i + -1), $keys, $next__0);
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $yl}) as \Throwable;
             }
-          };
-          return $lookup_key($tables);
-        }
-        return $tables;
-      };
+            $next = $get_next($tables__0);
+            if ($next) {$tables__0 = $next;continue;}
+            $next__0 = Vector{0, $key, 0, 0};
+            $set_next($tables__0, $next__0);
+            return $build_path((int) ($i + -1), $keys, $next__0);
+          }
+        };
+        return $lookup_key($tables);
+      }
+      return $tables;
+    };
     $lookup_tables = function($root, $keys) use ($build_path,$get_data,$lookup_keys) {
       $root_data = $get_data($root);
       return $root_data

@@ -2833,43 +2833,42 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
             );
           }
         );
-        $_ = $loop->contents =
-          $Func(
-            function($shape, $struct, $idx) use ($ObjectLiteral,$String,$eqEqEq,$loop,$typeof,$undef_module) {
-              if ($eqEqEq($typeof($shape), $String->new("number"))) {
-                switch($shape) {
-                  // FALLTHROUGH
-                  case 0:
-                    $struct[$idx] =
-                      $ObjectLiteral((object)darray["fun"=>$undef_module]);
-                    break;
-                  // FALLTHROUGH
-                  case 1:
-                    $struct[$idx] = varray[246,$undef_module];
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $struct[$idx] = varray[];
-                  }
-              }
-              else {
-                switch($shape[0]) {
-                  // FALLTHROUGH
-                  case 0:
-                    $struct[$idx] = varray[0];
-                    for ($i = 1;$i < $shape[1]->length;$i++) $loop->contents(
-                      $shape[1][$i],
-                      $struct[$idx],
-                      $i
-                    );
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $struct[$idx] = $shape[1];
-                  }
-              }
+        $loop->contents = $Func(
+          function($shape, $struct, $idx) use ($ObjectLiteral,$String,$eqEqEq,$loop,$typeof,$undef_module) {
+            if ($eqEqEq($typeof($shape), $String->new("number"))) {
+              switch($shape) {
+                // FALLTHROUGH
+                case 0:
+                  $struct[$idx] =
+                    $ObjectLiteral((object)darray["fun"=>$undef_module]);
+                  break;
+                // FALLTHROUGH
+                case 1:
+                  $struct[$idx] = varray[246,$undef_module];
+                  break;
+                // FALLTHROUGH
+                default:
+                  $struct[$idx] = varray[];
+                }
             }
-          );
+            else {
+              switch($shape[0]) {
+                // FALLTHROUGH
+                case 0:
+                  $struct[$idx] = varray[0];
+                  for ($i = 1;$i < $shape[1]->length;$i++) $loop->contents(
+                    $shape[1][$i],
+                    $struct[$idx],
+                    $i
+                  );
+                  break;
+                // FALLTHROUGH
+                default:
+                  $struct[$idx] = $shape[1];
+                }
+            }
+          }
+        );
         $res = varray[];
         $loop->contents($shape, $res, 0);
         return $res[0];
@@ -3236,323 +3235,328 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
         return $size;
       }
     );
-    $_ = $caml_ba_create_from->contents =
-      $Func(
-        function($data, $data2, $data_type, $kind, $layout, $dims) use ($Func,$NaN,$ObjectLiteral,$String,$caml_array_bound_error,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$eqEq,$left_shift_32,$plus,$unsigned_right_shift_32) {
-          $n_dims = $dims->length;
-          $size = $caml_ba_get_size($dims);
-          $offset_c = $Func(
-            function($index) use ($String,$caml_array_bound_error,$caml_invalid_argument,$dims,$eqEq,$n_dims) {
-              $ofs = 0;
-              if (! $eqEq($n_dims, $index->length)) {
-                $caml_invalid_argument(
-                  $String->new("Bigarray.get/set: bad number of dimensions")
-                );
-              }
-              for ($i = 0;$i < $n_dims;$i++) {
-                if ($index[$i] < 0 || $index[$i] >= $dims[$i]) {$caml_array_bound_error();}
-                $ofs = $ofs * $dims[$i] + $index[$i];
-              }
-              return $ofs;
+    $caml_ba_create_from->contents = $Func(
+      function($data, $data2, $data_type, $kind, $layout, $dims) use ($Func,$NaN,$ObjectLiteral,$String,$caml_array_bound_error,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$eqEq,$left_shift_32,$plus,$unsigned_right_shift_32) {
+        $n_dims = $dims->length;
+        $size = $caml_ba_get_size($dims);
+        $offset_c = $Func(
+          function($index) use ($String,$caml_array_bound_error,$caml_invalid_argument,$dims,$eqEq,$n_dims) {
+            $ofs = 0;
+            if (! $eqEq($n_dims, $index->length)) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.get/set: bad number of dimensions")
+              );
             }
-          );
-          $offset_fortran = $Func(
-            function($index) use ($String,$caml_array_bound_error,$caml_invalid_argument,$dims,$eqEq,$n_dims) {
-              $ofs = 0;
-              if (! $eqEq($n_dims, $index->length)) {
-                $caml_invalid_argument(
-                  $String->new("Bigarray.get/set: wrong number of indices")
-                );
-              }
-              for ($i = $n_dims - 1;$i >= 0;$i--) {
-                if ($index[$i] < 1 || $index[$i] > $dims[$i]) {$caml_array_bound_error();}
-                $ofs = $ofs * $dims[$i] + ($index[$i] - 1);
-              }
-              return $ofs;
+            for ($i = 0;$i < $n_dims;$i++) {
+              if ($index[$i] < 0 || $index[$i] >= $dims[$i]) {$caml_array_bound_error();}
+              $ofs = $ofs * $dims[$i] + $index[$i];
             }
-          );
-          $offset = $layout == 0 ? $offset_c : ($offset_fortran);
-          $dim0 = $dims[0];
-          $get_std = $Func(
-            function($index) use ($data,$offset) {
+            return $ofs;
+          }
+        );
+        $offset_fortran = $Func(
+          function($index) use ($String,$caml_array_bound_error,$caml_invalid_argument,$dims,$eqEq,$n_dims) {
+            $ofs = 0;
+            if (! $eqEq($n_dims, $index->length)) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.get/set: wrong number of indices")
+              );
+            }
+            for ($i = $n_dims - 1;$i >= 0;$i--) {
+              if ($index[$i] < 1 || $index[$i] > $dims[$i]) {$caml_array_bound_error();}
+              $ofs = $ofs * $dims[$i] + ($index[$i] - 1);
+            }
+            return $ofs;
+          }
+        );
+        $offset = $layout == 0 ? $offset_c : ($offset_fortran);
+        $dim0 = $dims[0];
+        $get_std = $Func(
+          function($index) use ($data,$offset) {
+            $ofs = $offset($index);
+            $v = $data[$ofs];
+            return $v;
+          }
+        );
+        $get_int64 = $Func(
+          function($index) use ($data,$data2,$offset) {
+            $off = $offset($index);
+            $l = $data[$off];
+            $h = $data2[$off];
+            return varray[
+              255,
+              $l & 16777215,
+              $unsigned_right_shift_32($l, 24) & 255 |
+                $left_shift_32($h & 65535, 8),
+              $unsigned_right_shift_32($h, 16) & 65535
+            ];
+          }
+        );
+        $get_complex = $Func(
+          function($index) use ($data,$data2,$offset) {
+            $off = $offset($index);
+            $r = $data[$off];
+            $i = $data2[$off];
+            return varray[254,$r,$i];
+          }
+        );
+        $get = $data_type == 1
+          ? $get_int64
+          : ($data_type == 2 ? $get_complex : ($get_std));
+        $get1_c = $Func(
+          function($i) use ($caml_array_bound_error,$data,$dim0) {
+            if ($i < 0 || $i >= $dim0) {$caml_array_bound_error();}
+            return $data[$i];
+          }
+        );
+        $get1_fortran = $Func(
+          function($i) use ($caml_array_bound_error,$data,$dim0) {
+            if ($i < 1 || $i > $dim0) {$caml_array_bound_error();}
+            return $data[$i - 1];
+          }
+        );
+        $get1_any = $Func(function($i) use ($get) {return $get(varray[$i]);});
+        $get1 = $data_type == 0
+          ? $layout == 0 ? $get1_c : ($get1_fortran)
+          : ($get1_any);
+        $set_std_raw = $Func(
+          function($off, $v) use ($data) {$data[$off] = $v;}
+        );
+        $set_int64_raw = $Func(
+          function($off, $v) use ($data,$data2,$left_shift_32,$unsigned_right_shift_32) {
+            $data[$off] = $v[1] | $left_shift_32($v[2] & 255, 24);
+            $data2[$off] =
+              $unsigned_right_shift_32($v[2], 8) & 65535 |
+                $left_shift_32($v[3], 16);
+          }
+        );
+        $set_complex_raw = $Func(
+          function($off, $v) use ($data,$data2) {
+            $data[$off] = $v[1];
+            $data2[$off] = $v[2];
+          }
+        );
+        $set_std = $Func(
+          function($index, $v) use ($offset,$set_std_raw) {
+            $ofs = $offset($index);
+            return $set_std_raw($ofs, $v);
+          }
+        );
+        $set_int64 = $Func(
+          function($index, $v) use ($offset,$set_int64_raw) {
+            return $set_int64_raw($offset($index), $v);
+          }
+        );
+        $set_complex = $Func(
+          function($index, $v) use ($offset,$set_complex_raw) {
+            return $set_complex_raw($offset($index), $v);
+          }
+        );
+        $set = $data_type == 1
+          ? $set_int64
+          : ($data_type == 2 ? $set_complex : ($set_std));
+        $set1_c = $Func(
+          function($i, $v) use ($caml_array_bound_error,$data,$dim0) {
+            if ($i < 0 || $i >= $dim0) {$caml_array_bound_error();}
+            $data[$i] = $v;
+          }
+        );
+        $set1_fortran = $Func(
+          function($i, $v) use ($caml_array_bound_error,$data,$dim0) {
+            if ($i < 1 || $i > $dim0) {$caml_array_bound_error();}
+            $data[$i - 1] = $v;
+          }
+        );
+        $set1_any = $Func(function($i, $v) use ($set) {$set(varray[$i], $v);});
+        $set1 = $data_type == 0
+          ? $layout == 0 ? $set1_c : ($set1_fortran)
+          : ($set1_any);
+        $nth_dim = $Func(
+          function($i) use ($String,$caml_invalid_argument,$dims,$n_dims) {
+            if ($i < 0 || $i >= $n_dims) {
+              $caml_invalid_argument($String->new("Bigarray.dim"));
+            }
+            return $dims[$i];
+          }
+        );
+        $fill = $Func(
+          function($v) use ($data,$data_type,$set_complex_raw,$set_int64_raw,$set_std_raw) {
+            if ($data_type == 0) {
+              for ($i = 0;$i < $data->length;$i++) $set_std_raw($i, $v);
+            }
+            if ($data_type == 1) {
+              for ($i = 0;$i < $data->length;$i++) $set_int64_raw($i, $v);
+            }
+            if ($data_type == 2) {
+              for ($i = 0;$i < $data->length;$i++) $set_complex_raw($i, $v);
+            }
+          }
+        );
+        $blit = $Func(
+          function($from) use ($String,$caml_invalid_argument,$data,$data2,$data_type,$dims,$eqEq,$n_dims) {
+            if (! $eqEq($n_dims, $from->num_dims)) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.blit: dimension mismatch")
+              );
+            }
+            for ($i = 0;$i < $n_dims;$i++) if (
+              !
+              $eqEq($dims[$i], $from->nth_dim($i))
+            ) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.blit: dimension mismatch")
+              );
+            }
+            $data->set($from->data);
+            if ($data_type != 0) {$data2->set($from->data2);}
+          }
+        );
+        $sub = $Func(
+          function($ofs, $len) use ($String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$plus) {
+            $changed_dim = NULL;
+            $mul = 1;
+            if ($layout == 0) {
+              for ($i = 1;$i < $n_dims;$i++) $mul = $mul * $dims[$i];
+              $changed_dim = 0;
+            }
+            else {
+              for ($i = 0;$i < $n_dims - 1;$i++) $mul = $mul * $dims[$i];
+              $changed_dim = $n_dims - 1;
+              $ofs = $ofs - 1;
+            }
+            if (
+              $ofs < 0 ||
+                $len < 0 ||
+                $plus($ofs, $len) >
+                  $dims[$changed_dim]
+            ) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.sub: bad sub-array")
+              );
+            }
+            $new_data = $data->subarray($ofs * $mul, $plus($ofs, $len) * $mul);
+            $new_data2 = $data_type == 0
+              ? varray[]
+              : ($data2->subarray($ofs * $mul, $plus($ofs, $len) * $mul));
+            $new_dims = varray[];
+            for ($i = 0;$i < $n_dims;$i++) $new_dims[$i] = $dims[$i];
+            $new_dims[$changed_dim] = $len;
+            return $caml_ba_create_from->contents(
+              $new_data,
+              $new_data2,
+              $data_type,
+              $kind,
+              $layout,
+              $new_dims
+            );
+          }
+        );
+        $slice = $Func(
+          function($vind) use ($String,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$offset,$plus) {
+            $num_inds = $vind->length;
+            $index = varray[];
+            $sub_dims = varray[];
+            $ofs = NULL;
+            if ($num_inds >= $n_dims) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.slice: too many indices")
+              );
+            }
+            if ($layout == 0) {
+              for ($i = 0;$i < $num_inds;$i++) $index[$i] = $vind[$i];
+              for (;$i < $n_dims;$i++) $index[$i] = 0;
               $ofs = $offset($index);
-              $v = $data[$ofs];
-              return $v;
+              $sub_dims = $dims->slice($num_inds);
             }
-          );
-          $get_int64 = $Func(
-            function($index) use ($data,$data2,$offset) {
-              $off = $offset($index);
-              $l = $data[$off];
-              $h = $data2[$off];
-              return varray[
-                255,
-                $l & 16777215,
-                $unsigned_right_shift_32($l, 24) & 255 |
-                  $left_shift_32($h & 65535, 8),
-                $unsigned_right_shift_32($h, 16) & 65535
-              ];
-            }
-          );
-          $get_complex = $Func(
-            function($index) use ($data,$data2,$offset) {
-              $off = $offset($index);
-              $r = $data[$off];
-              $i = $data2[$off];
-              return varray[254,$r,$i];
-            }
-          );
-          $get = $data_type == 1
-            ? $get_int64
-            : ($data_type == 2 ? $get_complex : ($get_std));
-          $get1_c = $Func(
-            function($i) use ($caml_array_bound_error,$data,$dim0) {
-              if ($i < 0 || $i >= $dim0) {$caml_array_bound_error();}
-              return $data[$i];
-            }
-          );
-          $get1_fortran = $Func(
-            function($i) use ($caml_array_bound_error,$data,$dim0) {
-              if ($i < 1 || $i > $dim0) {$caml_array_bound_error();}
-              return $data[$i - 1];
-            }
-          );
-          $get1_any = $Func(function($i) use ($get) {return $get(varray[$i]);}
-          );
-          $get1 = $data_type == 0
-            ? $layout == 0 ? $get1_c : ($get1_fortran)
-            : ($get1_any);
-          $set_std_raw = $Func(
-            function($off, $v) use ($data) {$data[$off] = $v;}
-          );
-          $set_int64_raw = $Func(
-            function($off, $v) use ($data,$data2,$left_shift_32,$unsigned_right_shift_32) {
-              $data[$off] = $v[1] | $left_shift_32($v[2] & 255, 24);
-              $data2[$off] =
-                $unsigned_right_shift_32($v[2], 8) & 65535 |
-                  $left_shift_32($v[3], 16);
-            }
-          );
-          $set_complex_raw = $Func(
-            function($off, $v) use ($data,$data2) {
-              $data[$off] = $v[1];
-              $data2[$off] = $v[2];
-            }
-          );
-          $set_std = $Func(
-            function($index, $v) use ($offset,$set_std_raw) {
+            else {
+              for ($i = 0;$i < $num_inds;$i++) $index[$n_dims - $num_inds + $i
+               ] = $vind[$i];
+              for ($i = 0;$i < $n_dims - $num_inds;$i++) $index[$i] = 1;
               $ofs = $offset($index);
-              return $set_std_raw($ofs, $v);
+              $sub_dims = $dims->slice(0, $num_inds);
             }
-          );
-          $set_int64 = $Func(
-            function($index, $v) use ($offset,$set_int64_raw) {
-              return $set_int64_raw($offset($index), $v);
-            }
-          );
-          $set_complex = $Func(
-            function($index, $v) use ($offset,$set_complex_raw) {
-              return $set_complex_raw($offset($index), $v);
-            }
-          );
-          $set = $data_type == 1
-            ? $set_int64
-            : ($data_type == 2 ? $set_complex : ($set_std));
-          $set1_c = $Func(
-            function($i, $v) use ($caml_array_bound_error,$data,$dim0) {
-              if ($i < 0 || $i >= $dim0) {$caml_array_bound_error();}
-              $data[$i] = $v;
-            }
-          );
-          $set1_fortran = $Func(
-            function($i, $v) use ($caml_array_bound_error,$data,$dim0) {
-              if ($i < 1 || $i > $dim0) {$caml_array_bound_error();}
-              $data[$i - 1] = $v;
-            }
-          );
-          $set1_any = $Func(
-            function($i, $v) use ($set) {$set(varray[$i], $v);}
-          );
-          $set1 = $data_type == 0
-            ? $layout == 0 ? $set1_c : ($set1_fortran)
-            : ($set1_any);
-          $nth_dim = $Func(
-            function($i) use ($String,$caml_invalid_argument,$dims,$n_dims) {
-              if ($i < 0 || $i >= $n_dims) {
-                $caml_invalid_argument($String->new("Bigarray.dim"));
-              }
-              return $dims[$i];
-            }
-          );
-          $fill = $Func(
-            function($v) use ($data,$data_type,$set_complex_raw,$set_int64_raw,$set_std_raw) {
-              if ($data_type == 0) {
-                for ($i = 0;$i < $data->length;$i++) $set_std_raw($i, $v);
-              }
-              if ($data_type == 1) {
-                for ($i = 0;$i < $data->length;$i++) $set_int64_raw($i, $v);
-              }
-              if ($data_type == 2) {
-                for ($i = 0;$i < $data->length;$i++) $set_complex_raw($i, $v);
-              }
-            }
-          );
-          $blit = $Func(
-            function($from) use ($String,$caml_invalid_argument,$data,$data2,$data_type,$dims,$eqEq,$n_dims) {
-              if (! $eqEq($n_dims, $from->num_dims)) {
-                $caml_invalid_argument(
-                  $String->new("Bigarray.blit: dimension mismatch")
-                );
-              }
-              for ($i = 0;$i < $n_dims;$i++) if (
-                !
-                $eqEq($dims[$i], $from->nth_dim($i))
-              ) {
-                $caml_invalid_argument(
-                  $String->new("Bigarray.blit: dimension mismatch")
-                );
-              }
-              $data->set($from->data);
-              if ($data_type != 0) {$data2->set($from->data2);}
-            }
-          );
-          $sub = $Func(
-            function($ofs, $len) use ($String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$plus) {
-              $changed_dim = NULL;
-              $mul = 1;
-              if ($layout == 0) {
-                for ($i = 1;$i < $n_dims;$i++) $mul = $mul * $dims[$i];
-                $changed_dim = 0;
-              }
-              else {
-                for ($i = 0;$i < $n_dims - 1;$i++) $mul = $mul * $dims[$i];
-                $changed_dim = $n_dims - 1;
-                $ofs = $ofs - 1;
-              }
-              if (
-                $ofs < 0 ||
-                  $len < 0 ||
-                  $plus($ofs, $len) >
-                    $dims[$changed_dim]
-              ) {
-                $caml_invalid_argument(
-                  $String->new("Bigarray.sub: bad sub-array")
-                );
-              }
-              $new_data = $data->subarray(
-                $ofs * $mul,
-                $plus($ofs, $len) * $mul
-              );
-              $new_data2 = $data_type == 0
-                ? varray[]
-                : ($data2->subarray($ofs * $mul, $plus($ofs, $len) * $mul));
-              $new_dims = varray[];
-              for ($i = 0;$i < $n_dims;$i++) $new_dims[$i] = $dims[$i];
-              $new_dims[$changed_dim] = $len;
-              return $caml_ba_create_from->contents(
-                $new_data,
-                $new_data2,
-                $data_type,
-                $kind,
-                $layout,
-                $new_dims
+            $size = $caml_ba_get_size($sub_dims);
+            $new_data = $data->subarray($ofs, $plus($ofs, $size));
+            $new_data2 = $data_type == 0
+              ? varray[]
+              : ($data2->subarray($ofs, $plus($ofs, $size)));
+            return $caml_ba_create_from->contents(
+              $new_data,
+              $new_data2,
+              $data_type,
+              $kind,
+              $layout,
+              $sub_dims
+            );
+          }
+        );
+        $reshape = $Func(
+          function($vdim) use ($String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$eqEq,$kind,$layout,$size) {
+            $new_dim = varray[];
+            $num_dims = $vdim->length;
+            if ($num_dims < 1) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.reshape: bad number of dimensions")
               );
             }
-          );
-          $slice = $Func(
-            function($vind) use ($String,$caml_ba_create_from,$caml_ba_get_size,$caml_invalid_argument,$data,$data2,$data_type,$dims,$kind,$layout,$n_dims,$offset,$plus) {
-              $num_inds = $vind->length;
-              $index = varray[];
-              $sub_dims = varray[];
-              $ofs = NULL;
-              if ($num_inds >= $n_dims) {
+            $num_elts = 1;
+            for ($i = 0;$i < $num_dims;$i++) {
+              $new_dim[$i] = $vdim[$i];
+              if ($new_dim[$i] < 0) {
                 $caml_invalid_argument(
-                  $String->new("Bigarray.slice: too many indices")
+                  $String->new("Bigarray.reshape: negative dimension")
                 );
               }
-              if ($layout == 0) {
-                for ($i = 0;$i < $num_inds;$i++) $index[$i] = $vind[$i];
-                for (;$i < $n_dims;$i++) $index[$i] = 0;
-                $ofs = $offset($index);
-                $sub_dims = $dims->slice($num_inds);
-              }
-              else {
-                for ($i = 0;$i < $num_inds;$i++) $index[$n_dims - $num_inds + $i
-                 ] = $vind[$i];
-                for ($i = 0;$i < $n_dims - $num_inds;$i++) $index[$i] = 1;
-                $ofs = $offset($index);
-                $sub_dims = $dims->slice(0, $num_inds);
-              }
-              $size = $caml_ba_get_size($sub_dims);
-              $new_data = $data->subarray($ofs, $plus($ofs, $size));
-              $new_data2 = $data_type == 0
-                ? varray[]
-                : ($data2->subarray($ofs, $plus($ofs, $size)));
-              return $caml_ba_create_from->contents(
-                $new_data,
-                $new_data2,
-                $data_type,
-                $kind,
-                $layout,
-                $sub_dims
+              $num_elts = $num_elts * $new_dim[$i];
+            }
+            if (! $eqEq($num_elts, $size)) {
+              $caml_invalid_argument(
+                $String->new("Bigarray.reshape: size mismatch")
               );
             }
-          );
-          $reshape = $Func(
-            function($vdim) use ($String,$caml_ba_create_from,$caml_invalid_argument,$data,$data2,$data_type,$eqEq,$kind,$layout,$size) {
-              $new_dim = varray[];
-              $num_dims = $vdim->length;
-              if ($num_dims < 1) {
-                $caml_invalid_argument(
-                  $String->new("Bigarray.reshape: bad number of dimensions")
-                );
-              }
-              $num_elts = 1;
-              for ($i = 0;$i < $num_dims;$i++) {
-                $new_dim[$i] = $vdim[$i];
-                if ($new_dim[$i] < 0) {
-                  $caml_invalid_argument(
-                    $String->new("Bigarray.reshape: negative dimension")
-                  );
-                }
-                $num_elts = $num_elts * $new_dim[$i];
-              }
-              if (! $eqEq($num_elts, $size)) {
-                $caml_invalid_argument(
-                  $String->new("Bigarray.reshape: size mismatch")
-                );
-              }
-              return $caml_ba_create_from->contents(
-                $data,
-                $data2,
-                $data_type,
-                $kind,
-                $layout,
-                $new_dim
-              );
-            }
-          );
-          $compare = $Func(
-            function($b, $total) use ($NaN,$data,$data2,$eqEq,$kind,$layout,$n_dims,$nth_dim) {
-              if (! $eqEq($layout, $b->layout)) {return $b->layout - $layout;}
-              if (! $eqEq($n_dims, $b->num_dims)) {return $b->num_dims - $n_dims;}
-              for ($i = 0;$i < $n_dims;$i++) if (
-                !
-                $eqEq($nth_dim($i), $b->nth_dim($i))
-              ) {return $nth_dim($i) < $b->nth_dim($i) ? - 1 : (1);}
-              switch($kind) {
-                // FALLTHROUGH
-                case 0:
-                // FALLTHROUGH
-                case 1:
-                // FALLTHROUGH
-                case 10:
-                // FALLTHROUGH
-                case 11:
-                  $x = NULL;$y = NULL;
-                  for ($i = 0;$i < $data->length;$i++) {
-                    $x = $data[$i];
-                    $y = $b->data[$i];
+            return $caml_ba_create_from->contents(
+              $data,
+              $data2,
+              $data_type,
+              $kind,
+              $layout,
+              $new_dim
+            );
+          }
+        );
+        $compare = $Func(
+          function($b, $total) use ($NaN,$data,$data2,$eqEq,$kind,$layout,$n_dims,$nth_dim) {
+            if (! $eqEq($layout, $b->layout)) {return $b->layout - $layout;}
+            if (! $eqEq($n_dims, $b->num_dims)) {return $b->num_dims - $n_dims;}
+            for ($i = 0;$i < $n_dims;$i++) if (
+              !
+              $eqEq($nth_dim($i), $b->nth_dim($i))
+            ) {return $nth_dim($i) < $b->nth_dim($i) ? - 1 : (1);}
+            switch($kind) {
+              // FALLTHROUGH
+              case 0:
+              // FALLTHROUGH
+              case 1:
+              // FALLTHROUGH
+              case 10:
+              // FALLTHROUGH
+              case 11:
+                $x = NULL;$y = NULL;
+                for ($i = 0;$i < $data->length;$i++) {
+                  $x = $data[$i];
+                  $y = $b->data[$i];
+                  if ($x < $y) {return - 1;}
+                  if ($x > $y) {return 1;}
+                  if (! $eqEq($x, $y)) {
+                    if (! $eqEq($x, $y)) {
+                      if (! $total) {return $NaN;}
+                      if ($eqEq($x, $x)) {return 1;}
+                      if ($eqEq($y, $y)) {return - 1;}
+                    }
+                  }
+                  if ($data2) {
+                    $x = $data2[$i];
+                    $y = $b->data2[$i];
                     if ($x < $y) {return - 1;}
                     if ($x > $y) {return 1;}
                     if (! $eqEq($x, $y)) {
@@ -3562,81 +3566,69 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                         if ($eqEq($y, $y)) {return - 1;}
                       }
                     }
-                    if ($data2) {
-                      $x = $data2[$i];
-                      $y = $b->data2[$i];
-                      if ($x < $y) {return - 1;}
-                      if ($x > $y) {return 1;}
-                      if (! $eqEq($x, $y)) {
-                        if (! $eqEq($x, $y)) {
-                          if (! $total) {return $NaN;}
-                          if ($eqEq($x, $x)) {return 1;}
-                          if ($eqEq($y, $y)) {return - 1;}
-                        }
-                      }
-                    }
                   }
-                  ;
-                  break;
-                // FALLTHROUGH
-                case 2:
-                // FALLTHROUGH
-                case 3:
-                // FALLTHROUGH
-                case 4:
-                // FALLTHROUGH
-                case 5:
-                // FALLTHROUGH
-                case 6:
-                // FALLTHROUGH
-                case 8:
-                // FALLTHROUGH
-                case 9:
-                // FALLTHROUGH
-                case 12:
-                  for ($i = 0;$i < $data->length;$i++) {
-                    if ($data[$i] < $b->data[$i]) {return - 1;}
-                    if ($data[$i] > $b->data[$i]) {return 1;}
-                  }
-                  ;
-                  break;
-                // FALLTHROUGH
-                case 7:
-                  for ($i = 0;$i < $data->length;$i++) {
-                    if ($data2[$i] < $b->data2[$i]) {return - 1;}
-                    if ($data2[$i] > $b->data2[$i]) {return 1;}
-                    if ($data[$i] < $b->data[$i]) {return - 1;}
-                    if ($data[$i] > $b->data[$i]) {return 1;}
-                  }
-                  ;
-                  break;
                 }
-              return 0;
-            }
-          );
-          return $ObjectLiteral(
-            (object)darray[
-             "data"=>$data,
-             "data2"=>$data2,
-             "data_type"=>$data_type,
-             "num_dims"=>$n_dims,
-             "nth_dim"=>$nth_dim,
-             "kind"=>$kind,
-             "layout"=>$layout,
-             "size"=>$size,
-             "sub"=>$sub,
-             "slice"=>$slice,
-             "blit"=>$blit,
-             "fill"=>$fill,
-             "reshape"=>$reshape,
-             "get"=>$get,
-             "get1"=>$get1,
-             "set"=>$set,
-             "set1"=>$set1,
-             "compare"=>$compare]
-          );
-        }
-      );
+                ;
+                break;
+              // FALLTHROUGH
+              case 2:
+              // FALLTHROUGH
+              case 3:
+              // FALLTHROUGH
+              case 4:
+              // FALLTHROUGH
+              case 5:
+              // FALLTHROUGH
+              case 6:
+              // FALLTHROUGH
+              case 8:
+              // FALLTHROUGH
+              case 9:
+              // FALLTHROUGH
+              case 12:
+                for ($i = 0;$i < $data->length;$i++) {
+                  if ($data[$i] < $b->data[$i]) {return - 1;}
+                  if ($data[$i] > $b->data[$i]) {return 1;}
+                }
+                ;
+                break;
+              // FALLTHROUGH
+              case 7:
+                for ($i = 0;$i < $data->length;$i++) {
+                  if ($data2[$i] < $b->data2[$i]) {return - 1;}
+                  if ($data2[$i] > $b->data2[$i]) {return 1;}
+                  if ($data[$i] < $b->data[$i]) {return - 1;}
+                  if ($data[$i] > $b->data[$i]) {return 1;}
+                }
+                ;
+                break;
+              }
+            return 0;
+          }
+        );
+        return $ObjectLiteral(
+          (object)darray[
+           "data"=>$data,
+           "data2"=>$data2,
+           "data_type"=>$data_type,
+           "num_dims"=>$n_dims,
+           "nth_dim"=>$nth_dim,
+           "kind"=>$kind,
+           "layout"=>$layout,
+           "size"=>$size,
+           "sub"=>$sub,
+           "slice"=>$slice,
+           "blit"=>$blit,
+           "fill"=>$fill,
+           "reshape"=>$reshape,
+           "get"=>$get,
+           "get1"=>$get1,
+           "set"=>$set,
+           "set1"=>$set1,
+           "compare"=>$compare]
+        );
+      }
+    );
     $bigstring_of_array_buffer = $Func(
       function($ab) use ($caml_ba_create_from,$joo_global_object) {
         $ta = $joo_global_object->Uint8Array->new($ab);
@@ -5294,137 +5286,136 @@ $right_shift_32=$joo_global_object->right_shift_32;
               : ($plus($plus($String->new("\""), $string), $String->new("\"")));
           }
         );
-        $_ = $str->contents =
-          $Func(
-            function($key, $holder) use ($Object,$String,$eqEqEq,$gap,$indent,$isFinite,$plus,$quote,$rep,$str,$typeof) {
-              $i = NULL;
-              $k = NULL;
-              $v = NULL;
-              $length = NULL;
-              $mind = $gap;
-              $partial = NULL;
-              $value = $holder[$key];
-              if (
-                $value && $eqEqEq($typeof($value), $String->new("object")) &&
-                  $eqEqEq($typeof($value->toJSON), $String->new("function"))
-              ) {$value = $value->toJSON($key);}
-              if ($eqEqEq($typeof($rep), $String->new("function"))) {$value = $rep->call($holder, $key, $value);}
-              switch($typeof($value)) {
-                // FALLTHROUGH
-                case $String->new("string"):return $quote($value);
-                // FALLTHROUGH
-                case $String->new("number"):
-                  return $isFinite($value)
-                    ? $String($value)
-                    : ($String->new("null"));
-                // FALLTHROUGH
-                case $String->new("boolean"):
-                // FALLTHROUGH
-                case $String->new("null"):return $String($value);
-                // FALLTHROUGH
-                case $String->new("object"):
-                  if (! $value) {return $String->new("null");}
-                  $gap = $plus($gap, $indent);
-                  $partial = varray[];
-                  if (
-                    $eqEqEq(
-                      $Object->prototype->toString->apply($value),
-                      $String->new("[object Array]")
-                    )
-                  ) {
-                    $length = $value->length;
-                    for ($i = 0;$i < $length;$i += 1) {
-                      $partial[$i] =
-                        $str->contents($i, $value) || $String->new("null");
-                    }
-                    $v =
-                      $partial->length === 0
-                        ? $String->new("[]")
-                        : ($gap
-                         ? $plus(
-                          $plus(
-                            $plus(
-                              $plus(
-                                $plus($String->new("[\n"), $gap),
-                                $partial->join($plus($String->new(",\n"), $gap))
-                              ),
-                              $String->new("\n")
-                            ),
-                            $mind
-                          ),
-                          $String->new("]")
-                        )
-                         : ($plus(
-                          $plus($String->new("["), $partial->join($String->new(","))),
-                          $String->new("]")
-                        )));
-                    $gap = $mind;
-                    return $v;
-                  }
-                  if ($rep && $eqEqEq($typeof($rep), $String->new("object"))) {
-                    $length = $rep->length;
-                    for ($i = 0;$i < $length;$i += 1) {
-                      if ($eqEqEq($typeof($rep[$i]), $String->new("string"))) {
-                        $k = $rep[$i];
-                        $v = $str->contents($k, $value);
-                        if ($v) {
-                          $partial->push(
-                            $plus(
-                              $plus(
-                                $quote($k),
-                                $gap ? $String->new(": ") : ($String->new(":"))
-                              ),
-                              $v
-                            )
-                          );
-                        }
-                      }
-                    }
-                  }
-                  else {
-                    foreach($value->__all_enumerable_keys() as $k=> $____) {
-                      if ($Object->prototype->hasOwnProperty->call($value, $k)) {
-                        $v = $str->contents($k, $value);
-                        if ($v) {
-                          $partial->push(
-                            $plus(
-                              $plus(
-                                $quote($k),
-                                $gap ? $String->new(": ") : ($String->new(":"))
-                              ),
-                              $v
-                            )
-                          );
-                        }
-                      }
-                    }
+        $str->contents = $Func(
+          function($key, $holder) use ($Object,$String,$eqEqEq,$gap,$indent,$isFinite,$plus,$quote,$rep,$str,$typeof) {
+            $i = NULL;
+            $k = NULL;
+            $v = NULL;
+            $length = NULL;
+            $mind = $gap;
+            $partial = NULL;
+            $value = $holder[$key];
+            if (
+              $value && $eqEqEq($typeof($value), $String->new("object")) &&
+                $eqEqEq($typeof($value->toJSON), $String->new("function"))
+            ) {$value = $value->toJSON($key);}
+            if ($eqEqEq($typeof($rep), $String->new("function"))) {$value = $rep->call($holder, $key, $value);}
+            switch($typeof($value)) {
+              // FALLTHROUGH
+              case $String->new("string"):return $quote($value);
+              // FALLTHROUGH
+              case $String->new("number"):
+                return $isFinite($value)
+                  ? $String($value)
+                  : ($String->new("null"));
+              // FALLTHROUGH
+              case $String->new("boolean"):
+              // FALLTHROUGH
+              case $String->new("null"):return $String($value);
+              // FALLTHROUGH
+              case $String->new("object"):
+                if (! $value) {return $String->new("null");}
+                $gap = $plus($gap, $indent);
+                $partial = varray[];
+                if (
+                  $eqEqEq(
+                    $Object->prototype->toString->apply($value),
+                    $String->new("[object Array]")
+                  )
+                ) {
+                  $length = $value->length;
+                  for ($i = 0;$i < $length;$i += 1) {
+                    $partial[$i] =
+                      $str->contents($i, $value) || $String->new("null");
                   }
                   $v =
                     $partial->length === 0
-                      ? $String->new("{}")
+                      ? $String->new("[]")
                       : ($gap
                        ? $plus(
                         $plus(
                           $plus(
                             $plus(
-                              $plus($String->new("{\n"), $gap),
+                              $plus($String->new("[\n"), $gap),
                               $partial->join($plus($String->new(",\n"), $gap))
                             ),
                             $String->new("\n")
                           ),
                           $mind
                         ),
-                        $String->new("}")
+                        $String->new("]")
                       )
                        : ($plus(
-                        $plus($String->new("{"), $partial->join($String->new(","))),
-                        $String->new("}")
+                        $plus($String->new("["), $partial->join($String->new(","))),
+                        $String->new("]")
                       )));
                   $gap = $mind;
                   return $v;
                 }
-            }
-          );
+                if ($rep && $eqEqEq($typeof($rep), $String->new("object"))) {
+                  $length = $rep->length;
+                  for ($i = 0;$i < $length;$i += 1) {
+                    if ($eqEqEq($typeof($rep[$i]), $String->new("string"))) {
+                      $k = $rep[$i];
+                      $v = $str->contents($k, $value);
+                      if ($v) {
+                        $partial->push(
+                          $plus(
+                            $plus(
+                              $quote($k),
+                              $gap ? $String->new(": ") : ($String->new(":"))
+                            ),
+                            $v
+                          )
+                        );
+                      }
+                    }
+                  }
+                }
+                else {
+                  foreach($value->__all_enumerable_keys() as $k=> $____) {
+                    if ($Object->prototype->hasOwnProperty->call($value, $k)) {
+                      $v = $str->contents($k, $value);
+                      if ($v) {
+                        $partial->push(
+                          $plus(
+                            $plus(
+                              $quote($k),
+                              $gap ? $String->new(": ") : ($String->new(":"))
+                            ),
+                            $v
+                          )
+                        );
+                      }
+                    }
+                  }
+                }
+                $v =
+                  $partial->length === 0
+                    ? $String->new("{}")
+                    : ($gap
+                     ? $plus(
+                      $plus(
+                        $plus(
+                          $plus(
+                            $plus($String->new("{\n"), $gap),
+                            $partial->join($plus($String->new(",\n"), $gap))
+                          ),
+                          $String->new("\n")
+                        ),
+                        $mind
+                      ),
+                      $String->new("}")
+                    )
+                     : ($plus(
+                      $plus($String->new("{"), $partial->join($String->new(","))),
+                      $String->new("}")
+                    )));
+                $gap = $mind;
+                return $v;
+              }
+          }
+        );
         if (! $eqEqEq($typeof($JSON->stringify), $String->new("function"))) {
           $meta =
             $ObjectLiteral(
@@ -5476,25 +5467,24 @@ $right_shift_32=$joo_global_object->right_shift_32;
               function($text, $reviver) use ($Func,$Object,$ObjectLiteral,$String,$SyntaxError,$eqEqEq,$eval,$plus,$rx_dangerous,$rx_four,$rx_one,$rx_three,$rx_two,$typeof) {
                 $walk = new Ref();
                 $j = NULL;
-                $_ = $walk->contents =
-                  $Func(
-                    function($holder, $key) use ($Object,$String,$eqEqEq,$reviver,$typeof,$walk) {
-                      $k = NULL;$v = NULL;$value = $holder[$key];
-                      if (
-                        $value && $eqEqEq($typeof($value), $String->new("object"))
-                      ) {
-                        foreach($value->__all_enumerable_keys() as $k=> $____) {
-                          if ($Object->prototype->hasOwnProperty->call($value, $k)) {
-                            $v = $walk->contents($value, $k);
-                            if ($v !== NULL) {$value[$k] = $v;
-                            }
-                            else {unset($value[$k]);}
+                $walk->contents = $Func(
+                  function($holder, $key) use ($Object,$String,$eqEqEq,$reviver,$typeof,$walk) {
+                    $k = NULL;$v = NULL;$value = $holder[$key];
+                    if (
+                      $value && $eqEqEq($typeof($value), $String->new("object"))
+                    ) {
+                      foreach($value->__all_enumerable_keys() as $k=> $____) {
+                        if ($Object->prototype->hasOwnProperty->call($value, $k)) {
+                          $v = $walk->contents($value, $k);
+                          if ($v !== NULL) {$value[$k] = $v;
                           }
+                          else {unset($value[$k]);}
                         }
                       }
-                      return $reviver->call($holder, $key, $value);
                     }
-                  );
+                    return $reviver->call($holder, $key, $value);
+                  }
+                );
                 $text = $String($text);
                 $rx_dangerous->lastIndex = 0;
                 if ($rx_dangerous->test($text)) {
@@ -6687,40 +6677,39 @@ $RegExp=$joo_global_object->RegExp;
   };
     
     
-    $_ = $caml_CamlinternalMod_update_mod->contents =
-      $Func(
-        function($shape, $real, $x) use ($String,$caml_CamlinternalMod_update_mod,$caml_update_dummy,$eqEqEq,$typeof) {
-          if ($eqEqEq($typeof($shape), $String->new("number"))) {
-            switch($shape) {
-              // FALLTHROUGH
-              case 0:
-                $real->fun = $x;
-                break;
-              // FALLTHROUGH
-              case 1:
-              // FALLTHROUGH
-              default:
-                $caml_update_dummy($real, $x);
-              }
-          }
-          else {
-            switch($shape[0]) {
-              // FALLTHROUGH
-              case 0:
-                for ($i = 1;$i < $shape[1]->length;$i++) $caml_CamlinternalMod_update_mod->contents(
-                  $shape[1][$i],
-                  $real[$i],
-                  $x[$i]
-                );
-                break;
-              // FALLTHROUGH
-              default:
-              }
-          }
-          ;
-          return 0;
+    $caml_CamlinternalMod_update_mod->contents = $Func(
+      function($shape, $real, $x) use ($String,$caml_CamlinternalMod_update_mod,$caml_update_dummy,$eqEqEq,$typeof) {
+        if ($eqEqEq($typeof($shape), $String->new("number"))) {
+          switch($shape) {
+            // FALLTHROUGH
+            case 0:
+              $real->fun = $x;
+              break;
+            // FALLTHROUGH
+            case 1:
+            // FALLTHROUGH
+            default:
+              $caml_update_dummy($real, $x);
+            }
         }
-      );
+        else {
+          switch($shape[0]) {
+            // FALLTHROUGH
+            case 0:
+              for ($i = 1;$i < $shape[1]->length;$i++) $caml_CamlinternalMod_update_mod->contents(
+                $shape[1][$i],
+                $real[$i],
+                $x[$i]
+              );
+              break;
+            // FALLTHROUGH
+            default:
+            }
+        }
+        ;
+        return 0;
+      }
+    );
     $caml_ephe_get_data = $Func(
       function($x) use ($caml_ephe_data_offset) {
         if ($x[$caml_ephe_data_offset] === NULL) {return 0;}
@@ -6978,80 +6967,79 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       function($count, $limit, $obj) use ($Array,$Func,$MlBytes,$String,$caml_convert_string_to_bytes,$caml_int64_bits_of_float,$caml_int64_to_bytes,$eqEqEq,$left_shift_32,$typeof) {
         $hash_aux = new Ref();
         $hash_accu = 0;
-        $_ = $hash_aux->contents =
-          $Func(
-            function($obj) use ($Array,$MlBytes,$String,$caml_convert_string_to_bytes,$caml_int64_bits_of_float,$caml_int64_to_bytes,$count,$eqEqEq,$hash_accu,$hash_aux,$left_shift_32,$limit,$typeof) {
-              $limit--;
-              if ($count < 0 || $limit < 0) {return;}
-              if (instance_of($obj, $Array) && $eqEqEq($obj[0], $obj[0] | 0)) {
-                switch($obj[0]) {
-                  // FALLTHROUGH
-                  case 248:
-                    $count--;
-                    $hash_accu = $hash_accu * 65599 + $obj[2] | 0;
-                    break;
-                  // FALLTHROUGH
-                  case 250:
-                    $limit++;
-                    $hash_aux->contents($obj);
-                    break;
-                  // FALLTHROUGH
-                  case 255:
-                    $count--;
-                    $hash_accu =
-                      $hash_accu * 65599 +
-                        $obj[1] +
-                        $left_shift_32($obj[2], 24) | 0;
-                    break;
+        $hash_aux->contents = $Func(
+          function($obj) use ($Array,$MlBytes,$String,$caml_convert_string_to_bytes,$caml_int64_bits_of_float,$caml_int64_to_bytes,$count,$eqEqEq,$hash_accu,$hash_aux,$left_shift_32,$limit,$typeof) {
+            $limit--;
+            if ($count < 0 || $limit < 0) {return;}
+            if (instance_of($obj, $Array) && $eqEqEq($obj[0], $obj[0] | 0)) {
+              switch($obj[0]) {
+                // FALLTHROUGH
+                case 248:
+                  $count--;
+                  $hash_accu = $hash_accu * 65599 + $obj[2] | 0;
+                  break;
+                // FALLTHROUGH
+                case 250:
+                  $limit++;
+                  $hash_aux->contents($obj);
+                  break;
+                // FALLTHROUGH
+                case 255:
+                  $count--;
+                  $hash_accu =
+                    $hash_accu * 65599 +
+                      $obj[1] +
+                      $left_shift_32($obj[2], 24) | 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $count--;
+                  $hash_accu = $hash_accu * 19 + $obj[0] | 0;
+                  for ($i = $obj->length - 1;$i > 0;$i--) $hash_aux->contents($obj[$i]);
+                }
+            }
+            else {
+              if (instance_of($obj, $MlBytes)) {
+                $count--;
+                switch($obj->t & 6) {
                   // FALLTHROUGH
                   default:
-                    $count--;
-                    $hash_accu = $hash_accu * 19 + $obj[0] | 0;
-                    for ($i = $obj->length - 1;$i > 0;$i--) $hash_aux->contents($obj[$i]);
+                    $caml_convert_string_to_bytes($obj);
+                  // FALLTHROUGH
+                  case 0:
+                    for ($b = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu =
+                      $hash_accu * 19 +
+                        $b->charCodeAt($i) | 0;
+                    break;
+                  // FALLTHROUGH
+                  case 2:
+                    for ($a = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu = $hash_accu * 19 + $a[$i] | 0;
                   }
               }
               else {
-                if (instance_of($obj, $MlBytes)) {
+                if ($eqEqEq($obj, $obj | 0)) {
                   $count--;
-                  switch($obj->t & 6) {
-                    // FALLTHROUGH
-                    default:
-                      $caml_convert_string_to_bytes($obj);
-                    // FALLTHROUGH
-                    case 0:
-                      for ($b = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu =
-                        $hash_accu * 19 +
-                          $b->charCodeAt($i) | 0;
-                      break;
-                    // FALLTHROUGH
-                    case 2:
-                      for ($a = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu = $hash_accu * 19 + $a[$i] | 0;
-                    }
+                  $hash_accu = $hash_accu * 65599 + $obj | 0;
                 }
                 else {
-                  if ($eqEqEq($obj, $obj | 0)) {
+                  if ($eqEqEq($obj, + $obj)) {
                     $count--;
-                    $hash_accu = $hash_accu * 65599 + $obj | 0;
+                    $p = $caml_int64_to_bytes($caml_int64_bits_of_float($obj));
+                    for ($i = 7;$i >= 0;$i--) $hash_accu =
+                      $hash_accu * 19 +
+                        $p[$i] | 0;
                   }
                   else {
-                    if ($eqEqEq($obj, + $obj)) {
-                      $count--;
-                      $p = $caml_int64_to_bytes($caml_int64_bits_of_float($obj));
-                      for ($i = 7;$i >= 0;$i--) $hash_accu =
-                        $hash_accu * 19 +
-                          $p[$i] | 0;
-                    }
-                    else {
-                      if (
-                        $obj && $obj->hash &&
-                          $eqEqEq($typeof($obj->hash), $String->new("function"))
-                      ) {$hash_accu = $hash_accu * 65599 + $obj->hash() | 0;}
-                    }
+                    if (
+                      $obj && $obj->hash &&
+                        $eqEqEq($typeof($obj->hash), $String->new("function"))
+                    ) {$hash_accu = $hash_accu * 65599 + $obj->hash() | 0;}
                   }
                 }
               }
             }
-          );
+          }
+        );
         $hash_aux->contents($obj);
         return $hash_accu & 1073741823;
       }

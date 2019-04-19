@@ -490,182 +490,181 @@ final class Arg {
                 $treat_action__0 = function
                 ($s, $no_arg, $get_arg, $consume_arg) use ($Array,$Invalid_argument,$List,$Pervasives,$Stop,$allow_expand,$argv,$bool_of_string_opt,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound,$cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic,$cst__3,$cst__4,$cst__5,$cst_a_boolean,$cst_a_float,$cst_a_float__0,$cst_an_integer,$cst_an_integer__0,$cst_one_of,$current,$float_of_string_opt,$int_of_string_opt,$make_symlist,$runtime) {
                   $treat_action = new Ref();
-                  $_ = $treat_action->contents =
-                    function($param) use ($Array,$Invalid_argument,$List,$Pervasives,$Stop,$allow_expand,$argv,$bool_of_string_opt,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound,$consume_arg,$cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic,$cst__3,$cst__4,$cst__5,$cst_a_boolean,$cst_a_float,$cst_a_float__0,$cst_an_integer,$cst_an_integer__0,$cst_one_of,$current,$float_of_string_opt,$get_arg,$int_of_string_opt,$make_symlist,$no_arg,$runtime,$s,$treat_action) {
-                      switch($param[0]) {
-                        // FALLTHROUGH
-                        case 0:
-                          $f = $param[1];
-                          return $caml_call1($f, 0);
-                        // FALLTHROUGH
-                        case 1:
-                          $f__0 = $param[1];
-                          $arg = $get_arg(0);
-                          $match = $bool_of_string_opt($arg);
-                          if ($match) {
-                            $s__0 = $match[1];
-                            $caml_call1($f__0, $s__0);
-                            return $consume_arg(0);
-                          }
-                          throw $runtime["caml_wrap_thrown_exception"](
-                                  Vector{0, $Stop, Vector{1, $s, $arg, $cst_a_boolean}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 2:
-                          $r = $param[1];
-                          $no_arg(0);
-                          $r[1] = 1;
-                          return 0;
-                        // FALLTHROUGH
-                        case 3:
-                          $r__0 = $param[1];
-                          $no_arg(0);
-                          $r__0[1] = 0;
-                          return 0;
-                        // FALLTHROUGH
-                        case 4:
-                          $f__1 = $param[1];
-                          $arg__0 = $get_arg(0);
-                          $caml_call1($f__1, $arg__0);
+                  $treat_action->contents = function($param) use ($Array,$Invalid_argument,$List,$Pervasives,$Stop,$allow_expand,$argv,$bool_of_string_opt,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound,$consume_arg,$cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic,$cst__3,$cst__4,$cst__5,$cst_a_boolean,$cst_a_float,$cst_a_float__0,$cst_an_integer,$cst_an_integer__0,$cst_one_of,$current,$float_of_string_opt,$get_arg,$int_of_string_opt,$make_symlist,$no_arg,$runtime,$s,$treat_action) {
+                    switch($param[0]) {
+                      // FALLTHROUGH
+                      case 0:
+                        $f = $param[1];
+                        return $caml_call1($f, 0);
+                      // FALLTHROUGH
+                      case 1:
+                        $f__0 = $param[1];
+                        $arg = $get_arg(0);
+                        $match = $bool_of_string_opt($arg);
+                        if ($match) {
+                          $s__0 = $match[1];
+                          $caml_call1($f__0, $s__0);
                           return $consume_arg(0);
-                        // FALLTHROUGH
-                        case 5:
-                          $r__1 = $param[1];
-                          $r__1[1] = $get_arg(0);
+                        }
+                        throw $runtime["caml_wrap_thrown_exception"](
+                                Vector{0, $Stop, Vector{1, $s, $arg, $cst_a_boolean}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 2:
+                        $r = $param[1];
+                        $no_arg(0);
+                        $r[1] = 1;
+                        return 0;
+                      // FALLTHROUGH
+                      case 3:
+                        $r__0 = $param[1];
+                        $no_arg(0);
+                        $r__0[1] = 0;
+                        return 0;
+                      // FALLTHROUGH
+                      case 4:
+                        $f__1 = $param[1];
+                        $arg__0 = $get_arg(0);
+                        $caml_call1($f__1, $arg__0);
+                        return $consume_arg(0);
+                      // FALLTHROUGH
+                      case 5:
+                        $r__1 = $param[1];
+                        $r__1[1] = $get_arg(0);
+                        return $consume_arg(0);
+                      // FALLTHROUGH
+                      case 6:
+                        $f__2 = $param[1];
+                        $arg__1 = $get_arg(0);
+                        $match__0 = $int_of_string_opt($arg__1);
+                        if ($match__0) {
+                          $x = $match__0[1];
+                          $caml_call1($f__2, $x);
                           return $consume_arg(0);
-                        // FALLTHROUGH
-                        case 6:
-                          $f__2 = $param[1];
-                          $arg__1 = $get_arg(0);
-                          $match__0 = $int_of_string_opt($arg__1);
-                          if ($match__0) {
-                            $x = $match__0[1];
-                            $caml_call1($f__2, $x);
-                            return $consume_arg(0);
+                        }
+                        throw $runtime["caml_wrap_thrown_exception"](
+                                Vector{0, $Stop, Vector{1, $s, $arg__1, $cst_an_integer}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 7:
+                        $r__2 = $param[1];
+                        $arg__2 = $get_arg(0);
+                        $match__1 = $int_of_string_opt($arg__2);
+                        if ($match__1) {
+                          $x__0 = $match__1[1];
+                          $r__2[1] = $x__0;
+                          return $consume_arg(0);
+                        }
+                        throw $runtime["caml_wrap_thrown_exception"](
+                                Vector{0, $Stop, Vector{1, $s, $arg__2, $cst_an_integer__0}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 8:
+                        $f__3 = $param[1];
+                        $arg__3 = $get_arg(0);
+                        $match__2 = $float_of_string_opt($arg__3);
+                        if ($match__2) {
+                          $x__1 = $match__2[1];
+                          $caml_call1($f__3, $x__1);
+                          return $consume_arg(0);
+                        }
+                        throw $runtime["caml_wrap_thrown_exception"](
+                                Vector{0, $Stop, Vector{1, $s, $arg__3, $cst_a_float}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 9:
+                        $r__3 = $param[1];
+                        $arg__4 = $get_arg(0);
+                        $match__3 = $float_of_string_opt($arg__4);
+                        if ($match__3) {
+                          $x__2 = $match__3[1];
+                          $r__3[1] = $x__2;
+                          return $consume_arg(0);
+                        }
+                        throw $runtime["caml_wrap_thrown_exception"](
+                                Vector{0, $Stop, Vector{1, $s, $arg__4, $cst_a_float__0}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 10:
+                        $specs = $param[1];
+                        return $caml_call2(
+                          $List[15],
+                          $treat_action->contents,
+                          $specs
+                        );
+                      // FALLTHROUGH
+                      case 11:
+                        $f__4 = $param[2];
+                        $symb = $param[1];
+                        $arg__5 = $get_arg(0);
+                        if ($caml_call2($List[31], $arg__5, $symb)) {
+                          $caml_call1($f__4, $arg__5);
+                          return $consume_arg(0);
+                        }
+                        $n4 = $make_symlist($cst__5, $cst__4, $cst__3, $symb);
+                        throw $runtime["caml_wrap_thrown_exception"](
+                                Vector{
+                                  0,
+                                  $Stop,
+                                  Vector{
+                                    1,
+                                    $s,
+                                    $arg__5,
+                                    $caml_call2($Pervasives[16], $cst_one_of, $n4)
+                                  }
+                                }
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 12:
+                        $f__5 = $param[1];
+                        for (;;) {
+                          if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
+                            $n5 = (int) ($current[1] + 1);
+                            $caml_call1($f__5, $caml_check_bound($argv[1], $n5)[$n5 + 1]
+                            );
+                            $consume_arg(0);
+                            continue;
                           }
-                          throw $runtime["caml_wrap_thrown_exception"](
-                                  Vector{0, $Stop, Vector{1, $s, $arg__1, $cst_an_integer}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 7:
-                          $r__2 = $param[1];
-                          $arg__2 = $get_arg(0);
-                          $match__1 = $int_of_string_opt($arg__2);
-                          if ($match__1) {
-                            $x__0 = $match__1[1];
-                            $r__2[1] = $x__0;
-                            return $consume_arg(0);
-                          }
-                          throw $runtime["caml_wrap_thrown_exception"](
-                                  Vector{0, $Stop, Vector{1, $s, $arg__2, $cst_an_integer__0}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 8:
-                          $f__3 = $param[1];
-                          $arg__3 = $get_arg(0);
-                          $match__2 = $float_of_string_opt($arg__3);
-                          if ($match__2) {
-                            $x__1 = $match__2[1];
-                            $caml_call1($f__3, $x__1);
-                            return $consume_arg(0);
-                          }
-                          throw $runtime["caml_wrap_thrown_exception"](
-                                  Vector{0, $Stop, Vector{1, $s, $arg__3, $cst_a_float}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 9:
-                          $r__3 = $param[1];
-                          $arg__4 = $get_arg(0);
-                          $match__3 = $float_of_string_opt($arg__4);
-                          if ($match__3) {
-                            $x__2 = $match__3[1];
-                            $r__3[1] = $x__2;
-                            return $consume_arg(0);
-                          }
-                          throw $runtime["caml_wrap_thrown_exception"](
-                                  Vector{0, $Stop, Vector{1, $s, $arg__4, $cst_a_float__0}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 10:
-                          $specs = $param[1];
-                          return $caml_call2(
-                            $List[15],
-                            $treat_action->contents,
-                            $specs
-                          );
-                        // FALLTHROUGH
-                        case 11:
-                          $f__4 = $param[2];
-                          $symb = $param[1];
-                          $arg__5 = $get_arg(0);
-                          if ($caml_call2($List[31], $arg__5, $symb)) {
-                            $caml_call1($f__4, $arg__5);
-                            return $consume_arg(0);
-                          }
-                          $n4 = $make_symlist($cst__5, $cst__4, $cst__3, $symb);
+                          return 0;
+                        }
+                      // FALLTHROUGH
+                      default:
+                        $f__6 = $param[1];
+                        if (1 - $allow_expand) {
                           throw $runtime["caml_wrap_thrown_exception"](
                                   Vector{
                                     0,
-                                    $Stop,
-                                    Vector{
-                                      1,
-                                      $s,
-                                      $arg__5,
-                                      $caml_call2($Pervasives[16], $cst_one_of, $n4)
-                                    }
+                                    $Invalid_argument,
+                                    $cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic
                                   }
                                 ) as \Throwable;
-                        // FALLTHROUGH
-                        case 12:
-                          $f__5 = $param[1];
-                          for (;;) {
-                            if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
-                              $n5 = (int) ($current[1] + 1);
-                              $caml_call1($f__5, $caml_check_bound($argv[1], $n5)[$n5 + 1]
-                              );
-                              $consume_arg(0);
-                              continue;
-                            }
-                            return 0;
-                          }
-                        // FALLTHROUGH
-                        default:
-                          $f__6 = $param[1];
-                          if (1 - $allow_expand) {
-                            throw $runtime["caml_wrap_thrown_exception"](
-                                    Vector{
-                                      0,
-                                      $Invalid_argument,
-                                      $cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic
-                                    }
-                                  ) as \Throwable;
-                          }
-                          $arg__6 = $get_arg(0);
-                          $newarg = $caml_call1($f__6, $arg__6);
-                          $consume_arg(0);
-                          $before = $caml_call3(
-                            $Array[7],
-                            $argv[1],
-                            0,
-                            (int)
-                            ($current[1] + 1)
-                          );
-                          $after = $caml_call3(
-                            $Array[7],
-                            $argv[1],
-                            (int)
-                            ($current[1] + 1),
-                            (int)
-                            ((int) ($argv[1]->count() - 1 - $current[1]) + -1)
-                          );
-                          $argv[1] =
-                            $caml_call1(
-                              $Array[6],
-                              Vector{0, $before, Vector{0, $newarg, Vector{0, $after, 0}}}
-                            );
-                          return 0;
                         }
-                    };
+                        $arg__6 = $get_arg(0);
+                        $newarg = $caml_call1($f__6, $arg__6);
+                        $consume_arg(0);
+                        $before = $caml_call3(
+                          $Array[7],
+                          $argv[1],
+                          0,
+                          (int)
+                          ($current[1] + 1)
+                        );
+                        $after = $caml_call3(
+                          $Array[7],
+                          $argv[1],
+                          (int)
+                          ($current[1] + 1),
+                          (int)
+                          ((int) ($argv[1]->count() - 1 - $current[1]) + -1)
+                        );
+                        $argv[1] =
+                          $caml_call1(
+                            $Array[6],
+                            Vector{0, $before, Vector{0, $newarg, Vector{0, $after, 0}}}
+                          );
+                        return 0;
+                      }
+                  };
                   return $treat_action->contents;
                 };
                 $treat_action = $treat_action__0(
@@ -931,26 +930,25 @@ final class Arg {
         $words[1] = Vector{0, $word__0, $words[1]};
         return $caml_call1($Buffer[8], $buf);
       };
-      $_ = $read->contents =
-        function($param) use ($Buffer,$End_of_file,$Pervasives,$buf,$caml_call1,$caml_call2,$caml_wrap_exception,$ic,$read,$runtime,$sep,$stash) {
-          try {
-            $c = $caml_call1($Pervasives[70], $ic);
-            $nJ = $c === $sep
-              ? $stash(0) || true ? $read->contents(0) : ($read->contents(0))
-              : ($caml_call2($Buffer[10], $buf, $c) || true
-               ? $read->contents(0)
-               : ($read->contents(0)));
-            return $nJ;
+      $read->contents = function($param) use ($Buffer,$End_of_file,$Pervasives,$buf,$caml_call1,$caml_call2,$caml_wrap_exception,$ic,$read,$runtime,$sep,$stash) {
+        try {
+          $c = $caml_call1($Pervasives[70], $ic);
+          $nJ = $c === $sep
+            ? $stash(0) || true ? $read->contents(0) : ($read->contents(0))
+            : ($caml_call2($Buffer[10], $buf, $c) || true
+             ? $read->contents(0)
+             : ($read->contents(0)));
+          return $nJ;
+        }
+        catch(\Throwable $nK) {
+          $nK = $caml_wrap_exception($nK);
+          if ($nK === $End_of_file) {
+            $nI = 0 < $caml_call1($Buffer[7], $buf) ? 1 : (0);
+            return $nI ? $stash(0) : ($nI);
           }
-          catch(\Throwable $nK) {
-            $nK = $caml_wrap_exception($nK);
-            if ($nK === $End_of_file) {
-              $nI = 0 < $caml_call1($Buffer[7], $buf) ? 1 : (0);
-              return $nI ? $stash(0) : ($nI);
-            }
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($nK) as \Throwable;
-          }
-        };
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($nK) as \Throwable;
+        }
+      };
       $read->contents(0);
       $caml_call1($Pervasives[81], $ic);
       $nH = $caml_call1($List[9], $words[1]);

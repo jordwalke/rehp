@@ -1164,6 +1164,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   and variable_declaration = (f, v) =>
     switch (v) {
     | (EVar(i), None) => ident(f, i)
+    | (e, None) => expression(1, f, e)
     | (EVar(i), Some((e, pc))) =>
       PP.start_group(f, 0);
       output_debug_info(f, pc);
@@ -1172,6 +1173,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.string(f, "=");
       PP.non_breaking_space(f);
       expression(1, f, e);
+      PP.end_group(f);
+    | (e1, Some((e2, pc))) =>
+      PP.start_group(f, 0);
+      expression(1, f, e1);
+      PP.non_breaking_space(f);
+      PP.string(f, "=");
+      PP.non_breaking_space(f);
+      expression(1, f, e2);
       PP.end_group(f);
     }
   and variable_declaration_list_aux = (~separator, f, l) =>
@@ -1195,6 +1204,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         };
         PP.end_group(f);
       }
+    | [(e, None)] => {
+        PP.start_group(f, 0);
+        expression(1, f, e);
+        if (close) {
+          PP.string(f, ";");
+        };
+        PP.end_group(f);
+      }
     | [(EVar(i), Some((e, pc)))] => {
         PP.start_group(f, 0);
         output_debug_info(f, pc);
@@ -1204,6 +1221,21 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.non_breaking_space(f);
         PP.start_group(f, 0);
         expression(1, f, e);
+        if (close) {
+          PP.string(f, ";");
+        };
+        PP.end_group(f);
+        PP.end_group(f);
+      }
+    | [(e1, Some((e2, pc)))] => {
+        PP.start_group(f, 0);
+        output_debug_info(f, pc);
+        expression(1, f, e1);
+        PP.non_breaking_space(f);
+        PP.string(f, "=");
+        PP.non_breaking_space(f);
+        PP.start_group(f, 0);
+        expression(1, f, e2);
         if (close) {
           PP.string(f, ";");
         };

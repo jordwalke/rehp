@@ -635,32 +635,31 @@ final class Array_ {
         }
         return 0;
       };
-      $_ = $sortto->contents =
-        function($srcofs, $dst, $dstofs, $len) use ($a,$isortto,$merge,$sortto) {
-          if ($len <= 5) {return $isortto($srcofs, $dst, $dstofs, $len);}
-          $l1 = (int) ($len / 2);
-          $l2 = (int) ($len - $l1);
-          $sortto->contents(
-            (int)
-            ($srcofs + $l1),
-            $dst,
-            (int)
-            ($dstofs + $l1),
-            $l2
-          );
-          $sortto->contents($srcofs, $a, (int) ($srcofs + $l2), $l1);
-          return $merge(
-            (int)
-            ($srcofs + $l2),
-            $l1,
-            $dst,
-            (int)
-            ($dstofs + $l1),
-            $l2,
-            $dst,
-            $dstofs
-          );
-        };
+      $sortto->contents = function($srcofs, $dst, $dstofs, $len) use ($a,$isortto,$merge,$sortto) {
+        if ($len <= 5) {return $isortto($srcofs, $dst, $dstofs, $len);}
+        $l1 = (int) ($len / 2);
+        $l2 = (int) ($len - $l1);
+        $sortto->contents(
+          (int)
+          ($srcofs + $l1),
+          $dst,
+          (int)
+          ($dstofs + $l1),
+          $l2
+        );
+        $sortto->contents($srcofs, $a, (int) ($srcofs + $l2), $l1);
+        return $merge(
+          (int)
+          ($srcofs + $l2),
+          $l1,
+          $dst,
+          (int)
+          ($dstofs + $l1),
+          $l2,
+          $dst,
+          $dstofs
+        );
+      };
       $l = $a->count() - 1;
       if ($l <= 5) {return $isortto(0, $a, 0, $l);}
       $l1 = (int) ($l / 2);

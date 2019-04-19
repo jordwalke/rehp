@@ -406,23 +406,22 @@ final class Hashtbl {
     };
     $find_all = function($h, $key) use ($caml_check_bound,$caml_compare,$key_index) {
       $find_in_bucket = new Ref();
-      $_ = $find_in_bucket->contents =
-        function($param) use ($caml_compare,$find_in_bucket,$key) {
-          $param__0 = $param;
-          for (;;) {
-            if ($param__0) {
-              $k = $param__0[1];
-              $data = $param__0[2];
-              $next = $param__0[3];
-              if (0 === $caml_compare($k, $key)) {
-                return Vector{0, $data, $find_in_bucket->contents($next)};
-              }
-              $param__0 = $next;
-              continue;
+      $find_in_bucket->contents = function($param) use ($caml_compare,$find_in_bucket,$key) {
+        $param__0 = $param;
+        for (;;) {
+          if ($param__0) {
+            $k = $param__0[1];
+            $data = $param__0[2];
+            $next = $param__0[3];
+            if (0 === $caml_compare($k, $key)) {
+              return Vector{0, $data, $find_in_bucket->contents($next)};
             }
-            return 0;
+            $param__0 = $next;
+            continue;
           }
-        };
+          return 0;
+        }
+      };
       $qY = $key_index($h, $key);
       return $find_in_bucket->contents($caml_check_bound($h[2], $qY)[$qY + 1]);
     };
@@ -788,23 +787,22 @@ final class Hashtbl {
       };
       $find_all = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
         $find_in_bucket = new Ref();
-        $_ = $find_in_bucket->contents =
-          function($param) use ($H,$caml_call2,$find_in_bucket,$key) {
-            $param__0 = $param;
-            for (;;) {
-              if ($param__0) {
-                $k = $param__0[1];
-                $d = $param__0[2];
-                $next = $param__0[3];
-                if ($caml_call2($H[1], $k, $key)) {
-                  return Vector{0, $d, $find_in_bucket->contents($next)};
-                }
-                $param__0 = $next;
-                continue;
+        $find_in_bucket->contents = function($param) use ($H,$caml_call2,$find_in_bucket,$key) {
+          $param__0 = $param;
+          for (;;) {
+            if ($param__0) {
+              $k = $param__0[1];
+              $d = $param__0[2];
+              $next = $param__0[3];
+              if ($caml_call2($H[1], $k, $key)) {
+                return Vector{0, $d, $find_in_bucket->contents($next)};
               }
-              return 0;
+              $param__0 = $next;
+              continue;
             }
-          };
+            return 0;
+          }
+        };
         $qu = $key_index($h, $key);
         return $find_in_bucket->contents(
           $caml_check_bound($h[2], $qu)[$qu + 1]

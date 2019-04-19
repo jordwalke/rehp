@@ -977,130 +977,122 @@ final class CamlinternalFormat {
           return $mU;
         }
       };
-      $_ = $print_first->contents =
-        function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$print_char,$print_out__0,$print_second,$unsigned_right_shift_32) {
+      $print_first->contents = function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$print_char,$print_out__0,$print_second,$unsigned_right_shift_32) {
+        $match = $caml_call1($Pervasives[17], $i);
+        $switcher = (int) ($match + -45);
+        if (48 < $unsigned_right_shift_32($switcher, 0)) {
+          if (210 <= $switcher) {return $print_char($buf, 255);}
+        }
+        else {
+          $switcher__0 = (int) ($switcher + -1);
+          if (46 < $unsigned_right_shift_32($switcher__0, 0)) {
+            $mT = (int) ($i + 1);
+            if ($counter < 50) {
+              $counter__1 = (int) ($counter + 1);
+              return $print_out__0($counter__1, $set, $mT);
+            }
+            return $caml_trampoline_return($print_out__0, varray[0,$set,$mT]);
+          }
+        }
+        $mS = (int) ($i + 1);
+        if ($counter < 50) {
+          $counter__0 = (int) ($counter + 1);
+          return $print_second->contents($counter__0, $set, $mS);
+        }
+        return $caml_trampoline_return(
+          $print_second->contents,
+          varray[0,$set,$mS]
+        );
+      };
+      $print_second->contents = function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_in,$print_out__0,$unsigned_right_shift_32) {
+        if ($is_in_char_set($set, $caml_call1($Pervasives[17], $i))) {
           $match = $caml_call1($Pervasives[17], $i);
           $switcher = (int) ($match + -45);
           if (48 < $unsigned_right_shift_32($switcher, 0)) {
-            if (210 <= $switcher) {return $print_char($buf, 255);}
+            if (210 <= $switcher) {
+              $print_char($buf, 254);
+              return $print_char($buf, 255);
+            }
           }
           else {
             $switcher__0 = (int) ($switcher + -1);
             if (46 < $unsigned_right_shift_32($switcher__0, 0)) {
-              $mT = (int) ($i + 1);
-              if ($counter < 50) {
-                $counter__1 = (int) ($counter + 1);
-                return $print_out__0($counter__1, $set, $mT);
-              }
-              return $caml_trampoline_return($print_out__0, varray[0,$set,$mT]
-              );
-            }
-          }
-          $mS = (int) ($i + 1);
-          if ($counter < 50) {
-            $counter__0 = (int) ($counter + 1);
-            return $print_second->contents($counter__0, $set, $mS);
-          }
-          return $caml_trampoline_return(
-            $print_second->contents,
-            varray[0,$set,$mS]
-          );
-        };
-      $_ = $print_second->contents =
-        function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_in,$print_out__0,$unsigned_right_shift_32) {
-          if ($is_in_char_set($set, $caml_call1($Pervasives[17], $i))) {
-            $match = $caml_call1($Pervasives[17], $i);
-            $switcher = (int) ($match + -45);
-            if (48 < $unsigned_right_shift_32($switcher, 0)) {
-              if (210 <= $switcher) {
-                $print_char($buf, 254);
-                return $print_char($buf, 255);
-              }
-            }
-            else {
-              $switcher__0 = (int) ($switcher + -1);
-              if (46 < $unsigned_right_shift_32($switcher__0, 0)) {
-                if (
-                  !
-                  $is_in_char_set(
-                    $set,
-                    $caml_call1($Pervasives[17], (int) ($i + 1))
-                  )
-                ) {
-                  $print_char($buf, (int) ($i + -1));
-                  $mQ = (int) ($i + 1);
-                  if ($counter < 50) {
-                    $counter__1 = (int) ($counter + 1);
-                    return $print_out__0($counter__1, $set, $mQ);
-                  }
-                  return $caml_trampoline_return(
-                    $print_out__0,
-                    varray[0,$set,$mQ]
-                  );
+              if (
+                !
+                $is_in_char_set(
+                  $set,
+                  $caml_call1($Pervasives[17], (int) ($i + 1))
+                )
+              ) {
+                $print_char($buf, (int) ($i + -1));
+                $mQ = (int) ($i + 1);
+                if ($counter < 50) {
+                  $counter__1 = (int) ($counter + 1);
+                  return $print_out__0($counter__1, $set, $mQ);
                 }
+                return $caml_trampoline_return(
+                  $print_out__0,
+                  varray[0,$set,$mQ]
+                );
               }
             }
-            if (
-              $is_in_char_set(
-                $set,
-                $caml_call1($Pervasives[17], (int) ($i + 1))
-              )
-            ) {
-              $mN = (int) ($i + 2);
-              $mO = (int) ($i + -1);
-              if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
-                return $print_in->contents($counter__0, $set, $mO, $mN);
-              }
-              return $caml_trampoline_return(
-                $print_in->contents,
-                varray[0,$set,$mO,$mN]
-              );
-            }
-            $print_char($buf, (int) ($i + -1));
-            $print_char($buf, $i);
-            $mP = (int) ($i + 2);
+          }
+          if (
+            $is_in_char_set($set, $caml_call1($Pervasives[17], (int) ($i + 1))
+            )
+          ) {
+            $mN = (int) ($i + 2);
+            $mO = (int) ($i + -1);
             if ($counter < 50) {
-              $counter__2 = (int) ($counter + 1);
-              return $print_out__0($counter__2, $set, $mP);
+              $counter__0 = (int) ($counter + 1);
+              return $print_in->contents($counter__0, $set, $mO, $mN);
             }
-            return $caml_trampoline_return($print_out__0, varray[0,$set,$mP]);
+            return $caml_trampoline_return(
+              $print_in->contents,
+              varray[0,$set,$mO,$mN]
+            );
           }
           $print_char($buf, (int) ($i + -1));
-          $mR = (int) ($i + 1);
+          $print_char($buf, $i);
+          $mP = (int) ($i + 2);
           if ($counter < 50) {
-            $counter__3 = (int) ($counter + 1);
-            return $print_out__0($counter__3, $set, $mR);
+            $counter__2 = (int) ($counter + 1);
+            return $print_out__0($counter__2, $set, $mP);
           }
-          return $caml_trampoline_return($print_out__0, varray[0,$set,$mR]);
-        };
-      $_ = $print_in->contents =
-        function($counter, $set, $i, $j) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_out__0) {
-          $j__0 = $j;
-          for (;;) {
-            if (256 !== $j__0) {
-              if ($is_in_char_set($set, $caml_call1($Pervasives[17], $j__0))) {$j__1 = (int) ($j__0 + 1);$j__0 = $j__1;continue;}
-            }
-            $print_char($buf, $i);
-            $print_char($buf, 45);
-            $print_char($buf, (int) ($j__0 + -1));
-            $mL = $j__0 < 256 ? 1 : (0);
-            if ($mL) {
-              $mM = (int) ($j__0 + 1);
-              if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
-                return $print_out__0($counter__0, $set, $mM);
-              }
-              return $caml_trampoline_return($print_out__0, varray[0,$set,$mM]
-              );
-            }
-            return $mL;
+          return $caml_trampoline_return($print_out__0, varray[0,$set,$mP]);
+        }
+        $print_char($buf, (int) ($i + -1));
+        $mR = (int) ($i + 1);
+        if ($counter < 50) {
+          $counter__3 = (int) ($counter + 1);
+          return $print_out__0($counter__3, $set, $mR);
+        }
+        return $caml_trampoline_return($print_out__0, varray[0,$set,$mR]);
+      };
+      $print_in->contents = function($counter, $set, $i, $j) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_out__0) {
+        $j__0 = $j;
+        for (;;) {
+          if (256 !== $j__0) {
+            if ($is_in_char_set($set, $caml_call1($Pervasives[17], $j__0))) {$j__1 = (int) ($j__0 + 1);$j__0 = $j__1;continue;}
           }
-        };
-      $_ = $print_out->contents =
-        function($set, $i) use ($caml_trampoline,$print_out__0) {
-          return $caml_trampoline($print_out__0(0, $set, $i));
-        };
+          $print_char($buf, $i);
+          $print_char($buf, 45);
+          $print_char($buf, (int) ($j__0 + -1));
+          $mL = $j__0 < 256 ? 1 : (0);
+          if ($mL) {
+            $mM = (int) ($j__0 + 1);
+            if ($counter < 50) {
+              $counter__0 = (int) ($counter + 1);
+              return $print_out__0($counter__0, $set, $mM);
+            }
+            return $caml_trampoline_return($print_out__0, varray[0,$set,$mM]);
+          }
+          return $mL;
+        }
+      };
+      $print_out->contents = function($set, $i) use ($caml_trampoline,$print_out__0) {
+        return $caml_trampoline($print_out__0(0, $set, $i));
+      };
       $buffer_add_char($buf, 91);
       $mK = $is_in_char_set($char_set, 0)
         ? $buffer_add_char($buf, 94) || true
@@ -1314,121 +1306,119 @@ final class CamlinternalFormat {
       }
       return 0;
     };
-    $_ = $bprint_fmtty->contents =
-      function($buf, $fmtty) use ($bprint_fmtty,$buffer_add_string,$cst_B,$cst_Li,$cst__10,$cst__11,$cst__12,$cst__13,$cst__9,$cst_a,$cst_c,$cst_f,$cst_i,$cst_li,$cst_ni,$cst_r,$cst_r__0,$cst_s,$cst_t,$is_int) {
-        $fmtty__0 = $fmtty;
-        for (;;) if (
-          $is_int($fmtty__0)
-        ) {return 0;}
-        else {
-          switch($fmtty__0[0]) {
-            // FALLTHROUGH
-            case 0:
-              $fmtty__1 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_c);
-              $fmtty__0 = $fmtty__1;
-              continue;
-            // FALLTHROUGH
-            case 1:
-              $fmtty__2 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_s);
-              $fmtty__0 = $fmtty__2;
-              continue;
-            // FALLTHROUGH
-            case 2:
-              $fmtty__3 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_i);
-              $fmtty__0 = $fmtty__3;
-              continue;
-            // FALLTHROUGH
-            case 3:
-              $fmtty__4 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_li);
-              $fmtty__0 = $fmtty__4;
-              continue;
-            // FALLTHROUGH
-            case 4:
-              $fmtty__5 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_ni);
-              $fmtty__0 = $fmtty__5;
-              continue;
-            // FALLTHROUGH
-            case 5:
-              $fmtty__6 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_Li);
-              $fmtty__0 = $fmtty__6;
-              continue;
-            // FALLTHROUGH
-            case 6:
-              $fmtty__7 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_f);
-              $fmtty__0 = $fmtty__7;
-              continue;
-            // FALLTHROUGH
-            case 7:
-              $fmtty__8 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_B);
-              $fmtty__0 = $fmtty__8;
-              continue;
-            // FALLTHROUGH
-            case 8:
-              $fmtty__9 = $fmtty__0[2];
-              $sub_fmtty = $fmtty__0[1];
-              $buffer_add_string($buf, $cst__9);
-              $bprint_fmtty->contents($buf, $sub_fmtty);
-              $buffer_add_string($buf, $cst__10);
-              $fmtty__0 = $fmtty__9;
-              continue;
-            // FALLTHROUGH
-            case 9:
-              $fmtty__10 = $fmtty__0[3];
-              $sub_fmtty__0 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst__11);
-              $bprint_fmtty->contents($buf, $sub_fmtty__0);
-              $buffer_add_string($buf, $cst__12);
-              $fmtty__0 = $fmtty__10;
-              continue;
-            // FALLTHROUGH
-            case 10:
-              $fmtty__11 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_a);
-              $fmtty__0 = $fmtty__11;
-              continue;
-            // FALLTHROUGH
-            case 11:
-              $fmtty__12 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_t);
-              $fmtty__0 = $fmtty__12;
-              continue;
-            // FALLTHROUGH
-            case 12:
-              $fmtty__13 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst__13);
-              $fmtty__0 = $fmtty__13;
-              continue;
-            // FALLTHROUGH
-            case 13:
-              $fmtty__14 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_r);
-              $fmtty__0 = $fmtty__14;
-              continue;
-            // FALLTHROUGH
-            default:
-              $fmtty__15 = $fmtty__0[1];
-              $buffer_add_string($buf, $cst_r__0);
-              $fmtty__0 = $fmtty__15;
-              continue;
-            }
-        }
-      };
-    $_ = $int_of_custom_arity->contents =
-      function($param) use ($int_of_custom_arity) {
-        if ($param) {
-          $x = $param[1];
-          return (int) (1 + $int_of_custom_arity->contents($x));
-        }
-        return 0;
-      };
+    $bprint_fmtty->contents = function($buf, $fmtty) use ($bprint_fmtty,$buffer_add_string,$cst_B,$cst_Li,$cst__10,$cst__11,$cst__12,$cst__13,$cst__9,$cst_a,$cst_c,$cst_f,$cst_i,$cst_li,$cst_ni,$cst_r,$cst_r__0,$cst_s,$cst_t,$is_int) {
+      $fmtty__0 = $fmtty;
+      for (;;) if (
+        $is_int($fmtty__0)
+      ) {return 0;}
+      else {
+        switch($fmtty__0[0]) {
+          // FALLTHROUGH
+          case 0:
+            $fmtty__1 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_c);
+            $fmtty__0 = $fmtty__1;
+            continue;
+          // FALLTHROUGH
+          case 1:
+            $fmtty__2 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_s);
+            $fmtty__0 = $fmtty__2;
+            continue;
+          // FALLTHROUGH
+          case 2:
+            $fmtty__3 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_i);
+            $fmtty__0 = $fmtty__3;
+            continue;
+          // FALLTHROUGH
+          case 3:
+            $fmtty__4 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_li);
+            $fmtty__0 = $fmtty__4;
+            continue;
+          // FALLTHROUGH
+          case 4:
+            $fmtty__5 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_ni);
+            $fmtty__0 = $fmtty__5;
+            continue;
+          // FALLTHROUGH
+          case 5:
+            $fmtty__6 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_Li);
+            $fmtty__0 = $fmtty__6;
+            continue;
+          // FALLTHROUGH
+          case 6:
+            $fmtty__7 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_f);
+            $fmtty__0 = $fmtty__7;
+            continue;
+          // FALLTHROUGH
+          case 7:
+            $fmtty__8 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_B);
+            $fmtty__0 = $fmtty__8;
+            continue;
+          // FALLTHROUGH
+          case 8:
+            $fmtty__9 = $fmtty__0[2];
+            $sub_fmtty = $fmtty__0[1];
+            $buffer_add_string($buf, $cst__9);
+            $bprint_fmtty->contents($buf, $sub_fmtty);
+            $buffer_add_string($buf, $cst__10);
+            $fmtty__0 = $fmtty__9;
+            continue;
+          // FALLTHROUGH
+          case 9:
+            $fmtty__10 = $fmtty__0[3];
+            $sub_fmtty__0 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst__11);
+            $bprint_fmtty->contents($buf, $sub_fmtty__0);
+            $buffer_add_string($buf, $cst__12);
+            $fmtty__0 = $fmtty__10;
+            continue;
+          // FALLTHROUGH
+          case 10:
+            $fmtty__11 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_a);
+            $fmtty__0 = $fmtty__11;
+            continue;
+          // FALLTHROUGH
+          case 11:
+            $fmtty__12 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_t);
+            $fmtty__0 = $fmtty__12;
+            continue;
+          // FALLTHROUGH
+          case 12:
+            $fmtty__13 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst__13);
+            $fmtty__0 = $fmtty__13;
+            continue;
+          // FALLTHROUGH
+          case 13:
+            $fmtty__14 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_r);
+            $fmtty__0 = $fmtty__14;
+            continue;
+          // FALLTHROUGH
+          default:
+            $fmtty__15 = $fmtty__0[1];
+            $buffer_add_string($buf, $cst_r__0);
+            $fmtty__0 = $fmtty__15;
+            continue;
+          }
+      }
+    };
+    $int_of_custom_arity->contents = function($param) use ($int_of_custom_arity) {
+      if ($param) {
+        $x = $param[1];
+        return (int) (1 + $int_of_custom_arity->contents($x));
+      }
+      return 0;
+    };
     $bprint_fmt = function($buf, $fmt) use ($bprint_altint_fmt,$bprint_char_literal,$bprint_char_set,$bprint_float_fmt,$bprint_fmtty,$bprint_ignored_flag,$bprint_int_fmt,$bprint_pad_opt,$bprint_padding,$bprint_string_literal,$buffer_add_char,$buffer_add_string,$char_of_counter,$cst_0c,$cst__14,$cst__15,$int_of_custom_arity,$is_int,$param_format_of_ignored_format,$string_of_formatting_gen,$string_of_formatting_lit) {
       $fmtiter = function($fmt, $ign_flag) use ($bprint_altint_fmt,$bprint_char_literal,$bprint_char_set,$bprint_float_fmt,$bprint_fmtty,$bprint_ignored_flag,$bprint_int_fmt,$bprint_pad_opt,$bprint_padding,$bprint_string_literal,$buf,$buffer_add_char,$buffer_add_string,$char_of_counter,$cst_0c,$cst__14,$cst__15,$int_of_custom_arity,$is_int,$param_format_of_ignored_format,$string_of_formatting_gen,$string_of_formatting_lit) {
         $fmt__0 = $fmt;
@@ -1728,1200 +1718,1196 @@ final class CamlinternalFormat {
       $bprint_fmt($buf, $fmt);
       return $buffer_contents($buf);
     };
-    $_ = $symm->contents =
-      function($param) use ($is_int,$symm) {
-        if ($is_int($param)) {return 0;}
-        else {
-          switch($param[0]) {
-            // FALLTHROUGH
-            case 0:
-              $rest = $param[1];
-              return Vector{0, $symm->contents($rest)};
-            // FALLTHROUGH
-            case 1:
-              $rest__0 = $param[1];
-              return Vector{1, $symm->contents($rest__0)};
-            // FALLTHROUGH
-            case 2:
-              $rest__1 = $param[1];
-              return Vector{2, $symm->contents($rest__1)};
-            // FALLTHROUGH
-            case 3:
-              $rest__2 = $param[1];
-              return Vector{3, $symm->contents($rest__2)};
-            // FALLTHROUGH
-            case 4:
-              $rest__3 = $param[1];
-              return Vector{4, $symm->contents($rest__3)};
-            // FALLTHROUGH
-            case 5:
-              $rest__4 = $param[1];
-              return Vector{5, $symm->contents($rest__4)};
-            // FALLTHROUGH
-            case 6:
-              $rest__5 = $param[1];
-              return Vector{6, $symm->contents($rest__5)};
-            // FALLTHROUGH
-            case 7:
-              $rest__6 = $param[1];
-              return Vector{7, $symm->contents($rest__6)};
-            // FALLTHROUGH
-            case 8:
-              $rest__7 = $param[2];
-              $ty = $param[1];
-              return Vector{8, $ty, $symm->contents($rest__7)};
-            // FALLTHROUGH
-            case 9:
-              $rest__8 = $param[3];
-              $ty2 = $param[2];
-              $ty1 = $param[1];
-              return Vector{9, $ty2, $ty1, $symm->contents($rest__8)};
-            // FALLTHROUGH
-            case 10:
-              $rest__9 = $param[1];
-              return Vector{10, $symm->contents($rest__9)};
-            // FALLTHROUGH
-            case 11:
-              $rest__10 = $param[1];
-              return Vector{11, $symm->contents($rest__10)};
-            // FALLTHROUGH
-            case 12:
-              $rest__11 = $param[1];
-              return Vector{12, $symm->contents($rest__11)};
-            // FALLTHROUGH
-            case 13:
-              $rest__12 = $param[1];
-              return Vector{13, $symm->contents($rest__12)};
-            // FALLTHROUGH
-            default:
-              $rest__13 = $param[1];
-              return Vector{14, $symm->contents($rest__13)};
-            }
-        }
-      };
-    $_ = $fmtty_rel_det->contents =
-      function($param) use ($caml_call1,$fmtty_rel_det,$is_int,$symm,$trans) {
-        if ($is_int($param)) {
-          $mf = function($param) {return 0;};
-          $mg = function($param) {return 0;};
-          $mh = function($param) {return 0;};
-          return Vector{0, function($param) {return 0;}, $mh, $mg, $mf};
-        }
-        else {
-          switch($param[0]) {
-            // FALLTHROUGH
-            case 0:
-              $rest = $param[1];
-              $match = $fmtty_rel_det->contents($rest);
-              $de = $match[4];
-              $ed = $match[3];
-              $af = $match[2];
-              $fa = $match[1];
-              $mi = function($param) use ($af,$caml_call1) {
-                $caml_call1($af, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa) {
-                  $caml_call1($fa, 0);
-                  return 0;
-                },
-                $mi,
-                $ed,
-                $de
-              };
-            // FALLTHROUGH
-            case 1:
-              $rest__0 = $param[1];
-              $match__0 = $fmtty_rel_det->contents($rest__0);
-              $de__0 = $match__0[4];
-              $ed__0 = $match__0[3];
-              $af__0 = $match__0[2];
-              $fa__0 = $match__0[1];
-              $mj = function($param) use ($af__0,$caml_call1) {
-                $caml_call1($af__0, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__0) {
-                  $caml_call1($fa__0, 0);
-                  return 0;
-                },
-                $mj,
-                $ed__0,
-                $de__0
-              };
-            // FALLTHROUGH
-            case 2:
-              $rest__1 = $param[1];
-              $match__1 = $fmtty_rel_det->contents($rest__1);
-              $de__1 = $match__1[4];
-              $ed__1 = $match__1[3];
-              $af__1 = $match__1[2];
-              $fa__1 = $match__1[1];
-              $mk = function($param) use ($af__1,$caml_call1) {
-                $caml_call1($af__1, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__1) {
-                  $caml_call1($fa__1, 0);
-                  return 0;
-                },
-                $mk,
-                $ed__1,
-                $de__1
-              };
-            // FALLTHROUGH
-            case 3:
-              $rest__2 = $param[1];
-              $match__2 = $fmtty_rel_det->contents($rest__2);
-              $de__2 = $match__2[4];
-              $ed__2 = $match__2[3];
-              $af__2 = $match__2[2];
-              $fa__2 = $match__2[1];
-              $ml = function($param) use ($af__2,$caml_call1) {
-                $caml_call1($af__2, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__2) {
-                  $caml_call1($fa__2, 0);
-                  return 0;
-                },
-                $ml,
-                $ed__2,
-                $de__2
-              };
-            // FALLTHROUGH
-            case 4:
-              $rest__3 = $param[1];
-              $match__3 = $fmtty_rel_det->contents($rest__3);
-              $de__3 = $match__3[4];
-              $ed__3 = $match__3[3];
-              $af__3 = $match__3[2];
-              $fa__3 = $match__3[1];
-              $mm = function($param) use ($af__3,$caml_call1) {
-                $caml_call1($af__3, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__3) {
-                  $caml_call1($fa__3, 0);
-                  return 0;
-                },
-                $mm,
-                $ed__3,
-                $de__3
-              };
-            // FALLTHROUGH
-            case 5:
-              $rest__4 = $param[1];
-              $match__4 = $fmtty_rel_det->contents($rest__4);
-              $de__4 = $match__4[4];
-              $ed__4 = $match__4[3];
-              $af__4 = $match__4[2];
-              $fa__4 = $match__4[1];
-              $mn = function($param) use ($af__4,$caml_call1) {
-                $caml_call1($af__4, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__4) {
-                  $caml_call1($fa__4, 0);
-                  return 0;
-                },
-                $mn,
-                $ed__4,
-                $de__4
-              };
-            // FALLTHROUGH
-            case 6:
-              $rest__5 = $param[1];
-              $match__5 = $fmtty_rel_det->contents($rest__5);
-              $de__5 = $match__5[4];
-              $ed__5 = $match__5[3];
-              $af__5 = $match__5[2];
-              $fa__5 = $match__5[1];
-              $mo = function($param) use ($af__5,$caml_call1) {
-                $caml_call1($af__5, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__5) {
-                  $caml_call1($fa__5, 0);
-                  return 0;
-                },
-                $mo,
-                $ed__5,
-                $de__5
-              };
-            // FALLTHROUGH
-            case 7:
-              $rest__6 = $param[1];
-              $match__6 = $fmtty_rel_det->contents($rest__6);
-              $de__6 = $match__6[4];
-              $ed__6 = $match__6[3];
-              $af__6 = $match__6[2];
-              $fa__6 = $match__6[1];
-              $mp = function($param) use ($af__6,$caml_call1) {
-                $caml_call1($af__6, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__6) {
-                  $caml_call1($fa__6, 0);
-                  return 0;
-                },
-                $mp,
-                $ed__6,
-                $de__6
-              };
-            // FALLTHROUGH
-            case 8:
-              $rest__7 = $param[2];
-              $match__7 = $fmtty_rel_det->contents($rest__7);
-              $de__7 = $match__7[4];
-              $ed__7 = $match__7[3];
-              $af__7 = $match__7[2];
-              $fa__7 = $match__7[1];
-              $mq = function($param) use ($af__7,$caml_call1) {
-                $caml_call1($af__7, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__7) {
-                  $caml_call1($fa__7, 0);
-                  return 0;
-                },
-                $mq,
-                $ed__7,
-                $de__7
-              };
-            // FALLTHROUGH
-            case 9:
-              $rest__8 = $param[3];
-              $ty2 = $param[2];
-              $ty1 = $param[1];
-              $match__8 = $fmtty_rel_det->contents($rest__8);
-              $de__8 = $match__8[4];
-              $ed__8 = $match__8[3];
-              $af__8 = $match__8[2];
-              $fa__8 = $match__8[1];
-              $ty = $trans->contents($symm->contents($ty1), $ty2);
-              $match__9 = $fmtty_rel_det->contents($ty);
-              $jd = $match__9[4];
-              $dj = $match__9[3];
-              $ga = $match__9[2];
-              $ag = $match__9[1];
-              $mr = function($param) use ($caml_call1,$de__8,$jd) {
-                $caml_call1($jd, 0);
-                $caml_call1($de__8, 0);
-                return 0;
-              };
-              $ms = function($param) use ($caml_call1,$dj,$ed__8) {
-                $caml_call1($ed__8, 0);
-                $caml_call1($dj, 0);
-                return 0;
-              };
-              $mt = function($param) use ($af__8,$caml_call1,$ga) {
-                $caml_call1($ga, 0);
-                $caml_call1($af__8, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($ag,$caml_call1,$fa__8) {
-                  $caml_call1($fa__8, 0);
-                  $caml_call1($ag, 0);
-                  return 0;
-                },
-                $mt,
-                $ms,
-                $mr
-              };
-            // FALLTHROUGH
-            case 10:
-              $rest__9 = $param[1];
-              $match__10 = $fmtty_rel_det->contents($rest__9);
-              $de__9 = $match__10[4];
-              $ed__9 = $match__10[3];
-              $af__9 = $match__10[2];
-              $fa__9 = $match__10[1];
-              $mu = function($param) use ($af__9,$caml_call1) {
-                $caml_call1($af__9, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__9) {
-                  $caml_call1($fa__9, 0);
-                  return 0;
-                },
-                $mu,
-                $ed__9,
-                $de__9
-              };
-            // FALLTHROUGH
-            case 11:
-              $rest__10 = $param[1];
-              $match__11 = $fmtty_rel_det->contents($rest__10);
-              $de__10 = $match__11[4];
-              $ed__10 = $match__11[3];
-              $af__10 = $match__11[2];
-              $fa__10 = $match__11[1];
-              $mv = function($param) use ($af__10,$caml_call1) {
-                $caml_call1($af__10, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__10) {
-                  $caml_call1($fa__10, 0);
-                  return 0;
-                },
-                $mv,
-                $ed__10,
-                $de__10
-              };
-            // FALLTHROUGH
-            case 12:
-              $rest__11 = $param[1];
-              $match__12 = $fmtty_rel_det->contents($rest__11);
-              $de__11 = $match__12[4];
-              $ed__11 = $match__12[3];
-              $af__11 = $match__12[2];
-              $fa__11 = $match__12[1];
-              $mw = function($param) use ($af__11,$caml_call1) {
-                $caml_call1($af__11, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__11) {
-                  $caml_call1($fa__11, 0);
-                  return 0;
-                },
-                $mw,
-                $ed__11,
-                $de__11
-              };
-            // FALLTHROUGH
-            case 13:
-              $rest__12 = $param[1];
-              $match__13 = $fmtty_rel_det->contents($rest__12);
-              $de__12 = $match__13[4];
-              $ed__12 = $match__13[3];
-              $af__12 = $match__13[2];
-              $fa__12 = $match__13[1];
-              $mx = function($param) use ($caml_call1,$de__12) {
-                $caml_call1($de__12, 0);
-                return 0;
-              };
-              $my = function($param) use ($caml_call1,$ed__12) {
-                $caml_call1($ed__12, 0);
-                return 0;
-              };
-              $mz = function($param) use ($af__12,$caml_call1) {
-                $caml_call1($af__12, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__12) {
-                  $caml_call1($fa__12, 0);
-                  return 0;
-                },
-                $mz,
-                $my,
-                $mx
-              };
-            // FALLTHROUGH
-            default:
-              $rest__13 = $param[1];
-              $match__14 = $fmtty_rel_det->contents($rest__13);
-              $de__13 = $match__14[4];
-              $ed__13 = $match__14[3];
-              $af__13 = $match__14[2];
-              $fa__13 = $match__14[1];
-              $mA = function($param) use ($caml_call1,$de__13) {
-                $caml_call1($de__13, 0);
-                return 0;
-              };
-              $mB = function($param) use ($caml_call1,$ed__13) {
-                $caml_call1($ed__13, 0);
-                return 0;
-              };
-              $mC = function($param) use ($af__13,$caml_call1) {
-                $caml_call1($af__13, 0);
-                return 0;
-              };
-              return Vector{
-                0,
-                function($param) use ($caml_call1,$fa__13) {
-                  $caml_call1($fa__13, 0);
-                  return 0;
-                },
-                $mC,
-                $mB,
-                $mA
-              };
-            }
-        }
-      };
-    $_ = $trans->contents =
-      function($ty1, $match) use ($Assert_failure,$caml_call1,$fmtty_rel_det,$hA,$hB,$hC,$hD,$hE,$hF,$hG,$hH,$hI,$hJ,$hK,$hL,$hM,$hN,$hO,$hz,$is_int,$runtime,$symm,$trans) {
-        if ($is_int($ty1)) {
-          if ($is_int($match)) {return 0;}
-          else {
-            switch($match[0]) {
-              // FALLTHROUGH
-              case 10:
-                $switch__0 = 0;
-                break;
-              // FALLTHROUGH
-              case 11:
-                $switch__0 = 1;
-                break;
-              // FALLTHROUGH
-              case 12:
-                $switch__0 = 2;
-                break;
-              // FALLTHROUGH
-              case 13:
-                $switch__0 = 3;
-                break;
-              // FALLTHROUGH
-              case 14:
-                $switch__0 = 4;
-                break;
-              // FALLTHROUGH
-              case 8:
-                $switch__0 = 5;
-                break;
-              // FALLTHROUGH
-              case 9:
-                $switch__0 = 6;
-                break;
-              // FALLTHROUGH
-              default:
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hz}) as \Throwable;
-              }
-          }
-        }
-        else {
-          switch($ty1[0]) {
-            // FALLTHROUGH
-            case 0:
-              $lX = $ty1[1];
-              if ($is_int($match)) {$switch__1 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 0:
-                    $rest2 = $match[1];
-                    return Vector{0, $trans->contents($lX, $rest2)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__1 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__1 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__1 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__1 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__1 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__1 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__1 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__1 = 1;
-                  }
-              }
-              if ($switch__1) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 1:
-              $lY = $ty1[1];
-              if ($is_int($match)) {$switch__2 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 1:
-                    $rest2__0 = $match[1];
-                    return Vector{1, $trans->contents($lY, $rest2__0)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__2 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__2 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__2 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__2 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__2 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__2 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__2 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__2 = 1;
-                  }
-              }
-              if ($switch__2) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 2:
-              $lZ = $ty1[1];
-              if ($is_int($match)) {$switch__3 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 2:
-                    $rest2__1 = $match[1];
-                    return Vector{2, $trans->contents($lZ, $rest2__1)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__3 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__3 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__3 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__3 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__3 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__3 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__3 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__3 = 1;
-                  }
-              }
-              if ($switch__3) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 3:
-              $l0 = $ty1[1];
-              if ($is_int($match)) {$switch__4 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 3:
-                    $rest2__2 = $match[1];
-                    return Vector{3, $trans->contents($l0, $rest2__2)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__4 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__4 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__4 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__4 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__4 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__4 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__4 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__4 = 1;
-                  }
-              }
-              if ($switch__4) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 4:
-              $l1 = $ty1[1];
-              if ($is_int($match)) {$switch__5 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 4:
-                    $rest2__3 = $match[1];
-                    return Vector{4, $trans->contents($l1, $rest2__3)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__5 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__5 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__5 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__5 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__5 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__5 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__5 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__5 = 1;
-                  }
-              }
-              if ($switch__5) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 5:
-              $l2 = $ty1[1];
-              if ($is_int($match)) {$switch__6 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 5:
-                    $rest2__4 = $match[1];
-                    return Vector{5, $trans->contents($l2, $rest2__4)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__6 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__6 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__6 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__6 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__6 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__6 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__6 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__6 = 1;
-                  }
-              }
-              if ($switch__6) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 6:
-              $l3 = $ty1[1];
-              if ($is_int($match)) {$switch__7 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 6:
-                    $rest2__5 = $match[1];
-                    return Vector{6, $trans->contents($l3, $rest2__5)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__7 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__7 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__7 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__7 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__7 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__7 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__7 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__7 = 1;
-                  }
-              }
-              if ($switch__7) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 7:
-              $l4 = $ty1[1];
-              if ($is_int($match)) {$switch__8 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 7:
-                    $rest2__6 = $match[1];
-                    return Vector{7, $trans->contents($l4, $rest2__6)};
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__8 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $switch__0 = 6;
-                    $switch__8 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__8 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__8 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__8 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__8 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__8 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__8 = 1;
-                  }
-              }
-              if ($switch__8) {$switch__0 = 7;}
-              break;
-            // FALLTHROUGH
-            case 8:
-              $l5 = $ty1[2];
-              $l6 = $ty1[1];
-              if ($is_int($match)) {$switch__9 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 8:
-                    $rest2__7 = $match[2];
-                    $ty2 = $match[1];
-                    $l7 = $trans->contents($l5, $rest2__7);
-                    return Vector{8, $trans->contents($l6, $ty2), $l7};
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__9 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__9 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__9 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__9 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__9 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__9 = 1;
-                  }
-              }
-              if ($switch__9) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hI}) as \Throwable;
-              }
-              break;
-            // FALLTHROUGH
-            case 9:
-              $l8 = $ty1[3];
-              $l9 = $ty1[2];
-              $l_ = $ty1[1];
-              if ($is_int($match)) {$switch__10 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 8:
-                    $switch__0 = 5;
-                    $switch__10 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 9:
-                    $rest2__8 = $match[3];
-                    $ty22 = $match[2];
-                    $ty21 = $match[1];
-                    $ty = $trans->contents($symm->contents($l9), $ty21);
-                    $match__0 = $fmtty_rel_det->contents($ty);
-                    $f4 = $match__0[4];
-                    $f2 = $match__0[2];
-                    $caml_call1($f2, 0);
-                    $caml_call1($f4, 0);
-                    return Vector{
-                      9,
-                      $l_,
-                      $ty22,
-                      $trans->contents($l8, $rest2__8)
-                    };
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__10 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__10 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__10 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__10 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $switch__0 = 4;
-                    $switch__10 = 0;
-                    break;
-                  // FALLTHROUGH
-                  default:
-                    $switch__10 = 1;
-                  }
-              }
-              if ($switch__10) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hJ}) as \Throwable;
-              }
-              break;
-            // FALLTHROUGH
-            case 10:
-              $ma = $ty1[1];
-              if (! $is_int($match) && 10 === $match[0]) {
-                $rest2__9 = $match[1];
-                return Vector{10, $trans->contents($ma, $rest2__9)};
-              }
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hK}) as \Throwable;
-            // FALLTHROUGH
-            case 11:
-              $mb = $ty1[1];
-              if ($is_int($match)) {$switch__11 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__11 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $rest2__10 = $match[1];
-                    return Vector{11, $trans->contents($mb, $rest2__10)};
-                  // FALLTHROUGH
-                  default:
-                    $switch__11 = 1;
-                  }
-              }
-              if ($switch__11) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hL}) as \Throwable;
-              }
-              break;
-            // FALLTHROUGH
-            case 12:
-              $mc = $ty1[1];
-              if ($is_int($match)) {$switch__12 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__12 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__12 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $rest2__11 = $match[1];
-                    return Vector{12, $trans->contents($mc, $rest2__11)};
-                  // FALLTHROUGH
-                  default:
-                    $switch__12 = 1;
-                  }
-              }
-              if ($switch__12) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hM}) as \Throwable;
-              }
-              break;
-            // FALLTHROUGH
-            case 13:
-              $md = $ty1[1];
-              if ($is_int($match)) {$switch__13 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__13 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__13 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__13 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $rest2__12 = $match[1];
-                    return Vector{13, $trans->contents($md, $rest2__12)};
-                  // FALLTHROUGH
-                  default:
-                    $switch__13 = 1;
-                  }
-              }
-              if ($switch__13) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hN}) as \Throwable;
-              }
-              break;
-            // FALLTHROUGH
-            default:
-              $me = $ty1[1];
-              if ($is_int($match)) {$switch__14 = 1;}
-              else {
-                switch($match[0]) {
-                  // FALLTHROUGH
-                  case 10:
-                    $switch__0 = 0;
-                    $switch__14 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 11:
-                    $switch__0 = 1;
-                    $switch__14 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                    $switch__0 = 2;
-                    $switch__14 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 13:
-                    $switch__0 = 3;
-                    $switch__14 = 0;
-                    break;
-                  // FALLTHROUGH
-                  case 14:
-                    $rest2__13 = $match[1];
-                    return Vector{14, $trans->contents($me, $rest2__13)};
-                  // FALLTHROUGH
-                  default:
-                    $switch__14 = 1;
-                  }
-              }
-              if ($switch__14) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hO}) as \Throwable;
-              }
-            }
-        }
-        switch($switch__0) {
+    $symm->contents = function($param) use ($is_int,$symm) {
+      if ($is_int($param)) {return 0;}
+      else {
+        switch($param[0]) {
           // FALLTHROUGH
           case 0:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hC}) as \Throwable;
+            $rest = $param[1];
+            return Vector{0, $symm->contents($rest)};
           // FALLTHROUGH
           case 1:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hD}) as \Throwable;
+            $rest__0 = $param[1];
+            return Vector{1, $symm->contents($rest__0)};
           // FALLTHROUGH
           case 2:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hE}) as \Throwable;
+            $rest__1 = $param[1];
+            return Vector{2, $symm->contents($rest__1)};
           // FALLTHROUGH
           case 3:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hF}) as \Throwable;
+            $rest__2 = $param[1];
+            return Vector{3, $symm->contents($rest__2)};
           // FALLTHROUGH
           case 4:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hG}) as \Throwable;
+            $rest__3 = $param[1];
+            return Vector{4, $symm->contents($rest__3)};
           // FALLTHROUGH
           case 5:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hA}) as \Throwable;
+            $rest__4 = $param[1];
+            return Vector{5, $symm->contents($rest__4)};
           // FALLTHROUGH
           case 6:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hB}) as \Throwable;
+            $rest__5 = $param[1];
+            return Vector{6, $symm->contents($rest__5)};
+          // FALLTHROUGH
+          case 7:
+            $rest__6 = $param[1];
+            return Vector{7, $symm->contents($rest__6)};
+          // FALLTHROUGH
+          case 8:
+            $rest__7 = $param[2];
+            $ty = $param[1];
+            return Vector{8, $ty, $symm->contents($rest__7)};
+          // FALLTHROUGH
+          case 9:
+            $rest__8 = $param[3];
+            $ty2 = $param[2];
+            $ty1 = $param[1];
+            return Vector{9, $ty2, $ty1, $symm->contents($rest__8)};
+          // FALLTHROUGH
+          case 10:
+            $rest__9 = $param[1];
+            return Vector{10, $symm->contents($rest__9)};
+          // FALLTHROUGH
+          case 11:
+            $rest__10 = $param[1];
+            return Vector{11, $symm->contents($rest__10)};
+          // FALLTHROUGH
+          case 12:
+            $rest__11 = $param[1];
+            return Vector{12, $symm->contents($rest__11)};
+          // FALLTHROUGH
+          case 13:
+            $rest__12 = $param[1];
+            return Vector{13, $symm->contents($rest__12)};
           // FALLTHROUGH
           default:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hH}) as \Throwable;
+            $rest__13 = $param[1];
+            return Vector{14, $symm->contents($rest__13)};
           }
-      };
+      }
+    };
+    $fmtty_rel_det->contents = function($param) use ($caml_call1,$fmtty_rel_det,$is_int,$symm,$trans) {
+      if ($is_int($param)) {
+        $mf = function($param) {return 0;};
+        $mg = function($param) {return 0;};
+        $mh = function($param) {return 0;};
+        return Vector{0, function($param) {return 0;}, $mh, $mg, $mf};
+      }
+      else {
+        switch($param[0]) {
+          // FALLTHROUGH
+          case 0:
+            $rest = $param[1];
+            $match = $fmtty_rel_det->contents($rest);
+            $de = $match[4];
+            $ed = $match[3];
+            $af = $match[2];
+            $fa = $match[1];
+            $mi = function($param) use ($af,$caml_call1) {
+              $caml_call1($af, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa) {
+                $caml_call1($fa, 0);
+                return 0;
+              },
+              $mi,
+              $ed,
+              $de
+            };
+          // FALLTHROUGH
+          case 1:
+            $rest__0 = $param[1];
+            $match__0 = $fmtty_rel_det->contents($rest__0);
+            $de__0 = $match__0[4];
+            $ed__0 = $match__0[3];
+            $af__0 = $match__0[2];
+            $fa__0 = $match__0[1];
+            $mj = function($param) use ($af__0,$caml_call1) {
+              $caml_call1($af__0, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__0) {
+                $caml_call1($fa__0, 0);
+                return 0;
+              },
+              $mj,
+              $ed__0,
+              $de__0
+            };
+          // FALLTHROUGH
+          case 2:
+            $rest__1 = $param[1];
+            $match__1 = $fmtty_rel_det->contents($rest__1);
+            $de__1 = $match__1[4];
+            $ed__1 = $match__1[3];
+            $af__1 = $match__1[2];
+            $fa__1 = $match__1[1];
+            $mk = function($param) use ($af__1,$caml_call1) {
+              $caml_call1($af__1, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__1) {
+                $caml_call1($fa__1, 0);
+                return 0;
+              },
+              $mk,
+              $ed__1,
+              $de__1
+            };
+          // FALLTHROUGH
+          case 3:
+            $rest__2 = $param[1];
+            $match__2 = $fmtty_rel_det->contents($rest__2);
+            $de__2 = $match__2[4];
+            $ed__2 = $match__2[3];
+            $af__2 = $match__2[2];
+            $fa__2 = $match__2[1];
+            $ml = function($param) use ($af__2,$caml_call1) {
+              $caml_call1($af__2, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__2) {
+                $caml_call1($fa__2, 0);
+                return 0;
+              },
+              $ml,
+              $ed__2,
+              $de__2
+            };
+          // FALLTHROUGH
+          case 4:
+            $rest__3 = $param[1];
+            $match__3 = $fmtty_rel_det->contents($rest__3);
+            $de__3 = $match__3[4];
+            $ed__3 = $match__3[3];
+            $af__3 = $match__3[2];
+            $fa__3 = $match__3[1];
+            $mm = function($param) use ($af__3,$caml_call1) {
+              $caml_call1($af__3, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__3) {
+                $caml_call1($fa__3, 0);
+                return 0;
+              },
+              $mm,
+              $ed__3,
+              $de__3
+            };
+          // FALLTHROUGH
+          case 5:
+            $rest__4 = $param[1];
+            $match__4 = $fmtty_rel_det->contents($rest__4);
+            $de__4 = $match__4[4];
+            $ed__4 = $match__4[3];
+            $af__4 = $match__4[2];
+            $fa__4 = $match__4[1];
+            $mn = function($param) use ($af__4,$caml_call1) {
+              $caml_call1($af__4, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__4) {
+                $caml_call1($fa__4, 0);
+                return 0;
+              },
+              $mn,
+              $ed__4,
+              $de__4
+            };
+          // FALLTHROUGH
+          case 6:
+            $rest__5 = $param[1];
+            $match__5 = $fmtty_rel_det->contents($rest__5);
+            $de__5 = $match__5[4];
+            $ed__5 = $match__5[3];
+            $af__5 = $match__5[2];
+            $fa__5 = $match__5[1];
+            $mo = function($param) use ($af__5,$caml_call1) {
+              $caml_call1($af__5, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__5) {
+                $caml_call1($fa__5, 0);
+                return 0;
+              },
+              $mo,
+              $ed__5,
+              $de__5
+            };
+          // FALLTHROUGH
+          case 7:
+            $rest__6 = $param[1];
+            $match__6 = $fmtty_rel_det->contents($rest__6);
+            $de__6 = $match__6[4];
+            $ed__6 = $match__6[3];
+            $af__6 = $match__6[2];
+            $fa__6 = $match__6[1];
+            $mp = function($param) use ($af__6,$caml_call1) {
+              $caml_call1($af__6, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__6) {
+                $caml_call1($fa__6, 0);
+                return 0;
+              },
+              $mp,
+              $ed__6,
+              $de__6
+            };
+          // FALLTHROUGH
+          case 8:
+            $rest__7 = $param[2];
+            $match__7 = $fmtty_rel_det->contents($rest__7);
+            $de__7 = $match__7[4];
+            $ed__7 = $match__7[3];
+            $af__7 = $match__7[2];
+            $fa__7 = $match__7[1];
+            $mq = function($param) use ($af__7,$caml_call1) {
+              $caml_call1($af__7, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__7) {
+                $caml_call1($fa__7, 0);
+                return 0;
+              },
+              $mq,
+              $ed__7,
+              $de__7
+            };
+          // FALLTHROUGH
+          case 9:
+            $rest__8 = $param[3];
+            $ty2 = $param[2];
+            $ty1 = $param[1];
+            $match__8 = $fmtty_rel_det->contents($rest__8);
+            $de__8 = $match__8[4];
+            $ed__8 = $match__8[3];
+            $af__8 = $match__8[2];
+            $fa__8 = $match__8[1];
+            $ty = $trans->contents($symm->contents($ty1), $ty2);
+            $match__9 = $fmtty_rel_det->contents($ty);
+            $jd = $match__9[4];
+            $dj = $match__9[3];
+            $ga = $match__9[2];
+            $ag = $match__9[1];
+            $mr = function($param) use ($caml_call1,$de__8,$jd) {
+              $caml_call1($jd, 0);
+              $caml_call1($de__8, 0);
+              return 0;
+            };
+            $ms = function($param) use ($caml_call1,$dj,$ed__8) {
+              $caml_call1($ed__8, 0);
+              $caml_call1($dj, 0);
+              return 0;
+            };
+            $mt = function($param) use ($af__8,$caml_call1,$ga) {
+              $caml_call1($ga, 0);
+              $caml_call1($af__8, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($ag,$caml_call1,$fa__8) {
+                $caml_call1($fa__8, 0);
+                $caml_call1($ag, 0);
+                return 0;
+              },
+              $mt,
+              $ms,
+              $mr
+            };
+          // FALLTHROUGH
+          case 10:
+            $rest__9 = $param[1];
+            $match__10 = $fmtty_rel_det->contents($rest__9);
+            $de__9 = $match__10[4];
+            $ed__9 = $match__10[3];
+            $af__9 = $match__10[2];
+            $fa__9 = $match__10[1];
+            $mu = function($param) use ($af__9,$caml_call1) {
+              $caml_call1($af__9, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__9) {
+                $caml_call1($fa__9, 0);
+                return 0;
+              },
+              $mu,
+              $ed__9,
+              $de__9
+            };
+          // FALLTHROUGH
+          case 11:
+            $rest__10 = $param[1];
+            $match__11 = $fmtty_rel_det->contents($rest__10);
+            $de__10 = $match__11[4];
+            $ed__10 = $match__11[3];
+            $af__10 = $match__11[2];
+            $fa__10 = $match__11[1];
+            $mv = function($param) use ($af__10,$caml_call1) {
+              $caml_call1($af__10, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__10) {
+                $caml_call1($fa__10, 0);
+                return 0;
+              },
+              $mv,
+              $ed__10,
+              $de__10
+            };
+          // FALLTHROUGH
+          case 12:
+            $rest__11 = $param[1];
+            $match__12 = $fmtty_rel_det->contents($rest__11);
+            $de__11 = $match__12[4];
+            $ed__11 = $match__12[3];
+            $af__11 = $match__12[2];
+            $fa__11 = $match__12[1];
+            $mw = function($param) use ($af__11,$caml_call1) {
+              $caml_call1($af__11, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__11) {
+                $caml_call1($fa__11, 0);
+                return 0;
+              },
+              $mw,
+              $ed__11,
+              $de__11
+            };
+          // FALLTHROUGH
+          case 13:
+            $rest__12 = $param[1];
+            $match__13 = $fmtty_rel_det->contents($rest__12);
+            $de__12 = $match__13[4];
+            $ed__12 = $match__13[3];
+            $af__12 = $match__13[2];
+            $fa__12 = $match__13[1];
+            $mx = function($param) use ($caml_call1,$de__12) {
+              $caml_call1($de__12, 0);
+              return 0;
+            };
+            $my = function($param) use ($caml_call1,$ed__12) {
+              $caml_call1($ed__12, 0);
+              return 0;
+            };
+            $mz = function($param) use ($af__12,$caml_call1) {
+              $caml_call1($af__12, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__12) {
+                $caml_call1($fa__12, 0);
+                return 0;
+              },
+              $mz,
+              $my,
+              $mx
+            };
+          // FALLTHROUGH
+          default:
+            $rest__13 = $param[1];
+            $match__14 = $fmtty_rel_det->contents($rest__13);
+            $de__13 = $match__14[4];
+            $ed__13 = $match__14[3];
+            $af__13 = $match__14[2];
+            $fa__13 = $match__14[1];
+            $mA = function($param) use ($caml_call1,$de__13) {
+              $caml_call1($de__13, 0);
+              return 0;
+            };
+            $mB = function($param) use ($caml_call1,$ed__13) {
+              $caml_call1($ed__13, 0);
+              return 0;
+            };
+            $mC = function($param) use ($af__13,$caml_call1) {
+              $caml_call1($af__13, 0);
+              return 0;
+            };
+            return Vector{
+              0,
+              function($param) use ($caml_call1,$fa__13) {
+                $caml_call1($fa__13, 0);
+                return 0;
+              },
+              $mC,
+              $mB,
+              $mA
+            };
+          }
+      }
+    };
+    $trans->contents = function($ty1, $match) use ($Assert_failure,$caml_call1,$fmtty_rel_det,$hA,$hB,$hC,$hD,$hE,$hF,$hG,$hH,$hI,$hJ,$hK,$hL,$hM,$hN,$hO,$hz,$is_int,$runtime,$symm,$trans) {
+      if ($is_int($ty1)) {
+        if ($is_int($match)) {return 0;}
+        else {
+          switch($match[0]) {
+            // FALLTHROUGH
+            case 10:
+              $switch__0 = 0;
+              break;
+            // FALLTHROUGH
+            case 11:
+              $switch__0 = 1;
+              break;
+            // FALLTHROUGH
+            case 12:
+              $switch__0 = 2;
+              break;
+            // FALLTHROUGH
+            case 13:
+              $switch__0 = 3;
+              break;
+            // FALLTHROUGH
+            case 14:
+              $switch__0 = 4;
+              break;
+            // FALLTHROUGH
+            case 8:
+              $switch__0 = 5;
+              break;
+            // FALLTHROUGH
+            case 9:
+              $switch__0 = 6;
+              break;
+            // FALLTHROUGH
+            default:
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hz}) as \Throwable;
+            }
+        }
+      }
+      else {
+        switch($ty1[0]) {
+          // FALLTHROUGH
+          case 0:
+            $lX = $ty1[1];
+            if ($is_int($match)) {$switch__1 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 0:
+                  $rest2 = $match[1];
+                  return Vector{0, $trans->contents($lX, $rest2)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__1 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__1 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__1 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__1 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__1 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__1 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__1 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__1 = 1;
+                }
+            }
+            if ($switch__1) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 1:
+            $lY = $ty1[1];
+            if ($is_int($match)) {$switch__2 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 1:
+                  $rest2__0 = $match[1];
+                  return Vector{1, $trans->contents($lY, $rest2__0)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__2 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__2 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__2 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__2 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__2 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__2 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__2 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__2 = 1;
+                }
+            }
+            if ($switch__2) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 2:
+            $lZ = $ty1[1];
+            if ($is_int($match)) {$switch__3 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 2:
+                  $rest2__1 = $match[1];
+                  return Vector{2, $trans->contents($lZ, $rest2__1)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__3 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__3 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__3 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__3 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__3 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__3 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__3 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__3 = 1;
+                }
+            }
+            if ($switch__3) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 3:
+            $l0 = $ty1[1];
+            if ($is_int($match)) {$switch__4 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 3:
+                  $rest2__2 = $match[1];
+                  return Vector{3, $trans->contents($l0, $rest2__2)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__4 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__4 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__4 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__4 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__4 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__4 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__4 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__4 = 1;
+                }
+            }
+            if ($switch__4) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 4:
+            $l1 = $ty1[1];
+            if ($is_int($match)) {$switch__5 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 4:
+                  $rest2__3 = $match[1];
+                  return Vector{4, $trans->contents($l1, $rest2__3)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__5 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__5 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__5 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__5 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__5 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__5 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__5 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__5 = 1;
+                }
+            }
+            if ($switch__5) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 5:
+            $l2 = $ty1[1];
+            if ($is_int($match)) {$switch__6 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 5:
+                  $rest2__4 = $match[1];
+                  return Vector{5, $trans->contents($l2, $rest2__4)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__6 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__6 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__6 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__6 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__6 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__6 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__6 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__6 = 1;
+                }
+            }
+            if ($switch__6) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 6:
+            $l3 = $ty1[1];
+            if ($is_int($match)) {$switch__7 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 6:
+                  $rest2__5 = $match[1];
+                  return Vector{6, $trans->contents($l3, $rest2__5)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__7 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__7 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__7 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__7 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__7 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__7 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__7 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__7 = 1;
+                }
+            }
+            if ($switch__7) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 7:
+            $l4 = $ty1[1];
+            if ($is_int($match)) {$switch__8 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 7:
+                  $rest2__6 = $match[1];
+                  return Vector{7, $trans->contents($l4, $rest2__6)};
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__8 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $switch__0 = 6;
+                  $switch__8 = 0;
+                  break;
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__8 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__8 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__8 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__8 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__8 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__8 = 1;
+                }
+            }
+            if ($switch__8) {$switch__0 = 7;}
+            break;
+          // FALLTHROUGH
+          case 8:
+            $l5 = $ty1[2];
+            $l6 = $ty1[1];
+            if ($is_int($match)) {$switch__9 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 8:
+                  $rest2__7 = $match[2];
+                  $ty2 = $match[1];
+                  $l7 = $trans->contents($l5, $rest2__7);
+                  return Vector{8, $trans->contents($l6, $ty2), $l7};
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__9 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__9 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__9 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__9 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__9 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__9 = 1;
+                }
+            }
+            if ($switch__9) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hI}) as \Throwable;
+            }
+            break;
+          // FALLTHROUGH
+          case 9:
+            $l8 = $ty1[3];
+            $l9 = $ty1[2];
+            $l_ = $ty1[1];
+            if ($is_int($match)) {$switch__10 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 8:
+                  $switch__0 = 5;
+                  $switch__10 = 0;
+                  break;
+                // FALLTHROUGH
+                case 9:
+                  $rest2__8 = $match[3];
+                  $ty22 = $match[2];
+                  $ty21 = $match[1];
+                  $ty = $trans->contents($symm->contents($l9), $ty21);
+                  $match__0 = $fmtty_rel_det->contents($ty);
+                  $f4 = $match__0[4];
+                  $f2 = $match__0[2];
+                  $caml_call1($f2, 0);
+                  $caml_call1($f4, 0);
+                  return Vector{
+                    9,
+                    $l_,
+                    $ty22,
+                    $trans->contents($l8, $rest2__8)
+                  };
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__10 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__10 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__10 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__10 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $switch__0 = 4;
+                  $switch__10 = 0;
+                  break;
+                // FALLTHROUGH
+                default:
+                  $switch__10 = 1;
+                }
+            }
+            if ($switch__10) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hJ}) as \Throwable;
+            }
+            break;
+          // FALLTHROUGH
+          case 10:
+            $ma = $ty1[1];
+            if (! $is_int($match) && 10 === $match[0]) {
+              $rest2__9 = $match[1];
+              return Vector{10, $trans->contents($ma, $rest2__9)};
+            }
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hK}) as \Throwable;
+          // FALLTHROUGH
+          case 11:
+            $mb = $ty1[1];
+            if ($is_int($match)) {$switch__11 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__11 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $rest2__10 = $match[1];
+                  return Vector{11, $trans->contents($mb, $rest2__10)};
+                // FALLTHROUGH
+                default:
+                  $switch__11 = 1;
+                }
+            }
+            if ($switch__11) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hL}) as \Throwable;
+            }
+            break;
+          // FALLTHROUGH
+          case 12:
+            $mc = $ty1[1];
+            if ($is_int($match)) {$switch__12 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__12 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__12 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $rest2__11 = $match[1];
+                  return Vector{12, $trans->contents($mc, $rest2__11)};
+                // FALLTHROUGH
+                default:
+                  $switch__12 = 1;
+                }
+            }
+            if ($switch__12) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hM}) as \Throwable;
+            }
+            break;
+          // FALLTHROUGH
+          case 13:
+            $md = $ty1[1];
+            if ($is_int($match)) {$switch__13 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__13 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__13 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__13 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $rest2__12 = $match[1];
+                  return Vector{13, $trans->contents($md, $rest2__12)};
+                // FALLTHROUGH
+                default:
+                  $switch__13 = 1;
+                }
+            }
+            if ($switch__13) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hN}) as \Throwable;
+            }
+            break;
+          // FALLTHROUGH
+          default:
+            $me = $ty1[1];
+            if ($is_int($match)) {$switch__14 = 1;}
+            else {
+              switch($match[0]) {
+                // FALLTHROUGH
+                case 10:
+                  $switch__0 = 0;
+                  $switch__14 = 0;
+                  break;
+                // FALLTHROUGH
+                case 11:
+                  $switch__0 = 1;
+                  $switch__14 = 0;
+                  break;
+                // FALLTHROUGH
+                case 12:
+                  $switch__0 = 2;
+                  $switch__14 = 0;
+                  break;
+                // FALLTHROUGH
+                case 13:
+                  $switch__0 = 3;
+                  $switch__14 = 0;
+                  break;
+                // FALLTHROUGH
+                case 14:
+                  $rest2__13 = $match[1];
+                  return Vector{14, $trans->contents($me, $rest2__13)};
+                // FALLTHROUGH
+                default:
+                  $switch__14 = 1;
+                }
+            }
+            if ($switch__14) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hO}) as \Throwable;
+            }
+          }
+      }
+      switch($switch__0) {
+        // FALLTHROUGH
+        case 0:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hC}) as \Throwable;
+        // FALLTHROUGH
+        case 1:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hD}) as \Throwable;
+        // FALLTHROUGH
+        case 2:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hE}) as \Throwable;
+        // FALLTHROUGH
+        case 3:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hF}) as \Throwable;
+        // FALLTHROUGH
+        case 4:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hG}) as \Throwable;
+        // FALLTHROUGH
+        case 5:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hA}) as \Throwable;
+        // FALLTHROUGH
+        case 6:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hB}) as \Throwable;
+        // FALLTHROUGH
+        default:
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hH}) as \Throwable;
+        }
+    };
     $fmtty_of_padding_fmtty = function($pad, $fmtty) use ($is_int) {
       return $is_int($pad)
         ? $fmtty
         : (0 === $pad[0] ? $fmtty : (Vector{2, $fmtty}));
     };
-    $_ = $fmtty_of_custom->contents =
-      function($arity, $fmtty) use ($fmtty_of_custom) {
-        if ($arity) {
-          $arity__0 = $arity[1];
-          return Vector{12, $fmtty_of_custom->contents($arity__0, $fmtty)};
-        }
-        return $fmtty;
-      };
+    $fmtty_of_custom->contents = function($arity, $fmtty) use ($fmtty_of_custom) {
+      if ($arity) {
+        $arity__0 = $arity[1];
+        return Vector{12, $fmtty_of_custom->contents($arity__0, $fmtty)};
+      }
+      return $fmtty;
+    };
     $fmtty_of_fmt__0 = function($counter, $fmtty) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_custom,$fmtty_of_fmt,$fmtty_of_formatting_gen,$fmtty_of_ignored_format,$fmtty_of_padding_fmtty,$fmtty_of_precision_fmtty,$is_int) {
       $fmtty__0 = $fmtty;
       for (;;) if (
@@ -3109,144 +3095,140 @@ final class CamlinternalFormat {
           }
       }
     };
-    $_ = $fmtty_of_ignored_format->contents =
-      function($counter, $ign, $fmt) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_fmt,$fmtty_of_fmt__0,$is_int) {
-        if ($is_int($ign)) {
-          switch($ign) {
-            // FALLTHROUGH
-            case 0:
-              if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__0, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 1:
-              if ($counter < 50) {
-                $counter__1 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__1, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 2:
-              return Vector{14, $fmtty_of_fmt->contents($fmt)};
-            // FALLTHROUGH
-            default:
-              if ($counter < 50) {
-                $counter__2 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__2, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+    $fmtty_of_ignored_format->contents = function($counter, $ign, $fmt) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_fmt,$fmtty_of_fmt__0,$is_int) {
+      if ($is_int($ign)) {
+        switch($ign) {
+          // FALLTHROUGH
+          case 0:
+            if ($counter < 50) {
+              $counter__0 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__0, $fmt);
             }
-        }
-        else {
-          switch($ign[0]) {
-            // FALLTHROUGH
-            case 0:
-              if ($counter < 50) {
-                $counter__3 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__3, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 1:
-              if ($counter < 50) {
-                $counter__4 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__4, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 2:
-              if ($counter < 50) {
-                $counter__5 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__5, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 3:
-              if ($counter < 50) {
-                $counter__6 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__6, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 4:
-              if ($counter < 50) {
-                $counter__7 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__7, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 5:
-              if ($counter < 50) {
-                $counter__8 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__8, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 6:
-              if ($counter < 50) {
-                $counter__9 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__9, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 7:
-              if ($counter < 50) {
-                $counter__10 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__10, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 8:
-              if ($counter < 50) {
-                $counter__11 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__11, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            case 9:
-              $fmtty = $ign[2];
-              $lU = $fmtty_of_fmt->contents($fmt);
-              return $caml_call2($CamlinternalFormatBasics[1], $fmtty, $lU);
-            // FALLTHROUGH
-            case 10:
-              if ($counter < 50) {
-                $counter__12 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__12, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
-            // FALLTHROUGH
-            default:
-              if ($counter < 50) {
-                $counter__13 = (int) ($counter + 1);
-                return $fmtty_of_fmt__0($counter__13, $fmt);
-              }
-              return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 1:
+            if ($counter < 50) {
+              $counter__1 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__1, $fmt);
             }
-        }
-      };
-    $_ = $fmtty_of_fmt->contents =
-      function($fmtty) use ($caml_trampoline,$fmtty_of_fmt__0) {
-        return $caml_trampoline($fmtty_of_fmt__0(0, $fmtty));
-      };
-    $_ = $fmtty_of_formatting_gen->contents =
-      function($formatting_gen) use ($fmtty_of_fmt) {
-        if (0 === $formatting_gen[0]) {
-          $match = $formatting_gen[1];
-          $fmt = $match[1];
-          return $fmtty_of_fmt->contents($fmt);
-        }
-        $match__0 = $formatting_gen[1];
-        $fmt__0 = $match__0[1];
-        return $fmtty_of_fmt->contents($fmt__0);
-      };
-    $_ = $fmtty_of_precision_fmtty->contents =
-      function($prec, $fmtty) use ($is_int) {
-        return $is_int($prec)
-          ? 0 === $prec ? $fmtty : (Vector{2, $fmtty})
-          : ($fmtty);
-      };
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 2:
+            return Vector{14, $fmtty_of_fmt->contents($fmt)};
+          // FALLTHROUGH
+          default:
+            if ($counter < 50) {
+              $counter__2 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__2, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          }
+      }
+      else {
+        switch($ign[0]) {
+          // FALLTHROUGH
+          case 0:
+            if ($counter < 50) {
+              $counter__3 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__3, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 1:
+            if ($counter < 50) {
+              $counter__4 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__4, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 2:
+            if ($counter < 50) {
+              $counter__5 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__5, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 3:
+            if ($counter < 50) {
+              $counter__6 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__6, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 4:
+            if ($counter < 50) {
+              $counter__7 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__7, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 5:
+            if ($counter < 50) {
+              $counter__8 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__8, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 6:
+            if ($counter < 50) {
+              $counter__9 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__9, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 7:
+            if ($counter < 50) {
+              $counter__10 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__10, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 8:
+            if ($counter < 50) {
+              $counter__11 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__11, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          case 9:
+            $fmtty = $ign[2];
+            $lU = $fmtty_of_fmt->contents($fmt);
+            return $caml_call2($CamlinternalFormatBasics[1], $fmtty, $lU);
+          // FALLTHROUGH
+          case 10:
+            if ($counter < 50) {
+              $counter__12 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__12, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          // FALLTHROUGH
+          default:
+            if ($counter < 50) {
+              $counter__13 = (int) ($counter + 1);
+              return $fmtty_of_fmt__0($counter__13, $fmt);
+            }
+            return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
+          }
+      }
+    };
+    $fmtty_of_fmt->contents = function($fmtty) use ($caml_trampoline,$fmtty_of_fmt__0) {
+      return $caml_trampoline($fmtty_of_fmt__0(0, $fmtty));
+    };
+    $fmtty_of_formatting_gen->contents = function($formatting_gen) use ($fmtty_of_fmt) {
+      if (0 === $formatting_gen[0]) {
+        $match = $formatting_gen[1];
+        $fmt = $match[1];
+        return $fmtty_of_fmt->contents($fmt);
+      }
+      $match__0 = $formatting_gen[1];
+      $fmt__0 = $match__0[1];
+      return $fmtty_of_fmt->contents($fmt__0);
+    };
+    $fmtty_of_precision_fmtty->contents = function($prec, $fmtty) use ($is_int) {
+      return $is_int($prec)
+        ? 0 === $prec ? $fmtty : (Vector{2, $fmtty})
+        : ($fmtty);
+    };
     $Type_mismatch = Vector{
       248,
       $cst_CamlinternalFormat_Type_mismatch,
@@ -3420,702 +3402,684 @@ final class CamlinternalFormat {
         $fmtty3__0
       };
     };
-    $_ = $type_format_gen->contents =
-      function($fmt, $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$is_int,$runtime,$type_format_gen,$type_formatting_gen,$type_ignored_param,$type_padding,$type_padprec) {
-        if ($is_int($fmt)) {
-          return Vector{0, 0, $match};
-        }
-        else {
-          switch($fmt[0]) {
-            // FALLTHROUGH
-            case 0:
-              if (! $is_int($match) && 0 === $match[0]) {
-                $fmtty_rest = $match[1];
-                $fmt_rest = $fmt[1];
-                $match__0 = $type_format_gen->contents($fmt_rest, $fmtty_rest);
-                $fmtty = $match__0[2];
-                $fmt__0 = $match__0[1];
-                return Vector{0, Vector{0, $fmt__0}, $fmtty};
-              }
-              break;
-            // FALLTHROUGH
-            case 1:
-              if (! $is_int($match) && 0 === $match[0]) {
-                $fmtty_rest__0 = $match[1];
-                $fmt_rest__0 = $fmt[1];
-                $match__1 = $type_format_gen->contents(
-                  $fmt_rest__0,
-                  $fmtty_rest__0
-                );
-                $fmtty__0 = $match__1[2];
-                $fmt__1 = $match__1[1];
-                return Vector{0, Vector{1, $fmt__1}, $fmtty__0};
-              }
-              break;
-            // FALLTHROUGH
-            case 2:
-              $fmt_rest__1 = $fmt[2];
-              $pad = $fmt[1];
-              $ln = $type_padding($pad, $match);
-              $lo = $ln[2];
-              $lp = $ln[1];
-              if (! $is_int($lo) && 1 === $lo[0]) {
-                $fmtty_rest__1 = $lo[1];
-                $match__2 = $type_format_gen->contents(
-                  $fmt_rest__1,
-                  $fmtty_rest__1
-                );
-                $fmtty__1 = $match__2[2];
-                $fmt__2 = $match__2[1];
-                return Vector{0, Vector{2, $lp, $fmt__2}, $fmtty__1};
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 3:
-              $fmt_rest__2 = $fmt[2];
-              $pad__0 = $fmt[1];
-              $lq = $type_padding($pad__0, $match);
-              $lr = $lq[2];
-              $ls = $lq[1];
-              if (! $is_int($lr) && 1 === $lr[0]) {
-                $fmtty_rest__2 = $lr[1];
-                $match__3 = $type_format_gen->contents(
-                  $fmt_rest__2,
-                  $fmtty_rest__2
-                );
-                $fmtty__2 = $match__3[2];
-                $fmt__3 = $match__3[1];
-                return Vector{0, Vector{3, $ls, $fmt__3}, $fmtty__2};
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 4:
-              $fmt_rest__3 = $fmt[4];
-              $prec = $fmt[3];
-              $pad__1 = $fmt[2];
-              $iconv = $fmt[1];
-              $lt = $type_padprec($pad__1, $prec, $match);
-              $lu = $lt[3];
-              $lv = $lt[2];
-              $lw = $lt[1];
-              if (! $is_int($lu) && 2 === $lu[0]) {
-                $fmtty_rest__3 = $lu[1];
-                $match__4 = $type_format_gen->contents(
-                  $fmt_rest__3,
-                  $fmtty_rest__3
-                );
-                $fmtty__3 = $match__4[2];
-                $fmt__4 = $match__4[1];
-                return Vector{
-                  0,
-                  Vector{4, $iconv, $lw, $lv, $fmt__4},
-                  $fmtty__3
-                };
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 5:
-              $fmt_rest__4 = $fmt[4];
-              $prec__0 = $fmt[3];
-              $pad__2 = $fmt[2];
-              $iconv__0 = $fmt[1];
-              $lx = $type_padprec($pad__2, $prec__0, $match);
-              $ly = $lx[3];
-              $lz = $lx[2];
-              $lA = $lx[1];
-              if (! $is_int($ly) && 3 === $ly[0]) {
-                $fmtty_rest__4 = $ly[1];
-                $match__5 = $type_format_gen->contents(
-                  $fmt_rest__4,
-                  $fmtty_rest__4
-                );
-                $fmtty__4 = $match__5[2];
-                $fmt__5 = $match__5[1];
-                return Vector{
-                  0,
-                  Vector{5, $iconv__0, $lA, $lz, $fmt__5},
-                  $fmtty__4
-                };
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 6:
-              $fmt_rest__5 = $fmt[4];
-              $prec__1 = $fmt[3];
-              $pad__3 = $fmt[2];
-              $iconv__1 = $fmt[1];
-              $lB = $type_padprec($pad__3, $prec__1, $match);
-              $lC = $lB[3];
-              $lD = $lB[2];
-              $lE = $lB[1];
-              if (! $is_int($lC) && 4 === $lC[0]) {
-                $fmtty_rest__5 = $lC[1];
-                $match__6 = $type_format_gen->contents(
-                  $fmt_rest__5,
-                  $fmtty_rest__5
-                );
-                $fmtty__5 = $match__6[2];
-                $fmt__6 = $match__6[1];
-                return Vector{
-                  0,
-                  Vector{6, $iconv__1, $lE, $lD, $fmt__6},
-                  $fmtty__5
-                };
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 7:
-              $fmt_rest__6 = $fmt[4];
-              $prec__2 = $fmt[3];
-              $pad__4 = $fmt[2];
-              $iconv__2 = $fmt[1];
-              $lF = $type_padprec($pad__4, $prec__2, $match);
-              $lG = $lF[3];
-              $lH = $lF[2];
-              $lI = $lF[1];
-              if (! $is_int($lG) && 5 === $lG[0]) {
-                $fmtty_rest__6 = $lG[1];
-                $match__7 = $type_format_gen->contents(
-                  $fmt_rest__6,
-                  $fmtty_rest__6
-                );
-                $fmtty__6 = $match__7[2];
-                $fmt__7 = $match__7[1];
-                return Vector{
-                  0,
-                  Vector{7, $iconv__2, $lI, $lH, $fmt__7},
-                  $fmtty__6
-                };
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 8:
-              $fmt_rest__7 = $fmt[4];
-              $prec__3 = $fmt[3];
-              $pad__5 = $fmt[2];
-              $fconv = $fmt[1];
-              $lJ = $type_padprec($pad__5, $prec__3, $match);
-              $lK = $lJ[3];
-              $lL = $lJ[2];
-              $lM = $lJ[1];
-              if (! $is_int($lK) && 6 === $lK[0]) {
-                $fmtty_rest__7 = $lK[1];
-                $match__8 = $type_format_gen->contents(
-                  $fmt_rest__7,
-                  $fmtty_rest__7
-                );
-                $fmtty__7 = $match__8[2];
-                $fmt__8 = $match__8[1];
-                return Vector{
-                  0,
-                  Vector{8, $fconv, $lM, $lL, $fmt__8},
-                  $fmtty__7
-                };
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 9:
-              $fmt_rest__8 = $fmt[2];
-              $pad__6 = $fmt[1];
-              $lN = $type_padding($pad__6, $match);
-              $lO = $lN[2];
-              $lP = $lN[1];
-              if (! $is_int($lO) && 7 === $lO[0]) {
-                $fmtty_rest__8 = $lO[1];
-                $match__9 = $type_format_gen->contents(
-                  $fmt_rest__8,
-                  $fmtty_rest__8
-                );
-                $fmtty__8 = $match__9[2];
-                $fmt__9 = $match__9[1];
-                return Vector{0, Vector{9, $lP, $fmt__9}, $fmtty__8};
-              }
-              throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-            // FALLTHROUGH
-            case 10:
-              $fmt_rest__9 = $fmt[1];
-              $match__10 = $type_format_gen->contents($fmt_rest__9, $match);
-              $fmtty__9 = $match__10[2];
-              $fmt__10 = $match__10[1];
-              return Vector{0, Vector{10, $fmt__10}, $fmtty__9};
-            // FALLTHROUGH
-            case 11:
-              $fmt_rest__10 = $fmt[2];
-              $str = $fmt[1];
-              $match__11 = $type_format_gen->contents($fmt_rest__10, $match);
-              $fmtty__10 = $match__11[2];
-              $fmt__11 = $match__11[1];
-              return Vector{0, Vector{11, $str, $fmt__11}, $fmtty__10};
-            // FALLTHROUGH
-            case 12:
-              $fmt_rest__11 = $fmt[2];
-              $chr = $fmt[1];
-              $match__12 = $type_format_gen->contents($fmt_rest__11, $match);
-              $fmtty__11 = $match__12[2];
-              $fmt__12 = $match__12[1];
-              return Vector{0, Vector{12, $chr, $fmt__12}, $fmtty__11};
-            // FALLTHROUGH
-            case 13:
-              if (! $is_int($match) && 8 === $match[0]) {
-                $fmtty_rest__9 = $match[2];
-                $sub_fmtty = $match[1];
-                $fmt_rest__12 = $fmt[3];
-                $sub_fmtty__0 = $fmt[2];
-                $pad_opt = $fmt[1];
-                if (
-                  $caml_notequal(
-                    Vector{0, $sub_fmtty__0},
-                    Vector{0, $sub_fmtty}
-                  )
-                ) {
-                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-                }
-                $match__13 = $type_format_gen->contents(
-                  $fmt_rest__12,
-                  $fmtty_rest__9
-                );
-                $fmtty__12 = $match__13[2];
-                $fmt__13 = $match__13[1];
-                return Vector{
-                  0,
-                  Vector{13, $pad_opt, $sub_fmtty, $fmt__13},
-                  $fmtty__12
-                };
-              }
-              break;
-            // FALLTHROUGH
-            case 14:
-              if (! $is_int($match) && 9 === $match[0]) {
-                $fmtty_rest__10 = $match[3];
-                $sub_fmtty1 = $match[1];
-                $fmt_rest__13 = $fmt[3];
-                $sub_fmtty__1 = $fmt[2];
-                $pad_opt__0 = $fmt[1];
-                $lQ = Vector{
-                  0,
-                  $caml_call1($CamlinternalFormatBasics[2], $sub_fmtty1)
-                };
-                if (
-                  $caml_notequal(
-                    Vector{
-                      0,
-                      $caml_call1($CamlinternalFormatBasics[2], $sub_fmtty__1)
-                    },
-                    $lQ
-                  )
-                ) {
-                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-                }
-                $match__14 = $type_format_gen->contents(
-                  $fmt_rest__13,
-                  $caml_call1($CamlinternalFormatBasics[2], $fmtty_rest__10)
-                );
-                $fmtty__13 = $match__14[2];
-                $fmt__14 = $match__14[1];
-                return Vector{
-                  0,
-                  Vector{14, $pad_opt__0, $sub_fmtty1, $fmt__14},
-                  $fmtty__13
-                };
-              }
-              break;
-            // FALLTHROUGH
-            case 15:
-              if (! $is_int($match) && 10 === $match[0]) {
-                $fmtty_rest__11 = $match[1];
-                $fmt_rest__14 = $fmt[1];
-                $match__15 = $type_format_gen->contents(
-                  $fmt_rest__14,
-                  $fmtty_rest__11
-                );
-                $fmtty__14 = $match__15[2];
-                $fmt__15 = $match__15[1];
-                return Vector{0, Vector{15, $fmt__15}, $fmtty__14};
-              }
-              break;
-            // FALLTHROUGH
-            case 16:
-              if (! $is_int($match) && 11 === $match[0]) {
-                $fmtty_rest__12 = $match[1];
-                $fmt_rest__15 = $fmt[1];
-                $match__16 = $type_format_gen->contents(
-                  $fmt_rest__15,
-                  $fmtty_rest__12
-                );
-                $fmtty__15 = $match__16[2];
-                $fmt__16 = $match__16[1];
-                return Vector{0, Vector{16, $fmt__16}, $fmtty__15};
-              }
-              break;
-            // FALLTHROUGH
-            case 17:
-              $fmt_rest__16 = $fmt[2];
-              $formatting_lit = $fmt[1];
-              $match__17 = $type_format_gen->contents($fmt_rest__16, $match);
-              $fmtty__16 = $match__17[2];
-              $fmt__17 = $match__17[1];
+    $type_format_gen->contents = function($fmt, $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$is_int,$runtime,$type_format_gen,$type_formatting_gen,$type_ignored_param,$type_padding,$type_padprec) {
+      if ($is_int($fmt)) {
+        return Vector{0, 0, $match};
+      }
+      else {
+        switch($fmt[0]) {
+          // FALLTHROUGH
+          case 0:
+            if (! $is_int($match) && 0 === $match[0]) {
+              $fmtty_rest = $match[1];
+              $fmt_rest = $fmt[1];
+              $match__0 = $type_format_gen->contents($fmt_rest, $fmtty_rest);
+              $fmtty = $match__0[2];
+              $fmt__0 = $match__0[1];
+              return Vector{0, Vector{0, $fmt__0}, $fmtty};
+            }
+            break;
+          // FALLTHROUGH
+          case 1:
+            if (! $is_int($match) && 0 === $match[0]) {
+              $fmtty_rest__0 = $match[1];
+              $fmt_rest__0 = $fmt[1];
+              $match__1 = $type_format_gen->contents(
+                $fmt_rest__0,
+                $fmtty_rest__0
+              );
+              $fmtty__0 = $match__1[2];
+              $fmt__1 = $match__1[1];
+              return Vector{0, Vector{1, $fmt__1}, $fmtty__0};
+            }
+            break;
+          // FALLTHROUGH
+          case 2:
+            $fmt_rest__1 = $fmt[2];
+            $pad = $fmt[1];
+            $ln = $type_padding($pad, $match);
+            $lo = $ln[2];
+            $lp = $ln[1];
+            if (! $is_int($lo) && 1 === $lo[0]) {
+              $fmtty_rest__1 = $lo[1];
+              $match__2 = $type_format_gen->contents(
+                $fmt_rest__1,
+                $fmtty_rest__1
+              );
+              $fmtty__1 = $match__2[2];
+              $fmt__2 = $match__2[1];
+              return Vector{0, Vector{2, $lp, $fmt__2}, $fmtty__1};
+            }
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 3:
+            $fmt_rest__2 = $fmt[2];
+            $pad__0 = $fmt[1];
+            $lq = $type_padding($pad__0, $match);
+            $lr = $lq[2];
+            $ls = $lq[1];
+            if (! $is_int($lr) && 1 === $lr[0]) {
+              $fmtty_rest__2 = $lr[1];
+              $match__3 = $type_format_gen->contents(
+                $fmt_rest__2,
+                $fmtty_rest__2
+              );
+              $fmtty__2 = $match__3[2];
+              $fmt__3 = $match__3[1];
+              return Vector{0, Vector{3, $ls, $fmt__3}, $fmtty__2};
+            }
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 4:
+            $fmt_rest__3 = $fmt[4];
+            $prec = $fmt[3];
+            $pad__1 = $fmt[2];
+            $iconv = $fmt[1];
+            $lt = $type_padprec($pad__1, $prec, $match);
+            $lu = $lt[3];
+            $lv = $lt[2];
+            $lw = $lt[1];
+            if (! $is_int($lu) && 2 === $lu[0]) {
+              $fmtty_rest__3 = $lu[1];
+              $match__4 = $type_format_gen->contents(
+                $fmt_rest__3,
+                $fmtty_rest__3
+              );
+              $fmtty__3 = $match__4[2];
+              $fmt__4 = $match__4[1];
+              return Vector{0, Vector{4, $iconv, $lw, $lv, $fmt__4}, $fmtty__3
+              };
+            }
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 5:
+            $fmt_rest__4 = $fmt[4];
+            $prec__0 = $fmt[3];
+            $pad__2 = $fmt[2];
+            $iconv__0 = $fmt[1];
+            $lx = $type_padprec($pad__2, $prec__0, $match);
+            $ly = $lx[3];
+            $lz = $lx[2];
+            $lA = $lx[1];
+            if (! $is_int($ly) && 3 === $ly[0]) {
+              $fmtty_rest__4 = $ly[1];
+              $match__5 = $type_format_gen->contents(
+                $fmt_rest__4,
+                $fmtty_rest__4
+              );
+              $fmtty__4 = $match__5[2];
+              $fmt__5 = $match__5[1];
               return Vector{
                 0,
-                Vector{17, $formatting_lit, $fmt__17},
-                $fmtty__16
+                Vector{5, $iconv__0, $lA, $lz, $fmt__5},
+                $fmtty__4
               };
-            // FALLTHROUGH
-            case 18:
-              $fmt_rest__17 = $fmt[2];
-              $formatting_gen = $fmt[1];
-              return $type_formatting_gen(
-                $formatting_gen,
-                $fmt_rest__17,
-                $match
+            }
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 6:
+            $fmt_rest__5 = $fmt[4];
+            $prec__1 = $fmt[3];
+            $pad__3 = $fmt[2];
+            $iconv__1 = $fmt[1];
+            $lB = $type_padprec($pad__3, $prec__1, $match);
+            $lC = $lB[3];
+            $lD = $lB[2];
+            $lE = $lB[1];
+            if (! $is_int($lC) && 4 === $lC[0]) {
+              $fmtty_rest__5 = $lC[1];
+              $match__6 = $type_format_gen->contents(
+                $fmt_rest__5,
+                $fmtty_rest__5
               );
-            // FALLTHROUGH
-            case 19:
-              if (! $is_int($match) && 13 === $match[0]) {
-                $fmtty_rest__13 = $match[1];
-                $fmt_rest__18 = $fmt[1];
-                $match__18 = $type_format_gen->contents(
-                  $fmt_rest__18,
-                  $fmtty_rest__13
-                );
-                $fmtty__17 = $match__18[2];
-                $fmt__18 = $match__18[1];
-                return Vector{0, Vector{19, $fmt__18}, $fmtty__17};
-              }
-              break;
-            // FALLTHROUGH
-            case 20:
-              if (! $is_int($match) && 1 === $match[0]) {
-                $fmtty_rest__14 = $match[1];
-                $fmt_rest__19 = $fmt[3];
-                $char_set = $fmt[2];
-                $width_opt = $fmt[1];
-                $match__19 = $type_format_gen->contents(
-                  $fmt_rest__19,
-                  $fmtty_rest__14
-                );
-                $fmtty__18 = $match__19[2];
-                $fmt__19 = $match__19[1];
-                return Vector{
-                  0,
-                  Vector{20, $width_opt, $char_set, $fmt__19},
-                  $fmtty__18
-                };
-              }
-              break;
-            // FALLTHROUGH
-            case 21:
-              if (! $is_int($match) && 2 === $match[0]) {
-                $fmtty_rest__15 = $match[1];
-                $fmt_rest__20 = $fmt[2];
-                $counter = $fmt[1];
-                $match__20 = $type_format_gen->contents(
-                  $fmt_rest__20,
-                  $fmtty_rest__15
-                );
-                $fmtty__19 = $match__20[2];
-                $fmt__20 = $match__20[1];
-                return Vector{0, Vector{21, $counter, $fmt__20}, $fmtty__19};
-              }
-              break;
-            // FALLTHROUGH
-            case 23:
-              $rest = $fmt[2];
-              $ign = $fmt[1];
-              return $type_ignored_param($ign, $rest, $match);
+              $fmtty__5 = $match__6[2];
+              $fmt__6 = $match__6[1];
+              return Vector{
+                0,
+                Vector{6, $iconv__1, $lE, $lD, $fmt__6},
+                $fmtty__5
+              };
             }
-        }
-        throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-      };
-    $_ = $type_ignored_format_substitution->contents =
-      function($sub_fmtty, $fmt, $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$fmtty_rel_det,$is_int,$runtime,$symm,$trans,$type_format_gen,$type_ignored_format_substitution) {
-        if ($is_int($sub_fmtty)) {
-          return Vector{0, 0, $type_format_gen->contents($fmt, $match)};
-        }
-        else {
-          switch($sub_fmtty[0]) {
-            // FALLTHROUGH
-            case 0:
-              if (! $is_int($match) && 0 === $match[0]) {
-                $fmtty_rest = $match[1];
-                $sub_fmtty_rest = $sub_fmtty[1];
-                $match__0 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest,
-                  $fmt,
-                  $fmtty_rest
-                );
-                $fmt__0 = $match__0[2];
-                $sub_fmtty_rest__0 = $match__0[1];
-                return Vector{0, Vector{0, $sub_fmtty_rest__0}, $fmt__0};
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 7:
+            $fmt_rest__6 = $fmt[4];
+            $prec__2 = $fmt[3];
+            $pad__4 = $fmt[2];
+            $iconv__2 = $fmt[1];
+            $lF = $type_padprec($pad__4, $prec__2, $match);
+            $lG = $lF[3];
+            $lH = $lF[2];
+            $lI = $lF[1];
+            if (! $is_int($lG) && 5 === $lG[0]) {
+              $fmtty_rest__6 = $lG[1];
+              $match__7 = $type_format_gen->contents(
+                $fmt_rest__6,
+                $fmtty_rest__6
+              );
+              $fmtty__6 = $match__7[2];
+              $fmt__7 = $match__7[1];
+              return Vector{
+                0,
+                Vector{7, $iconv__2, $lI, $lH, $fmt__7},
+                $fmtty__6
+              };
+            }
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 8:
+            $fmt_rest__7 = $fmt[4];
+            $prec__3 = $fmt[3];
+            $pad__5 = $fmt[2];
+            $fconv = $fmt[1];
+            $lJ = $type_padprec($pad__5, $prec__3, $match);
+            $lK = $lJ[3];
+            $lL = $lJ[2];
+            $lM = $lJ[1];
+            if (! $is_int($lK) && 6 === $lK[0]) {
+              $fmtty_rest__7 = $lK[1];
+              $match__8 = $type_format_gen->contents(
+                $fmt_rest__7,
+                $fmtty_rest__7
+              );
+              $fmtty__7 = $match__8[2];
+              $fmt__8 = $match__8[1];
+              return Vector{0, Vector{8, $fconv, $lM, $lL, $fmt__8}, $fmtty__7
+              };
+            }
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 9:
+            $fmt_rest__8 = $fmt[2];
+            $pad__6 = $fmt[1];
+            $lN = $type_padding($pad__6, $match);
+            $lO = $lN[2];
+            $lP = $lN[1];
+            if (! $is_int($lO) && 7 === $lO[0]) {
+              $fmtty_rest__8 = $lO[1];
+              $match__9 = $type_format_gen->contents(
+                $fmt_rest__8,
+                $fmtty_rest__8
+              );
+              $fmtty__8 = $match__9[2];
+              $fmt__9 = $match__9[1];
+              return Vector{0, Vector{9, $lP, $fmt__9}, $fmtty__8};
+            }
+            throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+          // FALLTHROUGH
+          case 10:
+            $fmt_rest__9 = $fmt[1];
+            $match__10 = $type_format_gen->contents($fmt_rest__9, $match);
+            $fmtty__9 = $match__10[2];
+            $fmt__10 = $match__10[1];
+            return Vector{0, Vector{10, $fmt__10}, $fmtty__9};
+          // FALLTHROUGH
+          case 11:
+            $fmt_rest__10 = $fmt[2];
+            $str = $fmt[1];
+            $match__11 = $type_format_gen->contents($fmt_rest__10, $match);
+            $fmtty__10 = $match__11[2];
+            $fmt__11 = $match__11[1];
+            return Vector{0, Vector{11, $str, $fmt__11}, $fmtty__10};
+          // FALLTHROUGH
+          case 12:
+            $fmt_rest__11 = $fmt[2];
+            $chr = $fmt[1];
+            $match__12 = $type_format_gen->contents($fmt_rest__11, $match);
+            $fmtty__11 = $match__12[2];
+            $fmt__12 = $match__12[1];
+            return Vector{0, Vector{12, $chr, $fmt__12}, $fmtty__11};
+          // FALLTHROUGH
+          case 13:
+            if (! $is_int($match) && 8 === $match[0]) {
+              $fmtty_rest__9 = $match[2];
+              $sub_fmtty = $match[1];
+              $fmt_rest__12 = $fmt[3];
+              $sub_fmtty__0 = $fmt[2];
+              $pad_opt = $fmt[1];
+              if (
+                $caml_notequal(Vector{0, $sub_fmtty__0}, Vector{0, $sub_fmtty}
+                )
+              ) {
+                throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
               }
-              break;
-            // FALLTHROUGH
-            case 1:
-              if (! $is_int($match) && 1 === $match[0]) {
-                $fmtty_rest__0 = $match[1];
-                $sub_fmtty_rest__1 = $sub_fmtty[1];
-                $match__1 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__1,
-                  $fmt,
-                  $fmtty_rest__0
-                );
-                $fmt__1 = $match__1[2];
-                $sub_fmtty_rest__2 = $match__1[1];
-                return Vector{0, Vector{1, $sub_fmtty_rest__2}, $fmt__1};
-              }
-              break;
-            // FALLTHROUGH
-            case 2:
-              if (! $is_int($match) && 2 === $match[0]) {
-                $fmtty_rest__1 = $match[1];
-                $sub_fmtty_rest__3 = $sub_fmtty[1];
-                $match__2 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__3,
-                  $fmt,
-                  $fmtty_rest__1
-                );
-                $fmt__2 = $match__2[2];
-                $sub_fmtty_rest__4 = $match__2[1];
-                return Vector{0, Vector{2, $sub_fmtty_rest__4}, $fmt__2};
-              }
-              break;
-            // FALLTHROUGH
-            case 3:
-              if (! $is_int($match) && 3 === $match[0]) {
-                $fmtty_rest__2 = $match[1];
-                $sub_fmtty_rest__5 = $sub_fmtty[1];
-                $match__3 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__5,
-                  $fmt,
-                  $fmtty_rest__2
-                );
-                $fmt__3 = $match__3[2];
-                $sub_fmtty_rest__6 = $match__3[1];
-                return Vector{0, Vector{3, $sub_fmtty_rest__6}, $fmt__3};
-              }
-              break;
-            // FALLTHROUGH
-            case 4:
-              if (! $is_int($match) && 4 === $match[0]) {
-                $fmtty_rest__3 = $match[1];
-                $sub_fmtty_rest__7 = $sub_fmtty[1];
-                $match__4 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__7,
-                  $fmt,
-                  $fmtty_rest__3
-                );
-                $fmt__4 = $match__4[2];
-                $sub_fmtty_rest__8 = $match__4[1];
-                return Vector{0, Vector{4, $sub_fmtty_rest__8}, $fmt__4};
-              }
-              break;
-            // FALLTHROUGH
-            case 5:
-              if (! $is_int($match) && 5 === $match[0]) {
-                $fmtty_rest__4 = $match[1];
-                $sub_fmtty_rest__9 = $sub_fmtty[1];
-                $match__5 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__9,
-                  $fmt,
-                  $fmtty_rest__4
-                );
-                $fmt__5 = $match__5[2];
-                $sub_fmtty_rest__10 = $match__5[1];
-                return Vector{0, Vector{5, $sub_fmtty_rest__10}, $fmt__5};
-              }
-              break;
-            // FALLTHROUGH
-            case 6:
-              if (! $is_int($match) && 6 === $match[0]) {
-                $fmtty_rest__5 = $match[1];
-                $sub_fmtty_rest__11 = $sub_fmtty[1];
-                $match__6 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__11,
-                  $fmt,
-                  $fmtty_rest__5
-                );
-                $fmt__6 = $match__6[2];
-                $sub_fmtty_rest__12 = $match__6[1];
-                return Vector{0, Vector{6, $sub_fmtty_rest__12}, $fmt__6};
-              }
-              break;
-            // FALLTHROUGH
-            case 7:
-              if (! $is_int($match) && 7 === $match[0]) {
-                $fmtty_rest__6 = $match[1];
-                $sub_fmtty_rest__13 = $sub_fmtty[1];
-                $match__7 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__13,
-                  $fmt,
-                  $fmtty_rest__6
-                );
-                $fmt__7 = $match__7[2];
-                $sub_fmtty_rest__14 = $match__7[1];
-                return Vector{0, Vector{7, $sub_fmtty_rest__14}, $fmt__7};
-              }
-              break;
-            // FALLTHROUGH
-            case 8:
-              if (! $is_int($match) && 8 === $match[0]) {
-                $fmtty_rest__7 = $match[2];
-                $sub2_fmtty = $match[1];
-                $sub_fmtty_rest__15 = $sub_fmtty[2];
-                $sub2_fmtty__0 = $sub_fmtty[1];
-                if (
-                  $caml_notequal(
-                    Vector{0, $sub2_fmtty__0},
-                    Vector{0, $sub2_fmtty}
-                  )
-                ) {
-                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-                }
-                $match__8 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__15,
-                  $fmt,
-                  $fmtty_rest__7
-                );
-                $fmt__8 = $match__8[2];
-                $sub_fmtty_rest__16 = $match__8[1];
-                return Vector{
-                  0,
-                  Vector{8, $sub2_fmtty, $sub_fmtty_rest__16},
-                  $fmt__8
-                };
-              }
-              break;
-            // FALLTHROUGH
-            case 9:
-              if (! $is_int($match) && 9 === $match[0]) {
-                $fmtty_rest__8 = $match[3];
-                $sub2_fmtty__1 = $match[2];
-                $sub1_fmtty = $match[1];
-                $sub_fmtty_rest__17 = $sub_fmtty[3];
-                $sub2_fmtty__2 = $sub_fmtty[2];
-                $sub1_fmtty__0 = $sub_fmtty[1];
-                $ll = Vector{
-                  0,
-                  $caml_call1($CamlinternalFormatBasics[2], $sub1_fmtty)
-                };
-                if (
-                  $caml_notequal(
-                    Vector{
-                      0,
-                      $caml_call1($CamlinternalFormatBasics[2], $sub1_fmtty__0)
-                    },
-                    $ll
-                  )
-                ) {
-                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-                }
-                $lm = Vector{
-                  0,
-                  $caml_call1($CamlinternalFormatBasics[2], $sub2_fmtty__1)
-                };
-                if (
-                  $caml_notequal(
-                    Vector{
-                      0,
-                      $caml_call1($CamlinternalFormatBasics[2], $sub2_fmtty__2)
-                    },
-                    $lm
-                  )
-                ) {
-                  throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-                }
-                $sub_fmtty__0 = $trans->contents(
-                  $symm->contents($sub1_fmtty),
-                  $sub2_fmtty__1
-                );
-                $match__9 = $fmtty_rel_det->contents($sub_fmtty__0);
-                $f4 = $match__9[4];
-                $f2 = $match__9[2];
-                $caml_call1($f2, 0);
-                $caml_call1($f4, 0);
-                $match__10 = $type_ignored_format_substitution->contents(
-                  $caml_call1(
-                    $CamlinternalFormatBasics[2],
-                    $sub_fmtty_rest__17
-                  ),
-                  $fmt,
-                  $fmtty_rest__8
-                );
-                $fmt__9 = $match__10[2];
-                $sub_fmtty_rest__18 = $match__10[1];
-                return Vector{
-                  0,
+              $match__13 = $type_format_gen->contents(
+                $fmt_rest__12,
+                $fmtty_rest__9
+              );
+              $fmtty__12 = $match__13[2];
+              $fmt__13 = $match__13[1];
+              return Vector{
+                0,
+                Vector{13, $pad_opt, $sub_fmtty, $fmt__13},
+                $fmtty__12
+              };
+            }
+            break;
+          // FALLTHROUGH
+          case 14:
+            if (! $is_int($match) && 9 === $match[0]) {
+              $fmtty_rest__10 = $match[3];
+              $sub_fmtty1 = $match[1];
+              $fmt_rest__13 = $fmt[3];
+              $sub_fmtty__1 = $fmt[2];
+              $pad_opt__0 = $fmt[1];
+              $lQ = Vector{
+                0,
+                $caml_call1($CamlinternalFormatBasics[2], $sub_fmtty1)
+              };
+              if (
+                $caml_notequal(
                   Vector{
-                    9,
-                    $sub1_fmtty,
-                    $sub2_fmtty__1,
-                    $symm->contents($sub_fmtty_rest__18)
+                    0,
+                    $caml_call1($CamlinternalFormatBasics[2], $sub_fmtty__1)
                   },
-                  $fmt__9
-                };
+                  $lQ
+                )
+              ) {
+                throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
               }
-              break;
-            // FALLTHROUGH
-            case 10:
-              if (! $is_int($match) && 10 === $match[0]) {
-                $fmtty_rest__9 = $match[1];
-                $sub_fmtty_rest__19 = $sub_fmtty[1];
-                $match__11 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__19,
-                  $fmt,
-                  $fmtty_rest__9
-                );
-                $fmt__10 = $match__11[2];
-                $sub_fmtty_rest__20 = $match__11[1];
-                return Vector{0, Vector{10, $sub_fmtty_rest__20}, $fmt__10};
-              }
-              break;
-            // FALLTHROUGH
-            case 11:
-              if (! $is_int($match) && 11 === $match[0]) {
-                $fmtty_rest__10 = $match[1];
-                $sub_fmtty_rest__21 = $sub_fmtty[1];
-                $match__12 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__21,
-                  $fmt,
-                  $fmtty_rest__10
-                );
-                $fmt__11 = $match__12[2];
-                $sub_fmtty_rest__22 = $match__12[1];
-                return Vector{0, Vector{11, $sub_fmtty_rest__22}, $fmt__11};
-              }
-              break;
-            // FALLTHROUGH
-            case 13:
-              if (! $is_int($match) && 13 === $match[0]) {
-                $fmtty_rest__11 = $match[1];
-                $sub_fmtty_rest__23 = $sub_fmtty[1];
-                $match__13 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__23,
-                  $fmt,
-                  $fmtty_rest__11
-                );
-                $fmt__12 = $match__13[2];
-                $sub_fmtty_rest__24 = $match__13[1];
-                return Vector{0, Vector{13, $sub_fmtty_rest__24}, $fmt__12};
-              }
-              break;
-            // FALLTHROUGH
-            case 14:
-              if (! $is_int($match) && 14 === $match[0]) {
-                $fmtty_rest__12 = $match[1];
-                $sub_fmtty_rest__25 = $sub_fmtty[1];
-                $match__14 = $type_ignored_format_substitution->contents(
-                  $sub_fmtty_rest__25,
-                  $fmt,
-                  $fmtty_rest__12
-                );
-                $fmt__13 = $match__14[2];
-                $sub_fmtty_rest__26 = $match__14[1];
-                return Vector{0, Vector{14, $sub_fmtty_rest__26}, $fmt__13};
-              }
-              break;
+              $match__14 = $type_format_gen->contents(
+                $fmt_rest__13,
+                $caml_call1($CamlinternalFormatBasics[2], $fmtty_rest__10)
+              );
+              $fmtty__13 = $match__14[2];
+              $fmt__14 = $match__14[1];
+              return Vector{
+                0,
+                Vector{14, $pad_opt__0, $sub_fmtty1, $fmt__14},
+                $fmtty__13
+              };
             }
-        }
-        throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
-      };
+            break;
+          // FALLTHROUGH
+          case 15:
+            if (! $is_int($match) && 10 === $match[0]) {
+              $fmtty_rest__11 = $match[1];
+              $fmt_rest__14 = $fmt[1];
+              $match__15 = $type_format_gen->contents(
+                $fmt_rest__14,
+                $fmtty_rest__11
+              );
+              $fmtty__14 = $match__15[2];
+              $fmt__15 = $match__15[1];
+              return Vector{0, Vector{15, $fmt__15}, $fmtty__14};
+            }
+            break;
+          // FALLTHROUGH
+          case 16:
+            if (! $is_int($match) && 11 === $match[0]) {
+              $fmtty_rest__12 = $match[1];
+              $fmt_rest__15 = $fmt[1];
+              $match__16 = $type_format_gen->contents(
+                $fmt_rest__15,
+                $fmtty_rest__12
+              );
+              $fmtty__15 = $match__16[2];
+              $fmt__16 = $match__16[1];
+              return Vector{0, Vector{16, $fmt__16}, $fmtty__15};
+            }
+            break;
+          // FALLTHROUGH
+          case 17:
+            $fmt_rest__16 = $fmt[2];
+            $formatting_lit = $fmt[1];
+            $match__17 = $type_format_gen->contents($fmt_rest__16, $match);
+            $fmtty__16 = $match__17[2];
+            $fmt__17 = $match__17[1];
+            return Vector{0, Vector{17, $formatting_lit, $fmt__17}, $fmtty__16
+            };
+          // FALLTHROUGH
+          case 18:
+            $fmt_rest__17 = $fmt[2];
+            $formatting_gen = $fmt[1];
+            return $type_formatting_gen($formatting_gen, $fmt_rest__17, $match
+            );
+          // FALLTHROUGH
+          case 19:
+            if (! $is_int($match) && 13 === $match[0]) {
+              $fmtty_rest__13 = $match[1];
+              $fmt_rest__18 = $fmt[1];
+              $match__18 = $type_format_gen->contents(
+                $fmt_rest__18,
+                $fmtty_rest__13
+              );
+              $fmtty__17 = $match__18[2];
+              $fmt__18 = $match__18[1];
+              return Vector{0, Vector{19, $fmt__18}, $fmtty__17};
+            }
+            break;
+          // FALLTHROUGH
+          case 20:
+            if (! $is_int($match) && 1 === $match[0]) {
+              $fmtty_rest__14 = $match[1];
+              $fmt_rest__19 = $fmt[3];
+              $char_set = $fmt[2];
+              $width_opt = $fmt[1];
+              $match__19 = $type_format_gen->contents(
+                $fmt_rest__19,
+                $fmtty_rest__14
+              );
+              $fmtty__18 = $match__19[2];
+              $fmt__19 = $match__19[1];
+              return Vector{
+                0,
+                Vector{20, $width_opt, $char_set, $fmt__19},
+                $fmtty__18
+              };
+            }
+            break;
+          // FALLTHROUGH
+          case 21:
+            if (! $is_int($match) && 2 === $match[0]) {
+              $fmtty_rest__15 = $match[1];
+              $fmt_rest__20 = $fmt[2];
+              $counter = $fmt[1];
+              $match__20 = $type_format_gen->contents(
+                $fmt_rest__20,
+                $fmtty_rest__15
+              );
+              $fmtty__19 = $match__20[2];
+              $fmt__20 = $match__20[1];
+              return Vector{0, Vector{21, $counter, $fmt__20}, $fmtty__19};
+            }
+            break;
+          // FALLTHROUGH
+          case 23:
+            $rest = $fmt[2];
+            $ign = $fmt[1];
+            return $type_ignored_param($ign, $rest, $match);
+          }
+      }
+      throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+    };
+    $type_ignored_format_substitution->contents = function
+    ($sub_fmtty, $fmt, $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$fmtty_rel_det,$is_int,$runtime,$symm,$trans,$type_format_gen,$type_ignored_format_substitution) {
+      if ($is_int($sub_fmtty)) {
+        return Vector{0, 0, $type_format_gen->contents($fmt, $match)};
+      }
+      else {
+        switch($sub_fmtty[0]) {
+          // FALLTHROUGH
+          case 0:
+            if (! $is_int($match) && 0 === $match[0]) {
+              $fmtty_rest = $match[1];
+              $sub_fmtty_rest = $sub_fmtty[1];
+              $match__0 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest,
+                $fmt,
+                $fmtty_rest
+              );
+              $fmt__0 = $match__0[2];
+              $sub_fmtty_rest__0 = $match__0[1];
+              return Vector{0, Vector{0, $sub_fmtty_rest__0}, $fmt__0};
+            }
+            break;
+          // FALLTHROUGH
+          case 1:
+            if (! $is_int($match) && 1 === $match[0]) {
+              $fmtty_rest__0 = $match[1];
+              $sub_fmtty_rest__1 = $sub_fmtty[1];
+              $match__1 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__1,
+                $fmt,
+                $fmtty_rest__0
+              );
+              $fmt__1 = $match__1[2];
+              $sub_fmtty_rest__2 = $match__1[1];
+              return Vector{0, Vector{1, $sub_fmtty_rest__2}, $fmt__1};
+            }
+            break;
+          // FALLTHROUGH
+          case 2:
+            if (! $is_int($match) && 2 === $match[0]) {
+              $fmtty_rest__1 = $match[1];
+              $sub_fmtty_rest__3 = $sub_fmtty[1];
+              $match__2 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__3,
+                $fmt,
+                $fmtty_rest__1
+              );
+              $fmt__2 = $match__2[2];
+              $sub_fmtty_rest__4 = $match__2[1];
+              return Vector{0, Vector{2, $sub_fmtty_rest__4}, $fmt__2};
+            }
+            break;
+          // FALLTHROUGH
+          case 3:
+            if (! $is_int($match) && 3 === $match[0]) {
+              $fmtty_rest__2 = $match[1];
+              $sub_fmtty_rest__5 = $sub_fmtty[1];
+              $match__3 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__5,
+                $fmt,
+                $fmtty_rest__2
+              );
+              $fmt__3 = $match__3[2];
+              $sub_fmtty_rest__6 = $match__3[1];
+              return Vector{0, Vector{3, $sub_fmtty_rest__6}, $fmt__3};
+            }
+            break;
+          // FALLTHROUGH
+          case 4:
+            if (! $is_int($match) && 4 === $match[0]) {
+              $fmtty_rest__3 = $match[1];
+              $sub_fmtty_rest__7 = $sub_fmtty[1];
+              $match__4 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__7,
+                $fmt,
+                $fmtty_rest__3
+              );
+              $fmt__4 = $match__4[2];
+              $sub_fmtty_rest__8 = $match__4[1];
+              return Vector{0, Vector{4, $sub_fmtty_rest__8}, $fmt__4};
+            }
+            break;
+          // FALLTHROUGH
+          case 5:
+            if (! $is_int($match) && 5 === $match[0]) {
+              $fmtty_rest__4 = $match[1];
+              $sub_fmtty_rest__9 = $sub_fmtty[1];
+              $match__5 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__9,
+                $fmt,
+                $fmtty_rest__4
+              );
+              $fmt__5 = $match__5[2];
+              $sub_fmtty_rest__10 = $match__5[1];
+              return Vector{0, Vector{5, $sub_fmtty_rest__10}, $fmt__5};
+            }
+            break;
+          // FALLTHROUGH
+          case 6:
+            if (! $is_int($match) && 6 === $match[0]) {
+              $fmtty_rest__5 = $match[1];
+              $sub_fmtty_rest__11 = $sub_fmtty[1];
+              $match__6 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__11,
+                $fmt,
+                $fmtty_rest__5
+              );
+              $fmt__6 = $match__6[2];
+              $sub_fmtty_rest__12 = $match__6[1];
+              return Vector{0, Vector{6, $sub_fmtty_rest__12}, $fmt__6};
+            }
+            break;
+          // FALLTHROUGH
+          case 7:
+            if (! $is_int($match) && 7 === $match[0]) {
+              $fmtty_rest__6 = $match[1];
+              $sub_fmtty_rest__13 = $sub_fmtty[1];
+              $match__7 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__13,
+                $fmt,
+                $fmtty_rest__6
+              );
+              $fmt__7 = $match__7[2];
+              $sub_fmtty_rest__14 = $match__7[1];
+              return Vector{0, Vector{7, $sub_fmtty_rest__14}, $fmt__7};
+            }
+            break;
+          // FALLTHROUGH
+          case 8:
+            if (! $is_int($match) && 8 === $match[0]) {
+              $fmtty_rest__7 = $match[2];
+              $sub2_fmtty = $match[1];
+              $sub_fmtty_rest__15 = $sub_fmtty[2];
+              $sub2_fmtty__0 = $sub_fmtty[1];
+              if (
+                $caml_notequal(
+                  Vector{0, $sub2_fmtty__0},
+                  Vector{0, $sub2_fmtty}
+                )
+              ) {
+                throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+              }
+              $match__8 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__15,
+                $fmt,
+                $fmtty_rest__7
+              );
+              $fmt__8 = $match__8[2];
+              $sub_fmtty_rest__16 = $match__8[1];
+              return Vector{
+                0,
+                Vector{8, $sub2_fmtty, $sub_fmtty_rest__16},
+                $fmt__8
+              };
+            }
+            break;
+          // FALLTHROUGH
+          case 9:
+            if (! $is_int($match) && 9 === $match[0]) {
+              $fmtty_rest__8 = $match[3];
+              $sub2_fmtty__1 = $match[2];
+              $sub1_fmtty = $match[1];
+              $sub_fmtty_rest__17 = $sub_fmtty[3];
+              $sub2_fmtty__2 = $sub_fmtty[2];
+              $sub1_fmtty__0 = $sub_fmtty[1];
+              $ll = Vector{
+                0,
+                $caml_call1($CamlinternalFormatBasics[2], $sub1_fmtty)
+              };
+              if (
+                $caml_notequal(
+                  Vector{
+                    0,
+                    $caml_call1($CamlinternalFormatBasics[2], $sub1_fmtty__0)
+                  },
+                  $ll
+                )
+              ) {
+                throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+              }
+              $lm = Vector{
+                0,
+                $caml_call1($CamlinternalFormatBasics[2], $sub2_fmtty__1)
+              };
+              if (
+                $caml_notequal(
+                  Vector{
+                    0,
+                    $caml_call1($CamlinternalFormatBasics[2], $sub2_fmtty__2)
+                  },
+                  $lm
+                )
+              ) {
+                throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+              }
+              $sub_fmtty__0 = $trans->contents(
+                $symm->contents($sub1_fmtty),
+                $sub2_fmtty__1
+              );
+              $match__9 = $fmtty_rel_det->contents($sub_fmtty__0);
+              $f4 = $match__9[4];
+              $f2 = $match__9[2];
+              $caml_call1($f2, 0);
+              $caml_call1($f4, 0);
+              $match__10 = $type_ignored_format_substitution->contents(
+                $caml_call1($CamlinternalFormatBasics[2], $sub_fmtty_rest__17),
+                $fmt,
+                $fmtty_rest__8
+              );
+              $fmt__9 = $match__10[2];
+              $sub_fmtty_rest__18 = $match__10[1];
+              return Vector{
+                0,
+                Vector{
+                  9,
+                  $sub1_fmtty,
+                  $sub2_fmtty__1,
+                  $symm->contents($sub_fmtty_rest__18)
+                },
+                $fmt__9
+              };
+            }
+            break;
+          // FALLTHROUGH
+          case 10:
+            if (! $is_int($match) && 10 === $match[0]) {
+              $fmtty_rest__9 = $match[1];
+              $sub_fmtty_rest__19 = $sub_fmtty[1];
+              $match__11 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__19,
+                $fmt,
+                $fmtty_rest__9
+              );
+              $fmt__10 = $match__11[2];
+              $sub_fmtty_rest__20 = $match__11[1];
+              return Vector{0, Vector{10, $sub_fmtty_rest__20}, $fmt__10};
+            }
+            break;
+          // FALLTHROUGH
+          case 11:
+            if (! $is_int($match) && 11 === $match[0]) {
+              $fmtty_rest__10 = $match[1];
+              $sub_fmtty_rest__21 = $sub_fmtty[1];
+              $match__12 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__21,
+                $fmt,
+                $fmtty_rest__10
+              );
+              $fmt__11 = $match__12[2];
+              $sub_fmtty_rest__22 = $match__12[1];
+              return Vector{0, Vector{11, $sub_fmtty_rest__22}, $fmt__11};
+            }
+            break;
+          // FALLTHROUGH
+          case 13:
+            if (! $is_int($match) && 13 === $match[0]) {
+              $fmtty_rest__11 = $match[1];
+              $sub_fmtty_rest__23 = $sub_fmtty[1];
+              $match__13 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__23,
+                $fmt,
+                $fmtty_rest__11
+              );
+              $fmt__12 = $match__13[2];
+              $sub_fmtty_rest__24 = $match__13[1];
+              return Vector{0, Vector{13, $sub_fmtty_rest__24}, $fmt__12};
+            }
+            break;
+          // FALLTHROUGH
+          case 14:
+            if (! $is_int($match) && 14 === $match[0]) {
+              $fmtty_rest__12 = $match[1];
+              $sub_fmtty_rest__25 = $sub_fmtty[1];
+              $match__14 = $type_ignored_format_substitution->contents(
+                $sub_fmtty_rest__25,
+                $fmt,
+                $fmtty_rest__12
+              );
+              $fmt__13 = $match__14[2];
+              $sub_fmtty_rest__26 = $match__14[1];
+              return Vector{0, Vector{14, $sub_fmtty_rest__26}, $fmt__13};
+            }
+            break;
+          }
+      }
+      throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
+    };
     $recast = function($fmt, $fmtty) use ($CamlinternalFormatBasics,$caml_call1,$symm,$type_format) {
       $lk = $symm->contents($fmtty);
       return $type_format($fmt, $caml_call1($CamlinternalFormatBasics[2], $lk)
@@ -5118,452 +5082,424 @@ final class CamlinternalFormat {
           }
       }
     };
-    $_ = $make_ignored_param__0->contents =
-      function($counter, $k, $o, $acc, $ign, $fmt) use ($Assert_failure,$caml_trampoline_return,$hQ,$is_int,$make_from_fmtty__0,$make_invalid_arg,$runtime) {
-        if ($is_int($ign)) {
-          switch($ign) {
-            // FALLTHROUGH
-            case 0:
-              if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__0,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 1:
-              if ($counter < 50) {
-                $counter__1 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__1,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 2:
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hQ}) as \Throwable;
-            // FALLTHROUGH
-            default:
-              if ($counter < 50) {
-                $counter__2 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__2,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
+    $make_ignored_param__0->contents = function
+    ($counter, $k, $o, $acc, $ign, $fmt) use ($Assert_failure,$caml_trampoline_return,$hQ,$is_int,$make_from_fmtty__0,$make_invalid_arg,$runtime) {
+      if ($is_int($ign)) {
+        switch($ign) {
+          // FALLTHROUGH
+          case 0:
+            if ($counter < 50) {
+              $counter__0 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__0,
+                $k,
+                $o,
+                $acc,
+                $fmt
               );
             }
-        }
-        else {
-          switch($ign[0]) {
-            // FALLTHROUGH
-            case 0:
-              if ($counter < 50) {
-                $counter__3 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__3,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 1:
-              if ($counter < 50) {
-                $counter__4 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__4,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 2:
-              if ($counter < 50) {
-                $counter__5 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__5,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 3:
-              if ($counter < 50) {
-                $counter__6 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__6,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 4:
-              if ($counter < 50) {
-                $counter__7 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__7,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 5:
-              if ($counter < 50) {
-                $counter__8 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__8,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 6:
-              if ($counter < 50) {
-                $counter__9 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__9,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 7:
-              if ($counter < 50) {
-                $counter__10 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__10,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 8:
-              if ($counter < 50) {
-                $counter__11 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__11,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            case 9:
-              $fmtty = $ign[2];
-              if ($counter < 50) {
-                $counter__14 = (int) ($counter + 1);
-                return $make_from_fmtty__0->contents(
-                  $counter__14,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmtty,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_from_fmtty__0->contents,
-                varray[0,$k,$o,$acc,$fmtty,$fmt]
-              );
-            // FALLTHROUGH
-            case 10:
-              if ($counter < 50) {
-                $counter__12 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__12,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
-              );
-            // FALLTHROUGH
-            default:
-              if ($counter < 50) {
-                $counter__13 = (int) ($counter + 1);
-                return $make_invalid_arg->contents(
-                  $counter__13,
-                  $k,
-                  $o,
-                  $acc,
-                  $fmt
-                );
-              }
-              return $caml_trampoline_return(
-                $make_invalid_arg->contents,
-                varray[0,$k,$o,$acc,$fmt]
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 1:
+            if ($counter < 50) {
+              $counter__1 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__1,
+                $k,
+                $o,
+                $acc,
+                $fmt
               );
             }
-        }
-      };
-    $_ = $make_from_fmtty__0->contents =
-      function($counter, $k, $o, $acc, $fmtty, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$hR,$hS,$is_int,$make_from_fmtty,$make_invalid_arg,$runtime,$symm,$trans) {
-        if ($is_int($fmtty)) {
-          if ($counter < 50) {
-            $counter__0 = (int) ($counter + 1);
-            return $make_invalid_arg->contents($counter__0, $k, $o, $acc, $fmt
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 2:
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hQ}) as \Throwable;
+          // FALLTHROUGH
+          default:
+            if ($counter < 50) {
+              $counter__2 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__2,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
             );
           }
-          return $caml_trampoline_return(
-            $make_invalid_arg->contents,
-            varray[0,$k,$o,$acc,$fmt]
-          );
-        }
-        else {
-          switch($fmtty[0]) {
-            // FALLTHROUGH
-            case 0:
-              $rest = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest, $fmt);
-              };
-            // FALLTHROUGH
-            case 1:
-              $rest__0 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__0) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__0, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 2:
-              $rest__1 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__1) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__1, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 3:
-              $rest__2 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__2) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__2, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 4:
-              $rest__3 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__3) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__3, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 5:
-              $rest__4 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__4) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__4, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 6:
-              $rest__5 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__5) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__5, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 7:
-              $rest__6 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__6) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__6, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 8:
-              $rest__7 = $fmtty[2];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__7) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__7, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 9:
-              $rest__8 = $fmtty[3];
-              $ty2 = $fmtty[2];
-              $ty1 = $fmtty[1];
-              $ty = $trans->contents($symm->contents($ty1), $ty2);
-              return function($param) use ($CamlinternalFormatBasics,$acc,$caml_call2,$fmt,$k,$make_from_fmtty,$o,$rest__8,$ty) {
-                return $make_from_fmtty->contents(
-                  $k,
-                  $o,
-                  $acc,
-                  $caml_call2($CamlinternalFormatBasics[1], $ty, $rest__8),
-                  $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 10:
-              $rest__9 = $fmtty[1];
-              return function($param, $k9) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__9) {
-                return $make_from_fmtty->contents($k, $o, $acc, $rest__9, $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 11:
-              $rest__10 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__10) {
-                return $make_from_fmtty->contents(
-                  $k,
-                  $o,
-                  $acc,
-                  $rest__10,
-                  $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 12:
-              $rest__11 = $fmtty[1];
-              return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__11) {
-                return $make_from_fmtty->contents(
-                  $k,
-                  $o,
-                  $acc,
-                  $rest__11,
-                  $fmt
-                );
-              };
-            // FALLTHROUGH
-            case 13:
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hR}) as \Throwable;
-            // FALLTHROUGH
-            default:
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hS}) as \Throwable;
+      }
+      else {
+        switch($ign[0]) {
+          // FALLTHROUGH
+          case 0:
+            if ($counter < 50) {
+              $counter__3 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__3,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
             }
-        }
-      };
-    $_ = $make_invalid_arg->contents =
-      function($counter, $k, $o, $acc, $fmt) use ($caml_trampoline_return,$cst_Printf_bad_conversion__0,$make_printf__0) {
-        $k8 = Vector{8, $acc, $cst_Printf_bad_conversion__0};
-        if ($counter < 50) {
-          $counter__0 = (int) ($counter + 1);
-          return $make_printf__0($counter__0, $k, $o, $k8, $fmt);
-        }
-        return $caml_trampoline_return(
-          $make_printf__0,
-          varray[0,$k,$o,$k8,$fmt]
-        );
-      };
-    $_ = $make_custom__0->contents =
-      function($counter, $k, $o, $acc, $rest, $arity, $f) use ($caml_call1,$caml_trampoline_return,$make_custom,$make_printf__0) {
-        if ($arity) {
-          $arity__0 = $arity[1];
-          return function($x) use ($acc,$arity__0,$caml_call1,$f,$k,$make_custom,$o,$rest) {
-            return $make_custom->contents(
-              $k,
-              $o,
-              $acc,
-              $rest,
-              $arity__0,
-              $caml_call1($f, $x)
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
             );
-          };
-        }
-        $k7 = Vector{4, $acc, $f};
+          // FALLTHROUGH
+          case 1:
+            if ($counter < 50) {
+              $counter__4 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__4,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 2:
+            if ($counter < 50) {
+              $counter__5 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__5,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 3:
+            if ($counter < 50) {
+              $counter__6 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__6,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 4:
+            if ($counter < 50) {
+              $counter__7 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__7,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 5:
+            if ($counter < 50) {
+              $counter__8 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__8,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 6:
+            if ($counter < 50) {
+              $counter__9 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__9,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 7:
+            if ($counter < 50) {
+              $counter__10 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__10,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 8:
+            if ($counter < 50) {
+              $counter__11 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__11,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          case 9:
+            $fmtty = $ign[2];
+            if ($counter < 50) {
+              $counter__14 = (int) ($counter + 1);
+              return $make_from_fmtty__0->contents(
+                $counter__14,
+                $k,
+                $o,
+                $acc,
+                $fmtty,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_from_fmtty__0->contents,
+              varray[0,$k,$o,$acc,$fmtty,$fmt]
+            );
+          // FALLTHROUGH
+          case 10:
+            if ($counter < 50) {
+              $counter__12 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__12,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          // FALLTHROUGH
+          default:
+            if ($counter < 50) {
+              $counter__13 = (int) ($counter + 1);
+              return $make_invalid_arg->contents(
+                $counter__13,
+                $k,
+                $o,
+                $acc,
+                $fmt
+              );
+            }
+            return $caml_trampoline_return(
+              $make_invalid_arg->contents,
+              varray[0,$k,$o,$acc,$fmt]
+            );
+          }
+      }
+    };
+    $make_from_fmtty__0->contents = function
+    ($counter, $k, $o, $acc, $fmtty, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$hR,$hS,$is_int,$make_from_fmtty,$make_invalid_arg,$runtime,$symm,$trans) {
+      if ($is_int($fmtty)) {
         if ($counter < 50) {
           $counter__0 = (int) ($counter + 1);
-          return $make_printf__0($counter__0, $k, $o, $k7, $rest);
+          return $make_invalid_arg->contents($counter__0, $k, $o, $acc, $fmt);
         }
         return $caml_trampoline_return(
-          $make_printf__0,
-          varray[0,$k,$o,$k7,$rest]
+          $make_invalid_arg->contents,
+          varray[0,$k,$o,$acc,$fmt]
         );
-      };
-    $_ = $make_printf->contents =
-      function($k, $o, $acc, $fmt) use ($caml_trampoline,$make_printf__0) {
-        return $caml_trampoline($make_printf__0(0, $k, $o, $acc, $fmt));
-      };
+      }
+      else {
+        switch($fmtty[0]) {
+          // FALLTHROUGH
+          case 0:
+            $rest = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest, $fmt);
+            };
+          // FALLTHROUGH
+          case 1:
+            $rest__0 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__0) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__0, $fmt);
+            };
+          // FALLTHROUGH
+          case 2:
+            $rest__1 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__1) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__1, $fmt);
+            };
+          // FALLTHROUGH
+          case 3:
+            $rest__2 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__2) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__2, $fmt);
+            };
+          // FALLTHROUGH
+          case 4:
+            $rest__3 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__3) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__3, $fmt);
+            };
+          // FALLTHROUGH
+          case 5:
+            $rest__4 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__4) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__4, $fmt);
+            };
+          // FALLTHROUGH
+          case 6:
+            $rest__5 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__5) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__5, $fmt);
+            };
+          // FALLTHROUGH
+          case 7:
+            $rest__6 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__6) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__6, $fmt);
+            };
+          // FALLTHROUGH
+          case 8:
+            $rest__7 = $fmtty[2];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__7) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__7, $fmt);
+            };
+          // FALLTHROUGH
+          case 9:
+            $rest__8 = $fmtty[3];
+            $ty2 = $fmtty[2];
+            $ty1 = $fmtty[1];
+            $ty = $trans->contents($symm->contents($ty1), $ty2);
+            return function($param) use ($CamlinternalFormatBasics,$acc,$caml_call2,$fmt,$k,$make_from_fmtty,$o,$rest__8,$ty) {
+              return $make_from_fmtty->contents(
+                $k,
+                $o,
+                $acc,
+                $caml_call2($CamlinternalFormatBasics[1], $ty, $rest__8),
+                $fmt
+              );
+            };
+          // FALLTHROUGH
+          case 10:
+            $rest__9 = $fmtty[1];
+            return function($param, $k9) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__9) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__9, $fmt);
+            };
+          // FALLTHROUGH
+          case 11:
+            $rest__10 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__10) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__10, $fmt);
+            };
+          // FALLTHROUGH
+          case 12:
+            $rest__11 = $fmtty[1];
+            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__11) {
+              return $make_from_fmtty->contents($k, $o, $acc, $rest__11, $fmt);
+            };
+          // FALLTHROUGH
+          case 13:
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hR}) as \Throwable;
+          // FALLTHROUGH
+          default:
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hS}) as \Throwable;
+          }
+      }
+    };
+    $make_invalid_arg->contents = function($counter, $k, $o, $acc, $fmt) use ($caml_trampoline_return,$cst_Printf_bad_conversion__0,$make_printf__0) {
+      $k8 = Vector{8, $acc, $cst_Printf_bad_conversion__0};
+      if ($counter < 50) {
+        $counter__0 = (int) ($counter + 1);
+        return $make_printf__0($counter__0, $k, $o, $k8, $fmt);
+      }
+      return $caml_trampoline_return($make_printf__0, varray[0,$k,$o,$k8,$fmt]
+      );
+    };
+    $make_custom__0->contents = function
+    ($counter, $k, $o, $acc, $rest, $arity, $f) use ($caml_call1,$caml_trampoline_return,$make_custom,$make_printf__0) {
+      if ($arity) {
+        $arity__0 = $arity[1];
+        return function($x) use ($acc,$arity__0,$caml_call1,$f,$k,$make_custom,$o,$rest) {
+          return $make_custom->contents(
+            $k,
+            $o,
+            $acc,
+            $rest,
+            $arity__0,
+            $caml_call1($f, $x)
+          );
+        };
+      }
+      $k7 = Vector{4, $acc, $f};
+      if ($counter < 50) {
+        $counter__0 = (int) ($counter + 1);
+        return $make_printf__0($counter__0, $k, $o, $k7, $rest);
+      }
+      return $caml_trampoline_return(
+        $make_printf__0,
+        varray[0,$k,$o,$k7,$rest]
+      );
+    };
+    $make_printf->contents = function($k, $o, $acc, $fmt) use ($caml_trampoline,$make_printf__0) {
+      return $caml_trampoline($make_printf__0(0, $k, $o, $acc, $fmt));
+    };
     $make_ignored_param = function($k, $o, $acc, $ign, $fmt) use ($caml_trampoline,$make_ignored_param__0) {
       return $caml_trampoline(
         $make_ignored_param__0->contents(0, $k, $o, $acc, $ign, $fmt)
       );
     };
-    $_ = $make_from_fmtty->contents =
-      function($k, $o, $acc, $fmtty, $fmt) use ($caml_trampoline,$make_from_fmtty__0) {
-        return $caml_trampoline(
-          $make_from_fmtty__0->contents(0, $k, $o, $acc, $fmtty, $fmt)
-        );
-      };
-    $_ = $make_custom->contents =
-      function($k, $o, $acc, $rest, $arity, $f) use ($caml_trampoline,$make_custom__0) {
-        return $caml_trampoline(
-          $make_custom__0->contents(0, $k, $o, $acc, $rest, $arity, $f)
-        );
-      };
+    $make_from_fmtty->contents = function($k, $o, $acc, $fmtty, $fmt) use ($caml_trampoline,$make_from_fmtty__0) {
+      return $caml_trampoline(
+        $make_from_fmtty__0->contents(0, $k, $o, $acc, $fmtty, $fmt)
+      );
+    };
+    $make_custom->contents = function($k, $o, $acc, $rest, $arity, $f) use ($caml_trampoline,$make_custom__0) {
+      return $caml_trampoline(
+        $make_custom__0->contents(0, $k, $o, $acc, $rest, $arity, $f)
+      );
+    };
     $const__0 = function($x, $param) {return $x;};
     $fn_of_padding_precision = function($k, $o, $fmt, $pad, $prec) use ($const__0,$is_int,$make_iprintf) {
       if ($is_int($pad)) {
@@ -5937,227 +5873,220 @@ final class CamlinternalFormat {
           }
       }
     };
-    $_ = $fn_of_custom_arity__0->contents =
-      function($counter, $k, $o, $fmt, $param) use ($caml_trampoline_return,$const__0,$fn_of_custom_arity,$make_iprintf__0) {
-        if ($param) {
-          $arity = $param[1];
-          $jQ = $fn_of_custom_arity->contents($k, $o, $fmt, $arity);
-          return function($jR) use ($const__0,$jQ) {
-            return $const__0($jQ, $jR);
-          };
-        }
-        if ($counter < 50) {
-          $counter__0 = (int) ($counter + 1);
-          return $make_iprintf__0($counter__0, $k, $o, $fmt);
-        }
-        return $caml_trampoline_return($make_iprintf__0, varray[0,$k,$o,$fmt]);
-      };
-    $_ = $make_iprintf->contents =
-      function($k, $o, $fmt) use ($caml_trampoline,$make_iprintf__0) {
-        return $caml_trampoline($make_iprintf__0(0, $k, $o, $fmt));
-      };
-    $_ = $fn_of_custom_arity->contents =
-      function($k, $o, $fmt, $param) use ($caml_trampoline,$fn_of_custom_arity__0) {
-        return $caml_trampoline(
-          $fn_of_custom_arity__0->contents(0, $k, $o, $fmt, $param)
-        );
-      };
-    $_ = $output_acc->contents =
-      function($o, $acc) use ($Pervasives,$caml_call1,$caml_call2,$cst__17,$cst__18,$is_int,$output_acc,$string_of_formatting_lit) {
-        $acc__0 = $acc;
-        for (;;) if (
-          $is_int($acc__0)
-        ) {return 0;}
-        else {
-          switch($acc__0[0]) {
-            // FALLTHROUGH
-            case 0:
-              $fmting_lit = $acc__0[2];
-              $p = $acc__0[1];
-              $s = $string_of_formatting_lit($fmting_lit);
-              $output_acc->contents($o, $p);
-              return $caml_call2($Pervasives[54], $o, $s);
-            // FALLTHROUGH
-            case 1:
-              $jO = $acc__0[2];
-              $jP = $acc__0[1];
-              if (0 === $jO[0]) {
-                $acc__1 = $jO[1];
-                $output_acc->contents($o, $jP);
-                $caml_call2($Pervasives[54], $o, $cst__17);
-                $acc__0 = $acc__1;
-                continue;
-              }
-              $acc__2 = $jO[1];
+    $fn_of_custom_arity__0->contents = function
+    ($counter, $k, $o, $fmt, $param) use ($caml_trampoline_return,$const__0,$fn_of_custom_arity,$make_iprintf__0) {
+      if ($param) {
+        $arity = $param[1];
+        $jQ = $fn_of_custom_arity->contents($k, $o, $fmt, $arity);
+        return function($jR) use ($const__0,$jQ) {return $const__0($jQ, $jR);};
+      }
+      if ($counter < 50) {
+        $counter__0 = (int) ($counter + 1);
+        return $make_iprintf__0($counter__0, $k, $o, $fmt);
+      }
+      return $caml_trampoline_return($make_iprintf__0, varray[0,$k,$o,$fmt]);
+    };
+    $make_iprintf->contents = function($k, $o, $fmt) use ($caml_trampoline,$make_iprintf__0) {
+      return $caml_trampoline($make_iprintf__0(0, $k, $o, $fmt));
+    };
+    $fn_of_custom_arity->contents = function($k, $o, $fmt, $param) use ($caml_trampoline,$fn_of_custom_arity__0) {
+      return $caml_trampoline(
+        $fn_of_custom_arity__0->contents(0, $k, $o, $fmt, $param)
+      );
+    };
+    $output_acc->contents = function($o, $acc) use ($Pervasives,$caml_call1,$caml_call2,$cst__17,$cst__18,$is_int,$output_acc,$string_of_formatting_lit) {
+      $acc__0 = $acc;
+      for (;;) if (
+        $is_int($acc__0)
+      ) {return 0;}
+      else {
+        switch($acc__0[0]) {
+          // FALLTHROUGH
+          case 0:
+            $fmting_lit = $acc__0[2];
+            $p = $acc__0[1];
+            $s = $string_of_formatting_lit($fmting_lit);
+            $output_acc->contents($o, $p);
+            return $caml_call2($Pervasives[54], $o, $s);
+          // FALLTHROUGH
+          case 1:
+            $jO = $acc__0[2];
+            $jP = $acc__0[1];
+            if (0 === $jO[0]) {
+              $acc__1 = $jO[1];
               $output_acc->contents($o, $jP);
-              $caml_call2($Pervasives[54], $o, $cst__18);
-              $acc__0 = $acc__2;
+              $caml_call2($Pervasives[54], $o, $cst__17);
+              $acc__0 = $acc__1;
               continue;
-            // FALLTHROUGH
-            case 6:
-              $f = $acc__0[2];
-              $p__2 = $acc__0[1];
-              $output_acc->contents($o, $p__2);
-              return $caml_call1($f, $o);
-            // FALLTHROUGH
-            case 7:
-              $p__3 = $acc__0[1];
-              $output_acc->contents($o, $p__3);
-              return $caml_call1($Pervasives[51], $o);
-            // FALLTHROUGH
-            case 8:
-              $msg = $acc__0[2];
-              $p__4 = $acc__0[1];
-              $output_acc->contents($o, $p__4);
-              return $caml_call1($Pervasives[1], $msg);
-            // FALLTHROUGH
-            case 2:
-            // FALLTHROUGH
-            case 4:
-              $s__0 = $acc__0[2];
-              $p__0 = $acc__0[1];
-              $output_acc->contents($o, $p__0);
-              return $caml_call2($Pervasives[54], $o, $s__0);
-            // FALLTHROUGH
-            default:
-              $c = $acc__0[2];
-              $p__1 = $acc__0[1];
-              $output_acc->contents($o, $p__1);
-              return $caml_call2($Pervasives[53], $o, $c);
             }
-        }
-      };
-    $_ = $bufput_acc->contents =
-      function($b, $acc) use ($Buffer,$Pervasives,$bufput_acc,$caml_call1,$caml_call2,$cst__19,$cst__20,$is_int,$string_of_formatting_lit) {
-        $acc__0 = $acc;
-        for (;;) if (
-          $is_int($acc__0)
-        ) {return 0;}
-        else {
-          switch($acc__0[0]) {
-            // FALLTHROUGH
-            case 0:
-              $fmting_lit = $acc__0[2];
-              $p = $acc__0[1];
-              $s = $string_of_formatting_lit($fmting_lit);
-              $bufput_acc->contents($b, $p);
-              return $caml_call2($Buffer[14], $b, $s);
-            // FALLTHROUGH
-            case 1:
-              $jM = $acc__0[2];
-              $jN = $acc__0[1];
-              if (0 === $jM[0]) {
-                $acc__1 = $jM[1];
-                $bufput_acc->contents($b, $jN);
-                $caml_call2($Buffer[14], $b, $cst__19);
-                $acc__0 = $acc__1;
-                continue;
-              }
-              $acc__2 = $jM[1];
+            $acc__2 = $jO[1];
+            $output_acc->contents($o, $jP);
+            $caml_call2($Pervasives[54], $o, $cst__18);
+            $acc__0 = $acc__2;
+            continue;
+          // FALLTHROUGH
+          case 6:
+            $f = $acc__0[2];
+            $p__2 = $acc__0[1];
+            $output_acc->contents($o, $p__2);
+            return $caml_call1($f, $o);
+          // FALLTHROUGH
+          case 7:
+            $p__3 = $acc__0[1];
+            $output_acc->contents($o, $p__3);
+            return $caml_call1($Pervasives[51], $o);
+          // FALLTHROUGH
+          case 8:
+            $msg = $acc__0[2];
+            $p__4 = $acc__0[1];
+            $output_acc->contents($o, $p__4);
+            return $caml_call1($Pervasives[1], $msg);
+          // FALLTHROUGH
+          case 2:
+          // FALLTHROUGH
+          case 4:
+            $s__0 = $acc__0[2];
+            $p__0 = $acc__0[1];
+            $output_acc->contents($o, $p__0);
+            return $caml_call2($Pervasives[54], $o, $s__0);
+          // FALLTHROUGH
+          default:
+            $c = $acc__0[2];
+            $p__1 = $acc__0[1];
+            $output_acc->contents($o, $p__1);
+            return $caml_call2($Pervasives[53], $o, $c);
+          }
+      }
+    };
+    $bufput_acc->contents = function($b, $acc) use ($Buffer,$Pervasives,$bufput_acc,$caml_call1,$caml_call2,$cst__19,$cst__20,$is_int,$string_of_formatting_lit) {
+      $acc__0 = $acc;
+      for (;;) if (
+        $is_int($acc__0)
+      ) {return 0;}
+      else {
+        switch($acc__0[0]) {
+          // FALLTHROUGH
+          case 0:
+            $fmting_lit = $acc__0[2];
+            $p = $acc__0[1];
+            $s = $string_of_formatting_lit($fmting_lit);
+            $bufput_acc->contents($b, $p);
+            return $caml_call2($Buffer[14], $b, $s);
+          // FALLTHROUGH
+          case 1:
+            $jM = $acc__0[2];
+            $jN = $acc__0[1];
+            if (0 === $jM[0]) {
+              $acc__1 = $jM[1];
               $bufput_acc->contents($b, $jN);
-              $caml_call2($Buffer[14], $b, $cst__20);
-              $acc__0 = $acc__2;
+              $caml_call2($Buffer[14], $b, $cst__19);
+              $acc__0 = $acc__1;
               continue;
-            // FALLTHROUGH
-            case 6:
-              $f = $acc__0[2];
-              $p__2 = $acc__0[1];
-              $bufput_acc->contents($b, $p__2);
-              return $caml_call1($f, $b);
-            // FALLTHROUGH
-            case 7:
-              $acc__3 = $acc__0[1];
-              $acc__0 = $acc__3;
-              continue;
-            // FALLTHROUGH
-            case 8:
-              $msg = $acc__0[2];
-              $p__3 = $acc__0[1];
-              $bufput_acc->contents($b, $p__3);
-              return $caml_call1($Pervasives[1], $msg);
-            // FALLTHROUGH
-            case 2:
-            // FALLTHROUGH
-            case 4:
-              $s__0 = $acc__0[2];
-              $p__0 = $acc__0[1];
-              $bufput_acc->contents($b, $p__0);
-              return $caml_call2($Buffer[14], $b, $s__0);
-            // FALLTHROUGH
-            default:
-              $c = $acc__0[2];
-              $p__1 = $acc__0[1];
-              $bufput_acc->contents($b, $p__1);
-              return $caml_call2($Buffer[10], $b, $c);
             }
-        }
-      };
-    $_ = $strput_acc->contents =
-      function($b, $acc) use ($Buffer,$Pervasives,$caml_call1,$caml_call2,$cst__21,$cst__22,$is_int,$string_of_formatting_lit,$strput_acc) {
-        $acc__0 = $acc;
-        for (;;) if (
-          $is_int($acc__0)
-        ) {return 0;}
-        else {
-          switch($acc__0[0]) {
-            // FALLTHROUGH
-            case 0:
-              $fmting_lit = $acc__0[2];
-              $p = $acc__0[1];
-              $s = $string_of_formatting_lit($fmting_lit);
-              $strput_acc->contents($b, $p);
-              return $caml_call2($Buffer[14], $b, $s);
-            // FALLTHROUGH
-            case 1:
-              $jJ = $acc__0[2];
-              $jK = $acc__0[1];
-              if (0 === $jJ[0]) {
-                $acc__1 = $jJ[1];
-                $strput_acc->contents($b, $jK);
-                $caml_call2($Buffer[14], $b, $cst__21);
-                $acc__0 = $acc__1;
-                continue;
-              }
-              $acc__2 = $jJ[1];
+            $acc__2 = $jM[1];
+            $bufput_acc->contents($b, $jN);
+            $caml_call2($Buffer[14], $b, $cst__20);
+            $acc__0 = $acc__2;
+            continue;
+          // FALLTHROUGH
+          case 6:
+            $f = $acc__0[2];
+            $p__2 = $acc__0[1];
+            $bufput_acc->contents($b, $p__2);
+            return $caml_call1($f, $b);
+          // FALLTHROUGH
+          case 7:
+            $acc__3 = $acc__0[1];
+            $acc__0 = $acc__3;
+            continue;
+          // FALLTHROUGH
+          case 8:
+            $msg = $acc__0[2];
+            $p__3 = $acc__0[1];
+            $bufput_acc->contents($b, $p__3);
+            return $caml_call1($Pervasives[1], $msg);
+          // FALLTHROUGH
+          case 2:
+          // FALLTHROUGH
+          case 4:
+            $s__0 = $acc__0[2];
+            $p__0 = $acc__0[1];
+            $bufput_acc->contents($b, $p__0);
+            return $caml_call2($Buffer[14], $b, $s__0);
+          // FALLTHROUGH
+          default:
+            $c = $acc__0[2];
+            $p__1 = $acc__0[1];
+            $bufput_acc->contents($b, $p__1);
+            return $caml_call2($Buffer[10], $b, $c);
+          }
+      }
+    };
+    $strput_acc->contents = function($b, $acc) use ($Buffer,$Pervasives,$caml_call1,$caml_call2,$cst__21,$cst__22,$is_int,$string_of_formatting_lit,$strput_acc) {
+      $acc__0 = $acc;
+      for (;;) if (
+        $is_int($acc__0)
+      ) {return 0;}
+      else {
+        switch($acc__0[0]) {
+          // FALLTHROUGH
+          case 0:
+            $fmting_lit = $acc__0[2];
+            $p = $acc__0[1];
+            $s = $string_of_formatting_lit($fmting_lit);
+            $strput_acc->contents($b, $p);
+            return $caml_call2($Buffer[14], $b, $s);
+          // FALLTHROUGH
+          case 1:
+            $jJ = $acc__0[2];
+            $jK = $acc__0[1];
+            if (0 === $jJ[0]) {
+              $acc__1 = $jJ[1];
               $strput_acc->contents($b, $jK);
-              $caml_call2($Buffer[14], $b, $cst__22);
-              $acc__0 = $acc__2;
+              $caml_call2($Buffer[14], $b, $cst__21);
+              $acc__0 = $acc__1;
               continue;
-            // FALLTHROUGH
-            case 6:
-              $f = $acc__0[2];
-              $p__2 = $acc__0[1];
-              $strput_acc->contents($b, $p__2);
-              $jL = $caml_call1($f, 0);
-              return $caml_call2($Buffer[14], $b, $jL);
-            // FALLTHROUGH
-            case 7:
-              $acc__3 = $acc__0[1];
-              $acc__0 = $acc__3;
-              continue;
-            // FALLTHROUGH
-            case 8:
-              $msg = $acc__0[2];
-              $p__3 = $acc__0[1];
-              $strput_acc->contents($b, $p__3);
-              return $caml_call1($Pervasives[1], $msg);
-            // FALLTHROUGH
-            case 2:
-            // FALLTHROUGH
-            case 4:
-              $s__0 = $acc__0[2];
-              $p__0 = $acc__0[1];
-              $strput_acc->contents($b, $p__0);
-              return $caml_call2($Buffer[14], $b, $s__0);
-            // FALLTHROUGH
-            default:
-              $c = $acc__0[2];
-              $p__1 = $acc__0[1];
-              $strput_acc->contents($b, $p__1);
-              return $caml_call2($Buffer[10], $b, $c);
             }
-        }
-      };
+            $acc__2 = $jJ[1];
+            $strput_acc->contents($b, $jK);
+            $caml_call2($Buffer[14], $b, $cst__22);
+            $acc__0 = $acc__2;
+            continue;
+          // FALLTHROUGH
+          case 6:
+            $f = $acc__0[2];
+            $p__2 = $acc__0[1];
+            $strput_acc->contents($b, $p__2);
+            $jL = $caml_call1($f, 0);
+            return $caml_call2($Buffer[14], $b, $jL);
+          // FALLTHROUGH
+          case 7:
+            $acc__3 = $acc__0[1];
+            $acc__0 = $acc__3;
+            continue;
+          // FALLTHROUGH
+          case 8:
+            $msg = $acc__0[2];
+            $p__3 = $acc__0[1];
+            $strput_acc->contents($b, $p__3);
+            return $caml_call1($Pervasives[1], $msg);
+          // FALLTHROUGH
+          case 2:
+          // FALLTHROUGH
+          case 4:
+            $s__0 = $acc__0[2];
+            $p__0 = $acc__0[1];
+            $strput_acc->contents($b, $p__0);
+            return $caml_call2($Buffer[14], $b, $s__0);
+          // FALLTHROUGH
+          default:
+            $c = $acc__0[2];
+            $p__1 = $acc__0[1];
+            $strput_acc->contents($b, $p__1);
+            return $caml_call2($Buffer[10], $b, $c);
+          }
+      }
+    };
     $failwith_message = function($param) use ($Buffer,$Pervasives,$caml_call1,$make_printf,$strput_acc) {
       $fmt = $param[1];
       $buf = $caml_call1($Buffer[1], 256);
@@ -6462,10 +6391,9 @@ final class CamlinternalFormat {
           ? $parse_flags($pct_ind, (int) ($str_ind + 1), $end_ind, 1)
           : ($parse_flags($pct_ind, $str_ind, $end_ind, 0));
       };
-      $_ = $parse_format->contents =
-        function($pct_ind, $end_ind) use ($parse_ign) {
-          return $parse_ign($pct_ind, (int) ($pct_ind + 1), $end_ind);
-        };
+      $parse_format->contents = function($pct_ind, $end_ind) use ($parse_ign) {
+        return $parse_ign($pct_ind, (int) ($pct_ind + 1), $end_ind);
+      };
       $parse_conversion = function
       ($pct_ind, $str_ind, $end_ind, $plus, $hash, $space, $ign, $pad, $prec, $padprec, $symb) use ($caml_call3,$caml_notequal,$caml_string_get,$compute_float_conv,$compute_int_conv,$counter_of_char,$cst_0__0,$cst_0__1,$cst_0__2,$cst__25,$cst__26,$cst__27,$cst__28,$cst__29,$cst__30,$cst__31,$cst__32,$cst_padding__0,$cst_precision__0,$cst_precision__1,$cst_precision__2,$failwith_message,$fmtty_of_fmt,$h4,$h5,$h6,$h7,$h8,$h9,$incompatible_flag,$invalid_nonnull_char_width,$is_int,$is_int_base,$legacy_behavior__0,$make_padding_fmt_ebb,$make_padprec_fmt_ebb,$parse,$parse_char_set,$search_subformat_end,$str) {
         $plus_used = Vector{0, 0};
@@ -7318,102 +7246,96 @@ final class CamlinternalFormat {
            $symb
          ));
       };
-      $_ = $parse_padding->contents =
-        function
-        ($pct_ind, $str_ind, $end_ind, $zero, $minus, $plus, $hash, $space, $ign) use ($caml_string_get,$cst_0,$cst_padding,$h0,$incompatible_flag,$invalid_format_without,$legacy_behavior__0,$parse_after_padding,$parse_positive,$str,$unexpected_end_of_format) {
-          if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
-          $padty = 0 === $zero
-            ? 0 === $minus ? 1 : (0)
-            : (0 === $minus
-             ? 2
-             : ($legacy_behavior__0
-              ? 0
-              : ($incompatible_flag->contents($pct_ind, $str_ind, 45, $cst_0))));
-          $match = $caml_string_get($str, $str_ind);
-          if (48 <= $match) {
-            if (! (58 <= $match)) {
-              $match__0 = $parse_positive->contents($str_ind, $end_ind, 0);
-              $width = $match__0[2];
-              $new_ind = $match__0[1];
-              return $parse_after_padding(
-                $pct_ind,
-                $new_ind,
-                $end_ind,
-                $minus,
-                $plus,
-                $hash,
-                $space,
-                $ign,
-                Vector{0, $padty, $width}
-              );
-            }
+      $parse_padding->contents = function
+      ($pct_ind, $str_ind, $end_ind, $zero, $minus, $plus, $hash, $space, $ign) use ($caml_string_get,$cst_0,$cst_padding,$h0,$incompatible_flag,$invalid_format_without,$legacy_behavior__0,$parse_after_padding,$parse_positive,$str,$unexpected_end_of_format) {
+        if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
+        $padty = 0 === $zero
+          ? 0 === $minus ? 1 : (0)
+          : (0 === $minus
+           ? 2
+           : ($legacy_behavior__0
+            ? 0
+            : ($incompatible_flag->contents($pct_ind, $str_ind, 45, $cst_0))));
+        $match = $caml_string_get($str, $str_ind);
+        if (48 <= $match) {
+          if (! (58 <= $match)) {
+            $match__0 = $parse_positive->contents($str_ind, $end_ind, 0);
+            $width = $match__0[2];
+            $new_ind = $match__0[1];
+            return $parse_after_padding(
+              $pct_ind,
+              $new_ind,
+              $end_ind,
+              $minus,
+              $plus,
+              $hash,
+              $space,
+              $ign,
+              Vector{0, $padty, $width}
+            );
           }
-          else {
-            if (42 === $match) {
-              return $parse_after_padding(
-                $pct_ind,
-                (int)
-                ($str_ind + 1),
-                $end_ind,
-                $minus,
-                $plus,
-                $hash,
-                $space,
-                $ign,
-                Vector{1, $padty}
-              );
-            }
+        }
+        else {
+          if (42 === $match) {
+            return $parse_after_padding(
+              $pct_ind,
+              (int)
+              ($str_ind + 1),
+              $end_ind,
+              $minus,
+              $plus,
+              $hash,
+              $space,
+              $ign,
+              Vector{1, $padty}
+            );
           }
-          switch($padty) {
-            // FALLTHROUGH
-            case 0:
-              if (1 - $legacy_behavior__0) {
-                $invalid_format_without(
-                  (int)
-                  ($str_ind + -1),
-                  45,
-                  $cst_padding
-                );
-              }
-              return $parse_after_padding(
-                $pct_ind,
-                $str_ind,
-                $end_ind,
-                $minus,
-                $plus,
-                $hash,
-                $space,
-                $ign,
-                0
-              );
-            // FALLTHROUGH
-            case 1:
-              return $parse_after_padding(
-                $pct_ind,
-                $str_ind,
-                $end_ind,
-                $minus,
-                $plus,
-                $hash,
-                $space,
-                $ign,
-                0
-              );
-            // FALLTHROUGH
-            default:
-              return $parse_after_padding(
-                $pct_ind,
-                $str_ind,
-                $end_ind,
-                $minus,
-                $plus,
-                $hash,
-                $space,
-                $ign,
-                $h0
-              );
+        }
+        switch($padty) {
+          // FALLTHROUGH
+          case 0:
+            if (1 - $legacy_behavior__0) {
+              $invalid_format_without((int) ($str_ind + -1), 45, $cst_padding);
             }
-        };
+            return $parse_after_padding(
+              $pct_ind,
+              $str_ind,
+              $end_ind,
+              $minus,
+              $plus,
+              $hash,
+              $space,
+              $ign,
+              0
+            );
+          // FALLTHROUGH
+          case 1:
+            return $parse_after_padding(
+              $pct_ind,
+              $str_ind,
+              $end_ind,
+              $minus,
+              $plus,
+              $hash,
+              $space,
+              $ign,
+              0
+            );
+          // FALLTHROUGH
+          default:
+            return $parse_after_padding(
+              $pct_ind,
+              $str_ind,
+              $end_ind,
+              $minus,
+              $plus,
+              $hash,
+              $space,
+              $ign,
+              $h0
+            );
+          }
+      };
       $parse_magic_size = function($str_ind, $end_ind) use ($Failure,$Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$ic,$parse,$parse_integer,$parse_spaces,$runtime,$str) {
         try {
           $str_ind_1 = $parse_spaces->contents($str_ind, $end_ind);
@@ -7596,818 +7518,781 @@ final class CamlinternalFormat {
           throw $runtime["caml_wrap_thrown_exception_reraise"]($iH) as \Throwable;
         }
       };
-      $_ = $parse_after_at->contents =
-        function($str_ind, $end_ind) use ($caml_string_get,$h_,$ia,$ib,$parse,$parse_good_break,$parse_magic_size,$parse_tag,$str,$unsigned_right_shift_32) {
-          if ($str_ind === $end_ind) {return $h_;}
-          $c = $caml_string_get($str, $str_ind);
-          if (65 <= $c) {
-            if (94 <= $c) {
-              $switcher = (int) ($c + -123);
-              if (! (2 < $unsigned_right_shift_32($switcher, 0))) {
-                switch($switcher) {
-                  // FALLTHROUGH
-                  case 0:
-                    return $parse_tag(1, (int) ($str_ind + 1), $end_ind);
-                  // FALLTHROUGH
-                  case 1:break;
-                  // FALLTHROUGH
-                  default:
-                    $match__0 = $parse((int) ($str_ind + 1), $end_ind);
-                    $fmt_rest__0 = $match__0[1];
-                    return Vector{0, Vector{17, 1, $fmt_rest__0}};
-                  }
-              }
-            }
-            else {
-              if (91 <= $c) {
-                $switcher__0 = (int) ($c + -91);
-                switch($switcher__0) {
-                  // FALLTHROUGH
-                  case 0:
-                    return $parse_tag(0, (int) ($str_ind + 1), $end_ind);
-                  // FALLTHROUGH
-                  case 1:break;
-                  // FALLTHROUGH
-                  default:
-                    $match__1 = $parse((int) ($str_ind + 1), $end_ind);
-                    $fmt_rest__1 = $match__1[1];
-                    return Vector{0, Vector{17, 0, $fmt_rest__1}};
-                  }
-              }
-            }
-          }
-          else {
-            if (10 === $c) {
-              $match__2 = $parse((int) ($str_ind + 1), $end_ind);
-              $fmt_rest__2 = $match__2[1];
-              return Vector{0, Vector{17, 3, $fmt_rest__2}};
-            }
-            if (32 <= $c) {
-              $switcher__1 = (int) ($c + -32);
-              switch($switcher__1) {
+      $parse_after_at->contents = function($str_ind, $end_ind) use ($caml_string_get,$h_,$ia,$ib,$parse,$parse_good_break,$parse_magic_size,$parse_tag,$str,$unsigned_right_shift_32) {
+        if ($str_ind === $end_ind) {return $h_;}
+        $c = $caml_string_get($str, $str_ind);
+        if (65 <= $c) {
+          if (94 <= $c) {
+            $switcher = (int) ($c + -123);
+            if (! (2 < $unsigned_right_shift_32($switcher, 0))) {
+              switch($switcher) {
                 // FALLTHROUGH
                 case 0:
-                  $match__3 = $parse((int) ($str_ind + 1), $end_ind);
-                  $fmt_rest__3 = $match__3[1];
-                  return Vector{0, Vector{17, $ia, $fmt_rest__3}};
+                  return $parse_tag(1, (int) ($str_ind + 1), $end_ind);
                 // FALLTHROUGH
-                case 5:
-                  if ((int) ($str_ind + 1) < $end_ind) {
-                    if (37 === $caml_string_get($str, (int) ($str_ind + 1))) {
-                      $match__4 = $parse((int) ($str_ind + 2), $end_ind);
-                      $fmt_rest__4 = $match__4[1];
-                      return Vector{0, Vector{17, 6, $fmt_rest__4}};
-                    }
-                  }
-                  $match__5 = $parse($str_ind, $end_ind);
-                  $fmt_rest__5 = $match__5[1];
-                  return Vector{0, Vector{12, 64, $fmt_rest__5}};
+                case 1:break;
                 // FALLTHROUGH
-                case 12:
-                  $match__6 = $parse((int) ($str_ind + 1), $end_ind);
-                  $fmt_rest__6 = $match__6[1];
-                  return Vector{0, Vector{17, $ib, $fmt_rest__6}};
-                // FALLTHROUGH
-                case 14:
-                  $match__7 = $parse((int) ($str_ind + 1), $end_ind);
-                  $fmt_rest__7 = $match__7[1];
-                  return Vector{0, Vector{17, 4, $fmt_rest__7}};
-                // FALLTHROUGH
-                case 27:
-                  return $parse_good_break((int) ($str_ind + 1), $end_ind);
-                // FALLTHROUGH
-                case 28:
-                  return $parse_magic_size((int) ($str_ind + 1), $end_ind);
-                // FALLTHROUGH
-                case 31:
-                  $match__8 = $parse((int) ($str_ind + 1), $end_ind);
-                  $fmt_rest__8 = $match__8[1];
-                  return Vector{0, Vector{17, 2, $fmt_rest__8}};
-                // FALLTHROUGH
-                case 32:
-                  $match__9 = $parse((int) ($str_ind + 1), $end_ind);
-                  $fmt_rest__9 = $match__9[1];
-                  return Vector{0, Vector{17, 5, $fmt_rest__9}};
+                default:
+                  $match__0 = $parse((int) ($str_ind + 1), $end_ind);
+                  $fmt_rest__0 = $match__0[1];
+                  return Vector{0, Vector{17, 1, $fmt_rest__0}};
                 }
             }
           }
-          $match = $parse((int) ($str_ind + 1), $end_ind);
-          $fmt_rest = $match[1];
-          return Vector{0, Vector{17, Vector{2, $c}, $fmt_rest}};
-        };
-      $_ = $check_open_box->contents =
-        function($fmt) use ($Failure,$caml_wrap_exception,$is_int,$open_box_of_string,$runtime) {
-          if (! $is_int($fmt) && 11 === $fmt[0]) {
-            if ($is_int($fmt[2])) {
-              $str = $fmt[1];
-              try {$open_box_of_string($str);$iE = 0;return $iE;}
-              catch(\Throwable $iF) {
-                $iF = $caml_wrap_exception($iF);
-                if ($iF[1] === $Failure) {return 0;}
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($iF) as \Throwable;
+          else {
+            if (91 <= $c) {
+              $switcher__0 = (int) ($c + -91);
+              switch($switcher__0) {
+                // FALLTHROUGH
+                case 0:
+                  return $parse_tag(0, (int) ($str_ind + 1), $end_ind);
+                // FALLTHROUGH
+                case 1:break;
+                // FALLTHROUGH
+                default:
+                  $match__1 = $parse((int) ($str_ind + 1), $end_ind);
+                  $fmt_rest__1 = $match__1[1];
+                  return Vector{0, Vector{17, 0, $fmt_rest__1}};
+                }
+            }
+          }
+        }
+        else {
+          if (10 === $c) {
+            $match__2 = $parse((int) ($str_ind + 1), $end_ind);
+            $fmt_rest__2 = $match__2[1];
+            return Vector{0, Vector{17, 3, $fmt_rest__2}};
+          }
+          if (32 <= $c) {
+            $switcher__1 = (int) ($c + -32);
+            switch($switcher__1) {
+              // FALLTHROUGH
+              case 0:
+                $match__3 = $parse((int) ($str_ind + 1), $end_ind);
+                $fmt_rest__3 = $match__3[1];
+                return Vector{0, Vector{17, $ia, $fmt_rest__3}};
+              // FALLTHROUGH
+              case 5:
+                if ((int) ($str_ind + 1) < $end_ind) {
+                  if (37 === $caml_string_get($str, (int) ($str_ind + 1))) {
+                    $match__4 = $parse((int) ($str_ind + 2), $end_ind);
+                    $fmt_rest__4 = $match__4[1];
+                    return Vector{0, Vector{17, 6, $fmt_rest__4}};
+                  }
+                }
+                $match__5 = $parse($str_ind, $end_ind);
+                $fmt_rest__5 = $match__5[1];
+                return Vector{0, Vector{12, 64, $fmt_rest__5}};
+              // FALLTHROUGH
+              case 12:
+                $match__6 = $parse((int) ($str_ind + 1), $end_ind);
+                $fmt_rest__6 = $match__6[1];
+                return Vector{0, Vector{17, $ib, $fmt_rest__6}};
+              // FALLTHROUGH
+              case 14:
+                $match__7 = $parse((int) ($str_ind + 1), $end_ind);
+                $fmt_rest__7 = $match__7[1];
+                return Vector{0, Vector{17, 4, $fmt_rest__7}};
+              // FALLTHROUGH
+              case 27:
+                return $parse_good_break((int) ($str_ind + 1), $end_ind);
+              // FALLTHROUGH
+              case 28:
+                return $parse_magic_size((int) ($str_ind + 1), $end_ind);
+              // FALLTHROUGH
+              case 31:
+                $match__8 = $parse((int) ($str_ind + 1), $end_ind);
+                $fmt_rest__8 = $match__8[1];
+                return Vector{0, Vector{17, 2, $fmt_rest__8}};
+              // FALLTHROUGH
+              case 32:
+                $match__9 = $parse((int) ($str_ind + 1), $end_ind);
+                $fmt_rest__9 = $match__9[1];
+                return Vector{0, Vector{17, 5, $fmt_rest__9}};
               }
+          }
+        }
+        $match = $parse((int) ($str_ind + 1), $end_ind);
+        $fmt_rest = $match[1];
+        return Vector{0, Vector{17, Vector{2, $c}, $fmt_rest}};
+      };
+      $check_open_box->contents = function($fmt) use ($Failure,$caml_wrap_exception,$is_int,$open_box_of_string,$runtime) {
+        if (! $is_int($fmt) && 11 === $fmt[0]) {
+          if ($is_int($fmt[2])) {
+            $str = $fmt[1];
+            try {$open_box_of_string($str);$iE = 0;return $iE;}
+            catch(\Throwable $iF) {
+              $iF = $caml_wrap_exception($iF);
+              if ($iF[1] === $Failure) {return 0;}
+              throw $runtime["caml_wrap_thrown_exception_reraise"]($iF) as \Throwable;
+            }
+          }
+        }
+        return 0;
+      };
+      $parse_char_set->contents = function($str_ind, $end_ind) use ($Pervasives,$add_in_char_set,$caml_call1,$caml_call2,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$create_char_set,$failwith_message,$freeze_char_set,$id,$rev_char_set,$str,$unexpected_end_of_format) {
+        $parse_char_set_after_char__0 = new Ref();
+        $parse_char_set_after_minus = new Ref();
+        if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
+        $char_set = $create_char_set(0);
+        $add_char = function($c) use ($add_in_char_set,$char_set) {
+          return $add_in_char_set($char_set, $c);
+        };
+        $add_range = function($c__0, $c) use ($Pervasives,$add_in_char_set,$caml_call1,$char_set) {
+          if (! ($c < $c__0)) {
+            $i = $c__0;
+            for (;;) {
+              $add_in_char_set($char_set, $caml_call1($Pervasives[17], $i));
+              $iD = (int) ($i + 1);
+              if ($c !== $i) {$i = $iD;continue;}
+              break;
             }
           }
           return 0;
         };
-      $_ = $parse_char_set->contents =
-        function($str_ind, $end_ind) use ($Pervasives,$add_in_char_set,$caml_call1,$caml_call2,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$create_char_set,$failwith_message,$freeze_char_set,$id,$rev_char_set,$str,$unexpected_end_of_format) {
-          $parse_char_set_after_char__0 = new Ref();
-          $parse_char_set_after_minus = new Ref();
-          if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
-          $char_set = $create_char_set(0);
-          $add_char = function($c) use ($add_in_char_set,$char_set) {
-            return $add_in_char_set($char_set, $c);
-          };
-          $add_range = function($c__0, $c) use ($Pervasives,$add_in_char_set,$caml_call1,$char_set) {
-            if (! ($c < $c__0)) {
-              $i = $c__0;
-              for (;;) {
-                $add_in_char_set($char_set, $caml_call1($Pervasives[17], $i));
-                $iD = (int) ($i + 1);
-                if ($c !== $i) {$i = $iD;continue;}
-                break;
-              }
-            }
-            return 0;
-          };
-          $fail_single_percent = function($str_ind) use ($caml_call2,$failwith_message,$id,$str) {
-            return $caml_call2($failwith_message($id), $str, $str_ind);
-          };
-          $parse_char_set_content = function($counter, $str_ind, $end_ind) use ($add_char,$caml_string_get,$caml_trampoline_return,$parse_char_set_after_char__0,$str,$unexpected_end_of_format) {
-            $str_ind__0 = $str_ind;
-            for (;;) {
-              if ($str_ind__0 === $end_ind) {
-                $unexpected_end_of_format($end_ind);
-              }
-              $c = $caml_string_get($str, $str_ind__0);
-              if (45 === $c) {
-                $add_char(45);
-                $str_ind__1 = (int) ($str_ind__0 + 1);
-                $str_ind__0 = $str_ind__1;
-                continue;
-              }
-              if (93 === $c) {return (int) ($str_ind__0 + 1);}
-              $iC = (int) ($str_ind__0 + 1);
-              if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
-                return $parse_char_set_after_char__0->contents(
-                  $counter__0,
-                  $iC,
-                  $end_ind,
-                  $c
-                );
-              }
-              return $caml_trampoline_return(
-                $parse_char_set_after_char__0->contents,
-                varray[0,$iC,$end_ind,$c]
-              );
-            }
-          };
-          $_ = $parse_char_set_after_char__0->contents =
-            function($counter, $str_ind, $end_ind, $c) use ($add_char,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_after_minus,$parse_char_set_content,$str,$unexpected_end_of_format) {
-              $str_ind__0 = $str_ind;
-              $c__0 = $c;
-              for (;;) {
-                if ($str_ind__0 === $end_ind) {
-                  $unexpected_end_of_format($end_ind);
-                }
-                $c__1 = $caml_string_get($str, $str_ind__0);
-                if (46 <= $c__1) {
-                  if (64 === $c__1) {$switch__0 = 0;}
-                  else {
-                    if (93 === $c__1) {
-                      $add_char($c__0);
-                      return (int) ($str_ind__0 + 1);
-                    }
-                    $switch__0 = 1;
-                  }
-                }
-                else {
-                  if (37 === $c__1) {$switch__0 = 0;}
-                  else {
-                    if (45 <= $c__1) {
-                      $iB = (int) ($str_ind__0 + 1);
-                      if ($counter < 50) {
-                        $counter__0 = (int) ($counter + 1);
-                        return $parse_char_set_after_minus->contents(
-                          $counter__0,
-                          $iB,
-                          $end_ind,
-                          $c__0
-                        );
-                      }
-                      return $caml_trampoline_return(
-                        $parse_char_set_after_minus->contents,
-                        varray[0,$iB,$end_ind,$c__0]
-                      );
-                    }
-                    $switch__0 = 1;
-                  }
-                }
-                if (! $switch__0) {
-                  if (37 === $c__0) {
-                    $add_char($c__1);
-                    $iA = (int) ($str_ind__0 + 1);
-                    if ($counter < 50) {
-                      $counter__1 = (int) ($counter + 1);
-                      return $parse_char_set_content($counter__1, $iA, $end_ind);
-                    }
-                    return $caml_trampoline_return(
-                      $parse_char_set_content,
-                      varray[0,$iA,$end_ind]
-                    );
-                  }
-                }
-                if (37 === $c__0) {$fail_single_percent($str_ind__0);}
-                $add_char($c__0);
-                $str_ind__1 = (int) ($str_ind__0 + 1);
-                $str_ind__0 = $str_ind__1;
-                $c__0 = $c__1;
-                continue;
-              }
-            };
-          $_ = $parse_char_set_after_minus->contents =
-            function($counter, $str_ind, $end_ind, $c) use ($add_char,$add_range,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_content,$str,$unexpected_end_of_format) {
-              if ($str_ind === $end_ind) {
-                $unexpected_end_of_format($end_ind);
-              }
-              $c__0 = $caml_string_get($str, $str_ind);
-              if (37 === $c__0) {
-                if ((int) ($str_ind + 1) === $end_ind) {$unexpected_end_of_format($end_ind);}
-                $c__1 = $caml_string_get($str, (int) ($str_ind + 1));
-                if (37 !== $c__1) {
-                  if (64 !== $c__1) {return $fail_single_percent($str_ind);}
-                }
-                $add_range($c, $c__1);
-                $iy = (int) ($str_ind + 2);
-                if ($counter < 50) {
-                  $counter__1 = (int) ($counter + 1);
-                  return $parse_char_set_content($counter__1, $iy, $end_ind);
-                }
-                return $caml_trampoline_return(
-                  $parse_char_set_content,
-                  varray[0,$iy,$end_ind]
-                );
-              }
-              if (93 === $c__0) {
-                $add_char($c);
-                $add_char(45);
-                return (int) ($str_ind + 1);
-              }
-              $add_range($c, $c__0);
-              $iz = (int) ($str_ind + 1);
-              if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
-                return $parse_char_set_content($counter__0, $iz, $end_ind);
-              }
-              return $caml_trampoline_return(
-                $parse_char_set_content,
-                varray[0,$iz,$end_ind]
-              );
-            };
-          $parse_char_set_after_char = function($str_ind, $end_ind, $c) use ($caml_trampoline,$parse_char_set_after_char__0) {
-            return $caml_trampoline(
-              $parse_char_set_after_char__0->contents(
-                0,
-                $str_ind,
-                $end_ind,
-                $c
-              )
-            );
-          };
-          $parse_char_set_start = function($str_ind, $end_ind) use ($caml_string_get,$parse_char_set_after_char,$str,$unexpected_end_of_format) {
-            if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
-            $c = $caml_string_get($str, $str_ind);
-            return $parse_char_set_after_char(
-              (int)
-              ($str_ind + 1),
-              $end_ind,
-              $c
-            );
-          };
-          if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
-          $match = $caml_string_get($str, $str_ind);
-          if (94 === $match) {
-            $str_ind__0 = (int) ($str_ind + 1);
-            $reverse = 1;
-            $str_ind__1 = $str_ind__0;
-            $reverse__0 = $reverse;
-          }
-          else {$ix = 0;$str_ind__1 = $str_ind;$reverse__0 = $ix;}
-          $next_ind = $parse_char_set_start($str_ind__1, $end_ind);
-          $char_set__0 = $freeze_char_set($char_set);
-          $iw = $reverse__0 ? $rev_char_set($char_set__0) : ($char_set__0);
-          return Vector{0, $next_ind, $iw};
+        $fail_single_percent = function($str_ind) use ($caml_call2,$failwith_message,$id,$str) {
+          return $caml_call2($failwith_message($id), $str, $str_ind);
         };
-      $_ = $parse_spaces->contents =
-        function($str_ind, $end_ind) use ($caml_string_get,$str,$unexpected_end_of_format) {
+        $parse_char_set_content = function($counter, $str_ind, $end_ind) use ($add_char,$caml_string_get,$caml_trampoline_return,$parse_char_set_after_char__0,$str,$unexpected_end_of_format) {
           $str_ind__0 = $str_ind;
-          for (;;) {
-            if ($str_ind__0 === $end_ind) {
-              $unexpected_end_of_format($end_ind);
-            }
-            if (32 === $caml_string_get($str, $str_ind__0)) {
-              $str_ind__1 = (int) ($str_ind__0 + 1);
-              $str_ind__0 = $str_ind__1;
-              continue;
-            }
-            return $str_ind__0;
-          }
-        };
-      $_ = $parse_positive->contents =
-        function($str_ind, $end_ind, $acc) use ($Sys,$caml_call3,$caml_string_get,$failwith_message,$ie,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
-          $str_ind__0 = $str_ind;
-          $acc__0 = $acc;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
               $unexpected_end_of_format($end_ind);
             }
             $c = $caml_string_get($str, $str_ind__0);
-            $switcher = (int) ($c + -48);
-            if (9 < $unsigned_right_shift_32($switcher, 0)) {return Vector{0, $str_ind__0, $acc__0};}
-            $acc__1 = (int) ((int) ($acc__0 * 10) + (int) ($c - 48));
-            if ($Sys[13] < $acc__1) {
-              $iv = $Sys[13];
-              return $caml_call3($failwith_message($ie), $str, $acc__1, $iv);
-            }
-            $str_ind__1 = (int) ($str_ind__0 + 1);
-            $str_ind__0 = $str_ind__1;
-            $acc__0 = $acc__1;
-            continue;
-          }
-        };
-      $_ = $parse_integer->contents =
-        function($str_ind, $end_ind) use ($Assert_failure,$caml_string_get,$cst_digit,$expected_character,$ig,$parse_positive,$runtime,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
-          if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
-          $match = $caml_string_get($str, $str_ind);
-          if (48 <= $match) {
-            if (! (58 <= $match)) {
-              return $parse_positive->contents($str_ind, $end_ind, 0);
-            }
-          }
-          else {
-            if (45 === $match) {
-              if ((int) ($str_ind + 1) === $end_ind) {$unexpected_end_of_format($end_ind);}
-              $c = $caml_string_get($str, (int) ($str_ind + 1));
-              $switcher = (int) ($c + -48);
-              if (9 < $unsigned_right_shift_32($switcher, 0)) {
-                return $expected_character(
-                  (int)
-                  ($str_ind + 1),
-                  $cst_digit,
-                  $c
-                );
-              }
-              $match__0 = $parse_positive->contents(
-                (int)
-                ($str_ind + 1),
-                $end_ind,
-                0
-              );
-              $n = $match__0[2];
-              $next_ind = $match__0[1];
-              return Vector{0, $next_ind, (int) - $n};
-            }
-          }
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ig}) as \Throwable;
-        };
-      $_ = $search_subformat_end->contents =
-        function($str_ind, $end_ind, $c) use ($caml_call3,$caml_string_get,$cst_character,$cst_character__0,$expected_character,$failwith_message,$ih,$search_subformat_end,$str,$unexpected_end_of_format) {
-          $str_ind__0 = $str_ind;
-          for (;;) {
-            if ($str_ind__0 === $end_ind) {
-              $caml_call3($failwith_message($ih), $str, $c, $end_ind);
-            }
-            $match = $caml_string_get($str, $str_ind__0);
-            if (37 === $match) {
-              if ((int) ($str_ind__0 + 1) === $end_ind) {$unexpected_end_of_format($end_ind);}
-              if ($caml_string_get($str, (int) ($str_ind__0 + 1)) === $c) {return $str_ind__0;}
-              $match__0 = $caml_string_get($str, (int) ($str_ind__0 + 1));
-              if (95 <= $match__0) {
-                if (123 <= $match__0) {
-                  if (! (126 <= $match__0)) {
-                    $switcher = (int) ($match__0 + -123);
-                    switch($switcher) {
-                      // FALLTHROUGH
-                      case 0:
-                        $sub_end = $search_subformat_end->contents(
-                          (int)
-                          ($str_ind__0 + 2),
-                          $end_ind,
-                          125
-                        );
-                        $str_ind__2 = (int) ($sub_end + 2);
-                        $str_ind__0 = $str_ind__2;
-                        continue;
-                      // FALLTHROUGH
-                      case 1:break;
-                      // FALLTHROUGH
-                      default:
-                        return $expected_character(
-                          (int)
-                          ($str_ind__0 + 1),
-                          $cst_character,
-                          125
-                        );
-                      }
-                  }
-                }
-                else {
-                  if (! (96 <= $match__0)) {
-                    if ((int) ($str_ind__0 + 2) === $end_ind) {$unexpected_end_of_format($end_ind);}
-                    $match__1 = $caml_string_get($str, (int) ($str_ind__0 + 2));
-                    if (40 === $match__1) {
-                      $sub_end__0 = $search_subformat_end->contents(
-                        (int)
-                        ($str_ind__0 + 3),
-                        $end_ind,
-                        41
-                      );
-                      $str_ind__3 = (int) ($sub_end__0 + 2);
-                      $str_ind__0 = $str_ind__3;
-                      continue;
-                    }
-                    if (123 === $match__1) {
-                      $sub_end__1 = $search_subformat_end->contents(
-                        (int)
-                        ($str_ind__0 + 3),
-                        $end_ind,
-                        125
-                      );
-                      $str_ind__4 = (int) ($sub_end__1 + 2);
-                      $str_ind__0 = $str_ind__4;
-                      continue;
-                    }
-                    $str_ind__5 = (int) ($str_ind__0 + 3);
-                    $str_ind__0 = $str_ind__5;
-                    continue;
-                  }
-                }
-              }
-              else {
-                if (40 === $match__0) {
-                  $sub_end__2 = $search_subformat_end->contents(
-                    (int)
-                    ($str_ind__0 + 2),
-                    $end_ind,
-                    41
-                  );
-                  $str_ind__6 = (int) ($sub_end__2 + 2);
-                  $str_ind__0 = $str_ind__6;
-                  continue;
-                }
-                if (41 === $match__0) {
-                  return $expected_character(
-                    (int)
-                    ($str_ind__0 + 1),
-                    $cst_character__0,
-                    41
-                  );
-                }
-              }
-              $str_ind__1 = (int) ($str_ind__0 + 2);
+            if (45 === $c) {
+              $add_char(45);
+              $str_ind__1 = (int) ($str_ind__0 + 1);
               $str_ind__0 = $str_ind__1;
               continue;
             }
-            $str_ind__7 = (int) ($str_ind__0 + 1);
-            $str_ind__0 = $str_ind__7;
-            continue;
-          }
-        };
-      $_ = $is_int_base->contents =
-        function($symb) use ($unsigned_right_shift_32) {
-          $iu = (int) ($symb + -88);
-          if (! (32 < $unsigned_right_shift_32($iu, 0))) {
-            switch($iu) {
-              // FALLTHROUGH
-              case 0:
-              // FALLTHROUGH
-              case 12:
-              // FALLTHROUGH
-              case 17:
-              // FALLTHROUGH
-              case 23:
-              // FALLTHROUGH
-              case 29:
-              // FALLTHROUGH
-              case 32:
-                return 1;
-              }
-          }
-          return 0;
-        };
-      $_ = $counter_of_char->contents =
-        function($symb) use ($Assert_failure,$ii,$runtime) {
-          if (108 <= $symb) {
-            if (! (111 <= $symb)) {
-              $switcher = (int) ($symb + -108);
-              switch($switcher) {
-                // FALLTHROUGH
-                case 0:
-                  return 0;
-                // FALLTHROUGH
-                case 1:break;
-                // FALLTHROUGH
-                default:
-                  return 1;
-                }
-            }
-          }
-          else {if (76 === $symb) {return 2;}}
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ii}) as \Throwable;
-        };
-      $_ = $incompatible_flag->contents =
-        function($pct_ind, $str_ind, $symb, $option) use ($String,$caml_call3,$caml_call5,$failwith_message,$il,$str) {
-          $subfmt = $caml_call3(
-            $String[4],
-            $str,
-            $pct_ind,
-            (int)
-            ($str_ind - $pct_ind)
-          );
-          return $caml_call5(
-            $failwith_message($il),
-            $str,
-            $pct_ind,
-            $option,
-            $symb,
-            $subfmt
-          );
-        };
-      $_ = $compute_int_conv->contents =
-        function($pct_ind, $str_ind, $plus, $hash, $space, $symb) use ($Assert_failure,$cst__33,$cst__34,$cst__35,$cst__36,$ij,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
-          $plus__0 = $plus;
-          $hash__0 = $hash;
-          $space__0 = $space;
-          for (;;) {
-            if (0 === $plus__0) {
-              if (0 === $hash__0) {
-                if (0 === $space__0) {
-                  $switcher = (int) ($symb + -88);
-                  if (32 < $unsigned_right_shift_32($switcher, 0)) {$switch__0 = 1;}
-                  else {
-                    switch($switcher) {
-                      // FALLTHROUGH
-                      case 0:
-                        return 8;
-                      // FALLTHROUGH
-                      case 12:
-                        return 0;
-                      // FALLTHROUGH
-                      case 17:
-                        return 3;
-                      // FALLTHROUGH
-                      case 23:
-                        return 10;
-                      // FALLTHROUGH
-                      case 29:
-                        return 12;
-                      // FALLTHROUGH
-                      case 32:
-                        return 6;
-                      // FALLTHROUGH
-                      default:
-                        $switch__0 = 1;
-                      }
-                  }
-                }
-                else {
-                  if (100 === $symb) {return 2;}
-                  if (105 === $symb) {return 5;}
-                  $switch__0 = 1;
-                }
-              }
-              else {
-                if (0 === $space__0) {
-                  if (88 === $symb) {return 9;}
-                  if (111 === $symb) {return 11;}
-                  if (120 === $symb) {return 7;}
-                  $switch__0 = 0;
-                }
-                else {$switch__0 = 0;}
-              }
-            }
-            else {
-              if (0 === $hash__0) {
-                if (0 === $space__0) {
-                  if (100 === $symb) {return 1;}
-                  if (105 === $symb) {return 4;}
-                  $switch__0 = 1;
-                }
-                else {$switch__0 = 1;}
-              }
-              else {$switch__0 = 0;}
-            }
-            if (! $switch__0) {
-              $switcher__0 = (int) ($symb + -88);
-              if (! (32 < $unsigned_right_shift_32($switcher__0, 0))) {
-                switch($switcher__0) {
-                  // FALLTHROUGH
-                  case 0:
-                    if ($legacy_behavior__0) {return 9;}
-                    break;
-                  // FALLTHROUGH
-                  case 23:
-                    if ($legacy_behavior__0) {return 11;}
-                    break;
-                  // FALLTHROUGH
-                  case 32:
-                    if ($legacy_behavior__0) {return 7;}
-                    break;
-                  // FALLTHROUGH
-                  case 12:
-                  // FALLTHROUGH
-                  case 17:
-                  // FALLTHROUGH
-                  case 29:
-                    if ($legacy_behavior__0) {$hash__0 = 0;continue;}
-                    return $incompatible_flag->contents(
-                      $pct_ind,
-                      $str_ind,
-                      $symb,
-                      $cst__36
-                    );
-                  }
-              }
-            }
-            if (0 === $plus__0) {
-              if (0 === $space__0) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ij}) as \Throwable;
-              }
-              if ($legacy_behavior__0) {$space__0 = 0;continue;}
-              return $incompatible_flag->contents(
-                $pct_ind,
-                $str_ind,
-                $symb,
-                $cst__33
+            if (93 === $c) {return (int) ($str_ind__0 + 1);}
+            $iC = (int) ($str_ind__0 + 1);
+            if ($counter < 50) {
+              $counter__0 = (int) ($counter + 1);
+              return $parse_char_set_after_char__0->contents(
+                $counter__0,
+                $iC,
+                $end_ind,
+                $c
               );
             }
-            if (0 === $space__0) {
-              if ($legacy_behavior__0) {$plus__0 = 0;continue;}
-              return $incompatible_flag->contents(
-                $pct_ind,
-                $str_ind,
-                $symb,
-                $cst__34
-              );
-            }
-            if ($legacy_behavior__0) {$space__0 = 0;continue;}
-            return $incompatible_flag->contents(
-              $pct_ind,
-              $str_ind,
-              32,
-              $cst__35
+            return $caml_trampoline_return(
+              $parse_char_set_after_char__0->contents,
+              varray[0,$iC,$end_ind,$c]
             );
           }
         };
-      $_ = $compute_float_conv->contents =
-        function($pct_ind, $str_ind, $plus, $space, $symb) use ($Assert_failure,$cst__37,$cst__38,$cst__39,$ik,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
-          $plus__0 = $plus;
-          $space__0 = $space;
+        $parse_char_set_after_char__0->contents = function
+        ($counter, $str_ind, $end_ind, $c) use ($add_char,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_after_minus,$parse_char_set_content,$str,$unexpected_end_of_format) {
+          $str_ind__0 = $str_ind;
+          $c__0 = $c;
           for (;;) {
-            if (0 === $plus__0) {
-              if (0 === $space__0) {
-                if (73 <= $symb) {
-                  $switcher = (int) ($symb + -101);
-                  if (! (3 < $unsigned_right_shift_32($switcher, 0))) {
-                    switch($switcher) {
-                      // FALLTHROUGH
-                      case 0:
-                        return 3;
-                      // FALLTHROUGH
-                      case 1:
-                        return 0;
-                      // FALLTHROUGH
-                      case 2:
-                        return 9;
-                      // FALLTHROUGH
-                      default:
-                        return 16;
-                      }
-                  }
+            if ($str_ind__0 === $end_ind) {
+              $unexpected_end_of_format($end_ind);
+            }
+            $c__1 = $caml_string_get($str, $str_ind__0);
+            if (46 <= $c__1) {
+              if (64 === $c__1) {$switch__0 = 0;}
+              else {
+                if (93 === $c__1) {
+                  $add_char($c__0);
+                  return (int) ($str_ind__0 + 1);
                 }
-                else {
-                  if (69 <= $symb) {
-                    $switcher__0 = (int) ($symb + -69);
-                    switch($switcher__0) {
-                      // FALLTHROUGH
-                      case 0:
-                        return 6;
-                      // FALLTHROUGH
-                      case 1:
-                        return 15;
-                      // FALLTHROUGH
-                      case 2:
-                        return 12;
-                      // FALLTHROUGH
-                      default:
-                        return 19;
-                      }
-                  }
-                }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ik}) as \Throwable;
+                $switch__0 = 1;
               }
-              if (73 <= $symb) {
-                $switcher__1 = (int) ($symb + -101);
-                if (! (3 < $unsigned_right_shift_32($switcher__1, 0))) {
-                  switch($switcher__1) {
+            }
+            else {
+              if (37 === $c__1) {$switch__0 = 0;}
+              else {
+                if (45 <= $c__1) {
+                  $iB = (int) ($str_ind__0 + 1);
+                  if ($counter < 50) {
+                    $counter__0 = (int) ($counter + 1);
+                    return $parse_char_set_after_minus->contents(
+                      $counter__0,
+                      $iB,
+                      $end_ind,
+                      $c__0
+                    );
+                  }
+                  return $caml_trampoline_return(
+                    $parse_char_set_after_minus->contents,
+                    varray[0,$iB,$end_ind,$c__0]
+                  );
+                }
+                $switch__0 = 1;
+              }
+            }
+            if (! $switch__0) {
+              if (37 === $c__0) {
+                $add_char($c__1);
+                $iA = (int) ($str_ind__0 + 1);
+                if ($counter < 50) {
+                  $counter__1 = (int) ($counter + 1);
+                  return $parse_char_set_content($counter__1, $iA, $end_ind);
+                }
+                return $caml_trampoline_return(
+                  $parse_char_set_content,
+                  varray[0,$iA,$end_ind]
+                );
+              }
+            }
+            if (37 === $c__0) {$fail_single_percent($str_ind__0);}
+            $add_char($c__0);
+            $str_ind__1 = (int) ($str_ind__0 + 1);
+            $str_ind__0 = $str_ind__1;
+            $c__0 = $c__1;
+            continue;
+          }
+        };
+        $parse_char_set_after_minus->contents = function
+        ($counter, $str_ind, $end_ind, $c) use ($add_char,$add_range,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_content,$str,$unexpected_end_of_format) {
+          if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
+          $c__0 = $caml_string_get($str, $str_ind);
+          if (37 === $c__0) {
+            if ((int) ($str_ind + 1) === $end_ind) {$unexpected_end_of_format($end_ind);}
+            $c__1 = $caml_string_get($str, (int) ($str_ind + 1));
+            if (37 !== $c__1) {
+              if (64 !== $c__1) {return $fail_single_percent($str_ind);}
+            }
+            $add_range($c, $c__1);
+            $iy = (int) ($str_ind + 2);
+            if ($counter < 50) {
+              $counter__1 = (int) ($counter + 1);
+              return $parse_char_set_content($counter__1, $iy, $end_ind);
+            }
+            return $caml_trampoline_return(
+              $parse_char_set_content,
+              varray[0,$iy,$end_ind]
+            );
+          }
+          if (93 === $c__0) {
+            $add_char($c);
+            $add_char(45);
+            return (int) ($str_ind + 1);
+          }
+          $add_range($c, $c__0);
+          $iz = (int) ($str_ind + 1);
+          if ($counter < 50) {
+            $counter__0 = (int) ($counter + 1);
+            return $parse_char_set_content($counter__0, $iz, $end_ind);
+          }
+          return $caml_trampoline_return(
+            $parse_char_set_content,
+            varray[0,$iz,$end_ind]
+          );
+        };
+        $parse_char_set_after_char = function($str_ind, $end_ind, $c) use ($caml_trampoline,$parse_char_set_after_char__0) {
+          return $caml_trampoline(
+            $parse_char_set_after_char__0->contents(0, $str_ind, $end_ind, $c)
+          );
+        };
+        $parse_char_set_start = function($str_ind, $end_ind) use ($caml_string_get,$parse_char_set_after_char,$str,$unexpected_end_of_format) {
+          if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
+          $c = $caml_string_get($str, $str_ind);
+          return $parse_char_set_after_char((int) ($str_ind + 1), $end_ind, $c
+          );
+        };
+        if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
+        $match = $caml_string_get($str, $str_ind);
+        if (94 === $match) {
+          $str_ind__0 = (int) ($str_ind + 1);
+          $reverse = 1;
+          $str_ind__1 = $str_ind__0;
+          $reverse__0 = $reverse;
+        }
+        else {$ix = 0;$str_ind__1 = $str_ind;$reverse__0 = $ix;}
+        $next_ind = $parse_char_set_start($str_ind__1, $end_ind);
+        $char_set__0 = $freeze_char_set($char_set);
+        $iw = $reverse__0 ? $rev_char_set($char_set__0) : ($char_set__0);
+        return Vector{0, $next_ind, $iw};
+      };
+      $parse_spaces->contents = function($str_ind, $end_ind) use ($caml_string_get,$str,$unexpected_end_of_format) {
+        $str_ind__0 = $str_ind;
+        for (;;) {
+          if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
+          if (32 === $caml_string_get($str, $str_ind__0)) {
+            $str_ind__1 = (int) ($str_ind__0 + 1);
+            $str_ind__0 = $str_ind__1;
+            continue;
+          }
+          return $str_ind__0;
+        }
+      };
+      $parse_positive->contents = function($str_ind, $end_ind, $acc) use ($Sys,$caml_call3,$caml_string_get,$failwith_message,$ie,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
+        $str_ind__0 = $str_ind;
+        $acc__0 = $acc;
+        for (;;) {
+          if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
+          $c = $caml_string_get($str, $str_ind__0);
+          $switcher = (int) ($c + -48);
+          if (9 < $unsigned_right_shift_32($switcher, 0)) {return Vector{0, $str_ind__0, $acc__0};}
+          $acc__1 = (int) ((int) ($acc__0 * 10) + (int) ($c - 48));
+          if ($Sys[13] < $acc__1) {
+            $iv = $Sys[13];
+            return $caml_call3($failwith_message($ie), $str, $acc__1, $iv);
+          }
+          $str_ind__1 = (int) ($str_ind__0 + 1);
+          $str_ind__0 = $str_ind__1;
+          $acc__0 = $acc__1;
+          continue;
+        }
+      };
+      $parse_integer->contents = function($str_ind, $end_ind) use ($Assert_failure,$caml_string_get,$cst_digit,$expected_character,$ig,$parse_positive,$runtime,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
+        if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
+        $match = $caml_string_get($str, $str_ind);
+        if (48 <= $match) {
+          if (! (58 <= $match)) {
+            return $parse_positive->contents($str_ind, $end_ind, 0);
+          }
+        }
+        else {
+          if (45 === $match) {
+            if ((int) ($str_ind + 1) === $end_ind) {$unexpected_end_of_format($end_ind);}
+            $c = $caml_string_get($str, (int) ($str_ind + 1));
+            $switcher = (int) ($c + -48);
+            if (9 < $unsigned_right_shift_32($switcher, 0)) {
+              return $expected_character((int) ($str_ind + 1), $cst_digit, $c);
+            }
+            $match__0 = $parse_positive->contents(
+              (int)
+              ($str_ind + 1),
+              $end_ind,
+              0
+            );
+            $n = $match__0[2];
+            $next_ind = $match__0[1];
+            return Vector{0, $next_ind, (int) - $n};
+          }
+        }
+        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ig}) as \Throwable;
+      };
+      $search_subformat_end->contents = function($str_ind, $end_ind, $c) use ($caml_call3,$caml_string_get,$cst_character,$cst_character__0,$expected_character,$failwith_message,$ih,$search_subformat_end,$str,$unexpected_end_of_format) {
+        $str_ind__0 = $str_ind;
+        for (;;) {
+          if ($str_ind__0 === $end_ind) {
+            $caml_call3($failwith_message($ih), $str, $c, $end_ind);
+          }
+          $match = $caml_string_get($str, $str_ind__0);
+          if (37 === $match) {
+            if ((int) ($str_ind__0 + 1) === $end_ind) {$unexpected_end_of_format($end_ind);}
+            if ($caml_string_get($str, (int) ($str_ind__0 + 1)) === $c) {return $str_ind__0;}
+            $match__0 = $caml_string_get($str, (int) ($str_ind__0 + 1));
+            if (95 <= $match__0) {
+              if (123 <= $match__0) {
+                if (! (126 <= $match__0)) {
+                  $switcher = (int) ($match__0 + -123);
+                  switch($switcher) {
                     // FALLTHROUGH
                     case 0:
-                      return 5;
+                      $sub_end = $search_subformat_end->contents(
+                        (int)
+                        ($str_ind__0 + 2),
+                        $end_ind,
+                        125
+                      );
+                      $str_ind__2 = (int) ($sub_end + 2);
+                      $str_ind__0 = $str_ind__2;
+                      continue;
                     // FALLTHROUGH
-                    case 1:
-                      return 2;
-                    // FALLTHROUGH
-                    case 2:
-                      return 11;
+                    case 1:break;
                     // FALLTHROUGH
                     default:
-                      return 18;
+                      return $expected_character(
+                        (int)
+                        ($str_ind__0 + 1),
+                        $cst_character,
+                        125
+                      );
                     }
                 }
               }
               else {
-                if (69 <= $symb) {
-                  $switcher__2 = (int) ($symb + -69);
-                  switch($switcher__2) {
+                if (! (96 <= $match__0)) {
+                  if ((int) ($str_ind__0 + 2) === $end_ind) {$unexpected_end_of_format($end_ind);}
+                  $match__1 = $caml_string_get($str, (int) ($str_ind__0 + 2));
+                  if (40 === $match__1) {
+                    $sub_end__0 = $search_subformat_end->contents(
+                      (int)
+                      ($str_ind__0 + 3),
+                      $end_ind,
+                      41
+                    );
+                    $str_ind__3 = (int) ($sub_end__0 + 2);
+                    $str_ind__0 = $str_ind__3;
+                    continue;
+                  }
+                  if (123 === $match__1) {
+                    $sub_end__1 = $search_subformat_end->contents(
+                      (int)
+                      ($str_ind__0 + 3),
+                      $end_ind,
+                      125
+                    );
+                    $str_ind__4 = (int) ($sub_end__1 + 2);
+                    $str_ind__0 = $str_ind__4;
+                    continue;
+                  }
+                  $str_ind__5 = (int) ($str_ind__0 + 3);
+                  $str_ind__0 = $str_ind__5;
+                  continue;
+                }
+              }
+            }
+            else {
+              if (40 === $match__0) {
+                $sub_end__2 = $search_subformat_end->contents(
+                  (int)
+                  ($str_ind__0 + 2),
+                  $end_ind,
+                  41
+                );
+                $str_ind__6 = (int) ($sub_end__2 + 2);
+                $str_ind__0 = $str_ind__6;
+                continue;
+              }
+              if (41 === $match__0) {
+                return $expected_character(
+                  (int)
+                  ($str_ind__0 + 1),
+                  $cst_character__0,
+                  41
+                );
+              }
+            }
+            $str_ind__1 = (int) ($str_ind__0 + 2);
+            $str_ind__0 = $str_ind__1;
+            continue;
+          }
+          $str_ind__7 = (int) ($str_ind__0 + 1);
+          $str_ind__0 = $str_ind__7;
+          continue;
+        }
+      };
+      $is_int_base->contents = function($symb) use ($unsigned_right_shift_32) {
+        $iu = (int) ($symb + -88);
+        if (! (32 < $unsigned_right_shift_32($iu, 0))) {
+          switch($iu) {
+            // FALLTHROUGH
+            case 0:
+            // FALLTHROUGH
+            case 12:
+            // FALLTHROUGH
+            case 17:
+            // FALLTHROUGH
+            case 23:
+            // FALLTHROUGH
+            case 29:
+            // FALLTHROUGH
+            case 32:
+              return 1;
+            }
+        }
+        return 0;
+      };
+      $counter_of_char->contents = function($symb) use ($Assert_failure,$ii,$runtime) {
+        if (108 <= $symb) {
+          if (! (111 <= $symb)) {
+            $switcher = (int) ($symb + -108);
+            switch($switcher) {
+              // FALLTHROUGH
+              case 0:
+                return 0;
+              // FALLTHROUGH
+              case 1:break;
+              // FALLTHROUGH
+              default:
+                return 1;
+              }
+          }
+        }
+        else {if (76 === $symb) {return 2;}}
+        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ii}) as \Throwable;
+      };
+      $incompatible_flag->contents = function
+      ($pct_ind, $str_ind, $symb, $option) use ($String,$caml_call3,$caml_call5,$failwith_message,$il,$str) {
+        $subfmt = $caml_call3(
+          $String[4],
+          $str,
+          $pct_ind,
+          (int)
+          ($str_ind - $pct_ind)
+        );
+        return $caml_call5(
+          $failwith_message($il),
+          $str,
+          $pct_ind,
+          $option,
+          $symb,
+          $subfmt
+        );
+      };
+      $compute_int_conv->contents = function
+      ($pct_ind, $str_ind, $plus, $hash, $space, $symb) use ($Assert_failure,$cst__33,$cst__34,$cst__35,$cst__36,$ij,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
+        $plus__0 = $plus;
+        $hash__0 = $hash;
+        $space__0 = $space;
+        for (;;) {
+          if (0 === $plus__0) {
+            if (0 === $hash__0) {
+              if (0 === $space__0) {
+                $switcher = (int) ($symb + -88);
+                if (32 < $unsigned_right_shift_32($switcher, 0)) {$switch__0 = 1;}
+                else {
+                  switch($switcher) {
                     // FALLTHROUGH
                     case 0:
                       return 8;
                     // FALLTHROUGH
-                    case 1:break;
+                    case 12:
+                      return 0;
                     // FALLTHROUGH
-                    case 2:
-                      return 14;
+                    case 17:
+                      return 3;
                     // FALLTHROUGH
-                    default:
-                      return 21;
-                    }
-                }
-              }
-              if ($legacy_behavior__0) {$space__0 = 0;continue;}
-              return $incompatible_flag->contents(
-                $pct_ind,
-                $str_ind,
-                $symb,
-                $cst__37
-              );
-            }
-            if (0 === $space__0) {
-              if (73 <= $symb) {
-                $switcher__3 = (int) ($symb + -101);
-                if (! (3 < $unsigned_right_shift_32($switcher__3, 0))) {
-                  switch($switcher__3) {
-                    // FALLTHROUGH
-                    case 0:
-                      return 4;
-                    // FALLTHROUGH
-                    case 1:
-                      return 1;
-                    // FALLTHROUGH
-                    case 2:
+                    case 23:
                       return 10;
                     // FALLTHROUGH
+                    case 29:
+                      return 12;
+                    // FALLTHROUGH
+                    case 32:
+                      return 6;
+                    // FALLTHROUGH
                     default:
-                      return 17;
+                      $switch__0 = 1;
                     }
                 }
               }
               else {
-                if (69 <= $symb) {
-                  $switcher__4 = (int) ($symb + -69);
-                  switch($switcher__4) {
-                    // FALLTHROUGH
-                    case 0:
-                      return 7;
-                    // FALLTHROUGH
-                    case 1:break;
-                    // FALLTHROUGH
-                    case 2:
-                      return 13;
-                    // FALLTHROUGH
-                    default:
-                      return 20;
-                    }
-                }
+                if (100 === $symb) {return 2;}
+                if (105 === $symb) {return 5;}
+                $switch__0 = 1;
               }
-              if ($legacy_behavior__0) {$plus__0 = 0;continue;}
-              return $incompatible_flag->contents(
-                $pct_ind,
-                $str_ind,
-                $symb,
-                $cst__38
-              );
+            }
+            else {
+              if (0 === $space__0) {
+                if (88 === $symb) {return 9;}
+                if (111 === $symb) {return 11;}
+                if (120 === $symb) {return 7;}
+                $switch__0 = 0;
+              }
+              else {$switch__0 = 0;}
+            }
+          }
+          else {
+            if (0 === $hash__0) {
+              if (0 === $space__0) {
+                if (100 === $symb) {return 1;}
+                if (105 === $symb) {return 4;}
+                $switch__0 = 1;
+              }
+              else {$switch__0 = 1;}
+            }
+            else {$switch__0 = 0;}
+          }
+          if (! $switch__0) {
+            $switcher__0 = (int) ($symb + -88);
+            if (! (32 < $unsigned_right_shift_32($switcher__0, 0))) {
+              switch($switcher__0) {
+                // FALLTHROUGH
+                case 0:
+                  if ($legacy_behavior__0) {return 9;}
+                  break;
+                // FALLTHROUGH
+                case 23:
+                  if ($legacy_behavior__0) {return 11;}
+                  break;
+                // FALLTHROUGH
+                case 32:
+                  if ($legacy_behavior__0) {return 7;}
+                  break;
+                // FALLTHROUGH
+                case 12:
+                // FALLTHROUGH
+                case 17:
+                // FALLTHROUGH
+                case 29:
+                  if ($legacy_behavior__0) {$hash__0 = 0;continue;}
+                  return $incompatible_flag->contents(
+                    $pct_ind,
+                    $str_ind,
+                    $symb,
+                    $cst__36
+                  );
+                }
+            }
+          }
+          if (0 === $plus__0) {
+            if (0 === $space__0) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ij}) as \Throwable;
             }
             if ($legacy_behavior__0) {$space__0 = 0;continue;}
             return $incompatible_flag->contents(
               $pct_ind,
               $str_ind,
-              32,
-              $cst__39
+              $symb,
+              $cst__33
             );
           }
-        };
+          if (0 === $space__0) {
+            if ($legacy_behavior__0) {$plus__0 = 0;continue;}
+            return $incompatible_flag->contents(
+              $pct_ind,
+              $str_ind,
+              $symb,
+              $cst__34
+            );
+          }
+          if ($legacy_behavior__0) {$space__0 = 0;continue;}
+          return $incompatible_flag->contents($pct_ind, $str_ind, 32, $cst__35
+          );
+        }
+      };
+      $compute_float_conv->contents = function
+      ($pct_ind, $str_ind, $plus, $space, $symb) use ($Assert_failure,$cst__37,$cst__38,$cst__39,$ik,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
+        $plus__0 = $plus;
+        $space__0 = $space;
+        for (;;) {
+          if (0 === $plus__0) {
+            if (0 === $space__0) {
+              if (73 <= $symb) {
+                $switcher = (int) ($symb + -101);
+                if (! (3 < $unsigned_right_shift_32($switcher, 0))) {
+                  switch($switcher) {
+                    // FALLTHROUGH
+                    case 0:
+                      return 3;
+                    // FALLTHROUGH
+                    case 1:
+                      return 0;
+                    // FALLTHROUGH
+                    case 2:
+                      return 9;
+                    // FALLTHROUGH
+                    default:
+                      return 16;
+                    }
+                }
+              }
+              else {
+                if (69 <= $symb) {
+                  $switcher__0 = (int) ($symb + -69);
+                  switch($switcher__0) {
+                    // FALLTHROUGH
+                    case 0:
+                      return 6;
+                    // FALLTHROUGH
+                    case 1:
+                      return 15;
+                    // FALLTHROUGH
+                    case 2:
+                      return 12;
+                    // FALLTHROUGH
+                    default:
+                      return 19;
+                    }
+                }
+              }
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ik}) as \Throwable;
+            }
+            if (73 <= $symb) {
+              $switcher__1 = (int) ($symb + -101);
+              if (! (3 < $unsigned_right_shift_32($switcher__1, 0))) {
+                switch($switcher__1) {
+                  // FALLTHROUGH
+                  case 0:
+                    return 5;
+                  // FALLTHROUGH
+                  case 1:
+                    return 2;
+                  // FALLTHROUGH
+                  case 2:
+                    return 11;
+                  // FALLTHROUGH
+                  default:
+                    return 18;
+                  }
+              }
+            }
+            else {
+              if (69 <= $symb) {
+                $switcher__2 = (int) ($symb + -69);
+                switch($switcher__2) {
+                  // FALLTHROUGH
+                  case 0:
+                    return 8;
+                  // FALLTHROUGH
+                  case 1:break;
+                  // FALLTHROUGH
+                  case 2:
+                    return 14;
+                  // FALLTHROUGH
+                  default:
+                    return 21;
+                  }
+              }
+            }
+            if ($legacy_behavior__0) {$space__0 = 0;continue;}
+            return $incompatible_flag->contents(
+              $pct_ind,
+              $str_ind,
+              $symb,
+              $cst__37
+            );
+          }
+          if (0 === $space__0) {
+            if (73 <= $symb) {
+              $switcher__3 = (int) ($symb + -101);
+              if (! (3 < $unsigned_right_shift_32($switcher__3, 0))) {
+                switch($switcher__3) {
+                  // FALLTHROUGH
+                  case 0:
+                    return 4;
+                  // FALLTHROUGH
+                  case 1:
+                    return 1;
+                  // FALLTHROUGH
+                  case 2:
+                    return 10;
+                  // FALLTHROUGH
+                  default:
+                    return 17;
+                  }
+              }
+            }
+            else {
+              if (69 <= $symb) {
+                $switcher__4 = (int) ($symb + -69);
+                switch($switcher__4) {
+                  // FALLTHROUGH
+                  case 0:
+                    return 7;
+                  // FALLTHROUGH
+                  case 1:break;
+                  // FALLTHROUGH
+                  case 2:
+                    return 13;
+                  // FALLTHROUGH
+                  default:
+                    return 20;
+                  }
+              }
+            }
+            if ($legacy_behavior__0) {$plus__0 = 0;continue;}
+            return $incompatible_flag->contents(
+              $pct_ind,
+              $str_ind,
+              $symb,
+              $cst__38
+            );
+          }
+          if ($legacy_behavior__0) {$space__0 = 0;continue;}
+          return $incompatible_flag->contents($pct_ind, $str_ind, 32, $cst__39
+          );
+        }
+      };
       return $parse(0, $caml_ml_string_length($str));
     };
     $format_of_string_fmtty = function($str, $fmtty) use ($Type_mismatch,$caml_call2,$caml_wrap_exception,$failwith_message,$fmt_ebb_of_string,$im,$runtime,$string_of_fmtty,$type_format) {

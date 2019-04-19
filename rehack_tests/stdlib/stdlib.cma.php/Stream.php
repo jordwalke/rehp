@@ -101,73 +101,70 @@ final class Stream {
       $b[4] = 0;
       return 0;
     };
-    $_ = $get_data->contents =
-      function($count, $d) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g2,$g3,$get_data,$is_int,$runtime) {
-        $d__0 = $d;
-        for (;;) {
-          if (! $is_int($d__0)) {
-            switch($d__0[0]) {
-              // FALLTHROUGH
-              case 1:
-                $d2 = $d__0[2];
-                $d1 = $d__0[1];
-                $match = $get_data->contents($count, $d1);
-                if ($is_int($match)) {
-                  $d__0 = $d2;
-                  continue;
-                }
-                else {
-                  if (0 === $match[0]) {
-                    $d11 = $match[2];
-                    $a = $match[1];
-                    return Vector{0, $a, Vector{1, $d11, $d2}};
-                  }
-                  throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g2}) as \Throwable;
-                }
-              // FALLTHROUGH
-              case 2:
-                $f = $d__0[1];
-                $hh = $caml_obj_tag($f);
-                $d__1 = 250 === $hh
-                  ? $f[1]
-                  : (246 === $hh
-                   ? $caml_call1($CamlinternalLazy[2], $f)
-                   : ($f));
-                $d__0 = $d__1;
+    $get_data->contents = function($count, $d) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g2,$g3,$get_data,$is_int,$runtime) {
+      $d__0 = $d;
+      for (;;) {
+        if (! $is_int($d__0)) {
+          switch($d__0[0]) {
+            // FALLTHROUGH
+            case 1:
+              $d2 = $d__0[2];
+              $d1 = $d__0[1];
+              $match = $get_data->contents($count, $d1);
+              if ($is_int($match)) {
+                $d__0 = $d2;
                 continue;
-              // FALLTHROUGH
-              case 3:
-                $hi = $d__0[1];
-                $hj = $hi[1];
-                if ($hj) {
-                  $hk = $hj[1];
-                  if ($hk) {
-                    $a__0 = $hk[1];
-                    $hi[1] = 0;
-                    return Vector{0, $a__0, $d__0};
-                  }
-                  return 0;
-                }
-                $match__0 = $caml_call1($hi[2], $count);
-                if ($match__0) {
-                  $a__1 = $match__0[1];
-                  return Vector{0, $a__1, $d__0};
-                }
-                $hi[1] = $g3;
-                return 0;
-              // FALLTHROUGH
-              case 4:
-                $b = $d__0[1];
-                if ($b[3] <= $b[4]) {$fill_buff($b);}
-                if (0 === $b[3]) {return 0;}
-                $r = $caml_bytes_unsafe_get($b[2], $b[4]);
-                $b[4] = (int) ($b[4] + 1);
-                return Vector{0, $r, $d__0};
               }
-          }
-          return $d__0;
+              else {
+                if (0 === $match[0]) {
+                  $d11 = $match[2];
+                  $a = $match[1];
+                  return Vector{0, $a, Vector{1, $d11, $d2}};
+                }
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g2}) as \Throwable;
+              }
+            // FALLTHROUGH
+            case 2:
+              $f = $d__0[1];
+              $hh = $caml_obj_tag($f);
+              $d__1 = 250 === $hh
+                ? $f[1]
+                : (246 === $hh ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
+              $d__0 = $d__1;
+              continue;
+            // FALLTHROUGH
+            case 3:
+              $hi = $d__0[1];
+              $hj = $hi[1];
+              if ($hj) {
+                $hk = $hj[1];
+                if ($hk) {
+                  $a__0 = $hk[1];
+                  $hi[1] = 0;
+                  return Vector{0, $a__0, $d__0};
+                }
+                return 0;
+              }
+              $match__0 = $caml_call1($hi[2], $count);
+              if ($match__0) {
+                $a__1 = $match__0[1];
+                return Vector{0, $a__1, $d__0};
+              }
+              $hi[1] = $g3;
+              return 0;
+            // FALLTHROUGH
+            case 4:
+              $b = $d__0[1];
+              if ($b[3] <= $b[4]) {$fill_buff($b);}
+              if (0 === $b[3]) {return 0;}
+              $r = $caml_bytes_unsafe_get($b[2], $b[4]);
+              $b[4] = (int) ($b[4] + 1);
+              return Vector{0, $r, $d__0};
+            }
         }
-      };
+        return $d__0;
+      }
+    };
     $peek_data = function($s) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g4,$get_data,$is_int,$runtime) {
       for (;;) {
         $hc = $s[2];
@@ -255,29 +252,28 @@ final class Stream {
       if ($param) {$data = $param[1];return $junk_data($data);}
       return 0;
     };
-    $_ = $nget_data->contents =
-      function($n, $s) use ($junk_data,$nget_data,$peek_data) {
-        if (0 < $n) {
-          $match = $peek_data($s);
-          if ($match) {
-            $a = $match[1];
-            $junk_data($s);
-            $match__0 = $nget_data->contents((int) ($n + -1), $s);
-            $k = $match__0[3];
-            $d = $match__0[2];
-            $al = $match__0[1];
-            return Vector{
-              0,
-              Vector{0, $a, $al},
-              Vector{0, $a, $d},
-              (int)
-              ($k + 1)
-            };
-          }
-          return Vector{0, 0, $s[2], 0};
+    $nget_data->contents = function($n, $s) use ($junk_data,$nget_data,$peek_data) {
+      if (0 < $n) {
+        $match = $peek_data($s);
+        if ($match) {
+          $a = $match[1];
+          $junk_data($s);
+          $match__0 = $nget_data->contents((int) ($n + -1), $s);
+          $k = $match__0[3];
+          $d = $match__0[2];
+          $al = $match__0[1];
+          return Vector{
+            0,
+            Vector{0, $a, $al},
+            Vector{0, $a, $d},
+            (int)
+            ($k + 1)
+          };
         }
         return Vector{0, 0, $s[2], 0};
-      };
+      }
+      return Vector{0, 0, $s[2], 0};
+    };
     $npeek_data = function($n, $s) use ($nget_data) {
       $match = $nget_data->contents($n, $s);
       $len = $match[3];
@@ -454,43 +450,42 @@ final class Stream {
       $caml_call1($Pervasives[30], $cst);
       return $caml_call1($Pervasives[35], 0);
     };
-    $_ = $dump_data->contents =
-      function($f, $param) use ($Pervasives,$caml_call1,$cst_Sapp,$cst_Sbuffio,$cst_Scons,$cst_Sempty,$cst_Sgen,$cst_Slazy,$cst__0,$cst__1,$cst__2,$cst__3,$dump_data,$is_int) {
-        if ($is_int($param)) {
-          return $caml_call1($Pervasives[30], $cst_Sempty);
-        }
-        else {
-          switch($param[0]) {
-            // FALLTHROUGH
-            case 0:
-              $d = $param[2];
-              $a = $param[1];
-              $caml_call1($Pervasives[30], $cst_Scons);
-              $caml_call1($f, $a);
-              $caml_call1($Pervasives[30], $cst__0);
-              $dump_data->contents($f, $d);
-              return $caml_call1($Pervasives[30], $cst__1);
-            // FALLTHROUGH
-            case 1:
-              $d2 = $param[2];
-              $d1 = $param[1];
-              $caml_call1($Pervasives[30], $cst_Sapp);
-              $dump_data->contents($f, $d1);
-              $caml_call1($Pervasives[30], $cst__2);
-              $dump_data->contents($f, $d2);
-              return $caml_call1($Pervasives[30], $cst__3);
-            // FALLTHROUGH
-            case 2:
-              return $caml_call1($Pervasives[30], $cst_Slazy);
-            // FALLTHROUGH
-            case 3:
-              return $caml_call1($Pervasives[30], $cst_Sgen);
-            // FALLTHROUGH
-            default:
-              return $caml_call1($Pervasives[30], $cst_Sbuffio);
-            }
-        }
-      };
+    $dump_data->contents = function($f, $param) use ($Pervasives,$caml_call1,$cst_Sapp,$cst_Sbuffio,$cst_Scons,$cst_Sempty,$cst_Sgen,$cst_Slazy,$cst__0,$cst__1,$cst__2,$cst__3,$dump_data,$is_int) {
+      if ($is_int($param)) {
+        return $caml_call1($Pervasives[30], $cst_Sempty);
+      }
+      else {
+        switch($param[0]) {
+          // FALLTHROUGH
+          case 0:
+            $d = $param[2];
+            $a = $param[1];
+            $caml_call1($Pervasives[30], $cst_Scons);
+            $caml_call1($f, $a);
+            $caml_call1($Pervasives[30], $cst__0);
+            $dump_data->contents($f, $d);
+            return $caml_call1($Pervasives[30], $cst__1);
+          // FALLTHROUGH
+          case 1:
+            $d2 = $param[2];
+            $d1 = $param[1];
+            $caml_call1($Pervasives[30], $cst_Sapp);
+            $dump_data->contents($f, $d1);
+            $caml_call1($Pervasives[30], $cst__2);
+            $dump_data->contents($f, $d2);
+            return $caml_call1($Pervasives[30], $cst__3);
+          // FALLTHROUGH
+          case 2:
+            return $caml_call1($Pervasives[30], $cst_Slazy);
+          // FALLTHROUGH
+          case 3:
+            return $caml_call1($Pervasives[30], $cst_Sgen);
+          // FALLTHROUGH
+          default:
+            return $caml_call1($Pervasives[30], $cst_Sbuffio);
+          }
+      }
+    };
     $Stream = Vector{
       0,
       $Failure,

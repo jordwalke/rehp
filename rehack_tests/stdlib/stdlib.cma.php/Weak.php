@@ -332,62 +332,61 @@ final class Weak {
         $t[4] = 0;
         return 0;
       };
-      $_ = $add_aux->contents =
-        function($t, $setter, $d, $h, $index) use ($Array,$Pervasives,$Sys,$caml_call1,$caml_call2,$caml_call3,$caml_call5,$caml_check_bound,$caml_make_vect,$caml_weak_blit,$caml_weak_check,$cst_Weak_Make_hash_bucket_cannot_grow_more,$length,$resize,$test_shrink_bucket,$weak_create) {
-          $bucket = $caml_check_bound($t[1], $index)[$index + 1];
-          $hashes = $caml_check_bound($t[2], $index)[$index + 1];
-          $sz = $length($bucket);
-          $loop = function($i) use ($Array,$Pervasives,$Sys,$bucket,$caml_call1,$caml_call2,$caml_call3,$caml_call5,$caml_check_bound,$caml_make_vect,$caml_weak_blit,$caml_weak_check,$cst_Weak_Make_hash_bucket_cannot_grow_more,$d,$h,$hashes,$index,$resize,$setter,$sz,$t,$test_shrink_bucket,$weak_create) {
-            $i__0 = $i;
-            for (;;) {
-              if ($sz <= $i__0) {
-                $newsz = $caml_call2(
-                  $Pervasives[4],
-                  (int)
-                  ((int) ((int) (3 * $sz) / 2) + 3),
-                  (int)
-                  ($Sys[14] - 2)
+      $add_aux->contents = function($t, $setter, $d, $h, $index) use ($Array,$Pervasives,$Sys,$caml_call1,$caml_call2,$caml_call3,$caml_call5,$caml_check_bound,$caml_make_vect,$caml_weak_blit,$caml_weak_check,$cst_Weak_Make_hash_bucket_cannot_grow_more,$length,$resize,$test_shrink_bucket,$weak_create) {
+        $bucket = $caml_check_bound($t[1], $index)[$index + 1];
+        $hashes = $caml_check_bound($t[2], $index)[$index + 1];
+        $sz = $length($bucket);
+        $loop = function($i) use ($Array,$Pervasives,$Sys,$bucket,$caml_call1,$caml_call2,$caml_call3,$caml_call5,$caml_check_bound,$caml_make_vect,$caml_weak_blit,$caml_weak_check,$cst_Weak_Make_hash_bucket_cannot_grow_more,$d,$h,$hashes,$index,$resize,$setter,$sz,$t,$test_shrink_bucket,$weak_create) {
+          $i__0 = $i;
+          for (;;) {
+            if ($sz <= $i__0) {
+              $newsz = $caml_call2(
+                $Pervasives[4],
+                (int)
+                ((int) ((int) (3 * $sz) / 2) + 3),
+                (int)
+                ($Sys[14] - 2)
+              );
+              if ($newsz <= $sz) {
+                $caml_call1(
+                  $Pervasives[2],
+                  $cst_Weak_Make_hash_bucket_cannot_grow_more
                 );
-                if ($newsz <= $sz) {
-                  $caml_call1(
-                    $Pervasives[2],
-                    $cst_Weak_Make_hash_bucket_cannot_grow_more
-                  );
-                }
-                $newbucket = $weak_create($newsz);
-                $newhashes = $caml_make_vect($newsz, 0);
-                $caml_weak_blit($bucket, 0, $newbucket, 0, $sz);
-                $caml_call5($Array[10], $hashes, 0, $newhashes, 0, $sz);
-                $caml_call3($setter, $newbucket, $sz, $d);
-                $caml_check_bound($newhashes, $sz)[$sz + 1] = $h;
-                $caml_check_bound($t[1], $index)[$index + 1] = $newbucket;
-                $caml_check_bound($t[2], $index)[$index + 1] = $newhashes;
-                $r4 = $sz <= $t[3] ? 1 : (0);
-                $r5 = $r4 ? $t[3] < $newsz ? 1 : (0) : ($r4);
-                if ($r5) {
-                  $t[4] = (int) ($t[4] + 1);
-                  $i__1 = 0;
-                  for (;;) {
-                    $test_shrink_bucket($t);
-                    $r7 = (int) ($i__1 + 1);
-                    if (2 !== $i__1) {$i__1 = $r7;continue;}
-                    break;
-                  }
-                }
-                $r6 = (int) (($t[1]->count() - 1) / 2) < $t[4] ? 1 : (0);
-                return $r6 ? $resize($t) : ($r6);
               }
-              if ($caml_weak_check($bucket, $i__0)) {
-                $i__2 = (int) ($i__0 + 1);
-                $i__0 = $i__2;
-                continue;
+              $newbucket = $weak_create($newsz);
+              $newhashes = $caml_make_vect($newsz, 0);
+              $caml_weak_blit($bucket, 0, $newbucket, 0, $sz);
+              $caml_call5($Array[10], $hashes, 0, $newhashes, 0, $sz);
+              $caml_call3($setter, $newbucket, $sz, $d);
+              $caml_check_bound($newhashes, $sz)[$sz + 1] = $h;
+              $caml_check_bound($t[1], $index)[$index + 1] = $newbucket;
+              $caml_check_bound($t[2], $index)[$index + 1] = $newhashes;
+              $r4 = $sz <= $t[3] ? 1 : (0);
+              $r5 = $r4 ? $t[3] < $newsz ? 1 : (0) : ($r4);
+              if ($r5) {
+                $t[4] = (int) ($t[4] + 1);
+                $i__1 = 0;
+                for (;;) {
+                  $test_shrink_bucket($t);
+                  $r7 = (int) ($i__1 + 1);
+                  if (2 !== $i__1) {$i__1 = $r7;continue;}
+                  break;
+                }
               }
-              $caml_call3($setter, $bucket, $i__0, $d);
-              return $caml_check_bound($hashes, $i__0)[$i__0 + 1] = $h;
+              $r6 = (int) (($t[1]->count() - 1) / 2) < $t[4] ? 1 : (0);
+              return $r6 ? $resize($t) : ($r6);
             }
-          };
-          return $loop(0);
+            if ($caml_weak_check($bucket, $i__0)) {
+              $i__2 = (int) ($i__0 + 1);
+              $i__0 = $i__2;
+              continue;
+            }
+            $caml_call3($setter, $bucket, $i__0, $d);
+            return $caml_check_bound($hashes, $i__0)[$i__0 + 1] = $h;
+          }
         };
+        return $loop(0);
+      };
       $add = function($t, $d) use ($H,$add_aux,$caml_call1,$caml_weak_set,$get_index) {
         $h = $caml_call1($H[2], $d);
         $rZ = $get_index($t, $h);
