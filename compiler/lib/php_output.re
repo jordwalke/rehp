@@ -1161,10 +1161,10 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.break(f);
       elements_as_args(f, r);
     }
-  and variable_declaration = (f, (i, init)) =>
-    switch (init) {
-    | None => ident(f, i)
-    | Some((e, pc)) =>
+  and variable_declaration = (f, v) =>
+    switch (v) {
+    | (EVar(i), None) => ident(f, i)
+    | (EVar(i), Some((e, pc))) =>
       PP.start_group(f, 0);
       output_debug_info(f, pc);
       ident(f, i);
@@ -1187,7 +1187,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   and variable_declaration_list = (~separator, close, f) =>
     fun
     | [] => ()
-    | [(i, None)] => {
+    | [(EVar(i), None)] => {
         PP.start_group(f, 0);
         ident(f, i);
         if (close) {
@@ -1195,7 +1195,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         };
         PP.end_group(f);
       }
-    | [(i, Some((e, pc)))] => {
+    | [(EVar(i), Some((e, pc)))] => {
         PP.start_group(f, 0);
         output_debug_info(f, pc);
         ident(f, i);

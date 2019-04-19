@@ -159,7 +159,7 @@ and statement =
   | Global_statement(Id.t)
 and block = statement_list
 and statement_list = list((statement, Loc.t))
-and variable_declaration = (Id.t, option(initialiser))
+and variable_declaration = (expression, option(initialiser))
 and case_clause = (expression, statement_list)
 and initialiser = (expression, Loc.t)
 /****/

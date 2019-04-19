@@ -156,7 +156,10 @@ let outAppend = (cur, next) => {
 
 let createRef = ((name, _)) => {
   let newRef = Php.ENew(EVar(Id.S({name: "Ref", var: None})), None);
-  (Id.S({name: identStr(name), var: None}), Some((newRef, Loc.N)));
+  (
+    Php.EVar(Id.S({name: identStr(name), var: None})),
+    Some((newRef, Loc.N)),
+  );
 };
 
 let topLevelIdentifiersSt = (newVarsSoFar, st) =>
@@ -261,7 +264,16 @@ let str = id =>
   | Id.S({name}) => name
   | V(_) => ""
   };
-let rec foldVars = (mapper, curOut, curInput, curRevMappeds, remain) =>
+let rec foldVars =
+        (
+          mapper,
+          curOut: 'a,
+          curInput,
+          curRevMappeds:
+            list((Php.expression, option((Php.expression, Loc.t)))),
+          remain,
+        )
+        : ('a, list((Php.expression, option((Php.expression, Loc.t))))) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(id, eo), ...tl] =>
@@ -275,7 +287,7 @@ let rec foldVars = (mapper, curOut, curInput, curRevMappeds, remain) =>
       if (exists(curOut.use, id)) {
         let (out, next) = (
           curOut,
-          (identMapped, Some((Php.EVar(identMapped), Loc.N))),
+          (Php.EVar(identMapped), Some((Php.EVar(identMapped), Loc.N))),
         );
         foldVars(mapper, out, curInput, [next, ...curRevMappeds], tl);
       } else {
@@ -283,7 +295,7 @@ let rec foldVars = (mapper, curOut, curInput, curRevMappeds, remain) =>
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
         let input = addOne(curInput, id);
-        let next = [(identMapped, initMapped), ...curRevMappeds];
+        let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       }
     | Some(e) =>
@@ -291,7 +303,7 @@ let rec foldVars = (mapper, curOut, curInput, curRevMappeds, remain) =>
       /* TODO: Add a !exists(curOut.dec) to fix the valid_float_lexem case */
       if (!exists(curOut.dec, id)
           && (exists(curOut.use, id) || exists(rhsOut.use, id))) {
-        let dummyId = Id.S({name: "$_", var: None});
+        let dummyId = Php.EVar(Id.S({name: "$_", var: None}));
         let updateExpr =
           Php.EBin(Php.Eq, EDot(EVar(identMapped), "contents"), mapped);
         let (out, dummy) = (
@@ -305,7 +317,7 @@ let rec foldVars = (mapper, curOut, curInput, curRevMappeds, remain) =>
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
         let input = addOne(curInput, id);
-        let next = [(identMapped, initMapped), ...curRevMappeds];
+        let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       };
     };
@@ -723,7 +735,7 @@ and statement = (curOut, input, x) => {
           | Right((id, e)) =>
             let identMapped = ident(input, id);
             let (initOut, initMapped) = optOutput(initialiser(input), e);
-            (initOut, Right((identMapped, initMapped)));
+            (initOut, Right((Php.EVar(identMapped), initMapped)));
           };
         let (e2Out, e2Mapped) = expression(input, e2);
         let (sOut, sMapped) = statement(curOut, input, s);
