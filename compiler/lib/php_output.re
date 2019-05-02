@@ -513,14 +513,61 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | Mod => (12, 12, 13)
     };
 
+  let is_update_op = op =>
+    switch (op) {
+    | Eq
+    | StarEq
+    | SlashEq
+    | ModEq
+    | PlusEq
+    | MinusEq
+    | LslEq
+    | AsrEq
+    | BandEq
+    | BxorEq
+    | BorEq => true
+    | Or
+    | And
+    | Bor
+    | Bxor
+    | Band
+    | EqEq
+    | NotEq
+    | EqEqEq
+    | NotEqEq
+    | Lt
+    | Le
+    | Gt
+    | Ge
+    | Lsl
+    | Asr
+    | FloatPlus
+    | IntPlus
+    | StrPlus
+    | Plus
+    | Minus
+    | Mul
+    | Div
+    | Mod
+    | InstanceOf => false
+    | In => assert(false)
+    };
+
   let op_str = op =>
     switch (op) {
+    /* update operators */
     | Eq => "="
     | StarEq => "*="
     | SlashEq => "/="
     | ModEq => "%="
     | PlusEq => "+="
     | MinusEq => "-="
+    | LslEq => "<<="
+    | AsrEq => ">>="
+    | BandEq => "&="
+    | BxorEq => "^="
+    | BorEq => "|="
+    /* non-update operators */
     | Or => "||"
     | And => "&&"
     | Bor => "|"
@@ -530,11 +577,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | NotEq => "!="
     | EqEqEq => "==="
     | NotEqEq => "!=="
-    | LslEq => "<<="
-    | AsrEq => ">>="
-    | BandEq => "&="
-    | BxorEq => "^="
-    | BorEq => "|="
     | Lt => "<"
     | Le => "<="
     | Gt => ">"
@@ -1213,6 +1255,19 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.end_group(f);
       }
     | [(EVar(i), Some((e, pc)))] => {
+        let assigning_to_update =
+          switch (e) {
+          | EBin(op, e1, e2) when is_update_op(op) => true
+          | _ => false
+          };
+        if (assigning_to_update) {
+          /* perform the update expression before the variable assignment */
+          PP.start_group(f, 0);
+          expression(1, f, e);
+          PP.string(f, ";");
+          PP.end_group(f);
+          PP.break(f);
+        };
         PP.start_group(f, 0);
         output_debug_info(f, pc);
         ident(f, i);
@@ -1220,7 +1275,15 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.string(f, "=");
         PP.non_breaking_space(f);
         PP.start_group(f, 0);
-        expression(1, f, e);
+        if (assigning_to_update) {
+          /* update expressions return unit, which is represented as 0 */
+          PP.string(
+            f,
+            "0",
+          );
+        } else {
+          expression(1, f, e);
+        };
         if (close) {
           PP.string(f, ";");
         };
@@ -1482,11 +1545,32 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.string(f, "return");
         last_semi();
       | Some(e) =>
+        let returning_update =
+          switch (e) {
+          | EBin(op, e1, e2) when is_update_op(op) => true
+          | _ => false
+          };
+        if (returning_update) {
+          /* perform the update expression before the return */
+          PP.start_group(f, 0);
+          expression(1, f, e);
+          PP.string(f, ";");
+          PP.end_group(f);
+          PP.break(f);
+        };
         PP.start_group(f, 0);
         PP.string(f, "return");
         PP.non_breaking_space(f);
         PP.start_group(f, 0);
-        expression(0, f, e);
+        if (returning_update) {
+          /* update expressions return unit, which is represented as 0 */
+          PP.string(
+            f,
+            "0",
+          );
+        } else {
+          expression(0, f, e);
+        };
         last_semi();
         PP.end_group(f);
         PP.end_group(f);

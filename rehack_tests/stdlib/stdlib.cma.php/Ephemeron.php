@@ -196,13 +196,14 @@ final class Ephemeron {
               $hkey = $param[1];
               $insert_bucket->contents($rest);
               $nidx = $key_index($h, $hkey);
-              return $ndata[$nidx + 1] =
+              $ndata[$nidx + 1] =
                 Vector{
                   0,
                   $hkey,
                   $data,
                   $caml_check_bound($ndata, $nidx)[$nidx + 1]
                 };
+              return 0;
             }
             return 0;
           };
@@ -271,7 +272,8 @@ final class Ephemeron {
         };
         $i = $key_index($h, $hkey);
         $AW = $remove_bucket->contents($caml_check_bound($h[2], $i)[$i + 1]);
-        return $caml_check_bound($h[2], $i)[$i + 1] = $AW;
+        $caml_check_bound($h[2], $i)[$i + 1] = $AW;
+        return 0;
       };
       $find_rec = function($key, $hkey, $param) use ($H,$Not_found,$caml_call1,$caml_call2,$runtime) {
         $param__0 = $param;
@@ -613,9 +615,8 @@ final class Ephemeron {
         $AC = $h[2];
         $AD = function($b) use ($bucket_length,$caml_check_bound,$histo) {
           $l = $bucket_length(0, $b);
-          return $histo[$l + 1] =
-            (int)
-            ($caml_check_bound($histo, $l)[$l + 1] + 1);
+          $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
+          return 0;
         };
         $caml_call2($Array[13], $AD, $AC);
         return Vector{0, $h[1], $h[2]->count() - 1, $mbl, $histo};
@@ -653,9 +654,8 @@ final class Ephemeron {
         $Ax = function($b) use ($bucket_length_alive,$caml_check_bound,$histo,$size) {
           $l = $bucket_length_alive(0, $b);
           $size[1] = (int) ($size[1] + $l);
-          return $histo[$l + 1] =
-            (int)
-            ($caml_check_bound($histo, $l)[$l + 1] + 1);
+          $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
+          return 0;
         };
         $caml_call2($Array[13], $Ax, $Aw);
         return Vector{0, $size[1], $h[2]->count() - 1, $mbl, $histo};

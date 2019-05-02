@@ -107,7 +107,8 @@ final class Sort {
     $swap = function($arr, $i, $j) {
       $tmp = $arr[$i + 1];
       $arr[$i + 1] = $arr[$j + 1];
-      return $arr[$j + 1] = $tmp;
+      $arr[$j + 1] = $tmp;
+      return 0;
     };
     $array = function($cmp, $arr) use ($Invalid_argument,$caml_call2,$cst_Sort_array,$runtime,$swap,$unsigned_right_shift_32) {
       $qsort = new Ref();

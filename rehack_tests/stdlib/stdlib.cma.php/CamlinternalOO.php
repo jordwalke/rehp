@@ -190,7 +190,8 @@ final class CamlinternalOO {
     };
     $put = function($array, $label, $element) use ($caml_check_bound,$resize) {
       $resize($array, (int) ($label + 1));
-      return $caml_check_bound($array[2], $label)[$label + 1] = $element;
+      $caml_check_bound($array[2], $label)[$label + 1] = $element;
+      return 0;
     };
     $method_count = Vector{0, 0};
     $inst_var_count = Vector{0, 0};

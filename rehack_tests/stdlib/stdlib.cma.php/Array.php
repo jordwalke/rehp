@@ -448,7 +448,8 @@ final class Array_ {
             $i__0 = $j;
             continue;
           }
-          return $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
+          $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
+          return 0;
         }
       };
       $trickle = function($l, $i, $e) use ($Bottom,$a,$caml_check_bound,$caml_wrap_exception,$runtime,$trickledown) {
@@ -457,7 +458,8 @@ final class Array_ {
           $exn = $caml_wrap_exception($exn);
           if ($exn[1] === $Bottom) {
             $i__0 = $exn[2];
-            return $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
+            $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
+            return 0;
           }
           throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
@@ -492,11 +494,12 @@ final class Array_ {
                   $caml_check_bound($a, $father)[$father + 1],
                   $e
                 )
-            ) {return $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;}
+            ) {$caml_check_bound($a, $i__0)[$i__0 + 1] = $e;return 0;}
             $dP = $caml_check_bound($a, $father)[$father + 1];
             $caml_check_bound($a, $i__0)[$i__0 + 1] = $dP;
             if (0 < $father) {$i__0 = $father;continue;}
-            return $caml_check_bound($a, 0)[1] = $e;
+            $caml_check_bound($a, 0)[1] = $e;
+            return 0;
           }
           throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $dx}) as \Throwable;
         }
@@ -528,7 +531,8 @@ final class Array_ {
       if ($dL) {
         $e = $caml_check_bound($a, 1)[2];
         $a[2] = $caml_check_bound($a, 0)[1];
-        $dM = $a[1] = $e;
+        $a[1] = $e;
+        $dM = 0;
       }
       else {$dM = $dL;}
       return $dM;

@@ -653,9 +653,8 @@ final class Hashtbl {
       $qC = $h[2];
       $qD = function($b) use ($bucket_length,$caml_check_bound,$histo) {
         $l = $bucket_length(0, $b);
-        return $histo[$l + 1] =
-          (int)
-          ($caml_check_bound($histo, $l)[$l + 1] + 1);
+        $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
+        return 0;
       };
       $caml_call2($Array[13], $qD, $qC);
       return Vector{0, $h[1], $h[2]->count() - 1, $mbl, $histo};
