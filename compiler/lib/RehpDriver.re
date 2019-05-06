@@ -67,6 +67,13 @@ let specialize_js = ((p, info)) => {
   Specialize_js.f(info, p);
 };
 
+let specialize_js_once = p => {
+  if (debug()) {
+    Format.eprintf("Specialize js once...@.");
+  };
+  Specialize_js.f_once(p);
+};
+
 let specialize' = ((p, info)) => {
   let p = specialize_1((p, info));
   let p = specialize_js((p, info));
@@ -326,7 +333,10 @@ let identifierRenamingJs = rehp => rehp;
 let var = s => Rehp.EVar(Id.S({Id.name: s, Id.var: None}));
 let runtimeVar = (runtimeName, name) => (
   Id.S({Id.name, Id.var: None}),
-  Some((Rehp.EAccess(Rehp.EVar(Id.V(runtimeName)), Rehp.EStr(name, `Utf8)), Loc.N)),
+  Some((
+    Rehp.EAccess(Rehp.EVar(Id.V(runtimeName)), Rehp.EStr(name, `Utf8)),
+    Loc.N,
+  )),
 );
 /**
  * Prepends `let runtime = global_object.jsoo_runtime`. This also allows the
@@ -807,6 +817,7 @@ let f =
       : augmentWithLinkInfoSeparate;
 
   configure(formatter)
+  >> specialize_js_once
   >> profile
   >> print
   >> Generate_closure.f

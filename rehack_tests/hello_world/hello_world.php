@@ -1617,13 +1617,17 @@ $do_at_exit = function($param) use ($flush_all) {
   return $flush_all(0);
 };
 $a = Vector {0, 2};
+
 $caml_check_bound($a, 0)[1] = 42;
+
 $x = 0;
 $f = function($x) use ($a, $print_endline) {
   return $print_endline($a);
 };
 
-$f($a[1] = 42);
+$a[1] = 42;
+
+$f(0);
 
 $f($x);
 

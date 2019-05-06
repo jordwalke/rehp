@@ -438,7 +438,8 @@ function sort(cmp, a) {
         var i__0 = j;
         continue;
       }
-      return caml_check_bound(a, i__0)[i__0 + 1] = e;
+      caml_check_bound(a, i__0)[i__0 + 1] = e;
+      return 0;
     }
   }
   function trickle(l, i, e) {
@@ -447,7 +448,8 @@ function sort(cmp, a) {
       exn = caml_wrap_exception(exn);
       if (exn[1] === Bottom) {
         var i__0 = exn[2];
-        return caml_check_bound(a, i__0)[i__0 + 1] = e;
+        caml_check_bound(a, i__0)[i__0 + 1] = e;
+        return 0;
       }
       throw runtime["caml_wrap_thrown_exception_reraise"](exn);
     }
@@ -475,11 +477,12 @@ function sort(cmp, a) {
     for (; ; ) {
       var father = (i__0 + -1 | 0) / 3 | 0;
       if (i__0 !== father) {
-        if (0 <= caml_call2(cmp, caml_check_bound(a, father)[father + 1], e)) {return caml_check_bound(a, i__0)[i__0 + 1] = e;}
+        if (0 <= caml_call2(cmp, caml_check_bound(a, father)[father + 1], e)) {caml_check_bound(a, i__0)[i__0 + 1] = e;return 0;}
         var dP = caml_check_bound(a, father)[father + 1];
         caml_check_bound(a, i__0)[i__0 + 1] = dP;
         if (0 < father) {var i__0 = father;continue;}
-        return caml_check_bound(a, 0)[1] = e;
+        caml_check_bound(a, 0)[1] = e;
+        return 0;
       }
       throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,dx]);
     }
@@ -511,7 +514,8 @@ function sort(cmp, a) {
   if (dL) {
     var e = caml_check_bound(a, 1)[2];
     a[2] = caml_check_bound(a, 0)[1];
-    var dM = a[1] = e;
+    a[1] = e;
+    var dM = 0;
   }
   else var dM = dL;
   return dM;

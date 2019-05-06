@@ -285,7 +285,7 @@ function remove_bucket(h, i, key, prec, c) {
         h[1] = h[1] + -1 | 0;
         return prec__0 ?
           (prec__0[3] = next,0) :
-          caml_check_bound(h[2], i)[i + 1] = next;
+          (caml_check_bound(h[2], i)[i + 1] = next,0);
       }
       var prec__0 = c__0;
       var c__0 = next;
@@ -519,7 +519,9 @@ function filter_map_inplace_bucket(f, h, i, prec, slot) {
       var slot__0 = next;
       continue;
     }
-    return prec__0 ? (prec__0[3] = 0,0) : caml_check_bound(h[2], i)[i + 1] = 0;
+    return prec__0 ?
+      (prec__0[3] = 0,0) :
+      (caml_check_bound(h[2], i)[i + 1] = 0,0);
   }
 }
 
@@ -624,7 +626,8 @@ function stats(h) {
   var qC = h[2];
   function qD(b) {
     var l = bucket_length(0, b);
-    return histo[l + 1] = caml_check_bound(histo, l)[l + 1] + 1 | 0;
+    histo[l + 1] = caml_check_bound(histo, l)[l + 1] + 1 | 0;
+    return 0;
   }
   caml_call2(Array[13], qD, qC);
   return [0,h[1],h[2].length - 1,mbl,histo];
@@ -654,7 +657,7 @@ function MakeSeeded(H) {
           h[1] = h[1] + -1 | 0;
           return prec__0 ?
             (prec__0[3] = next,0) :
-            caml_check_bound(h[2], i)[i + 1] = next;
+            (caml_check_bound(h[2], i)[i + 1] = next,0);
         }
         var prec__0 = c__0;
         var c__0 = next;

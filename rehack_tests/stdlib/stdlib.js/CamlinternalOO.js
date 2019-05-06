@@ -148,7 +148,8 @@ function resize(array, new_size) {
 
 function put(array, label, element) {
   resize(array, label + 1 | 0);
-  return caml_check_bound(array[2], label)[label + 1] = element;
+  caml_check_bound(array[2], label)[label + 1] = element;
+  return 0;
 }
 
 var method_count = [0,0];

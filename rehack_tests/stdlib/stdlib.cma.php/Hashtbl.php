@@ -303,7 +303,9 @@ final class Hashtbl {
             $h[1] = (int) ($h[1] + -1);
             return $prec__0
               ? ($prec__0[3] = $next) || true ? 0 : (0)
-              : ($caml_check_bound($h[2], $i)[$i + 1] = $next);
+              : (($caml_check_bound($h[2], $i)[$i + 1] = $next) || true
+               ? 0
+               : (0));
           }
           $prec__0 = $c__0;
           $c__0 = $next;
@@ -543,7 +545,7 @@ final class Hashtbl {
         }
         return $prec__0
           ? ($prec__0[3] = 0) || true ? 0 : (0)
-          : ($caml_check_bound($h[2], $i)[$i + 1] = 0);
+          : (($caml_check_bound($h[2], $i)[$i + 1] = 0) || true ? 0 : (0));
       }
     };
     $filter_map_inplace = function($f, $h) use ($caml_check_bound,$caml_wrap_exception,$filter_map_inplace_bucket,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
@@ -683,7 +685,9 @@ final class Hashtbl {
               $h[1] = (int) ($h[1] + -1);
               return $prec__0
                 ? ($prec__0[3] = $next) || true ? 0 : (0)
-                : ($caml_check_bound($h[2], $i)[$i + 1] = $next);
+                : (($caml_check_bound($h[2], $i)[$i + 1] = $next) || true
+                 ? 0
+                 : (0));
             }
             $prec__0 = $c__0;
             $c__0 = $next;

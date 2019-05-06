@@ -335,7 +335,8 @@ function Make(H) {
           continue;
         }
         caml_call3(setter, bucket, i__0, d);
-        return caml_check_bound(hashes, i__0)[i__0 + 1] = h;
+        caml_check_bound(hashes, i__0)[i__0 + 1] = h;
+        return 0;
       }
     }
     return loop(0);

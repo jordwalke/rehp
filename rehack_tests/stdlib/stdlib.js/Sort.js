@@ -85,7 +85,8 @@ function list(order, l) {
 function swap(arr, i, j) {
   var tmp = arr[i + 1];
   arr[i + 1] = arr[j + 1];
-  return arr[j + 1] = tmp;
+  arr[j + 1] = tmp;
+  return 0;
 }
 
 function array(cmp, arr) {
