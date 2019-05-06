@@ -34,6 +34,7 @@
     ]
   },
   "scripts": {
-    "test": "./buildTest.sh"
+    "test": "./buildTest.sh",
+    "where": "echo #{self.target_dir}"
   }
 }
