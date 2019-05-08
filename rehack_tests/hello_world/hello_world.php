@@ -1555,6 +1555,12 @@ $caml_register_global(1, $Sys_error, "Sys_error");
 
 $caml_register_global(0, $Out_of_memory, "Out_of_memory");
 
+$c = $caml_new_string("hi");
+$d = $caml_new_string("hi");
+$e = $caml_new_string("hi");
+$f = $caml_new_string("hi");
+$g = $caml_new_string("hi");
+$b = $caml_new_string("hi");
 $a = $caml_new_string("hi");
 
 $caml_fresh_oo_id(0);
@@ -1585,10 +1591,10 @@ $flush_all = function($param) use (
         $a = $param__0[1];
         try {
           $caml_ml_flush($a);
-        } catch (\Throwable $b) {
-          $b = $caml_wrap_exception($b);
-          if ($b[1] !== $Sys_error) {
-            throw $caml_wrap_thrown_exception_reraise($b) as \Throwable;
+        } catch (\Throwable $h) {
+          $h = $caml_wrap_exception($h);
+          if ($h[1] !== $Sys_error) {
+            throw $caml_wrap_thrown_exception_reraise($h) as \Throwable;
           }
         }
         $param__0 = $l;
@@ -1630,5 +1636,109 @@ $a[1] = 42;
 $f(0);
 
 $f($x);
+
+$g = function($param) use ($a, $caml_check_bound) {
+  return 0 === $param
+    ? ($caml_check_bound($a, 0)[1] = 42) || true ? 0 : (0)
+    : (($caml_check_bound($a, 0)[1] = 43) || true ? 0 : (0));
+};
+
+$g(0);
+
+$h = function($param) {
+  return 42 === $param ? 0 : (1);
+};
+$x__0 = $h(42);
+$y = 0 === $x__0
+  ? ($caml_check_bound($a, 0)[1] = 42) || true ? 0 : (0)
+  : (($caml_check_bound($a, 0)[1] = 43) || true ? 0 : (0));
+
+$f($y);
+
+$y__0 = 0 === $x__0
+  ? ($caml_check_bound($a, 0)[1] = 42) || true ? 4 : (4)
+  : (($caml_check_bound($a, 0)[1] = 43) || true ? 5 : (5));
+
+$f($y__0);
+
+$y__1 = 0 === $x__0
+  ? ($caml_check_bound($a, 0)[1] = 42) || true
+    ? 0 === $x__0 ? 44 : (45)
+    : (0 === $x__0 ? 44 : (45))
+  : (($caml_check_bound($a, 0)[1] = 43) || true ? 5 : (5));
+
+$f($y__1);
+
+$g2 = function($param) use ($a, $b, $c, $caml_check_bound, $d, $e, $f, $g, $print_endline) {
+  return 0 === $param
+    ? $print_endline($b) || true
+      ? ($caml_check_bound($a, 0)[1] = 3) || true ? 0 : (0)
+      : (($caml_check_bound($a, 0)[1] = 3) || true ? 0 : (0))
+    : ($print_endline($c) || true
+      ? $print_endline($d) || true
+        ? $print_endline($e) || true
+          ? ($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g)))
+          : (($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))))
+        : ($print_endline($e) || true
+          ? ($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g)))
+          : (($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g)))))
+      : ($print_endline($d) || true
+        ? $print_endline($e) || true
+          ? ($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g)))
+          : (($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))))
+        : ($print_endline($e) || true
+          ? ($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g)))
+          : (($caml_check_bound($a, 0)[1] = 4) || true
+            ? $print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g))
+            : ($print_endline($f) || true
+              ? $print_endline($g)
+              : ($print_endline($g)))))));
+};
+
+$g2(0);
 
 $do_at_exit(0);
