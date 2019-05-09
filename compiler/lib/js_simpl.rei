@@ -1,4 +1,4 @@
-(* Js_of_ocaml compiler
+/* Js_of_ocaml compiler
  * http://www.ocsigen.org/js_of_ocaml/
  * Copyright (C) 2010 Jérôme Vouillon
  * Laboratoire PPS - CNRS Université Paris Diderot
@@ -16,20 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *)
+ */
 
-open Rehp
+open Rehp;
 
-val if_statement :
-  expression -> Loc.t ->
-  statement * Loc.t -> bool -> statement * Loc.t -> bool ->
-  (statement * Loc.t) list
+let if_statement:
+  (expression, Loc.t, (statement, Loc.t), bool, (statement, Loc.t), bool) =>
+  list((statement, Loc.t));
 
-val get_variable : Code.Var.Set.t -> expression -> Code.Var.Set.t
+let get_variable: (Code.Var.Set.t, expression) => Code.Var.Set.t;
 
-val block :
-  (Rehp.statement * Loc.t) list ->
-  Rehp.statement * Loc.t
-val unblock :
-  Rehp.statement * Loc.t ->
-  (Rehp.statement * Loc.t) list
+let block: list((Rehp.statement, Loc.t)) => (Rehp.statement, Loc.t);
+let unblock: ((Rehp.statement, Loc.t)) => list((Rehp.statement, Loc.t));
