@@ -305,7 +305,8 @@ final class Scanf {
       }
     };
     $peek_char = function($ib) use ($next_char) {
-      return $ib[3] ? $ib[2] : ($next_char($ib));
+      if ($ib[3]) {return $ib[2];}
+      return $next_char($ib);
     };
     $checked_peek_char = function($ib) use ($End_of_file,$peek_char,$runtime) {
       $c = $peek_char($ib);
@@ -323,9 +324,8 @@ final class Scanf {
     $name_of_input = function($ib) use ($cst_unnamed_Pervasives_input_channel,$cst_unnamed_character_string,$cst_unnamed_function,$is_int) {
       $yd = $ib[9];
       if ($is_int($yd)) {
-        return 0 === $yd
-          ? $cst_unnamed_function
-          : ($cst_unnamed_character_string);
+        if (0 === $yd) {return $cst_unnamed_function;}
+        return $cst_unnamed_character_string;
       }
       else {
         if (0 === $yd[0]) {return $cst_unnamed_Pervasives_input_channel;}
@@ -334,7 +334,8 @@ final class Scanf {
       }
     };
     $char_count = function($ib) {
-      return $ib[3] ? (int) ($ib[4] + -1) : ($ib[4]);
+      if ($ib[3]) {return (int) ($ib[4] + -1);}
+      return $ib[4];
     };
     $line_count = function($ib) {return $ib[5];};
     $reset_token = function($ib) use ($Buffer,$caml_call1) {
@@ -415,13 +416,12 @@ final class Scanf {
           throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
         }
         $lim[1] = $caml_call4($Pervasives[72], $ic, $buf, 0, $len);
-        return 0 === $lim[1]
-          ? ($eof[1] = 1) || true
-           ? $caml_call1($scan_close_ic, $ic)
-           : ($caml_call1($scan_close_ic, $ic))
-          : (($i[1] = 1) || true
-           ? $caml_bytes_get($buf, 0)
-           : ($caml_bytes_get($buf, 0)));
+        if (0 === $lim[1]) {
+          $eof[1] = 1;
+          return $caml_call1($scan_close_ic, $ic);
+        }
+        $i[1] = 1;
+        return $caml_bytes_get($buf, 0);
       };
       return $create($iname, $next);
     };
@@ -517,9 +517,15 @@ final class Scanf {
         $x1 = 1 - $eof($ib);
         if ($x1) {
           $x2 = (int) ($c + -9);
-          $switch__0 = 4 < $unsigned_right_shift_32($x2, 0)
-            ? 23 === $x2 ? 1 : (0)
-            : (1 < $unsigned_right_shift_32((int) ($x2 + -2), 0) ? 1 : (0));
+          if (4 < $unsigned_right_shift_32($x2, 0)) {
+            if (23 === $x2) {$switch__0 = 1;
+            }
+            else {$switch__0 = 0;}
+          }
+          else {
+            if (1 < $unsigned_right_shift_32((int) ($x2 + -2), 0)) {$switch__0 = 1;}
+            else {$switch__0 = 0;}
+          }
           if ($switch__0) {$invalidate_current_char($ib);continue;}
           return 0;
         }
@@ -528,35 +534,35 @@ final class Scanf {
     };
     $check_this_char = function($ib, $c) use ($character_mismatch,$checked_peek_char,$invalidate_current_char) {
       $ci = $checked_peek_char($ib);
-      return $ci === $c
-        ? $invalidate_current_char($ib)
-        : ($character_mismatch($c, $ci));
+      if ($ci === $c) {return $invalidate_current_char($ib);}
+      return $character_mismatch($c, $ci);
     };
     $check_newline = function($ib) use ($character_mismatch,$check_this_char,$checked_peek_char,$invalidate_current_char) {
       $ci = $checked_peek_char($ib);
-      return 10 === $ci
-        ? $invalidate_current_char($ib)
-        : (13 === $ci
-         ? $invalidate_current_char($ib) || true
-          ? $check_this_char($ib, 10)
-          : ($check_this_char($ib, 10))
-         : ($character_mismatch(10, $ci)));
+      if (10 === $ci) {return $invalidate_current_char($ib);}
+      if (13 === $ci) {
+        $invalidate_current_char($ib);
+        return $check_this_char($ib, 10);
+      }
+      return $character_mismatch(10, $ci);
     };
     $check_char = function($ib, $c) use ($check_newline,$check_this_char,$skip_whites) {
-      return 10 === $c
-        ? $check_newline($ib)
-        : (32 === $c ? $skip_whites($ib) : ($check_this_char($ib, $c)));
+      if (10 === $c) {return $check_newline($ib);}
+      if (32 === $c) {return $skip_whites($ib);}
+      return $check_this_char($ib, $c);
     };
     $token_char = function($ib) use ($caml_string_get,$token_string) {
       return $caml_string_get($token_string($ib), 0);
     };
     $token_bool = function($ib) use ($Printf,$bad_input,$caml_call2,$caml_string_notequal,$cst_false,$cst_true,$token_string,$v0) {
       $s = $token_string($ib);
-      return $caml_string_notequal($s, $cst_false)
-        ? $caml_string_notequal($s, $cst_true)
-         ? $bad_input($caml_call2($Printf[4], $v0, $s))
-         : (1)
-        : (0);
+      if ($caml_string_notequal($s, $cst_false)) {
+        if ($caml_string_notequal($s, $cst_true)) {
+          return $bad_input($caml_call2($Printf[4], $v0, $s));
+        }
+        return 1;
+      }
+      return 0;
     };
     $integer_conversion_of_char = function($param) use ($Assert_failure,$runtime,$unsigned_right_shift_32,$v1) {
       $switcher = (int) ($param + -88);
@@ -701,24 +707,32 @@ final class Scanf {
     };
     $is_binary_digit = function($param) use ($unsigned_right_shift_32) {
       $switcher = (int) ($param + -48);
-      return 1 < $unsigned_right_shift_32($switcher, 0) ? 0 : (1);
+      if (1 < $unsigned_right_shift_32($switcher, 0)) {return 0;}
+      return 1;
     };
     $scan_binary_int = function($xV, $xW) use ($cst_binary,$is_binary_digit,$scan_digit_plus) {
       return $scan_digit_plus($cst_binary, $is_binary_digit, $xV, $xW);
     };
     $is_octal_digit = function($param) use ($unsigned_right_shift_32) {
       $switcher = (int) ($param + -48);
-      return 7 < $unsigned_right_shift_32($switcher, 0) ? 0 : (1);
+      if (7 < $unsigned_right_shift_32($switcher, 0)) {return 0;}
+      return 1;
     };
     $scan_octal_int = function($xT, $xU) use ($cst_octal,$is_octal_digit,$scan_digit_plus) {
       return $scan_digit_plus($cst_octal, $is_octal_digit, $xT, $xU);
     };
     $is_hexa_digit = function($param) use ($unsigned_right_shift_32) {
       $xS = (int) ($param + -48);
-      $switch__0 = 22 < $unsigned_right_shift_32($xS, 0)
-        ? 5 < $unsigned_right_shift_32((int) ($xS + -49), 0) ? 0 : (1)
-        : (6 < $unsigned_right_shift_32((int) ($xS + -10), 0) ? 1 : (0));
-      return $switch__0 ? 1 : (0);
+      if (22 < $unsigned_right_shift_32($xS, 0)) {
+        if (5 < $unsigned_right_shift_32((int) ($xS + -49), 0)) {$switch__0 = 0;}
+        else {$switch__0 = 1;}
+      }
+      else {
+        if (6 < $unsigned_right_shift_32((int) ($xS + -10), 0)) {$switch__0 = 1;}
+        else {$switch__0 = 0;}
+      }
+      if ($switch__0) {return 1;}
+      return 0;
     };
     $scan_hexadecimal_int = function($xQ, $xR) use ($cst_hexadecimal,$is_hexa_digit,$scan_digit_plus) {
       return $scan_digit_plus($cst_hexadecimal, $is_hexa_digit, $xQ, $xR);
@@ -755,7 +769,8 @@ final class Scanf {
           if (111 === $c__0) {
             return $scan_octal_int($store_char($width__0, $ib, $c__0), $ib);
           }
-          $switch__0 = 120 === $c__0 ? 1 : (0);
+          if (120 === $c__0) {$switch__0 = 1;}
+          else {$switch__0 = 0;}
         }
         else {
           if (88 === $c__0) {$switch__0 = 1;}
@@ -766,9 +781,11 @@ final class Scanf {
             $switch__0 = 0;
           }
         }
-        return $switch__0
-          ? $scan_hexadecimal_int($store_char($width__0, $ib, $c__0), $ib)
-          : ($scan_decimal_digit_star($width__0, $ib));
+        if ($switch__0) {
+          return $scan_hexadecimal_int($store_char($width__0, $ib, $c__0), $ib
+          );
+        }
+        return $scan_decimal_digit_star($width__0, $ib);
       }
       return $scan_decimal_digit_plus($width, $ib);
     };
@@ -803,9 +820,8 @@ final class Scanf {
       $c = $peek_char($ib);
       if ($eof($ib)) {return $width;}
       $switcher = (int) ($c + -48);
-      return 9 < $unsigned_right_shift_32($switcher, 0)
-        ? $width
-        : ($scan_decimal_digit_star($store_char($width, $ib, $c), $ib));
+      if (9 < $unsigned_right_shift_32($switcher, 0)) {return $width;}
+      return $scan_decimal_digit_star($store_char($width, $ib, $c), $ib);
     };
     $scan_exponent_part = function($width, $ib) use ($eof,$peek_char,$scan_optionally_signed_decimal_int,$store_char) {
       if (0 === $width) {return $width;}
@@ -840,9 +856,8 @@ final class Scanf {
     $check_case_insensitive_string = function($width, $ib, $error, $str) use ($Pervasives,$caml_call1,$caml_ml_string_length,$caml_string_get,$peek_char,$store_char,$unsigned_right_shift_32) {
       $lowercase = function($c) use ($Pervasives,$caml_call1,$unsigned_right_shift_32) {
         $switcher = (int) ($c + -65);
-        return 25 < $unsigned_right_shift_32($switcher, 0)
-          ? $c
-          : ($caml_call1($Pervasives[17], (int) ((int) ($c - 65) + 97)));
+        if (25 < $unsigned_right_shift_32($switcher, 0)) {return $c;}
+        return $caml_call1($Pervasives[17], (int) ((int) ($c - 65) + 97));
       };
       $len = $caml_ml_string_length($str);
       $width__0 = Vector{0, $width};
@@ -865,11 +880,17 @@ final class Scanf {
     };
     $scan_hex_float = function($width, $precision, $ib) use ($Pervasives,$bad_hex_float,$caml_call2,$check_case_insensitive_string,$cst_an,$cst_nfinity,$cst_x,$end_of_input,$peek_char,$scan_hexadecimal_int,$scan_optionally_signed_decimal_int,$scan_sign,$store_char,$unsigned_right_shift_32) {
       $xz = 0 === $width ? 1 : (0);
-      $xA = $xz || $end_of_input($ib);
+      if ($xz) {
+        $xA = $xz;
+      }
+      else {$xA = $end_of_input($ib);}
       if ($xA) {$bad_hex_float(0);}
       $width__0 = $scan_sign($width, $ib);
       $xB = 0 === $width__0 ? 1 : (0);
-      $xC = $xB || $end_of_input($ib);
+      if ($xB) {
+        $xC = $xB;
+      }
+      else {$xC = $end_of_input($ib);}
       if ($xC) {$bad_hex_float(0);}
       $c = $peek_char($ib);
       if (78 <= $c) {
@@ -878,7 +899,10 @@ final class Scanf {
           if (! (32 <= $switcher)) {
             $width__1 = $store_char($width__0, $ib, $c);
             $xD = 0 === $width__1 ? 1 : (0);
-            $xE = $xD || $end_of_input($ib);
+            if ($xD) {
+              $xE = $xD;
+            }
+            else {$xE = $end_of_input($ib);}
             if ($xE) {$bad_hex_float(0);}
             return $check_case_insensitive_string(
               $width__1,
@@ -889,13 +913,16 @@ final class Scanf {
           }
           $switch__0 = 0;
         }
-        else {$switch__0 = 26 === $switcher ? 1 : (0);}
+        else {if (26 === $switcher) {$switch__0 = 1;}else {$switch__0 = 0;}}
       }
       else {
         if (48 === $c) {
           $width__3 = $store_char($width__0, $ib, $c);
           $xH = 0 === $width__3 ? 1 : (0);
-          $xI = $xH || $end_of_input($ib);
+          if ($xH) {
+            $xI = $xH;
+          }
+          else {$xI = $end_of_input($ib);}
           if ($xI) {$bad_hex_float(0);}
           $width__4 = $check_case_insensitive_string(
             $width__3,
@@ -907,14 +934,19 @@ final class Scanf {
             if (! $end_of_input($ib)) {
               $match = $peek_char($ib);
               $xJ = (int) ($match + -46);
-              $switch__1 = 34 < $unsigned_right_shift_32($xJ, 0)
-                ? 66 === $xJ ? 1 : (0)
-                : (32 < $unsigned_right_shift_32((int) ($xJ + -1), 0)
-                 ? 1
-                 : (0));
-              $width__5 = $switch__1
-                ? $width__4
-                : ($scan_hexadecimal_int($width__4, $ib));
+              if (34 < $unsigned_right_shift_32($xJ, 0)) {
+                if (66 === $xJ) {$switch__1 = 1;
+                }
+                else {$switch__1 = 0;}
+              }
+              else {
+                if (32 < $unsigned_right_shift_32((int) ($xJ + -1), 0)) {$switch__1 = 1;}
+                else {$switch__1 = 0;}
+              }
+              if ($switch__1) {
+                $width__5 = $width__4;
+              }
+              else {$width__5 = $scan_hexadecimal_int($width__4, $ib);}
               if (0 !== $width__5) {
                 if (! $end_of_input($ib)) {
                   $c__0 = $peek_char($ib);
@@ -956,7 +988,10 @@ final class Scanf {
                       if (80 !== $c__1) {if (112 !== $c__1) {return $width__8;}}
                       $width__9 = $store_char($width__8, $ib, $c__1);
                       $xK = 0 === $width__9 ? 1 : (0);
-                      $xL = $xK || $end_of_input($ib);
+                      if ($xK) {
+                        $xL = $xK;
+                      }
+                      else {$xL = $end_of_input($ib);}
                       if ($xL) {$bad_hex_float(0);}
                       return $scan_optionally_signed_decimal_int($width__9, $ib);
                     }
@@ -969,12 +1004,18 @@ final class Scanf {
           }
           return $width__4;
         }
-        $switch__0 = 73 === $c ? 1 : (0);
+        if (73 === $c) {
+          $switch__0 = 1;
+        }
+        else {$switch__0 = 0;}
       }
       if ($switch__0) {
         $width__2 = $store_char($width__0, $ib, $c);
         $xF = 0 === $width__2 ? 1 : (0);
-        $xG = $xF || $end_of_input($ib);
+        if ($xF) {
+          $xG = $xF;
+        }
+        else {$xG = $end_of_input($ib);}
         if ($xG) {$bad_hex_float(0);}
         return $check_case_insensitive_string(
           $width__2,
@@ -987,11 +1028,17 @@ final class Scanf {
     };
     $scan_caml_float_rest = function($width, $precision, $ib) use ($Pervasives,$bad_float,$caml_call2,$end_of_input,$peek_char,$scan_decimal_digit_star,$scan_exponent_part,$scan_fractional_part,$store_char,$unsigned_right_shift_32) {
       $xv = 0 === $width ? 1 : (0);
-      $xw = $xv || $end_of_input($ib);
+      if ($xv) {
+        $xw = $xv;
+      }
+      else {$xw = $end_of_input($ib);}
       if ($xw) {$bad_float(0);}
       $width__0 = $scan_decimal_digit_star($width, $ib);
       $xx = 0 === $width__0 ? 1 : (0);
-      $xy = $xx || $end_of_input($ib);
+      if ($xx) {
+        $xy = $xx;
+      }
+      else {$xy = $end_of_input($ib);}
       if ($xy) {$bad_float(0);}
       $c = $peek_char($ib);
       $switcher = (int) ($c + -69);
@@ -1013,18 +1060,27 @@ final class Scanf {
     };
     $scan_caml_float = function($width, $precision, $ib) use ($Pervasives,$bad_float,$bad_hex_float,$caml_call2,$end_of_input,$peek_char,$scan_caml_float_rest,$scan_hexadecimal_int,$scan_optionally_signed_decimal_int,$scan_sign,$store_char,$unsigned_right_shift_32) {
       $xh = 0 === $width ? 1 : (0);
-      $xi = $xh || $end_of_input($ib);
+      if ($xh) {
+        $xi = $xh;
+      }
+      else {$xi = $end_of_input($ib);}
       if ($xi) {$bad_float(0);}
       $width__0 = $scan_sign($width, $ib);
       $xj = 0 === $width__0 ? 1 : (0);
-      $xk = $xj || $end_of_input($ib);
+      if ($xj) {
+        $xk = $xj;
+      }
+      else {$xk = $end_of_input($ib);}
       if ($xk) {$bad_float(0);}
       $c = $peek_char($ib);
       if (49 <= $c) {
         if (! (58 <= $c)) {
           $width__1 = $store_char($width__0, $ib, $c);
           $xl = 0 === $width__1 ? 1 : (0);
-          $xm = $xl || $end_of_input($ib);
+          if ($xl) {
+            $xm = $xl;
+          }
+          else {$xm = $end_of_input($ib);}
           if ($xm) {$bad_float(0);}
           return $scan_caml_float_rest($width__1, $precision, $ib);
         }
@@ -1033,7 +1089,10 @@ final class Scanf {
         if (48 <= $c) {
           $width__2 = $store_char($width__0, $ib, $c);
           $xn = 0 === $width__2 ? 1 : (0);
-          $xo = $xn || $end_of_input($ib);
+          if ($xn) {
+            $xo = $xn;
+          }
+          else {$xo = $end_of_input($ib);}
           if ($xo) {$bad_float(0);}
           $c__0 = $peek_char($ib);
           if (88 !== $c__0) {
@@ -1043,11 +1102,17 @@ final class Scanf {
           }
           $width__3 = $store_char($width__2, $ib, $c__0);
           $xp = 0 === $width__3 ? 1 : (0);
-          $xq = $xp || $end_of_input($ib);
+          if ($xp) {
+            $xq = $xp;
+          }
+          else {$xq = $end_of_input($ib);}
           if ($xq) {$bad_float(0);}
           $width__4 = $scan_hexadecimal_int($width__3, $ib);
           $xr = 0 === $width__4 ? 1 : (0);
-          $xs = $xr || $end_of_input($ib);
+          if ($xr) {
+            $xs = $xr;
+          }
+          else {$xs = $end_of_input($ib);}
           if ($xs) {$bad_float(0);}
           $c__1 = $peek_char($ib);
           $switcher = (int) ($c__1 + -80);
@@ -1091,14 +1156,20 @@ final class Scanf {
             if (30 < $unsigned_right_shift_32($switcher__0, 0)) {$width__7 = $width__4;$switch__0 = 0;}
             else {$switch__0 = 1;}
           }
-          $width__8 = $switch__0 ? $bad_float(0) : ($width__7);
+          if ($switch__0) {
+            $width__8 = $bad_float(0);
+          }
+          else {$width__8 = $width__7;}
           if (0 !== $width__8) {
             if (! $end_of_input($ib)) {
               $c__2 = $peek_char($ib);
               if (80 !== $c__2) {if (112 !== $c__2) {return $width__8;}}
               $width__9 = $store_char($width__8, $ib, $c__2);
               $xt = 0 === $width__9 ? 1 : (0);
-              $xu = $xt || $end_of_input($ib);
+              if ($xt) {
+                $xu = $xt;
+              }
+              else {$xu = $end_of_input($ib);}
               if ($xu) {$bad_hex_float(0);}
               return $scan_optionally_signed_decimal_int($width__9, $ib);
             }
@@ -1123,9 +1194,15 @@ final class Scanf {
             continue;
           }
           $xg = (int) ($c + -9);
-          $switch__0 = 4 < $unsigned_right_shift_32($xg, 0)
-            ? 23 === $xg ? 1 : (0)
-            : (1 < $unsigned_right_shift_32((int) ($xg + -2), 0) ? 1 : (0));
+          if (4 < $unsigned_right_shift_32($xg, 0)) {
+            if (23 === $xg) {$switch__0 = 1;
+            }
+            else {$switch__0 = 0;}
+          }
+          else {
+            if (1 < $unsigned_right_shift_32((int) ($xg + -2), 0)) {$switch__0 = 1;}
+            else {$switch__0 = 0;}
+          }
           if ($switch__0) {return $width__0;}
           $width__2 = $store_char($width__0, $ib, $c);
           $width__0 = $width__2;
@@ -1169,9 +1246,9 @@ final class Scanf {
       return $bad_input($caml_call4($Printf[4], $v4, $c0, $c1, $c2));
     };
     $hexadecimal_value_of_char = function($d) {
-      return 97 <= $d
-        ? (int) ($d + -87)
-        : (65 <= $d ? (int) ($d + -55) : ((int) ($d - 48)));
+      if (97 <= $d) {return (int) ($d + -87);}
+      if (65 <= $d) {return (int) ($d + -55);}
+      return (int) ($d - 48);
     };
     $char_for_hexadecimal_code = function($c1, $c2) use ($Pervasives,$Printf,$bad_input,$caml_call1,$caml_call3,$hexadecimal_value_of_char,$v5) {
       $xd = $hexadecimal_value_of_char($c2);
@@ -1184,7 +1261,8 @@ final class Scanf {
     $check_next_char = function($message, $width, $ib) use ($bad_end_of_input,$bad_token_length,$eof,$peek_char) {
       if (0 === $width) {return $bad_token_length($message);}
       $c = $peek_char($ib);
-      return $eof($ib) ? $bad_end_of_input($message) : ($c);
+      if ($eof($ib)) {return $bad_end_of_input($message);}
+      return $c;
     };
     $check_next_char_for_char = function($xb, $xc) use ($check_next_char,$cst_a_Char) {
       return $check_next_char($cst_a_Char, $xb, $xc);
@@ -1205,14 +1283,16 @@ final class Scanf {
                 $get_digit = function($param) use ($bad_input_escape,$ib,$next_char,$unsigned_right_shift_32) {
                   $c = $next_char($ib);
                   $w9 = (int) ($c + -48);
-                  $switch__0 = 22 < $unsigned_right_shift_32($w9, 0)
-                    ? 5 < $unsigned_right_shift_32((int) ($w9 + -49), 0)
-                     ? 0
-                     : (1)
-                    : (6 < $unsigned_right_shift_32((int) ($w9 + -10), 0)
-                     ? 1
-                     : (0));
-                  return $switch__0 ? $c : ($bad_input_escape($c));
+                  if (22 < $unsigned_right_shift_32($w9, 0)) {
+                    if (5 < $unsigned_right_shift_32((int) ($w9 + -49), 0)) {$switch__0 = 0;}
+                    else {$switch__0 = 1;}
+                  }
+                  else {
+                    if (6 < $unsigned_right_shift_32((int) ($w9 + -10), 0)) {$switch__0 = 1;}
+                    else {$switch__0 = 0;}
+                  }
+                  if ($switch__0) {return $c;}
+                  return $bad_input_escape($c);
                 };
                 $c1 = $get_digit(0);
                 $c2 = $get_digit(0);
@@ -1245,9 +1325,8 @@ final class Scanf {
             $get_digit__0 = function($param) use ($bad_input_escape,$ib,$next_char,$unsigned_right_shift_32) {
               $c = $next_char($ib);
               $switcher = (int) ($c + -48);
-              return 9 < $unsigned_right_shift_32($switcher, 0)
-                ? $bad_input_escape($c)
-                : ($c);
+              if (9 < $unsigned_right_shift_32($switcher, 0)) {return $bad_input_escape($c);}
+              return $c;
             };
             $c1__0 = $get_digit__0(0);
             $c2__0 = $get_digit__0(0);
@@ -1261,29 +1340,36 @@ final class Scanf {
           $switch__0 = 0;
         }
       }
-      else {$switch__0 = 34 === $c ? 1 : (39 <= $c ? 1 : (0));}
-      return $switch__0
-        ? $store_char($width, $ib, $char_for_backslash($c))
-        : ($bad_input_escape($c));
+      else {
+        if (34 === $c) {
+          $switch__0 = 1;
+        }
+        else {if (39 <= $c) {$switch__0 = 1;}else {$switch__0 = 0;}}
+      }
+      if ($switch__0) {
+        return $store_char($width, $ib, $char_for_backslash($c));
+      }
+      return $bad_input_escape($c);
     };
     $scan_caml_char = function($width, $ib) use ($character_mismatch,$check_next_char_for_char,$checked_peek_char,$ignore_char,$scan_backslash_char,$store_char) {
       $find_stop = function($width) use ($character_mismatch,$check_next_char_for_char,$ib,$ignore_char) {
         $c = $check_next_char_for_char($width, $ib);
-        return 39 === $c
-          ? $ignore_char($width, $ib)
-          : ($character_mismatch(39, $c));
+        if (39 === $c) {return $ignore_char($width, $ib);}
+        return $character_mismatch(39, $c);
       };
       $find_char = function($width) use ($check_next_char_for_char,$find_stop,$ib,$ignore_char,$scan_backslash_char,$store_char) {
         $c = $check_next_char_for_char($width, $ib);
-        return 92 === $c
-          ? $find_stop($scan_backslash_char($ignore_char($width, $ib), $ib))
-          : ($find_stop($store_char($width, $ib, $c)));
+        if (92 === $c) {
+          return $find_stop(
+            $scan_backslash_char($ignore_char($width, $ib), $ib)
+          );
+        }
+        return $find_stop($store_char($width, $ib, $c));
       };
       $find_start = function($width) use ($character_mismatch,$checked_peek_char,$find_char,$ib,$ignore_char) {
         $c = $checked_peek_char($ib);
-        return 39 === $c
-          ? $find_char($ignore_char($width, $ib))
-          : ($character_mismatch(39, $c));
+        if (39 === $c) {return $find_char($ignore_char($width, $ib));}
+        return $character_mismatch(39, $c);
       };
       return $find_start($width);
     };
@@ -1380,17 +1466,18 @@ final class Scanf {
       };
       $find_start = function($width) use ($character_mismatch,$checked_peek_char,$find_stop,$ib,$ignore_char) {
         $c = $checked_peek_char($ib);
-        return 34 === $c
-          ? $find_stop($ignore_char($width, $ib))
-          : ($character_mismatch(34, $c));
+        if (34 === $c) {return $find_stop($ignore_char($width, $ib));}
+        return $character_mismatch(34, $c);
       };
       return $find_start($width);
     };
     $scan_bool = function($ib) use ($Printf,$bad_input,$caml_call2,$checked_peek_char,$scan_string,$v6) {
       $c = $checked_peek_char($ib);
-      $m = 102 === $c
-        ? 5
-        : (116 === $c ? 4 : ($bad_input($caml_call2($Printf[4], $v6, $c))));
+      if (102 === $c) {$m = 5;}
+      else {
+        if (116 === $c) {$m = 4;}
+        else {$m = $bad_input($caml_call2($Printf[4], $v6, $c));}
+      }
       return $scan_string(0, $m, $ib);
     };
     $scan_chars_in_char_set = function($char_set, $scan_indic, $width, $ib) use ($CamlinternalFormat,$Pervasives,$caml_call2,$character_mismatch,$eof,$invalidate_current_char,$peek_char,$store_char) {
@@ -1403,7 +1490,10 @@ final class Scanf {
             $w0 = 1 - $eof($ib);
             if ($w0) {
               $w1 = $caml_call2($CamlinternalFormat[1], $char_set, $c);
-              $w2 = $w1 ? $c !== $stp ? 1 : (0) : ($w1);
+              if ($w1) {
+                $w2 = $c !== $stp ? 1 : (0);
+              }
+              else {$w2 = $w1;}
             }
             else {$w2 = $w0;}
           }
@@ -1423,9 +1513,8 @@ final class Scanf {
         $wY = 1 - $eof($ib);
         if ($wY) {
           $ci = $peek_char($ib);
-          return $c === $ci
-            ? $invalidate_current_char($ib)
-            : ($character_mismatch($c, $ci));
+          if ($c === $ci) {return $invalidate_current_char($ib);}
+          return $character_mismatch($c, $ci);
         }
         return $wY;
       }

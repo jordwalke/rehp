@@ -26,9 +26,8 @@ function merge(order, l1, l2) {
     if (l2) {
       var t2 = l2[2];
       var h2 = l2[1];
-      return caml_call2(order, h1, h2) ?
-        [0,h1,merge(order, t1, l2)] :
-        [0,h2,merge(order, l1, t2)];
+      if (caml_call2(order, h1, h2)) {return [0,h1,merge(order, t1, l2)];}
+      return [0,h2,merge(order, l1, t2)];
     }
     return l1;
   }
@@ -44,7 +43,8 @@ function list(order, l) {
         var rest = cM[2];
         var e2 = cM[1];
         var cO = initlist(rest);
-        var cP = caml_call2(order, cN, e2) ? [0,cN,[0,e2,0]] : [0,e2,[0,cN,0]];
+        if (caml_call2(order, cN, e2)) var cP = [0,cN,[0,e2,0]];
+        else var cP = [0,e2,[0,cN,0]];
         return [0,cP,cO];
       }
       return [0,[0,cN,0],0];
@@ -107,7 +107,8 @@ function array(cmp, arr) {
         var i = [0,lo__0 + 1 | 0];
         var j = [0,hi__0 + -1 | 0];
         var cI = 1 - caml_call2(cmp, pivot, arr[hi__0 + 1]);
-        var cJ = cI || 1 - caml_call2(cmp, arr[lo__0 + 1], pivot);
+        if (cI) var cJ = cI;
+        else var cJ = 1 - caml_call2(cmp, arr[lo__0 + 1], pivot);
         if (cJ) {
           throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Sort_array]
                 );

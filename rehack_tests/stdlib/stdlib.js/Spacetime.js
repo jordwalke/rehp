@@ -26,7 +26,10 @@ var cst_Series_is_closed = caml_new_string("Series is closed");
 var Pervasives = global_data["Pervasives"];
 var enabled = caml_spacetime_enabled(0);
 
-function if_spacetime_enabled(f) {return enabled ? caml_call1(f, 0) : 0;}
+function if_spacetime_enabled(f) {
+  if (enabled) {return caml_call1(f, 0);}
+  return 0;
+}
 
 function create(path) {
   if (caml_spacetime_enabled(0)) {

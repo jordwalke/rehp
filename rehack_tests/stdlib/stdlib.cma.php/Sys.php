@@ -89,17 +89,18 @@ final class Sys {
     $sigxcpu = -27;
     $sigxfsz = -28;
     $catch_break = function($on) use ($Break,$runtime,$set_signal,$sigint) {
-      return $on
-        ? $set_signal(
-         $sigint,
-         Vector{
-           0,
-           function($param) use ($Break,$runtime) {
-             throw $runtime["caml_wrap_thrown_exception"]($Break) as \Throwable;
-           }
-         }
-       )
-        : ($set_signal($sigint, 0));
+      if ($on) {
+        return $set_signal(
+          $sigint,
+          Vector{
+            0,
+            function($param) use ($Break,$runtime) {
+              throw $runtime["caml_wrap_thrown_exception"]($Break) as \Throwable;
+            }
+          }
+        );
+      }
+      return $set_signal($sigint, 0);
     };
     $cz = function($cB) use ($runtime) {
       return $runtime["caml_ml_runtime_warnings_enabled"]($cB);

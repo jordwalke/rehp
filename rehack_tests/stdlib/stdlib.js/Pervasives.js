@@ -92,11 +92,14 @@ function invalid_arg(s) {
 
 var Exit = [248,cst_Pervasives_Exit,runtime["caml_fresh_oo_id"](0)];
 
-function min(x, y) {return runtime["caml_lessequal"](x, y) ? x : y;}
+function min(x, y) {if (runtime["caml_lessequal"](x, y)) {return x;}return y;}
 
-function max(x, y) {return runtime["caml_greaterequal"](x, y) ? x : y;}
+function max(x, y) {
+  if (runtime["caml_greaterequal"](x, y)) {return x;}
+  return y;
+}
 
-function abs(x) {return 0 <= x ? x : - x | 0;}
+function abs(x) {if (0 <= x) {return x;}return - x | 0;}
 
 function lnot(x) {return x ^ -1;}
 
@@ -123,20 +126,22 @@ function char_of_int(n) {
   return invalid_arg(cst_char_of_int);
 }
 
-function string_of_bool(b) {return b ? cst_true : cst_false;}
+function string_of_bool(b) {if (b) {return cst_true;}return cst_false;}
 
 function bool_of_string(param) {
-  return caml_string_notequal(param, cst_false__0) ?
-    caml_string_notequal(param, cst_true__0) ?
-     invalid_arg(cst_bool_of_string) :
-     1 :
-    0;
+  if (caml_string_notequal(param, cst_false__0)) {
+    if (caml_string_notequal(param, cst_true__0)) {return invalid_arg(cst_bool_of_string);}
+    return 1;
+  }
+  return 0;
 }
 
 function bool_of_string_opt(param) {
-  return caml_string_notequal(param, cst_false__1) ?
-    caml_string_notequal(param, cst_true__1) ? 0 : h :
-    i;
+  if (caml_string_notequal(param, cst_false__1)) {
+    if (caml_string_notequal(param, cst_true__1)) {return 0;}
+    return h;
+  }
+  return i;
 }
 
 function string_of_int(n) {return caml_new_string("" + n);}
@@ -157,7 +162,9 @@ function valid_float_lexem(s) {
     for (; ; ) {
       if (l <= i__0) {return g(s, cst);}
       var match = runtime["caml_string_get"](s, i__0);
-      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
+      if (48 <= match) if (58 <= match) var switch__0 = 0;
+      else var switch__0 = 1;
+      else if (45 === match) var switch__0 = 1;else var switch__0 = 0;
       if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return s;
     }

@@ -83,7 +83,10 @@ final class Hashtbl {
     };
     $ongoing_traversal = function($h) {
       $rl = $h->count() - 1 < 4 ? 1 : (0);
-      $rm = $rl || ($h[4] < 0 ? 1 : (0));
+      if ($rl) {
+        $rm = $rl;
+      }
+      else {$rm = $h[4] < 0 ? 1 : (0);}
       return $rm;
     };
     $flip_ongoing_traversal = function($h) {$h[4] = (int) - $h[4];return 0;};
@@ -139,9 +142,13 @@ final class Hashtbl {
       $s = $power_2_above(16, $initial_size);
       if ($random) {
         $rg = $runtime["caml_obj_tag"]($prng);
-        $rh = 250 === $rg
-          ? $prng[1]
-          : (246 === $rg ? $caml_call1($CamlinternalLazy[2], $prng) : ($prng));
+        if (250 === $rg) {$rh = $prng[1];}
+        else {
+          if (246 === $rg) {
+            $rh = $caml_call1($CamlinternalLazy[2], $prng);
+          }
+          else {$rh = $prng;}
+        }
         $seed = $caml_call1($Random[11][4], $rh);
       }
       else {$seed = 0;}
@@ -229,7 +236,10 @@ final class Hashtbl {
               $key = $cell__0[1];
               $data = $cell__0[2];
               $next = $cell__0[3];
-              $cell__1 = $inplace ? $cell__0 : (Vector{0, $key, $data, 0});
+              if ($inplace) {
+                $cell__1 = $cell__0;
+              }
+              else {$cell__1 = Vector{0, $key, $data, 0};}
               $nidx = $caml_call2($indexfun, $h, $key);
               $match = $caml_check_bound($ndata_tail, $nidx)[$nidx + 1];
               if ($match) {
@@ -276,13 +286,16 @@ final class Hashtbl {
       return $q8;
     };
     $key_index = function($h, $key) use ($caml_hash,$runtime) {
-      return 3 <= $h->count() - 1
-        ? $caml_hash(10, 100, $h[3], $key) & (int) ($h[2]->count() - 1 + -1)
-        : ($runtime["caml_mod"](
-         $runtime["caml_hash_univ_param"](10, 100, $key),
-         $h[2]->count() -
-           1
-       ));
+      if (3 <= $h->count() - 1) {
+        return $caml_hash(10, 100, $h[3], $key) &
+          (int)
+          ($h[2]->count() - 1 + -1);
+      }
+      return $runtime["caml_mod"](
+        $runtime["caml_hash_univ_param"](10, 100, $key),
+        $h[2]->count() -
+          1
+      );
     };
     $add = function($h, $key, $data) use ($caml_check_bound,$key_index,$left_shift_32,$resize) {
       $i = $key_index($h, $key);
@@ -290,7 +303,8 @@ final class Hashtbl {
       $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
       $h[1] = (int) ($h[1] + 1);
       $q1 = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-      return $q1 ? $resize($key_index, $h) : ($q1);
+      if ($q1) {return $resize($key_index, $h);}
+      return $q1;
     };
     $remove_bucket = function($h, $i, $key, $prec, $c) use ($caml_check_bound,$caml_compare) {
       $prec__0 = $prec;
@@ -301,11 +315,9 @@ final class Hashtbl {
           $next = $c__0[3];
           if (0 === $caml_compare($k, $key)) {
             $h[1] = (int) ($h[1] + -1);
-            return $prec__0
-              ? ($prec__0[3] = $next) || true ? 0 : (0)
-              : (($caml_check_bound($h[2], $i)[$i + 1] = $next) || true
-               ? 0
-               : (0));
+            if ($prec__0) {$prec__0[3] = $next;return 0;}
+            $caml_check_bound($h[2], $i)[$i + 1] = $next;
+            return 0;
           }
           $prec__0 = $c__0;
           $c__0 = $next;
@@ -355,9 +367,8 @@ final class Hashtbl {
             $k3 = $next2[1];
             $d3 = $next2[2];
             $next3 = $next2[3];
-            return 0 === $caml_compare($key, $k3)
-              ? $d3
-              : ($find_rec($key, $next3));
+            if (0 === $caml_compare($key, $k3)) {return $d3;}
+            return $find_rec($key, $next3);
           }
           throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
@@ -396,9 +407,8 @@ final class Hashtbl {
             $k3 = $next2[1];
             $d3 = $next2[2];
             $next3 = $next2[3];
-            return 0 === $caml_compare($key, $k3)
-              ? Vector{0, $d3}
-              : ($find_rec_opt($key, $next3));
+            if (0 === $caml_compare($key, $k3)) {return Vector{0, $d3};}
+            return $find_rec_opt($key, $next3);
           }
           return 0;
         }
@@ -507,7 +517,10 @@ final class Hashtbl {
           }
         }
         $qQ = 1 - $old_trav;
-        $qR = $qQ ? $flip_ongoing_traversal($h) : ($qQ);
+        if ($qQ) {
+          $qR = $flip_ongoing_traversal($h);
+        }
+        else {$qR = $qQ;}
         return $qR;
       }
       catch(\Throwable $exn) {
@@ -543,9 +556,9 @@ final class Hashtbl {
           $slot__0 = $next;
           continue;
         }
-        return $prec__0
-          ? ($prec__0[3] = 0) || true ? 0 : (0)
-          : (($caml_check_bound($h[2], $i)[$i + 1] = 0) || true ? 0 : (0));
+        if ($prec__0) {$prec__0[3] = 0;return 0;}
+        $caml_check_bound($h[2], $i)[$i + 1] = 0;
+        return 0;
       }
     };
     $filter_map_inplace = function($f, $h) use ($caml_check_bound,$caml_wrap_exception,$filter_map_inplace_bucket,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
@@ -672,7 +685,8 @@ final class Hashtbl {
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = (int) ($h[1] + 1);
         $qx = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-        return $qx ? $resize($key_index, $h) : ($qx);
+        if ($qx) {return $resize($key_index, $h);}
+        return $qx;
       };
       $remove_bucket = function($h, $i, $key, $prec, $c) use ($H,$caml_call2,$caml_check_bound) {
         $prec__0 = $prec;
@@ -683,11 +697,9 @@ final class Hashtbl {
             $next = $c__0[3];
             if ($caml_call2($H[1], $k, $key)) {
               $h[1] = (int) ($h[1] + -1);
-              return $prec__0
-                ? ($prec__0[3] = $next) || true ? 0 : (0)
-                : (($caml_check_bound($h[2], $i)[$i + 1] = $next) || true
-                 ? 0
-                 : (0));
+              if ($prec__0) {$prec__0[3] = $next;return 0;}
+              $caml_check_bound($h[2], $i)[$i + 1] = $next;
+              return 0;
             }
             $prec__0 = $c__0;
             $c__0 = $next;
@@ -737,9 +749,8 @@ final class Hashtbl {
               $k3 = $next2[1];
               $d3 = $next2[2];
               $next3 = $next2[3];
-              return $caml_call2($H[1], $key, $k3)
-                ? $d3
-                : ($find_rec($key, $next3));
+              if ($caml_call2($H[1], $key, $k3)) {return $d3;}
+              return $find_rec($key, $next3);
             }
             throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
           }
@@ -778,9 +789,8 @@ final class Hashtbl {
               $k3 = $next2[1];
               $d3 = $next2[2];
               $next3 = $next2[3];
-              return $caml_call2($H[1], $key, $k3)
-                ? Vector{0, $d3}
-                : ($find_rec_opt($key, $next3));
+              if ($caml_call2($H[1], $key, $k3)) {return Vector{0, $d3};}
+              return $find_rec_opt($key, $next3);
             }
             return 0;
           }

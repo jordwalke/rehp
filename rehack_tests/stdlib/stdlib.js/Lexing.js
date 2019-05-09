@@ -77,7 +77,8 @@ function new_engine(tbl, state, buf) {
 function lex_refill(read_fun, aux_buffer, lexbuf) {
   var read = caml_call2(read_fun, aux_buffer, caml_ml_bytes_length(aux_buffer)
   );
-  var n = 0 < read ? read : (lexbuf[9] = 1,0);
+  if (0 < read) var n = read;
+  else {lexbuf[9] = 1;var n = 0;}
   if (caml_ml_bytes_length(lexbuf[2]) < (lexbuf[3] + n | 0)) {
     if (
       ((lexbuf[3] - lexbuf[5] | 0) + n | 0) <= caml_ml_bytes_length(lexbuf[2])
@@ -216,7 +217,8 @@ function sub_lexeme_opt(lexbuf, i1, i2) {
 function sub_lexeme_char(lexbuf, i) {return caml_bytes_get(lexbuf[2], i);}
 
 function sub_lexeme_char_opt(lexbuf, i) {
-  return 0 <= i ? [0,caml_bytes_get(lexbuf[2], i)] : 0;
+  if (0 <= i) {return [0,caml_bytes_get(lexbuf[2], i)];}
+  return 0;
 }
 
 function lexeme_char(lexbuf, i) {

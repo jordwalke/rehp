@@ -133,7 +133,8 @@ function full_init(s, seed) {
     var qc = caml_string_get(d, 1) << 8;
     return ((caml_string_get(d, 0) + qc | 0) + qb | 0) + qa | 0;
   }
-  var seed__0 = 0 === seed.length - 1 ? [0,0] : seed;
+  if (0 === seed.length - 1) var seed__0 = [0,0];
+  else var seed__0 = seed;
   var l = seed__0.length - 1;
   var i__0 = 0;
   for (; ; ) {
@@ -212,9 +213,10 @@ function int32aux(s, n) {
 }
 
 function int32(s, bound) {
-  return caml_lessequal(bound, 0) ?
-    caml_call1(Pervasives[1], cst_Random_int32) :
-    int32aux(s, bound);
+  if (caml_lessequal(bound, 0)) {
+    return caml_call1(Pervasives[1], cst_Random_int32);
+  }
+  return int32aux(s, bound);
 }
 
 function int64aux(s, n) {
@@ -235,16 +237,18 @@ function int64aux(s, n) {
 }
 
 function int64(s, bound) {
-  return caml_lessequal(bound, pZ) ?
-    caml_call1(Pervasives[1], cst_Random_int64) :
-    int64aux(s, bound);
+  if (caml_lessequal(bound, pZ)) {
+    return caml_call1(Pervasives[1], cst_Random_int64);
+  }
+  return int64aux(s, bound);
 }
 
-var nativeint = 32 === Nativeint[7] ?
-  function(s, bound) {return int32(s, bound);} :
-  function(s, bound) {
-   return runtime["caml_int64_to_int32"](int64(s, caml_int64_of_int32(bound)));
- };
+if (32 === Nativeint[7]) var nativeint = function(s, bound) {
+  return int32(s, bound);
+};
+else var nativeint = function(s, bound) {
+  return runtime["caml_int64_to_int32"](int64(s, caml_int64_of_int32(bound)));
+};
 
 function rawfloat(s) {
   var r1 = bits(s);

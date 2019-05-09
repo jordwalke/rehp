@@ -60,22 +60,33 @@ var bom = 65279;
 var rep = 65533;
 
 function succ(u) {
-  return u === 55295 ?
-    hi_bound :
-    u === 1114111 ? caml_call1(Pervasives[1], err_no_succ) : u + 1 | 0;
+  if (u === 55295) {return hi_bound;}
+  if (u === 1114111) {return caml_call1(Pervasives[1], err_no_succ);}
+  return u + 1 | 0;
 }
 
 function pred(u) {
-  return u === 57344 ?
-    lo_bound :
-    u === 0 ? caml_call1(Pervasives[1], err_no_pred) : u + -1 | 0;
+  if (u === 57344) {return lo_bound;}
+  if (u === 0) {return caml_call1(Pervasives[1], err_no_pred);}
+  return u + -1 | 0;
 }
 
 function is_valid(i) {
   var bf = 0 <= i ? 1 : 0;
-  var bg = bf ? i <= 55295 ? 1 : 0 : bf;
+  if (bf) var bg = i <=
+     55295 ?
+    1 :
+    0;
+  else var bg = bf;
   if (bg) var bh = bg;
-  else {var bi = 57344 <= i ? 1 : 0;var bh = bi ? i <= 1114111 ? 1 : 0 : bi;}
+  else {
+    var bi = 57344 <= i ? 1 : 0;
+    if (bi) var bh = i <=
+       1114111 ?
+      1 :
+      0;
+    else var bh = bi;
+  }
   return bh;
 }
 

@@ -1169,48 +1169,68 @@ f(0);
 f(x);
 
 function g(param) {
-  return 0 === param
-    ? ((caml_check_bound(a, 0)[1] = 42), 0)
-    : ((caml_check_bound(a, 0)[1] = 43), 0);
+  if (0 === param) {
+    caml_check_bound(a, 0)[1] = 42;
+    return 0;
+  }
+  caml_check_bound(a, 0)[1] = 43;
+  return 0;
 }
 
 g(0);
 
 function h(param) {
-  return 42 === param ? 0 : 1;
+  if (42 === param) {
+    return 0;
+  }
+  return 1;
 }
 
 var x__0 = h(42);
-var y =
-  0 === x__0
-    ? ((caml_check_bound(a, 0)[1] = 42), 0)
-    : ((caml_check_bound(a, 0)[1] = 43), 0);
+
+if (0 === x__0) {
+  caml_check_bound(a, 0)[1] = 42;
+  var y = 0;
+} else {
+  caml_check_bound(a, 0)[1] = 43;
+  var y = 0;
+}
 
 f(y);
 
-var y__0 =
-  0 === x__0
-    ? ((caml_check_bound(a, 0)[1] = 42), 4)
-    : ((caml_check_bound(a, 0)[1] = 43), 5);
+if (0 === x__0) {
+  caml_check_bound(a, 0)[1] = 42;
+  var y__0 = 4;
+} else {
+  caml_check_bound(a, 0)[1] = 43;
+  var y__0 = 5;
+}
 
 f(y__0);
 
-var y__1 =
-  0 === x__0
-    ? ((caml_check_bound(a, 0)[1] = 42), 0 === x__0 ? 44 : 45)
-    : ((caml_check_bound(a, 0)[1] = 43), 5);
+if (0 === x__0) {
+  caml_check_bound(a, 0)[1] = 42;
+  if (0 === x__0) var y__1 = 44;
+  else var y__1 = 45;
+} else {
+  caml_check_bound(a, 0)[1] = 43;
+  var y__1 = 5;
+}
 
 f(y__1);
 
 function g2(param) {
-  return 0 === param
-    ? (print_endline(b), (caml_check_bound(a, 0)[1] = 3), 0)
-    : (print_endline(c),
-      print_endline(d),
-      print_endline(e),
-      (caml_check_bound(a, 0)[1] = 4),
-      print_endline(f),
-      print_endline(g));
+  if (0 === param) {
+    print_endline(b);
+    caml_check_bound(a, 0)[1] = 3;
+    return 0;
+  }
+  print_endline(c);
+  print_endline(d);
+  print_endline(e);
+  caml_check_bound(a, 0)[1] = 4;
+  print_endline(f);
+  return print_endline(g);
 }
 
 g2(0);

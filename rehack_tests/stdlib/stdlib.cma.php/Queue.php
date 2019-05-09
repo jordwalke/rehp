@@ -47,21 +47,16 @@ final class Queue {
     $add = function($x, $q) {
       $cell = Vector{0, $x, 0};
       $g1 = $q[3];
-      return $g1
-        ? ($q[1] = (int) ($q[1] + 1)) || true
-         ? ($g1[2] = $cell) || true
-          ? ($q[3] = $cell) || true ? 0 : (0)
-          : (($q[3] = $cell) || true ? 0 : (0))
-         : (($g1[2] = $cell) || true
-          ? ($q[3] = $cell) || true ? 0 : (0)
-          : (($q[3] = $cell) || true ? 0 : (0)))
-        : (($q[1] = 1) || true
-         ? ($q[2] = $cell) || true
-          ? ($q[3] = $cell) || true ? 0 : (0)
-          : (($q[3] = $cell) || true ? 0 : (0))
-         : (($q[2] = $cell) || true
-          ? ($q[3] = $cell) || true ? 0 : (0)
-          : (($q[3] = $cell) || true ? 0 : (0))));
+      if ($g1) {
+        $q[1] = (int) ($q[1] + 1);
+        $g1[2] = $cell;
+        $q[3] = $cell;
+        return 0;
+      }
+      $q[1] = 1;
+      $q[2] = $cell;
+      $q[3] = $cell;
+      return 0;
     };
     $peek = function($q) use ($Empty,$runtime) {
       $g0 = $q[2];
@@ -73,11 +68,9 @@ final class Queue {
       if ($gX) {
         $gY = $gX[1];
         $gZ = $gX[2];
-        return $gZ
-          ? ($q[1] = (int) ($q[1] + -1)) || true
-           ? ($q[2] = $gZ) || true ? $gY : ($gY)
-           : (($q[2] = $gZ) || true ? $gY : ($gY))
-          : ($clear($q) || true ? $gY : ($gY));
+        if ($gZ) {$q[1] = (int) ($q[1] + -1);$q[2] = $gZ;return $gY;}
+        $clear($q);
+        return $gY;
       }
       throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
@@ -142,21 +135,16 @@ final class Queue {
       $gV = 0 < $q1[1] ? 1 : (0);
       if ($gV) {
         $gW = $q2[3];
-        return $gW
-          ? ($q2[1] = (int) ($q2[1] + $q1[1])) || true
-           ? ($gW[2] = $q1[2]) || true
-            ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
-            : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1)))
-           : (($gW[2] = $q1[2]) || true
-            ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
-            : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))))
-          : (($q2[1] = $q1[1]) || true
-           ? ($q2[2] = $q1[2]) || true
-            ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
-            : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1)))
-           : (($q2[2] = $q1[2]) || true
-            ? ($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1))
-            : (($q2[3] = $q1[3]) || true ? $clear($q1) : ($clear($q1)))));
+        if ($gW) {
+          $q2[1] = (int) ($q2[1] + $q1[1]);
+          $gW[2] = $q1[2];
+          $q2[3] = $q1[3];
+          return $clear($q1);
+        }
+        $q2[1] = $q1[1];
+        $q2[2] = $q1[2];
+        $q2[3] = $q1[3];
+        return $clear($q1);
       }
       return $gV;
     };

@@ -80,7 +80,11 @@ function output(chan, digest) {
 
 function input(chan) {return caml_call2(Pervasives[74], chan, 16);}
 
-function char_hex(n) {var pX = 10 <= n ? 87 : 48;return n + pX | 0;}
+function char_hex(n) {
+  if (10 <= n) var pX = 87;
+  else var pX = 48;
+  return n + pX | 0;
+}
 
 function to_hex(d) {
   if (16 !== caml_ml_string_length(d)) {

@@ -100,9 +100,12 @@ function get_data(count, d) {
         case 2:
           var f = d__0[1];
           var hh = caml_obj_tag(f);
-          var d__1 = 250 === hh ?
-            f[1] :
-            246 === hh ? caml_call1(CamlinternalLazy[2], f) : f;
+          if (250 === hh) var d__1 = f[1];
+          else if (246 === hh) var d__1 = caml_call1(
+            CamlinternalLazy[2],
+            f
+          );
+          else var d__1 = f;
           var d__0 = d__1;
           continue;
         case 3:
@@ -148,9 +151,12 @@ function peek_data(s) {
       case 2:
         var f = hc[1];
         var hd = caml_obj_tag(f);
-        var he = 250 === hd ?
-          f[1] :
-          246 === hd ? caml_call1(CamlinternalLazy[2], f) : f;
+        if (250 === hd) var he = f[1];
+        else if (246 === hd) var he = caml_call1(
+          CamlinternalLazy[2],
+          f
+        );
+        else var he = f;
         s[2] = he;
         continue;
       case 3:
@@ -163,9 +169,8 @@ function peek_data(s) {
       default:
         var b = hc[1];
         if (b[3] <= b[4]) {fill_buff(b);}
-        return 0 === b[3] ?
-          (s[2] = 0,0) :
-          [0,caml_bytes_unsafe_get(b[2], b[4])]
+        if (0 === b[3]) {s[2] = 0;return 0;}
+        return [0,caml_bytes_unsafe_get(b[2], b[4])]
       }
   }
 }
@@ -275,9 +280,11 @@ function of_string(s) {
   return from(
     function(param) {
       var c = count[1];
-      return c < runtime["caml_ml_string_length"](s) ?
-        (count[1] += 1,[0,runtime["caml_string_get"](s, c)]) :
-        0;
+      if (c < runtime["caml_ml_string_length"](s)) {
+        count[1] += 1;
+        return [0,runtime["caml_string_get"](s, c)];
+      }
+      return 0;
     }
   );
 }
@@ -287,9 +294,11 @@ function of_bytes(s) {
   return from(
     function(param) {
       var c = count[1];
-      return c < caml_ml_bytes_length(s) ?
-        (count[1] += 1,[0,runtime["caml_bytes_get"](s, c)]) :
-        0;
+      if (c < caml_ml_bytes_length(s)) {
+        count[1] += 1;
+        return [0,runtime["caml_bytes_get"](s, c)];
+      }
+      return 0;
     }
   );
 }

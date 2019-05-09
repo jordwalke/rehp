@@ -173,9 +173,8 @@ final class Filename {
           return $caml_call3($String[4], $name, 0, 1);
         }
       };
-      return $caml_string_equal($name, $cst)
-        ? $current_dir_name
-        : ($find_end((int) ($caml_ml_string_length($name) + -1)));
+      if ($caml_string_equal($name, $cst)) {return $current_dir_name;}
+      return $find_end((int) ($caml_ml_string_length($name) + -1));
     };
     $generic_dirname = function($is_dir_sep, $current_dir_name, $name) use ($String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_equal,$cst__0) {
       $intermediate_sep = function($n) use ($String,$caml_call2,$caml_call3,$is_dir_sep,$name) {
@@ -218,28 +217,44 @@ final class Filename {
           return $caml_call3($String[4], $name, 0, 1);
         }
       };
-      return $caml_string_equal($name, $cst__0)
-        ? $current_dir_name
-        : ($trailing_sep((int) ($caml_ml_string_length($name) + -1)));
+      if ($caml_string_equal($name, $cst__0)) {return $current_dir_name;}
+      return $trailing_sep((int) ($caml_ml_string_length($name) + -1));
     };
     $is_dir_sep = function($s, $i) use ($caml_string_get) {
       return 47 === $caml_string_get($s, $i) ? 1 : (0);
     };
     $is_relative = function($n) use ($caml_ml_string_length,$caml_string_get) {
       $Ch = $caml_ml_string_length($n) < 1 ? 1 : (0);
-      $Ci = $Ch || (47 !== $caml_string_get($n, 0) ? 1 : (0));
+      if ($Ch) {
+        $Ci = $Ch;
+      }
+      else {$Ci = 47 !== $caml_string_get($n, 0) ? 1 : (0);}
       return $Ci;
     };
     $is_implicit = function($n) use ($String,$caml_call3,$caml_ml_string_length,$caml_string_notequal,$cst__1,$cst__2,$is_relative) {
       $Cc = $is_relative($n);
       if ($Cc) {
         $Cd = $caml_ml_string_length($n) < 2 ? 1 : (0);
-        $Ce = $Cd ||
-          $caml_string_notequal($caml_call3($String[4], $n, 0, 2), $cst__2);
+        if ($Cd) {
+          $Ce = $Cd;
+        }
+        else {
+          $Ce = $caml_string_notequal(
+            $caml_call3($String[4], $n, 0, 2),
+            $cst__2
+          );
+        }
         if ($Ce) {
           $Cf = $caml_ml_string_length($n) < 3 ? 1 : (0);
-          $Cg = $Cf ||
-            $caml_string_notequal($caml_call3($String[4], $n, 0, 3), $cst__1);
+          if ($Cf) {
+            $Cg = $Cf;
+          }
+          else {
+            $Cg = $caml_string_notequal(
+              $caml_call3($String[4], $n, 0, 3),
+              $cst__1
+            );
+          }
         }
         else {$Cg = $Ce;}
       }
@@ -250,18 +265,19 @@ final class Filename {
       $Ca = $caml_ml_string_length($suff) <= $caml_ml_string_length($name)
         ? 1
         : (0);
-      $Cb = $Ca
-        ? $caml_string_equal(
-         $caml_call3(
-           $String[4],
-           $name,
-           (int)
-           ($caml_ml_string_length($name) - $caml_ml_string_length($suff)),
-           $caml_ml_string_length($suff)
-         ),
-         $suff
-       )
-        : ($Ca);
+      if ($Ca) {
+        $Cb = $caml_string_equal(
+          $caml_call3(
+            $String[4],
+            $name,
+            (int)
+            ($caml_ml_string_length($name) - $caml_ml_string_length($suff)),
+            $caml_ml_string_length($suff)
+          ),
+          $suff
+        );
+      }
+      else {$Cb = $Ca;}
       return $Cb;
     };
     
@@ -289,18 +305,33 @@ final class Filename {
       if ($B4) {
         $B5 = $B4;
       }
-      else {$B6 = 92 === $c ? 1 : (0);$B5 = $B6 || (58 === $c ? 1 : (0));}
+      else {
+        $B6 = 92 === $c ? 1 : (0);
+        if ($B6) {
+          $B5 = $B6;
+        }
+        else {$B5 = 58 === $c ? 1 : (0);}
+      }
       return $B5;
     };
     $is_relative__0 = function($n) use ($caml_ml_string_length,$caml_string_get) {
       $BY = $caml_ml_string_length($n) < 1 ? 1 : (0);
-      $BZ = $BY || (47 !== $caml_string_get($n, 0) ? 1 : (0));
+      if ($BY) {
+        $BZ = $BY;
+      }
+      else {$BZ = 47 !== $caml_string_get($n, 0) ? 1 : (0);}
       if ($BZ) {
         $B0 = $caml_ml_string_length($n) < 1 ? 1 : (0);
-        $B1 = $B0 || (92 !== $caml_string_get($n, 0) ? 1 : (0));
+        if ($B0) {
+          $B1 = $B0;
+        }
+        else {$B1 = 92 !== $caml_string_get($n, 0) ? 1 : (0);}
         if ($B1) {
           $B2 = $caml_ml_string_length($n) < 2 ? 1 : (0);
-          $B3 = $B2 || (58 !== $caml_string_get($n, 1) ? 1 : (0));
+          if ($B2) {
+            $B3 = $B2;
+          }
+          else {$B3 = 58 !== $caml_string_get($n, 1) ? 1 : (0);}
         }
         else {$B3 = $B1;}
       }
@@ -311,24 +342,48 @@ final class Filename {
       $BP = $is_relative__0($n);
       if ($BP) {
         $BQ = $caml_ml_string_length($n) < 2 ? 1 : (0);
-        $BR = $BQ ||
-          $caml_string_notequal($caml_call3($String[4], $n, 0, 2), $cst__7);
+        if ($BQ) {
+          $BR = $BQ;
+        }
+        else {
+          $BR = $caml_string_notequal(
+            $caml_call3($String[4], $n, 0, 2),
+            $cst__7
+          );
+        }
         if ($BR) {
           $BS = $caml_ml_string_length($n) < 2 ? 1 : (0);
-          $BT = $BS ||
-            $caml_string_notequal($caml_call3($String[4], $n, 0, 2), $cst__6);
+          if ($BS) {
+            $BT = $BS;
+          }
+          else {
+            $BT = $caml_string_notequal(
+              $caml_call3($String[4], $n, 0, 2),
+              $cst__6
+            );
+          }
           if ($BT) {
             $BU = $caml_ml_string_length($n) < 3 ? 1 : (0);
-            $BV = $BU ||
-              $caml_string_notequal($caml_call3($String[4], $n, 0, 3), $cst__5
+            if ($BU) {
+              $BV = $BU;
+            }
+            else {
+              $BV = $caml_string_notequal(
+                $caml_call3($String[4], $n, 0, 3),
+                $cst__5
               );
+            }
             if ($BV) {
               $BW = $caml_ml_string_length($n) < 3 ? 1 : (0);
-              $BX = $BW ||
-                $caml_string_notequal(
+              if ($BW) {
+                $BX = $BW;
+              }
+              else {
+                $BX = $caml_string_notequal(
                   $caml_call3($String[4], $n, 0, 3),
                   $cst__4
                 );
+              }
             }
             else {$BX = $BV;}
           }
@@ -460,15 +515,21 @@ final class Filename {
     };
     $has_drive = function($s) use ($caml_ml_string_length,$caml_string_get,$unsigned_right_shift_32) {
       $is_letter = function($param) use ($unsigned_right_shift_32) {
-        $switch__0 = 91 <= $param
-          ? 25 < $unsigned_right_shift_32((int) ($param + -97), 0) ? 0 : (1)
-          : (65 <= $param ? 1 : (0));
-        return $switch__0 ? 1 : (0);
+        if (91 <= $param) {
+          if (25 < $unsigned_right_shift_32((int) ($param + -97), 0)) {$switch__0 = 0;}
+          else {$switch__0 = 1;}
+        }
+        else {if (65 <= $param) {$switch__0 = 1;}else {$switch__0 = 0;}}
+        if ($switch__0) {return 1;}
+        return 0;
       };
       $BD = 2 <= $caml_ml_string_length($s) ? 1 : (0);
       if ($BD) {
         $BE = $is_letter($caml_string_get($s, 0));
-        $BF = $BE ? 58 === $caml_string_get($s, 1) ? 1 : (0) : ($BE);
+        if ($BE) {
+          $BF = 58 === $caml_string_get($s, 1) ? 1 : (0);
+        }
+        else {$BF = $BE;}
       }
       else {$BF = $BD;}
       return $BF;
@@ -591,9 +652,8 @@ final class Filename {
     $chop_suffix = function($name, $suff) use ($Pervasives,$String,$caml_call1,$caml_call3,$caml_ml_string_length,$cst_Filename_chop_suffix) {
       $n = (int)
       ($caml_ml_string_length($name) - $caml_ml_string_length($suff));
-      return 0 <= $n
-        ? $caml_call3($String[4], $name, 0, $n)
-        : ($caml_call1($Pervasives[1], $cst_Filename_chop_suffix));
+      if (0 <= $n) {return $caml_call3($String[4], $name, 0, $n);}
+      return $caml_call1($Pervasives[1], $cst_Filename_chop_suffix);
     };
     $extension_len = function($name) use ($caml_ml_string_length,$caml_string_get,$is_dir_sep__1) {
       $check = function($i0, $i) use ($caml_ml_string_length,$caml_string_get,$is_dir_sep__1,$name) {
@@ -630,39 +690,38 @@ final class Filename {
     };
     $extension = function($name) use ($String,$caml_call3,$caml_ml_string_length,$cst__10,$extension_len) {
       $l = $extension_len($name);
-      return 0 === $l
-        ? $cst__10
-        : ($caml_call3(
-         $String[4],
-         $name,
-         (int)
-         ($caml_ml_string_length($name) - $l),
-         $l
-       ));
+      if (0 === $l) {return $cst__10;}
+      return $caml_call3(
+        $String[4],
+        $name,
+        (int)
+        ($caml_ml_string_length($name) - $l),
+        $l
+      );
     };
     $chop_extension = function($name) use ($Pervasives,$String,$caml_call1,$caml_call3,$caml_ml_string_length,$cst_Filename_chop_extension,$extension_len) {
       $l = $extension_len($name);
-      return 0 === $l
-        ? $caml_call1($Pervasives[1], $cst_Filename_chop_extension)
-        : ($caml_call3(
-         $String[4],
-         $name,
-         0,
-         (int)
-         ($caml_ml_string_length($name) - $l)
-       ));
+      if (0 === $l) {
+        return $caml_call1($Pervasives[1], $cst_Filename_chop_extension);
+      }
+      return $caml_call3(
+        $String[4],
+        $name,
+        0,
+        (int)
+        ($caml_ml_string_length($name) - $l)
+      );
     };
     $remove_extension = function($name) use ($String,$caml_call3,$caml_ml_string_length,$extension_len) {
       $l = $extension_len($name);
-      return 0 === $l
-        ? $name
-        : ($caml_call3(
-         $String[4],
-         $name,
-         0,
-         (int)
-         ($caml_ml_string_length($name) - $l)
-       ));
+      if (0 === $l) {return $name;}
+      return $caml_call3(
+        $String[4],
+        $name,
+        0,
+        (int)
+        ($caml_ml_string_length($name) - $l)
+      );
     };
     $prng = Vector{
       246,
@@ -672,9 +731,13 @@ final class Filename {
     };
     $temp_file_name = function($temp_dir, $prefix, $suffix) use ($Bg,$CamlinternalLazy,$Printf,$Random,$caml_call1,$caml_call4,$concat,$prng,$runtime) {
       $Bw = $runtime["caml_obj_tag"]($prng);
-      $Bx = 250 === $Bw
-        ? $prng[1]
-        : (246 === $Bw ? $caml_call1($CamlinternalLazy[2], $prng) : ($prng));
+      if (250 === $Bw) {$Bx = $prng[1];}
+      else {
+        if (246 === $Bw) {
+          $Bx = $caml_call1($CamlinternalLazy[2], $prng);
+        }
+        else {$Bx = $prng;}
+      }
       $rnd = $caml_call1($Random[11][4], $Bx) & 16777215;
       return $concat(
         $temp_dir,

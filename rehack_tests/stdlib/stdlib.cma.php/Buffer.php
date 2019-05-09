@@ -92,8 +92,10 @@ final class Buffer {
     $hm = Vector{0, $caml_new_string("buffer.ml"), 84, 19};
     $hl = Vector{0, $caml_new_string("buffer.ml"), 117, 8};
     $create = function($n) use ($Sys,$caml_create_bytes) {
-      $n__0 = 1 <= $n ? $n : (1);
-      $n__1 = $Sys[13] < $n__0 ? $Sys[13] : ($n__0);
+      if (1 <= $n) {$n__0 = $n;}
+      else {$n__0 = 1;}
+      if ($Sys[13] < $n__0) {$n__1 = $Sys[13];}
+      else {$n__1 = $n__0;}
       $s = $caml_create_bytes($n__1);
       return Vector{0, $s, 0, $n__1, $s};
     };
@@ -344,8 +346,12 @@ final class Buffer {
       }
       else {
         $hy = $len < 0 ? 1 : (0);
-        $hx = $hy ||
-          ((int) ($caml_ml_string_length($s) - $len) < $offset ? 1 : (0));
+        if ($hy) {
+          $hx = $hy;
+        }
+        else {
+          $hx = (int) ($caml_ml_string_length($s) - $len) < $offset ? 1 : (0);
+        }
       }
       if ($hx) {
         $caml_call1($Pervasives[1], $cst_Buffer_add_substring_add_subbytes);
@@ -392,7 +398,10 @@ final class Buffer {
     };
     $add_channel = function($b, $ic, $len) use ($Pervasives,$Sys,$add_channel_rec,$caml_call1,$cst_Buffer_add_channel,$resize) {
       $ht = $len < 0 ? 1 : (0);
-      $hu = $ht || ($Sys[13] < $len ? 1 : (0));
+      if ($ht) {
+        $hu = $ht;
+      }
+      else {$hu = $Sys[13] < $len ? 1 : (0);}
       if ($hu) {$caml_call1($Pervasives[1], $cst_Buffer_add_channel);}
       if ($b[3] < (int) ($b[2] + $len)) {$resize($b, $len);}
       return $add_channel_rec($b, $ic, $len);
@@ -441,13 +450,20 @@ final class Buffer {
         for (;;) {
           if ($lim <= $i__0) {return $lim;}
           $match = $caml_string_get($s, $i__0);
-          $switch__0 = 91 <= $match
-            ? 97 <= $match
-             ? 123 <= $match ? 0 : (1)
-             : (95 === $match ? 1 : (0))
-            : (58 <= $match
-             ? 65 <= $match ? 1 : (0)
-             : (48 <= $match ? 1 : (0)));
+          if (91 <= $match) {
+            if (97 <= $match) {
+              if (123 <= $match) {$switch__0 = 0;}
+              else {$switch__0 = 1;}
+            }
+            else {if (95 === $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+          }
+          else {
+            if (58 <= $match) {
+              if (65 <= $match) {$switch__0 = 1;}
+              else {$switch__0 = 0;}
+            }
+            else {if (48 <= $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+          }
           if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
           return $i__0;
         }
@@ -530,7 +546,8 @@ final class Buffer {
             continue;
           }
           $hs = 92 === $previous__0 ? 1 : (0);
-          return $hs ? $add_char($b, $previous__0) : ($hs);
+          if ($hs) {return $add_char($b, $previous__0);}
+          return $hs;
         }
       };
       return $subst(32, 0);

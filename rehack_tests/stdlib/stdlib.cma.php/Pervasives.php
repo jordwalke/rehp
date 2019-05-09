@@ -111,12 +111,14 @@ final class Pervasives {
     };
     $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)};
     $min = function($x, $y) use ($runtime) {
-      return $runtime["caml_lessequal"]($x, $y) ? $x : ($y);
+      if ($runtime["caml_lessequal"]($x, $y)) {return $x;}
+      return $y;
     };
     $max = function($x, $y) use ($runtime) {
-      return $runtime["caml_greaterequal"]($x, $y) ? $x : ($y);
+      if ($runtime["caml_greaterequal"]($x, $y)) {return $x;}
+      return $y;
     };
-    $abs = function($x) {return 0 <= $x ? $x : ((int) - $x);};
+    $abs = function($x) {if (0 <= $x) {return $x;}return (int) - $x;};
     $lnot = function($x) {return $x ^ -1;};
     $infinity = $caml_int64_float_of_bits($a);
     $neg_infinity = $caml_int64_float_of_bits($b);
@@ -139,19 +141,22 @@ final class Pervasives {
       return $invalid_arg($cst_char_of_int);
     };
     $string_of_bool = function($b) use ($cst_false,$cst_true) {
-      return $b ? $cst_true : ($cst_false);
+      if ($b) {return $cst_true;}
+      return $cst_false;
     };
     $bool_of_string = function($param) use ($caml_string_notequal,$cst_bool_of_string,$cst_false__0,$cst_true__0,$invalid_arg) {
-      return $caml_string_notequal($param, $cst_false__0)
-        ? $caml_string_notequal($param, $cst_true__0)
-         ? $invalid_arg($cst_bool_of_string)
-         : (1)
-        : (0);
+      if ($caml_string_notequal($param, $cst_false__0)) {
+        if ($caml_string_notequal($param, $cst_true__0)) {return $invalid_arg($cst_bool_of_string);}
+        return 1;
+      }
+      return 0;
     };
     $bool_of_string_opt = function($param) use ($caml_string_notequal,$cst_false__1,$cst_true__1,$h,$i) {
-      return $caml_string_notequal($param, $cst_false__1)
-        ? $caml_string_notequal($param, $cst_true__1) ? 0 : ($h)
-        : ($i);
+      if ($caml_string_notequal($param, $cst_false__1)) {
+        if ($caml_string_notequal($param, $cst_true__1)) {return 0;}
+        return $h;
+      }
+      return $i;
     };
     $string_of_int = function($n) use ($caml_new_string) {
       return $caml_new_string("" . $n);
@@ -171,9 +176,11 @@ final class Pervasives {
         for (;;) {
           if ($l <= $i__0) {return $g($s, $cst);}
           $match = $runtime["caml_string_get"]($s, $i__0);
-          $switch__0 = 48 <= $match
-            ? 58 <= $match ? 0 : (1)
-            : (45 === $match ? 1 : (0));
+          if (48 <= $match) {
+            if (58 <= $match) {$switch__0 = 0;}
+            else {$switch__0 = 1;}
+          }
+          else {if (45 === $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
           if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
           return $s;
         }

@@ -94,7 +94,10 @@ final class Set {
           $hr = $h__0;
         }
         else {$hr = 0;}
-        $ge = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
+        if ($hr <= $hl) {
+          $ge = (int) ($hl + 1);
+        }
+        else {$ge = (int) ($hr + 1);}
         return Vector{0, $l, $v, $r, $ge};
       };
       $bal = function($l, $v, $r) use ($Pervasives,$caml_call1,$create,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$height) {
@@ -148,7 +151,10 @@ final class Set {
           }
           return $caml_call1($Pervasives[1], $cst_Set_bal__2);
         }
-        $gd = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
+        if ($hr <= $hl) {
+          $gd = (int) ($hl + 1);
+        }
+        else {$gd = (int) ($hr + 1);}
         return Vector{0, $l, $v, $r, $gd};
       };
       $add->contents = function($x, $t) use ($Ord,$add,$bal,$caml_call2) {
@@ -160,10 +166,12 @@ final class Set {
           if (0 === $c) {return $t;}
           if (0 <= $c) {
             $rr = $add->contents($x, $r);
-            return $r === $rr ? $t : ($bal($l, $v, $rr));
+            if ($r === $rr) {return $t;}
+            return $bal($l, $v, $rr);
           }
           $ll = $add->contents($x, $l);
-          return $l === $ll ? $t : ($bal($ll, $v, $r));
+          if ($l === $ll) {return $t;}
+          return $bal($ll, $v, $r);
         }
         return Vector{0, 0, $x, 0, 1};
       };
@@ -197,11 +205,13 @@ final class Set {
             $lr = $l[3];
             $lv = $l[2];
             $ll = $l[1];
-            return (int) ($rh + 2) < $lh
-              ? $bal($ll, $lv, $join->contents($lr, $v, $r))
-              : ((int) ($lh + 2) < $rh
-               ? $bal($join->contents($l, $v, $rl), $rv, $rr)
-               : ($create($l, $v, $r)));
+            if ((int) ($rh + 2) < $lh) {
+              return $bal($ll, $lv, $join->contents($lr, $v, $r));
+            }
+            if ((int) ($lh + 2) < $rh) {
+              return $bal($join->contents($l, $v, $rl), $rv, $rr);
+            }
+            return $create($l, $v, $r);
           }
           return $add_max_element->contents($v, $l);
         }
@@ -311,7 +321,7 @@ final class Set {
         return $fl;
       };
       $empty = 0;
-      $is_empty = function($param) {return $param ? 0 : (1);};
+      $is_empty = function($param) {if ($param) {return 0;}return 1;};
       $mem = function($x, $param) use ($Ord,$caml_call2) {
         $param__0 = $param;
         for (;;) {
@@ -322,7 +332,10 @@ final class Set {
             $c = $caml_call2($Ord[1], $x, $v);
             $f0 = 0 === $c ? 1 : (0);
             if ($f0) {return $f0;}
-            $param__1 = 0 <= $c ? $r : ($l);
+            if (0 <= $c) {
+              $param__1 = $r;
+            }
+            else {$param__1 = $l;}
             $param__0 = $param__1;
             continue;
           }
@@ -338,10 +351,12 @@ final class Set {
           if (0 === $c) {return $merge($l, $r);}
           if (0 <= $c) {
             $rr = $remove->contents($x, $r);
-            return $r === $rr ? $t : ($bal($l, $v, $rr));
+            if ($r === $rr) {return $t;}
+            return $bal($l, $v, $rr);
           }
           $ll = $remove->contents($x, $l);
-          return $l === $ll ? $t : ($bal($ll, $v, $r));
+          if ($l === $ll) {return $t;}
+          return $bal($ll, $v, $r);
         }
         return 0;
       };
@@ -457,7 +472,8 @@ final class Set {
             }
             return 1;
           }
-          return $e2__0 ? -1 : (0);
+          if ($e2__0) {return -1;}
+          return 0;
         }
       };
       $compare = function($s1, $s2) use ($compare_aux,$cons_enum) {
@@ -644,7 +660,10 @@ final class Set {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return $v;}
-            $param__1 = 0 <= $c ? $r : ($l);
+            if (0 <= $c) {
+              $param__1 = $r;
+            }
+            else {$param__1 = $l;}
             $param__0 = $param__1;
             continue;
           }
@@ -776,7 +795,10 @@ final class Set {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return Vector{0, $v};}
-            $param__1 = 0 <= $c ? $r : ($l);
+            if (0 <= $c) {
+              $param__1 = $r;
+            }
+            else {$param__1 = $l;}
             $param__0 = $param__1;
             continue;
           }
@@ -789,7 +811,8 @@ final class Set {
         }
         else {
           $fC = $max_elt($l);
-          $switch__0 = 0 <= $caml_call2($Ord[1], $fC, $v) ? 1 : (0);
+          if (0 <= $caml_call2($Ord[1], $fC, $v)) {$switch__0 = 1;}
+          else {$switch__0 = 0;}
         }
         if (! $switch__0) {
           if (0 === $r) {
@@ -797,7 +820,8 @@ final class Set {
           }
           else {
             $fB = $min_elt($r);
-            $switch__1 = 0 <= $caml_call2($Ord[1], $v, $fB) ? 1 : (0);
+            if (0 <= $caml_call2($Ord[1], $v, $fB)) {$switch__1 = 1;}
+            else {$switch__1 = 0;}
           }
           if (! $switch__1) {return $join->contents($l, $v, $r);}
         }

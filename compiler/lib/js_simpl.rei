@@ -21,7 +21,15 @@
 open Rehp;
 
 let if_statement:
-  (expression, Loc.t, (statement, Loc.t), bool, (statement, Loc.t), bool) =>
+  (
+    expression,
+    Loc.t,
+    (statement, Loc.t),
+    bool,
+    (statement, Loc.t),
+    bool,
+    bool
+  ) =>
   list((statement, Loc.t));
 
 let get_variable: (Code.Var.Set.t, expression) => Code.Var.Set.t;

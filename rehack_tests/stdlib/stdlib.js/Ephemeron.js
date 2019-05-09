@@ -75,9 +75,12 @@ function MakeSeeded(H) {
     var s = power_2_above(16, initial_size);
     if (random) {
       var Bc = runtime["caml_obj_tag"](prng);
-      var Bd = 250 === Bc ?
-        prng[1] :
-        246 === Bc ? caml_call1(CamlinternalLazy[2], prng) : prng;
+      if (250 === Bc) var Bd = prng[1];
+      else if (246 === Bc) var Bd = caml_call1(
+        CamlinternalLazy[2],
+        prng
+      );
+      else var Bd = prng;
       var seed = caml_call1(Random[11][4], Bd);
     }
     else var seed = 0;
@@ -101,9 +104,10 @@ function MakeSeeded(H) {
   }
   function reset(h) {
     var len = h[2].length - 1;
-    return len === h[4] ?
-      clear(h) :
-      (h[1] = 0,h[2] = caml_make_vect(h[4], 0),0);
+    if (len === h[4]) {return clear(h);}
+    h[1] = 0;
+    h[2] = caml_make_vect(h[4], 0);
+    return 0;
   }
   function copy(h) {
     var A7 = h[4];
@@ -148,7 +152,12 @@ function MakeSeeded(H) {
     var nsize = osize * 2 | 0;
     clean(h);
     var AY = nsize < Sys[14] ? 1 : 0;
-    var AZ = AY ? (osize >>> 1 | 0) <= h[1] ? 1 : 0 : AY;
+    if (AY) var AZ = (osize >>>
+        1 | 0) <=
+       h[1] ?
+      1 :
+      0;
+    else var AZ = AY;
     if (AZ) {
       var ndata = caml_make_vect(nsize, 0);
       h[2] = ndata;
@@ -189,7 +198,8 @@ function MakeSeeded(H) {
     caml_check_bound(h[2], i)[i + 1] = bucket;
     h[1] = h[1] + 1 | 0;
     var AX = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-    return AX ? resize(h) : AX;
+    if (AX) {return resize(h);}
+    return AX;
   }
   function remove(h, key) {
     var hkey = caml_call2(H[2], h[3], key);
@@ -360,7 +370,8 @@ function MakeSeeded(H) {
         caml_check_bound(h[2], i)[i + 1] = [0,hkey,container,l];
         h[1] = h[1] + 1 | 0;
         var AQ = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-        return AQ ? resize(h) : AQ;
+        if (AQ) {return resize(h);}
+        return AQ;
       }
       throw runtime["caml_wrap_thrown_exception_reraise"](AS);
     }
@@ -650,7 +661,11 @@ function MakeSeeded__0(H) {
   var hash = H[2];
   function equal(c, k) {
     var match = get_key(c);
-    if (match) {var k__0 = match[1];return caml_call2(H[1], k, k__0) ? 0 : 1;}
+    if (match) {
+      var k__0 = match[1];
+      if (caml_call2(H[1], k, k__0)) {return 0;}
+      return 1;
+    }
     return 2;
   }
   function set_key_data(c, k, d) {
@@ -804,7 +819,8 @@ function MakeSeeded__1(H1, H2) {
   }
   function check_key(c) {
     var Aq = check_key1(c);
-    return Aq ? check_key2(c) : Aq;
+    if (Aq) {return check_key2(c);}
+    return Aq;
   }
   return MakeSeeded(
     [0,create,hash,equal,get_data__0,get_key,set_key_data,check_key]

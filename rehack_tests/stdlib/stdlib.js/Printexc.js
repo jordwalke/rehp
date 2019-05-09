@@ -188,11 +188,12 @@ var printers = [0,0];
 
 function field(x, i) {
   var f = x[i + 1];
-  return caml_call1(Obj[1], f) ?
-    caml_obj_tag(f) === Obj[13] ?
-     caml_call2(Printf[4], oy, f) :
-     caml_obj_tag(f) === Obj[14] ? caml_call1(Pervasives[23], f) : cst :
-    caml_call2(Printf[4], oz, f);
+  if (caml_call1(Obj[1], f)) {
+    if (caml_obj_tag(f) === Obj[13]) {return caml_call2(Printf[4], oy, f);}
+    if (caml_obj_tag(f) === Obj[14]) {return caml_call1(Pervasives[23], f);}
+    return cst;
+  }
+  return caml_call2(Printf[4], oz, f);
 }
 
 function other_fields(x, i) {
@@ -319,15 +320,19 @@ function convert_raw_backtrace(bt) {
 
 function format_backtrace_slot(pos, slot) {
   function info(is_raise) {
-    return is_raise ?
-      0 === pos ? cst_Raised_at : cst_Re_raised_at :
-      0 === pos ? cst_Raised_by_primitive_operation_at : cst_Called_from;
+    if (is_raise) {
+      if (0 === pos) {return cst_Raised_at;}
+      return cst_Re_raised_at;
+    }
+    if (0 === pos) {return cst_Raised_by_primitive_operation_at;}
+    return cst_Called_from;
   }
   if (0 === slot[0]) {
     var o8 = slot[5];
     var o9 = slot[4];
     var o_ = slot[3];
-    var pa = slot[6] ? cst_inlined : cst__3;
+    if (slot[6]) var pa = cst_inlined;
+    else var pa = cst__3;
     var pb = slot[2];
     var pc = info(slot[1]);
     return [0,caml_call7(Printf[4], oF, pc, pb, pa, o_, o9, o8)];
@@ -397,21 +402,28 @@ function raw_backtrace_to_string(raw_backtrace) {
 }
 
 function backtrace_slot_is_raise(param) {
-  return 0 === param[0] ? param[1] : param[1];
+  if (0 === param[0]) {return param[1];}
+  return param[1];
 }
 
-function backtrace_slot_is_inline(param) {return 0 === param[0] ? param[6] : 0;
+function backtrace_slot_is_inline(param) {
+  if (0 === param[0]) {return param[6];}
+  return 0;
 }
 
 function backtrace_slot_location(param) {
-  return 0 === param[0] ? [0,[0,param[2],param[3],param[4],param[5]]] : 0;
+  if (0 === param[0]) {return [0,[0,param[2],param[3],param[4],param[5]]];}
+  return 0;
 }
 
 function backtrace_slots(raw_backtrace) {
   var match = convert_raw_backtrace(raw_backtrace);
   if (match) {
     var backtrace = match[1];
-    var usable_slot = function(param) {return 0 === param[0] ? 1 : 0;};
+    var usable_slot = function(param) {
+      if (0 === param[0]) {return 1;}
+      return 0;
+    };
     var exists_usable = function(i) {
       var i__0 = i;
       for (; ; ) {
@@ -423,7 +435,8 @@ function backtrace_slots(raw_backtrace) {
         continue;
       }
     };
-    return exists_usable(backtrace.length - 1 + -1 | 0) ? [0,backtrace] : 0;
+    if (exists_usable(backtrace.length - 1 + -1 | 0)) {return [0,backtrace];}
+    return 0;
   }
   return 0;
 }
@@ -434,7 +447,7 @@ function get_backtrace(param) {
 
 function register_printer(fn) {printers[1] = [0,fn,printers[1]];return 0;}
 
-function exn_slot(x) {return 0 === caml_obj_tag(x) ? x[1] : x;}
+function exn_slot(x) {if (0 === caml_obj_tag(x)) {return x[1];}return x;}
 
 function exn_slot_id(x) {var slot = exn_slot(x);return slot[2];}
 

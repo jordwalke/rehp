@@ -47,7 +47,8 @@ final class Spacetime {
     $Pervasives = $global_data["Pervasives"];
     $enabled = $caml_spacetime_enabled(0);
     $if_spacetime_enabled = function($f) use ($caml_call1,$enabled) {
-      return $enabled ? $caml_call1($f, 0) : (0);
+      if ($enabled) {return $caml_call1($f, 0);}
+      return 0;
     };
     $create = function($path) use ($Pervasives,$caml_call1,$caml_spacetime_enabled,$caml_spacetime_only_works_for_native_code) {
       if ($caml_spacetime_enabled(0)) {

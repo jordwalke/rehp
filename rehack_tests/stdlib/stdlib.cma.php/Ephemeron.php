@@ -100,11 +100,13 @@ final class Ephemeron {
         $s = $power_2_above(16, $initial_size);
         if ($random) {
           $Bc = $runtime["caml_obj_tag"]($prng);
-          $Bd = 250 === $Bc
-            ? $prng[1]
-            : (246 === $Bc
-             ? $caml_call1($CamlinternalLazy[2], $prng)
-             : ($prng));
+          if (250 === $Bc) {$Bd = $prng[1];}
+          else {
+            if (246 === $Bc) {
+              $Bd = $caml_call1($CamlinternalLazy[2], $prng);
+            }
+            else {$Bd = $prng;}
+          }
           $seed = $caml_call1($Random[11][4], $Bd);
         }
         else {$seed = 0;}
@@ -128,11 +130,10 @@ final class Ephemeron {
       };
       $reset = function($h) use ($caml_make_vect,$clear) {
         $len = $h[2]->count() - 1;
-        return $len === $h[4]
-          ? $clear($h)
-          : (($h[1] = 0) || true
-           ? ($h[2] = $caml_make_vect($h[4], 0)) || true ? 0 : (0)
-           : (($h[2] = $caml_make_vect($h[4], 0)) || true ? 0 : (0)));
+        if ($len === $h[4]) {return $clear($h);}
+        $h[1] = 0;
+        $h[2] = $caml_make_vect($h[4], 0);
+        return 0;
       };
       $copy = function($h) use ($Array,$caml_call1) {
         $A7 = $h[4];
@@ -183,9 +184,10 @@ final class Ephemeron {
         $nsize = (int) ($osize * 2);
         $clean($h);
         $AY = $nsize < $Sys[14] ? 1 : (0);
-        $AZ = $AY
-          ? (int) $unsigned_right_shift_32($osize, 1) <= $h[1] ? 1 : (0)
-          : ($AY);
+        if ($AY) {
+          $AZ = (int) $unsigned_right_shift_32($osize, 1) <= $h[1] ? 1 : (0);
+        }
+        else {$AZ = $AY;}
         if ($AZ) {
           $ndata = $caml_make_vect($nsize, 0);
           $h[2] = $ndata;
@@ -236,7 +238,8 @@ final class Ephemeron {
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = (int) ($h[1] + 1);
         $AX = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-        return $AX ? $resize($h) : ($AX);
+        if ($AX) {return $resize($h);}
+        return $AX;
       };
       $remove = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
         $remove_bucket = new Ref();
@@ -429,7 +432,8 @@ final class Ephemeron {
             $caml_check_bound($h[2], $i)[$i + 1] = Vector{0, $hkey, $container, $l};
             $h[1] = (int) ($h[1] + 1);
             $AQ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-            return $AQ ? $resize($h) : ($AQ);
+            if ($AQ) {return $resize($h);}
+            return $AQ;
           }
           throw $runtime["caml_wrap_thrown_exception_reraise"]($AS) as \Throwable;
         }
@@ -734,7 +738,8 @@ final class Ephemeron {
         $match = $get_key($c);
         if ($match) {
           $k__0 = $match[1];
-          return $caml_call2($H[1], $k, $k__0) ? 0 : (1);
+          if ($caml_call2($H[1], $k, $k__0)) {return 0;}
+          return 1;
         }
         return 2;
       };
@@ -920,7 +925,8 @@ final class Ephemeron {
       };
       $check_key = function($c) use ($check_key1,$check_key2) {
         $Aq = $check_key1($c);
-        return $Aq ? $check_key2($c) : ($Aq);
+        if ($Aq) {return $check_key2($c);}
+        return $Aq;
       };
       return $MakeSeeded(
         Vector{

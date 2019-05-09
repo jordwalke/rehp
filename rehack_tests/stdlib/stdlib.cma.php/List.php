@@ -185,11 +185,11 @@ final class List_ {
       return Vector{0, $r, $init_aux->contents((int) ($i + 1), $n, $f)};
     };
     $init = function($len, $f) use ($Pervasives,$caml_call1,$cst_List_init,$init_aux,$init_tailrec_aux,$rev) {
-      return 0 <= $len
-        ? 10000 < $len
-         ? $rev($init_tailrec_aux(0, 0, $len, $f))
-         : ($init_aux->contents(0, $len, $f))
-        : ($caml_call1($Pervasives[1], $cst_List_init));
+      if (0 <= $len) {
+        if (10000 < $len) {return $rev($init_tailrec_aux(0, 0, $len, $f));}
+        return $init_aux->contents(0, $len, $f);
+      }
+      return $caml_call1($Pervasives[1], $cst_List_init);
     };
     $flatten->contents = function($param) use ($Pervasives,$caml_call2,$flatten) {
       if ($param) {
@@ -579,9 +579,8 @@ final class List_ {
         $l = $param[2];
         $pair = $param[1];
         $a = $pair[1];
-        return 0 === $caml_compare($a, $x)
-          ? $l
-          : (Vector{0, $pair, $remove_assoc->contents($x, $l)});
+        if (0 === $caml_compare($a, $x)) {return $l;}
+        return Vector{0, $pair, $remove_assoc->contents($x, $l)};
       }
       return 0;
     };
@@ -590,9 +589,8 @@ final class List_ {
         $l = $param[2];
         $pair = $param[1];
         $a = $pair[1];
-        return $a === $x
-          ? $l
-          : (Vector{0, $pair, $remove_assq->contents($x, $l)});
+        if ($a === $x) {return $l;}
+        return Vector{0, $pair, $remove_assq->contents($x, $l)};
       }
       return 0;
     };
@@ -708,9 +706,10 @@ final class List_ {
           $h2 = $match[1];
           $t1 = $l1[2];
           $h1 = $l1[1];
-          return 0 < $caml_call2($cmp, $h1, $h2)
-            ? Vector{0, $h2, $merge->contents($cmp, $l1, $t2)}
-            : (Vector{0, $h1, $merge->contents($cmp, $t1, $match)});
+          if (0 < $caml_call2($cmp, $h1, $h2)) {
+            return Vector{0, $h2, $merge->contents($cmp, $l1, $t2)};
+          }
+          return Vector{0, $h1, $merge->contents($cmp, $t1, $match)};
         }
         return $l1;
       }
@@ -794,9 +793,10 @@ final class List_ {
             if ($aQ) {
               $x2 = $aQ[1];
               $x1 = $l[1];
-              return 0 < $caml_call2($cmp, $x1, $x2)
-                ? Vector{0, $x2, Vector{0, $x1, 0}}
-                : (Vector{0, $x1, Vector{0, $x2, 0}});
+              if (0 < $caml_call2($cmp, $x1, $x2)) {
+                return Vector{0, $x2, Vector{0, $x1, 0}};
+              }
+              return Vector{0, $x1, Vector{0, $x2, 0}};
             }
           }
         }
@@ -810,17 +810,46 @@ final class List_ {
                   $x3 = $aS[1];
                   $x2__0 = $aR[1];
                   $x1__0 = $l[1];
-                  return 0 < $caml_call2($cmp, $x1__0, $x2__0)
-                    ? 0 < $caml_call2($cmp, $x1__0, $x3)
-                     ? 0 < $caml_call2($cmp, $x2__0, $x3)
-                      ? Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}}
-                      : (Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}})
-                     : (Vector{0, $x2__0, Vector{0, $x1__0, Vector{0, $x3, 0}}})
-                    : (0 < $caml_call2($cmp, $x2__0, $x3)
-                     ? 0 < $caml_call2($cmp, $x1__0, $x3)
-                      ? Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}
-                      : (Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}})
-                     : (Vector{0, $x1__0, Vector{0, $x2__0, Vector{0, $x3, 0}}}));
+                  if (0 < $caml_call2($cmp, $x1__0, $x2__0)) {
+                    if (0 < $caml_call2($cmp, $x1__0, $x3)) {
+                      if (0 < $caml_call2($cmp, $x2__0, $x3)) {
+                        return Vector{
+                          0,
+                          $x3,
+                          Vector{0, $x2__0, Vector{0, $x1__0, 0}}
+                        };
+                      }
+                      return Vector{
+                        0,
+                        $x2__0,
+                        Vector{0, $x3, Vector{0, $x1__0, 0}}
+                      };
+                    }
+                    return Vector{
+                      0,
+                      $x2__0,
+                      Vector{0, $x1__0, Vector{0, $x3, 0}}
+                    };
+                  }
+                  if (0 < $caml_call2($cmp, $x2__0, $x3)) {
+                    if (0 < $caml_call2($cmp, $x1__0, $x3)) {
+                      return Vector{
+                        0,
+                        $x3,
+                        Vector{0, $x1__0, Vector{0, $x2__0, 0}}
+                      };
+                    }
+                    return Vector{
+                      0,
+                      $x1__0,
+                      Vector{0, $x3, Vector{0, $x2__0, 0}}
+                    };
+                  }
+                  return Vector{
+                    0,
+                    $x1__0,
+                    Vector{0, $x2__0, Vector{0, $x3, 0}}
+                  };
                 }
               }
             }
@@ -840,9 +869,10 @@ final class List_ {
             if ($aN) {
               $x2 = $aN[1];
               $x1 = $l[1];
-              return 0 < $caml_call2($cmp, $x1, $x2)
-                ? Vector{0, $x1, Vector{0, $x2, 0}}
-                : (Vector{0, $x2, Vector{0, $x1, 0}});
+              if (0 < $caml_call2($cmp, $x1, $x2)) {
+                return Vector{0, $x1, Vector{0, $x2, 0}};
+              }
+              return Vector{0, $x2, Vector{0, $x1, 0}};
             }
           }
         }
@@ -856,17 +886,46 @@ final class List_ {
                   $x3 = $aP[1];
                   $x2__0 = $aO[1];
                   $x1__0 = $l[1];
-                  return 0 < $caml_call2($cmp, $x1__0, $x2__0)
-                    ? 0 < $caml_call2($cmp, $x2__0, $x3)
-                     ? Vector{0, $x1__0, Vector{0, $x2__0, Vector{0, $x3, 0}}}
-                     : (0 < $caml_call2($cmp, $x1__0, $x3)
-                      ? Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}}
-                      : (Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}))
-                    : (0 < $caml_call2($cmp, $x1__0, $x3)
-                     ? Vector{0, $x2__0, Vector{0, $x1__0, Vector{0, $x3, 0}}}
-                     : (0 < $caml_call2($cmp, $x2__0, $x3)
-                      ? Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}}
-                      : (Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}})));
+                  if (0 < $caml_call2($cmp, $x1__0, $x2__0)) {
+                    if (0 < $caml_call2($cmp, $x2__0, $x3)) {
+                      return Vector{
+                        0,
+                        $x1__0,
+                        Vector{0, $x2__0, Vector{0, $x3, 0}}
+                      };
+                    }
+                    if (0 < $caml_call2($cmp, $x1__0, $x3)) {
+                      return Vector{
+                        0,
+                        $x1__0,
+                        Vector{0, $x3, Vector{0, $x2__0, 0}}
+                      };
+                    }
+                    return Vector{
+                      0,
+                      $x3,
+                      Vector{0, $x1__0, Vector{0, $x2__0, 0}}
+                    };
+                  }
+                  if (0 < $caml_call2($cmp, $x1__0, $x3)) {
+                    return Vector{
+                      0,
+                      $x2__0,
+                      Vector{0, $x1__0, Vector{0, $x3, 0}}
+                    };
+                  }
+                  if (0 < $caml_call2($cmp, $x2__0, $x3)) {
+                    return Vector{
+                      0,
+                      $x2__0,
+                      Vector{0, $x3, Vector{0, $x1__0, 0}}
+                    };
+                  }
+                  return Vector{
+                    0,
+                    $x3,
+                    Vector{0, $x2__0, Vector{0, $x1__0, 0}}
+                  };
                 }
               }
             }
@@ -880,7 +939,8 @@ final class List_ {
         return $rev_merge($s1, $s2, 0);
       };
       $len = $length($l);
-      return 2 <= $len ? $sort($len, $l) : ($l);
+      if (2 <= $len) {return $sort($len, $l);}
+      return $l;
     };
     $sort_uniq = function($cmp, $l) use ($caml_call2,$chop,$length,$rev_append,$right_shift_32) {
       $rev_sort = new Ref();
@@ -962,11 +1022,9 @@ final class List_ {
               $x2 = $aK[1];
               $x1 = $l[1];
               $c = $caml_call2($cmp, $x1, $x2);
-              return 0 === $c
-                ? Vector{0, $x1, 0}
-                : (0 <= $c
-                 ? Vector{0, $x2, Vector{0, $x1, 0}}
-                 : (Vector{0, $x1, Vector{0, $x2, 0}}));
+              if (0 === $c) {return Vector{0, $x1, 0};}
+              if (0 <= $c) {return Vector{0, $x2, Vector{0, $x1, 0}};}
+              return Vector{0, $x1, Vector{0, $x2, 0}};
             }
           }
         }
@@ -983,11 +1041,11 @@ final class List_ {
                   $c__0 = $caml_call2($cmp, $x1__0, $x2__0);
                   if (0 === $c__0) {
                     $c__1 = $caml_call2($cmp, $x2__0, $x3);
-                    return 0 === $c__1
-                      ? Vector{0, $x2__0, 0}
-                      : (0 <= $c__1
-                       ? Vector{0, $x3, Vector{0, $x2__0, 0}}
-                       : (Vector{0, $x2__0, Vector{0, $x3, 0}}));
+                    if (0 === $c__1) {return Vector{0, $x2__0, 0};}
+                    if (0 <= $c__1) {
+                      return Vector{0, $x3, Vector{0, $x2__0, 0}};
+                    }
+                    return Vector{0, $x2__0, Vector{0, $x3, 0}};
                   }
                   if (0 <= $c__0) {
                     $c__2 = $caml_call2($cmp, $x1__0, $x3);
@@ -996,11 +1054,21 @@ final class List_ {
                     }
                     if (0 <= $c__2) {
                       $c__3 = $caml_call2($cmp, $x2__0, $x3);
-                      return 0 === $c__3
-                        ? Vector{0, $x2__0, Vector{0, $x1__0, 0}}
-                        : (0 <= $c__3
-                         ? Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}}
-                         : (Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}}));
+                      if (0 === $c__3) {
+                        return Vector{0, $x2__0, Vector{0, $x1__0, 0}};
+                      }
+                      if (0 <= $c__3) {
+                        return Vector{
+                          0,
+                          $x3,
+                          Vector{0, $x2__0, Vector{0, $x1__0, 0}}
+                        };
+                      }
+                      return Vector{
+                        0,
+                        $x2__0,
+                        Vector{0, $x3, Vector{0, $x1__0, 0}}
+                      };
                     }
                     return Vector{
                       0,
@@ -1014,11 +1082,21 @@ final class List_ {
                   }
                   if (0 <= $c__4) {
                     $c__5 = $caml_call2($cmp, $x1__0, $x3);
-                    return 0 === $c__5
-                      ? Vector{0, $x1__0, Vector{0, $x2__0, 0}}
-                      : (0 <= $c__5
-                       ? Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}
-                       : (Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}}));
+                    if (0 === $c__5) {
+                      return Vector{0, $x1__0, Vector{0, $x2__0, 0}};
+                    }
+                    if (0 <= $c__5) {
+                      return Vector{
+                        0,
+                        $x3,
+                        Vector{0, $x1__0, Vector{0, $x2__0, 0}}
+                      };
+                    }
+                    return Vector{
+                      0,
+                      $x1__0,
+                      Vector{0, $x3, Vector{0, $x2__0, 0}}
+                    };
                   }
                   return Vector{
                     0,
@@ -1045,11 +1123,9 @@ final class List_ {
               $x2 = $aH[1];
               $x1 = $l[1];
               $c = $caml_call2($cmp, $x1, $x2);
-              return 0 === $c
-                ? Vector{0, $x1, 0}
-                : (0 < $c
-                 ? Vector{0, $x1, Vector{0, $x2, 0}}
-                 : (Vector{0, $x2, Vector{0, $x1, 0}}));
+              if (0 === $c) {return Vector{0, $x1, 0};}
+              if (0 < $c) {return Vector{0, $x1, Vector{0, $x2, 0}};}
+              return Vector{0, $x2, Vector{0, $x1, 0}};
             }
           }
         }
@@ -1066,11 +1142,11 @@ final class List_ {
                   $c__0 = $caml_call2($cmp, $x1__0, $x2__0);
                   if (0 === $c__0) {
                     $c__1 = $caml_call2($cmp, $x2__0, $x3);
-                    return 0 === $c__1
-                      ? Vector{0, $x2__0, 0}
-                      : (0 < $c__1
-                       ? Vector{0, $x2__0, Vector{0, $x3, 0}}
-                       : (Vector{0, $x3, Vector{0, $x2__0, 0}}));
+                    if (0 === $c__1) {return Vector{0, $x2__0, 0};}
+                    if (0 < $c__1) {
+                      return Vector{0, $x2__0, Vector{0, $x3, 0}};
+                    }
+                    return Vector{0, $x3, Vector{0, $x2__0, 0}};
                   }
                   if (0 < $c__0) {
                     $c__2 = $caml_call2($cmp, $x2__0, $x3);
@@ -1085,11 +1161,21 @@ final class List_ {
                       };
                     }
                     $c__3 = $caml_call2($cmp, $x1__0, $x3);
-                    return 0 === $c__3
-                      ? Vector{0, $x1__0, Vector{0, $x2__0, 0}}
-                      : (0 < $c__3
-                       ? Vector{0, $x1__0, Vector{0, $x3, Vector{0, $x2__0, 0}}}
-                       : (Vector{0, $x3, Vector{0, $x1__0, Vector{0, $x2__0, 0}}}));
+                    if (0 === $c__3) {
+                      return Vector{0, $x1__0, Vector{0, $x2__0, 0}};
+                    }
+                    if (0 < $c__3) {
+                      return Vector{
+                        0,
+                        $x1__0,
+                        Vector{0, $x3, Vector{0, $x2__0, 0}}
+                      };
+                    }
+                    return Vector{
+                      0,
+                      $x3,
+                      Vector{0, $x1__0, Vector{0, $x2__0, 0}}
+                    };
                   }
                   $c__4 = $caml_call2($cmp, $x1__0, $x3);
                   if (0 === $c__4) {
@@ -1103,11 +1189,21 @@ final class List_ {
                     };
                   }
                   $c__5 = $caml_call2($cmp, $x2__0, $x3);
-                  return 0 === $c__5
-                    ? Vector{0, $x2__0, Vector{0, $x1__0, 0}}
-                    : (0 < $c__5
-                     ? Vector{0, $x2__0, Vector{0, $x3, Vector{0, $x1__0, 0}}}
-                     : (Vector{0, $x3, Vector{0, $x2__0, Vector{0, $x1__0, 0}}}));
+                  if (0 === $c__5) {
+                    return Vector{0, $x2__0, Vector{0, $x1__0, 0}};
+                  }
+                  if (0 < $c__5) {
+                    return Vector{
+                      0,
+                      $x2__0,
+                      Vector{0, $x3, Vector{0, $x1__0, 0}}
+                    };
+                  }
+                  return Vector{
+                    0,
+                    $x3,
+                    Vector{0, $x2__0, Vector{0, $x1__0, 0}}
+                  };
                 }
               }
             }
@@ -1121,7 +1217,8 @@ final class List_ {
         return $rev_merge($s1, $s2, 0);
       };
       $len = $length($l);
-      return 2 <= $len ? $sort($len, $l) : ($l);
+      if (2 <= $len) {return $sort($len, $l);}
+      return $l;
     };
     $compare_lengths = function($l1, $l2) {
       $l1__0 = $l1;
@@ -1137,7 +1234,8 @@ final class List_ {
           }
           return 1;
         }
-        return $l2__0 ? -1 : (0);
+        if ($l2__0) {return -1;}
+        return 0;
       }
     };
     $compare_length_with = function($l, $n) {
@@ -1154,7 +1252,9 @@ final class List_ {
           }
           return 1;
         }
-        return 0 === $n__0 ? 0 : (0 < $n__0 ? -1 : (1));
+        if (0 === $n__0) {return 0;}
+        if (0 < $n__0) {return -1;}
+        return 1;
       }
     };
     $List = Vector{

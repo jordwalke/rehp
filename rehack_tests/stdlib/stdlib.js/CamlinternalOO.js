@@ -86,7 +86,9 @@ function public_method_label(s) {
     }
   }
   accu[1] = accu[1] & 2147483647;
-  var tag = 1073741823 < accu[1] ? accu[1] + 2147483648 | 0 : accu[1];
+  if (1073741823 < accu[1]) var tag = accu[1] +
+    2147483648 | 0;
+  else var tag = accu[1];
   return tag;
 }
 
@@ -106,7 +108,8 @@ var table_count = [0,0];
 var dummy_met = caml_obj_block(0, 0);
 
 function fit_size(n) {
-  return 2 < n ? fit_size((n + 1 | 0) / 2 | 0) * 2 | 0 : n;
+  if (2 < n) {return fit_size((n + 1 | 0) / 2 | 0) * 2 | 0;}
+  return n;
 }
 
 function new_table(pub_labels) {
@@ -182,9 +185,9 @@ function get_method_labels(table, names) {
 
 function set_method(table, label, element) {
   method_count[1] += 1;
-  return caml_call2(Labs[27], label, table[4]) ?
-    put(table, label, element) :
-    (table[6] = [0,[0,label,element],table[6]],0);
+  if (caml_call2(Labs[27], label, table[4])) {return put(table, label, element);}
+  table[6] = [0,[0,label,element],table[6]];
+  return 0;
 }
 
 function get_method(table, label) {
@@ -198,7 +201,10 @@ function get_method(table, label) {
   }
 }
 
-function to_list(arr) {return arr === 0 ? 0 : caml_call1(Array[11], arr);}
+function to_list(arr) {
+  if (arr === 0) {return 0;}
+  return caml_call1(Array[11], arr);
+}
 
 function narrow(table, vars, virt_meths, concr_meths) {
   var vars__0 = to_list(vars);
@@ -214,9 +220,10 @@ function narrow(table, vars, virt_meths, concr_meths) {
   var y2 = Vars[1];
   var y3 = table[7];
   function y4(lab, info, tvars) {
-    return caml_call2(List[31], lab, vars__0) ?
-      caml_call3(Vars[4], lab, info, tvars) :
-      tvars;
+    if (caml_call2(List[31], lab, vars__0)) {
+      return caml_call3(Vars[4], lab, info, tvars);
+    }
+    return tvars;
   }
   table[7] = caml_call3(Vars[13], y4, y3, y2);
   var by_name = [0,Meths[1]];
@@ -249,7 +256,8 @@ function narrow(table, vars, virt_meths, concr_meths) {
   var y8 = table[6];
   function y9(met, hm) {
     var lab = met[1];
-    return caml_call2(List[31], lab, virt_meth_labs) ? hm : [0,met,hm];
+    if (caml_call2(List[31], lab, virt_meth_labs)) {return hm;}
+    return [0,met,hm];
   }
   table[6] = caml_call3(List[21], y9, y8, y7);
   return 0;
@@ -274,7 +282,8 @@ function widen(table) {
   var yX = table[6];
   function yY(met, hm) {
     var lab = met[1];
-    return caml_call2(List[31], lab, virt_meths) ? hm : [0,met,hm];
+    if (caml_call2(List[31], lab, virt_meths)) {return hm;}
+    return [0,met,hm];
   }
   table[6] = caml_call3(List[21], yY, yX, saved_hidden_meths);
   return 0;
@@ -301,7 +310,10 @@ function new_variable(table, name) {
   }
 }
 
-function to_array(arr) {return runtime["caml_equal"](arr, 0) ? [0] : arr;}
+function to_array(arr) {
+  if (runtime["caml_equal"](arr, 0)) {return [0];}
+  return arr;
+}
 
 function new_methods_variables(table, meths, vals) {
   var meths__0 = to_array(meths);
@@ -385,7 +397,12 @@ function inherits(cla, vals, virt_meths, concr_meths, param, top) {
   var env = param[4];
   var super__0 = param[2];
   narrow(cla, vals, virt_meths, concr_meths);
-  var init = top ? caml_call2(super__0, cla, env) : caml_call1(super__0, cla);
+  if (top) var init = caml_call2(
+    super__0,
+    cla,
+    env
+  );
+  else var init = caml_call1(super__0, cla);
   widen(cla);
   var yx = 0;
   var yy = to_array(concr_meths);
@@ -451,7 +468,8 @@ function iter_f(obj, param) {
 function run_initializers(obj, table) {
   var inits = table[8];
   var yw = 0 !== inits ? 1 : 0;
-  return yw ? iter_f(obj, inits) : yw;
+  if (yw) {return iter_f(obj, inits);}
+  return yw;
 }
 
 function run_initializers_opt(obj_0, obj, table) {
@@ -538,9 +556,10 @@ function lookup_keys(i, keys, tables) {
 
 function lookup_tables(root, keys) {
   var root_data = get_data(root);
-  return root_data ?
-    lookup_keys(keys.length - 1 + -1 | 0, keys, root_data) :
-    build_path(keys.length - 1 + -1 | 0, keys, root);
+  if (root_data) {
+    return lookup_keys(keys.length - 1 + -1 | 0, keys, root_data);
+  }
+  return build_path(keys.length - 1 + -1 | 0, keys, root);
 }
 
 function get_const(x) {return function(obj) {return x;};}

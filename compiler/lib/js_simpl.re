@@ -158,52 +158,76 @@ let simplify_condition =
     J.ECond(J.EBin(J.Band, y, J.ENum(n)), e1, e2)
   | cond => cond;
 
-let rec if_statement_2 = (e, loc, iftrue, truestop, iffalse, falsestop) => {
+let simplify_if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) =>
+  if (truestop) {
+    [(J.If_statement(e, iftrue, None), loc), ...unblock(iffalse)];
+  } else if (falsestop) {
+    [(J.If_statement(enot(e), iffalse, None), loc), ...unblock(iftrue)];
+  } else {
+    [(J.If_statement(e, iftrue, Some(iffalse)), loc)];
+  };
+
+let simplify_full_if_statement =
+    (e, loc, iftrue, truestop, iffalse, falsestop) =>
+  /* Generates conditional */
+  try (
+    {
+      let (x1, (e1, _)) = assignment_of_statement(iftrue);
+      let (x2, (e2, _)) = assignment_of_statement(iffalse);
+      if (x1 != x2) {
+        raise(Not_assignment);
+      };
+      let exp =
+        if (e1 == e) {
+          J.EBin(J.Or, e, e2);
+        } else {
+          J.ECond(e, e1, e2);
+        };
+      [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
+    }
+  ) {
+  | Not_assignment =>
+    try (
+      {
+        let e1 = expression_of_statement(iftrue);
+        let e2 = expression_of_statement(iffalse);
+        [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
+      }
+    ) {
+    | Not_expression =>
+      simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop)
+    }
+  };
+
+let rec if_statement_2 =
+        (e, loc, iftrue, truestop, iffalse, falsestop, optimize_to_sequence) => {
   let e = simplify_condition(e);
   switch (fst(iftrue), fst(iffalse)) {
   /* Empty blocks */
   | (J.Block([]), J.Block([])) => [(J.Expression_statement(e), loc)]
   | (J.Block([]), _) =>
-    if_statement_2(enot(e), loc, iffalse, falsestop, iftrue, truestop)
+    if_statement_2(
+      enot(e),
+      loc,
+      iffalse,
+      falsestop,
+      iftrue,
+      truestop,
+      optimize_to_sequence,
+    )
   | (_, J.Block([])) => [(J.If_statement(e, iftrue, None), loc)]
   | _ =>
-    /* Generates conditional */
-    try (
-      {
-        let (x1, (e1, _)) = assignment_of_statement(iftrue);
-        let (x2, (e2, _)) = assignment_of_statement(iffalse);
-        if (x1 != x2) {
-          raise(Not_assignment);
-        };
-        let exp =
-          if (e1 == e) {
-            J.EBin(J.Or, e, e2);
-          } else {
-            J.ECond(e, e1, e2);
-          };
-        [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
-      }
-    ) {
-    | Not_assignment =>
-      try (
-        {
-          let e1 = expression_of_statement(iftrue);
-          let e2 = expression_of_statement(iffalse);
-          [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
-        }
-      ) {
-      | Not_expression =>
-        if (truestop) {
-          [(J.If_statement(e, iftrue, None), loc), ...unblock(iffalse)];
-        } else if (falsestop) {
-          [
-            (J.If_statement(enot(e), iffalse, None), loc),
-            ...unblock(iftrue),
-          ];
-        } else {
-          [(J.If_statement(e, iftrue, Some(iffalse)), loc)];
-        }
-      }
+    if (optimize_to_sequence) {
+      simplify_full_if_statement(
+        e,
+        loc,
+        iftrue,
+        truestop,
+        iffalse,
+        falsestop,
+      );
+    } else {
+      simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop);
     }
   };
 };
@@ -214,7 +238,8 @@ let unopt = b =>
   | None => (J.Block([]), Loc.N)
   };
 
-let if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) => {
+let if_statement =
+    (e, loc, iftrue, truestop, iffalse, falsestop, optimize_to_sequence) => {
   /*FIX: should be done at an earlier stage*/
   let e = simplify_condition(e);
   switch (iftrue, iffalse) {
@@ -228,6 +253,7 @@ let if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) => {
       truestop,
       iffalse,
       falsestop,
+      optimize_to_sequence,
     )
   | ((J.If_statement(e', iftrue', iffalse'), loc), _)
       when iffalse == iftrue' =>
@@ -238,6 +264,7 @@ let if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) => {
       truestop,
       iffalse,
       falsestop,
+      optimize_to_sequence,
     )
   | (_, (J.If_statement(e', iftrue', iffalse'), loc)) when iftrue == iftrue' =>
     if_statement_2(
@@ -247,6 +274,7 @@ let if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) => {
       truestop,
       unopt(iffalse'),
       falsestop,
+      optimize_to_sequence,
     )
   | (_, (J.If_statement(e', iftrue', iffalse'), loc))
       when iftrue == unopt(iffalse') =>
@@ -257,8 +285,18 @@ let if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) => {
       truestop,
       iftrue',
       falsestop,
+      optimize_to_sequence,
     )
-  | _ => if_statement_2(e, loc, iftrue, truestop, iffalse, falsestop)
+  | _ =>
+    if_statement_2(
+      e,
+      loc,
+      iftrue,
+      truestop,
+      iffalse,
+      falsestop,
+      optimize_to_sequence,
+    )
   };
 };
 

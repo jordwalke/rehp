@@ -334,9 +334,12 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
   var initpos = current[1];
   function convert_error(error) {
     var b = caml_call1(Buffer[1], 200);
-    var progname = initpos < argv[1].length - 1 ?
-      caml_check_bound(argv[1], initpos)[initpos + 1] :
-      cst__2;
+    if (initpos < argv[1].length - 1) var progname = caml_check_bound(
+       argv[1],
+       initpos
+     )
+     [initpos + 1];
+    else var progname = cst__2;
     switch (error[0]) {
       case 0:
         var n9 = error[1];
@@ -427,7 +430,9 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
           var get_arg = get_arg__0(s, follow__0);
           var consume_arg__0 = function(follow) {
             function consume_arg(param) {
-              return follow ? 0 : (current[1] += 1,0);
+              if (follow) {return 0;}
+              current[1] += 1;
+              return 0;
             }
             return consume_arg;
           };
@@ -820,23 +825,29 @@ function read_aux(trim, sep, file) {
   var words = [0,0];
   function stash(param) {
     var word = caml_call1(Buffer[2], buf);
-    var word__0 = trim ? trim_cr(word) : word;
+    if (trim) var word__0 = trim_cr(
+      word
+    );
+    else var word__0 = word;
     words[1] = [0,word__0,words[1]];
     return caml_call1(Buffer[8], buf);
   }
   function read(param) {
     try {
       var c = caml_call1(Pervasives[70], ic);
-      var nJ = c === sep ?
-        (stash(0),read(0)) :
-        (caml_call2(Buffer[10], buf, c),read(0));
+      if (c === sep) {
+        stash(0);
+        var nJ = read(0);
+      }
+      else {caml_call2(Buffer[10], buf, c);var nJ = read(0);}
       return nJ;
     }
     catch(nK) {
       nK = caml_wrap_exception(nK);
       if (nK === End_of_file) {
         var nI = 0 < caml_call1(Buffer[7], buf) ? 1 : 0;
-        return nI ? stash(0) : nI;
+        if (nI) {return stash(0);}
+        return nI;
       }
       throw runtime["caml_wrap_thrown_exception_reraise"](nK);
     }

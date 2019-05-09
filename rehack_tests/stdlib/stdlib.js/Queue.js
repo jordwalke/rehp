@@ -29,9 +29,11 @@ function clear(q) {q[1] = 0;q[2] = 0;q[3] = 0;return 0;}
 function add(x, q) {
   var cell = [0,x,0];
   var g1 = q[3];
-  return g1 ?
-    (q[1] = q[1] + 1 | 0,g1[2] = cell,q[3] = cell,0) :
-    (q[1] = 1,q[2] = cell,q[3] = cell,0);
+  if (g1) {q[1] = q[1] + 1 | 0;g1[2] = cell;q[3] = cell;return 0;}
+  q[1] = 1;
+  q[2] = cell;
+  q[3] = cell;
+  return 0;
 }
 
 function peek(q) {
@@ -45,7 +47,9 @@ function take(q) {
   if (gX) {
     var gY = gX[1];
     var gZ = gX[2];
-    return gZ ? (q[1] = q[1] + -1 | 0,q[2] = gZ,gY) : (clear(q),gY);
+    if (gZ) {q[1] = q[1] + -1 | 0;q[2] = gZ;return gY;}
+    clear(q);
+    return gY;
   }
   throw runtime["caml_wrap_thrown_exception"](Empty);
 }
@@ -113,9 +117,16 @@ function transfer(q1, q2) {
   var gV = 0 < q1[1] ? 1 : 0;
   if (gV) {
     var gW = q2[3];
-    return gW ?
-      (q2[1] = q2[1] + q1[1] | 0,gW[2] = q1[2],q2[3] = q1[3],clear(q1)) :
-      (q2[1] = q1[1],q2[2] = q1[2],q2[3] = q1[3],clear(q1));
+    if (gW) {
+      q2[1] = q2[1] + q1[1] | 0;
+      gW[2] = q1[2];
+      q2[3] = q1[3];
+      return clear(q1);
+    }
+    q2[1] = q1[1];
+    q2[2] = q1[2];
+    q2[3] = q1[3];
+    return clear(q1);
   }
   return gV;
 }

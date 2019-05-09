@@ -127,9 +127,13 @@ final class Stream {
             case 2:
               $f = $d__0[1];
               $hh = $caml_obj_tag($f);
-              $d__1 = 250 === $hh
-                ? $f[1]
-                : (246 === $hh ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
+              if (250 === $hh) {$d__1 = $f[1];}
+              else {
+                if (246 === $hh) {
+                  $d__1 = $caml_call1($CamlinternalLazy[2], $f);
+                }
+                else {$d__1 = $f;}
+              }
               $d__0 = $d__1;
               continue;
             // FALLTHROUGH
@@ -191,9 +195,13 @@ final class Stream {
             case 2:
               $f = $hc[1];
               $hd = $caml_obj_tag($f);
-              $he = 250 === $hd
-                ? $f[1]
-                : (246 === $hd ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
+              if (250 === $hd) {$he = $f[1];}
+              else {
+                if (246 === $hd) {
+                  $he = $caml_call1($CamlinternalLazy[2], $f);
+                }
+                else {$he = $f;}
+              }
               $s[2] = $he;
               continue;
             // FALLTHROUGH
@@ -208,9 +216,8 @@ final class Stream {
             default:
               $b = $hc[1];
               if ($b[3] <= $b[4]) {$fill_buff($b);}
-              return 0 === $b[3]
-                ? ($s[2] = 0) || true ? 0 : (0)
-                : (Vector{0, $caml_bytes_unsafe_get($b[2], $b[4])});
+              if (0 === $b[3]) {$s[2] = 0;return 0;}
+              return Vector{0, $caml_bytes_unsafe_get($b[2], $b[4])};
             }
         }
       }
@@ -327,11 +334,11 @@ final class Stream {
       return $from(
         function($param) use ($count,$runtime,$s) {
           $c = $count[1];
-          return $c < $runtime["caml_ml_string_length"]($s)
-            ? ($count[1] += 1) || true
-             ? Vector{0, $runtime["caml_string_get"]($s, $c)}
-             : (Vector{0, $runtime["caml_string_get"]($s, $c)})
-            : (0);
+          if ($c < $runtime["caml_ml_string_length"]($s)) {
+            $count[1] += 1;
+            return Vector{0, $runtime["caml_string_get"]($s, $c)};
+          }
+          return 0;
         }
       );
     };
@@ -340,11 +347,11 @@ final class Stream {
       return $from(
         function($param) use ($caml_ml_bytes_length,$count,$runtime,$s) {
           $c = $count[1];
-          return $c < $caml_ml_bytes_length($s)
-            ? ($count[1] += 1) || true
-             ? Vector{0, $runtime["caml_bytes_get"]($s, $c)}
-             : (Vector{0, $runtime["caml_bytes_get"]($s, $c)})
-            : (0);
+          if ($c < $caml_ml_bytes_length($s)) {
+            $count[1] += 1;
+            return Vector{0, $runtime["caml_bytes_get"]($s, $c)};
+          }
+          return 0;
         }
       );
     };

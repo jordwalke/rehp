@@ -1638,105 +1638,80 @@ $f(0);
 $f($x);
 
 $g = function($param) use ($a, $caml_check_bound) {
-  return 0 === $param
-    ? ($caml_check_bound($a, 0)[1] = 42) || true ? 0 : (0)
-    : (($caml_check_bound($a, 0)[1] = 43) || true ? 0 : (0));
+  if (0 === $param) {
+    $caml_check_bound($a, 0)[1] = 42;
+    return 0;
+  }
+  $caml_check_bound($a, 0)[1] = 43;
+  return 0;
 };
 
 $g(0);
 
 $h = function($param) {
-  return 42 === $param ? 0 : (1);
+  if (42 === $param) {
+    return 0;
+  }
+  return 1;
 };
 $x__0 = $h(42);
-$y = 0 === $x__0
-  ? ($caml_check_bound($a, 0)[1] = 42) || true ? 0 : (0)
-  : (($caml_check_bound($a, 0)[1] = 43) || true ? 0 : (0));
+
+if (0 === $x__0) {
+  $caml_check_bound($a, 0)[1] = 42;
+  $y = 0;
+} else {
+  $caml_check_bound($a, 0)[1] = 43;
+  $y = 0;
+}
 
 $f($y);
 
-$y__0 = 0 === $x__0
-  ? ($caml_check_bound($a, 0)[1] = 42) || true ? 4 : (4)
-  : (($caml_check_bound($a, 0)[1] = 43) || true ? 5 : (5));
+if (0 === $x__0) {
+  $caml_check_bound($a, 0)[1] = 42;
+  $y__0 = 4;
+} else {
+  $caml_check_bound($a, 0)[1] = 43;
+  $y__0 = 5;
+}
 
 $f($y__0);
 
-$y__1 = 0 === $x__0
-  ? ($caml_check_bound($a, 0)[1] = 42) || true
-    ? 0 === $x__0 ? 44 : (45)
-    : (0 === $x__0 ? 44 : (45))
-  : (($caml_check_bound($a, 0)[1] = 43) || true ? 5 : (5));
+if (0 === $x__0) {
+  $caml_check_bound($a, 0)[1] = 42;
+  if (0 === $x__0) {
+    $y__1 = 44;
+  } else {
+    $y__1 = 45;
+  }
+} else {
+  $caml_check_bound($a, 0)[1] = 43;
+  $y__1 = 5;
+}
 
 $f($y__1);
 
-$g2 = function($param) use ($a, $b, $c, $caml_check_bound, $d, $e, $f, $g, $print_endline) {
-  return 0 === $param
-    ? $print_endline($b) || true
-      ? ($caml_check_bound($a, 0)[1] = 3) || true ? 0 : (0)
-      : (($caml_check_bound($a, 0)[1] = 3) || true ? 0 : (0))
-    : ($print_endline($c) || true
-      ? $print_endline($d) || true
-        ? $print_endline($e) || true
-          ? ($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g)))
-          : (($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))))
-        : ($print_endline($e) || true
-          ? ($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g)))
-          : (($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g)))))
-      : ($print_endline($d) || true
-        ? $print_endline($e) || true
-          ? ($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g)))
-          : (($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))))
-        : ($print_endline($e) || true
-          ? ($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g)))
-          : (($caml_check_bound($a, 0)[1] = 4) || true
-            ? $print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g))
-            : ($print_endline($f) || true
-              ? $print_endline($g)
-              : ($print_endline($g)))))));
+$g2 = function($param) use (
+  $a,
+  $b,
+  $c,
+  $caml_check_bound,
+  $d,
+  $e,
+  $f,
+  $g,
+  $print_endline,
+) {
+  if (0 === $param) {
+    $print_endline($b);
+    $caml_check_bound($a, 0)[1] = 3;
+    return 0;
+  }
+  $print_endline($c);
+  $print_endline($d);
+  $print_endline($e);
+  $caml_check_bound($a, 0)[1] = 4;
+  $print_endline($f);
+  return $print_endline($g);
 };
 
 $g2(0);

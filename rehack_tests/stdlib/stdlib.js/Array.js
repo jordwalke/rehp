@@ -83,16 +83,15 @@ function make_matrix(sx, sy, init) {
 
 function copy(a) {
   var l = a.length - 1;
-  return 0 === l ? [0] : caml_array_sub(a, 0, l);
+  if (0 === l) {return [0];}
+  return caml_array_sub(a, 0, l);
 }
 
 function append(a1, a2) {
   var l1 = a1.length - 1;
-  return 0 === l1 ?
-    copy(a2) :
-    0 === a2.length - 1 ?
-     caml_array_sub(a1, 0, l1) :
-     runtime["caml_array_append"](a1, a2);
+  if (0 === l1) {return copy(a2);}
+  if (0 === a2.length - 1) {return caml_array_sub(a1, 0, l1);}
+  return runtime["caml_array_append"](a1, a2);
 }
 
 function sub(a, ofs, len) {

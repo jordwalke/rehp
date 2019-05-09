@@ -114,10 +114,15 @@ function bk(a, b) {
   var c = a + b | 0;
   var bW = b < 0 ? 1 : 0;
   var match = c < 0 ? 1 : 0;
-  var switch__0 = 0 === (a < 0 ? 1 : 0) ?
-    0 === bW ? 0 === match ? 0 : 1 : 0 :
-    0 === bW ? 0 : 0 === match ? 1 : 0;
-  return switch__0 ? caml_call1(Pervasives[1], cst_Bytes_extend) : c;
+  if (0 === (a < 0 ? 1 : 0)) if (0 === bW) if (
+    0 === match
+  ) var switch__0 = 0;
+  else var switch__0 = 1;
+  else var switch__0 = 0;
+  else if (0 === bW) var switch__0 = 0;
+  else if (0 === match) var switch__0 = 1;else var switch__0 = 0;
+  if (switch__0) {return caml_call1(Pervasives[1], cst_Bytes_extend);}
+  return c;
 }
 
 function extend(s, left, right) {
@@ -206,7 +211,8 @@ function iteri(f, a) {
 }
 
 function ensure_ge(x, y) {
-  return y <= x ? x : caml_call1(Pervasives[1], cst_Bytes_concat);
+  if (y <= x) {return x;}
+  return caml_call1(Pervasives[1], cst_Bytes_concat);
 }
 
 function sum_lengths(acc, seplen, param) {
@@ -284,8 +290,11 @@ function cat(s1, s2) {
 
 function is_space(param) {
   var bJ = param + -9 | 0;
-  var switch__0 = 4 < bJ >>> 0 ? 23 === bJ ? 1 : 0 : 2 === bJ ? 0 : 1;
-  return switch__0 ? 1 : 0;
+  if (4 < bJ >>> 0) if (23 === bJ) var switch__0 = 1;
+  else var switch__0 = 0;
+  else if (2 === bJ) var switch__0 = 0;else var switch__0 = 1;
+  if (switch__0) {return 1;}
+  return 0;
 }
 
 function trim(s) {
@@ -300,7 +309,8 @@ function trim(s) {
       if (i[1] <= j[1]) {
         if (is_space(caml_bytes_unsafe_get(s, j[1]))) {j[1] += -1;continue;}
       }
-      return i[1] <= j[1] ? sub(s, i[1], (j[1] - i[1] | 0) + 1 | 0) : empty;
+      if (i[1] <= j[1]) {return sub(s, i[1], (j[1] - i[1] | 0) + 1 | 0);}
+      return empty;
     }
   }
 }
@@ -327,9 +337,10 @@ function escaped(s) {
         else var switch__1 = 1;
         if (switch__1) {var bH = 1;var switch__0 = 2;}
       }
-      else var switch__0 = 11 <= match ?
-        13 === match ? 1 : 0 :
-        8 <= match ? 1 : 0;
+      else if (11 <= match) if (13 === match
+      ) var switch__0 = 1;
+      else var switch__0 = 0;
+      else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
       switch (switch__0) {case 0:var bH = 4;break;case 1:var bH = 2;break}
       n[1] = n[1] + bH | 0;
       var bI = i__0 + 1 | 0;
@@ -346,14 +357,11 @@ function escaped(s) {
     var i = bD;
     for (; ; ) {
       var c = caml_bytes_unsafe_get(s, i);
-      if (35 <= c) var switch__2 = 92 ===
-         c ?
-        1 :
-        127 <= c ? 0 : 2;
-      else if (32 <= c) var switch__2 = 34 <=
-         c ?
-        1 :
-        2;
+      if (35 <= c) if (92 === c
+      ) var switch__2 = 1;
+      else if (127 <= c) var switch__2 = 0;else var switch__2 = 2;
+      else if (32 <= c) if (34 <= c) var switch__2 = 1;
+      else var switch__2 = 2;
       else if (14 <= c) var switch__2 = 0;
       else switch (c) {
         case 8:

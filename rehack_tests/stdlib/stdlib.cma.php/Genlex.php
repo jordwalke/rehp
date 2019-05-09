@@ -155,7 +155,9 @@ final class Genlex {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
           $zW = $match[1];
-          $switch__0 = 43 === $zW ? 0 : (45 === $zW ? 0 : (1));
+          if (43 === $zW) {$switch__0 = 0;
+          }
+          else {if (45 === $zW) {$switch__0 = 0;}else {$switch__0 = 1;}}
           if (! $switch__0) {
             $caml_call1($Stream[12], $strm);
             $store($zW);
@@ -196,7 +198,9 @@ final class Genlex {
           if ($match) {
             $zT = $match[1];
             if (58 <= $zT) {
-              $switch__0 = 69 === $zT ? 0 : (101 === $zT ? 0 : (1));
+              if (69 === $zT) {$switch__0 = 0;
+              }
+              else {if (101 === $zT) {$switch__0 = 0;}else {$switch__0 = 1;}}
               if (! $switch__0) {
                 $caml_call1($Stream[12], $strm);
                 $store(69);
@@ -229,13 +233,19 @@ final class Genlex {
             $zR = $match[1];
             if (94 <= $zR) {
               $zS = (int) ($zR + -95);
-              $switch__0 = 30 < $unsigned_right_shift_32($zS, 0)
-                ? 32 <= $zS ? 1 : (0)
-                : (29 === $zS ? 0 : (1));
+              if (30 < $unsigned_right_shift_32($zS, 0)) {
+                if (32 <= $zS) {
+                  $switch__0 = 1;
+                }
+                else {$switch__0 = 0;}
+              }
+              else {if (29 === $zS) {$switch__0 = 0;}else {$switch__0 = 1;}}
             }
             else {
               if (65 <= $zR) {
-                $switch__0 = 92 === $zR ? 0 : (1);
+                if (92 === $zR) {$switch__0 = 0;
+                }
+                else {$switch__0 = 1;}
               }
               else {
                 if (33 <= $zR) {
@@ -313,14 +323,20 @@ final class Genlex {
             $zO = $match[1];
             if (91 <= $zO) {
               $zP = (int) ($zO + -95);
-              $switch__0 = 27 < $unsigned_right_shift_32($zP, 0)
-                ? 97 <= $zP ? 0 : (1)
-                : (1 === $zP ? 1 : (0));
+              if (27 < $unsigned_right_shift_32($zP, 0)) {
+                if (97 <= $zP) {
+                  $switch__0 = 0;
+                }
+                else {$switch__0 = 1;}
+              }
+              else {if (1 === $zP) {$switch__0 = 1;}else {$switch__0 = 0;}}
             }
             else {
-              $switch__0 = 48 <= $zO
-                ? 6 < $unsigned_right_shift_32((int) ($zO + -58), 0) ? 0 : (1)
-                : (39 === $zO ? 0 : (1));
+              if (48 <= $zO) {
+                if (6 < $unsigned_right_shift_32((int) ($zO + -58), 0)) {$switch__0 = 0;}
+                else {$switch__0 = 1;}
+              }
+              else {if (39 === $zO) {$switch__0 = 0;}else {$switch__0 = 1;}}
             }
             if (! $switch__0) {
               $caml_call1($Stream[12], $strm);
@@ -337,9 +353,12 @@ final class Genlex {
           if ($match) {
             $zK = $match[1];
             if (124 <= $zK) {
-              $switch__0 = 127 <= $zK
-                ? 192 <= $zK ? 1 : (0)
-                : (125 === $zK ? 0 : (2));
+              if (127 <= $zK) {
+                if (192 <= $zK) {$switch__0 = 1;
+                }
+                else {$switch__0 = 0;}
+              }
+              else {if (125 === $zK) {$switch__0 = 0;}else {$switch__0 = 2;}}
             }
             else {
               $zL = (int) ($zK + -65);

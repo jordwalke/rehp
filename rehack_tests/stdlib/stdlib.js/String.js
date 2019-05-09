@@ -79,7 +79,8 @@ var fill = Bytes[10];
 var blit = Bytes[12];
 
 function ensure_ge(x, y) {
-  return y <= x ? x : caml_call1(Pervasives[1], cst_String_concat);
+  if (y <= x) {return x;}
+  return caml_call1(Pervasives[1], cst_String_concat);
 }
 
 function sum_lengths(acc, seplen, param) {
@@ -191,8 +192,11 @@ function mapi(f, s) {
 
 function is_space(param) {
   var ck = param + -9 | 0;
-  var switch__0 = 4 < ck >>> 0 ? 23 === ck ? 1 : 0 : 2 === ck ? 0 : 1;
-  return switch__0 ? 1 : 0;
+  if (4 < ck >>> 0) if (23 === ck) var switch__0 = 1;
+  else var switch__0 = 0;
+  else if (2 === ck) var switch__0 = 0;else var switch__0 = 1;
+  if (switch__0) {return 1;}
+  return 0;
 }
 
 function trim(s) {
@@ -227,10 +231,12 @@ function escaped(s) {
         else var switch__1 = 1;
         if (switch__1) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       }
-      else var switch__0 = 11 <= match ?
-        13 === match ? 1 : 0 :
-        8 <= match ? 1 : 0;
-      return switch__0 ? 1 : 1;
+      else if (11 <= match) if (13 === match
+      ) var switch__0 = 1;
+      else var switch__0 = 0;
+      else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
+      if (switch__0) {return 1;}
+      return 1;
     }
   }
   if (needs_escape(0)) {

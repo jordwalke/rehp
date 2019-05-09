@@ -97,7 +97,8 @@ final class Lexing {
         $aux_buffer,
         $caml_ml_bytes_length($aux_buffer)
       );
-      $n = 0 < $read ? $read : (($lexbuf[9] = 1) || true ? 0 : (0));
+      if (0 < $read) {$n = $read;}
+      else {$lexbuf[9] = 1;$n = 0;}
       if ($caml_ml_bytes_length($lexbuf[2]) < (int) ($lexbuf[3] + $n)) {
         if (
           (int)
@@ -245,7 +246,8 @@ final class Lexing {
       return $caml_bytes_get($lexbuf[2], $i);
     };
     $sub_lexeme_char_opt = function($lexbuf, $i) use ($caml_bytes_get) {
-      return 0 <= $i ? Vector{0, $caml_bytes_get($lexbuf[2], $i)} : (0);
+      if (0 <= $i) {return Vector{0, $caml_bytes_get($lexbuf[2], $i)};}
+      return 0;
     };
     $lexeme_char = function($lexbuf, $i) use ($caml_bytes_get) {
       return $caml_bytes_get($lexbuf[2], (int) ($lexbuf[5] + $i));

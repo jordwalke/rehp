@@ -88,7 +88,10 @@ final class Map {
       $create = function($l, $x, $d, $r) use ($height) {
         $hl = $height($l);
         $hr = $height($r);
-        $gS = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
+        if ($hr <= $hl) {
+          $gS = (int) ($hl + 1);
+        }
+        else {$gS = (int) ($hr + 1);}
         return Vector{0, $l, $x, $d, $r, $gS};
       };
       $singleton = function($x, $d) {return Vector{0, 0, $x, $d, 0, 1};};
@@ -147,11 +150,14 @@ final class Map {
           }
           return $caml_call1($Pervasives[1], $cst_Map_bal__2);
         }
-        $gR = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
+        if ($hr <= $hl) {
+          $gR = (int) ($hl + 1);
+        }
+        else {$gR = (int) ($hr + 1);}
         return Vector{0, $l, $x, $d, $r, $gR};
       };
       $empty = 0;
-      $is_empty = function($param) {return $param ? 0 : (1);};
+      $is_empty = function($param) {if ($param) {return 0;}return 1;};
       $add->contents = function($x, $data, $m) use ($Ord,$add,$bal,$caml_call2) {
         if ($m) {
           $h = $m[5];
@@ -161,14 +167,17 @@ final class Map {
           $l = $m[1];
           $c = $caml_call2($Ord[1], $x, $v);
           if (0 === $c) {
-            return $d === $data ? $m : (Vector{0, $l, $x, $data, $r, $h});
+            if ($d === $data) {return $m;}
+            return Vector{0, $l, $x, $data, $r, $h};
           }
           if (0 <= $c) {
             $rr = $add->contents($x, $data, $r);
-            return $r === $rr ? $m : ($bal($l, $v, $d, $rr));
+            if ($r === $rr) {return $m;}
+            return $bal($l, $v, $d, $rr);
           }
           $ll = $add->contents($x, $data, $l);
-          return $l === $ll ? $m : ($bal($ll, $v, $d, $r));
+          if ($l === $ll) {return $m;}
+          return $bal($ll, $v, $d, $r);
         }
         return Vector{0, 0, $x, $data, 0, 1};
       };
@@ -182,7 +191,10 @@ final class Map {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return $d;}
-            $param__1 = 0 <= $c ? $r : ($l);
+            if (0 <= $c) {
+              $param__1 = $r;
+            }
+            else {$param__1 = $l;}
             $param__0 = $param__1;
             continue;
           }
@@ -351,7 +363,10 @@ final class Map {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return Vector{0, $d};}
-            $param__1 = 0 <= $c ? $r : ($l);
+            if (0 <= $c) {
+              $param__1 = $r;
+            }
+            else {$param__1 = $l;}
             $param__0 = $param__1;
             continue;
           }
@@ -368,7 +383,10 @@ final class Map {
             $c = $caml_call2($Ord[1], $x, $v);
             $gM = 0 === $c ? 1 : (0);
             if ($gM) {return $gM;}
-            $param__1 = 0 <= $c ? $r : ($l);
+            if (0 <= $c) {
+              $param__1 = $r;
+            }
+            else {$param__1 = $l;}
             $param__0 = $param__1;
             continue;
           }
@@ -463,10 +481,12 @@ final class Map {
           if (0 === $c) {return $gk($l, $r);}
           if (0 <= $c) {
             $rr = $remove->contents($x, $r);
-            return $r === $rr ? $m : ($bal($l, $v, $d, $rr));
+            if ($r === $rr) {return $m;}
+            return $bal($l, $v, $d, $rr);
           }
           $ll = $remove->contents($x, $l);
-          return $l === $ll ? $m : ($bal($ll, $v, $d, $r));
+          if ($l === $ll) {return $m;}
+          return $bal($ll, $v, $d, $r);
         }
         return 0;
       };
@@ -482,16 +502,19 @@ final class Map {
             $match = $caml_call1($f, Vector{0, $d});
             if ($match) {
               $data = $match[1];
-              return $d === $data ? $m : (Vector{0, $l, $x, $data, $r, $h});
+              if ($d === $data) {return $m;}
+              return Vector{0, $l, $x, $data, $r, $h};
             }
             return $gk($l, $r);
           }
           if (0 <= $c) {
             $rr = $update->contents($x, $f, $r);
-            return $r === $rr ? $m : ($bal($l, $v, $d, $rr));
+            if ($r === $rr) {return $m;}
+            return $bal($l, $v, $d, $rr);
           }
           $ll = $update->contents($x, $f, $l);
-          return $l === $ll ? $m : ($bal($ll, $v, $d, $r));
+          if ($l === $ll) {return $m;}
+          return $bal($ll, $v, $d, $r);
         }
         $match__0 = $caml_call1($f, 0);
         if ($match__0) {
@@ -641,11 +664,13 @@ final class Map {
             $ld = $l[3];
             $lv = $l[2];
             $ll = $l[1];
-            return (int) ($rh + 2) < $lh
-              ? $bal($ll, $lv, $ld, $join->contents($lr, $v, $d, $r))
-              : ((int) ($lh + 2) < $rh
-               ? $bal($join->contents($l, $v, $d, $rl), $rv, $rd, $rr)
-               : ($create($l, $v, $d, $r)));
+            if ((int) ($rh + 2) < $lh) {
+              return $bal($ll, $lv, $ld, $join->contents($lr, $v, $d, $r));
+            }
+            if ((int) ($lh + 2) < $rh) {
+              return $bal($join->contents($l, $v, $d, $rl), $rv, $rd, $rr);
+            }
+            return $create($l, $v, $d, $r);
           }
           return $add_max_binding->contents($v, $d, $l);
         }
@@ -878,7 +903,8 @@ final class Map {
               }
               return 1;
             }
-            return $e2__0 ? -1 : (0);
+            if ($e2__0) {return -1;}
+            return 0;
           }
         };
         $gq = $cons_enum($m2, 0);
@@ -916,7 +942,8 @@ final class Map {
               }
               return 0;
             }
-            return $e2__0 ? 0 : (1);
+            if ($e2__0) {return 0;}
+            return 1;
           }
         };
         $gm = $cons_enum($m2, 0);

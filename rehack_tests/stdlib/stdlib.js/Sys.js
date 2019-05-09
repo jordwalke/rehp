@@ -75,12 +75,14 @@ var sigxcpu = -27;
 var sigxfsz = -28;
 
 function catch_break(on) {
-  return on ?
-    set_signal(
-     sigint,
-     [0,function(param) {throw runtime["caml_wrap_thrown_exception"](Break);}]
-   ) :
-    set_signal(sigint, 0);
+  if (on) {
+    return set_signal(
+      sigint,
+      [0,function(param) {throw runtime["caml_wrap_thrown_exception"](Break);}
+      ]
+    );
+  }
+  return set_signal(sigint, 0);
 }
 
 function cz(cB) {return runtime["caml_ml_runtime_warnings_enabled"](cB);}

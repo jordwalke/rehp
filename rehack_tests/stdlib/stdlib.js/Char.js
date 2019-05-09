@@ -36,7 +36,8 @@ function chr(n) {
 function escaped(c) {
   if (40 <= c) {
     if (92 === c) {return cst;}
-    var switch__0 = 127 <= c ? 0 : 1;
+    if (127 <= c) var switch__0 = 0;
+    else var switch__0 = 1;
   }
   else if (32 <= c) {
     if (39 <= c) {return cst__0;}
@@ -69,11 +70,17 @@ function escaped(c) {
 }
 
 function lowercase(c) {
-  var switch__0 = 65 <= c ? 90 < c ? 0 : 1 : 0;
+  if (65 <= c) if (90 < c) var switch__0 = 0;
+  else var switch__0 = 1;
+  else var switch__0 = 0;
   if (! switch__0) {
-    var switch__1 = 192 <= c ? 214 < c ? 0 : 1 : 0;
+    if (192 <= c) if (214 < c) var switch__1 = 0;
+    else var switch__1 = 1;
+    else var switch__1 = 0;
     if (! switch__1) {
-      var switch__2 = 216 <= c ? 222 < c ? 1 : 0 : 1;
+      if (216 <= c) if (222 < c) var switch__2 = 1;
+      else var switch__2 = 0;
+      else var switch__2 = 1;
       if (switch__2) {return c;}
     }
   }
@@ -81,11 +88,17 @@ function lowercase(c) {
 }
 
 function uppercase(c) {
-  var switch__0 = 97 <= c ? 122 < c ? 0 : 1 : 0;
+  if (97 <= c) if (122 < c) var switch__0 = 0;
+  else var switch__0 = 1;
+  else var switch__0 = 0;
   if (! switch__0) {
-    var switch__1 = 224 <= c ? 246 < c ? 0 : 1 : 0;
+    if (224 <= c) if (246 < c) var switch__1 = 0;
+    else var switch__1 = 1;
+    else var switch__1 = 0;
     if (! switch__1) {
-      var switch__2 = 248 <= c ? 254 < c ? 1 : 0 : 1;
+      if (248 <= c) if (254 < c) var switch__2 = 1;
+      else var switch__2 = 0;
+      else var switch__2 = 1;
       if (switch__2) {return c;}
     }
   }

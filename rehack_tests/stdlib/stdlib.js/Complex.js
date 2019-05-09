@@ -72,7 +72,8 @@ function sqrt(x) {
       Math.sqrt(0.5 * (q__0 + Math.sqrt(1 + q__0 * q__0)));
   }
   if (0 <= x[1]) {return [254,w,0.5 * x[2] / w];}
-  var w__0 = 0 <= x[2] ? w : - w;
+  if (0 <= x[2]) var w__0 = w;
+  else var w__0 = - w;
   return [254,0.5 * i / w,w__0];
 }
 

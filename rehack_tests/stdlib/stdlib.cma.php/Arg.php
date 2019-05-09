@@ -381,9 +381,10 @@ final class Arg {
       $initpos = $current[1];
       $convert_error = function($error) use ($Bad,$Buffer,$Help,$Printf,$argv,$caml_call1,$caml_call4,$caml_call6,$caml_check_bound,$caml_equal,$caml_string_notequal,$cst__2,$cst_help__3,$cst_help__4,$errmsg,$initpos,$nh,$ni,$nj,$nk,$nl,$nm,$speclist,$usage_b) {
         $b = $caml_call1($Buffer[1], 200);
-        $progname = $initpos < $argv[1]->count() - 1
-          ? $caml_check_bound($argv[1], $initpos)[$initpos + 1]
-          : ($cst__2);
+        if ($initpos < $argv[1]->count() - 1) {
+          $progname = $caml_check_bound($argv[1], $initpos)[$initpos + 1];
+        }
+        else {$progname = $cst__2;}
         switch($error[0]) {
           // FALLTHROUGH
           case 0:
@@ -482,7 +483,9 @@ final class Arg {
                 $get_arg = $get_arg__0($s, $follow__0);
                 $consume_arg__0 = function($follow) use ($current) {
                   $consume_arg = function($param) use ($current,$follow) {
-                    return $follow ? 0 : (($current[1] += 1) || true ? 0 : (0));
+                    if ($follow) {return 0;}
+                    $current[1] += 1;
+                    return 0;
                   };
                   return $consume_arg;
                 };
@@ -926,25 +929,29 @@ final class Arg {
       $words = Vector{0, 0};
       $stash = function($param) use ($Buffer,$buf,$caml_call1,$trim,$trim_cr,$words) {
         $word = $caml_call1($Buffer[2], $buf);
-        $word__0 = $trim ? $trim_cr($word) : ($word);
+        if ($trim) {
+          $word__0 = $trim_cr($word);
+        }
+        else {$word__0 = $word;}
         $words[1] = Vector{0, $word__0, $words[1]};
         return $caml_call1($Buffer[8], $buf);
       };
       $read->contents = function($param) use ($Buffer,$End_of_file,$Pervasives,$buf,$caml_call1,$caml_call2,$caml_wrap_exception,$ic,$read,$runtime,$sep,$stash) {
         try {
           $c = $caml_call1($Pervasives[70], $ic);
-          $nJ = $c === $sep
-            ? $stash(0) || true ? $read->contents(0) : ($read->contents(0))
-            : ($caml_call2($Buffer[10], $buf, $c) || true
-             ? $read->contents(0)
-             : ($read->contents(0)));
+          if ($c === $sep) {
+            $stash(0);
+            $nJ = $read->contents(0);
+          }
+          else {$caml_call2($Buffer[10], $buf, $c);$nJ = $read->contents(0);}
           return $nJ;
         }
         catch(\Throwable $nK) {
           $nK = $caml_wrap_exception($nK);
           if ($nK === $End_of_file) {
             $nI = 0 < $caml_call1($Buffer[7], $buf) ? 1 : (0);
-            return $nI ? $stash(0) : ($nI);
+            if ($nI) {return $stash(0);}
+            return $nI;
           }
           throw $runtime["caml_wrap_thrown_exception_reraise"]($nK) as \Throwable;
         }

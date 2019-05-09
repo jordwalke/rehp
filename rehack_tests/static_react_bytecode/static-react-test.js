@@ -1679,7 +1679,9 @@ function valid_float_lexem(s) {
     for (; ; ) {
       if (l <= i__0) {return a(s, b);}
       var match = caml_string_get(s, i__0);
-      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
+      if (48 <= match) if (58 <= match) var switch__0 = 0;
+      else var switch__0 = 1;
+      else if (45 === match) var switch__0 = 1;else var switch__0 = 0;
       if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return s;
     }
@@ -1837,9 +1839,10 @@ function escaped(s) {
         else var switch__1 = 1;
         if (switch__1) {var eu = 1;var switch__0 = 2;}
       }
-      else var switch__0 = 11 <= match ?
-        13 === match ? 1 : 0 :
-        8 <= match ? 1 : 0;
+      else if (11 <= match) if (13 === match
+      ) var switch__0 = 1;
+      else var switch__0 = 0;
+      else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
       switch (switch__0) {case 0:var eu = 4;break;case 1:var eu = 2;break}
       n[1] = n[1] + eu | 0;
       var ev = i__0 + 1 | 0;
@@ -1856,14 +1859,11 @@ function escaped(s) {
     var i = eq;
     for (; ; ) {
       var c = caml_bytes_unsafe_get(s, i);
-      if (35 <= c) var switch__2 = 92 ===
-         c ?
-        1 :
-        127 <= c ? 0 : 2;
-      else if (32 <= c) var switch__2 = 34 <=
-         c ?
-        1 :
-        2;
+      if (35 <= c) if (92 === c
+      ) var switch__2 = 1;
+      else if (127 <= c) var switch__2 = 0;else var switch__2 = 2;
+      else if (32 <= c) if (34 <= c) var switch__2 = 1;
+      else var switch__2 = 2;
       else if (14 <= c) var switch__2 = 0;
       else switch (c) {
         case 8:
@@ -1925,7 +1925,7 @@ function bos(en) {return en;}
 
 function bts(em) {return em;}
 
-function ensure_ge(x, y) {return y <= x ? x : invalid_arg(e);}
+function ensure_ge(x, y) {if (y <= x) {return x;}return invalid_arg(e);}
 
 function sum_lengths(acc, seplen, param) {
   var acc__0 = acc;
@@ -2013,13 +2013,16 @@ function escaped__0(s) {
         else var switch__1 = 1;
         if (switch__1) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       }
-      else var switch__0 = 11 <= match ?
-        13 === match ? 1 : 0 :
-        8 <= match ? 1 : 0;
-      return switch__0 ? 1 : 1;
+      else if (11 <= match) if (13 === match
+      ) var switch__0 = 1;
+      else var switch__0 = 0;
+      else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
+      if (switch__0) {return 1;}
+      return 1;
     }
   }
-  return needs_escape(0) ? bts(escaped(bos(s))) : s;
+  if (needs_escape(0)) {return bts(escaped(bos(s)));}
+  return s;
 }
 
 function index_rec(s, lim, i, c) {
@@ -2152,7 +2155,8 @@ function getBreakData(itms) {
       var curDidBreak = param[2];
       var curTotalLen = param[1];
       var containsNewline = contains(itm, 10);
-      var curDidBreak__0 = curDidBreak || containsNewline;
+      if (curDidBreak) var curDidBreak__0 = curDidBreak;
+      else var curDidBreak__0 = containsNewline;
       return [
         0,
         (curTotalLen + caml_ml_string_length(itm) | 0) + 2 | 0,
@@ -2208,16 +2212,14 @@ function printTreeShape(pair, self, depth, o) {
   var allItemsLen = match__0[1];
   if (! (70 <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))) {
     if (! someChildBroke) {
-      var truncationMsg__0 = 0 === wasTruncated ?
-        B :
-        a(D, caml_call1(self[6], self));
+      if (0 === wasTruncated) var truncationMsg__0 = B;
+      else var truncationMsg__0 = a(D, caml_call1(self[6], self));
       var d9 = a(truncationMsg__0, right);
       return a(left, a(concat(C, itms), d9));
     }
   }
-  var truncationMsg = 0 === wasTruncated ?
-    w :
-    a(A, a(indentNext, caml_call1(self[6], self)));
+  if (0 === wasTruncated) var truncationMsg = w;
+  else var truncationMsg = a(A, a(indentNext, caml_call1(self[6], self)));
   var d8 = a(truncationMsg, a(x, a(indent, right)));
   return a(left, a(z, a(indentNext, a(concat(a(y, indentNext), itms), d8))));
 }
@@ -2238,16 +2240,14 @@ function printListShape(self, depth, o) {
   var allItemsLen = match__0[1];
   if (! (70 <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))) {
     if (! someChildBroke) {
-      var truncationMsg__0 = 0 === wasTruncated ?
-        L :
-        a(P, caml_call1(self[6], self));
+      if (0 === wasTruncated) var truncationMsg__0 = L;
+      else var truncationMsg__0 = a(P, caml_call1(self[6], self));
       var d7 = a(truncationMsg__0, M);
       return a(O, a(concat(N, itms), d7));
     }
   }
-  var truncationMsg = 0 === wasTruncated ?
-    E :
-    a(K, a(indentNext, caml_call1(self[6], self)));
+  if (0 === wasTruncated) var truncationMsg = E;
+  else var truncationMsg = a(K, a(indentNext, caml_call1(self[6], self)));
   var d6 = a(truncationMsg, a(G, a(indent, F)));
   return a(J, a(I, a(indentNext, a(concat(a(H, indentNext), itms), d6))));
 }
@@ -2262,25 +2262,17 @@ function Q(self, opt, o) {
   var tag = caml_obj_tag(o);
   if (tag === 252) {
     var match = 0 === depth ? 1 : 0;
-    return 0 === match ?
-      caml_call2(self[3], self, o) :
-      caml_call2(self[2], self, o);
+    if (0 === match) {return caml_call2(self[3], self, o);}
+    return caml_call2(self[2], self, o);
   }
-  return tag === 1e3 ?
-    caml_call2(self[1], self, o) :
-    tag === 253 ?
-     caml_call2(self[4], self, o) :
-     tag === 247 ?
-      caml_call2(self[10], self, o) :
-      tag === 254 ?
-       caml_call3(self[9], self, 0, o) :
-       tag === 246 ?
-        caml_call2(self[8], self, o) :
-        detectList(j, o) ?
-         caml_call3(self[12], self, [0,depth], o) :
-         tag === 0 ?
-          caml_call3(self[11], self, [0,depth], o) :
-          caml_call2(self[7], self, o);
+  if (tag === 1e3) {return caml_call2(self[1], self, o);}
+  if (tag === 253) {return caml_call2(self[4], self, o);}
+  if (tag === 247) {return caml_call2(self[10], self, o);}
+  if (tag === 254) {return caml_call3(self[9], self, 0, o);}
+  if (tag === 246) {return caml_call2(self[8], self, o);}
+  if (detectList(j, o)) {return caml_call3(self[12], self, [0,depth], o);}
+  if (tag === 0) {return caml_call3(self[11], self, [0,depth], o);}
+  return caml_call2(self[7], self, o);
 }
 
 function R(self, opt, o) {
@@ -2522,9 +2514,8 @@ function init(replacer, renderable) {
       function(inst) {
         var nextSubtree = caml_call1(subtreeSwapper, inst[6]);
         var match = inst[6] !== nextSubtree ? 1 : 0;
-        return 0 === match ?
-          inst :
-          [0,inst[1],inst[2],inst[3],inst[4],inst[5],nextSubtree];
+        if (0 === match) {return inst;}
+        return [0,inst[1],inst[2],inst[3],inst[4],inst[5],nextSubtree];
       }
     );
   }
@@ -2553,7 +2544,8 @@ function initSubtree(thisReplacer, jsx) {
             var inst = subtree[1];
             var next = caml_call1(instSwapper, inst);
             var match = inst !== next ? 1 : 0;
-            return 0 === match ? subtree : [0,next];
+            if (0 === match) {return subtree;}
+            return [0,next];
           }
         );
       };
@@ -2569,7 +2561,8 @@ function initSubtree(thisReplacer, jsx) {
             var a = subtree[1];
             var next = caml_call1(aSwapper, a);
             var match = next === a ? 1 : 0;
-            return 0 === match ? [1,next,b] : subtree;
+            if (0 === match) {return [1,next,b];}
+            return subtree;
           }
         );
       };
@@ -2581,7 +2574,8 @@ function initSubtree(thisReplacer, jsx) {
             var a = subtree[1];
             var next = caml_call1(bSwapper, b);
             var match = next === b ? 1 : 0;
-            return 0 === match ? [1,a,next] : subtree;
+            if (0 === match) {return [1,a,next];}
+            return subtree;
           }
         );
       };
@@ -2601,9 +2595,10 @@ function initSubtree(thisReplacer, jsx) {
               var pre = match[1];
               var next = caml_call1(swapper, inst);
               var match__0 = next === inst ? 1 : 0;
-              return 0 === match__0 ?
-                [2,flatten([0,pre,[0,[0,next,0],[0,post,0]]])] :
-                subtree;
+              if (0 === match__0) {
+                return [2,flatten([0,pre,[0,[0,next,0],[0,post,0]]])];
+              }
+              return subtree;
             }
           );
         }
@@ -2628,7 +2623,8 @@ function reconcileSubtree(subtree, prevJsx, match) {
       var rPrev = prevJsx[1];
       var i = subtree[1];
       var match__0 = r === rPrev ? 1 : 0;
-      return 0 === match__0 ? [0,reconcile(i, r)] : subtree;
+      if (0 === match__0) {return [0,reconcile(i, r)];}
+      return subtree;
     case 1:
       var rb = match[2];
       var ra = match[1];
@@ -2775,13 +2771,16 @@ function au(opt, n) {
   var dH = n[6];
   var dI = a(aP, a(s, a(aO, a(printInstanceCollection([0,a(aN, s)], dH), dG)))
   );
-  var dJ = typeof state === "number" ?
-    string_of_int(state) :
-    caml_obj_tag(state) === 252 ? a(aT, a(escaped__0(state), aS)) : aU;
+  if (typeof state === "number") var dJ = string_of_int(state);
+  else if (caml_obj_tag(state) === 252) var dJ = a(
+    aT,
+    a(escaped__0(state), aS)
+  );
+  else var dJ = aU;
   return a(aR, a(s, a(aQ, a(dJ, dI))));
 }
 
-function printSection(s) {return suppress[1] ? 0 : log(a(aW, s));}
+function printSection(s) {if (suppress[1]) {return 0;}return log(a(aW, s));}
 
 function printRoot(title, root) {
   var dF = root[2];
@@ -2872,7 +2871,8 @@ function render__3(opt, size, children, dj, self) {
   var curChangeCount = state[2];
   var curSize = state[1];
   var match = curSize !== size ? 1 : 0;
-  var nextChangeCount = 0 === match ? curChangeCount : curChangeCount + 1 | 0;
+  if (0 === match) var nextChangeCount = curChangeCount;
+  else var nextChangeCount = curChangeCount + 1 | 0;
   function dk(param, dv) {return state;}
   var dl = 0;
   var dm = [0,a(a7, string_of_int(nextChangeCount))];
@@ -2944,7 +2944,8 @@ function render__6(shouldControlInput, children, opt, self) {
   var cW = 0;
   var input = element([0,function(c4, c5) {return render__4(bc, cW, c4, c5);}]
   );
-  var input__0 = 0 === shouldControlInput ? input : control(input, be);
+  if (0 === shouldControlInput) var input__0 = input;
+  else var input__0 = control(input, be);
   var cX = 0;
   var cY = element([0,function(c2, c3) {return render__5(cX, c2, c3);}]);
   var cZ = 0;

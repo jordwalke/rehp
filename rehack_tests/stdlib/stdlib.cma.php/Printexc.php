@@ -246,13 +246,16 @@ final class Printexc {
     $printers = Vector{0, 0};
     $field = function($x, $i) use ($Obj,$Pervasives,$Printf,$caml_call1,$caml_call2,$caml_obj_tag,$cst,$oy,$oz) {
       $f = $x[$i + 1];
-      return $caml_call1($Obj[1], $f)
-        ? $caml_obj_tag($f) === $Obj[13]
-         ? $caml_call2($Printf[4], $oy, $f)
-         : ($caml_obj_tag($f) === $Obj[14]
-          ? $caml_call1($Pervasives[23], $f)
-          : ($cst))
-        : ($caml_call2($Printf[4], $oz, $f));
+      if ($caml_call1($Obj[1], $f)) {
+        if ($caml_obj_tag($f) === $Obj[13]) {
+          return $caml_call2($Printf[4], $oy, $f);
+        }
+        if ($caml_obj_tag($f) === $Obj[14]) {
+          return $caml_call1($Pervasives[23], $f);
+        }
+        return $cst;
+      }
+      return $caml_call2($Printf[4], $oz, $f);
     };
     $other_fields->contents = function($x, $i) use ($Printf,$caml_call3,$cst__0,$field,$oA,$other_fields) {
       if ($x->count() - 1 <= $i) {return $cst__0;}
@@ -379,17 +382,21 @@ final class Printexc {
     };
     $format_backtrace_slot = function($pos, $slot) use ($Printf,$caml_call2,$caml_call7,$cst_Called_from,$cst_Raised_at,$cst_Raised_by_primitive_operation_at,$cst_Re_raised_at,$cst__3,$cst_inlined,$oF,$oG) {
       $info = function($is_raise) use ($cst_Called_from,$cst_Raised_at,$cst_Raised_by_primitive_operation_at,$cst_Re_raised_at,$pos) {
-        return $is_raise
-          ? 0 === $pos ? $cst_Raised_at : ($cst_Re_raised_at)
-          : (0 === $pos
-           ? $cst_Raised_by_primitive_operation_at
-           : ($cst_Called_from));
+        if ($is_raise) {
+          if (0 === $pos) {return $cst_Raised_at;}
+          return $cst_Re_raised_at;
+        }
+        if (0 === $pos) {return $cst_Raised_by_primitive_operation_at;}
+        return $cst_Called_from;
       };
       if (0 === $slot[0]) {
         $o8 = $slot[5];
         $o9 = $slot[4];
         $o_ = $slot[3];
-        $pa = $slot[6] ? $cst_inlined : ($cst__3);
+        if ($slot[6]) {
+          $pa = $cst_inlined;
+        }
+        else {$pa = $cst__3;}
         $pb = $slot[2];
         $pc = $info($slot[1]);
         return Vector{
@@ -468,21 +475,28 @@ final class Printexc {
       return $backtrace_to_string($convert_raw_backtrace($raw_backtrace));
     };
     $backtrace_slot_is_raise = function($param) {
-      return 0 === $param[0] ? $param[1] : ($param[1]);
+      if (0 === $param[0]) {return $param[1];}
+      return $param[1];
     };
     $backtrace_slot_is_inline = function($param) {
-      return 0 === $param[0] ? $param[6] : (0);
+      if (0 === $param[0]) {return $param[6];}
+      return 0;
     };
     $backtrace_slot_location = function($param) {
-      return 0 === $param[0]
-        ? Vector{0, Vector{0, $param[2], $param[3], $param[4], $param[5]}}
-        : (0);
+      if (0 === $param[0]) {
+        return Vector{0, Vector{0, $param[2], $param[3], $param[4], $param[5]}
+        };
+      }
+      return 0;
     };
     $backtrace_slots = function($raw_backtrace) use ($caml_check_bound,$convert_raw_backtrace) {
       $match = $convert_raw_backtrace($raw_backtrace);
       if ($match) {
         $backtrace = $match[1];
-        $usable_slot = function($param) {return 0 === $param[0] ? 1 : (0);};
+        $usable_slot = function($param) {
+          if (0 === $param[0]) {return 1;}
+          return 0;
+        };
         $exists_usable = function($i) use ($backtrace,$caml_check_bound,$usable_slot) {
           $i__0 = $i;
           for (;;) {
@@ -495,9 +509,8 @@ final class Printexc {
             continue;
           }
         };
-        return $exists_usable((int) ($backtrace->count() - 1 + -1))
-          ? Vector{0, $backtrace}
-          : (0);
+        if ($exists_usable((int) ($backtrace->count() - 1 + -1))) {return Vector{0, $backtrace};}
+        return 0;
       }
       return 0;
     };
@@ -509,7 +522,8 @@ final class Printexc {
       return 0;
     };
     $exn_slot = function($x) use ($caml_obj_tag) {
-      return 0 === $caml_obj_tag($x) ? $x[1] : ($x);
+      if (0 === $caml_obj_tag($x)) {return $x[1];}
+      return $x;
     };
     $exn_slot_id = function($x) use ($exn_slot) {
       $slot = $exn_slot($x);

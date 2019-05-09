@@ -83,9 +83,8 @@ function extension_constructor(x) {
   if (! switch__1) {
     var name = caml_call1(Pervasives[1], cst_Obj_extension_constructor__0);
   }
-  return caml_obj_tag(name) === 252 ?
-    slot :
-    caml_call1(Pervasives[1], cst_Obj_extension_constructor);
+  if (caml_obj_tag(name) === 252) {return slot;}
+  return caml_call1(Pervasives[1], cst_Obj_extension_constructor);
 }
 
 function extension_name(slot) {return slot[1];}
