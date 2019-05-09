@@ -47,6 +47,8 @@ module Flag : sig
 
   val enable : string -> unit
   val disable : string -> unit
+
+  val simplify_ifdecl: unit -> bool
 end
 
 module Param : sig

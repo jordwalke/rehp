@@ -1523,7 +1523,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
             never1
             (J.Block iffalse, Loc.N)
             never2
-            false)
+            (Config.Flag.simplify_ifdecl ()))
     | DTree.Switch a ->
         let all_never = ref true in
         let len = Array.length a in
@@ -1670,7 +1670,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             false
             (Js_simpl.block b2)
             false
-            false
+            (Config.Flag.simplify_ifdecl ())
         in
         flush_all queue code
   in

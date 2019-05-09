@@ -70,6 +70,8 @@ module Flag = struct
 
   (* this does not optimize properly *)
   let compact_vardecl = o ~name:"vardecl" ~default:false
+
+  let simplify_ifdecl = o ~name:"simplify_ifdecl" ~default: true
 end
 
 module Param = struct

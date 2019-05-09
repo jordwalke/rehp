@@ -200,7 +200,7 @@ let simplify_full_if_statement =
   };
 
 let rec if_statement_2 =
-        (e, loc, iftrue, truestop, iffalse, falsestop, optimize_to_sequence) => {
+        (e, loc, iftrue, truestop, iffalse, falsestop, simplify_ifdecl) => {
   let e = simplify_condition(e);
   switch (fst(iftrue), fst(iffalse)) {
   /* Empty blocks */
@@ -213,11 +213,11 @@ let rec if_statement_2 =
       falsestop,
       iftrue,
       truestop,
-      optimize_to_sequence,
+      simplify_ifdecl,
     )
   | (_, J.Block([])) => [(J.If_statement(e, iftrue, None), loc)]
   | _ =>
-    if (optimize_to_sequence) {
+    if (simplify_ifdecl) {
       simplify_full_if_statement(
         e,
         loc,
@@ -239,7 +239,7 @@ let unopt = b =>
   };
 
 let if_statement =
-    (e, loc, iftrue, truestop, iffalse, falsestop, optimize_to_sequence) => {
+    (e, loc, iftrue, truestop, iffalse, falsestop, simplify_ifdecl) => {
   /*FIX: should be done at an earlier stage*/
   let e = simplify_condition(e);
   switch (iftrue, iffalse) {
@@ -253,7 +253,7 @@ let if_statement =
       truestop,
       iffalse,
       falsestop,
-      optimize_to_sequence,
+      simplify_ifdecl,
     )
   | ((J.If_statement(e', iftrue', iffalse'), loc), _)
       when iffalse == iftrue' =>
@@ -264,7 +264,7 @@ let if_statement =
       truestop,
       iffalse,
       falsestop,
-      optimize_to_sequence,
+      simplify_ifdecl,
     )
   | (_, (J.If_statement(e', iftrue', iffalse'), loc)) when iftrue == iftrue' =>
     if_statement_2(
@@ -274,7 +274,7 @@ let if_statement =
       truestop,
       unopt(iffalse'),
       falsestop,
-      optimize_to_sequence,
+      simplify_ifdecl,
     )
   | (_, (J.If_statement(e', iftrue', iffalse'), loc))
       when iftrue == unopt(iffalse') =>
@@ -285,7 +285,7 @@ let if_statement =
       truestop,
       iftrue',
       falsestop,
-      optimize_to_sequence,
+      simplify_ifdecl,
     )
   | _ =>
     if_statement_2(
@@ -295,7 +295,7 @@ let if_statement =
       truestop,
       iffalse,
       falsestop,
-      optimize_to_sequence,
+      simplify_ifdecl,
     )
   };
 };
