@@ -960,7 +960,7 @@ let throw_statement ctx cx k loc =
             (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception_reraise", [cx], loc))
         , loc ) ]
 
-let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
+let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
   match e with
   | Const i -> (int32 i, const_p, queue), []
   | Apply (x, l, true) ->
@@ -1002,7 +1002,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
       (J.EStructAccess (cx, int (n + 1)), or_p px mutable_p, queue), []
   | Closure (args, ((pc, _) as cont)) ->
       let loc = source_location ctx ~after:true pc in
-      let clo = compile_closure ctx false cont in
+      let clo = compile_closure ctx false cont backend in
       let clo = match clo with (st, Loc.N) :: rem -> (st, Loc.U) :: rem | _ -> clo in
       let clo = J.EFun (None, List.map args ~f:(fun v -> Id.V v), clo, loc) in
       (clo, flush_p, queue), []
@@ -1186,10 +1186,10 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
       in
       res, []
 
-and translate_instr ctx expr_queue loc instr =
+and translate_instr ctx expr_queue loc instr backend =
   match instr with
   | Let (x, e) -> (
-      let (ce, prop, expr_queue), instrs = translate_expr ctx expr_queue loc x e 0 in
+      let (ce, prop, expr_queue), instrs = translate_expr ctx expr_queue loc x e 0 backend in
       let keep_name x =
         match Code.Var.get_name x with
         | None -> false
@@ -1252,17 +1252,17 @@ and translate_instr ctx expr_queue loc instr =
         [ ( J.Expression_statement (J.EBin (J.Eq, J.EArrAccess (cx, plus_int cy one), cz))
           , loc ) ]
 
-and translate_instrs ctx expr_queue loc instr =
+and translate_instrs ctx expr_queue loc instr backend =
   match instr with
   | [] -> [], expr_queue
   | instr :: rem ->
-      let st, expr_queue = translate_instr ctx expr_queue loc instr in
-      let instrs, expr_queue = translate_instrs ctx expr_queue loc rem in
+      let st, expr_queue = translate_instr ctx expr_queue loc instr backend in
+      let instrs, expr_queue = translate_instrs ctx expr_queue loc rem backend in
       st @ instrs, expr_queue
 
-and compile_block st queue (pc : Addr.t) frontier interm =
+and compile_block st queue (pc : Addr.t) frontier interm backend =
   if queue <> [] && (Addr.Set.mem pc st.loops || not (Config.Flag.inline ()))
-  then flush_all queue (compile_block st [] pc frontier interm)
+  then flush_all queue (compile_block st [] pc frontier interm backend)
   else (
     if pc >= 0
     then (
@@ -1297,7 +1297,7 @@ and compile_block st queue (pc : Addr.t) frontier interm =
     let new_frontier = resolve_nodes interm grey in
     let block = Addr.Map.find pc st.blocks in
     let seq, queue =
-      translate_instrs st.ctx queue (source_location st.ctx pc) block.body
+      translate_instrs st.ctx queue (source_location st.ctx pc) block.body backend
     in
     let body =
       seq
@@ -1347,6 +1347,7 @@ and compile_block st queue (pc : Addr.t) frontier interm =
               Addr.Set.empty
               inner_frontier
               new_interm
+              backend
           in
           if debug () then Format.eprintf "} catch {@,";
           let x =
@@ -1354,7 +1355,7 @@ and compile_block st queue (pc : Addr.t) frontier interm =
             let m = Subst.build_mapping args2 block2.params in
             try Var.Map.find x m with Not_found -> x
           in
-          let handler = compile_block st [] pc2 inner_frontier new_interm in
+          let handler = compile_block st [] pc2 inner_frontier new_interm backend in
           let handler =
             if st.ctx.Ctx.live.(Var.idx x) > 0 && Config.Flag.excwrap ()
             then
@@ -1385,7 +1386,7 @@ and compile_block st queue (pc : Addr.t) frontier interm =
               let pc = Addr.Set.choose grey' in
               if Addr.Set.mem pc frontier
               then []
-              else compile_block st [] pc frontier interm
+              else compile_block st [] pc frontier interm backend
             else [] ) )
       | _ ->
           let new_frontier, new_interm = colapse_frontier st new_frontier interm in
@@ -1402,6 +1403,7 @@ and compile_block st queue (pc : Addr.t) frontier interm =
               new_frontier
               new_interm
               succs
+              backend
           in
           cond
           @
@@ -1411,7 +1413,7 @@ and compile_block st queue (pc : Addr.t) frontier interm =
             let pc = Addr.Set.choose new_frontier in
             if Addr.Set.mem pc frontier
             then []
-            else compile_block st [] pc frontier interm
+            else compile_block st [] pc frontier interm backend
     in
     if Addr.Set.mem pc st.loops
     then
@@ -1487,7 +1489,7 @@ and colapse_frontier st new_frontier interm =
         ~f:(fun (pc, i) interm -> Addr.Map.add pc (idx, (x, i)) interm) ) )
   else new_frontier, interm
 
-and compile_decision_tree st _queue handler backs frontier interm succs loc cx dtree =
+and compile_decision_tree st _queue handler backs frontier interm succs loc cx dtree backend =
   (* Some changes here may require corresponding changes
      in function [DTree.fold_cont] above. *)
   let rec loop cx = function
@@ -1501,7 +1503,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
           (not (Addr.Set.mem pc frontier || Addr.Map.mem pc interm))
           && Addr.Set.is_empty d
         in
-        never, compile_branch st [] cont handler backs frontier interm
+        never, compile_branch st [] cont handler backs frontier interm backend
     | DTree.If (cond, cont1, cont2) ->
         let never1, iftrue = loop cx cont1 in
         let never2, iffalse = loop cx cont2 in
@@ -1523,7 +1525,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
             never1
             (J.Block iffalse, Loc.N)
             never2
-            (Config.Flag.simplify_ifdecl ()))
+            (backend != Backend.Php && Config.Flag.simplify_ifdecl ()))
     | DTree.Switch a ->
         let all_never = ref true in
         let len = Array.length a in
@@ -1558,7 +1560,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
   in
   binds @ snd (loop cx dtree)
 
-and compile_conditional st queue pc last handler backs frontier interm succs =
+and compile_conditional st queue pc last handler backs frontier interm succs backend =
   List.iter succs ~f:(fun (pc, _) -> if Addr.Map.mem pc interm then decr_preds st pc);
   ( if debug ()
   then
@@ -1579,10 +1581,10 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
         let (_px, cx), queue = access_queue queue x in
         flush_all queue (throw_statement st.ctx cx k loc)
     | Stop -> flush_all queue []
-    | Branch cont -> compile_branch st queue cont handler backs frontier interm
+    | Branch cont -> compile_branch st queue cont handler backs frontier interm backend
     | Pushtrap _ -> assert false
     | Poptrap (cont, _) ->
-        flush_all queue (compile_branch st [] cont None backs frontier interm)
+        flush_all queue (compile_branch st [] cont None backs frontier interm backend)
     | Cond (cond, x, c1, c2) ->
         let (_px, cx), queue = access_queue queue x in
         let b =
@@ -1597,6 +1599,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             loc
             cx
             (DTree.build_if cond c1 c2)
+            backend
         in
         flush_all queue b
     | Switch (x, [||], a2) ->
@@ -1613,6 +1616,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             loc
             (J.EStructAccess (cx, J.ENum 0.))
             (DTree.build_switch a2)
+            backend
         in
         flush_all queue code
     | Switch (x, a1, [||]) ->
@@ -1629,6 +1633,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             loc
             cx
             (DTree.build_switch a1)
+            backend
         in
         flush_all queue code
     | Switch (x, a1, a2) ->
@@ -1648,6 +1653,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             loc
             (var x)
             (DTree.build_switch a1)
+            backend
         in
         let b2 =
           compile_decision_tree
@@ -1661,6 +1667,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             loc
             (J.EStructAccess (var x, J.ENum 0.))
             (DTree.build_switch a2)
+            backend
         in
         let code =
           Js_simpl.if_statement
@@ -1738,7 +1745,7 @@ and compile_exn_handling ctx queue (pc, args) handler continuation =
         in
         loop continuation old_args h_args h_block.params queue
 
-and compile_branch st queue ((pc, _) as cont) handler backs frontier interm =
+and compile_branch st queue ((pc, _) as cont) handler backs frontier interm backend =
   compile_argument_passing st.ctx queue cont backs (fun queue ->
       compile_exn_handling st.ctx queue cont handler (fun queue ->
           if Addr.Set.mem pc backs
@@ -1764,7 +1771,7 @@ and compile_branch st queue ((pc, _) as cont) handler backs frontier interm =
           then (
             if debug () then Format.eprintf "(br %d)@ " pc;
             flush_all queue (compile_branch_selection pc interm) )
-          else compile_block st queue pc frontier interm ) )
+          else compile_block st queue pc frontier interm backend ) )
 
 and compile_branch_selection pc interm =
   try
@@ -1774,7 +1781,7 @@ and compile_branch_selection pc interm =
     :: compile_branch_selection pc interm
   with Not_found -> []
 
-and compile_closure ctx at_toplevel (pc, args) =
+and compile_closure ctx at_toplevel (pc, args) backend =
   let st =
     { visited_blocks = Addr.Set.empty
     ; loops = Addr.Set.empty
@@ -1793,7 +1800,7 @@ and compile_closure ctx at_toplevel (pc, args) =
   st.visited_blocks <- Addr.Set.empty;
   if debug () then Format.eprintf "@[<hov 2>closure{@,";
   let res =
-    compile_branch st [] (pc, args) None Addr.Set.empty Addr.Set.empty Addr.Map.empty
+    compile_branch st [] (pc, args) None Addr.Set.empty Addr.Set.empty Addr.Map.empty backend
   in
   if Addr.Set.cardinal st.visited_blocks <> Addr.Set.cardinal current_blocks
   then (
@@ -1827,16 +1834,16 @@ let generate_shared_value ctx =
     strings :: applies
   else [strings]
 
-let compile_program ctx pc =
-  let res = compile_closure ctx true (pc, []) in
+let compile_program ctx pc backend =
+  let res = compile_closure ctx true (pc, []) backend in
   let res = generate_shared_value ctx @ res in
   if debug () then Format.eprintf "@.@.";
   res
 
-let f ((pc, blocks, _) as p) ~exported_runtime live_vars debug =
+let f ((pc, blocks, _) as p) ~exported_runtime ~backend live_vars debug =
   let t' = Timer.make () in
   let share = Share.get ~alias_prims:(exported_runtime != None) p in
   let ctx = Ctx.initial ~exported_runtime blocks live_vars share debug in
-  let p = compile_program ctx pc in
+  let p = compile_program ctx pc backend in
   if times () then Format.eprintf "  code gen.: %a@." Timer.print t';
   p

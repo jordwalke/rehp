@@ -823,7 +823,7 @@ let f =
   >> Generate_closure.f
   >> print
   >> deadcode'
-  >> generate(d, ~accessRuntimeThrough)
+  >> generate(d, ~accessRuntimeThrough, ~backend)
   /* Performs some high level operations/simplifications */
   >> packer
   /* It's not too late to rename identifiers or rearrange the tree in a way
