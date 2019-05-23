@@ -30,9 +30,9 @@ let mapFrom = (i: int, iRes, mapper, lst) => {
     | [] => []
     | [hd, ...tl] =>
       let tlRes = mapFrom_(iCur + 1, tl);
-      iCur === i ?
-        [iRes, ...tlRes] :
-        iCur < i ? [hd, ...tlRes] : [mapper(hd), ...tlRes];
+      iCur === i
+        ? [iRes, ...tlRes]
+        : iCur < i ? [hd, ...tlRes] : [mapper(hd), ...tlRes];
     };
   mapFrom_(0, lst);
 };
@@ -140,7 +140,7 @@ let create = () => {
       let sMapped = self.statement(self, s);
       let eMapped = self.expression(self, e);
       While_statement(eMapped, (sMapped, loc));
-    | For_statement(e1, e2, e3, (s, loc)) =>
+    | For_statement(e1, e2, e3, (s, loc), depth) =>
       let e1Mapped =
         switch (e1) {
         | Stdlib.Left(x) =>
@@ -157,7 +157,7 @@ let create = () => {
       let e2Mapped = optMap(self.expression(self), e2);
       let e3Mapped = optMap(self.expression(self), e3);
       let sMapped = self.statement(self, s);
-      For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
+      For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc), depth);
     | ForIn_statement(e1, e2, (s, loc)) =>
       let e1Mapped =
         switch (e1) {
@@ -172,7 +172,7 @@ let create = () => {
       let e2Mapped = self.expression(self, e2);
       let sMapped = self.statement(self, s);
       ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc));
-    | Continue_statement(s) => Continue_statement(s)
+    | Continue_statement(s, depth) => Continue_statement(s, depth)
     | Break_statement(s) => Break_statement(s)
     | Return_statement(e) =>
       let eMapped = optMap(self.expression(self), e);
@@ -219,21 +219,21 @@ let create = () => {
         let e1Mapped = self.expression(self, e1);
         let e2Mapped = self.expression(self, e2);
         /* Optimized allocation */
-        e1Mapped === e1 && e2Mapped === e2 ?
-          x : Rehp.ESeq(e1Mapped, e2Mapped);
+        e1Mapped === e1 && e2Mapped === e2
+          ? x : Rehp.ESeq(e1Mapped, e2Mapped);
       | ECond(e1, e2, e3) =>
         let e1Mapped = self.expression(self, e1);
         let e2Mapped = self.expression(self, e2);
         let e3Mapped = self.expression(self, e3);
         /* Optimized allocation */
-        e1Mapped === e1 && e2Mapped === e2 && e3Mapped === e3 ?
-          x : ECond(e1Mapped, e2Mapped, e3Mapped);
+        e1Mapped === e1 && e2Mapped === e2 && e3Mapped === e3
+          ? x : ECond(e1Mapped, e2Mapped, e3Mapped);
       | EBin(b, e1, e2) =>
         let e1Mapped = self.expression(self, e1);
         let e2Mapped = self.expression(self, e2);
         /* Optimized allocation */
-        e1Mapped === e1 && e2Mapped === e2 ?
-          x : Rehp.EBin(b, e1Mapped, e2Mapped);
+        e1Mapped === e1 && e2Mapped === e2
+          ? x : Rehp.EBin(b, e1Mapped, e2Mapped);
       | EUn(b, e1) =>
         let e1Mapped = self.expression(self, e1);
         /* Optimized allocation */
@@ -253,13 +253,13 @@ let create = () => {
         let e1Mapped = self.expression(self, e1);
         let e2Mapped = self.expression(self, e2);
         /* Optimized allocation */
-        e1Mapped === e1 && e2Mapped === e2 ?
-          x : EStructAccess(e1Mapped, e2Mapped);
+        e1Mapped === e1 && e2Mapped === e2
+          ? x : EStructAccess(e1Mapped, e2Mapped);
       | EArrAccess(e1, e2) =>
         let e1Mapped = self.expression(self, e1);
         let e2Mapped = self.expression(self, e2);
-        e1Mapped === e1 && e2Mapped === e2 ?
-          x : EArrAccess(e1Mapped, e2Mapped);
+        e1Mapped === e1 && e2Mapped === e2
+          ? x : EArrAccess(e1Mapped, e2Mapped);
       | EDot(e1, id) =>
         let e1Mapped = self.expression(self, e1);
         /* Optimized allocation */

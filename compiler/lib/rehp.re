@@ -45,7 +45,7 @@
 
 /* A.3 Expressions */
 
-open Stdlib
+open Stdlib;
 
 type array_litteral = element_list
 and element_list = list(option(expression))
@@ -168,13 +168,14 @@ and statement =
       option(expression),
       option(expression),
       (statement, Loc.t),
+      option(int),
     )
   | ForIn_statement(
       either(expression, variable_declaration),
       expression,
       (statement, Loc.t),
     )
-  | Continue_statement(option(Javascript.Label.t))
+  | Continue_statement(option(Javascript.Label.t), option(int))
   | Break_statement(option(Javascript.Label.t))
   | Return_statement(option(expression))
   /* | With_statement of expression * statement */
