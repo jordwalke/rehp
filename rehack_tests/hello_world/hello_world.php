@@ -14,6 +14,7 @@ $caml_arity_test = function($f) {
 $raw_array_sub = $Func(
   function($a, $i, $l) use ($Array, $plus) {
     $b = $Array->new($l);
+    $continue_counter = null;
     for ($j = 0; $j < $l; $j++)
       $b[$j] = $a[$plus($i, $j)];
     return $b;
@@ -26,6 +27,7 @@ $caml_subarray_to_string = $Func(
       return $f->apply(varray[], $a);
     }
     $s = $String->new("");
+    $continue_counter = null;
     for (; 0 < $len; ($i += 1024) || true ? $len -= 1024 : ($len -= 1024))
       $s = $plus(
         $s,
@@ -44,8 +46,10 @@ $caml_convert_string_to_array = $Func(
     $b = $s->c;
     $l = $b->length;
     $i = 0;
+    $continue_counter = null;
     for (; $i < $l; $i++)
       $a[$i] = $b->charCodeAt($i);
+    $continue_counter = null;
     for ($l = $s->l; $i < $l; $i++)
       $a[$i] = 0;
     $s->c = $a;
@@ -94,16 +98,20 @@ $caml_blit_bytes = $Func(
         $c2 = $s2->c;
         if ($s1->t == 4) {
           if ($i2 <= $i1) {
+            $continue_counter = null;
             for ($i = 0; $i < $len; $i++)
               $c2[$plus($i2, $i)] = $c1[$plus($i1, $i)];
           } else {
+            $continue_counter = null;
             for ($i = $len - 1; $i >= 0; $i--)
               $c2[$plus($i2, $i)] = $c1[$plus($i1, $i)];
           }
         } else {
           $l = $Math->min($len, $c1->length - $i1);
+          $continue_counter = null;
           for ($i = 0; $i < $l; $i++)
             $c2[$plus($i2, $i)] = $c1->charCodeAt($plus($i1, $i));
+          $continue_counter = null;
           for (; $i < $len; $i++)
             $c2[$plus($i2, $i)] = 0;
         }
@@ -127,6 +135,7 @@ $raw_array_append_one = $Func(
     $l = $a->length;
     $b = $Array->new($l + 1);
     $i = 0;
+    $continue_counter = null;
     for (; $i < $l; $i++)
       $b[$i] = $a[$i];
     $b[$i] = $x;
@@ -178,6 +187,7 @@ $caml_str_repeat = $Func(
     if ($n == 0) {
       return $r;
     }
+    $continue_counter = null;
     for (; ; ) {
       if ($n & 1) {
         $r = $plus($r, $s);
@@ -215,6 +225,7 @@ $caml_convert_string_to_bytes = $Func(
 $caml_is_ascii = $Func(
   function($s) use ($RegExp, $String) {
     if ($s->length < 24) {
+      $continue_counter = null;
       for ($i = 0; $i < $s->length; $i++)
         if ($s->charCodeAt($i) > 127) {
           return false;
@@ -227,6 +238,7 @@ $caml_is_ascii = $Func(
 );
 $caml_utf16_of_utf8 = $Func(
   function($s) use ($String, $eqEq, $left_shift_32, $plus, $right_shift_32) {
+    $continue_counter = null;
     for (
       $b = $String->new(""),
       $t = $String->new(""),
@@ -241,6 +253,7 @@ $caml_utf16_of_utf8 = $Func(
     ) {
       $c1 = $s->charCodeAt($i);
       if ($c1 < 128) {
+        $continue_counter = null;
         for ($j = $i + 1; $j < $l && ($c1 = $s->charCodeAt($j)) < 128; $j++)
           ;
         if ($j - $i > 512) {
@@ -509,6 +522,7 @@ $caml_make_path = $Func(
     }
     $comp = $name->split($String->new("/"));
     $ncomp = varray[];
+    $continue_counter = null;
     for ($i = 0; $i < $comp->length; $i++) {
       switch ($comp[$i]) {
           // FALLTHROUGH
@@ -999,6 +1013,7 @@ $MlNodeFile->prototype->read = $Func(
       $len,
       $offset,
     );
+    $continue_counter = null;
     for ($i = 0; $i < $len; $i++) {
       $caml_bytes_set(
         $buf,
@@ -1209,6 +1224,7 @@ $resolve_fs_device = $Func(
     $name = $path->join($String->new("/"));
     $name_slash = $plus($name, $String->new("/"));
     $res = NULL;
+    $continue_counter = null;
     for ($i = 0; $i < $jsoo_mount_point->length; $i++) {
       $m = $jsoo_mount_point[$i];
       if (
@@ -1455,6 +1471,7 @@ $caml_ml_open_descriptor_out = $Func(
 $caml_ml_out_channels_list = $Func(
   function() use ($caml_ml_channels) {
     $l = 0;
+    $continue_counter = null;
     for ($c = 0; $c < $caml_ml_channels->length; $c++) {
       if (
         $caml_ml_channels[$c] &&
@@ -1654,6 +1671,7 @@ $flush_all = function($param) use (
     $caml_wrap_thrown_exception_reraise,
   ) {
     $param__0 = $param;
+    $continue_counter = null;
     for (; ; ) {
       if ($param__0) {
         $l = $param__0[2];
@@ -1693,6 +1711,7 @@ $do_at_exit = function($param) use ($flush_all) {
 };
 $f1 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $caml_call1($g, $i);
     $C = (int)($i + 1);
@@ -1705,6 +1724,7 @@ $f1 = function($g) use ($caml_call1) {
 };
 $f2 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $j = 4;
     for (; ; ) {
@@ -1717,18 +1737,23 @@ $f2 = function($g) use ($caml_call1) {
       $A = (int)($i + 1);
       if (3 !== $i) {
         $i = $A;
-        goto a_continue;
+        $continue_counter = 0;
+        break;
       }
       return 0;
     }
-    a_continue:
-    ;
-
+    if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
+    } else if ($continue_counter > 0) {
+      $continue_counter -= 1;
+      break;
+    }
   }
-  a_break:
 };
 $f3 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $j = 4;
     for (; ; ) {
@@ -1743,7 +1768,8 @@ $f3 = function($g) use ($caml_call1) {
         $y = (int)($j + 1);
         if (5 !== $j) {
           $j = $y;
-          goto b_continue;
+          $continue_counter = 0;
+          break;
         }
         $l = 6;
         for (; ; ) {
@@ -1756,24 +1782,39 @@ $f3 = function($g) use ($caml_call1) {
           $w = (int)($i + 1);
           if (3 !== $i) {
             $i = $w;
-            goto a_continue;
+            $continue_counter = 2;
+            break;
           }
           return 0;
         }
+        if ($continue_counter === 0) {
+          $continue_counter = null;
+          continue;
+        } else if ($continue_counter > 0) {
+          $continue_counter -= 1;
+          break;
+        }
       }
-      b_continue:
-      ;
-
+      if ($continue_counter === 0) {
+        $continue_counter = null;
+        continue;
+      } else if ($continue_counter > 0) {
+        $continue_counter -= 1;
+        break;
+      }
     }
-    b_break:
-    a_continue:
-    ;
-
+    if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
+    } else if ($continue_counter > 0) {
+      $continue_counter -= 1;
+      break;
+    }
   }
-  a_break:
 };
 $f4 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $k__3 = 4;
     for (; ; ) {
@@ -1798,7 +1839,8 @@ $f4 = function($g) use ($caml_call1) {
             $t = (int)($k__2 + 1);
             if (5 !== $k__2) {
               $k__2 = $t;
-              goto d_continue;
+              $continue_counter = 0;
+              break;
             }
             $k__1 = 4;
             for (; ; ) {
@@ -1811,7 +1853,8 @@ $f4 = function($g) use ($caml_call1) {
               $r = (int)($j + 1);
               if (5 !== $j) {
                 $j = $r;
-                goto c_continue;
+                $continue_counter = 2;
+                break;
               }
               $l__0 = 6;
               for (; ; ) {
@@ -1839,12 +1882,14 @@ $f4 = function($g) use ($caml_call1) {
                       $o = (int)($m__0 + 1);
                       if (5 !== $m__0) {
                         $m__0 = $o;
-                        goto f_continue;
+                        $continue_counter = 0;
+                        break;
                       }
                       $n = (int)($l__0 + 1);
                       if (7 !== $l__0) {
                         $l__0 = $n;
-                        goto e_continue;
+                        $continue_counter = 2;
+                        break;
                       }
                       $k__0 = 4;
                       for (; ; ) {
@@ -1857,7 +1902,8 @@ $f4 = function($g) use ($caml_call1) {
                         $l = (int)($i + 1);
                         if (3 !== $i) {
                           $i = $l;
-                          goto a_continue;
+                          $continue_counter = 9;
+                          break;
                         }
                         $k = 4;
                         for (; ; ) {
@@ -1869,37 +1915,94 @@ $f4 = function($g) use ($caml_call1) {
                           }
                           return 0;
                         }
+                        if ($continue_counter === 0) {
+                          $continue_counter = null;
+                          continue;
+                        } else if ($continue_counter > 0) {
+                          $continue_counter -= 1;
+                          break;
+                        }
+                      }
+                      if ($continue_counter === 0) {
+                        $continue_counter = null;
+                        continue;
+                      } else if ($continue_counter > 0) {
+                        $continue_counter -= 1;
+                        break;
                       }
                     }
-                    f_continue:
-                    ;
-
+                    if ($continue_counter === 0) {
+                      $continue_counter = null;
+                      continue;
+                    } else if ($continue_counter > 0) {
+                      $continue_counter -= 1;
+                      break;
+                    }
                   }
-                  f_break:
+                  if ($continue_counter === 0) {
+                    $continue_counter = null;
+                    continue;
+                  } else if ($continue_counter > 0) {
+                    $continue_counter -= 1;
+                    break;
+                  }
                 }
-                e_continue:
-                ;
-
+                if ($continue_counter === 0) {
+                  $continue_counter = null;
+                  continue;
+                } else if ($continue_counter > 0) {
+                  $continue_counter -= 1;
+                  break;
+                }
               }
-              e_break:
+              if ($continue_counter === 0) {
+                $continue_counter = null;
+                continue;
+              } else if ($continue_counter > 0) {
+                $continue_counter -= 1;
+                break;
+              }
+            }
+            if ($continue_counter === 0) {
+              $continue_counter = null;
+              continue;
+            } else if ($continue_counter > 0) {
+              $continue_counter -= 1;
+              break;
             }
           }
-          d_continue:
-          ;
-
+          if ($continue_counter === 0) {
+            $continue_counter = null;
+            continue;
+          } else if ($continue_counter > 0) {
+            $continue_counter -= 1;
+            break;
+          }
         }
-        d_break:
-        c_continue:
-        ;
-
+        if ($continue_counter === 0) {
+          $continue_counter = null;
+          continue;
+        } else if ($continue_counter > 0) {
+          $continue_counter -= 1;
+          break;
+        }
       }
-      c_break:
+      if ($continue_counter === 0) {
+        $continue_counter = null;
+        continue;
+      } else if ($continue_counter > 0) {
+        $continue_counter -= 1;
+        break;
+      }
     }
-    a_continue:
-    ;
-
+    if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
+    } else if ($continue_counter > 0) {
+      $continue_counter -= 1;
+      break;
+    }
   }
-  a_break:
 };
 $fx = function($prefix, $x) use ($a, $b, $print_endline, $string_of_int) {
   return $print_endline($a($b, $string_of_int($x)));

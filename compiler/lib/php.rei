@@ -134,13 +134,14 @@ and statement =
       option(expression),
       option(expression),
       (statement, Loc.t),
+      int,
     )
   | ForIn_statement(
       Stdlib.either(expression, variable_declaration),
       expression,
       (statement, Loc.t),
     )
-  | Continue_statement(option(Javascript.Label.t))
+  | Continue_statement(option(Javascript.Label.t), int)
   | Break_statement(option(Javascript.Label.t))
   | Return_statement(option(expression))
   /*
