@@ -1,50 +1,173 @@
 <?hh
 
 
-$String = $joo_global_object->String;
-
-
-$caml_named_values = $ObjectLiteral((object)darray[]);
-$caml_named_value = $Func(
-  function($nm) use ($caml_named_values) {
-    return $caml_named_values[$nm];
-  },
-);
-$caml_global_data = varray[0];
-
-
-$caml_wrap_thrown_exception = function($e) use ($String, $caml_global_data) {
-  if ($e instanceof RehpExceptionBox) {
-    return $e;
+$caml_arity_test = function($f) {
+  $php_f = ($f instanceof Func) ? $f->fun : $f;
+  if (is_object($php_f) && ($php_f instanceof \Closure)) {
+    return (new \ReflectionFunction($php_f))->getNumberOfRequiredParameters();
+  } else {
+    throw new \ErrorException("Passed non closure to rehack_arity");
   }
-  // Check for __isArrayLike because some exceptions are manually constructed in stubs
-  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
-    return new RehpExceptionBox($e);
-  }
-  // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
-  // map it to Stack_overflow.
-
-  // Wrap Error in Js.Error exception
-  if ($e instanceof \Exception) { // && $caml_named_value("phpError"))
-    // return [0,caml_named_value("phpError"),e];
-    return new RehpExceptionBox(
-      R(0, $String->new("phpError"), $e),
-      $e->getCode(),
-      $e,
-    );
-  }
-  //fallback: wrapped in Failure
-  // Again, with proper stubs this will refer to the actual Failure - always
-  // kept in sync.
-  return new RehpExceptionBox(R(0, $caml_global_data->Failure, $e));
 };
 
 
-$caml_raise_with_arg = $Func(
-  function($tag, $arg) use ($caml_wrap_thrown_exception) {
-    throw $caml_wrap_thrown_exception(varray[0, $tag, $arg]) as \Throwable;
+$raw_array_sub = $Func(
+  function($a, $i, $l) use ($Array, $plus) {
+    $b = $Array->new($l);
+    for ($j = 0; $j < $l; $j++)
+      $b[$j] = $a[$plus($i, $j)];
+    return $b;
   },
 );
+$caml_subarray_to_string = $Func(
+  function($a, $i, $len) use ($Math, $String, $eqEq, $plus, $raw_array_sub) {
+    $f = $String->fromCharCode;
+    if ($i == 0 && $len <= 4096 && $eqEq($len, $a->length)) {
+      return $f->apply(varray[], $a);
+    }
+    $s = $String->new("");
+    for (; 0 < $len; ($i += 1024) || true ? $len -= 1024 : ($len -= 1024))
+      $s = $plus(
+        $s,
+        $f->apply(varray[], $raw_array_sub($a, $i, $Math->min($len, 1024))),
+      );
+    return $s;
+  },
+);
+$caml_convert_string_to_array = $Func(
+  function($s) use ($Array, $joo_global_object) {
+    if ($joo_global_object->Uint8Array) {
+      $a = $joo_global_object->Uint8Array->new($s->l);
+    } else {
+      $a = $Array->new($s->l);
+    }
+    $b = $s->c;
+    $l = $b->length;
+    $i = 0;
+    for (; $i < $l; $i++)
+      $a[$i] = $b->charCodeAt($i);
+    for ($l = $s->l; $i < $l; $i++)
+      $a[$i] = 0;
+    $s->c = $a;
+    $s->t = 4;
+    return $a;
+  },
+);
+$caml_blit_bytes = $Func(
+  function($s1, $i1, $s2, $i2, $len) use (
+    $Math,
+    $caml_convert_string_to_array,
+    $caml_subarray_to_string,
+    $eqEq,
+    $plus,
+  ) {
+    if ($len == 0) {
+      return 0;
+    }
+    if ($i2 == 0 && ($len >= $s2->l || $s2->t == 2 && $len >= $s2->c->length)) {
+      $s2->c = $s1->t == 4
+        ? $caml_subarray_to_string($s1->c, $i1, $len)
+        : (
+            $i1 == 0 && $eqEq($s1->c->length, $len)
+              ? $s1->c
+              : ($s1->c->substr($i1, $len))
+          );
+      $s2->t = $eqEq($s2->c->length, $s2->l) ? 0 : (2);
+    } else {
+      if ($s2->t == 2 && $eqEq($i2, $s2->c->length)) {
+        $s2->c = $plus(
+          $s2->c,
+          $s1->t == 4
+            ? $caml_subarray_to_string($s1->c, $i1, $len)
+            : (
+                $i1 == 0 && $eqEq($s1->c->length, $len)
+                  ? $s1->c
+                  : ($s1->c->substr($i1, $len))
+              ),
+        );
+        $s2->t = $eqEq($s2->c->length, $s2->l) ? 0 : (2);
+      } else {
+        if ($s2->t != 4) {
+          $caml_convert_string_to_array($s2);
+        }
+        $c1 = $s1->c;
+        $c2 = $s2->c;
+        if ($s1->t == 4) {
+          if ($i2 <= $i1) {
+            for ($i = 0; $i < $len; $i++)
+              $c2[$plus($i2, $i)] = $c1[$plus($i1, $i)];
+          } else {
+            for ($i = $len - 1; $i >= 0; $i--)
+              $c2[$plus($i2, $i)] = $c1[$plus($i1, $i)];
+          }
+        } else {
+          $l = $Math->min($len, $c1->length - $i1);
+          for ($i = 0; $i < $l; $i++)
+            $c2[$plus($i2, $i)] = $c1->charCodeAt($plus($i1, $i));
+          for (; $i < $len; $i++)
+            $c2[$plus($i2, $i)] = 0;
+        }
+      }
+    }
+    return 0;
+  },
+);
+$caml_blit_string = $Func(
+  function($s1, $i1, $s2, $i2, $len) use ($caml_blit_bytes) {
+    return $caml_blit_bytes($s1, $i1, $s2, $i2, $len);
+  },
+);
+
+
+$Func = $joo_global_object->Func;
+
+
+$raw_array_append_one = $Func(
+  function($a, $x) use ($Array) {
+    $l = $a->length;
+    $b = $Array->new($l + 1);
+    $i = 0;
+    for (; $i < $l; $i++)
+      $b[$i] = $a[$i];
+    $b[$i] = $x;
+    return $b;
+  },
+);
+
+
+$caml_call_gen = new Ref();
+$caml_call_gen->contents = function($f, $args) use (
+  $Func,
+  $caml_arity_test,
+  $caml_call_gen,
+  $raw_array_append_one,
+  $raw_array_sub,
+) {
+  if (instance_of($f, $Func)) {
+    return $caml_call_gen->contents($f->fun, $args);
+  }
+  $n = $caml_arity_test($f);
+  $argsLen = $args->length;
+  $d = $n - $argsLen;
+  if ($d === 0) {
+    return \call_user_func_array($f, $args->__toPhpArray());
+  } else {
+    if ($d < 0) {
+      return $caml_call_gen->contents(
+        \call_user_func_array($f, $raw_array_sub($args, 0, $n)->__toPhpArray()),
+        $raw_array_sub($args, $n, $argsLen - $n),
+      );
+    } else {
+      return
+        function($x) use ($args, $caml_call_gen, $f, $raw_array_append_one) {
+          return $caml_call_gen->contents($f, $raw_array_append_one($args, $x));
+        };
+    }
+  }
+};
+$caml_call_gen = $caml_call_gen->contents;
+
+
 $caml_str_repeat = $Func(
   function($n, $s) use ($String, $plus, $right_shift_32) {
     if ($s->repeat) {
@@ -69,29 +192,6 @@ $caml_str_repeat = $Func(
         $s->slice(0, 1);
       }
     }
-  },
-);
-$raw_array_sub = $Func(
-  function($a, $i, $l) use ($Array, $plus) {
-    $b = $Array->new($l);
-    for ($j = 0; $j < $l; $j++)
-      $b[$j] = $a[$plus($i, $j)];
-    return $b;
-  },
-);
-$caml_subarray_to_string = $Func(
-  function($a, $i, $len) use ($Math, $String, $eqEq, $plus, $raw_array_sub) {
-    $f = $String->fromCharCode;
-    if ($i == 0 && $len <= 4096 && $eqEq($len, $a->length)) {
-      return $f->apply(varray[], $a);
-    }
-    $s = $String->new("");
-    for (; 0 < $len; ($i += 1024) || true ? $len -= 1024 : ($len -= 1024))
-      $s = $plus(
-        $s,
-        $f->apply(varray[], $raw_array_sub($a, $i, $Math->min($len, 1024))),
-      );
-    return $s;
   },
 );
 $caml_convert_string_to_bytes = $Func(
@@ -263,6 +363,51 @@ $MlBytes->prototype->slice = $Func(
   },
 );
 
+
+$String = $joo_global_object->String;
+
+
+$caml_named_values = $ObjectLiteral((object)darray[]);
+$caml_named_value = $Func(
+  function($nm) use ($caml_named_values) {
+    return $caml_named_values[$nm];
+  },
+);
+$caml_global_data = varray[0];
+
+
+$caml_wrap_thrown_exception = function($e) use ($String, $caml_global_data) {
+  if ($e instanceof RehpExceptionBox) {
+    return $e;
+  }
+  // Check for __isArrayLike because some exceptions are manually constructed in stubs
+  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
+    return new RehpExceptionBox($e);
+  }
+  // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
+  // map it to Stack_overflow.
+
+  // Wrap Error in Js.Error exception
+  if ($e instanceof \Exception) { // && $caml_named_value("phpError"))
+    // return [0,caml_named_value("phpError"),e];
+    return new RehpExceptionBox(
+      R(0, $String->new("phpError"), $e),
+      $e->getCode(),
+      $e,
+    );
+  }
+  //fallback: wrapped in Failure
+  // Again, with proper stubs this will refer to the actual Failure - always
+  // kept in sync.
+  return new RehpExceptionBox(R(0, $caml_global_data->Failure, $e));
+};
+
+
+$caml_raise_with_arg = $Func(
+  function($tag, $arg) use ($caml_wrap_thrown_exception) {
+    throw $caml_wrap_thrown_exception(varray[0, $tag, $arg]) as \Throwable;
+  },
+);
 $caml_new_string_impl = $Func(
   function($s) use ($MlBytes) {
     return $MlBytes->new(0, $s, $s->length);
@@ -286,20 +431,12 @@ $caml_invalid_argument = $Func(
     $caml_raise_with_string($caml_global_data->Invalid_argument, $msg);
   },
 );
-$caml_array_bound_error = $Func(
-  function() use ($String, $caml_invalid_argument) {
-    $caml_invalid_argument($String->new("index out of bounds"));
-  },
-);
-$caml_check_bound = $Func(
-  function($array, $index) use (
-    $caml_array_bound_error,
-    $unsigned_right_shift_32,
-  ) {
-    if ($unsigned_right_shift_32($index, 0) >= $array->length - 1) {
-      $caml_array_bound_error();
+$caml_create_bytes = $Func(
+  function($len) use ($MlBytes, $String, $caml_invalid_argument) {
+    if ($len < 0) {
+      $caml_invalid_argument($String->new("Bytes.create"));
     }
-    return $array;
+    return $MlBytes->new($len ? 2 : (9), $String->new(""), $len);
   },
 );
 $caml_oo_last_id = 0;
@@ -446,95 +583,9 @@ $caml_bytes_get = $Func(
     return $caml_bytes_unsafe_get($s, $i);
   },
 );
-$caml_create_bytes = $Func(
-  function($len) use ($MlBytes, $String, $caml_invalid_argument) {
-    if ($len < 0) {
-      $caml_invalid_argument($String->new("Bytes.create"));
-    }
-    return $MlBytes->new($len ? 2 : (9), $String->new(""), $len);
-  },
-);
 $caml_ml_bytes_length = $Func(function($s) {
   return $s->l;
 });
-$caml_convert_string_to_array = $Func(
-  function($s) use ($Array, $joo_global_object) {
-    if ($joo_global_object->Uint8Array) {
-      $a = $joo_global_object->Uint8Array->new($s->l);
-    } else {
-      $a = $Array->new($s->l);
-    }
-    $b = $s->c;
-    $l = $b->length;
-    $i = 0;
-    for (; $i < $l; $i++)
-      $a[$i] = $b->charCodeAt($i);
-    for ($l = $s->l; $i < $l; $i++)
-      $a[$i] = 0;
-    $s->c = $a;
-    $s->t = 4;
-    return $a;
-  },
-);
-$caml_blit_bytes = $Func(
-  function($s1, $i1, $s2, $i2, $len) use (
-    $Math,
-    $caml_convert_string_to_array,
-    $caml_subarray_to_string,
-    $eqEq,
-    $plus,
-  ) {
-    if ($len == 0) {
-      return 0;
-    }
-    if ($i2 == 0 && ($len >= $s2->l || $s2->t == 2 && $len >= $s2->c->length)) {
-      $s2->c = $s1->t == 4
-        ? $caml_subarray_to_string($s1->c, $i1, $len)
-        : (
-            $i1 == 0 && $eqEq($s1->c->length, $len)
-              ? $s1->c
-              : ($s1->c->substr($i1, $len))
-          );
-      $s2->t = $eqEq($s2->c->length, $s2->l) ? 0 : (2);
-    } else {
-      if ($s2->t == 2 && $eqEq($i2, $s2->c->length)) {
-        $s2->c = $plus(
-          $s2->c,
-          $s1->t == 4
-            ? $caml_subarray_to_string($s1->c, $i1, $len)
-            : (
-                $i1 == 0 && $eqEq($s1->c->length, $len)
-                  ? $s1->c
-                  : ($s1->c->substr($i1, $len))
-              ),
-        );
-        $s2->t = $eqEq($s2->c->length, $s2->l) ? 0 : (2);
-      } else {
-        if ($s2->t != 4) {
-          $caml_convert_string_to_array($s2);
-        }
-        $c1 = $s1->c;
-        $c2 = $s2->c;
-        if ($s1->t == 4) {
-          if ($i2 <= $i1) {
-            for ($i = 0; $i < $len; $i++)
-              $c2[$plus($i2, $i)] = $c1[$plus($i1, $i)];
-          } else {
-            for ($i = $len - 1; $i >= 0; $i--)
-              $c2[$plus($i2, $i)] = $c1[$plus($i1, $i)];
-          }
-        } else {
-          $l = $Math->min($len, $c1->length - $i1);
-          for ($i = 0; $i < $l; $i++)
-            $c2[$plus($i2, $i)] = $c1->charCodeAt($plus($i1, $i));
-          for (; $i < $len; $i++)
-            $c2[$plus($i2, $i)] = 0;
-        }
-      }
-    }
-    return 0;
-  },
-);
 $MlFile = $Func(function() {});
 $MlFakeFile = $Func(
   function($content) use ($joo_global_object) {
@@ -1510,6 +1561,10 @@ $caml_wrap_exception = function($e) use ($String, $caml_global_data) {
 $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
 
 
+$caml_call1 = function($f, $a0) use ($caml_arity_test, $caml_call_gen) {
+  return
+    $caml_arity_test($f) === 1 ? $f($a0) : ($caml_call_gen($f, varray[$a0]));
+};
 $Out_of_memory = Vector {248, $caml_new_string("Out_of_memory"), -1};
 $Sys_error = Vector {248, $caml_new_string("Sys_error"), -2};
 $Failure = Vector {248, $caml_new_string("Failure"), -3};
@@ -1555,15 +1610,29 @@ $caml_register_global(1, $Sys_error, "Sys_error");
 
 $caml_register_global(0, $Out_of_memory, "Out_of_memory");
 
-$c = $caml_new_string("hi");
-$d = $caml_new_string("hi");
-$e = $caml_new_string("hi");
-$f = $caml_new_string("hi");
-$g = $caml_new_string("hi");
-$b = $caml_new_string("hi");
-$a = $caml_new_string("hi");
+$b = $caml_new_string("prefix ");
+$c = $caml_new_string("f1");
+$d = $caml_new_string("f2");
+$e = $caml_new_string("f3");
+$f = $caml_new_string("f4");
 
 $caml_fresh_oo_id(0);
+
+$a = function($s1, $s2) use (
+  $caml_blit_string,
+  $caml_create_bytes,
+  $caml_ml_string_length,
+) {
+  $l1 = $caml_ml_string_length($s1);
+  $l2 = $caml_ml_string_length($s2);
+  $s = $caml_create_bytes((int)($l1 + $l2));
+  $caml_blit_string($s1, 0, $s, 0, $l1);
+  $caml_blit_string($s2, 0, $s, $l1, $l2);
+  return $s;
+};
+$string_of_int = function($n) use ($caml_new_string) {
+  return $caml_new_string("".$n);
+};
 
 $caml_ml_open_descriptor_in(0);
 
@@ -1591,10 +1660,10 @@ $flush_all = function($param) use (
         $a = $param__0[1];
         try {
           $caml_ml_flush($a);
-        } catch (\Throwable $h) {
-          $h = $caml_wrap_exception($h);
-          if ($h[1] !== $Sys_error) {
-            throw $caml_wrap_thrown_exception_reraise($h) as \Throwable;
+        } catch (\Throwable $D) {
+          $D = $caml_wrap_exception($D);
+          if ($D[1] !== $Sys_error) {
+            throw $caml_wrap_thrown_exception_reraise($D) as \Throwable;
           }
         }
         $param__0 = $l;
@@ -1622,98 +1691,234 @@ $print_endline = function($s) use (
 $do_at_exit = function($param) use ($flush_all) {
   return $flush_all(0);
 };
-$a = Vector {0, 2};
-
-$caml_check_bound($a, 0)[1] = 42;
-
-$x = 0;
-$f = function($x) use ($a, $print_endline) {
-  return $print_endline($a);
-};
-
-$a[1] = 42;
-
-$f(0);
-
-$f($x);
-
-$g = function($param) use ($a, $caml_check_bound) {
-  if (0 === $param) {
-    $caml_check_bound($a, 0)[1] = 42;
+$f1 = function($g) use ($caml_call1) {
+  $i = 2;
+  for (; ; ) {
+    $caml_call1($g, $i);
+    $C = (int)($i + 1);
+    if (3 !== $i) {
+      $i = $C;
+      continue;
+    }
     return 0;
   }
-  $caml_check_bound($a, 0)[1] = 43;
-  return 0;
+};
+$f2 = function($g) use ($caml_call1) {
+  $i = 2;
+  for (; ; ) {
+    $j = 4;
+    for (; ; ) {
+      $caml_call1($g, (int)($i + $j));
+      $B = (int)($j + 1);
+      if (5 !== $j) {
+        $j = $B;
+        continue;
+      }
+      $A = (int)($i + 1);
+      if (3 !== $i) {
+        $i = $A;
+        goto a_continue;
+      }
+      return 0;
+    }
+    a_continue:
+    ;
+
+  }
+  a_break:
+};
+$f3 = function($g) use ($caml_call1) {
+  $i = 2;
+  for (; ; ) {
+    $j = 4;
+    for (; ; ) {
+      $k = 4;
+      for (; ; ) {
+        $caml_call1($g, (int)((int)($i + $j) + $k));
+        $z = (int)($k + 1);
+        if (5 !== $k) {
+          $k = $z;
+          continue;
+        }
+        $y = (int)($j + 1);
+        if (5 !== $j) {
+          $j = $y;
+          goto b_continue;
+        }
+        $l = 6;
+        for (; ; ) {
+          $caml_call1($g, (int)($i + $l));
+          $x = (int)($l + 1);
+          if (7 !== $l) {
+            $l = $x;
+            continue;
+          }
+          $w = (int)($i + 1);
+          if (3 !== $i) {
+            $i = $w;
+            goto a_continue;
+          }
+          return 0;
+        }
+      }
+      b_continue:
+      ;
+
+    }
+    b_break:
+    a_continue:
+    ;
+
+  }
+  a_break:
+};
+$f4 = function($g) use ($caml_call1) {
+  $i = 2;
+  for (; ; ) {
+    $k__3 = 4;
+    for (; ; ) {
+      $caml_call1($g, (int)($i + $k__3));
+      $v = (int)($k__3 + 1);
+      if (5 !== $k__3) {
+        $k__3 = $v;
+        continue;
+      }
+      $j = 4;
+      for (; ; ) {
+        $k__2 = 4;
+        for (; ; ) {
+          $l__1 = 4;
+          for (; ; ) {
+            $caml_call1($g, (int)((int)((int)($i + $j) + $k__2) + $l__1));
+            $u = (int)($l__1 + 1);
+            if (5 !== $l__1) {
+              $l__1 = $u;
+              continue;
+            }
+            $t = (int)($k__2 + 1);
+            if (5 !== $k__2) {
+              $k__2 = $t;
+              goto d_continue;
+            }
+            $k__1 = 4;
+            for (; ; ) {
+              $caml_call1($g, (int)((int)($i + $j) + $k__1));
+              $s = (int)($k__1 + 1);
+              if (5 !== $k__1) {
+                $k__1 = $s;
+                continue;
+              }
+              $r = (int)($j + 1);
+              if (5 !== $j) {
+                $j = $r;
+                goto c_continue;
+              }
+              $l__0 = 6;
+              for (; ; ) {
+                $n__1 = 4;
+                for (; ; ) {
+                  $caml_call1($g, (int)((int)($i + $l__0) + $n__1));
+                  $q = (int)($n__1 + 1);
+                  if (5 !== $n__1) {
+                    $n__1 = $q;
+                    continue;
+                  }
+                  $m__0 = 4;
+                  for (; ; ) {
+                    $n__0 = 4;
+                    for (; ; ) {
+                      $caml_call1(
+                        $g,
+                        (int)((int)((int)($i + $l__0) + $m__0) + $n__0),
+                      );
+                      $p = (int)($n__0 + 1);
+                      if (5 !== $n__0) {
+                        $n__0 = $p;
+                        continue;
+                      }
+                      $o = (int)($m__0 + 1);
+                      if (5 !== $m__0) {
+                        $m__0 = $o;
+                        goto f_continue;
+                      }
+                      $n = (int)($l__0 + 1);
+                      if (7 !== $l__0) {
+                        $l__0 = $n;
+                        goto e_continue;
+                      }
+                      $k__0 = 4;
+                      for (; ; ) {
+                        $caml_call1($g, (int)($i + $k__0));
+                        $m = (int)($k__0 + 1);
+                        if (5 !== $k__0) {
+                          $k__0 = $m;
+                          continue;
+                        }
+                        $l = (int)($i + 1);
+                        if (3 !== $i) {
+                          $i = $l;
+                          goto a_continue;
+                        }
+                        $k = 4;
+                        for (; ; ) {
+                          $caml_call1($g, $k);
+                          $k = (int)($k + 1);
+                          if (5 !== $k) {
+                            $k = $k;
+                            continue;
+                          }
+                          return 0;
+                        }
+                      }
+                    }
+                    f_continue:
+                    ;
+
+                  }
+                  f_break:
+                }
+                e_continue:
+                ;
+
+              }
+              e_break:
+            }
+          }
+          d_continue:
+          ;
+
+        }
+        d_break:
+        c_continue:
+        ;
+
+      }
+      c_break:
+    }
+    a_continue:
+    ;
+
+  }
+  a_break:
+};
+$fx = function($prefix, $x) use ($a, $b, $print_endline, $string_of_int) {
+  return $print_endline($a($b, $string_of_int($x)));
 };
 
-$g(0);
+$f1(function($j) use ($c, $fx) {
+  return $fx($c, $j);
+});
 
-$h = function($param) {
-  if (42 === $param) {
-    return 0;
-  }
-  return 1;
-};
-$x__0 = $h(42);
+$f2(function($i) use ($d, $fx) {
+  return $fx($d, $i);
+});
 
-if (0 === $x__0) {
-  $caml_check_bound($a, 0)[1] = 42;
-  $y = 0;
-} else {
-  $caml_check_bound($a, 0)[1] = 43;
-  $y = 0;
-}
+$f3(function($h) use ($e, $fx) {
+  return $fx($e, $h);
+});
 
-$f($y);
-
-if (0 === $x__0) {
-  $caml_check_bound($a, 0)[1] = 42;
-  $y__0 = 4;
-} else {
-  $caml_check_bound($a, 0)[1] = 43;
-  $y__0 = 5;
-}
-
-$f($y__0);
-
-if (0 === $x__0) {
-  $caml_check_bound($a, 0)[1] = 42;
-  if (0 === $x__0) {
-    $y__1 = 44;
-  } else {
-    $y__1 = 45;
-  }
-} else {
-  $caml_check_bound($a, 0)[1] = 43;
-  $y__1 = 5;
-}
-
-$f($y__1);
-
-$g2 = function($param) use (
-  $a,
-  $b,
-  $c,
-  $caml_check_bound,
-  $d,
-  $e,
-  $f,
-  $g,
-  $print_endline,
-) {
-  if (0 === $param) {
-    $print_endline($b);
-    $caml_check_bound($a, 0)[1] = 3;
-    return 0;
-  }
-  $print_endline($c);
-  $print_endline($d);
-  $print_endline($e);
-  $caml_check_bound($a, 0)[1] = 4;
-  $print_endline($f);
-  return $print_endline($g);
-};
-
-$g2(0);
+$f4(function($g) use ($f, $fx) {
+  return $fx($f, $g);
+});
 
 $do_at_exit(0);
