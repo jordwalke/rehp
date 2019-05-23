@@ -149,7 +149,7 @@ and from_statement = e =>
     Do_while_statement((from_statement(stmt), loc), from_expression(e))
   | Rehp.While_statement(e, (stmt, loc)) =>
     While_statement(from_expression(e), (from_statement(stmt), loc))
-  | Rehp.For_statement(init, test, incr, (stmt, loc)) =>
+  | Rehp.For_statement(init, test, incr, (stmt, loc), _depth) =>
     let init =
       switch (init) {
       | Stdlib.Left(None) => Javascript.Left(None)
@@ -176,7 +176,7 @@ and from_statement = e =>
     let e = from_expression(e);
     let stmt = from_statement(stmt);
     ForIn_statement(init, e, (stmt, loc));
-  | Rehp.Continue_statement(lbl) => Continue_statement(lbl)
+  | Rehp.Continue_statement(lbl, _depth) => Continue_statement(lbl)
   | Rehp.Break_statement(lbl) => Break_statement(lbl)
   | Rehp.Return_statement(eo) =>
     Return_statement(Stdlib.Option.map(~f=from_expression, eo))

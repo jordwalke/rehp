@@ -189,7 +189,7 @@ let topLevelIdentifiersSt = (newVarsSoFar, st) =>
   | Rehp.Variable_statement(l) =>
     let augmentEnv = (env, (id, _eopt)) => addOne(env, id);
     List.fold_left(~f=augmentEnv, ~init=newVarsSoFar, l);
-  | For_statement(Right(l), _e2, _e3, (_s, _loc)) =>
+  | For_statement(Right(l), _e2, _e3, (_s, _loc), _depth) =>
     let augmentEnv = (env, (id, _eopt)) => addOne(env, id);
     let addedVars = List.fold_left(~f=augmentEnv, ~init=empty, l);
     append(newVarsSoFar, addedVars);
@@ -730,7 +730,7 @@ and statement = (curOut, input, x) => {
       let (sOut, sMapped) = statement(curOut, input, s);
       let (eOut, eMapped) = expression(input, e);
       (outAppend(sOut, eOut), While_statement(eMapped, (sMapped, loc)));
-    | Rehp.For_statement(e1, e2, e3, (s, loc)) =>
+    | Rehp.For_statement(e1, e2, e3, (s, loc), _depth) =>
       let (e1Out, e1Mapped) =
         switch (e1) {
         | Left(x) =>
@@ -777,7 +777,7 @@ and statement = (curOut, input, x) => {
      * TODO: For Php, the exception is not actually block scoped and so we don't
      * need to do any special handling here.
      */
-    | Rehp.Continue_statement(s) => (curOut, Continue_statement(s))
+    | Rehp.Continue_statement(s, _depth) => (curOut, Continue_statement(s))
     | Rehp.Break_statement(s) => (curOut, Break_statement(s))
     | Rehp.Return_statement(e) =>
       let (eOut, eMapped) = optOutput(expression(input), e);

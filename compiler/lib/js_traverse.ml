@@ -62,7 +62,7 @@ class map : mapper = object(m)
         Do_while_statement ((m#statement s, loc), m#expression e)
     | While_statement(e, (s, loc)) ->
         While_statement(m#expression e, (m#statement s, loc))
-    | For_statement(e1, e2, e3, (s, loc)) ->
+    | For_statement(e1, e2, e3, (s, loc), depth) ->
         let e1 =
           match e1 with
           | Left o ->
@@ -71,7 +71,7 @@ class map : mapper = object(m)
               Right(List.map l ~f:(fun (id, eo) -> m#ident id,m#initialiser_o eo))
         in
         For_statement (e1, m#expression_o e2, m#expression_o e3,
-                       (m#statement s, loc))
+                       (m#statement s, loc), depth)
     | ForIn_statement (e1, e2, (s, loc)) ->
         let e1 =
           match e1 with
@@ -79,8 +79,8 @@ class map : mapper = object(m)
           | Right ((id,e)) -> Right ((m#ident id,m#initialiser_o e))
         in
         ForIn_statement (e1, m#expression e2, (m#statement s, loc))
-    | Continue_statement s ->
-        Continue_statement s
+    | Continue_statement (s, depth) ->
+        Continue_statement (s, depth)
     | Break_statement s ->
         Break_statement s
     | Return_statement e ->
@@ -411,7 +411,7 @@ class free =
           (id,Some (e,pc)))
       in
       Variable_statement l
-    | For_statement (Right l, e2, e3, (s, loc)) ->
+    | For_statement (Right l, e2, e3, (s, loc), depth) ->
       let l = List.map l ~f:(fun (id,eopt) ->
           m#def_var id;
           match eopt with
@@ -421,7 +421,7 @@ class free =
               (id,Some (e,pc)))
       in
       For_statement (Right l, m#expression_o e2, m#expression_o e3,
-                     (m#statement s, loc))
+                     (m#statement s, loc), depth)
     | ForIn_statement (Right (id,eopt), e2, (s, loc)) ->
       m#def_var id;
       let r = match eopt with
@@ -556,8 +556,8 @@ class compact_vardecl = object(m)
       let s = super#statement s in
       match s with
         | Variable_statement l -> m#translate_st l
-        | For_statement (Right l,e2,e3,s) ->
-          For_statement (Left (m#translate_ex l), e2, e3, s)
+        | For_statement (Right l,e2,e3,s, depth) ->
+          For_statement (Left (m#translate_ex l), e2, e3, s, depth)
         | ForIn_statement(Right (id,op),e2,s) ->
           (match op with
             | Some _ -> assert false
@@ -705,7 +705,7 @@ class clean = object(m)
     | If_statement (if',then',else') -> If_statement (if',b then',bopt else')
     | Do_while_statement (do',while') -> Do_while_statement (b do',while')
     | While_statement (cond,st) -> While_statement (cond,b st)
-    | For_statement (p1,p2,p3,st) -> For_statement (p1,p2,p3,b st)
+    | For_statement (p1,p2,p3,st,depth) -> For_statement (p1,p2,p3,b st,depth)
     | ForIn_statement (param,e,st) -> ForIn_statement (param,e,b st)
     | Switch_statement(e,l,Some [],[]) -> Switch_statement(e,l,None,[])
     | s -> s

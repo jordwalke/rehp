@@ -345,7 +345,7 @@ and from_js_statement =
         | None => None
         | Some(e) => Some(from_js_expression(e))
         };
-      For_statement(init, test, incr, (from_js_statement(stmt), loc));
+      For_statement(init, test, incr, (from_js_statement(stmt), loc), None);
     }
   | Javascript.ForIn_statement(init, e, (stmt, loc)) => {
       let init =
@@ -357,7 +357,7 @@ and from_js_statement =
       let stmt = from_js_statement(stmt);
       ForIn_statement(init, e, (stmt, loc));
     }
-  | Javascript.Continue_statement(lbl) => Continue_statement(lbl)
+  | Javascript.Continue_statement(lbl) => Continue_statement(lbl, None)
   | Javascript.Break_statement(lbl) => Break_statement(lbl)
   | Javascript.Return_statement(eo) =>
     Return_statement(Stdlib.Option.map(~f=from_js_expression, eo))

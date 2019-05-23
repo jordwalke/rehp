@@ -1531,7 +1531,8 @@ and compile_block st queue (pc : Addr.t) frontier interm backend =
                   else (
                     if debug () then Format.eprintf "}@]";
                     body ) )
-              , Loc.N ) )
+              , Loc.N ) 
+            , Some(List.length(st.loop_stack) ) )
         , source_location st.ctx pc )
       in
       match label with
@@ -1837,28 +1838,37 @@ and compile_exn_handling ctx queue (pc, args) handler continuation =
         in
         loop continuation old_args h_args h_block.params queue
 
+and index_of test li =
+  let i = ref (-1) in
+  List.iteri (fun i' e -> if test e then i := i') li;
+  if (!i) = (-1) then raise Not_found;
+  !i
+
 and compile_branch st queue ((pc, _) as cont) handler backs frontier interm backend =
   compile_argument_passing st.ctx queue cont backs (fun queue ->
       compile_exn_handling st.ctx queue cont handler (fun queue ->
           if Addr.Set.mem pc backs
           then (
-            let label =
+            let label, index =
               match st.loop_stack with
               | [] -> assert false
               | (pc', _) :: rem ->
                   if pc = pc'
-                  then None
+                  then (None, 0)
                   else
                     let lab, used = List.assoc pc rem in
+                    let index = index_of (fun e -> fst(e) = pc) rem in
                     used := true;
-                    Some lab
+                    ((Some lab), index)
             in
             if debug ()
             then
               if label = None
               then Format.eprintf "continue;@ "
               else Format.eprintf "continue (%d);@ " pc;
-            flush_all queue [J.Continue_statement label, Loc.N] )
+            flush_all queue [
+              J.Continue_statement(label, Some(index)),
+              Loc.N] )
           else if Addr.Set.mem pc frontier || Addr.Map.mem pc interm
           then (
             if debug () then Format.eprintf "(br %d)@ " pc;
