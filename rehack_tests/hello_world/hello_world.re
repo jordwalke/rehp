@@ -1,62 +1,62 @@
-let a = [|2|];
-let x = a[0] = 42;
-let f = x => print_endline("hi");
-f(a[0] = 42);
-f(x);
-type t =
-  | A
-  | B;
-let g =
-  fun
-  | A => a[0] = 42
-  | B => a[0] = 43;
-g(A);
-let h =
-  fun
-  | 42 => A
-  | _ => B;
-let x = h(42);
-let y =
-  switch (x) {
-  | A => a[0] = 42
-  | B => a[0] = 43
+let f1 = g => {
+  for (i in 2 to 3) {
+    g(i);
   };
-f(y);
-let y =
-  switch (x) {
-  | A =>
-    a[0] = 42;
-    4;
-  | B =>
-    a[0] = 43;
-    5;
-  };
-f(y);
-let y =
-  switch (x) {
-  | A =>
-    a[0] = 42;
-    switch (x) {
-    | A => 44
-    | B => 45
+};
+let f2 = g => {
+  for (i in 2 to 3) {
+    for (j in 4 to 5) {
+      g(i + j);
     };
-  | B =>
-    a[0] = 43;
-    5;
   };
-f(y);
-let g2 =
-  fun
-  | A => {
-      print_endline("hi");
-      a[0] = 3;
-    }
-  | B => {
-      print_endline("hi");
-      print_endline("hi");
-      print_endline("hi");
-      a[0] = 4;
-      print_endline("hi");
-      print_endline("hi");
+};
+let f3 = g => {
+  for (i in 2 to 3) {
+    for (j in 4 to 5) {
+      for (k in 4 to 5) {
+        g(i + j + k);
+      };
     };
-g2(A);
+    for (l in 6 to 7) {
+      g(i + l);
+    };
+  };
+};
+let f4 = g => {
+  for (i in 2 to 3) {
+    for (k in 4 to 5) {
+      g(i + k);
+    };
+    for (j in 4 to 5) {
+      for (k in 4 to 5) {
+        for (l in 4 to 5) {
+          g(i + j + k + l);
+        };
+      };
+      for (k in 4 to 5) {
+        g(i + j + k);
+      };
+    };
+    for (l in 6 to 7) {
+      for (n in 4 to 5) {
+        g(i + l + n);
+      };
+      for (m in 4 to 5) {
+        for (n in 4 to 5) {
+          g(i + l + m + n);
+        };
+      };
+    };
+    for (k in 4 to 5) {
+      g(i + k);
+    };
+  };
+  for (k in 4 to 5) {
+    g(k);
+  };
+};
+let fx = (prefix, x) => print_endline("prefix " ++ string_of_int(x));
+f1(fx("f1"));
+f2(fx("f2"));
+f3(fx("f3"));
+f4(fx("f4"));
