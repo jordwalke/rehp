@@ -1408,7 +1408,10 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       last_semi();
       PP.end_group(f);
       PP.end_group(f);
-    | For_statement(e1, e2, e3, s) =>
+    | For_statement(e1, e2, e3, s, depth) =>
+      if (depth === 0) {
+        PP.string(f, "$continue_counter = null;");
+      };
       PP.start_group(f, 0);
       PP.start_group(f, 0);
       PP.string(f, "for");
@@ -1435,6 +1438,16 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       statement(~last, f, s);
       PP.end_group(f);
       PP.end_group(f);
+      if (depth !== 0) {
+        PP.string(
+          f,
+          "if ($continue_counter === 0) {"
+          ++ "$continue_counter = null; continue;"
+          ++ "} else if ($continue_counter > 0) {"
+          ++ "$continue_counter -= 1; break;"
+          ++ "}",
+        );
+      };
     | ForIn_statement(e1, e2, s) =>
       PP.start_group(f, 0);
       PP.start_group(f, 0);
@@ -1461,12 +1474,12 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       statement(~last, f, s);
       PP.end_group(f);
       PP.end_group(f);
-    | Continue_statement(None) =>
+    | Continue_statement(None, _depth) =>
       PP.string(f, "continue");
       last_semi();
-    | Continue_statement(Some(s)) =>
-      PP.string(f, "goto ");
-      PP.string(f, Javascript.Label.to_string(s) ++ "_continue");
+    | Continue_statement(Some(s), depth) =>
+      PP.string(f, "$continue_counter = " ++ string_of_int(depth) ++ ";");
+      PP.string(f, "break");
       last_semi();
     | Break_statement(None) =>
       PP.string(f, "break");
@@ -1492,44 +1505,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       /* There MUST be a space between the return and its
          argument. A line return will not work */
       }
-    | Labelled_statement(i, (st, loc)) =>
-      let label = Javascript.Label.to_string(i);
-      switch (st) {
-      | For_statement(e1, e2, e3, contents) =>
-        /* TODO: depending on the printer to correctly add these labels is a
-           bit hacky since we might change printers in the future. Move this
-           logic into the rehp -> php ast transform instead. */
-        /* TODO: for loops are the only loops currently labeled from bytecode,
-           but we should also handle other kinds of loops just in case */
-        let label_continue = (
-          Labelled_statement(
-            Javascript.Label.of_string(label ++ "_continue"),
-            (Empty_statement, loc),
-          ),
-          loc,
-        );
-        let contents =
-          switch (contents) {
-          | (Block(lst), loc) =>
-            /* if the for loop uses a block, then add the label_continue to
-               the end of the block */
-            (Block(lst @ [label_continue]), loc)
-          | statement =>
-            /* if the for loop doesn't use a block, then create a block, and
-               add the label_continue at the end of the block */
-            (Block([statement, label_continue]), loc)
-          };
-        let st = For_statement(e1, e2, e3, contents);
-        statement(~last, f, (st, loc));
-        PP.break(f);
-        PP.string(f, label ++ "_break");
-        PP.string(f, ":");
-      | _ =>
-        PP.string(f, label);
-        PP.string(f, ":");
-        statement(~last, f, (st, loc));
-        PP.break(f);
-      };
+    | Labelled_statement(i, (st, loc)) => statement(~last, f, (st, loc))
     | Switch_statement(e, cc, def, cc') =>
       PP.start_group(f, 0);
       PP.start_group(f, 0);

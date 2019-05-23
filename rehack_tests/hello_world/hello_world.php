@@ -195,6 +195,7 @@ $flush_all = function($param) use (
     $caml_wrap_thrown_exception_reraise,
   ) {
     $param__0 = $param;
+    $continue_counter = null;
     for (; ; ) {
       if ($param__0) {
         $l = $param__0[2];
@@ -234,6 +235,7 @@ $do_at_exit = function($param) use ($flush_all) {
 };
 $f1 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $caml_call1($g, $i);
     $C = (int)($i + 1);
@@ -246,6 +248,7 @@ $f1 = function($g) use ($caml_call1) {
 };
 $f2 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $j = 4;
     for (; ; ) {
@@ -258,18 +261,23 @@ $f2 = function($g) use ($caml_call1) {
       $A = (int)($i + 1);
       if (3 !== $i) {
         $i = $A;
-        goto a_continue;
+        $continue_counter = 0;
+        break;
       }
       return 0;
     }
-    a_continue:
-    ;
-
+    if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
+    } else if ($continue_counter > 0) {
+      $continue_counter -= 1;
+      break;
+    }
   }
-  a_break:
 };
 $f3 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $j = 4;
     for (; ; ) {
@@ -284,7 +292,8 @@ $f3 = function($g) use ($caml_call1) {
         $y = (int)($j + 1);
         if (5 !== $j) {
           $j = $y;
-          goto b_continue;
+          $continue_counter = 0;
+          break;
         }
         $l = 6;
         for (; ; ) {
@@ -297,24 +306,39 @@ $f3 = function($g) use ($caml_call1) {
           $w = (int)($i + 1);
           if (3 !== $i) {
             $i = $w;
-            goto a_continue;
+            $continue_counter = 2;
+            break;
           }
           return 0;
         }
+        if ($continue_counter === 0) {
+          $continue_counter = null;
+          continue;
+        } else if ($continue_counter > 0) {
+          $continue_counter -= 1;
+          break;
+        }
       }
-      b_continue:
-      ;
-
+      if ($continue_counter === 0) {
+        $continue_counter = null;
+        continue;
+      } else if ($continue_counter > 0) {
+        $continue_counter -= 1;
+        break;
+      }
     }
-    b_break:
-    a_continue:
-    ;
-
+    if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
+    } else if ($continue_counter > 0) {
+      $continue_counter -= 1;
+      break;
+    }
   }
-  a_break:
 };
 $f4 = function($g) use ($caml_call1) {
   $i = 2;
+  $continue_counter = null;
   for (; ; ) {
     $k__3 = 4;
     for (; ; ) {
@@ -339,7 +363,8 @@ $f4 = function($g) use ($caml_call1) {
             $t = (int)($k__2 + 1);
             if (5 !== $k__2) {
               $k__2 = $t;
-              goto d_continue;
+              $continue_counter = 0;
+              break;
             }
             $k__1 = 4;
             for (; ; ) {
@@ -352,7 +377,8 @@ $f4 = function($g) use ($caml_call1) {
               $r = (int)($j + 1);
               if (5 !== $j) {
                 $j = $r;
-                goto c_continue;
+                $continue_counter = 2;
+                break;
               }
               $l__0 = 6;
               for (; ; ) {
@@ -380,12 +406,14 @@ $f4 = function($g) use ($caml_call1) {
                       $o = (int)($m__0 + 1);
                       if (5 !== $m__0) {
                         $m__0 = $o;
-                        goto f_continue;
+                        $continue_counter = 0;
+                        break;
                       }
                       $n = (int)($l__0 + 1);
                       if (7 !== $l__0) {
                         $l__0 = $n;
-                        goto e_continue;
+                        $continue_counter = 2;
+                        break;
                       }
                       $k__0 = 4;
                       for (; ; ) {
@@ -398,7 +426,8 @@ $f4 = function($g) use ($caml_call1) {
                         $l = (int)($i + 1);
                         if (3 !== $i) {
                           $i = $l;
-                          goto a_continue;
+                          $continue_counter = 9;
+                          break;
                         }
                         $k = 4;
                         for (; ; ) {
@@ -410,37 +439,94 @@ $f4 = function($g) use ($caml_call1) {
                           }
                           return 0;
                         }
+                        if ($continue_counter === 0) {
+                          $continue_counter = null;
+                          continue;
+                        } else if ($continue_counter > 0) {
+                          $continue_counter -= 1;
+                          break;
+                        }
+                      }
+                      if ($continue_counter === 0) {
+                        $continue_counter = null;
+                        continue;
+                      } else if ($continue_counter > 0) {
+                        $continue_counter -= 1;
+                        break;
                       }
                     }
-                    f_continue:
-                    ;
-
+                    if ($continue_counter === 0) {
+                      $continue_counter = null;
+                      continue;
+                    } else if ($continue_counter > 0) {
+                      $continue_counter -= 1;
+                      break;
+                    }
                   }
-                  f_break:
+                  if ($continue_counter === 0) {
+                    $continue_counter = null;
+                    continue;
+                  } else if ($continue_counter > 0) {
+                    $continue_counter -= 1;
+                    break;
+                  }
                 }
-                e_continue:
-                ;
-
+                if ($continue_counter === 0) {
+                  $continue_counter = null;
+                  continue;
+                } else if ($continue_counter > 0) {
+                  $continue_counter -= 1;
+                  break;
+                }
               }
-              e_break:
+              if ($continue_counter === 0) {
+                $continue_counter = null;
+                continue;
+              } else if ($continue_counter > 0) {
+                $continue_counter -= 1;
+                break;
+              }
+            }
+            if ($continue_counter === 0) {
+              $continue_counter = null;
+              continue;
+            } else if ($continue_counter > 0) {
+              $continue_counter -= 1;
+              break;
             }
           }
-          d_continue:
-          ;
-
+          if ($continue_counter === 0) {
+            $continue_counter = null;
+            continue;
+          } else if ($continue_counter > 0) {
+            $continue_counter -= 1;
+            break;
+          }
         }
-        d_break:
-        c_continue:
-        ;
-
+        if ($continue_counter === 0) {
+          $continue_counter = null;
+          continue;
+        } else if ($continue_counter > 0) {
+          $continue_counter -= 1;
+          break;
+        }
       }
-      c_break:
+      if ($continue_counter === 0) {
+        $continue_counter = null;
+        continue;
+      } else if ($continue_counter > 0) {
+        $continue_counter -= 1;
+        break;
+      }
     }
-    a_continue:
-    ;
-
+    if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
+    } else if ($continue_counter > 0) {
+      $continue_counter -= 1;
+      break;
+    }
   }
-  a_break:
 };
 $fx = function($prefix, $x) use ($a, $b, $print_endline, $string_of_int) {
   return $print_endline($a($b, $string_of_int($x)));
