@@ -60,15 +60,15 @@ var bom = 65279;
 var rep = 65533;
 
 function succ(u) {
-  if (u === 55295) {return hi_bound;}
-  if (u === 1114111) {return caml_call1(Pervasives[1], err_no_succ);}
-  return u + 1 | 0;
+  return u === 55295 ?
+    hi_bound :
+    u === 1114111 ? caml_call1(Pervasives[1], err_no_succ) : u + 1 | 0;
 }
 
 function pred(u) {
-  if (u === 57344) {return lo_bound;}
-  if (u === 0) {return caml_call1(Pervasives[1], err_no_pred);}
-  return u + -1 | 0;
+  return u === 57344 ?
+    lo_bound :
+    u === 0 ? caml_call1(Pervasives[1], err_no_pred) : u + -1 | 0;
 }
 
 function is_valid(i) {

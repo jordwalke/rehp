@@ -42,8 +42,7 @@ final class Nativeint {
     $succ = function($n) {return (int) ($n + 1);};
     $pred = function($n) {return (int) ($n - 1);};
     $abs = function($n) use ($runtime) {
-      if ($runtime["caml_greaterequal"]($n, 0)) {return $n;}
-      return (int) - $n;
+      return $runtime["caml_greaterequal"]($n, 0) ? $n : ((int) - $n);
     };
     $size = $Sys[10];
     $min_int = $left_shift_32(1, (int) ($size + -1));

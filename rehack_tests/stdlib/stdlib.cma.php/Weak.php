@@ -384,8 +384,7 @@ final class Weak {
                 }
               }
               $r6 = (int) (($t[1]->count() - 1) / 2) < $t[4] ? 1 : (0);
-              if ($r6) {return $resize($t);}
-              return $r6;
+              return $r6 ? $resize($t) : ($r6);
             }
             if ($caml_weak_check($bucket, $i__0)) {
               $i__2 = (int) ($i__0 + 1);

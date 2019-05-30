@@ -59,10 +59,9 @@ function from_bytes(buff, ofs) {
   if (0 <= ofs) {
     if (! ((caml_ml_bytes_length(buff) - 20 | 0) < ofs)) {
       var len = caml_marshal_data_size(buff, ofs);
-      if ((caml_ml_bytes_length(buff) - (20 + len | 0) | 0) < ofs) {
-        return caml_call1(Pervasives[1], cst_Marshal_from_bytes__0);
-      }
-      return runtime["caml_input_value_from_string"](buff, ofs);
+      return (caml_ml_bytes_length(buff) - (20 + len | 0) | 0) < ofs ?
+        caml_call1(Pervasives[1], cst_Marshal_from_bytes__0) :
+        runtime["caml_input_value_from_string"](buff, ofs);
     }
   }
   return caml_call1(Pervasives[1], cst_Marshal_from_bytes);

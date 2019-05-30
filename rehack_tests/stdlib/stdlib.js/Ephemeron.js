@@ -198,8 +198,7 @@ function MakeSeeded(H) {
     caml_check_bound(h[2], i)[i + 1] = bucket;
     h[1] = h[1] + 1 | 0;
     var AX = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-    if (AX) {return resize(h);}
-    return AX;
+    return AX ? resize(h) : AX;
   }
   function remove(h, key) {
     var hkey = caml_call2(H[2], h[3], key);
@@ -370,8 +369,7 @@ function MakeSeeded(H) {
         caml_check_bound(h[2], i)[i + 1] = [0,hkey,container,l];
         h[1] = h[1] + 1 | 0;
         var AQ = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-        if (AQ) {return resize(h);}
-        return AQ;
+        return AQ ? resize(h) : AQ;
       }
       throw runtime["caml_wrap_thrown_exception_reraise"](AS);
     }
@@ -661,11 +659,7 @@ function MakeSeeded__0(H) {
   var hash = H[2];
   function equal(c, k) {
     var match = get_key(c);
-    if (match) {
-      var k__0 = match[1];
-      if (caml_call2(H[1], k, k__0)) {return 0;}
-      return 1;
-    }
+    if (match) {var k__0 = match[1];return caml_call2(H[1], k, k__0) ? 0 : 1;}
     return 2;
   }
   function set_key_data(c, k, d) {
@@ -819,8 +813,7 @@ function MakeSeeded__1(H1, H2) {
   }
   function check_key(c) {
     var Aq = check_key1(c);
-    if (Aq) {return check_key2(c);}
-    return Aq;
+    return Aq ? check_key2(c) : Aq;
   }
   return MakeSeeded(
     [0,create,hash,equal,get_data__0,get_key,set_key_data,check_key]

@@ -546,8 +546,7 @@ final class Buffer {
             continue;
           }
           $hs = 92 === $previous__0 ? 1 : (0);
-          if ($hs) {return $add_char($b, $previous__0);}
-          return $hs;
+          return $hs ? $add_char($b, $previous__0) : ($hs);
         }
       };
       return $subst(32, 0);

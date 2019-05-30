@@ -199,6 +199,28 @@ let simplify_full_if_statement =
     }
   };
 
+exception Not_return;
+
+let rec return_expression_of_statement = st =>
+  switch (fst(st)) {
+  | J.Return_statement(Some(e)) => e
+  | J.Block([st]) => return_expression_of_statement(st)
+  | _ => raise(Not_return)
+  };
+
+let simplify_partial_if_statement =
+    (e, loc, iftrue, truestop, iffalse, falsestop) =>
+  try (
+    {
+      let e1 = return_expression_of_statement(iftrue);
+      let e2 = return_expression_of_statement(iffalse);
+      [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
+    }
+  ) {
+  | Not_return =>
+    simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop)
+  };
+
 let rec if_statement_2 =
         (e, loc, iftrue, truestop, iffalse, falsestop, simplify_ifdecl) => {
   let e = simplify_condition(e);
@@ -227,7 +249,14 @@ let rec if_statement_2 =
         falsestop,
       );
     } else {
-      simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop);
+      simplify_partial_if_statement(
+        e,
+        loc,
+        iftrue,
+        truestop,
+        iffalse,
+        falsestop,
+      );
     }
   };
 };

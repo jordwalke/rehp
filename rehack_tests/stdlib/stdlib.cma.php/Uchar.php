@@ -77,14 +77,18 @@ final class Uchar {
     $bom = 65279;
     $rep = 65533;
     $succ = function($u) use ($Pervasives,$caml_call1,$err_no_succ,$hi_bound) {
-      if ($u === 55295) {return $hi_bound;}
-      if ($u === 1114111) {return $caml_call1($Pervasives[1], $err_no_succ);}
-      return (int) ($u + 1);
+      return $u === 55295
+        ? $hi_bound
+        : ($u === 1114111
+         ? $caml_call1($Pervasives[1], $err_no_succ)
+         : ((int) ($u + 1)));
     };
     $pred = function($u) use ($Pervasives,$caml_call1,$err_no_pred,$lo_bound) {
-      if ($u === 57344) {return $lo_bound;}
-      if ($u === 0) {return $caml_call1($Pervasives[1], $err_no_pred);}
-      return (int) ($u + -1);
+      return $u === 57344
+        ? $lo_bound
+        : ($u === 0
+         ? $caml_call1($Pervasives[1], $err_no_pred)
+         : ((int) ($u + -1)));
     };
     $is_valid = function($i) {
       $bf = 0 <= $i ? 1 : (0);

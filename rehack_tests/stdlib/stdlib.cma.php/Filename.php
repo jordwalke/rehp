@@ -173,8 +173,9 @@ final class Filename {
           return $caml_call3($String[4], $name, 0, 1);
         }
       };
-      if ($caml_string_equal($name, $cst)) {return $current_dir_name;}
-      return $find_end((int) ($caml_ml_string_length($name) + -1));
+      return $caml_string_equal($name, $cst)
+        ? $current_dir_name
+        : ($find_end((int) ($caml_ml_string_length($name) + -1)));
     };
     $generic_dirname = function($is_dir_sep, $current_dir_name, $name) use ($String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_equal,$cst__0) {
       $intermediate_sep = function($n) use ($String,$caml_call2,$caml_call3,$is_dir_sep,$name) {
@@ -217,8 +218,9 @@ final class Filename {
           return $caml_call3($String[4], $name, 0, 1);
         }
       };
-      if ($caml_string_equal($name, $cst__0)) {return $current_dir_name;}
-      return $trailing_sep((int) ($caml_ml_string_length($name) + -1));
+      return $caml_string_equal($name, $cst__0)
+        ? $current_dir_name
+        : ($trailing_sep((int) ($caml_ml_string_length($name) + -1)));
     };
     $is_dir_sep = function($s, $i) use ($caml_string_get) {
       return 47 === $caml_string_get($s, $i) ? 1 : (0);
@@ -520,8 +522,7 @@ final class Filename {
           else {$switch__0 = 1;}
         }
         else {if (65 <= $param) {$switch__0 = 1;}else {$switch__0 = 0;}}
-        if ($switch__0) {return 1;}
-        return 0;
+        return $switch__0 ? 1 : (0);
       };
       $BD = 2 <= $caml_ml_string_length($s) ? 1 : (0);
       if ($BD) {
@@ -652,8 +653,9 @@ final class Filename {
     $chop_suffix = function($name, $suff) use ($Pervasives,$String,$caml_call1,$caml_call3,$caml_ml_string_length,$cst_Filename_chop_suffix) {
       $n = (int)
       ($caml_ml_string_length($name) - $caml_ml_string_length($suff));
-      if (0 <= $n) {return $caml_call3($String[4], $name, 0, $n);}
-      return $caml_call1($Pervasives[1], $cst_Filename_chop_suffix);
+      return 0 <= $n
+        ? $caml_call3($String[4], $name, 0, $n)
+        : ($caml_call1($Pervasives[1], $cst_Filename_chop_suffix));
     };
     $extension_len = function($name) use ($caml_ml_string_length,$caml_string_get,$is_dir_sep__1) {
       $check = function($i0, $i) use ($caml_ml_string_length,$caml_string_get,$is_dir_sep__1,$name) {
@@ -690,38 +692,39 @@ final class Filename {
     };
     $extension = function($name) use ($String,$caml_call3,$caml_ml_string_length,$cst__10,$extension_len) {
       $l = $extension_len($name);
-      if (0 === $l) {return $cst__10;}
-      return $caml_call3(
-        $String[4],
-        $name,
-        (int)
-        ($caml_ml_string_length($name) - $l),
-        $l
-      );
+      return 0 === $l
+        ? $cst__10
+        : ($caml_call3(
+         $String[4],
+         $name,
+         (int)
+         ($caml_ml_string_length($name) - $l),
+         $l
+       ));
     };
     $chop_extension = function($name) use ($Pervasives,$String,$caml_call1,$caml_call3,$caml_ml_string_length,$cst_Filename_chop_extension,$extension_len) {
       $l = $extension_len($name);
-      if (0 === $l) {
-        return $caml_call1($Pervasives[1], $cst_Filename_chop_extension);
-      }
-      return $caml_call3(
-        $String[4],
-        $name,
-        0,
-        (int)
-        ($caml_ml_string_length($name) - $l)
-      );
+      return 0 === $l
+        ? $caml_call1($Pervasives[1], $cst_Filename_chop_extension)
+        : ($caml_call3(
+         $String[4],
+         $name,
+         0,
+         (int)
+         ($caml_ml_string_length($name) - $l)
+       ));
     };
     $remove_extension = function($name) use ($String,$caml_call3,$caml_ml_string_length,$extension_len) {
       $l = $extension_len($name);
-      if (0 === $l) {return $name;}
-      return $caml_call3(
-        $String[4],
-        $name,
-        0,
-        (int)
-        ($caml_ml_string_length($name) - $l)
-      );
+      return 0 === $l
+        ? $name
+        : ($caml_call3(
+         $String[4],
+         $name,
+         0,
+         (int)
+         ($caml_ml_string_length($name) - $l)
+       ));
     };
     $prng = Vector{
       246,

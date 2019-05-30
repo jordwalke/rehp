@@ -2652,8 +2652,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $bos = function($en) {return $en;};
   $bts = function($em) {return $em;};
   $ensure_ge = function($x, $y) use ($e,$invalid_arg) {
-    if ($y <= $x) {return $x;}
-    return $invalid_arg($e);
+    return $y <= $x ? $x : ($invalid_arg($e));
   };
   $sum_lengths = function($acc, $seplen, $param) use ($caml_ml_string_length,$ensure_ge) {
     $acc__0 = $acc;
@@ -2750,12 +2749,10 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           }
           else {if (8 <= $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
         }
-        if ($switch__0) {return 1;}
-        return 1;
+        return $switch__0 ? 1 : (1);
       }
     };
-    if ($needs_escape(0)) {return $bts($escaped($bos($s)));}
-    return $s;
+    return $needs_escape(0) ? $bts($escaped($bos($s))) : ($s);
   };
   $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
     $i__0 = $i;
@@ -3031,21 +3028,25 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $tag = $caml_obj_tag($o);
     if ($tag === 252) {
       $match = 0 === $depth ? 1 : (0);
-      if (0 === $match) {return $caml_call2($self[3], $self, $o);}
-      return $caml_call2($self[2], $self, $o);
+      return 0 === $match
+        ? $caml_call2($self[3], $self, $o)
+        : ($caml_call2($self[2], $self, $o));
     }
-    if ($tag === 1000) {return $caml_call2($self[1], $self, $o);}
-    if ($tag === 253) {return $caml_call2($self[4], $self, $o);}
-    if ($tag === 247) {return $caml_call2($self[10], $self, $o);}
-    if ($tag === 254) {return $caml_call3($self[9], $self, 0, $o);}
-    if ($tag === 246) {return $caml_call2($self[8], $self, $o);}
-    if ($detectList($j, $o)) {
-      return $caml_call3($self[12], $self, Vector{0, $depth}, $o);
-    }
-    if ($tag === 0) {
-      return $caml_call3($self[11], $self, Vector{0, $depth}, $o);
-    }
-    return $caml_call2($self[7], $self, $o);
+    return $tag === 1000
+      ? $caml_call2($self[1], $self, $o)
+      : ($tag === 253
+       ? $caml_call2($self[4], $self, $o)
+       : ($tag === 247
+        ? $caml_call2($self[10], $self, $o)
+        : ($tag === 254
+         ? $caml_call3($self[9], $self, 0, $o)
+         : ($tag === 246
+          ? $caml_call2($self[8], $self, $o)
+          : ($detectList($j, $o)
+           ? $caml_call3($self[12], $self, Vector{0, $depth}, $o)
+           : ($tag === 0
+            ? $caml_call3($self[11], $self, Vector{0, $depth}, $o)
+            : ($caml_call2($self[7], $self, $o))))))));
   };
   $R = function($self, $opt, $o) use ($printListShape) {
     if ($opt) {
@@ -3274,16 +3275,17 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         function($inst) use ($caml_call1,$subtreeSwapper) {
           $nextSubtree = $caml_call1($subtreeSwapper, $inst[6]);
           $match = $inst[6] !== $nextSubtree ? 1 : (0);
-          if (0 === $match) {return $inst;}
-          return Vector{
-            0,
-            $inst[1],
-            $inst[2],
-            $inst[3],
-            $inst[4],
-            $inst[5],
-            $nextSubtree
-          };
+          return 0 === $match
+            ? $inst
+            : (Vector{
+             0,
+             $inst[1],
+             $inst[2],
+             $inst[3],
+             $inst[4],
+             $inst[5],
+             $nextSubtree
+           });
         }
       );
     };
@@ -3313,8 +3315,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                 $inst = $subtree[1];
                 $next = $caml_call1($instSwapper, $inst);
                 $match = $inst !== $next ? 1 : (0);
-                if (0 === $match) {return $subtree;}
-                return Vector{0, $next};
+                return 0 === $match ? $subtree : (Vector{0, $next});
               }
             );
           };
@@ -3331,8 +3332,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                 $a = $subtree[1];
                 $next = $caml_call1($aSwapper, $a);
                 $match = $next === $a ? 1 : (0);
-                if (0 === $match) {return Vector{1, $next, $b};}
-                return $subtree;
+                return 0 === $match ? Vector{1, $next, $b} : ($subtree);
               }
             );
           };
@@ -3344,8 +3344,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                 $a = $subtree[1];
                 $next = $caml_call1($bSwapper, $b);
                 $match = $next === $b ? 1 : (0);
-                if (0 === $match) {return Vector{1, $a, $next};}
-                return $subtree;
+                return 0 === $match ? Vector{1, $a, $next} : ($subtree);
               }
             );
           };
@@ -3370,19 +3369,18 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                   $pre = $match[1];
                   $next = $caml_call1($swapper, $inst);
                   $match__0 = $next === $inst ? 1 : (0);
-                  if (0 === $match__0) {
-                    return Vector{
-                      2,
-                      $flatten->contents(
-                        Vector{
-                          0,
-                          $pre,
-                          Vector{0, Vector{0, $next, 0}, Vector{0, $post, 0}}
-                        }
-                      )
-                    };
-                  }
-                  return $subtree;
+                  return 0 === $match__0
+                    ? Vector{
+                     2,
+                     $flatten->contents(
+                       Vector{
+                         0,
+                         $pre,
+                         Vector{0, Vector{0, $next, 0}, Vector{0, $post, 0}}
+                       }
+                     )
+                   }
+                    : ($subtree);
                 }
               );
             };
@@ -3411,10 +3409,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           $rPrev = $prevJsx[1];
           $i = $subtree[1];
           $match__0 = $r === $rPrev ? 1 : (0);
-          if (0 === $match__0) {
-            return Vector{0, $reconcile->contents($i, $r)};
-          }
-          return $subtree;
+          return 0 === $match__0
+            ? Vector{0, $reconcile->contents($i, $r)}
+            : ($subtree);
         // FALLTHROUGH
         case 1:
           $rb = $match[2];
@@ -3617,8 +3614,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     return $a($aR, $a($s, $a($aQ, $a($dJ, $dI))));
   };
   $printSection = function($s) use ($a,$aW,$log,$suppress) {
-    if ($suppress[1]) {return 0;}
-    return $log($a($aW, $s));
+    return $suppress[1] ? 0 : ($log($a($aW, $s)));
   };
   $printRoot = function($title, $root) use ($a,$a0,$a1,$aX,$aY,$aZ,$log,$printInstanceCollection,$suppress) {
     $dF = $root[2];

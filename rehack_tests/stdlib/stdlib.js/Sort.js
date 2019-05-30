@@ -26,8 +26,9 @@ function merge(order, l1, l2) {
     if (l2) {
       var t2 = l2[2];
       var h2 = l2[1];
-      if (caml_call2(order, h1, h2)) {return [0,h1,merge(order, t1, l2)];}
-      return [0,h2,merge(order, l1, t2)];
+      return caml_call2(order, h1, h2) ?
+        [0,h1,merge(order, t1, l2)] :
+        [0,h2,merge(order, l1, t2)];
     }
     return l1;
   }

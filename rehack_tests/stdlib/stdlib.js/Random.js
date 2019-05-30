@@ -213,10 +213,9 @@ function int32aux(s, n) {
 }
 
 function int32(s, bound) {
-  if (caml_lessequal(bound, 0)) {
-    return caml_call1(Pervasives[1], cst_Random_int32);
-  }
-  return int32aux(s, bound);
+  return caml_lessequal(bound, 0) ?
+    caml_call1(Pervasives[1], cst_Random_int32) :
+    int32aux(s, bound);
 }
 
 function int64aux(s, n) {
@@ -237,10 +236,9 @@ function int64aux(s, n) {
 }
 
 function int64(s, bound) {
-  if (caml_lessequal(bound, pZ)) {
-    return caml_call1(Pervasives[1], cst_Random_int64);
-  }
-  return int64aux(s, bound);
+  return caml_lessequal(bound, pZ) ?
+    caml_call1(Pervasives[1], cst_Random_int64) :
+    int64aux(s, bound);
 }
 
 if (32 === Nativeint[7]) var nativeint = function(s, bound) {

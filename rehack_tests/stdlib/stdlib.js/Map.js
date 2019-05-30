@@ -113,7 +113,7 @@ function Make(Ord) {
     return [0,l,x,d,r,gR];
   }
   var empty = 0;
-  function is_empty(param) {if (param) {return 0;}return 1;}
+  function is_empty(param) {return param ? 0 : 1;}
   function add(x, data, m) {
     if (m) {
       var h = m[5];
@@ -122,15 +122,13 @@ function Make(Ord) {
       var v = m[2];
       var l = m[1];
       var c = caml_call2(Ord[1], x, v);
-      if (0 === c) {if (d === data) {return m;}return [0,l,x,data,r,h];}
+      if (0 === c) {return d === data ? m : [0,l,x,data,r,h];}
       if (0 <= c) {
         var rr = add(x, data, r);
-        if (r === rr) {return m;}
-        return bal(l, v, d, rr);
+        return r === rr ? m : bal(l, v, d, rr);
       }
       var ll = add(x, data, l);
-      if (l === ll) {return m;}
-      return bal(ll, v, d, r);
+      return l === ll ? m : bal(ll, v, d, r);
     }
     return [0,0,x,data,0,1];
   }
@@ -424,12 +422,10 @@ function Make(Ord) {
       if (0 === c) {return gk(l, r);}
       if (0 <= c) {
         var rr = remove(x, r);
-        if (r === rr) {return m;}
-        return bal(l, v, d, rr);
+        return r === rr ? m : bal(l, v, d, rr);
       }
       var ll = remove(x, l);
-      if (l === ll) {return m;}
-      return bal(ll, v, d, r);
+      return l === ll ? m : bal(ll, v, d, r);
     }
     return 0;
   }
@@ -445,19 +441,16 @@ function Make(Ord) {
         var match = caml_call1(f, [0,d]);
         if (match) {
           var data = match[1];
-          if (d === data) {return m;}
-          return [0,l,x,data,r,h];
+          return d === data ? m : [0,l,x,data,r,h];
         }
         return gk(l, r);
       }
       if (0 <= c) {
         var rr = update(x, f, r);
-        if (r === rr) {return m;}
-        return bal(l, v, d, rr);
+        return r === rr ? m : bal(l, v, d, rr);
       }
       var ll = update(x, f, l);
-      if (l === ll) {return m;}
-      return bal(ll, v, d, r);
+      return l === ll ? m : bal(ll, v, d, r);
     }
     var match__0 = caml_call1(f, 0);
     if (match__0) {var data__0 = match__0[1];return [0,0,x,data__0,0,1];}
@@ -597,9 +590,11 @@ function Make(Ord) {
         var ld = l[3];
         var lv = l[2];
         var ll = l[1];
-        if ((rh + 2 | 0) < lh) {return bal(ll, lv, ld, join(lr, v, d, r));}
-        if ((lh + 2 | 0) < rh) {return bal(join(l, v, d, rl), rv, rd, rr);}
-        return create(l, v, d, r);
+        return (rh + 2 | 0) < lh ?
+          bal(ll, lv, ld, join(lr, v, d, r)) :
+          (lh + 2 | 0) < rh ?
+           bal(join(l, v, d, rl), rv, rd, rr) :
+           create(l, v, d, r);
       }
       return add_max_binding(v, d, l);
     }
@@ -804,8 +799,7 @@ function Make(Ord) {
           }
           return 1;
         }
-        if (e2__0) {return -1;}
-        return 0;
+        return e2__0 ? -1 : 0;
       }
     }
     var gq = cons_enum(m2, 0);
@@ -843,8 +837,7 @@ function Make(Ord) {
           }
           return 0;
         }
-        if (e2__0) {return 0;}
-        return 1;
+        return e2__0 ? 0 : 1;
       }
     }
     var gm = cons_enum(m2, 0);

@@ -238,8 +238,7 @@ final class Ephemeron {
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = (int) ($h[1] + 1);
         $AX = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-        if ($AX) {return $resize($h);}
-        return $AX;
+        return $AX ? $resize($h) : ($AX);
       };
       $remove = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
         $remove_bucket = new Ref();
@@ -432,8 +431,7 @@ final class Ephemeron {
             $caml_check_bound($h[2], $i)[$i + 1] = Vector{0, $hkey, $container, $l};
             $h[1] = (int) ($h[1] + 1);
             $AQ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-            if ($AQ) {return $resize($h);}
-            return $AQ;
+            return $AQ ? $resize($h) : ($AQ);
           }
           throw $runtime["caml_wrap_thrown_exception_reraise"]($AS) as \Throwable;
         }
@@ -738,8 +736,7 @@ final class Ephemeron {
         $match = $get_key($c);
         if ($match) {
           $k__0 = $match[1];
-          if ($caml_call2($H[1], $k, $k__0)) {return 0;}
-          return 1;
+          return $caml_call2($H[1], $k, $k__0) ? 0 : (1);
         }
         return 2;
       };
@@ -925,8 +922,7 @@ final class Ephemeron {
       };
       $check_key = function($c) use ($check_key1,$check_key2) {
         $Aq = $check_key1($c);
-        if ($Aq) {return $check_key2($c);}
-        return $Aq;
+        return $Aq ? $check_key2($c) : ($Aq);
       };
       return $MakeSeeded(
         Vector{

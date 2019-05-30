@@ -47,10 +47,9 @@ final class Sort {
         if ($l2) {
           $t2 = $l2[2];
           $h2 = $l2[1];
-          if ($caml_call2($order, $h1, $h2)) {
-            return Vector{0, $h1, $merge->contents($order, $t1, $l2)};
-          }
-          return Vector{0, $h2, $merge->contents($order, $l1, $t2)};
+          return $caml_call2($order, $h1, $h2)
+            ? Vector{0, $h1, $merge->contents($order, $t1, $l2)}
+            : (Vector{0, $h2, $merge->contents($order, $l1, $t2)});
         }
         return $l1;
       }

@@ -148,8 +148,9 @@ function generic_basename(is_dir_sep, current_dir_name, name) {
       return caml_call3(String[4], name, 0, 1);
     }
   }
-  if (caml_string_equal(name, cst)) {return current_dir_name;}
-  return find_end(caml_ml_string_length(name) + -1 | 0);
+  return caml_string_equal(name, cst) ?
+    current_dir_name :
+    find_end(caml_ml_string_length(name) + -1 | 0);
 }
 
 function generic_dirname(is_dir_sep, current_dir_name, name) {
@@ -193,8 +194,9 @@ function generic_dirname(is_dir_sep, current_dir_name, name) {
       return caml_call3(String[4], name, 0, 1);
     }
   }
-  if (caml_string_equal(name, cst__0)) {return current_dir_name;}
-  return trailing_sep(caml_ml_string_length(name) + -1 | 0);
+  return caml_string_equal(name, cst__0) ?
+    current_dir_name :
+    trailing_sep(caml_ml_string_length(name) + -1 | 0);
 }
 
 function is_dir_sep(s, i) {return 47 === caml_string_get(s, i) ? 1 : 0;}
@@ -441,8 +443,7 @@ function has_drive(s) {
     ) var switch__0 = 0;
     else var switch__0 = 1;
     else if (65 <= param) var switch__0 = 1;else var switch__0 = 0;
-    if (switch__0) {return 1;}
-    return 0;
+    return switch__0 ? 1 : 0;
   }
   var BD = 2 <= caml_ml_string_length(s) ? 1 : 0;
   if (BD) {
@@ -572,8 +573,9 @@ function concat(dirname, filename) {
 
 function chop_suffix(name, suff) {
   var n = caml_ml_string_length(name) - caml_ml_string_length(suff) | 0;
-  if (0 <= n) {return caml_call3(String[4], name, 0, n);}
-  return caml_call1(Pervasives[1], cst_Filename_chop_suffix);
+  return 0 <= n ?
+    caml_call3(String[4], name, 0, n) :
+    caml_call1(Pervasives[1], cst_Filename_chop_suffix);
 }
 
 function extension_len(name) {
@@ -612,22 +614,23 @@ function extension_len(name) {
 
 function extension(name) {
   var l = extension_len(name);
-  if (0 === l) {return cst__10;}
-  return caml_call3(String[4], name, caml_ml_string_length(name) - l | 0, l);
+  return 0 === l ?
+    cst__10 :
+    caml_call3(String[4], name, caml_ml_string_length(name) - l | 0, l);
 }
 
 function chop_extension(name) {
   var l = extension_len(name);
-  if (0 === l) {
-    return caml_call1(Pervasives[1], cst_Filename_chop_extension);
-  }
-  return caml_call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
+  return 0 === l ?
+    caml_call1(Pervasives[1], cst_Filename_chop_extension) :
+    caml_call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
 }
 
 function remove_extension(name) {
   var l = extension_len(name);
-  if (0 === l) {return name;}
-  return caml_call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
+  return 0 === l ?
+    name :
+    caml_call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
 }
 
 var prng = [246,function(By) {return caml_call1(Random[11][2], 0);}];

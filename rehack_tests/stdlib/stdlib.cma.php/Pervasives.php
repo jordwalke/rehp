@@ -111,14 +111,12 @@ final class Pervasives {
     };
     $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)};
     $min = function($x, $y) use ($runtime) {
-      if ($runtime["caml_lessequal"]($x, $y)) {return $x;}
-      return $y;
+      return $runtime["caml_lessequal"]($x, $y) ? $x : ($y);
     };
     $max = function($x, $y) use ($runtime) {
-      if ($runtime["caml_greaterequal"]($x, $y)) {return $x;}
-      return $y;
+      return $runtime["caml_greaterequal"]($x, $y) ? $x : ($y);
     };
-    $abs = function($x) {if (0 <= $x) {return $x;}return (int) - $x;};
+    $abs = function($x) {return 0 <= $x ? $x : ((int) - $x);};
     $lnot = function($x) {return $x ^ -1;};
     $infinity = $caml_int64_float_of_bits($a);
     $neg_infinity = $caml_int64_float_of_bits($b);
@@ -141,22 +139,19 @@ final class Pervasives {
       return $invalid_arg($cst_char_of_int);
     };
     $string_of_bool = function($b) use ($cst_false,$cst_true) {
-      if ($b) {return $cst_true;}
-      return $cst_false;
+      return $b ? $cst_true : ($cst_false);
     };
     $bool_of_string = function($param) use ($caml_string_notequal,$cst_bool_of_string,$cst_false__0,$cst_true__0,$invalid_arg) {
-      if ($caml_string_notequal($param, $cst_false__0)) {
-        if ($caml_string_notequal($param, $cst_true__0)) {return $invalid_arg($cst_bool_of_string);}
-        return 1;
-      }
-      return 0;
+      return $caml_string_notequal($param, $cst_false__0)
+        ? $caml_string_notequal($param, $cst_true__0)
+         ? $invalid_arg($cst_bool_of_string)
+         : (1)
+        : (0);
     };
     $bool_of_string_opt = function($param) use ($caml_string_notequal,$cst_false__1,$cst_true__1,$h,$i) {
-      if ($caml_string_notequal($param, $cst_false__1)) {
-        if ($caml_string_notequal($param, $cst_true__1)) {return 0;}
-        return $h;
-      }
-      return $i;
+      return $caml_string_notequal($param, $cst_false__1)
+        ? $caml_string_notequal($param, $cst_true__1) ? 0 : ($h)
+        : ($i);
     };
     $string_of_int = function($n) use ($caml_new_string) {
       return $caml_new_string("" . $n);

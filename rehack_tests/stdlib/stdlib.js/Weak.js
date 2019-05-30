@@ -339,8 +339,7 @@ function Make(H) {
             }
           }
           var r6 = ((t[1].length - 1) / 2 | 0) < t[4] ? 1 : 0;
-          if (r6) {return resize(t);}
-          return r6;
+          return r6 ? resize(t) : r6;
         }
         if (caml_weak_check(bucket, i__0)) {
           var i__2 = i__0 + 1 | 0;

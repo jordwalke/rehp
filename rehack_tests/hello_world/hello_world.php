@@ -1649,10 +1649,7 @@ $g = function($param) use ($a, $caml_check_bound) {
 $g(0);
 
 $h = function($param) {
-  if (42 === $param) {
-    return 0;
-  }
-  return 1;
+  return 42 === $param ? 0 : (1);
 };
 $x__0 = $h(42);
 

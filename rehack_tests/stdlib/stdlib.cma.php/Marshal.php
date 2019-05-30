@@ -75,9 +75,10 @@ final class Marshal {
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {
           $len = $caml_marshal_data_size($buff, $ofs);
-          if ((int) ($caml_ml_bytes_length($buff) - (int) (20 + $len)) < $ofs
-          ) {return $caml_call1($Pervasives[1], $cst_Marshal_from_bytes__0);}
-          return $runtime["caml_input_value_from_string"]($buff, $ofs);
+          return (int)
+           ($caml_ml_bytes_length($buff) - (int) (20 + $len)) < $ofs
+            ? $caml_call1($Pervasives[1], $cst_Marshal_from_bytes__0)
+            : ($runtime["caml_input_value_from_string"]($buff, $ofs));
         }
       }
       return $caml_call1($Pervasives[1], $cst_Marshal_from_bytes);

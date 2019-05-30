@@ -79,8 +79,7 @@ var fill = Bytes[10];
 var blit = Bytes[12];
 
 function ensure_ge(x, y) {
-  if (y <= x) {return x;}
-  return caml_call1(Pervasives[1], cst_String_concat);
+  return y <= x ? x : caml_call1(Pervasives[1], cst_String_concat);
 }
 
 function sum_lengths(acc, seplen, param) {
@@ -195,8 +194,7 @@ function is_space(param) {
   if (4 < ck >>> 0) if (23 === ck) var switch__0 = 1;
   else var switch__0 = 0;
   else if (2 === ck) var switch__0 = 0;else var switch__0 = 1;
-  if (switch__0) {return 1;}
-  return 0;
+  return switch__0 ? 1 : 0;
 }
 
 function trim(s) {
@@ -235,8 +233,7 @@ function escaped(s) {
       ) var switch__0 = 1;
       else var switch__0 = 0;
       else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
-      if (switch__0) {return 1;}
-      return 1;
+      return switch__0 ? 1 : 1;
     }
   }
   if (needs_escape(0)) {

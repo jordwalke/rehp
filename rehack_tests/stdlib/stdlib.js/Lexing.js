@@ -217,8 +217,7 @@ function sub_lexeme_opt(lexbuf, i1, i2) {
 function sub_lexeme_char(lexbuf, i) {return caml_bytes_get(lexbuf[2], i);}
 
 function sub_lexeme_char_opt(lexbuf, i) {
-  if (0 <= i) {return [0,caml_bytes_get(lexbuf[2], i)];}
-  return 0;
+  return 0 <= i ? [0,caml_bytes_get(lexbuf[2], i)] : 0;
 }
 
 function lexeme_char(lexbuf, i) {

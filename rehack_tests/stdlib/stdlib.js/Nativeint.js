@@ -24,10 +24,7 @@ function succ(n) {return n + 1 | 0;}
 
 function pred(n) {return n - 1 | 0;}
 
-function abs(n) {
-  if (runtime["caml_greaterequal"](n, 0)) {return n;}
-  return - n | 0;
-}
+function abs(n) {return runtime["caml_greaterequal"](n, 0) ? n : - n | 0;}
 
 var size = Sys[10];
 var min_int = 1 << (size + -1 | 0);

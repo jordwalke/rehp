@@ -92,14 +92,11 @@ function invalid_arg(s) {
 
 var Exit = [248,cst_Pervasives_Exit,runtime["caml_fresh_oo_id"](0)];
 
-function min(x, y) {if (runtime["caml_lessequal"](x, y)) {return x;}return y;}
+function min(x, y) {return runtime["caml_lessequal"](x, y) ? x : y;}
 
-function max(x, y) {
-  if (runtime["caml_greaterequal"](x, y)) {return x;}
-  return y;
-}
+function max(x, y) {return runtime["caml_greaterequal"](x, y) ? x : y;}
 
-function abs(x) {if (0 <= x) {return x;}return - x | 0;}
+function abs(x) {return 0 <= x ? x : - x | 0;}
 
 function lnot(x) {return x ^ -1;}
 
@@ -126,22 +123,20 @@ function char_of_int(n) {
   return invalid_arg(cst_char_of_int);
 }
 
-function string_of_bool(b) {if (b) {return cst_true;}return cst_false;}
+function string_of_bool(b) {return b ? cst_true : cst_false;}
 
 function bool_of_string(param) {
-  if (caml_string_notequal(param, cst_false__0)) {
-    if (caml_string_notequal(param, cst_true__0)) {return invalid_arg(cst_bool_of_string);}
-    return 1;
-  }
-  return 0;
+  return caml_string_notequal(param, cst_false__0) ?
+    caml_string_notequal(param, cst_true__0) ?
+     invalid_arg(cst_bool_of_string) :
+     1 :
+    0;
 }
 
 function bool_of_string_opt(param) {
-  if (caml_string_notequal(param, cst_false__1)) {
-    if (caml_string_notequal(param, cst_true__1)) {return 0;}
-    return h;
-  }
-  return i;
+  return caml_string_notequal(param, cst_false__1) ?
+    caml_string_notequal(param, cst_true__1) ? 0 : h :
+    i;
 }
 
 function string_of_int(n) {return caml_new_string("" + n);}

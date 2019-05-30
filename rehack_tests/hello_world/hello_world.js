@@ -1180,10 +1180,7 @@ function g(param) {
 g(0);
 
 function h(param) {
-  if (42 === param) {
-    return 0;
-  }
-  return 1;
+  return 42 === param ? 0 : 1;
 }
 
 var x__0 = h(42);

@@ -104,8 +104,9 @@ final class Obj {
       if (! $switch__1) {
         $name = $caml_call1($Pervasives[1], $cst_Obj_extension_constructor__0);
       }
-      if ($caml_obj_tag($name) === 252) {return $slot;}
-      return $caml_call1($Pervasives[1], $cst_Obj_extension_constructor);
+      return $caml_obj_tag($name) === 252
+        ? $slot
+        : ($caml_call1($Pervasives[1], $cst_Obj_extension_constructor));
     };
     $extension_name = function($slot) {return $slot[1];};
     $extension_id = function($slot) {return $slot[2];};

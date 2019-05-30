@@ -950,8 +950,7 @@ final class Arg {
           $nK = $caml_wrap_exception($nK);
           if ($nK === $End_of_file) {
             $nI = 0 < $caml_call1($Buffer[7], $buf) ? 1 : (0);
-            if ($nI) {return $stash(0);}
-            return $nI;
+            return $nI ? $stash(0) : ($nI);
           }
           throw $runtime["caml_wrap_thrown_exception_reraise"]($nK) as \Throwable;
         }

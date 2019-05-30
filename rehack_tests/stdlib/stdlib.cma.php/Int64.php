@@ -49,8 +49,9 @@ final class Int64 {
       return $runtime["caml_int64_sub"]($n, $ez);
     };
     $abs = function($n) use ($eA,$runtime) {
-      if ($runtime["caml_greaterequal"]($n, $eA)) {return $n;}
-      return $runtime["caml_int64_neg"]($n);
+      return $runtime["caml_greaterequal"]($n, $eA)
+        ? $n
+        : ($runtime["caml_int64_neg"]($n));
     };
     $lognot = function($n) use ($eB,$runtime) {
       return $runtime["caml_int64_xor"]($n, $eB);

@@ -138,10 +138,7 @@ function pp_force_break_line(state) {
     var bl_ty = match[1];
     var vO = state[9] < width ? 1 : 0;
     if (vO) {
-      if (0 !== bl_ty) {
-        if (5 <= bl_ty) {return 0;}
-        return break_line(state, width);
-      }
+      if (0 !== bl_ty) {return 5 <= bl_ty ? 0 : break_line(state, width);}
       var vP = 0;
     }
     else var vP = vO;
@@ -170,8 +167,9 @@ function format_pp_token(state, size, param) {
           if (ls) {
             var l = ls[2];
             var x = ls[1];
-            if (runtime["caml_lessthan"](n, x)) {return [0,n,ls];}
-            return [0,x,add_tab(n, l)];
+            return runtime["caml_lessthan"](n, x) ?
+              [0,n,ls] :
+              [0,x,add_tab(n, l)];
           }
           return [0,n,0];
         };
@@ -197,8 +195,7 @@ function format_pp_token(state, size, param) {
       return pp_output_newline(state);
     case 4:
       var vG = state[10] !== (state[6] - state[9] | 0) ? 1 : 0;
-      if (vG) {return pp_skip_token(state);}
-      return vG;
+      return vG ? pp_skip_token(state) : vG;
     default:
       var vH = state[5];
       if (vH) {
@@ -234,17 +231,17 @@ function format_pp_token(state, size, param) {
           case 2:
             return break_new_line(state, off, width__0);
           case 3:
-            if (state[9] < size) {
-              return break_new_line(state, off, width__0);
-            }
-            return break_same_line(state, n);
+            return state[9] < size ?
+              break_new_line(state, off, width__0) :
+              break_same_line(state, n);
           case 4:
-            if (state[11]) {return break_same_line(state, n);}
-            if (state[9] < size) {
-              return break_new_line(state, off, width__0);
-            }
-            if (((state[6] - width__0 | 0) + off | 0) < state[10]) {return break_new_line(state, off, width__0);}
-            return break_same_line(state, n);
+            return state[11] ?
+              break_same_line(state, n) :
+              state[9] < size ?
+               break_new_line(state, off, width__0) :
+               ((state[6] - width__0 | 0) + off | 0) < state[10] ?
+                break_new_line(state, off, width__0) :
+                break_same_line(state, n);
           default:
             return break_same_line(state, n)
           }
@@ -286,8 +283,9 @@ function format_pp_token(state, size, param) {
         }
         else var tab = insertion_point;
         var offset = tab - insertion_point | 0;
-        if (0 <= offset) {return break_same_line(state, offset + n__0 | 0);}
-        return break_new_line(state, tab + off__0 | 0, state[6]);
+        return 0 <= offset ?
+          break_same_line(state, offset + n__0 | 0) :
+          break_new_line(state, tab + off__0 | 0, state[6]);
       }
       return 0;
     case 3:
@@ -421,8 +419,7 @@ function pp_open_box_gen(state, indent, br_ty) {
     return scan_push(state, 0, elem);
   }
   var vs = state[14] === state[15] ? 1 : 0;
-  if (vs) {return enqueue_string(state, state[16]);}
-  return vs;
+  return vs ? enqueue_string(state, state[16]) : vs;
 }
 
 function pp_open_sys_box(state) {return pp_open_box_gen(state, 0, 3);}
@@ -448,8 +445,7 @@ function pp_open_tag(state, tag_name) {
     caml_call1(state[26], tag_name);
   }
   var vp = state[23];
-  if (vp) {return pp_enqueue(state, [0,0,[5,tag_name],0]);}
-  return vp;
+  return vp ? pp_enqueue(state, [0,0,[5,tag_name],0]) : vp;
 }
 
 function pp_close_tag(state, param) {
@@ -530,8 +526,7 @@ function pp_flush_queue(state, b) {
 
 function pp_print_as_size(state, size, s) {
   var vj = state[14] < state[15] ? 1 : 0;
-  if (vj) {return enqueue_string_as(state, size, s);}
-  return vj;
+  return vj ? enqueue_string_as(state, size, s) : vj;
 }
 
 function pp_print_as(state, isize, s) {
@@ -588,14 +583,12 @@ function pp_print_flush(state, param) {
 
 function pp_force_newline(state, param) {
   var vi = state[14] < state[15] ? 1 : 0;
-  if (vi) {return enqueue_advance(state, make_queue_elem(0, 3, 0));}
-  return vi;
+  return vi ? enqueue_advance(state, make_queue_elem(0, 3, 0)) : vi;
 }
 
 function pp_print_if_newline(state, param) {
   var vh = state[14] < state[15] ? 1 : 0;
-  if (vh) {return enqueue_advance(state, make_queue_elem(0, 4, 0));}
-  return vh;
+  return vh ? enqueue_advance(state, make_queue_elem(0, 4, 0)) : vh;
 }
 
 function pp_print_break(state, width, offset) {
@@ -677,7 +670,7 @@ function pp_set_ellipsis_text(state, s) {state[16] = s;return 0;}
 
 function pp_get_ellipsis_text(state, param) {return state[16];}
 
-function pp_limit(n) {if (n < 1000000010) {return n;}return 1000000009;}
+function pp_limit(n) {return n < 1000000010 ? n : 1000000009;}
 
 function pp_set_min_space_left(state, n) {
   var u8 = 1 <= n ? 1 : 0;
@@ -1081,8 +1074,7 @@ function pp_print_text(ppf, s) {
       continue;
     }
     var tP = left[1] !== len ? 1 : 0;
-    if (tP) {return flush(0);}
-    return tP;
+    return tP ? flush(0) : tP;
   }
 }
 
@@ -1092,8 +1084,9 @@ function compute_tag(output, tag_acc) {
   caml_call2(output, ppf, tag_acc);
   pp_print_flush(ppf, 0);
   var len = caml_call1(Buffer[7], buf);
-  if (2 <= len) {return caml_call3(Buffer[4], buf, 1, len + -2 | 0);}
-  return caml_call1(Buffer[2], buf);
+  return 2 <= len ?
+    caml_call3(Buffer[4], buf, 1, len + -2 | 0) :
+    caml_call1(Buffer[2], buf);
 }
 
 function output_formatting_lit(ppf, fmting_lit) {

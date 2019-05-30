@@ -121,8 +121,7 @@ function bk(a, b) {
   else var switch__0 = 0;
   else if (0 === bW) var switch__0 = 0;
   else if (0 === match) var switch__0 = 1;else var switch__0 = 0;
-  if (switch__0) {return caml_call1(Pervasives[1], cst_Bytes_extend);}
-  return c;
+  return switch__0 ? caml_call1(Pervasives[1], cst_Bytes_extend) : c;
 }
 
 function extend(s, left, right) {
@@ -211,8 +210,7 @@ function iteri(f, a) {
 }
 
 function ensure_ge(x, y) {
-  if (y <= x) {return x;}
-  return caml_call1(Pervasives[1], cst_Bytes_concat);
+  return y <= x ? x : caml_call1(Pervasives[1], cst_Bytes_concat);
 }
 
 function sum_lengths(acc, seplen, param) {
@@ -293,8 +291,7 @@ function is_space(param) {
   if (4 < bJ >>> 0) if (23 === bJ) var switch__0 = 1;
   else var switch__0 = 0;
   else if (2 === bJ) var switch__0 = 0;else var switch__0 = 1;
-  if (switch__0) {return 1;}
-  return 0;
+  return switch__0 ? 1 : 0;
 }
 
 function trim(s) {
@@ -309,8 +306,7 @@ function trim(s) {
       if (i[1] <= j[1]) {
         if (is_space(caml_bytes_unsafe_get(s, j[1]))) {j[1] += -1;continue;}
       }
-      if (i[1] <= j[1]) {return sub(s, i[1], (j[1] - i[1] | 0) + 1 | 0);}
-      return empty;
+      return i[1] <= j[1] ? sub(s, i[1], (j[1] - i[1] | 0) + 1 | 0) : empty;
     }
   }
 }

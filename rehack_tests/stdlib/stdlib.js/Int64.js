@@ -29,8 +29,9 @@ function succ(n) {return runtime["caml_int64_add"](n, ey);}
 function pred(n) {return runtime["caml_int64_sub"](n, ez);}
 
 function abs(n) {
-  if (runtime["caml_greaterequal"](n, eA)) {return n;}
-  return runtime["caml_int64_neg"](n);
+  return runtime["caml_greaterequal"](n, eA) ?
+    n :
+    runtime["caml_int64_neg"](n);
 }
 
 function lognot(n) {return runtime["caml_int64_xor"](n, eB);}

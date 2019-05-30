@@ -256,7 +256,7 @@ function next_char(ib) {
   }
 }
 
-function peek_char(ib) {if (ib[3]) {return ib[2];}return next_char(ib);}
+function peek_char(ib) {return ib[3] ? ib[2] : next_char(ib);}
 
 function checked_peek_char(ib) {
   var c = peek_char(ib);
@@ -272,10 +272,9 @@ function beginning_of_input(ib) {return 0 === ib[4] ? 1 : 0;}
 
 function name_of_input(ib) {
   var yd = ib[9];
-  if (typeof yd === "number") {
-    if (0 === yd) {return cst_unnamed_function;}
-    return cst_unnamed_character_string;
-  }
+  if (typeof yd === "number") return 0 === yd ?
+    cst_unnamed_function :
+    cst_unnamed_character_string;
   else {
     if (0 === yd[0]) {return cst_unnamed_Pervasives_input_channel;}
     var fname = yd[1];
@@ -283,7 +282,7 @@ function name_of_input(ib) {
   }
 }
 
-function char_count(ib) {if (ib[3]) {return ib[4] + -1 | 0;}return ib[4];}
+function char_count(ib) {return ib[3] ? ib[4] + -1 | 0 : ib[4];}
 
 function line_count(ib) {return ib[5];}
 
@@ -478,8 +477,7 @@ function skip_whites(ib) {
 
 function check_this_char(ib, c) {
   var ci = checked_peek_char(ib);
-  if (ci === c) {return invalidate_current_char(ib);}
-  return character_mismatch(c, ci);
+  return ci === c ? invalidate_current_char(ib) : character_mismatch(c, ci);
 }
 
 function check_newline(ib) {
@@ -490,22 +488,20 @@ function check_newline(ib) {
 }
 
 function check_char(ib, c) {
-  if (10 === c) {return check_newline(ib);}
-  if (32 === c) {return skip_whites(ib);}
-  return check_this_char(ib, c);
+  return 10 === c ?
+    check_newline(ib) :
+    32 === c ? skip_whites(ib) : check_this_char(ib, c);
 }
 
 function token_char(ib) {return caml_string_get(token_string(ib), 0);}
 
 function token_bool(ib) {
   var s = token_string(ib);
-  if (caml_string_notequal(s, cst_false)) {
-    if (caml_string_notequal(s, cst_true)) {
-      return bad_input(caml_call2(Printf[4], v0, s));
-    }
-    return 1;
-  }
-  return 0;
+  return caml_string_notequal(s, cst_false) ?
+    caml_string_notequal(s, cst_true) ?
+     bad_input(caml_call2(Printf[4], v0, s)) :
+     1 :
+    0;
 }
 
 function integer_conversion_of_char(param) {
@@ -645,8 +641,7 @@ function scan_digit_plus(basis, digitp, width, ib) {
 
 function is_binary_digit(param) {
   var switcher = param + -48 | 0;
-  if (1 < switcher >>> 0) {return 0;}
-  return 1;
+  return 1 < switcher >>> 0 ? 0 : 1;
 }
 
 function scan_binary_int(xV, xW) {
@@ -655,8 +650,7 @@ function scan_binary_int(xV, xW) {
 
 function is_octal_digit(param) {
   var switcher = param + -48 | 0;
-  if (7 < switcher >>> 0) {return 0;}
-  return 1;
+  return 7 < switcher >>> 0 ? 0 : 1;
 }
 
 function scan_octal_int(xT, xU) {
@@ -670,8 +664,7 @@ function is_hexa_digit(param) {
   ) var switch__0 = 0;
   else var switch__0 = 1;
   else if (6 < (xS + -10 | 0) >>> 0) var switch__0 = 1;else var switch__0 = 0;
-  if (switch__0) {return 1;}
-  return 0;
+  return switch__0 ? 1 : 0;
 }
 
 function scan_hexadecimal_int(xQ, xR) {
@@ -719,10 +712,9 @@ function scan_unsigned_int(width, ib) {
       }
       var switch__0 = 0;
     }
-    if (switch__0) {
-      return scan_hexadecimal_int(store_char(width__0, ib, c__0), ib);
-    }
-    return scan_decimal_digit_star(width__0, ib);
+    return switch__0 ?
+      scan_hexadecimal_int(store_char(width__0, ib, c__0), ib) :
+      scan_decimal_digit_star(width__0, ib);
   }
   return scan_decimal_digit_plus(width, ib);
 }
@@ -754,8 +746,9 @@ function scan_fractional_part(width, ib) {
   var c = peek_char(ib);
   if (eof(ib)) {return width;}
   var switcher = c + -48 | 0;
-  if (9 < switcher >>> 0) {return width;}
-  return scan_decimal_digit_star(store_char(width, ib, c), ib);
+  return 9 < switcher >>> 0 ?
+    width :
+    scan_decimal_digit_star(store_char(width, ib, c), ib);
 }
 
 function scan_exponent_part(width, ib) {
@@ -789,8 +782,9 @@ function scan_float(width, precision, ib) {
 function check_case_insensitive_string(width, ib, error, str) {
   function lowercase(c) {
     var switcher = c + -65 | 0;
-    if (25 < switcher >>> 0) {return c;}
-    return caml_call1(Pervasives[17], (c - 65 | 0) + 97 | 0);
+    return 25 < switcher >>> 0 ?
+      c :
+      caml_call1(Pervasives[17], (c - 65 | 0) + 97 | 0);
   }
   var len = caml_ml_string_length(str);
   var width__0 = [0,width];
@@ -1114,9 +1108,7 @@ function char_for_decimal_code(c0, c1, c2) {
 }
 
 function hexadecimal_value_of_char(d) {
-  if (97 <= d) {return d + -87 | 0;}
-  if (65 <= d) {return d + -55 | 0;}
-  return d - 48 | 0;
+  return 97 <= d ? d + -87 | 0 : 65 <= d ? d + -55 | 0 : d - 48 | 0;
 }
 
 function char_for_hexadecimal_code(c1, c2) {
@@ -1129,8 +1121,7 @@ function char_for_hexadecimal_code(c1, c2) {
 function check_next_char(message, width, ib) {
   if (0 === width) {return bad_token_length(message);}
   var c = peek_char(ib);
-  if (eof(ib)) {return bad_end_of_input(message);}
-  return c;
+  return eof(ib) ? bad_end_of_input(message) : c;
 }
 
 function check_next_char_for_char(xb, xc) {
@@ -1157,8 +1148,7 @@ function scan_backslash_char(width, ib) {
           else var switch__0 = 1;
           else if (6 < (w9 + -10 | 0) >>> 0) var switch__0 = 1;
           else var switch__0 = 0;
-          if (switch__0) {return c;}
-          return bad_input_escape(c);
+          return switch__0 ? c : bad_input_escape(c);
         };
         var c1 = get_digit(0);
         var c2 = get_digit(0);
@@ -1183,8 +1173,7 @@ function scan_backslash_char(width, ib) {
       var get_digit__0 = function(param) {
         var c = next_char(ib);
         var switcher = c + -48 | 0;
-        if (9 < switcher >>> 0) {return bad_input_escape(c);}
-        return c;
+        return 9 < switcher >>> 0 ? bad_input_escape(c) : c;
       };
       var c1__0 = get_digit__0(0);
       var c2__0 = get_digit__0(0);
@@ -1198,27 +1187,27 @@ function scan_backslash_char(width, ib) {
   }
   else if (34 === c) var switch__0 = 1;
   else if (39 <= c) var switch__0 = 1;else var switch__0 = 0;
-  if (switch__0) {return store_char(width, ib, char_for_backslash(c));}
-  return bad_input_escape(c);
+  return switch__0 ?
+    store_char(width, ib, char_for_backslash(c)) :
+    bad_input_escape(c);
 }
 
 function scan_caml_char(width, ib) {
   function find_stop(width) {
     var c = check_next_char_for_char(width, ib);
-    if (39 === c) {return ignore_char(width, ib);}
-    return character_mismatch(39, c);
+    return 39 === c ? ignore_char(width, ib) : character_mismatch(39, c);
   }
   function find_char(width) {
     var c = check_next_char_for_char(width, ib);
-    if (92 === c) {
-      return find_stop(scan_backslash_char(ignore_char(width, ib), ib));
-    }
-    return find_stop(store_char(width, ib, c));
+    return 92 === c ?
+      find_stop(scan_backslash_char(ignore_char(width, ib), ib)) :
+      find_stop(store_char(width, ib, c));
   }
   function find_start(width) {
     var c = checked_peek_char(ib);
-    if (39 === c) {return find_char(ignore_char(width, ib));}
-    return character_mismatch(39, c);
+    return 39 === c ?
+      find_char(ignore_char(width, ib)) :
+      character_mismatch(39, c);
   }
   return find_start(width);
 }
@@ -1303,8 +1292,9 @@ function scan_caml_string(width, ib) {
   function find_stop(width) {return caml_trampoline(find_stop__0(0, width));}
   function find_start(width) {
     var c = checked_peek_char(ib);
-    if (34 === c) {return find_stop(ignore_char(width, ib));}
-    return character_mismatch(34, c);
+    return 34 === c ?
+      find_stop(ignore_char(width, ib)) :
+      character_mismatch(34, c);
   }
   return find_start(width);
 }
@@ -1351,8 +1341,9 @@ function scan_chars_in_char_set(char_set, scan_indic, width, ib) {
     var wY = 1 - eof(ib);
     if (wY) {
       var ci = peek_char(ib);
-      if (c === ci) {return invalidate_current_char(ib);}
-      return character_mismatch(c, ci);
+      return c === ci ?
+        invalidate_current_char(ib) :
+        character_mismatch(c, ci);
     }
     return wY;
   }

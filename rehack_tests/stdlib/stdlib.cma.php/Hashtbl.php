@@ -286,16 +286,13 @@ final class Hashtbl {
       return $q8;
     };
     $key_index = function($h, $key) use ($caml_hash,$runtime) {
-      if (3 <= $h->count() - 1) {
-        return $caml_hash(10, 100, $h[3], $key) &
-          (int)
-          ($h[2]->count() - 1 + -1);
-      }
-      return $runtime["caml_mod"](
-        $runtime["caml_hash_univ_param"](10, 100, $key),
-        $h[2]->count() -
-          1
-      );
+      return 3 <= $h->count() - 1
+        ? $caml_hash(10, 100, $h[3], $key) & (int) ($h[2]->count() - 1 + -1)
+        : ($runtime["caml_mod"](
+         $runtime["caml_hash_univ_param"](10, 100, $key),
+         $h[2]->count() -
+           1
+       ));
     };
     $add = function($h, $key, $data) use ($caml_check_bound,$key_index,$left_shift_32,$resize) {
       $i = $key_index($h, $key);
@@ -303,8 +300,7 @@ final class Hashtbl {
       $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
       $h[1] = (int) ($h[1] + 1);
       $q1 = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-      if ($q1) {return $resize($key_index, $h);}
-      return $q1;
+      return $q1 ? $resize($key_index, $h) : ($q1);
     };
     $remove_bucket = function($h, $i, $key, $prec, $c) use ($caml_check_bound,$caml_compare) {
       $prec__0 = $prec;
@@ -367,8 +363,9 @@ final class Hashtbl {
             $k3 = $next2[1];
             $d3 = $next2[2];
             $next3 = $next2[3];
-            if (0 === $caml_compare($key, $k3)) {return $d3;}
-            return $find_rec($key, $next3);
+            return 0 === $caml_compare($key, $k3)
+              ? $d3
+              : ($find_rec($key, $next3));
           }
           throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
@@ -407,8 +404,9 @@ final class Hashtbl {
             $k3 = $next2[1];
             $d3 = $next2[2];
             $next3 = $next2[3];
-            if (0 === $caml_compare($key, $k3)) {return Vector{0, $d3};}
-            return $find_rec_opt($key, $next3);
+            return 0 === $caml_compare($key, $k3)
+              ? Vector{0, $d3}
+              : ($find_rec_opt($key, $next3));
           }
           return 0;
         }
@@ -685,8 +683,7 @@ final class Hashtbl {
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = (int) ($h[1] + 1);
         $qx = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-        if ($qx) {return $resize($key_index, $h);}
-        return $qx;
+        return $qx ? $resize($key_index, $h) : ($qx);
       };
       $remove_bucket = function($h, $i, $key, $prec, $c) use ($H,$caml_call2,$caml_check_bound) {
         $prec__0 = $prec;
@@ -749,8 +746,9 @@ final class Hashtbl {
               $k3 = $next2[1];
               $d3 = $next2[2];
               $next3 = $next2[3];
-              if ($caml_call2($H[1], $key, $k3)) {return $d3;}
-              return $find_rec($key, $next3);
+              return $caml_call2($H[1], $key, $k3)
+                ? $d3
+                : ($find_rec($key, $next3));
             }
             throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
           }
@@ -789,8 +787,9 @@ final class Hashtbl {
               $k3 = $next2[1];
               $d3 = $next2[2];
               $next3 = $next2[3];
-              if ($caml_call2($H[1], $key, $k3)) {return Vector{0, $d3};}
-              return $find_rec_opt($key, $next3);
+              return $caml_call2($H[1], $key, $k3)
+                ? Vector{0, $d3}
+                : ($find_rec_opt($key, $next3));
             }
             return 0;
           }

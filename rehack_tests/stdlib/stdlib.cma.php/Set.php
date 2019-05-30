@@ -166,12 +166,10 @@ final class Set {
           if (0 === $c) {return $t;}
           if (0 <= $c) {
             $rr = $add->contents($x, $r);
-            if ($r === $rr) {return $t;}
-            return $bal($l, $v, $rr);
+            return $r === $rr ? $t : ($bal($l, $v, $rr));
           }
           $ll = $add->contents($x, $l);
-          if ($l === $ll) {return $t;}
-          return $bal($ll, $v, $r);
+          return $l === $ll ? $t : ($bal($ll, $v, $r));
         }
         return Vector{0, 0, $x, 0, 1};
       };
@@ -205,13 +203,11 @@ final class Set {
             $lr = $l[3];
             $lv = $l[2];
             $ll = $l[1];
-            if ((int) ($rh + 2) < $lh) {
-              return $bal($ll, $lv, $join->contents($lr, $v, $r));
-            }
-            if ((int) ($lh + 2) < $rh) {
-              return $bal($join->contents($l, $v, $rl), $rv, $rr);
-            }
-            return $create($l, $v, $r);
+            return (int) ($rh + 2) < $lh
+              ? $bal($ll, $lv, $join->contents($lr, $v, $r))
+              : ((int) ($lh + 2) < $rh
+               ? $bal($join->contents($l, $v, $rl), $rv, $rr)
+               : ($create($l, $v, $r)));
           }
           return $add_max_element->contents($v, $l);
         }
@@ -321,7 +317,7 @@ final class Set {
         return $fl;
       };
       $empty = 0;
-      $is_empty = function($param) {if ($param) {return 0;}return 1;};
+      $is_empty = function($param) {return $param ? 0 : (1);};
       $mem = function($x, $param) use ($Ord,$caml_call2) {
         $param__0 = $param;
         for (;;) {
@@ -351,12 +347,10 @@ final class Set {
           if (0 === $c) {return $merge($l, $r);}
           if (0 <= $c) {
             $rr = $remove->contents($x, $r);
-            if ($r === $rr) {return $t;}
-            return $bal($l, $v, $rr);
+            return $r === $rr ? $t : ($bal($l, $v, $rr));
           }
           $ll = $remove->contents($x, $l);
-          if ($l === $ll) {return $t;}
-          return $bal($ll, $v, $r);
+          return $l === $ll ? $t : ($bal($ll, $v, $r));
         }
         return 0;
       };
@@ -472,8 +466,7 @@ final class Set {
             }
             return 1;
           }
-          if ($e2__0) {return -1;}
-          return 0;
+          return $e2__0 ? -1 : (0);
         }
       };
       $compare = function($s1, $s2) use ($compare_aux,$cons_enum) {

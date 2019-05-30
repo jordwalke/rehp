@@ -108,8 +108,7 @@ var table_count = [0,0];
 var dummy_met = caml_obj_block(0, 0);
 
 function fit_size(n) {
-  if (2 < n) {return fit_size((n + 1 | 0) / 2 | 0) * 2 | 0;}
-  return n;
+  return 2 < n ? fit_size((n + 1 | 0) / 2 | 0) * 2 | 0 : n;
 }
 
 function new_table(pub_labels) {
@@ -201,10 +200,7 @@ function get_method(table, label) {
   }
 }
 
-function to_list(arr) {
-  if (arr === 0) {return 0;}
-  return caml_call1(Array[11], arr);
-}
+function to_list(arr) {return arr === 0 ? 0 : caml_call1(Array[11], arr);}
 
 function narrow(table, vars, virt_meths, concr_meths) {
   var vars__0 = to_list(vars);
@@ -220,10 +216,9 @@ function narrow(table, vars, virt_meths, concr_meths) {
   var y2 = Vars[1];
   var y3 = table[7];
   function y4(lab, info, tvars) {
-    if (caml_call2(List[31], lab, vars__0)) {
-      return caml_call3(Vars[4], lab, info, tvars);
-    }
-    return tvars;
+    return caml_call2(List[31], lab, vars__0) ?
+      caml_call3(Vars[4], lab, info, tvars) :
+      tvars;
   }
   table[7] = caml_call3(Vars[13], y4, y3, y2);
   var by_name = [0,Meths[1]];
@@ -256,8 +251,7 @@ function narrow(table, vars, virt_meths, concr_meths) {
   var y8 = table[6];
   function y9(met, hm) {
     var lab = met[1];
-    if (caml_call2(List[31], lab, virt_meth_labs)) {return hm;}
-    return [0,met,hm];
+    return caml_call2(List[31], lab, virt_meth_labs) ? hm : [0,met,hm];
   }
   table[6] = caml_call3(List[21], y9, y8, y7);
   return 0;
@@ -282,8 +276,7 @@ function widen(table) {
   var yX = table[6];
   function yY(met, hm) {
     var lab = met[1];
-    if (caml_call2(List[31], lab, virt_meths)) {return hm;}
-    return [0,met,hm];
+    return caml_call2(List[31], lab, virt_meths) ? hm : [0,met,hm];
   }
   table[6] = caml_call3(List[21], yY, yX, saved_hidden_meths);
   return 0;
@@ -310,10 +303,7 @@ function new_variable(table, name) {
   }
 }
 
-function to_array(arr) {
-  if (runtime["caml_equal"](arr, 0)) {return [0];}
-  return arr;
-}
+function to_array(arr) {return runtime["caml_equal"](arr, 0) ? [0] : arr;}
 
 function new_methods_variables(table, meths, vals) {
   var meths__0 = to_array(meths);
@@ -468,8 +458,7 @@ function iter_f(obj, param) {
 function run_initializers(obj, table) {
   var inits = table[8];
   var yw = 0 !== inits ? 1 : 0;
-  if (yw) {return iter_f(obj, inits);}
-  return yw;
+  return yw ? iter_f(obj, inits) : yw;
 }
 
 function run_initializers_opt(obj_0, obj, table) {
@@ -556,10 +545,9 @@ function lookup_keys(i, keys, tables) {
 
 function lookup_tables(root, keys) {
   var root_data = get_data(root);
-  if (root_data) {
-    return lookup_keys(keys.length - 1 + -1 | 0, keys, root_data);
-  }
-  return build_path(keys.length - 1 + -1 | 0, keys, root);
+  return root_data ?
+    lookup_keys(keys.length - 1 + -1 | 0, keys, root_data) :
+    build_path(keys.length - 1 + -1 | 0, keys, root);
 }
 
 function get_const(x) {return function(obj) {return x;};}

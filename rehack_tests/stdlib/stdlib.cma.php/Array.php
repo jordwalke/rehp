@@ -101,14 +101,15 @@ final class Array_ {
     };
     $copy = function($a) use ($caml_array_sub) {
       $l = $a->count() - 1;
-      if (0 === $l) {return Vector{0};}
-      return $caml_array_sub($a, 0, $l);
+      return 0 === $l ? Vector{0} : ($caml_array_sub($a, 0, $l));
     };
     $append = function($a1, $a2) use ($caml_array_sub,$copy,$runtime) {
       $l1 = $a1->count() - 1;
-      if (0 === $l1) {return $copy($a2);}
-      if (0 === $a2->count() - 1) {return $caml_array_sub($a1, 0, $l1);}
-      return $runtime["caml_array_append"]($a1, $a2);
+      return 0 === $l1
+        ? $copy($a2)
+        : (0 === $a2->count() - 1
+         ? $caml_array_sub($a1, 0, $l1)
+         : ($runtime["caml_array_append"]($a1, $a2)));
     };
     $sub = function($a, $ofs, $len) use ($Pervasives,$caml_array_sub,$caml_call1,$cst_Array_sub) {
       if (0 <= $ofs) {

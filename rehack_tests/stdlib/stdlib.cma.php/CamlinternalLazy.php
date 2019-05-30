@@ -79,15 +79,15 @@ final class CamlinternalLazy {
     };
     $force = function($lzv) use ($Obj,$caml_obj_tag,$force_lazy_block) {
       $t = $caml_obj_tag($lzv);
-      if ($t === $Obj[10]) {return $lzv[1];}
-      if ($t !== $Obj[6]) {return $lzv;}
-      return $force_lazy_block($lzv);
+      return $t === $Obj[10]
+        ? $lzv[1]
+        : ($t !== $Obj[6] ? $lzv : ($force_lazy_block($lzv)));
     };
     $force_val = function($lzv) use ($Obj,$caml_obj_tag,$force_val_lazy_block) {
       $t = $caml_obj_tag($lzv);
-      if ($t === $Obj[10]) {return $lzv[1];}
-      if ($t !== $Obj[6]) {return $lzv;}
-      return $force_val_lazy_block($lzv);
+      return $t === $Obj[10]
+        ? $lzv[1]
+        : ($t !== $Obj[6] ? $lzv : ($force_val_lazy_block($lzv)));
     };
     $CamlinternalLazy = Vector{
       0,

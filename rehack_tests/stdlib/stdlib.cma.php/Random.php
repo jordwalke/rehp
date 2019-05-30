@@ -243,10 +243,9 @@ final class Random {
       }
     };
     $int32 = function($s, $bound) use ($Pervasives,$caml_call1,$caml_lessequal,$cst_Random_int32,$int32aux) {
-      if ($caml_lessequal($bound, 0)) {
-        return $caml_call1($Pervasives[1], $cst_Random_int32);
-      }
-      return $int32aux($s, $bound);
+      return $caml_lessequal($bound, 0)
+        ? $caml_call1($Pervasives[1], $cst_Random_int32)
+        : ($int32aux($s, $bound));
     };
     $int64aux = function($s, $n) use ($Int64,$bits,$caml_greaterthan,$caml_int64_of_int32,$caml_int64_or,$caml_int64_shift_left,$caml_int64_sub,$pY,$runtime) {
       for (;;) {
@@ -265,10 +264,9 @@ final class Random {
       }
     };
     $int64 = function($s, $bound) use ($Pervasives,$caml_call1,$caml_lessequal,$cst_Random_int64,$int64aux,$pZ) {
-      if ($caml_lessequal($bound, $pZ)) {
-        return $caml_call1($Pervasives[1], $cst_Random_int64);
-      }
-      return $int64aux($s, $bound);
+      return $caml_lessequal($bound, $pZ)
+        ? $caml_call1($Pervasives[1], $cst_Random_int64)
+        : ($int64aux($s, $bound));
     };
     
     if (32 === $Nativeint[7]) {

@@ -1925,7 +1925,7 @@ function bos(en) {return en;}
 
 function bts(em) {return em;}
 
-function ensure_ge(x, y) {if (y <= x) {return x;}return invalid_arg(e);}
+function ensure_ge(x, y) {return y <= x ? x : invalid_arg(e);}
 
 function sum_lengths(acc, seplen, param) {
   var acc__0 = acc;
@@ -2017,12 +2017,10 @@ function escaped__0(s) {
       ) var switch__0 = 1;
       else var switch__0 = 0;
       else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
-      if (switch__0) {return 1;}
-      return 1;
+      return switch__0 ? 1 : 1;
     }
   }
-  if (needs_escape(0)) {return bts(escaped(bos(s)));}
-  return s;
+  return needs_escape(0) ? bts(escaped(bos(s))) : s;
 }
 
 function index_rec(s, lim, i, c) {
@@ -2262,17 +2260,25 @@ function Q(self, opt, o) {
   var tag = caml_obj_tag(o);
   if (tag === 252) {
     var match = 0 === depth ? 1 : 0;
-    if (0 === match) {return caml_call2(self[3], self, o);}
-    return caml_call2(self[2], self, o);
+    return 0 === match ?
+      caml_call2(self[3], self, o) :
+      caml_call2(self[2], self, o);
   }
-  if (tag === 1e3) {return caml_call2(self[1], self, o);}
-  if (tag === 253) {return caml_call2(self[4], self, o);}
-  if (tag === 247) {return caml_call2(self[10], self, o);}
-  if (tag === 254) {return caml_call3(self[9], self, 0, o);}
-  if (tag === 246) {return caml_call2(self[8], self, o);}
-  if (detectList(j, o)) {return caml_call3(self[12], self, [0,depth], o);}
-  if (tag === 0) {return caml_call3(self[11], self, [0,depth], o);}
-  return caml_call2(self[7], self, o);
+  return tag === 1e3 ?
+    caml_call2(self[1], self, o) :
+    tag === 253 ?
+     caml_call2(self[4], self, o) :
+     tag === 247 ?
+      caml_call2(self[10], self, o) :
+      tag === 254 ?
+       caml_call3(self[9], self, 0, o) :
+       tag === 246 ?
+        caml_call2(self[8], self, o) :
+        detectList(j, o) ?
+         caml_call3(self[12], self, [0,depth], o) :
+         tag === 0 ?
+          caml_call3(self[11], self, [0,depth], o) :
+          caml_call2(self[7], self, o);
 }
 
 function R(self, opt, o) {
@@ -2514,8 +2520,9 @@ function init(replacer, renderable) {
       function(inst) {
         var nextSubtree = caml_call1(subtreeSwapper, inst[6]);
         var match = inst[6] !== nextSubtree ? 1 : 0;
-        if (0 === match) {return inst;}
-        return [0,inst[1],inst[2],inst[3],inst[4],inst[5],nextSubtree];
+        return 0 === match ?
+          inst :
+          [0,inst[1],inst[2],inst[3],inst[4],inst[5],nextSubtree];
       }
     );
   }
@@ -2544,8 +2551,7 @@ function initSubtree(thisReplacer, jsx) {
             var inst = subtree[1];
             var next = caml_call1(instSwapper, inst);
             var match = inst !== next ? 1 : 0;
-            if (0 === match) {return subtree;}
-            return [0,next];
+            return 0 === match ? subtree : [0,next];
           }
         );
       };
@@ -2561,8 +2567,7 @@ function initSubtree(thisReplacer, jsx) {
             var a = subtree[1];
             var next = caml_call1(aSwapper, a);
             var match = next === a ? 1 : 0;
-            if (0 === match) {return [1,next,b];}
-            return subtree;
+            return 0 === match ? [1,next,b] : subtree;
           }
         );
       };
@@ -2574,8 +2579,7 @@ function initSubtree(thisReplacer, jsx) {
             var a = subtree[1];
             var next = caml_call1(bSwapper, b);
             var match = next === b ? 1 : 0;
-            if (0 === match) {return [1,a,next];}
-            return subtree;
+            return 0 === match ? [1,a,next] : subtree;
           }
         );
       };
@@ -2595,10 +2599,9 @@ function initSubtree(thisReplacer, jsx) {
               var pre = match[1];
               var next = caml_call1(swapper, inst);
               var match__0 = next === inst ? 1 : 0;
-              if (0 === match__0) {
-                return [2,flatten([0,pre,[0,[0,next,0],[0,post,0]]])];
-              }
-              return subtree;
+              return 0 === match__0 ?
+                [2,flatten([0,pre,[0,[0,next,0],[0,post,0]]])] :
+                subtree;
             }
           );
         }
@@ -2623,8 +2626,7 @@ function reconcileSubtree(subtree, prevJsx, match) {
       var rPrev = prevJsx[1];
       var i = subtree[1];
       var match__0 = r === rPrev ? 1 : 0;
-      if (0 === match__0) {return [0,reconcile(i, r)];}
-      return subtree;
+      return 0 === match__0 ? [0,reconcile(i, r)] : subtree;
     case 1:
       var rb = match[2];
       var ra = match[1];
@@ -2780,7 +2782,7 @@ function au(opt, n) {
   return a(aR, a(s, a(aQ, a(dJ, dI))));
 }
 
-function printSection(s) {if (suppress[1]) {return 0;}return log(a(aW, s));}
+function printSection(s) {return suppress[1] ? 0 : log(a(aW, s));}
 
 function printRoot(title, root) {
   var dF = root[2];

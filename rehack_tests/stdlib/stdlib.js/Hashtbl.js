@@ -262,13 +262,12 @@ function resize(indexfun, h) {
 }
 
 function key_index(h, key) {
-  if (3 <= h.length - 1) {
-    return caml_hash(10, 100, h[3], key) & (h[2].length - 1 + -1 | 0);
-  }
-  return runtime["caml_mod"](
-    runtime["caml_hash_univ_param"](10, 100, key),
-    h[2].length - 1
-  );
+  return 3 <= h.length - 1 ?
+    caml_hash(10, 100, h[3], key) & (h[2].length - 1 + -1 | 0) :
+    runtime["caml_mod"](
+     runtime["caml_hash_univ_param"](10, 100, key),
+     h[2].length - 1
+   );
 }
 
 function add(h, key, data) {
@@ -277,8 +276,7 @@ function add(h, key, data) {
   caml_check_bound(h[2], i)[i + 1] = bucket;
   h[1] = h[1] + 1 | 0;
   var q1 = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-  if (q1) {return resize(key_index, h);}
-  return q1;
+  return q1 ? resize(key_index, h) : q1;
 }
 
 function remove_bucket(h, i, key, prec, c) {
@@ -339,8 +337,7 @@ function find(h, key) {
         var k3 = next2[1];
         var d3 = next2[2];
         var next3 = next2[3];
-        if (0 === caml_compare(key, k3)) {return d3;}
-        return find_rec(key, next3);
+        return 0 === caml_compare(key, k3) ? d3 : find_rec(key, next3);
       }
       throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
@@ -381,8 +378,7 @@ function find_opt(h, key) {
         var k3 = next2[1];
         var d3 = next2[2];
         var next3 = next2[3];
-        if (0 === caml_compare(key, k3)) {return [0,d3];}
-        return find_rec_opt(key, next3);
+        return 0 === caml_compare(key, k3) ? [0,d3] : find_rec_opt(key, next3);
       }
       return 0;
     }
@@ -656,8 +652,7 @@ function MakeSeeded(H) {
     caml_check_bound(h[2], i)[i + 1] = bucket;
     h[1] = h[1] + 1 | 0;
     var qx = h[2].length - 1 << 1 < h[1] ? 1 : 0;
-    if (qx) {return resize(key_index, h);}
-    return qx;
+    return qx ? resize(key_index, h) : qx;
   }
   function remove_bucket(h, i, key, prec, c) {
     var prec__0 = prec;
@@ -714,8 +709,7 @@ function MakeSeeded(H) {
           var k3 = next2[1];
           var d3 = next2[2];
           var next3 = next2[3];
-          if (caml_call2(H[1], key, k3)) {return d3;}
-          return find_rec(key, next3);
+          return caml_call2(H[1], key, k3) ? d3 : find_rec(key, next3);
         }
         throw runtime["caml_wrap_thrown_exception"](Not_found);
       }
@@ -754,8 +748,7 @@ function MakeSeeded(H) {
           var k3 = next2[1];
           var d3 = next2[2];
           var next3 = next2[3];
-          if (caml_call2(H[1], key, k3)) {return [0,d3];}
-          return find_rec_opt(key, next3);
+          return caml_call2(H[1], key, k3) ? [0,d3] : find_rec_opt(key, next3);
         }
         return 0;
       }

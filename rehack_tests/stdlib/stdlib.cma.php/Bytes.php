@@ -142,8 +142,9 @@ final class Bytes {
         }
         else {if (0 === $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
       }
-      if ($switch__0) {return $caml_call1($Pervasives[1], $cst_Bytes_extend);}
-      return $c;
+      return $switch__0
+        ? $caml_call1($Pervasives[1], $cst_Bytes_extend)
+        : ($c);
     };
     $extend = function($s, $left, $right) use ($Pervasives,$bk,$caml_blit_bytes,$caml_call2,$caml_create_bytes,$caml_ml_bytes_length) {
       $len = $bk($bk($caml_ml_bytes_length($s), $left), $right);
@@ -238,8 +239,7 @@ final class Bytes {
       return 0;
     };
     $ensure_ge = function($x, $y) use ($Pervasives,$caml_call1,$cst_Bytes_concat) {
-      if ($y <= $x) {return $x;}
-      return $caml_call1($Pervasives[1], $cst_Bytes_concat);
+      return $y <= $x ? $x : ($caml_call1($Pervasives[1], $cst_Bytes_concat));
     };
     $sum_lengths = function($acc, $seplen, $param) use ($caml_ml_bytes_length,$ensure_ge) {
       $acc__0 = $acc;
@@ -322,8 +322,7 @@ final class Bytes {
         else {$switch__0 = 0;}
       }
       else {if (2 === $bJ) {$switch__0 = 0;}else {$switch__0 = 1;}}
-      if ($switch__0) {return 1;}
-      return 0;
+      return $switch__0 ? 1 : (0);
     };
     $trim = function($s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
       $len = $caml_ml_bytes_length($s);
@@ -337,10 +336,9 @@ final class Bytes {
           if ($i[1] <= $j[1]) {
             if ($is_space($caml_bytes_unsafe_get($s, $j[1]))) {$j[1] += -1;continue;}
           }
-          if ($i[1] <= $j[1]) {
-            return $sub($s, $i[1], (int) ((int) ($j[1] - $i[1]) + 1));
-          }
-          return $empty;
+          return $i[1] <= $j[1]
+            ? $sub($s, $i[1], (int) ((int) ($j[1] - $i[1]) + 1))
+            : ($empty);
         }
       }
     };

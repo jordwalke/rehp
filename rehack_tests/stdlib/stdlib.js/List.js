@@ -165,11 +165,9 @@ function init_aux(i, n, f) {
 }
 
 function init(len, f) {
-  if (0 <= len) {
-    if (1e4 < len) {return rev(init_tailrec_aux(0, 0, len, f));}
-    return init_aux(0, len, f);
-  }
-  return caml_call1(Pervasives[1], cst_List_init);
+  return 0 <= len ?
+    1e4 < len ? rev(init_tailrec_aux(0, 0, len, f)) : init_aux(0, len, f) :
+    caml_call1(Pervasives[1], cst_List_init);
 }
 
 function flatten(param) {
@@ -582,8 +580,7 @@ function remove_assoc(x, param) {
     var l = param[2];
     var pair = param[1];
     var a = pair[1];
-    if (0 === caml_compare(a, x)) {return l;}
-    return [0,pair,remove_assoc(x, l)];
+    return 0 === caml_compare(a, x) ? l : [0,pair,remove_assoc(x, l)];
   }
   return 0;
 }
@@ -593,8 +590,7 @@ function remove_assq(x, param) {
     var l = param[2];
     var pair = param[1];
     var a = pair[1];
-    if (a === x) {return l;}
-    return [0,pair,remove_assq(x, l)];
+    return a === x ? l : [0,pair,remove_assq(x, l)];
   }
   return 0;
 }
@@ -713,8 +709,9 @@ function merge(cmp, l1, match) {
       var h2 = match[1];
       var t1 = l1[2];
       var h1 = l1[1];
-      if (0 < caml_call2(cmp, h1, h2)) {return [0,h2,merge(cmp, l1, t2)];}
-      return [0,h1,merge(cmp, t1, match)];
+      return 0 < caml_call2(cmp, h1, h2) ?
+        [0,h2,merge(cmp, l1, t2)] :
+        [0,h1,merge(cmp, t1, match)];
     }
     return l1;
   }
@@ -799,8 +796,9 @@ function stable_sort(cmp, l) {
         if (aQ) {
           var x2 = aQ[1];
           var x1 = l[1];
-          if (0 < caml_call2(cmp, x1, x2)) {return [0,x2,[0,x1,0]];}
-          return [0,x1,[0,x2,0]];
+          return 0 < caml_call2(cmp, x1, x2) ?
+            [0,x2,[0,x1,0]] :
+            [0,x1,[0,x2,0]];
         }
       }
     }
@@ -813,22 +811,17 @@ function stable_sort(cmp, l) {
             var x3 = aS[1];
             var x2__0 = aR[1];
             var x1__0 = l[1];
-            if (0 < caml_call2(cmp, x1__0, x2__0)) {
-              if (0 < caml_call2(cmp, x1__0, x3)) {
-                if (0 < caml_call2(cmp, x2__0, x3)) {
-                  return [0,x3,[0,x2__0,[0,x1__0,0]]];
-                }
-                return [0,x2__0,[0,x3,[0,x1__0,0]]];
-              }
-              return [0,x2__0,[0,x1__0,[0,x3,0]]];
-            }
-            if (0 < caml_call2(cmp, x2__0, x3)) {
-              if (0 < caml_call2(cmp, x1__0, x3)) {
-                return [0,x3,[0,x1__0,[0,x2__0,0]]];
-              }
-              return [0,x1__0,[0,x3,[0,x2__0,0]]];
-            }
-            return [0,x1__0,[0,x2__0,[0,x3,0]]];
+            return 0 < caml_call2(cmp, x1__0, x2__0) ?
+              0 < caml_call2(cmp, x1__0, x3) ?
+               0 < caml_call2(cmp, x2__0, x3) ?
+                [0,x3,[0,x2__0,[0,x1__0,0]]] :
+                [0,x2__0,[0,x3,[0,x1__0,0]]] :
+               [0,x2__0,[0,x1__0,[0,x3,0]]] :
+              0 < caml_call2(cmp, x2__0, x3) ?
+               0 < caml_call2(cmp, x1__0, x3) ?
+                [0,x3,[0,x1__0,[0,x2__0,0]]] :
+                [0,x1__0,[0,x3,[0,x2__0,0]]] :
+               [0,x1__0,[0,x2__0,[0,x3,0]]];
           }
         }
       }
@@ -847,8 +840,9 @@ function stable_sort(cmp, l) {
         if (aN) {
           var x2 = aN[1];
           var x1 = l[1];
-          if (0 < caml_call2(cmp, x1, x2)) {return [0,x1,[0,x2,0]];}
-          return [0,x2,[0,x1,0]];
+          return 0 < caml_call2(cmp, x1, x2) ?
+            [0,x1,[0,x2,0]] :
+            [0,x2,[0,x1,0]];
         }
       }
     }
@@ -861,22 +855,17 @@ function stable_sort(cmp, l) {
             var x3 = aP[1];
             var x2__0 = aO[1];
             var x1__0 = l[1];
-            if (0 < caml_call2(cmp, x1__0, x2__0)) {
-              if (0 < caml_call2(cmp, x2__0, x3)) {
-                return [0,x1__0,[0,x2__0,[0,x3,0]]];
-              }
-              if (0 < caml_call2(cmp, x1__0, x3)) {
-                return [0,x1__0,[0,x3,[0,x2__0,0]]];
-              }
-              return [0,x3,[0,x1__0,[0,x2__0,0]]];
-            }
-            if (0 < caml_call2(cmp, x1__0, x3)) {
-              return [0,x2__0,[0,x1__0,[0,x3,0]]];
-            }
-            if (0 < caml_call2(cmp, x2__0, x3)) {
-              return [0,x2__0,[0,x3,[0,x1__0,0]]];
-            }
-            return [0,x3,[0,x2__0,[0,x1__0,0]]];
+            return 0 < caml_call2(cmp, x1__0, x2__0) ?
+              0 < caml_call2(cmp, x2__0, x3) ?
+               [0,x1__0,[0,x2__0,[0,x3,0]]] :
+               0 < caml_call2(cmp, x1__0, x3) ?
+                [0,x1__0,[0,x3,[0,x2__0,0]]] :
+                [0,x3,[0,x1__0,[0,x2__0,0]]] :
+              0 < caml_call2(cmp, x1__0, x3) ?
+               [0,x2__0,[0,x1__0,[0,x3,0]]] :
+               0 < caml_call2(cmp, x2__0, x3) ?
+                [0,x2__0,[0,x3,[0,x1__0,0]]] :
+                [0,x3,[0,x2__0,[0,x1__0,0]]];
           }
         }
       }
@@ -889,8 +878,7 @@ function stable_sort(cmp, l) {
     return rev_merge(s1, s2, 0);
   }
   var len = length(l);
-  if (2 <= len) {return sort(len, l);}
-  return l;
+  return 2 <= len ? sort(len, l) : l;
 }
 
 function sort_uniq(cmp, l) {
@@ -972,9 +960,9 @@ function sort_uniq(cmp, l) {
           var x2 = aK[1];
           var x1 = l[1];
           var c = caml_call2(cmp, x1, x2);
-          if (0 === c) {return [0,x1,0];}
-          if (0 <= c) {return [0,x2,[0,x1,0]];}
-          return [0,x1,[0,x2,0]];
+          return 0 === c ?
+            [0,x1,0] :
+            0 <= c ? [0,x2,[0,x1,0]] : [0,x1,[0,x2,0]];
         }
       }
     }
@@ -990,18 +978,20 @@ function sort_uniq(cmp, l) {
             var c__0 = caml_call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
               var c__1 = caml_call2(cmp, x2__0, x3);
-              if (0 === c__1) {return [0,x2__0,0];}
-              if (0 <= c__1) {return [0,x3,[0,x2__0,0]];}
-              return [0,x2__0,[0,x3,0]];
+              return 0 === c__1 ?
+                [0,x2__0,0] :
+                0 <= c__1 ? [0,x3,[0,x2__0,0]] : [0,x2__0,[0,x3,0]];
             }
             if (0 <= c__0) {
               var c__2 = caml_call2(cmp, x1__0, x3);
               if (0 === c__2) {return [0,x2__0,[0,x1__0,0]];}
               if (0 <= c__2) {
                 var c__3 = caml_call2(cmp, x2__0, x3);
-                if (0 === c__3) {return [0,x2__0,[0,x1__0,0]];}
-                if (0 <= c__3) {return [0,x3,[0,x2__0,[0,x1__0,0]]];}
-                return [0,x2__0,[0,x3,[0,x1__0,0]]];
+                return 0 === c__3 ?
+                  [0,x2__0,[0,x1__0,0]] :
+                  0 <= c__3 ?
+                   [0,x3,[0,x2__0,[0,x1__0,0]]] :
+                   [0,x2__0,[0,x3,[0,x1__0,0]]];
               }
               return [0,x2__0,[0,x1__0,[0,x3,0]]];
             }
@@ -1009,9 +999,11 @@ function sort_uniq(cmp, l) {
             if (0 === c__4) {return [0,x1__0,[0,x2__0,0]];}
             if (0 <= c__4) {
               var c__5 = caml_call2(cmp, x1__0, x3);
-              if (0 === c__5) {return [0,x1__0,[0,x2__0,0]];}
-              if (0 <= c__5) {return [0,x3,[0,x1__0,[0,x2__0,0]]];}
-              return [0,x1__0,[0,x3,[0,x2__0,0]]];
+              return 0 === c__5 ?
+                [0,x1__0,[0,x2__0,0]] :
+                0 <= c__5 ?
+                 [0,x3,[0,x1__0,[0,x2__0,0]]] :
+                 [0,x1__0,[0,x3,[0,x2__0,0]]];
             }
             return [0,x1__0,[0,x2__0,[0,x3,0]]];
           }
@@ -1033,9 +1025,9 @@ function sort_uniq(cmp, l) {
           var x2 = aH[1];
           var x1 = l[1];
           var c = caml_call2(cmp, x1, x2);
-          if (0 === c) {return [0,x1,0];}
-          if (0 < c) {return [0,x1,[0,x2,0]];}
-          return [0,x2,[0,x1,0]];
+          return 0 === c ?
+            [0,x1,0] :
+            0 < c ? [0,x1,[0,x2,0]] : [0,x2,[0,x1,0]];
         }
       }
     }
@@ -1051,26 +1043,30 @@ function sort_uniq(cmp, l) {
             var c__0 = caml_call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
               var c__1 = caml_call2(cmp, x2__0, x3);
-              if (0 === c__1) {return [0,x2__0,0];}
-              if (0 < c__1) {return [0,x2__0,[0,x3,0]];}
-              return [0,x3,[0,x2__0,0]];
+              return 0 === c__1 ?
+                [0,x2__0,0] :
+                0 < c__1 ? [0,x2__0,[0,x3,0]] : [0,x3,[0,x2__0,0]];
             }
             if (0 < c__0) {
               var c__2 = caml_call2(cmp, x2__0, x3);
               if (0 === c__2) {return [0,x1__0,[0,x2__0,0]];}
               if (0 < c__2) {return [0,x1__0,[0,x2__0,[0,x3,0]]];}
               var c__3 = caml_call2(cmp, x1__0, x3);
-              if (0 === c__3) {return [0,x1__0,[0,x2__0,0]];}
-              if (0 < c__3) {return [0,x1__0,[0,x3,[0,x2__0,0]]];}
-              return [0,x3,[0,x1__0,[0,x2__0,0]]];
+              return 0 === c__3 ?
+                [0,x1__0,[0,x2__0,0]] :
+                0 < c__3 ?
+                 [0,x1__0,[0,x3,[0,x2__0,0]]] :
+                 [0,x3,[0,x1__0,[0,x2__0,0]]];
             }
             var c__4 = caml_call2(cmp, x1__0, x3);
             if (0 === c__4) {return [0,x2__0,[0,x1__0,0]];}
             if (0 < c__4) {return [0,x2__0,[0,x1__0,[0,x3,0]]];}
             var c__5 = caml_call2(cmp, x2__0, x3);
-            if (0 === c__5) {return [0,x2__0,[0,x1__0,0]];}
-            if (0 < c__5) {return [0,x2__0,[0,x3,[0,x1__0,0]]];}
-            return [0,x3,[0,x2__0,[0,x1__0,0]]];
+            return 0 === c__5 ?
+              [0,x2__0,[0,x1__0,0]] :
+              0 < c__5 ?
+               [0,x2__0,[0,x3,[0,x1__0,0]]] :
+               [0,x3,[0,x2__0,[0,x1__0,0]]];
           }
         }
       }
@@ -1083,8 +1079,7 @@ function sort_uniq(cmp, l) {
     return rev_merge(s1, s2, 0);
   }
   var len = length(l);
-  if (2 <= len) {return sort(len, l);}
-  return l;
+  return 2 <= len ? sort(len, l) : l;
 }
 
 function compare_lengths(l1, l2) {
@@ -1101,8 +1096,7 @@ function compare_lengths(l1, l2) {
       }
       return 1;
     }
-    if (l2__0) {return -1;}
-    return 0;
+    return l2__0 ? -1 : 0;
   }
 }
 
@@ -1120,9 +1114,7 @@ function compare_length_with(l, n) {
       }
       return 1;
     }
-    if (0 === n__0) {return 0;}
-    if (0 < n__0) {return -1;}
-    return 1;
+    return 0 === n__0 ? 0 : 0 < n__0 ? -1 : 1;
   }
 }
 
