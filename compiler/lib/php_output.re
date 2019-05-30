@@ -613,6 +613,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | EStr(_)
     | EBool(_)
     | ENum(_)
+    | EInt(_)
     | EQuote(_)
     | ERegexp(_)
     | EUn(_)
@@ -676,7 +677,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.non_breaking_space(f);
       PP.string(f, s);
       PP.non_breaking_space(f);
-    | ENULL => PP.string(f, "NULL")
+    | ENULL => PP.string(f, "null")
     | EVar(v) => ident(f, v)
     /* JS:  (e1, e2)
      * Php: ((e1 || true) ? e2 : e2)
@@ -734,6 +735,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       if (need_parent) {
         PP.string(f, ")");
       };
+    | EInt(v) => PP.string(f, string_of_int(v))
     | EUn(Typeof, e) =>
       if (l > 13) {
         PP.start_group(f, 1);
@@ -1058,7 +1060,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.end_group(f);
     };
   }
-  and jsUndefinedName = "NULL"
+  and jsUndefinedName = "null"
   and expression_or_undefined = (l, f, e) =>
     switch (e) {
     | None => PP.string(f, "/*undefined*/ " ++ jsUndefinedName)
@@ -1268,6 +1270,10 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.string(f, s);
       PP.break(f);
     | Block(b) => block(f, b)
+    | Statement_list(b) =>
+      PP.start_group(f, 0);
+      statement_list(~skip_last_semi=false, f, b);
+      PP.end_group(f);
     | Variable_statement(l) =>
       variable_declaration_list(~separator=";", !last, f, l)
     | Empty_statement => PP.string(f, ";")
@@ -1408,10 +1414,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       last_semi();
       PP.end_group(f);
       PP.end_group(f);
-    | For_statement(e1, e2, e3, s, depth) =>
-      if (depth === 0) {
-        PP.string(f, "$continue_counter = null;");
-      };
+    | For_statement(e1, e2, e3, s) =>
       PP.start_group(f, 0);
       PP.start_group(f, 0);
       PP.string(f, "for");
@@ -1438,16 +1441,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       statement(~last, f, s);
       PP.end_group(f);
       PP.end_group(f);
-      if (depth !== 0) {
-        PP.string(
-          f,
-          "if ($continue_counter === 0) {"
-          ++ "$continue_counter = null; continue;"
-          ++ "} else if ($continue_counter > 0) {"
-          ++ "$continue_counter -= 1; break;"
-          ++ "}",
-        );
-      };
     | ForIn_statement(e1, e2, s) =>
       PP.start_group(f, 0);
       PP.start_group(f, 0);
@@ -1474,19 +1467,11 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       statement(~last, f, s);
       PP.end_group(f);
       PP.end_group(f);
-    | Continue_statement(None, _depth) =>
+    | Continue_statement =>
       PP.string(f, "continue");
       last_semi();
-    | Continue_statement(Some(s), depth) =>
-      PP.string(f, "$continue_counter = " ++ string_of_int(depth) ++ ";");
+    | Break_statement =>
       PP.string(f, "break");
-      last_semi();
-    | Break_statement(None) =>
-      PP.string(f, "break");
-      last_semi();
-    | Break_statement(Some(s)) =>
-      PP.string(f, "goto ");
-      PP.string(f, Javascript.Label.to_string(s) ++ "_break");
       last_semi();
     | Return_statement(e) =>
       switch (e) {

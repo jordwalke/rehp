@@ -100,6 +100,7 @@ and expression =
   | EArr(array_litteral)
   | EBool(bool)
   | ENum(float)
+  | EInt(int)
   | EObj(property_name_and_value_list)
   | EQuote(string)
   | ERegexp(string, option(string))
@@ -134,15 +135,14 @@ and statement =
       option(expression),
       option(expression),
       (statement, Loc.t),
-      int,
     )
   | ForIn_statement(
       Stdlib.either(expression, variable_declaration),
       expression,
       (statement, Loc.t),
     )
-  | Continue_statement(option(Javascript.Label.t), int)
-  | Break_statement(option(Javascript.Label.t))
+  | Continue_statement
+  | Break_statement
   | Return_statement(option(expression))
   /*
      | With_statement
@@ -158,6 +158,7 @@ and statement =
   | Try_statement(block, option((Id.t, block)), option(block))
   | Debugger_statement
   | Global_statement(Id.t)
+  | Statement_list(statement_list)
 and block = statement_list
 and statement_list = list((statement, Loc.t))
 and variable_declaration = (expression, option(initialiser))
