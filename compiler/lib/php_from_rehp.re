@@ -721,19 +721,42 @@ and statement = (curOut, input, x) => {
       let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
       let (sOut, sMapped) = statement(curOut, nextInput, s);
       let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
-      (
-        outs,
-        For_statement(
-          e1Mapped,
-          e2Mapped,
-          e3Mapped,
-          (sMapped, loc),
-          switch (depth) {
-          | Some(v) => v
-          | None => 0
-          },
-        ),
-      );
+      let for_statement =
+        Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
+      let counter = Php.EVar(Id.S({name: "$continue_counter", var: None}));
+      let set_counter_to_null =
+        Php.Variable_statement([(counter, Some((ENULL, loc)))]);
+      let depth =
+        switch (depth) {
+        | Some(v) => v
+        | None => 0
+        };
+      let li =
+        switch (depth) {
+        | 0 => [(set_counter_to_null, loc), (for_statement, loc)]
+        | _ =>
+          let decrement_counter =
+            Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
+          let compare_counter = Php.EBin(Gt, counter, EInt(0));
+          let break_if_count_is_gt_zero =
+            Php.If_statement(
+              compare_counter,
+              (
+                Php.Block([
+                  (decrement_counter, loc),
+                  (Break_statement, loc),
+                ]),
+                loc,
+              ),
+              None,
+            );
+          [
+            (for_statement, loc),
+            (break_if_count_is_gt_zero, loc),
+            (set_counter_to_null, loc),
+          ];
+        };
+      (outs, Php.Statement_list(li));
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
       let continueWithAugmentedScope = (input, ss) => {
         let (e1Out, e1Mapped) =
@@ -765,17 +788,27 @@ and statement = (curOut, input, x) => {
      * TODO: For Php, the exception is not actually block scoped and so we don't
      * need to do any special handling here.
      */
-    | Rehp.Continue_statement(s, depth) => (
-        curOut,
-        Continue_statement(
-          s,
-          switch (depth) {
-          | Some(v) => v
-          | None => 0
-          },
-        ),
-      )
-    | Rehp.Break_statement(s) => (curOut, Break_statement(s))
+    | Rehp.Continue_statement(s, depth) =>
+      let li =
+        switch (s, depth) {
+        | (None, _) => [(Php.Continue_statement, Loc.N)]
+        | (Some(_), depth) =>
+          let depth =
+            switch (depth) {
+            | Some(v) => v
+            | None => 0
+            };
+          let counter =
+            Php.EVar(Id.S({name: "$continue_counter", var: None}));
+          let set_counter_to_depth =
+            Php.Variable_statement([
+              (counter, Some((EInt(depth), Loc.N))),
+            ]);
+          [(set_counter_to_depth, Loc.N), (Php.Break_statement, Loc.N)];
+        };
+      (curOut, Php.Statement_list(li));
+    /* TODO: remove labels from Rehp break statements */
+    | Rehp.Break_statement(_s) => (curOut, Break_statement)
     | Rehp.Return_statement(e) =>
       let (eOut, eMapped) = optOutput(expression(input), e);
       (outAppend(curOut, eOut), Return_statement(eMapped));

@@ -1223,7 +1223,7 @@ $resolve_fs_device = $Func(
     $path = $caml_make_path($name);
     $name = $path->join($String->new("/"));
     $name_slash = $plus($name, $String->new("/"));
-    $res = NULL;
+    $res = null;
     $continue_counter = null;
     for ($i = 0; $i < $jsoo_mount_point->length; $i++) {
       $m = $jsoo_mount_point[$i];
@@ -1295,7 +1295,7 @@ $caml_sys_open_internal = $Func(
     $ObjectLiteral,
     $caml_global_data,
   ) {
-    if ($caml_global_data->fds === NULL) {
+    if ($caml_global_data->fds === null) {
       $caml_global_data->fds = $Array->new();
     }
     $flags = $flags ? $flags : ($ObjectLiteral((object)darray[]));
@@ -1509,7 +1509,7 @@ $caml_ml_output_bytes = $Func(
     if (!$chan->opened) {
       $caml_raise_sys_error($String->new("Cannot output to a closed channel"));
     }
-    $string = NULL;
+    $string = null;
     if ($offset == 0 && $eqEq($caml_ml_bytes_length($buffer), $len)) {
       $string = $buffer;
     } else {
@@ -1742,13 +1742,11 @@ $f2 = function($g) use ($caml_call1) {
       }
       return 0;
     }
-    if ($continue_counter === 0) {
-      $continue_counter = null;
-      continue;
-    } else if ($continue_counter > 0) {
+    if ($continue_counter > 0) {
       $continue_counter -= 1;
       break;
     }
+    $continue_counter = null;
   }
 };
 $f3 = function($g) use ($caml_call1) {
@@ -1787,29 +1785,23 @@ $f3 = function($g) use ($caml_call1) {
           }
           return 0;
         }
-        if ($continue_counter === 0) {
-          $continue_counter = null;
-          continue;
-        } else if ($continue_counter > 0) {
+        if ($continue_counter > 0) {
           $continue_counter -= 1;
           break;
         }
-      }
-      if ($continue_counter === 0) {
         $continue_counter = null;
-        continue;
-      } else if ($continue_counter > 0) {
+      }
+      if ($continue_counter > 0) {
         $continue_counter -= 1;
         break;
       }
-    }
-    if ($continue_counter === 0) {
       $continue_counter = null;
-      continue;
-    } else if ($continue_counter > 0) {
+    }
+    if ($continue_counter > 0) {
       $continue_counter -= 1;
       break;
     }
+    $continue_counter = null;
   }
 };
 $f4 = function($g) use ($caml_call1) {
@@ -1915,93 +1907,71 @@ $f4 = function($g) use ($caml_call1) {
                           }
                           return 0;
                         }
-                        if ($continue_counter === 0) {
-                          $continue_counter = null;
-                          continue;
-                        } else if ($continue_counter > 0) {
+                        if ($continue_counter > 0) {
                           $continue_counter -= 1;
                           break;
                         }
-                      }
-                      if ($continue_counter === 0) {
                         $continue_counter = null;
-                        continue;
-                      } else if ($continue_counter > 0) {
+                      }
+                      if ($continue_counter > 0) {
                         $continue_counter -= 1;
                         break;
                       }
-                    }
-                    if ($continue_counter === 0) {
                       $continue_counter = null;
-                      continue;
-                    } else if ($continue_counter > 0) {
+                    }
+                    if ($continue_counter > 0) {
                       $continue_counter -= 1;
                       break;
                     }
-                  }
-                  if ($continue_counter === 0) {
                     $continue_counter = null;
-                    continue;
-                  } else if ($continue_counter > 0) {
+                  }
+                  if ($continue_counter > 0) {
                     $continue_counter -= 1;
                     break;
                   }
-                }
-                if ($continue_counter === 0) {
                   $continue_counter = null;
-                  continue;
-                } else if ($continue_counter > 0) {
+                }
+                if ($continue_counter > 0) {
                   $continue_counter -= 1;
                   break;
                 }
-              }
-              if ($continue_counter === 0) {
                 $continue_counter = null;
-                continue;
-              } else if ($continue_counter > 0) {
+              }
+              if ($continue_counter > 0) {
                 $continue_counter -= 1;
                 break;
               }
-            }
-            if ($continue_counter === 0) {
               $continue_counter = null;
-              continue;
-            } else if ($continue_counter > 0) {
+            }
+            if ($continue_counter > 0) {
               $continue_counter -= 1;
               break;
             }
-          }
-          if ($continue_counter === 0) {
             $continue_counter = null;
-            continue;
-          } else if ($continue_counter > 0) {
+          }
+          if ($continue_counter > 0) {
             $continue_counter -= 1;
             break;
           }
-        }
-        if ($continue_counter === 0) {
           $continue_counter = null;
-          continue;
-        } else if ($continue_counter > 0) {
+        }
+        if ($continue_counter > 0) {
           $continue_counter -= 1;
           break;
         }
-      }
-      if ($continue_counter === 0) {
         $continue_counter = null;
-        continue;
-      } else if ($continue_counter > 0) {
+      }
+      if ($continue_counter > 0) {
         $continue_counter -= 1;
         break;
       }
-    }
-    if ($continue_counter === 0) {
       $continue_counter = null;
-      continue;
-    } else if ($continue_counter > 0) {
+    }
+    if ($continue_counter > 0) {
       $continue_counter -= 1;
       break;
     }
+    $continue_counter = null;
   }
 };
 $fx = function($prefix, $x) use ($a, $b, $print_endline, $string_of_int) {
