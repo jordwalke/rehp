@@ -135,9 +135,6 @@ let php_globals = [
   "Date";
   "Boolean";
   "Number";
-  "unsigned_right_shift_32";
-  "left_shift_32";
-  "right_shift_32";
   "max_int";
   "min_int";
   "Infinity";

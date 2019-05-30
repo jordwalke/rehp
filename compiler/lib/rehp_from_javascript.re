@@ -425,4 +425,14 @@ and from_js_source_element =
 and from_javascript = lst =>
   List.map(((src, loc)) => (from_js_source_element(src), loc), lst);
 
-let from_javascript_expression = from_js_expression;
+let from_javascript_expression = from_js_expression
+
+and raws_from_javascript = lst =>
+  lst
+  |> List.filter(x =>
+       switch (x) {
+       | (Javascript.Statement(Javascript.Raw_statement(_)), _) => true
+       | _ => false
+       }
+     )
+  |> List.map(((src, loc)) => (from_js_source_element(src), loc));

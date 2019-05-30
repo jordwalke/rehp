@@ -215,23 +215,19 @@ let globalObject = Constant.global_object;
 let globalVar = Rehp.EVar(S({name: globalObject, var: None}));
 
 let extra_js_files =
-  lazy (
+  lazy(
     List.fold_left(Constant.extra_js_files, ~init=[], ~f=(acc, file) =>
-      try (
-        {
-          let ss =
-            List.fold_left(
-              Linker.parse_file(file),
-              ~init=StringSet.empty,
-              ~f=(ss, fragment) =>
-              switch (fragment.Linker.provides) {
-              | Some((_, name, _, _)) => StringSet.add(name, ss)
-              | _ => ss
-              }
-            );
-          [(file, ss), ...acc];
-        }
-      ) {
+      try({
+        let ss =
+          List.fold_left(
+            Linker.parse_file(file), ~init=StringSet.empty, ~f=(ss, fragment) =>
+            switch (fragment.Linker.provides) {
+            | Some((_, name, _, _)) => StringSet.add(name, ss)
+            | _ => ss
+            }
+          );
+        [(file, ss), ...acc];
+      }) {
       | _ => acc
       }
     )
@@ -322,14 +318,6 @@ let gen_missing = (js, missing) => {
   [(Statement(Variable_statement(miss)), Loc.N), ...js];
 };
 
-let identifierRenamingPhp = rehp => {
-  let mapper = Identifier_renaming_php.mapper;
-  let rehp = mapper.program(mapper, rehp);
-  rehp;
-};
-
-let identifierRenamingJs = rehp => rehp;
-
 let var = s => Rehp.EVar(Id.S({Id.name: s, Id.var: None}));
 let runtimeVar = (runtimeName, name) => (
   Id.S({Id.name, Id.var: None}),
@@ -352,11 +340,12 @@ let placeRuntimeVarAtTop = (~runtimeVarName, idents, rehp) =>
       Id.V(runtimeName),
       Some((Rehp.EDot(globalVar, "jsoo_runtime"), Loc.N)),
     );
-    let freeVars =
-      List.fold_left(StringSet.elements(idents), ~init=[], ~f=(soFar, id) =>
-        [runtimeVar(runtimeName, id), ...soFar]
-      );
-    let vars = [mainRuntimeVar, ...freeVars];
+    /* let freeVars = */
+    /*   List.fold_left(StringSet.elements(idents), ~init=[], ~f=(soFar, id) => */
+    /*     [runtimeVar(runtimeName, id), ...soFar] */
+    /*   ); */
+    /* let vars = [mainRuntimeVar, ...freeVars]; */
+    let vars = [mainRuntimeVar];
     [(Rehp.Statement(Variable_statement(vars)), Loc.N), ...rehp];
   };
 
@@ -562,7 +551,6 @@ let coloring_php = (languageProvided, (rehp, linkinfos)) => {
   let traverse = new Js_traverse.free;
   let rehp = traverse#program(rehp);
   let free = traverse#get_free_name;
-
   VarPrinter.add_reserved(StringSet.elements(free));
   VarPrinter.add_reserved(StringSet.elements(languageProvided));
   let rehp = Js_assign.program(rehp);
@@ -609,8 +597,6 @@ let output_php =
       (),
       (rehp, linkinfos),
     ) => {
-  let mapper = Identifier_renaming_php.mapper;
-
   let addOneStr = (env, name) =>
     Php_from_rehp.addOne(env, Id.S({name, var: None}));
 
@@ -642,9 +628,7 @@ let output_php =
           ...List.map(~f=ar => ar.Linker.program, always_required_codes),
         ]
         |> List.rev
-        |> List.map(~f=js =>
-             mapper.program(mapper, Rehp_from_javascript.from_javascript(js))
-           )
+        |> List.map(~f=js => Rehp_from_javascript.raws_from_javascript(js))
         |> List.flatten
         /* Render the stubs with an env that includes themselves because we
          * know they'll be placed in the correct topological sort (mostly). */
@@ -780,10 +764,9 @@ let f =
       None;
     };
   let linkall = linkall || dynlink;
-  let (identifierRenaming, objWrapper, packer, coloring, check, outputter) =
+  let (objWrapper, packer, coloring, check, outputter) =
     switch (backend) {
     | Php => (
-        identifierRenamingPhp,
         (
           obj =>
             Rehp.ECall(
@@ -798,7 +781,6 @@ let f =
         output_php(Reserved.provided_php),
       )
     | Js => (
-        identifierRenamingJs,
         (_o => _o),
         pack_js,
         coloring_js(Reserved.provided_js),
@@ -826,10 +808,6 @@ let f =
   >> generate(d, ~accessRuntimeThrough, ~backend)
   /* Performs some high level operations/simplifications */
   >> packer
-  /* It's not too late to rename identifiers or rearrange the tree in a way
-   * that affects linking. Changes in identifierRenaming will be picked up by
-   * `augmentWithLinkInfo`, and `outputter` */
-  >> identifierRenaming
   /* All the linked stubs have already been registered before Driver.f even
    * begins. Their arities have been recorded, and their contents have been
    * maintained in a list. Now we need to use that information to detect what
@@ -849,7 +827,7 @@ let from_string = (prims, s, formatter) => {
 
 let profiles = [(1, o1), (2, o2), (3, o3)];
 let profile = i =>
-  try (Some(List.assoc(i, profiles))) {
+  try(Some(List.assoc(i, profiles))) {
   | Not_found => None
   };
 

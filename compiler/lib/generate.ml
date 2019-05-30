@@ -95,6 +95,10 @@ module Share = struct
     let n = try StringMap.find s t.prims with Not_found -> 0 in
     {t with prims = StringMap.add s (n + 1) t.prims}
 
+  (* Adds special primitives to the prims counter with count -1, which allows them
+     to be hoisted/shared, even if they were never referenced in bytecode - but only
+     if they "exist" (meaning only if the linker linked them in, or if they were
+     passed to one of the register_prim functions in generate.ml *)
   let add_special_prim_if_exists s t =
     if Primitive.exists s then {t with prims = StringMap.add s (-1) t.prims} else t
 
@@ -154,7 +158,14 @@ module Share = struct
         ; "caml_list_of_js_array"
         ; "caml_wrap_thrown_exception_traceless"
         ; "caml_wrap_thrown_exception_reraise"
-        ; "caml_wrap_thrown_exception" ]
+        ; "caml_wrap_thrown_exception"
+        (* These need to be added to the "special prims" in order to be
+           shared/hoisted. TODO: Renamed these. *)
+        ; "caml_arity_test"
+        ; "is_int"
+        ; "left_shift_32"
+        ; "unsigned_right_shift_32"
+        ; "right_shift_32" ]
         ~init:count
         ~f:(fun acc x -> add_special_prim_if_exists x acc )
     in
@@ -204,6 +215,27 @@ module Share = struct
         J.EVar v
 end
 
+
+(* Checks if a primitive is supplied by a stub js file or by a generate.ml
+   registered primitive *)
+let if_prim_supplied s ~if_supplied ~fallback =
+  let s = Primitive.resolve s in
+  (* Primitive.exists only returns true if it was provided by the linker
+     or something that actually registers it with its arity/kind etc typically
+     from runtime stubs, or from one of the register_prim functions here.  If
+     it is not registered by linker or by one of the register_prim functions
+     here, but it is found in bytecode, it will merely be "added" as a
+     Primitive.add_external, but it won't "exist". Being "aliased" as a
+     primitive also does not mean it exists, though it too will be added as
+     Primitive.add_external.
+     *)
+  if Primitive.exists s then
+    (* These "optional" prmitives still need to be added via
+       add_special_prim_if_exists in order to get "shared"/hoisted. *)
+    if_supplied ()
+  else
+    fallback ()
+
 module Ctx = struct
   type t =
     { mutable blocks : block Addr.Map.t
@@ -221,8 +253,6 @@ let var x = J.EVar (Id.V x)
 let int n = J.ENum (float n)
 
 let int32 n = J.ENum (Int32.to_float n)
-
-let unsigned x = J.EBin (J.Lsr, x, int 0)
 
 let one = int 1
 
@@ -263,6 +293,37 @@ let runtime_fun ctx name =
   | None -> s_var name
 
 let str_js s = J.EStr (s, `Bytes)
+
+let unsigned ~ctx x =
+  if_prim_supplied
+    "unsigned_right_shift_32"
+    ~if_supplied:(fun () ->
+      let p =
+        Share.get_prim
+          (runtime_fun ctx) "unsigned_right_shift_32" ctx.Ctx.share in
+      J.ECall (p, [x; int 0], Loc.N))
+    ~fallback:(fun() ->
+       J.EBin (J.Lsr, x, int 0))
+
+let arity_test ~ctx x =
+  if_prim_supplied
+    "caml_arity_test"
+    ~if_supplied:(fun () ->
+      let p =
+        Share.get_prim
+          (runtime_fun ctx) "caml_arity_test" ctx.Ctx.share in
+      J.ECall (p, [x], Loc.N))
+    ~fallback:(fun() -> J.EArityTest x)
+
+let is_int ~ctx x =
+  if_prim_supplied
+    "is_int"
+    ~if_supplied:(fun () ->
+      let p =
+        Share.get_prim
+          (runtime_fun ctx) "is_int" ctx.Ctx.share in
+      J.ECall (p, [x], Loc.N))
+    ~fallback:(fun() -> J.EUn (IsInt, x))
 
 (****)
 
@@ -676,7 +737,7 @@ let parallel_renaming params args continuation queue =
 let apply_fun_raw ctx f params =
   let n = List.length params in
   J.ECond
-    ( J.EBin (J.EqEqEq, J.EArityTest f, J.ENum (float n))
+    ( J.EBin (J.EqEqEq, arity_test ~ctx f, J.ENum (float n))
     , J.ECall (f, params, Loc.N)
     , J.ECall
         ( runtime_fun ctx "caml_call_gen"
@@ -783,18 +844,20 @@ let _ =
     ; "caml_js_from_float", "%identity"
     ; "caml_js_to_float", "%identity" ]
 
+(* Internal primitives are ones created/used by the jsoo compiler, not
+ * referenced in bytecode. *)
 let internal_primitives = Hashtbl.create 31
 
 let internal_prim name =
   try Hashtbl.find internal_primitives name with Not_found -> None
 
-(* Registers the primitive [name] with [Jsoo_primitive] so that [Driver] can see
- * them, along with all the other primitives added when observed by [Linker].
- * Registering them with [Jsoo_primitive] merely makes their presence known.
- * In order for them to be useful, either the linker must link in
- * implementations of them, or they must be considered "internal" primitives,
- * which [Generate] registers whenever it registers with [Jsoo_primitive].
- * "internal primitives" also have a Rehp implementation. *)
+(* Registers the *internal* primitive [name] with [Jsoo_primitive] so that
+ * [Driver] can see them, along with all the other primitives added when
+ * observed by [Linker].  Registering them with [Jsoo_primitive] merely makes
+ * their presence known.  In order for them to be useful, either the linker
+ * must link in implementations of them, or they must be considered "internal"
+ * primitives, which [Generate] registers whenever it registers with
+ * [Jsoo_primitive].  "internal primitives" also have a Rehp implementation. *)
 let register_prim name k f =
   Primitive.register name k None None;
   Hashtbl.add internal_primitives name (Some f)
@@ -813,6 +876,15 @@ let register_un_prim_ctx name k f =
       | [x] ->
           let (px, cx), queue = access_queue' ~ctx queue x in
           f ctx cx loc, or_p (kind k) px, queue
+      | _ -> assert false )
+
+let register_bin_prim_ctx name k f =
+  register_prim name k (fun l queue ctx loc ->
+      match l with
+      | [x; y] ->
+          let (px, cx), queue = access_queue' ~ctx queue x in
+          let (py, cy), queue = access_queue' ~ctx queue y in
+          f ctx cx cy loc, or_p (kind k) (or_p px py), queue
       | _ -> assert false )
 
 let register_bin_prim name k f =
@@ -866,13 +938,36 @@ let _ =
   register_bin_prim "%int_and" `Pure (fun cx cy _ -> J.EBin (J.Band, cx, cy));
   register_bin_prim "%int_or" `Pure (fun cx cy _ -> J.EBin (J.Bor, cx, cy));
   register_bin_prim "%int_xor" `Pure (fun cx cy _ -> J.EBin (J.Bxor, cx, cy));
-  register_bin_prim "%int_lsl" `Pure (fun cx cy _ -> J.EBin (J.Lsl, cx, cy));
-  register_bin_prim
-    "%int_lsr"
-    `Pure
-    (* Is this to_int redundant? Doesn't the Lsr operation truncate 32 bits? *)
-    (fun cx cy _ -> to_int (J.EBin (J.Lsr, cx, cy)) );
-  register_bin_prim "%int_asr" `Pure (fun cx cy _ -> J.EBin (J.Asr, cx, cy));
+  register_bin_prim_ctx "%int_lsl" `Pure (fun ctx cx cy _ ->
+    if_prim_supplied "left_shift_32"
+      ~if_supplied:(fun () ->
+        let p =
+          Share.get_prim
+            (runtime_fun ctx) "left_shift_32" ctx.Ctx.share in
+        J.ECall (p, [cx; cy], Loc.N))
+      ~fallback:(fun() ->
+        J.EBin (J.Lsl, cx, cy))
+  );
+  register_bin_prim_ctx "%int_lsr" `Pure (fun ctx cx cy _ ->
+    if_prim_supplied "unsigned_right_shift_32"
+      ~if_supplied:(fun () ->
+        let p =
+          Share.get_prim
+            (runtime_fun ctx) "unsigned_right_shift_32" ctx.Ctx.share in
+        to_int (J.ECall (p, [cx; cy], Loc.N)))
+      ~fallback:(fun() ->
+        to_int (J.EBin (J.Lsr, cx, cy)))
+  );
+  register_bin_prim_ctx "%int_asr" `Pure (fun ctx cx cy _ ->
+    if_prim_supplied "right_shift_32"
+      ~if_supplied:(fun () ->
+        let p =
+          Share.get_prim
+            (runtime_fun ctx) "right_shift_32" ctx.Ctx.share in
+        J.ECall (p, [cx; cy], Loc.N))
+      ~fallback:(fun() ->
+        J.EBin (J.Asr, cx, cy))
+  );
   register_un_prim "%int_neg" `Pure (fun cx _ -> to_int (J.EUn (J.Neg, cx)));
   register_bin_prim "caml_eq_float" `Pure (fun cx cy _ ->
       bool (J.EBin (J.EqEq, float_val cx, float_val cy)) );
@@ -1029,10 +1124,7 @@ let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
             ERaw nm, const_p, queue
         | Extern ("caml_js_expr" | "caml_pure_js_expr"), [Pc (String nm | IString nm)] -> (
           try
-            let offset = match loc with Loc.N | Loc.U -> None | Loc.Pi pi -> Some pi in
-            let lex = Parse_js.lexer_from_string ?offset nm in
-            let e = Parse_js.parse_expr lex in
-            let e = Rehp_from_javascript.from_javascript_expression e in
+            let e = Rehp.ERaw nm in
             e, const_p, queue
           with Parse_js.Parsing_error pi ->
             failwith
@@ -1176,11 +1268,11 @@ let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
            'typeof x==="number"'; if the string is shared,
            less efficient code is generated. *)
             let (px, cx), queue = access_queue' ~ctx queue x in
-            J.EUn (IsInt, cx), px, queue
+            (is_int ~ctx cx), px, queue
         | Ult, [x; y] ->
             let (px, cx), queue = access_queue' ~ctx queue x in
             let (py, cy), queue = access_queue' ~ctx queue y in
-            bool (J.EBin (J.Lt, unsigned cx, unsigned cy)), or_p px py, queue
+            bool (J.EBin (J.Lt, unsigned ~ctx cx, unsigned ~ctx cy)), or_p px py, queue
         | (Vectlength | Array_get | Not | IsInt | Eq | Neq | Lt | Le | Ult), _ ->
             assert false
       in
@@ -1513,8 +1605,8 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
           | CEq n -> J.EBin (J.EqEqEq, int32 n, cx)
           | CLt n -> J.EBin (J.Lt, int32 n, cx)
           | CUlt n ->
-              let n' = if n < 0l then unsigned (int32 n) else int32 n in
-              J.EBin (J.Lt, n', unsigned cx)
+              let n' = if n < 0l then unsigned ~ctx:st.ctx (int32 n) else int32 n in
+              J.EBin (J.Lt, n', unsigned ~ctx:st.ctx cx)
           | CLe n -> J.EBin (J.Le, int32 n, cx)
         in
         ( never1 && never2
@@ -1671,7 +1763,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
         in
         let code =
           Js_simpl.if_statement
-            (J.EUn (IsInt, var x))
+            (is_int ~ctx:st.ctx (var x))
             loc
             (Js_simpl.block b1)
             false
@@ -1811,6 +1903,21 @@ and compile_closure ctx at_toplevel (pc, args) backend =
   List.map res ~f:(fun (st, loc) -> J.Statement st, loc)
 
 let generate_shared_value ctx =
+  (* Applies must be generated before the strings/shared values because the
+     applies might record a use of a primitive for caml_arity_check *)
+  let applies =
+    if not (Config.Flag.inline_callgen ())
+    then
+      let applies =
+        List.map (IntMap.bindings ctx.Ctx.share.Share.vars.Share.applies) ~f:(fun (n, v) ->
+            match generate_apply_fun ctx n with
+            | J.EFun (_, param, body, nid) ->
+                J.Function_declaration (v, param, body, nid), Loc.U
+            | _ -> assert false )
+      in
+      applies
+    else []
+  in
   let strings =
     ( J.Statement
         (J.Variable_statement
@@ -1822,18 +1929,7 @@ let generate_shared_value ctx =
                ~f:(fun (s, v) -> v, Some (runtime_fun ctx s, Loc.N) ) ))
     , Loc.U )
   in
-  if not (Config.Flag.inline_callgen ())
-  then
-    let applies =
-      List.map (IntMap.bindings ctx.Ctx.share.Share.vars.Share.applies) ~f:(fun (n, v) ->
-          match generate_apply_fun ctx n with
-          | J.EFun (_, param, body, nid) ->
-              J.Function_declaration (v, param, body, nid), Loc.U
-          | _ -> assert false )
-    in
-    strings :: applies
-  else [strings]
-
+  strings :: applies
 let compile_program ctx pc backend =
   let res = compile_closure ctx true (pc, []) backend in
   let res = generate_shared_value ctx @ res in

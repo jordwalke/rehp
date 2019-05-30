@@ -1526,8 +1526,6 @@ function caml_ba_uint8_set16(ba, i0, v) {
   return 0;
 }
 
-function caml_arity_test(f) {return f.length;}
-
 function raw_array_append_one(a, x) {
   var l = a.length;
   var b = new Array(l + 1);
@@ -1539,7 +1537,7 @@ function raw_array_append_one(a, x) {
 
 function caml_call_gen(f, args) {
   if (f.fun) {return caml_call_gen(f.fun, args);}
-  var n = caml_arity_test(f);
+  var n = f.length;
   var argsLen = args.length;
   var d = n - argsLen;
   if (d == 0) return f.apply(
@@ -5406,7 +5404,6 @@ joo_global_object.jsoo_runtime =
     caml_register_named_value: caml_register_named_value,
     caml_named_values: caml_named_values,
     caml_call_gen: caml_call_gen,
-    caml_arity_test: caml_arity_test,
     raw_array_append_one: raw_array_append_one,
     raw_array_cons: raw_array_cons,
     raw_array_copy: raw_array_copy,

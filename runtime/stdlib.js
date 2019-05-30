@@ -54,11 +54,6 @@ function raw_array_append_one(a,x) {
 }
 
 //Provides: caml_arity_test (const)
-function caml_arity_test(f) {
-  return f.length;
-}
-
-//Provides: caml_arity_test (const)
 //ForBackend: php
 var caml_arity_test = raw_backend([
   "$caml_arity_test = function($f) {",
@@ -74,11 +69,10 @@ var caml_arity_test = raw_backend([
 //Provides: caml_call_gen (const, shallow)
 //Requires: raw_array_sub
 //Requires: raw_array_append_one
-//Requires: caml_arity_test
 function caml_call_gen(f, args) {
   if(f.fun)
     return caml_call_gen(f.fun, args);
-  var n = caml_arity_test(f);
+  var n = f.length;
   var argsLen = args.length;
   var d = n - argsLen;
   if (d == 0)
@@ -1540,23 +1534,6 @@ function polymorphic_log(x) {
   }
 }
 
-//Provides: unsigned_right_shift_32
-//ForBackend: php
-var unsigned_right_shift_32 = raw_backend([
-  "$unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;"
-]);
-
-//Provides: left_shift_32
-//ForBackend: php
-var left_shift_32 = raw_backend([
-  "$left_shift_32=$joo_global_object->left_shift_32;"
-]);
-
-//Provides: right_shift_32
-//ForBackend: php
-var right_shift_32 = raw_backend([
-  "$right_shift_32=$joo_global_object->right_shift_32;"
-]);
 
 //Provides: ArrayLiteral
 //ForBackend: php
@@ -1687,3 +1664,73 @@ var is_in = raw_backend([
   "   return isset($val[$key]);",
   "  };"
 ]);
+
+// Bit shifters: To emulate 32 bits on 64 bit platforms, we shift off any
+// leading 32 bits.
+
+// << Left shift.
+// See also:
+// https://stackoverflow.com/a/25587827
+// https://stackoverflow.com/questions/6303241/find-windows-32-or-64-bit-using-php
+
+//Provides: left_shift_32 const (const, const)
+//ForBackend: php
+var left_shift_32 = raw_backend([
+  "    $left_shift_32 = (int $a, int $b): int {",
+  "      $shifted = $a << $b;",
+  "      if (\PHP_INT_SIZE === 8) {",
+  "        // 64 bit.",
+  "        return ($shifted << 32) >> 32;",
+  "      } else {",
+  "        // Size four means 32bit",
+  "        return $shifted;",
+  "      }",
+  "    };"
+]);
+
+// >>> Unsigned shift right:
+// https://stackoverflow.com/a/43359819
+
+//Provides: unsigned_right_shift_32 const (const, const)
+//ForBackend: php
+var unsigned_right_shift_32 = raw_backend([
+  "    $unsigned_right_shift_32 = function(int $a, int $b): int {",
+  "      if ($b >= 32 || $b < -32) {",
+  "        $m = (int)($b / 32);",
+  "        $b = $b - ($m * 32);",
+  "      }",
+  "      if ($b < 0) {",
+  "        $b = 32 + $b;",
+  "      }",
+  "      if ($b === 0) {",
+  "        return (($a >> 1) & 0x7fffffff) * 2 + (($a >> $b) & 1);",
+  "      }",
+  "      if ($a < 0) {",
+  "        $a = ($a >> 1);",
+  "        $a &= 2147483647;",
+  "        $a |= 0x40000000;",
+  "        $a = ($a >> ($b - 1));",
+  "      } else {",
+  "        $a = ($a >> $b);",
+  "      }",
+  "      return $a;",
+  "    };"
+]);
+
+// >> Right shift:
+
+//Provides: right_shift_32 const (const, const)
+//ForBackend: php
+var right_shift_32 = raw_backend([
+"    $right_shift_32 = function(int $a, int $b): int {",
+"      if (\PHP_INT_SIZE === 8) {",
+"        // 64 bit.",
+"        $a_normalized = ($a << 32) >> 32;",
+"      } else {",
+"        // Size four means 32bit",
+"        $a_normalized = $a;",
+"      }",
+"      return $a_normalized >> $b;",
+"    };"
+]);
+

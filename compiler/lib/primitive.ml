@@ -51,10 +51,16 @@ let has_arity nm a =
 
 let is_pure nm = kind nm <> `Mutator
 
+(* Returns whether or not the primitive has been registered:
+   Registering happens when loading files in js_of_ocaml.ml as well
+   as when registering custom primitives that are special cased in
+   generate.ml *)
 let exists p = Hashtbl.mem kinds p
 
 let externals = ref StringSet.empty
 
+(* This merely adds the external name, but doesn't "register" it - if only
+   add_external is called, the external won't show up as Primitive.exists. *)
 let add_external name = externals := StringSet.add name !externals
 
 let is_external name = StringSet.mem name !externals

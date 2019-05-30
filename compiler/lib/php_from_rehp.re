@@ -55,11 +55,29 @@ let binop_from_rehp = binop =>
   | Ge => Ge
   | InstanceOf => InstanceOf
   | In => In
-  | Lsl => Lsl
+  | Lsl =>
+    raise(
+      Invalid_argument(
+        "Should not be producing << (Lsl) when targeting PHP."
+        ++ " The runtime file you supplied likely omitted left_shift_32",
+      ),
+    )
   /* Php doesn't have an equivalent - this should have been turned into calls
    * to unsigned_right_shift_32 by this point. */
-  | Lsr => assert(false)
-  | Asr => Asr
+  | Lsr =>
+    raise(
+      Invalid_argument(
+        "Should not be producing >>> (Lsr) when targeting PHP."
+        ++ " The runtime file you supplied likely omitted unsigned_right_shift_32",
+      ),
+    )
+  | Asr =>
+    raise(
+      Invalid_argument(
+        "Should not be producing >>> (Asr) when targeting PHP."
+        ++ " The runtime file you supplied likely omitted right_shift_32",
+      ),
+    )
   | Plus => Plus
   | FloatPlus => FloatPlus
   | IntPlus => IntPlus
@@ -507,7 +525,13 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(Typeof, exprMapped));
   /* Should have already been converted in Identifier_renaming_php. */
-  | IsInt => assert(false)
+  | IsInt =>
+    raise(
+      Invalid_argument(
+        "Should not be producing IsInt when targeting PHP."
+        ++ " The runtime file you supplied likely omitted is_int",
+      ),
+    )
   /* Only for stubs */
   | Void =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);

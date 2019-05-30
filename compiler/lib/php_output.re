@@ -53,7 +53,6 @@
      caml_update_dummy(f, function(x,y) {return 1});
      caml_update_dummy(z,[0,[0,f,_da_]]);
 
- - TODO: Add IsInt.
  - Grabbing methods and then calling them likely doesn't work
  $f=$String->fromCharCode; (Only matters for stdlib).
  - Single quotes don't escape dollar signs, but don't escape anything including
