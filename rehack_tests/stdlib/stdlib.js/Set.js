@@ -50,9 +50,7 @@ function Make(Ord) {
       var hr = h__0;
     }
     else var hr = 0;
-    if (hr <= hl) var ge = hl +
-      1 | 0;
-    else var ge = hr + 1 | 0;
+    var ge = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
     return [0,l,v,r,ge];
   }
   function bal(l, v, r) {
@@ -102,9 +100,7 @@ function Make(Ord) {
       }
       return caml_call1(Pervasives[1], cst_Set_bal__2);
     }
-    if (hr <= hl) var gd = hl +
-      1 | 0;
-    else var gd = hr + 1 | 0;
+    var gd = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
     return [0,l,v,r,gd];
   }
   function add(x, t) {
@@ -273,8 +269,7 @@ function Make(Ord) {
         var c = caml_call2(Ord[1], x, v);
         var f0 = 0 === c ? 1 : 0;
         if (f0) {return f0;}
-        if (0 <= c) var param__1 = r;
-        else var param__1 = l;
+        var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
         continue;
       }
@@ -584,8 +579,7 @@ function Make(Ord) {
         var l = param__0[1];
         var c = caml_call2(Ord[1], x, v);
         if (0 === c) {return v;}
-        if (0 <= c) var param__1 = r;
-        else var param__1 = l;
+        var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
         continue;
       }
@@ -717,8 +711,7 @@ function Make(Ord) {
         var l = param__0[1];
         var c = caml_call2(Ord[1], x, v);
         if (0 === c) {return [0,v];}
-        if (0 <= c) var param__1 = r;
-        else var param__1 = l;
+        var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
         continue;
       }
@@ -729,15 +722,13 @@ function Make(Ord) {
     if (0 === l) var switch__0 = 0;
     else {
       var fC = max_elt(l);
-      if (0 <= caml_call2(Ord[1], fC, v)) var switch__0 = 1;
-      else var switch__0 = 0;
+      var switch__0 = 0 <= caml_call2(Ord[1], fC, v) ? 1 : 0;
     }
     if (! switch__0) {
       if (0 === r) var switch__1 = 0;
       else {
         var fB = min_elt(r);
-        if (0 <= caml_call2(Ord[1], v, fB)) var switch__1 = 1;
-        else var switch__1 = 0;
+        var switch__1 = 0 <= caml_call2(Ord[1], v, fB) ? 1 : 0;
       }
       if (! switch__1) {return join(l, v, r);}
     }

@@ -130,8 +130,7 @@ function make_lexer(keywords) {
     var match = caml_call1(Stream[11], strm);
     if (match) {
       var zW = match[1];
-      if (43 === zW) var switch__0 = 0;
-      else if (45 === zW) var switch__0 = 0;else var switch__0 = 1;
+      var switch__0 = 43 === zW ? 0 : 45 === zW ? 0 : 1;
       if (! switch__0) {
         caml_call1(Stream[12], strm);
         store(zW);
@@ -172,8 +171,7 @@ function make_lexer(keywords) {
       if (match) {
         var zT = match[1];
         if (58 <= zT) {
-          if (69 === zT) var switch__0 = 0;
-          else if (101 === zT) var switch__0 = 0;else var switch__0 = 1;
+          var switch__0 = 69 === zT ? 0 : 101 === zT ? 0 : 1;
           if (! switch__0) {
             caml_call1(Stream[12], strm);
             store(69);
@@ -199,13 +197,12 @@ function make_lexer(keywords) {
         var zR = match[1];
         if (94 <= zR) {
           var zS = zR + -95 | 0;
-          if (30 < zS >>> 0) if (32 <= zS) var switch__0 = 1;
-          else var switch__0 = 0;
-          else if (29 === zS) var switch__0 = 0;else var switch__0 = 1;
+          var switch__0 = 30 < zS >>> 0 ? 32 <= zS ? 1 : 0 : 29 === zS ? 0 : 1;
         }
-        else if (65 <= zR) if (92 === zR
-        ) var switch__0 = 0;
-        else var switch__0 = 1;
+        else if (65 <= zR) var switch__0 = 92 ===
+           zR ?
+          0 :
+          1;
         else if (33 <= zR) switch (
           zR + -33 | 0
         ) {
@@ -259,15 +256,11 @@ function make_lexer(keywords) {
         var zO = match[1];
         if (91 <= zO) {
           var zP = zO + -95 | 0;
-          if (27 < zP >>> 0) if (97 <= zP) var switch__0 = 0;
-          else var switch__0 = 1;
-          else if (1 === zP) var switch__0 = 1;else var switch__0 = 0;
+          var switch__0 = 27 < zP >>> 0 ? 97 <= zP ? 0 : 1 : 1 === zP ? 1 : 0;
         }
-        else if (48 <= zO) if (
-          6 < (zO + -58 | 0) >>> 0
-        ) var switch__0 = 0;
-        else var switch__0 = 1;
-        else if (39 === zO) var switch__0 = 0;else var switch__0 = 1;
+        else var switch__0 = 48 <= zO ?
+          6 < (zO + -58 | 0) >>> 0 ? 0 : 1 :
+          39 === zO ? 0 : 1;
         if (! switch__0) {caml_call1(Stream[12], strm);store(zO);continue;}
       }
       return [0,ident_or_keyword(get_string(0))];
@@ -278,9 +271,10 @@ function make_lexer(keywords) {
       var match = caml_call1(Stream[11], strm);
       if (match) {
         var zK = match[1];
-        if (124 <= zK) if (127 <= zK) if (192 <= zK) var switch__0 = 1;
-        else var switch__0 = 0;
-        else if (125 === zK) var switch__0 = 0;else var switch__0 = 2;
+        if (124 <= zK) var switch__0 = 127 <=
+           zK ?
+          192 <= zK ? 1 : 0 :
+          125 === zK ? 0 : 2;
         else {
           var zL = zK + -65 | 0;
           if (57 < zL >>> 0) if (58 <= zL) var switch__0 = 0;

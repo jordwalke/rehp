@@ -54,10 +54,7 @@ final class Char {
     $escaped = function($c) use ($caml_bytes_unsafe_set,$caml_create_bytes,$cst,$cst__0,$cst_b,$cst_n,$cst_r,$cst_t) {
       if (40 <= $c) {
         if (92 === $c) {return $cst;}
-        if (127 <= $c) {
-          $switch__0 = 0;
-        }
-        else {$switch__0 = 1;}
+        $switch__0 = 127 <= $c ? 0 : (1);
       }
       else {
         if (32 <= $c) {
@@ -102,58 +99,22 @@ final class Char {
       return $s;
     };
     $lowercase = function($c) {
-      if (65 <= $c) {
-        if (90 < $c) {
-          $switch__0 = 0;
-        }
-        else {$switch__0 = 1;}
-      }
-      else {$switch__0 = 0;}
+      $switch__0 = 65 <= $c ? 90 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
-        if (192 <= $c) {
-          if (214 < $c) {
-            $switch__1 = 0;
-          }
-          else {$switch__1 = 1;}
-        }
-        else {$switch__1 = 0;}
+        $switch__1 = 192 <= $c ? 214 < $c ? 0 : (1) : (0);
         if (! $switch__1) {
-          if (216 <= $c) {
-            if (222 < $c) {
-              $switch__2 = 1;
-            }
-            else {$switch__2 = 0;}
-          }
-          else {$switch__2 = 1;}
+          $switch__2 = 216 <= $c ? 222 < $c ? 1 : (0) : (1);
           if ($switch__2) {return $c;}
         }
       }
       return (int) ($c + 32);
     };
     $uppercase = function($c) {
-      if (97 <= $c) {
-        if (122 < $c) {
-          $switch__0 = 0;
-        }
-        else {$switch__0 = 1;}
-      }
-      else {$switch__0 = 0;}
+      $switch__0 = 97 <= $c ? 122 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
-        if (224 <= $c) {
-          if (246 < $c) {
-            $switch__1 = 0;
-          }
-          else {$switch__1 = 1;}
-        }
-        else {$switch__1 = 0;}
+        $switch__1 = 224 <= $c ? 246 < $c ? 0 : (1) : (0);
         if (! $switch__1) {
-          if (248 <= $c) {
-            if (254 < $c) {
-              $switch__2 = 1;
-            }
-            else {$switch__2 = 0;}
-          }
-          else {$switch__2 = 1;}
+          $switch__2 = 248 <= $c ? 254 < $c ? 1 : (0) : (1);
           if ($switch__2) {return $c;}
         }
       }

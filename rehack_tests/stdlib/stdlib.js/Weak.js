@@ -90,10 +90,8 @@ function Make(H) {
   }
   var limit = 7;
   function create(sz) {
-    if (7 <= sz) var sz__0 = sz;
-    else var sz__0 = 7;
-    if (Sys[14] < sz__0) var sz__1 = Sys[14];
-    else var sz__1 = sz__0;
+    var sz__0 = 7 <= sz ? sz : 7;
+    var sz__1 = Sys[14] < sz__0 ? Sys[14] : sz__0;
     return [
       0,
       caml_make_vect(sz__1, emptybucket),
@@ -191,8 +189,7 @@ function Make(H) {
     var accu__0 = accu;
     for (; ; ) {
       if (length(b) <= i__0) {return accu__0;}
-      if (caml_weak_check(b, i__0)) var sl = 1;
-      else var sl = 0;
+      var sl = caml_weak_check(b, i__0) ? 1 : 0;
       var accu__1 = accu__0 + sl | 0;
       var i__1 = i__0 + 1 | 0;
       var i__0 = i__1;
@@ -260,11 +257,7 @@ function Make(H) {
         caml_obj_truncate(hbucket, prev_len);
       }
       var sb = t[3] < len ? 1 : 0;
-      if (sb) var sc = prev_len <=
-         t[3] ?
-        1 :
-        0;
-      else var sc = sb;
+      var sc = sb ? prev_len <= t[3] ? 1 : 0 : sb;
       if (sc) {t[4] = t[4] + -1 | 0;}
     }
     t[5] = caml_mod(t[5] + 1 | 0, t[1].length - 1);
@@ -322,12 +315,7 @@ function Make(H) {
           caml_check_bound(t[1], index)[index + 1] = newbucket;
           caml_check_bound(t[2], index)[index + 1] = newhashes;
           var r4 = sz <= t[3] ? 1 : 0;
-          if (r4) var r5 = t
-            [3] <
-             newsz ?
-            1 :
-            0;
-          else var r5 = r4;
+          var r5 = r4 ? t[3] < newsz ? 1 : 0 : r4;
           if (r5) {
             t[4] = t[4] + 1 | 0;
             var i__1 = 0;

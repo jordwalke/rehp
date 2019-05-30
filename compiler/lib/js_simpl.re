@@ -199,6 +199,13 @@ let simplify_full_if_statement =
     }
   };
 
+let rec single_assignment_of_statement = st =>
+  switch (fst(st)) {
+  | J.Variable_statement([(x, Some(e))]) => (x, e)
+  | J.Block([st]) => single_assignment_of_statement(st)
+  | _ => raise(Not_assignment)
+  };
+
 exception Not_return;
 
 let rec return_expression_of_statement = st =>
@@ -208,17 +215,35 @@ let rec return_expression_of_statement = st =>
   | _ => raise(Not_return)
   };
 
-let simplify_partial_if_statement =
+let simplify_single_statement_if_statement =
     (e, loc, iftrue, truestop, iffalse, falsestop) =>
   try (
     {
-      let e1 = return_expression_of_statement(iftrue);
-      let e2 = return_expression_of_statement(iffalse);
-      [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
+      let (x1, (e1, _)) = single_assignment_of_statement(iftrue);
+      let (x2, (e2, _)) = single_assignment_of_statement(iffalse);
+      if (x1 != x2) {
+        raise(Not_assignment);
+      };
+      let exp =
+        if (e1 == e) {
+          J.EBin(J.Or, e, e2);
+        } else {
+          J.ECond(e, e1, e2);
+        };
+      [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
     }
   ) {
-  | Not_return =>
-    simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop)
+  | Not_assignment =>
+    try (
+      {
+        let e1 = return_expression_of_statement(iftrue);
+        let e2 = return_expression_of_statement(iffalse);
+        [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
+      }
+    ) {
+    | Not_return =>
+      simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop)
+    }
   };
 
 let rec if_statement_2 =
@@ -249,7 +274,7 @@ let rec if_statement_2 =
         falsestop,
       );
     } else {
-      simplify_partial_if_statement(
+      simplify_single_statement_if_statement(
         e,
         loc,
         iftrue,

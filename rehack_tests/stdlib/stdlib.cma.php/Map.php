@@ -88,10 +88,7 @@ final class Map {
       $create = function($l, $x, $d, $r) use ($height) {
         $hl = $height($l);
         $hr = $height($r);
-        if ($hr <= $hl) {
-          $gS = (int) ($hl + 1);
-        }
-        else {$gS = (int) ($hr + 1);}
+        $gS = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $x, $d, $r, $gS};
       };
       $singleton = function($x, $d) {return Vector{0, 0, $x, $d, 0, 1};};
@@ -150,10 +147,7 @@ final class Map {
           }
           return $caml_call1($Pervasives[1], $cst_Map_bal__2);
         }
-        if ($hr <= $hl) {
-          $gR = (int) ($hl + 1);
-        }
-        else {$gR = (int) ($hr + 1);}
+        $gR = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $x, $d, $r, $gR};
       };
       $empty = 0;
@@ -188,10 +182,7 @@ final class Map {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return $d;}
-            if (0 <= $c) {
-              $param__1 = $r;
-            }
-            else {$param__1 = $l;}
+            $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
           }
@@ -360,10 +351,7 @@ final class Map {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return Vector{0, $d};}
-            if (0 <= $c) {
-              $param__1 = $r;
-            }
-            else {$param__1 = $l;}
+            $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
           }
@@ -380,10 +368,7 @@ final class Map {
             $c = $caml_call2($Ord[1], $x, $v);
             $gM = 0 === $c ? 1 : (0);
             if ($gM) {return $gM;}
-            if (0 <= $c) {
-              $param__1 = $r;
-            }
-            else {$param__1 = $l;}
+            $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
           }

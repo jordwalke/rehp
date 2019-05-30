@@ -294,8 +294,7 @@ function format_pp_token(state, size, param) {
       var insertion_point__0 = state[6] - state[9] | 0;
       if (state[8] < insertion_point__0) {pp_force_break_line(state);}
       var offset__0 = state[9] - off__1 | 0;
-      if (1 === ty__0) var bl_type = 1;
-      else if (state[9] < size) var bl_type = ty__0;else var bl_type = 5;
+      var bl_type = 1 === ty__0 ? 1 : state[9] < size ? ty__0 : 5;
       state[2] = [0,[0,bl_type,offset__0],state[2]];
       return 0;
     case 4:
@@ -318,18 +317,11 @@ function advance_loop(state) {
     var len = match[3];
     var tok = match[2];
     var vz = size < 0 ? 1 : 0;
-    if (vz) var vA = (state
-       [13] -
-        state[12] | 0) <
-       state[9] ?
-      1 :
-      0;
-    else var vA = vz;
+    var vA = vz ? (state[13] - state[12] | 0) < state[9] ? 1 : 0 : vz;
     var vB = 1 - vA;
     if (vB) {
       take_queue(state[28]);
-      if (0 <= size) var size__0 = size;
-      else var size__0 = pp_infinity;
+      var size__0 = 0 <= size ? size : pp_infinity;
       format_pp_token(state, size__0, tok);
       state[12] = len + state[12] | 0;
       continue;

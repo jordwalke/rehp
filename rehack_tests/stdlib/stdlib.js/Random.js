@@ -133,8 +133,7 @@ function full_init(s, seed) {
     var qc = caml_string_get(d, 1) << 8;
     return ((caml_string_get(d, 0) + qc | 0) + qb | 0) + qa | 0;
   }
-  if (0 === seed.length - 1) var seed__0 = [0,0];
-  else var seed__0 = seed;
+  var seed__0 = 0 === seed.length - 1 ? [0,0] : seed;
   var l = seed__0.length - 1;
   var i__0 = 0;
   for (; ; ) {
@@ -241,12 +240,11 @@ function int64(s, bound) {
     int64aux(s, bound);
 }
 
-if (32 === Nativeint[7]) var nativeint = function(s, bound) {
-  return int32(s, bound);
-};
-else var nativeint = function(s, bound) {
-  return runtime["caml_int64_to_int32"](int64(s, caml_int64_of_int32(bound)));
-};
+var nativeint = 32 === Nativeint[7] ?
+  function(s, bound) {return int32(s, bound);} :
+  function(s, bound) {
+   return runtime["caml_int64_to_int32"](int64(s, caml_int64_of_int32(bound)));
+ };
 
 function rawfloat(s) {
   var r1 = bits(s);

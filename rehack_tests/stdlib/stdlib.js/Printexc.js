@@ -327,8 +327,7 @@ function format_backtrace_slot(pos, slot) {
     var o8 = slot[5];
     var o9 = slot[4];
     var o_ = slot[3];
-    if (slot[6]) var pa = cst_inlined;
-    else var pa = cst__3;
+    var pa = slot[6] ? cst_inlined : cst__3;
     var pb = slot[2];
     var pc = info(slot[1]);
     return [0,caml_call7(Printf[4], oF, pc, pb, pa, o_, o9, o8)];

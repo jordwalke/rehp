@@ -94,10 +94,7 @@ final class Set {
           $hr = $h__0;
         }
         else {$hr = 0;}
-        if ($hr <= $hl) {
-          $ge = (int) ($hl + 1);
-        }
-        else {$ge = (int) ($hr + 1);}
+        $ge = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $ge};
       };
       $bal = function($l, $v, $r) use ($Pervasives,$caml_call1,$create,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$height) {
@@ -151,10 +148,7 @@ final class Set {
           }
           return $caml_call1($Pervasives[1], $cst_Set_bal__2);
         }
-        if ($hr <= $hl) {
-          $gd = (int) ($hl + 1);
-        }
-        else {$gd = (int) ($hr + 1);}
+        $gd = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $gd};
       };
       $add->contents = function($x, $t) use ($Ord,$add,$bal,$caml_call2) {
@@ -328,10 +322,7 @@ final class Set {
             $c = $caml_call2($Ord[1], $x, $v);
             $f0 = 0 === $c ? 1 : (0);
             if ($f0) {return $f0;}
-            if (0 <= $c) {
-              $param__1 = $r;
-            }
-            else {$param__1 = $l;}
+            $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
           }
@@ -653,10 +644,7 @@ final class Set {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return $v;}
-            if (0 <= $c) {
-              $param__1 = $r;
-            }
-            else {$param__1 = $l;}
+            $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
           }
@@ -788,10 +776,7 @@ final class Set {
             $l = $param__0[1];
             $c = $caml_call2($Ord[1], $x, $v);
             if (0 === $c) {return Vector{0, $v};}
-            if (0 <= $c) {
-              $param__1 = $r;
-            }
-            else {$param__1 = $l;}
+            $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
           }
@@ -804,8 +789,7 @@ final class Set {
         }
         else {
           $fC = $max_elt($l);
-          if (0 <= $caml_call2($Ord[1], $fC, $v)) {$switch__0 = 1;}
-          else {$switch__0 = 0;}
+          $switch__0 = 0 <= $caml_call2($Ord[1], $fC, $v) ? 1 : (0);
         }
         if (! $switch__0) {
           if (0 === $r) {
@@ -813,8 +797,7 @@ final class Set {
           }
           else {
             $fB = $min_elt($r);
-            if (0 <= $caml_call2($Ord[1], $v, $fB)) {$switch__1 = 1;}
-            else {$switch__1 = 0;}
+            $switch__1 = 0 <= $caml_call2($Ord[1], $v, $fB) ? 1 : (0);
           }
           if (! $switch__1) {return $join->contents($l, $v, $r);}
         }

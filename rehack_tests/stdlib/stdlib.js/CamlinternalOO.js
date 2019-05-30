@@ -86,9 +86,7 @@ function public_method_label(s) {
     }
   }
   accu[1] = accu[1] & 2147483647;
-  if (1073741823 < accu[1]) var tag = accu[1] +
-    2147483648 | 0;
-  else var tag = accu[1];
+  var tag = 1073741823 < accu[1] ? accu[1] + 2147483648 | 0 : accu[1];
   return tag;
 }
 
@@ -387,12 +385,7 @@ function inherits(cla, vals, virt_meths, concr_meths, param, top) {
   var env = param[4];
   var super__0 = param[2];
   narrow(cla, vals, virt_meths, concr_meths);
-  if (top) var init = caml_call2(
-    super__0,
-    cla,
-    env
-  );
-  else var init = caml_call1(super__0, cla);
+  var init = top ? caml_call2(super__0, cla, env) : caml_call1(super__0, cla);
   widen(cla);
   var yx = 0;
   var yy = to_array(concr_meths);

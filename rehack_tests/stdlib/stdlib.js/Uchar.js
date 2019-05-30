@@ -73,20 +73,9 @@ function pred(u) {
 
 function is_valid(i) {
   var bf = 0 <= i ? 1 : 0;
-  if (bf) var bg = i <=
-     55295 ?
-    1 :
-    0;
-  else var bg = bf;
+  var bg = bf ? i <= 55295 ? 1 : 0 : bf;
   if (bg) var bh = bg;
-  else {
-    var bi = 57344 <= i ? 1 : 0;
-    if (bi) var bh = i <=
-       1114111 ?
-      1 :
-      0;
-    else var bh = bi;
-  }
+  else {var bi = 57344 <= i ? 1 : 0;var bh = bi ? i <= 1114111 ? 1 : 0 : bi;}
   return bh;
 }
 

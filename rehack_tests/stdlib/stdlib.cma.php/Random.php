@@ -155,8 +155,7 @@ final class Random {
         return (int)
         ((int) ((int) ($caml_string_get($d, 0) + $qc) + $qb) + $qa);
       };
-      if (0 === $seed->count() - 1) {$seed__0 = Vector{0, 0};}
-      else {$seed__0 = $seed;}
+      $seed__0 = 0 === $seed->count() - 1 ? Vector{0, 0} : ($seed);
       $l = $seed__0->count() - 1;
       $i__0 = 0;
       for (;;) {
@@ -268,20 +267,13 @@ final class Random {
         ? $caml_call1($Pervasives[1], $cst_Random_int64)
         : ($int64aux($s, $bound));
     };
-    
-    if (32 === $Nativeint[7]) {
-      $nativeint = function($s, $bound) use ($int32) {
-        return $int32($s, $bound);
-      };
-    }
-    else {
-      $nativeint = function($s, $bound) use ($caml_int64_of_int32,$int64,$runtime) {
-        return $runtime["caml_int64_to_int32"](
-          $int64($s, $caml_int64_of_int32($bound))
-        );
-      };
-    }
-    
+    $nativeint = 32 === $Nativeint[7]
+      ? function($s, $bound) use ($int32) {return $int32($s, $bound);}
+      : (function($s, $bound) use ($caml_int64_of_int32,$int64,$runtime) {
+       return $runtime["caml_int64_to_int32"](
+         $int64($s, $caml_int64_of_int32($bound))
+       );
+     });
     $rawfloat = function($s) use ($bits) {
       $r1 = $bits($s);
       $r2 = $bits($s);

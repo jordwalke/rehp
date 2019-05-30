@@ -191,9 +191,7 @@ function mapi(f, s) {
 
 function is_space(param) {
   var ck = param + -9 | 0;
-  if (4 < ck >>> 0) if (23 === ck) var switch__0 = 1;
-  else var switch__0 = 0;
-  else if (2 === ck) var switch__0 = 0;else var switch__0 = 1;
+  var switch__0 = 4 < ck >>> 0 ? 23 === ck ? 1 : 0 : 2 === ck ? 0 : 1;
   return switch__0 ? 1 : 0;
 }
 
@@ -229,10 +227,9 @@ function escaped(s) {
         else var switch__1 = 1;
         if (switch__1) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       }
-      else if (11 <= match) if (13 === match
-      ) var switch__0 = 1;
-      else var switch__0 = 0;
-      else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
+      else var switch__0 = 11 <= match ?
+        13 === match ? 1 : 0 :
+        8 <= match ? 1 : 0;
       return switch__0 ? 1 : 1;
     }
   }

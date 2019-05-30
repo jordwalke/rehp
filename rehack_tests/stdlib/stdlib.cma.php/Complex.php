@@ -102,8 +102,7 @@ final class Complex {
           $Math->sqrt(0.5 * ($q__0 + $Math->sqrt(1 + $q__0 * $q__0)));
       }
       if (0 <= $x[1]) {return Vector{254, $w, 0.5 * $x[2] / $w};}
-      if (0 <= $x[2]) {$w__0 = $w;}
-      else {$w__0 = - $w;}
+      $w__0 = 0 <= $x[2] ? $w : (- $w);
       return Vector{254, 0.5 * $i / $w, $w__0};
     };
     $exp = function($x) use ($Math) {

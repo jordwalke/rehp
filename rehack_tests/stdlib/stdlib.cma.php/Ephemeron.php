@@ -100,13 +100,11 @@ final class Ephemeron {
         $s = $power_2_above(16, $initial_size);
         if ($random) {
           $Bc = $runtime["caml_obj_tag"]($prng);
-          if (250 === $Bc) {$Bd = $prng[1];}
-          else {
-            if (246 === $Bc) {
-              $Bd = $caml_call1($CamlinternalLazy[2], $prng);
-            }
-            else {$Bd = $prng;}
-          }
+          $Bd = 250 === $Bc
+            ? $prng[1]
+            : (246 === $Bc
+             ? $caml_call1($CamlinternalLazy[2], $prng)
+             : ($prng));
           $seed = $caml_call1($Random[11][4], $Bd);
         }
         else {$seed = 0;}
@@ -184,10 +182,9 @@ final class Ephemeron {
         $nsize = (int) ($osize * 2);
         $clean($h);
         $AY = $nsize < $Sys[14] ? 1 : (0);
-        if ($AY) {
-          $AZ = (int) $unsigned_right_shift_32($osize, 1) <= $h[1] ? 1 : (0);
-        }
-        else {$AZ = $AY;}
+        $AZ = $AY
+          ? (int) $unsigned_right_shift_32($osize, 1) <= $h[1] ? 1 : (0)
+          : ($AY);
         if ($AZ) {
           $ndata = $caml_make_vect($nsize, 0);
           $h[2] = $ndata;

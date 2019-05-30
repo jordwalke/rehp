@@ -83,10 +83,7 @@ final class Hashtbl {
     };
     $ongoing_traversal = function($h) {
       $rl = $h->count() - 1 < 4 ? 1 : (0);
-      if ($rl) {
-        $rm = $rl;
-      }
-      else {$rm = $h[4] < 0 ? 1 : (0);}
+      $rm = $rl || ($h[4] < 0 ? 1 : (0));
       return $rm;
     };
     $flip_ongoing_traversal = function($h) {$h[4] = (int) - $h[4];return 0;};
@@ -142,13 +139,9 @@ final class Hashtbl {
       $s = $power_2_above(16, $initial_size);
       if ($random) {
         $rg = $runtime["caml_obj_tag"]($prng);
-        if (250 === $rg) {$rh = $prng[1];}
-        else {
-          if (246 === $rg) {
-            $rh = $caml_call1($CamlinternalLazy[2], $prng);
-          }
-          else {$rh = $prng;}
-        }
+        $rh = 250 === $rg
+          ? $prng[1]
+          : (246 === $rg ? $caml_call1($CamlinternalLazy[2], $prng) : ($prng));
         $seed = $caml_call1($Random[11][4], $rh);
       }
       else {$seed = 0;}
@@ -236,10 +229,7 @@ final class Hashtbl {
               $key = $cell__0[1];
               $data = $cell__0[2];
               $next = $cell__0[3];
-              if ($inplace) {
-                $cell__1 = $cell__0;
-              }
-              else {$cell__1 = Vector{0, $key, $data, 0};}
+              $cell__1 = $inplace ? $cell__0 : (Vector{0, $key, $data, 0});
               $nidx = $caml_call2($indexfun, $h, $key);
               $match = $caml_check_bound($ndata_tail, $nidx)[$nidx + 1];
               if ($match) {
@@ -515,10 +505,7 @@ final class Hashtbl {
           }
         }
         $qQ = 1 - $old_trav;
-        if ($qQ) {
-          $qR = $flip_ongoing_traversal($h);
-        }
-        else {$qR = $qQ;}
+        $qR = $qQ ? $flip_ongoing_traversal($h) : ($qQ);
         return $qR;
       }
       catch(\Throwable $exn) {

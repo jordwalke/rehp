@@ -331,11 +331,7 @@ final class Format {
             $insertion_point__0 = (int) ($state[6] - $state[9]);
             if ($state[8] < $insertion_point__0) {$pp_force_break_line($state);}
             $offset__0 = (int) ($state[9] - $off__1);
-            if (1 === $ty__0) {$bl_type = 1;}
-            else {
-              if ($state[9] < $size) {$bl_type = $ty__0;}
-              else {$bl_type = 5;}
-            }
+            $bl_type = 1 === $ty__0 ? 1 : ($state[9] < $size ? $ty__0 : (5));
             $state[2] = Vector{0, Vector{0, $bl_type, $offset__0}, $state[2]};
             return 0;
           // FALLTHROUGH
@@ -360,17 +356,13 @@ final class Format {
         $len = $match[3];
         $tok = $match[2];
         $vz = $size < 0 ? 1 : (0);
-        if ($vz) {
-          $vA = (int) ($state[13] - $state[12]) < $state[9] ? 1 : (0);
-        }
-        else {$vA = $vz;}
+        $vA = $vz
+          ? (int) ($state[13] - $state[12]) < $state[9] ? 1 : (0)
+          : ($vz);
         $vB = 1 - $vA;
         if ($vB) {
           $take_queue($state[28]);
-          if (0 <= $size) {
-            $size__0 = $size;
-          }
-          else {$size__0 = $pp_infinity;}
+          $size__0 = 0 <= $size ? $size : ($pp_infinity);
           $format_pp_token($state, $size__0, $tok);
           $state[12] = (int) ($len + $state[12]);
           continue;

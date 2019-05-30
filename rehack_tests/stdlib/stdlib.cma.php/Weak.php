@@ -110,11 +110,8 @@ final class Weak {
       };
       $limit = 7;
       $create = function($sz) use ($Sys,$caml_make_vect,$emptybucket,$limit) {
-        if (7 <= $sz) {$sz__0 = $sz;
-        }
-        else {$sz__0 = 7;}
-        if ($Sys[14] < $sz__0) {$sz__1 = $Sys[14];}
-        else {$sz__1 = $sz__0;}
+        $sz__0 = 7 <= $sz ? $sz : (7);
+        $sz__1 = $Sys[14] < $sz__0 ? $Sys[14] : ($sz__0);
         return Vector{
           0,
           $caml_make_vect($sz__1, $emptybucket),
@@ -222,8 +219,7 @@ final class Weak {
         $accu__0 = $accu;
         for (;;) {
           if ($length($b) <= $i__0) {return $accu__0;}
-          if ($caml_weak_check($b, $i__0)) {$sl = 1;}
-          else {$sl = 0;}
+          $sl = $caml_weak_check($b, $i__0) ? 1 : (0);
           $accu__1 = (int) ($accu__0 + $sl);
           $i__1 = (int) ($i__0 + 1);
           $i__0 = $i__1;
@@ -300,10 +296,7 @@ final class Weak {
             $caml_obj_truncate($hbucket, $prev_len);
           }
           $sb = $t[3] < $len ? 1 : (0);
-          if ($sb) {
-            $sc = $prev_len <= $t[3] ? 1 : (0);
-          }
-          else {$sc = $sb;}
+          $sc = $sb ? $prev_len <= $t[3] ? 1 : (0) : ($sb);
           if ($sc) {$t[4] = (int) ($t[4] + -1);}
         }
         $t[5] = $caml_mod((int) ($t[5] + 1), $t[1]->count() - 1);
@@ -369,10 +362,7 @@ final class Weak {
               $caml_check_bound($t[1], $index)[$index + 1] = $newbucket;
               $caml_check_bound($t[2], $index)[$index + 1] = $newhashes;
               $r4 = $sz <= $t[3] ? 1 : (0);
-              if ($r4) {
-                $r5 = $t[3] < $newsz ? 1 : (0);
-              }
-              else {$r5 = $r4;}
+              $r5 = $r4 ? $t[3] < $newsz ? 1 : (0) : ($r4);
               if ($r5) {
                 $t[4] = (int) ($t[4] + 1);
                 $i__1 = 0;

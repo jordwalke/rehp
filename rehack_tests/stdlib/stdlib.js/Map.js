@@ -46,9 +46,7 @@ function Make(Ord) {
   function create(l, x, d, r) {
     var hl = height(l);
     var hr = height(r);
-    if (hr <= hl) var gS = hl +
-      1 | 0;
-    else var gS = hr + 1 | 0;
+    var gS = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
     return [0,l,x,d,r,gS];
   }
   function singleton(x, d) {return [0,0,x,d,0,1];}
@@ -107,9 +105,7 @@ function Make(Ord) {
       }
       return caml_call1(Pervasives[1], cst_Map_bal__2);
     }
-    if (hr <= hl) var gR = hl +
-      1 | 0;
-    else var gR = hr + 1 | 0;
+    var gR = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
     return [0,l,x,d,r,gR];
   }
   var empty = 0;
@@ -142,8 +138,7 @@ function Make(Ord) {
         var l = param__0[1];
         var c = caml_call2(Ord[1], x, v);
         if (0 === c) {return d;}
-        if (0 <= c) var param__1 = r;
-        else var param__1 = l;
+        var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
         continue;
       }
@@ -308,8 +303,7 @@ function Make(Ord) {
         var l = param__0[1];
         var c = caml_call2(Ord[1], x, v);
         if (0 === c) {return [0,d];}
-        if (0 <= c) var param__1 = r;
-        else var param__1 = l;
+        var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
         continue;
       }
@@ -326,8 +320,7 @@ function Make(Ord) {
         var c = caml_call2(Ord[1], x, v);
         var gM = 0 === c ? 1 : 0;
         if (gM) {return gM;}
-        if (0 <= c) var param__1 = r;
-        else var param__1 = l;
+        var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
         continue;
       }

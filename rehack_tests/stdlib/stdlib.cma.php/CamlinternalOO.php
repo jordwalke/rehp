@@ -107,10 +107,9 @@ final class CamlinternalOO {
         }
       }
       $accu[1] = $accu[1] & 2147483647;
-      if (1073741823 < $accu[1]) {
-        $tag = (int) ($accu[1] . 2147483648);
-      }
-      else {$tag = $accu[1];}
+      $tag = 1073741823 < $accu[1]
+        ? (int) ($accu[1] . 2147483648)
+        : ($accu[1]);
       return $tag;
     };
     $compare = function($x, $y) use ($caml_string_compare) {
@@ -442,10 +441,9 @@ final class CamlinternalOO {
       $env = $param[4];
       $super__0 = $param[2];
       $narrow($cla, $vals, $virt_meths, $concr_meths);
-      if ($top) {
-        $init = $caml_call2($super__0, $cla, $env);
-      }
-      else {$init = $caml_call1($super__0, $cla);}
+      $init = $top
+        ? $caml_call2($super__0, $cla, $env)
+        : ($caml_call1($super__0, $cla));
       $widen($cla);
       $yx = 0;
       $yy = $to_array($concr_meths);

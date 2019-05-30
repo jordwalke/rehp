@@ -62,8 +62,7 @@ function seeded_hash(seed, x) {return caml_hash(10, 100, seed, x);}
 
 function ongoing_traversal(h) {
   var rl = h.length - 1 < 4 ? 1 : 0;
-  if (rl) var rm = rl;
-  else var rm = h[4] < 0 ? 1 : 0;
+  var rm = rl || (h[4] < 0 ? 1 : 0);
   return rm;
 }
 
@@ -115,12 +114,9 @@ function create(opt, initial_size) {
   var s = power_2_above(16, initial_size);
   if (random) {
     var rg = runtime["caml_obj_tag"](prng);
-    if (250 === rg) var rh = prng[1];
-    else if (246 === rg) var rh = caml_call1(
-      CamlinternalLazy[2],
-      prng
-    );
-    else var rh = prng;
+    var rh = 250 === rg ?
+      prng[1] :
+      246 === rg ? caml_call1(CamlinternalLazy[2], prng) : prng;
     var seed = caml_call1(Random[11][4], rh);
   }
   else var seed = 0;
@@ -214,8 +210,7 @@ function resize(indexfun, h) {
           var key = cell__0[1];
           var data = cell__0[2];
           var next = cell__0[3];
-          if (inplace) var cell__1 = cell__0;
-          else var cell__1 = [0,key,data,0];
+          var cell__1 = inplace ? cell__0 : [0,key,data,0];
           var nidx = caml_call2(indexfun, h, key);
           var match = caml_check_bound(ndata_tail, nidx)[nidx + 1];
           if (match) match[3] =
@@ -491,10 +486,7 @@ function iter(f, h) {
       }
     }
     var qQ = 1 - old_trav;
-    if (qQ) var qR = flip_ongoing_traversal(
-      h
-    );
-    else var qR = qQ;
+    var qR = qQ ? flip_ongoing_traversal(h) : qQ;
     return qR;
   }
   catch(exn) {

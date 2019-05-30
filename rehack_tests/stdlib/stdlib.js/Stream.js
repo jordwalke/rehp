@@ -100,12 +100,9 @@ function get_data(count, d) {
         case 2:
           var f = d__0[1];
           var hh = caml_obj_tag(f);
-          if (250 === hh) var d__1 = f[1];
-          else if (246 === hh) var d__1 = caml_call1(
-            CamlinternalLazy[2],
-            f
-          );
-          else var d__1 = f;
+          var d__1 = 250 === hh ?
+            f[1] :
+            246 === hh ? caml_call1(CamlinternalLazy[2], f) : f;
           var d__0 = d__1;
           continue;
         case 3:
@@ -151,12 +148,9 @@ function peek_data(s) {
       case 2:
         var f = hc[1];
         var hd = caml_obj_tag(f);
-        if (250 === hd) var he = f[1];
-        else if (246 === hd) var he = caml_call1(
-          CamlinternalLazy[2],
-          f
-        );
-        else var he = f;
+        var he = 250 === hd ?
+          f[1] :
+          246 === hd ? caml_call1(CamlinternalLazy[2], f) : f;
         s[2] = he;
         continue;
       case 3:

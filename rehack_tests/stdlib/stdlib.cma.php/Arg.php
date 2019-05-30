@@ -381,10 +381,9 @@ final class Arg {
       $initpos = $current[1];
       $convert_error = function($error) use ($Bad,$Buffer,$Help,$Printf,$argv,$caml_call1,$caml_call4,$caml_call6,$caml_check_bound,$caml_equal,$caml_string_notequal,$cst__2,$cst_help__3,$cst_help__4,$errmsg,$initpos,$nh,$ni,$nj,$nk,$nl,$nm,$speclist,$usage_b) {
         $b = $caml_call1($Buffer[1], 200);
-        if ($initpos < $argv[1]->count() - 1) {
-          $progname = $caml_check_bound($argv[1], $initpos)[$initpos + 1];
-        }
-        else {$progname = $cst__2;}
+        $progname = $initpos < $argv[1]->count() - 1
+          ? $caml_check_bound($argv[1], $initpos)[$initpos + 1]
+          : ($cst__2);
         switch($error[0]) {
           // FALLTHROUGH
           case 0:
@@ -929,10 +928,7 @@ final class Arg {
       $words = Vector{0, 0};
       $stash = function($param) use ($Buffer,$buf,$caml_call1,$trim,$trim_cr,$words) {
         $word = $caml_call1($Buffer[2], $buf);
-        if ($trim) {
-          $word__0 = $trim_cr($word);
-        }
-        else {$word__0 = $word;}
+        $word__0 = $trim ? $trim_cr($word) : ($word);
         $words[1] = Vector{0, $word__0, $words[1]};
         return $caml_call1($Buffer[8], $buf);
       };

@@ -44,8 +44,7 @@ function list(order, l) {
         var rest = cM[2];
         var e2 = cM[1];
         var cO = initlist(rest);
-        if (caml_call2(order, cN, e2)) var cP = [0,cN,[0,e2,0]];
-        else var cP = [0,e2,[0,cN,0]];
+        var cP = caml_call2(order, cN, e2) ? [0,cN,[0,e2,0]] : [0,e2,[0,cN,0]];
         return [0,cP,cO];
       }
       return [0,[0,cN,0],0];
@@ -108,8 +107,7 @@ function array(cmp, arr) {
         var i = [0,lo__0 + 1 | 0];
         var j = [0,hi__0 + -1 | 0];
         var cI = 1 - caml_call2(cmp, pivot, arr[hi__0 + 1]);
-        if (cI) var cJ = cI;
-        else var cJ = 1 - caml_call2(cmp, arr[lo__0 + 1], pivot);
+        var cJ = cI || 1 - caml_call2(cmp, arr[lo__0 + 1], pivot);
         if (cJ) {
           throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Sort_array]
                 );

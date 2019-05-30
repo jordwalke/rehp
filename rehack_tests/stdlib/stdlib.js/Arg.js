@@ -334,12 +334,9 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
   var initpos = current[1];
   function convert_error(error) {
     var b = caml_call1(Buffer[1], 200);
-    if (initpos < argv[1].length - 1) var progname = caml_check_bound(
-       argv[1],
-       initpos
-     )
-     [initpos + 1];
-    else var progname = cst__2;
+    var progname = initpos < argv[1].length - 1 ?
+      caml_check_bound(argv[1], initpos)[initpos + 1] :
+      cst__2;
     switch (error[0]) {
       case 0:
         var n9 = error[1];
@@ -825,10 +822,7 @@ function read_aux(trim, sep, file) {
   var words = [0,0];
   function stash(param) {
     var word = caml_call1(Buffer[2], buf);
-    if (trim) var word__0 = trim_cr(
-      word
-    );
-    else var word__0 = word;
+    var word__0 = trim ? trim_cr(word) : word;
     words[1] = [0,word__0,words[1]];
     return caml_call1(Buffer[8], buf);
   }

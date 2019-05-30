@@ -75,10 +75,8 @@ var hm = [0,caml_new_string("buffer.ml"),84,19];
 var hl = [0,caml_new_string("buffer.ml"),117,8];
 
 function create(n) {
-  if (1 <= n) var n__0 = n;
-  else var n__0 = 1;
-  if (Sys[13] < n__0) var n__1 = Sys[13];
-  else var n__1 = n__0;
+  var n__0 = 1 <= n ? n : 1;
+  var n__1 = Sys[13] < n__0 ? Sys[13] : n__0;
   var s = caml_create_bytes(n__1);
   return [0,s,0,n__1,s];
 }
@@ -275,8 +273,7 @@ function add_substring(b, s, offset, len) {
   if (hw) var hx = hw;
   else {
     var hy = len < 0 ? 1 : 0;
-    if (hy) var hx = hy;
-    else var hx = (caml_ml_string_length(s) - len | 0) < offset ? 1 : 0;
+    var hx = hy || ((caml_ml_string_length(s) - len | 0) < offset ? 1 : 0);
   }
   if (hx) {caml_call1(Pervasives[1], cst_Buffer_add_substring_add_subbytes);}
   var new_position = b[2] + len | 0;
@@ -321,8 +318,7 @@ function add_channel_rec(b, ic, len) {
 
 function add_channel(b, ic, len) {
   var ht = len < 0 ? 1 : 0;
-  if (ht) var hu = ht;
-  else var hu = Sys[13] < len ? 1 : 0;
+  var hu = ht || (Sys[13] < len ? 1 : 0);
   if (hu) {caml_call1(Pervasives[1], cst_Buffer_add_channel);}
   if (b[3] < (b[2] + len | 0)) {resize(b, len);}
   return add_channel_rec(b, ic, len);
@@ -375,13 +371,9 @@ function advance_to_non_alpha(s, start) {
     for (; ; ) {
       if (lim <= i__0) {return lim;}
       var match = caml_string_get(s, i__0);
-      if (91 <= match) if (97 <= match) if (123 <= match
-      ) var switch__0 = 0;
-      else var switch__0 = 1;
-      else if (95 === match) var switch__0 = 1;else var switch__0 = 0;
-      else if (58 <= match) if (65 <= match) var switch__0 = 1;
-      else var switch__0 = 0;
-      else if (48 <= match) var switch__0 = 1;else var switch__0 = 0;
+      var switch__0 = 91 <= match ?
+        97 <= match ? 123 <= match ? 0 : 1 : 95 === match ? 1 : 0 :
+        58 <= match ? 65 <= match ? 1 : 0 : 48 <= match ? 1 : 0;
       if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return i__0;
     }

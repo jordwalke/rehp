@@ -389,10 +389,7 @@ final class Printexc {
         $o8 = $slot[5];
         $o9 = $slot[4];
         $o_ = $slot[3];
-        if ($slot[6]) {
-          $pa = $cst_inlined;
-        }
-        else {$pa = $cst__3;}
+        $pa = $slot[6] ? $cst_inlined : ($cst__3);
         $pb = $slot[2];
         $pc = $info($slot[1]);
         return Vector{

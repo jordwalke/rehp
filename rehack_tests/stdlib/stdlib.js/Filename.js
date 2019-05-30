@@ -203,8 +203,7 @@ function is_dir_sep(s, i) {return 47 === caml_string_get(s, i) ? 1 : 0;}
 
 function is_relative(n) {
   var Ch = caml_ml_string_length(n) < 1 ? 1 : 0;
-  if (Ch) var Ci = Ch;
-  else var Ci = 47 !== caml_string_get(n, 0) ? 1 : 0;
+  var Ci = Ch || (47 !== caml_string_get(n, 0) ? 1 : 0);
   return Ci;
 }
 
@@ -212,15 +211,12 @@ function is_implicit(n) {
   var Cc = is_relative(n);
   if (Cc) {
     var Cd = caml_ml_string_length(n) < 2 ? 1 : 0;
-    if (Cd) var Ce = Cd;
-    else var Ce = caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__2);
+    var Ce = Cd ||
+      caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__2);
     if (Ce) {
       var Cf = caml_ml_string_length(n) < 3 ? 1 : 0;
-      if (Cf) var Cg = Cf;
-      else var Cg = caml_string_notequal(
-        caml_call3(String[4], n, 0, 3),
-        cst__1
-      );
+      var Cg = Cf ||
+        caml_string_notequal(caml_call3(String[4], n, 0, 3), cst__1);
     }
     else var Cg = Ce;
   }
@@ -230,16 +226,17 @@ function is_implicit(n) {
 
 function check_suffix(name, suff) {
   var Ca = caml_ml_string_length(suff) <= caml_ml_string_length(name) ? 1 : 0;
-  if (Ca) var Cb = caml_string_equal(
-    caml_call3(
-      String[4],
-      name,
-      caml_ml_string_length(name) - caml_ml_string_length(suff) | 0,
-      caml_ml_string_length(suff)
-    ),
-    suff
-  );
-  else var Cb = Ca;
+  var Cb = Ca ?
+    caml_string_equal(
+     caml_call3(
+       String[4],
+       name,
+       caml_ml_string_length(name) - caml_ml_string_length(suff) | 0,
+       caml_ml_string_length(suff)
+     ),
+     suff
+   ) :
+    Ca;
   return Cb;
 }
 
@@ -266,26 +263,19 @@ function is_dir_sep__0(s, i) {
   var c = caml_string_get(s, i);
   var B4 = 47 === c ? 1 : 0;
   if (B4) var B5 = B4;
-  else {
-    var B6 = 92 === c ? 1 : 0;
-    if (B6) var B5 = B6;
-    else var B5 = 58 === c ? 1 : 0;
-  }
+  else {var B6 = 92 === c ? 1 : 0;var B5 = B6 || (58 === c ? 1 : 0);}
   return B5;
 }
 
 function is_relative__0(n) {
   var BY = caml_ml_string_length(n) < 1 ? 1 : 0;
-  if (BY) var BZ = BY;
-  else var BZ = 47 !== caml_string_get(n, 0) ? 1 : 0;
+  var BZ = BY || (47 !== caml_string_get(n, 0) ? 1 : 0);
   if (BZ) {
     var B0 = caml_ml_string_length(n) < 1 ? 1 : 0;
-    if (B0) var B1 = B0;
-    else var B1 = 92 !== caml_string_get(n, 0) ? 1 : 0;
+    var B1 = B0 || (92 !== caml_string_get(n, 0) ? 1 : 0);
     if (B1) {
       var B2 = caml_ml_string_length(n) < 2 ? 1 : 0;
-      if (B2) var B3 = B2;
-      else var B3 = 58 !== caml_string_get(n, 1) ? 1 : 0;
+      var B3 = B2 || (58 !== caml_string_get(n, 1) ? 1 : 0);
     }
     else var B3 = B1;
   }
@@ -297,29 +287,20 @@ function is_implicit__0(n) {
   var BP = is_relative__0(n);
   if (BP) {
     var BQ = caml_ml_string_length(n) < 2 ? 1 : 0;
-    if (BQ) var BR = BQ;
-    else var BR = caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__7);
+    var BR = BQ ||
+      caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__7);
     if (BR) {
       var BS = caml_ml_string_length(n) < 2 ? 1 : 0;
-      if (BS) var BT = BS;
-      else var BT = caml_string_notequal(
-        caml_call3(String[4], n, 0, 2),
-        cst__6
-      );
+      var BT = BS ||
+        caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__6);
       if (BT) {
         var BU = caml_ml_string_length(n) < 3 ? 1 : 0;
-        if (BU) var BV = BU;
-        else var BV = caml_string_notequal(
-          caml_call3(String[4], n, 0, 3),
-          cst__5
-        );
+        var BV = BU ||
+          caml_string_notequal(caml_call3(String[4], n, 0, 3), cst__5);
         if (BV) {
           var BW = caml_ml_string_length(n) < 3 ? 1 : 0;
-          if (BW) var BX = BW;
-          else var BX = caml_string_notequal(
-            caml_call3(String[4], n, 0, 3),
-            cst__4
-          );
+          var BX = BW ||
+            caml_string_notequal(caml_call3(String[4], n, 0, 3), cst__4);
         }
         else var BX = BV;
       }
@@ -438,21 +419,15 @@ function quote__0(s) {
 
 function has_drive(s) {
   function is_letter(param) {
-    if (91 <= param) if (
-      25 < (param + -97 | 0) >>> 0
-    ) var switch__0 = 0;
-    else var switch__0 = 1;
-    else if (65 <= param) var switch__0 = 1;else var switch__0 = 0;
+    var switch__0 = 91 <= param ?
+      25 < (param + -97 | 0) >>> 0 ? 0 : 1 :
+      65 <= param ? 1 : 0;
     return switch__0 ? 1 : 0;
   }
   var BD = 2 <= caml_ml_string_length(s) ? 1 : 0;
   if (BD) {
     var BE = is_letter(caml_string_get(s, 0));
-    if (BE) var BF = 58 ===
-       caml_string_get(s, 1) ?
-      1 :
-      0;
-    else var BF = BE;
+    var BF = BE ? 58 === caml_string_get(s, 1) ? 1 : 0 : BE;
   }
   else var BF = BD;
   return BF;
@@ -637,12 +612,9 @@ var prng = [246,function(By) {return caml_call1(Random[11][2], 0);}];
 
 function temp_file_name(temp_dir, prefix, suffix) {
   var Bw = runtime["caml_obj_tag"](prng);
-  if (250 === Bw) var Bx = prng[1];
-  else if (246 === Bw) var Bx = caml_call1(
-    CamlinternalLazy[2],
-    prng
-  );
-  else var Bx = prng;
+  var Bx = 250 === Bw ?
+    prng[1] :
+    246 === Bw ? caml_call1(CamlinternalLazy[2], prng) : prng;
   var rnd = caml_call1(Random[11][4], Bx) & 16777215;
   return concat(temp_dir, caml_call4(Printf[4], Bg, prefix, rnd, suffix));
 }

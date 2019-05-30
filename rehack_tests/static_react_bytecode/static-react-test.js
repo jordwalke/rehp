@@ -1679,9 +1679,7 @@ function valid_float_lexem(s) {
     for (; ; ) {
       if (l <= i__0) {return a(s, b);}
       var match = caml_string_get(s, i__0);
-      if (48 <= match) if (58 <= match) var switch__0 = 0;
-      else var switch__0 = 1;
-      else if (45 === match) var switch__0 = 1;else var switch__0 = 0;
+      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
       if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return s;
     }
@@ -1839,10 +1837,9 @@ function escaped(s) {
         else var switch__1 = 1;
         if (switch__1) {var eu = 1;var switch__0 = 2;}
       }
-      else if (11 <= match) if (13 === match
-      ) var switch__0 = 1;
-      else var switch__0 = 0;
-      else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
+      else var switch__0 = 11 <= match ?
+        13 === match ? 1 : 0 :
+        8 <= match ? 1 : 0;
       switch (switch__0) {case 0:var eu = 4;break;case 1:var eu = 2;break}
       n[1] = n[1] + eu | 0;
       var ev = i__0 + 1 | 0;
@@ -1859,11 +1856,14 @@ function escaped(s) {
     var i = eq;
     for (; ; ) {
       var c = caml_bytes_unsafe_get(s, i);
-      if (35 <= c) if (92 === c
-      ) var switch__2 = 1;
-      else if (127 <= c) var switch__2 = 0;else var switch__2 = 2;
-      else if (32 <= c) if (34 <= c) var switch__2 = 1;
-      else var switch__2 = 2;
+      if (35 <= c) var switch__2 = 92 ===
+         c ?
+        1 :
+        127 <= c ? 0 : 2;
+      else if (32 <= c) var switch__2 = 34 <=
+         c ?
+        1 :
+        2;
       else if (14 <= c) var switch__2 = 0;
       else switch (c) {
         case 8:
@@ -2013,10 +2013,9 @@ function escaped__0(s) {
         else var switch__1 = 1;
         if (switch__1) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       }
-      else if (11 <= match) if (13 === match
-      ) var switch__0 = 1;
-      else var switch__0 = 0;
-      else if (8 <= match) var switch__0 = 1;else var switch__0 = 0;
+      else var switch__0 = 11 <= match ?
+        13 === match ? 1 : 0 :
+        8 <= match ? 1 : 0;
       return switch__0 ? 1 : 1;
     }
   }
@@ -2153,8 +2152,7 @@ function getBreakData(itms) {
       var curDidBreak = param[2];
       var curTotalLen = param[1];
       var containsNewline = contains(itm, 10);
-      if (curDidBreak) var curDidBreak__0 = curDidBreak;
-      else var curDidBreak__0 = containsNewline;
+      var curDidBreak__0 = curDidBreak || containsNewline;
       return [
         0,
         (curTotalLen + caml_ml_string_length(itm) | 0) + 2 | 0,
@@ -2210,14 +2208,16 @@ function printTreeShape(pair, self, depth, o) {
   var allItemsLen = match__0[1];
   if (! (70 <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))) {
     if (! someChildBroke) {
-      if (0 === wasTruncated) var truncationMsg__0 = B;
-      else var truncationMsg__0 = a(D, caml_call1(self[6], self));
+      var truncationMsg__0 = 0 === wasTruncated ?
+        B :
+        a(D, caml_call1(self[6], self));
       var d9 = a(truncationMsg__0, right);
       return a(left, a(concat(C, itms), d9));
     }
   }
-  if (0 === wasTruncated) var truncationMsg = w;
-  else var truncationMsg = a(A, a(indentNext, caml_call1(self[6], self)));
+  var truncationMsg = 0 === wasTruncated ?
+    w :
+    a(A, a(indentNext, caml_call1(self[6], self)));
   var d8 = a(truncationMsg, a(x, a(indent, right)));
   return a(left, a(z, a(indentNext, a(concat(a(y, indentNext), itms), d8))));
 }
@@ -2238,14 +2238,16 @@ function printListShape(self, depth, o) {
   var allItemsLen = match__0[1];
   if (! (70 <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))) {
     if (! someChildBroke) {
-      if (0 === wasTruncated) var truncationMsg__0 = L;
-      else var truncationMsg__0 = a(P, caml_call1(self[6], self));
+      var truncationMsg__0 = 0 === wasTruncated ?
+        L :
+        a(P, caml_call1(self[6], self));
       var d7 = a(truncationMsg__0, M);
       return a(O, a(concat(N, itms), d7));
     }
   }
-  if (0 === wasTruncated) var truncationMsg = E;
-  else var truncationMsg = a(K, a(indentNext, caml_call1(self[6], self)));
+  var truncationMsg = 0 === wasTruncated ?
+    E :
+    a(K, a(indentNext, caml_call1(self[6], self)));
   var d6 = a(truncationMsg, a(G, a(indent, F)));
   return a(J, a(I, a(indentNext, a(concat(a(H, indentNext), itms), d6))));
 }
@@ -2773,12 +2775,9 @@ function au(opt, n) {
   var dH = n[6];
   var dI = a(aP, a(s, a(aO, a(printInstanceCollection([0,a(aN, s)], dH), dG)))
   );
-  if (typeof state === "number") var dJ = string_of_int(state);
-  else if (caml_obj_tag(state) === 252) var dJ = a(
-    aT,
-    a(escaped__0(state), aS)
-  );
-  else var dJ = aU;
+  var dJ = typeof state === "number" ?
+    string_of_int(state) :
+    caml_obj_tag(state) === 252 ? a(aT, a(escaped__0(state), aS)) : aU;
   return a(aR, a(s, a(aQ, a(dJ, dI))));
 }
 
@@ -2873,8 +2872,7 @@ function render__3(opt, size, children, dj, self) {
   var curChangeCount = state[2];
   var curSize = state[1];
   var match = curSize !== size ? 1 : 0;
-  if (0 === match) var nextChangeCount = curChangeCount;
-  else var nextChangeCount = curChangeCount + 1 | 0;
+  var nextChangeCount = 0 === match ? curChangeCount : curChangeCount + 1 | 0;
   function dk(param, dv) {return state;}
   var dl = 0;
   var dm = [0,a(a7, string_of_int(nextChangeCount))];
@@ -2946,8 +2944,7 @@ function render__6(shouldControlInput, children, opt, self) {
   var cW = 0;
   var input = element([0,function(c4, c5) {return render__4(bc, cW, c4, c5);}]
   );
-  if (0 === shouldControlInput) var input__0 = input;
-  else var input__0 = control(input, be);
+  var input__0 = 0 === shouldControlInput ? input : control(input, be);
   var cX = 0;
   var cY = element([0,function(c2, c3) {return render__5(cX, c2, c3);}]);
   var cZ = 0;

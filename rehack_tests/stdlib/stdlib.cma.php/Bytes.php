@@ -129,19 +129,9 @@ final class Bytes {
       $c = (int) ($a + $b);
       $bW = $b < 0 ? 1 : (0);
       $match = $c < 0 ? 1 : (0);
-      if (0 === ($a < 0 ? 1 : (0))) {
-        if (0 === $bW) {
-          if (0 === $match) {$switch__0 = 0;}
-          else {$switch__0 = 1;}
-        }
-        else {$switch__0 = 0;}
-      }
-      else {
-        if (0 === $bW) {
-          $switch__0 = 0;
-        }
-        else {if (0 === $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
-      }
+      $switch__0 = 0 === ($a < 0 ? 1 : (0))
+        ? 0 === $bW ? 0 === $match ? 0 : (1) : (0)
+        : (0 === $bW ? 0 : (0 === $match ? 1 : (0)));
       return $switch__0
         ? $caml_call1($Pervasives[1], $cst_Bytes_extend)
         : ($c);
@@ -316,12 +306,9 @@ final class Bytes {
     };
     $is_space = function($param) use ($unsigned_right_shift_32) {
       $bJ = (int) ($param + -9);
-      if (4 < $unsigned_right_shift_32($bJ, 0)) {
-        if (23 === $bJ) {$switch__0 = 1;
-        }
-        else {$switch__0 = 0;}
-      }
-      else {if (2 === $bJ) {$switch__0 = 0;}else {$switch__0 = 1;}}
+      $switch__0 = 4 < $unsigned_right_shift_32($bJ, 0)
+        ? 23 === $bJ ? 1 : (0)
+        : (2 === $bJ ? 0 : (1));
       return $switch__0 ? 1 : (0);
     };
     $trim = function($s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
@@ -366,11 +353,9 @@ final class Bytes {
             if ($switch__1) {$bH = 1;$switch__0 = 2;}
           }
           else {
-            if (11 <= $match) {
-              if (13 === $match) {$switch__0 = 1;}
-              else {$switch__0 = 0;}
-            }
-            else {if (8 <= $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+            $switch__0 = 11 <= $match
+              ? 13 === $match ? 1 : (0)
+              : (8 <= $match ? 1 : (0));
           }
           switch($switch__0) {
             // FALLTHROUGH
@@ -398,17 +383,11 @@ final class Bytes {
         for (;;) {
           $c = $caml_bytes_unsafe_get($s, $i);
           if (35 <= $c) {
-            if (92 === $c) {
-              $switch__2 = 1;
-            }
-            else {if (127 <= $c) {$switch__2 = 0;}else {$switch__2 = 2;}}
+            $switch__2 = 92 === $c ? 1 : (127 <= $c ? 0 : (2));
           }
           else {
             if (32 <= $c) {
-              if (34 <= $c) {
-                $switch__2 = 1;
-              }
-              else {$switch__2 = 2;}
+              $switch__2 = 34 <= $c ? 1 : (2);
             }
             else {
               if (14 <= $c) {

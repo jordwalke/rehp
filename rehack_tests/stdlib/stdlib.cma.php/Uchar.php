@@ -92,19 +92,13 @@ final class Uchar {
     };
     $is_valid = function($i) {
       $bf = 0 <= $i ? 1 : (0);
-      if ($bf) {
-        $bg = $i <= 55295 ? 1 : (0);
-      }
-      else {$bg = $bf;}
+      $bg = $bf ? $i <= 55295 ? 1 : (0) : ($bf);
       if ($bg) {
         $bh = $bg;
       }
       else {
         $bi = 57344 <= $i ? 1 : (0);
-        if ($bi) {
-          $bh = $i <= 1114111 ? 1 : (0);
-        }
-        else {$bh = $bi;}
+        $bh = $bi ? $i <= 1114111 ? 1 : (0) : ($bi);
       }
       return $bh;
     };

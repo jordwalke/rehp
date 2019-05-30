@@ -17,8 +17,7 @@ var Obj = global_data["Obj"];
 function register(name, v) {return caml_register_named_value(name, v);}
 
 function register_exception(name, exn) {
-  if (runtime["caml_obj_tag"](exn) === Obj[8]) var slot = exn;
-  else var slot = exn[1];
+  var slot = runtime["caml_obj_tag"](exn) === Obj[8] ? exn : exn[1];
   return caml_register_named_value(name, slot);
 }
 

@@ -127,13 +127,9 @@ final class Stream {
             case 2:
               $f = $d__0[1];
               $hh = $caml_obj_tag($f);
-              if (250 === $hh) {$d__1 = $f[1];}
-              else {
-                if (246 === $hh) {
-                  $d__1 = $caml_call1($CamlinternalLazy[2], $f);
-                }
-                else {$d__1 = $f;}
-              }
+              $d__1 = 250 === $hh
+                ? $f[1]
+                : (246 === $hh ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
               $d__0 = $d__1;
               continue;
             // FALLTHROUGH
@@ -195,13 +191,9 @@ final class Stream {
             case 2:
               $f = $hc[1];
               $hd = $caml_obj_tag($f);
-              if (250 === $hd) {$he = $f[1];}
-              else {
-                if (246 === $hd) {
-                  $he = $caml_call1($CamlinternalLazy[2], $f);
-                }
-                else {$he = $f;}
-              }
+              $he = 250 === $hd
+                ? $f[1]
+                : (246 === $hd ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
               $s[2] = $he;
               continue;
             // FALLTHROUGH

@@ -753,11 +753,7 @@ function bprint_char_set(buf, char_set) {
       var mW = is_in_char_set(set, c);
       if (mW) {
         var mX = is_in_char_set(set, before);
-        if (mX) var mY = is_in_char_set(
-          set,
-          after
-        );
-        else var mY = mX;
+        var mY = mX ? is_in_char_set(set, after) : mX;
         var mZ = 1 - mY;
       }
       else var mZ = mW;
@@ -3187,12 +3183,10 @@ function recast(fmt, fmtty) {
 
 function fix_padding(padty, width, str) {
   var len = caml_ml_string_length(str);
-  if (0 <= width) var padty__0 = padty;
-  else var padty__0 = 0;
+  var padty__0 = 0 <= width ? padty : 0;
   var width__0 = caml_call1(Pervasives[6], width);
   if (width__0 <= len) {return str;}
-  if (2 === padty__0) var lj = 48;
-  else var lj = 32;
+  var lj = 2 === padty__0 ? 48 : 32;
   var res = caml_call2(Bytes[1], width__0, lj);
   switch (padty__0) {
     case 0:
@@ -3255,11 +3249,10 @@ function fix_int_precision(prec, str) {
   var prec__0 = caml_call1(Pervasives[6], prec);
   var len = caml_ml_string_length(str);
   var c = caml_string_get(str, 0);
-  if (58 <= c) if (71 <= c) if (
-    5 < (c + -97 | 0) >>> 0
-  ) var switch__0 = 1;
-  else var switch__0 = 0;
-  else if (65 <= c) var switch__0 = 0;else var switch__0 = 1;
+  if (58 <= c) var switch__0 = 71 <=
+     c ?
+    5 < (c + -97 | 0) >>> 0 ? 1 : 0 :
+    65 <= c ? 0 : 1;
   else {
     if (32 === c) var switch__1 = 1;
     else if (43 <= c) {
@@ -3268,9 +3261,9 @@ function fix_int_precision(prec, str) {
         case 5:
           if (len < (prec__0 + 2 | 0)) {
             if (1 < len) {
-              if (120 === caml_string_get(str, 1)) var switch__2 = 0;
-              else if (88 === caml_string_get(str, 1)) var switch__2 = 0;
-              else var switch__2 = 1;
+              var switch__2 = 120 === caml_string_get(str, 1) ?
+                0 :
+                88 === caml_string_get(str, 1) ? 0 : 1;
               if (! switch__2) {
                 var res__1 = caml_call2(Bytes[1], prec__0 + 2 | 0, 48);
                 caml_bytes_set(res__1, 1, caml_string_get(str, 1));
@@ -3524,10 +3517,9 @@ function convert_float(fconv, prec, x) {
         if (i__0 === len) {return 0;}
         var match = caml_string_get(str__0, i__0);
         var li = match + -46 | 0;
-        if (23 < li >>> 0) if (55 === li) var switch__0 = 1;
-        else var switch__0 = 0;
-        else if (21 < (li + -1 | 0) >>> 0) var switch__0 = 1;
-        else var switch__0 = 0;
+        var switch__0 = 23 < li >>> 0 ?
+          55 === li ? 1 : 0 :
+          21 < (li + -1 | 0) >>> 0 ? 1 : 0;
         if (switch__0) {return 1;}
         var i__1 = i__0 + 1 | 0;
         var i__0 = i__1;
@@ -4692,9 +4684,7 @@ function open_box_of_string(str) {
     for (; ; ) {
       if (j__0 === len) {return j__0;}
       var match = caml_string_get(str, j__0);
-      if (48 <= match) if (58 <= match) var switch__0 = 0;
-      else var switch__0 = 1;
-      else if (45 === match) var switch__0 = 1;else var switch__0 = 0;
+      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
       if (switch__0) {var j__1 = j__0 + 1 | 0;var j__0 = j__1;continue;}
       return j__0;
     }
@@ -4832,9 +4822,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     var hash = [0,0];
     function set_flag(str_ind, flag) {
       var jC = flag[1];
-      if (jC) var jD = 1 -
-        legacy_behavior__0;
-      else var jD = jC;
+      var jD = jC ? 1 - legacy_behavior__0 : jC;
       if (jD) {
         var jE = caml_string_get(str, str_ind);
         caml_call3(failwith_message(hZ), str, str_ind, jE);
@@ -5022,11 +5010,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       case 67:
         var match__11 = parse(str_ind, end_ind);
         var fmt_rest__10 = match__11[1];
-        if (get_ign(0)) var jk = [
-          0,
-          [23,1,fmt_rest__10]
-        ];
-        else var jk = [0,[1,fmt_rest__10]];
+        var jk = get_ign(0) ? [0,[23,1,fmt_rest__10]] : [0,[1,fmt_rest__10]];
         var fmt_result = jk;
         var switch__0 = 1;
         break;
@@ -5090,13 +5074,11 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         var fmt_rest__21 = match__23[1];
         var match__24 = get_pad_opt(99);
         if (match__24) {
-          if (0 === match__24[1]) var jx = scan_format(
-            fmt_rest__21
-          );
-          else if (legacy_behavior__0) var jx = char_format(
-            fmt_rest__21
-          );
-          else var jx = invalid_nonnull_char_width(str_ind);
+          var jx = 0 === match__24[1] ?
+            scan_format(fmt_rest__21) :
+            legacy_behavior__0 ?
+             char_format(fmt_rest__21) :
+             invalid_nonnull_char_width(str_ind);
           var jy = jx;
         }
         else var jy = char_format(fmt_rest__21);
@@ -5106,11 +5088,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       case 114:
         var match__25 = parse(str_ind, end_ind);
         var fmt_rest__22 = match__25[1];
-        if (get_ign(0)) var jz = [
-          0,
-          [23,2,fmt_rest__22]
-        ];
-        else var jz = [0,[19,fmt_rest__22]];
+        var jz = get_ign(0) ? [0,[23,2,fmt_rest__22]] : [0,[19,fmt_rest__22]];
         var fmt_result = jz;
         var switch__0 = 1;
         break;
@@ -5388,50 +5366,33 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     }
     if (1 - legacy_behavior__0) {
       var iU = 1 - plus_used[1];
-      if (iU) var plus__0 = plus;
-      else var plus__0 = iU;
+      var plus__0 = iU ? plus : iU;
       if (plus__0) {incompatible_flag(pct_ind, str_ind, symb, cst__28);}
       var iV = 1 - hash_used[1];
-      if (iV) var hash__0 = hash;
-      else var hash__0 = iV;
+      var hash__0 = iV ? hash : iV;
       if (hash__0) {incompatible_flag(pct_ind, str_ind, symb, cst__29);}
       var iW = 1 - space_used[1];
-      if (iW) var space__0 = space;
-      else var space__0 = iW;
+      var space__0 = iW ? space : iW;
       if (space__0) {incompatible_flag(pct_ind, str_ind, symb, cst__30);}
       var iX = 1 - pad_used[1];
-      if (iX) var iY = caml_notequal(
-        [0,pad],
-        h7
-      );
-      else var iY = iX;
+      var iY = iX ? caml_notequal([0,pad], h7) : iX;
       if (iY) {incompatible_flag(pct_ind, str_ind, symb, cst_padding__0);}
       var iZ = 1 - prec_used[1];
-      if (iZ) var i0 = caml_notequal(
-        [0,prec],
-        h8
-      );
-      else var i0 = iZ;
+      var i0 = iZ ? caml_notequal([0,prec], h8) : iZ;
       if (i0) {
-        if (ign) var i1 = 95;
-        else var i1 = symb;
+        var i1 = ign ? 95 : symb;
         incompatible_flag(pct_ind, str_ind, i1, cst_precision__2);
       }
-      if (ign) var plus__1 = plus;
-      else var plus__1 = ign;
+      var plus__1 = ign ? plus : ign;
       if (plus__1) {incompatible_flag(pct_ind, str_ind, 95, cst__31);}
     }
     var i2 = 1 - ign_used[1];
-    if (i2) var ign__0 = ign;
-    else var ign__0 = i2;
+    var ign__0 = i2 ? ign : i2;
     if (ign__0) {
-      if (38 <= symb) if (44 === symb
-      ) var switch__4 = 0;
-      else if (64 === symb) var switch__4 = 0;else var switch__4 = 1;
-      else if (33 === symb) var switch__4 = 0;
-      else if (37 <= symb) var switch__4 = 0;else var switch__4 = 1;
-      if (switch__4) var switch__5 = 0;
-      else if (legacy_behavior__0) var switch__5 = 1;else var switch__5 = 0;
+      var switch__4 = 38 <= symb ?
+        44 === symb ? 0 : 64 === symb ? 0 : 1 :
+        33 === symb ? 0 : 37 <= symb ? 0 : 1;
+      var switch__5 = switch__4 ? 0 : legacy_behavior__0 ? 1 : 0;
       if (! switch__5) {incompatible_flag(pct_ind, str_ind, symb, cst__32);}
     }
     return fmt_result;
@@ -5511,8 +5472,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         case 3:
           if (legacy_behavior__0) {
             var iT = str_ind + 1 | 0;
-            if (minus) var minus__0 = minus;
-            else var minus__0 = 45 === symb ? 1 : 0;
+            var minus__0 = minus || (45 === symb ? 1 : 0);
             return parse_literal(minus__0, iT);
           }
           break
@@ -5564,12 +5524,11 @@ function fmt_ebb_of_string(legacy_behavior, str) {
   }
   function parse_padding(pct_ind, str_ind, end_ind, zero, minus, plus, hash, space, ign) {
     if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
-    if (0 === zero) if (0 === minus
-    ) var padty = 1;
-    else var padty = 0;
-    else if (0 === minus) var padty = 2;
-    else if (legacy_behavior__0) var padty = 0;
-    else var padty = incompatible_flag(pct_ind, str_ind, 45, cst_0);
+    var padty = 0 === zero ?
+      0 === minus ? 1 : 0 :
+      0 === minus ?
+       2 :
+       legacy_behavior__0 ? 0 : incompatible_flag(pct_ind, str_ind, 45, cst_0);
     var match = caml_string_get(str, str_ind);
     if (48 <= match) {
       if (! (58 <= match)) {
@@ -5648,9 +5607,9 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     try {
       var str_ind_1 = parse_spaces(str_ind, end_ind);
       var match__2 = caml_string_get(str, str_ind_1);
-      if (48 <= match__2) if (58 <= match__2) var switch__0 = 0;
-      else var switch__0 = 1;
-      else if (45 === match__2) var switch__0 = 1;else var switch__0 = 0;
+      var switch__0 = 48 <= match__2 ?
+        58 <= match__2 ? 0 : 1 :
+        45 === match__2 ? 1 : 0;
       if (switch__0) {
         var match__3 = parse_integer(str_ind_1, end_ind);
         var size = match__3[2];
@@ -5695,14 +5654,13 @@ function fmt_ebb_of_string(legacy_behavior, str) {
   function parse_good_break(str_ind, end_ind) {
     try {
       var iI = str_ind === end_ind ? 1 : 0;
-      if (iI) var iJ = iI;
-      else var iJ = 60 !== caml_string_get(str, str_ind) ? 1 : 0;
+      var iJ = iI || (60 !== caml_string_get(str, str_ind) ? 1 : 0);
       if (iJ) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
       var str_ind_1 = parse_spaces(str_ind + 1 | 0, end_ind);
       var match__0 = caml_string_get(str, str_ind_1);
-      if (48 <= match__0) if (58 <= match__0) var switch__0 = 0;
-      else var switch__0 = 1;
-      else if (45 === match__0) var switch__0 = 1;else var switch__0 = 0;
+      var switch__0 = 48 <= match__0 ?
+        58 <= match__0 ? 0 : 1 :
+        45 === match__0 ? 1 : 0;
       if (! switch__0) {
         throw runtime["caml_wrap_thrown_exception"](Not_found);
       }
@@ -5805,11 +5763,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       if (iH === Not_found) {
         var match = parse(str_ind, end_ind);
         var fmt_rest = match[1];
-        if (is_open_tag) var formatting = [
-          0,
-          sub_format
-        ];
-        else var formatting = [1,sub_format];
+        var formatting = is_open_tag ? [0,sub_format] : [1,sub_format];
         return [0,[18,formatting,fmt_rest]];
       }
       throw runtime["caml_wrap_thrown_exception_reraise"](iH);
@@ -6051,10 +6005,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     else {var ix = 0;var str_ind__1 = str_ind;var reverse__0 = ix;}
     var next_ind = parse_char_set_start(str_ind__1, end_ind);
     var char_set__0 = freeze_char_set(char_set);
-    if (reverse__0) var iw = rev_char_set(
-      char_set__0
-    );
-    else var iw = char_set__0;
+    var iw = reverse__0 ? rev_char_set(char_set__0) : char_set__0;
     return [0,next_ind,iw];
   }
   function parse_spaces(str_ind, end_ind) {

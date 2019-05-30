@@ -157,9 +157,7 @@ function valid_float_lexem(s) {
     for (; ; ) {
       if (l <= i__0) {return g(s, cst);}
       var match = runtime["caml_string_get"](s, i__0);
-      if (48 <= match) if (58 <= match) var switch__0 = 0;
-      else var switch__0 = 1;
-      else if (45 === match) var switch__0 = 1;else var switch__0 = 0;
+      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
       if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return s;
     }

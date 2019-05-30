@@ -171,11 +171,9 @@ final class Pervasives {
         for (;;) {
           if ($l <= $i__0) {return $g($s, $cst);}
           $match = $runtime["caml_string_get"]($s, $i__0);
-          if (48 <= $match) {
-            if (58 <= $match) {$switch__0 = 0;}
-            else {$switch__0 = 1;}
-          }
-          else {if (45 === $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+          $switch__0 = 48 <= $match
+            ? 58 <= $match ? 0 : (1)
+            : (45 === $match ? 1 : (0));
           if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
           return $s;
         }

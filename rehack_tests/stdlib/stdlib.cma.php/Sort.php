@@ -65,10 +65,9 @@ final class Sort {
             $rest = $cM[2];
             $e2 = $cM[1];
             $cO = $initlist->contents($rest);
-            if ($caml_call2($order, $cN, $e2)) {
-              $cP = Vector{0, $cN, Vector{0, $e2, 0}};
-            }
-            else {$cP = Vector{0, $e2, Vector{0, $cN, 0}};}
+            $cP = $caml_call2($order, $cN, $e2)
+              ? Vector{0, $cN, Vector{0, $e2, 0}}
+              : (Vector{0, $e2, Vector{0, $cN, 0}});
             return Vector{0, $cP, $cO};
           }
           return Vector{0, Vector{0, $cN, 0}, 0};
@@ -129,10 +128,7 @@ final class Sort {
             $i = Vector{0, (int) ($lo__0 + 1)};
             $j = Vector{0, (int) ($hi__0 + -1)};
             $cI = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
-            if ($cI) {
-              $cJ = $cI;
-            }
-            else {$cJ = 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);}
+            $cJ = $cI || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
             if ($cJ) {
               throw $runtime["caml_wrap_thrown_exception"](
                       Vector{0, $Invalid_argument, $cst_Sort_array}

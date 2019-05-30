@@ -2369,11 +2369,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       for (;;) {
         if ($l <= $i__0) {return $a($s, $b);}
         $match = $caml_string_get($s, $i__0);
-        if (48 <= $match) {
-          if (58 <= $match) {$switch__0 = 0;}
-          else {$switch__0 = 1;}
-        }
-        else {if (45 === $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+        $switch__0 = 48 <= $match
+          ? 58 <= $match ? 0 : (1)
+          : (45 === $match ? 1 : (0));
         if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
         return $s;
       }
@@ -2528,11 +2526,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           if ($switch__1) {$eu = 1;$switch__0 = 2;}
         }
         else {
-          if (11 <= $match) {
-            if (13 === $match) {$switch__0 = 1;}
-            else {$switch__0 = 0;}
-          }
-          else {if (8 <= $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+          $switch__0 = 11 <= $match
+            ? 13 === $match ? 1 : (0)
+            : (8 <= $match ? 1 : (0));
         }
         switch($switch__0) {
           // FALLTHROUGH
@@ -2560,17 +2556,11 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       for (;;) {
         $c = $caml_bytes_unsafe_get($s, $i);
         if (35 <= $c) {
-          if (92 === $c) {
-            $switch__2 = 1;
-          }
-          else {if (127 <= $c) {$switch__2 = 0;}else {$switch__2 = 2;}}
+          $switch__2 = 92 === $c ? 1 : (127 <= $c ? 0 : (2));
         }
         else {
           if (32 <= $c) {
-            if (34 <= $c) {
-              $switch__2 = 1;
-            }
-            else {$switch__2 = 2;}
+            $switch__2 = 34 <= $c ? 1 : (2);
           }
           else {
             if (14 <= $c) {
@@ -2743,11 +2733,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
           if ($switch__1) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
         }
         else {
-          if (11 <= $match) {
-            if (13 === $match) {$switch__0 = 1;}
-            else {$switch__0 = 0;}
-          }
-          else {if (8 <= $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+          $switch__0 = 11 <= $match
+            ? 13 === $match ? 1 : (0)
+            : (8 <= $match ? 1 : (0));
         }
         return $switch__0 ? 1 : (1);
       }
@@ -2886,10 +2874,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         $curDidBreak = $param[2];
         $curTotalLen = $param[1];
         $containsNewline = $contains($itm, 10);
-        if ($curDidBreak) {
-          $curDidBreak__0 = $curDidBreak;
-        }
-        else {$curDidBreak__0 = $containsNewline;}
+        $curDidBreak__0 = $curDidBreak || $containsNewline;
         return Vector{
           0,
           (int)
@@ -2963,16 +2948,16 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
          ((int) ($caml_ml_string_length($indent) + 2) + $allItemsLen))
     ) {
       if (! $someChildBroke) {
-        if (0 === $wasTruncated) {$truncationMsg__0 = $B;}
-        else {$truncationMsg__0 = $a($D, $caml_call1($self[6], $self));}
+        $truncationMsg__0 = 0 === $wasTruncated
+          ? $B
+          : ($a($D, $caml_call1($self[6], $self)));
         $d9 = $a($truncationMsg__0, $right);
         return $a($left, $a($concat($C, $itms), $d9));
       }
     }
-    if (0 === $wasTruncated) {$truncationMsg = $w;}
-    else {
-      $truncationMsg = $a($A, $a($indentNext, $caml_call1($self[6], $self)));
-    }
+    $truncationMsg = 0 === $wasTruncated
+      ? $w
+      : ($a($A, $a($indentNext, $caml_call1($self[6], $self))));
     $d8 = $a($truncationMsg, $a($x, $a($indent, $right)));
     return $a(
       $left,
@@ -3002,16 +2987,16 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
          ((int) ($caml_ml_string_length($indent) + 2) + $allItemsLen))
     ) {
       if (! $someChildBroke) {
-        if (0 === $wasTruncated) {$truncationMsg__0 = $L;}
-        else {$truncationMsg__0 = $a($P, $caml_call1($self[6], $self));}
+        $truncationMsg__0 = 0 === $wasTruncated
+          ? $L
+          : ($a($P, $caml_call1($self[6], $self)));
         $d7 = $a($truncationMsg__0, $M);
         return $a($O, $a($concat($N, $itms), $d7));
       }
     }
-    if (0 === $wasTruncated) {$truncationMsg = $E;}
-    else {
-      $truncationMsg = $a($K, $a($indentNext, $caml_call1($self[6], $self)));
-    }
+    $truncationMsg = 0 === $wasTruncated
+      ? $E
+      : ($a($K, $a($indentNext, $caml_call1($self[6], $self))));
     $d6 = $a($truncationMsg, $a($G, $a($indent, $F)));
     return $a(
       $J,
@@ -3602,15 +3587,11 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         )
       )
     );
-    if ($is_int($state)) {
-      $dJ = $string_of_int($state);
-    }
-    else {
-      if ($caml_obj_tag($state) === 252) {
-        $dJ = $a($aT, $a($escaped__0($state), $aS));
-      }
-      else {$dJ = $aU;}
-    }
+    $dJ = $is_int($state)
+      ? $string_of_int($state)
+      : ($caml_obj_tag($state) === 252
+       ? $a($aT, $a($escaped__0($state), $aS))
+       : ($aU));
     return $a($aR, $a($s, $a($aQ, $a($dJ, $dI))));
   };
   $printSection = function($s) use ($a,$aW,$log,$suppress) {
@@ -3712,10 +3693,9 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $curChangeCount = $state[2];
     $curSize = $state[1];
     $match = $curSize !== $size ? 1 : (0);
-    if (0 === $match) {
-      $nextChangeCount = $curChangeCount;
-    }
-    else {$nextChangeCount = (int) ($curChangeCount + 1);}
+    $nextChangeCount = 0 === $match
+      ? $curChangeCount
+      : ((int) ($curChangeCount + 1));
     $dk = function($param, $dv) use ($state) {return $state;};
     $dl = 0;
     $dm = Vector{0, $a($a7, $string_of_int($nextChangeCount))};
@@ -3818,8 +3798,7 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
         }
       }
     );
-    if (0 === $shouldControlInput) {$input__0 = $input;}
-    else {$input__0 = $control($input, $be);}
+    $input__0 = 0 === $shouldControlInput ? $input : ($control($input, $be));
     $cX = 0;
     $cY = $element(
       Vector{

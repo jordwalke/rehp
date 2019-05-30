@@ -75,12 +75,9 @@ function MakeSeeded(H) {
     var s = power_2_above(16, initial_size);
     if (random) {
       var Bc = runtime["caml_obj_tag"](prng);
-      if (250 === Bc) var Bd = prng[1];
-      else if (246 === Bc) var Bd = caml_call1(
-        CamlinternalLazy[2],
-        prng
-      );
-      else var Bd = prng;
+      var Bd = 250 === Bc ?
+        prng[1] :
+        246 === Bc ? caml_call1(CamlinternalLazy[2], prng) : prng;
       var seed = caml_call1(Random[11][4], Bd);
     }
     else var seed = 0;
@@ -152,12 +149,7 @@ function MakeSeeded(H) {
     var nsize = osize * 2 | 0;
     clean(h);
     var AY = nsize < Sys[14] ? 1 : 0;
-    if (AY) var AZ = (osize >>>
-        1 | 0) <=
-       h[1] ?
-      1 :
-      0;
-    else var AZ = AY;
+    var AZ = AY ? (osize >>> 1 | 0) <= h[1] ? 1 : 0 : AY;
     if (AZ) {
       var ndata = caml_make_vect(nsize, 0);
       h[2] = ndata;

@@ -212,12 +212,9 @@ final class String_ {
     };
     $is_space = function($param) use ($unsigned_right_shift_32) {
       $ck = (int) ($param + -9);
-      if (4 < $unsigned_right_shift_32($ck, 0)) {
-        if (23 === $ck) {$switch__0 = 1;
-        }
-        else {$switch__0 = 0;}
-      }
-      else {if (2 === $ck) {$switch__0 = 0;}else {$switch__0 = 1;}}
+      $switch__0 = 4 < $unsigned_right_shift_32($ck, 0)
+        ? 23 === $ck ? 1 : (0)
+        : (2 === $ck ? 0 : (1));
       return $switch__0 ? 1 : (0);
     };
     $trim = function($s) use ($Bytes,$bos,$bts,$caml_bytes_unsafe_get,$caml_call1,$caml_ml_string_length,$caml_string_equal,$cst__0,$is_space) {
@@ -260,11 +257,9 @@ final class String_ {
             }
           }
           else {
-            if (11 <= $match) {
-              if (13 === $match) {$switch__0 = 1;}
-              else {$switch__0 = 0;}
-            }
-            else {if (8 <= $match) {$switch__0 = 1;}else {$switch__0 = 0;}}
+            $switch__0 = 11 <= $match
+              ? 13 === $match ? 1 : (0)
+              : (8 <= $match ? 1 : (0));
           }
           return $switch__0 ? 1 : (1);
         }

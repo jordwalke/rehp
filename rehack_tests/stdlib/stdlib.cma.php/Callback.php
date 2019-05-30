@@ -36,8 +36,7 @@ final class Callback {
       return $caml_register_named_value($name, $v);
     };
     $register_exception = function($name, $exn) use ($Obj,$caml_register_named_value,$runtime) {
-      if ($runtime["caml_obj_tag"]($exn) === $Obj[8]) {$slot = $exn;}
-      else {$slot = $exn[1];}
+      $slot = $runtime["caml_obj_tag"]($exn) === $Obj[8] ? $exn : ($exn[1]);
       return $caml_register_named_value($name, $slot);
     };
     $Callback = Vector{0, $register, $register_exception};

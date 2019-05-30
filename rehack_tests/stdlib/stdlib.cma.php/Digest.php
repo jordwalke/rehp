@@ -100,8 +100,7 @@ final class Digest {
       return $caml_call2($Pervasives[74], $chan, 16);
     };
     $char_hex = function($n) {
-      if (10 <= $n) {$pX = 87;}
-      else {$pX = 48;}
+      $pX = 10 <= $n ? 87 : (48);
       return (int) ($n + $pX);
     };
     $to_hex = function($d) use ($Bytes,$Pervasives,$caml_bytes_unsafe_set,$caml_call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$char_hex,$cst_Digest_to_hex,$unsigned_right_shift_32) {
