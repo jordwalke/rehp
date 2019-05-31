@@ -269,8 +269,10 @@ $f2 = function($g) use ($caml_call1) {
     if ($continue_counter > 0) {
       $continue_counter -= 1;
       break;
+    } else if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
     }
-    $continue_counter = null;
   }
 };
 $f3 = function($g) use ($caml_call1) {
@@ -312,20 +314,26 @@ $f3 = function($g) use ($caml_call1) {
         if ($continue_counter > 0) {
           $continue_counter -= 1;
           break;
+        } else if ($continue_counter === 0) {
+          $continue_counter = null;
+          continue;
         }
-        $continue_counter = null;
       }
       if ($continue_counter > 0) {
         $continue_counter -= 1;
         break;
+      } else if ($continue_counter === 0) {
+        $continue_counter = null;
+        continue;
       }
-      $continue_counter = null;
     }
     if ($continue_counter > 0) {
       $continue_counter -= 1;
       break;
+    } else if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
     }
-    $continue_counter = null;
   }
 };
 $f4 = function($g) use ($caml_call1) {
@@ -434,68 +442,90 @@ $f4 = function($g) use ($caml_call1) {
                         if ($continue_counter > 0) {
                           $continue_counter -= 1;
                           break;
+                        } else if ($continue_counter === 0) {
+                          $continue_counter = null;
+                          continue;
                         }
-                        $continue_counter = null;
                       }
                       if ($continue_counter > 0) {
                         $continue_counter -= 1;
                         break;
+                      } else if ($continue_counter === 0) {
+                        $continue_counter = null;
+                        continue;
                       }
-                      $continue_counter = null;
                     }
                     if ($continue_counter > 0) {
                       $continue_counter -= 1;
                       break;
+                    } else if ($continue_counter === 0) {
+                      $continue_counter = null;
+                      continue;
                     }
-                    $continue_counter = null;
                   }
                   if ($continue_counter > 0) {
                     $continue_counter -= 1;
                     break;
+                  } else if ($continue_counter === 0) {
+                    $continue_counter = null;
+                    continue;
                   }
-                  $continue_counter = null;
                 }
                 if ($continue_counter > 0) {
                   $continue_counter -= 1;
                   break;
+                } else if ($continue_counter === 0) {
+                  $continue_counter = null;
+                  continue;
                 }
-                $continue_counter = null;
               }
               if ($continue_counter > 0) {
                 $continue_counter -= 1;
                 break;
+              } else if ($continue_counter === 0) {
+                $continue_counter = null;
+                continue;
               }
-              $continue_counter = null;
             }
             if ($continue_counter > 0) {
               $continue_counter -= 1;
               break;
+            } else if ($continue_counter === 0) {
+              $continue_counter = null;
+              continue;
             }
-            $continue_counter = null;
           }
           if ($continue_counter > 0) {
             $continue_counter -= 1;
             break;
+          } else if ($continue_counter === 0) {
+            $continue_counter = null;
+            continue;
           }
-          $continue_counter = null;
         }
         if ($continue_counter > 0) {
           $continue_counter -= 1;
           break;
+        } else if ($continue_counter === 0) {
+          $continue_counter = null;
+          continue;
         }
-        $continue_counter = null;
       }
       if ($continue_counter > 0) {
         $continue_counter -= 1;
         break;
+      } else if ($continue_counter === 0) {
+        $continue_counter = null;
+        continue;
       }
-      $continue_counter = null;
     }
     if ($continue_counter > 0) {
       $continue_counter -= 1;
       break;
+    } else if ($continue_counter === 0) {
+      $continue_counter = null;
+      continue;
     }
-    $continue_counter = null;
   }
 };
 $fx = function($prefix, $x) use ($a, $b, $print_endline, $string_of_int) {

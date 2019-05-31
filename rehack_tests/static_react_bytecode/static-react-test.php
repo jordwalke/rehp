@@ -2333,8 +2333,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       }
       $do_at_exit(0);
     }
-    if ($continue_counter > 0) {$continue_counter -= 1;break;}
-    $continue_counter = null;
+    if ($continue_counter > 0) {
+      $continue_counter -= 1;
+      break;
+    }
+    else if ($continue_counter === 0) {$continue_counter = null;continue;}
   }
 
 }

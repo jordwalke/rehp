@@ -721,7 +721,7 @@ and statement = (curOut, input, x) => {
       let (ifOutput, ifMapped) = statementLocation(s);
       let (soptOut, soptMapped) = optOutput(statementLocation, sopt);
       let output = outAppend(outAppend(exprOutput, ifOutput), soptOut);
-      (output, If_statement(exprMapped, ifMapped, soptMapped));
+      (output, If_statement(exprMapped, ifMapped, soptMapped, false));
     | Rehp.Do_while_statement((s, loc), e) =>
       let (sOut, sMapped) = statement(curOut, input, s);
       let (eOut, eMapped) = expression(input, e);
@@ -761,10 +761,11 @@ and statement = (curOut, input, x) => {
         | _ =>
           let decrement_counter =
             Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
-          let compare_counter = Php.EBin(Gt, counter, EInt(0));
+          let compare_counter_gt_zero = Php.EBin(Gt, counter, EInt(0));
+          let compare_counter_eq_zero = Php.EBin(EqEqEq, counter, EInt(0));
           let break_if_count_is_gt_zero =
             Php.If_statement(
-              compare_counter,
+              compare_counter_gt_zero,
               (
                 Php.Block([
                   (decrement_counter, loc),
@@ -772,13 +773,24 @@ and statement = (curOut, input, x) => {
                 ]),
                 loc,
               ),
-              None,
+              Some((
+                Php.If_statement(
+                  compare_counter_eq_zero,
+                  (
+                    Php.Block([
+                      (set_counter_to_null, loc),
+                      (Continue_statement, loc),
+                    ]),
+                    loc,
+                  ),
+                  None,
+                  false,
+                ),
+                loc,
+              )),
+              true,
             );
-          [
-            (for_statement, loc),
-            (break_if_count_is_gt_zero, loc),
-            (set_counter_to_null, loc),
-          ];
+          [(for_statement, loc), (break_if_count_is_gt_zero, loc)];
         };
       (outs, Php.Statement_list(li));
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>

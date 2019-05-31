@@ -656,8 +656,14 @@ final class Array_ {
               if ($dA !== $i) {$i = $dH;$continue_counter = 0;break;}
               break;
             }
-            if ($continue_counter > 0) {$continue_counter -= 1;break;}
-            $continue_counter = null;
+            if ($continue_counter > 0) {
+              $continue_counter -= 1;
+              break;
+            }
+            else if ($continue_counter === 0) {
+              $continue_counter = null;
+              continue;
+            }
             break;
           }
         }

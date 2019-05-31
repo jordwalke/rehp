@@ -128,6 +128,12 @@ and statement =
       expression,
       (statement, Loc.t),
       option((statement, Loc.t)),
+      /* TODO: this is a temporary flag to conditionally convert
+         "if {} else { if {} }" to "if {} else if {}"
+         It can be safely removed. It exists only to temporarily
+         minimize changes to the output.
+         */
+      bool,
     )
   | Do_while_statement((statement, Loc.t), expression)
   | While_statement(expression, (statement, Loc.t))

@@ -1710,8 +1710,14 @@ final class CamlinternalFormat {
                   if ($mE !== $i) {$i = $mF;continue;}
                   break;
                 }
-                if ($continue_counter > 0) {$continue_counter -= 1;break;}
-                $continue_counter = null;
+                if ($continue_counter > 0) {
+                  $continue_counter -= 1;
+                  break;
+                }
+                else if ($continue_counter === 0) {
+                  $continue_counter = null;
+                  continue;
+                }
               }
               $fmt__0 = $rest__0;
               $ign_flag__0 = 0;
