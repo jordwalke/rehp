@@ -155,14 +155,26 @@ final class Sort {
                       $j[1] += -1;
                       continue;
                     }
-                    if ($continue_counter > 0) {$continue_counter -= 1;break;}
-                    $continue_counter = null;
+                    if ($continue_counter > 0) {
+                      $continue_counter -= 1;
+                      break;
+                    }
+                    else if ($continue_counter === 0) {
+                      $continue_counter = null;
+                      continue;
+                    }
                   }
                   $i[1] += 1;
                   continue;
                 }
-                if ($continue_counter > 0) {$continue_counter -= 1;break;}
-                $continue_counter = null;
+                if ($continue_counter > 0) {
+                  $continue_counter -= 1;
+                  break;
+                }
+                else if ($continue_counter === 0) {
+                  $continue_counter = null;
+                  continue;
+                }
               }
               if ((int) ($j[1] - $lo__0) <= (int) ($hi__0 - $i[1])) {
                 $qsort->contents($lo__0, $j[1]);
@@ -175,8 +187,14 @@ final class Sort {
               $hi__0 = $hi__1;
               $continue_counter = 0;break;
             }
-            if ($continue_counter > 0) {$continue_counter -= 1;break;}
-            $continue_counter = null;
+            if ($continue_counter > 0) {
+              $continue_counter -= 1;
+              break;
+            }
+            else if ($continue_counter === 0) {
+              $continue_counter = null;
+              continue;
+            }
           }
           return $cH;
         }
@@ -204,8 +222,14 @@ final class Sort {
               $arr[$j[1] + 1] = $val_i;
               break;
             }
-            if ($continue_counter > 0) {$continue_counter -= 1;break;}
-            $continue_counter = null;
+            if ($continue_counter > 0) {
+              $continue_counter -= 1;
+              break;
+            }
+            else if ($continue_counter === 0) {
+              $continue_counter = null;
+              continue;
+            }
           }
           $cG = (int) ($i + 1);
           if ($cF !== $i) {$i = $cG;continue;}

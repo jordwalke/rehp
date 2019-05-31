@@ -127,6 +127,7 @@ and statement =
       expression,
       (statement, Loc.t),
       option((statement, Loc.t)),
+      bool,
     )
   | Do_while_statement((statement, Loc.t), expression)
   | While_statement(expression, (statement, Loc.t))

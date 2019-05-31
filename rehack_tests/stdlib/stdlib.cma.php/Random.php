@@ -181,8 +181,14 @@ final class Random {
             if ($p5 !== $i) {$i = $p9;continue;}
             break;
           }
-          if ($continue_counter > 0) {$continue_counter -= 1;break;}
-          $continue_counter = null;
+          if ($continue_counter > 0) {
+            $continue_counter -= 1;
+            break;
+          }
+          else if ($continue_counter === 0) {
+            $continue_counter = null;
+            continue;
+          }
         }
         $s[2] = 0;
         return 0;

@@ -1309,7 +1309,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     /* | If_statement (e, s1, (Some _ as s2)) when ends_with_if_without_else s1 -> */
     /*   (* Dangling else issue... *) */
     /*   statement ~last f (If_statement (e, (Block ([s1]), N), s2), N) */
-    | If_statement(e, s1, Some(s2)) =>
+    | If_statement(e, s1, Some(s2), elseif) =>
       /* Force there to be a block to avoid a bunch of edge cases with semicolons and newlines. */
       let block_one =
         switch (s1) {
@@ -1317,8 +1317,9 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         | _ => (Block([s1]), N)
         };
       let block_two =
-        switch (s2) {
-        | (Block(_), _loc) => s2
+        switch (s2, elseif) {
+        | ((Block(_), _loc), _)
+        | ((If_statement(_), _loc), true) => s2
         | _ => (Block([s2]), N)
         };
       PP.start_group(f, 0);
@@ -1342,7 +1343,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.start_group(f, 0);
       statement(~last, f, block_two);
       PP.end_group(f);
-    | If_statement(e, s1, None) =>
+    | If_statement(e, s1, None, _) =>
       let block_one =
         switch (s1) {
         | (Block(_), _loc) => s1

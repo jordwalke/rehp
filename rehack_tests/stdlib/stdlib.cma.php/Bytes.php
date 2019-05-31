@@ -348,8 +348,11 @@ final class Bytes {
           }
           return $empty;
         }
-        if ($continue_counter > 0) {$continue_counter -= 1;break;}
-        $continue_counter = null;
+        if ($continue_counter > 0) {
+          $continue_counter -= 1;
+          break;
+        }
+        else if ($continue_counter === 0) {$continue_counter = null;continue;}
       }
     };
     $escaped = function($s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
