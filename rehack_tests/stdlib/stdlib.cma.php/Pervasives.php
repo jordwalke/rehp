@@ -173,6 +173,7 @@ final class Pervasives {
       $l = $caml_ml_string_length($s);
       $loop = function($i) use ($cst,$g,$l,$runtime,$s) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if ($l <= $i__0) {return $g($s, $cst);}
           $match = $runtime["caml_string_get"]($s, $i__0);
@@ -223,6 +224,7 @@ final class Pervasives {
     $flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$runtime) {
       $iter = function($param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$runtime) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $l = $param__0[2];
@@ -298,6 +300,7 @@ final class Pervasives {
     $unsafe_really_input = function($ic, $s, $ofs, $len) use ($End_of_file,$caml_ml_input,$runtime) {
       $ofs__0 = $ofs;
       $len__0 = $len;
+      $continue_counter = null;
       for (;;) {
         if (0 < $len__0) {
           $r = $caml_ml_input($ic, $s, $ofs__0, $len__0);
@@ -330,6 +333,7 @@ final class Pervasives {
       $build_result = function($buf, $pos, $param) use ($caml_ml_bytes_length,$runtime) {
         $pos__0 = $pos;
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $param__1 = $param__0[2];
@@ -354,6 +358,7 @@ final class Pervasives {
       $scan = function($accu, $len) use ($End_of_file,$build_result,$caml_create_bytes,$caml_ml_input,$caml_ml_input_char,$chan,$runtime) {
         $accu__0 = $accu;
         $len__0 = $len;
+        $continue_counter = null;
         for (;;) {
           $n = $runtime["caml_ml_input_scan_line"]($chan);
           if (0 === $n) {

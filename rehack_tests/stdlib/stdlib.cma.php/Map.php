@@ -183,6 +183,7 @@ final class Map {
       };
       $find = function($x, $param) use ($Not_found,$Ord,$caml_call2,$runtime) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -205,6 +206,7 @@ final class Map {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -225,6 +227,7 @@ final class Map {
       };
       $find_first = function($f, $param) use ($Not_found,$caml_call1,$find_first_aux,$runtime) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -242,6 +245,7 @@ final class Map {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -262,6 +266,7 @@ final class Map {
       };
       $find_first_opt = function($f, $param) use ($caml_call1,$find_first_opt_aux) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -281,6 +286,7 @@ final class Map {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -301,6 +307,7 @@ final class Map {
       };
       $find_last = function($f, $param) use ($Not_found,$caml_call1,$find_last_aux,$runtime) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -318,6 +325,7 @@ final class Map {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -338,6 +346,7 @@ final class Map {
       };
       $find_last_opt = function($f, $param) use ($caml_call1,$find_last_opt_aux) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -355,6 +364,7 @@ final class Map {
       };
       $find_opt = function($x, $param) use ($Ord,$caml_call2) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -375,6 +385,7 @@ final class Map {
       };
       $mem = function($x, $param) use ($Ord,$caml_call2) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -395,6 +406,7 @@ final class Map {
       };
       $min_binding = function($param) use ($Not_found,$runtime) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $gL = $param__0[1];
@@ -408,6 +420,7 @@ final class Map {
       };
       $min_binding_opt = function($param) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $gK = $param__0[1];
@@ -421,6 +434,7 @@ final class Map {
       };
       $max_binding = function($param) use ($Not_found,$runtime) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $gH = $param__0[4];
@@ -434,6 +448,7 @@ final class Map {
       };
       $max_binding_opt = function($param) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $gE = $param__0[4];
@@ -525,6 +540,7 @@ final class Map {
       };
       $iter->contents = function($f, $param) use ($caml_call2,$iter) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $param__1 = $param__0[4];
@@ -570,6 +586,7 @@ final class Map {
       $fold->contents = function($f, $m, $accu) use ($caml_call3,$fold) {
         $m__0 = $m;
         $accu__0 = $accu;
+        $continue_counter = null;
         for (;;) {
           if ($m__0) {
             $m__1 = $m__0[4];
@@ -591,6 +608,7 @@ final class Map {
       };
       $for_all->contents = function($p, $param) use ($caml_call2,$for_all) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -611,6 +629,7 @@ final class Map {
       };
       $exists->contents = function($p, $param) use ($caml_call2,$exists) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
@@ -858,6 +877,7 @@ final class Map {
       $cons_enum = function($m, $e) {
         $m__0 = $m;
         $e__0 = $e;
+        $continue_counter = null;
         for (;;) {
           if ($m__0) {
             $r = $m__0[4];
@@ -876,6 +896,7 @@ final class Map {
         $compare_aux = function($e1, $e2) use ($Ord,$caml_call2,$cmp,$cons_enum) {
           $e1__0 = $e1;
           $e2__0 = $e2;
+          $continue_counter = null;
           for (;;) {
             if ($e1__0) {
               if ($e2__0) {
@@ -914,6 +935,7 @@ final class Map {
         $equal_aux = function($e1, $e2) use ($Ord,$caml_call2,$cmp,$cons_enum) {
           $e1__0 = $e1;
           $e2__0 = $e2;
+          $continue_counter = null;
           for (;;) {
             if ($e1__0) {
               if ($e2__0) {
@@ -961,6 +983,7 @@ final class Map {
       $bindings_aux->contents = function($accu, $param) use ($bindings_aux) {
         $accu__0 = $accu;
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];

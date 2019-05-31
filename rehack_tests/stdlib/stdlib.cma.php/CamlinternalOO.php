@@ -98,6 +98,7 @@ final class CamlinternalOO {
       $zv = 0;
       if (! ($zw < 0)) {
         $i = $zv;
+        $continue_counter = null;
         for (;;) {
           $zx = $runtime["caml_string_get"]($s, $i);
           $accu[1] = (int) ((int) (223 * $accu[1]) + $zx);
@@ -157,6 +158,7 @@ final class CamlinternalOO {
       $zq = 0;
       if (! ($zr < 0)) {
         $i = $zq;
+        $continue_counter = null;
         for (;;) {
           $zt = (int) ((int) ($i * 2) + 3);
           $zs = $caml_check_bound($pub_labels, $i)[$i + 1];
@@ -369,6 +371,7 @@ final class CamlinternalOO {
       $yL = 0;
       if (! ($yM < 0)) {
         $i__0 = $yL;
+        $continue_counter = null;
         for (;;) {
           $yS = $get_method_label(
             $table,
@@ -384,6 +387,7 @@ final class CamlinternalOO {
       $yN = 0;
       if (! ($yO < 0)) {
         $i = $yN;
+        $continue_counter = null;
         for (;;) {
           $yQ = (int) ($i + $nmeths);
           $yP = $new_variable($table, $caml_check_bound($vals, $i)[$i + 1]);
@@ -501,6 +505,7 @@ final class CamlinternalOO {
     };
     $iter_f = function($obj, $param) use ($caml_call1) {
       $param__0 = $param;
+      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
@@ -556,6 +561,7 @@ final class CamlinternalOO {
       $yt = 0;
       if (! ($n < 0)) {
         $i = $yt;
+        $continue_counter = null;
         for (;;) {
           $yu = $r[1];
           $r[1] = Vector{0, $caml_check_bound($keys, $i)[$i + 1], $yu, 0};
@@ -572,6 +578,7 @@ final class CamlinternalOO {
         $key = $caml_check_bound($keys, $i)[$i + 1];
         $lookup_key = function($tables) use ($Assert_failure,$build_path,$get_data,$get_key,$get_next,$i,$key,$keys,$lookup_keys,$runtime,$set_next,$yl) {
           $tables__0 = $tables;
+          $continue_counter = null;
           for (;;) {
             if ($get_key($tables__0) === $key) {
               $tables_data = $get_data($tables__0);
@@ -881,6 +888,7 @@ final class CamlinternalOO {
     $set_methods = function($table, $methods) use ($caml_check_bound,$method_impl,$set_method) {
       $len = $methods->count() - 1;
       $i = Vector{0, 0};
+      $continue_counter = null;
       for (;;) {
         if ($i[1] < $len) {
           $ym = $i[1];

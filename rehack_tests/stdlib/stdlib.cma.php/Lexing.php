@@ -150,6 +150,7 @@ final class Lexing {
         $e1 = 0;
         if (! ($e2 < 0)) {
           $i = $e1;
+          $continue_counter = null;
           for (;;) {
             $v = $caml_check_bound($t, $i)[$i + 1];
             if (0 <= $v) {

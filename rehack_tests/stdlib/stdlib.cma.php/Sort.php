@@ -91,6 +91,7 @@ final class Sort {
       };
       $mergeall = function($llist) use ($merge2) {
         $llist__0 = $llist;
+        $continue_counter = null;
         for (;;) {
           if ($llist__0) {
             if ($llist__0[2]) {
@@ -117,6 +118,7 @@ final class Sort {
       $qsort->contents = function($lo, $hi) use ($Invalid_argument,$arr,$caml_call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
         $lo__0 = $lo;
         $hi__0 = $hi;
+        $continue_counter = null;
         for (;;) {
           $cH = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
           if ($cH) {
@@ -148,42 +150,43 @@ final class Sort {
                         if ($i[1] < $j[1]) {$swap($arr, $i[1], $j[1]);}
                         $i[1] += 1;
                         $j[1] += -1;
-                        goto b_continue;
+                        $continue_counter = 1;break;
                       }
                       $j[1] += -1;
                       continue;
                     }
+                    if ($continue_counter > 0) {$continue_counter -= 1;break;}
+                    $continue_counter = null;
                   }
                   $i[1] += 1;
                   continue;
                 }
+                if ($continue_counter > 0) {$continue_counter -= 1;break;}
+                $continue_counter = null;
               }
               if ((int) ($j[1] - $lo__0) <= (int) ($hi__0 - $i[1])) {
                 $qsort->contents($lo__0, $j[1]);
                 $lo__1 = $i[1];
                 $lo__0 = $lo__1;
-                goto a_continue;
+                $continue_counter = 0;break;
               }
               $qsort->contents($i[1], $hi__0);
               $hi__1 = $j[1];
               $hi__0 = $hi__1;
-              goto a_continue;
-              b_continue:;
-              
+              $continue_counter = 0;break;
             }
-            b_break:
+            if ($continue_counter > 0) {$continue_counter -= 1;break;}
+            $continue_counter = null;
           }
           return $cH;
-          a_continue:;
-          
         }
-        a_break:
       };
       $qsort->contents(0, (int) ($arr->count() - 1 + -1));
       $cF = (int) ($arr->count() - 1 + -1);
       $cE = 1;
       if (! ($cF < 1)) {
         $i = $cE;
+        $continue_counter = null;
         for (;;) {
           $val_i = $arr[$i + 1];
           if (1 - $caml_call2($cmp, $arr[(int) ($i + -1) + 1], $val_i)) {
@@ -201,6 +204,8 @@ final class Sort {
               $arr[$j[1] + 1] = $val_i;
               break;
             }
+            if ($continue_counter > 0) {$continue_counter -= 1;break;}
+            $continue_counter = null;
           }
           $cG = (int) ($i + 1);
           if ($cF !== $i) {$i = $cG;continue;}

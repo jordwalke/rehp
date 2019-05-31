@@ -125,6 +125,7 @@ final class Hashtbl {
     };
     $power_2_above = function($x, $n) use ($Sys) {
       $x__0 = $x;
+      $continue_counter = null;
       for (;;) {
         if ($n <= $x__0) {return $x__0;}
         if ($Sys[14] < (int) ($x__0 * 2)) {return $x__0;}
@@ -161,6 +162,7 @@ final class Hashtbl {
       $rd = 0;
       if (! ($re < 0)) {
         $i = $rd;
+        $continue_counter = null;
         for (;;) {
           $caml_check_bound($h[2], $i)[$i + 1] = 0;
           $rf = (int) ($i + 1);
@@ -189,6 +191,7 @@ final class Hashtbl {
         $loop = function($prec, $param) use ($Assert_failure,$qg,$runtime) {
           $prec__0 = $prec;
           $param__0 = $param;
+          $continue_counter = null;
           for (;;) {
             if ($param__0) {
               $key = $param__0[1];
@@ -231,6 +234,7 @@ final class Hashtbl {
         $h[2] = $ndata;
         $insert_bucket = function($cell) use ($caml_call2,$caml_check_bound,$h,$indexfun,$inplace,$ndata,$ndata_tail) {
           $cell__0 = $cell;
+          $continue_counter = null;
           for (;;) {
             if ($cell__0) {
               $key = $cell__0[1];
@@ -257,6 +261,7 @@ final class Hashtbl {
         $q3 = 0;
         if (! ($q4 < 0)) {
           $i__0 = $q3;
+          $continue_counter = null;
           for (;;) {
             $insert_bucket($caml_check_bound($odata, $i__0)[$i__0 + 1]);
             $q_ = (int) ($i__0 + 1);
@@ -269,6 +274,7 @@ final class Hashtbl {
           $q5 = 0;
           if (! ($q6 < 0)) {
             $i = $q5;
+            $continue_counter = null;
             for (;;) {
               $match = $caml_check_bound($ndata_tail, $i)[$i + 1];
               if ($match) {$match[3] = 0;}
@@ -309,6 +315,7 @@ final class Hashtbl {
     $remove_bucket = function($h, $i, $key, $prec, $c) use ($caml_check_bound,$caml_compare) {
       $prec__0 = $prec;
       $c__0 = $c;
+      $continue_counter = null;
       for (;;) {
         if ($c__0) {
           $k = $c__0[1];
@@ -338,6 +345,7 @@ final class Hashtbl {
     };
     $find_rec = function($key, $param) use ($Not_found,$caml_compare,$runtime) {
       $param__0 = $param;
+      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $k = $param__0[1];
@@ -378,6 +386,7 @@ final class Hashtbl {
     };
     $find_rec_opt = function($key, $param) use ($caml_compare) {
       $param__0 = $param;
+      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $k = $param__0[1];
@@ -420,6 +429,7 @@ final class Hashtbl {
       $find_in_bucket = new Ref();
       $find_in_bucket->contents = function($param) use ($caml_compare,$find_in_bucket,$key) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
@@ -439,6 +449,7 @@ final class Hashtbl {
     };
     $replace_bucket = function($key, $data, $param) use ($caml_compare) {
       $param__0 = $param;
+      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $k = $param__0[1];
@@ -471,6 +482,7 @@ final class Hashtbl {
     $mem = function($h, $key) use ($caml_check_bound,$caml_compare,$key_index) {
       $mem_in_bucket = function($param) use ($caml_compare,$key) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
@@ -489,6 +501,7 @@ final class Hashtbl {
     $iter = function($f, $h) use ($caml_call2,$caml_check_bound,$caml_wrap_exception,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
       $do_bucket = function($param) use ($caml_call2,$f) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $key = $param__0[1];
@@ -509,6 +522,7 @@ final class Hashtbl {
         $qO = 0;
         if (! ($qP < 0)) {
           $i = $qO;
+          $continue_counter = null;
           for (;;) {
             $do_bucket($caml_check_bound($d, $i)[$i + 1]);
             $qS = (int) ($i + 1);
@@ -535,6 +549,7 @@ final class Hashtbl {
     $filter_map_inplace_bucket = function($f, $h, $i, $prec, $slot) use ($caml_call2,$caml_check_bound) {
       $prec__0 = $prec;
       $slot__0 = $slot;
+      $continue_counter = null;
       for (;;) {
         if ($slot__0) {
           $key = $slot__0[1];
@@ -570,6 +585,7 @@ final class Hashtbl {
         $qK = 0;
         if (! ($qL < 0)) {
           $i = $qK;
+          $continue_counter = null;
           for (;;) {
             $filter_map_inplace_bucket(
               $f,
@@ -599,6 +615,7 @@ final class Hashtbl {
       $do_bucket = function($b, $accu) use ($caml_call3,$f) {
         $b__0 = $b;
         $accu__0 = $accu;
+        $continue_counter = null;
         for (;;) {
           if ($b__0) {
             $key = $b__0[1];
@@ -621,6 +638,7 @@ final class Hashtbl {
         $qF = 0;
         if (! ($qG < 0)) {
           $i = $qF;
+          $continue_counter = null;
           for (;;) {
             $qI = $accu[1];
             $accu[1] = $do_bucket($caml_check_bound($d, $i)[$i + 1], $qI);
@@ -645,6 +663,7 @@ final class Hashtbl {
     $bucket_length = function($accu, $param) {
       $accu__0 = $accu;
       $param__0 = $param;
+      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[3];
@@ -691,6 +710,7 @@ final class Hashtbl {
       $remove_bucket = function($h, $i, $key, $prec, $c) use ($H,$caml_call2,$caml_check_bound) {
         $prec__0 = $prec;
         $c__0 = $c;
+        $continue_counter = null;
         for (;;) {
           if ($c__0) {
             $k = $c__0[1];
@@ -720,6 +740,7 @@ final class Hashtbl {
       };
       $find_rec = function($key, $param) use ($H,$Not_found,$caml_call2,$runtime) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
@@ -760,6 +781,7 @@ final class Hashtbl {
       };
       $find_rec_opt = function($key, $param) use ($H,$caml_call2) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
@@ -802,6 +824,7 @@ final class Hashtbl {
         $find_in_bucket = new Ref();
         $find_in_bucket->contents = function($param) use ($H,$caml_call2,$find_in_bucket,$key) {
           $param__0 = $param;
+          $continue_counter = null;
           for (;;) {
             if ($param__0) {
               $k = $param__0[1];
@@ -823,6 +846,7 @@ final class Hashtbl {
       };
       $replace_bucket = function($key, $data, $param) use ($H,$caml_call2) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
@@ -855,6 +879,7 @@ final class Hashtbl {
       $mem = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
         $mem_in_bucket = function($param) use ($H,$caml_call2,$key) {
           $param__0 = $param;
+          $continue_counter = null;
           for (;;) {
             if ($param__0) {
               $k = $param__0[1];
