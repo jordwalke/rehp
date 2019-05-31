@@ -103,7 +103,6 @@ final class Stream {
     };
     $get_data->contents = function($count, $d) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g2,$g3,$get_data,$is_int,$runtime) {
       $d__0 = $d;
-      $continue_counter = null;
       for (;;) {
         if (! $is_int($d__0)) {
           switch($d__0[0]) {
@@ -171,7 +170,6 @@ final class Stream {
       }
     };
     $peek_data = function($s) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g4,$get_data,$is_int,$runtime) {
-      $continue_counter = null;
       for (;;) {
         $hc = $s[2];
         if ($is_int($hc)) {return 0;}
@@ -229,7 +227,6 @@ final class Stream {
       return 0;
     };
     $junk_data = function($s) use ($is_int,$peek_data) {
-      $continue_counter = null;
       for (;;) {
         $ha = $s[2];
         if (! $is_int($ha)) {
@@ -311,7 +308,6 @@ final class Stream {
     };
     $iter = function($f, $strm) use ($caml_call1,$junk,$peek) {
       $do_rec = function($param) use ($caml_call1,$f,$junk,$peek,$strm) {
-        $continue_counter = null;
         for (;;) {
           $match = $peek($strm);
           if ($match) {

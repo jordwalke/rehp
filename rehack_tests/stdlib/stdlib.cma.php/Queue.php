@@ -77,7 +77,6 @@ final class Queue {
     $copy = function($q_res, $prev, $cell) {
       $prev__0 = $prev;
       $cell__0 = $cell;
-      $continue_counter = null;
       for (;;) {
         if ($cell__0) {
           $content = $cell__0[1];
@@ -102,7 +101,6 @@ final class Queue {
     $length = function($q) {return $q[1];};
     $iter = function($f, $cell) use ($caml_call1) {
       $cell__0 = $cell;
-      $continue_counter = null;
       for (;;) {
         if ($cell__0) {
           $content = $cell__0[1];
@@ -118,7 +116,6 @@ final class Queue {
     $fold = function($f, $accu, $cell) use ($caml_call2) {
       $accu__0 = $accu;
       $cell__0 = $cell;
-      $continue_counter = null;
       for (;;) {
         if ($cell__0) {
           $content = $cell__0[1];

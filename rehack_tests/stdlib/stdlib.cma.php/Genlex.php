@@ -137,7 +137,6 @@ final class Genlex {
         }
       };
       $end_exponent_part = function($strm) use ($Stream,$caml_call1,$caml_float_of_string,$get_string,$store,$unsigned_right_shift_32) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -168,7 +167,6 @@ final class Genlex {
         return $end_exponent_part($strm);
       };
       $decimal_part = function($strm) use ($Stream,$caml_call1,$caml_float_of_string,$exponent_part,$get_string,$store,$unsigned_right_shift_32) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -195,7 +193,6 @@ final class Genlex {
         }
       };
       $number = function($strm) use ($Stream,$caml_call1,$decimal_part,$exponent_part,$get_string,$runtime,$store) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -230,7 +227,6 @@ final class Genlex {
         }
       };
       $ident2 = function($strm) use ($Stream,$caml_call1,$get_string,$ident_or_keyword,$store,$unsigned_right_shift_32) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -321,7 +317,6 @@ final class Genlex {
         return $ident2($strm);
       };
       $ident = function($strm) use ($Stream,$caml_call1,$get_string,$ident_or_keyword,$store,$unsigned_right_shift_32) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -353,7 +348,6 @@ final class Genlex {
         }
       };
       $next_token__0 = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$caml_wrap_exception,$char__0,$cst,$cst__0,$ident,$ident2,$keyword_or_error,$maybe_comment,$neg_number,$number,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -551,7 +545,6 @@ final class Genlex {
         return $caml_trampoline($next_token__0(0, $strm));
       };
       $string->contents = function($strm) use ($Stream,$caml_call1,$caml_wrap_exception,$cst__1,$escape,$get_string,$runtime,$store) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -661,7 +654,6 @@ final class Genlex {
         throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
       };
       $comment__0 = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$maybe_end_comment,$maybe_nested_comment,$runtime,$unsigned_right_shift_32) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -722,7 +714,6 @@ final class Genlex {
         throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
       };
       $maybe_end_comment->contents = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment__0,$runtime) {
-        $continue_counter = null;
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {

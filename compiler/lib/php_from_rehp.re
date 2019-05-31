@@ -29,6 +29,8 @@ let ident = (~ref=false, _input, i): Id.t =>
   | Id.V(_) => assert(false)
   };
 
+exception Unsupported_statement;
+
 let binop_from_rehp = binop =>
   switch (binop) {
   | Rehp.Eq => Php.Eq
@@ -651,6 +653,69 @@ and statements = (curOut, input, l) => {
   /* print_newline(); */
   ret;
 }
+and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
+  let (e1Out, e1Mapped) =
+    switch (e1) {
+    | Left(x) =>
+      let (xOut, x_mapped) = optOutput(expression(input), x);
+      (xOut, Left(x_mapped));
+    | Right(l) =>
+      let (output, res) = foldVars(initialiser, curOut, input, [], l);
+      (output, Right(res));
+    };
+  let nextInput = append(input, e1Out.dec);
+  let (e2Out, e2Mapped) = optOutput(expression(nextInput), e2);
+  let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
+  let (sOut, sMapped) = statement(curOut, nextInput, s);
+  let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
+  let for_statement_node =
+    Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
+  let counter = Php.EVar(Id.S({name: "$continue_counter", var: None}));
+  let set_counter_to_null =
+    Php.Variable_statement([(counter, Some((ENULL, loc)))]);
+  let depth =
+    switch (depth) {
+    | Some(v) => v
+    | None => 0
+    };
+  let li =
+    switch (depth, has_label) {
+    | (0, false) => [(for_statement_node, loc)]
+    | (0, true) => [(set_counter_to_null, loc), (for_statement_node, loc)]
+    | _ =>
+      let decrement_counter =
+        Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
+      let compare_counter_gt_zero = Php.EBin(Gt, counter, EInt(0));
+      let compare_counter_eq_zero = Php.EBin(EqEqEq, counter, EInt(0));
+      let break_if_count_is_gt_zero =
+        Php.If_statement(
+          compare_counter_gt_zero,
+          (
+            Php.Block([(decrement_counter, loc), (Break_statement, loc)]),
+            loc,
+          ),
+          Some((
+            Php.If_statement(
+              compare_counter_eq_zero,
+              (
+                Php.Block([
+                  (set_counter_to_null, loc),
+                  (Continue_statement, loc),
+                ]),
+                loc,
+              ),
+              None,
+              false,
+            ),
+            loc,
+          )),
+          true,
+        );
+      [(for_statement_node, loc), (break_if_count_is_gt_zero, loc)];
+    };
+  (outs, Php.Statement_list(li));
+}
+
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
 and statement = (curOut, input, x) => {
   let (out, mapped) =
@@ -707,68 +772,7 @@ and statement = (curOut, input, x) => {
       let (eOut, eMapped) = expression(input, e);
       (outAppend(sOut, eOut), While_statement(eMapped, (sMapped, loc)));
     | Rehp.For_statement(e1, e2, e3, (s, loc), depth) =>
-      let (e1Out, e1Mapped) =
-        switch (e1) {
-        | Left(x) =>
-          let (xOut, x_mapped) = optOutput(expression(input), x);
-          (xOut, Left(x_mapped));
-        | Right(l) =>
-          let (output, res) = foldVars(initialiser, curOut, input, [], l);
-          (output, Right(res));
-        };
-      let nextInput = append(input, e1Out.dec);
-      let (e2Out, e2Mapped) = optOutput(expression(nextInput), e2);
-      let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
-      let (sOut, sMapped) = statement(curOut, nextInput, s);
-      let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
-      let for_statement =
-        Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
-      let counter = Php.EVar(Id.S({name: "$continue_counter", var: None}));
-      let set_counter_to_null =
-        Php.Variable_statement([(counter, Some((ENULL, loc)))]);
-      let depth =
-        switch (depth) {
-        | Some(v) => v
-        | None => 0
-        };
-      let li =
-        switch (depth) {
-        | 0 => [(set_counter_to_null, loc), (for_statement, loc)]
-        | _ =>
-          let decrement_counter =
-            Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
-          let compare_counter_gt_zero = Php.EBin(Gt, counter, EInt(0));
-          let compare_counter_eq_zero = Php.EBin(EqEqEq, counter, EInt(0));
-          let break_if_count_is_gt_zero =
-            Php.If_statement(
-              compare_counter_gt_zero,
-              (
-                Php.Block([
-                  (decrement_counter, loc),
-                  (Break_statement, loc),
-                ]),
-                loc,
-              ),
-              Some((
-                Php.If_statement(
-                  compare_counter_eq_zero,
-                  (
-                    Php.Block([
-                      (set_counter_to_null, loc),
-                      (Continue_statement, loc),
-                    ]),
-                    loc,
-                  ),
-                  None,
-                  false,
-                ),
-                loc,
-              )),
-              true,
-            );
-          [(for_statement, loc), (break_if_count_is_gt_zero, loc)];
-        };
-      (outs, Php.Statement_list(li));
+      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false)
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
       let continueWithAugmentedScope = (input, ss) => {
         let (e1Out, e1Mapped) =
@@ -824,9 +828,15 @@ and statement = (curOut, input, x) => {
     | Rehp.Return_statement(e) =>
       let (eOut, eMapped) = optOutput(expression(input), e);
       (outAppend(curOut, eOut), Return_statement(eMapped));
-    | Rehp.Labelled_statement(l, (s, loc)) =>
-      let (stOut, stMapped) = statement(curOut, input, s);
-      (stOut, Labelled_statement(l, (stMapped, loc)));
+    | Rehp.Labelled_statement(
+        _l,
+        (Rehp.For_statement(e1, e2, e3, (s, loc), depth), loc2),
+      ) =>
+      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, true)
+    | Rehp.Labelled_statement(_) =>
+      /* Only For_statements can be labelled */
+      /* TODO: remove labelled statements from Rehp, replace with a flag in For_statements */
+      raise(Unsupported_statement)
     | Rehp.Throw_statement(e) =>
       let (eOut, eMapped) = expression(input, e);
       (outAppend(curOut, eOut), Throw_statement(eMapped));

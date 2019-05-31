@@ -86,7 +86,6 @@ $caml_arity_test = function($f) {
   $raw_array_sub = $Func(
     function($a, $i, $l) use ($Array,$plus) {
       $b = $Array->new($l);
-      $continue_counter = null;
       for ($j = 0;$j < $l;$j++) $b[$j] = $a[$plus($i, $j)];
       return $b;
     }
@@ -96,7 +95,6 @@ $caml_arity_test = function($f) {
       $f = $String->fromCharCode;
       if ($i == 0 && $len <= 4096 && $eqEq($len, $a->length)) {return $f->apply(varray[], $a);}
       $s = $String->new("");
-      $continue_counter = null;
       for (;0 < $len;($i += 1024) || true ? $len -= 1024 : ($len -= 1024)) $s =
         $plus(
           $s,
@@ -112,9 +110,8 @@ $caml_arity_test = function($f) {
       }
       else {$a = $Array->new($s->l);}
       $b = $s->c;$l = $b->length;$i = 0;
-      $continue_counter = null;
       for (;$i < $l;$i++) $a[$i] = $b->charCodeAt($i);
-      $continue_counter = null;for ($l = $s->l;$i < $l;$i++) $a[$i] = 0;
+      for ($l = $s->l;$i < $l;$i++) $a[$i] = 0;
       $s->c = $a;
       $s->t = 4;
       return $a;
@@ -153,22 +150,18 @@ $caml_arity_test = function($f) {
           $c1 = $s1->c;$c2 = $s2->c;
           if ($s1->t == 4) {
             if ($i2 <= $i1) {
-              $continue_counter = null;
               for ($i = 0;$i < $len;$i++) $c2[$plus($i2, $i)] =
                 $c1[$plus($i1, $i)];
             }
             else {
-              $continue_counter = null;
               for ($i = $len - 1;$i >= 0;$i--) $c2[$plus($i2, $i)] =
                 $c1[$plus($i1, $i)];
             }
           }
           else {
             $l = $Math->min($len, $c1->length - $i1);
-            $continue_counter = null;
             for ($i = 0;$i < $l;$i++) $c2[$plus($i2, $i)] =
               $c1->charCodeAt($plus($i1, $i));
-            $continue_counter = null;
             for (;$i < $len;$i++) $c2[$plus($i2, $i)] = 0;
           }
         }
@@ -216,7 +209,7 @@ $caml_arity_test = function($f) {
       $l = $a->length;
       $b = $Array->new($l + 1);
       $i = 0;
-      $continue_counter = null;for (;$i < $l;$i++) $b[$i] = $a[$i];
+      for (;$i < $l;$i++) $b[$i] = $a[$i];
       $b[$i] = $x;
       return $b;
     }
@@ -300,7 +293,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       if ($s->repeat) {return $s->repeat($n);}
       $r = $String->new("");$l = 0;
       if ($n == 0) {return $r;}
-      $continue_counter = null;
       for (;;) {
         if ($n & 1) {$r = $plus($r, $s);}
         $n = $right_shift_32($n, 1);
@@ -327,7 +319,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   $caml_is_ascii = $Func(
     function($s) use ($RegExp,$String) {
       if ($s->length < 24) {
-        $continue_counter = null;
         for ($i = 0;$i < $s->length;$i++) if ($s->charCodeAt($i) > 127) {return false;}
         return true;
       }
@@ -336,7 +327,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   );
   $caml_utf16_of_utf8 = $Func(
     function($s) use ($String,$eqEq,$left_shift_32,$plus,$right_shift_32) {
-      $continue_counter = null;
       for (
         $b = $String->new(""),
         $t = $String->new(""),
@@ -351,7 +341,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       ) {
         $c1 = $s->charCodeAt($i);
         if ($c1 < 128) {
-          $continue_counter = null;
           for ($j = $i + 1;$j < $l && ($c1 = $s->charCodeAt($j)) < 128;$j++) ;
           if ($j - $i > 512) {
             $t->substr(0, 1);
@@ -547,7 +536,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   $caml_compare_val = $Func(
     function($a, $b, $total) use ($Array,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
       $stack = varray[];
-      $continue_counter = null;
       for (;;) {
         if (! ($total && $eqEqEq($a, $b))) {
           if (instance_of($a, $MlBytes)) {
@@ -700,7 +688,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
          "prec"=>- 1,
          "conv"=>$String->new("f")]
       );
-      $continue_counter = null;
       for ($i = 0;$i < $len;$i++) {
         $c = $fmt->charAt($i);
         switch($c) {
@@ -818,7 +805,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $eqEq($f->justify, $String->new("+")) &&
           $eqEq($f->filler, $String->new(" "))
       ) {
-        $continue_counter = null;
         for ($i = $len;$i < $f->width;$i++) $buffer =
           $plus($buffer, $String->new(" "));
       }
@@ -840,13 +826,11 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $eqEq($f->justify, $String->new("+")) &&
           $eqEq($f->filler, $String->new("0"))
       ) {
-        $continue_counter = null;
         for ($i = $len;$i < $f->width;$i++) $buffer =
           $plus($buffer, $String->new("0"));
       }
       $buffer = $plus($buffer, $rawbuffer);
       if ($eqEq($f->justify, $String->new("-"))) {
-        $continue_counter = null;
         for ($i = $len;$i < $f->width;$i++) $buffer =
           $plus($buffer, $String->new(" "));
       }
@@ -1031,7 +1015,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $caml_failwith($String->new("int_of_string"));
       }
       $res = $d;
-      $continue_counter = null;
       for ($i++;$i < $len;$i++) {
         $c = $caml_string_unsafe_get($s, $i);
         if ($c == 95) {continue;}
@@ -1104,7 +1087,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       }
       $comp = $name->split($String->new("/"));
       $ncomp = varray[];
-      $continue_counter = null;
       for ($i = 0;$i < $comp->length;$i++) {
         switch($comp[$i]) {
           // FALLTHROUGH
@@ -1491,7 +1473,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           $len,
           $offset
         );
-        $continue_counter = null;
         for ($i = 0;$i < $len;$i++) {
           $caml_bytes_set(
             $buf,
@@ -1711,7 +1692,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
       $name = $path->join($String->new("/"));
       $name_slash = $plus($name, $String->new("/"));
       $res = null;
-      $continue_counter = null;
       for ($i = 0;$i < $jsoo_mount_point->length;$i++) {
         $m = $jsoo_mount_point[$i];
         if (
@@ -1919,7 +1899,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
   $caml_ml_out_channels_list = $Func(
     function() use ($caml_ml_channels) {
       $l = 0;
-      $continue_counter = null;
       for ($c = 0;$c < $caml_ml_channels->length;$c++) {
         if (
           $caml_ml_channels[$c] &&
@@ -2387,7 +2366,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $l = $caml_ml_string_length($s);
     $loop = function($i) use ($a,$b,$caml_string_get,$l,$s) {
       $i__0 = $i;
-      $continue_counter = null;
       for (;;) {
         if ($l <= $i__0) {return $a($s, $b);}
         $match = $caml_string_get($s, $i__0);
@@ -2423,7 +2401,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
     $iter = function($param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -2453,7 +2430,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $rev_append = function($l1, $l2) {
     $l1__0 = $l1;
     $l2__0 = $l2;
-    $continue_counter = null;
     for (;;) {
       if ($l1__0) {
         $l1__1 = $l1__0[2];
@@ -2496,7 +2472,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $mapi = function($f, $l) use ($d) {return $d->contents(0, $f, $l);};
   $iter = function($f, $param) use ($caml_call1) {
     $param__0 = $param;
-    $continue_counter = null;
     for (;;) {
       if ($param__0) {
         $param__1 = $param__0[2];
@@ -2511,7 +2486,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $fold_left = function($f, $accu, $l) use ($caml_call2) {
     $accu__0 = $accu;
     $l__0 = $l;
-    $continue_counter = null;
     for (;;) {
       if ($l__0) {
         $l__1 = $l__0[2];
@@ -2536,7 +2510,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $eo = 0;
     if (! ($ep < 0)) {
       $i__0 = $eo;
-      $continue_counter = null;
       for (;;) {
         $match = $caml_bytes_unsafe_get($s, $i__0);
         if (32 <= $match) {
@@ -2584,7 +2557,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $eq = 0;
     if (! ($er < 0)) {
       $i = $eq;
-      $continue_counter = null;
       for (;;) {
         $c = $caml_bytes_unsafe_get($s, $i);
         if (35 <= $c) {
@@ -2686,7 +2658,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $sum_lengths = function($acc, $seplen, $param) use ($caml_ml_string_length,$ensure_ge) {
     $acc__0 = $acc;
     $param__0 = $param;
-    $continue_counter = null;
     for (;;) {
       if ($param__0) {
         $ek = $param__0[2];
@@ -2709,7 +2680,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $unsafe_blits = function($dst, $pos, $sep, $seplen, $param) use ($caml_blit_string,$caml_ml_string_length) {
     $pos__0 = $pos;
     $param__0 = $param;
-    $continue_counter = null;
     for (;;) {
       if ($param__0) {
         $ei = $param__0[2];
@@ -2755,7 +2725,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $escaped__0 = function($s) use ($bos,$bts,$caml_bytes_unsafe_get,$caml_ml_string_length,$escaped,$unsigned_right_shift_32) {
     $needs_escape = function($i) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$s,$unsigned_right_shift_32) {
       $i__0 = $i;
-      $continue_counter = null;
       for (;;) {
         if ($caml_ml_string_length($s) <= $i__0) {return 0;}
         $match = $caml_bytes_unsafe_get($s, $i__0);
@@ -2790,7 +2759,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   };
   $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
     $i__0 = $i;
-    $continue_counter = null;
     for (;;) {
       if ($lim <= $i__0) {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
@@ -2837,7 +2805,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     return $newval30;
   };
   $intaux = function($s, $n) use ($bits,$caml_mod) {
-    $continue_counter = null;
     for (;;) {
       $r = $bits($s);
       $v = $caml_mod($r, $n);
@@ -2859,7 +2826,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
   $detectList = function($maxLength, $o) use ($caml_equal,$caml_obj_tag) {
     $maxLength__0 = $maxLength;
     $o__0 = $o;
-    $continue_counter = null;
     for (;;) {
       if (0 === $maxLength__0) {return 1;}
       $tag = $caml_obj_tag($o__0);
@@ -2897,7 +2863,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       $maxNum__0 = $maxNum;
       $fieldsSoFar__0 = $fieldsSoFar;
       $numFields__0 = $numFields;
-      $continue_counter = null;
       for (;;) {
         if (0 === $maxNum__0) {
           return Vector{0, 0 < $numFields__0 ? 1 : (0), $fieldsSoFar__0};
@@ -3180,7 +3145,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $listA__0 = $listA;
     $listB__0 = $listB;
     $listC__0 = $listC;
-    $continue_counter = null;
     for (;;) {
       if ($listA__0) {
         if ($listB__0) {
@@ -3217,7 +3181,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $revCount__0 = $revCount;
     $revSoFar__0 = $revSoFar;
     $lst__0 = $lst;
-    $continue_counter = null;
     for (;;) {
       if ($lst__0) {
         $tl = $lst__0[2];

@@ -92,7 +92,6 @@ final class Bytes {
       $bX = 0;
       if (! ($bY < 0)) {
         $i = $bX;
-        $continue_counter = null;
         for (;;) {
           $caml_bytes_unsafe_set($s, $i, $caml_call1($f, $i));
           $bZ = (int) ($i + 1);
@@ -215,7 +214,6 @@ final class Bytes {
       $bR = 0;
       if (! ($bS < 0)) {
         $i = $bR;
-        $continue_counter = null;
         for (;;) {
           $caml_call1($f, $caml_bytes_unsafe_get($a, $i));
           $bT = (int) ($i + 1);
@@ -230,7 +228,6 @@ final class Bytes {
       $bO = 0;
       if (! ($bP < 0)) {
         $i = $bO;
-        $continue_counter = null;
         for (;;) {
           $caml_call2($f, $i, $caml_bytes_unsafe_get($a, $i));
           $bQ = (int) ($i + 1);
@@ -247,7 +244,6 @@ final class Bytes {
     $sum_lengths = function($acc, $seplen, $param) use ($caml_ml_bytes_length,$ensure_ge) {
       $acc__0 = $acc;
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $bM = $param__0[2];
@@ -270,7 +266,6 @@ final class Bytes {
     $unsafe_blits = function($dst, $pos, $sep, $seplen, $param) use ($caml_blit_bytes,$caml_ml_bytes_length) {
       $pos__0 = $pos;
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $bK = $param__0[2];
@@ -333,7 +328,6 @@ final class Bytes {
     $trim = function($s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
       $len = $caml_ml_bytes_length($s);
       $i = Vector{0, 0};
-      $continue_counter = null;
       for (;;) {
         if ($i[1] < $len) {
           if ($is_space($caml_bytes_unsafe_get($s, $i[1]))) {$i[1] += 1;continue;}
@@ -361,7 +355,6 @@ final class Bytes {
       $bB = 0;
       if (! ($bC < 0)) {
         $i__0 = $bB;
-        $continue_counter = null;
         for (;;) {
           $match = $caml_bytes_unsafe_get($s, $i__0);
           if (32 <= $match) {
@@ -409,7 +402,6 @@ final class Bytes {
       $bD = 0;
       if (! ($bE < 0)) {
         $i = $bD;
-        $continue_counter = null;
         for (;;) {
           $c = $caml_bytes_unsafe_get($s, $i);
           if (35 <= $c) {
@@ -519,7 +511,6 @@ final class Bytes {
       $by = 0;
       if (! ($bz < 0)) {
         $i = $by;
-        $continue_counter = null;
         for (;;) {
           $caml_bytes_unsafe_set(
             $r,
@@ -541,7 +532,6 @@ final class Bytes {
       $bv = 0;
       if (! ($bw < 0)) {
         $i = $bv;
-        $continue_counter = null;
         for (;;) {
           $caml_bytes_unsafe_set(
             $r,
@@ -579,7 +569,6 @@ final class Bytes {
     };
     $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$runtime) {
       $i__0 = $i;
-      $continue_counter = null;
       for (;;) {
         if ($lim <= $i__0) {
           throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
@@ -595,7 +584,6 @@ final class Bytes {
     };
     $index_rec_opt = function($s, $lim, $i, $c) use ($caml_bytes_unsafe_get) {
       $i__0 = $i;
-      $continue_counter = null;
       for (;;) {
         if ($lim <= $i__0) {return 0;}
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
@@ -625,7 +613,6 @@ final class Bytes {
     };
     $rindex_rec = function($s, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$runtime) {
       $i__0 = $i;
-      $continue_counter = null;
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
@@ -650,7 +637,6 @@ final class Bytes {
     };
     $rindex_rec_opt = function($s, $i, $c) use ($caml_bytes_unsafe_get) {
       $i__0 = $i;
-      $continue_counter = null;
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}

@@ -91,7 +91,6 @@ final class Sort {
       };
       $mergeall = function($llist) use ($merge2) {
         $llist__0 = $llist;
-        $continue_counter = null;
         for (;;) {
           if ($llist__0) {
             if ($llist__0[2]) {
@@ -204,7 +203,6 @@ final class Sort {
       $cE = 1;
       if (! ($cF < 1)) {
         $i = $cE;
-        $continue_counter = null;
         for (;;) {
           $val_i = $arr[$i + 1];
           if (1 - $caml_call2($cmp, $arr[(int) ($i + -1) + 1], $val_i)) {

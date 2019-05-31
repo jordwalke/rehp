@@ -1492,7 +1492,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       /* There MUST be a space between the return and its
          argument. A line return will not work */
       }
-    | Labelled_statement(i, (st, loc)) => statement(~last, f, (st, loc))
     | Switch_statement(e, cc, def, cc') =>
       PP.start_group(f, 0);
       PP.start_group(f, 0);

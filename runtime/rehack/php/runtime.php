@@ -114,7 +114,7 @@ final class Runtime {
       function($x) use ($Array) {
         $l = $x->length;
         $a = $Array->new($l);
-        $continue_counter = null;for ($i = 0;$i < $l;$i++) $a[$i] = $x[$i];
+        for ($i = 0;$i < $l;$i++) $a[$i] = $x[$i];
         return $a;
       }
     );
@@ -270,7 +270,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         if ($s->repeat) {return $s->repeat($n);}
         $r = $String->new("");$l = 0;
         if ($n == 0) {return $r;}
-        $continue_counter = null;
         for (;;) {
           if ($n & 1) {$r = $plus($r, $s);}
           $n = $right_shift_32($n, 1);
@@ -284,7 +283,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     $raw_array_sub = $Func(
       function($a, $i, $l) use ($Array,$plus) {
         $b = $Array->new($l);
-        $continue_counter = null;
         for ($j = 0;$j < $l;$j++) $b[$j] = $a[$plus($i, $j)];
         return $b;
       }
@@ -294,7 +292,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $f = $String->fromCharCode;
         if ($i == 0 && $len <= 4096 && $eqEq($len, $a->length)) {return $f->apply(varray[], $a);}
         $s = $String->new("");
-        $continue_counter = null;
         for (;0 < $len;($i += 1024) || true ? $len -= 1024 : ($len -= 1024)) $s =
           $plus(
             $s,
@@ -320,7 +317,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     $caml_is_ascii = $Func(
       function($s) use ($RegExp,$String) {
         if ($s->length < 24) {
-          $continue_counter = null;
           for ($i = 0;$i < $s->length;$i++) if ($s->charCodeAt($i) > 127) {return false;}
           return true;
         }
@@ -330,7 +326,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     );
     $caml_utf16_of_utf8 = $Func(
       function($s) use ($String,$eqEq,$left_shift_32,$plus,$right_shift_32) {
-        $continue_counter = null;
         for (
           $b = $String->new(""),
           $t = $String->new(""),
@@ -345,7 +340,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         ) {
           $c1 = $s->charCodeAt($i);
           if ($c1 < 128) {
-            $continue_counter = null;
             for ($j = $i + 1;$j < $l && ($c1 = $s->charCodeAt($j)) < 128;$j++) ;
             if ($j - $i > 512) {
               $t->substr(0, 1);
@@ -505,7 +499,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           $caml_failwith($String->new("int_of_string"));
         }
         $res = $caml_int64_of_int32($d);
-        $continue_counter = null;
         for (;;) {
           $i++;
           $c = $caml_string_unsafe_get($s, $i);
@@ -574,7 +567,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
            "prec"=>- 1,
            "conv"=>$String->new("f")]
         );
-        $continue_counter = null;
         for ($i = 0;$i < $len;$i++) {
           $c = $fmt->charAt($i);
           switch($c) {
@@ -692,7 +684,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           $eqEq($f->justify, $String->new("+")) &&
             $eqEq($f->filler, $String->new(" "))
         ) {
-          $continue_counter = null;
           for ($i = $len;$i < $f->width;$i++) $buffer =
             $plus($buffer, $String->new(" "));
         }
@@ -714,13 +705,11 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
           $eqEq($f->justify, $String->new("+")) &&
             $eqEq($f->filler, $String->new("0"))
         ) {
-          $continue_counter = null;
           for ($i = $len;$i < $f->width;$i++) $buffer =
             $plus($buffer, $String->new("0"));
         }
         $buffer = $plus($buffer, $rawbuffer);
         if ($eqEq($f->justify, $String->new("-"))) {
-          $continue_counter = null;
           for ($i = $len;$i < $f->width;$i++) $buffer =
             $plus($buffer, $String->new(" "));
         }
@@ -780,7 +769,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         }
         $comp = $name->split($String->new("/"));
         $ncomp = varray[];
-        $continue_counter = null;
         for ($i = 0;$i < $comp->length;$i++) {
           switch($comp[$i]) {
             // FALLTHROUGH
@@ -859,9 +847,8 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         }
         else {$a = $Array->new($s->l);}
         $b = $s->c;$l = $b->length;$i = 0;
-        $continue_counter = null;
         for (;$i < $l;$i++) $a[$i] = $b->charCodeAt($i);
-        $continue_counter = null;for ($l = $s->l;$i < $l;$i++) $a[$i] = 0;
+        for ($l = $s->l;$i < $l;$i++) $a[$i] = 0;
         $s->c = $a;
         $s->t = 4;
         return $a;
@@ -900,22 +887,18 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
             $c1 = $s1->c;$c2 = $s2->c;
             if ($s1->t == 4) {
               if ($i2 <= $i1) {
-                $continue_counter = null;
                 for ($i = 0;$i < $len;$i++) $c2[$plus($i2, $i)] =
                   $c1[$plus($i1, $i)];
               }
               else {
-                $continue_counter = null;
                 for ($i = $len - 1;$i >= 0;$i--) $c2[$plus($i2, $i)] =
                   $c1[$plus($i1, $i)];
               }
             }
             else {
               $l = $Math->min($len, $c1->length - $i1);
-              $continue_counter = null;
               for ($i = 0;$i < $l;$i++) $c2[$plus($i2, $i)] =
                 $c1->charCodeAt($plus($i1, $i));
-              $continue_counter = null;
               for (;$i < $len;$i++) $c2[$plus($i2, $i)] = 0;
             }
           }
@@ -1286,7 +1269,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
             $len,
             $offset
           );
-          $continue_counter = null;
           for ($i = 0;$i < $len;$i++) {
             $caml_bytes_set(
               $buf,
@@ -1509,7 +1491,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $name = $path->join($String->new("/"));
         $name_slash = $plus($name, $String->new("/"));
         $res = null;
-        $continue_counter = null;
         for ($i = 0;$i < $jsoo_mount_point->length;$i++) {
           $m = $jsoo_mount_point[$i];
           if (
@@ -1545,7 +1526,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     );
     $bigstring_blit_string_bigstring_stub = $Func(
       function($v_str, $v_src_pos, $v_bstr, $v_dst_pos, $v_len) use ($caml_ba_set_1,$caml_string_get,$plus) {
-        $continue_counter = null;
         for ($i = 0;$i < $v_len;$i++) $caml_ba_set_1(
           $v_bstr,
           $plus($v_dst_pos, $i),
@@ -1560,7 +1540,7 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         $len = $len + 1 | 0;
         $b = $Array->new($len);
         $b[0] = 0;
-        $continue_counter = null;for ($i = 1;$i < $len;$i++) $b[$i] = $init;
+        for ($i = 1;$i < $len;$i++) $b[$i] = $init;
         return $b;
       }
     );
@@ -1577,7 +1557,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
     );
     $caml_utf8_of_utf16 = $Func(
       function($s) use ($String,$eqEq,$left_shift_32,$plus,$right_shift_32) {
-        $continue_counter = null;
         for (
           $b = $String->new(""),$t = $b,$c,$d,$i = 0,$l = $s->length;
           $i < $l;
@@ -1585,7 +1564,6 @@ $caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
         ) {
           $c = $s->charCodeAt($i);
           if ($c < 128) {
-            $continue_counter = null;
             for ($j = $i + 1;$j < $l && ($c = $s->charCodeAt($j)) < 128;$j++) ;
             if ($j - $i > 512) {
               $t->substr(0, 1);
@@ -1738,7 +1716,6 @@ $caml_js_to_string = $Func(
         $a = $root->device->readdir($root->rest);
         $l = $Array->new($a->length + 1);
         $l[0] = 0;
-        $continue_counter = null;
         for ($i = 0;$i < $a->length;$i++) $l[$i + 1] =
           $caml_new_string($a[$i]);
         return $l;
@@ -2060,7 +2037,6 @@ $caml_js_to_string = $Func(
     $caml_compare_val = $Func(
       function($a, $b, $total) use ($Array,$MlBytes,$NaN,$String,$caml_int64_compare,$caml_int_compare,$caml_invalid_argument,$caml_string_compare,$eqEq,$eqEqEq,$is_in,$typeof) {
         $stack = varray[];
-        $continue_counter = null;
         for (;;) {
           if (! ($total && $eqEqEq($a, $b))) {
             if (instance_of($a, $MlBytes)) {
@@ -2181,7 +2157,6 @@ $caml_js_to_string = $Func(
     $caml_ba_get_1 = $Func(function($ba, $i0) {return $ba->get1($i0);});
     $bigstring_blit_bigstring_bytes_stub = $Func(
       function($v_bstr, $v_src_pos, $v_str, $v_dst_pos, $v_len) use ($caml_ba_get_1,$caml_bytes_set,$plus) {
-        $continue_counter = null;
         for ($i = 0;$i < $v_len;$i++) {
           $c = $caml_ba_get_1($v_bstr, $plus($v_src_pos, $i));
           $caml_bytes_set($v_str, $plus($v_dst_pos, $i), $c);
@@ -2203,7 +2178,6 @@ $caml_js_to_string = $Func(
       function() use ($caml_create_file,$joo_global_object) {
         $tmp = $joo_global_object->caml_fs_tmp;
         if ($tmp) {
-          $continue_counter = null;
           for ($i = 0;$i < $tmp->length;$i++) {
             $caml_create_file($tmp[$i]->name, $tmp[$i]->content);
           }
@@ -2237,7 +2211,6 @@ $caml_js_to_string = $Func(
     $caml_hash_mix_string_arr = $Func(
       function($h, $s) use ($caml_hash_mix_int,$left_shift_32) {
         $len = $s->length;$i = null;$w = null;
-        $continue_counter = null;
         for ($i = 0;$i + 4 <= $len;$i += 4) {
           $w =
             $s[$i] |
@@ -2300,7 +2273,6 @@ $caml_wrap_exception = function($e) use($String, $caml_global_data) {
     $caml_list_of_js_array = $Func(
       function($a) {
         $l = 0;
-        $continue_counter = null;
         for ($i = $a->length - 1;$i >= 0;$i--) {$e = $a[$i];$l = varray[0,$e,$l];}
         return $l;
       }
@@ -2338,7 +2310,7 @@ $caml_arity_test = function($f) {
         $l = $a->length;
         $b = $Array->new($l + 1);
         $i = 0;
-        $continue_counter = null;for (;$i < $l;$i++) $b[$i] = $a[$i];
+        for (;$i < $l;$i++) $b[$i] = $a[$i];
         $b[$i] = $x;
         return $b;
       }
@@ -2434,7 +2406,6 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
     $caml_list_mount_point = $Func(
       function() use ($jsoo_mount_point) {
         $prev = 0;
-        $continue_counter = null;
         for ($i = 0;$i < $jsoo_mount_point->length;$i++) {
           $old = $prev;
           $prev = varray[0,$caml_new_string($jsoo_mount_point[$i]->path),$old];
@@ -2454,7 +2425,6 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
           $caml_failwith($String->new("int_of_string"));
         }
         $res = $d;
-        $continue_counter = null;
         for ($i++;$i < $len;$i++) {
           $c = $caml_string_unsafe_get($s, $i);
           if ($c == 95) {continue;}
@@ -2507,7 +2477,6 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
     $caml_hash_mix_string_str = $Func(
       function($h, $s) use ($caml_hash_mix_int,$left_shift_32) {
         $len = $s->length;$i = null;$w = null;
-        $continue_counter = null;
         for ($i = 0;$i + 4 <= $len;$i += 4) {
           $w =
             $s->charCodeAt($i) |
@@ -2644,7 +2613,6 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                   case 12:
                     $t = $Array->new(8);
                     ;
-                    $continue_counter = null;
                     for ($i = 0;$i < 8;$i++) $t[7 - $i] = $reader->read8u();
                     $v = $caml_float_of_bytes($t);
                     if ($intern_obj_table) {
@@ -2655,7 +2623,6 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                   case 11:
                     $t = $Array->new(8);
                     ;
-                    $continue_counter = null;
                     for ($i = 0;$i < 8;$i++) $t[$i] = $reader->read8u();
                     $v = $caml_float_of_bytes($t);
                     if ($intern_obj_table) {
@@ -2672,9 +2639,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                     if ($intern_obj_table) {
                       $intern_obj_table[$obj_counter++] = $v;
                     }
-                    $continue_counter = null;
                     for ($i = 1;$i <= $len;$i++) {
-                      $continue_counter = null;
                       for ($j = 0;$j < 8;$j++) $t[7 - $j] = $reader->read8u();
                       $v[$i] = $caml_float_of_bytes($t);
                     }
@@ -2689,9 +2654,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                     if ($intern_obj_table) {
                       $intern_obj_table[$obj_counter++] = $v;
                     }
-                    $continue_counter = null;
                     for ($i = 1;$i <= $len;$i++) {
-                      $continue_counter = null;
                       for ($j = 0;$j < 8;$j++) $t[$j] = $reader->read8u();
                       $v[$i] = $caml_float_of_bytes($t);
                     }
@@ -2706,9 +2669,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                     }
                     $t = $Array->new(8);
                     ;
-                    $continue_counter = null;
                     for ($i = 1;$i <= $len;$i++) {
-                      $continue_counter = null;
                       for ($j = 0;$j < 8;$j++) $t[7 - $j] = $reader->read8u();
                       $v[$i] = $caml_float_of_bytes($t);
                     }
@@ -2720,9 +2681,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                     $v[0] = 254;
                     $t = $Array->new(8);
                     ;
-                    $continue_counter = null;
                     for ($i = 1;$i <= $len;$i++) {
-                      $continue_counter = null;
                       for ($j = 0;$j < 8;$j++) $t[$j] = $reader->read8u();
                       $v[$i] = $caml_float_of_bytes($t);
                     }
@@ -2743,7 +2702,6 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                       case $String->new("_j"):
                         $t = $Array->new(8);
                         ;
-                        $continue_counter = null;
                         for ($j = 0;$j < 8;$j++) $t[$j] = $reader->read8u();
                         $v = $caml_int64_of_bytes($t);
                         if ($intern_obj_table) {
@@ -2922,7 +2880,6 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
                 // FALLTHROUGH
                 case 0:
                   $struct[$idx] = varray[0];
-                  $continue_counter = null;
                   for ($i = 1;$i < $shape[1]->length;$i++) $loop->contents(
                     $shape[1][$i],
                     $struct[$idx],
@@ -3252,7 +3209,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
     $caml_ml_out_channels_list = $Func(
       function() use ($caml_ml_channels) {
         $l = 0;
-        $continue_counter = null;
         for ($c = 0;$c < $caml_ml_channels->length;$c++) {
           if (
             $caml_ml_channels[$c] &&
@@ -3292,7 +3248,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
       function($dims) use ($String,$caml_invalid_argument) {
         $n_dims = $dims->length;
         $size = 1;
-        $continue_counter = null;
         for ($i = 0;$i < $n_dims;$i++) {
           if ($dims[$i] < 0) {
             $caml_invalid_argument(
@@ -3316,7 +3271,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                 $String->new("Bigarray.get/set: bad number of dimensions")
               );
             }
-            $continue_counter = null;
             for ($i = 0;$i < $n_dims;$i++) {
               if ($index[$i] < 0 || $index[$i] >= $dims[$i]) {$caml_array_bound_error();}
               $ofs = $ofs * $dims[$i] + $index[$i];
@@ -3332,7 +3286,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                 $String->new("Bigarray.get/set: wrong number of indices")
               );
             }
-            $continue_counter = null;
             for ($i = $n_dims - 1;$i >= 0;$i--) {
               if ($index[$i] < 1 || $index[$i] > $dims[$i]) {$caml_array_bound_error();}
               $ofs = $ofs * $dims[$i] + ($index[$i] - 1);
@@ -3453,15 +3406,12 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
         $fill = $Func(
           function($v) use ($data,$data_type,$set_complex_raw,$set_int64_raw,$set_std_raw) {
             if ($data_type == 0) {
-              $continue_counter = null;
               for ($i = 0;$i < $data->length;$i++) $set_std_raw($i, $v);
             }
             if ($data_type == 1) {
-              $continue_counter = null;
               for ($i = 0;$i < $data->length;$i++) $set_int64_raw($i, $v);
             }
             if ($data_type == 2) {
-              $continue_counter = null;
               for ($i = 0;$i < $data->length;$i++) $set_complex_raw($i, $v);
             }
           }
@@ -3473,7 +3423,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                 $String->new("Bigarray.blit: dimension mismatch")
               );
             }
-            $continue_counter = null;
             for ($i = 0;$i < $n_dims;$i++) if (
               !
               $eqEq($dims[$i], $from->nth_dim($i))
@@ -3491,12 +3440,10 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
             $changed_dim = null;
             $mul = 1;
             if ($layout == 0) {
-              $continue_counter = null;
               for ($i = 1;$i < $n_dims;$i++) $mul = $mul * $dims[$i];
               $changed_dim = 0;
             }
             else {
-              $continue_counter = null;
               for ($i = 0;$i < $n_dims - 1;$i++) $mul = $mul * $dims[$i];
               $changed_dim = $n_dims - 1;
               $ofs = $ofs - 1;
@@ -3516,7 +3463,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
               ? varray[]
               : ($data2->subarray($ofs * $mul, $plus($ofs, $len) * $mul));
             $new_dims = varray[];
-            $continue_counter = null;
             for ($i = 0;$i < $n_dims;$i++) $new_dims[$i] = $dims[$i];
             $new_dims[$changed_dim] = $len;
             return $caml_ba_create_from->contents(
@@ -3541,18 +3487,14 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
               );
             }
             if ($layout == 0) {
-              $continue_counter = null;
               for ($i = 0;$i < $num_inds;$i++) $index[$i] = $vind[$i];
-              $continue_counter = null;
               for (;$i < $n_dims;$i++) $index[$i] = 0;
               $ofs = $offset($index);
               $sub_dims = $dims->slice($num_inds);
             }
             else {
-              $continue_counter = null;
               for ($i = 0;$i < $num_inds;$i++) $index[$n_dims - $num_inds + $i
                ] = $vind[$i];
-              $continue_counter = null;
               for ($i = 0;$i < $n_dims - $num_inds;$i++) $index[$i] = 1;
               $ofs = $offset($index);
               $sub_dims = $dims->slice(0, $num_inds);
@@ -3582,7 +3524,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
               );
             }
             $num_elts = 1;
-            $continue_counter = null;
             for ($i = 0;$i < $num_dims;$i++) {
               $new_dim[$i] = $vdim[$i];
               if ($new_dim[$i] < 0) {
@@ -3611,7 +3552,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
           function($b, $total) use ($NaN,$data,$data2,$eqEq,$kind,$layout,$n_dims,$nth_dim) {
             if (! $eqEq($layout, $b->layout)) {return $b->layout - $layout;}
             if (! $eqEq($n_dims, $b->num_dims)) {return $b->num_dims - $n_dims;}
-            $continue_counter = null;
             for ($i = 0;$i < $n_dims;$i++) if (
               !
               $eqEq($nth_dim($i), $b->nth_dim($i))
@@ -3626,7 +3566,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
               // FALLTHROUGH
               case 11:
                 $x = null;$y = null;
-                $continue_counter = null;
                 for ($i = 0;$i < $data->length;$i++) {
                   $x = $data[$i];
                   $y = $b->data[$i];
@@ -3671,7 +3610,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
               case 9:
               // FALLTHROUGH
               case 12:
-                $continue_counter = null;
                 for ($i = 0;$i < $data->length;$i++) {
                   if ($data[$i] < $b->data[$i]) {return - 1;}
                   if ($data[$i] > $b->data[$i]) {return 1;}
@@ -3680,7 +3618,6 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
                 break;
               // FALLTHROUGH
               case 7:
-                $continue_counter = null;
                 for ($i = 0;$i < $data->length;$i++) {
                   if ($data2[$i] < $b->data2[$i]) {return - 1;}
                   if ($data2[$i] > $b->data2[$i]) {return 1;}
@@ -3779,7 +3716,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
       function($tag, $size) use ($Array) {
         $o = $Array->new($size + 1);
         $o[0] = $tag;
-        $continue_counter = null;for ($i = 1;$i <= $size;$i++) $o[$i] = 0;
+        for ($i = 1;$i <= $size;$i++) $o[$i] = 0;
         return $o;
       }
     );
@@ -3881,7 +3818,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
            function($len) use ($Array,$caml_ba_get_1,$caml_string_of_array,$joo_global_object,$plus) {
              $i = $joo_global_object->context->i;
              $arr = $Array->new($len);
-             $continue_counter = null;
              for ($j = 0;$j < $len;$j++) {
                $arr[$j] =
                  $caml_ba_get_1($joo_global_object->context->s, $plus($i, $j));
@@ -3898,7 +3834,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
         $l = $a->length;
         $b = $Array->new($l + 1);
         $b[0] = $x;
-        $continue_counter = null;
         for ($i = 1;$i <= $l;$i++) $b[$i] = $a[$i - 1];
         return $b;
       }
@@ -4028,7 +3963,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
       function($s, $i, $i64) use ($caml_int64_to_bytes,$caml_string_bound_error,$caml_string_unsafe_set,$unsigned_right_shift_32) {
         if ($unsigned_right_shift_32($i, 0) >= $s->l + 7) {$caml_string_bound_error();}
         $a = $caml_int64_to_bytes($i64);
-        $continue_counter = null;
         for ($j = 0;$j < 8;$j++) {
           $caml_string_unsafe_set($s, $i + 7 - $j, $a[$j]);
         }
@@ -4080,7 +4014,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
           }
           else {
             if ($s->t != 4) {$caml_convert_string_to_array($s);}
-            $continue_counter = null;
             for ($l += $i;$i < $l;$i++) $s->c[$i] = $c;
           }
         }
@@ -4112,7 +4045,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
         $s = $caml_jsbytes_of_string($s);
         $l = $s->length / 2;
         $a = $Array->new($l);
-        $continue_counter = null;
         for ($i = 0;$i < $l;$i++) $a[$i] =
           $right_shift_32(
             $left_shift_32(
@@ -4155,7 +4087,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
           $lexbuf[$lex_last_action] = - 1;
         }
         else {$state = - $state - 1;}
-        $continue_counter = null;
         for (;;) {
           $base = $tbl->lex_base[$state];
           if ($base < 0) {return - $base - 1;}
@@ -4196,7 +4127,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
         }
         $p = $caml_js_to_string($main);
         $args2 = varray[0,$p];
-        $continue_counter = null;
         for ($i = 0;$i < $args->length;$i++) $args2->push(
           $caml_js_to_string($args[$i])
         );
@@ -4240,7 +4170,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
       function($a, $i, $len) use ($Array) {
         $a2 = $Array->new($len + 1);
         $a2[0] = 0;
-        $continue_counter = null;
         for ($i2 = 1,$i1 = $i + 1;$i2 <= $len;$i2++ || true ? $i1++ : ($i1++)) {$a2[$i2] = $a[$i1];}
         return $a2;
       }
@@ -4333,7 +4262,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
     );
     $caml_lex_run_mem = $Func(
       function($s, $i, $mem, $curr_pos) {
-        $continue_counter = null;
         for (;;) {
           $dst = $s->charCodeAt($i);
           $i++;
@@ -4349,7 +4277,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
     );
     $caml_lex_run_tag = $Func(
       function($s, $i, $mem) {
-        $continue_counter = null;
         for (;;) {
           $dst = $s->charCodeAt($i);
           $i++;
@@ -4410,7 +4337,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
           $lexbuf[$lex_last_action] = - 1;
         }
         else {$state = - $state - 1;}
-        $continue_counter = null;
         for (;;) {
           $base = $tbl->lex_base[$state];
           if ($base < 0) {
@@ -4506,7 +4432,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
              "write"=>
              $Func(
                function($size, $value) use ($joo_global_object,$right_shift_32) {
-                 $continue_counter = null;
                  for ($i = $size - 8;$i >= 0;$i -= 8) $joo_global_object->context->chunk[
                     $joo_global_object->context->chunk_idx++
                   ] = $right_shift_32($value, $i) & 255;
@@ -4518,7 +4443,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
                  $joo_global_object->context->chunk[
                     $joo_global_object->context->chunk_idx++
                   ] = $code;
-                 $continue_counter = null;
                  for ($i = $size - 8;$i >= 0;$i -= 8) $joo_global_object->context->chunk[
                     $joo_global_object->context->chunk_idx++
                   ] = $right_shift_32($value, $i) & 255;
@@ -4560,13 +4484,11 @@ $right_shift_32=$joo_global_object->right_shift_32;
                 if (instance_of($v, $Array) && $eqEqEq($v[0], $v[0] | 0)) {
                   if ($v[0] == 255) {
                     $writer->write(8, 18);
-                    $continue_counter = null;
                     for ($i = 0;$i < 3;$i++) $writer->write(
                       8,
                       $String->new("_j\0")->charCodeAt($i)
                     );
                     $b = $caml_int64_to_bytes($v);
-                    $continue_counter = null;
                     for ($i = 0;$i < 8;$i++) $writer->write(8, $b[$i]);
                     $writer->size_32 = $plus($writer->size_32, 4);
                     $writer->size_64 = $plus($writer->size_64, 3);
@@ -4607,7 +4529,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
                       }
                       else {$writer->write_code(32, 10, $len);}
                     }
-                    $continue_counter = null;
                     for ($i = 0;$i < $len;$i++) $writer->write(
                       8,
                       $caml_string_unsafe_get($v, $i)
@@ -4680,7 +4601,7 @@ $right_shift_32=$joo_global_object->right_shift_32;
         $len = $len + 1 | 0;
         $b = $Array->new($len);
         $b[0] = 254;
-        $continue_counter = null;for ($i = 1;$i < $len;$i++) $b[$i] = 0;
+        for ($i = 1;$i < $len;$i++) $b[$i] = 0;
         return $b;
       }
     );
@@ -4706,7 +4627,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
         $meths = $obj[1];
         $ofs = $caml_method_cache[$cacheid];
         if ($ofs === varray[]) {
-          $continue_counter = null;
           for ($i = $caml_method_cache->length;$i < $cacheid;$i++) $caml_method_cache[$i] = 0;
         }
         else {if ($eqEqEq($meths[$ofs], $tag)) {return $meths[$ofs - 1];}}
@@ -4742,7 +4662,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
           $String->new("timeEnd")
         ];
         $f = $Func(function() {});
-        $continue_counter = null;
         for ($i = 0;$i < $m->length;$i++) if (! $c[$m[$i]]) {$c[$m[$i]] = $f;}
         return $c;
       }
@@ -5429,7 +5348,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
                   )
                 ) {
                   $length = $value->length;
-                  $continue_counter = null;
                   for ($i = 0;$i < $length;$i += 1) {
                     $partial[$i] =
                       $str->contents($i, $value) || $String->new("null");
@@ -5460,7 +5378,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
                 }
                 if ($rep && $eqEqEq($typeof($rep), $String->new("object"))) {
                   $length = $rep->length;
-                  $continue_counter = null;
                   for ($i = 0;$i < $length;$i += 1) {
                     if ($eqEqEq($typeof($rep[$i]), $String->new("string"))) {
                       $k = $rep[$i];
@@ -5542,7 +5459,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
                 $gap = $String->new("");
                 $indent = $String->new("");
                 if ($eqEqEq($typeof($space), $String->new("number"))) {
-                  $continue_counter = null;
                   for ($i = 0;$i < $space;$i += 1) {
                     $indent = $plus($indent, $String->new(" "));
                   }
@@ -5658,7 +5574,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
       function($s, $i) use ($Array,$caml_int64_of_bytes,$caml_string_bound_error,$caml_string_unsafe_get,$plus,$unsigned_right_shift_32) {
         if ($unsigned_right_shift_32($i, 0) >= $s->l + 7) {$caml_string_bound_error();}
         $a = $Array->new(8);
-        $continue_counter = null;
         for ($j = 0;$j < 8;$j++) {
           $a[7 - $j] = $caml_string_unsafe_get($s, $plus($i, $j));
         }
@@ -5685,7 +5600,6 @@ $right_shift_32=$joo_global_object->right_shift_32;
         $path = $caml_make_path($name);
         $name = $plus($path->join($String->new("/")), $String->new("/"));
         $idx = - 1;
-        $continue_counter = null;
         for ($i = 0;$i < $jsoo_mount_point->length;$i++) if ($eqEq($jsoo_mount_point[$i]->path, $name)) {$idx = $i;}
         if ($idx > - 1) {$jsoo_mount_point->splice($idx, 1);}
         return 0;
@@ -5782,7 +5696,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $caml_js_object = $Func(
       function($a) use ($ObjectLiteral) {
         $o = $ObjectLiteral((object)darray[]);
-        $continue_counter = null;
         for ($i = 1;$i < $a->length;$i++) {
           $p = $a[$i];
           $o[$p[1]->toString()] = $p[2];
@@ -5823,12 +5736,10 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     $caml_array_blit = $Func(
       function($a1, $i1, $a2, $i2, $len) use ($plus) {
         if ($i2 <= $i1) {
-          $continue_counter = null;
           for ($j = 1;$j <= $len;$j++) $a2[$plus($i2, $j)] =
             $a1[$plus($i1, $j)];
         }
         else {
-          $continue_counter = null;
           for ($j = $len;$j >= 1;$j--) $a2[$plus($i2, $j)] =
             $a1[$plus($i1, $j)];
         }
@@ -6079,7 +5990,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
                default:
                  $tag = $left_shift_32($v->length - 1, 10) | $v[0];
                  $h = $caml_hash_mix_int($h, $tag);
-                 $continue_counter = null;
                  for (
                    ($i = 1) || true ? $len = $v->length : ($len = $v->length);
                    $i < $len;
@@ -6119,7 +6029,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     );
     $bigstring_memcmp_stub = $Func(
       function($v_s1, $v_s1_pos, $v_s2, $v_s2_pos, $v_len) use ($caml_ba_get_1,$plus) {
-        $continue_counter = null;
         for ($i = 0;$i < $v_len;$i++) {
           $a = $caml_ba_get_1($v_s1, $plus($v_s1_pos, $i));
           $b = $caml_ba_get_1($v_s2, $plus($v_s2_pos, $i));
@@ -6172,7 +6081,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
     );
     $bigstring_blit_bytes_bigstring_stub = $Func(
       function($v_str, $v_src_pos, $v_bstr, $v_dst_pos, $v_len) use ($caml_ba_set_1,$caml_bytes_get,$plus) {
-        $continue_counter = null;
         for ($i = 0;$i < $v_len;$i++) $caml_ba_set_1(
           $v_bstr,
           $plus($v_dst_pos, $i),
@@ -6207,7 +6115,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       function($s, $i) use ($Array,$caml_int64_of_bytes,$caml_string_bound_error,$caml_string_unsafe_get,$plus,$unsigned_right_shift_32) {
         if ($unsigned_right_shift_32($i, 0) >= $s->l + 7) {$caml_string_bound_error();}
         $a = $Array->new(8);
-        $continue_counter = null;
         for ($j = 0;$j < 8;$j++) {
           $a[7 - $j] = $caml_string_unsafe_get($s, $plus($i, $j));
         }
@@ -6251,7 +6158,6 @@ $unsigned_right_shift_32=$joo_global_object->unsigned_right_shift_32;
       function($ba, $layout) use ($caml_ba_create_from,$eqEq) {
         if ($eqEq($ba->layout, $layout)) {return $ba;}
         $dims = varray[];
-        $continue_counter = null;
         for ($i = 0;$i < $ba->num_dims;$i++) $dims[$i] = $ba->nth_dim($i);
         return $caml_ba_create_from->contents(
           $ba->data,
@@ -6416,7 +6322,6 @@ $left_shift_32=$joo_global_object->left_shift_32;
         $a = varray[0];
         while($l !== 0) {
            $b = $l[1];
-           $continue_counter = null;
            for ($i = 1;$i < $b->length;$i++) $a->push($b[$i]);
            $l = $l[2];
          }
@@ -6450,7 +6355,7 @@ $RegExp=$joo_global_object->RegExp;
         $len = $len + 1 | 0;
         $b = $Array->new($len);
         $b[0] = 254;
-        $continue_counter = null;for ($i = 1;$i < $len;$i++) $b[$i] = 0;
+        for ($i = 1;$i < $len;$i++) $b[$i] = 0;
         return $b;
       }
     );
@@ -6592,13 +6497,11 @@ $RegExp=$joo_global_object->RegExp;
             $i = $length;
             $buffer[$right_shift_32($i, 2)] |=
               $left_shift_32(128, 8 * ($i & 3));
-            $continue_counter = null;
             for ($i = ($i & ~ 3) + 8;($i & 63) < 60;$i += 4) $buffer[$right_shift_32($i, 2) - 1] = 0;
             $buffer[$right_shift_32($i, 2) - 1] = $left_shift_32($length, 3);
             $buffer[$right_shift_32($i, 2)] =
               $right_shift_32($length, 29) & 536870911;
             $w = varray[1732584193,4023233417,2562383102,271733878];
-            $continue_counter = null;
             for ($i = 0;$i < $buffer->length;$i += 16) {
               $a = $w[0];$b = $w[1];$c = $w[2];$d = $w[3];
               $a = $ff($a, $b, $c, $d, $buffer[$i + 0], 7, 3614090360);
@@ -6671,10 +6574,8 @@ $RegExp=$joo_global_object->RegExp;
               $w[3] = $add($d, $w[3]);
             }
             $t = $Array->new(16);
-            $continue_counter = null;
-            for ($i = 0;$i < 4;$i++) $continue_counter = null;
-            for ($j = 0;$j < 4;$j++) $t[$i * 4 + $j] =
-              $right_shift_32($w[$i], 8 * $j) & 255;
+            for ($i = 0;$i < 4;$i++) for ($j = 0;$j < 4;$j++
+            ) $t[$i * 4 + $j] = $right_shift_32($w[$i], 8 * $j) & 255;
             return $t;
           }
         );
@@ -6688,7 +6589,6 @@ $RegExp=$joo_global_object->RegExp;
               // FALLTHROUGH
               case 0:
                 $b = $s->c;
-                $continue_counter = null;
                 for ($i = 0;$i < $len;$i += 4) {
                   $j = $plus($i, $ofs);
                   $buf[$right_shift_32($i, 2)] =
@@ -6697,7 +6597,6 @@ $RegExp=$joo_global_object->RegExp;
                       $left_shift_32($b->charCodeAt($j + 2), 16) |
                       $left_shift_32($b->charCodeAt($j + 3), 24);
                 }
-                $continue_counter = null;
                 for (;$i < $len;$i++) $buf[
                    $right_shift_32($i, 2)
                  ] |=
@@ -6707,7 +6606,6 @@ $RegExp=$joo_global_object->RegExp;
               // FALLTHROUGH
               case 4:
                 $a = $s->c;
-                $continue_counter = null;
                 for ($i = 0;$i < $len;$i += 4) {
                   $j = $plus($i, $ofs);
                   $buf[$right_shift_32($i, 2)] =
@@ -6716,7 +6614,6 @@ $RegExp=$joo_global_object->RegExp;
                       $left_shift_32($a[$j + 2], 16) |
                       $left_shift_32($a[$j + 3], 24);
                 }
-                $continue_counter = null;
                 for (;$i < $len;$i++) $buf[
                    $right_shift_32($i, 2)
                  ] |= $left_shift_32($a[$plus($i, $ofs)], 8 * ($i & 3));
@@ -6823,7 +6720,6 @@ $RegExp=$joo_global_object->RegExp;
           switch($shape[0]) {
             // FALLTHROUGH
             case 0:
-              $continue_counter = null;
               for ($i = 1;$i < $shape[1]->length;$i++) $caml_CamlinternalMod_update_mod->contents(
                 $shape[1][$i],
                 $real[$i],
@@ -6889,8 +6785,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $a = $Array->new($l);
         $a[0] = 0;
         $i = 1;$j = 1;
-        $continue_counter = null;for (;$i < $l1;$i++) $a[$i] = $a1[$i];
-        $continue_counter = null;
+        for (;$i < $l1;$i++) $a[$i] = $a1[$i];
         for (;$i < $l;$i++ || true ? $j++ : ($j++)) $a[$i] = $a2[$j];
         return $a;
       }
@@ -7124,7 +7019,6 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                 default:
                   $count--;
                   $hash_accu = $hash_accu * 19 + $obj[0] | 0;
-                  $continue_counter = null;
                   for ($i = $obj->length - 1;$i > 0;$i--) $hash_aux->contents($obj[$i]);
                 }
             }
@@ -7137,14 +7031,12 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                     $caml_convert_string_to_bytes($obj);
                   // FALLTHROUGH
                   case 0:
-                    $continue_counter = null;
                     for ($b = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu =
                       $hash_accu * 19 +
                         $b->charCodeAt($i) | 0;
                     break;
                   // FALLTHROUGH
                   case 2:
-                    $continue_counter = null;
                     for ($a = $obj->c,$l = $obj->l,$i = 0;$i < $l;$i++) $hash_accu = $hash_accu * 19 + $a[$i] | 0;
                   }
               }
@@ -7157,7 +7049,6 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
                   if ($eqEqEq($obj, + $obj)) {
                     $count--;
                     $p = $caml_int64_to_bytes($caml_int64_bits_of_float($obj));
-                    $continue_counter = null;
                     for ($i = 7;$i >= 0;$i--) $hash_accu =
                       $hash_accu * 19 +
                         $p[$i] | 0;
@@ -7298,7 +7189,6 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
             case 5:
               if ($errflag < 3) {
                 $errflag = 3;
-                $continue_counter = null;
                 for (;;) {
                   $state1 = $env[$env_s_stack][$sp + 1];
                   $n1 = $tables->sindex[$state1];
@@ -7389,7 +7279,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       function($a) use ($Array) {
         $l = $a->length;
         $b = $Array->new($l);
-        $continue_counter = null;for ($i = 0;$i < $l;$i++) $b[$i] = $a[$i];
+        for ($i = 0;$i < $l;$i++) $b[$i] = $a[$i];
         return $b;
       }
     );
@@ -7418,7 +7308,6 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     );
     $bigstring_blit_stub = $Func(
       function($s1, $i1, $s2, $i2, $len) use ($caml_ba_get_1,$caml_ba_set_1,$plus) {
-        $continue_counter = null;
         for ($i = 0;$i < $len;$i++) $caml_ba_set_1(
           $s2,
           $plus($i2, $i),
