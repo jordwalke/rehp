@@ -109,6 +109,7 @@ final class Digest {
       }
       $result = $caml_create_bytes(32);
       $i = 0;
+      $continue_counter = null;
       for (;;) {
         $x = $caml_string_get($d, $i);
         $caml_bytes_unsafe_set(
@@ -154,6 +155,7 @@ final class Digest {
       };
       $result = $caml_create_bytes(16);
       $i = 0;
+      $continue_counter = null;
       for (;;) {
         $pT = $byte__0((int) (2 * $i));
         $runtime["caml_bytes_set"]($result, $i, $caml_call1($Char[1], $pT));

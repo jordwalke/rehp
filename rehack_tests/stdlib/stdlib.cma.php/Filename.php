@@ -121,6 +121,7 @@ final class Filename {
       $Cj = 0;
       if (! ($Ck < 0)) {
         $i = $Cj;
+        $continue_counter = null;
         for (;;) {
           if (39 === $caml_string_get($s, $i)) {
             $caml_call2($Buffer[14], $b, $quotequote);
@@ -140,6 +141,7 @@ final class Filename {
     $generic_basename = function($is_dir_sep, $current_dir_name, $name) use ($String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_equal,$cst) {
       $find_beg = function($n, $p) use ($String,$caml_call2,$caml_call3,$is_dir_sep,$name) {
         $n__0 = $n;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $n__0) {
             if ($caml_call2($is_dir_sep, $name, $n__0)) {
@@ -161,6 +163,7 @@ final class Filename {
       };
       $find_end = function($n) use ($String,$caml_call2,$caml_call3,$find_beg,$is_dir_sep,$name) {
         $n__0 = $n;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $n__0) {
             if ($caml_call2($is_dir_sep, $name, $n__0)) {
@@ -180,6 +183,7 @@ final class Filename {
     $generic_dirname = function($is_dir_sep, $current_dir_name, $name) use ($String,$caml_call2,$caml_call3,$caml_ml_string_length,$caml_string_equal,$cst__0) {
       $intermediate_sep = function($n) use ($String,$caml_call2,$caml_call3,$is_dir_sep,$name) {
         $n__0 = $n;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $n__0) {
             if ($caml_call2($is_dir_sep, $name, $n__0)) {
@@ -194,6 +198,7 @@ final class Filename {
       };
       $base = function($n) use ($caml_call2,$current_dir_name,$intermediate_sep,$is_dir_sep,$name) {
         $n__0 = $n;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $n__0) {
             if ($caml_call2($is_dir_sep, $name, $n__0)) {return $intermediate_sep($n__0);}
@@ -206,6 +211,7 @@ final class Filename {
       };
       $trailing_sep = function($n) use ($String,$base,$caml_call2,$caml_call3,$is_dir_sep,$name) {
         $n__0 = $n;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $n__0) {
             if ($caml_call2($is_dir_sep, $name, $n__0)) {
@@ -376,6 +382,7 @@ final class Filename {
         $BJ = 1;
         if (! ($n < 1)) {
           $j = $BJ;
+          $continue_counter = null;
           for (;;) {
             $caml_call2($Buffer[10], $b, 92);
             $BK = (int) ($j + 1);
@@ -387,6 +394,7 @@ final class Filename {
       };
       $loop__0 = function($counter, $i) use ($Buffer,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop_bs,$s) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if ($i__0 === $l) {return $caml_call2($Buffer[10], $b, 34);}
           $c = $caml_string_get($s, $i__0);
@@ -421,6 +429,7 @@ final class Filename {
       $loop_bs->contents = function($counter, $n, $i) use ($Buffer,$add_bs,$b,$caml_call2,$caml_string_get,$caml_trampoline_return,$l,$loop__0,$s) {
         $n__0 = $n;
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if ($i__0 === $l) {
             $caml_call2($Buffer[10], $b, 34);
@@ -598,6 +607,7 @@ final class Filename {
     $extension_len = function($name) use ($caml_ml_string_length,$caml_string_get,$is_dir_sep__1) {
       $check = function($i0, $i) use ($caml_ml_string_length,$caml_string_get,$is_dir_sep__1,$name) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $i__0) {
             if (! $is_dir_sep__1($name, $i__0)) {
@@ -614,6 +624,7 @@ final class Filename {
       };
       $search_dot = function($i) use ($caml_string_get,$check,$is_dir_sep__1,$name) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $i__0) {
             if (! $is_dir_sep__1($name, $i__0)) {
@@ -697,6 +708,7 @@ final class Filename {
       else {$temp_dir = $current_temp_dir_name[1];}
       $try_name = function($counter) use ($Bh,$Sys_error,$caml_wrap_exception,$prefix,$runtime,$suffix,$temp_dir,$temp_file_name) {
         $counter__0 = $counter;
+        $continue_counter = null;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
           try {
@@ -739,6 +751,7 @@ final class Filename {
       else {$temp_dir = $current_temp_dir_name[1];}
       $try_name = function($counter) use ($Pervasives,$Sys_error,$caml_call3,$caml_wrap_exception,$mode,$perms,$prefix,$runtime,$suffix,$temp_dir,$temp_file_name) {
         $counter__0 = $counter;
+        $continue_counter = null;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
           try {

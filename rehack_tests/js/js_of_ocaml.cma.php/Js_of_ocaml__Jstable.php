@@ -106,6 +106,7 @@ final class Js_of_ocaml__Jstable {
       ((function($t12, $param) {return $t12->length;})($key_array, $pn) + -1);
       if (! ($po < 0)) {
         $i = $pm;
+        $continue_counter = null;
         for (;;) {
           $pp = function($param) use ($Pervasives,$caml_call1,$cst_Jstable_keys) {
             return $caml_call1($Pervasives[2], $cst_Jstable_keys);

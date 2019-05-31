@@ -674,6 +674,7 @@ final class CamlinternalFormat {
     $rev_char_set = function($char_set) use ($Bytes,$Pervasives,$caml_bytes_set,$caml_call1,$caml_string_get,$create_char_set) {
       $char_set__0 = $create_char_set(0);
       $i = 0;
+      $continue_counter = null;
       for (;;) {
         $m3 = $caml_string_get($char_set, $i) ^ 255;
         $caml_bytes_set($char_set__0, $i, $caml_call1($Pervasives[17], $m3));
@@ -957,6 +958,7 @@ final class CamlinternalFormat {
       };
       $print_out__0 = function($counter, $set, $i) use ($Pervasives,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_first) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           $mU = $i__0 < 256 ? 1 : (0);
           if ($mU) {
@@ -1071,6 +1073,7 @@ final class CamlinternalFormat {
       };
       $print_in->contents = function($counter, $set, $i, $j) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_out__0) {
         $j__0 = $j;
+        $continue_counter = null;
         for (;;) {
           if (256 !== $j__0) {
             if ($is_in_char_set($set, $caml_call1($Pervasives[17], $j__0))) {$j__1 = (int) ($j__0 + 1);$j__0 = $j__1;continue;}
@@ -1297,6 +1300,7 @@ final class CamlinternalFormat {
       $mG = 0;
       if (! ($mH < 0)) {
         $i = $mG;
+        $continue_counter = null;
         for (;;) {
           $bprint_char_literal($buf, $caml_string_get($str, $i));
           $mI = (int) ($i + 1);
@@ -1308,6 +1312,7 @@ final class CamlinternalFormat {
     };
     $bprint_fmtty->contents = function($buf, $fmtty) use ($bprint_fmtty,$buffer_add_string,$cst_B,$cst_Li,$cst__10,$cst__11,$cst__12,$cst__13,$cst__9,$cst_a,$cst_c,$cst_f,$cst_i,$cst_li,$cst_ni,$cst_r,$cst_r__0,$cst_s,$cst_t,$is_int) {
       $fmtty__0 = $fmtty;
+      $continue_counter = null;
       for (;;) if (
         $is_int($fmtty__0)
       ) {return 0;}
@@ -1423,6 +1428,7 @@ final class CamlinternalFormat {
       $fmtiter = function($fmt, $ign_flag) use ($bprint_altint_fmt,$bprint_char_literal,$bprint_char_set,$bprint_float_fmt,$bprint_fmtty,$bprint_ignored_flag,$bprint_int_fmt,$bprint_pad_opt,$bprint_padding,$bprint_string_literal,$buf,$buffer_add_char,$buffer_add_string,$char_of_counter,$cst_0c,$cst__14,$cst__15,$int_of_custom_arity,$is_int,$param_format_of_ignored_format,$string_of_formatting_gen,$string_of_formatting_lit) {
         $fmt__0 = $fmt;
         $ign_flag__0 = $ign_flag;
+        $continue_counter = null;
         for (;;) if (
           $is_int($fmt__0)
         ) {return 0;}
@@ -1704,6 +1710,8 @@ final class CamlinternalFormat {
                   if ($mE !== $i) {$i = $mF;continue;}
                   break;
                 }
+                if ($continue_counter > 0) {$continue_counter -= 1;break;}
+                $continue_counter = null;
               }
               $fmt__0 = $rest__0;
               $ign_flag__0 = 0;
@@ -2910,6 +2918,7 @@ final class CamlinternalFormat {
     };
     $fmtty_of_fmt__0 = function($counter, $fmtty) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_custom,$fmtty_of_fmt,$fmtty_of_formatting_gen,$fmtty_of_ignored_format,$fmtty_of_padding_fmtty,$fmtty_of_precision_fmtty,$is_int) {
       $fmtty__0 = $fmtty;
+      $continue_counter = null;
       for (;;) if (
         $is_int($fmtty__0)
       ) {return 0;}
@@ -4510,6 +4519,7 @@ final class CamlinternalFormat {
         $len = $caml_ml_string_length($str__0);
         $is_valid = function($i) use ($caml_string_get,$len,$str__0,$unsigned_right_shift_32) {
           $i__0 = $i;
+          $continue_counter = null;
           for (;;) {
             if ($i__0 === $len) {return 0;}
             $match = $caml_string_get($str__0, $i__0);
@@ -4751,6 +4761,7 @@ final class CamlinternalFormat {
       $k__0 = $k;
       $acc__0 = $acc;
       $fmt__0 = $fmt;
+      $continue_counter = null;
       for (;;) if (
         $is_int($fmt__0)
       ) {return $caml_call2($k__0, $o, $acc__0);}
@@ -5572,6 +5583,7 @@ final class CamlinternalFormat {
     $make_iprintf__0 = function($counter, $k, $o, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$const__0,$fn_of_custom_arity__0,$fn_of_padding_precision,$hT,$is_int,$make_ignored_param,$make_iprintf,$recast,$runtime) {
       $k__0 = $k;
       $fmt__0 = $fmt;
+      $continue_counter = null;
       for (;;) if (
         $is_int($fmt__0)
       ) {return $caml_call1($k__0, $o);}
@@ -5896,6 +5908,7 @@ final class CamlinternalFormat {
     };
     $output_acc->contents = function($o, $acc) use ($Pervasives,$caml_call1,$caml_call2,$cst__17,$cst__18,$is_int,$output_acc,$string_of_formatting_lit) {
       $acc__0 = $acc;
+      $continue_counter = null;
       for (;;) if (
         $is_int($acc__0)
       ) {return 0;}
@@ -5960,6 +5973,7 @@ final class CamlinternalFormat {
     };
     $bufput_acc->contents = function($b, $acc) use ($Buffer,$Pervasives,$bufput_acc,$caml_call1,$caml_call2,$cst__19,$cst__20,$is_int,$string_of_formatting_lit) {
       $acc__0 = $acc;
+      $continue_counter = null;
       for (;;) if (
         $is_int($acc__0)
       ) {return 0;}
@@ -6024,6 +6038,7 @@ final class CamlinternalFormat {
     };
     $strput_acc->contents = function($b, $acc) use ($Buffer,$Pervasives,$caml_call1,$caml_call2,$cst__21,$cst__22,$is_int,$string_of_formatting_lit,$strput_acc) {
       $acc__0 = $acc;
+      $continue_counter = null;
       for (;;) if (
         $is_int($acc__0)
       ) {return 0;}
@@ -6105,6 +6120,7 @@ final class CamlinternalFormat {
       };
       $parse_spaces = function($i) use ($caml_string_get,$len,$str) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if ($i__0 === $len) {return $i__0;}
           $match = $caml_string_get($str, $i__0);
@@ -6116,6 +6132,7 @@ final class CamlinternalFormat {
       };
       $parse_lword = function($i, $j) use ($caml_string_get,$len,$str,$unsigned_right_shift_32) {
         $j__0 = $j;
+        $continue_counter = null;
         for (;;) {
           if ($j__0 === $len) {return $j__0;}
           $match = $caml_string_get($str, $j__0);
@@ -6128,6 +6145,7 @@ final class CamlinternalFormat {
       };
       $parse_int = function($i, $j) use ($caml_string_get,$len,$str) {
         $j__0 = $j;
+        $continue_counter = null;
         for (;;) {
           if ($j__0 === $len) {return $j__0;}
           $match = $caml_string_get($str, $j__0);
@@ -6284,6 +6302,7 @@ final class CamlinternalFormat {
       };
       $parse_literal = function($lit_start, $str_ind, $end_ind) use ($add_literal,$caml_string_get,$parse_after_at,$parse_format,$str) {
         $str_ind__0 = $str_ind;
+        $continue_counter = null;
         for (;;) {
           if ($str_ind__0 === $end_ind) {
             return $add_literal($lit_start, $str_ind__0, 0);
@@ -6329,6 +6348,7 @@ final class CamlinternalFormat {
         };
         $read_flags = function($str_ind) use ($caml_string_get,$end_ind,$hash,$ign,$minus,$parse_padding,$pct_ind,$plus,$set_flag,$space,$str,$unexpected_end_of_format,$unsigned_right_shift_32,$zero) {
           $str_ind__0 = $str_ind;
+          $continue_counter = null;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
               $unexpected_end_of_format($end_ind);
@@ -7643,6 +7663,7 @@ final class CamlinternalFormat {
         $add_range = function($c__0, $c) use ($Pervasives,$add_in_char_set,$caml_call1,$char_set) {
           if (! ($c < $c__0)) {
             $i = $c__0;
+            $continue_counter = null;
             for (;;) {
               $add_in_char_set($char_set, $caml_call1($Pervasives[17], $i));
               $iD = (int) ($i + 1);
@@ -7657,6 +7678,7 @@ final class CamlinternalFormat {
         };
         $parse_char_set_content = function($counter, $str_ind, $end_ind) use ($add_char,$caml_string_get,$caml_trampoline_return,$parse_char_set_after_char__0,$str,$unexpected_end_of_format) {
           $str_ind__0 = $str_ind;
+          $continue_counter = null;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
               $unexpected_end_of_format($end_ind);
@@ -7689,6 +7711,7 @@ final class CamlinternalFormat {
         ($counter, $str_ind, $end_ind, $c) use ($add_char,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_after_minus,$parse_char_set_content,$str,$unexpected_end_of_format) {
           $str_ind__0 = $str_ind;
           $c__0 = $c;
+          $continue_counter = null;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
               $unexpected_end_of_format($end_ind);
@@ -7812,6 +7835,7 @@ final class CamlinternalFormat {
       };
       $parse_spaces->contents = function($str_ind, $end_ind) use ($caml_string_get,$str,$unexpected_end_of_format) {
         $str_ind__0 = $str_ind;
+        $continue_counter = null;
         for (;;) {
           if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
           if (32 === $caml_string_get($str, $str_ind__0)) {
@@ -7825,6 +7849,7 @@ final class CamlinternalFormat {
       $parse_positive->contents = function($str_ind, $end_ind, $acc) use ($Sys,$caml_call3,$caml_string_get,$failwith_message,$ie,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
         $str_ind__0 = $str_ind;
         $acc__0 = $acc;
+        $continue_counter = null;
         for (;;) {
           if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
           $c = $caml_string_get($str, $str_ind__0);
@@ -7872,6 +7897,7 @@ final class CamlinternalFormat {
       };
       $search_subformat_end->contents = function($str_ind, $end_ind, $c) use ($caml_call3,$caml_string_get,$cst_character,$cst_character__0,$expected_character,$failwith_message,$ih,$search_subformat_end,$str,$unexpected_end_of_format) {
         $str_ind__0 = $str_ind;
+        $continue_counter = null;
         for (;;) {
           if ($str_ind__0 === $end_ind) {
             $caml_call3($failwith_message($ih), $str, $c, $end_ind);
@@ -8035,6 +8061,7 @@ final class CamlinternalFormat {
         $plus__0 = $plus;
         $hash__0 = $hash;
         $space__0 = $space;
+        $continue_counter = null;
         for (;;) {
           if (0 === $plus__0) {
             if (0 === $hash__0) {
@@ -8156,6 +8183,7 @@ final class CamlinternalFormat {
       ($pct_ind, $str_ind, $plus, $space, $symb) use ($Assert_failure,$cst__37,$cst__38,$cst__39,$ik,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
         $plus__0 = $plus;
         $space__0 = $space;
+        $continue_counter = null;
         for (;;) {
           if (0 === $plus__0) {
             if (0 === $space__0) {

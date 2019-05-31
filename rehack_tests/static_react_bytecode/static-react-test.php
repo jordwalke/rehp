@@ -259,22 +259,22 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $printInstanceCollection = new Ref();
   $reconcile = new Ref();
   $reconcileSubtree = new Ref();
-  $native_warn = $joo_global_object->native_warn !== NULL
+  $native_warn = $joo_global_object->native_warn !== null
     ? $joo_global_object->native_warn
     : (function() use ($caml_failwith) {
      $caml_failwith("native_warn" . " not implemented");
    });
-  $native_log = $joo_global_object->native_log !== NULL
+  $native_log = $joo_global_object->native_log !== null
     ? $joo_global_object->native_log
     : (function() use ($caml_failwith) {
      $caml_failwith("native_log" . " not implemented");
    });
-  $native_error = $joo_global_object->native_error !== NULL
+  $native_error = $joo_global_object->native_error !== null
     ? $joo_global_object->native_error
     : (function() use ($caml_failwith) {
      $caml_failwith("native_error" . " not implemented");
    });
-  $native_debug = $joo_global_object->native_debug !== NULL
+  $native_debug = $joo_global_object->native_debug !== null
     ? $joo_global_object->native_debug
     : (function() use ($caml_failwith) {
      $caml_failwith("native_debug" . " not implemented");
@@ -574,6 +574,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $l = $caml_ml_string_length($s);
     $loop = function($i) use ($a,$b,$caml_string_get,$l,$s) {
       $i__0 = $i;
+      $continue_counter = null;
       for (;;) {
         if ($l <= $i__0) {return $a($s, $b);}
         $match = $caml_string_get($s, $i__0);
@@ -607,6 +608,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
     $iter = function($param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
       $param__0 = $param;
+      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -636,6 +638,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $rev_append = function($l1, $l2) {
     $l1__0 = $l1;
     $l2__0 = $l2;
+    $continue_counter = null;
     for (;;) {
       if ($l1__0) {
         $l1__1 = $l1__0[2];
@@ -678,6 +681,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $mapi = function($f, $l) use ($d) {return $d->contents(0, $f, $l);};
   $iter = function($f, $param) use ($caml_call1) {
     $param__0 = $param;
+    $continue_counter = null;
     for (;;) {
       if ($param__0) {
         $param__1 = $param__0[2];
@@ -692,6 +696,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $fold_left = function($f, $accu, $l) use ($caml_call2) {
     $accu__0 = $accu;
     $l__0 = $l;
+    $continue_counter = null;
     for (;;) {
       if ($l__0) {
         $l__1 = $l__0[2];
@@ -716,6 +721,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $eo = 0;
     if (! ($ep < 0)) {
       $i__0 = $eo;
+      $continue_counter = null;
       for (;;) {
         $match = $caml_bytes_unsafe_get($s, $i__0);
         if (32 <= $match) {
@@ -761,6 +767,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $eq = 0;
     if (! ($er < 0)) {
       $i = $eq;
+      $continue_counter = null;
       for (;;) {
         $c = $caml_bytes_unsafe_get($s, $i);
         if (35 <= $c) {
@@ -855,6 +862,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $sum_lengths = function($acc, $seplen, $param) use ($caml_ml_string_length,$ensure_ge) {
     $acc__0 = $acc;
     $param__0 = $param;
+    $continue_counter = null;
     for (;;) {
       if ($param__0) {
         $ek = $param__0[2];
@@ -877,6 +885,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $unsafe_blits = function($dst, $pos, $sep, $seplen, $param) use ($caml_blit_string,$caml_ml_string_length) {
     $pos__0 = $pos;
     $param__0 = $param;
+    $continue_counter = null;
     for (;;) {
       if ($param__0) {
         $ei = $param__0[2];
@@ -922,6 +931,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $escaped__0 = function($s) use ($bos,$bts,$caml_bytes_unsafe_get,$caml_ml_string_length,$escaped,$unsigned_right_shift_32) {
     $needs_escape = function($i) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$s,$unsigned_right_shift_32) {
       $i__0 = $i;
+      $continue_counter = null;
       for (;;) {
         if ($caml_ml_string_length($s) <= $i__0) {return 0;}
         $match = $caml_bytes_unsafe_get($s, $i__0);
@@ -952,6 +962,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   };
   $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
     $i__0 = $i;
+    $continue_counter = null;
     for (;;) {
       if ($lim <= $i__0) {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
@@ -998,6 +1009,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     return $newval30;
   };
   $intaux = function($s, $n) use ($bits,$caml_mod) {
+    $continue_counter = null;
     for (;;) {
       $r = $bits($s);
       $v = $caml_mod($r, $n);
@@ -1019,6 +1031,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $detectList = function($maxLength, $o) use ($caml_equal,$caml_obj_tag) {
     $maxLength__0 = $maxLength;
     $o__0 = $o;
+    $continue_counter = null;
     for (;;) {
       if (0 === $maxLength__0) {return 1;}
       $tag = $caml_obj_tag($o__0);
@@ -1056,6 +1069,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $maxNum__0 = $maxNum;
       $fieldsSoFar__0 = $fieldsSoFar;
       $numFields__0 = $numFields;
+      $continue_counter = null;
       for (;;) {
         if (0 === $maxNum__0) {
           return Vector{0, 0 < $numFields__0 ? 1 : (0), $fieldsSoFar__0};
@@ -1339,6 +1353,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $listA__0 = $listA;
     $listB__0 = $listB;
     $listC__0 = $listC;
+    $continue_counter = null;
     for (;;) {
       if ($listA__0) {
         if ($listB__0) {
@@ -1375,6 +1390,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $revCount__0 = $revCount;
     $revSoFar__0 = $revSoFar;
     $lst__0 = $lst;
+    $continue_counter = null;
     for (;;) {
       if ($lst__0) {
         $tl = $lst__0[2];
@@ -2143,6 +2159,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   
   $i__0 = 0;
   
+  $continue_counter = null;
   for (;;) {
     $stateless = $element(Vector{0, $render__9($bs, 0)});
     $printSection($bt);
@@ -2299,7 +2316,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       );
       $printRoot($bY, $anotherPolyRoot);
       $bZ = (int) ($i__0 + 1);
-      if (0 !== $i__0) {$i__0 = $bZ;goto a_continue;}
+      if (0 !== $i__0) {$i__0 = $bZ;$continue_counter = 0;break;}
       $endSeconds = $caml_sys_time(0);
       $log(
         $a($bq, $string_of_int((int) (($endSeconds - $startSeconds) * 1000)))
@@ -2316,10 +2333,9 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       }
       $do_at_exit(0);
     }
-    a_continue:;
-    
+    if ($continue_counter > 0) {$continue_counter -= 1;break;}
+    $continue_counter = null;
   }
-  a_break:
 
 }
 

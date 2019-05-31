@@ -108,6 +108,7 @@ final class Parsing {
       $loop = function($cmd, $arg) use ($Parse_error,$caml_call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$env,$grow_stacks,$lexbuf,$lexer,$runtime,$tables) {
         $cmd__0 = $cmd;
         $arg__0 = $arg;
+        $continue_counter = null;
         for (;;) {
           $match = $runtime["caml_parse_engine"](
             $tables,
@@ -217,6 +218,7 @@ final class Parsing {
     $symbol_start_pos = function($param) use ($caml_check_bound,$env,$runtime) {
       $loop = function($i) use ($caml_check_bound,$env,$runtime) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if (0 < $i__0) {
             $e_ = (int) ((int) ($env[11] - $i__0) + 1);

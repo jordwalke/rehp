@@ -202,6 +202,7 @@ final class Js_of_ocaml__Regexp {
       $aux = function($accu, $idx) use ($a,$blunt_str_array_get) {
         $accu__0 = $accu;
         $idx__0 = $idx;
+        $continue_counter = null;
         for (;;) {
           if (0 <= $idx__0) {
             $idx__1 = (int) ($idx__0 + -1);

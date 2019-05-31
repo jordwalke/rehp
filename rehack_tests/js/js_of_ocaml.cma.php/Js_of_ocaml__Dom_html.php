@@ -790,6 +790,7 @@ final class Js_of_ocaml__Dom_html {
     };
     $createElementSyntax = Vector{0, 785140586};
     $unsafeCreateElementEx = function($type, $name, $doc, $elt) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$caml_js_html_escape,$createElement,$createElementSyntax,$document,$opt_iter) {
+      $continue_counter = null;
       for (;;) {
         if (0 === $type) {
           if (0 === $name) {return $createElement($doc, $elt);}

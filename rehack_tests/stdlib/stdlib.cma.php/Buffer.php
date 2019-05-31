@@ -152,6 +152,7 @@ final class Buffer {
     $resize = function($b, $more) use ($Bytes,$Pervasives,$Sys,$caml_call1,$caml_call5,$caml_create_bytes,$cst_Buffer_add_cannot_grow_buffer) {
       $len = $b[3];
       $new_len = Vector{0, $len};
+      $continue_counter = null;
       for (;;) {
         if ($new_len[1] < (int) ($b[2] + $more)) {
           $new_len[1] = (int) (2 * $new_len[1]);
@@ -375,6 +376,7 @@ final class Buffer {
     };
     $add_channel_rec = function($b, $ic, $len) use ($End_of_file,$Pervasives,$caml_call4,$runtime) {
       $len__0 = $len;
+      $continue_counter = null;
       for (;;) {
         $hv = 0 < $len__0 ? 1 : (0);
         if ($hv) {
@@ -409,6 +411,7 @@ final class Buffer {
       $advance = function($k, $i, $lim) use ($Not_found,$caml_string_get,$closing,$opening,$runtime,$s) {
         $k__0 = $k;
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if ($lim <= $i__0) {
             throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
@@ -438,6 +441,7 @@ final class Buffer {
     $advance_to_non_alpha = function($s, $start) use ($caml_ml_string_length,$caml_string_get) {
       $advance = function($i, $lim) use ($caml_string_get,$s) {
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if ($lim <= $i__0) {return $lim;}
           $match = $caml_string_get($s, $i__0);
@@ -489,6 +493,7 @@ final class Buffer {
       $subst = function($previous, $i) use ($add_char,$add_string,$b,$caml_call1,$caml_string_get,$f,$find_ident,$lim,$s) {
         $previous__0 = $previous;
         $i__0 = $i;
+        $continue_counter = null;
         for (;;) {
           if ($i__0 < $lim) {
             $current = $caml_string_get($s, $i__0);

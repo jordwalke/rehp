@@ -77,6 +77,7 @@ final class Js_of_ocaml__Form {
     $formData_form = (function($t1, $param) {return $t1->FormData;})($lo, $ln);
     $filter_map->contents = function($f, $param) use ($caml_call1,$filter_map) {
       $param__0 = $param;
+      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $q = $param__0[2];

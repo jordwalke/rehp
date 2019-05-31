@@ -283,6 +283,7 @@ final class Printexc {
     $to_string = function($x) use ($Assert_failure,$Match_failure,$Out_of_memory,$Pervasives,$Printf,$Stack_overflow,$Undefined_recursive_module,$caml_call1,$caml_call2,$caml_call6,$caml_obj_tag,$cst_Assertion_failed,$cst_Out_of_memory,$cst_Pattern_matching_failed,$cst_Stack_overflow,$cst_Undefined_recursive_module,$fields,$locfmt,$printers) {
       $conv = function($param) use ($Assert_failure,$Match_failure,$Out_of_memory,$Pervasives,$Printf,$Stack_overflow,$Undefined_recursive_module,$caml_call1,$caml_call2,$caml_call6,$caml_obj_tag,$cst_Assertion_failed,$cst_Out_of_memory,$cst_Pattern_matching_failed,$cst_Stack_overflow,$cst_Undefined_recursive_module,$fields,$locfmt,$x) {
         $param__0 = $param;
+        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $tl = $param__0[2];
@@ -408,6 +409,7 @@ final class Printexc {
         $o5 = 0;
         if (! ($o6 < 0)) {
           $i = $o5;
+          $continue_counter = null;
           for (;;) {
             $match = $format_backtrace_slot(
               $i,
@@ -446,6 +448,7 @@ final class Printexc {
         $o2 = 0;
         if (! ($o3 < 0)) {
           $i = $o2;
+          $continue_counter = null;
           for (;;) {
             $match = $format_backtrace_slot(
               $i,
@@ -485,6 +488,7 @@ final class Printexc {
         $usable_slot = function($param) {return 0 === $param[0] ? 1 : (0);};
         $exists_usable = function($i) use ($backtrace,$caml_check_bound,$usable_slot) {
           $i__0 = $i;
+          $continue_counter = null;
           for (;;) {
             if (-1 === $i__0) {return 0;}
             $o1 = $usable_slot($caml_check_bound($backtrace, $i__0)[$i__0 + 1]
