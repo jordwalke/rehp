@@ -85,7 +85,6 @@ final class List_ {
     $length_aux = function($len, $param) {
       $len__0 = $len;
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
@@ -112,7 +111,6 @@ final class List_ {
         $nth_aux = function($l, $n) use ($Pervasives,$caml_call1,$cst_nth) {
           $l__0 = $l;
           $n__0 = $n;
-          $continue_counter = null;
           for (;;) {
             if ($l__0) {
               $l__1 = $l__0[2];
@@ -135,7 +133,6 @@ final class List_ {
         $nth_aux = function($l, $n) {
           $l__0 = $l;
           $n__0 = $n;
-          $continue_counter = null;
           for (;;) {
             if ($l__0) {
               $l__1 = $l__0[2];
@@ -157,7 +154,6 @@ final class List_ {
     $rev_append = function($l1, $l2) {
       $l1__0 = $l1;
       $l2__0 = $l2;
-      $continue_counter = null;
       for (;;) {
         if ($l1__0) {
           $l1__1 = $l1__0[2];
@@ -174,7 +170,6 @@ final class List_ {
     $init_tailrec_aux = function($acc, $i, $n, $f) use ($caml_call1) {
       $acc__0 = $acc;
       $i__0 = $i;
-      $continue_counter = null;
       for (;;) {
         if ($n <= $i__0) {return $acc__0;}
         $i__1 = (int) ($i__0 + 1);
@@ -228,7 +223,6 @@ final class List_ {
       $rmap_f = function($accu, $param) use ($caml_call1,$f) {
         $accu__0 = $accu;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $param__1 = $param__0[2];
@@ -245,7 +239,6 @@ final class List_ {
     };
     $iter = function($f, $param) use ($caml_call1) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
@@ -260,7 +253,6 @@ final class List_ {
     $aE = function($i, $f, $param) use ($caml_call2) {
       $i__0 = $i;
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
@@ -278,7 +270,6 @@ final class List_ {
     $fold_left = function($f, $accu, $l) use ($caml_call2) {
       $accu__0 = $accu;
       $l__0 = $l;
-      $continue_counter = null;
       for (;;) {
         if ($l__0) {
           $l__1 = $l__0[2];
@@ -318,7 +309,6 @@ final class List_ {
         $accu__0 = $accu;
         $l1__0 = $l1;
         $l2__0 = $l2;
-        $continue_counter = null;
         for (;;) {
           if ($l1__0) {
             if ($l2__0) {
@@ -342,7 +332,6 @@ final class List_ {
     $iter2 = function($f, $l1, $l2) use ($Pervasives,$caml_call1,$caml_call2,$cst_List_iter2) {
       $l1__0 = $l1;
       $l2__0 = $l2;
-      $continue_counter = null;
       for (;;) {
         if ($l1__0) {
           if ($l2__0) {
@@ -364,7 +353,6 @@ final class List_ {
       $accu__0 = $accu;
       $l1__0 = $l1;
       $l2__0 = $l2;
-      $continue_counter = null;
       for (;;) {
         if ($l1__0) {
           if ($l2__0) {
@@ -403,7 +391,6 @@ final class List_ {
     };
     $for_all = function($p, $param) use ($caml_call1) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -417,7 +404,6 @@ final class List_ {
     };
     $exists = function($p, $param) use ($caml_call1) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -433,7 +419,6 @@ final class List_ {
     $for_all2 = function($p, $l1, $l2) use ($Pervasives,$caml_call1,$caml_call2,$cst_List_for_all2) {
       $l1__0 = $l1;
       $l2__0 = $l2;
-      $continue_counter = null;
       for (;;) {
         if ($l1__0) {
           if ($l2__0) {
@@ -453,7 +438,6 @@ final class List_ {
     $exists2 = function($p, $l1, $l2) use ($Pervasives,$caml_call1,$caml_call2,$cst_List_exists2) {
       $l1__0 = $l1;
       $l2__0 = $l2;
-      $continue_counter = null;
       for (;;) {
         if ($l1__0) {
           if ($l2__0) {
@@ -474,7 +458,6 @@ final class List_ {
     };
     $mem = function($x, $param) use ($caml_compare) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -489,7 +472,6 @@ final class List_ {
     };
     $memq = function($x, $param) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -504,7 +486,6 @@ final class List_ {
     };
     $assoc = function($x, $param) use ($Not_found,$caml_compare,$runtime) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -520,7 +501,6 @@ final class List_ {
     };
     $assoc_opt = function($x, $param) use ($caml_compare) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -536,7 +516,6 @@ final class List_ {
     };
     $assq = function($x, $param) use ($Not_found,$runtime) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -552,7 +531,6 @@ final class List_ {
     };
     $assq_opt = function($x, $param) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -568,7 +546,6 @@ final class List_ {
     };
     $mem_assoc = function($x, $param) use ($caml_compare) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -584,7 +561,6 @@ final class List_ {
     };
     $mem_assq = function($x, $param) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -622,7 +598,6 @@ final class List_ {
     };
     $find = function($p, $param) use ($Not_found,$caml_call1,$runtime) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -636,7 +611,6 @@ final class List_ {
     };
     $find_opt = function($p, $param) use ($caml_call1) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $l = $param__0[2];
@@ -652,7 +626,6 @@ final class List_ {
       $find = function($accu, $param) use ($caml_call1,$p,$rev) {
         $accu__0 = $accu;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $l = $param__0[2];
@@ -677,7 +650,6 @@ final class List_ {
         $yes__0 = $yes;
         $no__0 = $no;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $l = $param__0[2];
@@ -747,7 +719,6 @@ final class List_ {
     $chop = function($k, $l) use ($Assert_failure,$aG,$runtime) {
       $k__0 = $k;
       $l__0 = $l;
-      $continue_counter = null;
       for (;;) {
         if (0 === $k__0) {return $l__0;}
         if ($l__0) {
@@ -766,7 +737,6 @@ final class List_ {
         $l1__0 = $l1;
         $l2__0 = $l2;
         $accu__0 = $accu;
-        $continue_counter = null;
         for (;;) {
           if ($l1__0) {
             if ($l2__0) {
@@ -794,7 +764,6 @@ final class List_ {
         $l1__0 = $l1;
         $l2__0 = $l2;
         $accu__0 = $accu;
-        $continue_counter = null;
         for (;;) {
           if ($l1__0) {
             if ($l2__0) {
@@ -919,7 +888,6 @@ final class List_ {
         $l1__0 = $l1;
         $l2__0 = $l2;
         $accu__0 = $accu;
-        $continue_counter = null;
         for (;;) {
           if ($l1__0) {
             if ($l2__0) {
@@ -955,7 +923,6 @@ final class List_ {
         $l1__0 = $l1;
         $l2__0 = $l2;
         $accu__0 = $accu;
-        $continue_counter = null;
         for (;;) {
           if ($l1__0) {
             if ($l2__0) {
@@ -1159,7 +1126,6 @@ final class List_ {
     $compare_lengths = function($l1, $l2) {
       $l1__0 = $l1;
       $l2__0 = $l2;
-      $continue_counter = null;
       for (;;) {
         if ($l1__0) {
           if ($l2__0) {
@@ -1177,7 +1143,6 @@ final class List_ {
     $compare_length_with = function($l, $n) {
       $l__0 = $l;
       $n__0 = $n;
-      $continue_counter = null;
       for (;;) {
         if ($l__0) {
           $l__1 = $l__0[2];

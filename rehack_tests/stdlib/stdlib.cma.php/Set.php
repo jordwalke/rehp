@@ -209,7 +209,6 @@ final class Set {
       };
       $min_elt = function($param) use ($Not_found,$runtime) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $f9 = $param__0[1];
@@ -222,7 +221,6 @@ final class Set {
       };
       $min_elt_opt = function($param) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $f8 = $param__0[1];
@@ -235,7 +233,6 @@ final class Set {
       };
       $max_elt = function($param) use ($Not_found,$runtime) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $f6 = $param__0[3];
@@ -248,7 +245,6 @@ final class Set {
       };
       $max_elt_opt = function($param) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $f4 = $param__0[3];
@@ -318,7 +314,6 @@ final class Set {
       $is_empty = function($param) {return $param ? 0 : (1);};
       $mem = function($x, $param) use ($Ord,$caml_call2) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -425,7 +420,6 @@ final class Set {
       $cons_enum = function($s, $e) {
         $s__0 = $s;
         $e__0 = $e;
-        $continue_counter = null;
         for (;;) {
           if ($s__0) {
             $r = $s__0[3];
@@ -442,7 +436,6 @@ final class Set {
       $compare_aux = function($e1, $e2) use ($Ord,$caml_call2,$cons_enum) {
         $e1__0 = $e1;
         $e2__0 = $e2;
-        $continue_counter = null;
         for (;;) {
           if ($e1__0) {
             if ($e2__0) {
@@ -477,7 +470,6 @@ final class Set {
       $subset->contents = function($s1, $s2) use ($Ord,$caml_call2,$subset) {
         $s1__0 = $s1;
         $s2__0 = $s2;
-        $continue_counter = null;
         for (;;) {
           if ($s1__0) {
             if ($s2__0) {
@@ -509,7 +501,6 @@ final class Set {
       };
       $iter->contents = function($f, $param) use ($caml_call1,$iter) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $param__1 = $param__0[3];
@@ -526,7 +517,6 @@ final class Set {
       $fold->contents = function($f, $s, $accu) use ($caml_call2,$fold) {
         $s__0 = $s;
         $accu__0 = $accu;
-        $continue_counter = null;
         for (;;) {
           if ($s__0) {
             $s__1 = $s__0[3];
@@ -542,7 +532,6 @@ final class Set {
       };
       $for_all->contents = function($p, $param) use ($caml_call1,$for_all) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -562,7 +551,6 @@ final class Set {
       };
       $exists->contents = function($p, $param) use ($caml_call1,$exists) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -631,7 +619,6 @@ final class Set {
       $elements_aux->contents = function($accu, $param) use ($elements_aux) {
         $accu__0 = $accu;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -650,7 +637,6 @@ final class Set {
       };
       $find = function($x, $param) use ($Not_found,$Ord,$caml_call2,$runtime) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -668,7 +654,6 @@ final class Set {
       $find_first_aux = function($v0, $f, $param) use ($caml_call1) {
         $v0__0 = $v0;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -683,7 +668,6 @@ final class Set {
       };
       $find_first = function($f, $param) use ($Not_found,$caml_call1,$find_first_aux,$runtime) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -699,7 +683,6 @@ final class Set {
       $find_first_opt_aux = function($v0, $f, $param) use ($caml_call1) {
         $v0__0 = $v0;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -714,7 +697,6 @@ final class Set {
       };
       $find_first_opt = function($f, $param) use ($caml_call1,$find_first_opt_aux) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -730,7 +712,6 @@ final class Set {
       $find_last_aux = function($v0, $f, $param) use ($caml_call1) {
         $v0__0 = $v0;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -745,7 +726,6 @@ final class Set {
       };
       $find_last = function($f, $param) use ($Not_found,$caml_call1,$find_last_aux,$runtime) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -761,7 +741,6 @@ final class Set {
       $find_last_opt_aux = function($v0, $f, $param) use ($caml_call1) {
         $v0__0 = $v0;
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -776,7 +755,6 @@ final class Set {
       };
       $find_last_opt = function($f, $param) use ($caml_call1,$find_last_opt_aux) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];
@@ -791,7 +769,6 @@ final class Set {
       };
       $find_opt = function($x, $param) use ($Ord,$caml_call2) {
         $param__0 = $param;
-        $continue_counter = null;
         for (;;) {
           if ($param__0) {
             $r = $param__0[3];

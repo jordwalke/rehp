@@ -511,7 +511,6 @@ final class Scanf {
       return $bad_input($character_mismatch_err($c, $ci));
     };
     $skip_whites = function($ib) use ($eof,$invalidate_current_char,$peek_char,$unsigned_right_shift_32) {
-      $continue_counter = null;
       for (;;) {
         $c = $peek_char($ib);
         $x1 = 1 - $eof($ib);
@@ -636,7 +635,6 @@ final class Scanf {
     };
     $scan_decimal_digit_star = function($width, $ib) use ($eof,$ignore_char,$peek_char,$store_char) {
       $width__0 = $width;
-      $continue_counter = null;
       for (;;) {
         if (0 === $width__0) {return $width__0;}
         $c = $peek_char($ib);
@@ -671,7 +669,6 @@ final class Scanf {
     $scan_digit_star = function($digitp, $width, $ib) use ($caml_call1,$eof,$ignore_char,$peek_char,$store_char) {
       $scan_digits = function($width, $ib) use ($caml_call1,$digitp,$eof,$ignore_char,$peek_char,$store_char) {
         $width__0 = $width;
-        $continue_counter = null;
         for (;;) {
           if (0 === $width__0) {return $width__0;}
           $c = $peek_char($ib);
@@ -851,7 +848,6 @@ final class Scanf {
       $xM = 0;
       if (! ($xN < 0)) {
         $i = $xM;
-        $continue_counter = null;
         for (;;) {
           $c = $peek_char($ib);
           $xO = $lowercase($caml_string_get($str, $i));
@@ -1113,7 +1109,6 @@ final class Scanf {
     $scan_string = function($stp, $width, $ib) use ($eof,$peek_char,$skip_char,$store_char,$unsigned_right_shift_32) {
       $loop = function($width) use ($eof,$ib,$peek_char,$skip_char,$store_char,$stp,$unsigned_right_shift_32) {
         $width__0 = $width;
-        $continue_counter = null;
         for (;;) {
           if (0 === $width__0) {return $width__0;}
           $c = $peek_char($ib);
@@ -1296,7 +1291,6 @@ final class Scanf {
       $skip_spaces = new Ref();
       $find_stop__0 = function($counter, $width) use ($caml_trampoline_return,$check_next_char_for_string,$ib,$ignore_char,$scan_backslash,$store_char) {
         $width__0 = $width;
-        $continue_counter = null;
         for (;;) {
           $c = $check_next_char_for_string($width__0, $ib);
           if (34 === $c) {return $ignore_char($width__0, $ib);}
@@ -1365,7 +1359,6 @@ final class Scanf {
       };
       $skip_spaces->contents = function($counter, $width) use ($caml_trampoline_return,$check_next_char_for_string,$find_stop__0,$ib,$ignore_char) {
         $width__0 = $width;
-        $continue_counter = null;
         for (;;) {
           $match = $check_next_char_for_string($width__0, $ib);
           if (32 === $match) {
@@ -1401,7 +1394,6 @@ final class Scanf {
     $scan_chars_in_char_set = function($char_set, $scan_indic, $width, $ib) use ($CamlinternalFormat,$Pervasives,$caml_call2,$character_mismatch,$eof,$invalidate_current_char,$peek_char,$store_char) {
       $scan_chars = function($i, $stp) use ($CamlinternalFormat,$Pervasives,$caml_call2,$char_set,$eof,$ib,$peek_char,$store_char) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           $c = $peek_char($ib);
           $wZ = 0 < $i__0 ? 1 : (0);
@@ -1480,7 +1472,6 @@ final class Scanf {
     };
     $take_format_readers__0 = function($counter, $k, $fmt) use ($CamlinternalFormat,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$is_int,$take_fmtty_format_readers__0,$take_format_readers,$take_ignored_format_readers) {
       $fmt__0 = $fmt;
-      $continue_counter = null;
       for (;;) if (
         $is_int($fmt__0)
       ) {return $caml_call1($k, 0);}
@@ -1667,7 +1658,6 @@ final class Scanf {
     $take_fmtty_format_readers__0->contents = function
     ($counter, $k, $fmtty, $fmt) use ($CamlinternalFormat,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$is_int,$take_fmtty_format_readers,$take_format_readers__0) {
       $fmtty__0 = $fmtty;
-      $continue_counter = null;
       for (;;) if (
         $is_int($fmtty__0)
       ) {
@@ -2008,7 +1998,6 @@ final class Scanf {
     };
     $make_scanf->contents = function($ib, $fmt, $readers) use ($Assert_failure,$CamlinternalFormat,$CamlinternalFormatBasics,$Failure,$Pervasives,$String,$bad_input,$caml_call1,$caml_call2,$caml_wrap_exception,$check_char,$checked_peek_char,$cst_end_of_input_not_found,$cst_scanf_bad_conversion_a,$cst_scanf_bad_conversion_custom_converter,$cst_scanf_bad_conversion_t,$cst_scanf_missing_reader,$end_of_input,$get_counter,$integer_conversion_of_char,$is_int,$make_scanf,$pad_prec_scanf,$runtime,$scan_bool,$scan_caml_char,$scan_caml_float,$scan_caml_string,$scan_char,$scan_chars_in_char_set,$scan_float,$scan_hex_float,$scan_int_conversion,$scan_string,$stopper_of_formatting_lit,$token_bool,$token_char,$token_float,$token_int,$token_int32,$token_int64,$token_nativeint,$token_string,$v9,$v_,$wa,$width_of_pad_opt) {
       $fmt__0 = $fmt;
-      $continue_counter = null;
       for (;;) if (
         $is_int($fmt__0)
       ) {return 0;}
@@ -2488,7 +2477,6 @@ final class Scanf {
       $apply = function($f, $args) use ($caml_call1) {
         $f__0 = $f;
         $args__0 = $args;
-        $continue_counter = null;
         for (;;) {
           if ($args__0) {
             $args__1 = $args__0[2];
@@ -2579,7 +2567,6 @@ final class Scanf {
       $wf = 0;
       if (! ($wg < 0)) {
         $i = $wf;
-        $continue_counter = null;
         for (;;) {
           $c = $caml_string_get($s, $i);
           if (34 === $c) {$caml_call2($Buffer[10], $b, 92);}

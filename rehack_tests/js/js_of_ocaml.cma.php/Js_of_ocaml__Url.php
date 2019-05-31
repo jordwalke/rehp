@@ -340,7 +340,6 @@ final class Js_of_ocaml__Url {
       };
       $aux->contents = function($acc, $idx) use ($Js_of_ocaml_Js,$Local_exn,$arr,$aux,$caml_call2,$caml_call3,$caml_wrap_exception,$interrupt,$name_value_split,$runtime,$urldecode_js_string_string) {
         $idx__0 = $idx;
-        $continue_counter = null;
         for (;;) {
           if (0 <= $idx__0) {
             try {

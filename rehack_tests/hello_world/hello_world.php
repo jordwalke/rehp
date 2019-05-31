@@ -195,7 +195,6 @@ $flush_all = function($param) use (
     $caml_wrap_thrown_exception_reraise,
   ) {
     $param__0 = $param;
-    $continue_counter = null;
     for (; ; ) {
       if ($param__0) {
         $l = $param__0[2];
@@ -235,7 +234,6 @@ $do_at_exit = function($param) use ($flush_all) {
 };
 $f1 = function($g) use ($caml_call1) {
   $i = 2;
-  $continue_counter = null;
   for (; ; ) {
     $caml_call1($g, $i);
     $C = (int)($i + 1);

@@ -236,7 +236,6 @@ final class Arg {
     $Stop = Vector{248, $cst_Arg_Stop, $caml_fresh_oo_id(0)};
     $assoc3 = function($x, $l) use ($Not_found,$caml_equal,$runtime) {
       $l__0 = $l;
-      $continue_counter = null;
       for (;;) {
         if ($l__0) {
           $t = $l__0[2];
@@ -421,7 +420,6 @@ final class Arg {
         return Vector{0, $Help, $caml_call1($Buffer[2], $b)};
       };
       $current[1] += 1;
-      $continue_counter = null;
       for (;;) {
         if ($current[1] < $argv[1]->count() - 1) {
           try {
@@ -621,7 +619,6 @@ final class Arg {
                       // FALLTHROUGH
                       case 12:
                         $f__5 = $param[1];
-                        $continue_counter = null;
                         for (;;) {
                           if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
                             $n5 = (int) ($current[1] + 1);
@@ -811,7 +808,6 @@ final class Arg {
       $len = $caml_ml_string_length($s);
       $loop = function($n) use ($caml_string_get,$len,$s) {
         $n__0 = $n;
-        $continue_counter = null;
         for (;;) {
           if ($len <= $n__0) {return $len;}
           if (32 === $caml_string_get($s, $n__0)) {

@@ -152,7 +152,6 @@ and statement =
   | Break_statement
   | Return_statement(option(expression))
   /* | With_statement of expression * statement */
-  | Labelled_statement(Javascript.Label.t, (statement, Loc.t))
   | Switch_statement(
       expression,
       list(case_clause),

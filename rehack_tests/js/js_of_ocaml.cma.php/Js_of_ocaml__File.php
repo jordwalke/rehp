@@ -75,7 +75,6 @@ final class Js_of_ocaml__File {
     $blob_constr = (function($t0, $param) {return $t0->Blob;})($gn, $gm);
     $filter_map->contents = function($f, $param) use ($caml_call1,$filter_map) {
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $q = $param__0[2];

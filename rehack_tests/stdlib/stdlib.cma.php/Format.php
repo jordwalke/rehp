@@ -293,7 +293,6 @@ final class Format {
               $tabs__0 = $match__2[1];
               $find = function($n, $param) use ($Not_found,$runtime) {
                 $param__0 = $param;
-                $continue_counter = null;
                 for (;;) {
                   if ($param__0) {
                     $l = $param__0[2];
@@ -351,7 +350,6 @@ final class Format {
       }
     };
     $advance_loop = function($state) use ($format_pp_token,$peek_queue,$pp_infinity,$take_queue) {
-      $continue_counter = null;
       for (;;) {
         $match = $peek_queue($state[28]);
         $size = $match[1];
@@ -550,7 +548,6 @@ final class Format {
     };
     $pp_flush_queue = function($state, $b) use ($advance_left,$clear_tag_stack,$pp_close_box,$pp_infinity,$pp_output_newline,$pp_rinit) {
       $clear_tag_stack($state);
-      $continue_counter = null;
       for (;;) {
         if (1 < $state[14]) {$pp_close_box($state, 0);continue;}
         $state[13] = $pp_infinity;
@@ -771,7 +768,6 @@ final class Format {
     $blank_line = $caml_call2($String[1], 80, 32);
     $display_blanks = function($state, $n) use ($blank_line,$caml_call3) {
       $n__0 = $n;
-      $continue_counter = null;
       for (;;) {
         $u5 = 0 < $n__0 ? 1 : (0);
         if ($u5) {
@@ -1107,7 +1103,6 @@ final class Format {
     $pp_print_list = function($opt, $pp_v, $ppf, $param) use ($caml_call2,$pp_print_cut) {
       $opt__0 = $opt;
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($opt__0) {
           $sth = $opt__0[1];
@@ -1143,7 +1138,6 @@ final class Format {
         $left[1] = $right[1];
         return 0;
       };
-      $continue_counter = null;
       for (;;) {
         if ($right[1] !== $len) {
           $match = $runtime["caml_string_get"]($s, $right[1]);

@@ -158,7 +158,6 @@ final class Random {
       $seed__0 = 0 === $seed->count() - 1 ? Vector{0, 0} : ($seed);
       $l = $seed__0->count() - 1;
       $i__0 = 0;
-      $continue_counter = null;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;
         $p_ = (int) ($i__0 + 1);
@@ -220,7 +219,6 @@ final class Random {
       return $newval30;
     };
     $intaux = function($s, $n) use ($bits,$caml_mod) {
-      $continue_counter = null;
       for (;;) {
         $r = $bits($s);
         $v = $caml_mod($r, $n);
@@ -235,7 +233,6 @@ final class Random {
       return $caml_call1($Pervasives[1], $cst_Random_int);
     };
     $int32aux = function($s, $n) use ($Int32,$bits,$caml_greaterthan,$caml_mod,$left_shift_32) {
-      $continue_counter = null;
       for (;;) {
         $b1 = $bits($s);
         $b2 = $left_shift_32($bits($s) & 1, 30);
@@ -258,7 +255,6 @@ final class Random {
         : ($int32aux($s, $bound));
     };
     $int64aux = function($s, $n) use ($Int64,$bits,$caml_greaterthan,$caml_int64_of_int32,$caml_int64_or,$caml_int64_shift_left,$caml_int64_sub,$pY,$runtime) {
-      $continue_counter = null;
       for (;;) {
         $b1 = $caml_int64_of_int32($bits($s));
         $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);

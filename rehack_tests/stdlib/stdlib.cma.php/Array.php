@@ -73,7 +73,6 @@ final class Array_ {
         $es = 1;
         if (! ($et < 1)) {
           $i = $es;
-          $continue_counter = null;
           for (;;) {
             $res[$i + 1] = $caml_call1($f, $i);
             $eu = (int) ($i + 1);
@@ -91,7 +90,6 @@ final class Array_ {
       $ep = 0;
       if (! ($eq < 0)) {
         $x = $ep;
-        $continue_counter = null;
         for (;;) {
           $res[$x + 1] = $caml_make_vect($sy, $init);
           $er = (int) ($x + 1);
@@ -128,7 +126,6 @@ final class Array_ {
             $en = (int) ((int) ($ofs + $len) + -1);
             if (! ($en < $ofs)) {
               $i = $ofs;
-              $continue_counter = null;
               for (;;) {
                 $a[$i + 1] = $v;
                 $eo = (int) ($i + 1);
@@ -167,7 +164,6 @@ final class Array_ {
       $ek = 0;
       if (! ($el < 0)) {
         $i = $ek;
-        $continue_counter = null;
         for (;;) {
           $caml_call1($f, $a[$i + 1]);
           $em = (int) ($i + 1);
@@ -188,7 +184,6 @@ final class Array_ {
       $eh = 0;
       if (! ($ei < 0)) {
         $i = $eh;
-        $continue_counter = null;
         for (;;) {
           $caml_call2($f, $a[$i + 1], $b[$i + 1]);
           $ej = (int) ($i + 1);
@@ -206,7 +201,6 @@ final class Array_ {
       $ee = 1;
       if (! ($ef < 1)) {
         $i = $ee;
-        $continue_counter = null;
         for (;;) {
           $r[$i + 1] = $caml_call1($f, $a[$i + 1]);
           $eg = (int) ($i + 1);
@@ -231,7 +225,6 @@ final class Array_ {
       $eb = 1;
       if (! ($ec < 1)) {
         $i = $eb;
-        $continue_counter = null;
         for (;;) {
           $r[$i + 1] = $caml_call2($f, $a[$i + 1], $b[$i + 1]);
           $ed = (int) ($i + 1);
@@ -246,7 +239,6 @@ final class Array_ {
       $d9 = 0;
       if (! ($d_ < 0)) {
         $i = $d9;
-        $continue_counter = null;
         for (;;) {
           $caml_call2($f, $i, $a[$i + 1]);
           $ea = (int) ($i + 1);
@@ -264,7 +256,6 @@ final class Array_ {
       $d6 = 1;
       if (! ($d7 < 1)) {
         $i = $d6;
-        $continue_counter = null;
         for (;;) {
           $r[$i + 1] = $caml_call2($f, $i, $a[$i + 1]);
           $d8 = (int) ($i + 1);
@@ -278,7 +269,6 @@ final class Array_ {
       $tolist = function($i, $res) use ($a) {
         $i__0 = $i;
         $res__0 = $res;
-        $continue_counter = null;
         for (;;) {
           if (0 <= $i__0) {
             $res__1 = Vector{0, $a[$i__0 + 1], $res__0};
@@ -295,7 +285,6 @@ final class Array_ {
     $list_length = function($accu, $param) {
       $accu__0 = $accu;
       $param__0 = $param;
-      $continue_counter = null;
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
@@ -315,7 +304,6 @@ final class Array_ {
         $fill = function($i, $param) use ($a) {
           $i__0 = $i;
           $param__0 = $param;
-          $continue_counter = null;
           for (;;) {
             if ($param__0) {
               $param__1 = $param__0[2];
@@ -339,7 +327,6 @@ final class Array_ {
       $d3 = 0;
       if (! ($d4 < 0)) {
         $i = $d3;
-        $continue_counter = null;
         for (;;) {
           $r[1] = $caml_call2($f, $r[1], $a[$i + 1]);
           $d5 = (int) ($i + 1);
@@ -354,7 +341,6 @@ final class Array_ {
       $d1 = (int) ($a->count() - 1 + -1);
       if (! ($d1 < 0)) {
         $i = $d1;
-        $continue_counter = null;
         for (;;) {
           $r[1] = $caml_call2($f, $a[$i + 1], $r[1]);
           $d2 = (int) ($i + -1);
@@ -368,7 +354,6 @@ final class Array_ {
       $n = $a->count() - 1;
       $loop = function($i) use ($a,$caml_call1,$n,$p) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           if ($i__0 === $n) {return 0;}
           if ($caml_call1($p, $a[$i__0 + 1])) {return 1;}
@@ -383,7 +368,6 @@ final class Array_ {
       $n = $a->count() - 1;
       $loop = function($i) use ($a,$caml_call1,$n,$p) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           if ($i__0 === $n) {return 1;}
           if ($caml_call1($p, $a[$i__0 + 1])) {
@@ -400,7 +384,6 @@ final class Array_ {
       $n = $a->count() - 1;
       $loop = function($i) use ($a,$n,$runtime,$x) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           if ($i__0 === $n) {return 0;}
           if (0 === $runtime["caml_compare"]($a[$i__0 + 1], $x)) {return 1;}
@@ -415,7 +398,6 @@ final class Array_ {
       $n = $a->count() - 1;
       $loop = function($i) use ($a,$n,$x) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           if ($i__0 === $n) {return 0;}
           if ($x === $a[$i__0 + 1]) {return 1;}
@@ -458,7 +440,6 @@ final class Array_ {
       };
       $trickledown = function($l, $i, $e) use ($a,$caml_call2,$caml_check_bound,$cmp,$maxson) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           $j = $maxson($l, $i__0);
           if (0 < $caml_call2($cmp, $caml_check_bound($a, $j)[$j + 1], $e)) {
@@ -485,7 +466,6 @@ final class Array_ {
       };
       $bubbledown = function($l, $i) use ($a,$caml_check_bound,$maxson) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           $i__1 = $maxson($l, $i__0);
           $dR = $caml_check_bound($a, $i__1)[$i__1 + 1];
@@ -504,7 +484,6 @@ final class Array_ {
       };
       $trickleup = function($i, $e) use ($Assert_failure,$a,$caml_call2,$caml_check_bound,$cmp,$dx,$runtime) {
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           $father = (int) ((int) ($i__0 + -1) / 3);
           if ($i__0 !== $father) {
@@ -529,7 +508,6 @@ final class Array_ {
       $dJ = (int) ((int) ((int) ($l + 1) / 3) + -1);
       if (! ($dJ < 0)) {
         $i__0 = $dJ;
-        $continue_counter = null;
         for (;;) {
           $trickle($l, $i__0, $caml_check_bound($a, $i__0)[$i__0 + 1]);
           $dO = (int) ($i__0 + -1);
@@ -540,7 +518,6 @@ final class Array_ {
       $dK = (int) ($l + -1);
       if (! ($dK < 2)) {
         $i = $dK;
-        $continue_counter = null;
         for (;;) {
           $e__0 = $caml_check_bound($a, $i)[$i + 1];
           $a[$i + 1] = $caml_check_bound($a, 0)[1];
@@ -572,7 +549,6 @@ final class Array_ {
           $i2__0 = $i2;
           $s2__0 = $s2;
           $d__0 = $d;
-          $continue_counter = null;
           for (;;) {
             if (0 < $caml_call2($cmp, $s1__0, $s2__0)) {
               $caml_check_bound($dst, $d__0)[$d__0 + 1] = $s2__0;

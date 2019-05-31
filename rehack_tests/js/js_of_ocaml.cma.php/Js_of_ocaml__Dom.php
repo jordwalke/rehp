@@ -59,7 +59,6 @@ final class Js_of_ocaml__Dom {
       $add_item = function($acc, $i) use ($Js_of_ocaml_Js,$List,$caml_call1,$caml_get_public_method,$length,$nodeList) {
         $acc__0 = $acc;
         $i__0 = $i;
-        $continue_counter = null;
         for (;;) {
           if ($i__0 < $length) {
             $fX = function($x) use ($caml_call1,$caml_get_public_method) {
