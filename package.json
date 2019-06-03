@@ -12,7 +12,9 @@
     "@opam/ocaml-migrate-parsetree": "*",
     "@opam/ppx_tools_versioned": "*",
     "@opam/uchar": "*",
-    "@opam/js_of_ocaml-lwt": "3.1.0"
+    "@opam/js_of_ocaml-lwt": "3.1.0",
+    "@opam/cmdliner": "*",
+    "@opam/ppx_deriving": "*"
   },
   "peerDependencies": {
     "ocaml": "~4.6.0"
