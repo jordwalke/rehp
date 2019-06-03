@@ -18,3 +18,5 @@
 (alias
   (name runtest)
   (action (diff expected_map generated.map)))
+  
+(include_subdirs no)

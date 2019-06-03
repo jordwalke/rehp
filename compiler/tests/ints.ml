@@ -1,7 +1,6 @@
 (* Js_of_ocaml compiler
  * http://www.ocsigen.org/js_of_ocaml/
- * Copyright (C) 2017 Hugo Heuzard
- * Copyright (C) 2019 Ty Overby
+ * Copyright (C) 2019 Hugo Heuzard
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,23 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-*)
+ *)
 
-(* https://github.com/ocsigen/js_of_ocaml/commit/a1a24b53e3e25af30b30e2e1779991db1055143e *)
+open Util
 
 let%expect_test _ =
-  Util.compile_and_run
-    {|
-    let log_success () = print_endline "Success!"
-    let log_failure = Printf.printf "Failure! %s"
+  compile_and_run
+    {| Scanf.sscanf "0.97.0" "%u.%u.%u" (fun major minor patch -> [major; minor; patch]) |};
+  [%expect {| |}]
 
-    let _ =
-      let rec odd x = if x = 0 then false else even (x - 1)
-      and even x = if x = 0 then true else odd (x - 1) in
-      assert (odd 1 <> even 1);
-      try
-        ignore (odd 5000);
-        log_success ()
-      with _ -> log_failure "too much recursion"
-    |};
-  [%expect {| Success! |}]
+let%expect_test _ =
+  Printf.printf "%d\n" (int_of_string "0u123");
+  [%expect {| 123 |}];
+  Printf.printf "%d\n" (int_of_string "0U123");
+  [%expect {| 123 |}]
