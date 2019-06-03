@@ -58,6 +58,10 @@ let disable =
 let pretty =
   let doc = "Pretty print the output." in
   Arg.(value & flag & info ["pretty"] ~doc)
+  
+let prettiestJs =
+  let doc = "Whether or not the pretty printing of Js should be extra pretty." in
+  Arg.(value & flag & info ["prettiest-js"] ~doc)
 
 let debuginfo =
   let doc = "Output debug information." in
@@ -85,8 +89,9 @@ let custom_header =
 
 let t =
   Term.(
-    pure (fun debug enable disable pretty debuginfo noinline quiet c_header ->
+    pure (fun debug enable disable pretty prettiestJs debuginfo noinline quiet c_header ->
         let enable = if pretty then "pretty" :: enable else enable in
+        let enable = if prettiestJs then "prettiest-js" :: enable else enable in
         let enable = if debuginfo then "debuginfo" :: enable else enable in
         let disable = if noinline then "inline" :: disable else disable in
         let disable_if_pretty name disable =
@@ -102,6 +107,7 @@ let t =
     $ enable
     $ disable
     $ pretty
+    $ prettiestJs
     $ debuginfo
     $ noinline
     $ is_quiet
