@@ -5,6 +5,15 @@ open Stdlib;
  */
 module Expand = {
   let seq = (e1, e2) => Php.ECond(Php.EBin(Or, e1, EBool(true)), e2, e2);
+  /*
+   * There is one instance of a hardcoded JS expression value in the jsoo
+   * library, which needs to be special cased when converting to PHP.
+   */
+  let raw = s =>
+    Php.ERaw(
+      String.compare(s, "(function (exn) { throw exn })") === 0
+        ? "(function($exn) {throw $exn;})" : s,
+    );
 };
 
 let indent = {contents: 0};
@@ -348,7 +357,7 @@ let rec expression = (input, x) =>
     let (e2Out, e2Mapped) = expression(input, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Expand.seq(e1Mapped, e2Mapped));
-  | Rehp.ERaw(s) => (emptyOutput, Php.ERaw(s))
+  | Rehp.ERaw(s) => (emptyOutput, Expand.raw(s))
   | Rehp.ECond(e1, e2, e3) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);
