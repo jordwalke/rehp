@@ -235,16 +235,15 @@ function urlencode(opt, s) {
     var with_plus = sth;
   }
   else var with_plus = 1;
-  if (with_plus) {
-    return escape_plus(
-      caml_js_to_byte_string(
-        caml_call1(Js_of_ocaml_Js[41], caml_jsbytes_of_string(s))
-      )
-    );
-  }
-  return caml_js_to_byte_string(
-    caml_call1(Js_of_ocaml_Js[41], caml_jsbytes_of_string(s))
-  );
+  return with_plus ?
+    escape_plus(
+     caml_js_to_byte_string(
+       caml_call1(Js_of_ocaml_Js[41], caml_jsbytes_of_string(s))
+     )
+   ) :
+    caml_js_to_byte_string(
+     caml_call1(Js_of_ocaml_Js[41], caml_jsbytes_of_string(s))
+   );
 }
 
 var Not_an_http_protocol = [
@@ -295,8 +294,7 @@ function path_of_path_string(s) {
       var j = l;
     }
     var word = caml_call3(String[4], s, i, j - i | 0);
-    if (l <= j) {return [0,word,0];}
-    return [0,word,aux(j + 1 | 0)];
+    return l <= j ? [0,word,0] : [0,word,aux(j + 1 | 0)];
   }
   var a = aux(0);
   if (a) {
@@ -389,9 +387,9 @@ function url_of_js_string(s) {
     var sf = caml_call2(Js_of_ocaml_Js[16], res, 1);
     var ssl = is_secure(caml_call2(Js_of_ocaml_Js[6][8], sf, interrupt));
     function port_of_string(s) {
-      if (caml_string_notequal(s, cst__5)) {return caml_int_of_string(s);}
-      if (ssl) {return 443;}
-      return 80;
+      return caml_string_notequal(s, cst__5) ?
+        caml_int_of_string(s) :
+        ssl ? 443 : 80;
     }
     function sg(param) {return caml_jsbytes_of_string(cst__6);}
     var sh = caml_call2(Js_of_ocaml_Js[16], res, 6);
@@ -426,11 +424,7 @@ function url_of_js_string(s) {
       sn,
       sk
     ];
-    if (ssl) var st = [
-      1,
-      url
-    ];
-    else var st = [0,url];
+    var st = ssl ? [1,url] : [0,url];
     return [0,st];
   }
   function r2(param) {

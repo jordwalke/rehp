@@ -368,10 +368,9 @@ final class Js_of_ocaml__Dom_svg {
       return $caml_call3($Js_of_ocaml_Js[5][7], $lc, $k7, $k6);
     };
     $element = function($e) use ($Js_of_ocaml_Js,$caml_call1,$svg_element) {
-      if (instance_of($e, $svg_element)) {
-        return $caml_call1($Js_of_ocaml_Js[2], $e);
-      }
-      return $Js_of_ocaml_Js[1];
+      return instance_of($e, $svg_element)
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $unsafeCoerce = function($e, $tag) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
       $k2 = $tag->toString();
@@ -382,10 +381,9 @@ final class Js_of_ocaml__Dom_svg {
         return $caml_call1($caml_get_public_method($x, 578170309, 198), $x);
       };
       $k5 = (function($t8, $param) {return $t8->tagName;})($e, $k4);
-      if (
-        (function($t9, $param) {return $t9->toLowerCase();})($k5, $k3) === $k2
-      ) {return $caml_call1($Js_of_ocaml_Js[2], $e);}
-      return $Js_of_ocaml_Js[1];
+      return (function($t9, $param) {return $t9->toLowerCase();})($k5, $k3) === $k2
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $a = function($e) use ($cst_a__0,$unsafeCoerce) {
       return $unsafeCoerce($e, $cst_a__0);

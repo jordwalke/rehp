@@ -21,10 +21,9 @@ var dummy_string = caml_new_string("");
 var json = runtime["caml_json"](0);
 
 function reviver(this__0, key, value) {
-  if (typeof value == typeof "foo") {
-    return runtime["caml_js_to_byte_string"](value);
-  }
-  return value;
+  return typeof value == typeof "foo" ?
+    runtime["caml_js_to_byte_string"](value) :
+    value;
 }
 
 var input_reviver = runtime["caml_js_wrap_meth_callback"](reviver);
@@ -45,10 +44,9 @@ var mlString_constr = function(t3, param) {return t3.constructor;}(dummy_string,
 );
 
 function output_reviver(key, value) {
-  if (value instanceof mlString_constr) {
-    return runtime["caml_jsbytes_of_string"](value);
-  }
-  return value;
+  return value instanceof mlString_constr ?
+    runtime["caml_jsbytes_of_string"](value) :
+    value;
 }
 
 function output(obj) {

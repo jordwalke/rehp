@@ -36,7 +36,6 @@ final class Hashtbl {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $left_shift_32 = $runtime["left_shift_32"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_compare = $runtime["caml_compare"];
@@ -45,6 +44,7 @@ final class Hashtbl {
     $caml_new_string = $runtime["caml_new_string"];
     $caml_sys_getenv = $runtime["caml_sys_getenv"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $left_shift_32 = $runtime["left_shift_32"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)

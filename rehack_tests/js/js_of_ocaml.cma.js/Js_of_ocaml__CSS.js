@@ -1775,8 +1775,7 @@ function hex_of_rgb(param) {
   var red = param[1];
   function in_range(i) {
     var e5 = i < 0 ? 1 : 0;
-    if (e5) var e6 = e5;
-    else var e6 = 255 < i ? 1 : 0;
+    var e6 = e5 || (255 < i ? 1 : 0);
     if (e6) {
       var e7 = caml_call1(Pervasives[21], i);
       throw runtime["caml_wrap_thrown_exception"](

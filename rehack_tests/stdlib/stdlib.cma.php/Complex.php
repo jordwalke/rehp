@@ -28,7 +28,7 @@ final class Complex {
   private static function load($joo_global_object) {
     
 
-    $runtime = $joo_global_object->jsoo_runtime;$Math = $runtime["Math"];
+    $runtime = $joo_global_object->jsoo_runtime;
     $zero = Vector{254, 0, 0};
     $one = Vector{254, 1, 0};
     $i = Vector{254, 0, 1};

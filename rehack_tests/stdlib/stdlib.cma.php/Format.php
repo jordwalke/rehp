@@ -35,11 +35,11 @@ final class Format {
 
     $output_acc = new Ref();$strput_acc = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $is_int = $runtime["is_int"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $is_int = $runtime["is_int"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)

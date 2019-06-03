@@ -34,13 +34,13 @@ final class Stream {
 
     $dump_data = new Ref();$get_data = new Ref();$nget_data = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $is_int = $runtime["is_int"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
     $caml_fresh_oo_id = $runtime["caml_fresh_oo_id"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
+    $is_int = $runtime["is_int"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)

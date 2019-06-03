@@ -802,8 +802,7 @@ function unsafeCreateElementEx(type, name, doc, elt) {
         var jM = jX;
       }
       catch(ki) {var jM = 0;}
-      if (jM) var jN = 982028505;
-      else var jN = -1003883683;
+      var jN = jM ? 982028505 : -1003883683;
       createElementSyntax[1] = jN;
       continue;
     }
@@ -1084,20 +1083,22 @@ function gJ(x) {
 var gK = Js_of_ocaml_Js[50][1];
 var html_element = function(t53, param) {return t53.HTMLElement;}(gK, gJ);
 var gL = Js_of_ocaml_Js[3];
-
-if (caml_call1(Js_of_ocaml_Js[4], html_element) === gL) var element = function(e) {
-  var jG = Js_of_ocaml_Js[3];
-  function jH(x) {
-    return caml_call1(caml_get_public_method(x, 746263041, 121), x);
-  }
-  var jI = function(t54, param) {return t54.innerHTML;}(e, jH);
-  if (caml_call1(Js_of_ocaml_Js[4], jI) === jG) {return Js_of_ocaml_Js[1];}
-  return caml_call1(Js_of_ocaml_Js[2], e);
-};
-else var element = function(e) {
-  if (e instanceof html_element) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
-};
+var element = caml_call1(Js_of_ocaml_Js[4], html_element) === gL ?
+  function(e) {
+   var jG = Js_of_ocaml_Js[3];
+   function jH(x) {
+     return caml_call1(caml_get_public_method(x, 746263041, 121), x);
+   }
+   var jI = function(t54, param) {return t54.innerHTML;}(e, jH);
+   return caml_call1(Js_of_ocaml_Js[4], jI) === jG ?
+     Js_of_ocaml_Js[1] :
+     caml_call1(Js_of_ocaml_Js[2], e);
+ } :
+  function(e) {
+   return e instanceof html_element ?
+     caml_call1(Js_of_ocaml_Js[2], e) :
+     Js_of_ocaml_Js[1];
+ };
 
 function unsafeCoerce(tag, e) {
   var jC = tag.toString();
@@ -1108,8 +1109,9 @@ function unsafeCoerce(tag, e) {
     return caml_call1(caml_get_public_method(x, 578170309, 123), x);
   }
   var jF = function(t55, param) {return t55.tagName;}(e, jE);
-  if (function(t56, param) {return t56.toLowerCase();}(jF, jD) === jC) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return function(t56, param) {return t56.toLowerCase();}(jF, jD) === jC ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 function a(e) {return unsafeCoerce(cst_a__0, e);}
@@ -1545,8 +1547,9 @@ function addMousewheelEventListener(e, h, capt) {
       function ij(x) {
         return caml_call1(caml_get_public_method(x, -1065804639, 166), x);
       }
-      if (function(t96, param) {return t96.axis;}(e, ij) === ii) {return caml_call3(h, e, d, 0);}
-      return caml_call3(h, e, 0, d);
+      return function(t96, param) {return t96.axis;}(e, ij) === ii ?
+        caml_call3(h, e, d, 0) :
+        caml_call3(h, e, 0, d);
     }
   );
   return caml_call4(addEventListener, e, Event[12], ie, capt);
@@ -2020,16 +2023,12 @@ function try_key_code_normal(param) {
 function make_unidentified(param) {return 0;}
 
 function try_next(value, f, v) {
-  if (0 === v) {
-    return caml_call3(Js_of_ocaml_Js[6][7], value, make_unidentified, f);
-  }
-  return v;
+  return 0 === v ?
+    caml_call3(Js_of_ocaml_Js[6][7], value, make_unidentified, f) :
+    v;
 }
 
-function run_next(value, f, v) {
-  if (0 === v) {return caml_call1(f, value);}
-  return v;
-}
+function run_next(value, f, v) {return 0 === v ? caml_call1(f, value) : v;}
 
 function get_key_code(evt) {
   function ib(x) {
@@ -2136,188 +2135,127 @@ function tagged(e) {
   if (! (21 < switcher >>> 0)) {
     switch (switcher) {
       case 0:
-        if (caml_string_notequal(tag, cst_a__1)) {
-          if (caml_string_notequal(tag, cst_area__1)) {
-            if (caml_string_notequal(tag, cst_audio__1)) {return other(e);}
-            return [2,e];
-          }
-          return [1,e];
-        }
-        return [0,e];
+        return caml_string_notequal(tag, cst_a__1) ?
+          caml_string_notequal(tag, cst_area__1) ?
+           caml_string_notequal(tag, cst_audio__1) ? other(e) : [2,e] :
+           [1,e] :
+          [0,e];
       case 1:
-        if (caml_string_notequal(tag, cst_base__1)) {
-          if (caml_string_notequal(tag, cst_blockquote__1)) {
-            if (caml_string_notequal(tag, cst_body__1)) {
-              if (caml_string_notequal(tag, cst_br__1)) {
-                if (caml_string_notequal(tag, cst_button__1)) {return other(e);}
-                return [7,e];
-              }
-              return [6,e];
-            }
-            return [5,e];
-          }
-          return [4,e];
-        }
-        return [3,e];
+        return caml_string_notequal(tag, cst_base__1) ?
+          caml_string_notequal(tag, cst_blockquote__1) ?
+           caml_string_notequal(tag, cst_body__1) ?
+            caml_string_notequal(tag, cst_br__1) ?
+             caml_string_notequal(tag, cst_button__1) ? other(e) : [7,e] :
+             [6,e] :
+            [5,e] :
+           [4,e] :
+          [3,e];
       case 2:
-        if (caml_string_notequal(tag, cst_canvas__1)) {
-          if (caml_string_notequal(tag, cst_caption__1)) {
-            if (caml_string_notequal(tag, cst_col__1)) {
-              if (caml_string_notequal(tag, cst_colgroup__1)) {return other(e);}
-              return [11,e];
-            }
-            return [10,e];
-          }
-          return [9,e];
-        }
-        return [8,e];
+        return caml_string_notequal(tag, cst_canvas__1) ?
+          caml_string_notequal(tag, cst_caption__1) ?
+           caml_string_notequal(tag, cst_col__1) ?
+            caml_string_notequal(tag, cst_colgroup__1) ? other(e) : [11,e] :
+            [10,e] :
+           [9,e] :
+          [8,e];
       case 3:
-        if (caml_string_notequal(tag, cst_del__1)) {
-          if (caml_string_notequal(tag, cst_div__1)) {
-            if (caml_string_notequal(tag, cst_dl__1)) {return other(e);}
-            return [14,e];
-          }
-          return [13,e];
-        }
-        return [12,e];
+        return caml_string_notequal(tag, cst_del__1) ?
+          caml_string_notequal(tag, cst_div__1) ?
+           caml_string_notequal(tag, cst_dl__1) ? other(e) : [14,e] :
+           [13,e] :
+          [12,e];
       case 4:
-        if (caml_string_notequal(tag, cst_embed__1)) {return other(e);}
-        return [15,e];
+        return caml_string_notequal(tag, cst_embed__1) ? other(e) : [15,e];
       case 5:
-        if (caml_string_notequal(tag, cst_fieldset__1)) {
-          if (caml_string_notequal(tag, cst_form__1)) {
-            if (caml_string_notequal(tag, cst_frame__1)) {
-              if (caml_string_notequal(tag, cst_frameset__1)) {return other(e);}
-              return [18,e];
-            }
-            return [19,e];
-          }
-          return [17,e];
-        }
-        return [16,e];
+        return caml_string_notequal(tag, cst_fieldset__1) ?
+          caml_string_notequal(tag, cst_form__1) ?
+           caml_string_notequal(tag, cst_frame__1) ?
+            caml_string_notequal(tag, cst_frameset__1) ? other(e) : [18,e] :
+            [19,e] :
+           [17,e] :
+          [16,e];
       case 7:
-        if (caml_string_notequal(tag, cst_h1__1)) {
-          if (caml_string_notequal(tag, cst_h2__1)) {
-            if (caml_string_notequal(tag, cst_h3__1)) {
-              if (caml_string_notequal(tag, cst_h4__1)) {
-                if (caml_string_notequal(tag, cst_h5__1)) {
-                  if (caml_string_notequal(tag, cst_h6__1)) {
-                    if (caml_string_notequal(tag, cst_head__1)) {
-                      if (caml_string_notequal(tag, cst_hr__1)) {
-                        if (caml_string_notequal(tag, cst_html__1)) {return other(e);}
-                        return [28,e];
-                      }
-                      return [27,e];
-                    }
-                    return [26,e];
-                  }
-                  return [25,e];
-                }
-                return [24,e];
-              }
-              return [23,e];
-            }
-            return [22,e];
-          }
-          return [21,e];
-        }
-        return [20,e];
+        return caml_string_notequal(tag, cst_h1__1) ?
+          caml_string_notequal(tag, cst_h2__1) ?
+           caml_string_notequal(tag, cst_h3__1) ?
+            caml_string_notequal(tag, cst_h4__1) ?
+             caml_string_notequal(tag, cst_h5__1) ?
+              caml_string_notequal(tag, cst_h6__1) ?
+               caml_string_notequal(tag, cst_head__1) ?
+                caml_string_notequal(tag, cst_hr__1) ?
+                 caml_string_notequal(tag, cst_html__1) ? other(e) : [28,e] :
+                 [27,e] :
+                [26,e] :
+               [25,e] :
+              [24,e] :
+             [23,e] :
+            [22,e] :
+           [21,e] :
+          [20,e];
       case 8:
-        if (caml_string_notequal(tag, cst_iframe__1)) {
-          if (caml_string_notequal(tag, cst_img__1)) {
-            if (caml_string_notequal(tag, cst_input__2)) {
-              if (caml_string_notequal(tag, cst_ins__1)) {return other(e);}
-              return [32,e];
-            }
-            return [31,e];
-          }
-          return [30,e];
-        }
-        return [29,e];
+        return caml_string_notequal(tag, cst_iframe__1) ?
+          caml_string_notequal(tag, cst_img__1) ?
+           caml_string_notequal(tag, cst_input__2) ?
+            caml_string_notequal(tag, cst_ins__1) ? other(e) : [32,e] :
+            [31,e] :
+           [30,e] :
+          [29,e];
       case 11:
-        if (caml_string_notequal(tag, cst_label__1)) {
-          if (caml_string_notequal(tag, cst_legend__1)) {
-            if (caml_string_notequal(tag, cst_li__1)) {
-              if (caml_string_notequal(tag, cst_link__1)) {return other(e);}
-              return [36,e];
-            }
-            return [35,e];
-          }
-          return [34,e];
-        }
-        return [33,e];
+        return caml_string_notequal(tag, cst_label__1) ?
+          caml_string_notequal(tag, cst_legend__1) ?
+           caml_string_notequal(tag, cst_li__1) ?
+            caml_string_notequal(tag, cst_link__1) ? other(e) : [36,e] :
+            [35,e] :
+           [34,e] :
+          [33,e];
       case 12:
-        if (caml_string_notequal(tag, cst_map__1)) {
-          if (caml_string_notequal(tag, cst_meta__1)) {return other(e);}
-          return [38,e];
-        }
-        return [37,e];
+        return caml_string_notequal(tag, cst_map__1) ?
+          caml_string_notequal(tag, cst_meta__1) ? other(e) : [38,e] :
+          [37,e];
       case 14:
-        if (caml_string_notequal(tag, cst_object__1)) {
-          if (caml_string_notequal(tag, cst_ol__1)) {
-            if (caml_string_notequal(tag, cst_optgroup__1)) {
-              if (caml_string_notequal(tag, cst_option__1)) {return other(e);}
-              return [42,e];
-            }
-            return [41,e];
-          }
-          return [40,e];
-        }
-        return [39,e];
+        return caml_string_notequal(tag, cst_object__1) ?
+          caml_string_notequal(tag, cst_ol__1) ?
+           caml_string_notequal(tag, cst_optgroup__1) ?
+            caml_string_notequal(tag, cst_option__1) ? other(e) : [42,e] :
+            [41,e] :
+           [40,e] :
+          [39,e];
       case 15:
-        if (caml_string_notequal(tag, cst_p__1)) {
-          if (caml_string_notequal(tag, cst_param__1)) {
-            if (caml_string_notequal(tag, cst_pre__1)) {return other(e);}
-            return [45,e];
-          }
-          return [44,e];
-        }
-        return [43,e];
+        return caml_string_notequal(tag, cst_p__1) ?
+          caml_string_notequal(tag, cst_param__1) ?
+           caml_string_notequal(tag, cst_pre__1) ? other(e) : [45,e] :
+           [44,e] :
+          [43,e];
       case 16:
-        if (caml_string_notequal(tag, cst_q__1)) {return other(e);}
-        return [46,e];
+        return caml_string_notequal(tag, cst_q__1) ? other(e) : [46,e];
       case 18:
-        if (caml_string_notequal(tag, cst_script__1)) {
-          if (caml_string_notequal(tag, cst_select__2)) {
-            if (caml_string_notequal(tag, cst_style__1)) {return other(e);}
-            return [49,e];
-          }
-          return [48,e];
-        }
-        return [47,e];
+        return caml_string_notequal(tag, cst_script__1) ?
+          caml_string_notequal(tag, cst_select__2) ?
+           caml_string_notequal(tag, cst_style__1) ? other(e) : [49,e] :
+           [48,e] :
+          [47,e];
       case 19:
-        if (caml_string_notequal(tag, cst_table__1)) {
-          if (caml_string_notequal(tag, cst_tbody__1)) {
-            if (caml_string_notequal(tag, cst_td__1)) {
-              if (caml_string_notequal(tag, cst_textarea__1)) {
-                if (caml_string_notequal(tag, cst_tfoot__1)) {
-                  if (caml_string_notequal(tag, cst_th__1)) {
-                    if (caml_string_notequal(tag, cst_thead__1)) {
-                      if (caml_string_notequal(tag, cst_title__1)) {
-                        if (caml_string_notequal(tag, cst_tr__1)) {return other(e);}
-                        return [58,e];
-                      }
-                      return [57,e];
-                    }
-                    return [56,e];
-                  }
-                  return [55,e];
-                }
-                return [54,e];
-              }
-              return [53,e];
-            }
-            return [52,e];
-          }
-          return [51,e];
-        }
-        return [50,e];
+        return caml_string_notequal(tag, cst_table__1) ?
+          caml_string_notequal(tag, cst_tbody__1) ?
+           caml_string_notequal(tag, cst_td__1) ?
+            caml_string_notequal(tag, cst_textarea__1) ?
+             caml_string_notequal(tag, cst_tfoot__1) ?
+              caml_string_notequal(tag, cst_th__1) ?
+               caml_string_notequal(tag, cst_thead__1) ?
+                caml_string_notequal(tag, cst_title__1) ?
+                 caml_string_notequal(tag, cst_tr__1) ? other(e) : [58,e] :
+                 [57,e] :
+                [56,e] :
+               [55,e] :
+              [54,e] :
+             [53,e] :
+            [52,e] :
+           [51,e] :
+          [50,e];
       case 20:
-        if (caml_string_notequal(tag, cst_ul__1)) {return other(e);}
-        return [59,e];
+        return caml_string_notequal(tag, cst_ul__1) ? other(e) : [59,e];
       case 21:
-        if (caml_string_notequal(tag, cst_video__1)) {return other(e);}
-        return [60,e]
+        return caml_string_notequal(tag, cst_video__1) ? other(e) : [60,e]
       }
   }
   return other(e);
@@ -2451,8 +2389,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
         return function(callback) {
           var t = now(0);
           var dt = last[1] + 16.6666666666666679 - t;
-          if (dt < 0) var dt__0 = 0;
-          else var dt__0 = dt;
+          var dt__0 = dt < 0 ? 0 : dt;
           last[1] = t;
           function hg(x) {
             return caml_call1(caml_get_public_method(x, 735461151, 185), x);
@@ -2510,8 +2447,7 @@ function setTimeout(callback, d) {
       var remain = gS;
     }
     else {var remain__0 = 0;var step__0 = step;var remain = remain__0;}
-    if (remain == 0) var cb = callback;
-    else var cb = function(gV) {return loop(remain, gV);};
+    var cb = remain == 0 ? callback : function(gV) {return loop(remain, gV);};
     function gT(x) {
       return caml_call1(caml_get_public_method(x, 735461151, 190), x);
     }
@@ -2544,7 +2480,7 @@ function clearTimeout(id) {
   return 0;
 }
 
-function js_array_of_collection(c) {return [].slice.call(c);}
+function js_array_of_collection(c) {return  [].slice .call(c);}
 
 var Js_of_ocaml_Dom_html = [
   0,

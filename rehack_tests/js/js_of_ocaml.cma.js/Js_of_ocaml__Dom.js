@@ -12,9 +12,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
-var runtime = 
-    joo_global_object.jsoo_runtime,
-  event = runtime["event"];
+var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_new_string = runtime["caml_new_string"];
 
@@ -148,8 +146,9 @@ function cast(e, t) {
   function fQ(x) {
     return caml_call1(caml_get_public_method(x, -158969380, 55), x);
   }
-  if (function(t14, param) {return t14.nodeType;}(e, fQ) === t) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return function(t14, param) {return t14.nodeType;}(e, fQ) === t ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 function element(e) {return cast(e, 1);}
@@ -171,7 +170,7 @@ function attr(e) {return cast(e, 2);}
 
 var no_handler = Js_of_ocaml_Js[1];
 
-function window_event(param) {return event;}
+function window_event(param) {return  event ;}
 
 function handler(f) {
   function fK(e) {

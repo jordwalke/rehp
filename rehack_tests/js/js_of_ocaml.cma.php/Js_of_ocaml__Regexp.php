@@ -176,11 +176,9 @@ final class Js_of_ocaml__Regexp {
       };
       $match__0 = (int)
       (function($t37, $param) {return $t37->multiline;})($r, $aG);
-      if (0 === $match) {
-        if (0 === $match__0) {$flags = "";}
-        else {$flags = "m";}
-      }
-      else {if (0 === $match__0) {$flags = "i";}else {$flags = "mi";}}
+      $flags = 0 === $match
+        ? 0 === $match__0 ? "" : ("m")
+        : (0 === $match__0 ? "i" : ("mi"));
       $aH = 0;
       $aI = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, 842117339, 34), $x);

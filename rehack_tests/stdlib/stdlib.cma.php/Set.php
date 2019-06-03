@@ -32,9 +32,9 @@ final class Set {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_new_string = $runtime["caml_new_string"];
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)

@@ -153,11 +153,9 @@ function replace_first(r, s, s_by) {
     return caml_call1(caml_get_public_method(x, 504484589, 33), x);
   }
   var match__0 = function(t37, param) {return t37.multiline;}(r, aG) | 0;
-  if (0 === match) if (
-    0 === match__0
-  ) var flags = "";
-  else var flags = "m";
-  else if (0 === match__0) var flags = "i";else var flags = "mi";
+  var flags = 0 === match ?
+    0 === match__0 ? "" : "m" :
+    0 === match__0 ? "i" : "mi";
   var aH = 0;
   function aI(x) {
     return caml_call1(caml_get_public_method(x, 842117339, 34), x);

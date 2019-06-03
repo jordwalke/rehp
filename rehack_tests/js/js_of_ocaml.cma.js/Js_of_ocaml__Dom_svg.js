@@ -324,8 +324,9 @@ function getElementById(id) {
 }
 
 function element(e) {
-  if (e instanceof svg_element) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return e instanceof svg_element ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 function unsafeCoerce(e, tag) {
@@ -337,8 +338,9 @@ function unsafeCoerce(e, tag) {
     return caml_call1(caml_get_public_method(x, 578170309, 198), x);
   }
   var k5 = function(t8, param) {return t8.tagName;}(e, k4);
-  if (function(t9, param) {return t9.toLowerCase();}(k5, k3) === k2) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return function(t9, param) {return t9.toLowerCase();}(k5, k3) === k2 ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 function a(e) {return unsafeCoerce(e, cst_a__0);}

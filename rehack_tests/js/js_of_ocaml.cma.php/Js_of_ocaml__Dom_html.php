@@ -36,7 +36,6 @@ final class Js_of_ocaml__Dom_html {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_js_html_escape = $runtime["caml_js_html_escape"];
@@ -45,6 +44,7 @@ final class Js_of_ocaml__Dom_html {
     $caml_string_compare = $runtime["caml_string_compare"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
@@ -840,10 +840,7 @@ final class Js_of_ocaml__Dom_html {
             $jM = $jX;
           }
           catch(\Throwable $ki) {$jM = 0;}
-          if ($jM) {
-            $jN = 982028505;
-          }
-          else {$jN = -1003883683;}
+          $jN = $jM ? 982028505 : (-1003883683);
           $createElementSyntax[1] = $jN;
           continue;
         }
@@ -1212,27 +1209,22 @@ final class Js_of_ocaml__Dom_html {
     $gK = $Js_of_ocaml_Js[50][1];
     $html_element = (function($t53, $param) {return $t53->HTMLElement;})($gK, $gJ);
     $gL = $Js_of_ocaml_Js[3];
-    
-    if ($caml_call1($Js_of_ocaml_Js[4], $html_element) === $gL) {
-      $element = function($e) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
-        $jG = $Js_of_ocaml_Js[3];
-        $jH = function($x) use ($caml_call1,$caml_get_public_method) {
-          return $caml_call1($caml_get_public_method($x, 746263041, 121), $x);
-        };
-        $jI = (function($t54, $param) {return $t54->innerHTML;})($e, $jH);
-        if ($caml_call1($Js_of_ocaml_Js[4], $jI) === $jG) {return $Js_of_ocaml_Js[1];}
-        return $caml_call1($Js_of_ocaml_Js[2], $e);
-      };
-    }
-    else {
-      $element = function($e) use ($Js_of_ocaml_Js,$caml_call1,$html_element) {
-        if (instance_of($e, $html_element)) {
-          return $caml_call1($Js_of_ocaml_Js[2], $e);
-        }
-        return $Js_of_ocaml_Js[1];
-      };
-    }
-    
+    $element = $caml_call1($Js_of_ocaml_Js[4], $html_element) === $gL
+      ? function($e) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
+       $jG = $Js_of_ocaml_Js[3];
+       $jH = function($x) use ($caml_call1,$caml_get_public_method) {
+         return $caml_call1($caml_get_public_method($x, 746263041, 121), $x);
+       };
+       $jI = (function($t54, $param) {return $t54->innerHTML;})($e, $jH);
+       return $caml_call1($Js_of_ocaml_Js[4], $jI) === $jG
+         ? $Js_of_ocaml_Js[1]
+         : ($caml_call1($Js_of_ocaml_Js[2], $e));
+     }
+      : (function($e) use ($Js_of_ocaml_Js,$caml_call1,$html_element) {
+       return instance_of($e, $html_element)
+         ? $caml_call1($Js_of_ocaml_Js[2], $e)
+         : ($Js_of_ocaml_Js[1]);
+     });
     $unsafeCoerce = function($tag, $e) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
       $jC = $tag->toString();
       $jD = function($x) use ($caml_call1,$caml_get_public_method) {
@@ -1242,10 +1234,9 @@ final class Js_of_ocaml__Dom_html {
         return $caml_call1($caml_get_public_method($x, 578170309, 123), $x);
       };
       $jF = (function($t55, $param) {return $t55->tagName;})($e, $jE);
-      if (
-        (function($t56, $param) {return $t56->toLowerCase();})($jF, $jD) === $jC
-      ) {return $caml_call1($Js_of_ocaml_Js[2], $e);}
-      return $Js_of_ocaml_Js[1];
+      return (function($t56, $param) {return $t56->toLowerCase();})($jF, $jD) === $jC
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $a = function($e) use ($cst_a__0,$unsafeCoerce) {
       return $unsafeCoerce($cst_a__0, $e);
@@ -1768,8 +1759,9 @@ final class Js_of_ocaml__Dom_html {
               $x
             );
           };
-          if ((function($t96, $param) {return $t96->axis;})($e, $ij) === $ii) {return $caml_call3($h, $e, $d, 0);}
-          return $caml_call3($h, $e, 0, $d);
+          return (function($t96, $param) {return $t96->axis;})($e, $ij) === $ii
+            ? $caml_call3($h, $e, $d, 0)
+            : ($caml_call3($h, $e, 0, $d));
         }
       );
       return $caml_call4($addEventListener, $e, $Event[12], $ie, $capt);
@@ -2374,19 +2366,12 @@ final class Js_of_ocaml__Dom_html {
     };
     $make_unidentified = function($param) {return 0;};
     $try_next = function($value, $f, $v) use ($Js_of_ocaml_Js,$caml_call3,$make_unidentified) {
-      if (0 === $v) {
-        return $caml_call3(
-          $Js_of_ocaml_Js[6][7],
-          $value,
-          $make_unidentified,
-          $f
-        );
-      }
-      return $v;
+      return 0 === $v
+        ? $caml_call3($Js_of_ocaml_Js[6][7], $value, $make_unidentified, $f)
+        : ($v);
     };
     $run_next = function($value, $f, $v) use ($caml_call1) {
-      if (0 === $v) {return $caml_call1($f, $value);}
-      return $v;
+      return 0 === $v ? $caml_call1($f, $value) : ($v);
     };
     $get_key_code = function($evt) use ($caml_call1,$caml_get_public_method) {
       $ib = function($x) use ($caml_call1,$caml_get_public_method) {
@@ -2504,204 +2489,177 @@ final class Js_of_ocaml__Dom_html {
         switch($switcher) {
           // FALLTHROUGH
           case 0:
-            if ($caml_string_notequal($tag, $cst_a__1)) {
-              if ($caml_string_notequal($tag, $cst_area__1)) {
-                if ($caml_string_notequal($tag, $cst_audio__1)) {return $other($e);}
-                return Vector{2, $e};
-              }
-              return Vector{1, $e};
-            }
-            return Vector{0, $e};
+            return $caml_string_notequal($tag, $cst_a__1)
+              ? $caml_string_notequal($tag, $cst_area__1)
+               ? $caml_string_notequal($tag, $cst_audio__1)
+                ? $other($e)
+                : (Vector{2, $e})
+               : (Vector{1, $e})
+              : (Vector{0, $e});
           // FALLTHROUGH
           case 1:
-            if ($caml_string_notequal($tag, $cst_base__1)) {
-              if ($caml_string_notequal($tag, $cst_blockquote__1)) {
-                if ($caml_string_notequal($tag, $cst_body__1)) {
-                  if ($caml_string_notequal($tag, $cst_br__1)) {
-                    if ($caml_string_notequal($tag, $cst_button__1)) {return $other($e);}
-                    return Vector{7, $e};
-                  }
-                  return Vector{6, $e};
-                }
-                return Vector{5, $e};
-              }
-              return Vector{4, $e};
-            }
-            return Vector{3, $e};
+            return $caml_string_notequal($tag, $cst_base__1)
+              ? $caml_string_notequal($tag, $cst_blockquote__1)
+               ? $caml_string_notequal($tag, $cst_body__1)
+                ? $caml_string_notequal($tag, $cst_br__1)
+                 ? $caml_string_notequal($tag, $cst_button__1)
+                  ? $other($e)
+                  : (Vector{7, $e})
+                 : (Vector{6, $e})
+                : (Vector{5, $e})
+               : (Vector{4, $e})
+              : (Vector{3, $e});
           // FALLTHROUGH
           case 2:
-            if ($caml_string_notequal($tag, $cst_canvas__1)) {
-              if ($caml_string_notequal($tag, $cst_caption__1)) {
-                if ($caml_string_notequal($tag, $cst_col__1)) {
-                  if ($caml_string_notequal($tag, $cst_colgroup__1)) {return $other($e);}
-                  return Vector{11, $e};
-                }
-                return Vector{10, $e};
-              }
-              return Vector{9, $e};
-            }
-            return Vector{8, $e};
+            return $caml_string_notequal($tag, $cst_canvas__1)
+              ? $caml_string_notequal($tag, $cst_caption__1)
+               ? $caml_string_notequal($tag, $cst_col__1)
+                ? $caml_string_notequal($tag, $cst_colgroup__1)
+                 ? $other($e)
+                 : (Vector{11, $e})
+                : (Vector{10, $e})
+               : (Vector{9, $e})
+              : (Vector{8, $e});
           // FALLTHROUGH
           case 3:
-            if ($caml_string_notequal($tag, $cst_del__1)) {
-              if ($caml_string_notequal($tag, $cst_div__1)) {
-                if ($caml_string_notequal($tag, $cst_dl__1)) {return $other($e);}
-                return Vector{14, $e};
-              }
-              return Vector{13, $e};
-            }
-            return Vector{12, $e};
+            return $caml_string_notequal($tag, $cst_del__1)
+              ? $caml_string_notequal($tag, $cst_div__1)
+               ? $caml_string_notequal($tag, $cst_dl__1)
+                ? $other($e)
+                : (Vector{14, $e})
+               : (Vector{13, $e})
+              : (Vector{12, $e});
           // FALLTHROUGH
           case 4:
-            if ($caml_string_notequal($tag, $cst_embed__1)) {return $other($e);}
-            return Vector{15, $e};
+            return $caml_string_notequal($tag, $cst_embed__1)
+              ? $other($e)
+              : (Vector{15, $e});
           // FALLTHROUGH
           case 5:
-            if ($caml_string_notequal($tag, $cst_fieldset__1)) {
-              if ($caml_string_notequal($tag, $cst_form__1)) {
-                if ($caml_string_notequal($tag, $cst_frame__1)) {
-                  if ($caml_string_notequal($tag, $cst_frameset__1)) {return $other($e);}
-                  return Vector{18, $e};
-                }
-                return Vector{19, $e};
-              }
-              return Vector{17, $e};
-            }
-            return Vector{16, $e};
+            return $caml_string_notequal($tag, $cst_fieldset__1)
+              ? $caml_string_notequal($tag, $cst_form__1)
+               ? $caml_string_notequal($tag, $cst_frame__1)
+                ? $caml_string_notequal($tag, $cst_frameset__1)
+                 ? $other($e)
+                 : (Vector{18, $e})
+                : (Vector{19, $e})
+               : (Vector{17, $e})
+              : (Vector{16, $e});
           // FALLTHROUGH
           case 7:
-            if ($caml_string_notequal($tag, $cst_h1__1)) {
-              if ($caml_string_notequal($tag, $cst_h2__1)) {
-                if ($caml_string_notequal($tag, $cst_h3__1)) {
-                  if ($caml_string_notequal($tag, $cst_h4__1)) {
-                    if ($caml_string_notequal($tag, $cst_h5__1)) {
-                      if ($caml_string_notequal($tag, $cst_h6__1)) {
-                        if ($caml_string_notequal($tag, $cst_head__1)) {
-                          if ($caml_string_notequal($tag, $cst_hr__1)) {
-                            if ($caml_string_notequal($tag, $cst_html__1)) {return $other($e);}
-                            return Vector{28, $e};
-                          }
-                          return Vector{27, $e};
-                        }
-                        return Vector{26, $e};
-                      }
-                      return Vector{25, $e};
-                    }
-                    return Vector{24, $e};
-                  }
-                  return Vector{23, $e};
-                }
-                return Vector{22, $e};
-              }
-              return Vector{21, $e};
-            }
-            return Vector{20, $e};
+            return $caml_string_notequal($tag, $cst_h1__1)
+              ? $caml_string_notequal($tag, $cst_h2__1)
+               ? $caml_string_notequal($tag, $cst_h3__1)
+                ? $caml_string_notequal($tag, $cst_h4__1)
+                 ? $caml_string_notequal($tag, $cst_h5__1)
+                  ? $caml_string_notequal($tag, $cst_h6__1)
+                   ? $caml_string_notequal($tag, $cst_head__1)
+                    ? $caml_string_notequal($tag, $cst_hr__1)
+                     ? $caml_string_notequal($tag, $cst_html__1)
+                      ? $other($e)
+                      : (Vector{28, $e})
+                     : (Vector{27, $e})
+                    : (Vector{26, $e})
+                   : (Vector{25, $e})
+                  : (Vector{24, $e})
+                 : (Vector{23, $e})
+                : (Vector{22, $e})
+               : (Vector{21, $e})
+              : (Vector{20, $e});
           // FALLTHROUGH
           case 8:
-            if ($caml_string_notequal($tag, $cst_iframe__1)) {
-              if ($caml_string_notequal($tag, $cst_img__1)) {
-                if ($caml_string_notequal($tag, $cst_input__2)) {
-                  if ($caml_string_notequal($tag, $cst_ins__1)) {return $other($e);}
-                  return Vector{32, $e};
-                }
-                return Vector{31, $e};
-              }
-              return Vector{30, $e};
-            }
-            return Vector{29, $e};
+            return $caml_string_notequal($tag, $cst_iframe__1)
+              ? $caml_string_notequal($tag, $cst_img__1)
+               ? $caml_string_notequal($tag, $cst_input__2)
+                ? $caml_string_notequal($tag, $cst_ins__1)
+                 ? $other($e)
+                 : (Vector{32, $e})
+                : (Vector{31, $e})
+               : (Vector{30, $e})
+              : (Vector{29, $e});
           // FALLTHROUGH
           case 11:
-            if ($caml_string_notequal($tag, $cst_label__1)) {
-              if ($caml_string_notequal($tag, $cst_legend__1)) {
-                if ($caml_string_notequal($tag, $cst_li__1)) {
-                  if ($caml_string_notequal($tag, $cst_link__1)) {return $other($e);}
-                  return Vector{36, $e};
-                }
-                return Vector{35, $e};
-              }
-              return Vector{34, $e};
-            }
-            return Vector{33, $e};
+            return $caml_string_notequal($tag, $cst_label__1)
+              ? $caml_string_notequal($tag, $cst_legend__1)
+               ? $caml_string_notequal($tag, $cst_li__1)
+                ? $caml_string_notequal($tag, $cst_link__1)
+                 ? $other($e)
+                 : (Vector{36, $e})
+                : (Vector{35, $e})
+               : (Vector{34, $e})
+              : (Vector{33, $e});
           // FALLTHROUGH
           case 12:
-            if ($caml_string_notequal($tag, $cst_map__1)) {
-              if ($caml_string_notequal($tag, $cst_meta__1)) {return $other($e);}
-              return Vector{38, $e};
-            }
-            return Vector{37, $e};
+            return $caml_string_notequal($tag, $cst_map__1)
+              ? $caml_string_notequal($tag, $cst_meta__1)
+               ? $other($e)
+               : (Vector{38, $e})
+              : (Vector{37, $e});
           // FALLTHROUGH
           case 14:
-            if ($caml_string_notequal($tag, $cst_object__1)) {
-              if ($caml_string_notequal($tag, $cst_ol__1)) {
-                if ($caml_string_notequal($tag, $cst_optgroup__1)) {
-                  if ($caml_string_notequal($tag, $cst_option__1)) {return $other($e);}
-                  return Vector{42, $e};
-                }
-                return Vector{41, $e};
-              }
-              return Vector{40, $e};
-            }
-            return Vector{39, $e};
+            return $caml_string_notequal($tag, $cst_object__1)
+              ? $caml_string_notequal($tag, $cst_ol__1)
+               ? $caml_string_notequal($tag, $cst_optgroup__1)
+                ? $caml_string_notequal($tag, $cst_option__1)
+                 ? $other($e)
+                 : (Vector{42, $e})
+                : (Vector{41, $e})
+               : (Vector{40, $e})
+              : (Vector{39, $e});
           // FALLTHROUGH
           case 15:
-            if ($caml_string_notequal($tag, $cst_p__1)) {
-              if ($caml_string_notequal($tag, $cst_param__1)) {
-                if ($caml_string_notequal($tag, $cst_pre__1)) {return $other($e);}
-                return Vector{45, $e};
-              }
-              return Vector{44, $e};
-            }
-            return Vector{43, $e};
+            return $caml_string_notequal($tag, $cst_p__1)
+              ? $caml_string_notequal($tag, $cst_param__1)
+               ? $caml_string_notequal($tag, $cst_pre__1)
+                ? $other($e)
+                : (Vector{45, $e})
+               : (Vector{44, $e})
+              : (Vector{43, $e});
           // FALLTHROUGH
           case 16:
-            if ($caml_string_notequal($tag, $cst_q__1)) {return $other($e);}
-            return Vector{46, $e};
+            return $caml_string_notequal($tag, $cst_q__1)
+              ? $other($e)
+              : (Vector{46, $e});
           // FALLTHROUGH
           case 18:
-            if ($caml_string_notequal($tag, $cst_script__1)) {
-              if ($caml_string_notequal($tag, $cst_select__2)) {
-                if ($caml_string_notequal($tag, $cst_style__1)) {return $other($e);}
-                return Vector{49, $e};
-              }
-              return Vector{48, $e};
-            }
-            return Vector{47, $e};
+            return $caml_string_notequal($tag, $cst_script__1)
+              ? $caml_string_notequal($tag, $cst_select__2)
+               ? $caml_string_notequal($tag, $cst_style__1)
+                ? $other($e)
+                : (Vector{49, $e})
+               : (Vector{48, $e})
+              : (Vector{47, $e});
           // FALLTHROUGH
           case 19:
-            if ($caml_string_notequal($tag, $cst_table__1)) {
-              if ($caml_string_notequal($tag, $cst_tbody__1)) {
-                if ($caml_string_notequal($tag, $cst_td__1)) {
-                  if ($caml_string_notequal($tag, $cst_textarea__1)) {
-                    if ($caml_string_notequal($tag, $cst_tfoot__1)) {
-                      if ($caml_string_notequal($tag, $cst_th__1)) {
-                        if ($caml_string_notequal($tag, $cst_thead__1)) {
-                          if ($caml_string_notequal($tag, $cst_title__1)) {
-                            if ($caml_string_notequal($tag, $cst_tr__1)) {return $other($e);}
-                            return Vector{58, $e};
-                          }
-                          return Vector{57, $e};
-                        }
-                        return Vector{56, $e};
-                      }
-                      return Vector{55, $e};
-                    }
-                    return Vector{54, $e};
-                  }
-                  return Vector{53, $e};
-                }
-                return Vector{52, $e};
-              }
-              return Vector{51, $e};
-            }
-            return Vector{50, $e};
+            return $caml_string_notequal($tag, $cst_table__1)
+              ? $caml_string_notequal($tag, $cst_tbody__1)
+               ? $caml_string_notequal($tag, $cst_td__1)
+                ? $caml_string_notequal($tag, $cst_textarea__1)
+                 ? $caml_string_notequal($tag, $cst_tfoot__1)
+                  ? $caml_string_notequal($tag, $cst_th__1)
+                   ? $caml_string_notequal($tag, $cst_thead__1)
+                    ? $caml_string_notequal($tag, $cst_title__1)
+                     ? $caml_string_notequal($tag, $cst_tr__1)
+                      ? $other($e)
+                      : (Vector{58, $e})
+                     : (Vector{57, $e})
+                    : (Vector{56, $e})
+                   : (Vector{55, $e})
+                  : (Vector{54, $e})
+                 : (Vector{53, $e})
+                : (Vector{52, $e})
+               : (Vector{51, $e})
+              : (Vector{50, $e});
           // FALLTHROUGH
           case 20:
-            if ($caml_string_notequal($tag, $cst_ul__1)) {return $other($e);}
-            return Vector{59, $e};
+            return $caml_string_notequal($tag, $cst_ul__1)
+              ? $other($e)
+              : (Vector{59, $e});
           // FALLTHROUGH
           case 21:
-            if ($caml_string_notequal($tag, $cst_video__1)) {return $other($e);}
-            return Vector{60, $e};
+            return $caml_string_notequal($tag, $cst_video__1)
+              ? $other($e)
+              : (Vector{60, $e});
           }
       }
       return $other($e);
@@ -2838,8 +2796,7 @@ final class Js_of_ocaml__Dom_html {
             return function($callback) use ($caml_call1,$caml_get_public_method,$last,$now,$window) {
               $t = $now(0);
               $dt = $last[1] + 16.6666666666666679 - $t;
-              if ($dt < 0) {$dt__0 = 0;}
-              else {$dt__0 = $dt;}
+              $dt__0 = $dt < 0 ? 0 : ($dt);
               $last[1] = $t;
               $hg = function($x) use ($caml_call1,$caml_get_public_method) {
                 return $caml_call1(
@@ -2895,12 +2852,11 @@ final class Js_of_ocaml__Dom_html {
           $remain = $gS;
         }
         else {$remain__0 = 0;$step__0 = $step;$remain = $remain__0;}
-        if ($remain == 0) {$cb = $callback;}
-        else {
-          $cb = function($gV) use ($loop,$remain) {
-            return $loop->contents($remain, $gV);
-          };
-        }
+        $cb = $remain == 0
+          ? $callback
+          : (function($gV) use ($loop,$remain) {
+           return $loop->contents($remain, $gV);
+         });
         $gT = function($x) use ($caml_call1,$caml_get_public_method) {
           return $caml_call1($caml_get_public_method($x, 735461151, 190), $x);
         };
@@ -2931,7 +2887,7 @@ final class Js_of_ocaml__Dom_html {
       }
       return 0;
     };
-    $js_array_of_collection = function($c) {return varray[]->slice->call($c);};
+    $js_array_of_collection = function($c) {return  [].slice ->call($c);};
     $Js_of_ocaml_Dom_html = Vector{
       0,
       $d,

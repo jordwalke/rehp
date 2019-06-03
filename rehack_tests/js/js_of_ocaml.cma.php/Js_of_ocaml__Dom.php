@@ -32,7 +32,6 @@ final class Js_of_ocaml__Dom {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $event = $runtime["event"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
@@ -164,8 +163,9 @@ final class Js_of_ocaml__Dom {
       $fQ = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -158969380, 55), $x);
       };
-      if ((function($t14, $param) {return $t14->nodeType;})($e, $fQ) === $t) {return $caml_call1($Js_of_ocaml_Js[2], $e);}
-      return $Js_of_ocaml_Js[1];
+      return (function($t14, $param) {return $t14->nodeType;})($e, $fQ) === $t
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $element = function($e) use ($cast) {return $cast($e, 1);};
     $text = function($e) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
@@ -182,7 +182,7 @@ final class Js_of_ocaml__Dom {
     };
     $attr = function($e) use ($cast) {return $cast($e, 2);};
     $no_handler = $Js_of_ocaml_Js[1];
-    $window_event = function($param) use ($event) {return $event;};
+    $window_event = function($param) {return  event ;};
     $handler = function($f) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$window_event) {
       $fK = function($e) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$f,$window_event) {
         $fL = $caml_call1($Js_of_ocaml_Js[2], $e);

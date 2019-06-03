@@ -35,7 +35,6 @@ final class Js_of_ocaml__CSS {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $is_int = $runtime["is_int"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_float_of_string = $runtime["caml_float_of_string"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
@@ -46,6 +45,7 @@ final class Js_of_ocaml__CSS {
     $caml_string_compare = $runtime["caml_string_compare"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $is_int = $runtime["is_int"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
@@ -2302,10 +2302,7 @@ final class Js_of_ocaml__CSS {
       $red = $param[1];
       $in_range = function($i) use ($Invalid_argument,$Pervasives,$caml_call1,$caml_call2,$cst_is_out_of_valid_range,$runtime) {
         $e5 = $i < 0 ? 1 : (0);
-        if ($e5) {
-          $e6 = $e5;
-        }
-        else {$e6 = 255 < $i ? 1 : (0);}
+        $e6 = $e5 || (255 < $i ? 1 : (0));
         if ($e6) {
           $e7 = $caml_call1($Pervasives[21], $i);
           throw $runtime["caml_wrap_thrown_exception"](

@@ -299,8 +299,9 @@ function get_input_val(opt, elt) {
     var lW = function(x) {
       return caml_call1(caml_get_public_method(x, 321172263, 222), x);
     };
-    if (function(t17, param) {return t17.checked;}(elt, lW) | 0) {return [0,[0,name,[0,-976970511,value]],0];}
-    return 0;
+    return function(t17, param) {return t17.checked;}(elt, lW) | 0 ?
+      [0,[0,name,[0,-976970511,value]],0] :
+      0;
   }
   return 0;
 }

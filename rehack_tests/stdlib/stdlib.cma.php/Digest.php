@@ -33,8 +33,6 @@ final class Digest {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $left_shift_32 = $runtime["left_shift_32"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
@@ -43,6 +41,8 @@ final class Digest {
     $caml_new_string = $runtime["caml_new_string"];
     $caml_string_get = $runtime["caml_string_get"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $left_shift_32 = $runtime["left_shift_32"];
+    $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)

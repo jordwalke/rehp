@@ -9,9 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
-var runtime = 
-    joo_global_object.jsoo_runtime,
-  Math = runtime["Math"];
+var runtime = joo_global_object.jsoo_runtime;
 var zero = [254,0,0];
 var one = [254,1,0];
 var i = [254,0,1];

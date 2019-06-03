@@ -93,8 +93,7 @@ final class Js_of_ocaml__File {
     $make_blob_options = function($contentType, $endings) use ($Array,$Js_of_ocaml_Js,$caml_call1,$cst_endings,$cst_type,$filter_map,$go,$gp,$runtime) {
       $gD = 0;
       if ($endings) {
-        if (116179762 <= $endings[1]) {$gE = $go;}
-        else {$gE = $gp;}
+        $gE = 116179762 <= $endings[1] ? $go : ($gp);
         $gF = $gE;
       }
       else {$gF = 0;}
@@ -115,10 +114,9 @@ final class Js_of_ocaml__File {
         },
         $gG
       );
-      if ($options) {
-        return $runtime["caml_js_object"]($caml_call1($Array[12], $options));
-      }
-      return $Js_of_ocaml_Js[3];
+      return $options
+        ? $runtime["caml_js_object"]($caml_call1($Array[12], $options))
+        : ($Js_of_ocaml_Js[3]);
     };
     $blob_raw = function($contentType, $endings, $a) use ($blob_constr,$make_blob_options,$runtime) {
       $options = $make_blob_options($contentType, $endings);
@@ -169,24 +167,24 @@ final class Js_of_ocaml__File {
     $gr = $Js_of_ocaml_Js[50][1];
     $doc_constr = (function($t6, $param) {return $t6->Document;})($gr, $gq);
     $document = function($e) use ($Js_of_ocaml_Js,$caml_call1,$doc_constr) {
-      if (instance_of($e, $doc_constr)) {
-        return $caml_call1($Js_of_ocaml_Js[2], $e);
-      }
-      return $Js_of_ocaml_Js[1];
+      return instance_of($e, $doc_constr)
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $blob = function($e) use ($Js_of_ocaml_Js,$blob_constr,$caml_call1) {
-      if (instance_of($e, $blob_constr)) {
-        return $caml_call1($Js_of_ocaml_Js[2], $e);
-      }
-      return $Js_of_ocaml_Js[1];
+      return instance_of($e, $blob_constr)
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $string = function($e) use ($Js_of_ocaml_Js,$caml_call1,$runtime) {
-      if ($runtime["caml_equal"](typeof($e), "string")) {return $caml_call1($Js_of_ocaml_Js[2], $e);}
-      return $Js_of_ocaml_Js[1];
+      return $runtime["caml_equal"](typeof($e), "string")
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $arrayBuffer = function($e) use ($Js_of_ocaml_Js,$Js_of_ocaml_Typed_array,$caml_call1) {
-      if (instance_of($e, $Js_of_ocaml_Typed_array[1])) {return $caml_call1($Js_of_ocaml_Js[2], $e);}
-      return $Js_of_ocaml_Js[1];
+      return instance_of($e, $Js_of_ocaml_Typed_array[1])
+        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        : ($Js_of_ocaml_Js[1]);
     };
     $loadstart = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
     $progress = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_progress);

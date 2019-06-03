@@ -246,16 +246,15 @@ final class Js_of_ocaml__Url {
         $with_plus = $sth;
       }
       else {$with_plus = 1;}
-      if ($with_plus) {
-        return $escape_plus(
-          $caml_js_to_byte_string(
-            $caml_call1($Js_of_ocaml_Js[41], $caml_jsbytes_of_string($s))
-          )
-        );
-      }
-      return $caml_js_to_byte_string(
-        $caml_call1($Js_of_ocaml_Js[41], $caml_jsbytes_of_string($s))
-      );
+      return $with_plus
+        ? $escape_plus(
+         $caml_js_to_byte_string(
+           $caml_call1($Js_of_ocaml_Js[41], $caml_jsbytes_of_string($s))
+         )
+       )
+        : ($caml_js_to_byte_string(
+         $caml_call1($Js_of_ocaml_Js[41], $caml_jsbytes_of_string($s))
+       ));
     };
     $Not_an_http_protocol = Vector{
       248,
@@ -303,8 +302,9 @@ final class Js_of_ocaml__Url {
           $j = $l;
         }
         $word = $caml_call3($String[4], $s, $i, (int) ($j - $i));
-        if ($l <= $j) {return Vector{0, $word, 0};}
-        return Vector{0, $word, $aux->contents((int) ($j + 1))};
+        return $l <= $j
+          ? Vector{0, $word, 0}
+          : (Vector{0, $word, $aux->contents((int) ($j + 1))});
       };
       $a = $aux->contents(0);
       if ($a) {
@@ -400,9 +400,9 @@ final class Js_of_ocaml__Url {
         $sf = $caml_call2($Js_of_ocaml_Js[16], $res, 1);
         $ssl = $is_secure($caml_call2($Js_of_ocaml_Js[6][8], $sf, $interrupt));
         $port_of_string = function($s) use ($caml_int_of_string,$caml_string_notequal,$cst__5,$ssl) {
-          if ($caml_string_notequal($s, $cst__5)) {return $caml_int_of_string($s);}
-          if ($ssl) {return 443;}
-          return 80;
+          return $caml_string_notequal($s, $cst__5)
+            ? $caml_int_of_string($s)
+            : ($ssl ? 443 : (80));
         };
         $sg = function($param) use ($caml_jsbytes_of_string,$cst__6) {
           return $caml_jsbytes_of_string($cst__6);
@@ -446,10 +446,7 @@ final class Js_of_ocaml__Url {
           $sn,
           $sk
         };
-        if ($ssl) {
-          $st = Vector{1, $url};
-        }
-        else {$st = Vector{0, $url};}
+        $st = $ssl ? Vector{1, $url} : (Vector{0, $url});
         return Vector{0, $st};
       };
       $r2 = function($param) use ($Js_of_ocaml_Js,$caml_call1,$caml_call2,$caml_call3,$caml_get_public_method,$caml_js_to_byte_string,$caml_jsbytes_of_string,$cst__10,$cst__11,$decode_arguments_js_string,$file_re,$interrupt,$path_of_path_string,$s,$urldecode_js_string_string) {

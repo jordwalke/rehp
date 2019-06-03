@@ -31,11 +31,7 @@ final class Js_of_ocaml__Js {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $undefined = $runtime["undefined"];
-    $null = $runtime["null"];
-    $joo_global_object->contents = $runtime["joo_global_object"];
     $caml_arity_test = $runtime["caml_arity_test"];
-    $Func = $runtime["Func"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_js_to_string = $runtime["caml_js_to_string"];
     $caml_js_wrap_callback = $runtime["caml_js_wrap_callback"];
@@ -58,34 +54,29 @@ final class Js_of_ocaml__Js {
     $Pervasives = $global_data["Pervasives"];
     $Callback = $global_data["Callback"];
     $Printexc = $global_data["Printexc"];
-    $global = $joo_global_object;
+    $global =  joo_global_object ;
     $Unsafe = Vector{0, $global};
-    $null__0 = varray[];
-    $undefined__0 = NULL;
+    $null__0 =  null ;
+    $undefined__0 =  undefined ;
     $return__0 = function($al) {return $al;};
     $map = function($x, $f) use ($caml_call1,$null__0,$return__0) {
-      if ($x == $null__0) {return $null__0;}
-      return $return__0($caml_call1($f, $x));
+      return $x == $null__0 ? $null__0 : ($return__0($caml_call1($f, $x)));
     };
     $bind = function($x, $f) use ($caml_call1,$null__0) {
-      if ($x == $null__0) {return $null__0;}
-      return $caml_call1($f, $x);
+      return $x == $null__0 ? $null__0 : ($caml_call1($f, $x));
     };
     $test = function($x) use ($null__0) {
       return 1 - ($x == $null__0 ? 1 : (0));
     };
     $iter = function($x, $f) use ($caml_call1,$null__0) {
       $ak = 1 - ($x == $null__0 ? 1 : (0));
-      if ($ak) {return $caml_call1($f, $x);}
-      return $ak;
+      return $ak ? $caml_call1($f, $x) : ($ak);
     };
     $case__0 = function($x, $f, $g) use ($caml_call1,$null__0) {
-      if ($x == $null__0) {return $caml_call1($f, 0);}
-      return $caml_call1($g, $x);
+      return $x == $null__0 ? $caml_call1($f, 0) : ($caml_call1($g, $x));
     };
     $get = function($x, $f) use ($caml_call1,$null__0) {
-      if ($x == $null__0) {return $caml_call1($f, 0);}
-      return $x;
+      return $x == $null__0 ? $caml_call1($f, 0) : ($x);
     };
     $option = function($x) use ($null__0,$return__0) {
       if ($x) {$x__0 = $x[1];return $return__0($x__0);}
@@ -110,28 +101,25 @@ final class Js_of_ocaml__Js {
     };
     $return__1 = function($ai) {return $ai;};
     $map__0 = function($x, $f) use ($caml_call1,$return__1,$undefined__0) {
-      if ($x === $undefined__0) {return $undefined__0;}
-      return $return__1($caml_call1($f, $x));
+      return $x === $undefined__0
+        ? $undefined__0
+        : ($return__1($caml_call1($f, $x)));
     };
     $bind__0 = function($x, $f) use ($caml_call1,$undefined__0) {
-      if ($x === $undefined__0) {return $undefined__0;}
-      return $caml_call1($f, $x);
+      return $x === $undefined__0 ? $undefined__0 : ($caml_call1($f, $x));
     };
     $test__0 = function($x) use ($undefined__0) {
       return $x !== $undefined__0 ? 1 : (0);
     };
     $iter__0 = function($x, $f) use ($caml_call1,$undefined__0) {
       $ah = $x !== $undefined__0 ? 1 : (0);
-      if ($ah) {return $caml_call1($f, $x);}
-      return $ah;
+      return $ah ? $caml_call1($f, $x) : ($ah);
     };
     $case__1 = function($x, $f, $g) use ($caml_call1,$undefined__0) {
-      if ($x === $undefined__0) {return $caml_call1($f, 0);}
-      return $caml_call1($g, $x);
+      return $x === $undefined__0 ? $caml_call1($f, 0) : ($caml_call1($g, $x));
     };
     $get__0 = function($x, $f) use ($caml_call1,$undefined__0) {
-      if ($x === $undefined__0) {return $caml_call1($f, 0);}
-      return $x;
+      return $x === $undefined__0 ? $caml_call1($f, 0) : ($x);
     };
     $option__0 = function($x) use ($return__1,$undefined__0) {
       if ($x) {$x__0 = $x[1];return $return__1($x__0);}
@@ -168,8 +156,8 @@ final class Js_of_ocaml__Js {
       $ad = $caml_call2($Opt[4], $x, $f);
       return $caml_call2($Opt[8], $ad, $ac);
     };
-    $true__0 = true;
-    $false__0 = false;
+    $true__0 =  true ;
+    $false__0 =  false ;
     $a = function($x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, 876326544, 1), $x);
     };
@@ -253,7 +241,7 @@ final class Js_of_ocaml__Js {
       Vector{0, $Error, (object)darray[]}
     );
     
-    $raise_js_error = $Func(function($exn) {throw $exn as \Throwable;});
+    $raise_js_error =  (function (exn) { throw exn }) ;
     $o = function($x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -465951225, 10), $x);
     };
@@ -314,8 +302,9 @@ final class Js_of_ocaml__Js {
       };
       $E = $Unsafe[1];
       $s__0 = (function($t19, $param) {return $t19->parseInt;})($E, $D)($s);
-      if ($isNaN($s__0)) {return $caml_call1($Pervasives[2], $cst_parseInt);}
-      return $s__0;
+      return $isNaN($s__0)
+        ? $caml_call1($Pervasives[2], $cst_parseInt)
+        : ($s__0);
     };
     $parseFloat = function($s) use ($Pervasives,$Unsafe,$caml_call1,$caml_get_public_method,$cst_parseFloat,$isNaN) {
       $B = function($x) use ($caml_call1,$caml_get_public_method) {
@@ -323,10 +312,9 @@ final class Js_of_ocaml__Js {
       };
       $C = $Unsafe[1];
       $s__0 = (function($t20, $param) {return $t20->parseFloat;})($C, $B)($s);
-      if ($isNaN($s__0)) {
-        return $caml_call1($Pervasives[2], $cst_parseFloat);
-      }
-      return $s__0;
+      return $isNaN($s__0)
+        ? $caml_call1($Pervasives[2], $cst_parseFloat)
+        : ($s__0);
     };
     $q = function($param) use ($Error,$caml_call1,$caml_get_public_method,$caml_js_to_string) {
       if ($param[1] === $Error) {

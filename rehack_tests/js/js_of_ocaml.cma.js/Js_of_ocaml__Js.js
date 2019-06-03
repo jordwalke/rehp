@@ -11,12 +11,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
-var runtime = 
-    joo_global_object.jsoo_runtime,
-  undefined = runtime["undefined"],
-  null = runtime["null"],
-  joo_global_object = runtime["joo_global_object"],
-  Func = runtime["Func"];
+var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
 var caml_js_wrap_callback = runtime["caml_js_wrap_callback"];
@@ -38,37 +33,31 @@ var cst_jsError = caml_new_string("jsError");
 var Pervasives = global_data["Pervasives"];
 var Callback = global_data["Callback"];
 var Printexc = global_data["Printexc"];
-var global = joo_global_object;
+var global =  joo_global_object ;
 var Unsafe = [0,global];
-var null__0 = null;
-var undefined__0 = undefined;
+var null__0 =  null ;
+var undefined__0 =  undefined ;
 
 function return__0(al) {return al;}
 
 function map(x, f) {
-  if (x == null__0) {return null__0;}
-  return return__0(caml_call1(f, x));
+  return x == null__0 ? null__0 : return__0(caml_call1(f, x));
 }
 
-function bind(x, f) {
-  if (x == null__0) {return null__0;}
-  return caml_call1(f, x);
-}
+function bind(x, f) {return x == null__0 ? null__0 : caml_call1(f, x);}
 
 function test(x) {return 1 - (x == null__0 ? 1 : 0);}
 
 function iter(x, f) {
   var ak = 1 - (x == null__0 ? 1 : 0);
-  if (ak) {return caml_call1(f, x);}
-  return ak;
+  return ak ? caml_call1(f, x) : ak;
 }
 
 function case__0(x, f, g) {
-  if (x == null__0) {return caml_call1(f, 0);}
-  return caml_call1(g, x);
+  return x == null__0 ? caml_call1(f, 0) : caml_call1(g, x);
 }
 
-function get(x, f) {if (x == null__0) {return caml_call1(f, 0);}return x;}
+function get(x, f) {return x == null__0 ? caml_call1(f, 0) : x;}
 
 function option(x) {
   if (x) {var x__0 = x[1];return return__0(x__0);}
@@ -86,32 +75,25 @@ var Opt = [0,null__0,return__0,map,bind,test,iter,case__0,get,option,to_option
 function return__1(ai) {return ai;}
 
 function map__0(x, f) {
-  if (x === undefined__0) {return undefined__0;}
-  return return__1(caml_call1(f, x));
+  return x === undefined__0 ? undefined__0 : return__1(caml_call1(f, x));
 }
 
 function bind__0(x, f) {
-  if (x === undefined__0) {return undefined__0;}
-  return caml_call1(f, x);
+  return x === undefined__0 ? undefined__0 : caml_call1(f, x);
 }
 
 function test__0(x) {return x !== undefined__0 ? 1 : 0;}
 
 function iter__0(x, f) {
   var ah = x !== undefined__0 ? 1 : 0;
-  if (ah) {return caml_call1(f, x);}
-  return ah;
+  return ah ? caml_call1(f, x) : ah;
 }
 
 function case__1(x, f, g) {
-  if (x === undefined__0) {return caml_call1(f, 0);}
-  return caml_call1(g, x);
+  return x === undefined__0 ? caml_call1(f, 0) : caml_call1(g, x);
 }
 
-function get__0(x, f) {
-  if (x === undefined__0) {return caml_call1(f, 0);}
-  return x;
-}
+function get__0(x, f) {return x === undefined__0 ? caml_call1(f, 0) : x;}
 
 function option__0(x) {
   if (x) {var x__0 = x[1];return return__1(x__0);}
@@ -149,8 +131,8 @@ function coerce_opt(x, f, g) {
   return caml_call2(Opt[8], ad, ac);
 }
 
-var true__0 = true;
-var false__0 = false;
+var true__0 =  true ;
+var false__0 =  false ;
 
 function a(x) {return caml_call1(caml_get_public_method(x, 876326544, 1), x);}
 
@@ -231,7 +213,7 @@ var error_constr = function(t10, param) {return t10.Error;}(n, m);
 
 caml_call2(Callback[2], cst_jsError, [0,Error,{}]);
 
-var raise_js_error = Func(function(exn) {throw exn;});
+var raise_js_error =  (function (exn) { throw exn }) ;
 
 function o(x) {
   return caml_call1(caml_get_public_method(x, -465951225, 10), x);
@@ -302,8 +284,7 @@ function parseInt(s) {
   }
   var E = Unsafe[1];
   var s__0 = function(t19, param) {return t19.parseInt;}(E, D)(s);
-  if (isNaN(s__0)) {return caml_call1(Pervasives[2], cst_parseInt);}
-  return s__0;
+  return isNaN(s__0) ? caml_call1(Pervasives[2], cst_parseInt) : s__0;
 }
 
 function parseFloat(s) {
@@ -312,8 +293,7 @@ function parseFloat(s) {
   }
   var C = Unsafe[1];
   var s__0 = function(t20, param) {return t20.parseFloat;}(C, B)(s);
-  if (isNaN(s__0)) {return caml_call1(Pervasives[2], cst_parseFloat);}
-  return s__0;
+  return isNaN(s__0) ? caml_call1(Pervasives[2], cst_parseFloat) : s__0;
 }
 
 function q(param) {

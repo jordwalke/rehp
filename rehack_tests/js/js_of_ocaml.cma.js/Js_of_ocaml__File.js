@@ -72,8 +72,7 @@ function filter_map(f, param) {
 function make_blob_options(contentType, endings) {
   var gD = 0;
   if (endings) {
-    if (116179762 <= endings[1]) var gE = go;
-    else var gE = gp;
+    var gE = 116179762 <= endings[1] ? go : gp;
     var gF = gE;
   }
   else var gF = 0;
@@ -87,10 +86,9 @@ function make_blob_options(contentType, endings) {
     },
     gG
   );
-  if (options) {
-    return runtime["caml_js_object"](caml_call1(Array[12], options));
-  }
-  return Js_of_ocaml_Js[3];
+  return options ?
+    runtime["caml_js_object"](caml_call1(Array[12], options)) :
+    Js_of_ocaml_Js[3];
 }
 
 function blob_raw(contentType, endings, a) {
@@ -149,23 +147,27 @@ var gr = Js_of_ocaml_Js[50][1];
 var doc_constr = function(t6, param) {return t6.Document;}(gr, gq);
 
 function document(e) {
-  if (e instanceof doc_constr) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return e instanceof doc_constr ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 function blob(e) {
-  if (e instanceof blob_constr) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return e instanceof blob_constr ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 function string(e) {
-  if (runtime["caml_equal"](typeof e, "string")) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return runtime["caml_equal"](typeof e, "string") ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 function arrayBuffer(e) {
-  if (e instanceof Js_of_ocaml_Typed_array[1]) {return caml_call1(Js_of_ocaml_Js[2], e);}
-  return Js_of_ocaml_Js[1];
+  return e instanceof Js_of_ocaml_Typed_array[1] ?
+    caml_call1(Js_of_ocaml_Js[2], e) :
+    Js_of_ocaml_Js[1];
 }
 
 var loadstart = caml_call1(Js_of_ocaml_Dom[14][1], cst_loadstart);

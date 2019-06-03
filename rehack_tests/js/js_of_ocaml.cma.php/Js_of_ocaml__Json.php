@@ -40,10 +40,9 @@ final class Js_of_ocaml__Json {
     $dummy_string = $caml_new_string("");
     $json = $runtime["caml_json"](0);
     $reviver = function($this__0, $key, $value) use ($runtime) {
-      if (typeof($value) == typeof("foo")) {
-        return $runtime["caml_js_to_byte_string"]($value);
-      }
-      return $value;
+      return typeof($value) == typeof("foo")
+        ? $runtime["caml_js_to_byte_string"]($value)
+        : ($value);
     };
     $input_reviver = $runtime["caml_js_wrap_meth_callback"]($reviver);
     $unsafe_input = function($s) use ($caml_call1,$caml_get_public_method,$input_reviver,$json) {
@@ -57,10 +56,9 @@ final class Js_of_ocaml__Json {
     };
     $mlString_constr = (function($t3, $param) {return $t3->constructor;})($dummy_string, $pd);
     $output_reviver = function($key, $value) use ($mlString_constr,$runtime) {
-      if (instance_of($value, $mlString_constr)) {
-        return $runtime["caml_jsbytes_of_string"]($value);
-      }
-      return $value;
+      return instance_of($value, $mlString_constr)
+        ? $runtime["caml_jsbytes_of_string"]($value)
+        : ($value);
     };
     $output = function($obj) use ($caml_call1,$caml_get_public_method,$json,$output_reviver) {
       $pe = function($x) use ($caml_call1,$caml_get_public_method) {

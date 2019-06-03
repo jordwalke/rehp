@@ -37,7 +37,6 @@ final class CamlinternalOO {
 
     $fit_size = new Ref();$lookup_keys = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $is_int = $runtime["is_int"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_div = $runtime["caml_div"];
@@ -48,6 +47,7 @@ final class CamlinternalOO {
     $caml_set_oo_id = $runtime["caml_set_oo_id"];
     $caml_string_compare = $runtime["caml_string_compare"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $is_int = $runtime["is_int"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)

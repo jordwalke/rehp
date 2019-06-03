@@ -34,12 +34,12 @@ final class Js_of_ocaml__Form {
 
     $filter_map = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $is_int = $runtime["is_int"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_js_to_string = $runtime["caml_js_to_string"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
+    $is_int = $runtime["is_int"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
@@ -407,11 +407,10 @@ final class Js_of_ocaml__Form {
         $lW = function($x) use ($caml_call1,$caml_get_public_method) {
           return $caml_call1($caml_get_public_method($x, 321172263, 222), $x);
         };
-        if ((int) (function($t17, $param) {return $t17->checked;})($elt, $lW)
-        ) {
-          return Vector{0, Vector{0, $name, Vector{0, -976970511, $value}}, 0};
-        }
-        return 0;
+        return (int)
+         (function($t17, $param) {return $t17->checked;})($elt, $lW)
+          ? Vector{0, Vector{0, $name, Vector{0, -976970511, $value}}, 0}
+          : (0);
       }
       return 0;
     };

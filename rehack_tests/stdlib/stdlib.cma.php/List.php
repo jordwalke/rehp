@@ -43,10 +43,10 @@ final class List_ {
     $remove_assq = new Ref();
     $split = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $right_shift_32 = $runtime["right_shift_32"];
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_compare = $runtime["caml_compare"];
     $caml_new_string = $runtime["caml_new_string"];
+    $right_shift_32 = $runtime["right_shift_32"];
     $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
