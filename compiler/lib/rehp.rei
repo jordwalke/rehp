@@ -100,7 +100,8 @@ and expression =
   | ENew(expression, option(arguments))
   | EObj(property_name_and_value_list)
   | EBool(bool)
-  | ENum(float)
+  | EFloat(float)
+  | EInt(int)
   | EQuote(string)
   | ERegexp(string, option(string))
 /****/

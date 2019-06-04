@@ -157,7 +157,8 @@ class map : mapper = object(m)
     EObj (List.map l ~f:(fun (i,e) -> i, m#expression  e))
   | (EStr _ as x)
   | (EBool _ as x)
-  | (ENum _ as x)
+  | (EInt _ as x)
+  | (EFloat _ as x)
   | (EQuote _ as x)
   | (ERegexp _ as x) -> x
 
@@ -210,7 +211,7 @@ class map_for_share_constant = object(m)
   (* do not replace constant in switch case *)
   method switch_case e =
     match e with
-    | ENum _ | EStr _ -> e
+    | EInt _ | EFloat _ | EStr _ -> e
     | _ -> m#expression e
 
   method sources l =
@@ -240,7 +241,8 @@ class share_constant = object
         Hashtbl.replace count e (n+1);
         e
       | EStr (_,_)
-      | ENum _ ->
+      | EInt _
+      | EFloat _ ->
         let n = try Hashtbl.find count e with Not_found -> 0 in
         Hashtbl.replace count e (n+1);
         e
@@ -250,18 +252,23 @@ class share_constant = object
   method program p =
     let p = super#program p in
     let all = Hashtbl.create 17 in
+    let shareit_num = fun (prefix, s) ->
+      let l = String.length s in
+      if l > 2
+      then Some (prefix^s)
+      else None in
     Hashtbl.iter (fun x n ->
         let shareit = match x with
           | EStr(s,_) when n > 1 ->
             if String.length s < 20
             then Some ("str_"^s)
             else Some ("str_"^(String.sub s ~pos:0 ~len:16)^"_abr")
-          | ENum f when n > 1 ->
+          | EFloat f when n > 1 ->
             let s = Javascript.string_of_number f in
-            let l = String.length s in
-            if l > 2
-            then Some ("num_"^s)
-            else None
+            shareit_num("float", s);
+          | EInt i when n > 1 -> 
+            let s = string_of_int(i) in
+            shareit_num("int", s);
           | _ -> None in
         match shareit with
         | Some name ->
@@ -751,18 +758,18 @@ let assign_op = function
       match exp=exp',exp=exp'' with
         | false,false -> None
         | true, false ->
-          if exp'' = ENum 1.
+          if exp'' = EInt 1
           then Some (EUn (IncrB,exp))
           else Some (EBin (PlusEq,exp,exp''))
         | false, true ->
-          if exp' = ENum 1.
+          if exp' = EInt 1
           then Some (EUn (IncrB,exp))
           else Some (EBin (PlusEq,exp,exp'))
         | true, true ->
-          Some(EBin(StarEq,exp,ENum 2.))
+          Some(EBin(StarEq,exp,EInt 1))
     end
   | (exp,EBin (Minus, exp',y)) when exp = exp' ->
-    if y = ENum 1.
+    if y = EInt 1;
     then Some (EUn (DecrB, exp))
     else Some (EBin (MinusEq, exp,y))
   | (exp,EBin (Mul, exp',exp'')) ->
@@ -787,19 +794,28 @@ class simpl = object(m)
     match e with
     | EBin (Plus,e1,e2) -> begin
         match e2,e1 with
-        | ENum n, _ when n < 0. ->
-          EBin (Minus, e1, ENum (-. n))
-        | _,ENum n when n < 0. ->
-          EBin (Minus, e2, ENum (-. n))
-        | ENum 0., (ENum _ as x) -> x
-        | (ENum _ as x), ENum 0. -> x
+        | EFloat n, _ when n < 0. ->
+          EBin (Minus, e1, EFloat (-. n))
+        | EInt n, _ when n < 0 ->
+          EBin (Minus, e1, EInt (- n))
+        | _,EFloat n when n < 0. ->
+          EBin (Minus, e2, EFloat (-. n))
+        | _,EInt n when n < 0 ->
+          EBin (Minus, e2, EInt (- n))
+        | EFloat 0., (EFloat _ as x) -> x
+        | EInt 0, (EInt _ as x) -> x
+        | (EFloat _ as x), EFloat 0. -> x
+        | (EInt _ as x), EInt 0 -> x
         | _ -> e
       end
     | EBin (Minus,e1,e2) -> begin
         match e2,e1 with
-        | ENum n,_  when n < 0. ->
-          EBin (Plus, e1, ENum (-. n))
-        | (ENum _ as x), ENum 0. -> x
+        | EFloat n,_  when n < 0. ->
+          EBin (Plus, e1, EFloat (-. n))
+        | EInt n,_  when n < 0 ->
+          EBin (Plus, e1, EInt (- n))
+        | (EFloat _ as x), EFloat 0. -> x
+        | (EInt _ as x), EInt 0 -> x
         | _ -> e
       end
     | _ -> e

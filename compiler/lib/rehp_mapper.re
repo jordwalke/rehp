@@ -304,7 +304,8 @@ let create = () => {
         EObj(mappeds);
       | EStr(_) as x
       | EBool(_) as x
-      | ENum(_) as x
+      | EInt(_) as x
+      | EFloat(_) as x
       | EQuote(_) as x
       | ERegexp(_) as x => x
       }

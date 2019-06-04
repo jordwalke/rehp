@@ -225,7 +225,7 @@ and from_js_expression =
       N,
     )
   | Javascript.EBool(b) => EBool(b)
-  | Javascript.ENum(flt) => ENum(flt)
+  | Javascript.ENum(flt) => EFloat(flt)
   | Javascript.EQuote(s) => EQuote(s)
   | Javascript.ERegexp(s, Some(opt)) =>
     ECall(

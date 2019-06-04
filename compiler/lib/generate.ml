@@ -248,9 +248,9 @@ end
 
 let var x = J.EVar (Id.V x)
 
-let int n = J.ENum (float n)
+let int n = J.EInt n
 
-let int32 n = J.ENum (Int32.to_float n)
+let int32 n = J.EInt (Int32.to_int n)
 
 let one = int 1
 
@@ -258,8 +258,8 @@ let zero = int 0
 
 let plus_int x y =
   match x, y with
-  | J.ENum 0., x | x, J.ENum 0. -> x
-  | J.ENum x, J.ENum y -> J.ENum Int32.(to_float (add (of_float x) (of_float y)))
+  | J.EInt 0, x | x, J.EInt 0 -> x
+  | J.EInt x, J.EInt y -> J.EInt (x + y)
   | x, y -> J.EBin (J.IntPlus, x, y)
 
 let bool e = J.ECond (e, one, zero)
@@ -267,7 +267,7 @@ let bool e = J.ECond (e, one, zero)
 (*let boolnot e = J.ECond (e, zero, one)*)
 let val_float f = f
 
-(*J.EArr [Some (J.ENum 253.); Some f]*)
+(*J.EArr [Some (J.EFloat 253.); Some f]*)
 let float_val e = e
 
 (*J.EAccess (e, one)*)
@@ -281,7 +281,7 @@ let source_location ctx ?after pc =
 
 (****)
 
-let float_const f = val_float (J.ENum f)
+let float_const f = val_float (J.EFloat f)
 
 let s_var name = J.EVar (Id.ident name)
 
@@ -728,14 +728,14 @@ let parallel_renaming params args continuation queue =
 (* let apply_fun_raw ctx f params = *)
 (*   let n = List.length params in *)
 (*   J.ECond (J.EBin (J.EqEq, J.EDot (f, "length"), *)
-(*                    J.ENum (float n)), *)
+(*                    J.EFloat (float n)), *)
 (*            J.ECall (f, params, Loc.N), *)
 (*            J.ECall (runtime_fun ctx "caml_call_gen", *)
 (*                     [f; J.EArr (List.map (fun x -> Some x) params)], Loc.N)) *)
 let apply_fun_raw ctx f params =
   let n = List.length params in
   J.ECond
-    ( J.EBin (J.EqEqEq, arity_test ~ctx f, J.ENum (float n))
+    ( J.EBin (J.EqEqEq, arity_test ~ctx f, J.EInt n)
     , J.ECall (f, params, Loc.N)
     , J.ECall
         ( runtime_fun ctx "caml_call_gen"
@@ -1106,7 +1106,7 @@ let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
       let ins =
         if Config.Flag.debugger () then J.Debugger_statement else J.Empty_statement
       in
-      (J.ENum 0., const_p, queue), [ins, loc]
+      (J.EFloat 0., const_p, queue), [ins, loc]
   | Prim (p, l) ->
       let res =
         match p, l with
@@ -1330,7 +1330,7 @@ and translate_instr ctx expr_queue loc instr backend =
         expr_queue
         mutator_p
         [ ( J.Expression_statement
-              (J.EBin (J.PlusEq, J.EStructAccess (cx, J.ENum 1.), int n))
+              (J.EBin (J.PlusEq, J.EStructAccess (cx, J.EInt 1), int n))
           , loc ) ]
   | Array_set (x, y, z) ->
       let (_px, cx), expr_queue = access_queue expr_queue x in
@@ -1637,7 +1637,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
         let l =
           List.flatten
             (List.map l ~f:(fun (ints, br) ->
-                 map_last (fun last i -> J.ENum (float i), if last then br else []) ints
+                 map_last (fun last i -> J.EInt i, if last then br else []) ints
              ))
         in
         !all_never, [J.Switch_statement (cx, l, Some last, []), loc]
@@ -1705,7 +1705,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
             interm
             succs
             loc
-            (J.EStructAccess (cx, J.ENum 0.))
+            (J.EStructAccess (cx, J.EInt 0))
             (DTree.build_switch a2)
             backend
         in
@@ -1756,7 +1756,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
             interm
             succs
             loc
-            (J.EStructAccess (var x, J.ENum 0.))
+            (J.EStructAccess (var x, J.EInt 0))
             (DTree.build_switch a2)
             backend
         in

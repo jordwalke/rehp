@@ -82,7 +82,8 @@ let rec enot_rec = e => {
     | J.EFun(_)
     | J.EStr(_)
     | J.EArr(_)
-    | J.ENum(_)
+    | J.EFloat(_)
+    | J.EInt(_)
     | J.EObj(_)
     | J.EQuote(_)
     | J.ERegexp(_)
@@ -151,11 +152,16 @@ let assignment_of_statement = st =>
 let simplify_condition =
   fun
   /* | J.ECond _  -> J.ENum 1. */
-  | J.ECond(e, J.ENum(1.), J.ENum(0.)) => e
-  | J.ECond(e, J.ENum(0.), J.ENum(1.)) => J.EUn(J.Not, e)
-  | J.ECond(J.EBin(J.NotEqEq | J.NotEq, J.ENum(n), y), e1, e2)
-  | J.ECond(J.EBin(J.NotEqEq | J.NotEq, y, J.ENum(n)), e1, e2) =>
-    J.ECond(J.EBin(J.Band, y, J.ENum(n)), e1, e2)
+  | J.ECond(e, J.EFloat(1.), J.EFloat(0.)) => e
+  | J.ECond(e, J.EInt(1), J.EInt(0)) => e
+  | J.ECond(e, J.EFloat(0.), J.EFloat(1.)) => J.EUn(J.Not, e)
+  | J.ECond(e, J.EInt(0), J.EInt(1)) => J.EUn(J.Not, e)
+  | J.ECond(J.EBin(J.NotEqEq | J.NotEq, J.EInt(n), y), e1, e2)
+  | J.ECond(J.EBin(J.NotEqEq | J.NotEq, y, J.EInt(n)), e1, e2) =>
+    J.ECond(J.EBin(J.Band, y, J.EInt(n)), e1, e2)
+  | J.ECond(J.EBin(J.NotEqEq | J.NotEq, J.EFloat(n), y), e1, e2)
+  | J.ECond(J.EBin(J.NotEqEq | J.NotEq, y, J.EFloat(n)), e1, e2) =>
+    J.ECond(J.EBin(J.Band, y, J.EFloat(n)), e1, e2)
   | cond => cond;
 
 let simplify_if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) =>
@@ -170,30 +176,26 @@ let simplify_if_statement = (e, loc, iftrue, truestop, iffalse, falsestop) =>
 let simplify_full_if_statement =
     (e, loc, iftrue, truestop, iffalse, falsestop) =>
   /* Generates conditional */
-  try (
-    {
-      let (x1, (e1, _)) = assignment_of_statement(iftrue);
-      let (x2, (e2, _)) = assignment_of_statement(iffalse);
-      if (x1 != x2) {
-        raise(Not_assignment);
+  try({
+    let (x1, (e1, _)) = assignment_of_statement(iftrue);
+    let (x2, (e2, _)) = assignment_of_statement(iffalse);
+    if (x1 != x2) {
+      raise(Not_assignment);
+    };
+    let exp =
+      if (e1 == e) {
+        J.EBin(J.Or, e, e2);
+      } else {
+        J.ECond(e, e1, e2);
       };
-      let exp =
-        if (e1 == e) {
-          J.EBin(J.Or, e, e2);
-        } else {
-          J.ECond(e, e1, e2);
-        };
-      [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
-    }
-  ) {
+    [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
+  }) {
   | Not_assignment =>
-    try (
-      {
-        let e1 = expression_of_statement(iftrue);
-        let e2 = expression_of_statement(iffalse);
-        [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
-      }
-    ) {
+    try({
+      let e1 = expression_of_statement(iftrue);
+      let e2 = expression_of_statement(iffalse);
+      [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
+    }) {
     | Not_expression =>
       simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop)
     }
@@ -217,30 +219,26 @@ let rec return_expression_of_statement = st =>
 
 let simplify_single_statement_if_statement =
     (e, loc, iftrue, truestop, iffalse, falsestop) =>
-  try (
-    {
-      let (x1, (e1, _)) = single_assignment_of_statement(iftrue);
-      let (x2, (e2, _)) = single_assignment_of_statement(iffalse);
-      if (x1 != x2) {
-        raise(Not_assignment);
+  try({
+    let (x1, (e1, _)) = single_assignment_of_statement(iftrue);
+    let (x2, (e2, _)) = single_assignment_of_statement(iffalse);
+    if (x1 != x2) {
+      raise(Not_assignment);
+    };
+    let exp =
+      if (e1 == e) {
+        J.EBin(J.Or, e, e2);
+      } else {
+        J.ECond(e, e1, e2);
       };
-      let exp =
-        if (e1 == e) {
-          J.EBin(J.Or, e, e2);
-        } else {
-          J.ECond(e, e1, e2);
-        };
-      [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
-    }
-  ) {
+    [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
+  }) {
   | Not_assignment =>
-    try (
-      {
-        let e1 = return_expression_of_statement(iftrue);
-        let e2 = return_expression_of_statement(iffalse);
-        [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
-      }
-    ) {
+    try({
+      let e1 = return_expression_of_statement(iftrue);
+      let e2 = return_expression_of_statement(iffalse);
+      [(J.Return_statement(Some(J.ECond(e, e1, e2))), loc)];
+    }) {
     | Not_return =>
       simplify_if_statement(e, loc, iftrue, truestop, iffalse, falsestop)
     }
@@ -377,7 +375,8 @@ let rec get_variable = acc =>
   | J.EFun(_)
   | J.EStr(_)
   | J.EBool(_)
-  | J.ENum(_)
+  | J.EInt(_)
+  | J.EFloat(_)
   | J.EQuote(_)
   | J.ERaw(_)
   | J.ERegexp(_) => acc

@@ -118,7 +118,8 @@ and from_expression = e =>
   | EObj(lst) =>
     EObj(List.map(~f=((nm, e)) => (nm, from_expression(e)), lst))
   | EBool(b) => EBool(b)
-  | ENum(flt) => ENum(flt)
+  | EFloat(flt) => ENum(flt)
+  | EInt(i) => ENum(float_of_int(i))
   | EQuote(s) => EQuote(s)
   | ERegexp(s, sopt) => ERegexp(s, sopt)
   }

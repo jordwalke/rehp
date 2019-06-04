@@ -465,7 +465,7 @@ let rec expression = (input, x) =>
 
   | Rehp.EVectlength(e) =>
     let (eOut, eMapped) = expression(input, e);
-    let eMapped = Php.(EBin(Minus, EDot(eMapped, "count()"), ENum(1.0)));
+    let eMapped = Php.(EBin(Minus, EDot(eMapped, "count()"), EInt(1)));
     (eOut, eMapped);
   | Rehp.EArrLen(e) =>
     let (eOut, eMapped) = expression(input, e);
@@ -507,7 +507,8 @@ let rec expression = (input, x) =>
     (joinAll(outs), Php.EObj(mappeds));
   | Rehp.EStr(x, y) => (emptyOutput, Php.EStr(x, y))
   | Rehp.EBool(b) => (emptyOutput, Php.EBool(b))
-  | Rehp.ENum(n) => (emptyOutput, Php.ENum(n))
+  | Rehp.EFloat(n) => (emptyOutput, Php.ENum(n))
+  | Rehp.EInt(n) => (emptyOutput, Php.EInt(n))
   | Rehp.EQuote(s) => (emptyOutput, Php.EQuote(s))
   | Rehp.ERegexp(x, y) => (emptyOutput, Php.ERegexp(x, y))
   }
