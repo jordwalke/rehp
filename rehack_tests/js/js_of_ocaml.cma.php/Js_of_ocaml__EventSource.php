@@ -46,7 +46,7 @@ final class Js_of_ocaml__EventSource {
         return $caml_call1($caml_get_public_method($x, -893090218, 199), $x);
       };
       $lk = ! ! $b;
-      ((function($t1, $t0, $param) {return $t1->withCredentials = $t0;})($init, $lk, $lj));
+      ((function($t1, $t0, $param) {$t1->withCredentials = $t0;return 0;})($init, $lk, $lj));
       return $init;
     };
     $lf = function($x) use ($caml_call1,$caml_get_public_method) {

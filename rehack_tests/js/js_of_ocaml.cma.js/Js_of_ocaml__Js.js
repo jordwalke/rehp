@@ -164,7 +164,7 @@ var array_constructor = function(t5, param) {return t5.Array;}(h, g);
 
 function array_get(aa, Z) {return aa[Z];}
 
-function array_set(Y, X, W) {return Y[X] = W;}
+function array_set(Y, X, W) {Y[X] = W;return 0;}
 
 function array_map_poly(a, cb) {
   function V(x) {return caml_call1(caml_get_public_method(x, 5442204, 6), x);}
@@ -334,7 +334,8 @@ function string_of_error(e) {
 }
 
 function export_js(field, x) {
-  return runtime["caml_js_export_var"](0)[field] = x;
+  runtime["caml_js_export_var"](0)[field] = x;
+  return 0;
 }
 
 function export__0(field, x) {return export_js(field.toString(), x);}

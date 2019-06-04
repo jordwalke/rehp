@@ -191,7 +191,7 @@ function handler(f) {
       var fN = function(x) {
         return caml_call1(caml_get_public_method(x, 1049971873, 59), x);
       };
-      (function(t19, t18, param) {return t19.returnValue = t18;}(e__0, res__0, fN
+      (function(t19, t18, param) {t19.returnValue = t18;return 0;}(e__0, res__0, fN
        ));
     }
     return res__0;
@@ -219,7 +219,7 @@ function full_handler(f) {
         var fJ = function(x) {
           return caml_call1(caml_get_public_method(x, 1049971873, 61), x);
         };
-        (function(t22, t21, param) {return t22.returnValue = t21;}(e__0, res__0, fJ
+        (function(t22, t21, param) {t22.returnValue = t21;return 0;}(e__0, res__0, fJ
          ));
       }
       return res__0;
@@ -339,7 +339,8 @@ function preventDefault(ev) {
     return caml_call1(caml_get_public_method(x, 1049971873, 75), x);
   }
   var fe = ! ! 0;
-  return function(t46, t45, param) {return t46.returnValue = t45;}(ev, fe, fd);
+  return function(t46, t45, param) {t46.returnValue = t45;return 0;}(ev, fe, fd
+  );
 }
 
 var Js_of_ocaml_Dom = [

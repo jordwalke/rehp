@@ -185,7 +185,7 @@ final class Js_of_ocaml__Js {
     $h = $Unsafe[1];
     $array_constructor = (function($t5, $param) {return $t5->Array;})($h, $g);
     $array_get = function($aa, $Z) {return $aa[$Z];};
-    $array_set = function($Y, $X, $W) {return $Y[$X] = $W;};
+    $array_set = function($Y, $X, $W) {$Y[$X] = $W;return 0;};
     $array_map_poly = function($a, $cb) use ($caml_call1,$caml_get_public_method) {
       $V = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, 5442204, 6), $x);
@@ -241,7 +241,7 @@ final class Js_of_ocaml__Js {
       Vector{0, $Error, (object)darray[]}
     );
     
-    $raise_js_error =  (function (exn) { throw exn }) ;
+    $raise_js_error =  (function($exn) {throw $exn;}) ;
     $o = function($x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -465951225, 10), $x);
     };
@@ -358,7 +358,8 @@ final class Js_of_ocaml__Js {
       );
     };
     $export_js = function($field, $x) use ($runtime) {
-      return $runtime["caml_js_export_var"](0)[$field] = $x;
+      $runtime["caml_js_export_var"](0)[$field] = $x;
+      return 0;
     };
     $export__0 = function($field, $x) use ($export_js) {
       return $export_js($field->toString(), $x);

@@ -52,32 +52,32 @@ var Event = [0,webglcontextlost,webglcontextrestored,webglcontextcreationerror
 ];
 
 function getContext(c) {
-  function s7(x) {
+  function s8(x) {
     return caml_call1(caml_get_public_method(x, -388424711, 294), x);
   }
-  var s8 = "webgl";
-  var ctx = function(t3, t2, param) {return t3.getContext(t2);}(c, s8, s7);
+  var s9 = "webgl";
+  var ctx = function(t3, t2, param) {return t3.getContext(t2);}(c, s9, s8);
   if (caml_call1(Js_of_ocaml_Js[5][5], ctx)) {return ctx;}
-  function s9(x) {
+  function s_(x) {
     return caml_call1(caml_get_public_method(x, -388424711, 295), x);
   }
-  var s_ = "experimental-webgl";
-  return function(t1, t0, param) {return t1.getContext(t0);}(c, s_, s9);
+  var ta = "experimental-webgl";
+  return function(t1, t0, param) {return t1.getContext(t0);}(c, ta, s_);
 }
 
 function getContextWithAttributes(c, attribs) {
-  function s3(x) {
+  function s4(x) {
     return caml_call1(caml_get_public_method(x, -719364538, 296), x);
   }
-  var s4 = "webgl";
-  var ctx = function(t9, t7, t8, param) {return t9.getContext(t7, t8);}(c, s4, attribs, s3
+  var s5 = "webgl";
+  var ctx = function(t9, t7, t8, param) {return t9.getContext(t7, t8);}(c, s5, attribs, s4
   );
   if (caml_call1(Js_of_ocaml_Js[5][5], ctx)) {return ctx;}
-  function s5(x) {
+  function s6(x) {
     return caml_call1(caml_get_public_method(x, -719364538, 297), x);
   }
-  var s6 = "experimental-webgl";
-  return function(t6, t4, t5, param) {return t6.getContext(t4, t5);}(c, s6, attribs, s5
+  var s7 = "experimental-webgl";
+  return function(t6, t4, t5, param) {return t6.getContext(t4, t5);}(c, s7, attribs, s6
   );
 }
 

@@ -37,8 +37,8 @@ var ph = Js_of_ocaml_Js[50][1];
 var obj = function(t0, param) {return t0.Object;}(ph, pg);
 
 function create(param) {
-  var pD = 0;
-  return function(t1, param) {return new t1();}(obj, pD);
+  var pE = 0;
+  return function(t1, param) {return new t1();}(obj, pE);
 }
 
 function add(t, k, v) {
@@ -46,7 +46,9 @@ function add(t, k, v) {
     return caml_call1(caml_get_public_method(x, -942667500, 250), x);
   }
   var pC = "_";
-  return t[function(t3, t2, param) {return t3.concat(t2);}(k, pC, pB)] = v;
+  var pD = 0;
+  t[function(t3, t2, param) {return t3.concat(t2);}(k, pC, pB)] = v;
+  return pD;
 }
 
 function remove(t, k) {

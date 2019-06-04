@@ -87,7 +87,7 @@ final class Js_of_ocaml__Regexp {
       $a7 = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, 180472028, 24), $x);
       };
-      ((function($t12, $t11, $param) {return $t12->lastIndex = $t11;})($r, $i, $a7));
+      ((function($t12, $t11, $param) {$t12->lastIndex = $t11;return 0;})($r, $i, $a7));
       $a8 = $Js_of_ocaml_Js[21];
       $a9 = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -1021447279, 25), $x);
@@ -101,7 +101,7 @@ final class Js_of_ocaml__Regexp {
       $a0 = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, 180472028, 26), $x);
       };
-      ((function($t17, $t16, $param) {return $t17->lastIndex = $t16;})($r, $i, $a0));
+      ((function($t17, $t16, $param) {$t17->lastIndex = $t16;return 0;})($r, $i, $a0));
       $a1 = function($res_pre) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
         $res = $caml_call1($Js_of_ocaml_Js[21], $res_pre);
         $a6 = function($x) use ($caml_call1,$caml_get_public_method) {
@@ -153,7 +153,7 @@ final class Js_of_ocaml__Regexp {
         return $caml_call1($caml_get_public_method($x, 180472028, 30), $x);
       };
       $aP = 0;
-      ((function($t28, $t27, $param) {return $t28->lastIndex = $t27;})($r, $aP, $aO));
+      ((function($t28, $t27, $param) {$t28->lastIndex = $t27;return 0;})($r, $aP, $aO));
       $aQ = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, 724060212, 31), $x);
       };
@@ -227,7 +227,7 @@ final class Js_of_ocaml__Regexp {
         return $caml_call1($caml_get_public_method($x, 180472028, 37), $x);
       };
       $aA = 0;
-      ((function($t42, $t41, $param) {return $t42->lastIndex = $t41;})($r, $aA, $az));
+      ((function($t42, $t41, $param) {$t42->lastIndex = $t41;return 0;})($r, $aA, $az));
       $aB = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -394261074, 38), $x);
       };
@@ -240,7 +240,7 @@ final class Js_of_ocaml__Regexp {
         return $caml_call1($caml_get_public_method($x, 180472028, 39), $x);
       };
       $av = 0;
-      ((function($t47, $t46, $param) {return $t47->lastIndex = $t46;})($r, $av, $au));
+      ((function($t47, $t46, $param) {$t47->lastIndex = $t46;return 0;})($r, $av, $au));
       $aw = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -203798452, 40), $x);
       };

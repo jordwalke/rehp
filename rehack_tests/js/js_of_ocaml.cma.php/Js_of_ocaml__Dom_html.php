@@ -926,7 +926,7 @@ final class Js_of_ocaml__Dom_html {
               return $caml_call1($caml_get_public_method($x, 1707673, 117), $x
               );
             };
-            return (function($t28, $t27, $param) {return $t28->type = $t27;})($res, $t, $j_);
+            return (function($t28, $t27, $param) {$t28->type = $t27;return 0;})($res, $t, $j_);
           }
         );
         $opt_iter(
@@ -938,7 +938,7 @@ final class Js_of_ocaml__Dom_html {
                 $x
               );
             };
-            return (function($t26, $t25, $param) {return $t26->name = $t25;})($res, $n, $j9);
+            return (function($t26, $t25, $param) {$t26->name = $t25;return 0;})($res, $n, $j9);
           }
         );
         return $res;
@@ -2715,7 +2715,8 @@ final class Js_of_ocaml__Dom_html {
         };
         $hq = $Js_of_ocaml_Js[7];
         return (function($t114, $t113, $param) {
-           return $t114->cancelBubble = $t113;
+           $t114->cancelBubble = $t113;
+           return 0;
          })($ev, $hq, $hp);
       };
       $hn = function($x) use ($caml_call1,$caml_get_public_method) {

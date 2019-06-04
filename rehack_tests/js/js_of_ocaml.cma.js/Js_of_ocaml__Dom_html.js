@@ -870,7 +870,8 @@ function unsafeCreateElementEx(type, name, doc, elt) {
         function j_(x) {
           return caml_call1(caml_get_public_method(x, 1707673, 117), x);
         }
-        return function(t28, t27, param) {return t28.type = t27;}(res, t, j_);
+        return function(t28, t27, param) {t28.type = t27;return 0;}(res, t, j_
+        );
       }
     );
     opt_iter(
@@ -879,7 +880,8 @@ function unsafeCreateElementEx(type, name, doc, elt) {
         function j9(x) {
           return caml_call1(caml_get_public_method(x, -922783157, 118), x);
         }
-        return function(t26, t25, param) {return t26.name = t25;}(res, n, j9);
+        return function(t26, t25, param) {t26.name = t25;return 0;}(res, n, j9
+        );
       }
     );
     return res;
@@ -2312,7 +2314,7 @@ function stopPropagation(ev) {
       return caml_call1(caml_get_public_method(x, 320837798, 177), x);
     }
     var hq = Js_of_ocaml_Js[7];
-    return function(t114, t113, param) {return t114.cancelBubble = t113;}(ev, hq, hp
+    return function(t114, t113, param) {t114.cancelBubble = t113;return 0;}(ev, hq, hp
     );
   }
   function hn(x) {
