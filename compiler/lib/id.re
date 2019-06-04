@@ -20,17 +20,21 @@
 
 /* Types for identifiers. */
 
-open Stdlib
+open Stdlib;
 type identifier = string;
 
 type ident_string = {
   name: identifier,
   var: option(Code.Var.t),
+  loc: Loc.t,
 };
 
 type t =
   | S(ident_string)
   | V(Code.Var.t);
+
+let ident: (~loc: Loc.t=?, ~var: Code.Var.t=?, identifier) => t =
+  (~loc=N, ~var=?, name) => S({name, var, loc});
 
 type property_name =
   | PNI(identifier)
@@ -40,7 +44,7 @@ type property_name =
 let compare_ident = (t1, t2) =>
   switch (t1, t2) {
   | (V(v1), V(v2)) => Code.Var.compare(v1, v2)
-  | (S({name: s1, var: v1}), S({name: s2, var: v2})) =>
+  | (S({name: s1, var: v1, _}), S({name: s2, var: v2, _})) =>
     switch (String.compare(s1, s2)) {
     | 0 =>
       switch (v1, v2) {
@@ -61,7 +65,7 @@ let is_ident = {
   let l =
     Array.init(
       256,
-      i => {
+      ~f=i => {
         let c = Char.chr(i);
         if (c >= 'a'
             && c <= 'z'
@@ -80,10 +84,10 @@ let is_ident = {
   s =>
     !StringSet.mem(s, Reserved.keyword)
     && (
-      try (
+      try(
         {
           for (i in 0 to String.length(s) - 1) {
-            let code = l[(Char.code(s.[i]))];
+            let code = l[Char.code(s.[i])];
             if (i == 0) {
               if (code != 1) {
                 raise(Not_an_ident);

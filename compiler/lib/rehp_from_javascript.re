@@ -9,7 +9,7 @@ let escape_js_regex = s => Stdlib.escape(s, '\\', "\\\\");
 
 let js_string = (s, en) =>
   ECall(
-    EDot(EVar(S({name: "String", var: None})), "new"),
+    EDot(EVar(S({name: "String", var: None, loc: N})), "new"),
     [EStr(s, en)],
     N,
   );
@@ -102,14 +102,14 @@ and from_js_expression =
       (NotEqEq | NotEq | EqEq | EqEqEq | Plus) as binop,
       e1,
       (
-        EVar(S({name: "null" | "undefined"})) | ENum(_) | EUn(Neg, _) |
+        EVar(S({name: "null" | "undefined", _})) | ENum(_) | EUn(Neg, _) |
         EBin(Mul | Minus | Div | Lsr | Lsl | Asr | Mod, _, _)
       ) as e2,
     )
   | Javascript.EBin(
       (NotEqEq | NotEq | EqEq | EqEqEq | Plus) as binop,
       (
-        EVar(S({name: "null" | "undefined"})) | ENum(_) | EUn(Neg, _) |
+        EVar(S({name: "null" | "undefined", _})) | ENum(_) | EUn(Neg, _) |
         EBin(Mul | Minus | Div | Lsr | Lsl | Asr | Mod, _, _)
       ) as e1,
       e2,
@@ -121,19 +121,19 @@ and from_js_expression =
     )
   | Javascript.EBin(Plus, e1, e2) =>
     ECall(
-      EVar(S({name: "plus", var: None})),
+      EVar(S({name: "plus", var: None, loc: N})),
       [from_js_expression(e1), from_js_expression(e2)],
       N,
     )
   | Javascript.EBin(EqEqEq, e1, e2) =>
     ECall(
-      EVar(S({name: "eqEqEq", var: None})),
+      EVar(S({name: "eqEqEq", var: None, loc: N})),
       [from_js_expression(e1), from_js_expression(e2)],
       N,
     )
   | Javascript.EBin(EqEq, e1, e2) =>
     ECall(
-      EVar(S({name: "eqEq", var: None})),
+      EVar(S({name: "eqEq", var: None, loc: N})),
       [from_js_expression(e1), from_js_expression(e2)],
       N,
     )
@@ -141,7 +141,7 @@ and from_js_expression =
     EUn(
       Not,
       ECall(
-        EVar(S({name: "eqEqEq", var: None})),
+        EVar(S({name: "eqEqEq", var: None, loc: N})),
         [from_js_expression(e1), from_js_expression(e2)],
         N,
       ),
@@ -150,14 +150,14 @@ and from_js_expression =
     EUn(
       Not,
       ECall(
-        EVar(S({name: "eqEq", var: None})),
+        EVar(S({name: "eqEq", var: None, loc: N})),
         [from_js_expression(e1), from_js_expression(e2)],
         N,
       ),
     )
   | Javascript.EBin(In, EStr(s, en), e2) =>
     ECall(
-      EVar(S({name: "is_in", var: None})),
+      EVar(S({name: "is_in", var: None, loc: N})),
       [EStr(s, en), from_js_expression(e2)],
       N,
     )
@@ -169,7 +169,7 @@ and from_js_expression =
     )
   | Javascript.EUn(Javascript.Typeof, e) =>
     ECall(
-      EVar(S({name: "typeof", var: None})),
+      EVar(S({name: "typeof", var: None, loc: N})),
       [from_js_expression(e)],
       N,
     )
@@ -180,6 +180,7 @@ and from_js_expression =
         Javascript.S({
           name: "caml_utf16_of_utf8" | "caml_utf8_of_utf16",
           var: None,
+          loc: N,
         }),
       ),
       [e],
@@ -188,8 +189,8 @@ and from_js_expression =
     from_js_expression(e)
   | Javascript.ECall(e, args, loc) =>
     ECall(from_js_expression(e), from_js_arguments(args), loc)
-  | Javascript.EVar(S({name: "this", var: None})) =>
-    EDot(EVar(S({name: "joo_global_object", var: None})), "context")
+  | Javascript.EVar(S({name: "this", var: None, loc: N})) =>
+    EDot(EVar(S({name: "joo_global_object", var: None, loc: N})), "context")
   /* | Javascript.EVar(S({name: "NaN", var: None})) => */
   /*   EDot(EVar(S({name: "joo_global_object", var: None})), "NaN") */
   /* | Javascript.EVar(S({name: "isFinite", var: None})) => */
@@ -199,7 +200,7 @@ and from_js_expression =
   | Javascript.EVar(ident) => EVar(ident)
   | Javascript.EFun((ident_opt, ident_lst, body, loc)) =>
     ECall(
-      EVar(S({name: "Func", var: None})),
+      EVar(S({name: "Func", var: None, loc: N})),
       [EFun((ident_opt, ident_lst, from_javascript(body), loc))],
       N,
     )
@@ -219,7 +220,7 @@ and from_js_expression =
     }
   | Javascript.EObj(lst) =>
     ECall(
-      EVar(S({name: "ObjectLiteral", var: None})),
+      EVar(S({name: "ObjectLiteral", var: None, loc: N})),
       [EObj(List.map(((nm, e)) => (nm, from_js_expression(e)), lst))],
       N,
     )
@@ -228,13 +229,13 @@ and from_js_expression =
   | Javascript.EQuote(s) => EQuote(s)
   | Javascript.ERegexp(s, Some(opt)) =>
     ECall(
-      EDot(EVar(S({name: "RegExp", var: None})), "new"),
+      EDot(EVar(S({name: "RegExp", var: None, loc: N})), "new"),
       [js_string(escape_js_regex(s), `Utf8), js_string(opt, `Utf8)],
       N,
     )
   | Javascript.ERegexp(s, None) =>
     ECall(
-      EDot(EVar(S({name: "RegExp", var: None})), "new"),
+      EDot(EVar(S({name: "RegExp", var: None, loc: N})), "new"),
       [js_string(escape_js_regex(s), `Utf8)],
       N,
     )
@@ -249,7 +250,10 @@ and from_js_statement =
             switch (eopt) {
             | None => (
                 id,
-                Some((EVar(S({name: "undefined", var: None})), Loc.N)),
+                Some((
+                  EVar(S({name: "undefined", var: None, loc: N})),
+                  Loc.N,
+                )),
               )
             | Some((e, loc)) => (id, Some((from_js_expression(e), loc)))
             },
@@ -273,13 +277,14 @@ and from_js_statement =
     ) => {
       let e1' = from_js_expression(e1);
       let e2' = from_js_expression(e2);
-      let call = ECall(EVar(S({name: "plus", var: None})), [e1', e2'], N);
+      let call =
+        ECall(EVar(S({name: "plus", var: None, loc: N})), [e1', e2'], N);
       Expression_statement(EBin(Eq, e1', call));
     }
   | Javascript.Expression_statement(EBin(LsrEq, e1, e2)) => {
       /* TODO: This is buggy if e1 has side effects (unlikely, but fix) */
       let unsigned_right_shift =
-        Id.S({name: "unsigned_right_shift_32", var: None});
+        Id.S({name: "unsigned_right_shift_32", var: None, loc: N});
       let call =
         ECall(
           EVar(unsigned_right_shift),
@@ -290,7 +295,7 @@ and from_js_statement =
     }
   | Javascript.Expression_statement(EBin(AsrEq, e1, e2)) => {
       /* TODO: This is buggy if e1 has side effects (unlikely, but fix) */
-      let right_shift = Id.S({name: "right_shift_32", var: None});
+      let right_shift = Id.S({name: "right_shift_32", var: None, loc: N});
       let call =
         ECall(
           EVar(right_shift),
@@ -301,7 +306,7 @@ and from_js_statement =
     }
   | Javascript.Expression_statement(EBin(LslEq, e1, e2)) => {
       /* TODO: This is buggy if e1 has side effects (unlikely, but fix) */
-      let left_shift = Id.S({name: "left_shift_32", var: None});
+      let left_shift = Id.S({name: "left_shift_32", var: None, loc: N});
       let call =
         ECall(
           EVar(left_shift),
@@ -404,7 +409,7 @@ and func_decl_to_var = (id, params, body, nid) =>
          first class functions */
       let fn =
         ECall(
-          EVar(S({name: "Func", var: None})),
+          EVar(S({name: "Func", var: None, loc: N})),
           [EFun((Some(id), params, body, nid))],
           N,
         );

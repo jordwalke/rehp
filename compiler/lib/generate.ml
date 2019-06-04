@@ -33,8 +33,6 @@
   - CLEAN UP!!!
 *)
 
-open Stdlib
-
 let debug = Debug.find "gen"
 
 let times = Debug.find "times"
@@ -285,7 +283,7 @@ let source_location ctx ?after pc =
 
 let float_const f = val_float (J.ENum f)
 
-let s_var name = J.EVar (Id.S {Id.name; Id.var = None})
+let s_var name = J.EVar (Id.ident name)
 
 let runtime_fun ctx name =
   match ctx.Ctx.exported_runtime with

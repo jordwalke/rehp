@@ -34,7 +34,8 @@ let identStr = (~ref=false, name: string): string =>
   ref ? "&$" ++ (name: string) : "$" ++ (escapeIdent(name): string);
 let ident = (~ref=false, _input, i): Id.t =>
   switch (i) {
-  | Id.S({name: id}) => Id.S({name: identStr(~ref, id), var: None})
+  | Id.S({name: id, _}) =>
+    Id.S({name: identStr(~ref, id), var: None, loc: N})
   | Id.V(_) => assert(false)
   };
 
@@ -104,7 +105,7 @@ let emptyOutput = {dec: empty, use: empty};
 
 let exists = (cur, id) =>
   switch (id) {
-  | Id.S({name: s}) => StringMap.mem(s, cur.names)
+  | Id.S({name: s, _}) => StringMap.mem(s, cur.names)
   | V(v) => Code.Var.Map.mem(v, cur.vars)
   };
 
@@ -126,16 +127,17 @@ let addOne = (varsAndNames, v) =>
       }
     };
   };
-let addOneString = (addTo, s) => addOne(addTo, Id.S({name: s, var: None}));
+let addOneString = (addTo, s) =>
+  addOne(addTo, Id.S({name: s, var: None, loc: N}));
 
 let useOneVar = addOne(empty);
 
 let mergeSum = (_k, count1, count2) =>
   switch (count1, count2) {
   | (None, None) => None /* Okay, what situation is this? */
-  | (Some(n), None) => Some(1)
-  | (None, Some(n)) => Some(1)
-  | (Some(m), Some(n)) => Some(1)
+  | (Some(_), None) => Some(1)
+  | (None, Some(_)) => Some(1)
+  | (Some(_), Some(_)) => Some(1)
   };
 
 let isEmpty = cur =>
@@ -174,7 +176,7 @@ let intersect = (cur, intersect_with) => {
 
 let exists = (cur, id) =>
   switch (id) {
-  | Id.S({name: s}) => StringMap.mem(s, cur.names)
+  | Id.S({name: s, _}) => StringMap.mem(s, cur.names)
   | V(v) => Code.Var.Map.mem(v, cur.vars)
   };
 
@@ -184,9 +186,9 @@ let outAppend = (cur, next) => {
 };
 
 let createRef = ((name, _)) => {
-  let newRef = Php.ENew(EVar(Id.S({name: "Ref", var: None})), None);
+  let newRef = Php.ENew(EVar(Id.S({name: "Ref", var: None, loc: N})), None);
   (
-    Php.EVar(Id.S({name: identStr(name), var: None})),
+    Php.EVar(Id.S({name: identStr(name), var: None, loc: N})),
     Some((newRef, Loc.N)),
   );
 };
@@ -213,9 +215,6 @@ let topLevelIdentifiersSt = (newVarsSoFar, st) =>
   | Try_statement(_, _, _) => newVarsSoFar
   | _ => newVarsSoFar
   };
-
-let topLevelIdentifiersStLoc = (newVarsSoFar, (st, _loc)) =>
-  topLevelIdentifiersSt(newVarsSoFar, st);
 
 let topLevelIdentifiers = (newVarsSoFar, (src, _)) =>
   switch (src) {
@@ -287,11 +286,6 @@ let rec foldExprs = (curMappedRev, mapper, input, curOut, wrapper, remain) =>
       wrapper,
       tl,
     );
-  };
-let str = id =>
-  switch (id) {
-  | Id.S({name}) => name
-  | V(_) => ""
   };
 let rec foldVars =
         (
@@ -372,7 +366,8 @@ let rec expression = (input, x) =>
   | Rehp.EUn(b, e1) => unop_from_rehp(input, b, e1)
   | Rehp.ECall(e1, e2, loc) =>
     let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Outs, e2_mappeds) = List.split(List.map(expression(input), e2));
+    let (e2Outs, e2_mappeds) =
+      List.split(List.map(~f=expression(input), e2));
     (joinAll([e1Out, ...e2Outs]), Php.ECall(e1Mapped, e2_mappeds, loc));
   | Rehp.ECopy(e1, loc) =>
     let (e1Out, e1Mapped) = expression(input, e1);
@@ -397,14 +392,14 @@ let rec expression = (input, x) =>
   | Rehp.ENew(e1, Some(args)) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (argsOuts, args_mappeds) =
-      List.split(List.map(expression(input), args));
+      List.split(List.map(~f=expression(input), args));
     (joinAll([e1Out, ...argsOuts]), ENew(e1Mapped, Some(args_mappeds)));
   | Rehp.ENew(e1, None) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     (e1Out, Php.ENew(e1Mapped, None));
-  | Rehp.EVar(Id.S({name: "null"})) => (emptyOutput, Php.EArr([]))
+  | Rehp.EVar(Id.S({name: "null", _})) => (emptyOutput, Php.EArr([]))
   /* Undefined is NULL */
-  | Rehp.EVar(Id.S({name: "undefined"})) => (emptyOutput, Php.ENULL)
+  | Rehp.EVar(Id.S({name: "undefined", _})) => (emptyOutput, Php.ENULL)
   | Rehp.EVar(v) =>
     let out = {use: useOneVar(v), dec: empty};
     (
@@ -442,11 +437,11 @@ let rec expression = (input, x) =>
     /* let fromScope = (bodyUsesScope.names, bodyUsesScope.vars); */
     /* let fromGlob = (bodyUsesGlobal.names, bodyUsesGlobal.vars); */
     let out = {use: bodyUsesFromOutside, dec: empty};
-    let paramIdentList = List.map(ident(input), params);
+    let paramIdentList = List.map(~f=ident(input), params);
 
     let bodyUsesFromOutsideIdents =
       List.map(
-        ((k, v)) => Id.S({name: identStr(~ref=false, k), var: None}),
+        ~f=((k, _)) => Id.ident(identStr(~ref=false, k)),
         StringMap.bindings(bodyUsesFromOutside.names),
       );
 
@@ -479,18 +474,19 @@ let rec expression = (input, x) =>
     foldExprs([], expression, input, emptyOutput, wrapInStruct, l)
   | Rehp.ETag(i, l) =>
     let (iOut, iMapped) = expression(input, i);
-    let (outs, mappeds) = List.split(List.map(expression(input), l));
+    let (outs, mappeds) = List.split(List.map(~f=expression(input), l));
     (joinAll([iOut, ...outs]), Php.ETag(iMapped, mappeds));
   /* Should have already converted EArr to functions. */
   | Rehp.EArr(l) => (
       emptyOutput,
       Php.EArr(
         List.map(
-          elem =>
-            switch (elem) {
-            | Some(elem) => Some(snd(expression(input, elem)))
-            | None => None
-            },
+          ~f=
+            elem =>
+              switch (elem) {
+              | Some(elem) => Some(snd(expression(input, elem)))
+              | None => None
+              },
           l,
         ),
       ),
@@ -500,10 +496,11 @@ let rec expression = (input, x) =>
     let (outs, mappeds) =
       List.split(
         List.map(
-          ((i, e)) => {
-            let (out, mapped) = expression(input, e);
-            (out, (i, mapped));
-          },
+          ~f=
+            ((i, e)) => {
+              let (out, mapped) = expression(input, e);
+              (out, (i, mapped));
+            },
           l,
         ),
       );
@@ -665,7 +662,7 @@ and sources = (curOut, input, x) => {
     );
   } else {
     let identsAndInits = StringMap.bindings(toHoist.names);
-    let refs = List.map(createRef, identsAndInits);
+    let refs = List.map(~f=createRef, identsAndInits);
     let refDecls = Php.Statement(Variable_statement(refs));
     /*
      * EFun will remove the used variables that are in dec.
@@ -703,7 +700,7 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
   let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
   let for_statement_node =
     Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
-  let counter = Php.EVar(Id.S({name: "$continue_counter", var: None}));
+  let counter = Php.EVar(Id.ident("$continue_counter"));
   let set_counter_to_null =
     Php.Variable_statement([(counter, Some((ENULL, loc)))]);
   let depth =
@@ -807,7 +804,7 @@ and statement = (curOut, input, x) => {
     | Rehp.For_statement(e1, e2, e3, (s, loc), depth) =>
       for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false)
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
-      let continueWithAugmentedScope = (input, ss) => {
+      let continueWithAugmentedScope = (input, _) => {
         let (e1Out, e1Mapped) =
           switch (e1) {
           | Left(e) =>
@@ -847,8 +844,7 @@ and statement = (curOut, input, x) => {
             | Some(v) => v
             | None => 0
             };
-          let counter =
-            Php.EVar(Id.S({name: "$continue_counter", var: None}));
+          let counter = Php.EVar(Id.ident("$continue_counter"));
           let set_counter_to_depth =
             Php.Variable_statement([
               (counter, Some((EInt(depth), Loc.N))),
@@ -882,14 +878,14 @@ and statement = (curOut, input, x) => {
         let outs = outAppend(eOut, stmOut);
         (outs, (eMapped, stmMapped));
       };
-      let (lOut, lMapped) = List.split(List.map(forEach, l));
+      let (lOut, lMapped) = List.split(List.map(~f=forEach, l));
       let forEach = ((e, s)) => {
         let (eOut, eMapped) = switchCase(input, e);
         let (stmOut, stmMapped) = statements(curOut, input, s);
         let outs = outAppend(eOut, stmOut);
         (outs, (eMapped, stmMapped));
       };
-      let (lOut', lMapped') = List.split(List.map(forEach, l'));
+      let (lOut', lMapped') = List.split(List.map(~f=forEach, l'));
       let outs = joinAll([eOut, dOut, ...lOut @ lOut']);
       (outs, Switch_statement(eMapped, lMapped, dMapped, lMapped'));
     | Rehp.Try_statement(b, catch, final) =>

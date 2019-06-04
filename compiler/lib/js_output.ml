@@ -28,6 +28,9 @@ XXX Beware automatic semi-colon insertion...
      the space cannot be replaced by a newline in the following expressions:
        e ++, e --, continue e, break e, return e, throw e
 *)
+
+[@@@ocaml.warning "-9"]
+[@@@ocaml.warning "-27"]
 open Stdlib
 let stats = Debug.find "output"
 

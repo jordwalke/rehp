@@ -17,6 +17,8 @@
   * along with this program; if not, write to the Free Software
   * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+[@ocaml.warning "-9"];
+[@ocaml.warning "-27"];
 
 /*
  XXX Beware automatic semi-colon insertion...
@@ -269,7 +271,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         ((pos, m) => temp_mappings := [(pos, m), ...temp_mappings^]),
         (
           file =>
-            try (Hashtbl.find(files, file)) {
+            try(Hashtbl.find(files, file)) {
             | Not_found =>
               let pos = idx_files^;
               Hashtbl.add(files, file, pos);
@@ -280,7 +282,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         ),
         (
           name =>
-            try (Hashtbl.find(names, name)) {
+            try(Hashtbl.find(names, name)) {
             | Not_found =>
               let pos = idx_names^;
               Hashtbl.add(names, name, pos);
@@ -765,7 +767,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
         PP.end_group(f);
       };
     | EUn(Delete, e) =>
-      let ident = Id.S({name: "unset", var: None});
+      let ident = Id.ident("unset");
       let call = ECall(EVar(ident), [e], Loc.N);
       expression(l, f, call);
     | EUn((IncrA | DecrA | IncrB | DecrB) as op, e) =>

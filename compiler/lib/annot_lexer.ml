@@ -1,4 +1,4 @@
-# 1 "annot_lexer.mll"
+# 1 "compiler/lib/annot_lexer.mll"
  
 (* Js_of_ocaml compiler
  * http://www.ocsigen.org/js_of_ocaml/
@@ -20,7 +20,7 @@
  *)
 open Annot_parser
 
-# 24 "annot_lexer.ml"
+# 24 "compiler/lib/annot_lexer.ml"
 let __ocaml_lex_tables = {
   Lexing.lex_base =
    "\000\000\230\255\231\255\232\255\002\000\234\255\002\000\003\000\
@@ -1917,138 +1917,138 @@ let rec initial lexbuf =
 and __ocaml_lex_initial_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 26 "annot_lexer.mll"
+# 26 "compiler/lib/annot_lexer.mll"
                (TProvides)
-# 1923 "annot_lexer.ml"
+# 1923 "compiler/lib/annot_lexer.ml"
 
   | 1 ->
-# 27 "annot_lexer.mll"
+# 27 "compiler/lib/annot_lexer.mll"
                (TRequires)
-# 1928 "annot_lexer.ml"
+# 1928 "compiler/lib/annot_lexer.ml"
 
   | 2 ->
-# 28 "annot_lexer.mll"
+# 28 "compiler/lib/annot_lexer.mll"
                  (TForBackend)
-# 1933 "annot_lexer.ml"
+# 1933 "compiler/lib/annot_lexer.ml"
 
   | 3 ->
-# 29 "annot_lexer.mll"
+# 29 "compiler/lib/annot_lexer.mll"
            (TA_Pure )
-# 1938 "annot_lexer.ml"
+# 1938 "compiler/lib/annot_lexer.ml"
 
   | 4 ->
-# 30 "annot_lexer.mll"
+# 30 "compiler/lib/annot_lexer.mll"
             (TA_Const )
-# 1943 "annot_lexer.ml"
+# 1943 "compiler/lib/annot_lexer.ml"
 
   | 5 ->
-# 31 "annot_lexer.mll"
+# 31 "compiler/lib/annot_lexer.mll"
               (TA_Mutable )
-# 1948 "annot_lexer.ml"
+# 1948 "compiler/lib/annot_lexer.ml"
 
   | 6 ->
-# 32 "annot_lexer.mll"
+# 32 "compiler/lib/annot_lexer.mll"
               (TA_Mutator )
-# 1953 "annot_lexer.ml"
+# 1953 "compiler/lib/annot_lexer.ml"
 
   | 7 ->
-# 33 "annot_lexer.mll"
+# 33 "compiler/lib/annot_lexer.mll"
               (TA_Shallow)
-# 1958 "annot_lexer.ml"
+# 1958 "compiler/lib/annot_lexer.ml"
 
   | 8 ->
-# 34 "annot_lexer.mll"
+# 34 "compiler/lib/annot_lexer.mll"
                      (TA_Object_literal)
-# 1963 "annot_lexer.ml"
+# 1963 "compiler/lib/annot_lexer.ml"
 
   | 9 ->
-# 35 "annot_lexer.mll"
+# 35 "compiler/lib/annot_lexer.mll"
               (TVersion)
-# 1968 "annot_lexer.ml"
+# 1968 "compiler/lib/annot_lexer.ml"
 
   | 10 ->
-# 36 "annot_lexer.mll"
+# 36 "compiler/lib/annot_lexer.mll"
               (TWeakdef)
-# 1973 "annot_lexer.ml"
+# 1973 "compiler/lib/annot_lexer.ml"
 
   | 11 ->
-# 37 "annot_lexer.mll"
+# 37 "compiler/lib/annot_lexer.mll"
                                                          (
       let x = Lexing.lexeme lexbuf in
       TIdent x)
-# 1980 "annot_lexer.ml"
+# 1980 "compiler/lib/annot_lexer.ml"
 
   | 12 ->
-# 40 "annot_lexer.mll"
+# 40 "compiler/lib/annot_lexer.mll"
                                     (
       let x = Lexing.lexeme lexbuf in
       TVNum x)
-# 1987 "annot_lexer.ml"
+# 1987 "compiler/lib/annot_lexer.ml"
 
   | 13 ->
-# 43 "annot_lexer.mll"
+# 43 "compiler/lib/annot_lexer.mll"
         (LPARENT)
-# 1992 "annot_lexer.ml"
+# 1992 "compiler/lib/annot_lexer.ml"
 
   | 14 ->
-# 44 "annot_lexer.mll"
+# 44 "compiler/lib/annot_lexer.mll"
         (RPARENT)
-# 1997 "annot_lexer.ml"
+# 1997 "compiler/lib/annot_lexer.ml"
 
   | 15 ->
-# 45 "annot_lexer.mll"
+# 45 "compiler/lib/annot_lexer.mll"
         (TComma)
-# 2002 "annot_lexer.ml"
+# 2002 "compiler/lib/annot_lexer.ml"
 
   | 16 ->
-# 46 "annot_lexer.mll"
+# 46 "compiler/lib/annot_lexer.mll"
         (TSemi)
-# 2007 "annot_lexer.ml"
+# 2007 "compiler/lib/annot_lexer.ml"
 
   | 17 ->
-# 47 "annot_lexer.mll"
+# 47 "compiler/lib/annot_lexer.mll"
          (LE)
-# 2012 "annot_lexer.ml"
+# 2012 "compiler/lib/annot_lexer.ml"
 
   | 18 ->
-# 48 "annot_lexer.mll"
+# 48 "compiler/lib/annot_lexer.mll"
          (LT)
-# 2017 "annot_lexer.ml"
+# 2017 "compiler/lib/annot_lexer.ml"
 
   | 19 ->
-# 49 "annot_lexer.mll"
+# 49 "compiler/lib/annot_lexer.mll"
          (GT)
-# 2022 "annot_lexer.ml"
+# 2022 "compiler/lib/annot_lexer.ml"
 
   | 20 ->
-# 50 "annot_lexer.mll"
+# 50 "compiler/lib/annot_lexer.mll"
          (GE)
-# 2027 "annot_lexer.ml"
+# 2027 "compiler/lib/annot_lexer.ml"
 
   | 21 ->
-# 51 "annot_lexer.mll"
+# 51 "compiler/lib/annot_lexer.mll"
          (EQ)
-# 2032 "annot_lexer.ml"
+# 2032 "compiler/lib/annot_lexer.ml"
 
   | 22 ->
-# 52 "annot_lexer.mll"
+# 52 "compiler/lib/annot_lexer.mll"
                ( initial lexbuf )
-# 2037 "annot_lexer.ml"
+# 2037 "compiler/lib/annot_lexer.ml"
 
   | 23 ->
-# 53 "annot_lexer.mll"
+# 53 "compiler/lib/annot_lexer.mll"
         ( EOF )
-# 2042 "annot_lexer.ml"
+# 2042 "compiler/lib/annot_lexer.ml"
 
   | 24 ->
-# 54 "annot_lexer.mll"
+# 54 "compiler/lib/annot_lexer.mll"
            (EOL)
-# 2047 "annot_lexer.ml"
+# 2047 "compiler/lib/annot_lexer.ml"
 
   | 25 ->
-# 55 "annot_lexer.mll"
+# 55 "compiler/lib/annot_lexer.mll"
       ( TOTHER(Lexing.lexeme lexbuf) )
-# 2052 "annot_lexer.ml"
+# 2052 "compiler/lib/annot_lexer.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_initial_rec lexbuf __ocaml_lex_state

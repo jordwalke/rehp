@@ -273,6 +273,7 @@ let add_file ~backend f =
             always_included := {filename = f; program = code} :: !always_included;
             Hashtbl.add code_pieces id (code, requires)
           | Some (pi,name,kind,ka) ->
+            let code = Macro.f code in
             let module J = Javascript in
             let rec find = function
               | [] -> None

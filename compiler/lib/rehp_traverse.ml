@@ -18,22 +18,22 @@
  *)
 
 open Stdlib
-open Javascript
+open Rehp
 
 class type mapper = object
-  method expression : expression -> expression
-  method expression_o : expression option -> expression option
-  method switch_case : expression -> expression
-  method initialiser : (expression * Loc.t) -> (expression * Loc.t)
-  method initialiser_o : (expression * Loc.t) option -> (expression * Loc.t) option
+  method expression : Rehp.expression -> Rehp.expression
+  method expression_o : Rehp.expression option -> Rehp.expression option
+  method switch_case : Rehp.expression -> Rehp.expression
+  method initialiser : (Rehp.expression * Loc.t) -> (Rehp.expression * Loc.t)
+  method initialiser_o : (Rehp.expression * Loc.t) option -> (Rehp.expression * Loc.t) option
   method variable_declaration : variable_declaration -> variable_declaration
-  method statement : statement -> statement
-  method statement_o : (statement * Loc.t) option -> (statement * Loc.t) option
-  method statements : statement_list -> statement_list
-  method source : source_element -> source_element
-  method sources : source_elements -> source_elements
+  method statement : Rehp.statement -> Rehp.statement
+  method statement_o : (Rehp.statement * Loc.t) option -> (Rehp.statement * Loc.t) option
+  method statements : Rehp.statement_list -> Rehp.statement_list
+  method source : Rehp.source_element -> Rehp.source_element
+  method sources : Rehp.source_elements -> Rehp.source_elements
   method ident : Id.t -> Id.t
-  method program : program -> program
+  method program : Rehp.program -> Rehp.program
 end
 
 
@@ -42,7 +42,7 @@ class map : mapper = object(m)
   method ident i = i
 
   method statements l = List.map l ~f:(fun (s, pc) -> (m#statement s, pc))
-
+  
   method variable_declaration (id, eo) = m#ident id, m#initialiser_o eo
 
   method statement s =
@@ -65,7 +65,7 @@ class map : mapper = object(m)
         Do_while_statement ((m#statement s, loc), m#expression e)
     | While_statement(e, (s, loc)) ->
         While_statement(m#expression e, (m#statement s, loc))
-    | For_statement(e1, e2, e3, (s, loc)) ->
+    | For_statement(e1, e2, e3, (s, loc), d) ->
         let e1 =
           match e1 with
           | Left o ->
@@ -74,7 +74,7 @@ class map : mapper = object(m)
               Right(List.map l ~f:(fun (id, eo) -> m#ident id,m#initialiser_o eo))
         in
         For_statement (e1, m#expression_o e2, m#expression_o e3,
-                       (m#statement s, loc))
+                       (m#statement s, loc), d)
     | ForIn_statement (e1, e2, (s, loc)) ->
         let e1 =
           match e1 with
@@ -82,7 +82,8 @@ class map : mapper = object(m)
           | Right ((id,e)) -> Right ((m#ident id,m#initialiser_o e))
         in
         ForIn_statement (e1, m#expression e2, (m#statement s, loc))
-    | Continue_statement s -> Continue_statement s
+    | Continue_statement (s, depth) ->
+        Continue_statement (s, depth)
     | Break_statement s ->
         Break_statement s
     | Return_statement e ->
@@ -126,8 +127,14 @@ class map : mapper = object(m)
   | EUn(b,e1) -> EUn(b,m#expression  e1)
   | ECall(e1,e2,loc) ->
     ECall(m#expression  e1,List.map e2 ~f:m#expression,loc)
+  | ECopy(e1,loc) ->
+    ECopy(m#expression e1,loc)
   | EAccess(e1,e2) ->
     EAccess(m#expression  e1,m#expression  e2)
+  | EStructAccess (e1, e2) ->
+    EStructAccess(m#expression e1, m#expression e2)
+  | EArrAccess(e1,e2) ->
+    EArrAccess(m#expression e1, m#expression e2)
   | EDot(e1,id) -> EDot(m#expression  e1, id)
   | ENew(e1,Some args) ->
     ENew(m#expression  e1,Some (List.map args ~f:m#expression))
@@ -139,6 +146,11 @@ class map : mapper = object(m)
       | None -> None
       | Some i -> Some (m#ident i) in
     EFun (idopt, List.map params ~f:m#ident, m#sources body ,nid)
+  | EArityTest e -> EArityTest (m#expression e)
+  | EVectlength e -> EVectlength (m#expression e)
+  | EArrLen e -> EArrLen (m#expression e)
+  | EStruct l -> EStruct (List.map ~f:(fun x -> m#expression x) l)
+  | ETag (i, l) -> ETag (m#expression(i), List.map ~f:(fun x -> m#expression x) l)
   | EArr l ->
     EArr (List.map l ~f:(fun x -> m#expression_o x))
   | EObj l ->
@@ -402,7 +414,7 @@ class free =
           (id,Some (e,pc)))
       in
       Variable_statement l
-    | For_statement (Right l, e2, e3, (s, loc)) ->
+    | For_statement (Right l, e2, e3, (s, loc), d) ->
       let l = List.map l ~f:(fun (id,eopt) ->
           m#def_var id;
           match eopt with
@@ -412,7 +424,7 @@ class free =
               (id,Some (e,pc)))
       in
       For_statement (Right l, m#expression_o e2, m#expression_o e3,
-                     (m#statement s, loc))
+                     (m#statement s, loc), d)
     | ForIn_statement (Right (id,eopt), e2, (s, loc)) ->
       m#def_var id;
       let r = match eopt with
@@ -547,8 +559,8 @@ class compact_vardecl = object(m)
       let s = super#statement s in
       match s with
         | Variable_statement l -> m#translate_st l
-        | For_statement (Right l,e2,e3,s) ->
-          For_statement (Left (m#translate_ex l), e2, e3, s)
+        | For_statement (Right l,e2,e3,s,d) ->
+          For_statement (Left (m#translate_ex l), e2, e3, s, d)
         | ForIn_statement(Right (id,op),e2,s) ->
           (match op with
             | Some _ -> assert false
@@ -696,7 +708,7 @@ class clean = object(m)
     | If_statement (if',then',else') -> If_statement (if',b then',bopt else')
     | Do_while_statement (do',while') -> Do_while_statement (b do',while')
     | While_statement (cond,st) -> While_statement (cond,b st)
-    | For_statement (p1,p2,p3,st) -> For_statement (p1,p2,p3,b st)
+    | For_statement (p1,p2,p3,st,d) -> For_statement (p1,p2,p3,b st,d)
     | ForIn_statement (param,e,st) -> ForIn_statement (param,e,b st)
     | Switch_statement(e,l,Some [],[]) -> Switch_statement(e,l,None,[])
     | s -> s

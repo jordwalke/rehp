@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 open Stdlib
-open Javascript
+open Rehp
 
 class type mapper = object
   method expression : expression -> expression
@@ -25,8 +25,7 @@ class type mapper = object
   method switch_case : expression -> expression
   method initialiser : (expression * Loc.t) -> (expression * Loc.t)
   method initialiser_o : (expression * Loc.t) option -> (expression * Loc.t) option
-  method variable_declaration :
-   Javascript.variable_declaration -> Javascript.variable_declaration
+  method variable_declaration : variable_declaration -> variable_declaration
   method statement : statement -> statement
   method statements : statement_list -> statement_list
   method statement_o : (statement * Loc.t) option -> (statement * Loc.t) option

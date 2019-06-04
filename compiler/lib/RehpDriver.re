@@ -212,7 +212,7 @@ let header_php = (formatter, ~custom_header) => {
 let debug_linker = Debug.find("linker");
 
 let globalObject = Constant.global_object;
-let globalVar = Rehp.EVar(S({name: globalObject, var: None}));
+let globalVar = Rehp.EVar(Id.ident(globalObject));
 
 let extra_js_files =
   lazy(
@@ -260,7 +260,7 @@ let gen_missing = (js, missing) => {
   let miss =
     StringSet.fold(
       (prim, acc) => {
-        let p = Id.S({name: prim, var: None});
+        let p = Id.ident(prim);
         [
           (
             p,
@@ -269,7 +269,7 @@ let gen_missing = (js, missing) => {
                 EBin(
                   NotEqEq,
                   EDot(globalVar, prim),
-                  EVar(S({name: "undefined", var: None})),
+                  EVar(Id.ident("undefined")),
                 ),
                 EDot(globalVar, prim),
                 EFun((
@@ -280,7 +280,7 @@ let gen_missing = (js, missing) => {
                       Statement(
                         Expression_statement(
                           ECall(
-                            EVar(S({name: "caml_failwith", var: None})),
+                            EVar(Id.ident("caml_failwith")),
                             [
                               EBin(
                                 Plus,
@@ -342,7 +342,7 @@ let placeRuntimeVarAtTop = (~runtimeVarName, idents, rehp) =>
   };
 
 let getFree = rehp => {
-  let traverse = new Js_traverse.free;
+  let traverse = new Rehp_traverse.free;
   let rehp = traverse#program(rehp);
   let free = traverse#get_free_name;
   (rehp, free);
@@ -478,7 +478,7 @@ let check = (languageProvided, (rehp, linkinfos)) => {
     Format.eprintf("Start Checks...@.");
   };
 
-  let traverse = new Js_traverse.free;
+  let traverse = new Rehp_traverse.free;
   let rehp = traverse#program(rehp);
   let free = traverse#get_free_name;
 
@@ -520,7 +520,7 @@ let coloring_js = (languageProvided, (rehp, linkinfos)) => {
   if (times()) {
     Format.eprintf("Start Coloring...@.");
   };
-  let traverse = new Js_traverse.free;
+  let traverse = new Rehp_traverse.free;
   let rehp = traverse#program(rehp);
   let free = traverse#get_free_name;
   /*
@@ -540,7 +540,7 @@ let coloring_php = (languageProvided, (rehp, linkinfos)) => {
   if (times()) {
     Format.eprintf("Start Coloring...@.");
   };
-  let traverse = new Js_traverse.free;
+  let traverse = new Rehp_traverse.free;
   let rehp = traverse#program(rehp);
   let free = traverse#get_free_name;
   VarPrinter.add_reserved(StringSet.elements(free));
@@ -574,7 +574,12 @@ let output_js =
     Format.eprintf("Start Writing file...@.");
   };
   header(~custom_header, formatter);
-  Js_output.program(formatter, ~custom_header, ~source_map?, jsWithRuntime);
+  Js_output_impl.program(
+    formatter,
+    ~custom_header,
+    ~source_map?,
+    jsWithRuntime,
+  );
   if (times()) {
     Format.eprintf("  write: %a@.", Timer.print, t);
   };
@@ -589,8 +594,7 @@ let output_php =
       (),
       (rehp, linkinfos),
     ) => {
-  let addOneStr = (env, name) =>
-    Php_from_rehp.addOne(env, Id.S({name, var: None}));
+  let addOneStr = (env, name) => Php_from_rehp.addOne(env, Id.ident(name));
 
   /* let missing = StringSet.diff(used, languageProvided); */
 
@@ -646,7 +650,7 @@ let pack = rehp => {
   let rehp =
     if (Config.Flag.share_constant()) {
       let t1 = Timer.make();
-      let rehp = (new Js_traverse.share_constant)#program(rehp);
+      let rehp = (new Rehp_traverse.share_constant)#program(rehp);
       if (times()) {
         Format.eprintf("    share constant: %a@.", Timer.print, t1);
       };
@@ -656,7 +660,7 @@ let pack = rehp => {
     };
   if (Config.Flag.compact_vardecl()) {
     let t2 = Timer.make();
-    let rehp = (new Js_traverse.compact_vardecl)#program(rehp);
+    let rehp = (new Rehp_traverse.compact_vardecl)#program(rehp);
     if (times()) {
       Format.eprintf("    compact var decl: %a@.", Timer.print, t2);
     };
@@ -674,19 +678,19 @@ let post_pack_optimizations = js => {
    * they don't do any non-local optimizations and you could have written those
    * optimizations by hand in the JS stubs if they were really that important.
    */
-  let js = (new Js_traverse.simpl)#program(js);
+  let js = (new Rehp_traverse.simpl)#program(js);
   if (times()) {
     Format.eprintf("    simpl: %a@.", Timer.print, t3);
   };
   let t4 = Timer.make();
-  let js = (new Js_traverse.clean)#program(js);
+  let js = (new Rehp_traverse.clean)#program(js);
   if (times()) {
     Format.eprintf("    clean: %a@.", Timer.print, t4);
   };
   if (Config.Flag.shortvar()) {
     let t5 = Timer.make();
     let keep = StringSet.empty;
-    let js = (new Js_traverse.rename_variable)(keep)#program(js);
+    let js = (new Rehp_traverse.rename_variable)(keep)#program(js);
     if (times()) {
       Format.eprintf("    shortten vars: %a@.", Timer.print, t5);
     };
@@ -759,14 +763,7 @@ let f =
   let (objWrapper, packer, coloring, check, outputter) =
     switch (backend) {
     | Php => (
-        (
-          obj =>
-            Rehp.ECall(
-              EVar(S({name: "ObjectLiteral", var: None})),
-              [obj],
-              N,
-            )
-        ),
+        (obj => Rehp.ECall(EVar(Id.ident("ObjectLiteral")), [obj], N)),
         pack_php,
         coloring_php(Reserved.provided_php),
         check(Reserved.provided_php),
