@@ -16,6 +16,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+module Poly = struct
+  external ( < ) : 'a -> 'a -> bool = "%lessthan"
+
+  external ( <= ) : 'a -> 'a -> bool = "%lessequal"
+
+  external ( <> ) : 'a -> 'a -> bool = "%notequal"
+
+  external ( = ) : 'a -> 'a -> bool = "%equal"
+
+  external ( > ) : 'a -> 'a -> bool = "%greaterthan"
+
+  external ( >= ) : 'a -> 'a -> bool = "%greaterequal"
+
+  external compare : 'a -> 'a -> int = "%compare"
+
+  external equal : 'a -> 'a -> bool = "%equal"
+end
+
 let quiet = ref false
 let warn fmt = Format.ksprintf (fun s -> if not !quiet then Format.eprintf "%s%!" s) fmt
 
@@ -42,24 +60,31 @@ let int_num_bits =
 
 module List = struct
   include ListLabels
+
   let filter_map ~f l =
-    let l = List.fold_left (fun acc x -> match f x with
-      | Some x -> x::acc
-      | None -> acc) [] l
-    in List.rev l
+    let l =
+      List.fold_left
+        (fun acc x ->
+          match f x with
+          | Some x -> x :: acc
+          | None -> acc)
+        []
+        l
+    in
+    List.rev l
 
   let map_tc ~f l = List.rev (List.rev_map f l)
 
-
   let rec take' acc n l =
     if n = 0
-    then acc,l
-    else match l with
-      | [] -> acc,[]
-      | x::xs -> take' (x::acc) (pred n) xs
+    then acc, l
+    else
+      match l with
+      | [] -> acc, []
+      | x :: xs -> take' (x :: acc) (pred n) xs
 
   let take n l =
-    let x,xs = take' [] n l in
+    let x, xs = take' [] n l in
     List.rev x, xs
 
   let rec last = function
@@ -70,13 +95,18 @@ module List = struct
   let sort_uniq ~compare l =
     let l = List.sort compare l in
     match l with
-    | [] | [ _ ] as l-> l
-    | x::xs ->
-      let rec loop prev = function
-        | [] -> [prev]
-        | x::rest when compare x prev = 0 -> loop prev rest
-        | x::rest -> prev :: loop x rest
-      in loop x xs
+    | ([] | [_]) as l -> l
+    | x :: xs ->
+        let rec loop prev = function
+          | [] -> [prev]
+          | x :: rest when compare x prev = 0 -> loop prev rest
+          | x :: rest -> prev :: loop x rest
+        in
+        loop x xs
+
+  let is_empty = function
+    | [] -> true
+    | _ -> false
 end
 
 module Option = struct
@@ -94,10 +124,28 @@ module Option = struct
   let filter ~f x =
     match x with
     | None -> None
-    | Some v ->
-      if f v
-      then Some v
-      else None
+    | Some v -> if f v then Some v else None
+
+  let compare compare_elt a b =
+    match a, b with
+    | None, None -> 0
+    | None, Some _ -> -1
+    | Some _, None -> 1
+    | Some a, Some b -> compare_elt a b
+
+  let equal equal_elt a b =
+    match a, b with
+    | None, None -> true
+    | Some a, Some b -> equal_elt a b
+    | Some _, None | None, Some _ -> false
+
+  let is_none = function
+    | None -> true
+    | Some _ -> false
+
+  let is_some = function
+    | None -> false
+    | Some _ -> true
 end
 
 module Char = struct
@@ -123,10 +171,44 @@ end
 module String = struct
   let equal (a : string) (b : string) = a = b [@@ocaml.warning "-32"]
   include StringLabels
+
+  let equal (a : string) (b : string) = Poly.(a = b)
+
+  let is_empty = function
+    | "" -> true
+    | _ -> false
+
+  let is_prefix ~prefix s =
+    let len_a = length prefix in
+    let len_s = length s in
+    if len_a > len_s
+    then false
+    else
+      let max_idx_a = len_a - 1 in
+      let rec loop i =
+        if i > max_idx_a
+        then true
+        else if not (Char.equal (unsafe_get prefix i) (unsafe_get s i))
+        then false
+        else loop (i + 1)
+      in
+      loop 0
+  let for_all =
+    let rec loop s ~f ~last i =
+      if i > last
+      then true
+      else if f (String.unsafe_get s i)
+      then loop s ~f ~last (i + 1)
+      else false
+    in
+    fun s ~f -> loop s ~f ~last:(String.length s - 1) 0
+
   let is_ascii s =
     let res = ref true in
     for i = 0 to String.length s - 1 do
-      if s.[i] > '\127' then res := false
+      match s.[i] with
+      | '\000' .. '\127' -> ()
+      | '\128' .. '\255' -> res := false
     done;
     !res
 
@@ -301,11 +383,11 @@ let rec escape ?(prepend="") s search replace =
     let index_of = String.index s search in
     let next_prepend =
       prepend
-      ^ (if index_of == 0 then "" else String.sub s 0 (index_of + 1 - 1)) in
+      ^ (if index_of == 0 then "" else String.sub s ~pos:0 ~len:(index_of + 1 - 1)) in
     let next_prepend = next_prepend ^ replace in
     let remaining =
       if index_of == len - 1 then
         ""
-      else String.sub s (index_of + 1) (len - index_of - 1)
+      else String.sub s ~pos:(index_of + 1) ~len:(len - index_of - 1)
     in
     escape ~prepend:next_prepend remaining search replace
