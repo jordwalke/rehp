@@ -318,14 +318,6 @@ let gen_missing = (js, missing) => {
   [(Statement(Variable_statement(miss)), Loc.N), ...js];
 };
 
-let var = s => Rehp.EVar(Id.S({Id.name: s, Id.var: None}));
-let runtimeVar = (runtimeName, name) => (
-  Id.S({Id.name, Id.var: None}),
-  Some((
-    Rehp.EAccess(Rehp.EVar(Id.V(runtimeName)), Rehp.EStr(name, `Utf8)),
-    Loc.N,
-  )),
-);
 /**
  * Prepends `let runtime = global_object.jsoo_runtime`. This also allows the
  * driver to decide how to bring into scope unknown identifiers. In this case,
@@ -446,7 +438,7 @@ let augmentWithLinkInfoStandalone =
       open Rehp;
       let all = Linker.all(linkinfos);
       let all =
-        List.map(name => (Id.PNI(name), EVar(S({name, var: None}))), all);
+        List.map(~f=name => (Id.PNI(name), EVar(Id.ident(name))), all);
       [
         (
           Statement(
@@ -818,11 +810,6 @@ let f =
   >> check
   /* Print the transformed target langauge and include any linked stubs  */
   >> outputter(formatter, ~custom_header, ~source_map?, ());
-};
-
-let from_string = (prims, s, formatter) => {
-  let (p, d) = Parse_bytecode.from_string(prims, s);
-  f(~standalone=false, formatter, d, p);
 };
 
 let profiles = [(1, o1), (2, o2), (3, o3)];

@@ -1,4 +1,5 @@
 open Javascript;
+open! Stdlib;
 
 /*
  * This module should exclusively for JS that was compiler generated.
@@ -13,7 +14,7 @@ module Expand = {
 };
 
 let rec from_statement_list = lst =>
-  List.map(((stmt, loc)) => (from_statement(stmt), loc), lst)
+  List.map(~f=((stmt, loc)) => (from_statement(stmt), loc), lst)
 and from_variable_declaration =
   fun
   | (ident, None) => (ident, None)
@@ -21,7 +22,7 @@ and from_variable_declaration =
       ident,
       Some((from_expression(init_expr), init_loc)),
     )
-and from_arguments = args => List.map(from_expression, args)
+and from_arguments = args => List.map(~f=from_expression, args)
 /* Should create a separate form for operators that only make sense when coming
    from parsed JS. Most of the unary operators for example. */
 and from_unop = (unop, jsExpr) =>
@@ -85,10 +86,10 @@ and from_expression = e =>
   | ETag(index, itms) =>
     Javascript.EArr([
       Some(from_expression(index)),
-      ...List.map(itm => Some(from_expression(itm)), itms),
+      ...List.map(~f=itm => Some(from_expression(itm)), itms),
     ])
   | EStruct(itms) =>
-    Javascript.EArr(List.map(itm => Some(from_expression(itm)), itms))
+    Javascript.EArr(List.map(~f=itm => Some(from_expression(itm)), itms))
   | EAccess(e1, e2)
   | EStructAccess(e1, e2)
   | EArrAccess(e1, e2) =>
@@ -110,12 +111,12 @@ and from_expression = e =>
     EFun((ident_opt, ident_lst, from_source_elements_and_locs(body), loc))
   | EStr(x, y) => EStr(x, y)
   | EArr(arr_literal) =>
-    EArr(List.map(Stdlib.Option.map(~f=from_expression), arr_literal))
+    EArr(List.map(~f=Stdlib.Option.map(~f=from_expression), arr_literal))
   | EDot(e, ident) => EDot(from_expression(e), ident)
   | ENew(e, optargs) =>
     ENew(from_expression(e), Stdlib.Option.map(~f=from_arguments, optargs))
   | EObj(lst) =>
-    EObj(List.map(((nm, e)) => (nm, from_expression(e)), lst))
+    EObj(List.map(~f=((nm, e)) => (nm, from_expression(e)), lst))
   | EBool(b) => EBool(b)
   | ENum(flt) => ENum(flt)
   | EQuote(s) => EQuote(s)
@@ -128,8 +129,9 @@ and from_statement = e =>
   | Rehp.Variable_statement(lst) =>
     Javascript.Variable_statement(
       List.map(
-        ((ident, initopt)) =>
-          (ident, Stdlib.Option.map(~f=from_expression_loc, initopt)),
+        ~f=
+          ((ident, initopt)) =>
+            (ident, Stdlib.Option.map(~f=from_expression_loc, initopt)),
         lst,
       ),
     )
@@ -152,9 +154,9 @@ and from_statement = e =>
   | Rehp.For_statement(init, test, incr, (stmt, loc), _depth) =>
     let init =
       switch (init) {
-      | Stdlib.Left(None) => Javascript.Left(None)
+      | Left(None) => Left(None)
       | Left(Some(e)) => Left(Some(from_expression(e)))
-      | Right(vars) => Right(List.map(from_variable_declaration, vars))
+      | Right(vars) => Right(List.map(~f=from_variable_declaration, vars))
       };
     let test =
       switch (test) {
@@ -170,7 +172,7 @@ and from_statement = e =>
   | Rehp.ForIn_statement(init, e, (stmt, loc)) =>
     let init =
       switch (init) {
-      | Stdlib.Left(e) => Stdlib.Left(from_expression(e))
+      | Left(e) => Left(from_expression(e))
       | Right(vd) => Right(from_variable_declaration(vd))
       };
     let e = from_expression(e);
@@ -210,7 +212,7 @@ and from_statement = e =>
   }
 and from_case_clause_list = lst =>
   List.map(
-    ((e, stmts)) => (from_expression(e), from_statement_list(stmts)),
+    ~f=((e, stmts)) => (from_expression(e), from_statement_list(stmts)),
     lst,
   )
 and from_source_element =
@@ -229,7 +231,7 @@ and from_source_element =
       location,
     ))
 and from_source_elements_and_locs = lst =>
-  List.map(((src, loc)) => (from_source_element(src), loc), lst);
+  List.map(~f=((src, loc)) => (from_source_element(src), loc), lst);
 
 let from_rehp = from_source_elements_and_locs;
 let from_rehp_expression = from_expression;

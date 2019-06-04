@@ -233,8 +233,8 @@ let rec process_raw prov req lst =
   match lst with
   | [] -> []
   | (Statement (Variable_statement [(
-      ident,
-      Some (ECall (EVar(S {name = "raw_backend"}), [EArr itms], _), _)
+      _,
+      Some (ECall (EVar(S {name = "raw_backend"; _}), [EArr itms], _), _)
       )]), js_loc) :: rest -> (
       match strings_in_arr "" itms with
       | Some impl ->
@@ -288,7 +288,7 @@ let add_file ~backend f =
             let arity = find code in
             let arity =
               match (arity, ka) with
-              | (None, Some ((hd :: tl) as ka')) ->
+              | (None, Some ((_ :: _) as ka')) ->
                 Some (List.length ka')
               | (Some ar, Some ka) when ar != List.length ka ->
                 warn

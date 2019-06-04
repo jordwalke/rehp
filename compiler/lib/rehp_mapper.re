@@ -214,7 +214,7 @@ let create = () => {
   expression: (self, x) =>
     Rehp.(
       switch (x) {
-      | ERaw(s) => x
+      | ERaw(_) => x
       | ESeq(e1, e2) =>
         let e1Mapped = self.expression(self, e1);
         let e2Mapped = self.expression(self, e2);

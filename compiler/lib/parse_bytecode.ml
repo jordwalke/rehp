@@ -2320,7 +2320,7 @@ end
 
 let rec from_compilation_units ~includes ~debug l =
   List.map
-    (fun (compunit, codebytes, reloc, debug_data) ->
+    ~f:(fun (compunit, codebytes, reloc, debug_data) ->
       let globals = Reloc.make_globals reloc in
       (from_relocated_compilation_unit ~includes ~debug ~debug_data ~globals (compunit, codebytes))
     )

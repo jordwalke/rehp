@@ -261,19 +261,19 @@ let f
         d
         false
         compunit_name
-        (List.map Ident.name ordered_compunit_deps)
+        (List.map ~f:Ident.name ordered_compunit_deps)
         output_file
   | Parsed_library lst ->
       (match output_file with None -> () | Some file -> ensure_dir file);
       List.iter
-        (fun (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
+        ~f:(fun (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
           (* If compiling a library and passing the -o flag, it is assumed that -o
            is the location of the directory where individual outputs go, and
            that the individual files will reside inside of it. If the output is
            supplied as [-o path/to/lib-name.php] then you will get the
            following files [-o path/to/my-lib.php/MyLibrary__Utils.php] where
            MyLibrary__Utils is the compiler's internal compilation unit name. *)
-          let ordered_compunit_deps = List.map Ident.name ordered_compunit_deps in
+          let ordered_compunit_deps = List.map ~f:Ident.name ordered_compunit_deps in
           let complete_output_file =
             match output_file with
             | None -> None
