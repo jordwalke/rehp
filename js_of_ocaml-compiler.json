@@ -1,0 +1,37 @@
+{
+  "name": "@reason-native/js_of_ocaml-compiler",
+  "version": "3.1.0",
+  "dependencies": {
+    "@opam/camlp4": "*",
+    "@opam/lwt": "*",
+    "@esy-ocaml/substs": "^0.0.1",
+    "@opam/reason": "^3.4.0",
+    "refmterr": "*",
+    "@opam/dune": "*",
+    "@opam/deriving": "*",
+    "@opam/ocaml-migrate-parsetree": "*",
+    "@opam/ppx_tools_versioned": "*",
+    "@opam/uchar": "*",
+    "@opam/ppx_deriving": "*"
+  },
+  "peerDependencies": {
+    "ocaml": "~4.6.0"
+  },
+  "devDependencies": {
+    "@opam/merlin": "*",
+    "ocaml": " ~ 4.6.0",
+    "@opam/ppx_expect": "*"
+  },
+  "resolutions": {
+    "@opam/reason": "let-def/reason:reason.opam#bd07255b6674c3dfae8edb037b6865f8490abaff"
+  },
+  "optDependencies": {},
+  "esy": {
+    "build": [
+      [ "refmterr", "dune", "build", "-p", "js_of_ocaml-compiler"]
+    ],
+    "install": [
+      ["esy-installer", "js_of_ocaml-compiler.install"]
+    ]
+  }
+}
