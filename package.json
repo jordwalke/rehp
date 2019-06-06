@@ -28,17 +28,20 @@
   },
   "optDependencies": {},
   "esy": {
-    "build": [
+    "buildDev": [
       [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-ppx,js_of_ocaml-lwt,js_of_ocaml-ppx_deriving_json"],
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"]
+    ],
+    "build": [
+      [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-lwt"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"]
     ],
     "install": [
       ["esy-installer", "js_of_ocaml.install"],
       ["esy-installer", "js_of_ocaml-compiler.install"],
-      ["esy-installer", "js_of_ocaml-ppx.install"],
-      ["esy-installer", "js_of_ocaml-lwt.install"],
-      ["esy-installer", "js_of_ocaml-ppx_deriving_json.install"]
+      ["esy-installer", "js_of_ocaml-lwt.install"]
     ]
   },
   "scripts": {
