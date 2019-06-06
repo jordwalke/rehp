@@ -249,13 +249,14 @@ let f_once (pc, blocks, free_pc) =
       match i with
       | Let
           ( x
-          , (Prim
+          , ( (Prim ( Extern ( "caml_js_delete") , [_; _] ) as p)
+            | (Prim
                ( Extern
                    ( "caml_array_set" | "caml_array_unsafe_set" | "caml_array_set_float"
                    | "caml_array_set_addr" | "caml_array_unsafe_set_float"
                    | "caml_floatarray_unsafe_set"
-                   | "caml_js_set" | "caml_js_delete")
-               , [_; _; _] ) as p) ) ->
+                   | "caml_js_set")
+               , [_; _; _] ) as p)) ) ->
           let x' = Code.Var.fork x in
           Let (x, Constant (Int 0l)) :: Let (x', p) :: loop r
       | _ -> i :: loop r)
