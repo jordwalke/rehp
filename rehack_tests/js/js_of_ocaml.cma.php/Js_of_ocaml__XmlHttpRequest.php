@@ -51,7 +51,7 @@ final class Js_of_ocaml__XmlHttpRequest {
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Assert_failure = $global_data["Assert_failure"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $tB = Vector{
+    $tC = Vector{
       0,
       $caml_new_string("lib/js_of_ocaml/xmlHttpRequest.ml"),
       125,
@@ -79,45 +79,45 @@ final class Js_of_ocaml__XmlHttpRequest {
       $timeout,
       $loadend
     };
-    $create = function($param) use ($Assert_failure,$Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$runtime,$tB) {
-      $tC = function($x) use ($caml_call1,$caml_get_public_method) {
+    $create = function($param) use ($Assert_failure,$Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$runtime,$tC) {
+      $tD = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -1035517745, 307), $x);
       };
-      $tD = $Js_of_ocaml_Js[50][1];
-      $xmlHttpRequest = (function($t8, $param) {return $t8->XMLHttpRequest;})($tD, $tC);
-      $tE = function($x) use ($caml_call1,$caml_get_public_method) {
+      $tE = $Js_of_ocaml_Js[50][1];
+      $xmlHttpRequest = (function($t8, $param) {return $t8->XMLHttpRequest;})($tE, $tD);
+      $tF = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -5445583, 308), $x);
       };
-      $tF = $Js_of_ocaml_Js[50][1];
-      $activeXObject = (function($t7, $param) {return $t7->activeXObject;})($tF, $tE);
+      $tG = $Js_of_ocaml_Js[50][1];
+      $activeXObject = (function($t7, $param) {return $t7->activeXObject;})($tG, $tF);
       try {
-        $tP = 0;
-        $tQ = (function($t6, $param) {return new $t6();})($xmlHttpRequest, $tP);
-        return $tQ;
+        $tQ = 0;
+        $tR = (function($t6, $param) {return new $t6();})($xmlHttpRequest, $tQ);
+        return $tR;
       }
-      catch(\Throwable $tR) {
+      catch(\Throwable $tS) {
         try {
-          $tM = 0;
-          $tN = "Msxml2.XMLHTTP";
-          $tO = (function($t5, $t4, $param) {return new $t5($t4);})($activeXObject, $tN, $tM);
-          return $tO;
+          $tN = 0;
+          $tO = "Msxml2.XMLHTTP";
+          $tP = (function($t5, $t4, $param) {return new $t5($t4);})($activeXObject, $tO, $tN);
+          return $tP;
         }
-        catch(\Throwable $tS) {
+        catch(\Throwable $tT) {
           try {
-            $tJ = 0;
-            $tK = "Msxml3.XMLHTTP";
-            $tL = (function($t3, $t2, $param) {return new $t3($t2);})($activeXObject, $tK, $tJ);
-            return $tL;
+            $tK = 0;
+            $tL = "Msxml3.XMLHTTP";
+            $tM = (function($t3, $t2, $param) {return new $t3($t2);})($activeXObject, $tL, $tK);
+            return $tM;
           }
-          catch(\Throwable $tT) {
+          catch(\Throwable $tU) {
             try {
-              $tG = 0;
-              $tH = "Microsoft.XMLHTTP";
-              $tI = (function($t1, $t0, $param) {return new $t1($t0);})($activeXObject, $tH, $tG);
-              return $tI;
+              $tH = 0;
+              $tI = "Microsoft.XMLHTTP";
+              $tJ = (function($t1, $t0, $param) {return new $t1($t0);})($activeXObject, $tI, $tH);
+              return $tJ;
             }
-            catch(\Throwable $tU) {
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $tB}) as \Throwable;
+            catch(\Throwable $tV) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $tC}) as \Throwable;
             }
           }
         }

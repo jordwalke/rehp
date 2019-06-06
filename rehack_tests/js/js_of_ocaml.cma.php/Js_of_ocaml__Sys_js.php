@@ -82,31 +82,31 @@ final class Js_of_ocaml__Sys_js {
     
     if ($runtime["caml_string_equal"]($Js_of_ocaml_Lib_version[2], $cst)) {$js_of_ocaml_version = $Js_of_ocaml_Lib_version[1];}
     else {
-      $pU = $caml_call2($Pervasives[16], $cst__0, $Js_of_ocaml_Lib_version[2]);
+      $pV = $caml_call2($Pervasives[16], $cst__0, $Js_of_ocaml_Lib_version[2]);
       $js_of_ocaml_version = $caml_call2(
         $Pervasives[16],
         $Js_of_ocaml_Lib_version[1],
-        $pU
+        $pV
       );
     }
     
-    $pS = function($pY, $pX) use ($runtime) {
-      return $runtime["caml_create_file"]($pY, $pX);
+    $pT = function($pZ, $pY) use ($runtime) {
+      return $runtime["caml_create_file"]($pZ, $pY);
     };
-    $pT = function($pW) use ($runtime) {
-      return $runtime["caml_read_file_content"]($pW);
+    $pU = function($pX) use ($runtime) {
+      return $runtime["caml_read_file_content"]($pX);
     };
     $Js_of_ocaml_Sys_js = Vector{
       0,
       $set_channel_flusher,
       $set_channel_filler,
-      function($pV) use ($runtime) {
-        return $runtime["caml_list_mount_point"]($pV);
+      function($pW) use ($runtime) {
+        return $runtime["caml_list_mount_point"]($pW);
       },
       $unmount,
       $mount,
+      $pU,
       $pT,
-      $pS,
       $update_file,
       $js_of_ocaml_version
     };

@@ -31,7 +31,7 @@ var cst_loadend = caml_new_string("loadend");
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Assert_failure = global_data["Assert_failure"];
 var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
-var tB = [0,caml_new_string("lib/js_of_ocaml/xmlHttpRequest.ml"),125,75];
+var tC = [0,caml_new_string("lib/js_of_ocaml/xmlHttpRequest.ml"),125,75];
 var readystatechange = caml_call1(Js_of_ocaml_Dom[14][1], cst_readystatechange
 );
 var loadstart = caml_call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
@@ -54,47 +54,47 @@ var Event = [
 ];
 
 function create(param) {
-  function tC(x) {
+  function tD(x) {
     return caml_call1(caml_get_public_method(x, -1035517745, 307), x);
   }
-  var tD = Js_of_ocaml_Js[50][1];
-  var xmlHttpRequest = function(t8, param) {return t8.XMLHttpRequest;}(tD, tC);
-  function tE(x) {
+  var tE = Js_of_ocaml_Js[50][1];
+  var xmlHttpRequest = function(t8, param) {return t8.XMLHttpRequest;}(tE, tD);
+  function tF(x) {
     return caml_call1(caml_get_public_method(x, -5445583, 308), x);
   }
-  var tF = Js_of_ocaml_Js[50][1];
-  var activeXObject = function(t7, param) {return t7.activeXObject;}(tF, tE);
+  var tG = Js_of_ocaml_Js[50][1];
+  var activeXObject = function(t7, param) {return t7.activeXObject;}(tG, tF);
   try {
-    var tP = 0;
-    var tQ = function(t6, param) {return new t6();}(xmlHttpRequest, tP);
-    return tQ;
+    var tQ = 0;
+    var tR = function(t6, param) {return new t6();}(xmlHttpRequest, tQ);
+    return tR;
   }
-  catch(tR) {
+  catch(tS) {
     try {
-      var tM = 0;
-      var tN = "Msxml2.XMLHTTP";
-      var tO = function(t5, t4, param) {return new t5(t4);}(activeXObject, tN, tM
+      var tN = 0;
+      var tO = "Msxml2.XMLHTTP";
+      var tP = function(t5, t4, param) {return new t5(t4);}(activeXObject, tO, tN
       );
-      return tO;
+      return tP;
     }
-    catch(tS) {
+    catch(tT) {
       try {
-        var tJ = 0;
-        var tK = "Msxml3.XMLHTTP";
-        var tL = function(t3, t2, param) {return new t3(t2);}(activeXObject, tK, tJ
+        var tK = 0;
+        var tL = "Msxml3.XMLHTTP";
+        var tM = function(t3, t2, param) {return new t3(t2);}(activeXObject, tL, tK
         );
-        return tL;
+        return tM;
       }
-      catch(tT) {
+      catch(tU) {
         try {
-          var tG = 0;
-          var tH = "Microsoft.XMLHTTP";
-          var tI = function(t1, t0, param) {return new t1(t0);}(activeXObject, tH, tG
+          var tH = 0;
+          var tI = "Microsoft.XMLHTTP";
+          var tJ = function(t1, t0, param) {return new t1(t0);}(activeXObject, tI, tH
           );
-          return tI;
+          return tJ;
         }
-        catch(tU) {
-          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,tB]);
+        catch(tV) {
+          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,tC]);
         }
       }
     }

@@ -74,34 +74,34 @@ final class Js_of_ocaml__WebGL {
       $webglcontextcreationerror
     };
     $getContext = function($c) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
-      $s8 = function($x) use ($caml_call1,$caml_get_public_method) {
+      $s9 = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -388424711, 294), $x);
       };
-      $s9 = "webgl";
-      $ctx = (function($t3, $t2, $param) {return $t3->getContext($t2);})($c, $s9, $s8);
+      $s_ = "webgl";
+      $ctx = (function($t3, $t2, $param) {return $t3->getContext($t2);})($c, $s_, $s9);
       if ($caml_call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $s_ = function($x) use ($caml_call1,$caml_get_public_method) {
+      $ta = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -388424711, 295), $x);
       };
-      $ta = "experimental-webgl";
-      return (function($t1, $t0, $param) {return $t1->getContext($t0);})($c, $ta, $s_);
+      $tb = "experimental-webgl";
+      return (function($t1, $t0, $param) {return $t1->getContext($t0);})($c, $tb, $ta);
     };
     $getContextWithAttributes = function($c, $attribs) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
-      $s4 = function($x) use ($caml_call1,$caml_get_public_method) {
+      $s5 = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -719364538, 296), $x);
       };
-      $s5 = "webgl";
+      $s6 = "webgl";
       $ctx = (function($t9, $t7, $t8, $param) {
          return $t9->getContext($t7, $t8);
-       })($c, $s5, $attribs, $s4);
+       })($c, $s6, $attribs, $s5);
       if ($caml_call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $s6 = function($x) use ($caml_call1,$caml_get_public_method) {
+      $s7 = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -719364538, 297), $x);
       };
-      $s7 = "experimental-webgl";
+      $s8 = "experimental-webgl";
       return (function($t6, $t4, $t5, $param) {
          return $t6->getContext($t4, $t5);
-       })($c, $s7, $attribs, $s6);
+       })($c, $s8, $attribs, $s7);
     };
     $Js_of_ocaml_WebGL = Vector{
       0,

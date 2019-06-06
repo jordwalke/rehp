@@ -37,77 +37,77 @@ var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Pervasives = global_data["Pervasives"];
 var Array = global_data["Array_"];
 
-function td(x) {
+function te(x) {
   return caml_call1(caml_get_public_method(x, -324422083, 299), x);
 }
 
-var te = Js_of_ocaml_Js[50][1];
-var worker = function(t0, param) {return t0.Worker;}(te, td);
+var tf = Js_of_ocaml_Js[50][1];
+var worker = function(t0, param) {return t0.Worker;}(tf, te);
 
 function create(script) {
-  var tz = 0;
-  var tA = script.toString();
-  return function(t2, t1, param) {return new t2(t1);}(worker, tA, tz);
+  var tA = 0;
+  var tB = script.toString();
+  return function(t2, t1, param) {return new t2(t1);}(worker, tB, tA);
 }
 
 function import_scripts(scripts) {
-  var tr = Js_of_ocaml_Js[3];
-  function ts(x) {
+  var ts = Js_of_ocaml_Js[3];
+  function tt(x) {
     return caml_call1(caml_get_public_method(x, 815769891, 300), x);
   }
-  var tt = Js_of_ocaml_Js[50][1];
-  if (function(t4, param) {return t4.importScripts;}(tt, ts) === tr) {
+  var tu = Js_of_ocaml_Js[50][1];
+  if (function(t4, param) {return t4.importScripts;}(tu, tt) === ts) {
     caml_call1(Pervasives[1], cst_Worker_import_scripts_is_undefined);
   }
-  var tu = caml_call1(Array[12], scripts);
-  function tv(s) {return s.toString();}
-  var tw = caml_call2(Array[15], tv, tu);
-  function tx(x) {
+  var tv = caml_call1(Array[12], scripts);
+  function tw(s) {return s.toString();}
+  var tx = caml_call2(Array[15], tw, tv);
+  function ty(x) {
     return caml_call1(caml_get_public_method(x, 815769891, 301), x);
   }
-  var ty = Js_of_ocaml_Js[50][1];
+  var tz = Js_of_ocaml_Js[50][1];
   return runtime["caml_js_fun_call"](
-    function(t3, param) {return t3.importScripts;}(ty, tx),
-    tw
+    function(t3, param) {return t3.importScripts;}(tz, ty),
+    tx
   );
 }
 
 function set_onmessage(handler) {
-  var tk = Js_of_ocaml_Js[3];
-  function tl(x) {
+  var tl = Js_of_ocaml_Js[3];
+  function tm(x) {
     return caml_call1(caml_get_public_method(x, 610977416, 302), x);
   }
-  var tm = Js_of_ocaml_Js[50][1];
-  if (function(t8, param) {return t8.onmessage;}(tm, tl) === tk) {
+  var tn = Js_of_ocaml_Js[50][1];
+  if (function(t8, param) {return t8.onmessage;}(tn, tm) === tl) {
     caml_call1(Pervasives[1], cst_Worker_onmessage_is_undefined);
   }
   function js_handler(ev) {
-    function tq(x) {
+    function tr(x) {
       return caml_call1(caml_get_public_method(x, -1033677270, 303), x);
     }
-    return caml_call1(handler, function(t7, param) {return t7.data;}(ev, tq));
+    return caml_call1(handler, function(t7, param) {return t7.data;}(ev, tr));
   }
-  function tn(x) {
+  function to(x) {
     return caml_call1(caml_get_public_method(x, 610977416, 304), x);
   }
-  var to = runtime["caml_js_wrap_callback"](js_handler);
-  var tp = Js_of_ocaml_Js[50][1];
-  return function(t6, t5, param) {t6.onmessage = t5;return 0;}(tp, to, tn);
+  var tp = runtime["caml_js_wrap_callback"](js_handler);
+  var tq = Js_of_ocaml_Js[50][1];
+  return function(t6, t5, param) {t6.onmessage = t5;return 0;}(tq, tp, to);
 }
 
 function post_message(msg) {
-  var tf = Js_of_ocaml_Js[3];
-  function tg(x) {
+  var tg = Js_of_ocaml_Js[3];
+  function th(x) {
     return caml_call1(caml_get_public_method(x, -699849401, 305), x);
   }
-  var th = Js_of_ocaml_Js[50][1];
-  if (function(t11, param) {return t11.postMessage;}(th, tg) === tf) {caml_call1(Pervasives[1], cst_Worker_onmessage_is_undefined__0);
+  var ti = Js_of_ocaml_Js[50][1];
+  if (function(t11, param) {return t11.postMessage;}(ti, th) === tg) {caml_call1(Pervasives[1], cst_Worker_onmessage_is_undefined__0);
   }
-  function ti(x) {
+  function tj(x) {
     return caml_call1(caml_get_public_method(x, -699849401, 306), x);
   }
-  var tj = Js_of_ocaml_Js[50][1];
-  return function(t10, t9, param) {return t10.postMessage(t9);}(tj, msg, ti);
+  var tk = Js_of_ocaml_Js[50][1];
+  return function(t10, t9, param) {return t10.postMessage(t9);}(tk, msg, tj);
 }
 
 var Js_of_ocaml_Worker = [0,create,import_scripts,set_onmessage,post_message];

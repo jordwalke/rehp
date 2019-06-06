@@ -55,29 +55,31 @@ final class Js_of_ocaml__Jstable {
     $ph = $Js_of_ocaml_Js[50][1];
     $obj = (function($t0, $param) {return $t0->Object;})($ph, $pg);
     $create = function($param) use ($obj) {
-      $pE = 0;
-      return (function($t1, $param) {return new $t1();})($obj, $pE);
+      $pF = 0;
+      return (function($t1, $param) {return new $t1();})($obj, $pF);
     };
     $add = function($t, $k, $v) use ($caml_call1,$caml_get_public_method) {
-      $pB = function($x) use ($caml_call1,$caml_get_public_method) {
+      $pC = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -942667500, 250), $x);
       };
-      $pC = "_";
-      $pD = 0;
-      $t[(function($t3, $t2, $param) {return $t3->concat($t2);})($k, $pC, $pB)
+      $pD = "_";
+      $pE = 0;
+      $t[(function($t3, $t2, $param) {return $t3->concat($t2);})($k, $pD, $pC)
        ] = $v;
-      return $pD;
+      return $pE;
     };
     $remove = function($t, $k) use ($caml_call1,$caml_get_public_method) {
       $pz = function($x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -942667500, 251), $x);
       };
       $pA = "_";
-      return unset(
+      $pB = 0;
+      unset(
         $t[
            (function($t5, $t4, $param) {return $t5->concat($t4);})($k, $pA, $pz)
          ]
       );
+      return $pB;
     };
     $find = function($t, $k) use ($caml_call1,$caml_get_public_method) {
       $px = function($x) use ($caml_call1,$caml_get_public_method) {
