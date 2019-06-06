@@ -25,7 +25,7 @@
     "@opam/ppx_expect": "*"
   },
   "resolutions": {
-    "@reason-native/js_of_ocaml-compiler": "./js_of_ocaml-compiler.json",
+    "@reason-native/js_of_ocaml-compiler": "link-dev:./js_of_ocaml-compiler.json",
     "@opam/reason": "let-def/reason:reason.opam#bd07255b6674c3dfae8edb037b6865f8490abaff"
   },
   "optDependencies": {},
