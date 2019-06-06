@@ -6,8 +6,9 @@ esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enabl
 # ./rehack_tests/Runner.php runtime/rehack/php/GlobalObject.php ./rehack_tests/static_react_bytecode/static-react-test.php
 echo "./rehack_tests/static_react_bytecode/static-react-test.php"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "$(< ./rehack_tests/templates/php-exe-header.php)" ./rehack_tests/static_react_bytecode/static-react-test.bc -o ./rehack_tests/static_react_bytecode/static-react-test.php'
+
 echo "./rehack_tests/hello_world/hello_world.php"
-esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "<?php" ./_build/default/rehack_tests/hello_world/hello_world.bc -o ./rehack_tests/hello_world/hello_world.php'
+./buildHelloWorld.sh
 
 # Note: You can also export *only* the runtime, via --runtime-only
 echo "./rehack_tests/hello_world/hello_world.runtimeonly.php"
