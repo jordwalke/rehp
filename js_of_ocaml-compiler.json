@@ -11,6 +11,7 @@
     "@opam/deriving": "*",
     "@opam/ocaml-migrate-parsetree": "*",
     "@opam/ppx_tools_versioned": "*",
+    "@opam/cmdliner": "*",
     "@opam/uchar": "*",
     "@opam/ppx_deriving": "*"
   },
