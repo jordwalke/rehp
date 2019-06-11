@@ -42,22 +42,23 @@ final class Ephemeron {
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
+    $caml_call5 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 5
         ? $f($a0, $a1, $a2, $a3, $a4)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
@@ -74,8 +75,8 @@ final class Ephemeron {
     $z5 = Vector{0, 0};
     $z4 = Vector{0, 0};
     $z3 = Vector{0, 0};
-    $MakeSeeded = function($H) use ($Array,$CamlinternalLazy,$Hashtbl,$Not_found,$Pervasives,$Random,$Sys,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect,$caml_wrap_exception,$insert_bucket,$left_shift_32,$runtime,$unsigned_right_shift_32) {
-      $power_2_above = function($x, $n) use ($Sys) {
+    $MakeSeeded = function(dynamic $H) use ($Array,$CamlinternalLazy,$Hashtbl,$Not_found,$Pervasives,$Random,$Sys,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect,$caml_wrap_exception,$insert_bucket,$left_shift_32,$runtime,$unsigned_right_shift_32) {
+      $power_2_above = function(dynamic $x, dynamic $n) use ($Sys) {
         $x__0 = $x;
         for (;;) {
           if ($n <= $x__0) {return $x__0;}
@@ -87,11 +88,11 @@ final class Ephemeron {
       };
       $prng = Vector{
         246,
-        function($Be) use ($Random,$caml_call1) {
+        function(dynamic $Be) use ($Random,$caml_call1) {
           return $caml_call1($Random[11][2], 0);
         }
       };
-      $create = function($opt, $initial_size) use ($CamlinternalLazy,$Hashtbl,$Random,$caml_call1,$caml_make_vect,$power_2_above,$prng,$runtime) {
+      $create = function(dynamic $opt, dynamic $initial_size) use ($CamlinternalLazy,$Hashtbl,$Random,$caml_call1,$caml_make_vect,$power_2_above,$prng,$runtime) {
         if ($opt) {
           $sth = $opt[1];
           $random = $sth;
@@ -110,7 +111,7 @@ final class Ephemeron {
         else {$seed = 0;}
         return Vector{0, 0, $caml_make_vect($s, 0), $seed, $s};
       };
-      $clear = function($h) use ($caml_check_bound) {
+      $clear = function(dynamic $h) use ($caml_check_bound) {
         $h[1] = 0;
         $len = $h[2]->count() - 1;
         $Ba = (int) ($len + -1);
@@ -126,25 +127,25 @@ final class Ephemeron {
         }
         return 0;
       };
-      $reset = function($h) use ($caml_make_vect,$clear) {
+      $reset = function(dynamic $h) use ($caml_make_vect,$clear) {
         $len = $h[2]->count() - 1;
         if ($len === $h[4]) {return $clear($h);}
         $h[1] = 0;
         $h[2] = $caml_make_vect($h[4], 0);
         return 0;
       };
-      $copy = function($h) use ($Array,$caml_call1) {
+      $copy = function(dynamic $h) use ($Array,$caml_call1) {
         $A7 = $h[4];
         $A8 = $h[3];
         $A9 = $caml_call1($Array[8], $h[2]);
         return Vector{0, $h[1], $A9, $A8, $A7};
       };
-      $key_index = function($h, $hkey) {
+      $key_index = function(dynamic $h, dynamic $hkey) {
         return $hkey & (int) ($h[2]->count() - 1 + -1);
       };
-      $clean = function($h) use ($H,$caml_call1,$caml_check_bound) {
+      $clean = function(dynamic $h) use ($H,$caml_call1,$caml_check_bound) {
         $do_bucket = new Ref();
-        $do_bucket->contents = function($param) use ($H,$caml_call1,$do_bucket,$h) {
+        $do_bucket->contents = function(dynamic $param) use ($H,$caml_call1,$do_bucket,$h) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -176,7 +177,7 @@ final class Ephemeron {
         }
         return 0;
       };
-      $resize = function($h) use ($Sys,$caml_check_bound,$caml_make_vect,$clean,$insert_bucket,$key_index,$unsigned_right_shift_32) {
+      $resize = function(dynamic $h) use ($Sys,$caml_check_bound,$caml_make_vect,$clean,$insert_bucket,$key_index,$unsigned_right_shift_32) {
         $odata = $h[2];
         $osize = $odata->count() - 1;
         $nsize = (int) ($osize * 2);
@@ -188,7 +189,7 @@ final class Ephemeron {
         if ($AZ) {
           $ndata = $caml_make_vect($nsize, 0);
           $h[2] = $ndata;
-          $insert_bucket->contents = function($param) use ($caml_check_bound,$h,$insert_bucket,$key_index,$ndata) {
+          $insert_bucket->contents = function(dynamic $param) use ($caml_check_bound,$h,$insert_bucket,$key_index,$ndata) {
             if ($param) {
               $rest = $param[3];
               $data = $param[2];
@@ -222,7 +223,7 @@ final class Ephemeron {
         else {$A2 = $AZ;}
         return $A2;
       };
-      $add = function($h, $key, $info) use ($H,$caml_call2,$caml_check_bound,$key_index,$left_shift_32,$resize) {
+      $add = function(dynamic $h, dynamic $key, dynamic $info) use ($H,$caml_call2,$caml_check_bound,$key_index,$left_shift_32,$resize) {
         $hkey = $caml_call2($H[2], $h[3], $key);
         $i = $key_index($h, $hkey);
         $container = $caml_call2($H[1], $key, $info);
@@ -237,10 +238,10 @@ final class Ephemeron {
         $AX = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
         return $AX ? $resize($h) : ($AX);
       };
-      $remove = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
+      $remove = function(dynamic $h, dynamic $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
         $remove_bucket = new Ref();
         $hkey = $caml_call2($H[2], $h[3], $key);
-        $remove_bucket->contents = function($param) use ($H,$caml_call2,$h,$hkey,$key,$remove_bucket) {
+        $remove_bucket->contents = function(dynamic $param) use ($H,$caml_call2,$h,$hkey,$key,$remove_bucket) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -274,7 +275,7 @@ final class Ephemeron {
         $caml_check_bound($h[2], $i)[$i + 1] = $AW;
         return 0;
       };
-      $find_rec = function($key, $hkey, $param) use ($H,$Not_found,$caml_call1,$caml_call2,$runtime) {
+      $find_rec = function(dynamic $key, dynamic $hkey, dynamic $param) use ($H,$Not_found,$caml_call1,$caml_call2,$runtime) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -306,12 +307,12 @@ final class Ephemeron {
           throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
-      $find = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$find_rec,$key_index) {
+      $find = function(dynamic $h, dynamic $key) use ($H,$caml_call2,$caml_check_bound,$find_rec,$key_index) {
         $hkey = $caml_call2($H[2], $h[3], $key);
         $AV = $key_index($h, $hkey);
         return $find_rec($key, $hkey, $caml_check_bound($h[2], $AV)[$AV + 1]);
       };
-      $find_rec_opt = function($key, $hkey, $param) use ($H,$caml_call1,$caml_call2) {
+      $find_rec_opt = function(dynamic $key, dynamic $hkey, dynamic $param) use ($H,$caml_call1,$caml_call2) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -343,7 +344,7 @@ final class Ephemeron {
           return 0;
         }
       };
-      $find_opt = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$find_rec_opt,$key_index) {
+      $find_opt = function(dynamic $h, dynamic $key) use ($H,$caml_call2,$caml_check_bound,$find_rec_opt,$key_index) {
         $hkey = $caml_call2($H[2], $h[3], $key);
         $AU = $key_index($h, $hkey);
         return $find_rec_opt(
@@ -352,10 +353,10 @@ final class Ephemeron {
           $caml_check_bound($h[2], $AU)[$AU + 1]
         );
       };
-      $find_all = function($h, $key) use ($H,$caml_call1,$caml_call2,$caml_check_bound,$key_index) {
+      $find_all = function(dynamic $h, dynamic $key) use ($H,$caml_call1,$caml_call2,$caml_check_bound,$key_index) {
         $find_in_bucket = new Ref();
         $hkey = $caml_call2($H[2], $h[3], $key);
-        $find_in_bucket->contents = function($param) use ($H,$caml_call1,$caml_call2,$find_in_bucket,$hkey,$key) {
+        $find_in_bucket->contents = function(dynamic $param) use ($H,$caml_call1,$caml_call2,$find_in_bucket,$hkey,$key) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -395,9 +396,9 @@ final class Ephemeron {
           $caml_check_bound($h[2], $AT)[$AT + 1]
         );
       };
-      $replace = function($h, $key, $info) use ($H,$Not_found,$caml_call2,$caml_call3,$caml_check_bound,$caml_wrap_exception,$key_index,$left_shift_32,$resize,$runtime) {
+      $replace = function(dynamic $h, dynamic $key, dynamic $info) use ($H,$Not_found,$caml_call2,$caml_call3,$caml_check_bound,$caml_wrap_exception,$key_index,$left_shift_32,$resize,$runtime) {
         $hkey = $caml_call2($H[2], $h[3], $key);
-        $replace_bucket = function($param) use ($H,$Not_found,$caml_call2,$caml_call3,$hkey,$info,$key,$runtime) {
+        $replace_bucket = function(dynamic $param) use ($H,$Not_found,$caml_call2,$caml_call3,$hkey,$info,$key,$runtime) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -433,9 +434,9 @@ final class Ephemeron {
           throw $runtime["caml_wrap_thrown_exception_reraise"]($AS) as \Throwable;
         }
       };
-      $mem = function($h, $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
+      $mem = function(dynamic $h, dynamic $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
         $hkey = $caml_call2($H[2], $h[3], $key);
-        $mem_in_bucket = function($param) use ($H,$caml_call2,$hkey,$key) {
+        $mem_in_bucket = function(dynamic $param) use ($H,$caml_call2,$hkey,$key) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -457,8 +458,8 @@ final class Ephemeron {
         $AP = $key_index($h, $hkey);
         return $mem_in_bucket($caml_check_bound($h[2], $AP)[$AP + 1]);
       };
-      $iter = function($f, $h) use ($H,$caml_call1,$caml_call2,$caml_check_bound) {
-        $do_bucket = function($param) use ($H,$caml_call1,$caml_call2,$f) {
+      $iter = function(dynamic $f, dynamic $h) use ($H,$caml_call1,$caml_call2,$caml_check_bound) {
+        $do_bucket = function(dynamic $param) use ($H,$caml_call1,$caml_call2,$f) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -497,8 +498,8 @@ final class Ephemeron {
         }
         return 0;
       };
-      $fold = function($f, $h, $init) use ($H,$caml_call1,$caml_call3,$caml_check_bound) {
-        $do_bucket = function($b, $accu) use ($H,$caml_call1,$caml_call3,$f) {
+      $fold = function(dynamic $f, dynamic $h, dynamic $init) use ($H,$caml_call1,$caml_call3,$caml_check_bound) {
+        $do_bucket = function(dynamic $b, dynamic $accu) use ($H,$caml_call1,$caml_call3,$f) {
           $b__0 = $b;
           $accu__0 = $accu;
           for (;;) {
@@ -541,9 +542,9 @@ final class Ephemeron {
         }
         return $accu[1];
       };
-      $filter_map_inplace = function($f, $h) use ($H,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound) {
+      $filter_map_inplace = function(dynamic $f, dynamic $h) use ($H,$caml_call1,$caml_call2,$caml_call3,$caml_check_bound) {
         $do_bucket = new Ref();
-        $do_bucket->contents = function($param) use ($H,$caml_call1,$caml_call2,$caml_call3,$do_bucket,$f) {
+        $do_bucket->contents = function(dynamic $param) use ($H,$caml_call1,$caml_call2,$caml_call3,$do_bucket,$f) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -587,8 +588,8 @@ final class Ephemeron {
         }
         return 0;
       };
-      $length = function($h) {return $h[1];};
-      $bucket_length = function($accu, $param) {
+      $length = function(dynamic $h) {return $h[1];};
+      $bucket_length = function(dynamic $accu, dynamic $param) {
         $accu__0 = $accu;
         $param__0 = $param;
         for (;;) {
@@ -602,17 +603,17 @@ final class Ephemeron {
           return $accu__0;
         }
       };
-      $stats = function($h) use ($Array,$Pervasives,$bucket_length,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect) {
+      $stats = function(dynamic $h) use ($Array,$Pervasives,$bucket_length,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect) {
         $Az = $h[2];
         $AA = 0;
-        $AB = function($m, $b) use ($Pervasives,$bucket_length,$caml_call2) {
+        $AB = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length,$caml_call2) {
           $AE = $bucket_length(0, $b);
           return $caml_call2($Pervasives[5], $m, $AE);
         };
         $mbl = $caml_call3($Array[17], $AB, $AA, $Az);
         $histo = $caml_make_vect((int) ($mbl + 1), 0);
         $AC = $h[2];
-        $AD = function($b) use ($bucket_length,$caml_check_bound,$histo) {
+        $AD = function(dynamic $b) use ($bucket_length,$caml_check_bound,$histo) {
           $l = $bucket_length(0, $b);
           $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
           return 0;
@@ -620,7 +621,7 @@ final class Ephemeron {
         $caml_call2($Array[13], $AD, $AC);
         return Vector{0, $h[1], $h[2]->count() - 1, $mbl, $histo};
       };
-      $bucket_length_alive = function($accu, $param) use ($H,$caml_call1) {
+      $bucket_length_alive = function(dynamic $accu, dynamic $param) use ($H,$caml_call1) {
         $accu__0 = $accu;
         $param__0 = $param;
         for (;;) {
@@ -639,18 +640,18 @@ final class Ephemeron {
           return $accu__0;
         }
       };
-      $stats_alive = function($h) use ($Array,$Pervasives,$bucket_length_alive,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect) {
+      $stats_alive = function(dynamic $h) use ($Array,$Pervasives,$bucket_length_alive,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect) {
         $size = Vector{0, 0};
         $At = $h[2];
         $Au = 0;
-        $Av = function($m, $b) use ($Pervasives,$bucket_length_alive,$caml_call2) {
+        $Av = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length_alive,$caml_call2) {
           $Ay = $bucket_length_alive(0, $b);
           return $caml_call2($Pervasives[5], $m, $Ay);
         };
         $mbl = $caml_call3($Array[17], $Av, $Au, $At);
         $histo = $caml_make_vect((int) ($mbl + 1), 0);
         $Aw = $h[2];
-        $Ax = function($b) use ($bucket_length_alive,$caml_check_bound,$histo,$size) {
+        $Ax = function(dynamic $b) use ($bucket_length_alive,$caml_check_bound,$histo,$size) {
           $l = $bucket_length_alive(0, $b);
           $size[1] = (int) ($size[1] + $l);
           $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
@@ -681,55 +682,55 @@ final class Ephemeron {
         $stats_alive
       };
     };
-    $obj_opt = function($x) {return $x;};
-    $create = function($param) use ($Obj,$caml_call1) {
+    $obj_opt = function(dynamic $x) {return $x;};
+    $create = function(dynamic $param) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][1], 1);
     };
-    $get_key = function($t) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key = function(dynamic $t) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][3], $t, 0));
     };
-    $get_key_copy = function($t) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key_copy = function(dynamic $t) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][4], $t, 0));
     };
-    $set_key = function($t, $k) use ($Obj,$caml_call3) {
+    $set_key = function(dynamic $t, dynamic $k) use ($Obj,$caml_call3) {
       return $caml_call3($Obj[26][5], $t, 0, $k);
     };
-    $unset_key = function($t) use ($Obj,$caml_call2) {
+    $unset_key = function(dynamic $t) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][6], $t, 0);
     };
-    $check_key = function($t) use ($Obj,$caml_call2) {
+    $check_key = function(dynamic $t) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][7], $t, 0);
     };
-    $blit_key = function($t1, $t2) use ($Obj,$caml_call5) {
+    $blit_key = function(dynamic $t1, dynamic $t2) use ($Obj,$caml_call5) {
       return $caml_call5($Obj[26][8], $t1, 0, $t2, 0, 1);
     };
-    $get_data = function($t) use ($Obj,$caml_call1,$obj_opt) {
+    $get_data = function(dynamic $t) use ($Obj,$caml_call1,$obj_opt) {
       return $obj_opt($caml_call1($Obj[26][9], $t));
     };
-    $get_data_copy = function($t) use ($Obj,$caml_call1,$obj_opt) {
+    $get_data_copy = function(dynamic $t) use ($Obj,$caml_call1,$obj_opt) {
       return $obj_opt($caml_call1($Obj[26][10], $t));
     };
-    $set_data = function($t, $d) use ($Obj,$caml_call2) {
+    $set_data = function(dynamic $t, dynamic $d) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][11], $t, $d);
     };
-    $unset_data = function($t) use ($Obj,$caml_call1) {
+    $unset_data = function(dynamic $t) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][12], $t);
     };
-    $check_data = function($t) use ($Obj,$caml_call1) {
+    $check_data = function(dynamic $t) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][13], $t);
     };
-    $blit_data = function($t1, $t2) use ($Obj,$caml_call2) {
+    $blit_data = function(dynamic $t1, dynamic $t2) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][14], $t1, $t2);
     };
-    $MakeSeeded__0 = function($H) use ($MakeSeeded,$caml_call2,$check_key,$create,$get_data,$get_key,$set_data,$set_key,$unset_data) {
-      $create__0 = function($k, $d) use ($create,$set_data,$set_key) {
+    $MakeSeeded__0 = function(dynamic $H) use ($MakeSeeded,$caml_call2,$check_key,$create,$get_data,$get_key,$set_data,$set_key,$unset_data) {
+      $create__0 = function(dynamic $k, dynamic $d) use ($create,$set_data,$set_key) {
         $c = $create(0);
         $set_data($c, $d);
         $set_key($c, $k);
         return $c;
       };
       $hash = $H[2];
-      $equal = function($c, $k) use ($H,$caml_call2,$get_key) {
+      $equal = function(dynamic $c, dynamic $k) use ($H,$caml_call2,$get_key) {
         $match = $get_key($c);
         if ($match) {
           $k__0 = $match[1];
@@ -737,7 +738,7 @@ final class Ephemeron {
         }
         return 2;
       };
-      $set_key_data = function($c, $k, $d) use ($set_data,$set_key,$unset_data) {
+      $set_key_data = function(dynamic $c, dynamic $k, dynamic $d) use ($set_data,$set_key,$unset_data) {
         $unset_data($c);
         $set_key($c, $k);
         return $set_data($c, $d);
@@ -755,9 +756,9 @@ final class Ephemeron {
         }
       );
     };
-    $Make = function($H) use ($MakeSeeded__0,$caml_call1,$caml_call2,$z3) {
+    $Make = function(dynamic $H) use ($MakeSeeded__0,$caml_call1,$caml_call2,$z3) {
       $equal = $H[1];
-      $hash = function($seed, $x) use ($H,$caml_call1) {
+      $hash = function(dynamic $seed, dynamic $x) use ($H,$caml_call1) {
         return $caml_call1($H[2], $x);
       };
       $include = $MakeSeeded__0(Vector{0, $equal, $hash});
@@ -779,7 +780,7 @@ final class Ephemeron {
       $clean = $include[17];
       $stats_alive = $include[18];
       $As = $include[1];
-      $create = function($sz) use ($As,$caml_call2,$z3) {
+      $create = function(dynamic $sz) use ($As,$caml_call2,$z3) {
         return $caml_call2($As, $z3, $sz);
       };
       return Vector{
@@ -804,68 +805,68 @@ final class Ephemeron {
         $stats_alive
       };
     };
-    $create__0 = function($param) use ($Obj,$caml_call1) {
+    $create__0 = function(dynamic $param) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][1], 2);
     };
-    $get_key1 = function($t) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key1 = function(dynamic $t) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][3], $t, 0));
     };
-    $get_key1_copy = function($t) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key1_copy = function(dynamic $t) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][4], $t, 0));
     };
-    $set_key1 = function($t, $k) use ($Obj,$caml_call3) {
+    $set_key1 = function(dynamic $t, dynamic $k) use ($Obj,$caml_call3) {
       return $caml_call3($Obj[26][5], $t, 0, $k);
     };
-    $unset_key1 = function($t) use ($Obj,$caml_call2) {
+    $unset_key1 = function(dynamic $t) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][6], $t, 0);
     };
-    $check_key1 = function($t) use ($Obj,$caml_call2) {
+    $check_key1 = function(dynamic $t) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][7], $t, 0);
     };
-    $get_key2 = function($t) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key2 = function(dynamic $t) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][3], $t, 1));
     };
-    $get_key2_copy = function($t) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key2_copy = function(dynamic $t) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][4], $t, 1));
     };
-    $set_key2 = function($t, $k) use ($Obj,$caml_call3) {
+    $set_key2 = function(dynamic $t, dynamic $k) use ($Obj,$caml_call3) {
       return $caml_call3($Obj[26][5], $t, 1, $k);
     };
-    $unset_key2 = function($t) use ($Obj,$caml_call2) {
+    $unset_key2 = function(dynamic $t) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][6], $t, 1);
     };
-    $check_key2 = function($t) use ($Obj,$caml_call2) {
+    $check_key2 = function(dynamic $t) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][7], $t, 1);
     };
-    $blit_key1 = function($t1, $t2) use ($Obj,$caml_call5) {
+    $blit_key1 = function(dynamic $t1, dynamic $t2) use ($Obj,$caml_call5) {
       return $caml_call5($Obj[26][8], $t1, 0, $t2, 0, 1);
     };
-    $blit_key2 = function($t1, $t2) use ($Obj,$caml_call5) {
+    $blit_key2 = function(dynamic $t1, dynamic $t2) use ($Obj,$caml_call5) {
       return $caml_call5($Obj[26][8], $t1, 1, $t2, 1, 1);
     };
-    $blit_key12 = function($t1, $t2) use ($Obj,$caml_call5) {
+    $blit_key12 = function(dynamic $t1, dynamic $t2) use ($Obj,$caml_call5) {
       return $caml_call5($Obj[26][8], $t1, 0, $t2, 0, 2);
     };
-    $get_data__0 = function($t) use ($Obj,$caml_call1,$obj_opt) {
+    $get_data__0 = function(dynamic $t) use ($Obj,$caml_call1,$obj_opt) {
       return $obj_opt($caml_call1($Obj[26][9], $t));
     };
-    $get_data_copy__0 = function($t) use ($Obj,$caml_call1,$obj_opt) {
+    $get_data_copy__0 = function(dynamic $t) use ($Obj,$caml_call1,$obj_opt) {
       return $obj_opt($caml_call1($Obj[26][10], $t));
     };
-    $set_data__0 = function($t, $d) use ($Obj,$caml_call2) {
+    $set_data__0 = function(dynamic $t, dynamic $d) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][11], $t, $d);
     };
-    $unset_data__0 = function($t) use ($Obj,$caml_call1) {
+    $unset_data__0 = function(dynamic $t) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][12], $t);
     };
-    $check_data__0 = function($t) use ($Obj,$caml_call1) {
+    $check_data__0 = function(dynamic $t) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][13], $t);
     };
-    $blit_data__0 = function($t1, $t2) use ($Obj,$caml_call2) {
+    $blit_data__0 = function(dynamic $t1, dynamic $t2) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][14], $t1, $t2);
     };
-    $MakeSeeded__1 = function($H1, $H2) use ($MakeSeeded,$caml_call2,$check_key1,$check_key2,$create__0,$get_data__0,$get_key1,$get_key2,$set_data__0,$set_key1,$set_key2,$unset_data__0) {
-      $create = function($param, $d) use ($create__0,$set_data__0,$set_key1,$set_key2) {
+    $MakeSeeded__1 = function(dynamic $H1, dynamic $H2) use ($MakeSeeded,$caml_call2,$check_key1,$check_key2,$create__0,$get_data__0,$get_key1,$get_key2,$set_data__0,$set_key1,$set_key2,$unset_data__0) {
+      $create = function(dynamic $param, dynamic $d) use ($create__0,$set_data__0,$set_key1,$set_key2) {
         $k2 = $param[2];
         $k1 = $param[1];
         $c = $create__0(0);
@@ -874,13 +875,13 @@ final class Ephemeron {
         $set_key2($c, $k2);
         return $c;
       };
-      $hash = function($seed, $param) use ($H1,$H2,$caml_call2) {
+      $hash = function(dynamic $seed, dynamic $param) use ($H1,$H2,$caml_call2) {
         $k2 = $param[2];
         $k1 = $param[1];
         $Ar = (int) ($caml_call2($H2[2], $seed, $k2) * 65599);
         return (int) ($caml_call2($H1[2], $seed, $k1) + $Ar);
       };
-      $equal = function($c, $param) use ($H1,$H2,$caml_call2,$get_key1,$get_key2) {
+      $equal = function(dynamic $c, dynamic $param) use ($H1,$H2,$caml_call2,$get_key1,$get_key2) {
         $k2 = $param[2];
         $k1 = $param[1];
         $match = $get_key1($c);
@@ -897,7 +898,7 @@ final class Ephemeron {
         }
         return 2;
       };
-      $get_key = function($c) use ($get_key1,$get_key2) {
+      $get_key = function(dynamic $c) use ($get_key1,$get_key2) {
         $match = $get_key1($c);
         $match__0 = $get_key2($c);
         if ($match) {
@@ -909,7 +910,7 @@ final class Ephemeron {
         }
         return 0;
       };
-      $set_key_data = function($c, $param, $d) use ($set_data__0,$set_key1,$set_key2,$unset_data__0) {
+      $set_key_data = function(dynamic $c, dynamic $param, dynamic $d) use ($set_data__0,$set_key1,$set_key2,$unset_data__0) {
         $k2 = $param[2];
         $k1 = $param[1];
         $unset_data__0($c);
@@ -917,7 +918,7 @@ final class Ephemeron {
         $set_key2($c, $k2);
         return $set_data__0($c, $d);
       };
-      $check_key = function($c) use ($check_key1,$check_key2) {
+      $check_key = function(dynamic $c) use ($check_key1,$check_key2) {
         $Aq = $check_key1($c);
         return $Aq ? $check_key2($c) : ($Aq);
       };
@@ -934,18 +935,18 @@ final class Ephemeron {
         }
       );
     };
-    $Make__0 = function($H1, $H2) use ($MakeSeeded__1,$caml_call1,$caml_call2,$z4) {
+    $Make__0 = function(dynamic $H1, dynamic $H2) use ($MakeSeeded__1,$caml_call1,$caml_call2,$z4) {
       $equal = $H2[1];
-      $hash = function($seed, $x) use ($H2,$caml_call1) {
+      $hash = function(dynamic $seed, dynamic $x) use ($H2,$caml_call1) {
         return $caml_call1($H2[2], $x);
       };
       $equal__0 = $H1[1];
       $Am = Vector{0, $equal, $hash};
-      $hash__0 = function($seed, $x) use ($H1,$caml_call1) {
+      $hash__0 = function(dynamic $seed, dynamic $x) use ($H1,$caml_call1) {
         return $caml_call1($H1[2], $x);
       };
       $An = Vector{0, $equal__0, $hash__0};
-      $include = (function($Ap) use ($An,$MakeSeeded__1) {
+      $include = (function(dynamic $Ap) use ($An,$MakeSeeded__1) {
          return $MakeSeeded__1($An, $Ap);
        })($Am);
       $clear = $include[2];
@@ -966,7 +967,7 @@ final class Ephemeron {
       $clean = $include[17];
       $stats_alive = $include[18];
       $Ao = $include[1];
-      $create = function($sz) use ($Ao,$caml_call2,$z4) {
+      $create = function(dynamic $sz) use ($Ao,$caml_call2,$z4) {
         return $caml_call2($Ao, $z4, $sz);
       };
       return Vector{
@@ -991,50 +992,51 @@ final class Ephemeron {
         $stats_alive
       };
     };
-    $create__1 = function($n) use ($Obj,$caml_call1) {
+    $create__1 = function(dynamic $n) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][1], $n);
     };
-    $length = function($k) use ($Obj,$caml_call1) {
+    $length = function(dynamic $k) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][2], $k);
     };
-    $get_key__0 = function($t, $n) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key__0 = function(dynamic $t, dynamic $n) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][3], $t, $n));
     };
-    $get_key_copy__0 = function($t, $n) use ($Obj,$caml_call2,$obj_opt) {
+    $get_key_copy__0 = function(dynamic $t, dynamic $n) use ($Obj,$caml_call2,$obj_opt) {
       return $obj_opt($caml_call2($Obj[26][4], $t, $n));
     };
-    $set_key__0 = function($t, $n, $k) use ($Obj,$caml_call3) {
+    $set_key__0 = function(dynamic $t, dynamic $n, dynamic $k) use ($Obj,$caml_call3) {
       return $caml_call3($Obj[26][5], $t, $n, $k);
     };
-    $unset_key__0 = function($t, $n) use ($Obj,$caml_call2) {
+    $unset_key__0 = function(dynamic $t, dynamic $n) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][6], $t, $n);
     };
-    $check_key__0 = function($t, $n) use ($Obj,$caml_call2) {
+    $check_key__0 = function(dynamic $t, dynamic $n) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][7], $t, $n);
     };
-    $blit_key__0 = function($t1, $o1, $t2, $o2, $l) use ($Obj,$caml_call5) {
+    $blit_key__0 = function
+    (dynamic $t1, dynamic $o1, dynamic $t2, dynamic $o2, dynamic $l) use ($Obj,$caml_call5) {
       return $caml_call5($Obj[26][8], $t1, $o1, $t2, $o2, $l);
     };
-    $get_data__1 = function($t) use ($Obj,$caml_call1,$obj_opt) {
+    $get_data__1 = function(dynamic $t) use ($Obj,$caml_call1,$obj_opt) {
       return $obj_opt($caml_call1($Obj[26][9], $t));
     };
-    $get_data_copy__1 = function($t) use ($Obj,$caml_call1,$obj_opt) {
+    $get_data_copy__1 = function(dynamic $t) use ($Obj,$caml_call1,$obj_opt) {
       return $obj_opt($caml_call1($Obj[26][10], $t));
     };
-    $set_data__1 = function($t, $d) use ($Obj,$caml_call2) {
+    $set_data__1 = function(dynamic $t, dynamic $d) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][11], $t, $d);
     };
-    $unset_data__1 = function($t) use ($Obj,$caml_call1) {
+    $unset_data__1 = function(dynamic $t) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][12], $t);
     };
-    $check_data__1 = function($t) use ($Obj,$caml_call1) {
+    $check_data__1 = function(dynamic $t) use ($Obj,$caml_call1) {
       return $caml_call1($Obj[26][13], $t);
     };
-    $blit_data__1 = function($t1, $t2) use ($Obj,$caml_call2) {
+    $blit_data__1 = function(dynamic $t1, dynamic $t2) use ($Obj,$caml_call2) {
       return $caml_call2($Obj[26][14], $t1, $t2);
     };
-    $MakeSeeded__2 = function($H) use ($MakeSeeded,$caml_call2,$caml_check_bound,$caml_make_vect,$check_key__0,$create__1,$get_data__1,$get_key__0,$length,$set_data__1,$set_key__0,$unset_data__1) {
-      $create = function($k, $d) use ($caml_check_bound,$create__1,$set_data__1,$set_key__0) {
+    $MakeSeeded__2 = function(dynamic $H) use ($MakeSeeded,$caml_call2,$caml_check_bound,$caml_make_vect,$check_key__0,$create__1,$get_data__1,$get_key__0,$length,$set_data__1,$set_key__0,$unset_data__1) {
+      $create = function(dynamic $k, dynamic $d) use ($caml_check_bound,$create__1,$set_data__1,$set_key__0) {
         $c = $create__1($k->count() - 1);
         $set_data__1($c, $d);
         $Ak = (int) ($k->count() - 1 + -1);
@@ -1050,7 +1052,7 @@ final class Ephemeron {
         }
         return $c;
       };
-      $hash = function($seed, $k) use ($H,$caml_call2,$caml_check_bound) {
+      $hash = function(dynamic $seed, dynamic $k) use ($H,$caml_call2,$caml_check_bound) {
         $h = Vector{0, 0};
         $Af = (int) ($k->count() - 1 + -1);
         $Ae = 0;
@@ -1069,11 +1071,11 @@ final class Ephemeron {
         }
         return $h[1];
       };
-      $equal = function($c, $k) use ($H,$caml_call2,$caml_check_bound,$get_key__0,$length) {
+      $equal = function(dynamic $c, dynamic $k) use ($H,$caml_call2,$caml_check_bound,$get_key__0,$length) {
         $len = $k->count() - 1;
         $len__0 = $length($c);
         if ($len !== $len__0) {return 1;}
-        $equal_array = function($k, $c, $i) use ($H,$caml_call2,$caml_check_bound,$get_key__0) {
+        $equal_array = function(dynamic $k, dynamic $c, dynamic $i) use ($H,$caml_call2,$caml_check_bound,$get_key__0) {
           $i__0 = $i;
           for (;;) {
             if (0 <= $i__0) {
@@ -1095,13 +1097,13 @@ final class Ephemeron {
         };
         return $equal_array($k, $c, (int) ($len + -1));
       };
-      $get_key = function($c) use ($caml_check_bound,$caml_make_vect,$get_key__0,$length) {
+      $get_key = function(dynamic $c) use ($caml_check_bound,$caml_make_vect,$get_key__0,$length) {
         $len = $length($c);
         if (0 === $len) {return Vector{0, Vector{0}};}
         $match = $get_key__0($c, 0);
         if ($match) {
           $k0 = $match[1];
-          $fill = function($a, $i) use ($c,$caml_check_bound,$get_key__0) {
+          $fill = function(dynamic $a, dynamic $i) use ($c,$caml_check_bound,$get_key__0) {
             $i__0 = $i;
             for (;;) {
               if (1 <= $i__0) {
@@ -1123,7 +1125,7 @@ final class Ephemeron {
         }
         return 0;
       };
-      $set_key_data = function($c, $k, $d) use ($caml_check_bound,$set_data__1,$set_key__0,$unset_data__1) {
+      $set_key_data = function(dynamic $c, dynamic $k, dynamic $d) use ($caml_check_bound,$set_data__1,$set_key__0,$unset_data__1) {
         $unset_data__1($c);
         $Ab = (int) ($k->count() - 1 + -1);
         $Aa = 0;
@@ -1138,8 +1140,8 @@ final class Ephemeron {
         }
         return $set_data__1($c, $d);
       };
-      $check_key = function($c) use ($check_key__0,$length) {
-        $check = function($c, $i) use ($check_key__0) {
+      $check_key = function(dynamic $c) use ($check_key__0,$length) {
+        $check = function(dynamic $c, dynamic $i) use ($check_key__0) {
           $i__0 = $i;
           for (;;) {
             $z8 = $i__0 < 0 ? 1 : (0);
@@ -1169,9 +1171,9 @@ final class Ephemeron {
         }
       );
     };
-    $Make__1 = function($H) use ($MakeSeeded__2,$caml_call1,$caml_call2,$z5) {
+    $Make__1 = function(dynamic $H) use ($MakeSeeded__2,$caml_call1,$caml_call2,$z5) {
       $equal = $H[1];
-      $hash = function($seed, $x) use ($H,$caml_call1) {
+      $hash = function(dynamic $seed, dynamic $x) use ($H,$caml_call1) {
         return $caml_call1($H[2], $x);
       };
       $include = $MakeSeeded__2(Vector{0, $equal, $hash});
@@ -1193,7 +1195,7 @@ final class Ephemeron {
       $clean = $include[17];
       $stats_alive = $include[18];
       $z7 = $include[1];
-      $create = function($sz) use ($caml_call2,$z5,$z7) {
+      $create = function(dynamic $sz) use ($caml_call2,$z5,$z7) {
         return $caml_call2($z7, $z5, $sz);
       };
       return Vector{
@@ -1283,7 +1285,7 @@ final class Ephemeron {
       },
       Vector{
         0,
-        function($z6) use ($MakeSeeded) {
+        function(dynamic $z6) use ($MakeSeeded) {
           return $MakeSeeded(
             Vector{0, $z6[3], $z6[1], $z6[2], $z6[5], $z6[4], $z6[6], $z6[7]}
           );

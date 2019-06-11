@@ -279,22 +279,23 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     : (function() use ($caml_failwith) {
      $caml_failwith("native_debug" . " not implemented");
    });
-  $caml_call1 = function($f, $a0) use ($caml_arity_test,$caml_call_gen) {
+  $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) === 1
       ? $f($a0)
       : ($caml_call_gen($f, varray[$a0]));
   };
-  $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$caml_call_gen) {
+  $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) === 2
       ? $f($a0, $a1)
       : ($caml_call_gen($f, varray[$a0,$a1]));
   };
-  $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$caml_call_gen) {
+  $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) === 3
       ? $f($a0, $a1, $a2)
       : ($caml_call_gen($f, varray[$a0,$a1,$a2]));
   };
-  $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$caml_call_gen) {
+  $caml_call4 = function
+  (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$caml_call_gen) {
     return $caml_arity_test($f) === 4
       ? $f($a0, $a1, $a2, $a3)
       : ($caml_call_gen($f, varray[$a0,$a1,$a2,$a3]));
@@ -553,13 +554,13 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $bY = $caml_new_string("Another Type Init:");
   $bq = $caml_new_string("Total ms (Title): %d ");
   $br = $caml_new_string("Second Part Of Tuple:");
-  $invalid_arg = function($s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
+  $invalid_arg = function(dynamic $s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
     throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
   };
   
   $caml_fresh_oo_id(0);
   
-  $a = function($s1, $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
+  $a = function(dynamic $s1, dynamic $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
     $l1 = $caml_ml_string_length($s1);
     $l2 = $caml_ml_string_length($s2);
     $s = $caml_create_bytes((int) ($l1 + $l2));
@@ -567,12 +568,12 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $caml_blit_string($s2, 0, $s, $l1, $l2);
     return $s;
   };
-  $string_of_int = function($n) use ($caml_new_string) {
+  $string_of_int = function(dynamic $n) use ($caml_new_string) {
     return $caml_new_string("" . $n);
   };
-  $valid_float_lexem = function($s) use ($a,$b,$caml_ml_string_length,$caml_string_get) {
+  $valid_float_lexem = function(dynamic $s) use ($a,$b,$caml_ml_string_length,$caml_string_get) {
     $l = $caml_ml_string_length($s);
-    $loop = function($i) use ($a,$b,$caml_string_get,$l,$s) {
+    $loop = function(dynamic $i) use ($a,$b,$caml_string_get,$l,$s) {
       $i__0 = $i;
       for (;;) {
         if ($l <= $i__0) {return $a($s, $b);}
@@ -586,10 +587,10 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     };
     return $loop(0);
   };
-  $string_of_float = function($f) use ($c,$caml_format_float,$valid_float_lexem) {
+  $string_of_float = function(dynamic $f) use ($c,$caml_format_float,$valid_float_lexem) {
     return $valid_float_lexem($caml_format_float($c, $f));
   };
-  $append->contents = function($l1, $l2) use ($append) {
+  $append->contents = function(dynamic $l1, dynamic $l2) use ($append) {
     if ($l1) {
       $tl = $l1[2];
       $hd = $l1[1];
@@ -604,8 +605,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   
   $caml_ml_open_descriptor_out(2);
   
-  $flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
-    $iter = function($param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
+  $flush_all = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
+    $iter = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -626,14 +627,16 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     };
     return $iter($caml_ml_out_channels_list(0));
   };
-  $output_string = function($oc, $s) use ($caml_ml_output,$caml_ml_string_length) {
+  $output_string = function(dynamic $oc, dynamic $s) use ($caml_ml_output,$caml_ml_string_length) {
     return $caml_ml_output($oc, $s, 0, $caml_ml_string_length($s));
   };
-  $print_string = function($s) use ($output_string,$stdout) {
+  $print_string = function(dynamic $s) use ($output_string,$stdout) {
     return $output_string($stdout, $s);
   };
-  $do_at_exit = function($param) use ($flush_all) {return $flush_all(0);};
-  $rev_append = function($l1, $l2) {
+  $do_at_exit = function(dynamic $param) use ($flush_all) {
+    return $flush_all(0);
+  };
+  $rev_append = function(dynamic $l1, dynamic $l2) {
     $l1__0 = $l1;
     $l2__0 = $l2;
     for (;;) {
@@ -648,8 +651,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       return $l2__0;
     }
   };
-  $rev = function($l) use ($rev_append) {return $rev_append($l, 0);};
-  $flatten->contents = function($param) use ($append,$flatten) {
+  $rev = function(dynamic $l) use ($rev_append) {return $rev_append($l, 0);};
+  $flatten->contents = function(dynamic $param) use ($append,$flatten) {
     if ($param) {
       $r = $param[2];
       $l = $param[1];
@@ -657,7 +660,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return 0;
   };
-  $map->contents = function($f, $param) use ($caml_call1,$map) {
+  $map->contents = function(dynamic $f, dynamic $param) use ($caml_call1,$map) {
     if ($param) {
       $l = $param[2];
       $a = $param[1];
@@ -666,7 +669,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return 0;
   };
-  $d->contents = function($i, $f, $param) use ($caml_call2,$d) {
+  $d->contents = function(dynamic $i, dynamic $f, dynamic $param) use ($caml_call2,$d) {
     if ($param) {
       $l = $param[2];
       $a = $param[1];
@@ -675,8 +678,10 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return 0;
   };
-  $mapi = function($f, $l) use ($d) {return $d->contents(0, $f, $l);};
-  $iter = function($f, $param) use ($caml_call1) {
+  $mapi = function(dynamic $f, dynamic $l) use ($d) {
+    return $d->contents(0, $f, $l);
+  };
+  $iter = function(dynamic $f, dynamic $param) use ($caml_call1) {
     $param__0 = $param;
     for (;;) {
       if ($param__0) {
@@ -689,7 +694,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       return 0;
     }
   };
-  $fold_left = function($f, $accu, $l) use ($caml_call2) {
+  $fold_left = function(dynamic $f, dynamic $accu, dynamic $l) use ($caml_call2) {
     $accu__0 = $accu;
     $l__0 = $l;
     for (;;) {
@@ -704,13 +709,13 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       return $accu__0;
     }
   };
-  $copy = function($s) use ($caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length) {
+  $copy = function(dynamic $s) use ($caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length) {
     $len = $caml_ml_bytes_length($s);
     $r = $caml_create_bytes($len);
     $caml_blit_bytes($s, 0, $r, 0, $len);
     return $r;
   };
-  $escaped = function($s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
+  $escaped = function(dynamic $s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
     $n = Vector{0, 0};
     $ep = (int) ($caml_ml_bytes_length($s) + -1);
     $eo = 0;
@@ -847,12 +852,12 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return $s__0;
   };
-  $bos = function($en) {return $en;};
-  $bts = function($em) {return $em;};
-  $ensure_ge = function($x, $y) use ($e,$invalid_arg) {
+  $bos = function(dynamic $en) {return $en;};
+  $bts = function(dynamic $em) {return $em;};
+  $ensure_ge = function(dynamic $x, dynamic $y) use ($e,$invalid_arg) {
     return $y <= $x ? $x : ($invalid_arg($e));
   };
-  $sum_lengths = function($acc, $seplen, $param) use ($caml_ml_string_length,$ensure_ge) {
+  $sum_lengths = function(dynamic $acc, dynamic $seplen, dynamic $param) use ($caml_ml_string_length,$ensure_ge) {
     $acc__0 = $acc;
     $param__0 = $param;
     for (;;) {
@@ -874,7 +879,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       return $acc__0;
     }
   };
-  $unsafe_blits = function($dst, $pos, $sep, $seplen, $param) use ($caml_blit_string,$caml_ml_string_length) {
+  $unsafe_blits = function
+  (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) use ($caml_blit_string,$caml_ml_string_length) {
     $pos__0 = $pos;
     $param__0 = $param;
     for (;;) {
@@ -904,7 +910,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       return $dst;
     }
   };
-  $concat = function($sep, $l) use ($bts,$caml_create_bytes,$caml_ml_string_length,$f,$sum_lengths,$unsafe_blits) {
+  $concat = function(dynamic $sep, dynamic $l) use ($bts,$caml_create_bytes,$caml_ml_string_length,$f,$sum_lengths,$unsafe_blits) {
     if ($l) {
       $seplen = $caml_ml_string_length($sep);
       return $bts(
@@ -919,8 +925,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return $f;
   };
-  $escaped__0 = function($s) use ($bos,$bts,$caml_bytes_unsafe_get,$caml_ml_string_length,$escaped,$unsigned_right_shift_32) {
-    $needs_escape = function($i) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$s,$unsigned_right_shift_32) {
+  $escaped__0 = function(dynamic $s) use ($bos,$bts,$caml_bytes_unsafe_get,$caml_ml_string_length,$escaped,$unsigned_right_shift_32) {
+    $needs_escape = function(dynamic $i) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$s,$unsigned_right_shift_32) {
       $i__0 = $i;
       for (;;) {
         if ($caml_ml_string_length($s) <= $i__0) {return 0;}
@@ -950,7 +956,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     };
     return $needs_escape(0) ? $bts($escaped($bos($s))) : ($s);
   };
-  $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
+  $index_rec = function(dynamic $s, dynamic $lim, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
     $i__0 = $i;
     for (;;) {
       if ($lim <= $i__0) {
@@ -962,7 +968,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       continue;
     }
   };
-  $contains_from = function($s, $i, $c) use ($Not_found,$caml_ml_string_length,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise,$g,$index_rec,$invalid_arg) {
+  $contains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$caml_ml_string_length,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise,$g,$index_rec,$invalid_arg) {
     $l = $caml_ml_string_length($s);
     if (0 <= $i) {
       if (! ($l < $i)) {
@@ -976,7 +982,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return $invalid_arg($g);
   };
-  $contains = function($s, $c) use ($contains_from) {
+  $contains = function(dynamic $s, dynamic $c) use ($contains_from) {
     return $contains_from($s, 0, $c);
   };
   
@@ -984,7 +990,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   
   $caml_fresh_oo_id(0);
   
-  $bits = function($s) use ($caml_check_bound,$unsigned_right_shift_32) {
+  $bits = function(dynamic $s) use ($caml_check_bound,$unsigned_right_shift_32) {
     $s[2] = (int) ((int) ($s[2] + 1) % 55);
     $ec = $s[2];
     $curval = $caml_check_bound($s[1], $ec)[$ec + 1];
@@ -997,7 +1003,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $caml_check_bound($s[1], $ee)[$ee + 1] = $newval30;
     return $newval30;
   };
-  $intaux = function($s, $n) use ($bits,$caml_mod) {
+  $intaux = function(dynamic $s, dynamic $n) use ($bits,$caml_mod) {
     for (;;) {
       $r = $bits($s);
       $v = $caml_mod($r, $n);
@@ -1005,18 +1011,18 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       return $v;
     }
   };
-  $int__0 = function($s, $bound) use ($h,$intaux,$invalid_arg) {
+  $int__0 = function(dynamic $s, dynamic $bound) use ($h,$intaux,$invalid_arg) {
     if (! (1073741823 < $bound)) {
       if (0 < $bound) {return $intaux($s, $bound);}
     }
     return $invalid_arg($h);
   };
   $default__0 = Vector{0, $i->toVector(), 0};
-  $int__1 = function($bound) use ($default__0,$int__0) {
+  $int__1 = function(dynamic $bound) use ($default__0,$int__0) {
     return $int__0($default__0, $bound);
   };
   $j = 5;
-  $detectList = function($maxLength, $o) use ($caml_equal,$caml_obj_tag) {
+  $detectList = function(dynamic $maxLength, dynamic $o) use ($caml_equal,$caml_obj_tag) {
     $maxLength__0 = $maxLength;
     $o__0 = $o;
     for (;;) {
@@ -1043,7 +1049,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       return $caml_equal($o__0, 0);
     }
   };
-  $extractList->contents = function($maxNum, $o) use ($extractList,$is_int,$k) {
+  $extractList->contents = function(dynamic $maxNum, dynamic $o) use ($extractList,$is_int,$k) {
     if (0 === $maxNum) {return Vector{0, 1 - $is_int($o), 0};}
     if ($is_int($o)) {return $k;}
     $match = $extractList->contents((int) ($maxNum + -1), $o[2]);
@@ -1051,8 +1057,9 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $restWasTruncated = $match[1];
     return Vector{0, $restWasTruncated, Vector{0, $o[1], $rest}};
   };
-  $extractFields = function($maxNum, $o) {
-    $extractFields = function($maxNum, $fieldsSoFar, $numFields) use ($o) {
+  $extractFields = function(dynamic $maxNum, dynamic $o) {
+    $extractFields = function
+    (dynamic $maxNum, dynamic $fieldsSoFar, dynamic $numFields) use ($o) {
       $maxNum__0 = $maxNum;
       $fieldsSoFar__0 = $fieldsSoFar;
       $numFields__0 = $numFields;
@@ -1076,9 +1083,9 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     };
     return $extractFields($maxNum, 0, $o->count() - 1);
   };
-  $getBreakData = function($itms) use ($caml_ml_string_length,$contains,$fold_left,$l) {
+  $getBreakData = function(dynamic $itms) use ($caml_ml_string_length,$contains,$fold_left,$l) {
     $match = $fold_left(
-      function($param, $itm) use ($caml_ml_string_length,$contains) {
+      function(dynamic $param, dynamic $itm) use ($caml_ml_string_length,$contains) {
         $curDidBreak = $param[2];
         $curTotalLen = $param[1];
         $containsNewline = $contains($itm, 10);
@@ -1097,7 +1104,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $allItemsLen = $match[1];
     return Vector{0, $allItemsLen, $someChildBroke};
   };
-  $indentForDepth->contents = function($n__0) use ($a,$indentForDepth,$m,$n,$o,$p,$q,$r,$s,$t,$u,$unsigned_right_shift_32,$v) {
+  $indentForDepth->contents = function(dynamic $n__0) use ($a,$indentForDepth,$m,$n,$o,$p,$q,$r,$s,$t,$u,$unsigned_right_shift_32,$v) {
     if (8 < $unsigned_right_shift_32($n__0, 0)) {
       return $a($indentForDepth->contents((int) ($n__0 + -1)), $m);
     }
@@ -1131,7 +1138,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         return $v;
       }
   };
-  $printTreeShape = function($pair, $self, $depth, $o) use ($A,$B,$C,$D,$a,$caml_call1,$caml_call3,$caml_ml_string_length,$concat,$extractFields,$getBreakData,$indentForDepth,$j,$map,$w,$x,$y,$z) {
+  $printTreeShape = function
+  (dynamic $pair, dynamic $self, dynamic $depth, dynamic $o) use ($A,$B,$C,$D,$a,$caml_call1,$caml_call3,$caml_ml_string_length,$concat,$extractFields,$getBreakData,$indentForDepth,$j,$map,$w,$x,$y,$z) {
     $right = $pair[2];
     $left = $pair[1];
     $match = $extractFields($j, $o);
@@ -1141,7 +1149,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $indent = $indentForDepth->contents($depth);
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
-      function($o) use ($caml_call3,$dNext,$self) {
+      function(dynamic $o) use ($caml_call3,$dNext,$self) {
         return $caml_call3($self[13], $self, Vector{0, $dNext}, $o);
       },
       $lst
@@ -1172,7 +1180,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $a($z, $a($indentNext, $a($concat($a($y, $indentNext), $itms), $d8)))
     );
   };
-  $printListShape = function($self, $depth, $o) use ($E,$F,$G,$H,$I,$J,$K,$L,$M,$N,$O,$P,$a,$caml_call1,$caml_call3,$caml_ml_string_length,$concat,$extractList,$getBreakData,$indentForDepth,$j,$map) {
+  $printListShape = function(dynamic $self, dynamic $depth, dynamic $o) use ($E,$F,$G,$H,$I,$J,$K,$L,$M,$N,$O,$P,$a,$caml_call1,$caml_call3,$caml_ml_string_length,$concat,$extractList,$getBreakData,$indentForDepth,$j,$map) {
     $match = $extractList->contents($j, $o);
     $lst = $match[2];
     $wasTruncated = $match[1];
@@ -1180,7 +1188,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $indent = $indentForDepth->contents($depth);
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
-      function($o) use ($caml_call3,$dNext,$self) {
+      function(dynamic $o) use ($caml_call3,$dNext,$self) {
         return $caml_call3($self[13], $self, Vector{0, $dNext}, $o);
       },
       $lst
@@ -1211,7 +1219,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $a($I, $a($indentNext, $a($concat($a($H, $indentNext), $itms), $d6)))
     );
   };
-  $Q = function($self, $opt, $o) use ($caml_call1,$caml_call2,$caml_call3,$caml_obj_tag,$detectList,$j) {
+  $Q = function(dynamic $self, dynamic $opt, dynamic $o) use ($caml_call1,$caml_call2,$caml_call3,$caml_obj_tag,$detectList,$j) {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1241,7 +1249,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
             ? $caml_call3($self[11], $self, Vector{0, $depth}, $o)
             : ($caml_call2($self[7], $self, $o))))))));
   };
-  $R = function($self, $opt, $o) use ($printListShape) {
+  $R = function(dynamic $self, dynamic $opt, dynamic $o) use ($printListShape) {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1249,7 +1257,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     else {$depth = 0;}
     return $printListShape($self, $depth, $o);
   };
-  $S = function($self, $opt, $o) use ($T,$printTreeShape) {
+  $S = function(dynamic $self, dynamic $opt, dynamic $o) use ($T,$printTreeShape) {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1257,10 +1265,10 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     else {$depth = 0;}
     return $printTreeShape($T, $self, $depth, $o);
   };
-  $U = function($self, $f) use ($V,$W,$a,$string_of_int) {
+  $U = function(dynamic $self, dynamic $f) use ($V,$W,$a,$string_of_int) {
     return $a($W, $a($string_of_int((int) $f), $V));
   };
-  $X = function($self, $opt, $o) use ($Y,$printTreeShape) {
+  $X = function(dynamic $self, dynamic $opt, dynamic $o) use ($Y,$printTreeShape) {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1268,20 +1276,22 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     else {$depth = 0;}
     return $printTreeShape($Y, $self, $depth, $o);
   };
-  $Z = function($self, $o) use ($aa) {return $aa;};
-  $ab = function($self, $o) use ($ac) {return $ac;};
-  $ad = function($self) use ($ae) {return $ae;};
-  $af = function($self) use ($ag) {return $ag;};
-  $ah = function($self, $f) use ($string_of_float) {
+  $Z = function(dynamic $self, dynamic $o) use ($aa) {return $aa;};
+  $ab = function(dynamic $self, dynamic $o) use ($ac) {return $ac;};
+  $ad = function(dynamic $self) use ($ae) {return $ae;};
+  $af = function(dynamic $self) use ($ag) {return $ag;};
+  $ah = function(dynamic $self, dynamic $f) use ($string_of_float) {
     return $string_of_float($f);
   };
-  $ai = function($self, $s) use ($a,$aj,$ak,$caml_call2) {
+  $ai = function(dynamic $self, dynamic $s) use ($a,$aj,$ak,$caml_call2) {
     return $a($ak, $a($caml_call2($self[2], $self, $s), $aj));
   };
-  $al = function($self, $s) {return $s;};
+  $al = function(dynamic $self, dynamic $s) {return $s;};
   $base = Vector{
     0,
-    function($self, $i) use ($string_of_int) {return $string_of_int($i);},
+    function(dynamic $self, dynamic $i) use ($string_of_int) {
+      return $string_of_int($i);
+    },
     $al,
     $ai,
     $ah,
@@ -1295,30 +1305,30 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $R,
     $Q
   };
-  $makeStandardChannelsConsole = function($objectPrinter) use ($a,$am,$an,$ao,$ap,$caml_call3,$native_debug,$native_error,$native_log,$native_warn) {
-    $d2 = function($a__0) use ($a,$am,$caml_call3,$native_debug,$objectPrinter) {
+  $makeStandardChannelsConsole = function(dynamic $objectPrinter) use ($a,$am,$an,$ao,$ap,$caml_call3,$native_debug,$native_error,$native_log,$native_warn) {
+    $d2 = function(dynamic $a__0) use ($a,$am,$caml_call3,$native_debug,$objectPrinter) {
       return $native_debug(
         $a($caml_call3($objectPrinter[13], $objectPrinter, 0, $a__0), $am)
       );
     };
-    $d3 = function($a__0) use ($a,$an,$caml_call3,$native_error,$objectPrinter) {
+    $d3 = function(dynamic $a__0) use ($a,$an,$caml_call3,$native_error,$objectPrinter) {
       return $native_error(
         $a($caml_call3($objectPrinter[13], $objectPrinter, 0, $a__0), $an)
       );
     };
-    $d4 = function($a__0) use ($a,$ao,$caml_call3,$native_warn,$objectPrinter) {
+    $d4 = function(dynamic $a__0) use ($a,$ao,$caml_call3,$native_warn,$objectPrinter) {
       return $native_warn(
         $a($caml_call3($objectPrinter[13], $objectPrinter, 0, $a__0), $ao)
       );
     };
-    $d5 = function($a) use ($caml_call3,$native_log,$objectPrinter) {
+    $d5 = function(dynamic $a) use ($caml_call3,$native_log,$objectPrinter) {
       return $native_log(
         $caml_call3($objectPrinter[13], $objectPrinter, 0, $a)
       );
     };
     return Vector{
       0,
-      function($a__0) use ($a,$ap,$caml_call3,$native_log,$objectPrinter) {
+      function(dynamic $a__0) use ($a,$ap,$caml_call3,$native_log,$objectPrinter) {
         return $native_log(
           $a($caml_call3($objectPrinter[13], $objectPrinter, 0, $a__0), $ap)
         );
@@ -1330,10 +1340,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     };
   };
   $defaultGlobalConsole = $makeStandardChannelsConsole($base);
-  $log = function($a) use ($caml_call1,$defaultGlobalConsole) {
+  $log = function(dynamic $a) use ($caml_call1,$defaultGlobalConsole) {
     return $caml_call1($defaultGlobalConsole[1], $a);
   };
-  $mapi3 = function($f, $iSoFar, $revSoFar, $listA, $listB, $listC) use ($Invalid_argument,$aq,$caml_call4,$caml_wrap_thrown_exception,$rev) {
+  $mapi3 = function
+  (dynamic $f, dynamic $iSoFar, dynamic $revSoFar, dynamic $listA, dynamic $listB, dynamic $listC) use ($Invalid_argument,$aq,$caml_call4,$caml_wrap_thrown_exception,$rev) {
     $iSoFar__0 = $iSoFar;
     $revSoFar__0 = $revSoFar;
     $listA__0 = $listA;
@@ -1368,10 +1379,12 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $aq}) as \Throwable;
     }
   };
-  $mapi3__0 = function($f, $listA, $listB, $listC) use ($mapi3) {
+  $mapi3__0 = function
+  (dynamic $f, dynamic $listA, dynamic $listB, dynamic $listC) use ($mapi3) {
     return $mapi3($f, 0, 0, $listA, $listB, $listC);
   };
-  $splitList = function($revCount, $revSoFar, $splitAt, $lst) use ($Invalid_argument,$a,$ar,$caml_wrap_thrown_exception,$rev,$string_of_int) {
+  $splitList = function
+  (dynamic $revCount, dynamic $revSoFar, dynamic $splitAt, dynamic $lst) use ($Invalid_argument,$a,$ar,$caml_wrap_thrown_exception,$rev,$string_of_int) {
     $revCount__0 = $revCount;
     $revSoFar__0 = $revSoFar;
     $lst__0 = $lst;
@@ -1395,12 +1408,12 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
             ) as \Throwable;
     }
   };
-  $splitList__0 = function($splitAt, $lst) use ($splitList) {
+  $splitList__0 = function(dynamic $splitAt, dynamic $lst) use ($splitList) {
     return $splitList(0, 0, $splitAt, $lst);
   };
-  $nonReducer = function($param, $d1) use ($as) {return $as;};
-  $nonEventHandler = function($e) {return 0;};
-  $spec = function($param) use ($nonEventHandler) {
+  $nonReducer = function(dynamic $param, dynamic $d1) use ($as) {return $as;};
+  $nonEventHandler = function(dynamic $e) {return 0;};
+  $spec = function(dynamic $param) use ($nonEventHandler) {
     if (0 === $param[0]) {
       $reducer = $param[3];
       $subelems = $param[2];
@@ -1410,7 +1423,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $spec = $param[1];
     return $spec;
   };
-  $withState = function($inst, $state) {
+  $withState = function(dynamic $inst, dynamic $state) {
     $d0 = $inst[5];
     return Vector{
       0,
@@ -1422,18 +1435,18 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $inst[6]
     };
   };
-  $newSelf = function($replacer, $subreplacer) use ($caml_call1,$caml_call2,$caml_update_dummy,$reconcile,$withState) {
+  $newSelf = function(dynamic $replacer, dynamic $subreplacer) use ($caml_call1,$caml_call2,$caml_update_dummy,$reconcile,$withState) {
     $self = varray[];
-    $dU = function($extractor, $e, $inst) use ($caml_call1,$caml_call2,$reconcile,$withState) {
+    $dU = function(dynamic $extractor, dynamic $e, dynamic $inst) use ($caml_call1,$caml_call2,$reconcile,$withState) {
       $dY = $caml_call1($extractor, $e);
       $nextState = $caml_call2($inst[5][2], $inst, $dY);
       $dZ = $inst[4];
       return $reconcile->contents($withState($inst, $nextState), $dZ);
     };
-    $dV = function($action) use ($caml_call1,$caml_call2,$reconcile,$replacer,$withState) {
+    $dV = function(dynamic $action) use ($caml_call1,$caml_call2,$reconcile,$replacer,$withState) {
       return $caml_call1(
         $replacer,
-        function($inst) use ($action,$caml_call2,$reconcile,$withState) {
+        function(dynamic $inst) use ($action,$caml_call2,$reconcile,$withState) {
           $nextState = $caml_call2($inst[5][2], $inst, $action);
           $dX = $inst[4];
           return $reconcile->contents($withState($inst, $nextState), $dX);
@@ -1444,11 +1457,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $self,
       Vector{
         0,
-        function($actionExtractor, $ev) use ($caml_call1,$caml_call2,$reconcile,$replacer,$withState) {
+        function(dynamic $actionExtractor, dynamic $ev) use ($caml_call1,$caml_call2,$reconcile,$replacer,$withState) {
           $action = $caml_call1($actionExtractor, $ev);
           return $caml_call1(
             $replacer,
-            function($inst) use ($action,$caml_call2,$reconcile,$withState) {
+            function(dynamic $inst) use ($action,$caml_call2,$reconcile,$withState) {
               $nextState = $caml_call2($inst[5][2], $inst, $action);
               $dW = $inst[4];
               return $reconcile->contents($withState($inst, $nextState), $dW);
@@ -1461,11 +1474,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     );
     return $self;
   };
-  $init = function($replacer, $renderable) use ($caml_call1,$caml_call2,$initSubtree,$newSelf,$spec) {
-    $subreplacer = function($subtreeSwapper) use ($caml_call1,$replacer) {
+  $init = function(dynamic $replacer, dynamic $renderable) use ($caml_call1,$caml_call2,$initSubtree,$newSelf,$spec) {
+    $subreplacer = function(dynamic $subtreeSwapper) use ($caml_call1,$replacer) {
       return $caml_call1(
         $replacer,
-        function($inst) use ($caml_call1,$subtreeSwapper) {
+        function(dynamic $inst) use ($caml_call1,$subtreeSwapper) {
           $nextSubtree = $caml_call1($subtreeSwapper, $inst[6]);
           $match = $inst[6] !== $nextSubtree ? 1 : (0);
           return 0 === $match
@@ -1494,17 +1507,17 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $initSubtree->contents($subreplacer, $nextSpec[4])
     };
   };
-  $initSubtree->contents = function($thisReplacer, $jsx) use ($caml_call1,$flatten,$init,$initSubtree,$is_int,$mapi,$splitList__0) {
+  $initSubtree->contents = function(dynamic $thisReplacer, dynamic $jsx) use ($caml_call1,$flatten,$init,$initSubtree,$is_int,$mapi,$splitList__0) {
     if ($is_int($jsx)) {return 0;}
     else {
       switch($jsx[0]) {
         // FALLTHROUGH
         case 0:
           $renderable = $jsx[1];
-          $nextReplacer = function($instSwapper) use ($caml_call1,$thisReplacer) {
+          $nextReplacer = function(dynamic $instSwapper) use ($caml_call1,$thisReplacer) {
             return $caml_call1(
               $thisReplacer,
-              function($subtree) use ($caml_call1,$instSwapper) {
+              function(dynamic $subtree) use ($caml_call1,$instSwapper) {
                 $inst = $subtree[1];
                 $next = $caml_call1($instSwapper, $inst);
                 $match = $inst !== $next ? 1 : (0);
@@ -1517,10 +1530,10 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         case 1:
           $stateRendererB = $jsx[2];
           $stateRendererA = $jsx[1];
-          $nextReplacerA = function($aSwapper) use ($caml_call1,$thisReplacer) {
+          $nextReplacerA = function(dynamic $aSwapper) use ($caml_call1,$thisReplacer) {
             return $caml_call1(
               $thisReplacer,
-              function($subtree) use ($aSwapper,$caml_call1) {
+              function(dynamic $subtree) use ($aSwapper,$caml_call1) {
                 $b = $subtree[2];
                 $a = $subtree[1];
                 $next = $caml_call1($aSwapper, $a);
@@ -1529,10 +1542,10 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
               }
             );
           };
-          $nextReplacerB = function($bSwapper) use ($caml_call1,$thisReplacer) {
+          $nextReplacerB = function(dynamic $bSwapper) use ($caml_call1,$thisReplacer) {
             return $caml_call1(
               $thisReplacer,
-              function($subtree) use ($bSwapper,$caml_call1) {
+              function(dynamic $subtree) use ($bSwapper,$caml_call1) {
                 $b = $subtree[2];
                 $a = $subtree[1];
                 $next = $caml_call1($bSwapper, $b);
@@ -1550,11 +1563,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         // FALLTHROUGH
         default:
           $elems = $jsx[1];
-          $initElem = function($i, $e) use ($caml_call1,$flatten,$initSubtree,$splitList__0,$thisReplacer) {
-            $subreplacer = function($swapper) use ($caml_call1,$flatten,$i,$splitList__0,$thisReplacer) {
+          $initElem = function(dynamic $i, dynamic $e) use ($caml_call1,$flatten,$initSubtree,$splitList__0,$thisReplacer) {
+            $subreplacer = function(dynamic $swapper) use ($caml_call1,$flatten,$i,$splitList__0,$thisReplacer) {
               return $caml_call1(
                 $thisReplacer,
-                function($subtree) use ($caml_call1,$flatten,$i,$splitList__0,$swapper) {
+                function(dynamic $subtree) use ($caml_call1,$flatten,$i,$splitList__0,$swapper) {
                   $iLst = $subtree[1];
                   $match = $splitList__0($i, $iLst);
                   $post = $match[3];
@@ -1584,7 +1597,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         }
     }
   };
-  $reconcile->contents = function($inst, $renderable) use ($caml_call2,$reconcileSubtree,$spec) {
+  $reconcile->contents = function(dynamic $inst, dynamic $renderable) use ($caml_call2,$reconcileSubtree,$spec) {
     $nextSpec = $spec(
       $caml_call2($renderable, Vector{0, $inst[5][1]}, $inst[3])
     );
@@ -1592,7 +1605,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     return Vector{0, $inst[1], $inst[2], $inst[3], $renderable, $nextSpec, $dS
     };
   };
-  $reconcileSubtree->contents = function($subtree, $prevJsx, $match) use ($is_int,$mapi3__0,$reconcile,$reconcileSubtree) {
+  $reconcileSubtree->contents = function
+  (dynamic $subtree, dynamic $prevJsx, dynamic $match) use ($is_int,$mapi3__0,$reconcile,$reconcileSubtree) {
     if ($is_int($subtree)) {return 0;}
     else {
       switch($subtree[0]) {
@@ -1622,7 +1636,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
           $eLstPrev = $prevJsx[1];
           $iLst = $subtree[1];
           $nextSeq = $mapi3__0(
-            function($i, $itm, $r, $rPrev) use ($reconcileSubtree) {
+            function(dynamic $i, dynamic $itm, dynamic $r, dynamic $rPrev) use ($reconcileSubtree) {
               return $reconcileSubtree->contents($itm, $rPrev, $r);
             },
             $iLst,
@@ -1633,23 +1647,23 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         }
     }
   };
-  $control = function($param, $controlledState) use ($caml_call2) {
+  $control = function(dynamic $param, dynamic $controlledState) use ($caml_call2) {
     $renderable = $param[1];
     return Vector{
       0,
-      function($state, $self) use ($caml_call2,$controlledState,$renderable) {
+      function(dynamic $state, dynamic $self) use ($caml_call2,$controlledState,$renderable) {
         return $caml_call2($renderable, Vector{0, $controlledState}, $self);
       }
     };
   };
-  $create = function($param) use ($Invalid_argument,$at,$caml_call1,$caml_update_dummy,$caml_wrap_thrown_exception) {
+  $create = function(dynamic $param) use ($Invalid_argument,$at,$caml_call1,$caml_update_dummy,$caml_wrap_thrown_exception) {
     $root = varray[];
     $dP = 0;
     $caml_update_dummy(
       $root,
       Vector{
         0,
-        function($swapper) use ($Invalid_argument,$at,$caml_call1,$caml_wrap_thrown_exception,$root) {
+        function(dynamic $swapper) use ($Invalid_argument,$at,$caml_call1,$caml_wrap_thrown_exception,$root) {
           $dQ = $root[2];
           if ($dQ) {
             $ei = $dQ[1];
@@ -1666,7 +1680,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     );
     return $root;
   };
-  $render = function($root, $elems) use ($initSubtree,$reconcileSubtree) {
+  $render = function(dynamic $root, dynamic $elems) use ($initSubtree,$reconcileSubtree) {
     $dO = $root[2];
     if ($dO) {
       $ei = $dO[1];
@@ -1686,26 +1700,27 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   };
   $counter = Vector{0, 0};
   $subscribers = Vector{0, 0};
-  $request = function($cb) use ($counter,$subscribers) {
+  $request = function(dynamic $cb) use ($counter,$subscribers) {
     $subscribers[1] = Vector{0, $cb, $subscribers[1]};
     $counter[1] = (int) ($counter[1] + 1);
     return $counter[1];
   };
-  $tick = function($param) use ($caml_call1,$iter,$subscribers) {
+  $tick = function(dynamic $param) use ($caml_call1,$iter,$subscribers) {
     $prevSubscribers = $subscribers[1];
     $subscribers[1] = 0;
     return $iter(
-      function($cb) use ($caml_call1) {return $caml_call1($cb, 0);},
+      function(dynamic $cb) use ($caml_call1) {return $caml_call1($cb, 0);},
       $prevSubscribers
     );
   };
-  $clearAll = function($param) use ($subscribers) {
+  $clearAll = function(dynamic $param) use ($subscribers) {
     $subscribers[1] = 0;
     return 0;
   };
-  $element = function($x) {return $x;};
+  $element = function(dynamic $x) {return $x;};
   $suppress = Vector{0, 0};
-  $printInstanceCollection->contents = function($opt, $subtree) use ($a,$aA,$aB,$aC,$aD,$aE,$aF,$aG,$aH,$aI,$aJ,$aK,$au,$av,$aw,$ax,$ay,$az,$concat,$is_int,$map,$printInstanceCollection) {
+  $printInstanceCollection->contents = function
+  (dynamic $opt, dynamic $subtree) use ($a,$aA,$aB,$aC,$aD,$aE,$aF,$aG,$aH,$aI,$aJ,$aK,$au,$av,$aw,$ax,$ay,$az,$concat,$is_int,$map,$printInstanceCollection) {
     if ($opt) {
       $sth = $opt[1];
       $s = $sth;
@@ -1760,7 +1775,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
               $concat(
                 $aI,
                 $map->contents(
-                  function($dN) use ($dM,$printInstanceCollection) {
+                  function(dynamic $dN) use ($dM,$printInstanceCollection) {
                     return $printInstanceCollection->contents($dM, $dN);
                   },
                   $lst
@@ -1772,7 +1787,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         }
     }
   };
-  $au->contents = function($opt, $n) use ($a,$aL,$aM,$aN,$aO,$aP,$aQ,$aR,$aS,$aT,$aU,$aV,$caml_obj_tag,$escaped__0,$is_int,$printInstanceCollection,$string_of_int) {
+  $au->contents = function(dynamic $opt, dynamic $n) use ($a,$aL,$aM,$aN,$aO,$aP,$aQ,$aR,$aS,$aT,$aU,$aV,$caml_obj_tag,$escaped__0,$is_int,$printInstanceCollection,$string_of_int) {
     if ($opt) {
       $sth = $opt[1];
       $s = $sth;
@@ -1802,10 +1817,10 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
        : ($aU));
     return $a($aR, $a($s, $a($aQ, $a($dJ, $dI))));
   };
-  $printSection = function($s) use ($a,$aW,$log,$suppress) {
+  $printSection = function(dynamic $s) use ($a,$aW,$log,$suppress) {
     return $suppress[1] ? 0 : ($log($a($aW, $s)));
   };
-  $printRoot = function($title, $root) use ($a,$a0,$a1,$aX,$aY,$aZ,$log,$printInstanceCollection,$suppress) {
+  $printRoot = function(dynamic $title, dynamic $root) use ($a,$a0,$a1,$aX,$aY,$aZ,$log,$printInstanceCollection,$suppress) {
     $dF = $root[2];
     if (0 === $suppress[1]) {
       if ($dF) {
@@ -1819,9 +1834,10 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return 0;
   };
-  $domEventHandler = function($e) {return 0;};
-  $domStateToString = function($state) {return $state;};
-  $render__0 = function($onClick, $opt, $children, $state, $self) use ($a2,$domEventHandler) {
+  $domEventHandler = function(dynamic $e) {return 0;};
+  $domStateToString = function(dynamic $state) {return $state;};
+  $render__0 = function
+  (dynamic $onClick, dynamic $opt, dynamic $children, dynamic $state, dynamic $self) use ($a2,$domEventHandler) {
     if ($opt) {
       $sth = $opt[1];
       $className = $sth;
@@ -1832,13 +1848,15 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       Vector{
         0,
         $className,
-        function($inst, $param) {$str = $param[1];return $str;},
+        function(dynamic $inst, dynamic $param) {$str = $param[1];return $str;
+        },
         $domEventHandler,
         $children
       }
     };
   };
-  $render__1 = function($opt, $size, $children, $dA, $self) use ($a3,$a4,$element,$nonReducer,$render__0) {
+  $render__1 = function
+  (dynamic $opt, dynamic $size, dynamic $children, dynamic $dA, dynamic $self) use ($a3,$a4,$element,$nonReducer,$render__0) {
     if ($opt) {
       $sth = $opt[1];
       $txt = $sth;
@@ -1857,7 +1875,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $element(
         Vector{
           0,
-          function($dD, $dE) use ($a3,$dB,$dC,$render__0) {
+          function(dynamic $dD, dynamic $dE) use ($a3,$dB,$dC,$render__0) {
             return $render__0($dC, $a3, $dB, $dD, $dE);
           }
         }
@@ -1865,7 +1883,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $nonReducer
     };
   };
-  $render__2 = function($opt, $children, $dw, $self) use ($a5,$a6,$element,$nonReducer,$render__0) {
+  $render__2 = function
+  (dynamic $opt, dynamic $children, dynamic $dw, dynamic $self) use ($a5,$a6,$element,$nonReducer,$render__0) {
     if ($opt) {
       $sth = $opt[1];
       $txt = $sth;
@@ -1883,7 +1902,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $element(
         Vector{
           0,
-          function($dy, $dz) use ($a5,$children,$dx,$render__0) {
+          function(dynamic $dy, dynamic $dz) use ($a5,$children,$dx,$render__0) {
             return $render__0($dx, $a5, $children, $dy, $dz);
           }
         }
@@ -1891,7 +1910,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $nonReducer
     };
   };
-  $render__3 = function($opt, $size, $children, $dj, $self) use ($a,$a7,$a8,$element,$render__0,$render__1,$string_of_int) {
+  $render__3 = function
+  (dynamic $opt, dynamic $size, dynamic $children, dynamic $dj, dynamic $self) use ($a,$a7,$a8,$element,$render__0,$render__1,$string_of_int) {
     ;
     if ($dj) {
       $sth = $dj[1];
@@ -1904,14 +1924,14 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $nextChangeCount = 0 === $match
       ? $curChangeCount
       : ((int) ($curChangeCount + 1));
-    $dk = function($param, $dv) use ($state) {return $state;};
+    $dk = function(dynamic $param, dynamic $dv) use ($state) {return $state;};
     $dl = 0;
     $dm = Vector{0, $a($a7, $string_of_int($nextChangeCount))};
     $dn = 0;
     $dp = $element(
       Vector{
         0,
-        function($dt, $du) use ($dl,$dm,$dn,$render__0) {
+        function(dynamic $dt, dynamic $du) use ($dl,$dm,$dn,$render__0) {
           return $render__0($dn, $dm, $dl, $dt, $du);
         }
       }
@@ -1925,7 +1945,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            function($dr, $ds) use ($a8,$children,$dq,$render__1) {
+            function(dynamic $dr, dynamic $ds) use ($a8,$children,$dq,$render__1) {
               return $render__1($a8, $dq, $children, $dr, $ds);
             }
           }
@@ -1935,7 +1955,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $dk
     };
   };
-  $render__4 = function($opt, $children, $dc, $self) use ($a9,$a_,$element,$render__0) {
+  $render__4 = function
+  (dynamic $opt, dynamic $children, dynamic $dc, dynamic $self) use ($a9,$a_,$element,$render__0) {
     if ($opt) {
       $sth = $opt[1];
       $initialText = $sth;
@@ -1946,7 +1967,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $state = $sth__0;
     }
     else {$state = $initialText;}
-    $dd = function($param, $di) use ($state) {return $state;};
+    $dd = function(dynamic $param, dynamic $di) use ($state) {return $state;};
     $de = 0;
     $df = 0;
     return Vector{
@@ -1955,7 +1976,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $element(
         Vector{
           0,
-          function($dg, $dh) use ($a9,$de,$df,$render__0) {
+          function(dynamic $dg, dynamic $dh) use ($a9,$de,$df,$render__0) {
             return $render__0($df, $a9, $de, $dg, $dh);
           }
         }
@@ -1963,13 +1984,13 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $dd
     };
   };
-  $render__5 = function($children, $opt, $self) use ($a,$ba,$bb,$caml_int_of_string,$print_string,$render__0,$string_of_int) {
+  $render__5 = function(dynamic $children, dynamic $opt, dynamic $self) use ($a,$ba,$bb,$caml_int_of_string,$print_string,$render__0,$string_of_int) {
     if ($opt) {
       $sth = $opt[1];
       $state = $sth;
     }
     else {$state = 0;}
-    $c6 = function($param, $db) use ($caml_int_of_string) {
+    $c6 = function(dynamic $param, dynamic $db) use ($caml_int_of_string) {
       $next = $db[1];
       return $caml_int_of_string($next);
     };
@@ -1977,21 +1998,24 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $c8 = Vector{0, $a($ba, $string_of_int($state))};
     $c9 = Vector{
       0,
-      function($e) use ($bb,$print_string) {return $print_string($bb);}
+      function(dynamic $e) use ($bb,$print_string) {
+        return $print_string($bb);
+      }
     };
     return Vector{
       0,
       $state,
       Vector{
         0,
-        function($c_, $da) use ($c7,$c8,$c9,$render__0) {
+        function(dynamic $c_, dynamic $da) use ($c7,$c8,$c9,$render__0) {
           return $render__0($c9, $c8, $c7, $c_, $da);
         }
       },
       $c6
     };
   };
-  $render__6 = function($shouldControlInput, $children, $opt, $self) use ($bc,$bd,$be,$bf,$control,$element,$nonReducer,$render__0,$render__4,$render__5) {
+  $render__6 = function
+  (dynamic $shouldControlInput, dynamic $children, dynamic $opt, dynamic $self) use ($bc,$bd,$be,$bf,$control,$element,$nonReducer,$render__0,$render__4,$render__5) {
     if ($opt) {
       $sth = $opt[1];
       $state = $sth;
@@ -2001,7 +2025,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $input = $element(
       Vector{
         0,
-        function($c4, $c5) use ($bc,$cW,$render__4) {
+        function(dynamic $c4, dynamic $c5) use ($bc,$cW,$render__4) {
           return $render__4($bc, $cW, $c4, $c5);
         }
       }
@@ -2011,7 +2035,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $cY = $element(
       Vector{
         0,
-        function($c2, $c3) use ($cX,$render__5) {
+        function(dynamic $c2, dynamic $c3) use ($cX,$render__5) {
           return $render__5($cX, $c2, $c3);
         }
       }
@@ -2025,7 +2049,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            function($c0, $c1) use ($bd,$cZ,$input__0,$render__0) {
+            function(dynamic $c0, dynamic $c1) use ($bd,$cZ,$input__0,$render__0) {
               return $render__0($cZ, $bd, $input__0, $c0, $c1);
             }
           }
@@ -2035,13 +2059,15 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $nonReducer
     };
   };
-  $render__7 = function($anyProp, $size, $children, $opt, $self) use ($render__0) {
+  $render__7 = function
+  (dynamic $anyProp, dynamic $size, dynamic $children, dynamic $opt, dynamic $self) use ($render__0) {
     if ($opt) {
       $sth = $opt[1];
       $state = $sth;
     }
     else {$state = Vector{0, $anyProp, $anyProp};}
-    $cQ = function($param, $action) use ($state) {return $state;};
+    $cQ = function(dynamic $param, dynamic $action) use ($state) {return $state;
+    };
     $cR = 0;
     $cS = Vector{0, $size};
     $cT = 0;
@@ -2050,31 +2076,32 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $state,
       Vector{
         0,
-        function($cU, $cV) use ($cR,$cS,$cT,$render__0) {
+        function(dynamic $cU, dynamic $cV) use ($cR,$cS,$cT,$render__0) {
           return $render__0($cT, $cS, $cR, $cU, $cV);
         }
       },
       $cQ
     };
   };
-  $bg = function($x, $getDefault) use ($caml_call1) {
+  $bg = function(dynamic $x, dynamic $getDefault) use ($caml_call1) {
     if ($x) {$x__0 = $x[1];return $x__0;}
     return $caml_call1($getDefault, 0);
   };
-  $onRaf = function($e) use ($bh) {return $bh;};
-  $initialStateGetter = function($self, $param) use ($bi,$caml_call1,$onRaf,$request) {
+  $onRaf = function(dynamic $e) use ($bh) {return $bh;};
+  $initialStateGetter = function(dynamic $self, dynamic $param) use ($bi,$caml_call1,$onRaf,$request) {
     $request($caml_call1($self[1], $onRaf));
     return $bi;
   };
-  $render__8 = function($opt, $param, $state, $self) use ($a,$bg,$bj,$bk,$bl,$bm,$bn,$caml_call1,$domStateToString,$element,$initialStateGetter,$int__1,$onRaf,$render__0,$request,$string_of_int) {
+  $render__8 = function
+  (dynamic $opt, dynamic $param, dynamic $state, dynamic $self) use ($a,$bg,$bj,$bk,$bl,$bm,$bn,$caml_call1,$domStateToString,$element,$initialStateGetter,$int__1,$onRaf,$render__0,$request,$string_of_int) {
     ;
     $state__0 = $bg(
       $state,
-      function($cP) use ($initialStateGetter,$self) {
+      function(dynamic $cP) use ($initialStateGetter,$self) {
         return $initialStateGetter($self, $cP);
       }
     );
-    $cA = function($inst, $action) use ($a,$bj,$bk,$caml_call1,$domStateToString,$onRaf,$request,$self,$state__0) {
+    $cA = function(dynamic $inst, dynamic $action) use ($a,$bj,$bk,$caml_call1,$domStateToString,$onRaf,$request,$self,$state__0) {
       $match = $inst[6][2][1][6];
       $deepestDiv = $match[1];
       $divStateStr = $domStateToString($deepestDiv[5][1]);
@@ -2087,7 +2114,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $cE = $element(
       Vector{
         0,
-        function($cN, $cO) use ($cB,$cC,$cD,$render__0) {
+        function(dynamic $cN, dynamic $cO) use ($cB,$cC,$cD,$render__0) {
           return $render__0($cD, $cC, $cB, $cN, $cO);
         }
       }
@@ -2096,7 +2123,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $cG = $element(
       Vector{
         0,
-        function($cL, $cM) use ($bm,$cE,$cF,$render__0) {
+        function(dynamic $cL, dynamic $cM) use ($bm,$cE,$cF,$render__0) {
           return $render__0($cF, $bm, $cE, $cL, $cM);
         }
       }
@@ -2111,7 +2138,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            function($cJ, $cK) use ($bn,$cH,$cI,$render__0) {
+            function(dynamic $cJ, dynamic $cK) use ($bn,$cH,$cI,$render__0) {
               return $render__0($cI, $bn, $cH, $cJ, $cK);
             }
           }
@@ -2121,7 +2148,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $cA
     };
   };
-  $render__9 = function($opt, $children) use ($bo,$render__0) {
+  $render__9 = function(dynamic $opt, dynamic $children) use ($bo,$render__0) {
     if ($opt) {
       $sth = $opt[1];
       $txt = $sth;
@@ -2130,7 +2157,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $cv = 0;
     $cw = Vector{0, $txt};
     $cx = 0;
-    return function($cy, $cz) use ($cv,$cw,$cx,$render__0) {
+    return function(dynamic $cy, dynamic $cz) use ($cv,$cw,$cx,$render__0) {
       return $render__0($cx, $cw, $cv, $cy, $cz);
     };
   };
@@ -2156,8 +2183,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($cs) use ($b2,$render__2) {
-               return function($ct, $cu) use ($b2,$cs,$render__2) {
+            (function(dynamic $cs) use ($b2,$render__2) {
+               return function(dynamic $ct, dynamic $cu) use ($b2,$cs,$render__2) {
                  return $render__2($b2, $cs, $ct, $cu);
                };
              })($b1)
@@ -2174,8 +2201,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($stateless, $cp) use ($bw,$render__3) {
-               return function($cq, $cr) use ($bw,$cp,$render__3,$stateless) {
+            (function(dynamic $stateless, dynamic $cp) use ($bw,$render__3) {
+               return function(dynamic $cq, dynamic $cr) use ($bw,$cp,$render__3,$stateless) {
                  return $render__3($bw, $cp, $stateless, $cq, $cr);
                };
              })($stateless, $bv)
@@ -2189,8 +2216,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($stateless, $cm) use ($bz,$render__3) {
-               return function($cn, $co) use ($bz,$cm,$render__3,$stateless) {
+            (function(dynamic $stateless, dynamic $cm) use ($bz,$render__3) {
+               return function(dynamic $cn, dynamic $co) use ($bz,$cm,$render__3,$stateless) {
                  return $render__3($bz, $cm, $stateless, $cn, $co);
                };
              })($stateless, $by)
@@ -2204,8 +2231,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($stateless, $cj) use ($bC,$render__3) {
-               return function($ck, $cl) use ($bC,$cj,$render__3,$stateless) {
+            (function(dynamic $stateless, dynamic $cj) use ($bC,$render__3) {
+               return function(dynamic $ck, dynamic $cl) use ($bC,$cj,$render__3,$stateless) {
                  return $render__3($bC, $cj, $stateless, $ck, $cl);
                };
              })($stateless, $bB)
@@ -2221,8 +2248,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($stateless, $cg) use ($render__6) {
-               return function($ch, $ci) use ($cg,$render__6,$stateless) {
+            (function(dynamic $stateless, dynamic $cg) use ($render__6) {
+               return function(dynamic $ch, dynamic $ci) use ($cg,$render__6,$stateless) {
                  return $render__6($cg, $stateless, $ch, $ci);
                };
              })($stateless, $bF)
@@ -2237,8 +2264,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($cc, $cd) use ($render__6) {
-               return function($ce, $cf) use ($cc,$cd,$render__6) {
+            (function(dynamic $cc, dynamic $cd) use ($render__6) {
+               return function(dynamic $ce, dynamic $cf) use ($cc,$cd,$render__6) {
                  return $render__6($cd, $cc, $ce, $cf);
                };
              })($bH, $bI)
@@ -2253,7 +2280,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            function($ca, $cb) use ($bL,$bM,$render__8) {
+            function(dynamic $ca, dynamic $cb) use ($bL,$bM,$render__8) {
               return $render__8($bM, $bL, $ca, $cb);
             }
           }
@@ -2273,8 +2300,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($b8) use ($bS,$bT,$render__7) {
-               return function($b9, $b_) use ($b8,$bS,$bT,$render__7) {
+            (function(dynamic $b8) use ($bS,$bT,$render__7) {
+               return function(dynamic $b9, dynamic $b_) use ($b8,$bS,$bT,$render__7) {
                  return $render__7($bT, $bS, $b8, $b9, $b_);
                };
              })($bR)
@@ -2290,8 +2317,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $element(
           Vector{
             0,
-            (function($b4, $b5) use ($bW,$render__7) {
-               return function($b6, $b7) use ($b4,$b5,$bW,$render__7) {
+            (function(dynamic $b4, dynamic $b5) use ($bW,$render__7) {
+               return function(dynamic $b6, dynamic $b7) use ($b4,$b5,$bW,$render__7) {
                  return $render__7($b5, $bW, $b4, $b6, $b7);
                };
              })($bV, $bX)
@@ -2307,7 +2334,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       );
       $f__0 = $caml_alloc_dummy_function(1, 2);
       $z__0 = varray[];
-      $caml_update_dummy($f__0, function($x, $y) {return 1;});
+      $caml_update_dummy($f__0, function(dynamic $x, dynamic $y) {return 1;});
       $caml_update_dummy($z__0, Vector{0, Vector{0, $f__0, $br}});
       if ($z__0) {
         $match = $z__0[1];

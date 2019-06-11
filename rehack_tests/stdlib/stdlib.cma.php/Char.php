@@ -33,7 +33,7 @@ final class Char {
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -47,11 +47,11 @@ final class Char {
     $cst_r = $caml_new_string("\\r");
     $cst_Char_chr = $caml_new_string("Char.chr");
     $Pervasives = $global_data["Pervasives"];
-    $chr = function($n) use ($Pervasives,$caml_call1,$cst_Char_chr) {
+    $chr = function(dynamic $n) use ($Pervasives,$caml_call1,$cst_Char_chr) {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $caml_call1($Pervasives[1], $cst_Char_chr);
     };
-    $escaped = function($c) use ($caml_bytes_unsafe_set,$caml_create_bytes,$cst,$cst__0,$cst_b,$cst_n,$cst_r,$cst_t) {
+    $escaped = function(dynamic $c) use ($caml_bytes_unsafe_set,$caml_create_bytes,$cst,$cst__0,$cst_b,$cst_n,$cst_r,$cst_t) {
       if (40 <= $c) {
         if (92 === $c) {return $cst;}
         $switch__0 = 127 <= $c ? 0 : (1);
@@ -98,7 +98,7 @@ final class Char {
       $caml_bytes_unsafe_set($s, 3, (int) (48 + (int) ($c % 10)));
       return $s;
     };
-    $lowercase = function($c) {
+    $lowercase = function(dynamic $c) {
       $switch__0 = 65 <= $c ? 90 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 192 <= $c ? 214 < $c ? 0 : (1) : (0);
@@ -109,7 +109,7 @@ final class Char {
       }
       return (int) ($c + 32);
     };
-    $uppercase = function($c) {
+    $uppercase = function(dynamic $c) {
       $switch__0 = 97 <= $c ? 122 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 224 <= $c ? 246 < $c ? 0 : (1) : (0);
@@ -120,16 +120,16 @@ final class Char {
       }
       return (int) ($c + -32);
     };
-    $lowercase_ascii = function($c) {
+    $lowercase_ascii = function(dynamic $c) {
       if (65 <= $c) {if (! (90 < $c)) {return (int) ($c + 32);}}
       return $c;
     };
-    $uppercase_ascii = function($c) {
+    $uppercase_ascii = function(dynamic $c) {
       if (97 <= $c) {if (! (122 < $c)) {return (int) ($c + -32);}}
       return $c;
     };
-    $compare = function($c1, $c2) {return (int) ($c1 - $c2);};
-    $equal = function($c1, $c2) use ($compare) {
+    $compare = function(dynamic $c1, dynamic $c2) {return (int) ($c1 - $c2);};
+    $equal = function(dynamic $c1, dynamic $c2) use ($compare) {
       return 0 === $compare($c1, $c2) ? 1 : (0);
     };
     $Char = Vector{

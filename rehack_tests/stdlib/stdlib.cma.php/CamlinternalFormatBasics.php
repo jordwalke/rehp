@@ -31,7 +31,7 @@ final class CamlinternalFormatBasics {
     $concat_fmt = new Ref();$concat_fmtty = new Ref();$erase_rel = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $is_int = $runtime["is_int"];
-    $erase_rel->contents = function($param) use ($erase_rel,$is_int) {
+    $erase_rel->contents = function(dynamic $param) use ($erase_rel,$is_int) {
       if ($is_int($param)) {return 0;}
       else {
         switch($param[0]) {
@@ -100,7 +100,7 @@ final class CamlinternalFormatBasics {
           }
       }
     };
-    $concat_fmtty->contents = function($fmtty1, $fmtty2) use ($concat_fmtty,$is_int) {
+    $concat_fmtty->contents = function(dynamic $fmtty1, dynamic $fmtty2) use ($concat_fmtty,$is_int) {
       if ($is_int($fmtty1)) {return $fmtty2;}
       else {
         switch($fmtty1[0]) {
@@ -175,7 +175,7 @@ final class CamlinternalFormatBasics {
           }
       }
     };
-    $concat_fmt->contents = function($fmt1, $fmt2) use ($concat_fmt,$is_int) {
+    $concat_fmt->contents = function(dynamic $fmt1, dynamic $fmt2) use ($concat_fmt,$is_int) {
       if ($is_int($fmt1)) {return $fmt2;}
       else {
         switch($fmt1[0]) {

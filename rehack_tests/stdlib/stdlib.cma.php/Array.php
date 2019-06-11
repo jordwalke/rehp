@@ -36,12 +36,12 @@ final class Array_ {
     $caml_make_vect = $runtime["caml_make_vect"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -61,11 +61,11 @@ final class Array_ {
     $Assert_failure = $global_data["Assert_failure"];
     $Pervasives = $global_data["Pervasives"];
     $dx = Vector{0, $caml_new_string("array.ml"), 233, 4};
-    $make_float = function($ev) use ($runtime) {
+    $make_float = function(dynamic $ev) use ($runtime) {
       return $runtime["caml_make_float_vect"]($ev);
     };
     $Floatarray = Vector{0};
-    $init = function($l, $f) use ($Pervasives,$caml_call1,$caml_make_vect,$cst_Array_init) {
+    $init = function(dynamic $l, dynamic $f) use ($Pervasives,$caml_call1,$caml_make_vect,$cst_Array_init) {
       if (0 === $l) {return Vector{0};}
       if (0 <= $l) {
         $res = $caml_make_vect($l, $caml_call1($f, 0));
@@ -84,7 +84,7 @@ final class Array_ {
       }
       return $caml_call1($Pervasives[1], $cst_Array_init);
     };
-    $make_matrix = function($sx, $sy, $init) use ($caml_make_vect) {
+    $make_matrix = function(dynamic $sx, dynamic $sy, dynamic $init) use ($caml_make_vect) {
       $res = $caml_make_vect($sx, Vector{0});
       $eq = (int) ($sx + -1);
       $ep = 0;
@@ -99,11 +99,11 @@ final class Array_ {
       }
       return $res;
     };
-    $copy = function($a) use ($caml_array_sub) {
+    $copy = function(dynamic $a) use ($caml_array_sub) {
       $l = $a->count() - 1;
       return 0 === $l ? Vector{0} : ($caml_array_sub($a, 0, $l));
     };
-    $append = function($a1, $a2) use ($caml_array_sub,$copy,$runtime) {
+    $append = function(dynamic $a1, dynamic $a2) use ($caml_array_sub,$copy,$runtime) {
       $l1 = $a1->count() - 1;
       return 0 === $l1
         ? $copy($a2)
@@ -111,7 +111,7 @@ final class Array_ {
          ? $caml_array_sub($a1, 0, $l1)
          : ($runtime["caml_array_append"]($a1, $a2)));
     };
-    $sub = function($a, $ofs, $len) use ($Pervasives,$caml_array_sub,$caml_call1,$cst_Array_sub) {
+    $sub = function(dynamic $a, dynamic $ofs, dynamic $len) use ($Pervasives,$caml_array_sub,$caml_call1,$cst_Array_sub) {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($a->count() - 1 - $len) < $ofs)) {return $caml_array_sub($a, $ofs, $len);}
@@ -119,7 +119,7 @@ final class Array_ {
       }
       return $caml_call1($Pervasives[1], $cst_Array_sub);
     };
-    $fill = function($a, $ofs, $len, $v) use ($Pervasives,$caml_call1,$cst_Array_fill) {
+    $fill = function(dynamic $a, dynamic $ofs, dynamic $len, dynamic $v) use ($Pervasives,$caml_call1,$cst_Array_fill) {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($a->count() - 1 - $len) < $ofs)) {
@@ -139,7 +139,8 @@ final class Array_ {
       }
       return $caml_call1($Pervasives[1], $cst_Array_fill);
     };
-    $blit = function($a1, $ofs1, $a2, $ofs2, $len) use ($Pervasives,$caml_call1,$cst_Array_blit,$runtime) {
+    $blit = function
+    (dynamic $a1, dynamic $ofs1, dynamic $a2, dynamic $ofs2, dynamic $len) use ($Pervasives,$caml_call1,$cst_Array_blit,$runtime) {
       if (0 <= $len) {
         if (0 <= $ofs1) {
           if (! ((int) ($a1->count() - 1 - $len) < $ofs1)) {
@@ -159,7 +160,7 @@ final class Array_ {
       }
       return $caml_call1($Pervasives[1], $cst_Array_blit);
     };
-    $iter = function($f, $a) use ($caml_call1) {
+    $iter = function(dynamic $f, dynamic $a) use ($caml_call1) {
       $el = (int) ($a->count() - 1 + -1);
       $ek = 0;
       if (! ($el < 0)) {
@@ -173,7 +174,7 @@ final class Array_ {
       }
       return 0;
     };
-    $iter2 = function($f, $a, $b) use ($Pervasives,$caml_call1,$caml_call2,$cst_Array_iter2_arrays_must_have_the_same_length) {
+    $iter2 = function(dynamic $f, dynamic $a, dynamic $b) use ($Pervasives,$caml_call1,$caml_call2,$cst_Array_iter2_arrays_must_have_the_same_length) {
       if ($a->count() - 1 !== $b->count() - 1) {
         return $caml_call1(
           $Pervasives[1],
@@ -193,7 +194,7 @@ final class Array_ {
       }
       return 0;
     };
-    $map = function($f, $a) use ($caml_call1,$caml_make_vect) {
+    $map = function(dynamic $f, dynamic $a) use ($caml_call1,$caml_make_vect) {
       $l = $a->count() - 1;
       if (0 === $l) {return Vector{0};}
       $r = $caml_make_vect($l, $caml_call1($f, $a[1]));
@@ -210,7 +211,7 @@ final class Array_ {
       }
       return $r;
     };
-    $map2 = function($f, $a, $b) use ($Pervasives,$caml_call1,$caml_call2,$caml_make_vect,$cst_Array_map2_arrays_must_have_the_same_length) {
+    $map2 = function(dynamic $f, dynamic $a, dynamic $b) use ($Pervasives,$caml_call1,$caml_call2,$caml_make_vect,$cst_Array_map2_arrays_must_have_the_same_length) {
       $la = $a->count() - 1;
       $lb = $b->count() - 1;
       if ($la !== $lb) {
@@ -234,7 +235,7 @@ final class Array_ {
       }
       return $r;
     };
-    $iteri = function($f, $a) use ($caml_call2) {
+    $iteri = function(dynamic $f, dynamic $a) use ($caml_call2) {
       $d_ = (int) ($a->count() - 1 + -1);
       $d9 = 0;
       if (! ($d_ < 0)) {
@@ -248,7 +249,7 @@ final class Array_ {
       }
       return 0;
     };
-    $mapi = function($f, $a) use ($caml_call2,$caml_make_vect) {
+    $mapi = function(dynamic $f, dynamic $a) use ($caml_call2,$caml_make_vect) {
       $l = $a->count() - 1;
       if (0 === $l) {return Vector{0};}
       $r = $caml_make_vect($l, $caml_call2($f, 0, $a[1]));
@@ -265,8 +266,8 @@ final class Array_ {
       }
       return $r;
     };
-    $to_list = function($a) {
-      $tolist = function($i, $res) use ($a) {
+    $to_list = function(dynamic $a) {
+      $tolist = function(dynamic $i, dynamic $res) use ($a) {
         $i__0 = $i;
         $res__0 = $res;
         for (;;) {
@@ -282,7 +283,7 @@ final class Array_ {
       };
       return $tolist((int) ($a->count() - 1 + -1), 0);
     };
-    $list_length = function($accu, $param) {
+    $list_length = function(dynamic $accu, dynamic $param) {
       $accu__0 = $accu;
       $param__0 = $param;
       for (;;) {
@@ -296,12 +297,12 @@ final class Array_ {
         return $accu__0;
       }
     };
-    $of_list = function($l) use ($caml_make_vect,$list_length) {
+    $of_list = function(dynamic $l) use ($caml_make_vect,$list_length) {
       if ($l) {
         $tl = $l[2];
         $hd = $l[1];
         $a = $caml_make_vect($list_length(0, $l), $hd);
-        $fill = function($i, $param) use ($a) {
+        $fill = function(dynamic $i, dynamic $param) use ($a) {
           $i__0 = $i;
           $param__0 = $param;
           for (;;) {
@@ -321,7 +322,7 @@ final class Array_ {
       }
       return Vector{0};
     };
-    $fold_left = function($f, $x, $a) use ($caml_call2) {
+    $fold_left = function(dynamic $f, dynamic $x, dynamic $a) use ($caml_call2) {
       $r = Vector{0, $x};
       $d4 = (int) ($a->count() - 1 + -1);
       $d3 = 0;
@@ -336,7 +337,7 @@ final class Array_ {
       }
       return $r[1];
     };
-    $fold_right = function($f, $a, $x) use ($caml_call2) {
+    $fold_right = function(dynamic $f, dynamic $a, dynamic $x) use ($caml_call2) {
       $r = Vector{0, $x};
       $d1 = (int) ($a->count() - 1 + -1);
       if (! ($d1 < 0)) {
@@ -350,9 +351,9 @@ final class Array_ {
       }
       return $r[1];
     };
-    $exists = function($p, $a) use ($caml_call1) {
+    $exists = function(dynamic $p, dynamic $a) use ($caml_call1) {
       $n = $a->count() - 1;
-      $loop = function($i) use ($a,$caml_call1,$n,$p) {
+      $loop = function(dynamic $i) use ($a,$caml_call1,$n,$p) {
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $n) {return 0;}
@@ -364,9 +365,9 @@ final class Array_ {
       };
       return $loop(0);
     };
-    $for_all = function($p, $a) use ($caml_call1) {
+    $for_all = function(dynamic $p, dynamic $a) use ($caml_call1) {
       $n = $a->count() - 1;
-      $loop = function($i) use ($a,$caml_call1,$n,$p) {
+      $loop = function(dynamic $i) use ($a,$caml_call1,$n,$p) {
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $n) {return 1;}
@@ -380,9 +381,9 @@ final class Array_ {
       };
       return $loop(0);
     };
-    $mem = function($x, $a) use ($runtime) {
+    $mem = function(dynamic $x, dynamic $a) use ($runtime) {
       $n = $a->count() - 1;
-      $loop = function($i) use ($a,$n,$runtime,$x) {
+      $loop = function(dynamic $i) use ($a,$n,$runtime,$x) {
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $n) {return 0;}
@@ -394,9 +395,9 @@ final class Array_ {
       };
       return $loop(0);
     };
-    $memq = function($x, $a) {
+    $memq = function(dynamic $x, dynamic $a) {
       $n = $a->count() - 1;
-      $loop = function($i) use ($a,$n,$x) {
+      $loop = function(dynamic $i) use ($a,$n,$x) {
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $n) {return 0;}
@@ -409,8 +410,8 @@ final class Array_ {
       return $loop(0);
     };
     $Bottom = Vector{248, $cst_Array_Bottom, $runtime["caml_fresh_oo_id"](0)};
-    $sort = function($cmp, $a) use ($Assert_failure,$Bottom,$caml_call2,$caml_check_bound,$caml_wrap_exception,$dx,$runtime) {
-      $maxson = function($l, $i) use ($Bottom,$a,$caml_call2,$caml_check_bound,$cmp,$runtime) {
+    $sort = function(dynamic $cmp, dynamic $a) use ($Assert_failure,$Bottom,$caml_call2,$caml_check_bound,$caml_wrap_exception,$dx,$runtime) {
+      $maxson = function(dynamic $l, dynamic $i) use ($Bottom,$a,$caml_call2,$caml_check_bound,$cmp,$runtime) {
         $i31 = (int) ((int) ((int) ($i + $i) + $i) + 1);
         $x = Vector{0, $i31};
         if ((int) ($i31 + 2) < $l) {
@@ -438,7 +439,7 @@ final class Array_ {
         if ($i31 < $l) {return $i31;}
         throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Bottom, $i}) as \Throwable;
       };
-      $trickledown = function($l, $i, $e) use ($a,$caml_call2,$caml_check_bound,$cmp,$maxson) {
+      $trickledown = function(dynamic $l, dynamic $i, dynamic $e) use ($a,$caml_call2,$caml_check_bound,$cmp,$maxson) {
         $i__0 = $i;
         for (;;) {
           $j = $maxson($l, $i__0);
@@ -452,7 +453,7 @@ final class Array_ {
           return 0;
         }
       };
-      $trickle = function($l, $i, $e) use ($Bottom,$a,$caml_check_bound,$caml_wrap_exception,$runtime,$trickledown) {
+      $trickle = function(dynamic $l, dynamic $i, dynamic $e) use ($Bottom,$a,$caml_check_bound,$caml_wrap_exception,$runtime,$trickledown) {
         try {$dS = $trickledown($l, $i, $e);return $dS;}
         catch(\Throwable $exn) {
           $exn = $caml_wrap_exception($exn);
@@ -464,7 +465,7 @@ final class Array_ {
           throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
       };
-      $bubbledown = function($l, $i) use ($a,$caml_check_bound,$maxson) {
+      $bubbledown = function(dynamic $l, dynamic $i) use ($a,$caml_check_bound,$maxson) {
         $i__0 = $i;
         for (;;) {
           $i__1 = $maxson($l, $i__0);
@@ -474,7 +475,7 @@ final class Array_ {
           continue;
         }
       };
-      $bubble = function($l, $i) use ($Bottom,$bubbledown,$caml_wrap_exception,$runtime) {
+      $bubble = function(dynamic $l, dynamic $i) use ($Bottom,$bubbledown,$caml_wrap_exception,$runtime) {
         try {$dQ = $bubbledown($l, $i);return $dQ;}
         catch(\Throwable $exn) {
           $exn = $caml_wrap_exception($exn);
@@ -482,7 +483,7 @@ final class Array_ {
           throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
         }
       };
-      $trickleup = function($i, $e) use ($Assert_failure,$a,$caml_call2,$caml_check_bound,$cmp,$dx,$runtime) {
+      $trickleup = function(dynamic $i, dynamic $e) use ($Assert_failure,$a,$caml_call2,$caml_check_bound,$cmp,$dx,$runtime) {
         $i__0 = $i;
         for (;;) {
           $father = (int) ((int) ($i__0 + -1) / 3);
@@ -537,13 +538,14 @@ final class Array_ {
       else {$dM = $dL;}
       return $dM;
     };
-    $stable_sort = function($cmp, $a) use ($blit,$caml_call2,$caml_check_bound,$caml_make_vect) {
+    $stable_sort = function(dynamic $cmp, dynamic $a) use ($blit,$caml_call2,$caml_check_bound,$caml_make_vect) {
       $sortto = new Ref();
       $merge = function
-      ($src1ofs, $src1len, $src2, $src2ofs, $src2len, $dst, $dstofs) use ($a,$blit,$caml_call2,$caml_check_bound,$cmp) {
+      (dynamic $src1ofs, dynamic $src1len, dynamic $src2, dynamic $src2ofs, dynamic $src2len, dynamic $dst, dynamic $dstofs) use ($a,$blit,$caml_call2,$caml_check_bound,$cmp) {
         $src1r = (int) ($src1ofs + $src1len);
         $src2r = (int) ($src2ofs + $src2len);
-        $loop = function($i1, $s1, $i2, $s2, $d) use ($a,$blit,$caml_call2,$caml_check_bound,$cmp,$dst,$src1r,$src2,$src2r) {
+        $loop = function
+        (dynamic $i1, dynamic $s1, dynamic $i2, dynamic $s2, dynamic $d) use ($a,$blit,$caml_call2,$caml_check_bound,$cmp,$dst,$src1r,$src2,$src2r) {
           $i1__0 = $i1;
           $s1__0 = $s1;
           $i2__0 = $i2;
@@ -601,7 +603,8 @@ final class Array_ {
           $dstofs
         );
       };
-      $isortto = function($srcofs, $dst, $dstofs, $len) use ($a,$caml_call2,$caml_check_bound,$cmp) {
+      $isortto = function
+      (dynamic $srcofs, dynamic $dst, dynamic $dstofs, dynamic $len) use ($a,$caml_call2,$caml_check_bound,$cmp) {
         $dA = (int) ($len + -1);
         $dz = 0;
         if (! ($dA < 0)) {
@@ -645,7 +648,8 @@ final class Array_ {
         }
         return 0;
       };
-      $sortto->contents = function($srcofs, $dst, $dstofs, $len) use ($a,$isortto,$merge,$sortto) {
+      $sortto->contents = function
+      (dynamic $srcofs, dynamic $dst, dynamic $dstofs, dynamic $len) use ($a,$isortto,$merge,$sortto) {
         if ($len <= 5) {return $isortto($srcofs, $dst, $dstofs, $len);}
         $l1 = (int) ($len / 2);
         $l2 = (int) ($len - $l1);
@@ -686,7 +690,7 @@ final class Array_ {
       $make_matrix,
       $make_matrix,
       $append,
-      function($dy) use ($runtime) {
+      function(dynamic $dy) use ($runtime) {
         return $runtime["caml_array_concat"]($dy);
       },
       $sub,

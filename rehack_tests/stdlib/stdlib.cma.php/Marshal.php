@@ -34,7 +34,7 @@ final class Marshal {
     $caml_marshal_data_size = $runtime["caml_marshal_data_size"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -48,7 +48,8 @@ final class Marshal {
     );
     $Bytes = $global_data["Bytes"];
     $Pervasives = $global_data["Pervasives"];
-    $to_buffer = function($buff, $ofs, $len, $v, $flags) use ($Pervasives,$caml_call1,$caml_ml_bytes_length,$cst_Marshal_to_buffer_substring_out_of_bounds,$runtime) {
+    $to_buffer = function
+    (dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags) use ($Pervasives,$caml_call1,$caml_ml_bytes_length,$cst_Marshal_to_buffer_substring_out_of_bounds,$runtime) {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($buff) - $len) < $ofs)) {
@@ -62,16 +63,16 @@ final class Marshal {
       );
     };
     $header_size = 20;
-    $data_size = function($buff, $ofs) use ($Pervasives,$caml_call1,$caml_marshal_data_size,$caml_ml_bytes_length,$cst_Marshal_data_size) {
+    $data_size = function(dynamic $buff, dynamic $ofs) use ($Pervasives,$caml_call1,$caml_marshal_data_size,$caml_ml_bytes_length,$cst_Marshal_data_size) {
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {return $caml_marshal_data_size($buff, $ofs);}
       }
       return $caml_call1($Pervasives[1], $cst_Marshal_data_size);
     };
-    $total_size = function($buff, $ofs) use ($data_size) {
+    $total_size = function(dynamic $buff, dynamic $ofs) use ($data_size) {
       return (int) (20 + $data_size($buff, $ofs));
     };
-    $from_bytes = function($buff, $ofs) use ($Pervasives,$caml_call1,$caml_marshal_data_size,$caml_ml_bytes_length,$cst_Marshal_from_bytes,$cst_Marshal_from_bytes__0,$runtime) {
+    $from_bytes = function(dynamic $buff, dynamic $ofs) use ($Pervasives,$caml_call1,$caml_marshal_data_size,$caml_ml_bytes_length,$cst_Marshal_from_bytes,$cst_Marshal_from_bytes__0,$runtime) {
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {
           $len = $caml_marshal_data_size($buff, $ofs);
@@ -83,15 +84,15 @@ final class Marshal {
       }
       return $caml_call1($Pervasives[1], $cst_Marshal_from_bytes);
     };
-    $from_string = function($buff, $ofs) use ($Bytes,$caml_call1,$from_bytes) {
+    $from_string = function(dynamic $buff, dynamic $ofs) use ($Bytes,$caml_call1,$from_bytes) {
       return $from_bytes($caml_call1($Bytes[43], $buff), $ofs);
     };
-    $cQ = function($cU) use ($runtime) {
+    $cQ = function(dynamic $cU) use ($runtime) {
       return $runtime["caml_input_value"]($cU);
     };
     $Marshal = Vector{
       0,
-      function($cT, $cS, $cR) use ($runtime) {
+      function(dynamic $cT, dynamic $cS, dynamic $cR) use ($runtime) {
         return $runtime["caml_output_value"]($cT, $cS, $cR);
       },
       $to_buffer,

@@ -37,12 +37,12 @@ final class Strings {
     $caml_int_of_string = $runtime["caml_int_of_string"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -176,11 +176,11 @@ final class Strings {
     
     $caml_call1($Pervasives[34], $k);
     
-    $createIntFromString = function($ss) use ($caml_int_of_string) {
+    $createIntFromString = function(dynamic $ss) use ($caml_int_of_string) {
       return $caml_int_of_string($ss);
     };
     $myFunction = function
-    ($cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) use ($Pervasives,$caml_call1,$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
+    (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) use ($Pervasives,$caml_call1,$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
       $caml_call1(
         $Pervasives[30],
         $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope

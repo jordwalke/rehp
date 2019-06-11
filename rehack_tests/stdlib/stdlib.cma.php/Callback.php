@@ -32,10 +32,10 @@ final class Callback {
     $caml_register_named_value = $runtime["caml_register_named_value"];
     $global_data = $runtime["caml_get_global_data"]();
     $Obj = $global_data["Obj"];
-    $register = function($name, $v) use ($caml_register_named_value) {
+    $register = function(dynamic $name, dynamic $v) use ($caml_register_named_value) {
       return $caml_register_named_value($name, $v);
     };
-    $register_exception = function($name, $exn) use ($Obj,$caml_register_named_value,$runtime) {
+    $register_exception = function(dynamic $name, dynamic $exn) use ($Obj,$caml_register_named_value,$runtime) {
       $slot = $runtime["caml_obj_tag"]($exn) === $Obj[8] ? $exn : ($exn[1]);
       return $caml_register_named_value($name, $slot);
     };

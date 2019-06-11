@@ -33,17 +33,17 @@ final class Js_of_ocaml__Intl {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
@@ -147,18 +147,18 @@ final class Js_of_ocaml__Intl {
       $caml_new_string("currency")
     };
     $mK = Vector{0, 0, 0, 0};
-    $object_options = function($param) use ($CamlinternalOO,$caml_call1,$caml_call2,$caml_call3,$cst,$cst_localeMatcher,$mI,$mK) {
-      $o5 = function($self, $localeMatcher) use ($CamlinternalOO,$caml_call1,$caml_call2,$caml_call3,$cst,$cst_localeMatcher,$mI,$mK) {
+    $object_options = function(dynamic $param) use ($CamlinternalOO,$caml_call1,$caml_call2,$caml_call3,$cst,$cst_localeMatcher,$mI,$mK) {
+      $o5 = function(dynamic $self, dynamic $localeMatcher) use ($CamlinternalOO,$caml_call1,$caml_call2,$caml_call3,$cst,$cst_localeMatcher,$mI,$mK) {
         if (! $mK[1]) {
           $o7 = $caml_call1($CamlinternalOO[16], $mI);
           $o8 = $caml_call2($CamlinternalOO[3], $o7, $cst);
           $o9 = $caml_call2($CamlinternalOO[7], $o7, $cst_localeMatcher);
-          $o_ = function($self_1) use ($o8) {
+          $o_ = function(dynamic $self_1) use ($o8) {
             $env = $self_1[$o8 + 1];
             return $env[1];
           };
           $caml_call3($CamlinternalOO[10], $o7, $o9, $o_);
-          $pa = function($pb) use ($CamlinternalOO,$caml_call2,$o7,$o8) {
+          $pa = function(dynamic $pb) use ($CamlinternalOO,$caml_call2,$o7,$o8) {
             $pc = $caml_call2($CamlinternalOO[24], 0, $o7);
             $pc[$o8 + 1] = $pb;
             return $pc;
@@ -169,14 +169,14 @@ final class Js_of_ocaml__Intl {
         return $caml_call1($mK[1], Vector{0, $localeMatcher});
       };
       $o6 = "best fit";
-      return (function($t0, $param) {
+      return (function(dynamic $t0, dynamic $param) {
          return (object)darray["localeMatcher"=>$t0];
        })($o6, $o5);
     };
     $mL = Vector{0, 0, 0, 0};
-    $options = function($param) use ($CamlinternalOO,$Js_of_ocaml_Js,$caml_call1,$caml_call2,$cst__0,$mG,$mL,$shared) {
+    $options = function(dynamic $param) use ($CamlinternalOO,$Js_of_ocaml_Js,$caml_call1,$caml_call2,$cst__0,$mG,$mL,$shared) {
       $oG = function
-      ($self, $localeMatcher, $usage, $sensitivity, $ignorePunctuation, $numeric, $caseFirst) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__0,$mG,$mL,$shared) {
+      (dynamic $self, dynamic $localeMatcher, dynamic $usage, dynamic $sensitivity, dynamic $ignorePunctuation, dynamic $numeric, dynamic $caseFirst) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__0,$mG,$mL,$shared) {
         if (! $mL[1]) {
           $oN = $caml_call1($CamlinternalOO[16], $shared);
           $oO = $caml_call2($CamlinternalOO[3], $oN, $cst__0);
@@ -187,30 +187,30 @@ final class Js_of_ocaml__Intl {
           $oT = $oP[4];
           $oU = $oP[5];
           $oV = $oP[6];
-          $oW = function($self_2) use ($oO) {
+          $oW = function(dynamic $self_2) use ($oO) {
             $env = $self_2[$oO + 1];
             return $env[1];
           };
-          $oX = function($self_2) use ($oO) {
+          $oX = function(dynamic $self_2) use ($oO) {
             $env = $self_2[$oO + 1];
             return $env[2];
           };
-          $oY = function($self_2) use ($oO) {
+          $oY = function(dynamic $self_2) use ($oO) {
             $env = $self_2[$oO + 1];
             return $env[3];
           };
-          $oZ = function($self_2) use ($oO) {
+          $oZ = function(dynamic $self_2) use ($oO) {
             $env = $self_2[$oO + 1];
             return $env[4];
           };
-          $o0 = function($self_2) use ($oO) {
+          $o0 = function(dynamic $self_2) use ($oO) {
             $env = $self_2[$oO + 1];
             return $env[5];
           };
           $o1 = Vector{
             0,
             $oT,
-            function($self_2) use ($oO) {
+            function(dynamic $self_2) use ($oO) {
               $env = $self_2[$oO + 1];
               return $env[6];
             },
@@ -226,7 +226,7 @@ final class Js_of_ocaml__Intl {
             $oW
           };
           $caml_call2($CamlinternalOO[11], $oN, $o1);
-          $o2 = function($o3) use ($CamlinternalOO,$caml_call2,$oN,$oO) {
+          $o2 = function(dynamic $o3) use ($CamlinternalOO,$caml_call2,$oN,$oO) {
             $o4 = $caml_call2($CamlinternalOO[24], 0, $oN);
             $o4[$oO + 1] = $o3;
             return $o4;
@@ -253,7 +253,8 @@ final class Js_of_ocaml__Intl {
       $oK = "variant";
       $oL = "sort";
       $oM = "best fit";
-      return (function($t1, $t2, $t3, $t4, $t5, $t6, $param) {
+      return (function
+       (dynamic $t1, dynamic $t2, dynamic $t3, dynamic $t4, dynamic $t5, dynamic $t6, dynamic $param) {
          return (object)darray[
           "localeMatcher"=>$t1,
           "usage"=>$t2,
@@ -265,9 +266,9 @@ final class Js_of_ocaml__Intl {
     };
     $Collator = Vector{0, $object_options, $options};
     $mM = Vector{0, 0, 0, 0};
-    $options__0 = function($param) use ($CamlinternalOO,$Js_of_ocaml_Js,$caml_call1,$caml_call2,$cst__1,$mD,$mH,$mM) {
+    $options__0 = function(dynamic $param) use ($CamlinternalOO,$Js_of_ocaml_Js,$caml_call1,$caml_call2,$cst__1,$mD,$mH,$mM) {
       $nU = function
-      ($self, $localeMatcher, $timeZone, $hour12, $hourCycle, $formatMatcher, $weekday, $era, $year, $month, $day, $hour, $minute, $second, $timeZoneName) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__1,$mD,$mH,$mM) {
+      (dynamic $self, dynamic $localeMatcher, dynamic $timeZone, dynamic $hour12, dynamic $hourCycle, dynamic $formatMatcher, dynamic $weekday, dynamic $era, dynamic $year, dynamic $month, dynamic $day, dynamic $hour, dynamic $minute, dynamic $second, dynamic $timeZoneName) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__1,$mD,$mH,$mM) {
         if (! $mM[1]) {
           $n9 = $caml_call1($CamlinternalOO[16], $mH);
           $n_ = $caml_call2($CamlinternalOO[3], $n9, $cst__1);
@@ -286,62 +287,62 @@ final class Js_of_ocaml__Intl {
           $om = $oa[12];
           $on = $oa[13];
           $oo = $oa[14];
-          $op = function($self_3) use ($n_) {
+          $op = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[1];
           };
-          $oq = function($self_3) use ($n_) {
+          $oq = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[2];
           };
-          $or = function($self_3) use ($n_) {
+          $or = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[3];
           };
-          $os = function($self_3) use ($n_) {
+          $os = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[4];
           };
-          $ot = function($self_3) use ($n_) {
+          $ot = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[5];
           };
-          $ou = function($self_3) use ($n_) {
+          $ou = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[6];
           };
-          $ov = function($self_3) use ($n_) {
+          $ov = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[7];
           };
-          $ow = function($self_3) use ($n_) {
+          $ow = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[8];
           };
-          $ox = function($self_3) use ($n_) {
+          $ox = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[9];
           };
-          $oy = function($self_3) use ($n_) {
+          $oy = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[10];
           };
-          $oz = function($self_3) use ($n_) {
+          $oz = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[11];
           };
-          $oA = function($self_3) use ($n_) {
+          $oA = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[12];
           };
-          $oB = function($self_3) use ($n_) {
+          $oB = function(dynamic $self_3) use ($n_) {
             $env = $self_3[$n_ + 1];
             return $env[13];
           };
           $oC = Vector{
             0,
             $oi,
-            function($self_3) use ($n_) {
+            function(dynamic $self_3) use ($n_) {
               $env = $self_3[$n_ + 1];
               return $env[14];
             },
@@ -373,7 +374,7 @@ final class Js_of_ocaml__Intl {
             $op
           };
           $caml_call2($CamlinternalOO[11], $n9, $oC);
-          $oD = function($oE) use ($CamlinternalOO,$caml_call2,$n9,$n_) {
+          $oD = function(dynamic $oE) use ($CamlinternalOO,$caml_call2,$n9,$n_) {
             $oF = $caml_call2($CamlinternalOO[24], 0, $n9);
             $oF[$n_ + 1] = $oE;
             return $oF;
@@ -417,7 +418,7 @@ final class Js_of_ocaml__Intl {
       $n7 = $Js_of_ocaml_Js[3];
       $n8 = "best fit";
       return (function
-       ($t7, $t8, $t9, $t10, $t11, $t12, $t13, $t14, $t15, $t16, $t17, $t18, $t19, $t20, $param) {
+       (dynamic $t7, dynamic $t8, dynamic $t9, dynamic $t10, dynamic $t11, dynamic $t12, dynamic $t13, dynamic $t14, dynamic $t15, dynamic $t16, dynamic $t17, dynamic $t18, dynamic $t19, dynamic $t20, dynamic $param) {
          return (object)darray[
           "localeMatcher"=>$t7,
           "timeZone"=>$t8,
@@ -453,9 +454,9 @@ final class Js_of_ocaml__Intl {
     };
     $DateTimeFormat = Vector{0, $object_options, $options__0};
     $mN = Vector{0, 0, 0, 0};
-    $options__1 = function($param) use ($CamlinternalOO,$Js_of_ocaml_Js,$caml_call1,$caml_call2,$cst__2,$mE,$mJ,$mN) {
+    $options__1 = function(dynamic $param) use ($CamlinternalOO,$Js_of_ocaml_Js,$caml_call1,$caml_call2,$cst__2,$mE,$mJ,$mN) {
       $nj = function
-      ($self, $localeMatcher, $style, $currency, $currencyDisplay, $useGrouping, $minimumIntegerDigits, $minimumFractionDigits, $maximumFractionDigits, $minimumSignificantDigits, $maximumSignificantDigits) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__2,$mE,$mJ,$mN) {
+      (dynamic $self, dynamic $localeMatcher, dynamic $style, dynamic $currency, dynamic $currencyDisplay, dynamic $useGrouping, dynamic $minimumIntegerDigits, dynamic $minimumFractionDigits, dynamic $maximumFractionDigits, dynamic $minimumSignificantDigits, dynamic $maximumSignificantDigits) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__2,$mE,$mJ,$mN) {
         if (! $mN[1]) {
           $nu = $caml_call1($CamlinternalOO[16], $mJ);
           $nv = $caml_call2($CamlinternalOO[3], $nu, $cst__2);
@@ -470,46 +471,46 @@ final class Js_of_ocaml__Intl {
           $nE = $nw[8];
           $nF = $nw[9];
           $nG = $nw[10];
-          $nH = function($self_4) use ($nv) {
+          $nH = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[1];
           };
-          $nI = function($self_4) use ($nv) {
+          $nI = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[2];
           };
-          $nJ = function($self_4) use ($nv) {
+          $nJ = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[3];
           };
-          $nK = function($self_4) use ($nv) {
+          $nK = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[4];
           };
-          $nL = function($self_4) use ($nv) {
+          $nL = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[5];
           };
-          $nM = function($self_4) use ($nv) {
+          $nM = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[6];
           };
-          $nN = function($self_4) use ($nv) {
+          $nN = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[7];
           };
-          $nO = function($self_4) use ($nv) {
+          $nO = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[8];
           };
-          $nP = function($self_4) use ($nv) {
+          $nP = function(dynamic $self_4) use ($nv) {
             $env = $self_4[$nv + 1];
             return $env[9];
           };
           $nQ = Vector{
             0,
             $nE,
-            function($self_4) use ($nv) {
+            function(dynamic $self_4) use ($nv) {
               $env = $self_4[$nv + 1];
               return $env[10];
             },
@@ -533,7 +534,7 @@ final class Js_of_ocaml__Intl {
             $nH
           };
           $caml_call2($CamlinternalOO[11], $nu, $nQ);
-          $nR = function($nS) use ($CamlinternalOO,$caml_call2,$nu,$nv) {
+          $nR = function(dynamic $nS) use ($CamlinternalOO,$caml_call2,$nu,$nv) {
             $nT = $caml_call2($CamlinternalOO[24], 0, $nu);
             $nT[$nv + 1] = $nS;
             return $nT;
@@ -569,7 +570,7 @@ final class Js_of_ocaml__Intl {
       $ns = "decimal";
       $nt = "best fit";
       return (function
-       ($t21, $t22, $t23, $t24, $t25, $t26, $t27, $t28, $t29, $t30, $param) {
+       (dynamic $t21, dynamic $t22, dynamic $t23, dynamic $t24, dynamic $t25, dynamic $t26, dynamic $t27, dynamic $t28, dynamic $t29, dynamic $t30, dynamic $param) {
          return (object)darray[
           "localeMatcher"=>$t21,
           "style"=>$t22,
@@ -585,22 +586,22 @@ final class Js_of_ocaml__Intl {
     };
     $NumberFormat = Vector{0, $object_options, $options__1};
     $mO = Vector{0, 0, 0, 0};
-    $options__2 = function($param) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__3,$mC,$mF,$mO) {
-      $m7 = function($self, $localeMatcher, $type) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__3,$mC,$mF,$mO) {
+    $options__2 = function(dynamic $param) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__3,$mC,$mF,$mO) {
+      $m7 = function(dynamic $self, dynamic $localeMatcher, dynamic $type) use ($CamlinternalOO,$caml_call1,$caml_call2,$cst__3,$mC,$mF,$mO) {
         if (! $mO[1]) {
           $m_ = $caml_call1($CamlinternalOO[16], $mC);
           $na = $caml_call2($CamlinternalOO[3], $m_, $cst__3);
           $nb = $caml_call2($CamlinternalOO[8], $m_, $mF);
           $nc = $nb[1];
           $nd = $nb[2];
-          $ne = function($self_5) use ($na) {
+          $ne = function(dynamic $self_5) use ($na) {
             $env = $self_5[$na + 1];
             return $env[1];
           };
           $nf = Vector{
             0,
             $nc,
-            function($self_5) use ($na) {
+            function(dynamic $self_5) use ($na) {
               $env = $self_5[$na + 1];
               return $env[2];
             },
@@ -608,7 +609,7 @@ final class Js_of_ocaml__Intl {
             $ne
           };
           $caml_call2($CamlinternalOO[11], $m_, $nf);
-          $ng = function($nh) use ($CamlinternalOO,$caml_call2,$m_,$na) {
+          $ng = function(dynamic $nh) use ($CamlinternalOO,$caml_call2,$m_,$na) {
             $ni = $caml_call2($CamlinternalOO[24], 0, $m_);
             $ni[$na + 1] = $nh;
             return $ni;
@@ -620,57 +621,57 @@ final class Js_of_ocaml__Intl {
       };
       $m8 = "cardinal";
       $m9 = "best fit";
-      return (function($t31, $t32, $param) {
+      return (function(dynamic $t31, dynamic $t32, dynamic $param) {
          return (object)darray["localeMatcher"=>$t31,"type"=>$t32];
        })($m9, $m8, $m7);
     };
     $PluralRules = Vector{0, $object_options, $options__2};
-    $mP = function($x) use ($caml_call1,$caml_get_public_method) {
+    $mP = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -475689828, 237), $x);
     };
     $mQ = $Js_of_ocaml_Js[50][1];
-    $intl = (function($t33, $param) {return $t33->Intl;})($mQ, $mP);
-    $mR = function($x) use ($caml_call1,$caml_get_public_method) {
+    $intl = (function(dynamic $t33, dynamic $param) {return $t33->Intl;})($mQ, $mP);
+    $mR = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -438302079, 238), $x);
     };
-    $mS = function($x) use ($caml_call1,$caml_get_public_method) {
+    $mS = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -475689828, 239), $x);
     };
     $mT = $Js_of_ocaml_Js[50][1];
-    $mU = (function($t34, $param) {return $t34->Intl;})($mT, $mS);
-    $collator_constr = (function($t35, $param) {return $t35->Collator;})($mU, $mR);
-    $mV = function($x) use ($caml_call1,$caml_get_public_method) {
+    $mU = (function(dynamic $t34, dynamic $param) {return $t34->Intl;})($mT, $mS);
+    $collator_constr = (function(dynamic $t35, dynamic $param) {return $t35->Collator;
+     })($mU, $mR);
+    $mV = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, 568382385, 240), $x);
     };
-    $mW = function($x) use ($caml_call1,$caml_get_public_method) {
+    $mW = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -475689828, 241), $x);
     };
     $mX = $Js_of_ocaml_Js[50][1];
-    $mY = (function($t36, $param) {return $t36->Intl;})($mX, $mW);
-    $dateTimeFormat_constr = (function($t37, $param) {
-       return $t37->DateTimeFormat;
+    $mY = (function(dynamic $t36, dynamic $param) {return $t36->Intl;})($mX, $mW);
+    $dateTimeFormat_constr = (function(dynamic $t37, dynamic $param) {return $t37->DateTimeFormat;
      })($mY, $mV);
-    $mZ = function($x) use ($caml_call1,$caml_get_public_method) {
+    $mZ = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, 941696479, 242), $x);
     };
-    $m0 = function($x) use ($caml_call1,$caml_get_public_method) {
+    $m0 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -475689828, 243), $x);
     };
     $m1 = $Js_of_ocaml_Js[50][1];
-    $m2 = (function($t38, $param) {return $t38->Intl;})($m1, $m0);
-    $numberFormat_constr = (function($t39, $param) {
-       return $t39->NumberFormat;
+    $m2 = (function(dynamic $t38, dynamic $param) {return $t38->Intl;})($m1, $m0);
+    $numberFormat_constr = (function(dynamic $t39, dynamic $param) {return $t39->NumberFormat;
      })($m2, $mZ);
-    $m3 = function($x) use ($caml_call1,$caml_get_public_method) {
+    $m3 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, 544366260, 244), $x);
     };
-    $m4 = function($x) use ($caml_call1,$caml_get_public_method) {
+    $m4 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, -475689828, 245), $x);
     };
     $m5 = $Js_of_ocaml_Js[50][1];
-    $m6 = (function($t40, $param) {return $t40->Intl;})($m5, $m4);
-    $pluralRules_constr = (function($t41, $param) {return $t41->PluralRules;})($m6, $m3);
-    $is_supported = function($param) use ($Js_of_ocaml_Js,$caml_call1,$intl) {
+    $m6 = (function(dynamic $t40, dynamic $param) {return $t40->Intl;})($m5, $m4);
+    $pluralRules_constr = (function(dynamic $t41, dynamic $param) {return $t41->PluralRules;
+     })($m6, $m3);
+    $is_supported = function(dynamic $param) use ($Js_of_ocaml_Js,$caml_call1,$intl) {
       return $caml_call1($Js_of_ocaml_Js[6][5], $intl);
     };
     $Js_of_ocaml_Intl = Vector{

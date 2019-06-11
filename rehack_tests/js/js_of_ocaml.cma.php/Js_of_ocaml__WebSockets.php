@@ -30,22 +30,23 @@ final class Js_of_ocaml__WebSockets {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $tc = function($x) use ($caml_call1,$runtime) {
+    $tc = function(dynamic $x) use ($caml_call1,$runtime) {
       return $caml_call1(
         $runtime["caml_get_public_method"]($x, -492394744, 298),
         $x
       );
     };
     $td = $Js_of_ocaml_Js[50][1];
-    $webSocket = (function($t0, $param) {return $t0->WebSocket;})($td, $tc);
-    $is_supported = function($param) use ($Js_of_ocaml_Js,$caml_call1,$webSocket) {
+    $webSocket = (function(dynamic $t0, dynamic $param) {return $t0->WebSocket;
+     })($td, $tc);
+    $is_supported = function(dynamic $param) use ($Js_of_ocaml_Js,$caml_call1,$webSocket) {
       return $caml_call1($Js_of_ocaml_Js[6][5], $webSocket);
     };
     $Js_of_ocaml_WebSockets = Vector{

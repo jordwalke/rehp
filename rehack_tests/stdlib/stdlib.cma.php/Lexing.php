@@ -37,27 +37,29 @@ final class Lexing {
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
+    $caml_call4 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
+    $caml_call5 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 5
         ? $f($a0, $a1, $a2, $a3, $a4)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
@@ -71,7 +73,7 @@ final class Lexing {
     $Bytes = $global_data["Bytes"];
     $Pervasives = $global_data["Pervasives"];
     $Sys = $global_data["Sys"];
-    $engine = function($tbl, $state, $buf) use ($runtime) {
+    $engine = function(dynamic $tbl, dynamic $state, dynamic $buf) use ($runtime) {
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -81,7 +83,7 @@ final class Lexing {
       }
       return $result;
     };
-    $new_engine = function($tbl, $state, $buf) use ($runtime) {
+    $new_engine = function(dynamic $tbl, dynamic $state, dynamic $buf) use ($runtime) {
       $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -91,7 +93,8 @@ final class Lexing {
       }
       return $result;
     };
-    $lex_refill = function($read_fun, $aux_buffer, $lexbuf) use ($Bytes,$Pervasives,$Sys,$caml_call1,$caml_call2,$caml_call5,$caml_check_bound,$caml_create_bytes,$caml_ml_bytes_length,$cst_Lexing_lex_refill_cannot_grow_buffer) {
+    $lex_refill = function
+    (dynamic $read_fun, dynamic $aux_buffer, dynamic $lexbuf) use ($Bytes,$Pervasives,$Sys,$caml_call1,$caml_call2,$caml_call5,$caml_check_bound,$caml_create_bytes,$caml_ml_bytes_length,$cst_Lexing_lex_refill_cannot_grow_buffer) {
       $read = $caml_call2(
         $read_fun,
         $aux_buffer,
@@ -165,7 +168,7 @@ final class Lexing {
       $lexbuf[3] = (int) ($lexbuf[3] + $n);
       return 0;
     };
-    $from_function = function($f) use ($caml_create_bytes,$lex_refill,$zero_pos) {
+    $from_function = function(dynamic $f) use ($caml_create_bytes,$lex_refill,$zero_pos) {
       $eQ = Vector{0};
       $eR = 0;
       $eS = 0;
@@ -178,7 +181,7 @@ final class Lexing {
       $eZ = $caml_create_bytes(512);
       return Vector{
         0,
-        function($e0) use ($eZ,$f,$lex_refill) {
+        function(dynamic $e0) use ($eZ,$f,$lex_refill) {
           return $lex_refill($f, $eZ, $e0);
         },
         $eY,
@@ -194,14 +197,14 @@ final class Lexing {
         $zero_pos
       };
     };
-    $from_channel = function($ic) use ($Pervasives,$caml_call4,$from_function) {
+    $from_channel = function(dynamic $ic) use ($Pervasives,$caml_call4,$from_function) {
       return $from_function(
-        function($buf, $n) use ($Pervasives,$caml_call4,$ic) {
+        function(dynamic $buf, dynamic $n) use ($Pervasives,$caml_call4,$ic) {
           return $caml_call4($Pervasives[72], $ic, $buf, 0, $n);
         }
       );
     };
-    $from_string = function($s) use ($Bytes,$caml_call1,$runtime,$zero_pos) {
+    $from_string = function(dynamic $s) use ($Bytes,$caml_call1,$runtime,$zero_pos) {
       $eH = Vector{0};
       $eI = 1;
       $eJ = 0;
@@ -213,7 +216,7 @@ final class Lexing {
       $eP = $caml_call1($Bytes[5], $s);
       return Vector{
         0,
-        function($lexbuf) {$lexbuf[9] = 1;return 0;},
+        function(dynamic $lexbuf) {$lexbuf[9] = 1;return 0;},
         $eP,
         $eO,
         $eN,
@@ -227,40 +230,40 @@ final class Lexing {
         $zero_pos
       };
     };
-    $lexeme = function($lexbuf) use ($Bytes,$caml_call3) {
+    $lexeme = function(dynamic $lexbuf) use ($Bytes,$caml_call3) {
       $len = (int) ($lexbuf[6] - $lexbuf[5]);
       return $caml_call3($Bytes[8], $lexbuf[2], $lexbuf[5], $len);
     };
-    $sub_lexeme = function($lexbuf, $i1, $i2) use ($Bytes,$caml_call3) {
+    $sub_lexeme = function(dynamic $lexbuf, dynamic $i1, dynamic $i2) use ($Bytes,$caml_call3) {
       $len = (int) ($i2 - $i1);
       return $caml_call3($Bytes[8], $lexbuf[2], $i1, $len);
     };
-    $sub_lexeme_opt = function($lexbuf, $i1, $i2) use ($Bytes,$caml_call3) {
+    $sub_lexeme_opt = function(dynamic $lexbuf, dynamic $i1, dynamic $i2) use ($Bytes,$caml_call3) {
       if (0 <= $i1) {
         $len = (int) ($i2 - $i1);
         return Vector{0, $caml_call3($Bytes[8], $lexbuf[2], $i1, $len)};
       }
       return 0;
     };
-    $sub_lexeme_char = function($lexbuf, $i) use ($caml_bytes_get) {
+    $sub_lexeme_char = function(dynamic $lexbuf, dynamic $i) use ($caml_bytes_get) {
       return $caml_bytes_get($lexbuf[2], $i);
     };
-    $sub_lexeme_char_opt = function($lexbuf, $i) use ($caml_bytes_get) {
+    $sub_lexeme_char_opt = function(dynamic $lexbuf, dynamic $i) use ($caml_bytes_get) {
       return 0 <= $i ? Vector{0, $caml_bytes_get($lexbuf[2], $i)} : (0);
     };
-    $lexeme_char = function($lexbuf, $i) use ($caml_bytes_get) {
+    $lexeme_char = function(dynamic $lexbuf, dynamic $i) use ($caml_bytes_get) {
       return $caml_bytes_get($lexbuf[2], (int) ($lexbuf[5] + $i));
     };
-    $lexeme_start = function($lexbuf) {return $lexbuf[11][4];};
-    $lexeme_end = function($lexbuf) {return $lexbuf[12][4];};
-    $lexeme_start_p = function($lexbuf) {return $lexbuf[11];};
-    $lexeme_end_p = function($lexbuf) {return $lexbuf[12];};
-    $new_line = function($lexbuf) {
+    $lexeme_start = function(dynamic $lexbuf) {return $lexbuf[11][4];};
+    $lexeme_end = function(dynamic $lexbuf) {return $lexbuf[12][4];};
+    $lexeme_start_p = function(dynamic $lexbuf) {return $lexbuf[11];};
+    $lexeme_end_p = function(dynamic $lexbuf) {return $lexbuf[12];};
+    $new_line = function(dynamic $lexbuf) {
       $lcp = $lexbuf[12];
       $lexbuf[12] = Vector{0, $lcp[1], (int) ($lcp[2] + 1), $lcp[4], $lcp[4]};
       return 0;
     };
-    $flush_input = function($lb) {
+    $flush_input = function(dynamic $lb) {
       $lb[6] = 0;
       $lb[4] = 0;
       $eG = $lb[12];

@@ -42,24 +42,24 @@ final class Int64 {
     $eA = Vector{255, 0, 0, 0};
     $ez = Vector{255, 1, 0, 0};
     $ey = Vector{255, 1, 0, 0};
-    $succ = function($n) use ($ey,$runtime) {
+    $succ = function(dynamic $n) use ($ey,$runtime) {
       return $runtime["caml_int64_add"]($n, $ey);
     };
-    $pred = function($n) use ($ez,$runtime) {
+    $pred = function(dynamic $n) use ($ez,$runtime) {
       return $runtime["caml_int64_sub"]($n, $ez);
     };
-    $abs = function($n) use ($eA,$runtime) {
+    $abs = function(dynamic $n) use ($eA,$runtime) {
       return $runtime["caml_greaterequal"]($n, $eA)
         ? $n
         : ($runtime["caml_int64_neg"]($n));
     };
-    $lognot = function($n) use ($eB,$runtime) {
+    $lognot = function(dynamic $n) use ($eB,$runtime) {
       return $runtime["caml_int64_xor"]($n, $eB);
     };
-    $to_string = function($n) use ($cst_d,$runtime) {
+    $to_string = function(dynamic $n) use ($cst_d,$runtime) {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
-    $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
+    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_exception,$runtime) {
       try {$eC = Vector{0, $runtime["caml_int64_of_string"]($s)};return $eC;}
       catch(\Throwable $eD) {
         $eD = $caml_wrap_exception($eD);
@@ -67,10 +67,10 @@ final class Int64 {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($eD) as \Throwable;
       }
     };
-    $compare = function($x, $y) use ($runtime) {
+    $compare = function(dynamic $x, dynamic $y) use ($runtime) {
       return $runtime["caml_int64_compare"]($x, $y);
     };
-    $equal = function($x, $y) use ($compare) {
+    $equal = function(dynamic $x, dynamic $y) use ($compare) {
       return 0 === $compare($x, $y) ? 1 : (0);
     };
     $Int64 = Vector{

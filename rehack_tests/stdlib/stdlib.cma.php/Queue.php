@@ -30,21 +30,21 @@ final class Queue {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
     $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
     $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)};
-    $create = function($param) {return Vector{0, 0, 0, 0};};
-    $clear = function($q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
-    $add = function($x, $q) {
+    $create = function(dynamic $param) {return Vector{0, 0, 0, 0};};
+    $clear = function(dynamic $q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
+    $add = function(dynamic $x, dynamic $q) {
       $cell = Vector{0, $x, 0};
       $g1 = $q[3];
       if ($g1) {
@@ -58,12 +58,12 @@ final class Queue {
       $q[3] = $cell;
       return 0;
     };
-    $peek = function($q) use ($Empty,$runtime) {
+    $peek = function(dynamic $q) use ($Empty,$runtime) {
       $g0 = $q[2];
       if ($g0) {$content = $g0[1];return $content;}
       throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
-    $take = function($q) use ($Empty,$clear,$runtime) {
+    $take = function(dynamic $q) use ($Empty,$clear,$runtime) {
       $gX = $q[2];
       if ($gX) {
         $gY = $gX[1];
@@ -74,7 +74,7 @@ final class Queue {
       }
       throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
-    $copy = function($q_res, $prev, $cell) {
+    $copy = function(dynamic $q_res, dynamic $prev, dynamic $cell) {
       $prev__0 = $prev;
       $cell__0 = $cell;
       for (;;) {
@@ -94,12 +94,12 @@ final class Queue {
         return $q_res;
       }
     };
-    $copy__0 = function($q) use ($copy) {
+    $copy__0 = function(dynamic $q) use ($copy) {
       return $copy(Vector{0, $q[1], 0, 0}, 0, $q[2]);
     };
-    $is_empty = function($q) {return 0 === $q[1] ? 1 : (0);};
-    $length = function($q) {return $q[1];};
-    $iter = function($f, $cell) use ($caml_call1) {
+    $is_empty = function(dynamic $q) {return 0 === $q[1] ? 1 : (0);};
+    $length = function(dynamic $q) {return $q[1];};
+    $iter = function(dynamic $f, dynamic $cell) use ($caml_call1) {
       $cell__0 = $cell;
       for (;;) {
         if ($cell__0) {
@@ -112,8 +112,10 @@ final class Queue {
         return 0;
       }
     };
-    $iter__0 = function($f, $q) use ($iter) {return $iter($f, $q[2]);};
-    $fold = function($f, $accu, $cell) use ($caml_call2) {
+    $iter__0 = function(dynamic $f, dynamic $q) use ($iter) {
+      return $iter($f, $q[2]);
+    };
+    $fold = function(dynamic $f, dynamic $accu, dynamic $cell) use ($caml_call2) {
       $accu__0 = $accu;
       $cell__0 = $cell;
       for (;;) {
@@ -128,10 +130,9 @@ final class Queue {
         return $accu__0;
       }
     };
-    $fold__0 = function($f, $accu, $q) use ($fold) {
-      return $fold($f, $accu, $q[2]);
+    $fold__0 = function(dynamic $f, dynamic $accu, dynamic $q) use ($fold) {return $fold($f, $accu, $q[2]);
     };
-    $transfer = function($q1, $q2) use ($clear) {
+    $transfer = function(dynamic $q1, dynamic $q2) use ($clear) {
       $gV = 0 < $q1[1] ? 1 : (0);
       if ($gV) {
         $gW = $q2[3];

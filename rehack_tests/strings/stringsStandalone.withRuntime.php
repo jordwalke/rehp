@@ -217,17 +217,17 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $H = $caml_new_string("ARE === F: ");
   $I = $caml_new_string("Nans are === (should output true):");
   $J = $caml_new_string("Nans are == (should output false):");
-  $failwith = function($s) use ($Failure,$caml_wrap_thrown_exception) {
+  $failwith = function(dynamic $s) use ($Failure,$caml_wrap_thrown_exception) {
     throw $caml_wrap_thrown_exception(Vector{0, $Failure, $s}) as \Throwable;
   };
-  $invalid_arg = function($s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
+  $invalid_arg = function(dynamic $s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
     throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
   };
   
   $caml_fresh_oo_id(0);
   
   $anotherName = $caml_int64_float_of_bits($a);
-  $b = function($s1, $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
+  $b = function(dynamic $s1, dynamic $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
     $l1 = $caml_ml_string_length($s1);
     $l2 = $caml_ml_string_length($s2);
     $s = $caml_create_bytes((int) ($l1 + $l2));
@@ -235,8 +235,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     $caml_blit_string($s2, 0, $s, $l1, $l2);
     return $s;
   };
-  $string_of_bool = function($b) use ($c,$d) {return $b ? $c : ($d);};
-  $string_of_int = function($n) use ($caml_new_string) {
+  $string_of_bool = function(dynamic $b) use ($c,$d) {return $b ? $c : ($d);};
+  $string_of_int = function(dynamic $n) use ($caml_new_string) {
     return $caml_new_string("" . $n);
   };
   
@@ -246,8 +246,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   
   $caml_ml_open_descriptor_out(2);
   
-  $flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
-    $iter = function($param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
+  $flush_all = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
+    $iter = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -268,32 +268,34 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     };
     return $iter($caml_ml_out_channels_list(0));
   };
-  $output_string = function($oc, $s) use ($caml_ml_output,$caml_ml_string_length) {
+  $output_string = function(dynamic $oc, dynamic $s) use ($caml_ml_output,$caml_ml_string_length) {
     return $caml_ml_output($oc, $s, 0, $caml_ml_string_length($s));
   };
-  $print_string = function($s) use ($output_string,$stdout) {
+  $print_string = function(dynamic $s) use ($output_string,$stdout) {
     return $output_string($stdout, $s);
   };
-  $print_int = function($i) use ($output_string,$stdout,$string_of_int) {
+  $print_int = function(dynamic $i) use ($output_string,$stdout,$string_of_int) {
     return $output_string($stdout, $string_of_int($i));
   };
-  $print_endline = function($s) use ($caml_ml_flush,$caml_ml_output_char,$output_string,$stdout) {
+  $print_endline = function(dynamic $s) use ($caml_ml_flush,$caml_ml_output_char,$output_string,$stdout) {
     $output_string($stdout, $s);
     $caml_ml_output_char($stdout, 10);
     return $caml_ml_flush($stdout);
   };
-  $print_newline = function($param) use ($caml_ml_flush,$caml_ml_output_char,$stdout) {
+  $print_newline = function(dynamic $param) use ($caml_ml_flush,$caml_ml_output_char,$stdout) {
     $caml_ml_output_char($stdout, 10);
     return $caml_ml_flush($stdout);
   };
-  $do_at_exit = function($param) use ($flush_all) {return $flush_all(0);};
-  $make = function($n, $c) use ($caml_create_bytes,$caml_fill_bytes) {
+  $do_at_exit = function(dynamic $param) use ($flush_all) {
+    return $flush_all(0);
+  };
+  $make = function(dynamic $n, dynamic $c) use ($caml_create_bytes,$caml_fill_bytes) {
     $s = $caml_create_bytes($n);
     $caml_fill_bytes($s, 0, $n, $c);
     return $s;
   };
   $empty = $caml_create_bytes(0);
-  $sub = function($s, $ofs, $len) use ($caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length,$e,$invalid_arg) {
+  $sub = function(dynamic $s, dynamic $ofs, dynamic $len) use ($caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length,$e,$invalid_arg) {
     if (0 <= $ofs) {
       if (0 <= $len) {
         if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {
@@ -305,14 +307,14 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return $invalid_arg($e);
   };
-  $is_space = function($param) use ($unsigned_right_shift_32) {
+  $is_space = function(dynamic $param) use ($unsigned_right_shift_32) {
     $Y = (int) ($param + -9);
     $switch__0 = 4 < $unsigned_right_shift_32($Y, 0)
       ? 23 === $Y ? 1 : (0)
       : (2 === $Y ? 0 : (1));
     return $switch__0 ? 1 : (0);
   };
-  $trim = function($s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
+  $trim = function(dynamic $s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
     $len = $caml_ml_bytes_length($s);
     $i = Vector{0, 0};
     for (;;) {
@@ -335,17 +337,19 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       else if ($continue_counter === 0) {$continue_counter = null;continue;}
     }
   };
-  $bos = function($X) {return $X;};
-  $bts = function($W) {return $W;};
-  $make__0 = function($n, $c) use ($bts,$make) {return $bts($make($n, $c));};
-  $is_space__0 = function($param) use ($unsigned_right_shift_32) {
+  $bos = function(dynamic $X) {return $X;};
+  $bts = function(dynamic $W) {return $W;};
+  $make__0 = function(dynamic $n, dynamic $c) use ($bts,$make) {
+    return $bts($make($n, $c));
+  };
+  $is_space__0 = function(dynamic $param) use ($unsigned_right_shift_32) {
     $V = (int) ($param + -9);
     $switch__0 = 4 < $unsigned_right_shift_32($V, 0)
       ? 23 === $V ? 1 : (0)
       : (2 === $V ? 0 : (1));
     return $switch__0 ? 1 : (0);
   };
-  $trim__0 = function($s) use ($bos,$bts,$caml_bytes_unsafe_get,$caml_ml_string_length,$caml_string_equal,$f,$is_space__0,$trim) {
+  $trim__0 = function(dynamic $s) use ($bos,$bts,$caml_bytes_unsafe_get,$caml_ml_string_length,$caml_string_equal,$f,$is_space__0,$trim) {
     if ($caml_string_equal($s, $f)) {return $s;}
     if (! $is_space__0($caml_bytes_unsafe_get($s, 0))) {
       if (
@@ -357,7 +361,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     }
     return $bts($trim($bos($s)));
   };
-  $index_rec = function($s, $lim, $i, $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
+  $index_rec = function(dynamic $s, dynamic $lim, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
     $i__0 = $i;
     for (;;) {
       if ($lim <= $i__0) {
@@ -369,7 +373,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       continue;
     }
   };
-  $index = function($s, $c) use ($caml_ml_string_length,$index_rec) {
+  $index = function(dynamic $s, dynamic $c) use ($caml_ml_string_length,$index_rec) {
     return $index_rec($s, $caml_ml_string_length($s), 0, $c);
   };
   
@@ -431,11 +435,11 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   
   $print_endline($trim__0($v));
   
-  $createIntFromString = function($ss) use ($caml_int_of_string) {
+  $createIntFromString = function(dynamic $ss) use ($caml_int_of_string) {
     return $caml_int_of_string($ss);
   };
   $myFunction = function
-  ($cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) use ($print_newline,$print_string,$w) {
+  (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) use ($print_newline,$print_string,$w) {
     $print_string($w);
     return $print_newline(0);
   };

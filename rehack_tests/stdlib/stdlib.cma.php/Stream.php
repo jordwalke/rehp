@@ -41,17 +41,18 @@ final class Stream {
     $caml_new_string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $is_int = $runtime["is_int"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
+    $caml_call4 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
@@ -81,15 +82,15 @@ final class Stream {
     $g4 = Vector{0, $caml_new_string("stream.ml"), 82, 12};
     $Failure = Vector{248, $cst_Stream_Failure, $caml_fresh_oo_id(0)};
     $Error = Vector{248, $cst_Stream_Error, $caml_fresh_oo_id(0)};
-    $count = function($param) {
+    $count = function(dynamic $param) {
       if ($param) {$match = $param[1];$count = $match[1];return $count;}
       return 0;
     };
-    $data = function($param) {
+    $data = function(dynamic $param) {
       if ($param) {$match = $param[1];$data = $match[2];return $data;}
       return 0;
     };
-    $fill_buff = function($b) use ($Pervasives,$caml_call4,$caml_ml_bytes_length) {
+    $fill_buff = function(dynamic $b) use ($Pervasives,$caml_call4,$caml_ml_bytes_length) {
       $b[3] =
         $caml_call4(
           $Pervasives[72],
@@ -101,7 +102,7 @@ final class Stream {
       $b[4] = 0;
       return 0;
     };
-    $get_data->contents = function($count, $d) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g2,$g3,$get_data,$is_int,$runtime) {
+    $get_data->contents = function(dynamic $count, dynamic $d) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g2,$g3,$get_data,$is_int,$runtime) {
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
@@ -165,7 +166,7 @@ final class Stream {
         return $d__0;
       }
     };
-    $peek_data = function($s) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g4,$get_data,$is_int,$runtime) {
+    $peek_data = function(dynamic $s) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g4,$get_data,$is_int,$runtime) {
       for (;;) {
         $hc = $s[2];
         if ($is_int($hc)) {return 0;}
@@ -214,11 +215,11 @@ final class Stream {
         }
       }
     };
-    $peek = function($param) use ($peek_data) {
+    $peek = function(dynamic $param) use ($peek_data) {
       if ($param) {$s = $param[1];return $peek_data($s);}
       return 0;
     };
-    $junk_data = function($s) use ($is_int,$peek_data) {
+    $junk_data = function(dynamic $s) use ($is_int,$peek_data) {
       for (;;) {
         $ha = $s[2];
         if (! $is_int($ha)) {
@@ -247,11 +248,11 @@ final class Stream {
         return 0;
       }
     };
-    $junk = function($param) use ($junk_data) {
+    $junk = function(dynamic $param) use ($junk_data) {
       if ($param) {$data = $param[1];return $junk_data($data);}
       return 0;
     };
-    $nget_data->contents = function($n, $s) use ($junk_data,$nget_data,$peek_data) {
+    $nget_data->contents = function(dynamic $n, dynamic $s) use ($junk_data,$nget_data,$peek_data) {
       if (0 < $n) {
         $match = $peek_data($s);
         if ($match) {
@@ -273,7 +274,7 @@ final class Stream {
       }
       return Vector{0, 0, $s[2], 0};
     };
-    $npeek_data = function($n, $s) use ($nget_data) {
+    $npeek_data = function(dynamic $n, dynamic $s) use ($nget_data) {
       $match = $nget_data->contents($n, $s);
       $len = $match[3];
       $d = $match[2];
@@ -282,24 +283,24 @@ final class Stream {
       $s[2] = $d;
       return $al;
     };
-    $npeek = function($n, $param) use ($npeek_data) {
+    $npeek = function(dynamic $n, dynamic $param) use ($npeek_data) {
       if ($param) {$d = $param[1];return $npeek_data($n, $d);}
       return 0;
     };
-    $next = function($s) use ($Failure,$junk,$peek,$runtime) {
+    $next = function(dynamic $s) use ($Failure,$junk,$peek,$runtime) {
       $match = $peek($s);
       if ($match) {$a = $match[1];$junk($s);return $a;}
       throw $runtime["caml_wrap_thrown_exception"]($Failure) as \Throwable;
     };
-    $empty = function($s) use ($Failure,$peek,$runtime) {
+    $empty = function(dynamic $s) use ($Failure,$peek,$runtime) {
       $match = $peek($s);
       if ($match) {
         throw $runtime["caml_wrap_thrown_exception"]($Failure) as \Throwable;
       }
       return 0;
     };
-    $iter = function($f, $strm) use ($caml_call1,$junk,$peek) {
-      $do_rec = function($param) use ($caml_call1,$f,$junk,$peek,$strm) {
+    $iter = function(dynamic $f, dynamic $strm) use ($caml_call1,$junk,$peek) {
+      $do_rec = function(dynamic $param) use ($caml_call1,$f,$junk,$peek,$strm) {
         for (;;) {
           $match = $peek($strm);
           if ($match) {
@@ -313,18 +314,18 @@ final class Stream {
       };
       return $do_rec(0);
     };
-    $from = function($f) {
+    $from = function(dynamic $f) {
       return Vector{0, Vector{0, 0, Vector{3, Vector{0, 0, $f}}}};
     };
-    $of_list = function($l) use ($List,$caml_call3) {
+    $of_list = function(dynamic $l) use ($List,$caml_call3) {
       $g9 = 0;
-      $g_ = function($x, $l) {return Vector{0, $x, $l};};
+      $g_ = function(dynamic $x, dynamic $l) {return Vector{0, $x, $l};};
       return Vector{0, Vector{0, 0, $caml_call3($List[21], $g_, $l, $g9)}};
     };
-    $of_string = function($s) use ($from,$runtime) {
+    $of_string = function(dynamic $s) use ($from,$runtime) {
       $count = Vector{0, 0};
       return $from(
-        function($param) use ($count,$runtime,$s) {
+        function(dynamic $param) use ($count,$runtime,$s) {
           $c = $count[1];
           if ($c < $runtime["caml_ml_string_length"]($s)) {
             $count[1] += 1;
@@ -334,10 +335,10 @@ final class Stream {
         }
       );
     };
-    $of_bytes = function($s) use ($caml_ml_bytes_length,$from,$runtime) {
+    $of_bytes = function(dynamic $s) use ($caml_ml_bytes_length,$from,$runtime) {
       $count = Vector{0, 0};
       return $from(
-        function($param) use ($caml_ml_bytes_length,$count,$runtime,$s) {
+        function(dynamic $param) use ($caml_ml_bytes_length,$count,$runtime,$s) {
           $c = $count[1];
           if ($c < $caml_ml_bytes_length($s)) {
             $count[1] += 1;
@@ -347,7 +348,7 @@ final class Stream {
         }
       );
     };
-    $of_channel = function($ic) use ($runtime) {
+    $of_channel = function(dynamic $ic) use ($runtime) {
       return Vector{
         0,
         Vector{
@@ -357,15 +358,17 @@ final class Stream {
         }
       };
     };
-    $iapp = function($i, $s) use ($data) {
+    $iapp = function(dynamic $i, dynamic $s) use ($data) {
       $g8 = $data($s);
       return Vector{0, Vector{0, 0, Vector{1, $data($i), $g8}}};
     };
-    $icons = function($i, $s) use ($data) {
+    $icons = function(dynamic $i, dynamic $s) use ($data) {
       return Vector{0, Vector{0, 0, Vector{0, $i, $data($s)}}};
     };
-    $ising = function($i) {return Vector{0, Vector{0, 0, Vector{0, $i, 0}}};};
-    $lapp = function($f, $s) use ($caml_call1,$data) {
+    $ising = function(dynamic $i) {
+      return Vector{0, Vector{0, 0, Vector{0, $i, 0}}};
+    };
+    $lapp = function(dynamic $f, dynamic $s) use ($caml_call1,$data) {
       return Vector{
         0,
         Vector{
@@ -375,7 +378,7 @@ final class Stream {
             2,
             Vector{
               246,
-              function($param) use ($caml_call1,$data,$f,$s) {
+              function(dynamic $param) use ($caml_call1,$data,$f,$s) {
                 $g7 = $data($s);
                 return Vector{1, $data($caml_call1($f, 0)), $g7};
               }
@@ -384,7 +387,7 @@ final class Stream {
         }
       };
     };
-    $lcons = function($f, $s) use ($caml_call1,$data) {
+    $lcons = function(dynamic $f, dynamic $s) use ($caml_call1,$data) {
       return Vector{
         0,
         Vector{
@@ -394,7 +397,7 @@ final class Stream {
             2,
             Vector{
               246,
-              function($param) use ($caml_call1,$data,$f,$s) {
+              function(dynamic $param) use ($caml_call1,$data,$f,$s) {
                 $g6 = $data($s);
                 return Vector{0, $caml_call1($f, 0), $g6};
               }
@@ -403,7 +406,7 @@ final class Stream {
         }
       };
     };
-    $lsing = function($f) use ($caml_call1) {
+    $lsing = function(dynamic $f) use ($caml_call1) {
       return Vector{
         0,
         Vector{
@@ -413,7 +416,7 @@ final class Stream {
             2,
             Vector{
               246,
-              function($param) use ($caml_call1,$f) {
+              function(dynamic $param) use ($caml_call1,$f) {
                 return Vector{0, $caml_call1($f, 0), 0};
               }
             }
@@ -422,7 +425,7 @@ final class Stream {
       };
     };
     $sempty = 0;
-    $slazy = function($f) use ($caml_call1,$data) {
+    $slazy = function(dynamic $f) use ($caml_call1,$data) {
       return Vector{
         0,
         Vector{
@@ -432,7 +435,7 @@ final class Stream {
             2,
             Vector{
               246,
-              function($param) use ($caml_call1,$data,$f) {
+              function(dynamic $param) use ($caml_call1,$data,$f) {
                 return $data($caml_call1($f, 0));
               }
             }
@@ -440,7 +443,7 @@ final class Stream {
         }
       };
     };
-    $dump = function($f, $s) use ($Pervasives,$caml_call1,$count,$cst,$cst_count,$cst_data,$data,$dump_data) {
+    $dump = function(dynamic $f, dynamic $s) use ($Pervasives,$caml_call1,$count,$cst,$cst_count,$cst_data,$data,$dump_data) {
       $caml_call1($Pervasives[30], $cst_count);
       $g5 = $count($s);
       $caml_call1($Pervasives[32], $g5);
@@ -449,7 +452,7 @@ final class Stream {
       $caml_call1($Pervasives[30], $cst);
       return $caml_call1($Pervasives[35], 0);
     };
-    $dump_data->contents = function($f, $param) use ($Pervasives,$caml_call1,$cst_Sapp,$cst_Sbuffio,$cst_Scons,$cst_Sempty,$cst_Sgen,$cst_Slazy,$cst__0,$cst__1,$cst__2,$cst__3,$dump_data,$is_int) {
+    $dump_data->contents = function(dynamic $f, dynamic $param) use ($Pervasives,$caml_call1,$cst_Sapp,$cst_Sbuffio,$cst_Scons,$cst_Sempty,$cst_Sgen,$cst_Slazy,$cst__0,$cst__1,$cst__2,$cst__3,$dump_data,$is_int) {
       if ($is_int($param)) {
         return $caml_call1($Pervasives[30], $cst_Sempty);
       }

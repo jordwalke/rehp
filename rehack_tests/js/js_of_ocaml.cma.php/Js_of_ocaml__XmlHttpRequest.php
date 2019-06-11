@@ -34,7 +34,7 @@ final class Js_of_ocaml__XmlHttpRequest {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -79,41 +79,46 @@ final class Js_of_ocaml__XmlHttpRequest {
       $timeout,
       $loadend
     };
-    $create = function($param) use ($Assert_failure,$Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$runtime,$tC) {
-      $tD = function($x) use ($caml_call1,$caml_get_public_method) {
+    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$runtime,$tC) {
+      $tD = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -1035517745, 307), $x);
       };
       $tE = $Js_of_ocaml_Js[50][1];
-      $xmlHttpRequest = (function($t8, $param) {return $t8->XMLHttpRequest;})($tE, $tD);
-      $tF = function($x) use ($caml_call1,$caml_get_public_method) {
+      $xmlHttpRequest = (function(dynamic $t8, dynamic $param) {return $t8->XMLHttpRequest;
+       })($tE, $tD);
+      $tF = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -5445583, 308), $x);
       };
       $tG = $Js_of_ocaml_Js[50][1];
-      $activeXObject = (function($t7, $param) {return $t7->activeXObject;})($tG, $tF);
+      $activeXObject = (function(dynamic $t7, dynamic $param) {return $t7->activeXObject;
+       })($tG, $tF);
       try {
         $tQ = 0;
-        $tR = (function($t6, $param) {return new $t6();})($xmlHttpRequest, $tQ);
+        $tR = (function(dynamic $t6, dynamic $param) {return new $t6();})($xmlHttpRequest, $tQ);
         return $tR;
       }
       catch(\Throwable $tS) {
         try {
           $tN = 0;
           $tO = "Msxml2.XMLHTTP";
-          $tP = (function($t5, $t4, $param) {return new $t5($t4);})($activeXObject, $tO, $tN);
+          $tP = (function(dynamic $t5, dynamic $t4, dynamic $param) {return new $t5($t4);
+           })($activeXObject, $tO, $tN);
           return $tP;
         }
         catch(\Throwable $tT) {
           try {
             $tK = 0;
             $tL = "Msxml3.XMLHTTP";
-            $tM = (function($t3, $t2, $param) {return new $t3($t2);})($activeXObject, $tL, $tK);
+            $tM = (function(dynamic $t3, dynamic $t2, dynamic $param) {return new $t3($t2);
+             })($activeXObject, $tL, $tK);
             return $tM;
           }
           catch(\Throwable $tU) {
             try {
               $tH = 0;
               $tI = "Microsoft.XMLHTTP";
-              $tJ = (function($t1, $t0, $param) {return new $t1($t0);})($activeXObject, $tI, $tH);
+              $tJ = (function(dynamic $t1, dynamic $t0, dynamic $param) {return new $t1($t0);
+               })($activeXObject, $tI, $tH);
               return $tJ;
             }
             catch(\Throwable $tV) {

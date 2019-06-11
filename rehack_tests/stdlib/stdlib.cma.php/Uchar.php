@@ -32,12 +32,12 @@ final class Uchar {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_format_int = $runtime["caml_format_int"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -55,14 +55,14 @@ final class Uchar {
     $err_no_pred = $caml_new_string("U+0000 has no predecessor");
     $err_no_succ = $caml_new_string("U+10FFFF has no successor");
     $Pervasives = $global_data["Pervasives"];
-    $err_not_sv = function($i) use ($Pervasives,$caml_call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
+    $err_not_sv = function(dynamic $i) use ($Pervasives,$caml_call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
       return $caml_call2(
         $Pervasives[16],
         $caml_format_int($cst_X, $i),
         $cst_is_not_an_Unicode_scalar_value
       );
     };
-    $err_not_latin1 = function($u) use ($Pervasives,$caml_call2,$caml_format_int,$cst_04X,$cst_U,$cst_is_not_a_latin1_character) {
+    $err_not_latin1 = function(dynamic $u) use ($Pervasives,$caml_call2,$caml_format_int,$cst_04X,$cst_U,$cst_is_not_a_latin1_character) {
       $bj = $caml_call2(
         $Pervasives[16],
         $caml_format_int($cst_04X, $u),
@@ -76,21 +76,21 @@ final class Uchar {
     $hi_bound = 57344;
     $bom = 65279;
     $rep = 65533;
-    $succ = function($u) use ($Pervasives,$caml_call1,$err_no_succ,$hi_bound) {
+    $succ = function(dynamic $u) use ($Pervasives,$caml_call1,$err_no_succ,$hi_bound) {
       return $u === 55295
         ? $hi_bound
         : ($u === 1114111
          ? $caml_call1($Pervasives[1], $err_no_succ)
          : ((int) ($u + 1)));
     };
-    $pred = function($u) use ($Pervasives,$caml_call1,$err_no_pred,$lo_bound) {
+    $pred = function(dynamic $u) use ($Pervasives,$caml_call1,$err_no_pred,$lo_bound) {
       return $u === 57344
         ? $lo_bound
         : ($u === 0
          ? $caml_call1($Pervasives[1], $err_no_pred)
          : ((int) ($u + -1)));
     };
-    $is_valid = function($i) {
+    $is_valid = function(dynamic $i) {
       $bf = 0 <= $i ? 1 : (0);
       $bg = $bf ? $i <= 55295 ? 1 : (0) : ($bf);
       if ($bg) {
@@ -102,27 +102,28 @@ final class Uchar {
       }
       return $bh;
     };
-    $of_int = function($i) use ($Pervasives,$caml_call1,$err_not_sv,$is_valid) {
+    $of_int = function(dynamic $i) use ($Pervasives,$caml_call1,$err_not_sv,$is_valid) {
       if ($is_valid($i)) {return $i;}
       $be = $err_not_sv($i);
       return $caml_call1($Pervasives[1], $be);
     };
-    $is_char = function($u) {return $u < 256 ? 1 : (0);};
-    $of_char = function($c) {return $c;};
-    $to_char = function($u) use ($Pervasives,$caml_call1,$err_not_latin1) {
+    $is_char = function(dynamic $u) {return $u < 256 ? 1 : (0);};
+    $of_char = function(dynamic $c) {return $c;};
+    $to_char = function(dynamic $u) use ($Pervasives,$caml_call1,$err_not_latin1) {
       if (255 < $u) {
         $bd = $err_not_latin1($u);
         return $caml_call1($Pervasives[1], $bd);
       }
       return $u;
     };
-    $unsafe_to_char = function($bc) {return $bc;};
-    $equal = function($bb, $ba) {return $bb === $ba ? 1 : (0);};
-    $compare = function($a_, $a9) use ($runtime) {
+    $unsafe_to_char = function(dynamic $bc) {return $bc;};
+    $equal = function(dynamic $bb, dynamic $ba) {return $bb === $ba ? 1 : (0);
+    };
+    $compare = function(dynamic $a_, dynamic $a9) use ($runtime) {
       return $runtime["caml_int_compare"]($a_, $a9);
     };
-    $hash = function($a8) {return $a8;};
-    $a5 = function($a7) {return $a7;};
+    $hash = function(dynamic $a8) {return $a8;};
+    $a5 = function(dynamic $a7) {return $a7;};
     $Uchar = Vector{
       0,
       $min,
@@ -133,7 +134,7 @@ final class Uchar {
       $pred,
       $is_valid,
       $of_int,
-      function($a6) {return $a6;},
+      function(dynamic $a6) {return $a6;},
       $a5,
       $is_char,
       $of_char,

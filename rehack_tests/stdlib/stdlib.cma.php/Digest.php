@@ -43,12 +43,12 @@ final class Digest {
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -65,13 +65,13 @@ final class Digest {
     $String = $global_data["String_"];
     $compare = $String[33];
     $equal = $String[34];
-    $string = function($str) use ($caml_md5_string,$caml_ml_string_length) {
+    $string = function(dynamic $str) use ($caml_md5_string,$caml_ml_string_length) {
       return $caml_md5_string($str, 0, $caml_ml_string_length($str));
     };
-    $bytes = function($b) use ($Bytes,$caml_call1,$string) {
+    $bytes = function(dynamic $b) use ($Bytes,$caml_call1,$string) {
       return $string($caml_call1($Bytes[42], $b));
     };
-    $substring = function($str, $ofs, $len) use ($Pervasives,$caml_call1,$caml_md5_string,$caml_ml_string_length,$cst_Digest_substring) {
+    $substring = function(dynamic $str, dynamic $ofs, dynamic $len) use ($Pervasives,$caml_call1,$caml_md5_string,$caml_ml_string_length,$cst_Digest_substring) {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_string_length($str) - $len) < $ofs)) {return $caml_md5_string($str, $ofs, $len);}
@@ -79,10 +79,10 @@ final class Digest {
       }
       return $caml_call1($Pervasives[1], $cst_Digest_substring);
     };
-    $subbytes = function($b, $ofs, $len) use ($Bytes,$caml_call1,$substring) {
+    $subbytes = function(dynamic $b, dynamic $ofs, dynamic $len) use ($Bytes,$caml_call1,$substring) {
       return $substring($caml_call1($Bytes[42], $b), $ofs, $len);
     };
-    $file = function($filename) use ($Pervasives,$caml_call1,$caml_wrap_exception,$runtime) {
+    $file = function(dynamic $filename) use ($Pervasives,$caml_call1,$caml_wrap_exception,$runtime) {
       $ic = $caml_call1($Pervasives[68], $filename);
       try {$d = $runtime["caml_md5_chan"]($ic, -1);}
       catch(\Throwable $e) {
@@ -93,17 +93,17 @@ final class Digest {
       $caml_call1($Pervasives[81], $ic);
       return $d;
     };
-    $output = function($chan, $digest) use ($Pervasives,$caml_call2) {
+    $output = function(dynamic $chan, dynamic $digest) use ($Pervasives,$caml_call2) {
       return $caml_call2($Pervasives[54], $chan, $digest);
     };
-    $input = function($chan) use ($Pervasives,$caml_call2) {
+    $input = function(dynamic $chan) use ($Pervasives,$caml_call2) {
       return $caml_call2($Pervasives[74], $chan, 16);
     };
-    $char_hex = function($n) {
+    $char_hex = function(dynamic $n) {
       $pX = 10 <= $n ? 87 : (48);
       return (int) ($n + $pX);
     };
-    $to_hex = function($d) use ($Bytes,$Pervasives,$caml_bytes_unsafe_set,$caml_call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$char_hex,$cst_Digest_to_hex,$unsigned_right_shift_32) {
+    $to_hex = function(dynamic $d) use ($Bytes,$Pervasives,$caml_bytes_unsafe_set,$caml_call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$char_hex,$cst_Digest_to_hex,$unsigned_right_shift_32) {
       if (16 !== $caml_ml_string_length($d)) {
         $caml_call1($Pervasives[1], $cst_Digest_to_hex);
       }
@@ -128,11 +128,11 @@ final class Digest {
         return $caml_call1($Bytes[42], $result);
       }
     };
-    $from_hex = function($s) use ($Bytes,$Char,$Invalid_argument,$Pervasives,$caml_call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$cst_Digest_from_hex,$cst_Digest_from_hex__0,$left_shift_32,$runtime,$unsigned_right_shift_32) {
+    $from_hex = function(dynamic $s) use ($Bytes,$Char,$Invalid_argument,$Pervasives,$caml_call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$cst_Digest_from_hex,$cst_Digest_from_hex__0,$left_shift_32,$runtime,$unsigned_right_shift_32) {
       if (32 !== $caml_ml_string_length($s)) {
         $caml_call1($Pervasives[1], $cst_Digest_from_hex);
       }
-      $digit = function($c) use ($Invalid_argument,$cst_Digest_from_hex__0,$runtime,$unsigned_right_shift_32) {
+      $digit = function(dynamic $c) use ($Invalid_argument,$cst_Digest_from_hex__0,$runtime,$unsigned_right_shift_32) {
         if (65 <= $c) {
           if (97 <= $c) {
             if (! (103 <= $c)) {return (int) ((int) ($c - 97) + 10);}
@@ -147,7 +147,7 @@ final class Digest {
                 Vector{0, $Invalid_argument, $cst_Digest_from_hex__0}
               ) as \Throwable;
       };
-      $byte__0 = function($i) use ($caml_string_get,$digit,$left_shift_32,$s) {
+      $byte__0 = function(dynamic $i) use ($caml_string_get,$digit,$left_shift_32,$s) {
         $pV = $digit($caml_string_get($s, (int) ($i + 1)));
         return (int)
         ($left_shift_32($digit($caml_string_get($s, $i)), 4) + $pV);

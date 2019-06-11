@@ -37,17 +37,19 @@ final class Parsing {
     $caml_make_vect = $runtime["caml_make_vect"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
+    $caml_call4 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
+    $caml_call5 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 5
         ? $f($a0, $a1, $a2, $a3, $a4)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
@@ -80,7 +82,7 @@ final class Parsing {
       0,
       0
     };
-    $grow_stacks = function($param) use ($Array,$Lexing,$caml_call5,$caml_make_vect,$env) {
+    $grow_stacks = function(dynamic $param) use ($Array,$Lexing,$caml_call5,$caml_make_vect,$env) {
       $oldsize = $env[5];
       $newsize = (int) ($oldsize * 2);
       $new_s = $caml_make_vect($newsize, 0);
@@ -98,14 +100,15 @@ final class Parsing {
       $env[5] = $newsize;
       return 0;
     };
-    $clear_parser = function($param) use ($Array,$caml_call4,$env) {
+    $clear_parser = function(dynamic $param) use ($Array,$caml_call4,$env) {
       $caml_call4($Array[9], $env[2], 0, $env[5], 0);
       $env[8] = 0;
       return 0;
     };
-    $current_lookahead_fun = Vector{0, function($param) {return 0;}};
-    $yyparse = function($tables, $start, $lexer, $lexbuf) use ($Obj,$Parse_error,$YYexit,$caml_call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$current_lookahead_fun,$env,$grow_stacks,$runtime) {
-      $loop = function($cmd, $arg) use ($Parse_error,$caml_call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$env,$grow_stacks,$lexbuf,$lexer,$runtime,$tables) {
+    $current_lookahead_fun = Vector{0, function(dynamic $param) {return 0;}};
+    $yyparse = function
+    (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) use ($Obj,$Parse_error,$YYexit,$caml_call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$current_lookahead_fun,$env,$grow_stacks,$runtime) {
+      $loop = function(dynamic $cmd, dynamic $arg) use ($Parse_error,$caml_call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$env,$grow_stacks,$lexbuf,$lexer,$runtime,$tables) {
         $cmd__0 = $cmd;
         $arg__0 = $arg;
         for (;;) {
@@ -196,7 +199,7 @@ final class Parsing {
         $env[16] = $init_errflag;
         if ($exn[1] === $YYexit) {$v = $exn[2];return $v;}
         $current_lookahead_fun[1] =
-          function($tok) use ($Obj,$caml_call1,$caml_check_bound,$curr_char,$runtime,$tables) {
+          function(dynamic $tok) use ($Obj,$caml_call1,$caml_check_bound,$curr_char,$runtime,$tables) {
             if ($caml_call1($Obj[1], $tok)) {
               $fe = $runtime["caml_obj_tag"]($tok);
               return $caml_check_bound($tables[3], $fe)[$fe + 1] === $curr_char
@@ -210,12 +213,12 @@ final class Parsing {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
-    $peek_val = function($env, $n) use ($caml_check_bound) {
+    $peek_val = function(dynamic $env, dynamic $n) use ($caml_check_bound) {
       $fc = (int) ($env[11] - $n);
       return $caml_check_bound($env[2], $fc)[$fc + 1];
     };
-    $symbol_start_pos = function($param) use ($caml_check_bound,$env,$runtime) {
-      $loop = function($i) use ($caml_check_bound,$env,$runtime) {
+    $symbol_start_pos = function(dynamic $param) use ($caml_check_bound,$env,$runtime) {
+      $loop = function(dynamic $i) use ($caml_check_bound,$env,$runtime) {
         $i__0 = $i;
         for (;;) {
           if (0 < $i__0) {
@@ -234,32 +237,34 @@ final class Parsing {
       };
       return $loop($env[12]);
     };
-    $symbol_end_pos = function($param) use ($caml_check_bound,$env) {
+    $symbol_end_pos = function(dynamic $param) use ($caml_check_bound,$env) {
       $e9 = $env[11];
       return $caml_check_bound($env[4], $e9)[$e9 + 1];
     };
-    $rhs_start_pos = function($n) use ($caml_check_bound,$env) {
+    $rhs_start_pos = function(dynamic $n) use ($caml_check_bound,$env) {
       $e8 = (int) ($env[11] - (int) ($env[12] - $n));
       return $caml_check_bound($env[3], $e8)[$e8 + 1];
     };
-    $rhs_end_pos = function($n) use ($caml_check_bound,$env) {
+    $rhs_end_pos = function(dynamic $n) use ($caml_check_bound,$env) {
       $e7 = (int) ($env[11] - (int) ($env[12] - $n));
       return $caml_check_bound($env[4], $e7)[$e7 + 1];
     };
-    $symbol_start = function($param) use ($symbol_start_pos) {
+    $symbol_start = function(dynamic $param) use ($symbol_start_pos) {
       return $symbol_start_pos(0)[4];
     };
-    $symbol_end = function($param) use ($symbol_end_pos) {
+    $symbol_end = function(dynamic $param) use ($symbol_end_pos) {
       return $symbol_end_pos(0)[4];
     };
-    $rhs_start = function($n) use ($rhs_start_pos) {
+    $rhs_start = function(dynamic $n) use ($rhs_start_pos) {
       return $rhs_start_pos($n)[4];
     };
-    $rhs_end = function($n) use ($rhs_end_pos) {return $rhs_end_pos($n)[4];};
-    $is_current_lookahead = function($tok) use ($caml_call1,$current_lookahead_fun) {
+    $rhs_end = function(dynamic $n) use ($rhs_end_pos) {
+      return $rhs_end_pos($n)[4];
+    };
+    $is_current_lookahead = function(dynamic $tok) use ($caml_call1,$current_lookahead_fun) {
       return $caml_call1($current_lookahead_fun[1], $tok);
     };
-    $parse_error = function($param) {return 0;};
+    $parse_error = function(dynamic $param) {return 0;};
     $Parsing = Vector{
       0,
       $symbol_start,
@@ -272,7 +277,7 @@ final class Parsing {
       $rhs_end_pos,
       $clear_parser,
       $Parse_error,
-      function($e6) use ($runtime) {
+      function(dynamic $e6) use ($runtime) {
         return $runtime["caml_set_parser_trace"]($e6);
       },
       $YYexit,

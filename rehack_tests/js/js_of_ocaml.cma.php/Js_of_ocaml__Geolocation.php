@@ -31,29 +31,32 @@ final class Js_of_ocaml__Geolocation {
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $empty_position_options = function($param) {return (object)darray[];};
-    $mz = function($x) use ($caml_call1,$caml_get_public_method) {
+    $empty_position_options = function(dynamic $param) {
+      return (object)darray[];
+    };
+    $mz = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
       return $caml_call1($caml_get_public_method($x, 82957527, 235), $x);
     };
     $mA = $Js_of_ocaml_Js[50][1];
-    $x = (function($t1, $param) {return $t1->navigator;})($mA, $mz);
+    $x = (function(dynamic $t1, dynamic $param) {return $t1->navigator;})($mA, $mz);
     
     if ($caml_call1($Js_of_ocaml_Js[6][5], $x)) {
-      $mB = function($x) use ($caml_call1,$caml_get_public_method) {
+      $mB = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, 315713478, 236), $x);
       };
-      $geolocation = (function($t0, $param) {return $t0->geolocation;})($x, $mB);
+      $geolocation = (function(dynamic $t0, dynamic $param) {return $t0->geolocation;
+       })($x, $mB);
     }
     else {$geolocation = $x;}
     
-    $is_supported = function($param) use ($Js_of_ocaml_Js,$caml_call1,$geolocation) {
+    $is_supported = function(dynamic $param) use ($Js_of_ocaml_Js,$caml_call1,$geolocation) {
       return $caml_call1($Js_of_ocaml_Js[6][5], $geolocation);
     };
     $Js_of_ocaml_Geolocation = Vector{

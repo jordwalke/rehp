@@ -32,22 +32,23 @@ final class Printf {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
+    $caml_call4 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
@@ -56,54 +57,54 @@ final class Printf {
     $Buffer = $global_data["Buffer"];
     $CamlinternalFormat = $global_data["CamlinternalFormat"];
     $Pervasives = $global_data["Pervasives"];
-    $kfprintf = function($k, $o, $param) use ($CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
+    $kfprintf = function(dynamic $k, dynamic $o, dynamic $param) use ($CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
       $fmt = $param[1];
       $na = 0;
-      $nb = function($o, $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
+      $nb = function(dynamic $o, dynamic $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
         $caml_call2($CamlinternalFormat[9], $o, $acc);
         return $caml_call1($k, $o);
       };
       return $caml_call4($CamlinternalFormat[7], $nb, $o, $na, $fmt);
     };
-    $kbprintf = function($k, $b, $param) use ($CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
+    $kbprintf = function(dynamic $k, dynamic $b, dynamic $param) use ($CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
       $fmt = $param[1];
       $m9 = 0;
-      $m_ = function($b, $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
+      $m_ = function(dynamic $b, dynamic $acc) use ($CamlinternalFormat,$caml_call1,$caml_call2,$k) {
         $caml_call2($CamlinternalFormat[10], $b, $acc);
         return $caml_call1($k, $b);
       };
       return $caml_call4($CamlinternalFormat[7], $m_, $b, $m9, $fmt);
     };
-    $ikfprintf = function($k, $oc, $param) use ($CamlinternalFormat,$caml_call3) {
+    $ikfprintf = function(dynamic $k, dynamic $oc, dynamic $param) use ($CamlinternalFormat,$caml_call3) {
       $fmt = $param[1];
       return $caml_call3($CamlinternalFormat[8], $k, $oc, $fmt);
     };
-    $fprintf = function($oc, $fmt) use ($kfprintf) {
-      return $kfprintf(function($m8) {return 0;}, $oc, $fmt);
+    $fprintf = function(dynamic $oc, dynamic $fmt) use ($kfprintf) {
+      return $kfprintf(function(dynamic $m8) {return 0;}, $oc, $fmt);
     };
-    $bprintf = function($b, $fmt) use ($kbprintf) {
-      return $kbprintf(function($m7) {return 0;}, $b, $fmt);
+    $bprintf = function(dynamic $b, dynamic $fmt) use ($kbprintf) {
+      return $kbprintf(function(dynamic $m7) {return 0;}, $b, $fmt);
     };
-    $ifprintf = function($oc, $fmt) use ($ikfprintf) {
-      return $ikfprintf(function($m6) {return 0;}, $oc, $fmt);
+    $ifprintf = function(dynamic $oc, dynamic $fmt) use ($ikfprintf) {
+      return $ikfprintf(function(dynamic $m6) {return 0;}, $oc, $fmt);
     };
-    $printf = function($fmt) use ($Pervasives,$fprintf) {
+    $printf = function(dynamic $fmt) use ($Pervasives,$fprintf) {
       return $fprintf($Pervasives[27], $fmt);
     };
-    $eprintf = function($fmt) use ($Pervasives,$fprintf) {
+    $eprintf = function(dynamic $fmt) use ($Pervasives,$fprintf) {
       return $fprintf($Pervasives[28], $fmt);
     };
-    $ksprintf = function($k, $param) use ($Buffer,$CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
+    $ksprintf = function(dynamic $k, dynamic $param) use ($Buffer,$CamlinternalFormat,$caml_call1,$caml_call2,$caml_call4) {
       $fmt = $param[1];
-      $k__0 = function($param, $acc) use ($Buffer,$CamlinternalFormat,$caml_call1,$caml_call2,$k) {
+      $k__0 = function(dynamic $param, dynamic $acc) use ($Buffer,$CamlinternalFormat,$caml_call1,$caml_call2,$k) {
         $buf = $caml_call1($Buffer[1], 64);
         $caml_call2($CamlinternalFormat[11], $buf, $acc);
         return $caml_call1($k, $caml_call1($Buffer[2], $buf));
       };
       return $caml_call4($CamlinternalFormat[7], $k__0, 0, 0, $fmt);
     };
-    $sprintf = function($fmt) use ($ksprintf) {
-      return $ksprintf(function($s) {return $s;}, $fmt);
+    $sprintf = function(dynamic $fmt) use ($ksprintf) {
+      return $ksprintf(function(dynamic $s) {return $s;}, $fmt);
     };
     $Printf = Vector{
       0,

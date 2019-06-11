@@ -46,27 +46,29 @@ final class Js_of_ocaml__CSS {
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $is_int = $runtime["is_int"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
+    $caml_call4 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
+    $caml_call5 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 5
         ? $f($a0, $a1, $a2, $a3, $a4)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
@@ -1084,7 +1086,7 @@ final class Js_of_ocaml__CSS {
     $dJ = Vector{0, 245, 245, 245};
     $dK = Vector{0, 255, 255, 0};
     $dL = Vector{0, 154, 205, 50};
-    $string_of_name = function($param) use ($cst_aliceblue,$cst_antiquewhite,$cst_aqua,$cst_aquamarine,$cst_azure,$cst_beige,$cst_bisque,$cst_black,$cst_blanchedalmond,$cst_blue,$cst_blueviolet,$cst_brown,$cst_burlywood,$cst_cadetblue,$cst_chartreuse,$cst_chocolate,$cst_coral,$cst_cornflowerblue,$cst_cornsilk,$cst_crimson,$cst_cyan,$cst_darkblue,$cst_darkcyan,$cst_darkgoldenrod,$cst_darkgray,$cst_darkgreen,$cst_darkgrey,$cst_darkkhaki,$cst_darkmagenta,$cst_darkolivegreen,$cst_darkorange,$cst_darkorchid,$cst_darkred,$cst_darksalmon,$cst_darkseagreen,$cst_darkslateblue,$cst_darkslategray,$cst_darkslategrey,$cst_darkturquoise,$cst_darkviolet,$cst_deeppink,$cst_deepskyblue,$cst_dimgray,$cst_dimgrey,$cst_dodgerblue,$cst_firebrick,$cst_floralwhite,$cst_forestgreen,$cst_fuchsia,$cst_gainsboro,$cst_ghostwhite,$cst_gold,$cst_goldenrod,$cst_gray,$cst_green,$cst_greenyellow,$cst_grey,$cst_honeydew,$cst_hotpink,$cst_indianred,$cst_indigo,$cst_ivory,$cst_khaki,$cst_lavender,$cst_lavenderblush,$cst_lawngreen,$cst_lemonchiffon,$cst_lightblue,$cst_lightcoral,$cst_lightcyan,$cst_lightgoldenrodyellow,$cst_lightgray,$cst_lightgreen,$cst_lightgrey,$cst_lightpink,$cst_lightsalmon,$cst_lightseagreen,$cst_lightskyblue,$cst_lightslategray,$cst_lightslategrey,$cst_lightsteelblue,$cst_lightyellow,$cst_lime,$cst_limegreen,$cst_linen,$cst_magenta,$cst_maroon,$cst_mediumaquamarine,$cst_mediumblue,$cst_mediumorchid,$cst_mediumpurple,$cst_mediumseagreen,$cst_mediumslateblue,$cst_mediumspringgreen,$cst_mediumturquoise,$cst_mediumvioletred,$cst_midnightblue,$cst_mintcream,$cst_mistyrose,$cst_moccasin,$cst_navajowhite,$cst_navy,$cst_oldlace,$cst_olive,$cst_olivedrab,$cst_orange,$cst_orangered,$cst_orchid,$cst_palegoldenrod,$cst_palegreen,$cst_paleturquoise,$cst_palevioletred,$cst_papayawhip,$cst_peachpuff,$cst_peru,$cst_pink,$cst_plum,$cst_powderblue,$cst_purple,$cst_red,$cst_rosybrown,$cst_royalblue,$cst_saddlebrown,$cst_salmon,$cst_sandybrown,$cst_seagreen,$cst_seashell,$cst_sienna,$cst_silver,$cst_skyblue,$cst_slateblue,$cst_slategray,$cst_slategrey,$cst_snow,$cst_springgreen,$cst_steelblue,$cst_tan,$cst_teal,$cst_thistle,$cst_tomato,$cst_turquoise,$cst_violet,$cst_wheat,$cst_white,$cst_whitesmoke,$cst_yellow,$cst_yellowgreen) {
+    $string_of_name = function(dynamic $param) use ($cst_aliceblue,$cst_antiquewhite,$cst_aqua,$cst_aquamarine,$cst_azure,$cst_beige,$cst_bisque,$cst_black,$cst_blanchedalmond,$cst_blue,$cst_blueviolet,$cst_brown,$cst_burlywood,$cst_cadetblue,$cst_chartreuse,$cst_chocolate,$cst_coral,$cst_cornflowerblue,$cst_cornsilk,$cst_crimson,$cst_cyan,$cst_darkblue,$cst_darkcyan,$cst_darkgoldenrod,$cst_darkgray,$cst_darkgreen,$cst_darkgrey,$cst_darkkhaki,$cst_darkmagenta,$cst_darkolivegreen,$cst_darkorange,$cst_darkorchid,$cst_darkred,$cst_darksalmon,$cst_darkseagreen,$cst_darkslateblue,$cst_darkslategray,$cst_darkslategrey,$cst_darkturquoise,$cst_darkviolet,$cst_deeppink,$cst_deepskyblue,$cst_dimgray,$cst_dimgrey,$cst_dodgerblue,$cst_firebrick,$cst_floralwhite,$cst_forestgreen,$cst_fuchsia,$cst_gainsboro,$cst_ghostwhite,$cst_gold,$cst_goldenrod,$cst_gray,$cst_green,$cst_greenyellow,$cst_grey,$cst_honeydew,$cst_hotpink,$cst_indianred,$cst_indigo,$cst_ivory,$cst_khaki,$cst_lavender,$cst_lavenderblush,$cst_lawngreen,$cst_lemonchiffon,$cst_lightblue,$cst_lightcoral,$cst_lightcyan,$cst_lightgoldenrodyellow,$cst_lightgray,$cst_lightgreen,$cst_lightgrey,$cst_lightpink,$cst_lightsalmon,$cst_lightseagreen,$cst_lightskyblue,$cst_lightslategray,$cst_lightslategrey,$cst_lightsteelblue,$cst_lightyellow,$cst_lime,$cst_limegreen,$cst_linen,$cst_magenta,$cst_maroon,$cst_mediumaquamarine,$cst_mediumblue,$cst_mediumorchid,$cst_mediumpurple,$cst_mediumseagreen,$cst_mediumslateblue,$cst_mediumspringgreen,$cst_mediumturquoise,$cst_mediumvioletred,$cst_midnightblue,$cst_mintcream,$cst_mistyrose,$cst_moccasin,$cst_navajowhite,$cst_navy,$cst_oldlace,$cst_olive,$cst_olivedrab,$cst_orange,$cst_orangered,$cst_orchid,$cst_palegoldenrod,$cst_palegreen,$cst_paleturquoise,$cst_palevioletred,$cst_papayawhip,$cst_peachpuff,$cst_peru,$cst_pink,$cst_plum,$cst_powderblue,$cst_purple,$cst_red,$cst_rosybrown,$cst_royalblue,$cst_saddlebrown,$cst_salmon,$cst_sandybrown,$cst_seagreen,$cst_seashell,$cst_sienna,$cst_silver,$cst_skyblue,$cst_slateblue,$cst_slategray,$cst_slategrey,$cst_snow,$cst_springgreen,$cst_steelblue,$cst_tan,$cst_teal,$cst_thistle,$cst_tomato,$cst_turquoise,$cst_violet,$cst_wheat,$cst_white,$cst_whitesmoke,$cst_yellow,$cst_yellowgreen) {
       $e9 = $param;
       if (74 <= $e9) {
         if (111 <= $e9) {
@@ -1542,7 +1544,7 @@ final class Js_of_ocaml__CSS {
           return $cst_darkslategray;
         }
     };
-    $name_of_string = function($s) use ($Invalid_argument,$Pervasives,$caml_call2,$caml_string_compare,$caml_string_notequal,$cst_aliceblue__0,$cst_antiquewhite__0,$cst_aqua__0,$cst_aquamarine__0,$cst_azure__0,$cst_beige__0,$cst_bisque__0,$cst_black__0,$cst_blanchedalmond__0,$cst_blue__0,$cst_blueviolet__0,$cst_brown__0,$cst_burlywood__0,$cst_cadetblue__0,$cst_chartreuse__0,$cst_chocolate__0,$cst_coral__0,$cst_cornflowerblue__0,$cst_cornsilk__0,$cst_crimson__0,$cst_cyan__0,$cst_darkblue__0,$cst_darkcyan__0,$cst_darkgoldenrod__0,$cst_darkgray__0,$cst_darkgreen__0,$cst_darkgrey__0,$cst_darkkhaki__0,$cst_darkmagenta__0,$cst_darkolivegreen__0,$cst_darkorange__0,$cst_darkorchid__0,$cst_darkred__0,$cst_darksalmon__0,$cst_darkseagreen__0,$cst_darkslateblue__0,$cst_darkslategray__0,$cst_darkslategrey__0,$cst_darkturquoise__0,$cst_darkviolet__0,$cst_deeppink__0,$cst_deepskyblue__0,$cst_dimgray__0,$cst_dimgrey__0,$cst_dodgerblue__0,$cst_firebrick__0,$cst_floralwhite__0,$cst_forestgreen__0,$cst_fuchsia__0,$cst_gainsboro__0,$cst_ghostwhite__0,$cst_gold__0,$cst_goldenrod__0,$cst_gray__0,$cst_green__0,$cst_greenyellow__0,$cst_grey__0,$cst_honeydew__0,$cst_hotpink__0,$cst_indianred__0,$cst_indigo__0,$cst_is_not_a_valid_color_name,$cst_ivory__0,$cst_khaki__0,$cst_lavender__0,$cst_lavenderblush__0,$cst_lawngreen__0,$cst_lemonchiffon__0,$cst_lightblue__0,$cst_lightcoral__0,$cst_lightcyan__0,$cst_lightgoldenrodyellow__0,$cst_lightgray__0,$cst_lightgreen__0,$cst_lightgrey__0,$cst_lightpink__0,$cst_lightsalmon__0,$cst_lightseagreen__0,$cst_lightskyblue__0,$cst_lightslategray__0,$cst_lightslategrey__0,$cst_lightsteelblue__0,$cst_lightyellow__0,$cst_lime__0,$cst_limegreen__0,$cst_linen__0,$cst_magenta__0,$cst_maroon__0,$cst_mediumaquamarine__0,$cst_mediumblue__0,$cst_mediumorchid__0,$cst_mediumpurple__0,$cst_mediumseagreen__0,$cst_mediumslateblue__0,$cst_mediumspringgreen__0,$cst_mediumturquoise__0,$cst_mediumvioletred__0,$cst_midnightblue__0,$cst_mintcream__0,$cst_mistyrose__0,$cst_moccasin__0,$cst_navajowhite__0,$cst_navy__0,$cst_oldlace__0,$cst_olive__0,$cst_olivedrab__0,$cst_orange__0,$cst_orangered__0,$cst_orchid__0,$cst_palegoldenrod__0,$cst_palegreen__0,$cst_paleturquoise__0,$cst_palevioletred__0,$cst_papayawhip__0,$cst_peachpuff__0,$cst_peru__0,$cst_pink__0,$cst_plum__0,$cst_powderblue__0,$cst_purple__0,$cst_red__0,$cst_rosybrown__0,$cst_royalblue__0,$cst_saddlebrown__0,$cst_salmon__0,$cst_sandybrown__0,$cst_seagreen__0,$cst_seashell__0,$cst_sienna__0,$cst_silver__0,$cst_skyblue__0,$cst_slateblue__0,$cst_slategray__0,$cst_slategrey__0,$cst_snow__0,$cst_springgreen__0,$cst_steelblue__0,$cst_tan__0,$cst_teal__0,$cst_thistle__0,$cst_tomato__0,$cst_turquoise__0,$cst_violet__0,$cst_wheat__0,$cst_white__0,$cst_whitesmoke__0,$cst_yellow__0,$cst_yellowgreen__0,$runtime) {
+    $name_of_string = function(dynamic $s) use ($Invalid_argument,$Pervasives,$caml_call2,$caml_string_compare,$caml_string_notequal,$cst_aliceblue__0,$cst_antiquewhite__0,$cst_aqua__0,$cst_aquamarine__0,$cst_azure__0,$cst_beige__0,$cst_bisque__0,$cst_black__0,$cst_blanchedalmond__0,$cst_blue__0,$cst_blueviolet__0,$cst_brown__0,$cst_burlywood__0,$cst_cadetblue__0,$cst_chartreuse__0,$cst_chocolate__0,$cst_coral__0,$cst_cornflowerblue__0,$cst_cornsilk__0,$cst_crimson__0,$cst_cyan__0,$cst_darkblue__0,$cst_darkcyan__0,$cst_darkgoldenrod__0,$cst_darkgray__0,$cst_darkgreen__0,$cst_darkgrey__0,$cst_darkkhaki__0,$cst_darkmagenta__0,$cst_darkolivegreen__0,$cst_darkorange__0,$cst_darkorchid__0,$cst_darkred__0,$cst_darksalmon__0,$cst_darkseagreen__0,$cst_darkslateblue__0,$cst_darkslategray__0,$cst_darkslategrey__0,$cst_darkturquoise__0,$cst_darkviolet__0,$cst_deeppink__0,$cst_deepskyblue__0,$cst_dimgray__0,$cst_dimgrey__0,$cst_dodgerblue__0,$cst_firebrick__0,$cst_floralwhite__0,$cst_forestgreen__0,$cst_fuchsia__0,$cst_gainsboro__0,$cst_ghostwhite__0,$cst_gold__0,$cst_goldenrod__0,$cst_gray__0,$cst_green__0,$cst_greenyellow__0,$cst_grey__0,$cst_honeydew__0,$cst_hotpink__0,$cst_indianred__0,$cst_indigo__0,$cst_is_not_a_valid_color_name,$cst_ivory__0,$cst_khaki__0,$cst_lavender__0,$cst_lavenderblush__0,$cst_lawngreen__0,$cst_lemonchiffon__0,$cst_lightblue__0,$cst_lightcoral__0,$cst_lightcyan__0,$cst_lightgoldenrodyellow__0,$cst_lightgray__0,$cst_lightgreen__0,$cst_lightgrey__0,$cst_lightpink__0,$cst_lightsalmon__0,$cst_lightseagreen__0,$cst_lightskyblue__0,$cst_lightslategray__0,$cst_lightslategrey__0,$cst_lightsteelblue__0,$cst_lightyellow__0,$cst_lime__0,$cst_limegreen__0,$cst_linen__0,$cst_magenta__0,$cst_maroon__0,$cst_mediumaquamarine__0,$cst_mediumblue__0,$cst_mediumorchid__0,$cst_mediumpurple__0,$cst_mediumseagreen__0,$cst_mediumslateblue__0,$cst_mediumspringgreen__0,$cst_mediumturquoise__0,$cst_mediumvioletred__0,$cst_midnightblue__0,$cst_mintcream__0,$cst_mistyrose__0,$cst_moccasin__0,$cst_navajowhite__0,$cst_navy__0,$cst_oldlace__0,$cst_olive__0,$cst_olivedrab__0,$cst_orange__0,$cst_orangered__0,$cst_orchid__0,$cst_palegoldenrod__0,$cst_palegreen__0,$cst_paleturquoise__0,$cst_palevioletred__0,$cst_papayawhip__0,$cst_peachpuff__0,$cst_peru__0,$cst_pink__0,$cst_plum__0,$cst_powderblue__0,$cst_purple__0,$cst_red__0,$cst_rosybrown__0,$cst_royalblue__0,$cst_saddlebrown__0,$cst_salmon__0,$cst_sandybrown__0,$cst_seagreen__0,$cst_seashell__0,$cst_sienna__0,$cst_silver__0,$cst_skyblue__0,$cst_slateblue__0,$cst_slategray__0,$cst_slategrey__0,$cst_snow__0,$cst_springgreen__0,$cst_steelblue__0,$cst_tan__0,$cst_teal__0,$cst_thistle__0,$cst_tomato__0,$cst_turquoise__0,$cst_violet__0,$cst_wheat__0,$cst_white__0,$cst_whitesmoke__0,$cst_yellow__0,$cst_yellowgreen__0,$runtime) {
       $switch__0 = $caml_string_compare($s, $cst_lightgrey__0);
       if (0 <= $switch__0) {
         if (! (0 < $switch__0)) {return 73;}
@@ -1777,7 +1779,7 @@ final class Js_of_ocaml__CSS {
               }
             ) as \Throwable;
     };
-    $rgb_of_name = function($param) use ($b0,$b1,$b2,$b3,$b4,$b5,$b6,$b7,$b8,$b9,$bA,$bB,$bC,$bD,$bE,$bF,$bG,$bH,$bI,$bJ,$bK,$bL,$bM,$bN,$bO,$bP,$bQ,$bR,$bS,$bT,$bU,$bV,$bW,$bX,$bY,$bZ,$b_,$bq,$br,$bs,$bt,$bu,$bv,$bw,$bx,$by,$bz,$c0,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$cA,$cB,$cC,$cD,$cE,$cF,$cG,$cH,$cI,$cJ,$cK,$cL,$cM,$cN,$cO,$cP,$cQ,$cR,$cS,$cT,$cU,$cV,$cW,$cX,$cY,$cZ,$c_,$ca,$cb,$cc,$cd,$ce,$cf,$cg,$ch,$ci,$cj,$ck,$cl,$cm,$cn,$co,$cp,$cq,$cr,$cs,$ct,$cu,$cv,$cw,$cx,$cy,$cz,$dA,$dB,$dC,$dD,$dE,$dF,$dG,$dH,$dI,$dJ,$dK,$dL,$da,$db,$dc,$dd,$de,$df,$dg,$dh,$di,$dj,$dk,$dl,$dm,$dn,$dp,$dq,$dr,$ds,$dt,$du,$dv,$dw,$dx,$dy,$dz) {
+    $rgb_of_name = function(dynamic $param) use ($b0,$b1,$b2,$b3,$b4,$b5,$b6,$b7,$b8,$b9,$bA,$bB,$bC,$bD,$bE,$bF,$bG,$bH,$bI,$bJ,$bK,$bL,$bM,$bN,$bO,$bP,$bQ,$bR,$bS,$bT,$bU,$bV,$bW,$bX,$bY,$bZ,$b_,$bq,$br,$bs,$bt,$bu,$bv,$bw,$bx,$by,$bz,$c0,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$cA,$cB,$cC,$cD,$cE,$cF,$cG,$cH,$cI,$cJ,$cK,$cL,$cM,$cN,$cO,$cP,$cQ,$cR,$cS,$cT,$cU,$cV,$cW,$cX,$cY,$cZ,$c_,$ca,$cb,$cc,$cd,$ce,$cf,$cg,$ch,$ci,$cj,$ck,$cl,$cm,$cn,$co,$cp,$cq,$cr,$cs,$ct,$cu,$cv,$cw,$cx,$cy,$cz,$dA,$dB,$dC,$dD,$dE,$dF,$dG,$dH,$dI,$dJ,$dK,$dL,$da,$db,$dc,$dd,$de,$df,$dg,$dh,$di,$dj,$dk,$dl,$dm,$dn,$dp,$dq,$dr,$ds,$dt,$du,$dv,$dw,$dx,$dy,$dz) {
       $e8 = $param;
       if (74 <= $e8) {
         if (111 <= $e8) {
@@ -2235,15 +2237,15 @@ final class Js_of_ocaml__CSS {
           return $b0;
         }
     };
-    $rgb = function($a, $r, $g, $b) {
+    $rgb = function(dynamic $a, dynamic $r, dynamic $g, dynamic $b) {
       if ($a) {$a__0 = $a[1];return Vector{3, Vector{0, $r, $g, $b, $a__0}};}
       return Vector{1, Vector{0, $r, $g, $b}};
     };
-    $hsl = function($a, $h, $s, $l) {
+    $hsl = function(dynamic $a, dynamic $h, dynamic $s, dynamic $l) {
       if ($a) {$a__0 = $a[1];return Vector{6, Vector{0, $h, $s, $l, $a__0}};}
       return Vector{5, Vector{0, $h, $s, $l}};
     };
-    $string_of_t = function($param) use ($Printf,$caml_call4,$caml_call5,$dM,$dN,$dO,$dP,$dQ,$dR,$string_of_name) {
+    $string_of_t = function(dynamic $param) use ($Printf,$caml_call4,$caml_call5,$dM,$dN,$dO,$dP,$dQ,$dR,$string_of_name) {
       switch($param[0]) {
         // FALLTHROUGH
         case 0:
@@ -2296,11 +2298,11 @@ final class Js_of_ocaml__CSS {
           return $caml_call5($Printf[4], $dR, $h__0, $s__0, $l__0, $a__1);
         }
     };
-    $hex_of_rgb = function($param) use ($Invalid_argument,$Pervasives,$Printf,$caml_call1,$caml_call2,$caml_call4,$cst_is_out_of_valid_range,$dS,$runtime) {
+    $hex_of_rgb = function(dynamic $param) use ($Invalid_argument,$Pervasives,$Printf,$caml_call1,$caml_call2,$caml_call4,$cst_is_out_of_valid_range,$dS,$runtime) {
       $blue = $param[3];
       $green = $param[2];
       $red = $param[1];
-      $in_range = function($i) use ($Invalid_argument,$Pervasives,$caml_call1,$caml_call2,$cst_is_out_of_valid_range,$runtime) {
+      $in_range = function(dynamic $i) use ($Invalid_argument,$Pervasives,$caml_call1,$caml_call2,$cst_is_out_of_valid_range,$runtime) {
         $e5 = $i < 0 ? 1 : (0);
         $e6 = $e5 || (255 < $i ? 1 : (0));
         if ($e6) {
@@ -2321,57 +2323,66 @@ final class Js_of_ocaml__CSS {
       $in_range($blue);
       return $caml_call4($Printf[4], $dS, $red, $green, $blue);
     };
-    $js_t_of_js_string = function($s) use ($Invalid_argument,$Js_of_ocaml_Js,$List,$Pervasives,$caml_call1,$caml_call2,$caml_get_public_method,$caml_js_to_string,$caml_jsbytes_of_string,$cst_hsl_s_d_s_d_s_d,$cst_hsla_s_d_s_d_s_d_d_d,$cst_is_not_a_valid_color,$cst_rgb_s_d_s_d_s_d,$cst_rgb_s_d_s_d_s_d__0,$cst_rgba_s_d_s_d_s_d_d_d,$cst_rgba_s_d_s_d_s_d_d_d__0,$dT,$runtime) {
+    $js_t_of_js_string = function(dynamic $s) use ($Invalid_argument,$Js_of_ocaml_Js,$List,$Pervasives,$caml_call1,$caml_call2,$caml_get_public_method,$caml_js_to_string,$caml_jsbytes_of_string,$cst_hsl_s_d_s_d_s_d,$cst_hsla_s_d_s_d_s_d_d_d,$cst_is_not_a_valid_color,$cst_rgb_s_d_s_d_s_d,$cst_rgb_s_d_s_d_s_d__0,$cst_rgba_s_d_s_d_s_d_d_d,$cst_rgba_s_d_s_d_s_d_d_d__0,$dT,$runtime) {
       $eH = 0;
       $eI = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d);
       $eJ = $Js_of_ocaml_Js[10];
-      $rgb_re = (function($t23, $t22, $param) {return new $t23($t22);})($eJ, $eI, $eH);
+      $rgb_re = (function(dynamic $t23, dynamic $t22, dynamic $param) {return new $t23($t22);
+       })($eJ, $eI, $eH);
       $eK = 0;
       $eL = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d__0);
       $eM = $Js_of_ocaml_Js[10];
-      $rgb_pct_re = (function($t21, $t20, $param) {return new $t21($t20);})($eM, $eL, $eK);
+      $rgb_pct_re = (function(dynamic $t21, dynamic $t20, dynamic $param) {return new $t21($t20);
+       })($eM, $eL, $eK);
       $eN = 0;
       $eO = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d);
       $eP = $Js_of_ocaml_Js[10];
-      $rgba_re = (function($t19, $t18, $param) {return new $t19($t18);})($eP, $eO, $eN);
+      $rgba_re = (function(dynamic $t19, dynamic $t18, dynamic $param) {return new $t19($t18);
+       })($eP, $eO, $eN);
       $eQ = 0;
       $eR = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d__0);
       $eS = $Js_of_ocaml_Js[10];
-      $rgba_pct_re = (function($t17, $t16, $param) {return new $t17($t16);})($eS, $eR, $eQ);
+      $rgba_pct_re = (function(dynamic $t17, dynamic $t16, dynamic $param) {return new $t17($t16);
+       })($eS, $eR, $eQ);
       $eT = 0;
       $eU = $caml_jsbytes_of_string($cst_hsl_s_d_s_d_s_d);
       $eV = $Js_of_ocaml_Js[10];
-      $hsl_re = (function($t15, $t14, $param) {return new $t15($t14);})($eV, $eU, $eT);
+      $hsl_re = (function(dynamic $t15, dynamic $t14, dynamic $param) {return new $t15($t14);
+       })($eV, $eU, $eT);
       $eW = 0;
       $eX = $caml_jsbytes_of_string($cst_hsla_s_d_s_d_s_d_d_d);
       $eY = $Js_of_ocaml_Js[10];
-      $hsla_re = (function($t13, $t12, $param) {return new $t13($t12);})($eY, $eX, $eW);
-      $eZ = function($x) use ($caml_call1,$caml_get_public_method) {
+      $hsla_re = (function(dynamic $t13, dynamic $t12, dynamic $param) {return new $t13($t12);
+       })($eY, $eX, $eW);
+      $eZ = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
         return $caml_call1($caml_get_public_method($x, -856045486, 42), $x);
       };
       if (
         !
         (int)
-        (function($t1, $t0, $param) {return $t1->test($t0);})($rgb_re, $s, $eZ)
+        (function(dynamic $t1, dynamic $t0, dynamic $param) {return $t1->test($t0);
+         })($rgb_re, $s, $eZ)
       ) {
-        $e0 = function($x) use ($caml_call1,$caml_get_public_method) {
+        $e0 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
           return $caml_call1($caml_get_public_method($x, -856045486, 43), $x);
         };
         if (
           !
           (int)
-          (function($t3, $t2, $param) {return $t3->test($t2);})($rgba_re, $s, $e0)
+          (function(dynamic $t3, dynamic $t2, dynamic $param) {return $t3->test($t2);
+           })($rgba_re, $s, $e0)
         ) {
-          $e1 = function($x) use ($caml_call1,$caml_get_public_method) {
+          $e1 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
             return $caml_call1($caml_get_public_method($x, -856045486, 44), $x
             );
           };
           if (
             !
             (int)
-            (function($t5, $t4, $param) {return $t5->test($t4);})($rgb_pct_re, $s, $e1)
+            (function(dynamic $t5, dynamic $t4, dynamic $param) {return $t5->test($t4);
+             })($rgb_pct_re, $s, $e1)
           ) {
-            $e2 = function($x) use ($caml_call1,$caml_get_public_method) {
+            $e2 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
               return $caml_call1(
                 $caml_get_public_method($x, -856045486, 45),
                 $x
@@ -2380,9 +2391,10 @@ final class Js_of_ocaml__CSS {
             if (
               !
               (int)
-              (function($t7, $t6, $param) {return $t7->test($t6);})($rgba_pct_re, $s, $e2)
+              (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->test($t6);
+               })($rgba_pct_re, $s, $e2)
             ) {
-              $e3 = function($x) use ($caml_call1,$caml_get_public_method) {
+              $e3 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
                 return $caml_call1(
                   $caml_get_public_method($x, -856045486, 46),
                   $x
@@ -2391,9 +2403,10 @@ final class Js_of_ocaml__CSS {
               if (
                 !
                 (int)
-                (function($t9, $t8, $param) {return $t9->test($t8);})($hsl_re, $s, $e3)
+                (function(dynamic $t9, dynamic $t8, dynamic $param) {return $t9->test($t8);
+                 })($hsl_re, $s, $e3)
               ) {
-                $e4 = function($x) use ($caml_call1,$caml_get_public_method) {
+                $e4 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
                   return $caml_call1(
                     $caml_get_public_method($x, -856045486, 47),
                     $x
@@ -2402,7 +2415,8 @@ final class Js_of_ocaml__CSS {
                 if (
                   !
                   (int)
-                  (function($t11, $t10, $param) {return $t11->test($t10);})($hsla_re, $s, $e4)
+                  (function(dynamic $t11, dynamic $t10, dynamic $param) {return $t11->test($t10);
+                   })($hsla_re, $s, $e4)
                 ) {
                   if ($caml_call2($List[31], $caml_js_to_string($s), $dT)) {return $s;}
                   throw $runtime["caml_wrap_thrown_exception"](
@@ -2424,20 +2438,20 @@ final class Js_of_ocaml__CSS {
       }
       return $s;
     };
-    $name = function($cn) use ($string_of_name) {
+    $name = function(dynamic $cn) use ($string_of_name) {
       return $string_of_name($cn)->toString();
     };
-    $js = function($c) use ($name,$string_of_t) {
+    $js = function(dynamic $c) use ($name,$string_of_t) {
       if (0 === $c[0]) {$n = $c[1];return $name($n);}
       return $string_of_t($c)->toString();
     };
-    $ml = function($c) use ($Failure,$Invalid_argument,$Js_of_ocaml_Regexp,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_js_to_string,$caml_string_notequal,$caml_wrap_exception,$cst,$cst__0,$cst_color_conversion_error,$cst_color_conversion_error__0,$cst_hsl,$cst_hsla,$cst_hsla_d_d_d_d_d,$cst_is_not_a_valid_color__0,$cst_rgb,$cst_rgb__0,$cst_rgba,$cst_rgba__0,$cst_rgba_d_d_d_d_d,$cst_rgba_d_d_d_d_d__0,$name_of_string,$runtime) {
+    $ml = function(dynamic $c) use ($Failure,$Invalid_argument,$Js_of_ocaml_Regexp,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_js_to_string,$caml_string_notequal,$caml_wrap_exception,$cst,$cst__0,$cst_color_conversion_error,$cst_color_conversion_error__0,$cst_hsl,$cst_hsla,$cst_hsla_d_d_d_d_d,$cst_is_not_a_valid_color__0,$cst_rgb,$cst_rgb__0,$cst_rgba,$cst_rgba__0,$cst_rgba_d_d_d_d_d,$cst_rgba_d_d_d_d_d__0,$name_of_string,$runtime) {
       $s = $caml_js_to_string($c);
       try {$ex = Vector{0, $name_of_string($s)};return $ex;}
       catch(\Throwable $ey) {
         $ey = $caml_wrap_exception($ey);
         if ($ey[1] === $Invalid_argument) {
-          $fail = function($param) use ($Invalid_argument,$Pervasives,$caml_call2,$cst_is_not_a_valid_color__0,$runtime,$s) {
+          $fail = function(dynamic $param) use ($Invalid_argument,$Pervasives,$caml_call2,$cst_is_not_a_valid_color__0,$runtime,$s) {
             throw $runtime["caml_wrap_thrown_exception"](
                     Vector{
                       0,
@@ -2456,7 +2470,7 @@ final class Js_of_ocaml__CSS {
             $cst_rgba_d_d_d_d_d__0
           );
           $re_hsl = $caml_call1($Js_of_ocaml_Regexp[1], $cst_hsla_d_d_d_d_d);
-          $i_of_s_o = function($param) use ($Failure,$Invalid_argument,$Pervasives,$caml_call2,$caml_wrap_exception,$cst,$cst_color_conversion_error,$fail,$runtime) {
+          $i_of_s_o = function(dynamic $param) use ($Failure,$Invalid_argument,$Pervasives,$caml_call2,$caml_wrap_exception,$cst,$cst_color_conversion_error,$fail,$runtime) {
             if ($param) {
               $i = $param[1];
               try {$eF = $runtime["caml_int_of_string"]($i);return $eF;}
@@ -2486,7 +2500,7 @@ final class Js_of_ocaml__CSS {
             }
             return $fail(0);
           };
-          $f_of_s = function($f) use ($Failure,$Invalid_argument,$Pervasives,$caml_call2,$caml_float_of_string,$caml_wrap_exception,$cst__0,$cst_color_conversion_error__0,$runtime) {
+          $f_of_s = function(dynamic $f) use ($Failure,$Invalid_argument,$Pervasives,$caml_call2,$caml_float_of_string,$caml_wrap_exception,$cst__0,$cst_color_conversion_error__0,$runtime) {
             try {$eB = $caml_float_of_string($f);return $eB;}
             catch(\Throwable $eC) {
               $eC = $caml_wrap_exception($eC);
@@ -2610,7 +2624,7 @@ final class Js_of_ocaml__CSS {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($ey) as \Throwable;
       }
     };
-    $string_of_t__0 = function($param) use ($Printf,$caml_call3,$cst_0,$cst_ch,$cst_cm,$cst_em,$cst_ex,$cst_gd,$cst_in,$cst_mm,$cst_pc,$cst_pt,$cst_px,$cst_rem,$cst_vh,$cst_vm,$cst_vw,$d0,$d1,$d2,$d3,$d4,$d5,$d6,$d7,$dU,$dV,$dW,$dX,$dY,$dZ,$is_int) {
+    $string_of_t__0 = function(dynamic $param) use ($Printf,$caml_call3,$cst_0,$cst_ch,$cst_cm,$cst_em,$cst_ex,$cst_gd,$cst_in,$cst_mm,$cst_pc,$cst_pt,$cst_px,$cst_rem,$cst_vh,$cst_vm,$cst_vw,$d0,$d1,$d2,$d3,$d4,$d5,$d6,$d7,$dU,$dV,$dW,$dX,$dY,$dZ,$is_int) {
       if ($is_int($param)) {return $cst_0;}
       else {
         switch($param[0]) {
@@ -2673,13 +2687,13 @@ final class Js_of_ocaml__CSS {
           }
       }
     };
-    $js__0 = function($t) use ($string_of_t__0) {
+    $js__0 = function(dynamic $t) use ($string_of_t__0) {
       return $string_of_t__0($t)->toString();
     };
-    $ml__0 = function($t) use ($Invalid_argument,$Js_of_ocaml_Regexp,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_js_to_string,$caml_string_compare,$caml_string_notequal,$caml_wrap_exception,$cst_0__0,$cst_ch__0,$cst_cm__0,$cst_d_d_s_S,$cst_em__0,$cst_ex__0,$cst_gd__0,$cst_in__0,$cst_is_not_a_valid_length,$cst_length_conversion_error,$cst_mm__0,$cst_pc__0,$cst_pt__0,$cst_px__0,$cst_rem__0,$cst_vh__0,$cst_vm__0,$cst_vw__0,$runtime) {
+    $ml__0 = function(dynamic $t) use ($Invalid_argument,$Js_of_ocaml_Regexp,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_js_to_string,$caml_string_compare,$caml_string_notequal,$caml_wrap_exception,$cst_0__0,$cst_ch__0,$cst_cm__0,$cst_d_d_s_S,$cst_em__0,$cst_ex__0,$cst_gd__0,$cst_in__0,$cst_is_not_a_valid_length,$cst_length_conversion_error,$cst_mm__0,$cst_pc__0,$cst_pt__0,$cst_px__0,$cst_rem__0,$cst_vh__0,$cst_vm__0,$cst_vw__0,$runtime) {
       $s = $caml_js_to_string($t);
       if ($runtime["caml_string_equal"]($s, $cst_0__0)) {return 0;}
-      $fail = function($param) use ($Invalid_argument,$Pervasives,$caml_call2,$cst_is_not_a_valid_length,$runtime,$s) {
+      $fail = function(dynamic $param) use ($Invalid_argument,$Pervasives,$caml_call2,$cst_is_not_a_valid_length,$runtime,$s) {
         throw $runtime["caml_wrap_thrown_exception"](
                 Vector{
                   0,
@@ -2746,7 +2760,7 @@ final class Js_of_ocaml__CSS {
       return $fail(0);
     };
     $Length = Vector{0, $string_of_t__0, $js__0, $ml__0};
-    $string_of_t__1 = function($param) use ($Printf,$caml_call3,$cst_deg,$cst_grad,$cst_rad,$cst_turns,$d8,$d9,$d_,$ea) {
+    $string_of_t__1 = function(dynamic $param) use ($Printf,$caml_call3,$cst_deg,$cst_grad,$cst_rad,$cst_turns,$d8,$d9,$d_,$ea) {
       switch($param[0]) {
         // FALLTHROUGH
         case 0:
@@ -2766,13 +2780,13 @@ final class Js_of_ocaml__CSS {
           return $caml_call3($Printf[4], $ea, $f__2, $cst_turns);
         }
     };
-    $js__1 = function($t) use ($string_of_t__1) {
+    $js__1 = function(dynamic $t) use ($string_of_t__1) {
       return $string_of_t__1($t)->toString();
     };
-    $ml__1 = function($j) use ($Invalid_argument,$Js_of_ocaml_Regexp,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_js_to_string,$caml_string_notequal,$caml_wrap_exception,$cst_d_d_deg_grad_rad_turns,$cst_deg__0,$cst_grad__0,$cst_is_not_a_valid_length__0,$cst_length_conversion_error__0,$cst_rad__0,$cst_turns__0,$runtime) {
+    $ml__1 = function(dynamic $j) use ($Invalid_argument,$Js_of_ocaml_Regexp,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_js_to_string,$caml_string_notequal,$caml_wrap_exception,$cst_d_d_deg_grad_rad_turns,$cst_deg__0,$cst_grad__0,$cst_is_not_a_valid_length__0,$cst_length_conversion_error__0,$cst_rad__0,$cst_turns__0,$runtime) {
       $s = $caml_js_to_string($j);
       $re = $caml_call1($Js_of_ocaml_Regexp[1], $cst_d_d_deg_grad_rad_turns);
-      $fail = function($param) use ($Invalid_argument,$Pervasives,$caml_call2,$cst_is_not_a_valid_length__0,$runtime,$s) {
+      $fail = function(dynamic $param) use ($Invalid_argument,$Pervasives,$caml_call2,$cst_is_not_a_valid_length__0,$runtime,$s) {
         throw $runtime["caml_wrap_thrown_exception"](
                 Vector{
                   0,

@@ -32,7 +32,7 @@ final class Sort {
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -40,7 +40,7 @@ final class Sort {
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
     $Invalid_argument = $global_data["Invalid_argument"];
-    $merge->contents = function($order, $l1, $l2) use ($caml_call2,$merge) {
+    $merge->contents = function(dynamic $order, dynamic $l1, dynamic $l2) use ($caml_call2,$merge) {
       if ($l1) {
         $t1 = $l1[2];
         $h1 = $l1[1];
@@ -55,9 +55,9 @@ final class Sort {
       }
       return $l2;
     };
-    $list = function($order, $l) use ($caml_call2,$merge) {
+    $list = function(dynamic $order, dynamic $l) use ($caml_call2,$merge) {
       $initlist = new Ref();$merge2 = new Ref();
-      $initlist->contents = function($param) use ($caml_call2,$initlist,$order) {
+      $initlist->contents = function(dynamic $param) use ($caml_call2,$initlist,$order) {
         if ($param) {
           $cM = $param[2];
           $cN = $param[1];
@@ -74,7 +74,7 @@ final class Sort {
         }
         return 0;
       };
-      $merge2->contents = function($x) use ($merge,$merge2,$order) {
+      $merge2->contents = function(dynamic $x) use ($merge,$merge2,$order) {
         if ($x) {
           $cK = $x[2];
           if ($cK) {
@@ -87,7 +87,7 @@ final class Sort {
         }
         return $x;
       };
-      $mergeall = function($llist) use ($merge2) {
+      $mergeall = function(dynamic $llist) use ($merge2) {
         $llist__0 = $llist;
         for (;;) {
           if ($llist__0) {
@@ -104,15 +104,15 @@ final class Sort {
       };
       return $mergeall($initlist->contents($l));
     };
-    $swap = function($arr, $i, $j) {
+    $swap = function(dynamic $arr, dynamic $i, dynamic $j) {
       $tmp = $arr[$i + 1];
       $arr[$i + 1] = $arr[$j + 1];
       $arr[$j + 1] = $tmp;
       return 0;
     };
-    $array = function($cmp, $arr) use ($Invalid_argument,$caml_call2,$cst_Sort_array,$runtime,$swap,$unsigned_right_shift_32) {
+    $array = function(dynamic $cmp, dynamic $arr) use ($Invalid_argument,$caml_call2,$cst_Sort_array,$runtime,$swap,$unsigned_right_shift_32) {
       $qsort = new Ref();
-      $qsort->contents = function($lo, $hi) use ($Invalid_argument,$arr,$caml_call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
+      $qsort->contents = function(dynamic $lo, dynamic $hi) use ($Invalid_argument,$arr,$caml_call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
         $lo__0 = $lo;
         $hi__0 = $hi;
         $continue_counter = null;

@@ -44,22 +44,23 @@ final class Genlex {
     $caml_trampoline_return = $runtime["caml_trampoline_return"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
+    $caml_call5 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 5
         ? $f($a0, $a1, $a2, $a3, $a4)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
@@ -83,12 +84,12 @@ final class Genlex {
     $initial_buffer = $caml_create_bytes(32);
     $buffer = Vector{0, $initial_buffer};
     $bufpos = Vector{0, 0};
-    $reset_buffer = function($param) use ($buffer,$bufpos,$initial_buffer) {
+    $reset_buffer = function(dynamic $param) use ($buffer,$bufpos,$initial_buffer) {
       $buffer[1] = $initial_buffer;
       $bufpos[1] = 0;
       return 0;
     };
-    $store = function($c) use ($Bytes,$buffer,$bufpos,$caml_call5,$caml_create_bytes,$runtime) {
+    $store = function(dynamic $c) use ($Bytes,$buffer,$bufpos,$caml_call5,$caml_create_bytes,$runtime) {
       if ($runtime["caml_ml_bytes_length"]($buffer[1]) <= $bufpos[1]) {
         $newbuffer = $caml_create_bytes((int) (2 * $bufpos[1]));
         $caml_call5($Bytes[11], $buffer[1], 0, $newbuffer, 0, $bufpos[1]);
@@ -98,12 +99,12 @@ final class Genlex {
       $bufpos[1] += 1;
       return 0;
     };
-    $get_string = function($param) use ($Bytes,$buffer,$bufpos,$caml_call3,$initial_buffer) {
+    $get_string = function(dynamic $param) use ($Bytes,$buffer,$bufpos,$caml_call3,$initial_buffer) {
       $s = $caml_call3($Bytes[8], $buffer[1], 0, $bufpos[1]);
       $buffer[1] = $initial_buffer;
       return $s;
     };
-    $make_lexer = function($keywords) use ($Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$unsigned_right_shift_32) {
+    $make_lexer = function(dynamic $keywords) use ($Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$caml_call1,$caml_call2,$caml_call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$unsigned_right_shift_32) {
       $char__0 = new Ref();
       $comment = new Ref();
       $escape = new Ref();
@@ -112,11 +113,11 @@ final class Genlex {
       $maybe_nested_comment = new Ref();
       $string = new Ref();
       $kwd_table = $caml_call2($Hashtbl[1], 0, 17);
-      $zz = function($s) use ($Hashtbl,$caml_call3,$kwd_table) {
+      $zz = function(dynamic $s) use ($Hashtbl,$caml_call3,$kwd_table) {
         return $caml_call3($Hashtbl[5], $kwd_table, $s, Vector{0, $s});
       };
       $caml_call2($List[15], $zz, $keywords);
-      $ident_or_keyword = function($id) use ($Hashtbl,$Not_found,$caml_call2,$caml_wrap_exception,$kwd_table,$runtime) {
+      $ident_or_keyword = function(dynamic $id) use ($Hashtbl,$Not_found,$caml_call2,$caml_wrap_exception,$kwd_table,$runtime) {
         try {$z1 = $caml_call2($Hashtbl[6], $kwd_table, $id);return $z1;}
         catch(\Throwable $z2) {
           $z2 = $caml_wrap_exception($z2);
@@ -124,7 +125,7 @@ final class Genlex {
           throw $runtime["caml_wrap_thrown_exception_reraise"]($z2) as \Throwable;
         }
       };
-      $keyword_or_error = function($c) use ($Hashtbl,$Not_found,$Pervasives,$Stream,$String,$caml_call2,$caml_wrap_exception,$cst_Illegal_character,$kwd_table,$runtime) {
+      $keyword_or_error = function(dynamic $c) use ($Hashtbl,$Not_found,$Pervasives,$Stream,$String,$caml_call2,$caml_wrap_exception,$cst_Illegal_character,$kwd_table,$runtime) {
         $s = $caml_call2($String[1], 1, $c);
         try {$zZ = $caml_call2($Hashtbl[6], $kwd_table, $s);return $zZ;}
         catch(\Throwable $z0) {
@@ -136,7 +137,7 @@ final class Genlex {
           throw $runtime["caml_wrap_thrown_exception_reraise"]($z0) as \Throwable;
         }
       };
-      $end_exponent_part = function($strm) use ($Stream,$caml_call1,$caml_float_of_string,$get_string,$store,$unsigned_right_shift_32) {
+      $end_exponent_part = function(dynamic $strm) use ($Stream,$caml_call1,$caml_float_of_string,$get_string,$store,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -151,7 +152,7 @@ final class Genlex {
           return Vector{0, Vector{3, $caml_float_of_string($get_string(0))}};
         }
       };
-      $exponent_part = function($strm) use ($Stream,$caml_call1,$end_exponent_part,$store) {
+      $exponent_part = function(dynamic $strm) use ($Stream,$caml_call1,$end_exponent_part,$store) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
           $zW = $match[1];
@@ -164,7 +165,7 @@ final class Genlex {
         }
         return $end_exponent_part($strm);
       };
-      $decimal_part = function($strm) use ($Stream,$caml_call1,$caml_float_of_string,$exponent_part,$get_string,$store,$unsigned_right_shift_32) {
+      $decimal_part = function(dynamic $strm) use ($Stream,$caml_call1,$caml_float_of_string,$exponent_part,$get_string,$store,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -190,7 +191,7 @@ final class Genlex {
           return Vector{0, Vector{3, $caml_float_of_string($get_string(0))}};
         }
       };
-      $number = function($strm) use ($Stream,$caml_call1,$decimal_part,$exponent_part,$get_string,$runtime,$store) {
+      $number = function(dynamic $strm) use ($Stream,$caml_call1,$decimal_part,$exponent_part,$get_string,$runtime,$store) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -222,7 +223,7 @@ final class Genlex {
           };
         }
       };
-      $ident2 = function($strm) use ($Stream,$caml_call1,$get_string,$ident_or_keyword,$store,$unsigned_right_shift_32) {
+      $ident2 = function(dynamic $strm) use ($Stream,$caml_call1,$get_string,$ident_or_keyword,$store,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -289,7 +290,7 @@ final class Genlex {
           return Vector{0, $ident_or_keyword($get_string(0))};
         }
       };
-      $neg_number = function($strm) use ($Stream,$caml_call1,$ident2,$number,$reset_buffer,$store,$unsigned_right_shift_32) {
+      $neg_number = function(dynamic $strm) use ($Stream,$caml_call1,$ident2,$number,$reset_buffer,$store,$unsigned_right_shift_32) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
           $zQ = $match[1];
@@ -306,7 +307,7 @@ final class Genlex {
         $store(45);
         return $ident2($strm);
       };
-      $ident = function($strm) use ($Stream,$caml_call1,$get_string,$ident_or_keyword,$store,$unsigned_right_shift_32) {
+      $ident = function(dynamic $strm) use ($Stream,$caml_call1,$get_string,$ident_or_keyword,$store,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -331,7 +332,7 @@ final class Genlex {
           return Vector{0, $ident_or_keyword($get_string(0))};
         }
       };
-      $next_token__0 = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$caml_wrap_exception,$char__0,$cst,$cst__0,$ident,$ident2,$keyword_or_error,$maybe_comment,$neg_number,$number,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
+      $next_token__0 = function(dynamic $counter, dynamic $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$caml_wrap_exception,$char__0,$cst,$cst__0,$ident,$ident2,$keyword_or_error,$maybe_comment,$neg_number,$number,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -507,7 +508,7 @@ final class Genlex {
           return 0;
         }
       };
-      $maybe_comment->contents = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment,$keyword_or_error,$next_token__0) {
+      $maybe_comment->contents = function(dynamic $counter, dynamic $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment,$keyword_or_error,$next_token__0) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
           if (42 === $match[1]) {
@@ -522,10 +523,10 @@ final class Genlex {
         }
         return Vector{0, $keyword_or_error(40)};
       };
-      $next_token = function($strm) use ($caml_trampoline,$next_token__0) {
+      $next_token = function(dynamic $strm) use ($caml_trampoline,$next_token__0) {
         return $caml_trampoline($next_token__0(0, $strm));
       };
-      $string->contents = function($strm) use ($Stream,$caml_call1,$caml_wrap_exception,$cst__1,$escape,$get_string,$runtime,$store) {
+      $string->contents = function(dynamic $strm) use ($Stream,$caml_call1,$caml_wrap_exception,$cst__1,$escape,$get_string,$runtime,$store) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -554,7 +555,7 @@ final class Genlex {
           throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
         }
       };
-      $char__0->contents = function($strm) use ($Stream,$caml_call1,$caml_wrap_exception,$cst__2,$escape,$runtime) {
+      $char__0->contents = function(dynamic $strm) use ($Stream,$caml_call1,$caml_wrap_exception,$cst__2,$escape,$runtime) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
           $zF = $match[1];
@@ -574,7 +575,7 @@ final class Genlex {
         }
         throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
       };
-      $escape->contents = function($strm) use ($Char,$Stream,$caml_call1,$cst__3,$cst__4,$runtime,$unsigned_right_shift_32) {
+      $escape->contents = function(dynamic $strm) use ($Char,$Stream,$caml_call1,$cst__3,$cst__4,$runtime,$unsigned_right_shift_32) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
           $zC = $match[1];
@@ -634,7 +635,7 @@ final class Genlex {
         }
         throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
       };
-      $comment__0 = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$maybe_end_comment,$maybe_nested_comment,$runtime,$unsigned_right_shift_32) {
+      $comment__0 = function(dynamic $counter, dynamic $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$maybe_end_comment,$maybe_nested_comment,$runtime,$unsigned_right_shift_32) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -673,7 +674,8 @@ final class Genlex {
           throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
         }
       };
-      $maybe_nested_comment->contents = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment,$comment__0,$runtime) {
+      $maybe_nested_comment->contents = function
+      (dynamic $counter, dynamic $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment,$comment__0,$runtime) {
         $match = $caml_call1($Stream[11], $strm);
         if ($match) {
           if (42 === $match[1]) {
@@ -694,7 +696,7 @@ final class Genlex {
         }
         throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
       };
-      $maybe_end_comment->contents = function($counter, $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment__0,$runtime) {
+      $maybe_end_comment->contents = function(dynamic $counter, dynamic $strm) use ($Stream,$caml_call1,$caml_trampoline_return,$comment__0,$runtime) {
         for (;;) {
           $match = $caml_call1($Stream[11], $strm);
           if ($match) {
@@ -711,11 +713,11 @@ final class Genlex {
           throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
         }
       };
-      $comment->contents = function($strm) use ($caml_trampoline,$comment__0) {
+      $comment->contents = function(dynamic $strm) use ($caml_trampoline,$comment__0) {
         return $caml_trampoline($comment__0(0, $strm));
       };
-      return function($input) use ($Stream,$caml_call1,$next_token) {
-        $zA = function($count) use ($input,$next_token) {
+      return function(dynamic $input) use ($Stream,$caml_call1,$next_token) {
+        $zA = function(dynamic $count) use ($input,$next_token) {
           return $next_token($input);
         };
         return $caml_call1($Stream[3], $zA);

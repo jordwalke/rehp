@@ -36,19 +36,19 @@ final class Lazy {
     $CamlinternalLazy = $global_data["CamlinternalLazy"];
     $Undefined = $CamlinternalLazy[1];
     $force_val = $CamlinternalLazy[5];
-    $from_fun = function($f) use ($Obj,$runtime) {
+    $from_fun = function(dynamic $f) use ($Obj,$runtime) {
       $x = $runtime["caml_obj_block"]($Obj[6], 1);
       $x[1] = $f;
       return $x;
     };
-    $from_val = function($v) use ($Obj,$caml_obj_tag,$runtime) {
+    $from_val = function(dynamic $v) use ($Obj,$caml_obj_tag,$runtime) {
       $t = $caml_obj_tag($v);
       if ($t !== $Obj[10]) {
         if ($t !== $Obj[6]) {if ($t !== $Obj[14]) {return $v;}}
       }
       return $runtime["caml_lazy_make_forward"]($v);
     };
-    $is_val = function($l) use ($Obj,$caml_obj_tag) {
+    $is_val = function(dynamic $l) use ($Obj,$caml_obj_tag) {
       return $caml_obj_tag($l) !== $Obj[6] ? 1 : (0);
     };
     $Lazy = Vector{

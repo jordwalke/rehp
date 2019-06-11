@@ -36,7 +36,7 @@ final class Spacetime {
     $caml_spacetime_only_works_for_native_code = $runtime[
        "caml_spacetime_only_works_for_native_code"
      ];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -46,10 +46,10 @@ final class Spacetime {
     $cst_Series_is_closed = $caml_new_string("Series is closed");
     $Pervasives = $global_data["Pervasives"];
     $enabled = $caml_spacetime_enabled(0);
-    $if_spacetime_enabled = function($f) use ($caml_call1,$enabled) {
+    $if_spacetime_enabled = function(dynamic $f) use ($caml_call1,$enabled) {
       return $enabled ? $caml_call1($f, 0) : (0);
     };
-    $create = function($path) use ($Pervasives,$caml_call1,$caml_spacetime_enabled,$caml_spacetime_only_works_for_native_code) {
+    $create = function(dynamic $path) use ($Pervasives,$caml_call1,$caml_spacetime_enabled,$caml_spacetime_only_works_for_native_code) {
       if ($caml_spacetime_enabled(0)) {
         $channel = $caml_call1($Pervasives[48], $path);
         $t = Vector{0, $channel, 0};
@@ -58,9 +58,9 @@ final class Spacetime {
       }
       return Vector{0, $Pervasives[27], 1};
     };
-    $save_event = function($time, $t, $event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
+    $save_event = function(dynamic $time, dynamic $t, dynamic $event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
       return $if_spacetime_enabled(
-        function($param) use ($caml_spacetime_only_works_for_native_code,$event_name,$t,$time) {
+        function(dynamic $param) use ($caml_spacetime_only_works_for_native_code,$event_name,$t,$time) {
           return $caml_spacetime_only_works_for_native_code(
             $time,
             $t[1],
@@ -69,9 +69,9 @@ final class Spacetime {
         }
       );
     };
-    $save_and_close = function($time, $t) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$if_spacetime_enabled) {
+    $save_and_close = function(dynamic $time, dynamic $t) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$if_spacetime_enabled) {
       return $if_spacetime_enabled(
-        function($param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$t,$time) {
+        function(dynamic $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$t,$time) {
           if ($t[2]) {$caml_call1($Pervasives[2], $cst_Series_is_closed);}
           $caml_spacetime_only_works_for_native_code($time, $t[1]);
           $caml_call1($Pervasives[64], $t[1]);
@@ -81,11 +81,11 @@ final class Spacetime {
       );
     };
     $Series = Vector{0, $create, $save_event, $save_and_close};
-    $take = function($time, $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed__0,$if_spacetime_enabled,$runtime) {
+    $take = function(dynamic $time, dynamic $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed__0,$if_spacetime_enabled,$runtime) {
       $channel = $param[1];
       $closed = $param[2];
       return $if_spacetime_enabled(
-        function($param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$channel,$closed,$cst_Series_is_closed__0,$runtime,$time) {
+        function(dynamic $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$channel,$closed,$cst_Series_is_closed__0,$runtime,$time) {
           if ($closed) {
             $caml_call1($Pervasives[2], $cst_Series_is_closed__0);
           }
@@ -95,9 +95,9 @@ final class Spacetime {
       );
     };
     $Snapshot = Vector{0, $take};
-    $save_event_for_automatic_snapshots = function($event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
+    $save_event_for_automatic_snapshots = function(dynamic $event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
       return $if_spacetime_enabled(
-        function($param) use ($caml_spacetime_only_works_for_native_code,$event_name) {
+        function(dynamic $param) use ($caml_spacetime_only_works_for_native_code,$event_name) {
           return $caml_spacetime_only_works_for_native_code($event_name);
         }
       );

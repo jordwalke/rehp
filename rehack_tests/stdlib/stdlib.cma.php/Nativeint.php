@@ -39,19 +39,19 @@ final class Nativeint {
     $zero = 0;
     $one = 1;
     $minus_one = -1;
-    $succ = function($n) {return (int) ($n + 1);};
-    $pred = function($n) {return (int) ($n - 1);};
-    $abs = function($n) use ($runtime) {
+    $succ = function(dynamic $n) {return (int) ($n + 1);};
+    $pred = function(dynamic $n) {return (int) ($n - 1);};
+    $abs = function(dynamic $n) use ($runtime) {
       return $runtime["caml_greaterequal"]($n, 0) ? $n : ((int) - $n);
     };
     $size = $Sys[10];
     $min_int = $left_shift_32(1, (int) ($size + -1));
     $max_int = (int) ($min_int - 1);
-    $lognot = function($n) {return $n ^ -1;};
-    $to_string = function($n) use ($cst_d,$runtime) {
+    $lognot = function(dynamic $n) {return $n ^ -1;};
+    $to_string = function(dynamic $n) use ($cst_d,$runtime) {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
-    $of_string_opt = function($s) use ($Failure,$caml_wrap_exception,$runtime) {
+    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_exception,$runtime) {
       try {$eE = Vector{0, $runtime["caml_int_of_string"]($s)};return $eE;}
       catch(\Throwable $eF) {
         $eF = $caml_wrap_exception($eF);
@@ -59,10 +59,10 @@ final class Nativeint {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($eF) as \Throwable;
       }
     };
-    $compare = function($x, $y) use ($runtime) {
+    $compare = function(dynamic $x, dynamic $y) use ($runtime) {
       return $runtime["caml_int_compare"]($x, $y);
     };
-    $equal = function($x, $y) use ($compare) {
+    $equal = function(dynamic $x, dynamic $y) use ($compare) {
       return 0 === $compare($x, $y) ? 1 : (0);
     };
     $Nativeint = Vector{

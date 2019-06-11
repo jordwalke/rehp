@@ -109,7 +109,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
 
 
 
-$caml_call1 = function($f, $a0) use ($caml_arity_test,$caml_call_gen) {
+$caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$caml_call_gen) {
   return $caml_arity_test($f) === 1
     ? $f($a0)
     : ($caml_call_gen($f, varray[$a0]));
@@ -167,7 +167,7 @@ $f = $caml_new_string("f4");
 
 $caml_fresh_oo_id(0);
 
-$a = function($s1, $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
+$a = function(dynamic $s1, dynamic $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
   $l1 = $caml_ml_string_length($s1);
   $l2 = $caml_ml_string_length($s2);
   $s = $caml_create_bytes((int) ($l1 + $l2));
@@ -175,7 +175,7 @@ $a = function($s1, $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_strin
   $caml_blit_string($s2, 0, $s, $l1, $l2);
   return $s;
 };
-$string_of_int = function($n) use ($caml_new_string) {
+$string_of_int = function(dynamic $n) use ($caml_new_string) {
   return $caml_new_string("" . $n);
 };
 
@@ -185,8 +185,8 @@ $stdout = $caml_ml_open_descriptor_out(1);
 
 $caml_ml_open_descriptor_out(2);
 
-$flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
-  $iter = function($param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
+$flush_all = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channels_list,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
+  $iter = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$caml_wrap_thrown_exception_reraise) {
     $param__0 = $param;
     for (;;) {
       if ($param__0) {
@@ -207,16 +207,18 @@ $flush_all = function($param) use ($Sys_error,$caml_ml_flush,$caml_ml_out_channe
   };
   return $iter($caml_ml_out_channels_list(0));
 };
-$output_string = function($oc, $s) use ($caml_ml_output,$caml_ml_string_length) {
+$output_string = function(dynamic $oc, dynamic $s) use ($caml_ml_output,$caml_ml_string_length) {
   return $caml_ml_output($oc, $s, 0, $caml_ml_string_length($s));
 };
-$print_endline = function($s) use ($caml_ml_flush,$caml_ml_output_char,$output_string,$stdout) {
+$print_endline = function(dynamic $s) use ($caml_ml_flush,$caml_ml_output_char,$output_string,$stdout) {
   $output_string($stdout, $s);
   $caml_ml_output_char($stdout, 10);
   return $caml_ml_flush($stdout);
 };
-$do_at_exit = function($param) use ($flush_all) {return $flush_all(0);};
-$f1 = function($g) use ($caml_call1) {
+$do_at_exit = function(dynamic $param) use ($flush_all) {
+  return $flush_all(0);
+};
+$f1 = function(dynamic $g) use ($caml_call1) {
   $i = 2;
   for (;;) {
     $caml_call1($g, $i);
@@ -225,7 +227,7 @@ $f1 = function($g) use ($caml_call1) {
     return 0;
   }
 };
-$f2 = function($g) use ($caml_call1) {
+$f2 = function(dynamic $g) use ($caml_call1) {
   $i = 2;
   $continue_counter = null;
   for (;;) {
@@ -245,7 +247,7 @@ $f2 = function($g) use ($caml_call1) {
     else if ($continue_counter === 0) {$continue_counter = null;continue;}
   }
 };
-$f3 = function($g) use ($caml_call1) {
+$f3 = function(dynamic $g) use ($caml_call1) {
   $i = 2;
   $continue_counter = null;
   for (;;) {
@@ -286,7 +288,7 @@ $f3 = function($g) use ($caml_call1) {
     else if ($continue_counter === 0) {$continue_counter = null;continue;}
   }
 };
-$f4 = function($g) use ($caml_call1) {
+$f4 = function(dynamic $g) use ($caml_call1) {
   $i = 2;
   $continue_counter = null;
   for (;;) {
@@ -440,16 +442,16 @@ $f4 = function($g) use ($caml_call1) {
     else if ($continue_counter === 0) {$continue_counter = null;continue;}
   }
 };
-$fx = function($prefix, $x) use ($a,$b,$print_endline,$string_of_int) {
+$fx = function(dynamic $prefix, dynamic $x) use ($a,$b,$print_endline,$string_of_int) {
   return $print_endline($a($b, $string_of_int($x)));
 };
 
-$f1(function($j) use ($c,$fx) {return $fx($c, $j);});
+$f1(function(dynamic $j) use ($c,$fx) {return $fx($c, $j);});
 
-$f2(function($i) use ($d,$fx) {return $fx($d, $i);});
+$f2(function(dynamic $i) use ($d,$fx) {return $fx($d, $i);});
 
-$f3(function($h) use ($e,$fx) {return $fx($e, $h);});
+$f3(function(dynamic $h) use ($e,$fx) {return $fx($e, $h);});
 
-$f4(function($g) use ($f,$fx) {return $fx($f, $g);});
+$f4(function(dynamic $g) use ($f,$fx) {return $fx($f, $g);});
 
 $do_at_exit(0);

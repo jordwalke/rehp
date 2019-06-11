@@ -79,27 +79,29 @@ final class CamlinternalFormat {
     $is_int = $runtime["is_int"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $caml_call1 = function($f, $a0) use ($caml_arity_test,$runtime) {
+    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function($f, $a0, $a1) use ($caml_arity_test,$runtime) {
+    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function($f, $a0, $a1, $a2) use ($caml_arity_test,$runtime) {
+    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function($f, $a0, $a1, $a2, $a3) use ($caml_arity_test,$runtime) {
+    $caml_call4 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
     };
-    $caml_call5 = function($f, $a0, $a1, $a2, $a3, $a4) use ($caml_arity_test,$runtime) {
+    $caml_call5 = function
+    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 5
         ? $f($a0, $a1, $a2, $a3, $a4)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
@@ -655,10 +657,10 @@ final class CamlinternalFormat {
       $caml_new_string("invalid box description %S")
     };
     $hU = Vector{0, 0, 4};
-    $create_char_set = function($param) use ($Bytes,$caml_call2) {
+    $create_char_set = function(dynamic $param) use ($Bytes,$caml_call2) {
       return $caml_call2($Bytes[1], 32, 0);
     };
-    $add_in_char_set = function($char_set, $c) use ($Pervasives,$caml_bytes_set,$caml_call1,$left_shift_32,$runtime,$unsigned_right_shift_32) {
+    $add_in_char_set = function(dynamic $char_set, dynamic $c) use ($Pervasives,$caml_bytes_set,$caml_call1,$left_shift_32,$runtime,$unsigned_right_shift_32) {
       $str_ind = (int) $unsigned_right_shift_32($c, 3);
       $mask = $left_shift_32(1, $c & 7);
       $m5 = $runtime["caml_bytes_get"]($char_set, $str_ind) | $mask;
@@ -668,10 +670,10 @@ final class CamlinternalFormat {
         $caml_call1($Pervasives[17], $m5)
       );
     };
-    $freeze_char_set = function($char_set) use ($Bytes,$caml_call1) {
+    $freeze_char_set = function(dynamic $char_set) use ($Bytes,$caml_call1) {
       return $caml_call1($Bytes[6], $char_set);
     };
-    $rev_char_set = function($char_set) use ($Bytes,$Pervasives,$caml_bytes_set,$caml_call1,$caml_string_get,$create_char_set) {
+    $rev_char_set = function(dynamic $char_set) use ($Bytes,$Pervasives,$caml_bytes_set,$caml_call1,$caml_string_get,$create_char_set) {
       $char_set__0 = $create_char_set(0);
       $i = 0;
       for (;;) {
@@ -682,20 +684,20 @@ final class CamlinternalFormat {
         return $caml_call1($Bytes[42], $char_set__0);
       }
     };
-    $is_in_char_set = function($char_set, $c) use ($caml_string_get,$left_shift_32,$unsigned_right_shift_32) {
+    $is_in_char_set = function(dynamic $char_set, dynamic $c) use ($caml_string_get,$left_shift_32,$unsigned_right_shift_32) {
       $str_ind = (int) $unsigned_right_shift_32($c, 3);
       $mask = $left_shift_32(1, $c & 7);
       return 0 !== ($caml_string_get($char_set, $str_ind) & $mask) ? 1 : (0);
     };
-    $pad_of_pad_opt = function($pad_opt) {
+    $pad_of_pad_opt = function(dynamic $pad_opt) {
       if ($pad_opt) {$width = $pad_opt[1];return Vector{0, 1, $width};}
       return 0;
     };
-    $prec_of_prec_opt = function($prec_opt) {
+    $prec_of_prec_opt = function(dynamic $prec_opt) {
       if ($prec_opt) {$ndec = $prec_opt[1];return Vector{0, $ndec};}
       return 0;
     };
-    $param_format_of_ignored_format = function($ign, $fmt) use ($is_int,$pad_of_pad_opt,$prec_of_prec_opt) {
+    $param_format_of_ignored_format = function(dynamic $ign, dynamic $fmt) use ($is_int,$pad_of_pad_opt,$prec_of_prec_opt) {
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -790,10 +792,10 @@ final class CamlinternalFormat {
       }
     };
     $default_float_precision = -6;
-    $buffer_create = function($init_size) use ($caml_create_bytes) {
+    $buffer_create = function(dynamic $init_size) use ($caml_create_bytes) {
       return Vector{0, 0, $caml_create_bytes($init_size)};
     };
-    $buffer_check_size = function($buf, $overhead) use ($Bytes,$Pervasives,$caml_call2,$caml_call5,$caml_create_bytes,$runtime) {
+    $buffer_check_size = function(dynamic $buf, dynamic $overhead) use ($Bytes,$Pervasives,$caml_call2,$caml_call5,$caml_create_bytes,$runtime) {
       $len = $runtime["caml_ml_bytes_length"]($buf[2]);
       $min_len = (int) ($buf[1] + $overhead);
       $m0 = $len < $min_len ? 1 : (0);
@@ -807,23 +809,23 @@ final class CamlinternalFormat {
       else {$m1 = $m0;}
       return $m1;
     };
-    $buffer_add_char = function($buf, $c) use ($buffer_check_size,$caml_bytes_set) {
+    $buffer_add_char = function(dynamic $buf, dynamic $c) use ($buffer_check_size,$caml_bytes_set) {
       $buffer_check_size($buf, 1);
       $caml_bytes_set($buf[2], $buf[1], $c);
       $buf[1] = (int) ($buf[1] + 1);
       return 0;
     };
-    $buffer_add_string = function($buf, $s) use ($String,$buffer_check_size,$caml_call5,$caml_ml_string_length) {
+    $buffer_add_string = function(dynamic $buf, dynamic $s) use ($String,$buffer_check_size,$caml_call5,$caml_ml_string_length) {
       $str_len = $caml_ml_string_length($s);
       $buffer_check_size($buf, $str_len);
       $caml_call5($String[6], $s, 0, $buf[2], $buf[1], $str_len);
       $buf[1] = (int) ($buf[1] + $str_len);
       return 0;
     };
-    $buffer_contents = function($buf) use ($Bytes,$caml_call3) {
+    $buffer_contents = function(dynamic $buf) use ($Bytes,$caml_call3) {
       return $caml_call3($Bytes[8], $buf[2], 0, $buf[1]);
     };
-    $char_of_iconv = function($iconv) {
+    $char_of_iconv = function(dynamic $iconv) {
       switch($iconv) {
         // FALLTHROUGH
         case 12:
@@ -855,7 +857,7 @@ final class CamlinternalFormat {
           return 105;
         }
     };
-    $char_of_fconv = function($fconv) {
+    $char_of_fconv = function(dynamic $fconv) {
       switch($fconv) {
         // FALLTHROUGH
         case 15:
@@ -907,7 +909,7 @@ final class CamlinternalFormat {
           return 72;
         }
     };
-    $char_of_counter = function($counter) {
+    $char_of_counter = function(dynamic $counter) {
       switch($counter) {
         // FALLTHROUGH
         case 0:
@@ -920,13 +922,13 @@ final class CamlinternalFormat {
           return 78;
         }
     };
-    $bprint_char_set = function($buf, $char_set) use ($Char,$Pervasives,$buffer_add_char,$caml_call1,$caml_trampoline,$caml_trampoline_return,$is_in_char_set,$rev_char_set,$unsigned_right_shift_32) {
+    $bprint_char_set = function(dynamic $buf, dynamic $char_set) use ($Char,$Pervasives,$buffer_add_char,$caml_call1,$caml_trampoline,$caml_trampoline_return,$is_in_char_set,$rev_char_set,$unsigned_right_shift_32) {
       $print_first = new Ref();
       $print_in = new Ref();
       $print_out = new Ref();
       $print_second = new Ref();
-      $print_start = function($set) use ($Char,$buf,$buffer_add_char,$caml_call1,$is_in_char_set,$print_out) {
-        $is_alone = function($c) use ($Char,$caml_call1,$is_in_char_set,$set) {
+      $print_start = function(dynamic $set) use ($Char,$buf,$buffer_add_char,$caml_call1,$is_in_char_set,$print_out) {
+        $is_alone = function(dynamic $c) use ($Char,$caml_call1,$is_in_char_set,$set) {
           $after = $caml_call1($Char[1], (int) ($c + 1));
           $before = $caml_call1($Char[1], (int) ($c + -1));
           $mW = $is_in_char_set($set, $c);
@@ -943,7 +945,7 @@ final class CamlinternalFormat {
         $mV = $is_alone(45);
         return $mV ? $buffer_add_char($buf, 45) : ($mV);
       };
-      $print_char = function($buf, $i) use ($Pervasives,$buffer_add_char,$caml_call1) {
+      $print_char = function(dynamic $buf, dynamic $i) use ($Pervasives,$buffer_add_char,$caml_call1) {
         $c = $caml_call1($Pervasives[17], $i);
         if (37 === $c) {
           $buffer_add_char($buf, 37);
@@ -955,7 +957,7 @@ final class CamlinternalFormat {
         }
         return $buffer_add_char($buf, $c);
       };
-      $print_out__0 = function($counter, $set, $i) use ($Pervasives,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_first) {
+      $print_out__0 = function(dynamic $counter, dynamic $set, dynamic $i) use ($Pervasives,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_first) {
         $i__0 = $i;
         for (;;) {
           $mU = $i__0 < 256 ? 1 : (0);
@@ -977,7 +979,8 @@ final class CamlinternalFormat {
           return $mU;
         }
       };
-      $print_first->contents = function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$print_char,$print_out__0,$print_second,$unsigned_right_shift_32) {
+      $print_first->contents = function
+      (dynamic $counter, dynamic $set, dynamic $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$print_char,$print_out__0,$print_second,$unsigned_right_shift_32) {
         $match = $caml_call1($Pervasives[17], $i);
         $switcher = (int) ($match + -45);
         if (48 < $unsigned_right_shift_32($switcher, 0)) {
@@ -1004,7 +1007,8 @@ final class CamlinternalFormat {
           varray[0,$set,$mS]
         );
       };
-      $print_second->contents = function($counter, $set, $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_in,$print_out__0,$unsigned_right_shift_32) {
+      $print_second->contents = function
+      (dynamic $counter, dynamic $set, dynamic $i) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_in,$print_out__0,$unsigned_right_shift_32) {
         if ($is_in_char_set($set, $caml_call1($Pervasives[17], $i))) {
           $match = $caml_call1($Pervasives[17], $i);
           $switcher = (int) ($match + -45);
@@ -1069,7 +1073,8 @@ final class CamlinternalFormat {
         }
         return $caml_trampoline_return($print_out__0, varray[0,$set,$mR]);
       };
-      $print_in->contents = function($counter, $set, $i, $j) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_out__0) {
+      $print_in->contents = function
+      (dynamic $counter, dynamic $set, dynamic $i, dynamic $j) use ($Pervasives,$buf,$caml_call1,$caml_trampoline_return,$is_in_char_set,$print_char,$print_out__0) {
         $j__0 = $j;
         for (;;) {
           if (256 !== $j__0) {
@@ -1090,7 +1095,7 @@ final class CamlinternalFormat {
           return $mL;
         }
       };
-      $print_out->contents = function($set, $i) use ($caml_trampoline,$print_out__0) {
+      $print_out->contents = function(dynamic $set, dynamic $i) use ($caml_trampoline,$print_out__0) {
         return $caml_trampoline($print_out__0(0, $set, $i));
       };
       $buffer_add_char($buf, 91);
@@ -1102,7 +1107,7 @@ final class CamlinternalFormat {
       $print_start($mK);
       return $buffer_add_char($buf, 93);
     };
-    $bprint_padty = function($buf, $padty) use ($buffer_add_char) {
+    $bprint_padty = function(dynamic $buf, dynamic $padty) use ($buffer_add_char) {
       switch($padty) {
         // FALLTHROUGH
         case 0:
@@ -1115,17 +1120,17 @@ final class CamlinternalFormat {
           return $buffer_add_char($buf, 48);
         }
     };
-    $bprint_ignored_flag = function($buf, $ign_flag) use ($buffer_add_char) {
+    $bprint_ignored_flag = function(dynamic $buf, dynamic $ign_flag) use ($buffer_add_char) {
       return $ign_flag ? $buffer_add_char($buf, 95) : ($ign_flag);
     };
-    $bprint_pad_opt = function($buf, $pad_opt) use ($Pervasives,$buffer_add_string,$caml_call1) {
+    $bprint_pad_opt = function(dynamic $buf, dynamic $pad_opt) use ($Pervasives,$buffer_add_string,$caml_call1) {
       if ($pad_opt) {
         $width = $pad_opt[1];
         return $buffer_add_string($buf, $caml_call1($Pervasives[21], $width));
       }
       return 0;
     };
-    $bprint_padding = function($buf, $pad) use ($Pervasives,$bprint_padty,$buffer_add_char,$buffer_add_string,$caml_call1,$is_int) {
+    $bprint_padding = function(dynamic $buf, dynamic $pad) use ($Pervasives,$bprint_padty,$buffer_add_char,$buffer_add_string,$caml_call1,$is_int) {
       if ($is_int($pad)) {return 0;}
       else {
         if (0 === $pad[0]) {
@@ -1139,7 +1144,7 @@ final class CamlinternalFormat {
         return $buffer_add_char($buf, 42);
       }
     };
-    $bprint_precision = function($buf, $prec) use ($Pervasives,$buffer_add_char,$buffer_add_string,$caml_call1,$cst,$is_int) {
+    $bprint_precision = function(dynamic $buf, dynamic $prec) use ($Pervasives,$buffer_add_char,$buffer_add_string,$caml_call1,$cst,$is_int) {
       if ($is_int($prec)) {
         return 0 === $prec ? 0 : ($buffer_add_string($buf, $cst));
       }
@@ -1147,7 +1152,7 @@ final class CamlinternalFormat {
       $buffer_add_char($buf, 46);
       return $buffer_add_string($buf, $caml_call1($Pervasives[21], $n));
     };
-    $bprint_iconv_flag = function($buf, $iconv) use ($buffer_add_char) {
+    $bprint_iconv_flag = function(dynamic $buf, dynamic $iconv) use ($buffer_add_char) {
       switch($iconv) {
         // FALLTHROUGH
         case 1:
@@ -1171,7 +1176,8 @@ final class CamlinternalFormat {
           return 0;
         }
     };
-    $bprint_int_fmt = function($buf, $ign_flag, $iconv, $pad, $prec) use ($bprint_iconv_flag,$bprint_ignored_flag,$bprint_padding,$bprint_precision,$buffer_add_char,$char_of_iconv) {
+    $bprint_int_fmt = function
+    (dynamic $buf, dynamic $ign_flag, dynamic $iconv, dynamic $pad, dynamic $prec) use ($bprint_iconv_flag,$bprint_ignored_flag,$bprint_padding,$bprint_precision,$buffer_add_char,$char_of_iconv) {
       $buffer_add_char($buf, 37);
       $bprint_ignored_flag($buf, $ign_flag);
       $bprint_iconv_flag($buf, $iconv);
@@ -1179,7 +1185,8 @@ final class CamlinternalFormat {
       $bprint_precision($buf, $prec);
       return $buffer_add_char($buf, $char_of_iconv($iconv));
     };
-    $bprint_altint_fmt = function($buf, $ign_flag, $iconv, $pad, $prec, $c) use ($bprint_iconv_flag,$bprint_ignored_flag,$bprint_padding,$bprint_precision,$buffer_add_char,$char_of_iconv) {
+    $bprint_altint_fmt = function
+    (dynamic $buf, dynamic $ign_flag, dynamic $iconv, dynamic $pad, dynamic $prec, dynamic $c) use ($bprint_iconv_flag,$bprint_ignored_flag,$bprint_padding,$bprint_precision,$buffer_add_char,$char_of_iconv) {
       $buffer_add_char($buf, 37);
       $bprint_ignored_flag($buf, $ign_flag);
       $bprint_iconv_flag($buf, $iconv);
@@ -1188,7 +1195,7 @@ final class CamlinternalFormat {
       $buffer_add_char($buf, $c);
       return $buffer_add_char($buf, $char_of_iconv($iconv));
     };
-    $bprint_fconv_flag = function($buf, $fconv) use ($buffer_add_char) {
+    $bprint_fconv_flag = function(dynamic $buf, dynamic $fconv) use ($buffer_add_char) {
       switch($fconv) {
         // FALLTHROUGH
         case 1:
@@ -1225,7 +1232,8 @@ final class CamlinternalFormat {
           return 0;
         }
     };
-    $bprint_float_fmt = function($buf, $ign_flag, $fconv, $pad, $prec) use ($bprint_fconv_flag,$bprint_ignored_flag,$bprint_padding,$bprint_precision,$buffer_add_char,$char_of_fconv) {
+    $bprint_float_fmt = function
+    (dynamic $buf, dynamic $ign_flag, dynamic $fconv, dynamic $pad, dynamic $prec) use ($bprint_fconv_flag,$bprint_ignored_flag,$bprint_padding,$bprint_precision,$buffer_add_char,$char_of_fconv) {
       $buffer_add_char($buf, 37);
       $bprint_ignored_flag($buf, $ign_flag);
       $bprint_fconv_flag($buf, $fconv);
@@ -1233,7 +1241,7 @@ final class CamlinternalFormat {
       $bprint_precision($buf, $prec);
       return $buffer_add_char($buf, $char_of_fconv($fconv));
     };
-    $string_of_formatting_lit = function($formatting_lit) use ($Pervasives,$String,$caml_call2,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$cst__5,$cst__6,$cst__7,$is_int) {
+    $string_of_formatting_lit = function(dynamic $formatting_lit) use ($Pervasives,$String,$caml_call2,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$cst__5,$cst__6,$cst__7,$is_int) {
       if ($is_int($formatting_lit)) {
         switch($formatting_lit) {
           // FALLTHROUGH
@@ -1277,7 +1285,7 @@ final class CamlinternalFormat {
           }
       }
     };
-    $string_of_formatting_gen = function($formatting_gen) {
+    $string_of_formatting_gen = function(dynamic $formatting_gen) {
       if (0 === $formatting_gen[0]) {
         $match = $formatting_gen[1];
         $str = $match[2];
@@ -1287,12 +1295,12 @@ final class CamlinternalFormat {
       $str__0 = $match__0[2];
       return $str__0;
     };
-    $bprint_char_literal = function($buf, $chr) use ($buffer_add_char,$buffer_add_string,$cst__8) {
+    $bprint_char_literal = function(dynamic $buf, dynamic $chr) use ($buffer_add_char,$buffer_add_string,$cst__8) {
       return 37 === $chr
         ? $buffer_add_string($buf, $cst__8)
         : ($buffer_add_char($buf, $chr));
     };
-    $bprint_string_literal = function($buf, $str) use ($bprint_char_literal,$caml_ml_string_length,$caml_string_get) {
+    $bprint_string_literal = function(dynamic $buf, dynamic $str) use ($bprint_char_literal,$caml_ml_string_length,$caml_string_get) {
       $mH = (int) ($caml_ml_string_length($str) + -1);
       $mG = 0;
       if (! ($mH < 0)) {
@@ -1306,7 +1314,7 @@ final class CamlinternalFormat {
       }
       return 0;
     };
-    $bprint_fmtty->contents = function($buf, $fmtty) use ($bprint_fmtty,$buffer_add_string,$cst_B,$cst_Li,$cst__10,$cst__11,$cst__12,$cst__13,$cst__9,$cst_a,$cst_c,$cst_f,$cst_i,$cst_li,$cst_ni,$cst_r,$cst_r__0,$cst_s,$cst_t,$is_int) {
+    $bprint_fmtty->contents = function(dynamic $buf, dynamic $fmtty) use ($bprint_fmtty,$buffer_add_string,$cst_B,$cst_Li,$cst__10,$cst__11,$cst__12,$cst__13,$cst__9,$cst_a,$cst_c,$cst_f,$cst_i,$cst_li,$cst_ni,$cst_r,$cst_r__0,$cst_s,$cst_t,$is_int) {
       $fmtty__0 = $fmtty;
       for (;;) if (
         $is_int($fmtty__0)
@@ -1412,15 +1420,15 @@ final class CamlinternalFormat {
           }
       }
     };
-    $int_of_custom_arity->contents = function($param) use ($int_of_custom_arity) {
+    $int_of_custom_arity->contents = function(dynamic $param) use ($int_of_custom_arity) {
       if ($param) {
         $x = $param[1];
         return (int) (1 + $int_of_custom_arity->contents($x));
       }
       return 0;
     };
-    $bprint_fmt = function($buf, $fmt) use ($bprint_altint_fmt,$bprint_char_literal,$bprint_char_set,$bprint_float_fmt,$bprint_fmtty,$bprint_ignored_flag,$bprint_int_fmt,$bprint_pad_opt,$bprint_padding,$bprint_string_literal,$buffer_add_char,$buffer_add_string,$char_of_counter,$cst_0c,$cst__14,$cst__15,$int_of_custom_arity,$is_int,$param_format_of_ignored_format,$string_of_formatting_gen,$string_of_formatting_lit) {
-      $fmtiter = function($fmt, $ign_flag) use ($bprint_altint_fmt,$bprint_char_literal,$bprint_char_set,$bprint_float_fmt,$bprint_fmtty,$bprint_ignored_flag,$bprint_int_fmt,$bprint_pad_opt,$bprint_padding,$bprint_string_literal,$buf,$buffer_add_char,$buffer_add_string,$char_of_counter,$cst_0c,$cst__14,$cst__15,$int_of_custom_arity,$is_int,$param_format_of_ignored_format,$string_of_formatting_gen,$string_of_formatting_lit) {
+    $bprint_fmt = function(dynamic $buf, dynamic $fmt) use ($bprint_altint_fmt,$bprint_char_literal,$bprint_char_set,$bprint_float_fmt,$bprint_fmtty,$bprint_ignored_flag,$bprint_int_fmt,$bprint_pad_opt,$bprint_padding,$bprint_string_literal,$buffer_add_char,$buffer_add_string,$char_of_counter,$cst_0c,$cst__14,$cst__15,$int_of_custom_arity,$is_int,$param_format_of_ignored_format,$string_of_formatting_gen,$string_of_formatting_lit) {
+      $fmtiter = function(dynamic $fmt, dynamic $ign_flag) use ($bprint_altint_fmt,$bprint_char_literal,$bprint_char_set,$bprint_float_fmt,$bprint_fmtty,$bprint_ignored_flag,$bprint_int_fmt,$bprint_pad_opt,$bprint_padding,$bprint_string_literal,$buf,$buffer_add_char,$buffer_add_string,$char_of_counter,$cst_0c,$cst__14,$cst__15,$int_of_custom_arity,$is_int,$param_format_of_ignored_format,$string_of_formatting_gen,$string_of_formatting_lit) {
         $fmt__0 = $fmt;
         $ign_flag__0 = $ign_flag;
         for (;;) if (
@@ -1721,12 +1729,12 @@ final class CamlinternalFormat {
       };
       return $fmtiter($fmt, 0);
     };
-    $string_of_fmt = function($fmt) use ($bprint_fmt,$buffer_contents,$buffer_create) {
+    $string_of_fmt = function(dynamic $fmt) use ($bprint_fmt,$buffer_contents,$buffer_create) {
       $buf = $buffer_create(16);
       $bprint_fmt($buf, $fmt);
       return $buffer_contents($buf);
     };
-    $symm->contents = function($param) use ($is_int,$symm) {
+    $symm->contents = function(dynamic $param) use ($is_int,$symm) {
       if ($is_int($param)) {return 0;}
       else {
         switch($param[0]) {
@@ -1796,12 +1804,12 @@ final class CamlinternalFormat {
           }
       }
     };
-    $fmtty_rel_det->contents = function($param) use ($caml_call1,$fmtty_rel_det,$is_int,$symm,$trans) {
+    $fmtty_rel_det->contents = function(dynamic $param) use ($caml_call1,$fmtty_rel_det,$is_int,$symm,$trans) {
       if ($is_int($param)) {
-        $mf = function($param) {return 0;};
-        $mg = function($param) {return 0;};
-        $mh = function($param) {return 0;};
-        return Vector{0, function($param) {return 0;}, $mh, $mg, $mf};
+        $mf = function(dynamic $param) {return 0;};
+        $mg = function(dynamic $param) {return 0;};
+        $mh = function(dynamic $param) {return 0;};
+        return Vector{0, function(dynamic $param) {return 0;}, $mh, $mg, $mf};
       }
       else {
         switch($param[0]) {
@@ -1813,13 +1821,13 @@ final class CamlinternalFormat {
             $ed = $match[3];
             $af = $match[2];
             $fa = $match[1];
-            $mi = function($param) use ($af,$caml_call1) {
+            $mi = function(dynamic $param) use ($af,$caml_call1) {
               $caml_call1($af, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa) {
+              function(dynamic $param) use ($caml_call1,$fa) {
                 $caml_call1($fa, 0);
                 return 0;
               },
@@ -1835,13 +1843,13 @@ final class CamlinternalFormat {
             $ed__0 = $match__0[3];
             $af__0 = $match__0[2];
             $fa__0 = $match__0[1];
-            $mj = function($param) use ($af__0,$caml_call1) {
+            $mj = function(dynamic $param) use ($af__0,$caml_call1) {
               $caml_call1($af__0, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__0) {
+              function(dynamic $param) use ($caml_call1,$fa__0) {
                 $caml_call1($fa__0, 0);
                 return 0;
               },
@@ -1857,13 +1865,13 @@ final class CamlinternalFormat {
             $ed__1 = $match__1[3];
             $af__1 = $match__1[2];
             $fa__1 = $match__1[1];
-            $mk = function($param) use ($af__1,$caml_call1) {
+            $mk = function(dynamic $param) use ($af__1,$caml_call1) {
               $caml_call1($af__1, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__1) {
+              function(dynamic $param) use ($caml_call1,$fa__1) {
                 $caml_call1($fa__1, 0);
                 return 0;
               },
@@ -1879,13 +1887,13 @@ final class CamlinternalFormat {
             $ed__2 = $match__2[3];
             $af__2 = $match__2[2];
             $fa__2 = $match__2[1];
-            $ml = function($param) use ($af__2,$caml_call1) {
+            $ml = function(dynamic $param) use ($af__2,$caml_call1) {
               $caml_call1($af__2, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__2) {
+              function(dynamic $param) use ($caml_call1,$fa__2) {
                 $caml_call1($fa__2, 0);
                 return 0;
               },
@@ -1901,13 +1909,13 @@ final class CamlinternalFormat {
             $ed__3 = $match__3[3];
             $af__3 = $match__3[2];
             $fa__3 = $match__3[1];
-            $mm = function($param) use ($af__3,$caml_call1) {
+            $mm = function(dynamic $param) use ($af__3,$caml_call1) {
               $caml_call1($af__3, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__3) {
+              function(dynamic $param) use ($caml_call1,$fa__3) {
                 $caml_call1($fa__3, 0);
                 return 0;
               },
@@ -1923,13 +1931,13 @@ final class CamlinternalFormat {
             $ed__4 = $match__4[3];
             $af__4 = $match__4[2];
             $fa__4 = $match__4[1];
-            $mn = function($param) use ($af__4,$caml_call1) {
+            $mn = function(dynamic $param) use ($af__4,$caml_call1) {
               $caml_call1($af__4, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__4) {
+              function(dynamic $param) use ($caml_call1,$fa__4) {
                 $caml_call1($fa__4, 0);
                 return 0;
               },
@@ -1945,13 +1953,13 @@ final class CamlinternalFormat {
             $ed__5 = $match__5[3];
             $af__5 = $match__5[2];
             $fa__5 = $match__5[1];
-            $mo = function($param) use ($af__5,$caml_call1) {
+            $mo = function(dynamic $param) use ($af__5,$caml_call1) {
               $caml_call1($af__5, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__5) {
+              function(dynamic $param) use ($caml_call1,$fa__5) {
                 $caml_call1($fa__5, 0);
                 return 0;
               },
@@ -1967,13 +1975,13 @@ final class CamlinternalFormat {
             $ed__6 = $match__6[3];
             $af__6 = $match__6[2];
             $fa__6 = $match__6[1];
-            $mp = function($param) use ($af__6,$caml_call1) {
+            $mp = function(dynamic $param) use ($af__6,$caml_call1) {
               $caml_call1($af__6, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__6) {
+              function(dynamic $param) use ($caml_call1,$fa__6) {
                 $caml_call1($fa__6, 0);
                 return 0;
               },
@@ -1989,13 +1997,13 @@ final class CamlinternalFormat {
             $ed__7 = $match__7[3];
             $af__7 = $match__7[2];
             $fa__7 = $match__7[1];
-            $mq = function($param) use ($af__7,$caml_call1) {
+            $mq = function(dynamic $param) use ($af__7,$caml_call1) {
               $caml_call1($af__7, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__7) {
+              function(dynamic $param) use ($caml_call1,$fa__7) {
                 $caml_call1($fa__7, 0);
                 return 0;
               },
@@ -2019,24 +2027,24 @@ final class CamlinternalFormat {
             $dj = $match__9[3];
             $ga = $match__9[2];
             $ag = $match__9[1];
-            $mr = function($param) use ($caml_call1,$de__8,$jd) {
+            $mr = function(dynamic $param) use ($caml_call1,$de__8,$jd) {
               $caml_call1($jd, 0);
               $caml_call1($de__8, 0);
               return 0;
             };
-            $ms = function($param) use ($caml_call1,$dj,$ed__8) {
+            $ms = function(dynamic $param) use ($caml_call1,$dj,$ed__8) {
               $caml_call1($ed__8, 0);
               $caml_call1($dj, 0);
               return 0;
             };
-            $mt = function($param) use ($af__8,$caml_call1,$ga) {
+            $mt = function(dynamic $param) use ($af__8,$caml_call1,$ga) {
               $caml_call1($ga, 0);
               $caml_call1($af__8, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($ag,$caml_call1,$fa__8) {
+              function(dynamic $param) use ($ag,$caml_call1,$fa__8) {
                 $caml_call1($fa__8, 0);
                 $caml_call1($ag, 0);
                 return 0;
@@ -2053,13 +2061,13 @@ final class CamlinternalFormat {
             $ed__9 = $match__10[3];
             $af__9 = $match__10[2];
             $fa__9 = $match__10[1];
-            $mu = function($param) use ($af__9,$caml_call1) {
+            $mu = function(dynamic $param) use ($af__9,$caml_call1) {
               $caml_call1($af__9, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__9) {
+              function(dynamic $param) use ($caml_call1,$fa__9) {
                 $caml_call1($fa__9, 0);
                 return 0;
               },
@@ -2075,13 +2083,13 @@ final class CamlinternalFormat {
             $ed__10 = $match__11[3];
             $af__10 = $match__11[2];
             $fa__10 = $match__11[1];
-            $mv = function($param) use ($af__10,$caml_call1) {
+            $mv = function(dynamic $param) use ($af__10,$caml_call1) {
               $caml_call1($af__10, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__10) {
+              function(dynamic $param) use ($caml_call1,$fa__10) {
                 $caml_call1($fa__10, 0);
                 return 0;
               },
@@ -2097,13 +2105,13 @@ final class CamlinternalFormat {
             $ed__11 = $match__12[3];
             $af__11 = $match__12[2];
             $fa__11 = $match__12[1];
-            $mw = function($param) use ($af__11,$caml_call1) {
+            $mw = function(dynamic $param) use ($af__11,$caml_call1) {
               $caml_call1($af__11, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__11) {
+              function(dynamic $param) use ($caml_call1,$fa__11) {
                 $caml_call1($fa__11, 0);
                 return 0;
               },
@@ -2119,21 +2127,21 @@ final class CamlinternalFormat {
             $ed__12 = $match__13[3];
             $af__12 = $match__13[2];
             $fa__12 = $match__13[1];
-            $mx = function($param) use ($caml_call1,$de__12) {
+            $mx = function(dynamic $param) use ($caml_call1,$de__12) {
               $caml_call1($de__12, 0);
               return 0;
             };
-            $my = function($param) use ($caml_call1,$ed__12) {
+            $my = function(dynamic $param) use ($caml_call1,$ed__12) {
               $caml_call1($ed__12, 0);
               return 0;
             };
-            $mz = function($param) use ($af__12,$caml_call1) {
+            $mz = function(dynamic $param) use ($af__12,$caml_call1) {
               $caml_call1($af__12, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__12) {
+              function(dynamic $param) use ($caml_call1,$fa__12) {
                 $caml_call1($fa__12, 0);
                 return 0;
               },
@@ -2149,21 +2157,21 @@ final class CamlinternalFormat {
             $ed__13 = $match__14[3];
             $af__13 = $match__14[2];
             $fa__13 = $match__14[1];
-            $mA = function($param) use ($caml_call1,$de__13) {
+            $mA = function(dynamic $param) use ($caml_call1,$de__13) {
               $caml_call1($de__13, 0);
               return 0;
             };
-            $mB = function($param) use ($caml_call1,$ed__13) {
+            $mB = function(dynamic $param) use ($caml_call1,$ed__13) {
               $caml_call1($ed__13, 0);
               return 0;
             };
-            $mC = function($param) use ($af__13,$caml_call1) {
+            $mC = function(dynamic $param) use ($af__13,$caml_call1) {
               $caml_call1($af__13, 0);
               return 0;
             };
             return Vector{
               0,
-              function($param) use ($caml_call1,$fa__13) {
+              function(dynamic $param) use ($caml_call1,$fa__13) {
                 $caml_call1($fa__13, 0);
                 return 0;
               },
@@ -2174,7 +2182,7 @@ final class CamlinternalFormat {
           }
       }
     };
-    $trans->contents = function($ty1, $match) use ($Assert_failure,$caml_call1,$fmtty_rel_det,$hA,$hB,$hC,$hD,$hE,$hF,$hG,$hH,$hI,$hJ,$hK,$hL,$hM,$hN,$hO,$hz,$is_int,$runtime,$symm,$trans) {
+    $trans->contents = function(dynamic $ty1, dynamic $match) use ($Assert_failure,$caml_call1,$fmtty_rel_det,$hA,$hB,$hC,$hD,$hE,$hF,$hG,$hH,$hI,$hJ,$hK,$hL,$hM,$hN,$hO,$hz,$is_int,$runtime,$symm,$trans) {
       if ($is_int($ty1)) {
         if ($is_int($match)) {return 0;}
         else {
@@ -2904,19 +2912,19 @@ final class CamlinternalFormat {
           throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hH}) as \Throwable;
         }
     };
-    $fmtty_of_padding_fmtty = function($pad, $fmtty) use ($is_int) {
+    $fmtty_of_padding_fmtty = function(dynamic $pad, dynamic $fmtty) use ($is_int) {
       return $is_int($pad)
         ? $fmtty
         : (0 === $pad[0] ? $fmtty : (Vector{2, $fmtty}));
     };
-    $fmtty_of_custom->contents = function($arity, $fmtty) use ($fmtty_of_custom) {
+    $fmtty_of_custom->contents = function(dynamic $arity, dynamic $fmtty) use ($fmtty_of_custom) {
       if ($arity) {
         $arity__0 = $arity[1];
         return Vector{12, $fmtty_of_custom->contents($arity__0, $fmtty)};
       }
       return $fmtty;
     };
-    $fmtty_of_fmt__0 = function($counter, $fmtty) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_custom,$fmtty_of_fmt,$fmtty_of_formatting_gen,$fmtty_of_ignored_format,$fmtty_of_padding_fmtty,$fmtty_of_precision_fmtty,$is_int) {
+    $fmtty_of_fmt__0 = function(dynamic $counter, dynamic $fmtty) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_custom,$fmtty_of_fmt,$fmtty_of_formatting_gen,$fmtty_of_ignored_format,$fmtty_of_padding_fmtty,$fmtty_of_precision_fmtty,$is_int) {
       $fmtty__0 = $fmtty;
       for (;;) if (
         $is_int($fmtty__0)
@@ -3103,7 +3111,8 @@ final class CamlinternalFormat {
           }
       }
     };
-    $fmtty_of_ignored_format->contents = function($counter, $ign, $fmt) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_fmt,$fmtty_of_fmt__0,$is_int) {
+    $fmtty_of_ignored_format->contents = function
+    (dynamic $counter, dynamic $ign, dynamic $fmt) use ($CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$fmtty_of_fmt,$fmtty_of_fmt__0,$is_int) {
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -3219,10 +3228,10 @@ final class CamlinternalFormat {
           }
       }
     };
-    $fmtty_of_fmt->contents = function($fmtty) use ($caml_trampoline,$fmtty_of_fmt__0) {
+    $fmtty_of_fmt->contents = function(dynamic $fmtty) use ($caml_trampoline,$fmtty_of_fmt__0) {
       return $caml_trampoline($fmtty_of_fmt__0(0, $fmtty));
     };
-    $fmtty_of_formatting_gen->contents = function($formatting_gen) use ($fmtty_of_fmt) {
+    $fmtty_of_formatting_gen->contents = function(dynamic $formatting_gen) use ($fmtty_of_fmt) {
       if (0 === $formatting_gen[0]) {
         $match = $formatting_gen[1];
         $fmt = $match[1];
@@ -3232,7 +3241,8 @@ final class CamlinternalFormat {
       $fmt__0 = $match__0[1];
       return $fmtty_of_fmt->contents($fmt__0);
     };
-    $fmtty_of_precision_fmtty->contents = function($prec, $fmtty) use ($is_int) {
+    $fmtty_of_precision_fmtty->contents = function
+    (dynamic $prec, dynamic $fmtty) use ($is_int) {
       return $is_int($prec)
         ? 0 === $prec ? $fmtty : (Vector{2, $fmtty})
         : ($fmtty);
@@ -3242,7 +3252,7 @@ final class CamlinternalFormat {
       $cst_CamlinternalFormat_Type_mismatch,
       $runtime["caml_fresh_oo_id"](0)
     };
-    $type_padding = function($pad, $match) use ($Type_mismatch,$is_int,$runtime) {
+    $type_padding = function(dynamic $pad, dynamic $match) use ($Type_mismatch,$is_int,$runtime) {
       if ($is_int($pad)) {
         return Vector{0, 0, $match};
       }
@@ -3260,7 +3270,7 @@ final class CamlinternalFormat {
         throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
       }
     };
-    $type_padprec = function($pad, $prec, $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_padding) {
+    $type_padprec = function(dynamic $pad, dynamic $prec, dynamic $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_padding) {
       $match = $type_padding($pad, $fmtty);
       if ($is_int($prec)) {
         if (0 === $prec) {
@@ -3281,18 +3291,19 @@ final class CamlinternalFormat {
       $p = $prec[1];
       return Vector{0, $pad__2, Vector{0, $p}, $rest__1};
     };
-    $type_format = function($fmt, $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_format_gen) {
+    $type_format = function(dynamic $fmt, dynamic $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_format_gen) {
       $lS = $type_format_gen->contents($fmt, $fmtty);
       if ($is_int($lS[2])) {$fmt__0 = $lS[1];return $fmt__0;}
       throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
     };
-    $type_ignored_param_one = function($ign, $fmt, $fmtty) use ($type_format_gen) {
+    $type_ignored_param_one = function
+    (dynamic $ign, dynamic $fmt, dynamic $fmtty) use ($type_format_gen) {
       $match = $type_format_gen->contents($fmt, $fmtty);
       $fmtty__0 = $match[2];
       $fmt__0 = $match[1];
       return Vector{0, Vector{23, $ign, $fmt__0}, $fmtty__0};
     };
-    $type_ignored_param = function($ign, $fmt, $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_format_gen,$type_ignored_format_substitution,$type_ignored_param_one) {
+    $type_ignored_param = function(dynamic $ign, dynamic $fmt, dynamic $fmtty) use ($Type_mismatch,$is_int,$runtime,$type_format_gen,$type_ignored_format_substitution,$type_ignored_param_one) {
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -3378,7 +3389,8 @@ final class CamlinternalFormat {
           }
       }
     };
-    $type_formatting_gen = function($formatting_gen, $fmt0, $fmtty0) use ($type_format_gen) {
+    $type_formatting_gen = function
+    (dynamic $formatting_gen, dynamic $fmt0, dynamic $fmtty0) use ($type_format_gen) {
       if (0 === $formatting_gen[0]) {
         $match = $formatting_gen[1];
         $str = $match[2];
@@ -3410,7 +3422,7 @@ final class CamlinternalFormat {
         $fmtty3__0
       };
     };
-    $type_format_gen->contents = function($fmt, $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$is_int,$runtime,$type_format_gen,$type_formatting_gen,$type_ignored_param,$type_padding,$type_padprec) {
+    $type_format_gen->contents = function(dynamic $fmt, dynamic $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$is_int,$runtime,$type_format_gen,$type_formatting_gen,$type_ignored_param,$type_padding,$type_padprec) {
       if ($is_int($fmt)) {
         return Vector{0, 0, $match};
       }
@@ -3802,7 +3814,7 @@ final class CamlinternalFormat {
       throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
     };
     $type_ignored_format_substitution->contents = function
-    ($sub_fmtty, $fmt, $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$fmtty_rel_det,$is_int,$runtime,$symm,$trans,$type_format_gen,$type_ignored_format_substitution) {
+    (dynamic $sub_fmtty, dynamic $fmt, dynamic $match) use ($CamlinternalFormatBasics,$Type_mismatch,$caml_call1,$caml_notequal,$fmtty_rel_det,$is_int,$runtime,$symm,$trans,$type_format_gen,$type_ignored_format_substitution) {
       if ($is_int($sub_fmtty)) {
         return Vector{0, 0, $type_format_gen->contents($fmt, $match)};
       }
@@ -4088,12 +4100,12 @@ final class CamlinternalFormat {
       }
       throw $runtime["caml_wrap_thrown_exception"]($Type_mismatch) as \Throwable;
     };
-    $recast = function($fmt, $fmtty) use ($CamlinternalFormatBasics,$caml_call1,$symm,$type_format) {
+    $recast = function(dynamic $fmt, dynamic $fmtty) use ($CamlinternalFormatBasics,$caml_call1,$symm,$type_format) {
       $lk = $symm->contents($fmtty);
       return $type_format($fmt, $caml_call1($CamlinternalFormatBasics[2], $lk)
       );
     };
-    $fix_padding = function($padty, $width, $str) use ($Bytes,$Pervasives,$String,$caml_bytes_set,$caml_call1,$caml_call2,$caml_call5,$caml_ml_string_length,$caml_string_get) {
+    $fix_padding = function(dynamic $padty, dynamic $width, dynamic $str) use ($Bytes,$Pervasives,$String,$caml_bytes_set,$caml_call1,$caml_call2,$caml_call5,$caml_ml_string_length,$caml_string_get) {
       $len = $caml_ml_string_length($str);
       $padty__0 = 0 <= $width ? $padty : (0);
       $width__0 = $caml_call1($Pervasives[6], $width);
@@ -4185,7 +4197,7 @@ final class CamlinternalFormat {
         }
       return $caml_call1($Bytes[42], $res);
     };
-    $fix_int_precision = function($prec, $str) use ($Bytes,$Pervasives,$String,$caml_bytes_set,$caml_call1,$caml_call2,$caml_call5,$caml_ml_string_length,$caml_string_get,$unsigned_right_shift_32) {
+    $fix_int_precision = function(dynamic $prec, dynamic $str) use ($Bytes,$Pervasives,$String,$caml_bytes_set,$caml_call1,$caml_call2,$caml_call5,$caml_ml_string_length,$caml_string_get,$unsigned_right_shift_32) {
       $prec__0 = $caml_call1($Pervasives[6], $prec);
       $len = $caml_ml_string_length($str);
       $c = $caml_string_get($str, 0);
@@ -4281,14 +4293,14 @@ final class CamlinternalFormat {
       }
       return $str;
     };
-    $string_to_caml_string = function($str) use ($Bytes,$String,$caml_blit_string,$caml_call1,$caml_call2,$caml_ml_string_length) {
+    $string_to_caml_string = function(dynamic $str) use ($Bytes,$String,$caml_blit_string,$caml_call1,$caml_call2,$caml_ml_string_length) {
       $str__0 = $caml_call1($String[13], $str);
       $l = $caml_ml_string_length($str__0);
       $res = $caml_call2($Bytes[1], (int) ($l + 2), 34);
       $caml_blit_string($str__0, 0, $res, 1, $l);
       return $caml_call1($Bytes[42], $res);
     };
-    $format_of_iconv = function($param) use ($cst_X,$cst_X__0,$cst_d,$cst_d__0,$cst_d__1,$cst_i__0,$cst_i__1,$cst_i__2,$cst_o,$cst_o__0,$cst_u,$cst_x,$cst_x__0) {
+    $format_of_iconv = function(dynamic $param) use ($cst_X,$cst_X__0,$cst_d,$cst_d__0,$cst_d__1,$cst_i__0,$cst_i__1,$cst_i__2,$cst_o,$cst_o__0,$cst_u,$cst_x,$cst_x__0) {
       switch($param) {
         // FALLTHROUGH
         case 0:
@@ -4331,7 +4343,7 @@ final class CamlinternalFormat {
           return $cst_u;
         }
     };
-    $format_of_iconvL = function($param) use ($cst_LX,$cst_LX__0,$cst_Ld,$cst_Ld__0,$cst_Ld__1,$cst_Li__0,$cst_Li__1,$cst_Li__2,$cst_Lo,$cst_Lo__0,$cst_Lu,$cst_Lx,$cst_Lx__0) {
+    $format_of_iconvL = function(dynamic $param) use ($cst_LX,$cst_LX__0,$cst_Ld,$cst_Ld__0,$cst_Ld__1,$cst_Li__0,$cst_Li__1,$cst_Li__2,$cst_Lo,$cst_Lo__0,$cst_Lu,$cst_Lx,$cst_Lx__0) {
       switch($param) {
         // FALLTHROUGH
         case 0:
@@ -4374,7 +4386,7 @@ final class CamlinternalFormat {
           return $cst_Lu;
         }
     };
-    $format_of_iconvl = function($param) use ($cst_lX,$cst_lX__0,$cst_ld,$cst_ld__0,$cst_ld__1,$cst_li__0,$cst_li__1,$cst_li__2,$cst_lo,$cst_lo__0,$cst_lu,$cst_lx,$cst_lx__0) {
+    $format_of_iconvl = function(dynamic $param) use ($cst_lX,$cst_lX__0,$cst_ld,$cst_ld__0,$cst_ld__1,$cst_li__0,$cst_li__1,$cst_li__2,$cst_lo,$cst_lo__0,$cst_lu,$cst_lx,$cst_lx__0) {
       switch($param) {
         // FALLTHROUGH
         case 0:
@@ -4417,7 +4429,7 @@ final class CamlinternalFormat {
           return $cst_lu;
         }
     };
-    $format_of_iconvn = function($param) use ($cst_nX,$cst_nX__0,$cst_nd,$cst_nd__0,$cst_nd__1,$cst_ni__0,$cst_ni__1,$cst_ni__2,$cst_no,$cst_no__0,$cst_nu,$cst_nx,$cst_nx__0) {
+    $format_of_iconvn = function(dynamic $param) use ($cst_nX,$cst_nX__0,$cst_nd,$cst_nd__0,$cst_nd__1,$cst_ni__0,$cst_ni__1,$cst_ni__2,$cst_no,$cst_no__0,$cst_nu,$cst_nx,$cst_nx__0) {
       switch($param) {
         // FALLTHROUGH
         case 0:
@@ -4460,7 +4472,7 @@ final class CamlinternalFormat {
           return $cst_nu;
         }
     };
-    $format_of_fconv = function($fconv, $prec) use ($Pervasives,$bprint_fconv_flag,$buffer_add_char,$buffer_add_string,$buffer_contents,$buffer_create,$caml_call1,$char_of_fconv,$cst_12g) {
+    $format_of_fconv = function(dynamic $fconv, dynamic $prec) use ($Pervasives,$bprint_fconv_flag,$buffer_add_char,$buffer_add_string,$buffer_contents,$buffer_create,$caml_call1,$char_of_fconv,$cst_12g) {
       if (15 === $fconv) {return $cst_12g;}
       $prec__0 = $caml_call1($Pervasives[6], $prec);
       $symb = $char_of_fconv($fconv);
@@ -4472,19 +4484,19 @@ final class CamlinternalFormat {
       $buffer_add_char($buf, $symb);
       return $buffer_contents($buf);
     };
-    $convert_int = function($iconv, $n) use ($caml_format_int,$format_of_iconv) {
+    $convert_int = function(dynamic $iconv, dynamic $n) use ($caml_format_int,$format_of_iconv) {
       return $caml_format_int($format_of_iconv($iconv), $n);
     };
-    $convert_int32 = function($iconv, $n) use ($caml_format_int,$format_of_iconvl) {
+    $convert_int32 = function(dynamic $iconv, dynamic $n) use ($caml_format_int,$format_of_iconvl) {
       return $caml_format_int($format_of_iconvl($iconv), $n);
     };
-    $convert_nativeint = function($iconv, $n) use ($caml_format_int,$format_of_iconvn) {
+    $convert_nativeint = function(dynamic $iconv, dynamic $n) use ($caml_format_int,$format_of_iconvn) {
       return $caml_format_int($format_of_iconvn($iconv), $n);
     };
-    $convert_int64 = function($iconv, $n) use ($format_of_iconvL,$runtime) {
+    $convert_int64 = function(dynamic $iconv, dynamic $n) use ($format_of_iconvL,$runtime) {
       return $runtime["caml_int64_format"]($format_of_iconvL($iconv), $n);
     };
-    $convert_float = function($fconv, $prec, $x) use ($Pervasives,$String,$caml_call1,$caml_call2,$caml_ml_string_length,$caml_string_get,$cst__16,$cst_infinity,$cst_nan,$cst_neg_infinity,$format_of_fconv,$runtime,$unsigned_right_shift_32) {
+    $convert_float = function(dynamic $fconv, dynamic $prec, dynamic $x) use ($Pervasives,$String,$caml_call1,$caml_call2,$caml_ml_string_length,$caml_string_get,$cst__16,$cst_infinity,$cst_nan,$cst_neg_infinity,$format_of_fconv,$runtime,$unsigned_right_shift_32) {
       if (16 <= $fconv) {
         if (17 <= $fconv) {
           switch((int) ($fconv + -17)) {
@@ -4516,7 +4528,7 @@ final class CamlinternalFormat {
       );
       if (15 === $fconv) {
         $len = $caml_ml_string_length($str__0);
-        $is_valid = function($i) use ($caml_string_get,$len,$str__0,$unsigned_right_shift_32) {
+        $is_valid = function(dynamic $i) use ($caml_string_get,$len,$str__0,$unsigned_right_shift_32) {
           $i__0 = $i;
           for (;;) {
             if ($i__0 === $len) {return 0;}
@@ -4542,36 +4554,36 @@ final class CamlinternalFormat {
       }
       return $str__0;
     };
-    $format_caml_char = function($c) use ($Bytes,$Char,$caml_blit_string,$caml_call1,$caml_call2,$caml_ml_string_length) {
+    $format_caml_char = function(dynamic $c) use ($Bytes,$Char,$caml_blit_string,$caml_call1,$caml_call2,$caml_ml_string_length) {
       $str = $caml_call1($Char[2], $c);
       $l = $caml_ml_string_length($str);
       $res = $caml_call2($Bytes[1], (int) ($l + 2), 39);
       $caml_blit_string($str, 0, $res, 1, $l);
       return $caml_call1($Bytes[42], $res);
     };
-    $string_of_fmtty = function($fmtty) use ($bprint_fmtty,$buffer_contents,$buffer_create) {
+    $string_of_fmtty = function(dynamic $fmtty) use ($bprint_fmtty,$buffer_contents,$buffer_create) {
       $buf = $buffer_create(16);
       $bprint_fmtty->contents($buf, $fmtty);
       return $buffer_contents($buf);
     };
     $make_float_padding_precision = function
-    ($k, $o, $acc, $fmt, $pad, $match, $fconv) use ($convert_float,$default_float_precision,$fix_padding,$is_int,$make_printf) {
+    (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt, dynamic $pad, dynamic $match, dynamic $fconv) use ($convert_float,$default_float_precision,$fix_padding,$is_int,$make_printf) {
       if ($is_int($pad)) {
         if ($is_int($match)) {
           return 0 === $match
-            ? function($x) use ($acc,$convert_float,$default_float_precision,$fconv,$fmt,$k,$make_printf,$o) {
+            ? function(dynamic $x) use ($acc,$convert_float,$default_float_precision,$fconv,$fmt,$k,$make_printf,$o) {
              $str = $convert_float($fconv, $default_float_precision, $x);
              return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt
              );
            }
-            : (function($p, $x) use ($acc,$convert_float,$fconv,$fmt,$k,$make_printf,$o) {
+            : (function(dynamic $p, dynamic $x) use ($acc,$convert_float,$fconv,$fmt,$k,$make_printf,$o) {
              $str = $convert_float($fconv, $p, $x);
              return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt
              );
            });
         }
         $p = $match[1];
-        return function($x) use ($acc,$convert_float,$fconv,$fmt,$k,$make_printf,$o,$p) {
+        return function(dynamic $x) use ($acc,$convert_float,$fconv,$fmt,$k,$make_printf,$o,$p) {
           $str = $convert_float($fconv, $p, $x);
           return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt);
         };
@@ -4582,7 +4594,7 @@ final class CamlinternalFormat {
           $lg = $pad[1];
           if ($is_int($match)) {
             return 0 === $match
-              ? function($x) use ($acc,$convert_float,$default_float_precision,$fconv,$fix_padding,$fmt,$k,$lf,$lg,$make_printf,$o) {
+              ? function(dynamic $x) use ($acc,$convert_float,$default_float_precision,$fconv,$fix_padding,$fmt,$k,$lf,$lg,$make_printf,$o) {
                $str = $convert_float($fconv, $default_float_precision, $x);
                $str__0 = $fix_padding($lg, $lf, $str);
                return $make_printf->contents(
@@ -4592,7 +4604,7 @@ final class CamlinternalFormat {
                  $fmt
                );
              }
-              : (function($p, $x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lf,$lg,$make_printf,$o) {
+              : (function(dynamic $p, dynamic $x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lf,$lg,$make_printf,$o) {
                $str = $fix_padding($lg, $lf, $convert_float($fconv, $p, $x));
                return $make_printf->contents(
                  $k,
@@ -4603,7 +4615,7 @@ final class CamlinternalFormat {
              });
           }
           $p__0 = $match[1];
-          return function($x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lf,$lg,$make_printf,$o,$p__0) {
+          return function(dynamic $x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lf,$lg,$make_printf,$o,$p__0) {
             $str = $fix_padding($lg, $lf, $convert_float($fconv, $p__0, $x));
             return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt);
           };
@@ -4611,7 +4623,7 @@ final class CamlinternalFormat {
         $lh = $pad[1];
         if ($is_int($match)) {
           return 0 === $match
-            ? function($w, $x) use ($acc,$convert_float,$default_float_precision,$fconv,$fix_padding,$fmt,$k,$lh,$make_printf,$o) {
+            ? function(dynamic $w, dynamic $x) use ($acc,$convert_float,$default_float_precision,$fconv,$fix_padding,$fmt,$k,$lh,$make_printf,$o) {
              $str = $convert_float($fconv, $default_float_precision, $x);
              $str__0 = $fix_padding($lh, $w, $str);
              return $make_printf->contents(
@@ -4621,37 +4633,37 @@ final class CamlinternalFormat {
                $fmt
              );
            }
-            : (function($w, $p, $x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lh,$make_printf,$o) {
+            : (function(dynamic $w, dynamic $p, dynamic $x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lh,$make_printf,$o) {
              $str = $fix_padding($lh, $w, $convert_float($fconv, $p, $x));
              return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt
              );
            });
         }
         $p__1 = $match[1];
-        return function($w, $x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lh,$make_printf,$o,$p__1) {
+        return function(dynamic $w, dynamic $x) use ($acc,$convert_float,$fconv,$fix_padding,$fmt,$k,$lh,$make_printf,$o,$p__1) {
           $str = $fix_padding($lh, $w, $convert_float($fconv, $p__1, $x));
           return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt);
         };
       }
     };
     $make_int_padding_precision = function
-    ($k, $o, $acc, $fmt, $pad, $match, $trans, $iconv) use ($caml_call2,$fix_int_precision,$fix_padding,$is_int,$make_printf) {
+    (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt, dynamic $pad, dynamic $match, dynamic $trans, dynamic $iconv) use ($caml_call2,$fix_int_precision,$fix_padding,$is_int,$make_printf) {
       if ($is_int($pad)) {
         if ($is_int($match)) {
           return 0 === $match
-            ? function($x) use ($acc,$caml_call2,$fmt,$iconv,$k,$make_printf,$o,$trans) {
+            ? function(dynamic $x) use ($acc,$caml_call2,$fmt,$iconv,$k,$make_printf,$o,$trans) {
              $str = $caml_call2($trans, $iconv, $x);
              return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt
              );
            }
-            : (function($p, $x) use ($acc,$caml_call2,$fix_int_precision,$fmt,$iconv,$k,$make_printf,$o,$trans) {
+            : (function(dynamic $p, dynamic $x) use ($acc,$caml_call2,$fix_int_precision,$fmt,$iconv,$k,$make_printf,$o,$trans) {
              $str = $fix_int_precision($p, $caml_call2($trans, $iconv, $x));
              return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt
              );
            });
         }
         $p = $match[1];
-        return function($x) use ($acc,$caml_call2,$fix_int_precision,$fmt,$iconv,$k,$make_printf,$o,$p,$trans) {
+        return function(dynamic $x) use ($acc,$caml_call2,$fix_int_precision,$fmt,$iconv,$k,$make_printf,$o,$p,$trans) {
           $str = $fix_int_precision($p, $caml_call2($trans, $iconv, $x));
           return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt);
         };
@@ -4662,7 +4674,7 @@ final class CamlinternalFormat {
           $ld = $pad[1];
           if ($is_int($match)) {
             return 0 === $match
-              ? function($x) use ($acc,$caml_call2,$fix_padding,$fmt,$iconv,$k,$lc,$ld,$make_printf,$o,$trans) {
+              ? function(dynamic $x) use ($acc,$caml_call2,$fix_padding,$fmt,$iconv,$k,$lc,$ld,$make_printf,$o,$trans) {
                $str = $fix_padding($ld, $lc, $caml_call2($trans, $iconv, $x));
                return $make_printf->contents(
                  $k,
@@ -4671,7 +4683,7 @@ final class CamlinternalFormat {
                  $fmt
                );
              }
-              : (function($p, $x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$lc,$ld,$make_printf,$o,$trans) {
+              : (function(dynamic $p, dynamic $x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$lc,$ld,$make_printf,$o,$trans) {
                $str = $fix_padding(
                  $ld,
                  $lc,
@@ -4686,7 +4698,7 @@ final class CamlinternalFormat {
              });
           }
           $p__0 = $match[1];
-          return function($x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$lc,$ld,$make_printf,$o,$p__0,$trans) {
+          return function(dynamic $x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$lc,$ld,$make_printf,$o,$p__0,$trans) {
             $str = $fix_padding(
               $ld,
               $lc,
@@ -4698,12 +4710,12 @@ final class CamlinternalFormat {
         $le = $pad[1];
         if ($is_int($match)) {
           return 0 === $match
-            ? function($w, $x) use ($acc,$caml_call2,$fix_padding,$fmt,$iconv,$k,$le,$make_printf,$o,$trans) {
+            ? function(dynamic $w, dynamic $x) use ($acc,$caml_call2,$fix_padding,$fmt,$iconv,$k,$le,$make_printf,$o,$trans) {
              $str = $fix_padding($le, $w, $caml_call2($trans, $iconv, $x));
              return $make_printf->contents($k, $o, Vector{4, $acc, $str}, $fmt
              );
            }
-            : (function($w, $p, $x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$le,$make_printf,$o,$trans) {
+            : (function(dynamic $w, dynamic $p, dynamic $x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$le,$make_printf,$o,$trans) {
              $str = $fix_padding(
                $le,
                $w,
@@ -4714,7 +4726,7 @@ final class CamlinternalFormat {
            });
         }
         $p__1 = $match[1];
-        return function($w, $x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$le,$make_printf,$o,$p__1,$trans) {
+        return function(dynamic $w, dynamic $x) use ($acc,$caml_call2,$fix_int_precision,$fix_padding,$fmt,$iconv,$k,$le,$make_printf,$o,$p__1,$trans) {
           $str = $fix_padding(
             $le,
             $w,
@@ -4724,9 +4736,10 @@ final class CamlinternalFormat {
         };
       }
     };
-    $make_padding = function($k, $o, $acc, $fmt, $pad, $trans) use ($caml_call1,$fix_padding,$is_int,$make_printf) {
+    $make_padding = function
+    (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt, dynamic $pad, dynamic $trans) use ($caml_call1,$fix_padding,$is_int,$make_printf) {
       if ($is_int($pad)) {
-        return function($x) use ($acc,$caml_call1,$fmt,$k,$make_printf,$o,$trans) {
+        return function(dynamic $x) use ($acc,$caml_call1,$fmt,$k,$make_printf,$o,$trans) {
           $new_acc = Vector{4, $acc, $caml_call1($trans, $x)};
           return $make_printf->contents($k, $o, $new_acc, $fmt);
         };
@@ -4735,7 +4748,7 @@ final class CamlinternalFormat {
         if (0 === $pad[0]) {
           $width = $pad[2];
           $padty = $pad[1];
-          return function($x) use ($acc,$caml_call1,$fix_padding,$fmt,$k,$make_printf,$o,$padty,$trans,$width) {
+          return function(dynamic $x) use ($acc,$caml_call1,$fix_padding,$fmt,$k,$make_printf,$o,$padty,$trans,$width) {
             $new_acc = Vector{
               4,
               $acc,
@@ -4745,7 +4758,7 @@ final class CamlinternalFormat {
           };
         }
         $padty__0 = $pad[1];
-        return function($w, $x) use ($acc,$caml_call1,$fix_padding,$fmt,$k,$make_printf,$o,$padty__0,$trans) {
+        return function(dynamic $w, dynamic $x) use ($acc,$caml_call1,$fix_padding,$fmt,$k,$make_printf,$o,$padty__0,$trans) {
           $new_acc = Vector{
             4,
             $acc,
@@ -4755,7 +4768,8 @@ final class CamlinternalFormat {
         };
       }
     };
-    $make_printf__0 = function($counter, $k, $o, $acc, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$Pervasives,$caml_call1,$caml_call2,$caml_format_int,$caml_trampoline_return,$convert_int,$convert_int32,$convert_int64,$convert_nativeint,$cst_Printf_bad_conversion,$cst_u__0,$format_caml_char,$hP,$is_int,$make_custom__0,$make_float_padding_precision,$make_ignored_param__0,$make_int_padding_precision,$make_padding,$make_printf,$recast,$runtime,$string_of_fmtty,$string_to_caml_string) {
+    $make_printf__0 = function
+    (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$Pervasives,$caml_call1,$caml_call2,$caml_format_int,$caml_trampoline_return,$convert_int,$convert_int32,$convert_int64,$convert_nativeint,$cst_Printf_bad_conversion,$cst_u__0,$format_caml_char,$hP,$is_int,$make_custom__0,$make_float_padding_precision,$make_ignored_param__0,$make_int_padding_precision,$make_padding,$make_printf,$recast,$runtime,$string_of_fmtty,$string_to_caml_string) {
       $k__0 = $k;
       $acc__0 = $acc;
       $fmt__0 = $fmt;
@@ -4767,14 +4781,14 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 0:
             $rest = $fmt__0[1];
-            return function($c) use ($acc__0,$k__0,$make_printf,$o,$rest) {
+            return function(dynamic $c) use ($acc__0,$k__0,$make_printf,$o,$rest) {
               $new_acc = Vector{5, $acc__0, $c};
               return $make_printf->contents($k__0, $o, $new_acc, $rest);
             };
           // FALLTHROUGH
           case 1:
             $rest__0 = $fmt__0[1];
-            return function($c) use ($acc__0,$format_caml_char,$k__0,$make_printf,$o,$rest__0) {
+            return function(dynamic $c) use ($acc__0,$format_caml_char,$k__0,$make_printf,$o,$rest__0) {
               $new_acc = Vector{4, $acc__0, $format_caml_char($c)};
               return $make_printf->contents($k__0, $o, $new_acc, $rest__0);
             };
@@ -4788,7 +4802,7 @@ final class CamlinternalFormat {
               $acc__0,
               $rest__1,
               $pad,
-              function($str) {return $str;}
+              function(dynamic $str) {return $str;}
             );
           // FALLTHROUGH
           case 3:
@@ -4921,7 +4935,7 @@ final class CamlinternalFormat {
             $rest__9 = $fmt__0[3];
             $sub_fmtty = $fmt__0[2];
             $ty = $string_of_fmtty($sub_fmtty);
-            return function($str) use ($acc__0,$k__0,$make_printf,$o,$rest__9,$ty) {
+            return function(dynamic $str) use ($acc__0,$k__0,$make_printf,$o,$rest__9,$ty) {
               return $make_printf->contents(
                 $k__0,
                 $o,
@@ -4933,7 +4947,7 @@ final class CamlinternalFormat {
           case 14:
             $rest__10 = $fmt__0[3];
             $fmtty = $fmt__0[2];
-            return function($param) use ($CamlinternalFormatBasics,$acc__0,$caml_call2,$fmtty,$k__0,$make_printf,$o,$recast,$rest__10) {
+            return function(dynamic $param) use ($CamlinternalFormatBasics,$acc__0,$caml_call2,$fmtty,$k__0,$make_printf,$o,$recast,$rest__10) {
               $fmt = $param[1];
               $lb = $recast($fmt, $fmtty);
               return $make_printf->contents(
@@ -4946,14 +4960,14 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 15:
             $rest__11 = $fmt__0[1];
-            return function($f, $x) use ($acc__0,$caml_call2,$k__0,$make_printf,$o,$rest__11) {
+            return function(dynamic $f, dynamic $x) use ($acc__0,$caml_call2,$k__0,$make_printf,$o,$rest__11) {
               return $make_printf->contents(
                 $k__0,
                 $o,
                 Vector{
                   6,
                   $acc__0,
-                  function($o) use ($caml_call2,$f,$x) {
+                  function(dynamic $o) use ($caml_call2,$f,$x) {
                     return $caml_call2($f, $o, $x);
                   }
                 },
@@ -4963,7 +4977,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 16:
             $rest__12 = $fmt__0[1];
-            return function($f) use ($acc__0,$k__0,$make_printf,$o,$rest__12) {
+            return function(dynamic $f) use ($acc__0,$k__0,$make_printf,$o,$rest__12) {
               return $make_printf->contents(
                 $k__0,
                 $o,
@@ -4986,8 +5000,8 @@ final class CamlinternalFormat {
               $rest__13 = $fmt__0[2];
               $match = $k_[1];
               $fmt__5 = $match[1];
-              $k__3 = function($acc, $k, $rest) use ($make_printf) {
-                $k__0 = function($koc, $kacc) use ($acc,$k,$make_printf,$rest) {
+              $k__3 = function(dynamic $acc, dynamic $k, dynamic $rest) use ($make_printf) {
+                $k__0 = function(dynamic $koc, dynamic $kacc) use ($acc,$k,$make_printf,$rest) {
                   return $make_printf->contents(
                     $k,
                     $koc,
@@ -5006,8 +5020,8 @@ final class CamlinternalFormat {
             $rest__14 = $fmt__0[2];
             $match__0 = $k_[1];
             $fmt__6 = $match__0[1];
-            $k__4 = function($acc, $k, $rest) use ($make_printf) {
-              $k__0 = function($koc, $kacc) use ($acc,$k,$make_printf,$rest) {
+            $k__4 = function(dynamic $acc, dynamic $k, dynamic $rest) use ($make_printf) {
+              $k__0 = function(dynamic $koc, dynamic $kacc) use ($acc,$k,$make_printf,$rest) {
                 return $make_printf->contents(
                   $k,
                   $koc,
@@ -5029,20 +5043,20 @@ final class CamlinternalFormat {
           case 20:
             $rest__15 = $fmt__0[3];
             $new_acc = Vector{8, $acc__0, $cst_Printf_bad_conversion};
-            return function($param) use ($k__0,$make_printf,$new_acc,$o,$rest__15) {
+            return function(dynamic $param) use ($k__0,$make_printf,$new_acc,$o,$rest__15) {
               return $make_printf->contents($k__0, $o, $new_acc, $rest__15);
             };
           // FALLTHROUGH
           case 21:
             $rest__16 = $fmt__0[2];
-            return function($n) use ($acc__0,$caml_format_int,$cst_u__0,$k__0,$make_printf,$o,$rest__16) {
+            return function(dynamic $n) use ($acc__0,$caml_format_int,$cst_u__0,$k__0,$make_printf,$o,$rest__16) {
               $new_acc = Vector{4, $acc__0, $caml_format_int($cst_u__0, $n)};
               return $make_printf->contents($k__0, $o, $new_acc, $rest__16);
             };
           // FALLTHROUGH
           case 22:
             $rest__17 = $fmt__0[1];
-            return function($c) use ($acc__0,$k__0,$make_printf,$o,$rest__17) {
+            return function(dynamic $c) use ($acc__0,$k__0,$make_printf,$o,$rest__17) {
               $new_acc = Vector{5, $acc__0, $c};
               return $make_printf->contents($k__0, $o, $new_acc, $rest__17);
             };
@@ -5091,7 +5105,7 @@ final class CamlinternalFormat {
       }
     };
     $make_ignored_param__0->contents = function
-    ($counter, $k, $o, $acc, $ign, $fmt) use ($Assert_failure,$caml_trampoline_return,$hQ,$is_int,$make_from_fmtty__0,$make_invalid_arg,$runtime) {
+    (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $ign, dynamic $fmt) use ($Assert_failure,$caml_trampoline_return,$hQ,$is_int,$make_from_fmtty__0,$make_invalid_arg,$runtime) {
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -5347,7 +5361,7 @@ final class CamlinternalFormat {
       }
     };
     $make_from_fmtty__0->contents = function
-    ($counter, $k, $o, $acc, $fmtty, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$hR,$hS,$is_int,$make_from_fmtty,$make_invalid_arg,$runtime,$symm,$trans) {
+    (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $fmtty, dynamic $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call2,$caml_trampoline_return,$hR,$hS,$is_int,$make_from_fmtty,$make_invalid_arg,$runtime,$symm,$trans) {
       if ($is_int($fmtty)) {
         if ($counter < 50) {
           $counter__0 = (int) ($counter + 1);
@@ -5363,55 +5377,55 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 0:
             $rest = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest, $fmt);
             };
           // FALLTHROUGH
           case 1:
             $rest__0 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__0) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__0) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__0, $fmt);
             };
           // FALLTHROUGH
           case 2:
             $rest__1 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__1) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__1) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__1, $fmt);
             };
           // FALLTHROUGH
           case 3:
             $rest__2 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__2) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__2) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__2, $fmt);
             };
           // FALLTHROUGH
           case 4:
             $rest__3 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__3) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__3) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__3, $fmt);
             };
           // FALLTHROUGH
           case 5:
             $rest__4 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__4) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__4) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__4, $fmt);
             };
           // FALLTHROUGH
           case 6:
             $rest__5 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__5) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__5) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__5, $fmt);
             };
           // FALLTHROUGH
           case 7:
             $rest__6 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__6) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__6) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__6, $fmt);
             };
           // FALLTHROUGH
           case 8:
             $rest__7 = $fmtty[2];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__7) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__7) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__7, $fmt);
             };
           // FALLTHROUGH
@@ -5420,7 +5434,7 @@ final class CamlinternalFormat {
             $ty2 = $fmtty[2];
             $ty1 = $fmtty[1];
             $ty = $trans->contents($symm->contents($ty1), $ty2);
-            return function($param) use ($CamlinternalFormatBasics,$acc,$caml_call2,$fmt,$k,$make_from_fmtty,$o,$rest__8,$ty) {
+            return function(dynamic $param) use ($CamlinternalFormatBasics,$acc,$caml_call2,$fmt,$k,$make_from_fmtty,$o,$rest__8,$ty) {
               return $make_from_fmtty->contents(
                 $k,
                 $o,
@@ -5432,19 +5446,19 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 10:
             $rest__9 = $fmtty[1];
-            return function($param, $k9) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__9) {
+            return function(dynamic $param, dynamic $k9) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__9) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__9, $fmt);
             };
           // FALLTHROUGH
           case 11:
             $rest__10 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__10) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__10) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__10, $fmt);
             };
           // FALLTHROUGH
           case 12:
             $rest__11 = $fmtty[1];
-            return function($param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__11) {
+            return function(dynamic $param) use ($acc,$fmt,$k,$make_from_fmtty,$o,$rest__11) {
               return $make_from_fmtty->contents($k, $o, $acc, $rest__11, $fmt);
             };
           // FALLTHROUGH
@@ -5456,7 +5470,8 @@ final class CamlinternalFormat {
           }
       }
     };
-    $make_invalid_arg->contents = function($counter, $k, $o, $acc, $fmt) use ($caml_trampoline_return,$cst_Printf_bad_conversion__0,$make_printf__0) {
+    $make_invalid_arg->contents = function
+    (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt) use ($caml_trampoline_return,$cst_Printf_bad_conversion__0,$make_printf__0) {
       $k8 = Vector{8, $acc, $cst_Printf_bad_conversion__0};
       if ($counter < 50) {
         $counter__0 = (int) ($counter + 1);
@@ -5466,10 +5481,10 @@ final class CamlinternalFormat {
       );
     };
     $make_custom__0->contents = function
-    ($counter, $k, $o, $acc, $rest, $arity, $f) use ($caml_call1,$caml_trampoline_return,$make_custom,$make_printf__0) {
+    (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $rest, dynamic $arity, dynamic $f) use ($caml_call1,$caml_trampoline_return,$make_custom,$make_printf__0) {
       if ($arity) {
         $arity__0 = $arity[1];
-        return function($x) use ($acc,$arity__0,$caml_call1,$f,$k,$make_custom,$o,$rest) {
+        return function(dynamic $x) use ($acc,$arity__0,$caml_call1,$f,$k,$make_custom,$o,$rest) {
           return $make_custom->contents(
             $k,
             $o,
@@ -5490,94 +5505,106 @@ final class CamlinternalFormat {
         varray[0,$k,$o,$k7,$rest]
       );
     };
-    $make_printf->contents = function($k, $o, $acc, $fmt) use ($caml_trampoline,$make_printf__0) {
+    $make_printf->contents = function
+    (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt) use ($caml_trampoline,$make_printf__0) {
       return $caml_trampoline($make_printf__0(0, $k, $o, $acc, $fmt));
     };
-    $make_ignored_param = function($k, $o, $acc, $ign, $fmt) use ($caml_trampoline,$make_ignored_param__0) {
+    $make_ignored_param = function
+    (dynamic $k, dynamic $o, dynamic $acc, dynamic $ign, dynamic $fmt) use ($caml_trampoline,$make_ignored_param__0) {
       return $caml_trampoline(
         $make_ignored_param__0->contents(0, $k, $o, $acc, $ign, $fmt)
       );
     };
-    $make_from_fmtty->contents = function($k, $o, $acc, $fmtty, $fmt) use ($caml_trampoline,$make_from_fmtty__0) {
+    $make_from_fmtty->contents = function
+    (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmtty, dynamic $fmt) use ($caml_trampoline,$make_from_fmtty__0) {
       return $caml_trampoline(
         $make_from_fmtty__0->contents(0, $k, $o, $acc, $fmtty, $fmt)
       );
     };
-    $make_custom->contents = function($k, $o, $acc, $rest, $arity, $f) use ($caml_trampoline,$make_custom__0) {
+    $make_custom->contents = function
+    (dynamic $k, dynamic $o, dynamic $acc, dynamic $rest, dynamic $arity, dynamic $f) use ($caml_trampoline,$make_custom__0) {
       return $caml_trampoline(
         $make_custom__0->contents(0, $k, $o, $acc, $rest, $arity, $f)
       );
     };
-    $const__0 = function($x, $param) {return $x;};
-    $fn_of_padding_precision = function($k, $o, $fmt, $pad, $prec) use ($const__0,$is_int,$make_iprintf) {
+    $const__0 = function(dynamic $x, dynamic $param) {return $x;};
+    $fn_of_padding_precision = function
+    (dynamic $k, dynamic $o, dynamic $fmt, dynamic $pad, dynamic $prec) use ($const__0,$is_int,$make_iprintf) {
       if ($is_int($pad)) {
         if ($is_int($prec)) {
           if (0 === $prec) {
             $kD = $make_iprintf->contents($k, $o, $fmt);
-            return function($kV) use ($const__0,$kD) {
+            return function(dynamic $kV) use ($const__0,$kD) {
               return $const__0($kD, $kV);
             };
           }
           $kE = $make_iprintf->contents($k, $o, $fmt);
-          $kF = function($kU) use ($const__0,$kE) {
+          $kF = function(dynamic $kU) use ($const__0,$kE) {
             return $const__0($kE, $kU);
           };
-          return function($kT) use ($const__0,$kF) {
+          return function(dynamic $kT) use ($const__0,$kF) {
             return $const__0($kF, $kT);
           };
         }
         $kG = $make_iprintf->contents($k, $o, $fmt);
-        return function($kS) use ($const__0,$kG) {return $const__0($kG, $kS);};
+        return function(dynamic $kS) use ($const__0,$kG) {
+          return $const__0($kG, $kS);
+        };
       }
       else {
         if (0 === $pad[0]) {
           if ($is_int($prec)) {
             if (0 === $prec) {
               $kH = $make_iprintf->contents($k, $o, $fmt);
-              return function($k6) use ($const__0,$kH) {
+              return function(dynamic $k6) use ($const__0,$kH) {
                 return $const__0($kH, $k6);
               };
             }
             $kI = $make_iprintf->contents($k, $o, $fmt);
-            $kJ = function($k5) use ($const__0,$kI) {
+            $kJ = function(dynamic $k5) use ($const__0,$kI) {
               return $const__0($kI, $k5);
             };
-            return function($k4) use ($const__0,$kJ) {
+            return function(dynamic $k4) use ($const__0,$kJ) {
               return $const__0($kJ, $k4);
             };
           }
           $kK = $make_iprintf->contents($k, $o, $fmt);
-          return function($k3) use ($const__0,$kK) {
+          return function(dynamic $k3) use ($const__0,$kK) {
             return $const__0($kK, $k3);
           };
         }
         if ($is_int($prec)) {
           if (0 === $prec) {
             $kL = $make_iprintf->contents($k, $o, $fmt);
-            $kM = function($k2) use ($const__0,$kL) {
+            $kM = function(dynamic $k2) use ($const__0,$kL) {
               return $const__0($kL, $k2);
             };
-            return function($k1) use ($const__0,$kM) {
+            return function(dynamic $k1) use ($const__0,$kM) {
               return $const__0($kM, $k1);
             };
           }
           $kN = $make_iprintf->contents($k, $o, $fmt);
-          $kO = function($k0) use ($const__0,$kN) {
+          $kO = function(dynamic $k0) use ($const__0,$kN) {
             return $const__0($kN, $k0);
           };
-          $kP = function($kZ) use ($const__0,$kO) {
+          $kP = function(dynamic $kZ) use ($const__0,$kO) {
             return $const__0($kO, $kZ);
           };
-          return function($kY) use ($const__0,$kP) {
+          return function(dynamic $kY) use ($const__0,$kP) {
             return $const__0($kP, $kY);
           };
         }
         $kQ = $make_iprintf->contents($k, $o, $fmt);
-        $kR = function($kX) use ($const__0,$kQ) {return $const__0($kQ, $kX);};
-        return function($kW) use ($const__0,$kR) {return $const__0($kR, $kW);};
+        $kR = function(dynamic $kX) use ($const__0,$kQ) {
+          return $const__0($kQ, $kX);
+        };
+        return function(dynamic $kW) use ($const__0,$kR) {
+          return $const__0($kR, $kW);
+        };
       }
     };
-    $make_iprintf__0 = function($counter, $k, $o, $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$const__0,$fn_of_custom_arity__0,$fn_of_padding_precision,$hT,$is_int,$make_ignored_param,$make_iprintf,$recast,$runtime) {
+    $make_iprintf__0 = function
+    (dynamic $counter, dynamic $k, dynamic $o, dynamic $fmt) use ($Assert_failure,$CamlinternalFormatBasics,$caml_call1,$caml_call2,$caml_trampoline_return,$const__0,$fn_of_custom_arity__0,$fn_of_padding_precision,$hT,$is_int,$make_ignored_param,$make_iprintf,$recast,$runtime) {
       $k__0 = $k;
       $fmt__0 = $fmt;
       for (;;) if (
@@ -5589,14 +5616,14 @@ final class CamlinternalFormat {
           case 0:
             $rest = $fmt__0[1];
             $jS = $make_iprintf->contents($k__0, $o, $rest);
-            return function($kC) use ($const__0,$jS) {
+            return function(dynamic $kC) use ($const__0,$jS) {
               return $const__0($jS, $kC);
             };
           // FALLTHROUGH
           case 1:
             $rest__0 = $fmt__0[1];
             $jT = $make_iprintf->contents($k__0, $o, $rest__0);
-            return function($kB) use ($const__0,$jT) {
+            return function(dynamic $kB) use ($const__0,$jT) {
               return $const__0($jT, $kB);
             };
           // FALLTHROUGH
@@ -5605,7 +5632,7 @@ final class CamlinternalFormat {
             if ($is_int($jU)) {
               $rest__1 = $fmt__0[2];
               $jV = $make_iprintf->contents($k__0, $o, $rest__1);
-              return function($kx) use ($const__0,$jV) {
+              return function(dynamic $kx) use ($const__0,$jV) {
                 return $const__0($jV, $kx);
               };
             }
@@ -5613,16 +5640,16 @@ final class CamlinternalFormat {
               if (0 === $jU[0]) {
                 $rest__2 = $fmt__0[2];
                 $jW = $make_iprintf->contents($k__0, $o, $rest__2);
-                return function($kA) use ($const__0,$jW) {
+                return function(dynamic $kA) use ($const__0,$jW) {
                   return $const__0($jW, $kA);
                 };
               }
               $rest__3 = $fmt__0[2];
               $jX = $make_iprintf->contents($k__0, $o, $rest__3);
-              $jY = function($kz) use ($const__0,$jX) {
+              $jY = function(dynamic $kz) use ($const__0,$jX) {
                 return $const__0($jX, $kz);
               };
-              return function($ky) use ($const__0,$jY) {
+              return function(dynamic $ky) use ($const__0,$jY) {
                 return $const__0($jY, $ky);
               };
             }
@@ -5632,7 +5659,7 @@ final class CamlinternalFormat {
             if ($is_int($jZ)) {
               $rest__4 = $fmt__0[2];
               $j0 = $make_iprintf->contents($k__0, $o, $rest__4);
-              return function($kt) use ($const__0,$j0) {
+              return function(dynamic $kt) use ($const__0,$j0) {
                 return $const__0($j0, $kt);
               };
             }
@@ -5640,16 +5667,16 @@ final class CamlinternalFormat {
               if (0 === $jZ[0]) {
                 $rest__5 = $fmt__0[2];
                 $j1 = $make_iprintf->contents($k__0, $o, $rest__5);
-                return function($kw) use ($const__0,$j1) {
+                return function(dynamic $kw) use ($const__0,$j1) {
                   return $const__0($j1, $kw);
                 };
               }
               $rest__6 = $fmt__0[2];
               $j2 = $make_iprintf->contents($k__0, $o, $rest__6);
-              $j3 = function($kv) use ($const__0,$j2) {
+              $j3 = function(dynamic $kv) use ($const__0,$j2) {
                 return $const__0($j2, $kv);
               };
-              return function($ku) use ($const__0,$j3) {
+              return function(dynamic $ku) use ($const__0,$j3) {
                 return $const__0($j3, $ku);
               };
             }
@@ -5713,7 +5740,7 @@ final class CamlinternalFormat {
             if ($is_int($j4)) {
               $rest__12 = $fmt__0[2];
               $j5 = $make_iprintf->contents($k__0, $o, $rest__12);
-              return function($kp) use ($const__0,$j5) {
+              return function(dynamic $kp) use ($const__0,$j5) {
                 return $const__0($j5, $kp);
               };
             }
@@ -5721,16 +5748,16 @@ final class CamlinternalFormat {
               if (0 === $j4[0]) {
                 $rest__13 = $fmt__0[2];
                 $j6 = $make_iprintf->contents($k__0, $o, $rest__13);
-                return function($ks) use ($const__0,$j6) {
+                return function(dynamic $ks) use ($const__0,$j6) {
                   return $const__0($j6, $ks);
                 };
               }
               $rest__14 = $fmt__0[2];
               $j7 = $make_iprintf->contents($k__0, $o, $rest__14);
-              $j8 = function($kr) use ($const__0,$j7) {
+              $j8 = function(dynamic $kr) use ($const__0,$j7) {
                 return $const__0($j7, $kr);
               };
-              return function($kq) use ($const__0,$j8) {
+              return function(dynamic $kq) use ($const__0,$j8) {
                 return $const__0($j8, $kq);
               };
             }
@@ -5753,14 +5780,14 @@ final class CamlinternalFormat {
           case 13:
             $rest__15 = $fmt__0[3];
             $j9 = $make_iprintf->contents($k__0, $o, $rest__15);
-            return function($ko) use ($const__0,$j9) {
+            return function(dynamic $ko) use ($const__0,$j9) {
               return $const__0($j9, $ko);
             };
           // FALLTHROUGH
           case 14:
             $rest__16 = $fmt__0[3];
             $fmtty = $fmt__0[2];
-            return function($param) use ($CamlinternalFormatBasics,$caml_call2,$fmtty,$k__0,$make_iprintf,$o,$recast,$rest__16) {
+            return function(dynamic $param) use ($CamlinternalFormatBasics,$caml_call2,$fmtty,$k__0,$make_iprintf,$o,$recast,$rest__16) {
               $fmt = $param[1];
               $kn = $recast($fmt, $fmtty);
               return $make_iprintf->contents(
@@ -5773,17 +5800,17 @@ final class CamlinternalFormat {
           case 15:
             $rest__17 = $fmt__0[1];
             $j_ = $make_iprintf->contents($k__0, $o, $rest__17);
-            $ka = function($km) use ($const__0,$j_) {
+            $ka = function(dynamic $km) use ($const__0,$j_) {
               return $const__0($j_, $km);
             };
-            return function($kl) use ($const__0,$ka) {
+            return function(dynamic $kl) use ($const__0,$ka) {
               return $const__0($ka, $kl);
             };
           // FALLTHROUGH
           case 16:
             $rest__18 = $fmt__0[1];
             $kb = $make_iprintf->contents($k__0, $o, $rest__18);
-            return function($kk) use ($const__0,$kb) {
+            return function(dynamic $kk) use ($const__0,$kb) {
               return $const__0($kb, $kk);
             };
           // FALLTHROUGH
@@ -5798,8 +5825,8 @@ final class CamlinternalFormat {
               $rest__19 = $fmt__0[2];
               $match = $kc[1];
               $fmt__5 = $match[1];
-              $k__3 = function($k, $rest) use ($make_iprintf) {
-                $k__0 = function($koc) use ($k,$make_iprintf,$rest) {
+              $k__3 = function(dynamic $k, dynamic $rest) use ($make_iprintf) {
+                $k__0 = function(dynamic $koc) use ($k,$make_iprintf,$rest) {
                   return $make_iprintf->contents($k, $koc, $rest);
                 };
                 return $k__0;
@@ -5812,8 +5839,8 @@ final class CamlinternalFormat {
             $rest__20 = $fmt__0[2];
             $match__0 = $kc[1];
             $fmt__6 = $match__0[1];
-            $k__4 = function($k, $rest) use ($make_iprintf) {
-              $k__0 = function($koc) use ($k,$make_iprintf,$rest) {
+            $k__4 = function(dynamic $k, dynamic $rest) use ($make_iprintf) {
+              $k__0 = function(dynamic $koc) use ($k,$make_iprintf,$rest) {
                 return $make_iprintf->contents($k, $koc, $rest);
               };
               return $k__0;
@@ -5829,21 +5856,21 @@ final class CamlinternalFormat {
           case 20:
             $rest__21 = $fmt__0[3];
             $kd = $make_iprintf->contents($k__0, $o, $rest__21);
-            return function($kj) use ($const__0,$kd) {
+            return function(dynamic $kj) use ($const__0,$kd) {
               return $const__0($kd, $kj);
             };
           // FALLTHROUGH
           case 21:
             $rest__22 = $fmt__0[2];
             $ke = $make_iprintf->contents($k__0, $o, $rest__22);
-            return function($ki) use ($const__0,$ke) {
+            return function(dynamic $ki) use ($const__0,$ke) {
               return $const__0($ke, $ki);
             };
           // FALLTHROUGH
           case 22:
             $rest__23 = $fmt__0[1];
             $kf = $make_iprintf->contents($k__0, $o, $rest__23);
-            return function($kh) use ($const__0,$kf) {
+            return function(dynamic $kh) use ($const__0,$kf) {
               return $const__0($kf, $kh);
             };
           // FALLTHROUGH
@@ -5852,7 +5879,7 @@ final class CamlinternalFormat {
             $ign = $fmt__0[1];
             $kg = 0;
             return $make_ignored_param(
-              function($x, $param) use ($caml_call1,$k__0) {
+              function(dynamic $x, dynamic $param) use ($caml_call1,$k__0) {
                 return $caml_call1($k__0, $x);
               },
               $o,
@@ -5882,11 +5909,13 @@ final class CamlinternalFormat {
       }
     };
     $fn_of_custom_arity__0->contents = function
-    ($counter, $k, $o, $fmt, $param) use ($caml_trampoline_return,$const__0,$fn_of_custom_arity,$make_iprintf__0) {
+    (dynamic $counter, dynamic $k, dynamic $o, dynamic $fmt, dynamic $param) use ($caml_trampoline_return,$const__0,$fn_of_custom_arity,$make_iprintf__0) {
       if ($param) {
         $arity = $param[1];
         $jQ = $fn_of_custom_arity->contents($k, $o, $fmt, $arity);
-        return function($jR) use ($const__0,$jQ) {return $const__0($jQ, $jR);};
+        return function(dynamic $jR) use ($const__0,$jQ) {
+          return $const__0($jQ, $jR);
+        };
       }
       if ($counter < 50) {
         $counter__0 = (int) ($counter + 1);
@@ -5894,15 +5923,16 @@ final class CamlinternalFormat {
       }
       return $caml_trampoline_return($make_iprintf__0, varray[0,$k,$o,$fmt]);
     };
-    $make_iprintf->contents = function($k, $o, $fmt) use ($caml_trampoline,$make_iprintf__0) {
+    $make_iprintf->contents = function(dynamic $k, dynamic $o, dynamic $fmt) use ($caml_trampoline,$make_iprintf__0) {
       return $caml_trampoline($make_iprintf__0(0, $k, $o, $fmt));
     };
-    $fn_of_custom_arity->contents = function($k, $o, $fmt, $param) use ($caml_trampoline,$fn_of_custom_arity__0) {
+    $fn_of_custom_arity->contents = function
+    (dynamic $k, dynamic $o, dynamic $fmt, dynamic $param) use ($caml_trampoline,$fn_of_custom_arity__0) {
       return $caml_trampoline(
         $fn_of_custom_arity__0->contents(0, $k, $o, $fmt, $param)
       );
     };
-    $output_acc->contents = function($o, $acc) use ($Pervasives,$caml_call1,$caml_call2,$cst__17,$cst__18,$is_int,$output_acc,$string_of_formatting_lit) {
+    $output_acc->contents = function(dynamic $o, dynamic $acc) use ($Pervasives,$caml_call1,$caml_call2,$cst__17,$cst__18,$is_int,$output_acc,$string_of_formatting_lit) {
       $acc__0 = $acc;
       for (;;) if (
         $is_int($acc__0)
@@ -5966,7 +5996,7 @@ final class CamlinternalFormat {
           }
       }
     };
-    $bufput_acc->contents = function($b, $acc) use ($Buffer,$Pervasives,$bufput_acc,$caml_call1,$caml_call2,$cst__19,$cst__20,$is_int,$string_of_formatting_lit) {
+    $bufput_acc->contents = function(dynamic $b, dynamic $acc) use ($Buffer,$Pervasives,$bufput_acc,$caml_call1,$caml_call2,$cst__19,$cst__20,$is_int,$string_of_formatting_lit) {
       $acc__0 = $acc;
       for (;;) if (
         $is_int($acc__0)
@@ -6030,7 +6060,7 @@ final class CamlinternalFormat {
           }
       }
     };
-    $strput_acc->contents = function($b, $acc) use ($Buffer,$Pervasives,$caml_call1,$caml_call2,$cst__21,$cst__22,$is_int,$string_of_formatting_lit,$strput_acc) {
+    $strput_acc->contents = function(dynamic $b, dynamic $acc) use ($Buffer,$Pervasives,$caml_call1,$caml_call2,$cst__21,$cst__22,$is_int,$string_of_formatting_lit,$strput_acc) {
       $acc__0 = $acc;
       for (;;) if (
         $is_int($acc__0)
@@ -6095,23 +6125,23 @@ final class CamlinternalFormat {
           }
       }
     };
-    $failwith_message = function($param) use ($Buffer,$Pervasives,$caml_call1,$make_printf,$strput_acc) {
+    $failwith_message = function(dynamic $param) use ($Buffer,$Pervasives,$caml_call1,$make_printf,$strput_acc) {
       $fmt = $param[1];
       $buf = $caml_call1($Buffer[1], 256);
-      $k = function($param, $acc) use ($Buffer,$Pervasives,$buf,$caml_call1,$strput_acc) {
+      $k = function(dynamic $param, dynamic $acc) use ($Buffer,$Pervasives,$buf,$caml_call1,$strput_acc) {
         $strput_acc->contents($buf, $acc);
         $jI = $caml_call1($Buffer[2], $buf);
         return $caml_call1($Pervasives[2], $jI);
       };
       return $make_printf->contents($k, 0, 0, $fmt);
     };
-    $open_box_of_string = function($str) use ($Failure,$String,$caml_call1,$caml_call3,$caml_ml_string_length,$caml_string_get,$caml_string_notequal,$caml_wrap_exception,$cst__23,$cst__24,$cst_b,$cst_h,$cst_hov,$cst_hv,$cst_v,$failwith_message,$hU,$hV,$runtime,$unsigned_right_shift_32) {
+    $open_box_of_string = function(dynamic $str) use ($Failure,$String,$caml_call1,$caml_call3,$caml_ml_string_length,$caml_string_get,$caml_string_notequal,$caml_wrap_exception,$cst__23,$cst__24,$cst_b,$cst_h,$cst_hov,$cst_hv,$cst_v,$failwith_message,$hU,$hV,$runtime,$unsigned_right_shift_32) {
       if ($runtime["caml_string_equal"]($str, $cst__23)) {return $hU;}
       $len = $caml_ml_string_length($str);
-      $invalid_box = function($param) use ($caml_call1,$failwith_message,$hV,$str) {
+      $invalid_box = function(dynamic $param) use ($caml_call1,$failwith_message,$hV,$str) {
         return $caml_call1($failwith_message($hV), $str);
       };
-      $parse_spaces = function($i) use ($caml_string_get,$len,$str) {
+      $parse_spaces = function(dynamic $i) use ($caml_string_get,$len,$str) {
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $len) {return $i__0;}
@@ -6122,7 +6152,7 @@ final class CamlinternalFormat {
           continue;
         }
       };
-      $parse_lword = function($i, $j) use ($caml_string_get,$len,$str,$unsigned_right_shift_32) {
+      $parse_lword = function(dynamic $i, dynamic $j) use ($caml_string_get,$len,$str,$unsigned_right_shift_32) {
         $j__0 = $j;
         for (;;) {
           if ($j__0 === $len) {return $j__0;}
@@ -6134,7 +6164,7 @@ final class CamlinternalFormat {
           continue;
         }
       };
-      $parse_int = function($i, $j) use ($caml_string_get,$len,$str) {
+      $parse_int = function(dynamic $i, dynamic $j) use ($caml_string_get,$len,$str) {
         $j__0 = $j;
         for (;;) {
           if ($j__0 === $len) {return $j__0;}
@@ -6196,7 +6226,7 @@ final class CamlinternalFormat {
       if (! $switch__0) {$box_type = 4;}
       return Vector{0, $indent, $box_type};
     };
-    $make_padding_fmt_ebb = function($pad, $fmt) use ($is_int) {
+    $make_padding_fmt_ebb = function(dynamic $pad, dynamic $fmt) use ($is_int) {
       if ($is_int($pad)) {
         return Vector{0, 0, $fmt};
       }
@@ -6210,14 +6240,15 @@ final class CamlinternalFormat {
         return Vector{0, Vector{1, $s__0}, $fmt};
       }
     };
-    $make_precision_fmt_ebb = function($prec, $fmt) use ($is_int) {
+    $make_precision_fmt_ebb = function(dynamic $prec, dynamic $fmt) use ($is_int) {
       if ($is_int($prec)) {
         return 0 === $prec ? Vector{0, 0, $fmt} : (Vector{0, 1, $fmt});
       }
       $p = $prec[1];
       return Vector{0, Vector{0, $p}, $fmt};
     };
-    $make_padprec_fmt_ebb = function($pad, $prec, $fmt) use ($is_int,$make_precision_fmt_ebb) {
+    $make_padprec_fmt_ebb = function
+    (dynamic $pad, dynamic $prec, dynamic $fmt) use ($is_int,$make_precision_fmt_ebb) {
       $match = $make_precision_fmt_ebb($prec, $fmt);
       $fmt__0 = $match[2];
       $prec__0 = $match[1];
@@ -6234,7 +6265,7 @@ final class CamlinternalFormat {
         return Vector{0, Vector{1, $s__0}, $prec__0, $fmt__0};
       }
     };
-    $fmt_ebb_of_string = function($legacy_behavior, $str) use ($Assert_failure,$Failure,$Not_found,$Pervasives,$String,$Sys,$add_in_char_set,$caml_call1,$caml_call2,$caml_call3,$caml_call4,$caml_call5,$caml_ml_string_length,$caml_notequal,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$create_char_set,$cst_0,$cst_0__0,$cst_0__1,$cst_0__2,$cst__25,$cst__26,$cst__27,$cst__28,$cst__29,$cst__30,$cst__31,$cst__32,$cst__33,$cst__34,$cst__35,$cst__36,$cst__37,$cst__38,$cst__39,$cst_character,$cst_character__0,$cst_digit,$cst_non_zero_widths_are_unsupported_for_c_conversions,$cst_padding,$cst_padding__0,$cst_precision,$cst_precision__0,$cst_precision__1,$cst_precision__2,$cst_unexpected_end_of_format,$failwith_message,$fmtty_of_fmt,$formatting_lit,$freeze_char_set,$h0,$h1,$h2,$h3,$h4,$h5,$h6,$h7,$h8,$h9,$hW,$hX,$hY,$hZ,$h_,$ia,$ib,$ic,$id,$ie,$ig,$ih,$ii,$ij,$ik,$il,$is_int,$make_padding_fmt_ebb,$make_padprec_fmt_ebb,$open_box_of_string,$rev_char_set,$runtime,$sub_format,$unsigned_right_shift_32) {
+    $fmt_ebb_of_string = function(dynamic $legacy_behavior, dynamic $str) use ($Assert_failure,$Failure,$Not_found,$Pervasives,$String,$Sys,$add_in_char_set,$caml_call1,$caml_call2,$caml_call3,$caml_call4,$caml_call5,$caml_ml_string_length,$caml_notequal,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$create_char_set,$cst_0,$cst_0__0,$cst_0__1,$cst_0__2,$cst__25,$cst__26,$cst__27,$cst__28,$cst__29,$cst__30,$cst__31,$cst__32,$cst__33,$cst__34,$cst__35,$cst__36,$cst__37,$cst__38,$cst__39,$cst_character,$cst_character__0,$cst_digit,$cst_non_zero_widths_are_unsupported_for_c_conversions,$cst_padding,$cst_padding__0,$cst_precision,$cst_precision__0,$cst_precision__1,$cst_precision__2,$cst_unexpected_end_of_format,$failwith_message,$fmtty_of_fmt,$formatting_lit,$freeze_char_set,$h0,$h1,$h2,$h3,$h4,$h5,$h6,$h7,$h8,$h9,$hW,$hX,$hY,$hZ,$h_,$ia,$ib,$ic,$id,$ie,$ig,$ih,$ii,$ij,$ik,$il,$is_int,$make_padding_fmt_ebb,$make_padprec_fmt_ebb,$open_box_of_string,$rev_char_set,$runtime,$sub_format,$unsigned_right_shift_32) {
       $check_open_box = new Ref();
       $compute_float_conv = new Ref();
       $compute_int_conv = new Ref();
@@ -6254,23 +6285,25 @@ final class CamlinternalFormat {
         $legacy_behavior__0 = $flag;
       }
       else {$legacy_behavior__0 = 1;}
-      $invalid_format_message = function($str_ind, $msg) use ($caml_call3,$failwith_message,$hW,$str) {
+      $invalid_format_message = function(dynamic $str_ind, dynamic $msg) use ($caml_call3,$failwith_message,$hW,$str) {
         return $caml_call3($failwith_message($hW), $str, $str_ind, $msg);
       };
-      $unexpected_end_of_format = function($end_ind) use ($cst_unexpected_end_of_format,$invalid_format_message) {
+      $unexpected_end_of_format = function(dynamic $end_ind) use ($cst_unexpected_end_of_format,$invalid_format_message) {
         return $invalid_format_message($end_ind, $cst_unexpected_end_of_format
         );
       };
-      $invalid_nonnull_char_width = function($str_ind) use ($cst_non_zero_widths_are_unsupported_for_c_conversions,$invalid_format_message) {
+      $invalid_nonnull_char_width = function(dynamic $str_ind) use ($cst_non_zero_widths_are_unsupported_for_c_conversions,$invalid_format_message) {
         return $invalid_format_message(
           $str_ind,
           $cst_non_zero_widths_are_unsupported_for_c_conversions
         );
       };
-      $invalid_format_without = function($str_ind, $c, $s) use ($caml_call4,$failwith_message,$hX,$str) {
+      $invalid_format_without = function
+      (dynamic $str_ind, dynamic $c, dynamic $s) use ($caml_call4,$failwith_message,$hX,$str) {
         return $caml_call4($failwith_message($hX), $str, $str_ind, $c, $s);
       };
-      $expected_character = function($str_ind, $expected, $read) use ($caml_call4,$failwith_message,$hY,$str) {
+      $expected_character = function
+      (dynamic $str_ind, dynamic $expected, dynamic $read) use ($caml_call4,$failwith_message,$hY,$str) {
         return $caml_call4(
           $failwith_message($hY),
           $str,
@@ -6279,7 +6312,8 @@ final class CamlinternalFormat {
           $read
         );
       };
-      $add_literal = function($lit_start, $str_ind, $fmt) use ($String,$caml_call3,$caml_string_get,$str) {
+      $add_literal = function
+      (dynamic $lit_start, dynamic $str_ind, dynamic $fmt) use ($String,$caml_call3,$caml_string_get,$str) {
         $size = (int) ($str_ind - $lit_start);
         return 0 === $size
           ? Vector{0, $fmt}
@@ -6290,7 +6324,8 @@ final class CamlinternalFormat {
             Vector{11, $caml_call3($String[4], $str, $lit_start, $size), $fmt}
           }));
       };
-      $parse_literal = function($lit_start, $str_ind, $end_ind) use ($add_literal,$caml_string_get,$parse_after_at,$parse_format,$str) {
+      $parse_literal = function
+      (dynamic $lit_start, dynamic $str_ind, dynamic $end_ind) use ($add_literal,$caml_string_get,$parse_after_at,$parse_format,$str) {
         $str_ind__0 = $str_ind;
         for (;;) {
           if ($str_ind__0 === $end_ind) {
@@ -6316,16 +6351,17 @@ final class CamlinternalFormat {
           continue;
         }
       };
-      $parse = function($beg_ind, $end_ind) use ($parse_literal) {
+      $parse = function(dynamic $beg_ind, dynamic $end_ind) use ($parse_literal) {
         return $parse_literal($beg_ind, $beg_ind, $end_ind);
       };
-      $parse_flags = function($pct_ind, $str_ind, $end_ind, $ign) use ($caml_call3,$caml_string_get,$failwith_message,$hZ,$legacy_behavior__0,$parse_padding,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
+      $parse_flags = function
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $ign) use ($caml_call3,$caml_string_get,$failwith_message,$hZ,$legacy_behavior__0,$parse_padding,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
         $zero = Vector{0, 0};
         $minus = Vector{0, 0};
         $plus = Vector{0, 0};
         $space = Vector{0, 0};
         $hash = Vector{0, 0};
-        $set_flag = function($str_ind, $flag) use ($caml_call3,$caml_string_get,$failwith_message,$hZ,$legacy_behavior__0,$str) {
+        $set_flag = function(dynamic $str_ind, dynamic $flag) use ($caml_call3,$caml_string_get,$failwith_message,$hZ,$legacy_behavior__0,$str) {
           $jC = $flag[1];
           $jD = $jC ? 1 - $legacy_behavior__0 : ($jC);
           if ($jD) {
@@ -6335,7 +6371,7 @@ final class CamlinternalFormat {
           $flag[1] = 1;
           return 0;
         };
-        $read_flags = function($str_ind) use ($caml_string_get,$end_ind,$hash,$ign,$minus,$parse_padding,$pct_ind,$plus,$set_flag,$space,$str,$unexpected_end_of_format,$unsigned_right_shift_32,$zero) {
+        $read_flags = function(dynamic $str_ind) use ($caml_string_get,$end_ind,$hash,$ign,$minus,$parse_padding,$pct_ind,$plus,$set_flag,$space,$str,$unexpected_end_of_format,$unsigned_right_shift_32,$zero) {
           $str_ind__0 = $str_ind;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
@@ -6392,53 +6428,54 @@ final class CamlinternalFormat {
         };
         return $read_flags($str_ind);
       };
-      $parse_ign = function($pct_ind, $str_ind, $end_ind) use ($caml_string_get,$parse_flags,$str,$unexpected_end_of_format) {
+      $parse_ign = function
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind) use ($caml_string_get,$parse_flags,$str,$unexpected_end_of_format) {
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $match = $caml_string_get($str, $str_ind);
         return 95 === $match
           ? $parse_flags($pct_ind, (int) ($str_ind + 1), $end_ind, 1)
           : ($parse_flags($pct_ind, $str_ind, $end_ind, 0));
       };
-      $parse_format->contents = function($pct_ind, $end_ind) use ($parse_ign) {
+      $parse_format->contents = function(dynamic $pct_ind, dynamic $end_ind) use ($parse_ign) {
         return $parse_ign($pct_ind, (int) ($pct_ind + 1), $end_ind);
       };
       $parse_conversion = function
-      ($pct_ind, $str_ind, $end_ind, $plus, $hash, $space, $ign, $pad, $prec, $padprec, $symb) use ($caml_call3,$caml_notequal,$caml_string_get,$compute_float_conv,$compute_int_conv,$counter_of_char,$cst_0__0,$cst_0__1,$cst_0__2,$cst__25,$cst__26,$cst__27,$cst__28,$cst__29,$cst__30,$cst__31,$cst__32,$cst_padding__0,$cst_precision__0,$cst_precision__1,$cst_precision__2,$failwith_message,$fmtty_of_fmt,$h4,$h5,$h6,$h7,$h8,$h9,$incompatible_flag,$invalid_nonnull_char_width,$is_int,$is_int_base,$legacy_behavior__0,$make_padding_fmt_ebb,$make_padprec_fmt_ebb,$parse,$parse_char_set,$search_subformat_end,$str) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign, dynamic $pad, dynamic $prec, dynamic $padprec, dynamic $symb) use ($caml_call3,$caml_notequal,$caml_string_get,$compute_float_conv,$compute_int_conv,$counter_of_char,$cst_0__0,$cst_0__1,$cst_0__2,$cst__25,$cst__26,$cst__27,$cst__28,$cst__29,$cst__30,$cst__31,$cst__32,$cst_padding__0,$cst_precision__0,$cst_precision__1,$cst_precision__2,$failwith_message,$fmtty_of_fmt,$h4,$h5,$h6,$h7,$h8,$h9,$incompatible_flag,$invalid_nonnull_char_width,$is_int,$is_int_base,$legacy_behavior__0,$make_padding_fmt_ebb,$make_padprec_fmt_ebb,$parse,$parse_char_set,$search_subformat_end,$str) {
         $plus_used = Vector{0, 0};
         $hash_used = Vector{0, 0};
         $space_used = Vector{0, 0};
         $ign_used = Vector{0, 0};
         $pad_used = Vector{0, 0};
         $prec_used = Vector{0, 0};
-        $get_plus = function($param) use ($plus,$plus_used) {
+        $get_plus = function(dynamic $param) use ($plus,$plus_used) {
           $plus_used[1] = 1;
           return $plus;
         };
-        $get_hash = function($param) use ($hash,$hash_used) {
+        $get_hash = function(dynamic $param) use ($hash,$hash_used) {
           $hash_used[1] = 1;
           return $hash;
         };
-        $get_space = function($param) use ($space,$space_used) {
+        $get_space = function(dynamic $param) use ($space,$space_used) {
           $space_used[1] = 1;
           return $space;
         };
-        $get_ign = function($param) use ($ign,$ign_used) {
+        $get_ign = function(dynamic $param) use ($ign,$ign_used) {
           $ign_used[1] = 1;
           return $ign;
         };
-        $get_pad = function($param) use ($pad,$pad_used) {
+        $get_pad = function(dynamic $param) use ($pad,$pad_used) {
           $pad_used[1] = 1;
           return $pad;
         };
-        $get_prec = function($param) use ($prec,$prec_used) {
+        $get_prec = function(dynamic $param) use ($prec,$prec_used) {
           $prec_used[1] = 1;
           return $prec;
         };
-        $get_padprec = function($param) use ($pad_used,$padprec) {
+        $get_padprec = function(dynamic $param) use ($pad_used,$padprec) {
           $pad_used[1] = 1;
           return $padprec;
         };
-        $get_int_pad = function($param) use ($cst_precision__0,$cst_precision__1,$get_pad,$get_prec,$h4,$incompatible_flag,$is_int,$legacy_behavior__0,$pct_ind,$str_ind) {
+        $get_int_pad = function(dynamic $param) use ($cst_precision__0,$cst_precision__1,$get_pad,$get_prec,$h4,$incompatible_flag,$is_int,$legacy_behavior__0,$pct_ind,$str_ind) {
           $pad = $get_pad(0);
           $match = $get_prec(0);
           if ($is_int($match)) {if (0 === $match) {return $pad;}}
@@ -6470,7 +6507,7 @@ final class CamlinternalFormat {
               : ($pad);
           }
         };
-        $check_no_0 = function($symb, $pad) use ($cst_0__0,$cst_0__1,$h5,$incompatible_flag,$is_int,$legacy_behavior__0,$pct_ind,$str_ind) {
+        $check_no_0 = function(dynamic $symb, dynamic $pad) use ($cst_0__0,$cst_0__1,$h5,$incompatible_flag,$is_int,$legacy_behavior__0,$pct_ind,$str_ind) {
           if ($is_int($pad)) {return $pad;}
           else {
             if (0 === $pad[0]) {
@@ -6499,7 +6536,7 @@ final class CamlinternalFormat {
               : ($pad);
           }
         };
-        $opt_of_pad = function($c, $pad) use ($cst_0__2,$cst__25,$cst__26,$incompatible_flag,$is_int,$legacy_behavior__0,$pct_ind,$str_ind) {
+        $opt_of_pad = function(dynamic $c, dynamic $pad) use ($cst_0__2,$cst__25,$cst__26,$incompatible_flag,$is_int,$legacy_behavior__0,$pct_ind,$str_ind) {
           if ($is_int($pad)) {return 0;}
           else {
             if (0 === $pad[0]) {
@@ -6540,13 +6577,13 @@ final class CamlinternalFormat {
             );
           }
         };
-        $get_pad_opt = function($c) use ($get_pad,$opt_of_pad) {
+        $get_pad_opt = function(dynamic $c) use ($get_pad,$opt_of_pad) {
           return $opt_of_pad($c, $get_pad(0));
         };
-        $get_padprec_opt = function($c) use ($get_padprec,$opt_of_pad) {
+        $get_padprec_opt = function(dynamic $c) use ($get_padprec,$opt_of_pad) {
           return $opt_of_pad($c, $get_padprec(0));
         };
-        $get_prec_opt = function($param) use ($cst__27,$get_prec,$incompatible_flag,$is_int,$pct_ind,$str_ind) {
+        $get_prec_opt = function(dynamic $param) use ($cst__27,$get_prec,$incompatible_flag,$is_int,$pct_ind,$str_ind) {
           $match = $get_prec(0);
           if ($is_int($match)) {
             return 0 === $match
@@ -6667,12 +6704,12 @@ final class CamlinternalFormat {
               break;
             // FALLTHROUGH
             case 99:
-              $char_format = function($fmt_rest) use ($get_ign) {
+              $char_format = function(dynamic $fmt_rest) use ($get_ign) {
                 return $get_ign(0)
                   ? Vector{0, Vector{23, 0, $fmt_rest}}
                   : (Vector{0, Vector{0, $fmt_rest}});
               };
-              $scan_format = function($fmt_rest) use ($get_ign) {
+              $scan_format = function(dynamic $fmt_rest) use ($get_ign) {
                 return $get_ign(0)
                   ? Vector{0, Vector{23, 3, $fmt_rest}}
                   : (Vector{0, Vector{22, $fmt_rest}});
@@ -7119,9 +7156,9 @@ final class CamlinternalFormat {
         return $fmt_result;
       };
       $parse_after_precision = function
-      ($pct_ind, $str_ind, $end_ind, $minus, $plus, $hash, $space, $ign, $pad, $match) use ($caml_string_get,$h2,$h3,$is_int,$parse_conversion,$str,$unexpected_end_of_format) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $minus, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign, dynamic $pad, dynamic $match) use ($caml_string_get,$h2,$h3,$is_int,$parse_conversion,$str,$unexpected_end_of_format) {
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
-        $parse_conv = function($padprec) use ($caml_string_get,$end_ind,$hash,$ign,$match,$pad,$parse_conversion,$pct_ind,$plus,$space,$str,$str_ind) {
+        $parse_conv = function(dynamic $padprec) use ($caml_string_get,$end_ind,$hash,$ign,$match,$pad,$parse_conversion,$pct_ind,$plus,$space,$str,$str_ind) {
           return $parse_conversion(
             $pct_ind,
             (int)
@@ -7151,9 +7188,9 @@ final class CamlinternalFormat {
         return $parse_conv($pad);
       };
       $parse_precision = function
-      ($pct_ind, $str_ind, $end_ind, $minus, $plus, $hash, $space, $ign, $pad) use ($caml_string_get,$cst_precision,$h1,$invalid_format_without,$legacy_behavior__0,$parse_after_precision,$parse_positive,$str,$unexpected_end_of_format) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $minus, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign, dynamic $pad) use ($caml_string_get,$cst_precision,$h1,$invalid_format_without,$legacy_behavior__0,$parse_after_precision,$parse_positive,$str,$unexpected_end_of_format) {
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
-        $parse_literal = function($minus, $str_ind) use ($end_ind,$hash,$ign,$pad,$parse_after_precision,$parse_positive,$pct_ind,$plus,$space) {
+        $parse_literal = function(dynamic $minus, dynamic $str_ind) use ($end_ind,$hash,$ign,$pad,$parse_after_precision,$parse_positive,$pct_ind,$plus,$space) {
           $match = $parse_positive->contents($str_ind, $end_ind, 0);
           $prec = $match[2];
           $new_ind = $match[1];
@@ -7223,7 +7260,7 @@ final class CamlinternalFormat {
          ));
       };
       $parse_after_padding = function
-      ($pct_ind, $str_ind, $end_ind, $minus, $plus, $hash, $space, $ign, $pad) use ($caml_string_get,$parse_conversion,$parse_precision,$str,$unexpected_end_of_format) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $minus, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign, dynamic $pad) use ($caml_string_get,$parse_conversion,$parse_precision,$str,$unexpected_end_of_format) {
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $symb = $caml_string_get($str, $str_ind);
         return 46 === $symb
@@ -7255,7 +7292,7 @@ final class CamlinternalFormat {
          ));
       };
       $parse_padding->contents = function
-      ($pct_ind, $str_ind, $end_ind, $zero, $minus, $plus, $hash, $space, $ign) use ($caml_string_get,$cst_0,$cst_padding,$h0,$incompatible_flag,$invalid_format_without,$legacy_behavior__0,$parse_after_padding,$parse_positive,$str,$unexpected_end_of_format) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $zero, dynamic $minus, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign) use ($caml_string_get,$cst_0,$cst_padding,$h0,$incompatible_flag,$invalid_format_without,$legacy_behavior__0,$parse_after_padding,$parse_positive,$str,$unexpected_end_of_format) {
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $padty = 0 === $zero
           ? 0 === $minus ? 1 : (0)
@@ -7344,7 +7381,7 @@ final class CamlinternalFormat {
             );
           }
       };
-      $parse_magic_size = function($str_ind, $end_ind) use ($Failure,$Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$ic,$parse,$parse_integer,$parse_spaces,$runtime,$str) {
+      $parse_magic_size = function(dynamic $str_ind, dynamic $end_ind) use ($Failure,$Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$ic,$parse,$parse_integer,$parse_spaces,$runtime,$str) {
         try {
           $str_ind_1 = $parse_spaces->contents($str_ind, $end_ind);
           $match__2 = $caml_string_get($str, $str_ind_1);
@@ -7397,7 +7434,7 @@ final class CamlinternalFormat {
         $fmt_rest__0 = $match__1[1];
         return Vector{0, Vector{17, $ic, $fmt_rest__0}};
       };
-      $parse_good_break = function($str_ind, $end_ind) use ($Failure,$Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$formatting_lit,$parse,$parse_integer,$parse_spaces,$runtime,$str,$unsigned_right_shift_32) {
+      $parse_good_break = function(dynamic $str_ind, dynamic $end_ind) use ($Failure,$Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$formatting_lit,$parse,$parse_integer,$parse_spaces,$runtime,$str,$unsigned_right_shift_32) {
         try {
           $iI = $str_ind === $end_ind ? 1 : (0);
           $iJ = $iI || (60 !== $caml_string_get($str, $str_ind) ? 1 : (0));
@@ -7480,7 +7517,8 @@ final class CamlinternalFormat {
         $fmt_rest = $match[1];
         return Vector{0, Vector{17, $formatting_lit__0, $fmt_rest}};
       };
-      $parse_tag = function($is_open_tag, $str_ind, $end_ind) use ($Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$check_open_box,$parse,$runtime,$str,$sub_format) {
+      $parse_tag = function
+      (dynamic $is_open_tag, dynamic $str_ind, dynamic $end_ind) use ($Not_found,$String,$caml_call3,$caml_string_get,$caml_wrap_exception,$check_open_box,$parse,$runtime,$str,$sub_format) {
         try {
           if ($str_ind === $end_ind) {
             throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
@@ -7528,7 +7566,7 @@ final class CamlinternalFormat {
           throw $runtime["caml_wrap_thrown_exception_reraise"]($iH) as \Throwable;
         }
       };
-      $parse_after_at->contents = function($str_ind, $end_ind) use ($caml_string_get,$h_,$ia,$ib,$parse,$parse_good_break,$parse_magic_size,$parse_tag,$str,$unsigned_right_shift_32) {
+      $parse_after_at->contents = function(dynamic $str_ind, dynamic $end_ind) use ($caml_string_get,$h_,$ia,$ib,$parse,$parse_good_break,$parse_magic_size,$parse_tag,$str,$unsigned_right_shift_32) {
         if ($str_ind === $end_ind) {return $h_;}
         $c = $caml_string_get($str, $str_ind);
         if (65 <= $c) {
@@ -7626,7 +7664,7 @@ final class CamlinternalFormat {
         $fmt_rest = $match[1];
         return Vector{0, Vector{17, Vector{2, $c}, $fmt_rest}};
       };
-      $check_open_box->contents = function($fmt) use ($Failure,$caml_wrap_exception,$is_int,$open_box_of_string,$runtime) {
+      $check_open_box->contents = function(dynamic $fmt) use ($Failure,$caml_wrap_exception,$is_int,$open_box_of_string,$runtime) {
         if (! $is_int($fmt) && 11 === $fmt[0]) {
           if ($is_int($fmt[2])) {
             $str = $fmt[1];
@@ -7640,15 +7678,15 @@ final class CamlinternalFormat {
         }
         return 0;
       };
-      $parse_char_set->contents = function($str_ind, $end_ind) use ($Pervasives,$add_in_char_set,$caml_call1,$caml_call2,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$create_char_set,$failwith_message,$freeze_char_set,$id,$rev_char_set,$str,$unexpected_end_of_format) {
+      $parse_char_set->contents = function(dynamic $str_ind, dynamic $end_ind) use ($Pervasives,$add_in_char_set,$caml_call1,$caml_call2,$caml_string_get,$caml_trampoline,$caml_trampoline_return,$create_char_set,$failwith_message,$freeze_char_set,$id,$rev_char_set,$str,$unexpected_end_of_format) {
         $parse_char_set_after_char__0 = new Ref();
         $parse_char_set_after_minus = new Ref();
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $char_set = $create_char_set(0);
-        $add_char = function($c) use ($add_in_char_set,$char_set) {
+        $add_char = function(dynamic $c) use ($add_in_char_set,$char_set) {
           return $add_in_char_set($char_set, $c);
         };
-        $add_range = function($c__0, $c) use ($Pervasives,$add_in_char_set,$caml_call1,$char_set) {
+        $add_range = function(dynamic $c__0, dynamic $c) use ($Pervasives,$add_in_char_set,$caml_call1,$char_set) {
           if (! ($c < $c__0)) {
             $i = $c__0;
             for (;;) {
@@ -7660,10 +7698,11 @@ final class CamlinternalFormat {
           }
           return 0;
         };
-        $fail_single_percent = function($str_ind) use ($caml_call2,$failwith_message,$id,$str) {
+        $fail_single_percent = function(dynamic $str_ind) use ($caml_call2,$failwith_message,$id,$str) {
           return $caml_call2($failwith_message($id), $str, $str_ind);
         };
-        $parse_char_set_content = function($counter, $str_ind, $end_ind) use ($add_char,$caml_string_get,$caml_trampoline_return,$parse_char_set_after_char__0,$str,$unexpected_end_of_format) {
+        $parse_char_set_content = function
+        (dynamic $counter, dynamic $str_ind, dynamic $end_ind) use ($add_char,$caml_string_get,$caml_trampoline_return,$parse_char_set_after_char__0,$str,$unexpected_end_of_format) {
           $str_ind__0 = $str_ind;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
@@ -7694,7 +7733,7 @@ final class CamlinternalFormat {
           }
         };
         $parse_char_set_after_char__0->contents = function
-        ($counter, $str_ind, $end_ind, $c) use ($add_char,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_after_minus,$parse_char_set_content,$str,$unexpected_end_of_format) {
+        (dynamic $counter, dynamic $str_ind, dynamic $end_ind, dynamic $c) use ($add_char,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_after_minus,$parse_char_set_content,$str,$unexpected_end_of_format) {
           $str_ind__0 = $str_ind;
           $c__0 = $c;
           for (;;) {
@@ -7757,7 +7796,7 @@ final class CamlinternalFormat {
           }
         };
         $parse_char_set_after_minus->contents = function
-        ($counter, $str_ind, $end_ind, $c) use ($add_char,$add_range,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_content,$str,$unexpected_end_of_format) {
+        (dynamic $counter, dynamic $str_ind, dynamic $end_ind, dynamic $c) use ($add_char,$add_range,$caml_string_get,$caml_trampoline_return,$fail_single_percent,$parse_char_set_content,$str,$unexpected_end_of_format) {
           if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
           $c__0 = $caml_string_get($str, $str_ind);
           if (37 === $c__0) {
@@ -7793,12 +7832,13 @@ final class CamlinternalFormat {
             varray[0,$iz,$end_ind]
           );
         };
-        $parse_char_set_after_char = function($str_ind, $end_ind, $c) use ($caml_trampoline,$parse_char_set_after_char__0) {
+        $parse_char_set_after_char = function
+        (dynamic $str_ind, dynamic $end_ind, dynamic $c) use ($caml_trampoline,$parse_char_set_after_char__0) {
           return $caml_trampoline(
             $parse_char_set_after_char__0->contents(0, $str_ind, $end_ind, $c)
           );
         };
-        $parse_char_set_start = function($str_ind, $end_ind) use ($caml_string_get,$parse_char_set_after_char,$str,$unexpected_end_of_format) {
+        $parse_char_set_start = function(dynamic $str_ind, dynamic $end_ind) use ($caml_string_get,$parse_char_set_after_char,$str,$unexpected_end_of_format) {
           if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
           $c = $caml_string_get($str, $str_ind);
           return $parse_char_set_after_char((int) ($str_ind + 1), $end_ind, $c
@@ -7818,7 +7858,7 @@ final class CamlinternalFormat {
         $iw = $reverse__0 ? $rev_char_set($char_set__0) : ($char_set__0);
         return Vector{0, $next_ind, $iw};
       };
-      $parse_spaces->contents = function($str_ind, $end_ind) use ($caml_string_get,$str,$unexpected_end_of_format) {
+      $parse_spaces->contents = function(dynamic $str_ind, dynamic $end_ind) use ($caml_string_get,$str,$unexpected_end_of_format) {
         $str_ind__0 = $str_ind;
         for (;;) {
           if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
@@ -7830,7 +7870,8 @@ final class CamlinternalFormat {
           return $str_ind__0;
         }
       };
-      $parse_positive->contents = function($str_ind, $end_ind, $acc) use ($Sys,$caml_call3,$caml_string_get,$failwith_message,$ie,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
+      $parse_positive->contents = function
+      (dynamic $str_ind, dynamic $end_ind, dynamic $acc) use ($Sys,$caml_call3,$caml_string_get,$failwith_message,$ie,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
         $str_ind__0 = $str_ind;
         $acc__0 = $acc;
         for (;;) {
@@ -7849,7 +7890,7 @@ final class CamlinternalFormat {
           continue;
         }
       };
-      $parse_integer->contents = function($str_ind, $end_ind) use ($Assert_failure,$caml_string_get,$cst_digit,$expected_character,$ig,$parse_positive,$runtime,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
+      $parse_integer->contents = function(dynamic $str_ind, dynamic $end_ind) use ($Assert_failure,$caml_string_get,$cst_digit,$expected_character,$ig,$parse_positive,$runtime,$str,$unexpected_end_of_format,$unsigned_right_shift_32) {
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $match = $caml_string_get($str, $str_ind);
         if (48 <= $match) {
@@ -7878,7 +7919,8 @@ final class CamlinternalFormat {
         }
         throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ig}) as \Throwable;
       };
-      $search_subformat_end->contents = function($str_ind, $end_ind, $c) use ($caml_call3,$caml_string_get,$cst_character,$cst_character__0,$expected_character,$failwith_message,$ih,$search_subformat_end,$str,$unexpected_end_of_format) {
+      $search_subformat_end->contents = function
+      (dynamic $str_ind, dynamic $end_ind, dynamic $c) use ($caml_call3,$caml_string_get,$cst_character,$cst_character__0,$expected_character,$failwith_message,$ih,$search_subformat_end,$str,$unexpected_end_of_format) {
         $str_ind__0 = $str_ind;
         for (;;) {
           if ($str_ind__0 === $end_ind) {
@@ -7980,7 +8022,7 @@ final class CamlinternalFormat {
           continue;
         }
       };
-      $is_int_base->contents = function($symb) use ($unsigned_right_shift_32) {
+      $is_int_base->contents = function(dynamic $symb) use ($unsigned_right_shift_32) {
         $iu = (int) ($symb + -88);
         if (! (32 < $unsigned_right_shift_32($iu, 0))) {
           switch($iu) {
@@ -8001,7 +8043,7 @@ final class CamlinternalFormat {
         }
         return 0;
       };
-      $counter_of_char->contents = function($symb) use ($Assert_failure,$ii,$runtime) {
+      $counter_of_char->contents = function(dynamic $symb) use ($Assert_failure,$ii,$runtime) {
         if (108 <= $symb) {
           if (! (111 <= $symb)) {
             $switcher = (int) ($symb + -108);
@@ -8021,7 +8063,7 @@ final class CamlinternalFormat {
         throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ii}) as \Throwable;
       };
       $incompatible_flag->contents = function
-      ($pct_ind, $str_ind, $symb, $option) use ($String,$caml_call3,$caml_call5,$failwith_message,$il,$str) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $symb, dynamic $option) use ($String,$caml_call3,$caml_call5,$failwith_message,$il,$str) {
         $subfmt = $caml_call3(
           $String[4],
           $str,
@@ -8039,7 +8081,7 @@ final class CamlinternalFormat {
         );
       };
       $compute_int_conv->contents = function
-      ($pct_ind, $str_ind, $plus, $hash, $space, $symb) use ($Assert_failure,$cst__33,$cst__34,$cst__35,$cst__36,$ij,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $plus, dynamic $hash, dynamic $space, dynamic $symb) use ($Assert_failure,$cst__33,$cst__34,$cst__35,$cst__36,$ij,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
         $plus__0 = $plus;
         $hash__0 = $hash;
         $space__0 = $space;
@@ -8161,7 +8203,7 @@ final class CamlinternalFormat {
         }
       };
       $compute_float_conv->contents = function
-      ($pct_ind, $str_ind, $plus, $space, $symb) use ($Assert_failure,$cst__37,$cst__38,$cst__39,$ik,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
+      (dynamic $pct_ind, dynamic $str_ind, dynamic $plus, dynamic $space, dynamic $symb) use ($Assert_failure,$cst__37,$cst__38,$cst__39,$ik,$incompatible_flag,$legacy_behavior__0,$runtime,$unsigned_right_shift_32) {
         $plus__0 = $plus;
         $space__0 = $space;
         for (;;) {
@@ -8305,7 +8347,7 @@ final class CamlinternalFormat {
       };
       return $parse(0, $caml_ml_string_length($str));
     };
-    $format_of_string_fmtty = function($str, $fmtty) use ($Type_mismatch,$caml_call2,$caml_wrap_exception,$failwith_message,$fmt_ebb_of_string,$im,$runtime,$string_of_fmtty,$type_format) {
+    $format_of_string_fmtty = function(dynamic $str, dynamic $fmtty) use ($Type_mismatch,$caml_call2,$caml_wrap_exception,$failwith_message,$fmt_ebb_of_string,$im,$runtime,$string_of_fmtty,$type_format) {
       $match = $fmt_ebb_of_string(0, $str);
       $fmt = $match[1];
       try {$is = Vector{0, $type_format($fmt, $fmtty), $str};return $is;}
@@ -8318,7 +8360,7 @@ final class CamlinternalFormat {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($it) as \Throwable;
       }
     };
-    $format_of_string_format = function($str, $param) use ($Type_mismatch,$caml_call2,$caml_wrap_exception,$failwith_message,$fmt_ebb_of_string,$fmtty_of_fmt,$io,$runtime,$type_format) {
+    $format_of_string_format = function(dynamic $str, dynamic $param) use ($Type_mismatch,$caml_call2,$caml_wrap_exception,$failwith_message,$fmt_ebb_of_string,$fmtty_of_fmt,$io,$runtime,$type_format) {
       $str__0 = $param[2];
       $fmt = $param[1];
       $match = $fmt_ebb_of_string(0, $str);
