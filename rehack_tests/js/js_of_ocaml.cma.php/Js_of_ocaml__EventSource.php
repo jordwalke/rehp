@@ -32,7 +32,7 @@ final class Js_of_ocaml__EventSource {
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -40,24 +40,24 @@ final class Js_of_ocaml__EventSource {
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $withCredentials = function(dynamic $b) use ($caml_call1,$caml_get_public_method) {
+    $withCredentials = function(dynamic $b) use ($call1,$caml_get_public_method) {
       $init = (object)darray[];
-      $lj = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -893090218, 199), $x);
+      $lj = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -893090218, 199), $x);
       };
       $lk = ! ! $b;
       ((function(dynamic $t1, dynamic $t0, dynamic $param) {$t1->withCredentials = $t0;return 0;
         })($init, $lk, $lj));
       return $init;
     };
-    $lf = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-      return $caml_call1($caml_get_public_method($x, -809811338, 200), $x);
+    $lf = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, -809811338, 200), $x);
     };
     $lg = $Js_of_ocaml_Js[50][1];
     $eventSource = (function(dynamic $t2, dynamic $param) {return $t2->EventSource;
      })($lg, $lf);
-    $lh = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-      return $caml_call1($caml_get_public_method($x, -809811338, 201), $x);
+    $lh = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, -809811338, 201), $x);
     };
     $li = $Js_of_ocaml_Js[50][1];
     $eventSource_options = (function(dynamic $t3, dynamic $param) {return $t3->EventSource;

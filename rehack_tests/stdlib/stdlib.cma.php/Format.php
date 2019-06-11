@@ -40,22 +40,22 @@ final class Format {
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $is_int = $runtime["is_int"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function
+    $call4 = function
     (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
@@ -119,24 +119,24 @@ final class Format {
       return $clear_queue($state[28]);
     };
     $pp_infinity = 1000000010;
-    $pp_output_string = function(dynamic $state, dynamic $s) use ($caml_call3,$caml_ml_string_length) {
-      return $caml_call3($state[17], $s, 0, $caml_ml_string_length($s));
+    $pp_output_string = function(dynamic $state, dynamic $s) use ($call3,$caml_ml_string_length) {
+      return $call3($state[17], $s, 0, $caml_ml_string_length($s));
     };
-    $pp_output_newline = function(dynamic $state) use ($caml_call1) {
-      return $caml_call1($state[19], 0);
+    $pp_output_newline = function(dynamic $state) use ($call1) {
+      return $call1($state[19], 0);
     };
-    $pp_output_spaces = function(dynamic $state, dynamic $n) use ($caml_call1) {
-      return $caml_call1($state[20], $n);
+    $pp_output_spaces = function(dynamic $state, dynamic $n) use ($call1) {
+      return $call1($state[20], $n);
     };
-    $pp_output_indent = function(dynamic $state, dynamic $n) use ($caml_call1) {
-      return $caml_call1($state[21], $n);
+    $pp_output_indent = function(dynamic $state, dynamic $n) use ($call1) {
+      return $call1($state[21], $n);
     };
     $break_new_line = function
-    (dynamic $state, dynamic $offset, dynamic $width) use ($Pervasives,$caml_call2,$pp_output_indent,$pp_output_newline) {
+    (dynamic $state, dynamic $offset, dynamic $width) use ($Pervasives,$call2,$pp_output_indent,$pp_output_newline) {
       $pp_output_newline($state);
       $state[11] = 1;
       $indent = (int) ((int) ($state[6] - $width) + $offset);
-      $real_indent = $caml_call2($Pervasives[4], $state[8], $indent);
+      $real_indent = $call2($Pervasives[4], $state[8], $indent);
       $state[10] = $real_indent;
       $state[9] = (int) ($state[6] - $state[10]);
       return $pp_output_indent($state, $state[10]);
@@ -174,7 +174,7 @@ final class Format {
       $state[9] = (int) ($state[9] + $size);
       return 0;
     };
-    $format_pp_token = function(dynamic $state, dynamic $size, dynamic $param) use ($Not_found,$add_tab,$break_line,$break_new_line,$break_same_line,$caml_call1,$caml_wrap_exception,$is_int,$pp_force_break_line,$pp_output_newline,$pp_output_string,$pp_skip_token,$runtime) {
+    $format_pp_token = function(dynamic $state, dynamic $size, dynamic $param) use ($Not_found,$add_tab,$break_line,$break_new_line,$break_same_line,$call1,$caml_wrap_exception,$is_int,$pp_force_break_line,$pp_output_newline,$pp_output_string,$pp_skip_token,$runtime) {
       if ($is_int($param)) {
         switch($param) {
           // FALLTHROUGH
@@ -227,7 +227,7 @@ final class Format {
             if ($vH) {
               $tags = $vH[2];
               $tag_name = $vH[1];
-              $marker = $caml_call1($state[25], $tag_name);
+              $marker = $call1($state[25], $tag_name);
               $pp_output_string($state, $marker);
               $state[5] = $tags;
               return 0;
@@ -344,7 +344,7 @@ final class Format {
           // FALLTHROUGH
           default:
             $tag_name__0 = $param[1];
-            $marker__0 = $caml_call1($state[24], $tag_name__0);
+            $marker__0 = $call1($state[24], $tag_name__0);
             $pp_output_string($state, $marker__0);
             $state[5] = Vector{0, $tag_name__0, $state[5]};
             return 0;
@@ -480,17 +480,17 @@ final class Format {
       else {$vr = $vq;}
       return $vr;
     };
-    $pp_open_tag = function(dynamic $state, dynamic $tag_name) use ($caml_call1,$pp_enqueue) {
+    $pp_open_tag = function(dynamic $state, dynamic $tag_name) use ($call1,$pp_enqueue) {
       if ($state[22]) {
         $state[4] = Vector{0, $tag_name, $state[4]};
-        $caml_call1($state[26], $tag_name);
+        $call1($state[26], $tag_name);
       }
       $vp = $state[23];
       return $vp
         ? $pp_enqueue($state, Vector{0, 0, Vector{5, $tag_name}, 0})
         : ($vp);
     };
-    $pp_close_tag = function(dynamic $state, dynamic $param) use ($caml_call1,$pp_enqueue) {
+    $pp_close_tag = function(dynamic $state, dynamic $param) use ($call1,$pp_enqueue) {
       if ($state[23]) {$pp_enqueue($state, Vector{0, 0, 5, 0});}
       $vm = $state[22];
       if ($vm) {
@@ -498,7 +498,7 @@ final class Format {
         if ($vn) {
           $tags = $vn[2];
           $tag_name = $vn[1];
-          $caml_call1($state[27], $tag_name);
+          $call1($state[27], $tag_name);
           $state[4] = $tags;
           return 0;
         }
@@ -545,12 +545,12 @@ final class Format {
       $state[9] = $state[6];
       return $pp_open_sys_box($state);
     };
-    $clear_tag_stack = function(dynamic $state) use ($List,$caml_call2,$pp_close_tag) {
+    $clear_tag_stack = function(dynamic $state) use ($List,$call2,$pp_close_tag) {
       $vk = $state[4];
       $vl = function(dynamic $param) use ($pp_close_tag,$state) {
         return $pp_close_tag($state, 0);
       };
-      return $caml_call2($List[15], $vl, $vk);
+      return $call2($List[15], $vl, $vk);
     };
     $pp_flush_queue = function(dynamic $state, dynamic $b) use ($advance_left,$clear_tag_stack,$pp_close_box,$pp_infinity,$pp_output_newline,$pp_rinit) {
       $clear_tag_stack($state);
@@ -572,17 +572,17 @@ final class Format {
     $pp_print_string = function(dynamic $state, dynamic $s) use ($caml_ml_string_length,$pp_print_as) {
       return $pp_print_as($state, $caml_ml_string_length($s), $s);
     };
-    $pp_print_int = function(dynamic $state, dynamic $i) use ($Pervasives,$caml_call1,$pp_print_string) {
-      return $pp_print_string($state, $caml_call1($Pervasives[21], $i));
+    $pp_print_int = function(dynamic $state, dynamic $i) use ($Pervasives,$call1,$pp_print_string) {
+      return $pp_print_string($state, $call1($Pervasives[21], $i));
     };
-    $pp_print_float = function(dynamic $state, dynamic $f) use ($Pervasives,$caml_call1,$pp_print_string) {
-      return $pp_print_string($state, $caml_call1($Pervasives[23], $f));
+    $pp_print_float = function(dynamic $state, dynamic $f) use ($Pervasives,$call1,$pp_print_string) {
+      return $pp_print_string($state, $call1($Pervasives[23], $f));
     };
-    $pp_print_bool = function(dynamic $state, dynamic $b) use ($Pervasives,$caml_call1,$pp_print_string) {
-      return $pp_print_string($state, $caml_call1($Pervasives[18], $b));
+    $pp_print_bool = function(dynamic $state, dynamic $b) use ($Pervasives,$call1,$pp_print_string) {
+      return $pp_print_string($state, $call1($Pervasives[18], $b));
     };
-    $pp_print_char = function(dynamic $state, dynamic $c) use ($String,$caml_call2,$pp_print_as) {
-      return $pp_print_as($state, 1, $caml_call2($String[1], 1, $c));
+    $pp_print_char = function(dynamic $state, dynamic $c) use ($String,$call2,$pp_print_as) {
+      return $pp_print_as($state, 1, $call2($String[1], 1, $c));
     };
     $pp_open_hbox = function(dynamic $state, dynamic $param) use ($pp_open_box_gen) {
       return $pp_open_box_gen($state, 0, 0);
@@ -599,13 +599,13 @@ final class Format {
     $pp_open_box = function(dynamic $state, dynamic $indent) use ($pp_open_box_gen) {
       return $pp_open_box_gen($state, $indent, 4);
     };
-    $pp_print_newline = function(dynamic $state, dynamic $param) use ($caml_call1,$pp_flush_queue) {
+    $pp_print_newline = function(dynamic $state, dynamic $param) use ($call1,$pp_flush_queue) {
       $pp_flush_queue($state, 1);
-      return $caml_call1($state[18], 0);
+      return $call1($state[18], 0);
     };
-    $pp_print_flush = function(dynamic $state, dynamic $param) use ($caml_call1,$pp_flush_queue) {
+    $pp_print_flush = function(dynamic $state, dynamic $param) use ($call1,$pp_flush_queue) {
       $pp_flush_queue($state, 0);
-      return $caml_call1($state[18], 0);
+      return $call1($state[18], 0);
     };
     $pp_force_newline = function(dynamic $state, dynamic $param) use ($enqueue_advance,$make_queue_elem) {
       $vi = $state[14] < $state[15] ? 1 : (0);
@@ -722,7 +722,7 @@ final class Format {
     };
     $pp_get_max_indent = function(dynamic $state, dynamic $param) {return $state[8];
     };
-    $pp_set_margin = function(dynamic $state, dynamic $n) use ($Pervasives,$caml_call2,$pp_limit,$pp_set_max_indent) {
+    $pp_set_margin = function(dynamic $state, dynamic $n) use ($Pervasives,$call2,$pp_limit,$pp_set_max_indent) {
       $u6 = 1 <= $n ? 1 : (0);
       if ($u6) {
         $n__0 = $pp_limit($n);
@@ -731,14 +731,14 @@ final class Format {
           $new_max_indent = $state[8];
         }
         else {
-          $u7 = $caml_call2(
+          $u7 = $call2(
             $Pervasives[5],
             (int)
             ($state[6] - $state[7]),
             (int)
             ($state[6] / 2)
           );
-          $new_max_indent = $caml_call2($Pervasives[5], $u7, 1);
+          $new_max_indent = $call2($Pervasives[5], $u7, 1);
         }
         return $pp_set_max_indent($state, $new_max_indent);
       }
@@ -779,31 +779,31 @@ final class Format {
     (dynamic $state, dynamic $param) {
       return Vector{0, $state[17], $state[18]};
     };
-    $display_newline = function(dynamic $state, dynamic $param) use ($caml_call3,$cst) {
-      return $caml_call3($state[17], $cst, 0, 1);
+    $display_newline = function(dynamic $state, dynamic $param) use ($call3,$cst) {
+      return $call3($state[17], $cst, 0, 1);
     };
-    $blank_line = $caml_call2($String[1], 80, 32);
-    $display_blanks = function(dynamic $state, dynamic $n) use ($blank_line,$caml_call3) {
+    $blank_line = $call2($String[1], 80, 32);
+    $display_blanks = function(dynamic $state, dynamic $n) use ($blank_line,$call3) {
       $n__0 = $n;
       for (;;) {
         $u5 = 0 < $n__0 ? 1 : (0);
         if ($u5) {
           if (80 < $n__0) {
-            $caml_call3($state[17], $blank_line, 0, 80);
+            $call3($state[17], $blank_line, 0, 80);
             $n__1 = (int) ($n__0 + -80);
             $n__0 = $n__1;
             continue;
           }
-          return $caml_call3($state[17], $blank_line, 0, $n__0);
+          return $call3($state[17], $blank_line, 0, $n__0);
         }
         return $u5;
       }
     };
-    $pp_set_formatter_out_channel = function(dynamic $state, dynamic $oc) use ($Pervasives,$caml_call1,$display_blanks,$display_newline) {
-      $state[17] = $caml_call1($Pervasives[57], $oc);
+    $pp_set_formatter_out_channel = function(dynamic $state, dynamic $oc) use ($Pervasives,$call1,$display_blanks,$display_newline) {
+      $state[17] = $call1($Pervasives[57], $oc);
       $state[18] =
-        function(dynamic $param) use ($Pervasives,$caml_call1,$oc) {
-          return $caml_call1($Pervasives[51], $oc);
+        function(dynamic $param) use ($Pervasives,$call1,$oc) {
+          return $call1($Pervasives[51], $oc);
         };
       $state[19] =
         function(dynamic $u4) use ($display_newline,$state) {
@@ -819,13 +819,13 @@ final class Format {
         };
       return 0;
     };
-    $default_pp_mark_open_tag = function(dynamic $s) use ($Pervasives,$caml_call2,$cst__0,$cst__1) {
-      $u1 = $caml_call2($Pervasives[16], $s, $cst__0);
-      return $caml_call2($Pervasives[16], $cst__1, $u1);
+    $default_pp_mark_open_tag = function(dynamic $s) use ($Pervasives,$call2,$cst__0,$cst__1) {
+      $u1 = $call2($Pervasives[16], $s, $cst__0);
+      return $call2($Pervasives[16], $cst__1, $u1);
     };
-    $default_pp_mark_close_tag = function(dynamic $s) use ($Pervasives,$caml_call2,$cst__2,$cst__3) {
-      $u0 = $caml_call2($Pervasives[16], $s, $cst__2);
-      return $caml_call2($Pervasives[16], $cst__3, $u0);
+    $default_pp_mark_close_tag = function(dynamic $s) use ($Pervasives,$call2,$cst__2,$cst__3) {
+      $u0 = $call2($Pervasives[16], $s, $cst__2);
+      return $call2($Pervasives[16], $cst__3, $u0);
     };
     $default_pp_print_open_tag = function(dynamic $uZ) {return 0;};
     $default_pp_print_close_tag = function(dynamic $uY) {return 0;};
@@ -900,28 +900,28 @@ final class Format {
         };
       return $ppf;
     };
-    $formatter_of_out_channel = function(dynamic $oc) use ($Pervasives,$caml_call1,$make_formatter) {
-      $uP = function(dynamic $param) use ($Pervasives,$caml_call1,$oc) {
-        return $caml_call1($Pervasives[51], $oc);
+    $formatter_of_out_channel = function(dynamic $oc) use ($Pervasives,$call1,$make_formatter) {
+      $uP = function(dynamic $param) use ($Pervasives,$call1,$oc) {
+        return $call1($Pervasives[51], $oc);
       };
-      return $make_formatter($caml_call1($Pervasives[57], $oc), $uP);
+      return $make_formatter($call1($Pervasives[57], $oc), $uP);
     };
-    $formatter_of_buffer = function(dynamic $b) use ($Buffer,$caml_call1,$make_formatter) {
+    $formatter_of_buffer = function(dynamic $b) use ($Buffer,$call1,$make_formatter) {
       $uN = function(dynamic $uO) {return 0;};
-      return $make_formatter($caml_call1($Buffer[16], $b), $uN);
+      return $make_formatter($call1($Buffer[16], $b), $uN);
     };
     $pp_buffer_size = 512;
-    $pp_make_buffer = function(dynamic $param) use ($Buffer,$caml_call1,$pp_buffer_size) {
-      return $caml_call1($Buffer[1], $pp_buffer_size);
+    $pp_make_buffer = function(dynamic $param) use ($Buffer,$call1,$pp_buffer_size) {
+      return $call1($Buffer[1], $pp_buffer_size);
     };
     $stdbuf = $pp_make_buffer(0);
     $std_formatter = $formatter_of_out_channel($Pervasives[27]);
     $err_formatter = $formatter_of_out_channel($Pervasives[28]);
     $str_formatter = $formatter_of_buffer($stdbuf);
-    $flush_buffer_formatter = function(dynamic $buf, dynamic $ppf) use ($Buffer,$caml_call1,$pp_flush_queue) {
+    $flush_buffer_formatter = function(dynamic $buf, dynamic $ppf) use ($Buffer,$call1,$pp_flush_queue) {
       $pp_flush_queue($ppf, 0);
-      $s = $caml_call1($Buffer[2], $buf);
-      $caml_call1($Buffer[9], $buf);
+      $s = $call1($Buffer[2], $buf);
+      $call1($Buffer[9], $buf);
       return $s;
     };
     $flush_str_formatter = function(dynamic $param) use ($flush_buffer_formatter,$stdbuf,$str_formatter) {
@@ -933,8 +933,8 @@ final class Format {
       $sob[1] = 0;
       return 0;
     };
-    $get_symbolic_output_buffer = function(dynamic $sob) use ($List,$caml_call1) {
-      return $caml_call1($List[9], $sob[1]);
+    $get_symbolic_output_buffer = function(dynamic $sob) use ($List,$call1) {
+      return $call1($List[9], $sob[1]);
     };
     $flush_symbolic_output_buffer = function(dynamic $sob) use ($clear_symbolic_output_buffer,$get_symbolic_output_buffer) {
       $items = $get_symbolic_output_buffer($sob);
@@ -945,7 +945,7 @@ final class Format {
       $sob[1] = Vector{0, $item, $sob[1]};
       return 0;
     };
-    $formatter_of_symbolic_output_buffer = function(dynamic $sob) use ($String,$add_symbolic_output_item,$caml_call3,$pp_make_formatter) {
+    $formatter_of_symbolic_output_buffer = function(dynamic $sob) use ($String,$add_symbolic_output_item,$call3,$pp_make_formatter) {
       $symbolic_flush = function(dynamic $sob, dynamic $param) use ($add_symbolic_output_item) {
         return $add_symbolic_output_item($sob, 0);
       };
@@ -953,10 +953,10 @@ final class Format {
         return $add_symbolic_output_item($sob, 1);
       };
       $symbolic_string = function
-      (dynamic $sob, dynamic $s, dynamic $i, dynamic $n) use ($String,$add_symbolic_output_item,$caml_call3) {
+      (dynamic $sob, dynamic $s, dynamic $i, dynamic $n) use ($String,$add_symbolic_output_item,$call3) {
         return $add_symbolic_output_item(
           $sob,
-          Vector{0, $caml_call3($String[4], $s, $i, $n)}
+          Vector{0, $call3($String[4], $s, $i, $n)}
         );
       };
       $symbolic_spaces = function(dynamic $sob, dynamic $n) use ($add_symbolic_output_item) {
@@ -1124,7 +1124,7 @@ final class Format {
       return $pp_set_tags($std_formatter, $tS);
     };
     $pp_print_list = function
-    (dynamic $opt, dynamic $pp_v, dynamic $ppf, dynamic $param) use ($caml_call2,$pp_print_cut) {
+    (dynamic $opt, dynamic $pp_v, dynamic $ppf, dynamic $param) use ($call2,$pp_print_cut) {
       $opt__0 = $opt;
       $param__0 = $param;
       for (;;) {
@@ -1137,26 +1137,26 @@ final class Format {
           $tQ = $param__0[2];
           $tR = $param__0[1];
           if ($tQ) {
-            $caml_call2($pp_v, $ppf, $tR);
-            $caml_call2($pp_sep, $ppf, 0);
+            $call2($pp_v, $ppf, $tR);
+            $call2($pp_sep, $ppf, 0);
             $opt__1 = Vector{0, $pp_sep};
             $opt__0 = $opt__1;
             $param__0 = $tQ;
             continue;
           }
-          return $caml_call2($pp_v, $ppf, $tR);
+          return $call2($pp_v, $ppf, $tR);
         }
         return 0;
       }
     };
-    $pp_print_text = function(dynamic $ppf, dynamic $s) use ($String,$caml_call3,$caml_ml_string_length,$pp_force_newline,$pp_print_space,$pp_print_string,$runtime) {
+    $pp_print_text = function(dynamic $ppf, dynamic $s) use ($String,$call3,$caml_ml_string_length,$pp_force_newline,$pp_print_space,$pp_print_string,$runtime) {
       $len = $caml_ml_string_length($s);
       $left = Vector{0, 0};
       $right = Vector{0, 0};
-      $flush = function(dynamic $param) use ($String,$caml_call3,$left,$pp_print_string,$ppf,$right,$s) {
+      $flush = function(dynamic $param) use ($String,$call3,$left,$pp_print_string,$ppf,$right,$s) {
         $pp_print_string(
           $ppf,
-          $caml_call3($String[4], $s, $left[1], (int) ($right[1] - $left[1]))
+          $call3($String[4], $s, $left[1], (int) ($right[1] - $left[1]))
         );
         $right[1] += 1;
         $left[1] = $right[1];
@@ -1182,15 +1182,15 @@ final class Format {
         return $tP ? $flush(0) : ($tP);
       }
     };
-    $compute_tag = function(dynamic $output, dynamic $tag_acc) use ($Buffer,$caml_call1,$caml_call2,$caml_call3,$formatter_of_buffer,$pp_print_flush) {
-      $buf = $caml_call1($Buffer[1], 16);
+    $compute_tag = function(dynamic $output, dynamic $tag_acc) use ($Buffer,$call1,$call2,$call3,$formatter_of_buffer,$pp_print_flush) {
+      $buf = $call1($Buffer[1], 16);
       $ppf = $formatter_of_buffer($buf);
-      $caml_call2($output, $ppf, $tag_acc);
+      $call2($output, $ppf, $tag_acc);
       $pp_print_flush($ppf, 0);
-      $len = $caml_call1($Buffer[7], $buf);
+      $len = $call1($Buffer[7], $buf);
       return 2 <= $len
-        ? $caml_call3($Buffer[4], $buf, 1, (int) ($len + -2))
-        : ($caml_call1($Buffer[2], $buf));
+        ? $call3($Buffer[4], $buf, 1, (int) ($len + -2))
+        : ($call1($Buffer[2], $buf));
     };
     $output_formatting_lit = function(dynamic $ppf, dynamic $fmting_lit) use ($is_int,$pp_close_box,$pp_close_tag,$pp_force_newline,$pp_print_break,$pp_print_char,$pp_print_flush,$pp_print_newline) {
       if ($is_int($fmting_lit)) {
@@ -1236,7 +1236,7 @@ final class Format {
           }
       }
     };
-    $output_acc->contents = function(dynamic $ppf, dynamic $acc) use ($CamlinternalFormat,$Pervasives,$String,$caml_call1,$caml_call2,$compute_tag,$is_int,$output_acc,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string) {
+    $output_acc->contents = function(dynamic $ppf, dynamic $acc) use ($CamlinternalFormat,$Pervasives,$String,$call1,$call2,$compute_tag,$is_int,$output_acc,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string) {
       if ($is_int($acc)) {return 0;}
       else {
         switch($acc[0]) {
@@ -1261,7 +1261,7 @@ final class Format {
             $acc__1 = $to[1];
             $output_acc->contents($ppf, $tp);
             $tq = $compute_tag($output_acc->contents, $acc__1);
-            $match = $caml_call1($CamlinternalFormat[21], $tq);
+            $match = $call1($CamlinternalFormat[21], $tq);
             $bty = $match[2];
             $indent = $match[1];
             return $pp_open_box_gen($ppf, $indent, $bty);
@@ -1402,7 +1402,7 @@ final class Format {
             $f__0 = $acc[2];
             $p__4 = $acc[1];
             $output_acc->contents($ppf, $p__4);
-            return $caml_call1($f__0, $ppf);
+            return $call1($f__0, $ppf);
           // FALLTHROUGH
           case 7:
             $p__5 = $acc[1];
@@ -1413,7 +1413,7 @@ final class Format {
             $msg = $acc[2];
             $p__6 = $acc[1];
             $output_acc->contents($ppf, $p__6);
-            return $caml_call1($Pervasives[1], $msg);
+            return $call1($Pervasives[1], $msg);
           }
       }
       switch($switch__0) {
@@ -1427,7 +1427,7 @@ final class Format {
           return $pp_print_as_size(
             $ppf,
             $size__0,
-            $caml_call2($String[1], 1, $c__0)
+            $call2($String[1], 1, $c__0)
           );
         // FALLTHROUGH
         case 2:
@@ -1439,7 +1439,7 @@ final class Format {
           return $pp_print_char($ppf, $c);
         }
     };
-    $strput_acc->contents = function(dynamic $ppf, dynamic $acc) use ($CamlinternalFormat,$Pervasives,$String,$caml_call1,$caml_call2,$compute_tag,$is_int,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string,$strput_acc) {
+    $strput_acc->contents = function(dynamic $ppf, dynamic $acc) use ($CamlinternalFormat,$Pervasives,$String,$call1,$call2,$compute_tag,$is_int,$output_formatting_lit,$pp_open_box_gen,$pp_open_tag,$pp_print_as_size,$pp_print_char,$pp_print_flush,$pp_print_string,$strput_acc) {
       if ($is_int($acc)) {return 0;}
       else {
         switch($acc[0]) {
@@ -1464,7 +1464,7 @@ final class Format {
             $acc__1 = $sW[1];
             $strput_acc->contents($ppf, $sX);
             $sY = $compute_tag($strput_acc->contents, $acc__1);
-            $match = $caml_call1($CamlinternalFormat[21], $sY);
+            $match = $call1($CamlinternalFormat[21], $sY);
             $bty = $match[2];
             $indent = $match[1];
             return $pp_open_box_gen($ppf, $indent, $bty);
@@ -1610,13 +1610,12 @@ final class Format {
                 $size__1 = $tn[2];
                 $p__4 = $tm[1];
                 $strput_acc->contents($ppf, $p__4);
-                return $pp_print_as_size($ppf, $size__1, $caml_call1($f__1, 0)
-                );
+                return $pp_print_as_size($ppf, $size__1, $call1($f__1, 0));
               }
             }
             $f__0 = $acc[2];
             $strput_acc->contents($ppf, $tm);
-            return $pp_print_string($ppf, $caml_call1($f__0, 0));
+            return $pp_print_string($ppf, $call1($f__0, 0));
           // FALLTHROUGH
           case 7:
             $p__5 = $acc[1];
@@ -1627,7 +1626,7 @@ final class Format {
             $msg = $acc[2];
             $p__6 = $acc[1];
             $strput_acc->contents($ppf, $p__6);
-            return $caml_call1($Pervasives[1], $msg);
+            return $call1($Pervasives[1], $msg);
           }
       }
       switch($switch__0) {
@@ -1641,7 +1640,7 @@ final class Format {
           return $pp_print_as_size(
             $ppf,
             $size__0,
-            $caml_call2($String[1], 1, $c__0)
+            $call2($String[1], 1, $c__0)
           );
         // FALLTHROUGH
         case 2:
@@ -1653,18 +1652,18 @@ final class Format {
           return $pp_print_char($ppf, $c);
         }
     };
-    $kfprintf = function(dynamic $k, dynamic $ppf, dynamic $param) use ($CamlinternalFormat,$caml_call1,$caml_call4,$output_acc) {
+    $kfprintf = function(dynamic $k, dynamic $ppf, dynamic $param) use ($CamlinternalFormat,$call1,$call4,$output_acc) {
       $fmt = $param[1];
       $sU = 0;
-      $sV = function(dynamic $ppf, dynamic $acc) use ($caml_call1,$k,$output_acc) {
+      $sV = function(dynamic $ppf, dynamic $acc) use ($call1,$k,$output_acc) {
         $output_acc->contents($ppf, $acc);
-        return $caml_call1($k, $ppf);
+        return $call1($k, $ppf);
       };
-      return $caml_call4($CamlinternalFormat[7], $sV, $ppf, $sU, $fmt);
+      return $call4($CamlinternalFormat[7], $sV, $ppf, $sU, $fmt);
     };
-    $ikfprintf = function(dynamic $k, dynamic $ppf, dynamic $param) use ($CamlinternalFormat,$caml_call3) {
+    $ikfprintf = function(dynamic $k, dynamic $ppf, dynamic $param) use ($CamlinternalFormat,$call3) {
       $fmt = $param[1];
-      return $caml_call3($CamlinternalFormat[8], $k, $ppf, $fmt);
+      return $call3($CamlinternalFormat[8], $k, $ppf, $fmt);
     };
     $fprintf = function(dynamic $ppf) use ($kfprintf) {
       $sR = function(dynamic $sT) {return 0;};
@@ -1678,40 +1677,40 @@ final class Format {
         return $ikfprintf($sO, $ppf, $sP);
       };
     };
-    $printf = function(dynamic $fmt) use ($caml_call1,$fprintf,$std_formatter) {
-      return $caml_call1($fprintf($std_formatter), $fmt);
+    $printf = function(dynamic $fmt) use ($call1,$fprintf,$std_formatter) {
+      return $call1($fprintf($std_formatter), $fmt);
     };
-    $eprintf = function(dynamic $fmt) use ($caml_call1,$err_formatter,$fprintf) {
-      return $caml_call1($fprintf($err_formatter), $fmt);
+    $eprintf = function(dynamic $fmt) use ($call1,$err_formatter,$fprintf) {
+      return $call1($fprintf($err_formatter), $fmt);
     };
-    $ksprintf = function(dynamic $k, dynamic $param) use ($CamlinternalFormat,$caml_call1,$caml_call4,$flush_buffer_formatter,$formatter_of_buffer,$pp_make_buffer,$strput_acc) {
+    $ksprintf = function(dynamic $k, dynamic $param) use ($CamlinternalFormat,$call1,$call4,$flush_buffer_formatter,$formatter_of_buffer,$pp_make_buffer,$strput_acc) {
       $fmt = $param[1];
       $b = $pp_make_buffer(0);
       $ppf = $formatter_of_buffer($b);
-      $k__0 = function(dynamic $param, dynamic $acc) use ($b,$caml_call1,$flush_buffer_formatter,$k,$ppf,$strput_acc) {
+      $k__0 = function(dynamic $param, dynamic $acc) use ($b,$call1,$flush_buffer_formatter,$k,$ppf,$strput_acc) {
         $strput_acc->contents($ppf, $acc);
-        return $caml_call1($k, $flush_buffer_formatter($b, $ppf));
+        return $call1($k, $flush_buffer_formatter($b, $ppf));
       };
-      return $caml_call4($CamlinternalFormat[7], $k__0, 0, 0, $fmt);
+      return $call4($CamlinternalFormat[7], $k__0, 0, 0, $fmt);
     };
     $sprintf = function(dynamic $fmt) use ($ksprintf) {
       return $ksprintf(function(dynamic $s) {return $s;}, $fmt);
     };
-    $kasprintf = function(dynamic $k, dynamic $param) use ($CamlinternalFormat,$caml_call1,$caml_call4,$flush_buffer_formatter,$formatter_of_buffer,$output_acc,$pp_make_buffer) {
+    $kasprintf = function(dynamic $k, dynamic $param) use ($CamlinternalFormat,$call1,$call4,$flush_buffer_formatter,$formatter_of_buffer,$output_acc,$pp_make_buffer) {
       $fmt = $param[1];
       $b = $pp_make_buffer(0);
       $ppf = $formatter_of_buffer($b);
-      $k__0 = function(dynamic $ppf, dynamic $acc) use ($b,$caml_call1,$flush_buffer_formatter,$k,$output_acc) {
+      $k__0 = function(dynamic $ppf, dynamic $acc) use ($b,$call1,$flush_buffer_formatter,$k,$output_acc) {
         $output_acc->contents($ppf, $acc);
-        return $caml_call1($k, $flush_buffer_formatter($b, $ppf));
+        return $call1($k, $flush_buffer_formatter($b, $ppf));
       };
-      return $caml_call4($CamlinternalFormat[7], $k__0, $ppf, 0, $fmt);
+      return $call4($CamlinternalFormat[7], $k__0, $ppf, 0, $fmt);
     };
     $asprintf = function(dynamic $fmt) use ($kasprintf) {
       return $kasprintf(function(dynamic $s) {return $s;}, $fmt);
     };
     
-    $caml_call1($Pervasives[88], $print_flush);
+    $call1($Pervasives[88], $print_flush);
     
     $pp_set_all_formatter_output_functions = function
     (dynamic $state, dynamic $f, dynamic $g, dynamic $h, dynamic $i) use ($pp_set_formatter_output_functions) {
@@ -1737,14 +1736,14 @@ final class Format {
     $get_all_formatter_output_functions = function(dynamic $sJ) use ($pp_get_all_formatter_output_functions,$std_formatter) {
       return $pp_get_all_formatter_output_functions($std_formatter, $sJ);
     };
-    $bprintf = function(dynamic $b, dynamic $param) use ($CamlinternalFormat,$caml_call4,$formatter_of_buffer,$output_acc,$pp_flush_queue) {
+    $bprintf = function(dynamic $b, dynamic $param) use ($CamlinternalFormat,$call4,$formatter_of_buffer,$output_acc,$pp_flush_queue) {
       $fmt = $param[1];
       $k = function(dynamic $ppf, dynamic $acc) use ($output_acc,$pp_flush_queue) {
         $output_acc->contents($ppf, $acc);
         return $pp_flush_queue($ppf, 0);
       };
       $sI = $formatter_of_buffer($b);
-      return $caml_call4($CamlinternalFormat[7], $k, $sI, 0, $fmt);
+      return $call4($CamlinternalFormat[7], $k, $sI, 0, $fmt);
     };
     $Format = Vector{
       0,

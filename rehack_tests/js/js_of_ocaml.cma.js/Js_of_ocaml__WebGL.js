@@ -14,7 +14,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
@@ -36,15 +36,15 @@ var defaultContextAttributes = {
   "preferLowPowerToHighPerformance": Js_of_ocaml_Js[8],
   "failIfMajorPerformanceCaveat": Js_of_ocaml_Js[8]
 };
-var webglcontextlost = caml_call1(
+var webglcontextlost = call1(
   Js_of_ocaml_Dom_html[15][73],
   cst_webglcontextlost
 );
-var webglcontextrestored = caml_call1(
+var webglcontextrestored = call1(
   Js_of_ocaml_Dom_html[15][73],
   cst_webglcontextrestored
 );
-var webglcontextcreationerror = caml_call1(
+var webglcontextcreationerror = call1(
   Js_of_ocaml_Dom_html[15][73],
   cst_webglcontextcreationerror
 );
@@ -53,13 +53,13 @@ var Event = [0,webglcontextlost,webglcontextrestored,webglcontextcreationerror
 
 function getContext(c) {
   function s9(x) {
-    return caml_call1(caml_get_public_method(x, -388424711, 294), x);
+    return call1(caml_get_public_method(x, -388424711, 294), x);
   }
   var s_ = "webgl";
   var ctx = function(t3, t2, param) {return t3.getContext(t2);}(c, s_, s9);
-  if (caml_call1(Js_of_ocaml_Js[5][5], ctx)) {return ctx;}
+  if (call1(Js_of_ocaml_Js[5][5], ctx)) {return ctx;}
   function ta(x) {
-    return caml_call1(caml_get_public_method(x, -388424711, 295), x);
+    return call1(caml_get_public_method(x, -388424711, 295), x);
   }
   var tb = "experimental-webgl";
   return function(t1, t0, param) {return t1.getContext(t0);}(c, tb, ta);
@@ -67,14 +67,14 @@ function getContext(c) {
 
 function getContextWithAttributes(c, attribs) {
   function s5(x) {
-    return caml_call1(caml_get_public_method(x, -719364538, 296), x);
+    return call1(caml_get_public_method(x, -719364538, 296), x);
   }
   var s6 = "webgl";
   var ctx = function(t9, t7, t8, param) {return t9.getContext(t7, t8);}(c, s6, attribs, s5
   );
-  if (caml_call1(Js_of_ocaml_Js[5][5], ctx)) {return ctx;}
+  if (call1(Js_of_ocaml_Js[5][5], ctx)) {return ctx;}
   function s7(x) {
-    return caml_call1(caml_get_public_method(x, -719364538, 297), x);
+    return call1(caml_get_public_method(x, -719364538, 297), x);
   }
   var s8 = "experimental-webgl";
   return function(t6, t4, t5, param) {return t6.getContext(t4, t5);}(c, s8, attribs, s7

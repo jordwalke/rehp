@@ -33,17 +33,17 @@ final class Map {
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
@@ -60,7 +60,7 @@ final class Map {
     $gf = Vector{0, 0, 0, 0};
     $gg = Vector{0, $caml_new_string("map.ml"), 393, 10};
     $gh = Vector{0, 0, 0};
-    $Make = function(dynamic $Ord) use ($Assert_failure,$Not_found,$Pervasives,$caml_call1,$caml_call2,$caml_call3,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$cst_Map_remove_min_elt,$gf,$gg,$gh,$runtime) {
+    $Make = function(dynamic $Ord) use ($Assert_failure,$Not_found,$Pervasives,$call1,$call2,$call3,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$cst_Map_remove_min_elt,$gf,$gg,$gh,$runtime) {
       $add = new Ref();
       $add_max_binding = new Ref();
       $add_min_binding = new Ref();
@@ -94,7 +94,7 @@ final class Map {
       $singleton = function(dynamic $x, dynamic $d) {
         return Vector{0, 0, $x, $d, 0, 1};
       };
-      $bal = function(dynamic $l, dynamic $x, dynamic $d, dynamic $r) use ($Pervasives,$caml_call1,$create,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$height) {
+      $bal = function(dynamic $l, dynamic $x, dynamic $d, dynamic $r) use ($Pervasives,$call1,$create,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$height) {
         if ($l) {
           $h = $l[5];
           $hl = $h;
@@ -123,9 +123,9 @@ final class Map {
               $gO = $create($lrr, $x, $d, $r);
               return $create($create($ll, $lv, $ld, $lrl), $lrv, $lrd, $gO);
             }
-            return $caml_call1($Pervasives[1], $cst_Map_bal);
+            return $call1($Pervasives[1], $cst_Map_bal);
           }
-          return $caml_call1($Pervasives[1], $cst_Map_bal__0);
+          return $call1($Pervasives[1], $cst_Map_bal__0);
         }
         if ((int) ($hl + 2) < $hr) {
           if ($r) {
@@ -145,23 +145,23 @@ final class Map {
               $gQ = $create($rlr, $rv, $rd, $rr);
               return $create($create($l, $x, $d, $rll), $rlv, $rld, $gQ);
             }
-            return $caml_call1($Pervasives[1], $cst_Map_bal__1);
+            return $call1($Pervasives[1], $cst_Map_bal__1);
           }
-          return $caml_call1($Pervasives[1], $cst_Map_bal__2);
+          return $call1($Pervasives[1], $cst_Map_bal__2);
         }
         $gR = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $x, $d, $r, $gR};
       };
       $empty = 0;
       $is_empty = function(dynamic $param) {return $param ? 0 : (1);};
-      $add->contents = function(dynamic $x, dynamic $data, dynamic $m) use ($Ord,$add,$bal,$caml_call2) {
+      $add->contents = function(dynamic $x, dynamic $data, dynamic $m) use ($Ord,$add,$bal,$call2) {
         if ($m) {
           $h = $m[5];
           $r = $m[4];
           $d = $m[3];
           $v = $m[2];
           $l = $m[1];
-          $c = $caml_call2($Ord[1], $x, $v);
+          $c = $call2($Ord[1], $x, $v);
           if (0 === $c) {
             return $d === $data ? $m : (Vector{0, $l, $x, $data, $r, $h});
           }
@@ -174,7 +174,7 @@ final class Map {
         }
         return Vector{0, 0, $x, $data, 0, 1};
       };
-      $find = function(dynamic $x, dynamic $param) use ($Not_found,$Ord,$caml_call2,$runtime) {
+      $find = function(dynamic $x, dynamic $param) use ($Not_found,$Ord,$call2,$runtime) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -182,7 +182,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            $c = $caml_call2($Ord[1], $x, $v);
+            $c = $call2($Ord[1], $x, $v);
             if (0 === $c) {return $d;}
             $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
@@ -192,7 +192,7 @@ final class Map {
         }
       };
       $find_first_aux = function
-      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($caml_call1) {
+      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($call1) {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -202,7 +202,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {
+            if ($call1($f, $v)) {
               $v0__0 = $v;
               $d0__0 = $d;
               $param__0 = $l;
@@ -214,7 +214,7 @@ final class Map {
           return Vector{0, $v0__0, $d0__0};
         }
       };
-      $find_first = function(dynamic $f, dynamic $param) use ($Not_found,$caml_call1,$find_first_aux,$runtime) {
+      $find_first = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$find_first_aux,$runtime) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -222,7 +222,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {return $find_first_aux($v, $d, $f, $l);}
+            if ($call1($f, $v)) {return $find_first_aux($v, $d, $f, $l);}
             $param__0 = $r;
             continue;
           }
@@ -230,7 +230,7 @@ final class Map {
         }
       };
       $find_first_opt_aux = function
-      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($caml_call1) {
+      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($call1) {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -240,7 +240,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {
+            if ($call1($f, $v)) {
               $v0__0 = $v;
               $d0__0 = $d;
               $param__0 = $l;
@@ -252,7 +252,7 @@ final class Map {
           return Vector{0, Vector{0, $v0__0, $d0__0}};
         }
       };
-      $find_first_opt = function(dynamic $f, dynamic $param) use ($caml_call1,$find_first_opt_aux) {
+      $find_first_opt = function(dynamic $f, dynamic $param) use ($call1,$find_first_opt_aux) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -260,9 +260,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {
-              return $find_first_opt_aux($v, $d, $f, $l);
-            }
+            if ($call1($f, $v)) {return $find_first_opt_aux($v, $d, $f, $l);}
             $param__0 = $r;
             continue;
           }
@@ -270,7 +268,7 @@ final class Map {
         }
       };
       $find_last_aux = function
-      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($caml_call1) {
+      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($call1) {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -280,7 +278,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {
+            if ($call1($f, $v)) {
               $v0__0 = $v;
               $d0__0 = $d;
               $param__0 = $r;
@@ -292,7 +290,7 @@ final class Map {
           return Vector{0, $v0__0, $d0__0};
         }
       };
-      $find_last = function(dynamic $f, dynamic $param) use ($Not_found,$caml_call1,$find_last_aux,$runtime) {
+      $find_last = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$find_last_aux,$runtime) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -300,7 +298,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {return $find_last_aux($v, $d, $f, $r);}
+            if ($call1($f, $v)) {return $find_last_aux($v, $d, $f, $r);}
             $param__0 = $l;
             continue;
           }
@@ -308,7 +306,7 @@ final class Map {
         }
       };
       $find_last_opt_aux = function
-      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($caml_call1) {
+      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) use ($call1) {
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -318,7 +316,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {
+            if ($call1($f, $v)) {
               $v0__0 = $v;
               $d0__0 = $d;
               $param__0 = $r;
@@ -330,7 +328,7 @@ final class Map {
           return Vector{0, Vector{0, $v0__0, $d0__0}};
         }
       };
-      $find_last_opt = function(dynamic $f, dynamic $param) use ($caml_call1,$find_last_opt_aux) {
+      $find_last_opt = function(dynamic $f, dynamic $param) use ($call1,$find_last_opt_aux) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -338,16 +336,14 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            if ($caml_call1($f, $v)) {
-              return $find_last_opt_aux($v, $d, $f, $r);
-            }
+            if ($call1($f, $v)) {return $find_last_opt_aux($v, $d, $f, $r);}
             $param__0 = $l;
             continue;
           }
           return 0;
         }
       };
-      $find_opt = function(dynamic $x, dynamic $param) use ($Ord,$caml_call2) {
+      $find_opt = function(dynamic $x, dynamic $param) use ($Ord,$call2) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -355,7 +351,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            $c = $caml_call2($Ord[1], $x, $v);
+            $c = $call2($Ord[1], $x, $v);
             if (0 === $c) {return Vector{0, $d};}
             $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
@@ -364,14 +360,14 @@ final class Map {
           return 0;
         }
       };
-      $mem = function(dynamic $x, dynamic $param) use ($Ord,$caml_call2) {
+      $mem = function(dynamic $x, dynamic $param) use ($Ord,$call2) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
             $r = $param__0[4];
             $v = $param__0[2];
             $l = $param__0[1];
-            $c = $caml_call2($Ord[1], $x, $v);
+            $c = $call2($Ord[1], $x, $v);
             $gM = 0 === $c ? 1 : (0);
             if ($gM) {return $gM;}
             $param__1 = 0 <= $c ? $r : ($l);
@@ -433,7 +429,7 @@ final class Map {
           return 0;
         }
       };
-      $remove_min_binding->contents = function(dynamic $param) use ($Pervasives,$bal,$caml_call1,$cst_Map_remove_min_elt,$remove_min_binding) {
+      $remove_min_binding->contents = function(dynamic $param) use ($Pervasives,$bal,$call1,$cst_Map_remove_min_elt,$remove_min_binding) {
         if ($param) {
           $gD = $param[1];
           if ($gD) {
@@ -445,7 +441,7 @@ final class Map {
           $r__0 = $param[4];
           return $r__0;
         }
-        return $caml_call1($Pervasives[1], $cst_Map_remove_min_elt);
+        return $call1($Pervasives[1], $cst_Map_remove_min_elt);
       };
       $gk = function(dynamic $t, dynamic $match) use ($bal,$min_binding,$remove_min_binding) {
         if ($t) {
@@ -459,13 +455,13 @@ final class Map {
         }
         return $match;
       };
-      $remove->contents = function(dynamic $x, dynamic $m) use ($Ord,$bal,$caml_call2,$gk,$remove) {
+      $remove->contents = function(dynamic $x, dynamic $m) use ($Ord,$bal,$call2,$gk,$remove) {
         if ($m) {
           $r = $m[4];
           $d = $m[3];
           $v = $m[2];
           $l = $m[1];
-          $c = $caml_call2($Ord[1], $x, $v);
+          $c = $call2($Ord[1], $x, $v);
           if (0 === $c) {return $gk($l, $r);}
           if (0 <= $c) {
             $rr = $remove->contents($x, $r);
@@ -476,16 +472,16 @@ final class Map {
         }
         return 0;
       };
-      $update->contents = function(dynamic $x, dynamic $f, dynamic $m) use ($Ord,$bal,$caml_call1,$caml_call2,$gk,$update) {
+      $update->contents = function(dynamic $x, dynamic $f, dynamic $m) use ($Ord,$bal,$call1,$call2,$gk,$update) {
         if ($m) {
           $h = $m[5];
           $r = $m[4];
           $d = $m[3];
           $v = $m[2];
           $l = $m[1];
-          $c = $caml_call2($Ord[1], $x, $v);
+          $c = $call2($Ord[1], $x, $v);
           if (0 === $c) {
-            $match = $caml_call1($f, Vector{0, $d});
+            $match = $call1($f, Vector{0, $d});
             if ($match) {
               $data = $match[1];
               return $d === $data ? $m : (Vector{0, $l, $x, $data, $r, $h});
@@ -499,14 +495,14 @@ final class Map {
           $ll = $update->contents($x, $f, $l);
           return $l === $ll ? $m : ($bal($ll, $v, $d, $r));
         }
-        $match__0 = $caml_call1($f, 0);
+        $match__0 = $call1($f, 0);
         if ($match__0) {
           $data__0 = $match__0[1];
           return Vector{0, 0, $x, $data__0, 0, 1};
         }
         return 0;
       };
-      $iter->contents = function(dynamic $f, dynamic $param) use ($caml_call2,$iter) {
+      $iter->contents = function(dynamic $f, dynamic $param) use ($call2,$iter) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -515,14 +511,14 @@ final class Map {
             $v = $param__0[2];
             $l = $param__0[1];
             $iter->contents($f, $l);
-            $caml_call2($f, $v, $d);
+            $call2($f, $v, $d);
             $param__0 = $param__1;
             continue;
           }
           return 0;
         }
       };
-      $map->contents = function(dynamic $f, dynamic $param) use ($caml_call1,$map) {
+      $map->contents = function(dynamic $f, dynamic $param) use ($call1,$map) {
         if ($param) {
           $h = $param[5];
           $r = $param[4];
@@ -530,13 +526,13 @@ final class Map {
           $v = $param[2];
           $l = $param[1];
           $l__0 = $map->contents($f, $l);
-          $d__0 = $caml_call1($f, $d);
+          $d__0 = $call1($f, $d);
           $r__0 = $map->contents($f, $r);
           return Vector{0, $l__0, $v, $d__0, $r__0, $h};
         }
         return 0;
       };
-      $mapi->contents = function(dynamic $f, dynamic $param) use ($caml_call2,$mapi) {
+      $mapi->contents = function(dynamic $f, dynamic $param) use ($call2,$mapi) {
         if ($param) {
           $h = $param[5];
           $r = $param[4];
@@ -544,13 +540,13 @@ final class Map {
           $v = $param[2];
           $l = $param[1];
           $l__0 = $mapi->contents($f, $l);
-          $d__0 = $caml_call2($f, $v, $d);
+          $d__0 = $call2($f, $v, $d);
           $r__0 = $mapi->contents($f, $r);
           return Vector{0, $l__0, $v, $d__0, $r__0, $h};
         }
         return 0;
       };
-      $fold->contents = function(dynamic $f, dynamic $m, dynamic $accu) use ($caml_call3,$fold) {
+      $fold->contents = function(dynamic $f, dynamic $m, dynamic $accu) use ($call3,$fold) {
         $m__0 = $m;
         $accu__0 = $accu;
         for (;;) {
@@ -559,12 +555,7 @@ final class Map {
             $d = $m__0[3];
             $v = $m__0[2];
             $l = $m__0[1];
-            $accu__1 = $caml_call3(
-              $f,
-              $v,
-              $d,
-              $fold->contents($f, $l, $accu__0)
-            );
+            $accu__1 = $call3($f, $v, $d, $fold->contents($f, $l, $accu__0));
             $m__0 = $m__1;
             $accu__0 = $accu__1;
             continue;
@@ -572,7 +563,7 @@ final class Map {
           return $accu__0;
         }
       };
-      $for_all->contents = function(dynamic $p, dynamic $param) use ($caml_call2,$for_all) {
+      $for_all->contents = function(dynamic $p, dynamic $param) use ($call2,$for_all) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -580,7 +571,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            $gA = $caml_call2($p, $v, $d);
+            $gA = $call2($p, $v, $d);
             if ($gA) {
               $gB = $for_all->contents($p, $l);
               if ($gB) {$param__0 = $r;continue;}
@@ -592,7 +583,7 @@ final class Map {
           return 1;
         }
       };
-      $exists->contents = function(dynamic $p, dynamic $param) use ($caml_call2,$exists) {
+      $exists->contents = function(dynamic $p, dynamic $param) use ($call2,$exists) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -600,7 +591,7 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            $gx = $caml_call2($p, $v, $d);
+            $gx = $call2($p, $v, $d);
             if ($gx) {
               $gy = $gx;
             }
@@ -682,13 +673,13 @@ final class Map {
         if ($d) {$d__0 = $d[1];return $join->contents($t1, $v, $d__0, $t2);}
         return $concat($t1, $t2);
       };
-      $split->contents = function(dynamic $x, dynamic $param) use ($Ord,$caml_call2,$gf,$join,$split) {
+      $split->contents = function(dynamic $x, dynamic $param) use ($Ord,$call2,$gf,$join,$split) {
         if ($param) {
           $r = $param[4];
           $d = $param[3];
           $v = $param[2];
           $l = $param[1];
-          $c = $caml_call2($Ord[1], $x, $v);
+          $c = $call2($Ord[1], $x, $v);
           if (0 === $c) {return Vector{0, $l, Vector{0, $d}, $r};}
           if (0 <= $c) {
             $match = $split->contents($x, $r);
@@ -705,7 +696,7 @@ final class Map {
         }
         return $gf;
       };
-      $merge->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($Assert_failure,$caml_call3,$concat_or_join,$gg,$height,$merge,$runtime,$split) {
+      $merge->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($Assert_failure,$call3,$concat_or_join,$gg,$height,$merge,$runtime,$split) {
         if ($s1) {
           $h1 = $s1[5];
           $r1 = $s1[4];
@@ -718,7 +709,7 @@ final class Map {
             $d2 = $match[2];
             $l2 = $match[1];
             $gt = $merge->contents($f, $r1, $r2);
-            $gu = $caml_call3($f, $v1, Vector{0, $d1}, $d2);
+            $gu = $call3($f, $v1, Vector{0, $d1}, $d2);
             return $concat_or_join(
               $merge->contents($f, $l1, $l2),
               $v1,
@@ -738,7 +729,7 @@ final class Map {
           $d1__0 = $match__0[2];
           $l1__0 = $match__0[1];
           $gv = $merge->contents($f, $r1__0, $r2__0);
-          $gw = $caml_call3($f, $v2, $d1__0, Vector{0, $d2__0});
+          $gw = $call3($f, $v2, $d1__0, Vector{0, $d2__0});
           return $concat_or_join(
             $merge->contents($f, $l1__0, $l2__0),
             $v2,
@@ -748,7 +739,7 @@ final class Map {
         }
         throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $gg}) as \Throwable;
       };
-      $union->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($caml_call3,$concat_or_join,$join,$split,$union) {
+      $union->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($call3,$concat_or_join,$join,$split,$union) {
         if ($s1) {
           if ($s2) {
             $h2 = $s2[5];
@@ -773,7 +764,7 @@ final class Map {
                 return $concat_or_join(
                   $l,
                   $v1,
-                  $caml_call3($f, $v1, $d1, $d2__1),
+                  $call3($f, $v1, $d1, $d2__1),
                   $r
                 );
               }
@@ -790,7 +781,7 @@ final class Map {
               return $concat_or_join(
                 $l__0,
                 $v2,
-                $caml_call3($f, $v2, $d1__1, $d2),
+                $call3($f, $v2, $d1__1, $d2),
                 $r__0
               );
             }
@@ -801,14 +792,14 @@ final class Map {
         else {$s = $s2;}
         return $s;
       };
-      $filter->contents = function(dynamic $p, dynamic $m) use ($caml_call2,$concat,$filter,$join) {
+      $filter->contents = function(dynamic $p, dynamic $m) use ($call2,$concat,$filter,$join) {
         if ($m) {
           $r = $m[4];
           $d = $m[3];
           $v = $m[2];
           $l = $m[1];
           $l__0 = $filter->contents($p, $l);
-          $pvd = $caml_call2($p, $v, $d);
+          $pvd = $call2($p, $v, $d);
           $r__0 = $filter->contents($p, $r);
           if ($pvd) {
             if ($l === $l__0) {if ($r === $r__0) {return $m;}}
@@ -818,7 +809,7 @@ final class Map {
         }
         return 0;
       };
-      $partition->contents = function(dynamic $p, dynamic $param) use ($caml_call2,$concat,$gh,$join,$partition) {
+      $partition->contents = function(dynamic $p, dynamic $param) use ($call2,$concat,$gh,$join,$partition) {
         if ($param) {
           $r = $param[4];
           $d = $param[3];
@@ -827,7 +818,7 @@ final class Map {
           $match = $partition->contents($p, $l);
           $lf = $match[2];
           $lt = $match[1];
-          $pvd = $caml_call2($p, $v, $d);
+          $pvd = $call2($p, $v, $d);
           $match__0 = $partition->contents($p, $r);
           $rf = $match__0[2];
           $rt = $match__0[1];
@@ -857,8 +848,8 @@ final class Map {
           return $e__0;
         }
       };
-      $compare = function(dynamic $cmp, dynamic $m1, dynamic $m2) use ($Ord,$caml_call2,$cons_enum) {
-        $compare_aux = function(dynamic $e1, dynamic $e2) use ($Ord,$caml_call2,$cmp,$cons_enum) {
+      $compare = function(dynamic $cmp, dynamic $m1, dynamic $m2) use ($Ord,$call2,$cons_enum) {
+        $compare_aux = function(dynamic $e1, dynamic $e2) use ($Ord,$call2,$cmp,$cons_enum) {
           $e1__0 = $e1;
           $e2__0 = $e2;
           for (;;) {
@@ -872,9 +863,9 @@ final class Map {
                 $r1 = $e1__0[3];
                 $d1 = $e1__0[2];
                 $v1 = $e1__0[1];
-                $c = $caml_call2($Ord[1], $v1, $v2);
+                $c = $call2($Ord[1], $v1, $v2);
                 if (0 === $c) {
-                  $c__0 = $caml_call2($cmp, $d1, $d2);
+                  $c__0 = $call2($cmp, $d1, $d2);
                   if (0 === $c__0) {
                     $e2__2 = $cons_enum($r2, $e2__1);
                     $e1__2 = $cons_enum($r1, $e1__1);
@@ -894,8 +885,8 @@ final class Map {
         $gq = $cons_enum($m2, 0);
         return $compare_aux($cons_enum($m1, 0), $gq);
       };
-      $equal = function(dynamic $cmp, dynamic $m1, dynamic $m2) use ($Ord,$caml_call2,$cons_enum) {
-        $equal_aux = function(dynamic $e1, dynamic $e2) use ($Ord,$caml_call2,$cmp,$cons_enum) {
+      $equal = function(dynamic $cmp, dynamic $m1, dynamic $m2) use ($Ord,$call2,$cons_enum) {
+        $equal_aux = function(dynamic $e1, dynamic $e2) use ($Ord,$call2,$cmp,$cons_enum) {
           $e1__0 = $e1;
           $e2__0 = $e2;
           for (;;) {
@@ -909,9 +900,9 @@ final class Map {
                 $r1 = $e1__0[3];
                 $d1 = $e1__0[2];
                 $v1 = $e1__0[1];
-                $gn = 0 === $caml_call2($Ord[1], $v1, $v2) ? 1 : (0);
+                $gn = 0 === $call2($Ord[1], $v1, $v2) ? 1 : (0);
                 if ($gn) {
-                  $go = $caml_call2($cmp, $d1, $d2);
+                  $go = $call2($cmp, $d1, $d2);
                   if ($go) {
                     $e2__2 = $cons_enum($r2, $e2__1);
                     $e1__2 = $cons_enum($r1, $e1__1);

@@ -41,17 +41,17 @@ final class Stream {
     $caml_new_string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $is_int = $runtime["is_int"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function
+    $call4 = function
     (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
@@ -90,19 +90,13 @@ final class Stream {
       if ($param) {$match = $param[1];$data = $match[2];return $data;}
       return 0;
     };
-    $fill_buff = function(dynamic $b) use ($Pervasives,$caml_call4,$caml_ml_bytes_length) {
+    $fill_buff = function(dynamic $b) use ($Pervasives,$call4,$caml_ml_bytes_length) {
       $b[3] =
-        $caml_call4(
-          $Pervasives[72],
-          $b[1],
-          $b[2],
-          0,
-          $caml_ml_bytes_length($b[2])
-        );
+        $call4($Pervasives[72], $b[1], $b[2], 0, $caml_ml_bytes_length($b[2]));
       $b[4] = 0;
       return 0;
     };
-    $get_data->contents = function(dynamic $count, dynamic $d) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g2,$g3,$get_data,$is_int,$runtime) {
+    $get_data->contents = function(dynamic $count, dynamic $d) use ($Assert_failure,$CamlinternalLazy,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$g2,$g3,$get_data,$is_int,$runtime) {
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
@@ -130,7 +124,7 @@ final class Stream {
               $hh = $caml_obj_tag($f);
               $d__1 = 250 === $hh
                 ? $f[1]
-                : (246 === $hh ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
+                : (246 === $hh ? $call1($CamlinternalLazy[2], $f) : ($f));
               $d__0 = $d__1;
               continue;
             // FALLTHROUGH
@@ -146,7 +140,7 @@ final class Stream {
                 }
                 return 0;
               }
-              $match__0 = $caml_call1($hi[2], $count);
+              $match__0 = $call1($hi[2], $count);
               if ($match__0) {
                 $a__1 = $match__0[1];
                 return Vector{0, $a__1, $d__0};
@@ -166,7 +160,7 @@ final class Stream {
         return $d__0;
       }
     };
-    $peek_data = function(dynamic $s) use ($Assert_failure,$CamlinternalLazy,$caml_bytes_unsafe_get,$caml_call1,$caml_obj_tag,$fill_buff,$g4,$get_data,$is_int,$runtime) {
+    $peek_data = function(dynamic $s) use ($Assert_failure,$CamlinternalLazy,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$g4,$get_data,$is_int,$runtime) {
       for (;;) {
         $hc = $s[2];
         if ($is_int($hc)) {return 0;}
@@ -194,7 +188,7 @@ final class Stream {
               $hd = $caml_obj_tag($f);
               $he = 250 === $hd
                 ? $f[1]
-                : (246 === $hd ? $caml_call1($CamlinternalLazy[2], $f) : ($f));
+                : (246 === $hd ? $call1($CamlinternalLazy[2], $f) : ($f));
               $s[2] = $he;
               continue;
             // FALLTHROUGH
@@ -202,7 +196,7 @@ final class Stream {
               $hf = $hc[1];
               $hg = $hf[1];
               if ($hg) {$a__1 = $hg[1];return $a__1;}
-              $x = $caml_call1($hf[2], $s[1]);
+              $x = $call1($hf[2], $s[1]);
               $hf[1] = Vector{0, $x};
               return $x;
             // FALLTHROUGH
@@ -299,16 +293,11 @@ final class Stream {
       }
       return 0;
     };
-    $iter = function(dynamic $f, dynamic $strm) use ($caml_call1,$junk,$peek) {
-      $do_rec = function(dynamic $param) use ($caml_call1,$f,$junk,$peek,$strm) {
+    $iter = function(dynamic $f, dynamic $strm) use ($call1,$junk,$peek) {
+      $do_rec = function(dynamic $param) use ($call1,$f,$junk,$peek,$strm) {
         for (;;) {
           $match = $peek($strm);
-          if ($match) {
-            $a = $match[1];
-            $junk($strm);
-            $caml_call1($f, $a);
-            continue;
-          }
+          if ($match) {$a = $match[1];$junk($strm);$call1($f, $a);continue;}
           return 0;
         }
       };
@@ -317,10 +306,10 @@ final class Stream {
     $from = function(dynamic $f) {
       return Vector{0, Vector{0, 0, Vector{3, Vector{0, 0, $f}}}};
     };
-    $of_list = function(dynamic $l) use ($List,$caml_call3) {
+    $of_list = function(dynamic $l) use ($List,$call3) {
       $g9 = 0;
       $g_ = function(dynamic $x, dynamic $l) {return Vector{0, $x, $l};};
-      return Vector{0, Vector{0, 0, $caml_call3($List[21], $g_, $l, $g9)}};
+      return Vector{0, Vector{0, 0, $call3($List[21], $g_, $l, $g9)}};
     };
     $of_string = function(dynamic $s) use ($from,$runtime) {
       $count = Vector{0, 0};
@@ -368,7 +357,7 @@ final class Stream {
     $ising = function(dynamic $i) {
       return Vector{0, Vector{0, 0, Vector{0, $i, 0}}};
     };
-    $lapp = function(dynamic $f, dynamic $s) use ($caml_call1,$data) {
+    $lapp = function(dynamic $f, dynamic $s) use ($call1,$data) {
       return Vector{
         0,
         Vector{
@@ -378,16 +367,16 @@ final class Stream {
             2,
             Vector{
               246,
-              function(dynamic $param) use ($caml_call1,$data,$f,$s) {
+              function(dynamic $param) use ($call1,$data,$f,$s) {
                 $g7 = $data($s);
-                return Vector{1, $data($caml_call1($f, 0)), $g7};
+                return Vector{1, $data($call1($f, 0)), $g7};
               }
             }
           }
         }
       };
     };
-    $lcons = function(dynamic $f, dynamic $s) use ($caml_call1,$data) {
+    $lcons = function(dynamic $f, dynamic $s) use ($call1,$data) {
       return Vector{
         0,
         Vector{
@@ -397,16 +386,16 @@ final class Stream {
             2,
             Vector{
               246,
-              function(dynamic $param) use ($caml_call1,$data,$f,$s) {
+              function(dynamic $param) use ($call1,$data,$f,$s) {
                 $g6 = $data($s);
-                return Vector{0, $caml_call1($f, 0), $g6};
+                return Vector{0, $call1($f, 0), $g6};
               }
             }
           }
         }
       };
     };
-    $lsing = function(dynamic $f) use ($caml_call1) {
+    $lsing = function(dynamic $f) use ($call1) {
       return Vector{
         0,
         Vector{
@@ -416,8 +405,8 @@ final class Stream {
             2,
             Vector{
               246,
-              function(dynamic $param) use ($caml_call1,$f) {
-                return Vector{0, $caml_call1($f, 0), 0};
+              function(dynamic $param) use ($call1,$f) {
+                return Vector{0, $call1($f, 0), 0};
               }
             }
           }
@@ -425,7 +414,7 @@ final class Stream {
       };
     };
     $sempty = 0;
-    $slazy = function(dynamic $f) use ($caml_call1,$data) {
+    $slazy = function(dynamic $f) use ($call1,$data) {
       return Vector{
         0,
         Vector{
@@ -435,26 +424,26 @@ final class Stream {
             2,
             Vector{
               246,
-              function(dynamic $param) use ($caml_call1,$data,$f) {
-                return $data($caml_call1($f, 0));
+              function(dynamic $param) use ($call1,$data,$f) {
+                return $data($call1($f, 0));
               }
             }
           }
         }
       };
     };
-    $dump = function(dynamic $f, dynamic $s) use ($Pervasives,$caml_call1,$count,$cst,$cst_count,$cst_data,$data,$dump_data) {
-      $caml_call1($Pervasives[30], $cst_count);
+    $dump = function(dynamic $f, dynamic $s) use ($Pervasives,$call1,$count,$cst,$cst_count,$cst_data,$data,$dump_data) {
+      $call1($Pervasives[30], $cst_count);
       $g5 = $count($s);
-      $caml_call1($Pervasives[32], $g5);
-      $caml_call1($Pervasives[30], $cst_data);
+      $call1($Pervasives[32], $g5);
+      $call1($Pervasives[30], $cst_data);
       $dump_data->contents($f, $data($s));
-      $caml_call1($Pervasives[30], $cst);
-      return $caml_call1($Pervasives[35], 0);
+      $call1($Pervasives[30], $cst);
+      return $call1($Pervasives[35], 0);
     };
-    $dump_data->contents = function(dynamic $f, dynamic $param) use ($Pervasives,$caml_call1,$cst_Sapp,$cst_Sbuffio,$cst_Scons,$cst_Sempty,$cst_Sgen,$cst_Slazy,$cst__0,$cst__1,$cst__2,$cst__3,$dump_data,$is_int) {
+    $dump_data->contents = function(dynamic $f, dynamic $param) use ($Pervasives,$call1,$cst_Sapp,$cst_Sbuffio,$cst_Scons,$cst_Sempty,$cst_Sgen,$cst_Slazy,$cst__0,$cst__1,$cst__2,$cst__3,$dump_data,$is_int) {
       if ($is_int($param)) {
-        return $caml_call1($Pervasives[30], $cst_Sempty);
+        return $call1($Pervasives[30], $cst_Sempty);
       }
       else {
         switch($param[0]) {
@@ -462,29 +451,29 @@ final class Stream {
           case 0:
             $d = $param[2];
             $a = $param[1];
-            $caml_call1($Pervasives[30], $cst_Scons);
-            $caml_call1($f, $a);
-            $caml_call1($Pervasives[30], $cst__0);
+            $call1($Pervasives[30], $cst_Scons);
+            $call1($f, $a);
+            $call1($Pervasives[30], $cst__0);
             $dump_data->contents($f, $d);
-            return $caml_call1($Pervasives[30], $cst__1);
+            return $call1($Pervasives[30], $cst__1);
           // FALLTHROUGH
           case 1:
             $d2 = $param[2];
             $d1 = $param[1];
-            $caml_call1($Pervasives[30], $cst_Sapp);
+            $call1($Pervasives[30], $cst_Sapp);
             $dump_data->contents($f, $d1);
-            $caml_call1($Pervasives[30], $cst__2);
+            $call1($Pervasives[30], $cst__2);
             $dump_data->contents($f, $d2);
-            return $caml_call1($Pervasives[30], $cst__3);
+            return $call1($Pervasives[30], $cst__3);
           // FALLTHROUGH
           case 2:
-            return $caml_call1($Pervasives[30], $cst_Slazy);
+            return $call1($Pervasives[30], $cst_Slazy);
           // FALLTHROUGH
           case 3:
-            return $caml_call1($Pervasives[30], $cst_Sgen);
+            return $call1($Pervasives[30], $cst_Sgen);
           // FALLTHROUGH
           default:
-            return $caml_call1($Pervasives[30], $cst_Sbuffio);
+            return $call1($Pervasives[30], $cst_Sbuffio);
           }
       }
     };

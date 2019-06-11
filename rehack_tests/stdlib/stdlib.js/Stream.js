@@ -20,17 +20,17 @@ var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var caml_new_string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
@@ -73,8 +73,7 @@ function data(param) {
 }
 
 function fill_buff(b) {
-  b[3] =
-    caml_call4(Pervasives[72], b[1], b[2], 0, caml_ml_bytes_length(b[2]));
+  b[3] = call4(Pervasives[72], b[1], b[2], 0, caml_ml_bytes_length(b[2]));
   b[4] = 0;
   return 0;
 }
@@ -102,7 +101,7 @@ function get_data(count, d) {
           var hh = caml_obj_tag(f);
           var d__1 = 250 === hh ?
             f[1] :
-            246 === hh ? caml_call1(CamlinternalLazy[2], f) : f;
+            246 === hh ? call1(CamlinternalLazy[2], f) : f;
           var d__0 = d__1;
           continue;
         case 3:
@@ -113,7 +112,7 @@ function get_data(count, d) {
             if (hk) {var a__0 = hk[1];hi[1] = 0;return [0,a__0,d__0];}
             return 0;
           }
-          var match__0 = caml_call1(hi[2], count);
+          var match__0 = call1(hi[2], count);
           if (match__0) {var a__1 = match__0[1];return [0,a__1,d__0];}
           hi[1] = g3;
           return 0;
@@ -150,14 +149,14 @@ function peek_data(s) {
         var hd = caml_obj_tag(f);
         var he = 250 === hd ?
           f[1] :
-          246 === hd ? caml_call1(CamlinternalLazy[2], f) : f;
+          246 === hd ? call1(CamlinternalLazy[2], f) : f;
         s[2] = he;
         continue;
       case 3:
         var hf = hc[1];
         var hg = hf[1];
         if (hg) {var a__1 = hg[1];return a__1;}
-        var x = caml_call1(hf[2], s[1]);
+        var x = call1(hf[2], s[1]);
         hf[1] = [0,x];
         return x;
       default:
@@ -254,7 +253,7 @@ function iter(f, strm) {
   function do_rec(param) {
     for (; ; ) {
       var match = peek(strm);
-      if (match) {var a = match[1];junk(strm);caml_call1(f, a);continue;}
+      if (match) {var a = match[1];junk(strm);call1(f, a);continue;}
       return 0;
     }
   }
@@ -266,7 +265,7 @@ function from(f) {return [0,[0,0,[3,[0,0,f]]]];}
 function of_list(l) {
   var g9 = 0;
   function g_(x, l) {return [0,x,l];}
-  return [0,[0,0,caml_call3(List[21], g_, l, g9)]];
+  return [0,[0,0,call3(List[21], g_, l, g9)]];
 }
 
 function of_string(s) {
@@ -317,10 +316,7 @@ function lapp(f, s) {
         2,
         [
           246,
-          function(param) {
-            var g7 = data(s);
-            return [1,data(caml_call1(f, 0)),g7];
-          }
+          function(param) {var g7 = data(s);return [1,data(call1(f, 0)),g7];}
         ]
       ]
     ]
@@ -333,39 +329,33 @@ function lcons(f, s) {
     [
       0,
       0,
-      [
-        2,
-        [
-          246,
-          function(param) {var g6 = data(s);return [0,caml_call1(f, 0),g6];}
-        ]
-      ]
+      [2,[246,function(param) {var g6 = data(s);return [0,call1(f, 0),g6];}]]
     ]
   ];
 }
 
 function lsing(f) {
-  return [0,[0,0,[2,[246,function(param) {return [0,caml_call1(f, 0),0];}]]]];
+  return [0,[0,0,[2,[246,function(param) {return [0,call1(f, 0),0];}]]]];
 }
 
 var sempty = 0;
 
 function slazy(f) {
-  return [0,[0,0,[2,[246,function(param) {return data(caml_call1(f, 0));}]]]];
+  return [0,[0,0,[2,[246,function(param) {return data(call1(f, 0));}]]]];
 }
 
 function dump(f, s) {
-  caml_call1(Pervasives[30], cst_count);
+  call1(Pervasives[30], cst_count);
   var g5 = count(s);
-  caml_call1(Pervasives[32], g5);
-  caml_call1(Pervasives[30], cst_data);
+  call1(Pervasives[32], g5);
+  call1(Pervasives[30], cst_data);
   dump_data(f, data(s));
-  caml_call1(Pervasives[30], cst);
-  return caml_call1(Pervasives[35], 0);
+  call1(Pervasives[30], cst);
+  return call1(Pervasives[35], 0);
 }
 
 function dump_data(f, param) {
-  if (typeof param === "number") return caml_call1(
+  if (typeof param === "number") return call1(
     Pervasives[30],
     cst_Sempty
   );
@@ -373,25 +363,25 @@ function dump_data(f, param) {
     case 0:
       var d = param[2];
       var a = param[1];
-      caml_call1(Pervasives[30], cst_Scons);
-      caml_call1(f, a);
-      caml_call1(Pervasives[30], cst__0);
+      call1(Pervasives[30], cst_Scons);
+      call1(f, a);
+      call1(Pervasives[30], cst__0);
       dump_data(f, d);
-      return caml_call1(Pervasives[30], cst__1);
+      return call1(Pervasives[30], cst__1);
     case 1:
       var d2 = param[2];
       var d1 = param[1];
-      caml_call1(Pervasives[30], cst_Sapp);
+      call1(Pervasives[30], cst_Sapp);
       dump_data(f, d1);
-      caml_call1(Pervasives[30], cst__2);
+      call1(Pervasives[30], cst__2);
       dump_data(f, d2);
-      return caml_call1(Pervasives[30], cst__3);
+      return call1(Pervasives[30], cst__3);
     case 2:
-      return caml_call1(Pervasives[30], cst_Slazy);
+      return call1(Pervasives[30], cst_Slazy);
     case 3:
-      return caml_call1(Pervasives[30], cst_Sgen);
+      return call1(Pervasives[30], cst_Sgen);
     default:
-      return caml_call1(Pervasives[30], cst_Sbuffio)
+      return call1(Pervasives[30], cst_Sbuffio)
     }
 }
 

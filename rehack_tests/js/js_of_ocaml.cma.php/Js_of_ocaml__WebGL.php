@@ -33,7 +33,7 @@ final class Js_of_ocaml__WebGL {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -55,15 +55,15 @@ final class Js_of_ocaml__WebGL {
      "preserveDrawingBuffer"=>$Js_of_ocaml_Js[8],
      "preferLowPowerToHighPerformance"=>$Js_of_ocaml_Js[8],
      "failIfMajorPerformanceCaveat"=>$Js_of_ocaml_Js[8]];
-    $webglcontextlost = $caml_call1(
+    $webglcontextlost = $call1(
       $Js_of_ocaml_Dom_html[15][73],
       $cst_webglcontextlost
     );
-    $webglcontextrestored = $caml_call1(
+    $webglcontextrestored = $call1(
       $Js_of_ocaml_Dom_html[15][73],
       $cst_webglcontextrestored
     );
-    $webglcontextcreationerror = $caml_call1(
+    $webglcontextcreationerror = $call1(
       $Js_of_ocaml_Dom_html[15][73],
       $cst_webglcontextcreationerror
     );
@@ -73,31 +73,31 @@ final class Js_of_ocaml__WebGL {
       $webglcontextrestored,
       $webglcontextcreationerror
     };
-    $getContext = function(dynamic $c) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
-      $s9 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -388424711, 294), $x);
+    $getContext = function(dynamic $c) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
+      $s9 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -388424711, 294), $x);
       };
       $s_ = "webgl";
       $ctx = (function(dynamic $t3, dynamic $t2, dynamic $param) {return $t3->getContext($t2);
        })($c, $s_, $s9);
-      if ($caml_call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $ta = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -388424711, 295), $x);
+      if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
+      $ta = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -388424711, 295), $x);
       };
       $tb = "experimental-webgl";
       return (function(dynamic $t1, dynamic $t0, dynamic $param) {return $t1->getContext($t0);
        })($c, $tb, $ta);
     };
-    $getContextWithAttributes = function(dynamic $c, dynamic $attribs) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
-      $s5 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -719364538, 296), $x);
+    $getContextWithAttributes = function(dynamic $c, dynamic $attribs) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
+      $s5 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -719364538, 296), $x);
       };
       $s6 = "webgl";
       $ctx = (function(dynamic $t9, dynamic $t7, dynamic $t8, dynamic $param) {return $t9->getContext($t7, $t8);
        })($c, $s6, $attribs, $s5);
-      if ($caml_call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $s7 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -719364538, 297), $x);
+      if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
+      $s7 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -719364538, 297), $x);
       };
       $s8 = "experimental-webgl";
       return (function(dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) {return $t6->getContext($t4, $t5);

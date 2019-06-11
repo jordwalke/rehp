@@ -15,7 +15,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
@@ -32,15 +32,14 @@ var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Assert_failure = global_data["Assert_failure"];
 var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
 var tC = [0,caml_new_string("lib/js_of_ocaml/xmlHttpRequest.ml"),125,75];
-var readystatechange = caml_call1(Js_of_ocaml_Dom[14][1], cst_readystatechange
-);
-var loadstart = caml_call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
-var progress = caml_call1(Js_of_ocaml_Dom[14][1], cst_progress);
-var abort = caml_call1(Js_of_ocaml_Dom[14][1], cst_abort);
-var error = caml_call1(Js_of_ocaml_Dom[14][1], cst_error);
-var load = caml_call1(Js_of_ocaml_Dom[14][1], cst_load);
-var timeout = caml_call1(Js_of_ocaml_Dom[14][1], cst_timeout);
-var loadend = caml_call1(Js_of_ocaml_Dom[14][1], cst_loadend);
+var readystatechange = call1(Js_of_ocaml_Dom[14][1], cst_readystatechange);
+var loadstart = call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
+var progress = call1(Js_of_ocaml_Dom[14][1], cst_progress);
+var abort = call1(Js_of_ocaml_Dom[14][1], cst_abort);
+var error = call1(Js_of_ocaml_Dom[14][1], cst_error);
+var load = call1(Js_of_ocaml_Dom[14][1], cst_load);
+var timeout = call1(Js_of_ocaml_Dom[14][1], cst_timeout);
+var loadend = call1(Js_of_ocaml_Dom[14][1], cst_loadend);
 var Event = [
   0,
   readystatechange,
@@ -55,13 +54,11 @@ var Event = [
 
 function create(param) {
   function tD(x) {
-    return caml_call1(caml_get_public_method(x, -1035517745, 307), x);
+    return call1(caml_get_public_method(x, -1035517745, 307), x);
   }
   var tE = Js_of_ocaml_Js[50][1];
   var xmlHttpRequest = function(t8, param) {return t8.XMLHttpRequest;}(tE, tD);
-  function tF(x) {
-    return caml_call1(caml_get_public_method(x, -5445583, 308), x);
-  }
+  function tF(x) {return call1(caml_get_public_method(x, -5445583, 308), x);}
   var tG = Js_of_ocaml_Js[50][1];
   var activeXObject = function(t7, param) {return t7.activeXObject;}(tG, tF);
   try {

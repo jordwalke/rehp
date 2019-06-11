@@ -33,7 +33,7 @@ final class Char {
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -47,9 +47,9 @@ final class Char {
     $cst_r = $caml_new_string("\\r");
     $cst_Char_chr = $caml_new_string("Char.chr");
     $Pervasives = $global_data["Pervasives"];
-    $chr = function(dynamic $n) use ($Pervasives,$caml_call1,$cst_Char_chr) {
+    $chr = function(dynamic $n) use ($Pervasives,$call1,$cst_Char_chr) {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
-      return $caml_call1($Pervasives[1], $cst_Char_chr);
+      return $call1($Pervasives[1], $cst_Char_chr);
     };
     $escaped = function(dynamic $c) use ($caml_bytes_unsafe_set,$caml_create_bytes,$cst,$cst__0,$cst_b,$cst_n,$cst_r,$cst_t) {
       if (40 <= $c) {

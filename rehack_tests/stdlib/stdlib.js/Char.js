@@ -14,7 +14,7 @@ var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
@@ -30,7 +30,7 @@ var Pervasives = global_data["Pervasives"];
 
 function chr(n) {
   if (0 <= n) {if (! (255 < n)) {return n;}}
-  return caml_call1(Pervasives[1], cst_Char_chr);
+  return call1(Pervasives[1], cst_Char_chr);
 }
 
 function escaped(c) {

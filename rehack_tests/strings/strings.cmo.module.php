@@ -37,12 +37,12 @@ final class Strings {
     $caml_int_of_string = $runtime["caml_int_of_string"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -105,35 +105,35 @@ final class Strings {
     $r = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
     $s = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
     
-    $caml_call1($Pervasives[34], $greeting);
+    $call1($Pervasives[34], $greeting);
     
-    $caml_call1($Pervasives[34], $greeting__0);
+    $call1($Pervasives[34], $greeting__0);
     
-    $a = $caml_call1($Pervasives[21], 2);
-    $b = $caml_call2($Pervasives[16], $cst_String_length_should_be_two, $a);
+    $a = $call1($Pervasives[21], 2);
+    $b = $call2($Pervasives[16], $cst_String_length_should_be_two, $a);
     
-    $caml_call1($Pervasives[34], $b);
+    $call1($Pervasives[34], $b);
     
-    $c = $caml_call2($String[1], 1, 138);
-    $d = $caml_call2($String[1], 1, 201);
-    $e = $caml_call2($Pervasives[16], $d, $c);
+    $c = $call2($String[1], 1, 138);
+    $d = $call2($String[1], 1, 201);
+    $e = $call2($Pervasives[16], $d, $c);
     
-    $caml_call1($Pervasives[34], $e);
+    $call1($Pervasives[34], $e);
     
     $caml_int_of_string($cst_1);
     
     $negativeOne = $caml_int_of_string($cst_6);
     $one = $caml_int_of_string($cst_1__0);
     $six = $caml_int_of_string($cst_6__0);
-    $index = $caml_call2($String[14], $cst_as_df, 95);
-    $f = $caml_call1($Pervasives[21], $index);
-    $g = $caml_call2($Pervasives[16], $cst_index_from_string_with_char, $f);
+    $index = $call2($String[14], $cst_as_df, 95);
+    $f = $call1($Pervasives[21], $index);
+    $g = $call2($Pervasives[16], $cst_index_from_string_with_char, $f);
     
-    $caml_call1($Pervasives[34], $g);
+    $call1($Pervasives[34], $g);
     
     $unicodeLength = 2;
     
-    try {$D = $caml_call2($String[14], $cst_asdf, 95);$index__0 = $D;}
+    try {$D = $call2($String[14], $cst_asdf, 95);$index__0 = $D;}
     catch(\Throwable $G) {
       $G = $caml_wrap_exception($G);
       if ($G !== $Not_found) {
@@ -143,49 +143,49 @@ final class Strings {
       $index__0 = $h;
     }
     
-    $i = $caml_call1($Pervasives[21], $index__0);
-    $j = $caml_call2($Pervasives[16], $cst_index_from_string_without_char, $i);
+    $i = $call1($Pervasives[21], $index__0);
+    $j = $call2($Pervasives[16], $cst_index_from_string_without_char, $i);
     
-    $caml_call1($Pervasives[34], $j);
+    $call1($Pervasives[34], $j);
     
-    $caml_call1($Pervasives[32], $index__0);
+    $call1($Pervasives[32], $index__0);
     
-    $caml_call1($Pervasives[34], $cst_Prints_seven);
+    $call1($Pervasives[34], $cst_Prints_seven);
     
-    $caml_call1($Pervasives[32], (int) ($one + $six));
+    $call1($Pervasives[32], (int) ($one + $six));
     
-    $caml_call1($Pervasives[35], 0);
+    $call1($Pervasives[35], 0);
     
-    $caml_call1($Pervasives[34], $cst_Prints_six);
+    $call1($Pervasives[34], $cst_Prints_six);
     
-    $caml_call1($Pervasives[32], $six);
+    $call1($Pervasives[32], $six);
     
-    $caml_call1($Pervasives[35], 0);
+    $call1($Pervasives[35], 0);
     
-    $caml_call1($Pervasives[34], $cst_Prints_six__0);
+    $call1($Pervasives[34], $cst_Prints_six__0);
     
-    $caml_call1($Pervasives[30], $cst_6__1);
+    $call1($Pervasives[30], $cst_6__1);
     
-    $caml_call1($Pervasives[35], 0);
+    $call1($Pervasives[35], 0);
     
-    $caml_call1($Pervasives[34], $StringHelper[1]);
+    $call1($Pervasives[34], $StringHelper[1]);
     
-    $caml_call1($Pervasives[34], $cst_Reason_is_on);
+    $call1($Pervasives[34], $cst_Reason_is_on);
     
-    $k = $caml_call1($String[12], $cst_trimmed_string);
+    $k = $call1($String[12], $cst_trimmed_string);
     
-    $caml_call1($Pervasives[34], $k);
+    $call1($Pervasives[34], $k);
     
     $createIntFromString = function(dynamic $ss) use ($caml_int_of_string) {
       return $caml_int_of_string($ss);
     };
     $myFunction = function
-    (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) use ($Pervasives,$caml_call1,$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
-      $caml_call1(
+    (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) use ($Pervasives,$call1,$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
+      $call1(
         $Pervasives[30],
         $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope
       );
-      return $caml_call1($Pervasives[35], 0);
+      return $call1($Pervasives[35], 0);
     };
     
     $myFunction($cst_tmp);
@@ -201,17 +201,14 @@ final class Strings {
     }
     
     if (102 === $m) {
-      $caml_call1(
+      $call1(
         $Pervasives[30],
         $cst_Properly_caught_invalid_string_to_int_conversion
       );
-      $caml_call1($Pervasives[35], 0);
+      $call1($Pervasives[35], 0);
     }
     else {
-      $caml_call1(
-        $Pervasives[2],
-        $cst_Did_not_properly_catch_Failure_exception
-      );
+      $call1($Pervasives[2], $cst_Did_not_properly_catch_Failure_exception);
     }
     
     try {$B = $createIntFromString($cst_20);$o = $B;}
@@ -225,17 +222,17 @@ final class Strings {
     }
     
     if (20 === $o) {
-      $p = $caml_call1($Pervasives[21], $o);
-      $q = $caml_call2(
+      $p = $call1($Pervasives[21], $o);
+      $q = $call2(
         $Pervasives[16],
         $cst_Properly_caught_conversion_from_string_20_to_int,
         $p
       );
-      $caml_call1($Pervasives[30], $q);
-      $caml_call1($Pervasives[35], 0);
+      $call1($Pervasives[30], $q);
+      $call1($Pervasives[35], 0);
     }
     else {
-      $caml_call1(
+      $call1(
         $Pervasives[2],
         $cst_Did_not_properly_catch_conversion_from_string_to_int
       );
@@ -243,35 +240,35 @@ final class Strings {
     
     $one__0 = Vector{0, $r};
     $two = Vector{0, $s};
-    $t = $caml_call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
-    $u = $caml_call2($Pervasives[16], $cst_ARE_T, $t);
+    $t = $call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
+    $u = $call2($Pervasives[16], $cst_ARE_T, $t);
     
-    $caml_call1($Pervasives[30], $u);
+    $call1($Pervasives[30], $u);
     
-    $caml_call1($Pervasives[35], 0);
+    $call1($Pervasives[35], 0);
     
-    $v = $caml_call1($Pervasives[18], $one__0 === $two ? 1 : (0));
-    $w = $caml_call2($Pervasives[16], $cst_ARE_F, $v);
+    $v = $call1($Pervasives[18], $one__0 === $two ? 1 : (0));
+    $w = $call2($Pervasives[16], $cst_ARE_F, $v);
     
-    $caml_call1($Pervasives[30], $w);
+    $call1($Pervasives[30], $w);
     
-    $caml_call1($Pervasives[35], 0);
+    $call1($Pervasives[35], 0);
     
     $n__0 = $Pervasives[12];
     $anotherName = $Pervasives[12];
-    $x = $caml_call1($Pervasives[18], $n__0 === $anotherName ? 1 : (0));
-    $y = $caml_call2($Pervasives[16], $cst_Nans_are_should_output_true, $x);
+    $x = $call1($Pervasives[18], $n__0 === $anotherName ? 1 : (0));
+    $y = $call2($Pervasives[16], $cst_Nans_are_should_output_true, $x);
     
-    $caml_call1($Pervasives[30], $y);
+    $call1($Pervasives[30], $y);
     
-    $caml_call1($Pervasives[35], 0);
+    $call1($Pervasives[35], 0);
     
-    $z = $caml_call1($Pervasives[18], $n__0 === $anotherName ? 1 : (0));
-    $A = $caml_call2($Pervasives[16], $cst_Nans_are_should_output_false, $z);
+    $z = $call1($Pervasives[18], $n__0 === $anotherName ? 1 : (0));
+    $A = $call2($Pervasives[16], $cst_Nans_are_should_output_false, $z);
     
-    $caml_call1($Pervasives[30], $A);
+    $call1($Pervasives[30], $A);
     
-    $caml_call1($Pervasives[35], 0);
+    $call1($Pervasives[35], 0);
     
     $Strings = Vector{
       0,

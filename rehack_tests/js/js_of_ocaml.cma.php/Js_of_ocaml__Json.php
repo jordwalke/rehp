@@ -32,7 +32,7 @@ final class Js_of_ocaml__Json {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -45,15 +45,15 @@ final class Js_of_ocaml__Json {
         : ($value);
     };
     $input_reviver = $runtime["caml_js_wrap_meth_callback"]($reviver);
-    $unsafe_input = function(dynamic $s) use ($caml_call1,$caml_get_public_method,$input_reviver,$json) {
-      $pf = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -309814068, 246), $x);
+    $unsafe_input = function(dynamic $s) use ($call1,$caml_get_public_method,$input_reviver,$json) {
+      $pf = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -309814068, 246), $x);
       };
       return (function(dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) {return $t2->parse($t0, $t1);
        })($json, $s, $input_reviver, $pf);
     };
-    $pd = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-      return $caml_call1($caml_get_public_method($x, 398798074, 247), $x);
+    $pd = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 398798074, 247), $x);
     };
     $mlString_constr = (function(dynamic $t3, dynamic $param) {return $t3->constructor;
      })($dummy_string, $pd);
@@ -62,9 +62,9 @@ final class Js_of_ocaml__Json {
         ? $runtime["caml_jsbytes_of_string"]($value)
         : ($value);
     };
-    $output = function(dynamic $obj) use ($caml_call1,$caml_get_public_method,$json,$output_reviver) {
-      $pe = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, 215522356, 248), $x);
+    $output = function(dynamic $obj) use ($call1,$caml_get_public_method,$json,$output_reviver) {
+      $pe = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 215522356, 248), $x);
       };
       return (function(dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) {return $t6->stringify($t4, $t5);
        })($json, $obj, $output_reviver, $pe);

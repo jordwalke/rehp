@@ -25,15 +25,15 @@ var caml_new_string = runtime["caml_new_string"];
 var caml_sys_getenv = runtime["caml_sys_getenv"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
@@ -85,14 +85,14 @@ catch(rj) {
   var params = qf;
 }
 
-var randomized_default = caml_call2(String[22], params, 82);
+var randomized_default = call2(String[22], params, 82);
 var randomized = [0,randomized_default];
 
 function randomize(param) {randomized[1] = 1;return 0;}
 
 function is_randomized(param) {return randomized[1];}
 
-var prng = [246,function(ri) {return caml_call1(Random[11][2], 0);}];
+var prng = [246,function(ri) {return call1(Random[11][2], 0);}];
 
 function power_2_above(x, n) {
   var x__0 = x;
@@ -116,8 +116,8 @@ function create(opt, initial_size) {
     var rg = runtime["caml_obj_tag"](prng);
     var rh = 250 === rg ?
       prng[1] :
-      246 === rg ? caml_call1(CamlinternalLazy[2], prng) : prng;
-    var seed = caml_call1(Random[11][4], rh);
+      246 === rg ? call1(CamlinternalLazy[2], prng) : prng;
+    var seed = call1(Random[11][4], rh);
   }
   else var seed = 0;
   return [0,0,caml_make_vect(s, 0),seed,s];
@@ -143,9 +143,9 @@ function clear(h) {
 function reset(h) {
   var len = h[2].length - 1;
   if (4 <= h.length - 1) {
-    if (len !== caml_call1(Pervasives[6], h[4])) {
+    if (len !== call1(Pervasives[6], h[4])) {
       h[1] = 0;
-      h[2] = caml_make_vect(caml_call1(Pervasives[6], h[4]), 0);
+      h[2] = caml_make_vect(call1(Pervasives[6], h[4]), 0);
       return 0;
     }
   }
@@ -187,7 +187,7 @@ function copy_bucketlist(param) {
 function copy(h) {
   var ra = h[4];
   var rb = h[3];
-  var rc = caml_call2(Array[15], copy_bucketlist, h[2]);
+  var rc = call2(Array[15], copy_bucketlist, h[2]);
   return [0,h[1],rc,rb,ra];
 }
 
@@ -211,7 +211,7 @@ function resize(indexfun, h) {
           var data = cell__0[2];
           var next = cell__0[3];
           var cell__1 = inplace ? cell__0 : [0,key,data,0];
-          var nidx = caml_call2(indexfun, h, key);
+          var nidx = call2(indexfun, h, key);
           var match = caml_check_bound(ndata_tail, nidx)[nidx + 1];
           if (match) match[3] =
             cell__1;
@@ -463,7 +463,7 @@ function iter(f, h) {
         var key = param__0[1];
         var data = param__0[2];
         var param__1 = param__0[3];
-        caml_call2(f, key, data);
+        call2(f, key, data);
         var param__0 = param__1;
         continue;
       }
@@ -505,7 +505,7 @@ function filter_map_inplace_bucket(f, h, i, prec, slot) {
       var key = slot__0[1];
       var data = slot__0[2];
       var next = slot__0[3];
-      var match = caml_call2(f, key, data);
+      var match = call2(f, key, data);
       if (match) {
         var data__0 = match[1];
         if (prec__0) prec__0[3] = slot__0;
@@ -562,7 +562,7 @@ function fold(f, h, init) {
         var key = b__0[1];
         var data = b__0[2];
         var b__1 = b__0[3];
-        var accu__1 = caml_call3(f, key, data, accu__0);
+        var accu__1 = call3(f, key, data, accu__0);
         var b__0 = b__1;
         var accu__0 = accu__1;
         continue;
@@ -619,9 +619,9 @@ function stats(h) {
   var qA = 0;
   function qB(m, b) {
     var qE = bucket_length(0, b);
-    return caml_call2(Pervasives[5], m, qE);
+    return call2(Pervasives[5], m, qE);
   }
-  var mbl = caml_call3(Array[17], qB, qA, qz);
+  var mbl = call3(Array[17], qB, qA, qz);
   var histo = caml_make_vect(mbl + 1 | 0, 0);
   var qC = h[2];
   function qD(b) {
@@ -629,14 +629,14 @@ function stats(h) {
     histo[l + 1] = caml_check_bound(histo, l)[l + 1] + 1 | 0;
     return 0;
   }
-  caml_call2(Array[13], qD, qC);
+  call2(Array[13], qD, qC);
   return [0,h[1],h[2].length - 1,mbl,histo];
 }
 
 function MakeSeeded(H) {
   function key_index(h, key) {
     var qy = h[2].length - 1 + -1 | 0;
-    return caml_call2(H[2], h[3], key) & qy;
+    return call2(H[2], h[3], key) & qy;
   }
   function add(h, key, data) {
     var i = key_index(h, key);
@@ -653,7 +653,7 @@ function MakeSeeded(H) {
       if (c__0) {
         var k = c__0[1];
         var next = c__0[3];
-        if (caml_call2(H[1], k, key)) {
+        if (call2(H[1], k, key)) {
           h[1] = h[1] + -1 | 0;
           if (prec__0) {prec__0[3] = next;return 0;}
           caml_check_bound(h[2], i)[i + 1] = next;
@@ -677,7 +677,7 @@ function MakeSeeded(H) {
         var k = param__0[1];
         var data = param__0[2];
         var next = param__0[3];
-        if (caml_call2(H[1], key, k)) {return data;}
+        if (call2(H[1], key, k)) {return data;}
         var param__0 = next;
         continue;
       }
@@ -691,17 +691,17 @@ function MakeSeeded(H) {
       var k1 = match[1];
       var d1 = match[2];
       var next1 = match[3];
-      if (caml_call2(H[1], key, k1)) {return d1;}
+      if (call2(H[1], key, k1)) {return d1;}
       if (next1) {
         var k2 = next1[1];
         var d2 = next1[2];
         var next2 = next1[3];
-        if (caml_call2(H[1], key, k2)) {return d2;}
+        if (call2(H[1], key, k2)) {return d2;}
         if (next2) {
           var k3 = next2[1];
           var d3 = next2[2];
           var next3 = next2[3];
-          return caml_call2(H[1], key, k3) ? d3 : find_rec(key, next3);
+          return call2(H[1], key, k3) ? d3 : find_rec(key, next3);
         }
         throw runtime["caml_wrap_thrown_exception"](Not_found);
       }
@@ -716,7 +716,7 @@ function MakeSeeded(H) {
         var k = param__0[1];
         var data = param__0[2];
         var next = param__0[3];
-        if (caml_call2(H[1], key, k)) {return [0,data];}
+        if (call2(H[1], key, k)) {return [0,data];}
         var param__0 = next;
         continue;
       }
@@ -730,17 +730,17 @@ function MakeSeeded(H) {
       var k1 = match[1];
       var d1 = match[2];
       var next1 = match[3];
-      if (caml_call2(H[1], key, k1)) {return [0,d1];}
+      if (call2(H[1], key, k1)) {return [0,d1];}
       if (next1) {
         var k2 = next1[1];
         var d2 = next1[2];
         var next2 = next1[3];
-        if (caml_call2(H[1], key, k2)) {return [0,d2];}
+        if (call2(H[1], key, k2)) {return [0,d2];}
         if (next2) {
           var k3 = next2[1];
           var d3 = next2[2];
           var next3 = next2[3];
-          return caml_call2(H[1], key, k3) ? [0,d3] : find_rec_opt(key, next3);
+          return call2(H[1], key, k3) ? [0,d3] : find_rec_opt(key, next3);
         }
         return 0;
       }
@@ -756,7 +756,7 @@ function MakeSeeded(H) {
           var k = param__0[1];
           var d = param__0[2];
           var next = param__0[3];
-          if (caml_call2(H[1], k, key)) {return [0,d,find_in_bucket(next)];}
+          if (call2(H[1], k, key)) {return [0,d,find_in_bucket(next)];}
           var param__0 = next;
           continue;
         }
@@ -772,7 +772,7 @@ function MakeSeeded(H) {
       if (param__0) {
         var k = param__0[1];
         var next = param__0[3];
-        if (caml_call2(H[1], k, key)) {
+        if (call2(H[1], k, key)) {
           param__0[1] = key;
           param__0[2] = data;
           return 0;
@@ -804,7 +804,7 @@ function MakeSeeded(H) {
         if (param__0) {
           var k = param__0[1];
           var next = param__0[3];
-          var qq = caml_call2(H[1], k, key);
+          var qq = call2(H[1], k, key);
           if (qq) {return qq;}
           var param__0 = next;
           continue;
@@ -838,7 +838,7 @@ function MakeSeeded(H) {
 
 function Make(H) {
   var equal = H[1];
-  function hash(seed, x) {return caml_call1(H[2], x);}
+  function hash(seed, x) {return call1(H[2], x);}
   var include = MakeSeeded([0,equal,hash]);
   var clear = include[2];
   var reset = include[3];
@@ -856,7 +856,7 @@ function Make(H) {
   var length = include[15];
   var stats = include[16];
   var qo = include[1];
-  function create(sz) {return caml_call2(qo, qh, sz);}
+  function create(sz) {return call2(qo, qh, sz);}
   return [
     0,
     create,

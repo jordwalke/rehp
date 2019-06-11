@@ -39,11 +39,11 @@ var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_sys_open = runtime["caml_sys_open"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -429,17 +429,16 @@ function o(param, ar) {
   var str1 = param[2];
   var fmt1 = param[1];
   var as = g(str1, g(cst__0, str2));
-  return [0,caml_call2(CamlinternalFormatBasics[3], fmt1, fmt2),as];
+  return [0,call2(CamlinternalFormatBasics[3], fmt1, fmt2),as];
 }
 
 function at_exit(f) {
   var g = exit_function[1];
-  exit_function[1] =
-    function(param) {caml_call1(f, 0);return caml_call1(g, 0);};
+  exit_function[1] = function(param) {call1(f, 0);return call1(g, 0);};
   return 0;
 }
 
-function do_at_exit(param) {return caml_call1(exit_function[1], 0);}
+function do_at_exit(param) {return call1(exit_function[1], 0);}
 
 function exit(retcode) {
   do_at_exit(0);

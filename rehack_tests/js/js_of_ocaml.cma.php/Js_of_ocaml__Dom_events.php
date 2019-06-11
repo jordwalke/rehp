@@ -31,17 +31,17 @@ final class Js_of_ocaml__Dom_events {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call4 = function
+    $call4 = function
     (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
@@ -50,18 +50,18 @@ final class Js_of_ocaml__Dom_events {
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
     $listen = function
-    (dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb) use ($Js_of_ocaml_Dom_html,$caml_call1,$caml_call2,$caml_call4) {
+    (dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb) use ($Js_of_ocaml_Dom_html,$call1,$call2,$call4) {
       if ($opt) {
         $sth = $opt[1];
         $capture = $sth;
       }
       else {$capture = 0;}
       $kV = ! ! $capture;
-      $kW = function(dynamic $n, dynamic $e) use ($caml_call2,$cb) {
-        return ! ! $caml_call2($cb, $n, $e);
+      $kW = function(dynamic $n, dynamic $e) use ($call2,$cb) {
+        return ! ! $call2($cb, $n, $e);
       };
-      $kX = $caml_call1($Js_of_ocaml_Dom_html[11], $kW);
-      return $caml_call4($Js_of_ocaml_Dom_html[16], $target, $typ, $kX, $kV);
+      $kX = $call1($Js_of_ocaml_Dom_html[11], $kW);
+      return $call4($Js_of_ocaml_Dom_html[16], $target, $typ, $kX, $kV);
     };
     $stop_listen = $Js_of_ocaml_Dom_html[17];
     $Js_of_ocaml_Dom_events = Vector{

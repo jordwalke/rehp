@@ -935,7 +935,7 @@ function caml_wrap_thrown_exception_reraise(exn) {
 
 
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : caml_call_gen(f, [a0]);
 }
 
@@ -1047,7 +1047,7 @@ function do_at_exit(param) {return flush_all(0);}
 function f1(g) {
   var i = 2;
   for (; ; ) {
-    caml_call1(g, i);
+    call1(g, i);
     var C = i + 1 | 0;
     if (3 !== i) {var i = C;continue;}
     return 0;
@@ -1060,7 +1060,7 @@ function f2(g) {
   for (; ; ) {
     var j = 4;
     for (; ; ) {
-      caml_call1(g, i + j | 0);
+      call1(g, i + j | 0);
       var B = j + 1 | 0;
       if (5 !== j) {var j = B;continue;}
       var A = i + 1 | 0;
@@ -1079,14 +1079,14 @@ function f3(g) {
     for (; ; ) {
       var k = 4;
       for (; ; ) {
-        caml_call1(g, (i + j | 0) + k | 0);
+        call1(g, (i + j | 0) + k | 0);
         var z = k + 1 | 0;
         if (5 !== k) {var k = z;continue;}
         var y = j + 1 | 0;
         if (5 !== j) {var j = y;continue b;}
         var l = 6;
         for (; ; ) {
-          caml_call1(g, i + l | 0);
+          call1(g, i + l | 0);
           var x = l + 1 | 0;
           if (7 !== l) {var l = x;continue;}
           var w = i + 1 | 0;
@@ -1104,7 +1104,7 @@ function f4(g) {
   for (; ; ) {
     var k__3 = 4;
     for (; ; ) {
-      caml_call1(g, i + k__3 | 0);
+      call1(g, i + k__3 | 0);
       var v = k__3 + 1 | 0;
       if (5 !== k__3) {var k__3 = v;continue;}
       var j = 4;
@@ -1115,14 +1115,14 @@ function f4(g) {
         for (; ; ) {
           var l__1 = 4;
           for (; ; ) {
-            caml_call1(g, ((i + j | 0) + k__2 | 0) + l__1 | 0);
+            call1(g, ((i + j | 0) + k__2 | 0) + l__1 | 0);
             var u = l__1 + 1 | 0;
             if (5 !== l__1) {var l__1 = u;continue;}
             var t = k__2 + 1 | 0;
             if (5 !== k__2) {var k__2 = t;continue d;}
             var k__1 = 4;
             for (; ; ) {
-              caml_call1(g, (i + j | 0) + k__1 | 0);
+              call1(g, (i + j | 0) + k__1 | 0);
               var s = k__1 + 1 | 0;
               if (5 !== k__1) {var k__1 = s;continue;}
               var r = j + 1 | 0;
@@ -1132,7 +1132,7 @@ function f4(g) {
               for (; ; ) {
                 var n__1 = 4;
                 for (; ; ) {
-                  caml_call1(g, (i + l__0 | 0) + n__1 | 0);
+                  call1(g, (i + l__0 | 0) + n__1 | 0);
                   var q = n__1 + 1 | 0;
                   if (5 !== n__1) {var n__1 = q;continue;}
                   var m__0 = 4;
@@ -1140,7 +1140,7 @@ function f4(g) {
                   for (; ; ) {
                     var n__0 = 4;
                     for (; ; ) {
-                      caml_call1(g, ((i + l__0 | 0) + m__0 | 0) + n__0 | 0);
+                      call1(g, ((i + l__0 | 0) + m__0 | 0) + n__0 | 0);
                       var p = n__0 + 1 | 0;
                       if (5 !== n__0) {var n__0 = p;continue;}
                       var o = m__0 + 1 | 0;
@@ -1149,14 +1149,14 @@ function f4(g) {
                       if (7 !== l__0) {var l__0 = n;continue e;}
                       var k__0 = 4;
                       for (; ; ) {
-                        caml_call1(g, i + k__0 | 0);
+                        call1(g, i + k__0 | 0);
                         var m = k__0 + 1 | 0;
                         if (5 !== k__0) {var k__0 = m;continue;}
                         var l = i + 1 | 0;
                         if (3 !== i) {var i = l;continue a;}
                         var k = 4;
                         for (; ; ) {
-                          caml_call1(g, k);
+                          call1(g, k);
                           var k = k + 1 | 0;
                           if (5 !== k) {var k = k;continue;}
                           return 0;

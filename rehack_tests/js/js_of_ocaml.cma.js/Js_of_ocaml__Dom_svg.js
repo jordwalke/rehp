@@ -14,11 +14,11 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
@@ -147,7 +147,7 @@ var SVGError = [
 
 function createElement(doc, name) {
   function ld(x) {
-    return caml_call1(caml_get_public_method(x, -387984539, 192), x);
+    return call1(caml_get_public_method(x, -387984539, 192), x);
   }
   var le = name.toString();
   return function(t2, t0, t1, param) {return t2.createElementNS(t0, t1);}(doc, xmlns, le, ld
@@ -290,16 +290,12 @@ function createView(doc) {return unsafeCreateElement(doc, cst_view);}
 
 function createvkern(doc) {return unsafeCreateElement(doc, cst_vkern);}
 
-function kY(x) {
-  return caml_call1(caml_get_public_method(x, 946564599, 193), x);
-}
+function kY(x) {return call1(caml_get_public_method(x, 946564599, 193), x);}
 
 var kZ = Js_of_ocaml_Js[50][1];
 var svg_element = function(t3, param) {return t3.SVGElement;}(kZ, kY);
 
-function k0(x) {
-  return caml_call1(caml_get_public_method(x, 454225691, 194), x);
-}
+function k0(x) {return call1(caml_get_public_method(x, 454225691, 194), x);}
 
 var k1 = Js_of_ocaml_Js[50][1];
 var document = function(t4, param) {return t4.document;}(k1, k0);
@@ -311,35 +307,29 @@ function getElementById(id) {
   }
   function k7(param) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
   function k8(x) {
-    return caml_call1(caml_get_public_method(x, -332188296, 195), x);
+    return call1(caml_get_public_method(x, -332188296, 195), x);
   }
   var k9 = id.toString();
-  function k_(x) {
-    return caml_call1(caml_get_public_method(x, 454225691, 196), x);
-  }
+  function k_(x) {return call1(caml_get_public_method(x, 454225691, 196), x);}
   var la = Js_of_ocaml_Js[50][1];
   var lb = function(t5, param) {return t5.document;}(la, k_);
   var lc = function(t7, t6, param) {return t7.getElementById(t6);}(lb, k9, k8);
-  return caml_call3(Js_of_ocaml_Js[5][7], lc, k7, k6);
+  return call3(Js_of_ocaml_Js[5][7], lc, k7, k6);
 }
 
 function element(e) {
   return e instanceof svg_element ?
-    caml_call1(Js_of_ocaml_Js[2], e) :
+    call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
 
 function unsafeCoerce(e, tag) {
   var k2 = tag.toString();
-  function k3(x) {
-    return caml_call1(caml_get_public_method(x, 946097238, 197), x);
-  }
-  function k4(x) {
-    return caml_call1(caml_get_public_method(x, 578170309, 198), x);
-  }
+  function k3(x) {return call1(caml_get_public_method(x, 946097238, 197), x);}
+  function k4(x) {return call1(caml_get_public_method(x, 578170309, 198), x);}
   var k5 = function(t8, param) {return t8.tagName;}(e, k4);
   return function(t9, param) {return t9.toLowerCase();}(k5, k3) === k2 ?
-    caml_call1(Js_of_ocaml_Js[2], e) :
+    call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
 

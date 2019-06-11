@@ -22,11 +22,11 @@ var caml_new_string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -47,7 +47,7 @@ function string(str) {
   return caml_md5_string(str, 0, caml_ml_string_length(str));
 }
 
-function bytes(b) {return string(caml_call1(Bytes[42], b));}
+function bytes(b) {return string(call1(Bytes[42], b));}
 
 function substring(str, ofs, len) {
   if (0 <= ofs) {
@@ -55,36 +55,34 @@ function substring(str, ofs, len) {
       if (! ((caml_ml_string_length(str) - len | 0) < ofs)) {return caml_md5_string(str, ofs, len);}
     }
   }
-  return caml_call1(Pervasives[1], cst_Digest_substring);
+  return call1(Pervasives[1], cst_Digest_substring);
 }
 
 function subbytes(b, ofs, len) {
-  return substring(caml_call1(Bytes[42], b), ofs, len);
+  return substring(call1(Bytes[42], b), ofs, len);
 }
 
 function file(filename) {
-  var ic = caml_call1(Pervasives[68], filename);
+  var ic = call1(Pervasives[68], filename);
   try {var d = runtime["caml_md5_chan"](ic, -1);}
   catch(e) {
     e = caml_wrap_exception(e);
-    caml_call1(Pervasives[81], ic);
+    call1(Pervasives[81], ic);
     throw runtime["caml_wrap_thrown_exception_reraise"](e);
   }
-  caml_call1(Pervasives[81], ic);
+  call1(Pervasives[81], ic);
   return d;
 }
 
-function output(chan, digest) {
-  return caml_call2(Pervasives[54], chan, digest);
-}
+function output(chan, digest) {return call2(Pervasives[54], chan, digest);}
 
-function input(chan) {return caml_call2(Pervasives[74], chan, 16);}
+function input(chan) {return call2(Pervasives[74], chan, 16);}
 
 function char_hex(n) {var pX = 10 <= n ? 87 : 48;return n + pX | 0;}
 
 function to_hex(d) {
   if (16 !== caml_ml_string_length(d)) {
-    caml_call1(Pervasives[1], cst_Digest_to_hex);
+    call1(Pervasives[1], cst_Digest_to_hex);
   }
   var result = caml_create_bytes(32);
   var i = 0;
@@ -94,13 +92,13 @@ function to_hex(d) {
     caml_bytes_unsafe_set(result, (i * 2 | 0) + 1 | 0, char_hex(x & 15));
     var pW = i + 1 | 0;
     if (15 !== i) {var i = pW;continue;}
-    return caml_call1(Bytes[42], result);
+    return call1(Bytes[42], result);
   }
 }
 
 function from_hex(s) {
   if (32 !== caml_ml_string_length(s)) {
-    caml_call1(Pervasives[1], cst_Digest_from_hex);
+    call1(Pervasives[1], cst_Digest_from_hex);
   }
   function digit(c) {
     if (65 <= c) {
@@ -125,10 +123,10 @@ function from_hex(s) {
   var i = 0;
   for (; ; ) {
     var pT = byte__0(2 * i | 0);
-    runtime["caml_bytes_set"](result, i, caml_call1(Char[1], pT));
+    runtime["caml_bytes_set"](result, i, call1(Char[1], pT));
     var pU = i + 1 | 0;
     if (15 !== i) {var i = pU;continue;}
-    return caml_call1(Bytes[42], result);
+    return call1(Bytes[42], result);
   }
 }
 

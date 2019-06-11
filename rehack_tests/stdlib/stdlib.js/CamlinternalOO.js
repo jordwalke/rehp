@@ -27,21 +27,21 @@ var caml_set_oo_id = runtime["caml_set_oo_id"];
 var caml_string_compare = runtime["caml_string_compare"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call5(f, a0, a1, a2, a3, a4) {
+function call5(f, a0, a1, a2, a3, a4) {
   return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
@@ -92,15 +92,15 @@ function public_method_label(s) {
 
 function compare(x, y) {return caml_string_compare(x, y);}
 
-var Vars = caml_call1(Map[1], [0,compare]);
+var Vars = call1(Map[1], [0,compare]);
 
 function compare__0(x, y) {return caml_string_compare(x, y);}
 
-var Meths = caml_call1(Map[1], [0,compare__0]);
+var Meths = call1(Map[1], [0,compare__0]);
 
 function compare__1(x, y) {return runtime["caml_int_compare"](x, y);}
 
-var Labs = caml_call1(Map[1], [0,compare__1]);
+var Labs = call1(Map[1], [0,compare__1]);
 var dummy_table = [0,0,[0,dummy_item],Meths[1],Labs[1],0,0,Vars[1],0];
 var table_count = [0,0];
 var dummy_met = caml_obj_block(0, 0);
@@ -138,7 +138,7 @@ function resize(array, new_size) {
   var zm = old_size < new_size ? 1 : 0;
   if (zm) {
     var new_buck = caml_make_vect(new_size, dummy_met);
-    caml_call5(Array[10], array[2], 0, new_buck, 0, old_size);
+    call5(Array[10], array[2], 0, new_buck, 0, old_size);
     array[2] = new_buck;
     var zn = 0;
   }
@@ -162,13 +162,13 @@ function new_method(table) {
 }
 
 function get_method_label(table, name) {
-  try {var zk = caml_call2(Meths[27], name, table[3]);return zk;}
+  try {var zk = call2(Meths[27], name, table[3]);return zk;}
   catch(zl) {
     zl = caml_wrap_exception(zl);
     if (zl === Not_found) {
       var label = new_method(table);
-      table[3] = caml_call3(Meths[4], name, label, table[3]);
-      table[4] = caml_call3(Labs[4], label, 1, table[4]);
+      table[3] = call3(Meths[4], name, label, table[3]);
+      table[4] = call3(Labs[4], label, 1, table[4]);
       return label;
     }
     throw runtime["caml_wrap_thrown_exception_reraise"](zl);
@@ -177,18 +177,18 @@ function get_method_label(table, name) {
 
 function get_method_labels(table, names) {
   function zi(zj) {return get_method_label(table, zj);}
-  return caml_call2(Array[15], zi, names);
+  return call2(Array[15], zi, names);
 }
 
 function set_method(table, label, element) {
   method_count[1] += 1;
-  if (caml_call2(Labs[27], label, table[4])) {return put(table, label, element);}
+  if (call2(Labs[27], label, table[4])) {return put(table, label, element);}
   table[6] = [0,[0,label,element],table[6]];
   return 0;
 }
 
 function get_method(table, label) {
-  try {var zg = caml_call2(List[38], label, table[6]);return zg;}
+  try {var zg = call2(List[38], label, table[6]);return zg;}
   catch(zh) {
     zh = caml_wrap_exception(zh);
     if (zh === Not_found) {
@@ -198,33 +198,33 @@ function get_method(table, label) {
   }
 }
 
-function to_list(arr) {return arr === 0 ? 0 : caml_call1(Array[11], arr);}
+function to_list(arr) {return arr === 0 ? 0 : call1(Array[11], arr);}
 
 function narrow(table, vars, virt_meths, concr_meths) {
   var vars__0 = to_list(vars);
   var virt_meths__0 = to_list(virt_meths);
   var concr_meths__0 = to_list(concr_meths);
   function y0(zf) {return get_method_label(table, zf);}
-  var virt_meth_labs = caml_call2(List[17], y0, virt_meths__0);
+  var virt_meth_labs = call2(List[17], y0, virt_meths__0);
   function y1(ze) {return get_method_label(table, ze);}
-  var concr_meth_labs = caml_call2(List[17], y1, concr_meths__0);
+  var concr_meth_labs = call2(List[17], y1, concr_meths__0);
   table[5] =
     [0,[0,table[3],table[4],table[6],table[7],virt_meth_labs,vars__0],table[5]
     ];
   var y2 = Vars[1];
   var y3 = table[7];
   function y4(lab, info, tvars) {
-    return caml_call2(List[31], lab, vars__0) ?
-      caml_call3(Vars[4], lab, info, tvars) :
+    return call2(List[31], lab, vars__0) ?
+      call3(Vars[4], lab, info, tvars) :
       tvars;
   }
-  table[7] = caml_call3(Vars[13], y4, y3, y2);
+  table[7] = call3(Vars[13], y4, y3, y2);
   var by_name = [0,Meths[1]];
   var by_label = [0,Labs[1]];
   function y5(met, label) {
-    by_name[1] = caml_call3(Meths[4], met, label, by_name[1]);
+    by_name[1] = call3(Meths[4], met, label, by_name[1]);
     var y_ = by_label[1];
-    try {var zc = caml_call2(Labs[27], label, table[4]);var zb = zc;}
+    try {var zc = call2(Labs[27], label, table[4]);var zb = zc;}
     catch(zd) {
       zd = caml_wrap_exception(zd);
       if (zd !== Not_found) {
@@ -233,50 +233,50 @@ function narrow(table, vars, virt_meths, concr_meths) {
       var za = 1;
       var zb = za;
     }
-    by_label[1] = caml_call3(Labs[4], label, zb, y_);
+    by_label[1] = call3(Labs[4], label, zb, y_);
     return 0;
   }
-  caml_call3(List[22], y5, concr_meths__0, concr_meth_labs);
+  call3(List[22], y5, concr_meths__0, concr_meth_labs);
   function y6(met, label) {
-    by_name[1] = caml_call3(Meths[4], met, label, by_name[1]);
-    by_label[1] = caml_call3(Labs[4], label, 0, by_label[1]);
+    by_name[1] = call3(Meths[4], met, label, by_name[1]);
+    by_label[1] = call3(Labs[4], label, 0, by_label[1]);
     return 0;
   }
-  caml_call3(List[22], y6, virt_meths__0, virt_meth_labs);
+  call3(List[22], y6, virt_meths__0, virt_meth_labs);
   table[3] = by_name[1];
   table[4] = by_label[1];
   var y7 = 0;
   var y8 = table[6];
   function y9(met, hm) {
     var lab = met[1];
-    return caml_call2(List[31], lab, virt_meth_labs) ? hm : [0,met,hm];
+    return call2(List[31], lab, virt_meth_labs) ? hm : [0,met,hm];
   }
-  table[6] = caml_call3(List[21], y9, y8, y7);
+  table[6] = call3(List[21], y9, y8, y7);
   return 0;
 }
 
 function widen(table) {
-  var match = caml_call1(List[5], table[5]);
+  var match = call1(List[5], table[5]);
   var vars = match[6];
   var virt_meths = match[5];
   var saved_vars = match[4];
   var saved_hidden_meths = match[3];
   var by_label = match[2];
   var by_name = match[1];
-  table[5] = caml_call1(List[6], table[5]);
+  table[5] = call1(List[6], table[5]);
   function yW(s, v) {
-    var yZ = caml_call2(Vars[27], v, table[7]);
-    return caml_call3(Vars[4], v, yZ, s);
+    var yZ = call2(Vars[27], v, table[7]);
+    return call3(Vars[4], v, yZ, s);
   }
-  table[7] = caml_call3(List[20], yW, saved_vars, vars);
+  table[7] = call3(List[20], yW, saved_vars, vars);
   table[3] = by_name;
   table[4] = by_label;
   var yX = table[6];
   function yY(met, hm) {
     var lab = met[1];
-    return caml_call2(List[31], lab, virt_meths) ? hm : [0,met,hm];
+    return call2(List[31], lab, virt_meths) ? hm : [0,met,hm];
   }
-  table[6] = caml_call3(List[21], yY, yX, saved_hidden_meths);
+  table[6] = call3(List[21], yY, yX, saved_hidden_meths);
   return 0;
 }
 
@@ -287,13 +287,13 @@ function new_slot(table) {
 }
 
 function new_variable(table, name) {
-  try {var yU = caml_call2(Vars[27], name, table[7]);return yU;}
+  try {var yU = call2(Vars[27], name, table[7]);return yU;}
   catch(yV) {
     yV = caml_wrap_exception(yV);
     if (yV === Not_found) {
       var index = new_slot(table);
       if (runtime["caml_string_notequal"](name, cst)) {
-        table[7] = caml_call3(Vars[4], name, index, table[7]);
+        table[7] = call3(Vars[4], name, index, table[7]);
       }
       return index;
     }
@@ -340,7 +340,7 @@ function new_methods_variables(table, meths, vals) {
 }
 
 function get_variable(table, name) {
-  try {var yJ = caml_call2(Vars[27], name, table[7]);return yJ;}
+  try {var yJ = call2(Vars[27], name, table[7]);return yJ;}
   catch(yK) {
     yK = caml_wrap_exception(yK);
     if (yK === Not_found) {
@@ -352,28 +352,28 @@ function get_variable(table, name) {
 
 function get_variables(table, names) {
   function yH(yI) {return get_variable(table, yI);}
-  return caml_call2(Array[15], yH, names);
+  return call2(Array[15], yH, names);
 }
 
 function add_initializer(table, f) {table[8] = [0,f,table[8]];return 0;}
 
 function create_table(public_methods) {
   if (public_methods === 0) {return new_table([0]);}
-  var tags = caml_call2(Array[15], public_method_label, public_methods);
+  var tags = call2(Array[15], public_method_label, public_methods);
   var table = new_table(tags);
   function yG(i, met) {
     var lab = (i * 2 | 0) + 2 | 0;
-    table[3] = caml_call3(Meths[4], met, lab, table[3]);
-    table[4] = caml_call3(Labs[4], lab, 1, table[4]);
+    table[3] = call3(Meths[4], met, lab, table[3]);
+    table[4] = call3(Labs[4], lab, 1, table[4]);
     return 0;
   }
-  caml_call2(Array[14], yG, public_methods);
+  call2(Array[14], yG, public_methods);
   return table;
 }
 
 function init_class(table) {
   inst_var_count[1] = (inst_var_count[1] + table[1] | 0) + -1 | 0;
-  table[8] = caml_call1(List[9], table[8]);
+  table[8] = call1(List[9], table[8]);
   var yF = Sys[10];
   return resize(
     table,
@@ -385,28 +385,28 @@ function inherits(cla, vals, virt_meths, concr_meths, param, top) {
   var env = param[4];
   var super__0 = param[2];
   narrow(cla, vals, virt_meths, concr_meths);
-  var init = top ? caml_call2(super__0, cla, env) : caml_call1(super__0, cla);
+  var init = top ? call2(super__0, cla, env) : call1(super__0, cla);
   widen(cla);
   var yx = 0;
   var yy = to_array(concr_meths);
   function yz(nm) {return get_method(cla, get_method_label(cla, nm));}
-  var yA = [0,caml_call2(Array[15], yz, yy),yx];
+  var yA = [0,call2(Array[15], yz, yy),yx];
   var yB = to_array(vals);
   function yC(yE) {return get_variable(cla, yE);}
-  var yD = [0,[0,init],[0,caml_call2(Array[15], yC, yB),yA]];
-  return caml_call1(Array[6], yD);
+  var yD = [0,[0,init],[0,call2(Array[15], yC, yB),yA]];
+  return call1(Array[6], yD);
 }
 
 function make_class(pub_meths, class_init) {
   var table = create_table(pub_meths);
-  var env_init = caml_call1(class_init, table);
+  var env_init = call1(class_init, table);
   init_class(table);
-  return [0,caml_call1(env_init, 0),class_init,env_init,0];
+  return [0,call1(env_init, 0),class_init,env_init,0];
 }
 
 function make_class_store(pub_meths, class_init, init_table) {
   var table = create_table(pub_meths);
-  var env_init = caml_call1(class_init, table);
+  var env_init = call1(class_init, table);
   init_class(table);
   init_table[2] = class_init;
   init_table[1] = env_init;
@@ -440,7 +440,7 @@ function iter_f(obj, param) {
     if (param__0) {
       var param__1 = param__0[2];
       var f = param__0[1];
-      caml_call1(f, obj);
+      call1(f, obj);
       var param__0 = param__1;
       continue;
     }
@@ -550,104 +550,92 @@ function get_var(n) {return function(obj) {return obj[n + 1];};}
 function get_env(e, n) {return function(obj) {return obj[e + 1][n + 1];};}
 
 function get_meth(n) {
-  return function(obj) {return caml_call1(obj[1][n + 1], obj);};
+  return function(obj) {return call1(obj[1][n + 1], obj);};
 }
 
 function set_var(n) {return function(obj, x) {obj[n + 1] = x;return 0;};}
 
-function app_const(f, x) {return function(obj) {return caml_call1(f, x);};}
+function app_const(f, x) {return function(obj) {return call1(f, x);};}
 
-function app_var(f, n) {
-  return function(obj) {return caml_call1(f, obj[n + 1]);};
-}
+function app_var(f, n) {return function(obj) {return call1(f, obj[n + 1]);};}
 
 function app_env(f, e, n) {
-  return function(obj) {return caml_call1(f, obj[e + 1][n + 1]);};
+  return function(obj) {return call1(f, obj[e + 1][n + 1]);};
 }
 
 function app_meth(f, n) {
-  return function(obj) {
-    return caml_call1(f, caml_call1(obj[1][n + 1], obj));
-  };
+  return function(obj) {return call1(f, call1(obj[1][n + 1], obj));};
 }
 
 function app_const_const(f, x, y) {
-  return function(obj) {return caml_call2(f, x, y);};
+  return function(obj) {return call2(f, x, y);};
 }
 
 function app_const_var(f, x, n) {
-  return function(obj) {return caml_call2(f, x, obj[n + 1]);};
+  return function(obj) {return call2(f, x, obj[n + 1]);};
 }
 
 function app_const_meth(f, x, n) {
-  return function(obj) {
-    return caml_call2(f, x, caml_call1(obj[1][n + 1], obj));
-  };
+  return function(obj) {return call2(f, x, call1(obj[1][n + 1], obj));};
 }
 
 function app_var_const(f, n, x) {
-  return function(obj) {return caml_call2(f, obj[n + 1], x);};
+  return function(obj) {return call2(f, obj[n + 1], x);};
 }
 
 function app_meth_const(f, n, x) {
-  return function(obj) {
-    return caml_call2(f, caml_call1(obj[1][n + 1], obj), x);
-  };
+  return function(obj) {return call2(f, call1(obj[1][n + 1], obj), x);};
 }
 
 function app_const_env(f, x, e, n) {
-  return function(obj) {return caml_call2(f, x, obj[e + 1][n + 1]);};
+  return function(obj) {return call2(f, x, obj[e + 1][n + 1]);};
 }
 
 function app_env_const(f, e, n, x) {
-  return function(obj) {return caml_call2(f, obj[e + 1][n + 1], x);};
+  return function(obj) {return call2(f, obj[e + 1][n + 1], x);};
 }
 
 function meth_app_const(n, x) {
-  return function(obj) {return caml_call2(obj[1][n + 1], obj, x);};
+  return function(obj) {return call2(obj[1][n + 1], obj, x);};
 }
 
 function meth_app_var(n, m) {
-  return function(obj) {return caml_call2(obj[1][n + 1], obj, obj[m + 1]);};
+  return function(obj) {return call2(obj[1][n + 1], obj, obj[m + 1]);};
 }
 
 function meth_app_env(n, e, m) {
-  return function(obj) {
-    return caml_call2(obj[1][n + 1], obj, obj[e + 1][m + 1]);
-  };
+  return function(obj) {return call2(obj[1][n + 1], obj, obj[e + 1][m + 1]);};
 }
 
 function meth_app_meth(n, m) {
   return function(obj) {
-    var ys = caml_call1(obj[1][m + 1], obj);
-    return caml_call2(obj[1][n + 1], obj, ys);
+    var ys = call1(obj[1][m + 1], obj);
+    return call2(obj[1][n + 1], obj, ys);
   };
 }
 
 function send_const(m, x, c) {
-  return function(obj) {
-    return caml_call1(caml_get_public_method(x, m, 0), x);
-  };
+  return function(obj) {return call1(caml_get_public_method(x, m, 0), x);};
 }
 
 function send_var(m, n, c) {
   return function(obj) {
     var yr = obj[n + 1];
-    return caml_call1(caml_get_public_method(yr, m, 0), yr);
+    return call1(caml_get_public_method(yr, m, 0), yr);
   };
 }
 
 function send_env(m, e, n, c) {
   return function(obj) {
     var yq = obj[e + 1][n + 1];
-    return caml_call1(caml_get_public_method(yq, m, 0), yq);
+    return call1(caml_get_public_method(yq, m, 0), yq);
   };
 }
 
 function send_meth(m, n, c) {
   return function(obj) {
-    var yp = caml_call1(obj[1][n + 1], obj);
-    return caml_call1(caml_get_public_method(yp, m, 0), yp);
+    var yp = call1(obj[1][n + 1], obj);
+    return call1(caml_get_public_method(yp, m, 0), yp);
   };
 }
 

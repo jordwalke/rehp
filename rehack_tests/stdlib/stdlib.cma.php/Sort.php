@@ -32,7 +32,7 @@ final class Sort {
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -40,14 +40,14 @@ final class Sort {
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
     $Invalid_argument = $global_data["Invalid_argument"];
-    $merge->contents = function(dynamic $order, dynamic $l1, dynamic $l2) use ($caml_call2,$merge) {
+    $merge->contents = function(dynamic $order, dynamic $l1, dynamic $l2) use ($call2,$merge) {
       if ($l1) {
         $t1 = $l1[2];
         $h1 = $l1[1];
         if ($l2) {
           $t2 = $l2[2];
           $h2 = $l2[1];
-          return $caml_call2($order, $h1, $h2)
+          return $call2($order, $h1, $h2)
             ? Vector{0, $h1, $merge->contents($order, $t1, $l2)}
             : (Vector{0, $h2, $merge->contents($order, $l1, $t2)});
         }
@@ -55,9 +55,9 @@ final class Sort {
       }
       return $l2;
     };
-    $list = function(dynamic $order, dynamic $l) use ($caml_call2,$merge) {
+    $list = function(dynamic $order, dynamic $l) use ($call2,$merge) {
       $initlist = new Ref();$merge2 = new Ref();
-      $initlist->contents = function(dynamic $param) use ($caml_call2,$initlist,$order) {
+      $initlist->contents = function(dynamic $param) use ($call2,$initlist,$order) {
         if ($param) {
           $cM = $param[2];
           $cN = $param[1];
@@ -65,7 +65,7 @@ final class Sort {
             $rest = $cM[2];
             $e2 = $cM[1];
             $cO = $initlist->contents($rest);
-            $cP = $caml_call2($order, $cN, $e2)
+            $cP = $call2($order, $cN, $e2)
               ? Vector{0, $cN, Vector{0, $e2, 0}}
               : (Vector{0, $e2, Vector{0, $cN, 0}});
             return Vector{0, $cP, $cO};
@@ -110,9 +110,9 @@ final class Sort {
       $arr[$j + 1] = $tmp;
       return 0;
     };
-    $array = function(dynamic $cmp, dynamic $arr) use ($Invalid_argument,$caml_call2,$cst_Sort_array,$runtime,$swap,$unsigned_right_shift_32) {
+    $array = function(dynamic $cmp, dynamic $arr) use ($Invalid_argument,$call2,$cst_Sort_array,$runtime,$swap,$unsigned_right_shift_32) {
       $qsort = new Ref();
-      $qsort->contents = function(dynamic $lo, dynamic $hi) use ($Invalid_argument,$arr,$caml_call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
+      $qsort->contents = function(dynamic $lo, dynamic $hi) use ($Invalid_argument,$arr,$call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
         $lo__0 = $lo;
         $hi__0 = $hi;
         $continue_counter = null;
@@ -120,16 +120,16 @@ final class Sort {
           $cH = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
           if ($cH) {
             $mid = (int) $unsigned_right_shift_32((int) ($lo__0 + $hi__0), 1);
-            if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
-            if ($caml_call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
+            if ($call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
+            if ($call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
               $swap($arr, $mid, $hi__0);
-              if ($caml_call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
+              if ($call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
             }
             $pivot = $arr[$mid + 1];
             $i = Vector{0, (int) ($lo__0 + 1)};
             $j = Vector{0, (int) ($hi__0 + -1)};
-            $cI = 1 - $caml_call2($cmp, $pivot, $arr[$hi__0 + 1]);
-            $cJ = $cI || 1 - $caml_call2($cmp, $arr[$lo__0 + 1], $pivot);
+            $cI = 1 - $call2($cmp, $pivot, $arr[$hi__0 + 1]);
+            $cJ = $cI || 1 - $call2($cmp, $arr[$lo__0 + 1], $pivot);
             if ($cJ) {
               throw $runtime["caml_wrap_thrown_exception"](
                       Vector{0, $Invalid_argument, $cst_Sort_array}
@@ -138,9 +138,9 @@ final class Sort {
             for (;;) {
               if ($i[1] < $j[1]) {
                 for (;;) {
-                  if ($caml_call2($cmp, $pivot, $arr[$i[1] + 1])) {
+                  if ($call2($cmp, $pivot, $arr[$i[1] + 1])) {
                     for (;;) {
-                      if ($caml_call2($cmp, $arr[$j[1] + 1], $pivot)) {
+                      if ($call2($cmp, $arr[$j[1] + 1], $pivot)) {
                         if ($i[1] < $j[1]) {$swap($arr, $i[1], $j[1]);}
                         $i[1] += 1;
                         $j[1] += -1;
@@ -200,13 +200,12 @@ final class Sort {
         $i = $cE;
         for (;;) {
           $val_i = $arr[$i + 1];
-          if (1 - $caml_call2($cmp, $arr[(int) ($i + -1) + 1], $val_i)) {
+          if (1 - $call2($cmp, $arr[(int) ($i + -1) + 1], $val_i)) {
             $arr[$i + 1] = $arr[(int) ($i + -1) + 1];
             $j = Vector{0, (int) ($i + -1)};
             for (;;) {
               if (1 <= $j[1]) {
-                if (! $caml_call2($cmp, $arr[(int) ($j[1] + -1) + 1], $val_i)
-                ) {
+                if (! $call2($cmp, $arr[(int) ($j[1] + -1) + 1], $val_i)) {
                   $arr[$j[1] + 1] = $arr[(int) ($j[1] + -1) + 1];
                   $j[1] += -1;
                   continue;

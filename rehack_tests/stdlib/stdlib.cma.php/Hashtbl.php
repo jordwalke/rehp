@@ -45,17 +45,17 @@ final class Hashtbl {
     $caml_sys_getenv = $runtime["caml_sys_getenv"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $left_shift_32 = $runtime["left_shift_32"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
@@ -110,7 +110,7 @@ final class Hashtbl {
       $params = $qf;
     }
     
-    $randomized_default = $caml_call2($String[22], $params, 82);
+    $randomized_default = $call2($String[22], $params, 82);
     $randomized = Vector{0, $randomized_default};
     $randomize = function(dynamic $param) use ($randomized) {
       $randomized[1] = 1;
@@ -121,8 +121,8 @@ final class Hashtbl {
     };
     $prng = Vector{
       246,
-      function(dynamic $ri) use ($Random,$caml_call1) {
-        return $caml_call1($Random[11][2], 0);
+      function(dynamic $ri) use ($Random,$call1) {
+        return $call1($Random[11][2], 0);
       }
     };
     $power_2_above = function(dynamic $x, dynamic $n) use ($Sys) {
@@ -135,7 +135,7 @@ final class Hashtbl {
         continue;
       }
     };
-    $create = function(dynamic $opt, dynamic $initial_size) use ($CamlinternalLazy,$Random,$caml_call1,$caml_make_vect,$power_2_above,$prng,$randomized,$runtime) {
+    $create = function(dynamic $opt, dynamic $initial_size) use ($CamlinternalLazy,$Random,$call1,$caml_make_vect,$power_2_above,$prng,$randomized,$runtime) {
       if ($opt) {
         $sth = $opt[1];
         $random = $sth;
@@ -146,8 +146,8 @@ final class Hashtbl {
         $rg = $runtime["caml_obj_tag"]($prng);
         $rh = 250 === $rg
           ? $prng[1]
-          : (246 === $rg ? $caml_call1($CamlinternalLazy[2], $prng) : ($prng));
-        $seed = $caml_call1($Random[11][4], $rh);
+          : (246 === $rg ? $call1($CamlinternalLazy[2], $prng) : ($prng));
+        $seed = $call1($Random[11][4], $rh);
       }
       else {$seed = 0;}
       return Vector{0, 0, $caml_make_vect($s, 0), $seed, $s};
@@ -168,12 +168,12 @@ final class Hashtbl {
       }
       return 0;
     };
-    $reset = function(dynamic $h) use ($Pervasives,$caml_call1,$caml_make_vect,$clear) {
+    $reset = function(dynamic $h) use ($Pervasives,$call1,$caml_make_vect,$clear) {
       $len = $h[2]->count() - 1;
       if (4 <= $h->count() - 1) {
-        if ($len !== $caml_call1($Pervasives[6], $h[4])) {
+        if ($len !== $call1($Pervasives[6], $h[4])) {
           $h[1] = 0;
-          $h[2] = $caml_make_vect($caml_call1($Pervasives[6], $h[4]), 0);
+          $h[2] = $caml_make_vect($call1($Pervasives[6], $h[4]), 0);
           return 0;
         }
       }
@@ -210,14 +210,14 @@ final class Hashtbl {
       }
       return 0;
     };
-    $copy = function(dynamic $h) use ($Array,$caml_call2,$copy_bucketlist) {
+    $copy = function(dynamic $h) use ($Array,$call2,$copy_bucketlist) {
       $ra = $h[4];
       $rb = $h[3];
-      $rc = $caml_call2($Array[15], $copy_bucketlist, $h[2]);
+      $rc = $call2($Array[15], $copy_bucketlist, $h[2]);
       return Vector{0, $h[1], $rc, $rb, $ra};
     };
     $length = function(dynamic $h) {return $h[1];};
-    $resize = function(dynamic $indexfun, dynamic $h) use ($Sys,$caml_call2,$caml_check_bound,$caml_make_vect,$ongoing_traversal) {
+    $resize = function(dynamic $indexfun, dynamic $h) use ($Sys,$call2,$caml_check_bound,$caml_make_vect,$ongoing_traversal) {
       $odata = $h[2];
       $osize = $odata->count() - 1;
       $nsize = (int) ($osize * 2);
@@ -227,7 +227,7 @@ final class Hashtbl {
         $ndata_tail = $caml_make_vect($nsize, 0);
         $inplace = 1 - $ongoing_traversal($h);
         $h[2] = $ndata;
-        $insert_bucket = function(dynamic $cell) use ($caml_call2,$caml_check_bound,$h,$indexfun,$inplace,$ndata,$ndata_tail) {
+        $insert_bucket = function(dynamic $cell) use ($call2,$caml_check_bound,$h,$indexfun,$inplace,$ndata,$ndata_tail) {
           $cell__0 = $cell;
           for (;;) {
             if ($cell__0) {
@@ -235,7 +235,7 @@ final class Hashtbl {
               $data = $cell__0[2];
               $next = $cell__0[3];
               $cell__1 = $inplace ? $cell__0 : (Vector{0, $key, $data, 0});
-              $nidx = $caml_call2($indexfun, $h, $key);
+              $nidx = $call2($indexfun, $h, $key);
               $match = $caml_check_bound($ndata_tail, $nidx)[$nidx + 1];
               if ($match) {
                 $match[3] = $cell__1;
@@ -480,15 +480,15 @@ final class Hashtbl {
       $qT = $key_index($h, $key);
       return $mem_in_bucket($caml_check_bound($h[2], $qT)[$qT + 1]);
     };
-    $iter = function(dynamic $f, dynamic $h) use ($caml_call2,$caml_check_bound,$caml_wrap_exception,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
-      $do_bucket = function(dynamic $param) use ($caml_call2,$f) {
+    $iter = function(dynamic $f, dynamic $h) use ($call2,$caml_check_bound,$caml_wrap_exception,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
+      $do_bucket = function(dynamic $param) use ($call2,$f) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
             $key = $param__0[1];
             $data = $param__0[2];
             $param__1 = $param__0[3];
-            $caml_call2($f, $key, $data);
+            $call2($f, $key, $data);
             $param__0 = $param__1;
             continue;
           }
@@ -524,7 +524,7 @@ final class Hashtbl {
       }
     };
     $filter_map_inplace_bucket = function
-    (dynamic $f, dynamic $h, dynamic $i, dynamic $prec, dynamic $slot) use ($caml_call2,$caml_check_bound) {
+    (dynamic $f, dynamic $h, dynamic $i, dynamic $prec, dynamic $slot) use ($call2,$caml_check_bound) {
       $prec__0 = $prec;
       $slot__0 = $slot;
       for (;;) {
@@ -532,7 +532,7 @@ final class Hashtbl {
           $key = $slot__0[1];
           $data = $slot__0[2];
           $next = $slot__0[3];
-          $match = $caml_call2($f, $key, $data);
+          $match = $call2($f, $key, $data);
           if ($match) {
             $data__0 = $match[1];
             if ($prec__0) {
@@ -587,8 +587,8 @@ final class Hashtbl {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
-    $fold = function(dynamic $f, dynamic $h, dynamic $init) use ($caml_call3,$caml_check_bound,$caml_wrap_exception,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
-      $do_bucket = function(dynamic $b, dynamic $accu) use ($caml_call3,$f) {
+    $fold = function(dynamic $f, dynamic $h, dynamic $init) use ($call3,$caml_check_bound,$caml_wrap_exception,$flip_ongoing_traversal,$ongoing_traversal,$runtime) {
+      $do_bucket = function(dynamic $b, dynamic $accu) use ($call3,$f) {
         $b__0 = $b;
         $accu__0 = $accu;
         for (;;) {
@@ -596,7 +596,7 @@ final class Hashtbl {
             $key = $b__0[1];
             $data = $b__0[2];
             $b__1 = $b__0[3];
-            $accu__1 = $caml_call3($f, $key, $data, $accu__0);
+            $accu__1 = $call3($f, $key, $data, $accu__0);
             $b__0 = $b__1;
             $accu__0 = $accu__1;
             continue;
@@ -648,14 +648,14 @@ final class Hashtbl {
         return $accu__0;
       }
     };
-    $stats = function(dynamic $h) use ($Array,$Pervasives,$bucket_length,$caml_call2,$caml_call3,$caml_check_bound,$caml_make_vect) {
+    $stats = function(dynamic $h) use ($Array,$Pervasives,$bucket_length,$call2,$call3,$caml_check_bound,$caml_make_vect) {
       $qz = $h[2];
       $qA = 0;
-      $qB = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length,$caml_call2) {
+      $qB = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length,$call2) {
         $qE = $bucket_length(0, $b);
-        return $caml_call2($Pervasives[5], $m, $qE);
+        return $call2($Pervasives[5], $m, $qE);
       };
-      $mbl = $caml_call3($Array[17], $qB, $qA, $qz);
+      $mbl = $call3($Array[17], $qB, $qA, $qz);
       $histo = $caml_make_vect((int) ($mbl + 1), 0);
       $qC = $h[2];
       $qD = function(dynamic $b) use ($bucket_length,$caml_check_bound,$histo) {
@@ -663,13 +663,13 @@ final class Hashtbl {
         $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
         return 0;
       };
-      $caml_call2($Array[13], $qD, $qC);
+      $call2($Array[13], $qD, $qC);
       return Vector{0, $h[1], $h[2]->count() - 1, $mbl, $histo};
     };
-    $MakeSeeded = function(dynamic $H) use ($Not_found,$caml_call2,$caml_check_bound,$clear,$copy,$create,$filter_map_inplace,$fold,$iter,$left_shift_32,$length,$reset,$resize,$runtime,$stats) {
-      $key_index = function(dynamic $h, dynamic $key) use ($H,$caml_call2) {
+    $MakeSeeded = function(dynamic $H) use ($Not_found,$call2,$caml_check_bound,$clear,$copy,$create,$filter_map_inplace,$fold,$iter,$left_shift_32,$length,$reset,$resize,$runtime,$stats) {
+      $key_index = function(dynamic $h, dynamic $key) use ($H,$call2) {
         $qy = (int) ($h[2]->count() - 1 + -1);
-        return $caml_call2($H[2], $h[3], $key) & $qy;
+        return $call2($H[2], $h[3], $key) & $qy;
       };
       $add = function(dynamic $h, dynamic $key, dynamic $data) use ($caml_check_bound,$key_index,$left_shift_32,$resize) {
         $i = $key_index($h, $key);
@@ -680,14 +680,14 @@ final class Hashtbl {
         return $qx ? $resize($key_index, $h) : ($qx);
       };
       $remove_bucket = function
-      (dynamic $h, dynamic $i, dynamic $key, dynamic $prec, dynamic $c) use ($H,$caml_call2,$caml_check_bound) {
+      (dynamic $h, dynamic $i, dynamic $key, dynamic $prec, dynamic $c) use ($H,$call2,$caml_check_bound) {
         $prec__0 = $prec;
         $c__0 = $c;
         for (;;) {
           if ($c__0) {
             $k = $c__0[1];
             $next = $c__0[3];
-            if ($caml_call2($H[1], $k, $key)) {
+            if ($call2($H[1], $k, $key)) {
               $h[1] = (int) ($h[1] + -1);
               if ($prec__0) {$prec__0[3] = $next;return 0;}
               $caml_check_bound($h[2], $i)[$i + 1] = $next;
@@ -710,38 +710,38 @@ final class Hashtbl {
           $caml_check_bound($h[2], $i)[$i + 1]
         );
       };
-      $find_rec = function(dynamic $key, dynamic $param) use ($H,$Not_found,$caml_call2,$runtime) {
+      $find_rec = function(dynamic $key, dynamic $param) use ($H,$Not_found,$call2,$runtime) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
             $data = $param__0[2];
             $next = $param__0[3];
-            if ($caml_call2($H[1], $key, $k)) {return $data;}
+            if ($call2($H[1], $key, $k)) {return $data;}
             $param__0 = $next;
             continue;
           }
           throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
       };
-      $find = function(dynamic $h, dynamic $key) use ($H,$Not_found,$caml_call2,$caml_check_bound,$find_rec,$key_index,$runtime) {
+      $find = function(dynamic $h, dynamic $key) use ($H,$Not_found,$call2,$caml_check_bound,$find_rec,$key_index,$runtime) {
         $qw = $key_index($h, $key);
         $match = $caml_check_bound($h[2], $qw)[$qw + 1];
         if ($match) {
           $k1 = $match[1];
           $d1 = $match[2];
           $next1 = $match[3];
-          if ($caml_call2($H[1], $key, $k1)) {return $d1;}
+          if ($call2($H[1], $key, $k1)) {return $d1;}
           if ($next1) {
             $k2 = $next1[1];
             $d2 = $next1[2];
             $next2 = $next1[3];
-            if ($caml_call2($H[1], $key, $k2)) {return $d2;}
+            if ($call2($H[1], $key, $k2)) {return $d2;}
             if ($next2) {
               $k3 = $next2[1];
               $d3 = $next2[2];
               $next3 = $next2[3];
-              return $caml_call2($H[1], $key, $k3)
+              return $call2($H[1], $key, $k3)
                 ? $d3
                 : ($find_rec($key, $next3));
             }
@@ -751,38 +751,38 @@ final class Hashtbl {
         }
         throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       };
-      $find_rec_opt = function(dynamic $key, dynamic $param) use ($H,$caml_call2) {
+      $find_rec_opt = function(dynamic $key, dynamic $param) use ($H,$call2) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
             $data = $param__0[2];
             $next = $param__0[3];
-            if ($caml_call2($H[1], $key, $k)) {return Vector{0, $data};}
+            if ($call2($H[1], $key, $k)) {return Vector{0, $data};}
             $param__0 = $next;
             continue;
           }
           return 0;
         }
       };
-      $find_opt = function(dynamic $h, dynamic $key) use ($H,$caml_call2,$caml_check_bound,$find_rec_opt,$key_index) {
+      $find_opt = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$find_rec_opt,$key_index) {
         $qv = $key_index($h, $key);
         $match = $caml_check_bound($h[2], $qv)[$qv + 1];
         if ($match) {
           $k1 = $match[1];
           $d1 = $match[2];
           $next1 = $match[3];
-          if ($caml_call2($H[1], $key, $k1)) {return Vector{0, $d1};}
+          if ($call2($H[1], $key, $k1)) {return Vector{0, $d1};}
           if ($next1) {
             $k2 = $next1[1];
             $d2 = $next1[2];
             $next2 = $next1[3];
-            if ($caml_call2($H[1], $key, $k2)) {return Vector{0, $d2};}
+            if ($call2($H[1], $key, $k2)) {return Vector{0, $d2};}
             if ($next2) {
               $k3 = $next2[1];
               $d3 = $next2[2];
               $next3 = $next2[3];
-              return $caml_call2($H[1], $key, $k3)
+              return $call2($H[1], $key, $k3)
                 ? Vector{0, $d3}
                 : ($find_rec_opt($key, $next3));
             }
@@ -792,16 +792,16 @@ final class Hashtbl {
         }
         return 0;
       };
-      $find_all = function(dynamic $h, dynamic $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
+      $find_all = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$key_index) {
         $find_in_bucket = new Ref();
-        $find_in_bucket->contents = function(dynamic $param) use ($H,$caml_call2,$find_in_bucket,$key) {
+        $find_in_bucket->contents = function(dynamic $param) use ($H,$call2,$find_in_bucket,$key) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
               $k = $param__0[1];
               $d = $param__0[2];
               $next = $param__0[3];
-              if ($caml_call2($H[1], $k, $key)) {
+              if ($call2($H[1], $k, $key)) {
                 return Vector{0, $d, $find_in_bucket->contents($next)};
               }
               $param__0 = $next;
@@ -815,13 +815,13 @@ final class Hashtbl {
           $caml_check_bound($h[2], $qu)[$qu + 1]
         );
       };
-      $replace_bucket = function(dynamic $key, dynamic $data, dynamic $param) use ($H,$caml_call2) {
+      $replace_bucket = function(dynamic $key, dynamic $data, dynamic $param) use ($H,$call2) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
             $k = $param__0[1];
             $next = $param__0[3];
-            if ($caml_call2($H[1], $k, $key)) {
+            if ($call2($H[1], $k, $key)) {
               $param__0[1] = $key;
               $param__0[2] = $data;
               return 0;
@@ -846,14 +846,14 @@ final class Hashtbl {
         else {$qt = $qr;}
         return $qt;
       };
-      $mem = function(dynamic $h, dynamic $key) use ($H,$caml_call2,$caml_check_bound,$key_index) {
-        $mem_in_bucket = function(dynamic $param) use ($H,$caml_call2,$key) {
+      $mem = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$key_index) {
+        $mem_in_bucket = function(dynamic $param) use ($H,$call2,$key) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
               $k = $param__0[1];
               $next = $param__0[3];
-              $qq = $caml_call2($H[1], $k, $key);
+              $qq = $call2($H[1], $k, $key);
               if ($qq) {return $qq;}
               $param__0 = $next;
               continue;
@@ -884,10 +884,10 @@ final class Hashtbl {
         $stats
       };
     };
-    $Make = function(dynamic $H) use ($MakeSeeded,$caml_call1,$caml_call2,$qh) {
+    $Make = function(dynamic $H) use ($MakeSeeded,$call1,$call2,$qh) {
       $equal = $H[1];
-      $hash = function(dynamic $seed, dynamic $x) use ($H,$caml_call1) {
-        return $caml_call1($H[2], $x);
+      $hash = function(dynamic $seed, dynamic $x) use ($H,$call1) {
+        return $call1($H[2], $x);
       };
       $include = $MakeSeeded(Vector{0, $equal, $hash});
       $clear = $include[2];
@@ -906,8 +906,8 @@ final class Hashtbl {
       $length = $include[15];
       $stats = $include[16];
       $qo = $include[1];
-      $create = function(dynamic $sz) use ($caml_call2,$qh,$qo) {
-        return $caml_call2($qo, $qh, $sz);
+      $create = function(dynamic $sz) use ($call2,$qh,$qo) {
+        return $call2($qo, $qh, $sz);
       };
       return Vector{
         0,

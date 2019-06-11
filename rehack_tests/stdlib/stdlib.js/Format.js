@@ -19,21 +19,21 @@ var caml_ml_string_length = runtime["caml_ml_string_length"];
 var caml_new_string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
@@ -104,20 +104,20 @@ function pp_clear_queue(state) {
 var pp_infinity = 1000000010;
 
 function pp_output_string(state, s) {
-  return caml_call3(state[17], s, 0, caml_ml_string_length(s));
+  return call3(state[17], s, 0, caml_ml_string_length(s));
 }
 
-function pp_output_newline(state) {return caml_call1(state[19], 0);}
+function pp_output_newline(state) {return call1(state[19], 0);}
 
-function pp_output_spaces(state, n) {return caml_call1(state[20], n);}
+function pp_output_spaces(state, n) {return call1(state[20], n);}
 
-function pp_output_indent(state, n) {return caml_call1(state[21], n);}
+function pp_output_indent(state, n) {return call1(state[21], n);}
 
 function break_new_line(state, offset, width) {
   pp_output_newline(state);
   state[11] = 1;
   var indent = (state[6] - width | 0) + offset | 0;
-  var real_indent = caml_call2(Pervasives[4], state[8], indent);
+  var real_indent = call2(Pervasives[4], state[8], indent);
   state[10] = real_indent;
   state[9] = state[6] - state[10] | 0;
   return pp_output_indent(state, state[10]);
@@ -201,7 +201,7 @@ function format_pp_token(state, size, param) {
       if (vH) {
         var tags = vH[2];
         var tag_name = vH[1];
-        var marker = caml_call1(state[25], tag_name);
+        var marker = call1(state[25], tag_name);
         pp_output_string(state, marker);
         state[5] = tags;
         return 0;
@@ -303,7 +303,7 @@ function format_pp_token(state, size, param) {
       return 0;
     default:
       var tag_name__0 = param[1];
-      var marker__0 = caml_call1(state[24], tag_name__0);
+      var marker__0 = call1(state[24], tag_name__0);
       pp_output_string(state, marker__0);
       state[5] = [0,tag_name__0,state[5]];
       return 0
@@ -434,7 +434,7 @@ function pp_close_box(state, param) {
 function pp_open_tag(state, tag_name) {
   if (state[22]) {
     state[4] = [0,tag_name,state[4]];
-    caml_call1(state[26], tag_name);
+    call1(state[26], tag_name);
   }
   var vp = state[23];
   return vp ? pp_enqueue(state, [0,0,[5,tag_name],0]) : vp;
@@ -448,7 +448,7 @@ function pp_close_tag(state, param) {
     if (vn) {
       var tags = vn[2];
       var tag_name = vn[1];
-      caml_call1(state[27], tag_name);
+      call1(state[27], tag_name);
       state[4] = tags;
       return 0;
     }
@@ -502,7 +502,7 @@ function pp_rinit(state) {
 function clear_tag_stack(state) {
   var vk = state[4];
   function vl(param) {return pp_close_tag(state, 0);}
-  return caml_call2(List[15], vl, vk);
+  return call2(List[15], vl, vk);
 }
 
 function pp_flush_queue(state, b) {
@@ -530,19 +530,19 @@ function pp_print_string(state, s) {
 }
 
 function pp_print_int(state, i) {
-  return pp_print_string(state, caml_call1(Pervasives[21], i));
+  return pp_print_string(state, call1(Pervasives[21], i));
 }
 
 function pp_print_float(state, f) {
-  return pp_print_string(state, caml_call1(Pervasives[23], f));
+  return pp_print_string(state, call1(Pervasives[23], f));
 }
 
 function pp_print_bool(state, b) {
-  return pp_print_string(state, caml_call1(Pervasives[18], b));
+  return pp_print_string(state, call1(Pervasives[18], b));
 }
 
 function pp_print_char(state, c) {
-  return pp_print_as(state, 1, caml_call2(String[1], 1, c));
+  return pp_print_as(state, 1, call2(String[1], 1, c));
 }
 
 function pp_open_hbox(state, param) {return pp_open_box_gen(state, 0, 0);}
@@ -565,12 +565,12 @@ function pp_open_box(state, indent) {
 
 function pp_print_newline(state, param) {
   pp_flush_queue(state, 1);
-  return caml_call1(state[18], 0);
+  return call1(state[18], 0);
 }
 
 function pp_print_flush(state, param) {
   pp_flush_queue(state, 0);
-  return caml_call1(state[18], 0);
+  return call1(state[18], 0);
 }
 
 function pp_force_newline(state, param) {
@@ -689,12 +689,8 @@ function pp_set_margin(state, n) {
     if (state[8] <= state[6]) var new_max_indent = state
      [8];
     else {
-      var u7 = caml_call2(
-        Pervasives[5],
-        state[6] - state[7] | 0,
-        state[6] / 2 | 0
-      );
-      var new_max_indent = caml_call2(Pervasives[5], u7, 1);
+      var u7 = call2(Pervasives[5], state[6] - state[7] | 0, state[6] / 2 | 0);
+      var new_max_indent = call2(Pervasives[5], u7, 1);
     }
     return pp_set_max_indent(state, new_max_indent);
   }
@@ -727,11 +723,9 @@ function pp_set_formatter_output_functions(state, f, g) {state[17] = f;state[18]
 function pp_get_formatter_output_functions(state, param) {return [0,state[17],state[18]];
 }
 
-function display_newline(state, param) {
-  return caml_call3(state[17], cst, 0, 1);
-}
+function display_newline(state, param) {return call3(state[17], cst, 0, 1);}
 
-var blank_line = caml_call2(String[1], 80, 32);
+var blank_line = call2(String[1], 80, 32);
 
 function display_blanks(state, n) {
   var n__0 = n;
@@ -739,20 +733,20 @@ function display_blanks(state, n) {
     var u5 = 0 < n__0 ? 1 : 0;
     if (u5) {
       if (80 < n__0) {
-        caml_call3(state[17], blank_line, 0, 80);
+        call3(state[17], blank_line, 0, 80);
         var n__1 = n__0 + -80 | 0;
         var n__0 = n__1;
         continue;
       }
-      return caml_call3(state[17], blank_line, 0, n__0);
+      return call3(state[17], blank_line, 0, n__0);
     }
     return u5;
   }
 }
 
 function pp_set_formatter_out_channel(state, oc) {
-  state[17] = caml_call1(Pervasives[57], oc);
-  state[18] = function(param) {return caml_call1(Pervasives[51], oc);};
+  state[17] = call1(Pervasives[57], oc);
+  state[18] = function(param) {return call1(Pervasives[51], oc);};
   state[19] = function(u4) {return display_newline(state, u4);};
   state[20] = function(u3) {return display_blanks(state, u3);};
   state[21] = function(u2) {return display_blanks(state, u2);};
@@ -760,13 +754,13 @@ function pp_set_formatter_out_channel(state, oc) {
 }
 
 function default_pp_mark_open_tag(s) {
-  var u1 = caml_call2(Pervasives[16], s, cst__0);
-  return caml_call2(Pervasives[16], cst__1, u1);
+  var u1 = call2(Pervasives[16], s, cst__0);
+  return call2(Pervasives[16], cst__1, u1);
 }
 
 function default_pp_mark_close_tag(s) {
-  var u0 = caml_call2(Pervasives[16], s, cst__2);
-  return caml_call2(Pervasives[16], cst__3, u0);
+  var u0 = call2(Pervasives[16], s, cst__2);
+  return call2(Pervasives[16], cst__3, u0);
 }
 
 function default_pp_print_open_tag(uZ) {return 0;}
@@ -832,18 +826,18 @@ function make_formatter(output, flush) {
 }
 
 function formatter_of_out_channel(oc) {
-  function uP(param) {return caml_call1(Pervasives[51], oc);}
-  return make_formatter(caml_call1(Pervasives[57], oc), uP);
+  function uP(param) {return call1(Pervasives[51], oc);}
+  return make_formatter(call1(Pervasives[57], oc), uP);
 }
 
 function formatter_of_buffer(b) {
   function uN(uO) {return 0;}
-  return make_formatter(caml_call1(Buffer[16], b), uN);
+  return make_formatter(call1(Buffer[16], b), uN);
 }
 
 var pp_buffer_size = 512;
 
-function pp_make_buffer(param) {return caml_call1(Buffer[1], pp_buffer_size);}
+function pp_make_buffer(param) {return call1(Buffer[1], pp_buffer_size);}
 
 var stdbuf = pp_make_buffer(0);
 var std_formatter = formatter_of_out_channel(Pervasives[27]);
@@ -852,8 +846,8 @@ var str_formatter = formatter_of_buffer(stdbuf);
 
 function flush_buffer_formatter(buf, ppf) {
   pp_flush_queue(ppf, 0);
-  var s = caml_call1(Buffer[2], buf);
-  caml_call1(Buffer[9], buf);
+  var s = call1(Buffer[2], buf);
+  call1(Buffer[9], buf);
   return s;
 }
 
@@ -865,7 +859,7 @@ function make_symbolic_output_buffer(param) {return [0,0];}
 
 function clear_symbolic_output_buffer(sob) {sob[1] = 0;return 0;}
 
-function get_symbolic_output_buffer(sob) {return caml_call1(List[9], sob[1]);}
+function get_symbolic_output_buffer(sob) {return call1(List[9], sob[1]);}
 
 function flush_symbolic_output_buffer(sob) {
   var items = get_symbolic_output_buffer(sob);
@@ -884,7 +878,7 @@ function formatter_of_symbolic_output_buffer(sob) {
     return add_symbolic_output_item(sob, 1);
   }
   function symbolic_string(sob, s, i, n) {
-    return add_symbolic_output_item(sob, [0,caml_call3(String[4], s, i, n)]);
+    return add_symbolic_output_item(sob, [0,call3(String[4], s, i, n)]);
   }
   function symbolic_spaces(sob, n) {
     return add_symbolic_output_item(sob, [1,n]);
@@ -1025,14 +1019,14 @@ function pp_print_list(opt, pp_v, ppf, param) {
       var tQ = param__0[2];
       var tR = param__0[1];
       if (tQ) {
-        caml_call2(pp_v, ppf, tR);
-        caml_call2(pp_sep, ppf, 0);
+        call2(pp_v, ppf, tR);
+        call2(pp_sep, ppf, 0);
         var opt__1 = [0,pp_sep];
         var opt__0 = opt__1;
         var param__0 = tQ;
         continue;
       }
-      return caml_call2(pp_v, ppf, tR);
+      return call2(pp_v, ppf, tR);
     }
     return 0;
   }
@@ -1043,10 +1037,7 @@ function pp_print_text(ppf, s) {
   var left = [0,0];
   var right = [0,0];
   function flush(param) {
-    pp_print_string(
-      ppf,
-      caml_call3(String[4], s, left[1], right[1] - left[1] | 0)
-    );
+    pp_print_string(ppf, call3(String[4], s, left[1], right[1] - left[1] | 0));
     right[1] += 1;
     left[1] = right[1];
     return 0;
@@ -1071,14 +1062,14 @@ function pp_print_text(ppf, s) {
 }
 
 function compute_tag(output, tag_acc) {
-  var buf = caml_call1(Buffer[1], 16);
+  var buf = call1(Buffer[1], 16);
   var ppf = formatter_of_buffer(buf);
-  caml_call2(output, ppf, tag_acc);
+  call2(output, ppf, tag_acc);
   pp_print_flush(ppf, 0);
-  var len = caml_call1(Buffer[7], buf);
+  var len = call1(Buffer[7], buf);
   return 2 <= len ?
-    caml_call3(Buffer[4], buf, 1, len + -2 | 0) :
-    caml_call1(Buffer[2], buf);
+    call3(Buffer[4], buf, 1, len + -2 | 0) :
+    call1(Buffer[2], buf);
 }
 
 function output_formatting_lit(ppf, fmting_lit) {
@@ -1131,7 +1122,7 @@ function output_acc(ppf, acc) {
       var acc__1 = to[1];
       output_acc(ppf, tp);
       var tq = compute_tag(output_acc, acc__1);
-      var match = caml_call1(CamlinternalFormat[21], tq);
+      var match = call1(CamlinternalFormat[21], tq);
       var bty = match[2];
       var indent = match[1];
       return pp_open_box_gen(ppf, indent, bty);
@@ -1251,7 +1242,7 @@ function output_acc(ppf, acc) {
       var f__0 = acc[2];
       var p__4 = acc[1];
       output_acc(ppf, p__4);
-      return caml_call1(f__0, ppf);
+      return call1(f__0, ppf);
     case 7:
       var p__5 = acc[1];
       output_acc(ppf, p__5);
@@ -1260,7 +1251,7 @@ function output_acc(ppf, acc) {
       var msg = acc[2];
       var p__6 = acc[1];
       output_acc(ppf, p__6);
-      return caml_call1(Pervasives[1], msg)
+      return call1(Pervasives[1], msg)
     }
   switch (switch__0) {
     case 0:
@@ -1268,7 +1259,7 @@ function output_acc(ppf, acc) {
       return pp_print_as_size(ppf, size, s__0);
     case 1:
       output_acc(ppf, p__3);
-      return pp_print_as_size(ppf, size__0, caml_call2(String[1], 1, c__0));
+      return pp_print_as_size(ppf, size__0, call2(String[1], 1, c__0));
     case 2:
       output_acc(ppf, p__0);
       return pp_print_string(ppf, s);
@@ -1297,7 +1288,7 @@ function strput_acc(ppf, acc) {
       var acc__1 = sW[1];
       strput_acc(ppf, sX);
       var sY = compute_tag(strput_acc, acc__1);
-      var match = caml_call1(CamlinternalFormat[21], sY);
+      var match = call1(CamlinternalFormat[21], sY);
       var bty = match[2];
       var indent = match[1];
       return pp_open_box_gen(ppf, indent, bty);
@@ -1422,12 +1413,12 @@ function strput_acc(ppf, acc) {
           var size__1 = tn[2];
           var p__4 = tm[1];
           strput_acc(ppf, p__4);
-          return pp_print_as_size(ppf, size__1, caml_call1(f__1, 0));
+          return pp_print_as_size(ppf, size__1, call1(f__1, 0));
         }
       }
       var f__0 = acc[2];
       strput_acc(ppf, tm);
-      return pp_print_string(ppf, caml_call1(f__0, 0));
+      return pp_print_string(ppf, call1(f__0, 0));
     case 7:
       var p__5 = acc[1];
       strput_acc(ppf, p__5);
@@ -1436,7 +1427,7 @@ function strput_acc(ppf, acc) {
       var msg = acc[2];
       var p__6 = acc[1];
       strput_acc(ppf, p__6);
-      return caml_call1(Pervasives[1], msg)
+      return call1(Pervasives[1], msg)
     }
   switch (switch__0) {
     case 0:
@@ -1444,7 +1435,7 @@ function strput_acc(ppf, acc) {
       return pp_print_as_size(ppf, size, s__0);
     case 1:
       strput_acc(ppf, p__3);
-      return pp_print_as_size(ppf, size__0, caml_call2(String[1], 1, c__0));
+      return pp_print_as_size(ppf, size__0, call2(String[1], 1, c__0));
     case 2:
       strput_acc(ppf, p__0);
       return pp_print_string(ppf, s);
@@ -1457,13 +1448,13 @@ function strput_acc(ppf, acc) {
 function kfprintf(k, ppf, param) {
   var fmt = param[1];
   var sU = 0;
-  function sV(ppf, acc) {output_acc(ppf, acc);return caml_call1(k, ppf);}
-  return caml_call4(CamlinternalFormat[7], sV, ppf, sU, fmt);
+  function sV(ppf, acc) {output_acc(ppf, acc);return call1(k, ppf);}
+  return call4(CamlinternalFormat[7], sV, ppf, sU, fmt);
 }
 
 function ikfprintf(k, ppf, param) {
   var fmt = param[1];
-  return caml_call3(CamlinternalFormat[8], k, ppf, fmt);
+  return call3(CamlinternalFormat[8], k, ppf, fmt);
 }
 
 function fprintf(ppf) {
@@ -1476,9 +1467,9 @@ function ifprintf(ppf) {
   return function(sP) {return ikfprintf(sO, ppf, sP);};
 }
 
-function printf(fmt) {return caml_call1(fprintf(std_formatter), fmt);}
+function printf(fmt) {return call1(fprintf(std_formatter), fmt);}
 
-function eprintf(fmt) {return caml_call1(fprintf(err_formatter), fmt);}
+function eprintf(fmt) {return call1(fprintf(err_formatter), fmt);}
 
 function ksprintf(k, param) {
   var fmt = param[1];
@@ -1486,9 +1477,9 @@ function ksprintf(k, param) {
   var ppf = formatter_of_buffer(b);
   function k__0(param, acc) {
     strput_acc(ppf, acc);
-    return caml_call1(k, flush_buffer_formatter(b, ppf));
+    return call1(k, flush_buffer_formatter(b, ppf));
   }
-  return caml_call4(CamlinternalFormat[7], k__0, 0, 0, fmt);
+  return call4(CamlinternalFormat[7], k__0, 0, 0, fmt);
 }
 
 function sprintf(fmt) {return ksprintf(function(s) {return s;}, fmt);}
@@ -1499,14 +1490,14 @@ function kasprintf(k, param) {
   var ppf = formatter_of_buffer(b);
   function k__0(ppf, acc) {
     output_acc(ppf, acc);
-    return caml_call1(k, flush_buffer_formatter(b, ppf));
+    return call1(k, flush_buffer_formatter(b, ppf));
   }
-  return caml_call4(CamlinternalFormat[7], k__0, ppf, 0, fmt);
+  return call4(CamlinternalFormat[7], k__0, ppf, 0, fmt);
 }
 
 function asprintf(fmt) {return kasprintf(function(s) {return s;}, fmt);}
 
-caml_call1(Pervasives[88], print_flush);
+call1(Pervasives[88], print_flush);
 
 function pp_set_all_formatter_output_functions(state, f, g, h, i) {
   pp_set_formatter_output_functions(state, f, g);
@@ -1530,7 +1521,7 @@ function bprintf(b, param) {
   var fmt = param[1];
   function k(ppf, acc) {output_acc(ppf, acc);return pp_flush_queue(ppf, 0);}
   var sI = formatter_of_buffer(b);
-  return caml_call4(CamlinternalFormat[7], k, sI, 0, fmt);
+  return call4(CamlinternalFormat[7], k, sI, 0, fmt);
 }
 
 var Format = [

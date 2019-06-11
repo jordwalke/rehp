@@ -26,27 +26,27 @@ var caml_string_compare = runtime["caml_string_compare"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-function caml_call5(f, a0, a1, a2, a3, a4) {
+function call5(f, a0, a1, a2, a3, a4) {
   return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
@@ -1395,7 +1395,7 @@ function name_of_string(s) {
           [
             0,
             Invalid_argument,
-            caml_call2(Pervasives[16], s, cst_is_not_a_valid_color_name)
+            call2(Pervasives[16], s, cst_is_not_a_valid_color_name)
           ]
         );
 }
@@ -1732,40 +1732,40 @@ function string_of_t(param) {
       var b = match[3];
       var g = match[2];
       var r = match[1];
-      return caml_call4(Printf[4], dM, r, g, b);
+      return call4(Printf[4], dM, r, g, b);
     case 2:
       var match__0 = param[1];
       var b__0 = match__0[3];
       var g__0 = match__0[2];
       var r__0 = match__0[1];
-      return caml_call4(Printf[4], dN, r__0, g__0, b__0);
+      return call4(Printf[4], dN, r__0, g__0, b__0);
     case 3:
       var match__1 = param[1];
       var a = match__1[4];
       var b__1 = match__1[3];
       var g__1 = match__1[2];
       var r__1 = match__1[1];
-      return caml_call5(Printf[4], dO, r__1, g__1, b__1, a);
+      return call5(Printf[4], dO, r__1, g__1, b__1, a);
     case 4:
       var match__2 = param[1];
       var a__0 = match__2[4];
       var b__2 = match__2[3];
       var g__2 = match__2[2];
       var r__2 = match__2[1];
-      return caml_call5(Printf[4], dP, r__2, g__2, b__2, a__0);
+      return call5(Printf[4], dP, r__2, g__2, b__2, a__0);
     case 5:
       var match__3 = param[1];
       var l = match__3[3];
       var s = match__3[2];
       var h = match__3[1];
-      return caml_call4(Printf[4], dQ, h, s, l);
+      return call4(Printf[4], dQ, h, s, l);
     default:
       var match__4 = param[1];
       var a__1 = match__4[4];
       var l__0 = match__4[3];
       var s__0 = match__4[2];
       var h__0 = match__4[1];
-      return caml_call5(Printf[4], dR, h__0, s__0, l__0, a__1)
+      return call5(Printf[4], dR, h__0, s__0, l__0, a__1)
     }
 }
 
@@ -1777,12 +1777,12 @@ function hex_of_rgb(param) {
     var e5 = i < 0 ? 1 : 0;
     var e6 = e5 || (255 < i ? 1 : 0);
     if (e6) {
-      var e7 = caml_call1(Pervasives[21], i);
+      var e7 = call1(Pervasives[21], i);
       throw runtime["caml_wrap_thrown_exception"](
               [
                 0,
                 Invalid_argument,
-                caml_call2(Pervasives[16], e7, cst_is_out_of_valid_range)
+                call2(Pervasives[16], e7, cst_is_out_of_valid_range)
               ]
             );
     }
@@ -1791,7 +1791,7 @@ function hex_of_rgb(param) {
   in_range(red);
   in_range(green);
   in_range(blue);
-  return caml_call4(Printf[4], dS, red, green, blue);
+  return call4(Printf[4], dS, red, green, blue);
 }
 
 function js_t_of_js_string(s) {
@@ -1821,48 +1821,46 @@ function js_t_of_js_string(s) {
   var eX = caml_jsbytes_of_string(cst_hsla_s_d_s_d_s_d_d_d);
   var eY = Js_of_ocaml_Js[10];
   var hsla_re = function(t13, t12, param) {return new t13(t12);}(eY, eX, eW);
-  function eZ(x) {
-    return caml_call1(caml_get_public_method(x, -856045486, 42), x);
-  }
+  function eZ(x) {return call1(caml_get_public_method(x, -856045486, 42), x);}
   if (! (function(t1, t0, param) {return t1.test(t0);}(rgb_re, s, eZ) | 0)) {
     var e0 = function(x) {
-      return caml_call1(caml_get_public_method(x, -856045486, 43), x);
+      return call1(caml_get_public_method(x, -856045486, 43), x);
     };
     if (! (function(t3, t2, param) {return t3.test(t2);}(rgba_re, s, e0) | 0)) {
       var e1 = function(x) {
-        return caml_call1(caml_get_public_method(x, -856045486, 44), x);
+        return call1(caml_get_public_method(x, -856045486, 44), x);
       };
       if (
       !
       (function(t5, t4, param) {return t5.test(t4);}(rgb_pct_re, s, e1) | 0)
       ) {
         var e2 = function(x) {
-          return caml_call1(caml_get_public_method(x, -856045486, 45), x);
+          return call1(caml_get_public_method(x, -856045486, 45), x);
         };
         if (
         !
         (function(t7, t6, param) {return t7.test(t6);}(rgba_pct_re, s, e2) | 0)
         ) {
           var e3 = function(x) {
-            return caml_call1(caml_get_public_method(x, -856045486, 46), x);
+            return call1(caml_get_public_method(x, -856045486, 46), x);
           };
           if (
           !
           (function(t9, t8, param) {return t9.test(t8);}(hsl_re, s, e3) | 0)
           ) {
             var e4 = function(x) {
-              return caml_call1(caml_get_public_method(x, -856045486, 47), x);
+              return call1(caml_get_public_method(x, -856045486, 47), x);
             };
             if (
             !
             (function(t11, t10, param) {return t11.test(t10);}(hsla_re, s, e4) | 0)
             ) {
-              if (caml_call2(List[31], caml_js_to_string(s), dT)) {return s;}
+              if (call2(List[31], caml_js_to_string(s), dT)) {return s;}
               throw runtime["caml_wrap_thrown_exception"](
                       [
                         0,
                         Invalid_argument,
-                        caml_call2(
+                        call2(
                           Pervasives[16],
                           caml_js_to_string(s),
                           cst_is_not_a_valid_color
@@ -1896,14 +1894,13 @@ function ml(c) {
                 [
                   0,
                   Invalid_argument,
-                  caml_call2(Pervasives[16], s, cst_is_not_a_valid_color__0)
+                  call2(Pervasives[16], s, cst_is_not_a_valid_color__0)
                 ]
               );
       };
-      var re_rgb = caml_call1(Js_of_ocaml_Regexp[1], cst_rgba_d_d_d_d_d);
-      var re_rgb_pct = caml_call1(Js_of_ocaml_Regexp[1], cst_rgba_d_d_d_d_d__0
-      );
-      var re_hsl = caml_call1(Js_of_ocaml_Regexp[1], cst_hsla_d_d_d_d_d);
+      var re_rgb = call1(Js_of_ocaml_Regexp[1], cst_rgba_d_d_d_d_d);
+      var re_rgb_pct = call1(Js_of_ocaml_Regexp[1], cst_rgba_d_d_d_d_d__0);
+      var re_hsl = call1(Js_of_ocaml_Regexp[1], cst_hsla_d_d_d_d_d);
       var i_of_s_o = function(param) {
         if (param) {
           var i = param[1];
@@ -1917,13 +1914,13 @@ function ml(c) {
               }
               var s = eG[2];
             }
-            var eD = caml_call2(Pervasives[16], cst, s);
-            var eE = caml_call2(Pervasives[16], i, eD);
+            var eD = call2(Pervasives[16], cst, s);
+            var eE = call2(Pervasives[16], i, eD);
             throw runtime["caml_wrap_thrown_exception"](
                     [
                       0,
                       Invalid_argument,
-                      caml_call2(Pervasives[16], cst_color_conversion_error, eE)
+                      call2(Pervasives[16], cst_color_conversion_error, eE)
                     ]
                   );
           }
@@ -1941,26 +1938,25 @@ function ml(c) {
             }
             var s = eC[2];
           }
-          var ez = caml_call2(Pervasives[16], cst__0, s);
-          var eA = caml_call2(Pervasives[16], f, ez);
+          var ez = call2(Pervasives[16], cst__0, s);
+          var eA = call2(Pervasives[16], f, ez);
           throw runtime["caml_wrap_thrown_exception"](
                   [
                     0,
                     Invalid_argument,
-                    caml_call2(Pervasives[16], cst_color_conversion_error__0, eA
-                    )
+                    call2(Pervasives[16], cst_color_conversion_error__0, eA)
                   ]
                 );
         }
       };
-      var match = caml_call3(Js_of_ocaml_Regexp[7], re_rgb, s, 0);
+      var match = call3(Js_of_ocaml_Regexp[7], re_rgb, s, 0);
       if (match) {
         var r = match[1];
-        var red = caml_call2(Js_of_ocaml_Regexp[11], r, 2);
-        var green = caml_call2(Js_of_ocaml_Regexp[11], r, 3);
-        var blue = caml_call2(Js_of_ocaml_Regexp[11], r, 4);
-        var alpha = caml_call2(Js_of_ocaml_Regexp[11], r, 5);
-        var match__0 = caml_call2(Js_of_ocaml_Regexp[11], r, 1);
+        var red = call2(Js_of_ocaml_Regexp[11], r, 2);
+        var green = call2(Js_of_ocaml_Regexp[11], r, 3);
+        var blue = call2(Js_of_ocaml_Regexp[11], r, 4);
+        var alpha = call2(Js_of_ocaml_Regexp[11], r, 5);
+        var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
         if (match__0) {
           var ef = match__0[1];
           if (! caml_string_notequal(ef, cst_rgb)) {
@@ -1982,14 +1978,14 @@ function ml(c) {
         }
         return fail(0);
       }
-      var match__1 = caml_call3(Js_of_ocaml_Regexp[7], re_rgb_pct, s, 0);
+      var match__1 = call3(Js_of_ocaml_Regexp[7], re_rgb_pct, s, 0);
       if (match__1) {
         var r__0 = match__1[1];
-        var red__0 = caml_call2(Js_of_ocaml_Regexp[11], r__0, 2);
-        var green__0 = caml_call2(Js_of_ocaml_Regexp[11], r__0, 3);
-        var blue__0 = caml_call2(Js_of_ocaml_Regexp[11], r__0, 4);
-        var alpha__0 = caml_call2(Js_of_ocaml_Regexp[11], r__0, 5);
-        var match__2 = caml_call2(Js_of_ocaml_Regexp[11], r__0, 1);
+        var red__0 = call2(Js_of_ocaml_Regexp[11], r__0, 2);
+        var green__0 = call2(Js_of_ocaml_Regexp[11], r__0, 3);
+        var blue__0 = call2(Js_of_ocaml_Regexp[11], r__0, 4);
+        var alpha__0 = call2(Js_of_ocaml_Regexp[11], r__0, 5);
+        var match__2 = call2(Js_of_ocaml_Regexp[11], r__0, 1);
         if (match__2) {
           var el = match__2[1];
           if (! caml_string_notequal(el, cst_rgb__0)) {
@@ -2011,14 +2007,14 @@ function ml(c) {
         }
         return fail(0);
       }
-      var match__3 = caml_call3(Js_of_ocaml_Regexp[7], re_hsl, s, 0);
+      var match__3 = call3(Js_of_ocaml_Regexp[7], re_hsl, s, 0);
       if (match__3) {
         var r__1 = match__3[1];
-        var red__1 = caml_call2(Js_of_ocaml_Regexp[11], r__1, 2);
-        var green__1 = caml_call2(Js_of_ocaml_Regexp[11], r__1, 3);
-        var blue__1 = caml_call2(Js_of_ocaml_Regexp[11], r__1, 4);
-        var alpha__1 = caml_call2(Js_of_ocaml_Regexp[11], r__1, 5);
-        var match__4 = caml_call2(Js_of_ocaml_Regexp[11], r__1, 1);
+        var red__1 = call2(Js_of_ocaml_Regexp[11], r__1, 2);
+        var green__1 = call2(Js_of_ocaml_Regexp[11], r__1, 3);
+        var blue__1 = call2(Js_of_ocaml_Regexp[11], r__1, 4);
+        var alpha__1 = call2(Js_of_ocaml_Regexp[11], r__1, 5);
+        var match__4 = call2(Js_of_ocaml_Regexp[11], r__1, 1);
         if (match__4) {
           var er = match__4[1];
           if (! caml_string_notequal(er, cst_hsl)) {
@@ -2051,46 +2047,46 @@ function string_of_t__0(param) {
   else switch (param[0]) {
     case 0:
       var f = param[1];
-      return caml_call3(Printf[4], dU, f, cst_em);
+      return call3(Printf[4], dU, f, cst_em);
     case 1:
       var f__0 = param[1];
-      return caml_call3(Printf[4], dV, f__0, cst_ex);
+      return call3(Printf[4], dV, f__0, cst_ex);
     case 2:
       var f__1 = param[1];
-      return caml_call3(Printf[4], dW, f__1, cst_px);
+      return call3(Printf[4], dW, f__1, cst_px);
     case 3:
       var f__2 = param[1];
-      return caml_call3(Printf[4], dX, f__2, cst_gd);
+      return call3(Printf[4], dX, f__2, cst_gd);
     case 4:
       var f__3 = param[1];
-      return caml_call3(Printf[4], dY, f__3, cst_rem);
+      return call3(Printf[4], dY, f__3, cst_rem);
     case 5:
       var f__4 = param[1];
-      return caml_call3(Printf[4], dZ, f__4, cst_vw);
+      return call3(Printf[4], dZ, f__4, cst_vw);
     case 6:
       var f__5 = param[1];
-      return caml_call3(Printf[4], d0, f__5, cst_vh);
+      return call3(Printf[4], d0, f__5, cst_vh);
     case 7:
       var f__6 = param[1];
-      return caml_call3(Printf[4], d1, f__6, cst_vm);
+      return call3(Printf[4], d1, f__6, cst_vm);
     case 8:
       var f__7 = param[1];
-      return caml_call3(Printf[4], d2, f__7, cst_ch);
+      return call3(Printf[4], d2, f__7, cst_ch);
     case 9:
       var f__8 = param[1];
-      return caml_call3(Printf[4], d3, f__8, cst_mm);
+      return call3(Printf[4], d3, f__8, cst_mm);
     case 10:
       var f__9 = param[1];
-      return caml_call3(Printf[4], d4, f__9, cst_cm);
+      return call3(Printf[4], d4, f__9, cst_cm);
     case 11:
       var f__10 = param[1];
-      return caml_call3(Printf[4], d5, f__10, cst_in);
+      return call3(Printf[4], d5, f__10, cst_in);
     case 12:
       var f__11 = param[1];
-      return caml_call3(Printf[4], d6, f__11, cst_pt);
+      return call3(Printf[4], d6, f__11, cst_pt);
     default:
       var f__12 = param[1];
-      return caml_call3(Printf[4], d7, f__12, cst_pc)
+      return call3(Printf[4], d7, f__12, cst_pc)
     }
 }
 
@@ -2104,15 +2100,15 @@ function ml__0(t) {
             [
               0,
               Invalid_argument,
-              caml_call2(Pervasives[16], s, cst_is_not_a_valid_length)
+              call2(Pervasives[16], s, cst_is_not_a_valid_length)
             ]
           );
   }
-  var re = caml_call1(Js_of_ocaml_Regexp[1], cst_d_d_s_S);
-  var match = caml_call3(Js_of_ocaml_Regexp[7], re, s, 0);
+  var re = call1(Js_of_ocaml_Regexp[1], cst_d_d_s_S);
+  var match = call3(Js_of_ocaml_Regexp[7], re, s, 0);
   if (match) {
     var r = match[1];
-    var match__0 = caml_call2(Js_of_ocaml_Regexp[11], r, 1);
+    var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
     if (match__0) {
       var f = match__0[1];
       try {var ed = caml_float_of_string(f);}
@@ -2124,8 +2120,7 @@ function ml__0(t) {
                   [
                     0,
                     Invalid_argument,
-                    caml_call2(Pervasives[16], cst_length_conversion_error, s__0
-                    )
+                    call2(Pervasives[16], cst_length_conversion_error, s__0)
                   ]
                 );
         }
@@ -2134,7 +2129,7 @@ function ml__0(t) {
       var f__0 = ed;
     }
     else var f__0 = fail(0);
-    var match__1 = caml_call2(Js_of_ocaml_Regexp[11], r, 2);
+    var match__1 = call2(Js_of_ocaml_Regexp[11], r, 2);
     if (match__1) {
       var ee = match__1[1];
       var switch__0 = caml_string_compare(ee, cst_pc__0);
@@ -2169,16 +2164,16 @@ function string_of_t__1(param) {
   switch (param[0]) {
     case 0:
       var f = param[1];
-      return caml_call3(Printf[4], d8, f, cst_deg);
+      return call3(Printf[4], d8, f, cst_deg);
     case 1:
       var f__0 = param[1];
-      return caml_call3(Printf[4], d9, f__0, cst_grad);
+      return call3(Printf[4], d9, f__0, cst_grad);
     case 2:
       var f__1 = param[1];
-      return caml_call3(Printf[4], d_, f__1, cst_rad);
+      return call3(Printf[4], d_, f__1, cst_rad);
     default:
       var f__2 = param[1];
-      return caml_call3(Printf[4], ea, f__2, cst_turns)
+      return call3(Printf[4], ea, f__2, cst_turns)
     }
 }
 
@@ -2186,20 +2181,20 @@ function js__1(t) {return string_of_t__1(t).toString();}
 
 function ml__1(j) {
   var s = caml_js_to_string(j);
-  var re = caml_call1(Js_of_ocaml_Regexp[1], cst_d_d_deg_grad_rad_turns);
+  var re = call1(Js_of_ocaml_Regexp[1], cst_d_d_deg_grad_rad_turns);
   function fail(param) {
     throw runtime["caml_wrap_thrown_exception"](
             [
               0,
               Invalid_argument,
-              caml_call2(Pervasives[16], s, cst_is_not_a_valid_length__0)
+              call2(Pervasives[16], s, cst_is_not_a_valid_length__0)
             ]
           );
   }
-  var match = caml_call3(Js_of_ocaml_Regexp[7], re, s, 0);
+  var match = call3(Js_of_ocaml_Regexp[7], re, s, 0);
   if (match) {
     var r = match[1];
-    var match__0 = caml_call2(Js_of_ocaml_Regexp[11], r, 1);
+    var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
     if (match__0) {
       var f = match__0[1];
       try {var eb = caml_float_of_string(f);}
@@ -2211,11 +2206,7 @@ function ml__1(j) {
                   [
                     0,
                     Invalid_argument,
-                    caml_call2(
-                      Pervasives[16],
-                      cst_length_conversion_error__0,
-                      s__0
-                    )
+                    call2(Pervasives[16], cst_length_conversion_error__0, s__0)
                   ]
                 );
         }
@@ -2224,7 +2215,7 @@ function ml__1(j) {
       var f__0 = eb;
     }
     else var f__0 = fail(0);
-    var match__1 = caml_call2(Js_of_ocaml_Regexp[11], r, 2);
+    var match__1 = call2(Js_of_ocaml_Regexp[11], r, 2);
     if (match__1) {
       var ec = match__1[1];
       if (! caml_string_notequal(ec, cst_deg__0)) {return [0,f__0];}

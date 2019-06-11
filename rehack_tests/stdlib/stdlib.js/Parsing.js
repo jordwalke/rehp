@@ -18,17 +18,17 @@ var caml_make_vect = runtime["caml_make_vect"];
 var caml_new_string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-function caml_call5(f, a0, a1, a2, a3, a4) {
+function call5(f, a0, a1, a2, a3, a4) {
   return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
@@ -70,20 +70,20 @@ function grow_stacks(param) {
   var new_v = caml_make_vect(newsize, 0);
   var new_start = caml_make_vect(newsize, Lexing[1]);
   var new_end = caml_make_vect(newsize, Lexing[1]);
-  caml_call5(Array[10], env[1], 0, new_s, 0, oldsize);
+  call5(Array[10], env[1], 0, new_s, 0, oldsize);
   env[1] = new_s;
-  caml_call5(Array[10], env[2], 0, new_v, 0, oldsize);
+  call5(Array[10], env[2], 0, new_v, 0, oldsize);
   env[2] = new_v;
-  caml_call5(Array[10], env[3], 0, new_start, 0, oldsize);
+  call5(Array[10], env[3], 0, new_start, 0, oldsize);
   env[3] = new_start;
-  caml_call5(Array[10], env[4], 0, new_end, 0, oldsize);
+  call5(Array[10], env[4], 0, new_end, 0, oldsize);
   env[4] = new_end;
   env[5] = newsize;
   return 0;
 }
 
 function clear_parser(param) {
-  caml_call4(Array[9], env[2], 0, env[5], 0);
+  call4(Array[9], env[2], 0, env[5], 0);
   env[8] = 0;
   return 0;
 }
@@ -98,7 +98,7 @@ function yyparse(tables, start, lexer, lexbuf) {
       var match = runtime["caml_parse_engine"](tables, env, cmd__0, arg__0);
       switch (match) {
         case 0:
-          var arg__1 = caml_call1(lexer, lexbuf);
+          var arg__1 = call1(lexer, lexbuf);
           env[9] = lexbuf[11];
           env[10] = lexbuf[12];
           var cmd__0 = 1;
@@ -119,7 +119,7 @@ function yyparse(tables, start, lexer, lexbuf) {
         case 4:
           try {
             var fh = env[13];
-            var fi = caml_call1(caml_check_bound(tables[1], fh)[fh + 1], env);
+            var fi = call1(caml_check_bound(tables[1], fh)[fh + 1], env);
             var fj = 4;
             var cmd__1 = fj;
             var arg__2 = fi;
@@ -138,7 +138,7 @@ function yyparse(tables, start, lexer, lexbuf) {
           var arg__0 = arg__2;
           continue;
         default:
-          caml_call1(tables[14], cst_syntax_error);
+          call1(tables[14], cst_syntax_error);
           var cmd__0 = 5;
           var arg__0 = 0;
           continue
@@ -169,7 +169,7 @@ function yyparse(tables, start, lexer, lexbuf) {
     if (exn[1] === YYexit) {var v = exn[2];return v;}
     current_lookahead_fun[1] =
       function(tok) {
-        if (caml_call1(Obj[1], tok)) {
+        if (call1(Obj[1], tok)) {
           var fe = runtime["caml_obj_tag"](tok);
           return caml_check_bound(tables[3], fe)[fe + 1] === curr_char ? 1 : 0;
         }
@@ -229,7 +229,7 @@ function rhs_start(n) {return rhs_start_pos(n)[4];}
 function rhs_end(n) {return rhs_end_pos(n)[4];}
 
 function is_current_lookahead(tok) {
-  return caml_call1(current_lookahead_fun[1], tok);
+  return call1(current_lookahead_fun[1], tok);
 }
 
 function parse_error(param) {return 0;}

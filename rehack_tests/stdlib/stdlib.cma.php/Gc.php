@@ -33,17 +33,17 @@ final class Gc {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call4 = function
+    $call4 = function
     (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 4
         ? $f($a0, $a1, $a2, $a3)
@@ -193,28 +193,28 @@ final class Gc {
       },
       $caml_new_string("heap_chunks: %d\n")
     };
-    $print_stat = function(dynamic $c) use ($Printf,$caml_call2,$caml_call3,$caml_call4,$caml_ml_string_length,$pA,$pB,$pC,$pD,$pE,$pF,$pG,$pH,$pI,$pJ,$pK,$pL,$ps,$pt,$pu,$pv,$pw,$px,$py,$pz,$runtime) {
+    $print_stat = function(dynamic $c) use ($Printf,$call2,$call3,$call4,$caml_ml_string_length,$pA,$pB,$pC,$pD,$pE,$pF,$pG,$pH,$pI,$pJ,$pK,$pL,$ps,$pt,$pu,$pv,$pw,$px,$py,$pz,$runtime) {
       $st = $runtime["caml_gc_stat"](0);
-      $caml_call3($Printf[1], $c, $ps, $st[4]);
-      $caml_call3($Printf[1], $c, $pt, $st[5]);
-      $caml_call3($Printf[1], $c, $pu, $st[14]);
-      $caml_call2($Printf[1], $c, $pv);
-      $l1 = $caml_ml_string_length($caml_call2($Printf[4], $pw, $st[1]));
-      $caml_call4($Printf[1], $c, $px, $l1, $st[1]);
-      $caml_call4($Printf[1], $c, $py, $l1, $st[2]);
-      $caml_call4($Printf[1], $c, $pz, $l1, $st[3]);
-      $caml_call2($Printf[1], $c, $pA);
-      $l2 = $caml_ml_string_length($caml_call2($Printf[4], $pB, $st[15]));
-      $caml_call4($Printf[1], $c, $pC, $l2, $st[15]);
-      $caml_call4($Printf[1], $c, $pD, $l2, $st[6]);
-      $caml_call4($Printf[1], $c, $pE, $l2, $st[8]);
-      $caml_call4($Printf[1], $c, $pF, $l2, $st[10]);
-      $caml_call4($Printf[1], $c, $pG, $l2, $st[12]);
-      $caml_call4($Printf[1], $c, $pH, $l2, $st[13]);
-      $caml_call2($Printf[1], $c, $pI);
-      $caml_call3($Printf[1], $c, $pJ, $st[9]);
-      $caml_call3($Printf[1], $c, $pK, $st[11]);
-      return $caml_call3($Printf[1], $c, $pL, $st[7]);
+      $call3($Printf[1], $c, $ps, $st[4]);
+      $call3($Printf[1], $c, $pt, $st[5]);
+      $call3($Printf[1], $c, $pu, $st[14]);
+      $call2($Printf[1], $c, $pv);
+      $l1 = $caml_ml_string_length($call2($Printf[4], $pw, $st[1]));
+      $call4($Printf[1], $c, $px, $l1, $st[1]);
+      $call4($Printf[1], $c, $py, $l1, $st[2]);
+      $call4($Printf[1], $c, $pz, $l1, $st[3]);
+      $call2($Printf[1], $c, $pA);
+      $l2 = $caml_ml_string_length($call2($Printf[4], $pB, $st[15]));
+      $call4($Printf[1], $c, $pC, $l2, $st[15]);
+      $call4($Printf[1], $c, $pD, $l2, $st[6]);
+      $call4($Printf[1], $c, $pE, $l2, $st[8]);
+      $call4($Printf[1], $c, $pF, $l2, $st[10]);
+      $call4($Printf[1], $c, $pG, $l2, $st[12]);
+      $call4($Printf[1], $c, $pH, $l2, $st[13]);
+      $call2($Printf[1], $c, $pI);
+      $call3($Printf[1], $c, $pJ, $st[9]);
+      $call3($Printf[1], $c, $pK, $st[11]);
+      return $call3($Printf[1], $c, $pL, $st[7]);
     };
     $allocated_bytes = function(dynamic $param) use ($Sys,$runtime) {
       $match = $runtime["caml_gc_counters"](0);

@@ -1382,19 +1382,19 @@ var native_warn =
       joo_global_object.native_debug :
       function() {caml_failwith("native_debug" + " not implemented");};
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : caml_call_gen(f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : caml_call_gen(f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ? f(a0, a1, a2) : caml_call_gen(f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ? f(a0, a1, a2, a3) : caml_call_gen(f, [a0,a1,a2,a3]);
 }
 
@@ -1758,7 +1758,7 @@ function map(f, param) {
   if (param) {
     var l = param[2];
     var a = param[1];
-    var r = caml_call1(f, a);
+    var r = call1(f, a);
     return [0,r,map(f, l)];
   }
   return 0;
@@ -1768,7 +1768,7 @@ function d(i, f, param) {
   if (param) {
     var l = param[2];
     var a = param[1];
-    var r = caml_call2(f, i, a);
+    var r = call2(f, i, a);
     return [0,r,d(i + 1 | 0, f, l)];
   }
   return 0;
@@ -1782,7 +1782,7 @@ function iter(f, param) {
     if (param__0) {
       var param__1 = param__0[2];
       var a = param__0[1];
-      caml_call1(f, a);
+      call1(f, a);
       var param__0 = param__1;
       continue;
     }
@@ -1797,7 +1797,7 @@ function fold_left(f, accu, l) {
     if (l__0) {
       var l__1 = l__0[2];
       var a = l__0[1];
-      var accu__1 = caml_call2(f, accu__0, a);
+      var accu__1 = call2(f, accu__0, a);
       var accu__0 = accu__1;
       var l__0 = l__1;
       continue;
@@ -2198,7 +2198,7 @@ function printTreeShape(pair, self, depth, o) {
   var indent = indentForDepth(depth);
   var indentNext = indentForDepth(dNext);
   var itms = map(
-    function(o) {return caml_call3(self[13], self, [0,dNext], o);},
+    function(o) {return call3(self[13], self, [0,dNext], o);},
     lst
   );
   var match__0 = getBreakData(itms);
@@ -2208,14 +2208,14 @@ function printTreeShape(pair, self, depth, o) {
     if (! someChildBroke) {
       var truncationMsg__0 = 0 === wasTruncated ?
         B :
-        a(D, caml_call1(self[6], self));
+        a(D, call1(self[6], self));
       var d9 = a(truncationMsg__0, right);
       return a(left, a(concat(C, itms), d9));
     }
   }
   var truncationMsg = 0 === wasTruncated ?
     w :
-    a(A, a(indentNext, caml_call1(self[6], self)));
+    a(A, a(indentNext, call1(self[6], self)));
   var d8 = a(truncationMsg, a(x, a(indent, right)));
   return a(left, a(z, a(indentNext, a(concat(a(y, indentNext), itms), d8))));
 }
@@ -2228,7 +2228,7 @@ function printListShape(self, depth, o) {
   var indent = indentForDepth(depth);
   var indentNext = indentForDepth(dNext);
   var itms = map(
-    function(o) {return caml_call3(self[13], self, [0,dNext], o);},
+    function(o) {return call3(self[13], self, [0,dNext], o);},
     lst
   );
   var match__0 = getBreakData(itms);
@@ -2238,14 +2238,14 @@ function printListShape(self, depth, o) {
     if (! someChildBroke) {
       var truncationMsg__0 = 0 === wasTruncated ?
         L :
-        a(P, caml_call1(self[6], self));
+        a(P, call1(self[6], self));
       var d7 = a(truncationMsg__0, M);
       return a(O, a(concat(N, itms), d7));
     }
   }
   var truncationMsg = 0 === wasTruncated ?
     E :
-    a(K, a(indentNext, caml_call1(self[6], self)));
+    a(K, a(indentNext, call1(self[6], self)));
   var d6 = a(truncationMsg, a(G, a(indent, F)));
   return a(J, a(I, a(indentNext, a(concat(a(H, indentNext), itms), d6))));
 }
@@ -2256,29 +2256,27 @@ function Q(self, opt, o) {
     var depth = sth;
   }
   else var depth = 0;
-  if (70 < depth) {return caml_call1(self[5], self);}
+  if (70 < depth) {return call1(self[5], self);}
   var tag = caml_obj_tag(o);
   if (tag === 252) {
     var match = 0 === depth ? 1 : 0;
-    return 0 === match ?
-      caml_call2(self[3], self, o) :
-      caml_call2(self[2], self, o);
+    return 0 === match ? call2(self[3], self, o) : call2(self[2], self, o);
   }
   return tag === 1e3 ?
-    caml_call2(self[1], self, o) :
+    call2(self[1], self, o) :
     tag === 253 ?
-     caml_call2(self[4], self, o) :
+     call2(self[4], self, o) :
      tag === 247 ?
-      caml_call2(self[10], self, o) :
+      call2(self[10], self, o) :
       tag === 254 ?
-       caml_call3(self[9], self, 0, o) :
+       call3(self[9], self, 0, o) :
        tag === 246 ?
-        caml_call2(self[8], self, o) :
+        call2(self[8], self, o) :
         detectList(j, o) ?
-         caml_call3(self[12], self, [0,depth], o) :
+         call3(self[12], self, [0,depth], o) :
          tag === 0 ?
-          caml_call3(self[11], self, [0,depth], o) :
-          caml_call2(self[7], self, o);
+          call3(self[11], self, [0,depth], o) :
+          call2(self[7], self, o);
 }
 
 function R(self, opt, o) {
@@ -2320,7 +2318,7 @@ function af(self) {return ag;}
 
 function ah(self, f) {return string_of_float(f);}
 
-function ai(self, s) {return a(ak, a(caml_call2(self[2], self, s), aj));}
+function ai(self, s) {return a(ak, a(call2(self[2], self, s), aj));}
 
 function al(self, s) {return s;}
 
@@ -2344,27 +2342,26 @@ var base = [
 function makeStandardChannelsConsole(objectPrinter) {
   function d2(a__0) {
     return native_debug(
-      a(caml_call3(objectPrinter[13], objectPrinter, 0, a__0), am)
+      a(call3(objectPrinter[13], objectPrinter, 0, a__0), am)
     );
   }
   function d3(a__0) {
     return native_error(
-      a(caml_call3(objectPrinter[13], objectPrinter, 0, a__0), an)
+      a(call3(objectPrinter[13], objectPrinter, 0, a__0), an)
     );
   }
   function d4(a__0) {
-    return native_warn(
-      a(caml_call3(objectPrinter[13], objectPrinter, 0, a__0), ao)
+    return native_warn(a(call3(objectPrinter[13], objectPrinter, 0, a__0), ao)
     );
   }
   function d5(a) {
-    return native_log(caml_call3(objectPrinter[13], objectPrinter, 0, a));
+    return native_log(call3(objectPrinter[13], objectPrinter, 0, a));
   }
   return [
     0,
     function(a__0) {
       return native_log(
-        a(caml_call3(objectPrinter[13], objectPrinter, 0, a__0), ap)
+        a(call3(objectPrinter[13], objectPrinter, 0, a__0), ap)
       );
     },
     d5,
@@ -2376,7 +2373,7 @@ function makeStandardChannelsConsole(objectPrinter) {
 
 var defaultGlobalConsole = makeStandardChannelsConsole(base);
 
-function log(a) {return caml_call1(defaultGlobalConsole[1], a);}
+function log(a) {return call1(defaultGlobalConsole[1], a);}
 
 function mapi3(f, iSoFar, revSoFar, listA, listB, listC) {
   var iSoFar__0 = iSoFar;
@@ -2394,11 +2391,7 @@ function mapi3(f, iSoFar, revSoFar, listA, listB, listC) {
           var hdb = listB__0[1];
           var listA__1 = listA__0[2];
           var hda = listA__0[1];
-          var revSoFar__1 = [
-            0,
-            caml_call4(f, iSoFar__0, hda, hdb, hdc),
-            revSoFar__0
-          ];
+          var revSoFar__1 = [0,call4(f, iSoFar__0, hda, hdb, hdc),revSoFar__0];
           var iSoFar__1 = iSoFar__0 + 1 | 0;
           var iSoFar__0 = iSoFar__1;
           var revSoFar__0 = revSoFar__1;
@@ -2476,16 +2469,16 @@ function withState(inst, state) {
 function newSelf(replacer, subreplacer) {
   var self = [];
   function dU(extractor, e, inst) {
-    var dY = caml_call1(extractor, e);
-    var nextState = caml_call2(inst[5][2], inst, dY);
+    var dY = call1(extractor, e);
+    var nextState = call2(inst[5][2], inst, dY);
     var dZ = inst[4];
     return reconcile(withState(inst, nextState), dZ);
   }
   function dV(action) {
-    return caml_call1(
+    return call1(
       replacer,
       function(inst) {
-        var nextState = caml_call2(inst[5][2], inst, action);
+        var nextState = call2(inst[5][2], inst, action);
         var dX = inst[4];
         return reconcile(withState(inst, nextState), dX);
       }
@@ -2496,11 +2489,11 @@ function newSelf(replacer, subreplacer) {
     [
       0,
       function(actionExtractor, ev) {
-        var action = caml_call1(actionExtractor, ev);
-        return caml_call1(
+        var action = call1(actionExtractor, ev);
+        return call1(
           replacer,
           function(inst) {
-            var nextState = caml_call2(inst[5][2], inst, action);
+            var nextState = call2(inst[5][2], inst, action);
             var dW = inst[4];
             return reconcile(withState(inst, nextState), dW);
           }
@@ -2515,10 +2508,10 @@ function newSelf(replacer, subreplacer) {
 
 function init(replacer, renderable) {
   function subreplacer(subtreeSwapper) {
-    return caml_call1(
+    return call1(
       replacer,
       function(inst) {
-        var nextSubtree = caml_call1(subtreeSwapper, inst[6]);
+        var nextSubtree = call1(subtreeSwapper, inst[6]);
         var match = inst[6] !== nextSubtree ? 1 : 0;
         return 0 === match ?
           inst :
@@ -2527,7 +2520,7 @@ function init(replacer, renderable) {
     );
   }
   var self = newSelf(replacer, subreplacer);
-  var nextSpec = spec(caml_call2(renderable, 0, self));
+  var nextSpec = spec(call2(renderable, 0, self));
   return [
     0,
     replacer,
@@ -2545,11 +2538,11 @@ function initSubtree(thisReplacer, jsx) {
     case 0:
       var renderable = jsx[1];
       var nextReplacer = function(instSwapper) {
-        return caml_call1(
+        return call1(
           thisReplacer,
           function(subtree) {
             var inst = subtree[1];
-            var next = caml_call1(instSwapper, inst);
+            var next = call1(instSwapper, inst);
             var match = inst !== next ? 1 : 0;
             return 0 === match ? subtree : [0,next];
           }
@@ -2560,24 +2553,24 @@ function initSubtree(thisReplacer, jsx) {
       var stateRendererB = jsx[2];
       var stateRendererA = jsx[1];
       var nextReplacerA = function(aSwapper) {
-        return caml_call1(
+        return call1(
           thisReplacer,
           function(subtree) {
             var b = subtree[2];
             var a = subtree[1];
-            var next = caml_call1(aSwapper, a);
+            var next = call1(aSwapper, a);
             var match = next === a ? 1 : 0;
             return 0 === match ? [1,next,b] : subtree;
           }
         );
       };
       var nextReplacerB = function(bSwapper) {
-        return caml_call1(
+        return call1(
           thisReplacer,
           function(subtree) {
             var b = subtree[2];
             var a = subtree[1];
-            var next = caml_call1(bSwapper, b);
+            var next = call1(bSwapper, b);
             var match = next === b ? 1 : 0;
             return 0 === match ? [1,a,next] : subtree;
           }
@@ -2589,7 +2582,7 @@ function initSubtree(thisReplacer, jsx) {
       var elems = jsx[1];
       var initElem = function(i, e) {
         function subreplacer(swapper) {
-          return caml_call1(
+          return call1(
             thisReplacer,
             function(subtree) {
               var iLst = subtree[1];
@@ -2597,7 +2590,7 @@ function initSubtree(thisReplacer, jsx) {
               var post = match[3];
               var inst = match[2];
               var pre = match[1];
-              var next = caml_call1(swapper, inst);
+              var next = call1(swapper, inst);
               var match__0 = next === inst ? 1 : 0;
               return 0 === match__0 ?
                 [2,flatten([0,pre,[0,[0,next,0],[0,post,0]]])] :
@@ -2613,7 +2606,7 @@ function initSubtree(thisReplacer, jsx) {
 }
 
 function reconcile(inst, renderable) {
-  var nextSpec = spec(caml_call2(renderable, [0,inst[5][1]], inst[3]));
+  var nextSpec = spec(call2(renderable, [0,inst[5][1]], inst[3]));
   var dS = reconcileSubtree(inst[6], inst[5][4], nextSpec[4]);
   return [0,inst[1],inst[2],inst[3],renderable,nextSpec,dS];
 }
@@ -2655,7 +2648,7 @@ function control(param, controlledState) {
   return [
     0,
     function(state, self) {
-      return caml_call2(renderable, [0,controlledState], self);
+      return call2(renderable, [0,controlledState], self);
     }
   ];
 }
@@ -2673,7 +2666,7 @@ function create(param) {
           var ei = dQ[1];
           var curInst = ei[2];
           var curElems = ei[1];
-          var nextEi = [0,curElems,caml_call1(swapper, curInst)];
+          var nextEi = [0,curElems,call1(swapper, curInst)];
           root[2] = [0,nextEi];
           return 0;
         }
@@ -2712,7 +2705,7 @@ function request(cb) {
 function tick(param) {
   var prevSubscribers = subscribers[1];
   subscribers[1] = 0;
-  return iter(function(cb) {return caml_call1(cb, 0);}, prevSubscribers);
+  return iter(function(cb) {return call1(cb, 0);}, prevSubscribers);
 }
 
 function clearAll(param) {subscribers[1] = 0;return 0;}
@@ -2980,13 +2973,13 @@ function render__7(anyProp, size, children, opt, self) {
 
 function bg(x, getDefault) {
   if (x) {var x__0 = x[1];return x__0;}
-  return caml_call1(getDefault, 0);
+  return call1(getDefault, 0);
 }
 
 function onRaf(e) {return bh;}
 
 function initialStateGetter(self, param) {
-  request(caml_call1(self[1], onRaf));
+  request(call1(self[1], onRaf));
   return bi;
 }
 
@@ -2998,7 +2991,7 @@ function render__8(opt, param, state, self) {
     var match = inst[6][2][1][6];
     var deepestDiv = match[1];
     var divStateStr = domStateToString(deepestDiv[5][1]);
-    request(caml_call1(self[1], onRaf));
+    request(call1(self[1], onRaf));
     return a(state__0, a(bk, a(divStateStr, bj)));
   }
   var cB = 0;
@@ -3206,7 +3199,7 @@ for (; ; ) {
       var match = z__0[1];
       var str = match[2];
       var f__1 = match[1];
-      log(a(str, string_of_int(caml_call2(f__1, 0, 0))));
+      log(a(str, string_of_int(call2(f__1, 0, 0))));
     }
     do_at_exit(0);
   }

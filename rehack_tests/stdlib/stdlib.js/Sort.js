@@ -11,7 +11,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -26,7 +26,7 @@ function merge(order, l1, l2) {
     if (l2) {
       var t2 = l2[2];
       var h2 = l2[1];
-      return caml_call2(order, h1, h2) ?
+      return call2(order, h1, h2) ?
         [0,h1,merge(order, t1, l2)] :
         [0,h2,merge(order, l1, t2)];
     }
@@ -44,7 +44,7 @@ function list(order, l) {
         var rest = cM[2];
         var e2 = cM[1];
         var cO = initlist(rest);
-        var cP = caml_call2(order, cN, e2) ? [0,cN,[0,e2,0]] : [0,e2,[0,cN,0]];
+        var cP = call2(order, cN, e2) ? [0,cN,[0,e2,0]] : [0,e2,[0,cN,0]];
         return [0,cP,cO];
       }
       return [0,[0,cN,0],0];
@@ -98,16 +98,16 @@ function array(cmp, arr) {
       var cH = 6 <= (hi__0 - lo__0 | 0) ? 1 : 0;
       if (cH) {
         var mid = (lo__0 + hi__0 | 0) >>> 1 | 0;
-        if (caml_call2(cmp, arr[mid + 1], arr[lo__0 + 1])) {swap(arr, mid, lo__0);}
-        if (caml_call2(cmp, arr[hi__0 + 1], arr[mid + 1])) {
+        if (call2(cmp, arr[mid + 1], arr[lo__0 + 1])) {swap(arr, mid, lo__0);}
+        if (call2(cmp, arr[hi__0 + 1], arr[mid + 1])) {
           swap(arr, mid, hi__0);
-          if (caml_call2(cmp, arr[mid + 1], arr[lo__0 + 1])) {swap(arr, mid, lo__0);}
+          if (call2(cmp, arr[mid + 1], arr[lo__0 + 1])) {swap(arr, mid, lo__0);}
         }
         var pivot = arr[mid + 1];
         var i = [0,lo__0 + 1 | 0];
         var j = [0,hi__0 + -1 | 0];
-        var cI = 1 - caml_call2(cmp, pivot, arr[hi__0 + 1]);
-        var cJ = cI || 1 - caml_call2(cmp, arr[lo__0 + 1], pivot);
+        var cI = 1 - call2(cmp, pivot, arr[hi__0 + 1]);
+        var cJ = cI || 1 - call2(cmp, arr[lo__0 + 1], pivot);
         if (cJ) {
           throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Sort_array]
                 );
@@ -116,9 +116,9 @@ function array(cmp, arr) {
         for (; ; ) {
           if (i[1] < j[1]) {
             for (; ; ) {
-              if (caml_call2(cmp, pivot, arr[i[1] + 1])) {
+              if (call2(cmp, pivot, arr[i[1] + 1])) {
                 for (; ; ) {
-                  if (caml_call2(cmp, arr[j[1] + 1], pivot)) {
+                  if (call2(cmp, arr[j[1] + 1], pivot)) {
                     if (i[1] < j[1]) {swap(arr, i[1], j[1]);}
                     i[1] += 1;
                     j[1] += -1;
@@ -154,12 +154,12 @@ function array(cmp, arr) {
     var i = cE;
     for (; ; ) {
       var val_i = arr[i + 1];
-      if (1 - caml_call2(cmp, arr[(i + -1 | 0) + 1], val_i)) {
+      if (1 - call2(cmp, arr[(i + -1 | 0) + 1], val_i)) {
         arr[i + 1] = arr[(i + -1 | 0) + 1];
         var j = [0,i + -1 | 0];
         for (; ; ) {
           if (1 <= j[1]) {
-            if (! caml_call2(cmp, arr[(j[1] + -1 | 0) + 1], val_i)) {
+            if (! call2(cmp, arr[(j[1] + -1 | 0) + 1], val_i)) {
               arr[j[1] + 1] = arr[(j[1] + -1 | 0) + 1];
               j[1] += -1;
               continue;

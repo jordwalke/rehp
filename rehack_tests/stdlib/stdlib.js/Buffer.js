@@ -24,23 +24,23 @@ var caml_ml_string_length = runtime["caml_ml_string_length"];
 var caml_new_string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-function caml_call5(f, a0, a1, a2, a3, a4) {
+function call5(f, a0, a1, a2, a3, a4) {
   return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
@@ -81,19 +81,19 @@ function create(n) {
   return [0,s,0,n__1,s];
 }
 
-function contents(b) {return caml_call3(Bytes[8], b[1], 0, b[2]);}
+function contents(b) {return call3(Bytes[8], b[1], 0, b[2]);}
 
-function to_bytes(b) {return caml_call3(Bytes[7], b[1], 0, b[2]);}
+function to_bytes(b) {return call3(Bytes[7], b[1], 0, b[2]);}
 
 function sub(b, ofs, len) {
   if (0 <= ofs) {
     if (0 <= len) {
       if (! ((b[2] - len | 0) < ofs)) {
-        return caml_call3(Bytes[8], b[1], ofs, len);
+        return call3(Bytes[8], b[1], ofs, len);
       }
     }
   }
-  return caml_call1(Pervasives[1], cst_Buffer_sub);
+  return call1(Pervasives[1], cst_Buffer_sub);
 }
 
 function blit(src, srcoff, dst, dstoff, len) {
@@ -114,14 +114,14 @@ function blit(src, srcoff, dst, dstoff, len) {
       }
     }
   }
-  return caml_call1(Pervasives[1], cst_Buffer_blit);
+  return call1(Pervasives[1], cst_Buffer_blit);
 }
 
 function nth(b, ofs) {
   if (0 <= ofs) {
     if (! (b[2] <= ofs)) {return runtime["caml_bytes_unsafe_get"](b[1], ofs);}
   }
-  return caml_call1(Pervasives[1], cst_Buffer_nth);
+  return call1(Pervasives[1], cst_Buffer_nth);
 }
 
 function length(b) {return b[2];}
@@ -145,10 +145,10 @@ function resize(b, more) {
     }
     if (Sys[13] < new_len[1]) {
       if ((b[2] + more | 0) <= Sys[13]) new_len[1] = Sys[13];
-      else caml_call1(Pervasives[2], cst_Buffer_add_cannot_grow_buffer);
+      else call1(Pervasives[2], cst_Buffer_add_cannot_grow_buffer);
     }
     var new_buffer = caml_create_bytes(new_len[1]);
-    caml_call5(Bytes[11], b[1], 0, new_buffer, 0, b[2]);
+    call5(Bytes[11], b[1], 0, new_buffer, 0, b[2]);
     b[1] = new_buffer;
     b[3] = new_len[1];
     return 0;
@@ -164,7 +164,7 @@ function add_char(b, c) {
 }
 
 function add_utf_8_uchar(b, u) {
-  var u__0 = caml_call1(Uchar[10], u);
+  var u__0 = call1(Uchar[10], u);
   if (0 <= u__0) {
     if (127 < u__0) {
       if (2047 < u__0) {
@@ -211,7 +211,7 @@ function add_utf_8_uchar(b, u) {
 }
 
 function add_utf_16be_uchar(b, u) {
-  var u__0 = caml_call1(Uchar[10], u);
+  var u__0 = call1(Uchar[10], u);
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
@@ -240,7 +240,7 @@ function add_utf_16be_uchar(b, u) {
 }
 
 function add_utf_16le_uchar(b, u) {
-  var u__0 = caml_call1(Uchar[10], u);
+  var u__0 = call1(Uchar[10], u);
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
@@ -275,28 +275,28 @@ function add_substring(b, s, offset, len) {
     var hy = len < 0 ? 1 : 0;
     var hx = hy || ((caml_ml_string_length(s) - len | 0) < offset ? 1 : 0);
   }
-  if (hx) {caml_call1(Pervasives[1], cst_Buffer_add_substring_add_subbytes);}
+  if (hx) {call1(Pervasives[1], cst_Buffer_add_substring_add_subbytes);}
   var new_position = b[2] + len | 0;
   if (b[3] < new_position) {resize(b, len);}
-  caml_call5(Bytes[12], s, offset, b[1], b[2], len);
+  call5(Bytes[12], s, offset, b[1], b[2], len);
   b[2] = new_position;
   return 0;
 }
 
 function add_subbytes(b, s, offset, len) {
-  return add_substring(b, caml_call1(Bytes[42], s), offset, len);
+  return add_substring(b, call1(Bytes[42], s), offset, len);
 }
 
 function add_string(b, s) {
   var len = caml_ml_string_length(s);
   var new_position = b[2] + len | 0;
   if (b[3] < new_position) {resize(b, len);}
-  caml_call5(Bytes[12], s, 0, b[1], b[2], len);
+  call5(Bytes[12], s, 0, b[1], b[2], len);
   b[2] = new_position;
   return 0;
 }
 
-function add_bytes(b, s) {return add_string(b, caml_call1(Bytes[42], s));}
+function add_bytes(b, s) {return add_string(b, call1(Bytes[42], s));}
 
 function add_buffer(b, bs) {return add_subbytes(b, bs[1], 0, bs[2]);}
 
@@ -305,7 +305,7 @@ function add_channel_rec(b, ic, len) {
   for (; ; ) {
     var hv = 0 < len__0 ? 1 : 0;
     if (hv) {
-      var n = caml_call4(Pervasives[72], ic, b[1], b[2], len__0);
+      var n = call4(Pervasives[72], ic, b[1], b[2], len__0);
       b[2] = b[2] + n | 0;
       if (0 === n) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
       var len__1 = len__0 - n | 0;
@@ -319,13 +319,13 @@ function add_channel_rec(b, ic, len) {
 function add_channel(b, ic, len) {
   var ht = len < 0 ? 1 : 0;
   var hu = ht || (Sys[13] < len ? 1 : 0);
-  if (hu) {caml_call1(Pervasives[1], cst_Buffer_add_channel);}
+  if (hu) {call1(Pervasives[1], cst_Buffer_add_channel);}
   if (b[3] < (b[2] + len | 0)) {resize(b, len);}
   return add_channel_rec(b, ic, len);
 }
 
 function output_buffer(oc, b) {
-  return caml_call4(Pervasives[56], oc, b[1], 0, b[2]);
+  return call4(Pervasives[56], oc, b[1], 0, b[2]);
 }
 
 function closing(param) {
@@ -387,14 +387,14 @@ function find_ident(s, start, lim) {
   if (40 !== c) {
     if (123 !== c) {
       var stop__0 = advance_to_non_alpha(s, start + 1 | 0);
-      return [0,caml_call3(String[4], s, start, stop__0 - start | 0),stop__0];
+      return [0,call3(String[4], s, start, stop__0 - start | 0),stop__0];
     }
   }
   var new_start = start + 1 | 0;
   var stop = advance_to_closing(c, closing(c), 0, s, new_start);
   return [
     0,
-    caml_call3(String[4], s, new_start, (stop - start | 0) + -1 | 0),
+    call3(String[4], s, new_start, (stop - start | 0) + -1 | 0),
     stop + 1 | 0
   ];
 }
@@ -419,7 +419,7 @@ function add_substitute(b, f, s) {
           var match = find_ident(s, j, lim);
           var i__2 = match[2];
           var ident = match[1];
-          add_string(b, caml_call1(f, ident));
+          add_string(b, call1(f, ident));
           var previous__0 = 32;
           var i__0 = i__2;
           continue;
@@ -453,7 +453,7 @@ function add_substitute(b, f, s) {
 
 function truncate(b, len) {
   if (0 <= len) {if (! (length(b) < len)) {b[2] = len;return 0;}}
-  return caml_call1(Pervasives[1], cst_Buffer_truncate);
+  return call1(Pervasives[1], cst_Buffer_truncate);
 }
 
 var Buffer = [

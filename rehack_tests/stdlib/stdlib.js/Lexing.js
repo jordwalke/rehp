@@ -18,27 +18,27 @@ var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-function caml_call5(f, a0, a1, a2, a3, a4) {
+function call5(f, a0, a1, a2, a3, a4) {
   return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
@@ -75,14 +75,13 @@ function new_engine(tbl, state, buf) {
 }
 
 function lex_refill(read_fun, aux_buffer, lexbuf) {
-  var read = caml_call2(read_fun, aux_buffer, caml_ml_bytes_length(aux_buffer)
-  );
+  var read = call2(read_fun, aux_buffer, caml_ml_bytes_length(aux_buffer));
   if (0 < read) var n = read;
   else {lexbuf[9] = 1;var n = 0;}
   if (caml_ml_bytes_length(lexbuf[2]) < (lexbuf[3] + n | 0)) {
     if (
       ((lexbuf[3] - lexbuf[5] | 0) + n | 0) <= caml_ml_bytes_length(lexbuf[2])
-    ) caml_call5(
+    ) call5(
       Bytes[11],
       lexbuf[2],
       lexbuf[5],
@@ -91,16 +90,16 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
       lexbuf[3] - lexbuf[5] | 0
     );
     else {
-      var newlen = caml_call2(
+      var newlen = call2(
         Pervasives[4],
         2 * caml_ml_bytes_length(lexbuf[2]) | 0,
         Sys[13]
       );
       if (newlen < ((lexbuf[3] - lexbuf[5] | 0) + n | 0)) {
-        caml_call1(Pervasives[2], cst_Lexing_lex_refill_cannot_grow_buffer);
+        call1(Pervasives[2], cst_Lexing_lex_refill_cannot_grow_buffer);
       }
       var newbuf = caml_create_bytes(newlen);
-      caml_call5(
+      call5(
         Bytes[11],
         lexbuf[2],
         lexbuf[5],
@@ -130,7 +129,7 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
       }
     }
   }
-  caml_call5(Bytes[11], aux_buffer, 0, lexbuf[2], lexbuf[3], n);
+  call5(Bytes[11], aux_buffer, 0, lexbuf[2], lexbuf[3], n);
   lexbuf[3] = lexbuf[3] + n | 0;
   return 0;
 }
@@ -165,7 +164,7 @@ function from_function(f) {
 
 function from_channel(ic) {
   return from_function(
-    function(buf, n) {return caml_call4(Pervasives[72], ic, buf, 0, n);}
+    function(buf, n) {return call4(Pervasives[72], ic, buf, 0, n);}
   );
 }
 
@@ -178,7 +177,7 @@ function from_string(s) {
   var eM = 0;
   var eN = 0;
   var eO = runtime["caml_ml_string_length"](s);
-  var eP = caml_call1(Bytes[5], s);
+  var eP = call1(Bytes[5], s);
   return [
     0,
     function(lexbuf) {lexbuf[9] = 1;return 0;},
@@ -198,18 +197,18 @@ function from_string(s) {
 
 function lexeme(lexbuf) {
   var len = lexbuf[6] - lexbuf[5] | 0;
-  return caml_call3(Bytes[8], lexbuf[2], lexbuf[5], len);
+  return call3(Bytes[8], lexbuf[2], lexbuf[5], len);
 }
 
 function sub_lexeme(lexbuf, i1, i2) {
   var len = i2 - i1 | 0;
-  return caml_call3(Bytes[8], lexbuf[2], i1, len);
+  return call3(Bytes[8], lexbuf[2], i1, len);
 }
 
 function sub_lexeme_opt(lexbuf, i1, i2) {
   if (0 <= i1) {
     var len = i2 - i1 | 0;
-    return [0,caml_call3(Bytes[8], lexbuf[2], i1, len)];
+    return [0,call3(Bytes[8], lexbuf[2], i1, len)];
   }
   return 0;
 }

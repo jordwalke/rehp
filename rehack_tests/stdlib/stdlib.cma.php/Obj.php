@@ -34,12 +34,12 @@ final class Obj {
     $caml_new_string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $is_int = $runtime["is_int"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -63,9 +63,9 @@ final class Obj {
     $marshal = function(dynamic $obj) use ($runtime) {
       return $runtime["caml_output_value_to_string"]($obj, 0);
     };
-    $unmarshal = function(dynamic $str, dynamic $pos) use ($Marshal,$caml_call2) {
-      $dw = (int) ($pos + $caml_call2($Marshal[8], $str, $pos));
-      return Vector{0, $caml_call2($Marshal[4], $str, $pos), $dw};
+    $unmarshal = function(dynamic $str, dynamic $pos) use ($Marshal,$call2) {
+      $dw = (int) ($pos + $call2($Marshal[8], $str, $pos));
+      return Vector{0, $call2($Marshal[4], $str, $pos), $dw};
     };
     $first_non_constant_constructor_tag = 0;
     $last_non_constant_constructor_tag = 245;
@@ -83,7 +83,7 @@ final class Obj {
     $int_tag = 1000;
     $out_of_heap_tag = 1001;
     $unaligned_tag = 1002;
-    $extension_constructor = function(dynamic $x) use ($Pervasives,$caml_call1,$caml_obj_tag,$cst_Obj_extension_constructor,$cst_Obj_extension_constructor__0,$is_block) {
+    $extension_constructor = function(dynamic $x) use ($Pervasives,$call1,$caml_obj_tag,$cst_Obj_extension_constructor,$cst_Obj_extension_constructor__0,$is_block) {
       if ($is_block($x)) {
         if ($caml_obj_tag($x) !== 248) {
           if (1 <= $x->count() - 1) {
@@ -102,11 +102,11 @@ final class Obj {
       }
       else {$switch__1 = 0;}
       if (! $switch__1) {
-        $name = $caml_call1($Pervasives[1], $cst_Obj_extension_constructor__0);
+        $name = $call1($Pervasives[1], $cst_Obj_extension_constructor__0);
       }
       return $caml_obj_tag($name) === 252
         ? $slot
-        : ($caml_call1($Pervasives[1], $cst_Obj_extension_constructor));
+        : ($call1($Pervasives[1], $cst_Obj_extension_constructor));
     };
     $extension_name = function(dynamic $slot) {return $slot[1];};
     $extension_id = function(dynamic $slot) {return $slot[2];};

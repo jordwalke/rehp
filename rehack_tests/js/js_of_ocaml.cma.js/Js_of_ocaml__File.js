@@ -18,11 +18,11 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -47,9 +47,7 @@ var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
 var go = [0,caml_new_string("transparent")];
 var gp = [0,caml_new_string("native")];
 
-function gm(x) {
-  return caml_call1(caml_get_public_method(x, -553417380, 86), x);
-}
+function gm(x) {return call1(caml_get_public_method(x, -553417380, 86), x);}
 
 var gn = Js_of_ocaml_Js[50][1];
 var blob_constr = function(t0, param) {return t0.Blob;}(gn, gm);
@@ -60,7 +58,7 @@ function filter_map(f, param) {
     if (param__0) {
       var q = param__0[2];
       var v = param__0[1];
-      var match = caml_call1(f, v);
+      var match = call1(f, v);
       if (match) {var v__0 = match[1];return [0,v__0,filter_map(f, q)];}
       var param__0 = q;
       continue;
@@ -87,7 +85,7 @@ function make_blob_options(contentType, endings) {
     gG
   );
   return options ?
-    runtime["caml_js_object"](caml_call1(Array[12], options)) :
+    runtime["caml_js_object"](call1(Array[12], options)) :
     Js_of_ocaml_Js[3];
 }
 
@@ -116,71 +114,60 @@ function blob_from_any(contentType, endings, l) {
     var b = param[2];
     return b;
   }
-  var l__0 = caml_call2(List[17], gz, l);
-  return blob_raw(contentType, endings, caml_call1(Array[12], l__0));
+  var l__0 = call2(List[17], gz, l);
+  return blob_raw(contentType, endings, call1(Array[12], l__0));
 }
 
 function filename(file) {
-  function gv(x) {
-    return caml_call1(caml_get_public_method(x, -922783157, 87), x);
-  }
+  function gv(x) {return call1(caml_get_public_method(x, -922783157, 87), x);}
   var gw = function(t5, param) {return t5.name;}(file, gv);
-  var match = caml_call1(Js_of_ocaml_Js[6][10], gw);
+  var match = call1(Js_of_ocaml_Js[6][10], gw);
   if (match) {var name = match[1];return name;}
-  function gx(x) {
-    return caml_call1(caml_get_public_method(x, -498902297, 88), x);
-  }
+  function gx(x) {return call1(caml_get_public_method(x, -498902297, 88), x);}
   var gy = function(t4, param) {return t4.fileName;}(file, gx);
-  var match__0 = caml_call1(Js_of_ocaml_Js[6][10], gy);
+  var match__0 = call1(Js_of_ocaml_Js[6][10], gy);
   if (match__0) {var name__0 = match__0[1];return name__0;}
-  return caml_call1(
-    Pervasives[2],
-    cst_can_t_retrieve_file_name_not_implemented
-  );
+  return call1(Pervasives[2], cst_can_t_retrieve_file_name_not_implemented);
 }
 
-function gq(x) {
-  return caml_call1(caml_get_public_method(x, 1012572826, 89), x);
-}
+function gq(x) {return call1(caml_get_public_method(x, 1012572826, 89), x);}
 
 var gr = Js_of_ocaml_Js[50][1];
 var doc_constr = function(t6, param) {return t6.Document;}(gr, gq);
 
 function document(e) {
   return e instanceof doc_constr ?
-    caml_call1(Js_of_ocaml_Js[2], e) :
+    call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
 
 function blob(e) {
   return e instanceof blob_constr ?
-    caml_call1(Js_of_ocaml_Js[2], e) :
+    call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
 
 function string(e) {
   return runtime["caml_equal"](typeof e, "string") ?
-    caml_call1(Js_of_ocaml_Js[2], e) :
+    call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
 
 function arrayBuffer(e) {
   return e instanceof Js_of_ocaml_Typed_array[1] ?
-    caml_call1(Js_of_ocaml_Js[2], e) :
+    call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
 
-var loadstart = caml_call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
-var progress = caml_call1(Js_of_ocaml_Dom[14][1], cst_progress);
-var abort = caml_call1(Js_of_ocaml_Dom[14][1], cst_abort);
-var error = caml_call1(Js_of_ocaml_Dom[14][1], cst_error);
-var load = caml_call1(Js_of_ocaml_Dom[14][1], cst_load);
-var loadend = caml_call1(Js_of_ocaml_Dom[14][1], cst_loadend);
+var loadstart = call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
+var progress = call1(Js_of_ocaml_Dom[14][1], cst_progress);
+var abort = call1(Js_of_ocaml_Dom[14][1], cst_abort);
+var error = call1(Js_of_ocaml_Dom[14][1], cst_error);
+var load = call1(Js_of_ocaml_Dom[14][1], cst_load);
+var loadend = call1(Js_of_ocaml_Dom[14][1], cst_loadend);
 var ReaderEvent = [0,loadstart,progress,abort,error,load,loadend];
 
-function gs(x) {
-  return caml_call1(caml_get_public_method(x, 642825758, 90), x);
-}
+function gs(x) {return call1(caml_get_public_method(x, 642825758, 90), x);}
 
 var gt = Js_of_ocaml_Js[50][1];
 var fileReader = function(t7, param) {return t7.FileReader;}(gt, gs);

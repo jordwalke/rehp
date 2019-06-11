@@ -15,11 +15,11 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_js_wrap_callback = runtime["caml_js_wrap_callback"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -30,14 +30,14 @@ var Pervasives = global_data["Pervasives"];
 var Js_of_ocaml_Lib_version = global_data["Js_of_ocaml__Lib_version"];
 
 function update_file(name, content) {
-  var oc = caml_call1(Pervasives[48], name);
-  caml_call2(Pervasives[54], oc, content);
-  return caml_call1(Pervasives[64], oc);
+  var oc = call1(Pervasives[48], name);
+  call2(Pervasives[54], oc, content);
+  return call1(Pervasives[64], oc);
 }
 
 function set_channel_flusher(out_channel, f) {
   var f__0 = caml_js_wrap_callback(
-    function(s) {return caml_call1(f, runtime["caml_js_to_byte_string"](s));}
+    function(s) {return call1(f, runtime["caml_js_to_byte_string"](s));}
   );
   return runtime["caml_ml_set_channel_output"](out_channel, f__0);
 }
@@ -51,7 +51,7 @@ function mount(path, f) {
   return runtime["caml_mount_autoload"](
     path,
     caml_js_wrap_callback(
-      function(prefix, path) {return caml_call2(f, prefix, path);}
+      function(prefix, path) {return call2(f, prefix, path);}
     )
   );
 }
@@ -60,8 +60,8 @@ function unmount(path) {return runtime["caml_unmount"](path);}
 
 if (runtime["caml_string_equal"](Js_of_ocaml_Lib_version[2], cst)) var js_of_ocaml_version = Js_of_ocaml_Lib_version[1];
 else {
-  var pV = caml_call2(Pervasives[16], cst__0, Js_of_ocaml_Lib_version[2]);
-  var js_of_ocaml_version = caml_call2(
+  var pV = call2(Pervasives[16], cst__0, Js_of_ocaml_Lib_version[2]);
+  var js_of_ocaml_version = call2(
     Pervasives[16],
     Js_of_ocaml_Lib_version[1],
     pV

@@ -18,11 +18,11 @@ var caml_int_of_string = runtime["caml_int_of_string"];
 var caml_new_string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -84,35 +84,35 @@ var Failure = global_data["Failure"];
 var r = [0,1,[0,2,[0,3,[0,4,0]]]];
 var s = [0,1,[0,2,[0,3,[0,4,0]]]];
 
-caml_call1(Pervasives[34], greeting);
+call1(Pervasives[34], greeting);
 
-caml_call1(Pervasives[34], greeting__0);
+call1(Pervasives[34], greeting__0);
 
-var a = caml_call1(Pervasives[21], 2);
-var b = caml_call2(Pervasives[16], cst_String_length_should_be_two, a);
+var a = call1(Pervasives[21], 2);
+var b = call2(Pervasives[16], cst_String_length_should_be_two, a);
 
-caml_call1(Pervasives[34], b);
+call1(Pervasives[34], b);
 
-var c = caml_call2(String[1], 1, 138);
-var d = caml_call2(String[1], 1, 201);
-var e = caml_call2(Pervasives[16], d, c);
+var c = call2(String[1], 1, 138);
+var d = call2(String[1], 1, 201);
+var e = call2(Pervasives[16], d, c);
 
-caml_call1(Pervasives[34], e);
+call1(Pervasives[34], e);
 
 caml_int_of_string(cst_1);
 
 var negativeOne = caml_int_of_string(cst_6);
 var one = caml_int_of_string(cst_1__0);
 var six = caml_int_of_string(cst_6__0);
-var index = caml_call2(String[14], cst_as_df, 95);
-var f = caml_call1(Pervasives[21], index);
-var g = caml_call2(Pervasives[16], cst_index_from_string_with_char, f);
+var index = call2(String[14], cst_as_df, 95);
+var f = call1(Pervasives[21], index);
+var g = call2(Pervasives[16], cst_index_from_string_with_char, f);
 
-caml_call1(Pervasives[34], g);
+call1(Pervasives[34], g);
 
 var unicodeLength = 2;
 
-try {var D = caml_call2(String[14], cst_asdf, 95);var index__0 = D;}
+try {var D = call2(String[14], cst_asdf, 95);var index__0 = D;}
 catch(G) {
   G = caml_wrap_exception(G);
   if (G !== Not_found) {
@@ -122,47 +122,47 @@ catch(G) {
   var index__0 = h;
 }
 
-var i = caml_call1(Pervasives[21], index__0);
-var j = caml_call2(Pervasives[16], cst_index_from_string_without_char, i);
+var i = call1(Pervasives[21], index__0);
+var j = call2(Pervasives[16], cst_index_from_string_without_char, i);
 
-caml_call1(Pervasives[34], j);
+call1(Pervasives[34], j);
 
-caml_call1(Pervasives[32], index__0);
+call1(Pervasives[32], index__0);
 
-caml_call1(Pervasives[34], cst_Prints_seven);
+call1(Pervasives[34], cst_Prints_seven);
 
-caml_call1(Pervasives[32], one + six | 0);
+call1(Pervasives[32], one + six | 0);
 
-caml_call1(Pervasives[35], 0);
+call1(Pervasives[35], 0);
 
-caml_call1(Pervasives[34], cst_Prints_six);
+call1(Pervasives[34], cst_Prints_six);
 
-caml_call1(Pervasives[32], six);
+call1(Pervasives[32], six);
 
-caml_call1(Pervasives[35], 0);
+call1(Pervasives[35], 0);
 
-caml_call1(Pervasives[34], cst_Prints_six__0);
+call1(Pervasives[34], cst_Prints_six__0);
 
-caml_call1(Pervasives[30], cst_6__1);
+call1(Pervasives[30], cst_6__1);
 
-caml_call1(Pervasives[35], 0);
+call1(Pervasives[35], 0);
 
-caml_call1(Pervasives[34], StringHelper[1]);
+call1(Pervasives[34], StringHelper[1]);
 
-caml_call1(Pervasives[34], cst_Reason_is_on);
+call1(Pervasives[34], cst_Reason_is_on);
 
-var k = caml_call1(String[12], cst_trimmed_string);
+var k = call1(String[12], cst_trimmed_string);
 
-caml_call1(Pervasives[34], k);
+call1(Pervasives[34], k);
 
 function createIntFromString(ss) {return caml_int_of_string(ss);}
 
 function myFunction(cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) {
-  caml_call1(
+  call1(
     Pervasives[30],
     cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope
   );
-  return caml_call1(Pervasives[35], 0);
+  return call1(Pervasives[35], 0);
 }
 
 myFunction(cst_tmp);
@@ -178,13 +178,10 @@ catch(F) {
 }
 
 if (102 === m) {
-  caml_call1(
-    Pervasives[30],
-    cst_Properly_caught_invalid_string_to_int_conversion
-  );
-  caml_call1(Pervasives[35], 0);
+  call1(Pervasives[30], cst_Properly_caught_invalid_string_to_int_conversion);
+  call1(Pervasives[35], 0);
 }
-else caml_call1(Pervasives[2], cst_Did_not_properly_catch_Failure_exception);
+else call1(Pervasives[2], cst_Did_not_properly_catch_Failure_exception);
 
 try {var B = createIntFromString(cst_20);var o = B;}
 catch(E) {
@@ -197,51 +194,51 @@ catch(E) {
 }
 
 if (20 === o) {
-  var p = caml_call1(Pervasives[21], o);
-  var q = caml_call2(
+  var p = call1(Pervasives[21], o);
+  var q = call2(
     Pervasives[16],
     cst_Properly_caught_conversion_from_string_20_to_int,
     p
   );
-  caml_call1(Pervasives[30], q);
-  caml_call1(Pervasives[35], 0);
+  call1(Pervasives[30], q);
+  call1(Pervasives[35], 0);
 }
-else caml_call1(
+else call1(
   Pervasives[2],
   cst_Did_not_properly_catch_conversion_from_string_to_int
 );
 
 var one__0 = [0,r];
 var two = [0,s];
-var t = caml_call1(Pervasives[18], runtime["caml_equal"](one__0, two));
-var u = caml_call2(Pervasives[16], cst_ARE_T, t);
+var t = call1(Pervasives[18], runtime["caml_equal"](one__0, two));
+var u = call2(Pervasives[16], cst_ARE_T, t);
 
-caml_call1(Pervasives[30], u);
+call1(Pervasives[30], u);
 
-caml_call1(Pervasives[35], 0);
+call1(Pervasives[35], 0);
 
-var v = caml_call1(Pervasives[18], one__0 === two ? 1 : 0);
-var w = caml_call2(Pervasives[16], cst_ARE_F, v);
+var v = call1(Pervasives[18], one__0 === two ? 1 : 0);
+var w = call2(Pervasives[16], cst_ARE_F, v);
 
-caml_call1(Pervasives[30], w);
+call1(Pervasives[30], w);
 
-caml_call1(Pervasives[35], 0);
+call1(Pervasives[35], 0);
 
 var n__0 = Pervasives[12];
 var anotherName = Pervasives[12];
-var x = caml_call1(Pervasives[18], n__0 === anotherName ? 1 : 0);
-var y = caml_call2(Pervasives[16], cst_Nans_are_should_output_true, x);
+var x = call1(Pervasives[18], n__0 === anotherName ? 1 : 0);
+var y = call2(Pervasives[16], cst_Nans_are_should_output_true, x);
 
-caml_call1(Pervasives[30], y);
+call1(Pervasives[30], y);
 
-caml_call1(Pervasives[35], 0);
+call1(Pervasives[35], 0);
 
-var z = caml_call1(Pervasives[18], n__0 === anotherName ? 1 : 0);
-var A = caml_call2(Pervasives[16], cst_Nans_are_should_output_false, z);
+var z = call1(Pervasives[18], n__0 === anotherName ? 1 : 0);
+var A = call2(Pervasives[16], cst_Nans_are_should_output_false, z);
 
-caml_call1(Pervasives[30], A);
+call1(Pervasives[30], A);
 
-caml_call1(Pervasives[35], 0);
+call1(Pervasives[35], 0);
 
 var Strings = [
   0,

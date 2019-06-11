@@ -14,7 +14,7 @@ var caml_obj_set_tag = runtime["caml_obj_set_tag"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
@@ -37,7 +37,7 @@ function force_lazy_block(blk) {
   var closure = blk[1];
   blk[1] = raise_undefined;
   try {
-    var result = caml_call1(closure, 0);
+    var result = call1(closure, 0);
     blk[1] = result;
     caml_obj_set_tag(blk, Obj[10]);
     return result;
@@ -55,7 +55,7 @@ function force_lazy_block(blk) {
 function force_val_lazy_block(blk) {
   var closure = blk[1];
   blk[1] = raise_undefined;
-  var result = caml_call1(closure, 0);
+  var result = call1(closure, 0);
   blk[1] = result;
   caml_obj_set_tag(blk, Obj[10]);
   return result;

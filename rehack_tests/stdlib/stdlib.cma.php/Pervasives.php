@@ -59,12 +59,12 @@ final class Pervasives {
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_sys_open = $runtime["caml_sys_open"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -460,29 +460,26 @@ final class Pervasives {
       return $str;
     };
     $exit_function = Vector{0, $flush_all};
-    $o = function(dynamic $param, dynamic $ar) use ($CamlinternalFormatBasics,$caml_call2,$cst__0,$g) {
+    $o = function(dynamic $param, dynamic $ar) use ($CamlinternalFormatBasics,$call2,$cst__0,$g) {
       $str2 = $ar[2];
       $fmt2 = $ar[1];
       $str1 = $param[2];
       $fmt1 = $param[1];
       $as = $g($str1, $g($cst__0, $str2));
-      return Vector{
-        0,
-        $caml_call2($CamlinternalFormatBasics[3], $fmt1, $fmt2),
-        $as
+      return Vector{0, $call2($CamlinternalFormatBasics[3], $fmt1, $fmt2), $as
       };
     };
-    $at_exit = function(dynamic $f) use ($caml_call1,$exit_function) {
+    $at_exit = function(dynamic $f) use ($call1,$exit_function) {
       $g = $exit_function[1];
       $exit_function[1] =
-        function(dynamic $param) use ($caml_call1,$f,$g) {
-          $caml_call1($f, 0);
-          return $caml_call1($g, 0);
+        function(dynamic $param) use ($call1,$f,$g) {
+          $call1($f, 0);
+          return $call1($g, 0);
         };
       return 0;
     };
-    $do_at_exit = function(dynamic $param) use ($caml_call1,$exit_function) {
-      return $caml_call1($exit_function[1], 0);
+    $do_at_exit = function(dynamic $param) use ($call1,$exit_function) {
+      return $call1($exit_function[1], 0);
     };
     $exit = function(dynamic $retcode) use ($do_at_exit,$runtime) {
       $do_at_exit(0);

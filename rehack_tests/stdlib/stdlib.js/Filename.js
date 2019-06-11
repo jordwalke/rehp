@@ -28,21 +28,21 @@ var caml_trampoline = runtime["caml_trampoline"];
 var caml_trampoline_return = runtime["caml_trampoline_return"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
@@ -92,26 +92,22 @@ var Bg = [0,[2,0,[4,6,[0,2,6],0,[2,0,0]]],caml_new_string("%s%06x%s")];
 
 function generic_quote(quotequote, s) {
   var l = caml_ml_string_length(s);
-  var b = caml_call1(Buffer[1], l + 20 | 0);
-  caml_call2(Buffer[10], b, 39);
+  var b = call1(Buffer[1], l + 20 | 0);
+  call2(Buffer[10], b, 39);
   var Ck = l + -1 | 0;
   var Cj = 0;
   if (! (Ck < 0)) {
     var i = Cj;
     for (; ; ) {
-      if (39 === caml_string_get(s, i)) caml_call2(
-        Buffer[14],
-        b,
-        quotequote
-      );
-      else {var Cm = caml_string_get(s, i);caml_call2(Buffer[10], b, Cm);}
+      if (39 === caml_string_get(s, i)) call2(Buffer[14], b, quotequote);
+      else {var Cm = caml_string_get(s, i);call2(Buffer[10], b, Cm);}
       var Cl = i + 1 | 0;
       if (Ck !== i) {var i = Cl;continue;}
       break;
     }
   }
-  caml_call2(Buffer[10], b, 39);
-  return caml_call1(Buffer[2], b);
+  call2(Buffer[10], b, 39);
+  return call1(Buffer[2], b);
 }
 
 function generic_basename(is_dir_sep, current_dir_name, name) {
@@ -119,33 +115,28 @@ function generic_basename(is_dir_sep, current_dir_name, name) {
     var n__0 = n;
     for (; ; ) {
       if (0 <= n__0) {
-        if (caml_call2(is_dir_sep, name, n__0)) {
-          return caml_call3(
-            String[4],
-            name,
-            n__0 + 1 | 0,
-            (p - n__0 | 0) + -1 | 0
-          );
+        if (call2(is_dir_sep, name, n__0)) {
+          return call3(String[4], name, n__0 + 1 | 0, (p - n__0 | 0) + -1 | 0);
         }
         var n__1 = n__0 + -1 | 0;
         var n__0 = n__1;
         continue;
       }
-      return caml_call3(String[4], name, 0, p);
+      return call3(String[4], name, 0, p);
     }
   }
   function find_end(n) {
     var n__0 = n;
     for (; ; ) {
       if (0 <= n__0) {
-        if (caml_call2(is_dir_sep, name, n__0)) {
+        if (call2(is_dir_sep, name, n__0)) {
           var n__1 = n__0 + -1 | 0;
           var n__0 = n__1;
           continue;
         }
         return find_beg(n__0, n__0 + 1 | 0);
       }
-      return caml_call3(String[4], name, 0, 1);
+      return call3(String[4], name, 0, 1);
     }
   }
   return caml_string_equal(name, cst) ?
@@ -158,21 +149,21 @@ function generic_dirname(is_dir_sep, current_dir_name, name) {
     var n__0 = n;
     for (; ; ) {
       if (0 <= n__0) {
-        if (caml_call2(is_dir_sep, name, n__0)) {
+        if (call2(is_dir_sep, name, n__0)) {
           var n__1 = n__0 + -1 | 0;
           var n__0 = n__1;
           continue;
         }
-        return caml_call3(String[4], name, 0, n__0 + 1 | 0);
+        return call3(String[4], name, 0, n__0 + 1 | 0);
       }
-      return caml_call3(String[4], name, 0, 1);
+      return call3(String[4], name, 0, 1);
     }
   }
   function base(n) {
     var n__0 = n;
     for (; ; ) {
       if (0 <= n__0) {
-        if (caml_call2(is_dir_sep, name, n__0)) {return intermediate_sep(n__0);}
+        if (call2(is_dir_sep, name, n__0)) {return intermediate_sep(n__0);}
         var n__1 = n__0 + -1 | 0;
         var n__0 = n__1;
         continue;
@@ -184,14 +175,14 @@ function generic_dirname(is_dir_sep, current_dir_name, name) {
     var n__0 = n;
     for (; ; ) {
       if (0 <= n__0) {
-        if (caml_call2(is_dir_sep, name, n__0)) {
+        if (call2(is_dir_sep, name, n__0)) {
           var n__1 = n__0 + -1 | 0;
           var n__0 = n__1;
           continue;
         }
         return base(n__0);
       }
-      return caml_call3(String[4], name, 0, 1);
+      return call3(String[4], name, 0, 1);
     }
   }
   return caml_string_equal(name, cst__0) ?
@@ -211,12 +202,10 @@ function is_implicit(n) {
   var Cc = is_relative(n);
   if (Cc) {
     var Cd = caml_ml_string_length(n) < 2 ? 1 : 0;
-    var Ce = Cd ||
-      caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__2);
+    var Ce = Cd || caml_string_notequal(call3(String[4], n, 0, 2), cst__2);
     if (Ce) {
       var Cf = caml_ml_string_length(n) < 3 ? 1 : 0;
-      var Cg = Cf ||
-        caml_string_notequal(caml_call3(String[4], n, 0, 3), cst__1);
+      var Cg = Cf || caml_string_notequal(call3(String[4], n, 0, 3), cst__1);
     }
     else var Cg = Ce;
   }
@@ -228,7 +217,7 @@ function check_suffix(name, suff) {
   var Ca = caml_ml_string_length(suff) <= caml_ml_string_length(name) ? 1 : 0;
   var Cb = Ca ?
     caml_string_equal(
-     caml_call3(
+     call3(
        String[4],
        name,
        caml_ml_string_length(name) - caml_ml_string_length(suff) | 0,
@@ -287,20 +276,17 @@ function is_implicit__0(n) {
   var BP = is_relative__0(n);
   if (BP) {
     var BQ = caml_ml_string_length(n) < 2 ? 1 : 0;
-    var BR = BQ ||
-      caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__7);
+    var BR = BQ || caml_string_notequal(call3(String[4], n, 0, 2), cst__7);
     if (BR) {
       var BS = caml_ml_string_length(n) < 2 ? 1 : 0;
-      var BT = BS ||
-        caml_string_notequal(caml_call3(String[4], n, 0, 2), cst__6);
+      var BT = BS || caml_string_notequal(call3(String[4], n, 0, 2), cst__6);
       if (BT) {
         var BU = caml_ml_string_length(n) < 3 ? 1 : 0;
-        var BV = BU ||
-          caml_string_notequal(caml_call3(String[4], n, 0, 3), cst__5);
+        var BV = BU || caml_string_notequal(call3(String[4], n, 0, 3), cst__5);
         if (BV) {
           var BW = caml_ml_string_length(n) < 3 ? 1 : 0;
           var BX = BW ||
-            caml_string_notequal(caml_call3(String[4], n, 0, 3), cst__4);
+            caml_string_notequal(call3(String[4], n, 0, 3), cst__4);
         }
         else var BX = BV;
       }
@@ -315,14 +301,14 @@ function is_implicit__0(n) {
 function check_suffix__0(name, suff) {
   var BM = caml_ml_string_length(suff) <= caml_ml_string_length(name) ? 1 : 0;
   if (BM) {
-    var s = caml_call3(
+    var s = call3(
       String[4],
       name,
       caml_ml_string_length(name) - caml_ml_string_length(suff) | 0,
       caml_ml_string_length(suff)
     );
-    var BN = caml_call1(String[30], suff);
-    var BO = caml_string_equal(caml_call1(String[30], s), BN);
+    var BN = call1(String[30], suff);
+    var BO = caml_string_equal(call1(String[30], s), BN);
   }
   else var BO = BM;
   return BO;
@@ -339,14 +325,14 @@ catch(BL) {
 
 function quote__0(s) {
   var l = caml_ml_string_length(s);
-  var b = caml_call1(Buffer[1], l + 20 | 0);
-  caml_call2(Buffer[10], b, 34);
+  var b = call1(Buffer[1], l + 20 | 0);
+  call2(Buffer[10], b, 34);
   function add_bs(n) {
     var BJ = 1;
     if (! (n < 1)) {
       var j = BJ;
       for (; ; ) {
-        caml_call2(Buffer[10], b, 92);
+        call2(Buffer[10], b, 92);
         var BK = j + 1 | 0;
         if (n !== j) {var j = BK;continue;}
         break;
@@ -357,7 +343,7 @@ function quote__0(s) {
   function loop__0(counter, i) {
     var i__0 = i;
     for (; ; ) {
-      if (i__0 === l) {return caml_call2(Buffer[10], b, 34);}
+      if (i__0 === l) {return call2(Buffer[10], b, 34);}
       var c = caml_string_get(s, i__0);
       if (34 === c) {
         var BH = 0;
@@ -375,7 +361,7 @@ function quote__0(s) {
         }
         return caml_trampoline_return(loop_bs, [0,BI,i__0]);
       }
-      caml_call2(Buffer[10], b, c);
+      call2(Buffer[10], b, c);
       var i__1 = i__0 + 1 | 0;
       var i__0 = i__1;
       continue;
@@ -385,11 +371,11 @@ function quote__0(s) {
     var n__0 = n;
     var i__0 = i;
     for (; ; ) {
-      if (i__0 === l) {caml_call2(Buffer[10], b, 34);return add_bs(n__0);}
+      if (i__0 === l) {call2(Buffer[10], b, 34);return add_bs(n__0);}
       var match = caml_string_get(s, i__0);
       if (34 === match) {
         add_bs((2 * n__0 | 0) + 1 | 0);
-        caml_call2(Buffer[10], b, 34);
+        call2(Buffer[10], b, 34);
         var BG = i__0 + 1 | 0;
         if (counter < 50) {
           var counter__1 = counter + 1 | 0;
@@ -414,7 +400,7 @@ function quote__0(s) {
   }
   function loop(i) {return caml_trampoline(loop__0(0, i));}
   loop(0);
-  return caml_call1(Buffer[2], b);
+  return call1(Buffer[2], b);
 }
 
 function has_drive(s) {
@@ -435,8 +421,8 @@ function has_drive(s) {
 
 function drive_and_path(s) {
   if (has_drive(s)) {
-    var BC = caml_call3(String[4], s, 2, caml_ml_string_length(s) + -2 | 0);
-    return [0,caml_call3(String[4], s, 0, 2),BC];
+    var BC = call3(String[4], s, 2, caml_ml_string_length(s) + -2 | 0);
+    return [0,call3(String[4], s, 0, 2),BC];
   }
   return [0,cst__9,s];
 }
@@ -446,7 +432,7 @@ function dirname__0(s) {
   var path = match[2];
   var drive = match[1];
   var dir = generic_dirname(is_dir_sep__0, current_dir_name__0, path);
-  return caml_call2(Pervasives[16], drive, dir);
+  return call2(Pervasives[16], drive, dir);
 }
 
 function basename__0(s) {
@@ -539,18 +525,18 @@ function concat(dirname, filename) {
   var l = caml_ml_string_length(dirname);
   if (0 !== l) {
     if (! is_dir_sep__1(dirname, l + -1 | 0)) {
-      var Bz = caml_call2(Pervasives[16], dir_sep__2, filename);
-      return caml_call2(Pervasives[16], dirname, Bz);
+      var Bz = call2(Pervasives[16], dir_sep__2, filename);
+      return call2(Pervasives[16], dirname, Bz);
     }
   }
-  return caml_call2(Pervasives[16], dirname, filename);
+  return call2(Pervasives[16], dirname, filename);
 }
 
 function chop_suffix(name, suff) {
   var n = caml_ml_string_length(name) - caml_ml_string_length(suff) | 0;
   return 0 <= n ?
-    caml_call3(String[4], name, 0, n) :
-    caml_call1(Pervasives[1], cst_Filename_chop_suffix);
+    call3(String[4], name, 0, n) :
+    call1(Pervasives[1], cst_Filename_chop_suffix);
 }
 
 function extension_len(name) {
@@ -591,32 +577,32 @@ function extension(name) {
   var l = extension_len(name);
   return 0 === l ?
     cst__10 :
-    caml_call3(String[4], name, caml_ml_string_length(name) - l | 0, l);
+    call3(String[4], name, caml_ml_string_length(name) - l | 0, l);
 }
 
 function chop_extension(name) {
   var l = extension_len(name);
   return 0 === l ?
-    caml_call1(Pervasives[1], cst_Filename_chop_extension) :
-    caml_call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
+    call1(Pervasives[1], cst_Filename_chop_extension) :
+    call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
 }
 
 function remove_extension(name) {
   var l = extension_len(name);
   return 0 === l ?
     name :
-    caml_call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
+    call3(String[4], name, 0, caml_ml_string_length(name) - l | 0);
 }
 
-var prng = [246,function(By) {return caml_call1(Random[11][2], 0);}];
+var prng = [246,function(By) {return call1(Random[11][2], 0);}];
 
 function temp_file_name(temp_dir, prefix, suffix) {
   var Bw = runtime["caml_obj_tag"](prng);
   var Bx = 250 === Bw ?
     prng[1] :
-    246 === Bw ? caml_call1(CamlinternalLazy[2], prng) : prng;
-  var rnd = caml_call1(Random[11][4], Bx) & 16777215;
-  return concat(temp_dir, caml_call4(Printf[4], Bg, prefix, rnd, suffix));
+    246 === Bw ? call1(CamlinternalLazy[2], prng) : prng;
+  var rnd = call1(Random[11][4], Bx) & 16777215;
+  return concat(temp_dir, call4(Printf[4], Bg, prefix, rnd, suffix));
 }
 
 var current_temp_dir_name = [0,temp_dir_name__1];
@@ -680,7 +666,7 @@ function open_temp_file(opt, Bu, Bt, prefix, suffix) {
         var Bv = [
           0,
           name,
-          caml_call3(Pervasives[50], [0,1,[0,3,[0,5,mode]]], perms, name)
+          call3(Pervasives[50], [0,1,[0,3,[0,5,mode]]], perms, name)
         ];
         return Bv;
       }

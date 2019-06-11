@@ -11,11 +11,11 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
@@ -56,9 +56,9 @@ function is_empty(s) {return 0 === s[1] ? 1 : 0;}
 
 function length(s) {return s[2];}
 
-function iter(f, s) {return caml_call2(List[15], f, s[1]);}
+function iter(f, s) {return call2(List[15], f, s[1]);}
 
-function fold(f, acc, s) {return caml_call3(List[20], f, acc, s[1]);}
+function fold(f, acc, s) {return call3(List[20], f, acc, s[1]);}
 
 var Stack = [0,Empty,create,push,pop,top,clear,copy,is_empty,length,iter,fold];
 

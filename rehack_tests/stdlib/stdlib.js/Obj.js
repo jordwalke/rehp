@@ -14,11 +14,11 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_new_string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -43,8 +43,8 @@ function set_double_field(x, i, v) {
 function marshal(obj) {return runtime["caml_output_value_to_string"](obj, 0);}
 
 function unmarshal(str, pos) {
-  var dw = pos + caml_call2(Marshal[8], str, pos) | 0;
-  return [0,caml_call2(Marshal[4], str, pos),dw];
+  var dw = pos + call2(Marshal[8], str, pos) | 0;
+  return [0,call2(Marshal[4], str, pos),dw];
 }
 
 var first_non_constant_constructor_tag = 0;
@@ -81,11 +81,11 @@ function extension_constructor(x) {
   else var switch__1 = 0;
   else var switch__1 = 0;
   if (! switch__1) {
-    var name = caml_call1(Pervasives[1], cst_Obj_extension_constructor__0);
+    var name = call1(Pervasives[1], cst_Obj_extension_constructor__0);
   }
   return caml_obj_tag(name) === 252 ?
     slot :
-    caml_call1(Pervasives[1], cst_Obj_extension_constructor);
+    call1(Pervasives[1], cst_Obj_extension_constructor);
 }
 
 function extension_name(slot) {return slot[1];}

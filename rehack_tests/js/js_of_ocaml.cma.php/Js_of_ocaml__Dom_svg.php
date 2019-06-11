@@ -33,12 +33,12 @@ final class Js_of_ocaml__Dom_svg {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
@@ -163,9 +163,9 @@ final class Js_of_ocaml__Dom_svg {
       $cst_Js_of_ocaml_Dom_svg_SVGError,
       $runtime["caml_fresh_oo_id"](0)
     };
-    $createElement = function(dynamic $doc, dynamic $name) use ($caml_call1,$caml_get_public_method,$xmlns) {
-      $ld = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -387984539, 192), $x);
+    $createElement = function(dynamic $doc, dynamic $name) use ($call1,$caml_get_public_method,$xmlns) {
+      $ld = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -387984539, 192), $x);
       };
       $le = $name->toString();
       return (function(dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) {return $t2->createElementNS($t0, $t1);
@@ -336,18 +336,18 @@ final class Js_of_ocaml__Dom_svg {
     $createvkern = function(dynamic $doc) use ($cst_vkern,$unsafeCreateElement) {
       return $unsafeCreateElement($doc, $cst_vkern);
     };
-    $kY = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-      return $caml_call1($caml_get_public_method($x, 946564599, 193), $x);
+    $kY = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 946564599, 193), $x);
     };
     $kZ = $Js_of_ocaml_Js[50][1];
     $svg_element = (function(dynamic $t3, dynamic $param) {return $t3->SVGElement;
      })($kZ, $kY);
-    $k0 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-      return $caml_call1($caml_get_public_method($x, 454225691, 194), $x);
+    $k0 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 454225691, 194), $x);
     };
     $k1 = $Js_of_ocaml_Js[50][1];
     $document = (function(dynamic $t4, dynamic $param) {return $t4->document;})($k1, $k0);
-    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$caml_call1,$caml_call3,$caml_get_public_method,$runtime,$svg_element) {
+    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$runtime,$svg_element) {
       $k6 = function(dynamic $e) use ($Not_found,$runtime,$svg_element) {
         if (instance_of($e, $svg_element)) {return $e;}
         throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
@@ -355,36 +355,36 @@ final class Js_of_ocaml__Dom_svg {
       $k7 = function(dynamic $param) use ($Not_found,$runtime) {
         throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       };
-      $k8 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -332188296, 195), $x);
+      $k8 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -332188296, 195), $x);
       };
       $k9 = $id->toString();
-      $k_ = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, 454225691, 196), $x);
+      $k_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 454225691, 196), $x);
       };
       $la = $Js_of_ocaml_Js[50][1];
       $lb = (function(dynamic $t5, dynamic $param) {return $t5->document;})($la, $k_);
       $lc = (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->getElementById($t6);
        })($lb, $k9, $k8);
-      return $caml_call3($Js_of_ocaml_Js[5][7], $lc, $k7, $k6);
+      return $call3($Js_of_ocaml_Js[5][7], $lc, $k7, $k6);
     };
-    $element = function(dynamic $e) use ($Js_of_ocaml_Js,$caml_call1,$svg_element) {
+    $element = function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$svg_element) {
       return instance_of($e, $svg_element)
-        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $unsafeCoerce = function(dynamic $e, dynamic $tag) use ($Js_of_ocaml_Js,$caml_call1,$caml_get_public_method) {
+    $unsafeCoerce = function(dynamic $e, dynamic $tag) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
       $k2 = $tag->toString();
-      $k3 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, 946097238, 197), $x);
+      $k3 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 946097238, 197), $x);
       };
-      $k4 = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, 578170309, 198), $x);
+      $k4 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 578170309, 198), $x);
       };
       $k5 = (function(dynamic $t8, dynamic $param) {return $t8->tagName;})($e, $k4);
       return (function(dynamic $t9, dynamic $param) {return $t9->toLowerCase();
         })($k5, $k3) === $k2
-        ? $caml_call1($Js_of_ocaml_Js[2], $e)
+        ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
     $a = function(dynamic $e) use ($cst_a__0,$unsafeCoerce) {

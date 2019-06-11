@@ -15,11 +15,11 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -78,9 +78,9 @@ function Make(Ord) {
           var ga = create(lrr, v, r);
           return create(create(ll, lv, lrl), lrv, ga);
         }
-        return caml_call1(Pervasives[1], cst_Set_bal);
+        return call1(Pervasives[1], cst_Set_bal);
       }
-      return caml_call1(Pervasives[1], cst_Set_bal__0);
+      return call1(Pervasives[1], cst_Set_bal__0);
     }
     if ((hl + 2 | 0) < hr) {
       if (r) {
@@ -96,9 +96,9 @@ function Make(Ord) {
           var gc = create(rlr, rv, rr);
           return create(create(l, v, rll), rlv, gc);
         }
-        return caml_call1(Pervasives[1], cst_Set_bal__1);
+        return call1(Pervasives[1], cst_Set_bal__1);
       }
-      return caml_call1(Pervasives[1], cst_Set_bal__2);
+      return call1(Pervasives[1], cst_Set_bal__2);
     }
     var gd = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
     return [0,l,v,r,gd];
@@ -108,7 +108,7 @@ function Make(Ord) {
       var r = t[3];
       var v = t[2];
       var l = t[1];
-      var c = caml_call2(Ord[1], x, v);
+      var c = call2(Ord[1], x, v);
       if (0 === c) {return t;}
       if (0 <= c) {var rr = add(x, r);return r === rr ? t : bal(l, v, rr);}
       var ll = add(x, l);
@@ -213,7 +213,7 @@ function Make(Ord) {
       var r__0 = param[3];
       return r__0;
     }
-    return caml_call1(Pervasives[1], cst_Set_remove_min_elt);
+    return call1(Pervasives[1], cst_Set_remove_min_elt);
   }
   function merge(t, match) {
     if (t) {
@@ -240,7 +240,7 @@ function Make(Ord) {
       var r = param[3];
       var v = param[2];
       var l = param[1];
-      var c = caml_call2(Ord[1], x, v);
+      var c = call2(Ord[1], x, v);
       if (0 === c) {return [0,l,1,r];}
       if (0 <= c) {
         var match = split(x, r);
@@ -266,7 +266,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        var c = caml_call2(Ord[1], x, v);
+        var c = call2(Ord[1], x, v);
         var f0 = 0 === c ? 1 : 0;
         if (f0) {return f0;}
         var param__1 = 0 <= c ? r : l;
@@ -281,7 +281,7 @@ function Make(Ord) {
       var r = t[3];
       var v = t[2];
       var l = t[1];
-      var c = caml_call2(Ord[1], x, v);
+      var c = call2(Ord[1], x, v);
       if (0 === c) {return merge(l, r);}
       if (0 <= c) {var rr = remove(x, r);return r === rr ? t : bal(l, v, rr);}
       var ll = remove(x, l);
@@ -389,7 +389,7 @@ function Make(Ord) {
           var e1__1 = e1__0[3];
           var r1 = e1__0[2];
           var v1 = e1__0[1];
-          var c = caml_call2(Ord[1], v1, v2);
+          var c = call2(Ord[1], v1, v2);
           if (0 === c) {
             var e2__2 = cons_enum(r2, e2__1);
             var e1__2 = cons_enum(r1, e1__1);
@@ -421,7 +421,7 @@ function Make(Ord) {
           var r1 = s1__0[3];
           var v1 = s1__0[2];
           var l1 = s1__0[1];
-          var c = caml_call2(Ord[1], v1, v2);
+          var c = call2(Ord[1], v1, v2);
           if (0 === c) {
             var fM = subset(l1, l2);
             if (fM) {var s1__0 = r1;var s2__0 = r2;continue;}
@@ -449,7 +449,7 @@ function Make(Ord) {
         var v = param__0[2];
         var l = param__0[1];
         iter(f, l);
-        caml_call1(f, v);
+        call1(f, v);
         var param__0 = param__1;
         continue;
       }
@@ -464,7 +464,7 @@ function Make(Ord) {
         var s__1 = s__0[3];
         var v = s__0[2];
         var l = s__0[1];
-        var accu__1 = caml_call2(f, v, fold(f, l, accu__0));
+        var accu__1 = call2(f, v, fold(f, l, accu__0));
         var s__0 = s__1;
         var accu__0 = accu__1;
         continue;
@@ -479,7 +479,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        var fJ = caml_call1(p, v);
+        var fJ = call1(p, v);
         if (fJ) {
           var fK = for_all(p, l);
           if (fK) {var param__0 = r;continue;}
@@ -498,7 +498,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        var fG = caml_call1(p, v);
+        var fG = call1(p, v);
         if (fG) var fH = fG;
         else {
           var fI = exists(p, l);
@@ -516,7 +516,7 @@ function Make(Ord) {
       var v = t[2];
       var l = t[1];
       var l__0 = filter(p, l);
-      var pv = caml_call1(p, v);
+      var pv = call1(p, v);
       var r__0 = filter(p, r);
       if (pv) {
         if (l === l__0) {if (r === r__0) {return t;}}
@@ -534,7 +534,7 @@ function Make(Ord) {
       var match = partition(p, l);
       var lf = match[2];
       var lt = match[1];
-      var pv = caml_call1(p, v);
+      var pv = call1(p, v);
       var match__0 = partition(p, r);
       var rf = match__0[2];
       var rt = match__0[1];
@@ -577,7 +577,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        var c = caml_call2(Ord[1], x, v);
+        var c = call2(Ord[1], x, v);
         if (0 === c) {return v;}
         var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
@@ -594,7 +594,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {var v0__0 = v;var param__0 = l;continue;}
+        if (call1(f, v)) {var v0__0 = v;var param__0 = l;continue;}
         var param__0 = r;
         continue;
       }
@@ -608,7 +608,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {return find_first_aux(v, f, l);}
+        if (call1(f, v)) {return find_first_aux(v, f, l);}
         var param__0 = r;
         continue;
       }
@@ -623,7 +623,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {var v0__0 = v;var param__0 = l;continue;}
+        if (call1(f, v)) {var v0__0 = v;var param__0 = l;continue;}
         var param__0 = r;
         continue;
       }
@@ -637,7 +637,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {return find_first_opt_aux(v, f, l);}
+        if (call1(f, v)) {return find_first_opt_aux(v, f, l);}
         var param__0 = r;
         continue;
       }
@@ -652,7 +652,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {var v0__0 = v;var param__0 = r;continue;}
+        if (call1(f, v)) {var v0__0 = v;var param__0 = r;continue;}
         var param__0 = l;
         continue;
       }
@@ -666,7 +666,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {return find_last_aux(v, f, r);}
+        if (call1(f, v)) {return find_last_aux(v, f, r);}
         var param__0 = l;
         continue;
       }
@@ -681,7 +681,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {var v0__0 = v;var param__0 = r;continue;}
+        if (call1(f, v)) {var v0__0 = v;var param__0 = r;continue;}
         var param__0 = l;
         continue;
       }
@@ -695,7 +695,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        if (caml_call1(f, v)) {return find_last_opt_aux(v, f, r);}
+        if (call1(f, v)) {return find_last_opt_aux(v, f, r);}
         var param__0 = l;
         continue;
       }
@@ -709,7 +709,7 @@ function Make(Ord) {
         var r = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        var c = caml_call2(Ord[1], x, v);
+        var c = call2(Ord[1], x, v);
         if (0 === c) {return [0,v];}
         var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
@@ -722,13 +722,13 @@ function Make(Ord) {
     if (0 === l) var switch__0 = 0;
     else {
       var fC = max_elt(l);
-      var switch__0 = 0 <= caml_call2(Ord[1], fC, v) ? 1 : 0;
+      var switch__0 = 0 <= call2(Ord[1], fC, v) ? 1 : 0;
     }
     if (! switch__0) {
       if (0 === r) var switch__1 = 0;
       else {
         var fB = min_elt(r);
-        var switch__1 = 0 <= caml_call2(Ord[1], v, fB) ? 1 : 0;
+        var switch__1 = 0 <= call2(Ord[1], v, fB) ? 1 : 0;
       }
       if (! switch__1) {return join(l, v, r);}
     }
@@ -740,7 +740,7 @@ function Make(Ord) {
       var v = t[2];
       var l = t[1];
       var l__0 = map(f, l);
-      var v__0 = caml_call1(f, v);
+      var v__0 = call1(f, v);
       var r__0 = map(f, r);
       if (l === l__0) {if (v === v__0) {if (r === r__0) {return t;}}}
       return try_join(l__0, v__0, r__0);
@@ -801,7 +801,7 @@ function Make(Ord) {
       }
       throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,fn]);
     }
-    return sub(caml_call1(List[1], l), l)[1];
+    return sub(call1(List[1], l), l)[1];
   }
   function of_list(l) {
     if (l) {
@@ -817,9 +817,7 @@ function Make(Ord) {
             var fw = fu[2];
             var fx = fu[1];
             if (fw) {
-              if (fw[2]) {
-                return of_sorted_list(caml_call2(List[51], Ord[1], l));
-              }
+              if (fw[2]) {return of_sorted_list(call2(List[51], Ord[1], l));}
               var x4 = fw[1];
               return add(x4, add(fx, add(fv, add(ft, singleton(fr)))));
             }

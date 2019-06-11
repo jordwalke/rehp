@@ -36,7 +36,7 @@ final class Spacetime {
     $caml_spacetime_only_works_for_native_code = $runtime[
        "caml_spacetime_only_works_for_native_code"
      ];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -46,12 +46,12 @@ final class Spacetime {
     $cst_Series_is_closed = $caml_new_string("Series is closed");
     $Pervasives = $global_data["Pervasives"];
     $enabled = $caml_spacetime_enabled(0);
-    $if_spacetime_enabled = function(dynamic $f) use ($caml_call1,$enabled) {
-      return $enabled ? $caml_call1($f, 0) : (0);
+    $if_spacetime_enabled = function(dynamic $f) use ($call1,$enabled) {
+      return $enabled ? $call1($f, 0) : (0);
     };
-    $create = function(dynamic $path) use ($Pervasives,$caml_call1,$caml_spacetime_enabled,$caml_spacetime_only_works_for_native_code) {
+    $create = function(dynamic $path) use ($Pervasives,$call1,$caml_spacetime_enabled,$caml_spacetime_only_works_for_native_code) {
       if ($caml_spacetime_enabled(0)) {
-        $channel = $caml_call1($Pervasives[48], $path);
+        $channel = $call1($Pervasives[48], $path);
         $t = Vector{0, $channel, 0};
         $caml_spacetime_only_works_for_native_code($t[1]);
         return $t;
@@ -69,26 +69,24 @@ final class Spacetime {
         }
       );
     };
-    $save_and_close = function(dynamic $time, dynamic $t) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$if_spacetime_enabled) {
+    $save_and_close = function(dynamic $time, dynamic $t) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$if_spacetime_enabled) {
       return $if_spacetime_enabled(
-        function(dynamic $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$t,$time) {
-          if ($t[2]) {$caml_call1($Pervasives[2], $cst_Series_is_closed);}
+        function(dynamic $param) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$t,$time) {
+          if ($t[2]) {$call1($Pervasives[2], $cst_Series_is_closed);}
           $caml_spacetime_only_works_for_native_code($time, $t[1]);
-          $caml_call1($Pervasives[64], $t[1]);
+          $call1($Pervasives[64], $t[1]);
           $t[2] = 1;
           return 0;
         }
       );
     };
     $Series = Vector{0, $create, $save_event, $save_and_close};
-    $take = function(dynamic $time, dynamic $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed__0,$if_spacetime_enabled,$runtime) {
+    $take = function(dynamic $time, dynamic $param) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed__0,$if_spacetime_enabled,$runtime) {
       $channel = $param[1];
       $closed = $param[2];
       return $if_spacetime_enabled(
-        function(dynamic $param) use ($Pervasives,$caml_call1,$caml_spacetime_only_works_for_native_code,$channel,$closed,$cst_Series_is_closed__0,$runtime,$time) {
-          if ($closed) {
-            $caml_call1($Pervasives[2], $cst_Series_is_closed__0);
-          }
+        function(dynamic $param) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$channel,$closed,$cst_Series_is_closed__0,$runtime,$time) {
+          if ($closed) {$call1($Pervasives[2], $cst_Series_is_closed__0);}
           $runtime["caml_gc_minor"](0);
           return $caml_spacetime_only_works_for_native_code($time, $channel);
         }

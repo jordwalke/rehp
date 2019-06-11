@@ -34,7 +34,7 @@ final class Js_of_ocaml__XmlHttpRequest {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -57,17 +57,14 @@ final class Js_of_ocaml__XmlHttpRequest {
       125,
       75
     };
-    $readystatechange = $caml_call1(
-      $Js_of_ocaml_Dom[14][1],
-      $cst_readystatechange
-    );
-    $loadstart = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
-    $progress = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_progress);
-    $abort = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_abort);
-    $error = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_error);
-    $load = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_load);
-    $timeout = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_timeout);
-    $loadend = $caml_call1($Js_of_ocaml_Dom[14][1], $cst_loadend);
+    $readystatechange = $call1($Js_of_ocaml_Dom[14][1], $cst_readystatechange);
+    $loadstart = $call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
+    $progress = $call1($Js_of_ocaml_Dom[14][1], $cst_progress);
+    $abort = $call1($Js_of_ocaml_Dom[14][1], $cst_abort);
+    $error = $call1($Js_of_ocaml_Dom[14][1], $cst_error);
+    $load = $call1($Js_of_ocaml_Dom[14][1], $cst_load);
+    $timeout = $call1($Js_of_ocaml_Dom[14][1], $cst_timeout);
+    $loadend = $call1($Js_of_ocaml_Dom[14][1], $cst_loadend);
     $Event = Vector{
       0,
       $readystatechange,
@@ -79,15 +76,15 @@ final class Js_of_ocaml__XmlHttpRequest {
       $timeout,
       $loadend
     };
-    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$caml_call1,$caml_get_public_method,$runtime,$tC) {
-      $tD = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -1035517745, 307), $x);
+    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$caml_get_public_method,$runtime,$tC) {
+      $tD = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -1035517745, 307), $x);
       };
       $tE = $Js_of_ocaml_Js[50][1];
       $xmlHttpRequest = (function(dynamic $t8, dynamic $param) {return $t8->XMLHttpRequest;
        })($tE, $tD);
-      $tF = function(dynamic $x) use ($caml_call1,$caml_get_public_method) {
-        return $caml_call1($caml_get_public_method($x, -5445583, 308), $x);
+      $tF = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -5445583, 308), $x);
       };
       $tG = $Js_of_ocaml_Js[50][1];
       $activeXObject = (function(dynamic $t7, dynamic $param) {return $t7->activeXObject;

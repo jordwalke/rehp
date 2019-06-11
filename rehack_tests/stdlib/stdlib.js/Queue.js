@@ -11,11 +11,11 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -85,7 +85,7 @@ function iter(f, cell) {
     if (cell__0) {
       var content = cell__0[1];
       var cell__1 = cell__0[2];
-      caml_call1(f, content);
+      call1(f, content);
       var cell__0 = cell__1;
       continue;
     }
@@ -102,7 +102,7 @@ function fold(f, accu, cell) {
     if (cell__0) {
       var content = cell__0[1];
       var cell__1 = cell__0[2];
-      var accu__1 = caml_call2(f, accu__0, content);
+      var accu__1 = call2(f, accu__0, content);
       var accu__0 = accu__1;
       var cell__0 = cell__1;
       continue;

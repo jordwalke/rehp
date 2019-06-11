@@ -48,22 +48,22 @@ final class CamlinternalOO {
     $caml_string_compare = $runtime["caml_string_compare"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $is_int = $runtime["is_int"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
     };
-    $caml_call5 = function
+    $call5 = function
     (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 5
         ? $f($a0, $a1, $a2, $a3, $a4)
@@ -116,15 +116,15 @@ final class CamlinternalOO {
     $compare = function(dynamic $x, dynamic $y) use ($caml_string_compare) {
       return $caml_string_compare($x, $y);
     };
-    $Vars = $caml_call1($Map[1], Vector{0, $compare});
+    $Vars = $call1($Map[1], Vector{0, $compare});
     $compare__0 = function(dynamic $x, dynamic $y) use ($caml_string_compare) {
       return $caml_string_compare($x, $y);
     };
-    $Meths = $caml_call1($Map[1], Vector{0, $compare__0});
+    $Meths = $call1($Map[1], Vector{0, $compare__0});
     $compare__1 = function(dynamic $x, dynamic $y) use ($runtime) {
       return $runtime["caml_int_compare"]($x, $y);
     };
-    $Labs = $caml_call1($Map[1], Vector{0, $compare__1});
+    $Labs = $call1($Map[1], Vector{0, $compare__1});
     $dummy_table = Vector{
       0,
       0,
@@ -177,12 +177,12 @@ final class CamlinternalOO {
         0
       };
     };
-    $resize = function(dynamic $array, dynamic $new_size) use ($Array,$caml_call5,$caml_make_vect,$dummy_met) {
+    $resize = function(dynamic $array, dynamic $new_size) use ($Array,$call5,$caml_make_vect,$dummy_met) {
       $old_size = $array[2]->count() - 1;
       $zm = $old_size < $new_size ? 1 : (0);
       if ($zm) {
         $new_buck = $caml_make_vect($new_size, $dummy_met);
-        $caml_call5($Array[10], $array[2], 0, $new_buck, 0, $old_size);
+        $call5($Array[10], $array[2], 0, $new_buck, 0, $old_size);
         $array[2] = $new_buck;
         $zn = 0;
       }
@@ -201,33 +201,33 @@ final class CamlinternalOO {
       $resize($table, (int) ($index + 1));
       return $index;
     };
-    $get_method_label = function(dynamic $table, dynamic $name) use ($Labs,$Meths,$Not_found,$caml_call2,$caml_call3,$caml_wrap_exception,$new_method,$runtime) {
-      try {$zk = $caml_call2($Meths[27], $name, $table[3]);return $zk;}
+    $get_method_label = function(dynamic $table, dynamic $name) use ($Labs,$Meths,$Not_found,$call2,$call3,$caml_wrap_exception,$new_method,$runtime) {
+      try {$zk = $call2($Meths[27], $name, $table[3]);return $zk;}
       catch(\Throwable $zl) {
         $zl = $caml_wrap_exception($zl);
         if ($zl === $Not_found) {
           $label = $new_method($table);
-          $table[3] = $caml_call3($Meths[4], $name, $label, $table[3]);
-          $table[4] = $caml_call3($Labs[4], $label, 1, $table[4]);
+          $table[3] = $call3($Meths[4], $name, $label, $table[3]);
+          $table[4] = $call3($Labs[4], $label, 1, $table[4]);
           return $label;
         }
         throw $runtime["caml_wrap_thrown_exception_reraise"]($zl) as \Throwable;
       }
     };
-    $get_method_labels = function(dynamic $table, dynamic $names) use ($Array,$caml_call2,$get_method_label) {
+    $get_method_labels = function(dynamic $table, dynamic $names) use ($Array,$call2,$get_method_label) {
       $zi = function(dynamic $zj) use ($get_method_label,$table) {
         return $get_method_label($table, $zj);
       };
-      return $caml_call2($Array[15], $zi, $names);
+      return $call2($Array[15], $zi, $names);
     };
-    $set_method = function(dynamic $table, dynamic $label, dynamic $element) use ($Labs,$caml_call2,$method_count,$put) {
+    $set_method = function(dynamic $table, dynamic $label, dynamic $element) use ($Labs,$call2,$method_count,$put) {
       $method_count[1] += 1;
-      if ($caml_call2($Labs[27], $label, $table[4])) {return $put($table, $label, $element);}
+      if ($call2($Labs[27], $label, $table[4])) {return $put($table, $label, $element);}
       $table[6] = Vector{0, Vector{0, $label, $element}, $table[6]};
       return 0;
     };
-    $get_method = function(dynamic $table, dynamic $label) use ($List,$Not_found,$caml_call2,$caml_check_bound,$caml_wrap_exception,$runtime) {
-      try {$zg = $caml_call2($List[38], $label, $table[6]);return $zg;}
+    $get_method = function(dynamic $table, dynamic $label) use ($List,$Not_found,$call2,$caml_check_bound,$caml_wrap_exception,$runtime) {
+      try {$zg = $call2($List[38], $label, $table[6]);return $zg;}
       catch(\Throwable $zh) {
         $zh = $caml_wrap_exception($zh);
         if ($zh === $Not_found) {
@@ -236,22 +236,22 @@ final class CamlinternalOO {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($zh) as \Throwable;
       }
     };
-    $to_list = function(dynamic $arr) use ($Array,$caml_call1) {
-      return $arr === 0 ? 0 : ($caml_call1($Array[11], $arr));
+    $to_list = function(dynamic $arr) use ($Array,$call1) {
+      return $arr === 0 ? 0 : ($call1($Array[11], $arr));
     };
     $narrow = function
-    (dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths) use ($Labs,$List,$Meths,$Not_found,$Vars,$caml_call2,$caml_call3,$caml_wrap_exception,$get_method_label,$runtime,$to_list) {
+    (dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths) use ($Labs,$List,$Meths,$Not_found,$Vars,$call2,$call3,$caml_wrap_exception,$get_method_label,$runtime,$to_list) {
       $vars__0 = $to_list($vars);
       $virt_meths__0 = $to_list($virt_meths);
       $concr_meths__0 = $to_list($concr_meths);
       $y0 = function(dynamic $zf) use ($get_method_label,$table) {
         return $get_method_label($table, $zf);
       };
-      $virt_meth_labs = $caml_call2($List[17], $y0, $virt_meths__0);
+      $virt_meth_labs = $call2($List[17], $y0, $virt_meths__0);
       $y1 = function(dynamic $ze) use ($get_method_label,$table) {
         return $get_method_label($table, $ze);
       };
-      $concr_meth_labs = $caml_call2($List[17], $y1, $concr_meths__0);
+      $concr_meth_labs = $call2($List[17], $y1, $concr_meths__0);
       $table[5] =
         Vector{
           0,
@@ -268,18 +268,18 @@ final class CamlinternalOO {
         };
       $y2 = $Vars[1];
       $y3 = $table[7];
-      $y4 = function(dynamic $lab, dynamic $info, dynamic $tvars) use ($List,$Vars,$caml_call2,$caml_call3,$vars__0) {
-        return $caml_call2($List[31], $lab, $vars__0)
-          ? $caml_call3($Vars[4], $lab, $info, $tvars)
+      $y4 = function(dynamic $lab, dynamic $info, dynamic $tvars) use ($List,$Vars,$call2,$call3,$vars__0) {
+        return $call2($List[31], $lab, $vars__0)
+          ? $call3($Vars[4], $lab, $info, $tvars)
           : ($tvars);
       };
-      $table[7] = $caml_call3($Vars[13], $y4, $y3, $y2);
+      $table[7] = $call3($Vars[13], $y4, $y3, $y2);
       $by_name = Vector{0, $Meths[1]};
       $by_label = Vector{0, $Labs[1]};
-      $y5 = function(dynamic $met, dynamic $label) use ($Labs,$Meths,$Not_found,$by_label,$by_name,$caml_call2,$caml_call3,$caml_wrap_exception,$runtime,$table) {
-        $by_name[1] = $caml_call3($Meths[4], $met, $label, $by_name[1]);
+      $y5 = function(dynamic $met, dynamic $label) use ($Labs,$Meths,$Not_found,$by_label,$by_name,$call2,$call3,$caml_wrap_exception,$runtime,$table) {
+        $by_name[1] = $call3($Meths[4], $met, $label, $by_name[1]);
         $y_ = $by_label[1];
-        try {$zc = $caml_call2($Labs[27], $label, $table[4]);$zb = $zc;}
+        try {$zc = $call2($Labs[27], $label, $table[4]);$zb = $zc;}
         catch(\Throwable $zd) {
           $zd = $caml_wrap_exception($zd);
           if ($zd !== $Not_found) {
@@ -288,53 +288,53 @@ final class CamlinternalOO {
           $za = 1;
           $zb = $za;
         }
-        $by_label[1] = $caml_call3($Labs[4], $label, $zb, $y_);
+        $by_label[1] = $call3($Labs[4], $label, $zb, $y_);
         return 0;
       };
-      $caml_call3($List[22], $y5, $concr_meths__0, $concr_meth_labs);
-      $y6 = function(dynamic $met, dynamic $label) use ($Labs,$Meths,$by_label,$by_name,$caml_call3) {
-        $by_name[1] = $caml_call3($Meths[4], $met, $label, $by_name[1]);
-        $by_label[1] = $caml_call3($Labs[4], $label, 0, $by_label[1]);
+      $call3($List[22], $y5, $concr_meths__0, $concr_meth_labs);
+      $y6 = function(dynamic $met, dynamic $label) use ($Labs,$Meths,$by_label,$by_name,$call3) {
+        $by_name[1] = $call3($Meths[4], $met, $label, $by_name[1]);
+        $by_label[1] = $call3($Labs[4], $label, 0, $by_label[1]);
         return 0;
       };
-      $caml_call3($List[22], $y6, $virt_meths__0, $virt_meth_labs);
+      $call3($List[22], $y6, $virt_meths__0, $virt_meth_labs);
       $table[3] = $by_name[1];
       $table[4] = $by_label[1];
       $y7 = 0;
       $y8 = $table[6];
-      $y9 = function(dynamic $met, dynamic $hm) use ($List,$caml_call2,$virt_meth_labs) {
+      $y9 = function(dynamic $met, dynamic $hm) use ($List,$call2,$virt_meth_labs) {
         $lab = $met[1];
-        return $caml_call2($List[31], $lab, $virt_meth_labs)
+        return $call2($List[31], $lab, $virt_meth_labs)
           ? $hm
           : (Vector{0, $met, $hm});
       };
-      $table[6] = $caml_call3($List[21], $y9, $y8, $y7);
+      $table[6] = $call3($List[21], $y9, $y8, $y7);
       return 0;
     };
-    $widen = function(dynamic $table) use ($List,$Vars,$caml_call1,$caml_call2,$caml_call3) {
-      $match = $caml_call1($List[5], $table[5]);
+    $widen = function(dynamic $table) use ($List,$Vars,$call1,$call2,$call3) {
+      $match = $call1($List[5], $table[5]);
       $vars = $match[6];
       $virt_meths = $match[5];
       $saved_vars = $match[4];
       $saved_hidden_meths = $match[3];
       $by_label = $match[2];
       $by_name = $match[1];
-      $table[5] = $caml_call1($List[6], $table[5]);
-      $yW = function(dynamic $s, dynamic $v) use ($Vars,$caml_call2,$caml_call3,$table) {
-        $yZ = $caml_call2($Vars[27], $v, $table[7]);
-        return $caml_call3($Vars[4], $v, $yZ, $s);
+      $table[5] = $call1($List[6], $table[5]);
+      $yW = function(dynamic $s, dynamic $v) use ($Vars,$call2,$call3,$table) {
+        $yZ = $call2($Vars[27], $v, $table[7]);
+        return $call3($Vars[4], $v, $yZ, $s);
       };
-      $table[7] = $caml_call3($List[20], $yW, $saved_vars, $vars);
+      $table[7] = $call3($List[20], $yW, $saved_vars, $vars);
       $table[3] = $by_name;
       $table[4] = $by_label;
       $yX = $table[6];
-      $yY = function(dynamic $met, dynamic $hm) use ($List,$caml_call2,$virt_meths) {
+      $yY = function(dynamic $met, dynamic $hm) use ($List,$call2,$virt_meths) {
         $lab = $met[1];
-        return $caml_call2($List[31], $lab, $virt_meths)
+        return $call2($List[31], $lab, $virt_meths)
           ? $hm
           : (Vector{0, $met, $hm});
       };
-      $table[6] = $caml_call3($List[21], $yY, $yX, $saved_hidden_meths);
+      $table[6] = $call3($List[21], $yY, $yX, $saved_hidden_meths);
       return 0;
     };
     $new_slot = function(dynamic $table) {
@@ -342,14 +342,14 @@ final class CamlinternalOO {
       $table[1] = (int) ($index + 1);
       return $index;
     };
-    $new_variable = function(dynamic $table, dynamic $name) use ($Not_found,$Vars,$caml_call2,$caml_call3,$caml_wrap_exception,$cst,$new_slot,$runtime) {
-      try {$yU = $caml_call2($Vars[27], $name, $table[7]);return $yU;}
+    $new_variable = function(dynamic $table, dynamic $name) use ($Not_found,$Vars,$call2,$call3,$caml_wrap_exception,$cst,$new_slot,$runtime) {
+      try {$yU = $call2($Vars[27], $name, $table[7]);return $yU;}
       catch(\Throwable $yV) {
         $yV = $caml_wrap_exception($yV);
         if ($yV === $Not_found) {
           $index = $new_slot($table);
           if ($runtime["caml_string_notequal"]($name, $cst)) {
-            $table[7] = $caml_call3($Vars[4], $name, $index, $table[7]);
+            $table[7] = $call3($Vars[4], $name, $index, $table[7]);
           }
           return $index;
         }
@@ -395,8 +395,8 @@ final class CamlinternalOO {
       }
       return $res;
     };
-    $get_variable = function(dynamic $table, dynamic $name) use ($Assert_failure,$Not_found,$Vars,$caml_call2,$caml_wrap_exception,$runtime,$yf) {
-      try {$yJ = $caml_call2($Vars[27], $name, $table[7]);return $yJ;}
+    $get_variable = function(dynamic $table, dynamic $name) use ($Assert_failure,$Not_found,$Vars,$call2,$caml_wrap_exception,$runtime,$yf) {
+      try {$yJ = $call2($Vars[27], $name, $table[7]);return $yJ;}
       catch(\Throwable $yK) {
         $yK = $caml_wrap_exception($yK);
         if ($yK === $Not_found) {
@@ -405,34 +405,34 @@ final class CamlinternalOO {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($yK) as \Throwable;
       }
     };
-    $get_variables = function(dynamic $table, dynamic $names) use ($Array,$caml_call2,$get_variable) {
+    $get_variables = function(dynamic $table, dynamic $names) use ($Array,$call2,$get_variable) {
       $yH = function(dynamic $yI) use ($get_variable,$table) {
         return $get_variable($table, $yI);
       };
-      return $caml_call2($Array[15], $yH, $names);
+      return $call2($Array[15], $yH, $names);
     };
     $add_initializer = function(dynamic $table, dynamic $f) {
       $table[8] = Vector{0, $f, $table[8]};
       return 0;
     };
-    $create_table = function(dynamic $public_methods) use ($Array,$Labs,$Meths,$caml_call2,$caml_call3,$new_table,$public_method_label) {
+    $create_table = function(dynamic $public_methods) use ($Array,$Labs,$Meths,$call2,$call3,$new_table,$public_method_label) {
       if ($public_methods === 0) {return $new_table(Vector{0});}
-      $tags = $caml_call2($Array[15], $public_method_label, $public_methods);
+      $tags = $call2($Array[15], $public_method_label, $public_methods);
       $table = $new_table($tags);
-      $yG = function(dynamic $i, dynamic $met) use ($Labs,$Meths,$caml_call3,$table) {
+      $yG = function(dynamic $i, dynamic $met) use ($Labs,$Meths,$call3,$table) {
         $lab = (int) ((int) ($i * 2) + 2);
-        $table[3] = $caml_call3($Meths[4], $met, $lab, $table[3]);
-        $table[4] = $caml_call3($Labs[4], $lab, 1, $table[4]);
+        $table[3] = $call3($Meths[4], $met, $lab, $table[3]);
+        $table[4] = $call3($Labs[4], $lab, 1, $table[4]);
         return 0;
       };
-      $caml_call2($Array[14], $yG, $public_methods);
+      $call2($Array[14], $yG, $public_methods);
       return $table;
     };
-    $init_class = function(dynamic $table) use ($List,$Sys,$caml_call1,$caml_check_bound,$caml_div,$inst_var_count,$resize) {
+    $init_class = function(dynamic $table) use ($List,$Sys,$call1,$caml_check_bound,$caml_div,$inst_var_count,$resize) {
       $inst_var_count[1] =
         (int)
         ((int) ($inst_var_count[1] + $table[1]) + -1);
-      $table[8] = $caml_call1($List[9], $table[8]);
+      $table[8] = $call1($List[9], $table[8]);
       $yF = $Sys[10];
       return $resize(
         $table,
@@ -441,20 +441,18 @@ final class CamlinternalOO {
       );
     };
     $inherits = function
-    (dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top) use ($Array,$caml_call1,$caml_call2,$get_method,$get_method_label,$get_variable,$narrow,$to_array,$widen) {
+    (dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top) use ($Array,$call1,$call2,$get_method,$get_method_label,$get_variable,$narrow,$to_array,$widen) {
       $env = $param[4];
       $super__0 = $param[2];
       $narrow($cla, $vals, $virt_meths, $concr_meths);
-      $init = $top
-        ? $caml_call2($super__0, $cla, $env)
-        : ($caml_call1($super__0, $cla));
+      $init = $top ? $call2($super__0, $cla, $env) : ($call1($super__0, $cla));
       $widen($cla);
       $yx = 0;
       $yy = $to_array($concr_meths);
       $yz = function(dynamic $nm) use ($cla,$get_method,$get_method_label) {
         return $get_method($cla, $get_method_label($cla, $nm));
       };
-      $yA = Vector{0, $caml_call2($Array[15], $yz, $yy), $yx};
+      $yA = Vector{0, $call2($Array[15], $yz, $yy), $yx};
       $yB = $to_array($vals);
       $yC = function(dynamic $yE) use ($cla,$get_variable) {
         return $get_variable($cla, $yE);
@@ -462,20 +460,20 @@ final class CamlinternalOO {
       $yD = Vector{
         0,
         Vector{0, $init},
-        Vector{0, $caml_call2($Array[15], $yC, $yB), $yA}
+        Vector{0, $call2($Array[15], $yC, $yB), $yA}
       };
-      return $caml_call1($Array[6], $yD);
+      return $call1($Array[6], $yD);
     };
-    $make_class = function(dynamic $pub_meths, dynamic $class_init) use ($caml_call1,$create_table,$init_class) {
+    $make_class = function(dynamic $pub_meths, dynamic $class_init) use ($call1,$create_table,$init_class) {
       $table = $create_table($pub_meths);
-      $env_init = $caml_call1($class_init, $table);
+      $env_init = $call1($class_init, $table);
       $init_class($table);
-      return Vector{0, $caml_call1($env_init, 0), $class_init, $env_init, 0};
+      return Vector{0, $call1($env_init, 0), $class_init, $env_init, 0};
     };
     $make_class_store = function
-    (dynamic $pub_meths, dynamic $class_init, dynamic $init_table) use ($caml_call1,$create_table,$init_class) {
+    (dynamic $pub_meths, dynamic $class_init, dynamic $init_table) use ($call1,$create_table,$init_class) {
       $table = $create_table($pub_meths);
-      $env_init = $caml_call1($class_init, $table);
+      $env_init = $call1($class_init, $table);
       $init_class($table);
       $init_table[2] = $class_init;
       $init_table[1] = $env_init;
@@ -500,13 +498,13 @@ final class CamlinternalOO {
       $obj[1] = $table[2];
       return $caml_set_oo_id($obj);
     };
-    $iter_f = function(dynamic $obj, dynamic $param) use ($caml_call1) {
+    $iter_f = function(dynamic $obj, dynamic $param) use ($call1) {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
           $f = $param__0[1];
-          $caml_call1($f, $obj);
+          $call1($f, $obj);
           $param__0 = $param__1;
           continue;
         }
@@ -619,9 +617,9 @@ final class CamlinternalOO {
     $get_env = function(dynamic $e, dynamic $n) {
       return function(dynamic $obj) use ($e,$n) {return $obj[$e + 1][$n + 1];};
     };
-    $get_meth = function(dynamic $n) use ($caml_call1) {
-      return function(dynamic $obj) use ($caml_call1,$n) {
-        return $caml_call1($obj[1][$n + 1], $obj);
+    $get_meth = function(dynamic $n) use ($call1) {
+      return function(dynamic $obj) use ($call1,$n) {
+        return $call1($obj[1][$n + 1], $obj);
       };
     };
     $set_var = function(dynamic $n) {
@@ -630,103 +628,103 @@ final class CamlinternalOO {
         return 0;
       };
     };
-    $app_const = function(dynamic $f, dynamic $x) use ($caml_call1) {
-      return function(dynamic $obj) use ($caml_call1,$f,$x) {
-        return $caml_call1($f, $x);
+    $app_const = function(dynamic $f, dynamic $x) use ($call1) {
+      return function(dynamic $obj) use ($call1,$f,$x) {
+        return $call1($f, $x);
       };
     };
-    $app_var = function(dynamic $f, dynamic $n) use ($caml_call1) {
-      return function(dynamic $obj) use ($caml_call1,$f,$n) {
-        return $caml_call1($f, $obj[$n + 1]);
+    $app_var = function(dynamic $f, dynamic $n) use ($call1) {
+      return function(dynamic $obj) use ($call1,$f,$n) {
+        return $call1($f, $obj[$n + 1]);
       };
     };
-    $app_env = function(dynamic $f, dynamic $e, dynamic $n) use ($caml_call1) {
-      return function(dynamic $obj) use ($caml_call1,$e,$f,$n) {
-        return $caml_call1($f, $obj[$e + 1][$n + 1]);
+    $app_env = function(dynamic $f, dynamic $e, dynamic $n) use ($call1) {
+      return function(dynamic $obj) use ($call1,$e,$f,$n) {
+        return $call1($f, $obj[$e + 1][$n + 1]);
       };
     };
-    $app_meth = function(dynamic $f, dynamic $n) use ($caml_call1) {
-      return function(dynamic $obj) use ($caml_call1,$f,$n) {
-        return $caml_call1($f, $caml_call1($obj[1][$n + 1], $obj));
+    $app_meth = function(dynamic $f, dynamic $n) use ($call1) {
+      return function(dynamic $obj) use ($call1,$f,$n) {
+        return $call1($f, $call1($obj[1][$n + 1], $obj));
       };
     };
-    $app_const_const = function(dynamic $f, dynamic $x, dynamic $y) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$f,$x,$y) {
-        return $caml_call2($f, $x, $y);
+    $app_const_const = function(dynamic $f, dynamic $x, dynamic $y) use ($call2) {
+      return function(dynamic $obj) use ($call2,$f,$x,$y) {
+        return $call2($f, $x, $y);
       };
     };
-    $app_const_var = function(dynamic $f, dynamic $x, dynamic $n) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$f,$n,$x) {
-        return $caml_call2($f, $x, $obj[$n + 1]);
+    $app_const_var = function(dynamic $f, dynamic $x, dynamic $n) use ($call2) {
+      return function(dynamic $obj) use ($call2,$f,$n,$x) {
+        return $call2($f, $x, $obj[$n + 1]);
       };
     };
-    $app_const_meth = function(dynamic $f, dynamic $x, dynamic $n) use ($caml_call1,$caml_call2) {
-      return function(dynamic $obj) use ($caml_call1,$caml_call2,$f,$n,$x) {
-        return $caml_call2($f, $x, $caml_call1($obj[1][$n + 1], $obj));
+    $app_const_meth = function(dynamic $f, dynamic $x, dynamic $n) use ($call1,$call2) {
+      return function(dynamic $obj) use ($call1,$call2,$f,$n,$x) {
+        return $call2($f, $x, $call1($obj[1][$n + 1], $obj));
       };
     };
-    $app_var_const = function(dynamic $f, dynamic $n, dynamic $x) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$f,$n,$x) {
-        return $caml_call2($f, $obj[$n + 1], $x);
+    $app_var_const = function(dynamic $f, dynamic $n, dynamic $x) use ($call2) {
+      return function(dynamic $obj) use ($call2,$f,$n,$x) {
+        return $call2($f, $obj[$n + 1], $x);
       };
     };
-    $app_meth_const = function(dynamic $f, dynamic $n, dynamic $x) use ($caml_call1,$caml_call2) {
-      return function(dynamic $obj) use ($caml_call1,$caml_call2,$f,$n,$x) {
-        return $caml_call2($f, $caml_call1($obj[1][$n + 1], $obj), $x);
+    $app_meth_const = function(dynamic $f, dynamic $n, dynamic $x) use ($call1,$call2) {
+      return function(dynamic $obj) use ($call1,$call2,$f,$n,$x) {
+        return $call2($f, $call1($obj[1][$n + 1], $obj), $x);
       };
     };
-    $app_const_env = function(dynamic $f, dynamic $x, dynamic $e, dynamic $n) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$e,$f,$n,$x) {
-        return $caml_call2($f, $x, $obj[$e + 1][$n + 1]);
+    $app_const_env = function(dynamic $f, dynamic $x, dynamic $e, dynamic $n) use ($call2) {
+      return function(dynamic $obj) use ($call2,$e,$f,$n,$x) {
+        return $call2($f, $x, $obj[$e + 1][$n + 1]);
       };
     };
-    $app_env_const = function(dynamic $f, dynamic $e, dynamic $n, dynamic $x) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$e,$f,$n,$x) {
-        return $caml_call2($f, $obj[$e + 1][$n + 1], $x);
+    $app_env_const = function(dynamic $f, dynamic $e, dynamic $n, dynamic $x) use ($call2) {
+      return function(dynamic $obj) use ($call2,$e,$f,$n,$x) {
+        return $call2($f, $obj[$e + 1][$n + 1], $x);
       };
     };
-    $meth_app_const = function(dynamic $n, dynamic $x) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$n,$x) {
-        return $caml_call2($obj[1][$n + 1], $obj, $x);
+    $meth_app_const = function(dynamic $n, dynamic $x) use ($call2) {
+      return function(dynamic $obj) use ($call2,$n,$x) {
+        return $call2($obj[1][$n + 1], $obj, $x);
       };
     };
-    $meth_app_var = function(dynamic $n, dynamic $m) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$m,$n) {
-        return $caml_call2($obj[1][$n + 1], $obj, $obj[$m + 1]);
+    $meth_app_var = function(dynamic $n, dynamic $m) use ($call2) {
+      return function(dynamic $obj) use ($call2,$m,$n) {
+        return $call2($obj[1][$n + 1], $obj, $obj[$m + 1]);
       };
     };
-    $meth_app_env = function(dynamic $n, dynamic $e, dynamic $m) use ($caml_call2) {
-      return function(dynamic $obj) use ($caml_call2,$e,$m,$n) {
-        return $caml_call2($obj[1][$n + 1], $obj, $obj[$e + 1][$m + 1]);
+    $meth_app_env = function(dynamic $n, dynamic $e, dynamic $m) use ($call2) {
+      return function(dynamic $obj) use ($call2,$e,$m,$n) {
+        return $call2($obj[1][$n + 1], $obj, $obj[$e + 1][$m + 1]);
       };
     };
-    $meth_app_meth = function(dynamic $n, dynamic $m) use ($caml_call1,$caml_call2) {
-      return function(dynamic $obj) use ($caml_call1,$caml_call2,$m,$n) {
-        $ys = $caml_call1($obj[1][$m + 1], $obj);
-        return $caml_call2($obj[1][$n + 1], $obj, $ys);
+    $meth_app_meth = function(dynamic $n, dynamic $m) use ($call1,$call2) {
+      return function(dynamic $obj) use ($call1,$call2,$m,$n) {
+        $ys = $call1($obj[1][$m + 1], $obj);
+        return $call2($obj[1][$n + 1], $obj, $ys);
       };
     };
-    $send_const = function(dynamic $m, dynamic $x, dynamic $c) use ($caml_call1,$caml_get_public_method) {
-      return function(dynamic $obj) use ($caml_call1,$caml_get_public_method,$m,$x) {
-        return $caml_call1($caml_get_public_method($x, $m, 0), $x);
+    $send_const = function(dynamic $m, dynamic $x, dynamic $c) use ($call1,$caml_get_public_method) {
+      return function(dynamic $obj) use ($call1,$caml_get_public_method,$m,$x) {
+        return $call1($caml_get_public_method($x, $m, 0), $x);
       };
     };
-    $send_var = function(dynamic $m, dynamic $n, dynamic $c) use ($caml_call1,$caml_get_public_method) {
-      return function(dynamic $obj) use ($caml_call1,$caml_get_public_method,$m,$n) {
+    $send_var = function(dynamic $m, dynamic $n, dynamic $c) use ($call1,$caml_get_public_method) {
+      return function(dynamic $obj) use ($call1,$caml_get_public_method,$m,$n) {
         $yr = $obj[$n + 1];
-        return $caml_call1($caml_get_public_method($yr, $m, 0), $yr);
+        return $call1($caml_get_public_method($yr, $m, 0), $yr);
       };
     };
-    $send_env = function(dynamic $m, dynamic $e, dynamic $n, dynamic $c) use ($caml_call1,$caml_get_public_method) {
-      return function(dynamic $obj) use ($caml_call1,$caml_get_public_method,$e,$m,$n) {
+    $send_env = function(dynamic $m, dynamic $e, dynamic $n, dynamic $c) use ($call1,$caml_get_public_method) {
+      return function(dynamic $obj) use ($call1,$caml_get_public_method,$e,$m,$n) {
         $yq = $obj[$e + 1][$n + 1];
-        return $caml_call1($caml_get_public_method($yq, $m, 0), $yq);
+        return $call1($caml_get_public_method($yq, $m, 0), $yq);
       };
     };
-    $send_meth = function(dynamic $m, dynamic $n, dynamic $c) use ($caml_call1,$caml_get_public_method) {
-      return function(dynamic $obj) use ($caml_call1,$caml_get_public_method,$m,$n) {
-        $yp = $caml_call1($obj[1][$n + 1], $obj);
-        return $caml_call1($caml_get_public_method($yp, $m, 0), $yp);
+    $send_meth = function(dynamic $m, dynamic $n, dynamic $c) use ($call1,$caml_get_public_method) {
+      return function(dynamic $obj) use ($call1,$caml_get_public_method,$m,$n) {
+        $yp = $call1($obj[1][$n + 1], $obj);
+        return $call1($caml_get_public_method($yp, $m, 0), $yp);
       };
     };
     $new_cache = function(dynamic $table) use ($Sys,$caml_check_bound,$caml_div,$new_method) {

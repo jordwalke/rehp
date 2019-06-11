@@ -21,11 +21,11 @@ var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var caml_new_string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -73,7 +73,7 @@ function init(n, f) {
   if (! (bY < 0)) {
     var i = bX;
     for (; ; ) {
-      caml_bytes_unsafe_set(s, i, caml_call1(f, i));
+      caml_bytes_unsafe_set(s, i, call1(f, i));
       var bZ = i + 1 | 0;
       if (bY !== i) {var i = bZ;continue;}
       break;
@@ -105,7 +105,7 @@ function sub(s, ofs, len) {
       }
     }
   }
-  return caml_call1(Pervasives[1], cst_String_sub_Bytes_sub);
+  return call1(Pervasives[1], cst_String_sub_Bytes_sub);
 }
 
 function sub_string(b, ofs, len) {return sub(b, ofs, len);}
@@ -117,7 +117,7 @@ function bk(a, b) {
   var switch__0 = 0 === (a < 0 ? 1 : 0) ?
     0 === bW ? 0 === match ? 0 : 1 : 0 :
     0 === bW ? 0 : 0 === match ? 1 : 0;
-  return switch__0 ? caml_call1(Pervasives[1], cst_Bytes_extend) : c;
+  return switch__0 ? call1(Pervasives[1], cst_Bytes_extend) : c;
 }
 
 function extend(s, left, right) {
@@ -129,7 +129,7 @@ function extend(s, left, right) {
     var dstoff = left;
   }
   else {var bU = 0;var bV = - left | 0;var srcoff__0 = bV;var dstoff = bU;}
-  var cpylen = caml_call2(
+  var cpylen = call2(
     Pervasives[4],
     caml_ml_bytes_length(s) - srcoff__0 | 0,
     len - dstoff | 0
@@ -144,7 +144,7 @@ function fill(s, ofs, len, c) {
       if (! ((caml_ml_bytes_length(s) - len | 0) < ofs)) {return caml_fill_bytes(s, ofs, len, c);}
     }
   }
-  return caml_call1(Pervasives[1], cst_String_fill_Bytes_fill);
+  return call1(Pervasives[1], cst_String_fill_Bytes_fill);
 }
 
 function blit(s1, ofs1, s2, ofs2, len) {
@@ -157,7 +157,7 @@ function blit(s1, ofs1, s2, ofs2, len) {
       }
     }
   }
-  return caml_call1(Pervasives[1], cst_Bytes_blit);
+  return call1(Pervasives[1], cst_Bytes_blit);
 }
 
 function blit_string(s1, ofs1, s2, ofs2, len) {
@@ -172,7 +172,7 @@ function blit_string(s1, ofs1, s2, ofs2, len) {
       }
     }
   }
-  return caml_call1(Pervasives[1], cst_String_blit_Bytes_blit_string);
+  return call1(Pervasives[1], cst_String_blit_Bytes_blit_string);
 }
 
 function iter(f, a) {
@@ -181,7 +181,7 @@ function iter(f, a) {
   if (! (bS < 0)) {
     var i = bR;
     for (; ; ) {
-      caml_call1(f, caml_bytes_unsafe_get(a, i));
+      call1(f, caml_bytes_unsafe_get(a, i));
       var bT = i + 1 | 0;
       if (bS !== i) {var i = bT;continue;}
       break;
@@ -196,7 +196,7 @@ function iteri(f, a) {
   if (! (bP < 0)) {
     var i = bO;
     for (; ; ) {
-      caml_call2(f, i, caml_bytes_unsafe_get(a, i));
+      call2(f, i, caml_bytes_unsafe_get(a, i));
       var bQ = i + 1 | 0;
       if (bP !== i) {var i = bQ;continue;}
       break;
@@ -206,7 +206,7 @@ function iteri(f, a) {
 }
 
 function ensure_ge(x, y) {
-  return y <= x ? x : caml_call1(Pervasives[1], cst_Bytes_concat);
+  return y <= x ? x : call1(Pervasives[1], cst_Bytes_concat);
 }
 
 function sum_lengths(acc, seplen, param) {
@@ -420,7 +420,7 @@ function map(f, s) {
   if (! (bz < 0)) {
     var i = by;
     for (; ; ) {
-      caml_bytes_unsafe_set(r, i, caml_call1(f, caml_bytes_unsafe_get(s, i)));
+      caml_bytes_unsafe_set(r, i, call1(f, caml_bytes_unsafe_get(s, i)));
       var bA = i + 1 | 0;
       if (bz !== i) {var i = bA;continue;}
       break;
@@ -438,11 +438,7 @@ function mapi(f, s) {
   if (! (bw < 0)) {
     var i = bv;
     for (; ; ) {
-      caml_bytes_unsafe_set(
-        r,
-        i,
-        caml_call2(f, i, caml_bytes_unsafe_get(s, i))
-      );
+      caml_bytes_unsafe_set(r, i, call2(f, i, caml_bytes_unsafe_get(s, i)));
       var bx = i + 1 | 0;
       if (bw !== i) {var i = bx;continue;}
       break;
@@ -458,7 +454,7 @@ function lowercase_ascii(s) {return map(Char[5], s);}
 function apply1(f, s) {
   if (0 === caml_ml_bytes_length(s)) {return s;}
   var r = copy(s);
-  caml_bytes_unsafe_set(r, 0, caml_call1(f, caml_bytes_unsafe_get(s, 0)));
+  caml_bytes_unsafe_set(r, 0, call1(f, caml_bytes_unsafe_get(s, 0)));
   return r;
 }
 
@@ -497,16 +493,13 @@ function index_opt(s, c) {
 function index_from(s, i, c) {
   var l = caml_ml_bytes_length(s);
   if (0 <= i) {if (! (l < i)) {return index_rec(s, l, i, c);}}
-  return caml_call1(Pervasives[1], cst_String_index_from_Bytes_index_from);
+  return call1(Pervasives[1], cst_String_index_from_Bytes_index_from);
 }
 
 function index_from_opt(s, i, c) {
   var l = caml_ml_bytes_length(s);
   if (0 <= i) {if (! (l < i)) {return index_rec_opt(s, l, i, c);}}
-  return caml_call1(
-    Pervasives[1],
-    cst_String_index_from_opt_Bytes_index_from_opt
-  );
+  return call1(Pervasives[1], cst_String_index_from_opt_Bytes_index_from_opt);
 }
 
 function rindex_rec(s, i, c) {
@@ -530,7 +523,7 @@ function rindex_from(s, i, c) {
   if (-1 <= i) {
     if (! (caml_ml_bytes_length(s) <= i)) {return rindex_rec(s, i, c);}
   }
-  return caml_call1(Pervasives[1], cst_String_rindex_from_Bytes_rindex_from);
+  return call1(Pervasives[1], cst_String_rindex_from_Bytes_rindex_from);
 }
 
 function rindex_rec_opt(s, i, c) {
@@ -554,9 +547,7 @@ function rindex_from_opt(s, i, c) {
   if (-1 <= i) {
     if (! (caml_ml_bytes_length(s) <= i)) {return rindex_rec_opt(s, i, c);}
   }
-  return caml_call1(
-    Pervasives[1],
-    cst_String_rindex_from_opt_Bytes_rindex_from_opt
+  return call1(Pervasives[1], cst_String_rindex_from_opt_Bytes_rindex_from_opt
   );
 }
 
@@ -572,10 +563,7 @@ function contains_from(s, i, c) {
       }
     }
   }
-  return caml_call1(
-    Pervasives[1],
-    cst_String_contains_from_Bytes_contains_from
-  );
+  return call1(Pervasives[1], cst_String_contains_from_Bytes_contains_from);
 }
 
 function contains(s, c) {return contains_from(s, 0, c);}
@@ -591,10 +579,7 @@ function rcontains_from(s, i, c) {
       }
     }
   }
-  return caml_call1(
-    Pervasives[1],
-    cst_String_rcontains_from_Bytes_rcontains_from
-  );
+  return call1(Pervasives[1], cst_String_rcontains_from_Bytes_rcontains_from);
 }
 
 function compare(x, y) {return runtime["caml_bytes_compare"](x, y);}

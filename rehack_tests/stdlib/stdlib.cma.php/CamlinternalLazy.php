@@ -33,7 +33,7 @@ final class CamlinternalLazy {
     $caml_obj_set_tag = $runtime["caml_obj_set_tag"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
@@ -51,11 +51,11 @@ final class CamlinternalLazy {
     $raise_undefined = function(dynamic $param) use ($Undefined,$runtime) {
       throw $runtime["caml_wrap_thrown_exception"]($Undefined) as \Throwable;
     };
-    $force_lazy_block = function(dynamic $blk) use ($Obj,$caml_call1,$caml_obj_set_tag,$caml_wrap_exception,$raise_undefined,$runtime) {
+    $force_lazy_block = function(dynamic $blk) use ($Obj,$call1,$caml_obj_set_tag,$caml_wrap_exception,$raise_undefined,$runtime) {
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
       try {
-        $result = $caml_call1($closure, 0);
+        $result = $call1($closure, 0);
         $blk[1] = $result;
         $caml_obj_set_tag($blk, $Obj[10]);
         return $result;
@@ -69,10 +69,10 @@ final class CamlinternalLazy {
         throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
       }
     };
-    $force_val_lazy_block = function(dynamic $blk) use ($Obj,$caml_call1,$caml_obj_set_tag,$raise_undefined) {
+    $force_val_lazy_block = function(dynamic $blk) use ($Obj,$call1,$caml_obj_set_tag,$raise_undefined) {
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
-      $result = $caml_call1($closure, 0);
+      $result = $call1($closure, 0);
       $blk[1] = $result;
       $caml_obj_set_tag($blk, $Obj[10]);
       return $result;

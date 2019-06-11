@@ -26,27 +26,27 @@ var caml_new_string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call6(f, a0, a1, a2, a3, a4, a5) {
+function call6(f, a0, a1, a2, a3, a4, a5) {
   return f.length === 6 ?
     f(a0, a1, a2, a3, a4, a5) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5]);
 }
 
-function caml_call7(f, a0, a1, a2, a3, a4, a5, a6) {
+function call7(f, a0, a1, a2, a3, a4, a5, a6) {
   return f.length === 7 ?
     f(a0, a1, a2, a3, a4, a5, a6) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5,a6]);
@@ -188,18 +188,18 @@ var printers = [0,0];
 
 function field(x, i) {
   var f = x[i + 1];
-  return caml_call1(Obj[1], f) ?
+  return call1(Obj[1], f) ?
     caml_obj_tag(f) === Obj[13] ?
-     caml_call2(Printf[4], oy, f) :
-     caml_obj_tag(f) === Obj[14] ? caml_call1(Pervasives[23], f) : cst :
-    caml_call2(Printf[4], oz, f);
+     call2(Printf[4], oy, f) :
+     caml_obj_tag(f) === Obj[14] ? call1(Pervasives[23], f) : cst :
+    call2(Printf[4], oz, f);
 }
 
 function other_fields(x, i) {
   if (x.length - 1 <= i) {return cst__0;}
   var pq = other_fields(x, i + 1 | 0);
   var pr = field(x, i);
-  return caml_call3(Printf[4], oA, pr, pq);
+  return call3(Printf[4], oA, pr, pq);
 }
 
 function fields(x) {
@@ -207,7 +207,7 @@ function fields(x) {
   if (2 < match >>> 0) {
     var pn = other_fields(x, 2);
     var po = field(x, 1);
-    return caml_call3(Printf[4], oB, po, pn);
+    return call3(Printf[4], oB, po, pn);
   }
   switch (match) {
     case 0:
@@ -216,7 +216,7 @@ function fields(x) {
       return cst__2;
     default:
       var pp = field(x, 1);
-      return caml_call2(Printf[4], oC, pp)
+      return call2(Printf[4], oC, pp)
     }
 }
 
@@ -227,7 +227,7 @@ function to_string(x) {
       if (param__0) {
         var tl = param__0[2];
         var hd = param__0[1];
-        try {var pk = caml_call1(hd, x);var pj = pk;}catch(pm) {var pj = 0;}
+        try {var pk = call1(hd, x);var pj = pk;}catch(pm) {var pj = 0;}
         if (pj) {var s = pj[1];return s;}
         var param__0 = tl;
         continue;
@@ -239,7 +239,7 @@ function to_string(x) {
         var char__0 = match[3];
         var line = match[2];
         var file = match[1];
-        return caml_call6(
+        return call6(
           Printf[4],
           locfmt,
           file,
@@ -254,7 +254,7 @@ function to_string(x) {
         var char__1 = match__0[3];
         var line__0 = match__0[2];
         var file__0 = match__0[1];
-        return caml_call6(
+        return call6(
           Printf[4],
           locfmt,
           file__0,
@@ -269,7 +269,7 @@ function to_string(x) {
         var char__2 = match__1[3];
         var line__1 = match__1[2];
         var file__1 = match__1[1];
-        return caml_call6(
+        return call6(
           Printf[4],
           locfmt,
           file__1,
@@ -282,7 +282,7 @@ function to_string(x) {
       if (0 === caml_obj_tag(x)) {
         var constructor = x[1][1];
         var pl = fields(x);
-        return caml_call2(Pervasives[16], constructor, pl);
+        return call2(Pervasives[16], constructor, pl);
       }
       return x[1];
     }
@@ -291,24 +291,24 @@ function to_string(x) {
 }
 
 function print(fct, arg) {
-  try {var pi = caml_call1(fct, arg);return pi;}
+  try {var pi = call1(fct, arg);return pi;}
   catch(x) {
     x = caml_wrap_exception(x);
     var ph = to_string(x);
-    caml_call2(Printf[3], oD, ph);
-    caml_call1(Pervasives[51], Pervasives[28]);
+    call2(Printf[3], oD, ph);
+    call1(Pervasives[51], Pervasives[28]);
     throw runtime["caml_wrap_thrown_exception_reraise"](x);
   }
 }
 
 function catch__0(fct, arg) {
-  try {var pg = caml_call1(fct, arg);return pg;}
+  try {var pg = call1(fct, arg);return pg;}
   catch(x) {
     x = caml_wrap_exception(x);
-    caml_call1(Pervasives[51], Pervasives[27]);
+    call1(Pervasives[51], Pervasives[27]);
     var pf = to_string(x);
-    caml_call2(Printf[3], oE, pf);
-    return caml_call1(Pervasives[87], 2);
+    call2(Printf[3], oE, pf);
+    return call1(Pervasives[87], 2);
   }
 }
 
@@ -330,11 +330,11 @@ function format_backtrace_slot(pos, slot) {
     var pa = slot[6] ? cst_inlined : cst__3;
     var pb = slot[2];
     var pc = info(slot[1]);
-    return [0,caml_call7(Printf[4], oF, pc, pb, pa, o_, o9, o8)];
+    return [0,call7(Printf[4], oF, pc, pb, pa, o_, o9, o8)];
   }
   if (slot[1]) {return 0;}
   var pd = info(0);
-  return [0,caml_call2(Printf[4], oG, pd)];
+  return [0,call2(Printf[4], oG, pd)];
 }
 
 function print_exception_backtrace(outchan, backtrace) {
@@ -346,10 +346,7 @@ function print_exception_backtrace(outchan, backtrace) {
       var i = o5;
       for (; ; ) {
         var match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
-        if (match) {
-          var str = match[1];
-          caml_call3(Printf[1], outchan, oH, str);
-        }
+        if (match) {var str = match[1];call3(Printf[1], outchan, oH, str);}
         var o7 = i + 1 | 0;
         if (o6 !== i) {var i = o7;continue;}
         break;
@@ -357,7 +354,7 @@ function print_exception_backtrace(outchan, backtrace) {
     }
     return 0;
   }
-  return caml_call2(Printf[1], outchan, oI);
+  return call2(Printf[1], outchan, oI);
 }
 
 function print_raw_backtrace(outchan, raw_backtrace) {
@@ -374,20 +371,20 @@ function print_backtrace(outchan) {
 function backtrace_to_string(backtrace) {
   if (backtrace) {
     var a = backtrace[1];
-    var b = caml_call1(Buffer[1], 1024);
+    var b = call1(Buffer[1], 1024);
     var o3 = a.length - 1 + -1 | 0;
     var o2 = 0;
     if (! (o3 < 0)) {
       var i = o2;
       for (; ; ) {
         var match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
-        if (match) {var str = match[1];caml_call3(Printf[5], b, oJ, str);}
+        if (match) {var str = match[1];call3(Printf[5], b, oJ, str);}
         var o4 = i + 1 | 0;
         if (o3 !== i) {var i = o4;continue;}
         break;
       }
     }
-    return caml_call1(Buffer[2], b);
+    return call1(Buffer[2], b);
   }
   return cst_Program_not_linked_with_g_cannot_print_stack_backtrace;
 }

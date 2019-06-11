@@ -17,11 +17,11 @@ var caml_make_vect = runtime["caml_make_vect"];
 var caml_new_string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -48,13 +48,13 @@ var Floatarray = [0];
 function init(l, f) {
   if (0 === l) {return [0];}
   if (0 <= l) {
-    var res = caml_make_vect(l, caml_call1(f, 0));
+    var res = caml_make_vect(l, call1(f, 0));
     var et = l + -1 | 0;
     var es = 1;
     if (! (et < 1)) {
       var i = es;
       for (; ; ) {
-        res[i + 1] = caml_call1(f, i);
+        res[i + 1] = call1(f, i);
         var eu = i + 1 | 0;
         if (et !== i) {var i = eu;continue;}
         break;
@@ -62,7 +62,7 @@ function init(l, f) {
     }
     return res;
   }
-  return caml_call1(Pervasives[1], cst_Array_init);
+  return call1(Pervasives[1], cst_Array_init);
 }
 
 function make_matrix(sx, sy, init) {
@@ -101,7 +101,7 @@ function sub(a, ofs, len) {
       if (! ((a.length - 1 - len | 0) < ofs)) {return caml_array_sub(a, ofs, len);}
     }
   }
-  return caml_call1(Pervasives[1], cst_Array_sub);
+  return call1(Pervasives[1], cst_Array_sub);
 }
 
 function fill(a, ofs, len, v) {
@@ -122,7 +122,7 @@ function fill(a, ofs, len, v) {
       }
     }
   }
-  return caml_call1(Pervasives[1], cst_Array_fill);
+  return call1(Pervasives[1], cst_Array_fill);
 }
 
 function blit(a1, ofs1, a2, ofs2, len) {
@@ -137,7 +137,7 @@ function blit(a1, ofs1, a2, ofs2, len) {
       }
     }
   }
-  return caml_call1(Pervasives[1], cst_Array_blit);
+  return call1(Pervasives[1], cst_Array_blit);
 }
 
 function iter(f, a) {
@@ -146,7 +146,7 @@ function iter(f, a) {
   if (! (el < 0)) {
     var i = ek;
     for (; ; ) {
-      caml_call1(f, a[i + 1]);
+      call1(f, a[i + 1]);
       var em = i + 1 | 0;
       if (el !== i) {var i = em;continue;}
       break;
@@ -157,7 +157,7 @@ function iter(f, a) {
 
 function iter2(f, a, b) {
   if (a.length - 1 !== b.length - 1) {
-    return caml_call1(
+    return call1(
       Pervasives[1],
       cst_Array_iter2_arrays_must_have_the_same_length
     );
@@ -167,7 +167,7 @@ function iter2(f, a, b) {
   if (! (ei < 0)) {
     var i = eh;
     for (; ; ) {
-      caml_call2(f, a[i + 1], b[i + 1]);
+      call2(f, a[i + 1], b[i + 1]);
       var ej = i + 1 | 0;
       if (ei !== i) {var i = ej;continue;}
       break;
@@ -179,13 +179,13 @@ function iter2(f, a, b) {
 function map(f, a) {
   var l = a.length - 1;
   if (0 === l) {return [0];}
-  var r = caml_make_vect(l, caml_call1(f, a[1]));
+  var r = caml_make_vect(l, call1(f, a[1]));
   var ef = l + -1 | 0;
   var ee = 1;
   if (! (ef < 1)) {
     var i = ee;
     for (; ; ) {
-      r[i + 1] = caml_call1(f, a[i + 1]);
+      r[i + 1] = call1(f, a[i + 1]);
       var eg = i + 1 | 0;
       if (ef !== i) {var i = eg;continue;}
       break;
@@ -198,19 +198,19 @@ function map2(f, a, b) {
   var la = a.length - 1;
   var lb = b.length - 1;
   if (la !== lb) {
-    return caml_call1(
+    return call1(
       Pervasives[1],
       cst_Array_map2_arrays_must_have_the_same_length
     );
   }
   if (0 === la) {return [0];}
-  var r = caml_make_vect(la, caml_call2(f, a[1], b[1]));
+  var r = caml_make_vect(la, call2(f, a[1], b[1]));
   var ec = la + -1 | 0;
   var eb = 1;
   if (! (ec < 1)) {
     var i = eb;
     for (; ; ) {
-      r[i + 1] = caml_call2(f, a[i + 1], b[i + 1]);
+      r[i + 1] = call2(f, a[i + 1], b[i + 1]);
       var ed = i + 1 | 0;
       if (ec !== i) {var i = ed;continue;}
       break;
@@ -225,7 +225,7 @@ function iteri(f, a) {
   if (! (d_ < 0)) {
     var i = d9;
     for (; ; ) {
-      caml_call2(f, i, a[i + 1]);
+      call2(f, i, a[i + 1]);
       var ea = i + 1 | 0;
       if (d_ !== i) {var i = ea;continue;}
       break;
@@ -237,13 +237,13 @@ function iteri(f, a) {
 function mapi(f, a) {
   var l = a.length - 1;
   if (0 === l) {return [0];}
-  var r = caml_make_vect(l, caml_call2(f, 0, a[1]));
+  var r = caml_make_vect(l, call2(f, 0, a[1]));
   var d7 = l + -1 | 0;
   var d6 = 1;
   if (! (d7 < 1)) {
     var i = d6;
     for (; ; ) {
-      r[i + 1] = caml_call2(f, i, a[i + 1]);
+      r[i + 1] = call2(f, i, a[i + 1]);
       var d8 = i + 1 | 0;
       if (d7 !== i) {var i = d8;continue;}
       break;
@@ -318,7 +318,7 @@ function fold_left(f, x, a) {
   if (! (d4 < 0)) {
     var i = d3;
     for (; ; ) {
-      r[1] = caml_call2(f, r[1], a[i + 1]);
+      r[1] = call2(f, r[1], a[i + 1]);
       var d5 = i + 1 | 0;
       if (d4 !== i) {var i = d5;continue;}
       break;
@@ -333,7 +333,7 @@ function fold_right(f, a, x) {
   if (! (d1 < 0)) {
     var i = d1;
     for (; ; ) {
-      r[1] = caml_call2(f, a[i + 1], r[1]);
+      r[1] = call2(f, a[i + 1], r[1]);
       var d2 = i + -1 | 0;
       if (0 !== i) {var i = d2;continue;}
       break;
@@ -348,7 +348,7 @@ function exists(p, a) {
     var i__0 = i;
     for (; ; ) {
       if (i__0 === n) {return 0;}
-      if (caml_call1(p, a[i__0 + 1])) {return 1;}
+      if (call1(p, a[i__0 + 1])) {return 1;}
       var i__1 = i__0 + 1 | 0;
       var i__0 = i__1;
       continue;
@@ -363,7 +363,7 @@ function for_all(p, a) {
     var i__0 = i;
     for (; ; ) {
       if (i__0 === n) {return 1;}
-      if (caml_call1(p, a[i__0 + 1])) {
+      if (call1(p, a[i__0 + 1])) {
         var i__1 = i__0 + 1 | 0;
         var i__0 = i__1;
         continue;
@@ -413,17 +413,17 @@ function sort(cmp, a) {
     if ((i31 + 2 | 0) < l) {
       var dU = i31 + 1 | 0;
       var dV = caml_check_bound(a, dU)[dU + 1];
-      if (caml_call2(cmp, caml_check_bound(a, i31)[i31 + 1], dV) < 0) {x[1] = i31 + 1 | 0;}
+      if (call2(cmp, caml_check_bound(a, i31)[i31 + 1], dV) < 0) {x[1] = i31 + 1 | 0;}
       var dW = i31 + 2 | 0;
       var dX = caml_check_bound(a, dW)[dW + 1];
       var dY = x[1];
-      if (caml_call2(cmp, caml_check_bound(a, dY)[dY + 1], dX) < 0) {x[1] = i31 + 2 | 0;}
+      if (call2(cmp, caml_check_bound(a, dY)[dY + 1], dX) < 0) {x[1] = i31 + 2 | 0;}
       return x[1];
     }
     if ((i31 + 1 | 0) < l) {
       var dZ = i31 + 1 | 0;
       var d0 = caml_check_bound(a, dZ)[dZ + 1];
-      if (! (0 <= caml_call2(cmp, caml_check_bound(a, i31)[i31 + 1], d0))) {return i31 + 1 | 0;}
+      if (! (0 <= call2(cmp, caml_check_bound(a, i31)[i31 + 1], d0))) {return i31 + 1 | 0;}
     }
     if (i31 < l) {return i31;}
     throw runtime["caml_wrap_thrown_exception"]([0,Bottom,i]);
@@ -432,7 +432,7 @@ function sort(cmp, a) {
     var i__0 = i;
     for (; ; ) {
       var j = maxson(l, i__0);
-      if (0 < caml_call2(cmp, caml_check_bound(a, j)[j + 1], e)) {
+      if (0 < call2(cmp, caml_check_bound(a, j)[j + 1], e)) {
         var dT = caml_check_bound(a, j)[j + 1];
         caml_check_bound(a, i__0)[i__0 + 1] = dT;
         var i__0 = j;
@@ -477,7 +477,7 @@ function sort(cmp, a) {
     for (; ; ) {
       var father = (i__0 + -1 | 0) / 3 | 0;
       if (i__0 !== father) {
-        if (0 <= caml_call2(cmp, caml_check_bound(a, father)[father + 1], e)) {caml_check_bound(a, i__0)[i__0 + 1] = e;return 0;}
+        if (0 <= call2(cmp, caml_check_bound(a, father)[father + 1], e)) {caml_check_bound(a, i__0)[i__0 + 1] = e;return 0;}
         var dP = caml_check_bound(a, father)[father + 1];
         caml_check_bound(a, i__0)[i__0 + 1] = dP;
         if (0 < father) {var i__0 = father;continue;}
@@ -532,7 +532,7 @@ function stable_sort(cmp, a) {
       var s2__0 = s2;
       var d__0 = d;
       for (; ; ) {
-        if (0 < caml_call2(cmp, s1__0, s2__0)) {
+        if (0 < call2(cmp, s1__0, s2__0)) {
           caml_check_bound(dst, d__0)[d__0 + 1] = s2__0;
           var i2__1 = i2__0 + 1 | 0;
           if (i2__1 < src2r) {
@@ -580,7 +580,7 @@ function stable_sort(cmp, a) {
         for (; ; ) {
           if (dstofs <= j[1]) {
             var dC = j[1];
-            if (0 < caml_call2(cmp, caml_check_bound(dst, dC)[dC + 1], e)) {
+            if (0 < call2(cmp, caml_check_bound(dst, dC)[dC + 1], e)) {
               var dD = j[1];
               var dE = caml_check_bound(dst, dD)[dD + 1];
               var dF = j[1] + 1 | 0;

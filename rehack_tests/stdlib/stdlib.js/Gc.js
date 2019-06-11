@@ -14,17 +14,17 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_ml_string_length = runtime["caml_ml_string_length"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
@@ -116,26 +116,26 @@ var pL = [
 
 function print_stat(c) {
   var st = runtime["caml_gc_stat"](0);
-  caml_call3(Printf[1], c, ps, st[4]);
-  caml_call3(Printf[1], c, pt, st[5]);
-  caml_call3(Printf[1], c, pu, st[14]);
-  caml_call2(Printf[1], c, pv);
-  var l1 = caml_ml_string_length(caml_call2(Printf[4], pw, st[1]));
-  caml_call4(Printf[1], c, px, l1, st[1]);
-  caml_call4(Printf[1], c, py, l1, st[2]);
-  caml_call4(Printf[1], c, pz, l1, st[3]);
-  caml_call2(Printf[1], c, pA);
-  var l2 = caml_ml_string_length(caml_call2(Printf[4], pB, st[15]));
-  caml_call4(Printf[1], c, pC, l2, st[15]);
-  caml_call4(Printf[1], c, pD, l2, st[6]);
-  caml_call4(Printf[1], c, pE, l2, st[8]);
-  caml_call4(Printf[1], c, pF, l2, st[10]);
-  caml_call4(Printf[1], c, pG, l2, st[12]);
-  caml_call4(Printf[1], c, pH, l2, st[13]);
-  caml_call2(Printf[1], c, pI);
-  caml_call3(Printf[1], c, pJ, st[9]);
-  caml_call3(Printf[1], c, pK, st[11]);
-  return caml_call3(Printf[1], c, pL, st[7]);
+  call3(Printf[1], c, ps, st[4]);
+  call3(Printf[1], c, pt, st[5]);
+  call3(Printf[1], c, pu, st[14]);
+  call2(Printf[1], c, pv);
+  var l1 = caml_ml_string_length(call2(Printf[4], pw, st[1]));
+  call4(Printf[1], c, px, l1, st[1]);
+  call4(Printf[1], c, py, l1, st[2]);
+  call4(Printf[1], c, pz, l1, st[3]);
+  call2(Printf[1], c, pA);
+  var l2 = caml_ml_string_length(call2(Printf[4], pB, st[15]));
+  call4(Printf[1], c, pC, l2, st[15]);
+  call4(Printf[1], c, pD, l2, st[6]);
+  call4(Printf[1], c, pE, l2, st[8]);
+  call4(Printf[1], c, pF, l2, st[10]);
+  call4(Printf[1], c, pG, l2, st[12]);
+  call4(Printf[1], c, pH, l2, st[13]);
+  call2(Printf[1], c, pI);
+  call3(Printf[1], c, pJ, st[9]);
+  call3(Printf[1], c, pK, st[11]);
+  return call3(Printf[1], c, pL, st[7]);
 }
 
 function allocated_bytes(param) {

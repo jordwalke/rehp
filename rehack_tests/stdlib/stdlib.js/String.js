@@ -19,15 +19,15 @@ var caml_new_string = runtime["caml_new_string"];
 var caml_string_equal = runtime["caml_string_equal"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
@@ -61,25 +61,25 @@ var Pervasives = global_data["Pervasives"];
 var bts = Bytes[42];
 var bos = Bytes[43];
 
-function make(n, c) {return caml_call1(bts, caml_call2(Bytes[1], n, c));}
+function make(n, c) {return call1(bts, call2(Bytes[1], n, c));}
 
-function init(n, f) {return caml_call1(bts, caml_call2(Bytes[2], n, f));}
+function init(n, f) {return call1(bts, call2(Bytes[2], n, f));}
 
 function copy(s) {
-  var cy = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[4], cy));
+  var cy = call1(bos, s);
+  return call1(bts, call1(Bytes[4], cy));
 }
 
 function sub(s, ofs, len) {
-  var cx = caml_call1(bos, s);
-  return caml_call1(bts, caml_call3(Bytes[7], cx, ofs, len));
+  var cx = call1(bos, s);
+  return call1(bts, call3(Bytes[7], cx, ofs, len));
 }
 
 var fill = Bytes[10];
 var blit = Bytes[12];
 
 function ensure_ge(x, y) {
-  return y <= x ? x : caml_call1(Pervasives[1], cst_String_concat);
+  return y <= x ? x : call1(Pervasives[1], cst_String_concat);
 }
 
 function sum_lengths(acc, seplen, param) {
@@ -135,7 +135,7 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
 function concat(sep, l) {
   if (l) {
     var seplen = caml_ml_string_length(sep);
-    return caml_call1(
+    return call1(
       bts,
       unsafe_blits(
         runtime["caml_create_bytes"](sum_lengths(0, seplen, l)),
@@ -155,7 +155,7 @@ function iter(f, s) {
   if (! (cr < 0)) {
     var i = cq;
     for (; ; ) {
-      caml_call1(f, caml_bytes_unsafe_get(s, i));
+      call1(f, caml_bytes_unsafe_get(s, i));
       var cs = i + 1 | 0;
       if (cr !== i) {var i = cs;continue;}
       break;
@@ -170,7 +170,7 @@ function iteri(f, s) {
   if (! (co < 0)) {
     var i = cn;
     for (; ; ) {
-      caml_call2(f, i, caml_bytes_unsafe_get(s, i));
+      call2(f, i, caml_bytes_unsafe_get(s, i));
       var cp = i + 1 | 0;
       if (co !== i) {var i = cp;continue;}
       break;
@@ -180,13 +180,13 @@ function iteri(f, s) {
 }
 
 function map(f, s) {
-  var cm = caml_call1(bos, s);
-  return caml_call1(bts, caml_call2(Bytes[17], f, cm));
+  var cm = call1(bos, s);
+  return call1(bts, call2(Bytes[17], f, cm));
 }
 
 function mapi(f, s) {
-  var cl = caml_call1(bos, s);
-  return caml_call1(bts, caml_call2(Bytes[18], f, cl));
+  var cl = call1(bos, s);
+  return call1(bts, call2(Bytes[18], f, cl));
 }
 
 function is_space(param) {
@@ -203,8 +203,8 @@ function trim(s) {
     is_space(caml_bytes_unsafe_get(s, caml_ml_string_length(s) + -1 | 0))
     ) {return s;}
   }
-  var cj = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[19], cj));
+  var cj = call1(bos, s);
+  return call1(bts, call1(Bytes[19], cj));
 }
 
 function escaped(s) {
@@ -234,8 +234,8 @@ function escaped(s) {
     }
   }
   if (needs_escape(0)) {
-    var ch = caml_call1(bos, s);
-    return caml_call1(bts, caml_call1(Bytes[20], ch));
+    var ch = call1(bos, s);
+    return call1(bts, call1(Bytes[20], ch));
   }
   return s;
 }
@@ -271,16 +271,13 @@ function index_opt(s, c) {
 function index_from(s, i, c) {
   var l = caml_ml_string_length(s);
   if (0 <= i) {if (! (l < i)) {return index_rec(s, l, i, c);}}
-  return caml_call1(Pervasives[1], cst_String_index_from_Bytes_index_from);
+  return call1(Pervasives[1], cst_String_index_from_Bytes_index_from);
 }
 
 function index_from_opt(s, i, c) {
   var l = caml_ml_string_length(s);
   if (0 <= i) {if (! (l < i)) {return index_rec_opt(s, l, i, c);}}
-  return caml_call1(
-    Pervasives[1],
-    cst_String_index_from_opt_Bytes_index_from_opt
-  );
+  return call1(Pervasives[1], cst_String_index_from_opt_Bytes_index_from_opt);
 }
 
 function rindex_rec(s, i, c) {
@@ -304,7 +301,7 @@ function rindex_from(s, i, c) {
   if (-1 <= i) {
     if (! (caml_ml_string_length(s) <= i)) {return rindex_rec(s, i, c);}
   }
-  return caml_call1(Pervasives[1], cst_String_rindex_from_Bytes_rindex_from);
+  return call1(Pervasives[1], cst_String_rindex_from_Bytes_rindex_from);
 }
 
 function rindex_rec_opt(s, i, c) {
@@ -328,9 +325,7 @@ function rindex_from_opt(s, i, c) {
   if (-1 <= i) {
     if (! (caml_ml_string_length(s) <= i)) {return rindex_rec_opt(s, i, c);}
   }
-  return caml_call1(
-    Pervasives[1],
-    cst_String_rindex_from_opt_Bytes_rindex_from_opt
+  return call1(Pervasives[1], cst_String_rindex_from_opt_Bytes_rindex_from_opt
   );
 }
 
@@ -346,10 +341,7 @@ function contains_from(s, i, c) {
       }
     }
   }
-  return caml_call1(
-    Pervasives[1],
-    cst_String_contains_from_Bytes_contains_from
-  );
+  return call1(Pervasives[1], cst_String_contains_from_Bytes_contains_from);
 }
 
 function contains(s, c) {return contains_from(s, 0, c);}
@@ -365,30 +357,27 @@ function rcontains_from(s, i, c) {
       }
     }
   }
-  return caml_call1(
-    Pervasives[1],
-    cst_String_rcontains_from_Bytes_rcontains_from
-  );
+  return call1(Pervasives[1], cst_String_rcontains_from_Bytes_rcontains_from);
 }
 
 function uppercase_ascii(s) {
-  var cc = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[36], cc));
+  var cc = call1(bos, s);
+  return call1(bts, call1(Bytes[36], cc));
 }
 
 function lowercase_ascii(s) {
-  var cb = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[37], cb));
+  var cb = call1(bos, s);
+  return call1(bts, call1(Bytes[37], cb));
 }
 
 function capitalize_ascii(s) {
-  var ca = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[38], ca));
+  var ca = call1(bos, s);
+  return call1(bts, call1(Bytes[38], ca));
 }
 
 function uncapitalize_ascii(s) {
-  var b_ = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[39], b_));
+  var b_ = call1(bos, s);
+  return call1(bts, call1(Bytes[39], b_));
 }
 
 function compare(x, y) {return runtime["caml_string_compare"](x, y);}
@@ -415,23 +404,23 @@ function split_on_char(sep, s) {
 }
 
 function uppercase(s) {
-  var b5 = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[32], b5));
+  var b5 = call1(bos, s);
+  return call1(bts, call1(Bytes[32], b5));
 }
 
 function lowercase(s) {
-  var b4 = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[33], b4));
+  var b4 = call1(bos, s);
+  return call1(bts, call1(Bytes[33], b4));
 }
 
 function capitalize(s) {
-  var b3 = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[34], b3));
+  var b3 = call1(bos, s);
+  return call1(bts, call1(Bytes[34], b3));
 }
 
 function uncapitalize(s) {
-  var b2 = caml_call1(bos, s);
-  return caml_call1(bts, caml_call1(Bytes[35], b2));
+  var b2 = call1(bos, s);
+  return call1(bts, call1(Bytes[35], b2));
 }
 
 var String = [

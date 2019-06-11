@@ -16,7 +16,7 @@ var caml_spacetime_enabled = runtime["caml_spacetime_enabled"];
 var caml_spacetime_only_works_for_native_code = runtime
  ["caml_spacetime_only_works_for_native_code"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
@@ -26,11 +26,11 @@ var cst_Series_is_closed = caml_new_string("Series is closed");
 var Pervasives = global_data["Pervasives"];
 var enabled = caml_spacetime_enabled(0);
 
-function if_spacetime_enabled(f) {return enabled ? caml_call1(f, 0) : 0;}
+function if_spacetime_enabled(f) {return enabled ? call1(f, 0) : 0;}
 
 function create(path) {
   if (caml_spacetime_enabled(0)) {
-    var channel = caml_call1(Pervasives[48], path);
+    var channel = call1(Pervasives[48], path);
     var t = [0,channel,0];
     caml_spacetime_only_works_for_native_code(t[1]);
     return t;
@@ -49,9 +49,9 @@ function save_event(time, t, event_name) {
 function save_and_close(time, t) {
   return if_spacetime_enabled(
     function(param) {
-      if (t[2]) {caml_call1(Pervasives[2], cst_Series_is_closed);}
+      if (t[2]) {call1(Pervasives[2], cst_Series_is_closed);}
       caml_spacetime_only_works_for_native_code(time, t[1]);
-      caml_call1(Pervasives[64], t[1]);
+      call1(Pervasives[64], t[1]);
       t[2] = 1;
       return 0;
     }
@@ -65,7 +65,7 @@ function take(time, param) {
   var closed = param[2];
   return if_spacetime_enabled(
     function(param) {
-      if (closed) {caml_call1(Pervasives[2], cst_Series_is_closed__0);}
+      if (closed) {call1(Pervasives[2], cst_Series_is_closed__0);}
       runtime["caml_gc_minor"](0);
       return caml_spacetime_only_works_for_native_code(time, channel);
     }

@@ -32,12 +32,12 @@ final class Uchar {
     $caml_arity_test = $runtime["caml_arity_test"];
     $caml_format_int = $runtime["caml_format_int"];
     $caml_new_string = $runtime["caml_new_string"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -55,20 +55,20 @@ final class Uchar {
     $err_no_pred = $caml_new_string("U+0000 has no predecessor");
     $err_no_succ = $caml_new_string("U+10FFFF has no successor");
     $Pervasives = $global_data["Pervasives"];
-    $err_not_sv = function(dynamic $i) use ($Pervasives,$caml_call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
-      return $caml_call2(
+    $err_not_sv = function(dynamic $i) use ($Pervasives,$call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
+      return $call2(
         $Pervasives[16],
         $caml_format_int($cst_X, $i),
         $cst_is_not_an_Unicode_scalar_value
       );
     };
-    $err_not_latin1 = function(dynamic $u) use ($Pervasives,$caml_call2,$caml_format_int,$cst_04X,$cst_U,$cst_is_not_a_latin1_character) {
-      $bj = $caml_call2(
+    $err_not_latin1 = function(dynamic $u) use ($Pervasives,$call2,$caml_format_int,$cst_04X,$cst_U,$cst_is_not_a_latin1_character) {
+      $bj = $call2(
         $Pervasives[16],
         $caml_format_int($cst_04X, $u),
         $cst_is_not_a_latin1_character
       );
-      return $caml_call2($Pervasives[16], $cst_U, $bj);
+      return $call2($Pervasives[16], $cst_U, $bj);
     };
     $min = 0;
     $max = 1114111;
@@ -76,19 +76,17 @@ final class Uchar {
     $hi_bound = 57344;
     $bom = 65279;
     $rep = 65533;
-    $succ = function(dynamic $u) use ($Pervasives,$caml_call1,$err_no_succ,$hi_bound) {
+    $succ = function(dynamic $u) use ($Pervasives,$call1,$err_no_succ,$hi_bound) {
       return $u === 55295
         ? $hi_bound
         : ($u === 1114111
-         ? $caml_call1($Pervasives[1], $err_no_succ)
+         ? $call1($Pervasives[1], $err_no_succ)
          : ((int) ($u + 1)));
     };
-    $pred = function(dynamic $u) use ($Pervasives,$caml_call1,$err_no_pred,$lo_bound) {
+    $pred = function(dynamic $u) use ($Pervasives,$call1,$err_no_pred,$lo_bound) {
       return $u === 57344
         ? $lo_bound
-        : ($u === 0
-         ? $caml_call1($Pervasives[1], $err_no_pred)
-         : ((int) ($u + -1)));
+        : ($u === 0 ? $call1($Pervasives[1], $err_no_pred) : ((int) ($u + -1)));
     };
     $is_valid = function(dynamic $i) {
       $bf = 0 <= $i ? 1 : (0);
@@ -102,17 +100,17 @@ final class Uchar {
       }
       return $bh;
     };
-    $of_int = function(dynamic $i) use ($Pervasives,$caml_call1,$err_not_sv,$is_valid) {
+    $of_int = function(dynamic $i) use ($Pervasives,$call1,$err_not_sv,$is_valid) {
       if ($is_valid($i)) {return $i;}
       $be = $err_not_sv($i);
-      return $caml_call1($Pervasives[1], $be);
+      return $call1($Pervasives[1], $be);
     };
     $is_char = function(dynamic $u) {return $u < 256 ? 1 : (0);};
     $of_char = function(dynamic $c) {return $c;};
-    $to_char = function(dynamic $u) use ($Pervasives,$caml_call1,$err_not_latin1) {
+    $to_char = function(dynamic $u) use ($Pervasives,$call1,$err_not_latin1) {
       if (255 < $u) {
         $bd = $err_not_latin1($u);
-        return $caml_call1($Pervasives[1], $bd);
+        return $call1($Pervasives[1], $bd);
       }
       return $u;
     };

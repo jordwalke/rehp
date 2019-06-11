@@ -27,15 +27,15 @@ var caml_new_string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 var caml_sys_random_seed = runtime["caml_sys_random_seed"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call5(f, a0, a1, a2, a3, a4) {
+function call5(f, a0, a1, a2, a3, a4) {
   return f.length === 5 ?
     f(a0, a1, a2, a3, a4) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
@@ -116,16 +116,16 @@ var p0 = [
 function new_state(param) {return [0,runtime["caml_make_vect"](55, 0),0];}
 
 function assign(st1, st2) {
-  caml_call5(Array[10], st2[1], 0, st1[1], 0, 55);
+  call5(Array[10], st2[1], 0, st1[1], 0, 55);
   st1[2] = st2[2];
   return 0;
 }
 
 function full_init(s, seed) {
   function combine(accu, x) {
-    var qd = caml_call1(Pervasives[21], x);
-    var qe = caml_call2(Pervasives[16], accu, qd);
-    return caml_call1(Digest[3], qe);
+    var qd = call1(Pervasives[21], x);
+    var qe = call2(Pervasives[16], accu, qd);
+    return call1(Digest[3], qe);
   }
   function extract(d) {
     var qa = caml_string_get(d, 3) << 24;
@@ -141,7 +141,7 @@ function full_init(s, seed) {
     var p_ = i__0 + 1 | 0;
     if (54 !== i__0) {var i__0 = p_;continue;}
     var accu = [0,cst_x];
-    var p5 = 54 + caml_call2(Pervasives[5], 55, l) | 0;
+    var p5 = 54 + call2(Pervasives[5], 55, l) | 0;
     var p4 = 0;
     if (! (p5 < 0)) {
       var i = p4;
@@ -197,7 +197,7 @@ function intaux(s, n) {
 
 function int__0(s, bound) {
   if (! (1073741823 < bound)) {if (0 < bound) {return intaux(s, bound);}}
-  return caml_call1(Pervasives[1], cst_Random_int);
+  return call1(Pervasives[1], cst_Random_int);
 }
 
 function int32aux(s, n) {
@@ -213,7 +213,7 @@ function int32aux(s, n) {
 
 function int32(s, bound) {
   return caml_lessequal(bound, 0) ?
-    caml_call1(Pervasives[1], cst_Random_int32) :
+    call1(Pervasives[1], cst_Random_int32) :
     int32aux(s, bound);
 }
 
@@ -236,7 +236,7 @@ function int64aux(s, n) {
 
 function int64(s, bound) {
   return caml_lessequal(bound, pZ) ?
-    caml_call1(Pervasives[1], cst_Random_int64) :
+    call1(Pervasives[1], cst_Random_int64) :
     int64aux(s, bound);
 }
 

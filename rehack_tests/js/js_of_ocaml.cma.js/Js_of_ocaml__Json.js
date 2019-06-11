@@ -13,7 +13,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
@@ -30,15 +30,13 @@ var input_reviver = runtime["caml_js_wrap_meth_callback"](reviver);
 
 function unsafe_input(s) {
   function pf(x) {
-    return caml_call1(caml_get_public_method(x, -309814068, 246), x);
+    return call1(caml_get_public_method(x, -309814068, 246), x);
   }
   return function(t2, t0, t1, param) {return t2.parse(t0, t1);}(json, s, input_reviver, pf
   );
 }
 
-function pd(x) {
-  return caml_call1(caml_get_public_method(x, 398798074, 247), x);
-}
+function pd(x) {return call1(caml_get_public_method(x, 398798074, 247), x);}
 
 var mlString_constr = function(t3, param) {return t3.constructor;}(dummy_string, pd
 );
@@ -50,9 +48,7 @@ function output_reviver(key, value) {
 }
 
 function output(obj) {
-  function pe(x) {
-    return caml_call1(caml_get_public_method(x, 215522356, 248), x);
-  }
+  function pe(x) {return call1(caml_get_public_method(x, 215522356, 248), x);}
   return function(t6, t4, t5, param) {return t6.stringify(t4, t5);}(json, obj, output_reviver, pe
   );
 }

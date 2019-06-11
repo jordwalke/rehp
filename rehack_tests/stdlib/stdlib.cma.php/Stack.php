@@ -30,12 +30,12 @@ final class Stack {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
     };
-    $caml_call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
+    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 3
         ? $f($a0, $a1, $a2)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
@@ -70,11 +70,11 @@ final class Stack {
     };
     $is_empty = function(dynamic $s) {return 0 === $s[1] ? 1 : (0);};
     $length = function(dynamic $s) {return $s[2];};
-    $iter = function(dynamic $f, dynamic $s) use ($List,$caml_call2) {
-      return $caml_call2($List[15], $f, $s[1]);
+    $iter = function(dynamic $f, dynamic $s) use ($List,$call2) {
+      return $call2($List[15], $f, $s[1]);
     };
-    $fold = function(dynamic $f, dynamic $acc, dynamic $s) use ($List,$caml_call3) {
-      return $caml_call3($List[20], $f, $acc, $s[1]);
+    $fold = function(dynamic $f, dynamic $acc, dynamic $s) use ($List,$call3) {
+      return $call3($List[20], $f, $acc, $s[1]);
     };
     $Stack = Vector{
       0,

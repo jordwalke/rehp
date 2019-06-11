@@ -30,12 +30,12 @@ final class Queue {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_arity_test = $runtime["caml_arity_test"];
-    $caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
+    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 1
         ? $f($a0)
         : ($runtime["caml_call_gen"]($f, varray[$a0]));
     };
-    $caml_call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
+    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
       return $caml_arity_test($f) === 2
         ? $f($a0, $a1)
         : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
@@ -99,13 +99,13 @@ final class Queue {
     };
     $is_empty = function(dynamic $q) {return 0 === $q[1] ? 1 : (0);};
     $length = function(dynamic $q) {return $q[1];};
-    $iter = function(dynamic $f, dynamic $cell) use ($caml_call1) {
+    $iter = function(dynamic $f, dynamic $cell) use ($call1) {
       $cell__0 = $cell;
       for (;;) {
         if ($cell__0) {
           $content = $cell__0[1];
           $cell__1 = $cell__0[2];
-          $caml_call1($f, $content);
+          $call1($f, $content);
           $cell__0 = $cell__1;
           continue;
         }
@@ -115,14 +115,14 @@ final class Queue {
     $iter__0 = function(dynamic $f, dynamic $q) use ($iter) {
       return $iter($f, $q[2]);
     };
-    $fold = function(dynamic $f, dynamic $accu, dynamic $cell) use ($caml_call2) {
+    $fold = function(dynamic $f, dynamic $accu, dynamic $cell) use ($call2) {
       $accu__0 = $accu;
       $cell__0 = $cell;
       for (;;) {
         if ($cell__0) {
           $content = $cell__0[1];
           $cell__1 = $cell__0[2];
-          $accu__1 = $caml_call2($f, $accu__0, $content);
+          $accu__1 = $call2($f, $accu__0, $content);
           $accu__0 = $accu__1;
           $cell__0 = $cell__1;
           continue;

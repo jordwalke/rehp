@@ -15,15 +15,15 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_compare = runtime["caml_compare"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call3(f, a0, a1, a2) {
+function call3(f, a0, a1, a2) {
   return f.length === 3 ?
     f(a0, a1, a2) :
     runtime["caml_call_gen"](f, [a0,a1,a2]);
@@ -71,12 +71,12 @@ function cons(a, l) {return [0,a,l];}
 
 function hd(param) {
   if (param) {var a = param[1];return a;}
-  return caml_call1(Pervasives[2], cst_hd);
+  return call1(Pervasives[2], cst_hd);
 }
 
 function tl(param) {
   if (param) {var l = param[2];return l;}
-  return caml_call1(Pervasives[2], cst_tl);
+  return call1(Pervasives[2], cst_tl);
 }
 
 function nth(l, n) {
@@ -94,12 +94,12 @@ function nth(l, n) {
           var n__0 = n__1;
           continue;
         }
-        return caml_call1(Pervasives[2], cst_nth);
+        return call1(Pervasives[2], cst_nth);
       }
     };
     return nth_aux(l, n);
   }
-  return caml_call1(Pervasives[1], cst_List_nth);
+  return call1(Pervasives[1], cst_List_nth);
 }
 
 function nth_opt(l, n) {
@@ -122,7 +122,7 @@ function nth_opt(l, n) {
     };
     return nth_aux(l, n);
   }
-  return caml_call1(Pervasives[1], cst_List_nth__0);
+  return call1(Pervasives[1], cst_List_nth__0);
 }
 
 var append = Pervasives[25];
@@ -151,7 +151,7 @@ function init_tailrec_aux(acc, i, n, f) {
   for (; ; ) {
     if (n <= i__0) {return acc__0;}
     var i__1 = i__0 + 1 | 0;
-    var acc__1 = [0,caml_call1(f, i__0),acc__0];
+    var acc__1 = [0,call1(f, i__0),acc__0];
     var acc__0 = acc__1;
     var i__0 = i__1;
     continue;
@@ -160,14 +160,14 @@ function init_tailrec_aux(acc, i, n, f) {
 
 function init_aux(i, n, f) {
   if (n <= i) {return 0;}
-  var r = caml_call1(f, i);
+  var r = call1(f, i);
   return [0,r,init_aux(i + 1 | 0, n, f)];
 }
 
 function init(len, f) {
   return 0 <= len ?
     1e4 < len ? rev(init_tailrec_aux(0, 0, len, f)) : init_aux(0, len, f) :
-    caml_call1(Pervasives[1], cst_List_init);
+    call1(Pervasives[1], cst_List_init);
 }
 
 function flatten(param) {
@@ -175,7 +175,7 @@ function flatten(param) {
     var r = param[2];
     var l = param[1];
     var a4 = flatten(r);
-    return caml_call2(Pervasives[25], l, a4);
+    return call2(Pervasives[25], l, a4);
   }
   return 0;
 }
@@ -184,7 +184,7 @@ function map(f, param) {
   if (param) {
     var l = param[2];
     var a = param[1];
-    var r = caml_call1(f, a);
+    var r = call1(f, a);
     return [0,r,map(f, l)];
   }
   return 0;
@@ -194,7 +194,7 @@ function aD(i, f, param) {
   if (param) {
     var l = param[2];
     var a = param[1];
-    var r = caml_call2(f, i, a);
+    var r = call2(f, i, a);
     return [0,r,aD(i + 1 | 0, f, l)];
   }
   return 0;
@@ -210,7 +210,7 @@ function rev_map(f, l) {
       if (param__0) {
         var param__1 = param__0[2];
         var a = param__0[1];
-        var accu__1 = [0,caml_call1(f, a),accu__0];
+        var accu__1 = [0,call1(f, a),accu__0];
         var accu__0 = accu__1;
         var param__0 = param__1;
         continue;
@@ -227,7 +227,7 @@ function iter(f, param) {
     if (param__0) {
       var param__1 = param__0[2];
       var a = param__0[1];
-      caml_call1(f, a);
+      call1(f, a);
       var param__0 = param__1;
       continue;
     }
@@ -242,7 +242,7 @@ function aE(i, f, param) {
     if (param__0) {
       var param__1 = param__0[2];
       var a = param__0[1];
-      caml_call2(f, i__0, a);
+      call2(f, i__0, a);
       var i__1 = i__0 + 1 | 0;
       var i__0 = i__1;
       var param__0 = param__1;
@@ -261,7 +261,7 @@ function fold_left(f, accu, l) {
     if (l__0) {
       var l__1 = l__0[2];
       var a = l__0[1];
-      var accu__1 = caml_call2(f, accu__0, a);
+      var accu__1 = call2(f, accu__0, a);
       var accu__0 = accu__1;
       var l__0 = l__1;
       continue;
@@ -274,7 +274,7 @@ function fold_right(f, l, accu) {
   if (l) {
     var l__0 = l[2];
     var a = l[1];
-    return caml_call2(f, a, fold_right(f, l__0, accu));
+    return call2(f, a, fold_right(f, l__0, accu));
   }
   return accu;
 }
@@ -286,12 +286,12 @@ function map2(f, l1, l2) {
       var a2 = l2[1];
       var l1__0 = l1[2];
       var a1 = l1[1];
-      var r = caml_call2(f, a1, a2);
+      var r = call2(f, a1, a2);
       return [0,r,map2(f, l1__0, l2__0)];
     }
   }
   else if (! l2) {return 0;}
-  return caml_call1(Pervasives[1], cst_List_map2);
+  return call1(Pervasives[1], cst_List_map2);
 }
 
 function rev_map2(f, l1, l2) {
@@ -306,7 +306,7 @@ function rev_map2(f, l1, l2) {
           var a2 = l2__0[1];
           var l1__1 = l1__0[2];
           var a1 = l1__0[1];
-          var accu__1 = [0,caml_call2(f, a1, a2),accu__0];
+          var accu__1 = [0,call2(f, a1, a2),accu__0];
           var accu__0 = accu__1;
           var l1__0 = l1__1;
           var l2__0 = l2__1;
@@ -314,7 +314,7 @@ function rev_map2(f, l1, l2) {
         }
       }
       else if (! l2__0) {return accu__0;}
-      return caml_call1(Pervasives[1], cst_List_rev_map2);
+      return call1(Pervasives[1], cst_List_rev_map2);
     }
   }
   return rmap2_f(0, l1, l2);
@@ -330,14 +330,14 @@ function iter2(f, l1, l2) {
         var a2 = l2__0[1];
         var l1__1 = l1__0[2];
         var a1 = l1__0[1];
-        caml_call2(f, a1, a2);
+        call2(f, a1, a2);
         var l1__0 = l1__1;
         var l2__0 = l2__1;
         continue;
       }
     }
     else if (! l2__0) {return 0;}
-    return caml_call1(Pervasives[1], cst_List_iter2);
+    return call1(Pervasives[1], cst_List_iter2);
   }
 }
 
@@ -352,7 +352,7 @@ function fold_left2(f, accu, l1, l2) {
         var a2 = l2__0[1];
         var l1__1 = l1__0[2];
         var a1 = l1__0[1];
-        var accu__1 = caml_call3(f, accu__0, a1, a2);
+        var accu__1 = call3(f, accu__0, a1, a2);
         var accu__0 = accu__1;
         var l1__0 = l1__1;
         var l2__0 = l2__1;
@@ -360,7 +360,7 @@ function fold_left2(f, accu, l1, l2) {
       }
     }
     else if (! l2__0) {return accu__0;}
-    return caml_call1(Pervasives[1], cst_List_fold_left2);
+    return call1(Pervasives[1], cst_List_fold_left2);
   }
 }
 
@@ -371,11 +371,11 @@ function fold_right2(f, l1, l2, accu) {
       var a2 = l2[1];
       var l1__0 = l1[2];
       var a1 = l1[1];
-      return caml_call3(f, a1, a2, fold_right2(f, l1__0, l2__0, accu));
+      return call3(f, a1, a2, fold_right2(f, l1__0, l2__0, accu));
     }
   }
   else if (! l2) {return accu;}
-  return caml_call1(Pervasives[1], cst_List_fold_right2);
+  return call1(Pervasives[1], cst_List_fold_right2);
 }
 
 function for_all(p, param) {
@@ -384,7 +384,7 @@ function for_all(p, param) {
     if (param__0) {
       var l = param__0[2];
       var a = param__0[1];
-      var a3 = caml_call1(p, a);
+      var a3 = call1(p, a);
       if (a3) {var param__0 = l;continue;}
       return a3;
     }
@@ -398,7 +398,7 @@ function exists(p, param) {
     if (param__0) {
       var l = param__0[2];
       var a = param__0[1];
-      var a2 = caml_call1(p, a);
+      var a2 = call1(p, a);
       if (a2) {return a2;}
       var param__0 = l;
       continue;
@@ -417,13 +417,13 @@ function for_all2(p, l1, l2) {
         var a2 = l2__0[1];
         var l1__1 = l1__0[2];
         var a1 = l1__0[1];
-        var a1 = caml_call2(p, a1, a2);
+        var a1 = call2(p, a1, a2);
         if (a1) {var l1__0 = l1__1;var l2__0 = l2__1;continue;}
         return a1;
       }
     }
     else if (! l2__0) {return 1;}
-    return caml_call1(Pervasives[1], cst_List_for_all2);
+    return call1(Pervasives[1], cst_List_for_all2);
   }
 }
 
@@ -437,7 +437,7 @@ function exists2(p, l1, l2) {
         var a2 = l2__0[1];
         var l1__1 = l1__0[2];
         var a1 = l1__0[1];
-        var a0 = caml_call2(p, a1, a2);
+        var a0 = call2(p, a1, a2);
         if (a0) {return a0;}
         var l1__0 = l1__1;
         var l2__0 = l2__1;
@@ -445,7 +445,7 @@ function exists2(p, l1, l2) {
       }
     }
     else if (! l2__0) {return 0;}
-    return caml_call1(Pervasives[1], cst_List_exists2);
+    return call1(Pervasives[1], cst_List_exists2);
   }
 }
 
@@ -601,7 +601,7 @@ function find(p, param) {
     if (param__0) {
       var l = param__0[2];
       var x = param__0[1];
-      if (caml_call1(p, x)) {return x;}
+      if (call1(p, x)) {return x;}
       var param__0 = l;
       continue;
     }
@@ -615,7 +615,7 @@ function find_opt(p, param) {
     if (param__0) {
       var l = param__0[2];
       var x = param__0[1];
-      if (caml_call1(p, x)) {return [0,x];}
+      if (call1(p, x)) {return [0,x];}
       var param__0 = l;
       continue;
     }
@@ -631,7 +631,7 @@ function find_all(p) {
       if (param__0) {
         var l = param__0[2];
         var x = param__0[1];
-        if (caml_call1(p, x)) {
+        if (call1(p, x)) {
           var accu__1 = [0,x,accu__0];
           var accu__0 = accu__1;
           var param__0 = l;
@@ -656,7 +656,7 @@ function partition(p, l) {
       if (param__0) {
         var l = param__0[2];
         var x = param__0[1];
-        if (caml_call1(p, x)) {
+        if (call1(p, x)) {
           var yes__1 = [0,x,yes__0];
           var yes__0 = yes__1;
           var param__0 = l;
@@ -699,7 +699,7 @@ function combine(l1, l2) {
     }
   }
   else if (! l2) {return 0;}
-  return caml_call1(Pervasives[1], cst_List_combine);
+  return call1(Pervasives[1], cst_List_combine);
 }
 
 function merge(cmp, l1, match) {
@@ -709,7 +709,7 @@ function merge(cmp, l1, match) {
       var h2 = match[1];
       var t1 = l1[2];
       var h1 = l1[1];
-      return 0 < caml_call2(cmp, h1, h2) ?
+      return 0 < call2(cmp, h1, h2) ?
         [0,h2,merge(cmp, l1, t2)] :
         [0,h1,merge(cmp, t1, match)];
     }
@@ -746,7 +746,7 @@ function stable_sort(cmp, l) {
           var h2 = l2__0[1];
           var t1 = l1__0[2];
           var h1 = l1__0[1];
-          if (0 < caml_call2(cmp, h1, h2)) {
+          if (0 < call2(cmp, h1, h2)) {
             var accu__1 = [0,h2,accu__0];
             var l2__0 = t2;
             var accu__0 = accu__1;
@@ -773,7 +773,7 @@ function stable_sort(cmp, l) {
           var h2 = l2__0[1];
           var t1 = l1__0[2];
           var h1 = l1__0[1];
-          if (0 < caml_call2(cmp, h1, h2)) {
+          if (0 < call2(cmp, h1, h2)) {
             var accu__1 = [0,h1,accu__0];
             var l1__0 = t1;
             var accu__0 = accu__1;
@@ -796,9 +796,7 @@ function stable_sort(cmp, l) {
         if (aQ) {
           var x2 = aQ[1];
           var x1 = l[1];
-          return 0 < caml_call2(cmp, x1, x2) ?
-            [0,x2,[0,x1,0]] :
-            [0,x1,[0,x2,0]];
+          return 0 < call2(cmp, x1, x2) ? [0,x2,[0,x1,0]] : [0,x1,[0,x2,0]];
         }
       }
     }
@@ -811,14 +809,14 @@ function stable_sort(cmp, l) {
             var x3 = aS[1];
             var x2__0 = aR[1];
             var x1__0 = l[1];
-            return 0 < caml_call2(cmp, x1__0, x2__0) ?
-              0 < caml_call2(cmp, x1__0, x3) ?
-               0 < caml_call2(cmp, x2__0, x3) ?
+            return 0 < call2(cmp, x1__0, x2__0) ?
+              0 < call2(cmp, x1__0, x3) ?
+               0 < call2(cmp, x2__0, x3) ?
                 [0,x3,[0,x2__0,[0,x1__0,0]]] :
                 [0,x2__0,[0,x3,[0,x1__0,0]]] :
                [0,x2__0,[0,x1__0,[0,x3,0]]] :
-              0 < caml_call2(cmp, x2__0, x3) ?
-               0 < caml_call2(cmp, x1__0, x3) ?
+              0 < call2(cmp, x2__0, x3) ?
+               0 < call2(cmp, x1__0, x3) ?
                 [0,x3,[0,x1__0,[0,x2__0,0]]] :
                 [0,x1__0,[0,x3,[0,x2__0,0]]] :
                [0,x1__0,[0,x2__0,[0,x3,0]]];
@@ -840,9 +838,7 @@ function stable_sort(cmp, l) {
         if (aN) {
           var x2 = aN[1];
           var x1 = l[1];
-          return 0 < caml_call2(cmp, x1, x2) ?
-            [0,x1,[0,x2,0]] :
-            [0,x2,[0,x1,0]];
+          return 0 < call2(cmp, x1, x2) ? [0,x1,[0,x2,0]] : [0,x2,[0,x1,0]];
         }
       }
     }
@@ -855,15 +851,15 @@ function stable_sort(cmp, l) {
             var x3 = aP[1];
             var x2__0 = aO[1];
             var x1__0 = l[1];
-            return 0 < caml_call2(cmp, x1__0, x2__0) ?
-              0 < caml_call2(cmp, x2__0, x3) ?
+            return 0 < call2(cmp, x1__0, x2__0) ?
+              0 < call2(cmp, x2__0, x3) ?
                [0,x1__0,[0,x2__0,[0,x3,0]]] :
-               0 < caml_call2(cmp, x1__0, x3) ?
+               0 < call2(cmp, x1__0, x3) ?
                 [0,x1__0,[0,x3,[0,x2__0,0]]] :
                 [0,x3,[0,x1__0,[0,x2__0,0]]] :
-              0 < caml_call2(cmp, x1__0, x3) ?
+              0 < call2(cmp, x1__0, x3) ?
                [0,x2__0,[0,x1__0,[0,x3,0]]] :
-               0 < caml_call2(cmp, x2__0, x3) ?
+               0 < call2(cmp, x2__0, x3) ?
                 [0,x2__0,[0,x3,[0,x1__0,0]]] :
                 [0,x3,[0,x2__0,[0,x1__0,0]]];
           }
@@ -893,7 +889,7 @@ function sort_uniq(cmp, l) {
           var h2 = l2__0[1];
           var t1 = l1__0[2];
           var h1 = l1__0[1];
-          var c = caml_call2(cmp, h1, h2);
+          var c = call2(cmp, h1, h2);
           if (0 === c) {
             var accu__1 = [0,h1,accu__0];
             var l1__0 = t1;
@@ -928,7 +924,7 @@ function sort_uniq(cmp, l) {
           var h2 = l2__0[1];
           var t1 = l1__0[2];
           var h1 = l1__0[1];
-          var c = caml_call2(cmp, h1, h2);
+          var c = call2(cmp, h1, h2);
           if (0 === c) {
             var accu__1 = [0,h1,accu__0];
             var l1__0 = t1;
@@ -959,7 +955,7 @@ function sort_uniq(cmp, l) {
         if (aK) {
           var x2 = aK[1];
           var x1 = l[1];
-          var c = caml_call2(cmp, x1, x2);
+          var c = call2(cmp, x1, x2);
           return 0 === c ?
             [0,x1,0] :
             0 <= c ? [0,x2,[0,x1,0]] : [0,x1,[0,x2,0]];
@@ -975,18 +971,18 @@ function sort_uniq(cmp, l) {
             var x3 = aM[1];
             var x2__0 = aL[1];
             var x1__0 = l[1];
-            var c__0 = caml_call2(cmp, x1__0, x2__0);
+            var c__0 = call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
-              var c__1 = caml_call2(cmp, x2__0, x3);
+              var c__1 = call2(cmp, x2__0, x3);
               return 0 === c__1 ?
                 [0,x2__0,0] :
                 0 <= c__1 ? [0,x3,[0,x2__0,0]] : [0,x2__0,[0,x3,0]];
             }
             if (0 <= c__0) {
-              var c__2 = caml_call2(cmp, x1__0, x3);
+              var c__2 = call2(cmp, x1__0, x3);
               if (0 === c__2) {return [0,x2__0,[0,x1__0,0]];}
               if (0 <= c__2) {
-                var c__3 = caml_call2(cmp, x2__0, x3);
+                var c__3 = call2(cmp, x2__0, x3);
                 return 0 === c__3 ?
                   [0,x2__0,[0,x1__0,0]] :
                   0 <= c__3 ?
@@ -995,10 +991,10 @@ function sort_uniq(cmp, l) {
               }
               return [0,x2__0,[0,x1__0,[0,x3,0]]];
             }
-            var c__4 = caml_call2(cmp, x2__0, x3);
+            var c__4 = call2(cmp, x2__0, x3);
             if (0 === c__4) {return [0,x1__0,[0,x2__0,0]];}
             if (0 <= c__4) {
-              var c__5 = caml_call2(cmp, x1__0, x3);
+              var c__5 = call2(cmp, x1__0, x3);
               return 0 === c__5 ?
                 [0,x1__0,[0,x2__0,0]] :
                 0 <= c__5 ?
@@ -1024,7 +1020,7 @@ function sort_uniq(cmp, l) {
         if (aH) {
           var x2 = aH[1];
           var x1 = l[1];
-          var c = caml_call2(cmp, x1, x2);
+          var c = call2(cmp, x1, x2);
           return 0 === c ?
             [0,x1,0] :
             0 < c ? [0,x1,[0,x2,0]] : [0,x2,[0,x1,0]];
@@ -1040,28 +1036,28 @@ function sort_uniq(cmp, l) {
             var x3 = aJ[1];
             var x2__0 = aI[1];
             var x1__0 = l[1];
-            var c__0 = caml_call2(cmp, x1__0, x2__0);
+            var c__0 = call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
-              var c__1 = caml_call2(cmp, x2__0, x3);
+              var c__1 = call2(cmp, x2__0, x3);
               return 0 === c__1 ?
                 [0,x2__0,0] :
                 0 < c__1 ? [0,x2__0,[0,x3,0]] : [0,x3,[0,x2__0,0]];
             }
             if (0 < c__0) {
-              var c__2 = caml_call2(cmp, x2__0, x3);
+              var c__2 = call2(cmp, x2__0, x3);
               if (0 === c__2) {return [0,x1__0,[0,x2__0,0]];}
               if (0 < c__2) {return [0,x1__0,[0,x2__0,[0,x3,0]]];}
-              var c__3 = caml_call2(cmp, x1__0, x3);
+              var c__3 = call2(cmp, x1__0, x3);
               return 0 === c__3 ?
                 [0,x1__0,[0,x2__0,0]] :
                 0 < c__3 ?
                  [0,x1__0,[0,x3,[0,x2__0,0]]] :
                  [0,x3,[0,x1__0,[0,x2__0,0]]];
             }
-            var c__4 = caml_call2(cmp, x1__0, x3);
+            var c__4 = call2(cmp, x1__0, x3);
             if (0 === c__4) {return [0,x2__0,[0,x1__0,0]];}
             if (0 < c__4) {return [0,x2__0,[0,x1__0,[0,x3,0]]];}
-            var c__5 = caml_call2(cmp, x2__0, x3);
+            var c__5 = call2(cmp, x2__0, x3);
             return 0 === c__5 ?
               [0,x2__0,[0,x1__0,0]] :
               0 < c__5 ?

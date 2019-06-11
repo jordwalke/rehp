@@ -12,15 +12,15 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-function caml_call4(f, a0, a1, a2, a3) {
+function call4(f, a0, a1, a2, a3) {
   return f.length === 4 ?
     f(a0, a1, a2, a3) :
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
@@ -36,9 +36,9 @@ function listen(opt, target, typ, cb) {
   }
   else var capture = 0;
   var kV = ! ! capture;
-  function kW(n, e) {return ! ! caml_call2(cb, n, e);}
-  var kX = caml_call1(Js_of_ocaml_Dom_html[11], kW);
-  return caml_call4(Js_of_ocaml_Dom_html[16], target, typ, kX, kV);
+  function kW(n, e) {return ! ! call2(cb, n, e);}
+  var kX = call1(Js_of_ocaml_Dom_html[11], kW);
+  return call4(Js_of_ocaml_Dom_html[16], target, typ, kX, kV);
 }
 
 var stop_listen = Js_of_ocaml_Dom_html[17];

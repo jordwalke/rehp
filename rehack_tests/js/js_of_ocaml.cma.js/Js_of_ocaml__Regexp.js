@@ -17,11 +17,11 @@ var caml_js_to_byte_string = runtime["caml_js_to_byte_string"];
 var caml_jsbytes_of_string = runtime["caml_jsbytes_of_string"];
 var caml_new_string = runtime["caml_new_string"];
 
-function caml_call1(f, a0) {
+function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-function caml_call2(f, a0, a1) {
+function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
@@ -50,7 +50,7 @@ function regexp_case_fold(s) {
 }
 
 function regexp_with_flag(s, f) {
-  var bf = caml_call2(Pervasives[16], cst_g, f).toString();
+  var bf = call2(Pervasives[16], cst_g, f).toString();
   var be = 0;
   var bg = caml_jsbytes_of_string(s);
   var bh = Js_of_ocaml_Js[11];
@@ -61,53 +61,49 @@ function blunt_str_array_get(a, i) {
   function bc(param) {
     throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,am]);
   }
-  var bd = caml_call2(Js_of_ocaml_Js[16], a, i);
-  return caml_js_to_byte_string(caml_call2(Js_of_ocaml_Js[6][8], bd, bc));
+  var bd = call2(Js_of_ocaml_Js[16], a, i);
+  return caml_js_to_byte_string(call2(Js_of_ocaml_Js[6][8], bd, bc));
 }
 
 function string_match(r, s, i) {
-  function a7(x) {
-    return caml_call1(caml_get_public_method(x, 180472028, 24), x);
-  }
+  function a7(x) {return call1(caml_get_public_method(x, 180472028, 24), x);}
   (function(t12, t11, param) {t12.lastIndex = t11;return 0;}(r, i, a7));
   var a8 = Js_of_ocaml_Js[21];
   function a9(x) {
-    return caml_call1(caml_get_public_method(x, -1021447279, 25), x);
+    return call1(caml_get_public_method(x, -1021447279, 25), x);
   }
   var a_ = caml_jsbytes_of_string(s);
   var ba = function(t10, t9, param) {return t10.exec(t9);}(r, a_, a9);
-  var bb = caml_call2(Js_of_ocaml_Js[5][3], ba, a8);
-  return caml_call1(Js_of_ocaml_Js[5][10], bb);
+  var bb = call2(Js_of_ocaml_Js[5][3], ba, a8);
+  return call1(Js_of_ocaml_Js[5][10], bb);
 }
 
 function search(r, s, i) {
-  function a0(x) {
-    return caml_call1(caml_get_public_method(x, 180472028, 26), x);
-  }
+  function a0(x) {return call1(caml_get_public_method(x, 180472028, 26), x);}
   (function(t17, t16, param) {t17.lastIndex = t16;return 0;}(r, i, a0));
   function a1(res_pre) {
-    var res = caml_call1(Js_of_ocaml_Js[21], res_pre);
+    var res = call1(Js_of_ocaml_Js[21], res_pre);
     function a6(x) {
-      return caml_call1(caml_get_public_method(x, 1041537810, 27), x);
+      return call1(caml_get_public_method(x, 1041537810, 27), x);
     }
     return [0,function(t15, param) {return t15.index;}(res, a6),res];
   }
   function a2(x) {
-    return caml_call1(caml_get_public_method(x, -1021447279, 28), x);
+    return call1(caml_get_public_method(x, -1021447279, 28), x);
   }
   var a3 = caml_jsbytes_of_string(s);
   var a4 = function(t14, t13, param) {return t14.exec(t13);}(r, a3, a2);
-  var a5 = caml_call2(Js_of_ocaml_Js[5][3], a4, a1);
-  return caml_call1(Js_of_ocaml_Js[5][10], a5);
+  var a5 = call2(Js_of_ocaml_Js[5][3], a4, a1);
+  return call1(Js_of_ocaml_Js[5][10], a5);
 }
 
 function matched_string(r) {return blunt_str_array_get(r, 0);}
 
 function matched_group(r, i) {
   function aW(aZ) {return caml_js_to_byte_string(aZ);}
-  var aX = caml_call2(Js_of_ocaml_Js[16], r, i);
-  var aY = caml_call2(Js_of_ocaml_Js[6][3], aX, aW);
-  return caml_call1(Js_of_ocaml_Js[6][10], aY);
+  var aX = call2(Js_of_ocaml_Js[16], r, i);
+  var aY = call2(Js_of_ocaml_Js[6][3], aX, aW);
+  return call1(Js_of_ocaml_Js[6][10], aY);
 }
 
 var an = 0;
@@ -118,9 +114,7 @@ var quote_repl_re = function(t20, t18, t19, param) {return new t20(t18, t19);}(a
 );
 
 function quote_repl(s) {
-  function aT(x) {
-    return caml_call1(caml_get_public_method(x, 724060212, 29), x);
-  }
+  function aT(x) {return call1(caml_get_public_method(x, 724060212, 29), x);}
   var aU = "$$$$";
   var aV = caml_jsbytes_of_string(s);
   return function(t23, t21, t22, param) {return t23.replace(t21, t22);}(aV, quote_repl_re, aU, aT
@@ -128,14 +122,10 @@ function quote_repl(s) {
 }
 
 function global_replace(r, s, s_by) {
-  function aO(x) {
-    return caml_call1(caml_get_public_method(x, 180472028, 30), x);
-  }
+  function aO(x) {return call1(caml_get_public_method(x, 180472028, 30), x);}
   var aP = 0;
   (function(t28, t27, param) {t28.lastIndex = t27;return 0;}(r, aP, aO));
-  function aQ(x) {
-    return caml_call1(caml_get_public_method(x, 724060212, 31), x);
-  }
+  function aQ(x) {return call1(caml_get_public_method(x, 724060212, 31), x);}
   var aR = quote_repl(s_by);
   var aS = caml_jsbytes_of_string(s);
   return caml_js_to_byte_string(
@@ -146,27 +136,21 @@ function global_replace(r, s, s_by) {
 
 function replace_first(r, s, s_by) {
   function aF(x) {
-    return caml_call1(caml_get_public_method(x, -1042090782, 32), x);
+    return call1(caml_get_public_method(x, -1042090782, 32), x);
   }
   var match = function(t36, param) {return t36.ignoreCase;}(r, aF) | 0;
-  function aG(x) {
-    return caml_call1(caml_get_public_method(x, 504484589, 33), x);
-  }
+  function aG(x) {return call1(caml_get_public_method(x, 504484589, 33), x);}
   var match__0 = function(t37, param) {return t37.multiline;}(r, aG) | 0;
   var flags = 0 === match ?
     0 === match__0 ? "" : "m" :
     0 === match__0 ? "i" : "mi";
   var aH = 0;
-  function aI(x) {
-    return caml_call1(caml_get_public_method(x, 842117339, 34), x);
-  }
+  function aI(x) {return call1(caml_get_public_method(x, 842117339, 34), x);}
   var aJ = function(t32, param) {return t32.source;}(r, aI);
   var aK = Js_of_ocaml_Js[11];
   var r__0 = function(t35, t33, t34, param) {return new t35(t33, t34);}(aK, aJ, flags, aH
   );
-  function aL(x) {
-    return caml_call1(caml_get_public_method(x, 724060212, 35), x);
-  }
+  function aL(x) {return call1(caml_get_public_method(x, 724060212, 35), x);}
   var aM = quote_repl(s_by);
   var aN = caml_jsbytes_of_string(s);
   return caml_js_to_byte_string(
@@ -190,47 +174,35 @@ function list_of_js_array(a) {
       return accu__0;
     }
   }
-  function aE(x) {
-    return caml_call1(caml_get_public_method(x, 520590566, 36), x);
-  }
+  function aE(x) {return call1(caml_get_public_method(x, 520590566, 36), x);}
   return aux(0, function(t38, param) {return t38.length;}(a, aE) + -1 | 0);
 }
 
 function split(r, s) {
-  function az(x) {
-    return caml_call1(caml_get_public_method(x, 180472028, 37), x);
-  }
+  function az(x) {return call1(caml_get_public_method(x, 180472028, 37), x);}
   var aA = 0;
   (function(t42, t41, param) {t42.lastIndex = t41;return 0;}(r, aA, az));
-  function aB(x) {
-    return caml_call1(caml_get_public_method(x, -394261074, 38), x);
-  }
+  function aB(x) {return call1(caml_get_public_method(x, -394261074, 38), x);}
   var aC = caml_jsbytes_of_string(s);
   var aD = function(t40, t39, param) {return t40.split(t39);}(aC, r, aB);
-  return list_of_js_array(caml_call1(Js_of_ocaml_Js[20], aD));
+  return list_of_js_array(call1(Js_of_ocaml_Js[20], aD));
 }
 
 function bounded_split(r, s, i) {
-  function au(x) {
-    return caml_call1(caml_get_public_method(x, 180472028, 39), x);
-  }
+  function au(x) {return call1(caml_get_public_method(x, 180472028, 39), x);}
   var av = 0;
   (function(t47, t46, param) {t47.lastIndex = t46;return 0;}(r, av, au));
-  function aw(x) {
-    return caml_call1(caml_get_public_method(x, -203798452, 40), x);
-  }
+  function aw(x) {return call1(caml_get_public_method(x, -203798452, 40), x);}
   var ax = caml_jsbytes_of_string(s);
   var ay = function(t45, t43, t44, param) {return t45.split(t43, t44);}(ax, r, i, aw
   );
-  return list_of_js_array(caml_call1(Js_of_ocaml_Js[20], ay));
+  return list_of_js_array(call1(Js_of_ocaml_Js[20], ay));
 }
 
 var quote_re = regexp(cst);
 
 function quote(s) {
-  function ar(x) {
-    return caml_call1(caml_get_public_method(x, 724060212, 41), x);
-  }
+  function ar(x) {return call1(caml_get_public_method(x, 724060212, 41), x);}
   var as = "\\$&";
   var at = caml_jsbytes_of_string(s);
   return caml_js_to_byte_string(

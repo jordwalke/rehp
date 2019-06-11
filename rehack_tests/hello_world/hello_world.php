@@ -109,7 +109,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
 
 
 
-$caml_call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$caml_call_gen) {
+$call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$caml_call_gen) {
   return $caml_arity_test($f) === 1
     ? $f($a0)
     : ($caml_call_gen($f, varray[$a0]));
@@ -218,22 +218,22 @@ $print_endline = function(dynamic $s) use ($caml_ml_flush,$caml_ml_output_char,$
 $do_at_exit = function(dynamic $param) use ($flush_all) {
   return $flush_all(0);
 };
-$f1 = function(dynamic $g) use ($caml_call1) {
+$f1 = function(dynamic $g) use ($call1) {
   $i = 2;
   for (;;) {
-    $caml_call1($g, $i);
+    $call1($g, $i);
     $C = (int) ($i + 1);
     if (3 !== $i) {$i = $C;continue;}
     return 0;
   }
 };
-$f2 = function(dynamic $g) use ($caml_call1) {
+$f2 = function(dynamic $g) use ($call1) {
   $i = 2;
   $continue_counter = null;
   for (;;) {
     $j = 4;
     for (;;) {
-      $caml_call1($g, (int) ($i + $j));
+      $call1($g, (int) ($i + $j));
       $B = (int) ($j + 1);
       if (5 !== $j) {$j = $B;continue;}
       $A = (int) ($i + 1);
@@ -247,7 +247,7 @@ $f2 = function(dynamic $g) use ($caml_call1) {
     else if ($continue_counter === 0) {$continue_counter = null;continue;}
   }
 };
-$f3 = function(dynamic $g) use ($caml_call1) {
+$f3 = function(dynamic $g) use ($call1) {
   $i = 2;
   $continue_counter = null;
   for (;;) {
@@ -255,14 +255,14 @@ $f3 = function(dynamic $g) use ($caml_call1) {
     for (;;) {
       $k = 4;
       for (;;) {
-        $caml_call1($g, (int) ((int) ($i + $j) + $k));
+        $call1($g, (int) ((int) ($i + $j) + $k));
         $z = (int) ($k + 1);
         if (5 !== $k) {$k = $z;continue;}
         $y = (int) ($j + 1);
         if (5 !== $j) {$j = $y;$continue_counter = 0;break;}
         $l = 6;
         for (;;) {
-          $caml_call1($g, (int) ($i + $l));
+          $call1($g, (int) ($i + $l));
           $x = (int) ($l + 1);
           if (7 !== $l) {$l = $x;continue;}
           $w = (int) ($i + 1);
@@ -288,13 +288,13 @@ $f3 = function(dynamic $g) use ($caml_call1) {
     else if ($continue_counter === 0) {$continue_counter = null;continue;}
   }
 };
-$f4 = function(dynamic $g) use ($caml_call1) {
+$f4 = function(dynamic $g) use ($call1) {
   $i = 2;
   $continue_counter = null;
   for (;;) {
     $k__3 = 4;
     for (;;) {
-      $caml_call1($g, (int) ($i + $k__3));
+      $call1($g, (int) ($i + $k__3));
       $v = (int) ($k__3 + 1);
       if (5 !== $k__3) {$k__3 = $v;continue;}
       $j = 4;
@@ -303,14 +303,14 @@ $f4 = function(dynamic $g) use ($caml_call1) {
         for (;;) {
           $l__1 = 4;
           for (;;) {
-            $caml_call1($g, (int) ((int) ((int) ($i + $j) + $k__2) + $l__1));
+            $call1($g, (int) ((int) ((int) ($i + $j) + $k__2) + $l__1));
             $u = (int) ($l__1 + 1);
             if (5 !== $l__1) {$l__1 = $u;continue;}
             $t = (int) ($k__2 + 1);
             if (5 !== $k__2) {$k__2 = $t;$continue_counter = 0;break;}
             $k__1 = 4;
             for (;;) {
-              $caml_call1($g, (int) ((int) ($i + $j) + $k__1));
+              $call1($g, (int) ((int) ($i + $j) + $k__1));
               $s = (int) ($k__1 + 1);
               if (5 !== $k__1) {$k__1 = $s;continue;}
               $r = (int) ($j + 1);
@@ -319,14 +319,14 @@ $f4 = function(dynamic $g) use ($caml_call1) {
               for (;;) {
                 $n__1 = 4;
                 for (;;) {
-                  $caml_call1($g, (int) ((int) ($i + $l__0) + $n__1));
+                  $call1($g, (int) ((int) ($i + $l__0) + $n__1));
                   $q = (int) ($n__1 + 1);
                   if (5 !== $n__1) {$n__1 = $q;continue;}
                   $m__0 = 4;
                   for (;;) {
                     $n__0 = 4;
                     for (;;) {
-                      $caml_call1(
+                      $call1(
                         $g,
                         (int)
                         ((int) ((int) ($i + $l__0) + $m__0) + $n__0)
@@ -339,14 +339,14 @@ $f4 = function(dynamic $g) use ($caml_call1) {
                       if (7 !== $l__0) {$l__0 = $n;$continue_counter = 2;break;}
                       $k__0 = 4;
                       for (;;) {
-                        $caml_call1($g, (int) ($i + $k__0));
+                        $call1($g, (int) ($i + $k__0));
                         $m = (int) ($k__0 + 1);
                         if (5 !== $k__0) {$k__0 = $m;continue;}
                         $l = (int) ($i + 1);
                         if (3 !== $i) {$i = $l;$continue_counter = 9;break;}
                         $k = 4;
                         for (;;) {
-                          $caml_call1($g, $k);
+                          $call1($g, $k);
                           $k = (int) ($k + 1);
                           if (5 !== $k) {$k = $k;continue;}
                           return 0;
