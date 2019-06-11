@@ -207,7 +207,7 @@ module Share = struct
     then gen n
     else
       try J.EVar (IntMap.find n t.vars.applies) with Not_found ->
-        let x = Var.fresh_n (Printf.sprintf "caml_call%d" n) in
+        let x = Var.fresh_n (Printf.sprintf "call%d" n) in
         let v = Id.V x in
         t.vars <- {t.vars with applies = IntMap.add n v t.vars.applies};
         J.EVar v
