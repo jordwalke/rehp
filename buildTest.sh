@@ -44,9 +44,9 @@ echo "./rehack_tests/stdlib/stdlib.cma.php"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" --backend php ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/stdlib/stdlib.cma.php'
 mkdir -p ./rehack_tests/js/
 
-echo "./rehack_tests/js/js.cmo.module.php"
+echo "./rehack_tests/js/js_of_ocaml.cma.php"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" --backend php  $(ocamlfind query -qe js_of_ocaml)/js_of_ocaml.cma -o ./rehack_tests/js/js_of_ocaml.cma.php'
-echo "./rehack_tests/js/js.cmo.module.js"
+echo "./rehack_tests/js/js_of_ocaml.cma.js"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/common-js-module-header.js)" --backend js --prettiest-js $(ocamlfind query -qe js_of_ocaml)/js_of_ocaml.cma -o ./rehack_tests/js/js_of_ocaml.cma.js'
 
 
