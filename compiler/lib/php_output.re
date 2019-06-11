@@ -423,8 +423,13 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   let rec formal_parameter_list = (f, l) =>
     switch (l) {
     | [] => ()
-    | [i] => ident(f, i)
+    | [i] =>
+      PP.string(f, "dynamic");
+      PP.non_breaking_space(f);
+      ident(f, i)
     | [i, ...r] =>
+      PP.string(f, "dynamic");
+      PP.non_breaking_space(f);
       ident(f, i);
       PP.string(f, ",");
       PP.non_breaking_space(f);
