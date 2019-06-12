@@ -29,13 +29,8 @@ final class Js_of_ocaml__Geolocation {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
+    $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $empty_position_options = function(dynamic $param) {

@@ -63,9 +63,13 @@ final class CamlinternalFormat {
     $type_format_gen = new Ref();
     $type_ignored_format_substitution = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_blit_string = $runtime["caml_blit_string"];
     $caml_bytes_set = $runtime["caml_bytes_set"];
+    $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
+    $call3 = $runtime["caml_call3"];
+    $call4 = $runtime["caml_call4"];
+    $call5 = $runtime["caml_call5"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_format_int = $runtime["caml_format_int"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
@@ -79,33 +83,6 @@ final class CamlinternalFormat {
     $is_int = $runtime["is_int"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
-    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 3
-        ? $f($a0, $a1, $a2)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
-    };
-    $call4 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 4
-        ? $f($a0, $a1, $a2, $a3)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
-    };
-    $call5 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 5
-        ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst_c = $caml_new_string("%c");
     $cst_s = $caml_new_string("%s");

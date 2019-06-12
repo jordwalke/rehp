@@ -35,32 +35,14 @@ final class Format {
 
     $output_acc = new Ref();$strput_acc = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
+    $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
+    $call3 = $runtime["caml_call3"];
+    $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $is_int = $runtime["is_int"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
-    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 3
-        ? $f($a0, $a1, $a2)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
-    };
-    $call4 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 4
-        ? $f($a0, $a1, $a2, $a3)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst__4 = $caml_new_string(".");
     $cst__2 = $caml_new_string(">");

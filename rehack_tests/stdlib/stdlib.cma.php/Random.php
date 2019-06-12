@@ -34,7 +34,9 @@ final class Random {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
+    $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
+    $call5 = $runtime["caml_call5"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_greaterthan = $runtime["caml_greaterthan"];
     $caml_int64_of_int32 = $runtime["caml_int64_of_int32"];
@@ -48,22 +50,6 @@ final class Random {
     $caml_sys_random_seed = $runtime["caml_sys_random_seed"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
-    $call5 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 5
-        ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Random_int64 = $caml_new_string("Random.int64");
     $cst_Random_int32 = $caml_new_string("Random.int32");

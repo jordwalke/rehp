@@ -31,39 +31,16 @@ final class Lexing {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_bytes_get = $runtime["caml_bytes_get"];
+    $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
+    $call3 = $runtime["caml_call3"];
+    $call4 = $runtime["caml_call4"];
+    $call5 = $runtime["caml_call5"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $caml_new_string = $runtime["caml_new_string"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
-    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 3
-        ? $f($a0, $a1, $a2)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
-    };
-    $call4 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 4
-        ? $f($a0, $a1, $a2, $a3)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3]));
-    };
-    $call5 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 5
-        ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Lexing_lex_refill_cannot_grow_buffer = $caml_new_string(
       "Lexing.lex_refill: cannot grow buffer"

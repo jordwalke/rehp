@@ -29,14 +29,9 @@ final class Js_of_ocaml__Json {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
+    $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_new_string = $runtime["caml_new_string"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
     $dummy_string = $caml_new_string("");
     $json = $runtime["caml_json"](0);
     $reviver = function(dynamic $this__0, dynamic $key, dynamic $value) use ($runtime) {

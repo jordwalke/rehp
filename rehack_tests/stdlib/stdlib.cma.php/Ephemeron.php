@@ -36,33 +36,15 @@ final class Ephemeron {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
+    $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
+    $call3 = $runtime["caml_call3"];
+    $call5 = $runtime["caml_call5"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_make_vect = $runtime["caml_make_vect"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
-    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 3
-        ? $f($a0, $a1, $a2)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
-    };
-    $call5 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 5
-        ? $f($a0, $a1, $a2, $a3, $a4)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $Obj = $global_data["Obj"];
     $Sys = $global_data["Sys"];

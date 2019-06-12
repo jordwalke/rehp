@@ -29,15 +29,10 @@ final class Char {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
+    $call1 = $runtime["caml_call1"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_new_string = $runtime["caml_new_string"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst = $caml_new_string("\\\\");
     $cst__0 = $caml_new_string("\\'");

@@ -123,6 +123,64 @@ $caml_js_to_string = $Func(
     
     
     
+$caml_arity_test = function($f) {
+  $php_f = ($f instanceof Func) ? $f->fun : $f;
+  if (is_object($php_f) && ($php_f instanceof \Closure)) {
+    return (new \ReflectionFunction($php_f))->getNumberOfRequiredParameters();
+  } else {
+    throw new \ErrorException("Passed non closure to rehack_arity");
+  }
+};
+    
+    
+    
+    
+  $caml_call_gen=function(
+    (function(mixed...): mixed) $f,
+    varray<mixed> $args,
+  ): mixed
+  use($raw_array_sub, $caml_arity_test) {
+    $n = caml_arity_test($f);
+    $argsLen = C\count($args);
+    $d = $n - $argsLen;
+
+    if ($d === 0) {
+      return $f(...$args);
+    } else if ($d < 0) {
+      return $caml_call_gen(
+        /* HH_IGNORE_ERROR[4110] $f must return a function here */
+        $f(...$raw_array_sub($args, 0, $n)),
+        $raw_array_sub($args, $n, $argsLen - $n),
+      );
+    } else {
+      return function(mixed $x) use ($f, $args) {
+        $args[] = $x;
+        return $caml_call_gen($f, $args);
+      };
+    }
+  }
+    
+    
+    
+    
+ $caml_call6=function(
+   (function(mixed...): mixed) $f,
+   dynamic $a1,
+   dynamic $a2,
+   dynamic $a3,
+   dynamic $a4,
+   dynamic $a5,
+   dynamic $a6,
+ ): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+   return $caml_arity_test($f) === 6
+     ? $f($a1, $a2, $a3, $a4, $a5, $a6)
+     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6]);
+ }
+    
+    
+    
+    
   $isFinite = function($value) {
    $value = to_number($value);
    return !($value === \INF || $value === -\INF || PHP\is_nan($value));
@@ -155,6 +213,22 @@ $caml_js_to_string = $Func(
     
     
     
+ $caml_call4=function(
+   (function(mixed...): mixed) $f,
+   dynamic $a1,
+   dynamic $a2,
+   dynamic $a3,
+   dynamic $a4,
+ ): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+   return $caml_arity_test($f) === 4
+     ? $f($a1, $a2, $a3, $a4)
+     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4]);
+ }
+    
+    
+    
+    
 $caml_wrap_exception = function($e) use($String, $caml_global_data) {
   if ($e instanceof RehpExceptionBox) {
     return $e->contents;
@@ -175,50 +249,6 @@ $caml_wrap_exception = function($e) use($String, $caml_global_data) {
   // kept in sync.
   return R(0, $caml_global_data->Failure, $e);
 };
-    
-    
-    
-    
-$caml_arity_test = function($f) {
-  $php_f = ($f instanceof Func) ? $f->fun : $f;
-  if (is_object($php_f) && ($php_f instanceof \Closure)) {
-    return (new \ReflectionFunction($php_f))->getNumberOfRequiredParameters();
-  } else {
-    throw new \ErrorException("Passed non closure to rehack_arity");
-  }
-};
-    
-    
-    
-    
-  $caml_call_gen = new Ref();
-  $caml_call_gen->contents =
-    function($f, $args) use ($Func,$caml_arity_test,$caml_call_gen,$raw_array_append_one,$raw_array_sub) {
-      if (instance_of($f, $Func)) {
-        return $caml_call_gen->contents($f->fun, $args);
-      }
-      $n = $caml_arity_test($f);
-      $argsLen = $args->length;
-      $d = $n - $argsLen;
-      if ($d === 0) {
-        return \call_user_func_array($f, $args->__toPhpArray());
-      } else {
-        if ($d < 0) {
-          return $caml_call_gen->contents(
-            \call_user_func_array($f, $raw_array_sub($args, 0, $n)->__toPhpArray()),
-            $raw_array_sub($args, $n, $argsLen - $n)
-          );
-        } else {
-          return function($x) use ($args,$caml_call_gen,$f,$raw_array_append_one) {
-            return $caml_call_gen->contents(
-              $f,
-              $raw_array_append_one($args, $x)
-            );
-          };
-        }
-      }
-    };
-  $caml_call_gen=$caml_call_gen->contents;
     
     
     
@@ -271,6 +301,26 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
     
     
     
+ $caml_call8=function(
+   (function(mixed...): mixed) $f,
+   dynamic $a1,
+   dynamic $a2,
+   dynamic $a3,
+   dynamic $a4,
+   dynamic $a5,
+   dynamic $a6,
+   dynamic $a7,
+   dynamic $a8,
+ ): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+   return $caml_arity_test($f) === 8
+     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8)
+     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8]);
+ }
+    
+    
+    
+    
 $polymorphic_log=$joo_global_object->polymorphic_log;
     
     
@@ -290,10 +340,60 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
     
     
     
+ $caml_call7=function(
+   (function(mixed...): mixed) $f,
+   dynamic $a1,
+   dynamic $a2,
+   dynamic $a3,
+   dynamic $a4,
+   dynamic $a5,
+   dynamic $a6,
+   dynamic $a7,
+ ): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+   return $caml_arity_test($f) === 7
+     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7)
+     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7]);
+ }
+    
+    
+    
+    
     $parseInt = function($str, $base) {
       print('oh hi markk');
       return PHP\intval($str, $base);
     };
+    
+    
+    
+    
+ $caml_call5=function(
+   (function(mixed...): mixed) $f,
+   dynamic $a1,
+   dynamic $a2,
+   dynamic $a3,
+   dynamic $a4,
+   dynamic $a5,
+ ): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+   return $caml_arity_test($f) === 5
+     ? $f($a1, $a2, $a3, $a4, $a5)
+     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5]);
+ }
+    
+    
+    
+    
+  $caml_call2=function(
+   (function(mixed...): mixed) $f,
+   dynamic $a1,
+   dynamic $a2,
+ ): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+   return $caml_arity_test($f) === 2
+     ? $f($a1, $a2)
+     : $caml_call_gen($f, varray[$a1, $a2]);
+ }
     
     
     
@@ -481,6 +581,21 @@ $RegExp=$joo_global_object->RegExp;
     
     
     
+ $caml_call3=function(
+   (function(mixed...): mixed) $f,
+   dynamic $a1,
+   dynamic $a2,
+   dynamic $a3,
+ ): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+   return $caml_arity_test($f) === 3
+     ? $f($a1, $a2, $a3)
+     : $caml_call_gen($f, varray[$a1, $a2, $a3]);
+ }
+    
+    
+    
+    
   $caml_update_dummy = function($x, $y) {
     if(PHP\is_callable($y)) {
       $x->fun = $y;
@@ -560,6 +675,14 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         );
       }
     );
+    
+    
+    
+    
+  $caml_call1=function((function(mixed...): mixed) $f, dynamic $a1): dynamic
+  use($caml_arity_test, $caml_call_gen) {
+    return $caml_arity_test($f) === 1 ? $f($a1) : $caml_call_gen($f, varray[$a1]);
+  }
     
     
     $joo_global_object->jsoo_runtime =
@@ -876,6 +999,14 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
          "caml_named_value"=>$caml_named_value,
          "caml_register_named_value"=>$caml_register_named_value,
          "caml_named_values"=>$caml_named_values,
+         "caml_call8"=>$caml_call8,
+         "caml_call7"=>$caml_call7,
+         "caml_call6"=>$caml_call6,
+         "caml_call5"=>$caml_call5,
+         "caml_call4"=>$caml_call4,
+         "caml_call3"=>$caml_call3,
+         "caml_call2"=>$caml_call2,
+         "caml_call1"=>$caml_call1,
          "caml_call_gen"=>$caml_call_gen,
          "caml_arity_test"=>$caml_arity_test,
          "raw_array_append_one"=>$raw_array_append_one,

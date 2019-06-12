@@ -29,17 +29,8 @@ final class Stack {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
-    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 3
-        ? $f($a0, $a1, $a2)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
-    };
+    $call2 = $runtime["caml_call2"];
+    $call3 = $runtime["caml_call3"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Stack_Empty = $runtime["caml_new_string"]("Stack.Empty");
     $List = $global_data["List_"];

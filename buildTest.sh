@@ -61,7 +61,7 @@ esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enabl
 echo "./rehack_tests/strings/stringsStandalone.withRuntime.js"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/common-js-exe-header.js)" --backend js --prettiest-js ./_build/default/rehack_tests/strings/strings.bc -o ./rehack_tests/strings/stringsStandalone.withRuntime.js'
 
-# node ./rehack_tests/static_react_bytecode/static-react-test.js
+# node -e 'global.native_log=(s)=>console.log(s); require("./rehack_tests/static_react_bytecode/static-react-test.js")'
 echo "./rehack_tests/static_react_bytecode/static-react-test.js"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js --prettiest-js --custom-header "function polymorphic_log(s) {console.log(\"c\" in s ? s.c : s);} $(< ./rehack_tests/templates/common-js-exe-header.js)"  ./rehack_tests/static_react_bytecode/static-react-test.bc -o ./rehack_tests/static_react_bytecode/static-react-test.js'
 

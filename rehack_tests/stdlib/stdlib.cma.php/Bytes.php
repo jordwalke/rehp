@@ -31,26 +31,17 @@ final class Bytes {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
     $caml_blit_bytes = $runtime["caml_blit_bytes"];
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
+    $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_fill_bytes = $runtime["caml_fill_bytes"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst_String_rcontains_from_Bytes_rcontains_from = $caml_new_string(
       "String.rcontains_from / Bytes.rcontains_from"

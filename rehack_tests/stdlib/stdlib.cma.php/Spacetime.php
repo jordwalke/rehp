@@ -30,17 +30,12 @@ final class Spacetime {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
+    $call1 = $runtime["caml_call1"];
     $caml_new_string = $runtime["caml_new_string"];
     $caml_spacetime_enabled = $runtime["caml_spacetime_enabled"];
     $caml_spacetime_only_works_for_native_code = $runtime[
        "caml_spacetime_only_works_for_native_code"
      ];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Series_is_closed__0 = $caml_new_string("Series is closed");
     $cst_Series_is_closed = $caml_new_string("Series is closed");

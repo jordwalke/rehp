@@ -39,7 +39,11 @@ final class Printexc {
 
     $other_fields = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_arity_test = $runtime["caml_arity_test"];
+    $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
+    $call3 = $runtime["caml_call3"];
+    $call6 = $runtime["caml_call6"];
+    $call7 = $runtime["caml_call7"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_get_exception_raw_backtrace = $runtime[
        "caml_get_exception_raw_backtrace"
@@ -48,33 +52,6 @@ final class Printexc {
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $call1 = function(dynamic $f, dynamic $a0) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 1
-        ? $f($a0)
-        : ($runtime["caml_call_gen"]($f, varray[$a0]));
-    };
-    $call2 = function(dynamic $f, dynamic $a0, dynamic $a1) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 2
-        ? $f($a0, $a1)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1]));
-    };
-    $call3 = function(dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 3
-        ? $f($a0, $a1, $a2)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2]));
-    };
-    $call6 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4, dynamic $a5) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 6
-        ? $f($a0, $a1, $a2, $a3, $a4, $a5)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4,$a5]));
-    };
-    $call7 = function
-    (dynamic $f, dynamic $a0, dynamic $a1, dynamic $a2, dynamic $a3, dynamic $a4, dynamic $a5, dynamic $a6) use ($caml_arity_test,$runtime) {
-      return $caml_arity_test($f) === 7
-        ? $f($a0, $a1, $a2, $a3, $a4, $a5, $a6)
-        : ($runtime["caml_call_gen"]($f, varray[$a0,$a1,$a2,$a3,$a4,$a5,$a6]));
-    };
     $global_data = $runtime["caml_get_global_data"]();
     $cst__0 = $caml_new_string("");
     $cst_Program_not_linked_with_g_cannot_print_stack_backtrace = $caml_new_string(
