@@ -160,6 +160,20 @@ module Share = struct
         (* These need to be added to the "special prims" in order to be
            shared/hoisted. TODO: Renamed these. *)
         ; "caml_arity_test"
+        (* Allow the runtime to optionally predefine several caml_calls. *)
+        ; "caml_call1"
+        ; "caml_call2"
+        ; "caml_call3"
+        ; "caml_call4"
+        ; "caml_call5"
+        ; "caml_call6"
+        ; "caml_call7"
+        ; "caml_call8"
+        ; "caml_call9"
+        ; "caml_call10"
+        ; "caml_call11"
+        ; "caml_call12"
+        ; "caml_call13"
         ; "is_int"
         ; "left_shift_32"
         ; "unsigned_right_shift_32"
@@ -185,17 +199,21 @@ module Share = struct
         else gen s
       with Not_found -> gen s
 
-  let get_prim gen s t =
+  let get_prim ?preferred_local_varname_for_alias gen s t =
+    let varname = match preferred_local_varname_for_alias with None -> s | Some nm -> nm in
     let s = Primitive.resolve s in
     if not t.alias_prims
     then gen s
     else
       try
         let c = StringMap.find s t.count.prims in
+        (* If the usage count of the prim is > 1 then try to hoist the variable
+           definition to the top. Also, if it is a "special" prim (marked with count
+           -1), then always hoist it to the top as well. *)
         if c > 1 || c = -1
         then (
           try J.EVar (StringMap.find s t.vars.prims) with Not_found ->
-            let x = Var.fresh_n s in
+            let x = Var.fresh_n varname in
             let v = Id.V x in
             t.vars <- {t.vars with prims = StringMap.add s v t.vars.prims};
             J.EVar v )
@@ -763,10 +781,27 @@ let apply_fun ctx f params loc =
   if Config.Flag.inline_callgen ()
   then apply_fun_raw ctx f params
   else
-    let y =
-      Share.get_apply (generate_apply_fun ctx) (List.length params) ctx.Ctx.share
-    in
-    J.ECall (y, f :: params, loc)
+    let len = List.length params in
+    let prim_name = Printf.sprintf "caml_call%d" len in
+    let preferred_local_varname_for_alias = Printf.sprintf "call%d" len in
+    if_prim_supplied
+      prim_name
+      (* If compiled with a runtime.js input that has defined caml_call_x
+         then we can pull in references to those runtime functions. *)
+      ~if_supplied:(fun () ->
+        let p =
+          Share.get_prim
+            ~preferred_local_varname_for_alias
+            (runtime_fun ctx)
+            prim_name
+            ctx.Ctx.share in
+        J.ECall (p, f :: params, Loc.N))
+      (* Otherwise, if it's not in a "primitive", we will define a new
+         caml_call_x inside this module. *)
+      ~fallback:(
+        fun() ->
+          let y = Share.get_apply (generate_apply_fun ctx) len ctx.Ctx.share in
+          J.ECall (y, f :: params, loc))
 
 (****)
 

@@ -85,45 +85,194 @@ function caml_call_gen(f, args) {
 }
 
 
-//Needs to be rewritten because we don't want to support recursion in the
-//stubs. We want to move to them being raw text, and recursive use has
-//non-local effects in some backends like php - (requires boxing).
+//This version doesn't yet handle mutable caml_alloc_dummy_functions.
+//It needs to be updated to handle the result of caml_alloc_dummy_functions,
+//and so does each caml_calln.
 //Provides: caml_call_gen (const, shallow)
 //Requires: raw_array_sub
-//Requires: raw_array_append_one
 //Requires: caml_arity_test
-//Requires: Func
 //ForBackend: php
 var caml_call_gen = raw_backend([
-  "  $caml_call_gen = new Ref();",
-  "  $caml_call_gen->contents =",
-  "    function($f, $args) use ($Func,$caml_arity_test,$caml_call_gen,$raw_array_append_one,$raw_array_sub) {",
-  "      if (instance_of($f, $Func)) {",
-  "        return $caml_call_gen->contents($f->fun, $args);",
-  "      }",
-  "      $n = $caml_arity_test($f);",
-  "      $argsLen = $args->length;",
-  "      $d = $n - $argsLen;",
-  "      if ($d === 0) {",
-  "        return \call_user_func_array($f, $args->__toPhpArray());",
-  "      } else {",
-  "        if ($d < 0) {",
-  "          return $caml_call_gen->contents(",
-  "            \call_user_func_array($f, $raw_array_sub($args, 0, $n)->__toPhpArray()),",
-  "            $raw_array_sub($args, $n, $argsLen - $n)",
-  "          );",
-  "        } else {",
-  "          return function($x) use ($args,$caml_call_gen,$f,$raw_array_append_one) {",
-  "            return $caml_call_gen->contents(",
-  "              $f,",
-  "              $raw_array_append_one($args, $x)",
-  "            );",
-  "          };",
-  "        }",
-  "      }",
-  "    };",
-  "  $caml_call_gen=$caml_call_gen->contents;"
+  "  $caml_call_gen=function(",
+  "    (function(mixed...): mixed) $f,",
+  "    varray<mixed> $args,",
+  "  ): mixed",
+  "  use($raw_array_sub, $caml_arity_test) {",
+  "    $n = caml_arity_test($f);",
+  "    $argsLen = C\count($args);",
+  "    $d = $n - $argsLen;",
+  "",
+  "    if ($d === 0) {",
+  "      return $f(...$args);",
+  "    } else if ($d < 0) {",
+  "      return $caml_call_gen(",
+  "        /* HH_IGNORE_ERROR[4110] $f must return a function here */",
+  "        $f(...$raw_array_sub($args, 0, $n)),",
+  "        $raw_array_sub($args, $n, $argsLen - $n),",
+  "      );",
+  "    } else {",
+  "      return function(mixed $x) use ($f, $args) {",
+  "        $args[] = $x;",
+  "        return $caml_call_gen($f, $args);",
+  "      };",
+  "    }",
+  "  }"
 ]);
+
+
+//Provides: caml_call1 (const, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call1 = raw_backend([
+  "  $caml_call1=function((function(mixed...): mixed) $f, dynamic $a1): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "    return $caml_arity_test($f) === 1 ? $f($a1) : $caml_call_gen($f, varray[$a1]);",
+  "  }"
+]);
+
+//Provides: caml_call2 (const, mutable, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call2 = raw_backend([
+  "  $caml_call2=function(",
+  "   (function(mixed...): mixed) $f,",
+  "   dynamic $a1,",
+  "   dynamic $a2,",
+  " ): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "   return $caml_arity_test($f) === 2",
+  "     ? $f($a1, $a2)",
+  "     : $caml_call_gen($f, varray[$a1, $a2]);",
+  " }"
+]);
+
+//Provides: caml_call3 (const, mutable, mutable, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call3 = raw_backend([
+
+  " $caml_call3=function(",
+  "   (function(mixed...): mixed) $f,",
+  "   dynamic $a1,",
+  "   dynamic $a2,",
+  "   dynamic $a3,",
+  " ): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "   return $caml_arity_test($f) === 3",
+  "     ? $f($a1, $a2, $a3)",
+  "     : $caml_call_gen($f, varray[$a1, $a2, $a3]);",
+  " }"
+]);
+
+//Provides: caml_call4 (const, mutable, mutable, mutable, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call4 = raw_backend([
+  " $caml_call4=function(",
+  "   (function(mixed...): mixed) $f,",
+  "   dynamic $a1,",
+  "   dynamic $a2,",
+  "   dynamic $a3,",
+  "   dynamic $a4,",
+  " ): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "   return $caml_arity_test($f) === 4",
+  "     ? $f($a1, $a2, $a3, $a4)",
+  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4]);",
+  " }"
+]);
+
+//Provides: caml_call5 (const, mutable, mutable, mutable, mutable, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call5 = raw_backend([
+  " $caml_call5=function(",
+  "   (function(mixed...): mixed) $f,",
+  "   dynamic $a1,",
+  "   dynamic $a2,",
+  "   dynamic $a3,",
+  "   dynamic $a4,",
+  "   dynamic $a5,",
+  " ): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "   return $caml_arity_test($f) === 5",
+  "     ? $f($a1, $a2, $a3, $a4, $a5)",
+  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5]);",
+  " }"
+]);
+
+//Provides: caml_call6 (const, mutable, mutable, mutable, mutable, mutable, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call6 = raw_backend([
+  " $caml_call6=function(",
+  "   (function(mixed...): mixed) $f,",
+  "   dynamic $a1,",
+  "   dynamic $a2,",
+  "   dynamic $a3,",
+  "   dynamic $a4,",
+  "   dynamic $a5,",
+  "   dynamic $a6,",
+  " ): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "   return $caml_arity_test($f) === 6",
+  "     ? $f($a1, $a2, $a3, $a4, $a5, $a6)",
+  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6]);",
+  " }"
+]);
+
+//Provides: caml_call7 (const, mutable, mutable, mutable, mutable, mutable, mutable, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call7 = raw_backend([
+  " $caml_call7=function(",
+  "   (function(mixed...): mixed) $f,",
+  "   dynamic $a1,",
+  "   dynamic $a2,",
+  "   dynamic $a3,",
+  "   dynamic $a4,",
+  "   dynamic $a5,",
+  "   dynamic $a6,",
+  "   dynamic $a7,",
+  " ): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "   return $caml_arity_test($f) === 7",
+  "     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7)",
+  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7]);",
+  " }"
+]);
+
+//Provides: caml_call8 (const, mutable, mutable, mutable, mutable, mutable, mutable, mutable, mutable)
+//Requires: caml_arity_test
+//Requires: caml_call_gen
+//ForBackend: php
+var caml_call8 = raw_backend([
+  " $caml_call8=function(",
+  "   (function(mixed...): mixed) $f,",
+  "   dynamic $a1,",
+  "   dynamic $a2,",
+  "   dynamic $a3,",
+  "   dynamic $a4,",
+  "   dynamic $a5,",
+  "   dynamic $a6,",
+  "   dynamic $a7,",
+  "   dynamic $a8,",
+  " ): dynamic",
+  "  use($caml_arity_test, $caml_call_gen) {",
+  "   return $caml_arity_test($f) === 8",
+  "     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8)",
+  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8]);",
+  " }"
+]);
+
+
 
 
 //Provides: caml_named_values
