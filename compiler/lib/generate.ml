@@ -373,7 +373,13 @@ let rec constant_rec ~ctx x level instrs =
   match x with
   | String s ->
       let e = Share.get_string str_js s ctx.Ctx.share in
-      let p = Share.get_prim (runtime_fun ctx) "caml_new_string" ctx.Ctx.share in
+      let preferred_local_varname_for_alias = "string" in
+      let p =
+        Share.get_prim
+          ~preferred_local_varname_for_alias
+          (runtime_fun ctx)
+          "caml_new_string"
+          ctx.Ctx.share in
       J.ECall (p, [e], Loc.N), instrs
   | IString s -> Share.get_string str_js s ctx.Ctx.share, instrs
   | Float f -> float_const f, instrs
