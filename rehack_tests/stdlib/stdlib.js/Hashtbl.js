@@ -21,7 +21,7 @@ var caml_check_bound = runtime["caml_check_bound"];
 var caml_compare = runtime["caml_compare"];
 var caml_hash = runtime["caml_hash"];
 var caml_make_vect = runtime["caml_make_vect"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_sys_getenv = runtime["caml_sys_getenv"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
@@ -40,9 +40,9 @@ function call3(f, a0, a1, a2) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_OCAMLRUNPARAM = caml_new_string("OCAMLRUNPARAM");
-var cst_CAMLRUNPARAM = caml_new_string("CAMLRUNPARAM");
-var cst = caml_new_string("");
+var cst_OCAMLRUNPARAM = string("OCAMLRUNPARAM");
+var cst_CAMLRUNPARAM = string("CAMLRUNPARAM");
+var cst = string("");
 var Sys = global_data["Sys"];
 var Not_found = global_data["Not_found"];
 var Pervasives = global_data["Pervasives"];
@@ -52,7 +52,7 @@ var CamlinternalLazy = global_data["CamlinternalLazy"];
 var Random = global_data["Random"];
 var String = global_data["String_"];
 var qh = [0,0];
-var qg = [0,caml_new_string("hashtbl.ml"),108,23];
+var qg = [0,string("hashtbl.ml"),108,23];
 
 function hash(x) {return caml_hash(10, 100, 0, x);}
 

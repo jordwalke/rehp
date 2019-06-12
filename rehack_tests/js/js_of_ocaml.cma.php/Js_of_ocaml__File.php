@@ -38,27 +38,27 @@ final class Js_of_ocaml__File {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string__0 = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_can_t_retrieve_file_name_not_implemented = $caml_new_string(
+    $cst_can_t_retrieve_file_name_not_implemented = $string__0(
       "can't retrieve file name: not implemented"
     );
-    $cst_endings = $caml_new_string("endings");
-    $cst_type = $caml_new_string("type");
-    $cst_loadstart = $caml_new_string("loadstart");
-    $cst_progress = $caml_new_string("progress");
-    $cst_abort = $caml_new_string("abort");
-    $cst_error = $caml_new_string("error");
-    $cst_load = $caml_new_string("load");
-    $cst_loadend = $caml_new_string("loadend");
+    $cst_endings = $string__0("endings");
+    $cst_type = $string__0("type");
+    $cst_loadstart = $string__0("loadstart");
+    $cst_progress = $string__0("progress");
+    $cst_abort = $string__0("abort");
+    $cst_error = $string__0("error");
+    $cst_load = $string__0("load");
+    $cst_loadend = $string__0("loadend");
     $Js_of_ocaml_Typed_array = $global_data["Js_of_ocaml__Typed_array"];
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Pervasives = $global_data["Pervasives"];
     $List = $global_data["List_"];
     $Array = $global_data["Array_"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $go = Vector{0, $caml_new_string("transparent")};
-    $gp = Vector{0, $caml_new_string("native")};
+    $go = Vector{0, $string__0("transparent")};
+    $gp = Vector{0, $string__0("native")};
     $gm = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, -553417380, 86), $x);
     };

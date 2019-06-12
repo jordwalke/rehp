@@ -11,7 +11,7 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 
 function call1(f, a0) {
@@ -23,12 +23,8 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Obj_extension_constructor__0 = caml_new_string(
-  "Obj.extension_constructor"
-);
-var cst_Obj_extension_constructor = caml_new_string(
-  "Obj.extension_constructor"
-);
+var cst_Obj_extension_constructor__0 = string("Obj.extension_constructor");
+var cst_Obj_extension_constructor = string("Obj.extension_constructor");
 var Pervasives = global_data["Pervasives"];
 var Marshal = global_data["Marshal"];
 

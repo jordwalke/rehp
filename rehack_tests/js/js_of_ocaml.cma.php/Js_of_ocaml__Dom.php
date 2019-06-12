@@ -35,13 +35,13 @@ final class Js_of_ocaml__Dom {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Assert_failure = $global_data["Assert_failure"];
     $Not_found = $global_data["Not_found"];
     $List = $global_data["List_"];
-    $e_ = Vector{0, $caml_new_string("lib/js_of_ocaml/dom.ml"), 343, 67};
+    $e_ = Vector{0, $string("lib/js_of_ocaml/dom.ml"), 343, 67};
     $list_of_nodeList = function(dynamic $nodeList) use ($Js_of_ocaml_Js,$List,$call1,$caml_get_public_method) {
       $fW = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 520590566, 48), $x);

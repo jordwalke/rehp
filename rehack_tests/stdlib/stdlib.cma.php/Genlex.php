@@ -42,19 +42,19 @@ final class Genlex {
     $call5 = $runtime["caml_call5"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_float_of_string = $runtime["caml_float_of_string"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_trampoline = $runtime["caml_trampoline"];
     $caml_trampoline_return = $runtime["caml_trampoline_return"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst = $caml_new_string("");
-    $cst__0 = $caml_new_string("");
-    $cst__1 = $caml_new_string("");
-    $cst__2 = $caml_new_string("");
-    $cst__4 = $caml_new_string("");
-    $cst__3 = $caml_new_string("");
-    $cst_Illegal_character = $caml_new_string("Illegal character ");
+    $cst = $string("");
+    $cst__0 = $string("");
+    $cst__1 = $string("");
+    $cst__2 = $string("");
+    $cst__4 = $string("");
+    $cst__3 = $string("");
+    $cst_Illegal_character = $string("Illegal character ");
     $Stream = $global_data["Stream"];
     $Char = $global_data["Char"];
     $String = $global_data["String_"];
@@ -86,14 +86,13 @@ final class Genlex {
       $buffer[1] = $initial_buffer;
       return $s;
     };
-    $make_lexer = function(dynamic $keywords) use ($Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$call1,$call2,$call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$unsigned_right_shift_32) {
+    $make_lexer = function(dynamic $keywords) use ($Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$call1,$call2,$call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
       $char__0 = new Ref();
       $comment = new Ref();
       $escape = new Ref();
       $maybe_comment = new Ref();
       $maybe_end_comment = new Ref();
       $maybe_nested_comment = new Ref();
-      $string = new Ref();
       $kwd_table = $call2($Hashtbl[1], 0, 17);
       $zz = function(dynamic $s) use ($Hashtbl,$call3,$kwd_table) {
         return $call3($Hashtbl[5], $kwd_table, $s, Vector{0, $s});
@@ -329,7 +328,7 @@ final class Genlex {
                     case 34:
                       $call1($Stream[12], $strm);
                       $reset_buffer(0);
-                      return Vector{0, Vector{4, $string->contents($strm)}};
+                      return Vector{0, Vector{4, $string($strm)}};
                     // FALLTHROUGH
                     case 39:
                       $call1($Stream[12], $strm);

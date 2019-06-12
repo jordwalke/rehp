@@ -29,11 +29,11 @@ final class Sys {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Sys_Break = $caml_new_string("Sys.Break");
-    $ocaml_version = $caml_new_string("4.06.0");
+    $cst_Sys_Break = $string("Sys.Break");
+    $ocaml_version = $string("4.06.0");
     $Not_found = $global_data["Not_found"];
     $match = $runtime["caml_sys_get_argv"](0);
     $argv = $match[2];

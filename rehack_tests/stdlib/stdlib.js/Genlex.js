@@ -19,7 +19,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_float_of_string = runtime["caml_float_of_string"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_trampoline = runtime["caml_trampoline"];
 var caml_trampoline_return = runtime["caml_trampoline_return"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
@@ -45,13 +45,13 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst = caml_new_string("");
-var cst__0 = caml_new_string("");
-var cst__1 = caml_new_string("");
-var cst__2 = caml_new_string("");
-var cst__4 = caml_new_string("");
-var cst__3 = caml_new_string("");
-var cst_Illegal_character = caml_new_string("Illegal character ");
+var cst = string("");
+var cst__0 = string("");
+var cst__1 = string("");
+var cst__2 = string("");
+var cst__4 = string("");
+var cst__3 = string("");
+var cst_Illegal_character = string("Illegal character ");
 var Stream = global_data["Stream"];
 var Char = global_data["Char"];
 var String = global_data["String_"];

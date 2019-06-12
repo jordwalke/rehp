@@ -42,7 +42,7 @@ final class Filename {
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_string_equal = $runtime["caml_string_equal"];
     $caml_string_get = $runtime["caml_string_get"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
@@ -52,34 +52,34 @@ final class Filename {
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Filename_chop_extension = $caml_new_string("Filename.chop_extension");
-    $cst__10 = $caml_new_string("");
-    $cst_Filename_chop_suffix = $caml_new_string("Filename.chop_suffix");
-    $cst__9 = $caml_new_string("");
-    $cst__7 = $caml_new_string("./");
-    $cst__6 = $caml_new_string(".\\");
-    $cst__5 = $caml_new_string("../");
-    $cst__4 = $caml_new_string("..\\");
-    $cst__2 = $caml_new_string("./");
-    $cst__1 = $caml_new_string("../");
-    $cst__0 = $caml_new_string("");
-    $cst = $caml_new_string("");
-    $current_dir_name = $caml_new_string(".");
-    $parent_dir_name = $caml_new_string("..");
-    $dir_sep = $caml_new_string("/");
-    $cst_TMPDIR = $caml_new_string("TMPDIR");
-    $cst_tmp = $caml_new_string("/tmp");
-    $cst__3 = $caml_new_string("'\\''");
-    $current_dir_name__0 = $caml_new_string(".");
-    $parent_dir_name__0 = $caml_new_string("..");
-    $dir_sep__0 = $caml_new_string("\\");
-    $cst_TEMP = $caml_new_string("TEMP");
-    $cst__8 = $caml_new_string(".");
-    $current_dir_name__1 = $caml_new_string(".");
-    $parent_dir_name__1 = $caml_new_string("..");
-    $dir_sep__1 = $caml_new_string("/");
-    $cst_Cygwin = $caml_new_string("Cygwin");
-    $cst_Win32 = $caml_new_string("Win32");
+    $cst_Filename_chop_extension = $string("Filename.chop_extension");
+    $cst__10 = $string("");
+    $cst_Filename_chop_suffix = $string("Filename.chop_suffix");
+    $cst__9 = $string("");
+    $cst__7 = $string("./");
+    $cst__6 = $string(".\\");
+    $cst__5 = $string("../");
+    $cst__4 = $string("..\\");
+    $cst__2 = $string("./");
+    $cst__1 = $string("../");
+    $cst__0 = $string("");
+    $cst = $string("");
+    $current_dir_name = $string(".");
+    $parent_dir_name = $string("..");
+    $dir_sep = $string("/");
+    $cst_TMPDIR = $string("TMPDIR");
+    $cst_tmp = $string("/tmp");
+    $cst__3 = $string("'\\''");
+    $current_dir_name__0 = $string(".");
+    $parent_dir_name__0 = $string("..");
+    $dir_sep__0 = $string("\\");
+    $cst_TEMP = $string("TEMP");
+    $cst__8 = $string(".");
+    $current_dir_name__1 = $string(".");
+    $parent_dir_name__1 = $string("..");
+    $dir_sep__1 = $string("/");
+    $cst_Cygwin = $string("Cygwin");
+    $cst_Win32 = $string("Win32");
     $Pervasives = $global_data["Pervasives"];
     $Sys_error = $global_data["Sys_error"];
     $CamlinternalLazy = $global_data["CamlinternalLazy"];
@@ -94,7 +94,7 @@ final class Filename {
     $Bg = Vector{
       0,
       Vector{2, 0, Vector{4, 6, Vector{0, 2, 6}, 0, Vector{2, 0, 0}}},
-      $caml_new_string("%s%06x%s")
+      $string("%s%06x%s")
     };
     $generic_quote = function(dynamic $quotequote, dynamic $s) use ($Buffer,$call1,$call2,$caml_ml_string_length,$caml_string_get) {
       $l = $caml_ml_string_length($s);

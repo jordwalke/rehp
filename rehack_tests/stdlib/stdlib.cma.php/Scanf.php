@@ -53,7 +53,7 @@ final class Scanf {
     $call4 = $runtime["caml_call4"];
     $caml_int_of_string = $runtime["caml_int_of_string"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_string_get = $runtime["caml_string_get"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_trampoline = $runtime["caml_trampoline"];
@@ -62,65 +62,51 @@ final class Scanf {
     $is_int = $runtime["is_int"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_end_of_input_not_found = $caml_new_string("end of input not found");
-    $cst_scanf_bad_conversion_a = $caml_new_string(
-      "scanf: bad conversion \"%a\""
-    );
-    $cst_scanf_bad_conversion_t = $caml_new_string(
-      "scanf: bad conversion \"%t\""
-    );
-    $cst_scanf_missing_reader = $caml_new_string("scanf: missing reader");
-    $cst_scanf_bad_conversion_custom_converter = $caml_new_string(
+    $cst_end_of_input_not_found = $string("end of input not found");
+    $cst_scanf_bad_conversion_a = $string("scanf: bad conversion \"%a\"");
+    $cst_scanf_bad_conversion_t = $string("scanf: bad conversion \"%t\"");
+    $cst_scanf_missing_reader = $string("scanf: missing reader");
+    $cst_scanf_bad_conversion_custom_converter = $string(
       "scanf: bad conversion \"%?\" (custom converter)"
     );
-    $cst_scanf_bad_conversion = $caml_new_string(
-      "scanf: bad conversion \"%*\""
-    );
-    $cst_scanf_bad_conversion__1 = $caml_new_string(
-      "scanf: bad conversion \"%*\""
-    );
-    $cst_scanf_bad_conversion__0 = $caml_new_string(
-      "scanf: bad conversion \"%-\""
-    );
-    $cst_scanf_bad_conversion__2 = $caml_new_string(
-      "scanf: bad conversion \"%*\""
-    );
-    $cst__2 = $caml_new_string("\"");
-    $cst__3 = $caml_new_string("\"");
-    $cst__1 = $caml_new_string("\"");
-    $cst_in_format = $caml_new_string(" in format \"");
-    $cst_an = $caml_new_string("an");
-    $cst_x = $caml_new_string("x");
-    $cst_nfinity = $caml_new_string("nfinity");
-    $cst_digits = $caml_new_string("digits");
-    $cst_decimal_digits = $caml_new_string("decimal digits");
-    $cst_0b = $caml_new_string("0b");
-    $cst_0o = $caml_new_string("0o");
-    $cst_0u = $caml_new_string("0u");
-    $cst_0x = $caml_new_string("0x");
-    $cst_false = $caml_new_string("false");
-    $cst_true = $caml_new_string("true");
-    $cst_not_a_valid_float_in_hexadecimal_notation = $caml_new_string(
+    $cst_scanf_bad_conversion = $string("scanf: bad conversion \"%*\"");
+    $cst_scanf_bad_conversion__1 = $string("scanf: bad conversion \"%*\"");
+    $cst_scanf_bad_conversion__0 = $string("scanf: bad conversion \"%-\"");
+    $cst_scanf_bad_conversion__2 = $string("scanf: bad conversion \"%*\"");
+    $cst__2 = $string("\"");
+    $cst__3 = $string("\"");
+    $cst__1 = $string("\"");
+    $cst_in_format = $string(" in format \"");
+    $cst_an = $string("an");
+    $cst_x = $string("x");
+    $cst_nfinity = $string("nfinity");
+    $cst_digits = $string("digits");
+    $cst_decimal_digits = $string("decimal digits");
+    $cst_0b = $string("0b");
+    $cst_0o = $string("0o");
+    $cst_0u = $string("0u");
+    $cst_0x = $string("0x");
+    $cst_false = $string("false");
+    $cst_true = $string("true");
+    $cst_not_a_valid_float_in_hexadecimal_notation = $string(
       "not a valid float in hexadecimal notation"
     );
-    $cst_no_dot_or_exponent_part_found_in_float_token = $caml_new_string(
+    $cst_no_dot_or_exponent_part_found_in_float_token = $string(
       "no dot or exponent part found in float token"
     );
-    $cst__0 = $caml_new_string("-");
-    $cst_unnamed_function = $caml_new_string("unnamed function");
-    $cst_unnamed_character_string = $caml_new_string(
-      "unnamed character string"
-    );
-    $cst_unnamed_Pervasives_input_channel = $caml_new_string(
+    $cst__0 = $string("-");
+    $cst_unnamed_function = $string("unnamed function");
+    $cst_unnamed_character_string = $string("unnamed character string");
+    $cst_unnamed_Pervasives_input_channel = $string(
       "unnamed Pervasives input channel"
     );
-    $cst = $caml_new_string("-");
-    $cst_Scanf_Scan_failure = $caml_new_string("Scanf.Scan_failure");
-    $cst_binary = $caml_new_string("binary");
-    $cst_octal = $caml_new_string("octal");
-    $cst_hexadecimal = $caml_new_string("hexadecimal");
-    $cst_a_Char = $caml_new_string("a Char");
-    $cst_a_String = $caml_new_string("a String");
+    $cst = $string("-");
+    $cst_Scanf_Scan_failure = $string("Scanf.Scan_failure");
+    $cst_binary = $string("binary");
+    $cst_octal = $string("octal");
+    $cst_hexadecimal = $string("hexadecimal");
+    $cst_a_Char = $string("a Char");
+    $cst_a_String = $string("a String");
     $CamlinternalFormat = $global_data["CamlinternalFormat"];
     $CamlinternalFormatBasics = $global_data["CamlinternalFormatBasics"];
     $String = $global_data["String_"];
@@ -135,108 +121,104 @@ final class Scanf {
     $Not_found = $global_data["Not_found"];
     $v_ = Vector{0, 91};
     $v9 = Vector{0, 123};
-    $wa = Vector{0, $caml_new_string("scanf.ml"), 1455, 13};
-    $wb = Vector{0, Vector{3, 0, Vector{10, 0}}, $caml_new_string("%S%!")};
-    $v8 = Vector{0, 37, $caml_new_string("")};
+    $wa = Vector{0, $string("scanf.ml"), 1455, 13};
+    $wb = Vector{0, Vector{3, 0, Vector{10, 0}}, $string("%S%!")};
+    $v8 = Vector{0, 37, $string("")};
     $v7 = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("scanf: bad input at char number "),
-        Vector{4, 3, 0, 0, Vector{11, $caml_new_string(": "), Vector{2, 0, 0}}
-        }
+        $string("scanf: bad input at char number "),
+        Vector{4, 3, 0, 0, Vector{11, $string(": "), Vector{2, 0, 0}}}
       },
-      $caml_new_string("scanf: bad input at char number %i: %s")
+      $string("scanf: bad input at char number %i: %s")
     };
     $v6 = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("the character "),
-        Vector{1, Vector{11, $caml_new_string(" cannot start a boolean"), 0}}
+        $string("the character "),
+        Vector{1, Vector{11, $string(" cannot start a boolean"), 0}}
       },
-      $caml_new_string("the character %C cannot start a boolean")
+      $string("the character %C cannot start a boolean")
     };
     $v5 = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("bad character hexadecimal encoding \\"),
+        $string("bad character hexadecimal encoding \\"),
         Vector{0, Vector{0, 0}}
       },
-      $caml_new_string("bad character hexadecimal encoding \\%c%c")
+      $string("bad character hexadecimal encoding \\%c%c")
     };
     $v4 = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("bad character decimal encoding \\"),
+        $string("bad character decimal encoding \\"),
         Vector{0, Vector{0, Vector{0, 0}}}
       },
-      $caml_new_string("bad character decimal encoding \\%c%c%c")
+      $string("bad character decimal encoding \\%c%c%c")
     };
     $v3 = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("character "),
+        $string("character "),
         Vector{
           1,
           Vector{
             11,
-            $caml_new_string(" is not a valid "),
-            Vector{2, 0, Vector{11, $caml_new_string(" digit"), 0}}
+            $string(" is not a valid "),
+            Vector{2, 0, Vector{11, $string(" digit"), 0}}
           }
         }
       },
-      $caml_new_string("character %C is not a valid %s digit")
+      $string("character %C is not a valid %s digit")
     };
     $v2 = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("character "),
-        Vector{1, Vector{11, $caml_new_string(" is not a decimal digit"), 0}}
+        $string("character "),
+        Vector{1, Vector{11, $string(" is not a decimal digit"), 0}}
       },
-      $caml_new_string("character %C is not a decimal digit")
+      $string("character %C is not a decimal digit")
     };
-    $v1 = Vector{0, $caml_new_string("scanf.ml"), 555, 9};
+    $v1 = Vector{0, $string("scanf.ml"), 555, 9};
     $v0 = Vector{
       0,
-      Vector{
-        11,
-        $caml_new_string("invalid boolean '"),
-        Vector{2, 0, Vector{12, 39, 0}}
+      Vector{11, $string("invalid boolean '"), Vector{2, 0, Vector{12, 39, 0}}
       },
-      $caml_new_string("invalid boolean '%s'")
+      $string("invalid boolean '%s'")
     };
     $vZ = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("looking for "),
-        Vector{1, Vector{11, $caml_new_string(", found "), Vector{1, 0}}}
+        $string("looking for "),
+        Vector{1, Vector{11, $string(", found "), Vector{1, 0}}}
       },
-      $caml_new_string("looking for %C, found %C")
+      $string("looking for %C, found %C")
     };
     $vY = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("scanning of "),
+        $string("scanning of "),
         Vector{
           2,
           0,
           Vector{
             11,
-            $caml_new_string(
+            $string(
               " failed: premature end of file occurred before end of token"
             ),
             0
           }
         }
       },
-      $caml_new_string(
+      $string(
         "scanning of %s failed: premature end of file occurred before end of token"
       )
     };
@@ -244,27 +226,25 @@ final class Scanf {
       0,
       Vector{
         11,
-        $caml_new_string("scanning of "),
+        $string("scanning of "),
         Vector{
           2,
           0,
           Vector{
             11,
-            $caml_new_string(
-              " failed: the specified length was too short for token"
-            ),
+            $string(" failed: the specified length was too short for token"),
             0
           }
         }
       },
-      $caml_new_string(
+      $string(
         "scanning of %s failed: the specified length was too short for token"
       )
     };
     $vW = Vector{
       0,
-      Vector{11, $caml_new_string("illegal escape character "), Vector{1, 0}},
-      $caml_new_string("illegal escape character %C")
+      Vector{11, $string("illegal escape character "), Vector{1, 0}},
+      $string("illegal escape character %C")
     };
     $null_char = 0;
     $next_char = function(dynamic $ib) use ($End_of_file,$call1,$caml_wrap_exception,$null_char,$runtime) {

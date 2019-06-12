@@ -12,20 +12,20 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst = caml_new_string("\\\\");
-var cst__0 = caml_new_string("\\'");
-var cst_b = caml_new_string("\\b");
-var cst_t = caml_new_string("\\t");
-var cst_n = caml_new_string("\\n");
-var cst_r = caml_new_string("\\r");
-var cst_Char_chr = caml_new_string("Char.chr");
+var cst = string("\\\\");
+var cst__0 = string("\\'");
+var cst_b = string("\\b");
+var cst_t = string("\\t");
+var cst_n = string("\\n");
+var cst_r = string("\\r");
+var cst_Char_chr = string("Char.chr");
 var Pervasives = global_data["Pervasives"];
 
 function chr(n) {

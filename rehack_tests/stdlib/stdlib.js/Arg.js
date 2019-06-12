@@ -24,7 +24,7 @@ var caml_check_bound = runtime["caml_check_bound"];
 var caml_equal = runtime["caml_equal"];
 var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
@@ -62,41 +62,39 @@ function call6(f, a0, a1, a2, a3, a4, a5) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst__6 = caml_new_string("");
-var cst__7 = caml_new_string("\n");
-var cst_a_boolean = caml_new_string("a boolean");
-var cst_an_integer = caml_new_string("an integer");
-var cst_an_integer__0 = caml_new_string("an integer");
-var cst_a_float = caml_new_string("a float");
-var cst_a_float__0 = caml_new_string("a float");
-var cst__3 = caml_new_string("");
-var cst__4 = caml_new_string(" ");
-var cst__5 = caml_new_string("");
-var cst_one_of = caml_new_string("one of: ");
-var cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic = caml_new_string(
+var cst__6 = string("");
+var cst__7 = string("\n");
+var cst_a_boolean = string("a boolean");
+var cst_an_integer = string("an integer");
+var cst_an_integer__0 = string("an integer");
+var cst_a_float = string("a float");
+var cst_a_float__0 = string("a float");
+var cst__3 = string("");
+var cst__4 = string(" ");
+var cst__5 = string("");
+var cst_one_of = string("one of: ");
+var cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic = string(
   "Arg.Expand is is only allowed with Arg.parse_and_expand_argv_dynamic"
 );
-var cst_no_argument = caml_new_string("no argument");
-var cst__2 = caml_new_string("(?)");
-var cst_help__3 = caml_new_string("--help");
-var cst_help__4 = caml_new_string("-help");
-var cst_help__2 = caml_new_string("-help");
-var cst_Display_this_list_of_options = caml_new_string(
+var cst_no_argument = string("no argument");
+var cst__2 = string("(?)");
+var cst_help__3 = string("--help");
+var cst_help__4 = string("-help");
+var cst_help__2 = string("-help");
+var cst_Display_this_list_of_options = string(" Display this list of options");
+var cst_help = string("-help");
+var cst_help__1 = string("--help");
+var cst_Display_this_list_of_options__0 = string(
   " Display this list of options"
 );
-var cst_help = caml_new_string("-help");
-var cst_help__1 = caml_new_string("--help");
-var cst_Display_this_list_of_options__0 = caml_new_string(
-  " Display this list of options"
-);
-var cst_help__0 = caml_new_string("--help");
-var cst = caml_new_string("}");
-var cst__0 = caml_new_string("|");
-var cst__1 = caml_new_string("{");
-var cst_none = caml_new_string("<none>");
-var cst_Arg_Bad = caml_new_string("Arg.Bad");
-var cst_Arg_Help = caml_new_string("Arg.Help");
-var cst_Arg_Stop = caml_new_string("Arg.Stop");
+var cst_help__0 = string("--help");
+var cst = string("}");
+var cst__0 = string("|");
+var cst__1 = string("{");
+var cst_none = string("<none>");
+var cst_Arg_Bad = string("Arg.Bad");
+var cst_Arg_Help = string("Arg.Help");
+var cst_Arg_Stop = string("Arg.Stop");
 var Not_found = global_data["Not_found"];
 var Printf = global_data["Printf"];
 var Pervasives = global_data["Pervasives"];
@@ -108,25 +106,17 @@ var String = global_data["String_"];
 var Sys = global_data["Sys"];
 var Invalid_argument = global_data["Invalid_argument"];
 var Failure = global_data["Failure"];
-var nx = [0,[2,0,[0,0]],caml_new_string("%s%c")];
-var nr = [0,[2,0,0],caml_new_string("%s")];
-var ns = [0,[2,0,0],caml_new_string("%s")];
-var np = [0,[2,0,0],caml_new_string("%s")];
-var nq = [0,[2,0,0],caml_new_string("%s")];
-var nn = [0,[2,0,0],caml_new_string("%s")];
-var no = [0,[2,0,0],caml_new_string("%s")];
+var nx = [0,[2,0,[0,0]],string("%s%c")];
+var nr = [0,[2,0,0],string("%s")];
+var ns = [0,[2,0,0],string("%s")];
+var np = [0,[2,0,0],string("%s")];
+var nq = [0,[2,0,0],string("%s")];
+var nn = [0,[2,0,0],string("%s")];
+var no = [0,[2,0,0],string("%s")];
 var nh = [
   0,
-  [
-    2,
-    0,
-    [
-      11,
-      caml_new_string(": unknown option '"),
-      [2,0,[11,caml_new_string("'.\n"),0]]
-    ]
-  ],
-  caml_new_string("%s: unknown option '%s'.\n")
+  [2,0,[11,string(": unknown option '"),[2,0,[11,string("'.\n"),0]]]],
+  string("%s: unknown option '%s'.\n")
 ];
 var nk = [
   0,
@@ -135,60 +125,45 @@ var nk = [
     0,
     [
       11,
-      caml_new_string(": wrong argument '"),
+      string(": wrong argument '"),
       [
         2,
         0,
         [
           11,
-          caml_new_string("'; option '"),
-          [
-            2,
-            0,
-            [
-              11,
-              caml_new_string("' expects "),
-              [2,0,[11,caml_new_string(".\n"),0]]
-            ]
-          ]
+          string("'; option '"),
+          [2,0,[11,string("' expects "),[2,0,[11,string(".\n"),0]]]]
         ]
       ]
     ]
   ],
-  caml_new_string("%s: wrong argument '%s'; option '%s' expects %s.\n")
+  string("%s: wrong argument '%s'; option '%s' expects %s.\n")
 ];
 var nl = [
   0,
-  [
-    2,
-    0,
-    [
-      11,
-      caml_new_string(": option '"),
-      [2,0,[11,caml_new_string("' needs an argument.\n"),0]]
-    ]
+  [2,0,[11,string(": option '"),[2,0,[11,string("' needs an argument.\n"),0]]]
   ],
-  caml_new_string("%s: option '%s' needs an argument.\n")
+  string("%s: option '%s' needs an argument.\n")
 ];
 var nm = [
   0,
-  [2,0,[11,caml_new_string(": "),[2,0,[11,caml_new_string(".\n"),0]]]],
-  caml_new_string("%s: %s.\n")
+  [2,0,[11,string(": "),[2,0,[11,string(".\n"),0]]]],
+  string("%s: %s.\n")
 ];
-var ni = [0,caml_new_string("-help")];
-var nj = [0,caml_new_string("--help")];
-var ng = [0,[2,0,0],caml_new_string("%s")];
-var nf = [0,[2,0,[12,10,0]],caml_new_string("%s\n")];
-var ne = [0,caml_new_string("-help")];
+var ni = [0,string("-help")];
+var nj = [0,string("--help")];
+var ng = [0,[2,0,0],string("%s")];
+var nf = [0,[2,0,[12,10,0]],string("%s\n")];
+var ne = [0,string("-help")];
 var nc = [
   0,
-  [11,caml_new_string("  "),[2,0,[12,32,[2,0,[12,10,0]]]]],
-  caml_new_string("  %s %s\n")
+  [11,string("  "),[2,0,[12,32,[2,0,[12,10,0]]]]],
+  string("  %s %s\n")
 ];
 var nd = [
   0,
-  [11,caml_new_string("  "),[2,0,[12,32,[2,0,[2,0,[12,10,0]]]]]],
-  caml_new_string("  %s %s%s\n")
+  [11,string("  "),[2,0,[12,32,[2,0,[2,0,[12,10,0]]]]]],
+  string("  %s %s%s\n")
 ];
 var Bad = [248,cst_Arg_Bad,caml_fresh_oo_id(0)];
 var Help = [248,cst_Arg_Help,caml_fresh_oo_id(0)];

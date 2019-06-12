@@ -21,7 +21,7 @@ var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
 var caml_jsbytes_of_string = runtime["caml_jsbytes_of_string"];
 var caml_list_of_js_array = runtime["caml_list_of_js_array"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_compare = runtime["caml_string_compare"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
@@ -53,394 +53,384 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_is_not_a_valid_length__0 = caml_new_string(" is not a valid length");
-var cst_d_d_deg_grad_rad_turns = caml_new_string(
+var cst_is_not_a_valid_length__0 = string(" is not a valid length");
+var cst_d_d_deg_grad_rad_turns = string(
   "^(\\d*(?:\\.\\d*))(deg|grad|rad|turns)$"
 );
-var cst_length_conversion_error__0 = caml_new_string(
-  "length conversion error: "
-);
-var cst_deg__0 = caml_new_string("deg");
-var cst_grad__0 = caml_new_string("grad");
-var cst_rad__0 = caml_new_string("rad");
-var cst_turns__0 = caml_new_string("turns");
-var cst_deg = caml_new_string("deg");
-var cst_grad = caml_new_string("grad");
-var cst_rad = caml_new_string("rad");
-var cst_turns = caml_new_string("turns");
-var cst_is_not_a_valid_length = caml_new_string(" is not a valid length");
-var cst_0__0 = caml_new_string("0");
-var cst_d_d_s_S = caml_new_string("^(\\d*(?:\\.\\d*)?)\\s*(\\S*)$");
-var cst_length_conversion_error = caml_new_string("length conversion error: ");
-var cst_pc__0 = caml_new_string("pc");
-var cst_ch__0 = caml_new_string("ch");
-var cst_cm__0 = caml_new_string("cm");
-var cst_em__0 = caml_new_string("em");
-var cst_ex__0 = caml_new_string("ex");
-var cst_gd__0 = caml_new_string("gd");
-var cst_in__0 = caml_new_string("in");
-var cst_mm__0 = caml_new_string("mm");
-var cst_pt__0 = caml_new_string("pt");
-var cst_px__0 = caml_new_string("px");
-var cst_rem__0 = caml_new_string("rem");
-var cst_vh__0 = caml_new_string("vh");
-var cst_vm__0 = caml_new_string("vm");
-var cst_vw__0 = caml_new_string("vw");
-var cst_0 = caml_new_string("0");
-var cst_em = caml_new_string("em");
-var cst_ex = caml_new_string("ex");
-var cst_px = caml_new_string("px");
-var cst_gd = caml_new_string("gd");
-var cst_rem = caml_new_string("rem");
-var cst_vw = caml_new_string("vw");
-var cst_vh = caml_new_string("vh");
-var cst_vm = caml_new_string("vm");
-var cst_ch = caml_new_string("ch");
-var cst_mm = caml_new_string("mm");
-var cst_cm = caml_new_string("cm");
-var cst_in = caml_new_string("in");
-var cst_pt = caml_new_string("pt");
-var cst_pc = caml_new_string("pc");
-var cst__0 = caml_new_string("): ");
-var cst_color_conversion_error__0 = caml_new_string("color conversion error ("
-);
-var cst = caml_new_string("): ");
-var cst_color_conversion_error = caml_new_string("color conversion error (");
-var cst_is_not_a_valid_color__0 = caml_new_string(" is not a valid color");
-var cst_rgba_d_d_d_d_d = caml_new_string(
+var cst_length_conversion_error__0 = string("length conversion error: ");
+var cst_deg__0 = string("deg");
+var cst_grad__0 = string("grad");
+var cst_rad__0 = string("rad");
+var cst_turns__0 = string("turns");
+var cst_deg = string("deg");
+var cst_grad = string("grad");
+var cst_rad = string("rad");
+var cst_turns = string("turns");
+var cst_is_not_a_valid_length = string(" is not a valid length");
+var cst_0__0 = string("0");
+var cst_d_d_s_S = string("^(\\d*(?:\\.\\d*)?)\\s*(\\S*)$");
+var cst_length_conversion_error = string("length conversion error: ");
+var cst_pc__0 = string("pc");
+var cst_ch__0 = string("ch");
+var cst_cm__0 = string("cm");
+var cst_em__0 = string("em");
+var cst_ex__0 = string("ex");
+var cst_gd__0 = string("gd");
+var cst_in__0 = string("in");
+var cst_mm__0 = string("mm");
+var cst_pt__0 = string("pt");
+var cst_px__0 = string("px");
+var cst_rem__0 = string("rem");
+var cst_vh__0 = string("vh");
+var cst_vm__0 = string("vm");
+var cst_vw__0 = string("vw");
+var cst_0 = string("0");
+var cst_em = string("em");
+var cst_ex = string("ex");
+var cst_px = string("px");
+var cst_gd = string("gd");
+var cst_rem = string("rem");
+var cst_vw = string("vw");
+var cst_vh = string("vh");
+var cst_vm = string("vm");
+var cst_ch = string("ch");
+var cst_mm = string("mm");
+var cst_cm = string("cm");
+var cst_in = string("in");
+var cst_pt = string("pt");
+var cst_pc = string("pc");
+var cst__0 = string("): ");
+var cst_color_conversion_error__0 = string("color conversion error (");
+var cst = string("): ");
+var cst_color_conversion_error = string("color conversion error (");
+var cst_is_not_a_valid_color__0 = string(" is not a valid color");
+var cst_rgba_d_d_d_d_d = string(
   "(rgba?)\\((?:(\\d*),(\\d*),(\\d*)(?:,(\\d*(?:\\.\\d*)?))?)\\)"
 );
-var cst_rgba_d_d_d_d_d__0 = caml_new_string(
+var cst_rgba_d_d_d_d_d__0 = string(
   "(rgba?)\\((?:(\\d*)%,(\\d*)%,(\\d*)%(?:,(\\d*(?:\\.\\d*)?))?)\\)"
 );
-var cst_hsla_d_d_d_d_d = caml_new_string(
+var cst_hsla_d_d_d_d_d = string(
   "(hsla?)\\((?:(\\d*),(\\d*)%,(\\d*)%(?:,(\\d*(?:\\.\\d*)?))?)\\)"
 );
-var cst_rgb = caml_new_string("rgb");
-var cst_rgba = caml_new_string("rgba");
-var cst_rgb__0 = caml_new_string("rgb");
-var cst_rgba__0 = caml_new_string("rgba");
-var cst_hsl = caml_new_string("hsl");
-var cst_hsla = caml_new_string("hsla");
-var cst_rgb_s_d_s_d_s_d = caml_new_string(
-  "^rgb\\(\\s*\\d*,\\s*\\d*,\\s*\\d*\\)$"
+var cst_rgb = string("rgb");
+var cst_rgba = string("rgba");
+var cst_rgb__0 = string("rgb");
+var cst_rgba__0 = string("rgba");
+var cst_hsl = string("hsl");
+var cst_hsla = string("hsla");
+var cst_rgb_s_d_s_d_s_d = string("^rgb\\(\\s*\\d*,\\s*\\d*,\\s*\\d*\\)$");
+var cst_rgb_s_d_s_d_s_d__0 = string("^rgb\\(\\s*\\d*%,\\s*\\d*%,\\s*\\d*%\\)$"
 );
-var cst_rgb_s_d_s_d_s_d__0 = caml_new_string(
-  "^rgb\\(\\s*\\d*%,\\s*\\d*%,\\s*\\d*%\\)$"
-);
-var cst_rgba_s_d_s_d_s_d_d_d = caml_new_string(
+var cst_rgba_s_d_s_d_s_d_d_d = string(
   "^rgba\\(\\s*\\d*,\\s*\\d*,\\s*\\d*,\\d*\\.?\\d*\\)$"
 );
-var cst_rgba_s_d_s_d_s_d_d_d__0 = caml_new_string(
+var cst_rgba_s_d_s_d_s_d_d_d__0 = string(
   "^rgba\\(\\s*\\d*%,\\s*\\d*%,\\s*\\d*%,\\d*\\.?\\d*\\)$"
 );
-var cst_hsl_s_d_s_d_s_d = caml_new_string(
-  "^hsl\\(\\s*\\d*,\\s*\\d*%,\\s*\\d*%\\)$"
-);
-var cst_hsla_s_d_s_d_s_d_d_d = caml_new_string(
+var cst_hsl_s_d_s_d_s_d = string("^hsl\\(\\s*\\d*,\\s*\\d*%,\\s*\\d*%\\)$");
+var cst_hsla_s_d_s_d_s_d_d_d = string(
   "^hsla\\(\\s*\\d*,\\s*\\d*%,\\s*\\d*%,\\d*\\.?\\d*\\)$"
 );
-var cst_is_not_a_valid_color = caml_new_string(" is not a valid color");
-var cst_is_out_of_valid_range = caml_new_string(" is out of valid range");
+var cst_is_not_a_valid_color = string(" is not a valid color");
+var cst_is_out_of_valid_range = string(" is out of valid range");
 var partial = [8,0,0,0,[12,41,0]];
 var partial__0 = [12,41,0];
-var cst_lightgrey__0 = caml_new_string("lightgrey");
-var cst_darkslategray__0 = caml_new_string("darkslategray");
-var cst_cornsilk__0 = caml_new_string("cornsilk");
-var cst_blue__0 = caml_new_string("blue");
-var cst_aliceblue__0 = caml_new_string("aliceblue");
-var cst_antiquewhite__0 = caml_new_string("antiquewhite");
-var cst_aqua__0 = caml_new_string("aqua");
-var cst_aquamarine__0 = caml_new_string("aquamarine");
-var cst_azure__0 = caml_new_string("azure");
-var cst_beige__0 = caml_new_string("beige");
-var cst_bisque__0 = caml_new_string("bisque");
-var cst_black__0 = caml_new_string("black");
-var cst_blanchedalmond__0 = caml_new_string("blanchedalmond");
-var cst_blueviolet__0 = caml_new_string("blueviolet");
-var cst_brown__0 = caml_new_string("brown");
-var cst_burlywood__0 = caml_new_string("burlywood");
-var cst_cadetblue__0 = caml_new_string("cadetblue");
-var cst_chartreuse__0 = caml_new_string("chartreuse");
-var cst_chocolate__0 = caml_new_string("chocolate");
-var cst_coral__0 = caml_new_string("coral");
-var cst_cornflowerblue__0 = caml_new_string("cornflowerblue");
-var cst_darkkhaki__0 = caml_new_string("darkkhaki");
-var cst_crimson__0 = caml_new_string("crimson");
-var cst_cyan__0 = caml_new_string("cyan");
-var cst_darkblue__0 = caml_new_string("darkblue");
-var cst_darkcyan__0 = caml_new_string("darkcyan");
-var cst_darkgoldenrod__0 = caml_new_string("darkgoldenrod");
-var cst_darkgray__0 = caml_new_string("darkgray");
-var cst_darkgreen__0 = caml_new_string("darkgreen");
-var cst_darkgrey__0 = caml_new_string("darkgrey");
-var cst_darkmagenta__0 = caml_new_string("darkmagenta");
-var cst_darkolivegreen__0 = caml_new_string("darkolivegreen");
-var cst_darkorange__0 = caml_new_string("darkorange");
-var cst_darkorchid__0 = caml_new_string("darkorchid");
-var cst_darkred__0 = caml_new_string("darkred");
-var cst_darksalmon__0 = caml_new_string("darksalmon");
-var cst_darkseagreen__0 = caml_new_string("darkseagreen");
-var cst_darkslateblue__0 = caml_new_string("darkslateblue");
-var cst_greenyellow__0 = caml_new_string("greenyellow");
-var cst_floralwhite__0 = caml_new_string("floralwhite");
-var cst_darkslategrey__0 = caml_new_string("darkslategrey");
-var cst_darkturquoise__0 = caml_new_string("darkturquoise");
-var cst_darkviolet__0 = caml_new_string("darkviolet");
-var cst_deeppink__0 = caml_new_string("deeppink");
-var cst_deepskyblue__0 = caml_new_string("deepskyblue");
-var cst_dimgray__0 = caml_new_string("dimgray");
-var cst_dimgrey__0 = caml_new_string("dimgrey");
-var cst_dodgerblue__0 = caml_new_string("dodgerblue");
-var cst_firebrick__0 = caml_new_string("firebrick");
-var cst_forestgreen__0 = caml_new_string("forestgreen");
-var cst_fuchsia__0 = caml_new_string("fuchsia");
-var cst_gainsboro__0 = caml_new_string("gainsboro");
-var cst_ghostwhite__0 = caml_new_string("ghostwhite");
-var cst_gold__0 = caml_new_string("gold");
-var cst_goldenrod__0 = caml_new_string("goldenrod");
-var cst_gray__0 = caml_new_string("gray");
-var cst_green__0 = caml_new_string("green");
-var cst_lavenderblush__0 = caml_new_string("lavenderblush");
-var cst_grey__0 = caml_new_string("grey");
-var cst_honeydew__0 = caml_new_string("honeydew");
-var cst_hotpink__0 = caml_new_string("hotpink");
-var cst_indianred__0 = caml_new_string("indianred");
-var cst_indigo__0 = caml_new_string("indigo");
-var cst_ivory__0 = caml_new_string("ivory");
-var cst_khaki__0 = caml_new_string("khaki");
-var cst_lavender__0 = caml_new_string("lavender");
-var cst_lawngreen__0 = caml_new_string("lawngreen");
-var cst_lemonchiffon__0 = caml_new_string("lemonchiffon");
-var cst_lightblue__0 = caml_new_string("lightblue");
-var cst_lightcoral__0 = caml_new_string("lightcoral");
-var cst_lightcyan__0 = caml_new_string("lightcyan");
-var cst_lightgoldenrodyellow__0 = caml_new_string("lightgoldenrodyellow");
-var cst_lightgray__0 = caml_new_string("lightgray");
-var cst_lightgreen__0 = caml_new_string("lightgreen");
-var cst_paleturquoise__0 = caml_new_string("paleturquoise");
-var cst_mediumslateblue__0 = caml_new_string("mediumslateblue");
-var cst_limegreen__0 = caml_new_string("limegreen");
-var cst_lightpink__0 = caml_new_string("lightpink");
-var cst_lightsalmon__0 = caml_new_string("lightsalmon");
-var cst_lightseagreen__0 = caml_new_string("lightseagreen");
-var cst_lightskyblue__0 = caml_new_string("lightskyblue");
-var cst_lightslategray__0 = caml_new_string("lightslategray");
-var cst_lightslategrey__0 = caml_new_string("lightslategrey");
-var cst_lightsteelblue__0 = caml_new_string("lightsteelblue");
-var cst_lightyellow__0 = caml_new_string("lightyellow");
-var cst_lime__0 = caml_new_string("lime");
-var cst_linen__0 = caml_new_string("linen");
-var cst_magenta__0 = caml_new_string("magenta");
-var cst_maroon__0 = caml_new_string("maroon");
-var cst_mediumaquamarine__0 = caml_new_string("mediumaquamarine");
-var cst_mediumblue__0 = caml_new_string("mediumblue");
-var cst_mediumorchid__0 = caml_new_string("mediumorchid");
-var cst_mediumpurple__0 = caml_new_string("mediumpurple");
-var cst_mediumseagreen__0 = caml_new_string("mediumseagreen");
-var cst_navy__0 = caml_new_string("navy");
-var cst_mediumspringgreen__0 = caml_new_string("mediumspringgreen");
-var cst_mediumturquoise__0 = caml_new_string("mediumturquoise");
-var cst_mediumvioletred__0 = caml_new_string("mediumvioletred");
-var cst_midnightblue__0 = caml_new_string("midnightblue");
-var cst_mintcream__0 = caml_new_string("mintcream");
-var cst_mistyrose__0 = caml_new_string("mistyrose");
-var cst_moccasin__0 = caml_new_string("moccasin");
-var cst_navajowhite__0 = caml_new_string("navajowhite");
-var cst_oldlace__0 = caml_new_string("oldlace");
-var cst_olive__0 = caml_new_string("olive");
-var cst_olivedrab__0 = caml_new_string("olivedrab");
-var cst_orange__0 = caml_new_string("orange");
-var cst_orangered__0 = caml_new_string("orangered");
-var cst_orchid__0 = caml_new_string("orchid");
-var cst_palegoldenrod__0 = caml_new_string("palegoldenrod");
-var cst_palegreen__0 = caml_new_string("palegreen");
-var cst_skyblue__0 = caml_new_string("skyblue");
-var cst_rosybrown__0 = caml_new_string("rosybrown");
-var cst_palevioletred__0 = caml_new_string("palevioletred");
-var cst_papayawhip__0 = caml_new_string("papayawhip");
-var cst_peachpuff__0 = caml_new_string("peachpuff");
-var cst_peru__0 = caml_new_string("peru");
-var cst_pink__0 = caml_new_string("pink");
-var cst_plum__0 = caml_new_string("plum");
-var cst_powderblue__0 = caml_new_string("powderblue");
-var cst_purple__0 = caml_new_string("purple");
-var cst_red__0 = caml_new_string("red");
-var cst_royalblue__0 = caml_new_string("royalblue");
-var cst_saddlebrown__0 = caml_new_string("saddlebrown");
-var cst_salmon__0 = caml_new_string("salmon");
-var cst_sandybrown__0 = caml_new_string("sandybrown");
-var cst_seagreen__0 = caml_new_string("seagreen");
-var cst_seashell__0 = caml_new_string("seashell");
-var cst_sienna__0 = caml_new_string("sienna");
-var cst_silver__0 = caml_new_string("silver");
-var cst_thistle__0 = caml_new_string("thistle");
-var cst_slateblue__0 = caml_new_string("slateblue");
-var cst_slategray__0 = caml_new_string("slategray");
-var cst_slategrey__0 = caml_new_string("slategrey");
-var cst_snow__0 = caml_new_string("snow");
-var cst_springgreen__0 = caml_new_string("springgreen");
-var cst_steelblue__0 = caml_new_string("steelblue");
-var cst_tan__0 = caml_new_string("tan");
-var cst_teal__0 = caml_new_string("teal");
-var cst_tomato__0 = caml_new_string("tomato");
-var cst_turquoise__0 = caml_new_string("turquoise");
-var cst_violet__0 = caml_new_string("violet");
-var cst_wheat__0 = caml_new_string("wheat");
-var cst_white__0 = caml_new_string("white");
-var cst_whitesmoke__0 = caml_new_string("whitesmoke");
-var cst_yellow__0 = caml_new_string("yellow");
-var cst_yellowgreen__0 = caml_new_string("yellowgreen");
-var cst_is_not_a_valid_color_name = caml_new_string(
-  " is not a valid color name"
-);
-var cst_aliceblue = caml_new_string("aliceblue");
-var cst_antiquewhite = caml_new_string("antiquewhite");
-var cst_aqua = caml_new_string("aqua");
-var cst_aquamarine = caml_new_string("aquamarine");
-var cst_azure = caml_new_string("azure");
-var cst_beige = caml_new_string("beige");
-var cst_bisque = caml_new_string("bisque");
-var cst_black = caml_new_string("black");
-var cst_blanchedalmond = caml_new_string("blanchedalmond");
-var cst_blue = caml_new_string("blue");
-var cst_blueviolet = caml_new_string("blueviolet");
-var cst_brown = caml_new_string("brown");
-var cst_burlywood = caml_new_string("burlywood");
-var cst_cadetblue = caml_new_string("cadetblue");
-var cst_chartreuse = caml_new_string("chartreuse");
-var cst_chocolate = caml_new_string("chocolate");
-var cst_coral = caml_new_string("coral");
-var cst_cornflowerblue = caml_new_string("cornflowerblue");
-var cst_cornsilk = caml_new_string("cornsilk");
-var cst_crimson = caml_new_string("crimson");
-var cst_cyan = caml_new_string("cyan");
-var cst_darkblue = caml_new_string("darkblue");
-var cst_darkcyan = caml_new_string("darkcyan");
-var cst_darkgoldenrod = caml_new_string("darkgoldenrod");
-var cst_darkgray = caml_new_string("darkgray");
-var cst_darkgreen = caml_new_string("darkgreen");
-var cst_darkgrey = caml_new_string("darkgrey");
-var cst_darkkhaki = caml_new_string("darkkhaki");
-var cst_darkmagenta = caml_new_string("darkmagenta");
-var cst_darkolivegreen = caml_new_string("darkolivegreen");
-var cst_darkorange = caml_new_string("darkorange");
-var cst_darkorchid = caml_new_string("darkorchid");
-var cst_darkred = caml_new_string("darkred");
-var cst_darksalmon = caml_new_string("darksalmon");
-var cst_darkseagreen = caml_new_string("darkseagreen");
-var cst_darkslateblue = caml_new_string("darkslateblue");
-var cst_darkslategray = caml_new_string("darkslategray");
-var cst_darkslategrey = caml_new_string("darkslategrey");
-var cst_darkturquoise = caml_new_string("darkturquoise");
-var cst_darkviolet = caml_new_string("darkviolet");
-var cst_deeppink = caml_new_string("deeppink");
-var cst_deepskyblue = caml_new_string("deepskyblue");
-var cst_dimgray = caml_new_string("dimgray");
-var cst_dimgrey = caml_new_string("dimgrey");
-var cst_dodgerblue = caml_new_string("dodgerblue");
-var cst_firebrick = caml_new_string("firebrick");
-var cst_floralwhite = caml_new_string("floralwhite");
-var cst_forestgreen = caml_new_string("forestgreen");
-var cst_fuchsia = caml_new_string("fuchsia");
-var cst_gainsboro = caml_new_string("gainsboro");
-var cst_ghostwhite = caml_new_string("ghostwhite");
-var cst_gold = caml_new_string("gold");
-var cst_goldenrod = caml_new_string("goldenrod");
-var cst_gray = caml_new_string("gray");
-var cst_grey = caml_new_string("grey");
-var cst_green = caml_new_string("green");
-var cst_greenyellow = caml_new_string("greenyellow");
-var cst_honeydew = caml_new_string("honeydew");
-var cst_hotpink = caml_new_string("hotpink");
-var cst_indianred = caml_new_string("indianred");
-var cst_indigo = caml_new_string("indigo");
-var cst_ivory = caml_new_string("ivory");
-var cst_khaki = caml_new_string("khaki");
-var cst_lavender = caml_new_string("lavender");
-var cst_lavenderblush = caml_new_string("lavenderblush");
-var cst_lawngreen = caml_new_string("lawngreen");
-var cst_lemonchiffon = caml_new_string("lemonchiffon");
-var cst_lightblue = caml_new_string("lightblue");
-var cst_lightcoral = caml_new_string("lightcoral");
-var cst_lightcyan = caml_new_string("lightcyan");
-var cst_lightgoldenrodyellow = caml_new_string("lightgoldenrodyellow");
-var cst_lightgray = caml_new_string("lightgray");
-var cst_lightgreen = caml_new_string("lightgreen");
-var cst_lightgrey = caml_new_string("lightgrey");
-var cst_lightpink = caml_new_string("lightpink");
-var cst_lightsalmon = caml_new_string("lightsalmon");
-var cst_lightseagreen = caml_new_string("lightseagreen");
-var cst_lightskyblue = caml_new_string("lightskyblue");
-var cst_lightslategray = caml_new_string("lightslategray");
-var cst_lightslategrey = caml_new_string("lightslategrey");
-var cst_lightsteelblue = caml_new_string("lightsteelblue");
-var cst_lightyellow = caml_new_string("lightyellow");
-var cst_lime = caml_new_string("lime");
-var cst_limegreen = caml_new_string("limegreen");
-var cst_linen = caml_new_string("linen");
-var cst_magenta = caml_new_string("magenta");
-var cst_maroon = caml_new_string("maroon");
-var cst_mediumaquamarine = caml_new_string("mediumaquamarine");
-var cst_mediumblue = caml_new_string("mediumblue");
-var cst_mediumorchid = caml_new_string("mediumorchid");
-var cst_mediumpurple = caml_new_string("mediumpurple");
-var cst_mediumseagreen = caml_new_string("mediumseagreen");
-var cst_mediumslateblue = caml_new_string("mediumslateblue");
-var cst_mediumspringgreen = caml_new_string("mediumspringgreen");
-var cst_mediumturquoise = caml_new_string("mediumturquoise");
-var cst_mediumvioletred = caml_new_string("mediumvioletred");
-var cst_midnightblue = caml_new_string("midnightblue");
-var cst_mintcream = caml_new_string("mintcream");
-var cst_mistyrose = caml_new_string("mistyrose");
-var cst_moccasin = caml_new_string("moccasin");
-var cst_navajowhite = caml_new_string("navajowhite");
-var cst_navy = caml_new_string("navy");
-var cst_oldlace = caml_new_string("oldlace");
-var cst_olive = caml_new_string("olive");
-var cst_olivedrab = caml_new_string("olivedrab");
-var cst_orange = caml_new_string("orange");
-var cst_orangered = caml_new_string("orangered");
-var cst_orchid = caml_new_string("orchid");
-var cst_palegoldenrod = caml_new_string("palegoldenrod");
-var cst_palegreen = caml_new_string("palegreen");
-var cst_paleturquoise = caml_new_string("paleturquoise");
-var cst_palevioletred = caml_new_string("palevioletred");
-var cst_papayawhip = caml_new_string("papayawhip");
-var cst_peachpuff = caml_new_string("peachpuff");
-var cst_peru = caml_new_string("peru");
-var cst_pink = caml_new_string("pink");
-var cst_plum = caml_new_string("plum");
-var cst_powderblue = caml_new_string("powderblue");
-var cst_purple = caml_new_string("purple");
-var cst_red = caml_new_string("red");
-var cst_rosybrown = caml_new_string("rosybrown");
-var cst_royalblue = caml_new_string("royalblue");
-var cst_saddlebrown = caml_new_string("saddlebrown");
-var cst_salmon = caml_new_string("salmon");
-var cst_sandybrown = caml_new_string("sandybrown");
-var cst_seagreen = caml_new_string("seagreen");
-var cst_seashell = caml_new_string("seashell");
-var cst_sienna = caml_new_string("sienna");
-var cst_silver = caml_new_string("silver");
-var cst_skyblue = caml_new_string("skyblue");
-var cst_slateblue = caml_new_string("slateblue");
-var cst_slategray = caml_new_string("slategray");
-var cst_slategrey = caml_new_string("slategrey");
-var cst_snow = caml_new_string("snow");
-var cst_springgreen = caml_new_string("springgreen");
-var cst_steelblue = caml_new_string("steelblue");
-var cst_tan = caml_new_string("tan");
-var cst_teal = caml_new_string("teal");
-var cst_thistle = caml_new_string("thistle");
-var cst_tomato = caml_new_string("tomato");
-var cst_turquoise = caml_new_string("turquoise");
-var cst_violet = caml_new_string("violet");
-var cst_wheat = caml_new_string("wheat");
-var cst_white = caml_new_string("white");
-var cst_whitesmoke = caml_new_string("whitesmoke");
-var cst_yellow = caml_new_string("yellow");
-var cst_yellowgreen = caml_new_string("yellowgreen");
+var cst_lightgrey__0 = string("lightgrey");
+var cst_darkslategray__0 = string("darkslategray");
+var cst_cornsilk__0 = string("cornsilk");
+var cst_blue__0 = string("blue");
+var cst_aliceblue__0 = string("aliceblue");
+var cst_antiquewhite__0 = string("antiquewhite");
+var cst_aqua__0 = string("aqua");
+var cst_aquamarine__0 = string("aquamarine");
+var cst_azure__0 = string("azure");
+var cst_beige__0 = string("beige");
+var cst_bisque__0 = string("bisque");
+var cst_black__0 = string("black");
+var cst_blanchedalmond__0 = string("blanchedalmond");
+var cst_blueviolet__0 = string("blueviolet");
+var cst_brown__0 = string("brown");
+var cst_burlywood__0 = string("burlywood");
+var cst_cadetblue__0 = string("cadetblue");
+var cst_chartreuse__0 = string("chartreuse");
+var cst_chocolate__0 = string("chocolate");
+var cst_coral__0 = string("coral");
+var cst_cornflowerblue__0 = string("cornflowerblue");
+var cst_darkkhaki__0 = string("darkkhaki");
+var cst_crimson__0 = string("crimson");
+var cst_cyan__0 = string("cyan");
+var cst_darkblue__0 = string("darkblue");
+var cst_darkcyan__0 = string("darkcyan");
+var cst_darkgoldenrod__0 = string("darkgoldenrod");
+var cst_darkgray__0 = string("darkgray");
+var cst_darkgreen__0 = string("darkgreen");
+var cst_darkgrey__0 = string("darkgrey");
+var cst_darkmagenta__0 = string("darkmagenta");
+var cst_darkolivegreen__0 = string("darkolivegreen");
+var cst_darkorange__0 = string("darkorange");
+var cst_darkorchid__0 = string("darkorchid");
+var cst_darkred__0 = string("darkred");
+var cst_darksalmon__0 = string("darksalmon");
+var cst_darkseagreen__0 = string("darkseagreen");
+var cst_darkslateblue__0 = string("darkslateblue");
+var cst_greenyellow__0 = string("greenyellow");
+var cst_floralwhite__0 = string("floralwhite");
+var cst_darkslategrey__0 = string("darkslategrey");
+var cst_darkturquoise__0 = string("darkturquoise");
+var cst_darkviolet__0 = string("darkviolet");
+var cst_deeppink__0 = string("deeppink");
+var cst_deepskyblue__0 = string("deepskyblue");
+var cst_dimgray__0 = string("dimgray");
+var cst_dimgrey__0 = string("dimgrey");
+var cst_dodgerblue__0 = string("dodgerblue");
+var cst_firebrick__0 = string("firebrick");
+var cst_forestgreen__0 = string("forestgreen");
+var cst_fuchsia__0 = string("fuchsia");
+var cst_gainsboro__0 = string("gainsboro");
+var cst_ghostwhite__0 = string("ghostwhite");
+var cst_gold__0 = string("gold");
+var cst_goldenrod__0 = string("goldenrod");
+var cst_gray__0 = string("gray");
+var cst_green__0 = string("green");
+var cst_lavenderblush__0 = string("lavenderblush");
+var cst_grey__0 = string("grey");
+var cst_honeydew__0 = string("honeydew");
+var cst_hotpink__0 = string("hotpink");
+var cst_indianred__0 = string("indianred");
+var cst_indigo__0 = string("indigo");
+var cst_ivory__0 = string("ivory");
+var cst_khaki__0 = string("khaki");
+var cst_lavender__0 = string("lavender");
+var cst_lawngreen__0 = string("lawngreen");
+var cst_lemonchiffon__0 = string("lemonchiffon");
+var cst_lightblue__0 = string("lightblue");
+var cst_lightcoral__0 = string("lightcoral");
+var cst_lightcyan__0 = string("lightcyan");
+var cst_lightgoldenrodyellow__0 = string("lightgoldenrodyellow");
+var cst_lightgray__0 = string("lightgray");
+var cst_lightgreen__0 = string("lightgreen");
+var cst_paleturquoise__0 = string("paleturquoise");
+var cst_mediumslateblue__0 = string("mediumslateblue");
+var cst_limegreen__0 = string("limegreen");
+var cst_lightpink__0 = string("lightpink");
+var cst_lightsalmon__0 = string("lightsalmon");
+var cst_lightseagreen__0 = string("lightseagreen");
+var cst_lightskyblue__0 = string("lightskyblue");
+var cst_lightslategray__0 = string("lightslategray");
+var cst_lightslategrey__0 = string("lightslategrey");
+var cst_lightsteelblue__0 = string("lightsteelblue");
+var cst_lightyellow__0 = string("lightyellow");
+var cst_lime__0 = string("lime");
+var cst_linen__0 = string("linen");
+var cst_magenta__0 = string("magenta");
+var cst_maroon__0 = string("maroon");
+var cst_mediumaquamarine__0 = string("mediumaquamarine");
+var cst_mediumblue__0 = string("mediumblue");
+var cst_mediumorchid__0 = string("mediumorchid");
+var cst_mediumpurple__0 = string("mediumpurple");
+var cst_mediumseagreen__0 = string("mediumseagreen");
+var cst_navy__0 = string("navy");
+var cst_mediumspringgreen__0 = string("mediumspringgreen");
+var cst_mediumturquoise__0 = string("mediumturquoise");
+var cst_mediumvioletred__0 = string("mediumvioletred");
+var cst_midnightblue__0 = string("midnightblue");
+var cst_mintcream__0 = string("mintcream");
+var cst_mistyrose__0 = string("mistyrose");
+var cst_moccasin__0 = string("moccasin");
+var cst_navajowhite__0 = string("navajowhite");
+var cst_oldlace__0 = string("oldlace");
+var cst_olive__0 = string("olive");
+var cst_olivedrab__0 = string("olivedrab");
+var cst_orange__0 = string("orange");
+var cst_orangered__0 = string("orangered");
+var cst_orchid__0 = string("orchid");
+var cst_palegoldenrod__0 = string("palegoldenrod");
+var cst_palegreen__0 = string("palegreen");
+var cst_skyblue__0 = string("skyblue");
+var cst_rosybrown__0 = string("rosybrown");
+var cst_palevioletred__0 = string("palevioletred");
+var cst_papayawhip__0 = string("papayawhip");
+var cst_peachpuff__0 = string("peachpuff");
+var cst_peru__0 = string("peru");
+var cst_pink__0 = string("pink");
+var cst_plum__0 = string("plum");
+var cst_powderblue__0 = string("powderblue");
+var cst_purple__0 = string("purple");
+var cst_red__0 = string("red");
+var cst_royalblue__0 = string("royalblue");
+var cst_saddlebrown__0 = string("saddlebrown");
+var cst_salmon__0 = string("salmon");
+var cst_sandybrown__0 = string("sandybrown");
+var cst_seagreen__0 = string("seagreen");
+var cst_seashell__0 = string("seashell");
+var cst_sienna__0 = string("sienna");
+var cst_silver__0 = string("silver");
+var cst_thistle__0 = string("thistle");
+var cst_slateblue__0 = string("slateblue");
+var cst_slategray__0 = string("slategray");
+var cst_slategrey__0 = string("slategrey");
+var cst_snow__0 = string("snow");
+var cst_springgreen__0 = string("springgreen");
+var cst_steelblue__0 = string("steelblue");
+var cst_tan__0 = string("tan");
+var cst_teal__0 = string("teal");
+var cst_tomato__0 = string("tomato");
+var cst_turquoise__0 = string("turquoise");
+var cst_violet__0 = string("violet");
+var cst_wheat__0 = string("wheat");
+var cst_white__0 = string("white");
+var cst_whitesmoke__0 = string("whitesmoke");
+var cst_yellow__0 = string("yellow");
+var cst_yellowgreen__0 = string("yellowgreen");
+var cst_is_not_a_valid_color_name = string(" is not a valid color name");
+var cst_aliceblue = string("aliceblue");
+var cst_antiquewhite = string("antiquewhite");
+var cst_aqua = string("aqua");
+var cst_aquamarine = string("aquamarine");
+var cst_azure = string("azure");
+var cst_beige = string("beige");
+var cst_bisque = string("bisque");
+var cst_black = string("black");
+var cst_blanchedalmond = string("blanchedalmond");
+var cst_blue = string("blue");
+var cst_blueviolet = string("blueviolet");
+var cst_brown = string("brown");
+var cst_burlywood = string("burlywood");
+var cst_cadetblue = string("cadetblue");
+var cst_chartreuse = string("chartreuse");
+var cst_chocolate = string("chocolate");
+var cst_coral = string("coral");
+var cst_cornflowerblue = string("cornflowerblue");
+var cst_cornsilk = string("cornsilk");
+var cst_crimson = string("crimson");
+var cst_cyan = string("cyan");
+var cst_darkblue = string("darkblue");
+var cst_darkcyan = string("darkcyan");
+var cst_darkgoldenrod = string("darkgoldenrod");
+var cst_darkgray = string("darkgray");
+var cst_darkgreen = string("darkgreen");
+var cst_darkgrey = string("darkgrey");
+var cst_darkkhaki = string("darkkhaki");
+var cst_darkmagenta = string("darkmagenta");
+var cst_darkolivegreen = string("darkolivegreen");
+var cst_darkorange = string("darkorange");
+var cst_darkorchid = string("darkorchid");
+var cst_darkred = string("darkred");
+var cst_darksalmon = string("darksalmon");
+var cst_darkseagreen = string("darkseagreen");
+var cst_darkslateblue = string("darkslateblue");
+var cst_darkslategray = string("darkslategray");
+var cst_darkslategrey = string("darkslategrey");
+var cst_darkturquoise = string("darkturquoise");
+var cst_darkviolet = string("darkviolet");
+var cst_deeppink = string("deeppink");
+var cst_deepskyblue = string("deepskyblue");
+var cst_dimgray = string("dimgray");
+var cst_dimgrey = string("dimgrey");
+var cst_dodgerblue = string("dodgerblue");
+var cst_firebrick = string("firebrick");
+var cst_floralwhite = string("floralwhite");
+var cst_forestgreen = string("forestgreen");
+var cst_fuchsia = string("fuchsia");
+var cst_gainsboro = string("gainsboro");
+var cst_ghostwhite = string("ghostwhite");
+var cst_gold = string("gold");
+var cst_goldenrod = string("goldenrod");
+var cst_gray = string("gray");
+var cst_grey = string("grey");
+var cst_green = string("green");
+var cst_greenyellow = string("greenyellow");
+var cst_honeydew = string("honeydew");
+var cst_hotpink = string("hotpink");
+var cst_indianred = string("indianred");
+var cst_indigo = string("indigo");
+var cst_ivory = string("ivory");
+var cst_khaki = string("khaki");
+var cst_lavender = string("lavender");
+var cst_lavenderblush = string("lavenderblush");
+var cst_lawngreen = string("lawngreen");
+var cst_lemonchiffon = string("lemonchiffon");
+var cst_lightblue = string("lightblue");
+var cst_lightcoral = string("lightcoral");
+var cst_lightcyan = string("lightcyan");
+var cst_lightgoldenrodyellow = string("lightgoldenrodyellow");
+var cst_lightgray = string("lightgray");
+var cst_lightgreen = string("lightgreen");
+var cst_lightgrey = string("lightgrey");
+var cst_lightpink = string("lightpink");
+var cst_lightsalmon = string("lightsalmon");
+var cst_lightseagreen = string("lightseagreen");
+var cst_lightskyblue = string("lightskyblue");
+var cst_lightslategray = string("lightslategray");
+var cst_lightslategrey = string("lightslategrey");
+var cst_lightsteelblue = string("lightsteelblue");
+var cst_lightyellow = string("lightyellow");
+var cst_lime = string("lime");
+var cst_limegreen = string("limegreen");
+var cst_linen = string("linen");
+var cst_magenta = string("magenta");
+var cst_maroon = string("maroon");
+var cst_mediumaquamarine = string("mediumaquamarine");
+var cst_mediumblue = string("mediumblue");
+var cst_mediumorchid = string("mediumorchid");
+var cst_mediumpurple = string("mediumpurple");
+var cst_mediumseagreen = string("mediumseagreen");
+var cst_mediumslateblue = string("mediumslateblue");
+var cst_mediumspringgreen = string("mediumspringgreen");
+var cst_mediumturquoise = string("mediumturquoise");
+var cst_mediumvioletred = string("mediumvioletred");
+var cst_midnightblue = string("midnightblue");
+var cst_mintcream = string("mintcream");
+var cst_mistyrose = string("mistyrose");
+var cst_moccasin = string("moccasin");
+var cst_navajowhite = string("navajowhite");
+var cst_navy = string("navy");
+var cst_oldlace = string("oldlace");
+var cst_olive = string("olive");
+var cst_olivedrab = string("olivedrab");
+var cst_orange = string("orange");
+var cst_orangered = string("orangered");
+var cst_orchid = string("orchid");
+var cst_palegoldenrod = string("palegoldenrod");
+var cst_palegreen = string("palegreen");
+var cst_paleturquoise = string("paleturquoise");
+var cst_palevioletred = string("palevioletred");
+var cst_papayawhip = string("papayawhip");
+var cst_peachpuff = string("peachpuff");
+var cst_peru = string("peru");
+var cst_pink = string("pink");
+var cst_plum = string("plum");
+var cst_powderblue = string("powderblue");
+var cst_purple = string("purple");
+var cst_red = string("red");
+var cst_rosybrown = string("rosybrown");
+var cst_royalblue = string("royalblue");
+var cst_saddlebrown = string("saddlebrown");
+var cst_salmon = string("salmon");
+var cst_sandybrown = string("sandybrown");
+var cst_seagreen = string("seagreen");
+var cst_seashell = string("seashell");
+var cst_sienna = string("sienna");
+var cst_silver = string("silver");
+var cst_skyblue = string("skyblue");
+var cst_slateblue = string("slateblue");
+var cst_slategray = string("slategray");
+var cst_slategrey = string("slategrey");
+var cst_snow = string("snow");
+var cst_springgreen = string("springgreen");
+var cst_steelblue = string("steelblue");
+var cst_tan = string("tan");
+var cst_teal = string("teal");
+var cst_thistle = string("thistle");
+var cst_tomato = string("tomato");
+var cst_turquoise = string("turquoise");
+var cst_violet = string("violet");
+var cst_wheat = string("wheat");
+var cst_white = string("white");
+var cst_whitesmoke = string("whitesmoke");
+var cst_yellow = string("yellow");
+var cst_yellowgreen = string("yellowgreen");
 var Pervasives = global_data["Pervasives"];
 var Invalid_argument = global_data["Invalid_argument"];
 var Js_of_ocaml_Regexp = global_data["Js_of_ocaml__Regexp"];
@@ -448,194 +438,190 @@ var Printf = global_data["Printf"];
 var Failure = global_data["Failure"];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var List = global_data["List_"];
-var d8 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d9 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d_ = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var ea = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var dU = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var dV = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var dW = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var dX = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var dY = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var dZ = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d0 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d1 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d2 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d3 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d4 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d5 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d6 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
-var d7 = [0,[8,0,0,0,[2,0,0]],caml_new_string("%f%s")];
+var d8 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d9 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var ea = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var dU = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var dV = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var dW = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var dX = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var dY = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var dZ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d0 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d1 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d2 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d3 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d4 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d5 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d6 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var d7 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
 var dT = caml_list_of_js_array(
   [
-    caml_new_string("aliceblue"),
-    caml_new_string("antiquewhite"),
-    caml_new_string("aqua"),
-    caml_new_string("aquamarine"),
-    caml_new_string("azure"),
-    caml_new_string("beige"),
-    caml_new_string("bisque"),
-    caml_new_string("black"),
-    caml_new_string("blanchedalmond"),
-    caml_new_string("blue"),
-    caml_new_string("blueviolet"),
-    caml_new_string("brown"),
-    caml_new_string("burlywood"),
-    caml_new_string("cadetblue"),
-    caml_new_string("chartreuse"),
-    caml_new_string("chocolate"),
-    caml_new_string("coral"),
-    caml_new_string("cornflowerblue"),
-    caml_new_string("cornsilk"),
-    caml_new_string("crimson"),
-    caml_new_string("cyan"),
-    caml_new_string("darkblue"),
-    caml_new_string("darkcyan"),
-    caml_new_string("darkgoldenrod"),
-    caml_new_string("darkgray"),
-    caml_new_string("darkgreen"),
-    caml_new_string("darkgrey"),
-    caml_new_string("darkkhaki"),
-    caml_new_string("darkmagenta"),
-    caml_new_string("darkolivegreen"),
-    caml_new_string("darkorange"),
-    caml_new_string("darkorchid"),
-    caml_new_string("darkred"),
-    caml_new_string("darksalmon"),
-    caml_new_string("darkseagreen"),
-    caml_new_string("darkslateblue"),
-    caml_new_string("darkslategray"),
-    caml_new_string("darkslategrey"),
-    caml_new_string("darkturquoise"),
-    caml_new_string("darkviolet"),
-    caml_new_string("deeppink"),
-    caml_new_string("deepskyblue"),
-    caml_new_string("dimgray"),
-    caml_new_string("dimgrey"),
-    caml_new_string("dodgerblue"),
-    caml_new_string("firebrick"),
-    caml_new_string("floralwhite"),
-    caml_new_string("forestgreen"),
-    caml_new_string("fuchsia"),
-    caml_new_string("gainsboro"),
-    caml_new_string("ghostwhite"),
-    caml_new_string("gold"),
-    caml_new_string("goldenrod"),
-    caml_new_string("gray"),
-    caml_new_string("green"),
-    caml_new_string("greenyellow"),
-    caml_new_string("grey"),
-    caml_new_string("honeydew"),
-    caml_new_string("hotpink"),
-    caml_new_string("indianred"),
-    caml_new_string("indigo"),
-    caml_new_string("ivory"),
-    caml_new_string("khaki"),
-    caml_new_string("lavender"),
-    caml_new_string("lavenderblush"),
-    caml_new_string("lawngreen"),
-    caml_new_string("lemonchiffon"),
-    caml_new_string("lightblue"),
-    caml_new_string("lightcoral"),
-    caml_new_string("lightcyan"),
-    caml_new_string("lightgoldenrodyellow"),
-    caml_new_string("lightgray"),
-    caml_new_string("lightgreen"),
-    caml_new_string("lightgrey"),
-    caml_new_string("lightpink"),
-    caml_new_string("lightsalmon"),
-    caml_new_string("lightseagreen"),
-    caml_new_string("lightskyblue"),
-    caml_new_string("lightslategray"),
-    caml_new_string("lightslategrey"),
-    caml_new_string("lightsteelblue"),
-    caml_new_string("lightyellow"),
-    caml_new_string("lime"),
-    caml_new_string("limegreen"),
-    caml_new_string("linen"),
-    caml_new_string("magenta"),
-    caml_new_string("maroon"),
-    caml_new_string("mediumaquamarine"),
-    caml_new_string("mediumblue"),
-    caml_new_string("mediumorchid"),
-    caml_new_string("mediumpurple"),
-    caml_new_string("mediumseagreen"),
-    caml_new_string("mediumslateblue"),
-    caml_new_string("mediumspringgreen"),
-    caml_new_string("mediumturquoise"),
-    caml_new_string("mediumvioletred"),
-    caml_new_string("midnightblue"),
-    caml_new_string("mintcream"),
-    caml_new_string("mistyrose"),
-    caml_new_string("moccasin"),
-    caml_new_string("navajowhite"),
-    caml_new_string("navy"),
-    caml_new_string("oldlace"),
-    caml_new_string("olive"),
-    caml_new_string("olivedrab"),
-    caml_new_string("orange"),
-    caml_new_string("orangered"),
-    caml_new_string("orchid"),
-    caml_new_string("palegoldenrod"),
-    caml_new_string("palegreen"),
-    caml_new_string("paleturquoise"),
-    caml_new_string("palevioletred"),
-    caml_new_string("papayawhip"),
-    caml_new_string("peachpuff"),
-    caml_new_string("peru"),
-    caml_new_string("pink"),
-    caml_new_string("plum"),
-    caml_new_string("powderblue"),
-    caml_new_string("purple"),
-    caml_new_string("red"),
-    caml_new_string("rosybrown"),
-    caml_new_string("royalblue"),
-    caml_new_string("saddlebrown"),
-    caml_new_string("salmon"),
-    caml_new_string("sandybrown"),
-    caml_new_string("seagreen"),
-    caml_new_string("seashell"),
-    caml_new_string("sienna"),
-    caml_new_string("silver"),
-    caml_new_string("skyblue"),
-    caml_new_string("slateblue"),
-    caml_new_string("slategray"),
-    caml_new_string("slategrey"),
-    caml_new_string("snow"),
-    caml_new_string("springgreen"),
-    caml_new_string("steelblue"),
-    caml_new_string("tan"),
-    caml_new_string("teal"),
-    caml_new_string("thistle"),
-    caml_new_string("tomato"),
-    caml_new_string("turquoise"),
-    caml_new_string("violet"),
-    caml_new_string("wheat"),
-    caml_new_string("white"),
-    caml_new_string("whitesmoke"),
-    caml_new_string("yellow"),
-    caml_new_string("yellowgreen")
+    string("aliceblue"),
+    string("antiquewhite"),
+    string("aqua"),
+    string("aquamarine"),
+    string("azure"),
+    string("beige"),
+    string("bisque"),
+    string("black"),
+    string("blanchedalmond"),
+    string("blue"),
+    string("blueviolet"),
+    string("brown"),
+    string("burlywood"),
+    string("cadetblue"),
+    string("chartreuse"),
+    string("chocolate"),
+    string("coral"),
+    string("cornflowerblue"),
+    string("cornsilk"),
+    string("crimson"),
+    string("cyan"),
+    string("darkblue"),
+    string("darkcyan"),
+    string("darkgoldenrod"),
+    string("darkgray"),
+    string("darkgreen"),
+    string("darkgrey"),
+    string("darkkhaki"),
+    string("darkmagenta"),
+    string("darkolivegreen"),
+    string("darkorange"),
+    string("darkorchid"),
+    string("darkred"),
+    string("darksalmon"),
+    string("darkseagreen"),
+    string("darkslateblue"),
+    string("darkslategray"),
+    string("darkslategrey"),
+    string("darkturquoise"),
+    string("darkviolet"),
+    string("deeppink"),
+    string("deepskyblue"),
+    string("dimgray"),
+    string("dimgrey"),
+    string("dodgerblue"),
+    string("firebrick"),
+    string("floralwhite"),
+    string("forestgreen"),
+    string("fuchsia"),
+    string("gainsboro"),
+    string("ghostwhite"),
+    string("gold"),
+    string("goldenrod"),
+    string("gray"),
+    string("green"),
+    string("greenyellow"),
+    string("grey"),
+    string("honeydew"),
+    string("hotpink"),
+    string("indianred"),
+    string("indigo"),
+    string("ivory"),
+    string("khaki"),
+    string("lavender"),
+    string("lavenderblush"),
+    string("lawngreen"),
+    string("lemonchiffon"),
+    string("lightblue"),
+    string("lightcoral"),
+    string("lightcyan"),
+    string("lightgoldenrodyellow"),
+    string("lightgray"),
+    string("lightgreen"),
+    string("lightgrey"),
+    string("lightpink"),
+    string("lightsalmon"),
+    string("lightseagreen"),
+    string("lightskyblue"),
+    string("lightslategray"),
+    string("lightslategrey"),
+    string("lightsteelblue"),
+    string("lightyellow"),
+    string("lime"),
+    string("limegreen"),
+    string("linen"),
+    string("magenta"),
+    string("maroon"),
+    string("mediumaquamarine"),
+    string("mediumblue"),
+    string("mediumorchid"),
+    string("mediumpurple"),
+    string("mediumseagreen"),
+    string("mediumslateblue"),
+    string("mediumspringgreen"),
+    string("mediumturquoise"),
+    string("mediumvioletred"),
+    string("midnightblue"),
+    string("mintcream"),
+    string("mistyrose"),
+    string("moccasin"),
+    string("navajowhite"),
+    string("navy"),
+    string("oldlace"),
+    string("olive"),
+    string("olivedrab"),
+    string("orange"),
+    string("orangered"),
+    string("orchid"),
+    string("palegoldenrod"),
+    string("palegreen"),
+    string("paleturquoise"),
+    string("palevioletred"),
+    string("papayawhip"),
+    string("peachpuff"),
+    string("peru"),
+    string("pink"),
+    string("plum"),
+    string("powderblue"),
+    string("purple"),
+    string("red"),
+    string("rosybrown"),
+    string("royalblue"),
+    string("saddlebrown"),
+    string("salmon"),
+    string("sandybrown"),
+    string("seagreen"),
+    string("seashell"),
+    string("sienna"),
+    string("silver"),
+    string("skyblue"),
+    string("slateblue"),
+    string("slategray"),
+    string("slategrey"),
+    string("snow"),
+    string("springgreen"),
+    string("steelblue"),
+    string("tan"),
+    string("teal"),
+    string("thistle"),
+    string("tomato"),
+    string("turquoise"),
+    string("violet"),
+    string("wheat"),
+    string("white"),
+    string("whitesmoke"),
+    string("yellow"),
+    string("yellowgreen")
   ]
 );
 var dS = [
   0,
   [12,35,[4,8,[0,2,2],0,[4,8,[0,2,2],0,[4,8,[0,2,2],0,0]]]],
-  caml_new_string("#%02X%02X%02X")
+  string("#%02X%02X%02X")
 ];
 var dM = [
   0,
-  [
-    11,
-    caml_new_string("rgb("),
-    [4,0,0,0,[12,44,[4,0,0,0,[12,44,[4,0,0,0,[12,41,0]]]]]]
-  ],
-  caml_new_string("rgb(%d,%d,%d)")
+  [11,string("rgb("),[4,0,0,0,[12,44,[4,0,0,0,[12,44,[4,0,0,0,[12,41,0]]]]]]],
+  string("rgb(%d,%d,%d)")
 ];
 var dN = [
   0,
   [
     11,
-    caml_new_string("rgb("),
+    string("rgb("),
     [
       4,
       0,
@@ -644,22 +630,22 @@ var dN = [
       [12,37,[12,44,[4,0,0,0,[12,37,[12,44,[4,0,0,0,[12,37,[12,41,0]]]]]]]]
     ]
   ],
-  caml_new_string("rgb(%d%%,%d%%,%d%%)")
+  string("rgb(%d%%,%d%%,%d%%)")
 ];
 var dO = [
   0,
   [
     11,
-    caml_new_string("rgba("),
+    string("rgba("),
     [4,0,0,0,[12,44,[4,0,0,0,[12,44,[4,0,0,0,[12,44,[8,0,0,0,[12,41,0]]]]]]]]
   ],
-  caml_new_string("rgba(%d,%d,%d,%f)")
+  string("rgba(%d,%d,%d,%f)")
 ];
 var dP = [
   0,
   [
     11,
-    caml_new_string("rgba("),
+    string("rgba("),
     [
       4,
       0,
@@ -672,22 +658,22 @@ var dP = [
       ]
     ]
   ],
-  caml_new_string("rgba(%d%%,%d%%,%d%%,%f)")
+  string("rgba(%d%%,%d%%,%d%%,%f)")
 ];
 var dQ = [
   0,
   [
     11,
-    caml_new_string("hsl("),
+    string("hsl("),
     [4,0,0,0,[12,44,[4,0,0,0,[12,37,[12,44,[4,0,0,0,[12,37,[12,41,0]]]]]]]]
   ],
-  caml_new_string("hsl(%d,%d%%,%d%%)")
+  string("hsl(%d,%d%%,%d%%)")
 ];
 var dR = [
   0,
   [
     11,
-    caml_new_string("hsla("),
+    string("hsla("),
     [
       4,
       0,
@@ -706,7 +692,7 @@ var dR = [
       ]
     ]
   ],
-  caml_new_string("hsla(%d,%d%%,%d%%,%f)")
+  string("hsla(%d,%d%%,%d%%,%f)")
 ];
 var bq = [0,240,248,255];
 var br = [0,250,235,215];

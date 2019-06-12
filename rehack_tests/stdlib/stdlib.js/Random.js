@@ -23,7 +23,7 @@ var caml_int64_shift_left = runtime["caml_int64_shift_left"];
 var caml_int64_sub = runtime["caml_int64_sub"];
 var caml_lessequal = runtime["caml_lessequal"];
 var caml_mod = runtime["caml_mod"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 var caml_sys_random_seed = runtime["caml_sys_random_seed"];
 
@@ -42,10 +42,10 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Random_int64 = caml_new_string("Random.int64");
-var cst_Random_int32 = caml_new_string("Random.int32");
-var cst_Random_int = caml_new_string("Random.int");
-var cst_x = caml_new_string("x");
+var cst_Random_int64 = string("Random.int64");
+var cst_Random_int32 = string("Random.int32");
+var cst_Random_int = string("Random.int");
+var cst_x = string("x");
 var Int32 = global_data["Int32"];
 var Int64 = global_data["Int64"];
 var Pervasives = global_data["Pervasives"];

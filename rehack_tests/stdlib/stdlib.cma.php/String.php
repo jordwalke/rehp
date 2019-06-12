@@ -37,32 +37,32 @@ final class String_ {
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_string_equal = $runtime["caml_string_equal"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_String_rcontains_from_Bytes_rcontains_from = $caml_new_string(
+    $cst_String_rcontains_from_Bytes_rcontains_from = $string(
       "String.rcontains_from / Bytes.rcontains_from"
     );
-    $cst_String_contains_from_Bytes_contains_from = $caml_new_string(
+    $cst_String_contains_from_Bytes_contains_from = $string(
       "String.contains_from / Bytes.contains_from"
     );
-    $cst_String_rindex_from_opt_Bytes_rindex_from_opt = $caml_new_string(
+    $cst_String_rindex_from_opt_Bytes_rindex_from_opt = $string(
       "String.rindex_from_opt / Bytes.rindex_from_opt"
     );
-    $cst_String_rindex_from_Bytes_rindex_from = $caml_new_string(
+    $cst_String_rindex_from_Bytes_rindex_from = $string(
       "String.rindex_from / Bytes.rindex_from"
     );
-    $cst_String_index_from_opt_Bytes_index_from_opt = $caml_new_string(
+    $cst_String_index_from_opt_Bytes_index_from_opt = $string(
       "String.index_from_opt / Bytes.index_from_opt"
     );
-    $cst_String_index_from_Bytes_index_from = $caml_new_string(
+    $cst_String_index_from_Bytes_index_from = $string(
       "String.index_from / Bytes.index_from"
     );
-    $cst__0 = $caml_new_string("");
-    $cst = $caml_new_string("");
-    $cst_String_concat = $caml_new_string("String.concat");
+    $cst__0 = $string("");
+    $cst = $string("");
+    $cst_String_concat = $string("String.concat");
     $Not_found = $global_data["Not_found"];
     $Bytes = $global_data["Bytes"];
     $Pervasives = $global_data["Pervasives"];

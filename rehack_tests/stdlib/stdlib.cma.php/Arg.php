@@ -49,46 +49,46 @@ final class Arg {
     $caml_equal = $runtime["caml_equal"];
     $caml_fresh_oo_id = $runtime["caml_fresh_oo_id"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_string_get = $runtime["caml_string_get"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst__6 = $caml_new_string("");
-    $cst__7 = $caml_new_string("\n");
-    $cst_a_boolean = $caml_new_string("a boolean");
-    $cst_an_integer = $caml_new_string("an integer");
-    $cst_an_integer__0 = $caml_new_string("an integer");
-    $cst_a_float = $caml_new_string("a float");
-    $cst_a_float__0 = $caml_new_string("a float");
-    $cst__3 = $caml_new_string("");
-    $cst__4 = $caml_new_string(" ");
-    $cst__5 = $caml_new_string("");
-    $cst_one_of = $caml_new_string("one of: ");
-    $cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic = $caml_new_string(
+    $cst__6 = $string("");
+    $cst__7 = $string("\n");
+    $cst_a_boolean = $string("a boolean");
+    $cst_an_integer = $string("an integer");
+    $cst_an_integer__0 = $string("an integer");
+    $cst_a_float = $string("a float");
+    $cst_a_float__0 = $string("a float");
+    $cst__3 = $string("");
+    $cst__4 = $string(" ");
+    $cst__5 = $string("");
+    $cst_one_of = $string("one of: ");
+    $cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic = $string(
       "Arg.Expand is is only allowed with Arg.parse_and_expand_argv_dynamic"
     );
-    $cst_no_argument = $caml_new_string("no argument");
-    $cst__2 = $caml_new_string("(?)");
-    $cst_help__3 = $caml_new_string("--help");
-    $cst_help__4 = $caml_new_string("-help");
-    $cst_help__2 = $caml_new_string("-help");
-    $cst_Display_this_list_of_options = $caml_new_string(
+    $cst_no_argument = $string("no argument");
+    $cst__2 = $string("(?)");
+    $cst_help__3 = $string("--help");
+    $cst_help__4 = $string("-help");
+    $cst_help__2 = $string("-help");
+    $cst_Display_this_list_of_options = $string(
       " Display this list of options"
     );
-    $cst_help = $caml_new_string("-help");
-    $cst_help__1 = $caml_new_string("--help");
-    $cst_Display_this_list_of_options__0 = $caml_new_string(
+    $cst_help = $string("-help");
+    $cst_help__1 = $string("--help");
+    $cst_Display_this_list_of_options__0 = $string(
       " Display this list of options"
     );
-    $cst_help__0 = $caml_new_string("--help");
-    $cst = $caml_new_string("}");
-    $cst__0 = $caml_new_string("|");
-    $cst__1 = $caml_new_string("{");
-    $cst_none = $caml_new_string("<none>");
-    $cst_Arg_Bad = $caml_new_string("Arg.Bad");
-    $cst_Arg_Help = $caml_new_string("Arg.Help");
-    $cst_Arg_Stop = $caml_new_string("Arg.Stop");
+    $cst_help__0 = $string("--help");
+    $cst = $string("}");
+    $cst__0 = $string("|");
+    $cst__1 = $string("{");
+    $cst_none = $string("<none>");
+    $cst_Arg_Bad = $string("Arg.Bad");
+    $cst_Arg_Help = $string("Arg.Help");
+    $cst_Arg_Stop = $string("Arg.Stop");
     $Not_found = $global_data["Not_found"];
     $Printf = $global_data["Printf"];
     $Pervasives = $global_data["Pervasives"];
@@ -100,13 +100,13 @@ final class Arg {
     $Sys = $global_data["Sys"];
     $Invalid_argument = $global_data["Invalid_argument"];
     $Failure = $global_data["Failure"];
-    $nx = Vector{0, Vector{2, 0, Vector{0, 0}}, $caml_new_string("%s%c")};
-    $nr = Vector{0, Vector{2, 0, 0}, $caml_new_string("%s")};
-    $ns = Vector{0, Vector{2, 0, 0}, $caml_new_string("%s")};
-    $np = Vector{0, Vector{2, 0, 0}, $caml_new_string("%s")};
-    $nq = Vector{0, Vector{2, 0, 0}, $caml_new_string("%s")};
-    $nn = Vector{0, Vector{2, 0, 0}, $caml_new_string("%s")};
-    $no = Vector{0, Vector{2, 0, 0}, $caml_new_string("%s")};
+    $nx = Vector{0, Vector{2, 0, Vector{0, 0}}, $string("%s%c")};
+    $nr = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $ns = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $np = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $nq = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $nn = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $no = Vector{0, Vector{2, 0, 0}, $string("%s")};
     $nh = Vector{
       0,
       Vector{
@@ -114,11 +114,11 @@ final class Arg {
         0,
         Vector{
           11,
-          $caml_new_string(": unknown option '"),
-          Vector{2, 0, Vector{11, $caml_new_string("'.\n"), 0}}
+          $string(": unknown option '"),
+          Vector{2, 0, Vector{11, $string("'.\n"), 0}}
         }
       },
-      $caml_new_string("%s: unknown option '%s'.\n")
+      $string("%s: unknown option '%s'.\n")
     };
     $nk = Vector{
       0,
@@ -127,27 +127,27 @@ final class Arg {
         0,
         Vector{
           11,
-          $caml_new_string(": wrong argument '"),
+          $string(": wrong argument '"),
           Vector{
             2,
             0,
             Vector{
               11,
-              $caml_new_string("'; option '"),
+              $string("'; option '"),
               Vector{
                 2,
                 0,
                 Vector{
                   11,
-                  $caml_new_string("' expects "),
-                  Vector{2, 0, Vector{11, $caml_new_string(".\n"), 0}}
+                  $string("' expects "),
+                  Vector{2, 0, Vector{11, $string(".\n"), 0}}
                 }
               }
             }
           }
         }
       },
-      $caml_new_string("%s: wrong argument '%s'; option '%s' expects %s.\n")
+      $string("%s: wrong argument '%s'; option '%s' expects %s.\n")
     };
     $nl = Vector{
       0,
@@ -156,55 +156,47 @@ final class Arg {
         0,
         Vector{
           11,
-          $caml_new_string(": option '"),
-          Vector{
-            2,
-            0,
-            Vector{11, $caml_new_string("' needs an argument.\n"), 0}
-          }
+          $string(": option '"),
+          Vector{2, 0, Vector{11, $string("' needs an argument.\n"), 0}}
         }
       },
-      $caml_new_string("%s: option '%s' needs an argument.\n")
+      $string("%s: option '%s' needs an argument.\n")
     };
     $nm = Vector{
       0,
       Vector{
         2,
         0,
-        Vector{
-          11,
-          $caml_new_string(": "),
-          Vector{2, 0, Vector{11, $caml_new_string(".\n"), 0}}
-        }
+        Vector{11, $string(": "), Vector{2, 0, Vector{11, $string(".\n"), 0}}}
       },
-      $caml_new_string("%s: %s.\n")
+      $string("%s: %s.\n")
     };
-    $ni = Vector{0, $caml_new_string("-help")};
-    $nj = Vector{0, $caml_new_string("--help")};
-    $ng = Vector{0, Vector{2, 0, 0}, $caml_new_string("%s")};
-    $nf = Vector{0, Vector{2, 0, Vector{12, 10, 0}}, $caml_new_string("%s\n")};
-    $ne = Vector{0, $caml_new_string("-help")};
+    $ni = Vector{0, $string("-help")};
+    $nj = Vector{0, $string("--help")};
+    $ng = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $nf = Vector{0, Vector{2, 0, Vector{12, 10, 0}}, $string("%s\n")};
+    $ne = Vector{0, $string("-help")};
     $nc = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("  "),
+        $string("  "),
         Vector{2, 0, Vector{12, 32, Vector{2, 0, Vector{12, 10, 0}}}}
       },
-      $caml_new_string("  %s %s\n")
+      $string("  %s %s\n")
     };
     $nd = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("  "),
+        $string("  "),
         Vector{
           2,
           0,
           Vector{12, 32, Vector{2, 0, Vector{2, 0, Vector{12, 10, 0}}}}
         }
       },
-      $caml_new_string("  %s %s%s\n")
+      $string("  %s %s%s\n")
     };
     $Bad = Vector{248, $cst_Arg_Bad, $caml_fresh_oo_id(0)};
     $Help = Vector{248, $cst_Arg_Help, $caml_fresh_oo_id(0)};

@@ -43,14 +43,14 @@ final class Hashtbl {
     $caml_compare = $runtime["caml_compare"];
     $caml_hash = $runtime["caml_hash"];
     $caml_make_vect = $runtime["caml_make_vect"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_sys_getenv = $runtime["caml_sys_getenv"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $left_shift_32 = $runtime["left_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_OCAMLRUNPARAM = $caml_new_string("OCAMLRUNPARAM");
-    $cst_CAMLRUNPARAM = $caml_new_string("CAMLRUNPARAM");
-    $cst = $caml_new_string("");
+    $cst_OCAMLRUNPARAM = $string("OCAMLRUNPARAM");
+    $cst_CAMLRUNPARAM = $string("CAMLRUNPARAM");
+    $cst = $string("");
     $Sys = $global_data["Sys"];
     $Not_found = $global_data["Not_found"];
     $Pervasives = $global_data["Pervasives"];
@@ -60,7 +60,7 @@ final class Hashtbl {
     $Random = $global_data["Random"];
     $String = $global_data["String_"];
     $qh = Vector{0, 0};
-    $qg = Vector{0, $caml_new_string("hashtbl.ml"), 108, 23};
+    $qg = Vector{0, $string("hashtbl.ml"), 108, 23};
     $hash = function(dynamic $x) use ($caml_hash) {
       return $caml_hash(10, 100, 0, $x);
     };

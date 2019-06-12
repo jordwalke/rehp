@@ -13,7 +13,7 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -24,18 +24,18 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Set_remove_min_elt = caml_new_string("Set.remove_min_elt");
-var cst_Set_bal = caml_new_string("Set.bal");
-var cst_Set_bal__0 = caml_new_string("Set.bal");
-var cst_Set_bal__1 = caml_new_string("Set.bal");
-var cst_Set_bal__2 = caml_new_string("Set.bal");
+var cst_Set_remove_min_elt = string("Set.remove_min_elt");
+var cst_Set_bal = string("Set.bal");
+var cst_Set_bal__0 = string("Set.bal");
+var cst_Set_bal__1 = string("Set.bal");
+var cst_Set_bal__2 = string("Set.bal");
 var Not_found = global_data["Not_found"];
 var Pervasives = global_data["Pervasives"];
 var List = global_data["List_"];
 var Assert_failure = global_data["Assert_failure"];
 var fl = [0,0,0,0];
 var fm = [0,0,0];
-var fn = [0,caml_new_string("set.ml"),510,18];
+var fn = [0,string("set.ml"),510,18];
 
 function Make(Ord) {
   function height(param) {if (param) {var h = param[4];return h;}return 0;}

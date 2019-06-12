@@ -16,7 +16,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 
 function call1(f, a0) {
@@ -28,19 +28,19 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_checkbox = caml_new_string("checkbox");
-var cst_file = caml_new_string("file");
-var cst_password = caml_new_string("password");
-var cst_radio = caml_new_string("radio");
-var cst_reset = caml_new_string("reset");
-var cst_submit = caml_new_string("submit");
-var cst_text = caml_new_string("text");
+var cst_checkbox = string("checkbox");
+var cst_file = string("file");
+var cst_password = string("password");
+var cst_radio = string("radio");
+var cst_reset = string("reset");
+var cst_submit = string("submit");
+var cst_text = string("text");
 var Assert_failure = global_data["Assert_failure"];
 var List = global_data["List_"];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Js_of_ocaml_Dom_html = global_data["Js_of_ocaml__Dom_html"];
 var Array = global_data["Array_"];
-var lq = [0,caml_new_string("lib/js_of_ocaml/form.ml"),170,58];
+var lq = [0,string("lib/js_of_ocaml/form.ml"),170,58];
 var lp = [0,1];
 
 function ll(x) {return call1(caml_get_public_method(x, -137852659, 202), x);}

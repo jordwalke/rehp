@@ -18,7 +18,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_make_vect = runtime["caml_make_vect"];
 var caml_mod = runtime["caml_mod"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_obj_truncate = runtime["caml_obj_truncate"];
 var caml_weak_blit = runtime["caml_weak_blit"];
 var caml_weak_check = runtime["caml_weak_check"];
@@ -48,10 +48,10 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Weak_Make_hash_bucket_cannot_grow_more = caml_new_string(
+var cst_Weak_Make_hash_bucket_cannot_grow_more = string(
   "Weak.Make: hash bucket cannot grow more"
 );
-var cst_Weak_fill = caml_new_string("Weak.fill");
+var cst_Weak_fill = string("Weak.fill");
 var Pervasives = global_data["Pervasives"];
 var Sys = global_data["Sys"];
 var Array = global_data["Array_"];

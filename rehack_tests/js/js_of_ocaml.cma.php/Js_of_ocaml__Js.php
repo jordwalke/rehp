@@ -36,12 +36,12 @@ final class Js_of_ocaml__Js {
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_js_to_string = $runtime["caml_js_to_string"];
     $caml_js_wrap_callback = $runtime["caml_js_wrap_callback"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_parseFloat = $caml_new_string("parseFloat");
-    $cst_parseInt = $caml_new_string("parseInt");
-    $cst_Js_of_ocaml_Js_Error = $caml_new_string("Js_of_ocaml__Js.Error");
-    $cst_jsError = $caml_new_string("jsError");
+    $cst_parseFloat = $string("parseFloat");
+    $cst_parseInt = $string("parseInt");
+    $cst_Js_of_ocaml_Js_Error = $string("Js_of_ocaml__Js.Error");
+    $cst_jsError = $string("jsError");
     $Pervasives = $global_data["Pervasives"];
     $Callback = $global_data["Callback"];
     $Printexc = $global_data["Printexc"];

@@ -34,15 +34,15 @@ final class Js_of_ocaml__Worker {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Worker_onmessage_is_undefined__0 = $caml_new_string(
+    $cst_Worker_onmessage_is_undefined__0 = $string(
       "Worker.onmessage is undefined"
     );
-    $cst_Worker_onmessage_is_undefined = $caml_new_string(
+    $cst_Worker_onmessage_is_undefined = $string(
       "Worker.onmessage is undefined"
     );
-    $cst_Worker_import_scripts_is_undefined = $caml_new_string(
+    $cst_Worker_import_scripts_is_undefined = $string(
       "Worker.import_scripts is undefined"
     );
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];

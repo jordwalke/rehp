@@ -36,56 +36,55 @@ final class Strings {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_int_of_string = $runtime["caml_int_of_string"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = $caml_new_string(
+    $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = $string(
       "The variable v_ should not conflict with any other variables in scope"
     );
-    $greeting = $caml_new_string("hello world");
-    $greeting__0 = $caml_new_string("hello world with unicode: \xc9\x8a");
-    $cst_String_length_should_be_two = $caml_new_string(
+    $greeting = $string("hello world");
+    $greeting__0 = $string("hello world with unicode: \xc9\x8a");
+    $cst_String_length_should_be_two = $string(
       "String.length(\"\xc9\x8a\") should be two:"
     );
-    $cst_1 = $caml_new_string("-1");
-    $cst_6 = $caml_new_string("-6");
-    $cst_1__0 = $caml_new_string("1");
-    $cst_6__0 = $caml_new_string("6");
-    $cst_as_df = $caml_new_string("as_df");
-    $cst_index_from_string_with_char = $caml_new_string(
-      "index from string with char: "
+    $cst_1 = $string("-1");
+    $cst_6 = $string("-6");
+    $cst_1__0 = $string("1");
+    $cst_6__0 = $string("6");
+    $cst_as_df = $string("as_df");
+    $cst_index_from_string_with_char = $string("index from string with char: "
     );
-    $cst_asdf = $caml_new_string("asdf");
-    $cst_index_from_string_without_char = $caml_new_string(
+    $cst_asdf = $string("asdf");
+    $cst_index_from_string_without_char = $string(
       "index from string without char: "
     );
-    $cst_Prints_seven = $caml_new_string("Prints seven:");
-    $cst_Prints_six = $caml_new_string("Prints six:");
-    $cst_Prints_six__0 = $caml_new_string("Prints six:");
-    $cst_6__1 = $caml_new_string("6");
-    $cst_Reason_is_on = $caml_new_string("Reason is on \xf0\x9f\x94\xa5");
-    $cst_trimmed_string = $caml_new_string(" trimmed string ");
-    $cst_tmp = $caml_new_string("tmp");
-    $cst_WHEREAMI = $caml_new_string("WHEREAMI");
-    $cst_Properly_caught_invalid_string_to_int_conversion = $caml_new_string(
+    $cst_Prints_seven = $string("Prints seven:");
+    $cst_Prints_six = $string("Prints six:");
+    $cst_Prints_six__0 = $string("Prints six:");
+    $cst_6__1 = $string("6");
+    $cst_Reason_is_on = $string("Reason is on \xf0\x9f\x94\xa5");
+    $cst_trimmed_string = $string(" trimmed string ");
+    $cst_tmp = $string("tmp");
+    $cst_WHEREAMI = $string("WHEREAMI");
+    $cst_Properly_caught_invalid_string_to_int_conversion = $string(
       "Properly caught invalid string to int conversion."
     );
-    $cst_Did_not_properly_catch_Failure_exception = $caml_new_string(
+    $cst_Did_not_properly_catch_Failure_exception = $string(
       "Did not properly catch Failure exception"
     );
-    $cst_20 = $caml_new_string("20");
-    $cst_Properly_caught_conversion_from_string_20_to_int = $caml_new_string(
+    $cst_20 = $string("20");
+    $cst_Properly_caught_conversion_from_string_20_to_int = $string(
       "Properly caught conversion from string '20' to int "
     );
-    $cst_Did_not_properly_catch_conversion_from_string_to_int = $caml_new_string(
+    $cst_Did_not_properly_catch_conversion_from_string_to_int = $string(
       "Did not properly catch conversion from string to int"
     );
-    $cst_ARE_T = $caml_new_string("ARE == T: ");
-    $cst_ARE_F = $caml_new_string("ARE === F: ");
-    $cst_Nans_are_should_output_true = $caml_new_string(
+    $cst_ARE_T = $string("ARE == T: ");
+    $cst_ARE_F = $string("ARE === F: ");
+    $cst_Nans_are_should_output_true = $string(
       "Nans are === (should output true):"
     );
-    $cst_Nans_are_should_output_false = $caml_new_string(
+    $cst_Nans_are_should_output_false = $string(
       "Nans are == (should output false):"
     );
     $Pervasives = $global_data["Pervasives"];

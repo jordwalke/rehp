@@ -33,25 +33,20 @@ final class Js_of_ocaml__XmlHttpRequest {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_readystatechange = $caml_new_string("readystatechange");
-    $cst_loadstart = $caml_new_string("loadstart");
-    $cst_progress = $caml_new_string("progress");
-    $cst_abort = $caml_new_string("abort");
-    $cst_error = $caml_new_string("error");
-    $cst_load = $caml_new_string("load");
-    $cst_timeout = $caml_new_string("timeout");
-    $cst_loadend = $caml_new_string("loadend");
+    $cst_readystatechange = $string("readystatechange");
+    $cst_loadstart = $string("loadstart");
+    $cst_progress = $string("progress");
+    $cst_abort = $string("abort");
+    $cst_error = $string("error");
+    $cst_load = $string("load");
+    $cst_timeout = $string("timeout");
+    $cst_loadend = $string("loadend");
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Assert_failure = $global_data["Assert_failure"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $tC = Vector{
-      0,
-      $caml_new_string("lib/js_of_ocaml/xmlHttpRequest.ml"),
-      125,
-      75
-    };
+    $tC = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75};
     $readystatechange = $call1($Js_of_ocaml_Dom[14][1], $cst_readystatechange);
     $loadstart = $call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
     $progress = $call1($Js_of_ocaml_Dom[14][1], $cst_progress);

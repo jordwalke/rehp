@@ -33,12 +33,12 @@ final class Marshal {
     $call1 = $runtime["caml_call1"];
     $caml_marshal_data_size = $runtime["caml_marshal_data_size"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Marshal_from_bytes = $caml_new_string("Marshal.from_bytes");
-    $cst_Marshal_from_bytes__0 = $caml_new_string("Marshal.from_bytes");
-    $cst_Marshal_data_size = $caml_new_string("Marshal.data_size");
-    $cst_Marshal_to_buffer_substring_out_of_bounds = $caml_new_string(
+    $cst_Marshal_from_bytes = $string("Marshal.from_bytes");
+    $cst_Marshal_from_bytes__0 = $string("Marshal.from_bytes");
+    $cst_Marshal_data_size = $string("Marshal.data_size");
+    $cst_Marshal_to_buffer_substring_out_of_bounds = $string(
       "Marshal.to_buffer: substring out of bounds"
     );
     $Bytes = $global_data["Bytes"];

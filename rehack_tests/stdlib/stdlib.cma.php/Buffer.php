@@ -44,21 +44,21 @@ final class Buffer {
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_string_get = $runtime["caml_string_get"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Buffer_truncate = $caml_new_string("Buffer.truncate");
-    $cst_Buffer_add_channel = $caml_new_string("Buffer.add_channel");
-    $cst_Buffer_add_substring_add_subbytes = $caml_new_string(
+    $cst_Buffer_truncate = $string("Buffer.truncate");
+    $cst_Buffer_add_channel = $string("Buffer.add_channel");
+    $cst_Buffer_add_substring_add_subbytes = $string(
       "Buffer.add_substring/add_subbytes"
     );
-    $cst_Buffer_add_cannot_grow_buffer = $caml_new_string(
+    $cst_Buffer_add_cannot_grow_buffer = $string(
       "Buffer.add: cannot grow buffer"
     );
-    $cst_Buffer_nth = $caml_new_string("Buffer.nth");
-    $cst_Buffer_blit = $caml_new_string("Buffer.blit");
-    $cst_Buffer_sub = $caml_new_string("Buffer.sub");
+    $cst_Buffer_nth = $string("Buffer.nth");
+    $cst_Buffer_blit = $string("Buffer.blit");
+    $cst_Buffer_sub = $string("Buffer.sub");
     $Pervasives = $global_data["Pervasives"];
     $End_of_file = $global_data["End_of_file"];
     $Not_found = $global_data["Not_found"];
@@ -67,13 +67,13 @@ final class Buffer {
     $Sys = $global_data["Sys"];
     $Bytes = $global_data["Bytes"];
     $Uchar = $global_data["Uchar"];
-    $hr = Vector{0, $caml_new_string("buffer.ml"), 205, 9};
-    $hq = Vector{0, $caml_new_string("buffer.ml"), 141, 19};
-    $hp = Vector{0, $caml_new_string("buffer.ml"), 159, 8};
-    $ho = Vector{0, $caml_new_string("buffer.ml"), 120, 19};
-    $hn = Vector{0, $caml_new_string("buffer.ml"), 138, 8};
-    $hm = Vector{0, $caml_new_string("buffer.ml"), 84, 19};
-    $hl = Vector{0, $caml_new_string("buffer.ml"), 117, 8};
+    $hr = Vector{0, $string("buffer.ml"), 205, 9};
+    $hq = Vector{0, $string("buffer.ml"), 141, 19};
+    $hp = Vector{0, $string("buffer.ml"), 159, 8};
+    $ho = Vector{0, $string("buffer.ml"), 120, 19};
+    $hn = Vector{0, $string("buffer.ml"), 138, 8};
+    $hm = Vector{0, $string("buffer.ml"), 84, 19};
+    $hl = Vector{0, $string("buffer.ml"), 117, 8};
     $create = function(dynamic $n) use ($Sys,$caml_create_bytes) {
       $n__0 = 1 <= $n ? $n : (1);
       $n__1 = $Sys[13] < $n__0 ? $Sys[13] : ($n__0);

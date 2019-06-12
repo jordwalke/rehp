@@ -39,36 +39,36 @@ final class Bytes {
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_fill_bytes = $runtime["caml_fill_bytes"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_String_rcontains_from_Bytes_rcontains_from = $caml_new_string(
+    $cst_String_rcontains_from_Bytes_rcontains_from = $string(
       "String.rcontains_from / Bytes.rcontains_from"
     );
-    $cst_String_contains_from_Bytes_contains_from = $caml_new_string(
+    $cst_String_contains_from_Bytes_contains_from = $string(
       "String.contains_from / Bytes.contains_from"
     );
-    $cst_String_rindex_from_opt_Bytes_rindex_from_opt = $caml_new_string(
+    $cst_String_rindex_from_opt_Bytes_rindex_from_opt = $string(
       "String.rindex_from_opt / Bytes.rindex_from_opt"
     );
-    $cst_String_rindex_from_Bytes_rindex_from = $caml_new_string(
+    $cst_String_rindex_from_Bytes_rindex_from = $string(
       "String.rindex_from / Bytes.rindex_from"
     );
-    $cst_String_index_from_opt_Bytes_index_from_opt = $caml_new_string(
+    $cst_String_index_from_opt_Bytes_index_from_opt = $string(
       "String.index_from_opt / Bytes.index_from_opt"
     );
-    $cst_String_index_from_Bytes_index_from = $caml_new_string(
+    $cst_String_index_from_Bytes_index_from = $string(
       "String.index_from / Bytes.index_from"
     );
-    $cst_Bytes_concat = $caml_new_string("Bytes.concat");
-    $cst_String_blit_Bytes_blit_string = $caml_new_string(
+    $cst_Bytes_concat = $string("Bytes.concat");
+    $cst_String_blit_Bytes_blit_string = $string(
       "String.blit / Bytes.blit_string"
     );
-    $cst_Bytes_blit = $caml_new_string("Bytes.blit");
-    $cst_String_fill_Bytes_fill = $caml_new_string("String.fill / Bytes.fill");
-    $cst_Bytes_extend = $caml_new_string("Bytes.extend");
-    $cst_String_sub_Bytes_sub = $caml_new_string("String.sub / Bytes.sub");
+    $cst_Bytes_blit = $string("Bytes.blit");
+    $cst_String_fill_Bytes_fill = $string("String.fill / Bytes.fill");
+    $cst_Bytes_extend = $string("Bytes.extend");
+    $cst_String_sub_Bytes_sub = $string("String.sub / Bytes.sub");
     $Not_found = $global_data["Not_found"];
     $Char = $global_data["Char"];
     $Pervasives = $global_data["Pervasives"];

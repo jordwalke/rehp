@@ -40,13 +40,13 @@ final class Lexing {
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Lexing_lex_refill_cannot_grow_buffer = $caml_new_string(
+    $cst_Lexing_lex_refill_cannot_grow_buffer = $string(
       "Lexing.lex_refill: cannot grow buffer"
     );
-    $dummy_pos = Vector{0, $caml_new_string(""), 0, 0, -1};
-    $zero_pos = Vector{0, $caml_new_string(""), 1, 0, 0};
+    $dummy_pos = Vector{0, $string(""), 0, 0, -1};
+    $zero_pos = Vector{0, $string(""), 1, 0, 0};
     $Bytes = $global_data["Bytes"];
     $Pervasives = $global_data["Pervasives"];
     $Sys = $global_data["Sys"];

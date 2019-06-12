@@ -34,7 +34,7 @@ final class Gc {
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
     $Sys = $global_data["Sys"];
     $Printf = $global_data["Printf"];
@@ -42,142 +42,141 @@ final class Gc {
       0,
       Vector{
         11,
-        $caml_new_string("minor_collections: "),
+        $string("minor_collections: "),
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("minor_collections: %d\n")
+      $string("minor_collections: %d\n")
     };
     $pt = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("major_collections: "),
+        $string("major_collections: "),
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("major_collections: %d\n")
+      $string("major_collections: %d\n")
     };
     $pu = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("compactions:       "),
+        $string("compactions:       "),
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("compactions:       %d\n")
+      $string("compactions:       %d\n")
     };
-    $pv = Vector{0, Vector{12, 10, 0}, $caml_new_string("\n")};
-    $pw = Vector{0, Vector{8, 0, 0, Vector{0, 0}, 0}, $caml_new_string("%.0f")
-    };
+    $pv = Vector{0, Vector{12, 10, 0}, $string("\n")};
+    $pw = Vector{0, Vector{8, 0, 0, Vector{0, 0}, 0}, $string("%.0f")};
     $px = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("minor_words:    "),
+        $string("minor_words:    "),
         Vector{8, 0, Vector{1, 1}, Vector{0, 0}, Vector{12, 10, 0}}
       },
-      $caml_new_string("minor_words:    %*.0f\n")
+      $string("minor_words:    %*.0f\n")
     };
     $py = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("promoted_words: "),
+        $string("promoted_words: "),
         Vector{8, 0, Vector{1, 1}, Vector{0, 0}, Vector{12, 10, 0}}
       },
-      $caml_new_string("promoted_words: %*.0f\n")
+      $string("promoted_words: %*.0f\n")
     };
     $pz = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("major_words:    "),
+        $string("major_words:    "),
         Vector{8, 0, Vector{1, 1}, Vector{0, 0}, Vector{12, 10, 0}}
       },
-      $caml_new_string("major_words:    %*.0f\n")
+      $string("major_words:    %*.0f\n")
     };
-    $pA = Vector{0, Vector{12, 10, 0}, $caml_new_string("\n")};
-    $pB = Vector{0, Vector{4, 0, 0, 0, 0}, $caml_new_string("%d")};
+    $pA = Vector{0, Vector{12, 10, 0}, $string("\n")};
+    $pB = Vector{0, Vector{4, 0, 0, 0, 0}, $string("%d")};
     $pC = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("top_heap_words: "),
+        $string("top_heap_words: "),
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("top_heap_words: %*d\n")
+      $string("top_heap_words: %*d\n")
     };
     $pD = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("heap_words:     "),
+        $string("heap_words:     "),
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("heap_words:     %*d\n")
+      $string("heap_words:     %*d\n")
     };
     $pE = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("live_words:     "),
+        $string("live_words:     "),
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("live_words:     %*d\n")
+      $string("live_words:     %*d\n")
     };
     $pF = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("free_words:     "),
+        $string("free_words:     "),
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("free_words:     %*d\n")
+      $string("free_words:     %*d\n")
     };
     $pG = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("largest_free:   "),
+        $string("largest_free:   "),
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("largest_free:   %*d\n")
+      $string("largest_free:   %*d\n")
     };
     $pH = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("fragments:      "),
+        $string("fragments:      "),
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("fragments:      %*d\n")
+      $string("fragments:      %*d\n")
     };
-    $pI = Vector{0, Vector{12, 10, 0}, $caml_new_string("\n")};
+    $pI = Vector{0, Vector{12, 10, 0}, $string("\n")};
     $pJ = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("live_blocks: "),
+        $string("live_blocks: "),
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("live_blocks: %d\n")
+      $string("live_blocks: %d\n")
     };
     $pK = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("free_blocks: "),
+        $string("free_blocks: "),
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("free_blocks: %d\n")
+      $string("free_blocks: %d\n")
     };
     $pL = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("heap_chunks: "),
+        $string("heap_chunks: "),
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
-      $caml_new_string("heap_chunks: %d\n")
+      $string("heap_chunks: %d\n")
     };
     $print_stat = function(dynamic $c) use ($Printf,$call2,$call3,$call4,$caml_ml_string_length,$pA,$pB,$pC,$pD,$pE,$pF,$pG,$pH,$pI,$pJ,$pK,$pL,$ps,$pt,$pu,$pv,$pw,$px,$py,$pz,$runtime) {
       $st = $runtime["caml_gc_stat"](0);

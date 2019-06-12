@@ -41,7 +41,7 @@ final class Weak {
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_make_vect = $runtime["caml_make_vect"];
     $caml_mod = $runtime["caml_mod"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_obj_truncate = $runtime["caml_obj_truncate"];
     $caml_weak_blit = $runtime["caml_weak_blit"];
     $caml_weak_check = $runtime["caml_weak_check"];
@@ -50,10 +50,10 @@ final class Weak {
     $caml_weak_get_copy = $runtime["caml_weak_get_copy"];
     $caml_weak_set = $runtime["caml_weak_set"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Weak_Make_hash_bucket_cannot_grow_more = $caml_new_string(
+    $cst_Weak_Make_hash_bucket_cannot_grow_more = $string(
       "Weak.Make: hash bucket cannot grow more"
     );
-    $cst_Weak_fill = $caml_new_string("Weak.fill");
+    $cst_Weak_fill = $string("Weak.fill");
     $Pervasives = $global_data["Pervasives"];
     $Sys = $global_data["Sys"];
     $Array = $global_data["Array_"];

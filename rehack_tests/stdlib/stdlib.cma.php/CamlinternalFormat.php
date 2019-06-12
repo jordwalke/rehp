@@ -73,7 +73,7 @@ final class CamlinternalFormat {
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_format_int = $runtime["caml_format_int"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_notequal = $runtime["caml_notequal"];
     $caml_string_get = $runtime["caml_string_get"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
@@ -84,148 +84,144 @@ final class CamlinternalFormat {
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_c = $caml_new_string("%c");
-    $cst_s = $caml_new_string("%s");
-    $cst_i = $caml_new_string("%i");
-    $cst_li = $caml_new_string("%li");
-    $cst_ni = $caml_new_string("%ni");
-    $cst_Li = $caml_new_string("%Li");
-    $cst_f = $caml_new_string("%f");
-    $cst_B = $caml_new_string("%B");
-    $cst__9 = $caml_new_string("%{");
-    $cst__10 = $caml_new_string("%}");
-    $cst__11 = $caml_new_string("%(");
-    $cst__12 = $caml_new_string("%)");
-    $cst_a = $caml_new_string("%a");
-    $cst_t = $caml_new_string("%t");
-    $cst__13 = $caml_new_string("%?");
-    $cst_r = $caml_new_string("%r");
-    $cst_r__0 = $caml_new_string("%_r");
-    $cst_u__0 = $caml_new_string("%u");
-    $cst_Printf_bad_conversion = $caml_new_string("Printf: bad conversion %[");
-    $cst_Printf_bad_conversion__0 = $caml_new_string(
-      "Printf: bad conversion %_"
-    );
-    $cst__17 = $caml_new_string("@{");
-    $cst__18 = $caml_new_string("@[");
-    $cst__19 = $caml_new_string("@{");
-    $cst__20 = $caml_new_string("@[");
-    $cst__21 = $caml_new_string("@{");
-    $cst__22 = $caml_new_string("@[");
-    $cst_0 = $caml_new_string("0");
-    $cst_padding = $caml_new_string("padding");
-    $cst_precision = $caml_new_string("precision");
-    $cst__27 = $caml_new_string("'*'");
-    $cst__25 = $caml_new_string("'-'");
-    $cst_0__2 = $caml_new_string("'0'");
-    $cst__26 = $caml_new_string("'*'");
-    $cst_0__0 = $caml_new_string("0");
-    $cst_0__1 = $caml_new_string("0");
-    $cst_precision__0 = $caml_new_string("precision");
-    $cst_precision__1 = $caml_new_string("precision");
-    $cst__28 = $caml_new_string("'+'");
-    $cst__29 = $caml_new_string("'#'");
-    $cst__30 = $caml_new_string("' '");
-    $cst_padding__0 = $caml_new_string("`padding'");
-    $cst_precision__2 = $caml_new_string("`precision'");
-    $cst__31 = $caml_new_string("'+'");
-    $cst__32 = $caml_new_string("'_'");
-    $sub_format = Vector{0, 0, $caml_new_string("")};
-    $formatting_lit = Vector{0, $caml_new_string("@;"), 1, 0};
-    $cst_digit = $caml_new_string("digit");
-    $cst_character = $caml_new_string("character ')'");
-    $cst_character__0 = $caml_new_string("character '}'");
-    $cst__36 = $caml_new_string("'#'");
-    $cst__35 = $caml_new_string("'+'");
-    $cst__34 = $caml_new_string("'+'");
-    $cst__33 = $caml_new_string("' '");
-    $cst__39 = $caml_new_string("'+'");
-    $cst__38 = $caml_new_string("'+'");
-    $cst__37 = $caml_new_string("' '");
-    $cst_non_zero_widths_are_unsupported_for_c_conversions = $caml_new_string(
+    $cst_c = $string("%c");
+    $cst_s = $string("%s");
+    $cst_i = $string("%i");
+    $cst_li = $string("%li");
+    $cst_ni = $string("%ni");
+    $cst_Li = $string("%Li");
+    $cst_f = $string("%f");
+    $cst_B = $string("%B");
+    $cst__9 = $string("%{");
+    $cst__10 = $string("%}");
+    $cst__11 = $string("%(");
+    $cst__12 = $string("%)");
+    $cst_a = $string("%a");
+    $cst_t = $string("%t");
+    $cst__13 = $string("%?");
+    $cst_r = $string("%r");
+    $cst_r__0 = $string("%_r");
+    $cst_u__0 = $string("%u");
+    $cst_Printf_bad_conversion = $string("Printf: bad conversion %[");
+    $cst_Printf_bad_conversion__0 = $string("Printf: bad conversion %_");
+    $cst__17 = $string("@{");
+    $cst__18 = $string("@[");
+    $cst__19 = $string("@{");
+    $cst__20 = $string("@[");
+    $cst__21 = $string("@{");
+    $cst__22 = $string("@[");
+    $cst_0 = $string("0");
+    $cst_padding = $string("padding");
+    $cst_precision = $string("precision");
+    $cst__27 = $string("'*'");
+    $cst__25 = $string("'-'");
+    $cst_0__2 = $string("'0'");
+    $cst__26 = $string("'*'");
+    $cst_0__0 = $string("0");
+    $cst_0__1 = $string("0");
+    $cst_precision__0 = $string("precision");
+    $cst_precision__1 = $string("precision");
+    $cst__28 = $string("'+'");
+    $cst__29 = $string("'#'");
+    $cst__30 = $string("' '");
+    $cst_padding__0 = $string("`padding'");
+    $cst_precision__2 = $string("`precision'");
+    $cst__31 = $string("'+'");
+    $cst__32 = $string("'_'");
+    $sub_format = Vector{0, 0, $string("")};
+    $formatting_lit = Vector{0, $string("@;"), 1, 0};
+    $cst_digit = $string("digit");
+    $cst_character = $string("character ')'");
+    $cst_character__0 = $string("character '}'");
+    $cst__36 = $string("'#'");
+    $cst__35 = $string("'+'");
+    $cst__34 = $string("'+'");
+    $cst__33 = $string("' '");
+    $cst__39 = $string("'+'");
+    $cst__38 = $string("'+'");
+    $cst__37 = $string("' '");
+    $cst_non_zero_widths_are_unsupported_for_c_conversions = $string(
       "non-zero widths are unsupported for %c conversions"
     );
-    $cst_unexpected_end_of_format = $caml_new_string(
-      "unexpected end of format"
-    );
-    $cst__23 = $caml_new_string("");
-    $cst__24 = $caml_new_string("");
-    $cst_b = $caml_new_string("b");
-    $cst_h = $caml_new_string("h");
-    $cst_hov = $caml_new_string("hov");
-    $cst_hv = $caml_new_string("hv");
-    $cst_v = $caml_new_string("v");
-    $cst_nan = $caml_new_string("nan");
-    $cst__16 = $caml_new_string(".");
-    $cst_neg_infinity = $caml_new_string("neg_infinity");
-    $cst_infinity = $caml_new_string("infinity");
-    $cst_12g = $caml_new_string("%.12g");
-    $cst_nd = $caml_new_string("%nd");
-    $cst_nd__0 = $caml_new_string("%+nd");
-    $cst_nd__1 = $caml_new_string("% nd");
-    $cst_ni__0 = $caml_new_string("%ni");
-    $cst_ni__1 = $caml_new_string("%+ni");
-    $cst_ni__2 = $caml_new_string("% ni");
-    $cst_nx = $caml_new_string("%nx");
-    $cst_nx__0 = $caml_new_string("%#nx");
-    $cst_nX = $caml_new_string("%nX");
-    $cst_nX__0 = $caml_new_string("%#nX");
-    $cst_no = $caml_new_string("%no");
-    $cst_no__0 = $caml_new_string("%#no");
-    $cst_nu = $caml_new_string("%nu");
-    $cst_ld = $caml_new_string("%ld");
-    $cst_ld__0 = $caml_new_string("%+ld");
-    $cst_ld__1 = $caml_new_string("% ld");
-    $cst_li__0 = $caml_new_string("%li");
-    $cst_li__1 = $caml_new_string("%+li");
-    $cst_li__2 = $caml_new_string("% li");
-    $cst_lx = $caml_new_string("%lx");
-    $cst_lx__0 = $caml_new_string("%#lx");
-    $cst_lX = $caml_new_string("%lX");
-    $cst_lX__0 = $caml_new_string("%#lX");
-    $cst_lo = $caml_new_string("%lo");
-    $cst_lo__0 = $caml_new_string("%#lo");
-    $cst_lu = $caml_new_string("%lu");
-    $cst_Ld = $caml_new_string("%Ld");
-    $cst_Ld__0 = $caml_new_string("%+Ld");
-    $cst_Ld__1 = $caml_new_string("% Ld");
-    $cst_Li__0 = $caml_new_string("%Li");
-    $cst_Li__1 = $caml_new_string("%+Li");
-    $cst_Li__2 = $caml_new_string("% Li");
-    $cst_Lx = $caml_new_string("%Lx");
-    $cst_Lx__0 = $caml_new_string("%#Lx");
-    $cst_LX = $caml_new_string("%LX");
-    $cst_LX__0 = $caml_new_string("%#LX");
-    $cst_Lo = $caml_new_string("%Lo");
-    $cst_Lo__0 = $caml_new_string("%#Lo");
-    $cst_Lu = $caml_new_string("%Lu");
-    $cst_d = $caml_new_string("%d");
-    $cst_d__0 = $caml_new_string("%+d");
-    $cst_d__1 = $caml_new_string("% d");
-    $cst_i__0 = $caml_new_string("%i");
-    $cst_i__1 = $caml_new_string("%+i");
-    $cst_i__2 = $caml_new_string("% i");
-    $cst_x = $caml_new_string("%x");
-    $cst_x__0 = $caml_new_string("%#x");
-    $cst_X = $caml_new_string("%X");
-    $cst_X__0 = $caml_new_string("%#X");
-    $cst_o = $caml_new_string("%o");
-    $cst_o__0 = $caml_new_string("%#o");
-    $cst_u = $caml_new_string("%u");
-    $cst__14 = $caml_new_string("%!");
-    $cst__15 = $caml_new_string("@{");
-    $cst_0c = $caml_new_string("0c");
-    $cst__8 = $caml_new_string("%%");
-    $cst__0 = $caml_new_string("@]");
-    $cst__1 = $caml_new_string("@}");
-    $cst__2 = $caml_new_string("@?");
-    $cst__3 = $caml_new_string("@\n");
-    $cst__4 = $caml_new_string("@.");
-    $cst__5 = $caml_new_string("@@");
-    $cst__6 = $caml_new_string("@%");
-    $cst__7 = $caml_new_string("@");
-    $cst = $caml_new_string(".*");
-    $cst_CamlinternalFormat_Type_mismatch = $caml_new_string(
+    $cst_unexpected_end_of_format = $string("unexpected end of format");
+    $cst__23 = $string("");
+    $cst__24 = $string("");
+    $cst_b = $string("b");
+    $cst_h = $string("h");
+    $cst_hov = $string("hov");
+    $cst_hv = $string("hv");
+    $cst_v = $string("v");
+    $cst_nan = $string("nan");
+    $cst__16 = $string(".");
+    $cst_neg_infinity = $string("neg_infinity");
+    $cst_infinity = $string("infinity");
+    $cst_12g = $string("%.12g");
+    $cst_nd = $string("%nd");
+    $cst_nd__0 = $string("%+nd");
+    $cst_nd__1 = $string("% nd");
+    $cst_ni__0 = $string("%ni");
+    $cst_ni__1 = $string("%+ni");
+    $cst_ni__2 = $string("% ni");
+    $cst_nx = $string("%nx");
+    $cst_nx__0 = $string("%#nx");
+    $cst_nX = $string("%nX");
+    $cst_nX__0 = $string("%#nX");
+    $cst_no = $string("%no");
+    $cst_no__0 = $string("%#no");
+    $cst_nu = $string("%nu");
+    $cst_ld = $string("%ld");
+    $cst_ld__0 = $string("%+ld");
+    $cst_ld__1 = $string("% ld");
+    $cst_li__0 = $string("%li");
+    $cst_li__1 = $string("%+li");
+    $cst_li__2 = $string("% li");
+    $cst_lx = $string("%lx");
+    $cst_lx__0 = $string("%#lx");
+    $cst_lX = $string("%lX");
+    $cst_lX__0 = $string("%#lX");
+    $cst_lo = $string("%lo");
+    $cst_lo__0 = $string("%#lo");
+    $cst_lu = $string("%lu");
+    $cst_Ld = $string("%Ld");
+    $cst_Ld__0 = $string("%+Ld");
+    $cst_Ld__1 = $string("% Ld");
+    $cst_Li__0 = $string("%Li");
+    $cst_Li__1 = $string("%+Li");
+    $cst_Li__2 = $string("% Li");
+    $cst_Lx = $string("%Lx");
+    $cst_Lx__0 = $string("%#Lx");
+    $cst_LX = $string("%LX");
+    $cst_LX__0 = $string("%#LX");
+    $cst_Lo = $string("%Lo");
+    $cst_Lo__0 = $string("%#Lo");
+    $cst_Lu = $string("%Lu");
+    $cst_d = $string("%d");
+    $cst_d__0 = $string("%+d");
+    $cst_d__1 = $string("% d");
+    $cst_i__0 = $string("%i");
+    $cst_i__1 = $string("%+i");
+    $cst_i__2 = $string("% i");
+    $cst_x = $string("%x");
+    $cst_x__0 = $string("%#x");
+    $cst_X = $string("%X");
+    $cst_X__0 = $string("%#X");
+    $cst_o = $string("%o");
+    $cst_o__0 = $string("%#o");
+    $cst_u = $string("%u");
+    $cst__14 = $string("%!");
+    $cst__15 = $string("@{");
+    $cst_0c = $string("0c");
+    $cst__8 = $string("%%");
+    $cst__0 = $string("@]");
+    $cst__1 = $string("@}");
+    $cst__2 = $string("@?");
+    $cst__3 = $string("@\n");
+    $cst__4 = $string("@.");
+    $cst__5 = $string("@@");
+    $cst__6 = $string("@%");
+    $cst__7 = $string("@");
+    $cst = $string(".*");
+    $cst_CamlinternalFormat_Type_mismatch = $string(
       "CamlinternalFormat.Type_mismatch"
     );
     $Assert_failure = $global_data["Assert_failure"];
@@ -238,69 +234,67 @@ final class CamlinternalFormat {
     $Sys = $global_data["Sys"];
     $Char = $global_data["Char"];
     $Bytes = $global_data["Bytes"];
-    $hz = Vector{0, $caml_new_string("camlinternalFormat.ml"), 846, 23};
-    $hK = Vector{0, $caml_new_string("camlinternalFormat.ml"), 810, 21};
-    $hC = Vector{0, $caml_new_string("camlinternalFormat.ml"), 811, 21};
-    $hL = Vector{0, $caml_new_string("camlinternalFormat.ml"), 814, 21};
-    $hD = Vector{0, $caml_new_string("camlinternalFormat.ml"), 815, 21};
-    $hM = Vector{0, $caml_new_string("camlinternalFormat.ml"), 818, 19};
-    $hE = Vector{0, $caml_new_string("camlinternalFormat.ml"), 819, 19};
-    $hN = Vector{0, $caml_new_string("camlinternalFormat.ml"), 822, 22};
-    $hF = Vector{0, $caml_new_string("camlinternalFormat.ml"), 823, 22};
-    $hO = Vector{0, $caml_new_string("camlinternalFormat.ml"), 827, 30};
-    $hG = Vector{0, $caml_new_string("camlinternalFormat.ml"), 828, 30};
-    $hI = Vector{0, $caml_new_string("camlinternalFormat.ml"), 832, 26};
-    $hA = Vector{0, $caml_new_string("camlinternalFormat.ml"), 833, 26};
-    $hJ = Vector{0, $caml_new_string("camlinternalFormat.ml"), 842, 28};
-    $hB = Vector{0, $caml_new_string("camlinternalFormat.ml"), 843, 28};
-    $hH = Vector{0, $caml_new_string("camlinternalFormat.ml"), 847, 23};
-    $hP = Vector{0, $caml_new_string("camlinternalFormat.ml"), 1525, 4};
-    $hQ = Vector{0, $caml_new_string("camlinternalFormat.ml"), 1593, 39};
-    $hR = Vector{0, $caml_new_string("camlinternalFormat.ml"), 1616, 31};
-    $hS = Vector{0, $caml_new_string("camlinternalFormat.ml"), 1617, 31};
-    $hT = Vector{0, $caml_new_string("camlinternalFormat.ml"), 1797, 8};
+    $hz = Vector{0, $string("camlinternalFormat.ml"), 846, 23};
+    $hK = Vector{0, $string("camlinternalFormat.ml"), 810, 21};
+    $hC = Vector{0, $string("camlinternalFormat.ml"), 811, 21};
+    $hL = Vector{0, $string("camlinternalFormat.ml"), 814, 21};
+    $hD = Vector{0, $string("camlinternalFormat.ml"), 815, 21};
+    $hM = Vector{0, $string("camlinternalFormat.ml"), 818, 19};
+    $hE = Vector{0, $string("camlinternalFormat.ml"), 819, 19};
+    $hN = Vector{0, $string("camlinternalFormat.ml"), 822, 22};
+    $hF = Vector{0, $string("camlinternalFormat.ml"), 823, 22};
+    $hO = Vector{0, $string("camlinternalFormat.ml"), 827, 30};
+    $hG = Vector{0, $string("camlinternalFormat.ml"), 828, 30};
+    $hI = Vector{0, $string("camlinternalFormat.ml"), 832, 26};
+    $hA = Vector{0, $string("camlinternalFormat.ml"), 833, 26};
+    $hJ = Vector{0, $string("camlinternalFormat.ml"), 842, 28};
+    $hB = Vector{0, $string("camlinternalFormat.ml"), 843, 28};
+    $hH = Vector{0, $string("camlinternalFormat.ml"), 847, 23};
+    $hP = Vector{0, $string("camlinternalFormat.ml"), 1525, 4};
+    $hQ = Vector{0, $string("camlinternalFormat.ml"), 1593, 39};
+    $hR = Vector{0, $string("camlinternalFormat.ml"), 1616, 31};
+    $hS = Vector{0, $string("camlinternalFormat.ml"), 1617, 31};
+    $hT = Vector{0, $string("camlinternalFormat.ml"), 1797, 8};
     $io = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("bad input: format type mismatch between "),
-        Vector{3, 0, Vector{11, $caml_new_string(" and "), Vector{3, 0, 0}}}
+        $string("bad input: format type mismatch between "),
+        Vector{3, 0, Vector{11, $string(" and "), Vector{3, 0, 0}}}
       },
-      $caml_new_string("bad input: format type mismatch between %S and %S")
+      $string("bad input: format type mismatch between %S and %S")
     };
     $im = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("bad input: format type mismatch between "),
-        Vector{3, 0, Vector{11, $caml_new_string(" and "), Vector{3, 0, 0}}}
+        $string("bad input: format type mismatch between "),
+        Vector{3, 0, Vector{11, $string(" and "), Vector{3, 0, 0}}}
       },
-      $caml_new_string("bad input: format type mismatch between %S and %S")
+      $string("bad input: format type mismatch between %S and %S")
     };
     $hZ = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": at character number "),
+            $string(": at character number "),
             Vector{
               4,
               0,
               0,
               0,
-              Vector{11, $caml_new_string(", duplicate flag "), Vector{1, 0}}
+              Vector{11, $string(", duplicate flag "), Vector{1, 0}}
             }
           }
         }
       },
-      $caml_new_string(
-        "invalid format %S: at character number %d, duplicate flag %C"
-      )
+      $string("invalid format %S: at character number %d, duplicate flag %C")
     };
     $h0 = Vector{0, 1, 0};
     $h1 = Vector{0, 0};
@@ -312,13 +306,13 @@ final class CamlinternalFormat {
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": at character number "),
+            $string(": at character number "),
             Vector{
               4,
               0,
@@ -326,20 +320,16 @@ final class CamlinternalFormat {
               0,
               Vector{
                 11,
-                $caml_new_string(", flag "),
+                $string(", flag "),
                 Vector{
                   1,
                   Vector{
                     11,
-                    $caml_new_string(" is only allowed after the '"),
+                    $string(" is only allowed after the '"),
                     Vector{
                       12,
                       37,
-                      Vector{
-                        11,
-                        $caml_new_string("', before padding and precision"),
-                        0
-                      }
+                      Vector{11, $string("', before padding and precision"), 0}
                     }
                   }
                 }
@@ -348,7 +338,7 @@ final class CamlinternalFormat {
           }
         }
       },
-      $caml_new_string(
+      $string(
         "invalid format %S: at character number %d, flag %C is only allowed after the '%%', before padding and precision"
       )
     };
@@ -356,13 +346,13 @@ final class CamlinternalFormat {
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": at character number "),
+            $string(": at character number "),
             Vector{
               4,
               0,
@@ -370,42 +360,40 @@ final class CamlinternalFormat {
               0,
               Vector{
                 11,
-                $caml_new_string(", invalid conversion \""),
+                $string(", invalid conversion \""),
                 Vector{12, 37, Vector{0, Vector{12, 34, 0}}}
               }
             }
           }
         }
       },
-      $caml_new_string(
+      $string(
         "invalid format %S: at character number %d, invalid conversion \"%%%c\""
       )
     };
     $h7 = Vector{0, 0};
     $h8 = Vector{0, 0};
     $h_ = Vector{0, Vector{12, 64, 0}};
-    $ia = Vector{0, $caml_new_string("@ "), 1, 0};
-    $ib = Vector{0, $caml_new_string("@,"), 0, 0};
+    $ia = Vector{0, $string("@ "), 1, 0};
+    $ib = Vector{0, $string("@,"), 0, 0};
     $ic = Vector{2, 60};
     $id = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": '"),
+            $string(": '"),
             Vector{
               12,
               37,
               Vector{
                 11,
-                $caml_new_string(
-                  "' alone is not accepted in character sets, use "
-                ),
+                $string("' alone is not accepted in character sets, use "),
                 Vector{
                   12,
                   37,
@@ -414,7 +402,7 @@ final class CamlinternalFormat {
                     37,
                     Vector{
                       11,
-                      $caml_new_string(" instead at position "),
+                      $string(" instead at position "),
                       Vector{4, 0, 0, 0, Vector{12, 46, 0}}
                     }
                   }
@@ -424,7 +412,7 @@ final class CamlinternalFormat {
           }
         }
       },
-      $caml_new_string(
+      $string(
         "invalid format %S: '%%' alone is not accepted in character sets, use %%%% instead at position %d."
       )
     };
@@ -432,13 +420,13 @@ final class CamlinternalFormat {
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": integer "),
+            $string(": integer "),
             Vector{
               4,
               0,
@@ -446,29 +434,27 @@ final class CamlinternalFormat {
               0,
               Vector{
                 11,
-                $caml_new_string(" is greater than the limit "),
+                $string(" is greater than the limit "),
                 Vector{4, 0, 0, 0, 0}
               }
             }
           }
         }
       },
-      $caml_new_string(
-        "invalid format %S: integer %d is greater than the limit %d"
-      )
+      $string("invalid format %S: integer %d is greater than the limit %d")
     };
-    $ig = Vector{0, $caml_new_string("camlinternalFormat.ml"), 2811, 11};
+    $ig = Vector{0, $string("camlinternalFormat.ml"), 2811, 11};
     $ih = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": unclosed sub-format, expected \""),
+            $string(": unclosed sub-format, expected \""),
             Vector{
               12,
               37,
@@ -476,7 +462,7 @@ final class CamlinternalFormat {
                 0,
                 Vector{
                   11,
-                  $caml_new_string("\" at character number "),
+                  $string("\" at character number "),
                   Vector{4, 0, 0, 0, 0}
                 }
               }
@@ -484,24 +470,24 @@ final class CamlinternalFormat {
           }
         }
       },
-      $caml_new_string(
+      $string(
         "invalid format %S: unclosed sub-format, expected \"%%%c\" at character number %d"
       )
     };
-    $ii = Vector{0, $caml_new_string("camlinternalFormat.ml"), 2873, 34};
-    $ij = Vector{0, $caml_new_string("camlinternalFormat.ml"), 2906, 28};
-    $ik = Vector{0, $caml_new_string("camlinternalFormat.ml"), 2940, 25};
+    $ii = Vector{0, $string("camlinternalFormat.ml"), 2873, 34};
+    $ij = Vector{0, $string("camlinternalFormat.ml"), 2906, 28};
+    $ik = Vector{0, $string("camlinternalFormat.ml"), 2940, 25};
     $il = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": at character number "),
+            $string(": at character number "),
             Vector{
               4,
               0,
@@ -509,20 +495,16 @@ final class CamlinternalFormat {
               0,
               Vector{
                 11,
-                $caml_new_string(", "),
+                $string(", "),
                 Vector{
                   2,
                   0,
                   Vector{
                     11,
-                    $caml_new_string(" is incompatible with '"),
+                    $string(" is incompatible with '"),
                     Vector{
                       0,
-                      Vector{
-                        11,
-                        $caml_new_string("' in sub-format "),
-                        Vector{3, 0, 0}
-                      }
+                      Vector{11, $string("' in sub-format "), Vector{3, 0, 0}}
                     }
                   }
                 }
@@ -531,7 +513,7 @@ final class CamlinternalFormat {
           }
         }
       },
-      $caml_new_string(
+      $string(
         "invalid format %S: at character number %d, %s is incompatible with '%c' in sub-format %S"
       )
     };
@@ -539,13 +521,13 @@ final class CamlinternalFormat {
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": at character number "),
+            $string(": at character number "),
             Vector{
               4,
               0,
@@ -553,22 +535,18 @@ final class CamlinternalFormat {
               0,
               Vector{
                 11,
-                $caml_new_string(", "),
+                $string(", "),
                 Vector{
                   2,
                   0,
-                  Vector{
-                    11,
-                    $caml_new_string(" expected, read "),
-                    Vector{1, 0}
-                  }
+                  Vector{11, $string(" expected, read "), Vector{1, 0}}
                 }
               }
             }
           }
         }
       },
-      $caml_new_string(
+      $string(
         "invalid format %S: at character number %d, %s expected, read %C"
       )
     };
@@ -576,13 +554,13 @@ final class CamlinternalFormat {
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": at character number "),
+            $string(": at character number "),
             Vector{
               4,
               0,
@@ -590,48 +568,36 @@ final class CamlinternalFormat {
               0,
               Vector{
                 11,
-                $caml_new_string(", '"),
-                Vector{
-                  0,
-                  Vector{11, $caml_new_string("' without "), Vector{2, 0, 0}}
-                }
+                $string(", '"),
+                Vector{0, Vector{11, $string("' without "), Vector{2, 0, 0}}}
               }
             }
           }
         }
       },
-      $caml_new_string(
-        "invalid format %S: at character number %d, '%c' without %s"
-      )
+      $string("invalid format %S: at character number %d, '%c' without %s")
     };
     $hW = Vector{
       0,
       Vector{
         11,
-        $caml_new_string("invalid format "),
+        $string("invalid format "),
         Vector{
           3,
           0,
           Vector{
             11,
-            $caml_new_string(": at character number "),
-            Vector{
-              4,
-              0,
-              0,
-              0,
-              Vector{11, $caml_new_string(", "), Vector{2, 0, 0}}
-            }
+            $string(": at character number "),
+            Vector{4, 0, 0, 0, Vector{11, $string(", "), Vector{2, 0, 0}}}
           }
         }
       },
-      $caml_new_string("invalid format %S: at character number %d, %s")
+      $string("invalid format %S: at character number %d, %s")
     };
     $hV = Vector{
       0,
-      Vector{11, $caml_new_string("invalid box description "), Vector{3, 0, 0}
-      },
-      $caml_new_string("invalid box description %S")
+      Vector{11, $string("invalid box description "), Vector{3, 0, 0}},
+      $string("invalid box description %S")
     };
     $hU = Vector{0, 0, 4};
     $create_char_set = function(dynamic $param) use ($Bytes,$call2) {

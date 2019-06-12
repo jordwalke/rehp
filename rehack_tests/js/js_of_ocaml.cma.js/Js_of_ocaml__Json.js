@@ -11,13 +11,13 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var dummy_string = caml_new_string("");
+var dummy_string = string("");
 var json = runtime["caml_json"](0);
 
 function reviver(this__0, key, value) {

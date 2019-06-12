@@ -22,7 +22,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_get_exception_raw_backtrace = runtime
  ["caml_get_exception_raw_backtrace"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
@@ -53,40 +53,38 @@ function call7(f, a0, a1, a2, a3, a4, a5, a6) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst__0 = caml_new_string("");
-var cst_Program_not_linked_with_g_cannot_print_stack_backtrace = caml_new_string(
+var cst__0 = string("");
+var cst_Program_not_linked_with_g_cannot_print_stack_backtrace = string(
   "(Program not linked with -g, cannot print stack backtrace)\n"
 );
-var cst_Raised_at = caml_new_string("Raised at");
-var cst_Re_raised_at = caml_new_string("Re-raised at");
-var cst_Raised_by_primitive_operation_at = caml_new_string(
+var cst_Raised_at = string("Raised at");
+var cst_Re_raised_at = string("Re-raised at");
+var cst_Raised_by_primitive_operation_at = string(
   "Raised by primitive operation at"
 );
-var cst_Called_from = caml_new_string("Called from");
-var cst_inlined = caml_new_string(" (inlined)");
-var cst__3 = caml_new_string("");
+var cst_Called_from = string("Called from");
+var cst_inlined = string(" (inlined)");
+var cst__3 = string("");
 var partial = [4,0,0,0,0];
-var cst_Out_of_memory = caml_new_string("Out of memory");
-var cst_Stack_overflow = caml_new_string("Stack overflow");
-var cst_Pattern_matching_failed = caml_new_string("Pattern matching failed");
-var cst_Assertion_failed = caml_new_string("Assertion failed");
-var cst_Undefined_recursive_module = caml_new_string(
-  "Undefined recursive module"
-);
-var cst__1 = caml_new_string("");
-var cst__2 = caml_new_string("");
-var cst = caml_new_string("_");
+var cst_Out_of_memory = string("Out of memory");
+var cst_Stack_overflow = string("Stack overflow");
+var cst_Pattern_matching_failed = string("Pattern matching failed");
+var cst_Assertion_failed = string("Assertion failed");
+var cst_Undefined_recursive_module = string("Undefined recursive module");
+var cst__1 = string("");
+var cst__2 = string("");
+var cst = string("_");
 var locfmt = [
   0,
   [
     11,
-    caml_new_string('File "'),
+    string('File "'),
     [
       2,
       0,
       [
         11,
-        caml_new_string('", line '),
+        string('", line '),
         [
           4,
           0,
@@ -94,14 +92,14 @@ var locfmt = [
           0,
           [
             11,
-            caml_new_string(", characters "),
-            [4,0,0,0,[12,45,[4,0,0,0,[11,caml_new_string(": "),[2,0,0]]]]]
+            string(", characters "),
+            [4,0,0,0,[12,45,[4,0,0,0,[11,string(": "),[2,0,0]]]]]
           ]
         ]
       ]
     ]
   ],
-  caml_new_string('File "%s", line %d, characters %d-%d: %s')
+  string('File "%s", line %d, characters %d-%d: %s')
 ];
 var Printf = global_data["Printf"];
 var Pervasives = global_data["Pervasives"];
@@ -112,22 +110,14 @@ var Match_failure = global_data["Match_failure"];
 var Assert_failure = global_data["Assert_failure"];
 var Undefined_recursive_module = global_data["Undefined_recursive_module"];
 var Obj = global_data["Obj"];
-var oA = [0,[11,caml_new_string(", "),[2,0,[2,0,0]]],caml_new_string(", %s%s")
-];
-var oJ = [0,[2,0,[12,10,0]],caml_new_string("%s\n")];
-var oH = [0,[2,0,[12,10,0]],caml_new_string("%s\n")];
+var oA = [0,[11,string(", "),[2,0,[2,0,0]]],string(", %s%s")];
+var oJ = [0,[2,0,[12,10,0]],string("%s\n")];
+var oH = [0,[2,0,[12,10,0]],string("%s\n")];
 var oI = [
   0,
-  [
-    11,
-    caml_new_string(
-      "(Program not linked with -g, cannot print stack backtrace)\n"
-    ),
-    0
+  [11,string("(Program not linked with -g, cannot print stack backtrace)\n"),0
   ],
-  caml_new_string(
-    "(Program not linked with -g, cannot print stack backtrace)\n"
-  )
+  string("(Program not linked with -g, cannot print stack backtrace)\n")
 ];
 var oF = [
   0,
@@ -136,7 +126,7 @@ var oF = [
     0,
     [
       11,
-      caml_new_string(' file "'),
+      string(' file "'),
       [
         2,
         0,
@@ -148,42 +138,35 @@ var oF = [
             0,
             [
               11,
-              caml_new_string(", line "),
-              [
-                4,
-                0,
-                0,
-                0,
-                [11,caml_new_string(", characters "),[4,0,0,0,[12,45,partial]]
-                ]
-              ]
+              string(", line "),
+              [4,0,0,0,[11,string(", characters "),[4,0,0,0,[12,45,partial]]]]
             ]
           ]
         ]
       ]
     ]
   ],
-  caml_new_string('%s file "%s"%s, line %d, characters %d-%d')
+  string('%s file "%s"%s, line %d, characters %d-%d')
 ];
 var oG = [
   0,
-  [2,0,[11,caml_new_string(" unknown location"),0]],
-  caml_new_string("%s unknown location")
+  [2,0,[11,string(" unknown location"),0]],
+  string("%s unknown location")
 ];
 var oE = [
   0,
-  [11,caml_new_string("Uncaught exception: "),[2,0,[12,10,0]]],
-  caml_new_string("Uncaught exception: %s\n")
+  [11,string("Uncaught exception: "),[2,0,[12,10,0]]],
+  string("Uncaught exception: %s\n")
 ];
 var oD = [
   0,
-  [11,caml_new_string("Uncaught exception: "),[2,0,[12,10,0]]],
-  caml_new_string("Uncaught exception: %s\n")
+  [11,string("Uncaught exception: "),[2,0,[12,10,0]]],
+  string("Uncaught exception: %s\n")
 ];
-var oB = [0,[12,40,[2,0,[2,0,[12,41,0]]]],caml_new_string("(%s%s)")];
-var oC = [0,[12,40,[2,0,[12,41,0]]],caml_new_string("(%s)")];
-var oz = [0,[4,0,0,0,0],caml_new_string("%d")];
-var oy = [0,[3,0,0],caml_new_string("%S")];
+var oB = [0,[12,40,[2,0,[2,0,[12,41,0]]]],string("(%s%s)")];
+var oC = [0,[12,40,[2,0,[12,41,0]]],string("(%s)")];
+var oz = [0,[4,0,0,0,0],string("%d")];
+var oy = [0,[3,0,0],string("%S")];
 var printers = [0,0];
 
 function field(x, i) {

@@ -37,12 +37,12 @@ final class Parsing {
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_fresh_oo_id = $runtime["caml_fresh_oo_id"];
     $caml_make_vect = $runtime["caml_make_vect"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_syntax_error = $caml_new_string("syntax error");
-    $cst_Parsing_YYexit = $caml_new_string("Parsing.YYexit");
-    $cst_Parsing_Parse_error = $caml_new_string("Parsing.Parse_error");
+    $cst_syntax_error = $string("syntax error");
+    $cst_Parsing_YYexit = $string("Parsing.YYexit");
+    $cst_Parsing_Parse_error = $string("Parsing.Parse_error");
     $Obj = $global_data["Obj"];
     $Array = $global_data["Array_"];
     $Lexing = $global_data["Lexing"];

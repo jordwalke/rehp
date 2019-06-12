@@ -40,17 +40,17 @@ final class Format {
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $is_int = $runtime["is_int"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst__4 = $caml_new_string(".");
-    $cst__2 = $caml_new_string(">");
-    $cst__3 = $caml_new_string("</");
-    $cst__0 = $caml_new_string(">");
-    $cst__1 = $caml_new_string("<");
-    $cst = $caml_new_string("\n");
-    $cst_Format_Empty_queue = $caml_new_string("Format.Empty_queue");
+    $cst__4 = $string(".");
+    $cst__2 = $string(">");
+    $cst__3 = $string("</");
+    $cst__0 = $string(">");
+    $cst__1 = $string("<");
+    $cst = $string("\n");
+    $cst_Format_Empty_queue = $string("Format.Empty_queue");
     $CamlinternalFormat = $global_data["CamlinternalFormat"];
     $Pervasives = $global_data["Pervasives"];
     $String = $global_data["String_"];
@@ -58,7 +58,7 @@ final class Format {
     $List = $global_data["List_"];
     $Not_found = $global_data["Not_found"];
     $sH = Vector{3, 0, 3};
-    $sG = Vector{0, $caml_new_string("")};
+    $sG = Vector{0, $string("")};
     $make_queue = function(dynamic $param) {return Vector{0, 0, 0};};
     $clear_queue = function(dynamic $q) {$q[1] = 0;$q[2] = 0;return 0;};
     $add_queue = function(dynamic $x, dynamic $q) {

@@ -34,7 +34,7 @@ var caml_ml_output_char = runtime["caml_ml_output_char"];
 var caml_ml_set_binary_mode = runtime["caml_ml_set_binary_mode"];
 var caml_ml_set_channel_name = runtime["caml_ml_set_channel_name"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_sys_open = runtime["caml_sys_open"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
@@ -48,22 +48,22 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst__0 = caml_new_string("%,");
-var cst_really_input = caml_new_string("really_input");
-var cst_input = caml_new_string("input");
-var cst_output_substring = caml_new_string("output_substring");
-var cst_output = caml_new_string("output");
-var cst_12g = caml_new_string("%.12g");
-var cst = caml_new_string(".");
-var cst_false__1 = caml_new_string("false");
-var cst_true__1 = caml_new_string("true");
-var cst_false__0 = caml_new_string("false");
-var cst_true__0 = caml_new_string("true");
-var cst_bool_of_string = caml_new_string("bool_of_string");
-var cst_true = caml_new_string("true");
-var cst_false = caml_new_string("false");
-var cst_char_of_int = caml_new_string("char_of_int");
-var cst_Pervasives_Exit = caml_new_string("Pervasives.Exit");
+var cst__0 = string("%,");
+var cst_really_input = string("really_input");
+var cst_input = string("input");
+var cst_output_substring = string("output_substring");
+var cst_output = string("output");
+var cst_12g = string("%.12g");
+var cst = string(".");
+var cst_false__1 = string("false");
+var cst_true__1 = string("true");
+var cst_false__0 = string("false");
+var cst_true__0 = string("true");
+var cst_bool_of_string = string("bool_of_string");
+var cst_true = string("true");
+var cst_false = string("false");
+var cst_char_of_int = string("char_of_int");
+var cst_Pervasives_Exit = string("Pervasives.Exit");
 var End_of_file = global_data["End_of_file"];
 var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
 var Sys_error = global_data["Sys_error"];
@@ -139,7 +139,7 @@ function bool_of_string_opt(param) {
     i;
 }
 
-function string_of_int(n) {return caml_new_string("" + n);}
+function string_of_int(n) {return string("" + n);}
 
 function int_of_string_opt(s) {
   try {var aB = [0,caml_int_of_string(s)];return aB;}

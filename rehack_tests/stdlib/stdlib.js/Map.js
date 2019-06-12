@@ -12,7 +12,7 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -29,16 +29,16 @@ function call3(f, a0, a1, a2) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Map_remove_min_elt = caml_new_string("Map.remove_min_elt");
-var cst_Map_bal = caml_new_string("Map.bal");
-var cst_Map_bal__0 = caml_new_string("Map.bal");
-var cst_Map_bal__1 = caml_new_string("Map.bal");
-var cst_Map_bal__2 = caml_new_string("Map.bal");
+var cst_Map_remove_min_elt = string("Map.remove_min_elt");
+var cst_Map_bal = string("Map.bal");
+var cst_Map_bal__0 = string("Map.bal");
+var cst_Map_bal__1 = string("Map.bal");
+var cst_Map_bal__2 = string("Map.bal");
 var Not_found = global_data["Not_found"];
 var Pervasives = global_data["Pervasives"];
 var Assert_failure = global_data["Assert_failure"];
 var gf = [0,0,0,0];
-var gg = [0,caml_new_string("map.ml"),393,10];
+var gg = [0,string("map.ml"),393,10];
 var gh = [0,0,0];
 
 function Make(Ord) {

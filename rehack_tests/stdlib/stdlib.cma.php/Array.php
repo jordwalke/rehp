@@ -35,23 +35,23 @@ final class Array_ {
     $call2 = $runtime["caml_call2"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_make_vect = $runtime["caml_make_vect"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Array_map2_arrays_must_have_the_same_length = $caml_new_string(
+    $cst_Array_map2_arrays_must_have_the_same_length = $string(
       "Array.map2: arrays must have the same length"
     );
-    $cst_Array_iter2_arrays_must_have_the_same_length = $caml_new_string(
+    $cst_Array_iter2_arrays_must_have_the_same_length = $string(
       "Array.iter2: arrays must have the same length"
     );
-    $cst_Array_blit = $caml_new_string("Array.blit");
-    $cst_Array_fill = $caml_new_string("Array.fill");
-    $cst_Array_sub = $caml_new_string("Array.sub");
-    $cst_Array_init = $caml_new_string("Array.init");
-    $cst_Array_Bottom = $caml_new_string("Array.Bottom");
+    $cst_Array_blit = $string("Array.blit");
+    $cst_Array_fill = $string("Array.fill");
+    $cst_Array_sub = $string("Array.sub");
+    $cst_Array_init = $string("Array.init");
+    $cst_Array_Bottom = $string("Array.Bottom");
     $Assert_failure = $global_data["Assert_failure"];
     $Pervasives = $global_data["Pervasives"];
-    $dx = Vector{0, $caml_new_string("array.ml"), 233, 4};
+    $dx = Vector{0, $string("array.ml"), 233, 4};
     $make_float = function(dynamic $ev) use ($runtime) {
       return $runtime["caml_make_float_vect"]($ev);
     };

@@ -21,7 +21,7 @@ var caml_check_bound = runtime["caml_check_bound"];
 var caml_div = runtime["caml_div"];
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_make_vect = runtime["caml_make_vect"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_obj_block = runtime["caml_obj_block"];
 var caml_set_oo_id = runtime["caml_set_oo_id"];
 var caml_string_compare = runtime["caml_string_compare"];
@@ -48,7 +48,7 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst = caml_new_string("");
+var cst = string("");
 var Assert_failure = global_data["Assert_failure"];
 var Sys = global_data["Sys"];
 var Obj = global_data["Obj"];
@@ -57,13 +57,13 @@ var Array = global_data["Array_"];
 var List = global_data["List_"];
 var Not_found = global_data["Not_found"];
 var Map = global_data["Map"];
-var yl = [0,caml_new_string("camlinternalOO.ml"),438,17];
-var yk = [0,caml_new_string("camlinternalOO.ml"),420,13];
-var yj = [0,caml_new_string("camlinternalOO.ml"),417,13];
-var yi = [0,caml_new_string("camlinternalOO.ml"),414,13];
-var yh = [0,caml_new_string("camlinternalOO.ml"),411,13];
-var yg = [0,caml_new_string("camlinternalOO.ml"),408,13];
-var yf = [0,caml_new_string("camlinternalOO.ml"),281,50];
+var yl = [0,string("camlinternalOO.ml"),438,17];
+var yk = [0,string("camlinternalOO.ml"),420,13];
+var yj = [0,string("camlinternalOO.ml"),417,13];
+var yi = [0,string("camlinternalOO.ml"),414,13];
+var yh = [0,string("camlinternalOO.ml"),411,13];
+var yg = [0,string("camlinternalOO.ml"),408,13];
+var yf = [0,string("camlinternalOO.ml"),281,50];
 
 function copy(o) {var o__0 = o.slice();return caml_set_oo_id(o__0);}
 

@@ -17,7 +17,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
 var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 
 function call1(f, a0) {
@@ -37,28 +37,28 @@ function call4(f, a0, a1, a2, a3) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_count = caml_new_string("{count = ");
-var cst_data = caml_new_string("; data = ");
-var cst = caml_new_string("}");
-var cst_Sempty = caml_new_string("Sempty");
-var cst_Scons = caml_new_string("Scons (");
-var cst__0 = caml_new_string(", ");
-var cst__1 = caml_new_string(")");
-var cst_Sapp = caml_new_string("Sapp (");
-var cst__2 = caml_new_string(", ");
-var cst__3 = caml_new_string(")");
-var cst_Slazy = caml_new_string("Slazy");
-var cst_Sgen = caml_new_string("Sgen");
-var cst_Sbuffio = caml_new_string("Sbuffio");
-var cst_Stream_Failure = caml_new_string("Stream.Failure");
-var cst_Stream_Error = caml_new_string("Stream.Error");
+var cst_count = string("{count = ");
+var cst_data = string("; data = ");
+var cst = string("}");
+var cst_Sempty = string("Sempty");
+var cst_Scons = string("Scons (");
+var cst__0 = string(", ");
+var cst__1 = string(")");
+var cst_Sapp = string("Sapp (");
+var cst__2 = string(", ");
+var cst__3 = string(")");
+var cst_Slazy = string("Slazy");
+var cst_Sgen = string("Sgen");
+var cst_Sbuffio = string("Sbuffio");
+var cst_Stream_Failure = string("Stream.Failure");
+var cst_Stream_Error = string("Stream.Error");
 var Assert_failure = global_data["Assert_failure"];
 var CamlinternalLazy = global_data["CamlinternalLazy"];
 var Pervasives = global_data["Pervasives"];
 var List = global_data["List_"];
-var g2 = [0,caml_new_string("stream.ml"),53,12];
+var g2 = [0,string("stream.ml"),53,12];
 var g3 = [0,0];
-var g4 = [0,caml_new_string("stream.ml"),82,12];
+var g4 = [0,string("stream.ml"),82,12];
 var Failure = [248,cst_Stream_Failure,caml_fresh_oo_id(0)];
 var Error = [248,cst_Stream_Error,caml_fresh_oo_id(0)];
 

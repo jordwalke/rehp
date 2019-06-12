@@ -32,19 +32,17 @@ final class Uchar {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_format_int = $runtime["caml_format_int"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_is_not_a_latin1_character = $caml_new_string(
-      " is not a latin1 character"
-    );
-    $cst_04X = $caml_new_string("%04X");
-    $cst_U = $caml_new_string("U+");
-    $cst_is_not_an_Unicode_scalar_value = $caml_new_string(
+    $cst_is_not_a_latin1_character = $string(" is not a latin1 character");
+    $cst_04X = $string("%04X");
+    $cst_U = $string("U+");
+    $cst_is_not_an_Unicode_scalar_value = $string(
       " is not an Unicode scalar value"
     );
-    $cst_X = $caml_new_string("%X");
-    $err_no_pred = $caml_new_string("U+0000 has no predecessor");
-    $err_no_succ = $caml_new_string("U+10FFFF has no successor");
+    $cst_X = $string("%X");
+    $err_no_pred = $string("U+0000 has no predecessor");
+    $err_no_succ = $string("U+10FFFF has no successor");
     $Pervasives = $global_data["Pervasives"];
     $err_not_sv = function(dynamic $i) use ($Pervasives,$call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
       return $call2(

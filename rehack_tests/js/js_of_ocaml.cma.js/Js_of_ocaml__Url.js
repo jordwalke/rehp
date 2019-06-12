@@ -24,7 +24,7 @@ var caml_int_of_string = runtime["caml_int_of_string"];
 var caml_js_to_byte_string = runtime["caml_js_to_byte_string"];
 var caml_js_wrap_meth_callback = runtime["caml_js_wrap_meth_callback"];
 var caml_jsbytes_of_string = runtime["caml_jsbytes_of_string"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
@@ -43,80 +43,78 @@ function call3(f, a0, a1, a2) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst__36 = caml_new_string("");
-var cst__37 = caml_new_string("");
-var cst__12 = caml_new_string("");
-var cst__20 = caml_new_string("");
-var cst__13 = caml_new_string("#");
-var cst__14 = caml_new_string("?");
-var cst__19 = caml_new_string("");
-var cst__15 = caml_new_string("/");
-var cst__16 = caml_new_string("/");
-var cst__18 = caml_new_string(":");
-var cst__17 = caml_new_string("");
-var cst_http__1 = caml_new_string("http://");
-var cst__21 = caml_new_string("");
-var cst__29 = caml_new_string("");
-var cst__22 = caml_new_string("#");
-var cst__23 = caml_new_string("?");
-var cst__28 = caml_new_string("");
-var cst__24 = caml_new_string("/");
-var cst__25 = caml_new_string("/");
-var cst__27 = caml_new_string(":");
-var cst__26 = caml_new_string("");
-var cst_https__1 = caml_new_string("https://");
-var cst__30 = caml_new_string("");
-var cst__35 = caml_new_string("");
-var cst__31 = caml_new_string("#");
-var cst__32 = caml_new_string("?");
-var cst__34 = caml_new_string("");
-var cst__33 = caml_new_string("/");
-var cst_file__1 = caml_new_string("file://");
-var cst__11 = caml_new_string("");
-var cst__10 = caml_new_string("");
-var cst__9 = caml_new_string("");
-var cst__8 = caml_new_string("");
-var cst__7 = caml_new_string("");
-var cst__6 = caml_new_string("");
-var cst__5 = caml_new_string("");
-var cst__3 = caml_new_string("=");
-var cst__4 = caml_new_string("&");
-var cst__1 = caml_new_string("");
-var cst__2 = caml_new_string("");
-var cst_file = caml_new_string("file");
-var cst_file__0 = caml_new_string("file:");
-var cst_http = caml_new_string("http");
-var cst_http__0 = caml_new_string("http:");
-var cst_https = caml_new_string("https");
-var cst_https__0 = caml_new_string("https:");
-var cst__0 = caml_new_string(" ");
-var cst_2B = caml_new_string("%2B");
+var cst__36 = string("");
+var cst__37 = string("");
+var cst__12 = string("");
+var cst__20 = string("");
+var cst__13 = string("#");
+var cst__14 = string("?");
+var cst__19 = string("");
+var cst__15 = string("/");
+var cst__16 = string("/");
+var cst__18 = string(":");
+var cst__17 = string("");
+var cst_http__1 = string("http://");
+var cst__21 = string("");
+var cst__29 = string("");
+var cst__22 = string("#");
+var cst__23 = string("?");
+var cst__28 = string("");
+var cst__24 = string("/");
+var cst__25 = string("/");
+var cst__27 = string(":");
+var cst__26 = string("");
+var cst_https__1 = string("https://");
+var cst__30 = string("");
+var cst__35 = string("");
+var cst__31 = string("#");
+var cst__32 = string("?");
+var cst__34 = string("");
+var cst__33 = string("/");
+var cst_file__1 = string("file://");
+var cst__11 = string("");
+var cst__10 = string("");
+var cst__9 = string("");
+var cst__8 = string("");
+var cst__7 = string("");
+var cst__6 = string("");
+var cst__5 = string("");
+var cst__3 = string("=");
+var cst__4 = string("&");
+var cst__1 = string("");
+var cst__2 = string("");
+var cst_file = string("file");
+var cst_file__0 = string("file:");
+var cst_http = string("http");
+var cst_http__0 = string("http:");
+var cst_https = string("https");
+var cst_https__0 = string("https:");
+var cst__0 = string(" ");
+var cst_2B = string("%2B");
 var shared = [
   0,
-  caml_new_string("hash"),
-  caml_new_string("host"),
-  caml_new_string("href"),
-  caml_new_string("port"),
-  caml_new_string("origin"),
-  caml_new_string("assign"),
-  caml_new_string("hostname"),
-  caml_new_string("pathname"),
-  caml_new_string("search"),
-  caml_new_string("protocol"),
-  caml_new_string("reload"),
-  caml_new_string("replace")
+  string("hash"),
+  string("host"),
+  string("href"),
+  string("port"),
+  string("origin"),
+  string("assign"),
+  string("hostname"),
+  string("pathname"),
+  string("search"),
+  string("protocol"),
+  string("reload"),
+  string("replace")
 ];
-var cst_Js_of_ocaml_Url_Local_exn = caml_new_string(
-  "Js_of_ocaml__Url.Local_exn"
-);
-var cst = caml_new_string("+");
-var cst_Js_of_ocaml_Url_Not_an_http_protocol = caml_new_string(
+var cst_Js_of_ocaml_Url_Local_exn = string("Js_of_ocaml__Url.Local_exn");
+var cst = string("+");
+var cst_Js_of_ocaml_Url_Not_an_http_protocol = string(
   "Js_of_ocaml__Url.Not_an_http_protocol"
 );
-var cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9 = caml_new_string(
+var cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9 = string(
   "^([Hh][Tt][Tt][Pp][Ss]?)://([0-9a-zA-Z.-]+|\\[[0-9a-zA-Z.-]+\\]|\\[[0-9A-Fa-f:.]+\\])?(:([0-9]+))?(/([^\\?#]*)(\\?([^#]*))?(#(.*))?)?$"
 );
-var cst_Ff_Ii_Ll_Ee = caml_new_string(
+var cst_Ff_Ii_Ll_Ee = string(
   "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?$"
 );
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
@@ -128,21 +126,21 @@ var String = global_data["String_"];
 var Not_found = global_data["Not_found"];
 var Js_of_ocaml_Regexp = global_data["Js_of_ocaml__Regexp"];
 var Js_of_ocaml_Dom_html = global_data["Js_of_ocaml__Dom_html"];
-var p5 = [0,caml_new_string(""),0];
+var p5 = [0,string(""),0];
 var p0 = [
   0,
-  caml_new_string("search"),
-  caml_new_string("replace"),
-  caml_new_string("reload"),
-  caml_new_string("protocol"),
-  caml_new_string("port"),
-  caml_new_string("pathname"),
-  caml_new_string("origin"),
-  caml_new_string("href"),
-  caml_new_string("hostname"),
-  caml_new_string("host"),
-  caml_new_string("hash"),
-  caml_new_string("assign")
+  string("search"),
+  string("replace"),
+  string("reload"),
+  string("protocol"),
+  string("port"),
+  string("pathname"),
+  string("origin"),
+  string("href"),
+  string("hostname"),
+  string("host"),
+  string("hash"),
+  string("assign")
 ];
 
 function split(c, s) {

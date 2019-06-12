@@ -34,10 +34,10 @@ final class Js_of_ocaml__Sys_js {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_js_wrap_callback = $runtime["caml_js_wrap_callback"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst = $caml_new_string("");
-    $cst__0 = $caml_new_string("+");
+    $cst = $string("");
+    $cst__0 = $string("+");
     $Pervasives = $global_data["Pervasives"];
     $Js_of_ocaml_Lib_version = $global_data["Js_of_ocaml__Lib_version"];
     $update_file = function(dynamic $name, dynamic $content) use ($Pervasives,$call1,$call2) {

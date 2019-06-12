@@ -31,8 +31,8 @@ final class Js_of_ocaml__Json {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_new_string = $runtime["caml_new_string"];
-    $dummy_string = $caml_new_string("");
+    $string = $runtime["caml_new_string"];
+    $dummy_string = $string("");
     $json = $runtime["caml_json"](0);
     $reviver = function(dynamic $this__0, dynamic $key, dynamic $value) use ($runtime) {
       return typeof($value) == typeof("foo")

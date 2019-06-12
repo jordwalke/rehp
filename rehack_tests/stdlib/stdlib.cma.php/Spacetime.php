@@ -31,14 +31,14 @@ final class Spacetime {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_spacetime_enabled = $runtime["caml_spacetime_enabled"];
     $caml_spacetime_only_works_for_native_code = $runtime[
        "caml_spacetime_only_works_for_native_code"
      ];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Series_is_closed__0 = $caml_new_string("Series is closed");
-    $cst_Series_is_closed = $caml_new_string("Series is closed");
+    $cst_Series_is_closed__0 = $string("Series is closed");
+    $cst_Series_is_closed = $string("Series is closed");
     $Pervasives = $global_data["Pervasives"];
     $enabled = $caml_spacetime_enabled(0);
     $if_spacetime_enabled = function(dynamic $f) use ($call1,$enabled) {

@@ -32,16 +32,12 @@ final class Obj {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $is_int = $runtime["is_int"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Obj_extension_constructor__0 = $caml_new_string(
-      "Obj.extension_constructor"
-    );
-    $cst_Obj_extension_constructor = $caml_new_string(
-      "Obj.extension_constructor"
-    );
+    $cst_Obj_extension_constructor__0 = $string("Obj.extension_constructor");
+    $cst_Obj_extension_constructor = $string("Obj.extension_constructor");
     $Pervasives = $global_data["Pervasives"];
     $Marshal = $global_data["Marshal"];
     $is_block = function(dynamic $a) use ($is_int) {return 1 - $is_int($a);};

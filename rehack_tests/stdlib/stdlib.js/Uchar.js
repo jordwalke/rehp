@@ -11,7 +11,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_format_int = runtime["caml_format_int"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -22,17 +22,15 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_is_not_a_latin1_character = caml_new_string(
-  " is not a latin1 character"
-);
-var cst_04X = caml_new_string("%04X");
-var cst_U = caml_new_string("U+");
-var cst_is_not_an_Unicode_scalar_value = caml_new_string(
+var cst_is_not_a_latin1_character = string(" is not a latin1 character");
+var cst_04X = string("%04X");
+var cst_U = string("U+");
+var cst_is_not_an_Unicode_scalar_value = string(
   " is not an Unicode scalar value"
 );
-var cst_X = caml_new_string("%X");
-var err_no_pred = caml_new_string("U+0000 has no predecessor");
-var err_no_succ = caml_new_string("U+10FFFF has no successor");
+var cst_X = string("%X");
+var err_no_pred = string("U+0000 has no predecessor");
+var err_no_succ = string("U+10FFFF has no successor");
 var Pervasives = global_data["Pervasives"];
 
 function err_not_sv(i) {

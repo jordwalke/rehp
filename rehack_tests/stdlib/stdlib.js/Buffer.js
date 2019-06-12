@@ -21,7 +21,7 @@ var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 
 function call1(f, a0) {
@@ -47,17 +47,17 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Buffer_truncate = caml_new_string("Buffer.truncate");
-var cst_Buffer_add_channel = caml_new_string("Buffer.add_channel");
-var cst_Buffer_add_substring_add_subbytes = caml_new_string(
+var cst_Buffer_truncate = string("Buffer.truncate");
+var cst_Buffer_add_channel = string("Buffer.add_channel");
+var cst_Buffer_add_substring_add_subbytes = string(
   "Buffer.add_substring/add_subbytes"
 );
-var cst_Buffer_add_cannot_grow_buffer = caml_new_string(
+var cst_Buffer_add_cannot_grow_buffer = string(
   "Buffer.add: cannot grow buffer"
 );
-var cst_Buffer_nth = caml_new_string("Buffer.nth");
-var cst_Buffer_blit = caml_new_string("Buffer.blit");
-var cst_Buffer_sub = caml_new_string("Buffer.sub");
+var cst_Buffer_nth = string("Buffer.nth");
+var cst_Buffer_blit = string("Buffer.blit");
+var cst_Buffer_sub = string("Buffer.sub");
 var Pervasives = global_data["Pervasives"];
 var End_of_file = global_data["End_of_file"];
 var Not_found = global_data["Not_found"];
@@ -66,13 +66,13 @@ var Assert_failure = global_data["Assert_failure"];
 var Sys = global_data["Sys"];
 var Bytes = global_data["Bytes"];
 var Uchar = global_data["Uchar"];
-var hr = [0,caml_new_string("buffer.ml"),205,9];
-var hq = [0,caml_new_string("buffer.ml"),141,19];
-var hp = [0,caml_new_string("buffer.ml"),159,8];
-var ho = [0,caml_new_string("buffer.ml"),120,19];
-var hn = [0,caml_new_string("buffer.ml"),138,8];
-var hm = [0,caml_new_string("buffer.ml"),84,19];
-var hl = [0,caml_new_string("buffer.ml"),117,8];
+var hr = [0,string("buffer.ml"),205,9];
+var hq = [0,string("buffer.ml"),141,19];
+var hp = [0,string("buffer.ml"),159,8];
+var ho = [0,string("buffer.ml"),120,19];
+var hn = [0,string("buffer.ml"),138,8];
+var hm = [0,string("buffer.ml"),84,19];
+var hl = [0,string("buffer.ml"),117,8];
 
 function create(n) {
   var n__0 = 1 <= n ? n : 1;

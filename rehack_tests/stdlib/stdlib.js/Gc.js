@@ -12,7 +12,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
@@ -35,83 +35,83 @@ var Sys = global_data["Sys"];
 var Printf = global_data["Printf"];
 var ps = [
   0,
-  [11,caml_new_string("minor_collections: "),[4,0,0,0,[12,10,0]]],
-  caml_new_string("minor_collections: %d\n")
+  [11,string("minor_collections: "),[4,0,0,0,[12,10,0]]],
+  string("minor_collections: %d\n")
 ];
 var pt = [
   0,
-  [11,caml_new_string("major_collections: "),[4,0,0,0,[12,10,0]]],
-  caml_new_string("major_collections: %d\n")
+  [11,string("major_collections: "),[4,0,0,0,[12,10,0]]],
+  string("major_collections: %d\n")
 ];
 var pu = [
   0,
-  [11,caml_new_string("compactions:       "),[4,0,0,0,[12,10,0]]],
-  caml_new_string("compactions:       %d\n")
+  [11,string("compactions:       "),[4,0,0,0,[12,10,0]]],
+  string("compactions:       %d\n")
 ];
-var pv = [0,[12,10,0],caml_new_string("\n")];
-var pw = [0,[8,0,0,[0,0],0],caml_new_string("%.0f")];
+var pv = [0,[12,10,0],string("\n")];
+var pw = [0,[8,0,0,[0,0],0],string("%.0f")];
 var px = [
   0,
-  [11,caml_new_string("minor_words:    "),[8,0,[1,1],[0,0],[12,10,0]]],
-  caml_new_string("minor_words:    %*.0f\n")
+  [11,string("minor_words:    "),[8,0,[1,1],[0,0],[12,10,0]]],
+  string("minor_words:    %*.0f\n")
 ];
 var py = [
   0,
-  [11,caml_new_string("promoted_words: "),[8,0,[1,1],[0,0],[12,10,0]]],
-  caml_new_string("promoted_words: %*.0f\n")
+  [11,string("promoted_words: "),[8,0,[1,1],[0,0],[12,10,0]]],
+  string("promoted_words: %*.0f\n")
 ];
 var pz = [
   0,
-  [11,caml_new_string("major_words:    "),[8,0,[1,1],[0,0],[12,10,0]]],
-  caml_new_string("major_words:    %*.0f\n")
+  [11,string("major_words:    "),[8,0,[1,1],[0,0],[12,10,0]]],
+  string("major_words:    %*.0f\n")
 ];
-var pA = [0,[12,10,0],caml_new_string("\n")];
-var pB = [0,[4,0,0,0,0],caml_new_string("%d")];
+var pA = [0,[12,10,0],string("\n")];
+var pB = [0,[4,0,0,0,0],string("%d")];
 var pC = [
   0,
-  [11,caml_new_string("top_heap_words: "),[4,0,[1,1],0,[12,10,0]]],
-  caml_new_string("top_heap_words: %*d\n")
+  [11,string("top_heap_words: "),[4,0,[1,1],0,[12,10,0]]],
+  string("top_heap_words: %*d\n")
 ];
 var pD = [
   0,
-  [11,caml_new_string("heap_words:     "),[4,0,[1,1],0,[12,10,0]]],
-  caml_new_string("heap_words:     %*d\n")
+  [11,string("heap_words:     "),[4,0,[1,1],0,[12,10,0]]],
+  string("heap_words:     %*d\n")
 ];
 var pE = [
   0,
-  [11,caml_new_string("live_words:     "),[4,0,[1,1],0,[12,10,0]]],
-  caml_new_string("live_words:     %*d\n")
+  [11,string("live_words:     "),[4,0,[1,1],0,[12,10,0]]],
+  string("live_words:     %*d\n")
 ];
 var pF = [
   0,
-  [11,caml_new_string("free_words:     "),[4,0,[1,1],0,[12,10,0]]],
-  caml_new_string("free_words:     %*d\n")
+  [11,string("free_words:     "),[4,0,[1,1],0,[12,10,0]]],
+  string("free_words:     %*d\n")
 ];
 var pG = [
   0,
-  [11,caml_new_string("largest_free:   "),[4,0,[1,1],0,[12,10,0]]],
-  caml_new_string("largest_free:   %*d\n")
+  [11,string("largest_free:   "),[4,0,[1,1],0,[12,10,0]]],
+  string("largest_free:   %*d\n")
 ];
 var pH = [
   0,
-  [11,caml_new_string("fragments:      "),[4,0,[1,1],0,[12,10,0]]],
-  caml_new_string("fragments:      %*d\n")
+  [11,string("fragments:      "),[4,0,[1,1],0,[12,10,0]]],
+  string("fragments:      %*d\n")
 ];
-var pI = [0,[12,10,0],caml_new_string("\n")];
+var pI = [0,[12,10,0],string("\n")];
 var pJ = [
   0,
-  [11,caml_new_string("live_blocks: "),[4,0,0,0,[12,10,0]]],
-  caml_new_string("live_blocks: %d\n")
+  [11,string("live_blocks: "),[4,0,0,0,[12,10,0]]],
+  string("live_blocks: %d\n")
 ];
 var pK = [
   0,
-  [11,caml_new_string("free_blocks: "),[4,0,0,0,[12,10,0]]],
-  caml_new_string("free_blocks: %d\n")
+  [11,string("free_blocks: "),[4,0,0,0,[12,10,0]]],
+  string("free_blocks: %d\n")
 ];
 var pL = [
   0,
-  [11,caml_new_string("heap_chunks: "),[4,0,0,0,[12,10,0]]],
-  caml_new_string("heap_chunks: %d\n")
+  [11,string("heap_chunks: "),[4,0,0,0,[12,10,0]]],
+  string("heap_chunks: %d\n")
 ];
 
 function print_stat(c) {

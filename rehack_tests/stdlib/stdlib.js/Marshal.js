@@ -13,17 +13,17 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_marshal_data_size = runtime["caml_marshal_data_size"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Marshal_from_bytes = caml_new_string("Marshal.from_bytes");
-var cst_Marshal_from_bytes__0 = caml_new_string("Marshal.from_bytes");
-var cst_Marshal_data_size = caml_new_string("Marshal.data_size");
-var cst_Marshal_to_buffer_substring_out_of_bounds = caml_new_string(
+var cst_Marshal_from_bytes = string("Marshal.from_bytes");
+var cst_Marshal_from_bytes__0 = string("Marshal.from_bytes");
+var cst_Marshal_data_size = string("Marshal.data_size");
+var cst_Marshal_to_buffer_substring_out_of_bounds = string(
   "Marshal.to_buffer: substring out of bounds"
 );
 var Bytes = global_data["Bytes"];

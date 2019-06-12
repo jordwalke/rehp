@@ -13,7 +13,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_compare = runtime["caml_compare"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -30,25 +30,25 @@ function call3(f, a0, a1, a2) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_List_map2 = caml_new_string("List.map2");
-var cst_List_iter2 = caml_new_string("List.iter2");
-var cst_List_fold_left2 = caml_new_string("List.fold_left2");
-var cst_List_fold_right2 = caml_new_string("List.fold_right2");
-var cst_List_for_all2 = caml_new_string("List.for_all2");
-var cst_List_exists2 = caml_new_string("List.exists2");
-var cst_List_combine = caml_new_string("List.combine");
-var cst_List_rev_map2 = caml_new_string("List.rev_map2");
-var cst_List_init = caml_new_string("List.init");
-var cst_List_nth__0 = caml_new_string("List.nth");
-var cst_nth = caml_new_string("nth");
-var cst_List_nth = caml_new_string("List.nth");
-var cst_tl = caml_new_string("tl");
-var cst_hd = caml_new_string("hd");
+var cst_List_map2 = string("List.map2");
+var cst_List_iter2 = string("List.iter2");
+var cst_List_fold_left2 = string("List.fold_left2");
+var cst_List_fold_right2 = string("List.fold_right2");
+var cst_List_for_all2 = string("List.for_all2");
+var cst_List_exists2 = string("List.exists2");
+var cst_List_combine = string("List.combine");
+var cst_List_rev_map2 = string("List.rev_map2");
+var cst_List_init = string("List.init");
+var cst_List_nth__0 = string("List.nth");
+var cst_nth = string("nth");
+var cst_List_nth = string("List.nth");
+var cst_tl = string("tl");
+var cst_hd = string("hd");
 var Pervasives = global_data["Pervasives"];
 var Not_found = global_data["Not_found"];
 var Assert_failure = global_data["Assert_failure"];
 var aF = [0,0,0];
-var aG = [0,caml_new_string("list.ml"),262,11];
+var aG = [0,string("list.ml"),262,11];
 
 function length_aux(len, param) {
   var len__0 = len;

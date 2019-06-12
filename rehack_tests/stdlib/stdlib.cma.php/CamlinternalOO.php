@@ -45,14 +45,14 @@ final class CamlinternalOO {
     $caml_div = $runtime["caml_div"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $caml_make_vect = $runtime["caml_make_vect"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_obj_block = $runtime["caml_obj_block"];
     $caml_set_oo_id = $runtime["caml_set_oo_id"];
     $caml_string_compare = $runtime["caml_string_compare"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $is_int = $runtime["is_int"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst = $caml_new_string("");
+    $cst = $string("");
     $Assert_failure = $global_data["Assert_failure"];
     $Sys = $global_data["Sys"];
     $Obj = $global_data["Obj"];
@@ -61,13 +61,13 @@ final class CamlinternalOO {
     $List = $global_data["List_"];
     $Not_found = $global_data["Not_found"];
     $Map = $global_data["Map"];
-    $yl = Vector{0, $caml_new_string("camlinternalOO.ml"), 438, 17};
-    $yk = Vector{0, $caml_new_string("camlinternalOO.ml"), 420, 13};
-    $yj = Vector{0, $caml_new_string("camlinternalOO.ml"), 417, 13};
-    $yi = Vector{0, $caml_new_string("camlinternalOO.ml"), 414, 13};
-    $yh = Vector{0, $caml_new_string("camlinternalOO.ml"), 411, 13};
-    $yg = Vector{0, $caml_new_string("camlinternalOO.ml"), 408, 13};
-    $yf = Vector{0, $caml_new_string("camlinternalOO.ml"), 281, 50};
+    $yl = Vector{0, $string("camlinternalOO.ml"), 438, 17};
+    $yk = Vector{0, $string("camlinternalOO.ml"), 420, 13};
+    $yj = Vector{0, $string("camlinternalOO.ml"), 417, 13};
+    $yi = Vector{0, $string("camlinternalOO.ml"), 414, 13};
+    $yh = Vector{0, $string("camlinternalOO.ml"), 411, 13};
+    $yg = Vector{0, $string("camlinternalOO.ml"), 408, 13};
+    $yf = Vector{0, $string("camlinternalOO.ml"), 281, 50};
     $copy = function(dynamic $o) use ($caml_set_oo_id) {
       $o__0 = $o->toVector();
       return $caml_set_oo_id($o__0);

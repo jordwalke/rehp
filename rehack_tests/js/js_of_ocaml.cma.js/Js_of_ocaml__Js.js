@@ -15,7 +15,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
 var caml_js_wrap_callback = runtime["caml_js_wrap_callback"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -26,10 +26,10 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_parseFloat = caml_new_string("parseFloat");
-var cst_parseInt = caml_new_string("parseInt");
-var cst_Js_of_ocaml_Js_Error = caml_new_string("Js_of_ocaml__Js.Error");
-var cst_jsError = caml_new_string("jsError");
+var cst_parseFloat = string("parseFloat");
+var cst_parseInt = string("parseInt");
+var cst_Js_of_ocaml_Js_Error = string("Js_of_ocaml__Js.Error");
+var cst_jsError = string("jsError");
 var Pervasives = global_data["Pervasives"];
 var Callback = global_data["Callback"];
 var Printexc = global_data["Printexc"];

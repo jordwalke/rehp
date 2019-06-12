@@ -16,7 +16,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function call1(f, a0) {
@@ -40,13 +40,13 @@ function call4(f, a0, a1, a2, a3) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst__4 = caml_new_string(".");
-var cst__2 = caml_new_string(">");
-var cst__3 = caml_new_string("</");
-var cst__0 = caml_new_string(">");
-var cst__1 = caml_new_string("<");
-var cst = caml_new_string("\n");
-var cst_Format_Empty_queue = caml_new_string("Format.Empty_queue");
+var cst__4 = string(".");
+var cst__2 = string(">");
+var cst__3 = string("</");
+var cst__0 = string(">");
+var cst__1 = string("<");
+var cst = string("\n");
+var cst_Format_Empty_queue = string("Format.Empty_queue");
 var CamlinternalFormat = global_data["CamlinternalFormat"];
 var Pervasives = global_data["Pervasives"];
 var String = global_data["String_"];
@@ -54,7 +54,7 @@ var Buffer = global_data["Buffer"];
 var List = global_data["List_"];
 var Not_found = global_data["Not_found"];
 var sH = [3,0,3];
-var sG = [0,caml_new_string("")];
+var sG = [0,string("")];
 
 function make_queue(param) {return [0,0,0];}
 

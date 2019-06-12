@@ -46,84 +46,82 @@ final class Js_of_ocaml__Url {
     $caml_js_to_byte_string = $runtime["caml_js_to_byte_string"];
     $caml_js_wrap_meth_callback = $runtime["caml_js_wrap_meth_callback"];
     $caml_jsbytes_of_string = $runtime["caml_jsbytes_of_string"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst__36 = $caml_new_string("");
-    $cst__37 = $caml_new_string("");
-    $cst__12 = $caml_new_string("");
-    $cst__20 = $caml_new_string("");
-    $cst__13 = $caml_new_string("#");
-    $cst__14 = $caml_new_string("?");
-    $cst__19 = $caml_new_string("");
-    $cst__15 = $caml_new_string("/");
-    $cst__16 = $caml_new_string("/");
-    $cst__18 = $caml_new_string(":");
-    $cst__17 = $caml_new_string("");
-    $cst_http__1 = $caml_new_string("http://");
-    $cst__21 = $caml_new_string("");
-    $cst__29 = $caml_new_string("");
-    $cst__22 = $caml_new_string("#");
-    $cst__23 = $caml_new_string("?");
-    $cst__28 = $caml_new_string("");
-    $cst__24 = $caml_new_string("/");
-    $cst__25 = $caml_new_string("/");
-    $cst__27 = $caml_new_string(":");
-    $cst__26 = $caml_new_string("");
-    $cst_https__1 = $caml_new_string("https://");
-    $cst__30 = $caml_new_string("");
-    $cst__35 = $caml_new_string("");
-    $cst__31 = $caml_new_string("#");
-    $cst__32 = $caml_new_string("?");
-    $cst__34 = $caml_new_string("");
-    $cst__33 = $caml_new_string("/");
-    $cst_file__1 = $caml_new_string("file://");
-    $cst__11 = $caml_new_string("");
-    $cst__10 = $caml_new_string("");
-    $cst__9 = $caml_new_string("");
-    $cst__8 = $caml_new_string("");
-    $cst__7 = $caml_new_string("");
-    $cst__6 = $caml_new_string("");
-    $cst__5 = $caml_new_string("");
-    $cst__3 = $caml_new_string("=");
-    $cst__4 = $caml_new_string("&");
-    $cst__1 = $caml_new_string("");
-    $cst__2 = $caml_new_string("");
-    $cst_file = $caml_new_string("file");
-    $cst_file__0 = $caml_new_string("file:");
-    $cst_http = $caml_new_string("http");
-    $cst_http__0 = $caml_new_string("http:");
-    $cst_https = $caml_new_string("https");
-    $cst_https__0 = $caml_new_string("https:");
-    $cst__0 = $caml_new_string(" ");
-    $cst_2B = $caml_new_string("%2B");
+    $cst__36 = $string("");
+    $cst__37 = $string("");
+    $cst__12 = $string("");
+    $cst__20 = $string("");
+    $cst__13 = $string("#");
+    $cst__14 = $string("?");
+    $cst__19 = $string("");
+    $cst__15 = $string("/");
+    $cst__16 = $string("/");
+    $cst__18 = $string(":");
+    $cst__17 = $string("");
+    $cst_http__1 = $string("http://");
+    $cst__21 = $string("");
+    $cst__29 = $string("");
+    $cst__22 = $string("#");
+    $cst__23 = $string("?");
+    $cst__28 = $string("");
+    $cst__24 = $string("/");
+    $cst__25 = $string("/");
+    $cst__27 = $string(":");
+    $cst__26 = $string("");
+    $cst_https__1 = $string("https://");
+    $cst__30 = $string("");
+    $cst__35 = $string("");
+    $cst__31 = $string("#");
+    $cst__32 = $string("?");
+    $cst__34 = $string("");
+    $cst__33 = $string("/");
+    $cst_file__1 = $string("file://");
+    $cst__11 = $string("");
+    $cst__10 = $string("");
+    $cst__9 = $string("");
+    $cst__8 = $string("");
+    $cst__7 = $string("");
+    $cst__6 = $string("");
+    $cst__5 = $string("");
+    $cst__3 = $string("=");
+    $cst__4 = $string("&");
+    $cst__1 = $string("");
+    $cst__2 = $string("");
+    $cst_file = $string("file");
+    $cst_file__0 = $string("file:");
+    $cst_http = $string("http");
+    $cst_http__0 = $string("http:");
+    $cst_https = $string("https");
+    $cst_https__0 = $string("https:");
+    $cst__0 = $string(" ");
+    $cst_2B = $string("%2B");
     $shared = Vector{
       0,
-      $caml_new_string("hash"),
-      $caml_new_string("host"),
-      $caml_new_string("href"),
-      $caml_new_string("port"),
-      $caml_new_string("origin"),
-      $caml_new_string("assign"),
-      $caml_new_string("hostname"),
-      $caml_new_string("pathname"),
-      $caml_new_string("search"),
-      $caml_new_string("protocol"),
-      $caml_new_string("reload"),
-      $caml_new_string("replace")
+      $string("hash"),
+      $string("host"),
+      $string("href"),
+      $string("port"),
+      $string("origin"),
+      $string("assign"),
+      $string("hostname"),
+      $string("pathname"),
+      $string("search"),
+      $string("protocol"),
+      $string("reload"),
+      $string("replace")
     };
-    $cst_Js_of_ocaml_Url_Local_exn = $caml_new_string(
-      "Js_of_ocaml__Url.Local_exn"
-    );
-    $cst = $caml_new_string("+");
-    $cst_Js_of_ocaml_Url_Not_an_http_protocol = $caml_new_string(
+    $cst_Js_of_ocaml_Url_Local_exn = $string("Js_of_ocaml__Url.Local_exn");
+    $cst = $string("+");
+    $cst_Js_of_ocaml_Url_Not_an_http_protocol = $string(
       "Js_of_ocaml__Url.Not_an_http_protocol"
     );
-    $cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9 = $caml_new_string(
+    $cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9 = $string(
       "^([Hh][Tt][Tt][Pp][Ss]?)://([0-9a-zA-Z.-]+|\\[[0-9a-zA-Z.-]+\\]|\\[[0-9A-Fa-f:.]+\\])?(:([0-9]+))?(/([^\\?#]*)(\\?([^#]*))?(#(.*))?)?\\$"
     );
-    $cst_Ff_Ii_Ll_Ee = $caml_new_string(
+    $cst_Ff_Ii_Ll_Ee = $string(
       "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?\\$"
     );
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
@@ -135,21 +133,21 @@ final class Js_of_ocaml__Url {
     $Not_found = $global_data["Not_found"];
     $Js_of_ocaml_Regexp = $global_data["Js_of_ocaml__Regexp"];
     $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
-    $p5 = Vector{0, $caml_new_string(""), 0};
+    $p5 = Vector{0, $string(""), 0};
     $p0 = Vector{
       0,
-      $caml_new_string("search"),
-      $caml_new_string("replace"),
-      $caml_new_string("reload"),
-      $caml_new_string("protocol"),
-      $caml_new_string("port"),
-      $caml_new_string("pathname"),
-      $caml_new_string("origin"),
-      $caml_new_string("href"),
-      $caml_new_string("hostname"),
-      $caml_new_string("host"),
-      $caml_new_string("hash"),
-      $caml_new_string("assign")
+      $string("search"),
+      $string("replace"),
+      $string("reload"),
+      $string("protocol"),
+      $string("port"),
+      $string("pathname"),
+      $string("origin"),
+      $string("href"),
+      $string("hostname"),
+      $string("host"),
+      $string("hash"),
+      $string("assign")
     };
     $split = function(dynamic $c, dynamic $s) use ($Js_of_ocaml_Js,$String,$call1,$call2,$caml_get_public_method) {
       $s2 = function(dynamic $x) use ($call1,$caml_get_public_method) {

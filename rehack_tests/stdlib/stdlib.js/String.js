@@ -15,7 +15,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_blit_string = runtime["caml_blit_string"];
 var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_equal = runtime["caml_string_equal"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
@@ -34,27 +34,27 @@ function call3(f, a0, a1, a2) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_String_rcontains_from_Bytes_rcontains_from = caml_new_string(
+var cst_String_rcontains_from_Bytes_rcontains_from = string(
   "String.rcontains_from / Bytes.rcontains_from"
 );
-var cst_String_contains_from_Bytes_contains_from = caml_new_string(
+var cst_String_contains_from_Bytes_contains_from = string(
   "String.contains_from / Bytes.contains_from"
 );
-var cst_String_rindex_from_opt_Bytes_rindex_from_opt = caml_new_string(
+var cst_String_rindex_from_opt_Bytes_rindex_from_opt = string(
   "String.rindex_from_opt / Bytes.rindex_from_opt"
 );
-var cst_String_rindex_from_Bytes_rindex_from = caml_new_string(
+var cst_String_rindex_from_Bytes_rindex_from = string(
   "String.rindex_from / Bytes.rindex_from"
 );
-var cst_String_index_from_opt_Bytes_index_from_opt = caml_new_string(
+var cst_String_index_from_opt_Bytes_index_from_opt = string(
   "String.index_from_opt / Bytes.index_from_opt"
 );
-var cst_String_index_from_Bytes_index_from = caml_new_string(
+var cst_String_index_from_Bytes_index_from = string(
   "String.index_from / Bytes.index_from"
 );
-var cst__0 = caml_new_string("");
-var cst = caml_new_string("");
-var cst_String_concat = caml_new_string("String.concat");
+var cst__0 = string("");
+var cst = string("");
+var cst_String_concat = string("String.concat");
 var Not_found = global_data["Not_found"];
 var Bytes = global_data["Bytes"];
 var Pervasives = global_data["Pervasives"];

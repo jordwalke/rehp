@@ -10,11 +10,11 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 var global_data = runtime["caml_get_global_data"]();
-var cst_Sys_Break = caml_new_string("Sys.Break");
-var ocaml_version = caml_new_string("4.06.0");
+var cst_Sys_Break = string("Sys.Break");
+var ocaml_version = string("4.06.0");
 var Not_found = global_data["Not_found"];
 var match = runtime["caml_sys_get_argv"](0);
 var argv = match[2];

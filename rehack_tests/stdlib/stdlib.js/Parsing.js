@@ -15,7 +15,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
 var caml_make_vect = runtime["caml_make_vect"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function call1(f, a0) {
@@ -35,9 +35,9 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_syntax_error = caml_new_string("syntax error");
-var cst_Parsing_YYexit = caml_new_string("Parsing.YYexit");
-var cst_Parsing_Parse_error = caml_new_string("Parsing.Parse_error");
+var cst_syntax_error = string("syntax error");
+var cst_Parsing_YYexit = string("Parsing.YYexit");
+var cst_Parsing_Parse_error = string("Parsing.Parse_error");
 var Obj = global_data["Obj"];
 var Array = global_data["Array_"];
 var Lexing = global_data["Lexing"];

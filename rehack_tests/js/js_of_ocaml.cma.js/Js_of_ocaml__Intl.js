@@ -12,7 +12,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -29,94 +29,94 @@ function call3(f, a0, a1, a2) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst__3 = caml_new_string("");
-var cst__2 = caml_new_string("");
-var cst__1 = caml_new_string("");
-var cst__0 = caml_new_string("");
-var cst = caml_new_string("");
-var cst_localeMatcher = caml_new_string("localeMatcher");
+var cst__3 = string("");
+var cst__2 = string("");
+var cst__1 = string("");
+var cst__0 = string("");
+var cst = string("");
+var cst_localeMatcher = string("localeMatcher");
 var shared = [
   0,
-  caml_new_string("sensitivity"),
-  caml_new_string("caseFirst"),
-  caml_new_string("ignorePunctuation"),
-  caml_new_string("localeMatcher"),
-  caml_new_string("usage"),
-  caml_new_string("numeric")
+  string("sensitivity"),
+  string("caseFirst"),
+  string("ignorePunctuation"),
+  string("localeMatcher"),
+  string("usage"),
+  string("numeric")
 ];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var CamlinternalOO = global_data["CamlinternalOO"];
-var mC = [0,caml_new_string("_type"),caml_new_string("localeMatcher")];
+var mC = [0,string("_type"),string("localeMatcher")];
 var mD = [
   0,
-  caml_new_string("year"),
-  caml_new_string("weekday"),
-  caml_new_string("timeZoneName"),
-  caml_new_string("timeZone"),
-  caml_new_string("second"),
-  caml_new_string("month"),
-  caml_new_string("minute"),
-  caml_new_string("localeMatcher"),
-  caml_new_string("hourCycle"),
-  caml_new_string("hour12"),
-  caml_new_string("hour"),
-  caml_new_string("formatMatcher"),
-  caml_new_string("era"),
-  caml_new_string("day")
+  string("year"),
+  string("weekday"),
+  string("timeZoneName"),
+  string("timeZone"),
+  string("second"),
+  string("month"),
+  string("minute"),
+  string("localeMatcher"),
+  string("hourCycle"),
+  string("hour12"),
+  string("hour"),
+  string("formatMatcher"),
+  string("era"),
+  string("day")
 ];
 var mE = [
   0,
-  caml_new_string("useGrouping"),
-  caml_new_string("style"),
-  caml_new_string("minimumSignificantDigits"),
-  caml_new_string("minimumIntegerDigits"),
-  caml_new_string("minimumFractionDigits"),
-  caml_new_string("maximumSignificantDigits"),
-  caml_new_string("maximumFractionDigits"),
-  caml_new_string("localeMatcher"),
-  caml_new_string("currencyDisplay"),
-  caml_new_string("currency")
+  string("useGrouping"),
+  string("style"),
+  string("minimumSignificantDigits"),
+  string("minimumIntegerDigits"),
+  string("minimumFractionDigits"),
+  string("maximumSignificantDigits"),
+  string("maximumFractionDigits"),
+  string("localeMatcher"),
+  string("currencyDisplay"),
+  string("currency")
 ];
-var mF = [0,caml_new_string("localeMatcher"),caml_new_string("_type")];
+var mF = [0,string("localeMatcher"),string("_type")];
 var mG = [
   0,
-  caml_new_string("usage"),
-  caml_new_string("sensitivity"),
-  caml_new_string("numeric"),
-  caml_new_string("localeMatcher"),
-  caml_new_string("ignorePunctuation"),
-  caml_new_string("caseFirst")
+  string("usage"),
+  string("sensitivity"),
+  string("numeric"),
+  string("localeMatcher"),
+  string("ignorePunctuation"),
+  string("caseFirst")
 ];
 var mH = [
   0,
-  caml_new_string("hour"),
-  caml_new_string("hour12"),
-  caml_new_string("year"),
-  caml_new_string("minute"),
-  caml_new_string("second"),
-  caml_new_string("timeZone"),
-  caml_new_string("hourCycle"),
-  caml_new_string("day"),
-  caml_new_string("era"),
-  caml_new_string("localeMatcher"),
-  caml_new_string("month"),
-  caml_new_string("weekday"),
-  caml_new_string("timeZoneName"),
-  caml_new_string("formatMatcher")
+  string("hour"),
+  string("hour12"),
+  string("year"),
+  string("minute"),
+  string("second"),
+  string("timeZone"),
+  string("hourCycle"),
+  string("day"),
+  string("era"),
+  string("localeMatcher"),
+  string("month"),
+  string("weekday"),
+  string("timeZoneName"),
+  string("formatMatcher")
 ];
-var mI = [0,caml_new_string("localeMatcher")];
+var mI = [0,string("localeMatcher")];
 var mJ = [
   0,
-  caml_new_string("minimumIntegerDigits"),
-  caml_new_string("maximumFractionDigits"),
-  caml_new_string("minimumFractionDigits"),
-  caml_new_string("minimumSignificantDigits"),
-  caml_new_string("useGrouping"),
-  caml_new_string("style"),
-  caml_new_string("localeMatcher"),
-  caml_new_string("currencyDisplay"),
-  caml_new_string("maximumSignificantDigits"),
-  caml_new_string("currency")
+  string("minimumIntegerDigits"),
+  string("maximumFractionDigits"),
+  string("minimumFractionDigits"),
+  string("minimumSignificantDigits"),
+  string("useGrouping"),
+  string("style"),
+  string("localeMatcher"),
+  string("currencyDisplay"),
+  string("maximumSignificantDigits"),
+  string("currency")
 ];
 var mK = [0,0,0,0];
 

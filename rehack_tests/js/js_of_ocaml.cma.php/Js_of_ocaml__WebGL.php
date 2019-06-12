@@ -32,13 +32,11 @@ final class Js_of_ocaml__WebGL {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_webglcontextlost = $caml_new_string("webglcontextlost");
-    $cst_webglcontextrestored = $caml_new_string("webglcontextrestored");
-    $cst_webglcontextcreationerror = $caml_new_string(
-      "webglcontextcreationerror"
-    );
+    $cst_webglcontextlost = $string("webglcontextlost");
+    $cst_webglcontextrestored = $string("webglcontextrestored");
+    $cst_webglcontextcreationerror = $string("webglcontextcreationerror");
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
     $defaultContextAttributes = (object)darray[

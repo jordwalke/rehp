@@ -14,7 +14,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -29,7 +29,7 @@ var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Assert_failure = global_data["Assert_failure"];
 var Not_found = global_data["Not_found"];
 var List = global_data["List_"];
-var e_ = [0,caml_new_string("lib/js_of_ocaml/dom.ml"),343,67];
+var e_ = [0,string("lib/js_of_ocaml/dom.ml"),343,67];
 
 function list_of_nodeList(nodeList) {
   function fW(x) {return call1(caml_get_public_method(x, 520590566, 48), x);}

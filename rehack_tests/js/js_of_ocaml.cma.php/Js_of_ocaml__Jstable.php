@@ -34,9 +34,9 @@ final class Js_of_ocaml__Jstable {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst_Jstable_keys = $caml_new_string("Jstable.keys");
+    $cst_Jstable_keys = $string("Jstable.keys");
     $Pervasives = $global_data["Pervasives"];
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $List = $global_data["List_"];

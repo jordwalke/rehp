@@ -56,27 +56,27 @@ final class Pervasives {
     $caml_ml_set_binary_mode = $runtime["caml_ml_set_binary_mode"];
     $caml_ml_set_channel_name = $runtime["caml_ml_set_channel_name"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
-    $caml_new_string = $runtime["caml_new_string"];
+    $string = $runtime["caml_new_string"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_sys_open = $runtime["caml_sys_open"];
     $caml_wrap_exception = $runtime["caml_wrap_exception"];
     $global_data = $runtime["caml_get_global_data"]();
-    $cst__0 = $caml_new_string("%,");
-    $cst_really_input = $caml_new_string("really_input");
-    $cst_input = $caml_new_string("input");
-    $cst_output_substring = $caml_new_string("output_substring");
-    $cst_output = $caml_new_string("output");
-    $cst_12g = $caml_new_string("%.12g");
-    $cst = $caml_new_string(".");
-    $cst_false__1 = $caml_new_string("false");
-    $cst_true__1 = $caml_new_string("true");
-    $cst_false__0 = $caml_new_string("false");
-    $cst_true__0 = $caml_new_string("true");
-    $cst_bool_of_string = $caml_new_string("bool_of_string");
-    $cst_true = $caml_new_string("true");
-    $cst_false = $caml_new_string("false");
-    $cst_char_of_int = $caml_new_string("char_of_int");
-    $cst_Pervasives_Exit = $caml_new_string("Pervasives.Exit");
+    $cst__0 = $string("%,");
+    $cst_really_input = $string("really_input");
+    $cst_input = $string("input");
+    $cst_output_substring = $string("output_substring");
+    $cst_output = $string("output");
+    $cst_12g = $string("%.12g");
+    $cst = $string(".");
+    $cst_false__1 = $string("false");
+    $cst_true__1 = $string("true");
+    $cst_false__0 = $string("false");
+    $cst_true__0 = $string("true");
+    $cst_bool_of_string = $string("bool_of_string");
+    $cst_true = $string("true");
+    $cst_false = $string("false");
+    $cst_char_of_int = $string("char_of_int");
+    $cst_Pervasives_Exit = $string("Pervasives.Exit");
     $End_of_file = $global_data["End_of_file"];
     $CamlinternalFormatBasics = $global_data["CamlinternalFormatBasics"];
     $Sys_error = $global_data["Sys_error"];
@@ -144,8 +144,8 @@ final class Pervasives {
         ? $caml_string_notequal($param, $cst_true__1) ? 0 : ($h)
         : ($i);
     };
-    $string_of_int = function(dynamic $n) use ($caml_new_string) {
-      return $caml_new_string("" . $n);
+    $string_of_int = function(dynamic $n) use ($string) {
+      return $string("" . $n);
     };
     $int_of_string_opt = function(dynamic $s) use ($Failure,$caml_int_of_string,$caml_wrap_exception,$runtime) {
       try {$aB = Vector{0, $caml_int_of_string($s)};return $aB;}

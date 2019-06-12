@@ -18,7 +18,7 @@ var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_fill_bytes = runtime["caml_fill_bytes"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function call1(f, a0) {
@@ -30,32 +30,32 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_String_rcontains_from_Bytes_rcontains_from = caml_new_string(
+var cst_String_rcontains_from_Bytes_rcontains_from = string(
   "String.rcontains_from / Bytes.rcontains_from"
 );
-var cst_String_contains_from_Bytes_contains_from = caml_new_string(
+var cst_String_contains_from_Bytes_contains_from = string(
   "String.contains_from / Bytes.contains_from"
 );
-var cst_String_rindex_from_opt_Bytes_rindex_from_opt = caml_new_string(
+var cst_String_rindex_from_opt_Bytes_rindex_from_opt = string(
   "String.rindex_from_opt / Bytes.rindex_from_opt"
 );
-var cst_String_rindex_from_Bytes_rindex_from = caml_new_string(
+var cst_String_rindex_from_Bytes_rindex_from = string(
   "String.rindex_from / Bytes.rindex_from"
 );
-var cst_String_index_from_opt_Bytes_index_from_opt = caml_new_string(
+var cst_String_index_from_opt_Bytes_index_from_opt = string(
   "String.index_from_opt / Bytes.index_from_opt"
 );
-var cst_String_index_from_Bytes_index_from = caml_new_string(
+var cst_String_index_from_Bytes_index_from = string(
   "String.index_from / Bytes.index_from"
 );
-var cst_Bytes_concat = caml_new_string("Bytes.concat");
-var cst_String_blit_Bytes_blit_string = caml_new_string(
+var cst_Bytes_concat = string("Bytes.concat");
+var cst_String_blit_Bytes_blit_string = string(
   "String.blit / Bytes.blit_string"
 );
-var cst_Bytes_blit = caml_new_string("Bytes.blit");
-var cst_String_fill_Bytes_fill = caml_new_string("String.fill / Bytes.fill");
-var cst_Bytes_extend = caml_new_string("Bytes.extend");
-var cst_String_sub_Bytes_sub = caml_new_string("String.sub / Bytes.sub");
+var cst_Bytes_blit = string("Bytes.blit");
+var cst_String_fill_Bytes_fill = string("String.fill / Bytes.fill");
+var cst_Bytes_extend = string("Bytes.extend");
+var cst_String_sub_Bytes_sub = string("String.sub / Bytes.sub");
 var Not_found = global_data["Not_found"];
 var Char = global_data["Char"];
 var Pervasives = global_data["Pervasives"];

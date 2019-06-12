@@ -13,25 +13,25 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_readystatechange = caml_new_string("readystatechange");
-var cst_loadstart = caml_new_string("loadstart");
-var cst_progress = caml_new_string("progress");
-var cst_abort = caml_new_string("abort");
-var cst_error = caml_new_string("error");
-var cst_load = caml_new_string("load");
-var cst_timeout = caml_new_string("timeout");
-var cst_loadend = caml_new_string("loadend");
+var cst_readystatechange = string("readystatechange");
+var cst_loadstart = string("loadstart");
+var cst_progress = string("progress");
+var cst_abort = string("abort");
+var cst_error = string("error");
+var cst_load = string("load");
+var cst_timeout = string("timeout");
+var cst_loadend = string("loadend");
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Assert_failure = global_data["Assert_failure"];
 var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
-var tC = [0,caml_new_string("lib/js_of_ocaml/xmlHttpRequest.ml"),125,75];
+var tC = [0,string("lib/js_of_ocaml/xmlHttpRequest.ml"),125,75];
 var readystatechange = call1(Js_of_ocaml_Dom[14][1], cst_readystatechange);
 var loadstart = call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
 var progress = call1(Js_of_ocaml_Dom[14][1], cst_progress);

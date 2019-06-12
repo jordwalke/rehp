@@ -16,7 +16,7 @@ var caml_bytes_get = runtime["caml_bytes_get"];
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -45,11 +45,11 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Lexing_lex_refill_cannot_grow_buffer = caml_new_string(
+var cst_Lexing_lex_refill_cannot_grow_buffer = string(
   "Lexing.lex_refill: cannot grow buffer"
 );
-var dummy_pos = [0,caml_new_string(""),0,0,-1];
-var zero_pos = [0,caml_new_string(""),1,0,0];
+var dummy_pos = [0,string(""),0,0,-1];
+var zero_pos = [0,string(""),1,0,0];
 var Bytes = global_data["Bytes"];
 var Pervasives = global_data["Pervasives"];
 var Sys = global_data["Sys"];

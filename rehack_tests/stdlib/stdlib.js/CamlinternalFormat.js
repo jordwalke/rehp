@@ -24,7 +24,7 @@ var caml_bytes_set = runtime["caml_bytes_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_format_int = runtime["caml_format_int"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_notequal = runtime["caml_notequal"];
 var caml_string_get = runtime["caml_string_get"];
 var caml_string_notequal = runtime["caml_string_notequal"];
@@ -59,145 +59,144 @@ function call5(f, a0, a1, a2, a3, a4) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_c = caml_new_string("%c");
-var cst_s = caml_new_string("%s");
-var cst_i = caml_new_string("%i");
-var cst_li = caml_new_string("%li");
-var cst_ni = caml_new_string("%ni");
-var cst_Li = caml_new_string("%Li");
-var cst_f = caml_new_string("%f");
-var cst_B = caml_new_string("%B");
-var cst__9 = caml_new_string("%{");
-var cst__10 = caml_new_string("%}");
-var cst__11 = caml_new_string("%(");
-var cst__12 = caml_new_string("%)");
-var cst_a = caml_new_string("%a");
-var cst_t = caml_new_string("%t");
-var cst__13 = caml_new_string("%?");
-var cst_r = caml_new_string("%r");
-var cst_r__0 = caml_new_string("%_r");
-var cst_u__0 = caml_new_string("%u");
-var cst_Printf_bad_conversion = caml_new_string("Printf: bad conversion %[");
-var cst_Printf_bad_conversion__0 = caml_new_string("Printf: bad conversion %_"
-);
-var cst__17 = caml_new_string("@{");
-var cst__18 = caml_new_string("@[");
-var cst__19 = caml_new_string("@{");
-var cst__20 = caml_new_string("@[");
-var cst__21 = caml_new_string("@{");
-var cst__22 = caml_new_string("@[");
-var cst_0 = caml_new_string("0");
-var cst_padding = caml_new_string("padding");
-var cst_precision = caml_new_string("precision");
-var cst__27 = caml_new_string("'*'");
-var cst__25 = caml_new_string("'-'");
-var cst_0__2 = caml_new_string("'0'");
-var cst__26 = caml_new_string("'*'");
-var cst_0__0 = caml_new_string("0");
-var cst_0__1 = caml_new_string("0");
-var cst_precision__0 = caml_new_string("precision");
-var cst_precision__1 = caml_new_string("precision");
-var cst__28 = caml_new_string("'+'");
-var cst__29 = caml_new_string("'#'");
-var cst__30 = caml_new_string("' '");
-var cst_padding__0 = caml_new_string("`padding'");
-var cst_precision__2 = caml_new_string("`precision'");
-var cst__31 = caml_new_string("'+'");
-var cst__32 = caml_new_string("'_'");
-var sub_format = [0,0,caml_new_string("")];
-var formatting_lit = [0,caml_new_string("@;"),1,0];
-var cst_digit = caml_new_string("digit");
-var cst_character = caml_new_string("character ')'");
-var cst_character__0 = caml_new_string("character '}'");
-var cst__36 = caml_new_string("'#'");
-var cst__35 = caml_new_string("'+'");
-var cst__34 = caml_new_string("'+'");
-var cst__33 = caml_new_string("' '");
-var cst__39 = caml_new_string("'+'");
-var cst__38 = caml_new_string("'+'");
-var cst__37 = caml_new_string("' '");
-var cst_non_zero_widths_are_unsupported_for_c_conversions = caml_new_string(
+var cst_c = string("%c");
+var cst_s = string("%s");
+var cst_i = string("%i");
+var cst_li = string("%li");
+var cst_ni = string("%ni");
+var cst_Li = string("%Li");
+var cst_f = string("%f");
+var cst_B = string("%B");
+var cst__9 = string("%{");
+var cst__10 = string("%}");
+var cst__11 = string("%(");
+var cst__12 = string("%)");
+var cst_a = string("%a");
+var cst_t = string("%t");
+var cst__13 = string("%?");
+var cst_r = string("%r");
+var cst_r__0 = string("%_r");
+var cst_u__0 = string("%u");
+var cst_Printf_bad_conversion = string("Printf: bad conversion %[");
+var cst_Printf_bad_conversion__0 = string("Printf: bad conversion %_");
+var cst__17 = string("@{");
+var cst__18 = string("@[");
+var cst__19 = string("@{");
+var cst__20 = string("@[");
+var cst__21 = string("@{");
+var cst__22 = string("@[");
+var cst_0 = string("0");
+var cst_padding = string("padding");
+var cst_precision = string("precision");
+var cst__27 = string("'*'");
+var cst__25 = string("'-'");
+var cst_0__2 = string("'0'");
+var cst__26 = string("'*'");
+var cst_0__0 = string("0");
+var cst_0__1 = string("0");
+var cst_precision__0 = string("precision");
+var cst_precision__1 = string("precision");
+var cst__28 = string("'+'");
+var cst__29 = string("'#'");
+var cst__30 = string("' '");
+var cst_padding__0 = string("`padding'");
+var cst_precision__2 = string("`precision'");
+var cst__31 = string("'+'");
+var cst__32 = string("'_'");
+var sub_format = [0,0,string("")];
+var formatting_lit = [0,string("@;"),1,0];
+var cst_digit = string("digit");
+var cst_character = string("character ')'");
+var cst_character__0 = string("character '}'");
+var cst__36 = string("'#'");
+var cst__35 = string("'+'");
+var cst__34 = string("'+'");
+var cst__33 = string("' '");
+var cst__39 = string("'+'");
+var cst__38 = string("'+'");
+var cst__37 = string("' '");
+var cst_non_zero_widths_are_unsupported_for_c_conversions = string(
   "non-zero widths are unsupported for %c conversions"
 );
-var cst_unexpected_end_of_format = caml_new_string("unexpected end of format");
-var cst__23 = caml_new_string("");
-var cst__24 = caml_new_string("");
-var cst_b = caml_new_string("b");
-var cst_h = caml_new_string("h");
-var cst_hov = caml_new_string("hov");
-var cst_hv = caml_new_string("hv");
-var cst_v = caml_new_string("v");
-var cst_nan = caml_new_string("nan");
-var cst__16 = caml_new_string(".");
-var cst_neg_infinity = caml_new_string("neg_infinity");
-var cst_infinity = caml_new_string("infinity");
-var cst_12g = caml_new_string("%.12g");
-var cst_nd = caml_new_string("%nd");
-var cst_nd__0 = caml_new_string("%+nd");
-var cst_nd__1 = caml_new_string("% nd");
-var cst_ni__0 = caml_new_string("%ni");
-var cst_ni__1 = caml_new_string("%+ni");
-var cst_ni__2 = caml_new_string("% ni");
-var cst_nx = caml_new_string("%nx");
-var cst_nx__0 = caml_new_string("%#nx");
-var cst_nX = caml_new_string("%nX");
-var cst_nX__0 = caml_new_string("%#nX");
-var cst_no = caml_new_string("%no");
-var cst_no__0 = caml_new_string("%#no");
-var cst_nu = caml_new_string("%nu");
-var cst_ld = caml_new_string("%ld");
-var cst_ld__0 = caml_new_string("%+ld");
-var cst_ld__1 = caml_new_string("% ld");
-var cst_li__0 = caml_new_string("%li");
-var cst_li__1 = caml_new_string("%+li");
-var cst_li__2 = caml_new_string("% li");
-var cst_lx = caml_new_string("%lx");
-var cst_lx__0 = caml_new_string("%#lx");
-var cst_lX = caml_new_string("%lX");
-var cst_lX__0 = caml_new_string("%#lX");
-var cst_lo = caml_new_string("%lo");
-var cst_lo__0 = caml_new_string("%#lo");
-var cst_lu = caml_new_string("%lu");
-var cst_Ld = caml_new_string("%Ld");
-var cst_Ld__0 = caml_new_string("%+Ld");
-var cst_Ld__1 = caml_new_string("% Ld");
-var cst_Li__0 = caml_new_string("%Li");
-var cst_Li__1 = caml_new_string("%+Li");
-var cst_Li__2 = caml_new_string("% Li");
-var cst_Lx = caml_new_string("%Lx");
-var cst_Lx__0 = caml_new_string("%#Lx");
-var cst_LX = caml_new_string("%LX");
-var cst_LX__0 = caml_new_string("%#LX");
-var cst_Lo = caml_new_string("%Lo");
-var cst_Lo__0 = caml_new_string("%#Lo");
-var cst_Lu = caml_new_string("%Lu");
-var cst_d = caml_new_string("%d");
-var cst_d__0 = caml_new_string("%+d");
-var cst_d__1 = caml_new_string("% d");
-var cst_i__0 = caml_new_string("%i");
-var cst_i__1 = caml_new_string("%+i");
-var cst_i__2 = caml_new_string("% i");
-var cst_x = caml_new_string("%x");
-var cst_x__0 = caml_new_string("%#x");
-var cst_X = caml_new_string("%X");
-var cst_X__0 = caml_new_string("%#X");
-var cst_o = caml_new_string("%o");
-var cst_o__0 = caml_new_string("%#o");
-var cst_u = caml_new_string("%u");
-var cst__14 = caml_new_string("%!");
-var cst__15 = caml_new_string("@{");
-var cst_0c = caml_new_string("0c");
-var cst__8 = caml_new_string("%%");
-var cst__0 = caml_new_string("@]");
-var cst__1 = caml_new_string("@}");
-var cst__2 = caml_new_string("@?");
-var cst__3 = caml_new_string("@\n");
-var cst__4 = caml_new_string("@.");
-var cst__5 = caml_new_string("@@");
-var cst__6 = caml_new_string("@%");
-var cst__7 = caml_new_string("@");
-var cst = caml_new_string(".*");
-var cst_CamlinternalFormat_Type_mismatch = caml_new_string(
+var cst_unexpected_end_of_format = string("unexpected end of format");
+var cst__23 = string("");
+var cst__24 = string("");
+var cst_b = string("b");
+var cst_h = string("h");
+var cst_hov = string("hov");
+var cst_hv = string("hv");
+var cst_v = string("v");
+var cst_nan = string("nan");
+var cst__16 = string(".");
+var cst_neg_infinity = string("neg_infinity");
+var cst_infinity = string("infinity");
+var cst_12g = string("%.12g");
+var cst_nd = string("%nd");
+var cst_nd__0 = string("%+nd");
+var cst_nd__1 = string("% nd");
+var cst_ni__0 = string("%ni");
+var cst_ni__1 = string("%+ni");
+var cst_ni__2 = string("% ni");
+var cst_nx = string("%nx");
+var cst_nx__0 = string("%#nx");
+var cst_nX = string("%nX");
+var cst_nX__0 = string("%#nX");
+var cst_no = string("%no");
+var cst_no__0 = string("%#no");
+var cst_nu = string("%nu");
+var cst_ld = string("%ld");
+var cst_ld__0 = string("%+ld");
+var cst_ld__1 = string("% ld");
+var cst_li__0 = string("%li");
+var cst_li__1 = string("%+li");
+var cst_li__2 = string("% li");
+var cst_lx = string("%lx");
+var cst_lx__0 = string("%#lx");
+var cst_lX = string("%lX");
+var cst_lX__0 = string("%#lX");
+var cst_lo = string("%lo");
+var cst_lo__0 = string("%#lo");
+var cst_lu = string("%lu");
+var cst_Ld = string("%Ld");
+var cst_Ld__0 = string("%+Ld");
+var cst_Ld__1 = string("% Ld");
+var cst_Li__0 = string("%Li");
+var cst_Li__1 = string("%+Li");
+var cst_Li__2 = string("% Li");
+var cst_Lx = string("%Lx");
+var cst_Lx__0 = string("%#Lx");
+var cst_LX = string("%LX");
+var cst_LX__0 = string("%#LX");
+var cst_Lo = string("%Lo");
+var cst_Lo__0 = string("%#Lo");
+var cst_Lu = string("%Lu");
+var cst_d = string("%d");
+var cst_d__0 = string("%+d");
+var cst_d__1 = string("% d");
+var cst_i__0 = string("%i");
+var cst_i__1 = string("%+i");
+var cst_i__2 = string("% i");
+var cst_x = string("%x");
+var cst_x__0 = string("%#x");
+var cst_X = string("%X");
+var cst_X__0 = string("%#X");
+var cst_o = string("%o");
+var cst_o__0 = string("%#o");
+var cst_u = string("%u");
+var cst__14 = string("%!");
+var cst__15 = string("@{");
+var cst_0c = string("0c");
+var cst__8 = string("%%");
+var cst__0 = string("@]");
+var cst__1 = string("@}");
+var cst__2 = string("@?");
+var cst__3 = string("@\n");
+var cst__4 = string("@.");
+var cst__5 = string("@@");
+var cst__6 = string("@%");
+var cst__7 = string("@");
+var cst = string(".*");
+var cst_CamlinternalFormat_Type_mismatch = string(
   "CamlinternalFormat.Type_mismatch"
 );
 var Assert_failure = global_data["Assert_failure"];
@@ -210,63 +209,61 @@ var String = global_data["String_"];
 var Sys = global_data["Sys"];
 var Char = global_data["Char"];
 var Bytes = global_data["Bytes"];
-var hz = [0,caml_new_string("camlinternalFormat.ml"),846,23];
-var hK = [0,caml_new_string("camlinternalFormat.ml"),810,21];
-var hC = [0,caml_new_string("camlinternalFormat.ml"),811,21];
-var hL = [0,caml_new_string("camlinternalFormat.ml"),814,21];
-var hD = [0,caml_new_string("camlinternalFormat.ml"),815,21];
-var hM = [0,caml_new_string("camlinternalFormat.ml"),818,19];
-var hE = [0,caml_new_string("camlinternalFormat.ml"),819,19];
-var hN = [0,caml_new_string("camlinternalFormat.ml"),822,22];
-var hF = [0,caml_new_string("camlinternalFormat.ml"),823,22];
-var hO = [0,caml_new_string("camlinternalFormat.ml"),827,30];
-var hG = [0,caml_new_string("camlinternalFormat.ml"),828,30];
-var hI = [0,caml_new_string("camlinternalFormat.ml"),832,26];
-var hA = [0,caml_new_string("camlinternalFormat.ml"),833,26];
-var hJ = [0,caml_new_string("camlinternalFormat.ml"),842,28];
-var hB = [0,caml_new_string("camlinternalFormat.ml"),843,28];
-var hH = [0,caml_new_string("camlinternalFormat.ml"),847,23];
-var hP = [0,caml_new_string("camlinternalFormat.ml"),1525,4];
-var hQ = [0,caml_new_string("camlinternalFormat.ml"),1593,39];
-var hR = [0,caml_new_string("camlinternalFormat.ml"),1616,31];
-var hS = [0,caml_new_string("camlinternalFormat.ml"),1617,31];
-var hT = [0,caml_new_string("camlinternalFormat.ml"),1797,8];
+var hz = [0,string("camlinternalFormat.ml"),846,23];
+var hK = [0,string("camlinternalFormat.ml"),810,21];
+var hC = [0,string("camlinternalFormat.ml"),811,21];
+var hL = [0,string("camlinternalFormat.ml"),814,21];
+var hD = [0,string("camlinternalFormat.ml"),815,21];
+var hM = [0,string("camlinternalFormat.ml"),818,19];
+var hE = [0,string("camlinternalFormat.ml"),819,19];
+var hN = [0,string("camlinternalFormat.ml"),822,22];
+var hF = [0,string("camlinternalFormat.ml"),823,22];
+var hO = [0,string("camlinternalFormat.ml"),827,30];
+var hG = [0,string("camlinternalFormat.ml"),828,30];
+var hI = [0,string("camlinternalFormat.ml"),832,26];
+var hA = [0,string("camlinternalFormat.ml"),833,26];
+var hJ = [0,string("camlinternalFormat.ml"),842,28];
+var hB = [0,string("camlinternalFormat.ml"),843,28];
+var hH = [0,string("camlinternalFormat.ml"),847,23];
+var hP = [0,string("camlinternalFormat.ml"),1525,4];
+var hQ = [0,string("camlinternalFormat.ml"),1593,39];
+var hR = [0,string("camlinternalFormat.ml"),1616,31];
+var hS = [0,string("camlinternalFormat.ml"),1617,31];
+var hT = [0,string("camlinternalFormat.ml"),1797,8];
 var io = [
   0,
   [
     11,
-    caml_new_string("bad input: format type mismatch between "),
-    [3,0,[11,caml_new_string(" and "),[3,0,0]]]
+    string("bad input: format type mismatch between "),
+    [3,0,[11,string(" and "),[3,0,0]]]
   ],
-  caml_new_string("bad input: format type mismatch between %S and %S")
+  string("bad input: format type mismatch between %S and %S")
 ];
 var im = [
   0,
   [
     11,
-    caml_new_string("bad input: format type mismatch between "),
-    [3,0,[11,caml_new_string(" and "),[3,0,0]]]
+    string("bad input: format type mismatch between "),
+    [3,0,[11,string(" and "),[3,0,0]]]
   ],
-  caml_new_string("bad input: format type mismatch between %S and %S")
+  string("bad input: format type mismatch between %S and %S")
 ];
 var hZ = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": at character number "),
-        [4,0,0,0,[11,caml_new_string(", duplicate flag "),[1,0]]]
+        string(": at character number "),
+        [4,0,0,0,[11,string(", duplicate flag "),[1,0]]]
       ]
     ]
   ],
-  caml_new_string(
-    "invalid format %S: at character number %d, duplicate flag %C"
-  )
+  string("invalid format %S: at character number %d, duplicate flag %C")
 ];
 var h0 = [0,1,0];
 var h1 = [0,0];
@@ -278,13 +275,13 @@ var h9 = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": at character number "),
+        string(": at character number "),
         [
           4,
           0,
@@ -292,17 +289,13 @@ var h9 = [
           0,
           [
             11,
-            caml_new_string(", flag "),
+            string(", flag "),
             [
               1,
               [
                 11,
-                caml_new_string(" is only allowed after the '"),
-                [
-                  12,
-                  37,
-                  [11,caml_new_string("', before padding and precision"),0]
-                ]
+                string(" is only allowed after the '"),
+                [12,37,[11,string("', before padding and precision"),0]]
               ]
             ]
           ]
@@ -310,7 +303,7 @@ var h9 = [
       ]
     ]
   ],
-  caml_new_string(
+  string(
     "invalid format %S: at character number %d, flag %C is only allowed after the '%%', before padding and precision"
   )
 ];
@@ -318,69 +311,55 @@ var h6 = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": at character number "),
-        [
-          4,
-          0,
-          0,
-          0,
-          [11,caml_new_string(', invalid conversion "'),[12,37,[0,[12,34,0]]]]
-        ]
+        string(": at character number "),
+        [4,0,0,0,[11,string(', invalid conversion "'),[12,37,[0,[12,34,0]]]]]
       ]
     ]
   ],
-  caml_new_string(
+  string(
     'invalid format %S: at character number %d, invalid conversion "%%%c"'
   )
 ];
 var h7 = [0,0];
 var h8 = [0,0];
 var h_ = [0,[12,64,0]];
-var ia = [0,caml_new_string("@ "),1,0];
-var ib = [0,caml_new_string("@,"),0,0];
+var ia = [0,string("@ "),1,0];
+var ib = [0,string("@,"),0,0];
 var ic = [2,60];
 var id = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": '"),
+        string(": '"),
         [
           12,
           37,
           [
             11,
-            caml_new_string("' alone is not accepted in character sets, use "),
+            string("' alone is not accepted in character sets, use "),
             [
               12,
               37,
-              [
-                12,
-                37,
-                [
-                  11,
-                  caml_new_string(" instead at position "),
-                  [4,0,0,0,[12,46,0]]
-                ]
-              ]
+              [12,37,[11,string(" instead at position "),[4,0,0,0,[12,46,0]]]]
             ]
           ]
         ]
       ]
     ]
   ],
-  caml_new_string(
+  string(
     "invalid format %S: '%%' alone is not accepted in character sets, use %%%% instead at position %d."
   )
 ];
@@ -388,60 +367,53 @@ var ie = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": integer "),
-        [
-          4,
-          0,
-          0,
-          0,
-          [11,caml_new_string(" is greater than the limit "),[4,0,0,0,0]]
-        ]
+        string(": integer "),
+        [4,0,0,0,[11,string(" is greater than the limit "),[4,0,0,0,0]]]
       ]
     ]
   ],
-  caml_new_string("invalid format %S: integer %d is greater than the limit %d"
-  )
+  string("invalid format %S: integer %d is greater than the limit %d")
 ];
-var ig = [0,caml_new_string("camlinternalFormat.ml"),2811,11];
+var ig = [0,string("camlinternalFormat.ml"),2811,11];
 var ih = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(': unclosed sub-format, expected "'),
-        [12,37,[0,[11,caml_new_string('" at character number '),[4,0,0,0,0]]]]
+        string(': unclosed sub-format, expected "'),
+        [12,37,[0,[11,string('" at character number '),[4,0,0,0,0]]]]
       ]
     ]
   ],
-  caml_new_string(
+  string(
     'invalid format %S: unclosed sub-format, expected "%%%c" at character number %d'
   )
 ];
-var ii = [0,caml_new_string("camlinternalFormat.ml"),2873,34];
-var ij = [0,caml_new_string("camlinternalFormat.ml"),2906,28];
-var ik = [0,caml_new_string("camlinternalFormat.ml"),2940,25];
+var ii = [0,string("camlinternalFormat.ml"),2873,34];
+var ij = [0,string("camlinternalFormat.ml"),2906,28];
+var ik = [0,string("camlinternalFormat.ml"),2940,25];
 var il = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": at character number "),
+        string(": at character number "),
         [
           4,
           0,
@@ -449,14 +421,14 @@ var il = [
           0,
           [
             11,
-            caml_new_string(", "),
+            string(", "),
             [
               2,
               0,
               [
                 11,
-                caml_new_string(" is incompatible with '"),
-                [0,[11,caml_new_string("' in sub-format "),[3,0,0]]]
+                string(" is incompatible with '"),
+                [0,[11,string("' in sub-format "),[3,0,0]]]
               ]
             ]
           ]
@@ -464,7 +436,7 @@ var il = [
       ]
     ]
   ],
-  caml_new_string(
+  string(
     "invalid format %S: at character number %d, %s is incompatible with '%c' in sub-format %S"
   )
 ];
@@ -472,80 +444,55 @@ var hY = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": at character number "),
-        [
-          4,
-          0,
-          0,
-          0,
-          [
-            11,
-            caml_new_string(", "),
-            [2,0,[11,caml_new_string(" expected, read "),[1,0]]]
-          ]
+        string(": at character number "),
+        [4,0,0,0,[11,string(", "),[2,0,[11,string(" expected, read "),[1,0]]]]
         ]
       ]
     ]
   ],
-  caml_new_string(
-    "invalid format %S: at character number %d, %s expected, read %C"
-  )
+  string("invalid format %S: at character number %d, %s expected, read %C")
 ];
 var hX = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
       [
         11,
-        caml_new_string(": at character number "),
-        [
-          4,
-          0,
-          0,
-          0,
-          [
-            11,
-            caml_new_string(", '"),
-            [0,[11,caml_new_string("' without "),[2,0,0]]]
-          ]
-        ]
+        string(": at character number "),
+        [4,0,0,0,[11,string(", '"),[0,[11,string("' without "),[2,0,0]]]]]
       ]
     ]
   ],
-  caml_new_string("invalid format %S: at character number %d, '%c' without %s"
-  )
+  string("invalid format %S: at character number %d, '%c' without %s")
 ];
 var hW = [
   0,
   [
     11,
-    caml_new_string("invalid format "),
+    string("invalid format "),
     [
       3,
       0,
-      [
-        11,
-        caml_new_string(": at character number "),
-        [4,0,0,0,[11,caml_new_string(", "),[2,0,0]]]
+      [11,string(": at character number "),[4,0,0,0,[11,string(", "),[2,0,0]]]
       ]
     ]
   ],
-  caml_new_string("invalid format %S: at character number %d, %s")
+  string("invalid format %S: at character number %d, %s")
 ];
 var hV = [
   0,
-  [11,caml_new_string("invalid box description "),[3,0,0]],
-  caml_new_string("invalid box description %S")
+  [11,string("invalid box description "),[3,0,0]],
+  string("invalid box description %S")
 ];
 var hU = [0,0,4];
 

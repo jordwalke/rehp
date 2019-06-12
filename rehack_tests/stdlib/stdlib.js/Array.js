@@ -14,7 +14,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_array_sub = runtime["caml_array_sub"];
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_make_vect = runtime["caml_make_vect"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function call1(f, a0) {
@@ -26,20 +26,20 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Array_map2_arrays_must_have_the_same_length = caml_new_string(
+var cst_Array_map2_arrays_must_have_the_same_length = string(
   "Array.map2: arrays must have the same length"
 );
-var cst_Array_iter2_arrays_must_have_the_same_length = caml_new_string(
+var cst_Array_iter2_arrays_must_have_the_same_length = string(
   "Array.iter2: arrays must have the same length"
 );
-var cst_Array_blit = caml_new_string("Array.blit");
-var cst_Array_fill = caml_new_string("Array.fill");
-var cst_Array_sub = caml_new_string("Array.sub");
-var cst_Array_init = caml_new_string("Array.init");
-var cst_Array_Bottom = caml_new_string("Array.Bottom");
+var cst_Array_blit = string("Array.blit");
+var cst_Array_fill = string("Array.fill");
+var cst_Array_sub = string("Array.sub");
+var cst_Array_init = string("Array.init");
+var cst_Array_Bottom = string("Array.Bottom");
 var Assert_failure = global_data["Assert_failure"];
 var Pervasives = global_data["Pervasives"];
-var dx = [0,caml_new_string("array.ml"),233,4];
+var dx = [0,string("array.ml"),233,4];
 
 function make_float(ev) {return runtime["caml_make_float_vect"](ev);}
 

@@ -16,7 +16,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
-var caml_new_string = runtime["caml_new_string"];
+var string__0 = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -27,25 +27,25 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_can_t_retrieve_file_name_not_implemented = caml_new_string(
+var cst_can_t_retrieve_file_name_not_implemented = string__0(
   "can't retrieve file name: not implemented"
 );
-var cst_endings = caml_new_string("endings");
-var cst_type = caml_new_string("type");
-var cst_loadstart = caml_new_string("loadstart");
-var cst_progress = caml_new_string("progress");
-var cst_abort = caml_new_string("abort");
-var cst_error = caml_new_string("error");
-var cst_load = caml_new_string("load");
-var cst_loadend = caml_new_string("loadend");
+var cst_endings = string__0("endings");
+var cst_type = string__0("type");
+var cst_loadstart = string__0("loadstart");
+var cst_progress = string__0("progress");
+var cst_abort = string__0("abort");
+var cst_error = string__0("error");
+var cst_load = string__0("load");
+var cst_loadend = string__0("loadend");
 var Js_of_ocaml_Typed_array = global_data["Js_of_ocaml__Typed_array"];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Pervasives = global_data["Pervasives"];
 var List = global_data["List_"];
 var Array = global_data["Array_"];
 var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
-var go = [0,caml_new_string("transparent")];
-var gp = [0,caml_new_string("native")];
+var go = [0,string__0("transparent")];
+var gp = [0,string__0("native")];
 
 function gm(x) {return call1(caml_get_public_method(x, -553417380, 86), x);}
 

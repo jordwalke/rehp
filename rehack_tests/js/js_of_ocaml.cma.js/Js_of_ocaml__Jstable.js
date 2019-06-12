@@ -13,7 +13,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -24,7 +24,7 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Jstable_keys = caml_new_string("Jstable.keys");
+var cst_Jstable_keys = string("Jstable.keys");
 var Pervasives = global_data["Pervasives"];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var List = global_data["List_"];

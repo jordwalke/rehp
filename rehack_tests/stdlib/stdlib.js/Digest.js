@@ -18,7 +18,7 @@ var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_md5_string = runtime["caml_md5_string"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string__0 = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
@@ -31,10 +31,10 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_Digest_from_hex__0 = caml_new_string("Digest.from_hex");
-var cst_Digest_from_hex = caml_new_string("Digest.from_hex");
-var cst_Digest_to_hex = caml_new_string("Digest.to_hex");
-var cst_Digest_substring = caml_new_string("Digest.substring");
+var cst_Digest_from_hex__0 = string__0("Digest.from_hex");
+var cst_Digest_from_hex = string__0("Digest.from_hex");
+var cst_Digest_to_hex = string__0("Digest.to_hex");
+var cst_Digest_substring = string__0("Digest.substring");
 var Invalid_argument = global_data["Invalid_argument"];
 var Pervasives = global_data["Pervasives"];
 var Char = global_data["Char"];

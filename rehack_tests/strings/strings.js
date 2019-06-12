@@ -15,7 +15,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_int_of_string = runtime["caml_int_of_string"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_wrap_exception = runtime["caml_wrap_exception"];
 
 function call1(f, a0) {
@@ -27,53 +27,51 @@ function call2(f, a0, a1) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = caml_new_string(
+var cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = string(
   "The variable v_ should not conflict with any other variables in scope"
 );
-var greeting = caml_new_string("hello world");
-var greeting__0 = caml_new_string("hello world with unicode: \xc9\x8a");
-var cst_String_length_should_be_two = caml_new_string(
+var greeting = string("hello world");
+var greeting__0 = string("hello world with unicode: \xc9\x8a");
+var cst_String_length_should_be_two = string(
   'String.length("\xc9\x8a") should be two:'
 );
-var cst_1 = caml_new_string("-1");
-var cst_6 = caml_new_string("-6");
-var cst_1__0 = caml_new_string("1");
-var cst_6__0 = caml_new_string("6");
-var cst_as_df = caml_new_string("as_df");
-var cst_index_from_string_with_char = caml_new_string(
-  "index from string with char: "
-);
-var cst_asdf = caml_new_string("asdf");
-var cst_index_from_string_without_char = caml_new_string(
+var cst_1 = string("-1");
+var cst_6 = string("-6");
+var cst_1__0 = string("1");
+var cst_6__0 = string("6");
+var cst_as_df = string("as_df");
+var cst_index_from_string_with_char = string("index from string with char: ");
+var cst_asdf = string("asdf");
+var cst_index_from_string_without_char = string(
   "index from string without char: "
 );
-var cst_Prints_seven = caml_new_string("Prints seven:");
-var cst_Prints_six = caml_new_string("Prints six:");
-var cst_Prints_six__0 = caml_new_string("Prints six:");
-var cst_6__1 = caml_new_string("6");
-var cst_Reason_is_on = caml_new_string("Reason is on \xf0\x9f\x94\xa5");
-var cst_trimmed_string = caml_new_string(" trimmed string ");
-var cst_tmp = caml_new_string("tmp");
-var cst_WHEREAMI = caml_new_string("WHEREAMI");
-var cst_Properly_caught_invalid_string_to_int_conversion = caml_new_string(
+var cst_Prints_seven = string("Prints seven:");
+var cst_Prints_six = string("Prints six:");
+var cst_Prints_six__0 = string("Prints six:");
+var cst_6__1 = string("6");
+var cst_Reason_is_on = string("Reason is on \xf0\x9f\x94\xa5");
+var cst_trimmed_string = string(" trimmed string ");
+var cst_tmp = string("tmp");
+var cst_WHEREAMI = string("WHEREAMI");
+var cst_Properly_caught_invalid_string_to_int_conversion = string(
   "Properly caught invalid string to int conversion."
 );
-var cst_Did_not_properly_catch_Failure_exception = caml_new_string(
+var cst_Did_not_properly_catch_Failure_exception = string(
   "Did not properly catch Failure exception"
 );
-var cst_20 = caml_new_string("20");
-var cst_Properly_caught_conversion_from_string_20_to_int = caml_new_string(
+var cst_20 = string("20");
+var cst_Properly_caught_conversion_from_string_20_to_int = string(
   "Properly caught conversion from string '20' to int "
 );
-var cst_Did_not_properly_catch_conversion_from_string_to_int = caml_new_string(
+var cst_Did_not_properly_catch_conversion_from_string_to_int = string(
   "Did not properly catch conversion from string to int"
 );
-var cst_ARE_T = caml_new_string("ARE == T: ");
-var cst_ARE_F = caml_new_string("ARE === F: ");
-var cst_Nans_are_should_output_true = caml_new_string(
+var cst_ARE_T = string("ARE == T: ");
+var cst_ARE_F = string("ARE === F: ");
+var cst_Nans_are_should_output_true = string(
   "Nans are === (should output true):"
 );
-var cst_Nans_are_should_output_false = caml_new_string(
+var cst_Nans_are_should_output_false = string(
   "Nans are == (should output false):"
 );
 var Pervasives = global_data["Pervasives"];

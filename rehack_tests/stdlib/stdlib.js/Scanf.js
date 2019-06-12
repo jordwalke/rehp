@@ -25,7 +25,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_get = runtime["caml_bytes_get"];
 var caml_int_of_string = runtime["caml_int_of_string"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
-var caml_new_string = runtime["caml_new_string"];
+var string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_trampoline = runtime["caml_trampoline"];
@@ -53,54 +53,51 @@ function call4(f, a0, a1, a2, a3) {
 }
 
 var global_data = runtime["caml_get_global_data"]();
-var cst_end_of_input_not_found = caml_new_string("end of input not found");
-var cst_scanf_bad_conversion_a = caml_new_string('scanf: bad conversion "%a"');
-var cst_scanf_bad_conversion_t = caml_new_string('scanf: bad conversion "%t"');
-var cst_scanf_missing_reader = caml_new_string("scanf: missing reader");
-var cst_scanf_bad_conversion_custom_converter = caml_new_string(
+var cst_end_of_input_not_found = string("end of input not found");
+var cst_scanf_bad_conversion_a = string('scanf: bad conversion "%a"');
+var cst_scanf_bad_conversion_t = string('scanf: bad conversion "%t"');
+var cst_scanf_missing_reader = string("scanf: missing reader");
+var cst_scanf_bad_conversion_custom_converter = string(
   'scanf: bad conversion "%?" (custom converter)'
 );
-var cst_scanf_bad_conversion = caml_new_string('scanf: bad conversion "%*"');
-var cst_scanf_bad_conversion__1 = caml_new_string('scanf: bad conversion "%*"'
-);
-var cst_scanf_bad_conversion__0 = caml_new_string('scanf: bad conversion "%-"'
-);
-var cst_scanf_bad_conversion__2 = caml_new_string('scanf: bad conversion "%*"'
-);
-var cst__2 = caml_new_string('"');
-var cst__3 = caml_new_string('"');
-var cst__1 = caml_new_string('"');
-var cst_in_format = caml_new_string(' in format "');
-var cst_an = caml_new_string("an");
-var cst_x = caml_new_string("x");
-var cst_nfinity = caml_new_string("nfinity");
-var cst_digits = caml_new_string("digits");
-var cst_decimal_digits = caml_new_string("decimal digits");
-var cst_0b = caml_new_string("0b");
-var cst_0o = caml_new_string("0o");
-var cst_0u = caml_new_string("0u");
-var cst_0x = caml_new_string("0x");
-var cst_false = caml_new_string("false");
-var cst_true = caml_new_string("true");
-var cst_not_a_valid_float_in_hexadecimal_notation = caml_new_string(
+var cst_scanf_bad_conversion = string('scanf: bad conversion "%*"');
+var cst_scanf_bad_conversion__1 = string('scanf: bad conversion "%*"');
+var cst_scanf_bad_conversion__0 = string('scanf: bad conversion "%-"');
+var cst_scanf_bad_conversion__2 = string('scanf: bad conversion "%*"');
+var cst__2 = string('"');
+var cst__3 = string('"');
+var cst__1 = string('"');
+var cst_in_format = string(' in format "');
+var cst_an = string("an");
+var cst_x = string("x");
+var cst_nfinity = string("nfinity");
+var cst_digits = string("digits");
+var cst_decimal_digits = string("decimal digits");
+var cst_0b = string("0b");
+var cst_0o = string("0o");
+var cst_0u = string("0u");
+var cst_0x = string("0x");
+var cst_false = string("false");
+var cst_true = string("true");
+var cst_not_a_valid_float_in_hexadecimal_notation = string(
   "not a valid float in hexadecimal notation"
 );
-var cst_no_dot_or_exponent_part_found_in_float_token = caml_new_string(
+var cst_no_dot_or_exponent_part_found_in_float_token = string(
   "no dot or exponent part found in float token"
 );
-var cst__0 = caml_new_string("-");
-var cst_unnamed_function = caml_new_string("unnamed function");
-var cst_unnamed_character_string = caml_new_string("unnamed character string");
-var cst_unnamed_Pervasives_input_channel = caml_new_string(
+var cst__0 = string("-");
+var cst_unnamed_function = string("unnamed function");
+var cst_unnamed_character_string = string("unnamed character string");
+var cst_unnamed_Pervasives_input_channel = string(
   "unnamed Pervasives input channel"
 );
-var cst = caml_new_string("-");
-var cst_Scanf_Scan_failure = caml_new_string("Scanf.Scan_failure");
-var cst_binary = caml_new_string("binary");
-var cst_octal = caml_new_string("octal");
-var cst_hexadecimal = caml_new_string("hexadecimal");
-var cst_a_Char = caml_new_string("a Char");
-var cst_a_String = caml_new_string("a String");
+var cst = string("-");
+var cst_Scanf_Scan_failure = string("Scanf.Scan_failure");
+var cst_binary = string("binary");
+var cst_octal = string("octal");
+var cst_hexadecimal = string("hexadecimal");
+var cst_a_Char = string("a Char");
+var cst_a_String = string("a String");
 var CamlinternalFormat = global_data["CamlinternalFormat"];
 var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
 var String = global_data["String_"];
@@ -115,95 +112,74 @@ var List = global_data["List_"];
 var Not_found = global_data["Not_found"];
 var v_ = [0,91];
 var v9 = [0,123];
-var wa = [0,caml_new_string("scanf.ml"),1455,13];
-var wb = [0,[3,0,[10,0]],caml_new_string("%S%!")];
-var v8 = [0,37,caml_new_string("")];
+var wa = [0,string("scanf.ml"),1455,13];
+var wb = [0,[3,0,[10,0]],string("%S%!")];
+var v8 = [0,37,string("")];
 var v7 = [
   0,
   [
     11,
-    caml_new_string("scanf: bad input at char number "),
-    [4,3,0,0,[11,caml_new_string(": "),[2,0,0]]]
+    string("scanf: bad input at char number "),
+    [4,3,0,0,[11,string(": "),[2,0,0]]]
   ],
-  caml_new_string("scanf: bad input at char number %i: %s")
+  string("scanf: bad input at char number %i: %s")
 ];
 var v6 = [
   0,
-  [
-    11,
-    caml_new_string("the character "),
-    [1,[11,caml_new_string(" cannot start a boolean"),0]]
-  ],
-  caml_new_string("the character %C cannot start a boolean")
+  [11,string("the character "),[1,[11,string(" cannot start a boolean"),0]]],
+  string("the character %C cannot start a boolean")
 ];
 var v5 = [
   0,
-  [11,caml_new_string("bad character hexadecimal encoding \\"),[0,[0,0]]],
-  caml_new_string("bad character hexadecimal encoding \\%c%c")
+  [11,string("bad character hexadecimal encoding \\"),[0,[0,0]]],
+  string("bad character hexadecimal encoding \\%c%c")
 ];
 var v4 = [
   0,
-  [11,caml_new_string("bad character decimal encoding \\"),[0,[0,[0,0]]]],
-  caml_new_string("bad character decimal encoding \\%c%c%c")
+  [11,string("bad character decimal encoding \\"),[0,[0,[0,0]]]],
+  string("bad character decimal encoding \\%c%c%c")
 ];
 var v3 = [
   0,
   [
     11,
-    caml_new_string("character "),
-    [
-      1,
-      [
-        11,
-        caml_new_string(" is not a valid "),
-        [2,0,[11,caml_new_string(" digit"),0]]
-      ]
-    ]
+    string("character "),
+    [1,[11,string(" is not a valid "),[2,0,[11,string(" digit"),0]]]]
   ],
-  caml_new_string("character %C is not a valid %s digit")
+  string("character %C is not a valid %s digit")
 ];
 var v2 = [
   0,
-  [
-    11,
-    caml_new_string("character "),
-    [1,[11,caml_new_string(" is not a decimal digit"),0]]
-  ],
-  caml_new_string("character %C is not a decimal digit")
+  [11,string("character "),[1,[11,string(" is not a decimal digit"),0]]],
+  string("character %C is not a decimal digit")
 ];
-var v1 = [0,caml_new_string("scanf.ml"),555,9];
+var v1 = [0,string("scanf.ml"),555,9];
 var v0 = [
   0,
-  [11,caml_new_string("invalid boolean '"),[2,0,[12,39,0]]],
-  caml_new_string("invalid boolean '%s'")
+  [11,string("invalid boolean '"),[2,0,[12,39,0]]],
+  string("invalid boolean '%s'")
 ];
 var vZ = [
   0,
-  [
-    11,
-    caml_new_string("looking for "),
-    [1,[11,caml_new_string(", found "),[1,0]]]
-  ],
-  caml_new_string("looking for %C, found %C")
+  [11,string("looking for "),[1,[11,string(", found "),[1,0]]]],
+  string("looking for %C, found %C")
 ];
 var vY = [
   0,
   [
     11,
-    caml_new_string("scanning of "),
+    string("scanning of "),
     [
       2,
       0,
       [
         11,
-        caml_new_string(
-          " failed: premature end of file occurred before end of token"
-        ),
+        string(" failed: premature end of file occurred before end of token"),
         0
       ]
     ]
   ],
-  caml_new_string(
+  string(
     "scanning of %s failed: premature end of file occurred before end of token"
   )
 ];
@@ -211,27 +187,20 @@ var vX = [
   0,
   [
     11,
-    caml_new_string("scanning of "),
+    string("scanning of "),
     [
       2,
       0,
-      [
-        11,
-        caml_new_string(
-          " failed: the specified length was too short for token"
-        ),
-        0
-      ]
+      [11,string(" failed: the specified length was too short for token"),0]
     ]
   ],
-  caml_new_string(
-    "scanning of %s failed: the specified length was too short for token"
+  string("scanning of %s failed: the specified length was too short for token"
   )
 ];
 var vW = [
   0,
-  [11,caml_new_string("illegal escape character "),[1,0]],
-  caml_new_string("illegal escape character %C")
+  [11,string("illegal escape character "),[1,0]],
+  string("illegal escape character %C")
 ];
 var null_char = 0;
 
