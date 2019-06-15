@@ -51,7 +51,7 @@ dramatically (Java, VimScript).
 Make sure you have `esy --version` > `0.5.4`. If not install using the
 instructions on [the esy site](https://esy.sh).
 
-Then `git clone` this repo and run the following to intall/build then test.
+Then `git clone` this repo and run the following to install/build then test.
 
 ```
 esy
