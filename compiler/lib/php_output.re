@@ -117,19 +117,6 @@
 
  */
 
-/* Transforming OO style prototype objects:
-      We only need to perform minimal support for this, for externs and the
-      standard library:
-
-   - $xyz->apply(NULL, arg, arg)
-   - $X = function() {$this->x = 0;};
-     $X->prototype = (object) {
-       'methName' => function() {$this->doIt()}
-     }
-     new X($arg)
-
-   */
-
 /* Understanding Php/Hack References:
    - With ==> everything is scoped by "value" (local copy on write semantics). No mutating of what a var points to.
    - With function() use($var) everything is scoped by "value" (local copy on write semantics).
@@ -157,10 +144,6 @@
    When they are turned into objects you can't get at those fields except by obj->{'1'} syntax.
 
    https://stackoverflow.com/questions/13761335/how-to-set-attributes-for-stdclass-object-at-the-time-object-creation
-
-   Make sure you test representations of (object) [array] in 7.2 as well as 7.1 as
-   the key coercing behavior changed:
-   http://sandbox.onlinephpfunctions.com/
 
    There is just no way to convert an array with integer keys to an object such
    that the fields are accessible in 7.1 and 7.2.
@@ -974,7 +957,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
      */
     | EObj(lst) =>
       PP.start_group(f, 1);
-      PP.string(f, "(object)darray[");
+      PP.string(f, "darray[");
       PP.break(f);
       property_name_and_value_list(f, lst);
       PP.string(f, "]");
