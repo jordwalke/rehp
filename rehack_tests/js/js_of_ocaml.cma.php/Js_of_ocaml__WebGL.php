@@ -39,7 +39,7 @@ final class Js_of_ocaml__WebGL {
     $cst_webglcontextcreationerror = $string("webglcontextcreationerror");
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
-    $defaultContextAttributes = (object)darray[
+    $defaultContextAttributes = darray[
      "alpha"=>$Js_of_ocaml_Js[7],
      "depth"=>$Js_of_ocaml_Js[7],
      "stencil"=>$Js_of_ocaml_Js[8],

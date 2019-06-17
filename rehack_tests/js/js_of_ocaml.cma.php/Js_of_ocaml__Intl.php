@@ -149,7 +149,7 @@ final class Js_of_ocaml__Intl {
       };
       $o6 = "best fit";
       return (function(dynamic $t0, dynamic $param) {
-         return (object)darray["localeMatcher"=>$t0];
+         return darray["localeMatcher"=>$t0];
        })($o6, $o5);
     };
     $mL = Vector{0, 0, 0, 0};
@@ -234,7 +234,7 @@ final class Js_of_ocaml__Intl {
       $oM = "best fit";
       return (function
        (dynamic $t1, dynamic $t2, dynamic $t3, dynamic $t4, dynamic $t5, dynamic $t6, dynamic $param) {
-         return (object)darray[
+         return darray[
           "localeMatcher"=>$t1,
           "usage"=>$t2,
           "sensitivity"=>$t3,
@@ -398,7 +398,7 @@ final class Js_of_ocaml__Intl {
       $n8 = "best fit";
       return (function
        (dynamic $t7, dynamic $t8, dynamic $t9, dynamic $t10, dynamic $t11, dynamic $t12, dynamic $t13, dynamic $t14, dynamic $t15, dynamic $t16, dynamic $t17, dynamic $t18, dynamic $t19, dynamic $t20, dynamic $param) {
-         return (object)darray[
+         return darray[
           "localeMatcher"=>$t7,
           "timeZone"=>$t8,
           "hour12"=>$t9,
@@ -550,7 +550,7 @@ final class Js_of_ocaml__Intl {
       $nt = "best fit";
       return (function
        (dynamic $t21, dynamic $t22, dynamic $t23, dynamic $t24, dynamic $t25, dynamic $t26, dynamic $t27, dynamic $t28, dynamic $t29, dynamic $t30, dynamic $param) {
-         return (object)darray[
+         return darray[
           "localeMatcher"=>$t21,
           "style"=>$t22,
           "currency"=>$t23,
@@ -600,8 +600,7 @@ final class Js_of_ocaml__Intl {
       };
       $m8 = "cardinal";
       $m9 = "best fit";
-      return (function(dynamic $t31, dynamic $t32, dynamic $param) {
-         return (object)darray["localeMatcher"=>$t31,"type"=>$t32];
+      return (function(dynamic $t31, dynamic $t32, dynamic $param) {return darray["localeMatcher"=>$t31,"type"=>$t32];
        })($m9, $m8, $m7);
     };
     $PluralRules = Vector{0, $object_options, $options__2};

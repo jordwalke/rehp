@@ -36,7 +36,7 @@ final class Js_of_ocaml__EventSource {
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
     $withCredentials = function(dynamic $b) use ($call1,$caml_get_public_method) {
-      $init = (object)darray[];
+      $init = darray[];
       $lj = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -893090218, 199), $x);
       };

@@ -231,7 +231,7 @@ final class Js_of_ocaml__Js {
     $error_constr = (function(dynamic $t10, dynamic $param) {return $t10->Error;
      })($n, $m);
     
-    $call2($Callback[2], $cst_jsError, Vector{0, $Error, (object)darray[]});
+    $call2($Callback[2], $cst_jsError, Vector{0, $Error, darray[]});
     
     $raise_js_error =  (function($exn) {throw $exn;}) ;
     $o = function(dynamic $x) use ($call1,$caml_get_public_method) {

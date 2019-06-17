@@ -663,7 +663,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
     
     $joo_global_object->jsoo_runtime =
       $ObjectLiteral(
-        (object)darray[
+        darray[
          "caml_ephe_check_data"=>$caml_ephe_check_data,
          "caml_ephe_unset_data"=>$caml_ephe_unset_data,
          "caml_ephe_set_data"=>$caml_ephe_set_data,

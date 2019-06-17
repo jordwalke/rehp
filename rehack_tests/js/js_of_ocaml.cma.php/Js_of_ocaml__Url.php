@@ -729,7 +729,7 @@ final class Js_of_ocaml__Url {
       $qC = $Js_of_ocaml_Js[3];
       $l = (function
        (dynamic $t29, dynamic $t30, dynamic $t31, dynamic $t32, dynamic $t33, dynamic $t34, dynamic $t35, dynamic $t36, dynamic $t37, dynamic $t38, dynamic $t39, dynamic $t40, dynamic $param) use ($caml_js_wrap_meth_callback) {
-         return (object)darray[
+         return darray[
           "href"=>$t29,
           "protocol"=>$t30,
           "host"=>$t31,

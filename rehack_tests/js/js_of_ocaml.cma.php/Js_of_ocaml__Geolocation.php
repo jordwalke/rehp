@@ -33,9 +33,7 @@ final class Js_of_ocaml__Geolocation {
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $empty_position_options = function(dynamic $param) {
-      return (object)darray[];
-    };
+    $empty_position_options = function(dynamic $param) {return darray[];};
     $mz = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 82957527, 235), $x);
     };

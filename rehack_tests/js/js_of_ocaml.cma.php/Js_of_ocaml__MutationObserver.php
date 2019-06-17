@@ -35,8 +35,7 @@ final class Js_of_ocaml__MutationObserver {
     $global_data = $runtime["caml_get_global_data"]();
     $Array = $global_data["Array_"];
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $empty_mutation_observer_init = function(dynamic $param) {
-      return (object)darray[];
+    $empty_mutation_observer_init = function(dynamic $param) {return darray[];
     };
     $pG = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, -412262690, 258), $x);
