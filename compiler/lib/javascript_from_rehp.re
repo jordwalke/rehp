@@ -99,7 +99,13 @@ and from_expression = e =>
   | EArrLen(e) => EDot(from_expression(e), "length")
   | EArityTest(e) => EDot(from_expression(e), "length")
   | ECond(e1, e2, e3) =>
-    ECond(from_expression(e1), from_expression(e2), from_expression(e3))
+    e1 == e2
+      ? EBin(Or, from_expression(e1), from_expression(e3))
+      : ECond(
+          from_expression(e1),
+          from_expression(e2),
+          from_expression(e3),
+        )
   | EBin(binop, e1, e2) =>
     EBin(from_binop(binop), from_expression(e1), from_expression(e2))
   | EUn(unop, e) => from_unop(unop, from_expression(e))

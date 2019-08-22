@@ -204,7 +204,7 @@ $detectList = function(dynamic $maxLength, dynamic $o) use (
     }
     $tag = $caml_obj_tag($o__0);
     $c = $tag === 252 ? 1 : (0);
-    $d = $c || ($tag === 254 ? 1 : (0));
+    $d = $c ? $c : ($tag === 254 ? 1 : (0));
     if (0 === $d) {
       $match = $tag === 1000 ? 1 : (0);
       if (0 === $match) {
