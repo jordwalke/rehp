@@ -1,62 +1,23 @@
-let f1 = g => {
-  for (i in 2 to 3) {
-    g(i);
-  };
-};
-let f2 = g => {
-  for (i in 2 to 3) {
-    for (j in 4 to 5) {
-      g(i + j);
+let rec detectList: type o. (~maxLength: int, o) => bool =
+  (~maxLength, o) =>
+    if (maxLength === 0) {
+      true;
+    } else {
+      let magicO = Obj.magic(o);
+      let tag = Obj.tag(magicO);
+      tag === Obj.string_tag || tag === Obj.double_array_tag
+        ? {
+          print_endline("NOT A LIST BECAUSE TAG IS: " ++ string_of_int(tag));
+          false;
+        }
+        : tag === Obj.int_tag
+            ? magicO == Obj.repr([])
+            : {
+              let size = Obj.size(magicO);
+              tag === Obj.first_non_constant_constructor_tag
+              && size === 2
+              && detectList(~maxLength=maxLength - 1, Obj.field(magicO, 1));
+            };
     };
-  };
-};
-let f3 = g => {
-  for (i in 2 to 3) {
-    for (j in 4 to 5) {
-      for (k in 4 to 5) {
-        g(i + j + k);
-      };
-    };
-    for (l in 6 to 7) {
-      g(i + l);
-    };
-  };
-};
-let f4 = g => {
-  for (i in 2 to 3) {
-    for (k in 4 to 5) {
-      g(i + k);
-    };
-    for (j in 4 to 5) {
-      for (k in 4 to 5) {
-        for (l in 4 to 5) {
-          g(i + j + k + l);
-        };
-      };
-      for (k in 4 to 5) {
-        g(i + j + k);
-      };
-    };
-    for (l in 6 to 7) {
-      for (n in 4 to 5) {
-        g(i + l + n);
-      };
-      for (m in 4 to 5) {
-        for (n in 4 to 5) {
-          g(i + l + m + n);
-        };
-      };
-    };
-    for (k in 4 to 5) {
-      g(i + k);
-    };
-  };
-  for (k in 4 to 5) {
-    g(k);
-  };
-};
-let fx = (prefix, x) => print_endline("prefix " ++ string_of_int(x));
-f1(fx("f1"));
-f2(fx("f2"));
-f3(fx("f3"));
-f4(fx("f4"));
+
+detectList(3, 4);
