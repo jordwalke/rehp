@@ -124,7 +124,7 @@ final class Sort {
             $i = Vector{0, (int) ($lo__0 + 1)};
             $j = Vector{0, (int) ($hi__0 + -1)};
             $cI = 1 - $call2($cmp, $pivot, $arr[$hi__0 + 1]);
-            $cJ = $cI || 1 - $call2($cmp, $arr[$lo__0 + 1], $pivot);
+            $cJ = $cI ? $cI : (1 - $call2($cmp, $arr[$lo__0 + 1], $pivot));
             if ($cJ) {
               throw $runtime["caml_wrap_thrown_exception"](
                       Vector{0, $Invalid_argument, $cst_Sort_array}

@@ -2194,7 +2194,7 @@ final class Js_of_ocaml__CSS {
       $red = $param[1];
       $in_range = function(dynamic $i) use ($Invalid_argument,$Pervasives,$call1,$call2,$cst_is_out_of_valid_range,$runtime) {
         $e5 = $i < 0 ? 1 : (0);
-        $e6 = $e5 || (255 < $i ? 1 : (0));
+        $e6 = $e5 ? $e5 : (255 < $i ? 1 : (0));
         if ($e6) {
           $e7 = $call1($Pervasives[21], $i);
           throw $runtime["caml_wrap_thrown_exception"](
