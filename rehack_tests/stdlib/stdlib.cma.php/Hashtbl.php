@@ -72,7 +72,7 @@ final class Hashtbl {
     };
     $ongoing_traversal = function(dynamic $h) {
       $rl = $h->count() - 1 < 4 ? 1 : (0);
-      $rm = $rl || ($h[4] < 0 ? 1 : (0));
+      $rm = $rl ? $rl : ($h[4] < 0 ? 1 : (0));
       return $rm;
     };
     $flip_ongoing_traversal = function(dynamic $h) {

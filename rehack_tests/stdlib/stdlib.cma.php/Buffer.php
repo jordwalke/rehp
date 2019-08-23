@@ -327,8 +327,9 @@ final class Buffer {
       }
       else {
         $hy = $len < 0 ? 1 : (0);
-        $hx = $hy ||
-          ((int) ($caml_ml_string_length($s) - $len) < $offset ? 1 : (0));
+        $hx = $hy
+          ? $hy
+          : ((int) ($caml_ml_string_length($s) - $len) < $offset ? 1 : (0));
       }
       if ($hx) {
         $call1($Pervasives[1], $cst_Buffer_add_substring_add_subbytes);
@@ -376,7 +377,7 @@ final class Buffer {
     };
     $add_channel = function(dynamic $b, dynamic $ic, dynamic $len) use ($Pervasives,$Sys,$add_channel_rec,$call1,$cst_Buffer_add_channel,$resize) {
       $ht = $len < 0 ? 1 : (0);
-      $hu = $ht || ($Sys[13] < $len ? 1 : (0));
+      $hu = $ht ? $ht : ($Sys[13] < $len ? 1 : (0));
       if ($hu) {$call1($Pervasives[1], $cst_Buffer_add_channel);}
       if ($b[3] < (int) ($b[2] + $len)) {$resize($b, $len);}
       return $add_channel_rec($b, $ic, $len);

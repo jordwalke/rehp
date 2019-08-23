@@ -7142,7 +7142,7 @@ final class CamlinternalFormat {
               case 3:
                 if ($legacy_behavior__0) {
                   $iT = (int) ($str_ind + 1);
-                  $minus__0 = $minus || (45 === $symb ? 1 : (0));
+                  $minus__0 = $minus ? $minus : (45 === $symb ? 1 : (0));
                   return $parse_literal($minus__0, $iT);
                 }
                 break;
@@ -7343,7 +7343,9 @@ final class CamlinternalFormat {
       $parse_good_break = function(dynamic $str_ind, dynamic $end_ind) use ($Failure,$Not_found,$String,$call3,$caml_string_get,$caml_wrap_exception,$formatting_lit,$parse,$parse_integer,$parse_spaces,$runtime,$str,$unsigned_right_shift_32) {
         try {
           $iI = $str_ind === $end_ind ? 1 : (0);
-          $iJ = $iI || (60 !== $caml_string_get($str, $str_ind) ? 1 : (0));
+          $iJ = $iI
+            ? $iI
+            : (60 !== $caml_string_get($str, $str_ind) ? 1 : (0));
           if ($iJ) {
             throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
           }

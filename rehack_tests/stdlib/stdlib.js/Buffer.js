@@ -273,7 +273,7 @@ function add_substring(b, s, offset, len) {
   if (hw) var hx = hw;
   else {
     var hy = len < 0 ? 1 : 0;
-    var hx = hy || ((caml_ml_string_length(s) - len | 0) < offset ? 1 : 0);
+    var hx = hy ? hy : (caml_ml_string_length(s) - len | 0) < offset ? 1 : 0;
   }
   if (hx) {call1(Pervasives[1], cst_Buffer_add_substring_add_subbytes);}
   var new_position = b[2] + len | 0;
@@ -318,7 +318,7 @@ function add_channel_rec(b, ic, len) {
 
 function add_channel(b, ic, len) {
   var ht = len < 0 ? 1 : 0;
-  var hu = ht || (Sys[13] < len ? 1 : 0);
+  var hu = ht ? ht : Sys[13] < len ? 1 : 0;
   if (hu) {call1(Pervasives[1], cst_Buffer_add_channel);}
   if (b[3] < (b[2] + len | 0)) {resize(b, len);}
   return add_channel_rec(b, ic, len);

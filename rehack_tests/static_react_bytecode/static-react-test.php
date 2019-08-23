@@ -1117,7 +1117,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
         $curDidBreak = $param[2];
         $curTotalLen = $param[1];
         $containsNewline = $contains($itm, 10);
-        $curDidBreak__0 = $curDidBreak || $containsNewline;
+        $curDidBreak__0 = $curDidBreak ? $curDidBreak : ($containsNewline);
         return Vector{
           0,
           (int)

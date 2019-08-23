@@ -2150,7 +2150,7 @@ function getBreakData(itms) {
       var curDidBreak = param[2];
       var curTotalLen = param[1];
       var containsNewline = contains(itm, 10);
-      var curDidBreak__0 = curDidBreak || containsNewline;
+      var curDidBreak__0 = curDidBreak ? curDidBreak : containsNewline;
       return [
         0,
         (curTotalLen + caml_ml_string_length(itm) | 0) + 2 | 0,

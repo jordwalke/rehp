@@ -5337,7 +5337,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         case 3:
           if (legacy_behavior__0) {
             var iT = str_ind + 1 | 0;
-            var minus__0 = minus || (45 === symb ? 1 : 0);
+            var minus__0 = minus ? minus : 45 === symb ? 1 : 0;
             return parse_literal(minus__0, iT);
           }
           break
@@ -5519,7 +5519,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
   function parse_good_break(str_ind, end_ind) {
     try {
       var iI = str_ind === end_ind ? 1 : 0;
-      var iJ = iI || (60 !== caml_string_get(str, str_ind) ? 1 : 0);
+      var iJ = iI ? iI : 60 !== caml_string_get(str, str_ind) ? 1 : 0;
       if (iJ) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
       var str_ind_1 = parse_spaces(str_ind + 1 | 0, end_ind);
       var match__0 = caml_string_get(str, str_ind_1);
