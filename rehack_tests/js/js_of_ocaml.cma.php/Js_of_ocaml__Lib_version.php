@@ -31,7 +31,7 @@ final class Js_of_ocaml__Lib_version {
     $runtime = $joo_global_object->jsoo_runtime;
     $string = $runtime["caml_new_string"];
     $s = $string("3.3.0");
-    $git_version = $string("c24aae763");
+    $git_version = $string("d9fe8d55");
     $Js_of_ocaml_Lib_version = Vector{0, $s, $git_version};
     
     $runtime["caml_register_global"](
