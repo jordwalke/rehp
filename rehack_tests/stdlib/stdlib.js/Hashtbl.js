@@ -62,7 +62,7 @@ function seeded_hash(seed, x) {return caml_hash(10, 100, seed, x);}
 
 function ongoing_traversal(h) {
   var rl = h.length - 1 < 4 ? 1 : 0;
-  var rm = rl || (h[4] < 0 ? 1 : 0);
+  var rm = rl ? rl : h[4] < 0 ? 1 : 0;
   return rm;
 }
 

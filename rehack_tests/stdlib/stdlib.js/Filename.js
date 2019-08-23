@@ -194,7 +194,7 @@ function is_dir_sep(s, i) {return 47 === caml_string_get(s, i) ? 1 : 0;}
 
 function is_relative(n) {
   var Ch = caml_ml_string_length(n) < 1 ? 1 : 0;
-  var Ci = Ch || (47 !== caml_string_get(n, 0) ? 1 : 0);
+  var Ci = Ch ? Ch : 47 !== caml_string_get(n, 0) ? 1 : 0;
   return Ci;
 }
 
@@ -202,10 +202,12 @@ function is_implicit(n) {
   var Cc = is_relative(n);
   if (Cc) {
     var Cd = caml_ml_string_length(n) < 2 ? 1 : 0;
-    var Ce = Cd || caml_string_notequal(call3(String[4], n, 0, 2), cst__2);
+    var Ce = Cd ? Cd : caml_string_notequal(call3(String[4], n, 0, 2), cst__2);
     if (Ce) {
       var Cf = caml_ml_string_length(n) < 3 ? 1 : 0;
-      var Cg = Cf || caml_string_notequal(call3(String[4], n, 0, 3), cst__1);
+      var Cg = Cf ?
+        Cf :
+        caml_string_notequal(call3(String[4], n, 0, 3), cst__1);
     }
     else var Cg = Ce;
   }
@@ -252,19 +254,19 @@ function is_dir_sep__0(s, i) {
   var c = caml_string_get(s, i);
   var B4 = 47 === c ? 1 : 0;
   if (B4) var B5 = B4;
-  else {var B6 = 92 === c ? 1 : 0;var B5 = B6 || (58 === c ? 1 : 0);}
+  else {var B6 = 92 === c ? 1 : 0;var B5 = B6 ? B6 : 58 === c ? 1 : 0;}
   return B5;
 }
 
 function is_relative__0(n) {
   var BY = caml_ml_string_length(n) < 1 ? 1 : 0;
-  var BZ = BY || (47 !== caml_string_get(n, 0) ? 1 : 0);
+  var BZ = BY ? BY : 47 !== caml_string_get(n, 0) ? 1 : 0;
   if (BZ) {
     var B0 = caml_ml_string_length(n) < 1 ? 1 : 0;
-    var B1 = B0 || (92 !== caml_string_get(n, 0) ? 1 : 0);
+    var B1 = B0 ? B0 : 92 !== caml_string_get(n, 0) ? 1 : 0;
     if (B1) {
       var B2 = caml_ml_string_length(n) < 2 ? 1 : 0;
-      var B3 = B2 || (58 !== caml_string_get(n, 1) ? 1 : 0);
+      var B3 = B2 ? B2 : 58 !== caml_string_get(n, 1) ? 1 : 0;
     }
     else var B3 = B1;
   }
@@ -276,16 +278,21 @@ function is_implicit__0(n) {
   var BP = is_relative__0(n);
   if (BP) {
     var BQ = caml_ml_string_length(n) < 2 ? 1 : 0;
-    var BR = BQ || caml_string_notequal(call3(String[4], n, 0, 2), cst__7);
+    var BR = BQ ? BQ : caml_string_notequal(call3(String[4], n, 0, 2), cst__7);
     if (BR) {
       var BS = caml_ml_string_length(n) < 2 ? 1 : 0;
-      var BT = BS || caml_string_notequal(call3(String[4], n, 0, 2), cst__6);
+      var BT = BS ?
+        BS :
+        caml_string_notequal(call3(String[4], n, 0, 2), cst__6);
       if (BT) {
         var BU = caml_ml_string_length(n) < 3 ? 1 : 0;
-        var BV = BU || caml_string_notequal(call3(String[4], n, 0, 3), cst__5);
+        var BV = BU ?
+          BU :
+          caml_string_notequal(call3(String[4], n, 0, 3), cst__5);
         if (BV) {
           var BW = caml_ml_string_length(n) < 3 ? 1 : 0;
-          var BX = BW ||
+          var BX = BW ?
+            BW :
             caml_string_notequal(call3(String[4], n, 0, 3), cst__4);
         }
         else var BX = BV;

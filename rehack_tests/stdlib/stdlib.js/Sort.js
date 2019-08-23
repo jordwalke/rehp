@@ -107,7 +107,7 @@ function array(cmp, arr) {
         var i = [0,lo__0 + 1 | 0];
         var j = [0,hi__0 + -1 | 0];
         var cI = 1 - call2(cmp, pivot, arr[hi__0 + 1]);
-        var cJ = cI || 1 - call2(cmp, arr[lo__0 + 1], pivot);
+        var cJ = cI ? cI : 1 - call2(cmp, arr[lo__0 + 1], pivot);
         if (cJ) {
           throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Sort_array]
                 );

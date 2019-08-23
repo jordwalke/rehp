@@ -182,12 +182,7 @@ let simplify_full_if_statement =
     if (x1 != x2) {
       raise(Not_assignment);
     };
-    let exp =
-      if (e1 == e) {
-        J.EBin(J.Or, e, e2);
-      } else {
-        J.ECond(e, e1, e2);
-      };
+    let exp = J.ECond(e, e1, e2);
     [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
   }) {
   | Not_assignment =>
@@ -225,12 +220,7 @@ let simplify_single_statement_if_statement =
     if (x1 != x2) {
       raise(Not_assignment);
     };
-    let exp =
-      if (e1 == e) {
-        J.EBin(J.Or, e, e2);
-      } else {
-        J.ECond(e, e1, e2);
-      };
+    let exp = J.ECond(e, e1, e2);
     [(J.Variable_statement([(x1, Some((exp, loc)))]), loc)];
   }) {
   | Not_assignment =>
