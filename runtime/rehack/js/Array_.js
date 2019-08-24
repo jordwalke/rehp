@@ -1,1 +1,1 @@
-module.exports = require('Array.js');
+module.exports = require('./Array.js');

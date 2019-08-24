@@ -2,9 +2,8 @@
  * Runtime
  * @providesModule Runtime
  */
-"use strict";
 
-let joo_global_object = global;
+joo_global_object = global;
 
 
 var caml_oo_last_id = 0;

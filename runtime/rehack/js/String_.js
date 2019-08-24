@@ -1,1 +1,1 @@
-module.exports = require('String.js');
+module.exports = require('./String.js');
