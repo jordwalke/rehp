@@ -68,18 +68,38 @@ function caml_js_fun_call(f, a) {
   return f.apply(null, caml_js_from_array(a));
 }
 
+// TODO: Replace calls to caml_js_fun_calln with argument length m != n, with
+// just plain calls to caml_js_fun_callm - that way these stubs never need to
+// be shipped. (Same with caml_js_meth_calln).
+
 // TODO: Are the mutable annotations correct?
-// TODO: Replace this with inline calls in generate.ml.
+//Provides: caml_js_fun_call0 (const)
+function caml_js_fun_call0(f) {
+  return f();
+}
+
+// TODO: Are the mutable annotations correct?
 //Provides: caml_js_fun_call1 (const, mutable)
 function caml_js_fun_call1(f, a) {
   return f(a);
 }
 
 // TODO: Are the mutable annotations correct?
-// TODO: Replace this with inline calls in generate.ml.
 //Provides: caml_js_fun_call2 (const, mutable, mutable)
 function caml_js_fun_call2(f, a, b) {
   return f(a, b);
+}
+
+// TODO: Are the mutable annotations correct?
+//Provides: caml_js_fun_call3 (const, mutable, mutable, mutable)
+function caml_js_fun_call3(f, a, b, c) {
+  return f(a, b, c);
+}
+
+// TODO: Are the mutable annotations correct?
+//Provides: caml_js_fun_call4 (const, mutable, mutable, mutable, mutable)
+function caml_js_fun_call4(f, a, b, c, d) {
+  return f(a, b, c, d);
 }
 
 //Provides: caml_js_meth_call (mutable, const, shallow)
@@ -87,6 +107,34 @@ function caml_js_fun_call2(f, a, b) {
 //Requires: caml_js_from_array
 function caml_js_meth_call(o, f, args) {
   return o[f.toString()].apply(o, caml_js_from_array(args));
+}
+
+//Provides: caml_js_meth_call0 (mutable, const)
+//Requires: MlBytes
+//Requires: caml_js_from_array
+function caml_js_meth_call0(o, f) {
+  return o[f.toString()]();
+}
+
+//Provides: caml_js_meth_call1 (mutable, const, mutable)
+//Requires: MlBytes
+//Requires: caml_js_from_array
+function caml_js_meth_call1(o, f, a) {
+  return o[f.toString()].call(o, a);
+}
+
+//Provides: caml_js_meth_call2 (mutable, const, mutable, mutable)
+//Requires: MlBytes
+//Requires: caml_js_from_array
+function caml_js_meth_call2(o, f, a, b) {
+  return o[f.toString()].call(o, a, b);
+}
+
+//Provides: caml_js_meth_call3 (mutable, const, mutable, mutable, mutable)
+//Requires: MlBytes
+//Requires: caml_js_from_array
+function caml_js_meth_call3(o, f, a, b, c) {
+  return o[f.toString()].call(o, a, b, c);
 }
 
 //Provides: caml_js_new (const, shallow)

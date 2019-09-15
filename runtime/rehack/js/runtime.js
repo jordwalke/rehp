@@ -1120,6 +1120,8 @@ function caml_ml_output_char(chanid, c) {
   return 0;
 }
 
+function caml_js_fun_call0(f) {return f();}
+
 function caml_ml_refill_input(chan) {
   var str = chan.refill();
   var str_len = caml_ml_bytes_length(str);
@@ -2099,6 +2101,9 @@ function caml_hash_mix_bigstring(h, bs) {
 }
 
 function caml_set_oo_id(b) {b[2] = caml_oo_last_id++;return b;}
+
+function caml_js_meth_call2(o, f, a, b) {return o[f.toString()].call(o, a, b);
+}
 
 function caml_record_backtrace() {return 0;}
 
@@ -4145,6 +4150,8 @@ function caml_js_export_var() {
   else return joo_global_object;
 }
 
+function caml_js_meth_call0(o, f) {return o[f.toString()]();}
+
 function caml_frexp_float(x) {
   if (x == 0 || ! isFinite(x)) {return [0,x,0];}
   var neg = x < 0;
@@ -4266,6 +4273,8 @@ function caml_js_new(c, a) {
   F.prototype = c.prototype;
   return new F();
 }
+
+function caml_js_meth_call1(o, f, a) {return o[f.toString()].call(o, a);}
 
 function caml_format_int(fmt, i) {
   if (caml_jsbytes_of_string(fmt) == "%d") {return caml_new_string("" + i);}
@@ -4413,6 +4422,9 @@ function caml_int64_or(x, y) {
 function caml_js_from_bool(x) {return ! ! x;}
 
 function caml_ml_set_channel_name() {return 0;}
+
+function caml_js_meth_call3(o, f, a, b, c) {return o[f.toString()].call(o, a, b, c);
+}
 
 function caml_lazy_make_forward(v) {return [250,v];}
 
@@ -4651,6 +4663,8 @@ function caml_wrap_thrown_exception_reraise(exn) {
   }
   return exn;
 }
+
+function caml_js_fun_call4(f, a, b, c, d) {return f(a, b, c, d);}
 
 function caml_ml_output_int(chanid, i) {
   var arr = [i >> 24 & 255,i >> 16 & 255,i >> 8 & 255,i & 255];
@@ -5062,6 +5076,8 @@ function caml_pure_js_expr(s) {
   return eval(s.toString());
 }
 
+function caml_js_fun_call3(f, a, b, c) {return f(a, b, c);}
+
 function caml_blit_string(s1, i1, s2, i2, len) {return caml_blit_bytes(s1, i1, s2, i2, len);
 }
 
@@ -5179,9 +5195,16 @@ joo_global_object.jsoo_runtime =
     caml_js_wrap_callback: caml_js_wrap_callback,
     caml_ojs_new_arr: caml_ojs_new_arr,
     caml_js_new: caml_js_new,
+    caml_js_meth_call3: caml_js_meth_call3,
+    caml_js_meth_call2: caml_js_meth_call2,
+    caml_js_meth_call1: caml_js_meth_call1,
+    caml_js_meth_call0: caml_js_meth_call0,
     caml_js_meth_call: caml_js_meth_call,
+    caml_js_fun_call4: caml_js_fun_call4,
+    caml_js_fun_call3: caml_js_fun_call3,
     caml_js_fun_call2: caml_js_fun_call2,
     caml_js_fun_call1: caml_js_fun_call1,
+    caml_js_fun_call0: caml_js_fun_call0,
     caml_js_fun_call: caml_js_fun_call,
     caml_js_call: caml_js_call,
     caml_js_var: caml_js_var,

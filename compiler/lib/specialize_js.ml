@@ -80,13 +80,25 @@ let specialize_instr info i rem =
       | _ ->
           i
       end :: rem
-  | Let (x, Prim (Extern "caml_js_fun_call1", [f; a])) ->
+  | Let (x, Prim (Extern "caml_js_fun_call0", [fn])) ->
       begin 
-          Let (x, Prim (Extern "%caml_js_opt_fun_call", f :: [a]))
+          Let (x, Prim (Extern "%caml_js_opt_fun_call", [fn]))
       end :: rem
-  | Let (x, Prim (Extern "caml_js_fun_call2", [f; a; b])) ->
+  | Let (x, Prim (Extern "caml_js_fun_call1", [fn; a])) ->
       begin 
-          Let (x, Prim (Extern "%caml_js_opt_fun_call", f :: [a; b]))
+          Let (x, Prim (Extern "%caml_js_opt_fun_call", fn :: [a]))
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_fun_call2", [fn; a; b])) ->
+      begin 
+          Let (x, Prim (Extern "%caml_js_opt_fun_call", fn :: [a; b]))
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_fun_call3", [fn; a; b; c])) ->
+      begin 
+          Let (x, Prim (Extern "%caml_js_opt_fun_call", fn :: [a; b; c]))
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_fun_call4", [fn; a; b; c; d])) ->
+      begin 
+          Let (x, Prim (Extern "%caml_js_opt_fun_call", fn :: [a; b; c; d]))
       end :: rem
   | Let (x, Prim (Extern "caml_js_meth_call", [o; m; a])) ->
       begin match the_string_of info m with
@@ -101,6 +113,38 @@ let specialize_instr info i rem =
           end
       | _ ->
           i
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_meth_call0", [o; m])) ->
+      begin 
+        begin match the_string_of info m with
+          Some m ->
+            Let (x, Prim (Extern "%caml_js_opt_meth_call", o :: Pc (String m) :: []))
+          | _ -> i
+        end
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_meth_call1", [o; m; a])) ->
+      begin 
+        begin match the_string_of info m with
+          Some m ->
+            Let (x, Prim (Extern "%caml_js_opt_meth_call", o :: Pc (String m) :: [a]))
+          | _ -> i
+        end
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_meth_call2", [o; m; a; b])) ->
+      begin 
+        begin match the_string_of info m with
+          Some m ->
+              Let (x, Prim (Extern "%caml_js_opt_meth_call", o :: Pc (String m) :: [a; b]))
+          | _ -> i
+        end
+      end :: rem
+  | Let (x, Prim (Extern "caml_js_meth_call3", [o; m; a; b; c])) ->
+      begin 
+        begin match the_string_of info m with
+          Some m ->
+              Let (x, Prim (Extern "%caml_js_opt_meth_call", o :: Pc (String m) :: [a; b; c]))
+          | _ -> i
+        end
       end :: rem
   | Let (x, Prim (Extern "caml_js_new", [c; a])) ->
       begin match the_def_of info a with
