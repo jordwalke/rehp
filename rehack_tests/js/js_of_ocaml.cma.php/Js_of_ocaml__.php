@@ -29,35 +29,38 @@ final class Js_of_ocaml__ {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $Js_of_ocaml = Vector{
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    };
     
-    $runtime["caml_register_global"](0, $Js_of_ocaml, "Js_of_ocaml__");
+    $runtime["caml_register_global"](
+      0,
+      Vector{
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      },
+      "Js_of_ocaml__"
+    );
 
   }
 }
