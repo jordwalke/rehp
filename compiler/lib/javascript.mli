@@ -40,7 +40,6 @@ type location = Loc.t =
 
 (* A.3 Expressions *)
 
-
 type identifier = string
 
 type ident_string = Id.ident_string =
@@ -157,7 +156,9 @@ and statement =
       * expression option
       * (statement * location)
   | ForIn_statement of
-      (expression, variable_declaration) Stdlib.either * expression * (statement * location)
+      (expression, variable_declaration) Stdlib.either
+      * expression
+      * (statement * location)
   | Continue_statement of Label.t option
   | Break_statement of Label.t option
   | Return_statement of expression option

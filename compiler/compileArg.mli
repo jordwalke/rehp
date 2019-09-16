@@ -41,7 +41,7 @@ type t =
   ; fs_files : string list
   ; fs_output : string option
   ; fs_external : bool
-  ; backend: Backend.t option }
+  ; backend : Backend.t option }
 
 val options : t Cmdliner.Term.t
 

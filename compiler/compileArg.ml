@@ -43,7 +43,7 @@ type t =
   ; fs_files : string list
   ; fs_output : string option
   ; fs_external : bool
-  ; backend: Backend.t option }
+  ; backend : Backend.t option }
 
 let options =
   let toplevel_section = "OPTIONS (TOPLEVEL)" in
@@ -164,7 +164,10 @@ let options =
   let backend =
     let doc = "Configure the backend to compile to." in
     let backend = RehpDriver.backends in
-    Arg.(value & opt (some (enum backend)) None & info ["backend"] ~docs:backend_section ~doc)
+    Arg.(
+      value
+      & opt (some (enum backend)) None
+      & info ["backend"] ~docs:backend_section ~doc)
   in
   let build_t
       common
@@ -206,7 +209,9 @@ let options =
     let linkall = linkall || toplevel || runtime_only in
     let fs_external = fs_external || (toplevel && nocmis) || runtime_only in
     let input_file =
-      match input_file, runtime_only with "-", _ | _, true -> None | x, false -> Some x
+      match input_file, runtime_only with
+      | "-", _ | _, true -> None
+      | x, false -> Some x
     in
     let output_file =
       match output_file with
@@ -228,7 +233,8 @@ let options =
             ; file
             ; sourceroot = sourcemap_root
             ; sources = []
-            ; sources_content = (if sourcemap_don't_inline_content then None else Some [])
+            ; sources_content =
+                (if sourcemap_don't_inline_content then None else Some [])
             ; names = []
             ; mappings = [] } )
       else None
@@ -240,7 +246,7 @@ let options =
           "Warning: '--source-map' flag ignored because js_of_ocaml was compiled \
            without sourcemap support (install yojson to enable support)\n\
            %!";
-        None )
+        None)
       else source_map
     in
     let params : (string * string) list = List.flatten set_param in

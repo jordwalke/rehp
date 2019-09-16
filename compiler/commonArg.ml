@@ -58,7 +58,7 @@ let disable =
 let pretty =
   let doc = "Pretty print the output." in
   Arg.(value & flag & info ["pretty"] ~doc)
-  
+
 let prettiestJs =
   let doc = "Whether or not the pretty printing of Js should be extra pretty." in
   Arg.(value & flag & info ["prettiest-js"] ~doc)
@@ -76,20 +76,20 @@ let is_quiet =
   Arg.(value & flag & info ["quiet"; "q"] ~doc)
 
 let custom_header =
-  let doc = "Provide a custom header for the generated compiler output, \
-             useful for making the script an \
-             executable file with #!/usr/bin/env node \
-             or integrating with module loaders. Certain strings will be \
-             replaced with the names of relevant compilation units. \
-              ____CompilationUnitName and ____compilationUnitName \
-              ____CompilationOutput \
-              ____ForEachDependencyCompilationUnitName and ____forEachDependencyCompilationUnitName"
+  let doc =
+    "Provide a custom header for the generated compiler output, useful for making the \
+     script an executable file with #!/usr/bin/env node or integrating with module \
+     loaders. Certain strings will be replaced with the names of relevant compilation \
+     units. ____CompilationUnitName and ____compilationUnitName ____CompilationOutput \
+     ____ForEachDependencyCompilationUnitName and \
+     ____forEachDependencyCompilationUnitName"
   in
   Arg.(value & opt (some string) None & info ["custom-header"] ~doc)
 
 let t =
   Term.(
-    pure (fun debug enable disable pretty prettiestJs debuginfo noinline quiet c_header ->
+    pure
+      (fun debug enable disable pretty prettiestJs debuginfo noinline quiet c_header ->
         let enable = if pretty then "pretty" :: enable else enable in
         let enable = if prettiestJs then "prettiest-js" :: enable else enable in
         let enable = if debuginfo then "debuginfo" :: enable else enable in
@@ -102,7 +102,7 @@ let t =
         { debug = {enable = debug; disable = []}
         ; optim = {enable; disable}
         ; quiet
-        ; custom_header = c_header } )
+        ; custom_header = c_header })
     $ debug
     $ enable
     $ disable
@@ -113,7 +113,9 @@ let t =
     $ is_quiet
     $ custom_header)
 
-let on_off on off t = List.iter ~f:on t.enable; List.iter ~f:off t.disable
+let on_off on off t =
+  List.iter ~f:on t.enable;
+  List.iter ~f:off t.disable
 
 let eval t =
   Config.Flag.(on_off enable disable t.optim);
