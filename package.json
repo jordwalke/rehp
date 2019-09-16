@@ -19,11 +19,13 @@
     "ocaml": "~4.6.0"
   },
   "devDependencies": {
+    "@opam/ocamlformat": "0.11.0",
     "@opam/merlin": "*",
     "ocaml": " ~ 4.6.0",
     "@opam/ppx_expect": "*"
   },
   "resolutions": {
+    "@opam/merlin-extend": "0.4",
     "@opam/reason": "let-def/reason:reason.opam#bd07255b6674c3dfae8edb037b6865f8490abaff"
   },
   "optDependencies": {},
