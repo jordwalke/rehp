@@ -860,7 +860,7 @@ and statement = (curOut, input, x) => {
       (outAppend(curOut, eOut), Return_statement(eMapped));
     | Rehp.Labelled_statement(
         _l,
-        (Rehp.For_statement(e1, e2, e3, (s, loc), depth), loc2),
+        (Rehp.For_statement(e1, e2, e3, (s, loc), depth), _loc2),
       ) =>
       for_statement(curOut, input, e1, e2, e3, (s, loc), depth, true)
     | Rehp.Labelled_statement(_) =>

@@ -1879,7 +1879,7 @@ and compile_exn_handling ctx queue (pc, args) handler continuation =
 
 and index_of test li =
   let i = ref (-1) in
-  List.iteri (fun i' e -> if test e then i := i') li;
+  List.iteri ~f:(fun i' e -> if test e then i := i') li;
   if (!i) = (-1) then raise Not_found;
   !i
 
