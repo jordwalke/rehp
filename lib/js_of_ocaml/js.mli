@@ -876,6 +876,11 @@ module Unsafe : sig
         [fun_call f a] calls the Javascript function [f] with the
         arguments given by the array [a]. *)
 
+  external fun_call0 : 'a -> 'b = "caml_js_fun_call0"
+  (** Performs a Javascript function call with no arguments. The expression
+        [fun_call f] calls the Javascript function [f] with no arguments.
+        *)
+
   external fun_call1 : 'a -> 'b -> 'c = "caml_js_fun_call1"
   (** Performs a Javascript function call with one argument. The expression
         [fun_call f a] calls the Javascript function [f] with the argument
@@ -886,10 +891,39 @@ module Unsafe : sig
         [fun_call f a b] calls the Javascript function [f] with the arguments a
         and b. *)
 
+  external fun_call3 : 'a -> 'b -> 'c -> 'd -> 'e = "caml_js_fun_call3"
+  (** Performs a Javascript function call with three arguments. The expression
+        [fun_call f a b c] calls the Javascript function [f] with the arguments
+        a, b and c. *)
+
+  external fun_call4 : 'a -> 'b -> 'c -> 'd -> 'e -> 'f = "caml_js_fun_call4"
+  (** Performs a Javascript function call with four arguments. The expression
+        [fun_call f a b c d] calls the Javascript function [f] with the
+        arguments a, b, c, and d. *)
+
   external meth_call : 'a -> string -> any array -> 'b = "caml_js_meth_call"
   (** Performs a Javascript method call.  The expression
         [meth_call o m a] calls the Javascript method [m] of object [o]
         with the arguments given by the array [a]. *)
+
+  external meth_call0 : 'a -> string -> 'b = "caml_js_meth_call0"
+  (** Performs a Javascript method call with no arguments. The expression
+        [meth_call0 o m] calls the Javascript method [m] of object [o]. *)
+
+  external meth_call1 : 'a -> string -> 'b -> 'c  = "caml_js_meth_call1"
+  (** Performs a Javascript method call with one argument. The expression
+        [meth_call o m a] calls the Javascript method [m] of object [o]
+        with the arguments a *)
+
+  external meth_call2 : 'a -> string -> 'b -> 'c -> 'd = "caml_js_meth_call2"
+  (** Performs a Javascript method call with one argument. The expression
+        [meth_call o m a b] calls the Javascript method [m] of object [o]
+        with the arguments a and b*)
+
+  external meth_call3 : 'a -> string -> 'b -> 'c -> 'd -> 'e = "caml_js_meth_call3"
+  (** Performs a Javascript method call with one argument. The expression
+        [meth_call o m a b c] calls the Javascript method [m] of object [o]
+        with the arguments a, b and c *)
 
   external new_obj : 'a -> any array -> 'b = "caml_js_new"
   (** Create a Javascript object.  The expression [new_obj c a]

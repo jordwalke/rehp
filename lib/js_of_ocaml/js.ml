@@ -51,11 +51,25 @@ module Unsafe = struct
 
   external fun_call : 'a -> any array -> 'b = "caml_js_fun_call"
 
+  external fun_call0 : 'a -> 'b = "caml_js_fun_call0"
+  
   external fun_call1 : 'a -> 'b -> 'c = "caml_js_fun_call1"
 
   external fun_call2 : 'a -> 'b -> 'c -> 'd = "caml_js_fun_call2"
 
+  external fun_call3 : 'a -> 'b -> 'c -> 'd -> 'e = "caml_js_fun_call3"
+
+  external fun_call4 : 'a -> 'b -> 'c -> 'd -> 'e -> 'f = "caml_js_fun_call4"
+
+  external meth_call0 : 'a -> string -> 'b = "caml_js_meth_call0"
+
   external meth_call : 'a -> string -> any array -> 'b = "caml_js_meth_call"
+
+  external meth_call1 : 'a -> string -> 'b -> 'c  = "caml_js_meth_call1"
+
+  external meth_call2 : 'a -> string -> 'b -> 'c -> 'd = "caml_js_meth_call2"
+
+  external meth_call3 : 'a -> string -> 'b -> 'c -> 'd -> 'e = "caml_js_meth_call3"
 
   external new_obj : 'a -> any array -> 'b = "caml_js_new"
 

@@ -64,12 +64,24 @@ void caml_js_fun_call () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call!\n");
   exit(1);
 }
+void caml_js_fun_call0 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call0!\n");
+  exit(1);
+}
 void caml_js_fun_call1 () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call1!\n");
   exit(1);
 }
 void caml_js_fun_call2 () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call2!\n");
+  exit(1);
+}
+void caml_js_fun_call3 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call3!\n");
+  exit(1);
+}
+void caml_js_fun_call4 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_fun_call4!\n");
   exit(1);
 }
 void caml_js_get () {
@@ -94,6 +106,22 @@ void caml_js_instanceof () {
 }
 void caml_js_meth_call () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_meth_call!\n");
+  exit(1);
+}
+void caml_js_meth_call0 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_meth_call0!\n");
+  exit(1);
+}
+void caml_js_meth_call1 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_meth_call1!\n");
+  exit(1);
+}
+void caml_js_meth_call2 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_meth_call2!\n");
+  exit(1);
+}
+void caml_js_meth_call3 () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_meth_call3!\n");
   exit(1);
 }
 void caml_js_new () {
