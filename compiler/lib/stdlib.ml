@@ -144,6 +144,16 @@ module Option = struct
     | Some _ -> true
 end
 
+module Bool = struct
+  external ( <> ) : bool -> bool -> bool = "%notequal"
+
+  external ( = ) : bool -> bool -> bool = "%equal"
+
+  external ( > ) : bool -> bool -> bool = "%greaterthan"
+
+  external equal : bool -> bool -> bool = "%equal"
+end
+
 module Char = struct
   include Char
 
