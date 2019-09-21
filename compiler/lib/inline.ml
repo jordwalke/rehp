@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-open Stdlib
+open! Stdlib
 open Code
 
 let optimizable blocks pc _ =
@@ -36,7 +36,6 @@ let optimizable blocks pc _ =
             List.for_all b.body ~f:(function
                 | Let (_, Prim (Extern "caml_js_eval_string", _)) -> false
                 | Let (_, Prim (Extern "debugger", _)) -> false
-                | Let (_, Prim (Extern "caml_js_raw_expr", _)) -> false
                 | Let
                     ( _
                     , Prim
@@ -82,7 +81,7 @@ let get_closures (_, blocks, _) =
 
 let rewrite_block (pc', handler) pc blocks =
   let block = Addr.Map.find pc blocks in
-  assert (block.handler = None);
+  assert (Option.is_none block.handler);
   let block = {block with handler} in
   let block =
     match block.branch, pc' with
@@ -129,7 +128,7 @@ let rec find_mapping mapping x =
 let simple blocks cont mapping =
   let map_var mapping x =
     let x' = find_mapping mapping x in
-    if x = x' then raise Not_found else x'
+    if Var.equal x x' then raise Not_found else x'
   in
   let map_prim_arg mapping = function
     | Pc c -> Pc c
@@ -155,7 +154,8 @@ let simple blocks cont mapping =
       | Apply (f, args, true) ->
           `Exp (Apply (map_var mapping f, List.map args ~f:(map_var mapping), true))
       | Prim (prim, args) -> `Exp (Prim (prim, List.map args ~f:(map_prim_arg mapping)))
-      | Block (tag, args) -> `Exp (Block (tag, Array.map args ~f:(map_var mapping)))
+      | Block (tag, args, aon) ->
+          `Exp (Block (tag, Array.map args ~f:(map_var mapping), aon))
       | Field (x, i) -> `Exp (Field (map_var mapping x, i))
       | Closure _ -> `Fail
       | Constant _ -> `Fail
@@ -196,7 +196,8 @@ let inline closures live_vars outer_optimizable pc (blocks, free_pc) =
                   [], (Branch (free_pc, [arg]), blocks, free_pc + 1))
             | `Exp exp -> Let (x, exp) :: rem, state
             | `Fail ->
-                if live_vars.(Var.idx f) = 1 && outer_optimizable = f_optimizable
+                if live_vars.(Var.idx f) = 1
+                   && Bool.equal outer_optimizable f_optimizable
                    (* inlining the code of an optimizable function could make
                  this code unoptimized. (wrt to Jit compilers)
                  At the moment, V8 doesn't optimize function containing try..catch.
@@ -232,9 +233,8 @@ let inline closures live_vars outer_optimizable pc (blocks, free_pc) =
                   in
                   [], (Branch (free_pc + 1, args), blocks, free_pc + 2)
                 else
-                  ( (* Format.eprintf "Do not inline because inner:%b outer:%b@." f_has_handler outer_has_handler; *)
-                    i :: rem
-                  , state ))
+                  (* Format.eprintf "Do not inline because inner:%b outer:%b@." f_has_handler outer_has_handler; *)
+                  i :: rem, state)
         | Let (x, Closure (l, (pc, []))) -> (
             let block = Addr.Map.find pc blocks in
             match block with
@@ -243,11 +243,8 @@ let inline closures live_vars outer_optimizable pc (blocks, free_pc) =
               ; handler = None
               ; params = [] } ->
                 let len = List.length l in
-                (* If the variable assigned the result of an extern call is the one
-                returned. *)
                 if Code.Var.compare y y' = 0
                    && Primitive.has_arity prim len
-                   (* If the args of the lambda are forwarded to the extern *)
                    && args_equal l args
                 then Let (x, Prim (Extern "%closure", [Pc (IString prim)])) :: rem, state
                 else i :: rem, state
