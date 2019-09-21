@@ -147,11 +147,23 @@ end
 module Char = struct
   include Char
 
+  let is_alpha = function
+    | 'a' .. 'z' | 'A' .. 'Z' -> true
+    | _ -> false
+
+  let is_num = function
+    | '0' .. '9' -> true
+    | _ -> false
+
   let lowercase_ascii c =
-    if c >= 'A' && c <= 'Z' then Char.unsafe_chr (Char.code c + 32) else c
+    match c with
+    | 'A' .. 'Z' as c -> Char.unsafe_chr (Char.code c + 32)
+    | _ -> c
 
   let uppercase_ascii c =
-    if c >= 'a' && c <= 'z' then Char.unsafe_chr (Char.code c - 32) else c
+    match c with
+    | 'a' .. 'z' as c -> Char.unsafe_chr (Char.code c - 32)
+    | _ -> c
 end
 
 module Bytes = struct
