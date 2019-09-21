@@ -144,6 +144,27 @@ module Option = struct
     | Some _ -> true
 end
 
+module Float = struct
+  type t = float
+
+  let equal (a : float) (b : float) = Poly.compare a b = 0
+
+  (* Re-defined here to stay compatible with OCaml 4.02 *)
+  external classify_float : float -> fpclass = "caml_classify_float"
+
+  external ( < ) : t -> t -> bool = "%lessthan"
+
+  external ( <= ) : t -> t -> bool = "%lessequal"
+
+  external ( <> ) : t -> t -> bool = "%notequal"
+
+  external ( = ) : t -> t -> bool = "%equal"
+
+  external ( > ) : t -> t -> bool = "%greaterthan"
+
+  external ( >= ) : t -> t -> bool = "%greaterequal"
+end
+
 module Bool = struct
   external ( <> ) : bool -> bool -> bool = "%notequal"
 
