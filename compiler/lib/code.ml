@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
-open Stdlib
+open! Stdlib
 
 module Addr = struct
   type t = int
@@ -56,6 +56,8 @@ module Var : sig
   type t
 
   val print : Format.formatter -> t -> unit
+
+  val equal : t -> t -> bool
 
   val idx : t -> int
 
@@ -128,12 +130,14 @@ end = struct
   module T = struct
     type t = int
 
-    let compare v1 v2 = v1 - v2
+    let compare : t -> t -> int = compare
+
+    let equal (a : t) (b : t) = a = b
   end
 
   include T
 
-  let printer = VarPrinter.create ()
+  let printer = VarPrinter.create VarPrinter.Alphabet.javascript
 
   let locations = Hashtbl.create 17
 
@@ -181,9 +185,7 @@ end = struct
     VarPrinter.propagate_name printer i j;
     match get_loc i with
     | None -> ()
-    | Some l ->
-        (*       Format.eprintf "propagate loc\n%!";*)
-        loc j l
+    | Some l -> loc j l
 
   let set_pretty b = VarPrinter.set_pretty printer b
 
@@ -250,13 +252,18 @@ type prim =
   | Le
   | Ult
 
+type array_or_not =
+  | Array
+  | NotArray
+  | Unknown
+
 type constant =
   | String of string
   | IString of string
   | Float of float
   | Float_array of float array
   | Int64 of int64
-  | Tuple of int * constant array
+  | Tuple of int * constant array * array_or_not
   | Int of int32
 
 type prim_arg =
@@ -266,7 +273,7 @@ type prim_arg =
 type expr =
   | Const of int32
   | Apply of Var.t * Var.t list * bool
-  | Block of int * Var.t array
+  | Block of int * Var.t array * array_or_not
   | Field of Var.t * int
   | Closure of Var.t list * cont
   | Constant of constant
@@ -328,7 +335,7 @@ let rec print_constant f x =
       done;
       Format.fprintf f "|]"
   | Int64 i -> Format.fprintf f "%LdL" i
-  | Tuple (tag, a) -> (
+  | Tuple (tag, a, _) -> (
       Format.fprintf f "<%d>" tag;
       match Array.length a with
       | 0 -> ()
@@ -398,7 +405,7 @@ let print_expr f e =
       if exact
       then Format.fprintf f "%a!(%a)" Var.print g print_var_list l
       else Format.fprintf f "%a(%a)" Var.print g print_var_list l
-  | Block (t, a) ->
+  | Block (t, a, _) ->
       Format.fprintf f "{tag=%d" t;
       for i = 0 to Array.length a - 1 do
         Format.fprintf f "; %d = %a" i Var.print a.(i)
@@ -561,9 +568,9 @@ let eq (pc1, blocks1, _) (pc2, blocks2, _) =
          &&
          try
            let block2 = Addr.Map.find pc blocks2 in
-           block1.params = block2.params
-           && block1.branch = block2.branch
-           && block1.body = block2.body
+           Poly.(block1.params = block2.params)
+           && Poly.(block1.branch = block2.branch)
+           && Poly.(block1.body = block2.body)
          with Not_found -> false)
        blocks1
        true
@@ -583,13 +590,13 @@ let invariant (_, blocks, _) =
     let define x =
       if check_defs
       then (
-        assert (defs.(Var.idx x) = false);
+        assert (not defs.(Var.idx x));
         defs.(Var.idx x) <- true)
     in
     let check_expr = function
       | Const _ -> ()
       | Apply (_, _, _) -> ()
-      | Block (_, _) -> ()
+      | Block (_, _, _) -> ()
       | Field (_, _) -> ()
       | Closure (l, cont) ->
           List.iter l ~f:define;
