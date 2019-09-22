@@ -28,6 +28,16 @@ let debug_sourcemap = Debug.find "sourcemap"
 
 type bytecode = string
 
+let normalize_module_name s =
+  match s with
+  | "String" -> "String_"
+  | "string" -> "string_"
+  | "Array" -> "Array_"
+  | "array" -> "array_"
+  | "List" -> "List_"
+  | "list" -> "list_"
+  | _ -> s
+
 let predefined_exceptions =
   [ 0, "Out_of_memory"
   ; 1, "Sys_error"
