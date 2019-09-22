@@ -41,11 +41,16 @@ let gen_file file f =
   in
   try
     let ch = open_out_bin f_tmp in
-    (try f ch with e -> close_out ch; raise e);
+    (try f ch
+     with e ->
+       close_out ch;
+       raise e);
     close_out ch;
     (try Sys.remove file with Sys_error _ -> ());
     Sys.rename f_tmp file
-  with exc -> Sys.remove f_tmp; raise exc
+  with exc ->
+    Sys.remove f_tmp;
+    raise exc
 
 (* Ensures a directory exists. Will fail if path is a non-dir file.
    Containing directory must already exist. *)
@@ -56,7 +61,7 @@ let ensure_dir dir =
     if not (Sys.is_directory dir)
     then
       raise
-        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")) )
+        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")))
   else Unix.mkdir dir 0o777
 
 let prepend_fs_support p =
@@ -84,7 +89,11 @@ let f
     ; fs_external
     ; export_file } =
   let dynlink = dynlink || toplevel || runtime_only in
-  let backend = match backend with None -> Backend.Js | Some be -> be in
+  let backend =
+    match backend with
+    | None -> Backend.Js
+    | Some be -> be
+  in
   let custom_header = common.CommonArg.custom_header in
   let custom_header =
     match backend, custom_header with
@@ -92,10 +101,10 @@ let f
     | _, None -> "/*____CompilationOutput*/"
   in
   CommonArg.eval common;
-  ( match output_file with
+  (match output_file with
   | None | Some "" | Some "-" -> ()
   | Some name when debug_mem () -> Debug.start_profiling name
-  | Some _ -> () );
+  | Some _ -> ());
   List.iter params ~f:(fun (s, v) -> Config.Param.set s v);
   List.iter static_env ~f:(fun (s, v) -> Eval.set_static_env s v);
   let t = Timer.make () in
@@ -110,7 +119,7 @@ let f
               | pkg :: l -> pkg, List.fold_left l ~init:"" ~f:Filename.concat
             in
             Filename.concat (Findlib.find_pkg_dir pkg) d'
-        | None -> d )
+        | None -> d)
   in
   let expunge =
     match export_file with
@@ -120,20 +129,25 @@ let f
         then failwith (Printf.sprintf "export file %S does not exists" file);
         let ic = open_in file in
         let t = Hashtbl.create 17 in
-        ( try
-            while true do
-              Hashtbl.add t (input_line ic) ()
-            done;
-            assert false
-          with End_of_file -> () );
+        (try
+           while true do
+             Hashtbl.add t (input_line ic) ()
+           done;
+           assert false
+         with End_of_file -> ());
         close_in ic;
-        Some (fun s -> try Hashtbl.find t s; `Keep with Not_found -> `Skip)
+        Some
+          (fun s ->
+            try
+              Hashtbl.find t s;
+              `Keep
+            with Not_found -> `Skip)
   in
   (* Benchmarking shows this takes on the order of 100ms *)
   Linker.load_files ~backend runtime_files;
   let paths =
-    try List.append include_dir [Findlib.find_pkg_dir "stdlib"] with Not_found ->
-      include_dir
+    try List.append include_dir [Findlib.find_pkg_dir "stdlib"]
+    with Not_found -> include_dir
   in
   let t1 = Timer.make () in
   if times () then Format.eprintf "Start parsing...@.";
@@ -177,7 +191,8 @@ let f
               ~debug:need_debug
               ch
           in
-          close_in ch; res
+          close_in ch;
+          res
   in
   let output p cmis d standalone compunit_name ordered_compunit_deps complete_output_file
       =
@@ -197,7 +212,7 @@ let f
         List.map static_env ~f:(fun (k, v) ->
             Primitive.add_external "caml_set_static_env";
             let args = [Code.Pc (IString k); Code.Pc (IString v)] in
-            Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))) )
+            Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))))
       in
       Code.prepend p l
     in
@@ -210,7 +225,7 @@ let f
         ordered_compunit_deps
     in
     (* The -o file to output to. *)
-    ( match complete_output_file with
+    (match complete_output_file with
     | None ->
         let p = PseudoFs.f p cmis fs_files paths in
         let fmt = Pretty_print.to_out_channel stdout in
@@ -239,15 +254,14 @@ let f
               ~custom_header
               fmt
               d
-              p );
+              p);
         Stdlib.Option.iter
           ~f:(fun file ->
             gen_file file (fun chan ->
                 let pfs = PseudoFs.f_empty cmis fs_files paths in
                 let pfs_fmt = Pretty_print.to_out_channel chan in
-                RehpDriver.f ~standalone ?profile ~custom_header ~backend pfs_fmt d pfs
-            ) )
-          fs_output );
+                RehpDriver.f ~standalone ?profile ~custom_header ~backend pfs_fmt d pfs))
+          fs_output);
     if times () then Format.eprintf "compilation: %a@." Timer.print t;
     Debug.stop_profiling ()
   in
@@ -264,7 +278,9 @@ let f
         (List.map ~f:Ident.name ordered_compunit_deps)
         output_file
   | Parsed_library lst ->
-      (match output_file with None -> () | Some file -> ensure_dir file);
+      (match output_file with
+      | None -> ()
+      | Some file -> ensure_dir file);
       List.iter
         ~f:(fun (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
           (* If compiling a library and passing the -o flag, it is assumed that -o
@@ -281,8 +297,7 @@ let f
                 Some
                   (Filename.concat file (compunit_name ^ "." ^ Backend.extension backend))
           in
-          output p cmis d false compunit_name ordered_compunit_deps complete_output_file
-          )
+          output p cmis d false compunit_name ordered_compunit_deps complete_output_file)
         lst
 
 let main = Cmdliner.Term.(pure f $ CompileArg.options), CompileArg.info
