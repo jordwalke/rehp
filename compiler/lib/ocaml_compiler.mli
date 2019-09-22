@@ -16,6 +16,28 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-val obj_of_const : Lambda.structured_constant -> Obj.t
+val constant_of_const : Lambda.structured_constant -> Code.constant
 
 val find_loc_in_summary : Ident.t -> Env.summary -> Location.t option
+
+module Symtable : sig
+  module GlobalMap : sig
+    type t
+
+    val filter_global_map : (Ident.t -> bool) -> t -> t
+
+    val find : Ident.t -> t -> int
+
+    val iter : (Ident.t -> int -> unit) -> t -> unit
+
+    val fold : (Ident.t -> int -> 'a -> 'a) -> t -> 'a -> 'a
+  end
+
+  val reloc_ident : string -> int
+end
+
+module Ident : sig
+  type 'a tbl = 'a Ident.tbl
+
+  val table_contents : int -> int Ident.tbl -> (int * string * Ident.t) list
+end
