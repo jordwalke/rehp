@@ -22,7 +22,7 @@ open Js_of_ocaml_compiler
 type t =
   { common : CommonArg.t
   ; (* compile option *)
-    profile : Driver.profile option
+    profile : RehpDriver.profile option
   ; source_map : (string option * Source_map.t) option
   ; runtime_files : string list
   ; runtime_only : bool
@@ -30,7 +30,6 @@ type t =
   ; input_file : string option
   ; params : (string * string) list
   ; static_env : (string * string) list
-  ; wrap_with_fun : string option
   ; (* toplevel *)
     dynlink : bool
   ; linkall : bool
@@ -42,6 +41,7 @@ type t =
   ; fs_files : string list
   ; fs_output : string option
   ; fs_external : bool
+  ; backend : Backend.t option
   ; keep_unit_names : bool }
 
 val options : t Cmdliner.Term.t
