@@ -24,7 +24,7 @@ open Cmdliner
 type t =
   { common : CommonArg.t
   ; (* compile option *)
-    profile : Driver.profile option
+    profile : RehpDriver.profile option
   ; source_map : (string option * Source_map.t) option
   ; runtime_files : string list
   ; runtime_only : bool
@@ -32,7 +32,6 @@ type t =
   ; input_file : string option
   ; params : (string * string) list
   ; static_env : (string * string) list
-  ; wrap_with_fun : string option
   ; (* toplevel *)
     dynlink : bool
   ; linkall : bool
@@ -44,11 +43,13 @@ type t =
   ; fs_files : string list
   ; fs_output : string option
   ; fs_external : bool
+  ; backend : Backend.t option
   ; keep_unit_names : bool }
 
 let options =
   let toplevel_section = "OPTIONS (TOPLEVEL)" in
   let filesystem_section = "OPTIONS (FILESYSTEM)" in
+  let backend_section = "OPTIONS (BACKEND)" in
   let js_files =
     let doc =
       "Link JavaScript files [$(docv)]. "
@@ -74,7 +75,7 @@ let options =
   in
   let profile =
     let doc = "Set optimization profile : [$(docv)]." in
-    let profile = List.map Driver.profiles ~f:(fun (i, p) -> string_of_int i, p) in
+    let profile = List.map RehpDriver.profiles ~f:(fun (i, p) -> string_of_int i, p) in
     Arg.(value & opt (some (enum profile)) None & info ["opt"] ~docv:"NUM" ~doc)
   in
   let noruntime =
@@ -106,13 +107,6 @@ let options =
   let sourcemap_root =
     let doc = "root dir for source map." in
     Arg.(value & opt (some string) None & info ["source-map-root"] ~doc)
-  in
-  let wrap_with_function =
-    let doc =
-      "Wrap the generated JavaScript code inside a function that needs to be applied \
-       with the global object."
-    in
-    Arg.(value & opt (some string) None & info ["wrap-with-fun"] ~doc)
   in
   let set_param =
     let doc = "Set compiler options." in
@@ -172,6 +166,14 @@ let options =
       & opt (some string) None
       & info ["ofs"] ~docs:filesystem_section ~docv:"FILE" ~doc)
   in
+  let backend =
+    let doc = "Configure the backend to compile to." in
+    let backend = RehpDriver.backends in
+    Arg.(
+      value
+      & opt (some (enum backend)) None
+      & info ["backend"] ~docs:backend_section ~doc)
+  in
   let build_t
       common
       set_param
@@ -180,10 +182,10 @@ let options =
       linkall
       toplevel
       export_file
-      wrap_with_fun
       include_dir
       fs_files
       fs_output
+      backend
       fs_external
       nocmis
       profile
@@ -264,7 +266,6 @@ let options =
       ; params
       ; profile
       ; static_env
-      ; wrap_with_fun
       ; dynlink
       ; linkall
       ; toplevel
@@ -274,6 +275,7 @@ let options =
       ; runtime_only
       ; fs_files
       ; fs_output
+      ; backend
       ; fs_external
       ; nocmis
       ; output_file
@@ -291,10 +293,10 @@ let options =
       $ linkall
       $ toplevel
       $ export_file
-      $ wrap_with_function
       $ include_dir
       $ fs_files
       $ fs_output
+      $ backend
       $ fs_external
       $ nocmis
       $ profile
