@@ -68,3 +68,5 @@ val from_channel :
 val from_string : string array -> string -> Code.program * Debug.data
 
 val predefined_exceptions : unit -> Code.program
+
+val normalize_module_name : string -> string
