@@ -19,39 +19,52 @@
  *)
 
 open Stdlib
+
 module Debug : sig
   type data
+
   val create : unit -> data
+
   val find_loc : data -> ?after:bool -> int -> Parse_info.t option
+
   val is_empty : data -> bool
-  val paths    : data -> units:StringSet.t -> StringSet.t
+
+  val paths : data -> units:StringSet.t -> StringSet.t
 end
 
-type parsed_code = (Code.program * StringSet.t * Debug.data)
+type one =
+  { code : Code.program
+  ; cmis : StringSet.t
+  ; debug : Debug.data }
 
-type parsed_compilation_unit =
-  (* Name of the compilation unit. *)
-  string *
-  (* Ordered list of dependency compilation units *)
-  Ident.t list *
-  parsed_code
+val from_exe :
+     ?includes:string list
+  -> ?toplevel:bool
+  -> ?exported_unit:string list
+  -> ?dynlink:bool
+  -> ?debug:[`Full | `Names | `No]
+  -> in_channel
+  -> one
 
-type parse_result =
-  | Parsed_library of parsed_compilation_unit list
-  | Parsed_module of parsed_compilation_unit
-  | Parsed_standalone of
-    (* Executable name (or equivalent) *)
-    string *
-    parsed_code
+val from_cmo :
+     ?includes:string list
+  -> ?toplevel:bool
+  -> ?debug:[`Full | `Names | `No]
+  -> Cmo_format.compilation_unit
+  -> in_channel
+  -> one
+
+val from_cma :
+     ?includes:string list
+  -> ?toplevel:bool
+  -> ?debug:[`Full | `Names | `No]
+  -> Cmo_format.library
+  -> in_channel
+  -> one
 
 val from_channel :
-  ?includes: string list ->
-  ?toplevel:bool -> ?expunge:(string -> [`Keep | `Skip]) ->
-  ?dynlink:bool -> ?debug:[`Full | `Names | `No] -> in_channel ->
-  parse_result
+  in_channel -> [`Cmo of Cmo_format.compilation_unit | `Cma of Cmo_format.library | `Exe]
 
 val from_string : string array -> string -> Code.program * Debug.data
 
 val predefined_exceptions : unit -> Code.program
-
-val normalize_module_name : string -> string
