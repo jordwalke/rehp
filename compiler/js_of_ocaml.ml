@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+open! Js_of_ocaml_compiler.Stdlib
 open Js_of_ocaml_compiler
-open Js_of_ocaml_compiler.Stdlib
 
 let times = Debug.find "times"
 
@@ -52,21 +52,8 @@ let gen_file file f =
     Sys.remove f_tmp;
     raise exc
 
-(* Ensures a directory exists. Will fail if path is a non-dir file.
-   Containing directory must already exist. *)
-let ensure_dir dir =
-  let exists = Sys.file_exists dir in
-  if exists
-  then (
-    if not (Sys.is_directory dir)
-    then
-      raise
-        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")))
-  else Unix.mkdir dir 0o777
-
-let prepend_fs_support p =
-  let instrs = [Code.(Let (Var.fresh (), Prim (Extern "caml_fs_init", [])))] in
-  Code.prepend p instrs
+let gen_unit_filename dir u =
+  Filename.concat dir (Printf.sprintf "%s.js" u.Cmo_format.cu_name)
 
 let f
     { CompileArg.common
@@ -75,9 +62,9 @@ let f
     ; runtime_files
     ; input_file
     ; output_file
-    ; backend
     ; params
     ; static_env
+    ; wrap_with_fun
     ; dynlink
     ; linkall
     ; toplevel
@@ -87,24 +74,20 @@ let f
     ; fs_files
     ; fs_output
     ; fs_external
-    ; export_file } =
+    ; export_file
+    ; keep_unit_names } =
   let dynlink = dynlink || toplevel || runtime_only in
-  let backend =
-    match backend with
-    | None -> Backend.Js
-    | Some be -> be
-  in
   let custom_header = common.CommonArg.custom_header in
-  let custom_header =
-    match backend, custom_header with
-    | _, Some ch -> ch
-    | _, None -> "/*____CompilationOutput*/"
+  let global =
+    match wrap_with_fun with
+    | Some fun_name -> `Bind_to fun_name
+    | None -> `Auto
   in
   CommonArg.eval common;
   (match output_file with
-  | None | Some "" | Some "-" -> ()
-  | Some name when debug_mem () -> Debug.start_profiling name
-  | Some _ -> ());
+  | `Stdout, _ -> ()
+  | `Name name, _ when debug_mem () -> Debug.start_profiling name
+  | `Name _, _ -> ());
   List.iter params ~f:(fun (s, v) -> Config.Param.set s v);
   List.iter static_env ~f:(fun (s, v) -> Eval.set_static_env s v);
   let t = Timer.make () in
@@ -121,7 +104,7 @@ let f
             Filename.concat (Findlib.find_pkg_dir pkg) d'
         | None -> d)
   in
-  let expunge =
+  let exported_unit =
     match export_file with
     | None -> None
     | Some file ->
@@ -136,169 +119,183 @@ let f
            assert false
          with End_of_file -> ());
         close_in ic;
-        Some
-          (fun s ->
-            try
-              Hashtbl.find t s;
-              `Keep
-            with Not_found -> `Skip)
+        Some (Hashtbl.fold (fun cmi () acc -> cmi :: acc) t [])
   in
-  (* Benchmarking shows this takes on the order of 100ms *)
-  Linker.load_files ~backend runtime_files;
+  Linker.load_files runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"]
     with Not_found -> include_dir
   in
-  let t1 = Timer.make () in
   if times () then Format.eprintf "Start parsing...@.";
   let need_debug =
-    if source_map <> None || Config.Flag.debuginfo () || toplevel
+    if Option.is_some source_map || Config.Flag.debuginfo () || toplevel
     then `Full
     else if Config.Flag.pretty ()
     then `Names
     else `No
   in
-  let parse_result =
-    if runtime_only
+  let check_debug debug =
+    if (not runtime_only)
+       && Option.is_some source_map
+       && Parse_bytecode.Debug.is_empty debug
     then
-      Parse_bytecode.Parsed_standalone
-        ( "Runtime"
-        , ( Parse_bytecode.predefined_exceptions ()
-          , StringSet.empty
-          , Parse_bytecode.Debug.create () ) )
-    else
-      (* Previously, the variable resetting was called from within
-         parse_bytecode, but with separate compilation of .cmas, the variables
-         cannot be reset in between each contained .cmo compilation unit.
-       *)
-      match input_file with
-      | None ->
-          Parse_bytecode.from_channel
-            ~includes:paths
-            ~toplevel
-            ?expunge
-            ~dynlink
-            ~debug:need_debug
-            stdin
-      | Some f ->
-          let ch = open_in_bin f in
-          let res =
-            Parse_bytecode.from_channel
-              ~includes:paths
-              ~toplevel
-              ?expunge
-              ~dynlink
-              ~debug:need_debug
-              ch
-          in
-          close_in ch;
-          res
+      warn
+        "Warning: '--source-map' is enabled but the bytecode program was compiled with \
+         no debugging information.\n\
+         Warning: Consider passing '-g' option to ocamlc.\n\
+         %!"
   in
-  let output p cmis d standalone compunit_name ordered_compunit_deps complete_output_file
-      =
-    let () =
-      if (not runtime_only) && source_map <> None && Parse_bytecode.Debug.is_empty d
-      then
-        warn
-          "Warning: '--source-map' is enabled but the bytecode program was compiled \
-           with no debugging information.\n\
-           Warning: Consider passing '-g' option to ocamlc.\n\
-           %!"
-    in
+  let pseudo_fs_instr prim debug cmis =
     let cmis = if nocmis then StringSet.empty else cmis in
-    (* Pseudo filesystem should allow registering files from the outside *)
-    let p =
-      let l =
-        List.map static_env ~f:(fun (k, v) ->
-            Primitive.add_external "caml_set_static_env";
-            let args = [Code.Pc (IString k); Code.Pc (IString v)] in
-            Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))))
-      in
-      Code.prepend p l
+    let paths =
+      paths @ StringSet.elements (Parse_bytecode.Debug.paths debug ~units:cmis)
     in
-    let p = if fs_external then prepend_fs_support p else p in
-    if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
-    let custom_header =
-      Module_loader.substitute_and_split
-        custom_header
-        compunit_name
-        ordered_compunit_deps
-    in
-    (* The -o file to output to. *)
-    (match complete_output_file with
-    | None ->
-        let p = PseudoFs.f p cmis fs_files paths in
+    PseudoFs.f ~prim ~cmis ~files:fs_files ~paths
+  in
+  let env_instr () =
+    List.map static_env ~f:(fun (k, v) ->
+        Primitive.add_external "caml_set_static_env";
+        let args = [Code.Pc (IString k); Code.Pc (IString v)] in
+        Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))))
+  in
+  let pseudo_fs_init_instr () = if fs_external then [PseudoFs.init ()] else [] in
+  let output (one : Parse_bytecode.one) standalone output_file =
+    check_debug one.debug;
+    (match output_file with
+    | `Stdout ->
+        let instr =
+          List.concat
+            [ pseudo_fs_instr `caml_create_file one.debug one.cmis
+            ; pseudo_fs_init_instr ()
+            ; env_instr () ]
+        in
+        let code = Code.prepend one.code instr in
         let fmt = Pretty_print.to_out_channel stdout in
-        RehpDriver.f
+        Driver.f
           ~standalone
           ?profile
           ~linkall
+          ~global
           ~dynlink
-          ~backend
           ?source_map
-          ~custom_header
+          ?custom_header
           fmt
-          d
-          p
-    | Some file ->
+          one.debug
+          code
+    | `Name file ->
+        let fs_instr1, fs_instr2 =
+          match fs_output with
+          | None -> pseudo_fs_instr `caml_create_file one.debug one.cmis, []
+          | Some _ -> [], pseudo_fs_instr `caml_create_file_extern one.debug one.cmis
+        in
         gen_file file (fun chan ->
-            let p = if fs_output = None then PseudoFs.f p cmis fs_files paths else p in
+            let instr = List.concat [fs_instr1; pseudo_fs_init_instr (); env_instr ()] in
+            let code = Code.prepend one.code instr in
             let fmt = Pretty_print.to_out_channel chan in
-            RehpDriver.f
+            Driver.f
               ~standalone
               ?profile
               ~linkall
+              ~global
               ~dynlink
-              ~backend
               ?source_map
-              ~custom_header
+              ?custom_header
               fmt
-              d
-              p);
-        Stdlib.Option.iter
-          ~f:(fun file ->
+              one.debug
+              code);
+        Option.iter fs_output ~f:(fun file ->
             gen_file file (fun chan ->
-                let pfs = PseudoFs.f_empty cmis fs_files paths in
+                let instr = fs_instr2 in
+                let code = Code.prepend Code.empty instr in
                 let pfs_fmt = Pretty_print.to_out_channel chan in
-                RehpDriver.f ~standalone ?profile ~custom_header ~backend pfs_fmt d pfs))
-          fs_output);
-    if times () then Format.eprintf "compilation: %a@." Timer.print t;
-    Debug.stop_profiling ()
+                Driver.f
+                  ~standalone
+                  ?profile
+                  ?custom_header
+                  ~global
+                  pfs_fmt
+                  one.debug
+                  code)));
+    if times () then Format.eprintf "compilation: %a@." Timer.print t
   in
-  match parse_result with
-  | Parsed_standalone (compunit_name, (p, cmis, d)) ->
-      output p cmis d true compunit_name [] output_file
-  | Parsed_module (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
-      output
-        p
-        cmis
-        d
-        false
-        compunit_name
-        (List.map ~f:Ident.name ordered_compunit_deps)
-        output_file
-  | Parsed_library lst ->
-      (match output_file with
-      | None -> ()
-      | Some file -> ensure_dir file);
-      List.iter
-        ~f:(fun (compunit_name, ordered_compunit_deps, (p, cmis, d)) ->
-          (* If compiling a library and passing the -o flag, it is assumed that -o
-           is the location of the directory where individual outputs go, and
-           that the individual files will reside inside of it. If the output is
-           supplied as [-o path/to/lib-name.php] then you will get the
-           following files [-o path/to/my-lib.php/MyLibrary__Utils.php] where
-           MyLibrary__Utils is the compiler's internal compilation unit name. *)
-          let ordered_compunit_deps = List.map ~f:Ident.name ordered_compunit_deps in
-          let complete_output_file =
-            match output_file with
-            | None -> None
-            | Some file ->
-                Some
-                  (Filename.concat file (compunit_name ^ "." ^ Backend.extension backend))
-          in
-          output p cmis d false compunit_name ordered_compunit_deps complete_output_file)
-        lst
+  (if runtime_only
+  then
+    let code : Parse_bytecode.one =
+      { code = Parse_bytecode.predefined_exceptions ()
+      ; cmis = StringSet.empty
+      ; debug = Parse_bytecode.Debug.create () }
+    in
+    output code true (fst output_file)
+  else
+    let kind, ic, close_ic =
+      match input_file with
+      | None -> Parse_bytecode.from_channel stdin, stdin, fun () -> ()
+      | Some fn ->
+          let ch = open_in_bin fn in
+          let res = Parse_bytecode.from_channel ch in
+          res, ch, fun () -> close_in ch
+    in
+    (match kind with
+    | `Exe ->
+        let t1 = Timer.make () in
+        let code =
+          Parse_bytecode.from_exe
+            ~includes:paths
+            ~toplevel
+            ?exported_unit
+            ~dynlink
+            ~debug:need_debug
+            ic
+        in
+        if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
+        output code true (fst output_file)
+    | `Cmo cmo ->
+        let output_file =
+          match output_file, keep_unit_names with
+          | (`Stdout, false), true -> `Name (gen_unit_filename "./" cmo)
+          | (`Name x, false), true -> `Name (gen_unit_filename (Filename.dirname x) cmo)
+          | (`Stdout, _), false -> `Stdout
+          | (`Name x, _), false -> `Name x
+          | (`Name x, true), true
+            when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
+              `Name (gen_unit_filename x cmo)
+          | (`Name _, true), true | (`Stdout, true), true ->
+              failwith "use [-o dirname/] or remove [--keep-unit-names]"
+        in
+        let t1 = Timer.make () in
+        let code =
+          Parse_bytecode.from_cmo ~includes:paths ~toplevel ~debug:need_debug cmo ic
+        in
+        if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
+        output code false output_file
+    | `Cma cma when keep_unit_names ->
+        List.iter cma.lib_units ~f:(fun cmo ->
+            let output_file =
+              match output_file with
+              | `Stdout, false -> `Name (gen_unit_filename "./" cmo)
+              | `Name x, false -> `Name (gen_unit_filename (Filename.dirname x) cmo)
+              | `Name x, true
+                when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
+                  `Name (gen_unit_filename x cmo)
+              | `Stdout, true | `Name _, true ->
+                  failwith "use [-o dirname/] or remove [--keep-unit-names]"
+            in
+            let t1 = Timer.make () in
+            let code =
+              Parse_bytecode.from_cmo ~includes:paths ~toplevel ~debug:need_debug cmo ic
+            in
+            if times ()
+            then Format.eprintf "  parsing: %a (%s)@." Timer.print t1 cmo.cu_name;
+            output code false output_file)
+    | `Cma cma ->
+        let t1 = Timer.make () in
+        let code =
+          Parse_bytecode.from_cma ~includes:paths ~toplevel ~debug:need_debug cma ic
+        in
+        if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
+        output code false (fst output_file));
+    close_ic ());
+  Debug.stop_profiling ()
 
 let main = Cmdliner.Term.(pure f $ CompileArg.options), CompileArg.info
 
@@ -321,7 +318,7 @@ let _ =
       Format.eprintf "%s: Error: Invalid magic number %S@." Sys.argv.(0) s;
       exit 1
   | Magic_number.Bad_magic_version h ->
-      Format.eprintf "%s: Error: Bytecode version missmatch.@." Sys.argv.(0);
+      Format.eprintf "%s: Error: Bytecode version mismatch.@." Sys.argv.(0);
       let k =
         match Magic_number.kind h with
         | (`Cmo | `Cma | `Exe) as x -> x
