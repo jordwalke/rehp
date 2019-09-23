@@ -64,6 +64,10 @@ esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enab
 echo "./rehack_tests/js/js_of_ocaml.cma.js"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/common-js-module-header.js)" --backend js --prettiest-js $(ocamlfind query -qe js_of_ocaml)/js_of_ocaml.cma -o ./rehack_tests/js/js_of_ocaml.cma.js/'
 
+# Custom library
+echo "./rehack_tests/my-lib/my-lib.cma.php"
+esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" '"${1}"'/default/rehack_tests/my-lib/MyLib.cma -o ./rehack_tests/my-lib/my-lib.cma.php/'
+esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js  --custom-header "$(< ./rehack_tests/templates/common-js-module-header.js)" '"${1}"'/default/rehack_tests/my-lib/MyLib.cma -o ./rehack_tests/my-lib/my-lib.cma.js/'
 
 
 echo "./runtime/rehack/php/runtime.js"
