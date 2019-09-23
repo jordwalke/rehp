@@ -27,7 +27,6 @@ let debug_mem = Debug.find "mem"
 
 let _ = Sys.catch_break true
 
-
 (* Ensures a directory exists. Will fail if path is a non-dir file.
    Containing directory must already exist. *)
 let ensure_dir dir =
@@ -37,7 +36,7 @@ let ensure_dir dir =
     if not (Sys.is_directory dir)
     then
       raise
-        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")) )
+        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")))
   else Unix.mkdir dir 0o777
 
 let temp_file_name =
@@ -99,9 +98,17 @@ let f
   in
   let custom_header = common.CommonArg.custom_header in
   let custom_header =
-    match backend, custom_header with
-    | _, Some ch -> ch
-    | _, None -> "/*____CompilationOutput*/"
+    match custom_header with
+    | Some ch ->
+        if String.length ch > 6 && String.equal (String.sub ~pos:0 ~len:5 ch) "file:"
+        then
+          let header_file = String.sub ch ~pos:5 ~len:(String.length ch - 5) in
+          if not (Sys.file_exists header_file)
+          then
+            failwith (Printf.sprintf "custom header file %S does not exists" header_file)
+          else Fs.read_file header_file
+        else ch
+    | None -> "/*____CompilationOutput*/"
   in
   CommonArg.eval common;
   (match output_file with
@@ -180,7 +187,12 @@ let f
         Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))))
   in
   let pseudo_fs_init_instr () = if fs_external then [PseudoFs.init ()] else [] in
-  let output unit_name ordered_compunit_deps (one : Parse_bytecode.one) standalone output_file =
+  let output
+      unit_name
+      ordered_compunit_deps
+      (one : Parse_bytecode.one)
+      standalone
+      output_file =
     check_debug one.debug;
     let custom_header =
       Module_loader.substitute_and_split
