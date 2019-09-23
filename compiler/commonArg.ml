@@ -29,7 +29,8 @@ type t =
   { debug : string list on_off
   ; optim : string list on_off
   ; quiet : bool
-  ; custom_header : string option }
+  ; custom_header : string option
+  ; use_hashing : bool }
 
 let debug =
   let doc = "enable debug [$(docv)]." in
@@ -80,16 +81,23 @@ let custom_header =
     "Provide a custom header for the generated compiler output, useful for making the \
      script an executable file with #!/usr/bin/env node or integrating with module \
      loaders. Certain strings will be replaced with the names of relevant compilation \
-     units. ____CompilationUnitName and ____compilationUnitName ____CompilationOutput \
+     units. ____CompilationUnitName and ____compilationUnitName \
+     /*____CompilationOutput*/ \
      ____ForEachDependencyCompilationUnitName and \
-     ____forEachDependencyCompilationUnitName"
+     ____forEachDependencyCompilationUnitName. Also, /*____hashes*/ will be \
+    replaced with a comment /*____hashes compiler:x inputs:y bytecode:hash2*/ which \
+    will be used to avoid recompiling in some cases."
   in
   Arg.(value & opt (some string) None & info ["custom-header"] ~doc)
+
+let use_hashing =
+  let doc = "If enabled, then avoids rebuilds via hashing of inputs." in
+  Arg.(value & flag & info ["use-hashing"; "u"] ~doc)
 
 let t =
   Term.(
     pure
-      (fun debug enable disable pretty prettiestJs debuginfo noinline quiet c_header ->
+      (fun debug enable disable pretty prettiestJs debuginfo noinline quiet use_hashing c_header ->
         let enable = if pretty then "pretty" :: enable else enable in
         let enable = if prettiestJs then "prettiest-js" :: enable else enable in
         let enable = if debuginfo then "debuginfo" :: enable else enable in
@@ -102,7 +110,8 @@ let t =
         { debug = {enable = debug; disable = []}
         ; optim = {enable; disable}
         ; quiet
-        ; custom_header = c_header })
+        ; custom_header = c_header
+        ; use_hashing = use_hashing })
     $ debug
     $ enable
     $ disable
@@ -111,6 +120,7 @@ let t =
     $ debuginfo
     $ noinline
     $ is_quiet
+    $ use_hashing
     $ custom_header)
 
 let on_off on off t =

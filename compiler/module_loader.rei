@@ -46,6 +46,9 @@
 let substitute_and_split:
   /* Custom template text */
   (
+    /* Template */
+    string,
+    /* string hashes comment: Git version of compiler, input hashes, bytecode hash */
     string,
     /* Module name */
     string,

@@ -27,6 +27,34 @@ let debug_mem = Debug.find "mem"
 
 let _ = Sys.catch_break true
 
+let compute_hashes custom_header_text args (bc : Parse_bytecode.one) =
+  let args_hash = Hashtbl.hash args in
+  let custom_header_hash = Hashtbl.hash custom_header_text in
+  (* Rollover is fine *)
+  ( Compiler_version.git_version
+  , string_of_int (custom_header_hash + args_hash)
+  , string_of_int (Hashtbl.hash bc) )
+
+let compute_hashes_comment hashes =
+  let git_version, input_hashes, bytecode_hashes = hashes in
+  "/*____hashes compiler:"
+  ^ git_version
+  ^ " inputs:"
+  ^ input_hashes
+  ^ " bytecode:"
+  ^ bytecode_hashes
+  ^ "*/"
+
+let file_contains_hashes hashes_comment file =
+  let file_contents = Fs.read_file file in
+  match Stdlib.String.find_substring hashes_comment file_contents 0 with
+  | exception Not_found -> false
+  | i -> true
+
+let file_needs_update use_hashing hashes_comment file =
+  (not use_hashing)
+  || (Sys.file_exists file && not (file_contains_hashes hashes_comment file))
+
 (* Ensures a directory exists. Will fail if path is a non-dir file.
    Containing directory must already exist. *)
 let ensure_dir dir =
@@ -70,32 +98,33 @@ let gen_unit_filename ~backend dir u =
   Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
 
 let f
-    { CompileArg.common
-    ; profile
-    ; source_map
-    ; runtime_files
-    ; input_file
-    ; output_file
-    ; backend
-    ; params
-    ; static_env
-    ; dynlink
-    ; linkall
-    ; toplevel
-    ; nocmis
-    ; runtime_only
-    ; include_dir
-    ; fs_files
-    ; fs_output
-    ; fs_external
-    ; export_file
-    ; keep_unit_names } =
+    ({ CompileArg.common
+     ; profile
+     ; source_map
+     ; runtime_files
+     ; input_file
+     ; output_file
+     ; backend
+     ; params
+     ; static_env
+     ; dynlink
+     ; linkall
+     ; toplevel
+     ; nocmis
+     ; runtime_only
+     ; include_dir
+     ; fs_files
+     ; fs_output
+     ; fs_external
+     ; export_file
+     ; keep_unit_names } as args) =
   let dynlink = dynlink || toplevel || runtime_only in
   let backend =
     match backend with
     | None -> Backend.Js
     | Some be -> be
   in
+  let use_hashing = common.CommonArg.use_hashing in
   let custom_header = common.CommonArg.custom_header in
   let custom_header =
     match custom_header with
@@ -194,9 +223,16 @@ let f
       standalone
       output_file =
     check_debug one.debug;
+    let hashes =
+      if not use_hashing
+      then "hashing-disabled", "hashing-disabled", "hashing-disabled"
+      else compute_hashes custom_header args one
+    in
+    let hashes_comment = compute_hashes_comment hashes in
     let custom_header =
       Module_loader.substitute_and_split
         custom_header
+        hashes_comment
         unit_name
         (List.map ~f:Ident.name ordered_compunit_deps)
     in
@@ -222,39 +258,53 @@ let f
           one.debug
           code
     | `Name file ->
-        let fs_instr1, fs_instr2 =
-          match fs_output with
-          | None -> pseudo_fs_instr `caml_create_file one.debug one.cmis, []
-          | Some _ -> [], pseudo_fs_instr `caml_create_file_extern one.debug one.cmis
-        in
-        gen_file file (fun chan ->
-            let instr = List.concat [fs_instr1; pseudo_fs_init_instr (); env_instr ()] in
-            let code = Code.prepend one.code instr in
-            let fmt = Pretty_print.to_out_channel chan in
-            RehpDriver.f
-              ~standalone
-              ~backend
-              ?profile
-              ~linkall
-              ~dynlink
-              ~custom_header
-              ?source_map
-              fmt
-              one.debug
-              code);
-        Option.iter fs_output ~f:(fun file ->
-            gen_file file (fun chan ->
-                let instr = fs_instr2 in
-                let code = Code.prepend Code.empty instr in
-                let pfs_fmt = Pretty_print.to_out_channel chan in
-                RehpDriver.f
-                  ~standalone
-                  ~backend
-                  ?profile
-                  ~custom_header
-                  pfs_fmt
-                  one.debug
-                  code)));
+        if file_needs_update use_hashing hashes_comment file
+        then (
+          let fs_instr1, fs_instr2 =
+            match fs_output with
+            | None -> pseudo_fs_instr `caml_create_file one.debug one.cmis, []
+            | Some _ -> [], pseudo_fs_instr `caml_create_file_extern one.debug one.cmis
+          in
+          Format.eprintf
+            "need to update file: %s because file not have %s@."
+            file
+            hashes_comment;
+          gen_file file (fun chan ->
+              let instr =
+                List.concat [fs_instr1; pseudo_fs_init_instr (); env_instr ()]
+              in
+              let code = Code.prepend one.code instr in
+              let fmt = Pretty_print.to_out_channel chan in
+              RehpDriver.f
+                ~standalone
+                ~backend
+                ?profile
+                ~linkall
+                ~dynlink
+                ~custom_header
+                ?source_map
+                fmt
+                one.debug
+                code);
+          Option.iter fs_output ~f:(fun file ->
+              gen_file file (fun chan ->
+                  let instr = fs_instr2 in
+                  let code = Code.prepend Code.empty instr in
+                  let pfs_fmt = Pretty_print.to_out_channel chan in
+                  RehpDriver.f
+                    ~standalone
+                    ~backend
+                    ?profile
+                    ~custom_header
+                    pfs_fmt
+                    one.debug
+                    code)))
+        else
+          Format.eprintf
+            "no need to update file: %s because file already has %s or use_hashing %b@."
+            file
+            hashes_comment
+            use_hashing);
     if times () then Format.eprintf "compilation: %a@." Timer.print t
   in
   (if runtime_only

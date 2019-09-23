@@ -114,10 +114,11 @@ let split_on = (on, str) =>
 
 let normalize_module_name = Js_of_ocaml_compiler.Parse_bytecode.normalize_module_name;
 
-let substitute_and_split = (txt, compunit_name, ordered_compunit_deps) => {
+let substitute_and_split = (txt, hashesComment, compunit_name, ordered_compunit_deps) => {
   let compunit_name = normalize_module_name(compunit_name);
   let lower_compunit_name = lower_leading(compunit_name);
   let upper_compunit_name = upper_leading(compunit_name);
+  let txt = replace_string("/*____hashes*/", hashesComment, txt);
   let txt =
     replace_string("____CompilationUnitName", upper_compunit_name, txt);
   let txt =
