@@ -33,6 +33,11 @@ module Alphabet = struct
       ~c1:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$"
       ~cn:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"
 
+  let php =
+    create
+      ~c1:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      ~cn:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
+
   let rec size t x acc =
     if x < t.c1_len then 1 + acc else size t ((x - t.c1_len) / t.cn_len) (acc + 1)
 
