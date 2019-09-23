@@ -62,9 +62,9 @@ let f
     ; runtime_files
     ; input_file
     ; output_file
+    ; backend
     ; params
     ; static_env
-    ; wrap_with_fun
     ; dynlink
     ; linkall
     ; toplevel
@@ -77,11 +77,16 @@ let f
     ; export_file
     ; keep_unit_names } =
   let dynlink = dynlink || toplevel || runtime_only in
+  let backend =
+    match backend with
+    | None -> Backend.Js
+    | Some be -> be
+  in
   let custom_header = common.CommonArg.custom_header in
-  let global =
-    match wrap_with_fun with
-    | Some fun_name -> `Bind_to fun_name
-    | None -> `Auto
+  let custom_header =
+    match backend, custom_header with
+    | _, Some ch -> ch
+    | _, None -> "/*____CompilationOutput*/"
   in
   CommonArg.eval common;
   (match output_file with
@@ -121,7 +126,8 @@ let f
         close_in ic;
         Some (Hashtbl.fold (fun cmi () acc -> cmi :: acc) t [])
   in
-  Linker.load_files runtime_files;
+  (* Benchmarking shows this takes on the order of 100ms *)
+  Linker.load_files ~backend runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"]
     with Not_found -> include_dir
@@ -159,8 +165,14 @@ let f
         Code.(Let (Var.fresh (), Prim (Extern "caml_set_static_env", args))))
   in
   let pseudo_fs_init_instr () = if fs_external then [PseudoFs.init ()] else [] in
-  let output (one : Parse_bytecode.one) standalone output_file =
+  let output unit_name ordered_compunit_deps (one : Parse_bytecode.one) standalone output_file =
     check_debug one.debug;
+    let custom_header =
+      Module_loader.substitute_and_split
+        custom_header
+        unit_name
+        (List.map ~f:Ident.name ordered_compunit_deps)
+    in
     (match output_file with
     | `Stdout ->
         let instr =
@@ -171,14 +183,14 @@ let f
         in
         let code = Code.prepend one.code instr in
         let fmt = Pretty_print.to_out_channel stdout in
-        Driver.f
+        RehpDriver.f
           ~standalone
+          ~backend
           ?profile
           ~linkall
-          ~global
           ~dynlink
+          ~custom_header
           ?source_map
-          ?custom_header
           fmt
           one.debug
           code
@@ -192,14 +204,14 @@ let f
             let instr = List.concat [fs_instr1; pseudo_fs_init_instr (); env_instr ()] in
             let code = Code.prepend one.code instr in
             let fmt = Pretty_print.to_out_channel chan in
-            Driver.f
+            RehpDriver.f
               ~standalone
+              ~backend
               ?profile
               ~linkall
-              ~global
               ~dynlink
+              ~custom_header
               ?source_map
-              ?custom_header
               fmt
               one.debug
               code);
@@ -208,11 +220,11 @@ let f
                 let instr = fs_instr2 in
                 let code = Code.prepend Code.empty instr in
                 let pfs_fmt = Pretty_print.to_out_channel chan in
-                Driver.f
+                RehpDriver.f
                   ~standalone
+                  ~backend
                   ?profile
-                  ?custom_header
-                  ~global
+                  ~custom_header
                   pfs_fmt
                   one.debug
                   code)));
@@ -225,7 +237,7 @@ let f
       ; cmis = StringSet.empty
       ; debug = Parse_bytecode.Debug.create () }
     in
-    output code true (fst output_file)
+    output "Runtime" [] code true (fst output_file)
   else
     let kind, ic, close_ic =
       match input_file with
@@ -248,7 +260,7 @@ let f
             ic
         in
         if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
-        output code true (fst output_file)
+        output "Exe" [] code true (fst output_file)
     | `Cmo cmo ->
         let output_file =
           match output_file, keep_unit_names with
@@ -267,7 +279,7 @@ let f
           Parse_bytecode.from_cmo ~includes:paths ~toplevel ~debug:need_debug cmo ic
         in
         if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
-        output code false output_file
+        output cmo.cu_name cmo.cu_required_globals code false output_file
     | `Cma cma when keep_unit_names ->
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
@@ -286,14 +298,15 @@ let f
             in
             if times ()
             then Format.eprintf "  parsing: %a (%s)@." Timer.print t1 cmo.cu_name;
-            output code false output_file)
+            output cmo.cu_name cmo.cu_required_globals code false output_file)
     | `Cma cma ->
         let t1 = Timer.make () in
         let code =
           Parse_bytecode.from_cma ~includes:paths ~toplevel ~debug:need_debug cma ic
         in
         if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
-        output code false (fst output_file));
+        (* Module loading not supported in library compilation mode *)
+        output "Library" [] code false (fst output_file));
     close_ic ());
   Debug.stop_profiling ()
 
