@@ -52,8 +52,9 @@ let gen_file file f =
     Sys.remove f_tmp;
     raise exc
 
-let gen_unit_filename dir u =
-  Filename.concat dir (Printf.sprintf "%s.js" u.Cmo_format.cu_name)
+let gen_unit_filename ~backend dir u =
+  let ext = Backend.extension backend in
+  Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
 
 let f
     { CompileArg.common
@@ -264,13 +265,13 @@ let f
     | `Cmo cmo ->
         let output_file =
           match output_file, keep_unit_names with
-          | (`Stdout, false), true -> `Name (gen_unit_filename "./" cmo)
-          | (`Name x, false), true -> `Name (gen_unit_filename (Filename.dirname x) cmo)
+          | (`Stdout, false), true -> `Name (gen_unit_filename ~backend "./" cmo)
+          | (`Name x, false), true -> `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
           | (`Stdout, _), false -> `Stdout
           | (`Name x, _), false -> `Name x
           | (`Name x, true), true
             when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
-              `Name (gen_unit_filename x cmo)
+              `Name (gen_unit_filename ~backend x cmo)
           | (`Name _, true), true | (`Stdout, true), true ->
               failwith "use [-o dirname/] or remove [--keep-unit-names]"
         in
@@ -284,11 +285,11 @@ let f
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
-              | `Stdout, false -> `Name (gen_unit_filename "./" cmo)
-              | `Name x, false -> `Name (gen_unit_filename (Filename.dirname x) cmo)
+              | `Stdout, false -> `Name (gen_unit_filename ~backend "./" cmo)
+              | `Name x, false -> `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
-                  `Name (gen_unit_filename x cmo)
+                  `Name (gen_unit_filename ~backend x cmo)
               | `Stdout, true | `Name _, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
             in
