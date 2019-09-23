@@ -2,12 +2,12 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Oo.php
+ * MyLib__.php
  */
 
 namespace Rehack;
 
-final class Oo {
+final class MyLib__ {
   <<__Memoize>>
   public static function get() {
     $global_object = \Rehack\GlobalObject::get();
@@ -16,9 +16,9 @@ final class Oo {
      * Soon, these will replace the `global_data->ModuleName`
      * pattern in the load() function.
      */
-    $CamlinternalOO = CamlinternalOO::get();
-    Oo::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Oo;
+
+    MyLib__::load($global_object);
+    $memoized = $runtime->caml_get_global_data()->MyLib__;
     return $memoized;
   }
 
@@ -29,14 +29,9 @@ final class Oo {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $global_data = $runtime["caml_get_global_data"]();
-    $CamlinternalOO = $global_data["CamlinternalOO"];
-    $copy = $CamlinternalOO[22];
-    $new_method = $CamlinternalOO[1];
-    $public_method_label = $CamlinternalOO[1];
-    $Oo = Vector{0, $copy, $new_method, $public_method_label};
+    $MyLib = Vector{0, 0};
     
-    $runtime["caml_register_global"](1, $Oo, "Oo");
+    $runtime["caml_register_global"](0, $MyLib, "MyLib__");
 
   }
 }

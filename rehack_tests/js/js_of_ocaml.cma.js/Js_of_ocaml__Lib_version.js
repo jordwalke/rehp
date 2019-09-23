@@ -12,7 +12,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
 var s = string("3.3.0");
-var git_version = string("1ef2545c2");
+var git_version = string("784d39b13");
 var Js_of_ocaml_Lib_version = [0,s,git_version];
 
 runtime["caml_register_global"](

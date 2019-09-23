@@ -670,3 +670,4 @@ final class Js_of_ocaml__Dom_svg {
 
   }
 }
+

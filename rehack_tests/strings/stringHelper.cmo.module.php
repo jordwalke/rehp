@@ -36,3 +36,4 @@ final class StringHelper {
 
   }
 }
+

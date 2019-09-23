@@ -2,12 +2,12 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Calls.php
+ * MyLib.php
  */
 
 namespace Rehack;
 
-final class Calls {
+final class MyLib {
   <<__Memoize>>
   public static function get() {
     $global_object = \Rehack\GlobalObject::get();
@@ -16,9 +16,9 @@ final class Calls {
      * Soon, these will replace the `global_data->ModuleName`
      * pattern in the load() function.
      */
-
-    Calls::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Calls;
+    $MyLib__MyLibUtility = MyLib__MyLibUtility::get();
+    MyLib::load($global_object);
+    $memoized = $runtime->caml_get_global_data()->MyLib;
     return $memoized;
   }
 
@@ -29,10 +29,13 @@ final class Calls {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
+    $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
+    $global_data = $runtime["caml_get_global_data"]();
     $cst_myPartiallyAppliedMethod = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__0 = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__1 = $string("myPartiallyAppliedMethod");
+    $MyLib_MyLibUtility = $global_data["MyLib__MyLibUtility"];
     $foo = "foo";
     $bar = "bar";
     $baz = "baz";
@@ -113,7 +116,8 @@ final class Calls {
       };
       return Vector{0, $sendResult1, $sendResult2, $sendResult3};
     };
-    $Calls = Vector{
+    $x = $call1($MyLib_MyLibUtility[1], 0);
+    $MyLib = Vector{
       0,
       $foo,
       $bar,
@@ -121,10 +125,11 @@ final class Calls {
       $testFunctionCalls,
       $testMethodCalls,
       $testPartialFunctionCalls,
-      $testPartialMethodCalls
+      $testPartialMethodCalls,
+      $x
     };
     
-    $runtime["caml_register_global"](18, $Calls, "Calls");
+    $runtime["caml_register_global"](19, $MyLib, "MyLib");
 
   }
 }
