@@ -42,12 +42,12 @@ function err_not_sv(i) {
 }
 
 function err_not_latin1(u) {
-  var bj = call2(
+  var p = call2(
     Pervasives[16],
     caml_format_int(cst_04X, u),
     cst_is_not_a_latin1_character
   );
-  return call2(Pervasives[16], cst_U, bj);
+  return call2(Pervasives[16], cst_U, p);
 }
 
 var min = 0;
@@ -70,17 +70,17 @@ function pred(u) {
 }
 
 function is_valid(i) {
-  var bf = 0 <= i ? 1 : 0;
-  var bg = bf ? i <= 55295 ? 1 : 0 : bf;
-  if (bg) var bh = bg;
-  else {var bi = 57344 <= i ? 1 : 0;var bh = bi ? i <= 1114111 ? 1 : 0 : bi;}
-  return bh;
+  var l = 0 <= i ? 1 : 0;
+  var m = l ? i <= 55295 ? 1 : 0 : l;
+  if (m) var n = m;
+  else {var o = 57344 <= i ? 1 : 0;var n = o ? i <= 1114111 ? 1 : 0 : o;}
+  return n;
 }
 
 function of_int(i) {
   if (is_valid(i)) {return i;}
-  var be = err_not_sv(i);
-  return call1(Pervasives[1], be);
+  var k = err_not_sv(i);
+  return call1(Pervasives[1], k);
 }
 
 function is_char(u) {return u < 256 ? 1 : 0;}
@@ -88,19 +88,19 @@ function is_char(u) {return u < 256 ? 1 : 0;}
 function of_char(c) {return c;}
 
 function to_char(u) {
-  if (255 < u) {var bd = err_not_latin1(u);return call1(Pervasives[1], bd);}
+  if (255 < u) {var j = err_not_latin1(u);return call1(Pervasives[1], j);}
   return u;
 }
 
-function unsafe_to_char(bc) {return bc;}
+function unsafe_to_char(i) {return i;}
 
-function equal(bb, ba) {return bb === ba ? 1 : 0;}
+function equal(h, g) {return h === g ? 1 : 0;}
 
-function compare(a_, a9) {return runtime["caml_int_compare"](a_, a9);}
+function compare(f, e) {return runtime["caml_int_compare"](f, e);}
 
-function hash(a8) {return a8;}
+function hash(d) {return d;}
 
-function a5(a7) {return a7;}
+function a(c) {return c;}
 
 var Uchar = [
   0,
@@ -112,8 +112,8 @@ var Uchar = [
   pred,
   is_valid,
   of_int,
-  function(a6) {return a6;},
-  a5,
+  function(b) {return b;},
+  a,
   is_char,
   of_char,
   to_char,

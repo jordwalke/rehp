@@ -32,7 +32,7 @@ final class Complex {
     $zero = Vector{254, 0, 0};
     $one = Vector{254, 1, 0};
     $i = Vector{254, 0, 1};
-    $Cn = Vector{254, 0, 0};
+    $a = Vector{254, 0, 0};
     $add = function(dynamic $x, dynamic $y) {
       return Vector{254, $x[1] + $y[1], $x[2] + $y[2]};
     };
@@ -89,8 +89,8 @@ final class Complex {
     $polar = function(dynamic $n, dynamic $a) use ($Math) {
       return Vector{254, $Math->cos($a) * $n, $Math->sin($a) * $n};
     };
-    $sqrt = function(dynamic $x) use ($Cn,$Math) {
-      if ($x[1] == 0) {if ($x[2] == 0) {return $Cn;}}
+    $sqrt = function(dynamic $x) use ($Math,$a) {
+      if ($x[1] == 0) {if ($x[2] == 0) {return $a;}}
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);
       if ($i <= $r) {
@@ -112,8 +112,8 @@ final class Complex {
       return Vector{254, $e * $Math->cos($x[2]), $e * $Math->sin($x[2])};
     };
     $log = function(dynamic $x) use ($Math,$norm) {
-      $Co = $Math->atan2($x[2], $x[1]);
-      return Vector{254, $Math->log($norm($x)), $Co};
+      $b = $Math->atan2($x[2], $x[1]);
+      return Vector{254, $Math->log($norm($x)), $b};
     };
     $pow = function(dynamic $x, dynamic $y) use ($exp,$log,$mul) {
       return $exp($mul($y, $log($x)));

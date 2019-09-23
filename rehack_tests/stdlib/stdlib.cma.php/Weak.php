@@ -64,13 +64,13 @@ final class Weak {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ($length($ar) < (int) ($ofs + $len))) {
-            $sE = (int) ((int) ($ofs + $len) + -1);
-            if (! ($sE < $ofs)) {
+            $aC = (int) ((int) ($ofs + $len) + -1);
+            if (! ($aC < $ofs)) {
               $i = $ofs;
               for (;;) {
                 $caml_weak_set($ar, $i, $x);
-                $sF = (int) ($i + 1);
-                if ($sE !== $i) {$i = $sF;continue;}
+                $aD = (int) ($i + 1);
+                if ($aC !== $i) {$i = $aD;continue;}
                 break;
               }
             }
@@ -84,8 +84,8 @@ final class Weak {
     };
     $Make = function(dynamic $H) use ($Array,$Not_found,$Pervasives,$Sys,$call1,$call2,$call3,$call5,$caml_check_bound,$caml_make_vect,$caml_mod,$caml_obj_truncate,$caml_weak_blit,$caml_weak_check,$caml_weak_create,$caml_weak_get,$caml_weak_get_copy,$caml_weak_set,$cst_Weak_Make_hash_bucket_cannot_grow_more,$length,$runtime) {
       $add_aux = new Ref();
-      $weak_create = function(dynamic $sD) use ($caml_weak_create) {
-        return $caml_weak_create($sD);
+      $weak_create = function(dynamic $aB) use ($caml_weak_create) {
+        return $caml_weak_create($aB);
       };
       $emptybucket = $weak_create(0);
       $get_index = function(dynamic $t, dynamic $h) use ($Pervasives,$caml_mod) {
@@ -105,15 +105,15 @@ final class Weak {
         };
       };
       $clear = function(dynamic $t) use ($caml_check_bound,$emptybucket,$limit) {
-        $sB = (int) ($t[1]->count() - 1 + -1);
-        $sA = 0;
-        if (! ($sB < 0)) {
-          $i = $sA;
+        $az = (int) ($t[1]->count() - 1 + -1);
+        $ay = 0;
+        if (! ($az < 0)) {
+          $i = $ay;
           for (;;) {
             $caml_check_bound($t[1], $i)[$i + 1] = $emptybucket;
             $caml_check_bound($t[2], $i)[$i + 1] = Vector{0};
-            $sC = (int) ($i + 1);
-            if ($sB !== $i) {$i = $sC;continue;}
+            $aA = (int) ($i + 1);
+            if ($az !== $i) {$i = $aA;continue;}
             break;
           }
         }
@@ -141,12 +141,12 @@ final class Weak {
             continue;
           }
         };
-        $sv = $t[1];
-        $sw = 0;
-        $sx = function(dynamic $sy, dynamic $sz) use ($fold_bucket,$sw) {
-          return $fold_bucket($sw, $sy, $sz);
+        $at = $t[1];
+        $au = 0;
+        $av = function(dynamic $aw, dynamic $ax) use ($au,$fold_bucket) {
+          return $fold_bucket($au, $aw, $ax);
         };
-        return $call3($Array[18], $sx, $sv, $init);
+        return $call3($Array[18], $av, $at, $init);
       };
       $iter = function(dynamic $f, dynamic $t) use ($Array,$call1,$call2,$caml_weak_get,$length) {
         $iter_bucket = function(dynamic $i, dynamic $b) use ($call1,$caml_weak_get,$f,$length) {
@@ -166,12 +166,12 @@ final class Weak {
             continue;
           }
         };
-        $sr = $t[1];
-        $ss = 0;
-        $st = function(dynamic $su) use ($iter_bucket,$ss) {
-          return $iter_bucket($ss, $su);
+        $ap = $t[1];
+        $aq = 0;
+        $ar = function(dynamic $as) use ($aq,$iter_bucket) {
+          return $iter_bucket($aq, $as);
         };
-        return $call2($Array[13], $st, $sr);
+        return $call2($Array[13], $ar, $ap);
       };
       $iter_weak = function(dynamic $f, dynamic $t) use ($Array,$call2,$call3,$caml_check_bound,$caml_weak_check,$length) {
         $iter_bucket = function(dynamic $i, dynamic $j, dynamic $b) use ($call3,$caml_check_bound,$caml_weak_check,$f,$length,$t) {
@@ -190,20 +190,20 @@ final class Weak {
             continue;
           }
         };
-        $sm = $t[1];
-        $sn = 0;
-        $so = function(dynamic $sp, dynamic $sq) use ($iter_bucket,$sn) {
-          return $iter_bucket($sn, $sp, $sq);
+        $ak = $t[1];
+        $al = 0;
+        $am = function(dynamic $an, dynamic $ao) use ($al,$iter_bucket) {
+          return $iter_bucket($al, $an, $ao);
         };
-        return $call2($Array[14], $so, $sm);
+        return $call2($Array[14], $am, $ak);
       };
       $count_bucket = function(dynamic $i, dynamic $b, dynamic $accu) use ($caml_weak_check,$length) {
         $i__0 = $i;
         $accu__0 = $accu;
         for (;;) {
           if ($length($b) <= $i__0) {return $accu__0;}
-          $sl = $caml_weak_check($b, $i__0) ? 1 : (0);
-          $accu__1 = (int) ($accu__0 + $sl);
+          $aj = $caml_weak_check($b, $i__0) ? 1 : (0);
+          $accu__1 = (int) ($accu__0 + $aj);
           $i__1 = (int) ($i__0 + 1);
           $i__0 = $i__1;
           $accu__0 = $accu__1;
@@ -211,13 +211,13 @@ final class Weak {
         }
       };
       $count = function(dynamic $t) use ($Array,$call3,$count_bucket) {
-        $sf = 0;
-        $sg = $t[1];
-        $sh = 0;
-        $si = function(dynamic $sj, dynamic $sk) use ($count_bucket,$sh) {
-          return $count_bucket($sh, $sj, $sk);
+        $ad = 0;
+        $ae = $t[1];
+        $af = 0;
+        $ag = function(dynamic $ah, dynamic $ai) use ($af,$count_bucket) {
+          return $count_bucket($af, $ah, $ai);
         };
-        return $call3($Array[18], $si, $sg, $sf);
+        return $call3($Array[18], $ag, $ae, $ad);
       };
       $next_sz = function(dynamic $n) use ($Pervasives,$Sys,$call2) {
         return $call2(
@@ -231,10 +231,10 @@ final class Weak {
         return (int) ((int) ((int) ((int) ($n + -3) * 2) + 2) / 3);
       };
       $test_shrink_bucket = function(dynamic $t) use ($caml_check_bound,$caml_mod,$caml_obj_truncate,$caml_weak_blit,$caml_weak_check,$count_bucket,$emptybucket,$length,$prev_sz) {
-        $r8 = $t[5];
-        $bucket = $caml_check_bound($t[1], $r8)[$r8 + 1];
-        $r9 = $t[5];
-        $hbucket = $caml_check_bound($t[2], $r9)[$r9 + 1];
+        $V = $t[5];
+        $bucket = $caml_check_bound($t[1], $V)[$V + 1];
+        $W = $t[5];
+        $hbucket = $caml_check_bound($t[2], $W)[$W + 1];
         $len = $length($bucket);
         $prev_len = $prev_sz($len);
         $live = $count_bucket(0, $bucket, 0);
@@ -243,8 +243,8 @@ final class Weak {
             $i__0 = $i;
             $j__0 = $j;
             for (;;) {
-              $sd = $prev_len <= $j__0 ? 1 : (0);
-              if ($sd) {
+              $ab = $prev_len <= $j__0 ? 1 : (0);
+              if ($ab) {
                 if ($caml_weak_check($bucket, $i__0)) {
                   $i__1 = (int) ($i__0 + 1);
                   $i__0 = $i__1;
@@ -252,8 +252,8 @@ final class Weak {
                 }
                 if ($caml_weak_check($bucket, $j__0)) {
                   $caml_weak_blit($bucket, $j__0, $bucket, $i__0, 1);
-                  $se = $caml_check_bound($hbucket, $j__0)[$j__0 + 1];
-                  $caml_check_bound($hbucket, $i__0)[$i__0 + 1] = $se;
+                  $ac = $caml_check_bound($hbucket, $j__0)[$j__0 + 1];
+                  $caml_check_bound($hbucket, $i__0)[$i__0 + 1] = $ac;
                   $j__1 = (int) ($j__0 + -1);
                   $i__2 = (int) ($i__0 + 1);
                   $i__0 = $i__2;
@@ -264,23 +264,23 @@ final class Weak {
                 $j__0 = $j__2;
                 continue;
               }
-              return $sd;
+              return $ab;
             }
           };
           $loop(0, (int) ($length($bucket) + -1));
           if (0 === $prev_len) {
-            $r_ = $t[5];
-            $caml_check_bound($t[1], $r_)[$r_ + 1] = $emptybucket;
-            $sa = $t[5];
-            $caml_check_bound($t[2], $sa)[$sa + 1] = Vector{0};
+            $X = $t[5];
+            $caml_check_bound($t[1], $X)[$X + 1] = $emptybucket;
+            $Y = $t[5];
+            $caml_check_bound($t[2], $Y)[$Y + 1] = Vector{0};
           }
           else {
             $caml_obj_truncate($bucket, (int) ($prev_len + 2));
             $caml_obj_truncate($hbucket, $prev_len);
           }
-          $sb = $t[3] < $len ? 1 : (0);
-          $sc = $sb ? $prev_len <= $t[3] ? 1 : (0) : ($sb);
-          if ($sc) {$t[4] = (int) ($t[4] + -1);}
+          $Z = $t[3] < $len ? 1 : (0);
+          $aa = $Z ? $prev_len <= $t[3] ? 1 : (0) : ($Z);
+          if ($aa) {$t[4] = (int) ($t[4] + -1);}
         }
         $t[5] = $caml_mod((int) ($t[5] + 1), $t[1]->count() - 1);
         return 0;
@@ -345,15 +345,15 @@ final class Weak {
               $caml_check_bound($newhashes, $sz)[$sz + 1] = $h;
               $caml_check_bound($t[1], $index)[$index + 1] = $newbucket;
               $caml_check_bound($t[2], $index)[$index + 1] = $newhashes;
-              $r4 = $sz <= $t[3] ? 1 : (0);
-              $r5 = $r4 ? $t[3] < $newsz ? 1 : (0) : ($r4);
-              if ($r5) {
+              $R = $sz <= $t[3] ? 1 : (0);
+              $S = $R ? $t[3] < $newsz ? 1 : (0) : ($R);
+              if ($S) {
                 $t[4] = (int) ($t[4] + 1);
                 $i__1 = 0;
                 for (;;) {
                   $test_shrink_bucket($t);
-                  $r7 = (int) ($i__1 + 1);
-                  if (2 !== $i__1) {$i__1 = $r7;continue;}
+                  $U = (int) ($i__1 + 1);
+                  if (2 !== $i__1) {$i__1 = $U;continue;}
                   break;
                 }
                 if ($continue_counter > 0) {
@@ -365,8 +365,8 @@ final class Weak {
                   continue;
                 }
               }
-              $r6 = (int) (($t[1]->count() - 1) / 2) < $t[4] ? 1 : (0);
-              return $r6 ? $resize($t) : ($r6);
+              $T = (int) (($t[1]->count() - 1) / 2) < $t[4] ? 1 : (0);
+              return $T ? $resize($t) : ($T);
             }
             if ($caml_weak_check($bucket, $i__0)) {
               $i__2 = (int) ($i__0 + 1);
@@ -382,16 +382,16 @@ final class Weak {
       };
       $add = function(dynamic $t, dynamic $d) use ($H,$add_aux,$call1,$caml_weak_set,$get_index) {
         $h = $call1($H[2], $d);
-        $rZ = $get_index($t, $h);
-        $r0 = Vector{0, $d};
+        $M = $get_index($t, $h);
+        $N = Vector{0, $d};
         return $add_aux->contents(
           $t,
-          function(dynamic $r3, dynamic $r2, dynamic $r1) use ($caml_weak_set) {
-            return $caml_weak_set($r3, $r2, $r1);
+          function(dynamic $Q, dynamic $P, dynamic $O) use ($caml_weak_set) {
+            return $caml_weak_set($Q, $P, $O);
           },
-          $r0,
+          $N,
           $h,
-          $rZ
+          $M
         );
       };
       $find_or = function(dynamic $t, dynamic $d, dynamic $ifnotfound) use ($H,$call1,$call2,$caml_check_bound,$caml_weak_get,$caml_weak_get_copy,$get_index,$length) {
@@ -432,13 +432,13 @@ final class Weak {
           $t,
           $d,
           function(dynamic $h, dynamic $index) use ($add_aux,$caml_weak_set,$d,$t) {
-            $rV = Vector{0, $d};
+            $I = Vector{0, $d};
             $add_aux->contents(
               $t,
-              function(dynamic $rY, dynamic $rX, dynamic $rW) use ($caml_weak_set) {
-                return $caml_weak_set($rY, $rX, $rW);
+              function(dynamic $L, dynamic $K, dynamic $J) use ($caml_weak_set) {
+                return $caml_weak_set($L, $K, $J);
               },
-              $rV,
+              $I,
               $h,
               $index
             );
@@ -519,23 +519,23 @@ final class Weak {
         return $loop(0);
       };
       $remove = function(dynamic $t, dynamic $d) use ($caml_weak_set,$find_shadow) {
-        $rU = 0;
+        $H = 0;
         return $find_shadow(
           $t,
           $d,
           function(dynamic $w, dynamic $i) use ($caml_weak_set) {
             return $caml_weak_set($w, $i, 0);
           },
-          $rU
+          $H
         );
       };
       $mem = function(dynamic $t, dynamic $d) use ($find_shadow) {
-        $rT = 0;
+        $G = 0;
         return $find_shadow(
           $t,
           $d,
           function(dynamic $w, dynamic $i) {return 1;},
-          $rT
+          $G
         );
       };
       $find_all = function(dynamic $t, dynamic $d) use ($H,$call1,$call2,$caml_check_bound,$caml_weak_get,$caml_weak_get_copy,$get_index,$length) {
@@ -582,19 +582,19 @@ final class Weak {
       $stats = function(dynamic $t) use ($Array,$call2,$call3,$caml_check_bound,$count,$length,$runtime) {
         $len = $t[1]->count() - 1;
         $lens = $call2($Array[15], $length, $t[1]);
-        $rH = function(dynamic $rS, dynamic $rR) use ($runtime) {
-          return $runtime["caml_int_compare"]($rS, $rR);
+        $u = function(dynamic $F, dynamic $E) use ($runtime) {
+          return $runtime["caml_int_compare"]($F, $E);
         };
-        $call2($Array[25], $rH, $lens);
-        $rI = 0;
-        $rJ = function(dynamic $rQ, dynamic $rP) {return (int) ($rQ + $rP);};
-        $totlen = $call3($Array[17], $rJ, $rI, $lens);
-        $rK = (int) ($len + -1);
-        $rM = (int) ($len / 2);
-        $rL = $caml_check_bound($lens, $rK)[$rK + 1];
-        $rN = $caml_check_bound($lens, $rM)[$rM + 1];
-        $rO = $caml_check_bound($lens, 0)[1];
-        return Vector{0, $len, $count($t), $totlen, $rO, $rN, $rL};
+        $call2($Array[25], $u, $lens);
+        $v = 0;
+        $w = function(dynamic $D, dynamic $C) {return (int) ($D + $C);};
+        $totlen = $call3($Array[17], $w, $v, $lens);
+        $x = (int) ($len + -1);
+        $z = (int) ($len / 2);
+        $y = $caml_check_bound($lens, $x)[$x + 1];
+        $A = $caml_check_bound($lens, $z)[$z + 1];
+        $B = $caml_check_bound($lens, 0)[1];
+        return Vector{0, $len, $count($t), $totlen, $B, $A, $y};
       };
       return Vector{
         0,
@@ -613,34 +613,32 @@ final class Weak {
         $stats
       };
     };
-    $rn = function
-    (dynamic $rG, dynamic $rF, dynamic $rE, dynamic $rD, dynamic $rC) use ($caml_weak_blit) {
-      return $caml_weak_blit($rG, $rF, $rE, $rD, $rC);
+    $a = function(dynamic $t, dynamic $s, dynamic $r, dynamic $q, dynamic $p) use ($caml_weak_blit) {return $caml_weak_blit($t, $s, $r, $q, $p);
     };
-    $ro = function(dynamic $rB, dynamic $rA) use ($caml_weak_check) {
-      return $caml_weak_check($rB, $rA);
+    $b = function(dynamic $o, dynamic $n) use ($caml_weak_check) {
+      return $caml_weak_check($o, $n);
     };
-    $rp = function(dynamic $rz, dynamic $ry) use ($caml_weak_get_copy) {
-      return $caml_weak_get_copy($rz, $ry);
+    $c = function(dynamic $m, dynamic $l) use ($caml_weak_get_copy) {
+      return $caml_weak_get_copy($m, $l);
     };
-    $rq = function(dynamic $rx, dynamic $rw) use ($caml_weak_get) {
-      return $caml_weak_get($rx, $rw);
+    $d = function(dynamic $k, dynamic $j) use ($caml_weak_get) {
+      return $caml_weak_get($k, $j);
     };
-    $rr = function(dynamic $rv, dynamic $ru, dynamic $rt) use ($caml_weak_set) {
-      return $caml_weak_set($rv, $ru, $rt);
+    $e = function(dynamic $i, dynamic $h, dynamic $g) use ($caml_weak_set) {
+      return $caml_weak_set($i, $h, $g);
     };
     $Weak = Vector{
       0,
-      function(dynamic $rs) use ($caml_weak_create) {
-        return $caml_weak_create($rs);
+      function(dynamic $f) use ($caml_weak_create) {
+        return $caml_weak_create($f);
       },
       $length,
-      $rr,
-      $rq,
-      $rp,
-      $ro,
+      $e,
+      $d,
+      $c,
+      $b,
       $fill,
-      $rn,
+      $a,
       $Make
     };
     

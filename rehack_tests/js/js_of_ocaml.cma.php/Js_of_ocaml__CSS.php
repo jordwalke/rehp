@@ -438,25 +438,25 @@ final class Js_of_ocaml__CSS {
     $Failure = $global_data["Failure"];
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $List = $global_data["List_"];
-    $d8 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d9 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $ea = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $dU = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $dV = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $dW = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $dX = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $dY = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $dZ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d0 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d1 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d2 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d3 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d4 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d5 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d6 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $d7 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $dT = $caml_list_of_js_array(
+    $b2 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $b3 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $b4 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $b5 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bO = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bP = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bQ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bR = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bS = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bT = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bU = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bV = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bW = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bX = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bY = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bZ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $b0 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $b1 = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $bN = $caml_list_of_js_array(
       varray[
         $string("aliceblue"),
         $string("antiquewhite"),
@@ -607,7 +607,7 @@ final class Js_of_ocaml__CSS {
         $string("yellowgreen")
       ]
     );
-    $dS = Vector{
+    $bM = Vector{
       0,
       Vector{
         12,
@@ -623,7 +623,7 @@ final class Js_of_ocaml__CSS {
       },
       $string("#%02X%02X%02X")
     };
-    $dM = Vector{
+    $bG = Vector{
       0,
       Vector{
         11,
@@ -648,7 +648,7 @@ final class Js_of_ocaml__CSS {
       },
       $string("rgb(%d,%d,%d)")
     };
-    $dN = Vector{
+    $bH = Vector{
       0,
       Vector{
         11,
@@ -685,7 +685,7 @@ final class Js_of_ocaml__CSS {
       },
       $string("rgb(%d%%,%d%%,%d%%)")
     };
-    $dO = Vector{
+    $bI = Vector{
       0,
       Vector{
         11,
@@ -720,7 +720,7 @@ final class Js_of_ocaml__CSS {
       },
       $string("rgba(%d,%d,%d,%f)")
     };
-    $dP = Vector{
+    $bJ = Vector{
       0,
       Vector{
         11,
@@ -757,7 +757,7 @@ final class Js_of_ocaml__CSS {
       },
       $string("rgba(%d%%,%d%%,%d%%,%f)")
     };
-    $dQ = Vector{
+    $bK = Vector{
       0,
       Vector{
         11,
@@ -790,7 +790,7 @@ final class Js_of_ocaml__CSS {
       },
       $string("hsl(%d,%d%%,%d%%)")
     };
-    $dR = Vector{
+    $bL = Vector{
       0,
       Vector{
         11,
@@ -833,158 +833,158 @@ final class Js_of_ocaml__CSS {
       },
       $string("hsla(%d,%d%%,%d%%,%f)")
     };
-    $bq = Vector{0, 240, 248, 255};
-    $br = Vector{0, 250, 235, 215};
-    $bs = Vector{0, 0, 255, 255};
-    $bt = Vector{0, 127, 255, 212};
-    $bu = Vector{0, 240, 255, 255};
-    $bv = Vector{0, 245, 245, 220};
-    $bw = Vector{0, 255, 228, 196};
-    $bx = Vector{0, 0, 0, 0};
-    $by = Vector{0, 255, 235, 205};
-    $bz = Vector{0, 0, 0, 255};
-    $bA = Vector{0, 138, 43, 226};
-    $bB = Vector{0, 165, 42, 42};
-    $bC = Vector{0, 222, 184, 135};
-    $bD = Vector{0, 95, 158, 160};
-    $bE = Vector{0, 127, 255, 0};
-    $bF = Vector{0, 210, 105, 30};
-    $bG = Vector{0, 255, 127, 80};
-    $bH = Vector{0, 100, 149, 237};
-    $bI = Vector{0, 255, 248, 220};
-    $bJ = Vector{0, 220, 20, 60};
-    $bK = Vector{0, 0, 255, 255};
-    $bL = Vector{0, 0, 0, 139};
-    $bM = Vector{0, 0, 139, 139};
-    $bN = Vector{0, 184, 134, 11};
-    $bO = Vector{0, 169, 169, 169};
-    $bP = Vector{0, 0, 100, 0};
-    $bQ = Vector{0, 169, 169, 169};
-    $bR = Vector{0, 189, 183, 107};
-    $bS = Vector{0, 139, 0, 139};
-    $bT = Vector{0, 85, 107, 47};
-    $bU = Vector{0, 255, 140, 0};
-    $bV = Vector{0, 153, 50, 204};
-    $bW = Vector{0, 139, 0, 0};
-    $bX = Vector{0, 233, 150, 122};
-    $bY = Vector{0, 143, 188, 143};
-    $bZ = Vector{0, 72, 61, 139};
-    $b0 = Vector{0, 47, 79, 79};
-    $b1 = Vector{0, 47, 79, 79};
-    $b2 = Vector{0, 0, 206, 209};
-    $b3 = Vector{0, 148, 0, 211};
-    $b4 = Vector{0, 255, 20, 147};
-    $b5 = Vector{0, 0, 191, 255};
-    $b6 = Vector{0, 105, 105, 105};
-    $b7 = Vector{0, 105, 105, 105};
-    $b8 = Vector{0, 30, 144, 255};
-    $b9 = Vector{0, 178, 34, 34};
-    $b_ = Vector{0, 255, 250, 240};
-    $ca = Vector{0, 34, 139, 34};
-    $cb = Vector{0, 255, 0, 255};
-    $cc = Vector{0, 220, 220, 220};
-    $cd = Vector{0, 248, 248, 255};
-    $ce = Vector{0, 255, 215, 0};
-    $cf = Vector{0, 218, 165, 32};
-    $cg = Vector{0, 128, 128, 128};
-    $ch = Vector{0, 128, 128, 128};
-    $ci = Vector{0, 0, 128, 0};
-    $cj = Vector{0, 173, 255, 47};
-    $ck = Vector{0, 240, 255, 240};
-    $cl = Vector{0, 255, 105, 180};
-    $cm = Vector{0, 205, 92, 92};
-    $cn = Vector{0, 75, 0, 130};
-    $co = Vector{0, 255, 255, 240};
-    $cp = Vector{0, 240, 230, 140};
-    $cq = Vector{0, 230, 230, 250};
-    $cr = Vector{0, 255, 240, 245};
-    $cs = Vector{0, 124, 252, 0};
-    $ct = Vector{0, 255, 250, 205};
-    $cu = Vector{0, 173, 216, 230};
-    $cv = Vector{0, 240, 128, 128};
-    $cw = Vector{0, 224, 255, 255};
-    $cx = Vector{0, 250, 250, 210};
-    $cy = Vector{0, 211, 211, 211};
-    $cz = Vector{0, 144, 238, 144};
-    $cA = Vector{0, 211, 211, 211};
-    $cB = Vector{0, 255, 182, 193};
-    $cC = Vector{0, 255, 160, 122};
-    $cD = Vector{0, 32, 178, 170};
-    $cE = Vector{0, 135, 206, 250};
-    $cF = Vector{0, 119, 136, 153};
-    $cG = Vector{0, 119, 136, 153};
-    $cH = Vector{0, 176, 196, 222};
-    $cI = Vector{0, 255, 255, 224};
-    $cJ = Vector{0, 0, 255, 0};
-    $cK = Vector{0, 50, 205, 50};
-    $cL = Vector{0, 250, 240, 230};
-    $cM = Vector{0, 255, 0, 255};
-    $cN = Vector{0, 128, 0, 0};
-    $cO = Vector{0, 102, 205, 170};
-    $cP = Vector{0, 0, 0, 205};
-    $cQ = Vector{0, 186, 85, 211};
-    $cR = Vector{0, 147, 112, 219};
-    $cS = Vector{0, 60, 179, 113};
-    $cT = Vector{0, 123, 104, 238};
-    $cU = Vector{0, 0, 250, 154};
-    $cV = Vector{0, 72, 209, 204};
-    $cW = Vector{0, 199, 21, 133};
-    $cX = Vector{0, 25, 25, 112};
-    $cY = Vector{0, 245, 255, 250};
-    $cZ = Vector{0, 255, 228, 225};
-    $c0 = Vector{0, 255, 228, 181};
-    $c1 = Vector{0, 255, 222, 173};
-    $c2 = Vector{0, 0, 0, 128};
-    $c3 = Vector{0, 253, 245, 230};
-    $c4 = Vector{0, 128, 128, 0};
-    $c5 = Vector{0, 107, 142, 35};
-    $c6 = Vector{0, 255, 165, 0};
-    $c7 = Vector{0, 255, 69, 0};
-    $c8 = Vector{0, 218, 112, 214};
-    $c9 = Vector{0, 238, 232, 170};
-    $c_ = Vector{0, 152, 251, 152};
-    $da = Vector{0, 175, 238, 238};
-    $db = Vector{0, 219, 112, 147};
-    $dc = Vector{0, 255, 239, 213};
-    $dd = Vector{0, 255, 218, 185};
-    $de = Vector{0, 205, 133, 63};
-    $df = Vector{0, 255, 192, 203};
-    $dg = Vector{0, 221, 160, 221};
-    $dh = Vector{0, 176, 224, 230};
-    $di = Vector{0, 128, 0, 128};
-    $dj = Vector{0, 255, 0, 0};
-    $dk = Vector{0, 188, 143, 143};
-    $dl = Vector{0, 65, 105, 225};
-    $dm = Vector{0, 139, 69, 19};
-    $dn = Vector{0, 250, 128, 114};
-    $dp = Vector{0, 244, 164, 96};
-    $dq = Vector{0, 46, 139, 87};
-    $dr = Vector{0, 255, 245, 238};
-    $ds = Vector{0, 160, 82, 45};
-    $dt = Vector{0, 192, 192, 192};
-    $du = Vector{0, 135, 206, 235};
-    $dv = Vector{0, 106, 90, 205};
-    $dw = Vector{0, 112, 128, 144};
-    $dx = Vector{0, 112, 128, 144};
-    $dy = Vector{0, 255, 250, 250};
-    $dz = Vector{0, 0, 255, 127};
-    $dA = Vector{0, 70, 130, 180};
-    $dB = Vector{0, 210, 180, 140};
-    $dC = Vector{0, 0, 128, 128};
-    $dD = Vector{0, 216, 191, 216};
-    $dE = Vector{0, 255, 99, 71};
-    $dF = Vector{0, 64, 224, 208};
-    $dG = Vector{0, 238, 130, 238};
-    $dH = Vector{0, 245, 222, 179};
-    $dI = Vector{0, 255, 255, 255};
-    $dJ = Vector{0, 245, 245, 245};
-    $dK = Vector{0, 255, 255, 0};
-    $dL = Vector{0, 154, 205, 50};
+    $a = Vector{0, 240, 248, 255};
+    $b = Vector{0, 250, 235, 215};
+    $c = Vector{0, 0, 255, 255};
+    $d = Vector{0, 127, 255, 212};
+    $e = Vector{0, 240, 255, 255};
+    $f = Vector{0, 245, 245, 220};
+    $g = Vector{0, 255, 228, 196};
+    $h = Vector{0, 0, 0, 0};
+    $i = Vector{0, 255, 235, 205};
+    $j = Vector{0, 0, 0, 255};
+    $k = Vector{0, 138, 43, 226};
+    $l = Vector{0, 165, 42, 42};
+    $m = Vector{0, 222, 184, 135};
+    $n = Vector{0, 95, 158, 160};
+    $o = Vector{0, 127, 255, 0};
+    $p = Vector{0, 210, 105, 30};
+    $q = Vector{0, 255, 127, 80};
+    $r = Vector{0, 100, 149, 237};
+    $s = Vector{0, 255, 248, 220};
+    $t = Vector{0, 220, 20, 60};
+    $u = Vector{0, 0, 255, 255};
+    $v = Vector{0, 0, 0, 139};
+    $w = Vector{0, 0, 139, 139};
+    $x = Vector{0, 184, 134, 11};
+    $y = Vector{0, 169, 169, 169};
+    $z = Vector{0, 0, 100, 0};
+    $A = Vector{0, 169, 169, 169};
+    $B = Vector{0, 189, 183, 107};
+    $C = Vector{0, 139, 0, 139};
+    $D = Vector{0, 85, 107, 47};
+    $E = Vector{0, 255, 140, 0};
+    $F = Vector{0, 153, 50, 204};
+    $G = Vector{0, 139, 0, 0};
+    $H = Vector{0, 233, 150, 122};
+    $I = Vector{0, 143, 188, 143};
+    $J = Vector{0, 72, 61, 139};
+    $K = Vector{0, 47, 79, 79};
+    $L = Vector{0, 47, 79, 79};
+    $M = Vector{0, 0, 206, 209};
+    $N = Vector{0, 148, 0, 211};
+    $O = Vector{0, 255, 20, 147};
+    $P = Vector{0, 0, 191, 255};
+    $Q = Vector{0, 105, 105, 105};
+    $R = Vector{0, 105, 105, 105};
+    $S = Vector{0, 30, 144, 255};
+    $T = Vector{0, 178, 34, 34};
+    $U = Vector{0, 255, 250, 240};
+    $V = Vector{0, 34, 139, 34};
+    $W = Vector{0, 255, 0, 255};
+    $X = Vector{0, 220, 220, 220};
+    $Y = Vector{0, 248, 248, 255};
+    $Z = Vector{0, 255, 215, 0};
+    $aa = Vector{0, 218, 165, 32};
+    $ab = Vector{0, 128, 128, 128};
+    $ac = Vector{0, 128, 128, 128};
+    $ad = Vector{0, 0, 128, 0};
+    $ae = Vector{0, 173, 255, 47};
+    $af = Vector{0, 240, 255, 240};
+    $ag = Vector{0, 255, 105, 180};
+    $ah = Vector{0, 205, 92, 92};
+    $ai = Vector{0, 75, 0, 130};
+    $aj = Vector{0, 255, 255, 240};
+    $ak = Vector{0, 240, 230, 140};
+    $al = Vector{0, 230, 230, 250};
+    $am = Vector{0, 255, 240, 245};
+    $an = Vector{0, 124, 252, 0};
+    $ao = Vector{0, 255, 250, 205};
+    $ap = Vector{0, 173, 216, 230};
+    $aq = Vector{0, 240, 128, 128};
+    $ar = Vector{0, 224, 255, 255};
+    $as = Vector{0, 250, 250, 210};
+    $at = Vector{0, 211, 211, 211};
+    $au = Vector{0, 144, 238, 144};
+    $av = Vector{0, 211, 211, 211};
+    $aw = Vector{0, 255, 182, 193};
+    $ax = Vector{0, 255, 160, 122};
+    $ay = Vector{0, 32, 178, 170};
+    $az = Vector{0, 135, 206, 250};
+    $aA = Vector{0, 119, 136, 153};
+    $aB = Vector{0, 119, 136, 153};
+    $aC = Vector{0, 176, 196, 222};
+    $aD = Vector{0, 255, 255, 224};
+    $aE = Vector{0, 0, 255, 0};
+    $aF = Vector{0, 50, 205, 50};
+    $aG = Vector{0, 250, 240, 230};
+    $aH = Vector{0, 255, 0, 255};
+    $aI = Vector{0, 128, 0, 0};
+    $aJ = Vector{0, 102, 205, 170};
+    $aK = Vector{0, 0, 0, 205};
+    $aL = Vector{0, 186, 85, 211};
+    $aM = Vector{0, 147, 112, 219};
+    $aN = Vector{0, 60, 179, 113};
+    $aO = Vector{0, 123, 104, 238};
+    $aP = Vector{0, 0, 250, 154};
+    $aQ = Vector{0, 72, 209, 204};
+    $aR = Vector{0, 199, 21, 133};
+    $aS = Vector{0, 25, 25, 112};
+    $aT = Vector{0, 245, 255, 250};
+    $aU = Vector{0, 255, 228, 225};
+    $aV = Vector{0, 255, 228, 181};
+    $aW = Vector{0, 255, 222, 173};
+    $aX = Vector{0, 0, 0, 128};
+    $aY = Vector{0, 253, 245, 230};
+    $aZ = Vector{0, 128, 128, 0};
+    $a0 = Vector{0, 107, 142, 35};
+    $a1 = Vector{0, 255, 165, 0};
+    $a2 = Vector{0, 255, 69, 0};
+    $a3 = Vector{0, 218, 112, 214};
+    $a4 = Vector{0, 238, 232, 170};
+    $a5 = Vector{0, 152, 251, 152};
+    $a6 = Vector{0, 175, 238, 238};
+    $a7 = Vector{0, 219, 112, 147};
+    $a8 = Vector{0, 255, 239, 213};
+    $a9 = Vector{0, 255, 218, 185};
+    $a_ = Vector{0, 205, 133, 63};
+    $ba = Vector{0, 255, 192, 203};
+    $bb = Vector{0, 221, 160, 221};
+    $bc = Vector{0, 176, 224, 230};
+    $bd = Vector{0, 128, 0, 128};
+    $be = Vector{0, 255, 0, 0};
+    $bf = Vector{0, 188, 143, 143};
+    $bg = Vector{0, 65, 105, 225};
+    $bh = Vector{0, 139, 69, 19};
+    $bi = Vector{0, 250, 128, 114};
+    $bj = Vector{0, 244, 164, 96};
+    $bk = Vector{0, 46, 139, 87};
+    $bl = Vector{0, 255, 245, 238};
+    $bm = Vector{0, 160, 82, 45};
+    $bn = Vector{0, 192, 192, 192};
+    $bo = Vector{0, 135, 206, 235};
+    $bp = Vector{0, 106, 90, 205};
+    $bq = Vector{0, 112, 128, 144};
+    $br = Vector{0, 112, 128, 144};
+    $bs = Vector{0, 255, 250, 250};
+    $bt = Vector{0, 0, 255, 127};
+    $bu = Vector{0, 70, 130, 180};
+    $bv = Vector{0, 210, 180, 140};
+    $bw = Vector{0, 0, 128, 128};
+    $bx = Vector{0, 216, 191, 216};
+    $by = Vector{0, 255, 99, 71};
+    $bz = Vector{0, 64, 224, 208};
+    $bA = Vector{0, 238, 130, 238};
+    $bB = Vector{0, 245, 222, 179};
+    $bC = Vector{0, 255, 255, 255};
+    $bD = Vector{0, 245, 245, 245};
+    $bE = Vector{0, 255, 255, 0};
+    $bF = Vector{0, 154, 205, 50};
     $string_of_name = function(dynamic $param) use ($cst_aliceblue,$cst_antiquewhite,$cst_aqua,$cst_aquamarine,$cst_azure,$cst_beige,$cst_bisque,$cst_black,$cst_blanchedalmond,$cst_blue,$cst_blueviolet,$cst_brown,$cst_burlywood,$cst_cadetblue,$cst_chartreuse,$cst_chocolate,$cst_coral,$cst_cornflowerblue,$cst_cornsilk,$cst_crimson,$cst_cyan,$cst_darkblue,$cst_darkcyan,$cst_darkgoldenrod,$cst_darkgray,$cst_darkgreen,$cst_darkgrey,$cst_darkkhaki,$cst_darkmagenta,$cst_darkolivegreen,$cst_darkorange,$cst_darkorchid,$cst_darkred,$cst_darksalmon,$cst_darkseagreen,$cst_darkslateblue,$cst_darkslategray,$cst_darkslategrey,$cst_darkturquoise,$cst_darkviolet,$cst_deeppink,$cst_deepskyblue,$cst_dimgray,$cst_dimgrey,$cst_dodgerblue,$cst_firebrick,$cst_floralwhite,$cst_forestgreen,$cst_fuchsia,$cst_gainsboro,$cst_ghostwhite,$cst_gold,$cst_goldenrod,$cst_gray,$cst_green,$cst_greenyellow,$cst_grey,$cst_honeydew,$cst_hotpink,$cst_indianred,$cst_indigo,$cst_ivory,$cst_khaki,$cst_lavender,$cst_lavenderblush,$cst_lawngreen,$cst_lemonchiffon,$cst_lightblue,$cst_lightcoral,$cst_lightcyan,$cst_lightgoldenrodyellow,$cst_lightgray,$cst_lightgreen,$cst_lightgrey,$cst_lightpink,$cst_lightsalmon,$cst_lightseagreen,$cst_lightskyblue,$cst_lightslategray,$cst_lightslategrey,$cst_lightsteelblue,$cst_lightyellow,$cst_lime,$cst_limegreen,$cst_linen,$cst_magenta,$cst_maroon,$cst_mediumaquamarine,$cst_mediumblue,$cst_mediumorchid,$cst_mediumpurple,$cst_mediumseagreen,$cst_mediumslateblue,$cst_mediumspringgreen,$cst_mediumturquoise,$cst_mediumvioletred,$cst_midnightblue,$cst_mintcream,$cst_mistyrose,$cst_moccasin,$cst_navajowhite,$cst_navy,$cst_oldlace,$cst_olive,$cst_olivedrab,$cst_orange,$cst_orangered,$cst_orchid,$cst_palegoldenrod,$cst_palegreen,$cst_paleturquoise,$cst_palevioletred,$cst_papayawhip,$cst_peachpuff,$cst_peru,$cst_pink,$cst_plum,$cst_powderblue,$cst_purple,$cst_red,$cst_rosybrown,$cst_royalblue,$cst_saddlebrown,$cst_salmon,$cst_sandybrown,$cst_seagreen,$cst_seashell,$cst_sienna,$cst_silver,$cst_skyblue,$cst_slateblue,$cst_slategray,$cst_slategrey,$cst_snow,$cst_springgreen,$cst_steelblue,$cst_tan,$cst_teal,$cst_thistle,$cst_tomato,$cst_turquoise,$cst_violet,$cst_wheat,$cst_white,$cst_whitesmoke,$cst_yellow,$cst_yellowgreen) {
-      $e9 = $param;
-      if (74 <= $e9) {
-        if (111 <= $e9) {
-          switch($e9) {
+      $c3 = $param;
+      if (74 <= $c3) {
+        if (111 <= $c3) {
+          switch($c3) {
             // FALLTHROUGH
             case 111:
               return $cst_palevioletred;
@@ -1095,7 +1095,7 @@ final class Js_of_ocaml__CSS {
               return $cst_yellowgreen;
             }
         }
-        switch($e9) {
+        switch($c3) {
           // FALLTHROUGH
           case 74:
             return $cst_lightpink;
@@ -1209,8 +1209,8 @@ final class Js_of_ocaml__CSS {
             return $cst_paleturquoise;
           }
       }
-      if (37 <= $e9) {
-        switch($e9) {
+      if (37 <= $c3) {
+        switch($c3) {
           // FALLTHROUGH
           case 37:
             return $cst_darkslategrey;
@@ -1324,7 +1324,7 @@ final class Js_of_ocaml__CSS {
             return $cst_lightgrey;
           }
       }
-      switch($e9) {
+      switch($c3) {
         // FALLTHROUGH
         case 0:
           return $cst_aliceblue;
@@ -1669,462 +1669,462 @@ final class Js_of_ocaml__CSS {
               }
             ) as \Throwable;
     };
-    $rgb_of_name = function(dynamic $param) use ($b0,$b1,$b2,$b3,$b4,$b5,$b6,$b7,$b8,$b9,$bA,$bB,$bC,$bD,$bE,$bF,$bG,$bH,$bI,$bJ,$bK,$bL,$bM,$bN,$bO,$bP,$bQ,$bR,$bS,$bT,$bU,$bV,$bW,$bX,$bY,$bZ,$b_,$bq,$br,$bs,$bt,$bu,$bv,$bw,$bx,$by,$bz,$c0,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$cA,$cB,$cC,$cD,$cE,$cF,$cG,$cH,$cI,$cJ,$cK,$cL,$cM,$cN,$cO,$cP,$cQ,$cR,$cS,$cT,$cU,$cV,$cW,$cX,$cY,$cZ,$c_,$ca,$cb,$cc,$cd,$ce,$cf,$cg,$ch,$ci,$cj,$ck,$cl,$cm,$cn,$co,$cp,$cq,$cr,$cs,$ct,$cu,$cv,$cw,$cx,$cy,$cz,$dA,$dB,$dC,$dD,$dE,$dF,$dG,$dH,$dI,$dJ,$dK,$dL,$da,$db,$dc,$dd,$de,$df,$dg,$dh,$di,$dj,$dk,$dl,$dm,$dn,$dp,$dq,$dr,$ds,$dt,$du,$dv,$dw,$dx,$dy,$dz) {
-      $e8 = $param;
-      if (74 <= $e8) {
-        if (111 <= $e8) {
-          switch($e8) {
+    $rgb_of_name = function(dynamic $param) use ($A,$B,$C,$D,$E,$F,$G,$H,$I,$J,$K,$L,$M,$N,$O,$P,$Q,$R,$S,$T,$U,$V,$W,$X,$Y,$Z,$a,$a0,$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$aA,$aB,$aC,$aD,$aE,$aF,$aG,$aH,$aI,$aJ,$aK,$aL,$aM,$aN,$aO,$aP,$aQ,$aR,$aS,$aT,$aU,$aV,$aW,$aX,$aY,$aZ,$a_,$aa,$ab,$ac,$ad,$ae,$af,$ag,$ah,$ai,$aj,$ak,$al,$am,$an,$ao,$ap,$aq,$ar,$as,$at,$au,$av,$aw,$ax,$ay,$az,$b,$bA,$bB,$bC,$bD,$bE,$bF,$ba,$bb,$bc,$bd,$be,$bf,$bg,$bh,$bi,$bj,$bk,$bl,$bm,$bn,$bo,$bp,$bq,$br,$bs,$bt,$bu,$bv,$bw,$bx,$by,$bz,$c,$d,$e,$f,$g,$h,$i,$j,$k,$l,$m,$n,$o,$p,$q,$r,$s,$t,$u,$v,$w,$x,$y,$z) {
+      $c2 = $param;
+      if (74 <= $c2) {
+        if (111 <= $c2) {
+          switch($c2) {
             // FALLTHROUGH
             case 111:
-              return $db;
+              return $a7;
             // FALLTHROUGH
             case 112:
-              return $dc;
+              return $a8;
             // FALLTHROUGH
             case 113:
-              return $dd;
+              return $a9;
             // FALLTHROUGH
             case 114:
-              return $de;
+              return $a_;
             // FALLTHROUGH
             case 115:
-              return $df;
+              return $ba;
             // FALLTHROUGH
             case 116:
-              return $dg;
+              return $bb;
             // FALLTHROUGH
             case 117:
-              return $dh;
+              return $bc;
             // FALLTHROUGH
             case 118:
-              return $di;
+              return $bd;
             // FALLTHROUGH
             case 119:
-              return $dj;
+              return $be;
             // FALLTHROUGH
             case 120:
-              return $dk;
+              return $bf;
             // FALLTHROUGH
             case 121:
-              return $dl;
+              return $bg;
             // FALLTHROUGH
             case 122:
-              return $dm;
+              return $bh;
             // FALLTHROUGH
             case 123:
-              return $dn;
+              return $bi;
             // FALLTHROUGH
             case 124:
-              return $dp;
+              return $bj;
             // FALLTHROUGH
             case 125:
-              return $dq;
+              return $bk;
             // FALLTHROUGH
             case 126:
-              return $dr;
+              return $bl;
             // FALLTHROUGH
             case 127:
-              return $ds;
+              return $bm;
             // FALLTHROUGH
             case 128:
-              return $dt;
+              return $bn;
             // FALLTHROUGH
             case 129:
-              return $du;
+              return $bo;
             // FALLTHROUGH
             case 130:
-              return $dv;
+              return $bp;
             // FALLTHROUGH
             case 131:
-              return $dw;
+              return $bq;
             // FALLTHROUGH
             case 132:
-              return $dx;
+              return $br;
             // FALLTHROUGH
             case 133:
-              return $dy;
+              return $bs;
             // FALLTHROUGH
             case 134:
-              return $dz;
+              return $bt;
             // FALLTHROUGH
             case 135:
-              return $dA;
+              return $bu;
             // FALLTHROUGH
             case 136:
-              return $dB;
+              return $bv;
             // FALLTHROUGH
             case 137:
-              return $dC;
+              return $bw;
             // FALLTHROUGH
             case 138:
-              return $dD;
+              return $bx;
             // FALLTHROUGH
             case 139:
-              return $dE;
+              return $by;
             // FALLTHROUGH
             case 140:
-              return $dF;
+              return $bz;
             // FALLTHROUGH
             case 141:
-              return $dG;
+              return $bA;
             // FALLTHROUGH
             case 142:
-              return $dH;
+              return $bB;
             // FALLTHROUGH
             case 143:
-              return $dI;
+              return $bC;
             // FALLTHROUGH
             case 144:
-              return $dJ;
+              return $bD;
             // FALLTHROUGH
             case 145:
-              return $dK;
+              return $bE;
             // FALLTHROUGH
             default:
-              return $dL;
+              return $bF;
             }
         }
-        switch($e8) {
+        switch($c2) {
           // FALLTHROUGH
           case 74:
-            return $cB;
+            return $aw;
           // FALLTHROUGH
           case 75:
-            return $cC;
+            return $ax;
           // FALLTHROUGH
           case 76:
-            return $cD;
+            return $ay;
           // FALLTHROUGH
           case 77:
-            return $cE;
+            return $az;
           // FALLTHROUGH
           case 78:
-            return $cF;
+            return $aA;
           // FALLTHROUGH
           case 79:
-            return $cG;
+            return $aB;
           // FALLTHROUGH
           case 80:
-            return $cH;
+            return $aC;
           // FALLTHROUGH
           case 81:
-            return $cI;
+            return $aD;
           // FALLTHROUGH
           case 82:
-            return $cJ;
+            return $aE;
           // FALLTHROUGH
           case 83:
-            return $cK;
+            return $aF;
           // FALLTHROUGH
           case 84:
-            return $cL;
+            return $aG;
           // FALLTHROUGH
           case 85:
-            return $cM;
+            return $aH;
           // FALLTHROUGH
           case 86:
-            return $cN;
+            return $aI;
           // FALLTHROUGH
           case 87:
-            return $cO;
+            return $aJ;
           // FALLTHROUGH
           case 88:
-            return $cP;
+            return $aK;
           // FALLTHROUGH
           case 89:
-            return $cQ;
+            return $aL;
           // FALLTHROUGH
           case 90:
-            return $cR;
+            return $aM;
           // FALLTHROUGH
           case 91:
-            return $cS;
+            return $aN;
           // FALLTHROUGH
           case 92:
-            return $cT;
+            return $aO;
           // FALLTHROUGH
           case 93:
-            return $cU;
+            return $aP;
           // FALLTHROUGH
           case 94:
-            return $cV;
+            return $aQ;
           // FALLTHROUGH
           case 95:
-            return $cW;
+            return $aR;
           // FALLTHROUGH
           case 96:
-            return $cX;
+            return $aS;
           // FALLTHROUGH
           case 97:
-            return $cY;
+            return $aT;
           // FALLTHROUGH
           case 98:
-            return $cZ;
+            return $aU;
           // FALLTHROUGH
           case 99:
-            return $c0;
+            return $aV;
           // FALLTHROUGH
           case 100:
-            return $c1;
+            return $aW;
           // FALLTHROUGH
           case 101:
-            return $c2;
+            return $aX;
           // FALLTHROUGH
           case 102:
-            return $c3;
+            return $aY;
           // FALLTHROUGH
           case 103:
-            return $c4;
+            return $aZ;
           // FALLTHROUGH
           case 104:
-            return $c5;
+            return $a0;
           // FALLTHROUGH
           case 105:
-            return $c6;
+            return $a1;
           // FALLTHROUGH
           case 106:
-            return $c7;
+            return $a2;
           // FALLTHROUGH
           case 107:
-            return $c8;
+            return $a3;
           // FALLTHROUGH
           case 108:
-            return $c9;
+            return $a4;
           // FALLTHROUGH
           case 109:
-            return $c_;
+            return $a5;
           // FALLTHROUGH
           default:
-            return $da;
+            return $a6;
           }
       }
-      if (37 <= $e8) {
-        switch($e8) {
+      if (37 <= $c2) {
+        switch($c2) {
           // FALLTHROUGH
           case 37:
-            return $b1;
+            return $L;
           // FALLTHROUGH
           case 38:
-            return $b2;
+            return $M;
           // FALLTHROUGH
           case 39:
-            return $b3;
+            return $N;
           // FALLTHROUGH
           case 40:
-            return $b4;
+            return $O;
           // FALLTHROUGH
           case 41:
-            return $b5;
+            return $P;
           // FALLTHROUGH
           case 42:
-            return $b6;
+            return $Q;
           // FALLTHROUGH
           case 43:
-            return $b7;
+            return $R;
           // FALLTHROUGH
           case 44:
-            return $b8;
+            return $S;
           // FALLTHROUGH
           case 45:
-            return $b9;
+            return $T;
           // FALLTHROUGH
           case 46:
-            return $b_;
+            return $U;
           // FALLTHROUGH
           case 47:
-            return $ca;
+            return $V;
           // FALLTHROUGH
           case 48:
-            return $cb;
+            return $W;
           // FALLTHROUGH
           case 49:
-            return $cc;
+            return $X;
           // FALLTHROUGH
           case 50:
-            return $cd;
+            return $Y;
           // FALLTHROUGH
           case 51:
-            return $ce;
+            return $Z;
           // FALLTHROUGH
           case 52:
-            return $cf;
+            return $aa;
           // FALLTHROUGH
           case 53:
-            return $cg;
+            return $ab;
           // FALLTHROUGH
           case 54:
-            return $ch;
+            return $ac;
           // FALLTHROUGH
           case 55:
-            return $ci;
+            return $ad;
           // FALLTHROUGH
           case 56:
-            return $cj;
+            return $ae;
           // FALLTHROUGH
           case 57:
-            return $ck;
+            return $af;
           // FALLTHROUGH
           case 58:
-            return $cl;
+            return $ag;
           // FALLTHROUGH
           case 59:
-            return $cm;
+            return $ah;
           // FALLTHROUGH
           case 60:
-            return $cn;
+            return $ai;
           // FALLTHROUGH
           case 61:
-            return $co;
+            return $aj;
           // FALLTHROUGH
           case 62:
-            return $cp;
+            return $ak;
           // FALLTHROUGH
           case 63:
-            return $cq;
+            return $al;
           // FALLTHROUGH
           case 64:
-            return $cr;
+            return $am;
           // FALLTHROUGH
           case 65:
-            return $cs;
+            return $an;
           // FALLTHROUGH
           case 66:
-            return $ct;
+            return $ao;
           // FALLTHROUGH
           case 67:
-            return $cu;
+            return $ap;
           // FALLTHROUGH
           case 68:
-            return $cv;
+            return $aq;
           // FALLTHROUGH
           case 69:
-            return $cw;
+            return $ar;
           // FALLTHROUGH
           case 70:
-            return $cx;
+            return $as;
           // FALLTHROUGH
           case 71:
-            return $cy;
+            return $at;
           // FALLTHROUGH
           case 72:
-            return $cz;
+            return $au;
           // FALLTHROUGH
           default:
-            return $cA;
+            return $av;
           }
       }
-      switch($e8) {
+      switch($c2) {
         // FALLTHROUGH
         case 0:
-          return $bq;
+          return $a;
         // FALLTHROUGH
         case 1:
-          return $br;
+          return $b;
         // FALLTHROUGH
         case 2:
-          return $bs;
+          return $c;
         // FALLTHROUGH
         case 3:
-          return $bt;
+          return $d;
         // FALLTHROUGH
         case 4:
-          return $bu;
+          return $e;
         // FALLTHROUGH
         case 5:
-          return $bv;
+          return $f;
         // FALLTHROUGH
         case 6:
-          return $bw;
+          return $g;
         // FALLTHROUGH
         case 7:
-          return $bx;
+          return $h;
         // FALLTHROUGH
         case 8:
-          return $by;
+          return $i;
         // FALLTHROUGH
         case 9:
-          return $bz;
+          return $j;
         // FALLTHROUGH
         case 10:
-          return $bA;
+          return $k;
         // FALLTHROUGH
         case 11:
-          return $bB;
+          return $l;
         // FALLTHROUGH
         case 12:
-          return $bC;
+          return $m;
         // FALLTHROUGH
         case 13:
-          return $bD;
+          return $n;
         // FALLTHROUGH
         case 14:
-          return $bE;
+          return $o;
         // FALLTHROUGH
         case 15:
-          return $bF;
+          return $p;
         // FALLTHROUGH
         case 16:
-          return $bG;
+          return $q;
         // FALLTHROUGH
         case 17:
-          return $bH;
+          return $r;
         // FALLTHROUGH
         case 18:
-          return $bI;
+          return $s;
         // FALLTHROUGH
         case 19:
-          return $bJ;
+          return $t;
         // FALLTHROUGH
         case 20:
-          return $bK;
+          return $u;
         // FALLTHROUGH
         case 21:
-          return $bL;
+          return $v;
         // FALLTHROUGH
         case 22:
-          return $bM;
+          return $w;
         // FALLTHROUGH
         case 23:
-          return $bN;
+          return $x;
         // FALLTHROUGH
         case 24:
-          return $bO;
+          return $y;
         // FALLTHROUGH
         case 25:
-          return $bP;
+          return $z;
         // FALLTHROUGH
         case 26:
-          return $bQ;
+          return $A;
         // FALLTHROUGH
         case 27:
-          return $bR;
+          return $B;
         // FALLTHROUGH
         case 28:
-          return $bS;
+          return $C;
         // FALLTHROUGH
         case 29:
-          return $bT;
+          return $D;
         // FALLTHROUGH
         case 30:
-          return $bU;
+          return $E;
         // FALLTHROUGH
         case 31:
-          return $bV;
+          return $F;
         // FALLTHROUGH
         case 32:
-          return $bW;
+          return $G;
         // FALLTHROUGH
         case 33:
-          return $bX;
+          return $H;
         // FALLTHROUGH
         case 34:
-          return $bY;
+          return $I;
         // FALLTHROUGH
         case 35:
-          return $bZ;
+          return $J;
         // FALLTHROUGH
         default:
-          return $b0;
+          return $K;
         }
     };
     $rgb = function(dynamic $a, dynamic $r, dynamic $g, dynamic $b) {
@@ -2135,7 +2135,7 @@ final class Js_of_ocaml__CSS {
       if ($a) {$a__0 = $a[1];return Vector{6, Vector{0, $h, $s, $l, $a__0}};}
       return Vector{5, Vector{0, $h, $s, $l}};
     };
-    $string_of_t = function(dynamic $param) use ($Printf,$call4,$call5,$dM,$dN,$dO,$dP,$dQ,$dR,$string_of_name) {
+    $string_of_t = function(dynamic $param) use ($Printf,$bG,$bH,$bI,$bJ,$bK,$bL,$call4,$call5,$string_of_name) {
       switch($param[0]) {
         // FALLTHROUGH
         case 0:
@@ -2147,14 +2147,14 @@ final class Js_of_ocaml__CSS {
           $b = $match[3];
           $g = $match[2];
           $r = $match[1];
-          return $call4($Printf[4], $dM, $r, $g, $b);
+          return $call4($Printf[4], $bG, $r, $g, $b);
         // FALLTHROUGH
         case 2:
           $match__0 = $param[1];
           $b__0 = $match__0[3];
           $g__0 = $match__0[2];
           $r__0 = $match__0[1];
-          return $call4($Printf[4], $dN, $r__0, $g__0, $b__0);
+          return $call4($Printf[4], $bH, $r__0, $g__0, $b__0);
         // FALLTHROUGH
         case 3:
           $match__1 = $param[1];
@@ -2162,7 +2162,7 @@ final class Js_of_ocaml__CSS {
           $b__1 = $match__1[3];
           $g__1 = $match__1[2];
           $r__1 = $match__1[1];
-          return $call5($Printf[4], $dO, $r__1, $g__1, $b__1, $a);
+          return $call5($Printf[4], $bI, $r__1, $g__1, $b__1, $a);
         // FALLTHROUGH
         case 4:
           $match__2 = $param[1];
@@ -2170,14 +2170,14 @@ final class Js_of_ocaml__CSS {
           $b__2 = $match__2[3];
           $g__2 = $match__2[2];
           $r__2 = $match__2[1];
-          return $call5($Printf[4], $dP, $r__2, $g__2, $b__2, $a__0);
+          return $call5($Printf[4], $bJ, $r__2, $g__2, $b__2, $a__0);
         // FALLTHROUGH
         case 5:
           $match__3 = $param[1];
           $l = $match__3[3];
           $s = $match__3[2];
           $h = $match__3[1];
-          return $call4($Printf[4], $dQ, $h, $s, $l);
+          return $call4($Printf[4], $bK, $h, $s, $l);
         // FALLTHROUGH
         default:
           $match__4 = $param[1];
@@ -2185,112 +2185,113 @@ final class Js_of_ocaml__CSS {
           $l__0 = $match__4[3];
           $s__0 = $match__4[2];
           $h__0 = $match__4[1];
-          return $call5($Printf[4], $dR, $h__0, $s__0, $l__0, $a__1);
+          return $call5($Printf[4], $bL, $h__0, $s__0, $l__0, $a__1);
         }
     };
-    $hex_of_rgb = function(dynamic $param) use ($Invalid_argument,$Pervasives,$Printf,$call1,$call2,$call4,$cst_is_out_of_valid_range,$dS,$runtime) {
+    $hex_of_rgb = function(dynamic $param) use ($Invalid_argument,$Pervasives,$Printf,$bM,$call1,$call2,$call4,$cst_is_out_of_valid_range,$runtime) {
       $blue = $param[3];
       $green = $param[2];
       $red = $param[1];
       $in_range = function(dynamic $i) use ($Invalid_argument,$Pervasives,$call1,$call2,$cst_is_out_of_valid_range,$runtime) {
-        $e5 = $i < 0 ? 1 : (0);
-        $e6 = $e5 ? $e5 : (255 < $i ? 1 : (0));
-        if ($e6) {
-          $e7 = $call1($Pervasives[21], $i);
+        $cZ = $i < 0 ? 1 : (0);
+        $c0 = $cZ ? $cZ : (255 < $i ? 1 : (0));
+        if ($c0) {
+          $c1 = $call1($Pervasives[21], $i);
           throw $runtime["caml_wrap_thrown_exception"](
                   Vector{
                     0,
                     $Invalid_argument,
-                    $call2($Pervasives[16], $e7, $cst_is_out_of_valid_range)
+                    $call2($Pervasives[16], $c1, $cst_is_out_of_valid_range)
                   }
                 ) as \Throwable;
         }
-        return $e6;
+        return $c0;
       };
       $in_range($red);
       $in_range($green);
       $in_range($blue);
-      return $call4($Printf[4], $dS, $red, $green, $blue);
+      return $call4($Printf[4], $bM, $red, $green, $blue);
     };
-    $js_t_of_js_string = function(dynamic $s) use ($Invalid_argument,$Js_of_ocaml_Js,$List,$Pervasives,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_jsbytes_of_string,$cst_hsl_s_d_s_d_s_d,$cst_hsla_s_d_s_d_s_d_d_d,$cst_is_not_a_valid_color,$cst_rgb_s_d_s_d_s_d,$cst_rgb_s_d_s_d_s_d__0,$cst_rgba_s_d_s_d_s_d_d_d,$cst_rgba_s_d_s_d_s_d_d_d__0,$dT,$runtime) {
-      $eH = 0;
-      $eI = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d);
-      $eJ = $Js_of_ocaml_Js[10];
+    $js_t_of_js_string = function(dynamic $s) use ($Invalid_argument,$Js_of_ocaml_Js,$List,$Pervasives,$bN,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_jsbytes_of_string,$cst_hsl_s_d_s_d_s_d,$cst_hsla_s_d_s_d_s_d_d_d,$cst_is_not_a_valid_color,$cst_rgb_s_d_s_d_s_d,$cst_rgb_s_d_s_d_s_d__0,$cst_rgba_s_d_s_d_s_d_d_d,$cst_rgba_s_d_s_d_s_d_d_d__0,$runtime) {
+      $cB = 0;
+      $cC = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d);
+      $cD = $Js_of_ocaml_Js[10];
       $rgb_re = (function(dynamic $t23, dynamic $t22, dynamic $param) {return new $t23($t22);
-       })($eJ, $eI, $eH);
-      $eK = 0;
-      $eL = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d__0);
-      $eM = $Js_of_ocaml_Js[10];
+       })($cD, $cC, $cB);
+      $cE = 0;
+      $cF = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d__0);
+      $cG = $Js_of_ocaml_Js[10];
       $rgb_pct_re = (function(dynamic $t21, dynamic $t20, dynamic $param) {return new $t21($t20);
-       })($eM, $eL, $eK);
-      $eN = 0;
-      $eO = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d);
-      $eP = $Js_of_ocaml_Js[10];
+       })($cG, $cF, $cE);
+      $cH = 0;
+      $cI = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d);
+      $cJ = $Js_of_ocaml_Js[10];
       $rgba_re = (function(dynamic $t19, dynamic $t18, dynamic $param) {return new $t19($t18);
-       })($eP, $eO, $eN);
-      $eQ = 0;
-      $eR = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d__0);
-      $eS = $Js_of_ocaml_Js[10];
+       })($cJ, $cI, $cH);
+      $cK = 0;
+      $cL = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d__0);
+      $cM = $Js_of_ocaml_Js[10];
       $rgba_pct_re = (function(dynamic $t17, dynamic $t16, dynamic $param) {return new $t17($t16);
-       })($eS, $eR, $eQ);
-      $eT = 0;
-      $eU = $caml_jsbytes_of_string($cst_hsl_s_d_s_d_s_d);
-      $eV = $Js_of_ocaml_Js[10];
+       })($cM, $cL, $cK);
+      $cN = 0;
+      $cO = $caml_jsbytes_of_string($cst_hsl_s_d_s_d_s_d);
+      $cP = $Js_of_ocaml_Js[10];
       $hsl_re = (function(dynamic $t15, dynamic $t14, dynamic $param) {return new $t15($t14);
-       })($eV, $eU, $eT);
-      $eW = 0;
-      $eX = $caml_jsbytes_of_string($cst_hsla_s_d_s_d_s_d_d_d);
-      $eY = $Js_of_ocaml_Js[10];
+       })($cP, $cO, $cN);
+      $cQ = 0;
+      $cR = $caml_jsbytes_of_string($cst_hsla_s_d_s_d_s_d_d_d);
+      $cS = $Js_of_ocaml_Js[10];
       $hsla_re = (function(dynamic $t13, dynamic $t12, dynamic $param) {return new $t13($t12);
-       })($eY, $eX, $eW);
-      $eZ = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -856045486, 42), $x);
+       })($cS, $cR, $cQ);
+      $cT = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -856045486, 282), $x);
       };
       if (
         !
         (int)
         (function(dynamic $t1, dynamic $t0, dynamic $param) {return $t1->test($t0);
-         })($rgb_re, $s, $eZ)
+         })($rgb_re, $s, $cT)
       ) {
-        $e0 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-          return $call1($caml_get_public_method($x, -856045486, 43), $x);
+        $cU = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          return $call1($caml_get_public_method($x, -856045486, 283), $x);
         };
         if (
           !
           (int)
           (function(dynamic $t3, dynamic $t2, dynamic $param) {return $t3->test($t2);
-           })($rgba_re, $s, $e0)
+           })($rgba_re, $s, $cU)
         ) {
-          $e1 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-            return $call1($caml_get_public_method($x, -856045486, 44), $x);
+          $cV = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            return $call1($caml_get_public_method($x, -856045486, 284), $x);
           };
           if (
             !
             (int)
             (function(dynamic $t5, dynamic $t4, dynamic $param) {return $t5->test($t4);
-             })($rgb_pct_re, $s, $e1)
+             })($rgb_pct_re, $s, $cV)
           ) {
-            $e2 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-              return $call1($caml_get_public_method($x, -856045486, 45), $x);
+            $cW = function(dynamic $x) use ($call1,$caml_get_public_method) {
+              return $call1($caml_get_public_method($x, -856045486, 285), $x);
             };
             if (
               !
               (int)
               (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->test($t6);
-               })($rgba_pct_re, $s, $e2)
+               })($rgba_pct_re, $s, $cW)
             ) {
-              $e3 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-                return $call1($caml_get_public_method($x, -856045486, 46), $x);
+              $cX = function(dynamic $x) use ($call1,$caml_get_public_method) {
+                return $call1($caml_get_public_method($x, -856045486, 286), $x
+                );
               };
               if (
                 !
                 (int)
                 (function(dynamic $t9, dynamic $t8, dynamic $param) {return $t9->test($t8);
-                 })($hsl_re, $s, $e3)
+                 })($hsl_re, $s, $cX)
               ) {
-                $e4 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+                $cY = function(dynamic $x) use ($call1,$caml_get_public_method) {
                   return $call1(
-                    $caml_get_public_method($x, -856045486, 47),
+                    $caml_get_public_method($x, -856045486, 287),
                     $x
                   );
                 };
@@ -2298,9 +2299,9 @@ final class Js_of_ocaml__CSS {
                   !
                   (int)
                   (function(dynamic $t11, dynamic $t10, dynamic $param) {return $t11->test($t10);
-                   })($hsla_re, $s, $e4)
+                   })($hsla_re, $s, $cY)
                 ) {
-                  if ($call2($List[31], $caml_js_to_string($s), $dT)) {return $s;}
+                  if ($call2($List[31], $caml_js_to_string($s), $bN)) {return $s;}
                   throw $runtime["caml_wrap_thrown_exception"](
                           Vector{
                             0,
@@ -2329,10 +2330,10 @@ final class Js_of_ocaml__CSS {
     };
     $ml = function(dynamic $c) use ($Failure,$Invalid_argument,$Js_of_ocaml_Regexp,$Pervasives,$call1,$call2,$call3,$caml_float_of_string,$caml_js_to_string,$caml_string_notequal,$caml_wrap_exception,$cst,$cst__0,$cst_color_conversion_error,$cst_color_conversion_error__0,$cst_hsl,$cst_hsla,$cst_hsla_d_d_d_d_d,$cst_is_not_a_valid_color__0,$cst_rgb,$cst_rgb__0,$cst_rgba,$cst_rgba__0,$cst_rgba_d_d_d_d_d,$cst_rgba_d_d_d_d_d__0,$name_of_string,$runtime) {
       $s = $caml_js_to_string($c);
-      try {$ex = Vector{0, $name_of_string($s)};return $ex;}
-      catch(\Throwable $ey) {
-        $ey = $caml_wrap_exception($ey);
-        if ($ey[1] === $Invalid_argument) {
+      try {$cr = Vector{0, $name_of_string($s)};return $cr;}
+      catch(\Throwable $cs) {
+        $cs = $caml_wrap_exception($cs);
+        if ($cs[1] === $Invalid_argument) {
           $fail = function(dynamic $param) use ($Invalid_argument,$Pervasives,$call2,$cst_is_not_a_valid_color__0,$runtime,$s) {
             throw $runtime["caml_wrap_thrown_exception"](
                     Vector{
@@ -2348,23 +2349,23 @@ final class Js_of_ocaml__CSS {
           $i_of_s_o = function(dynamic $param) use ($Failure,$Invalid_argument,$Pervasives,$call2,$caml_wrap_exception,$cst,$cst_color_conversion_error,$fail,$runtime) {
             if ($param) {
               $i = $param[1];
-              try {$eF = $runtime["caml_int_of_string"]($i);return $eF;}
-              catch(\Throwable $eG) {
-                $eG = $caml_wrap_exception($eG);
-                if ($eG[1] === $Invalid_argument) {$s = $eG[2];}
+              try {$cz = $runtime["caml_int_of_string"]($i);return $cz;}
+              catch(\Throwable $cA) {
+                $cA = $caml_wrap_exception($cA);
+                if ($cA[1] === $Invalid_argument) {$s = $cA[2];}
                 else {
-                  if ($eG[1] !== $Failure) {
-                    throw $runtime["caml_wrap_thrown_exception_reraise"]($eG) as \Throwable;
+                  if ($cA[1] !== $Failure) {
+                    throw $runtime["caml_wrap_thrown_exception_reraise"]($cA) as \Throwable;
                   }
-                  $s = $eG[2];
+                  $s = $cA[2];
                 }
-                $eD = $call2($Pervasives[16], $cst, $s);
-                $eE = $call2($Pervasives[16], $i, $eD);
+                $cx = $call2($Pervasives[16], $cst, $s);
+                $cy = $call2($Pervasives[16], $i, $cx);
                 throw $runtime["caml_wrap_thrown_exception"](
                         Vector{
                           0,
                           $Invalid_argument,
-                          $call2($Pervasives[16], $cst_color_conversion_error, $eE)
+                          $call2($Pervasives[16], $cst_color_conversion_error, $cy)
                         }
                       ) as \Throwable;
               }
@@ -2372,23 +2373,23 @@ final class Js_of_ocaml__CSS {
             return $fail(0);
           };
           $f_of_s = function(dynamic $f) use ($Failure,$Invalid_argument,$Pervasives,$call2,$caml_float_of_string,$caml_wrap_exception,$cst__0,$cst_color_conversion_error__0,$runtime) {
-            try {$eB = $caml_float_of_string($f);return $eB;}
-            catch(\Throwable $eC) {
-              $eC = $caml_wrap_exception($eC);
-              if ($eC[1] === $Invalid_argument) {$s = $eC[2];}
+            try {$cv = $caml_float_of_string($f);return $cv;}
+            catch(\Throwable $cw) {
+              $cw = $caml_wrap_exception($cw);
+              if ($cw[1] === $Invalid_argument) {$s = $cw[2];}
               else {
-                if ($eC[1] !== $Failure) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($eC) as \Throwable;
+                if ($cw[1] !== $Failure) {
+                  throw $runtime["caml_wrap_thrown_exception_reraise"]($cw) as \Throwable;
                 }
-                $s = $eC[2];
+                $s = $cw[2];
               }
-              $ez = $call2($Pervasives[16], $cst__0, $s);
-              $eA = $call2($Pervasives[16], $f, $ez);
+              $ct = $call2($Pervasives[16], $cst__0, $s);
+              $cu = $call2($Pervasives[16], $f, $ct);
               throw $runtime["caml_wrap_thrown_exception"](
                       Vector{
                         0,
                         $Invalid_argument,
-                        $call2($Pervasives[16], $cst_color_conversion_error__0, $eA)
+                        $call2($Pervasives[16], $cst_color_conversion_error__0, $cu)
                       }
                     ) as \Throwable;
             }
@@ -2402,20 +2403,20 @@ final class Js_of_ocaml__CSS {
             $alpha = $call2($Js_of_ocaml_Regexp[11], $r, 5);
             $match__0 = $call2($Js_of_ocaml_Regexp[11], $r, 1);
             if ($match__0) {
-              $ef = $match__0[1];
-              if (! $caml_string_notequal($ef, $cst_rgb)) {
+              $b_ = $match__0[1];
+              if (! $caml_string_notequal($b_, $cst_rgb)) {
                 if ($alpha) {return $fail(0);}
-                $ej = $i_of_s_o($blue);
-                $ek = $i_of_s_o($green);
-                return Vector{1, Vector{0, $i_of_s_o($red), $ek, $ej}};
+                $cd = $i_of_s_o($blue);
+                $ce = $i_of_s_o($green);
+                return Vector{1, Vector{0, $i_of_s_o($red), $ce, $cd}};
               }
-              if (! $caml_string_notequal($ef, $cst_rgba)) {
+              if (! $caml_string_notequal($b_, $cst_rgba)) {
                 if ($alpha) {
                   $a = $alpha[1];
-                  $eg = $f_of_s($a);
-                  $eh = $i_of_s_o($blue);
-                  $ei = $i_of_s_o($green);
-                  return Vector{3, Vector{0, $i_of_s_o($red), $ei, $eh, $eg}};
+                  $ca = $f_of_s($a);
+                  $cb = $i_of_s_o($blue);
+                  $cc = $i_of_s_o($green);
+                  return Vector{3, Vector{0, $i_of_s_o($red), $cc, $cb, $ca}};
                 }
                 return $fail(0);
               }
@@ -2431,22 +2432,22 @@ final class Js_of_ocaml__CSS {
             $alpha__0 = $call2($Js_of_ocaml_Regexp[11], $r__0, 5);
             $match__2 = $call2($Js_of_ocaml_Regexp[11], $r__0, 1);
             if ($match__2) {
-              $el = $match__2[1];
-              if (! $caml_string_notequal($el, $cst_rgb__0)) {
+              $cf = $match__2[1];
+              if (! $caml_string_notequal($cf, $cst_rgb__0)) {
                 if ($alpha__0) {return $fail(0);}
-                $ep = $i_of_s_o($blue__0);
-                $eq = $i_of_s_o($green__0);
-                return Vector{2, Vector{0, $i_of_s_o($red__0), $eq, $ep}};
+                $cj = $i_of_s_o($blue__0);
+                $ck = $i_of_s_o($green__0);
+                return Vector{2, Vector{0, $i_of_s_o($red__0), $ck, $cj}};
               }
-              if (! $caml_string_notequal($el, $cst_rgba__0)) {
+              if (! $caml_string_notequal($cf, $cst_rgba__0)) {
                 if ($alpha__0) {
                   $a__0 = $alpha__0[1];
-                  $em = $f_of_s($a__0);
-                  $en = $i_of_s_o($blue__0);
-                  $eo = $i_of_s_o($green__0);
+                  $cg = $f_of_s($a__0);
+                  $ch = $i_of_s_o($blue__0);
+                  $ci = $i_of_s_o($green__0);
                   return Vector{
                     4,
-                    Vector{0, $i_of_s_o($red__0), $eo, $en, $em}
+                    Vector{0, $i_of_s_o($red__0), $ci, $ch, $cg}
                   };
                 }
                 return $fail(0);
@@ -2463,22 +2464,22 @@ final class Js_of_ocaml__CSS {
             $alpha__1 = $call2($Js_of_ocaml_Regexp[11], $r__1, 5);
             $match__4 = $call2($Js_of_ocaml_Regexp[11], $r__1, 1);
             if ($match__4) {
-              $er = $match__4[1];
-              if (! $caml_string_notequal($er, $cst_hsl)) {
+              $cl = $match__4[1];
+              if (! $caml_string_notequal($cl, $cst_hsl)) {
                 if ($alpha__1) {return $fail(0);}
-                $ev = $i_of_s_o($blue__1);
-                $ew = $i_of_s_o($green__1);
-                return Vector{5, Vector{0, $i_of_s_o($red__1), $ew, $ev}};
+                $cp = $i_of_s_o($blue__1);
+                $cq = $i_of_s_o($green__1);
+                return Vector{5, Vector{0, $i_of_s_o($red__1), $cq, $cp}};
               }
-              if (! $caml_string_notequal($er, $cst_hsla)) {
+              if (! $caml_string_notequal($cl, $cst_hsla)) {
                 if ($alpha__1) {
                   $a__1 = $alpha__1[1];
-                  $es = $f_of_s($a__1);
-                  $et = $i_of_s_o($blue__1);
-                  $eu = $i_of_s_o($green__1);
+                  $cm = $f_of_s($a__1);
+                  $cn = $i_of_s_o($blue__1);
+                  $co = $i_of_s_o($green__1);
                   return Vector{
                     6,
-                    Vector{0, $i_of_s_o($red__1), $eu, $et, $es}
+                    Vector{0, $i_of_s_o($red__1), $co, $cn, $cm}
                   };
                 }
                 return $fail(0);
@@ -2488,69 +2489,69 @@ final class Js_of_ocaml__CSS {
           }
           return $fail(0);
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($ey) as \Throwable;
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($cs) as \Throwable;
       }
     };
-    $string_of_t__0 = function(dynamic $param) use ($Printf,$call3,$cst_0,$cst_ch,$cst_cm,$cst_em,$cst_ex,$cst_gd,$cst_in,$cst_mm,$cst_pc,$cst_pt,$cst_px,$cst_rem,$cst_vh,$cst_vm,$cst_vw,$d0,$d1,$d2,$d3,$d4,$d5,$d6,$d7,$dU,$dV,$dW,$dX,$dY,$dZ,$is_int) {
+    $string_of_t__0 = function(dynamic $param) use ($Printf,$b0,$b1,$bO,$bP,$bQ,$bR,$bS,$bT,$bU,$bV,$bW,$bX,$bY,$bZ,$call3,$cst_0,$cst_ch,$cst_cm,$cst_em,$cst_ex,$cst_gd,$cst_in,$cst_mm,$cst_pc,$cst_pt,$cst_px,$cst_rem,$cst_vh,$cst_vm,$cst_vw,$is_int) {
       if ($is_int($param)) {return $cst_0;}
       else {
         switch($param[0]) {
           // FALLTHROUGH
           case 0:
             $f = $param[1];
-            return $call3($Printf[4], $dU, $f, $cst_em);
+            return $call3($Printf[4], $bO, $f, $cst_em);
           // FALLTHROUGH
           case 1:
             $f__0 = $param[1];
-            return $call3($Printf[4], $dV, $f__0, $cst_ex);
+            return $call3($Printf[4], $bP, $f__0, $cst_ex);
           // FALLTHROUGH
           case 2:
             $f__1 = $param[1];
-            return $call3($Printf[4], $dW, $f__1, $cst_px);
+            return $call3($Printf[4], $bQ, $f__1, $cst_px);
           // FALLTHROUGH
           case 3:
             $f__2 = $param[1];
-            return $call3($Printf[4], $dX, $f__2, $cst_gd);
+            return $call3($Printf[4], $bR, $f__2, $cst_gd);
           // FALLTHROUGH
           case 4:
             $f__3 = $param[1];
-            return $call3($Printf[4], $dY, $f__3, $cst_rem);
+            return $call3($Printf[4], $bS, $f__3, $cst_rem);
           // FALLTHROUGH
           case 5:
             $f__4 = $param[1];
-            return $call3($Printf[4], $dZ, $f__4, $cst_vw);
+            return $call3($Printf[4], $bT, $f__4, $cst_vw);
           // FALLTHROUGH
           case 6:
             $f__5 = $param[1];
-            return $call3($Printf[4], $d0, $f__5, $cst_vh);
+            return $call3($Printf[4], $bU, $f__5, $cst_vh);
           // FALLTHROUGH
           case 7:
             $f__6 = $param[1];
-            return $call3($Printf[4], $d1, $f__6, $cst_vm);
+            return $call3($Printf[4], $bV, $f__6, $cst_vm);
           // FALLTHROUGH
           case 8:
             $f__7 = $param[1];
-            return $call3($Printf[4], $d2, $f__7, $cst_ch);
+            return $call3($Printf[4], $bW, $f__7, $cst_ch);
           // FALLTHROUGH
           case 9:
             $f__8 = $param[1];
-            return $call3($Printf[4], $d3, $f__8, $cst_mm);
+            return $call3($Printf[4], $bX, $f__8, $cst_mm);
           // FALLTHROUGH
           case 10:
             $f__9 = $param[1];
-            return $call3($Printf[4], $d4, $f__9, $cst_cm);
+            return $call3($Printf[4], $bY, $f__9, $cst_cm);
           // FALLTHROUGH
           case 11:
             $f__10 = $param[1];
-            return $call3($Printf[4], $d5, $f__10, $cst_in);
+            return $call3($Printf[4], $bZ, $f__10, $cst_in);
           // FALLTHROUGH
           case 12:
             $f__11 = $param[1];
-            return $call3($Printf[4], $d6, $f__11, $cst_pt);
+            return $call3($Printf[4], $b0, $f__11, $cst_pt);
           // FALLTHROUGH
           default:
             $f__12 = $param[1];
-            return $call3($Printf[4], $d7, $f__12, $cst_pc);
+            return $call3($Printf[4], $b1, $f__12, $cst_pc);
           }
       }
     };
@@ -2576,7 +2577,7 @@ final class Js_of_ocaml__CSS {
         $match__0 = $call2($Js_of_ocaml_Regexp[11], $r, 1);
         if ($match__0) {
           $f = $match__0[1];
-          try {$ed = $caml_float_of_string($f);}
+          try {$b8 = $caml_float_of_string($f);}
           catch(\Throwable $exn) {
             $exn = $caml_wrap_exception($exn);
             if ($exn[1] === $Invalid_argument) {
@@ -2591,30 +2592,30 @@ final class Js_of_ocaml__CSS {
             }
             throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
           }
-          $f__0 = $ed;
+          $f__0 = $b8;
         }
         else {$f__0 = $fail(0);}
         $match__1 = $call2($Js_of_ocaml_Regexp[11], $r, 2);
         if ($match__1) {
-          $ee = $match__1[1];
-          $switch__0 = $caml_string_compare($ee, $cst_pc__0);
+          $b9 = $match__1[1];
+          $switch__0 = $caml_string_compare($b9, $cst_pc__0);
           if (0 <= $switch__0) {
             if (! (0 < $switch__0)) {return Vector{13, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_pt__0)) {return Vector{12, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_px__0)) {return Vector{2, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_rem__0)) {return Vector{4, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_vh__0)) {return Vector{6, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_vm__0)) {return Vector{7, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_vw__0)) {return Vector{5, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_pt__0)) {return Vector{12, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_px__0)) {return Vector{2, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_rem__0)) {return Vector{4, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_vh__0)) {return Vector{6, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_vm__0)) {return Vector{7, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_vw__0)) {return Vector{5, $f__0};}
           }
           else {
-            if (! $caml_string_notequal($ee, $cst_ch__0)) {return Vector{8, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_cm__0)) {return Vector{10, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_em__0)) {return Vector{0, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_ex__0)) {return Vector{1, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_gd__0)) {return Vector{3, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_in__0)) {return Vector{11, $f__0};}
-            if (! $caml_string_notequal($ee, $cst_mm__0)) {return Vector{9, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_ch__0)) {return Vector{8, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_cm__0)) {return Vector{10, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_em__0)) {return Vector{0, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_ex__0)) {return Vector{1, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_gd__0)) {return Vector{3, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_in__0)) {return Vector{11, $f__0};}
+            if (! $caml_string_notequal($b9, $cst_mm__0)) {return Vector{9, $f__0};}
           }
           return $fail(0);
         }
@@ -2623,24 +2624,24 @@ final class Js_of_ocaml__CSS {
       return $fail(0);
     };
     $Length = Vector{0, $string_of_t__0, $js__0, $ml__0};
-    $string_of_t__1 = function(dynamic $param) use ($Printf,$call3,$cst_deg,$cst_grad,$cst_rad,$cst_turns,$d8,$d9,$d_,$ea) {
+    $string_of_t__1 = function(dynamic $param) use ($Printf,$b2,$b3,$b4,$b5,$call3,$cst_deg,$cst_grad,$cst_rad,$cst_turns) {
       switch($param[0]) {
         // FALLTHROUGH
         case 0:
           $f = $param[1];
-          return $call3($Printf[4], $d8, $f, $cst_deg);
+          return $call3($Printf[4], $b2, $f, $cst_deg);
         // FALLTHROUGH
         case 1:
           $f__0 = $param[1];
-          return $call3($Printf[4], $d9, $f__0, $cst_grad);
+          return $call3($Printf[4], $b3, $f__0, $cst_grad);
         // FALLTHROUGH
         case 2:
           $f__1 = $param[1];
-          return $call3($Printf[4], $d_, $f__1, $cst_rad);
+          return $call3($Printf[4], $b4, $f__1, $cst_rad);
         // FALLTHROUGH
         default:
           $f__2 = $param[1];
-          return $call3($Printf[4], $ea, $f__2, $cst_turns);
+          return $call3($Printf[4], $b5, $f__2, $cst_turns);
         }
     };
     $js__1 = function(dynamic $t) use ($string_of_t__1) {
@@ -2664,7 +2665,7 @@ final class Js_of_ocaml__CSS {
         $match__0 = $call2($Js_of_ocaml_Regexp[11], $r, 1);
         if ($match__0) {
           $f = $match__0[1];
-          try {$eb = $caml_float_of_string($f);}
+          try {$b6 = $caml_float_of_string($f);}
           catch(\Throwable $exn) {
             $exn = $caml_wrap_exception($exn);
             if ($exn[1] === $Invalid_argument) {
@@ -2683,16 +2684,16 @@ final class Js_of_ocaml__CSS {
             }
             throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
           }
-          $f__0 = $eb;
+          $f__0 = $b6;
         }
         else {$f__0 = $fail(0);}
         $match__1 = $call2($Js_of_ocaml_Regexp[11], $r, 2);
         if ($match__1) {
-          $ec = $match__1[1];
-          if (! $caml_string_notequal($ec, $cst_deg__0)) {return Vector{0, $f__0};}
-          if (! $caml_string_notequal($ec, $cst_grad__0)) {return Vector{1, $f__0};}
-          if (! $caml_string_notequal($ec, $cst_rad__0)) {return Vector{2, $f__0};}
-          if (! $caml_string_notequal($ec, $cst_turns__0)) {return Vector{3, $f__0};}
+          $b7 = $match__1[1];
+          if (! $caml_string_notequal($b7, $cst_deg__0)) {return Vector{0, $f__0};}
+          if (! $caml_string_notequal($b7, $cst_grad__0)) {return Vector{1, $f__0};}
+          if (! $caml_string_notequal($b7, $cst_rad__0)) {return Vector{2, $f__0};}
+          if (! $caml_string_notequal($b7, $cst_turns__0)) {return Vector{3, $f__0};}
         }
         return $fail(0);
       }

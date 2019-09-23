@@ -37,10 +37,10 @@ final class Queue {
     $clear = function(dynamic $q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
     $add = function(dynamic $x, dynamic $q) {
       $cell = Vector{0, $x, 0};
-      $g1 = $q[3];
-      if ($g1) {
+      $g = $q[3];
+      if ($g) {
         $q[1] = (int) ($q[1] + 1);
-        $g1[2] = $cell;
+        $g[2] = $cell;
         $q[3] = $cell;
         return 0;
       }
@@ -50,18 +50,18 @@ final class Queue {
       return 0;
     };
     $peek = function(dynamic $q) use ($Empty,$runtime) {
-      $g0 = $q[2];
-      if ($g0) {$content = $g0[1];return $content;}
+      $f = $q[2];
+      if ($f) {$content = $f[1];return $content;}
       throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
     $take = function(dynamic $q) use ($Empty,$clear,$runtime) {
-      $gX = $q[2];
-      if ($gX) {
-        $gY = $gX[1];
-        $gZ = $gX[2];
-        if ($gZ) {$q[1] = (int) ($q[1] + -1);$q[2] = $gZ;return $gY;}
+      $c = $q[2];
+      if ($c) {
+        $d = $c[1];
+        $e = $c[2];
+        if ($e) {$q[1] = (int) ($q[1] + -1);$q[2] = $e;return $d;}
         $clear($q);
-        return $gY;
+        return $d;
       }
       throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
     };
@@ -124,12 +124,12 @@ final class Queue {
     $fold__0 = function(dynamic $f, dynamic $accu, dynamic $q) use ($fold) {return $fold($f, $accu, $q[2]);
     };
     $transfer = function(dynamic $q1, dynamic $q2) use ($clear) {
-      $gV = 0 < $q1[1] ? 1 : (0);
-      if ($gV) {
-        $gW = $q2[3];
-        if ($gW) {
+      $a = 0 < $q1[1] ? 1 : (0);
+      if ($a) {
+        $b = $q2[3];
+        if ($b) {
           $q2[1] = (int) ($q2[1] + $q1[1]);
-          $gW[2] = $q1[2];
+          $b[2] = $q1[2];
           $q2[3] = $q1[3];
           return $clear($q1);
         }
@@ -138,7 +138,7 @@ final class Queue {
         $q2[3] = $q1[3];
         return $clear($q1);
       }
-      return $gV;
+      return $a;
     };
     $Queue = Vector{
       0,

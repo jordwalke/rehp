@@ -32,11 +32,11 @@ var word_size = 32;
 var int_size = 32;
 
 function getenv_opt(s) {
-  try {var cC = [0,runtime["caml_sys_getenv"](s)];return cC;}
-  catch(cD) {
-    cD = caml_wrap_exception(cD);
-    if (cD === Not_found) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](cD);
+  try {var d = [0,runtime["caml_sys_getenv"](s)];return d;}
+  catch(e) {
+    e = caml_wrap_exception(e);
+    if (e === Not_found) {return 0;}
+    throw runtime["caml_wrap_thrown_exception_reraise"](e);
   }
 }
 
@@ -83,7 +83,7 @@ function catch_break(on) {
     set_signal(sigint, 0);
 }
 
-function cz(cB) {return runtime["caml_ml_runtime_warnings_enabled"](cB);}
+function a(c) {return runtime["caml_ml_runtime_warnings_enabled"](c);}
 
 var Sys = [
   0,
@@ -133,8 +133,8 @@ var Sys = [
   Break,
   catch_break,
   ocaml_version,
-  function(cA) {return runtime["caml_ml_enable_runtime_warnings"](cA);},
-  cz
+  function(b) {return runtime["caml_ml_enable_runtime_warnings"](b);},
+  a
 ];
 
 runtime["caml_register_global"](3, Sys, "Sys");

@@ -48,11 +48,11 @@ final class Int32 {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$ew = Vector{0, $runtime["caml_int_of_string"]($s)};return $ew;}
-      catch(\Throwable $ex) {
-        $ex = $caml_wrap_exception($ex);
-        if ($ex[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($ex) as \Throwable;
+      try {$a = Vector{0, $runtime["caml_int_of_string"]($s)};return $a;}
+      catch(\Throwable $b) {
+        $b = $caml_wrap_exception($b);
+        if ($b[1] === $Failure) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($b) as \Throwable;
       }
     };
     $compare = function(dynamic $x, dynamic $y) use ($runtime) {

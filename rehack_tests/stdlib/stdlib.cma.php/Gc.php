@@ -38,7 +38,7 @@ final class Gc {
     $global_data = $runtime["caml_get_global_data"]();
     $Sys = $global_data["Sys"];
     $Printf = $global_data["Printf"];
-    $ps = Vector{
+    $a = Vector{
       0,
       Vector{
         11,
@@ -47,7 +47,7 @@ final class Gc {
       },
       $string("minor_collections: %d\n")
     };
-    $pt = Vector{
+    $b = Vector{
       0,
       Vector{
         11,
@@ -56,7 +56,7 @@ final class Gc {
       },
       $string("major_collections: %d\n")
     };
-    $pu = Vector{
+    $c = Vector{
       0,
       Vector{
         11,
@@ -65,9 +65,9 @@ final class Gc {
       },
       $string("compactions:       %d\n")
     };
-    $pv = Vector{0, Vector{12, 10, 0}, $string("\n")};
-    $pw = Vector{0, Vector{8, 0, 0, Vector{0, 0}, 0}, $string("%.0f")};
-    $px = Vector{
+    $d = Vector{0, Vector{12, 10, 0}, $string("\n")};
+    $e = Vector{0, Vector{8, 0, 0, Vector{0, 0}, 0}, $string("%.0f")};
+    $f = Vector{
       0,
       Vector{
         11,
@@ -76,7 +76,7 @@ final class Gc {
       },
       $string("minor_words:    %*.0f\n")
     };
-    $py = Vector{
+    $g = Vector{
       0,
       Vector{
         11,
@@ -85,7 +85,7 @@ final class Gc {
       },
       $string("promoted_words: %*.0f\n")
     };
-    $pz = Vector{
+    $h = Vector{
       0,
       Vector{
         11,
@@ -94,9 +94,9 @@ final class Gc {
       },
       $string("major_words:    %*.0f\n")
     };
-    $pA = Vector{0, Vector{12, 10, 0}, $string("\n")};
-    $pB = Vector{0, Vector{4, 0, 0, 0, 0}, $string("%d")};
-    $pC = Vector{
+    $i = Vector{0, Vector{12, 10, 0}, $string("\n")};
+    $j = Vector{0, Vector{4, 0, 0, 0, 0}, $string("%d")};
+    $k = Vector{
       0,
       Vector{
         11,
@@ -105,7 +105,7 @@ final class Gc {
       },
       $string("top_heap_words: %*d\n")
     };
-    $pD = Vector{
+    $l = Vector{
       0,
       Vector{
         11,
@@ -114,7 +114,7 @@ final class Gc {
       },
       $string("heap_words:     %*d\n")
     };
-    $pE = Vector{
+    $m = Vector{
       0,
       Vector{
         11,
@@ -123,7 +123,7 @@ final class Gc {
       },
       $string("live_words:     %*d\n")
     };
-    $pF = Vector{
+    $n = Vector{
       0,
       Vector{
         11,
@@ -132,7 +132,7 @@ final class Gc {
       },
       $string("free_words:     %*d\n")
     };
-    $pG = Vector{
+    $o = Vector{
       0,
       Vector{
         11,
@@ -141,7 +141,7 @@ final class Gc {
       },
       $string("largest_free:   %*d\n")
     };
-    $pH = Vector{
+    $p = Vector{
       0,
       Vector{
         11,
@@ -150,8 +150,8 @@ final class Gc {
       },
       $string("fragments:      %*d\n")
     };
-    $pI = Vector{0, Vector{12, 10, 0}, $string("\n")};
-    $pJ = Vector{
+    $q = Vector{0, Vector{12, 10, 0}, $string("\n")};
+    $r = Vector{
       0,
       Vector{
         11,
@@ -160,7 +160,7 @@ final class Gc {
       },
       $string("live_blocks: %d\n")
     };
-    $pK = Vector{
+    $s = Vector{
       0,
       Vector{
         11,
@@ -169,7 +169,7 @@ final class Gc {
       },
       $string("free_blocks: %d\n")
     };
-    $pL = Vector{
+    $t = Vector{
       0,
       Vector{
         11,
@@ -178,28 +178,28 @@ final class Gc {
       },
       $string("heap_chunks: %d\n")
     };
-    $print_stat = function(dynamic $c) use ($Printf,$call2,$call3,$call4,$caml_ml_string_length,$pA,$pB,$pC,$pD,$pE,$pF,$pG,$pH,$pI,$pJ,$pK,$pL,$ps,$pt,$pu,$pv,$pw,$px,$py,$pz,$runtime) {
+    $print_stat = function(dynamic $c__0) use ($Printf,$a,$b,$c,$call2,$call3,$call4,$caml_ml_string_length,$d,$e,$f,$g,$h,$i,$j,$k,$l,$m,$n,$o,$p,$q,$r,$runtime,$s,$t) {
       $st = $runtime["caml_gc_stat"](0);
-      $call3($Printf[1], $c, $ps, $st[4]);
-      $call3($Printf[1], $c, $pt, $st[5]);
-      $call3($Printf[1], $c, $pu, $st[14]);
-      $call2($Printf[1], $c, $pv);
-      $l1 = $caml_ml_string_length($call2($Printf[4], $pw, $st[1]));
-      $call4($Printf[1], $c, $px, $l1, $st[1]);
-      $call4($Printf[1], $c, $py, $l1, $st[2]);
-      $call4($Printf[1], $c, $pz, $l1, $st[3]);
-      $call2($Printf[1], $c, $pA);
-      $l2 = $caml_ml_string_length($call2($Printf[4], $pB, $st[15]));
-      $call4($Printf[1], $c, $pC, $l2, $st[15]);
-      $call4($Printf[1], $c, $pD, $l2, $st[6]);
-      $call4($Printf[1], $c, $pE, $l2, $st[8]);
-      $call4($Printf[1], $c, $pF, $l2, $st[10]);
-      $call4($Printf[1], $c, $pG, $l2, $st[12]);
-      $call4($Printf[1], $c, $pH, $l2, $st[13]);
-      $call2($Printf[1], $c, $pI);
-      $call3($Printf[1], $c, $pJ, $st[9]);
-      $call3($Printf[1], $c, $pK, $st[11]);
-      return $call3($Printf[1], $c, $pL, $st[7]);
+      $call3($Printf[1], $c__0, $a, $st[4]);
+      $call3($Printf[1], $c__0, $b, $st[5]);
+      $call3($Printf[1], $c__0, $c, $st[14]);
+      $call2($Printf[1], $c__0, $d);
+      $l1 = $caml_ml_string_length($call2($Printf[4], $e, $st[1]));
+      $call4($Printf[1], $c__0, $f, $l1, $st[1]);
+      $call4($Printf[1], $c__0, $g, $l1, $st[2]);
+      $call4($Printf[1], $c__0, $h, $l1, $st[3]);
+      $call2($Printf[1], $c__0, $i);
+      $l2 = $caml_ml_string_length($call2($Printf[4], $j, $st[15]));
+      $call4($Printf[1], $c__0, $k, $l2, $st[15]);
+      $call4($Printf[1], $c__0, $l, $l2, $st[6]);
+      $call4($Printf[1], $c__0, $m, $l2, $st[8]);
+      $call4($Printf[1], $c__0, $n, $l2, $st[10]);
+      $call4($Printf[1], $c__0, $o, $l2, $st[12]);
+      $call4($Printf[1], $c__0, $p, $l2, $st[13]);
+      $call2($Printf[1], $c__0, $q);
+      $call3($Printf[1], $c__0, $r, $st[9]);
+      $call3($Printf[1], $c__0, $s, $st[11]);
+      return $call3($Printf[1], $c__0, $t, $st[7]);
     };
     $allocated_bytes = function(dynamic $param) use ($Sys,$runtime) {
       $match = $runtime["caml_gc_counters"](0);
@@ -210,21 +210,21 @@ final class Gc {
     };
     $create_alarm = function(dynamic $f) {return Vector{0, 1};};
     $delete_alarm = function(dynamic $a) {$a[1] = 0;return 0;};
-    $pM = function(dynamic $pS) use ($runtime) {
-      return $runtime["caml_final_release"]($pS);
+    $u = function(dynamic $A) use ($runtime) {
+      return $runtime["caml_final_release"]($A);
     };
-    $pN = function(dynamic $pR, dynamic $pQ) use ($runtime) {
-      return $runtime["caml_final_register_called_without_value"]($pR, $pQ);
+    $v = function(dynamic $z, dynamic $y) use ($runtime) {
+      return $runtime["caml_final_register_called_without_value"]($z, $y);
     };
     $Gc = Vector{
       0,
       $print_stat,
       $allocated_bytes,
-      function(dynamic $pP, dynamic $pO) use ($runtime) {
-        return $runtime["caml_final_register"]($pP, $pO);
+      function(dynamic $x, dynamic $w) use ($runtime) {
+        return $runtime["caml_final_register"]($x, $w);
       },
-      $pN,
-      $pM,
+      $v,
+      $u,
       $create_alarm,
       $delete_alarm
     };

@@ -30,7 +30,7 @@ final class List_ {
   private static function load($joo_global_object) {
     
 
-    $aD = new Ref();
+    $a = new Ref();
     $combine = new Ref();
     $flatten = new Ref();
     $fold_right = new Ref();
@@ -67,8 +67,8 @@ final class List_ {
     $Pervasives = $global_data["Pervasives"];
     $Not_found = $global_data["Not_found"];
     $Assert_failure = $global_data["Assert_failure"];
-    $aF = Vector{0, 0, 0};
-    $aG = Vector{0, $string("list.ml"), 262, 11};
+    $c = Vector{0, 0, 0};
+    $d = Vector{0, $string("list.ml"), 262, 11};
     $length_aux = function(dynamic $len, dynamic $param) {
       $len__0 = $len;
       $param__0 = $param;
@@ -185,8 +185,8 @@ final class List_ {
       if ($param) {
         $r = $param[2];
         $l = $param[1];
-        $a4 = $flatten->contents($r);
-        return $call2($Pervasives[25], $l, $a4);
+        $B = $flatten->contents($r);
+        return $call2($Pervasives[25], $l, $B);
       }
       return 0;
     };
@@ -199,17 +199,17 @@ final class List_ {
       }
       return 0;
     };
-    $aD->contents = function(dynamic $i, dynamic $f, dynamic $param) use ($aD,$call2) {
+    $a->contents = function(dynamic $i, dynamic $f, dynamic $param) use ($a,$call2) {
       if ($param) {
         $l = $param[2];
-        $a = $param[1];
-        $r = $call2($f, $i, $a);
-        return Vector{0, $r, $aD->contents((int) ($i + 1), $f, $l)};
+        $a__0 = $param[1];
+        $r = $call2($f, $i, $a__0);
+        return Vector{0, $r, $a->contents((int) ($i + 1), $f, $l)};
       }
       return 0;
     };
-    $mapi = function(dynamic $f, dynamic $l) use ($aD) {
-      return $aD->contents(0, $f, $l);
+    $mapi = function(dynamic $f, dynamic $l) use ($a) {
+      return $a->contents(0, $f, $l);
     };
     $rev_map = function(dynamic $f, dynamic $l) use ($call1) {
       $rmap_f = function(dynamic $accu, dynamic $param) use ($call1,$f) {
@@ -242,7 +242,7 @@ final class List_ {
         return 0;
       }
     };
-    $aE = function(dynamic $i, dynamic $f, dynamic $param) use ($call2) {
+    $b = function(dynamic $i, dynamic $f, dynamic $param) use ($call2) {
       $i__0 = $i;
       $param__0 = $param;
       for (;;) {
@@ -258,9 +258,7 @@ final class List_ {
         return 0;
       }
     };
-    $iteri = function(dynamic $f, dynamic $l) use ($aE) {
-      return $aE(0, $f, $l);
-    };
+    $iteri = function(dynamic $f, dynamic $l) use ($b) {return $b(0, $f, $l);};
     $fold_left = function(dynamic $f, dynamic $accu, dynamic $l) use ($call2) {
       $accu__0 = $accu;
       $l__0 = $l;
@@ -391,9 +389,9 @@ final class List_ {
         if ($param__0) {
           $l = $param__0[2];
           $a = $param__0[1];
-          $a3 = $call1($p, $a);
-          if ($a3) {$param__0 = $l;continue;}
-          return $a3;
+          $A = $call1($p, $a);
+          if ($A) {$param__0 = $l;continue;}
+          return $A;
         }
         return 1;
       }
@@ -404,8 +402,8 @@ final class List_ {
         if ($param__0) {
           $l = $param__0[2];
           $a = $param__0[1];
-          $a2 = $call1($p, $a);
-          if ($a2) {return $a2;}
+          $z = $call1($p, $a);
+          if ($z) {return $z;}
           $param__0 = $l;
           continue;
         }
@@ -422,9 +420,9 @@ final class List_ {
             $a2 = $l2__0[1];
             $l1__1 = $l1__0[2];
             $a1 = $l1__0[1];
-            $a1 = $call2($p, $a1, $a2);
-            if ($a1) {$l1__0 = $l1__1;$l2__0 = $l2__1;continue;}
-            return $a1;
+            $y = $call2($p, $a1, $a2);
+            if ($y) {$l1__0 = $l1__1;$l2__0 = $l2__1;continue;}
+            return $y;
           }
         }
         else {if (! $l2__0) {return 1;}}
@@ -441,8 +439,8 @@ final class List_ {
             $a2 = $l2__0[1];
             $l1__1 = $l1__0[2];
             $a1 = $l1__0[1];
-            $a0 = $call2($p, $a1, $a2);
-            if ($a0) {return $a0;}
+            $x = $call2($p, $a1, $a2);
+            if ($x) {return $x;}
             $l1__0 = $l1__1;
             $l2__0 = $l2__1;
             continue;
@@ -458,8 +456,8 @@ final class List_ {
         if ($param__0) {
           $l = $param__0[2];
           $a = $param__0[1];
-          $aZ = 0 === $caml_compare($a, $x) ? 1 : (0);
-          if ($aZ) {return $aZ;}
+          $w = 0 === $caml_compare($a, $x) ? 1 : (0);
+          if ($w) {return $w;}
           $param__0 = $l;
           continue;
         }
@@ -472,8 +470,8 @@ final class List_ {
         if ($param__0) {
           $l = $param__0[2];
           $a = $param__0[1];
-          $aY = $a === $x ? 1 : (0);
-          if ($aY) {return $aY;}
+          $v = $a === $x ? 1 : (0);
+          if ($v) {return $v;}
           $param__0 = $l;
           continue;
         }
@@ -547,8 +545,8 @@ final class List_ {
           $l = $param__0[2];
           $match = $param__0[1];
           $a = $match[1];
-          $aX = 0 === $caml_compare($a, $x) ? 1 : (0);
-          if ($aX) {return $aX;}
+          $u = 0 === $caml_compare($a, $x) ? 1 : (0);
+          if ($u) {return $u;}
           $param__0 = $l;
           continue;
         }
@@ -562,8 +560,8 @@ final class List_ {
           $l = $param__0[2];
           $match = $param__0[1];
           $a = $match[1];
-          $aW = $a === $x ? 1 : (0);
-          if ($aW) {return $aW;}
+          $t = $a === $x ? 1 : (0);
+          if ($t) {return $t;}
           $param__0 = $l;
           continue;
         }
@@ -638,8 +636,8 @@ final class List_ {
           return $rev($accu__0);
         }
       };
-      $aU = 0;
-      return function(dynamic $aV) use ($aU,$find) {return $find($aU, $aV);};
+      $r = 0;
+      return function(dynamic $s) use ($find,$r) {return $find($r, $s);};
     };
     $partition = function(dynamic $p, dynamic $l) use ($call1,$rev) {
       $part = function(dynamic $yes, dynamic $no, dynamic $param) use ($call1,$p,$rev) {
@@ -661,13 +659,13 @@ final class List_ {
             $param__0 = $l;
             continue;
           }
-          $aT = $rev($no__0);
-          return Vector{0, $rev($yes__0), $aT};
+          $q = $rev($no__0);
+          return Vector{0, $rev($yes__0), $q};
         }
       };
       return $part(0, 0, $l);
     };
-    $split->contents = function(dynamic $param) use ($aF,$split) {
+    $split->contents = function(dynamic $param) use ($c,$split) {
       if ($param) {
         $l = $param[2];
         $match = $param[1];
@@ -678,7 +676,7 @@ final class List_ {
         $rx = $match__0[1];
         return Vector{0, Vector{0, $x, $rx}, Vector{0, $y, $ry}};
       }
-      return $aF;
+      return $c;
     };
     $combine->contents = function(dynamic $l1, dynamic $l2) use ($Pervasives,$call1,$combine,$cst_List_combine) {
       if ($l1) {
@@ -712,7 +710,7 @@ final class List_ {
       }
       return $match;
     };
-    $chop = function(dynamic $k, dynamic $l) use ($Assert_failure,$aG,$runtime) {
+    $chop = function(dynamic $k, dynamic $l) use ($Assert_failure,$d,$runtime) {
       $k__0 = $k;
       $l__0 = $l;
       for (;;) {
@@ -724,7 +722,7 @@ final class List_ {
           $l__0 = $l__1;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $aG}) as \Throwable;
+        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $d}) as \Throwable;
       }
     };
     $stable_sort = function(dynamic $cmp, dynamic $l) use ($call2,$chop,$length,$rev_append,$right_shift_32) {
@@ -786,9 +784,9 @@ final class List_ {
       $sort = function(dynamic $n, dynamic $l) use ($call2,$chop,$cmp,$rev_merge_rev,$rev_sort,$right_shift_32) {
         if (2 === $n) {
           if ($l) {
-            $aQ = $l[2];
-            if ($aQ) {
-              $x2 = $aQ[1];
+            $n = $l[2];
+            if ($n) {
+              $x2 = $n[1];
               $x1 = $l[1];
               return 0 < $call2($cmp, $x1, $x2)
                 ? Vector{0, $x2, Vector{0, $x1, 0}}
@@ -799,12 +797,12 @@ final class List_ {
         else {
           if (3 === $n) {
             if ($l) {
-              $aR = $l[2];
-              if ($aR) {
-                $aS = $aR[2];
-                if ($aS) {
-                  $x3 = $aS[1];
-                  $x2__0 = $aR[1];
+              $o = $l[2];
+              if ($o) {
+                $p = $o[2];
+                if ($p) {
+                  $x3 = $p[1];
+                  $x2__0 = $o[1];
                   $x1__0 = $l[1];
                   return 0 < $call2($cmp, $x1__0, $x2__0)
                     ? 0 < $call2($cmp, $x1__0, $x3)
@@ -832,9 +830,9 @@ final class List_ {
       $rev_sort->contents = function(dynamic $n, dynamic $l) use ($call2,$chop,$cmp,$rev_merge,$right_shift_32,$sort) {
         if (2 === $n) {
           if ($l) {
-            $aN = $l[2];
-            if ($aN) {
-              $x2 = $aN[1];
+            $k = $l[2];
+            if ($k) {
+              $x2 = $k[1];
               $x1 = $l[1];
               return 0 < $call2($cmp, $x1, $x2)
                 ? Vector{0, $x1, Vector{0, $x2, 0}}
@@ -845,12 +843,12 @@ final class List_ {
         else {
           if (3 === $n) {
             if ($l) {
-              $aO = $l[2];
-              if ($aO) {
-                $aP = $aO[2];
-                if ($aP) {
-                  $x3 = $aP[1];
-                  $x2__0 = $aO[1];
+              $l = $l[2];
+              if ($l) {
+                $m = $l[2];
+                if ($m) {
+                  $x3 = $m[1];
+                  $x2__0 = $l[1];
                   $x1__0 = $l[1];
                   return 0 < $call2($cmp, $x1__0, $x2__0)
                     ? 0 < $call2($cmp, $x2__0, $x3)
@@ -953,9 +951,9 @@ final class List_ {
       $sort = function(dynamic $n, dynamic $l) use ($call2,$chop,$cmp,$rev_merge_rev,$rev_sort,$right_shift_32) {
         if (2 === $n) {
           if ($l) {
-            $aK = $l[2];
-            if ($aK) {
-              $x2 = $aK[1];
+            $h = $l[2];
+            if ($h) {
+              $x2 = $h[1];
               $x1 = $l[1];
               $c = $call2($cmp, $x1, $x2);
               return 0 === $c
@@ -969,12 +967,12 @@ final class List_ {
         else {
           if (3 === $n) {
             if ($l) {
-              $aL = $l[2];
-              if ($aL) {
-                $aM = $aL[2];
-                if ($aM) {
-                  $x3 = $aM[1];
-                  $x2__0 = $aL[1];
+              $i = $l[2];
+              if ($i) {
+                $j = $i[2];
+                if ($j) {
+                  $x3 = $j[1];
+                  $x2__0 = $i[1];
                   $x1__0 = $l[1];
                   $c__0 = $call2($cmp, $x1__0, $x2__0);
                   if (0 === $c__0) {
@@ -1036,9 +1034,9 @@ final class List_ {
       $rev_sort->contents = function(dynamic $n, dynamic $l) use ($call2,$chop,$cmp,$rev_merge,$right_shift_32,$sort) {
         if (2 === $n) {
           if ($l) {
-            $aH = $l[2];
-            if ($aH) {
-              $x2 = $aH[1];
+            $e = $l[2];
+            if ($e) {
+              $x2 = $e[1];
               $x1 = $l[1];
               $c = $call2($cmp, $x1, $x2);
               return 0 === $c
@@ -1052,12 +1050,12 @@ final class List_ {
         else {
           if (3 === $n) {
             if ($l) {
-              $aI = $l[2];
-              if ($aI) {
-                $aJ = $aI[2];
-                if ($aJ) {
-                  $x3 = $aJ[1];
-                  $x2__0 = $aI[1];
+              $f = $l[2];
+              if ($f) {
+                $g = $f[2];
+                if ($g) {
+                  $x3 = $g[1];
+                  $x2__0 = $f[1];
                   $x1__0 = $l[1];
                   $c__0 = $call2($cmp, $x1__0, $x2__0);
                   if (0 === $c__0) {
@@ -1209,7 +1207,7 @@ final class List_ {
       $merge->contents
     };
     
-    $runtime["caml_register_global"](19, $List, "List_");
+    $runtime["caml_register_global"](19, $List, "List");
 
   }
 }

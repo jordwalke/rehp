@@ -52,9 +52,9 @@ var Pervasives = global_data["Pervasives"];
 var Digest = global_data["Digest"];
 var Array = global_data["Array_"];
 var Nativeint = global_data["Nativeint"];
-var pY = [255,1,0,0];
-var pZ = [255,0,0,0];
-var p0 = [
+var a = [255,1,0,0];
+var b = [255,0,0,0];
+var c = [
   0,
   987910699,
   495797812,
@@ -123,38 +123,38 @@ function assign(st1, st2) {
 
 function full_init(s, seed) {
   function combine(accu, x) {
-    var qd = call1(Pervasives[21], x);
-    var qe = call2(Pervasives[16], accu, qd);
-    return call1(Digest[3], qe);
+    var q = call1(Pervasives[21], x);
+    var r = call2(Pervasives[16], accu, q);
+    return call1(Digest[3], r);
   }
   function extract(d) {
-    var qa = caml_string_get(d, 3) << 24;
-    var qb = caml_string_get(d, 2) << 16;
-    var qc = caml_string_get(d, 1) << 8;
-    return ((caml_string_get(d, 0) + qc | 0) + qb | 0) + qa | 0;
+    var n = caml_string_get(d, 3) << 24;
+    var o = caml_string_get(d, 2) << 16;
+    var p = caml_string_get(d, 1) << 8;
+    return ((caml_string_get(d, 0) + p | 0) + o | 0) + n | 0;
   }
   var seed__0 = 0 === seed.length - 1 ? [0,0] : seed;
   var l = seed__0.length - 1;
   var i__0 = 0;
   for (; ; ) {
     caml_check_bound(s[1], i__0)[i__0 + 1] = i__0;
-    var p_ = i__0 + 1 | 0;
-    if (54 !== i__0) {var i__0 = p_;continue;}
+    var m = i__0 + 1 | 0;
+    if (54 !== i__0) {var i__0 = m;continue;}
     var accu = [0,cst_x];
-    var p5 = 54 + call2(Pervasives[5], 55, l) | 0;
-    var p4 = 0;
-    if (! (p5 < 0)) {
-      var i = p4;
+    var h = 54 + call2(Pervasives[5], 55, l) | 0;
+    var g = 0;
+    if (! (h < 0)) {
+      var i = g;
       for (; ; ) {
         var j = i % 55 | 0;
         var k = caml_mod(i, l);
-        var p6 = caml_check_bound(seed__0, k)[k + 1];
-        accu[1] = combine(accu[1], p6);
-        var p7 = extract(accu[1]);
-        var p8 = (caml_check_bound(s[1], j)[j + 1] ^ p7) & 1073741823;
-        caml_check_bound(s[1], j)[j + 1] = p8;
-        var p9 = i + 1 | 0;
-        if (p5 !== i) {var i = p9;continue;}
+        var i = caml_check_bound(seed__0, k)[k + 1];
+        accu[1] = combine(accu[1], i);
+        var j = extract(accu[1]);
+        var k = (caml_check_bound(s[1], j)[j + 1] ^ j) & 1073741823;
+        caml_check_bound(s[1], j)[j + 1] = k;
+        var l = i + 1 | 0;
+        if (h !== i) {var i = l;continue;}
         break;
       }
     }
@@ -175,14 +175,14 @@ function copy(s) {var result = new_state(0);assign(result, s);return result;}
 
 function bits(s) {
   s[2] = (s[2] + 1 | 0) % 55 | 0;
-  var p1 = s[2];
-  var curval = caml_check_bound(s[1], p1)[p1 + 1];
-  var p2 = (s[2] + 24 | 0) % 55 | 0;
-  var newval = caml_check_bound(s[1], p2)[p2 + 1] +
+  var d = s[2];
+  var curval = caml_check_bound(s[1], d)[d + 1];
+  var e = (s[2] + 24 | 0) % 55 | 0;
+  var newval = caml_check_bound(s[1], e)[e + 1] +
     (curval ^ (curval >>> 25 | 0) & 31) | 0;
   var newval30 = newval & 1073741823;
-  var p3 = s[2];
-  caml_check_bound(s[1], p3)[p3 + 1] = newval30;
+  var f = s[2];
+  caml_check_bound(s[1], f)[f + 1] = newval30;
   return newval30;
 }
 
@@ -227,7 +227,7 @@ function int64aux(s, n) {
     if (
     caml_greaterthan(
       caml_int64_sub(r, v),
-      runtime["caml_int64_add"](caml_int64_sub(Int64[7], n), pY)
+      runtime["caml_int64_add"](caml_int64_sub(Int64[7], n), a)
     )
     ) {continue;}
     return v;
@@ -235,7 +235,7 @@ function int64aux(s, n) {
 }
 
 function int64(s, bound) {
-  return caml_lessequal(bound, pZ) ?
+  return caml_lessequal(bound, b) ?
     call1(Pervasives[1], cst_Random_int64) :
     int64aux(s, bound);
 }
@@ -256,7 +256,7 @@ function float__0(s, bound) {return rawfloat(s) * bound;}
 
 function bool(s) {return 0 === (bits(s) & 1) ? 1 : 0;}
 
-var default__0 = [0,p0.slice(),0];
+var default__0 = [0,c.slice(),0];
 
 function bits__0(param) {return bits(default__0);}
 

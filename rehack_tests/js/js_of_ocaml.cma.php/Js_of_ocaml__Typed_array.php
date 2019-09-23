@@ -34,79 +34,79 @@ final class Js_of_ocaml__Typed_array {
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $fZ = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 135830874, 76), $x);
+    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 135830874, 52), $x);
     };
-    $f0 = $Js_of_ocaml_Js[50][1];
+    $b = $Js_of_ocaml_Js[50][1];
     $arrayBuffer = (function(dynamic $t0, dynamic $param) {return $t0->ArrayBuffer;
-     })($f0, $fZ);
-    $f1 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 177821713, 77), $x);
+     })($b, $a);
+    $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 177821713, 53), $x);
     };
-    $f2 = $Js_of_ocaml_Js[50][1];
+    $d = $Js_of_ocaml_Js[50][1];
     $int8Array = (function(dynamic $t1, dynamic $param) {return $t1->Int8Array;
-     })($f2, $f1);
-    $f3 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 946312858, 78), $x);
+     })($d, $c);
+    $e = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 946312858, 54), $x);
     };
-    $f4 = $Js_of_ocaml_Js[50][1];
+    $f = $Js_of_ocaml_Js[50][1];
     $uint8Array = (function(dynamic $t2, dynamic $param) {return $t2->Uint8Array;
-     })($f4, $f3);
-    $f5 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, -67443548, 79), $x);
+     })($f, $e);
+    $g = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, -67443548, 55), $x);
     };
-    $f6 = $Js_of_ocaml_Js[50][1];
+    $h = $Js_of_ocaml_Js[50][1];
     $int16Array = (function(dynamic $t3, dynamic $param) {return $t3->Int16Array;
-     })($f6, $f5);
-    $f7 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, -492610053, 80), $x);
+     })($h, $g);
+    $i = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, -492610053, 56), $x);
     };
-    $f8 = $Js_of_ocaml_Js[50][1];
+    $j = $Js_of_ocaml_Js[50][1];
     $uint16Array = (function(dynamic $t4, dynamic $param) {return $t4->Uint16Array;
-     })($f8, $f7);
-    $f9 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 901275818, 81), $x);
+     })($j, $i);
+    $k = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 901275818, 57), $x);
     };
-    $f_ = $Js_of_ocaml_Js[50][1];
+    $l = $Js_of_ocaml_Js[50][1];
     $int32Array = (function(dynamic $t5, dynamic $param) {return $t5->Int32Array;
-     })($f_, $f9);
-    $ga = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 476109313, 82), $x);
+     })($l, $k);
+    $m = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 476109313, 58), $x);
     };
-    $gb = $Js_of_ocaml_Js[50][1];
+    $n = $Js_of_ocaml_Js[50][1];
     $uint32Array = (function(dynamic $t6, dynamic $param) {return $t6->Uint32Array;
-     })($gb, $ga);
-    $gc = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, -225061539, 83), $x);
+     })($n, $m);
+    $o = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, -225061539, 59), $x);
     };
-    $gd = $Js_of_ocaml_Js[50][1];
+    $p = $Js_of_ocaml_Js[50][1];
     $float32Array = (function(dynamic $t7, dynamic $param) {return $t7->Float32Array;
-     })($gd, $gc);
-    $ge = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 1007481438, 84), $x);
+     })($p, $o);
+    $q = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 1007481438, 60), $x);
     };
-    $gf = $Js_of_ocaml_Js[50][1];
+    $r = $Js_of_ocaml_Js[50][1];
     $float64Array = (function(dynamic $t8, dynamic $param) {return $t8->Float64Array;
-     })($gf, $ge);
+     })($r, $q);
     $set = function(dynamic $a, dynamic $i, dynamic $v) use ($Js_of_ocaml_Js,$call3) {
       return $call3($Js_of_ocaml_Js[17], $a, $i, $v);
     };
     $get = function(dynamic $a, dynamic $i) {return $a[$i];};
     $unsafe_get = function(dynamic $a, dynamic $i) {return $a[$i];};
-    $gg = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 789234990, 85), $x);
+    $s = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 789234990, 61), $x);
     };
-    $gh = $Js_of_ocaml_Js[50][1];
-    $dataView = (function(dynamic $t9, dynamic $param) {return $t9->DataView;})($gh, $gg);
+    $t = $Js_of_ocaml_Js[50][1];
+    $dataView = (function(dynamic $t9, dynamic $param) {return $t9->DataView;})($t, $s);
     $of_arrayBuffer = function(dynamic $ab) use ($runtime,$uint8Array) {
-      $gl = 0;
+      $x = 0;
       $uint8 = (function(dynamic $t11, dynamic $t10, dynamic $param) {return new $t11($t10);
-       })($uint8Array, $ab, $gl);
+       })($uint8Array, $ab, $x);
       return $runtime["caml_string_of_array"]($uint8);
     };
     $String = Vector{0, $of_arrayBuffer};
-    $gi = function(dynamic $gk) use ($runtime) {
-      return $runtime["bigstring_of_array_buffer"]($gk);
+    $u = function(dynamic $w) use ($runtime) {
+      return $runtime["bigstring_of_array_buffer"]($w);
     };
     $Js_of_ocaml_Typed_array = Vector{
       0,
@@ -158,10 +158,10 @@ final class Js_of_ocaml__Typed_array {
       $dataView,
       Vector{
         0,
-        function(dynamic $gj) use ($runtime) {
-          return $runtime["bigstring_to_array_buffer"]($gj);
+        function(dynamic $v) use ($runtime) {
+          return $runtime["bigstring_to_array_buffer"]($v);
         },
-        $gi
+        $u
       },
       $String
     };

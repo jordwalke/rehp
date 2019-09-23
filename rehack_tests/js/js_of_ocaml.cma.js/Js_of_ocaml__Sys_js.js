@@ -60,27 +60,27 @@ function unmount(path) {return runtime["caml_unmount"](path);}
 
 if (runtime["caml_string_equal"](Js_of_ocaml_Lib_version[2], cst)) var js_of_ocaml_version = Js_of_ocaml_Lib_version[1];
 else {
-  var pV = call2(Pervasives[16], cst__0, Js_of_ocaml_Lib_version[2]);
+  var c = call2(Pervasives[16], cst__0, Js_of_ocaml_Lib_version[2]);
   var js_of_ocaml_version = call2(
     Pervasives[16],
     Js_of_ocaml_Lib_version[1],
-    pV
+    c
   );
 }
 
-function pT(pZ, pY) {return runtime["caml_create_file"](pZ, pY);}
+function a(g, f) {return runtime["caml_create_file"](g, f);}
 
-function pU(pX) {return runtime["caml_read_file_content"](pX);}
+function b(e) {return runtime["caml_read_file_content"](e);}
 
 var Js_of_ocaml_Sys_js = [
   0,
   set_channel_flusher,
   set_channel_filler,
-  function(pW) {return runtime["caml_list_mount_point"](pW);},
+  function(d) {return runtime["caml_list_mount_point"](d);},
   unmount,
   mount,
-  pU,
-  pT,
+  b,
+  a,
   update_file,
   js_of_ocaml_version
 ];

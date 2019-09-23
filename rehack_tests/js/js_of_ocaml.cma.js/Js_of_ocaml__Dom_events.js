@@ -35,10 +35,10 @@ function listen(opt, target, typ, cb) {
     var capture = sth;
   }
   else var capture = 0;
-  var kV = ! ! capture;
-  function kW(n, e) {return ! ! call2(cb, n, e);}
-  var kX = call1(Js_of_ocaml_Dom_html[11], kW);
-  return call4(Js_of_ocaml_Dom_html[16], target, typ, kX, kV);
+  var a = ! ! capture;
+  function b(n, e) {return ! ! call2(cb, n, e);}
+  var c = call1(Js_of_ocaml_Dom_html[11], b);
+  return call4(Js_of_ocaml_Dom_html[16], target, typ, c, a);
 }
 
 var stop_listen = Js_of_ocaml_Dom_html[17];

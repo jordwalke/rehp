@@ -38,28 +38,28 @@ function merge(order, l1, l2) {
 function list(order, l) {
   function initlist(param) {
     if (param) {
-      var cM = param[2];
-      var cN = param[1];
-      if (cM) {
-        var rest = cM[2];
-        var e2 = cM[1];
-        var cO = initlist(rest);
-        var cP = call2(order, cN, e2) ? [0,cN,[0,e2,0]] : [0,e2,[0,cN,0]];
-        return [0,cP,cO];
+      var i = param[2];
+      var j = param[1];
+      if (i) {
+        var rest = i[2];
+        var e2 = i[1];
+        var k = initlist(rest);
+        var l = call2(order, j, e2) ? [0,j,[0,e2,0]] : [0,e2,[0,j,0]];
+        return [0,l,k];
       }
-      return [0,[0,cN,0],0];
+      return [0,[0,j,0],0];
     }
     return 0;
   }
   function merge2(x) {
     if (x) {
-      var cK = x[2];
-      if (cK) {
-        var rest = cK[2];
-        var l2 = cK[1];
+      var g = x[2];
+      if (g) {
+        var rest = g[2];
+        var l2 = g[1];
         var l1 = x[1];
-        var cL = merge2(rest);
-        return [0,merge(order, l1, l2),cL];
+        var h = merge2(rest);
+        return [0,merge(order, l1, l2),h];
       }
     }
     return x;
@@ -95,8 +95,8 @@ function array(cmp, arr) {
     var hi__0 = hi;
     a:
     for (; ; ) {
-      var cH = 6 <= (hi__0 - lo__0 | 0) ? 1 : 0;
-      if (cH) {
+      var d = 6 <= (hi__0 - lo__0 | 0) ? 1 : 0;
+      if (d) {
         var mid = (lo__0 + hi__0 | 0) >>> 1 | 0;
         if (call2(cmp, arr[mid + 1], arr[lo__0 + 1])) {swap(arr, mid, lo__0);}
         if (call2(cmp, arr[hi__0 + 1], arr[mid + 1])) {
@@ -106,9 +106,9 @@ function array(cmp, arr) {
         var pivot = arr[mid + 1];
         var i = [0,lo__0 + 1 | 0];
         var j = [0,hi__0 + -1 | 0];
-        var cI = 1 - call2(cmp, pivot, arr[hi__0 + 1]);
-        var cJ = cI ? cI : 1 - call2(cmp, arr[lo__0 + 1], pivot);
-        if (cJ) {
+        var e = 1 - call2(cmp, pivot, arr[hi__0 + 1]);
+        var f = e ? e : 1 - call2(cmp, arr[lo__0 + 1], pivot);
+        if (f) {
           throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Sort_array]
                 );
         }
@@ -144,14 +144,14 @@ function array(cmp, arr) {
           continue a;
         }
       }
-      return cH;
+      return d;
     }
   }
   qsort(0, arr.length - 1 + -1 | 0);
-  var cF = arr.length - 1 + -1 | 0;
-  var cE = 1;
-  if (! (cF < 1)) {
-    var i = cE;
+  var b = arr.length - 1 + -1 | 0;
+  var a = 1;
+  if (! (b < 1)) {
+    var i = a;
     for (; ; ) {
       var val_i = arr[i + 1];
       if (1 - call2(cmp, arr[(i + -1 | 0) + 1], val_i)) {
@@ -169,8 +169,8 @@ function array(cmp, arr) {
           break;
         }
       }
-      var cG = i + 1 | 0;
-      if (cF !== i) {var i = cG;continue;}
+      var c = i + 1 | 0;
+      if (b !== i) {var i = c;continue;}
       break;
     }
   }

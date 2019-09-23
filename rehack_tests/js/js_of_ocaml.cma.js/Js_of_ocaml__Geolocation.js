@@ -21,16 +21,16 @@ var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 
 function empty_position_options(param) {return {};}
 
-function mz(x) {return call1(caml_get_public_method(x, 82957527, 235), x);}
+function a(x) {return call1(caml_get_public_method(x, 82957527, 298), x);}
 
-var mA = Js_of_ocaml_Js[50][1];
-var x = function(t1, param) {return t1.navigator;}(mA, mz);
+var b = Js_of_ocaml_Js[50][1];
+var x = function(t1, param) {return t1.navigator;}(b, a);
 
 if (call1(Js_of_ocaml_Js[6][5], x)) {
-  var mB = function(x) {
-    return call1(caml_get_public_method(x, 315713478, 236), x);
+  var c = function(x) {
+    return call1(caml_get_public_method(x, 315713478, 299), x);
   };
-  var geolocation = function(t0, param) {return t0.geolocation;}(x, mB);
+  var geolocation = function(t0, param) {return t0.geolocation;}(x, c);
 }
 else var geolocation = x;
 

@@ -61,9 +61,9 @@ final class Random {
     $Digest = $global_data["Digest"];
     $Array = $global_data["Array_"];
     $Nativeint = $global_data["Nativeint"];
-    $pY = Vector{255, 1, 0, 0};
-    $pZ = Vector{255, 0, 0, 0};
-    $p0 = Vector{
+    $a = Vector{255, 1, 0, 0};
+    $b = Vector{255, 0, 0, 0};
+    $c = Vector{
       0,
       987910699,
       495797812,
@@ -131,39 +131,38 @@ final class Random {
     };
     $full_init = function(dynamic $s, dynamic $seed) use ($Digest,$Pervasives,$call1,$call2,$caml_check_bound,$caml_mod,$caml_string_get,$cst_x,$left_shift_32) {
       $combine = function(dynamic $accu, dynamic $x) use ($Digest,$Pervasives,$call1,$call2) {
-        $qd = $call1($Pervasives[21], $x);
-        $qe = $call2($Pervasives[16], $accu, $qd);
-        return $call1($Digest[3], $qe);
+        $q = $call1($Pervasives[21], $x);
+        $r = $call2($Pervasives[16], $accu, $q);
+        return $call1($Digest[3], $r);
       };
       $extract = function(dynamic $d) use ($caml_string_get,$left_shift_32) {
-        $qa = $left_shift_32($caml_string_get($d, 3), 24);
-        $qb = $left_shift_32($caml_string_get($d, 2), 16);
-        $qc = $left_shift_32($caml_string_get($d, 1), 8);
-        return (int)
-        ((int) ((int) ($caml_string_get($d, 0) + $qc) + $qb) + $qa);
+        $n = $left_shift_32($caml_string_get($d, 3), 24);
+        $o = $left_shift_32($caml_string_get($d, 2), 16);
+        $p = $left_shift_32($caml_string_get($d, 1), 8);
+        return (int) ((int) ((int) ($caml_string_get($d, 0) + $p) + $o) + $n);
       };
       $seed__0 = 0 === $seed->count() - 1 ? Vector{0, 0} : ($seed);
       $l = $seed__0->count() - 1;
       $i__0 = 0;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;
-        $p_ = (int) ($i__0 + 1);
-        if (54 !== $i__0) {$i__0 = $p_;continue;}
+        $m = (int) ($i__0 + 1);
+        if (54 !== $i__0) {$i__0 = $m;continue;}
         $accu = Vector{0, $cst_x};
-        $p5 = (int) (54 + $call2($Pervasives[5], 55, $l));
-        $p4 = 0;
-        if (! ($p5 < 0)) {
-          $i = $p4;
+        $h = (int) (54 + $call2($Pervasives[5], 55, $l));
+        $g = 0;
+        if (! ($h < 0)) {
+          $i = $g;
           for (;;) {
             $j = (int) ($i % 55);
             $k = $caml_mod($i, $l);
-            $p6 = $caml_check_bound($seed__0, $k)[$k + 1];
-            $accu[1] = $combine($accu[1], $p6);
-            $p7 = $extract($accu[1]);
-            $p8 = ($caml_check_bound($s[1], $j)[$j + 1] ^ $p7) & 1073741823;
-            $caml_check_bound($s[1], $j)[$j + 1] = $p8;
-            $p9 = (int) ($i + 1);
-            if ($p5 !== $i) {$i = $p9;continue;}
+            $i = $caml_check_bound($seed__0, $k)[$k + 1];
+            $accu[1] = $combine($accu[1], $i);
+            $j = $extract($accu[1]);
+            $k = ($caml_check_bound($s[1], $j)[$j + 1] ^ $j) & 1073741823;
+            $caml_check_bound($s[1], $j)[$j + 1] = $k;
+            $l = (int) ($i + 1);
+            if ($h !== $i) {$i = $l;continue;}
             break;
           }
           if ($continue_counter > 0) {
@@ -194,15 +193,15 @@ final class Random {
     };
     $bits = function(dynamic $s) use ($caml_check_bound,$unsigned_right_shift_32) {
       $s[2] = (int) ((int) ($s[2] + 1) % 55);
-      $p1 = $s[2];
-      $curval = $caml_check_bound($s[1], $p1)[$p1 + 1];
-      $p2 = (int) ((int) ($s[2] + 24) % 55);
+      $d = $s[2];
+      $curval = $caml_check_bound($s[1], $d)[$d + 1];
+      $e = (int) ((int) ($s[2] + 24) % 55);
       $newval = (int)
-      ($caml_check_bound($s[1], $p2)[$p2 + 1] +
+      ($caml_check_bound($s[1], $e)[$e + 1] +
          ($curval ^ (int) $unsigned_right_shift_32($curval, 25) & 31));
       $newval30 = $newval & 1073741823;
-      $p3 = $s[2];
-      $caml_check_bound($s[1], $p3)[$p3 + 1] = $newval30;
+      $f = $s[2];
+      $caml_check_bound($s[1], $f)[$f + 1] = $newval30;
       return $newval30;
     };
     $intaux = function(dynamic $s, dynamic $n) use ($bits,$caml_mod) {
@@ -241,7 +240,7 @@ final class Random {
         ? $call1($Pervasives[1], $cst_Random_int32)
         : ($int32aux($s, $bound));
     };
-    $int64aux = function(dynamic $s, dynamic $n) use ($Int64,$bits,$caml_greaterthan,$caml_int64_of_int32,$caml_int64_or,$caml_int64_shift_left,$caml_int64_sub,$pY,$runtime) {
+    $int64aux = function(dynamic $s, dynamic $n) use ($Int64,$a,$bits,$caml_greaterthan,$caml_int64_of_int32,$caml_int64_or,$caml_int64_shift_left,$caml_int64_sub,$runtime) {
       for (;;) {
         $b1 = $caml_int64_of_int32($bits($s));
         $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);
@@ -251,14 +250,14 @@ final class Random {
         if (
           $caml_greaterthan(
             $caml_int64_sub($r, $v),
-            $runtime["caml_int64_add"]($caml_int64_sub($Int64[7], $n), $pY)
+            $runtime["caml_int64_add"]($caml_int64_sub($Int64[7], $n), $a)
           )
         ) {continue;}
         return $v;
       }
     };
-    $int64 = function(dynamic $s, dynamic $bound) use ($Pervasives,$call1,$caml_lessequal,$cst_Random_int64,$int64aux,$pZ) {
-      return $caml_lessequal($bound, $pZ)
+    $int64 = function(dynamic $s, dynamic $bound) use ($Pervasives,$b,$call1,$caml_lessequal,$cst_Random_int64,$int64aux) {
+      return $caml_lessequal($bound, $b)
         ? $call1($Pervasives[1], $cst_Random_int64)
         : ($int64aux($s, $bound));
     };
@@ -282,7 +281,7 @@ final class Random {
     $bool = function(dynamic $s) use ($bits) {
       return 0 === ($bits($s) & 1) ? 1 : (0);
     };
-    $default__0 = Vector{0, $p0->toVector(), 0};
+    $default__0 = Vector{0, $c->toVector(), 0};
     $bits__0 = function(dynamic $param) use ($bits,$default__0) {
       return $bits($default__0);
     };

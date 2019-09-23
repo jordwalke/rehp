@@ -52,12 +52,12 @@ final class Uchar {
       );
     };
     $err_not_latin1 = function(dynamic $u) use ($Pervasives,$call2,$caml_format_int,$cst_04X,$cst_U,$cst_is_not_a_latin1_character) {
-      $bj = $call2(
+      $p = $call2(
         $Pervasives[16],
         $caml_format_int($cst_04X, $u),
         $cst_is_not_a_latin1_character
       );
-      return $call2($Pervasives[16], $cst_U, $bj);
+      return $call2($Pervasives[16], $cst_U, $p);
     };
     $min = 0;
     $max = 1114111;
@@ -78,39 +78,38 @@ final class Uchar {
         : ($u === 0 ? $call1($Pervasives[1], $err_no_pred) : ((int) ($u + -1)));
     };
     $is_valid = function(dynamic $i) {
-      $bf = 0 <= $i ? 1 : (0);
-      $bg = $bf ? $i <= 55295 ? 1 : (0) : ($bf);
-      if ($bg) {
-        $bh = $bg;
+      $l = 0 <= $i ? 1 : (0);
+      $m = $l ? $i <= 55295 ? 1 : (0) : ($l);
+      if ($m) {
+        $n = $m;
       }
       else {
-        $bi = 57344 <= $i ? 1 : (0);
-        $bh = $bi ? $i <= 1114111 ? 1 : (0) : ($bi);
+        $o = 57344 <= $i ? 1 : (0);
+        $n = $o ? $i <= 1114111 ? 1 : (0) : ($o);
       }
-      return $bh;
+      return $n;
     };
     $of_int = function(dynamic $i) use ($Pervasives,$call1,$err_not_sv,$is_valid) {
       if ($is_valid($i)) {return $i;}
-      $be = $err_not_sv($i);
-      return $call1($Pervasives[1], $be);
+      $k = $err_not_sv($i);
+      return $call1($Pervasives[1], $k);
     };
     $is_char = function(dynamic $u) {return $u < 256 ? 1 : (0);};
     $of_char = function(dynamic $c) {return $c;};
     $to_char = function(dynamic $u) use ($Pervasives,$call1,$err_not_latin1) {
       if (255 < $u) {
-        $bd = $err_not_latin1($u);
-        return $call1($Pervasives[1], $bd);
+        $j = $err_not_latin1($u);
+        return $call1($Pervasives[1], $j);
       }
       return $u;
     };
-    $unsafe_to_char = function(dynamic $bc) {return $bc;};
-    $equal = function(dynamic $bb, dynamic $ba) {return $bb === $ba ? 1 : (0);
+    $unsafe_to_char = function(dynamic $i) {return $i;};
+    $equal = function(dynamic $h, dynamic $g) {return $h === $g ? 1 : (0);};
+    $compare = function(dynamic $f, dynamic $e) use ($runtime) {
+      return $runtime["caml_int_compare"]($f, $e);
     };
-    $compare = function(dynamic $a_, dynamic $a9) use ($runtime) {
-      return $runtime["caml_int_compare"]($a_, $a9);
-    };
-    $hash = function(dynamic $a8) {return $a8;};
-    $a5 = function(dynamic $a7) {return $a7;};
+    $hash = function(dynamic $d) {return $d;};
+    $a = function(dynamic $c) {return $c;};
     $Uchar = Vector{
       0,
       $min,
@@ -121,8 +120,8 @@ final class Uchar {
       $pred,
       $is_valid,
       $of_int,
-      function(dynamic $a6) {return $a6;},
-      $a5,
+      function(dynamic $b) {return $b;},
+      $a,
       $is_char,
       $of_char,
       $to_char,

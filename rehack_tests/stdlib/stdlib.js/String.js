@@ -66,13 +66,13 @@ function make(n, c) {return call1(bts, call2(Bytes[1], n, c));}
 function init(n, f) {return call1(bts, call2(Bytes[2], n, f));}
 
 function copy(s) {
-  var cy = call1(bos, s);
-  return call1(bts, call1(Bytes[4], cy));
+  var J = call1(bos, s);
+  return call1(bts, call1(Bytes[4], J));
 }
 
 function sub(s, ofs, len) {
-  var cx = call1(bos, s);
-  return call1(bts, call3(Bytes[7], cx, ofs, len));
+  var I = call1(bos, s);
+  return call1(bts, call3(Bytes[7], I, ofs, len));
 }
 
 var fill = Bytes[10];
@@ -87,18 +87,18 @@ function sum_lengths(acc, seplen, param) {
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var cv = param__0[2];
-      var cw = param__0[1];
-      if (cv) {
+      var G = param__0[2];
+      var H = param__0[1];
+      if (G) {
         var acc__1 = ensure_ge(
-          (caml_ml_string_length(cw) + seplen | 0) + acc__0 | 0,
+          (caml_ml_string_length(H) + seplen | 0) + acc__0 | 0,
           acc__0
         );
         var acc__0 = acc__1;
-        var param__0 = cv;
+        var param__0 = G;
         continue;
       }
-      return caml_ml_string_length(cw) + acc__0 | 0;
+      return caml_ml_string_length(H) + acc__0 | 0;
     }
     return acc__0;
   }
@@ -109,23 +109,23 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var ct = param__0[2];
-      var cu = param__0[1];
-      if (ct) {
-        caml_blit_string(cu, 0, dst, pos__0, caml_ml_string_length(cu));
+      var E = param__0[2];
+      var F = param__0[1];
+      if (E) {
+        caml_blit_string(F, 0, dst, pos__0, caml_ml_string_length(F));
         caml_blit_string(
           sep,
           0,
           dst,
-          pos__0 + caml_ml_string_length(cu) | 0,
+          pos__0 + caml_ml_string_length(F) | 0,
           seplen
         );
-        var pos__1 = (pos__0 + caml_ml_string_length(cu) | 0) + seplen | 0;
+        var pos__1 = (pos__0 + caml_ml_string_length(F) | 0) + seplen | 0;
         var pos__0 = pos__1;
-        var param__0 = ct;
+        var param__0 = E;
         continue;
       }
-      caml_blit_string(cu, 0, dst, pos__0, caml_ml_string_length(cu));
+      caml_blit_string(F, 0, dst, pos__0, caml_ml_string_length(F));
       return dst;
     }
     return dst;
@@ -150,14 +150,14 @@ function concat(sep, l) {
 }
 
 function iter(f, s) {
-  var cr = caml_ml_string_length(s) + -1 | 0;
-  var cq = 0;
-  if (! (cr < 0)) {
-    var i = cq;
+  var C = caml_ml_string_length(s) + -1 | 0;
+  var B = 0;
+  if (! (C < 0)) {
+    var i = B;
     for (; ; ) {
       call1(f, caml_bytes_unsafe_get(s, i));
-      var cs = i + 1 | 0;
-      if (cr !== i) {var i = cs;continue;}
+      var D = i + 1 | 0;
+      if (C !== i) {var i = D;continue;}
       break;
     }
   }
@@ -165,14 +165,14 @@ function iter(f, s) {
 }
 
 function iteri(f, s) {
-  var co = caml_ml_string_length(s) + -1 | 0;
-  var cn = 0;
-  if (! (co < 0)) {
-    var i = cn;
+  var z = caml_ml_string_length(s) + -1 | 0;
+  var y = 0;
+  if (! (z < 0)) {
+    var i = y;
     for (; ; ) {
       call2(f, i, caml_bytes_unsafe_get(s, i));
-      var cp = i + 1 | 0;
-      if (co !== i) {var i = cp;continue;}
+      var A = i + 1 | 0;
+      if (z !== i) {var i = A;continue;}
       break;
     }
   }
@@ -180,18 +180,18 @@ function iteri(f, s) {
 }
 
 function map(f, s) {
-  var cm = call1(bos, s);
-  return call1(bts, call2(Bytes[17], f, cm));
+  var x = call1(bos, s);
+  return call1(bts, call2(Bytes[17], f, x));
 }
 
 function mapi(f, s) {
-  var cl = call1(bos, s);
-  return call1(bts, call2(Bytes[18], f, cl));
+  var w = call1(bos, s);
+  return call1(bts, call2(Bytes[18], f, w));
 }
 
 function is_space(param) {
-  var ck = param + -9 | 0;
-  var switch__0 = 4 < ck >>> 0 ? 23 === ck ? 1 : 0 : 2 === ck ? 0 : 1;
+  var v = param + -9 | 0;
+  var switch__0 = 4 < v >>> 0 ? 23 === v ? 1 : 0 : 2 === v ? 0 : 1;
   return switch__0 ? 1 : 0;
 }
 
@@ -203,8 +203,8 @@ function trim(s) {
     is_space(caml_bytes_unsafe_get(s, caml_ml_string_length(s) + -1 | 0))
     ) {return s;}
   }
-  var cj = call1(bos, s);
-  return call1(bts, call1(Bytes[19], cj));
+  var u = call1(bos, s);
+  return call1(bts, call1(Bytes[19], u));
 }
 
 function escaped(s) {
@@ -214,13 +214,13 @@ function escaped(s) {
       if (caml_ml_string_length(s) <= i__0) {return 0;}
       var match = caml_bytes_unsafe_get(s, i__0);
       if (32 <= match) {
-        var ci = match + -34 | 0;
-        if (58 < ci >>> 0) if (93 <= ci) {
+        var t = match + -34 | 0;
+        if (58 < t >>> 0) if (93 <= t) {
           var switch__0 = 0;
           var switch__1 = 0;
         }
         else var switch__1 = 1;
-        else if (56 < (ci + -1 | 0) >>> 0) {
+        else if (56 < (t + -1 | 0) >>> 0) {
           var switch__0 = 1;
           var switch__1 = 0;
         }
@@ -234,8 +234,8 @@ function escaped(s) {
     }
   }
   if (needs_escape(0)) {
-    var ch = call1(bos, s);
-    return call1(bts, call1(Bytes[20], ch));
+    var s = call1(bos, s);
+    return call1(bts, call1(Bytes[20], s));
   }
   return s;
 }
@@ -333,11 +333,11 @@ function contains_from(s, i, c) {
   var l = caml_ml_string_length(s);
   if (0 <= i) {
     if (! (l < i)) {
-      try {index_rec(s, l, i, c);var cf = 1;return cf;}
-      catch(cg) {
-        cg = caml_wrap_exception(cg);
-        if (cg === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](cg);
+      try {index_rec(s, l, i, c);var q = 1;return q;}
+      catch(r) {
+        r = caml_wrap_exception(r);
+        if (r === Not_found) {return 0;}
+        throw runtime["caml_wrap_thrown_exception_reraise"](r);
       }
     }
   }
@@ -349,11 +349,11 @@ function contains(s, c) {return contains_from(s, 0, c);}
 function rcontains_from(s, i, c) {
   if (0 <= i) {
     if (! (caml_ml_string_length(s) <= i)) {
-      try {rindex_rec(s, i, c);var cd = 1;return cd;}
-      catch(ce) {
-        ce = caml_wrap_exception(ce);
-        if (ce === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](ce);
+      try {rindex_rec(s, i, c);var o = 1;return o;}
+      catch(p) {
+        p = caml_wrap_exception(p);
+        if (p === Not_found) {return 0;}
+        throw runtime["caml_wrap_thrown_exception_reraise"](p);
       }
     }
   }
@@ -361,23 +361,23 @@ function rcontains_from(s, i, c) {
 }
 
 function uppercase_ascii(s) {
-  var cc = call1(bos, s);
-  return call1(bts, call1(Bytes[36], cc));
+  var n = call1(bos, s);
+  return call1(bts, call1(Bytes[36], n));
 }
 
 function lowercase_ascii(s) {
-  var cb = call1(bos, s);
-  return call1(bts, call1(Bytes[37], cb));
+  var m = call1(bos, s);
+  return call1(bts, call1(Bytes[37], m));
 }
 
 function capitalize_ascii(s) {
-  var ca = call1(bos, s);
-  return call1(bts, call1(Bytes[38], ca));
+  var l = call1(bos, s);
+  return call1(bts, call1(Bytes[38], l));
 }
 
 function uncapitalize_ascii(s) {
-  var b_ = call1(bos, s);
-  return call1(bts, call1(Bytes[39], b_));
+  var k = call1(bos, s);
+  return call1(bts, call1(Bytes[39], k));
 }
 
 function compare(x, y) {return runtime["caml_string_compare"](x, y);}
@@ -385,42 +385,42 @@ function compare(x, y) {return runtime["caml_string_compare"](x, y);}
 function split_on_char(sep, s) {
   var r = [0,0];
   var j = [0,caml_ml_string_length(s)];
-  var b6 = caml_ml_string_length(s) + -1 | 0;
-  if (! (b6 < 0)) {
-    var i = b6;
+  var g = caml_ml_string_length(s) + -1 | 0;
+  if (! (g < 0)) {
+    var i = g;
     for (; ; ) {
       if (caml_bytes_unsafe_get(s, i) === sep) {
-        var b8 = r[1];
-        r[1] = [0,sub(s, i + 1 | 0, (j[1] - i | 0) + -1 | 0),b8];
+        var i = r[1];
+        r[1] = [0,sub(s, i + 1 | 0, (j[1] - i | 0) + -1 | 0),i];
         j[1] = i;
       }
-      var b9 = i + -1 | 0;
-      if (0 !== i) {var i = b9;continue;}
+      var j = i + -1 | 0;
+      if (0 !== i) {var i = j;continue;}
       break;
     }
   }
-  var b7 = r[1];
-  return [0,sub(s, 0, j[1]),b7];
+  var h = r[1];
+  return [0,sub(s, 0, j[1]),h];
 }
 
 function uppercase(s) {
-  var b5 = call1(bos, s);
-  return call1(bts, call1(Bytes[32], b5));
+  var f = call1(bos, s);
+  return call1(bts, call1(Bytes[32], f));
 }
 
 function lowercase(s) {
-  var b4 = call1(bos, s);
-  return call1(bts, call1(Bytes[33], b4));
+  var e = call1(bos, s);
+  return call1(bts, call1(Bytes[33], e));
 }
 
 function capitalize(s) {
-  var b3 = call1(bos, s);
-  return call1(bts, call1(Bytes[34], b3));
+  var d = call1(bos, s);
+  return call1(bts, call1(Bytes[34], d));
 }
 
 function uncapitalize(s) {
-  var b2 = call1(bos, s);
-  return call1(bts, call1(Bytes[35], b2));
+  var c = call1(bos, s);
+  return call1(bts, call1(Bytes[35], c));
 }
 
 var String = [
@@ -458,11 +458,11 @@ var String = [
   capitalize_ascii,
   uncapitalize_ascii,
   compare,
-  function(b1, b0) {return caml_string_equal(b1, b0);},
+  function(b, a) {return caml_string_equal(b, a);},
   split_on_char
 ];
 
-runtime["caml_register_global"](12, String, "String_");
+runtime["caml_register_global"](12, String, "String");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().String_;
