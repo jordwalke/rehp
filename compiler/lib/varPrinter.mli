@@ -23,6 +23,8 @@ module Alphabet : sig
   type t
 
   val javascript : t
+
+  val php : t
 end
 
 type t

@@ -137,7 +137,7 @@ end = struct
 
   include T
 
-  let printer = VarPrinter.create VarPrinter.Alphabet.javascript
+  let printer = VarPrinter.create VarPrinter.Alphabet.php
 
   let locations = Hashtbl.create 17
 

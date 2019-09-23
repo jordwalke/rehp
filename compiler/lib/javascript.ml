@@ -24,7 +24,10 @@ module Label = struct
     | L of int
     | S of string
 
-  let printer = VarPrinter.create VarPrinter.Alphabet.javascript
+  (* TODO: Properly refactor generate.ml and others so that it can
+     produce Labels that don't depend on any one particular backend. For now, this is
+     okay because valid PHP identifiers are valid JS identifiers. *)
+  let printer = VarPrinter.create VarPrinter.Alphabet.php
 
   let zero = L 0
 
