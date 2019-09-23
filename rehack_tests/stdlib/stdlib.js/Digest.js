@@ -149,3 +149,4 @@ runtime["caml_register_global"](9, Digest, "Digest");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Digest;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

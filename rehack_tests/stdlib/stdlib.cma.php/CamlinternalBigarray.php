@@ -40,3 +40,4 @@ final class CamlinternalBigarray {
   }
 }
 
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

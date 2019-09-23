@@ -47,7 +47,7 @@
     ]
   },
   "scripts": {
-    "test": "./buildTest.sh #{self.target_dir}",
+    "test": "esy x ./buildTest.sh #{self.target_dir}",
     "where": "echo #{self.target_dir}"
   }
 }

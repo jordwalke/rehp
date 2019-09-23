@@ -1,4 +1,4 @@
-function polymorphic_log(s) {console.log(c in s ? s.c : s);} /**
+function polymorphic_log(s) {console.log("c" in s ? s.c : s);} /**
  * Main executable compiled output. Runtime included in compilation output.
  */
 

@@ -2232,3 +2232,4 @@ runtime["caml_register_global"](66, Scanf, "Scanf");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Scanf;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

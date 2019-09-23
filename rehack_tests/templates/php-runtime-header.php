@@ -53,3 +53,4 @@ final class ____CompilationUnitName {
     /*____CompilationOutput*/
   }
 }
+/*____hashes*/

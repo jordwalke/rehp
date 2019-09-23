@@ -22,3 +22,4 @@ runtime["caml_register_global"](8, CamlinternalMod, "CamlinternalMod");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalMod;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

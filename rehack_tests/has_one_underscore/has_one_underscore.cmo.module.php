@@ -65,3 +65,4 @@ final class Has_one_underscore {
   }
 }
 
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
