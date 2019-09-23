@@ -40,22 +40,22 @@ var Pervasives = global_data["Pervasives"];
 
 function kfprintf(k, o, param) {
   var fmt = param[1];
-  var na = 0;
-  function nb(o, acc) {
+  var f = 0;
+  function g(o, acc) {
     call2(CamlinternalFormat[9], o, acc);
     return call1(k, o);
   }
-  return call4(CamlinternalFormat[7], nb, o, na, fmt);
+  return call4(CamlinternalFormat[7], g, o, f, fmt);
 }
 
 function kbprintf(k, b, param) {
   var fmt = param[1];
-  var m9 = 0;
-  function m_(b, acc) {
+  var d = 0;
+  function e(b, acc) {
     call2(CamlinternalFormat[10], b, acc);
     return call1(k, b);
   }
-  return call4(CamlinternalFormat[7], m_, b, m9, fmt);
+  return call4(CamlinternalFormat[7], e, b, d, fmt);
 }
 
 function ikfprintf(k, oc, param) {
@@ -63,14 +63,12 @@ function ikfprintf(k, oc, param) {
   return call3(CamlinternalFormat[8], k, oc, fmt);
 }
 
-function fprintf(oc, fmt) {
-  return kfprintf(function(m8) {return 0;}, oc, fmt);
-}
+function fprintf(oc, fmt) {return kfprintf(function(c) {return 0;}, oc, fmt);}
 
-function bprintf(b, fmt) {return kbprintf(function(m7) {return 0;}, b, fmt);}
+function bprintf(b, fmt) {return kbprintf(function(b) {return 0;}, b, fmt);}
 
 function ifprintf(oc, fmt) {
-  return ikfprintf(function(m6) {return 0;}, oc, fmt);
+  return ikfprintf(function(a) {return 0;}, oc, fmt);
 }
 
 function printf(fmt) {return fprintf(Pervasives[27], fmt);}

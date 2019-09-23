@@ -46,7 +46,7 @@ final class Js_of_ocaml__XmlHttpRequest {
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Assert_failure = $global_data["Assert_failure"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $tC = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75};
+    $a = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75};
     $readystatechange = $call1($Js_of_ocaml_Dom[14][1], $cst_readystatechange);
     $loadstart = $call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
     $progress = $call1($Js_of_ocaml_Dom[14][1], $cst_progress);
@@ -66,50 +66,50 @@ final class Js_of_ocaml__XmlHttpRequest {
       $timeout,
       $loadend
     };
-    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$caml_get_public_method,$runtime,$tC) {
-      $tD = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -1035517745, 307), $x);
+    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$a,$call1,$caml_get_public_method,$runtime) {
+      $b = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -1035517745, 201), $x);
       };
-      $tE = $Js_of_ocaml_Js[50][1];
+      $c = $Js_of_ocaml_Js[50][1];
       $xmlHttpRequest = (function(dynamic $t8, dynamic $param) {return $t8->XMLHttpRequest;
-       })($tE, $tD);
-      $tF = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -5445583, 308), $x);
+       })($c, $b);
+      $d = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -5445583, 202), $x);
       };
-      $tG = $Js_of_ocaml_Js[50][1];
+      $e = $Js_of_ocaml_Js[50][1];
       $activeXObject = (function(dynamic $t7, dynamic $param) {return $t7->activeXObject;
-       })($tG, $tF);
+       })($e, $d);
       try {
-        $tQ = 0;
-        $tR = (function(dynamic $t6, dynamic $param) {return new $t6();})($xmlHttpRequest, $tQ);
-        return $tR;
+        $o = 0;
+        $p = (function(dynamic $t6, dynamic $param) {return new $t6();})($xmlHttpRequest, $o);
+        return $p;
       }
-      catch(\Throwable $tS) {
+      catch(\Throwable $q) {
         try {
-          $tN = 0;
-          $tO = "Msxml2.XMLHTTP";
-          $tP = (function(dynamic $t5, dynamic $t4, dynamic $param) {return new $t5($t4);
-           })($activeXObject, $tO, $tN);
-          return $tP;
+          $l = 0;
+          $m = "Msxml2.XMLHTTP";
+          $n = (function(dynamic $t5, dynamic $t4, dynamic $param) {return new $t5($t4);
+           })($activeXObject, $m, $l);
+          return $n;
         }
-        catch(\Throwable $tT) {
+        catch(\Throwable $r) {
           try {
-            $tK = 0;
-            $tL = "Msxml3.XMLHTTP";
-            $tM = (function(dynamic $t3, dynamic $t2, dynamic $param) {return new $t3($t2);
-             })($activeXObject, $tL, $tK);
-            return $tM;
+            $i = 0;
+            $j = "Msxml3.XMLHTTP";
+            $k = (function(dynamic $t3, dynamic $t2, dynamic $param) {return new $t3($t2);
+             })($activeXObject, $j, $i);
+            return $k;
           }
-          catch(\Throwable $tU) {
+          catch(\Throwable $s) {
             try {
-              $tH = 0;
-              $tI = "Microsoft.XMLHTTP";
-              $tJ = (function(dynamic $t1, dynamic $t0, dynamic $param) {return new $t1($t0);
-               })($activeXObject, $tI, $tH);
-              return $tJ;
+              $f = 0;
+              $g = "Microsoft.XMLHTTP";
+              $h = (function(dynamic $t1, dynamic $t0, dynamic $param) {return new $t1($t0);
+               })($activeXObject, $g, $f);
+              return $h;
             }
-            catch(\Throwable $tV) {
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $tC}) as \Throwable;
+            catch(\Throwable $t) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a}) as \Throwable;
             }
           }
         }

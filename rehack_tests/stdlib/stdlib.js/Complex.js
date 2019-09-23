@@ -13,7 +13,7 @@ var runtime = joo_global_object.jsoo_runtime;
 var zero = [254,0,0];
 var one = [254,1,0];
 var i = [254,0,1];
-var Cn = [254,0,0];
+var a = [254,0,0];
 
 function add(x, y) {return [254,x[1] + y[1],x[2] + y[2]];}
 
@@ -57,7 +57,7 @@ function arg(x) {return Math.atan2(x[2], x[1]);}
 function polar(n, a) {return [254,Math.cos(a) * n,Math.sin(a) * n];}
 
 function sqrt(x) {
-  if (x[1] == 0) {if (x[2] == 0) {return Cn;}}
+  if (x[1] == 0) {if (x[2] == 0) {return a;}}
   var r = Math.abs(x[1]);
   var i = Math.abs(x[2]);
   if (i <= r) {
@@ -80,8 +80,8 @@ function exp(x) {
 }
 
 function log(x) {
-  var Co = Math.atan2(x[2], x[1]);
-  return [254,Math.log(norm(x)),Co];
+  var b = Math.atan2(x[2], x[1]);
+  return [254,Math.log(norm(x)),b];
 }
 
 function pow(x, y) {return exp(mul(y, log(x)));}

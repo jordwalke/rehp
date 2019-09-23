@@ -118,21 +118,21 @@ function yyparse(tables, start, lexer, lexbuf) {
           continue;
         case 4:
           try {
-            var fh = env[13];
-            var fi = call1(caml_check_bound(tables[1], fh)[fh + 1], env);
-            var fj = 4;
-            var cmd__1 = fj;
-            var arg__2 = fi;
+            var m = env[13];
+            var n = call1(caml_check_bound(tables[1], m)[m + 1], env);
+            var o = 4;
+            var cmd__1 = o;
+            var arg__2 = n;
           }
-          catch(fk) {
-            fk = caml_wrap_exception(fk);
-            if (fk !== Parse_error) {
-              throw runtime["caml_wrap_thrown_exception_reraise"](fk);
+          catch(p) {
+            p = caml_wrap_exception(p);
+            if (p !== Parse_error) {
+              throw runtime["caml_wrap_thrown_exception_reraise"](p);
             }
-            var ff = 0;
-            var fg = 5;
-            var cmd__1 = fg;
-            var arg__2 = ff;
+            var k = 0;
+            var l = 5;
+            var cmd__1 = l;
+            var arg__2 = k;
           }
           var cmd__0 = cmd__1;
           var arg__0 = arg__2;
@@ -155,7 +155,7 @@ function yyparse(tables, start, lexer, lexbuf) {
   env[6] = env[14] + 1 | 0;
   env[7] = start;
   env[10] = lexbuf[12];
-  try {var fd = loop(0, 0);return fd;}
+  try {var i = loop(0, 0);return i;}
   catch(exn) {
     exn = caml_wrap_exception(exn);
     var curr_char = env[7];
@@ -170,8 +170,8 @@ function yyparse(tables, start, lexer, lexbuf) {
     current_lookahead_fun[1] =
       function(tok) {
         if (call1(Obj[1], tok)) {
-          var fe = runtime["caml_obj_tag"](tok);
-          return caml_check_bound(tables[3], fe)[fe + 1] === curr_char ? 1 : 0;
+          var j = runtime["caml_obj_tag"](tok);
+          return caml_check_bound(tables[3], j)[j + 1] === curr_char ? 1 : 0;
         }
         return caml_check_bound(tables[2], tok)[tok + 1] === curr_char ? 1 : 0;
       };
@@ -180,8 +180,8 @@ function yyparse(tables, start, lexer, lexbuf) {
 }
 
 function peek_val(env, n) {
-  var fc = env[11] - n | 0;
-  return caml_check_bound(env[2], fc)[fc + 1];
+  var h = env[11] - n | 0;
+  return caml_check_bound(env[2], h)[h + 1];
 }
 
 function symbol_start_pos(param) {
@@ -189,35 +189,35 @@ function symbol_start_pos(param) {
     var i__0 = i;
     for (; ; ) {
       if (0 < i__0) {
-        var e_ = (env[11] - i__0 | 0) + 1 | 0;
-        var st = caml_check_bound(env[3], e_)[e_ + 1];
-        var fa = (env[11] - i__0 | 0) + 1 | 0;
-        var en = caml_check_bound(env[4], fa)[fa + 1];
+        var e = (env[11] - i__0 | 0) + 1 | 0;
+        var st = caml_check_bound(env[3], e)[e + 1];
+        var f = (env[11] - i__0 | 0) + 1 | 0;
+        var en = caml_check_bound(env[4], f)[f + 1];
         if (runtime["caml_notequal"](st, en)) {return st;}
         var i__1 = i__0 + -1 | 0;
         var i__0 = i__1;
         continue;
       }
-      var fb = env[11];
-      return caml_check_bound(env[4], fb)[fb + 1];
+      var g = env[11];
+      return caml_check_bound(env[4], g)[g + 1];
     }
   }
   return loop(env[12]);
 }
 
 function symbol_end_pos(param) {
-  var e9 = env[11];
-  return caml_check_bound(env[4], e9)[e9 + 1];
+  var d = env[11];
+  return caml_check_bound(env[4], d)[d + 1];
 }
 
 function rhs_start_pos(n) {
-  var e8 = env[11] - (env[12] - n | 0) | 0;
-  return caml_check_bound(env[3], e8)[e8 + 1];
+  var c = env[11] - (env[12] - n | 0) | 0;
+  return caml_check_bound(env[3], c)[c + 1];
 }
 
 function rhs_end_pos(n) {
-  var e7 = env[11] - (env[12] - n | 0) | 0;
-  return caml_check_bound(env[4], e7)[e7 + 1];
+  var b = env[11] - (env[12] - n | 0) | 0;
+  return caml_check_bound(env[4], b)[b + 1];
 }
 
 function symbol_start(param) {return symbol_start_pos(0)[4];}
@@ -246,7 +246,7 @@ var Parsing = [
   rhs_end_pos,
   clear_parser,
   Parse_error,
-  function(e6) {return runtime["caml_set_parser_trace"](e6);},
+  function(a) {return runtime["caml_set_parser_trace"](a);},
   YYexit,
   yyparse,
   peek_val,

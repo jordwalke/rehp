@@ -40,97 +40,97 @@ final class Js_of_ocaml__Jstable {
     $Pervasives = $global_data["Pervasives"];
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $List = $global_data["List_"];
-    $pg = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 944440446, 249), $x);
+    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 944440446, 270), $x);
     };
-    $ph = $Js_of_ocaml_Js[50][1];
-    $obj = (function(dynamic $t0, dynamic $param) {return $t0->Object;})($ph, $pg);
+    $b = $Js_of_ocaml_Js[50][1];
+    $obj = (function(dynamic $t0, dynamic $param) {return $t0->Object;})($b, $a);
     $create = function(dynamic $param) use ($obj) {
-      $pF = 0;
-      return (function(dynamic $t1, dynamic $param) {return new $t1();})($obj, $pF);
+      $z = 0;
+      return (function(dynamic $t1, dynamic $param) {return new $t1();})($obj, $z);
     };
     $add = function(dynamic $t, dynamic $k, dynamic $v) use ($call1,$caml_get_public_method) {
-      $pC = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -942667500, 250), $x);
+      $w = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -942667500, 271), $x);
       };
-      $pD = "_";
-      $pE = 0;
+      $x = "_";
+      $y = 0;
       $t[
          (function(dynamic $t3, dynamic $t2, dynamic $param) {return $t3->concat($t2);
-          })($k, $pD, $pC)
+          })($k, $x, $w)
        ] = $v;
-      return $pE;
+      return $y;
     };
     $remove = function(dynamic $t, dynamic $k) use ($call1,$caml_get_public_method) {
-      $pz = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -942667500, 251), $x);
+      $t = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -942667500, 272), $x);
       };
-      $pA = "_";
-      $pB = 0;
+      $u = "_";
+      $v = 0;
       unset(
         $t[
            (function(dynamic $t5, dynamic $t4, dynamic $param) {return $t5->concat($t4);
-            })($k, $pA, $pz)
+            })($k, $u, $t)
          ]
       );
-      return $pB;
+      return $v;
     };
     $find = function(dynamic $t, dynamic $k) use ($call1,$caml_get_public_method) {
-      $px = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -942667500, 252), $x);
+      $r = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -942667500, 273), $x);
       };
-      $py = "_";
+      $s = "_";
       return $t[
          (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->concat($t6);
-          })($k, $py, $px)
+          })($k, $s, $r)
        ];
     };
     $keys = function(dynamic $t) use ($Js_of_ocaml_Js,$List,$Pervasives,$call1,$call2,$caml_get_public_method,$cst_Jstable_keys) {
-      $pi = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -955850252, 253), $x);
+      $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -955850252, 274), $x);
       };
-      $pj = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 944440446, 254), $x);
+      $d = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 944440446, 275), $x);
       };
-      $pk = $Js_of_ocaml_Js[50][1];
-      $pl = (function(dynamic $t13, dynamic $param) {return $t13->Object;})($pk, $pj);
+      $e = $Js_of_ocaml_Js[50][1];
+      $f = (function(dynamic $t13, dynamic $param) {return $t13->Object;})($e, $d);
       $key_array = (function(dynamic $t15, dynamic $t14, dynamic $param) {return $t15->keys($t14);
-       })($pl, $t, $pi);
+       })($f, $t, $c);
       $res = Vector{0, 0};
-      $pm = 0;
-      $pn = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 520590566, 255), $x);
+      $g = 0;
+      $h = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 520590566, 276), $x);
       };
-      $po = (int)
-      ((function(dynamic $t12, dynamic $param) {return $t12->length;})($key_array, $pn) + -1);
-      if (! ($po < 0)) {
-        $i = $pm;
+      $i = (int)
+      ((function(dynamic $t12, dynamic $param) {return $t12->length;})($key_array, $h) + -1);
+      if (! ($i < 0)) {
+        $i__0 = $g;
         for (;;) {
-          $pp = function(dynamic $param) use ($Pervasives,$call1,$cst_Jstable_keys) {
+          $j = function(dynamic $param) use ($Pervasives,$call1,$cst_Jstable_keys) {
             return $call1($Pervasives[2], $cst_Jstable_keys);
           };
-          $pq = $call2($Js_of_ocaml_Js[16], $key_array, $i);
-          $key = $call2($Js_of_ocaml_Js[6][8], $pq, $pp);
-          $pr = $res[1];
-          $ps = function(dynamic $x) use ($call1,$caml_get_public_method) {
-            return $call1($caml_get_public_method($x, -488115631, 256), $x);
+          $k = $call2($Js_of_ocaml_Js[16], $key_array, $i__0);
+          $key = $call2($Js_of_ocaml_Js[6][8], $k, $j);
+          $l = $res[1];
+          $m = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            return $call1($caml_get_public_method($x, -488115631, 277), $x);
           };
-          $pt = function(dynamic $x) use ($call1,$caml_get_public_method) {
-            return $call1($caml_get_public_method($x, 520590566, 257), $x);
+          $n = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            return $call1($caml_get_public_method($x, 520590566, 278), $x);
           };
-          $pu = (int)
-          ((function(dynamic $t8, dynamic $param) {return $t8->length;})($key, $pt) + -1);
-          $pv = 0;
+          $o = (int)
+          ((function(dynamic $t8, dynamic $param) {return $t8->length;})($key, $n) + -1);
+          $p = 0;
           $res[1] =
             Vector{
               0,
               (function
                (dynamic $t11, dynamic $t9, dynamic $t10, dynamic $param) {return $t11->substring($t9, $t10);
-               })($key, $pv, $pu, $ps),
-              $pr
+               })($key, $p, $o, $m),
+              $l
             };
-          $pw = (int) ($i + 1);
-          if ($po !== $i) {$i = $pw;continue;}
+          $q = (int) ($i__0 + 1);
+          if ($i !== $i__0) {$i__0 = $q;continue;}
           break;
         }
       }

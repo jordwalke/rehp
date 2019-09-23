@@ -37,17 +37,17 @@ var cst_Map_bal__2 = string("Map.bal");
 var Not_found = global_data["Not_found"];
 var Pervasives = global_data["Pervasives"];
 var Assert_failure = global_data["Assert_failure"];
-var gf = [0,0,0,0];
-var gg = [0,string("map.ml"),393,10];
-var gh = [0,0,0];
+var a = [0,0,0,0];
+var b = [0,string("map.ml"),393,10];
+var c = [0,0,0];
 
 function Make(Ord) {
   function height(param) {if (param) {var h = param[5];return h;}return 0;}
   function create(l, x, d, r) {
     var hl = height(l);
     var hr = height(r);
-    var gS = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
-    return [0,l,x,d,r,gS];
+    var N = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
+    return [0,l,x,d,r,N];
   }
   function singleton(x, d) {return [0,0,x,d,0,1];}
   function bal(l, x, d, r) {
@@ -67,17 +67,15 @@ function Make(Ord) {
         var ld = l[3];
         var lv = l[2];
         var ll = l[1];
-        var gN = height(lr);
-        if (gN <= height(ll)) {
-          return create(ll, lv, ld, create(lr, x, d, r));
-        }
+        var I = height(lr);
+        if (I <= height(ll)) {return create(ll, lv, ld, create(lr, x, d, r));}
         if (lr) {
           var lrr = lr[4];
           var lrd = lr[3];
           var lrv = lr[2];
           var lrl = lr[1];
-          var gO = create(lrr, x, d, r);
-          return create(create(ll, lv, ld, lrl), lrv, lrd, gO);
+          var J = create(lrr, x, d, r);
+          return create(create(ll, lv, ld, lrl), lrv, lrd, J);
         }
         return call1(Pervasives[1], cst_Map_bal);
       }
@@ -89,24 +87,22 @@ function Make(Ord) {
         var rd = r[3];
         var rv = r[2];
         var rl = r[1];
-        var gP = height(rl);
-        if (gP <= height(rr)) {
-          return create(create(l, x, d, rl), rv, rd, rr);
-        }
+        var K = height(rl);
+        if (K <= height(rr)) {return create(create(l, x, d, rl), rv, rd, rr);}
         if (rl) {
           var rlr = rl[4];
           var rld = rl[3];
           var rlv = rl[2];
           var rll = rl[1];
-          var gQ = create(rlr, rv, rd, rr);
-          return create(create(l, x, d, rll), rlv, rld, gQ);
+          var L = create(rlr, rv, rd, rr);
+          return create(create(l, x, d, rll), rlv, rld, L);
         }
         return call1(Pervasives[1], cst_Map_bal__1);
       }
       return call1(Pervasives[1], cst_Map_bal__2);
     }
-    var gR = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
-    return [0,l,x,d,r,gR];
+    var M = hr <= hl ? hl + 1 | 0 : hr + 1 | 0;
+    return [0,l,x,d,r,M];
   }
   var empty = 0;
   function is_empty(param) {return param ? 0 : 1;}
@@ -318,8 +314,8 @@ function Make(Ord) {
         var v = param__0[2];
         var l = param__0[1];
         var c = call2(Ord[1], x, v);
-        var gM = 0 === c ? 1 : 0;
-        if (gM) {return gM;}
+        var H = 0 === c ? 1 : 0;
+        if (H) {return H;}
         var param__1 = 0 <= c ? r : l;
         var param__0 = param__1;
         continue;
@@ -331,8 +327,8 @@ function Make(Ord) {
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        var gL = param__0[1];
-        if (gL) {var param__0 = gL;continue;}
+        var G = param__0[1];
+        if (G) {var param__0 = G;continue;}
         var d = param__0[3];
         var v = param__0[2];
         return [0,v,d];
@@ -344,8 +340,8 @@ function Make(Ord) {
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        var gK = param__0[1];
-        if (gK) {var param__0 = gK;continue;}
+        var F = param__0[1];
+        if (F) {var param__0 = F;continue;}
         var d = param__0[3];
         var v = param__0[2];
         return [0,[0,v,d]];
@@ -357,11 +353,11 @@ function Make(Ord) {
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        var gH = param__0[4];
-        var gI = param__0[3];
-        var gJ = param__0[2];
-        if (gH) {var param__0 = gH;continue;}
-        return [0,gJ,gI];
+        var C = param__0[4];
+        var D = param__0[3];
+        var E = param__0[2];
+        if (C) {var param__0 = C;continue;}
+        return [0,E,D];
       }
       throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
@@ -370,30 +366,30 @@ function Make(Ord) {
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        var gE = param__0[4];
-        var gF = param__0[3];
-        var gG = param__0[2];
-        if (gE) {var param__0 = gE;continue;}
-        return [0,[0,gG,gF]];
+        var z = param__0[4];
+        var A = param__0[3];
+        var B = param__0[2];
+        if (z) {var param__0 = z;continue;}
+        return [0,[0,B,A]];
       }
       return 0;
     }
   }
   function remove_min_binding(param) {
     if (param) {
-      var gD = param[1];
-      if (gD) {
+      var y = param[1];
+      if (y) {
         var r = param[4];
         var d = param[3];
         var v = param[2];
-        return bal(remove_min_binding(gD), v, d, r);
+        return bal(remove_min_binding(y), v, d, r);
       }
       var r__0 = param[4];
       return r__0;
     }
     return call1(Pervasives[1], cst_Map_remove_min_elt);
   }
-  function gk(t, match) {
+  function f(t, match) {
     if (t) {
       if (match) {
         var match__0 = min_binding(match);
@@ -412,7 +408,7 @@ function Make(Ord) {
       var v = m[2];
       var l = m[1];
       var c = call2(Ord[1], x, v);
-      if (0 === c) {return gk(l, r);}
+      if (0 === c) {return f(l, r);}
       if (0 <= c) {
         var rr = remove(x, r);
         return r === rr ? m : bal(l, v, d, rr);
@@ -422,7 +418,7 @@ function Make(Ord) {
     }
     return 0;
   }
-  function update(x, f, m) {
+  function update(x, f__0, m) {
     if (m) {
       var h = m[5];
       var r = m[4];
@@ -431,21 +427,21 @@ function Make(Ord) {
       var l = m[1];
       var c = call2(Ord[1], x, v);
       if (0 === c) {
-        var match = call1(f, [0,d]);
+        var match = call1(f__0, [0,d]);
         if (match) {
           var data = match[1];
           return d === data ? m : [0,l,x,data,r,h];
         }
-        return gk(l, r);
+        return f(l, r);
       }
       if (0 <= c) {
-        var rr = update(x, f, r);
+        var rr = update(x, f__0, r);
         return r === rr ? m : bal(l, v, d, rr);
       }
-      var ll = update(x, f, l);
+      var ll = update(x, f__0, l);
       return l === ll ? m : bal(ll, v, d, r);
     }
-    var match__0 = call1(f, 0);
+    var match__0 = call1(f__0, 0);
     if (match__0) {var data__0 = match__0[1];return [0,0,x,data__0,0,1];}
     return 0;
   }
@@ -518,14 +514,14 @@ function Make(Ord) {
         var d = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        var gA = call2(p, v, d);
-        if (gA) {
-          var gB = for_all(p, l);
-          if (gB) {var param__0 = r;continue;}
-          var gC = gB;
+        var v = call2(p, v, d);
+        if (v) {
+          var w = for_all(p, l);
+          if (w) {var param__0 = r;continue;}
+          var x = w;
         }
-        else var gC = gA;
-        return gC;
+        else var x = v;
+        return x;
       }
       return 1;
     }
@@ -538,14 +534,14 @@ function Make(Ord) {
         var d = param__0[3];
         var v = param__0[2];
         var l = param__0[1];
-        var gx = call2(p, v, d);
-        if (gx) var gy = gx;
+        var s = call2(p, v, d);
+        if (s) var t = s;
         else {
-          var gz = exists(p, l);
-          if (! gz) {var param__0 = r;continue;}
-          var gy = gz;
+          var u = exists(p, l);
+          if (! u) {var param__0 = r;continue;}
+          var t = u;
         }
-        return gy;
+        return t;
       }
       return 0;
     }
@@ -630,7 +626,7 @@ function Make(Ord) {
       var ll = match__0[1];
       return [0,ll,pres__0,join(rl, v, d, r)];
     }
-    return gf;
+    return a;
   }
   function merge(f, s1, s2) {
     if (s1) {
@@ -644,9 +640,9 @@ function Make(Ord) {
         var r2 = match[3];
         var d2 = match[2];
         var l2 = match[1];
-        var gt = merge(f, r1, r2);
-        var gu = call3(f, v1, [0,d1], d2);
-        return concat_or_join(merge(f, l1, l2), v1, gu, gt);
+        var o = merge(f, r1, r2);
+        var p = call3(f, v1, [0,d1], d2);
+        return concat_or_join(merge(f, l1, l2), v1, p, o);
       }
     }
     else if (! s2) {return 0;}
@@ -659,11 +655,11 @@ function Make(Ord) {
       var r1__0 = match__0[3];
       var d1__0 = match__0[2];
       var l1__0 = match__0[1];
-      var gv = merge(f, r1__0, r2__0);
-      var gw = call3(f, v2, d1__0, [0,d2__0]);
-      return concat_or_join(merge(f, l1__0, l2__0), v2, gw, gv);
+      var q = merge(f, r1__0, r2__0);
+      var r = call3(f, v2, d1__0, [0,d2__0]);
+      return concat_or_join(merge(f, l1__0, l2__0), v2, r, q);
     }
-    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,gg]);
+    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,b]);
   }
   function union(f, s1, s2) {
     if (s1) {
@@ -738,11 +734,11 @@ function Make(Ord) {
       var match__0 = partition(p, r);
       var rf = match__0[2];
       var rt = match__0[1];
-      if (pvd) {var gr = concat(lf, rf);return [0,join(lt, v, d, rt),gr];}
-      var gs = join(lf, v, d, rf);
-      return [0,concat(lt, rt),gs];
+      if (pvd) {var m = concat(lf, rf);return [0,join(lt, v, d, rt),m];}
+      var n = join(lf, v, d, rf);
+      return [0,concat(lt, rt),n];
     }
-    return gh;
+    return c;
   }
   function cons_enum(m, e) {
     var m__0 = m;
@@ -795,8 +791,8 @@ function Make(Ord) {
         return e2__0 ? -1 : 0;
       }
     }
-    var gq = cons_enum(m2, 0);
-    return compare_aux(cons_enum(m1, 0), gq);
+    var l = cons_enum(m2, 0);
+    return compare_aux(cons_enum(m1, 0), l);
   }
   function equal(cmp, m1, m2) {
     function equal_aux(e1, e2) {
@@ -813,35 +809,35 @@ function Make(Ord) {
             var r1 = e1__0[3];
             var d1 = e1__0[2];
             var v1 = e1__0[1];
-            var gn = 0 === call2(Ord[1], v1, v2) ? 1 : 0;
-            if (gn) {
-              var go = call2(cmp, d1, d2);
-              if (go) {
+            var i = 0 === call2(Ord[1], v1, v2) ? 1 : 0;
+            if (i) {
+              var j = call2(cmp, d1, d2);
+              if (j) {
                 var e2__2 = cons_enum(r2, e2__1);
                 var e1__2 = cons_enum(r1, e1__1);
                 var e1__0 = e1__2;
                 var e2__0 = e2__2;
                 continue;
               }
-              var gp = go;
+              var k = j;
             }
-            else var gp = gn;
-            return gp;
+            else var k = i;
+            return k;
           }
           return 0;
         }
         return e2__0 ? 0 : 1;
       }
     }
-    var gm = cons_enum(m2, 0);
-    return equal_aux(cons_enum(m1, 0), gm);
+    var h = cons_enum(m2, 0);
+    return equal_aux(cons_enum(m1, 0), h);
   }
   function cardinal(param) {
     if (param) {
       var r = param[4];
       var l = param[1];
-      var gl = cardinal(r);
-      return (cardinal(l) + 1 | 0) + gl | 0;
+      var g = cardinal(r);
+      return (cardinal(l) + 1 | 0) + g | 0;
     }
     return 0;
   }
@@ -919,44 +915,44 @@ function Make(Ord) {
 
 var Map = [
   0,
-  function(gi) {
-    var gj = Make(gi);
+  function(d) {
+    var e = Make(d);
     return [
       0,
-      gj[5],
-      gj[6],
-      gj[18],
-      gj[7],
-      gj[25],
-      gj[3],
-      gj[24],
-      gj[38],
-      gj[39],
-      gj[43],
-      gj[44],
-      gj[26],
-      gj[29],
-      gj[30],
-      gj[31],
-      gj[40],
-      gj[41],
-      gj[45],
-      gj[47],
-      gj[19],
-      gj[20],
-      gj[21],
-      gj[22],
-      gj[48],
-      gj[49],
-      gj[37],
-      gj[8],
-      gj[17],
-      gj[10],
-      gj[12],
-      gj[14],
-      gj[16],
-      gj[27],
-      gj[28]
+      e[5],
+      e[6],
+      e[18],
+      e[7],
+      e[25],
+      e[3],
+      e[24],
+      e[38],
+      e[39],
+      e[43],
+      e[44],
+      e[26],
+      e[29],
+      e[30],
+      e[31],
+      e[40],
+      e[41],
+      e[45],
+      e[47],
+      e[19],
+      e[20],
+      e[21],
+      e[22],
+      e[48],
+      e[49],
+      e[37],
+      e[8],
+      e[17],
+      e[10],
+      e[12],
+      e[14],
+      e[16],
+      e[27],
+      e[28]
     ];
   }
 ];

@@ -46,8 +46,8 @@ var shared = [
 ];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var CamlinternalOO = global_data["CamlinternalOO"];
-var mC = [0,string("_type"),string("localeMatcher")];
-var mD = [
+var a = [0,string("_type"),string("localeMatcher")];
+var b = [
   0,
   string("year"),
   string("weekday"),
@@ -64,7 +64,7 @@ var mD = [
   string("era"),
   string("day")
 ];
-var mE = [
+var c = [
   0,
   string("useGrouping"),
   string("style"),
@@ -77,8 +77,8 @@ var mE = [
   string("currencyDisplay"),
   string("currency")
 ];
-var mF = [0,string("localeMatcher"),string("_type")];
-var mG = [
+var d = [0,string("localeMatcher"),string("_type")];
+var e = [
   0,
   string("usage"),
   string("sensitivity"),
@@ -87,7 +87,7 @@ var mG = [
   string("ignorePunctuation"),
   string("caseFirst")
 ];
-var mH = [
+var f = [
   0,
   string("hour"),
   string("hour12"),
@@ -104,8 +104,8 @@ var mH = [
   string("timeZoneName"),
   string("formatMatcher")
 ];
-var mI = [0,string("localeMatcher")];
-var mJ = [
+var g = [0,string("localeMatcher")];
+var h = [
   0,
   string("minimumIntegerDigits"),
   string("maximumFractionDigits"),
@@ -118,84 +118,84 @@ var mJ = [
   string("maximumSignificantDigits"),
   string("currency")
 ];
-var mK = [0,0,0,0];
+var i = [0,0,0,0];
 
 function object_options(param) {
-  function o5(self, localeMatcher) {
-    if (! mK[1]) {
-      var o7 = call1(CamlinternalOO[16], mI);
-      var o8 = call2(CamlinternalOO[3], o7, cst);
-      var o9 = call2(CamlinternalOO[7], o7, cst_localeMatcher);
-      var o_ = function(self_1) {var env = self_1[o8 + 1];return env[1];};
-      call3(CamlinternalOO[10], o7, o9, o_);
-      var pa = function(pb) {
-        var pc = call2(CamlinternalOO[24], 0, o7);
-        pc[o8 + 1] = pb;
-        return pc;
+  function bO(self, localeMatcher) {
+    if (! i[1]) {
+      var bQ = call1(CamlinternalOO[16], g);
+      var bR = call2(CamlinternalOO[3], bQ, cst);
+      var bS = call2(CamlinternalOO[7], bQ, cst_localeMatcher);
+      var bT = function(self_1) {var env = self_1[bR + 1];return env[1];};
+      call3(CamlinternalOO[10], bQ, bS, bT);
+      var bU = function(bV) {
+        var bW = call2(CamlinternalOO[24], 0, bQ);
+        bW[bR + 1] = bV;
+        return bW;
       };
-      call1(CamlinternalOO[17], o7);
-      mK[1] = pa;
+      call1(CamlinternalOO[17], bQ);
+      i[1] = bU;
     }
-    return call1(mK[1], [0,localeMatcher]);
+    return call1(i[1], [0,localeMatcher]);
   }
-  var o6 = "best fit";
-  return function(t0, param) {return {"localeMatcher": t0};}(o6, o5);
+  var bP = "best fit";
+  return function(t0, param) {return {"localeMatcher": t0};}(bP, bO);
 }
 
-var mL = [0,0,0,0];
+var j = [0,0,0,0];
 
 function options(param) {
-  function oG(self, localeMatcher, usage, sensitivity, ignorePunctuation, numeric, caseFirst) {
-    if (! mL[1]) {
-      var oN = call1(CamlinternalOO[16], shared);
-      var oO = call2(CamlinternalOO[3], oN, cst__0);
-      var oP = call2(CamlinternalOO[8], oN, mG);
-      var oQ = oP[1];
-      var oR = oP[2];
-      var oS = oP[3];
-      var oT = oP[4];
-      var oU = oP[5];
-      var oV = oP[6];
-      var oW = function(self_2) {var env = self_2[oO + 1];return env[1];};
-      var oX = function(self_2) {var env = self_2[oO + 1];return env[2];};
-      var oY = function(self_2) {var env = self_2[oO + 1];return env[3];};
-      var oZ = function(self_2) {var env = self_2[oO + 1];return env[4];};
-      var o0 = function(self_2) {var env = self_2[oO + 1];return env[5];};
-      var o1 = [
+  function bp(self, localeMatcher, usage, sensitivity, ignorePunctuation, numeric, caseFirst) {
+    if (! j[1]) {
+      var bw = call1(CamlinternalOO[16], shared);
+      var bx = call2(CamlinternalOO[3], bw, cst__0);
+      var by = call2(CamlinternalOO[8], bw, e);
+      var bz = by[1];
+      var bA = by[2];
+      var bB = by[3];
+      var bC = by[4];
+      var bD = by[5];
+      var bE = by[6];
+      var bF = function(self_2) {var env = self_2[bx + 1];return env[1];};
+      var bG = function(self_2) {var env = self_2[bx + 1];return env[2];};
+      var bH = function(self_2) {var env = self_2[bx + 1];return env[3];};
+      var bI = function(self_2) {var env = self_2[bx + 1];return env[4];};
+      var bJ = function(self_2) {var env = self_2[bx + 1];return env[5];};
+      var bK = [
         0,
-        oT,
-        function(self_2) {var env = self_2[oO + 1];return env[6];},
-        oQ,
-        o0,
-        oR,
-        oZ,
-        oU,
-        oY,
-        oS,
-        oX,
-        oV,
-        oW
+        bC,
+        function(self_2) {var env = self_2[bx + 1];return env[6];},
+        bz,
+        bJ,
+        bA,
+        bI,
+        bD,
+        bH,
+        bB,
+        bG,
+        bE,
+        bF
       ];
-      call2(CamlinternalOO[11], oN, o1);
-      var o2 = function(o3) {
-        var o4 = call2(CamlinternalOO[24], 0, oN);
-        o4[oO + 1] = o3;
-        return o4;
+      call2(CamlinternalOO[11], bw, bK);
+      var bL = function(bM) {
+        var bN = call2(CamlinternalOO[24], 0, bw);
+        bN[bx + 1] = bM;
+        return bN;
       };
-      call1(CamlinternalOO[17], oN);
-      mL[1] = o2;
+      call1(CamlinternalOO[17], bw);
+      j[1] = bL;
     }
     return call1(
-      mL[1],
+      j[1],
       [0,caseFirst,numeric,ignorePunctuation,sensitivity,usage,localeMatcher]
     );
   }
-  var oH = "false";
-  var oI = Js_of_ocaml_Js[8];
-  var oJ = Js_of_ocaml_Js[8];
-  var oK = "variant";
-  var oL = "sort";
-  var oM = "best fit";
+  var bq = "false";
+  var br = Js_of_ocaml_Js[8];
+  var bs = Js_of_ocaml_Js[8];
+  var bt = "variant";
+  var bu = "sort";
+  var bv = "best fit";
   return function(t1, t2, t3, t4, t5, t6, param) {
     return {
       "localeMatcher": t1,
@@ -205,88 +205,88 @@ function options(param) {
       "numeric": t5,
       "caseFirst": t6
     };
-  }(oM, oL, oK, oJ, oI, oH, oG
+  }(bv, bu, bt, bs, br, bq, bp
   );
 }
 
 var Collator = [0,object_options,options];
-var mM = [0,0,0,0];
+var k = [0,0,0,0];
 
 function options__0(param) {
-  function nU(self, localeMatcher, timeZone, hour12, hourCycle, formatMatcher, weekday, era, year, month, day, hour, minute, second, timeZoneName) {
-    if (! mM[1]) {
-      var n9 = call1(CamlinternalOO[16], mH);
-      var n_ = call2(CamlinternalOO[3], n9, cst__1);
-      var oa = call2(CamlinternalOO[8], n9, mD);
-      var ob = oa[1];
-      var oc = oa[2];
-      var od = oa[3];
-      var oe = oa[4];
-      var of = oa[5];
-      var og = oa[6];
-      var oh = oa[7];
-      var oi = oa[8];
-      var oj = oa[9];
-      var ok = oa[10];
-      var ol = oa[11];
-      var om = oa[12];
-      var on = oa[13];
-      var oo = oa[14];
-      var op = function(self_3) {var env = self_3[n_ + 1];return env[1];};
-      var oq = function(self_3) {var env = self_3[n_ + 1];return env[2];};
-      var or = function(self_3) {var env = self_3[n_ + 1];return env[3];};
-      var os = function(self_3) {var env = self_3[n_ + 1];return env[4];};
-      var ot = function(self_3) {var env = self_3[n_ + 1];return env[5];};
-      var ou = function(self_3) {var env = self_3[n_ + 1];return env[6];};
-      var ov = function(self_3) {var env = self_3[n_ + 1];return env[7];};
-      var ow = function(self_3) {var env = self_3[n_ + 1];return env[8];};
-      var ox = function(self_3) {var env = self_3[n_ + 1];return env[9];};
-      var oy = function(self_3) {var env = self_3[n_ + 1];return env[10];};
-      var oz = function(self_3) {var env = self_3[n_ + 1];return env[11];};
-      var oA = function(self_3) {var env = self_3[n_ + 1];return env[12];};
-      var oB = function(self_3) {var env = self_3[n_ + 1];return env[13];};
-      var oC = [
+  function aD(self, localeMatcher, timeZone, hour12, hourCycle, formatMatcher, weekday, era, year, month, day, hour, minute, second, timeZoneName) {
+    if (! k[1]) {
+      var aS = call1(CamlinternalOO[16], f);
+      var aT = call2(CamlinternalOO[3], aS, cst__1);
+      var aU = call2(CamlinternalOO[8], aS, b);
+      var aV = aU[1];
+      var aW = aU[2];
+      var aX = aU[3];
+      var aY = aU[4];
+      var aZ = aU[5];
+      var a0 = aU[6];
+      var a1 = aU[7];
+      var a2 = aU[8];
+      var a3 = aU[9];
+      var a4 = aU[10];
+      var a5 = aU[11];
+      var a6 = aU[12];
+      var a7 = aU[13];
+      var a8 = aU[14];
+      var a9 = function(self_3) {var env = self_3[aT + 1];return env[1];};
+      var a_ = function(self_3) {var env = self_3[aT + 1];return env[2];};
+      var ba = function(self_3) {var env = self_3[aT + 1];return env[3];};
+      var bb = function(self_3) {var env = self_3[aT + 1];return env[4];};
+      var bc = function(self_3) {var env = self_3[aT + 1];return env[5];};
+      var bd = function(self_3) {var env = self_3[aT + 1];return env[6];};
+      var be = function(self_3) {var env = self_3[aT + 1];return env[7];};
+      var bf = function(self_3) {var env = self_3[aT + 1];return env[8];};
+      var bg = function(self_3) {var env = self_3[aT + 1];return env[9];};
+      var bh = function(self_3) {var env = self_3[aT + 1];return env[10];};
+      var bi = function(self_3) {var env = self_3[aT + 1];return env[11];};
+      var bj = function(self_3) {var env = self_3[aT + 1];return env[12];};
+      var bk = function(self_3) {var env = self_3[aT + 1];return env[13];};
+      var bl = [
         0,
-        oi,
-        function(self_3) {var env = self_3[n_ + 1];return env[14];},
-        oe,
-        oB,
-        ok,
-        oA,
-        oj,
-        oz,
-        om,
-        oy,
-        oc,
-        ox,
-        on,
-        ow,
-        ob,
-        ov,
-        og,
-        ou,
-        oo,
-        ot,
-        ol,
-        os,
-        oh,
-        or,
-        of,
-        oq,
-        od,
-        op
+        a2,
+        function(self_3) {var env = self_3[aT + 1];return env[14];},
+        aY,
+        bk,
+        a4,
+        bj,
+        a3,
+        bi,
+        a6,
+        bh,
+        aW,
+        bg,
+        a7,
+        bf,
+        aV,
+        be,
+        a0,
+        bd,
+        a8,
+        bc,
+        a5,
+        bb,
+        a1,
+        ba,
+        aZ,
+        a_,
+        aX,
+        a9
       ];
-      call2(CamlinternalOO[11], n9, oC);
-      var oD = function(oE) {
-        var oF = call2(CamlinternalOO[24], 0, n9);
-        oF[n_ + 1] = oE;
-        return oF;
+      call2(CamlinternalOO[11], aS, bl);
+      var bm = function(bn) {
+        var bo = call2(CamlinternalOO[24], 0, aS);
+        bo[aT + 1] = bn;
+        return bo;
       };
-      call1(CamlinternalOO[17], n9);
-      mM[1] = oD;
+      call1(CamlinternalOO[17], aS);
+      k[1] = bm;
     }
     return call1(
-      mM[1],
+      k[1],
       [
         0,
         timeZoneName,
@@ -306,20 +306,20 @@ function options__0(param) {
       ]
     );
   }
-  var nV = Js_of_ocaml_Js[3];
-  var nW = Js_of_ocaml_Js[3];
-  var nX = Js_of_ocaml_Js[3];
-  var nY = Js_of_ocaml_Js[3];
-  var nZ = Js_of_ocaml_Js[3];
-  var n0 = Js_of_ocaml_Js[3];
-  var n1 = Js_of_ocaml_Js[3];
-  var n2 = Js_of_ocaml_Js[3];
-  var n3 = Js_of_ocaml_Js[3];
-  var n4 = "best fit";
-  var n5 = Js_of_ocaml_Js[3];
-  var n6 = Js_of_ocaml_Js[3];
-  var n7 = Js_of_ocaml_Js[3];
-  var n8 = "best fit";
+  var aE = Js_of_ocaml_Js[3];
+  var aF = Js_of_ocaml_Js[3];
+  var aG = Js_of_ocaml_Js[3];
+  var aH = Js_of_ocaml_Js[3];
+  var aI = Js_of_ocaml_Js[3];
+  var aJ = Js_of_ocaml_Js[3];
+  var aK = Js_of_ocaml_Js[3];
+  var aL = Js_of_ocaml_Js[3];
+  var aM = Js_of_ocaml_Js[3];
+  var aN = "best fit";
+  var aO = Js_of_ocaml_Js[3];
+  var aP = Js_of_ocaml_Js[3];
+  var aQ = Js_of_ocaml_Js[3];
+  var aR = "best fit";
   return function(t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, param) {
     return {
       "localeMatcher": t7,
@@ -337,72 +337,72 @@ function options__0(param) {
       "second": t19,
       "timeZoneName": t20
     };
-  }(n8, n7, n6, n5, n4, n3, n2, n1, n0, nZ, nY, nX, nW, nV, nU
+  }(aR, aQ, aP, aO, aN, aM, aL, aK, aJ, aI, aH, aG, aF, aE, aD
   );
 }
 
 var DateTimeFormat = [0,object_options,options__0];
-var mN = [0,0,0,0];
+var l = [0,0,0,0];
 
 function options__1(param) {
-  function nj(self, localeMatcher, style, currency, currencyDisplay, useGrouping, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, minimumSignificantDigits, maximumSignificantDigits) {
-    if (! mN[1]) {
-      var nu = call1(CamlinternalOO[16], mJ);
-      var nv = call2(CamlinternalOO[3], nu, cst__2);
-      var nw = call2(CamlinternalOO[8], nu, mE);
-      var nx = nw[1];
-      var ny = nw[2];
-      var nz = nw[3];
-      var nA = nw[4];
-      var nB = nw[5];
-      var nC = nw[6];
-      var nD = nw[7];
-      var nE = nw[8];
-      var nF = nw[9];
-      var nG = nw[10];
-      var nH = function(self_4) {var env = self_4[nv + 1];return env[1];};
-      var nI = function(self_4) {var env = self_4[nv + 1];return env[2];};
-      var nJ = function(self_4) {var env = self_4[nv + 1];return env[3];};
-      var nK = function(self_4) {var env = self_4[nv + 1];return env[4];};
-      var nL = function(self_4) {var env = self_4[nv + 1];return env[5];};
-      var nM = function(self_4) {var env = self_4[nv + 1];return env[6];};
-      var nN = function(self_4) {var env = self_4[nv + 1];return env[7];};
-      var nO = function(self_4) {var env = self_4[nv + 1];return env[8];};
-      var nP = function(self_4) {var env = self_4[nv + 1];return env[9];};
-      var nQ = [
+  function S(self, localeMatcher, style, currency, currencyDisplay, useGrouping, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, minimumSignificantDigits, maximumSignificantDigits) {
+    if (! l[1]) {
+      var ad = call1(CamlinternalOO[16], h);
+      var ae = call2(CamlinternalOO[3], ad, cst__2);
+      var af = call2(CamlinternalOO[8], ad, c);
+      var ag = af[1];
+      var ah = af[2];
+      var ai = af[3];
+      var aj = af[4];
+      var ak = af[5];
+      var al = af[6];
+      var am = af[7];
+      var an = af[8];
+      var ao = af[9];
+      var ap = af[10];
+      var aq = function(self_4) {var env = self_4[ae + 1];return env[1];};
+      var ar = function(self_4) {var env = self_4[ae + 1];return env[2];};
+      var as = function(self_4) {var env = self_4[ae + 1];return env[3];};
+      var at = function(self_4) {var env = self_4[ae + 1];return env[4];};
+      var au = function(self_4) {var env = self_4[ae + 1];return env[5];};
+      var av = function(self_4) {var env = self_4[ae + 1];return env[6];};
+      var aw = function(self_4) {var env = self_4[ae + 1];return env[7];};
+      var ax = function(self_4) {var env = self_4[ae + 1];return env[8];};
+      var ay = function(self_4) {var env = self_4[ae + 1];return env[9];};
+      var az = [
         0,
-        nE,
-        function(self_4) {var env = self_4[nv + 1];return env[10];},
-        ny,
-        nP,
-        nG,
-        nO,
-        nF,
-        nN,
-        nx,
-        nM,
-        nA,
-        nL,
-        nB,
-        nK,
-        nD,
-        nJ,
-        nz,
-        nI,
-        nC,
-        nH
+        an,
+        function(self_4) {var env = self_4[ae + 1];return env[10];},
+        ah,
+        ay,
+        ap,
+        ax,
+        ao,
+        aw,
+        ag,
+        av,
+        aj,
+        au,
+        ak,
+        at,
+        am,
+        as,
+        ai,
+        ar,
+        al,
+        aq
       ];
-      call2(CamlinternalOO[11], nu, nQ);
-      var nR = function(nS) {
-        var nT = call2(CamlinternalOO[24], 0, nu);
-        nT[nv + 1] = nS;
-        return nT;
+      call2(CamlinternalOO[11], ad, az);
+      var aA = function(aB) {
+        var aC = call2(CamlinternalOO[24], 0, ad);
+        aC[ae + 1] = aB;
+        return aC;
       };
-      call1(CamlinternalOO[17], nu);
-      mN[1] = nR;
+      call1(CamlinternalOO[17], ad);
+      l[1] = aA;
     }
     return call1(
-      mN[1],
+      l[1],
       [
         0,
         maximumSignificantDigits,
@@ -418,16 +418,16 @@ function options__1(param) {
       ]
     );
   }
-  var nk = Js_of_ocaml_Js[3];
-  var nl = Js_of_ocaml_Js[3];
-  var nm = Js_of_ocaml_Js[3];
-  var nn = Js_of_ocaml_Js[3];
-  var no = Js_of_ocaml_Js[3];
-  var np = Js_of_ocaml_Js[7];
-  var nq = Js_of_ocaml_Js[3];
-  var nr = Js_of_ocaml_Js[3];
-  var ns = "decimal";
-  var nt = "best fit";
+  var T = Js_of_ocaml_Js[3];
+  var U = Js_of_ocaml_Js[3];
+  var V = Js_of_ocaml_Js[3];
+  var W = Js_of_ocaml_Js[3];
+  var X = Js_of_ocaml_Js[3];
+  var Y = Js_of_ocaml_Js[7];
+  var Z = Js_of_ocaml_Js[3];
+  var aa = Js_of_ocaml_Js[3];
+  var ab = "decimal";
+  var ac = "best fit";
   return function(t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, param) {
     return {
       "localeMatcher": t21,
@@ -441,89 +441,88 @@ function options__1(param) {
       "minimumSignificantDigits": t29,
       "maximumSignificantDigits": t30
     };
-  }(nt, ns, nr, nq, np, no, nn, nm, nl, nk, nj
+  }(ac, ab, aa, Z, Y, X, W, V, U, T, S
   );
 }
 
 var NumberFormat = [0,object_options,options__1];
-var mO = [0,0,0,0];
+var m = [0,0,0,0];
 
 function options__2(param) {
-  function m7(self, localeMatcher, type) {
-    if (! mO[1]) {
-      var m_ = call1(CamlinternalOO[16], mC);
-      var na = call2(CamlinternalOO[3], m_, cst__3);
-      var nb = call2(CamlinternalOO[8], m_, mF);
-      var nc = nb[1];
-      var nd = nb[2];
-      var ne = function(self_5) {var env = self_5[na + 1];return env[1];};
-      var nf = [
+  function F(self, localeMatcher, type) {
+    if (! m[1]) {
+      var I = call1(CamlinternalOO[16], a);
+      var J = call2(CamlinternalOO[3], I, cst__3);
+      var K = call2(CamlinternalOO[8], I, d);
+      var L = K[1];
+      var M = K[2];
+      var N = function(self_5) {var env = self_5[J + 1];return env[1];};
+      var O = [
         0,
-        nc,
-        function(self_5) {var env = self_5[na + 1];return env[2];},
-        nd,
-        ne
+        L,
+        function(self_5) {var env = self_5[J + 1];return env[2];},
+        M,
+        N
       ];
-      call2(CamlinternalOO[11], m_, nf);
-      var ng = function(nh) {
-        var ni = call2(CamlinternalOO[24], 0, m_);
-        ni[na + 1] = nh;
-        return ni;
+      call2(CamlinternalOO[11], I, O);
+      var P = function(Q) {
+        var R = call2(CamlinternalOO[24], 0, I);
+        R[J + 1] = Q;
+        return R;
       };
-      call1(CamlinternalOO[17], m_);
-      mO[1] = ng;
+      call1(CamlinternalOO[17], I);
+      m[1] = P;
     }
-    return call1(mO[1], [0,type,localeMatcher]);
+    return call1(m[1], [0,type,localeMatcher]);
   }
-  var m8 = "cardinal";
-  var m9 = "best fit";
+  var G = "cardinal";
+  var H = "best fit";
   return function(t31, t32, param) {
     return {"localeMatcher": t31,"type": t32};
-  }(m9, m8, m7
+  }(H, G, F
   );
 }
 
 var PluralRules = [0,object_options,options__2];
 
-function mP(x) {return call1(caml_get_public_method(x, -475689828, 237), x);}
+function n(x) {return call1(caml_get_public_method(x, -475689828, 300), x);}
 
-var mQ = Js_of_ocaml_Js[50][1];
-var intl = function(t33, param) {return t33.Intl;}(mQ, mP);
+var o = Js_of_ocaml_Js[50][1];
+var intl = function(t33, param) {return t33.Intl;}(o, n);
 
-function mR(x) {return call1(caml_get_public_method(x, -438302079, 238), x);}
+function p(x) {return call1(caml_get_public_method(x, -438302079, 301), x);}
 
-function mS(x) {return call1(caml_get_public_method(x, -475689828, 239), x);}
+function q(x) {return call1(caml_get_public_method(x, -475689828, 302), x);}
 
-var mT = Js_of_ocaml_Js[50][1];
-var mU = function(t34, param) {return t34.Intl;}(mT, mS);
-var collator_constr = function(t35, param) {return t35.Collator;}(mU, mR);
+var r = Js_of_ocaml_Js[50][1];
+var s = function(t34, param) {return t34.Intl;}(r, q);
+var collator_constr = function(t35, param) {return t35.Collator;}(s, p);
 
-function mV(x) {return call1(caml_get_public_method(x, 568382385, 240), x);}
+function t(x) {return call1(caml_get_public_method(x, 568382385, 303), x);}
 
-function mW(x) {return call1(caml_get_public_method(x, -475689828, 241), x);}
+function u(x) {return call1(caml_get_public_method(x, -475689828, 304), x);}
 
-var mX = Js_of_ocaml_Js[50][1];
-var mY = function(t36, param) {return t36.Intl;}(mX, mW);
-var dateTimeFormat_constr = function(t37, param) {return t37.DateTimeFormat;}(mY, mV
+var v = Js_of_ocaml_Js[50][1];
+var w = function(t36, param) {return t36.Intl;}(v, u);
+var dateTimeFormat_constr = function(t37, param) {return t37.DateTimeFormat;}(w, t
 );
 
-function mZ(x) {return call1(caml_get_public_method(x, 941696479, 242), x);}
+function x(x) {return call1(caml_get_public_method(x, 941696479, 305), x);}
 
-function m0(x) {return call1(caml_get_public_method(x, -475689828, 243), x);}
+function y(x) {return call1(caml_get_public_method(x, -475689828, 306), x);}
 
-var m1 = Js_of_ocaml_Js[50][1];
-var m2 = function(t38, param) {return t38.Intl;}(m1, m0);
-var numberFormat_constr = function(t39, param) {return t39.NumberFormat;}(m2, mZ
+var z = Js_of_ocaml_Js[50][1];
+var A = function(t38, param) {return t38.Intl;}(z, y);
+var numberFormat_constr = function(t39, param) {return t39.NumberFormat;}(A, x
 );
 
-function m3(x) {return call1(caml_get_public_method(x, 544366260, 244), x);}
+function B(x) {return call1(caml_get_public_method(x, 544366260, 307), x);}
 
-function m4(x) {return call1(caml_get_public_method(x, -475689828, 245), x);}
+function C(x) {return call1(caml_get_public_method(x, -475689828, 308), x);}
 
-var m5 = Js_of_ocaml_Js[50][1];
-var m6 = function(t40, param) {return t40.Intl;}(m5, m4);
-var pluralRules_constr = function(t41, param) {return t41.PluralRules;}(m6, m3
-);
+var D = Js_of_ocaml_Js[50][1];
+var E = function(t40, param) {return t40.Intl;}(D, C);
+var pluralRules_constr = function(t41, param) {return t41.PluralRules;}(E, B);
 
 function is_supported(param) {return call1(Js_of_ocaml_Js[6][5], intl);}
 

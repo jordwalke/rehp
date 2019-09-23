@@ -5,8 +5,8 @@ if [ -z "$1" ]; then
 fi
 echo "Building test output from target directory $1"
 
-echo "./runtime/rehack/php/runtime.php"
-esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --custom-header "$(< ./rehack_tests/templates/php-runtime-header.php)" --runtime-only --noinline --disable shortvar --pretty --backend php '"${1}"'/default/rehack_tests/strings/strings.bc -o ./runtime/rehack/php/runtime.php'
+# echo "./runtime/rehack/php/runtime.php"
+# esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --custom-header "$(< ./rehack_tests/templates/php-runtime-header.php)" --runtime-only --noinline --disable shortvar --pretty --backend php '"${1}"'/default/rehack_tests/strings/strings.bc -o ./runtime/rehack/php/runtime.php'
 
 
 # Standalone static react test
@@ -14,8 +14,8 @@ esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enabl
 echo "./rehack_tests/static_react_bytecode/static-react-test.php"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "$(< ./rehack_tests/templates/php-exe-header.php)" ./rehack_tests/static_react_bytecode/static-react-test.bc -o ./rehack_tests/static_react_bytecode/static-react-test.php'
 
-echo "./rehack_tests/hello_world/hello_world.php"
-./buildHelloWorld.sh
+# echo "./rehack_tests/hello_world/hello_world.php"
+# ./buildHelloWorld.sh
 
 # Note: You can also export *only* the runtime, via --runtime-only
 echo "./rehack_tests/hello_world/hello_world.runtimeonly.php"
@@ -27,8 +27,8 @@ echo "./rehack_tests/strings/strings.cmo.module.php"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" --backend php '"${1}"'/default/rehack_tests/strings/.strings.eobjs/byte/strings.cmo -o ./rehack_tests/strings/strings.cmo.module.php'
 # Strings standalone with runtime.
 # ./rehack_tests/Runner.php runtime/rehack/php/GlobalObject.php ./rehack_tests/strings/stringsStandalone.withRuntime.php
-echo "./rehack_tests/strings/stringsStandalone.withRuntime.php"
-esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-exe-header.php)" --backend php '"${1}"'/default/rehack_tests/strings/strings.bc -o ./rehack_tests/strings/stringsStandalone.withRuntime.php'
+# echo "./rehack_tests/strings/stringsStandalone.withRuntime.php"
+# esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-exe-header.php)" --backend php '"${1}"'/default/rehack_tests/strings/strings.bc -o ./rehack_tests/strings/stringsStandalone.withRuntime.php'
 # Strings standalone except the runtime.
 # THIS USE CASE ISN'T THAT VALUABLE. IT RELIES ON THINGS BEING IN GLOBAL SCOPE.
 # ./rehack_tests/Runner.php runtime/rehack/php/runtime.php runtime/rehack/php/GlobalObject.php  ./rehack_tests/strings/stringsStandalone.withoutRuntime.php
@@ -56,20 +56,20 @@ esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enabl
 
 # shared libraries
 echo "./rehack_tests/stdlib/stdlib.cma.php"
-esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" --backend php ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/stdlib/stdlib.cma.php'
-mkdir -p ./rehack_tests/js/
+esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" --backend php ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/stdlib/stdlib.cma.php/'
 
 echo "./rehack_tests/js/js_of_ocaml.cma.php"
-esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" --backend php  $(ocamlfind query -qe js_of_ocaml)/js_of_ocaml.cma -o ./rehack_tests/js/js_of_ocaml.cma.php'
+esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/php-module-header.php)" --backend php  $(ocamlfind query -qe js_of_ocaml)/js_of_ocaml.cma -o ./rehack_tests/js/js_of_ocaml.cma.php/'
+
 echo "./rehack_tests/js/js_of_ocaml.cma.js"
-esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/common-js-module-header.js)" --backend js --prettiest-js $(ocamlfind query -qe js_of_ocaml)/js_of_ocaml.cma -o ./rehack_tests/js/js_of_ocaml.cma.js'
+esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/common-js-module-header.js)" --backend js --prettiest-js $(ocamlfind query -qe js_of_ocaml)/js_of_ocaml.cma -o ./rehack_tests/js/js_of_ocaml.cma.js/'
 
 
 
 echo "./runtime/rehack/php/runtime.js"
 esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --custom-header "$(< ./rehack_tests/templates/common-js-runtime-header.js)" --runtime-only --noinline --disable shortvar --pretty --backend js --prettiest-js '"${1}"'/default/rehack_tests/strings/strings.bc -o ./runtime/rehack/js/runtime.js'
 echo "./rehack_tests/stdlib/stdlib.js"
-esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/common-js-module-header.js)" ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/stdlib/stdlib.js'
+esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "$(< ./rehack_tests/templates/common-js-module-header.js)" ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/stdlib/stdlib.js/'
 
 # Js version complete standalone
 # node ./rehack_tests/strings/stringsStandalone.withRuntime.js

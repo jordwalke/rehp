@@ -438,25 +438,25 @@ var Printf = global_data["Printf"];
 var Failure = global_data["Failure"];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var List = global_data["List_"];
-var d8 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d9 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var ea = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var dU = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var dV = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var dW = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var dX = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var dY = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var dZ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d0 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d1 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d2 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d3 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d4 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d5 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d6 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var d7 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var dT = caml_list_of_js_array(
+var b2 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var b3 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var b4 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var b5 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bO = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bP = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bQ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bR = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bS = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bT = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bU = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bV = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bW = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bX = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bY = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bZ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var b0 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var b1 = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var bN = caml_list_of_js_array(
   [
     string("aliceblue"),
     string("antiquewhite"),
@@ -607,17 +607,17 @@ var dT = caml_list_of_js_array(
     string("yellowgreen")
   ]
 );
-var dS = [
+var bM = [
   0,
   [12,35,[4,8,[0,2,2],0,[4,8,[0,2,2],0,[4,8,[0,2,2],0,0]]]],
   string("#%02X%02X%02X")
 ];
-var dM = [
+var bG = [
   0,
   [11,string("rgb("),[4,0,0,0,[12,44,[4,0,0,0,[12,44,[4,0,0,0,[12,41,0]]]]]]],
   string("rgb(%d,%d,%d)")
 ];
-var dN = [
+var bH = [
   0,
   [
     11,
@@ -632,7 +632,7 @@ var dN = [
   ],
   string("rgb(%d%%,%d%%,%d%%)")
 ];
-var dO = [
+var bI = [
   0,
   [
     11,
@@ -641,7 +641,7 @@ var dO = [
   ],
   string("rgba(%d,%d,%d,%f)")
 ];
-var dP = [
+var bJ = [
   0,
   [
     11,
@@ -660,7 +660,7 @@ var dP = [
   ],
   string("rgba(%d%%,%d%%,%d%%,%f)")
 ];
-var dQ = [
+var bK = [
   0,
   [
     11,
@@ -669,7 +669,7 @@ var dQ = [
   ],
   string("hsl(%d,%d%%,%d%%)")
 ];
-var dR = [
+var bL = [
   0,
   [
     11,
@@ -694,159 +694,159 @@ var dR = [
   ],
   string("hsla(%d,%d%%,%d%%,%f)")
 ];
-var bq = [0,240,248,255];
-var br = [0,250,235,215];
-var bs = [0,0,255,255];
-var bt = [0,127,255,212];
-var bu = [0,240,255,255];
-var bv = [0,245,245,220];
-var bw = [0,255,228,196];
-var bx = [0,0,0,0];
-var by = [0,255,235,205];
-var bz = [0,0,0,255];
-var bA = [0,138,43,226];
-var bB = [0,165,42,42];
-var bC = [0,222,184,135];
-var bD = [0,95,158,160];
-var bE = [0,127,255,0];
-var bF = [0,210,105,30];
-var bG = [0,255,127,80];
-var bH = [0,100,149,237];
-var bI = [0,255,248,220];
-var bJ = [0,220,20,60];
-var bK = [0,0,255,255];
-var bL = [0,0,0,139];
-var bM = [0,0,139,139];
-var bN = [0,184,134,11];
-var bO = [0,169,169,169];
-var bP = [0,0,100,0];
-var bQ = [0,169,169,169];
-var bR = [0,189,183,107];
-var bS = [0,139,0,139];
-var bT = [0,85,107,47];
-var bU = [0,255,140,0];
-var bV = [0,153,50,204];
-var bW = [0,139,0,0];
-var bX = [0,233,150,122];
-var bY = [0,143,188,143];
-var bZ = [0,72,61,139];
-var b0 = [0,47,79,79];
-var b1 = [0,47,79,79];
-var b2 = [0,0,206,209];
-var b3 = [0,148,0,211];
-var b4 = [0,255,20,147];
-var b5 = [0,0,191,255];
-var b6 = [0,105,105,105];
-var b7 = [0,105,105,105];
-var b8 = [0,30,144,255];
-var b9 = [0,178,34,34];
-var b_ = [0,255,250,240];
-var ca = [0,34,139,34];
-var cb = [0,255,0,255];
-var cc = [0,220,220,220];
-var cd = [0,248,248,255];
-var ce = [0,255,215,0];
-var cf = [0,218,165,32];
-var cg = [0,128,128,128];
-var ch = [0,128,128,128];
-var ci = [0,0,128,0];
-var cj = [0,173,255,47];
-var ck = [0,240,255,240];
-var cl = [0,255,105,180];
-var cm = [0,205,92,92];
-var cn = [0,75,0,130];
-var co = [0,255,255,240];
-var cp = [0,240,230,140];
-var cq = [0,230,230,250];
-var cr = [0,255,240,245];
-var cs = [0,124,252,0];
-var ct = [0,255,250,205];
-var cu = [0,173,216,230];
-var cv = [0,240,128,128];
-var cw = [0,224,255,255];
-var cx = [0,250,250,210];
-var cy = [0,211,211,211];
-var cz = [0,144,238,144];
-var cA = [0,211,211,211];
-var cB = [0,255,182,193];
-var cC = [0,255,160,122];
-var cD = [0,32,178,170];
-var cE = [0,135,206,250];
-var cF = [0,119,136,153];
-var cG = [0,119,136,153];
-var cH = [0,176,196,222];
-var cI = [0,255,255,224];
-var cJ = [0,0,255,0];
-var cK = [0,50,205,50];
-var cL = [0,250,240,230];
-var cM = [0,255,0,255];
-var cN = [0,128,0,0];
-var cO = [0,102,205,170];
-var cP = [0,0,0,205];
-var cQ = [0,186,85,211];
-var cR = [0,147,112,219];
-var cS = [0,60,179,113];
-var cT = [0,123,104,238];
-var cU = [0,0,250,154];
-var cV = [0,72,209,204];
-var cW = [0,199,21,133];
-var cX = [0,25,25,112];
-var cY = [0,245,255,250];
-var cZ = [0,255,228,225];
-var c0 = [0,255,228,181];
-var c1 = [0,255,222,173];
-var c2 = [0,0,0,128];
-var c3 = [0,253,245,230];
-var c4 = [0,128,128,0];
-var c5 = [0,107,142,35];
-var c6 = [0,255,165,0];
-var c7 = [0,255,69,0];
-var c8 = [0,218,112,214];
-var c9 = [0,238,232,170];
-var c_ = [0,152,251,152];
-var da = [0,175,238,238];
-var db = [0,219,112,147];
-var dc = [0,255,239,213];
-var dd = [0,255,218,185];
-var de = [0,205,133,63];
-var df = [0,255,192,203];
-var dg = [0,221,160,221];
-var dh = [0,176,224,230];
-var di = [0,128,0,128];
-var dj = [0,255,0,0];
-var dk = [0,188,143,143];
-var dl = [0,65,105,225];
-var dm = [0,139,69,19];
-var dn = [0,250,128,114];
-var dp = [0,244,164,96];
-var dq = [0,46,139,87];
-var dr = [0,255,245,238];
-var ds = [0,160,82,45];
-var dt = [0,192,192,192];
-var du = [0,135,206,235];
-var dv = [0,106,90,205];
-var dw = [0,112,128,144];
-var dx = [0,112,128,144];
-var dy = [0,255,250,250];
-var dz = [0,0,255,127];
-var dA = [0,70,130,180];
-var dB = [0,210,180,140];
-var dC = [0,0,128,128];
-var dD = [0,216,191,216];
-var dE = [0,255,99,71];
-var dF = [0,64,224,208];
-var dG = [0,238,130,238];
-var dH = [0,245,222,179];
-var dI = [0,255,255,255];
-var dJ = [0,245,245,245];
-var dK = [0,255,255,0];
-var dL = [0,154,205,50];
+var a = [0,240,248,255];
+var b = [0,250,235,215];
+var c = [0,0,255,255];
+var d = [0,127,255,212];
+var e = [0,240,255,255];
+var f = [0,245,245,220];
+var g = [0,255,228,196];
+var h = [0,0,0,0];
+var i = [0,255,235,205];
+var j = [0,0,0,255];
+var k = [0,138,43,226];
+var l = [0,165,42,42];
+var m = [0,222,184,135];
+var n = [0,95,158,160];
+var o = [0,127,255,0];
+var p = [0,210,105,30];
+var q = [0,255,127,80];
+var r = [0,100,149,237];
+var s = [0,255,248,220];
+var t = [0,220,20,60];
+var u = [0,0,255,255];
+var v = [0,0,0,139];
+var w = [0,0,139,139];
+var x = [0,184,134,11];
+var y = [0,169,169,169];
+var z = [0,0,100,0];
+var A = [0,169,169,169];
+var B = [0,189,183,107];
+var C = [0,139,0,139];
+var D = [0,85,107,47];
+var E = [0,255,140,0];
+var F = [0,153,50,204];
+var G = [0,139,0,0];
+var H = [0,233,150,122];
+var I = [0,143,188,143];
+var J = [0,72,61,139];
+var K = [0,47,79,79];
+var L = [0,47,79,79];
+var M = [0,0,206,209];
+var N = [0,148,0,211];
+var O = [0,255,20,147];
+var P = [0,0,191,255];
+var Q = [0,105,105,105];
+var R = [0,105,105,105];
+var S = [0,30,144,255];
+var T = [0,178,34,34];
+var U = [0,255,250,240];
+var V = [0,34,139,34];
+var W = [0,255,0,255];
+var X = [0,220,220,220];
+var Y = [0,248,248,255];
+var Z = [0,255,215,0];
+var aa = [0,218,165,32];
+var ab = [0,128,128,128];
+var ac = [0,128,128,128];
+var ad = [0,0,128,0];
+var ae = [0,173,255,47];
+var af = [0,240,255,240];
+var ag = [0,255,105,180];
+var ah = [0,205,92,92];
+var ai = [0,75,0,130];
+var aj = [0,255,255,240];
+var ak = [0,240,230,140];
+var al = [0,230,230,250];
+var am = [0,255,240,245];
+var an = [0,124,252,0];
+var ao = [0,255,250,205];
+var ap = [0,173,216,230];
+var aq = [0,240,128,128];
+var ar = [0,224,255,255];
+var as = [0,250,250,210];
+var at = [0,211,211,211];
+var au = [0,144,238,144];
+var av = [0,211,211,211];
+var aw = [0,255,182,193];
+var ax = [0,255,160,122];
+var ay = [0,32,178,170];
+var az = [0,135,206,250];
+var aA = [0,119,136,153];
+var aB = [0,119,136,153];
+var aC = [0,176,196,222];
+var aD = [0,255,255,224];
+var aE = [0,0,255,0];
+var aF = [0,50,205,50];
+var aG = [0,250,240,230];
+var aH = [0,255,0,255];
+var aI = [0,128,0,0];
+var aJ = [0,102,205,170];
+var aK = [0,0,0,205];
+var aL = [0,186,85,211];
+var aM = [0,147,112,219];
+var aN = [0,60,179,113];
+var aO = [0,123,104,238];
+var aP = [0,0,250,154];
+var aQ = [0,72,209,204];
+var aR = [0,199,21,133];
+var aS = [0,25,25,112];
+var aT = [0,245,255,250];
+var aU = [0,255,228,225];
+var aV = [0,255,228,181];
+var aW = [0,255,222,173];
+var aX = [0,0,0,128];
+var aY = [0,253,245,230];
+var aZ = [0,128,128,0];
+var a0 = [0,107,142,35];
+var a1 = [0,255,165,0];
+var a2 = [0,255,69,0];
+var a3 = [0,218,112,214];
+var a4 = [0,238,232,170];
+var a5 = [0,152,251,152];
+var a6 = [0,175,238,238];
+var a7 = [0,219,112,147];
+var a8 = [0,255,239,213];
+var a9 = [0,255,218,185];
+var a_ = [0,205,133,63];
+var ba = [0,255,192,203];
+var bb = [0,221,160,221];
+var bc = [0,176,224,230];
+var bd = [0,128,0,128];
+var be = [0,255,0,0];
+var bf = [0,188,143,143];
+var bg = [0,65,105,225];
+var bh = [0,139,69,19];
+var bi = [0,250,128,114];
+var bj = [0,244,164,96];
+var bk = [0,46,139,87];
+var bl = [0,255,245,238];
+var bm = [0,160,82,45];
+var bn = [0,192,192,192];
+var bo = [0,135,206,235];
+var bp = [0,106,90,205];
+var bq = [0,112,128,144];
+var br = [0,112,128,144];
+var bs = [0,255,250,250];
+var bt = [0,0,255,127];
+var bu = [0,70,130,180];
+var bv = [0,210,180,140];
+var bw = [0,0,128,128];
+var bx = [0,216,191,216];
+var by = [0,255,99,71];
+var bz = [0,64,224,208];
+var bA = [0,238,130,238];
+var bB = [0,245,222,179];
+var bC = [0,255,255,255];
+var bD = [0,245,245,245];
+var bE = [0,255,255,0];
+var bF = [0,154,205,50];
 
 function string_of_name(param) {
-  var e9 = param;
-  if (74 <= e9) {
-    if (111 <= e9) {
-      switch (e9) {
+  var c3 = param;
+  if (74 <= c3) {
+    if (111 <= c3) {
+      switch (c3) {
         case 111:
           return cst_palevioletred;
         case 112:
@@ -921,7 +921,7 @@ function string_of_name(param) {
           return cst_yellowgreen
         }
     }
-    switch (e9) {
+    switch (c3) {
       case 74:
         return cst_lightpink;
       case 75:
@@ -998,8 +998,8 @@ function string_of_name(param) {
         return cst_paleturquoise
       }
   }
-  if (37 <= e9) {
-    switch (e9) {
+  if (37 <= c3) {
+    switch (c3) {
       case 37:
         return cst_darkslategrey;
       case 38:
@@ -1076,7 +1076,7 @@ function string_of_name(param) {
         return cst_lightgrey
       }
   }
-  switch (e9) {
+  switch (c3) {
     case 0:
       return cst_aliceblue;
     case 1:
@@ -1387,314 +1387,313 @@ function name_of_string(s) {
 }
 
 function rgb_of_name(param) {
-  var e8 = param;
-  if (74 <= e8) {
-    if (111 <= e8) {
-      switch (e8) {
+  var c2 = param;
+  if (74 <= c2) {
+    if (111 <= c2) {
+      switch (c2) {
         case 111:
-          return db;
+          return a7;
         case 112:
-          return dc;
+          return a8;
         case 113:
-          return dd;
+          return a9;
         case 114:
-          return de;
+          return a_;
         case 115:
-          return df;
+          return ba;
         case 116:
-          return dg;
+          return bb;
         case 117:
-          return dh;
+          return bc;
         case 118:
-          return di;
+          return bd;
         case 119:
-          return dj;
+          return be;
         case 120:
-          return dk;
+          return bf;
         case 121:
-          return dl;
+          return bg;
         case 122:
-          return dm;
+          return bh;
         case 123:
-          return dn;
+          return bi;
         case 124:
-          return dp;
+          return bj;
         case 125:
-          return dq;
+          return bk;
         case 126:
-          return dr;
+          return bl;
         case 127:
-          return ds;
+          return bm;
         case 128:
-          return dt;
+          return bn;
         case 129:
-          return du;
+          return bo;
         case 130:
-          return dv;
+          return bp;
         case 131:
-          return dw;
+          return bq;
         case 132:
-          return dx;
+          return br;
         case 133:
-          return dy;
+          return bs;
         case 134:
-          return dz;
+          return bt;
         case 135:
-          return dA;
+          return bu;
         case 136:
-          return dB;
+          return bv;
         case 137:
-          return dC;
+          return bw;
         case 138:
-          return dD;
+          return bx;
         case 139:
-          return dE;
+          return by;
         case 140:
-          return dF;
+          return bz;
         case 141:
-          return dG;
+          return bA;
         case 142:
-          return dH;
+          return bB;
         case 143:
-          return dI;
+          return bC;
         case 144:
-          return dJ;
+          return bD;
         case 145:
-          return dK;
+          return bE;
         default:
-          return dL
+          return bF
         }
     }
-    switch (e8) {
+    switch (c2) {
       case 74:
-        return cB;
+        return aw;
       case 75:
-        return cC;
+        return ax;
       case 76:
-        return cD;
+        return ay;
       case 77:
-        return cE;
+        return az;
       case 78:
-        return cF;
+        return aA;
       case 79:
-        return cG;
+        return aB;
       case 80:
-        return cH;
+        return aC;
       case 81:
-        return cI;
+        return aD;
       case 82:
-        return cJ;
+        return aE;
       case 83:
-        return cK;
+        return aF;
       case 84:
-        return cL;
+        return aG;
       case 85:
-        return cM;
+        return aH;
       case 86:
-        return cN;
+        return aI;
       case 87:
-        return cO;
+        return aJ;
       case 88:
-        return cP;
+        return aK;
       case 89:
-        return cQ;
+        return aL;
       case 90:
-        return cR;
+        return aM;
       case 91:
-        return cS;
+        return aN;
       case 92:
-        return cT;
+        return aO;
       case 93:
-        return cU;
+        return aP;
       case 94:
-        return cV;
+        return aQ;
       case 95:
-        return cW;
+        return aR;
       case 96:
-        return cX;
+        return aS;
       case 97:
-        return cY;
+        return aT;
       case 98:
-        return cZ;
+        return aU;
       case 99:
-        return c0;
+        return aV;
       case 100:
-        return c1;
+        return aW;
       case 101:
-        return c2;
+        return aX;
       case 102:
-        return c3;
+        return aY;
       case 103:
-        return c4;
+        return aZ;
       case 104:
-        return c5;
+        return a0;
       case 105:
-        return c6;
+        return a1;
       case 106:
-        return c7;
+        return a2;
       case 107:
-        return c8;
+        return a3;
       case 108:
-        return c9;
+        return a4;
       case 109:
-        return c_;
+        return a5;
       default:
-        return da
+        return a6
       }
   }
-  if (37 <= e8) {
-    switch (e8) {
+  if (37 <= c2) {
+    switch (c2) {
       case 37:
-        return b1;
+        return L;
       case 38:
-        return b2;
+        return M;
       case 39:
-        return b3;
+        return N;
       case 40:
-        return b4;
+        return O;
       case 41:
-        return b5;
+        return P;
       case 42:
-        return b6;
+        return Q;
       case 43:
-        return b7;
+        return R;
       case 44:
-        return b8;
+        return S;
       case 45:
-        return b9;
+        return T;
       case 46:
-        return b_;
+        return U;
       case 47:
-        return ca;
+        return V;
       case 48:
-        return cb;
+        return W;
       case 49:
-        return cc;
+        return X;
       case 50:
-        return cd;
+        return Y;
       case 51:
-        return ce;
+        return Z;
       case 52:
-        return cf;
+        return aa;
       case 53:
-        return cg;
+        return ab;
       case 54:
-        return ch;
+        return ac;
       case 55:
-        return ci;
+        return ad;
       case 56:
-        return cj;
+        return ae;
       case 57:
-        return ck;
+        return af;
       case 58:
-        return cl;
+        return ag;
       case 59:
-        return cm;
+        return ah;
       case 60:
-        return cn;
+        return ai;
       case 61:
-        return co;
+        return aj;
       case 62:
-        return cp;
+        return ak;
       case 63:
-        return cq;
+        return al;
       case 64:
-        return cr;
+        return am;
       case 65:
-        return cs;
+        return an;
       case 66:
-        return ct;
+        return ao;
       case 67:
-        return cu;
+        return ap;
       case 68:
-        return cv;
+        return aq;
       case 69:
-        return cw;
+        return ar;
       case 70:
-        return cx;
+        return as;
       case 71:
-        return cy;
+        return at;
       case 72:
-        return cz;
+        return au;
       default:
-        return cA
+        return av
       }
   }
-  switch (e8) {
+  switch (c2) {
     case 0:
-      return bq;
+      return a;
     case 1:
-      return br;
+      return b;
     case 2:
-      return bs;
+      return c;
     case 3:
-      return bt;
+      return d;
     case 4:
-      return bu;
+      return e;
     case 5:
-      return bv;
+      return f;
     case 6:
-      return bw;
+      return g;
     case 7:
-      return bx;
+      return h;
     case 8:
-      return by;
+      return i;
     case 9:
-      return bz;
+      return j;
     case 10:
-      return bA;
+      return k;
     case 11:
-      return bB;
+      return l;
     case 12:
-      return bC;
+      return m;
     case 13:
-      return bD;
+      return n;
     case 14:
-      return bE;
+      return o;
     case 15:
-      return bF;
+      return p;
     case 16:
-      return bG;
+      return q;
     case 17:
-      return bH;
+      return r;
     case 18:
-      return bI;
+      return s;
     case 19:
-      return bJ;
+      return t;
     case 20:
-      return bK;
+      return u;
     case 21:
-      return bL;
+      return v;
     case 22:
-      return bM;
+      return w;
     case 23:
-      return bN;
+      return x;
     case 24:
-      return bO;
+      return y;
     case 25:
-      return bP;
+      return z;
     case 26:
-      return bQ;
+      return A;
     case 27:
-      return bR;
+      return B;
     case 28:
-      return bS;
+      return C;
     case 29:
-      return bT;
+      return D;
     case 30:
-      return bU;
+      return E;
     case 31:
-      return bV;
+      return F;
     case 32:
-      return bW;
+      return G;
     case 33:
-      return bX;
+      return H;
     case 34:
-      return bY;
+      return I;
     case 35:
-      return bZ;
-    default:
-      return b0
+      return J;
+    default:return K
     }
 }
 
@@ -1718,40 +1717,40 @@ function string_of_t(param) {
       var b = match[3];
       var g = match[2];
       var r = match[1];
-      return call4(Printf[4], dM, r, g, b);
+      return call4(Printf[4], bG, r, g, b);
     case 2:
       var match__0 = param[1];
       var b__0 = match__0[3];
       var g__0 = match__0[2];
       var r__0 = match__0[1];
-      return call4(Printf[4], dN, r__0, g__0, b__0);
+      return call4(Printf[4], bH, r__0, g__0, b__0);
     case 3:
       var match__1 = param[1];
       var a = match__1[4];
       var b__1 = match__1[3];
       var g__1 = match__1[2];
       var r__1 = match__1[1];
-      return call5(Printf[4], dO, r__1, g__1, b__1, a);
+      return call5(Printf[4], bI, r__1, g__1, b__1, a);
     case 4:
       var match__2 = param[1];
       var a__0 = match__2[4];
       var b__2 = match__2[3];
       var g__2 = match__2[2];
       var r__2 = match__2[1];
-      return call5(Printf[4], dP, r__2, g__2, b__2, a__0);
+      return call5(Printf[4], bJ, r__2, g__2, b__2, a__0);
     case 5:
       var match__3 = param[1];
       var l = match__3[3];
       var s = match__3[2];
       var h = match__3[1];
-      return call4(Printf[4], dQ, h, s, l);
+      return call4(Printf[4], bK, h, s, l);
     default:
       var match__4 = param[1];
       var a__1 = match__4[4];
       var l__0 = match__4[3];
       var s__0 = match__4[2];
       var h__0 = match__4[1];
-      return call5(Printf[4], dR, h__0, s__0, l__0, a__1)
+      return call5(Printf[4], bL, h__0, s__0, l__0, a__1)
     }
 }
 
@@ -1760,88 +1759,90 @@ function hex_of_rgb(param) {
   var green = param[2];
   var red = param[1];
   function in_range(i) {
-    var e5 = i < 0 ? 1 : 0;
-    var e6 = e5 ? e5 : 255 < i ? 1 : 0;
-    if (e6) {
-      var e7 = call1(Pervasives[21], i);
+    var cZ = i < 0 ? 1 : 0;
+    var c0 = cZ ? cZ : 255 < i ? 1 : 0;
+    if (c0) {
+      var c1 = call1(Pervasives[21], i);
       throw runtime["caml_wrap_thrown_exception"](
               [
                 0,
                 Invalid_argument,
-                call2(Pervasives[16], e7, cst_is_out_of_valid_range)
+                call2(Pervasives[16], c1, cst_is_out_of_valid_range)
               ]
             );
     }
-    return e6;
+    return c0;
   }
   in_range(red);
   in_range(green);
   in_range(blue);
-  return call4(Printf[4], dS, red, green, blue);
+  return call4(Printf[4], bM, red, green, blue);
 }
 
 function js_t_of_js_string(s) {
-  var eH = 0;
-  var eI = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d);
-  var eJ = Js_of_ocaml_Js[10];
-  var rgb_re = function(t23, t22, param) {return new t23(t22);}(eJ, eI, eH);
-  var eK = 0;
-  var eL = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d__0);
-  var eM = Js_of_ocaml_Js[10];
-  var rgb_pct_re = function(t21, t20, param) {return new t21(t20);}(eM, eL, eK
+  var cB = 0;
+  var cC = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d);
+  var cD = Js_of_ocaml_Js[10];
+  var rgb_re = function(t23, t22, param) {return new t23(t22);}(cD, cC, cB);
+  var cE = 0;
+  var cF = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d__0);
+  var cG = Js_of_ocaml_Js[10];
+  var rgb_pct_re = function(t21, t20, param) {return new t21(t20);}(cG, cF, cE
   );
-  var eN = 0;
-  var eO = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d);
-  var eP = Js_of_ocaml_Js[10];
-  var rgba_re = function(t19, t18, param) {return new t19(t18);}(eP, eO, eN);
-  var eQ = 0;
-  var eR = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d__0);
-  var eS = Js_of_ocaml_Js[10];
-  var rgba_pct_re = function(t17, t16, param) {return new t17(t16);}(eS, eR, eQ
+  var cH = 0;
+  var cI = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d);
+  var cJ = Js_of_ocaml_Js[10];
+  var rgba_re = function(t19, t18, param) {return new t19(t18);}(cJ, cI, cH);
+  var cK = 0;
+  var cL = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d__0);
+  var cM = Js_of_ocaml_Js[10];
+  var rgba_pct_re = function(t17, t16, param) {return new t17(t16);}(cM, cL, cK
   );
-  var eT = 0;
-  var eU = caml_jsbytes_of_string(cst_hsl_s_d_s_d_s_d);
-  var eV = Js_of_ocaml_Js[10];
-  var hsl_re = function(t15, t14, param) {return new t15(t14);}(eV, eU, eT);
-  var eW = 0;
-  var eX = caml_jsbytes_of_string(cst_hsla_s_d_s_d_s_d_d_d);
-  var eY = Js_of_ocaml_Js[10];
-  var hsla_re = function(t13, t12, param) {return new t13(t12);}(eY, eX, eW);
-  function eZ(x) {return call1(caml_get_public_method(x, -856045486, 42), x);}
-  if (! (function(t1, t0, param) {return t1.test(t0);}(rgb_re, s, eZ) | 0)) {
-    var e0 = function(x) {
-      return call1(caml_get_public_method(x, -856045486, 43), x);
+  var cN = 0;
+  var cO = caml_jsbytes_of_string(cst_hsl_s_d_s_d_s_d);
+  var cP = Js_of_ocaml_Js[10];
+  var hsl_re = function(t15, t14, param) {return new t15(t14);}(cP, cO, cN);
+  var cQ = 0;
+  var cR = caml_jsbytes_of_string(cst_hsla_s_d_s_d_s_d_d_d);
+  var cS = Js_of_ocaml_Js[10];
+  var hsla_re = function(t13, t12, param) {return new t13(t12);}(cS, cR, cQ);
+  function cT(x) {
+    return call1(caml_get_public_method(x, -856045486, 282), x);
+  }
+  if (! (function(t1, t0, param) {return t1.test(t0);}(rgb_re, s, cT) | 0)) {
+    var cU = function(x) {
+      return call1(caml_get_public_method(x, -856045486, 283), x);
     };
-    if (! (function(t3, t2, param) {return t3.test(t2);}(rgba_re, s, e0) | 0)) {
-      var e1 = function(x) {
-        return call1(caml_get_public_method(x, -856045486, 44), x);
+    if (! (function(t3, t2, param) {return t3.test(t2);}(rgba_re, s, cU) | 0)) {
+      var cV = function(x) {
+        return call1(caml_get_public_method(x, -856045486, 284), x);
       };
       if (
       !
-      (function(t5, t4, param) {return t5.test(t4);}(rgb_pct_re, s, e1) | 0)
+      (function(t5, t4, param) {return t5.test(t4);}(rgb_pct_re, s, cV) | 0)
       ) {
-        var e2 = function(x) {
-          return call1(caml_get_public_method(x, -856045486, 45), x);
+        var cW = function(x) {
+          return call1(caml_get_public_method(x, -856045486, 285), x);
         };
         if (
         !
-        (function(t7, t6, param) {return t7.test(t6);}(rgba_pct_re, s, e2) | 0)
+        (function(t7, t6, param) {return t7.test(t6);}(rgba_pct_re, s, cW) | 0)
         ) {
-          var e3 = function(x) {
-            return call1(caml_get_public_method(x, -856045486, 46), x);
+          var cX = function(x) {
+            return call1(caml_get_public_method(x, -856045486, 286), x);
           };
           if (
           !
-          (function(t9, t8, param) {return t9.test(t8);}(hsl_re, s, e3) | 0)
+          (function(t9, t8, param) {return t9.test(t8);}(hsl_re, s, cX) | 0)
           ) {
-            var e4 = function(x) {
-              return call1(caml_get_public_method(x, -856045486, 47), x);
+            var cY = function(x) {
+              return call1(caml_get_public_method(x, -856045486, 287), x);
             };
             if (
             !
-            (function(t11, t10, param) {return t11.test(t10);}(hsla_re, s, e4) | 0)
+            (function(t11, t10, param) {return t11.test(t10);}(hsla_re, s, cY) | 0)
             ) {
-              if (call2(List[31], caml_js_to_string(s), dT)) {return s;}
+              if (call2(List[31], caml_js_to_string(s), bN)) {return s;}
               throw runtime["caml_wrap_thrown_exception"](
                       [
                         0,
@@ -1871,10 +1872,10 @@ function js(c) {
 
 function ml(c) {
   var s = caml_js_to_string(c);
-  try {var ex = [0,name_of_string(s)];return ex;}
-  catch(ey) {
-    ey = caml_wrap_exception(ey);
-    if (ey[1] === Invalid_argument) {
+  try {var cr = [0,name_of_string(s)];return cr;}
+  catch(cs) {
+    cs = caml_wrap_exception(cs);
+    if (cs[1] === Invalid_argument) {
       var fail = function(param) {
         throw runtime["caml_wrap_thrown_exception"](
                 [
@@ -1890,23 +1891,23 @@ function ml(c) {
       var i_of_s_o = function(param) {
         if (param) {
           var i = param[1];
-          try {var eF = runtime["caml_int_of_string"](i);return eF;}
-          catch(eG) {
-            eG = caml_wrap_exception(eG);
-            if (eG[1] === Invalid_argument) var s = eG[2];
+          try {var cz = runtime["caml_int_of_string"](i);return cz;}
+          catch(cA) {
+            cA = caml_wrap_exception(cA);
+            if (cA[1] === Invalid_argument) var s = cA[2];
             else {
-              if (eG[1] !== Failure) {
-                throw runtime["caml_wrap_thrown_exception_reraise"](eG);
+              if (cA[1] !== Failure) {
+                throw runtime["caml_wrap_thrown_exception_reraise"](cA);
               }
-              var s = eG[2];
+              var s = cA[2];
             }
-            var eD = call2(Pervasives[16], cst, s);
-            var eE = call2(Pervasives[16], i, eD);
+            var cx = call2(Pervasives[16], cst, s);
+            var cy = call2(Pervasives[16], i, cx);
             throw runtime["caml_wrap_thrown_exception"](
                     [
                       0,
                       Invalid_argument,
-                      call2(Pervasives[16], cst_color_conversion_error, eE)
+                      call2(Pervasives[16], cst_color_conversion_error, cy)
                     ]
                   );
           }
@@ -1914,23 +1915,23 @@ function ml(c) {
         return fail(0);
       };
       var f_of_s = function(f) {
-        try {var eB = caml_float_of_string(f);return eB;}
-        catch(eC) {
-          eC = caml_wrap_exception(eC);
-          if (eC[1] === Invalid_argument) var s = eC[2];
+        try {var cv = caml_float_of_string(f);return cv;}
+        catch(cw) {
+          cw = caml_wrap_exception(cw);
+          if (cw[1] === Invalid_argument) var s = cw[2];
           else {
-            if (eC[1] !== Failure) {
-              throw runtime["caml_wrap_thrown_exception_reraise"](eC);
+            if (cw[1] !== Failure) {
+              throw runtime["caml_wrap_thrown_exception_reraise"](cw);
             }
-            var s = eC[2];
+            var s = cw[2];
           }
-          var ez = call2(Pervasives[16], cst__0, s);
-          var eA = call2(Pervasives[16], f, ez);
+          var ct = call2(Pervasives[16], cst__0, s);
+          var cu = call2(Pervasives[16], f, ct);
           throw runtime["caml_wrap_thrown_exception"](
                   [
                     0,
                     Invalid_argument,
-                    call2(Pervasives[16], cst_color_conversion_error__0, eA)
+                    call2(Pervasives[16], cst_color_conversion_error__0, cu)
                   ]
                 );
         }
@@ -1944,20 +1945,20 @@ function ml(c) {
         var alpha = call2(Js_of_ocaml_Regexp[11], r, 5);
         var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
         if (match__0) {
-          var ef = match__0[1];
-          if (! caml_string_notequal(ef, cst_rgb)) {
+          var b_ = match__0[1];
+          if (! caml_string_notequal(b_, cst_rgb)) {
             if (alpha) {return fail(0);}
-            var ej = i_of_s_o(blue);
-            var ek = i_of_s_o(green);
-            return [1,[0,i_of_s_o(red),ek,ej]];
+            var cd = i_of_s_o(blue);
+            var ce = i_of_s_o(green);
+            return [1,[0,i_of_s_o(red),ce,cd]];
           }
-          if (! caml_string_notequal(ef, cst_rgba)) {
+          if (! caml_string_notequal(b_, cst_rgba)) {
             if (alpha) {
               var a = alpha[1];
-              var eg = f_of_s(a);
-              var eh = i_of_s_o(blue);
-              var ei = i_of_s_o(green);
-              return [3,[0,i_of_s_o(red),ei,eh,eg]];
+              var ca = f_of_s(a);
+              var cb = i_of_s_o(blue);
+              var cc = i_of_s_o(green);
+              return [3,[0,i_of_s_o(red),cc,cb,ca]];
             }
             return fail(0);
           }
@@ -1973,20 +1974,20 @@ function ml(c) {
         var alpha__0 = call2(Js_of_ocaml_Regexp[11], r__0, 5);
         var match__2 = call2(Js_of_ocaml_Regexp[11], r__0, 1);
         if (match__2) {
-          var el = match__2[1];
-          if (! caml_string_notequal(el, cst_rgb__0)) {
+          var cf = match__2[1];
+          if (! caml_string_notequal(cf, cst_rgb__0)) {
             if (alpha__0) {return fail(0);}
-            var ep = i_of_s_o(blue__0);
-            var eq = i_of_s_o(green__0);
-            return [2,[0,i_of_s_o(red__0),eq,ep]];
+            var cj = i_of_s_o(blue__0);
+            var ck = i_of_s_o(green__0);
+            return [2,[0,i_of_s_o(red__0),ck,cj]];
           }
-          if (! caml_string_notequal(el, cst_rgba__0)) {
+          if (! caml_string_notequal(cf, cst_rgba__0)) {
             if (alpha__0) {
               var a__0 = alpha__0[1];
-              var em = f_of_s(a__0);
-              var en = i_of_s_o(blue__0);
-              var eo = i_of_s_o(green__0);
-              return [4,[0,i_of_s_o(red__0),eo,en,em]];
+              var cg = f_of_s(a__0);
+              var ch = i_of_s_o(blue__0);
+              var ci = i_of_s_o(green__0);
+              return [4,[0,i_of_s_o(red__0),ci,ch,cg]];
             }
             return fail(0);
           }
@@ -2002,20 +2003,20 @@ function ml(c) {
         var alpha__1 = call2(Js_of_ocaml_Regexp[11], r__1, 5);
         var match__4 = call2(Js_of_ocaml_Regexp[11], r__1, 1);
         if (match__4) {
-          var er = match__4[1];
-          if (! caml_string_notequal(er, cst_hsl)) {
+          var cl = match__4[1];
+          if (! caml_string_notequal(cl, cst_hsl)) {
             if (alpha__1) {return fail(0);}
-            var ev = i_of_s_o(blue__1);
-            var ew = i_of_s_o(green__1);
-            return [5,[0,i_of_s_o(red__1),ew,ev]];
+            var cp = i_of_s_o(blue__1);
+            var cq = i_of_s_o(green__1);
+            return [5,[0,i_of_s_o(red__1),cq,cp]];
           }
-          if (! caml_string_notequal(er, cst_hsla)) {
+          if (! caml_string_notequal(cl, cst_hsla)) {
             if (alpha__1) {
               var a__1 = alpha__1[1];
-              var es = f_of_s(a__1);
-              var et = i_of_s_o(blue__1);
-              var eu = i_of_s_o(green__1);
-              return [6,[0,i_of_s_o(red__1),eu,et,es]];
+              var cm = f_of_s(a__1);
+              var cn = i_of_s_o(blue__1);
+              var co = i_of_s_o(green__1);
+              return [6,[0,i_of_s_o(red__1),co,cn,cm]];
             }
             return fail(0);
           }
@@ -2024,7 +2025,7 @@ function ml(c) {
       }
       return fail(0);
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](ey);
+    throw runtime["caml_wrap_thrown_exception_reraise"](cs);
   }
 }
 
@@ -2033,46 +2034,46 @@ function string_of_t__0(param) {
   else switch (param[0]) {
     case 0:
       var f = param[1];
-      return call3(Printf[4], dU, f, cst_em);
+      return call3(Printf[4], bO, f, cst_em);
     case 1:
       var f__0 = param[1];
-      return call3(Printf[4], dV, f__0, cst_ex);
+      return call3(Printf[4], bP, f__0, cst_ex);
     case 2:
       var f__1 = param[1];
-      return call3(Printf[4], dW, f__1, cst_px);
+      return call3(Printf[4], bQ, f__1, cst_px);
     case 3:
       var f__2 = param[1];
-      return call3(Printf[4], dX, f__2, cst_gd);
+      return call3(Printf[4], bR, f__2, cst_gd);
     case 4:
       var f__3 = param[1];
-      return call3(Printf[4], dY, f__3, cst_rem);
+      return call3(Printf[4], bS, f__3, cst_rem);
     case 5:
       var f__4 = param[1];
-      return call3(Printf[4], dZ, f__4, cst_vw);
+      return call3(Printf[4], bT, f__4, cst_vw);
     case 6:
       var f__5 = param[1];
-      return call3(Printf[4], d0, f__5, cst_vh);
+      return call3(Printf[4], bU, f__5, cst_vh);
     case 7:
       var f__6 = param[1];
-      return call3(Printf[4], d1, f__6, cst_vm);
+      return call3(Printf[4], bV, f__6, cst_vm);
     case 8:
       var f__7 = param[1];
-      return call3(Printf[4], d2, f__7, cst_ch);
+      return call3(Printf[4], bW, f__7, cst_ch);
     case 9:
       var f__8 = param[1];
-      return call3(Printf[4], d3, f__8, cst_mm);
+      return call3(Printf[4], bX, f__8, cst_mm);
     case 10:
       var f__9 = param[1];
-      return call3(Printf[4], d4, f__9, cst_cm);
+      return call3(Printf[4], bY, f__9, cst_cm);
     case 11:
       var f__10 = param[1];
-      return call3(Printf[4], d5, f__10, cst_in);
+      return call3(Printf[4], bZ, f__10, cst_in);
     case 12:
       var f__11 = param[1];
-      return call3(Printf[4], d6, f__11, cst_pt);
+      return call3(Printf[4], b0, f__11, cst_pt);
     default:
       var f__12 = param[1];
-      return call3(Printf[4], d7, f__12, cst_pc)
+      return call3(Printf[4], b1, f__12, cst_pc)
     }
 }
 
@@ -2097,7 +2098,7 @@ function ml__0(t) {
     var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
     if (match__0) {
       var f = match__0[1];
-      try {var ed = caml_float_of_string(f);}
+      try {var b8 = caml_float_of_string(f);}
       catch(exn) {
         exn = caml_wrap_exception(exn);
         if (exn[1] === Invalid_argument) {
@@ -2112,30 +2113,30 @@ function ml__0(t) {
         }
         throw runtime["caml_wrap_thrown_exception_reraise"](exn);
       }
-      var f__0 = ed;
+      var f__0 = b8;
     }
     else var f__0 = fail(0);
     var match__1 = call2(Js_of_ocaml_Regexp[11], r, 2);
     if (match__1) {
-      var ee = match__1[1];
-      var switch__0 = caml_string_compare(ee, cst_pc__0);
+      var b9 = match__1[1];
+      var switch__0 = caml_string_compare(b9, cst_pc__0);
       if (0 <= switch__0) {
         if (! (0 < switch__0)) {return [13,f__0];}
-        if (! caml_string_notequal(ee, cst_pt__0)) {return [12,f__0];}
-        if (! caml_string_notequal(ee, cst_px__0)) {return [2,f__0];}
-        if (! caml_string_notequal(ee, cst_rem__0)) {return [4,f__0];}
-        if (! caml_string_notequal(ee, cst_vh__0)) {return [6,f__0];}
-        if (! caml_string_notequal(ee, cst_vm__0)) {return [7,f__0];}
-        if (! caml_string_notequal(ee, cst_vw__0)) {return [5,f__0];}
+        if (! caml_string_notequal(b9, cst_pt__0)) {return [12,f__0];}
+        if (! caml_string_notequal(b9, cst_px__0)) {return [2,f__0];}
+        if (! caml_string_notequal(b9, cst_rem__0)) {return [4,f__0];}
+        if (! caml_string_notequal(b9, cst_vh__0)) {return [6,f__0];}
+        if (! caml_string_notequal(b9, cst_vm__0)) {return [7,f__0];}
+        if (! caml_string_notequal(b9, cst_vw__0)) {return [5,f__0];}
       }
       else {
-        if (! caml_string_notequal(ee, cst_ch__0)) {return [8,f__0];}
-        if (! caml_string_notequal(ee, cst_cm__0)) {return [10,f__0];}
-        if (! caml_string_notequal(ee, cst_em__0)) {return [0,f__0];}
-        if (! caml_string_notequal(ee, cst_ex__0)) {return [1,f__0];}
-        if (! caml_string_notequal(ee, cst_gd__0)) {return [3,f__0];}
-        if (! caml_string_notequal(ee, cst_in__0)) {return [11,f__0];}
-        if (! caml_string_notequal(ee, cst_mm__0)) {return [9,f__0];}
+        if (! caml_string_notequal(b9, cst_ch__0)) {return [8,f__0];}
+        if (! caml_string_notequal(b9, cst_cm__0)) {return [10,f__0];}
+        if (! caml_string_notequal(b9, cst_em__0)) {return [0,f__0];}
+        if (! caml_string_notequal(b9, cst_ex__0)) {return [1,f__0];}
+        if (! caml_string_notequal(b9, cst_gd__0)) {return [3,f__0];}
+        if (! caml_string_notequal(b9, cst_in__0)) {return [11,f__0];}
+        if (! caml_string_notequal(b9, cst_mm__0)) {return [9,f__0];}
       }
       return fail(0);
     }
@@ -2150,16 +2151,16 @@ function string_of_t__1(param) {
   switch (param[0]) {
     case 0:
       var f = param[1];
-      return call3(Printf[4], d8, f, cst_deg);
+      return call3(Printf[4], b2, f, cst_deg);
     case 1:
       var f__0 = param[1];
-      return call3(Printf[4], d9, f__0, cst_grad);
+      return call3(Printf[4], b3, f__0, cst_grad);
     case 2:
       var f__1 = param[1];
-      return call3(Printf[4], d_, f__1, cst_rad);
+      return call3(Printf[4], b4, f__1, cst_rad);
     default:
       var f__2 = param[1];
-      return call3(Printf[4], ea, f__2, cst_turns)
+      return call3(Printf[4], b5, f__2, cst_turns)
     }
 }
 
@@ -2183,7 +2184,7 @@ function ml__1(j) {
     var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
     if (match__0) {
       var f = match__0[1];
-      try {var eb = caml_float_of_string(f);}
+      try {var b6 = caml_float_of_string(f);}
       catch(exn) {
         exn = caml_wrap_exception(exn);
         if (exn[1] === Invalid_argument) {
@@ -2198,16 +2199,16 @@ function ml__1(j) {
         }
         throw runtime["caml_wrap_thrown_exception_reraise"](exn);
       }
-      var f__0 = eb;
+      var f__0 = b6;
     }
     else var f__0 = fail(0);
     var match__1 = call2(Js_of_ocaml_Regexp[11], r, 2);
     if (match__1) {
-      var ec = match__1[1];
-      if (! caml_string_notequal(ec, cst_deg__0)) {return [0,f__0];}
-      if (! caml_string_notequal(ec, cst_grad__0)) {return [1,f__0];}
-      if (! caml_string_notequal(ec, cst_rad__0)) {return [2,f__0];}
-      if (! caml_string_notequal(ec, cst_turns__0)) {return [3,f__0];}
+      var b7 = match__1[1];
+      if (! caml_string_notequal(b7, cst_deg__0)) {return [0,f__0];}
+      if (! caml_string_notequal(b7, cst_grad__0)) {return [1,f__0];}
+      if (! caml_string_notequal(b7, cst_rad__0)) {return [2,f__0];}
+      if (! caml_string_notequal(b7, cst_turns__0)) {return [3,f__0];}
     }
     return fail(0);
   }

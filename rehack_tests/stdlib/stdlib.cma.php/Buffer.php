@@ -67,13 +67,13 @@ final class Buffer {
     $Sys = $global_data["Sys"];
     $Bytes = $global_data["Bytes"];
     $Uchar = $global_data["Uchar"];
-    $hr = Vector{0, $string("buffer.ml"), 205, 9};
-    $hq = Vector{0, $string("buffer.ml"), 141, 19};
-    $hp = Vector{0, $string("buffer.ml"), 159, 8};
-    $ho = Vector{0, $string("buffer.ml"), 120, 19};
-    $hn = Vector{0, $string("buffer.ml"), 138, 8};
-    $hm = Vector{0, $string("buffer.ml"), 84, 19};
-    $hl = Vector{0, $string("buffer.ml"), 117, 8};
+    $g = Vector{0, $string("buffer.ml"), 205, 9};
+    $f = Vector{0, $string("buffer.ml"), 141, 19};
+    $e = Vector{0, $string("buffer.ml"), 159, 8};
+    $d = Vector{0, $string("buffer.ml"), 120, 19};
+    $c = Vector{0, $string("buffer.ml"), 138, 8};
+    $b = Vector{0, $string("buffer.ml"), 84, 19};
+    $a = Vector{0, $string("buffer.ml"), 117, 8};
     $create = function(dynamic $n) use ($Sys,$caml_create_bytes) {
       $n__0 = 1 <= $n ? $n : (1);
       $n__1 = $Sys[13] < $n__0 ? $Sys[13] : ($n__0);
@@ -159,82 +159,91 @@ final class Buffer {
       $b[2] = (int) ($pos + 1);
       return 0;
     };
-    $add_utf_8_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$add_char,$call1,$caml_bytes_unsafe_set,$hl,$hm,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_8_uchar = function(dynamic $b__0, dynamic $u) use ($Assert_failure,$Uchar,$a,$add_char,$b,$call1,$caml_bytes_unsafe_set,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (127 < $u__0) {
           if (2047 < $u__0) {
             if (65535 < $u__0) {
               if (1114111 < $u__0) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hl}) as \Throwable;
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a}) as \Throwable;
               }
-              $pos = $b[2];
-              if ($b[3] < (int) ($pos + 4)) {$resize($b, 4);}
+              $pos = $b__0[2];
+              if ($b__0[3] < (int) ($pos + 4)) {$resize($b__0, 4);}
               $caml_bytes_unsafe_set(
-                $b[1],
+                $b__0[1],
                 $pos,
                 240 | (int) $unsigned_right_shift_32($u__0, 18)
               );
               $caml_bytes_unsafe_set(
-                $b[1],
+                $b__0[1],
                 (int)
                 ($pos + 1),
                 128 | (int) $unsigned_right_shift_32($u__0, 12) & 63
               );
               $caml_bytes_unsafe_set(
-                $b[1],
+                $b__0[1],
                 (int)
                 ($pos + 2),
                 128 | (int) $unsigned_right_shift_32($u__0, 6) & 63
               );
-              $caml_bytes_unsafe_set($b[1], (int) ($pos + 3), 128 | $u__0 & 63
+              $caml_bytes_unsafe_set(
+                $b__0[1],
+                (int)
+                ($pos + 3),
+                128 | $u__0 & 63
               );
-              $b[2] = (int) ($pos + 4);
+              $b__0[2] = (int) ($pos + 4);
               return 0;
             }
-            $pos__0 = $b[2];
-            if ($b[3] < (int) ($pos__0 + 3)) {$resize($b, 3);}
+            $pos__0 = $b__0[2];
+            if ($b__0[3] < (int) ($pos__0 + 3)) {$resize($b__0, 3);}
             $caml_bytes_unsafe_set(
-              $b[1],
+              $b__0[1],
               $pos__0,
               224 | (int) $unsigned_right_shift_32($u__0, 12)
             );
             $caml_bytes_unsafe_set(
-              $b[1],
+              $b__0[1],
               (int)
               ($pos__0 + 1),
               128 | (int) $unsigned_right_shift_32($u__0, 6) & 63
             );
             $caml_bytes_unsafe_set(
-              $b[1],
+              $b__0[1],
               (int)
               ($pos__0 + 2),
               128 | $u__0 & 63
             );
-            $b[2] = (int) ($pos__0 + 3);
+            $b__0[2] = (int) ($pos__0 + 3);
             return 0;
           }
-          $pos__1 = $b[2];
-          if ($b[3] < (int) ($pos__1 + 2)) {$resize($b, 2);}
+          $pos__1 = $b__0[2];
+          if ($b__0[3] < (int) ($pos__1 + 2)) {$resize($b__0, 2);}
           $caml_bytes_unsafe_set(
-            $b[1],
+            $b__0[1],
             $pos__1,
             192 | (int) $unsigned_right_shift_32($u__0, 6)
           );
-          $caml_bytes_unsafe_set($b[1], (int) ($pos__1 + 1), 128 | $u__0 & 63);
-          $b[2] = (int) ($pos__1 + 2);
+          $caml_bytes_unsafe_set(
+            $b__0[1],
+            (int)
+            ($pos__1 + 1),
+            128 | $u__0 & 63
+          );
+          $b__0[2] = (int) ($pos__1 + 2);
           return 0;
         }
-        return $add_char($b, $u__0);
+        return $add_char($b__0, $u__0);
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hm}) as \Throwable;
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $b}) as \Throwable;
     };
-    $add_utf_16be_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$call1,$caml_bytes_unsafe_set,$hn,$ho,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_16be_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$c,$call1,$caml_bytes_unsafe_set,$d,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hn}) as \Throwable;
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c}) as \Throwable;
           }
           $u__1 = (int) ($u__0 + -65536);
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
@@ -271,14 +280,14 @@ final class Buffer {
         $b[2] = (int) ($pos__0 + 2);
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $ho}) as \Throwable;
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $d}) as \Throwable;
     };
-    $add_utf_16le_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$call1,$caml_bytes_unsafe_set,$hp,$hq,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_16le_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$call1,$caml_bytes_unsafe_set,$e,$f,$resize,$runtime,$unsigned_right_shift_32) {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hp}) as \Throwable;
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $e}) as \Throwable;
           }
           $u__1 = (int) ($u__0 + -65536);
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
@@ -317,21 +326,21 @@ final class Buffer {
         $b[2] = (int) ($pos__0 + 2);
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hq}) as \Throwable;
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $f}) as \Throwable;
     };
     $add_substring = function
     (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) use ($Bytes,$Pervasives,$call1,$call5,$caml_ml_string_length,$cst_Buffer_add_substring_add_subbytes,$resize) {
-      $hw = $offset < 0 ? 1 : (0);
-      if ($hw) {
-        $hx = $hw;
+      $l = $offset < 0 ? 1 : (0);
+      if ($l) {
+        $m = $l;
       }
       else {
-        $hy = $len < 0 ? 1 : (0);
-        $hx = $hy
-          ? $hy
+        $n = $len < 0 ? 1 : (0);
+        $m = $n
+          ? $n
           : ((int) ($caml_ml_string_length($s) - $len) < $offset ? 1 : (0));
       }
-      if ($hx) {
+      if ($m) {
         $call1($Pervasives[1], $cst_Buffer_add_substring_add_subbytes);
       }
       $new_position = (int) ($b[2] + $len);
@@ -361,8 +370,8 @@ final class Buffer {
     $add_channel_rec = function(dynamic $b, dynamic $ic, dynamic $len) use ($End_of_file,$Pervasives,$call4,$runtime) {
       $len__0 = $len;
       for (;;) {
-        $hv = 0 < $len__0 ? 1 : (0);
-        if ($hv) {
+        $k = 0 < $len__0 ? 1 : (0);
+        if ($k) {
           $n = $call4($Pervasives[72], $ic, $b[1], $b[2], $len__0);
           $b[2] = (int) ($b[2] + $n);
           if (0 === $n) {
@@ -372,23 +381,23 @@ final class Buffer {
           $len__0 = $len__1;
           continue;
         }
-        return $hv;
+        return $k;
       }
     };
     $add_channel = function(dynamic $b, dynamic $ic, dynamic $len) use ($Pervasives,$Sys,$add_channel_rec,$call1,$cst_Buffer_add_channel,$resize) {
-      $ht = $len < 0 ? 1 : (0);
-      $hu = $ht ? $ht : ($Sys[13] < $len ? 1 : (0));
-      if ($hu) {$call1($Pervasives[1], $cst_Buffer_add_channel);}
+      $i = $len < 0 ? 1 : (0);
+      $j = $i ? $i : ($Sys[13] < $len ? 1 : (0));
+      if ($j) {$call1($Pervasives[1], $cst_Buffer_add_channel);}
       if ($b[3] < (int) ($b[2] + $len)) {$resize($b, $len);}
       return $add_channel_rec($b, $ic, $len);
     };
     $output_buffer = function(dynamic $oc, dynamic $b) use ($Pervasives,$call4) {
       return $call4($Pervasives[56], $oc, $b[1], 0, $b[2]);
     };
-    $closing = function(dynamic $param) use ($Assert_failure,$hr,$runtime) {
+    $closing = function(dynamic $param) use ($Assert_failure,$g,$runtime) {
       if (40 === $param) {return 41;}
       if (123 === $param) {return 125;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $hr}) as \Throwable;
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g}) as \Throwable;
     };
     $advance_to_closing = function
     (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) use ($Not_found,$caml_ml_string_length,$caml_string_get,$runtime) {
@@ -510,8 +519,8 @@ final class Buffer {
             $i__0 = $i__5;
             continue;
           }
-          $hs = 92 === $previous__0 ? 1 : (0);
-          return $hs ? $add_char($b, $previous__0) : ($hs);
+          $h = 92 === $previous__0 ? 1 : (0);
+          return $h ? $add_char($b, $previous__0) : ($h);
         }
       };
       return $subst(32, 0);

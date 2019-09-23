@@ -155,12 +155,12 @@ final class Js_of_ocaml__Dom_svg {
       $runtime["caml_fresh_oo_id"](0)
     };
     $createElement = function(dynamic $doc, dynamic $name) use ($call1,$caml_get_public_method,$xmlns) {
-      $ld = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -387984539, 192), $x);
+      $q = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -387984539, 288), $x);
       };
-      $le = $name->toString();
+      $r = $name->toString();
       return (function(dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) {return $t2->createElementNS($t0, $t1);
-       })($doc, $xmlns, $le, $ld);
+       })($doc, $xmlns, $r, $q);
     };
     $unsafeCreateElement = function(dynamic $doc, dynamic $name) use ($createElement) {
       return $createElement($doc, $name);
@@ -327,37 +327,37 @@ final class Js_of_ocaml__Dom_svg {
     $createvkern = function(dynamic $doc) use ($cst_vkern,$unsafeCreateElement) {
       return $unsafeCreateElement($doc, $cst_vkern);
     };
-    $kY = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 946564599, 193), $x);
+    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 946564599, 289), $x);
     };
-    $kZ = $Js_of_ocaml_Js[50][1];
+    $b = $Js_of_ocaml_Js[50][1];
     $svg_element = (function(dynamic $t3, dynamic $param) {return $t3->SVGElement;
-     })($kZ, $kY);
-    $k0 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 454225691, 194), $x);
+     })($b, $a);
+    $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 454225691, 290), $x);
     };
-    $k1 = $Js_of_ocaml_Js[50][1];
-    $document = (function(dynamic $t4, dynamic $param) {return $t4->document;})($k1, $k0);
+    $d = $Js_of_ocaml_Js[50][1];
+    $document = (function(dynamic $t4, dynamic $param) {return $t4->document;})($d, $c);
     $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$runtime,$svg_element) {
-      $k6 = function(dynamic $e) use ($Not_found,$runtime,$svg_element) {
+      $i = function(dynamic $e) use ($Not_found,$runtime,$svg_element) {
         if (instance_of($e, $svg_element)) {return $e;}
         throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       };
-      $k7 = function(dynamic $param) use ($Not_found,$runtime) {
+      $j = function(dynamic $param) use ($Not_found,$runtime) {
         throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       };
-      $k8 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -332188296, 195), $x);
+      $k = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -332188296, 291), $x);
       };
-      $k9 = $id->toString();
-      $k_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 454225691, 196), $x);
+      $l = $id->toString();
+      $m = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 454225691, 292), $x);
       };
-      $la = $Js_of_ocaml_Js[50][1];
-      $lb = (function(dynamic $t5, dynamic $param) {return $t5->document;})($la, $k_);
-      $lc = (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->getElementById($t6);
-       })($lb, $k9, $k8);
-      return $call3($Js_of_ocaml_Js[5][7], $lc, $k7, $k6);
+      $n = $Js_of_ocaml_Js[50][1];
+      $o = (function(dynamic $t5, dynamic $param) {return $t5->document;})($n, $m);
+      $p = (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->getElementById($t6);
+       })($o, $l, $k);
+      return $call3($Js_of_ocaml_Js[5][7], $p, $j, $i);
     };
     $element = function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$svg_element) {
       return instance_of($e, $svg_element)
@@ -365,20 +365,20 @@ final class Js_of_ocaml__Dom_svg {
         : ($Js_of_ocaml_Js[1]);
     };
     $unsafeCoerce = function(dynamic $e, dynamic $tag) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
-      $k2 = $tag->toString();
-      $k3 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 946097238, 197), $x);
+      $e = $tag->toString();
+      $f = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 946097238, 293), $x);
       };
-      $k4 = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 578170309, 198), $x);
+      $g = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 578170309, 294), $x);
       };
-      $k5 = (function(dynamic $t8, dynamic $param) {return $t8->tagName;})($e, $k4);
+      $h = (function(dynamic $t8, dynamic $param) {return $t8->tagName;})($e, $g);
       return (function(dynamic $t9, dynamic $param) {return $t9->toLowerCase();
-        })($k5, $k3) === $k2
+        })($h, $f) === $e
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $a = function(dynamic $e) use ($cst_a__0,$unsafeCoerce) {
+    $a__0 = function(dynamic $e) use ($cst_a__0,$unsafeCoerce) {
       return $unsafeCoerce($e, $cst_a__0);
     };
     $altGlyph = function(dynamic $e) use ($cst_altglyph__0,$unsafeCoerce) {
@@ -605,7 +605,7 @@ final class Js_of_ocaml__Dom_svg {
       Vector{
         0,
         $element,
-        $a,
+        $a__0,
         $altGlyph,
         $altGlyphDef,
         $altGlyphItem,

@@ -29,16 +29,14 @@ function reviver(this__0, key, value) {
 var input_reviver = runtime["caml_js_wrap_meth_callback"](reviver);
 
 function unsafe_input(s) {
-  function pf(x) {
-    return call1(caml_get_public_method(x, -309814068, 246), x);
-  }
-  return function(t2, t0, t1, param) {return t2.parse(t0, t1);}(json, s, input_reviver, pf
+  function c(x) {return call1(caml_get_public_method(x, -309814068, 279), x);}
+  return function(t2, t0, t1, param) {return t2.parse(t0, t1);}(json, s, input_reviver, c
   );
 }
 
-function pd(x) {return call1(caml_get_public_method(x, 398798074, 247), x);}
+function a(x) {return call1(caml_get_public_method(x, 398798074, 280), x);}
 
-var mlString_constr = function(t3, param) {return t3.constructor;}(dummy_string, pd
+var mlString_constr = function(t3, param) {return t3.constructor;}(dummy_string, a
 );
 
 function output_reviver(key, value) {
@@ -48,8 +46,8 @@ function output_reviver(key, value) {
 }
 
 function output(obj) {
-  function pe(x) {return call1(caml_get_public_method(x, 215522356, 248), x);}
-  return function(t6, t4, t5, param) {return t6.stringify(t4, t5);}(json, obj, output_reviver, pe
+  function b(x) {return call1(caml_get_public_method(x, 215522356, 281), x);}
+  return function(t6, t4, t5, param) {return t6.stringify(t4, t5);}(json, obj, output_reviver, b
   );
 }
 

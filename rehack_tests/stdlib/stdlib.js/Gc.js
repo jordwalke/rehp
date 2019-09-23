@@ -33,109 +33,109 @@ function call4(f, a0, a1, a2, a3) {
 var global_data = runtime["caml_get_global_data"]();
 var Sys = global_data["Sys"];
 var Printf = global_data["Printf"];
-var ps = [
+var a = [
   0,
   [11,string("minor_collections: "),[4,0,0,0,[12,10,0]]],
   string("minor_collections: %d\n")
 ];
-var pt = [
+var b = [
   0,
   [11,string("major_collections: "),[4,0,0,0,[12,10,0]]],
   string("major_collections: %d\n")
 ];
-var pu = [
+var c = [
   0,
   [11,string("compactions:       "),[4,0,0,0,[12,10,0]]],
   string("compactions:       %d\n")
 ];
-var pv = [0,[12,10,0],string("\n")];
-var pw = [0,[8,0,0,[0,0],0],string("%.0f")];
-var px = [
+var d = [0,[12,10,0],string("\n")];
+var e = [0,[8,0,0,[0,0],0],string("%.0f")];
+var f = [
   0,
   [11,string("minor_words:    "),[8,0,[1,1],[0,0],[12,10,0]]],
   string("minor_words:    %*.0f\n")
 ];
-var py = [
+var g = [
   0,
   [11,string("promoted_words: "),[8,0,[1,1],[0,0],[12,10,0]]],
   string("promoted_words: %*.0f\n")
 ];
-var pz = [
+var h = [
   0,
   [11,string("major_words:    "),[8,0,[1,1],[0,0],[12,10,0]]],
   string("major_words:    %*.0f\n")
 ];
-var pA = [0,[12,10,0],string("\n")];
-var pB = [0,[4,0,0,0,0],string("%d")];
-var pC = [
+var i = [0,[12,10,0],string("\n")];
+var j = [0,[4,0,0,0,0],string("%d")];
+var k = [
   0,
   [11,string("top_heap_words: "),[4,0,[1,1],0,[12,10,0]]],
   string("top_heap_words: %*d\n")
 ];
-var pD = [
+var l = [
   0,
   [11,string("heap_words:     "),[4,0,[1,1],0,[12,10,0]]],
   string("heap_words:     %*d\n")
 ];
-var pE = [
+var m = [
   0,
   [11,string("live_words:     "),[4,0,[1,1],0,[12,10,0]]],
   string("live_words:     %*d\n")
 ];
-var pF = [
+var n = [
   0,
   [11,string("free_words:     "),[4,0,[1,1],0,[12,10,0]]],
   string("free_words:     %*d\n")
 ];
-var pG = [
+var o = [
   0,
   [11,string("largest_free:   "),[4,0,[1,1],0,[12,10,0]]],
   string("largest_free:   %*d\n")
 ];
-var pH = [
+var p = [
   0,
   [11,string("fragments:      "),[4,0,[1,1],0,[12,10,0]]],
   string("fragments:      %*d\n")
 ];
-var pI = [0,[12,10,0],string("\n")];
-var pJ = [
+var q = [0,[12,10,0],string("\n")];
+var r = [
   0,
   [11,string("live_blocks: "),[4,0,0,0,[12,10,0]]],
   string("live_blocks: %d\n")
 ];
-var pK = [
+var s = [
   0,
   [11,string("free_blocks: "),[4,0,0,0,[12,10,0]]],
   string("free_blocks: %d\n")
 ];
-var pL = [
+var t = [
   0,
   [11,string("heap_chunks: "),[4,0,0,0,[12,10,0]]],
   string("heap_chunks: %d\n")
 ];
 
-function print_stat(c) {
+function print_stat(c__0) {
   var st = runtime["caml_gc_stat"](0);
-  call3(Printf[1], c, ps, st[4]);
-  call3(Printf[1], c, pt, st[5]);
-  call3(Printf[1], c, pu, st[14]);
-  call2(Printf[1], c, pv);
-  var l1 = caml_ml_string_length(call2(Printf[4], pw, st[1]));
-  call4(Printf[1], c, px, l1, st[1]);
-  call4(Printf[1], c, py, l1, st[2]);
-  call4(Printf[1], c, pz, l1, st[3]);
-  call2(Printf[1], c, pA);
-  var l2 = caml_ml_string_length(call2(Printf[4], pB, st[15]));
-  call4(Printf[1], c, pC, l2, st[15]);
-  call4(Printf[1], c, pD, l2, st[6]);
-  call4(Printf[1], c, pE, l2, st[8]);
-  call4(Printf[1], c, pF, l2, st[10]);
-  call4(Printf[1], c, pG, l2, st[12]);
-  call4(Printf[1], c, pH, l2, st[13]);
-  call2(Printf[1], c, pI);
-  call3(Printf[1], c, pJ, st[9]);
-  call3(Printf[1], c, pK, st[11]);
-  return call3(Printf[1], c, pL, st[7]);
+  call3(Printf[1], c__0, a, st[4]);
+  call3(Printf[1], c__0, b, st[5]);
+  call3(Printf[1], c__0, c, st[14]);
+  call2(Printf[1], c__0, d);
+  var l1 = caml_ml_string_length(call2(Printf[4], e, st[1]));
+  call4(Printf[1], c__0, f, l1, st[1]);
+  call4(Printf[1], c__0, g, l1, st[2]);
+  call4(Printf[1], c__0, h, l1, st[3]);
+  call2(Printf[1], c__0, i);
+  var l2 = caml_ml_string_length(call2(Printf[4], j, st[15]));
+  call4(Printf[1], c__0, k, l2, st[15]);
+  call4(Printf[1], c__0, l, l2, st[6]);
+  call4(Printf[1], c__0, m, l2, st[8]);
+  call4(Printf[1], c__0, n, l2, st[10]);
+  call4(Printf[1], c__0, o, l2, st[12]);
+  call4(Printf[1], c__0, p, l2, st[13]);
+  call2(Printf[1], c__0, q);
+  call3(Printf[1], c__0, r, st[9]);
+  call3(Printf[1], c__0, s, st[11]);
+  return call3(Printf[1], c__0, t, st[7]);
 }
 
 function allocated_bytes(param) {
@@ -150,19 +150,19 @@ function create_alarm(f) {return [0,1];}
 
 function delete_alarm(a) {a[1] = 0;return 0;}
 
-function pM(pS) {return runtime["caml_final_release"](pS);}
+function u(A) {return runtime["caml_final_release"](A);}
 
-function pN(pR, pQ) {
-  return runtime["caml_final_register_called_without_value"](pR, pQ);
+function v(z, y) {
+  return runtime["caml_final_register_called_without_value"](z, y);
 }
 
 var Gc = [
   0,
   print_stat,
   allocated_bytes,
-  function(pP, pO) {return runtime["caml_final_register"](pP, pO);},
-  pN,
-  pM,
+  function(x, w) {return runtime["caml_final_register"](x, w);},
+  v,
+  u,
   create_alarm,
   delete_alarm
 ];

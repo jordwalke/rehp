@@ -44,10 +44,10 @@ final class Map {
     $Not_found = $global_data["Not_found"];
     $Pervasives = $global_data["Pervasives"];
     $Assert_failure = $global_data["Assert_failure"];
-    $gf = Vector{0, 0, 0, 0};
-    $gg = Vector{0, $string("map.ml"), 393, 10};
-    $gh = Vector{0, 0, 0};
-    $Make = function(dynamic $Ord) use ($Assert_failure,$Not_found,$Pervasives,$call1,$call2,$call3,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$cst_Map_remove_min_elt,$gf,$gg,$gh,$runtime) {
+    $a = Vector{0, 0, 0, 0};
+    $b = Vector{0, $string("map.ml"), 393, 10};
+    $c = Vector{0, 0, 0};
+    $Make = function(dynamic $Ord) use ($Assert_failure,$Not_found,$Pervasives,$a,$b,$c,$call1,$call2,$call3,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$cst_Map_remove_min_elt,$runtime) {
       $add = new Ref();
       $add_max_binding = new Ref();
       $add_min_binding = new Ref();
@@ -75,8 +75,8 @@ final class Map {
       $create = function(dynamic $l, dynamic $x, dynamic $d, dynamic $r) use ($height) {
         $hl = $height($l);
         $hr = $height($r);
-        $gS = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
-        return Vector{0, $l, $x, $d, $r, $gS};
+        $N = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
+        return Vector{0, $l, $x, $d, $r, $N};
       };
       $singleton = function(dynamic $x, dynamic $d) {
         return Vector{0, 0, $x, $d, 0, 1};
@@ -98,8 +98,8 @@ final class Map {
             $ld = $l[3];
             $lv = $l[2];
             $ll = $l[1];
-            $gN = $height($lr);
-            if ($gN <= $height($ll)) {
+            $I = $height($lr);
+            if ($I <= $height($ll)) {
               return $create($ll, $lv, $ld, $create($lr, $x, $d, $r));
             }
             if ($lr) {
@@ -107,8 +107,8 @@ final class Map {
               $lrd = $lr[3];
               $lrv = $lr[2];
               $lrl = $lr[1];
-              $gO = $create($lrr, $x, $d, $r);
-              return $create($create($ll, $lv, $ld, $lrl), $lrv, $lrd, $gO);
+              $J = $create($lrr, $x, $d, $r);
+              return $create($create($ll, $lv, $ld, $lrl), $lrv, $lrd, $J);
             }
             return $call1($Pervasives[1], $cst_Map_bal);
           }
@@ -120,8 +120,8 @@ final class Map {
             $rd = $r[3];
             $rv = $r[2];
             $rl = $r[1];
-            $gP = $height($rl);
-            if ($gP <= $height($rr)) {
+            $K = $height($rl);
+            if ($K <= $height($rr)) {
               return $create($create($l, $x, $d, $rl), $rv, $rd, $rr);
             }
             if ($rl) {
@@ -129,15 +129,15 @@ final class Map {
               $rld = $rl[3];
               $rlv = $rl[2];
               $rll = $rl[1];
-              $gQ = $create($rlr, $rv, $rd, $rr);
-              return $create($create($l, $x, $d, $rll), $rlv, $rld, $gQ);
+              $L = $create($rlr, $rv, $rd, $rr);
+              return $create($create($l, $x, $d, $rll), $rlv, $rld, $L);
             }
             return $call1($Pervasives[1], $cst_Map_bal__1);
           }
           return $call1($Pervasives[1], $cst_Map_bal__2);
         }
-        $gR = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
-        return Vector{0, $l, $x, $d, $r, $gR};
+        $M = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
+        return Vector{0, $l, $x, $d, $r, $M};
       };
       $empty = 0;
       $is_empty = function(dynamic $param) {return $param ? 0 : (1);};
@@ -355,8 +355,8 @@ final class Map {
             $v = $param__0[2];
             $l = $param__0[1];
             $c = $call2($Ord[1], $x, $v);
-            $gM = 0 === $c ? 1 : (0);
-            if ($gM) {return $gM;}
+            $H = 0 === $c ? 1 : (0);
+            if ($H) {return $H;}
             $param__1 = 0 <= $c ? $r : ($l);
             $param__0 = $param__1;
             continue;
@@ -368,8 +368,8 @@ final class Map {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $gL = $param__0[1];
-            if ($gL) {$param__0 = $gL;continue;}
+            $G = $param__0[1];
+            if ($G) {$param__0 = $G;continue;}
             $d = $param__0[3];
             $v = $param__0[2];
             return Vector{0, $v, $d};
@@ -381,8 +381,8 @@ final class Map {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $gK = $param__0[1];
-            if ($gK) {$param__0 = $gK;continue;}
+            $F = $param__0[1];
+            if ($F) {$param__0 = $F;continue;}
             $d = $param__0[3];
             $v = $param__0[2];
             return Vector{0, Vector{0, $v, $d}};
@@ -394,11 +394,11 @@ final class Map {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $gH = $param__0[4];
-            $gI = $param__0[3];
-            $gJ = $param__0[2];
-            if ($gH) {$param__0 = $gH;continue;}
-            return Vector{0, $gJ, $gI};
+            $C = $param__0[4];
+            $D = $param__0[3];
+            $E = $param__0[2];
+            if ($C) {$param__0 = $C;continue;}
+            return Vector{0, $E, $D};
           }
           throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
         }
@@ -407,30 +407,30 @@ final class Map {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
-            $gE = $param__0[4];
-            $gF = $param__0[3];
-            $gG = $param__0[2];
-            if ($gE) {$param__0 = $gE;continue;}
-            return Vector{0, Vector{0, $gG, $gF}};
+            $z = $param__0[4];
+            $A = $param__0[3];
+            $B = $param__0[2];
+            if ($z) {$param__0 = $z;continue;}
+            return Vector{0, Vector{0, $B, $A}};
           }
           return 0;
         }
       };
       $remove_min_binding->contents = function(dynamic $param) use ($Pervasives,$bal,$call1,$cst_Map_remove_min_elt,$remove_min_binding) {
         if ($param) {
-          $gD = $param[1];
-          if ($gD) {
+          $y = $param[1];
+          if ($y) {
             $r = $param[4];
             $d = $param[3];
             $v = $param[2];
-            return $bal($remove_min_binding->contents($gD), $v, $d, $r);
+            return $bal($remove_min_binding->contents($y), $v, $d, $r);
           }
           $r__0 = $param[4];
           return $r__0;
         }
         return $call1($Pervasives[1], $cst_Map_remove_min_elt);
       };
-      $gk = function(dynamic $t, dynamic $match) use ($bal,$min_binding,$remove_min_binding) {
+      $f = function(dynamic $t, dynamic $match) use ($bal,$min_binding,$remove_min_binding) {
         if ($t) {
           if ($match) {
             $match__0 = $min_binding($match);
@@ -442,14 +442,14 @@ final class Map {
         }
         return $match;
       };
-      $remove->contents = function(dynamic $x, dynamic $m) use ($Ord,$bal,$call2,$gk,$remove) {
+      $remove->contents = function(dynamic $x, dynamic $m) use ($Ord,$bal,$call2,$f,$remove) {
         if ($m) {
           $r = $m[4];
           $d = $m[3];
           $v = $m[2];
           $l = $m[1];
           $c = $call2($Ord[1], $x, $v);
-          if (0 === $c) {return $gk($l, $r);}
+          if (0 === $c) {return $f($l, $r);}
           if (0 <= $c) {
             $rr = $remove->contents($x, $r);
             return $r === $rr ? $m : ($bal($l, $v, $d, $rr));
@@ -459,7 +459,7 @@ final class Map {
         }
         return 0;
       };
-      $update->contents = function(dynamic $x, dynamic $f, dynamic $m) use ($Ord,$bal,$call1,$call2,$gk,$update) {
+      $update->contents = function(dynamic $x, dynamic $f__0, dynamic $m) use ($Ord,$bal,$call1,$call2,$f,$update) {
         if ($m) {
           $h = $m[5];
           $r = $m[4];
@@ -468,21 +468,21 @@ final class Map {
           $l = $m[1];
           $c = $call2($Ord[1], $x, $v);
           if (0 === $c) {
-            $match = $call1($f, Vector{0, $d});
+            $match = $call1($f__0, Vector{0, $d});
             if ($match) {
               $data = $match[1];
               return $d === $data ? $m : (Vector{0, $l, $x, $data, $r, $h});
             }
-            return $gk($l, $r);
+            return $f($l, $r);
           }
           if (0 <= $c) {
-            $rr = $update->contents($x, $f, $r);
+            $rr = $update->contents($x, $f__0, $r);
             return $r === $rr ? $m : ($bal($l, $v, $d, $rr));
           }
-          $ll = $update->contents($x, $f, $l);
+          $ll = $update->contents($x, $f__0, $l);
           return $l === $ll ? $m : ($bal($ll, $v, $d, $r));
         }
-        $match__0 = $call1($f, 0);
+        $match__0 = $call1($f__0, 0);
         if ($match__0) {
           $data__0 = $match__0[1];
           return Vector{0, 0, $x, $data__0, 0, 1};
@@ -558,14 +558,14 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            $gA = $call2($p, $v, $d);
-            if ($gA) {
-              $gB = $for_all->contents($p, $l);
-              if ($gB) {$param__0 = $r;continue;}
-              $gC = $gB;
+            $v = $call2($p, $v, $d);
+            if ($v) {
+              $w = $for_all->contents($p, $l);
+              if ($w) {$param__0 = $r;continue;}
+              $x = $w;
             }
-            else {$gC = $gA;}
-            return $gC;
+            else {$x = $v;}
+            return $x;
           }
           return 1;
         }
@@ -578,16 +578,16 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $l = $param__0[1];
-            $gx = $call2($p, $v, $d);
-            if ($gx) {
-              $gy = $gx;
+            $s = $call2($p, $v, $d);
+            if ($s) {
+              $t = $s;
             }
             else {
-              $gz = $exists->contents($p, $l);
-              if (! $gz) {$param__0 = $r;continue;}
-              $gy = $gz;
+              $u = $exists->contents($p, $l);
+              if (! $u) {$param__0 = $r;continue;}
+              $t = $u;
             }
-            return $gy;
+            return $t;
           }
           return 0;
         }
@@ -660,7 +660,7 @@ final class Map {
         if ($d) {$d__0 = $d[1];return $join->contents($t1, $v, $d__0, $t2);}
         return $concat($t1, $t2);
       };
-      $split->contents = function(dynamic $x, dynamic $param) use ($Ord,$call2,$gf,$join,$split) {
+      $split->contents = function(dynamic $x, dynamic $param) use ($Ord,$a,$call2,$join,$split) {
         if ($param) {
           $r = $param[4];
           $d = $param[3];
@@ -681,9 +681,9 @@ final class Map {
           $ll = $match__0[1];
           return Vector{0, $ll, $pres__0, $join->contents($rl, $v, $d, $r)};
         }
-        return $gf;
+        return $a;
       };
-      $merge->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($Assert_failure,$call3,$concat_or_join,$gg,$height,$merge,$runtime,$split) {
+      $merge->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($Assert_failure,$b,$call3,$concat_or_join,$height,$merge,$runtime,$split) {
         if ($s1) {
           $h1 = $s1[5];
           $r1 = $s1[4];
@@ -695,13 +695,9 @@ final class Map {
             $r2 = $match[3];
             $d2 = $match[2];
             $l2 = $match[1];
-            $gt = $merge->contents($f, $r1, $r2);
-            $gu = $call3($f, $v1, Vector{0, $d1}, $d2);
-            return $concat_or_join(
-              $merge->contents($f, $l1, $l2),
-              $v1,
-              $gu,
-              $gt
+            $o = $merge->contents($f, $r1, $r2);
+            $p = $call3($f, $v1, Vector{0, $d1}, $d2);
+            return $concat_or_join($merge->contents($f, $l1, $l2), $v1, $p, $o
             );
           }
         }
@@ -715,16 +711,16 @@ final class Map {
           $r1__0 = $match__0[3];
           $d1__0 = $match__0[2];
           $l1__0 = $match__0[1];
-          $gv = $merge->contents($f, $r1__0, $r2__0);
-          $gw = $call3($f, $v2, $d1__0, Vector{0, $d2__0});
+          $q = $merge->contents($f, $r1__0, $r2__0);
+          $r = $call3($f, $v2, $d1__0, Vector{0, $d2__0});
           return $concat_or_join(
             $merge->contents($f, $l1__0, $l2__0),
             $v2,
-            $gw,
-            $gv
+            $r,
+            $q
           );
         }
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $gg}) as \Throwable;
+        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $b}) as \Throwable;
       };
       $union->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($call3,$concat_or_join,$join,$split,$union) {
         if ($s1) {
@@ -796,7 +792,7 @@ final class Map {
         }
         return 0;
       };
-      $partition->contents = function(dynamic $p, dynamic $param) use ($call2,$concat,$gh,$join,$partition) {
+      $partition->contents = function(dynamic $p, dynamic $param) use ($c,$call2,$concat,$join,$partition) {
         if ($param) {
           $r = $param[4];
           $d = $param[3];
@@ -810,13 +806,13 @@ final class Map {
           $rf = $match__0[2];
           $rt = $match__0[1];
           if ($pvd) {
-            $gr = $concat($lf, $rf);
-            return Vector{0, $join->contents($lt, $v, $d, $rt), $gr};
+            $m = $concat($lf, $rf);
+            return Vector{0, $join->contents($lt, $v, $d, $rt), $m};
           }
-          $gs = $join->contents($lf, $v, $d, $rf);
-          return Vector{0, $concat($lt, $rt), $gs};
+          $n = $join->contents($lf, $v, $d, $rf);
+          return Vector{0, $concat($lt, $rt), $n};
         }
-        return $gh;
+        return $c;
       };
       $cons_enum = function(dynamic $m, dynamic $e) {
         $m__0 = $m;
@@ -869,8 +865,8 @@ final class Map {
             return $e2__0 ? -1 : (0);
           }
         };
-        $gq = $cons_enum($m2, 0);
-        return $compare_aux($cons_enum($m1, 0), $gq);
+        $l = $cons_enum($m2, 0);
+        return $compare_aux($cons_enum($m1, 0), $l);
       };
       $equal = function(dynamic $cmp, dynamic $m1, dynamic $m2) use ($Ord,$call2,$cons_enum) {
         $equal_aux = function(dynamic $e1, dynamic $e2) use ($Ord,$call2,$cmp,$cons_enum) {
@@ -887,35 +883,35 @@ final class Map {
                 $r1 = $e1__0[3];
                 $d1 = $e1__0[2];
                 $v1 = $e1__0[1];
-                $gn = 0 === $call2($Ord[1], $v1, $v2) ? 1 : (0);
-                if ($gn) {
-                  $go = $call2($cmp, $d1, $d2);
-                  if ($go) {
+                $i = 0 === $call2($Ord[1], $v1, $v2) ? 1 : (0);
+                if ($i) {
+                  $j = $call2($cmp, $d1, $d2);
+                  if ($j) {
                     $e2__2 = $cons_enum($r2, $e2__1);
                     $e1__2 = $cons_enum($r1, $e1__1);
                     $e1__0 = $e1__2;
                     $e2__0 = $e2__2;
                     continue;
                   }
-                  $gp = $go;
+                  $k = $j;
                 }
-                else {$gp = $gn;}
-                return $gp;
+                else {$k = $i;}
+                return $k;
               }
               return 0;
             }
             return $e2__0 ? 0 : (1);
           }
         };
-        $gm = $cons_enum($m2, 0);
-        return $equal_aux($cons_enum($m1, 0), $gm);
+        $h = $cons_enum($m2, 0);
+        return $equal_aux($cons_enum($m1, 0), $h);
       };
       $cardinal->contents = function(dynamic $param) use ($cardinal) {
         if ($param) {
           $r = $param[4];
           $l = $param[1];
-          $gl = $cardinal->contents($r);
-          return (int) ((int) ($cardinal->contents($l) + 1) + $gl);
+          $g = $cardinal->contents($r);
+          return (int) ((int) ($cardinal->contents($l) + 1) + $g);
         }
         return 0;
       };
@@ -998,44 +994,44 @@ final class Map {
     };
     $Map = Vector{
       0,
-      function(dynamic $gi) use ($Make) {
-        $gj = $Make($gi);
+      function(dynamic $d) use ($Make) {
+        $e = $Make($d);
         return Vector{
           0,
-          $gj[5],
-          $gj[6],
-          $gj[18],
-          $gj[7],
-          $gj[25],
-          $gj[3],
-          $gj[24],
-          $gj[38],
-          $gj[39],
-          $gj[43],
-          $gj[44],
-          $gj[26],
-          $gj[29],
-          $gj[30],
-          $gj[31],
-          $gj[40],
-          $gj[41],
-          $gj[45],
-          $gj[47],
-          $gj[19],
-          $gj[20],
-          $gj[21],
-          $gj[22],
-          $gj[48],
-          $gj[49],
-          $gj[37],
-          $gj[8],
-          $gj[17],
-          $gj[10],
-          $gj[12],
-          $gj[14],
-          $gj[16],
-          $gj[27],
-          $gj[28]
+          $e[5],
+          $e[6],
+          $e[18],
+          $e[7],
+          $e[25],
+          $e[3],
+          $e[24],
+          $e[38],
+          $e[39],
+          $e[43],
+          $e[44],
+          $e[26],
+          $e[29],
+          $e[30],
+          $e[31],
+          $e[40],
+          $e[41],
+          $e[45],
+          $e[47],
+          $e[19],
+          $e[20],
+          $e[21],
+          $e[22],
+          $e[48],
+          $e[49],
+          $e[37],
+          $e[8],
+          $e[17],
+          $e[10],
+          $e[12],
+          $e[14],
+          $e[16],
+          $e[27],
+          $e[28]
         };
       }
     };

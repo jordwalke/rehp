@@ -38,33 +38,33 @@ final class Int64 {
     $min_int = Vector{255, 0, 0, 32768};
     $max_int = Vector{255, 16777215, 16777215, 32767};
     $Failure = $global_data["Failure"];
-    $eB = Vector{255, 16777215, 16777215, 65535};
-    $eA = Vector{255, 0, 0, 0};
-    $ez = Vector{255, 1, 0, 0};
-    $ey = Vector{255, 1, 0, 0};
-    $succ = function(dynamic $n) use ($ey,$runtime) {
-      return $runtime["caml_int64_add"]($n, $ey);
+    $d = Vector{255, 16777215, 16777215, 65535};
+    $c = Vector{255, 0, 0, 0};
+    $b = Vector{255, 1, 0, 0};
+    $a = Vector{255, 1, 0, 0};
+    $succ = function(dynamic $n) use ($a,$runtime) {
+      return $runtime["caml_int64_add"]($n, $a);
     };
-    $pred = function(dynamic $n) use ($ez,$runtime) {
-      return $runtime["caml_int64_sub"]($n, $ez);
+    $pred = function(dynamic $n) use ($b,$runtime) {
+      return $runtime["caml_int64_sub"]($n, $b);
     };
-    $abs = function(dynamic $n) use ($eA,$runtime) {
-      return $runtime["caml_greaterequal"]($n, $eA)
+    $abs = function(dynamic $n) use ($c,$runtime) {
+      return $runtime["caml_greaterequal"]($n, $c)
         ? $n
         : ($runtime["caml_int64_neg"]($n));
     };
-    $lognot = function(dynamic $n) use ($eB,$runtime) {
-      return $runtime["caml_int64_xor"]($n, $eB);
+    $lognot = function(dynamic $n) use ($d,$runtime) {
+      return $runtime["caml_int64_xor"]($n, $d);
     };
     $to_string = function(dynamic $n) use ($cst_d,$runtime) {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
     $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$eC = Vector{0, $runtime["caml_int64_of_string"]($s)};return $eC;}
-      catch(\Throwable $eD) {
-        $eD = $caml_wrap_exception($eD);
-        if ($eD[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($eD) as \Throwable;
+      try {$e = Vector{0, $runtime["caml_int64_of_string"]($s)};return $e;}
+      catch(\Throwable $f) {
+        $f = $caml_wrap_exception($f);
+        if ($f[1] === $Failure) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($f) as \Throwable;
       }
     };
     $compare = function(dynamic $x, dynamic $y) use ($runtime) {

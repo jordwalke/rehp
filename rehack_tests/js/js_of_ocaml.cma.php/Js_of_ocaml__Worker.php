@@ -48,79 +48,79 @@ final class Js_of_ocaml__Worker {
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Pervasives = $global_data["Pervasives"];
     $Array = $global_data["Array_"];
-    $te = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, -324422083, 299), $x);
+    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, -324422083, 203), $x);
     };
-    $tf = $Js_of_ocaml_Js[50][1];
-    $worker = (function(dynamic $t0, dynamic $param) {return $t0->Worker;})($tf, $te);
+    $b = $Js_of_ocaml_Js[50][1];
+    $worker = (function(dynamic $t0, dynamic $param) {return $t0->Worker;})($b, $a);
     $create = function(dynamic $script) use ($worker) {
-      $tA = 0;
-      $tB = $script->toString();
+      $w = 0;
+      $x = $script->toString();
       return (function(dynamic $t2, dynamic $t1, dynamic $param) {return new $t2($t1);
-       })($worker, $tB, $tA);
+       })($worker, $x, $w);
     };
     $import_scripts = function(dynamic $scripts) use ($Array,$Js_of_ocaml_Js,$Pervasives,$call1,$call2,$caml_get_public_method,$cst_Worker_import_scripts_is_undefined,$runtime) {
-      $ts = $Js_of_ocaml_Js[3];
-      $tt = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 815769891, 300), $x);
+      $o = $Js_of_ocaml_Js[3];
+      $p = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 815769891, 204), $x);
       };
-      $tu = $Js_of_ocaml_Js[50][1];
+      $q = $Js_of_ocaml_Js[50][1];
       if (
-        (function(dynamic $t4, dynamic $param) {return $t4->importScripts;})($tu, $tt) === $ts
+        (function(dynamic $t4, dynamic $param) {return $t4->importScripts;})($q, $p) === $o
       ) {$call1($Pervasives[1], $cst_Worker_import_scripts_is_undefined);}
-      $tv = $call1($Array[12], $scripts);
-      $tw = function(dynamic $s) {return $s->toString();};
-      $tx = $call2($Array[15], $tw, $tv);
-      $ty = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 815769891, 301), $x);
+      $r = $call1($Array[12], $scripts);
+      $s = function(dynamic $s) {return $s->toString();};
+      $t = $call2($Array[15], $s, $r);
+      $u = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 815769891, 205), $x);
       };
-      $tz = $Js_of_ocaml_Js[50][1];
+      $v = $Js_of_ocaml_Js[50][1];
       return $runtime["caml_js_fun_call"](
-        (function(dynamic $t3, dynamic $param) {return $t3->importScripts;})($tz, $ty),
-        $tx
+        (function(dynamic $t3, dynamic $param) {return $t3->importScripts;})($v, $u),
+        $t
       );
     };
     $set_onmessage = function(dynamic $handler) use ($Js_of_ocaml_Js,$Pervasives,$call1,$caml_get_public_method,$cst_Worker_onmessage_is_undefined,$runtime) {
-      $tl = $Js_of_ocaml_Js[3];
-      $tm = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 610977416, 302), $x);
+      $h = $Js_of_ocaml_Js[3];
+      $i = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 610977416, 206), $x);
       };
-      $tn = $Js_of_ocaml_Js[50][1];
+      $j = $Js_of_ocaml_Js[50][1];
       if (
-        (function(dynamic $t8, dynamic $param) {return $t8->onmessage;})($tn, $tm) === $tl
+        (function(dynamic $t8, dynamic $param) {return $t8->onmessage;})($j, $i) === $h
       ) {$call1($Pervasives[1], $cst_Worker_onmessage_is_undefined);}
       $js_handler = function(dynamic $ev) use ($call1,$caml_get_public_method,$handler) {
-        $tr = function(dynamic $x) use ($call1,$caml_get_public_method) {
-          return $call1($caml_get_public_method($x, -1033677270, 303), $x);
+        $n = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          return $call1($caml_get_public_method($x, -1033677270, 207), $x);
         };
         return $call1(
           $handler,
-          (function(dynamic $t7, dynamic $param) {return $t7->data;})($ev, $tr)
+          (function(dynamic $t7, dynamic $param) {return $t7->data;})($ev, $n)
         );
       };
-      $to = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 610977416, 304), $x);
+      $k = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 610977416, 208), $x);
       };
-      $tp = $runtime["caml_js_wrap_callback"]($js_handler);
-      $tq = $Js_of_ocaml_Js[50][1];
+      $l = $runtime["caml_js_wrap_callback"]($js_handler);
+      $m = $Js_of_ocaml_Js[50][1];
       return (function(dynamic $t6, dynamic $t5, dynamic $param) {$t6->onmessage = $t5;return 0;
-       })($tq, $tp, $to);
+       })($m, $l, $k);
     };
     $post_message = function(dynamic $msg) use ($Js_of_ocaml_Js,$Pervasives,$call1,$caml_get_public_method,$cst_Worker_onmessage_is_undefined__0) {
-      $tg = $Js_of_ocaml_Js[3];
-      $th = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -699849401, 305), $x);
+      $c = $Js_of_ocaml_Js[3];
+      $d = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -699849401, 209), $x);
       };
-      $ti = $Js_of_ocaml_Js[50][1];
+      $e = $Js_of_ocaml_Js[50][1];
       if (
-        (function(dynamic $t11, dynamic $param) {return $t11->postMessage;})($ti, $th) === $tg
+        (function(dynamic $t11, dynamic $param) {return $t11->postMessage;})($e, $d) === $c
       ) {$call1($Pervasives[1], $cst_Worker_onmessage_is_undefined__0);}
-      $tj = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -699849401, 306), $x);
+      $f = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -699849401, 210), $x);
       };
-      $tk = $Js_of_ocaml_Js[50][1];
+      $g = $Js_of_ocaml_Js[50][1];
       return (function(dynamic $t10, dynamic $t9, dynamic $param) {return $t10->postMessage($t9);
-       })($tk, $msg, $tj);
+       })($g, $msg, $f);
     };
     $Js_of_ocaml_Worker = Vector{
       0,

@@ -34,18 +34,18 @@ final class Js_of_ocaml__Geolocation {
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $empty_position_options = function(dynamic $param) {return darray[];};
-    $mz = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 82957527, 235), $x);
+    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 82957527, 298), $x);
     };
-    $mA = $Js_of_ocaml_Js[50][1];
-    $x = (function(dynamic $t1, dynamic $param) {return $t1->navigator;})($mA, $mz);
+    $b = $Js_of_ocaml_Js[50][1];
+    $x = (function(dynamic $t1, dynamic $param) {return $t1->navigator;})($b, $a);
     
     if ($call1($Js_of_ocaml_Js[6][5], $x)) {
-      $mB = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 315713478, 236), $x);
+      $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 315713478, 299), $x);
       };
       $geolocation = (function(dynamic $t0, dynamic $param) {return $t0->geolocation;
-       })($x, $mB);
+       })($x, $c);
     }
     else {$geolocation = $x;}
     

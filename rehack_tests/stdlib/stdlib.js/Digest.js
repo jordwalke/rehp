@@ -78,7 +78,7 @@ function output(chan, digest) {return call2(Pervasives[54], chan, digest);}
 
 function input(chan) {return call2(Pervasives[74], chan, 16);}
 
-function char_hex(n) {var pX = 10 <= n ? 87 : 48;return n + pX | 0;}
+function char_hex(n) {var e = 10 <= n ? 87 : 48;return n + e | 0;}
 
 function to_hex(d) {
   if (16 !== caml_ml_string_length(d)) {
@@ -90,8 +90,8 @@ function to_hex(d) {
     var x = caml_string_get(d, i);
     caml_bytes_unsafe_set(result, i * 2 | 0, char_hex(x >>> 4 | 0));
     caml_bytes_unsafe_set(result, (i * 2 | 0) + 1 | 0, char_hex(x & 15));
-    var pW = i + 1 | 0;
-    if (15 !== i) {var i = pW;continue;}
+    var d = i + 1 | 0;
+    if (15 !== i) {var i = d;continue;}
     return call1(Bytes[42], result);
   }
 }
@@ -116,16 +116,16 @@ function from_hex(s) {
           );
   }
   function byte__0(i) {
-    var pV = digit(caml_string_get(s, i + 1 | 0));
-    return (digit(caml_string_get(s, i)) << 4) + pV | 0;
+    var c = digit(caml_string_get(s, i + 1 | 0));
+    return (digit(caml_string_get(s, i)) << 4) + c | 0;
   }
   var result = caml_create_bytes(16);
   var i = 0;
   for (; ; ) {
-    var pT = byte__0(2 * i | 0);
-    runtime["caml_bytes_set"](result, i, call1(Char[1], pT));
-    var pU = i + 1 | 0;
-    if (15 !== i) {var i = pU;continue;}
+    var a = byte__0(2 * i | 0);
+    runtime["caml_bytes_set"](result, i, call1(Char[1], a));
+    var b = i + 1 | 0;
+    if (15 !== i) {var i = b;continue;}
     return call1(Bytes[42], result);
   }
 }

@@ -41,28 +41,28 @@ final class Js_of_ocaml__Json {
     };
     $input_reviver = $runtime["caml_js_wrap_meth_callback"]($reviver);
     $unsafe_input = function(dynamic $s) use ($call1,$caml_get_public_method,$input_reviver,$json) {
-      $pf = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, -309814068, 246), $x);
+      $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, -309814068, 279), $x);
       };
       return (function(dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) {return $t2->parse($t0, $t1);
-       })($json, $s, $input_reviver, $pf);
+       })($json, $s, $input_reviver, $c);
     };
-    $pd = function(dynamic $x) use ($call1,$caml_get_public_method) {
-      return $call1($caml_get_public_method($x, 398798074, 247), $x);
+    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      return $call1($caml_get_public_method($x, 398798074, 280), $x);
     };
     $mlString_constr = (function(dynamic $t3, dynamic $param) {return $t3->constructor;
-     })($dummy_string, $pd);
+     })($dummy_string, $a);
     $output_reviver = function(dynamic $key, dynamic $value) use ($mlString_constr,$runtime) {
       return instance_of($value, $mlString_constr)
         ? $runtime["caml_jsbytes_of_string"]($value)
         : ($value);
     };
     $output = function(dynamic $obj) use ($call1,$caml_get_public_method,$json,$output_reviver) {
-      $pe = function(dynamic $x) use ($call1,$caml_get_public_method) {
-        return $call1($caml_get_public_method($x, 215522356, 248), $x);
+      $b = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        return $call1($caml_get_public_method($x, 215522356, 281), $x);
       };
       return (function(dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) {return $t6->stringify($t4, $t5);
-       })($json, $obj, $output_reviver, $pe);
+       })($json, $obj, $output_reviver, $b);
     };
     $Js_of_ocaml_Json = Vector{0, $output, $unsafe_input};
     
