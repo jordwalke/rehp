@@ -83,3 +83,4 @@ runtime["caml_register_global"](21, Js_of_ocaml_WebGL, "Js_of_ocaml__WebGL");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__WebGL;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

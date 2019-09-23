@@ -411,3 +411,4 @@ runtime["caml_register_global"](22, Stream, "Stream");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Stream;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

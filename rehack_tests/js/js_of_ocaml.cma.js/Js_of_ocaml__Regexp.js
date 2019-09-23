@@ -237,3 +237,4 @@ runtime["caml_register_global"](34, Js_of_ocaml_Regexp, "Js_of_ocaml__Regexp");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Regexp;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

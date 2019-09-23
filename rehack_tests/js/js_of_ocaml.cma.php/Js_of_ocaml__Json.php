@@ -75,3 +75,4 @@ final class Js_of_ocaml__Json {
   }
 }
 
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

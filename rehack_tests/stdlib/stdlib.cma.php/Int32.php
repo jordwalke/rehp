@@ -83,3 +83,4 @@ final class Int32 {
   }
 }
 
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

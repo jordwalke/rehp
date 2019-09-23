@@ -1129,3 +1129,4 @@ runtime["caml_register_global"](11, Ephemeron, "Ephemeron");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Ephemeron;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

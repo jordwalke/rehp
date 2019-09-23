@@ -86,3 +86,4 @@ runtime["caml_register_global"](2, CamlinternalLazy, "CamlinternalLazy");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalLazy;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

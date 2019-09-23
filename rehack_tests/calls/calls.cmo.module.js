@@ -91,3 +91,4 @@ runtime["caml_register_global"](18, Calls, "Calls");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Calls;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

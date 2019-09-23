@@ -671,3 +671,4 @@ final class Js_of_ocaml__Dom_svg {
   }
 }
 
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

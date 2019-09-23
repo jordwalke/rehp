@@ -30,3 +30,4 @@ final class ____CompilationUnitName {
   }
 }
 
+/*____hashes*/

@@ -26,3 +26,4 @@ runtime["caml_register_global"](1, MyLib_MyLibUtility, "MyLib__MyLibUtility");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().MyLib__MyLibUtility;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/

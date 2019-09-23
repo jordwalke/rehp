@@ -154,3 +154,4 @@ runtime["caml_register_global"](1, Queue, "Queue");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Queue;
+/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
