@@ -337,6 +337,25 @@ module String = struct
   let capitalize_ascii s = apply1 Char.uppercase_ascii s
 
   let uncapitalize_ascii s = apply1 Char.lowercase_ascii s
+
+  (* From rehp Module_loader.re *)
+  let is_prefixed_i prefix str i =
+    let len = String.length prefix in
+    let j = ref 0 in
+    while !j < len && String.unsafe_get prefix !j = String.unsafe_get str (i + !j) do
+      incr j
+    done;
+    !j = len
+
+  (* From rehp Module_loader.re *)
+  let find_substring sub str i =
+    let len = String.length str - String.length sub in
+    let found = ref false and i = ref i in
+    while (not !found) && !i <= len do
+      if is_prefixed_i sub str !i then found := true else incr i
+    done;
+    if not !found then raise Not_found;
+    !i
 end
 
 module Int = struct

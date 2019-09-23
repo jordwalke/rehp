@@ -25,7 +25,8 @@ type t =
   { debug : string list on_off
   ; optim : string list on_off
   ; quiet : bool
-  ; custom_header : string option }
+  ; custom_header : string option
+  ; use_hashing : bool }
 
 val t : t Cmdliner.Term.t
 
