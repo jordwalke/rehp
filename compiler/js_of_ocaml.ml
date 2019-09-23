@@ -27,6 +27,19 @@ let debug_mem = Debug.find "mem"
 
 let _ = Sys.catch_break true
 
+
+(* Ensures a directory exists. Will fail if path is a non-dir file.
+   Containing directory must already exist. *)
+let ensure_dir dir =
+  let exists = Sys.file_exists dir in
+  if exists
+  then (
+    if not (Sys.is_directory dir)
+    then
+      raise
+        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")) )
+  else Unix.mkdir dir 0o777
+
 let temp_file_name =
   (* Inlined unavailable Filename.temp_file_name. Filename.temp_file gives
      us incorrect permissions. https://github.com/ocsigen/js_of_ocaml/issues/182 *)
@@ -49,6 +62,7 @@ let gen_file file f =
     (try Sys.remove file with Sys_error _ -> ());
     Sys.rename f_tmp file
   with exc ->
+    Format.eprintf "Error: cannot generate %s@." file;
     Sys.remove f_tmp;
     raise exc
 
@@ -266,11 +280,15 @@ let f
         let output_file =
           match output_file, keep_unit_names with
           | (`Stdout, false), true -> `Name (gen_unit_filename ~backend "./" cmo)
-          | (`Name x, false), true -> `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
+          | (`Name x, false), true ->
+              ensure_dir (Filename.dirname x);
+              `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
           | (`Stdout, _), false -> `Stdout
           | (`Name x, _), false -> `Name x
           | (`Name x, true), true
             when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
+              print_string ("Ensuring dir " ^ x);
+              ensure_dir x;
               `Name (gen_unit_filename ~backend x cmo)
           | (`Name _, true), true | (`Stdout, true), true ->
               failwith "use [-o dirname/] or remove [--keep-unit-names]"
@@ -286,9 +304,12 @@ let f
             let output_file =
               match output_file with
               | `Stdout, false -> `Name (gen_unit_filename ~backend "./" cmo)
-              | `Name x, false -> `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
+              | `Name x, false ->
+                  ensure_dir (Filename.dirname x);
+                  `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
+                  ensure_dir x;
                   `Name (gen_unit_filename ~backend x cmo)
               | `Stdout, true | `Name _, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
