@@ -2,12 +2,12 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Oo.php
+ * MyLib__MyLibUtility.php
  */
 
 namespace Rehack;
 
-final class Oo {
+final class MyLib__MyLibUtility {
   <<__Memoize>>
   public static function get() {
     $global_object = \Rehack\GlobalObject::get();
@@ -16,9 +16,9 @@ final class Oo {
      * Soon, these will replace the `global_data->ModuleName`
      * pattern in the load() function.
      */
-    $CamlinternalOO = CamlinternalOO::get();
-    Oo::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Oo;
+    $Random = Random::get();
+    MyLib__MyLibUtility::load($global_object);
+    $memoized = $runtime->caml_get_global_data()->MyLib__MyLibUtility;
     return $memoized;
   }
 
@@ -29,14 +29,19 @@ final class Oo {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
+    $call1 = $runtime["caml_call1"];
     $global_data = $runtime["caml_get_global_data"]();
-    $CamlinternalOO = $global_data["CamlinternalOO"];
-    $copy = $CamlinternalOO[22];
-    $new_method = $CamlinternalOO[1];
-    $public_method_label = $CamlinternalOO[1];
-    $Oo = Vector{0, $copy, $new_method, $public_method_label};
+    $Random = $global_data["Random"];
+    $thisIsAUtilityFunction = function(dynamic $param) use ($Random,$call1) {
+      return $call1($Random[5], 100);
+    };
+    $MyLib_MyLibUtility = Vector{0, $thisIsAUtilityFunction};
     
-    $runtime["caml_register_global"](1, $Oo, "Oo");
+    $runtime["caml_register_global"](
+      1,
+      $MyLib_MyLibUtility,
+      "MyLib__MyLibUtility"
+    );
 
   }
 }

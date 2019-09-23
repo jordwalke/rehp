@@ -1,9 +1,9 @@
 /**
- * Calls
- * @providesModule Calls
+ * MyLib
+ * @providesModule MyLib
  */
 "use strict";
-
+var MyLib__MyLibUtility = require('MyLib__MyLibUtility.js');
 var runtime = require('runtime.js');
 
 let joo_global_object = global;
@@ -11,9 +11,16 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
+var global_data = runtime["caml_get_global_data"]();
 var cst_myPartiallyAppliedMethod = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__0 = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__1 = string("myPartiallyAppliedMethod");
+var MyLib_MyLibUtility = global_data["MyLib__MyLibUtility"];
 var foo = "foo";
 var bar = "bar";
 var baz = "baz";
@@ -76,7 +83,8 @@ function testPartialMethodCalls(o) {
   return [0,sendResult1,sendResult2,sendResult3];
 }
 
-var Calls = [
+var x = call1(MyLib_MyLibUtility[1], 0);
+var MyLib = [
   0,
   foo,
   bar,
@@ -84,10 +92,11 @@ var Calls = [
   testFunctionCalls,
   testMethodCalls,
   testPartialFunctionCalls,
-  testPartialMethodCalls
+  testPartialMethodCalls,
+  x
 ];
 
-runtime["caml_register_global"](18, Calls, "Calls");
+runtime["caml_register_global"](19, MyLib, "MyLib");
 
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Calls;
+module.exports = global.jsoo_runtime.caml_get_global_data().MyLib;
