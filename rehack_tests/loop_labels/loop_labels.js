@@ -1,20 +1,107 @@
-var caml_oo_last_id = 0;
-
-function caml_fresh_oo_id() {
-  return caml_oo_last_id++;
+function raw_array_sub(a, i, l) {
+  var b = new Array(l);
+  for (var j = 0; j < l; j++) b[j] = a[i + j];
+  return b;
 }
 
-var caml_global_data = [0];
-
-function caml_wrap_thrown_exception(exn) {
-  exn.stack_trace = new joo_global_object.Error(
-    "Js exception containing backtrace"
-  );
-  return exn;
+function caml_subarray_to_string(a, i, len) {
+  var f = String.fromCharCode;
+  if (i == 0 && len <= 4096 && len == a.length) {
+    return f.apply(null, a);
+  }
+  var s = "";
+  for (; 0 < len; i += 1024, len -= 1024)
+    s += f.apply(null, raw_array_sub(a, i, Math.min(len, 1024)));
+  return s;
 }
 
-function caml_raise_with_arg(tag, arg) {
-  throw caml_wrap_thrown_exception([0, tag, arg]);
+function caml_convert_string_to_array(s) {
+  if (joo_global_object.Uint8Array) {
+    var a = new joo_global_object.Uint8Array(s.l);
+  } else {
+    var a = new Array(s.l);
+  }
+  var b = s.c,
+    l = b.length,
+    i = 0;
+  for (; i < l; i++) a[i] = b.charCodeAt(i);
+  for (l = s.l; i < l; i++) a[i] = 0;
+  s.c = a;
+  s.t = 4;
+  return a;
+}
+
+function caml_blit_bytes(s1, i1, s2, i2, len) {
+  if (len == 0) {
+    return 0;
+  }
+  if (i2 == 0 && (len >= s2.l || (s2.t == 2 && len >= s2.c.length))) {
+    s2.c =
+      s1.t == 4
+        ? caml_subarray_to_string(s1.c, i1, len)
+        : i1 == 0 && s1.c.length == len
+        ? s1.c
+        : s1.c.substr(i1, len);
+    s2.t = s2.c.length == s2.l ? 0 : 2;
+  } else if (s2.t == 2 && i2 == s2.c.length) {
+    s2.c +=
+      s1.t == 4
+        ? caml_subarray_to_string(s1.c, i1, len)
+        : i1 == 0 && s1.c.length == len
+        ? s1.c
+        : s1.c.substr(i1, len);
+    s2.t = s2.c.length == s2.l ? 0 : 2;
+  } else {
+    if (s2.t != 4) {
+      caml_convert_string_to_array(s2);
+    }
+    var c1 = s1.c,
+      c2 = s2.c;
+    if (s1.t == 4) {
+      if (i2 <= i1) {
+        for (var i = 0; i < len; i++) c2[i2 + i] = c1[i1 + i];
+      } else {
+        for (var i = len - 1; i >= 0; i--) c2[i2 + i] = c1[i1 + i];
+      }
+    } else {
+      var l = Math.min(len, c1.length - i1);
+      for (var i = 0; i < l; i++) c2[i2 + i] = c1.charCodeAt(i1 + i);
+      for (; i < len; i++) c2[i2 + i] = 0;
+    }
+  }
+  return 0;
+}
+
+function caml_blit_string(s1, i1, s2, i2, len) {
+  return caml_blit_bytes(s1, i1, s2, i2, len);
+}
+
+function raw_array_append_one(a, x) {
+  var l = a.length;
+  var b = new Array(l + 1);
+  var i = 0;
+  for (; i < l; i++) b[i] = a[i];
+  b[i] = x;
+  return b;
+}
+
+function caml_call_gen(f, args) {
+  if (f.fun) {
+    return caml_call_gen(f.fun, args);
+  }
+  var n = f.length;
+  var argsLen = args.length;
+  var d = n - argsLen;
+  if (d == 0) return f.apply(null, args);
+  else if (d < 0)
+    return caml_call_gen(
+      f.apply(null, raw_array_sub(args, 0, n)),
+      raw_array_sub(args, n, argsLen - n)
+    );
+  else
+    return function(x) {
+      return caml_call_gen(f, raw_array_append_one(args, x));
+    };
 }
 
 function caml_str_repeat(n, s) {
@@ -40,23 +127,6 @@ function caml_str_repeat(n, s) {
       s.slice(0, 1);
     }
   }
-}
-
-function raw_array_sub(a, i, l) {
-  var b = new Array(l);
-  for (var j = 0; j < l; j++) b[j] = a[i + j];
-  return b;
-}
-
-function caml_subarray_to_string(a, i, len) {
-  var f = String.fromCharCode;
-  if (i == 0 && len <= 4096 && len == a.length) {
-    return f.apply(null, a);
-  }
-  var s = "";
-  for (; 0 < len; i += 1024, len -= 1024)
-    s += f.apply(null, raw_array_sub(a, i, Math.min(len, 1024)));
-  return s;
 }
 
 function caml_convert_string_to_bytes(s) {
@@ -167,12 +237,42 @@ MlBytes.prototype.slice = function() {
   return new MlBytes(this.t, content, this.l);
 };
 
+var caml_global_data = [0];
+
+function caml_wrap_thrown_exception(exn) {
+  exn.stack_trace = new joo_global_object.Error(
+    "Js exception containing backtrace"
+  );
+  return exn;
+}
+
+function caml_raise_with_arg(tag, arg) {
+  throw caml_wrap_thrown_exception([0, tag, arg]);
+}
+
 function caml_new_string(s) {
   return new MlBytes(0, s, s.length);
 }
 
 function caml_raise_with_string(tag, msg) {
   caml_raise_with_arg(tag, caml_new_string(msg));
+}
+
+function caml_invalid_argument(msg) {
+  caml_raise_with_string(caml_global_data.Invalid_argument, msg);
+}
+
+function caml_create_bytes(len) {
+  if (len < 0) {
+    caml_invalid_argument("Bytes.create");
+  }
+  return new MlBytes(len ? 2 : 9, "", len);
+}
+
+var caml_oo_last_id = 0;
+
+function caml_fresh_oo_id() {
+  return caml_oo_last_id++;
 }
 
 function caml_raise_sys_error(msg) {
@@ -254,10 +354,6 @@ function caml_string_of_array(a) {
   return new MlBytes(4, a, a.length);
 }
 
-function caml_invalid_argument(msg) {
-  caml_raise_with_string(caml_global_data.Invalid_argument, msg);
-}
-
 function caml_string_bound_error() {
   caml_invalid_argument("index out of bounds");
 }
@@ -282,72 +378,8 @@ function caml_bytes_get(s, i) {
   return caml_bytes_unsafe_get(s, i);
 }
 
-function caml_create_bytes(len) {
-  if (len < 0) {
-    caml_invalid_argument("Bytes.create");
-  }
-  return new MlBytes(len ? 2 : 9, "", len);
-}
-
 function caml_ml_bytes_length(s) {
   return s.l;
-}
-
-function caml_convert_string_to_array(s) {
-  if (joo_global_object.Uint8Array) {
-    var a = new joo_global_object.Uint8Array(s.l);
-  } else {
-    var a = new Array(s.l);
-  }
-  var b = s.c,
-    l = b.length,
-    i = 0;
-  for (; i < l; i++) a[i] = b.charCodeAt(i);
-  for (l = s.l; i < l; i++) a[i] = 0;
-  s.c = a;
-  s.t = 4;
-  return a;
-}
-
-function caml_blit_bytes(s1, i1, s2, i2, len) {
-  if (len == 0) {
-    return 0;
-  }
-  if (i2 == 0 && (len >= s2.l || (s2.t == 2 && len >= s2.c.length))) {
-    s2.c =
-      s1.t == 4
-        ? caml_subarray_to_string(s1.c, i1, len)
-        : i1 == 0 && s1.c.length == len
-        ? s1.c
-        : s1.c.substr(i1, len);
-    s2.t = s2.c.length == s2.l ? 0 : 2;
-  } else if (s2.t == 2 && i2 == s2.c.length) {
-    s2.c +=
-      s1.t == 4
-        ? caml_subarray_to_string(s1.c, i1, len)
-        : i1 == 0 && s1.c.length == len
-        ? s1.c
-        : s1.c.substr(i1, len);
-    s2.t = s2.c.length == s2.l ? 0 : 2;
-  } else {
-    if (s2.t != 4) {
-      caml_convert_string_to_array(s2);
-    }
-    var c1 = s1.c,
-      c2 = s2.c;
-    if (s1.t == 4) {
-      if (i2 <= i1) {
-        for (var i = 0; i < len; i++) c2[i2 + i] = c1[i1 + i];
-      } else {
-        for (var i = len - 1; i >= 0; i--) c2[i2 + i] = c1[i1 + i];
-      }
-    } else {
-      var l = Math.min(len, c1.length - i1);
-      for (var i = 0; i < l; i++) c2[i2 + i] = c1.charCodeAt(i1 + i);
-      for (; i < len; i++) c2[i2 + i] = 0;
-    }
-  }
-  return 0;
 }
 
 function MlFile() {}
@@ -1042,6 +1074,10 @@ function caml_wrap_thrown_exception_reraise(exn) {
   return exn;
 }
 
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : caml_call_gen(f, [a0]);
+}
+
 var Out_of_memory = [248, caml_new_string("Out_of_memory"), -1];
 var Sys_error = [248, caml_new_string("Sys_error"), -2];
 var Failure = [248, caml_new_string("Failure"), -3];
@@ -1087,9 +1123,26 @@ caml_register_global(1, Sys_error, "Sys_error");
 
 caml_register_global(0, Out_of_memory, "Out_of_memory");
 
-var a = caml_new_string("hello world");
+var a = caml_new_string("prefix ");
+var b = caml_new_string("f1");
+var c = caml_new_string("f2");
+var d = caml_new_string("f3");
+var e = caml_new_string("f4");
 
 caml_fresh_oo_id(0);
+
+function symbol(s1, s2) {
+  var l1 = caml_ml_string_length(s1);
+  var l2 = caml_ml_string_length(s2);
+  var s = caml_create_bytes((l1 + l2) | 0);
+  caml_blit_string(s1, 0, s, 0, l1);
+  caml_blit_string(s2, 0, s, l1, l2);
+  return s;
+}
+
+function string_of_int(n) {
+  return caml_new_string("" + n);
+}
 
 caml_ml_open_descriptor_in(0);
 
@@ -1106,10 +1159,10 @@ function flush_all(param) {
         var a = param__0[1];
         try {
           caml_ml_flush(a);
-        } catch (b) {
-          b = caml_wrap_exception(b);
-          if (b[1] !== Sys_error) {
-            throw caml_wrap_thrown_exception_reraise(b);
+        } catch (C) {
+          C = caml_wrap_exception(C);
+          if (C[1] !== Sys_error) {
+            throw caml_wrap_thrown_exception_reraise(C);
           }
         }
         var param__0 = l;
@@ -1135,6 +1188,203 @@ function do_at_exit(param) {
   return flush_all(0);
 }
 
-print_endline(a);
+function f1(g) {
+  var i = 2;
+  for (;;) {
+    call1(g, i);
+    var B = (i + 1) | 0;
+    if (3 !== i) {
+      var i = B;
+      continue;
+    }
+    return 0;
+  }
+}
+
+function f2(g) {
+  var i = 2;
+  a: for (;;) {
+    var j = 4;
+    for (;;) {
+      call1(g, (i + j) | 0);
+      var A = (j + 1) | 0;
+      if (5 !== j) {
+        var j = A;
+        continue;
+      }
+      var z = (i + 1) | 0;
+      if (3 !== i) {
+        var i = z;
+        continue a;
+      }
+      return 0;
+    }
+  }
+}
+
+function f3(g) {
+  var i = 2;
+  a: for (;;) {
+    var j = 4;
+    b: for (;;) {
+      var k = 4;
+      for (;;) {
+        call1(g, (((i + j) | 0) + k) | 0);
+        var y = (k + 1) | 0;
+        if (5 !== k) {
+          var k = y;
+          continue;
+        }
+        var x = (j + 1) | 0;
+        if (5 !== j) {
+          var j = x;
+          continue b;
+        }
+        var l = 6;
+        for (;;) {
+          call1(g, (i + l) | 0);
+          var w = (l + 1) | 0;
+          if (7 !== l) {
+            var l = w;
+            continue;
+          }
+          var v = (i + 1) | 0;
+          if (3 !== i) {
+            var i = v;
+            continue a;
+          }
+          return 0;
+        }
+      }
+    }
+  }
+}
+
+function f4(g) {
+  var i = 2;
+  a: for (;;) {
+    var k__3 = 4;
+    for (;;) {
+      call1(g, (i + k__3) | 0);
+      var u = (k__3 + 1) | 0;
+      if (5 !== k__3) {
+        var k__3 = u;
+        continue;
+      }
+      var j__0 = 4;
+      c: for (;;) {
+        var k__2 = 4;
+        d: for (;;) {
+          var l__1 = 4;
+          for (;;) {
+            call1(g, (((((i + j__0) | 0) + k__2) | 0) + l__1) | 0);
+            var t = (l__1 + 1) | 0;
+            if (5 !== l__1) {
+              var l__1 = t;
+              continue;
+            }
+            var s = (k__2 + 1) | 0;
+            if (5 !== k__2) {
+              var k__2 = s;
+              continue d;
+            }
+            var k__1 = 4;
+            for (;;) {
+              call1(g, (((i + j__0) | 0) + k__1) | 0);
+              var r = (k__1 + 1) | 0;
+              if (5 !== k__1) {
+                var k__1 = r;
+                continue;
+              }
+              var q = (j__0 + 1) | 0;
+              if (5 !== j__0) {
+                var j__0 = q;
+                continue c;
+              }
+              var l__0 = 6;
+              e: for (;;) {
+                var n__1 = 4;
+                for (;;) {
+                  call1(g, (((i + l__0) | 0) + n__1) | 0);
+                  var p = (n__1 + 1) | 0;
+                  if (5 !== n__1) {
+                    var n__1 = p;
+                    continue;
+                  }
+                  var m__0 = 4;
+                  f: for (;;) {
+                    var n__0 = 4;
+                    for (;;) {
+                      call1(g, (((((i + l__0) | 0) + m__0) | 0) + n__0) | 0);
+                      var o = (n__0 + 1) | 0;
+                      if (5 !== n__0) {
+                        var n__0 = o;
+                        continue;
+                      }
+                      var n = (m__0 + 1) | 0;
+                      if (5 !== m__0) {
+                        var m__0 = n;
+                        continue f;
+                      }
+                      var m = (l__0 + 1) | 0;
+                      if (7 !== l__0) {
+                        var l__0 = m;
+                        continue e;
+                      }
+                      var k__0 = 4;
+                      for (;;) {
+                        call1(g, (i + k__0) | 0);
+                        var l = (k__0 + 1) | 0;
+                        if (5 !== k__0) {
+                          var k__0 = l;
+                          continue;
+                        }
+                        var k = (i + 1) | 0;
+                        if (3 !== i) {
+                          var i = k;
+                          continue a;
+                        }
+                        var k = 4;
+                        for (;;) {
+                          call1(g, k);
+                          var j = (k + 1) | 0;
+                          if (5 !== k) {
+                            var k = j;
+                            continue;
+                          }
+                          return 0;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+function fx(prefix, x) {
+  return print_endline(symbol(a, string_of_int(x)));
+}
+
+f1(function(i) {
+  return fx(b, i);
+});
+
+f2(function(h) {
+  return fx(c, h);
+});
+
+f3(function(g) {
+  return fx(d, g);
+});
+
+f4(function(f) {
+  return fx(e, f);
+});
 
 do_at_exit(0);

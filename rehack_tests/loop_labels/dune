@@ -1,0 +1,5 @@
+(executable
+  (name loop_labels)
+  (package js_of_ocaml)
+  (public_name loop_labels.exe)
+)
