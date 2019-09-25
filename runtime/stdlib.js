@@ -116,7 +116,7 @@ var caml_call_gen = raw_backend([
   "        return $caml_call_gen($f, $args);",
   "      };",
   "    }",
-  "  }"
+  "  };"
 ]);
 
 
@@ -128,7 +128,7 @@ var caml_call1 = raw_backend([
   "  $caml_call1=function((function(mixed...): mixed) $f, dynamic $a1): dynamic",
   "  use($caml_arity_test, $caml_call_gen) {",
   "    return $caml_arity_test($f) === 1 ? $f($a1) : $caml_call_gen($f, varray[$a1]);",
-  "  }"
+  "  };"
 ]);
 
 //Provides: caml_call2 (const, mutable, mutable)
@@ -145,7 +145,7 @@ var caml_call2 = raw_backend([
   "   return $caml_arity_test($f) === 2",
   "     ? $f($a1, $a2)",
   "     : $caml_call_gen($f, varray[$a1, $a2]);",
-  " }"
+  " };"
 ]);
 
 //Provides: caml_call3 (const, mutable, mutable, mutable)
@@ -164,7 +164,7 @@ var caml_call3 = raw_backend([
   "   return $caml_arity_test($f) === 3",
   "     ? $f($a1, $a2, $a3)",
   "     : $caml_call_gen($f, varray[$a1, $a2, $a3]);",
-  " }"
+  " };"
 ]);
 
 //Provides: caml_call4 (const, mutable, mutable, mutable, mutable)
@@ -203,7 +203,7 @@ var caml_call5 = raw_backend([
   "   return $caml_arity_test($f) === 5",
   "     ? $f($a1, $a2, $a3, $a4, $a5)",
   "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5]);",
-  " }"
+  " };"
 ]);
 
 //Provides: caml_call6 (const, mutable, mutable, mutable, mutable, mutable, mutable)
@@ -224,7 +224,7 @@ var caml_call6 = raw_backend([
   "   return $caml_arity_test($f) === 6",
   "     ? $f($a1, $a2, $a3, $a4, $a5, $a6)",
   "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6]);",
-  " }"
+  " };"
 ]);
 
 //Provides: caml_call7 (const, mutable, mutable, mutable, mutable, mutable, mutable, mutable)
@@ -246,7 +246,7 @@ var caml_call7 = raw_backend([
   "   return $caml_arity_test($f) === 7",
   "     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7)",
   "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7]);",
-  " }"
+  " };"
 ]);
 
 //Provides: caml_call8 (const, mutable, mutable, mutable, mutable, mutable, mutable, mutable, mutable)
@@ -269,7 +269,7 @@ var caml_call8 = raw_backend([
   "   return $caml_arity_test($f) === 8",
   "     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8)",
   "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8]);",
-  " }"
+  " };"
 ]);
 
 
