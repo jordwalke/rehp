@@ -1128,6 +1128,8 @@ var c = caml_new_string("f1");
 var d = caml_new_string("f2");
 var e = caml_new_string("f3");
 var f = caml_new_string("f4");
+var g = caml_new_string("f5");
+var h = caml_new_string("f6");
 
 caml_fresh_oo_id(0);
 
@@ -1159,10 +1161,10 @@ function flush_all(param) {
         var a = param__0[1];
         try {
           caml_ml_flush(a);
-        } catch (D) {
-          D = caml_wrap_exception(D);
-          if (D[1] !== Sys_error) {
-            throw caml_wrap_thrown_exception_reraise(D);
+        } catch (N) {
+          N = caml_wrap_exception(N);
+          if (N[1] !== Sys_error) {
+            throw caml_wrap_thrown_exception_reraise(N);
           }
         }
         var param__0 = l;
@@ -1192,9 +1194,9 @@ function f1(g) {
   var i = 2;
   for (;;) {
     call1(g, i);
-    var C = (i + 1) | 0;
+    var M = (i + 1) | 0;
     if (3 !== i) {
-      var i = C;
+      var i = M;
       continue;
     }
     return 0;
@@ -1207,14 +1209,14 @@ function f2(g) {
     var j = 4;
     for (;;) {
       call1(g, (i + j) | 0);
-      var B = (j + 1) | 0;
+      var L = (j + 1) | 0;
       if (5 !== j) {
-        var j = B;
+        var j = L;
         continue;
       }
-      var A = (i + 1) | 0;
+      var K = (i + 1) | 0;
       if (3 !== i) {
-        var i = A;
+        var i = K;
         continue a;
       }
       return 0;
@@ -1230,27 +1232,27 @@ function f3(g) {
       var k = 4;
       for (;;) {
         call1(g, (((i + j) | 0) + k) | 0);
-        var z = (k + 1) | 0;
+        var J = (k + 1) | 0;
         if (5 !== k) {
-          var k = z;
+          var k = J;
           continue;
         }
-        var y = (j + 1) | 0;
+        var I = (j + 1) | 0;
         if (5 !== j) {
-          var j = y;
+          var j = I;
           continue b;
         }
         var l = 6;
         for (;;) {
           call1(g, (i + l) | 0);
-          var x = (l + 1) | 0;
+          var H = (l + 1) | 0;
           if (7 !== l) {
-            var l = x;
+            var l = H;
             continue;
           }
-          var w = (i + 1) | 0;
+          var G = (i + 1) | 0;
           if (3 !== i) {
-            var i = w;
+            var i = G;
             continue a;
           }
           return 0;
@@ -1266,90 +1268,90 @@ function f4(g) {
     var k__3 = 4;
     for (;;) {
       call1(g, (i + k__3) | 0);
-      var v = (k__3 + 1) | 0;
+      var F = (k__3 + 1) | 0;
       if (5 !== k__3) {
-        var k__3 = v;
+        var k__3 = F;
         continue;
       }
       var j = 4;
       c: for (;;) {
         var k__2 = 4;
         d: for (;;) {
-          var l__1 = 4;
+          var l__0 = 4;
           for (;;) {
-            call1(g, (((((i + j) | 0) + k__2) | 0) + l__1) | 0);
-            var u = (l__1 + 1) | 0;
-            if (5 !== l__1) {
-              var l__1 = u;
+            call1(g, (((((i + j) | 0) + k__2) | 0) + l__0) | 0);
+            var E = (l__0 + 1) | 0;
+            if (5 !== l__0) {
+              var l__0 = E;
               continue;
             }
-            var t = (k__2 + 1) | 0;
+            var D = (k__2 + 1) | 0;
             if (5 !== k__2) {
-              var k__2 = t;
+              var k__2 = D;
               continue d;
             }
             var k__1 = 4;
             for (;;) {
               call1(g, (((i + j) | 0) + k__1) | 0);
-              var s = (k__1 + 1) | 0;
+              var C = (k__1 + 1) | 0;
               if (5 !== k__1) {
-                var k__1 = s;
+                var k__1 = C;
                 continue;
               }
-              var r = (j + 1) | 0;
+              var B = (j + 1) | 0;
               if (5 !== j) {
-                var j = r;
+                var j = B;
                 continue c;
               }
-              var l__0 = 6;
+              var l = 6;
               e: for (;;) {
-                var n__1 = 4;
+                var n__0 = 4;
                 for (;;) {
-                  call1(g, (((i + l__0) | 0) + n__1) | 0);
-                  var q = (n__1 + 1) | 0;
-                  if (5 !== n__1) {
-                    var n__1 = q;
+                  call1(g, (((i + l) | 0) + n__0) | 0);
+                  var A = (n__0 + 1) | 0;
+                  if (5 !== n__0) {
+                    var n__0 = A;
                     continue;
                   }
-                  var m__0 = 4;
+                  var m = 4;
                   f: for (;;) {
-                    var n__0 = 4;
+                    var n = 4;
                     for (;;) {
-                      call1(g, (((((i + l__0) | 0) + m__0) | 0) + n__0) | 0);
-                      var p = (n__0 + 1) | 0;
-                      if (5 !== n__0) {
-                        var n__0 = p;
+                      call1(g, (((((i + l) | 0) + m) | 0) + n) | 0);
+                      var z = (n + 1) | 0;
+                      if (5 !== n) {
+                        var n = z;
                         continue;
                       }
-                      var o = (m__0 + 1) | 0;
-                      if (5 !== m__0) {
-                        var m__0 = o;
+                      var y = (m + 1) | 0;
+                      if (5 !== m) {
+                        var m = y;
                         continue f;
                       }
-                      var n = (l__0 + 1) | 0;
-                      if (7 !== l__0) {
-                        var l__0 = n;
+                      var x = (l + 1) | 0;
+                      if (7 !== l) {
+                        var l = x;
                         continue e;
                       }
                       var k__0 = 4;
                       for (;;) {
                         call1(g, (i + k__0) | 0);
-                        var m = (k__0 + 1) | 0;
+                        var w = (k__0 + 1) | 0;
                         if (5 !== k__0) {
-                          var k__0 = m;
+                          var k__0 = w;
                           continue;
                         }
-                        var l = (i + 1) | 0;
+                        var v = (i + 1) | 0;
                         if (3 !== i) {
-                          var i = l;
+                          var i = v;
                           continue a;
                         }
                         var k = 4;
                         for (;;) {
                           call1(g, k);
-                          var k = (k + 1) | 0;
+                          var u = (k + 1) | 0;
                           if (5 !== k) {
-                            var k = k;
+                            var k = u;
                             continue;
                           }
                           return 0;
@@ -1367,24 +1369,94 @@ function f4(g) {
   }
 }
 
+function f5(g) {
+  var i__0 = 2;
+  for (;;) {
+    call1(g, i__0);
+    var t = (i__0 + 1) | 0;
+    if (3 !== i__0) {
+      var i__0 = t;
+      continue;
+    }
+    var i = 2;
+    for (;;) {
+      call1(g, i);
+      var s = (i + 1) | 0;
+      if (3 !== i) {
+        var i = s;
+        continue;
+      }
+      return 0;
+    }
+  }
+}
+
+function f6(g) {
+  var i__2 = 2;
+  for (;;) {
+    call1(g, i__2);
+    var r = (i__2 + 1) | 0;
+    if (3 !== i__2) {
+      var i__2 = r;
+      continue;
+    }
+    var i__1 = 2;
+    for (;;) {
+      call1(g, i__1);
+      var q = (i__1 + 1) | 0;
+      if (3 !== i__1) {
+        var i__1 = q;
+        continue;
+      }
+      var i__0 = 2;
+      for (;;) {
+        call1(g, i__0);
+        var p = (i__0 + 1) | 0;
+        if (3 !== i__0) {
+          var i__0 = p;
+          continue;
+        }
+        var i = 2;
+        for (;;) {
+          call1(g, i);
+          var o = (i + 1) | 0;
+          if (3 !== i) {
+            var i = o;
+            continue;
+          }
+          return 0;
+        }
+      }
+    }
+  }
+}
+
 function fx(prefix, x) {
   return print_endline(a(b, string_of_int(x)));
 }
 
-f1(function(j) {
-  return fx(c, j);
+f1(function(n) {
+  return fx(c, n);
 });
 
-f2(function(i) {
-  return fx(d, i);
+f2(function(m) {
+  return fx(d, m);
 });
 
-f3(function(h) {
-  return fx(e, h);
+f3(function(l) {
+  return fx(e, l);
 });
 
-f4(function(g) {
-  return fx(f, g);
+f4(function(k) {
+  return fx(f, k);
+});
+
+f5(function(j) {
+  return fx(g, j);
+});
+
+f6(function(i) {
+  return fx(h, i);
 });
 
 do_at_exit(0);

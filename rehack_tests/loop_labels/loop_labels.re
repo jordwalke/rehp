@@ -55,8 +55,32 @@ let f4 = g => {
     g(k);
   };
 };
+let f5 = g => {
+  for (i in 2 to 3) {
+    g(i);
+  };
+  for (i in 2 to 3) {
+    g(i);
+  };
+};
+let f6 = g => {
+  for (i in 2 to 3) {
+    g(i);
+  };
+  for (i in 2 to 3) {
+    g(i);
+  };
+  for (i in 2 to 3) {
+    g(i);
+  };
+  for (i in 2 to 3) {
+    g(i);
+  };
+};
 let fx = (prefix, x) => print_endline("prefix " ++ string_of_int(x));
 f1(fx("f1"));
 f2(fx("f2"));
 f3(fx("f3"));
 f4(fx("f4"));
+f5(fx("f5"));
+f6(fx("f6"));
