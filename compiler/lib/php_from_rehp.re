@@ -239,11 +239,11 @@ let rec foldSources = (sourceFolder, curOut, curIn, curRevMappeds, remain) =>
   };
 
 let rec foldStatements =
-        (statementFolder, curOut, curIn, curRevMappeds, remain) =>
+        (statementFolder, curOut, curIn, ancestor_has_label, curRevMappeds, remain) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(s, loc), ...tl] =>
-    let (thisOut, thisMapped) = statementFolder(curOut, curIn, s);
+    let (thisOut, thisMapped) = statementFolder(curOut, ancestor_has_label, curIn, s);
     let nextOut = outAppend(curOut, thisOut);
     let nextIn = append(curIn, nextOut.dec);
 
@@ -251,6 +251,7 @@ let rec foldStatements =
       statementFolder,
       nextOut,
       nextIn,
+      ancestor_has_label,
       [(thisMapped, loc), ...curRevMappeds],
       tl,
     );
@@ -273,14 +274,15 @@ let optAppendOutput = (appendTo, f, x) =>
     (outAppend(appendTo, out), Some(mapped));
   };
 
-let rec foldExprs = (curMappedRev, mapper, input, curOut, wrapper, remain) =>
+let rec foldExprs = (curMappedRev, mapper, ancestor_has_label: bool, input, curOut, wrapper, remain) =>
   switch (remain) {
   | [] => (curOut, wrapper(List.rev(curMappedRev)))
   | [hd, ...tl] =>
-    let (out, mapped) = mapper(input, hd);
+    let (out, mapped) = mapper(input, ancestor_has_label, hd);
     foldExprs(
       [mapped, ...curMappedRev],
       mapper,
+      ancestor_has_label,
       input,
       outAppend(curOut, out),
       wrapper,
@@ -292,6 +294,7 @@ let rec foldVars =
           mapper,
           curOut: 'a,
           curInput,
+          ancestor_has_label: bool,
           curRevMappeds:
             list((Php.expression, option((Php.expression, Loc.t)))),
           remain,
@@ -312,17 +315,17 @@ let rec foldVars =
           curOut,
           (Php.EVar(identMapped), Some((Php.EVar(identMapped), Loc.N))),
         );
-        foldVars(mapper, out, curInput, [next, ...curRevMappeds], tl);
+        foldVars(mapper, out, curInput, ancestor_has_label, [next, ...curRevMappeds], tl);
       } else {
         let (out, initMapped) =
-          optAppendOutput(curOut, mapper(curInput), eo);
+          optAppendOutput(curOut, mapper(curInput, ancestor_has_label), eo);
         let out = {...out, dec: addOne(out.dec, id)};
         let input = addOne(curInput, id);
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
-        foldVars(mapper, out, input, next, tl);
+        foldVars(mapper, out, input, ancestor_has_label, next, tl);
       }
     | Some(e) =>
-      let (rhsOut, (mapped, loc)) = mapper(curInput, e);
+      let (rhsOut, (mapped, loc)) = mapper(curInput, ancestor_has_label, e);
       /* TODO: Add a !exists(curOut.dec) to fix the valid_float_lexem case */
       if (!exists(curOut.dec, id)
           && (exists(curOut.use, id) || exists(rhsOut.use, id))) {
@@ -331,71 +334,71 @@ let rec foldVars =
           (Php.EDot(EVar(identMapped), "contents"), Some((mapped, loc))),
         );
         let next = [dummy, ...curRevMappeds];
-        foldVars(mapper, out, curInput, next, tl);
+        foldVars(mapper, out, curInput, ancestor_has_label, next, tl);
       } else {
         let (out, initMapped) =
-          optAppendOutput(curOut, mapper(curInput), eo);
+          optAppendOutput(curOut, mapper(curInput, ancestor_has_label), eo);
         let out = {...out, dec: addOne(out.dec, id)};
         let input = addOne(curInput, id);
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
-        foldVars(mapper, out, input, next, tl);
+        foldVars(mapper, out, input, ancestor_has_label, next, tl);
       };
     };
   };
 let wrapInStruct = lst => Php.EStruct(lst);
 let joinAll = lst => List.fold_left(~f=outAppend, ~init=emptyOutput, lst);
-let rec expression = (input, x) =>
+let rec expression = (input, ancestor_has_label: bool, x) =>
   switch (x) {
   | Rehp.ESeq(e1, e2) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Out, e2Mapped) = expression(input, e2);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
+    let (e2Out, e2Mapped) = expression(input, ancestor_has_label, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Expand.seq(e1Mapped, e2Mapped));
   | Rehp.ERaw(s) => (emptyOutput, Expand.raw(s))
   | Rehp.ECond(e1, e2, e3) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Out, e2Mapped) = expression(input, e2);
-    let (e3Out, e3Mapped) = expression(input, e3);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
+    let (e2Out, e2Mapped) = expression(input, ancestor_has_label, e2);
+    let (e3Out, e3Mapped) = expression(input, ancestor_has_label, e3);
     let joined = outAppend(outAppend(e1Out, e2Out), e3Out);
     (joined, Php.ECond(e1Mapped, e2Mapped, e3Mapped));
   | Rehp.EBin(b, e1, e2) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Out, e2Mapped) = expression(input, e2);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
+    let (e2Out, e2Mapped) = expression(input, ancestor_has_label, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Php.EBin(binop_from_rehp(b), e1Mapped, e2Mapped));
-  | Rehp.EUn(b, e1) => unop_from_rehp(input, b, e1)
+  | Rehp.EUn(b, e1) => unop_from_rehp(input, ancestor_has_label, b, e1)
   | Rehp.ECall(e1, e2, loc) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
     let (e2Outs, e2_mappeds) =
-      List.split(List.map(~f=expression(input), e2));
+      List.split(List.map(~f=expression(input, ancestor_has_label), e2));
     (joinAll([e1Out, ...e2Outs]), Php.ECall(e1Mapped, e2_mappeds, loc));
   | Rehp.ECopy(e1, loc) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
     (e1Out, Php.ECall(Php.EDot(e1Mapped, "toVector"), [], loc));
   | Rehp.EAccess(e1, e2) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Out, e2Mapped) = expression(input, e2);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
+    let (e2Out, e2Mapped) = expression(input, ancestor_has_label, e2);
     (outAppend(e1Out, e2Out), Php.EAccess(e1Mapped, e2Mapped));
   | Rehp.EStructAccess(e1, e2) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Out, e2Mapped) = expression(input, e2);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
+    let (e2Out, e2Mapped) = expression(input, ancestor_has_label, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Php.EStructAccess(e1Mapped, e2Mapped));
   | Rehp.EArrAccess(e1, e2) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Out, e2Mapped) = expression(input, e2);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
+    let (e2Out, e2Mapped) = expression(input, ancestor_has_label, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Php.EArrAccess(e1Mapped, e2Mapped));
   | Rehp.EDot(e1, id) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
     (e1Out, EDot(e1Mapped, id));
   | Rehp.ENew(e1, Some(args)) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
     let (argsOuts, args_mappeds) =
-      List.split(List.map(~f=expression(input), args));
+      List.split(List.map(~f=expression(input, ancestor_has_label), args));
     (joinAll([e1Out, ...argsOuts]), ENew(e1Mapped, Some(args_mappeds)));
   | Rehp.ENew(e1, None) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
+    let (e1Out, e1Mapped) = expression(input, ancestor_has_label, e1);
     (e1Out, Php.ENew(e1Mapped, None));
   | Rehp.EVar(Id.S({name: "null", _})) => (emptyOutput, Php.EArr([]))
   /* Undefined is NULL */
@@ -464,17 +467,17 @@ let rec expression = (input, x) =>
     );
 
   | Rehp.EVectlength(e) =>
-    let (eOut, eMapped) = expression(input, e);
+    let (eOut, eMapped) = expression(input, ancestor_has_label, e);
     let eMapped = Php.(EBin(Minus, EDot(eMapped, "count()"), EInt(1)));
     (eOut, eMapped);
   | Rehp.EArrLen(e) =>
-    let (eOut, eMapped) = expression(input, e);
+    let (eOut, eMapped) = expression(input, ancestor_has_label, e);
     (eOut, EArrLen(eMapped));
   | Rehp.EStruct(l) =>
-    foldExprs([], expression, input, emptyOutput, wrapInStruct, l)
+    foldExprs([], expression, ancestor_has_label, input, emptyOutput, wrapInStruct, l)
   | Rehp.ETag(i, l) =>
-    let (iOut, iMapped) = expression(input, i);
-    let (outs, mappeds) = List.split(List.map(~f=expression(input), l));
+    let (iOut, iMapped) = expression(input, ancestor_has_label, i);
+    let (outs, mappeds) = List.split(List.map(~f=expression(input, ancestor_has_label), l));
     (joinAll([iOut, ...outs]), Php.ETag(iMapped, mappeds));
   /* Should have already converted EArr to functions. */
   | Rehp.EArr(l) => (
@@ -484,7 +487,7 @@ let rec expression = (input, x) =>
           ~f=
             elem =>
               switch (elem) {
-              | Some(elem) => Some(snd(expression(input, elem)))
+              | Some(elem) => Some(snd(expression(input, ancestor_has_label, elem)))
               | None => None
               },
           l,
@@ -498,7 +501,7 @@ let rec expression = (input, x) =>
         List.map(
           ~f=
             ((i, e)) => {
-              let (out, mapped) = expression(input, e);
+              let (out, mapped) = expression(input, ancestor_has_label, e);
               (out, (i, mapped));
             },
           l,
@@ -516,22 +519,22 @@ let rec expression = (input, x) =>
  * For a given Rehp unary operator, and an expression that has already been
  * converted into Php, turn the unary Rehp operation into Php.
  */
-and unop_from_rehp = (input, unop, rehpExpr) =>
+and unop_from_rehp = (input, ancestor_has_label, unop, rehpExpr) =>
   switch (unop) {
   | Rehp.Not =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, Php.EUn(Php.Not, exprMapped));
   | ToInt =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(ToInt, exprMapped));
   | Neg =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(Neg, exprMapped));
   | Pl =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(Pl, exprMapped));
   | Typeof =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(Typeof, exprMapped));
   /* Should have already been converted in Identifier_renaming_php. */
   | IsInt =>
@@ -543,30 +546,30 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
     )
   /* Only for stubs */
   | Void =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(Void, exprMapped));
   | Delete =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(Delete, exprMapped));
   | Bnot =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(Bnot, exprMapped));
   | IncrA =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(IncrA, exprMapped));
   | DecrA =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(DecrA, exprMapped));
   | IncrB =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(IncrB, exprMapped));
   | DecrB =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    let (outMapped, exprMapped) = expression(input, ancestor_has_label, rehpExpr);
     (outMapped, EUn(DecrB, exprMapped));
   }
-and switchCase = (input, e) => expression(input, e)
-and initialiser = (input, (e, pc)) => {
-  let (o, m) = expression(input, e);
+and switchCase = (input, ancestor_has_label, e) => expression(input, ancestor_has_label, e)
+and initialiser = (input, ancestor_has_label, (e, pc)) => {
+  let (o, m) = expression(input, ancestor_has_label, e);
   (o, (m, pc));
 }
 /* TODO: The free vars should also be mapped over. But if you wait to add
@@ -633,7 +636,7 @@ and source = (curOutput, input, x) =>
        );
    */
   | Statement(s) =>
-    let (out, mapped) = statement(curOutput, input, s);
+    let (out, mapped) = statement(curOutput, false, input, s);
     (out, Php.Statement(mapped));
   }
 /*
@@ -674,30 +677,30 @@ and sources = (curOut, input, x) => {
     (out, [(refDecls, Loc.N), ...mappeds]);
   };
 }
-and statements = (curOut, input, l) => {
+and statements = (curOut, input, ancestor_has_label: bool, l) => {
   /* print_string(String.make(indent.contents, ' ') ++ "<statements>"); */
   /* print_newline(); */
   indent.contents = indent.contents + 2;
-  let ret = foldStatements(statement, curOut, input, [], l);
+  let ret = foldStatements(statement, curOut, input, ancestor_has_label, [], l);
   indent.contents = indent.contents - 2;
   /* print_string(String.make(indent.contents, ' ') ++ "</statements>"); */
   /* print_newline(); */
   ret;
 }
-and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
+and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label, ancestor_has_label) => {
   let (e1Out, e1Mapped) =
     switch (e1) {
     | Left(x) =>
-      let (xOut, x_mapped) = optOutput(expression(input), x);
+      let (xOut, x_mapped) = optOutput(expression(input, has_label || ancestor_has_label), x);
       (xOut, Left(x_mapped));
     | Right(l) =>
-      let (output, res) = foldVars(initialiser, curOut, input, [], l);
+      let (output, res) = foldVars(initialiser, curOut, input, has_label || ancestor_has_label, [], l);
       (output, Right(res));
     };
   let nextInput = append(input, e1Out.dec);
-  let (e2Out, e2Mapped) = optOutput(expression(nextInput), e2);
-  let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
-  let (sOut, sMapped) = statement(curOut, nextInput, s);
+  let (e2Out, e2Mapped) = optOutput(expression(nextInput, has_label || ancestor_has_label), e2);
+  let (e3Out, e3Mapped) = optOutput(expression(nextInput, has_label || ancestor_has_label), e3);
+  let (sOut, sMapped) = statement(curOut, has_label || ancestor_has_label, nextInput, s);
   let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
   let for_statement_node =
     Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
@@ -710,10 +713,12 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
     | None => 0
     };
   let li =
-    switch (depth, has_label) {
-    | (0, false) => [(for_statement_node, loc)]
-    | (0, true) => [(set_counter_to_null, loc), (for_statement_node, loc)]
-    | _ =>
+    switch (depth, has_label, ancestor_has_label) {
+    | (0, true, false) => [(set_counter_to_null, loc), (for_statement_node, loc)]
+    | (0, false, false)
+    | (_, _, false) =>
+      [(for_statement_node, loc)]
+    | (_, _, true) =>
       let decrement_counter =
         Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
       let compare_counter_gt_zero = Php.EBin(Gt, counter, EInt(0));
@@ -748,11 +753,11 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
 }
 
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
-and statement = (curOut, input, x) => {
+and statement = (curOut, ancestor_has_label: bool, input, x) => {
   let (out, mapped) =
     switch (x) {
     | Rehp.Block(b) =>
-      let (out, mappedStatements) = statements(curOut, input, b);
+      let (out, mappedStatements) = statements(curOut, input, ancestor_has_label, b);
       (out, Php.Block(mappedStatements));
     | Rehp.Raw_statement(provides, requires, s) =>
       let out = {
@@ -764,7 +769,7 @@ and statement = (curOut, input, x) => {
       /* print_string(String.make(indent.contents, ' ') ++ "<vars>"); */
       indent.contents = indent.contents + 2;
       /* print_newline(); */
-      let (out, mappedResults) = foldVars(initialiser, curOut, input, [], l);
+      let (out, mappedResults) = foldVars(initialiser, curOut, input, ancestor_has_label, [], l);
       let ret = (out, Php.Variable_statement(mappedResults));
       indent.contents = indent.contents - 2;
       /* print_string(String.make(indent.contents, ' ') ++ "</vars>"); */
@@ -782,42 +787,42 @@ and statement = (curOut, input, x) => {
     | Rehp.Empty_statement => (curOut, Php.Empty_statement)
     | Rehp.Debugger_statement => (curOut, Php.Debugger_statement)
     | Rehp.Expression_statement(e) =>
-      let (output, mapped) = expression(input, e);
+      let (output, mapped) = expression(input, ancestor_has_label, e);
       (outAppend(curOut, output), Php.Expression_statement(mapped));
     | Rehp.If_statement(e, s, sopt) =>
       let statementLocation = ((stmt: Rehp.statement, loc: Loc.t)) => {
-        let (out, mapped) = statement(curOut, input, stmt);
+        let (out, mapped) = statement(curOut, ancestor_has_label, input, stmt);
         (out, (mapped, loc));
       };
-      let (exprOutput, exprMapped) = expression(input, e);
+      let (exprOutput, exprMapped) = expression(input, ancestor_has_label, e);
       let (ifOutput, ifMapped) = statementLocation(s);
       let (soptOut, soptMapped) = optOutput(statementLocation, sopt);
       let output = outAppend(outAppend(exprOutput, ifOutput), soptOut);
       (output, If_statement(exprMapped, ifMapped, soptMapped, false));
     | Rehp.Do_while_statement((s, loc), e) =>
-      let (sOut, sMapped) = statement(curOut, input, s);
-      let (eOut, eMapped) = expression(input, e);
+      let (sOut, sMapped) = statement(curOut, ancestor_has_label, input, s);
+      let (eOut, eMapped) = expression(input, ancestor_has_label, e);
       (outAppend(sOut, eOut), Do_while_statement((sMapped, loc), eMapped));
     | Rehp.While_statement(e, (s, loc)) =>
-      let (sOut, sMapped) = statement(curOut, input, s);
-      let (eOut, eMapped) = expression(input, e);
+      let (sOut, sMapped) = statement(curOut, ancestor_has_label, input, s);
+      let (eOut, eMapped) = expression(input, ancestor_has_label, e);
       (outAppend(sOut, eOut), While_statement(eMapped, (sMapped, loc)));
     | Rehp.For_statement(e1, e2, e3, (s, loc), depth) =>
-      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false)
+      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false, ancestor_has_label)
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
       let continueWithAugmentedScope = (input, _) => {
         let (e1Out, e1Mapped) =
           switch (e1) {
           | Left(e) =>
-            let (eOut, eMapped) = expression(input, e);
+            let (eOut, eMapped) = expression(input, ancestor_has_label, e);
             (eOut, Left(eMapped));
           | Right((id, e)) =>
             let identMapped = ident(input, id);
-            let (initOut, initMapped) = optOutput(initialiser(input), e);
+            let (initOut, initMapped) = optOutput(initialiser(input, ancestor_has_label), e);
             (initOut, Right((Php.EVar(identMapped), initMapped)));
           };
-        let (e2Out, e2Mapped) = expression(input, e2);
-        let (sOut, sMapped) = statement(curOut, input, s);
+        let (e2Out, e2Mapped) = expression(input, ancestor_has_label, e2);
+        let (sOut, sMapped) = statement(curOut, ancestor_has_label, input, s);
         let outs = outAppend(outAppend(e1Out, e2Out), sOut);
         (outs, Php.ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc)));
       };
@@ -856,33 +861,33 @@ and statement = (curOut, input, x) => {
     /* TODO: remove labels from Rehp break statements */
     | Rehp.Break_statement(_s) => (curOut, Break_statement)
     | Rehp.Return_statement(e) =>
-      let (eOut, eMapped) = optOutput(expression(input), e);
+      let (eOut, eMapped) = optOutput(expression(input, ancestor_has_label), e);
       (outAppend(curOut, eOut), Return_statement(eMapped));
     | Rehp.Labelled_statement(
         _l,
         (Rehp.For_statement(e1, e2, e3, (s, loc), depth), _loc2),
       ) =>
-      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, true)
+      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, true, ancestor_has_label)
     | Rehp.Labelled_statement(_) =>
       /* Only For_statements can be labelled */
       /* TODO: remove labelled statements from Rehp, replace with a flag in For_statements */
       raise(Unsupported_statement)
     | Rehp.Throw_statement(e) =>
-      let (eOut, eMapped) = expression(input, e);
+      let (eOut, eMapped) = expression(input, ancestor_has_label, e);
       (outAppend(curOut, eOut), Throw_statement(eMapped));
     | Rehp.Switch_statement(e, l, def, l') =>
-      let (eOut, eMapped) = expression(input, e);
-      let (dOut, dMapped) = optOutput(statements(curOut, input), def);
+      let (eOut, eMapped) = expression(input, ancestor_has_label, e);
+      let (dOut, dMapped) = optOutput(statements(curOut, input, ancestor_has_label), def);
       let forEach = ((e, s)) => {
-        let (eOut, eMapped) = switchCase(input, e);
-        let (stmOut, stmMapped) = statements(curOut, input, s);
+        let (eOut, eMapped) = switchCase(input, ancestor_has_label, e);
+        let (stmOut, stmMapped) = statements(curOut, input, ancestor_has_label, s);
         let outs = outAppend(eOut, stmOut);
         (outs, (eMapped, stmMapped));
       };
       let (lOut, lMapped) = List.split(List.map(~f=forEach, l));
       let forEach = ((e, s)) => {
-        let (eOut, eMapped) = switchCase(input, e);
-        let (stmOut, stmMapped) = statements(curOut, input, s);
+        let (eOut, eMapped) = switchCase(input, ancestor_has_label, e);
+        let (stmOut, stmMapped) = statements(curOut, input, ancestor_has_label, s);
         let outs = outAppend(eOut, stmOut);
         (outs, (eMapped, stmMapped));
       };
@@ -897,15 +902,15 @@ and statement = (curOut, input, x) => {
         let identMapped = ident(input, idnt);
         let addedVars = useOneVar(idnt);
         let augmentedInput = append(input, addedVars);
-        let (stOut, stMapped) = statements(curOut, augmentedInput, st);
+        let (stOut, stMapped) = statements(curOut, augmentedInput, ancestor_has_label, st);
         let stUses = remove(stOut.use, addedVars);
         let out = {use: stUses, dec: stOut.dec};
         (out, (identMapped, stMapped));
       };
-      let (bOut, bMapped) = statements(curOut, input, b);
+      let (bOut, bMapped) = statements(curOut, input, ancestor_has_label, b);
       let (catchOut, catchMapped) = optOutput(identAndStatements, catch);
       let (finalOut, finalMapped) =
-        optOutput(statements(curOut, input), final);
+        optOutput(statements(curOut, input, ancestor_has_label), final);
       let out = {
         use: append(bOut.use, append(catchOut.use, finalOut.use)),
         dec: append(bOut.dec, append(catchOut.dec, finalOut.dec)),

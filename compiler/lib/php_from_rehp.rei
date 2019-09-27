@@ -21,12 +21,12 @@ type output = {
 type input = vars;
 let addOne: (vars, Id.t) => vars;
 let empty: vars;
-let expression: (input, Rehp.expression) => (output, Php.expression);
-let switchCase: (input, Rehp.expression) => (output, Php.expression);
+let expression: (input, bool, Rehp.expression) => (output, Php.expression);
+let switchCase: (input, bool, Rehp.expression) => (output, Php.expression);
 let initialiser:
-  (input, (Rehp.expression, Loc.t)) => (output, (Php.expression, Loc.t));
-let statement: (output, input, Rehp.statement) => (output, Php.statement);
-let statements: (output, input, Rehp.statement_list) => (output, Php.statement_list);
+  (input, bool, (Rehp.expression, Loc.t)) => (output, (Php.expression, Loc.t));
+let statement: (output, bool, input, Rehp.statement) => (output, Php.statement);
+let statements: (output, input, bool, Rehp.statement_list) => (output, Php.statement_list);
 let source: (output, input, Rehp.source_element) => (output, Php.source_element);
 let sources: (output, input, Rehp.source_elements) => (output, Php.source_elements);
 let ident: (~ref: bool=?, input, Id.t) => Id.t;

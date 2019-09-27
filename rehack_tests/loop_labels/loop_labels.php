@@ -540,13 +540,6 @@ $f5 = function(dynamic $g) use ($caml_call1) {
       }
       return 0;
     }
-    if ($continue_counter > 0) {
-      $continue_counter -= 1;
-      break;
-    } else if ($continue_counter === 0) {
-      $continue_counter = null;
-      continue;
-    }
   }
 };
 $f6 = function(dynamic $g) use ($caml_call1) {
@@ -584,28 +577,7 @@ $f6 = function(dynamic $g) use ($caml_call1) {
           }
           return 0;
         }
-        if ($continue_counter > 0) {
-          $continue_counter -= 1;
-          break;
-        } else if ($continue_counter === 0) {
-          $continue_counter = null;
-          continue;
-        }
       }
-      if ($continue_counter > 0) {
-        $continue_counter -= 1;
-        break;
-      } else if ($continue_counter === 0) {
-        $continue_counter = null;
-        continue;
-      }
-    }
-    if ($continue_counter > 0) {
-      $continue_counter -= 1;
-      break;
-    } else if ($continue_counter === 0) {
-      $continue_counter = null;
-      continue;
     }
   }
 };
