@@ -265,10 +265,6 @@ let f
             | None -> pseudo_fs_instr `caml_create_file one.debug one.cmis, []
             | Some _ -> [], pseudo_fs_instr `caml_create_file_extern one.debug one.cmis
           in
-          Format.eprintf
-            "need to update file: %s because file not have %s@."
-            file
-            hashes_comment;
           gen_file file (fun chan ->
               let instr =
                 List.concat [fs_instr1; pseudo_fs_init_instr (); env_instr ()]
@@ -298,13 +294,7 @@ let f
                     ~custom_header
                     pfs_fmt
                     one.debug
-                    code)))
-        else
-          Format.eprintf
-            "no need to update file: %s because file already has %s or use_hashing %b@."
-            file
-            hashes_comment
-            use_hashing);
+                    code))));
     if times () then Format.eprintf "compilation: %a@." Timer.print t
   in
   (if runtime_only
