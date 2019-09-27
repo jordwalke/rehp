@@ -607,7 +607,7 @@ let output_js =
 
 let output_pp_rehp =
     (formatter, ~custom_header, ~source_map=?, (), (rehp, linkinfos)) => {
-  let ppRehp = Pp_rehp_from_rehp.from_rehp(rehp);
+  let ppRehp = rehp; /* Pp_rehp_from_rehp.from_rehp(rehp); */
   let ppRehpWithRuntime = ppRehp;
   /* switch (linkinfos) { */
   /* | None => ppRehp */
@@ -889,4 +889,9 @@ let profile = i =>
   | Not_found => None
   };
 
-let backends = Backend.[(to_string(Js), Js), (to_string(Php), Php)];
+let backends =
+  Backend.[
+    (to_string(Pp_rehp), Pp_rehp),
+    (to_string(Js), Js),
+    (to_string(Php), Php),
+  ];
