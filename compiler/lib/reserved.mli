@@ -17,6 +17,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 open Stdlib
+
 val keyword : StringSet.t
+
 val provided_js : StringSet.t
+
 val provided_php : StringSet.t
+
+val provided_pp_rehp : StringSet.t

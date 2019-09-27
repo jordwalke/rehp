@@ -19,139 +19,163 @@
 
 open Stdlib
 
-let keyword = List.fold_left
+let keyword =
+  List.fold_left
     ~f:(fun acc x -> StringSet.add x acc)
     ~init:StringSet.empty
-  [
-    (* keywork *)
-    "break";
-    "case"; "catch"; "continue";
-    "debugger";"default";"delete";"do";
-    "else";
-    "finally";"for";"function";
-    "if"; "in";"instanceof";
-    "new";
-    "return";
-    "switch";
-    "this"; "throw"; "try"; "typeof";
-    "var"; "void"; "while"; "with";
+    [ (* keywork *)
+      "break"
+    ; "case"
+    ; "catch"
+    ; "continue"
+    ; "debugger"
+    ; "default"
+    ; "delete"
+    ; "do"
+    ; "else"
+    ; "finally"
+    ; "for"
+    ; "function"
+    ; "if"
+    ; "in"
+    ; "instanceof"
+    ; "new"
+    ; "return"
+    ; "switch"
+    ; "this"
+    ; "throw"
+    ; "try"
+    ; "typeof"
+    ; "var"
+    ; "void"
+    ; "while"
+    ; "with"
+    ; (* reserved in ECMAScript 5 *)
+      "class"
+    ; "enum"
+    ; "export"
+    ; "extends"
+    ; "import"
+    ; "super"
+    ; "implements"
+    ; "interface"
+    ; "let"
+    ; "package"
+    ; "private"
+    ; "protected"
+    ; "public"
+    ; "static"
+    ; "yield"
+    ; (* other *)
+      "null"
+    ; "true"
+    ; "false"
+    ; "NaN"
+    ; "undefined"
+    ; "this"
+    ; (* Unexpected eval or arguments in strict mode *)
+      "eval"
+    ; "arguments"
+    ; (* also reserved in ECMAScript 3 *)
+      "abstract"
+    ; "boolean"
+    ; "byte"
+    ; "char"
+    ; "const"
+    ; "double"
+    ; "final"
+    ; "float"
+    ; "goto"
+    ; "int"
+    ; "long"
+    ; "native"
+    ; "short"
+    ; "synchronized"
+    ; "throws"
+    ; "transient"
+    ; "volatile"
+    ; (* also reserved in ECMAScript 6 *)
+      "await" ]
 
-    (* reserved in ECMAScript 5 *)
-    "class"; "enum"; "export"; "extends"; "import"; "super";
-
-    "implements";"interface";
-    "let";
-    "package";"private";"protected";"public";
-    "static";
-    "yield";
-
-    (* other *)
-    "null";
-    "true";
-    "false";
-    "NaN";
-
-
-    "undefined";
-    "this";
-
-    (* Unexpected eval or arguments in strict mode *)
-    "eval";
-    "arguments";
-
-    (* also reserved in ECMAScript 3 *)
-    "abstract"; "boolean"; "byte"; "char"; "const"; "double";
-    "final"; "float"; "goto"; "int"; "long"; "native"; "short";
-    "synchronized"; "throws"; "transient"; "volatile";
-
-    (* also reserved in ECMAScript 6 *)
-    "await"
-]
-
-let js_globals = [
-  "joo_global_object";
-  "event";
-  "location";
-  "window";
-  "document";
-  "eval";
-  "navigator";
-  "self";
-
-  "Array";
-  "Date";
-  "Math";
-  "JSON";
-  "Object";
-  "RegExp";
-  "String";
-  "Boolean";
-  "Number";
-
-  "Infinity";
-  "isFinite";
-
-  "ActiveXObject";
-  "XMLHttpRequest";
-  "XDomainRequest";
-
-  "DOMException";
-  "Error";
-  "SyntaxError";
-  "TypeError";
-  "arguments";
-
-  "decodeURI";
-  "decodeURIComponent";
-  "encodeURI";
-  "encodeURIComponent";
-  "escape";
-  "unescape";
-
-  "isNaN";
-  "parseFloat";
-  "parseInt";
-
-  "module";
-  "require";
-]
+let js_globals =
+  [ "joo_global_object"
+  ; "event"
+  ; "location"
+  ; "window"
+  ; "document"
+  ; "eval"
+  ; "navigator"
+  ; "self"
+  ; "Array"
+  ; "Date"
+  ; "Math"
+  ; "JSON"
+  ; "Object"
+  ; "RegExp"
+  ; "String"
+  ; "Boolean"
+  ; "Number"
+  ; "Infinity"
+  ; "isFinite"
+  ; "ActiveXObject"
+  ; "XMLHttpRequest"
+  ; "XDomainRequest"
+  ; "DOMException"
+  ; "Error"
+  ; "SyntaxError"
+  ; "TypeError"
+  ; "arguments"
+  ; "decodeURI"
+  ; "decodeURIComponent"
+  ; "encodeURI"
+  ; "encodeURIComponent"
+  ; "escape"
+  ; "unescape"
+  ; "isNaN"
+  ; "parseFloat"
+  ; "parseInt"
+  ; "module"
+  ; "require" ]
 
 (* TODO: These should be implicit in the stubs (free vars) *)
 (* NOTE: keep these in sync with the headers in runtime/rehack/php *)
-let php_globals = [
-  "joo_global_object";
-  "Object";
-  "Func";
-  "ObjectLiteral";
-  "ArrayLiteral";
-  "Array";
-  "RegExp";
-  "String";
-  "Math";
-  "plus";
-  "eqEq";
-  "eqEqEq";
-  "typeof";
-  "Date";
-  "Boolean";
-  "Number";
-  "max_int";
-  "min_int";
-  "Infinity";
-  "require";
-  "module";
-  "NaN";
-  "isNaN";
-]
+let php_globals =
+  [ "joo_global_object"
+  ; "Object"
+  ; "Func"
+  ; "ObjectLiteral"
+  ; "ArrayLiteral"
+  ; "Array"
+  ; "RegExp"
+  ; "String"
+  ; "Math"
+  ; "plus"
+  ; "eqEq"
+  ; "eqEqEq"
+  ; "typeof"
+  ; "Date"
+  ; "Boolean"
+  ; "Number"
+  ; "max_int"
+  ; "min_int"
+  ; "Infinity"
+  ; "require"
+  ; "module"
+  ; "NaN"
+  ; "isNaN" ]
+
+let pp_rehp_globals = []
 
 (* TODO: Functorize this across language backends.*)
 (* TODO: Create (and functorize) the php keywords.*)
-let provided_js = List.fold_left
-    ~f:(fun acc x -> StringSet.add x acc)
-    ~init:StringSet.empty
-    js_globals
+let provided_js =
+  List.fold_left ~f:(fun acc x -> StringSet.add x acc) ~init:StringSet.empty js_globals
 
-let provided_php = List.fold_left
+let provided_php =
+  List.fold_left ~f:(fun acc x -> StringSet.add x acc) ~init:StringSet.empty php_globals
+
+let provided_pp_rehp =
+  List.fold_left
     ~f:(fun acc x -> StringSet.add x acc)
     ~init:StringSet.empty
-    php_globals
+    pp_rehp_globals
