@@ -25,6 +25,7 @@ type t =
   { debug : string list on_off
   ; optim : string list on_off
   ; quiet : bool
+  ; implicit_ext : string option
   ; custom_header : string option
   ; use_hashing : bool }
 

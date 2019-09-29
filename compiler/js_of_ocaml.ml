@@ -99,8 +99,7 @@ let gen_file file f =
     Sys.remove f_tmp;
     raise exc
 
-let gen_unit_filename ~backend dir u =
-  let ext = Backend.extension backend in
+let gen_unit_filename ~backend ?(ext = Backend.extension backend) dir u =
   Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
 
 let f
@@ -132,6 +131,7 @@ let f
   in
   let use_hashing = common.CommonArg.use_hashing in
   let custom_header = common.CommonArg.custom_header in
+  let implicit_ext = common.CommonArg.implicit_ext in
   let custom_header =
     match custom_header with
     | Some ch ->
@@ -345,7 +345,6 @@ let f
           | (`Name x, _), false -> `Name x
           | (`Name x, true), true
             when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
-              print_string ("Ensuring dir " ^ x);
               ensure_dir x;
               `Name (gen_unit_filename ~backend x cmo)
           | (`Name _, true), true | (`Stdout, true), true ->
@@ -361,14 +360,20 @@ let f
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
-              | `Stdout, false -> `Name (gen_unit_filename ~backend "./" cmo)
+              | `Stdout, false ->
+                  `Name (gen_unit_filename ?ext:implicit_ext ~backend "./" cmo)
               | `Name x, false ->
                   ensure_dir (Filename.dirname x);
-                  `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
+                  `Name
+                    (gen_unit_filename
+                       ?ext:implicit_ext
+                       ~backend
+                       (Filename.dirname x)
+                       cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
                   ensure_dir x;
-                  `Name (gen_unit_filename ~backend x cmo)
+                  `Name (gen_unit_filename ?ext:implicit_ext ~backend x cmo)
               | `Stdout, true | `Name _, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
             in
