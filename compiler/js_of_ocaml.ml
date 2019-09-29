@@ -52,8 +52,14 @@ let file_contains_hashes hashes_comment file =
   | i -> true
 
 let file_needs_update use_hashing hashes_comment file =
-  (not use_hashing)
-  || (Sys.file_exists file && not (file_contains_hashes hashes_comment file))
+  if not (Sys.file_exists file)
+  then true
+  else if not use_hashing
+  then (* If file exists and... *)
+    true
+  else
+    (* File exists, and we are to use hashing *)
+    not (file_contains_hashes hashes_comment file)
 
 (* Ensures a directory exists. Will fail if path is a non-dir file.
    Containing directory must already exist. *)
