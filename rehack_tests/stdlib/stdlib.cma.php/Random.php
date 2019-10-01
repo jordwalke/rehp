@@ -165,14 +165,6 @@ final class Random {
             if ($h !== $i) {$i = $l;continue;}
             break;
           }
-          if ($continue_counter > 0) {
-            $continue_counter -= 1;
-            break;
-          }
-          else if ($continue_counter === 0) {
-            $continue_counter = null;
-            continue;
-          }
         }
         $s[2] = 0;
         return 0;

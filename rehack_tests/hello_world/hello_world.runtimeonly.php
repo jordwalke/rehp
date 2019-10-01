@@ -134,7 +134,7 @@ $caml_arity_test = function($f) {
         return $caml_call_gen($f, $args);
       };
     }
-  }
+  };
     
     
     
@@ -152,7 +152,7 @@ $caml_arity_test = function($f) {
    return $caml_arity_test($f) === 6
      ? $f($a1, $a2, $a3, $a4, $a5, $a6)
      : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6]);
- }
+ };
     
     
     
@@ -292,7 +292,7 @@ $ArrayLiteral=$joo_global_object->ArrayLiteral;
    return $caml_arity_test($f) === 8
      ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8)
      : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8]);
- }
+ };
     
     
     
@@ -330,7 +330,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
    return $caml_arity_test($f) === 7
      ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7)
      : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7]);
- }
+ };
     
     
     
@@ -355,7 +355,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
    return $caml_arity_test($f) === 5
      ? $f($a1, $a2, $a3, $a4, $a5)
      : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5]);
- }
+ };
     
     
     
@@ -369,7 +369,7 @@ $polymorphic_log=$joo_global_object->polymorphic_log;
    return $caml_arity_test($f) === 2
      ? $f($a1, $a2)
      : $caml_call_gen($f, varray[$a1, $a2]);
- }
+ };
     
     
     
@@ -567,7 +567,7 @@ $RegExp=$joo_global_object->RegExp;
    return $caml_arity_test($f) === 3
      ? $f($a1, $a2, $a3)
      : $caml_call_gen($f, varray[$a1, $a2, $a3]);
- }
+ };
     
     
     
@@ -658,7 +658,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   $caml_call1=function((function(mixed...): mixed) $f, dynamic $a1): dynamic
   use($caml_arity_test, $caml_call_gen) {
     return $caml_arity_test($f) === 1 ? $f($a1) : $caml_call_gen($f, varray[$a1]);
-  }
+  };
     
     
     $joo_global_object->jsoo_runtime =

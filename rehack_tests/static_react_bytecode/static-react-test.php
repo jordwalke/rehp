@@ -108,7 +108,7 @@ $caml_arity_test = function($f) {
         return $caml_call_gen($f, $args);
       };
     }
-  }
+  };
   
   
   
@@ -116,7 +116,7 @@ $caml_arity_test = function($f) {
   $caml_call1=function((function(mixed...): mixed) $f, dynamic $a1): dynamic
   use($caml_arity_test, $caml_call_gen) {
     return $caml_arity_test($f) === 1 ? $f($a1) : $caml_call_gen($f, varray[$a1]);
-  }
+  };
   
   
   
@@ -130,7 +130,7 @@ $caml_arity_test = function($f) {
    return $caml_arity_test($f) === 2
      ? $f($a1, $a2)
      : $caml_call_gen($f, varray[$a1, $a2]);
- }
+ };
   
   
   
@@ -145,7 +145,7 @@ $caml_arity_test = function($f) {
    return $caml_arity_test($f) === 3
      ? $f($a1, $a2, $a3)
      : $caml_call_gen($f, varray[$a1, $a2, $a3]);
- }
+ };
   
   
   

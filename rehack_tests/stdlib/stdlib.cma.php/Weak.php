@@ -356,14 +356,6 @@ final class Weak {
                   if (2 !== $i__1) {$i__1 = $U;continue;}
                   break;
                 }
-                if ($continue_counter > 0) {
-                  $continue_counter -= 1;
-                  break;
-                }
-                else if ($continue_counter === 0) {
-                  $continue_counter = null;
-                  continue;
-                }
               }
               $T = (int) (($t[1]->count() - 1) / 2) < $t[4] ? 1 : (0);
               return $T ? $resize($t) : ($T);

@@ -209,14 +209,6 @@ final class Sort {
               $arr[$j[1] + 1] = $val_i;
               break;
             }
-            if ($continue_counter > 0) {
-              $continue_counter -= 1;
-              break;
-            }
-            else if ($continue_counter === 0) {
-              $continue_counter = null;
-              continue;
-            }
           }
           $c = (int) ($i + 1);
           if ($b !== $i) {$i = $c;continue;}
