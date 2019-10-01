@@ -650,7 +650,7 @@ var Array = [
   Floatarray
 ];
 
-runtime["caml_register_global"](10, Array, "Array");
+runtime["caml_register_global"](10, Array, "Array_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Array_;

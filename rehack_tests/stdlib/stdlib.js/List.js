@@ -1170,7 +1170,7 @@ var List = [
   merge
 ];
 
-runtime["caml_register_global"](19, List, "List");
+runtime["caml_register_global"](19, List, "List_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().List_;

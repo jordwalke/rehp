@@ -650,7 +650,7 @@ let register_global ?(force = false) g i rem =
       | None -> []
       | Some name ->
           Code.Var.name (access_global g i) name;
-          [Pc (IString name)]
+          [Pc (IString (normalize_module_name name))]
     in
     Let
       ( Var.fresh ()

@@ -476,7 +476,7 @@ final class String_ {
       $split_on_char
     };
     
-    $runtime["caml_register_global"](12, $String, "String");
+    $runtime["caml_register_global"](12, $String, "String_");
 
   }
 }
