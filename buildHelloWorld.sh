@@ -4,6 +4,7 @@ set -u
 esy build
 
 for test in $(echo "
+switch_continue
 hello_world
 loop_labels
 "); do

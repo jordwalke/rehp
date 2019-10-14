@@ -1,0 +1,5 @@
+(executable
+  (name switch_continue)
+  (package js_of_ocaml)
+  (public_name switch_continue.exe)
+)
