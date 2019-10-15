@@ -105,7 +105,7 @@ let f8 = g => {
 let f9 = g => {
   for (i1 in 2 to 3) {
     for (i2 in 2 to 3) {
-      let f = x => 
+      let f = x =>
         for (i3 in 2 to 3) {
           for (i4 in 2 to 3) {
             g(x + i1 + i2 + i3 + i4);
@@ -118,7 +118,7 @@ let f9 = g => {
 let f10 = g => {
   for (i1 in 2 to 3) {
     for (i2 in 2 to 3) {
-      try (
+      try(
         for (i3 in 2 to 3) {
           for (i4 in 2 to 3) {
             g(i1 + i2 + i3 + i4);
@@ -128,8 +128,8 @@ let f10 = g => {
           };
         }
       ) {
-        | Not_found => ()
-      }
+      | Not_found => ()
+      };
     };
   };
 };
@@ -144,3 +144,89 @@ f7(fx("f7"));
 f8(fx("f8"));
 f9(fx("f9"));
 f10(fx("f10"));
+
+type t =
+  | A
+  | B
+  | C;
+/* no bugs */
+let h1 = (g, t) => {
+  for (i in 2 to 3) {
+    switch (t) {
+    | A => g(0)
+    | B =>
+      for (k in 4 to 5) {
+        g(i + k);
+      }
+    | C => g(1)
+    };
+  };
+};
+/* no bugs */
+let h2 = (g, t) => {
+  for (i in 2 to 3) {
+    for (j in 2 to 3) {
+      switch (t) {
+      | A => g(0)
+      | B =>
+        for (k in 4 to 5) {
+          g(i + j + k);
+        }
+      | C => g(1)
+      };
+    };
+  };
+};
+/*
+ - continue counter is never declared
+ */
+let h3 = (g, t) => {
+  for (i in 4 to 5) {
+    switch (t) {
+    | A => g(0)
+    | B =>
+      for (j in 4 to 5) {
+        for (k in 2 to 3) {
+          g(i + j + k);
+        };
+      }
+    | C => g(1)
+    };
+  };
+};
+/* no bug */
+let h4 = (g, t) => {
+  switch (t) {
+  | A => g(0)
+  | B =>
+    for (j in 4 to 5) {
+      for (k in 2 to 3) {
+        g(j + k);
+      };
+    }
+  | C => g(1)
+  };
+};
+/* no bug */
+let h5 = (g, t) => {
+  for (i in 2 to 3) {
+    for (j in 2 to 3) {
+      switch (t) {
+      | A => g(0)
+      | B =>
+        for (k in 4 to 5) {
+          for (l in 2 to 3) {
+            g(i + j + k);
+          };
+        }
+      | C => g(1)
+      };
+    };
+  };
+};
+
+h1(fx("h1"), A);
+h2(fx("h2"), A);
+h3(fx("h3"), A);
+h4(fx("h4"), A);
+h5(fx("h5"), A);

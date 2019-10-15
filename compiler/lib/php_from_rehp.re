@@ -27,7 +27,61 @@ type input = vars;
 type output = {
   dec: vars,
   use: vars,
+  /*
+   "use_label" tracks whether the AST has any continue-to-label statement not
+   shielded by a function.
+
+   For example, "use_label" is true for this AST:
+
+   for () {
+     a: for () {
+       continue a;
+     }
+   }
+
+   And false for this one:
+
+   for () {
+     $f = function() {
+       a: for () {
+         for () {
+           continue a;
+         }
+       }
+     }
+   }
+   */
   use_label: bool,
+  /*
+   "use_continue" tracks whether the AST has any continue statement not
+   shielded by a loop or function.
+
+   For example, "use_continue" is true for this AST:
+
+   switch (x) {
+     case 0:
+       continue;
+   }
+
+   and false for this one:
+
+   switch (x) {
+     case 0:
+       $x = 3;
+       break;
+     case 1:
+       return 3;
+     case 2:
+       for (;;) {
+         continue;
+       }
+     case 3:
+       $f = function () {
+         continue;
+       };
+   }
+   */
+  use_continue: bool,
 };
 
 let escapeIdent = s => Stdlib.escape(s, '$', "____");
@@ -102,7 +156,12 @@ let binop_from_rehp = binop =>
   };
 
 let empty = {names: StringMap.empty, vars: Code.Var.Map.empty};
-let emptyOutput = {dec: empty, use: empty, use_label: false};
+let emptyOutput = {
+  dec: empty,
+  use: empty,
+  use_label: false,
+  use_continue: false,
+};
 
 let exists = (cur, id) =>
   switch (id) {
@@ -185,6 +244,7 @@ let outAppend = (cur, next) => {
   dec: append(cur.dec, next.dec),
   use: append(cur.use, next.use),
   use_label: cur.use_label || next.use_label,
+  use_continue: cur.use_continue || next.use_continue,
 };
 
 let createRef = ((name, _)) => {
@@ -403,7 +463,7 @@ let rec expression = (input, x) =>
   /* Undefined is NULL */
   | Rehp.EVar(Id.S({name: "undefined", _})) => (emptyOutput, Php.ENULL)
   | Rehp.EVar(v) =>
-    let out = {use: useOneVar(v), dec: empty, use_label: false};
+    let out = {...emptyOutput, use: useOneVar(v)};
     (
       out,
       if (exists(input, v)) {
@@ -428,7 +488,7 @@ let rec expression = (input, x) =>
     /*   | None => newBodyVars */
     /*   }; */
     let augmentedEnv = append(input, newBodyVars);
-    let curOut = {use: empty, dec: newBodyVars, use_label: false};
+    let curOut = {...emptyOutput, dec: newBodyVars};
     let (bodyOut, bodyMap) = sources(curOut, augmentedEnv, body);
     /* Rehp models an IR with "function scope" for variables. */
     /* Declarations reset at function boundaries. */
@@ -438,7 +498,7 @@ let rec expression = (input, x) =>
     /* let bodyUsesGlobal = remove(bodyUsesFromOutside, input); */
     /* let fromScope = (bodyUsesScope.names, bodyUsesScope.vars); */
     /* let fromGlob = (bodyUsesGlobal.names, bodyUsesGlobal.vars); */
-    let out = {use: bodyUsesFromOutside, dec: empty, use_label: false};
+    let out = {...emptyOutput, use: bodyUsesFromOutside};
     let paramIdentList = List.map(~f=ident(input), params);
 
     let bodyUsesFromOutsideIdents =
@@ -567,6 +627,32 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
     (outMapped, EUn(DecrB, exprMapped));
   }
 and switchCase = (input, e) => expression(input, e)
+and ifElseFromSwitchCase = (switchExp, defaultBlock) => {
+  let elseStmts =
+    switch (defaultBlock) {
+    | None => None
+    | Some(defaultBlock) => Some(Php.Statement_list(defaultBlock))
+    };
+  let rec f = cases =>
+    switch (cases) {
+    | [] => elseStmts
+    | [(caseExp, caseBlock), ...remainingCases] =>
+      let alternate =
+        switch (f(remainingCases)) {
+        | None => None
+        | Some(e) => Some((e, Loc.N))
+        };
+      Some(
+        Php.If_statement(
+          Php.EBin(Php.EqEqEq, switchExp, caseExp),
+          (Statement_list(caseBlock), Loc.N),
+          alternate,
+          true,
+        ),
+      );
+    };
+  f;
+}
 and initialiser = (input, (e, pc)) => {
   let (o, m) = expression(input, e);
   (o, (m, pc));
@@ -711,14 +797,14 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
     | Some(v) => v
     | None => 0
     };
-  let li =
+  let (use_continue, li) =
     switch (depth, has_label, outs.use_label) {
-    | (0, true, _) => [
-        (set_counter_to_null, loc),
-        (for_statement_node, loc),
-      ]
+    | (0, true, _) => (
+        false,
+        [(set_counter_to_null, loc), (for_statement_node, loc)],
+      )
     | (0, false, _)
-    | (_, _, false) => [(for_statement_node, loc)]
+    | (_, _, false) => (false, [(for_statement_node, loc)])
     | _ =>
       let decrement_counter =
         Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
@@ -748,9 +834,13 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
           )),
           true,
         );
-      [(for_statement_node, loc), (break_if_count_is_gt_zero, loc)];
+      (
+        true,
+        [(for_statement_node, loc), (break_if_count_is_gt_zero, loc)],
+      );
     };
-  (outs, Php.Statement_list(li));
+
+  ({...outs, use_continue}, Php.Statement_list(li));
 }
 
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
@@ -765,6 +855,7 @@ and statement = (curOut, input, x) => {
         dec: List.fold_left(~f=addOneString, ~init=curOut.dec, provides),
         use: List.fold_left(~f=addOneString, ~init=curOut.use, requires),
         use_label: false,
+        use_continue: false,
       };
       (out, Raw_statement(s));
     | Rehp.Variable_statement(l) =>
@@ -804,11 +895,13 @@ and statement = (curOut, input, x) => {
     | Rehp.Do_while_statement((s, loc), e) =>
       let (sOut, sMapped) = statement(curOut, input, s);
       let (eOut, eMapped) = expression(input, e);
-      (outAppend(sOut, eOut), Do_while_statement((sMapped, loc), eMapped));
+      let out = {...outAppend(sOut, eOut), use_continue: false};
+      (out, Do_while_statement((sMapped, loc), eMapped));
     | Rehp.While_statement(e, (s, loc)) =>
       let (sOut, sMapped) = statement(curOut, input, s);
       let (eOut, eMapped) = expression(input, e);
-      (outAppend(sOut, eOut), While_statement(eMapped, (sMapped, loc)));
+      let out = {...outAppend(sOut, eOut), use_continue: false};
+      (out, While_statement(eMapped, (sMapped, loc)));
     | Rehp.For_statement(e1, e2, e3, (s, loc), depth) =>
       for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false)
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
@@ -825,7 +918,10 @@ and statement = (curOut, input, x) => {
           };
         let (e2Out, e2Mapped) = expression(input, e2);
         let (sOut, sMapped) = statement(curOut, input, s);
-        let outs = outAppend(outAppend(e1Out, e2Out), sOut);
+        let outs = {
+          ...outAppend(outAppend(e1Out, e2Out), sOut),
+          use_continue: false,
+        };
         (outs, Php.ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc)));
       };
       switch (e1) {
@@ -834,11 +930,7 @@ and statement = (curOut, input, x) => {
         let addedVars = useOneVar(id);
         let augmentedInput = append(input, addedVars);
         let (out, res) = continueWithAugmentedScope(augmentedInput, x);
-        let out = {
-          use: out.use,
-          dec: append(out.dec, addedVars),
-          use_label: out.use_label,
-        };
+        let out = {...out, dec: append(out.dec, addedVars)};
         (out, res);
       };
 
@@ -861,10 +953,13 @@ and statement = (curOut, input, x) => {
             Php.Variable_statement([
               (counter, Some((EInt(depth), Loc.N))),
             ]);
-          (true, [(set_counter_to_depth, Loc.N), (Php.Break_statement, Loc.N)]);
+          (
+            true,
+            [(set_counter_to_depth, Loc.N), (Php.Break_statement, Loc.N)],
+          );
         };
       (
-        {dec: curOut.dec, use: curOut.use, use_label},
+        {dec: curOut.dec, use: curOut.use, use_label, use_continue: true},
         Php.Statement_list(li),
       );
     /* TODO: remove labels from Rehp break statements */
@@ -902,7 +997,23 @@ and statement = (curOut, input, x) => {
       };
       let (lOut', lMapped') = List.split(List.map(~f=forEach, l'));
       let outs = joinAll([eOut, dOut, ...lOut @ lOut']);
-      (outs, Switch_statement(eMapped, lMapped, dMapped, lMapped'));
+      if (outs.use_continue) {
+        exception No_cases_in_switch;
+        let if_stmt =
+          switch (
+            ifElseFromSwitchCase(
+              eMapped,
+              dMapped,
+              List.concat([lMapped, lMapped']),
+            )
+          ) {
+          | None => raise(No_cases_in_switch)
+          | Some(e) => e
+          };
+        (outs, if_stmt);
+      } else {
+        (outs, Switch_statement(eMapped, lMapped, dMapped, lMapped'));
+      };
     | Rehp.Try_statement(b, catch, final) =>
       /*
        * Customization that augments the scope with catch identifier.
@@ -913,7 +1024,7 @@ and statement = (curOut, input, x) => {
         let augmentedInput = append(input, addedVars);
         let (stOut, stMapped) = statements(curOut, augmentedInput, st);
         let stUses = remove(stOut.use, addedVars);
-        let out = {use: stUses, dec: stOut.dec, use_label: stOut.use_label};
+        let out = {...stOut, use: stUses};
         (out, (identMapped, stMapped));
       };
       let (bOut, bMapped) = statements(curOut, input, b);
@@ -924,6 +1035,8 @@ and statement = (curOut, input, x) => {
         use: append(bOut.use, append(catchOut.use, finalOut.use)),
         dec: append(bOut.dec, append(catchOut.dec, finalOut.dec)),
         use_label: bOut.use_label || catchOut.use_label || finalOut.use_label,
+        use_continue:
+          bOut.use_continue || catchOut.use_continue || finalOut.use_continue,
       };
       (out, Try_statement(bMapped, catchMapped, finalMapped));
     };
