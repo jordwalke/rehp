@@ -179,7 +179,6 @@ let h2 = (g, t) => {
 };
 /*
  - continue counter is never declared
- - continue guard on loop inside case statement
  */
 let h3 = (g, t) => {
   for (i in 4 to 5) {
@@ -208,9 +207,7 @@ let h4 = (g, t) => {
   | C => g(1)
   };
 };
-/*
- - continue guard on loop inside case statement
- */
+/* no bug */
 let h5 = (g, t) => {
   for (i in 2 to 3) {
     for (j in 2 to 3) {

@@ -939,37 +939,25 @@ $h2 = function(dynamic $g, dynamic $t) use ($caml_call1) {
 $h3 = function(dynamic $g, dynamic $t) use ($caml_call1) {
   $i = 4;
   for (; ; ) {
-    switch ($t) {
-        // FALLTHROUGH
-      case 0:
-        $caml_call1($g, 0);
-        break;
-        // FALLTHROUGH
-      case 1:
-        $j = 4;
+    if ($t === 0) {
+      $caml_call1($g, 0);
+      break;
+    } else if ($t === 1) {
+      $j = 4;
+      for (; ; ) {
+        $k = 2;
         for (; ; ) {
-          $k = 2;
-          for (; ; ) {
-            $caml_call1($g, (int)((int)($i + $j) + $k));
-            $I = (int)($k + 1);
-            if (3 !== $k) {
-              $k = $I;
-              continue;
-            }
-            $H = (int)($j + 1);
-            if (5 !== $j) {
-              $j = $H;
-              $continue_counter = 0;
-              break;
-            }
-            break;
-          }
-          if ($continue_counter > 0) {
-            $continue_counter -= 1;
-            break;
-          } else if ($continue_counter === 0) {
-            $continue_counter = null;
+          $caml_call1($g, (int)((int)($i + $j) + $k));
+          $I = (int)($k + 1);
+          if (3 !== $k) {
+            $k = $I;
             continue;
+          }
+          $H = (int)($j + 1);
+          if (5 !== $j) {
+            $j = $H;
+            $continue_counter = 0;
+            break;
           }
           break;
         }
@@ -981,9 +969,17 @@ $h3 = function(dynamic $g, dynamic $t) use ($caml_call1) {
           continue;
         }
         break;
-        // FALLTHROUGH
-      default:
-        $caml_call1($g, 1);
+      }
+      if ($continue_counter > 0) {
+        $continue_counter -= 1;
+        break;
+      } else if ($continue_counter === 0) {
+        $continue_counter = null;
+        continue;
+      }
+      break;
+    } else {
+      $caml_call1($g, 1);
     }
     $G = (int)($i + 1);
     if (5 !== $i) {
@@ -1038,37 +1034,25 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
   for (; ; ) {
     $j = 2;
     for (; ; ) {
-      switch ($t) {
-          // FALLTHROUGH
-        case 0:
-          $caml_call1($g, 0);
-          break;
-          // FALLTHROUGH
-        case 1:
-          $k = 4;
+      if ($t === 0) {
+        $caml_call1($g, 0);
+        break;
+      } else if ($t === 1) {
+        $k = 4;
+        for (; ; ) {
+          $l = 2;
           for (; ; ) {
-            $l = 2;
-            for (; ; ) {
-              $caml_call1($g, (int)((int)($i + $j) + $k));
-              $D = (int)($l + 1);
-              if (3 !== $l) {
-                $l = $D;
-                continue;
-              }
-              $C = (int)($k + 1);
-              if (5 !== $k) {
-                $k = $C;
-                $continue_counter = 0;
-                break;
-              }
-              break;
-            }
-            if ($continue_counter > 0) {
-              $continue_counter -= 1;
-              break;
-            } else if ($continue_counter === 0) {
-              $continue_counter = null;
+            $caml_call1($g, (int)((int)($i + $j) + $k));
+            $D = (int)($l + 1);
+            if (3 !== $l) {
+              $l = $D;
               continue;
+            }
+            $C = (int)($k + 1);
+            if (5 !== $k) {
+              $k = $C;
+              $continue_counter = 0;
+              break;
             }
             break;
           }
@@ -1080,9 +1064,17 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
             continue;
           }
           break;
-          // FALLTHROUGH
-        default:
-          $caml_call1($g, 1);
+        }
+        if ($continue_counter > 0) {
+          $continue_counter -= 1;
+          break;
+        } else if ($continue_counter === 0) {
+          $continue_counter = null;
+          continue;
+        }
+        break;
+      } else {
+        $caml_call1($g, 1);
       }
       $B = (int)($j + 1);
       if (3 !== $j) {

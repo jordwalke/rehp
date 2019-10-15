@@ -27,7 +27,60 @@ type input = vars;
 type output = {
   dec: vars,
   use: vars,
+  /*
+   "use_label" tracks whether the AST has any continue-to-label statement not
+   shielded by a function.
+
+   For example, "use_label" is true for this AST:
+
+   for () {
+     a: for () {
+       continue a;
+     }
+   }
+
+   And false for this one:
+
+   for () {
+     $f = function() {
+       a: for () {
+         for () {
+           continue a;
+         }
+       }
+     }
+   }
+   */
   use_label: bool,
+  /*
+   "use_continue" tracks whether the AST has any continue statement not
+   shielded by a loop or function.
+
+   For example, "use_continue" is true for this AST:
+
+   switch (x) {
+     case 0:
+       continue;
+   }
+
+   and false for this one:
+
+   switch (x) {
+     case 0:
+       $x = 3;
+       break;
+     case 1:
+       return 3;
+     case 2:
+       for (;;) {
+         continue;
+       }
+     case 3:
+       $f = function () {
+         continue;
+       };
+   }
+   */
   use_continue: bool,
 };
 
@@ -744,14 +797,14 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
     | Some(v) => v
     | None => 0
     };
-  let li =
+  let (use_continue, li) =
     switch (depth, has_label, outs.use_label) {
-    | (0, true, _) => [
-        (set_counter_to_null, loc),
-        (for_statement_node, loc),
-      ]
+    | (0, true, _) => (
+        false,
+        [(set_counter_to_null, loc), (for_statement_node, loc)],
+      )
     | (0, false, _)
-    | (_, _, false) => [(for_statement_node, loc)]
+    | (_, _, false) => (false, [(for_statement_node, loc)])
     | _ =>
       let decrement_counter =
         Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
@@ -781,9 +834,13 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
           )),
           true,
         );
-      [(for_statement_node, loc), (break_if_count_is_gt_zero, loc)];
+      (
+        true,
+        [(for_statement_node, loc), (break_if_count_is_gt_zero, loc)],
+      );
     };
-  (outs, Php.Statement_list(li));
+
+  ({...outs, use_continue}, Php.Statement_list(li));
 }
 
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
@@ -846,10 +903,7 @@ and statement = (curOut, input, x) => {
       let out = {...outAppend(sOut, eOut), use_continue: false};
       (out, While_statement(eMapped, (sMapped, loc)));
     | Rehp.For_statement(e1, e2, e3, (s, loc), depth) =>
-      let (out, res) =
-        for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false);
-      let out = {...out, use_continue: false};
-      (out, res);
+      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false)
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
       let continueWithAugmentedScope = (input, _) => {
         let (e1Out, e1Mapped) =
