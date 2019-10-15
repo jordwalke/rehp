@@ -1254,104 +1254,102 @@ final class CamlinternalFormat {
         $is_int($fmtty__0)
       ) {return 0;}
       else {
-        switch($fmtty__0[0]) {
-          // FALLTHROUGH
-          case 0:
-            $fmtty__1 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_c);
-            $fmtty__0 = $fmtty__1;
-            continue;
-          // FALLTHROUGH
-          case 1:
-            $fmtty__2 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_s);
-            $fmtty__0 = $fmtty__2;
-            continue;
-          // FALLTHROUGH
-          case 2:
-            $fmtty__3 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_i);
-            $fmtty__0 = $fmtty__3;
-            continue;
-          // FALLTHROUGH
-          case 3:
-            $fmtty__4 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_li);
-            $fmtty__0 = $fmtty__4;
-            continue;
-          // FALLTHROUGH
-          case 4:
-            $fmtty__5 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_ni);
-            $fmtty__0 = $fmtty__5;
-            continue;
-          // FALLTHROUGH
-          case 5:
-            $fmtty__6 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_Li);
-            $fmtty__0 = $fmtty__6;
-            continue;
-          // FALLTHROUGH
-          case 6:
-            $fmtty__7 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_f);
-            $fmtty__0 = $fmtty__7;
-            continue;
-          // FALLTHROUGH
-          case 7:
-            $fmtty__8 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_B);
-            $fmtty__0 = $fmtty__8;
-            continue;
-          // FALLTHROUGH
-          case 8:
-            $fmtty__9 = $fmtty__0[2];
-            $sub_fmtty = $fmtty__0[1];
-            $buffer_add_string($buf, $cst__9);
-            $bprint_fmtty->contents($buf, $sub_fmtty);
-            $buffer_add_string($buf, $cst__10);
-            $fmtty__0 = $fmtty__9;
-            continue;
-          // FALLTHROUGH
-          case 9:
-            $fmtty__10 = $fmtty__0[3];
-            $sub_fmtty__0 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst__11);
-            $bprint_fmtty->contents($buf, $sub_fmtty__0);
-            $buffer_add_string($buf, $cst__12);
-            $fmtty__0 = $fmtty__10;
-            continue;
-          // FALLTHROUGH
-          case 10:
-            $fmtty__11 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_a);
-            $fmtty__0 = $fmtty__11;
-            continue;
-          // FALLTHROUGH
-          case 11:
-            $fmtty__12 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_t);
-            $fmtty__0 = $fmtty__12;
-            continue;
-          // FALLTHROUGH
-          case 12:
-            $fmtty__13 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst__13);
-            $fmtty__0 = $fmtty__13;
-            continue;
-          // FALLTHROUGH
-          case 13:
-            $fmtty__14 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_r);
-            $fmtty__0 = $fmtty__14;
-            continue;
-          // FALLTHROUGH
-          default:
-            $fmtty__15 = $fmtty__0[1];
-            $buffer_add_string($buf, $cst_r__0);
-            $fmtty__0 = $fmtty__15;
-            continue;
-          }
+        if ($fmtty__0[0] === 0) {
+          $fmtty__1 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_c);
+          $fmtty__0 = $fmtty__1;
+          continue;
+        }
+        else if ($fmtty__0[0] === 1) {
+          $fmtty__2 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_s);
+          $fmtty__0 = $fmtty__2;
+          continue;
+        }
+        else if ($fmtty__0[0] === 2) {
+          $fmtty__3 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_i);
+          $fmtty__0 = $fmtty__3;
+          continue;
+        }
+        else if ($fmtty__0[0] === 3) {
+          $fmtty__4 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_li);
+          $fmtty__0 = $fmtty__4;
+          continue;
+        }
+        else if ($fmtty__0[0] === 4) {
+          $fmtty__5 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_ni);
+          $fmtty__0 = $fmtty__5;
+          continue;
+        }
+        else if ($fmtty__0[0] === 5) {
+          $fmtty__6 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_Li);
+          $fmtty__0 = $fmtty__6;
+          continue;
+        }
+        else if ($fmtty__0[0] === 6) {
+          $fmtty__7 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_f);
+          $fmtty__0 = $fmtty__7;
+          continue;
+        }
+        else if ($fmtty__0[0] === 7) {
+          $fmtty__8 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_B);
+          $fmtty__0 = $fmtty__8;
+          continue;
+        }
+        else if ($fmtty__0[0] === 8) {
+          $fmtty__9 = $fmtty__0[2];
+          $sub_fmtty = $fmtty__0[1];
+          $buffer_add_string($buf, $cst__9);
+          $bprint_fmtty->contents($buf, $sub_fmtty);
+          $buffer_add_string($buf, $cst__10);
+          $fmtty__0 = $fmtty__9;
+          continue;
+        }
+        else if ($fmtty__0[0] === 9) {
+          $fmtty__10 = $fmtty__0[3];
+          $sub_fmtty__0 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst__11);
+          $bprint_fmtty->contents($buf, $sub_fmtty__0);
+          $buffer_add_string($buf, $cst__12);
+          $fmtty__0 = $fmtty__10;
+          continue;
+        }
+        else if ($fmtty__0[0] === 10) {
+          $fmtty__11 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_a);
+          $fmtty__0 = $fmtty__11;
+          continue;
+        }
+        else if ($fmtty__0[0] === 11) {
+          $fmtty__12 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_t);
+          $fmtty__0 = $fmtty__12;
+          continue;
+        }
+        else if ($fmtty__0[0] === 12) {
+          $fmtty__13 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst__13);
+          $fmtty__0 = $fmtty__13;
+          continue;
+        }
+        else if ($fmtty__0[0] === 13) {
+          $fmtty__14 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_r);
+          $fmtty__0 = $fmtty__14;
+          continue;
+        }
+        else {
+          $fmtty__15 = $fmtty__0[1];
+          $buffer_add_string($buf, $cst_r__0);
+          $fmtty__0 = $fmtty__15;
+          continue;
+        }
       }
     };
     $int_of_custom_arity->contents = function(dynamic $param) use ($int_of_custom_arity) {
@@ -1369,288 +1367,286 @@ final class CamlinternalFormat {
           $is_int($fmt__0)
         ) {return 0;}
         else {
-          switch($fmt__0[0]) {
-            // FALLTHROUGH
-            case 0:
-              $fmt__1 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $buffer_add_char($buf, 99);
-              $fmt__0 = $fmt__1;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 1:
-              $fmt__2 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $buffer_add_char($buf, 67);
-              $fmt__0 = $fmt__2;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 2:
-              $fmt__3 = $fmt__0[2];
-              $pad = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $bprint_padding($buf, $pad);
-              $buffer_add_char($buf, 115);
-              $fmt__0 = $fmt__3;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 3:
-              $fmt__4 = $fmt__0[2];
-              $pad__0 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $bprint_padding($buf, $pad__0);
-              $buffer_add_char($buf, 83);
-              $fmt__0 = $fmt__4;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 4:
-              $fmt__5 = $fmt__0[4];
-              $prec = $fmt__0[3];
-              $pad__1 = $fmt__0[2];
-              $iconv = $fmt__0[1];
-              $bprint_int_fmt($buf, $ign_flag__0, $iconv, $pad__1, $prec);
-              $fmt__0 = $fmt__5;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 5:
-              $fmt__6 = $fmt__0[4];
-              $prec__0 = $fmt__0[3];
-              $pad__2 = $fmt__0[2];
-              $iconv__0 = $fmt__0[1];
-              $bprint_altint_fmt(
-                $buf,
-                $ign_flag__0,
-                $iconv__0,
-                $pad__2,
-                $prec__0,
-                108
-              );
-              $fmt__0 = $fmt__6;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 6:
-              $fmt__7 = $fmt__0[4];
-              $prec__1 = $fmt__0[3];
-              $pad__3 = $fmt__0[2];
-              $iconv__1 = $fmt__0[1];
-              $bprint_altint_fmt(
-                $buf,
-                $ign_flag__0,
-                $iconv__1,
-                $pad__3,
-                $prec__1,
-                110
-              );
-              $fmt__0 = $fmt__7;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 7:
-              $fmt__8 = $fmt__0[4];
-              $prec__2 = $fmt__0[3];
-              $pad__4 = $fmt__0[2];
-              $iconv__2 = $fmt__0[1];
-              $bprint_altint_fmt(
-                $buf,
-                $ign_flag__0,
-                $iconv__2,
-                $pad__4,
-                $prec__2,
-                76
-              );
-              $fmt__0 = $fmt__8;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 8:
-              $fmt__9 = $fmt__0[4];
-              $prec__3 = $fmt__0[3];
-              $pad__5 = $fmt__0[2];
-              $fconv = $fmt__0[1];
-              $bprint_float_fmt($buf, $ign_flag__0, $fconv, $pad__5, $prec__3);
-              $fmt__0 = $fmt__9;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 9:
-              $fmt__10 = $fmt__0[2];
-              $pad__6 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $bprint_padding($buf, $pad__6);
-              $buffer_add_char($buf, 66);
-              $fmt__0 = $fmt__10;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 10:
-              $fmt__11 = $fmt__0[1];
-              $buffer_add_string($buf, $cst__14);
-              $fmt__0 = $fmt__11;
-              continue;
-            // FALLTHROUGH
-            case 11:
-              $fmt__12 = $fmt__0[2];
-              $str = $fmt__0[1];
-              $bprint_string_literal($buf, $str);
-              $fmt__0 = $fmt__12;
-              continue;
-            // FALLTHROUGH
-            case 12:
-              $fmt__13 = $fmt__0[2];
-              $chr = $fmt__0[1];
-              $bprint_char_literal($buf, $chr);
-              $fmt__0 = $fmt__13;
-              continue;
-            // FALLTHROUGH
-            case 13:
-              $fmt__14 = $fmt__0[3];
-              $fmtty = $fmt__0[2];
-              $pad_opt = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $bprint_pad_opt($buf, $pad_opt);
-              $buffer_add_char($buf, 123);
-              $bprint_fmtty->contents($buf, $fmtty);
-              $buffer_add_char($buf, 37);
-              $buffer_add_char($buf, 125);
-              $fmt__0 = $fmt__14;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 14:
-              $fmt__15 = $fmt__0[3];
-              $fmtty__0 = $fmt__0[2];
-              $pad_opt__0 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $bprint_pad_opt($buf, $pad_opt__0);
-              $buffer_add_char($buf, 40);
-              $bprint_fmtty->contents($buf, $fmtty__0);
-              $buffer_add_char($buf, 37);
-              $buffer_add_char($buf, 41);
-              $fmt__0 = $fmt__15;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 15:
-              $fmt__16 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $buffer_add_char($buf, 97);
-              $fmt__0 = $fmt__16;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 16:
-              $fmt__17 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $buffer_add_char($buf, 116);
-              $fmt__0 = $fmt__17;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 17:
-              $fmt__18 = $fmt__0[2];
-              $fmting_lit = $fmt__0[1];
-              $bprint_string_literal(
-                $buf,
-                $string_of_formatting_lit($fmting_lit)
-              );
-              $fmt__0 = $fmt__18;
-              continue;
-            // FALLTHROUGH
-            case 18:
-              $fmt__19 = $fmt__0[2];
-              $fmting_gen = $fmt__0[1];
-              $bprint_string_literal($buf, $cst__15);
-              $bprint_string_literal(
-                $buf,
-                $string_of_formatting_gen($fmting_gen)
-              );
-              $fmt__0 = $fmt__19;
-              continue;
-            // FALLTHROUGH
-            case 19:
-              $fmt__20 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $buffer_add_char($buf, 114);
-              $fmt__0 = $fmt__20;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 20:
-              $fmt__21 = $fmt__0[3];
-              $char_set = $fmt__0[2];
-              $width_opt = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $bprint_pad_opt($buf, $width_opt);
-              $bprint_char_set($buf, $char_set);
-              $fmt__0 = $fmt__21;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 21:
-              $fmt__22 = $fmt__0[2];
-              $counter = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $buffer_add_char($buf, $char_of_counter($counter));
-              $fmt__0 = $fmt__22;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 22:
-              $fmt__23 = $fmt__0[1];
-              $buffer_add_char($buf, 37);
-              $bprint_ignored_flag($buf, $ign_flag__0);
-              $bprint_string_literal($buf, $cst_0c);
-              $fmt__0 = $fmt__23;
-              $ign_flag__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 23:
-              $rest = $fmt__0[2];
-              $ign = $fmt__0[1];
-              $match = $param_format_of_ignored_format($ign, $rest);
-              $fmt__24 = $match[1];
-              $fmt__0 = $fmt__24;
-              $ign_flag__0 = 1;
-              continue;
-            // FALLTHROUGH
-            default:
-              $rest__0 = $fmt__0[3];
-              $arity = $fmt__0[1];
-              $ep = $int_of_custom_arity->contents($arity);
-              $eo = 1;
-              if (! ($ep < 1)) {
-                $i = $eo;
-                for (;;) {
-                  $buffer_add_char($buf, 37);
-                  $bprint_ignored_flag($buf, $ign_flag__0);
-                  $buffer_add_char($buf, 63);
-                  $eq = (int) ($i + 1);
-                  if ($ep !== $i) {$i = $eq;continue;}
-                  break;
-                }
+          if ($fmt__0[0] === 0) {
+            $fmt__1 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $buffer_add_char($buf, 99);
+            $fmt__0 = $fmt__1;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 1) {
+            $fmt__2 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $buffer_add_char($buf, 67);
+            $fmt__0 = $fmt__2;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 2) {
+            $fmt__3 = $fmt__0[2];
+            $pad = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $bprint_padding($buf, $pad);
+            $buffer_add_char($buf, 115);
+            $fmt__0 = $fmt__3;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 3) {
+            $fmt__4 = $fmt__0[2];
+            $pad__0 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $bprint_padding($buf, $pad__0);
+            $buffer_add_char($buf, 83);
+            $fmt__0 = $fmt__4;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 4) {
+            $fmt__5 = $fmt__0[4];
+            $prec = $fmt__0[3];
+            $pad__1 = $fmt__0[2];
+            $iconv = $fmt__0[1];
+            $bprint_int_fmt($buf, $ign_flag__0, $iconv, $pad__1, $prec);
+            $fmt__0 = $fmt__5;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 5) {
+            $fmt__6 = $fmt__0[4];
+            $prec__0 = $fmt__0[3];
+            $pad__2 = $fmt__0[2];
+            $iconv__0 = $fmt__0[1];
+            $bprint_altint_fmt(
+              $buf,
+              $ign_flag__0,
+              $iconv__0,
+              $pad__2,
+              $prec__0,
+              108
+            );
+            $fmt__0 = $fmt__6;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 6) {
+            $fmt__7 = $fmt__0[4];
+            $prec__1 = $fmt__0[3];
+            $pad__3 = $fmt__0[2];
+            $iconv__1 = $fmt__0[1];
+            $bprint_altint_fmt(
+              $buf,
+              $ign_flag__0,
+              $iconv__1,
+              $pad__3,
+              $prec__1,
+              110
+            );
+            $fmt__0 = $fmt__7;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 7) {
+            $fmt__8 = $fmt__0[4];
+            $prec__2 = $fmt__0[3];
+            $pad__4 = $fmt__0[2];
+            $iconv__2 = $fmt__0[1];
+            $bprint_altint_fmt(
+              $buf,
+              $ign_flag__0,
+              $iconv__2,
+              $pad__4,
+              $prec__2,
+              76
+            );
+            $fmt__0 = $fmt__8;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 8) {
+            $fmt__9 = $fmt__0[4];
+            $prec__3 = $fmt__0[3];
+            $pad__5 = $fmt__0[2];
+            $fconv = $fmt__0[1];
+            $bprint_float_fmt($buf, $ign_flag__0, $fconv, $pad__5, $prec__3);
+            $fmt__0 = $fmt__9;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 9) {
+            $fmt__10 = $fmt__0[2];
+            $pad__6 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $bprint_padding($buf, $pad__6);
+            $buffer_add_char($buf, 66);
+            $fmt__0 = $fmt__10;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 10) {
+            $fmt__11 = $fmt__0[1];
+            $buffer_add_string($buf, $cst__14);
+            $fmt__0 = $fmt__11;
+            continue;
+          }
+          else if ($fmt__0[0] === 11) {
+            $fmt__12 = $fmt__0[2];
+            $str = $fmt__0[1];
+            $bprint_string_literal($buf, $str);
+            $fmt__0 = $fmt__12;
+            continue;
+          }
+          else if ($fmt__0[0] === 12) {
+            $fmt__13 = $fmt__0[2];
+            $chr = $fmt__0[1];
+            $bprint_char_literal($buf, $chr);
+            $fmt__0 = $fmt__13;
+            continue;
+          }
+          else if ($fmt__0[0] === 13) {
+            $fmt__14 = $fmt__0[3];
+            $fmtty = $fmt__0[2];
+            $pad_opt = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $bprint_pad_opt($buf, $pad_opt);
+            $buffer_add_char($buf, 123);
+            $bprint_fmtty->contents($buf, $fmtty);
+            $buffer_add_char($buf, 37);
+            $buffer_add_char($buf, 125);
+            $fmt__0 = $fmt__14;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 14) {
+            $fmt__15 = $fmt__0[3];
+            $fmtty__0 = $fmt__0[2];
+            $pad_opt__0 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $bprint_pad_opt($buf, $pad_opt__0);
+            $buffer_add_char($buf, 40);
+            $bprint_fmtty->contents($buf, $fmtty__0);
+            $buffer_add_char($buf, 37);
+            $buffer_add_char($buf, 41);
+            $fmt__0 = $fmt__15;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 15) {
+            $fmt__16 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $buffer_add_char($buf, 97);
+            $fmt__0 = $fmt__16;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 16) {
+            $fmt__17 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $buffer_add_char($buf, 116);
+            $fmt__0 = $fmt__17;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 17) {
+            $fmt__18 = $fmt__0[2];
+            $fmting_lit = $fmt__0[1];
+            $bprint_string_literal(
+              $buf,
+              $string_of_formatting_lit($fmting_lit)
+            );
+            $fmt__0 = $fmt__18;
+            continue;
+          }
+          else if ($fmt__0[0] === 18) {
+            $fmt__19 = $fmt__0[2];
+            $fmting_gen = $fmt__0[1];
+            $bprint_string_literal($buf, $cst__15);
+            $bprint_string_literal(
+              $buf,
+              $string_of_formatting_gen($fmting_gen)
+            );
+            $fmt__0 = $fmt__19;
+            continue;
+          }
+          else if ($fmt__0[0] === 19) {
+            $fmt__20 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $buffer_add_char($buf, 114);
+            $fmt__0 = $fmt__20;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 20) {
+            $fmt__21 = $fmt__0[3];
+            $char_set = $fmt__0[2];
+            $width_opt = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $bprint_pad_opt($buf, $width_opt);
+            $bprint_char_set($buf, $char_set);
+            $fmt__0 = $fmt__21;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 21) {
+            $fmt__22 = $fmt__0[2];
+            $counter = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $buffer_add_char($buf, $char_of_counter($counter));
+            $fmt__0 = $fmt__22;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 22) {
+            $fmt__23 = $fmt__0[1];
+            $buffer_add_char($buf, 37);
+            $bprint_ignored_flag($buf, $ign_flag__0);
+            $bprint_string_literal($buf, $cst_0c);
+            $fmt__0 = $fmt__23;
+            $ign_flag__0 = 0;
+            continue;
+          }
+          else if ($fmt__0[0] === 23) {
+            $rest = $fmt__0[2];
+            $ign = $fmt__0[1];
+            $match = $param_format_of_ignored_format($ign, $rest);
+            $fmt__24 = $match[1];
+            $fmt__0 = $fmt__24;
+            $ign_flag__0 = 1;
+            continue;
+          }
+          else {
+            $rest__0 = $fmt__0[3];
+            $arity = $fmt__0[1];
+            $ep = $int_of_custom_arity->contents($arity);
+            $eo = 1;
+            if (! ($ep < 1)) {
+              $i = $eo;
+              for (;;) {
+                $buffer_add_char($buf, 37);
+                $bprint_ignored_flag($buf, $ign_flag__0);
+                $buffer_add_char($buf, 63);
+                $eq = (int) ($i + 1);
+                if ($ep !== $i) {$i = $eq;continue;}
+                break;
               }
-              $fmt__0 = $rest__0;
-              $ign_flag__0 = 0;
-              continue;
             }
+            $fmt__0 = $rest__0;
+            $ign_flag__0 = 0;
+            continue;
+          }
         }
       };
       return $fmtiter($fmt, 0);
@@ -2856,185 +2852,170 @@ final class CamlinternalFormat {
         $is_int($fmtty__0)
       ) {return 0;}
       else {
-        switch($fmtty__0[0]) {
-          // FALLTHROUGH
-          case 0:
-            $rest = $fmtty__0[1];
-            return Vector{0, $fmtty_of_fmt->contents($rest)};
-          // FALLTHROUGH
-          case 1:
-            $rest__0 = $fmtty__0[1];
-            return Vector{0, $fmtty_of_fmt->contents($rest__0)};
-          // FALLTHROUGH
-          case 2:
-            $rest__1 = $fmtty__0[2];
-            $pad = $fmtty__0[1];
-            return $fmtty_of_padding_fmtty(
-              $pad,
-              Vector{1, $fmtty_of_fmt->contents($rest__1)}
-            );
-          // FALLTHROUGH
-          case 3:
-            $rest__2 = $fmtty__0[2];
-            $pad__0 = $fmtty__0[1];
-            return $fmtty_of_padding_fmtty(
-              $pad__0,
-              Vector{1, $fmtty_of_fmt->contents($rest__2)}
-            );
-          // FALLTHROUGH
-          case 4:
-            $rest__3 = $fmtty__0[4];
-            $prec = $fmtty__0[3];
-            $pad__1 = $fmtty__0[2];
-            $ty_rest = $fmtty_of_fmt->contents($rest__3);
-            $prec_ty = $fmtty_of_precision_fmtty->contents(
-              $prec,
-              Vector{2, $ty_rest}
-            );
-            return $fmtty_of_padding_fmtty($pad__1, $prec_ty);
-          // FALLTHROUGH
-          case 5:
-            $rest__4 = $fmtty__0[4];
-            $prec__0 = $fmtty__0[3];
-            $pad__2 = $fmtty__0[2];
-            $ty_rest__0 = $fmtty_of_fmt->contents($rest__4);
-            $prec_ty__0 = $fmtty_of_precision_fmtty->contents(
-              $prec__0,
-              Vector{3, $ty_rest__0}
-            );
-            return $fmtty_of_padding_fmtty($pad__2, $prec_ty__0);
-          // FALLTHROUGH
-          case 6:
-            $rest__5 = $fmtty__0[4];
-            $prec__1 = $fmtty__0[3];
-            $pad__3 = $fmtty__0[2];
-            $ty_rest__1 = $fmtty_of_fmt->contents($rest__5);
-            $prec_ty__1 = $fmtty_of_precision_fmtty->contents(
-              $prec__1,
-              Vector{4, $ty_rest__1}
-            );
-            return $fmtty_of_padding_fmtty($pad__3, $prec_ty__1);
-          // FALLTHROUGH
-          case 7:
-            $rest__6 = $fmtty__0[4];
-            $prec__2 = $fmtty__0[3];
-            $pad__4 = $fmtty__0[2];
-            $ty_rest__2 = $fmtty_of_fmt->contents($rest__6);
-            $prec_ty__2 = $fmtty_of_precision_fmtty->contents(
-              $prec__2,
-              Vector{5, $ty_rest__2}
-            );
-            return $fmtty_of_padding_fmtty($pad__4, $prec_ty__2);
-          // FALLTHROUGH
-          case 8:
-            $rest__7 = $fmtty__0[4];
-            $prec__3 = $fmtty__0[3];
-            $pad__5 = $fmtty__0[2];
-            $ty_rest__3 = $fmtty_of_fmt->contents($rest__7);
-            $prec_ty__3 = $fmtty_of_precision_fmtty->contents(
-              $prec__3,
-              Vector{6, $ty_rest__3}
-            );
-            return $fmtty_of_padding_fmtty($pad__5, $prec_ty__3);
-          // FALLTHROUGH
-          case 9:
-            $rest__8 = $fmtty__0[2];
-            $pad__6 = $fmtty__0[1];
-            return $fmtty_of_padding_fmtty(
-              $pad__6,
-              Vector{7, $fmtty_of_fmt->contents($rest__8)}
-            );
-          // FALLTHROUGH
-          case 10:
-            $fmtty__1 = $fmtty__0[1];
-            $fmtty__0 = $fmtty__1;
-            continue;
-          // FALLTHROUGH
-          case 11:
-            $fmtty__2 = $fmtty__0[2];
-            $fmtty__0 = $fmtty__2;
-            continue;
-          // FALLTHROUGH
-          case 12:
-            $fmtty__3 = $fmtty__0[2];
-            $fmtty__0 = $fmtty__3;
-            continue;
-          // FALLTHROUGH
-          case 13:
-            $rest__9 = $fmtty__0[3];
-            $ty = $fmtty__0[2];
-            return Vector{8, $ty, $fmtty_of_fmt->contents($rest__9)};
-          // FALLTHROUGH
-          case 14:
-            $rest__10 = $fmtty__0[3];
-            $ty__0 = $fmtty__0[2];
-            return Vector{
-              9,
-              $ty__0,
-              $ty__0,
-              $fmtty_of_fmt->contents($rest__10)
-            };
-          // FALLTHROUGH
-          case 15:
-            $rest__11 = $fmtty__0[1];
-            return Vector{10, $fmtty_of_fmt->contents($rest__11)};
-          // FALLTHROUGH
-          case 16:
-            $rest__12 = $fmtty__0[1];
-            return Vector{11, $fmtty_of_fmt->contents($rest__12)};
-          // FALLTHROUGH
-          case 17:
-            $fmtty__4 = $fmtty__0[2];
-            $fmtty__0 = $fmtty__4;
-            continue;
-          // FALLTHROUGH
-          case 18:
-            $rest__13 = $fmtty__0[2];
-            $fmting_gen = $fmtty__0[1];
-            $dG = $fmtty_of_fmt->contents($rest__13);
-            $dH = $fmtty_of_formatting_gen->contents($fmting_gen);
-            return $call2($CamlinternalFormatBasics[1], $dH, $dG);
-          // FALLTHROUGH
-          case 19:
-            $rest__14 = $fmtty__0[1];
-            return Vector{13, $fmtty_of_fmt->contents($rest__14)};
-          // FALLTHROUGH
-          case 20:
-            $rest__15 = $fmtty__0[3];
-            return Vector{1, $fmtty_of_fmt->contents($rest__15)};
-          // FALLTHROUGH
-          case 21:
-            $rest__16 = $fmtty__0[2];
-            return Vector{2, $fmtty_of_fmt->contents($rest__16)};
-          // FALLTHROUGH
-          case 22:
-            $rest__17 = $fmtty__0[1];
-            return Vector{0, $fmtty_of_fmt->contents($rest__17)};
-          // FALLTHROUGH
-          case 23:
-            $rest__18 = $fmtty__0[2];
-            $ign = $fmtty__0[1];
-            if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
-              return $fmtty_of_ignored_format->contents(
-                $counter__0,
-                $ign,
-                $rest__18
-              );
-            }
-            return $caml_trampoline_return(
-              $fmtty_of_ignored_format->contents,
-              varray[0,$ign,$rest__18]
-            );
-          // FALLTHROUGH
-          default:
-            $rest__19 = $fmtty__0[3];
-            $arity = $fmtty__0[1];
-            return $fmtty_of_custom->contents(
-              $arity,
-              $fmtty_of_fmt->contents($rest__19)
+        if ($fmtty__0[0] === 0) {
+          $rest = $fmtty__0[1];
+          return Vector{0, $fmtty_of_fmt->contents($rest)};
+        }
+        else if ($fmtty__0[0] === 1) {
+          $rest__0 = $fmtty__0[1];
+          return Vector{0, $fmtty_of_fmt->contents($rest__0)};
+        }
+        else if ($fmtty__0[0] === 2) {
+          $rest__1 = $fmtty__0[2];
+          $pad = $fmtty__0[1];
+          return $fmtty_of_padding_fmtty(
+            $pad,
+            Vector{1, $fmtty_of_fmt->contents($rest__1)}
+          );
+        }
+        else if ($fmtty__0[0] === 3) {
+          $rest__2 = $fmtty__0[2];
+          $pad__0 = $fmtty__0[1];
+          return $fmtty_of_padding_fmtty(
+            $pad__0,
+            Vector{1, $fmtty_of_fmt->contents($rest__2)}
+          );
+        }
+        else if ($fmtty__0[0] === 4) {
+          $rest__3 = $fmtty__0[4];
+          $prec = $fmtty__0[3];
+          $pad__1 = $fmtty__0[2];
+          $ty_rest = $fmtty_of_fmt->contents($rest__3);
+          $prec_ty = $fmtty_of_precision_fmtty->contents(
+            $prec,
+            Vector{2, $ty_rest}
+          );
+          return $fmtty_of_padding_fmtty($pad__1, $prec_ty);
+        }
+        else if ($fmtty__0[0] === 5) {
+          $rest__4 = $fmtty__0[4];
+          $prec__0 = $fmtty__0[3];
+          $pad__2 = $fmtty__0[2];
+          $ty_rest__0 = $fmtty_of_fmt->contents($rest__4);
+          $prec_ty__0 = $fmtty_of_precision_fmtty->contents(
+            $prec__0,
+            Vector{3, $ty_rest__0}
+          );
+          return $fmtty_of_padding_fmtty($pad__2, $prec_ty__0);
+        }
+        else if ($fmtty__0[0] === 6) {
+          $rest__5 = $fmtty__0[4];
+          $prec__1 = $fmtty__0[3];
+          $pad__3 = $fmtty__0[2];
+          $ty_rest__1 = $fmtty_of_fmt->contents($rest__5);
+          $prec_ty__1 = $fmtty_of_precision_fmtty->contents(
+            $prec__1,
+            Vector{4, $ty_rest__1}
+          );
+          return $fmtty_of_padding_fmtty($pad__3, $prec_ty__1);
+        }
+        else if ($fmtty__0[0] === 7) {
+          $rest__6 = $fmtty__0[4];
+          $prec__2 = $fmtty__0[3];
+          $pad__4 = $fmtty__0[2];
+          $ty_rest__2 = $fmtty_of_fmt->contents($rest__6);
+          $prec_ty__2 = $fmtty_of_precision_fmtty->contents(
+            $prec__2,
+            Vector{5, $ty_rest__2}
+          );
+          return $fmtty_of_padding_fmtty($pad__4, $prec_ty__2);
+        }
+        else if ($fmtty__0[0] === 8) {
+          $rest__7 = $fmtty__0[4];
+          $prec__3 = $fmtty__0[3];
+          $pad__5 = $fmtty__0[2];
+          $ty_rest__3 = $fmtty_of_fmt->contents($rest__7);
+          $prec_ty__3 = $fmtty_of_precision_fmtty->contents(
+            $prec__3,
+            Vector{6, $ty_rest__3}
+          );
+          return $fmtty_of_padding_fmtty($pad__5, $prec_ty__3);
+        }
+        else if ($fmtty__0[0] === 9) {
+          $rest__8 = $fmtty__0[2];
+          $pad__6 = $fmtty__0[1];
+          return $fmtty_of_padding_fmtty(
+            $pad__6,
+            Vector{7, $fmtty_of_fmt->contents($rest__8)}
+          );
+        }
+        else if ($fmtty__0[0] === 10) {
+          $fmtty__1 = $fmtty__0[1];$fmtty__0 = $fmtty__1;continue;
+        }
+        else if ($fmtty__0[0] === 11) {
+          $fmtty__2 = $fmtty__0[2];$fmtty__0 = $fmtty__2;continue;
+        }
+        else if ($fmtty__0[0] === 12) {
+          $fmtty__3 = $fmtty__0[2];$fmtty__0 = $fmtty__3;continue;
+        }
+        else if ($fmtty__0[0] === 13) {
+          $rest__9 = $fmtty__0[3];
+          $ty = $fmtty__0[2];
+          return Vector{8, $ty, $fmtty_of_fmt->contents($rest__9)};
+        }
+        else if ($fmtty__0[0] === 14) {
+          $rest__10 = $fmtty__0[3];
+          $ty__0 = $fmtty__0[2];
+          return Vector{9, $ty__0, $ty__0, $fmtty_of_fmt->contents($rest__10)};
+        }
+        else if ($fmtty__0[0] === 15) {
+          $rest__11 = $fmtty__0[1];
+          return Vector{10, $fmtty_of_fmt->contents($rest__11)};
+        }
+        else if ($fmtty__0[0] === 16) {
+          $rest__12 = $fmtty__0[1];
+          return Vector{11, $fmtty_of_fmt->contents($rest__12)};
+        }
+        else if ($fmtty__0[0] === 17) {
+          $fmtty__4 = $fmtty__0[2];$fmtty__0 = $fmtty__4;continue;
+        }
+        else if ($fmtty__0[0] === 18) {
+          $rest__13 = $fmtty__0[2];
+          $fmting_gen = $fmtty__0[1];
+          $dG = $fmtty_of_fmt->contents($rest__13);
+          $dH = $fmtty_of_formatting_gen->contents($fmting_gen);
+          return $call2($CamlinternalFormatBasics[1], $dH, $dG);
+        }
+        else if ($fmtty__0[0] === 19) {
+          $rest__14 = $fmtty__0[1];
+          return Vector{13, $fmtty_of_fmt->contents($rest__14)};
+        }
+        else if ($fmtty__0[0] === 20) {
+          $rest__15 = $fmtty__0[3];
+          return Vector{1, $fmtty_of_fmt->contents($rest__15)};
+        }
+        else if ($fmtty__0[0] === 21) {
+          $rest__16 = $fmtty__0[2];
+          return Vector{2, $fmtty_of_fmt->contents($rest__16)};
+        }
+        else if ($fmtty__0[0] === 22) {
+          $rest__17 = $fmtty__0[1];
+          return Vector{0, $fmtty_of_fmt->contents($rest__17)};
+        }
+        else if ($fmtty__0[0] === 23) {
+          $rest__18 = $fmtty__0[2];
+          $ign = $fmtty__0[1];
+          if ($counter < 50) {
+            $counter__0 = (int) ($counter + 1);
+            return $fmtty_of_ignored_format->contents(
+              $counter__0,
+              $ign,
+              $rest__18
             );
           }
+          return $caml_trampoline_return(
+            $fmtty_of_ignored_format->contents,
+            varray[0,$ign,$rest__18]
+          );
+        }
+        else {
+          $rest__19 = $fmtty__0[3];
+          $arity = $fmtty__0[1];
+          return $fmtty_of_custom->contents(
+            $arity,
+            $fmtty_of_fmt->contents($rest__19)
+          );
+        }
       }
     };
     $fmtty_of_ignored_format->contents = function
@@ -4686,331 +4667,329 @@ final class CamlinternalFormat {
         $is_int($fmt__0)
       ) {return $call2($k__0, $o, $acc__0);}
       else {
-        switch($fmt__0[0]) {
-          // FALLTHROUGH
-          case 0:
-            $rest = $fmt__0[1];
-            return function(dynamic $c) use ($acc__0,$k__0,$make_printf,$o,$rest) {
-              $new_acc = Vector{5, $acc__0, $c};
-              return $make_printf->contents($k__0, $o, $new_acc, $rest);
-            };
-          // FALLTHROUGH
-          case 1:
-            $rest__0 = $fmt__0[1];
-            return function(dynamic $c) use ($acc__0,$format_caml_char,$k__0,$make_printf,$o,$rest__0) {
-              $new_acc = Vector{4, $acc__0, $format_caml_char($c)};
-              return $make_printf->contents($k__0, $o, $new_acc, $rest__0);
-            };
-          // FALLTHROUGH
-          case 2:
-            $rest__1 = $fmt__0[2];
-            $pad = $fmt__0[1];
-            return $make_padding(
+        if ($fmt__0[0] === 0) {
+          $rest = $fmt__0[1];
+          return function(dynamic $c) use ($acc__0,$k__0,$make_printf,$o,$rest) {
+            $new_acc = Vector{5, $acc__0, $c};
+            return $make_printf->contents($k__0, $o, $new_acc, $rest);
+          };
+        }
+        else if ($fmt__0[0] === 1) {
+          $rest__0 = $fmt__0[1];
+          return function(dynamic $c) use ($acc__0,$format_caml_char,$k__0,$make_printf,$o,$rest__0) {
+            $new_acc = Vector{4, $acc__0, $format_caml_char($c)};
+            return $make_printf->contents($k__0, $o, $new_acc, $rest__0);
+          };
+        }
+        else if ($fmt__0[0] === 2) {
+          $rest__1 = $fmt__0[2];
+          $pad = $fmt__0[1];
+          return $make_padding(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__1,
+            $pad,
+            function(dynamic $str) {return $str;}
+          );
+        }
+        else if ($fmt__0[0] === 3) {
+          $rest__2 = $fmt__0[2];
+          $pad__0 = $fmt__0[1];
+          return $make_padding(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__2,
+            $pad__0,
+            $string_to_caml_string
+          );
+        }
+        else if ($fmt__0[0] === 4) {
+          $rest__3 = $fmt__0[4];
+          $prec = $fmt__0[3];
+          $pad__1 = $fmt__0[2];
+          $iconv = $fmt__0[1];
+          return $make_int_padding_precision(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__3,
+            $pad__1,
+            $prec,
+            $convert_int,
+            $iconv
+          );
+        }
+        else if ($fmt__0[0] === 5) {
+          $rest__4 = $fmt__0[4];
+          $prec__0 = $fmt__0[3];
+          $pad__2 = $fmt__0[2];
+          $iconv__0 = $fmt__0[1];
+          return $make_int_padding_precision(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__4,
+            $pad__2,
+            $prec__0,
+            $convert_int32,
+            $iconv__0
+          );
+        }
+        else if ($fmt__0[0] === 6) {
+          $rest__5 = $fmt__0[4];
+          $prec__1 = $fmt__0[3];
+          $pad__3 = $fmt__0[2];
+          $iconv__1 = $fmt__0[1];
+          return $make_int_padding_precision(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__5,
+            $pad__3,
+            $prec__1,
+            $convert_nativeint,
+            $iconv__1
+          );
+        }
+        else if ($fmt__0[0] === 7) {
+          $rest__6 = $fmt__0[4];
+          $prec__2 = $fmt__0[3];
+          $pad__4 = $fmt__0[2];
+          $iconv__2 = $fmt__0[1];
+          return $make_int_padding_precision(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__6,
+            $pad__4,
+            $prec__2,
+            $convert_int64,
+            $iconv__2
+          );
+        }
+        else if ($fmt__0[0] === 8) {
+          $rest__7 = $fmt__0[4];
+          $prec__3 = $fmt__0[3];
+          $pad__5 = $fmt__0[2];
+          $fconv = $fmt__0[1];
+          return $make_float_padding_precision(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__7,
+            $pad__5,
+            $prec__3,
+            $fconv
+          );
+        }
+        else if ($fmt__0[0] === 9) {
+          $rest__8 = $fmt__0[2];
+          $pad__6 = $fmt__0[1];
+          return $make_padding(
+            $k__0,
+            $o,
+            $acc__0,
+            $rest__8,
+            $pad__6,
+            $Pervasives[18]
+          );
+        }
+        else if ($fmt__0[0] === 10) {
+          $fmt__1 = $fmt__0[1];
+          $acc__1 = Vector{7, $acc__0};
+          $acc__0 = $acc__1;
+          $fmt__0 = $fmt__1;
+          continue;
+        }
+        else if ($fmt__0[0] === 11) {
+          $fmt__2 = $fmt__0[2];
+          $str = $fmt__0[1];
+          $acc__2 = Vector{2, $acc__0, $str};
+          $acc__0 = $acc__2;
+          $fmt__0 = $fmt__2;
+          continue;
+        }
+        else if ($fmt__0[0] === 12) {
+          $fmt__3 = $fmt__0[2];
+          $chr = $fmt__0[1];
+          $acc__3 = Vector{3, $acc__0, $chr};
+          $acc__0 = $acc__3;
+          $fmt__0 = $fmt__3;
+          continue;
+        }
+        else if ($fmt__0[0] === 13) {
+          $rest__9 = $fmt__0[3];
+          $sub_fmtty = $fmt__0[2];
+          $ty = $string_of_fmtty($sub_fmtty);
+          return function(dynamic $str) use ($acc__0,$k__0,$make_printf,$o,$rest__9,$ty) {
+            return $make_printf->contents(
+              $k__0,
+              $o,
+              Vector{4, $acc__0, $ty},
+              $rest__9
+            );
+          };
+        }
+        else if ($fmt__0[0] === 14) {
+          $rest__10 = $fmt__0[3];
+          $fmtty = $fmt__0[2];
+          return function(dynamic $param) use ($CamlinternalFormatBasics,$acc__0,$call2,$fmtty,$k__0,$make_printf,$o,$recast,$rest__10) {
+            $fmt = $param[1];
+            $cW = $recast($fmt, $fmtty);
+            return $make_printf->contents(
               $k__0,
               $o,
               $acc__0,
-              $rest__1,
-              $pad,
-              function(dynamic $str) {return $str;}
+              $call2($CamlinternalFormatBasics[3], $cW, $rest__10)
             );
-          // FALLTHROUGH
-          case 3:
-            $rest__2 = $fmt__0[2];
-            $pad__0 = $fmt__0[1];
-            return $make_padding(
+          };
+        }
+        else if ($fmt__0[0] === 15) {
+          $rest__11 = $fmt__0[1];
+          return function(dynamic $f, dynamic $x) use ($acc__0,$call2,$k__0,$make_printf,$o,$rest__11) {
+            return $make_printf->contents(
               $k__0,
               $o,
-              $acc__0,
-              $rest__2,
-              $pad__0,
-              $string_to_caml_string
-            );
-          // FALLTHROUGH
-          case 4:
-            $rest__3 = $fmt__0[4];
-            $prec = $fmt__0[3];
-            $pad__1 = $fmt__0[2];
-            $iconv = $fmt__0[1];
-            return $make_int_padding_precision(
-              $k__0,
-              $o,
-              $acc__0,
-              $rest__3,
-              $pad__1,
-              $prec,
-              $convert_int,
-              $iconv
-            );
-          // FALLTHROUGH
-          case 5:
-            $rest__4 = $fmt__0[4];
-            $prec__0 = $fmt__0[3];
-            $pad__2 = $fmt__0[2];
-            $iconv__0 = $fmt__0[1];
-            return $make_int_padding_precision(
-              $k__0,
-              $o,
-              $acc__0,
-              $rest__4,
-              $pad__2,
-              $prec__0,
-              $convert_int32,
-              $iconv__0
-            );
-          // FALLTHROUGH
-          case 6:
-            $rest__5 = $fmt__0[4];
-            $prec__1 = $fmt__0[3];
-            $pad__3 = $fmt__0[2];
-            $iconv__1 = $fmt__0[1];
-            return $make_int_padding_precision(
-              $k__0,
-              $o,
-              $acc__0,
-              $rest__5,
-              $pad__3,
-              $prec__1,
-              $convert_nativeint,
-              $iconv__1
-            );
-          // FALLTHROUGH
-          case 7:
-            $rest__6 = $fmt__0[4];
-            $prec__2 = $fmt__0[3];
-            $pad__4 = $fmt__0[2];
-            $iconv__2 = $fmt__0[1];
-            return $make_int_padding_precision(
-              $k__0,
-              $o,
-              $acc__0,
-              $rest__6,
-              $pad__4,
-              $prec__2,
-              $convert_int64,
-              $iconv__2
-            );
-          // FALLTHROUGH
-          case 8:
-            $rest__7 = $fmt__0[4];
-            $prec__3 = $fmt__0[3];
-            $pad__5 = $fmt__0[2];
-            $fconv = $fmt__0[1];
-            return $make_float_padding_precision(
-              $k__0,
-              $o,
-              $acc__0,
-              $rest__7,
-              $pad__5,
-              $prec__3,
-              $fconv
-            );
-          // FALLTHROUGH
-          case 9:
-            $rest__8 = $fmt__0[2];
-            $pad__6 = $fmt__0[1];
-            return $make_padding(
-              $k__0,
-              $o,
-              $acc__0,
-              $rest__8,
-              $pad__6,
-              $Pervasives[18]
-            );
-          // FALLTHROUGH
-          case 10:
-            $fmt__1 = $fmt__0[1];
-            $acc__1 = Vector{7, $acc__0};
-            $acc__0 = $acc__1;
-            $fmt__0 = $fmt__1;
-            continue;
-          // FALLTHROUGH
-          case 11:
-            $fmt__2 = $fmt__0[2];
-            $str = $fmt__0[1];
-            $acc__2 = Vector{2, $acc__0, $str};
-            $acc__0 = $acc__2;
-            $fmt__0 = $fmt__2;
-            continue;
-          // FALLTHROUGH
-          case 12:
-            $fmt__3 = $fmt__0[2];
-            $chr = $fmt__0[1];
-            $acc__3 = Vector{3, $acc__0, $chr};
-            $acc__0 = $acc__3;
-            $fmt__0 = $fmt__3;
-            continue;
-          // FALLTHROUGH
-          case 13:
-            $rest__9 = $fmt__0[3];
-            $sub_fmtty = $fmt__0[2];
-            $ty = $string_of_fmtty($sub_fmtty);
-            return function(dynamic $str) use ($acc__0,$k__0,$make_printf,$o,$rest__9,$ty) {
-              return $make_printf->contents(
-                $k__0,
-                $o,
-                Vector{4, $acc__0, $ty},
-                $rest__9
-              );
-            };
-          // FALLTHROUGH
-          case 14:
-            $rest__10 = $fmt__0[3];
-            $fmtty = $fmt__0[2];
-            return function(dynamic $param) use ($CamlinternalFormatBasics,$acc__0,$call2,$fmtty,$k__0,$make_printf,$o,$recast,$rest__10) {
-              $fmt = $param[1];
-              $cW = $recast($fmt, $fmtty);
-              return $make_printf->contents(
-                $k__0,
-                $o,
+              Vector{
+                6,
                 $acc__0,
-                $call2($CamlinternalFormatBasics[3], $cW, $rest__10)
-              );
-            };
-          // FALLTHROUGH
-          case 15:
-            $rest__11 = $fmt__0[1];
-            return function(dynamic $f, dynamic $x) use ($acc__0,$call2,$k__0,$make_printf,$o,$rest__11) {
-              return $make_printf->contents(
-                $k__0,
-                $o,
-                Vector{
-                  6,
-                  $acc__0,
-                  function(dynamic $o) use ($call2,$f,$x) {
-                    return $call2($f, $o, $x);
-                  }
-                },
-                $rest__11
-              );
-            };
-          // FALLTHROUGH
-          case 16:
-            $rest__12 = $fmt__0[1];
-            return function(dynamic $f) use ($acc__0,$k__0,$make_printf,$o,$rest__12) {
-              return $make_printf->contents(
-                $k__0,
-                $o,
-                Vector{6, $acc__0, $f},
-                $rest__12
-              );
-            };
-          // FALLTHROUGH
-          case 17:
-            $fmt__4 = $fmt__0[2];
-            $fmting_lit = $fmt__0[1];
-            $acc__4 = Vector{0, $acc__0, $fmting_lit};
-            $acc__0 = $acc__4;
-            $fmt__0 = $fmt__4;
-            continue;
-          // FALLTHROUGH
-          case 18:
-            $cU = $fmt__0[1];
-            if (0 === $cU[0]) {
-              $rest__13 = $fmt__0[2];
-              $match = $cU[1];
-              $fmt__5 = $match[1];
-              $k__3 = function(dynamic $acc, dynamic $k, dynamic $rest) use ($make_printf) {
-                $k__0 = function(dynamic $koc, dynamic $kacc) use ($acc,$k,$make_printf,$rest) {
-                  return $make_printf->contents(
-                    $k,
-                    $koc,
-                    Vector{1, $acc, Vector{0, $kacc}},
-                    $rest
-                  );
-                };
-                return $k__0;
-              };
-              $k__1 = $k__3($acc__0, $k__0, $rest__13);
-              $k__0 = $k__1;
-              $acc__0 = 0;
-              $fmt__0 = $fmt__5;
-              continue;
-            }
-            $rest__14 = $fmt__0[2];
-            $match__0 = $cU[1];
-            $fmt__6 = $match__0[1];
-            $k__4 = function(dynamic $acc, dynamic $k, dynamic $rest) use ($make_printf) {
+                function(dynamic $o) use ($call2,$f,$x) {
+                  return $call2($f, $o, $x);
+                }
+              },
+              $rest__11
+            );
+          };
+        }
+        else if ($fmt__0[0] === 16) {
+          $rest__12 = $fmt__0[1];
+          return function(dynamic $f) use ($acc__0,$k__0,$make_printf,$o,$rest__12) {
+            return $make_printf->contents(
+              $k__0,
+              $o,
+              Vector{6, $acc__0, $f},
+              $rest__12
+            );
+          };
+        }
+        else if ($fmt__0[0] === 17) {
+          $fmt__4 = $fmt__0[2];
+          $fmting_lit = $fmt__0[1];
+          $acc__4 = Vector{0, $acc__0, $fmting_lit};
+          $acc__0 = $acc__4;
+          $fmt__0 = $fmt__4;
+          continue;
+        }
+        else if ($fmt__0[0] === 18) {
+          $cU = $fmt__0[1];
+          if (0 === $cU[0]) {
+            $rest__13 = $fmt__0[2];
+            $match = $cU[1];
+            $fmt__5 = $match[1];
+            $k__3 = function(dynamic $acc, dynamic $k, dynamic $rest) use ($make_printf) {
               $k__0 = function(dynamic $koc, dynamic $kacc) use ($acc,$k,$make_printf,$rest) {
                 return $make_printf->contents(
                   $k,
                   $koc,
-                  Vector{1, $acc, Vector{1, $kacc}},
+                  Vector{1, $acc, Vector{0, $kacc}},
                   $rest
                 );
               };
               return $k__0;
             };
-            $k__2 = $k__4($acc__0, $k__0, $rest__14);
-            $k__0 = $k__2;
+            $k__1 = $k__3($acc__0, $k__0, $rest__13);
+            $k__0 = $k__1;
             $acc__0 = 0;
-            $fmt__0 = $fmt__6;
+            $fmt__0 = $fmt__5;
             continue;
-          // FALLTHROUGH
-          case 19:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $q}) as \Throwable;
-          // FALLTHROUGH
-          case 20:
-            $rest__15 = $fmt__0[3];
-            $new_acc = Vector{8, $acc__0, $cst_Printf_bad_conversion};
-            return function(dynamic $param) use ($k__0,$make_printf,$new_acc,$o,$rest__15) {
-              return $make_printf->contents($k__0, $o, $new_acc, $rest__15);
-            };
-          // FALLTHROUGH
-          case 21:
-            $rest__16 = $fmt__0[2];
-            return function(dynamic $n) use ($acc__0,$caml_format_int,$cst_u__0,$k__0,$make_printf,$o,$rest__16) {
-              $new_acc = Vector{4, $acc__0, $caml_format_int($cst_u__0, $n)};
-              return $make_printf->contents($k__0, $o, $new_acc, $rest__16);
-            };
-          // FALLTHROUGH
-          case 22:
-            $rest__17 = $fmt__0[1];
-            return function(dynamic $c) use ($acc__0,$k__0,$make_printf,$o,$rest__17) {
-              $new_acc = Vector{5, $acc__0, $c};
-              return $make_printf->contents($k__0, $o, $new_acc, $rest__17);
-            };
-          // FALLTHROUGH
-          case 23:
-            $rest__18 = $fmt__0[2];
-            $ign = $fmt__0[1];
-            if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1);
-              return $make_ignored_param__0->contents(
-                $counter__1,
-                $k__0,
-                $o,
-                $acc__0,
-                $ign,
-                $rest__18
+          }
+          $rest__14 = $fmt__0[2];
+          $match__0 = $cU[1];
+          $fmt__6 = $match__0[1];
+          $k__4 = function(dynamic $acc, dynamic $k, dynamic $rest) use ($make_printf) {
+            $k__0 = function(dynamic $koc, dynamic $kacc) use ($acc,$k,$make_printf,$rest) {
+              return $make_printf->contents(
+                $k,
+                $koc,
+                Vector{1, $acc, Vector{1, $kacc}},
+                $rest
               );
-            }
-            return $caml_trampoline_return(
-              $make_ignored_param__0->contents,
-              varray[0,$k__0,$o,$acc__0,$ign,$rest__18]
-            );
-          // FALLTHROUGH
-          default:
-            $rest__19 = $fmt__0[3];
-            $f = $fmt__0[2];
-            $arity = $fmt__0[1];
-            $cV = $call1($f, 0);
-            if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
-              return $make_custom__0->contents(
-                $counter__0,
-                $k__0,
-                $o,
-                $acc__0,
-                $rest__19,
-                $arity,
-                $cV
-              );
-            }
-            return $caml_trampoline_return(
-              $make_custom__0->contents,
-              varray[0,$k__0,$o,$acc__0,$rest__19,$arity,$cV]
+            };
+            return $k__0;
+          };
+          $k__2 = $k__4($acc__0, $k__0, $rest__14);
+          $k__0 = $k__2;
+          $acc__0 = 0;
+          $fmt__0 = $fmt__6;
+          continue;
+        }
+        else if ($fmt__0[0] === 19) {
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $q}) as \Throwable;
+        }
+        else if ($fmt__0[0] === 20) {
+          $rest__15 = $fmt__0[3];
+          $new_acc = Vector{8, $acc__0, $cst_Printf_bad_conversion};
+          return function(dynamic $param) use ($k__0,$make_printf,$new_acc,$o,$rest__15) {
+            return $make_printf->contents($k__0, $o, $new_acc, $rest__15);
+          };
+        }
+        else if ($fmt__0[0] === 21) {
+          $rest__16 = $fmt__0[2];
+          return function(dynamic $n) use ($acc__0,$caml_format_int,$cst_u__0,$k__0,$make_printf,$o,$rest__16) {
+            $new_acc = Vector{4, $acc__0, $caml_format_int($cst_u__0, $n)};
+            return $make_printf->contents($k__0, $o, $new_acc, $rest__16);
+          };
+        }
+        else if ($fmt__0[0] === 22) {
+          $rest__17 = $fmt__0[1];
+          return function(dynamic $c) use ($acc__0,$k__0,$make_printf,$o,$rest__17) {
+            $new_acc = Vector{5, $acc__0, $c};
+            return $make_printf->contents($k__0, $o, $new_acc, $rest__17);
+          };
+        }
+        else if ($fmt__0[0] === 23) {
+          $rest__18 = $fmt__0[2];
+          $ign = $fmt__0[1];
+          if ($counter < 50) {
+            $counter__1 = (int) ($counter + 1);
+            return $make_ignored_param__0->contents(
+              $counter__1,
+              $k__0,
+              $o,
+              $acc__0,
+              $ign,
+              $rest__18
             );
           }
+          return $caml_trampoline_return(
+            $make_ignored_param__0->contents,
+            varray[0,$k__0,$o,$acc__0,$ign,$rest__18]
+          );
+        }
+        else {
+          $rest__19 = $fmt__0[3];
+          $f = $fmt__0[2];
+          $arity = $fmt__0[1];
+          $cV = $call1($f, 0);
+          if ($counter < 50) {
+            $counter__0 = (int) ($counter + 1);
+            return $make_custom__0->contents(
+              $counter__0,
+              $k__0,
+              $o,
+              $acc__0,
+              $rest__19,
+              $arity,
+              $cV
+            );
+          }
+          return $caml_trampoline_return(
+            $make_custom__0->contents,
+            varray[0,$k__0,$o,$acc__0,$rest__19,$arity,$cV]
+          );
+        }
       }
     };
     $make_ignored_param__0->contents = function
@@ -5520,301 +5499,291 @@ final class CamlinternalFormat {
         $is_int($fmt__0)
       ) {return $call1($k__0, $o);}
       else {
-        switch($fmt__0[0]) {
-          // FALLTHROUGH
-          case 0:
-            $rest = $fmt__0[1];
-            $bC = $make_iprintf->contents($k__0, $o, $rest);
-            return function(dynamic $cm) use ($bC,$const__0) {
-              return $const__0($bC, $cm);
+        if ($fmt__0[0] === 0) {
+          $rest = $fmt__0[1];
+          $bC = $make_iprintf->contents($k__0, $o, $rest);
+          return function(dynamic $cm) use ($bC,$const__0) {
+            return $const__0($bC, $cm);
+          };
+        }
+        else if ($fmt__0[0] === 1) {
+          $rest__0 = $fmt__0[1];
+          $bD = $make_iprintf->contents($k__0, $o, $rest__0);
+          return function(dynamic $cl) use ($bD,$const__0) {
+            return $const__0($bD, $cl);
+          };
+        }
+        else if ($fmt__0[0] === 2) {
+          $bE = $fmt__0[1];
+          if ($is_int($bE)) {
+            $rest__1 = $fmt__0[2];
+            $bF = $make_iprintf->contents($k__0, $o, $rest__1);
+            return function(dynamic $ch) use ($bF,$const__0) {
+              return $const__0($bF, $ch);
             };
-          // FALLTHROUGH
-          case 1:
-            $rest__0 = $fmt__0[1];
-            $bD = $make_iprintf->contents($k__0, $o, $rest__0);
-            return function(dynamic $cl) use ($bD,$const__0) {
-              return $const__0($bD, $cl);
+          }
+          else {
+            if (0 === $bE[0]) {
+              $rest__2 = $fmt__0[2];
+              $bG = $make_iprintf->contents($k__0, $o, $rest__2);
+              return function(dynamic $ck) use ($bG,$const__0) {
+                return $const__0($bG, $ck);
+              };
+            }
+            $rest__3 = $fmt__0[2];
+            $bH = $make_iprintf->contents($k__0, $o, $rest__3);
+            $bI = function(dynamic $cj) use ($bH,$const__0) {
+              return $const__0($bH, $cj);
             };
-          // FALLTHROUGH
-          case 2:
-            $bE = $fmt__0[1];
-            if ($is_int($bE)) {
-              $rest__1 = $fmt__0[2];
-              $bF = $make_iprintf->contents($k__0, $o, $rest__1);
-              return function(dynamic $ch) use ($bF,$const__0) {
-                return $const__0($bF, $ch);
+            return function(dynamic $ci) use ($bI,$const__0) {
+              return $const__0($bI, $ci);
+            };
+          }
+        }
+        else if ($fmt__0[0] === 3) {
+          $bJ = $fmt__0[1];
+          if ($is_int($bJ)) {
+            $rest__4 = $fmt__0[2];
+            $bK = $make_iprintf->contents($k__0, $o, $rest__4);
+            return function(dynamic $cd) use ($bK,$const__0) {
+              return $const__0($bK, $cd);
+            };
+          }
+          else {
+            if (0 === $bJ[0]) {
+              $rest__5 = $fmt__0[2];
+              $bL = $make_iprintf->contents($k__0, $o, $rest__5);
+              return function(dynamic $cg) use ($bL,$const__0) {
+                return $const__0($bL, $cg);
               };
             }
-            else {
-              if (0 === $bE[0]) {
-                $rest__2 = $fmt__0[2];
-                $bG = $make_iprintf->contents($k__0, $o, $rest__2);
-                return function(dynamic $ck) use ($bG,$const__0) {
-                  return $const__0($bG, $ck);
-                };
-              }
-              $rest__3 = $fmt__0[2];
-              $bH = $make_iprintf->contents($k__0, $o, $rest__3);
-              $bI = function(dynamic $cj) use ($bH,$const__0) {
-                return $const__0($bH, $cj);
-              };
-              return function(dynamic $ci) use ($bI,$const__0) {
-                return $const__0($bI, $ci);
+            $rest__6 = $fmt__0[2];
+            $bM = $make_iprintf->contents($k__0, $o, $rest__6);
+            $bN = function(dynamic $cf) use ($bM,$const__0) {
+              return $const__0($bM, $cf);
+            };
+            return function(dynamic $ce) use ($bN,$const__0) {
+              return $const__0($bN, $ce);
+            };
+          }
+        }
+        else if ($fmt__0[0] === 4) {
+          $rest__7 = $fmt__0[4];
+          $prec = $fmt__0[3];
+          $pad = $fmt__0[2];
+          return $fn_of_padding_precision($k__0, $o, $rest__7, $pad, $prec);
+        }
+        else if ($fmt__0[0] === 5) {
+          $rest__8 = $fmt__0[4];
+          $prec__0 = $fmt__0[3];
+          $pad__0 = $fmt__0[2];
+          return $fn_of_padding_precision(
+            $k__0,
+            $o,
+            $rest__8,
+            $pad__0,
+            $prec__0
+          );
+        }
+        else if ($fmt__0[0] === 6) {
+          $rest__9 = $fmt__0[4];
+          $prec__1 = $fmt__0[3];
+          $pad__1 = $fmt__0[2];
+          return $fn_of_padding_precision(
+            $k__0,
+            $o,
+            $rest__9,
+            $pad__1,
+            $prec__1
+          );
+        }
+        else if ($fmt__0[0] === 7) {
+          $rest__10 = $fmt__0[4];
+          $prec__2 = $fmt__0[3];
+          $pad__2 = $fmt__0[2];
+          return $fn_of_padding_precision(
+            $k__0,
+            $o,
+            $rest__10,
+            $pad__2,
+            $prec__2
+          );
+        }
+        else if ($fmt__0[0] === 8) {
+          $rest__11 = $fmt__0[4];
+          $prec__3 = $fmt__0[3];
+          $pad__3 = $fmt__0[2];
+          return $fn_of_padding_precision(
+            $k__0,
+            $o,
+            $rest__11,
+            $pad__3,
+            $prec__3
+          );
+        }
+        else if ($fmt__0[0] === 9) {
+          $bO = $fmt__0[1];
+          if ($is_int($bO)) {
+            $rest__12 = $fmt__0[2];
+            $bP = $make_iprintf->contents($k__0, $o, $rest__12);
+            return function(dynamic $b_) use ($bP,$const__0) {
+              return $const__0($bP, $b_);
+            };
+          }
+          else {
+            if (0 === $bO[0]) {
+              $rest__13 = $fmt__0[2];
+              $bQ = $make_iprintf->contents($k__0, $o, $rest__13);
+              return function(dynamic $cc) use ($bQ,$const__0) {
+                return $const__0($bQ, $cc);
               };
             }
-          // FALLTHROUGH
-          case 3:
-            $bJ = $fmt__0[1];
-            if ($is_int($bJ)) {
-              $rest__4 = $fmt__0[2];
-              $bK = $make_iprintf->contents($k__0, $o, $rest__4);
-              return function(dynamic $cd) use ($bK,$const__0) {
-                return $const__0($bK, $cd);
-              };
-            }
-            else {
-              if (0 === $bJ[0]) {
-                $rest__5 = $fmt__0[2];
-                $bL = $make_iprintf->contents($k__0, $o, $rest__5);
-                return function(dynamic $cg) use ($bL,$const__0) {
-                  return $const__0($bL, $cg);
-                };
-              }
-              $rest__6 = $fmt__0[2];
-              $bM = $make_iprintf->contents($k__0, $o, $rest__6);
-              $bN = function(dynamic $cf) use ($bM,$const__0) {
-                return $const__0($bM, $cf);
-              };
-              return function(dynamic $ce) use ($bN,$const__0) {
-                return $const__0($bN, $ce);
-              };
-            }
-          // FALLTHROUGH
-          case 4:
-            $rest__7 = $fmt__0[4];
-            $prec = $fmt__0[3];
-            $pad = $fmt__0[2];
-            return $fn_of_padding_precision($k__0, $o, $rest__7, $pad, $prec);
-          // FALLTHROUGH
-          case 5:
-            $rest__8 = $fmt__0[4];
-            $prec__0 = $fmt__0[3];
-            $pad__0 = $fmt__0[2];
-            return $fn_of_padding_precision(
+            $rest__14 = $fmt__0[2];
+            $bR = $make_iprintf->contents($k__0, $o, $rest__14);
+            $bS = function(dynamic $cb) use ($bR,$const__0) {
+              return $const__0($bR, $cb);
+            };
+            return function(dynamic $ca) use ($bS,$const__0) {
+              return $const__0($bS, $ca);
+            };
+          }
+        }
+        else if ($fmt__0[0] === 10) {
+          $fmt__1 = $fmt__0[1];$fmt__0 = $fmt__1;continue;
+        }
+        else if ($fmt__0[0] === 11) {
+          $fmt__2 = $fmt__0[2];$fmt__0 = $fmt__2;continue;
+        }
+        else if ($fmt__0[0] === 12) {
+          $fmt__3 = $fmt__0[2];$fmt__0 = $fmt__3;continue;
+        }
+        else if ($fmt__0[0] === 13) {
+          $rest__15 = $fmt__0[3];
+          $bT = $make_iprintf->contents($k__0, $o, $rest__15);
+          return function(dynamic $b9) use ($bT,$const__0) {
+            return $const__0($bT, $b9);
+          };
+        }
+        else if ($fmt__0[0] === 14) {
+          $rest__16 = $fmt__0[3];
+          $fmtty = $fmt__0[2];
+          return function(dynamic $param) use ($CamlinternalFormatBasics,$call2,$fmtty,$k__0,$make_iprintf,$o,$recast,$rest__16) {
+            $fmt = $param[1];
+            $b8 = $recast($fmt, $fmtty);
+            return $make_iprintf->contents(
               $k__0,
               $o,
-              $rest__8,
-              $pad__0,
-              $prec__0
+              $call2($CamlinternalFormatBasics[3], $b8, $rest__16)
             );
-          // FALLTHROUGH
-          case 6:
-            $rest__9 = $fmt__0[4];
-            $prec__1 = $fmt__0[3];
-            $pad__1 = $fmt__0[2];
-            return $fn_of_padding_precision(
-              $k__0,
-              $o,
-              $rest__9,
-              $pad__1,
-              $prec__1
-            );
-          // FALLTHROUGH
-          case 7:
-            $rest__10 = $fmt__0[4];
-            $prec__2 = $fmt__0[3];
-            $pad__2 = $fmt__0[2];
-            return $fn_of_padding_precision(
-              $k__0,
-              $o,
-              $rest__10,
-              $pad__2,
-              $prec__2
-            );
-          // FALLTHROUGH
-          case 8:
-            $rest__11 = $fmt__0[4];
-            $prec__3 = $fmt__0[3];
-            $pad__3 = $fmt__0[2];
-            return $fn_of_padding_precision(
-              $k__0,
-              $o,
-              $rest__11,
-              $pad__3,
-              $prec__3
-            );
-          // FALLTHROUGH
-          case 9:
-            $bO = $fmt__0[1];
-            if ($is_int($bO)) {
-              $rest__12 = $fmt__0[2];
-              $bP = $make_iprintf->contents($k__0, $o, $rest__12);
-              return function(dynamic $b_) use ($bP,$const__0) {
-                return $const__0($bP, $b_);
-              };
-            }
-            else {
-              if (0 === $bO[0]) {
-                $rest__13 = $fmt__0[2];
-                $bQ = $make_iprintf->contents($k__0, $o, $rest__13);
-                return function(dynamic $cc) use ($bQ,$const__0) {
-                  return $const__0($bQ, $cc);
-                };
-              }
-              $rest__14 = $fmt__0[2];
-              $bR = $make_iprintf->contents($k__0, $o, $rest__14);
-              $bS = function(dynamic $cb) use ($bR,$const__0) {
-                return $const__0($bR, $cb);
-              };
-              return function(dynamic $ca) use ($bS,$const__0) {
-                return $const__0($bS, $ca);
-              };
-            }
-          // FALLTHROUGH
-          case 10:
-            $fmt__1 = $fmt__0[1];
-            $fmt__0 = $fmt__1;
-            continue;
-          // FALLTHROUGH
-          case 11:
-            $fmt__2 = $fmt__0[2];
-            $fmt__0 = $fmt__2;
-            continue;
-          // FALLTHROUGH
-          case 12:
-            $fmt__3 = $fmt__0[2];
-            $fmt__0 = $fmt__3;
-            continue;
-          // FALLTHROUGH
-          case 13:
-            $rest__15 = $fmt__0[3];
-            $bT = $make_iprintf->contents($k__0, $o, $rest__15);
-            return function(dynamic $b9) use ($bT,$const__0) {
-              return $const__0($bT, $b9);
-            };
-          // FALLTHROUGH
-          case 14:
-            $rest__16 = $fmt__0[3];
-            $fmtty = $fmt__0[2];
-            return function(dynamic $param) use ($CamlinternalFormatBasics,$call2,$fmtty,$k__0,$make_iprintf,$o,$recast,$rest__16) {
-              $fmt = $param[1];
-              $b8 = $recast($fmt, $fmtty);
-              return $make_iprintf->contents(
-                $k__0,
-                $o,
-                $call2($CamlinternalFormatBasics[3], $b8, $rest__16)
-              );
-            };
-          // FALLTHROUGH
-          case 15:
-            $rest__17 = $fmt__0[1];
-            $bU = $make_iprintf->contents($k__0, $o, $rest__17);
-            $bV = function(dynamic $b7) use ($bU,$const__0) {
-              return $const__0($bU, $b7);
-            };
-            return function(dynamic $b6) use ($bV,$const__0) {
-              return $const__0($bV, $b6);
-            };
-          // FALLTHROUGH
-          case 16:
-            $rest__18 = $fmt__0[1];
-            $bW = $make_iprintf->contents($k__0, $o, $rest__18);
-            return function(dynamic $b5) use ($bW,$const__0) {
-              return $const__0($bW, $b5);
-            };
-          // FALLTHROUGH
-          case 17:
-            $fmt__4 = $fmt__0[2];
-            $fmt__0 = $fmt__4;
-            continue;
-          // FALLTHROUGH
-          case 18:
-            $bX = $fmt__0[1];
-            if (0 === $bX[0]) {
-              $rest__19 = $fmt__0[2];
-              $match = $bX[1];
-              $fmt__5 = $match[1];
-              $k__3 = function(dynamic $k, dynamic $rest) use ($make_iprintf) {
-                $k__0 = function(dynamic $koc) use ($k,$make_iprintf,$rest) {
-                  return $make_iprintf->contents($k, $koc, $rest);
-                };
-                return $k__0;
-              };
-              $k__1 = $k__3($k__0, $rest__19);
-              $k__0 = $k__1;
-              $fmt__0 = $fmt__5;
-              continue;
-            }
-            $rest__20 = $fmt__0[2];
-            $match__0 = $bX[1];
-            $fmt__6 = $match__0[1];
-            $k__4 = function(dynamic $k, dynamic $rest) use ($make_iprintf) {
+          };
+        }
+        else if ($fmt__0[0] === 15) {
+          $rest__17 = $fmt__0[1];
+          $bU = $make_iprintf->contents($k__0, $o, $rest__17);
+          $bV = function(dynamic $b7) use ($bU,$const__0) {
+            return $const__0($bU, $b7);
+          };
+          return function(dynamic $b6) use ($bV,$const__0) {
+            return $const__0($bV, $b6);
+          };
+        }
+        else if ($fmt__0[0] === 16) {
+          $rest__18 = $fmt__0[1];
+          $bW = $make_iprintf->contents($k__0, $o, $rest__18);
+          return function(dynamic $b5) use ($bW,$const__0) {
+            return $const__0($bW, $b5);
+          };
+        }
+        else if ($fmt__0[0] === 17) {
+          $fmt__4 = $fmt__0[2];$fmt__0 = $fmt__4;continue;
+        }
+        else if ($fmt__0[0] === 18) {
+          $bX = $fmt__0[1];
+          if (0 === $bX[0]) {
+            $rest__19 = $fmt__0[2];
+            $match = $bX[1];
+            $fmt__5 = $match[1];
+            $k__3 = function(dynamic $k, dynamic $rest) use ($make_iprintf) {
               $k__0 = function(dynamic $koc) use ($k,$make_iprintf,$rest) {
                 return $make_iprintf->contents($k, $koc, $rest);
               };
               return $k__0;
             };
-            $k__2 = $k__4($k__0, $rest__20);
-            $k__0 = $k__2;
-            $fmt__0 = $fmt__6;
+            $k__1 = $k__3($k__0, $rest__19);
+            $k__0 = $k__1;
+            $fmt__0 = $fmt__5;
             continue;
-          // FALLTHROUGH
-          case 19:
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $u}) as \Throwable;
-          // FALLTHROUGH
-          case 20:
-            $rest__21 = $fmt__0[3];
-            $bY = $make_iprintf->contents($k__0, $o, $rest__21);
-            return function(dynamic $b4) use ($bY,$const__0) {
-              return $const__0($bY, $b4);
+          }
+          $rest__20 = $fmt__0[2];
+          $match__0 = $bX[1];
+          $fmt__6 = $match__0[1];
+          $k__4 = function(dynamic $k, dynamic $rest) use ($make_iprintf) {
+            $k__0 = function(dynamic $koc) use ($k,$make_iprintf,$rest) {
+              return $make_iprintf->contents($k, $koc, $rest);
             };
-          // FALLTHROUGH
-          case 21:
-            $rest__22 = $fmt__0[2];
-            $bZ = $make_iprintf->contents($k__0, $o, $rest__22);
-            return function(dynamic $b3) use ($bZ,$const__0) {
-              return $const__0($bZ, $b3);
-            };
-          // FALLTHROUGH
-          case 22:
-            $rest__23 = $fmt__0[1];
-            $b0 = $make_iprintf->contents($k__0, $o, $rest__23);
-            return function(dynamic $b2) use ($b0,$const__0) {
-              return $const__0($b0, $b2);
-            };
-          // FALLTHROUGH
-          case 23:
-            $rest__24 = $fmt__0[2];
-            $ign = $fmt__0[1];
-            $b1 = 0;
-            return $make_ignored_param(
-              function(dynamic $x, dynamic $param) use ($call1,$k__0) {
-                return $call1($k__0, $x);
-              },
+            return $k__0;
+          };
+          $k__2 = $k__4($k__0, $rest__20);
+          $k__0 = $k__2;
+          $fmt__0 = $fmt__6;
+          continue;
+        }
+        else if ($fmt__0[0] === 19) {
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $u}) as \Throwable;
+        }
+        else if ($fmt__0[0] === 20) {
+          $rest__21 = $fmt__0[3];
+          $bY = $make_iprintf->contents($k__0, $o, $rest__21);
+          return function(dynamic $b4) use ($bY,$const__0) {
+            return $const__0($bY, $b4);
+          };
+        }
+        else if ($fmt__0[0] === 21) {
+          $rest__22 = $fmt__0[2];
+          $bZ = $make_iprintf->contents($k__0, $o, $rest__22);
+          return function(dynamic $b3) use ($bZ,$const__0) {
+            return $const__0($bZ, $b3);
+          };
+        }
+        else if ($fmt__0[0] === 22) {
+          $rest__23 = $fmt__0[1];
+          $b0 = $make_iprintf->contents($k__0, $o, $rest__23);
+          return function(dynamic $b2) use ($b0,$const__0) {
+            return $const__0($b0, $b2);
+          };
+        }
+        else if ($fmt__0[0] === 23) {
+          $rest__24 = $fmt__0[2];
+          $ign = $fmt__0[1];
+          $b1 = 0;
+          return $make_ignored_param(
+            function(dynamic $x, dynamic $param) use ($call1,$k__0) {
+              return $call1($k__0, $x);
+            },
+            $o,
+            $b1,
+            $ign,
+            $rest__24
+          );
+        }
+        else {
+          $rest__25 = $fmt__0[3];
+          $arity = $fmt__0[1];
+          if ($counter < 50) {
+            $counter__0 = (int) ($counter + 1);
+            return $fn_of_custom_arity__0->contents(
+              $counter__0,
+              $k__0,
               $o,
-              $b1,
-              $ign,
-              $rest__24
-            );
-          // FALLTHROUGH
-          default:
-            $rest__25 = $fmt__0[3];
-            $arity = $fmt__0[1];
-            if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
-              return $fn_of_custom_arity__0->contents(
-                $counter__0,
-                $k__0,
-                $o,
-                $rest__25,
-                $arity
-              );
-            }
-            return $caml_trampoline_return(
-              $fn_of_custom_arity__0->contents,
-              varray[0,$k__0,$o,$rest__25,$arity]
+              $rest__25,
+              $arity
             );
           }
+          return $caml_trampoline_return(
+            $fn_of_custom_arity__0->contents,
+            varray[0,$k__0,$o,$rest__25,$arity]
+          );
+        }
       }
     };
     $fn_of_custom_arity__0->contents = function
@@ -5847,62 +5816,59 @@ final class CamlinternalFormat {
         $is_int($acc__0)
       ) {return 0;}
       else {
-        switch($acc__0[0]) {
-          // FALLTHROUGH
-          case 0:
-            $fmting_lit = $acc__0[2];
-            $p = $acc__0[1];
-            $s = $string_of_formatting_lit($fmting_lit);
-            $output_acc->contents($o, $p);
-            return $call2($Pervasives[54], $o, $s);
-          // FALLTHROUGH
-          case 1:
-            $by = $acc__0[2];
-            $bz = $acc__0[1];
-            if (0 === $by[0]) {
-              $acc__1 = $by[1];
-              $output_acc->contents($o, $bz);
-              $call2($Pervasives[54], $o, $cst__17);
-              $acc__0 = $acc__1;
-              continue;
-            }
-            $acc__2 = $by[1];
+        if ($acc__0[0] === 0) {
+          $fmting_lit = $acc__0[2];
+          $p = $acc__0[1];
+          $s = $string_of_formatting_lit($fmting_lit);
+          $output_acc->contents($o, $p);
+          return $call2($Pervasives[54], $o, $s);
+        }
+        else if ($acc__0[0] === 1) {
+          $by = $acc__0[2];
+          $bz = $acc__0[1];
+          if (0 === $by[0]) {
+            $acc__1 = $by[1];
             $output_acc->contents($o, $bz);
-            $call2($Pervasives[54], $o, $cst__18);
-            $acc__0 = $acc__2;
+            $call2($Pervasives[54], $o, $cst__17);
+            $acc__0 = $acc__1;
             continue;
-          // FALLTHROUGH
-          case 6:
-            $f = $acc__0[2];
-            $p__2 = $acc__0[1];
-            $output_acc->contents($o, $p__2);
-            return $call1($f, $o);
-          // FALLTHROUGH
-          case 7:
-            $p__3 = $acc__0[1];
-            $output_acc->contents($o, $p__3);
-            return $call1($Pervasives[51], $o);
-          // FALLTHROUGH
-          case 8:
-            $msg = $acc__0[2];
-            $p__4 = $acc__0[1];
-            $output_acc->contents($o, $p__4);
-            return $call1($Pervasives[1], $msg);
-          // FALLTHROUGH
-          case 2:
-          // FALLTHROUGH
-          case 4:
-            $s__0 = $acc__0[2];
-            $p__0 = $acc__0[1];
-            $output_acc->contents($o, $p__0);
-            return $call2($Pervasives[54], $o, $s__0);
-          // FALLTHROUGH
-          default:
-            $c = $acc__0[2];
-            $p__1 = $acc__0[1];
-            $output_acc->contents($o, $p__1);
-            return $call2($Pervasives[53], $o, $c);
           }
+          $acc__2 = $by[1];
+          $output_acc->contents($o, $bz);
+          $call2($Pervasives[54], $o, $cst__18);
+          $acc__0 = $acc__2;
+          continue;
+        }
+        else if ($acc__0[0] === 6) {
+          $f = $acc__0[2];
+          $p__2 = $acc__0[1];
+          $output_acc->contents($o, $p__2);
+          return $call1($f, $o);
+        }
+        else if ($acc__0[0] === 7) {
+          $p__3 = $acc__0[1];
+          $output_acc->contents($o, $p__3);
+          return $call1($Pervasives[51], $o);
+        }
+        else if ($acc__0[0] === 8) {
+          $msg = $acc__0[2];
+          $p__4 = $acc__0[1];
+          $output_acc->contents($o, $p__4);
+          return $call1($Pervasives[1], $msg);
+        }
+        else if ($acc__0[0] === 2) {}
+        else if ($acc__0[0] === 4) {
+          $s__0 = $acc__0[2];
+          $p__0 = $acc__0[1];
+          $output_acc->contents($o, $p__0);
+          return $call2($Pervasives[54], $o, $s__0);
+        }
+        else {
+          $c = $acc__0[2];
+          $p__1 = $acc__0[1];
+          $output_acc->contents($o, $p__1);
+          return $call2($Pervasives[53], $o, $c);
+        }
       }
     };
     $bufput_acc->contents = function(dynamic $b, dynamic $acc) use ($Buffer,$Pervasives,$bufput_acc,$call1,$call2,$cst__19,$cst__20,$is_int,$string_of_formatting_lit) {
@@ -5911,62 +5877,57 @@ final class CamlinternalFormat {
         $is_int($acc__0)
       ) {return 0;}
       else {
-        switch($acc__0[0]) {
-          // FALLTHROUGH
-          case 0:
-            $fmting_lit = $acc__0[2];
-            $p = $acc__0[1];
-            $s = $string_of_formatting_lit($fmting_lit);
-            $bufput_acc->contents($b, $p);
-            return $call2($Buffer[14], $b, $s);
-          // FALLTHROUGH
-          case 1:
-            $bw = $acc__0[2];
-            $bx = $acc__0[1];
-            if (0 === $bw[0]) {
-              $acc__1 = $bw[1];
-              $bufput_acc->contents($b, $bx);
-              $call2($Buffer[14], $b, $cst__19);
-              $acc__0 = $acc__1;
-              continue;
-            }
-            $acc__2 = $bw[1];
+        if ($acc__0[0] === 0) {
+          $fmting_lit = $acc__0[2];
+          $p = $acc__0[1];
+          $s = $string_of_formatting_lit($fmting_lit);
+          $bufput_acc->contents($b, $p);
+          return $call2($Buffer[14], $b, $s);
+        }
+        else if ($acc__0[0] === 1) {
+          $bw = $acc__0[2];
+          $bx = $acc__0[1];
+          if (0 === $bw[0]) {
+            $acc__1 = $bw[1];
             $bufput_acc->contents($b, $bx);
-            $call2($Buffer[14], $b, $cst__20);
-            $acc__0 = $acc__2;
+            $call2($Buffer[14], $b, $cst__19);
+            $acc__0 = $acc__1;
             continue;
-          // FALLTHROUGH
-          case 6:
-            $f = $acc__0[2];
-            $p__2 = $acc__0[1];
-            $bufput_acc->contents($b, $p__2);
-            return $call1($f, $b);
-          // FALLTHROUGH
-          case 7:
-            $acc__3 = $acc__0[1];
-            $acc__0 = $acc__3;
-            continue;
-          // FALLTHROUGH
-          case 8:
-            $msg = $acc__0[2];
-            $p__3 = $acc__0[1];
-            $bufput_acc->contents($b, $p__3);
-            return $call1($Pervasives[1], $msg);
-          // FALLTHROUGH
-          case 2:
-          // FALLTHROUGH
-          case 4:
-            $s__0 = $acc__0[2];
-            $p__0 = $acc__0[1];
-            $bufput_acc->contents($b, $p__0);
-            return $call2($Buffer[14], $b, $s__0);
-          // FALLTHROUGH
-          default:
-            $c = $acc__0[2];
-            $p__1 = $acc__0[1];
-            $bufput_acc->contents($b, $p__1);
-            return $call2($Buffer[10], $b, $c);
           }
+          $acc__2 = $bw[1];
+          $bufput_acc->contents($b, $bx);
+          $call2($Buffer[14], $b, $cst__20);
+          $acc__0 = $acc__2;
+          continue;
+        }
+        else if ($acc__0[0] === 6) {
+          $f = $acc__0[2];
+          $p__2 = $acc__0[1];
+          $bufput_acc->contents($b, $p__2);
+          return $call1($f, $b);
+        }
+        else if ($acc__0[0] === 7) {
+          $acc__3 = $acc__0[1];$acc__0 = $acc__3;continue;
+        }
+        else if ($acc__0[0] === 8) {
+          $msg = $acc__0[2];
+          $p__3 = $acc__0[1];
+          $bufput_acc->contents($b, $p__3);
+          return $call1($Pervasives[1], $msg);
+        }
+        else if ($acc__0[0] === 2) {}
+        else if ($acc__0[0] === 4) {
+          $s__0 = $acc__0[2];
+          $p__0 = $acc__0[1];
+          $bufput_acc->contents($b, $p__0);
+          return $call2($Buffer[14], $b, $s__0);
+        }
+        else {
+          $c = $acc__0[2];
+          $p__1 = $acc__0[1];
+          $bufput_acc->contents($b, $p__1);
+          return $call2($Buffer[10], $b, $c);
+        }
       }
     };
     $strput_acc->contents = function(dynamic $b, dynamic $acc) use ($Buffer,$Pervasives,$call1,$call2,$cst__21,$cst__22,$is_int,$string_of_formatting_lit,$strput_acc) {
@@ -5975,63 +5936,58 @@ final class CamlinternalFormat {
         $is_int($acc__0)
       ) {return 0;}
       else {
-        switch($acc__0[0]) {
-          // FALLTHROUGH
-          case 0:
-            $fmting_lit = $acc__0[2];
-            $p = $acc__0[1];
-            $s = $string_of_formatting_lit($fmting_lit);
-            $strput_acc->contents($b, $p);
-            return $call2($Buffer[14], $b, $s);
-          // FALLTHROUGH
-          case 1:
-            $bt = $acc__0[2];
-            $bu = $acc__0[1];
-            if (0 === $bt[0]) {
-              $acc__1 = $bt[1];
-              $strput_acc->contents($b, $bu);
-              $call2($Buffer[14], $b, $cst__21);
-              $acc__0 = $acc__1;
-              continue;
-            }
-            $acc__2 = $bt[1];
+        if ($acc__0[0] === 0) {
+          $fmting_lit = $acc__0[2];
+          $p = $acc__0[1];
+          $s = $string_of_formatting_lit($fmting_lit);
+          $strput_acc->contents($b, $p);
+          return $call2($Buffer[14], $b, $s);
+        }
+        else if ($acc__0[0] === 1) {
+          $bt = $acc__0[2];
+          $bu = $acc__0[1];
+          if (0 === $bt[0]) {
+            $acc__1 = $bt[1];
             $strput_acc->contents($b, $bu);
-            $call2($Buffer[14], $b, $cst__22);
-            $acc__0 = $acc__2;
+            $call2($Buffer[14], $b, $cst__21);
+            $acc__0 = $acc__1;
             continue;
-          // FALLTHROUGH
-          case 6:
-            $f = $acc__0[2];
-            $p__2 = $acc__0[1];
-            $strput_acc->contents($b, $p__2);
-            $bv = $call1($f, 0);
-            return $call2($Buffer[14], $b, $bv);
-          // FALLTHROUGH
-          case 7:
-            $acc__3 = $acc__0[1];
-            $acc__0 = $acc__3;
-            continue;
-          // FALLTHROUGH
-          case 8:
-            $msg = $acc__0[2];
-            $p__3 = $acc__0[1];
-            $strput_acc->contents($b, $p__3);
-            return $call1($Pervasives[1], $msg);
-          // FALLTHROUGH
-          case 2:
-          // FALLTHROUGH
-          case 4:
-            $s__0 = $acc__0[2];
-            $p__0 = $acc__0[1];
-            $strput_acc->contents($b, $p__0);
-            return $call2($Buffer[14], $b, $s__0);
-          // FALLTHROUGH
-          default:
-            $c = $acc__0[2];
-            $p__1 = $acc__0[1];
-            $strput_acc->contents($b, $p__1);
-            return $call2($Buffer[10], $b, $c);
           }
+          $acc__2 = $bt[1];
+          $strput_acc->contents($b, $bu);
+          $call2($Buffer[14], $b, $cst__22);
+          $acc__0 = $acc__2;
+          continue;
+        }
+        else if ($acc__0[0] === 6) {
+          $f = $acc__0[2];
+          $p__2 = $acc__0[1];
+          $strput_acc->contents($b, $p__2);
+          $bv = $call1($f, 0);
+          return $call2($Buffer[14], $b, $bv);
+        }
+        else if ($acc__0[0] === 7) {
+          $acc__3 = $acc__0[1];$acc__0 = $acc__3;continue;
+        }
+        else if ($acc__0[0] === 8) {
+          $msg = $acc__0[2];
+          $p__3 = $acc__0[1];
+          $strput_acc->contents($b, $p__3);
+          return $call1($Pervasives[1], $msg);
+        }
+        else if ($acc__0[0] === 2) {}
+        else if ($acc__0[0] === 4) {
+          $s__0 = $acc__0[2];
+          $p__0 = $acc__0[1];
+          $strput_acc->contents($b, $p__0);
+          return $call2($Buffer[14], $b, $s__0);
+        }
+        else {
+          $c = $acc__0[2];
+          $p__1 = $acc__0[1];
+          $strput_acc->contents($b, $p__1);
+          return $call2($Buffer[10], $b, $c);
+        }
       }
     };
     $failwith_message = function(dynamic $param) use ($Buffer,$Pervasives,$call1,$make_printf,$strput_acc) {
@@ -6277,38 +6233,36 @@ final class CamlinternalFormat {
             $match = $caml_string_get($str, $str_ind__0);
             $switcher = (int) ($match + -32);
             if (! (16 < $unsigned_right_shift_32($switcher, 0))) {
-              switch($switcher) {
-                // FALLTHROUGH
-                case 0:
-                  $set_flag($str_ind__0, $space);
-                  $str_ind__1 = (int) ($str_ind__0 + 1);
-                  $str_ind__0 = $str_ind__1;
-                  continue;
-                // FALLTHROUGH
-                case 3:
-                  $set_flag($str_ind__0, $hash);
-                  $str_ind__2 = (int) ($str_ind__0 + 1);
-                  $str_ind__0 = $str_ind__2;
-                  continue;
-                // FALLTHROUGH
-                case 11:
-                  $set_flag($str_ind__0, $plus);
-                  $str_ind__3 = (int) ($str_ind__0 + 1);
-                  $str_ind__0 = $str_ind__3;
-                  continue;
-                // FALLTHROUGH
-                case 13:
-                  $set_flag($str_ind__0, $minus);
-                  $str_ind__4 = (int) ($str_ind__0 + 1);
-                  $str_ind__0 = $str_ind__4;
-                  continue;
-                // FALLTHROUGH
-                case 16:
-                  $set_flag($str_ind__0, $zero);
-                  $str_ind__5 = (int) ($str_ind__0 + 1);
-                  $str_ind__0 = $str_ind__5;
-                  continue;
-                }
+              if ($switcher === 0) {
+                $set_flag($str_ind__0, $space);
+                $str_ind__1 = (int) ($str_ind__0 + 1);
+                $str_ind__0 = $str_ind__1;
+                continue;
+              }
+              else if ($switcher === 3) {
+                $set_flag($str_ind__0, $hash);
+                $str_ind__2 = (int) ($str_ind__0 + 1);
+                $str_ind__0 = $str_ind__2;
+                continue;
+              }
+              else if ($switcher === 11) {
+                $set_flag($str_ind__0, $plus);
+                $str_ind__3 = (int) ($str_ind__0 + 1);
+                $str_ind__0 = $str_ind__3;
+                continue;
+              }
+              else if ($switcher === 13) {
+                $set_flag($str_ind__0, $minus);
+                $str_ind__4 = (int) ($str_ind__0 + 1);
+                $str_ind__0 = $str_ind__4;
+                continue;
+              }
+              else if ($switcher === 16) {
+                $set_flag($str_ind__0, $zero);
+                $str_ind__5 = (int) ($str_ind__0 + 1);
+                $str_ind__0 = $str_ind__5;
+                continue;
+              }
             }
             return $parse_padding->contents(
               $pct_ind,
@@ -7834,29 +7788,26 @@ final class CamlinternalFormat {
               if (123 <= $match__0) {
                 if (! (126 <= $match__0)) {
                   $switcher = (int) ($match__0 + -123);
-                  switch($switcher) {
-                    // FALLTHROUGH
-                    case 0:
-                      $sub_end = $search_subformat_end->contents(
-                        (int)
-                        ($str_ind__0 + 2),
-                        $end_ind,
-                        125
-                      );
-                      $str_ind__2 = (int) ($sub_end + 2);
-                      $str_ind__0 = $str_ind__2;
-                      continue;
-                    // FALLTHROUGH
-                    case 1:break;
-                    // FALLTHROUGH
-                    default:
-                      return $expected_character(
-                        (int)
-                        ($str_ind__0 + 1),
-                        $cst_character,
-                        125
-                      );
-                    }
+                  if ($switcher === 0) {
+                    $sub_end = $search_subformat_end->contents(
+                      (int)
+                      ($str_ind__0 + 2),
+                      $end_ind,
+                      125
+                    );
+                    $str_ind__2 = (int) ($sub_end + 2);
+                    $str_ind__0 = $str_ind__2;
+                    continue;
+                  }
+                  else if ($switcher === 1) {break;}
+                  else {
+                    return $expected_character(
+                      (int)
+                      ($str_ind__0 + 1),
+                      $cst_character,
+                      125
+                    );
+                  }
                 }
               }
               else {
@@ -8046,33 +7997,26 @@ final class CamlinternalFormat {
           if (! $switch__0) {
             $switcher__0 = (int) ($symb + -88);
             if (! (32 < $unsigned_right_shift_32($switcher__0, 0))) {
-              switch($switcher__0) {
-                // FALLTHROUGH
-                case 0:
-                  if ($legacy_behavior__0) {return 9;}
-                  break;
-                // FALLTHROUGH
-                case 23:
-                  if ($legacy_behavior__0) {return 11;}
-                  break;
-                // FALLTHROUGH
-                case 32:
-                  if ($legacy_behavior__0) {return 7;}
-                  break;
-                // FALLTHROUGH
-                case 12:
-                // FALLTHROUGH
-                case 17:
-                // FALLTHROUGH
-                case 29:
-                  if ($legacy_behavior__0) {$hash__0 = 0;continue;}
-                  return $incompatible_flag->contents(
-                    $pct_ind,
-                    $str_ind,
-                    $symb,
-                    $cst__36
-                  );
-                }
+              if ($switcher__0 === 0) {
+                if ($legacy_behavior__0) {return 9;}break;
+              }
+              else if ($switcher__0 === 23) {
+                if ($legacy_behavior__0) {return 11;}break;
+              }
+              else if ($switcher__0 === 32) {
+                if ($legacy_behavior__0) {return 7;}break;
+              }
+              else if ($switcher__0 === 12) {}
+              else if ($switcher__0 === 17) {}
+              else if ($switcher__0 === 29) {
+                if ($legacy_behavior__0) {$hash__0 = 0;continue;}
+                return $incompatible_flag->contents(
+                  $pct_ind,
+                  $str_ind,
+                  $symb,
+                  $cst__36
+                );
+              }
             }
           }
           if (0 === $plus__0) {
@@ -8197,38 +8141,17 @@ final class CamlinternalFormat {
             if (73 <= $symb) {
               $switcher__3 = (int) ($symb + -101);
               if (! (3 < $unsigned_right_shift_32($switcher__3, 0))) {
-                switch($switcher__3) {
-                  // FALLTHROUGH
-                  case 0:
-                    return 4;
-                  // FALLTHROUGH
-                  case 1:
-                    return 1;
-                  // FALLTHROUGH
-                  case 2:
-                    return 10;
-                  // FALLTHROUGH
-                  default:
-                    return 17;
-                  }
+                if ($switcher__3 === 0) {return 4;}
+                else if ($switcher__3 === 1) {return 1;}
+                else if ($switcher__3 === 2) {return 10;}else {return 17;}
               }
             }
             else {
               if (69 <= $symb) {
                 $switcher__4 = (int) ($symb + -69);
-                switch($switcher__4) {
-                  // FALLTHROUGH
-                  case 0:
-                    return 7;
-                  // FALLTHROUGH
-                  case 1:break;
-                  // FALLTHROUGH
-                  case 2:
-                    return 13;
-                  // FALLTHROUGH
-                  default:
-                    return 20;
-                  }
+                if ($switcher__4 === 0) {return 7;}
+                else if ($switcher__4 === 1) {break;}
+                else if ($switcher__4 === 2) {return 13;}else {return 20;}
               }
             }
             if ($legacy_behavior__0) {$plus__0 = 0;continue;}

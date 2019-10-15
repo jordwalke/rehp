@@ -231,18 +231,14 @@ $f0 = function(dynamic $t) {
 $f1 = function(dynamic $t) {
   $t__0 = $t;
   for (; ; )
-    switch ($t__0) {
-        // FALLTHROUGH
-      case 0:
-        $t__0 = 1;
-        continue;
-        // FALLTHROUGH
-      case 1:
-        $t__0 = 2;
-        continue;
-        // FALLTHROUGH
-      default:
-        return 3;
+    if ($t__0 === 0) {
+      $t__0 = 1;
+      continue;
+    } else if ($t__0 === 1) {
+      $t__0 = 2;
+      continue;
+    } else {
+      return 3;
     }
 };
 $f2->contents = function(dynamic $t) use ($f2) {
@@ -264,29 +260,21 @@ $f2->contents = function(dynamic $t) use ($f2) {
 $f3 = function(dynamic $t) {
   $t__0 = $t;
   for (; ; )
-    switch ($t__0) {
-        // FALLTHROUGH
-      case 0:
+    if ($t__0 === 0) {
+      $t__0 = 1;
+      continue;
+    } else if ($t__0 === 1) {
+      if ($t__0 === 0) {
         $t__0 = 1;
         continue;
-        // FALLTHROUGH
-      case 1:
-        switch ($t__0) {
-            // FALLTHROUGH
-          case 0:
-            $t__0 = 1;
-            continue;
-            // FALLTHROUGH
-          case 1:
-            $t__0 = 2;
-            continue;
-            // FALLTHROUGH
-          default:
-            return 3;
-        }
-        // FALLTHROUGH
-      default:
+      } else if ($t__0 === 1) {
+        $t__0 = 2;
+        continue;
+      } else {
         return 3;
+      }
+    } else {
+      return 3;
     }
 };
 

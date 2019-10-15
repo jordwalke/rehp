@@ -17,6 +17,7 @@ type output = {
    */
   use: vars,
   use_label: bool,
+  use_continue: bool,
 };
 
 type input = vars;

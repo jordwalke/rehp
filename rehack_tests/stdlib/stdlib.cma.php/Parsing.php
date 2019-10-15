@@ -103,59 +103,51 @@ final class Parsing {
             $cmd__0,
             $arg__0
           );
-          switch($match) {
-            // FALLTHROUGH
-            case 0:
-              $arg__1 = $call1($lexer, $lexbuf);
-              $env[9] = $lexbuf[11];
-              $env[10] = $lexbuf[12];
-              $cmd__0 = 1;
-              $arg__0 = $arg__1;
-              continue;
-            // FALLTHROUGH
-            case 1:
-              throw $runtime["caml_wrap_thrown_exception"]($Parse_error) as \Throwable;
-            // FALLTHROUGH
-            case 2:
-              $grow_stacks(0);
-              $cmd__0 = 2;
-              $arg__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 3:
-              $grow_stacks(0);
-              $cmd__0 = 3;
-              $arg__0 = 0;
-              continue;
-            // FALLTHROUGH
-            case 4:
-              try {
-                $m = $env[13];
-                $n = $call1($caml_check_bound($tables[1], $m)[$m + 1], $env);
-                $o = 4;
-                $cmd__1 = $o;
-                $arg__2 = $n;
-              }
-              catch(\Throwable $p) {
-                $p = $caml_wrap_exception($p);
-                if ($p !== $Parse_error) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($p) as \Throwable;
-                }
-                $k = 0;
-                $l = 5;
-                $cmd__1 = $l;
-                $arg__2 = $k;
-              }
-              $cmd__0 = $cmd__1;
-              $arg__0 = $arg__2;
-              continue;
-            // FALLTHROUGH
-            default:
-              $call1($tables[14], $cst_syntax_error);
-              $cmd__0 = 5;
-              $arg__0 = 0;
-              continue;
+          if ($match === 0) {
+            $arg__1 = $call1($lexer, $lexbuf);
+            $env[9] = $lexbuf[11];
+            $env[10] = $lexbuf[12];
+            $cmd__0 = 1;
+            $arg__0 = $arg__1;
+            continue;
+          }
+          else if ($match === 1) {
+            throw $runtime["caml_wrap_thrown_exception"]($Parse_error) as \Throwable;
+          }
+          else if ($match === 2) {
+            $grow_stacks(0);$cmd__0 = 2;$arg__0 = 0;continue;
+          }
+          else if ($match === 3) {
+            $grow_stacks(0);$cmd__0 = 3;$arg__0 = 0;continue;
+          }
+          else if ($match === 4) {
+            try {
+              $m = $env[13];
+              $n = $call1($caml_check_bound($tables[1], $m)[$m + 1], $env);
+              $o = 4;
+              $cmd__1 = $o;
+              $arg__2 = $n;
             }
+            catch(\Throwable $p) {
+              $p = $caml_wrap_exception($p);
+              if ($p !== $Parse_error) {
+                throw $runtime["caml_wrap_thrown_exception_reraise"]($p) as \Throwable;
+              }
+              $k = 0;
+              $l = 5;
+              $cmd__1 = $l;
+              $arg__2 = $k;
+            }
+            $cmd__0 = $cmd__1;
+            $arg__0 = $arg__2;
+            continue;
+          }
+          else {
+            $call1($tables[14], $cst_syntax_error);
+            $cmd__0 = 5;
+            $arg__0 = 0;
+            continue;
+          }
         }
       };
       $init_asp = $env[11];
