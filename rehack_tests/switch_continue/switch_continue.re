@@ -68,3 +68,14 @@ print_endline(string_of_int(f0(A)));
 print_endline(string_of_int(f1(A)));
 print_endline(string_of_int(f2(A)));
 print_endline(string_of_int(f3(A)));
+
+let rec h0 = c => {
+  switch (c) {
+  | '_' => h0(c)
+  | '{' => h0(c)
+  | '(' => h0(c)
+  | '}' => raise(Not_found)
+  };
+};
+
+let x = h0('x');
