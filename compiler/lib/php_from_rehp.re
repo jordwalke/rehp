@@ -22,8 +22,20 @@ type vars = {
   names: StringMap.t(int),
   vars: Code.Var.Map.t(int),
 };
-
-type input = vars;
+type continue_kind = 
+  | NoContinue
+  | ContinueWithLabel
+  | ContinueInCase
+  | ContinueWithLabelAndCase;
+type parent_label =
+  | NoLabel
+  | UnlabelledForLoop
+  | LabelledForLoop(string)
+  | Switch;
+type input = {
+  vars,
+  label: parent_label,
+};
 type output = {
   dec: vars,
   use: vars,
@@ -200,10 +212,10 @@ let mergeSum = (_k, count1, count2) =>
   | (Some(_), Some(_)) => Some(1)
   };
 
-let isEmpty = cur =>
+let isEmpty = (cur: vars) =>
   Code.Var.Map.is_empty(cur.vars) && StringMap.is_empty(cur.names);
 
-let append = (cur, next) => {
+let append = (cur: vars, next: vars): vars => {
   vars: Code.Var.Map.merge(mergeSum, cur.vars, next.vars),
   names: StringMap.merge(mergeSum, cur.names, next.names),
 };
@@ -211,7 +223,7 @@ let append = (cur, next) => {
 /*
  * TODO: Always remove zerod out values.
  */
-let remove = (cur, remove) => {
+let remove = (cur: vars, remove: vars): vars => {
   vars:
     Code.Var.Map.filter(
       (k, _) => !Code.Var.Map.mem(k, remove.vars),
@@ -221,7 +233,7 @@ let remove = (cur, remove) => {
     StringMap.filter((k, _) => !StringMap.mem(k, remove.names), cur.names),
 };
 
-let intersect = (cur, intersect_with) => {
+let intersect = (cur: vars, intersect_with: vars): vars => {
   vars:
     Code.Var.Map.filter(
       (k, _) => Code.Var.Map.mem(k, intersect_with.vars),
@@ -234,13 +246,13 @@ let intersect = (cur, intersect_with) => {
     ),
 };
 
-let exists = (cur, id) =>
+let exists = (cur: vars, id) =>
   switch (id) {
   | Id.S({name: s, _}) => StringMap.mem(s, cur.names)
   | V(v) => Code.Var.Map.mem(v, cur.vars)
   };
 
-let outAppend = (cur, next) => {
+let outAppend = (cur: output, next: output): output => {
   dec: append(cur.dec, next.dec),
   use: append(cur.use, next.use),
   use_label: cur.use_label || next.use_label,
@@ -278,19 +290,20 @@ let topLevelIdentifiersSt = (newVarsSoFar, st) =>
   | _ => newVarsSoFar
   };
 
-let topLevelIdentifiers = (newVarsSoFar, (src, _)) =>
+let topLevelIdentifiers = (newVarsSoFar: vars, (src, _)) =>
   switch (src) {
   | Rehp.Function_declaration((id, _, _, _)) => addOne(newVarsSoFar, id)
   | Statement(stmt) => topLevelIdentifiersSt(newVarsSoFar, stmt)
   };
 
-let rec foldSources = (sourceFolder, curOut, curIn, curRevMappeds, remain) =>
+let rec foldSources =
+        (sourceFolder, curOut: output, curIn: input, curRevMappeds, remain) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(s, loc), ...tl] =>
     let (thisOut, thisMapped) = sourceFolder(curOut, curIn, s);
     let nextOut = outAppend(curOut, thisOut);
-    let nextInput = append(curIn, nextOut.dec);
+    let nextInput = {vars: append(curIn.vars, nextOut.dec), label: NoLabel};
     foldSources(
       sourceFolder,
       nextOut,
@@ -301,13 +314,13 @@ let rec foldSources = (sourceFolder, curOut, curIn, curRevMappeds, remain) =>
   };
 
 let rec foldStatements =
-        (statementFolder, curOut, curIn, curRevMappeds, remain) =>
+        (statementFolder, curOut: output, curIn: input, curRevMappeds, remain) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(s, loc), ...tl] =>
     let (thisOut, thisMapped) = statementFolder(curOut, curIn, s);
     let nextOut = outAppend(curOut, thisOut);
-    let nextIn = append(curIn, nextOut.dec);
+    let nextIn = {vars: append(curIn.vars, nextOut.dec), label: curIn.label};
 
     foldStatements(
       statementFolder,
@@ -335,6 +348,47 @@ let optAppendOutput = (appendTo, f, x) =>
     (outAppend(appendTo, out), Some(mapped));
   };
 
+let continue_label = Php.EVar(Id.ident("$continue_label"));
+
+let breakCheck = loc => {
+  let compare_continue_label_to_null =
+    Php.EBin(NotEqEq, continue_label, ENULL);
+  Php.If_statement(
+    compare_continue_label_to_null,
+    (Php.Block([(Break_statement, loc)]), loc),
+    None,
+    false,
+  );
+};
+
+let continueCheck = (label, else_check, loc) => {
+  let compare_continue_to_parent_loop =
+    Php.EBin(EqEqEq, continue_label, EStr(label, `Utf8));
+  Php.If_statement(
+    compare_continue_to_parent_loop,
+    (Php.Block([(Continue_statement, loc)]), loc),
+    switch (else_check) {
+    | None => None
+    | Some(else_check) => Some((else_check, loc))
+    },
+    true,
+  );
+};
+
+let setContinueLabel = (label, loc) =>
+  Php.Variable_statement([
+    (
+      continue_label,
+      Some((
+        switch (label) {
+        | None => ENULL
+        | Some(label) => Php.EStr(label, `Utf8)
+        },
+        Loc.N,
+      )),
+    ),
+  ]);
+
 let rec foldExprs = (curMappedRev, mapper, input, curOut, wrapper, remain) =>
   switch (remain) {
   | [] => (curOut, wrapper(List.rev(curMappedRev)))
@@ -352,13 +406,16 @@ let rec foldExprs = (curMappedRev, mapper, input, curOut, wrapper, remain) =>
 let rec foldVars =
         (
           mapper,
-          curOut: 'a,
-          curInput,
+          curOut: output,
+          curInput: input,
           curRevMappeds:
             list((Php.expression, option((Php.expression, Loc.t)))),
           remain,
         )
-        : ('a, list((Php.expression, option((Php.expression, Loc.t))))) =>
+        : (
+            output,
+            list((Php.expression, option((Php.expression, Loc.t)))),
+          ) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(id, eo), ...tl] =>
@@ -379,7 +436,7 @@ let rec foldVars =
         let (out, initMapped) =
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
-        let input = addOne(curInput, id);
+        let input = {vars: addOne(curInput.vars, id), label: curInput.label};
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       }
@@ -398,7 +455,7 @@ let rec foldVars =
         let (out, initMapped) =
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
-        let input = addOne(curInput, id);
+        let input = {vars: addOne(curInput.vars, id), label: curInput.label};
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       };
@@ -406,7 +463,7 @@ let rec foldVars =
   };
 let wrapInStruct = lst => Php.EStruct(lst);
 let joinAll = lst => List.fold_left(~f=outAppend, ~init=emptyOutput, lst);
-let rec expression = (input, x) =>
+let rec expression = (input: input, x) =>
   switch (x) {
   | Rehp.ESeq(e1, e2) =>
     let (e1Out, e1Mapped) = expression(input, e1);
@@ -466,7 +523,7 @@ let rec expression = (input, x) =>
     let out = {...emptyOutput, use: useOneVar(v)};
     (
       out,
-      if (exists(input, v)) {
+      if (exists(input.vars, v)) {
         EVar(ident(input, v));
       } else {
         EDot(EVar(ident(input, v)), "contents");
@@ -487,9 +544,10 @@ let rec expression = (input, x) =>
     /*   | Some(i) => addOne(newBodyVars, i) */
     /*   | None => newBodyVars */
     /*   }; */
-    let augmentedEnv = append(input, newBodyVars);
+    let augmentedEnv = append(input.vars, newBodyVars);
     let curOut = {...emptyOutput, dec: newBodyVars};
-    let (bodyOut, bodyMap) = sources(curOut, augmentedEnv, body);
+    let (bodyOut, bodyMap) =
+      sources(curOut, {vars: augmentedEnv, label: NoLabel}, body);
     /* Rehp models an IR with "function scope" for variables. */
     /* Declarations reset at function boundaries. */
     let bodyUsesFromOutside = remove(bodyOut.use, newBodyVars);
@@ -653,13 +711,13 @@ and ifElseFromSwitchCase = (switchExp, defaultBlock) => {
     };
   f;
 }
-and initialiser = (input, (e, pc)) => {
+and initialiser = (input: input, (e, pc)) => {
   let (o, m) = expression(input, e);
   (o, (m, pc));
 }
 /* TODO: The free vars should also be mapped over. But if you wait to add
    them until the end, that isn't required. */
-and source = (curOutput, input, x) =>
+and source = (curOutput, input: input, x) =>
   switch (x) {
   /*
    * TODO: For now, this should be converted to a Rehp.EFun, since that is what
@@ -735,13 +793,14 @@ and source = (curOutput, input, x) =>
  * we bump their declaration-scope counts. We need to be careful not to bump
  * them twice though (actually that might not matter for input).
  */
-and sources = (curOut, input, x) => {
+and sources = (curOut, input: input, x) => {
   /* print_string ("SOURCES"); */
   /* print_newline (); */
-  let topLevelIdents = List.fold_left(~f=topLevelIdentifiers, ~init=input, x);
+  let topLevelIdents =
+    List.fold_left(~f=topLevelIdentifiers, ~init=input.vars, x);
   let (out, mappeds) = foldSources(source, curOut, input, [], x);
   let toHoist =
-    remove(remove(intersect(out.use, topLevelIdents), out.dec), input);
+    remove(remove(intersect(out.use, topLevelIdents), out.dec), input.vars);
   if (isEmpty(toHoist)) {
     (
       /* print_string ("/SOURCES"); */
@@ -762,7 +821,7 @@ and sources = (curOut, input, x) => {
     (out, [(refDecls, Loc.N), ...mappeds]);
   };
 }
-and statements = (curOut, input, l) => {
+and statements = (curOut, input: input, l) => {
   /* print_string(String.make(indent.contents, ' ') ++ "<statements>"); */
   /* print_newline(); */
   indent.contents = indent.contents + 2;
@@ -772,7 +831,7 @@ and statements = (curOut, input, l) => {
   /* print_newline(); */
   ret;
 }
-and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
+and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
   let (e1Out, e1Mapped) =
     switch (e1) {
     | Left(x) =>
@@ -782,69 +841,76 @@ and for_statement = (curOut, input, e1, e2, e3, (s, loc), depth, has_label) => {
       let (output, res) = foldVars(initialiser, curOut, input, [], l);
       (output, Right(res));
     };
-  let nextInput = append(input, e1Out.dec);
+  let nextInput = {
+    vars: append(input.vars, e1Out.dec),
+    label:
+      switch (label) {
+      | None => UnlabelledForLoop
+      | Some(label) => LabelledForLoop(label)
+      },
+  };
   let (e2Out, e2Mapped) = optOutput(expression(nextInput), e2);
   let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
   let (sOut, sMapped) = statement(curOut, nextInput, s);
-  let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
+
+  /* Always wrapped for loop contents in a block */
+  let sMapped =
+    switch (sMapped) {
+    | Php.Block(_) => sMapped
+    | _ => Php.Block([(sMapped, loc)])
+    };
   let for_statement_node =
     Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
-  let counter = Php.EVar(Id.ident("$continue_counter"));
-  let set_counter_to_null =
-    Php.Variable_statement([(counter, Some((ENULL, loc)))]);
-  let depth =
-    switch (depth) {
-    | Some(v) => v
-    | None => 0
-    };
+
+  let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
   let (use_continue, li) =
-    switch (depth, has_label, outs.use_label) {
-    | (0, true, _) => (
+    switch (input.label, outs.use_label) {
+    /* if the loop does not contain a labelled continue,
+       or isn't inside any labelled loop,
+       then just output the loop */
+    | (_, false)
+    | (NoLabel, true) => (false, [(for_statement_node, loc)])
+    /* if the loop contains a labelled continue,
+       and is inside an unlabelled loop,
+       then check the continue_label to break to the outter loop */
+    | (UnlabelledForLoop, true) => (
         false,
-        [(set_counter_to_null, loc), (for_statement_node, loc)],
+        [(for_statement_node, loc), (breakCheck(loc), loc)],
       )
-    | (0, false, _)
-    | (_, _, false) => (false, [(for_statement_node, loc)])
-    | _ =>
-      let decrement_counter =
-        Php.Expression_statement(Php.EBin(MinusEq, counter, EInt(1)));
-      let compare_counter_gt_zero = Php.EBin(Gt, counter, EInt(0));
-      let compare_counter_eq_zero = Php.EBin(EqEqEq, counter, EInt(0));
-      let break_if_count_is_gt_zero =
-        Php.If_statement(
-          compare_counter_gt_zero,
-          (
-            Php.Block([(decrement_counter, loc), (Break_statement, loc)]),
-            loc,
-          ),
-          Some((
-            Php.If_statement(
-              compare_counter_eq_zero,
-              (
-                Php.Block([
-                  (set_counter_to_null, loc),
-                  (Continue_statement, loc),
-                ]),
-                loc,
-              ),
-              None,
-              false,
-            ),
-            loc,
-          )),
-          true,
-        );
-      (
+    /* if the loop contains a labelled continue,
+       and is inside an switch statement
+       then check the continue_label to break out of the switch */
+    | (Switch, true) => (
+        /* TODO: set this to false, and combinue use_label with outs.use_continue */
         true,
-        [(for_statement_node, loc), (break_if_count_is_gt_zero, loc)],
-      );
+        [(for_statement_node, loc), (breakCheck(loc), loc)],
+      )
+    /* if the loop contains a labelled continue,
+       and is inside a labelled loop,
+       then check if the labels match to continue,
+       and also check the continue_label to break to the outter loop */
+    | (LabelledForLoop(parent_label), true) => (
+        true,
+        [
+          (for_statement_node, loc),
+          (continueCheck(parent_label, Some(breakCheck(loc)), loc), loc),
+        ],
+      )
+    };
+
+  /* reset the continue_label whenever entering a labelled loop */
+  let li =
+    if (label == None) {
+      li;
+    } else {
+      [(setContinueLabel(None, loc), loc), ...li];
     };
 
   ({...outs, use_continue}, Php.Statement_list(li));
 }
 
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
-and statement = (curOut, input, x) => {
+and statement = (curOut, input: input, x) => {
   let (out, mapped) =
     switch (x) {
     | Rehp.Block(b) =>
@@ -902,8 +968,8 @@ and statement = (curOut, input, x) => {
       let (eOut, eMapped) = expression(input, e);
       let out = {...outAppend(sOut, eOut), use_continue: false};
       (out, While_statement(eMapped, (sMapped, loc)));
-    | Rehp.For_statement(e1, e2, e3, (s, loc), depth) =>
-      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, false)
+    | Rehp.For_statement(e1, e2, e3, (s, loc), _) =>
+      for_statement(curOut, input, e1, e2, e3, (s, loc), None)
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
       let continueWithAugmentedScope = (input, _) => {
         let (e1Out, e1Mapped) =
@@ -928,7 +994,10 @@ and statement = (curOut, input, x) => {
       | Left(_) => continueWithAugmentedScope(input, x)
       | Right((id, _eopt)) =>
         let addedVars = useOneVar(id);
-        let augmentedInput = append(input, addedVars);
+        let augmentedInput = {
+          vars: append(input.vars, addedVars),
+          label: input.label,
+        };
         let (out, res) = continueWithAugmentedScope(augmentedInput, x);
         let out = {...out, dec: append(out.dec, addedVars)};
         (out, res);
@@ -938,25 +1007,37 @@ and statement = (curOut, input, x) => {
      * TODO: For Php, the exception is not actually block scoped and so we don't
      * need to do any special handling here.
      */
-    | Rehp.Continue_statement(s, depth) =>
+    | Rehp.Continue_statement(s, _) =>
       let (use_label, li) =
-        switch (s, depth) {
+        switch (s, input.label) {
+        /* if the continue isn't labeled, and occurs inside a switch,
+           switch/cases can't have continues, so convert it to a break
+           and set continue_label to a special "switch" label */
+        | (None, Switch) => (
+            false,
+            [
+              (setContinueLabel(Some("switch"), Loc.N), Loc.N),
+              (Php.Break_statement, Loc.N),
+            ],
+          )
+        /* if the continue isn't labeled, and isn't in a switch,
+           keep it as a continue*/
         | (None, _) => (false, [(Php.Continue_statement, Loc.N)])
-        | (Some(_), depth) =>
-          let depth =
-            switch (depth) {
-            | Some(v) => v
-            | None => 0
-            };
-          let counter = Php.EVar(Id.ident("$continue_counter"));
-          let set_counter_to_depth =
-            Php.Variable_statement([
-              (counter, Some((EInt(depth), Loc.N))),
-            ]);
-          (
+        /* if the continue has a label, then convert it to a break and set
+           continue_label to its label */
+        | (Some(lbl), _) => (
             true,
-            [(set_counter_to_depth, Loc.N), (Php.Break_statement, Loc.N)],
-          );
+            [
+              (
+                setContinueLabel(
+                  Some(Javascript.Label.to_string(lbl)),
+                  Loc.N,
+                ),
+                Loc.N,
+              ),
+              (Php.Break_statement, Loc.N),
+            ],
+          )
         };
       (
         {dec: curOut.dec, use: curOut.use, use_label, use_continue: true},
@@ -968,10 +1049,18 @@ and statement = (curOut, input, x) => {
       let (eOut, eMapped) = optOutput(expression(input), e);
       (outAppend(curOut, eOut), Return_statement(eMapped));
     | Rehp.Labelled_statement(
-        _l,
-        (Rehp.For_statement(e1, e2, e3, (s, loc), depth), _loc2),
+        lbl,
+        (Rehp.For_statement(e1, e2, e3, (s, loc), _), _loc2),
       ) =>
-      for_statement(curOut, input, e1, e2, e3, (s, loc), depth, true)
+      for_statement(
+        curOut,
+        input,
+        e1,
+        e2,
+        e3,
+        (s, loc),
+        Some(Javascript.Label.to_string(lbl)),
+      )
     | Rehp.Labelled_statement(_) =>
       /* Only For_statements can be labelled */
       /* TODO: remove labelled statements from Rehp, replace with a flag in For_statements */
@@ -980,40 +1069,94 @@ and statement = (curOut, input, x) => {
       let (eOut, eMapped) = expression(input, e);
       (outAppend(curOut, eOut), Throw_statement(eMapped));
     | Rehp.Switch_statement(e, l, def, l') =>
-      let (eOut, eMapped) = expression(input, e);
-      let (dOut, dMapped) = optOutput(statements(curOut, input), def);
+      let nextInput = {vars: input.vars, label: Switch};
+      let (eOut, eMapped) = expression(nextInput, e);
+      let (dOut, dMapped) = optOutput(statements(curOut, nextInput), def);
       let forEach = ((e, s)) => {
-        let (eOut, eMapped) = switchCase(input, e);
-        let (stmOut, stmMapped) = statements(curOut, input, s);
+        let (eOut, eMapped) = switchCase(nextInput, e);
+        let (stmOut, stmMapped) = statements(curOut, nextInput, s);
         let outs = outAppend(eOut, stmOut);
         (outs, (eMapped, stmMapped));
       };
       let (lOut, lMapped) = List.split(List.map(~f=forEach, l));
       let forEach = ((e, s)) => {
-        let (eOut, eMapped) = switchCase(input, e);
-        let (stmOut, stmMapped) = statements(curOut, input, s);
+        let (eOut, eMapped) = switchCase(nextInput, e);
+        let (stmOut, stmMapped) = statements(curOut, nextInput, s);
         let outs = outAppend(eOut, stmOut);
         (outs, (eMapped, stmMapped));
       };
       let (lOut', lMapped') = List.split(List.map(~f=forEach, l'));
       let outs = joinAll([eOut, dOut, ...lOut @ lOut']);
-      if (outs.use_continue) {
-        exception No_cases_in_switch;
-        let if_stmt =
-          switch (
-            ifElseFromSwitchCase(
-              eMapped,
-              dMapped,
-              List.concat([lMapped, lMapped']),
-            )
-          ) {
-          | None => raise(No_cases_in_switch)
-          | Some(e) => e
-          };
-        (outs, if_stmt);
-      } else {
-        (outs, Switch_statement(eMapped, lMapped, dMapped, lMapped'));
+      let switch_node =
+        Php.Switch_statement(eMapped, lMapped, dMapped, lMapped');
+
+      let continue_kind = switch (outs.use_continue, outs.use_label) {
+        | (false, false) => NoContinue
+        | (false, true) => ContinueWithLabel
+        | (true, false) => ContinueInCase
+        | (true, true) => ContinueWithLabelAndCase
       };
+
+      let li =
+        switch (input.label, outs.use_continue, outs.use_label) {
+        /* if the switch does not contain a continue,
+           or isn't inside any labelled structure,
+           then just output the switch */
+        | (_, false, false)
+        | (NoLabel, _, _) => [(switch_node, Loc.N)]
+        /* if the switch contains a continue,
+           and is inside an unlabelled loop,
+           then check if the continue_label is the special switch continue label to continue,
+           and also check it to break to the outter loop */
+        | (UnlabelledForLoop, false, true) => [
+            (setContinueLabel(None, Loc.N), Loc.N),
+            (switch_node, Loc.N),
+            (breakCheck(Loc.N), Loc.N),
+          ]
+        | (UnlabelledForLoop, true, false) => [
+            (setContinueLabel(None, Loc.N), Loc.N),
+            (switch_node, Loc.N),
+            (continueCheck("switch", None, Loc.N), Loc.N),
+          ]
+        | (UnlabelledForLoop, true, true) => [
+            (setContinueLabel(None, Loc.N), Loc.N),
+            (switch_node, Loc.N),
+            (
+              continueCheck("switch", Some(breakCheck(Loc.N)), Loc.N),
+              Loc.N,
+            ),
+          ]
+        /* if the switch contains a continue,
+           and is inside a labelled loop,
+           then check if the label is the special switch continue label to continue,
+           and also check the continue_label to continue in the parent loop
+           and also check the continue_label to break to the outter loop */
+        | (LabelledForLoop(label), false, true)
+        | (LabelledForLoop(label), true, false)
+        | (LabelledForLoop(label), true, true) => [
+            (setContinueLabel(None, Loc.N), Loc.N),
+            (switch_node, Loc.N),
+            (
+              continueCheck(
+                "switch",
+                Some(continueCheck(label, Some(breakCheck(Loc.N)), Loc.N)),
+                Loc.N,
+              ),
+              Loc.N,
+            ),
+          ]
+        /* if the switch contains a continue,
+           and is inside another switch,
+           and also check the continue_label to break to the outter switch */
+        | (Switch, false, true)
+        | (Switch, true, false)
+        | (Switch, true, true) => [
+            (setContinueLabel(None, Loc.N), Loc.N),
+            (switch_node, Loc.N),
+            (breakCheck(Loc.N), Loc.N),
+          ]
+        };
+      (outs, Statement_list(li));
     | Rehp.Try_statement(b, catch, final) =>
       /*
        * Customization that augments the scope with catch identifier.
@@ -1021,7 +1164,10 @@ and statement = (curOut, input, x) => {
       let identAndStatements = ((idnt, st)) => {
         let identMapped = ident(input, idnt);
         let addedVars = useOneVar(idnt);
-        let augmentedInput = append(input, addedVars);
+        let augmentedInput = {
+          vars: append(input.vars, addedVars),
+          label: input.label,
+        };
         let (stOut, stMapped) = statements(curOut, augmentedInput, st);
         let stUses = remove(stOut.use, addedVars);
         let out = {...stOut, use: stUses};

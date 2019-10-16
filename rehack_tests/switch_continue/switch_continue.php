@@ -237,16 +237,27 @@ $f0 = function(dynamic $t) {
 };
 $f1 = function(dynamic $t) {
   $t__0 = $t;
-  for (; ; )
-    if ($t__0 === 0) {
-      $t__0 = 1;
-      continue;
-    } else if ($t__0 === 1) {
-      $t__0 = 2;
-      continue;
-    } else {
-      return 3;
+  for (; ; ) {
+    $continue_label = null;
+    switch ($t__0) {
+        // FALLTHROUGH
+      case 0:
+        $t__0 = 1;
+        $continue_label = "switch";
+        break;
+        // FALLTHROUGH
+      case 1:
+        $t__0 = 2;
+        $continue_label = "switch";
+        break;
+        // FALLTHROUGH
+      default:
+        return 3;
     }
+    if ($continue_label === "switch") {
+      continue;
+    }
+  }
 };
 $f2->contents = function(dynamic $t) use ($f2) {
   switch ($t) {
@@ -266,23 +277,43 @@ $f2->contents = function(dynamic $t) use ($f2) {
 };
 $f3 = function(dynamic $t) {
   $t__0 = $t;
-  for (; ; )
-    if ($t__0 === 0) {
-      $t__0 = 1;
-      continue;
-    } else if ($t__0 === 1) {
-      if ($t__0 === 0) {
+  for (; ; ) {
+    $continue_label = null;
+    switch ($t__0) {
+        // FALLTHROUGH
+      case 0:
         $t__0 = 1;
-        continue;
-      } else if ($t__0 === 1) {
-        $t__0 = 2;
-        continue;
-      } else {
+        $continue_label = "switch";
+        break;
+        // FALLTHROUGH
+      case 1:
+        $continue_label = null;
+        switch ($t__0) {
+            // FALLTHROUGH
+          case 0:
+            $t__0 = 1;
+            $continue_label = "switch";
+            break;
+            // FALLTHROUGH
+          case 1:
+            $t__0 = 2;
+            $continue_label = "switch";
+            break;
+            // FALLTHROUGH
+          default:
+            return 3;
+        }
+        if ($continue_label !== null) {
+          break;
+        }
+        // FALLTHROUGH
+      default:
         return 3;
-      }
-    } else {
-      return 3;
     }
+    if ($continue_label === "switch") {
+      continue;
+    }
+  }
 };
 
 $print_endline($string_of_int($f0(0)));
@@ -306,12 +337,21 @@ $h0__0 = function(dynamic $c) use (
     if (123 <= $c) {
       if (!(126 <= $c)) {
         $switcher = (int)($c + -123);
-        if ($switcher === 0) {
+        $continue_label = null;
+        switch ($switcher) {
+            // FALLTHROUGH
+          case 0:
+            $continue_label = "switch";
+            break;
+            // FALLTHROUGH
+          case 1:
+            break;
+            // FALLTHROUGH
+          default:
+            throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+        }
+        if ($continue_label === "switch") {
           continue;
-        } else if ($switcher === 1) {
-          break;
-        } else {
-          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       }
     } else {
