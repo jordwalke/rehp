@@ -287,7 +287,6 @@ $f3 = function(dynamic $t) {
         break;
         // FALLTHROUGH
       case 1:
-        $continue_label = null;
         switch ($t__0) {
             // FALLTHROUGH
           case 0:

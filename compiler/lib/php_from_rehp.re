@@ -22,11 +22,11 @@ type vars = {
   names: StringMap.t(int),
   vars: Code.Var.Map.t(int),
 };
-type continue_kind = 
+type continue_kind =
   | NoContinue
   | ContinueWithLabel
-  | ContinueInCase
-  | ContinueWithLabelAndCase;
+  | UnlabelledContinueInCase
+  | ContinueWithLabelAndInCase;
 type parent_label =
   | NoLabel
   | UnlabelledForLoop
@@ -350,32 +350,35 @@ let optAppendOutput = (appendTo, f, x) =>
 
 let continue_label = Php.EVar(Id.ident("$continue_label"));
 
-let breakCheck = loc => {
+let breakIfNonnullContinueLabel = {
   let compare_continue_label_to_null =
     Php.EBin(NotEqEq, continue_label, ENULL);
-  Php.If_statement(
-    compare_continue_label_to_null,
-    (Php.Block([(Break_statement, loc)]), loc),
-    None,
-    false,
+  (
+    Php.If_statement(
+      compare_continue_label_to_null,
+      (Php.Block([(Break_statement, Loc.N)]), Loc.N),
+      None,
+      false,
+    ),
+    Loc.N,
   );
 };
 
-let continueCheck = (label, else_check, loc) => {
+let continueIfContinueLabelEquals = (~alternate=?, label) => {
   let compare_continue_to_parent_loop =
     Php.EBin(EqEqEq, continue_label, EStr(label, `Utf8));
-  Php.If_statement(
-    compare_continue_to_parent_loop,
-    (Php.Block([(Continue_statement, loc)]), loc),
-    switch (else_check) {
-    | None => None
-    | Some(else_check) => Some((else_check, loc))
-    },
-    true,
+  (
+    Php.If_statement(
+      compare_continue_to_parent_loop,
+      (Php.Block([(Continue_statement, Loc.N)]), Loc.N),
+      alternate,
+      true,
+    ),
+    Loc.N,
   );
 };
 
-let setContinueLabel = (label, loc) =>
+let setContinueLabel = label => (
   Php.Variable_statement([
     (
       continue_label,
@@ -387,7 +390,9 @@ let setContinueLabel = (label, loc) =>
         Loc.N,
       )),
     ),
-  ]);
+  ]),
+  Loc.N,
+);
 
 let rec foldExprs = (curMappedRev, mapper, input, curOut, wrapper, remain) =>
   switch (remain) {
@@ -859,8 +864,10 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
     | Php.Block(_) => sMapped
     | _ => Php.Block([(sMapped, loc)])
     };
-  let for_statement_node =
-    Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc));
+  let for_statement_node = (
+    Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc)),
+    loc,
+  );
 
   let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
   let (use_continue, li) =
@@ -869,13 +876,13 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
        or isn't inside any labelled loop,
        then just output the loop */
     | (_, false)
-    | (NoLabel, true) => (false, [(for_statement_node, loc)])
+    | (NoLabel, true) => (false, [for_statement_node])
     /* if the loop contains a labelled continue,
        and is inside an unlabelled loop,
        then check the continue_label to break to the outter loop */
     | (UnlabelledForLoop, true) => (
         false,
-        [(for_statement_node, loc), (breakCheck(loc), loc)],
+        [for_statement_node, breakIfNonnullContinueLabel],
       )
     /* if the loop contains a labelled continue,
        and is inside an switch statement
@@ -883,7 +890,7 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
     | (Switch, true) => (
         /* TODO: set this to false, and combinue use_label with outs.use_continue */
         true,
-        [(for_statement_node, loc), (breakCheck(loc), loc)],
+        [for_statement_node, breakIfNonnullContinueLabel],
       )
     /* if the loop contains a labelled continue,
        and is inside a labelled loop,
@@ -892,8 +899,11 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
     | (LabelledForLoop(parent_label), true) => (
         true,
         [
-          (for_statement_node, loc),
-          (continueCheck(parent_label, Some(breakCheck(loc)), loc), loc),
+          for_statement_node,
+          continueIfContinueLabelEquals(
+            ~alternate=breakIfNonnullContinueLabel,
+            parent_label,
+          ),
         ],
       )
     };
@@ -903,7 +913,7 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
     if (label == None) {
       li;
     } else {
-      [(setContinueLabel(None, loc), loc), ...li];
+      [setContinueLabel(None), ...li];
     };
 
   ({...outs, use_continue}, Php.Statement_list(li));
@@ -1016,7 +1026,7 @@ and statement = (curOut, input: input, x) => {
         | (None, Switch) => (
             false,
             [
-              (setContinueLabel(Some("switch"), Loc.N), Loc.N),
+              setContinueLabel(Some("switch")),
               (Php.Break_statement, Loc.N),
             ],
           )
@@ -1028,13 +1038,7 @@ and statement = (curOut, input: input, x) => {
         | (Some(lbl), _) => (
             true,
             [
-              (
-                setContinueLabel(
-                  Some(Javascript.Label.to_string(lbl)),
-                  Loc.N,
-                ),
-                Loc.N,
-              ),
+              setContinueLabel(Some(Javascript.Label.to_string(lbl))),
               (Php.Break_statement, Loc.N),
             ],
           )
@@ -1087,73 +1091,75 @@ and statement = (curOut, input: input, x) => {
       };
       let (lOut', lMapped') = List.split(List.map(~f=forEach, l'));
       let outs = joinAll([eOut, dOut, ...lOut @ lOut']);
-      let switch_node =
-        Php.Switch_statement(eMapped, lMapped, dMapped, lMapped');
+      let switch_node = (
+        Php.Switch_statement(eMapped, lMapped, dMapped, lMapped'),
+        Loc.N,
+      );
 
-      let continue_kind = switch (outs.use_continue, outs.use_label) {
+      let continue_kind =
+        switch (outs.use_continue, outs.use_label) {
         | (false, false) => NoContinue
         | (false, true) => ContinueWithLabel
-        | (true, false) => ContinueInCase
-        | (true, true) => ContinueWithLabelAndCase
-      };
+        | (true, false) => UnlabelledContinueInCase
+        | (true, true) => ContinueWithLabelAndInCase
+        };
 
       let li =
-        switch (input.label, outs.use_continue, outs.use_label) {
+        switch (input.label, continue_kind) {
         /* if the switch does not contain a continue,
            or isn't inside any labelled structure,
            then just output the switch */
-        | (_, false, false)
-        | (NoLabel, _, _) => [(switch_node, Loc.N)]
-        /* if the switch contains a continue,
-           and is inside an unlabelled loop,
-           then check if the continue_label is the special switch continue label to continue,
-           and also check it to break to the outter loop */
-        | (UnlabelledForLoop, false, true) => [
-            (setContinueLabel(None, Loc.N), Loc.N),
-            (switch_node, Loc.N),
-            (breakCheck(Loc.N), Loc.N),
+        | (_, NoContinue)
+        | (NoLabel, _) => [switch_node]
+
+        /* check for a non-null label, to break further out */
+        | (UnlabelledForLoop, ContinueWithLabel)
+        | (Switch, UnlabelledContinueInCase)
+        | (Switch, ContinueWithLabel)
+        | (Switch, ContinueWithLabelAndInCase) => [
+            switch_node,
+            breakIfNonnullContinueLabel,
           ]
-        | (UnlabelledForLoop, true, false) => [
-            (setContinueLabel(None, Loc.N), Loc.N),
-            (switch_node, Loc.N),
-            (continueCheck("switch", None, Loc.N), Loc.N),
+
+        /* 1. reset the continue label before entering the switch, and
+           2. check for the special "switch" label, to continue inside the loop */
+        | (UnlabelledForLoop, UnlabelledContinueInCase)
+        | (LabelledForLoop(_), UnlabelledContinueInCase) => [
+            setContinueLabel(None),
+            switch_node,
+            continueIfContinueLabelEquals("switch"),
           ]
-        | (UnlabelledForLoop, true, true) => [
-            (setContinueLabel(None, Loc.N), Loc.N),
-            (switch_node, Loc.N),
-            (
-              continueCheck("switch", Some(breakCheck(Loc.N)), Loc.N),
-              Loc.N,
+
+        /* 1. reset the continue label before entering the switch, and
+           2. check for the special "switch" label, to continue inside the loop, and
+           3. check for a non-null label, to break further out */
+        | (UnlabelledForLoop, ContinueWithLabelAndInCase) => [
+            setContinueLabel(None),
+            switch_node,
+            continueIfContinueLabelEquals(
+              ~alternate=breakIfNonnullContinueLabel,
+              "switch",
             ),
           ]
-        /* if the switch contains a continue,
-           and is inside a labelled loop,
-           then check if the label is the special switch continue label to continue,
-           and also check the continue_label to continue in the parent loop
-           and also check the continue_label to break to the outter loop */
-        | (LabelledForLoop(label), false, true)
-        | (LabelledForLoop(label), true, false)
-        | (LabelledForLoop(label), true, true) => [
-            (setContinueLabel(None, Loc.N), Loc.N),
-            (switch_node, Loc.N),
-            (
-              continueCheck(
-                "switch",
-                Some(continueCheck(label, Some(breakCheck(Loc.N)), Loc.N)),
-                Loc.N,
-              ),
-              Loc.N,
+
+        /* 1. reset the continue label before entering the switch, and
+           2. check the special "switch" label, to continue inside the loop, and
+           3. check the current loop's label, to continue inside the loop, and
+           4. check for a non-null label, to break further out */
+        | (
+            LabelledForLoop(label),
+            ContinueWithLabel | ContinueWithLabelAndInCase,
+          ) => [
+            setContinueLabel(None),
+            switch_node,
+            continueIfContinueLabelEquals(
+              ~alternate=
+                continueIfContinueLabelEquals(
+                  ~alternate=breakIfNonnullContinueLabel,
+                  label,
+                ),
+              "switch",
             ),
-          ]
-        /* if the switch contains a continue,
-           and is inside another switch,
-           and also check the continue_label to break to the outter switch */
-        | (Switch, false, true)
-        | (Switch, true, false)
-        | (Switch, true, true) => [
-            (setContinueLabel(None, Loc.N), Loc.N),
-            (switch_node, Loc.N),
-            (breakCheck(Loc.N), Loc.N),
           ]
         };
       (outs, Statement_list(li));
