@@ -373,7 +373,7 @@ final class Genlex {
                     // FALLTHROUGH
                     case 32:
                       $call1($Stream[12], $strm);
-                      $continue_label = "switch";break;
+                      $continue_label = "#";break;
                     // FALLTHROUGH
                     case 48:
                     // FALLTHROUGH
@@ -432,7 +432,7 @@ final class Genlex {
                     default:
                       $switch__0 = 0;
                     }
-                  if ($continue_label === "switch") {continue;}
+                  if ($continue_label === "#") {continue;}
                 }
               }
               else {

@@ -95,7 +95,7 @@ final class Stream {
               $match = $get_data->contents($count, $d1);
               if ($is_int($match)) {
                 $d__0 = $d2;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               else {
                 if (0 === $match[0]) {
@@ -113,7 +113,7 @@ final class Stream {
                 ? $f[1]
                 : (246 === $q ? $call1($CamlinternalLazy[2], $f) : ($f));
               $d__0 = $d__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
               $r = $d__0[1];
@@ -143,7 +143,7 @@ final class Stream {
               $b__0[4] = (int) ($b__0[4] + 1);
               return Vector{0, $r__0, $d__0};
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
         return $d__0;
       }
@@ -179,7 +179,7 @@ final class Stream {
                 ? $f[1]
                 : (246 === $m ? $call1($CamlinternalLazy[2], $f) : ($f));
               $s[2] = $n;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
               $o = $l[1];
@@ -195,7 +195,7 @@ final class Stream {
               if (0 === $b[3]) {$s[2] = 0;return 0;}
               return Vector{0, $caml_bytes_unsafe_get($b[2], $b[4])};
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };

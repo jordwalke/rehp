@@ -39,8 +39,6 @@ type input = {
 type output = {
   dec: vars,
   use: vars,
-  use_label: bool,
-  use_continue: bool,
   /*
    "unshielded_continues" tracks the labels in continue statements that haven't
    been enclosed with the corresponding loop yet.
@@ -164,13 +162,7 @@ let binop_from_rehp = binop =>
   };
 
 let empty = {names: StringMap.empty, vars: Code.Var.Map.empty};
-let emptyOutput: output = {
-  dec: empty,
-  use: empty,
-  use_label: false,
-  use_continue: false,
-  unshielded_continues: [],
-};
+let emptyOutput: output = {dec: empty, use: empty, unshielded_continues: []};
 
 let exists = (cur, id) =>
   switch (id) {
@@ -252,8 +244,6 @@ let exists = (cur: vars, id) =>
 let outAppend = (cur: output, next: output): output => {
   dec: append(cur.dec, next.dec),
   use: append(cur.use, next.use),
-  use_label: cur.use_label || next.use_label,
-  use_continue: cur.use_continue || next.use_continue,
   unshielded_continues:
     List.concat([cur.unshielded_continues, next.unshielded_continues]),
 };
@@ -309,12 +299,7 @@ let rec foldSources =
   | [(s, loc), ...tl] =>
     let (thisOut, thisMapped) =
       sourceFolder(
-        {
-          ...curOut,
-          use_continue: origOut.use_continue,
-          use_label: origOut.use_label,
-          unshielded_continues: origOut.unshielded_continues,
-        },
+        {...curOut, unshielded_continues: origOut.unshielded_continues},
         curIn,
         s,
       );
@@ -344,12 +329,7 @@ let rec foldStatements =
   | [(s, loc), ...tl] =>
     let (thisOut, thisMapped) =
       statementFolder(
-        {
-          ...curOut,
-          use_continue: origOut.use_continue,
-          use_label: origOut.use_label,
-          unshielded_continues: origOut.unshielded_continues,
-        },
+        {...curOut, unshielded_continues: origOut.unshielded_continues},
         curIn,
         s,
       );
@@ -383,6 +363,35 @@ let optAppendOutput = (appendTo, f, x) =>
     (outAppend(appendTo, out), Some(mapped));
   };
 
+/*
+  This is a special label that indicates a continue occurred inside a switch.
+  We need this label because "continue" in switches in Hack/PHP mean the
+  same as break. To have the same behavior as JS, we use the continue_label
+  and check it after the switch.
+
+  For example, this JS:
+
+    for () {
+      switch() {
+        case 0:
+          continue
+      }
+    }
+
+  Becomes this Hack/PHP:
+
+    for () {
+      switch() {
+        case 0:
+          continue_label = "#";
+          break;
+      }
+      if (continue_label === "#") {
+        continue;
+      }
+    }
+ */
+let switch_label = "#";
 let continue_label = Php.EVar(Id.ident("$continue_label"));
 
 let breakIfNonnullContinueLabel = {
@@ -918,28 +927,27 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
   let unshielded_continues =
     List.filter(label => label != myLabel, outs.unshielded_continues);
 
-  let (use_continue, li) =
+  let li =
     switch (input.label, List.length(unshielded_continues) > 0) {
     /* if the loop does not contain a labelled continue,
        or isn't inside any labelled loop,
        then just output the loop */
     | (_, false)
-    | (NoLabel, true) => (false, [for_statement_node])
+    | (NoLabel, true) => [for_statement_node]
+
     /* if the loop contains a labelled continue,
        and is inside an unlabelled loop,
        then check the continue_label to break to the outter loop */
-    | (UnlabelledForLoop, true) => (
-        false,
-        [for_statement_node, breakIfNonnullContinueLabel],
-      )
+    | (UnlabelledForLoop, true) => [
+        for_statement_node,
+        breakIfNonnullContinueLabel,
+      ]
+
     /* if the loop contains a labelled continue,
        and is inside an switch statement
        then check the continue_label to break out of the switch */
-    | (Switch, true) => (
-        /* TODO: set this to false, and combinue use_label with outs.use_continue */
-        true,
-        [for_statement_node, breakIfNonnullContinueLabel],
-      )
+    | (Switch, true) => [for_statement_node, breakIfNonnullContinueLabel]
+
     /* if the loop contains a labelled continue,
        and is inside a labelled loop,
        then check if the labels match to continue,
@@ -947,6 +955,7 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
     | (LabelledForLoop(parent_label), true) =>
       let only_continue_to_parent_label =
         List.for_all(label => label == parent_label, unshielded_continues);
+
       /* if the unshielded continues inside the loop only continue
          to the enclosing loop, then we don't need to break */
       let check_statement =
@@ -956,10 +965,10 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
               ~alternate=breakIfNonnullContinueLabel,
               parent_label,
             );
-      (true, [for_statement_node, check_statement]);
+      [for_statement_node, check_statement];
     };
 
-  ({...outs, use_continue, unshielded_continues}, Php.Statement_list(li));
+  ({...outs, unshielded_continues}, Php.Statement_list(li));
 }
 
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
@@ -973,8 +982,6 @@ and statement = (curOut, input: input, x) => {
       let out = {
         dec: List.fold_left(~f=addOneString, ~init=curOut.dec, provides),
         use: List.fold_left(~f=addOneString, ~init=curOut.use, requires),
-        use_label: false,
-        use_continue: false,
         unshielded_continues: [],
       };
       (out, Raw_statement(s));
@@ -1018,7 +1025,6 @@ and statement = (curOut, input: input, x) => {
       let out = outAppend(sOut, eOut);
       let out = {
         ...out,
-        use_continue: false,
         unshielded_continues:
           List.filter(label => label == "", out.unshielded_continues),
       };
@@ -1029,7 +1035,6 @@ and statement = (curOut, input: input, x) => {
       let out = outAppend(sOut, eOut);
       let out = {
         ...out,
-        use_continue: false,
         unshielded_continues:
           List.filter(label => label == "", out.unshielded_continues),
       };
@@ -1053,7 +1058,6 @@ and statement = (curOut, input: input, x) => {
         let outs = outAppend(outAppend(e1Out, e2Out), sOut);
         let outs = {
           ...outs,
-          use_continue: false,
           unshielded_continues:
             List.filter(label => label == "", outs.unshielded_continues),
         };
@@ -1085,7 +1089,7 @@ and statement = (curOut, input: input, x) => {
         | (None, Switch) => (
             "",
             [
-              setContinueLabel(Some("switch")),
+              setContinueLabel(Some(switch_label)),
               (Php.Break_statement, Loc.N),
             ],
           )
@@ -1106,8 +1110,6 @@ and statement = (curOut, input: input, x) => {
           dec: curOut.dec,
           use: curOut.use,
           unshielded_continues: [label, ...curOut.unshielded_continues],
-          use_label: label != "",
-          use_continue: true,
         },
         Php.Statement_list(li),
       );
@@ -1197,7 +1199,7 @@ and statement = (curOut, input: input, x) => {
         | (LabelledForLoop(_), UnlabelledContinueInCase) => [
             setContinueLabel(None),
             switch_node,
-            continueIfContinueLabelEquals("switch"),
+            continueIfContinueLabelEquals(switch_label),
           ]
 
         /* 1. reset the continue label before entering the switch, and
@@ -1208,7 +1210,7 @@ and statement = (curOut, input: input, x) => {
             switch_node,
             continueIfContinueLabelEquals(
               ~alternate=breakIfNonnullContinueLabel,
-              "switch",
+              switch_label,
             ),
           ]
 
@@ -1237,7 +1239,7 @@ and statement = (curOut, input: input, x) => {
             switch_node,
             continueIfContinueLabelEquals(
               ~alternate=check_statement,
-              "switch",
+              switch_label,
             ),
           ];
         };
@@ -1265,9 +1267,6 @@ and statement = (curOut, input: input, x) => {
       let out = {
         use: append(bOut.use, append(catchOut.use, finalOut.use)),
         dec: append(bOut.dec, append(catchOut.dec, finalOut.dec)),
-        use_label: bOut.use_label || catchOut.use_label || finalOut.use_label,
-        use_continue:
-          bOut.use_continue || catchOut.use_continue || finalOut.use_continue,
         unshielded_continues:
           List.concat([
             bOut.unshielded_continues,

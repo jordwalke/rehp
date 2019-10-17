@@ -243,18 +243,18 @@ $f1 = function(dynamic $t) {
         // FALLTHROUGH
       case 0:
         $t__0 = 1;
-        $continue_label = "switch";
+        $continue_label = "#";
         break;
         // FALLTHROUGH
       case 1:
         $t__0 = 2;
-        $continue_label = "switch";
+        $continue_label = "#";
         break;
         // FALLTHROUGH
       default:
         return 3;
     }
-    if ($continue_label === "switch") {
+    if ($continue_label === "#") {
       continue;
     }
   }
@@ -283,7 +283,7 @@ $f3 = function(dynamic $t) {
         // FALLTHROUGH
       case 0:
         $t__0 = 1;
-        $continue_label = "switch";
+        $continue_label = "#";
         break;
         // FALLTHROUGH
       case 1:
@@ -291,12 +291,12 @@ $f3 = function(dynamic $t) {
             // FALLTHROUGH
           case 0:
             $t__0 = 1;
-            $continue_label = "switch";
+            $continue_label = "#";
             break;
             // FALLTHROUGH
           case 1:
             $t__0 = 2;
-            $continue_label = "switch";
+            $continue_label = "#";
             break;
             // FALLTHROUGH
           default:
@@ -309,7 +309,7 @@ $f3 = function(dynamic $t) {
       default:
         return 3;
     }
-    if ($continue_label === "switch") {
+    if ($continue_label === "#") {
       continue;
     }
   }
@@ -340,7 +340,7 @@ $h0__0 = function(dynamic $c) use (
         switch ($switcher) {
             // FALLTHROUGH
           case 0:
-            $continue_label = "switch";
+            $continue_label = "#";
             break;
             // FALLTHROUGH
           case 1:
@@ -349,7 +349,7 @@ $h0__0 = function(dynamic $c) use (
           default:
             throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
-        if ($continue_label === "switch") {
+        if ($continue_label === "#") {
           continue;
         }
       }
@@ -369,7 +369,7 @@ $h1 = function(dynamic $t) {
       switch ($t) {
           // FALLTHROUGH
         case 0:
-          $continue_label = "switch";
+          $continue_label = "#";
           break;
           // FALLTHROUGH
         case 1:
@@ -378,7 +378,7 @@ $h1 = function(dynamic $t) {
         default:
           return 3;
       }
-      if ($continue_label === "switch") {
+      if ($continue_label === "#") {
         continue;
       }
     }

@@ -1438,72 +1438,72 @@ final class Scanf {
             case 0:
               $fmt__1 = $fmt__0[1];
               $fmt__0 = $fmt__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 1:
               $fmt__2 = $fmt__0[1];
               $fmt__0 = $fmt__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 2:
               $fmt__3 = $fmt__0[2];
               $fmt__0 = $fmt__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
               $fmt__4 = $fmt__0[2];
               $fmt__0 = $fmt__4;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 4:
               $fmt__5 = $fmt__0[4];
               $fmt__0 = $fmt__5;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 5:
               $fmt__6 = $fmt__0[4];
               $fmt__0 = $fmt__6;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 6:
               $fmt__7 = $fmt__0[4];
               $fmt__0 = $fmt__7;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 7:
               $fmt__8 = $fmt__0[4];
               $fmt__0 = $fmt__8;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 8:
               $fmt__9 = $fmt__0[4];
               $fmt__0 = $fmt__9;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 9:
               $fmt__10 = $fmt__0[2];
               $fmt__0 = $fmt__10;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 10:
               $fmt__11 = $fmt__0[1];
               $fmt__0 = $fmt__11;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 11:
               $fmt__12 = $fmt__0[2];
               $fmt__0 = $fmt__12;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 12:
               $fmt__13 = $fmt__0[2];
               $fmt__0 = $fmt__13;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 13:
               $fmt__14 = $fmt__0[3];
               $fmt__0 = $fmt__14;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 14:
               $rest = $fmt__0[3];
@@ -1527,17 +1527,17 @@ final class Scanf {
             case 15:
               $fmt__15 = $fmt__0[1];
               $fmt__0 = $fmt__15;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 16:
               $fmt__16 = $fmt__0[1];
               $fmt__0 = $fmt__16;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 17:
               $fmt__17 = $fmt__0[2];
               $fmt__0 = $fmt__17;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 18:
               $ap = $fmt__0[1];
@@ -1551,7 +1551,7 @@ final class Scanf {
                   $rest__0
                 );
                 $fmt__0 = $fmt__19;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               $rest__1 = $fmt__0[2];
               $match__0 = $ap[1];
@@ -1562,7 +1562,7 @@ final class Scanf {
                 $rest__1
               );
               $fmt__0 = $fmt__21;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 19:
               $fmt_rest = $fmt__0[1];
@@ -1576,17 +1576,17 @@ final class Scanf {
             case 20:
               $fmt__22 = $fmt__0[3];
               $fmt__0 = $fmt__22;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 21:
               $fmt__23 = $fmt__0[2];
               $fmt__0 = $fmt__23;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 22:
               $fmt__24 = $fmt__0[1];
               $fmt__0 = $fmt__24;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 23:
               $rest__2 = $fmt__0[2];
@@ -1608,9 +1608,9 @@ final class Scanf {
             default:
               $fmt__25 = $fmt__0[3];
               $fmt__0 = $fmt__25;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -1635,47 +1635,47 @@ final class Scanf {
             case 0:
               $fmtty__1 = $fmtty__0[1];
               $fmtty__0 = $fmtty__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 1:
               $fmtty__2 = $fmtty__0[1];
               $fmtty__0 = $fmtty__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 2:
               $fmtty__3 = $fmtty__0[1];
               $fmtty__0 = $fmtty__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
               $fmtty__4 = $fmtty__0[1];
               $fmtty__0 = $fmtty__4;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 4:
               $fmtty__5 = $fmtty__0[1];
               $fmtty__0 = $fmtty__5;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 5:
               $fmtty__6 = $fmtty__0[1];
               $fmtty__0 = $fmtty__6;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 6:
               $fmtty__7 = $fmtty__0[1];
               $fmtty__0 = $fmtty__7;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 7:
               $fmtty__8 = $fmtty__0[1];
               $fmtty__0 = $fmtty__8;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 8:
               $fmtty__9 = $fmtty__0[2];
               $fmtty__0 = $fmtty__9;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 9:
               $rest = $fmtty__0[3];
@@ -1685,22 +1685,22 @@ final class Scanf {
               $ty = $call2($CamlinternalFormat[23], $am, $ty2);
               $fmtty__10 = $call2($CamlinternalFormatBasics[1], $ty, $rest);
               $fmtty__0 = $fmtty__10;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 10:
               $fmtty__11 = $fmtty__0[1];
               $fmtty__0 = $fmtty__11;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 11:
               $fmtty__12 = $fmtty__0[1];
               $fmtty__0 = $fmtty__12;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 12:
               $fmtty__13 = $fmtty__0[1];
               $fmtty__0 = $fmtty__13;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 13:
               $fmt_rest = $fmtty__0[1];
@@ -1728,7 +1728,7 @@ final class Scanf {
                 );
               };
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -2232,7 +2232,7 @@ final class Scanf {
               $rest__13 = $fmt__0[1];
               if ($end_of_input($ib)) {
                 $fmt__0 = $rest__13;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               return $bad_input($cst_end_of_input_not_found);
             // FALLTHROUGH
@@ -2244,14 +2244,14 @@ final class Scanf {
               };
               $call2($String[8], $O, $str__0);
               $fmt__0 = $fmt__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 12:
               $fmt__4 = $fmt__0[2];
               $chr = $fmt__0[1];
               $check_char($ib, $chr);
               $fmt__0 = $fmt__4;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 13:
               $rest__14 = $fmt__0[3];
@@ -2334,7 +2334,7 @@ final class Scanf {
               };
               $call2($String[8], $Z, $Y);
               $fmt__0 = $fmt__11;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 18:
               $aa = $fmt__0[1];
@@ -2350,7 +2350,7 @@ final class Scanf {
                   $rest__16
                 );
                 $fmt__0 = $fmt__13;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               $rest__17 = $fmt__0[2];
               $match__5 = $aa[1];
@@ -2363,7 +2363,7 @@ final class Scanf {
                 $rest__17
               );
               $fmt__0 = $fmt__15;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 19:
               $fmt_rest = $fmt__0[1];
@@ -2447,7 +2447,7 @@ final class Scanf {
                 $cst_scanf_bad_conversion_custom_converter
               );
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };

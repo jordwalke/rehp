@@ -16,8 +16,6 @@ type output = {
    * be bound by a higher containing term).
    */
   use: vars,
-  use_label: bool,
-  use_continue: bool,
   unshielded_continues: list(string),
 };
 

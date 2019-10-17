@@ -243,9 +243,9 @@ final class Ephemeron {
                   default:
                     $h[1] = (int) ($h[1] + -1);
                     $param__0 = $next;
-                    $continue_label = "switch";break;
+                    $continue_label = "#";break;
                   }
-                if ($continue_label === "switch") {continue;}
+                if ($continue_label === "#") {continue;}
               }
               return Vector{0, $hk, $c, $remove_bucket->contents($next)};
             }
@@ -273,17 +273,17 @@ final class Ephemeron {
                   $match__0 = $call1($H[4], $c);
                   if ($match__0) {$d = $match__0[1];return $d;}
                   $param__0 = $rest;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 case 1:
                   $param__0 = $rest;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 default:
                   $param__0 = $rest;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 }
-              if ($continue_label === "switch") {continue;}
+              if ($continue_label === "#") {continue;}
             }
             $param__0 = $rest;
             continue;
@@ -312,17 +312,17 @@ final class Ephemeron {
                   $d = $call1($H[4], $c);
                   if ($d) {return $d;}
                   $param__0 = $rest;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 case 1:
                   $param__0 = $rest;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 default:
                   $param__0 = $rest;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 }
-              if ($continue_label === "switch") {continue;}
+              if ($continue_label === "#") {continue;}
             }
             $param__0 = $rest;
             continue;
@@ -361,17 +361,17 @@ final class Ephemeron {
                       return Vector{0, $d, $find_in_bucket->contents($rest)};
                     }
                     $param__0 = $rest;
-                    $continue_label = "switch";break;
+                    $continue_label = "#";break;
                   // FALLTHROUGH
                   case 1:
                     $param__0 = $rest;
-                    $continue_label = "switch";break;
+                    $continue_label = "#";break;
                   // FALLTHROUGH
                   default:
                     $param__0 = $rest;
-                    $continue_label = "switch";break;
+                    $continue_label = "#";break;
                   }
-                if ($continue_label === "switch") {continue;}
+                if ($continue_label === "#") {continue;}
               }
               $param__0 = $rest;
               continue;

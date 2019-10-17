@@ -1260,49 +1260,49 @@ final class CamlinternalFormat {
               $fmtty__1 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_c);
               $fmtty__0 = $fmtty__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 1:
               $fmtty__2 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_s);
               $fmtty__0 = $fmtty__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 2:
               $fmtty__3 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_i);
               $fmtty__0 = $fmtty__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
               $fmtty__4 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_li);
               $fmtty__0 = $fmtty__4;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 4:
               $fmtty__5 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_ni);
               $fmtty__0 = $fmtty__5;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 5:
               $fmtty__6 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_Li);
               $fmtty__0 = $fmtty__6;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 6:
               $fmtty__7 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_f);
               $fmtty__0 = $fmtty__7;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 7:
               $fmtty__8 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_B);
               $fmtty__0 = $fmtty__8;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 8:
               $fmtty__9 = $fmtty__0[2];
@@ -1311,7 +1311,7 @@ final class CamlinternalFormat {
               $bprint_fmtty->contents($buf, $sub_fmtty);
               $buffer_add_string($buf, $cst__10);
               $fmtty__0 = $fmtty__9;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 9:
               $fmtty__10 = $fmtty__0[3];
@@ -1320,39 +1320,39 @@ final class CamlinternalFormat {
               $bprint_fmtty->contents($buf, $sub_fmtty__0);
               $buffer_add_string($buf, $cst__12);
               $fmtty__0 = $fmtty__10;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 10:
               $fmtty__11 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_a);
               $fmtty__0 = $fmtty__11;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 11:
               $fmtty__12 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_t);
               $fmtty__0 = $fmtty__12;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 12:
               $fmtty__13 = $fmtty__0[1];
               $buffer_add_string($buf, $cst__13);
               $fmtty__0 = $fmtty__13;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 13:
               $fmtty__14 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_r);
               $fmtty__0 = $fmtty__14;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             default:
               $fmtty__15 = $fmtty__0[1];
               $buffer_add_string($buf, $cst_r__0);
               $fmtty__0 = $fmtty__15;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -1380,7 +1380,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 99);
                 $fmt__0 = $fmt__1;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 1:
                 $fmt__2 = $fmt__0[1];
@@ -1389,7 +1389,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 67);
                 $fmt__0 = $fmt__2;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 2:
                 $fmt__3 = $fmt__0[2];
@@ -1400,7 +1400,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 115);
                 $fmt__0 = $fmt__3;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 3:
                 $fmt__4 = $fmt__0[2];
@@ -1411,7 +1411,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 83);
                 $fmt__0 = $fmt__4;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 4:
                 $fmt__5 = $fmt__0[4];
@@ -1421,7 +1421,7 @@ final class CamlinternalFormat {
                 $bprint_int_fmt($buf, $ign_flag__0, $iconv, $pad__1, $prec);
                 $fmt__0 = $fmt__5;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 5:
                 $fmt__6 = $fmt__0[4];
@@ -1438,7 +1438,7 @@ final class CamlinternalFormat {
                 );
                 $fmt__0 = $fmt__6;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 6:
                 $fmt__7 = $fmt__0[4];
@@ -1455,7 +1455,7 @@ final class CamlinternalFormat {
                 );
                 $fmt__0 = $fmt__7;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 7:
                 $fmt__8 = $fmt__0[4];
@@ -1472,7 +1472,7 @@ final class CamlinternalFormat {
                 );
                 $fmt__0 = $fmt__8;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 8:
                 $fmt__9 = $fmt__0[4];
@@ -1488,7 +1488,7 @@ final class CamlinternalFormat {
                 );
                 $fmt__0 = $fmt__9;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 9:
                 $fmt__10 = $fmt__0[2];
@@ -1499,27 +1499,27 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 66);
                 $fmt__0 = $fmt__10;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 10:
                 $fmt__11 = $fmt__0[1];
                 $buffer_add_string($buf, $cst__14);
                 $fmt__0 = $fmt__11;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 11:
                 $fmt__12 = $fmt__0[2];
                 $str = $fmt__0[1];
                 $bprint_string_literal($buf, $str);
                 $fmt__0 = $fmt__12;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 12:
                 $fmt__13 = $fmt__0[2];
                 $chr = $fmt__0[1];
                 $bprint_char_literal($buf, $chr);
                 $fmt__0 = $fmt__13;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 13:
                 $fmt__14 = $fmt__0[3];
@@ -1534,7 +1534,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 125);
                 $fmt__0 = $fmt__14;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 14:
                 $fmt__15 = $fmt__0[3];
@@ -1549,7 +1549,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 41);
                 $fmt__0 = $fmt__15;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 15:
                 $fmt__16 = $fmt__0[1];
@@ -1558,7 +1558,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 97);
                 $fmt__0 = $fmt__16;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 16:
                 $fmt__17 = $fmt__0[1];
@@ -1567,7 +1567,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 116);
                 $fmt__0 = $fmt__17;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 17:
                 $fmt__18 = $fmt__0[2];
@@ -1577,7 +1577,7 @@ final class CamlinternalFormat {
                   $string_of_formatting_lit($fmting_lit)
                 );
                 $fmt__0 = $fmt__18;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 18:
                 $fmt__19 = $fmt__0[2];
@@ -1588,7 +1588,7 @@ final class CamlinternalFormat {
                   $string_of_formatting_gen($fmting_gen)
                 );
                 $fmt__0 = $fmt__19;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 19:
                 $fmt__20 = $fmt__0[1];
@@ -1597,7 +1597,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 114);
                 $fmt__0 = $fmt__20;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 20:
                 $fmt__21 = $fmt__0[3];
@@ -1609,7 +1609,7 @@ final class CamlinternalFormat {
                 $bprint_char_set($buf, $char_set);
                 $fmt__0 = $fmt__21;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 21:
                 $fmt__22 = $fmt__0[2];
@@ -1619,7 +1619,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, $char_of_counter($counter));
                 $fmt__0 = $fmt__22;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 22:
                 $fmt__23 = $fmt__0[1];
@@ -1628,7 +1628,7 @@ final class CamlinternalFormat {
                 $bprint_string_literal($buf, $cst_0c);
                 $fmt__0 = $fmt__23;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               case 23:
                 $rest = $fmt__0[2];
@@ -1637,7 +1637,7 @@ final class CamlinternalFormat {
                 $fmt__24 = $match[1];
                 $fmt__0 = $fmt__24;
                 $ign_flag__0 = 1;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               // FALLTHROUGH
               default:
                 $rest__0 = $fmt__0[3];
@@ -1657,9 +1657,9 @@ final class CamlinternalFormat {
                 }
                 $fmt__0 = $rest__0;
                 $ign_flag__0 = 0;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
-            if ($continue_label === "switch") {continue;}
+            if ($continue_label === "#") {continue;}
           }
         }
       };
@@ -2958,17 +2958,17 @@ final class CamlinternalFormat {
             case 10:
               $fmtty__1 = $fmtty__0[1];
               $fmtty__0 = $fmtty__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 11:
               $fmtty__2 = $fmtty__0[2];
               $fmtty__0 = $fmtty__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 12:
               $fmtty__3 = $fmtty__0[2];
               $fmtty__0 = $fmtty__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 13:
               $rest__9 = $fmtty__0[3];
@@ -2996,7 +2996,7 @@ final class CamlinternalFormat {
             case 17:
               $fmtty__4 = $fmtty__0[2];
               $fmtty__0 = $fmtty__4;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 18:
               $rest__13 = $fmtty__0[2];
@@ -3045,7 +3045,7 @@ final class CamlinternalFormat {
                 $fmtty_of_fmt->contents($rest__19)
               );
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -4836,7 +4836,7 @@ final class CamlinternalFormat {
               $acc__1 = Vector{7, $acc__0};
               $acc__0 = $acc__1;
               $fmt__0 = $fmt__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 11:
               $fmt__2 = $fmt__0[2];
@@ -4844,7 +4844,7 @@ final class CamlinternalFormat {
               $acc__2 = Vector{2, $acc__0, $str};
               $acc__0 = $acc__2;
               $fmt__0 = $fmt__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 12:
               $fmt__3 = $fmt__0[2];
@@ -4852,7 +4852,7 @@ final class CamlinternalFormat {
               $acc__3 = Vector{3, $acc__0, $chr};
               $acc__0 = $acc__3;
               $fmt__0 = $fmt__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 13:
               $rest__9 = $fmt__0[3];
@@ -4915,7 +4915,7 @@ final class CamlinternalFormat {
               $acc__4 = Vector{0, $acc__0, $fmting_lit};
               $acc__0 = $acc__4;
               $fmt__0 = $fmt__4;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 18:
               $cU = $fmt__0[1];
@@ -4938,7 +4938,7 @@ final class CamlinternalFormat {
                 $k__0 = $k__1;
                 $acc__0 = 0;
                 $fmt__0 = $fmt__5;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               $rest__14 = $fmt__0[2];
               $match__0 = $cU[1];
@@ -4958,7 +4958,7 @@ final class CamlinternalFormat {
               $k__0 = $k__2;
               $acc__0 = 0;
               $fmt__0 = $fmt__6;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 19:
               throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $q}) as \Throwable;
@@ -5025,7 +5025,7 @@ final class CamlinternalFormat {
                 varray[0,$k__0,$o,$acc__0,$rest__19,$arity,$cV]
               );
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -5693,17 +5693,17 @@ final class CamlinternalFormat {
             case 10:
               $fmt__1 = $fmt__0[1];
               $fmt__0 = $fmt__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 11:
               $fmt__2 = $fmt__0[2];
               $fmt__0 = $fmt__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 12:
               $fmt__3 = $fmt__0[2];
               $fmt__0 = $fmt__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 13:
               $rest__15 = $fmt__0[3];
@@ -5745,7 +5745,7 @@ final class CamlinternalFormat {
             case 17:
               $fmt__4 = $fmt__0[2];
               $fmt__0 = $fmt__4;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 18:
               $bX = $fmt__0[1];
@@ -5762,7 +5762,7 @@ final class CamlinternalFormat {
                 $k__1 = $k__3($k__0, $rest__19);
                 $k__0 = $k__1;
                 $fmt__0 = $fmt__5;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               $rest__20 = $fmt__0[2];
               $match__0 = $bX[1];
@@ -5776,7 +5776,7 @@ final class CamlinternalFormat {
               $k__2 = $k__4($k__0, $rest__20);
               $k__0 = $k__2;
               $fmt__0 = $fmt__6;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 19:
               throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $u}) as \Throwable;
@@ -5834,7 +5834,7 @@ final class CamlinternalFormat {
                 varray[0,$k__0,$o,$rest__25,$arity]
               );
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -5885,13 +5885,13 @@ final class CamlinternalFormat {
                 $output_acc->contents($o, $bz);
                 $call2($Pervasives[54], $o, $cst__17);
                 $acc__0 = $acc__1;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               $acc__2 = $by[1];
               $output_acc->contents($o, $bz);
               $call2($Pervasives[54], $o, $cst__18);
               $acc__0 = $acc__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 6:
               $f = $acc__0[2];
@@ -5924,7 +5924,7 @@ final class CamlinternalFormat {
               $output_acc->contents($o, $p__1);
               return $call2($Pervasives[53], $o, $c);
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -5951,13 +5951,13 @@ final class CamlinternalFormat {
                 $bufput_acc->contents($b, $bx);
                 $call2($Buffer[14], $b, $cst__19);
                 $acc__0 = $acc__1;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               $acc__2 = $bw[1];
               $bufput_acc->contents($b, $bx);
               $call2($Buffer[14], $b, $cst__20);
               $acc__0 = $acc__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 6:
               $f = $acc__0[2];
@@ -5968,7 +5968,7 @@ final class CamlinternalFormat {
             case 7:
               $acc__3 = $acc__0[1];
               $acc__0 = $acc__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 8:
               $msg = $acc__0[2];
@@ -5990,7 +5990,7 @@ final class CamlinternalFormat {
               $bufput_acc->contents($b, $p__1);
               return $call2($Buffer[10], $b, $c);
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -6017,13 +6017,13 @@ final class CamlinternalFormat {
                 $strput_acc->contents($b, $bu);
                 $call2($Buffer[14], $b, $cst__21);
                 $acc__0 = $acc__1;
-                $continue_label = "switch";break;
+                $continue_label = "#";break;
               }
               $acc__2 = $bt[1];
               $strput_acc->contents($b, $bu);
               $call2($Buffer[14], $b, $cst__22);
               $acc__0 = $acc__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 6:
               $f = $acc__0[2];
@@ -6035,7 +6035,7 @@ final class CamlinternalFormat {
             case 7:
               $acc__3 = $acc__0[1];
               $acc__0 = $acc__3;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 8:
               $msg = $acc__0[2];
@@ -6057,7 +6057,7 @@ final class CamlinternalFormat {
               $strput_acc->contents($b, $p__1);
               return $call2($Buffer[10], $b, $c);
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       }
     };
@@ -6311,33 +6311,33 @@ final class CamlinternalFormat {
                   $set_flag($str_ind__0, $space);
                   $str_ind__1 = (int) ($str_ind__0 + 1);
                   $str_ind__0 = $str_ind__1;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 case 3:
                   $set_flag($str_ind__0, $hash);
                   $str_ind__2 = (int) ($str_ind__0 + 1);
                   $str_ind__0 = $str_ind__2;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 case 11:
                   $set_flag($str_ind__0, $plus);
                   $str_ind__3 = (int) ($str_ind__0 + 1);
                   $str_ind__0 = $str_ind__3;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 case 13:
                   $set_flag($str_ind__0, $minus);
                   $str_ind__4 = (int) ($str_ind__0 + 1);
                   $str_ind__0 = $str_ind__4;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 // FALLTHROUGH
                 case 16:
                   $set_flag($str_ind__0, $zero);
                   $str_ind__5 = (int) ($str_ind__0 + 1);
                   $str_ind__0 = $str_ind__5;
-                  $continue_label = "switch";break;
+                  $continue_label = "#";break;
                 }
-              if ($continue_label === "switch") {continue;}
+              if ($continue_label === "#") {continue;}
             }
             return $parse_padding->contents(
               $pct_ind,
@@ -7875,7 +7875,7 @@ final class CamlinternalFormat {
                       );
                       $str_ind__2 = (int) ($sub_end + 2);
                       $str_ind__0 = $str_ind__2;
-                      $continue_label = "switch";break;
+                      $continue_label = "#";break;
                     // FALLTHROUGH
                     case 1:break;
                     // FALLTHROUGH
@@ -7887,7 +7887,7 @@ final class CamlinternalFormat {
                         125
                       );
                     }
-                  if ($continue_label === "switch") {continue;}
+                  if ($continue_label === "#") {continue;}
                 }
               }
               else {
@@ -8099,7 +8099,7 @@ final class CamlinternalFormat {
                 case 29:
                   if ($legacy_behavior__0) {
                     $hash__0 = 0;
-                    $continue_label = "switch";break;
+                    $continue_label = "#";break;
                   }
                   return $incompatible_flag->contents(
                     $pct_ind,
@@ -8108,7 +8108,7 @@ final class CamlinternalFormat {
                     $cst__36
                   );
                 }
-              if ($continue_label === "switch") {continue;}
+              if ($continue_label === "#") {continue;}
             }
           }
           if (0 === $plus__0) {

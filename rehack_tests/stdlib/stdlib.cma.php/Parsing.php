@@ -112,7 +112,7 @@ final class Parsing {
               $env[10] = $lexbuf[12];
               $cmd__0 = 1;
               $arg__0 = $arg__1;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 1:
               throw $runtime["caml_wrap_thrown_exception"]($Parse_error) as \Throwable;
@@ -121,13 +121,13 @@ final class Parsing {
               $grow_stacks(0);
               $cmd__0 = 2;
               $arg__0 = 0;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
               $grow_stacks(0);
               $cmd__0 = 3;
               $arg__0 = 0;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             case 4:
               try {
@@ -149,15 +149,15 @@ final class Parsing {
               }
               $cmd__0 = $cmd__1;
               $arg__0 = $arg__2;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             // FALLTHROUGH
             default:
               $call1($tables[14], $cst_syntax_error);
               $cmd__0 = 5;
               $arg__0 = 0;
-              $continue_label = "switch";break;
+              $continue_label = "#";break;
             }
-          if ($continue_label === "switch") {continue;}
+          if ($continue_label === "#") {continue;}
         }
       };
       $init_asp = $env[11];
