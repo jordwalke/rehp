@@ -297,15 +297,32 @@ let topLevelIdentifiers = (newVarsSoFar: vars, (src, _)) =>
   };
 
 let rec foldSources =
-        (sourceFolder, curOut: output, curIn: input, curRevMappeds, remain) =>
+        (
+          sourceFolder,
+          origOut: output,
+          curOut: output,
+          curIn: input,
+          curRevMappeds,
+          remain,
+        ) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(s, loc), ...tl] =>
-    let (thisOut, thisMapped) = sourceFolder(curOut, curIn, s);
+    let (thisOut, thisMapped) =
+      sourceFolder(
+        {
+          ...curOut,
+          use_continue: origOut.use_continue,
+          use_label: origOut.use_label,
+        },
+        curIn,
+        s,
+      );
     let nextOut = outAppend(curOut, thisOut);
     let nextInput = {vars: append(curIn.vars, nextOut.dec), label: NoLabel};
     foldSources(
       sourceFolder,
+      origOut,
       nextOut,
       nextInput,
       [(thisMapped, loc), ...curRevMappeds],
@@ -314,16 +331,33 @@ let rec foldSources =
   };
 
 let rec foldStatements =
-        (statementFolder, curOut: output, curIn: input, curRevMappeds, remain) =>
+        (
+          statementFolder,
+          origOut: output,
+          curOut: output,
+          curIn: input,
+          curRevMappeds,
+          remain,
+        ) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(s, loc), ...tl] =>
-    let (thisOut, thisMapped) = statementFolder(curOut, curIn, s);
+    let (thisOut, thisMapped) =
+      statementFolder(
+        {
+          ...curOut,
+          use_continue: origOut.use_continue,
+          use_label: origOut.use_label,
+        },
+        curIn,
+        s,
+      );
     let nextOut = outAppend(curOut, thisOut);
     let nextIn = {vars: append(curIn.vars, nextOut.dec), label: curIn.label};
 
     foldStatements(
       statementFolder,
+      origOut,
       nextOut,
       nextIn,
       [(thisMapped, loc), ...curRevMappeds],
@@ -803,7 +837,7 @@ and sources = (curOut, input: input, x) => {
   /* print_newline (); */
   let topLevelIdents =
     List.fold_left(~f=topLevelIdentifiers, ~init=input.vars, x);
-  let (out, mappeds) = foldSources(source, curOut, input, [], x);
+  let (out, mappeds) = foldSources(source, curOut, curOut, input, [], x);
   let toHoist =
     remove(remove(intersect(out.use, topLevelIdents), out.dec), input.vars);
   if (isEmpty(toHoist)) {
@@ -830,7 +864,7 @@ and statements = (curOut, input: input, l) => {
   /* print_string(String.make(indent.contents, ' ') ++ "<statements>"); */
   /* print_newline(); */
   indent.contents = indent.contents + 2;
-  let ret = foldStatements(statement, curOut, input, [], l);
+  let ret = foldStatements(statement, curOut, curOut, input, [], l);
   indent.contents = indent.contents - 2;
   /* print_string(String.make(indent.contents, ' ') ++ "</statements>"); */
   /* print_newline(); */

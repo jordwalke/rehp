@@ -436,9 +436,6 @@ $f4 = function(dynamic $g) use ($caml_call1) {
                           }
                           return 0;
                         }
-                        if ($continue_label !== null) {
-                          break;
-                        }
                       }
                       if ($continue_label !== null) {
                         break;

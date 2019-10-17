@@ -382,7 +382,6 @@ $h1 = function(dynamic $t) {
         continue;
       }
     }
-    $continue_label = null;
     switch ($t) {
         // FALLTHROUGH
       case 0:
@@ -393,9 +392,6 @@ $h1 = function(dynamic $t) {
         // FALLTHROUGH
       default:
         return 3;
-    }
-    if ($continue_label === "switch") {
-      continue;
     }
   }
 };
