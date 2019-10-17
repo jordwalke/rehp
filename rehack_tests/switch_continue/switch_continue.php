@@ -362,7 +362,46 @@ $h0__0 = function(dynamic $c) use (
       \Throwable;
   }
 };
+$h1 = function(dynamic $t) {
+  for (; ; ) {
+    if (0 === $t) {
+      $continue_label = null;
+      switch ($t) {
+          // FALLTHROUGH
+        case 0:
+          $continue_label = "switch";
+          break;
+          // FALLTHROUGH
+        case 1:
+          return 2;
+          // FALLTHROUGH
+        default:
+          return 3;
+      }
+      if ($continue_label === "switch") {
+        continue;
+      }
+    }
+    $continue_label = null;
+    switch ($t) {
+        // FALLTHROUGH
+      case 0:
+        return 1;
+        // FALLTHROUGH
+      case 1:
+        return 2;
+        // FALLTHROUGH
+      default:
+        return 3;
+    }
+    if ($continue_label === "switch") {
+      continue;
+    }
+  }
+};
 
-$h0__0(120);
+$print_endline($string_of_int($h0__0(104)));
+
+$print_endline($string_of_int($h1(0)));
 
 $do_at_exit(0);

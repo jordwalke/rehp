@@ -1280,6 +1280,31 @@ function h0__0(c) {
   }
 }
 
-h0__0(120);
+function h1(t) {
+  for (;;) {
+    if (0 === t) {
+      switch (t) {
+        case 0:
+          continue;
+        case 1:
+          return 2;
+        default:
+          return 3;
+      }
+    }
+    switch (t) {
+      case 0:
+        return 1;
+      case 1:
+        return 2;
+      default:
+        return 3;
+    }
+  }
+}
+
+print_endline(string_of_int(h0__0(104)));
+
+print_endline(string_of_int(h1(0)));
 
 do_at_exit(0);

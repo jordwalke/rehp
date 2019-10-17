@@ -78,4 +78,22 @@ let rec h0 = c => {
   };
 };
 
-let x = h0('x');
+/* bug: extra continue_label on second switch */
+let rec h1 = (t) => {
+  if (t == A) {
+    switch (t) {
+    | A => h1(t)
+    | B => 2
+    | C => 3
+    };
+  } else {
+    switch (t) {
+    | A => 1
+    | B => 2
+    | C => 3
+    };
+  };
+};
+
+print_endline(string_of_int(h0('h')));
+print_endline(string_of_int(h1(A)));
