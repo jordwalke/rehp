@@ -177,9 +177,7 @@ let h2 = (g, t) => {
     };
   };
 };
-/*
- - continue counter is never declared
- */
+/* no bug */
 let h3 = (g, t) => {
   for (i in 4 to 5) {
     switch (t) {

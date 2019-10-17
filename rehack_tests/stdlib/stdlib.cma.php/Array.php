@@ -596,8 +596,8 @@ final class Array_ {
         $c = 0;
         if (! ($d < 0)) {
           $i = $c;
-          $continue_label = null;
           for (;;) {
+            $continue_label = null;
             $e = (int) ($srcofs + $i);
             $e__0 = $caml_check_bound($a, $e)[$e + 1];
             $j = Vector{0, (int) ((int) ($dstofs + $i) + -1)};
@@ -622,7 +622,6 @@ final class Array_ {
               break;
             }
             if ($continue_label === "a") {continue;}
-            else if ($continue_label !== null) {break;}
             break;
           }
         }

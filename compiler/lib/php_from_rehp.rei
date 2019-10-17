@@ -18,6 +18,7 @@ type output = {
   use: vars,
   use_label: bool,
   use_continue: bool,
+  unshielded_continues: list(string),
 };
 
 type parent_label =

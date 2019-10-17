@@ -253,8 +253,8 @@ $f1 = function(dynamic $g) use ($caml_call1) {
 };
 $f2 = function(dynamic $g) use ($caml_call1) {
   $i = 2;
-  $continue_label = null;
   for (; ; ) {
+    $continue_label = null;
     $j = 4;
     for (; ; ) {
       $caml_call1($g, (int)($i + $j));
@@ -273,18 +273,16 @@ $f2 = function(dynamic $g) use ($caml_call1) {
     }
     if ($continue_label === "a") {
       continue;
-    } else if ($continue_label !== null) {
-      break;
     }
   }
 };
 $f3 = function(dynamic $g) use ($caml_call1) {
   $i = 2;
-  $continue_label = null;
   for (; ; ) {
-    $j = 4;
     $continue_label = null;
+    $j = 4;
     for (; ; ) {
+      $continue_label = null;
       $k = 4;
       for (; ; ) {
         $caml_call1($g, (int)((int)($i + $j) + $k));
@@ -327,15 +325,13 @@ $f3 = function(dynamic $g) use ($caml_call1) {
     }
     if ($continue_label === "a") {
       continue;
-    } else if ($continue_label !== null) {
-      break;
     }
   }
 };
 $f4 = function(dynamic $g) use ($caml_call1) {
   $i = 2;
-  $continue_label = null;
   for (; ; ) {
+    $continue_label = null;
     $k__3 = 4;
     for (; ; ) {
       $caml_call1($g, (int)($i + $k__3));
@@ -345,11 +341,11 @@ $f4 = function(dynamic $g) use ($caml_call1) {
         continue;
       }
       $j = 4;
-      $continue_label = null;
       for (; ; ) {
-        $k__2 = 4;
         $continue_label = null;
+        $k__2 = 4;
         for (; ; ) {
+          $continue_label = null;
           $l__0 = 4;
           for (; ; ) {
             $caml_call1($g, (int)((int)((int)($i + $j) + $k__2) + $l__0));
@@ -379,8 +375,8 @@ $f4 = function(dynamic $g) use ($caml_call1) {
                 break;
               }
               $l = 6;
-              $continue_label = null;
               for (; ; ) {
+                $continue_label = null;
                 $n__0 = 4;
                 for (; ; ) {
                   $caml_call1($g, (int)((int)($i + $l) + $n__0));
@@ -390,8 +386,8 @@ $f4 = function(dynamic $g) use ($caml_call1) {
                     continue;
                   }
                   $m = 4;
-                  $continue_label = null;
                   for (; ; ) {
+                    $continue_label = null;
                     $n = 4;
                     for (; ; ) {
                       $caml_call1($g, (int)((int)((int)($i + $l) + $m) + $n));
@@ -483,8 +479,6 @@ $f4 = function(dynamic $g) use ($caml_call1) {
     }
     if ($continue_label === "a") {
       continue;
-    } else if ($continue_label !== null) {
-      break;
     }
   }
 };
@@ -580,8 +574,8 @@ $f8 = function(dynamic $g) use ($caml_call1) {
     }
     $f = function(dynamic $x) use ($caml_call1, $g) {
       $i = 2;
-      $continue_label = null;
       for (; ; ) {
+        $continue_label = null;
         $j = 4;
         for (; ; ) {
           $caml_call1($g, (int)((int)($x + $i) + $j));
@@ -600,8 +594,6 @@ $f8 = function(dynamic $g) use ($caml_call1) {
         }
         if ($continue_label === "a") {
           continue;
-        } else if ($continue_label !== null) {
-          break;
         }
       }
     };
@@ -619,15 +611,15 @@ $f8 = function(dynamic $g) use ($caml_call1) {
 };
 $f9 = function(dynamic $g) use ($caml_call1) {
   $i1 = 2;
-  $continue_label = null;
   for (; ; ) {
+    $continue_label = null;
     $i2 = 2;
     for (; ; ) {
       $f__0 = function(dynamic $i1, dynamic $i2) use ($caml_call1, $g) {
         $f = function(dynamic $x) use ($caml_call1, $g, $i1, $i2) {
           $i3 = 2;
-          $continue_label = null;
           for (; ; ) {
+            $continue_label = null;
             $i4 = 2;
             for (; ; ) {
               $caml_call1(
@@ -649,8 +641,6 @@ $f9 = function(dynamic $g) use ($caml_call1) {
             }
             if ($continue_label === "a") {
               continue;
-            } else if ($continue_label !== null) {
-              break;
             }
           }
         };
@@ -673,8 +663,6 @@ $f9 = function(dynamic $g) use ($caml_call1) {
     }
     if ($continue_label === "a") {
       continue;
-    } else if ($continue_label !== null) {
-      break;
     }
   }
 };
@@ -686,14 +674,14 @@ $f10 = function(dynamic $g) use (
   $caml_wrap_thrown_exception_reraise,
 ) {
   $i1 = 2;
-  $continue_label = null;
   for (; ; ) {
+    $continue_label = null;
     $i2 = 2;
     for (; ; ) {
       try {
         $i3 = 2;
-        $continue_label = null;
         for (; ; ) {
+          $continue_label = null;
           $i4 = 2;
           for (; ; ) {
             $caml_call1($g, (int)((int)((int)($i1 + $i2) + $i3) + $i4));
@@ -715,12 +703,7 @@ $f10 = function(dynamic $g) use (
           }
           if ($continue_label === "c") {
             continue;
-          } else if ($continue_label !== null) {
-            break;
           }
-          break;
-        }
-        if ($continue_label !== null) {
           break;
         }
       } catch (\Throwable $ac) {
@@ -744,8 +727,6 @@ $f10 = function(dynamic $g) use (
     }
     if ($continue_label === "a") {
       continue;
-    } else if ($continue_label !== null) {
-      break;
     }
   }
 };
@@ -833,8 +814,8 @@ $h1 = function(dynamic $g, dynamic $t) use ($caml_call1) {
 };
 $h2 = function(dynamic $g, dynamic $t) use ($caml_call1) {
   $i = 2;
-  $continue_label = null;
   for (; ; ) {
+    $continue_label = null;
     $j = 2;
     for (; ; ) {
       switch ($t) {
@@ -874,15 +855,12 @@ $h2 = function(dynamic $g, dynamic $t) use ($caml_call1) {
     }
     if ($continue_label === "a") {
       continue;
-    } else if ($continue_label !== null) {
-      break;
     }
   }
 };
 $h3 = function(dynamic $g, dynamic $t) use ($caml_call1) {
   $i = 4;
   for (; ; ) {
-    $continue_label = null;
     switch ($t) {
         // FALLTHROUGH
       case 0:
@@ -891,8 +869,8 @@ $h3 = function(dynamic $g, dynamic $t) use ($caml_call1) {
         // FALLTHROUGH
       case 1:
         $j = 4;
-        $continue_label = null;
         for (; ; ) {
+          $continue_label = null;
           $k = 2;
           for (; ; ) {
             $caml_call1($g, (int)((int)($i + $j) + $k));
@@ -911,12 +889,7 @@ $h3 = function(dynamic $g, dynamic $t) use ($caml_call1) {
           }
           if ($continue_label === "b") {
             continue;
-          } else if ($continue_label !== null) {
-            break;
           }
-          break;
-        }
-        if ($continue_label !== null) {
           break;
         }
         break;
@@ -924,9 +897,7 @@ $h3 = function(dynamic $g, dynamic $t) use ($caml_call1) {
       default:
         $caml_call1($g, 1);
     }
-    if ($continue_label === "switch") {
-      continue;
-    } else if ($continue_label !== null) {
+    if ($continue_label !== null) {
       break;
     }
     $G = (int)($i + 1);
@@ -945,8 +916,8 @@ $h4 = function(dynamic $g, dynamic $t) use ($caml_call1) {
       // FALLTHROUGH
     case 1:
       $j = 4;
-      $continue_label = null;
       for (; ; ) {
+        $continue_label = null;
         $k = 2;
         for (; ; ) {
           $caml_call1($g, (int)($j + $k));
@@ -965,12 +936,7 @@ $h4 = function(dynamic $g, dynamic $t) use ($caml_call1) {
         }
         if ($continue_label === "a") {
           continue;
-        } else if ($continue_label !== null) {
-          break;
         }
-      }
-      if ($continue_label !== null) {
-        break;
       }
       // FALLTHROUGH
     default:
@@ -979,11 +945,10 @@ $h4 = function(dynamic $g, dynamic $t) use ($caml_call1) {
 };
 $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
   $i = 2;
-  $continue_label = null;
   for (; ; ) {
+    $continue_label = null;
     $j = 2;
     for (; ; ) {
-      $continue_label = null;
       switch ($t) {
           // FALLTHROUGH
         case 0:
@@ -992,8 +957,8 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
           // FALLTHROUGH
         case 1:
           $k = 4;
-          $continue_label = null;
           for (; ; ) {
+            $continue_label = null;
             $l = 2;
             for (; ; ) {
               $caml_call1($g, (int)((int)($i + $j) + $k));
@@ -1012,12 +977,7 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
             }
             if ($continue_label === "c") {
               continue;
-            } else if ($continue_label !== null) {
-              break;
             }
-            break;
-          }
-          if ($continue_label !== null) {
             break;
           }
           break;
@@ -1025,9 +985,7 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
         default:
           $caml_call1($g, 1);
       }
-      if ($continue_label === "switch") {
-        continue;
-      } else if ($continue_label !== null) {
+      if ($continue_label !== null) {
         break;
       }
       $B = (int)($j + 1);
@@ -1045,8 +1003,6 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
     }
     if ($continue_label === "a") {
       continue;
-    } else if ($continue_label !== null) {
-      break;
     }
   }
 };

@@ -94,6 +94,7 @@ type output = {
    }
    */
   use_continue: bool,
+  unshielded_continues: list(string),
 };
 
 let escapeIdent = s => Stdlib.escape(s, '$', "____");
@@ -173,6 +174,7 @@ let emptyOutput = {
   use: empty,
   use_label: false,
   use_continue: false,
+  unshielded_continues: [],
 };
 
 let exists = (cur, id) =>
@@ -257,6 +259,8 @@ let outAppend = (cur: output, next: output): output => {
   use: append(cur.use, next.use),
   use_label: cur.use_label || next.use_label,
   use_continue: cur.use_continue || next.use_continue,
+  unshielded_continues:
+    List.concat([cur.unshielded_continues, next.unshielded_continues]),
 };
 
 let createRef = ((name, _)) => {
@@ -314,6 +318,7 @@ let rec foldSources =
           ...curOut,
           use_continue: origOut.use_continue,
           use_label: origOut.use_label,
+          unshielded_continues: origOut.unshielded_continues,
         },
         curIn,
         s,
@@ -348,6 +353,7 @@ let rec foldStatements =
           ...curOut,
           use_continue: origOut.use_continue,
           use_label: origOut.use_label,
+          unshielded_continues: origOut.unshielded_continues,
         },
         curIn,
         s,
@@ -891,21 +897,36 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
   let (e2Out, e2Mapped) = optOutput(expression(nextInput), e2);
   let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
   let (sOut, sMapped) = statement(curOut, nextInput, s);
+  let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
 
   /* Always wrapped for loop contents in a block */
-  let sMapped =
-    switch (sMapped) {
-    | Php.Block(_) => sMapped
-    | _ => Php.Block([(sMapped, loc)])
+  /* Reset the continue_label whenever entering a labelled loop */
+  let (sMapped, myLabel) =
+    switch (sMapped, label) {
+    | (Php.Block(s), None) => (sMapped, "")
+    | (Php.Block(s), Some(myLabel)) => (
+        Php.Block([setContinueLabel(None), ...s]),
+        myLabel,
+      )
+    | (_, None) => (Php.Block([(sMapped, loc)]), "")
+    | (_, Some(myLabel)) => (
+        Php.Block([setContinueLabel(None), (sMapped, loc)]),
+        myLabel,
+      )
     };
   let for_statement_node = (
     Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc)),
     loc,
   );
 
-  let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
+  /* shield any continues that have this loop's label */
+  let unshielded_continues =
+    List.filter(label => label != myLabel, outs.unshielded_continues);
+  let children_have_unshielded_continues =
+    List.length(unshielded_continues) > 0;
+
   let (use_continue, li) =
-    switch (input.label, outs.use_label) {
+    switch (input.label, children_have_unshielded_continues) {
     /* if the loop does not contain a labelled continue,
        or isn't inside any labelled loop,
        then just output the loop */
@@ -930,27 +951,22 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
        and is inside a labelled loop,
        then check if the labels match to continue,
        and also check the continue_label to break to the outter loop */
-    | (LabelledForLoop(parent_label), true) => (
-        true,
-        [
-          for_statement_node,
-          continueIfContinueLabelEquals(
-            ~alternate=breakIfNonnullContinueLabel,
-            parent_label,
-          ),
-        ],
-      )
+    | (LabelledForLoop(parent_label), true) =>
+      let children_only_continue_to_parent_label =
+        List.for_all(label => label == parent_label, unshielded_continues);
+      /* if the unshielded continues inside the loop only continue
+         to the enclosing loop, then we don't need to break */
+      let check_statement =
+        children_only_continue_to_parent_label
+          ? continueIfContinueLabelEquals(parent_label)
+          : continueIfContinueLabelEquals(
+              ~alternate=breakIfNonnullContinueLabel,
+              parent_label,
+            );
+      (true, [for_statement_node, check_statement]);
     };
 
-  /* reset the continue_label whenever entering a labelled loop */
-  let li =
-    if (label == None) {
-      li;
-    } else {
-      [setContinueLabel(None), ...li];
-    };
-
-  ({...outs, use_continue}, Php.Statement_list(li));
+  ({...outs, use_continue, unshielded_continues}, Php.Statement_list(li));
 }
 
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
@@ -966,6 +982,7 @@ and statement = (curOut, input: input, x) => {
         use: List.fold_left(~f=addOneString, ~init=curOut.use, requires),
         use_label: false,
         use_continue: false,
+        unshielded_continues: [],
       };
       (out, Raw_statement(s));
     | Rehp.Variable_statement(l) =>
@@ -1005,12 +1022,24 @@ and statement = (curOut, input: input, x) => {
     | Rehp.Do_while_statement((s, loc), e) =>
       let (sOut, sMapped) = statement(curOut, input, s);
       let (eOut, eMapped) = expression(input, e);
-      let out = {...outAppend(sOut, eOut), use_continue: false};
+      let out = outAppend(sOut, eOut);
+      let out = {
+        ...out,
+        use_continue: false,
+        unshielded_continues:
+          List.filter(label => label == "", out.unshielded_continues),
+      };
       (out, Do_while_statement((sMapped, loc), eMapped));
     | Rehp.While_statement(e, (s, loc)) =>
       let (sOut, sMapped) = statement(curOut, input, s);
       let (eOut, eMapped) = expression(input, e);
-      let out = {...outAppend(sOut, eOut), use_continue: false};
+      let out = outAppend(sOut, eOut);
+      let out = {
+        ...out,
+        use_continue: false,
+        unshielded_continues:
+          List.filter(label => label == "", out.unshielded_continues),
+      };
       (out, While_statement(eMapped, (sMapped, loc)));
     | Rehp.For_statement(e1, e2, e3, (s, loc), _) =>
       for_statement(curOut, input, e1, e2, e3, (s, loc), None)
@@ -1028,9 +1057,12 @@ and statement = (curOut, input: input, x) => {
           };
         let (e2Out, e2Mapped) = expression(input, e2);
         let (sOut, sMapped) = statement(curOut, input, s);
+        let outs = outAppend(outAppend(e1Out, e2Out), sOut);
         let outs = {
-          ...outAppend(outAppend(e1Out, e2Out), sOut),
+          ...outs,
           use_continue: false,
+          unshielded_continues:
+            List.filter(label => label == "", outs.unshielded_continues),
         };
         (outs, Php.ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc)));
       };
@@ -1052,13 +1084,13 @@ and statement = (curOut, input: input, x) => {
      * need to do any special handling here.
      */
     | Rehp.Continue_statement(s, _) =>
-      let (use_label, li) =
+      let (label, li) =
         switch (s, input.label) {
         /* if the continue isn't labeled, and occurs inside a switch,
            switch/cases can't have continues, so convert it to a break
            and set continue_label to a special "switch" label */
         | (None, Switch) => (
-            false,
+            "",
             [
               setContinueLabel(Some("switch")),
               (Php.Break_statement, Loc.N),
@@ -1066,19 +1098,24 @@ and statement = (curOut, input: input, x) => {
           )
         /* if the continue isn't labeled, and isn't in a switch,
            keep it as a continue*/
-        | (None, _) => (false, [(Php.Continue_statement, Loc.N)])
+        | (None, _) => ("", [(Php.Continue_statement, Loc.N)])
         /* if the continue has a label, then convert it to a break and set
            continue_label to its label */
-        | (Some(lbl), _) => (
-            true,
-            [
-              setContinueLabel(Some(Javascript.Label.to_string(lbl))),
-              (Php.Break_statement, Loc.N),
-            ],
-          )
+        | (Some(lbl), _) =>
+          let label = Javascript.Label.to_string(lbl);
+          (
+            label,
+            [setContinueLabel(Some(label)), (Php.Break_statement, Loc.N)],
+          );
         };
       (
-        {dec: curOut.dec, use: curOut.use, use_label, use_continue: true},
+        {
+          dec: curOut.dec,
+          use: curOut.use,
+          use_label: label != "",
+          use_continue: true,
+          unshielded_continues: [label, ...curOut.unshielded_continues],
+        },
         Php.Statement_list(li),
       );
     /* TODO: remove labels from Rehp break statements */
@@ -1223,6 +1260,12 @@ and statement = (curOut, input: input, x) => {
         use_label: bOut.use_label || catchOut.use_label || finalOut.use_label,
         use_continue:
           bOut.use_continue || catchOut.use_continue || finalOut.use_continue,
+        unshielded_continues:
+          List.concat([
+            bOut.unshielded_continues,
+            catchOut.unshielded_continues,
+            finalOut.unshielded_continues,
+          ]),
       };
       (out, Try_statement(bMapped, catchMapped, finalMapped));
     };

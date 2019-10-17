@@ -2220,8 +2220,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   
   $i__0 = 0;
   
-  $continue_label = null;
   for (;;) {
+    $continue_label = null;
     $stateless = $element(Vector{0, $render__9($bq, 0)});
     $printSection($br);
     $containerRoot = $create(0);
@@ -2398,7 +2398,6 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       $do_at_exit(0);
     }
     if ($continue_label === "a") {continue;}
-    else if ($continue_label !== null) {break;}
   }
 
 }
