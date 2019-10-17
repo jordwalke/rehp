@@ -110,7 +110,7 @@ final class Sort {
       $qsort->contents = function(dynamic $lo, dynamic $hi) use ($Invalid_argument,$arr,$call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
         $lo__0 = $lo;
         $hi__0 = $hi;
-        $continue_counter = null;
+        $continue_label = null;
         for (;;) {
           $d = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
           if ($d) {
@@ -130,6 +130,7 @@ final class Sort {
                       Vector{0, $Invalid_argument, $cst_Sort_array}
                     ) as \Throwable;
             }
+            $continue_label = null;
             for (;;) {
               if ($i[1] < $j[1]) {
                 for (;;) {
@@ -139,51 +140,32 @@ final class Sort {
                         if ($i[1] < $j[1]) {$swap($arr, $i[1], $j[1]);}
                         $i[1] += 1;
                         $j[1] += -1;
-                        $continue_counter = 1;break;
+                        $continue_label = "b";break;
                       }
                       $j[1] += -1;
                       continue;
                     }
-                    if ($continue_counter > 0) {
-                      $continue_counter -= 1;
-                      break;
-                    }
-                    else if ($continue_counter === 0) {
-                      $continue_counter = null;
-                      continue;
-                    }
+                    if ($continue_label !== null) {break;}
                   }
                   $i[1] += 1;
                   continue;
                 }
-                if ($continue_counter > 0) {
-                  $continue_counter -= 1;
-                  break;
-                }
-                else if ($continue_counter === 0) {
-                  $continue_counter = null;
-                  continue;
-                }
+                if ($continue_label === "b") {continue;}
+                else if ($continue_label !== null) {break;}
               }
               if ((int) ($j[1] - $lo__0) <= (int) ($hi__0 - $i[1])) {
                 $qsort->contents($lo__0, $j[1]);
                 $lo__1 = $i[1];
                 $lo__0 = $lo__1;
-                $continue_counter = 0;break;
+                $continue_label = "a";break;
               }
               $qsort->contents($i[1], $hi__0);
               $hi__1 = $j[1];
               $hi__0 = $hi__1;
-              $continue_counter = 0;break;
+              $continue_label = "a";break;
             }
-            if ($continue_counter > 0) {
-              $continue_counter -= 1;
-              break;
-            }
-            else if ($continue_counter === 0) {
-              $continue_counter = null;
-              continue;
-            }
+            if ($continue_label === "a") {continue;}
+            else if ($continue_label !== null) {break;}
           }
           return $d;
         }

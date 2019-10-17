@@ -86,60 +86,64 @@ final class Stream {
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
-          if ($d__0[0] === 1) {
-            $d2 = $d__0[2];
-            $d1 = $d__0[1];
-            $match = $get_data->contents($count, $d1);
-            if ($is_int($match)) {
-              $d__0 = $d2;
-              continue;
-            }
-            else {
-              if (0 === $match[0]) {
-                $d11 = $match[2];
-                $a__0 = $match[1];
-                return Vector{0, $a__0, Vector{1, $d11, $d2}};
+          $continue_label = null;
+          switch($d__0[0]) {
+            // FALLTHROUGH
+            case 1:
+              $d2 = $d__0[2];
+              $d1 = $d__0[1];
+              $match = $get_data->contents($count, $d1);
+              if ($is_int($match)) {
+                $d__0 = $d2;
+                $continue_label = "switch";break;
               }
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a}) as \Throwable;
-            }
-          }
-          else if ($d__0[0] === 2) {
-            $f = $d__0[1];
-            $q = $caml_obj_tag($f);
-            $d__1 = 250 === $q
-              ? $f[1]
-              : (246 === $q ? $call1($CamlinternalLazy[2], $f) : ($f));
-            $d__0 = $d__1;
-            continue;
-          }
-          else if ($d__0[0] === 3) {
-            $r = $d__0[1];
-            $s = $r[1];
-            if ($s) {
-              $t = $s[1];
-              if ($t) {
-                $a__1 = $t[1];
-                $r[1] = 0;
-                return Vector{0, $a__1, $d__0};
+              else {
+                if (0 === $match[0]) {
+                  $d11 = $match[2];
+                  $a__0 = $match[1];
+                  return Vector{0, $a__0, Vector{1, $d11, $d2}};
+                }
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a}) as \Throwable;
               }
+            // FALLTHROUGH
+            case 2:
+              $f = $d__0[1];
+              $q = $caml_obj_tag($f);
+              $d__1 = 250 === $q
+                ? $f[1]
+                : (246 === $q ? $call1($CamlinternalLazy[2], $f) : ($f));
+              $d__0 = $d__1;
+              $continue_label = "switch";break;
+            // FALLTHROUGH
+            case 3:
+              $r = $d__0[1];
+              $s = $r[1];
+              if ($s) {
+                $t = $s[1];
+                if ($t) {
+                  $a__1 = $t[1];
+                  $r[1] = 0;
+                  return Vector{0, $a__1, $d__0};
+                }
+                return 0;
+              }
+              $match__0 = $call1($r[2], $count);
+              if ($match__0) {
+                $a__2 = $match__0[1];
+                return Vector{0, $a__2, $d__0};
+              }
+              $r[1] = $b;
               return 0;
+            // FALLTHROUGH
+            case 4:
+              $b__0 = $d__0[1];
+              if ($b__0[3] <= $b__0[4]) {$fill_buff($b__0);}
+              if (0 === $b__0[3]) {return 0;}
+              $r__0 = $caml_bytes_unsafe_get($b__0[2], $b__0[4]);
+              $b__0[4] = (int) ($b__0[4] + 1);
+              return Vector{0, $r__0, $d__0};
             }
-            $match__0 = $call1($r[2], $count);
-            if ($match__0) {
-              $a__2 = $match__0[1];
-              return Vector{0, $a__2, $d__0};
-            }
-            $r[1] = $b;
-            return 0;
-          }
-          else if ($d__0[0] === 4) {
-            $b__0 = $d__0[1];
-            if ($b__0[3] <= $b__0[4]) {$fill_buff($b__0);}
-            if (0 === $b__0[3]) {return 0;}
-            $r__0 = $caml_bytes_unsafe_get($b__0[2], $b__0[4]);
-            $b__0[4] = (int) ($b__0[4] + 1);
-            return Vector{0, $r__0, $d__0};
-          }
+          if ($continue_label === "switch") {continue;}
         }
         return $d__0;
       }
@@ -149,44 +153,49 @@ final class Stream {
         $l = $s[2];
         if ($is_int($l)) {return 0;}
         else {
-          if ($l[0] === 0) {
-            $a = $l[1];return Vector{0, $a};
-          }
-          else if ($l[0] === 1) {
-            $d = $get_data->contents($s[1], $s[2]);
-            if ($is_int($d)) {return 0;}
-            else {
-              if (0 === $d[0]) {
-                $a__0 = $d[1];
-                $s[2] = $d;
-                return Vector{0, $a__0};
+          $continue_label = null;
+          switch($l[0]) {
+            // FALLTHROUGH
+            case 0:
+              $a = $l[1];
+              return Vector{0, $a};
+            // FALLTHROUGH
+            case 1:
+              $d = $get_data->contents($s[1], $s[2]);
+              if ($is_int($d)) {return 0;}
+              else {
+                if (0 === $d[0]) {
+                  $a__0 = $d[1];
+                  $s[2] = $d;
+                  return Vector{0, $a__0};
+                }
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c}) as \Throwable;
               }
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c}) as \Throwable;
+            // FALLTHROUGH
+            case 2:
+              $f = $l[1];
+              $m = $caml_obj_tag($f);
+              $n = 250 === $m
+                ? $f[1]
+                : (246 === $m ? $call1($CamlinternalLazy[2], $f) : ($f));
+              $s[2] = $n;
+              $continue_label = "switch";break;
+            // FALLTHROUGH
+            case 3:
+              $o = $l[1];
+              $p = $o[1];
+              if ($p) {$a__1 = $p[1];return $a__1;}
+              $x = $call1($o[2], $s[1]);
+              $o[1] = Vector{0, $x};
+              return $x;
+            // FALLTHROUGH
+            default:
+              $b = $l[1];
+              if ($b[3] <= $b[4]) {$fill_buff($b);}
+              if (0 === $b[3]) {$s[2] = 0;return 0;}
+              return Vector{0, $caml_bytes_unsafe_get($b[2], $b[4])};
             }
-          }
-          else if ($l[0] === 2) {
-            $f = $l[1];
-            $m = $caml_obj_tag($f);
-            $n = 250 === $m
-              ? $f[1]
-              : (246 === $m ? $call1($CamlinternalLazy[2], $f) : ($f));
-            $s[2] = $n;
-            continue;
-          }
-          else if ($l[0] === 3) {
-            $o = $l[1];
-            $p = $o[1];
-            if ($p) {$a__1 = $p[1];return $a__1;}
-            $x = $call1($o[2], $s[1]);
-            $o[1] = Vector{0, $x};
-            return $x;
-          }
-          else {
-            $b = $l[1];
-            if ($b[3] <= $b[4]) {$fill_buff($b);}
-            if (0 === $b[3]) {$s[2] = 0;return 0;}
-            return Vector{0, $caml_bytes_unsafe_get($b[2], $b[4])};
-          }
+          if ($continue_label === "switch") {continue;}
         }
       }
     };
