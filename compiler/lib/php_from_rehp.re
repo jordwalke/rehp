@@ -24,9 +24,9 @@ type vars = {
 };
 type continue_kind =
   | NoContinue
-  | ContinueWithLabel
+  | ContinueWithLabel(list(string))
   | UnlabelledContinueInCase
-  | ContinueWithLabelAndInCase;
+  | ContinueWithLabelAndInCase(list(string));
 type parent_label =
   | NoLabel
   | UnlabelledForLoop
@@ -39,61 +39,56 @@ type input = {
 type output = {
   dec: vars,
   use: vars,
+  use_label: bool,
+  use_continue: bool,
   /*
-   "use_label" tracks whether the AST has any continue-to-label statement not
-   shielded by a function.
+   "unshielded_continues" tracks the labels in continue statements that haven't
+   been enclosed with the corresponding loop yet.
 
-   For example, "use_label" is true for this AST:
+   For example, "unshielded_continues" is ["a"] for this AST:
 
-   for () {
+     for () {
+       continue a;
+     }
+
+   But it is [] (empty) here:
+
      a: for () {
        continue a;
      }
-   }
 
-   And false for this one:
+   Continues without labels add "" (empty string) to the list. For example,
+   this AST has [""] for "unshielded_continues":
 
-   for () {
-     $f = function() {
-       a: for () {
-         for () {
-           continue a;
-         }
-       }
-     }
-   }
-   */
-  use_label: bool,
-  /*
-   "use_continue" tracks whether the AST has any continue statement not
-   shielded by a loop or function.
-
-   For example, "use_continue" is true for this AST:
-
-   switch (x) {
-     case 0:
+     if () {
        continue;
-   }
+     }
 
-   and false for this one:
+   And so does this one:
 
-   switch (x) {
-     case 0:
-       $x = 3;
-       break;
-     case 1:
-       return 3;
-     case 2:
-       for (;;) {
+     switch () {
+       case 0:
          continue;
-       }
-     case 3:
-       $f = function () {
-         continue;
-       };
-   }
+     }
+
+   Functions and loops "shield" unlabelled continues. So this AST has [] for
+   "unshielded_continues":
+
+     switch () {
+       case 0:
+         break;
+       case 1:
+         return 3;
+       case 2:
+         for () {
+           continue;
+         }
+       case 3:
+         $f = function () {
+           continue;
+         };
+     }
    */
-  use_continue: bool,
   unshielded_continues: list(string),
 };
 
@@ -169,7 +164,7 @@ let binop_from_rehp = binop =>
   };
 
 let empty = {names: StringMap.empty, vars: Code.Var.Map.empty};
-let emptyOutput = {
+let emptyOutput: output = {
   dec: empty,
   use: empty,
   use_label: false,
@@ -922,11 +917,9 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
   /* shield any continues that have this loop's label */
   let unshielded_continues =
     List.filter(label => label != myLabel, outs.unshielded_continues);
-  let children_have_unshielded_continues =
-    List.length(unshielded_continues) > 0;
 
   let (use_continue, li) =
-    switch (input.label, children_have_unshielded_continues) {
+    switch (input.label, List.length(unshielded_continues) > 0) {
     /* if the loop does not contain a labelled continue,
        or isn't inside any labelled loop,
        then just output the loop */
@@ -952,12 +945,12 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
        then check if the labels match to continue,
        and also check the continue_label to break to the outter loop */
     | (LabelledForLoop(parent_label), true) =>
-      let children_only_continue_to_parent_label =
+      let only_continue_to_parent_label =
         List.for_all(label => label == parent_label, unshielded_continues);
       /* if the unshielded continues inside the loop only continue
          to the enclosing loop, then we don't need to break */
       let check_statement =
-        children_only_continue_to_parent_label
+        only_continue_to_parent_label
           ? continueIfContinueLabelEquals(parent_label)
           : continueIfContinueLabelEquals(
               ~alternate=breakIfNonnullContinueLabel,
@@ -1112,9 +1105,9 @@ and statement = (curOut, input: input, x) => {
         {
           dec: curOut.dec,
           use: curOut.use,
+          unshielded_continues: [label, ...curOut.unshielded_continues],
           use_label: label != "",
           use_continue: true,
-          unshielded_continues: [label, ...curOut.unshielded_continues],
         },
         Php.Statement_list(li),
       );
@@ -1167,12 +1160,18 @@ and statement = (curOut, input: input, x) => {
         Loc.N,
       );
 
+      let labels =
+        List.filter(label => label != "", outs.unshielded_continues);
       let continue_kind =
-        switch (outs.use_continue, outs.use_label) {
-        | (false, false) => NoContinue
-        | (false, true) => ContinueWithLabel
-        | (true, false) => UnlabelledContinueInCase
-        | (true, true) => ContinueWithLabelAndInCase
+        if (List.length(outs.unshielded_continues) === 0) {
+          NoContinue;
+        } else if (List.length(outs.unshielded_continues)
+                   === List.length(labels)) {
+          ContinueWithLabel(labels);
+        } else if (List.length(labels) === 0) {
+          UnlabelledContinueInCase;
+        } else {
+          ContinueWithLabelAndInCase(labels);
         };
 
       let li =
@@ -1184,10 +1183,10 @@ and statement = (curOut, input: input, x) => {
         | (NoLabel, _) => [switch_node]
 
         /* check for a non-null label, to break further out */
-        | (UnlabelledForLoop, ContinueWithLabel)
+        | (UnlabelledForLoop, ContinueWithLabel(_))
         | (Switch, UnlabelledContinueInCase)
-        | (Switch, ContinueWithLabel)
-        | (Switch, ContinueWithLabelAndInCase) => [
+        | (Switch, ContinueWithLabel(_))
+        | (Switch, ContinueWithLabelAndInCase(_)) => [
             switch_node,
             breakIfNonnullContinueLabel,
           ]
@@ -1204,7 +1203,7 @@ and statement = (curOut, input: input, x) => {
         /* 1. reset the continue label before entering the switch, and
            2. check for the special "switch" label, to continue inside the loop, and
            3. check for a non-null label, to break further out */
-        | (UnlabelledForLoop, ContinueWithLabelAndInCase) => [
+        | (UnlabelledForLoop, ContinueWithLabelAndInCase(_)) => [
             setContinueLabel(None),
             switch_node,
             continueIfContinueLabelEquals(
@@ -1218,20 +1217,29 @@ and statement = (curOut, input: input, x) => {
            3. check the current loop's label, to continue inside the loop, and
            4. check for a non-null label, to break further out */
         | (
-            LabelledForLoop(label),
-            ContinueWithLabel | ContinueWithLabelAndInCase,
-          ) => [
+            LabelledForLoop(parent_label),
+            ContinueWithLabel(labels) | ContinueWithLabelAndInCase(labels),
+          ) =>
+          let only_continue_to_parent_label =
+            List.for_all(label => label == parent_label, labels);
+
+          /* if the unshielded continues inside the switch only continue
+             to the enclosing loop, then we don't need to break */
+          let check_statement =
+            only_continue_to_parent_label
+              ? continueIfContinueLabelEquals(parent_label)
+              : continueIfContinueLabelEquals(
+                  ~alternate=breakIfNonnullContinueLabel,
+                  parent_label,
+                );
+          [
             setContinueLabel(None),
             switch_node,
             continueIfContinueLabelEquals(
-              ~alternate=
-                continueIfContinueLabelEquals(
-                  ~alternate=breakIfNonnullContinueLabel,
-                  label,
-                ),
+              ~alternate=check_statement,
               "switch",
             ),
-          ]
+          ];
         };
       (outs, Statement_list(li));
     | Rehp.Try_statement(b, catch, final) =>

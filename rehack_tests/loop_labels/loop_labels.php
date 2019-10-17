@@ -897,9 +897,6 @@ $h3 = function(dynamic $g, dynamic $t) use ($caml_call1) {
       default:
         $caml_call1($g, 1);
     }
-    if ($continue_label !== null) {
-      break;
-    }
     $G = (int)($i + 1);
     if (5 !== $i) {
       $i = $G;
@@ -984,9 +981,6 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
           // FALLTHROUGH
         default:
           $caml_call1($g, 1);
-      }
-      if ($continue_label !== null) {
-        break;
       }
       $B = (int)($j + 1);
       if (3 !== $j) {
