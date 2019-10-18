@@ -27,23 +27,45 @@ type continue_kind =
   | ContinueWithLabel(list(string))
   | UnlabelledContinueInCase
   | ContinueWithLabelAndInCase(list(string));
-type parent_label =
-  | NoLabel
-  | UnlabelledForLoop
+type enclosed_by =
+  | NoLoopOrSwitch
+  | UnlabelledLoop
   | LabelledForLoop(string)
   | Switch;
 type input = {
   vars,
-  label: parent_label,
+  /*
+    "enclosed_by" represents whether the current AST is immediately enclosed
+    within a labelled loop, a regular loop, or a switch. For example:
+
+      function f() {
+        x = 3; // "enclosed_by" is NoLoopOrSwitch when processing this statement
+        a: for () {
+          x = 3; // "enclosed_by" is LabelledForLoop("a")
+          for () {
+            x = 3; // "enclosed_by" is UnlabelledLoop
+          }
+          switch () {
+            case 0:
+              x = 3; // "enclosed_by" is Switch
+            case 1:
+              for () {
+                x = 3; // "enclosed_by" is UnlabelledLoop
+              }
+          }
+        }
+      }
+   */
+  enclosed_by,
 };
 type output = {
   dec: vars,
   use: vars,
   /*
-   "unshielded_continues" tracks the labels in continue statements that haven't
+   "free_labels" tracks the labels used in continue statements that haven't
    been enclosed with the corresponding loop yet.
 
-   For example, "unshielded_continues" is ["a"] for this AST:
+   For example, "free_labels" is ["a"] for this AST:
 
      for () {
        continue a;
@@ -56,7 +78,7 @@ type output = {
      }
 
    Continues without labels add "" (empty string) to the list. For example,
-   this AST has [""] for "unshielded_continues":
+   this AST has [""] for "free_labels":
 
      if () {
        continue;
@@ -70,7 +92,7 @@ type output = {
      }
 
    Functions and loops "shield" unlabelled continues. So this AST has [] for
-   "unshielded_continues":
+   "free_labels":
 
      switch () {
        case 0:
@@ -87,7 +109,7 @@ type output = {
          };
      }
    */
-  unshielded_continues: list(string),
+  free_labels: list(string),
 };
 
 let escapeIdent = s => Stdlib.escape(s, '$', "____");
@@ -162,7 +184,7 @@ let binop_from_rehp = binop =>
   };
 
 let empty = {names: StringMap.empty, vars: Code.Var.Map.empty};
-let emptyOutput: output = {dec: empty, use: empty, unshielded_continues: []};
+let emptyOutput: output = {dec: empty, use: empty, free_labels: []};
 
 let exists = (cur, id) =>
   switch (id) {
@@ -244,8 +266,7 @@ let exists = (cur: vars, id) =>
 let outAppend = (cur: output, next: output): output => {
   dec: append(cur.dec, next.dec),
   use: append(cur.use, next.use),
-  unshielded_continues:
-    List.concat([cur.unshielded_continues, next.unshielded_continues]),
+  free_labels: List.concat([cur.free_labels, next.free_labels]),
 };
 
 let createRef = ((name, _)) => {
@@ -285,29 +306,18 @@ let topLevelIdentifiers = (newVarsSoFar: vars, (src, _)) =>
   | Statement(stmt) => topLevelIdentifiersSt(newVarsSoFar, stmt)
   };
 
-let rec foldSources =
-        (
-          sourceFolder,
-          origOut: output,
-          curOut: output,
-          curIn: input,
-          curRevMappeds,
-          remain,
-        ) =>
+let rec foldSources = (sourceFolder, curOut, curIn, curRevMappeds, remain) =>
   switch (remain) {
   | [] => (curOut, List.rev(curRevMappeds))
   | [(s, loc), ...tl] =>
-    let (thisOut, thisMapped) =
-      sourceFolder(
-        {...curOut, unshielded_continues: origOut.unshielded_continues},
-        curIn,
-        s,
-      );
+    let (thisOut, thisMapped) = sourceFolder(curOut, curIn, s);
     let nextOut = outAppend(curOut, thisOut);
-    let nextInput = {vars: append(curIn.vars, nextOut.dec), label: NoLabel};
+    let nextInput = {
+      vars: append(curIn.vars, nextOut.dec),
+      enclosed_by: NoLoopOrSwitch,
+    };
     foldSources(
       sourceFolder,
-      origOut,
       nextOut,
       nextInput,
       [(thisMapped, loc), ...curRevMappeds],
@@ -329,12 +339,15 @@ let rec foldStatements =
   | [(s, loc), ...tl] =>
     let (thisOut, thisMapped) =
       statementFolder(
-        {...curOut, unshielded_continues: origOut.unshielded_continues},
+        {...curOut, free_labels: origOut.free_labels},
         curIn,
         s,
       );
     let nextOut = outAppend(curOut, thisOut);
-    let nextIn = {vars: append(curIn.vars, nextOut.dec), label: curIn.label};
+    let nextIn = {
+      vars: append(curIn.vars, nextOut.dec),
+      enclosed_by: curIn.enclosed_by,
+    };
 
     foldStatements(
       statementFolder,
@@ -485,7 +498,10 @@ let rec foldVars =
         let (out, initMapped) =
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
-        let input = {vars: addOne(curInput.vars, id), label: curInput.label};
+        let input = {
+          ...curInput,
+          vars: addOne(curInput.vars, id),
+        };
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       }
@@ -504,7 +520,10 @@ let rec foldVars =
         let (out, initMapped) =
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
-        let input = {vars: addOne(curInput.vars, id), label: curInput.label};
+        let input = {
+          vars: addOne(curInput.vars, id),
+          enclosed_by: curInput.enclosed_by,
+        };
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       };
@@ -596,7 +615,11 @@ let rec expression = (input: input, x) =>
     let augmentedEnv = append(input.vars, newBodyVars);
     let curOut = {...emptyOutput, dec: newBodyVars};
     let (bodyOut, bodyMap) =
-      sources(curOut, {vars: augmentedEnv, label: NoLabel}, body);
+      sources(
+        curOut,
+        {vars: augmentedEnv, enclosed_by: NoLoopOrSwitch},
+        body,
+      );
     /* Rehp models an IR with "function scope" for variables. */
     /* Declarations reset at function boundaries. */
     let bodyUsesFromOutside = remove(bodyOut.use, newBodyVars);
@@ -847,7 +870,7 @@ and sources = (curOut, input: input, x) => {
   /* print_newline (); */
   let topLevelIdents =
     List.fold_left(~f=topLevelIdentifiers, ~init=input.vars, x);
-  let (out, mappeds) = foldSources(source, curOut, curOut, input, [], x);
+  let (out, mappeds) = foldSources(source, curOut, input, [], x);
   let toHoist =
     remove(remove(intersect(out.use, topLevelIdents), out.dec), input.vars);
   if (isEmpty(toHoist)) {
@@ -892,9 +915,9 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
     };
   let nextInput = {
     vars: append(input.vars, e1Out.dec),
-    label:
+    enclosed_by:
       switch (label) {
-      | None => UnlabelledForLoop
+      | None => UnlabelledLoop
       | Some(label) => LabelledForLoop(label)
       },
   };
@@ -924,21 +947,20 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
   );
 
   /* shield any continues that have this loop's label */
-  let unshielded_continues =
-    List.filter(label => label != myLabel, outs.unshielded_continues);
+  let free_labels = List.filter(label => label != myLabel, outs.free_labels);
 
   let li =
-    switch (input.label, List.length(unshielded_continues) > 0) {
+    switch (input.enclosed_by, List.length(free_labels) > 0) {
     /* if the loop does not contain a labelled continue,
        or isn't inside any labelled loop,
        then just output the loop */
     | (_, false)
-    | (NoLabel, true) => [for_statement_node]
+    | (NoLoopOrSwitch, true) => [for_statement_node]
 
     /* if the loop contains a labelled continue,
        and is inside an unlabelled loop,
        then check the continue_label to break to the outter loop */
-    | (UnlabelledForLoop, true) => [
+    | (UnlabelledLoop, true) => [
         for_statement_node,
         breakIfNonnullContinueLabel,
       ]
@@ -954,7 +976,7 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
        and also check the continue_label to break to the outter loop */
     | (LabelledForLoop(parent_label), true) =>
       let only_continue_to_parent_label =
-        List.for_all(label => label == parent_label, unshielded_continues);
+        List.for_all(label => label == parent_label, free_labels);
 
       /* if the unshielded continues inside the loop only continue
          to the enclosing loop, then we don't need to break */
@@ -968,7 +990,7 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
       [for_statement_node, check_statement];
     };
 
-  ({...outs, unshielded_continues}, Php.Statement_list(li));
+  ({...outs, free_labels}, Php.Statement_list(li));
 }
 
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
@@ -982,7 +1004,7 @@ and statement = (curOut, input: input, x) => {
       let out = {
         dec: List.fold_left(~f=addOneString, ~init=curOut.dec, provides),
         use: List.fold_left(~f=addOneString, ~init=curOut.use, requires),
-        unshielded_continues: [],
+        free_labels: [],
       };
       (out, Raw_statement(s));
     | Rehp.Variable_statement(l) =>
@@ -1025,8 +1047,7 @@ and statement = (curOut, input: input, x) => {
       let out = outAppend(sOut, eOut);
       let out = {
         ...out,
-        unshielded_continues:
-          List.filter(label => label == "", out.unshielded_continues),
+        free_labels: List.filter(label => label == "", out.free_labels),
       };
       (out, Do_while_statement((sMapped, loc), eMapped));
     | Rehp.While_statement(e, (s, loc)) =>
@@ -1035,8 +1056,7 @@ and statement = (curOut, input: input, x) => {
       let out = outAppend(sOut, eOut);
       let out = {
         ...out,
-        unshielded_continues:
-          List.filter(label => label == "", out.unshielded_continues),
+        free_labels: List.filter(label => label == "", out.free_labels),
       };
       (out, While_statement(eMapped, (sMapped, loc)));
     | Rehp.For_statement(e1, e2, e3, (s, loc), _) =>
@@ -1058,8 +1078,7 @@ and statement = (curOut, input: input, x) => {
         let outs = outAppend(outAppend(e1Out, e2Out), sOut);
         let outs = {
           ...outs,
-          unshielded_continues:
-            List.filter(label => label == "", outs.unshielded_continues),
+          free_labels: List.filter(label => label == "", outs.free_labels),
         };
         (outs, Php.ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc)));
       };
@@ -1069,7 +1088,7 @@ and statement = (curOut, input: input, x) => {
         let addedVars = useOneVar(id);
         let augmentedInput = {
           vars: append(input.vars, addedVars),
-          label: input.label,
+          enclosed_by: input.enclosed_by,
         };
         let (out, res) = continueWithAugmentedScope(augmentedInput, x);
         let out = {...out, dec: append(out.dec, addedVars)};
@@ -1082,7 +1101,7 @@ and statement = (curOut, input: input, x) => {
      */
     | Rehp.Continue_statement(s, _) =>
       let (label, li) =
-        switch (s, input.label) {
+        switch (s, input.enclosed_by) {
         /* if the continue isn't labeled, and occurs inside a switch,
            switch/cases can't have continues, so convert it to a break
            and set continue_label to a special "switch" label */
@@ -1109,7 +1128,7 @@ and statement = (curOut, input: input, x) => {
         {
           dec: curOut.dec,
           use: curOut.use,
-          unshielded_continues: [label, ...curOut.unshielded_continues],
+          free_labels: [label, ...curOut.free_labels],
         },
         Php.Statement_list(li),
       );
@@ -1139,7 +1158,7 @@ and statement = (curOut, input: input, x) => {
       let (eOut, eMapped) = expression(input, e);
       (outAppend(curOut, eOut), Throw_statement(eMapped));
     | Rehp.Switch_statement(e, l, def, l') =>
-      let nextInput = {vars: input.vars, label: Switch};
+      let nextInput = {vars: input.vars, enclosed_by: Switch};
       let (eOut, eMapped) = expression(nextInput, e);
       let (dOut, dMapped) = optOutput(statements(curOut, nextInput), def);
       let forEach = ((e, s)) => {
@@ -1162,13 +1181,11 @@ and statement = (curOut, input: input, x) => {
         Loc.N,
       );
 
-      let labels =
-        List.filter(label => label != "", outs.unshielded_continues);
+      let labels = List.filter(label => label != "", outs.free_labels);
       let continue_kind =
-        if (List.length(outs.unshielded_continues) === 0) {
+        if (List.length(outs.free_labels) === 0) {
           NoContinue;
-        } else if (List.length(outs.unshielded_continues)
-                   === List.length(labels)) {
+        } else if (List.length(outs.free_labels) === List.length(labels)) {
           ContinueWithLabel(labels);
         } else if (List.length(labels) === 0) {
           UnlabelledContinueInCase;
@@ -1177,15 +1194,15 @@ and statement = (curOut, input: input, x) => {
         };
 
       let li =
-        switch (input.label, continue_kind) {
+        switch (input.enclosed_by, continue_kind) {
         /* if the switch does not contain a continue,
            or isn't inside any labelled structure,
            then just output the switch */
         | (_, NoContinue)
-        | (NoLabel, _) => [switch_node]
+        | (NoLoopOrSwitch, _) => [switch_node]
 
         /* check for a non-null label, to break further out */
-        | (UnlabelledForLoop, ContinueWithLabel(_))
+        | (UnlabelledLoop, ContinueWithLabel(_))
         | (Switch, UnlabelledContinueInCase)
         | (Switch, ContinueWithLabel(_))
         | (Switch, ContinueWithLabelAndInCase(_)) => [
@@ -1195,7 +1212,7 @@ and statement = (curOut, input: input, x) => {
 
         /* 1. reset the continue label before entering the switch, and
            2. check for the special "switch" label, to continue inside the loop */
-        | (UnlabelledForLoop, UnlabelledContinueInCase)
+        | (UnlabelledLoop, UnlabelledContinueInCase)
         | (LabelledForLoop(_), UnlabelledContinueInCase) => [
             setContinueLabel(None),
             switch_node,
@@ -1205,7 +1222,7 @@ and statement = (curOut, input: input, x) => {
         /* 1. reset the continue label before entering the switch, and
            2. check for the special "switch" label, to continue inside the loop, and
            3. check for a non-null label, to break further out */
-        | (UnlabelledForLoop, ContinueWithLabelAndInCase(_)) => [
+        | (UnlabelledLoop, ContinueWithLabelAndInCase(_)) => [
             setContinueLabel(None),
             switch_node,
             continueIfContinueLabelEquals(
@@ -1253,7 +1270,7 @@ and statement = (curOut, input: input, x) => {
         let addedVars = useOneVar(idnt);
         let augmentedInput = {
           vars: append(input.vars, addedVars),
-          label: input.label,
+          enclosed_by: input.enclosed_by,
         };
         let (stOut, stMapped) = statements(curOut, augmentedInput, st);
         let stUses = remove(stOut.use, addedVars);
@@ -1267,11 +1284,11 @@ and statement = (curOut, input: input, x) => {
       let out = {
         use: append(bOut.use, append(catchOut.use, finalOut.use)),
         dec: append(bOut.dec, append(catchOut.dec, finalOut.dec)),
-        unshielded_continues:
+        free_labels:
           List.concat([
-            bOut.unshielded_continues,
-            catchOut.unshielded_continues,
-            finalOut.unshielded_continues,
+            bOut.free_labels,
+            catchOut.free_labels,
+            finalOut.free_labels,
           ]),
       };
       (out, Try_statement(bMapped, catchMapped, finalMapped));

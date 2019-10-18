@@ -610,7 +610,7 @@ let output_php =
     switch (linkinfos) {
     | None => (
         [],
-        Php_from_rehp.{vars: initialEnv, label: Php_from_rehp.NoLabel},
+        Php_from_rehp.{vars: initialEnv, enclosed_by: Php_from_rehp.NoLoopOrSwitch},
       )
     | Some(linkinfos) =>
       let envWithRuntimeVars =
@@ -622,7 +622,7 @@ let output_php =
       let {Linker.runtime_code, always_required_codes} =
         Linker.link(linkinfos);
       let initialEnv =
-        Php_from_rehp.{vars: initialEnv, label: Php_from_rehp.NoLabel};
+        Php_from_rehp.{vars: initialEnv, enclosed_by: Php_from_rehp.NoLoopOrSwitch};
       let (_, mapped) =
         [
           runtime_code,
@@ -638,7 +638,7 @@ let output_php =
         mapped,
         Php_from_rehp.{
           vars: envWithRuntimeVars,
-          label: Php_from_rehp.NoLabel,
+          enclosed_by: Php_from_rehp.NoLoopOrSwitch,
         },
       );
     };

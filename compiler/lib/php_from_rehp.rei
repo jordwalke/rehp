@@ -16,17 +16,17 @@ type output = {
    * be bound by a higher containing term).
    */
   use: vars,
-  unshielded_continues: list(string),
+  free_labels: list(string),
 };
 
-type parent_label =
-  | NoLabel
-  | UnlabelledForLoop
+type enclosed_by =
+  | NoLoopOrSwitch
+  | UnlabelledLoop
   | LabelledForLoop(string)
   | Switch;
 type input = {
   vars,
-  label: parent_label,
+  enclosed_by,
 };
 let addOne: (vars, Id.t) => vars;
 let empty: vars;
