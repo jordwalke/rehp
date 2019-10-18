@@ -757,32 +757,6 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
     (outMapped, EUn(DecrB, exprMapped));
   }
 and switchCase = (input, e) => expression(input, e)
-and ifElseFromSwitchCase = (switchExp, defaultBlock) => {
-  let elseStmts =
-    switch (defaultBlock) {
-    | None => None
-    | Some(defaultBlock) => Some(Php.Statement_list(defaultBlock))
-    };
-  let rec f = cases =>
-    switch (cases) {
-    | [] => elseStmts
-    | [(caseExp, caseBlock), ...remainingCases] =>
-      let alternate =
-        switch (f(remainingCases)) {
-        | None => None
-        | Some(e) => Some((e, Loc.N))
-        };
-      Some(
-        Php.If_statement(
-          Php.EBin(Php.EqEqEq, switchExp, caseExp),
-          (Statement_list(caseBlock), Loc.N),
-          alternate,
-          true,
-        ),
-      );
-    };
-  f;
-}
 and initialiser = (input: input, (e, pc)) => {
   let (o, m) = expression(input, e);
   (o, (m, pc));
