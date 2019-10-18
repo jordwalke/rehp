@@ -1042,8 +1042,9 @@ and statement = (curOut, input: input, x) => {
       let output = outAppend(outAppend(exprOutput, ifOutput), soptOut);
       (output, If_statement(exprMapped, ifMapped, soptMapped, false));
     | Rehp.Do_while_statement((s, loc), e) =>
-      let (sOut, sMapped) = statement(curOut, input, s);
-      let (eOut, eMapped) = expression(input, e);
+      let nextInput = {...input, enclosed_by: UnlabelledLoop};
+      let (sOut, sMapped) = statement(curOut, nextInput, s);
+      let (eOut, eMapped) = expression(nextInput, e);
       let out = outAppend(sOut, eOut);
       let out = {
         ...out,
@@ -1051,8 +1052,9 @@ and statement = (curOut, input: input, x) => {
       };
       (out, Do_while_statement((sMapped, loc), eMapped));
     | Rehp.While_statement(e, (s, loc)) =>
-      let (sOut, sMapped) = statement(curOut, input, s);
-      let (eOut, eMapped) = expression(input, e);
+      let nextInput = {...input, enclosed_by: UnlabelledLoop};
+      let (sOut, sMapped) = statement(curOut, nextInput, s);
+      let (eOut, eMapped) = expression(nextInput, e);
       let out = outAppend(sOut, eOut);
       let out = {
         ...out,
@@ -1073,8 +1075,9 @@ and statement = (curOut, input: input, x) => {
             let (initOut, initMapped) = optOutput(initialiser(input), e);
             (initOut, Right((Php.EVar(identMapped), initMapped)));
           };
-        let (e2Out, e2Mapped) = expression(input, e2);
-        let (sOut, sMapped) = statement(curOut, input, s);
+        let nextInput = {...input, enclosed_by: UnlabelledLoop};
+        let (e2Out, e2Mapped) = expression(nextInput, e2);
+        let (sOut, sMapped) = statement(curOut, nextInput, s);
         let outs = outAppend(outAppend(e1Out, e2Out), sOut);
         let outs = {
           ...outs,
@@ -1087,8 +1090,8 @@ and statement = (curOut, input: input, x) => {
       | Right((id, _eopt)) =>
         let addedVars = useOneVar(id);
         let augmentedInput = {
+          ...input,
           vars: append(input.vars, addedVars),
-          enclosed_by: input.enclosed_by,
         };
         let (out, res) = continueWithAugmentedScope(augmentedInput, x);
         let out = {...out, dec: append(out.dec, addedVars)};
