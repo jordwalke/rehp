@@ -596,8 +596,8 @@ final class Array_ {
         $c = 0;
         if (! ($d < 0)) {
           $i = $c;
-          $continue_counter = null;
           for (;;) {
+            $continue_label = null;
             $e = (int) ($srcofs + $i);
             $e__0 = $caml_check_bound($a, $e)[$e + 1];
             $j = Vector{0, (int) ((int) ($dstofs + $i) + -1)};
@@ -618,17 +618,10 @@ final class Array_ {
               $j = (int) ($j[1] + 1);
               $caml_check_bound($dst, $j)[$j + 1] = $e__0;
               $k = (int) ($i + 1);
-              if ($d !== $i) {$i = $k;$continue_counter = 0;break;}
+              if ($d !== $i) {$i = $k;$continue_label = "a";break;}
               break;
             }
-            if ($continue_counter > 0) {
-              $continue_counter -= 1;
-              break;
-            }
-            else if ($continue_counter === 0) {
-              $continue_counter = null;
-              continue;
-            }
+            if ($continue_label === "a") {continue;}
             break;
           }
         }

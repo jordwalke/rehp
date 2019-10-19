@@ -2220,8 +2220,8 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
   
   $i__0 = 0;
   
-  $continue_counter = null;
   for (;;) {
+    $continue_label = null;
     $stateless = $element(Vector{0, $render__9($bq, 0)});
     $printSection($br);
     $containerRoot = $create(0);
@@ -2377,7 +2377,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       );
       $printRoot($bW, $anotherPolyRoot);
       $bX = (int) ($i__0 + 1);
-      if (0 !== $i__0) {$i__0 = $bX;$continue_counter = 0;break;}
+      if (0 !== $i__0) {$i__0 = $bX;$continue_label = "a";break;}
       $endSeconds = $caml_sys_time(0);
       $log(
         $symbol(
@@ -2397,11 +2397,7 @@ $caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
       }
       $do_at_exit(0);
     }
-    if ($continue_counter > 0) {
-      $continue_counter -= 1;
-      break;
-    }
-    else if ($continue_counter === 0) {$continue_counter = null;continue;}
+    if ($continue_label === "a") {continue;}
   }
 
 }

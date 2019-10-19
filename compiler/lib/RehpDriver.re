@@ -608,7 +608,10 @@ let output_php =
     );
   let (runtimePhp, env) =
     switch (linkinfos) {
-    | None => ([], initialEnv)
+    | None => (
+        [],
+        Php_from_rehp.{vars: initialEnv, enclosed_by: Php_from_rehp.NoLoopOrSwitch},
+      )
     | Some(linkinfos) =>
       let envWithRuntimeVars =
         List.fold_left(
@@ -618,6 +621,8 @@ let output_php =
         );
       let {Linker.runtime_code, always_required_codes} =
         Linker.link(linkinfos);
+      let initialEnv =
+        Php_from_rehp.{vars: initialEnv, enclosed_by: Php_from_rehp.NoLoopOrSwitch};
       let (_, mapped) =
         [
           runtime_code,
@@ -629,7 +634,13 @@ let output_php =
         /* Render the stubs with an env that includes themselves because we
          * know they'll be placed in the correct topological sort (mostly). */
         |> Php_from_rehp.(program(initialEnv));
-      (mapped, envWithRuntimeVars);
+      (
+        mapped,
+        Php_from_rehp.{
+          vars: envWithRuntimeVars,
+          enclosed_by: Php_from_rehp.NoLoopOrSwitch,
+        },
+      );
     };
 
   let (_, php) = Php_from_rehp.(program(env, rehp));

@@ -319,83 +319,120 @@ final class Genlex {
                 }
                 else {
                   $switcher = (int) ($m + 65);
-                  if ($switcher === 34) {
-                    $call1($Stream[12], $strm);
-                    $reset_buffer(0);
-                    return Vector{0, Vector{4, $string($strm)}};
-                  }
-                  else if ($switcher === 39) {
-                    $call1($Stream[12], $strm);
-                    try {$c = $char__0->contents($strm);}
-                    catch(\Throwable $o) {
-                      $o = $caml_wrap_exception($o);
-                      if ($o === $Stream[1]) {
-                        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst}) as \Throwable;
+                  $continue_label = null;
+                  switch($switcher) {
+                    // FALLTHROUGH
+                    case 34:
+                      $call1($Stream[12], $strm);
+                      $reset_buffer(0);
+                      return Vector{0, Vector{4, $string($strm)}};
+                    // FALLTHROUGH
+                    case 39:
+                      $call1($Stream[12], $strm);
+                      try {$c = $char__0->contents($strm);}
+                      catch(\Throwable $o) {
+                        $o = $caml_wrap_exception($o);
+                        if ($o === $Stream[1]) {
+                          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst}) as \Throwable;
+                        }
+                        throw $runtime["caml_wrap_thrown_exception_reraise"]($o) as \Throwable;
                       }
-                      throw $runtime["caml_wrap_thrown_exception_reraise"]($o) as \Throwable;
-                    }
-                    $match__0 = $call1($Stream[11], $strm);
-                    if ($match__0) {
-                      if (39 === $match__0[1]) {
-                        $call1($Stream[12], $strm);
-                        return Vector{0, Vector{5, $c}};
+                      $match__0 = $call1($Stream[11], $strm);
+                      if ($match__0) {
+                        if (39 === $match__0[1]) {
+                          $call1($Stream[12], $strm);
+                          return Vector{0, Vector{5, $c}};
+                        }
                       }
+                      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__0}) as \Throwable;
+                    // FALLTHROUGH
+                    case 40:
+                      $call1($Stream[12], $strm);
+                      if ($counter < 50) {
+                        $counter__0 = (int) ($counter + 1);
+                        return $maybe_comment->contents($counter__0, $strm);
+                      }
+                      return $caml_trampoline_return(
+                        $maybe_comment->contents,
+                        varray[0,$strm]
+                      );
+                    // FALLTHROUGH
+                    case 45:
+                      $call1($Stream[12], $strm);
+                      return $neg_number($strm);
+                    // FALLTHROUGH
+                    case 9:
+                    // FALLTHROUGH
+                    case 10:
+                    // FALLTHROUGH
+                    case 12:
+                    // FALLTHROUGH
+                    case 13:
+                    // FALLTHROUGH
+                    case 26:
+                    // FALLTHROUGH
+                    case 32:
+                      $call1($Stream[12], $strm);
+                      $continue_label = "#";break;
+                    // FALLTHROUGH
+                    case 48:
+                    // FALLTHROUGH
+                    case 49:
+                    // FALLTHROUGH
+                    case 50:
+                    // FALLTHROUGH
+                    case 51:
+                    // FALLTHROUGH
+                    case 52:
+                    // FALLTHROUGH
+                    case 53:
+                    // FALLTHROUGH
+                    case 54:
+                    // FALLTHROUGH
+                    case 55:
+                    // FALLTHROUGH
+                    case 56:
+                    // FALLTHROUGH
+                    case 57:
+                      $call1($Stream[12], $strm);
+                      $reset_buffer(0);
+                      $store($l);
+                      return $number($strm);
+                    // FALLTHROUGH
+                    case 33:
+                    // FALLTHROUGH
+                    case 35:
+                    // FALLTHROUGH
+                    case 36:
+                    // FALLTHROUGH
+                    case 37:
+                    // FALLTHROUGH
+                    case 38:
+                    // FALLTHROUGH
+                    case 42:
+                    // FALLTHROUGH
+                    case 43:
+                    // FALLTHROUGH
+                    case 47:
+                    // FALLTHROUGH
+                    case 58:
+                    // FALLTHROUGH
+                    case 60:
+                    // FALLTHROUGH
+                    case 61:
+                    // FALLTHROUGH
+                    case 62:
+                    // FALLTHROUGH
+                    case 63:
+                    // FALLTHROUGH
+                    case 64:
+                      $switch__0 = 2;
+                      break;
+                    // FALLTHROUGH
+                    default:
+                      $switch__0 = 0;
                     }
-                    throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__0}) as \Throwable;
-                  }
-                  else if ($switcher === 40) {
-                    $call1($Stream[12], $strm);
-                    if ($counter < 50) {
-                      $counter__0 = (int) ($counter + 1);
-                      return $maybe_comment->contents($counter__0, $strm);
-                    }
-                    return $caml_trampoline_return(
-                      $maybe_comment->contents,
-                      varray[0,$strm]
-                    );
-                  }
-                  else if ($switcher === 45) {
-                    $call1($Stream[12], $strm);return $neg_number($strm);
-                  }
-                  else if ($switcher === 9) {}
-                  else if ($switcher === 10) {}
-                  else if ($switcher === 12) {}
-                  else if ($switcher === 13) {}
-                  else if ($switcher === 26) {}
-                  else if ($switcher === 32) {
-                    $call1($Stream[12], $strm);continue;
-                  }
-                  else if ($switcher === 48) {}
-                  else if ($switcher === 49) {}
-                  else if ($switcher === 50) {}
-                  else if ($switcher === 51) {}
-                  else if ($switcher === 52) {}
-                  else if ($switcher === 53) {}
-                  else if ($switcher === 54) {}
-                  else if ($switcher === 55) {}
-                  else if ($switcher === 56) {}
-                  else if ($switcher === 57) {
-                    $call1($Stream[12], $strm);
-                    $reset_buffer(0);
-                    $store($l);
-                    return $number($strm);
-                  }
-                  else if ($switcher === 33) {}
-                  else if ($switcher === 35) {}
-                  else if ($switcher === 36) {}
-                  else if ($switcher === 37) {}
-                  else if ($switcher === 38) {}
-                  else if ($switcher === 42) {}
-                  else if ($switcher === 43) {}
-                  else if ($switcher === 47) {}
-                  else if ($switcher === 58) {}
-                  else if ($switcher === 60) {}
-                  else if ($switcher === 61) {}
-                  else if ($switcher === 62) {}
-                  else if ($switcher === 63) {}
-                  else if ($switcher === 64) {$switch__0 = 2;break;
-                  }
-                  else {$switch__0 = 0;}
+                  if ($continue_label === "#") {continue;}
                 }
               }
               else {
@@ -420,22 +457,24 @@ final class Genlex {
                 }
               }
             }
-            if ($switch__0 === 0) {
-              $call1($Stream[12], $strm);
-              return Vector{0, $keyword_or_error($l)};
-            }
-            else if ($switch__0 === 1) {
-              $call1($Stream[12], $strm);
-              $reset_buffer(0);
-              $store($l);
-              return $ident($strm);
-            }
-            else {
-              $call1($Stream[12], $strm);
-              $reset_buffer(0);
-              $store($l);
-              return $ident2($strm);
-            }
+            switch($switch__0) {
+              // FALLTHROUGH
+              case 0:
+                $call1($Stream[12], $strm);
+                return Vector{0, $keyword_or_error($l)};
+              // FALLTHROUGH
+              case 1:
+                $call1($Stream[12], $strm);
+                $reset_buffer(0);
+                $store($l);
+                return $ident($strm);
+              // FALLTHROUGH
+              default:
+                $call1($Stream[12], $strm);
+                $reset_buffer(0);
+                $store($l);
+                return $ident2($strm);
+              }
           }
           return 0;
         }

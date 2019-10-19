@@ -104,6 +104,13 @@ $caml_register_global(1, $Sys_error, "Sys_error");
 
 $caml_register_global(0, $Out_of_memory, "Out_of_memory");
 
+$a = Vector {
+  0,
+  $caml_new_string("rehack_tests/switch_continue/switch_continue.re"),
+  72,
+  18,
+};
+
 $caml_fresh_oo_id(0);
 
 $string_of_int = function(dynamic $n) use ($caml_new_string) {
@@ -136,10 +143,10 @@ $flush_all = function(dynamic $param) use (
         $a = $param__0[1];
         try {
           $caml_ml_flush($a);
-        } catch (\Throwable $a) {
-          $a = $caml_wrap_exception($a);
-          if ($a[1] !== $Sys_error) {
-            throw $caml_wrap_thrown_exception_reraise($a) as \Throwable;
+        } catch (\Throwable $b) {
+          $b = $caml_wrap_exception($b);
+          if ($b[1] !== $Sys_error) {
+            throw $caml_wrap_thrown_exception_reraise($b) as \Throwable;
           }
         }
         $param__0 = $l;
@@ -230,16 +237,27 @@ $f0 = function(dynamic $t) {
 };
 $f1 = function(dynamic $t) {
   $t__0 = $t;
-  for (; ; )
-    if ($t__0 === 0) {
-      $t__0 = 1;
-      continue;
-    } else if ($t__0 === 1) {
-      $t__0 = 2;
-      continue;
-    } else {
-      return 3;
+  for (; ; ) {
+    $continue_label = null;
+    switch ($t__0) {
+        // FALLTHROUGH
+      case 0:
+        $t__0 = 1;
+        $continue_label = "#";
+        break;
+        // FALLTHROUGH
+      case 1:
+        $t__0 = 2;
+        $continue_label = "#";
+        break;
+        // FALLTHROUGH
+      default:
+        return 3;
     }
+    if ($continue_label === "#") {
+      continue;
+    }
+  }
 };
 $f2->contents = function(dynamic $t) use ($f2) {
   switch ($t) {
@@ -259,23 +277,42 @@ $f2->contents = function(dynamic $t) use ($f2) {
 };
 $f3 = function(dynamic $t) {
   $t__0 = $t;
-  for (; ; )
-    if ($t__0 === 0) {
-      $t__0 = 1;
-      continue;
-    } else if ($t__0 === 1) {
-      if ($t__0 === 0) {
+  for (; ; ) {
+    $continue_label = null;
+    switch ($t__0) {
+        // FALLTHROUGH
+      case 0:
         $t__0 = 1;
-        continue;
-      } else if ($t__0 === 1) {
-        $t__0 = 2;
-        continue;
-      } else {
+        $continue_label = "#";
+        break;
+        // FALLTHROUGH
+      case 1:
+        switch ($t__0) {
+            // FALLTHROUGH
+          case 0:
+            $t__0 = 1;
+            $continue_label = "#";
+            break;
+            // FALLTHROUGH
+          case 1:
+            $t__0 = 2;
+            $continue_label = "#";
+            break;
+            // FALLTHROUGH
+          default:
+            return 3;
+        }
+        if ($continue_label !== null) {
+          break;
+        }
+        // FALLTHROUGH
+      default:
         return 3;
-      }
-    } else {
-      return 3;
     }
+    if ($continue_label === "#") {
+      continue;
+    }
+  }
 };
 
 $print_endline($string_of_int($f0(0)));
@@ -285,5 +322,82 @@ $print_endline($string_of_int($f1(0)));
 $print_endline($string_of_int($f2->contents(0)));
 
 $print_endline($string_of_int($f3(0)));
+
+$h0__0 = function(dynamic $c) use (
+  $Match_failure,
+  $Not_found,
+  $a,
+  $caml_wrap_thrown_exception,
+) {
+  for (; ; ) {
+    if (40 === $c) {
+      continue;
+    }
+    if (123 <= $c) {
+      if (!(126 <= $c)) {
+        $switcher = (int)($c + -123);
+        $continue_label = null;
+        switch ($switcher) {
+            // FALLTHROUGH
+          case 0:
+            $continue_label = "#";
+            break;
+            // FALLTHROUGH
+          case 1:
+            break;
+            // FALLTHROUGH
+          default:
+            throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+        }
+        if ($continue_label === "#") {
+          continue;
+        }
+      }
+    } else {
+      if (95 === $c) {
+        continue;
+      }
+    }
+    throw $caml_wrap_thrown_exception(Vector {0, $Match_failure, $a}) as
+      \Throwable;
+  }
+};
+$h1 = function(dynamic $t) {
+  for (; ; ) {
+    if (0 === $t) {
+      $continue_label = null;
+      switch ($t) {
+          // FALLTHROUGH
+        case 0:
+          $continue_label = "#";
+          break;
+          // FALLTHROUGH
+        case 1:
+          return 2;
+          // FALLTHROUGH
+        default:
+          return 3;
+      }
+      if ($continue_label === "#") {
+        continue;
+      }
+    }
+    switch ($t) {
+        // FALLTHROUGH
+      case 0:
+        return 1;
+        // FALLTHROUGH
+      case 1:
+        return 2;
+        // FALLTHROUGH
+      default:
+        return 3;
+    }
+  }
+};
+
+$print_endline($string_of_int($h0__0(104)));
+
+$print_endline($string_of_int($h1(0)));
 
 $do_at_exit(0);
