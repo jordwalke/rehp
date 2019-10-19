@@ -132,14 +132,6 @@ let create = () => {
       let ifMapped = statementLocation(s);
       let soptMapped = optMap(statementLocation, sopt);
       If_statement(exprMapped, ifMapped, soptMapped);
-    | Do_while_statement((s, loc), e) =>
-      let sMapped = self.statement(self, s);
-      let eMapped = self.expression(self, e);
-      Do_while_statement((sMapped, loc), eMapped);
-    | While_statement(e, (s, loc)) =>
-      let sMapped = self.statement(self, s);
-      let eMapped = self.expression(self, e);
-      While_statement(eMapped, (sMapped, loc));
     | For_statement(e1, e2, e3, (s, loc), depth) =>
       let e1Mapped =
         switch (e1) {
@@ -158,20 +150,6 @@ let create = () => {
       let e3Mapped = optMap(self.expression(self), e3);
       let sMapped = self.statement(self, s);
       For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc), depth);
-    | ForIn_statement(e1, e2, (s, loc)) =>
-      let e1Mapped =
-        switch (e1) {
-        | Left(e) =>
-          let eMapped = self.expression(self, e);
-          Stdlib.Left(eMapped);
-        | Right((id, e)) =>
-          let identMapped = self.ident(self, id);
-          let initMapped = optMap(self.initialiser(self), e);
-          Right((identMapped, initMapped));
-        };
-      let e2Mapped = self.expression(self, e2);
-      let sMapped = self.statement(self, s);
-      ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc));
     | Continue_statement(s, depth) => Continue_statement(s, depth)
     | Break_statement(s) => Break_statement(s)
     | Return_statement(e) =>

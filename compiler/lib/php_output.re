@@ -566,9 +566,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   /* let rec ends_with_if_without_else st = */
   /*   match fst st with */
   /*   | If_statement (_, _, Some st) */
-  /*   | While_statement (_, st) */
   /*   | For_statement (_, _, _, st) */
-  /*   | ForIn_statement (_, _, st) -> */
   /*     ends_with_if_without_else st */
   /*   | If_statement (_, _, None) -> */
   /*     true */
@@ -1355,56 +1353,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       statement(~last, f, block_one);
       PP.end_group(f);
       PP.end_group(f);
-    | While_statement(e, s) =>
-      PP.start_group(f, 1);
-      PP.start_group(f, 0);
-      PP.string(f, "while");
-      PP.break(f);
-      PP.start_group(f, 1);
-      PP.string(f, "(");
-      expression(0, f, e);
-      PP.string(f, ")");
-      PP.non_breaking_space(f);
-      PP.end_group(f);
-      PP.end_group(f);
-      PP.start_group(f, 0);
-      statement(~last, f, s);
-      PP.end_group(f);
-      PP.end_group(f);
-    | Do_while_statement((Block(_), _) as s, e) =>
-      PP.start_group(f, 0);
-      PP.string(f, "do");
-      PP.non_breaking_space(f);
-      PP.start_group(f, 0);
-      statement(f, s);
-      PP.end_group(f);
-      PP.break(f);
-      PP.string(f, "while");
-      PP.break1(f);
-      PP.start_group(f, 1);
-      PP.string(f, "(");
-      expression(0, f, e);
-      PP.string(f, ")");
-      last_semi();
-      PP.end_group(f);
-      PP.end_group(f);
-    | Do_while_statement(s, e) =>
-      PP.start_group(f, 0);
-      PP.string(f, "do");
-      PP.space(~indent=1, f);
-      PP.start_group(f, 0);
-      statement(f, s);
-      PP.end_group(f);
-      PP.break(f);
-      PP.string(f, "while");
-      PP.break(f);
-      PP.start_group(f, 1);
-      PP.string(f, "(");
-      expression(0, f, e);
-      PP.string(f, ")");
-      last_semi();
-      PP.end_group(f);
-      PP.end_group(f);
     | For_statement(e1, e2, e3, s) =>
       PP.start_group(f, 0);
       PP.start_group(f, 0);
@@ -1429,32 +1377,6 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.end_group(f);
       PP.start_group(f, 0);
       PP.non_breaking_space(f);
-      statement(~last, f, s);
-      PP.end_group(f);
-      PP.end_group(f);
-    | ForIn_statement(e1, e2, s) =>
-      PP.start_group(f, 0);
-      PP.start_group(f, 0);
-      PP.string(f, "foreach");
-      PP.string(f, "(");
-      PP.start_group(f, 2);
-      PP.break(f);
-      expression(0, f, ECall(EDot(e2, "__all_enumerable_keys"), [], Loc.N));
-      PP.space(f);
-      PP.string(f, "as");
-      PP.break(f);
-      PP.space(f);
-      switch (e1) {
-      | Left(e) => expression(0, f, e)
-      | Right(v) => variable_declaration_list(~separator=",", false, f, [v])
-      };
-      PP.string(f, "=> $____");
-      PP.end_group(f);
-      PP.break(f);
-      PP.string(f, ")");
-      PP.non_breaking_space(f);
-      PP.end_group(f);
-      PP.start_group(f, 0);
       statement(~last, f, s);
       PP.end_group(f);
       PP.end_group(f);

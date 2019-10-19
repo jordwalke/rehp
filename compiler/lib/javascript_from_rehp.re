@@ -148,10 +148,6 @@ and from_statement = e =>
       | Some((elstmt, elloc)) => Some((from_statement(elstmt), elloc))
       },
     )
-  | Rehp.Do_while_statement((stmt, loc), e) =>
-    Do_while_statement((from_statement(stmt), loc), from_expression(e))
-  | Rehp.While_statement(e, (stmt, loc)) =>
-    While_statement(from_expression(e), (from_statement(stmt), loc))
   | Rehp.For_statement(init, test, incr, (stmt, loc), _depth) =>
     let init =
       switch (init) {
@@ -170,15 +166,6 @@ and from_statement = e =>
       | Some(e) => Some(from_expression(e))
       };
     For_statement(init, test, incr, (from_statement(stmt), loc));
-  | Rehp.ForIn_statement(init, e, (stmt, loc)) =>
-    let init =
-      switch (init) {
-      | Left(e) => Left(from_expression(e))
-      | Right(vd) => Right(from_variable_declaration(vd))
-      };
-    let e = from_expression(e);
-    let stmt = from_statement(stmt);
-    ForIn_statement(init, e, (stmt, loc));
   | Rehp.Continue_statement(lbl, _depth) => Continue_statement(lbl)
   | Rehp.Break_statement(lbl) => Break_statement(lbl)
   | Rehp.Return_statement(eo) =>

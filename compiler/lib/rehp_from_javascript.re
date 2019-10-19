@@ -327,12 +327,9 @@ and from_js_statement =
       },
     )
   | Javascript.Do_while_statement((stmt, loc), e) =>
-    Do_while_statement(
-      (from_js_statement(stmt), loc),
-      from_js_expression(e),
-    )
+    raise(Not_found)
   | Javascript.While_statement(e, (stmt, loc)) =>
-    While_statement(from_js_expression(e), (from_js_statement(stmt), loc))
+    raise(Not_found)
   | Javascript.For_statement(init, test, incr, (stmt, loc)) => {
       let init =
         switch (init) {
@@ -352,16 +349,8 @@ and from_js_statement =
         };
       For_statement(init, test, incr, (from_js_statement(stmt), loc), None);
     }
-  | Javascript.ForIn_statement(init, e, (stmt, loc)) => {
-      let init =
-        switch (init) {
-        | Left(e) => Stdlib.Left(from_js_expression(e))
-        | Right(vd) => Right(from_js_variable_declaration(vd))
-        };
-      let e = from_js_expression(e);
-      let stmt = from_js_statement(stmt);
-      ForIn_statement(init, e, (stmt, loc));
-    }
+  | Javascript.ForIn_statement(init, e, (stmt, loc)) =>
+    raise(Not_found)
   | Javascript.Continue_statement(lbl) => Continue_statement(lbl, None)
   | Javascript.Break_statement(lbl) => Break_statement(lbl)
   | Javascript.Return_statement(eo) =>

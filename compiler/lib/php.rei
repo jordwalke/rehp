@@ -129,17 +129,10 @@ and statement =
       option((statement, Loc.t)),
       bool,
     )
-  | Do_while_statement((statement, Loc.t), expression)
-  | While_statement(expression, (statement, Loc.t))
   | For_statement(
       Stdlib.either(option(expression), list(variable_declaration)),
       option(expression),
       option(expression),
-      (statement, Loc.t),
-    )
-  | ForIn_statement(
-      Stdlib.either(expression, variable_declaration),
-      expression,
       (statement, Loc.t),
     )
   | Continue_statement
