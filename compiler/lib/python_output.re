@@ -52,7 +52,6 @@ let bin_op_string =
   | Gt => ">"
   | Ge => ">="
   | Lsl => "<<"
-  | Asr => ">>"
   | Plus => "+"
   | Minus => "-"
   | Mul => "*"
@@ -61,8 +60,6 @@ let bin_op_string =
 
 let un_op_string =
   fun
-  /* TODO -- complete the paren */
-  | ToInt => "int("
   | Not => "!"
   | Neg => "-"
   | Pl => "+"
@@ -139,7 +136,7 @@ and print_expression = expression => {
     print_un_op(un_op);
     print_expression(expression);
 
-  | ECall(expression, element_list, _loc) =>
+  | ECall(expression, element_list) =>
     print_expression(expression);
     print_string("(");
     print_element_list(element_list);
@@ -150,6 +147,11 @@ and print_expression = expression => {
     print_string("[");
     print_expression(right_expression);
     print_string("]");
+
+  | EDot(expression, id) =>
+    print_expression(expression);
+    print_string(".");
+    print_id(id);
 
   | ENew(expression, element_list) =>
     print_string("new ");
@@ -191,8 +193,7 @@ and print_expression = expression => {
   };
 }
 
-/* TODO: delete loc */
-and print_statement = ((statement, _loc)) => {
+and print_statement = statement => {
   print_tab();
   switch (statement) {
   | Raw_statement(s) => print_string(s)
@@ -231,7 +232,7 @@ and print_statement = ((statement, _loc)) => {
     print_expression(test);
     print_string(":");
     newline_tab();
-    print_statement_list(consequent);
+    print_statement(consequent);
     untab();
 
     switch (alternate) {
@@ -241,17 +242,17 @@ and print_statement = ((statement, _loc)) => {
       print_tab();
       print_string("else:");
       newline_tab();
-      print_statement_list(alternate);
+      print_statement(alternate);
       untab();
     };
 
-  | WhileTrue_statement(statement_list) =>
+  | WhileTrue_statement(statement) =>
     print_string("while True:");
     newline_tab();
-    print_statement_list(statement_list);
+    print_statement(statement);
     untab();
 
-  | For_statement(id, start, end_, increment, statement_list) =>
+  | For_statement(id, start, end_, increment, statement) =>
     print_string("for ");
     print_id(id);
     print_string(" in range(");
@@ -262,7 +263,7 @@ and print_statement = ((statement, _loc)) => {
     print_int(increment);
     print_string("):");
     newline_tab();
-    print_statement_list(statement_list);
+    print_statement(statement);
     untab();
 
   | Continue_statement => print_string("continue")

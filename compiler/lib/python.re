@@ -45,14 +45,12 @@ type bin_op =
   | Gt
   | Ge
   | Lsl
-  | Asr
   | Plus
   | Minus
   | Mul
   | Div
   | Mod
 and un_op =
-  | ToInt
   | Not
   | Neg
   | Pl
@@ -63,8 +61,9 @@ and expression =
   | ECond(expression, expression, expression)
   | EBin(bin_op, expression, expression)
   | EUn(un_op, expression)
-  | ECall(expression, element_list, Loc.t)
+  | ECall(expression, element_list)
   | EAccess(expression, expression)
+  | EDot(expression, Id.t)
   | ENew(expression, element_list)
   | EVar(Id.t)
   | EStr(string, [ | `Bytes | `Utf8])
@@ -83,10 +82,10 @@ and statement =
   | Statement_list(statement_list)
   | Assignment_statement(assign_op, expression, expression)
   | Expression_statement(expression)
-  | If_statement(expression, statement_list, option(statement_list))
-  | WhileTrue_statement(statement_list)
+  | If_statement(expression, statement, option(statement))
+  | WhileTrue_statement(statement)
   /* for (i = 0; i < 10; i += 2) -> for i in range(0, 10, 2): */
-  | For_statement(Id.t, int, int, int, statement_list)
+  | For_statement(Id.t, int, int, int, statement)
   | Continue_statement
   | Break_statement
   | Return_statement(option(expression))
@@ -99,5 +98,5 @@ and statement =
 and element_list = list(expression)
 and property_name_and_value_list = list((Id.property_name, expression))
 and parameter_list = list(Id.t)
-and statement_list = list((statement, Loc.t))
+and statement_list = list(statement)
 and program = statement_list;
