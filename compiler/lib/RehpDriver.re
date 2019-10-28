@@ -610,7 +610,10 @@ let output_php =
     switch (linkinfos) {
     | None => (
         [],
-        Php_from_rehp.{vars: initialEnv, enclosed_by: Php_from_rehp.NoLoopOrSwitch},
+        Php_from_rehp.{
+          vars: initialEnv,
+          enclosed_by: Php_from_rehp.NoLoopOrSwitch,
+        },
       )
     | Some(linkinfos) =>
       let envWithRuntimeVars =
@@ -622,7 +625,10 @@ let output_php =
       let {Linker.runtime_code, always_required_codes} =
         Linker.link(linkinfos);
       let initialEnv =
-        Php_from_rehp.{vars: initialEnv, enclosed_by: Php_from_rehp.NoLoopOrSwitch};
+        Php_from_rehp.{
+          vars: initialEnv,
+          enclosed_by: Php_from_rehp.NoLoopOrSwitch,
+        };
       let (_, mapped) =
         [
           runtime_code,
@@ -654,6 +660,12 @@ let output_php =
   if (times()) {
     Format.eprintf("  write: %a@.", Timer.print, t);
   };
+};
+
+let output_python =
+    (formatter, ~custom_header, ~source_map=?, (), (rehp, linkinfos)) => {
+  let python = Python_from_rehp.map_source_elements(rehp);
+  Python_output.program(formatter, python);
 };
 
 let pack = rehp => {
@@ -787,6 +799,13 @@ let f =
         check(Reserved.provided_js),
         output_js,
       )
+    | Python => (
+        (_o => _o),
+        pack_js,
+        coloring_js(Reserved.provided_js),
+        check(Reserved.provided_js),
+        output_python,
+      )
     };
 
   let augmentWithLinkInfo =
@@ -826,4 +845,9 @@ let profile = i =>
   | Not_found => None
   };
 
-let backends = Backend.[(to_string(Js), Js), (to_string(Php), Php)];
+let backends =
+  Backend.[
+    (to_string(Js), Js),
+    (to_string(Php), Php),
+    (to_string(Python), Python),
+  ];
