@@ -69,12 +69,11 @@ and expression =
   | EStr(string, [ | `Bytes | `Utf8])
   | EArr(element_list)
   | EBool(bool)
-  | ENum(float)
+  | EFloat(float)
   | EInt(int)
   | EDict(property_name_and_value_list)
   | ERegexp(string, option(string))
-  | ENULL
-  | EArrLen(expression)
+  | ENone
 and statement =
   | Raw_statement(string)
   | Empty_statement

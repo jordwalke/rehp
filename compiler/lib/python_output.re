@@ -130,8 +130,7 @@ module Make =
 
   and print_expression = expression => {
     switch (expression) {
-    /* TODO rename to ENone */
-    | ENULL => print_string("None")
+    | ENone => print_string("None")
 
     | ERaw(str) => print_string(str)
 
@@ -193,8 +192,7 @@ module Make =
 
     | EBool(b) => print_string(b ? "true" : "false")
 
-    /* TODO rename to EFloat */
-    | ENum(f) => print_float(f)
+    | EFloat(f) => print_float(f)
 
     | EInt(i) => print_int(i)
 
@@ -204,13 +202,7 @@ module Make =
       print_string("}");
 
     | ERegexp(regex, options) => /* TODO: how to handle this */ assert(false)
-
-    /* TODO: remove this */
-    | EArrLen(expression) =>
-      print_string("len(");
-      print_expression(expression);
-      print_string(")");
-    };
+    }
   }
 
   and print_statement = statement => {
@@ -278,22 +270,6 @@ module Make =
       print_tab();
       print_string("while True:");
 
-      let tc = newline_tab();
-      print_statement(statement);
-      untab(tc);
-
-    | For_statement(id, start, end_, increment, statement) =>
-      print_tab();
-      print_string("for ");
-      print_id(id);
-      print_string(" in range(");
-      print_int(start);
-      print_string(", ");
-      print_int(end_);
-      print_string(", ");
-      print_int(increment);
-      print_string("):");
-      
       let tc = newline_tab();
       print_statement(statement);
       untab(tc);

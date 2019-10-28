@@ -106,61 +106,71 @@ print_endline(string_of_int(g1(2)))
 
 
 def f0(t):
-    if t is 0:
-        return 1
-    else:
-        if t is 1:
-            return 2
+    while True:
+        if t is 0:
+            return 1
         else:
-            return 3
+            if t is 1:
+                return 2
+            else:
+                return 3
+        break
 
 
 def f1(t):
     t__0 = t
     while True:
-        if t__0 is 0:
-            t__0 = 1
-            continue
-        else:
-            if t__0 is 1:
-                t__0 = 2
+        while True:
+            if t__0 is 0:
+                t__0 = 1
                 continue
             else:
-                return 3
+                if t__0 is 1:
+                    t__0 = 2
+                    continue
+                else:
+                    return 3
+            break
 
 
 def f2(t):
-    if t is 0:
-        x = f2(1)
-        break
-    else:
-        if t is 1:
-            x = f2(2)
+    while True:
+        if t is 0:
+            x = f2(1)
             break
         else:
-            x = 3
+            if t is 1:
+                x = f2(2)
+                break
+            else:
+                x = 3
+        break
     return int(x + 1)
 
 
 def f3(t):
     t__0 = t
     while True:
-        if t__0 is 0:
-            t__0 = 1
-            continue
-        else:
-            if t__0 is 1:
-                if t__0 is 0:
-                    t__0 = 1
-                    continue
-                else:
-                    if t__0 is 1:
-                        t__0 = 2
-                        continue
-                    else:
-                        return 3
+        while True:
+            if t__0 is 0:
+                t__0 = 1
+                continue
             else:
-                return 3
+                if t__0 is 1:
+                    while True:
+                        if t__0 is 0:
+                            t__0 = 1
+                            continue
+                        else:
+                            if t__0 is 1:
+                                t__0 = 2
+                                continue
+                            else:
+                                return 3
+                        break
+                else:
+                    return 3
+            break
 
 
 print_endline(string_of_int(f0(0)))
@@ -176,13 +186,15 @@ def h0__0(c):
         if 123 <= c:
             if not (126 <= c):
                 switcher = int(c + -123)
-                if switcher is 0:
-                    continue
-                else:
-                    if switcher is 1:
-                        break
+                while True:
+                    if switcher is 0:
+                        continue
                     else:
-                        raise (caml_wrap_thrown_exception(Not_found))
+                        if switcher is 1:
+                            break
+                        else:
+                            raise (caml_wrap_thrown_exception(Not_found))
+                    break
         else:
             if 95 is c:
                 continue
@@ -192,20 +204,24 @@ def h0__0(c):
 def h1(t):
     while True:
         if 0 is t:
+            while True:
+                if t is 0:
+                    continue
+                else:
+                    if t is 1:
+                        return 2
+                    else:
+                        return 3
+                break
+        while True:
             if t is 0:
-                continue
+                return 1
             else:
                 if t is 1:
                     return 2
                 else:
                     return 3
-        if t is 0:
-            return 1
-        else:
-            if t is 1:
-                return 2
-            else:
-                return 3
+            break
 
 
 print_endline(string_of_int(h0__0(104)))

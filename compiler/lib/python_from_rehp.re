@@ -125,13 +125,11 @@ and map_expression =
   | EDot(expression, id) => EDot(map_expression(expression), Id.ident(id))
   | EArr(arguments) =>
     EArr(
-      map_expressions(
-        List.map(
-          fun
-          | None => Rehp.ERaw("None")
-          | Some(e) => e,
-          arguments,
-        ),
+      List.map(
+        fun
+        | None => Python.ENone
+        | Some(expression) => map_expression(expression),
+        arguments,
       ),
     )
   | EStruct(arguments) => EArr(map_expressions(arguments))
@@ -154,7 +152,7 @@ and map_expression =
     )
   | EStr(s, kind) => EStr(s, kind)
   | EBool(b) => EBool(b)
-  | EFloat(f) => ENum(f)
+  | EFloat(f) => EFloat(f)
   | EInt(i) => EInt(i)
   | EQuote(s) => EStr(s, `Utf8)
   | ERegexp(s, options) => ERegexp(s, options)
@@ -205,10 +203,16 @@ and map_switch = (condition, case_clauses, default_case, more_case_clauses) => {
     | Some(e) => e
     };
 
-  switch (init) {
-  | None => if_statement
-  | Some(init) => Statement_list([init, if_statement])
-  };
+  /* Wrap with a while true because there could be break statements inside */
+  /* Slap on a break statement just in case a default case doesn't break */
+  Python.WhileTrue_statement(
+    Statement_list(
+      switch (init) {
+      | None => [if_statement, Break_statement]
+      | Some(init) => [init, if_statement, Break_statement]
+      },
+    ),
+  );
 }
 
 and map_statement =
@@ -225,7 +229,7 @@ and map_statement =
         ((id, initialiser)) => {
           let initialiser =
             switch (initialiser) {
-            | None => InitExp(Python.ENULL)
+            | None => InitExp(Python.ENone)
             | Some((Rehp.EFun(function_expression), _)) =>
               InitFun(function_expression)
             | Some((expression, _)) => InitExp(map_expression(expression))
@@ -277,9 +281,10 @@ and map_statement =
 
   | ForIn_statement(e1, e2, (s, _)) => raise(Unsupported_statement)
 
-  /* TODO: convert to for statements */
-  | For_statement(e1, e2, e3, (s, _), _) =>
+  | For_statement(Left(None), None, None, (s, _), _) =>
     WhileTrue_statement(map_statement(s))
+
+  | For_statement(_) => raise(Unsupported_statement)
 
   /* TODO: become break when labeled, if inside switch use switch label */
   | Continue_statement(None, _) => Continue_statement

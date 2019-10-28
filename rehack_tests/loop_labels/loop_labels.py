@@ -436,22 +436,24 @@ f10(function_expression)
 def h1(g, t):
     i = 2
     while True:
-        if t is 0:
-            call1(g, 0)
-            break
-        else:
-            if t is 1:
-                k = 4
-                while True:
-                    call1(g, int(i + k))
-                    N = int(k + 1)
-                    if 5 is not k:
-                        k = N
-                        continue
-                    break
+        while True:
+            if t is 0:
+                call1(g, 0)
                 break
             else:
-                call1(g, 1)
+                if t is 1:
+                    k = 4
+                    while True:
+                        call1(g, int(i + k))
+                        N = int(k + 1)
+                        if 5 is not k:
+                            k = N
+                            continue
+                        break
+                    break
+                else:
+                    call1(g, 1)
+            break
         M = int(i + 1)
         if 3 is not i:
             i = M
@@ -464,22 +466,24 @@ def h2(g, t):
     while True:
         j = 2
         while True:
-            if t is 0:
-                call1(g, 0)
-                break
-            else:
-                if t is 1:
-                    k = 4
-                    while True:
-                        call1(g, int(int(i + j) + k))
-                        L = int(k + 1)
-                        if 5 is not k:
-                            k = L
-                            continue
-                        break
+            while True:
+                if t is 0:
+                    call1(g, 0)
                     break
                 else:
-                    call1(g, 1)
+                    if t is 1:
+                        k = 4
+                        while True:
+                            call1(g, int(int(i + j) + k))
+                            L = int(k + 1)
+                            if 5 is not k:
+                                k = L
+                                continue
+                            break
+                        break
+                    else:
+                        call1(g, 1)
+                break
             K = int(j + 1)
             if 3 is not j:
                 j = K
@@ -494,29 +498,31 @@ def h2(g, t):
 def h3(g, t):
     i = 4
     while True:
-        if t is 0:
-            call1(g, 0)
-            break
-        else:
-            if t is 1:
-                j = 4
-                while True:
-                    k = 2
-                    while True:
-                        call1(g, int(int(i + j) + k))
-                        I = int(k + 1)
-                        if 3 is not k:
-                            k = I
-                            continue
-                        H = int(j + 1)
-                        if 5 is not j:
-                            j = H
-                            continue
-                        break
-                    break
+        while True:
+            if t is 0:
+                call1(g, 0)
                 break
             else:
-                call1(g, 1)
+                if t is 1:
+                    j = 4
+                    while True:
+                        k = 2
+                        while True:
+                            call1(g, int(int(i + j) + k))
+                            I = int(k + 1)
+                            if 3 is not k:
+                                k = I
+                                continue
+                            H = int(j + 1)
+                            if 5 is not j:
+                                j = H
+                                continue
+                            break
+                        break
+                    break
+                else:
+                    call1(g, 1)
+            break
         G = int(i + 1)
         if 5 is not i:
             i = G
@@ -525,26 +531,28 @@ def h3(g, t):
 
 
 def h4(g, t):
-    if t is 0:
-        return call1(g, 0)
-    else:
-        if t is 1:
-            j = 4
-            while True:
-                k = 2
-                while True:
-                    call1(g, int(j + k))
-                    F = int(k + 1)
-                    if 3 is not k:
-                        k = F
-                        continue
-                    E = int(j + 1)
-                    if 5 is not j:
-                        j = E
-                        continue
-                    return 0
+    while True:
+        if t is 0:
+            return call1(g, 0)
         else:
-            return call1(g, 1)
+            if t is 1:
+                j = 4
+                while True:
+                    k = 2
+                    while True:
+                        call1(g, int(j + k))
+                        F = int(k + 1)
+                        if 3 is not k:
+                            k = F
+                            continue
+                        E = int(j + 1)
+                        if 5 is not j:
+                            j = E
+                            continue
+                        return 0
+            else:
+                return call1(g, 1)
+        break
 
 
 def h5(g, t):
@@ -552,29 +560,31 @@ def h5(g, t):
     while True:
         j = 2
         while True:
-            if t is 0:
-                call1(g, 0)
-                break
-            else:
-                if t is 1:
-                    k = 4
-                    while True:
-                        l = 2
-                        while True:
-                            call1(g, int(int(int(i + j) + k) + l))
-                            D = int(l + 1)
-                            if 3 is not l:
-                                l = D
-                                continue
-                            C = int(k + 1)
-                            if 5 is not k:
-                                k = C
-                                continue
-                            break
-                        break
+            while True:
+                if t is 0:
+                    call1(g, 0)
                     break
                 else:
-                    call1(g, 1)
+                    if t is 1:
+                        k = 4
+                        while True:
+                            l = 2
+                            while True:
+                                call1(g, int(int(int(i + j) + k) + l))
+                                D = int(l + 1)
+                                if 3 is not l:
+                                    l = D
+                                    continue
+                                C = int(k + 1)
+                                if 5 is not k:
+                                    k = C
+                                    continue
+                                break
+                            break
+                        break
+                    else:
+                        call1(g, 1)
+                break
             B = int(j + 1)
             if 3 is not j:
                 j = B
