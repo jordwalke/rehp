@@ -515,7 +515,7 @@ let check = (languageProvided, (rehp, linkinfos)) => {
   (rehp, linkinfos);
 };
 
-let coloring_js = (languageProvided, (rehp, linkinfos)) => {
+let coloring = (languageProvided, (rehp, linkinfos)) => {
   let t = Timer.make();
   if (times()) {
     Format.eprintf("Start Coloring...@.");
@@ -526,23 +526,6 @@ let coloring_js = (languageProvided, (rehp, linkinfos)) => {
   /*
    * TODO: Add the identifiers from the linker/runtime.
    */
-  VarPrinter.add_reserved(StringSet.elements(free));
-  VarPrinter.add_reserved(StringSet.elements(languageProvided));
-  let rehp = Js_assign.program(rehp);
-  if (times()) {
-    Format.eprintf("  coloring: %a@.", Timer.print, t);
-  };
-  (rehp, linkinfos);
-};
-
-let coloring_php = (languageProvided, (rehp, linkinfos)) => {
-  let t = Timer.make();
-  if (times()) {
-    Format.eprintf("Start Coloring...@.");
-  };
-  let traverse = new Rehp_traverse.free;
-  let rehp = traverse#program(rehp);
-  let free = traverse#get_free_name;
   VarPrinter.add_reserved(StringSet.elements(free));
   VarPrinter.add_reserved(StringSet.elements(languageProvided));
   let rehp = Js_assign.program(rehp);
@@ -723,21 +706,7 @@ let post_pack_optimizations = js => {
   };
 };
 
-let pack_js = rehp => {
-  let t = Timer.make();
-  if (times()) {
-    Format.eprintf("Start Optimizing rehp...@.");
-  };
-  let rehp = pack(rehp);
-
-  let rehp = post_pack_optimizations(rehp);
-  if (times()) {
-    Format.eprintf("  optimizing: %a@.", Timer.print, t);
-  };
-  rehp;
-};
-
-let pack_php = rehp => {
+let pack_lang = rehp => {
   let t = Timer.make();
   if (times()) {
     Format.eprintf("Start Optimizing rehp...@.");
@@ -787,35 +756,41 @@ let f =
     switch (backend) {
     | Php => (
         (obj => Rehp.ECall(EVar(Id.ident("ObjectLiteral")), [obj], N)),
-        pack_php,
-        coloring_php(Reserved.provided_php),
+        pack_lang,
+        coloring(Reserved.provided_php),
         check(Reserved.provided_php),
         output_php(Reserved.provided_php),
       )
     | Js => (
         (_o => _o),
-        pack_js,
-        coloring_js(Reserved.provided_js),
+        pack_lang,
+        coloring(Reserved.provided_js),
         check(Reserved.provided_js),
         output_js,
       )
     | Python => (
         (_o => _o),
-        pack_js,
-        coloring_js(Reserved.provided_js),
-        check(Reserved.provided_js),
+        pack_lang,
+        coloring(Reserved.provided_python),
+        (_o => _o),
         output_python,
       )
     };
 
   let augmentWithLinkInfo =
-    standalone
-      ? augmentWithLinkInfoStandalone(
-          ~linkall,
-          ~shouldExportRuntime,
-          ~objWrapper,
-        )
-      : augmentWithLinkInfoSeparate;
+    if (backend == Python) {
+      (~runtimeAccessesAreThrough, rehp) => {
+        (rehp, None);
+      };
+    } else {
+      standalone
+        ? augmentWithLinkInfoStandalone(
+            ~linkall,
+            ~shouldExportRuntime,
+            ~objWrapper,
+          )
+        : augmentWithLinkInfoSeparate;
+    };
 
   configure(formatter)
   >> specialize_js_once

@@ -65,7 +65,7 @@ let keyword = List.fold_left
     "synchronized"; "throws"; "transient"; "volatile";
 
     (* also reserved in ECMAScript 6 *)
-    "await"
+    "await";
 ]
 
 let js_globals = [
@@ -144,6 +144,18 @@ let php_globals = [
   "isNaN";
 ]
 
+let python_globals = [
+  "as";
+  "def";
+  "except";
+  "int";
+  "len";
+  "list";
+  "None";
+  "pass";
+  "range";
+]
+
 (* TODO: Functorize this across language backends.*)
 (* TODO: Create (and functorize) the php keywords.*)
 let provided_js = List.fold_left
@@ -155,3 +167,8 @@ let provided_php = List.fold_left
     ~f:(fun acc x -> StringSet.add x acc)
     ~init:StringSet.empty
     php_globals
+
+let provided_python = List.fold_left
+    ~f:(fun acc x -> StringSet.add x acc)
+    ~init:StringSet.empty
+    python_globals

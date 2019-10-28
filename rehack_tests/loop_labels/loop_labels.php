@@ -951,7 +951,7 @@ $h5 = function(dynamic $g, dynamic $t) use ($caml_call1) {
             $continue_label = null;
             $l = 2;
             for (; ; ) {
-              $caml_call1($g, (int)((int)($i + $j) + $k));
+              $caml_call1($g, (int)((int)((int)($i + $j) + $k) + $l));
               $D = (int)($l + 1);
               if (3 !== $l) {
                 $l = $D;

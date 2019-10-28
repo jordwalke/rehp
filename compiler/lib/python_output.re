@@ -1,5 +1,7 @@
 open Python;
 
+exception InvalidTabbing;
+
 let print_string = (_s: string) => ();
 
 module Make =
@@ -9,8 +11,8 @@ module Make =
            let newline: unit => unit;
          },
        ) => {
-  let print_string = Config.print_string;
-  let newline = Config.newline;
+  open Config;
+
   let print_int = i => print_string(string_of_int(i));
   let print_float = f => print_string(string_of_float(f));
   let space = () => print_string(" ");
@@ -19,7 +21,7 @@ module Make =
   let tabcount = ref(0);
   let print_tab = () => {
     let spaces = ref("");
-    for (i in 0 to tabcount^) {
+    for (i in 0 to tabcount^ - 1) {
       spaces := spaces^ ++ "  ";
     };
     print_string(spaces^);
@@ -27,8 +29,15 @@ module Make =
   let newline_tab = () => {
     newline();
     tabcount := tabcount^ + 1;
+    tabcount^;
   };
-  let untab = () => tabcount := tabcount^ - 1;
+  let untab = tabcount' => {
+    if (tabcount' !== tabcount^) {
+      /* multiple or missing untabs */
+      raise(InvalidTabbing);
+    };
+    tabcount := tabcount^ - 1;
+  };
 
   let assign_op_string =
     fun
@@ -54,7 +63,7 @@ module Make =
     | EqEq => "=="
     | NotEq => "!="
     | Is => "is"
-    | IsNot => "not is"
+    | IsNot => "is not"
     | Lt => "<"
     | Le => "<="
     | Gt => ">"
@@ -68,7 +77,7 @@ module Make =
 
   let un_op_string =
     fun
-    | Not => "!"
+    | Not => "not"
     | Neg => "-"
     | Pl => "+"
     | Bnot => "~";
@@ -142,7 +151,9 @@ module Make =
 
     | EUn(un_op, expression) =>
       print_un_op(un_op);
+      print_string("(");
       print_expression(expression);
+      print_string(")");
 
     | ECall(expression, element_list) =>
       print_expression(expression);
@@ -194,6 +205,7 @@ module Make =
 
     | ERegexp(regex, options) => /* TODO: how to handle this */ assert(false)
 
+    /* TODO: remove this */
     | EArrLen(expression) =>
       print_string("len(");
       print_expression(expression);
@@ -202,46 +214,53 @@ module Make =
   }
 
   and print_statement = statement => {
-    print_tab();
     switch (statement) {
-    | Raw_statement(s) => print_string(s)
+    | Raw_statement(s) =>
+      print_tab();
+      print_string(s);
 
-    /* TODO: when is this used? should it be "pass"? */
     | Empty_statement => ()
 
     | Statement_list(statement_list) => print_statement_list(statement_list)
 
     | Function_declaration(id, parameter_list, statement_list) =>
+      print_tab();
       print_string("def ");
       print_id(id);
       print_string("(");
       print_parameter_list(parameter_list);
       print_string("):");
-      newline_tab();
+      
+      let tc = newline_tab();
       switch (statement_list) {
       | [] =>
         print_tab();
         print_string("pass");
       | li => print_statement_list(li)
       };
-      untab();
+      untab(tc);
 
     | Assignment_statement(assign_op, left_expression, right_expression) =>
+      print_tab();
       print_expression(left_expression);
       space();
       print_assign_op(assign_op);
       space();
       print_expression(right_expression);
 
-    | Expression_statement(expression) => print_expression(expression)
+    | Expression_statement(expression) =>
+      print_tab();
+      print_expression(expression);
 
     | If_statement(test, consequent, alternate) =>
+      print_tab();
       print_string("if ");
       print_expression(test);
       print_string(":");
-      newline_tab();
+
+      let tc = newline_tab();
       print_statement(consequent);
-      untab();
+      untab(tc);
 
       switch (alternate) {
       | None => ()
@@ -249,18 +268,22 @@ module Make =
         newline();
         print_tab();
         print_string("else:");
-        newline_tab();
+
+        let tc = newline_tab();
         print_statement(alternate);
-        untab();
+        untab(tc);
       };
 
     | WhileTrue_statement(statement) =>
+      print_tab();
       print_string("while True:");
-      newline_tab();
+
+      let tc = newline_tab();
       print_statement(statement);
-      untab();
+      untab(tc);
 
     | For_statement(id, start, end_, increment, statement) =>
+      print_tab();
       print_string("for ");
       print_id(id);
       print_string(" in range(");
@@ -270,41 +293,53 @@ module Make =
       print_string(", ");
       print_int(increment);
       print_string("):");
-      newline_tab();
+      
+      let tc = newline_tab();
       print_statement(statement);
-      untab();
+      untab(tc);
 
-    | Continue_statement => print_string("continue")
+    | Continue_statement =>
+      print_tab();
+      print_string("continue");
 
-    | Break_statement => print_string("break")
+    | Break_statement =>
+      print_tab();
+      print_string("break");
 
     | Return_statement(expression) =>
+      print_tab();
       print_string("return");
       switch (expression) {
       | None => ()
-      | Some(expression) => print_expression(expression)
+      | Some(expression) =>
+        space();
+        print_expression(expression);
       };
 
     | Throw_statement(expression) =>
+      print_tab();
       print_string("raise(");
       print_expression(expression);
       print_string(")");
 
     | Try_statement(statement_list, except, finally) =>
+      print_tab();
       print_string("try:");
-      newline_tab();
+
+      let tc = newline_tab();
       print_statement_list(statement_list);
-      untab();
+      untab(tc);
 
       newline();
       print_tab();
       print_string("except:");
-      newline_tab();
+
+      let tc = newline_tab();
       switch (except) {
       | None => print_string("pass")
       | Some((id, except)) => print_statement_list(except)
       };
-      untab();
+      untab(tc);
 
       switch (finally) {
       | None => ()
@@ -312,24 +347,25 @@ module Make =
         newline();
         print_tab();
         print_string("finally:");
-        newline_tab();
+
+        let tc = newline_tab();
         print_statement_list(finally);
-        untab();
+        untab(tc);
       };
     };
   };
 };
 
-module PP = Pretty_print;
-
 let program = (f, statement_list) => {
   module M =
     Make({
-      let print_string = s => PP.string(f, s);
-      let newline = () => PP.newline(f);
+      let print_string = s => Pretty_print.string(f, s);
+      let newline = () => Pretty_print.newline(f);
     });
-
-  PP.start_group(f, 0);
   M.print_statement_list(statement_list);
-  PP.end_group(f);
+
+  if (M.tabcount^ !== 0) {
+    /* missing untab */
+    raise(InvalidTabbing);
+  };
 };

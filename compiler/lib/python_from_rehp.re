@@ -14,6 +14,10 @@ let make_case_var = () => {
   Python.EVar(Id.ident(res));
 };
 
+type variable_declaration_init =
+  | InitFun(Rehp.function_expression)
+  | InitExp(Python.expression);
+
 type mapped_bin_op =
   | AssignOp(Python.assign_op)
   | BinOp(Python.bin_op);
@@ -104,11 +108,10 @@ and map_expression =
   | ECopy(expression, _) =>
     ECall(EVar(Id.ident("list")), [map_expression(expression)])
   | EVar(id) => EVar(id)
-  /* TODO: do we have to be more clever than this? */
-  | EFun(function_expression) => ERaw("function_expression??")
-  /* TODO: where is this done if not here */
-  /* https://stackoverflow.com/questions/847936/how-can-i-find-the-number-of-arguments-of-a-python-function */
-  | EArityTest(expression) => raise(Unsupported_expression)
+  /* TODO: return in output */
+  | EFun(function_expression) => ERaw("function_expression")
+  /* TODO: https://stackoverflow.com/questions/847936/how-can-i-find-the-number-of-arguments-of-a-python-function */
+  | EArityTest(expression) => ERaw("arity_test")
   | EVectlength(expression)
   | EArrLen(expression) =>
     ECall(EVar(Id.ident("len")), [map_expression(expression)])
@@ -219,15 +222,22 @@ and map_statement =
   | Variable_statement(variable_declaration_list) =>
     Statement_list(
       List.map(
-        ((id, initialiser)) =>
-          Python.Assignment_statement(
-            Eq,
-            EVar(id),
+        ((id, initialiser)) => {
+          let initialiser =
             switch (initialiser) {
-            | None => Python.ENULL
-            | Some((exp, _)) => map_expression(exp)
-            },
-          ),
+            | None => InitExp(Python.ENULL)
+            | Some((Rehp.EFun(function_expression), _)) =>
+              InitFun(function_expression)
+            | Some((expression, _)) => InitExp(map_expression(expression))
+            };
+
+          switch (initialiser) {
+          | InitExp(initialiser) =>
+            Python.Assignment_statement(Eq, EVar(id), initialiser)
+          | InitFun((_, parameter_list, source_element_list, loc)) =>
+            map_function((id, parameter_list, source_element_list, loc))
+          };
+        },
         variable_declaration_list,
       ),
     )

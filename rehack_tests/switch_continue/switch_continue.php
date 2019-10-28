@@ -104,13 +104,6 @@ $caml_register_global(1, $Sys_error, "Sys_error");
 
 $caml_register_global(0, $Out_of_memory, "Out_of_memory");
 
-$a = Vector {
-  0,
-  $caml_new_string("rehack_tests/switch_continue/switch_continue.re"),
-  72,
-  18,
-};
-
 $caml_fresh_oo_id(0);
 
 $string_of_int = function(dynamic $n) use ($caml_new_string) {
@@ -143,10 +136,10 @@ $flush_all = function(dynamic $param) use (
         $a = $param__0[1];
         try {
           $caml_ml_flush($a);
-        } catch (\Throwable $b) {
-          $b = $caml_wrap_exception($b);
-          if ($b[1] !== $Sys_error) {
-            throw $caml_wrap_thrown_exception_reraise($b) as \Throwable;
+        } catch (\Throwable $a) {
+          $a = $caml_wrap_exception($a);
+          if ($a[1] !== $Sys_error) {
+            throw $caml_wrap_thrown_exception_reraise($a) as \Throwable;
           }
         }
         $param__0 = $l;
@@ -320,9 +313,7 @@ $print_endline($string_of_int($f2->contents(0)));
 
 $print_endline($string_of_int($f3(0)));
 
-$h0__0 = function(
-  dynamic $c,
-) use ($Match_failure, $Not_found, $a, $caml_wrap_thrown_exception) {
+$h0__0 = function(dynamic $c) use ($Not_found, $caml_wrap_thrown_exception) {
   for (; ; ) {
     if (40 === $c) {
       continue;
@@ -352,8 +343,7 @@ $h0__0 = function(
         continue;
       }
     }
-    throw $caml_wrap_thrown_exception(Vector {0, $Match_failure, $a})
-      as \Throwable;
+    throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
   }
 };
 $h1 = function(dynamic $t) {

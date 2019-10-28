@@ -1087,13 +1087,6 @@ caml_register_global(1, Sys_error, "Sys_error");
 
 caml_register_global(0, Out_of_memory, "Out_of_memory");
 
-var a = [
-  0,
-  caml_new_string("rehack_tests/switch_continue/switch_continue.re"),
-  72,
-  18
-];
-
 caml_fresh_oo_id(0);
 
 function string_of_int(n) {
@@ -1115,10 +1108,10 @@ function flush_all(param) {
         var a = param__0[1];
         try {
           caml_ml_flush(a);
-        } catch (b) {
-          b = caml_wrap_exception(b);
-          if (b[1] !== Sys_error) {
-            throw caml_wrap_thrown_exception_reraise(b);
+        } catch (a) {
+          a = caml_wrap_exception(a);
+          if (a[1] !== Sys_error) {
+            throw caml_wrap_thrown_exception_reraise(a);
           }
         }
         var param__0 = l;
@@ -1276,7 +1269,7 @@ function h0__0(c) {
     } else if (95 === c) {
       continue;
     }
-    throw caml_wrap_thrown_exception([0, Match_failure, a]);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
