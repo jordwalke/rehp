@@ -2,8 +2,8 @@
 
 
 $caml_arity_test = function($f) {
-  $php_f = ($f instanceof Func) ? $f->fun : $f;
-  if (is_object($php_f) && ($php_f instanceof \Closure)) {
+  $php_f = ($f is Func) ? $f->fun : $f;
+  if (is_object($php_f) && ($php_f is \Closure)) {
     return (new \ReflectionFunction($php_f))->getNumberOfRequiredParameters();
   } else {
     throw new \ErrorException("Passed non closure to rehack_arity");
@@ -11,30 +11,29 @@ $caml_arity_test = function($f) {
 };
 
 
-$caml_call_gen =
-  function((function(mixed...): mixed) $f, varray<mixed> $args): mixed use (
-    $raw_array_sub,
-    $caml_arity_test,
-  ) {
-    $n = caml_arity_test($f);
-    $argsLen = C\count($args);
-    $d = $n - $argsLen;
+$caml_call_gen = function(
+  (function(mixed...): mixed) $f,
+  varray<mixed> $args,
+): mixed use ($raw_array_sub, $caml_arity_test) {
+  $n = caml_arity_test($f);
+  $argsLen = C\count($args);
+  $d = $n - $argsLen;
 
-    if ($d === 0) {
-      return $f(...$args);
-    } else if ($d < 0) {
-      return $caml_call_gen(
-        /* HH_IGNORE_ERROR[4110] $f must return a function here */
+  if ($d === 0) {
+    return $f(...$args);
+  } else if ($d < 0) {
+    return $caml_call_gen(
+      /* HH_IGNORE_ERROR[4110] $f must return a function here */
         $f(...$raw_array_sub($args, 0, $n)),
-        $raw_array_sub($args, $n, $argsLen - $n),
-      );
-    } else {
-      return function(mixed $x) use ($f, $args) {
-        $args[] = $x;
-        return $caml_call_gen($f, $args);
-      };
-    }
-  };
+      $raw_array_sub($args, $n, $argsLen - $n),
+    );
+  } else {
+    return function(mixed $x) use ($f, $args) {
+      $args[] = $x;
+      return $caml_call_gen($f, $args);
+    };
+  }
+};
 
 
 $caml_call1 = function(
@@ -49,18 +48,18 @@ $String = $joo_global_object->String;
 
 
 $caml_wrap_thrown_exception = function($e) use ($String, $caml_global_data) {
-  if ($e instanceof RehpExceptionBox) {
+  if ($e is RehpExceptionBox) {
     return $e;
   }
   // Check for __isArrayLike because some exceptions are manually constructed in stubs
-  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
+  if ($e is R || $e is V || isset($e->__isArrayLike)) {
     return new RehpExceptionBox($e);
   }
   // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
   // map it to Stack_overflow.
 
   // Wrap Error in Js.Error exception
-  if ($e instanceof \Exception) { // && $caml_named_value("phpError"))
+  if ($e is \Exception) { // && $caml_named_value("phpError"))
     // return [0,caml_named_value("phpError"),e];
     return new RehpExceptionBox(
       R(0, $String->new("phpError"), $e),
@@ -76,17 +75,17 @@ $caml_wrap_thrown_exception = function($e) use ($String, $caml_global_data) {
 
 
 $caml_wrap_exception = function($e) use ($String, $caml_global_data) {
-  if ($e instanceof RehpExceptionBox) {
+  if ($e is RehpExceptionBox) {
     return $e->contents;
   }
   // Check for __isArrayLike because some exceptions are manually constructed in stubs
-  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
+  if ($e is R || $e is V || isset($e->__isArrayLike)) {
     return $e;
   }
   // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
   // map it to Stack_overflow.
   // Wrap Error in Js.Error exception
-  if ($e instanceof \Throwable) { // && $caml_named_value("phpError"))
+  if ($e is \Throwable) { // && $caml_named_value("phpError"))
     // return [0,caml_named_value("phpError"),e];
     return R(0, $String->new("phpError"), $e);
   }
@@ -164,11 +163,10 @@ $u = $caml_new_string("h5");
 
 $caml_fresh_oo_id(0);
 
-$symbol = function(dynamic $s1, dynamic $s2) use (
-  $caml_blit_string,
-  $caml_create_bytes,
-  $caml_ml_string_length,
-) {
+$symbol = function(
+  dynamic $s1,
+  dynamic $s2,
+) use ($caml_blit_string, $caml_create_bytes, $caml_ml_string_length) {
   $l1 = $caml_ml_string_length($s1);
   $l2 = $caml_ml_string_length($s2);
   $s = $caml_create_bytes((int)($l1 + $l2));
@@ -220,18 +218,15 @@ $flush_all = function(dynamic $param) use (
   };
   return $iter($caml_ml_out_channels_list(0));
 };
-$output_string = function(dynamic $oc, dynamic $s) use (
-  $caml_ml_output,
-  $caml_ml_string_length,
-) {
+$output_string = function(
+  dynamic $oc,
+  dynamic $s,
+) use ($caml_ml_output, $caml_ml_string_length) {
   return $caml_ml_output($oc, $s, 0, $caml_ml_string_length($s));
 };
-$print_endline = function(dynamic $s) use (
-  $caml_ml_flush,
-  $caml_ml_output_char,
-  $output_string,
-  $stdout,
-) {
+$print_endline = function(
+  dynamic $s,
+) use ($caml_ml_flush, $caml_ml_output_char, $output_string, $stdout) {
   $output_string($stdout, $s);
   $caml_ml_output_char($stdout, 10);
   return $caml_ml_flush($stdout);
@@ -730,12 +725,10 @@ $f10 = function(dynamic $g) use (
     }
   }
 };
-$fx = function(dynamic $prefix, dynamic $x) use (
-  $a,
-  $print_endline,
-  $string_of_int,
-  $symbol,
-) {
+$fx = function(
+  dynamic $prefix,
+  dynamic $x,
+) use ($a, $print_endline, $string_of_int, $symbol) {
   return $print_endline($symbol($a, $string_of_int($x)));
 };
 

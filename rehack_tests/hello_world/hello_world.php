@@ -5,18 +5,18 @@ $String = $joo_global_object->String;
 
 
 $caml_wrap_thrown_exception = function($e) use ($String, $caml_global_data) {
-  if ($e instanceof RehpExceptionBox) {
+  if ($e is RehpExceptionBox) {
     return $e;
   }
   // Check for __isArrayLike because some exceptions are manually constructed in stubs
-  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
+  if ($e is R || $e is V || isset($e->__isArrayLike)) {
     return new RehpExceptionBox($e);
   }
   // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
   // map it to Stack_overflow.
 
   // Wrap Error in Js.Error exception
-  if ($e instanceof \Exception) { // && $caml_named_value("phpError"))
+  if ($e is \Exception) { // && $caml_named_value("phpError"))
     // return [0,caml_named_value("phpError"),e];
     return new RehpExceptionBox(
       R(0, $String->new("phpError"), $e),
@@ -32,17 +32,17 @@ $caml_wrap_thrown_exception = function($e) use ($String, $caml_global_data) {
 
 
 $caml_wrap_exception = function($e) use ($String, $caml_global_data) {
-  if ($e instanceof RehpExceptionBox) {
+  if ($e is RehpExceptionBox) {
     return $e->contents;
   }
   // Check for __isArrayLike because some exceptions are manually constructed in stubs
-  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
+  if ($e is R || $e is V || isset($e->__isArrayLike)) {
     return $e;
   }
   // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
   // map it to Stack_overflow.
   // Wrap Error in Js.Error exception
-  if ($e instanceof \Throwable) { // && $caml_named_value("phpError"))
+  if ($e is \Throwable) { // && $caml_named_value("phpError"))
     // return [0,caml_named_value("phpError"),e];
     return R(0, $String->new("phpError"), $e);
   }
@@ -145,18 +145,15 @@ $flush_all = function(dynamic $param) use (
   };
   return $iter($caml_ml_out_channels_list(0));
 };
-$output_string = function(dynamic $oc, dynamic $s) use (
-  $caml_ml_output,
-  $caml_ml_string_length,
-) {
+$output_string = function(
+  dynamic $oc,
+  dynamic $s,
+) use ($caml_ml_output, $caml_ml_string_length) {
   return $caml_ml_output($oc, $s, 0, $caml_ml_string_length($s));
 };
-$print_endline = function(dynamic $s) use (
-  $caml_ml_flush,
-  $caml_ml_output_char,
-  $output_string,
-  $stdout,
-) {
+$print_endline = function(
+  dynamic $s,
+) use ($caml_ml_flush, $caml_ml_output_char, $output_string, $stdout) {
   $output_string($stdout, $s);
   $caml_ml_output_char($stdout, 10);
   return $caml_ml_flush($stdout);
