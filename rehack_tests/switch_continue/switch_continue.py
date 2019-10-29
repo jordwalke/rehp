@@ -120,17 +120,22 @@ def f0(t):
 def f1(t):
     t__0 = t
     while True:
+        set_label_to_null
         while True:
             if t__0 is 0:
                 t__0 = 1
-                continue
+                set_label_to_switch
+                break
             else:
                 if t__0 is 1:
                     t__0 = 2
-                    continue
+                    set_label_to_switch
+                    break
                 else:
                     return 3
             break
+        check_label_for_switch
+        check_label_for_nonnull
 
 
 def f2(t):
@@ -151,26 +156,34 @@ def f2(t):
 def f3(t):
     t__0 = t
     while True:
+        set_label_to_null
         while True:
             if t__0 is 0:
                 t__0 = 1
-                continue
+                set_label_to_switch
+                break
             else:
                 if t__0 is 1:
+                    set_label_to_null
                     while True:
                         if t__0 is 0:
                             t__0 = 1
-                            continue
+                            set_label_to_switch
+                            break
                         else:
                             if t__0 is 1:
                                 t__0 = 2
-                                continue
+                                set_label_to_switch
+                                break
                             else:
                                 return 3
                         break
+                    check_label_for_nonnull
                 else:
                     return 3
             break
+        check_label_for_switch
+        check_label_for_nonnull
 
 
 print_endline(string_of_int(f0(0)))
@@ -186,15 +199,19 @@ def h0__0(c):
         if 123 <= c:
             if not (126 <= c):
                 switcher = int(c + -123)
+                set_label_to_null
                 while True:
                     if switcher is 0:
-                        continue
+                        set_label_to_switch
+                        break
                     else:
                         if switcher is 1:
                             break
                         else:
                             raise (caml_wrap_thrown_exception(Not_found))
                     break
+                check_label_for_switch
+                check_label_for_nonnull
         else:
             if 95 is c:
                 continue
@@ -204,15 +221,20 @@ def h0__0(c):
 def h1(t):
     while True:
         if 0 is t:
+            set_label_to_null
             while True:
                 if t is 0:
-                    continue
+                    set_label_to_switch
+                    break
                 else:
                     if t is 1:
                         return 2
                     else:
                         return 3
                 break
+            check_label_for_switch
+            check_label_for_nonnull
+        set_label_to_null
         while True:
             if t is 0:
                 return 1
@@ -222,6 +244,8 @@ def h1(t):
                 else:
                     return 3
             break
+        check_label_for_switch
+        check_label_for_nonnull
 
 
 print_endline(string_of_int(h0__0(104)))

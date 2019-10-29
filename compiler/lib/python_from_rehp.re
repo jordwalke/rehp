@@ -23,7 +23,8 @@ let make_id = prefix => {
 type enclosed_by =
   | Not_enclosed
   | Switch
-  | Loop;
+  | Loop
+  | LabelledLoop(Javascript.Label.t);
 type input = {enclosed_by};
 let empty_input = {enclosed_by: Not_enclosed};
 
@@ -34,6 +35,14 @@ let empty_output = {funcs: []};
 let concat_outputs = outputs => {
   funcs: List.concat(List.map(output => output.funcs, outputs)),
 };
+
+/* TODO */
+let set_label_to = label => Python.Raw_statement("set_label_to");
+let set_label_to_switch = Python.Raw_statement("set_label_to_switch");
+let set_label_to_null = Python.Raw_statement("set_label_to_null");
+let check_label_for = label => Python.Raw_statement("check_label_for");
+let check_label_for_switch = Python.Raw_statement("check_label_for_switch");
+let check_label_for_nonnull = Python.Raw_statement("check_label_for_nonnull");
 
 type variable_declaration_init =
   | InitFun(Rehp.function_expression)
@@ -266,6 +275,7 @@ let rec map_switch =
         map_statements({enclosed_by: Switch}, default_case);
       (output, Some(default_statements));
     };
+  let output = concat_outputs([output1, output3, ...output2]);
 
   let (id, init) =
     switch (condition) {
@@ -300,12 +310,74 @@ let rec map_switch =
       ),
     );
 
-  (concat_outputs([output1, output3, ...output2]), statement);
+  let statement =
+    switch (input.enclosed_by) {
+    | Not_enclosed => statement
+    | Switch =>
+      Python.Statement_list([
+        set_label_to_null,
+        statement,
+        check_label_for_nonnull,
+      ])
+    | Loop => 
+      Python.Statement_list([
+        set_label_to_null,
+        statement,
+        check_label_for_switch,
+        check_label_for_nonnull,
+      ])
+    | LabelledLoop(label) =>
+      Python.Statement_list([
+        set_label_to_null,
+        statement,
+        check_label_for_switch,
+        check_label_for(label),
+        check_label_for_nonnull,
+      ])
+    };
+
+  (output, statement);
 }
 
 and map_loop = (input, label, statement) => {
-  let (output, statement) = map_statement({enclosed_by: Loop}, statement);
-  (output, Python.WhileTrue_statement(statement));
+  let (output, statement) =
+    map_statement(
+      {
+        enclosed_by:
+          switch (label) {
+          | None => Loop
+          | Some(label) => LabelledLoop(label)
+          },
+      },
+      statement,
+    );
+
+  let statement = switch (label) {
+    | None => statement
+    | Some(_) => Python.Statement_list([
+      set_label_to_null,
+      statement,
+    ])
+  };
+
+  let statement =
+    switch (input.enclosed_by) {
+    | Not_enclosed => Python.WhileTrue_statement(statement)
+    | Loop
+    | Switch =>
+      Python.Statement_list([
+        WhileTrue_statement(statement),
+        check_label_for_nonnull,
+      ])
+    | LabelledLoop(label) =>
+      Python.Statement_list([
+        WhileTrue_statement(statement),
+        check_label_for(label),
+        check_label_for_nonnull,
+      ])
+    };
+
+  (output, statement);
 }
 
 and map_statement_aux = input =>
@@ -408,8 +480,30 @@ and map_statement_aux = input =>
   | For_statement(_) => raise(Unsupported_statement)
 
   /* TODO: become break when labeled, if inside switch use switch label */
-  | Continue_statement(None, _) => (empty_output, Continue_statement)
-  | Continue_statement(label, _) => (empty_output, Continue_statement)
+  | Continue_statement(None, _) =>
+    switch (input.enclosed_by) {
+    | Not_enclosed => raise(Unsupported_statement)
+    | Switch => (
+        empty_output,
+        Statement_list([set_label_to_switch, Break_statement]),
+      )
+    | _ => (empty_output, Continue_statement)
+    }
+  | Continue_statement(Some(label), _) =>
+    switch (input.enclosed_by) {
+    | Not_enclosed => raise(Unsupported_statement)
+    | LabelledLoop(label')
+        when
+          Javascript.Label.to_string(label')
+          == Javascript.Label.to_string(label) => (
+        empty_output,
+        Continue_statement,
+      )
+    | _ => (
+        empty_output,
+        Statement_list([set_label_to(label), Break_statement]),
+      )
+    }
 
   | Break_statement(None) => (empty_output, Break_statement)
   | Break_statement(label) => raise(Unsupported_statement)
