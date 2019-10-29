@@ -421,16 +421,74 @@ def fx(prefix, x):
     return print_endline(symbol(a, string_of_int(x)))
 
 
-f1(function_expression)
-f2(function_expression)
-f3(function_expression)
-f4(function_expression)
-f5(function_expression)
-f6(function_expression)
-f7(function_expression)
-f8(function_expression)
-f9(function_expression)
-f10(function_expression)
+def function_expression_0(X):
+    return fx(b, X)
+
+
+f1(function_expression_0)
+
+
+def function_expression_1(W):
+    return fx(c, W)
+
+
+f2(function_expression_1)
+
+
+def function_expression_2(V):
+    return fx(d, V)
+
+
+f3(function_expression_2)
+
+
+def function_expression_3(U):
+    return fx(e, U)
+
+
+f4(function_expression_3)
+
+
+def function_expression_4(T):
+    return fx(f, T)
+
+
+f5(function_expression_4)
+
+
+def function_expression_5(S):
+    return fx(g, S)
+
+
+f6(function_expression_5)
+
+
+def function_expression_6(R):
+    return fx(h, R)
+
+
+f7(function_expression_6)
+
+
+def function_expression_7(Q):
+    return fx(i, Q)
+
+
+f8(function_expression_7)
+
+
+def function_expression_8(P):
+    return fx(j, P)
+
+
+f9(function_expression_8)
+
+
+def function_expression_9(O):
+    return fx(k, O)
+
+
+f10(function_expression_9)
 
 
 def h1(g, t):
@@ -597,13 +655,43 @@ def h5(g, t):
 
 
 l = 0
-h1(function_expression, l)
+
+
+def function_expression_10(z):
+    return fx(m, z)
+
+
+h1(function_expression_10, l)
 n = 0
-h2(function_expression, n)
+
+
+def function_expression_11(y):
+    return fx(o, y)
+
+
+h2(function_expression_11, n)
 p = 0
-h3(function_expression, p)
+
+
+def function_expression_12(x):
+    return fx(q, x)
+
+
+h3(function_expression_12, p)
 r = 0
-h4(function_expression, r)
+
+
+def function_expression_13(w):
+    return fx(s, w)
+
+
+h4(function_expression_13, r)
 t = 0
-h5(function_expression, t)
+
+
+def function_expression_14(v):
+    return fx(u, v)
+
+
+h5(function_expression_14, t)
 do_at_exit(0)

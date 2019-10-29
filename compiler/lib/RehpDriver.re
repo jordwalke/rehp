@@ -647,7 +647,7 @@ let output_php =
 
 let output_python =
     (formatter, ~custom_header, ~source_map=?, (), (rehp, linkinfos)) => {
-  let python = Python_from_rehp.map_source_elements(rehp);
+  let python = Python_from_rehp.program(rehp);
   Python_output.program(formatter, python);
 };
 
