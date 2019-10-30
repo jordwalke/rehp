@@ -2,6 +2,7 @@ exception Unsupported_statement;
 exception Unsupported_expression;
 exception No_cases_in_switch;
 exception Unhandled_functions;
+exception Unhandled_labels;
 
 let x = f =>
   fun
@@ -24,25 +25,30 @@ type enclosed_by =
   | Not_enclosed
   | Switch
   | Loop
-  | LabelledLoop(Javascript.Label.t);
+  | LabelledLoop(string);
 type input = {enclosed_by};
 let empty_input = {enclosed_by: Not_enclosed};
 
 type output = {
   funcs: list((Id.t, Rehp.formal_parameter_list, Rehp.function_body)),
+  labels: list(string),
 };
-let empty_output = {funcs: []};
+let empty_output = {funcs: [], labels: []};
 let concat_outputs = outputs => {
   funcs: List.concat(List.map(output => output.funcs, outputs)),
+  labels: List.concat(List.map(output => output.labels, outputs)),
 };
 
-/* TODO */
-let set_label_to = label => Python.Raw_statement("set_label_to");
-let set_label_to_switch = Python.Raw_statement("set_label_to_switch");
-let set_label_to_null = Python.Raw_statement("set_label_to_null");
-let check_label_for = label => Python.Raw_statement("check_label_for");
-let check_label_for_switch = Python.Raw_statement("check_label_for_switch");
-let check_label_for_nonnull = Python.Raw_statement("check_label_for_nonnull");
+/* TODO: write with ASTs */
+let set_label_to = label =>
+  Python.Raw_statement("continue_label = \"" ++ label ++ "\"");
+let set_label_to_switch = Python.Raw_statement("continue_label = \"switch\"");
+let set_label_to_null = Python.Raw_statement("continue_label = None");
+let check_label_for = label =>
+  Python.Raw_statement("if label == \"" ++ label ++ "\": continue");
+let check_label_for_switch =
+  Python.Raw_statement("if label == \"switch\": continue");
+let check_label_for_nonnull = Python.Raw_statement("if label != None: break");
 
 type variable_declaration_init =
   | InitFun(Rehp.function_expression)
@@ -121,8 +127,10 @@ let rec map_unop = (input, unop, expression) => {
 and map_expression = (input, expression): (output, Python.expression) =>
   switch (expression) {
   | Rehp.ERaw(str) => (empty_output, Python.ERaw(str))
+
   /* TODO: does this happen */
   | ESeq(e1, e2) => (empty_output, ERaw("eseq??"))
+
   | ECond(condition, consequent, alternate) =>
     let (output1, condition) = map_expression(input, condition);
     let (output2, consequent) = map_expression(input, consequent);
@@ -131,6 +139,7 @@ and map_expression = (input, expression): (output, Python.expression) =>
       concat_outputs([output1, output2, output3]),
       ECond(condition, consequent, alternate),
     );
+
   | EBin(binop, left_expression, right_expression) =>
     switch (map_bin_op(binop)) {
     | BinOp(binop) =>
@@ -144,29 +153,40 @@ and map_expression = (input, expression): (output, Python.expression) =>
       );
     | AssignOp(_) => raise(Unsupported_expression)
     }
+
   | EUn(unop, expression) => map_unop(input, unop, expression)
+
   | ECall(expression, arguments, _) =>
     let (output1, expression) = map_expression(input, expression);
     let (output2, arguments) = map_expressions(input, arguments);
     (concat_outputs([output1, output2]), ECall(expression, arguments));
+
   | ECopy(expression, _) =>
     let (output, expression) = map_expression(input, expression);
     (output, ECall(EVar(Id.ident("list")), [expression]));
+
   | EVar(id) => (empty_output, EVar(id))
+
   | EFun((id, formal_parameter_list, function_body, _)) =>
     let id =
       switch (id) {
       | None => make_id("function_expression")
       | Some(id) => id
       };
-    let output = {funcs: [(id, formal_parameter_list, function_body)]};
+    let output = {
+      funcs: [(id, formal_parameter_list, function_body)],
+      labels: [],
+    };
     (output, Python.EVar(id));
+
   /* TODO: https://stackoverflow.com/questions/847936/how-can-i-find-the-number-of-arguments-of-a-python-function */
   | EArityTest(expression) => (empty_output, ERaw("arity_test"))
+
   | EVectlength(expression)
   | EArrLen(expression) =>
     let (output, expression) = map_expression(input, expression);
     (output, ECall(EVar(Id.ident("len")), [expression]));
+
   | EStructAccess(left_expression, right_expression)
   | EArrAccess(left_expression, right_expression)
   | EAccess(left_expression, right_expression) =>
@@ -177,9 +197,11 @@ and map_expression = (input, expression): (output, Python.expression) =>
       concat_outputs([output1, output2]),
       EAccess(left_expression, right_expression),
     );
+
   | EDot(expression, id) =>
     let (output, expression) = map_expression(input, expression);
     (output, EDot(expression, Id.ident(id)));
+
   | EArr(arguments) =>
     let (outputs, arguments) =
       split2(
@@ -191,9 +213,11 @@ and map_expression = (input, expression): (output, Python.expression) =>
         ),
       );
     (concat_outputs(outputs), EArr(arguments));
+
   | EStruct(arguments) =>
     let (output, expression) = map_expressions(input, arguments);
     (output, EArr(expression));
+
   | EObj(property_name_and_value_list) =>
     let (outputs, property_name_and_value_list) =
       split2(
@@ -206,6 +230,7 @@ and map_expression = (input, expression): (output, Python.expression) =>
         ),
       );
     (concat_outputs(outputs), EDict(property_name_and_value_list));
+
   | ETag(expression, arguments) =>
     let (output1, expression) = map_expression(input, expression);
     let (output2, expressions) = map_expressions(input, arguments);
@@ -213,6 +238,7 @@ and map_expression = (input, expression): (output, Python.expression) =>
       concat_outputs([output1, output2]),
       EArr([expression, ...expressions]),
     );
+
   | ENew(expression, arguments) =>
     let (output1, expression) = map_expression(input, expression);
     let (output2, arguments) =
@@ -221,11 +247,17 @@ and map_expression = (input, expression): (output, Python.expression) =>
       | Some(arguments) => map_expressions(input, arguments)
       };
     (concat_outputs([output1, output2]), ENew(expression, arguments));
+
   | EStr(s, kind) => (empty_output, EStr(s, kind))
+
   | EBool(b) => (empty_output, EBool(b))
+
   | EFloat(f) => (empty_output, EFloat(f))
+
   | EInt(i) => (empty_output, EInt(i))
+
   | EQuote(s) => (empty_output, EStr(s, `Utf8))
+
   | ERegexp(s, options) => (empty_output, ERegexp(s, options))
   }
 
@@ -310,31 +342,56 @@ let rec map_switch =
       ),
     );
 
-  let statement =
+  let labels = List.filter(label => label != "switch", output.labels);
+  let has_switch_label = List.length(labels) < List.length(output.labels);
+  let has_other_labels = List.length(labels) > 0;
+
+  let stmts = ref([]);
+  let remove_switch =
     switch (input.enclosed_by) {
-    | Not_enclosed => statement
+    | Not_enclosed => false
     | Switch =>
-      Python.Statement_list([
-        set_label_to_null,
-        statement,
-        check_label_for_nonnull,
-      ])
-    | Loop => 
-      Python.Statement_list([
-        set_label_to_null,
-        statement,
-        check_label_for_switch,
-        check_label_for_nonnull,
-      ])
+      if (has_switch_label || has_other_labels) {
+        stmts := [check_label_for_nonnull];
+      };
+      false;
+    | Loop =>
+      if (has_other_labels) {
+        stmts := [check_label_for_nonnull];
+      };
+      if (has_switch_label) {
+        stmts := [check_label_for_switch, ...stmts^];
+        true;
+      } else {
+        false;
+      };
     | LabelledLoop(label) =>
-      Python.Statement_list([
-        set_label_to_null,
-        statement,
-        check_label_for_switch,
-        check_label_for(label),
-        check_label_for_nonnull,
-      ])
+      let enclosed_labels_count =
+        List.length(List.filter(label' => label' == label, labels));
+      let has_enclosed_label = enclosed_labels_count > 0;
+      let only_has_enclosed_label =
+        enclosed_labels_count === List.length(labels);
+
+      if (!only_has_enclosed_label && has_other_labels) {
+        stmts := [check_label_for_nonnull];
+      };
+      if (has_enclosed_label) {
+        stmts := [check_label_for(label), ...stmts^];
+      };
+      if (has_switch_label) {
+        stmts := [check_label_for_switch, ...stmts^];
+        true;
+      } else {
+        false;
+      };
     };
+
+  let statement =
+    List.length(stmts^) > 0
+      ? Python.Statement_list([set_label_to_null, statement, ...stmts^])
+      : statement;
+
+  let output = remove_switch ? {...output, labels} : output;
 
   (output, statement);
 }
@@ -352,32 +409,47 @@ and map_loop = (input, label, statement) => {
       statement,
     );
 
-  let statement = switch (label) {
+  let labels =
+    switch (label) {
+    | None => output.labels
+    | Some(label) => List.filter(label' => label' != label, output.labels)
+    };
+
+  let statement =
+    switch (label) {
     | None => statement
-    | Some(_) => Python.Statement_list([
-      set_label_to_null,
-      statement,
-    ])
-  };
+    | Some(_) => Python.Statement_list([set_label_to_null, statement])
+    };
 
   let statement =
     switch (input.enclosed_by) {
     | Not_enclosed => Python.WhileTrue_statement(statement)
     | Loop
     | Switch =>
-      Python.Statement_list([
-        WhileTrue_statement(statement),
-        check_label_for_nonnull,
-      ])
+      if (List.length(labels) === 0) {
+        Python.WhileTrue_statement(statement);
+      } else {
+        Python.Statement_list([
+          WhileTrue_statement(statement),
+          check_label_for_nonnull,
+        ]);
+      }
     | LabelledLoop(label) =>
-      Python.Statement_list([
-        WhileTrue_statement(statement),
-        check_label_for(label),
-        check_label_for_nonnull,
-      ])
+      if (List.length(List.filter(label' => label' != label, labels)) === 0) {
+        Python.Statement_list([
+          WhileTrue_statement(statement),
+          check_label_for(label),
+        ]);
+      } else {
+        Python.Statement_list([
+          WhileTrue_statement(statement),
+          check_label_for(label),
+          check_label_for_nonnull,
+        ]);
+      }
     };
 
-  (output, statement);
+  ({...output, labels}, statement);
 }
 
 and map_statement_aux = input =>
@@ -479,30 +551,32 @@ and map_statement_aux = input =>
 
   | For_statement(_) => raise(Unsupported_statement)
 
-  /* TODO: become break when labeled, if inside switch use switch label */
   | Continue_statement(None, _) =>
     switch (input.enclosed_by) {
     | Not_enclosed => raise(Unsupported_statement)
     | Switch => (
-        empty_output,
+        {...empty_output, labels: ["switch"]},
         Statement_list([set_label_to_switch, Break_statement]),
       )
-    | _ => (empty_output, Continue_statement)
+    | Loop
+    | LabelledLoop(_) => (empty_output, Continue_statement)
     }
-  | Continue_statement(Some(label), _) =>
-    switch (input.enclosed_by) {
-    | Not_enclosed => raise(Unsupported_statement)
-    | LabelledLoop(label')
-        when
-          Javascript.Label.to_string(label')
-          == Javascript.Label.to_string(label) => (
-        empty_output,
-        Continue_statement,
-      )
-    | _ => (
-        empty_output,
-        Statement_list([set_label_to(label), Break_statement]),
-      )
+
+  | Continue_statement(Some(label), _) => {
+      let label = Javascript.Label.to_string(label);
+      switch (input.enclosed_by) {
+      | Not_enclosed => raise(Unsupported_statement)
+      | LabelledLoop(label') when label' == label => (
+          empty_output,
+          Continue_statement,
+        )
+      | Switch
+      | Loop
+      | LabelledLoop(_) => (
+          {...empty_output, labels: [label]},
+          Statement_list([set_label_to(label), Break_statement]),
+        )
+      };
     }
 
   | Break_statement(None) => (empty_output, Break_statement)
@@ -517,7 +591,7 @@ and map_statement_aux = input =>
   | Labelled_statement(label, (statement, _)) =>
     switch (statement) {
     | For_statement(Left(None), None, None, (statement, _), _) =>
-      map_loop(input, Some(label), statement)
+      map_loop(input, Some(Javascript.Label.to_string(label)), statement)
     | _ => raise(Unsupported_statement)
     }
 
@@ -605,6 +679,9 @@ and map_statements = (input, statements) => {
 and map_function = (input, id, parameter_list, source_element_list) => {
   let (output, elements) =
     map_source_elements({enclosed_by: Not_enclosed}, source_element_list);
+  if (List.length(output.labels) > 0) {
+    raise(Unhandled_labels);
+  };
   (output, Python.Function_declaration(id, parameter_list, elements));
 }
 

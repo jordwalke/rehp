@@ -111,7 +111,7 @@ def f1(g):
 def f2(g):
     i = 2
     while True:
-        set_label_to_null
+        continue_label = None
         j = 4
         while True:
             call1(g, int(i + j))
@@ -122,20 +122,20 @@ def f2(g):
             aK = int(i + 1)
             if 3 is not i:
                 i = aK
-                set_label_to
+                continue_label = "a"
                 break
             return 0
-        check_label_for
-        check_label_for_nonnull
+        if label == "a":
+            continue
 
 
 def f3(g):
     i = 2
     while True:
-        set_label_to_null
+        continue_label = None
         j = 4
         while True:
-            set_label_to_null
+            continue_label = None
             k = 4
             while True:
                 call1(g, int(int(i + j) + k))
@@ -146,7 +146,7 @@ def f3(g):
                 aI = int(j + 1)
                 if 5 is not j:
                     j = aI
-                    set_label_to
+                    continue_label = "b"
                     break
                 l = 6
                 while True:
@@ -158,20 +158,23 @@ def f3(g):
                     aG = int(i + 1)
                     if 3 is not i:
                         i = aG
-                        set_label_to
+                        continue_label = "a"
                         break
                     return 0
-                check_label_for_nonnull
-            check_label_for
-            check_label_for_nonnull
-        check_label_for
-        check_label_for_nonnull
+                if label != None:
+                    break
+            if label == "b":
+                continue
+            if label != None:
+                break
+        if label == "a":
+            continue
 
 
 def f4(g):
     i = 2
     while True:
-        set_label_to_null
+        continue_label = None
         k__3 = 4
         while True:
             call1(g, int(i + k__3))
@@ -181,10 +184,10 @@ def f4(g):
                 continue
             j = 4
             while True:
-                set_label_to_null
+                continue_label = None
                 k__2 = 4
                 while True:
-                    set_label_to_null
+                    continue_label = None
                     l__0 = 4
                     while True:
                         call1(g, int(int(int(i + j) + k__2) + l__0))
@@ -195,7 +198,7 @@ def f4(g):
                         aD = int(k__2 + 1)
                         if 5 is not k__2:
                             k__2 = aD
-                            set_label_to
+                            continue_label = "d"
                             break
                         k__1 = 4
                         while True:
@@ -207,11 +210,11 @@ def f4(g):
                             aB = int(j + 1)
                             if 5 is not j:
                                 j = aB
-                                set_label_to
+                                continue_label = "c"
                                 break
                             l = 6
                             while True:
-                                set_label_to_null
+                                continue_label = None
                                 n__0 = 4
                                 while True:
                                     call1(g, int(int(i + l) + n__0))
@@ -221,7 +224,7 @@ def f4(g):
                                         continue
                                     m = 4
                                     while True:
-                                        set_label_to_null
+                                        continue_label = None
                                         n = 4
                                         while True:
                                             call1(g, int(int(int(i + l) + m) + n))
@@ -232,12 +235,12 @@ def f4(g):
                                             ay = int(m + 1)
                                             if 5 is not m:
                                                 m = ay
-                                                set_label_to
+                                                continue_label = "f"
                                                 break
                                             ax = int(l + 1)
                                             if 7 is not l:
                                                 l = ax
-                                                set_label_to
+                                                continue_label = "e"
                                                 break
                                             k__0 = 4
                                             while True:
@@ -249,7 +252,7 @@ def f4(g):
                                                 av = int(i + 1)
                                                 if 3 is not i:
                                                     i = av
-                                                    set_label_to
+                                                    continue_label = "a"
                                                     break
                                                 k = 4
                                                 while True:
@@ -259,22 +262,34 @@ def f4(g):
                                                         k = au
                                                         continue
                                                     return 0
-                                                check_label_for_nonnull
-                                            check_label_for_nonnull
-                                        check_label_for
-                                        check_label_for_nonnull
-                                    check_label_for_nonnull
-                                check_label_for
-                                check_label_for_nonnull
-                            check_label_for_nonnull
-                        check_label_for_nonnull
-                    check_label_for
-                    check_label_for_nonnull
-                check_label_for
-                check_label_for_nonnull
-            check_label_for_nonnull
-        check_label_for
-        check_label_for_nonnull
+                                            if label != None:
+                                                break
+                                        if label == "f":
+                                            continue
+                                        if label != None:
+                                            break
+                                    if label != None:
+                                        break
+                                if label == "e":
+                                    continue
+                                if label != None:
+                                    break
+                            if label != None:
+                                break
+                        if label != None:
+                            break
+                    if label == "d":
+                        continue
+                    if label != None:
+                        break
+                if label == "c":
+                    continue
+                if label != None:
+                    break
+            if label != None:
+                break
+        if label == "a":
+            continue
 
 
 def f5(g):
@@ -293,7 +308,6 @@ def f5(g):
                 i = ar
                 continue
             return 0
-        check_label_for_nonnull
 
 
 def f6(g):
@@ -326,9 +340,6 @@ def f6(g):
                         i = an
                         continue
                     return 0
-                check_label_for_nonnull
-            check_label_for_nonnull
-        check_label_for_nonnull
 
 
 def f7(g):
@@ -347,7 +358,6 @@ def f7(g):
                 i = al
                 continue
             return 0
-        check_label_for_nonnull
 
 
 def f8(g):
@@ -362,7 +372,7 @@ def f8(g):
         def f(x):
             i = 2
             while True:
-                set_label_to_null
+                continue_label = None
                 j = 4
                 while True:
                     call1(g, int(int(x + i) + j))
@@ -373,11 +383,11 @@ def f8(g):
                     aj = int(i + 1)
                     if 3 is not i:
                         i = aj
-                        set_label_to
+                        continue_label = "a"
                         break
                     return 0
-                check_label_for
-                check_label_for_nonnull
+                if label == "a":
+                    continue
 
         i = 2
         while True:
@@ -387,13 +397,12 @@ def f8(g):
                 i = ah
                 continue
             return f
-        check_label_for_nonnull
 
 
 def f9(g):
     i1 = 2
     while True:
-        set_label_to_null
+        continue_label = None
         i2 = 2
         while True:
 
@@ -401,7 +410,7 @@ def f9(g):
                 def f(x):
                     i3 = 2
                     while True:
-                        set_label_to_null
+                        continue_label = None
                         i4 = 2
                         while True:
                             call1(g, int(int(int(int(x + i1) + i2) + i3) + i4))
@@ -412,11 +421,11 @@ def f9(g):
                             af = int(i3 + 1)
                             if 3 is not i3:
                                 i3 = af
-                                set_label_to
+                                continue_label = "a"
                                 break
                             return 0
-                        check_label_for
-                        check_label_for_nonnull
+                        if label == "a":
+                            continue
 
                 return f
 
@@ -429,23 +438,23 @@ def f9(g):
             ad = int(i1 + 1)
             if 3 is not i1:
                 i1 = ad
-                set_label_to
+                continue_label = "a"
                 break
             return 0
-        check_label_for
-        check_label_for_nonnull
+        if label == "a":
+            continue
 
 
 def f10(g):
     i1 = 2
     while True:
-        set_label_to_null
+        continue_label = None
         i2 = 2
         while True:
             try:
                 i3 = 2
                 while True:
-                    set_label_to_null
+                    continue_label = None
                     i4 = 2
                     while True:
                         call1(g, int(int(int(i1 + i2) + i3) + i4))
@@ -458,13 +467,12 @@ def f10(g):
                         aa = int(i3 + 1)
                         if 3 is not i3:
                             i3 = aa
-                            set_label_to
+                            continue_label = "c"
                             break
                         break
-                    check_label_for
-                    check_label_for_nonnull
+                    if label == "c":
+                        continue
                     break
-                check_label_for_nonnull
             except:
                 ac = caml_wrap_exception(ac)
                 if ac is not Not_found:
@@ -476,11 +484,11 @@ def f10(g):
             Y = int(i1 + 1)
             if 3 is not i1:
                 i1 = Y
-                set_label_to
+                continue_label = "a"
                 break
             return 0
-        check_label_for
-        check_label_for_nonnull
+        if label == "a":
+            continue
 
 
 def fx(prefix, x):
@@ -560,7 +568,6 @@ f10(function_expression_9)
 def h1(g, t):
     i = 2
     while True:
-        set_label_to_null
         while True:
             if t is 0:
                 call1(g, 0)
@@ -575,13 +582,10 @@ def h1(g, t):
                             k = N
                             continue
                         break
-                    check_label_for_nonnull
                     break
                 else:
                     call1(g, 1)
             break
-        check_label_for_switch
-        check_label_for_nonnull
         M = int(i + 1)
         if 3 is not i:
             i = M
@@ -592,10 +596,9 @@ def h1(g, t):
 def h2(g, t):
     i = 2
     while True:
-        set_label_to_null
+        continue_label = None
         j = 2
         while True:
-            set_label_to_null
             while True:
                 if t is 0:
                     call1(g, 0)
@@ -610,13 +613,10 @@ def h2(g, t):
                                 k = L
                                 continue
                             break
-                        check_label_for_nonnull
                         break
                     else:
                         call1(g, 1)
                 break
-            check_label_for_switch
-            check_label_for_nonnull
             K = int(j + 1)
             if 3 is not j:
                 j = K
@@ -624,17 +624,16 @@ def h2(g, t):
             J = int(i + 1)
             if 3 is not i:
                 i = J
-                set_label_to
+                continue_label = "a"
                 break
             return 0
-        check_label_for
-        check_label_for_nonnull
+        if label == "a":
+            continue
 
 
 def h3(g, t):
     i = 4
     while True:
-        set_label_to_null
         while True:
             if t is 0:
                 call1(g, 0)
@@ -643,7 +642,7 @@ def h3(g, t):
                 if t is 1:
                     j = 4
                     while True:
-                        set_label_to_null
+                        continue_label = None
                         k = 2
                         while True:
                             call1(g, int(int(i + j) + k))
@@ -654,19 +653,16 @@ def h3(g, t):
                             H = int(j + 1)
                             if 5 is not j:
                                 j = H
-                                set_label_to
+                                continue_label = "b"
                                 break
                             break
-                        check_label_for
-                        check_label_for_nonnull
+                        if label == "b":
+                            continue
                         break
-                    check_label_for_nonnull
                     break
                 else:
                     call1(g, 1)
             break
-        check_label_for_switch
-        check_label_for_nonnull
         G = int(i + 1)
         if 5 is not i:
             i = G
@@ -682,7 +678,7 @@ def h4(g, t):
             if t is 1:
                 j = 4
                 while True:
-                    set_label_to_null
+                    continue_label = None
                     k = 2
                     while True:
                         call1(g, int(j + k))
@@ -693,12 +689,11 @@ def h4(g, t):
                         E = int(j + 1)
                         if 5 is not j:
                             j = E
-                            set_label_to
+                            continue_label = "a"
                             break
                         return 0
-                    check_label_for
-                    check_label_for_nonnull
-                check_label_for_nonnull
+                    if label == "a":
+                        continue
             else:
                 return call1(g, 1)
         break
@@ -707,10 +702,9 @@ def h4(g, t):
 def h5(g, t):
     i = 2
     while True:
-        set_label_to_null
+        continue_label = None
         j = 2
         while True:
-            set_label_to_null
             while True:
                 if t is 0:
                     call1(g, 0)
@@ -719,7 +713,7 @@ def h5(g, t):
                     if t is 1:
                         k = 4
                         while True:
-                            set_label_to_null
+                            continue_label = None
                             l = 2
                             while True:
                                 call1(g, int(int(int(i + j) + k) + l))
@@ -730,19 +724,16 @@ def h5(g, t):
                                 C = int(k + 1)
                                 if 5 is not k:
                                     k = C
-                                    set_label_to
+                                    continue_label = "c"
                                     break
                                 break
-                            check_label_for
-                            check_label_for_nonnull
+                            if label == "c":
+                                continue
                             break
-                        check_label_for_nonnull
                         break
                     else:
                         call1(g, 1)
                 break
-            check_label_for_switch
-            check_label_for_nonnull
             B = int(j + 1)
             if 3 is not j:
                 j = B
@@ -750,11 +741,11 @@ def h5(g, t):
             A = int(i + 1)
             if 3 is not i:
                 i = A
-                set_label_to
+                continue_label = "a"
                 break
             return 0
-        check_label_for
-        check_label_for_nonnull
+        if label == "a":
+            continue
 
 
 l = 0
