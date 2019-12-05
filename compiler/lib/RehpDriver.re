@@ -535,6 +535,26 @@ let coloring_js = (languageProvided, (rehp, linkinfos)) => {
   (rehp, linkinfos);
 };
 
+let coloring_pp_rehp = (languageProvided, (rehp, linkinfos)) => {
+  let t = Timer.make();
+  if (times()) {
+    Format.eprintf("Start Coloring...@.");
+  };
+  let traverse = new Rehp_traverse.free;
+  let rehp = traverse#program(rehp);
+  let free = traverse#get_free_name;
+  /*
+   * TODO: Add the identifiers from the linker/runtime.
+   */
+  VarPrinter.add_reserved(StringSet.elements(free));
+  VarPrinter.add_reserved(StringSet.elements(languageProvided));
+  let rehp = Js_assign.program(rehp);
+  if (times()) {
+    Format.eprintf("  coloring: %a@.", Timer.print, t);
+  };
+  (rehp, linkinfos);
+};
+
 let coloring_php = (languageProvided, (rehp, linkinfos)) => {
   let t = Timer.make();
   if (times()) {
@@ -579,6 +599,39 @@ let output_js =
     ~custom_header,
     ~source_map?,
     jsWithRuntime,
+  );
+  if (times()) {
+    Format.eprintf("  write: %a@.", Timer.print, t);
+  };
+};
+
+let output_pp_rehp =
+    (formatter, ~custom_header, ~source_map=?, (), (rehp, linkinfos)) => {
+  let ppRehp = rehp; /* Pp_rehp_from_rehp.from_rehp(rehp); */
+  let ppRehpWithRuntime = ppRehp;
+  /* switch (linkinfos) { */
+  /* | None => ppRehp */
+  /* | Some(linkinfos) => */
+  /*   let {Linker.runtime_code, always_required_codes} = */
+  /*     Linker.link(linkinfos); */
+  /*   List.flatten( */
+  /*     List.rev([ */
+  /*       ppRehp, */
+  /*       runtime_code, */
+  /*       ...List.map(~f=ar => ar.Linker.program, always_required_codes), */
+  /*     ]), */
+  /*   ); */
+  /* }; */
+  let t = Timer.make();
+  if (times()) {
+    Format.eprintf("Start Writing file...@.");
+  };
+  header(~custom_header, formatter);
+  Pp_rehp_output_impl.program(
+    formatter,
+    ~custom_header,
+    ~source_map?,
+    ppRehpWithRuntime,
   );
   if (times()) {
     Format.eprintf("  write: %a@.", Timer.print, t);
@@ -725,6 +778,20 @@ let pack_js = rehp => {
   rehp;
 };
 
+let pack_pp_rehp = rehp => {
+  let t = Timer.make();
+  if (times()) {
+    Format.eprintf("Start Optimizing rehp...@.");
+  };
+  let rehp = pack(rehp);
+
+  let rehp = post_pack_optimizations(rehp);
+  if (times()) {
+    Format.eprintf("  optimizing: %a@.", Timer.print, t);
+  };
+  rehp;
+};
+
 let pack_php = rehp => {
   let t = Timer.make();
   if (times()) {
@@ -787,6 +854,13 @@ let f =
         check(Reserved.provided_js),
         output_js,
       )
+    | Pp_rehp => (
+        (x => x),
+        pack_pp_rehp,
+        coloring_pp_rehp(Reserved.provided_pp_rehp),
+        check(Reserved.provided_pp_rehp),
+        output_pp_rehp,
+      )
     };
 
   let augmentWithLinkInfo =
@@ -826,4 +900,9 @@ let profile = i =>
   | Not_found => None
   };
 
-let backends = Backend.[(to_string(Js), Js), (to_string(Php), Php)];
+let backends =
+  Backend.[
+    (to_string(Pp_rehp), Pp_rehp),
+    (to_string(Js), Js),
+    (to_string(Php), Php),
+  ];
