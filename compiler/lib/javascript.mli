@@ -51,7 +51,7 @@ type ident = Id.t =
   | S of ident_string
   | V of Code.Var.t
 
-and array_litteral = element_list
+and array_literal = element_list
 
 and element_list = expression option list
 
@@ -130,7 +130,7 @@ and expression =
   (* A string can either be composed of a sequence of bytes, or be
          UTF-8 encoded. In the second case, the string may contain
          escape sequences. *)
-  | EArr of array_litteral
+  | EArr of array_literal
   | EBool of bool
   | ENum of float
   | EObj of property_name_and_value_list

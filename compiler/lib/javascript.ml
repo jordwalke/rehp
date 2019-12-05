@@ -59,7 +59,7 @@ type ident = Id.t =
   | V of Code.Var.t
 
 (* A.3 Expressions *)
-and array_litteral = element_list
+and array_literal = element_list
 
 and element_list = expression option list
 
@@ -135,7 +135,7 @@ and expression =
   | EVar of ident
   | EFun of function_expression
   | EStr of string * [`Bytes | `Utf8]
-  | EArr of array_litteral
+  | EArr of array_literal
   | EBool of bool
   | ENum of float
   | EObj of property_name_and_value_list

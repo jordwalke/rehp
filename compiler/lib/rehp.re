@@ -47,7 +47,7 @@
 
 open Stdlib;
 
-type array_litteral = element_list
+type array_literal = element_list
 and element_list = list(option(expression))
 /*
  * Many of these still need to be split up into their stubs forms and their
@@ -136,7 +136,7 @@ and expression =
   /* Instructions for accessing standard library arrays.  */
   | EArrAccess(expression, expression)
   | EArrLen(expression)
-  | EArr(array_litteral)
+  | EArr(array_literal)
   /* An ML fixed-size struct (record/variant) - when the compiler knows the
      layout of memory. */
   | EStructAccess(expression, expression)

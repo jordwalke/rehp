@@ -23,7 +23,7 @@
 open Stdlib;
 
 type var_info = (StringMap.t(int), Code.Var.Map.t(int));
-type array_litteral = element_list
+type array_literal = element_list
 and element_list = list(option(expression))
 and binop =
   | Eq
@@ -97,7 +97,7 @@ and expression =
   /* A string can either be composed of a sequence of bytes, or be
      UTF-8 encoded. In the second case, the string may contain
      escape sequences. */
-  | EArr(array_litteral)
+  | EArr(array_literal)
   | EBool(bool)
   | ENum(float)
   | EInt(int)
