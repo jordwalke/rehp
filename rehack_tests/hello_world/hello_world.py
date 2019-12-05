@@ -38,7 +38,7 @@ def flush_all(param):
                 a = param__0[1]
                 try:
                     caml_ml_flush(a)
-                except:
+                except Exception as b:
                     b = caml_wrap_exception(b)
                     if b[1] is not Sys_error:
                         raise (caml_wrap_thrown_exception_reraise(b))

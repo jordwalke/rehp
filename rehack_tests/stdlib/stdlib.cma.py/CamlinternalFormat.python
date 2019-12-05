@@ -7675,7 +7675,7 @@ def open_box_of_string(str):
                 call3(String[4], str, nstart, int(nend - nstart))
             )
             indent = bs
-        except:
+        except Exception as bt:
             bt = caml_wrap_exception(bt)
             if bt[1] is not Failure:
                 raise (empty["caml_wrap_thrown_exception_reraise"](bt))
@@ -9071,7 +9071,7 @@ def fmt_ebb_of_string(legacy_behavior, str):
             else:
                 aD = 0
             aC = aD
-        except:
+        except Exception as aE:
             aE = caml_wrap_exception(aE)
             if aE is not Not_found:
                 if aE[1] is not Failure:
@@ -9149,7 +9149,7 @@ def fmt_ebb_of_string(legacy_behavior, str):
                     switch__1 = 0
             if not (switch__1):
                 raise (empty["caml_wrap_thrown_exception"](Not_found))
-        except:
+        except Exception as aA:
             aA = caml_wrap_exception(aA)
             if aA is not Not_found:
                 if aA[1] is not Failure:
@@ -9187,7 +9187,7 @@ def fmt_ebb_of_string(legacy_behavior, str):
                 ar = [0, [18, formatting__0, fmt_rest__0]]
                 return ar
             raise (empty["caml_wrap_thrown_exception"](Not_found))
-        except:
+        except Exception as at:
             at = caml_wrap_exception(at)
             if at is Not_found:
                 match = parse(str_ind, end_ind)
@@ -9298,7 +9298,7 @@ def fmt_ebb_of_string(legacy_behavior, str):
                     open_box_of_string(str)
                     ap = 0
                     return ap
-                except:
+                except Exception as aq:
                     aq = caml_wrap_exception(aq)
                     if aq[1] is Failure:
                         return 0
@@ -9861,7 +9861,7 @@ def format_of_string_fmtty(str, fmtty):
     try:
         ad = [0, type_format(fmt, fmtty), str]
         return ad
-    except:
+    except Exception as ae:
         ae = caml_wrap_exception(ae)
         if ae is Type_mismatch:
             ac = string_of_fmtty(fmtty)
@@ -9877,7 +9877,7 @@ def format_of_string_format(str, param):
     try:
         aa = [0, type_format(fmt__0, fmtty_of_fmt(fmt)), str]
         return aa
-    except:
+    except Exception as ab:
         ab = caml_wrap_exception(ab)
         if ab is Type_mismatch:
             return call2(failwith_message(Z), str, str__0)

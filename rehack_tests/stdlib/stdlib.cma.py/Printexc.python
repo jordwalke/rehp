@@ -209,7 +209,7 @@ def to_string(x):
                 try:
                     Y = call1(hd, x)
                     X = Y
-                except:
+                except Exception as aa:
                     X = 0
                 if X:
                     s = X[1]
@@ -275,7 +275,7 @@ def print(fct, arg):
     try:
         W = call1(fct, arg)
         return W
-    except:
+    except Exception as x:
         x = caml_wrap_exception(x)
         V = to_string(x)
         call2(Printf[3], g, V)
@@ -287,7 +287,7 @@ def catch__0(fct, arg):
     try:
         U = call1(fct, arg)
         return U
-    except:
+    except Exception as x:
         x = caml_wrap_exception(x)
         call1(Pervasives[51], Pervasives[27])
         T = to_string(x)

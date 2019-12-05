@@ -25,7 +25,7 @@ def force_lazy_block(blk):
         blk[1] = result
         caml_obj_set_tag(blk, Obj[10])
         return result
-    except:
+    except Exception as e:
         e = caml_wrap_exception(e)
 
         def function_expression_23(param):

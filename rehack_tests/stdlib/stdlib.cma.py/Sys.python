@@ -24,7 +24,7 @@ def getenv_opt(s):
     try:
         e = [0, empty["caml_sys_getenv"](s)]
         return e
-    except:
+    except Exception as f:
         f = caml_wrap_exception(f)
         if f is Not_found:
             return 0

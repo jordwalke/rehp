@@ -373,7 +373,7 @@ def MakeSeeded(H):
         try:
             aa = replace_bucket(l)
             return aa
-        except:
+        except Exception as ab:
             ab = caml_wrap_exception(ab)
             if ab is Not_found:
                 container = call2(H[1], key, info)

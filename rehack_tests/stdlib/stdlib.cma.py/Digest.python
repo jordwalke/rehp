@@ -53,7 +53,7 @@ def file(filename):
     ic = call1(Pervasives[68], filename)
     try:
         d = empty["caml_md5_chan"](ic, -1)
-    except:
+    except Exception as e:
         e = caml_wrap_exception(e)
         call1(Pervasives[81], ic)
         raise (empty["caml_wrap_thrown_exception_reraise"](e))

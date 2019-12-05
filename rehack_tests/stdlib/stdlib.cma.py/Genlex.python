@@ -81,7 +81,7 @@ def make_lexer(keywords):
         try:
             D = call2(Hashtbl[6], kwd_table, id)
             return D
-        except:
+        except Exception as E:
             E = caml_wrap_exception(E)
             if E is Not_found:
                 return [1, id]
@@ -92,7 +92,7 @@ def make_lexer(keywords):
         try:
             B = call2(Hashtbl[6], kwd_table, s)
             return B
-        except:
+        except Exception as C:
             C = caml_wrap_exception(C)
             if C is Not_found:
                 A = call2(Pervasives[16], cst_Illegal_character, s)
@@ -326,7 +326,7 @@ def make_lexer(keywords):
                                         call1(Stream[12], strm)
                                         try:
                                             c = char__0(strm)
-                                        except:
+                                        except Exception as p:
                                             p = caml_wrap_exception(p)
                                             if p is Stream[1]:
                                                 raise (
@@ -615,7 +615,7 @@ def make_lexer(keywords):
                     call1(Stream[12], strm)
                     try:
                         c = escape(strm)
-                    except:
+                    except Exception as l:
                         l = caml_wrap_exception(l)
                         if l is Stream[1]:
                             raise (
@@ -640,7 +640,7 @@ def make_lexer(keywords):
                 try:
                     i = escape(strm)
                     return i
-                except:
+                except Exception as j:
                     j = caml_wrap_exception(j)
                     if j is Stream[1]:
                         raise (

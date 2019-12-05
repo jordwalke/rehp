@@ -130,7 +130,7 @@ def yyparse(tables, start, lexer, lexbuf):
                                         p = 4
                                         cmd__1 = p
                                         arg__2 = o
-                                    except:
+                                    except Exception as q:
                                         q = caml_wrap_exception(q)
                                         if q is not Parse_error:
                                             raise (
@@ -169,7 +169,7 @@ def yyparse(tables, start, lexer, lexbuf):
     try:
         j = loop(0, 0)
         return j
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         curr_char = env[7]
         env[11] = init_asp

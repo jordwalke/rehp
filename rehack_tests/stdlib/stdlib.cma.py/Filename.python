@@ -214,7 +214,7 @@ def check_suffix(name, suff):
 try:
     o = caml_sys_getenv(cst_TMPDIR)
     temp_dir_name = o
-except:
+except Exception as ag:
     ag = caml_wrap_exception(ag)
     if ag is not Not_found:
         raise (empty["caml_wrap_thrown_exception_reraise"](ag))
@@ -308,7 +308,7 @@ def check_suffix__0(name, suff):
 try:
     n = caml_sys_getenv(cst_TEMP)
     temp_dir_name__0 = n
-except:
+except Exception as H:
     H = caml_wrap_exception(H)
     if H is not Not_found:
         raise (empty["caml_wrap_thrown_exception_reraise"](H))
@@ -623,7 +623,7 @@ def temp_file(opt, prefix, suffix):
             try:
                 empty["caml_sys_close"](empty["caml_sys_open"](name, d, 384))
                 return name
-            except:
+            except Exception as e:
                 e = caml_wrap_exception(e)
                 if e[1] is Sys_error:
                     if 1000 <= counter__0:
@@ -664,7 +664,7 @@ def open_temp_file(opt, q, p, prefix, suffix):
                     call3(Pervasives[50], [0, 1, [0, 3, [0, 5, mode]]], perms, name),
                 ]
                 return r
-            except:
+            except Exception as e:
                 e = caml_wrap_exception(e)
                 if e[1] is Sys_error:
                     if 1000 <= counter__0:

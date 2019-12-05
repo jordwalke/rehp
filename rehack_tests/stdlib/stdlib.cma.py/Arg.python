@@ -206,7 +206,7 @@ def add_help(speclist):
         assoc3(cst_help__2, speclist)
         az = 0
         av = az
-    except:
+    except Exception as aB:
         aB = caml_wrap_exception(aB)
         if aB is not Not_found:
             raise (empty["caml_wrap_thrown_exception_reraise"](aB))
@@ -216,7 +216,7 @@ def add_help(speclist):
         assoc3(cst_help__1, speclist)
         ay = 0
         add2 = ay
-    except:
+    except Exception as aA:
         aA = caml_wrap_exception(aA)
         if aA is not Not_found:
             raise (empty["caml_wrap_thrown_exception_reraise"](aA))
@@ -258,7 +258,7 @@ def bool_of_string_opt(x):
     try:
         an = [0, call1(Pervasives[19], x)]
         return an
-    except:
+    except Exception as ao:
         ao = caml_wrap_exception(ao)
         if ao[1] is Invalid_argument:
             return 0
@@ -269,7 +269,7 @@ def int_of_string_opt(x):
     try:
         al = [0, empty["caml_int_of_string"](x)]
         return al
-    except:
+    except Exception as am:
         am = caml_wrap_exception(am)
         if am[1] is Failure:
             return 0
@@ -280,7 +280,7 @@ def float_of_string_opt(x):
     try:
         aj = [0, empty["caml_float_of_string"](x)]
         return aj
-    except:
+    except Exception as ak:
         ak = caml_wrap_exception(ak)
         if ak[1] is Failure:
             return 0
@@ -342,7 +342,7 @@ def parse_and_expand_argv_dynamic_aux(
                             ac = assoc3(s, speclist[1])
                             action = ac
                             follow__0 = follow__1
-                        except:
+                        except Exception as ag:
                             ag = caml_wrap_exception(ag)
                             if ag is not Not_found:
                                 raise (empty["caml_wrap_thrown_exception_reraise"](ag))
@@ -352,7 +352,7 @@ def parse_and_expand_argv_dynamic_aux(
                                 keyword = match[1]
                                 follow = [0, arg]
                                 ab = assoc3(keyword, speclist[1])
-                            except:
+                            except Exception as ah:
                                 ah = caml_wrap_exception(ah)
                                 if ah is Not_found:
                                     raise (
@@ -814,7 +814,7 @@ def parse_and_expand_argv_dynamic_aux(
                     switch__0 = 0
                 if not (switch__0):
                     call1(anonfun, s)
-            except:
+            except Exception as exn:
                 exn = caml_wrap_exception(exn)
                 if exn[1] is Bad:
                     m = exn[2]
@@ -858,7 +858,7 @@ def parse(l, f, msg):
     try:
         Z = parse_argv(0, Sys[1], l, f, msg)
         return Z
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         if exn[1] is Bad:
             msg__0 = exn[2]
@@ -875,7 +875,7 @@ def parse_dynamic(l, f, msg):
     try:
         Y = parse_argv_dynamic(0, Sys[1], l, f, msg)
         return Y
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         if exn[1] is Bad:
             msg__0 = exn[2]
@@ -895,7 +895,7 @@ def parse_expand(l, f, msg):
         current__0 = [0, current[1]]
         X = parse_and_expand_argv_dynamic(current__0, argv, spec, f, msg)
         return X
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         if exn[1] is Bad:
             msg__0 = exn[2]
@@ -924,12 +924,12 @@ def second_word(s):
 
     try:
         n__0 = call2(String[14], s, 9)
-    except:
+    except Exception as V:
         V = caml_wrap_exception(V)
         if V is Not_found:
             try:
                 n = call2(String[14], s, 32)
-            except:
+            except Exception as W:
                 W = caml_wrap_exception(W)
                 if W is Not_found:
                     return len
@@ -1035,7 +1035,7 @@ def read_aux(trim, sep, file):
                 else (read(0) if call2(Buffer[10], buf, c) or true else read(0))
             )
             return I
-        except:
+        except Exception as J:
             J = caml_wrap_exception(J)
             if J is End_of_file:
                 H = 1 if 0 < call1(Buffer[7], buf) else 0

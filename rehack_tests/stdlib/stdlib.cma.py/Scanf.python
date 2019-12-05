@@ -186,7 +186,7 @@ def next_char(ib):
         if 10 is c:
             ib[5] = int(ib[5] + 1)
         return c
-    except:
+    except Exception as bJ:
         bJ = caml_wrap_exception(bJ)
         if bJ is End_of_file:
             ib[2] = null_char
@@ -411,7 +411,7 @@ def memo_from_ic(scan_close_ic, ic):
     try:
         by = call2(List[40], ic, memo[1])
         return by
-    except:
+    except Exception as bz:
         bz = caml_wrap_exception(bz)
         if bz is Not_found:
             ib = from_ic(scan_close_ic, [0, ic], ic)
@@ -2491,7 +2491,7 @@ def make_scanf(ib, fmt, readers):
                                                                                 fmtty,
                                                                             )
                                                                             fmt__5 = R
-                                                                        except:
+                                                                        except Exception as exn:
                                                                             exn = caml_wrap_exception(
                                                                                 exn
                                                                             )
@@ -2600,7 +2600,7 @@ def make_scanf(ib, fmt, readers):
                                                                                     Y
                                                                                 )
                                                                                 fmt__6 = fmt__10
-                                                                            except:
+                                                                            except Exception as exn:
                                                                                 exn = caml_wrap_exception(
                                                                                     exn
                                                                                 )
@@ -3020,7 +3020,7 @@ def kscanf(ib, ef, param):
         try:
             K = [0, make_scanf(ib, fmt, readers)]
             E = K
-        except:
+        except Exception as exc:
             exc = caml_wrap_exception(exc)
             if exc[1] is Scan_failure:
                 switch__0 = 0
@@ -3075,7 +3075,7 @@ def bscanf_format(ib, format, f):
     try:
         C = call2(CamlinternalFormat[15], str, format)
         fmt = C
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         if exn[1] is not Failure:
             raise (empty["caml_wrap_thrown_exception_reraise"](exn))

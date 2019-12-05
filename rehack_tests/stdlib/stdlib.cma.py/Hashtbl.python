@@ -61,14 +61,14 @@ def flip_ongoing_traversal(h):
 try:
     f = caml_sys_getenv(cst_OCAMLRUNPARAM)
     params = f
-except:
+except Exception as aq:
     aq = caml_wrap_exception(aq)
     if aq is not Not_found:
         raise (empty["caml_wrap_thrown_exception_reraise"](aq))
     try:
         e = caml_sys_getenv(cst_CAMLRUNPARAM)
         b = e
-    except:
+    except Exception as ar:
         ar = caml_wrap_exception(ar)
         if ar is not Not_found:
             raise (empty["caml_wrap_thrown_exception_reraise"](ar))
@@ -478,7 +478,7 @@ def iter(f, h):
         M = 1 - old_trav
         N = flip_ongoing_traversal(h) if M else M
         return N
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         if old_trav:
             raise (empty["caml_wrap_thrown_exception_reraise"](exn))
@@ -534,7 +534,7 @@ def filter_map_inplace(f, h):
                 break
         I = 0
         return I
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         if old_trav:
             raise (empty["caml_wrap_thrown_exception_reraise"](exn))
@@ -579,7 +579,7 @@ def fold(f, h, init):
             flip_ongoing_traversal(h)
         D = accu[1]
         return D
-    except:
+    except Exception as exn:
         exn = caml_wrap_exception(exn)
         if old_trav:
             raise (empty["caml_wrap_thrown_exception_reraise"](exn))

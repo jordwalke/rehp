@@ -37,7 +37,7 @@ def of_string_opt(s):
     try:
         f = [0, empty["caml_int64_of_string"](s)]
         return f
-    except:
+    except Exception as g:
         g = caml_wrap_exception(g)
         if g[1] is Failure:
             return 0

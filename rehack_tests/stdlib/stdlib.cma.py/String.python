@@ -319,7 +319,7 @@ def contains_from(s, i, c):
                 index_rec(s, l, i, c)
                 r = 1
                 return r
-            except:
+            except Exception as s:
                 s = caml_wrap_exception(s)
                 if s is Not_found:
                     return 0
@@ -338,7 +338,7 @@ def rcontains_from(s, i, c):
                 rindex_rec(s, i, c)
                 p = 1
                 return p
-            except:
+            except Exception as q:
                 q = caml_wrap_exception(q)
                 if q is Not_found:
                     return 0

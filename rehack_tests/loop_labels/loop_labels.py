@@ -72,7 +72,7 @@ def flush_all(param):
                 a = param__0[1]
                 try:
                     caml_ml_flush(a)
-                except:
+                except Exception as aN:
                     aN = caml_wrap_exception(aN)
                     if aN[1] is not Sys_error:
                         raise (caml_wrap_thrown_exception_reraise(aN))
@@ -473,7 +473,7 @@ def f10(g):
                     if label == "c":
                         continue
                     break
-            except:
+            except Exception as ac:
                 ac = caml_wrap_exception(ac)
                 if ac is not Not_found:
                     raise (caml_wrap_thrown_exception_reraise(ac))

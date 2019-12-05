@@ -327,7 +327,7 @@ def format_pp_token(state, size, param):
                                 try:
                                     cs = find(insertion_point, tabs__0[1])
                                     x__0 = cs
-                                except:
+                                except Exception as ct:
                                     ct = caml_wrap_exception(ct)
                                     if ct is not Not_found:
                                         raise (
@@ -395,7 +395,7 @@ def advance_left(state):
     try:
         ce = advance_loop(state)
         return ce
-    except:
+    except Exception as cf:
         cf = caml_wrap_exception(cf)
         if cf is Empty_queue:
             return 0

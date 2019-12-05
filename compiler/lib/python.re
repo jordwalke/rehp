@@ -30,6 +30,7 @@ type assign_op =
   | BandEq
   | BxorEq
   | BorEq;
+
 type bin_op =
   | Or
   | And
@@ -49,13 +50,15 @@ type bin_op =
   | Minus
   | Mul
   | Div
-  | Mod
-and un_op =
+  | Mod;
+
+type un_op =
   | Not
   | Neg
   | Pl
-  | Bnot
-and expression =
+  | Bnot;
+
+type expression =
   | ERaw(string)
   /* e2 if e1 else e3 */
   | ECond(expression, expression, expression)
@@ -74,6 +77,7 @@ and expression =
   | EDict(property_name_and_value_list)
   | ERegexp(string, option(string))
   | ENone
+
 and statement =
   | Raw_statement(string)
   | Empty_statement
@@ -83,8 +87,6 @@ and statement =
   | Expression_statement(expression)
   | If_statement(expression, statement, option(statement))
   | WhileTrue_statement(statement)
-  /* for (i = 0; i < 10; i += 2) -> for i in range(0, 10, 2): */
-  | For_statement(Id.t, int, int, int, statement)
   | Continue_statement
   | Break_statement
   | Return_statement(option(expression))
@@ -94,8 +96,13 @@ and statement =
       option((Id.t, statement_list)),
       option(statement_list),
     )
+
 and element_list = list(expression)
+
 and property_name_and_value_list = list((Id.property_name, expression))
+
 and parameter_list = list(Id.t)
+
 and statement_list = list(statement)
+
 and program = statement_list;

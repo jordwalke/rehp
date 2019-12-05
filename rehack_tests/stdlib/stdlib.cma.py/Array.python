@@ -429,7 +429,7 @@ def sort(cmp, a):
         try:
             w = trickledown(l, i, e)
             return w
-        except:
+        except Exception as exn:
             exn = caml_wrap_exception(exn)
             if exn[1] is Bottom:
                 i__0 = exn[2]
@@ -450,7 +450,7 @@ def sort(cmp, a):
         try:
             u = bubbledown(l, i)
             return u
-        except:
+        except Exception as exn:
             exn = caml_wrap_exception(exn)
             if exn[1] is Bottom:
                 i__0 = exn[2]

@@ -153,7 +153,7 @@ def int_of_string_opt(s):
     try:
         aA = [0, caml_int_of_string(s)]
         return aA
-    except:
+    except Exception as aB:
         aB = caml_wrap_exception(aB)
         if aB[1] is Failure:
             return 0
@@ -189,7 +189,7 @@ def float_of_string_opt(s):
     try:
         ay = [0, caml_float_of_string(s)]
         return ay
-    except:
+    except Exception as az:
         az = caml_wrap_exception(az)
         if az[1] is Failure:
             return 0
@@ -232,7 +232,7 @@ def flush_all(param):
                 a = param__0[1]
                 try:
                     caml_ml_flush(a)
-                except:
+                except Exception as ax:
                     ax = caml_wrap_exception(ax)
                     if ax[1] is not Sys_error:
                         raise (empty["caml_wrap_thrown_exception_reraise"](ax))
@@ -279,12 +279,12 @@ def close_out(oc):
 def close_out_noerr(oc):
     try:
         caml_ml_flush(oc)
-    except:
+    except Exception as aw:
         pass
     try:
         au = caml_ml_close_channel(oc)
         return au
-    except:
+    except Exception as av:
         return 0
 
 
@@ -390,7 +390,7 @@ def close_in_noerr(ic):
     try:
         ar = caml_ml_close_channel(ic)
         return ar
-    except:
+    except Exception as at:
         return 0
 
 

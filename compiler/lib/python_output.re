@@ -2,8 +2,6 @@ open Python;
 
 exception InvalidTabbing;
 
-let print_string = (_s: string) => ();
-
 module Make =
        (
          Config: {
@@ -351,14 +349,23 @@ module Make =
 
       newline();
       print_tab();
-      print_string("except:");
-
-      let tc = newline_tab();
       switch (except) {
-      | None => print_string("pass")
-      | Some((id, except)) => print_statement_list(except)
+      | None =>
+        print_string("except:");
+
+        let tc = newline_tab();
+        print_string("pass");
+        untab(tc);
+
+      | Some((id, except)) =>
+        print_string("except Exception as ");
+        print_id(id);
+        print_string(":");
+
+        let tc = newline_tab();
+        print_statement_list(except);
+        untab(tc);
       };
-      untab(tc);
 
       switch (finally) {
       | None => ()
