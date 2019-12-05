@@ -23,7 +23,7 @@
 open Stdlib;
 
 type var_info = (StringMap.t(int), Code.Var.Map.t(int));
-type array_litteral = element_list
+type array_literal = element_list
 and element_list = list(option(expression))
 and binop =
   | Eq
@@ -98,7 +98,7 @@ and expression =
   | ELam(function_expression)
   | EFun(function_expression)
   | EStr(string, [ | `Bytes | `Utf8])
-  | EArr(array_litteral)
+  | EArr(array_literal)
   | EBool(bool)
   | ENum(float)
   | EInt(int)

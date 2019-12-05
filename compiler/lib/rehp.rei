@@ -19,7 +19,7 @@
  */
 
 
-type array_litteral = element_list
+type array_literal = element_list
 and element_list = list(option(expression))
 and binop =
   | Eq
@@ -91,7 +91,7 @@ and expression =
      escape sequences. */
   | EArrAccess(expression, expression)
   | EArrLen(expression)
-  | EArr(array_litteral)
+  | EArr(array_literal)
   | EStructAccess(expression, expression)
   | EStruct(arguments)
   | ETag(expression, arguments)
