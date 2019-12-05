@@ -1,0 +1,283 @@
+caml_check_bound = empty["caml_check_bound"]
+caml_fresh_oo_id = empty["caml_fresh_oo_id"]
+caml_make_vect = empty["caml_make_vect"]
+string = empty["caml_new_string"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call4(f, a0, a1, a2, a3):
+    return (
+        f(a0, a1, a2, a3)
+        if arity_test is 4
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3])
+    )
+
+
+def call5(f, a0, a1, a2, a3, a4):
+    return (
+        f(a0, a1, a2, a3, a4)
+        if arity_test is 5
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst_syntax_error = string("syntax error")
+cst_Parsing_YYexit = string("Parsing.YYexit")
+cst_Parsing_Parse_error = string("Parsing.Parse_error")
+Obj = global_data["Obj"]
+Array = global_data["Array_"]
+Lexing = global_data["Lexing"]
+YYexit = [248, cst_Parsing_YYexit, caml_fresh_oo_id(0)]
+Parse_error = [248, cst_Parsing_Parse_error, caml_fresh_oo_id(0)]
+env = [
+    0,
+    caml_make_vect(100, 0),
+    caml_make_vect(100, 0),
+    caml_make_vect(100, Lexing[1]),
+    caml_make_vect(100, Lexing[1]),
+    100,
+    0,
+    0,
+    0,
+    Lexing[1],
+    Lexing[1],
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+]
+
+
+def grow_stacks(param):
+    oldsize = env[5]
+    newsize = int(oldsize * 2)
+    new_s = caml_make_vect(newsize, 0)
+    new_v = caml_make_vect(newsize, 0)
+    new_start = caml_make_vect(newsize, Lexing[1])
+    new_end = caml_make_vect(newsize, Lexing[1])
+    call5(Array[10], env[1], 0, new_s, 0, oldsize)
+    env[1] = new_s
+    call5(Array[10], env[2], 0, new_v, 0, oldsize)
+    env[2] = new_v
+    call5(Array[10], env[3], 0, new_start, 0, oldsize)
+    env[3] = new_start
+    call5(Array[10], env[4], 0, new_end, 0, oldsize)
+    env[4] = new_end
+    env[5] = newsize
+    return 0
+
+
+def clear_parser(param):
+    call4(Array[9], env[2], 0, env[5], 0)
+    env[8] = 0
+    return 0
+
+
+def function_expression_18(param):
+    return 0
+
+
+current_lookahead_fun = [0, function_expression_18]
+
+
+def yyparse(tables, start, lexer, lexbuf):
+    def loop(cmd, arg):
+        cmd__0 = cmd
+        arg__0 = arg
+        while True:
+            match = empty["caml_parse_engine"](tables, env, cmd__0, arg__0)
+            continue_label = None
+            while True:
+                if match is 0:
+                    arg__1 = call1(lexer, lexbuf)
+                    env[9] = lexbuf[11]
+                    env[10] = lexbuf[12]
+                    cmd__0 = 1
+                    arg__0 = arg__1
+                    continue_label = "switch"
+                    break
+                else:
+                    if match is 1:
+                        raise (empty["caml_wrap_thrown_exception"](Parse_error))
+                    else:
+                        if match is 2:
+                            grow_stacks(0)
+                            cmd__0 = 2
+                            arg__0 = 0
+                            continue_label = "switch"
+                            break
+                        else:
+                            if match is 3:
+                                grow_stacks(0)
+                                cmd__0 = 3
+                                arg__0 = 0
+                                continue_label = "switch"
+                                break
+                            else:
+                                if match is 4:
+                                    try:
+                                        n = env[13]
+                                        o = call1(
+                                            caml_check_bound(tables[1], n)[n + 1], env
+                                        )
+                                        p = 4
+                                        cmd__1 = p
+                                        arg__2 = o
+                                    except:
+                                        q = caml_wrap_exception(q)
+                                        if q is not Parse_error:
+                                            raise (
+                                                empty[
+                                                    "caml_wrap_thrown_exception_reraise"
+                                                ](q)
+                                            )
+                                        l = 0
+                                        m = 5
+                                        cmd__1 = m
+                                        arg__2 = l
+                                    cmd__0 = cmd__1
+                                    arg__0 = arg__2
+                                    continue_label = "switch"
+                                    break
+                                else:
+                                    call1(tables[14], cst_syntax_error)
+                                    cmd__0 = 5
+                                    arg__0 = 0
+                                    continue_label = "switch"
+                                    break
+                break
+            if label == "switch":
+                continue
+
+    init_asp = env[11]
+    init_sp = env[14]
+    init_stackbase = env[6]
+    init_state = env[15]
+    init_curr_char = env[7]
+    init_lval = env[8]
+    init_errflag = env[16]
+    env[6] = int(env[14] + 1)
+    env[7] = start
+    env[10] = lexbuf[12]
+    try:
+        j = loop(0, 0)
+        return j
+    except:
+        exn = caml_wrap_exception(exn)
+        curr_char = env[7]
+        env[11] = init_asp
+        env[14] = init_sp
+        env[6] = init_stackbase
+        env[15] = init_state
+        env[7] = init_curr_char
+        env[8] = init_lval
+        env[16] = init_errflag
+        if exn[1] is YYexit:
+            v = exn[2]
+            return v
+
+        def function_expression_19(tok):
+            if call1(Obj[1], tok):
+                k = empty["caml_obj_tag"](tok)
+                return 1 if caml_check_bound(tables[3], k)[k + 1] is curr_char else 0
+            return 1 if caml_check_bound(tables[2], tok)[tok + 1] is curr_char else 0
+
+        current_lookahead_fun[1] = function_expression_19
+        raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+
+def peek_val(env, n):
+    i = int(env[11] - n)
+    return caml_check_bound(env[2], i)[i + 1]
+
+
+def symbol_start_pos(param):
+    def loop(i):
+        i__0 = i
+        while True:
+            if 0 < i__0:
+                f = int(int(env[11] - i__0) + 1)
+                st = caml_check_bound(env[3], f)[f + 1]
+                g = int(int(env[11] - i__0) + 1)
+                en = caml_check_bound(env[4], g)[g + 1]
+                if empty["caml_notequal"](st, en):
+                    return st
+                i__1 = int(i__0 + -1)
+                i__0 = i__1
+                continue
+            h = env[11]
+            return caml_check_bound(env[4], h)[h + 1]
+
+    return loop(env[12])
+
+
+def symbol_end_pos(param):
+    e = env[11]
+    return caml_check_bound(env[4], e)[e + 1]
+
+
+def rhs_start_pos(n):
+    d = int(env[11] - int(env[12] - n))
+    return caml_check_bound(env[3], d)[d + 1]
+
+
+def rhs_end_pos(n):
+    c = int(env[11] - int(env[12] - n))
+    return caml_check_bound(env[4], c)[c + 1]
+
+
+def symbol_start(param):
+    return symbol_start_pos(0)[4]
+
+
+def symbol_end(param):
+    return symbol_end_pos(0)[4]
+
+
+def rhs_start(n):
+    return rhs_start_pos(n)[4]
+
+
+def rhs_end(n):
+    return rhs_end_pos(n)[4]
+
+
+def is_current_lookahead(tok):
+    return call1(current_lookahead_fun[1], tok)
+
+
+def parse_error(param):
+    return 0
+
+
+def function_expression_20(b):
+    return empty["caml_set_parser_trace"](b)
+
+
+Parsing = [
+    0,
+    symbol_start,
+    symbol_end,
+    rhs_start,
+    rhs_end,
+    symbol_start_pos,
+    symbol_end_pos,
+    rhs_start_pos,
+    rhs_end_pos,
+    clear_parser,
+    Parse_error,
+    function_expression_20,
+    YYexit,
+    yyparse,
+    peek_val,
+    is_current_lookahead,
+    parse_error,
+]
+empty["caml_register_global"](7, Parsing, "Parsing")

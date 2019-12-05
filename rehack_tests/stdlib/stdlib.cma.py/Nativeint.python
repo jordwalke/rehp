@@ -1,0 +1,72 @@
+caml_wrap_exception = empty["caml_wrap_exception"]
+global_data = empty["caml_get_global_data"]()
+cst_d = empty["caml_new_string"]("%d")
+Failure = global_data["Failure"]
+Sys = global_data["Sys"]
+zero = 0
+one = 1
+minus_one = -1
+
+
+def succ(n):
+    return int(n + 1)
+
+
+def pred(n):
+    return int(n - 1)
+
+
+def abs(n):
+    return n if empty["caml_greaterequal"](n, 0) else int(-(n))
+
+
+size = Sys[10]
+min_int = 1 << int(size + -1)
+max_int = int(min_int - 1)
+
+
+def lognot(n):
+    return n ^ -1
+
+
+def to_string(n):
+    return empty["caml_format_int"](cst_d, n)
+
+
+def of_string_opt(s):
+    try:
+        b = [0, empty["caml_int_of_string"](s)]
+        return b
+    except:
+        c = caml_wrap_exception(c)
+        if c[1] is Failure:
+            return 0
+        raise (empty["caml_wrap_thrown_exception_reraise"](c))
+
+
+def compare(x, y):
+    return empty["caml_int_compare"](x, y)
+
+
+def equal(x, y):
+    return 1 if 0 is compare(x, y) else 0
+
+
+Nativeint = [
+    0,
+    zero,
+    one,
+    minus_one,
+    succ,
+    pred,
+    abs,
+    size,
+    max_int,
+    min_int,
+    lognot,
+    of_string_opt,
+    to_string,
+    compare,
+    equal,
+]
+empty["caml_register_global"](12, Nativeint, "Nativeint")

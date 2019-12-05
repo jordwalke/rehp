@@ -1,0 +1,202 @@
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+cst_Queue_Empty = empty["caml_new_string"]("Queue.Empty")
+Empty = [248, cst_Queue_Empty, empty["caml_fresh_oo_id"](0)]
+
+
+def create(param):
+    return [0, 0, 0, 0]
+
+
+def clear(q):
+    q[1] = 0
+    q[2] = 0
+    q[3] = 0
+    return 0
+
+
+def add(x, q):
+    cell = [0, x, 0]
+    h = q[3]
+    return (
+        (
+            (
+                (0 if UnsupportedAssignOp or true else 0)
+                if UnsupportedAssignOp or true
+                else (0 if UnsupportedAssignOp or true else 0)
+            )
+            if UnsupportedAssignOp or true
+            else (
+                (0 if UnsupportedAssignOp or true else 0)
+                if UnsupportedAssignOp or true
+                else (0 if UnsupportedAssignOp or true else 0)
+            )
+        )
+        if h
+        else (
+            (
+                (0 if UnsupportedAssignOp or true else 0)
+                if UnsupportedAssignOp or true
+                else (0 if UnsupportedAssignOp or true else 0)
+            )
+            if UnsupportedAssignOp or true
+            else (
+                (0 if UnsupportedAssignOp or true else 0)
+                if UnsupportedAssignOp or true
+                else (0 if UnsupportedAssignOp or true else 0)
+            )
+        )
+    )
+
+
+def peek(q):
+    g = q[2]
+    if g:
+        content = g[1]
+        return content
+    raise (empty["caml_wrap_thrown_exception"](Empty))
+
+
+def take(q):
+    d = q[2]
+    if d:
+        e = d[1]
+        f = d[2]
+        return (
+            (
+                (e if UnsupportedAssignOp or true else e)
+                if UnsupportedAssignOp or true
+                else (e if UnsupportedAssignOp or true else e)
+            )
+            if f
+            else (e if clear(q) or true else e)
+        )
+    raise (empty["caml_wrap_thrown_exception"](Empty))
+
+
+def copy(q_res, prev, cell):
+    prev__0 = prev
+    cell__0 = cell
+    while True:
+        if cell__0:
+            content = cell__0[1]
+            next = cell__0[2]
+            res = [0, content, 0]
+            if prev__0:
+                prev__0[2] = res
+            else:
+                q_res[2] = res
+            prev__0 = res
+            cell__0 = next
+            continue
+        q_res[3] = prev__0
+        return q_res
+
+
+def copy__0(q):
+    return copy([0, q[1], 0, 0], 0, q[2])
+
+
+def is_empty(q):
+    return 1 if 0 is q[1] else 0
+
+
+def length(q):
+    return q[1]
+
+
+def iter(f, cell):
+    cell__0 = cell
+    while True:
+        if cell__0:
+            content = cell__0[1]
+            cell__1 = cell__0[2]
+            call1(f, content)
+            cell__0 = cell__1
+            continue
+        return 0
+
+
+def iter__0(f, q):
+    return iter(f, q[2])
+
+
+def fold(f, accu, cell):
+    accu__0 = accu
+    cell__0 = cell
+    while True:
+        if cell__0:
+            content = cell__0[1]
+            cell__1 = cell__0[2]
+            accu__1 = call2(f, accu__0, content)
+            accu__0 = accu__1
+            cell__0 = cell__1
+            continue
+        return accu__0
+
+
+def fold__0(f, accu, q):
+    return fold(f, accu, q[2])
+
+
+def transfer(q1, q2):
+    b = 1 if 0 < q1[1] else 0
+    if b:
+        c = q2[3]
+        return (
+            (
+                (
+                    (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                    if UnsupportedAssignOp or true
+                    else (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                )
+                if UnsupportedAssignOp or true
+                else (
+                    (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                    if UnsupportedAssignOp or true
+                    else (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                )
+            )
+            if c
+            else (
+                (
+                    (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                    if UnsupportedAssignOp or true
+                    else (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                )
+                if UnsupportedAssignOp or true
+                else (
+                    (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                    if UnsupportedAssignOp or true
+                    else (clear(q1) if UnsupportedAssignOp or true else clear(q1))
+                )
+            )
+        )
+    return b
+
+
+Queue = [
+    0,
+    Empty,
+    create,
+    add,
+    add,
+    take,
+    take,
+    peek,
+    peek,
+    clear,
+    copy__0,
+    is_empty,
+    length,
+    iter__0,
+    fold__0,
+    transfer,
+]
+empty["caml_register_global"](1, Queue, "Queue")

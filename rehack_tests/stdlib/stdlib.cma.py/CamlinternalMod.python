@@ -1,0 +1,4 @@
+update_mod = empty["caml_CamlinternalMod_update_mod"]
+init_mod = empty["caml_CamlinternalMod_init_mod"]
+CamlinternalMod = [0, init_mod, update_mod]
+empty["caml_register_global"](8, CamlinternalMod, "CamlinternalMod")

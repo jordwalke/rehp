@@ -1,0 +1,145 @@
+caml_bytes_unsafe_set = empty["caml_bytes_unsafe_set"]
+caml_create_bytes = empty["caml_create_bytes"]
+caml_md5_string = empty["caml_md5_string"]
+caml_ml_string_length = empty["caml_ml_string_length"]
+string__0 = empty["caml_new_string"]
+caml_string_get = empty["caml_string_get"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Digest_from_hex__0 = string__0("Digest.from_hex")
+cst_Digest_from_hex = string__0("Digest.from_hex")
+cst_Digest_to_hex = string__0("Digest.to_hex")
+cst_Digest_substring = string__0("Digest.substring")
+Invalid_argument = global_data["Invalid_argument"]
+Pervasives = global_data["Pervasives"]
+Char = global_data["Char"]
+Bytes = global_data["Bytes"]
+String = global_data["String_"]
+compare = String[33]
+equal = String[34]
+
+
+def string(str):
+    return caml_md5_string(str, 0, caml_ml_string_length(str))
+
+
+def bytes(b):
+    return string(call1(Bytes[42], b))
+
+
+def substring(str, ofs, len):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (int(caml_ml_string_length(str) - len) < ofs):
+                return caml_md5_string(str, ofs, len)
+    return call1(Pervasives[1], cst_Digest_substring)
+
+
+def subbytes(b, ofs, len):
+    return substring(call1(Bytes[42], b), ofs, len)
+
+
+def file(filename):
+    ic = call1(Pervasives[68], filename)
+    try:
+        d = empty["caml_md5_chan"](ic, -1)
+    except:
+        e = caml_wrap_exception(e)
+        call1(Pervasives[81], ic)
+        raise (empty["caml_wrap_thrown_exception_reraise"](e))
+    call1(Pervasives[81], ic)
+    return d
+
+
+def output(chan, digest):
+    return call2(Pervasives[54], chan, digest)
+
+
+def input(chan):
+    return call2(Pervasives[74], chan, 16)
+
+
+def char_hex(n):
+    f = 87 if 10 <= n else 48
+    return int(n + f)
+
+
+def to_hex(d):
+    if 16 is not caml_ml_string_length(d):
+        call1(Pervasives[1], cst_Digest_to_hex)
+    result = caml_create_bytes(32)
+    i = 0
+    while True:
+        x = caml_string_get(d, i)
+        caml_bytes_unsafe_set(result, int(i * 2), char_hex(int(lsr(x, 4))))
+        caml_bytes_unsafe_set(result, int(int(i * 2) + 1), char_hex(x & 15))
+        e = int(i + 1)
+        if 15 is not i:
+            i = e
+            continue
+        return call1(Bytes[42], result)
+
+
+def from_hex(s):
+    if 32 is not caml_ml_string_length(s):
+        call1(Pervasives[1], cst_Digest_from_hex)
+
+    def digit(c):
+        if 65 <= c:
+            if 97 <= c:
+                if not (103 <= c):
+                    return int(int(c - 97) + 10)
+            else:
+                if not (71 <= c):
+                    return int(int(c - 65) + 10)
+        else:
+            switcher = int(c + -48)
+            if not (9 < lsr(switcher, 0)):
+                return int(c - 48)
+        raise (
+            empty["caml_wrap_thrown_exception"](
+                [0, Invalid_argument, cst_Digest_from_hex__0]
+            )
+        )
+
+    def byte__0(i):
+        d = digit(caml_string_get(s, int(i + 1)))
+        return int(digit(caml_string_get(s, i)) << 4 + d)
+
+    result = caml_create_bytes(16)
+    i = 0
+    while True:
+        b = byte__0(int(2 * i))
+        empty["caml_bytes_set"](result, i, call1(Char[1], b))
+        c = int(i + 1)
+        if 15 is not i:
+            i = c
+            continue
+        return call1(Bytes[42], result)
+
+
+Digest = [
+    0,
+    compare,
+    equal,
+    string,
+    bytes,
+    substring,
+    subbytes,
+    file,
+    output,
+    input,
+    to_hex,
+    from_hex,
+]
+empty["caml_register_global"](9, Digest, "Digest")

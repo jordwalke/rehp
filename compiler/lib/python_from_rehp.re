@@ -1,5 +1,6 @@
 exception Unsupported_statement;
 exception Unsupported_expression;
+exception Unsupported_op(string);
 exception No_cases_in_switch;
 exception Unhandled_functions;
 exception Unhandled_labels;
@@ -56,7 +57,8 @@ type variable_declaration_init =
 
 type mapped_bin_op =
   | AssignOp(Python.assign_op)
-  | BinOp(Python.bin_op);
+  | BinOp(Python.bin_op)
+  | FunctionOp(Id.t);
 
 let map_bin_op =
   fun
@@ -92,10 +94,10 @@ let map_bin_op =
   | Div => BinOp(Div)
   | Mod => BinOp(Mod)
 
-  | InstanceOf
-  | In
-  | Lsr
-  | Asr => raise(Unsupported_expression);
+  | InstanceOf => raise(Unsupported_op("InstanceOf"))
+  | In => raise(Unsupported_op("In"))
+  | Lsr => FunctionOp(Id.ident("lsr"))
+  | Asr => FunctionOp(Id.ident("asr"));
 
 let rec map_unop = (input, unop, expression) => {
   let get_unop_result = op => {
@@ -113,14 +115,16 @@ let rec map_unop = (input, unop, expression) => {
   | Pl => get_unop_result(Pl)
   | Bnot => get_unop_result(Bnot)
 
-  | Typeof
-  | IsInt
-  | Void
-  | Delete
-  | IncrA
-  | DecrA
-  | IncrB
-  | DecrB => raise(Unsupported_expression)
+  | Typeof => raise(Unsupported_op("Typeof"))
+  | IsInt =>
+    let (output, expression) = map_expression(input, expression);
+    (output, Python.ECall(EVar(Id.ident("is_int")), [expression]));
+  | Void => raise(Unsupported_op("Void"))
+  | Delete => raise(Unsupported_op("Delete"))
+  | IncrA => raise(Unsupported_op("IncrA"))
+  | DecrA => raise(Unsupported_op("DecrA"))
+  | IncrB => raise(Unsupported_op("IncrB"))
+  | DecrB => raise(Unsupported_op("DecrB"))
   };
 }
 
@@ -128,8 +132,13 @@ and map_expression = (input, expression): (output, Python.expression) =>
   switch (expression) {
   | Rehp.ERaw(str) => (empty_output, Python.ERaw(str))
 
-  /* TODO: does this happen */
-  | ESeq(e1, e2) => (empty_output, ERaw("eseq??"))
+  | ESeq(e1, e2) =>
+    let (output1, e1) = map_expression(input, e1);
+    let (output2, e2) = map_expression(input, e2);
+    (
+      concat_outputs([output1, output2]),
+      ECond(EBin(Or, e1, EBool(true)), e2, e2),
+    );
 
   | ECond(condition, consequent, alternate) =>
     let (output1, condition) = map_expression(input, condition);
@@ -151,7 +160,19 @@ and map_expression = (input, expression): (output, Python.expression) =>
         concat_outputs([output1, output2]),
         EBin(binop, left_expression, right_expression),
       );
-    | AssignOp(_) => raise(Unsupported_expression)
+    | AssignOp(_) =>
+      /* TODO this can happen in an ESeq. Promote with output instead, or remove ESeqs*/
+      /* raise(Unsupported_expression) */
+      (empty_output, ERaw("UnsupportedAssignOp"))
+    | FunctionOp(id) =>
+      let (output1, left_expression) =
+        map_expression(input, left_expression);
+      let (output2, right_expression) =
+        map_expression(input, right_expression);
+      (
+        concat_outputs([output1, output2]),
+        Python.ECall(EVar(id), [left_expression, right_expression]),
+      );
     }
 
   | EUn(unop, expression) => map_unop(input, unop, expression)
@@ -516,6 +537,17 @@ and map_statement_aux = input =>
       | BinOp(_) =>
         let (output, expression) = map_expression(input, expression);
         (output, Expression_statement(expression));
+      | FunctionOp(id) =>
+        let (output1, left_expression) =
+          map_expression(input, left_expression);
+        let (output2, right_expression) =
+          map_expression(input, right_expression);
+        (
+          concat_outputs([output1, output2]),
+          Expression_statement(
+            ECall(EVar(id), [left_expression, right_expression]),
+          ),
+        );
       }
     | _ =>
       let (output, expression) = map_expression(input, expression);

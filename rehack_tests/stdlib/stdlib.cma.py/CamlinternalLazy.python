@@ -1,0 +1,71 @@
+caml_obj_set_tag = empty["caml_obj_set_tag"]
+caml_obj_tag = empty["caml_obj_tag"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_CamlinternalLazy_Undefined = empty["caml_new_string"]("CamlinternalLazy.Undefined")
+Obj = global_data["Obj"]
+Undefined = [248, cst_CamlinternalLazy_Undefined, empty["caml_fresh_oo_id"](0)]
+
+
+def raise_undefined(param):
+    raise (empty["caml_wrap_thrown_exception"](Undefined))
+
+
+def force_lazy_block(blk):
+    closure = blk[1]
+    blk[1] = raise_undefined
+    try:
+        result = call1(closure, 0)
+        blk[1] = result
+        caml_obj_set_tag(blk, Obj[10])
+        return result
+    except:
+        e = caml_wrap_exception(e)
+
+        def function_expression_23(param):
+            raise (empty["caml_wrap_thrown_exception_reraise"](e))
+
+        blk[1] = function_expression_23
+        raise (empty["caml_wrap_thrown_exception_reraise"](e))
+
+
+def force_val_lazy_block(blk):
+    closure = blk[1]
+    blk[1] = raise_undefined
+    result = call1(closure, 0)
+    blk[1] = result
+    caml_obj_set_tag(blk, Obj[10])
+    return result
+
+
+def force(lzv):
+    t = caml_obj_tag(lzv)
+    return (
+        lzv[1] if t is Obj[10] else (lzv if t is not Obj[6] else force_lazy_block(lzv))
+    )
+
+
+def force_val(lzv):
+    t = caml_obj_tag(lzv)
+    return (
+        lzv[1]
+        if t is Obj[10]
+        else (lzv if t is not Obj[6] else force_val_lazy_block(lzv))
+    )
+
+
+CamlinternalLazy = [
+    0,
+    Undefined,
+    force_lazy_block,
+    force_val_lazy_block,
+    force,
+    force_val,
+]
+empty["caml_register_global"](2, CamlinternalLazy, "CamlinternalLazy")

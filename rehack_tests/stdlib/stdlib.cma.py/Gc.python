@@ -1,0 +1,169 @@
+caml_ml_string_length = empty["caml_ml_string_length"]
+string = empty["caml_new_string"]
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call4(f, a0, a1, a2, a3):
+    return (
+        f(a0, a1, a2, a3)
+        if arity_test is 4
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+Sys = global_data["Sys"]
+Printf = global_data["Printf"]
+b = [
+    0,
+    [11, string("minor_collections: "), [4, 0, 0, 0, [12, 10, 0]]],
+    string("minor_collections: %d\n"),
+]
+c = [
+    0,
+    [11, string("major_collections: "), [4, 0, 0, 0, [12, 10, 0]]],
+    string("major_collections: %d\n"),
+]
+d = [
+    0,
+    [11, string("compactions:       "), [4, 0, 0, 0, [12, 10, 0]]],
+    string("compactions:       %d\n"),
+]
+e = [0, [12, 10, 0], string("\n")]
+f = [0, [8, 0, 0, [0, 0], 0], string("%.0f")]
+g = [
+    0,
+    [11, string("minor_words:    "), [8, 0, [1, 1], [0, 0], [12, 10, 0]]],
+    string("minor_words:    %*.0f\n"),
+]
+h = [
+    0,
+    [11, string("promoted_words: "), [8, 0, [1, 1], [0, 0], [12, 10, 0]]],
+    string("promoted_words: %*.0f\n"),
+]
+i = [
+    0,
+    [11, string("major_words:    "), [8, 0, [1, 1], [0, 0], [12, 10, 0]]],
+    string("major_words:    %*.0f\n"),
+]
+j = [0, [12, 10, 0], string("\n")]
+k = [0, [4, 0, 0, 0, 0], string("%d")]
+l = [
+    0,
+    [11, string("top_heap_words: "), [4, 0, [1, 1], 0, [12, 10, 0]]],
+    string("top_heap_words: %*d\n"),
+]
+m = [
+    0,
+    [11, string("heap_words:     "), [4, 0, [1, 1], 0, [12, 10, 0]]],
+    string("heap_words:     %*d\n"),
+]
+n = [
+    0,
+    [11, string("live_words:     "), [4, 0, [1, 1], 0, [12, 10, 0]]],
+    string("live_words:     %*d\n"),
+]
+o = [
+    0,
+    [11, string("free_words:     "), [4, 0, [1, 1], 0, [12, 10, 0]]],
+    string("free_words:     %*d\n"),
+]
+p = [
+    0,
+    [11, string("largest_free:   "), [4, 0, [1, 1], 0, [12, 10, 0]]],
+    string("largest_free:   %*d\n"),
+]
+q = [
+    0,
+    [11, string("fragments:      "), [4, 0, [1, 1], 0, [12, 10, 0]]],
+    string("fragments:      %*d\n"),
+]
+r = [0, [12, 10, 0], string("\n")]
+s = [
+    0,
+    [11, string("live_blocks: "), [4, 0, 0, 0, [12, 10, 0]]],
+    string("live_blocks: %d\n"),
+]
+t = [
+    0,
+    [11, string("free_blocks: "), [4, 0, 0, 0, [12, 10, 0]]],
+    string("free_blocks: %d\n"),
+]
+u = [
+    0,
+    [11, string("heap_chunks: "), [4, 0, 0, 0, [12, 10, 0]]],
+    string("heap_chunks: %d\n"),
+]
+
+
+def print_stat(c__0):
+    st = empty["caml_gc_stat"](0)
+    call3(Printf[1], c__0, b, st[4])
+    call3(Printf[1], c__0, c, st[5])
+    call3(Printf[1], c__0, d, st[14])
+    call2(Printf[1], c__0, e)
+    l1 = caml_ml_string_length(call2(Printf[4], f, st[1]))
+    call4(Printf[1], c__0, g, l1, st[1])
+    call4(Printf[1], c__0, h, l1, st[2])
+    call4(Printf[1], c__0, i, l1, st[3])
+    call2(Printf[1], c__0, j)
+    l2 = caml_ml_string_length(call2(Printf[4], k, st[15]))
+    call4(Printf[1], c__0, l, l2, st[15])
+    call4(Printf[1], c__0, m, l2, st[6])
+    call4(Printf[1], c__0, n, l2, st[8])
+    call4(Printf[1], c__0, o, l2, st[10])
+    call4(Printf[1], c__0, p, l2, st[12])
+    call4(Printf[1], c__0, q, l2, st[13])
+    call2(Printf[1], c__0, r)
+    call3(Printf[1], c__0, s, st[9])
+    call3(Printf[1], c__0, t, st[11])
+    return call3(Printf[1], c__0, u, st[7])
+
+
+def allocated_bytes(param):
+    match = empty["caml_gc_counters"](0)
+    ma = match[3]
+    pro = match[2]
+    mi = match[1]
+    return mi + ma - pro * int(Sys[10] / 8)
+
+
+def create_alarm(f):
+    return [0, 1]
+
+
+def delete_alarm(a):
+    a[1] = 0
+    return 0
+
+
+def v(B):
+    return empty["caml_final_release"](B)
+
+
+def w(A, z):
+    return empty["caml_final_register_called_without_value"](A, z)
+
+
+def function_expression_168(y, x):
+    return empty["caml_final_register"](y, x)
+
+
+Gc = [
+    0,
+    print_stat,
+    allocated_bytes,
+    function_expression_168,
+    w,
+    v,
+    create_alarm,
+    delete_alarm,
+]
+empty["caml_register_global"](22, Gc, "Gc")

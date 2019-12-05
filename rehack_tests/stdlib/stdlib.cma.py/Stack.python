@@ -1,0 +1,71 @@
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Stack_Empty = empty["caml_new_string"]("Stack.Empty")
+List = global_data["List_"]
+Empty = [248, cst_Stack_Empty, empty["caml_fresh_oo_id"](0)]
+
+
+def create(param):
+    return [0, 0, 0]
+
+
+def clear(s):
+    s[1] = 0
+    s[2] = 0
+    return 0
+
+
+def copy(s):
+    return [0, s[1], s[2]]
+
+
+def push(x, s):
+    s[1] = [0, x, s[1]]
+    s[2] = int(s[2] + 1)
+    return 0
+
+
+def pop(s):
+    c = s[1]
+    if c:
+        tl = c[2]
+        hd = c[1]
+        s[1] = tl
+        s[2] = int(s[2] + -1)
+        return hd
+    raise (empty["caml_wrap_thrown_exception"](Empty))
+
+
+def top(s):
+    b = s[1]
+    if b:
+        hd = b[1]
+        return hd
+    raise (empty["caml_wrap_thrown_exception"](Empty))
+
+
+def is_empty(s):
+    return 1 if 0 is s[1] else 0
+
+
+def length(s):
+    return s[2]
+
+
+def iter(f, s):
+    return call2(List[15], f, s[1])
+
+
+def fold(f, acc, s):
+    return call3(List[20], f, acc, s[1])
+
+
+Stack = [0, Empty, create, push, pop, top, clear, copy, is_empty, length, iter, fold]
+empty["caml_register_global"](2, Stack, "Stack")

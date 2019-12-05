@@ -1,0 +1,897 @@
+caml_check_bound = empty["caml_check_bound"]
+caml_compare = empty["caml_compare"]
+caml_hash = empty["caml_hash"]
+caml_make_vect = empty["caml_make_vect"]
+string = empty["caml_new_string"]
+caml_sys_getenv = empty["caml_sys_getenv"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_OCAMLRUNPARAM = string("OCAMLRUNPARAM")
+cst_CAMLRUNPARAM = string("CAMLRUNPARAM")
+cst = string("")
+Sys = global_data["Sys"]
+Not_found = global_data["Not_found"]
+Pervasives = global_data["Pervasives"]
+Array = global_data["Array_"]
+Assert_failure = global_data["Assert_failure"]
+CamlinternalLazy = global_data["CamlinternalLazy"]
+Random = global_data["Random"]
+String = global_data["String_"]
+d = [0, 0]
+c = [0, string("hashtbl.ml"), 108, 23]
+
+
+def hash(x):
+    return caml_hash(10, 100, 0, x)
+
+
+def hash_param(n1, n2, x):
+    return caml_hash(n1, n2, 0, x)
+
+
+def seeded_hash(seed, x):
+    return caml_hash(10, 100, seed, x)
+
+
+def ongoing_traversal(h):
+    at = 1 if len(h) < 4 else 0
+    au = at if at else (1 if h[4] < 0 else 0)
+    return au
+
+
+def flip_ongoing_traversal(h):
+    h[4] = int(-(h[4]))
+    return 0
+
+
+try:
+    f = caml_sys_getenv(cst_OCAMLRUNPARAM)
+    params = f
+except:
+    aq = caml_wrap_exception(aq)
+    if aq is not Not_found:
+        raise (empty["caml_wrap_thrown_exception_reraise"](aq))
+    try:
+        e = caml_sys_getenv(cst_CAMLRUNPARAM)
+        b = e
+    except:
+        ar = caml_wrap_exception(ar)
+        if ar is not Not_found:
+            raise (empty["caml_wrap_thrown_exception_reraise"](ar))
+        b = cst
+    params = b
+randomized_default = call2(String[22], params, 82)
+randomized = [0, randomized_default]
+
+
+def randomize(param):
+    randomized[1] = 1
+    return 0
+
+
+def is_randomized(param):
+    return randomized[1]
+
+
+def function_expression_171(ap):
+    return call1(Random[11][2], 0)
+
+
+prng = [246, function_expression_171]
+
+
+def power_2_above(x, n):
+    x__0 = x
+    while True:
+        if n <= x__0:
+            return x__0
+        if Sys[14] < int(x__0 * 2):
+            return x__0
+        x__1 = int(x__0 * 2)
+        x__0 = x__1
+        continue
+
+
+def create(opt, initial_size):
+    if opt:
+        sth = opt[1]
+        random = sth
+    else:
+        random = randomized[1]
+    s = power_2_above(16, initial_size)
+    if random:
+        an = empty["caml_obj_tag"](prng)
+        ao = (
+            prng[1]
+            if 250 is an
+            else (call1(CamlinternalLazy[2], prng) if 246 is an else prng)
+        )
+        seed = call1(Random[11][4], ao)
+    else:
+        seed = 0
+    return [0, 0, caml_make_vect(s, 0), seed, s]
+
+
+def clear(h):
+    h[1] = 0
+    len = len(h[2])
+    al = int(len + -1)
+    ak = 0
+    if not (al < 0):
+        i = ak
+        while True:
+            caml_check_bound(h[2], i)[i + 1] = 0
+            am = int(i + 1)
+            if al is not i:
+                i = am
+                continue
+            break
+    return 0
+
+
+def reset(h):
+    len = len(h[2])
+    if 4 <= len(h):
+        if len is not call1(Pervasives[6], h[4]):
+            h[1] = 0
+            h[2] = caml_make_vect(call1(Pervasives[6], h[4]), 0)
+            return 0
+    return clear(h)
+
+
+def copy_bucketlist(param):
+    if param:
+        key = param[1]
+        data = param[2]
+        next = param[3]
+
+        def loop(prec, param):
+            prec__0 = prec
+            param__0 = param
+            while True:
+                if param__0:
+                    key = param__0[1]
+                    data = param__0[2]
+                    next = param__0[3]
+                    r = [0, key, data, next]
+                    if prec__0:
+                        prec__0[3] = r
+                        prec__0 = r
+                        param__0 = next
+                        continue
+                    raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, c]))
+                return 0
+
+        r = [0, key, data, next]
+        loop(r, next)
+        return r
+    return 0
+
+
+def copy(h):
+    ah = h[4]
+    ai = h[3]
+    aj = call2(Array[15], copy_bucketlist, h[2])
+    return [0, h[1], aj, ai, ah]
+
+
+def length(h):
+    return h[1]
+
+
+def resize(indexfun, h):
+    odata = h[2]
+    osize = len(odata)
+    nsize = int(osize * 2)
+    Y = 1 if nsize < Sys[14] else 0
+    if Y:
+        ndata = caml_make_vect(nsize, 0)
+        ndata_tail = caml_make_vect(nsize, 0)
+        inplace = 1 - ongoing_traversal(h)
+        h[2] = ndata
+
+        def insert_bucket(cell):
+            cell__0 = cell
+            while True:
+                if cell__0:
+                    key = cell__0[1]
+                    data = cell__0[2]
+                    next = cell__0[3]
+                    cell__1 = cell__0 if inplace else [0, key, data, 0]
+                    nidx = call2(indexfun, h, key)
+                    match = caml_check_bound(ndata_tail, nidx)[nidx + 1]
+                    if match:
+                        match[3] = cell__1
+                    else:
+                        caml_check_bound(ndata, nidx)[nidx + 1] = cell__1
+                    caml_check_bound(ndata_tail, nidx)[nidx + 1] = cell__1
+                    cell__0 = next
+                    continue
+                return 0
+
+        aa = int(osize + -1)
+        Z = 0
+        if not (aa < 0):
+            i__0 = Z
+            while True:
+                insert_bucket(caml_check_bound(odata, i__0)[i__0 + 1])
+                ag = int(i__0 + 1)
+                if aa is not i__0:
+                    i__0 = ag
+                    continue
+                break
+        if inplace:
+            ac = int(nsize + -1)
+            ab = 0
+            if not (ac < 0):
+                i = ab
+                while True:
+                    match = caml_check_bound(ndata_tail, i)[i + 1]
+                    if match:
+                        match[3] = 0
+                    af = int(i + 1)
+                    if ac is not i:
+                        i = af
+                        continue
+                    break
+            ad = 0
+        else:
+            ad = inplace
+        ae = ad
+    else:
+        ae = Y
+    return ae
+
+
+def key_index(h, key):
+    return (
+        caml_hash(10, 100, h[3], key) & int(len(h[2]) + -1)
+        if 3 <= len(h)
+        else empty["caml_mod"](empty["caml_hash_univ_param"](10, 100, key), len(h[2]))
+    )
+
+
+def add(h, key, data):
+    i = key_index(h, key)
+    bucket = [0, key, data, caml_check_bound(h[2], i)[i + 1]]
+    caml_check_bound(h[2], i)[i + 1] = bucket
+    h[1] = int(h[1] + 1)
+    X = 1 if len(h[2]) << 1 < h[1] else 0
+    return resize(key_index, h) if X else X
+
+
+def remove_bucket(h, i, key, prec, c):
+    prec__0 = prec
+    c__0 = c
+    while True:
+        if c__0:
+            k = c__0[1]
+            next = c__0[3]
+            if 0 is caml_compare(k, key):
+                h[1] = int(h[1] + -1)
+                return (
+                    (0 if UnsupportedAssignOp or true else 0)
+                    if prec__0
+                    else (0 if UnsupportedAssignOp or true else 0)
+                )
+            prec__0 = c__0
+            c__0 = next
+            continue
+        return 0
+
+
+def remove(h, key):
+    i = key_index(h, key)
+    return remove_bucket(h, i, key, 0, caml_check_bound(h[2], i)[i + 1])
+
+
+def find_rec(key, param):
+    param__0 = param
+    while True:
+        if param__0:
+            k = param__0[1]
+            data = param__0[2]
+            next = param__0[3]
+            if 0 is caml_compare(key, k):
+                return data
+            param__0 = next
+            continue
+        raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+
+def find(h, key):
+    W = key_index(h, key)
+    match = caml_check_bound(h[2], W)[W + 1]
+    if match:
+        k1 = match[1]
+        d1 = match[2]
+        next1 = match[3]
+        if 0 is caml_compare(key, k1):
+            return d1
+        if next1:
+            k2 = next1[1]
+            d2 = next1[2]
+            next2 = next1[3]
+            if 0 is caml_compare(key, k2):
+                return d2
+            if next2:
+                k3 = next2[1]
+                d3 = next2[2]
+                next3 = next2[3]
+                return d3 if 0 is caml_compare(key, k3) else find_rec(key, next3)
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+        raise (empty["caml_wrap_thrown_exception"](Not_found))
+    raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+
+def find_rec_opt(key, param):
+    param__0 = param
+    while True:
+        if param__0:
+            k = param__0[1]
+            data = param__0[2]
+            next = param__0[3]
+            if 0 is caml_compare(key, k):
+                return [0, data]
+            param__0 = next
+            continue
+        return 0
+
+
+def find_opt(h, key):
+    V = key_index(h, key)
+    match = caml_check_bound(h[2], V)[V + 1]
+    if match:
+        k1 = match[1]
+        d1 = match[2]
+        next1 = match[3]
+        if 0 is caml_compare(key, k1):
+            return [0, d1]
+        if next1:
+            k2 = next1[1]
+            d2 = next1[2]
+            next2 = next1[3]
+            if 0 is caml_compare(key, k2):
+                return [0, d2]
+            if next2:
+                k3 = next2[1]
+                d3 = next2[2]
+                next3 = next2[3]
+                return (
+                    [0, d3] if 0 is caml_compare(key, k3) else find_rec_opt(key, next3)
+                )
+            return 0
+        return 0
+    return 0
+
+
+def find_all(h, key):
+    def find_in_bucket(param):
+        param__0 = param
+        while True:
+            if param__0:
+                k = param__0[1]
+                data = param__0[2]
+                next = param__0[3]
+                if 0 is caml_compare(k, key):
+                    return [0, data, find_in_bucket(next)]
+                param__0 = next
+                continue
+            return 0
+
+    U = key_index(h, key)
+    return find_in_bucket(caml_check_bound(h[2], U)[U + 1])
+
+
+def replace_bucket(key, data, param):
+    param__0 = param
+    while True:
+        if param__0:
+            k = param__0[1]
+            next = param__0[3]
+            if 0 is caml_compare(k, key):
+                param__0[1] = key
+                param__0[2] = data
+                return 0
+            param__0 = next
+            continue
+        return 1
+
+
+def replace(h, key, data):
+    i = key_index(h, key)
+    l = caml_check_bound(h[2], i)[i + 1]
+    R = replace_bucket(key, data, l)
+    if R:
+        caml_check_bound(h[2], i)[i + 1] = [0, key, data, l]
+        h[1] = int(h[1] + 1)
+        S = 1 if len(h[2]) << 1 < h[1] else 0
+        if S:
+            return resize(key_index, h)
+        T = S
+    else:
+        T = R
+    return T
+
+
+def mem(h, key):
+    def mem_in_bucket(param):
+        param__0 = param
+        while True:
+            if param__0:
+                k = param__0[1]
+                next = param__0[3]
+                Q = 1 if 0 is caml_compare(k, key) else 0
+                if Q:
+                    return Q
+                param__0 = next
+                continue
+            return 0
+
+    P = key_index(h, key)
+    return mem_in_bucket(caml_check_bound(h[2], P)[P + 1])
+
+
+def iter(f, h):
+    def do_bucket(param):
+        param__0 = param
+        while True:
+            if param__0:
+                key = param__0[1]
+                data = param__0[2]
+                param__1 = param__0[3]
+                call2(f, key, data)
+                param__0 = param__1
+                continue
+            return 0
+
+    old_trav = ongoing_traversal(h)
+    if 1 - old_trav:
+        flip_ongoing_traversal(h)
+    try:
+        d = h[2]
+        L = int(len(d) + -1)
+        K = 0
+        if not (L < 0):
+            i = K
+            while True:
+                do_bucket(caml_check_bound(d, i)[i + 1])
+                O = int(i + 1)
+                if L is not i:
+                    i = O
+                    continue
+                break
+        M = 1 - old_trav
+        N = flip_ongoing_traversal(h) if M else M
+        return N
+    except:
+        exn = caml_wrap_exception(exn)
+        if old_trav:
+            raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+        flip_ongoing_traversal(h)
+        raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+
+def filter_map_inplace_bucket(f, h, i, prec, slot):
+    prec__0 = prec
+    slot__0 = slot
+    while True:
+        if slot__0:
+            key = slot__0[1]
+            data = slot__0[2]
+            next = slot__0[3]
+            match = call2(f, key, data)
+            if match:
+                data__0 = match[1]
+                if prec__0:
+                    prec__0[3] = slot__0
+                else:
+                    caml_check_bound(h[2], i)[i + 1] = slot__0
+                slot__0[2] = data__0
+                prec__0 = slot__0
+                slot__0 = next
+                continue
+            h[1] = int(h[1] + -1)
+            slot__0 = next
+            continue
+        return (
+            (0 if UnsupportedAssignOp or true else 0)
+            if prec__0
+            else (0 if UnsupportedAssignOp or true else 0)
+        )
+
+
+def filter_map_inplace(f, h):
+    d = h[2]
+    old_trav = ongoing_traversal(h)
+    if 1 - old_trav:
+        flip_ongoing_traversal(h)
+    try:
+        H = int(len(d) + -1)
+        G = 0
+        if not (H < 0):
+            i = G
+            while True:
+                filter_map_inplace_bucket(f, h, i, 0, caml_check_bound(h[2], i)[i + 1])
+                J = int(i + 1)
+                if H is not i:
+                    i = J
+                    continue
+                break
+        I = 0
+        return I
+    except:
+        exn = caml_wrap_exception(exn)
+        if old_trav:
+            raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+        flip_ongoing_traversal(h)
+        raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+
+def fold(f, h, init):
+    def do_bucket(b, accu):
+        b__0 = b
+        accu__0 = accu
+        while True:
+            if b__0:
+                key = b__0[1]
+                data = b__0[2]
+                b__1 = b__0[3]
+                accu__1 = call3(f, key, data, accu__0)
+                b__0 = b__1
+                accu__0 = accu__1
+                continue
+            return accu__0
+
+    old_trav = ongoing_traversal(h)
+    if 1 - old_trav:
+        flip_ongoing_traversal(h)
+    try:
+        d = h[2]
+        accu = [0, init]
+        C = int(len(d) + -1)
+        B = 0
+        if not (C < 0):
+            i = B
+            while True:
+                E = accu[1]
+                accu[1] = do_bucket(caml_check_bound(d, i)[i + 1], E)
+                F = int(i + 1)
+                if C is not i:
+                    i = F
+                    continue
+                break
+        if 1 - old_trav:
+            flip_ongoing_traversal(h)
+        D = accu[1]
+        return D
+    except:
+        exn = caml_wrap_exception(exn)
+        if old_trav:
+            raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+        flip_ongoing_traversal(h)
+        raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+
+def bucket_length(accu, param):
+    accu__0 = accu
+    param__0 = param
+    while True:
+        if param__0:
+            param__1 = param__0[3]
+            accu__1 = int(accu__0 + 1)
+            accu__0 = accu__1
+            param__0 = param__1
+            continue
+        return accu__0
+
+
+def stats(h):
+    v = h[2]
+    w = 0
+
+    def x(m, b):
+        A = bucket_length(0, b)
+        return call2(Pervasives[5], m, A)
+
+    mbl = call3(Array[17], x, w, v)
+    histo = caml_make_vect(int(mbl + 1), 0)
+    y = h[2]
+
+    def z(b):
+        l = bucket_length(0, b)
+        histo[l + 1] = int(caml_check_bound(histo, l)[l + 1] + 1)
+        return 0
+
+    call2(Array[13], z, y)
+    return [0, h[1], len(h[2]), mbl, histo]
+
+
+def MakeSeeded(H):
+    def key_index(h, key):
+        u = int(len(h[2]) + -1)
+        return call2(H[2], h[3], key) & u
+
+    def add(h, key, data):
+        i = key_index(h, key)
+        bucket = [0, key, data, caml_check_bound(h[2], i)[i + 1]]
+        caml_check_bound(h[2], i)[i + 1] = bucket
+        h[1] = int(h[1] + 1)
+        t = 1 if len(h[2]) << 1 < h[1] else 0
+        return resize(key_index, h) if t else t
+
+    def remove_bucket(h, i, key, prec, c):
+        prec__0 = prec
+        c__0 = c
+        while True:
+            if c__0:
+                k = c__0[1]
+                next = c__0[3]
+                if call2(H[1], k, key):
+                    h[1] = int(h[1] + -1)
+                    return (
+                        (0 if UnsupportedAssignOp or true else 0)
+                        if prec__0
+                        else (0 if UnsupportedAssignOp or true else 0)
+                    )
+                prec__0 = c__0
+                c__0 = next
+                continue
+            return 0
+
+    def remove(h, key):
+        i = key_index(h, key)
+        return remove_bucket(h, i, key, 0, caml_check_bound(h[2], i)[i + 1])
+
+    def find_rec(key, param):
+        param__0 = param
+        while True:
+            if param__0:
+                k = param__0[1]
+                data = param__0[2]
+                next = param__0[3]
+                if call2(H[1], key, k):
+                    return data
+                param__0 = next
+                continue
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+    def find(h, key):
+        s = key_index(h, key)
+        match = caml_check_bound(h[2], s)[s + 1]
+        if match:
+            k1 = match[1]
+            d1 = match[2]
+            next1 = match[3]
+            if call2(H[1], key, k1):
+                return d1
+            if next1:
+                k2 = next1[1]
+                d2 = next1[2]
+                next2 = next1[3]
+                if call2(H[1], key, k2):
+                    return d2
+                if next2:
+                    k3 = next2[1]
+                    d3 = next2[2]
+                    next3 = next2[3]
+                    return d3 if call2(H[1], key, k3) else find_rec(key, next3)
+                raise (empty["caml_wrap_thrown_exception"](Not_found))
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+        raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+    def find_rec_opt(key, param):
+        param__0 = param
+        while True:
+            if param__0:
+                k = param__0[1]
+                data = param__0[2]
+                next = param__0[3]
+                if call2(H[1], key, k):
+                    return [0, data]
+                param__0 = next
+                continue
+            return 0
+
+    def find_opt(h, key):
+        r = key_index(h, key)
+        match = caml_check_bound(h[2], r)[r + 1]
+        if match:
+            k1 = match[1]
+            d1 = match[2]
+            next1 = match[3]
+            if call2(H[1], key, k1):
+                return [0, d1]
+            if next1:
+                k2 = next1[1]
+                d2 = next1[2]
+                next2 = next1[3]
+                if call2(H[1], key, k2):
+                    return [0, d2]
+                if next2:
+                    k3 = next2[1]
+                    d3 = next2[2]
+                    next3 = next2[3]
+                    return [0, d3] if call2(H[1], key, k3) else find_rec_opt(key, next3)
+                return 0
+            return 0
+        return 0
+
+    def find_all(h, key):
+        def find_in_bucket(param):
+            param__0 = param
+            while True:
+                if param__0:
+                    k = param__0[1]
+                    d = param__0[2]
+                    next = param__0[3]
+                    if call2(H[1], k, key):
+                        return [0, d, find_in_bucket(next)]
+                    param__0 = next
+                    continue
+                return 0
+
+        q = key_index(h, key)
+        return find_in_bucket(caml_check_bound(h[2], q)[q + 1])
+
+    def replace_bucket(key, data, param):
+        param__0 = param
+        while True:
+            if param__0:
+                k = param__0[1]
+                next = param__0[3]
+                if call2(H[1], k, key):
+                    param__0[1] = key
+                    param__0[2] = data
+                    return 0
+                param__0 = next
+                continue
+            return 1
+
+    def replace(h, key, data):
+        i = key_index(h, key)
+        l = caml_check_bound(h[2], i)[i + 1]
+        n = replace_bucket(key, data, l)
+        if n:
+            caml_check_bound(h[2], i)[i + 1] = [0, key, data, l]
+            h[1] = int(h[1] + 1)
+            o = 1 if len(h[2]) << 1 < h[1] else 0
+            if o:
+                return resize(key_index, h)
+            p = o
+        else:
+            p = n
+        return p
+
+    def mem(h, key):
+        def mem_in_bucket(param):
+            param__0 = param
+            while True:
+                if param__0:
+                    k = param__0[1]
+                    next = param__0[3]
+                    m = call2(H[1], k, key)
+                    if m:
+                        return m
+                    param__0 = next
+                    continue
+                return 0
+
+        l = key_index(h, key)
+        return mem_in_bucket(caml_check_bound(h[2], l)[l + 1])
+
+    return [
+        0,
+        create,
+        clear,
+        reset,
+        copy,
+        add,
+        remove,
+        find,
+        find_opt,
+        find_all,
+        replace,
+        mem,
+        iter,
+        filter_map_inplace,
+        fold,
+        length,
+        stats,
+    ]
+
+
+def Make(H):
+    equal = H[1]
+
+    def hash(seed, x):
+        return call1(H[2], x)
+
+    include = MakeSeeded([0, equal, hash])
+    clear = include[2]
+    reset = include[3]
+    copy = include[4]
+    add = include[5]
+    remove = include[6]
+    find = include[7]
+    find_opt = include[8]
+    find_all = include[9]
+    replace = include[10]
+    mem = include[11]
+    iter = include[12]
+    filter_map_inplace = include[13]
+    fold = include[14]
+    length = include[15]
+    stats = include[16]
+    k = include[1]
+
+    def create(sz):
+        return call2(k, d, sz)
+
+    return [
+        0,
+        create,
+        clear,
+        reset,
+        copy,
+        add,
+        remove,
+        find,
+        find_opt,
+        find_all,
+        replace,
+        mem,
+        iter,
+        filter_map_inplace,
+        fold,
+        length,
+        stats,
+    ]
+
+
+def function_expression_172(j, i, h, g):
+    return caml_hash(j, i, h, g)
+
+
+Hashtbl = [
+    0,
+    create,
+    clear,
+    reset,
+    copy,
+    add,
+    find,
+    find_opt,
+    find_all,
+    mem,
+    remove,
+    replace,
+    iter,
+    filter_map_inplace,
+    fold,
+    length,
+    randomize,
+    is_randomized,
+    stats,
+    Make,
+    MakeSeeded,
+    hash,
+    seeded_hash,
+    hash_param,
+    function_expression_172,
+]
+empty["caml_register_global"](13, Hashtbl, "Hashtbl")

@@ -1,0 +1,115 @@
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call4(f, a0, a1, a2, a3):
+    return (
+        f(a0, a1, a2, a3)
+        if arity_test is 4
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+Buffer = global_data["Buffer"]
+CamlinternalFormat = global_data["CamlinternalFormat"]
+Pervasives = global_data["Pervasives"]
+
+
+def kfprintf(k, o, param):
+    fmt = param[1]
+    g = 0
+
+    def h(o, acc):
+        call2(CamlinternalFormat[9], o, acc)
+        return call1(k, o)
+
+    return call4(CamlinternalFormat[7], h, o, g, fmt)
+
+
+def kbprintf(k, b, param):
+    fmt = param[1]
+    e = 0
+
+    def f(b, acc):
+        call2(CamlinternalFormat[10], b, acc)
+        return call1(k, b)
+
+    return call4(CamlinternalFormat[7], f, b, e, fmt)
+
+
+def ikfprintf(k, oc, param):
+    fmt = param[1]
+    return call3(CamlinternalFormat[8], k, oc, fmt)
+
+
+def fprintf(oc, fmt):
+    def function_expression_161(d):
+        return 0
+
+    return kfprintf(function_expression_161, oc, fmt)
+
+
+def bprintf(b, fmt):
+    def function_expression_162(c):
+        return 0
+
+    return kbprintf(function_expression_162, b, fmt)
+
+
+def ifprintf(oc, fmt):
+    def function_expression_163(b):
+        return 0
+
+    return ikfprintf(function_expression_163, oc, fmt)
+
+
+def printf(fmt):
+    return fprintf(Pervasives[27], fmt)
+
+
+def eprintf(fmt):
+    return fprintf(Pervasives[28], fmt)
+
+
+def ksprintf(k, param):
+    fmt = param[1]
+
+    def k__0(param, acc):
+        buf = call1(Buffer[1], 64)
+        call2(CamlinternalFormat[11], buf, acc)
+        return call1(k, call1(Buffer[2], buf))
+
+    return call4(CamlinternalFormat[7], k__0, 0, 0, fmt)
+
+
+def sprintf(fmt):
+    def function_expression_164(s):
+        return s
+
+    return ksprintf(function_expression_164, fmt)
+
+
+Printf = [
+    0,
+    fprintf,
+    printf,
+    eprintf,
+    sprintf,
+    bprintf,
+    ifprintf,
+    kfprintf,
+    ikfprintf,
+    ksprintf,
+    kbprintf,
+    ksprintf,
+]
+empty["caml_register_global"](3, Printf, "Printf")

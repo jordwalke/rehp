@@ -18,6 +18,52 @@ module Make =
   let space = () => print_string(" ");
   let comma_space = () => print_string(", ");
 
+  let array_conv =
+    Array.init(16, i => String.make(1, "0123456789abcdef".[i]));
+  let array_str1 = Array.init(256, i => String.make(1, Char.chr(i)));
+
+  /* TODO: combine with version in php_output */
+  let pp_string = (~quote='\'', ~utf=false, s) => {
+    let quote_s = String.make(1, quote);
+    print_string(quote_s);
+    let l = String.length(s);
+    for (i in 0 to l - 1) {
+      let c = s.[i];
+      switch (c) {
+      | '\000' when i == l - 1 || s.[i + 1] < '0' || s.[i + 1] > '9' =>
+        print_string("\\0")
+      | '\b' => print_string("\\b")
+      | '\t' => print_string("\\t")
+      | '\n' => print_string("\\n")
+      /* This escape sequence is not supported by IE < 9
+            | '\011' -> "\\v"
+         */
+      | '\012' => print_string("\\f")
+      | '\\' when !utf => print_string("\\\\")
+      | '\r' => print_string("\\r")
+      | '\000'..'\031'
+      | '\127' =>
+        let c = Char.code(c);
+        print_string("\\x");
+        print_string(Array.unsafe_get(array_conv, c lsr 4));
+        print_string(Array.unsafe_get(array_conv, c land 15));
+      | '\128'..'\255' when !utf =>
+        let c = Char.code(c);
+        print_string("\\x");
+        print_string(Array.unsafe_get(array_conv, c lsr 4));
+        print_string(Array.unsafe_get(array_conv, c land 15));
+      | _ =>
+        if (c == quote) {
+          print_string("\\");
+          print_string(Array.unsafe_get(array_str1, Char.code(c)));
+        } else {
+          print_string(Array.unsafe_get(array_str1, Char.code(c)));
+        }
+      };
+    };
+    print_string(quote_s);
+  };
+
   let tabcount = ref(0);
   let print_tab = () => {
     let spaces = ref("");
@@ -94,11 +140,7 @@ module Make =
   let print_property_name =
     fun
     | Id.PNI(id_name) => print_string(id_name)
-    | Id.PNS(s) => {
-        print_string("'");
-        print_string(s);
-        print_string("'");
-      }
+    | Id.PNS(s) => pp_string(s)
     | Id.PNN(f) => print_float(f);
 
   let rec print_list = (print, separator, li) =>
@@ -113,7 +155,14 @@ module Make =
 
   let rec print_parameter_list = li => print_list(print_id, comma_space, li)
 
-  and print_statement_list = li => print_list(print_statement, newline, li)
+  and print_statement_list = li => {
+    switch (li) {
+    | [] =>
+      print_tab();
+      print_string("pass");
+    | li => print_list(print_statement, newline, li)
+    };
+  }
 
   and print_element_list = li => print_list(print_expression, comma_space, li)
 
@@ -135,11 +184,13 @@ module Make =
     | ERaw(str) => print_string(str)
 
     | ECond(condition, consequent, alternate) =>
+      print_string("(");
       print_expression(consequent);
       print_string(" if ");
       print_expression(condition);
       print_string(" else ");
       print_expression(alternate);
+      print_string(")");
 
     | EBin(bin_op, left_expression, right_expression) =>
       print_expression(left_expression);
@@ -180,10 +231,7 @@ module Make =
 
     | EVar(id) => print_id(id)
 
-    | EStr(v, kind) =>
-      print_string("'");
-      print_string(v);
-      print_string("'");
+    | EStr(v, kind) => pp_string(~utf=kind === `Utf8, v)
 
     | EArr(element_list) =>
       print_string("[");
@@ -202,7 +250,7 @@ module Make =
       print_string("}");
 
     | ERegexp(regex, options) => /* TODO: how to handle this */ assert(false)
-    }
+    };
   }
 
   and print_statement = statement => {
@@ -222,14 +270,9 @@ module Make =
       print_string("(");
       print_parameter_list(parameter_list);
       print_string("):");
-      
+
       let tc = newline_tab();
-      switch (statement_list) {
-      | [] =>
-        print_tab();
-        print_string("pass");
-      | li => print_statement_list(li)
-      };
+      print_statement_list(statement_list);
       untab(tc);
 
     | Assignment_statement(assign_op, left_expression, right_expression) =>

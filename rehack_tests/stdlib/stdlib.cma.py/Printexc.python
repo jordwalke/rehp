@@ -1,0 +1,512 @@
+caml_check_bound = empty["caml_check_bound"]
+caml_get_exception_raw_backtrace = empty["caml_get_exception_raw_backtrace"]
+string = empty["caml_new_string"]
+caml_obj_tag = empty["caml_obj_tag"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call6(f, a0, a1, a2, a3, a4, a5):
+    return (
+        f(a0, a1, a2, a3, a4, a5)
+        if arity_test is 6
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4, a5])
+    )
+
+
+def call7(f, a0, a1, a2, a3, a4, a5, a6):
+    return (
+        f(a0, a1, a2, a3, a4, a5, a6)
+        if arity_test is 7
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4, a5, a6])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst__0 = string("")
+cst_Program_not_linked_with_g_cannot_print_stack_backtrace = string(
+    "(Program not linked with -g, cannot print stack backtrace)\n"
+)
+cst_Raised_at = string("Raised at")
+cst_Re_raised_at = string("Re-raised at")
+cst_Raised_by_primitive_operation_at = string("Raised by primitive operation at")
+cst_Called_from = string("Called from")
+cst_inlined = string(" (inlined)")
+cst__3 = string("")
+partial = [4, 0, 0, 0, 0]
+cst_Out_of_memory = string("Out of memory")
+cst_Stack_overflow = string("Stack overflow")
+cst_Pattern_matching_failed = string("Pattern matching failed")
+cst_Assertion_failed = string("Assertion failed")
+cst_Undefined_recursive_module = string("Undefined recursive module")
+cst__1 = string("")
+cst__2 = string("")
+cst = string("_")
+locfmt = [
+    0,
+    [
+        11,
+        string('File "'),
+        [
+            2,
+            0,
+            [
+                11,
+                string('", line '),
+                [
+                    4,
+                    0,
+                    0,
+                    0,
+                    [
+                        11,
+                        string(", characters "),
+                        [
+                            4,
+                            0,
+                            0,
+                            0,
+                            [12, 45, [4, 0, 0, 0, [11, string(": "), [2, 0, 0]]]],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    string('File "%s", line %d, characters %d-%d: %s'),
+]
+Printf = global_data["Printf"]
+Pervasives = global_data["Pervasives"]
+Out_of_memory = global_data["Out_of_memory"]
+Buffer = global_data["Buffer"]
+Stack_overflow = global_data["Stack_overflow"]
+Match_failure = global_data["Match_failure"]
+Assert_failure = global_data["Assert_failure"]
+Undefined_recursive_module = global_data["Undefined_recursive_module"]
+Obj = global_data["Obj"]
+d = [0, [11, string(", "), [2, 0, [2, 0, 0]]], string(", %s%s")]
+m = [0, [2, 0, [12, 10, 0]], string("%s\n")]
+k = [0, [2, 0, [12, 10, 0]], string("%s\n")]
+l = [
+    0,
+    [11, string("(Program not linked with -g, cannot print stack backtrace)\n"), 0],
+    string("(Program not linked with -g, cannot print stack backtrace)\n"),
+]
+i = [
+    0,
+    [
+        2,
+        0,
+        [
+            11,
+            string(' file "'),
+            [
+                2,
+                0,
+                [
+                    12,
+                    34,
+                    [
+                        2,
+                        0,
+                        [
+                            11,
+                            string(", line "),
+                            [
+                                4,
+                                0,
+                                0,
+                                0,
+                                [
+                                    11,
+                                    string(", characters "),
+                                    [4, 0, 0, 0, [12, 45, partial]],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    string('%s file "%s"%s, line %d, characters %d-%d'),
+]
+j = [0, [2, 0, [11, string(" unknown location"), 0]], string("%s unknown location")]
+h = [
+    0,
+    [11, string("Uncaught exception: "), [2, 0, [12, 10, 0]]],
+    string("Uncaught exception: %s\n"),
+]
+g = [
+    0,
+    [11, string("Uncaught exception: "), [2, 0, [12, 10, 0]]],
+    string("Uncaught exception: %s\n"),
+]
+e = [0, [12, 40, [2, 0, [2, 0, [12, 41, 0]]]], string("(%s%s)")]
+f = [0, [12, 40, [2, 0, [12, 41, 0]]], string("(%s)")]
+c = [0, [4, 0, 0, 0, 0], string("%d")]
+b = [0, [3, 0, 0], string("%S")]
+printers = [0, 0]
+
+
+def field(x, i):
+    f = x[i + 1]
+    return (
+        (
+            call2(Printf[4], b, f)
+            if caml_obj_tag(f) is Obj[13]
+            else (call1(Pervasives[23], f) if caml_obj_tag(f) is Obj[14] else cst)
+        )
+        if call1(Obj[1], f)
+        else call2(Printf[4], c, f)
+    )
+
+
+def other_fields(x, i):
+    if len(x) <= i:
+        return cst__0
+    ae = other_fields(x, int(i + 1))
+    af = field(x, i)
+    return call3(Printf[4], d, af, ae)
+
+
+def fields(x):
+    match = len(x)
+    if 2 < lsr(match, 0):
+        ab = other_fields(x, 2)
+        ac = field(x, 1)
+        return call3(Printf[4], e, ac, ab)
+    while True:
+        if match is 0:
+            return cst__1
+        else:
+            if match is 1:
+                return cst__2
+            else:
+                ad = field(x, 1)
+                return call2(Printf[4], f, ad)
+        break
+
+
+def to_string(x):
+    def conv(param):
+        param__0 = param
+        while True:
+            if param__0:
+                tl = param__0[2]
+                hd = param__0[1]
+                try:
+                    Y = call1(hd, x)
+                    X = Y
+                except:
+                    X = 0
+                if X:
+                    s = X[1]
+                    return s
+                param__0 = tl
+                continue
+            if x is Out_of_memory:
+                return cst_Out_of_memory
+            if x is Stack_overflow:
+                return cst_Stack_overflow
+            if x[1] is Match_failure:
+                match = x[2]
+                char__0 = match[3]
+                line = match[2]
+                file = match[1]
+                return call6(
+                    Printf[4],
+                    locfmt,
+                    file,
+                    line,
+                    char__0,
+                    int(char__0 + 5),
+                    cst_Pattern_matching_failed,
+                )
+            if x[1] is Assert_failure:
+                match__0 = x[2]
+                char__1 = match__0[3]
+                line__0 = match__0[2]
+                file__0 = match__0[1]
+                return call6(
+                    Printf[4],
+                    locfmt,
+                    file__0,
+                    line__0,
+                    char__1,
+                    int(char__1 + 6),
+                    cst_Assertion_failed,
+                )
+            if x[1] is Undefined_recursive_module:
+                match__1 = x[2]
+                char__2 = match__1[3]
+                line__1 = match__1[2]
+                file__1 = match__1[1]
+                return call6(
+                    Printf[4],
+                    locfmt,
+                    file__1,
+                    line__1,
+                    char__2,
+                    int(char__2 + 6),
+                    cst_Undefined_recursive_module,
+                )
+            if 0 is caml_obj_tag(x):
+                constructor = x[1][1]
+                Z = fields(x)
+                return call2(Pervasives[16], constructor, Z)
+            return x[1]
+
+    return conv(printers[1])
+
+
+def print(fct, arg):
+    try:
+        W = call1(fct, arg)
+        return W
+    except:
+        x = caml_wrap_exception(x)
+        V = to_string(x)
+        call2(Printf[3], g, V)
+        call1(Pervasives[51], Pervasives[28])
+        raise (empty["caml_wrap_thrown_exception_reraise"](x))
+
+
+def catch__0(fct, arg):
+    try:
+        U = call1(fct, arg)
+        return U
+    except:
+        x = caml_wrap_exception(x)
+        call1(Pervasives[51], Pervasives[27])
+        T = to_string(x)
+        call2(Printf[3], h, T)
+        return call1(Pervasives[87], 2)
+
+
+def convert_raw_backtrace(bt):
+    S = [0, empty["caml_convert_raw_backtrace"](bt)]
+    return S
+
+
+def format_backtrace_slot(pos, slot):
+    def info(is_raise):
+        return (
+            (cst_Raised_at if 0 is pos else cst_Re_raised_at)
+            if is_raise
+            else (cst_Raised_by_primitive_operation_at if 0 is pos else cst_Called_from)
+        )
+
+    if 0 is slot[0]:
+        L = slot[5]
+        M = slot[4]
+        N = slot[3]
+        O = cst_inlined if slot[6] else cst__3
+        P = slot[2]
+        Q = info(slot[1])
+        return [0, call7(Printf[4], i, Q, P, O, N, M, L)]
+    if slot[1]:
+        return 0
+    R = info(0)
+    return [0, call2(Printf[4], j, R)]
+
+
+def print_exception_backtrace(outchan, backtrace):
+    if backtrace:
+        a = backtrace[1]
+        J = int(len(a) + -1)
+        I = 0
+        if not (J < 0):
+            i = I
+            while True:
+                match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1])
+                if match:
+                    str = match[1]
+                    call3(Printf[1], outchan, k, str)
+                K = int(i + 1)
+                if J is not i:
+                    i = K
+                    continue
+                break
+        return 0
+    return call2(Printf[1], outchan, l)
+
+
+def print_raw_backtrace(outchan, raw_backtrace):
+    return print_exception_backtrace(outchan, convert_raw_backtrace(raw_backtrace))
+
+
+def print_backtrace(outchan):
+    return print_raw_backtrace(outchan, caml_get_exception_raw_backtrace(0))
+
+
+def backtrace_to_string(backtrace):
+    if backtrace:
+        a = backtrace[1]
+        b = call1(Buffer[1], 1024)
+        G = int(len(a) + -1)
+        F = 0
+        if not (G < 0):
+            i = F
+            while True:
+                match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1])
+                if match:
+                    str = match[1]
+                    call3(Printf[5], b, m, str)
+                H = int(i + 1)
+                if G is not i:
+                    i = H
+                    continue
+                break
+        return call1(Buffer[2], b)
+    return cst_Program_not_linked_with_g_cannot_print_stack_backtrace
+
+
+def raw_backtrace_to_string(raw_backtrace):
+    return backtrace_to_string(convert_raw_backtrace(raw_backtrace))
+
+
+def backtrace_slot_is_raise(param):
+    return param[1] if 0 is param[0] else param[1]
+
+
+def backtrace_slot_is_inline(param):
+    return param[6] if 0 is param[0] else 0
+
+
+def backtrace_slot_location(param):
+    return [0, [0, param[2], param[3], param[4], param[5]]] if 0 is param[0] else 0
+
+
+def backtrace_slots(raw_backtrace):
+    match = convert_raw_backtrace(raw_backtrace)
+    if match:
+        backtrace = match[1]
+
+        def usable_slot(param):
+            return 1 if 0 is param[0] else 0
+
+        def exists_usable(i):
+            i__0 = i
+            while True:
+                if -1 is i__0:
+                    return 0
+                E = usable_slot(caml_check_bound(backtrace, i__0)[i__0 + 1])
+                if E:
+                    return E
+                i__1 = int(i__0 + -1)
+                i__0 = i__1
+                continue
+
+        return [0, backtrace] if exists_usable(int(len(backtrace) + -1)) else 0
+    return 0
+
+
+def get_backtrace(param):
+    return raw_backtrace_to_string(caml_get_exception_raw_backtrace(0))
+
+
+def register_printer(fn):
+    printers[1] = [0, fn, printers[1]]
+    return 0
+
+
+def exn_slot(x):
+    return x[1] if 0 is caml_obj_tag(x) else x
+
+
+def exn_slot_id(x):
+    slot = exn_slot(x)
+    return slot[2]
+
+
+def exn_slot_name(x):
+    slot = exn_slot(x)
+    return slot[1]
+
+
+uncaught_exception_handler = [0, 0]
+
+
+def set_uncaught_exception_handler(fn):
+    uncaught_exception_handler[1] = [0, fn]
+    return 0
+
+
+def n(D):
+    return empty["caml_raw_backtrace_next_slot"](D)
+
+
+def o(C):
+    return empty["caml_convert_raw_backtrace_slot"](C)
+
+
+def p(B, A):
+    return empty["caml_raw_backtrace_slot"](B, A)
+
+
+def q(z):
+    return empty["caml_raw_backtrace_length"](z)
+
+
+r = [
+    0,
+    backtrace_slot_is_raise,
+    backtrace_slot_is_inline,
+    backtrace_slot_location,
+    format_backtrace_slot,
+]
+
+
+def s(y):
+    return empty["caml_get_current_callstack"](y)
+
+
+def t(x):
+    return caml_get_exception_raw_backtrace(x)
+
+
+def u(w):
+    return empty["caml_backtrace_status"](w)
+
+
+def function_expression_167(v):
+    return empty["caml_record_backtrace"](v)
+
+
+Printexc = [
+    0,
+    to_string,
+    print,
+    catch__0,
+    print_backtrace,
+    get_backtrace,
+    function_expression_167,
+    u,
+    register_printer,
+    t,
+    print_raw_backtrace,
+    raw_backtrace_to_string,
+    s,
+    set_uncaught_exception_handler,
+    backtrace_slots,
+    r,
+    q,
+    p,
+    o,
+    n,
+    exn_slot_id,
+    exn_slot_name,
+]
+empty["caml_register_global"](45, Printexc, "Printexc")

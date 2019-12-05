@@ -1,0 +1,138 @@
+caml_format_int = empty["caml_format_int"]
+string = empty["caml_new_string"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_is_not_a_latin1_character = string(" is not a latin1 character")
+cst_04X = string("%04X")
+cst_U = string("U+")
+cst_is_not_an_Unicode_scalar_value = string(" is not an Unicode scalar value")
+cst_X = string("%X")
+err_no_pred = string("U+0000 has no predecessor")
+err_no_succ = string("U+10FFFF has no successor")
+Pervasives = global_data["Pervasives"]
+
+
+def err_not_sv(i):
+    return call2(
+        Pervasives[16], caml_format_int(cst_X, i), cst_is_not_an_Unicode_scalar_value
+    )
+
+
+def err_not_latin1(u):
+    q = call2(
+        Pervasives[16], caml_format_int(cst_04X, u), cst_is_not_a_latin1_character
+    )
+    return call2(Pervasives[16], cst_U, q)
+
+
+min = 0
+max = 1114111
+lo_bound = 55295
+hi_bound = 57344
+bom = 65279
+rep = 65533
+
+
+def succ(u):
+    return (
+        hi_bound
+        if u is 55295
+        else (call1(Pervasives[1], err_no_succ) if u is 1114111 else int(u + 1))
+    )
+
+
+def pred(u):
+    return (
+        lo_bound
+        if u is 57344
+        else (call1(Pervasives[1], err_no_pred) if u is 0 else int(u + -1))
+    )
+
+
+def is_valid(i):
+    m = 1 if 0 <= i else 0
+    n = (1 if i <= 55295 else 0) if m else m
+    if n:
+        o = n
+    else:
+        p = 1 if 57344 <= i else 0
+        o = (1 if i <= 1114111 else 0) if p else p
+    return o
+
+
+def of_int(i):
+    if is_valid(i):
+        return i
+    l = err_not_sv(i)
+    return call1(Pervasives[1], l)
+
+
+def is_char(u):
+    return 1 if u < 256 else 0
+
+
+def of_char(c):
+    return c
+
+
+def to_char(u):
+    if 255 < u:
+        k = err_not_latin1(u)
+        return call1(Pervasives[1], k)
+    return u
+
+
+def unsafe_to_char(j):
+    return j
+
+
+def equal(i, h):
+    return 1 if i is h else 0
+
+
+def compare(g, f):
+    return empty["caml_int_compare"](g, f)
+
+
+def hash(e):
+    return e
+
+
+def b(d):
+    return d
+
+
+def function_expression_7(c):
+    return c
+
+
+Uchar = [
+    0,
+    min,
+    max,
+    bom,
+    rep,
+    succ,
+    pred,
+    is_valid,
+    of_int,
+    function_expression_7,
+    b,
+    is_char,
+    of_char,
+    to_char,
+    unsafe_to_char,
+    equal,
+    compare,
+    hash,
+]
+empty["caml_register_global"](8, Uchar, "Uchar")

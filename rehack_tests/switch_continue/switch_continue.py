@@ -97,7 +97,7 @@ def g0(i):
 
 
 def g1(i):
-    x = 10 if 0 is i else g1(int(i + -5)) if 10 < i else g1(int(i + -1))
+    x = 10 if 0 is i else (g1(int(i + -5)) if 10 < i else g1(int(i + -1)))
     return int(x + 1)
 
 

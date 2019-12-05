@@ -1,0 +1,702 @@
+caml_ml_string_length = empty["caml_ml_string_length"]
+string = empty["caml_new_string"]
+caml_string_equal = empty["caml_string_equal"]
+caml_string_get = empty["caml_string_get"]
+caml_string_notequal = empty["caml_string_notequal"]
+caml_sys_getenv = empty["caml_sys_getenv"]
+caml_trampoline = empty["caml_trampoline"]
+caml_trampoline_return = empty["caml_trampoline_return"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call4(f, a0, a1, a2, a3):
+    return (
+        f(a0, a1, a2, a3)
+        if arity_test is 4
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Filename_chop_extension = string("Filename.chop_extension")
+cst__10 = string("")
+cst_Filename_chop_suffix = string("Filename.chop_suffix")
+cst__9 = string("")
+cst__7 = string("./")
+cst__6 = string(".\\")
+cst__5 = string("../")
+cst__4 = string("..\\")
+cst__2 = string("./")
+cst__1 = string("../")
+cst__0 = string("")
+cst = string("")
+current_dir_name = string(".")
+parent_dir_name = string("..")
+dir_sep = string("/")
+cst_TMPDIR = string("TMPDIR")
+cst_tmp = string("/tmp")
+cst__3 = string("'\\''")
+current_dir_name__0 = string(".")
+parent_dir_name__0 = string("..")
+dir_sep__0 = string("\\")
+cst_TEMP = string("TEMP")
+cst__8 = string(".")
+current_dir_name__1 = string(".")
+parent_dir_name__1 = string("..")
+dir_sep__1 = string("/")
+cst_Cygwin = string("Cygwin")
+cst_Win32 = string("Win32")
+Pervasives = global_data["Pervasives"]
+Sys_error = global_data["Sys_error"]
+CamlinternalLazy = global_data["CamlinternalLazy"]
+Random = global_data["Random"]
+Printf = global_data["Printf"]
+String = global_data["String_"]
+Buffer = global_data["Buffer"]
+Not_found = global_data["Not_found"]
+Sys = global_data["Sys"]
+e = [0, 7, 0]
+d = [0, 1, [0, 3, [0, 5, 0]]]
+c = [0, [2, 0, [4, 6, [0, 2, 6], 0, [2, 0, 0]]], string("%s%06x%s")]
+
+
+def generic_quote(quotequote, s):
+    l = caml_ml_string_length(s)
+    b = call1(Buffer[1], int(l + 20))
+    call2(Buffer[10], b, 39)
+    ar = int(l + -1)
+    aq = 0
+    if not (ar < 0):
+        i = aq
+        while True:
+            if 39 is caml_string_get(s, i):
+                call2(Buffer[14], b, quotequote)
+            else:
+                au = caml_string_get(s, i)
+                call2(Buffer[10], b, au)
+            at = int(i + 1)
+            if ar is not i:
+                i = at
+                continue
+            break
+    call2(Buffer[10], b, 39)
+    return call1(Buffer[2], b)
+
+
+def generic_basename(is_dir_sep, current_dir_name, name):
+    def find_beg(n, p):
+        n__0 = n
+        while True:
+            if 0 <= n__0:
+                if call2(is_dir_sep, name, n__0):
+                    return call3(
+                        String[4], name, int(n__0 + 1), int(int(p - n__0) + -1)
+                    )
+                n__1 = int(n__0 + -1)
+                n__0 = n__1
+                continue
+            return call3(String[4], name, 0, p)
+
+    def find_end(n):
+        n__0 = n
+        while True:
+            if 0 <= n__0:
+                if call2(is_dir_sep, name, n__0):
+                    n__1 = int(n__0 + -1)
+                    n__0 = n__1
+                    continue
+                return find_beg(n__0, int(n__0 + 1))
+            return call3(String[4], name, 0, 1)
+
+    return (
+        current_dir_name
+        if caml_string_equal(name, cst)
+        else find_end(int(caml_ml_string_length(name) + -1))
+    )
+
+
+def generic_dirname(is_dir_sep, current_dir_name, name):
+    def intermediate_sep(n):
+        n__0 = n
+        while True:
+            if 0 <= n__0:
+                if call2(is_dir_sep, name, n__0):
+                    n__1 = int(n__0 + -1)
+                    n__0 = n__1
+                    continue
+                return call3(String[4], name, 0, int(n__0 + 1))
+            return call3(String[4], name, 0, 1)
+
+    def base(n):
+        n__0 = n
+        while True:
+            if 0 <= n__0:
+                if call2(is_dir_sep, name, n__0):
+                    return intermediate_sep(n__0)
+                n__1 = int(n__0 + -1)
+                n__0 = n__1
+                continue
+            return current_dir_name
+
+    def trailing_sep(n):
+        n__0 = n
+        while True:
+            if 0 <= n__0:
+                if call2(is_dir_sep, name, n__0):
+                    n__1 = int(n__0 + -1)
+                    n__0 = n__1
+                    continue
+                return base(n__0)
+            return call3(String[4], name, 0, 1)
+
+    return (
+        current_dir_name
+        if caml_string_equal(name, cst__0)
+        else trailing_sep(int(caml_ml_string_length(name) + -1))
+    )
+
+
+def is_dir_sep(s, i):
+    return 1 if 47 is caml_string_get(s, i) else 0
+
+
+def is_relative(n):
+    ao = 1 if caml_ml_string_length(n) < 1 else 0
+    ap = ao if ao else (1 if 47 is not caml_string_get(n, 0) else 0)
+    return ap
+
+
+def is_implicit(n):
+    aj = is_relative(n)
+    if aj:
+        ak = 1 if caml_ml_string_length(n) < 2 else 0
+        al = ak if ak else caml_string_notequal(call3(String[4], n, 0, 2), cst__2)
+        if al:
+            am = 1 if caml_ml_string_length(n) < 3 else 0
+            an = am if am else caml_string_notequal(call3(String[4], n, 0, 3), cst__1)
+        else:
+            an = al
+    else:
+        an = aj
+    return an
+
+
+def check_suffix(name, suff):
+    ah = 1 if caml_ml_string_length(suff) <= caml_ml_string_length(name) else 0
+    ai = (
+        caml_string_equal(
+            call3(
+                String[4],
+                name,
+                int(caml_ml_string_length(name) - caml_ml_string_length(suff)),
+                caml_ml_string_length(suff),
+            ),
+            suff,
+        )
+        if ah
+        else ah
+    )
+    return ai
+
+
+try:
+    o = caml_sys_getenv(cst_TMPDIR)
+    temp_dir_name = o
+except:
+    ag = caml_wrap_exception(ag)
+    if ag is not Not_found:
+        raise (empty["caml_wrap_thrown_exception_reraise"](ag))
+    temp_dir_name = cst_tmp
+
+
+def quote(af):
+    return generic_quote(cst__3, af)
+
+
+def basename(ae):
+    return generic_basename(is_dir_sep, current_dir_name, ae)
+
+
+def dirname(ad):
+    return generic_dirname(is_dir_sep, current_dir_name, ad)
+
+
+def is_dir_sep__0(s, i):
+    c = caml_string_get(s, i)
+    aa = 1 if 47 is c else 0
+    if aa:
+        ab = aa
+    else:
+        ac = 1 if 92 is c else 0
+        ab = ac if ac else (1 if 58 is c else 0)
+    return ab
+
+
+def is_relative__0(n):
+    U = 1 if caml_ml_string_length(n) < 1 else 0
+    V = U if U else (1 if 47 is not caml_string_get(n, 0) else 0)
+    if V:
+        W = 1 if caml_ml_string_length(n) < 1 else 0
+        X = W if W else (1 if 92 is not caml_string_get(n, 0) else 0)
+        if X:
+            Y = 1 if caml_ml_string_length(n) < 2 else 0
+            Z = Y if Y else (1 if 58 is not caml_string_get(n, 1) else 0)
+        else:
+            Z = X
+    else:
+        Z = V
+    return Z
+
+
+def is_implicit__0(n):
+    L = is_relative__0(n)
+    if L:
+        M = 1 if caml_ml_string_length(n) < 2 else 0
+        N = M if M else caml_string_notequal(call3(String[4], n, 0, 2), cst__7)
+        if N:
+            O = 1 if caml_ml_string_length(n) < 2 else 0
+            P = O if O else caml_string_notequal(call3(String[4], n, 0, 2), cst__6)
+            if P:
+                Q = 1 if caml_ml_string_length(n) < 3 else 0
+                R = Q if Q else caml_string_notequal(call3(String[4], n, 0, 3), cst__5)
+                if R:
+                    S = 1 if caml_ml_string_length(n) < 3 else 0
+                    T = (
+                        S
+                        if S
+                        else caml_string_notequal(call3(String[4], n, 0, 3), cst__4)
+                    )
+                else:
+                    T = R
+            else:
+                T = P
+        else:
+            T = N
+    else:
+        T = L
+    return T
+
+
+def check_suffix__0(name, suff):
+    I = 1 if caml_ml_string_length(suff) <= caml_ml_string_length(name) else 0
+    if I:
+        s = call3(
+            String[4],
+            name,
+            int(caml_ml_string_length(name) - caml_ml_string_length(suff)),
+            caml_ml_string_length(suff),
+        )
+        J = call1(String[30], suff)
+        K = caml_string_equal(call1(String[30], s), J)
+    else:
+        K = I
+    return K
+
+
+try:
+    n = caml_sys_getenv(cst_TEMP)
+    temp_dir_name__0 = n
+except:
+    H = caml_wrap_exception(H)
+    if H is not Not_found:
+        raise (empty["caml_wrap_thrown_exception_reraise"](H))
+    temp_dir_name__0 = cst__8
+
+
+def quote__0(s):
+    l = caml_ml_string_length(s)
+    b = call1(Buffer[1], int(l + 20))
+    call2(Buffer[10], b, 34)
+
+    def add_bs(n):
+        F = 1
+        if not (n < 1):
+            j = F
+            while True:
+                call2(Buffer[10], b, 92)
+                G = int(j + 1)
+                if n is not j:
+                    j = G
+                    continue
+                break
+        return 0
+
+    def loop__0(counter, i):
+        i__0 = i
+        while True:
+            if i__0 is l:
+                return call2(Buffer[10], b, 34)
+            c = caml_string_get(s, i__0)
+            if 34 is c:
+                D = 0
+                if counter < 50:
+                    counter__1 = int(counter + 1)
+                    return loop_bs(counter__1, D, i__0)
+                return caml_trampoline_return(loop_bs, [0, D, i__0])
+            if 92 is c:
+                E = 0
+                if counter < 50:
+                    counter__0 = int(counter + 1)
+                    return loop_bs(counter__0, E, i__0)
+                return caml_trampoline_return(loop_bs, [0, E, i__0])
+            call2(Buffer[10], b, c)
+            i__1 = int(i__0 + 1)
+            i__0 = i__1
+            continue
+
+    def loop_bs(counter, n, i):
+        n__0 = n
+        i__0 = i
+        while True:
+            if i__0 is l:
+                call2(Buffer[10], b, 34)
+                return add_bs(n__0)
+            match = caml_string_get(s, i__0)
+            if 34 is match:
+                add_bs(int(int(2 * n__0) + 1))
+                call2(Buffer[10], b, 34)
+                C = int(i__0 + 1)
+                if counter < 50:
+                    counter__1 = int(counter + 1)
+                    return loop__0(counter__1, C)
+                return caml_trampoline_return(loop__0, [0, C])
+            if 92 is match:
+                i__1 = int(i__0 + 1)
+                n__1 = int(n__0 + 1)
+                n__0 = n__1
+                i__0 = i__1
+                continue
+            add_bs(n__0)
+            if counter < 50:
+                counter__0 = int(counter + 1)
+                return loop__0(counter__0, i__0)
+            return caml_trampoline_return(loop__0, [0, i__0])
+
+    def loop(i):
+        return caml_trampoline(loop__0(0, i))
+
+    loop(0)
+    return call1(Buffer[2], b)
+
+
+def has_drive(s):
+    def is_letter(param):
+        switch__0 = (
+            (0 if 25 < lsr(int(param + -97), 0) else 1)
+            if 91 <= param
+            else (1 if 65 <= param else 0)
+        )
+        return 1 if switch__0 else 0
+
+    z = 1 if 2 <= caml_ml_string_length(s) else 0
+    if z:
+        A = is_letter(caml_string_get(s, 0))
+        B = (1 if 58 is caml_string_get(s, 1) else 0) if A else A
+    else:
+        B = z
+    return B
+
+
+def drive_and_path(s):
+    if has_drive(s):
+        y = call3(String[4], s, 2, int(caml_ml_string_length(s) + -2))
+        return [0, call3(String[4], s, 0, 2), y]
+    return [0, cst__9, s]
+
+
+def dirname__0(s):
+    match = drive_and_path(s)
+    path = match[2]
+    drive = match[1]
+    dir = generic_dirname(is_dir_sep__0, current_dir_name__0, path)
+    return call2(Pervasives[16], drive, dir)
+
+
+def basename__0(s):
+    match = drive_and_path(s)
+    path = match[2]
+    return generic_basename(is_dir_sep__0, current_dir_name__0, path)
+
+
+def basename__1(x):
+    return generic_basename(is_dir_sep__0, current_dir_name__1, x)
+
+
+def dirname__1(w):
+    return generic_dirname(is_dir_sep__0, current_dir_name__1, w)
+
+
+b = Sys[5]
+if caml_string_notequal(b, cst_Cygwin):
+    if caml_string_notequal(b, cst_Win32):
+        current_dir_name__2 = current_dir_name
+        parent_dir_name__2 = parent_dir_name
+        dir_sep__2 = dir_sep
+        is_dir_sep__1 = is_dir_sep
+        is_relative__1 = is_relative
+        is_implicit__1 = is_implicit
+        check_suffix__1 = check_suffix
+        temp_dir_name__1 = temp_dir_name
+        quote__1 = quote
+        basename__2 = basename
+        dirname__2 = dirname
+        switch__0 = 1
+    else:
+        f = [
+            0,
+            current_dir_name__0,
+            parent_dir_name__0,
+            dir_sep__0,
+            is_dir_sep__0,
+            is_relative__0,
+            is_implicit__0,
+            check_suffix__0,
+            temp_dir_name__0,
+            quote__0,
+            basename__0,
+            dirname__0,
+        ]
+        switch__0 = 0
+else:
+    f = [
+        0,
+        current_dir_name__1,
+        parent_dir_name__1,
+        dir_sep__1,
+        is_dir_sep__0,
+        is_relative__0,
+        is_implicit__0,
+        check_suffix__0,
+        temp_dir_name,
+        quote,
+        basename__1,
+        dirname__1,
+    ]
+    switch__0 = 0
+if not (switch__0):
+    g = f[11]
+    h = f[10]
+    i = f[9]
+    j = f[8]
+    k = f[3]
+    l = f[2]
+    m = f[1]
+    current_dir_name__2 = m
+    parent_dir_name__2 = l
+    dir_sep__2 = k
+    is_dir_sep__1 = is_dir_sep__0
+    is_relative__1 = is_relative__0
+    is_implicit__1 = is_implicit__0
+    check_suffix__1 = check_suffix__0
+    temp_dir_name__1 = j
+    quote__1 = i
+    basename__2 = h
+    dirname__2 = g
+
+
+def concat(dirname, filename):
+    l = caml_ml_string_length(dirname)
+    if 0 is not l:
+        if not (is_dir_sep__1(dirname, int(l + -1))):
+            v = call2(Pervasives[16], dir_sep__2, filename)
+            return call2(Pervasives[16], dirname, v)
+    return call2(Pervasives[16], dirname, filename)
+
+
+def chop_suffix(name, suff):
+    n = int(caml_ml_string_length(name) - caml_ml_string_length(suff))
+    return (
+        call3(String[4], name, 0, n)
+        if 0 <= n
+        else call1(Pervasives[1], cst_Filename_chop_suffix)
+    )
+
+
+def extension_len(name):
+    def check(i0, i):
+        i__0 = i
+        while True:
+            if 0 <= i__0:
+                if not (is_dir_sep__1(name, i__0)):
+                    if 46 is caml_string_get(name, i__0):
+                        i__1 = int(i__0 + -1)
+                        i__0 = i__1
+                        continue
+                    return int(caml_ml_string_length(name) - i0)
+            return 0
+
+    def search_dot(i):
+        i__0 = i
+        while True:
+            if 0 <= i__0:
+                if not (is_dir_sep__1(name, i__0)):
+                    if 46 is caml_string_get(name, i__0):
+                        return check(i__0, int(i__0 + -1))
+                    i__1 = int(i__0 + -1)
+                    i__0 = i__1
+                    continue
+            return 0
+
+    return search_dot(int(caml_ml_string_length(name) + -1))
+
+
+def extension(name):
+    l = extension_len(name)
+    return (
+        cst__10
+        if 0 is l
+        else call3(String[4], name, int(caml_ml_string_length(name) - l), l)
+    )
+
+
+def chop_extension(name):
+    l = extension_len(name)
+    return (
+        call1(Pervasives[1], cst_Filename_chop_extension)
+        if 0 is l
+        else call3(String[4], name, 0, int(caml_ml_string_length(name) - l))
+    )
+
+
+def remove_extension(name):
+    l = extension_len(name)
+    return (
+        name
+        if 0 is l
+        else call3(String[4], name, 0, int(caml_ml_string_length(name) - l))
+    )
+
+
+def function_expression_239(u):
+    return call1(Random[11][2], 0)
+
+
+prng = [246, function_expression_239]
+
+
+def temp_file_name(temp_dir, prefix, suffix):
+    s = empty["caml_obj_tag"](prng)
+    t = (
+        prng[1]
+        if 250 is s
+        else (call1(CamlinternalLazy[2], prng) if 246 is s else prng)
+    )
+    rnd = call1(Random[11][4], t) & 16777215
+    return concat(temp_dir, call4(Printf[4], c, prefix, rnd, suffix))
+
+
+current_temp_dir_name = [0, temp_dir_name__1]
+
+
+def set_temp_dir_name(s):
+    current_temp_dir_name[1] = s
+    return 0
+
+
+def get_temp_dir_name(param):
+    return current_temp_dir_name[1]
+
+
+def temp_file(opt, prefix, suffix):
+    if opt:
+        sth = opt[1]
+        temp_dir = sth
+    else:
+        temp_dir = current_temp_dir_name[1]
+
+    def try_name(counter):
+        counter__0 = counter
+        while True:
+            name = temp_file_name(temp_dir, prefix, suffix)
+            try:
+                empty["caml_sys_close"](empty["caml_sys_open"](name, d, 384))
+                return name
+            except:
+                e = caml_wrap_exception(e)
+                if e[1] is Sys_error:
+                    if 1000 <= counter__0:
+                        raise (empty["caml_wrap_thrown_exception_reraise"](e))
+                    counter__1 = int(counter__0 + 1)
+                    counter__0 = counter__1
+                    continue
+                raise (empty["caml_wrap_thrown_exception_reraise"](e))
+
+    return try_name(0)
+
+
+def open_temp_file(opt, q, p, prefix, suffix):
+    if opt:
+        sth = opt[1]
+        mode = sth
+    else:
+        mode = e
+    if q:
+        sth__0 = q[1]
+        perms = sth__0
+    else:
+        perms = 384
+    if p:
+        sth__1 = p[1]
+        temp_dir = sth__1
+    else:
+        temp_dir = current_temp_dir_name[1]
+
+    def try_name(counter):
+        counter__0 = counter
+        while True:
+            name = temp_file_name(temp_dir, prefix, suffix)
+            try:
+                r = [
+                    0,
+                    name,
+                    call3(Pervasives[50], [0, 1, [0, 3, [0, 5, mode]]], perms, name),
+                ]
+                return r
+            except:
+                e = caml_wrap_exception(e)
+                if e[1] is Sys_error:
+                    if 1000 <= counter__0:
+                        raise (empty["caml_wrap_thrown_exception_reraise"](e))
+                    counter__1 = int(counter__0 + 1)
+                    counter__0 = counter__1
+                    continue
+                raise (empty["caml_wrap_thrown_exception_reraise"](e))
+
+    return try_name(0)
+
+
+Filename = [
+    0,
+    current_dir_name__2,
+    parent_dir_name__2,
+    dir_sep__2,
+    concat,
+    is_relative__1,
+    is_implicit__1,
+    check_suffix__1,
+    chop_suffix,
+    extension,
+    remove_extension,
+    chop_extension,
+    basename__2,
+    dirname__2,
+    temp_file,
+    open_temp_file,
+    get_temp_dir_name,
+    set_temp_dir_name,
+    temp_dir_name__1,
+    quote__1,
+]
+empty["caml_register_global"](40, Filename, "Filename")

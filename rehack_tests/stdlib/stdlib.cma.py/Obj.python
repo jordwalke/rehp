@@ -1,0 +1,183 @@
+string = empty["caml_new_string"]
+caml_obj_tag = empty["caml_obj_tag"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Obj_extension_constructor__0 = string("Obj.extension_constructor")
+cst_Obj_extension_constructor = string("Obj.extension_constructor")
+Pervasives = global_data["Pervasives"]
+Marshal = global_data["Marshal"]
+
+
+def is_block(a):
+    return 1 - is_int(a)
+
+
+def double_field(x, i):
+    return empty["caml_array_get"](x, i)
+
+
+def set_double_field(x, i, v):
+    return empty["caml_array_set"](x, i, v)
+
+
+def marshal(obj):
+    return empty["caml_output_value_to_string"](obj, 0)
+
+
+def unmarshal(str, pos):
+    M = int(pos + call2(Marshal[8], str, pos))
+    return [0, call2(Marshal[4], str, pos), M]
+
+
+first_non_constant_constructor_tag = 0
+last_non_constant_constructor_tag = 245
+lazy_tag = 246
+closure_tag = 247
+object_tag = 248
+infix_tag = 249
+forward_tag = 250
+no_scan_tag = 251
+abstract_tag = 251
+string_tag = 252
+double_tag = 253
+double_array_tag = 254
+custom_tag = 255
+int_tag = 1000
+out_of_heap_tag = 1001
+unaligned_tag = 1002
+
+
+def extension_constructor(x):
+    if is_block(x):
+        if caml_obj_tag(x) is not 248:
+            if 1 <= len(x):
+                slot = x[1]
+                switch__0 = 1
+            else:
+                switch__0 = 0
+        else:
+            switch__0 = 0
+    else:
+        switch__0 = 0
+    if not (switch__0):
+        slot = x
+    if is_block(slot):
+        if caml_obj_tag(slot) is 248:
+            name = slot[1]
+            switch__1 = 1
+        else:
+            switch__1 = 0
+    else:
+        switch__1 = 0
+    if not (switch__1):
+        name = call1(Pervasives[1], cst_Obj_extension_constructor__0)
+    return (
+        slot
+        if caml_obj_tag(name) is 252
+        else call1(Pervasives[1], cst_Obj_extension_constructor)
+    )
+
+
+def extension_name(slot):
+    return slot[1]
+
+
+def extension_id(slot):
+    return slot[2]
+
+
+def length(x):
+    return int(len(x) + -2)
+
+
+def b(L, K):
+    return empty["caml_ephe_blit_data"](L, K)
+
+
+def c(J):
+    return empty["caml_ephe_check_data"](J)
+
+
+def d(I):
+    return empty["caml_ephe_unset_data"](I)
+
+
+def e(H, G):
+    return empty["caml_ephe_set_data"](H, G)
+
+
+def f(F):
+    return empty["caml_ephe_get_data_copy"](F)
+
+
+def g(E):
+    return empty["caml_ephe_get_data"](E)
+
+
+def h(D, C, B, A, z):
+    return empty["caml_ephe_blit_key"](D, C, B, A, z)
+
+
+def i(y, x):
+    return empty["caml_ephe_check_key"](y, x)
+
+
+def j(w, v):
+    return empty["caml_ephe_unset_key"](w, v)
+
+
+def k(u, t, s):
+    return empty["caml_ephe_set_key"](u, t, s)
+
+
+def l(r, q):
+    return empty["caml_ephe_get_key_copy"](r, q)
+
+
+def m(p, o):
+    return empty["caml_ephe_get_key"](p, o)
+
+
+def function_expression_13(n):
+    return empty["caml_ephe_create"](n)
+
+
+Obj = [
+    0,
+    is_block,
+    double_field,
+    set_double_field,
+    first_non_constant_constructor_tag,
+    last_non_constant_constructor_tag,
+    lazy_tag,
+    closure_tag,
+    object_tag,
+    infix_tag,
+    forward_tag,
+    no_scan_tag,
+    abstract_tag,
+    string_tag,
+    double_tag,
+    double_array_tag,
+    custom_tag,
+    custom_tag,
+    int_tag,
+    out_of_heap_tag,
+    unaligned_tag,
+    extension_constructor,
+    extension_name,
+    extension_id,
+    marshal,
+    unmarshal,
+    [0, function_expression_13, length, m, l, k, j, i, h, g, f, e, d, c, b],
+]
+empty["caml_register_global"](4, Obj, "Obj")

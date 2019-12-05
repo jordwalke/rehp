@@ -66,6 +66,9 @@ let keyword = List.fold_left
 
     (* also reserved in ECMAScript 6 *)
     "await";
+
+    (* python *)
+    "from";
 ]
 
 let js_globals = [

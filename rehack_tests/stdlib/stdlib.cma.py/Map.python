@@ -1,0 +1,900 @@
+string = empty["caml_new_string"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Map_remove_min_elt = string("Map.remove_min_elt")
+cst_Map_bal = string("Map.bal")
+cst_Map_bal__0 = string("Map.bal")
+cst_Map_bal__1 = string("Map.bal")
+cst_Map_bal__2 = string("Map.bal")
+Not_found = global_data["Not_found"]
+Pervasives = global_data["Pervasives"]
+Assert_failure = global_data["Assert_failure"]
+b = [0, 0, 0, 0]
+c = [0, string("map.ml"), 393, 10]
+d = [0, 0, 0]
+
+
+def Make(Ord):
+    def height(param):
+        if param:
+            h = param[5]
+            return h
+        return 0
+
+    def create(l, x, d, r):
+        hl = height(l)
+        hr = height(r)
+        O = int(hl + 1) if hr <= hl else int(hr + 1)
+        return [0, l, x, d, r, O]
+
+    def singleton(x, d):
+        return [0, 0, x, d, 0, 1]
+
+    def bal(l, x, d, r):
+        if l:
+            h = l[5]
+            hl = h
+        else:
+            hl = 0
+        if r:
+            h__0 = r[5]
+            hr = h__0
+        else:
+            hr = 0
+        if int(hr + 2) < hl:
+            if l:
+                lr = l[4]
+                ld = l[3]
+                lv = l[2]
+                ll = l[1]
+                J = height(lr)
+                if J <= height(ll):
+                    return create(ll, lv, ld, create(lr, x, d, r))
+                if lr:
+                    lrr = lr[4]
+                    lrd = lr[3]
+                    lrv = lr[2]
+                    lrl = lr[1]
+                    K = create(lrr, x, d, r)
+                    return create(create(ll, lv, ld, lrl), lrv, lrd, K)
+                return call1(Pervasives[1], cst_Map_bal)
+            return call1(Pervasives[1], cst_Map_bal__0)
+        if int(hl + 2) < hr:
+            if r:
+                rr = r[4]
+                rd = r[3]
+                rv = r[2]
+                rl = r[1]
+                L = height(rl)
+                if L <= height(rr):
+                    return create(create(l, x, d, rl), rv, rd, rr)
+                if rl:
+                    rlr = rl[4]
+                    rld = rl[3]
+                    rlv = rl[2]
+                    rll = rl[1]
+                    M = create(rlr, rv, rd, rr)
+                    return create(create(l, x, d, rll), rlv, rld, M)
+                return call1(Pervasives[1], cst_Map_bal__1)
+            return call1(Pervasives[1], cst_Map_bal__2)
+        N = int(hl + 1) if hr <= hl else int(hr + 1)
+        return [0, l, x, d, r, N]
+
+    empty = 0
+
+    def is_empty(param):
+        return 0 if param else 1
+
+    def add(x, data, m):
+        if m:
+            h = m[5]
+            r = m[4]
+            d = m[3]
+            v = m[2]
+            l = m[1]
+            c = call2(Ord[1], x, v)
+            if 0 is c:
+                return m if d is data else [0, l, x, data, r, h]
+            if 0 <= c:
+                rr = add(x, data, r)
+                return m if r is rr else bal(l, v, d, rr)
+            ll = add(x, data, l)
+            return m if l is ll else bal(ll, v, d, r)
+        return [0, 0, x, data, 0, 1]
+
+    def find(x, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                c = call2(Ord[1], x, v)
+                if 0 is c:
+                    return d
+                param__1 = r if 0 <= c else l
+                param__0 = param__1
+                continue
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+    def find_first_aux(v0, d0, f, param):
+        v0__0 = v0
+        d0__0 = d0
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    v0__0 = v
+                    d0__0 = d
+                    param__0 = l
+                    continue
+                param__0 = r
+                continue
+            return [0, v0__0, d0__0]
+
+    def find_first(f, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    return find_first_aux(v, d, f, l)
+                param__0 = r
+                continue
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+    def find_first_opt_aux(v0, d0, f, param):
+        v0__0 = v0
+        d0__0 = d0
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    v0__0 = v
+                    d0__0 = d
+                    param__0 = l
+                    continue
+                param__0 = r
+                continue
+            return [0, [0, v0__0, d0__0]]
+
+    def find_first_opt(f, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    return find_first_opt_aux(v, d, f, l)
+                param__0 = r
+                continue
+            return 0
+
+    def find_last_aux(v0, d0, f, param):
+        v0__0 = v0
+        d0__0 = d0
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    v0__0 = v
+                    d0__0 = d
+                    param__0 = r
+                    continue
+                param__0 = l
+                continue
+            return [0, v0__0, d0__0]
+
+    def find_last(f, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    return find_last_aux(v, d, f, r)
+                param__0 = l
+                continue
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+    def find_last_opt_aux(v0, d0, f, param):
+        v0__0 = v0
+        d0__0 = d0
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    v0__0 = v
+                    d0__0 = d
+                    param__0 = r
+                    continue
+                param__0 = l
+                continue
+            return [0, [0, v0__0, d0__0]]
+
+    def find_last_opt(f, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                if call1(f, v):
+                    return find_last_opt_aux(v, d, f, r)
+                param__0 = l
+                continue
+            return 0
+
+    def find_opt(x, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                c = call2(Ord[1], x, v)
+                if 0 is c:
+                    return [0, d]
+                param__1 = r if 0 <= c else l
+                param__0 = param__1
+                continue
+            return 0
+
+    def mem(x, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                v = param__0[2]
+                l = param__0[1]
+                c = call2(Ord[1], x, v)
+                I = 1 if 0 is c else 0
+                if I:
+                    return I
+                param__1 = r if 0 <= c else l
+                param__0 = param__1
+                continue
+            return 0
+
+    def min_binding(param):
+        param__0 = param
+        while True:
+            if param__0:
+                H = param__0[1]
+                if H:
+                    param__0 = H
+                    continue
+                d = param__0[3]
+                v = param__0[2]
+                return [0, v, d]
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+    def min_binding_opt(param):
+        param__0 = param
+        while True:
+            if param__0:
+                G = param__0[1]
+                if G:
+                    param__0 = G
+                    continue
+                d = param__0[3]
+                v = param__0[2]
+                return [0, [0, v, d]]
+            return 0
+
+    def max_binding(param):
+        param__0 = param
+        while True:
+            if param__0:
+                D = param__0[4]
+                E = param__0[3]
+                F = param__0[2]
+                if D:
+                    param__0 = D
+                    continue
+                return [0, F, E]
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+    def max_binding_opt(param):
+        param__0 = param
+        while True:
+            if param__0:
+                A = param__0[4]
+                B = param__0[3]
+                C = param__0[2]
+                if A:
+                    param__0 = A
+                    continue
+                return [0, [0, C, B]]
+            return 0
+
+    def remove_min_binding(param):
+        if param:
+            z = param[1]
+            if z:
+                r = param[4]
+                d = param[3]
+                v = param[2]
+                return bal(remove_min_binding(z), v, d, r)
+            r__0 = param[4]
+            return r__0
+        return call1(Pervasives[1], cst_Map_remove_min_elt)
+
+    def g(t, match):
+        if t:
+            if match:
+                match__0 = min_binding(match)
+                d = match__0[2]
+                x = match__0[1]
+                return bal(t, x, d, remove_min_binding(match))
+            return t
+        return match
+
+    def remove(x, m):
+        if m:
+            r = m[4]
+            d = m[3]
+            v = m[2]
+            l = m[1]
+            c = call2(Ord[1], x, v)
+            if 0 is c:
+                return g(l, r)
+            if 0 <= c:
+                rr = remove(x, r)
+                return m if r is rr else bal(l, v, d, rr)
+            ll = remove(x, l)
+            return m if l is ll else bal(ll, v, d, r)
+        return 0
+
+    def update(x, f, m):
+        if m:
+            h = m[5]
+            r = m[4]
+            d = m[3]
+            v = m[2]
+            l = m[1]
+            c = call2(Ord[1], x, v)
+            if 0 is c:
+                match = call1(f, [0, d])
+                if match:
+                    data = match[1]
+                    return m if d is data else [0, l, x, data, r, h]
+                return g(l, r)
+            if 0 <= c:
+                rr = update(x, f, r)
+                return m if r is rr else bal(l, v, d, rr)
+            ll = update(x, f, l)
+            return m if l is ll else bal(ll, v, d, r)
+        match__0 = call1(f, 0)
+        if match__0:
+            data__0 = match__0[1]
+            return [0, 0, x, data__0, 0, 1]
+        return 0
+
+    def iter(f, param):
+        param__0 = param
+        while True:
+            if param__0:
+                param__1 = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                iter(f, l)
+                call2(f, v, d)
+                param__0 = param__1
+                continue
+            return 0
+
+    def map(f, param):
+        if param:
+            h = param[5]
+            r = param[4]
+            d = param[3]
+            v = param[2]
+            l = param[1]
+            l__0 = map(f, l)
+            d__0 = call1(f, d)
+            r__0 = map(f, r)
+            return [0, l__0, v, d__0, r__0, h]
+        return 0
+
+    def mapi(f, param):
+        if param:
+            h = param[5]
+            r = param[4]
+            d = param[3]
+            v = param[2]
+            l = param[1]
+            l__0 = mapi(f, l)
+            d__0 = call2(f, v, d)
+            r__0 = mapi(f, r)
+            return [0, l__0, v, d__0, r__0, h]
+        return 0
+
+    def fold(f, m, accu):
+        m__0 = m
+        accu__0 = accu
+        while True:
+            if m__0:
+                m__1 = m__0[4]
+                d = m__0[3]
+                v = m__0[2]
+                l = m__0[1]
+                accu__1 = call3(f, v, d, fold(f, l, accu__0))
+                m__0 = m__1
+                accu__0 = accu__1
+                continue
+            return accu__0
+
+    def for_all(p, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                w = call2(p, v, d)
+                if w:
+                    x = for_all(p, l)
+                    if x:
+                        param__0 = r
+                        continue
+                    y = x
+                else:
+                    y = w
+                return y
+            return 1
+
+    def exists(p, param):
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                l = param__0[1]
+                t = call2(p, v, d)
+                if t:
+                    u = t
+                else:
+                    v = exists(p, l)
+                    if not (v):
+                        param__0 = r
+                        continue
+                    u = v
+                return u
+            return 0
+
+    def add_min_binding(k, x, param):
+        if param:
+            r = param[4]
+            d = param[3]
+            v = param[2]
+            l = param[1]
+            return bal(add_min_binding(k, x, l), v, d, r)
+        return singleton(k, x)
+
+    def add_max_binding(k, x, param):
+        if param:
+            r = param[4]
+            d = param[3]
+            v = param[2]
+            l = param[1]
+            return bal(l, v, d, add_max_binding(k, x, r))
+        return singleton(k, x)
+
+    def join(l, v, d, r):
+        if l:
+            if r:
+                rh = r[5]
+                rr = r[4]
+                rd = r[3]
+                rv = r[2]
+                rl = r[1]
+                lh = l[5]
+                lr = l[4]
+                ld = l[3]
+                lv = l[2]
+                ll = l[1]
+                return (
+                    bal(ll, lv, ld, join(lr, v, d, r))
+                    if int(rh + 2) < lh
+                    else (
+                        bal(join(l, v, d, rl), rv, rd, rr)
+                        if int(lh + 2) < rh
+                        else create(l, v, d, r)
+                    )
+                )
+            return add_max_binding(v, d, l)
+        return add_min_binding(v, d, r)
+
+    def concat(t, match):
+        if t:
+            if match:
+                match__0 = min_binding(match)
+                d = match__0[2]
+                x = match__0[1]
+                return join(t, x, d, remove_min_binding(match))
+            return t
+        return match
+
+    def concat_or_join(t1, v, d, t2):
+        if d:
+            d__0 = d[1]
+            return join(t1, v, d__0, t2)
+        return concat(t1, t2)
+
+    def split(x, param):
+        if param:
+            r = param[4]
+            d = param[3]
+            v = param[2]
+            l = param[1]
+            c = call2(Ord[1], x, v)
+            if 0 is c:
+                return [0, l, [0, d], r]
+            if 0 <= c:
+                match = split(x, r)
+                rr = match[3]
+                pres = match[2]
+                lr = match[1]
+                return [0, join(l, v, d, lr), pres, rr]
+            match__0 = split(x, l)
+            rl = match__0[3]
+            pres__0 = match__0[2]
+            ll = match__0[1]
+            return [0, ll, pres__0, join(rl, v, d, r)]
+        return b
+
+    def merge(f, s1, s2):
+        if s1:
+            h1 = s1[5]
+            r1 = s1[4]
+            d1 = s1[3]
+            v1 = s1[2]
+            l1 = s1[1]
+            if height(s2) <= h1:
+                match = split(v1, s2)
+                r2 = match[3]
+                d2 = match[2]
+                l2 = match[1]
+                p = merge(f, r1, r2)
+                q = call3(f, v1, [0, d1], d2)
+                return concat_or_join(merge(f, l1, l2), v1, q, p)
+        else:
+            if not (s2):
+                return 0
+        if s2:
+            r2__0 = s2[4]
+            d2__0 = s2[3]
+            v2 = s2[2]
+            l2__0 = s2[1]
+            match__0 = split(v2, s1)
+            r1__0 = match__0[3]
+            d1__0 = match__0[2]
+            l1__0 = match__0[1]
+            r = merge(f, r1__0, r2__0)
+            s = call3(f, v2, d1__0, [0, d2__0])
+            return concat_or_join(merge(f, l1__0, l2__0), v2, s, r)
+        raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, c]))
+
+    def union(f, s1, s2):
+        if s1:
+            if s2:
+                h2 = s2[5]
+                r2 = s2[4]
+                d2 = s2[3]
+                v2 = s2[2]
+                l2 = s2[1]
+                h1 = s1[5]
+                r1 = s1[4]
+                d1 = s1[3]
+                v1 = s1[2]
+                l1 = s1[1]
+                if h2 <= h1:
+                    match = split(v1, s2)
+                    r2__0 = match[3]
+                    d2__0 = match[2]
+                    l2__0 = match[1]
+                    l = union(f, l1, l2__0)
+                    r = union(f, r1, r2__0)
+                    if d2__0:
+                        d2__1 = d2__0[1]
+                        return concat_or_join(l, v1, call3(f, v1, d1, d2__1), r)
+                    return join(l, v1, d1, r)
+                match__0 = split(v2, s1)
+                r1__0 = match__0[3]
+                d1__0 = match__0[2]
+                l1__0 = match__0[1]
+                l__0 = union(f, l1__0, l2)
+                r__0 = union(f, r1__0, r2)
+                if d1__0:
+                    d1__1 = d1__0[1]
+                    return concat_or_join(l__0, v2, call3(f, v2, d1__1, d2), r__0)
+                return join(l__0, v2, d2, r__0)
+            s = s1
+        else:
+            s = s2
+        return s
+
+    def filter(p, m):
+        if m:
+            r = m[4]
+            d = m[3]
+            v = m[2]
+            l = m[1]
+            l__0 = filter(p, l)
+            pvd = call2(p, v, d)
+            r__0 = filter(p, r)
+            if pvd:
+                if l is l__0:
+                    if r is r__0:
+                        return m
+                return join(l__0, v, d, r__0)
+            return concat(l__0, r__0)
+        return 0
+
+    def partition(p, param):
+        if param:
+            r = param[4]
+            d__0 = param[3]
+            v = param[2]
+            l = param[1]
+            match = partition(p, l)
+            lf = match[2]
+            lt = match[1]
+            pvd = call2(p, v, d__0)
+            match__0 = partition(p, r)
+            rf = match__0[2]
+            rt = match__0[1]
+            if pvd:
+                n = concat(lf, rf)
+                return [0, join(lt, v, d__0, rt), n]
+            o = join(lf, v, d__0, rf)
+            return [0, concat(lt, rt), o]
+        return d
+
+    def cons_enum(m, e):
+        m__0 = m
+        e__0 = e
+        while True:
+            if m__0:
+                r = m__0[4]
+                d = m__0[3]
+                v = m__0[2]
+                m__1 = m__0[1]
+                e__1 = [0, v, d, r, e__0]
+                m__0 = m__1
+                e__0 = e__1
+                continue
+            return e__0
+
+    def compare(cmp, m1, m2):
+        def compare_aux(e1, e2):
+            e1__0 = e1
+            e2__0 = e2
+            while True:
+                if e1__0:
+                    if e2__0:
+                        e2__1 = e2__0[4]
+                        r2 = e2__0[3]
+                        d2 = e2__0[2]
+                        v2 = e2__0[1]
+                        e1__1 = e1__0[4]
+                        r1 = e1__0[3]
+                        d1 = e1__0[2]
+                        v1 = e1__0[1]
+                        c = call2(Ord[1], v1, v2)
+                        if 0 is c:
+                            c__0 = call2(cmp, d1, d2)
+                            if 0 is c__0:
+                                e2__2 = cons_enum(r2, e2__1)
+                                e1__2 = cons_enum(r1, e1__1)
+                                e1__0 = e1__2
+                                e2__0 = e2__2
+                                continue
+                            return c__0
+                        return c
+                    return 1
+                return -1 if e2__0 else 0
+
+        m = cons_enum(m2, 0)
+        return compare_aux(cons_enum(m1, 0), m)
+
+    def equal(cmp, m1, m2):
+        def equal_aux(e1, e2):
+            e1__0 = e1
+            e2__0 = e2
+            while True:
+                if e1__0:
+                    if e2__0:
+                        e2__1 = e2__0[4]
+                        r2 = e2__0[3]
+                        d2 = e2__0[2]
+                        v2 = e2__0[1]
+                        e1__1 = e1__0[4]
+                        r1 = e1__0[3]
+                        d1 = e1__0[2]
+                        v1 = e1__0[1]
+                        j = 1 if 0 is call2(Ord[1], v1, v2) else 0
+                        if j:
+                            k = call2(cmp, d1, d2)
+                            if k:
+                                e2__2 = cons_enum(r2, e2__1)
+                                e1__2 = cons_enum(r1, e1__1)
+                                e1__0 = e1__2
+                                e2__0 = e2__2
+                                continue
+                            l = k
+                        else:
+                            l = j
+                        return l
+                    return 0
+                return 0 if e2__0 else 1
+
+        i = cons_enum(m2, 0)
+        return equal_aux(cons_enum(m1, 0), i)
+
+    def cardinal(param):
+        if param:
+            r = param[4]
+            l = param[1]
+            h = cardinal(r)
+            return int(int(cardinal(l) + 1) + h)
+        return 0
+
+    def bindings_aux(accu, param):
+        accu__0 = accu
+        param__0 = param
+        while True:
+            if param__0:
+                r = param__0[4]
+                d = param__0[3]
+                v = param__0[2]
+                param__1 = param__0[1]
+                accu__1 = [0, [0, v, d], bindings_aux(accu__0, r)]
+                accu__0 = accu__1
+                param__0 = param__1
+                continue
+            return accu__0
+
+    def bindings(s):
+        return bindings_aux(0, s)
+
+    return [
+        0,
+        height,
+        create,
+        singleton,
+        bal,
+        empty,
+        is_empty,
+        add,
+        find,
+        find_first_aux,
+        find_first,
+        find_first_opt_aux,
+        find_first_opt,
+        find_last_aux,
+        find_last,
+        find_last_opt_aux,
+        find_last_opt,
+        find_opt,
+        mem,
+        min_binding,
+        min_binding_opt,
+        max_binding,
+        max_binding_opt,
+        remove_min_binding,
+        remove,
+        update,
+        iter,
+        map,
+        mapi,
+        fold,
+        for_all,
+        exists,
+        add_min_binding,
+        add_max_binding,
+        join,
+        concat,
+        concat_or_join,
+        split,
+        merge,
+        union,
+        filter,
+        partition,
+        cons_enum,
+        compare,
+        equal,
+        cardinal,
+        bindings_aux,
+        bindings,
+        min_binding,
+        min_binding_opt,
+    ]
+
+
+def function_expression_22(e):
+    f = Make(e)
+    return [
+        0,
+        f[5],
+        f[6],
+        f[18],
+        f[7],
+        f[25],
+        f[3],
+        f[24],
+        f[38],
+        f[39],
+        f[43],
+        f[44],
+        f[26],
+        f[29],
+        f[30],
+        f[31],
+        f[40],
+        f[41],
+        f[45],
+        f[47],
+        f[19],
+        f[20],
+        f[21],
+        f[22],
+        f[48],
+        f[49],
+        f[37],
+        f[8],
+        f[17],
+        f[10],
+        f[12],
+        f[14],
+        f[16],
+        f[27],
+        f[28],
+    ]
+
+
+Map = [0, function_expression_22]
+empty["caml_register_global"](11, Map, "Map")

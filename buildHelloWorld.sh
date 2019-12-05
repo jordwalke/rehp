@@ -3,6 +3,10 @@ set -u
 
 esy build
 
+echo "./rehack_tests/stdlib/stdlib.cma.py"
+esy x sh -c 'export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/python-module-header.py" --backend python ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/stdlib/stdlib.cma.py/' && \
+black ./rehack_tests/stdlib/stdlib.cma.py/*
+
 for test in $(echo "
 switch_continue
 hello_world

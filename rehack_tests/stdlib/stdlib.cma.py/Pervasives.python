@@ -1,0 +1,706 @@
+caml_blit_string = empty["caml_blit_string"]
+caml_create_bytes = empty["caml_create_bytes"]
+caml_float_of_string = empty["caml_float_of_string"]
+caml_int64_float_of_bits = empty["caml_int64_float_of_bits"]
+caml_int_of_string = empty["caml_int_of_string"]
+caml_ml_bytes_length = empty["caml_ml_bytes_length"]
+caml_ml_channel_size = empty["caml_ml_channel_size"]
+caml_ml_channel_size_64 = empty["caml_ml_channel_size_64"]
+caml_ml_close_channel = empty["caml_ml_close_channel"]
+caml_ml_flush = empty["caml_ml_flush"]
+caml_ml_input = empty["caml_ml_input"]
+caml_ml_input_char = empty["caml_ml_input_char"]
+caml_ml_open_descriptor_in = empty["caml_ml_open_descriptor_in"]
+caml_ml_open_descriptor_out = empty["caml_ml_open_descriptor_out"]
+caml_ml_output = empty["caml_ml_output"]
+caml_ml_output_bytes = empty["caml_ml_output_bytes"]
+caml_ml_output_char = empty["caml_ml_output_char"]
+caml_ml_set_binary_mode = empty["caml_ml_set_binary_mode"]
+caml_ml_set_channel_name = empty["caml_ml_set_channel_name"]
+caml_ml_string_length = empty["caml_ml_string_length"]
+string = empty["caml_new_string"]
+caml_string_notequal = empty["caml_string_notequal"]
+caml_sys_open = empty["caml_sys_open"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+global_data = empty["caml_get_global_data"]()
+cst__0 = string("%,")
+cst_really_input = string("really_input")
+cst_input = string("input")
+cst_output_substring = string("output_substring")
+cst_output = string("output")
+cst_12g = string("%.12g")
+cst = string(".")
+cst_false__1 = string("false")
+cst_true__1 = string("true")
+cst_false__0 = string("false")
+cst_true__0 = string("true")
+cst_bool_of_string = string("bool_of_string")
+cst_true = string("true")
+cst_false = string("false")
+cst_char_of_int = string("char_of_int")
+cst_Pervasives_Exit = string("Pervasives.Exit")
+End_of_file = global_data["End_of_file"]
+CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"]
+Sys_error = global_data["Sys_error"]
+Failure = global_data["Failure"]
+Invalid_argument = global_data["Invalid_argument"]
+m = [0, 0, [0, 6, 0]]
+l = [0, 0, [0, 7, 0]]
+k = [0, 1, [0, 3, [0, 4, [0, 6, 0]]]]
+j = [0, 1, [0, 3, [0, 4, [0, 7, 0]]]]
+h = [0, 1]
+i = [0, 0]
+b = [255, 0, 0, 32752]
+c = [255, 0, 0, 65520]
+d = [255, 1, 0, 32752]
+e = [255, 16777215, 16777215, 32751]
+f = [255, 0, 0, 16]
+g = [255, 0, 0, 15536]
+
+
+def failwith(s):
+    raise (empty["caml_wrap_thrown_exception"]([0, Failure, s]))
+
+
+def invalid_arg(s):
+    raise (empty["caml_wrap_thrown_exception"]([0, Invalid_argument, s]))
+
+
+Exit = [248, cst_Pervasives_Exit, empty["caml_fresh_oo_id"](0)]
+
+
+def min(x, y):
+    return x if empty["caml_lessequal"](x, y) else y
+
+
+def max(x, y):
+    return x if empty["caml_greaterequal"](x, y) else y
+
+
+def abs(x):
+    return x if 0 <= x else int(-(x))
+
+
+def lnot(x):
+    return x ^ -1
+
+
+infinity = caml_int64_float_of_bits(b)
+neg_infinity = caml_int64_float_of_bits(c)
+nan = caml_int64_float_of_bits(d)
+max_float = caml_int64_float_of_bits(e)
+min_float = caml_int64_float_of_bits(f)
+epsilon_float = caml_int64_float_of_bits(g)
+max_int = 2147483647
+min_int = -2147483648
+
+
+def symbol(s1, s2):
+    l1 = caml_ml_string_length(s1)
+    l2 = caml_ml_string_length(s2)
+    s = caml_create_bytes(int(l1 + l2))
+    caml_blit_string(s1, 0, s, 0, l1)
+    caml_blit_string(s2, 0, s, l1, l2)
+    return s
+
+
+def char_of_int(n):
+    if 0 <= n:
+        if not (255 < n):
+            return n
+    return invalid_arg(cst_char_of_int)
+
+
+def string_of_bool(b):
+    return cst_true if b else cst_false
+
+
+def bool_of_string(param):
+    return (
+        (
+            invalid_arg(cst_bool_of_string)
+            if caml_string_notequal(param, cst_true__0)
+            else 1
+        )
+        if caml_string_notequal(param, cst_false__0)
+        else 0
+    )
+
+
+def bool_of_string_opt(param):
+    return (
+        (0 if caml_string_notequal(param, cst_true__1) else h)
+        if caml_string_notequal(param, cst_false__1)
+        else i
+    )
+
+
+def string_of_int(n):
+    return string("" + n)
+
+
+def int_of_string_opt(s):
+    try:
+        aA = [0, caml_int_of_string(s)]
+        return aA
+    except:
+        aB = caml_wrap_exception(aB)
+        if aB[1] is Failure:
+            return 0
+        raise (empty["caml_wrap_thrown_exception_reraise"](aB))
+
+
+def valid_float_lexem(s):
+    l = caml_ml_string_length(s)
+
+    def loop(i):
+        i__0 = i
+        while True:
+            if l <= i__0:
+                return symbol(s, cst)
+            match = empty["caml_string_get"](s, i__0)
+            switch__0 = (
+                (0 if 58 <= match else 1) if 48 <= match else (1 if 45 is match else 0)
+            )
+            if switch__0:
+                i__1 = int(i__0 + 1)
+                i__0 = i__1
+                continue
+            return s
+
+    return loop(0)
+
+
+def string_of_float(f):
+    return valid_float_lexem(empty["caml_format_float"](cst_12g, f))
+
+
+def float_of_string_opt(s):
+    try:
+        ay = [0, caml_float_of_string(s)]
+        return ay
+    except:
+        az = caml_wrap_exception(az)
+        if az[1] is Failure:
+            return 0
+        raise (empty["caml_wrap_thrown_exception_reraise"](az))
+
+
+def symbol__0(l1, l2):
+    if l1:
+        tl = l1[2]
+        hd = l1[1]
+        return [0, hd, symbol__0(tl, l2)]
+    return l2
+
+
+stdin = caml_ml_open_descriptor_in(0)
+stdout = caml_ml_open_descriptor_out(1)
+stderr = caml_ml_open_descriptor_out(2)
+
+
+def open_out_gen(mode, perm, name):
+    c = caml_ml_open_descriptor_out(caml_sys_open(name, mode, perm))
+    caml_ml_set_channel_name(c, name)
+    return c
+
+
+def open_out(name):
+    return open_out_gen(j, 438, name)
+
+
+def open_out_bin(name):
+    return open_out_gen(k, 438, name)
+
+
+def flush_all(param):
+    def iter(param):
+        param__0 = param
+        while True:
+            if param__0:
+                l = param__0[2]
+                a = param__0[1]
+                try:
+                    caml_ml_flush(a)
+                except:
+                    ax = caml_wrap_exception(ax)
+                    if ax[1] is not Sys_error:
+                        raise (empty["caml_wrap_thrown_exception_reraise"](ax))
+                param__0 = l
+                continue
+            return 0
+
+    return iter(empty["caml_ml_out_channels_list"](0))
+
+
+def output_bytes(oc, s):
+    return caml_ml_output_bytes(oc, s, 0, caml_ml_bytes_length(s))
+
+
+def output_string(oc, s):
+    return caml_ml_output(oc, s, 0, caml_ml_string_length(s))
+
+
+def output(oc, s, ofs, len):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (int(caml_ml_bytes_length(s) - len) < ofs):
+                return caml_ml_output_bytes(oc, s, ofs, len)
+    return invalid_arg(cst_output)
+
+
+def output_substring(oc, s, ofs, len):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (int(caml_ml_string_length(s) - len) < ofs):
+                return caml_ml_output(oc, s, ofs, len)
+    return invalid_arg(cst_output_substring)
+
+
+def output_value(chan, v):
+    return empty["caml_output_value"](chan, v, 0)
+
+
+def close_out(oc):
+    caml_ml_flush(oc)
+    return caml_ml_close_channel(oc)
+
+
+def close_out_noerr(oc):
+    try:
+        caml_ml_flush(oc)
+    except:
+        pass
+    try:
+        au = caml_ml_close_channel(oc)
+        return au
+    except:
+        return 0
+
+
+def open_in_gen(mode, perm, name):
+    c = caml_ml_open_descriptor_in(caml_sys_open(name, mode, perm))
+    caml_ml_set_channel_name(c, name)
+    return c
+
+
+def open_in(name):
+    return open_in_gen(l, 0, name)
+
+
+def open_in_bin(name):
+    return open_in_gen(m, 0, name)
+
+
+def input(ic, s, ofs, len):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (int(caml_ml_bytes_length(s) - len) < ofs):
+                return caml_ml_input(ic, s, ofs, len)
+    return invalid_arg(cst_input)
+
+
+def unsafe_really_input(ic, s, ofs, len):
+    ofs__0 = ofs
+    len__0 = len
+    while True:
+        if 0 < len__0:
+            r = caml_ml_input(ic, s, ofs__0, len__0)
+            if 0 is r:
+                raise (empty["caml_wrap_thrown_exception"](End_of_file))
+            len__1 = int(len__0 - r)
+            ofs__1 = int(ofs__0 + r)
+            ofs__0 = ofs__1
+            len__0 = len__1
+            continue
+        return 0
+
+
+def really_input(ic, s, ofs, len):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (int(caml_ml_bytes_length(s) - len) < ofs):
+                return unsafe_really_input(ic, s, ofs, len)
+    return invalid_arg(cst_really_input)
+
+
+def really_input_string(ic, len):
+    s = caml_create_bytes(len)
+    really_input(ic, s, 0, len)
+    return s
+
+
+def input_line(chan):
+    def build_result(buf, pos, param):
+        pos__0 = pos
+        param__0 = param
+        while True:
+            if param__0:
+                param__1 = param__0[2]
+                hd = param__0[1]
+                len = caml_ml_bytes_length(hd)
+                empty["caml_blit_bytes"](hd, 0, buf, int(pos__0 - len), len)
+                pos__1 = int(pos__0 - len)
+                pos__0 = pos__1
+                param__0 = param__1
+                continue
+            return buf
+
+    def scan(accu, len):
+        accu__0 = accu
+        len__0 = len
+        while True:
+            n = empty["caml_ml_input_scan_line"](chan)
+            if 0 is n:
+                if accu__0:
+                    return build_result(caml_create_bytes(len__0), len__0, accu__0)
+                raise (empty["caml_wrap_thrown_exception"](End_of_file))
+            if 0 < n:
+                res = caml_create_bytes(int(n + -1))
+                caml_ml_input(chan, res, 0, int(n + -1))
+                caml_ml_input_char(chan)
+                if accu__0:
+                    len__1 = int(int(len__0 + n) + -1)
+                    return build_result(
+                        caml_create_bytes(len__1), len__1, [0, res, accu__0]
+                    )
+                return res
+            beg = caml_create_bytes(int(-(n)))
+            caml_ml_input(chan, beg, 0, int(-(n)))
+            len__2 = int(len__0 - n)
+            accu__1 = [0, beg, accu__0]
+            accu__0 = accu__1
+            len__0 = len__2
+            continue
+
+    return scan(0, 0)
+
+
+def close_in_noerr(ic):
+    try:
+        ar = caml_ml_close_channel(ic)
+        return ar
+    except:
+        return 0
+
+
+def print_char(c):
+    return caml_ml_output_char(stdout, c)
+
+
+def print_string(s):
+    return output_string(stdout, s)
+
+
+def print_bytes(s):
+    return output_bytes(stdout, s)
+
+
+def print_int(i):
+    return output_string(stdout, string_of_int(i))
+
+
+def print_float(f):
+    return output_string(stdout, string_of_float(f))
+
+
+def print_endline(s):
+    output_string(stdout, s)
+    caml_ml_output_char(stdout, 10)
+    return caml_ml_flush(stdout)
+
+
+def print_newline(param):
+    caml_ml_output_char(stdout, 10)
+    return caml_ml_flush(stdout)
+
+
+def prerr_char(c):
+    return caml_ml_output_char(stderr, c)
+
+
+def prerr_string(s):
+    return output_string(stderr, s)
+
+
+def prerr_bytes(s):
+    return output_bytes(stderr, s)
+
+
+def prerr_int(i):
+    return output_string(stderr, string_of_int(i))
+
+
+def prerr_float(f):
+    return output_string(stderr, string_of_float(f))
+
+
+def prerr_endline(s):
+    output_string(stderr, s)
+    caml_ml_output_char(stderr, 10)
+    return caml_ml_flush(stderr)
+
+
+def prerr_newline(param):
+    caml_ml_output_char(stderr, 10)
+    return caml_ml_flush(stderr)
+
+
+def read_line(param):
+    caml_ml_flush(stdout)
+    return input_line(stdin)
+
+
+def read_int(param):
+    return caml_int_of_string(read_line(0))
+
+
+def read_int_opt(param):
+    return int_of_string_opt(read_line(0))
+
+
+def read_float(param):
+    return caml_float_of_string(read_line(0))
+
+
+def read_float_opt(param):
+    return float_of_string_opt(read_line(0))
+
+
+def string_of_format(param):
+    str = param[2]
+    return str
+
+
+def symbol__1(param, ap):
+    str2 = ap[2]
+    fmt2 = ap[1]
+    str1 = param[2]
+    fmt1 = param[1]
+    aq = symbol(str1, symbol(cst__0, str2))
+    return [0, call2(CamlinternalFormatBasics[3], fmt1, fmt2), aq]
+
+
+exit_function = [0, flush_all]
+
+
+def at_exit(f):
+    g = exit_function[1]
+
+    def function_expression_3(param):
+        call1(f, 0)
+        return call1(g, 0)
+
+    exit_function[1] = function_expression_3
+    return 0
+
+
+def do_at_exit(param):
+    return call1(exit_function[1], 0)
+
+
+def exit(retcode):
+    do_at_exit(0)
+    return empty["caml_sys_exit"](retcode)
+
+
+def n(ao):
+    return caml_ml_channel_size_64(ao)
+
+
+def o(an):
+    return empty["caml_ml_pos_in_64"](an)
+
+
+def p(am, al):
+    return empty["caml_ml_seek_in_64"](am, al)
+
+
+def q(ak):
+    return caml_ml_channel_size_64(ak)
+
+
+def r(aj):
+    return empty["caml_ml_pos_out_64"](aj)
+
+
+def function_expression_4(ai, ah):
+    return empty["caml_ml_seek_out_64"](ai, ah)
+
+
+s = [0, function_expression_4, r, q, p, o, n]
+
+
+def t(ag, af):
+    return caml_ml_set_binary_mode(ag, af)
+
+
+def u(ae):
+    return caml_ml_close_channel(ae)
+
+
+def v(ad):
+    return caml_ml_channel_size(ad)
+
+
+def w(ac):
+    return empty["caml_ml_pos_in"](ac)
+
+
+def x(ab, aa):
+    return empty["caml_ml_seek_in"](ab, aa)
+
+
+def y(Z):
+    return empty["caml_input_value"](Z)
+
+
+def z(Y):
+    return empty["caml_ml_input_int"](Y)
+
+
+def A(X):
+    return caml_ml_input_char(X)
+
+
+def B(W):
+    return caml_ml_input_char(W)
+
+
+def C(V, U):
+    return caml_ml_set_binary_mode(V, U)
+
+
+def D(T):
+    return caml_ml_channel_size(T)
+
+
+def E(S):
+    return empty["caml_ml_pos_out"](S)
+
+
+def F(R, Q):
+    return empty["caml_ml_seek_out"](R, Q)
+
+
+def G(P, O):
+    return empty["caml_ml_output_int"](P, O)
+
+
+def H(N, M):
+    return caml_ml_output_char(N, M)
+
+
+def I(L, K):
+    return caml_ml_output_char(L, K)
+
+
+def function_expression_5(J):
+    return caml_ml_flush(J)
+
+
+Pervasives = [
+    0,
+    invalid_arg,
+    failwith,
+    Exit,
+    min,
+    max,
+    abs,
+    max_int,
+    min_int,
+    lnot,
+    infinity,
+    neg_infinity,
+    nan,
+    max_float,
+    min_float,
+    epsilon_float,
+    symbol,
+    char_of_int,
+    string_of_bool,
+    bool_of_string,
+    bool_of_string_opt,
+    string_of_int,
+    int_of_string_opt,
+    string_of_float,
+    float_of_string_opt,
+    symbol__0,
+    stdin,
+    stdout,
+    stderr,
+    print_char,
+    print_string,
+    print_bytes,
+    print_int,
+    print_float,
+    print_endline,
+    print_newline,
+    prerr_char,
+    prerr_string,
+    prerr_bytes,
+    prerr_int,
+    prerr_float,
+    prerr_endline,
+    prerr_newline,
+    read_line,
+    read_int,
+    read_int_opt,
+    read_float,
+    read_float_opt,
+    open_out,
+    open_out_bin,
+    open_out_gen,
+    function_expression_5,
+    flush_all,
+    I,
+    output_string,
+    output_bytes,
+    output,
+    output_substring,
+    H,
+    G,
+    output_value,
+    F,
+    E,
+    D,
+    close_out,
+    close_out_noerr,
+    C,
+    open_in,
+    open_in_bin,
+    open_in_gen,
+    B,
+    input_line,
+    input,
+    really_input,
+    really_input_string,
+    A,
+    z,
+    y,
+    x,
+    w,
+    v,
+    u,
+    close_in_noerr,
+    t,
+    s,
+    string_of_format,
+    symbol__1,
+    exit,
+    at_exit,
+    valid_float_lexem,
+    unsafe_really_input,
+    do_at_exit,
+]
+empty["caml_register_global"](37, Pervasives, "Pervasives")

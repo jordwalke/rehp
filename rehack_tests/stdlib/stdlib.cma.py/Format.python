@@ -1,0 +1,1998 @@
+caml_ml_string_length = empty["caml_ml_string_length"]
+string = empty["caml_new_string"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call4(f, a0, a1, a2, a3):
+    return (
+        f(a0, a1, a2, a3)
+        if arity_test is 4
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst__4 = string(".")
+cst__2 = string(">")
+cst__3 = string("</")
+cst__0 = string(">")
+cst__1 = string("<")
+cst = string("\n")
+cst_Format_Empty_queue = string("Format.Empty_queue")
+CamlinternalFormat = global_data["CamlinternalFormat"]
+Pervasives = global_data["Pervasives"]
+String = global_data["String_"]
+Buffer = global_data["Buffer"]
+List = global_data["List_"]
+Not_found = global_data["Not_found"]
+c = [3, 0, 3]
+b = [0, string("")]
+
+
+def make_queue(param):
+    return [0, 0, 0]
+
+
+def clear_queue(q):
+    q[1] = 0
+    q[2] = 0
+    return 0
+
+
+def add_queue(x, q):
+    c = [0, x, 0]
+    cz = q[1]
+    return (
+        (
+            (0 if UnsupportedAssignOp or true else 0)
+            if UnsupportedAssignOp or true
+            else (0 if UnsupportedAssignOp or true else 0)
+        )
+        if cz
+        else (
+            (0 if UnsupportedAssignOp or true else 0)
+            if UnsupportedAssignOp or true
+            else (0 if UnsupportedAssignOp or true else 0)
+        )
+    )
+
+
+Empty_queue = [248, cst_Format_Empty_queue, empty["caml_fresh_oo_id"](0)]
+
+
+def peek_queue(param):
+    cy = param[2]
+    if cy:
+        x = cy[1]
+        return x
+    raise (empty["caml_wrap_thrown_exception"](Empty_queue))
+
+
+def take_queue(q):
+    cx = q[2]
+    if cx:
+        x = cx[1]
+        tl = cx[2]
+        q[2] = tl
+        if 0 is tl:
+            q[1] = 0
+        return x
+    raise (empty["caml_wrap_thrown_exception"](Empty_queue))
+
+
+def pp_enqueue(state, token):
+    len = token[3]
+    state[13] = int(state[13] + len)
+    return add_queue(token, state[28])
+
+
+def pp_clear_queue(state):
+    state[12] = 1
+    state[13] = 1
+    return clear_queue(state[28])
+
+
+pp_infinity = 1000000010
+
+
+def pp_output_string(state, s):
+    return call3(state[17], s, 0, caml_ml_string_length(s))
+
+
+def pp_output_newline(state):
+    return call1(state[19], 0)
+
+
+def pp_output_spaces(state, n):
+    return call1(state[20], n)
+
+
+def pp_output_indent(state, n):
+    return call1(state[21], n)
+
+
+def break_new_line(state, offset, width):
+    pp_output_newline(state)
+    state[11] = 1
+    indent = int(int(state[6] - width) + offset)
+    real_indent = call2(Pervasives[4], state[8], indent)
+    state[10] = real_indent
+    state[9] = int(state[6] - state[10])
+    return pp_output_indent(state, state[10])
+
+
+def break_line(state, width):
+    return break_new_line(state, 0, width)
+
+
+def break_same_line(state, width):
+    state[9] = int(state[9] - width)
+    return pp_output_spaces(state, width)
+
+
+def pp_force_break_line(state):
+    cu = state[2]
+    if cu:
+        match = cu[1]
+        width = match[2]
+        bl_ty = match[1]
+        cv = 1 if state[9] < width else 0
+        if cv:
+            if 0 is not bl_ty:
+                return 0 if 5 <= bl_ty else break_line(state, width)
+            cw = 0
+        else:
+            cw = cv
+        return cw
+    return pp_output_newline(state)
+
+
+def pp_skip_token(state):
+    match = take_queue(state[28])
+    size = match[1]
+    len = match[3]
+    state[12] = int(state[12] - len)
+    state[9] = int(state[9] + size)
+    return 0
+
+
+def format_pp_token(state, size, param):
+    if is_int(param):
+        while True:
+            if param is 0:
+                cj = state[3]
+                if cj:
+                    match = cj[1]
+                    tabs = match[1]
+
+                    def add_tab(n, ls):
+                        if ls:
+                            l = ls[2]
+                            x = ls[1]
+                            return (
+                                [0, n, ls]
+                                if empty["caml_lessthan"](n, x)
+                                else [0, x, add_tab(n, l)]
+                            )
+                        return [0, n, 0]
+
+                    tabs[1] = add_tab(int(state[6] - state[9]), tabs[1])
+                    return 0
+                return 0
+            else:
+                if param is 1:
+                    ck = state[2]
+                    if ck:
+                        ls = ck[2]
+                        state[2] = ls
+                        return 0
+                    return 0
+                else:
+                    if param is 2:
+                        cl = state[3]
+                        if cl:
+                            ls__0 = cl[2]
+                            state[3] = ls__0
+                            return 0
+                        return 0
+                    else:
+                        if param is 3:
+                            cm = state[2]
+                            if cm:
+                                match__0 = cm[1]
+                                width = match__0[2]
+                                return break_line(state, width)
+                            return pp_output_newline(state)
+                        else:
+                            if param is 4:
+                                cn = (
+                                    1
+                                    if state[10] is not int(state[6] - state[9])
+                                    else 0
+                                )
+                                return pp_skip_token(state) if cn else cn
+                            else:
+                                co = state[5]
+                                if co:
+                                    tags = co[2]
+                                    tag_name = co[1]
+                                    marker = call1(state[25], tag_name)
+                                    pp_output_string(state, marker)
+                                    state[5] = tags
+                                    return 0
+                                return 0
+            break
+    else:
+        while True:
+            switch_case_180 = param[0]
+            if switch_case_180 is 0:
+                s = param[1]
+                state[9] = int(state[9] - size)
+                pp_output_string(state, s)
+                state[11] = 0
+                return 0
+            else:
+                if switch_case_180 is 1:
+                    off = param[2]
+                    n = param[1]
+                    cp = state[2]
+                    if cp:
+                        match__1 = cp[1]
+                        width__0 = match__1[2]
+                        ty = match__1[1]
+                        while True:
+                            if ty is 0:
+                                return break_same_line(state, n)
+                            else:
+                                if ty is 1:
+                                    return break_new_line(state, off, width__0)
+                                else:
+                                    if ty is 2:
+                                        return break_new_line(state, off, width__0)
+                                    else:
+                                        if ty is 3:
+                                            return (
+                                                break_new_line(state, off, width__0)
+                                                if state[9] < size
+                                                else break_same_line(state, n)
+                                            )
+                                        else:
+                                            if ty is 4:
+                                                return (
+                                                    break_same_line(state, n)
+                                                    if state[11]
+                                                    else (
+                                                        break_new_line(
+                                                            state, off, width__0
+                                                        )
+                                                        if state[9] < size
+                                                        else (
+                                                            break_new_line(
+                                                                state, off, width__0
+                                                            )
+                                                            if int(
+                                                                int(state[6] - width__0)
+                                                                + off
+                                                            )
+                                                            < state[10]
+                                                            else break_same_line(
+                                                                state, n
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            else:
+                                                return break_same_line(state, n)
+                            break
+                    return 0
+                else:
+                    if switch_case_180 is 2:
+                        off__0 = param[2]
+                        n__0 = param[1]
+                        insertion_point = int(state[6] - state[9])
+                        cq = state[3]
+                        if cq:
+                            match__2 = cq[1]
+                            tabs__0 = match__2[1]
+
+                            def find(n, param):
+                                param__0 = param
+                                while True:
+                                    if param__0:
+                                        l = param__0[2]
+                                        x = param__0[1]
+                                        if empty["caml_greaterequal"](x, n):
+                                            return x
+                                        param__0 = l
+                                        continue
+                                    raise (
+                                        empty["caml_wrap_thrown_exception"](Not_found)
+                                    )
+
+                            cr = tabs__0[1]
+                            if cr:
+                                x = cr[1]
+                                try:
+                                    cs = find(insertion_point, tabs__0[1])
+                                    x__0 = cs
+                                except:
+                                    ct = caml_wrap_exception(ct)
+                                    if ct is not Not_found:
+                                        raise (
+                                            empty["caml_wrap_thrown_exception_reraise"](
+                                                ct
+                                            )
+                                        )
+                                    x__0 = x
+                                tab = x__0
+                            else:
+                                tab = insertion_point
+                            offset = int(tab - insertion_point)
+                            return (
+                                break_same_line(state, int(offset + n__0))
+                                if 0 <= offset
+                                else break_new_line(state, int(tab + off__0), state[6])
+                            )
+                        return 0
+                    else:
+                        if switch_case_180 is 3:
+                            ty__0 = param[2]
+                            off__1 = param[1]
+                            insertion_point__0 = int(state[6] - state[9])
+                            if state[8] < insertion_point__0:
+                                pp_force_break_line(state)
+                            offset__0 = int(state[9] - off__1)
+                            bl_type = (
+                                1 if 1 is ty__0 else (ty__0 if state[9] < size else 5)
+                            )
+                            state[2] = [0, [0, bl_type, offset__0], state[2]]
+                            return 0
+                        else:
+                            if switch_case_180 is 4:
+                                tbox = param[1]
+                                state[3] = [0, tbox, state[3]]
+                                return 0
+                            else:
+                                tag_name__0 = param[1]
+                                marker__0 = call1(state[24], tag_name__0)
+                                pp_output_string(state, marker__0)
+                                state[5] = [0, tag_name__0, state[5]]
+                                return 0
+            break
+
+
+def advance_loop(state):
+    while True:
+        match = peek_queue(state[28])
+        size = match[1]
+        len = match[3]
+        tok = match[2]
+        cg = 1 if size < 0 else 0
+        ch = (1 if int(state[13] - state[12]) < state[9] else 0) if cg else cg
+        ci = 1 - ch
+        if ci:
+            take_queue(state[28])
+            size__0 = size if 0 <= size else pp_infinity
+            format_pp_token(state, size__0, tok)
+            state[12] = int(len + state[12])
+            continue
+        return ci
+
+
+def advance_left(state):
+    try:
+        ce = advance_loop(state)
+        return ce
+    except:
+        cf = caml_wrap_exception(cf)
+        if cf is Empty_queue:
+            return 0
+        raise (empty["caml_wrap_thrown_exception_reraise"](cf))
+
+
+def enqueue_advance(state, tok):
+    pp_enqueue(state, tok)
+    return advance_left(state)
+
+
+def make_queue_elem(size, tok, len):
+    return [0, size, tok, len]
+
+
+def enqueue_string_as(state, size, s):
+    return enqueue_advance(state, make_queue_elem(size, [0, s], size))
+
+
+def enqueue_string(state, s):
+    len = caml_ml_string_length(s)
+    return enqueue_string_as(state, len, s)
+
+
+q_elem = make_queue_elem(-1, b, 0)
+scan_stack_bottom = [0, [0, -1, q_elem], 0]
+
+
+def clear_scan_stack(state):
+    state[1] = scan_stack_bottom
+    return 0
+
+
+def set_size(state, ty):
+    ca = state[1]
+    if ca:
+        match = ca[1]
+        queue_elem = match[2]
+        left_tot = match[1]
+        size = queue_elem[1]
+        t = ca[2]
+        tok = queue_elem[2]
+        if left_tot < state[12]:
+            return clear_scan_stack(state)
+        if not (is_int(tok)):
+            while True:
+                switch_case_181 = tok[0]
+                if switch_case_181 is 3:
+                    cc = 1 - ty
+                    cd = (
+                        (
+                            (0 if UnsupportedAssignOp or true else 0)
+                            if UnsupportedAssignOp or true
+                            else (0 if UnsupportedAssignOp or true else 0)
+                        )
+                        if cc
+                        else cc
+                    )
+                    return cd
+                else:
+                    if switch_case_181 is 1:
+                        pass
+                    else:
+                        if switch_case_181 is 2:
+                            cb = (
+                                (
+                                    (0 if UnsupportedAssignOp or true else 0)
+                                    if UnsupportedAssignOp or true
+                                    else (0 if UnsupportedAssignOp or true else 0)
+                                )
+                                if ty
+                                else ty
+                            )
+                            return cb
+                break
+        return 0
+    return 0
+
+
+def scan_push(state, b, tok):
+    pp_enqueue(state, tok)
+    if b:
+        set_size(state, 1)
+    state[1] = [0, [0, state[13], tok], state[1]]
+    return 0
+
+
+def pp_open_box_gen(state, indent, br_ty):
+    state[14] = int(state[14] + 1)
+    if state[14] < state[15]:
+        elem = make_queue_elem(int(-(state[13])), [3, indent, br_ty], 0)
+        return scan_push(state, 0, elem)
+    b_ = 1 if state[14] is state[15] else 0
+    return enqueue_string(state, state[16]) if b_ else b_
+
+
+def pp_open_sys_box(state):
+    return pp_open_box_gen(state, 0, 3)
+
+
+def pp_close_box(state, param):
+    b8 = 1 if 1 < state[14] else 0
+    if b8:
+        if state[14] < state[15]:
+            pp_enqueue(state, [0, 0, 1, 0])
+            set_size(state, 1)
+            set_size(state, 0)
+        state[14] = int(state[14] + -1)
+        b9 = 0
+    else:
+        b9 = b8
+    return b9
+
+
+def pp_open_tag(state, tag_name):
+    if state[22]:
+        state[4] = [0, tag_name, state[4]]
+        call1(state[26], tag_name)
+    b7 = state[23]
+    return pp_enqueue(state, [0, 0, [5, tag_name], 0]) if b7 else b7
+
+
+def pp_close_tag(state, param):
+    if state[23]:
+        pp_enqueue(state, [0, 0, 5, 0])
+    b4 = state[22]
+    if b4:
+        b5 = state[4]
+        if b5:
+            tags = b5[2]
+            tag_name = b5[1]
+            call1(state[27], tag_name)
+            state[4] = tags
+            return 0
+        b6 = 0
+    else:
+        b6 = b4
+    return b6
+
+
+def pp_set_print_tags(state, b):
+    state[22] = b
+    return 0
+
+
+def pp_set_mark_tags(state, b):
+    state[23] = b
+    return 0
+
+
+def pp_get_print_tags(state, param):
+    return state[22]
+
+
+def pp_get_mark_tags(state, param):
+    return state[23]
+
+
+def pp_set_tags(state, b):
+    pp_set_print_tags(state, b)
+    return pp_set_mark_tags(state, b)
+
+
+def pp_get_formatter_tag_functions(state, param):
+    return [0, state[24], state[25], state[26], state[27]]
+
+
+def pp_set_formatter_tag_functions(state, param):
+    pct = param[4]
+    pot = param[3]
+    mct = param[2]
+    mot = param[1]
+    state[24] = mot
+    state[25] = mct
+    state[26] = pot
+    state[27] = pct
+    return 0
+
+
+def pp_rinit(state):
+    pp_clear_queue(state)
+    clear_scan_stack(state)
+    state[2] = 0
+    state[3] = 0
+    state[4] = 0
+    state[5] = 0
+    state[10] = 0
+    state[14] = 0
+    state[9] = state[6]
+    return pp_open_sys_box(state)
+
+
+def clear_tag_stack(state):
+    b2 = state[4]
+
+    def b3(param):
+        return pp_close_tag(state, 0)
+
+    return call2(List[15], b3, b2)
+
+
+def pp_flush_queue(state, b):
+    clear_tag_stack(state)
+    while True:
+        if 1 < state[14]:
+            pp_close_box(state, 0)
+            continue
+        state[13] = pp_infinity
+        advance_left(state)
+        if b:
+            pp_output_newline(state)
+        return pp_rinit(state)
+
+
+def pp_print_as_size(state, size, s):
+    b1 = 1 if state[14] < state[15] else 0
+    return enqueue_string_as(state, size, s) if b1 else b1
+
+
+def pp_print_as(state, isize, s):
+    return pp_print_as_size(state, isize, s)
+
+
+def pp_print_string(state, s):
+    return pp_print_as(state, caml_ml_string_length(s), s)
+
+
+def pp_print_int(state, i):
+    return pp_print_string(state, call1(Pervasives[21], i))
+
+
+def pp_print_float(state, f):
+    return pp_print_string(state, call1(Pervasives[23], f))
+
+
+def pp_print_bool(state, b):
+    return pp_print_string(state, call1(Pervasives[18], b))
+
+
+def pp_print_char(state, c):
+    return pp_print_as(state, 1, call2(String[1], 1, c))
+
+
+def pp_open_hbox(state, param):
+    return pp_open_box_gen(state, 0, 0)
+
+
+def pp_open_vbox(state, indent):
+    return pp_open_box_gen(state, indent, 1)
+
+
+def pp_open_hvbox(state, indent):
+    return pp_open_box_gen(state, indent, 2)
+
+
+def pp_open_hovbox(state, indent):
+    return pp_open_box_gen(state, indent, 3)
+
+
+def pp_open_box(state, indent):
+    return pp_open_box_gen(state, indent, 4)
+
+
+def pp_print_newline(state, param):
+    pp_flush_queue(state, 1)
+    return call1(state[18], 0)
+
+
+def pp_print_flush(state, param):
+    pp_flush_queue(state, 0)
+    return call1(state[18], 0)
+
+
+def pp_force_newline(state, param):
+    b0 = 1 if state[14] < state[15] else 0
+    return enqueue_advance(state, make_queue_elem(0, 3, 0)) if b0 else b0
+
+
+def pp_print_if_newline(state, param):
+    bZ = 1 if state[14] < state[15] else 0
+    return enqueue_advance(state, make_queue_elem(0, 4, 0)) if bZ else bZ
+
+
+def pp_print_break(state, width, offset):
+    bY = 1 if state[14] < state[15] else 0
+    if bY:
+        elem = make_queue_elem(int(-(state[13])), [1, width, offset], width)
+        return scan_push(state, 1, elem)
+    return bY
+
+
+def pp_print_space(state, param):
+    return pp_print_break(state, 1, 0)
+
+
+def pp_print_cut(state, param):
+    return pp_print_break(state, 0, 0)
+
+
+def pp_open_tbox(state, param):
+    state[14] = int(state[14] + 1)
+    bX = 1 if state[14] < state[15] else 0
+    if bX:
+        elem = make_queue_elem(0, [4, [0, [0, 0]]], 0)
+        return enqueue_advance(state, elem)
+    return bX
+
+
+def pp_close_tbox(state, param):
+    bU = 1 if 1 < state[14] else 0
+    if bU:
+        bV = 1 if state[14] < state[15] else 0
+        if bV:
+            elem = make_queue_elem(0, 2, 0)
+            enqueue_advance(state, elem)
+            state[14] = int(state[14] + -1)
+            bW = 0
+        else:
+            bW = bV
+    else:
+        bW = bU
+    return bW
+
+
+def pp_print_tbreak(state, width, offset):
+    bT = 1 if state[14] < state[15] else 0
+    if bT:
+        elem = make_queue_elem(int(-(state[13])), [2, width, offset], width)
+        return scan_push(state, 1, elem)
+    return bT
+
+
+def pp_print_tab(state, param):
+    return pp_print_tbreak(state, 0, 0)
+
+
+def pp_set_tab(state, param):
+    bS = 1 if state[14] < state[15] else 0
+    if bS:
+        elem = make_queue_elem(0, 0, 0)
+        return enqueue_advance(state, elem)
+    return bS
+
+
+def pp_set_max_boxes(state, n):
+    bQ = 1 if 1 < n else 0
+    bR = (0 if UnsupportedAssignOp or true else 0) if bQ else bQ
+    return bR
+
+
+def pp_get_max_boxes(state, param):
+    return state[15]
+
+
+def pp_over_max_boxes(state, param):
+    return 1 if state[14] is state[15] else 0
+
+
+def pp_set_ellipsis_text(state, s):
+    state[16] = s
+    return 0
+
+
+def pp_get_ellipsis_text(state, param):
+    return state[16]
+
+
+def pp_limit(n):
+    return n if n < 1000000010 else 1000000009
+
+
+def pp_set_min_space_left(state, n):
+    bP = 1 if 1 <= n else 0
+    if bP:
+        n__0 = pp_limit(n)
+        state[7] = n__0
+        state[8] = int(state[6] - state[7])
+        return pp_rinit(state)
+    return bP
+
+
+def pp_set_max_indent(state, n):
+    return pp_set_min_space_left(state, int(state[6] - n))
+
+
+def pp_get_max_indent(state, param):
+    return state[8]
+
+
+def pp_set_margin(state, n):
+    bN = 1 if 1 <= n else 0
+    if bN:
+        n__0 = pp_limit(n)
+        state[6] = n__0
+        if state[8] <= state[6]:
+            new_max_indent = state[8]
+        else:
+            bO = call2(Pervasives[5], int(state[6] - state[7]), int(state[6] / 2))
+            new_max_indent = call2(Pervasives[5], bO, 1)
+        return pp_set_max_indent(state, new_max_indent)
+    return bN
+
+
+def pp_get_margin(state, param):
+    return state[6]
+
+
+def pp_set_formatter_out_functions(state, param):
+    j = param[5]
+    i = param[4]
+    h = param[3]
+    g = param[2]
+    f = param[1]
+    state[17] = f
+    state[18] = g
+    state[19] = h
+    state[20] = i
+    state[21] = j
+    return 0
+
+
+def pp_get_formatter_out_functions(state, param):
+    return [0, state[17], state[18], state[19], state[20], state[21]]
+
+
+def pp_set_formatter_output_functions(state, f, g):
+    state[17] = f
+    state[18] = g
+    return 0
+
+
+def pp_get_formatter_output_functions(state, param):
+    return [0, state[17], state[18]]
+
+
+def display_newline(state, param):
+    return call3(state[17], cst, 0, 1)
+
+
+blank_line = call2(String[1], 80, 32)
+
+
+def display_blanks(state, n):
+    n__0 = n
+    while True:
+        bM = 1 if 0 < n__0 else 0
+        if bM:
+            if 80 < n__0:
+                call3(state[17], blank_line, 0, 80)
+                n__1 = int(n__0 + -80)
+                n__0 = n__1
+                continue
+            return call3(state[17], blank_line, 0, n__0)
+        return bM
+
+
+def pp_set_formatter_out_channel(state, oc):
+    state[17] = call1(Pervasives[57], oc)
+
+    def function_expression_182(param):
+        return call1(Pervasives[51], oc)
+
+    state[18] = function_expression_182
+
+    def function_expression_183(bL):
+        return display_newline(state, bL)
+
+    state[19] = function_expression_183
+
+    def function_expression_184(bK):
+        return display_blanks(state, bK)
+
+    state[20] = function_expression_184
+
+    def function_expression_185(bJ):
+        return display_blanks(state, bJ)
+
+    state[21] = function_expression_185
+    return 0
+
+
+def default_pp_mark_open_tag(s):
+    bI = call2(Pervasives[16], s, cst__0)
+    return call2(Pervasives[16], cst__1, bI)
+
+
+def default_pp_mark_close_tag(s):
+    bH = call2(Pervasives[16], s, cst__2)
+    return call2(Pervasives[16], cst__3, bH)
+
+
+def default_pp_print_open_tag(bG):
+    return 0
+
+
+def default_pp_print_close_tag(bF):
+    return 0
+
+
+def pp_make_formatter(f, g, h, i, j):
+    pp_queue = make_queue(0)
+    sys_tok = make_queue_elem(-1, c, 0)
+    add_queue(sys_tok, pp_queue)
+    sys_scan_stack = [0, [0, 1, sys_tok], scan_stack_bottom]
+    return [
+        0,
+        sys_scan_stack,
+        0,
+        0,
+        0,
+        0,
+        78,
+        10,
+        68,
+        78,
+        0,
+        1,
+        1,
+        1,
+        1,
+        Pervasives[7],
+        cst__4,
+        f,
+        g,
+        h,
+        i,
+        j,
+        0,
+        0,
+        default_pp_mark_open_tag,
+        default_pp_mark_close_tag,
+        default_pp_print_open_tag,
+        default_pp_print_close_tag,
+        pp_queue,
+    ]
+
+
+def formatter_of_out_functions(out_funs):
+    return pp_make_formatter(
+        out_funs[1], out_funs[2], out_funs[3], out_funs[4], out_funs[5]
+    )
+
+
+def make_formatter(output, flush):
+    def bx(bE):
+        return 0
+
+    def by(bD):
+        return 0
+
+    def function_expression_186(bC):
+        return 0
+
+    ppf = pp_make_formatter(output, flush, function_expression_186, by, bx)
+
+    def function_expression_187(bB):
+        return display_newline(ppf, bB)
+
+    ppf[19] = function_expression_187
+
+    def function_expression_188(bA):
+        return display_blanks(ppf, bA)
+
+    ppf[20] = function_expression_188
+
+    def function_expression_189(bz):
+        return display_blanks(ppf, bz)
+
+    ppf[21] = function_expression_189
+    return ppf
+
+
+def formatter_of_out_channel(oc):
+    def bw(param):
+        return call1(Pervasives[51], oc)
+
+    return make_formatter(call1(Pervasives[57], oc), bw)
+
+
+def formatter_of_buffer(b):
+    def bu(bv):
+        return 0
+
+    return make_formatter(call1(Buffer[16], b), bu)
+
+
+pp_buffer_size = 512
+
+
+def pp_make_buffer(param):
+    return call1(Buffer[1], pp_buffer_size)
+
+
+stdbuf = pp_make_buffer(0)
+std_formatter = formatter_of_out_channel(Pervasives[27])
+err_formatter = formatter_of_out_channel(Pervasives[28])
+str_formatter = formatter_of_buffer(stdbuf)
+
+
+def flush_buffer_formatter(buf, ppf):
+    pp_flush_queue(ppf, 0)
+    s = call1(Buffer[2], buf)
+    call1(Buffer[9], buf)
+    return s
+
+
+def flush_str_formatter(param):
+    return flush_buffer_formatter(stdbuf, str_formatter)
+
+
+def make_symbolic_output_buffer(param):
+    return [0, 0]
+
+
+def clear_symbolic_output_buffer(sob):
+    sob[1] = 0
+    return 0
+
+
+def get_symbolic_output_buffer(sob):
+    return call1(List[9], sob[1])
+
+
+def flush_symbolic_output_buffer(sob):
+    items = get_symbolic_output_buffer(sob)
+    clear_symbolic_output_buffer(sob)
+    return items
+
+
+def add_symbolic_output_item(sob, item):
+    sob[1] = [0, item, sob[1]]
+    return 0
+
+
+def formatter_of_symbolic_output_buffer(sob):
+    def symbolic_flush(sob, param):
+        return add_symbolic_output_item(sob, 0)
+
+    def symbolic_newline(sob, param):
+        return add_symbolic_output_item(sob, 1)
+
+    def symbolic_string(sob, s, i, n):
+        return add_symbolic_output_item(sob, [0, call3(String[4], s, i, n)])
+
+    def symbolic_spaces(sob, n):
+        return add_symbolic_output_item(sob, [1, n])
+
+    def symbolic_indent(sob, n):
+        return add_symbolic_output_item(sob, [2, n])
+
+    def f(br, bs, bt):
+        return symbolic_string(sob, br, bs, bt)
+
+    def g(bq):
+        return symbolic_flush(sob, bq)
+
+    def h(bp):
+        return symbolic_newline(sob, bp)
+
+    def i(bo):
+        return symbolic_spaces(sob, bo)
+
+    def j(bn):
+        return symbolic_indent(sob, bn)
+
+    return pp_make_formatter(f, g, h, i, j)
+
+
+def open_hbox(bm):
+    return pp_open_hbox(std_formatter, bm)
+
+
+def open_vbox(bl):
+    return pp_open_vbox(std_formatter, bl)
+
+
+def open_hvbox(bk):
+    return pp_open_hvbox(std_formatter, bk)
+
+
+def open_hovbox(bj):
+    return pp_open_hovbox(std_formatter, bj)
+
+
+def open_box(bi):
+    return pp_open_box(std_formatter, bi)
+
+
+def close_box(bh):
+    return pp_close_box(std_formatter, bh)
+
+
+def open_tag(bg):
+    return pp_open_tag(std_formatter, bg)
+
+
+def close_tag(bf):
+    return pp_close_tag(std_formatter, bf)
+
+
+def print_as(bd, be):
+    return pp_print_as(std_formatter, bd, be)
+
+
+def print_string(bc):
+    return pp_print_string(std_formatter, bc)
+
+
+def print_int(bb):
+    return pp_print_int(std_formatter, bb)
+
+
+def print_float(ba):
+    return pp_print_float(std_formatter, ba)
+
+
+def print_char(a_):
+    return pp_print_char(std_formatter, a_)
+
+
+def print_bool(a9):
+    return pp_print_bool(std_formatter, a9)
+
+
+def print_break(a7, a8):
+    return pp_print_break(std_formatter, a7, a8)
+
+
+def print_cut(a6):
+    return pp_print_cut(std_formatter, a6)
+
+
+def print_space(a5):
+    return pp_print_space(std_formatter, a5)
+
+
+def force_newline(a4):
+    return pp_force_newline(std_formatter, a4)
+
+
+def print_flush(a3):
+    return pp_print_flush(std_formatter, a3)
+
+
+def print_newline(a2):
+    return pp_print_newline(std_formatter, a2)
+
+
+def print_if_newline(a1):
+    return pp_print_if_newline(std_formatter, a1)
+
+
+def open_tbox(a0):
+    return pp_open_tbox(std_formatter, a0)
+
+
+def close_tbox(aZ):
+    return pp_close_tbox(std_formatter, aZ)
+
+
+def print_tbreak(aX, aY):
+    return pp_print_tbreak(std_formatter, aX, aY)
+
+
+def set_tab(aW):
+    return pp_set_tab(std_formatter, aW)
+
+
+def print_tab(aV):
+    return pp_print_tab(std_formatter, aV)
+
+
+def set_margin(aU):
+    return pp_set_margin(std_formatter, aU)
+
+
+def get_margin(aT):
+    return pp_get_margin(std_formatter, aT)
+
+
+def set_max_indent(aS):
+    return pp_set_max_indent(std_formatter, aS)
+
+
+def get_max_indent(aR):
+    return pp_get_max_indent(std_formatter, aR)
+
+
+def set_max_boxes(aQ):
+    return pp_set_max_boxes(std_formatter, aQ)
+
+
+def get_max_boxes(aP):
+    return pp_get_max_boxes(std_formatter, aP)
+
+
+def over_max_boxes(aO):
+    return pp_over_max_boxes(std_formatter, aO)
+
+
+def set_ellipsis_text(aN):
+    return pp_set_ellipsis_text(std_formatter, aN)
+
+
+def get_ellipsis_text(aM):
+    return pp_get_ellipsis_text(std_formatter, aM)
+
+
+def set_formatter_out_channel(aL):
+    return pp_set_formatter_out_channel(std_formatter, aL)
+
+
+def set_formatter_out_functions(aK):
+    return pp_set_formatter_out_functions(std_formatter, aK)
+
+
+def get_formatter_out_functions(aJ):
+    return pp_get_formatter_out_functions(std_formatter, aJ)
+
+
+def set_formatter_output_functions(aH, aI):
+    return pp_set_formatter_output_functions(std_formatter, aH, aI)
+
+
+def get_formatter_output_functions(aG):
+    return pp_get_formatter_output_functions(std_formatter, aG)
+
+
+def set_formatter_tag_functions(aF):
+    return pp_set_formatter_tag_functions(std_formatter, aF)
+
+
+def get_formatter_tag_functions(aE):
+    return pp_get_formatter_tag_functions(std_formatter, aE)
+
+
+def set_print_tags(aD):
+    return pp_set_print_tags(std_formatter, aD)
+
+
+def get_print_tags(aC):
+    return pp_get_print_tags(std_formatter, aC)
+
+
+def set_mark_tags(aB):
+    return pp_set_mark_tags(std_formatter, aB)
+
+
+def get_mark_tags(aA):
+    return pp_get_mark_tags(std_formatter, aA)
+
+
+def set_tags(az):
+    return pp_set_tags(std_formatter, az)
+
+
+def pp_print_list(opt, pp_v, ppf, param):
+    opt__0 = opt
+    param__0 = param
+    while True:
+        if opt__0:
+            sth = opt__0[1]
+            pp_sep = sth
+        else:
+            pp_sep = pp_print_cut
+        if param__0:
+            ax = param__0[2]
+            ay = param__0[1]
+            if ax:
+                call2(pp_v, ppf, ay)
+                call2(pp_sep, ppf, 0)
+                opt__1 = [0, pp_sep]
+                opt__0 = opt__1
+                param__0 = ax
+                continue
+            return call2(pp_v, ppf, ay)
+        return 0
+
+
+def pp_print_text(ppf, s):
+    len = caml_ml_string_length(s)
+    left = [0, 0]
+    right = [0, 0]
+
+    def flush(param):
+        pp_print_string(ppf, call3(String[4], s, left[1], int(right[1] - left[1])))
+        right[1] += 1
+        left[1] = right[1]
+        return 0
+
+    while True:
+        if right[1] is not len:
+            match = empty["caml_string_get"](s, right[1])
+            if 10 is match:
+                flush(0)
+                pp_force_newline(ppf, 0)
+            else:
+                if 32 is match:
+                    flush(0)
+                    pp_print_space(ppf, 0)
+                else:
+                    right[1] += 1
+            continue
+        aw = 1 if left[1] is not len else 0
+        return flush(0) if aw else aw
+
+
+def compute_tag(output, tag_acc):
+    buf = call1(Buffer[1], 16)
+    ppf = formatter_of_buffer(buf)
+    call2(output, ppf, tag_acc)
+    pp_print_flush(ppf, 0)
+    len = call1(Buffer[7], buf)
+    return (
+        call3(Buffer[4], buf, 1, int(len + -2)) if 2 <= len else call1(Buffer[2], buf)
+    )
+
+
+def output_formatting_lit(ppf, fmting_lit):
+    if is_int(fmting_lit):
+        while True:
+            if fmting_lit is 0:
+                return pp_close_box(ppf, 0)
+            else:
+                if fmting_lit is 1:
+                    return pp_close_tag(ppf, 0)
+                else:
+                    if fmting_lit is 2:
+                        return pp_print_flush(ppf, 0)
+                    else:
+                        if fmting_lit is 3:
+                            return pp_force_newline(ppf, 0)
+                        else:
+                            if fmting_lit is 4:
+                                return pp_print_newline(ppf, 0)
+                            else:
+                                if fmting_lit is 5:
+                                    return pp_print_char(ppf, 64)
+                                else:
+                                    return pp_print_char(ppf, 37)
+            break
+    else:
+        while True:
+            switch_case_190 = fmting_lit[0]
+            if switch_case_190 is 0:
+                offset = fmting_lit[3]
+                width = fmting_lit[2]
+                return pp_print_break(ppf, width, offset)
+            else:
+                if switch_case_190 is 1:
+                    return 0
+                else:
+                    c = fmting_lit[1]
+                    pp_print_char(ppf, 64)
+                    return pp_print_char(ppf, c)
+            break
+
+
+def output_acc(ppf, acc):
+    if is_int(acc):
+        return 0
+    else:
+        while True:
+            switch_case_191 = acc[0]
+            if switch_case_191 is 0:
+                f = acc[2]
+                p = acc[1]
+                output_acc(ppf, p)
+                return output_formatting_lit(ppf, f)
+            else:
+                if switch_case_191 is 1:
+                    U = acc[2]
+                    V = acc[1]
+                    if 0 is U[0]:
+                        acc__0 = U[1]
+                        output_acc(ppf, V)
+                        return pp_open_tag(ppf, compute_tag(output_acc, acc__0))
+                    acc__1 = U[1]
+                    output_acc(ppf, V)
+                    W = compute_tag(output_acc, acc__1)
+                    match = call1(CamlinternalFormat[21], W)
+                    bty = match[2]
+                    indent = match[1]
+                    return pp_open_box_gen(ppf, indent, bty)
+                else:
+                    if switch_case_191 is 2:
+                        X = acc[1]
+                        if is_int(X):
+                            switch__1 = 1
+                        else:
+                            if 0 is X[0]:
+                                Z = X[2]
+                                if is_int(Z):
+                                    switch__2 = 1
+                                else:
+                                    if 1 is Z[0]:
+                                        aa = acc[2]
+                                        ab = Z[2]
+                                        ac = X[1]
+                                        s__0 = aa
+                                        size = ab
+                                        p__1 = ac
+                                        switch__0 = 0
+                                        switch__1 = 0
+                                        switch__2 = 0
+                                    else:
+                                        switch__2 = 1
+                                if switch__2:
+                                    switch__1 = 1
+                            else:
+                                switch__1 = 1
+                        if switch__1:
+                            Y = acc[2]
+                            s = Y
+                            p__0 = X
+                            switch__0 = 2
+                        break
+                    else:
+                        if switch_case_191 is 3:
+                            ad = acc[1]
+                            if is_int(ad):
+                                switch__3 = 1
+                            else:
+                                if 0 is ad[0]:
+                                    af = ad[2]
+                                    if is_int(af):
+                                        switch__4 = 1
+                                    else:
+                                        if 1 is af[0]:
+                                            ag = acc[2]
+                                            ah = af[2]
+                                            ai = ad[1]
+                                            c__0 = ag
+                                            size__0 = ah
+                                            p__3 = ai
+                                            switch__0 = 1
+                                            switch__3 = 0
+                                            switch__4 = 0
+                                        else:
+                                            switch__4 = 1
+                                    if switch__4:
+                                        switch__3 = 1
+                                else:
+                                    switch__3 = 1
+                            if switch__3:
+                                ae = acc[2]
+                                c = ae
+                                p__2 = ad
+                                switch__0 = 3
+                            break
+                        else:
+                            if switch_case_191 is 4:
+                                aj = acc[1]
+                                if is_int(aj):
+                                    switch__5 = 1
+                                else:
+                                    if 0 is aj[0]:
+                                        al = aj[2]
+                                        if is_int(al):
+                                            switch__6 = 1
+                                        else:
+                                            if 1 is al[0]:
+                                                am = acc[2]
+                                                an = al[2]
+                                                ao = aj[1]
+                                                s__0 = am
+                                                size = an
+                                                p__1 = ao
+                                                switch__0 = 0
+                                                switch__5 = 0
+                                                switch__6 = 0
+                                            else:
+                                                switch__6 = 1
+                                        if switch__6:
+                                            switch__5 = 1
+                                    else:
+                                        switch__5 = 1
+                                if switch__5:
+                                    ak = acc[2]
+                                    s = ak
+                                    p__0 = aj
+                                    switch__0 = 2
+                                break
+                            else:
+                                if switch_case_191 is 5:
+                                    ap = acc[1]
+                                    if is_int(ap):
+                                        switch__7 = 1
+                                    else:
+                                        if 0 is ap[0]:
+                                            ar = ap[2]
+                                            if is_int(ar):
+                                                switch__8 = 1
+                                            else:
+                                                if 1 is ar[0]:
+                                                    at = acc[2]
+                                                    au = ar[2]
+                                                    av = ap[1]
+                                                    c__0 = at
+                                                    size__0 = au
+                                                    p__3 = av
+                                                    switch__0 = 1
+                                                    switch__7 = 0
+                                                    switch__8 = 0
+                                                else:
+                                                    switch__8 = 1
+                                            if switch__8:
+                                                switch__7 = 1
+                                        else:
+                                            switch__7 = 1
+                                    if switch__7:
+                                        aq = acc[2]
+                                        c = aq
+                                        p__2 = ap
+                                        switch__0 = 3
+                                    break
+                                else:
+                                    if switch_case_191 is 6:
+                                        f__0 = acc[2]
+                                        p__4 = acc[1]
+                                        output_acc(ppf, p__4)
+                                        return call1(f__0, ppf)
+                                    else:
+                                        if switch_case_191 is 7:
+                                            p__5 = acc[1]
+                                            output_acc(ppf, p__5)
+                                            return pp_print_flush(ppf, 0)
+                                        else:
+                                            msg = acc[2]
+                                            p__6 = acc[1]
+                                            output_acc(ppf, p__6)
+                                            return call1(Pervasives[1], msg)
+            break
+    while True:
+        if switch__0 is 0:
+            output_acc(ppf, p__1)
+            return pp_print_as_size(ppf, size, s__0)
+        else:
+            if switch__0 is 1:
+                output_acc(ppf, p__3)
+                return pp_print_as_size(ppf, size__0, call2(String[1], 1, c__0))
+            else:
+                if switch__0 is 2:
+                    output_acc(ppf, p__0)
+                    return pp_print_string(ppf, s)
+                else:
+                    output_acc(ppf, p__2)
+                    return pp_print_char(ppf, c)
+        break
+
+
+def strput_acc(ppf, acc):
+    if is_int(acc):
+        return 0
+    else:
+        while True:
+            switch_case_192 = acc[0]
+            if switch_case_192 is 0:
+                f = acc[2]
+                p = acc[1]
+                strput_acc(ppf, p)
+                return output_formatting_lit(ppf, f)
+            else:
+                if switch_case_192 is 1:
+                    r = acc[2]
+                    s = acc[1]
+                    if 0 is r[0]:
+                        acc__0 = r[1]
+                        strput_acc(ppf, s)
+                        return pp_open_tag(ppf, compute_tag(strput_acc, acc__0))
+                    acc__1 = r[1]
+                    strput_acc(ppf, s)
+                    t = compute_tag(strput_acc, acc__1)
+                    match = call1(CamlinternalFormat[21], t)
+                    bty = match[2]
+                    indent = match[1]
+                    return pp_open_box_gen(ppf, indent, bty)
+                else:
+                    if switch_case_192 is 2:
+                        u = acc[1]
+                        if is_int(u):
+                            switch__1 = 1
+                        else:
+                            if 0 is u[0]:
+                                w = u[2]
+                                if is_int(w):
+                                    switch__2 = 1
+                                else:
+                                    if 1 is w[0]:
+                                        x = acc[2]
+                                        y = w[2]
+                                        z = u[1]
+                                        s__1 = x
+                                        size = y
+                                        p__1 = z
+                                        switch__0 = 0
+                                        switch__1 = 0
+                                        switch__2 = 0
+                                    else:
+                                        switch__2 = 1
+                                if switch__2:
+                                    switch__1 = 1
+                            else:
+                                switch__1 = 1
+                        if switch__1:
+                            v = acc[2]
+                            s__0 = v
+                            p__0 = u
+                            switch__0 = 2
+                        break
+                    else:
+                        if switch_case_192 is 3:
+                            A = acc[1]
+                            if is_int(A):
+                                switch__3 = 1
+                            else:
+                                if 0 is A[0]:
+                                    C = A[2]
+                                    if is_int(C):
+                                        switch__4 = 1
+                                    else:
+                                        if 1 is C[0]:
+                                            D = acc[2]
+                                            E = C[2]
+                                            F = A[1]
+                                            c__0 = D
+                                            size__0 = E
+                                            p__3 = F
+                                            switch__0 = 1
+                                            switch__3 = 0
+                                            switch__4 = 0
+                                        else:
+                                            switch__4 = 1
+                                    if switch__4:
+                                        switch__3 = 1
+                                else:
+                                    switch__3 = 1
+                            if switch__3:
+                                B = acc[2]
+                                c = B
+                                p__2 = A
+                                switch__0 = 3
+                            break
+                        else:
+                            if switch_case_192 is 4:
+                                G = acc[1]
+                                if is_int(G):
+                                    switch__5 = 1
+                                else:
+                                    if 0 is G[0]:
+                                        I = G[2]
+                                        if is_int(I):
+                                            switch__6 = 1
+                                        else:
+                                            if 1 is I[0]:
+                                                J = acc[2]
+                                                K = I[2]
+                                                L = G[1]
+                                                s__1 = J
+                                                size = K
+                                                p__1 = L
+                                                switch__0 = 0
+                                                switch__5 = 0
+                                                switch__6 = 0
+                                            else:
+                                                switch__6 = 1
+                                        if switch__6:
+                                            switch__5 = 1
+                                    else:
+                                        switch__5 = 1
+                                if switch__5:
+                                    H = acc[2]
+                                    s__0 = H
+                                    p__0 = G
+                                    switch__0 = 2
+                                break
+                            else:
+                                if switch_case_192 is 5:
+                                    M = acc[1]
+                                    if is_int(M):
+                                        switch__7 = 1
+                                    else:
+                                        if 0 is M[0]:
+                                            O = M[2]
+                                            if is_int(O):
+                                                switch__8 = 1
+                                            else:
+                                                if 1 is O[0]:
+                                                    P = acc[2]
+                                                    Q = O[2]
+                                                    R = M[1]
+                                                    c__0 = P
+                                                    size__0 = Q
+                                                    p__3 = R
+                                                    switch__0 = 1
+                                                    switch__7 = 0
+                                                    switch__8 = 0
+                                                else:
+                                                    switch__8 = 1
+                                            if switch__8:
+                                                switch__7 = 1
+                                        else:
+                                            switch__7 = 1
+                                    if switch__7:
+                                        N = acc[2]
+                                        c = N
+                                        p__2 = M
+                                        switch__0 = 3
+                                    break
+                                else:
+                                    if switch_case_192 is 6:
+                                        S = acc[1]
+                                        if not (is_int(S)) and 0 is S[0]:
+                                            T = S[2]
+                                            if not (is_int(T)) and 1 is T[0]:
+                                                f__1 = acc[2]
+                                                size__1 = T[2]
+                                                p__4 = S[1]
+                                                strput_acc(ppf, p__4)
+                                                return pp_print_as_size(
+                                                    ppf, size__1, call1(f__1, 0)
+                                                )
+                                        f__0 = acc[2]
+                                        strput_acc(ppf, S)
+                                        return pp_print_string(ppf, call1(f__0, 0))
+                                    else:
+                                        if switch_case_192 is 7:
+                                            p__5 = acc[1]
+                                            strput_acc(ppf, p__5)
+                                            return pp_print_flush(ppf, 0)
+                                        else:
+                                            msg = acc[2]
+                                            p__6 = acc[1]
+                                            strput_acc(ppf, p__6)
+                                            return call1(Pervasives[1], msg)
+            break
+    while True:
+        if switch__0 is 0:
+            strput_acc(ppf, p__1)
+            return pp_print_as_size(ppf, size, s__1)
+        else:
+            if switch__0 is 1:
+                strput_acc(ppf, p__3)
+                return pp_print_as_size(ppf, size__0, call2(String[1], 1, c__0))
+            else:
+                if switch__0 is 2:
+                    strput_acc(ppf, p__0)
+                    return pp_print_string(ppf, s__0)
+                else:
+                    strput_acc(ppf, p__2)
+                    return pp_print_char(ppf, c)
+        break
+
+
+def kfprintf(k, ppf, param):
+    fmt = param[1]
+    p = 0
+
+    def q(ppf, acc):
+        output_acc(ppf, acc)
+        return call1(k, ppf)
+
+    return call4(CamlinternalFormat[7], q, ppf, p, fmt)
+
+
+def ikfprintf(k, ppf, param):
+    fmt = param[1]
+    return call3(CamlinternalFormat[8], k, ppf, fmt)
+
+
+def fprintf(ppf):
+    def m(o):
+        return 0
+
+    def function_expression_193(n):
+        return kfprintf(m, ppf, n)
+
+    return function_expression_193
+
+
+def ifprintf(ppf):
+    def j(l):
+        return 0
+
+    def function_expression_194(k):
+        return ikfprintf(j, ppf, k)
+
+    return function_expression_194
+
+
+def printf(fmt):
+    return call1(fprintf(std_formatter), fmt)
+
+
+def eprintf(fmt):
+    return call1(fprintf(err_formatter), fmt)
+
+
+def ksprintf(k, param):
+    fmt = param[1]
+    b = pp_make_buffer(0)
+    ppf = formatter_of_buffer(b)
+
+    def k__0(param, acc):
+        strput_acc(ppf, acc)
+        return call1(k, flush_buffer_formatter(b, ppf))
+
+    return call4(CamlinternalFormat[7], k__0, 0, 0, fmt)
+
+
+def sprintf(fmt):
+    def function_expression_195(s):
+        return s
+
+    return ksprintf(function_expression_195, fmt)
+
+
+def kasprintf(k, param):
+    fmt = param[1]
+    b = pp_make_buffer(0)
+    ppf = formatter_of_buffer(b)
+
+    def k__0(ppf, acc):
+        output_acc(ppf, acc)
+        return call1(k, flush_buffer_formatter(b, ppf))
+
+    return call4(CamlinternalFormat[7], k__0, ppf, 0, fmt)
+
+
+def asprintf(fmt):
+    def function_expression_196(s):
+        return s
+
+    return kasprintf(function_expression_196, fmt)
+
+
+call1(Pervasives[88], print_flush)
+
+
+def pp_set_all_formatter_output_functions(state, f, g, h, i):
+    pp_set_formatter_output_functions(state, f, g)
+    state[19] = h
+    state[20] = i
+    return 0
+
+
+def pp_get_all_formatter_output_functions(state, param):
+    return [0, state[17], state[18], state[19], state[20]]
+
+
+def set_all_formatter_output_functions(f, g, h, i):
+    return pp_set_all_formatter_output_functions(std_formatter, f, g, h, i)
+
+
+def get_all_formatter_output_functions(e):
+    return pp_get_all_formatter_output_functions(std_formatter, e)
+
+
+def bprintf(b, param):
+    fmt = param[1]
+
+    def k(ppf, acc):
+        output_acc(ppf, acc)
+        return pp_flush_queue(ppf, 0)
+
+    d = formatter_of_buffer(b)
+    return call4(CamlinternalFormat[7], k, d, 0, fmt)
+
+
+Format = [
+    0,
+    pp_open_box,
+    open_box,
+    pp_close_box,
+    close_box,
+    pp_open_hbox,
+    open_hbox,
+    pp_open_vbox,
+    open_vbox,
+    pp_open_hvbox,
+    open_hvbox,
+    pp_open_hovbox,
+    open_hovbox,
+    pp_print_string,
+    print_string,
+    pp_print_as,
+    print_as,
+    pp_print_int,
+    print_int,
+    pp_print_float,
+    print_float,
+    pp_print_char,
+    print_char,
+    pp_print_bool,
+    print_bool,
+    pp_print_space,
+    print_space,
+    pp_print_cut,
+    print_cut,
+    pp_print_break,
+    print_break,
+    pp_force_newline,
+    force_newline,
+    pp_print_if_newline,
+    print_if_newline,
+    pp_print_flush,
+    print_flush,
+    pp_print_newline,
+    print_newline,
+    pp_set_margin,
+    set_margin,
+    pp_get_margin,
+    get_margin,
+    pp_set_max_indent,
+    set_max_indent,
+    pp_get_max_indent,
+    get_max_indent,
+    pp_set_max_boxes,
+    set_max_boxes,
+    pp_get_max_boxes,
+    get_max_boxes,
+    pp_over_max_boxes,
+    over_max_boxes,
+    pp_open_tbox,
+    open_tbox,
+    pp_close_tbox,
+    close_tbox,
+    pp_set_tab,
+    set_tab,
+    pp_print_tab,
+    print_tab,
+    pp_print_tbreak,
+    print_tbreak,
+    pp_set_ellipsis_text,
+    set_ellipsis_text,
+    pp_get_ellipsis_text,
+    get_ellipsis_text,
+    pp_open_tag,
+    open_tag,
+    pp_close_tag,
+    close_tag,
+    pp_set_tags,
+    set_tags,
+    pp_set_print_tags,
+    set_print_tags,
+    pp_set_mark_tags,
+    set_mark_tags,
+    pp_get_print_tags,
+    get_print_tags,
+    pp_get_mark_tags,
+    get_mark_tags,
+    pp_set_formatter_out_channel,
+    set_formatter_out_channel,
+    pp_set_formatter_output_functions,
+    set_formatter_output_functions,
+    pp_get_formatter_output_functions,
+    get_formatter_output_functions,
+    pp_set_formatter_out_functions,
+    set_formatter_out_functions,
+    pp_get_formatter_out_functions,
+    get_formatter_out_functions,
+    pp_set_formatter_tag_functions,
+    set_formatter_tag_functions,
+    pp_get_formatter_tag_functions,
+    get_formatter_tag_functions,
+    formatter_of_out_channel,
+    std_formatter,
+    err_formatter,
+    formatter_of_buffer,
+    stdbuf,
+    str_formatter,
+    flush_str_formatter,
+    make_formatter,
+    formatter_of_out_functions,
+    make_symbolic_output_buffer,
+    clear_symbolic_output_buffer,
+    get_symbolic_output_buffer,
+    flush_symbolic_output_buffer,
+    add_symbolic_output_item,
+    formatter_of_symbolic_output_buffer,
+    pp_print_list,
+    pp_print_text,
+    fprintf,
+    printf,
+    eprintf,
+    sprintf,
+    asprintf,
+    ifprintf,
+    kfprintf,
+    ikfprintf,
+    ksprintf,
+    kasprintf,
+    bprintf,
+    ksprintf,
+    set_all_formatter_output_functions,
+    get_all_formatter_output_functions,
+    pp_set_all_formatter_output_functions,
+    pp_get_all_formatter_output_functions,
+]
+empty["caml_register_global"](15, Format, "Format")

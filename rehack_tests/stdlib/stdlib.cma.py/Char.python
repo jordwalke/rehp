@@ -1,0 +1,124 @@
+caml_bytes_unsafe_set = empty["caml_bytes_unsafe_set"]
+caml_create_bytes = empty["caml_create_bytes"]
+string = empty["caml_new_string"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+global_data = empty["caml_get_global_data"]()
+cst = string("\\\\")
+cst__0 = string("\\'")
+cst_b = string("\\b")
+cst_t = string("\\t")
+cst_n = string("\\n")
+cst_r = string("\\r")
+cst_Char_chr = string("Char.chr")
+Pervasives = global_data["Pervasives"]
+
+
+def chr(n):
+    if 0 <= n:
+        if not (255 < n):
+            return n
+    return call1(Pervasives[1], cst_Char_chr)
+
+
+def escaped(c):
+    if 40 <= c:
+        if 92 is c:
+            return cst
+        switch__0 = 0 if 127 <= c else 1
+    else:
+        if 32 <= c:
+            if 39 <= c:
+                return cst__0
+            switch__0 = 1
+        else:
+            if 14 <= c:
+                switch__0 = 0
+            else:
+                while True:
+                    if c is 8:
+                        return cst_b
+                    else:
+                        if c is 9:
+                            return cst_t
+                        else:
+                            if c is 10:
+                                return cst_n
+                            else:
+                                if c is 13:
+                                    return cst_r
+                                else:
+                                    switch__0 = 0
+                    break
+    if switch__0:
+        s__0 = caml_create_bytes(1)
+        caml_bytes_unsafe_set(s__0, 0, c)
+        return s__0
+    s = caml_create_bytes(4)
+    caml_bytes_unsafe_set(s, 0, 92)
+    caml_bytes_unsafe_set(s, 1, int(48 + int(c / 100)))
+    caml_bytes_unsafe_set(s, 2, int(48 + int(int(c / 10) % 10)))
+    caml_bytes_unsafe_set(s, 3, int(48 + int(c % 10)))
+    return s
+
+
+def lowercase(c):
+    switch__0 = (0 if 90 < c else 1) if 65 <= c else 0
+    if not (switch__0):
+        switch__1 = (0 if 214 < c else 1) if 192 <= c else 0
+        if not (switch__1):
+            switch__2 = (1 if 222 < c else 0) if 216 <= c else 1
+            if switch__2:
+                return c
+    return int(c + 32)
+
+
+def uppercase(c):
+    switch__0 = (0 if 122 < c else 1) if 97 <= c else 0
+    if not (switch__0):
+        switch__1 = (0 if 246 < c else 1) if 224 <= c else 0
+        if not (switch__1):
+            switch__2 = (1 if 254 < c else 0) if 248 <= c else 1
+            if switch__2:
+                return c
+    return int(c + -32)
+
+
+def lowercase_ascii(c):
+    if 65 <= c:
+        if not (90 < c):
+            return int(c + 32)
+    return c
+
+
+def uppercase_ascii(c):
+    if 97 <= c:
+        if not (122 < c):
+            return int(c + -32)
+    return c
+
+
+def compare(c1, c2):
+    return int(c1 - c2)
+
+
+def equal(c1, c2):
+    return 1 if 0 is compare(c1, c2) else 0
+
+
+Char = [
+    0,
+    chr,
+    escaped,
+    lowercase,
+    uppercase,
+    lowercase_ascii,
+    uppercase_ascii,
+    compare,
+    equal,
+]
+empty["caml_register_global"](8, Char, "Char")

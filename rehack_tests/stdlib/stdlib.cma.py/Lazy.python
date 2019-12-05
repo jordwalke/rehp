@@ -1,0 +1,29 @@
+caml_obj_tag = empty["caml_obj_tag"]
+global_data = empty["caml_get_global_data"]()
+Obj = global_data["Obj"]
+CamlinternalLazy = global_data["CamlinternalLazy"]
+Undefined = CamlinternalLazy[1]
+force_val = CamlinternalLazy[5]
+
+
+def from_fun(f):
+    x = empty["caml_obj_block"](Obj[6], 1)
+    x[1] = f
+    return x
+
+
+def from_val(v):
+    t = caml_obj_tag(v)
+    if t is not Obj[10]:
+        if t is not Obj[6]:
+            if t is not Obj[14]:
+                return v
+    return empty["caml_lazy_make_forward"](v)
+
+
+def is_val(l):
+    return 1 if caml_obj_tag(l) is not Obj[6] else 0
+
+
+Lazy = [0, Undefined, force_val, from_fun, from_val, is_val, from_fun, from_val, is_val]
+empty["caml_register_global"](2, Lazy, "Lazy")

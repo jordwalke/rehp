@@ -1,0 +1,481 @@
+caml_bytes_unsafe_get = empty["caml_bytes_unsafe_get"]
+caml_fresh_oo_id = empty["caml_fresh_oo_id"]
+caml_ml_bytes_length = empty["caml_ml_bytes_length"]
+string = empty["caml_new_string"]
+caml_obj_tag = empty["caml_obj_tag"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call4(f, a0, a1, a2, a3):
+    return (
+        f(a0, a1, a2, a3)
+        if arity_test is 4
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst_count = string("{count = ")
+cst_data = string("; data = ")
+cst = string("}")
+cst_Sempty = string("Sempty")
+cst_Scons = string("Scons (")
+cst__0 = string(", ")
+cst__1 = string(")")
+cst_Sapp = string("Sapp (")
+cst__2 = string(", ")
+cst__3 = string(")")
+cst_Slazy = string("Slazy")
+cst_Sgen = string("Sgen")
+cst_Sbuffio = string("Sbuffio")
+cst_Stream_Failure = string("Stream.Failure")
+cst_Stream_Error = string("Stream.Error")
+Assert_failure = global_data["Assert_failure"]
+CamlinternalLazy = global_data["CamlinternalLazy"]
+Pervasives = global_data["Pervasives"]
+List = global_data["List_"]
+b = [0, string("stream.ml"), 53, 12]
+c = [0, 0]
+d = [0, string("stream.ml"), 82, 12]
+Failure = [248, cst_Stream_Failure, caml_fresh_oo_id(0)]
+Error = [248, cst_Stream_Error, caml_fresh_oo_id(0)]
+
+
+def count(param):
+    if param:
+        match = param[1]
+        count = match[1]
+        return count
+    return 0
+
+
+def data(param):
+    if param:
+        match = param[1]
+        data = match[2]
+        return data
+    return 0
+
+
+def fill_buff(b):
+    b[3] = call4(Pervasives[72], b[1], b[2], 0, caml_ml_bytes_length(b[2]))
+    b[4] = 0
+    return 0
+
+
+def get_data(count, d):
+    d__0 = d
+    while True:
+        if not (is_int(d__0)):
+            continue_label = None
+            while True:
+                switch_case_24 = d__0[0]
+                if switch_case_24 is 1:
+                    d2 = d__0[2]
+                    d1 = d__0[1]
+                    match = get_data(count, d1)
+                    if is_int(match):
+                        d__0 = d2
+                        continue_label = "switch"
+                        break
+                    else:
+                        if 0 is match[0]:
+                            d11 = match[2]
+                            a = match[1]
+                            return [0, a, [1, d11, d2]]
+                        raise (
+                            empty["caml_wrap_thrown_exception"]([0, Assert_failure, b])
+                        )
+                else:
+                    if switch_case_24 is 2:
+                        f = d__0[1]
+                        r = caml_obj_tag(f)
+                        d__1 = (
+                            f[1]
+                            if 250 is r
+                            else (call1(CamlinternalLazy[2], f) if 246 is r else f)
+                        )
+                        d__0 = d__1
+                        continue_label = "switch"
+                        break
+                    else:
+                        if switch_case_24 is 3:
+                            s = d__0[1]
+                            t = s[1]
+                            if t:
+                                u = t[1]
+                                if u:
+                                    a__0 = u[1]
+                                    s[1] = 0
+                                    return [0, a__0, d__0]
+                                return 0
+                            match__0 = call1(s[2], count)
+                            if match__0:
+                                a__1 = match__0[1]
+                                return [0, a__1, d__0]
+                            s[1] = c
+                            return 0
+                        else:
+                            if switch_case_24 is 4:
+                                b__0 = d__0[1]
+                                if b__0[3] <= b__0[4]:
+                                    fill_buff(b__0)
+                                if 0 is b__0[3]:
+                                    return 0
+                                r__0 = caml_bytes_unsafe_get(b__0[2], b__0[4])
+                                b__0[4] = int(b__0[4] + 1)
+                                return [0, r__0, d__0]
+                break
+            if label == "switch":
+                continue
+        return d__0
+
+
+def peek_data(s):
+    while True:
+        m = s[2]
+        if is_int(m):
+            return 0
+        else:
+            continue_label = None
+            while True:
+                switch_case_25 = m[0]
+                if switch_case_25 is 0:
+                    a = m[1]
+                    return [0, a]
+                else:
+                    if switch_case_25 is 1:
+                        d__0 = get_data(s[1], s[2])
+                        if is_int(d__0):
+                            return 0
+                        else:
+                            if 0 is d__0[0]:
+                                a__0 = d__0[1]
+                                s[2] = d__0
+                                return [0, a__0]
+                            raise (
+                                empty["caml_wrap_thrown_exception"](
+                                    [0, Assert_failure, d]
+                                )
+                            )
+                    else:
+                        if switch_case_25 is 2:
+                            f = m[1]
+                            n = caml_obj_tag(f)
+                            o = (
+                                f[1]
+                                if 250 is n
+                                else (call1(CamlinternalLazy[2], f) if 246 is n else f)
+                            )
+                            s[2] = o
+                            continue_label = "switch"
+                            break
+                        else:
+                            if switch_case_25 is 3:
+                                p = m[1]
+                                q = p[1]
+                                if q:
+                                    a__1 = q[1]
+                                    return a__1
+                                x = call1(p[2], s[1])
+                                p[1] = [0, x]
+                                return x
+                            else:
+                                b = m[1]
+                                if b[3] <= b[4]:
+                                    fill_buff(b)
+                                return (
+                                    (0 if UnsupportedAssignOp or true else 0)
+                                    if 0 is b[3]
+                                    else [0, caml_bytes_unsafe_get(b[2], b[4])]
+                                )
+                break
+            if label == "switch":
+                continue
+
+
+def peek(param):
+    if param:
+        s = param[1]
+        return peek_data(s)
+    return 0
+
+
+def junk_data(s):
+    while True:
+        k = s[2]
+        if not (is_int(k)):
+            while True:
+                switch_case_26 = k[0]
+                if switch_case_26 is 0:
+                    d = k[2]
+                    s[1] = int(s[1] + 1)
+                    s[2] = d
+                    return 0
+                else:
+                    if switch_case_26 is 3:
+                        l = k[1]
+                        if l[1]:
+                            s[1] = int(s[1] + 1)
+                            l[1] = 0
+                            return 0
+                        break
+                    else:
+                        if switch_case_26 is 4:
+                            b = k[1]
+                            s[1] = int(s[1] + 1)
+                            b[4] = int(b[4] + 1)
+                            return 0
+                break
+        match = peek_data(s)
+        if match:
+            continue
+        return 0
+
+
+def junk(param):
+    if param:
+        data = param[1]
+        return junk_data(data)
+    return 0
+
+
+def nget_data(n, s):
+    if 0 < n:
+        match = peek_data(s)
+        if match:
+            a = match[1]
+            junk_data(s)
+            match__0 = nget_data(int(n + -1), s)
+            k = match__0[3]
+            d = match__0[2]
+            al = match__0[1]
+            return [0, [0, a, al], [0, a, d], int(k + 1)]
+        return [0, 0, s[2], 0]
+    return [0, 0, s[2], 0]
+
+
+def npeek_data(n, s):
+    match = nget_data(n, s)
+    len = match[3]
+    d = match[2]
+    al = match[1]
+    s[1] = int(s[1] - len)
+    s[2] = d
+    return al
+
+
+def npeek(n, param):
+    if param:
+        d = param[1]
+        return npeek_data(n, d)
+    return 0
+
+
+def next(s):
+    match = peek(s)
+    if match:
+        a = match[1]
+        junk(s)
+        return a
+    raise (empty["caml_wrap_thrown_exception"](Failure))
+
+
+def empty(s):
+    match = peek(s)
+    if match:
+        raise (empty["caml_wrap_thrown_exception"](Failure))
+    return 0
+
+
+def iter(f, strm):
+    def do_rec(param):
+        while True:
+            match = peek(strm)
+            if match:
+                a = match[1]
+                junk(strm)
+                call1(f, a)
+                continue
+            return 0
+
+    return do_rec(0)
+
+
+def from__0(f):
+    return [0, [0, 0, [3, [0, 0, f]]]]
+
+
+def of_list(l):
+    i = 0
+
+    def j(x, l):
+        return [0, x, l]
+
+    return [0, [0, 0, call3(List[21], j, l, i)]]
+
+
+def of_string(s):
+    count = [0, 0]
+
+    def function_expression_27(param):
+        c = count[1]
+        return (
+            (
+                [0, empty["caml_string_get"](s, c)]
+                if UnsupportedAssignOp or true
+                else [0, empty["caml_string_get"](s, c)]
+            )
+            if c < empty["caml_ml_string_length"](s)
+            else 0
+        )
+
+    return from__0(function_expression_27)
+
+
+def of_bytes(s):
+    count = [0, 0]
+
+    def function_expression_28(param):
+        c = count[1]
+        return (
+            (
+                [0, empty["caml_bytes_get"](s, c)]
+                if UnsupportedAssignOp or true
+                else [0, empty["caml_bytes_get"](s, c)]
+            )
+            if c < caml_ml_bytes_length(s)
+            else 0
+        )
+
+    return from__0(function_expression_28)
+
+
+def of_channel(ic):
+    return [0, [0, 0, [4, [0, ic, empty["caml_create_bytes"](4096), 0, 0]]]]
+
+
+def iapp(i, s):
+    h = data(s)
+    return [0, [0, 0, [1, data(i), h]]]
+
+
+def icons(i, s):
+    return [0, [0, 0, [0, i, data(s)]]]
+
+
+def ising(i):
+    return [0, [0, 0, [0, i, 0]]]
+
+
+def lapp(f, s):
+    def function_expression_29(param):
+        g = data(s)
+        return [1, data(call1(f, 0)), g]
+
+    return [0, [0, 0, [2, [246, function_expression_29]]]]
+
+
+def lcons(f, s):
+    def function_expression_30(param):
+        f = data(s)
+        return [0, call1(f, 0), f]
+
+    return [0, [0, 0, [2, [246, function_expression_30]]]]
+
+
+def lsing(f):
+    def function_expression_31(param):
+        return [0, call1(f, 0), 0]
+
+    return [0, [0, 0, [2, [246, function_expression_31]]]]
+
+
+sempty = 0
+
+
+def slazy(f):
+    def function_expression_32(param):
+        return data(call1(f, 0))
+
+    return [0, [0, 0, [2, [246, function_expression_32]]]]
+
+
+def dump(f, s):
+    call1(Pervasives[30], cst_count)
+    e = count(s)
+    call1(Pervasives[32], e)
+    call1(Pervasives[30], cst_data)
+    dump_data(f, data(s))
+    call1(Pervasives[30], cst)
+    return call1(Pervasives[35], 0)
+
+
+def dump_data(f, param):
+    if is_int(param):
+        return call1(Pervasives[30], cst_Sempty)
+    else:
+        while True:
+            switch_case_33 = param[0]
+            if switch_case_33 is 0:
+                d = param[2]
+                a = param[1]
+                call1(Pervasives[30], cst_Scons)
+                call1(f, a)
+                call1(Pervasives[30], cst__0)
+                dump_data(f, d)
+                return call1(Pervasives[30], cst__1)
+            else:
+                if switch_case_33 is 1:
+                    d2 = param[2]
+                    d1 = param[1]
+                    call1(Pervasives[30], cst_Sapp)
+                    dump_data(f, d1)
+                    call1(Pervasives[30], cst__2)
+                    dump_data(f, d2)
+                    return call1(Pervasives[30], cst__3)
+                else:
+                    if switch_case_33 is 2:
+                        return call1(Pervasives[30], cst_Slazy)
+                    else:
+                        if switch_case_33 is 3:
+                            return call1(Pervasives[30], cst_Sgen)
+                        else:
+                            return call1(Pervasives[30], cst_Sbuffio)
+            break
+
+
+Stream = [
+    0,
+    Failure,
+    Error,
+    from__0,
+    of_list,
+    of_string,
+    of_bytes,
+    of_channel,
+    iter,
+    next,
+    empty,
+    peek,
+    junk,
+    count,
+    npeek,
+    iapp,
+    icons,
+    ising,
+    lapp,
+    lcons,
+    lsing,
+    sempty,
+    slazy,
+    dump,
+]
+empty["caml_register_global"](22, Stream, "Stream")

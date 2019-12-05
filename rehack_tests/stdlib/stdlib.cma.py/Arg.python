@@ -1,0 +1,1110 @@
+caml_check_bound = empty["caml_check_bound"]
+caml_equal = empty["caml_equal"]
+caml_fresh_oo_id = empty["caml_fresh_oo_id"]
+caml_ml_string_length = empty["caml_ml_string_length"]
+string = empty["caml_new_string"]
+caml_string_get = empty["caml_string_get"]
+caml_string_notequal = empty["caml_string_notequal"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call4(f, a0, a1, a2, a3):
+    return (
+        f(a0, a1, a2, a3)
+        if arity_test is 4
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3])
+    )
+
+
+def call5(f, a0, a1, a2, a3, a4):
+    return (
+        f(a0, a1, a2, a3, a4)
+        if arity_test is 5
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4])
+    )
+
+
+def call6(f, a0, a1, a2, a3, a4, a5):
+    return (
+        f(a0, a1, a2, a3, a4, a5)
+        if arity_test is 6
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4, a5])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst__6 = string("")
+cst__7 = string("\n")
+cst_a_boolean = string("a boolean")
+cst_an_integer = string("an integer")
+cst_an_integer__0 = string("an integer")
+cst_a_float = string("a float")
+cst_a_float__0 = string("a float")
+cst__3 = string("")
+cst__4 = string(" ")
+cst__5 = string("")
+cst_one_of = string("one of: ")
+cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic = string(
+    "Arg.Expand is is only allowed with Arg.parse_and_expand_argv_dynamic"
+)
+cst_no_argument = string("no argument")
+cst__2 = string("(?)")
+cst_help__3 = string("--help")
+cst_help__4 = string("-help")
+cst_help__2 = string("-help")
+cst_Display_this_list_of_options = string(" Display this list of options")
+cst_help = string("-help")
+cst_help__1 = string("--help")
+cst_Display_this_list_of_options__0 = string(" Display this list of options")
+cst_help__0 = string("--help")
+cst = string("}")
+cst__0 = string("|")
+cst__1 = string("{")
+cst_none = string("<none>")
+cst_Arg_Bad = string("Arg.Bad")
+cst_Arg_Help = string("Arg.Help")
+cst_Arg_Stop = string("Arg.Stop")
+Not_found = global_data["Not_found"]
+Printf = global_data["Printf"]
+Pervasives = global_data["Pervasives"]
+Array = global_data["Array_"]
+Buffer = global_data["Buffer"]
+End_of_file = global_data["End_of_file"]
+List = global_data["List_"]
+String = global_data["String_"]
+Sys = global_data["Sys"]
+Invalid_argument = global_data["Invalid_argument"]
+Failure = global_data["Failure"]
+w = [0, [2, 0, [0, 0]], string("%s%c")]
+q = [0, [2, 0, 0], string("%s")]
+r = [0, [2, 0, 0], string("%s")]
+o = [0, [2, 0, 0], string("%s")]
+p = [0, [2, 0, 0], string("%s")]
+m = [0, [2, 0, 0], string("%s")]
+n = [0, [2, 0, 0], string("%s")]
+g = [
+    0,
+    [2, 0, [11, string(": unknown option '"), [2, 0, [11, string("'.\n"), 0]]]],
+    string("%s: unknown option '%s'.\n"),
+]
+j = [
+    0,
+    [
+        2,
+        0,
+        [
+            11,
+            string(": wrong argument '"),
+            [
+                2,
+                0,
+                [
+                    11,
+                    string("'; option '"),
+                    [2, 0, [11, string("' expects "), [2, 0, [11, string(".\n"), 0]]]],
+                ],
+            ],
+        ],
+    ],
+    string("%s: wrong argument '%s'; option '%s' expects %s.\n"),
+]
+k = [
+    0,
+    [
+        2,
+        0,
+        [11, string(": option '"), [2, 0, [11, string("' needs an argument.\n"), 0]]],
+    ],
+    string("%s: option '%s' needs an argument.\n"),
+]
+l = [0, [2, 0, [11, string(": "), [2, 0, [11, string(".\n"), 0]]]], string("%s: %s.\n")]
+h = [0, string("-help")]
+i = [0, string("--help")]
+f = [0, [2, 0, 0], string("%s")]
+e = [0, [2, 0, [12, 10, 0]], string("%s\n")]
+d = [0, string("-help")]
+b = [0, [11, string("  "), [2, 0, [12, 32, [2, 0, [12, 10, 0]]]]], string("  %s %s\n")]
+c = [
+    0,
+    [11, string("  "), [2, 0, [12, 32, [2, 0, [2, 0, [12, 10, 0]]]]]],
+    string("  %s %s%s\n"),
+]
+Bad = [248, cst_Arg_Bad, caml_fresh_oo_id(0)]
+Help = [248, cst_Arg_Help, caml_fresh_oo_id(0)]
+Stop = [248, cst_Arg_Stop, caml_fresh_oo_id(0)]
+
+
+def assoc3(x, l):
+    l__0 = l
+    while True:
+        if l__0:
+            t = l__0[2]
+            match = l__0[1]
+            y2 = match[2]
+            y1 = match[1]
+            if caml_equal(y1, x):
+                return y2
+            l__0 = t
+            continue
+        raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+
+def split(s):
+    i = call2(String[14], s, 61)
+    len = caml_ml_string_length(s)
+    aI = call3(String[4], s, int(i + 1), int(len - int(i + 1)))
+    return [0, call3(String[4], s, 0, i), aI]
+
+
+def make_symlist(prefix, sep, suffix, l):
+    if l:
+        t = l[2]
+        h = l[1]
+        aE = call2(Pervasives[16], prefix, h)
+
+        def aF(x, y):
+            aH = call2(Pervasives[16], sep, y)
+            return call2(Pervasives[16], x, aH)
+
+        aG = call3(List[20], aF, aE, t)
+        return call2(Pervasives[16], aG, suffix)
+    return cst_none
+
+
+def print_spec(buf, param):
+    doc = param[3]
+    spec = param[2]
+    key = param[1]
+    aC = 1 if 0 < caml_ml_string_length(doc) else 0
+    if aC:
+        if 11 is spec[0]:
+            l = spec[1]
+            aD = make_symlist(cst__1, cst__0, cst, l)
+            return call5(Printf[5], buf, c, key, aD, doc)
+        return call4(Printf[5], buf, b, key, doc)
+    return aC
+
+
+def help_action(param):
+    raise (empty["caml_wrap_thrown_exception"]([0, Stop, d]))
+
+
+def add_help(speclist):
+    try:
+        assoc3(cst_help__2, speclist)
+        az = 0
+        av = az
+    except:
+        aB = caml_wrap_exception(aB)
+        if aB is not Not_found:
+            raise (empty["caml_wrap_thrown_exception_reraise"](aB))
+        au = [0, [0, cst_help, [0, help_action], cst_Display_this_list_of_options], 0]
+        av = au
+    try:
+        assoc3(cst_help__1, speclist)
+        ay = 0
+        add2 = ay
+    except:
+        aA = caml_wrap_exception(aA)
+        if aA is not Not_found:
+            raise (empty["caml_wrap_thrown_exception_reraise"](aA))
+        aw = [
+            0,
+            [0, cst_help__0, [0, help_action], cst_Display_this_list_of_options__0],
+            0,
+        ]
+        add2 = aw
+    ax = call2(Pervasives[25], av, add2)
+    return call2(Pervasives[25], speclist, ax)
+
+
+def usage_b(buf, speclist, errmsg):
+    call3(Printf[5], buf, e, errmsg)
+    aq = add_help(speclist)
+
+    def ar(at):
+        return print_spec(buf, at)
+
+    return call2(List[15], ar, aq)
+
+
+def usage_string(speclist, errmsg):
+    b = call1(Buffer[1], 200)
+    usage_b(b, speclist, errmsg)
+    return call1(Buffer[2], b)
+
+
+def usage(speclist, errmsg):
+    ap = usage_string(speclist, errmsg)
+    return call2(Printf[3], f, ap)
+
+
+current = [0, 0]
+
+
+def bool_of_string_opt(x):
+    try:
+        an = [0, call1(Pervasives[19], x)]
+        return an
+    except:
+        ao = caml_wrap_exception(ao)
+        if ao[1] is Invalid_argument:
+            return 0
+        raise (empty["caml_wrap_thrown_exception_reraise"](ao))
+
+
+def int_of_string_opt(x):
+    try:
+        al = [0, empty["caml_int_of_string"](x)]
+        return al
+    except:
+        am = caml_wrap_exception(am)
+        if am[1] is Failure:
+            return 0
+        raise (empty["caml_wrap_thrown_exception_reraise"](am))
+
+
+def float_of_string_opt(x):
+    try:
+        aj = [0, empty["caml_float_of_string"](x)]
+        return aj
+    except:
+        ak = caml_wrap_exception(ak)
+        if ak[1] is Failure:
+            return 0
+        raise (empty["caml_wrap_thrown_exception_reraise"](ak))
+
+
+def parse_and_expand_argv_dynamic_aux(
+    allow_expand, current, argv, speclist, anonfun, errmsg
+):
+    initpos = current[1]
+
+    def convert_error(error):
+        b = call1(Buffer[1], 200)
+        progname = (
+            caml_check_bound(argv[1], initpos)[initpos + 1]
+            if initpos < len(argv[1])
+            else cst__2
+        )
+        while True:
+            switch_case_165 = error[0]
+            if switch_case_165 is 0:
+                ai = error[1]
+                if caml_string_notequal(ai, cst_help__3):
+                    if caml_string_notequal(ai, cst_help__4):
+                        call4(Printf[5], b, g, progname, ai)
+                break
+            else:
+                if switch_case_165 is 1:
+                    expected = error[3]
+                    arg = error[2]
+                    opt = error[1]
+                    call6(Printf[5], b, j, progname, arg, opt, expected)
+                    break
+                else:
+                    if switch_case_165 is 2:
+                        s = error[1]
+                        call4(Printf[5], b, k, progname, s)
+                        break
+                    else:
+                        s__0 = error[1]
+                        call4(Printf[5], b, l, progname, s__0)
+            break
+        usage_b(b, speclist[1], errmsg)
+        if not (caml_equal(error, h)):
+            if not (caml_equal(error, i)):
+                return [0, Bad, call1(Buffer[2], b)]
+        return [0, Help, call1(Buffer[2], b)]
+
+    current[1] += 1
+    while True:
+        if current[1] < len(argv[1]):
+            try:
+                aa = current[1]
+                s = caml_check_bound(argv[1], aa)[aa + 1]
+                if 1 <= caml_ml_string_length(s):
+                    if 45 is caml_string_get(s, 0):
+                        try:
+                            follow__1 = 0
+                            ac = assoc3(s, speclist[1])
+                            action = ac
+                            follow__0 = follow__1
+                        except:
+                            ag = caml_wrap_exception(ag)
+                            if ag is not Not_found:
+                                raise (empty["caml_wrap_thrown_exception_reraise"](ag))
+                            try:
+                                match = split(s)
+                                arg = match[2]
+                                keyword = match[1]
+                                follow = [0, arg]
+                                ab = assoc3(keyword, speclist[1])
+                            except:
+                                ah = caml_wrap_exception(ah)
+                                if ah is Not_found:
+                                    raise (
+                                        empty["caml_wrap_thrown_exception"](
+                                            [0, Stop, [0, s]]
+                                        )
+                                    )
+                                raise (empty["caml_wrap_thrown_exception_reraise"](ah))
+                            action = ab
+                            follow__0 = follow
+
+                        def no_arg__0(s, follow):
+                            def no_arg(param):
+                                if follow:
+                                    arg = follow[1]
+                                    raise (
+                                        empty["caml_wrap_thrown_exception"](
+                                            [0, Stop, [1, s, arg, cst_no_argument]]
+                                        )
+                                    )
+                                return 0
+
+                            return no_arg
+
+                        no_arg = no_arg__0(s, follow__0)
+
+                        def get_arg__0(s, follow):
+                            def get_arg(param):
+                                if follow:
+                                    arg = follow[1]
+                                    return arg
+                                if int(current[1] + 1) < len(argv[1]):
+                                    af = int(current[1] + 1)
+                                    return caml_check_bound(argv[1], af)[af + 1]
+                                raise (
+                                    empty["caml_wrap_thrown_exception"](
+                                        [0, Stop, [2, s]]
+                                    )
+                                )
+
+                            return get_arg
+
+                        get_arg = get_arg__0(s, follow__0)
+
+                        def consume_arg__0(follow):
+                            def consume_arg(param):
+                                return (
+                                    0
+                                    if follow
+                                    else (0 if UnsupportedAssignOp or true else 0)
+                                )
+
+                            return consume_arg
+
+                        consume_arg = consume_arg__0(follow__0)
+
+                        def treat_action__0(s, no_arg, get_arg, consume_arg):
+                            def treat_action(param):
+                                while True:
+                                    switch_case_166 = param[0]
+                                    if switch_case_166 is 0:
+                                        f = param[1]
+                                        return call1(f, 0)
+                                    else:
+                                        if switch_case_166 is 1:
+                                            f__0 = param[1]
+                                            arg = get_arg(0)
+                                            match = bool_of_string_opt(arg)
+                                            if match:
+                                                s__0 = match[1]
+                                                call1(f__0, s__0)
+                                                return consume_arg(0)
+                                            raise (
+                                                empty["caml_wrap_thrown_exception"](
+                                                    [
+                                                        0,
+                                                        Stop,
+                                                        [1, s, arg, cst_a_boolean],
+                                                    ]
+                                                )
+                                            )
+                                        else:
+                                            if switch_case_166 is 2:
+                                                r = param[1]
+                                                no_arg(0)
+                                                r[1] = 1
+                                                return 0
+                                            else:
+                                                if switch_case_166 is 3:
+                                                    r__0 = param[1]
+                                                    no_arg(0)
+                                                    r__0[1] = 0
+                                                    return 0
+                                                else:
+                                                    if switch_case_166 is 4:
+                                                        f__1 = param[1]
+                                                        arg__0 = get_arg(0)
+                                                        call1(f__1, arg__0)
+                                                        return consume_arg(0)
+                                                    else:
+                                                        if switch_case_166 is 5:
+                                                            r__1 = param[1]
+                                                            r__1[1] = get_arg(0)
+                                                            return consume_arg(0)
+                                                        else:
+                                                            if switch_case_166 is 6:
+                                                                f__2 = param[1]
+                                                                arg__1 = get_arg(0)
+                                                                match__0 = int_of_string_opt(
+                                                                    arg__1
+                                                                )
+                                                                if match__0:
+                                                                    x = match__0[1]
+                                                                    call1(f__2, x)
+                                                                    return consume_arg(
+                                                                        0
+                                                                    )
+                                                                raise (
+                                                                    empty[
+                                                                        "caml_wrap_thrown_exception"
+                                                                    ](
+                                                                        [
+                                                                            0,
+                                                                            Stop,
+                                                                            [
+                                                                                1,
+                                                                                s,
+                                                                                arg__1,
+                                                                                cst_an_integer,
+                                                                            ],
+                                                                        ]
+                                                                    )
+                                                                )
+                                                            else:
+                                                                if switch_case_166 is 7:
+                                                                    r__2 = param[1]
+                                                                    arg__2 = get_arg(0)
+                                                                    match__1 = int_of_string_opt(
+                                                                        arg__2
+                                                                    )
+                                                                    if match__1:
+                                                                        x__0 = match__1[
+                                                                            1
+                                                                        ]
+                                                                        r__2[1] = x__0
+                                                                        return consume_arg(
+                                                                            0
+                                                                        )
+                                                                    raise (
+                                                                        empty[
+                                                                            "caml_wrap_thrown_exception"
+                                                                        ](
+                                                                            [
+                                                                                0,
+                                                                                Stop,
+                                                                                [
+                                                                                    1,
+                                                                                    s,
+                                                                                    arg__2,
+                                                                                    cst_an_integer__0,
+                                                                                ],
+                                                                            ]
+                                                                        )
+                                                                    )
+                                                                else:
+                                                                    if (
+                                                                        switch_case_166
+                                                                        is 8
+                                                                    ):
+                                                                        f__3 = param[1]
+                                                                        arg__3 = get_arg(
+                                                                            0
+                                                                        )
+                                                                        match__2 = float_of_string_opt(
+                                                                            arg__3
+                                                                        )
+                                                                        if match__2:
+                                                                            x__1 = match__2[
+                                                                                1
+                                                                            ]
+                                                                            call1(
+                                                                                f__3,
+                                                                                x__1,
+                                                                            )
+                                                                            return consume_arg(
+                                                                                0
+                                                                            )
+                                                                        raise (
+                                                                            empty[
+                                                                                "caml_wrap_thrown_exception"
+                                                                            ](
+                                                                                [
+                                                                                    0,
+                                                                                    Stop,
+                                                                                    [
+                                                                                        1,
+                                                                                        s,
+                                                                                        arg__3,
+                                                                                        cst_a_float,
+                                                                                    ],
+                                                                                ]
+                                                                            )
+                                                                        )
+                                                                    else:
+                                                                        if (
+                                                                            switch_case_166
+                                                                            is 9
+                                                                        ):
+                                                                            r__3 = param[
+                                                                                1
+                                                                            ]
+                                                                            arg__4 = get_arg(
+                                                                                0
+                                                                            )
+                                                                            match__3 = float_of_string_opt(
+                                                                                arg__4
+                                                                            )
+                                                                            if match__3:
+                                                                                x__2 = match__3[
+                                                                                    1
+                                                                                ]
+                                                                                r__3[
+                                                                                    1
+                                                                                ] = x__2
+                                                                                return consume_arg(
+                                                                                    0
+                                                                                )
+                                                                            raise (
+                                                                                empty[
+                                                                                    "caml_wrap_thrown_exception"
+                                                                                ](
+                                                                                    [
+                                                                                        0,
+                                                                                        Stop,
+                                                                                        [
+                                                                                            1,
+                                                                                            s,
+                                                                                            arg__4,
+                                                                                            cst_a_float__0,
+                                                                                        ],
+                                                                                    ]
+                                                                                )
+                                                                            )
+                                                                        else:
+                                                                            if (
+                                                                                switch_case_166
+                                                                                is 10
+                                                                            ):
+                                                                                specs = param[
+                                                                                    1
+                                                                                ]
+                                                                                return call2(
+                                                                                    List[
+                                                                                        15
+                                                                                    ],
+                                                                                    treat_action,
+                                                                                    specs,
+                                                                                )
+                                                                            else:
+                                                                                if (
+                                                                                    switch_case_166
+                                                                                    is 11
+                                                                                ):
+                                                                                    f__4 = param[
+                                                                                        2
+                                                                                    ]
+                                                                                    symb = param[
+                                                                                        1
+                                                                                    ]
+                                                                                    arg__5 = get_arg(
+                                                                                        0
+                                                                                    )
+                                                                                    if call2(
+                                                                                        List[
+                                                                                            31
+                                                                                        ],
+                                                                                        arg__5,
+                                                                                        symb,
+                                                                                    ):
+                                                                                        call1(
+                                                                                            f__4,
+                                                                                            arg__5,
+                                                                                        )
+                                                                                        return consume_arg(
+                                                                                            0
+                                                                                        )
+                                                                                    ad = make_symlist(
+                                                                                        cst__5,
+                                                                                        cst__4,
+                                                                                        cst__3,
+                                                                                        symb,
+                                                                                    )
+                                                                                    raise (
+                                                                                        empty[
+                                                                                            "caml_wrap_thrown_exception"
+                                                                                        ](
+                                                                                            [
+                                                                                                0,
+                                                                                                Stop,
+                                                                                                [
+                                                                                                    1,
+                                                                                                    s,
+                                                                                                    arg__5,
+                                                                                                    call2(
+                                                                                                        Pervasives[
+                                                                                                            16
+                                                                                                        ],
+                                                                                                        cst_one_of,
+                                                                                                        ad,
+                                                                                                    ),
+                                                                                                ],
+                                                                                            ]
+                                                                                        )
+                                                                                    )
+                                                                                else:
+                                                                                    if (
+                                                                                        switch_case_166
+                                                                                        is 12
+                                                                                    ):
+                                                                                        f__5 = param[
+                                                                                            1
+                                                                                        ]
+                                                                                        while True:
+                                                                                            if current[
+                                                                                                1
+                                                                                            ] < int(
+                                                                                                len(
+                                                                                                    argv[
+                                                                                                        1
+                                                                                                    ]
+                                                                                                )
+                                                                                                + -1
+                                                                                            ):
+                                                                                                ae = int(
+                                                                                                    current[
+                                                                                                        1
+                                                                                                    ]
+                                                                                                    + 1
+                                                                                                )
+                                                                                                call1(
+                                                                                                    f__5,
+                                                                                                    caml_check_bound(
+                                                                                                        argv[
+                                                                                                            1
+                                                                                                        ],
+                                                                                                        ae,
+                                                                                                    )[
+                                                                                                        ae
+                                                                                                        + 1
+                                                                                                    ],
+                                                                                                )
+                                                                                                consume_arg(
+                                                                                                    0
+                                                                                                )
+                                                                                                continue
+                                                                                            return 0
+                                                                                    else:
+                                                                                        f__6 = param[
+                                                                                            1
+                                                                                        ]
+                                                                                        if (
+                                                                                            1
+                                                                                            - allow_expand
+                                                                                        ):
+                                                                                            raise (
+                                                                                                empty[
+                                                                                                    "caml_wrap_thrown_exception"
+                                                                                                ](
+                                                                                                    [
+                                                                                                        0,
+                                                                                                        Invalid_argument,
+                                                                                                        cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic,
+                                                                                                    ]
+                                                                                                )
+                                                                                            )
+                                                                                        arg__6 = get_arg(
+                                                                                            0
+                                                                                        )
+                                                                                        newarg = call1(
+                                                                                            f__6,
+                                                                                            arg__6,
+                                                                                        )
+                                                                                        consume_arg(
+                                                                                            0
+                                                                                        )
+                                                                                        before = call3(
+                                                                                            Array[
+                                                                                                7
+                                                                                            ],
+                                                                                            argv[
+                                                                                                1
+                                                                                            ],
+                                                                                            0,
+                                                                                            int(
+                                                                                                current[
+                                                                                                    1
+                                                                                                ]
+                                                                                                + 1
+                                                                                            ),
+                                                                                        )
+                                                                                        after = call3(
+                                                                                            Array[
+                                                                                                7
+                                                                                            ],
+                                                                                            argv[
+                                                                                                1
+                                                                                            ],
+                                                                                            int(
+                                                                                                current[
+                                                                                                    1
+                                                                                                ]
+                                                                                                + 1
+                                                                                            ),
+                                                                                            int(
+                                                                                                int(
+                                                                                                    len(
+                                                                                                        argv[
+                                                                                                            1
+                                                                                                        ]
+                                                                                                    )
+                                                                                                    - current[
+                                                                                                        1
+                                                                                                    ]
+                                                                                                )
+                                                                                                + -1
+                                                                                            ),
+                                                                                        )
+                                                                                        argv[
+                                                                                            1
+                                                                                        ] = call1(
+                                                                                            Array[
+                                                                                                6
+                                                                                            ],
+                                                                                            [
+                                                                                                0,
+                                                                                                before,
+                                                                                                [
+                                                                                                    0,
+                                                                                                    newarg,
+                                                                                                    [
+                                                                                                        0,
+                                                                                                        after,
+                                                                                                        0,
+                                                                                                    ],
+                                                                                                ],
+                                                                                            ],
+                                                                                        )
+                                                                                        return 0
+                                    break
+
+                            return treat_action
+
+                        treat_action = treat_action__0(s, no_arg, get_arg, consume_arg)
+                        treat_action(action)
+                        switch__0 = 1
+                    else:
+                        switch__0 = 0
+                else:
+                    switch__0 = 0
+                if not (switch__0):
+                    call1(anonfun, s)
+            except:
+                exn = caml_wrap_exception(exn)
+                if exn[1] is Bad:
+                    m = exn[2]
+                    raise (empty["caml_wrap_thrown_exception"](convert_error([3, m])))
+                if exn[1] is Stop:
+                    e = exn[2]
+                    raise (empty["caml_wrap_thrown_exception"](convert_error(e)))
+                raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+            current[1] += 1
+            continue
+        return 0
+
+
+def parse_and_expand_argv_dynamic(current, argv, speclist, anonfun, errmsg):
+    return parse_and_expand_argv_dynamic_aux(
+        1, current, argv, speclist, anonfun, errmsg
+    )
+
+
+def parse_argv_dynamic(opt, argv, speclist, anonfun, errmsg):
+    if opt:
+        sth = opt[1]
+        current__0 = sth
+    else:
+        current__0 = current
+    return parse_and_expand_argv_dynamic_aux(
+        0, current__0, [0, argv], speclist, anonfun, errmsg
+    )
+
+
+def parse_argv(opt, argv, speclist, anonfun, errmsg):
+    if opt:
+        sth = opt[1]
+        current__0 = sth
+    else:
+        current__0 = current
+    return parse_argv_dynamic([0, current__0], argv, [0, speclist], anonfun, errmsg)
+
+
+def parse(l, f, msg):
+    try:
+        Z = parse_argv(0, Sys[1], l, f, msg)
+        return Z
+    except:
+        exn = caml_wrap_exception(exn)
+        if exn[1] is Bad:
+            msg__0 = exn[2]
+            call2(Printf[3], m, msg__0)
+            return call1(Pervasives[87], 2)
+        if exn[1] is Help:
+            msg__1 = exn[2]
+            call2(Printf[2], n, msg__1)
+            return call1(Pervasives[87], 0)
+        raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+
+def parse_dynamic(l, f, msg):
+    try:
+        Y = parse_argv_dynamic(0, Sys[1], l, f, msg)
+        return Y
+    except:
+        exn = caml_wrap_exception(exn)
+        if exn[1] is Bad:
+            msg__0 = exn[2]
+            call2(Printf[3], o, msg__0)
+            return call1(Pervasives[87], 2)
+        if exn[1] is Help:
+            msg__1 = exn[2]
+            call2(Printf[2], p, msg__1)
+            return call1(Pervasives[87], 0)
+        raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+
+def parse_expand(l, f, msg):
+    try:
+        argv = [0, Sys[1]]
+        spec = [0, l]
+        current__0 = [0, current[1]]
+        X = parse_and_expand_argv_dynamic(current__0, argv, spec, f, msg)
+        return X
+    except:
+        exn = caml_wrap_exception(exn)
+        if exn[1] is Bad:
+            msg__0 = exn[2]
+            call2(Printf[3], q, msg__0)
+            return call1(Pervasives[87], 2)
+        if exn[1] is Help:
+            msg__1 = exn[2]
+            call2(Printf[2], r, msg__1)
+            return call1(Pervasives[87], 0)
+        raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+
+def second_word(s):
+    len = caml_ml_string_length(s)
+
+    def loop(n):
+        n__0 = n
+        while True:
+            if len <= n__0:
+                return len
+            if 32 is caml_string_get(s, n__0):
+                n__1 = int(n__0 + 1)
+                n__0 = n__1
+                continue
+            return n__0
+
+    try:
+        n__0 = call2(String[14], s, 9)
+    except:
+        V = caml_wrap_exception(V)
+        if V is Not_found:
+            try:
+                n = call2(String[14], s, 32)
+            except:
+                W = caml_wrap_exception(W)
+                if W is Not_found:
+                    return len
+                raise (empty["caml_wrap_thrown_exception_reraise"](W))
+            return loop(int(n + 1))
+        raise (empty["caml_wrap_thrown_exception_reraise"](V))
+    return loop(int(n__0 + 1))
+
+
+def max_arg_len(cur, param):
+    doc = param[3]
+    spec = param[2]
+    kwd = param[1]
+    if 11 is spec[0]:
+        return call2(Pervasives[5], cur, caml_ml_string_length(kwd))
+    U = int(caml_ml_string_length(kwd) + second_word(doc))
+    return call2(Pervasives[5], cur, U)
+
+
+def replace_leading_tab(s):
+    seen = [0, 0]
+
+    def T(c):
+        if 9 is c:
+            if not (seen[1]):
+                seen[1] = 1
+                return 32
+        return c
+
+    return call2(String[10], T, s)
+
+
+def add_padding(len, ksd):
+    M = ksd[2]
+    N = ksd[1]
+    if caml_string_notequal(ksd[3], cst__6):
+        if 11 is M[0]:
+            msg__0 = ksd[3]
+            cutcol__0 = second_word(msg__0)
+            Q = int(call2(Pervasives[5], 0, int(len - cutcol__0)) + 3)
+            spaces__0 = call2(String[1], Q, 32)
+            R = replace_leading_tab(msg__0)
+            S = call2(Pervasives[16], spaces__0, R)
+            return [0, N, M, call2(Pervasives[16], cst__7, S)]
+        msg = ksd[3]
+        cutcol = second_word(msg)
+        kwd_len = caml_ml_string_length(N)
+        diff = int(int(len - kwd_len) - cutcol)
+        if 0 < diff:
+            spaces = call2(String[1], diff, 32)
+            O = replace_leading_tab(msg)
+            prefix = call3(String[4], O, 0, cutcol)
+            suffix = call3(
+                String[4], msg, cutcol, int(caml_ml_string_length(msg) - cutcol)
+            )
+            P = call2(Pervasives[16], spaces, suffix)
+            return [0, N, M, call2(Pervasives[16], prefix, P)]
+        return [0, N, M, replace_leading_tab(msg)]
+    return ksd
+
+
+def align(opt, speclist):
+    if opt:
+        sth = opt[1]
+        limit = sth
+    else:
+        limit = Pervasives[7]
+    completed = add_help(speclist)
+    len = call3(List[20], max_arg_len, 0, completed)
+    len__0 = call2(Pervasives[4], len, limit)
+
+    def K(L):
+        return add_padding(len__0, L)
+
+    return call2(List[17], K, completed)
+
+
+def trim_cr(s):
+    len = caml_ml_string_length(s)
+    if 0 < len:
+        if 13 is caml_string_get(s, int(len + -1)):
+            return call3(String[4], s, 0, int(len + -1))
+    return s
+
+
+def read_aux(trim, sep, file):
+    ic = call1(Pervasives[68], file)
+    buf = call1(Buffer[1], 200)
+    words = [0, 0]
+
+    def stash(param):
+        word = call1(Buffer[2], buf)
+        word__0 = trim_cr(word) if trim else word
+        words[1] = [0, word__0, words[1]]
+        return call1(Buffer[8], buf)
+
+    def read(param):
+        try:
+            c = call1(Pervasives[70], ic)
+            I = (
+                (read(0) if stash(0) or true else read(0))
+                if c is sep
+                else (read(0) if call2(Buffer[10], buf, c) or true else read(0))
+            )
+            return I
+        except:
+            J = caml_wrap_exception(J)
+            if J is End_of_file:
+                H = 1 if 0 < call1(Buffer[7], buf) else 0
+                return stash(0) if H else H
+            raise (empty["caml_wrap_thrown_exception_reraise"](J))
+
+    read(0)
+    call1(Pervasives[81], ic)
+    G = call1(List[9], words[1])
+    return call1(Array[12], G)
+
+
+s = 10
+t = 1
+
+
+def read_arg(F):
+    return read_aux(t, s, F)
+
+
+u = 0
+v = 0
+
+
+def read_arg0(E):
+    return read_aux(v, u, E)
+
+
+def write_aux(sep, file, args):
+    oc = call1(Pervasives[49], file)
+
+    def D(s):
+        return call4(Printf[1], oc, w, s, sep)
+
+    call2(Array[13], D, args)
+    return call1(Pervasives[64], oc)
+
+
+x = 10
+
+
+def write_arg(B, C):
+    return write_aux(x, B, C)
+
+
+y = 0
+
+
+def write_arg0(z, A):
+    return write_aux(y, z, A)
+
+
+Arg = [
+    0,
+    parse,
+    parse_dynamic,
+    parse_argv,
+    parse_argv_dynamic,
+    parse_and_expand_argv_dynamic,
+    parse_expand,
+    Help,
+    Bad,
+    usage,
+    usage_string,
+    align,
+    current,
+    read_arg,
+    read_arg0,
+    write_arg,
+    write_arg0,
+]
+empty["caml_register_global"](58, Arg, "Arg")

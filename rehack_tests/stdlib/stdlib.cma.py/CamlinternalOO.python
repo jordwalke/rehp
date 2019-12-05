@@ -1,0 +1,1084 @@
+caml_check_bound = empty["caml_check_bound"]
+caml_div = empty["caml_div"]
+caml_get_public_method = empty["caml_get_public_method"]
+caml_make_vect = empty["caml_make_vect"]
+string = empty["caml_new_string"]
+caml_obj_block = empty["caml_obj_block"]
+caml_set_oo_id = empty["caml_set_oo_id"]
+caml_string_compare = empty["caml_string_compare"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call5(f, a0, a1, a2, a3, a4):
+    return (
+        f(a0, a1, a2, a3, a4)
+        if arity_test is 5
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst = string("")
+Assert_failure = global_data["Assert_failure"]
+Sys = global_data["Sys"]
+Obj = global_data["Obj"]
+Undefined_recursive_module = global_data["Undefined_recursive_module"]
+Array = global_data["Array_"]
+List = global_data["List_"]
+Not_found = global_data["Not_found"]
+Map = global_data["Map"]
+h = [0, string("camlinternalOO.ml"), 438, 17]
+g = [0, string("camlinternalOO.ml"), 420, 13]
+f = [0, string("camlinternalOO.ml"), 417, 13]
+e = [0, string("camlinternalOO.ml"), 414, 13]
+d = [0, string("camlinternalOO.ml"), 411, 13]
+c = [0, string("camlinternalOO.ml"), 408, 13]
+b = [0, string("camlinternalOO.ml"), 281, 50]
+
+
+def copy(o):
+    o__0 = list(o)
+    return caml_set_oo_id(o__0)
+
+
+params = [0, 1, 1, 1, 3, 16]
+initial_object_size = 2
+dummy_item = 0
+
+
+def public_method_label(s):
+    accu = [0, 0]
+    aE = int(empty["caml_ml_string_length"](s) + -1)
+    aD = 0
+    if not (aE < 0):
+        i = aD
+        while True:
+            aF = empty["caml_string_get"](s, i)
+            accu[1] = int(int(223 * accu[1]) + aF)
+            aG = int(i + 1)
+            if aE is not i:
+                i = aG
+                continue
+            break
+    accu[1] = accu[1] & 2147483647
+    tag = int(accu[1] + 2147483648) if 1073741823 < accu[1] else accu[1]
+    return tag
+
+
+def compare(x, y):
+    return caml_string_compare(x, y)
+
+
+Vars = call1(Map[1], [0, compare])
+
+
+def compare__0(x, y):
+    return caml_string_compare(x, y)
+
+
+Meths = call1(Map[1], [0, compare__0])
+
+
+def compare__1(x, y):
+    return empty["caml_int_compare"](x, y)
+
+
+Labs = call1(Map[1], [0, compare__1])
+dummy_table = [0, 0, [0, dummy_item], Meths[1], Labs[1], 0, 0, Vars[1], 0]
+table_count = [0, 0]
+dummy_met = caml_obj_block(0, 0)
+
+
+def fit_size(n):
+    return int(fit_size(int(int(n + 1) / 2)) * 2) if 2 < n else n
+
+
+def new_table(pub_labels):
+    table_count[1] += 1
+    len = len(pub_labels)
+    methods = caml_make_vect(int(int(len * 2) + 2), dummy_met)
+    caml_check_bound(methods, 0)[1] = len
+    aw = Sys[10]
+    ax = int(int(empty["caml_mul"](fit_size(len), aw) / 8) + -1)
+    caml_check_bound(methods, 1)[2] = ax
+    az = int(len + -1)
+    ay = 0
+    if not (az < 0):
+        i = ay
+        while True:
+            aB = int(int(i * 2) + 3)
+            aA = caml_check_bound(pub_labels, i)[i + 1]
+            caml_check_bound(methods, aB)[aB + 1] = aA
+            aC = int(i + 1)
+            if az is not i:
+                i = aC
+                continue
+            break
+    return [0, initial_object_size, methods, Meths[1], Labs[1], 0, 0, Vars[1], 0]
+
+
+def resize(array, new_size):
+    old_size = len(array[2])
+    au = 1 if old_size < new_size else 0
+    if au:
+        new_buck = caml_make_vect(new_size, dummy_met)
+        call5(Array[10], array[2], 0, new_buck, 0, old_size)
+        array[2] = new_buck
+        av = 0
+    else:
+        av = au
+    return av
+
+
+def put(array, label, element):
+    resize(array, int(label + 1))
+    caml_check_bound(array[2], label)[label + 1] = element
+    return 0
+
+
+method_count = [0, 0]
+inst_var_count = [0, 0]
+
+
+def new_method(table):
+    index = len(table[2])
+    resize(table, int(index + 1))
+    return index
+
+
+def get_method_label(table, name):
+    try:
+        ar = call2(Meths[27], name, table[3])
+        return ar
+    except:
+        at = caml_wrap_exception(at)
+        if at is Not_found:
+            label = new_method(table)
+            table[3] = call3(Meths[4], name, label, table[3])
+            table[4] = call3(Labs[4], label, 1, table[4])
+            return label
+        raise (empty["caml_wrap_thrown_exception_reraise"](at))
+
+
+def get_method_labels(table, names):
+    def ap(aq):
+        return get_method_label(table, aq)
+
+    return call2(Array[15], ap, names)
+
+
+def set_method(table, label, element):
+    method_count[1] += 1
+    return (
+        put(table, label, element)
+        if call2(Labs[27], label, table[4])
+        else (0 if UnsupportedAssignOp or true else 0)
+    )
+
+
+def get_method(table, label):
+    try:
+        an = call2(List[38], label, table[6])
+        return an
+    except:
+        ao = caml_wrap_exception(ao)
+        if ao is Not_found:
+            return caml_check_bound(table[2], label)[label + 1]
+        raise (empty["caml_wrap_thrown_exception_reraise"](ao))
+
+
+def to_list(arr):
+    return 0 if arr is 0 else call1(Array[11], arr)
+
+
+def narrow(table, vars, virt_meths, concr_meths):
+    vars__0 = to_list(vars)
+    virt_meths__0 = to_list(virt_meths)
+    concr_meths__0 = to_list(concr_meths)
+
+    def W(am):
+        return get_method_label(table, am)
+
+    virt_meth_labs = call2(List[17], W, virt_meths__0)
+
+    def X(al):
+        return get_method_label(table, al)
+
+    concr_meth_labs = call2(List[17], X, concr_meths__0)
+    table[5] = [
+        0,
+        [0, table[3], table[4], table[6], table[7], virt_meth_labs, vars__0],
+        table[5],
+    ]
+    Y = Vars[1]
+    Z = table[7]
+
+    def aa(lab, info, tvars):
+        return (
+            call3(Vars[4], lab, info, tvars) if call2(List[31], lab, vars__0) else tvars
+        )
+
+    table[7] = call3(Vars[13], aa, Z, Y)
+    by_name = [0, Meths[1]]
+    by_label = [0, Labs[1]]
+
+    def ab(met, label):
+        by_name[1] = call3(Meths[4], met, label, by_name[1])
+        ag = by_label[1]
+        try:
+            aj = call2(Labs[27], label, table[4])
+            ai = aj
+        except:
+            ak = caml_wrap_exception(ak)
+            if ak is not Not_found:
+                raise (empty["caml_wrap_thrown_exception_reraise"](ak))
+            ah = 1
+            ai = ah
+        by_label[1] = call3(Labs[4], label, ai, ag)
+        return 0
+
+    call3(List[22], ab, concr_meths__0, concr_meth_labs)
+
+    def ac(met, label):
+        by_name[1] = call3(Meths[4], met, label, by_name[1])
+        by_label[1] = call3(Labs[4], label, 0, by_label[1])
+        return 0
+
+    call3(List[22], ac, virt_meths__0, virt_meth_labs)
+    table[3] = by_name[1]
+    table[4] = by_label[1]
+    ad = 0
+    ae = table[6]
+
+    def af(met, hm):
+        lab = met[1]
+        return hm if call2(List[31], lab, virt_meth_labs) else [0, met, hm]
+
+    table[6] = call3(List[21], af, ae, ad)
+    return 0
+
+
+def widen(table):
+    match = call1(List[5], table[5])
+    vars = match[6]
+    virt_meths = match[5]
+    saved_vars = match[4]
+    saved_hidden_meths = match[3]
+    by_label = match[2]
+    by_name = match[1]
+    table[5] = call1(List[6], table[5])
+
+    def S(s, v):
+        V = call2(Vars[27], v, table[7])
+        return call3(Vars[4], v, V, s)
+
+    table[7] = call3(List[20], S, saved_vars, vars)
+    table[3] = by_name
+    table[4] = by_label
+    T = table[6]
+
+    def U(met, hm):
+        lab = met[1]
+        return hm if call2(List[31], lab, virt_meths) else [0, met, hm]
+
+    table[6] = call3(List[21], U, T, saved_hidden_meths)
+    return 0
+
+
+def new_slot(table):
+    index = table[1]
+    table[1] = int(index + 1)
+    return index
+
+
+def new_variable(table, name):
+    try:
+        Q = call2(Vars[27], name, table[7])
+        return Q
+    except:
+        R = caml_wrap_exception(R)
+        if R is Not_found:
+            index = new_slot(table)
+            if empty["caml_string_notequal"](name, cst):
+                table[7] = call3(Vars[4], name, index, table[7])
+            return index
+        raise (empty["caml_wrap_thrown_exception_reraise"](R))
+
+
+def to_array(arr):
+    return [0] if empty["caml_equal"](arr, 0) else arr
+
+
+def new_methods_variables(table, meths, vals):
+    meths__0 = to_array(meths)
+    nmeths = len(meths__0)
+    nvals = len(vals)
+    res = caml_make_vect(int(nmeths + nvals), 0)
+    I = int(nmeths + -1)
+    H = 0
+    if not (I < 0):
+        i__0 = H
+        while True:
+            O = get_method_label(table, caml_check_bound(meths__0, i__0)[i__0 + 1])
+            caml_check_bound(res, i__0)[i__0 + 1] = O
+            P = int(i__0 + 1)
+            if I is not i__0:
+                i__0 = P
+                continue
+            break
+    K = int(nvals + -1)
+    J = 0
+    if not (K < 0):
+        i = J
+        while True:
+            M = int(i + nmeths)
+            L = new_variable(table, caml_check_bound(vals, i)[i + 1])
+            caml_check_bound(res, M)[M + 1] = L
+            N = int(i + 1)
+            if K is not i:
+                i = N
+                continue
+            break
+    return res
+
+
+def get_variable(table, name):
+    try:
+        F = call2(Vars[27], name, table[7])
+        return F
+    except:
+        G = caml_wrap_exception(G)
+        if G is Not_found:
+            raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, b]))
+        raise (empty["caml_wrap_thrown_exception_reraise"](G))
+
+
+def get_variables(table, names):
+    def D(E):
+        return get_variable(table, E)
+
+    return call2(Array[15], D, names)
+
+
+def add_initializer(table, f):
+    table[8] = [0, f, table[8]]
+    return 0
+
+
+def create_table(public_methods):
+    if public_methods is 0:
+        return new_table([0])
+    tags = call2(Array[15], public_method_label, public_methods)
+    table = new_table(tags)
+
+    def C(i, met):
+        lab = int(int(i * 2) + 2)
+        table[3] = call3(Meths[4], met, lab, table[3])
+        table[4] = call3(Labs[4], lab, 1, table[4])
+        return 0
+
+    call2(Array[14], C, public_methods)
+    return table
+
+
+def init_class(table):
+    inst_var_count[1] = int(int(inst_var_count[1] + table[1]) + -1)
+    table[8] = call1(List[9], table[8])
+    B = Sys[10]
+    return resize(
+        table, int(3 + caml_div(int(caml_check_bound(table[2], 1)[2] * 16), B))
+    )
+
+
+def inherits(cla, vals, virt_meths, concr_meths, param, top):
+    env = param[4]
+    super__0 = param[2]
+    narrow(cla, vals, virt_meths, concr_meths)
+    init = call2(super__0, cla, env) if top else call1(super__0, cla)
+    widen(cla)
+    t = 0
+    u = to_array(concr_meths)
+
+    def v(nm):
+        return get_method(cla, get_method_label(cla, nm))
+
+    w = [0, call2(Array[15], v, u), t]
+    x = to_array(vals)
+
+    def y(A):
+        return get_variable(cla, A)
+
+    z = [0, [0, init], [0, call2(Array[15], y, x), w]]
+    return call1(Array[6], z)
+
+
+def make_class(pub_meths, class_init):
+    table = create_table(pub_meths)
+    env_init = call1(class_init, table)
+    init_class(table)
+    return [0, call1(env_init, 0), class_init, env_init, 0]
+
+
+def make_class_store(pub_meths, class_init, init_table):
+    table = create_table(pub_meths)
+    env_init = call1(class_init, table)
+    init_class(table)
+    init_table[2] = class_init
+    init_table[1] = env_init
+    return 0
+
+
+def dummy_class(loc):
+    def undef(param):
+        raise (
+            empty["caml_wrap_thrown_exception"]([0, Undefined_recursive_module, loc])
+        )
+
+    return [0, undef, undef, undef, 0]
+
+
+def create_object(table):
+    obj = caml_obj_block(Obj[8], table[1])
+    obj[1] = table[2]
+    return caml_set_oo_id(obj)
+
+
+def create_object_opt(obj_0, table):
+    if obj_0:
+        return obj_0
+    obj = caml_obj_block(Obj[8], table[1])
+    obj[1] = table[2]
+    return caml_set_oo_id(obj)
+
+
+def iter_f(obj, param):
+    param__0 = param
+    while True:
+        if param__0:
+            param__1 = param__0[2]
+            f = param__0[1]
+            call1(f, obj)
+            param__0 = param__1
+            continue
+        return 0
+
+
+def run_initializers(obj, table):
+    inits = table[8]
+    s = 1 if 0 is not inits else 0
+    return iter_f(obj, inits) if s else s
+
+
+def run_initializers_opt(obj_0, obj, table):
+    if obj_0:
+        return obj
+    inits = table[8]
+    if 0 is not inits:
+        iter_f(obj, inits)
+    return obj
+
+
+def create_object_and_run_initializers(obj_0, table):
+    if obj_0:
+        return obj_0
+    obj = create_object(table)
+    run_initializers(obj, table)
+    return obj
+
+
+def set_data(tables, v):
+    if tables:
+        tables[2] = v
+        return 0
+    raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, c]))
+
+
+def set_next(tables, v):
+    if tables:
+        tables[3] = v
+        return 0
+    raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, d]))
+
+
+def get_key(param):
+    if param:
+        return param[1]
+    raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, e]))
+
+
+def get_data(param):
+    if param:
+        return param[2]
+    raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, f]))
+
+
+def get_next(param):
+    if param:
+        return param[3]
+    raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, g]))
+
+
+def build_path(n, keys, tables):
+    res = [0, 0, 0, 0]
+    r = [0, res]
+    p = 0
+    if not (n < 0):
+        i = p
+        while True:
+            q = r[1]
+            r[1] = [0, caml_check_bound(keys, i)[i + 1], q, 0]
+            r = int(i + 1)
+            if n is not i:
+                i = r
+                continue
+            break
+    set_data(tables, r[1])
+    return res
+
+
+def lookup_keys(i, keys, tables):
+    if 0 <= i:
+        key = caml_check_bound(keys, i)[i + 1]
+
+        def lookup_key(tables):
+            tables__0 = tables
+            while True:
+                if get_key(tables__0) is key:
+                    tables_data = get_data(tables__0)
+                    if tables_data:
+                        return lookup_keys(int(i + -1), keys, tables_data)
+                    raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, h]))
+                next = get_next(tables__0)
+                if next:
+                    tables__0 = next
+                    continue
+                next__0 = [0, key, 0, 0]
+                set_next(tables__0, next__0)
+                return build_path(int(i + -1), keys, next__0)
+
+        return lookup_key(tables)
+    return tables
+
+
+def lookup_tables(root, keys):
+    root_data = get_data(root)
+    return (
+        lookup_keys(int(len(keys) + -1), keys, root_data)
+        if root_data
+        else build_path(int(len(keys) + -1), keys, root)
+    )
+
+
+def get_const(x):
+    def function_expression_210(obj):
+        return x
+
+    return function_expression_210
+
+
+def get_var(n):
+    def function_expression_211(obj):
+        return obj[n + 1]
+
+    return function_expression_211
+
+
+def get_env(e, n):
+    def function_expression_212(obj):
+        return obj[e + 1][n + 1]
+
+    return function_expression_212
+
+
+def get_meth(n):
+    def function_expression_213(obj):
+        return call1(obj[1][n + 1], obj)
+
+    return function_expression_213
+
+
+def set_var(n):
+    def function_expression_214(obj, x):
+        obj[n + 1] = x
+        return 0
+
+    return function_expression_214
+
+
+def app_const(f, x):
+    def function_expression_215(obj):
+        return call1(f, x)
+
+    return function_expression_215
+
+
+def app_var(f, n):
+    def function_expression_216(obj):
+        return call1(f, obj[n + 1])
+
+    return function_expression_216
+
+
+def app_env(f, e, n):
+    def function_expression_217(obj):
+        return call1(f, obj[e + 1][n + 1])
+
+    return function_expression_217
+
+
+def app_meth(f, n):
+    def function_expression_218(obj):
+        return call1(f, call1(obj[1][n + 1], obj))
+
+    return function_expression_218
+
+
+def app_const_const(f, x, y):
+    def function_expression_219(obj):
+        return call2(f, x, y)
+
+    return function_expression_219
+
+
+def app_const_var(f, x, n):
+    def function_expression_220(obj):
+        return call2(f, x, obj[n + 1])
+
+    return function_expression_220
+
+
+def app_const_meth(f, x, n):
+    def function_expression_221(obj):
+        return call2(f, x, call1(obj[1][n + 1], obj))
+
+    return function_expression_221
+
+
+def app_var_const(f, n, x):
+    def function_expression_222(obj):
+        return call2(f, obj[n + 1], x)
+
+    return function_expression_222
+
+
+def app_meth_const(f, n, x):
+    def function_expression_223(obj):
+        return call2(f, call1(obj[1][n + 1], obj), x)
+
+    return function_expression_223
+
+
+def app_const_env(f, x, e, n):
+    def function_expression_224(obj):
+        return call2(f, x, obj[e + 1][n + 1])
+
+    return function_expression_224
+
+
+def app_env_const(f, e, n, x):
+    def function_expression_225(obj):
+        return call2(f, obj[e + 1][n + 1], x)
+
+    return function_expression_225
+
+
+def meth_app_const(n, x):
+    def function_expression_226(obj):
+        return call2(obj[1][n + 1], obj, x)
+
+    return function_expression_226
+
+
+def meth_app_var(n, m):
+    def function_expression_227(obj):
+        return call2(obj[1][n + 1], obj, obj[m + 1])
+
+    return function_expression_227
+
+
+def meth_app_env(n, e, m):
+    def function_expression_228(obj):
+        return call2(obj[1][n + 1], obj, obj[e + 1][m + 1])
+
+    return function_expression_228
+
+
+def meth_app_meth(n, m):
+    def function_expression_229(obj):
+        o = call1(obj[1][m + 1], obj)
+        return call2(obj[1][n + 1], obj, o)
+
+    return function_expression_229
+
+
+def send_const(m, x, c):
+    def function_expression_230(obj):
+        return call1(caml_get_public_method(x, m, 0), x)
+
+    return function_expression_230
+
+
+def send_var(m, n, c):
+    def function_expression_231(obj):
+        n = obj[n + 1]
+        return call1(caml_get_public_method(n, m, 0), n)
+
+    return function_expression_231
+
+
+def send_env(m, e, n, c):
+    def function_expression_232(obj):
+        m = obj[e + 1][n + 1]
+        return call1(caml_get_public_method(m, m, 0), m)
+
+    return function_expression_232
+
+
+def send_meth(m, n, c):
+    def function_expression_233(obj):
+        l = call1(obj[1][n + 1], obj)
+        return call1(caml_get_public_method(l, m, 0), l)
+
+    return function_expression_233
+
+
+def new_cache(table):
+    n = new_method(table)
+    if 0 is int(n % 2):
+        switch__0 = 0
+    else:
+        k = Sys[10]
+        if int(2 + caml_div(int(caml_check_bound(table[2], 1)[2] * 16), k)) < n:
+            switch__0 = 0
+        else:
+            n__0 = new_method(table)
+            switch__0 = 1
+    if not (switch__0):
+        n__0 = n
+    caml_check_bound(table[2], n__0)[n__0 + 1] = 0
+    return n__0
+
+
+def method_impl(table, i, arr):
+    def next(param):
+        i[1] += 1
+        j = i[1]
+        return caml_check_bound(arr, j)[j + 1]
+
+    clo = next(0)
+    if is_int(clo):
+        while True:
+            if clo is 0:
+                x = next(0)
+                return get_const(x)
+            else:
+                if clo is 1:
+                    n = next(0)
+                    return get_var(n)
+                else:
+                    if clo is 2:
+                        e = next(0)
+                        n__0 = next(0)
+                        return get_env(e, n__0)
+                    else:
+                        if clo is 3:
+                            n__1 = next(0)
+                            return get_meth(n__1)
+                        else:
+                            if clo is 4:
+                                n__2 = next(0)
+                                return set_var(n__2)
+                            else:
+                                if clo is 5:
+                                    f = next(0)
+                                    x__0 = next(0)
+                                    return app_const(f, x__0)
+                                else:
+                                    if clo is 6:
+                                        f__0 = next(0)
+                                        n__3 = next(0)
+                                        return app_var(f__0, n__3)
+                                    else:
+                                        if clo is 7:
+                                            f__1 = next(0)
+                                            e__0 = next(0)
+                                            n__4 = next(0)
+                                            return app_env(f__1, e__0, n__4)
+                                        else:
+                                            if clo is 8:
+                                                f__2 = next(0)
+                                                n__5 = next(0)
+                                                return app_meth(f__2, n__5)
+                                            else:
+                                                if clo is 9:
+                                                    f__3 = next(0)
+                                                    x__1 = next(0)
+                                                    y = next(0)
+                                                    return app_const_const(
+                                                        f__3, x__1, y
+                                                    )
+                                                else:
+                                                    if clo is 10:
+                                                        f__4 = next(0)
+                                                        x__2 = next(0)
+                                                        n__6 = next(0)
+                                                        return app_const_var(
+                                                            f__4, x__2, n__6
+                                                        )
+                                                    else:
+                                                        if clo is 11:
+                                                            f__5 = next(0)
+                                                            x__3 = next(0)
+                                                            e__1 = next(0)
+                                                            n__7 = next(0)
+                                                            return app_const_env(
+                                                                f__5, x__3, e__1, n__7
+                                                            )
+                                                        else:
+                                                            if clo is 12:
+                                                                f__6 = next(0)
+                                                                x__4 = next(0)
+                                                                n__8 = next(0)
+                                                                return app_const_meth(
+                                                                    f__6, x__4, n__8
+                                                                )
+                                                            else:
+                                                                if clo is 13:
+                                                                    f__7 = next(0)
+                                                                    n__9 = next(0)
+                                                                    x__5 = next(0)
+                                                                    return app_var_const(
+                                                                        f__7, n__9, x__5
+                                                                    )
+                                                                else:
+                                                                    if clo is 14:
+                                                                        f__8 = next(0)
+                                                                        e__2 = next(0)
+                                                                        n__10 = next(0)
+                                                                        x__6 = next(0)
+                                                                        return app_env_const(
+                                                                            f__8,
+                                                                            e__2,
+                                                                            n__10,
+                                                                            x__6,
+                                                                        )
+                                                                    else:
+                                                                        if clo is 15:
+                                                                            f__9 = next(
+                                                                                0
+                                                                            )
+                                                                            n__11 = next(
+                                                                                0
+                                                                            )
+                                                                            x__7 = next(
+                                                                                0
+                                                                            )
+                                                                            return app_meth_const(
+                                                                                f__9,
+                                                                                n__11,
+                                                                                x__7,
+                                                                            )
+                                                                        else:
+                                                                            if (
+                                                                                clo
+                                                                                is 16
+                                                                            ):
+                                                                                n__12 = next(
+                                                                                    0
+                                                                                )
+                                                                                x__8 = next(
+                                                                                    0
+                                                                                )
+                                                                                return meth_app_const(
+                                                                                    n__12,
+                                                                                    x__8,
+                                                                                )
+                                                                            else:
+                                                                                if (
+                                                                                    clo
+                                                                                    is 17
+                                                                                ):
+                                                                                    n__13 = next(
+                                                                                        0
+                                                                                    )
+                                                                                    m = next(
+                                                                                        0
+                                                                                    )
+                                                                                    return meth_app_var(
+                                                                                        n__13,
+                                                                                        m,
+                                                                                    )
+                                                                                else:
+                                                                                    if (
+                                                                                        clo
+                                                                                        is 18
+                                                                                    ):
+                                                                                        n__14 = next(
+                                                                                            0
+                                                                                        )
+                                                                                        e__3 = next(
+                                                                                            0
+                                                                                        )
+                                                                                        m__0 = next(
+                                                                                            0
+                                                                                        )
+                                                                                        return meth_app_env(
+                                                                                            n__14,
+                                                                                            e__3,
+                                                                                            m__0,
+                                                                                        )
+                                                                                    else:
+                                                                                        if (
+                                                                                            clo
+                                                                                            is 19
+                                                                                        ):
+                                                                                            n__15 = next(
+                                                                                                0
+                                                                                            )
+                                                                                            m__1 = next(
+                                                                                                0
+                                                                                            )
+                                                                                            return meth_app_meth(
+                                                                                                n__15,
+                                                                                                m__1,
+                                                                                            )
+                                                                                        else:
+                                                                                            if (
+                                                                                                clo
+                                                                                                is 20
+                                                                                            ):
+                                                                                                m__2 = next(
+                                                                                                    0
+                                                                                                )
+                                                                                                x__9 = next(
+                                                                                                    0
+                                                                                                )
+                                                                                                return send_const(
+                                                                                                    m__2,
+                                                                                                    x__9,
+                                                                                                    new_cache(
+                                                                                                        table
+                                                                                                    ),
+                                                                                                )
+                                                                                            else:
+                                                                                                if (
+                                                                                                    clo
+                                                                                                    is 21
+                                                                                                ):
+                                                                                                    m__3 = next(
+                                                                                                        0
+                                                                                                    )
+                                                                                                    n__16 = next(
+                                                                                                        0
+                                                                                                    )
+                                                                                                    return send_var(
+                                                                                                        m__3,
+                                                                                                        n__16,
+                                                                                                        new_cache(
+                                                                                                            table
+                                                                                                        ),
+                                                                                                    )
+                                                                                                else:
+                                                                                                    if (
+                                                                                                        clo
+                                                                                                        is 22
+                                                                                                    ):
+                                                                                                        m__4 = next(
+                                                                                                            0
+                                                                                                        )
+                                                                                                        e__4 = next(
+                                                                                                            0
+                                                                                                        )
+                                                                                                        n__17 = next(
+                                                                                                            0
+                                                                                                        )
+                                                                                                        return send_env(
+                                                                                                            m__4,
+                                                                                                            e__4,
+                                                                                                            n__17,
+                                                                                                            new_cache(
+                                                                                                                table
+                                                                                                            ),
+                                                                                                        )
+                                                                                                    else:
+                                                                                                        m__5 = next(
+                                                                                                            0
+                                                                                                        )
+                                                                                                        n__18 = next(
+                                                                                                            0
+                                                                                                        )
+                                                                                                        return send_meth(
+                                                                                                            m__5,
+                                                                                                            n__18,
+                                                                                                            new_cache(
+                                                                                                                table
+                                                                                                            ),
+                                                                                                        )
+            break
+    return clo
+
+
+def set_methods(table, methods):
+    len = len(methods)
+    i = [0, 0]
+    while True:
+        if i[1] < len:
+            i = i[1]
+            label = caml_check_bound(methods, i)[i + 1]
+            clo = method_impl(table, i, methods)
+            set_method(table, label, clo)
+            i[1] += 1
+            continue
+        return 0
+
+
+def stats(param):
+    return [0, table_count[1], method_count[1], inst_var_count[1]]
+
+
+CamlinternalOO = [
+    0,
+    public_method_label,
+    new_method,
+    new_variable,
+    new_methods_variables,
+    get_variable,
+    get_variables,
+    get_method_label,
+    get_method_labels,
+    get_method,
+    set_method,
+    set_methods,
+    narrow,
+    widen,
+    add_initializer,
+    dummy_table,
+    create_table,
+    init_class,
+    inherits,
+    make_class,
+    make_class_store,
+    dummy_class,
+    copy,
+    create_object,
+    create_object_opt,
+    run_initializers,
+    run_initializers_opt,
+    create_object_and_run_initializers,
+    lookup_tables,
+    params,
+    stats,
+]
+empty["caml_register_global"](18, CamlinternalOO, "CamlinternalOO")

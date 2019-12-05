@@ -1,0 +1,2 @@
+CamlinternalBigarray = [0]
+empty["caml_register_global"](0, CamlinternalBigarray, "CamlinternalBigarray")

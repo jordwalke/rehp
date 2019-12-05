@@ -1,0 +1,638 @@
+caml_array_sub = empty["caml_array_sub"]
+caml_check_bound = empty["caml_check_bound"]
+caml_make_vect = empty["caml_make_vect"]
+string = empty["caml_new_string"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Array_map2_arrays_must_have_the_same_length = string(
+    "Array.map2: arrays must have the same length"
+)
+cst_Array_iter2_arrays_must_have_the_same_length = string(
+    "Array.iter2: arrays must have the same length"
+)
+cst_Array_blit = string("Array.blit")
+cst_Array_fill = string("Array.fill")
+cst_Array_sub = string("Array.sub")
+cst_Array_init = string("Array.init")
+cst_Array_Bottom = string("Array.Bottom")
+Assert_failure = global_data["Assert_failure"]
+Pervasives = global_data["Pervasives"]
+b = [0, string("array.ml"), 233, 4]
+
+
+def make_float(ak):
+    return empty["caml_make_float_vect"](ak)
+
+
+Floatarray = [0]
+
+
+def init(l, f):
+    if 0 is l:
+        return [0]
+    if 0 <= l:
+        res = caml_make_vect(l, call1(f, 0))
+        ai = int(l + -1)
+        ah = 1
+        if not (ai < 1):
+            i = ah
+            while True:
+                res[i + 1] = call1(f, i)
+                aj = int(i + 1)
+                if ai is not i:
+                    i = aj
+                    continue
+                break
+        return res
+    return call1(Pervasives[1], cst_Array_init)
+
+
+def make_matrix(sx, sy, init):
+    res = caml_make_vect(sx, [0])
+    af = int(sx + -1)
+    ae = 0
+    if not (af < 0):
+        x = ae
+        while True:
+            res[x + 1] = caml_make_vect(sy, init)
+            ag = int(x + 1)
+            if af is not x:
+                x = ag
+                continue
+            break
+    return res
+
+
+def copy(a):
+    l = len(a)
+    return [0] if 0 is l else caml_array_sub(a, 0, l)
+
+
+def append(a1, a2):
+    l1 = len(a1)
+    return (
+        copy(a2)
+        if 0 is l1
+        else (
+            caml_array_sub(a1, 0, l1)
+            if 0 is len(a2)
+            else empty["caml_array_append"](a1, a2)
+        )
+    )
+
+
+def sub(a, ofs, len):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (int(len(a) - len) < ofs):
+                return caml_array_sub(a, ofs, len)
+    return call1(Pervasives[1], cst_Array_sub)
+
+
+def fill(a, ofs, len, v):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (int(len(a) - len) < ofs):
+                ac = int(int(ofs + len) + -1)
+                if not (ac < ofs):
+                    i = ofs
+                    while True:
+                        a[i + 1] = v
+                        ad = int(i + 1)
+                        if ac is not i:
+                            i = ad
+                            continue
+                        break
+                return 0
+    return call1(Pervasives[1], cst_Array_fill)
+
+
+def blit(a1, ofs1, a2, ofs2, len):
+    if 0 <= len:
+        if 0 <= ofs1:
+            if not (int(len(a1) - len) < ofs1):
+                if 0 <= ofs2:
+                    if not (int(len(a2) - len) < ofs2):
+                        return empty["caml_array_blit"](a1, ofs1, a2, ofs2, len)
+    return call1(Pervasives[1], cst_Array_blit)
+
+
+def iter(f, a):
+    aa = int(len(a) + -1)
+    Z = 0
+    if not (aa < 0):
+        i = Z
+        while True:
+            call1(f, a[i + 1])
+            ab = int(i + 1)
+            if aa is not i:
+                i = ab
+                continue
+            break
+    return 0
+
+
+def iter2(f, a, b):
+    if len(a) is not len(b):
+        return call1(Pervasives[1], cst_Array_iter2_arrays_must_have_the_same_length)
+    X = int(len(a) + -1)
+    W = 0
+    if not (X < 0):
+        i = W
+        while True:
+            call2(f, a[i + 1], b[i + 1])
+            Y = int(i + 1)
+            if X is not i:
+                i = Y
+                continue
+            break
+    return 0
+
+
+def map(f, a):
+    l = len(a)
+    if 0 is l:
+        return [0]
+    r = caml_make_vect(l, call1(f, a[1]))
+    U = int(l + -1)
+    T = 1
+    if not (U < 1):
+        i = T
+        while True:
+            r[i + 1] = call1(f, a[i + 1])
+            V = int(i + 1)
+            if U is not i:
+                i = V
+                continue
+            break
+    return r
+
+
+def map2(f, a, b):
+    la = len(a)
+    lb = len(b)
+    if la is not lb:
+        return call1(Pervasives[1], cst_Array_map2_arrays_must_have_the_same_length)
+    if 0 is la:
+        return [0]
+    r = caml_make_vect(la, call2(f, a[1], b[1]))
+    R = int(la + -1)
+    Q = 1
+    if not (R < 1):
+        i = Q
+        while True:
+            r[i + 1] = call2(f, a[i + 1], b[i + 1])
+            S = int(i + 1)
+            if R is not i:
+                i = S
+                continue
+            break
+    return r
+
+
+def iteri(f, a):
+    O = int(len(a) + -1)
+    N = 0
+    if not (O < 0):
+        i = N
+        while True:
+            call2(f, i, a[i + 1])
+            P = int(i + 1)
+            if O is not i:
+                i = P
+                continue
+            break
+    return 0
+
+
+def mapi(f, a):
+    l = len(a)
+    if 0 is l:
+        return [0]
+    r = caml_make_vect(l, call2(f, 0, a[1]))
+    L = int(l + -1)
+    K = 1
+    if not (L < 1):
+        i = K
+        while True:
+            r[i + 1] = call2(f, i, a[i + 1])
+            M = int(i + 1)
+            if L is not i:
+                i = M
+                continue
+            break
+    return r
+
+
+def to_list(a):
+    def tolist(i, res):
+        i__0 = i
+        res__0 = res
+        while True:
+            if 0 <= i__0:
+                res__1 = [0, a[i__0 + 1], res__0]
+                i__1 = int(i__0 + -1)
+                i__0 = i__1
+                res__0 = res__1
+                continue
+            return res__0
+
+    return tolist(int(len(a) + -1), 0)
+
+
+def list_length(accu, param):
+    accu__0 = accu
+    param__0 = param
+    while True:
+        if param__0:
+            param__1 = param__0[2]
+            accu__1 = int(accu__0 + 1)
+            accu__0 = accu__1
+            param__0 = param__1
+            continue
+        return accu__0
+
+
+def of_list(l):
+    if l:
+        tl = l[2]
+        hd = l[1]
+        a = caml_make_vect(list_length(0, l), hd)
+
+        def fill(i, param):
+            i__0 = i
+            param__0 = param
+            while True:
+                if param__0:
+                    param__1 = param__0[2]
+                    hd = param__0[1]
+                    a[i__0 + 1] = hd
+                    i__1 = int(i__0 + 1)
+                    i__0 = i__1
+                    param__0 = param__1
+                    continue
+                return a
+
+        return fill(1, tl)
+    return [0]
+
+
+def fold_left(f, x, a):
+    r = [0, x]
+    I = int(len(a) + -1)
+    H = 0
+    if not (I < 0):
+        i = H
+        while True:
+            r[1] = call2(f, r[1], a[i + 1])
+            J = int(i + 1)
+            if I is not i:
+                i = J
+                continue
+            break
+    return r[1]
+
+
+def fold_right(f, a, x):
+    r = [0, x]
+    F = int(len(a) + -1)
+    if not (F < 0):
+        i = F
+        while True:
+            r[1] = call2(f, a[i + 1], r[1])
+            G = int(i + -1)
+            if 0 is not i:
+                i = G
+                continue
+            break
+    return r[1]
+
+
+def exists(p, a):
+    n = len(a)
+
+    def loop(i):
+        i__0 = i
+        while True:
+            if i__0 is n:
+                return 0
+            if call1(p, a[i__0 + 1]):
+                return 1
+            i__1 = int(i__0 + 1)
+            i__0 = i__1
+            continue
+
+    return loop(0)
+
+
+def for_all(p, a):
+    n = len(a)
+
+    def loop(i):
+        i__0 = i
+        while True:
+            if i__0 is n:
+                return 1
+            if call1(p, a[i__0 + 1]):
+                i__1 = int(i__0 + 1)
+                i__0 = i__1
+                continue
+            return 0
+
+    return loop(0)
+
+
+def mem(x, a):
+    n = len(a)
+
+    def loop(i):
+        i__0 = i
+        while True:
+            if i__0 is n:
+                return 0
+            if 0 is empty["caml_compare"](a[i__0 + 1], x):
+                return 1
+            i__1 = int(i__0 + 1)
+            i__0 = i__1
+            continue
+
+    return loop(0)
+
+
+def memq(x, a):
+    n = len(a)
+
+    def loop(i):
+        i__0 = i
+        while True:
+            if i__0 is n:
+                return 0
+            if x is a[i__0 + 1]:
+                return 1
+            i__1 = int(i__0 + 1)
+            i__0 = i__1
+            continue
+
+    return loop(0)
+
+
+Bottom = [248, cst_Array_Bottom, empty["caml_fresh_oo_id"](0)]
+
+
+def sort(cmp, a):
+    def maxson(l, i):
+        i31 = int(int(int(i + i) + i) + 1)
+        x = [0, i31]
+        if int(i31 + 2) < l:
+            y = int(i31 + 1)
+            z = caml_check_bound(a, y)[y + 1]
+            if call2(cmp, caml_check_bound(a, i31)[i31 + 1], z) < 0:
+                x[1] = int(i31 + 1)
+            A = int(i31 + 2)
+            B = caml_check_bound(a, A)[A + 1]
+            C = x[1]
+            if call2(cmp, caml_check_bound(a, C)[C + 1], B) < 0:
+                x[1] = int(i31 + 2)
+            return x[1]
+        if int(i31 + 1) < l:
+            D = int(i31 + 1)
+            E = caml_check_bound(a, D)[D + 1]
+            if not (0 <= call2(cmp, caml_check_bound(a, i31)[i31 + 1], E)):
+                return int(i31 + 1)
+        if i31 < l:
+            return i31
+        raise (empty["caml_wrap_thrown_exception"]([0, Bottom, i]))
+
+    def trickledown(l, i, e):
+        i__0 = i
+        while True:
+            j = maxson(l, i__0)
+            if 0 < call2(cmp, caml_check_bound(a, j)[j + 1], e):
+                x = caml_check_bound(a, j)[j + 1]
+                caml_check_bound(a, i__0)[i__0 + 1] = x
+                i__0 = j
+                continue
+            caml_check_bound(a, i__0)[i__0 + 1] = e
+            return 0
+
+    def trickle(l, i, e):
+        try:
+            w = trickledown(l, i, e)
+            return w
+        except:
+            exn = caml_wrap_exception(exn)
+            if exn[1] is Bottom:
+                i__0 = exn[2]
+                caml_check_bound(a, i__0)[i__0 + 1] = e
+                return 0
+            raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+    def bubbledown(l, i):
+        i__0 = i
+        while True:
+            i__1 = maxson(l, i__0)
+            v = caml_check_bound(a, i__1)[i__1 + 1]
+            caml_check_bound(a, i__0)[i__0 + 1] = v
+            i__0 = i__1
+            continue
+
+    def bubble(l, i):
+        try:
+            u = bubbledown(l, i)
+            return u
+        except:
+            exn = caml_wrap_exception(exn)
+            if exn[1] is Bottom:
+                i__0 = exn[2]
+                return i__0
+            raise (empty["caml_wrap_thrown_exception_reraise"](exn))
+
+    def trickleup(i, e):
+        i__0 = i
+        while True:
+            father = int(int(i__0 + -1) / 3)
+            if i__0 is not father:
+                if 0 <= call2(cmp, caml_check_bound(a, father)[father + 1], e):
+                    caml_check_bound(a, i__0)[i__0 + 1] = e
+                    return 0
+                t = caml_check_bound(a, father)[father + 1]
+                caml_check_bound(a, i__0)[i__0 + 1] = t
+                if 0 < father:
+                    i__0 = father
+                    continue
+                caml_check_bound(a, 0)[1] = e
+                return 0
+            raise (empty["caml_wrap_thrown_exception"]([0, Assert_failure, b]))
+
+    l = len(a)
+    n = int(int(int(l + 1) / 3) + -1)
+    if not (n < 0):
+        i__0 = n
+        while True:
+            trickle(l, i__0, caml_check_bound(a, i__0)[i__0 + 1])
+            s = int(i__0 + -1)
+            if 0 is not i__0:
+                i__0 = s
+                continue
+            break
+    o = int(l + -1)
+    if not (o < 2):
+        i = o
+        while True:
+            e__0 = caml_check_bound(a, i)[i + 1]
+            a[i + 1] = caml_check_bound(a, 0)[1]
+            trickleup(bubble(i, 0), e__0)
+            r = int(i + -1)
+            if 2 is not i:
+                i = r
+                continue
+            break
+    p = 1 if 1 < l else 0
+    if p:
+        e = caml_check_bound(a, 1)[2]
+        a[2] = caml_check_bound(a, 0)[1]
+        a[1] = e
+        q = 0
+    else:
+        q = p
+    return q
+
+
+def stable_sort(cmp, a):
+    def merge(src1ofs, src1len, src2, src2ofs, src2len, dst, dstofs):
+        src1r = int(src1ofs + src1len)
+        src2r = int(src2ofs + src2len)
+
+        def loop(i1, s1, i2, s2, d):
+            i1__0 = i1
+            s1__0 = s1
+            i2__0 = i2
+            s2__0 = s2
+            d__0 = d
+            while True:
+                if 0 < call2(cmp, s1__0, s2__0):
+                    caml_check_bound(dst, d__0)[d__0 + 1] = s2__0
+                    i2__1 = int(i2__0 + 1)
+                    if i2__1 < src2r:
+                        d__1 = int(d__0 + 1)
+                        s2__1 = caml_check_bound(src2, i2__1)[i2__1 + 1]
+                        i2__0 = i2__1
+                        s2__0 = s2__1
+                        d__0 = d__1
+                        continue
+                    return blit(a, i1__0, dst, int(d__0 + 1), int(src1r - i1__0))
+                caml_check_bound(dst, d__0)[d__0 + 1] = s1__0
+                i1__1 = int(i1__0 + 1)
+                if i1__1 < src1r:
+                    d__2 = int(d__0 + 1)
+                    s1__1 = caml_check_bound(a, i1__1)[i1__1 + 1]
+                    i1__0 = i1__1
+                    s1__0 = s1__1
+                    d__0 = d__2
+                    continue
+                return blit(src2, i2__0, dst, int(d__0 + 1), int(src2r - i2__0))
+
+        m = caml_check_bound(src2, src2ofs)[src2ofs + 1]
+        return loop(
+            src1ofs, caml_check_bound(a, src1ofs)[src1ofs + 1], src2ofs, m, dstofs
+        )
+
+    def isortto(srcofs, dst, dstofs, len):
+        e = int(len + -1)
+        d = 0
+        if not (e < 0):
+            i = d
+            while True:
+                continue_label = None
+                f = int(srcofs + i)
+                e__0 = caml_check_bound(a, f)[f + 1]
+                j = [0, int(int(dstofs + i) + -1)]
+                while True:
+                    if dstofs <= j[1]:
+                        g = j[1]
+                        if 0 < call2(cmp, caml_check_bound(dst, g)[g + 1], e__0):
+                            h = j[1]
+                            i = caml_check_bound(dst, h)[h + 1]
+                            j = int(j[1] + 1)
+                            caml_check_bound(dst, j)[j + 1] = i
+                            j[1] += -1
+                            continue
+                    k = int(j[1] + 1)
+                    caml_check_bound(dst, k)[k + 1] = e__0
+                    l = int(i + 1)
+                    if e is not i:
+                        i = l
+                        continue_label = "a"
+                        break
+                    break
+                if label == "a":
+                    continue
+                break
+        return 0
+
+    def sortto(srcofs, dst, dstofs, len):
+        if len <= 5:
+            return isortto(srcofs, dst, dstofs, len)
+        l1 = int(len / 2)
+        l2 = int(len - l1)
+        sortto(int(srcofs + l1), dst, int(dstofs + l1), l2)
+        sortto(srcofs, a, int(srcofs + l2), l1)
+        return merge(int(srcofs + l2), l1, dst, int(dstofs + l1), l2, dst, dstofs)
+
+    l = len(a)
+    if l <= 5:
+        return isortto(0, a, 0, l)
+    l1 = int(l / 2)
+    l2 = int(l - l1)
+    t = caml_make_vect(l2, caml_check_bound(a, 0)[1])
+    sortto(l1, t, 0, l2)
+    sortto(0, a, l2, l1)
+    return merge(l2, l1, t, 0, l2, a, 0)
+
+
+def function_expression_14(c):
+    return empty["caml_array_concat"](c)
+
+
+Array = [
+    0,
+    make_float,
+    init,
+    make_matrix,
+    make_matrix,
+    append,
+    function_expression_14,
+    sub,
+    copy,
+    fill,
+    blit,
+    to_list,
+    of_list,
+    iter,
+    iteri,
+    map,
+    mapi,
+    fold_left,
+    fold_right,
+    iter2,
+    map2,
+    for_all,
+    exists,
+    mem,
+    memq,
+    sort,
+    stable_sort,
+    stable_sort,
+    Floatarray,
+]
+empty["caml_register_global"](10, Array, "Array_")

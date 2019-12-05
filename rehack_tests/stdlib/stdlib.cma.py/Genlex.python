@@ -1,0 +1,788 @@
+caml_create_bytes = empty["caml_create_bytes"]
+caml_float_of_string = empty["caml_float_of_string"]
+string = empty["caml_new_string"]
+caml_trampoline = empty["caml_trampoline"]
+caml_trampoline_return = empty["caml_trampoline_return"]
+caml_wrap_exception = empty["caml_wrap_exception"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call5(f, a0, a1, a2, a3, a4):
+    return (
+        f(a0, a1, a2, a3, a4)
+        if arity_test is 5
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst = string("")
+cst__0 = string("")
+cst__1 = string("")
+cst__2 = string("")
+cst__4 = string("")
+cst__3 = string("")
+cst_Illegal_character = string("Illegal character ")
+Stream = global_data["Stream"]
+Char = global_data["Char"]
+String = global_data["String_"]
+Hashtbl = global_data["Hashtbl"]
+Not_found = global_data["Not_found"]
+Pervasives = global_data["Pervasives"]
+List = global_data["List_"]
+Bytes = global_data["Bytes"]
+initial_buffer = caml_create_bytes(32)
+buffer = [0, initial_buffer]
+bufpos = [0, 0]
+
+
+def reset_buffer(param):
+    buffer[1] = initial_buffer
+    bufpos[1] = 0
+    return 0
+
+
+def store(c):
+    if empty["caml_ml_bytes_length"](buffer[1]) <= bufpos[1]:
+        newbuffer = caml_create_bytes(int(2 * bufpos[1]))
+        call5(Bytes[11], buffer[1], 0, newbuffer, 0, bufpos[1])
+        buffer[1] = newbuffer
+    empty["caml_bytes_set"](buffer[1], bufpos[1], c)
+    bufpos[1] += 1
+    return 0
+
+
+def get_string(param):
+    s = call3(Bytes[8], buffer[1], 0, bufpos[1])
+    buffer[1] = initial_buffer
+    return s
+
+
+def make_lexer(keywords):
+    kwd_table = call2(Hashtbl[1], 0, 17)
+
+    def b(s):
+        return call3(Hashtbl[5], kwd_table, s, [0, s])
+
+    call2(List[15], b, keywords)
+
+    def ident_or_keyword(id):
+        try:
+            D = call2(Hashtbl[6], kwd_table, id)
+            return D
+        except:
+            E = caml_wrap_exception(E)
+            if E is Not_found:
+                return [1, id]
+            raise (empty["caml_wrap_thrown_exception_reraise"](E))
+
+    def keyword_or_error(c):
+        s = call2(String[1], 1, c)
+        try:
+            B = call2(Hashtbl[6], kwd_table, s)
+            return B
+        except:
+            C = caml_wrap_exception(C)
+            if C is Not_found:
+                A = call2(Pervasives[16], cst_Illegal_character, s)
+                raise (empty["caml_wrap_thrown_exception"]([0, Stream[2], A]))
+            raise (empty["caml_wrap_thrown_exception_reraise"](C))
+
+    def end_exponent_part(strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                z = match[1]
+                switcher = int(z + -48)
+                if not (9 < lsr(switcher, 0)):
+                    call1(Stream[12], strm)
+                    store(z)
+                    continue
+            return [0, [3, caml_float_of_string(get_string(0))]]
+
+    def exponent_part(strm):
+        match = call1(Stream[11], strm)
+        if match:
+            y = match[1]
+            switch__0 = 0 if 43 is y else (0 if 45 is y else 1)
+            if not (switch__0):
+                call1(Stream[12], strm)
+                store(y)
+                return end_exponent_part(strm)
+        return end_exponent_part(strm)
+
+    def decimal_part(strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                w = match[1]
+                x = int(w + -69)
+                if 32 < lsr(x, 0):
+                    switcher = int(x + 21)
+                    if not (9 < lsr(switcher, 0)):
+                        call1(Stream[12], strm)
+                        store(w)
+                        continue
+                else:
+                    switcher__0 = int(x + -1)
+                    if 30 < lsr(switcher__0, 0):
+                        call1(Stream[12], strm)
+                        store(69)
+                        return exponent_part(strm)
+            return [0, [3, caml_float_of_string(get_string(0))]]
+
+    def number(strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                v = match[1]
+                if 58 <= v:
+                    switch__0 = 0 if 69 is v else (0 if 101 is v else 1)
+                    if not (switch__0):
+                        call1(Stream[12], strm)
+                        store(69)
+                        return exponent_part(strm)
+                else:
+                    if 46 is v:
+                        call1(Stream[12], strm)
+                        store(46)
+                        return decimal_part(strm)
+                    if 48 <= v:
+                        call1(Stream[12], strm)
+                        store(v)
+                        continue
+            return [0, [2, empty["caml_int_of_string"](get_string(0))]]
+
+    def ident2(strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                t = match[1]
+                if 94 <= t:
+                    u = int(t + -95)
+                    switch__0 = (
+                        (1 if 32 <= u else 0)
+                        if 30 < lsr(u, 0)
+                        else (0 if 29 is u else 1)
+                    )
+                else:
+                    if 65 <= t:
+                        switch__0 = 0 if 92 is t else 1
+                    else:
+                        if 33 <= t:
+                            while True:
+                                switch_case_234 = int(t + -33)
+                                if switch_case_234 is 0:
+                                    pass
+                                else:
+                                    if switch_case_234 is 2:
+                                        pass
+                                    else:
+                                        if switch_case_234 is 3:
+                                            pass
+                                        else:
+                                            if switch_case_234 is 4:
+                                                pass
+                                            else:
+                                                if switch_case_234 is 5:
+                                                    pass
+                                                else:
+                                                    if switch_case_234 is 9:
+                                                        pass
+                                                    else:
+                                                        if switch_case_234 is 10:
+                                                            pass
+                                                        else:
+                                                            if switch_case_234 is 12:
+                                                                pass
+                                                            else:
+                                                                if (
+                                                                    switch_case_234
+                                                                    is 14
+                                                                ):
+                                                                    pass
+                                                                else:
+                                                                    if (
+                                                                        switch_case_234
+                                                                        is 25
+                                                                    ):
+                                                                        pass
+                                                                    else:
+                                                                        if (
+                                                                            switch_case_234
+                                                                            is 27
+                                                                        ):
+                                                                            pass
+                                                                        else:
+                                                                            if (
+                                                                                switch_case_234
+                                                                                is 28
+                                                                            ):
+                                                                                pass
+                                                                            else:
+                                                                                if (
+                                                                                    switch_case_234
+                                                                                    is 29
+                                                                                ):
+                                                                                    pass
+                                                                                else:
+                                                                                    if (
+                                                                                        switch_case_234
+                                                                                        is 30
+                                                                                    ):
+                                                                                        pass
+                                                                                    else:
+                                                                                        if (
+                                                                                            switch_case_234
+                                                                                            is 31
+                                                                                        ):
+                                                                                            switch__0 = 0
+                                                                                            break
+                                                                                        else:
+                                                                                            switch__0 = 1
+                                break
+                        else:
+                            switch__0 = 1
+                if not (switch__0):
+                    call1(Stream[12], strm)
+                    store(t)
+                    continue
+            return [0, ident_or_keyword(get_string(0))]
+
+    def neg_number(strm):
+        match = call1(Stream[11], strm)
+        if match:
+            s = match[1]
+            switcher = int(s + -48)
+            if not (9 < lsr(switcher, 0)):
+                call1(Stream[12], strm)
+                reset_buffer(0)
+                store(45)
+                store(s)
+                return number(strm)
+        reset_buffer(0)
+        store(45)
+        return ident2(strm)
+
+    def ident(strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                q = match[1]
+                if 91 <= q:
+                    r = int(q + -95)
+                    switch__0 = (
+                        (0 if 97 <= r else 1)
+                        if 27 < lsr(r, 0)
+                        else (1 if 1 is r else 0)
+                    )
+                else:
+                    switch__0 = (
+                        (0 if 6 < lsr(int(q + -58), 0) else 1)
+                        if 48 <= q
+                        else (0 if 39 is q else 1)
+                    )
+                if not (switch__0):
+                    call1(Stream[12], strm)
+                    store(q)
+                    continue
+            return [0, ident_or_keyword(get_string(0))]
+
+    def next_token__0(counter, strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                m = match[1]
+                if 124 <= m:
+                    switch__0 = (
+                        (1 if 192 <= m else 0) if 127 <= m else (0 if 125 is m else 2)
+                    )
+                else:
+                    n = int(m + -65)
+                    if 57 < lsr(n, 0):
+                        if 58 <= n:
+                            switch__0 = 0
+                        else:
+                            switcher = int(n + 65)
+                            continue_label = None
+                            while True:
+                                if switcher is 34:
+                                    call1(Stream[12], strm)
+                                    reset_buffer(0)
+                                    return [0, [4, string(strm)]]
+                                else:
+                                    if switcher is 39:
+                                        call1(Stream[12], strm)
+                                        try:
+                                            c = char__0(strm)
+                                        except:
+                                            p = caml_wrap_exception(p)
+                                            if p is Stream[1]:
+                                                raise (
+                                                    empty["caml_wrap_thrown_exception"](
+                                                        [0, Stream[2], cst]
+                                                    )
+                                                )
+                                            raise (
+                                                empty[
+                                                    "caml_wrap_thrown_exception_reraise"
+                                                ](p)
+                                            )
+                                        match__0 = call1(Stream[11], strm)
+                                        if match__0:
+                                            if 39 is match__0[1]:
+                                                call1(Stream[12], strm)
+                                                return [0, [5, c]]
+                                        raise (
+                                            empty["caml_wrap_thrown_exception"](
+                                                [0, Stream[2], cst__0]
+                                            )
+                                        )
+                                    else:
+                                        if switcher is 40:
+                                            call1(Stream[12], strm)
+                                            if counter < 50:
+                                                counter__0 = int(counter + 1)
+                                                return maybe_comment(counter__0, strm)
+                                            return caml_trampoline_return(
+                                                maybe_comment, [0, strm]
+                                            )
+                                        else:
+                                            if switcher is 45:
+                                                call1(Stream[12], strm)
+                                                return neg_number(strm)
+                                            else:
+                                                if switcher is 9:
+                                                    pass
+                                                else:
+                                                    if switcher is 10:
+                                                        pass
+                                                    else:
+                                                        if switcher is 12:
+                                                            pass
+                                                        else:
+                                                            if switcher is 13:
+                                                                pass
+                                                            else:
+                                                                if switcher is 26:
+                                                                    pass
+                                                                else:
+                                                                    if switcher is 32:
+                                                                        call1(
+                                                                            Stream[12],
+                                                                            strm,
+                                                                        )
+                                                                        continue_label = (
+                                                                            "switch"
+                                                                        )
+                                                                        break
+                                                                    else:
+                                                                        if (
+                                                                            switcher
+                                                                            is 48
+                                                                        ):
+                                                                            pass
+                                                                        else:
+                                                                            if (
+                                                                                switcher
+                                                                                is 49
+                                                                            ):
+                                                                                pass
+                                                                            else:
+                                                                                if (
+                                                                                    switcher
+                                                                                    is 50
+                                                                                ):
+                                                                                    pass
+                                                                                else:
+                                                                                    if (
+                                                                                        switcher
+                                                                                        is 51
+                                                                                    ):
+                                                                                        pass
+                                                                                    else:
+                                                                                        if (
+                                                                                            switcher
+                                                                                            is 52
+                                                                                        ):
+                                                                                            pass
+                                                                                        else:
+                                                                                            if (
+                                                                                                switcher
+                                                                                                is 53
+                                                                                            ):
+                                                                                                pass
+                                                                                            else:
+                                                                                                if (
+                                                                                                    switcher
+                                                                                                    is 54
+                                                                                                ):
+                                                                                                    pass
+                                                                                                else:
+                                                                                                    if (
+                                                                                                        switcher
+                                                                                                        is 55
+                                                                                                    ):
+                                                                                                        pass
+                                                                                                    else:
+                                                                                                        if (
+                                                                                                            switcher
+                                                                                                            is 56
+                                                                                                        ):
+                                                                                                            pass
+                                                                                                        else:
+                                                                                                            if (
+                                                                                                                switcher
+                                                                                                                is 57
+                                                                                                            ):
+                                                                                                                call1(
+                                                                                                                    Stream[
+                                                                                                                        12
+                                                                                                                    ],
+                                                                                                                    strm,
+                                                                                                                )
+                                                                                                                reset_buffer(
+                                                                                                                    0
+                                                                                                                )
+                                                                                                                store(
+                                                                                                                    m
+                                                                                                                )
+                                                                                                                return number(
+                                                                                                                    strm
+                                                                                                                )
+                                                                                                            else:
+                                                                                                                if (
+                                                                                                                    switcher
+                                                                                                                    is 33
+                                                                                                                ):
+                                                                                                                    pass
+                                                                                                                else:
+                                                                                                                    if (
+                                                                                                                        switcher
+                                                                                                                        is 35
+                                                                                                                    ):
+                                                                                                                        pass
+                                                                                                                    else:
+                                                                                                                        if (
+                                                                                                                            switcher
+                                                                                                                            is 36
+                                                                                                                        ):
+                                                                                                                            pass
+                                                                                                                        else:
+                                                                                                                            if (
+                                                                                                                                switcher
+                                                                                                                                is 37
+                                                                                                                            ):
+                                                                                                                                pass
+                                                                                                                            else:
+                                                                                                                                if (
+                                                                                                                                    switcher
+                                                                                                                                    is 38
+                                                                                                                                ):
+                                                                                                                                    pass
+                                                                                                                                else:
+                                                                                                                                    if (
+                                                                                                                                        switcher
+                                                                                                                                        is 42
+                                                                                                                                    ):
+                                                                                                                                        pass
+                                                                                                                                    else:
+                                                                                                                                        if (
+                                                                                                                                            switcher
+                                                                                                                                            is 43
+                                                                                                                                        ):
+                                                                                                                                            pass
+                                                                                                                                        else:
+                                                                                                                                            if (
+                                                                                                                                                switcher
+                                                                                                                                                is 47
+                                                                                                                                            ):
+                                                                                                                                                pass
+                                                                                                                                            else:
+                                                                                                                                                if (
+                                                                                                                                                    switcher
+                                                                                                                                                    is 58
+                                                                                                                                                ):
+                                                                                                                                                    pass
+                                                                                                                                                else:
+                                                                                                                                                    if (
+                                                                                                                                                        switcher
+                                                                                                                                                        is 60
+                                                                                                                                                    ):
+                                                                                                                                                        pass
+                                                                                                                                                    else:
+                                                                                                                                                        if (
+                                                                                                                                                            switcher
+                                                                                                                                                            is 61
+                                                                                                                                                        ):
+                                                                                                                                                            pass
+                                                                                                                                                        else:
+                                                                                                                                                            if (
+                                                                                                                                                                switcher
+                                                                                                                                                                is 62
+                                                                                                                                                            ):
+                                                                                                                                                                pass
+                                                                                                                                                            else:
+                                                                                                                                                                if (
+                                                                                                                                                                    switcher
+                                                                                                                                                                    is 63
+                                                                                                                                                                ):
+                                                                                                                                                                    pass
+                                                                                                                                                                else:
+                                                                                                                                                                    if (
+                                                                                                                                                                        switcher
+                                                                                                                                                                        is 64
+                                                                                                                                                                    ):
+                                                                                                                                                                        switch__0 = 2
+                                                                                                                                                                        break
+                                                                                                                                                                    else:
+                                                                                                                                                                        switch__0 = 0
+                                break
+                            if label == "switch":
+                                continue
+                    else:
+                        o = int(n + -26)
+                        if 5 < lsr(o, 0):
+                            switch__0 = 1
+                        else:
+                            while True:
+                                if o is 4:
+                                    switch__0 = 1
+                                    break
+                                else:
+                                    if o is 1:
+                                        pass
+                                    else:
+                                        if o is 3:
+                                            switch__0 = 2
+                                            break
+                                        else:
+                                            switch__0 = 0
+                                break
+                while True:
+                    if switch__0 is 0:
+                        call1(Stream[12], strm)
+                        return [0, keyword_or_error(m)]
+                    else:
+                        if switch__0 is 1:
+                            call1(Stream[12], strm)
+                            reset_buffer(0)
+                            store(m)
+                            return ident(strm)
+                        else:
+                            call1(Stream[12], strm)
+                            reset_buffer(0)
+                            store(m)
+                            return ident2(strm)
+                    break
+            return 0
+
+    def maybe_comment(counter, strm):
+        match = call1(Stream[11], strm)
+        if match:
+            if 42 is match[1]:
+                call1(Stream[12], strm)
+                comment(strm)
+                if counter < 50:
+                    counter__0 = int(counter + 1)
+                    return next_token__0(counter__0, strm)
+                return caml_trampoline_return(next_token__0, [0, strm])
+        return [0, keyword_or_error(40)]
+
+    def next_token(strm):
+        return caml_trampoline(next_token__0(0, strm))
+
+    def string(strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                k = match[1]
+                if 34 is k:
+                    call1(Stream[12], strm)
+                    return get_string(0)
+                if 92 is k:
+                    call1(Stream[12], strm)
+                    try:
+                        c = escape(strm)
+                    except:
+                        l = caml_wrap_exception(l)
+                        if l is Stream[1]:
+                            raise (
+                                empty["caml_wrap_thrown_exception"](
+                                    [0, Stream[2], cst__1]
+                                )
+                            )
+                        raise (empty["caml_wrap_thrown_exception_reraise"](l))
+                    store(c)
+                    continue
+                call1(Stream[12], strm)
+                store(k)
+                continue
+            raise (empty["caml_wrap_thrown_exception"](Stream[1]))
+
+    def char__0(strm):
+        match = call1(Stream[11], strm)
+        if match:
+            h = match[1]
+            if 92 is h:
+                call1(Stream[12], strm)
+                try:
+                    i = escape(strm)
+                    return i
+                except:
+                    j = caml_wrap_exception(j)
+                    if j is Stream[1]:
+                        raise (
+                            empty["caml_wrap_thrown_exception"]([0, Stream[2], cst__2])
+                        )
+                    raise (empty["caml_wrap_thrown_exception_reraise"](j))
+            call1(Stream[12], strm)
+            return h
+        raise (empty["caml_wrap_thrown_exception"](Stream[1]))
+
+    def escape(strm):
+        match = call1(Stream[11], strm)
+        if match:
+            e = match[1]
+            if 58 <= e:
+                switcher = int(e + -110)
+                if not (6 < lsr(switcher, 0)):
+                    while True:
+                        if switcher is 0:
+                            call1(Stream[12], strm)
+                            return 10
+                        else:
+                            if switcher is 4:
+                                call1(Stream[12], strm)
+                                return 13
+                            else:
+                                if switcher is 6:
+                                    call1(Stream[12], strm)
+                                    return 9
+                        break
+            else:
+                if 48 <= e:
+                    call1(Stream[12], strm)
+                    match__0 = call1(Stream[11], strm)
+                    if match__0:
+                        f = match__0[1]
+                        switcher__0 = int(f + -48)
+                        if not (9 < lsr(switcher__0, 0)):
+                            call1(Stream[12], strm)
+                            match__1 = call1(Stream[11], strm)
+                            if match__1:
+                                g = match__1[1]
+                                switcher__1 = int(g + -48)
+                                if not (9 < lsr(switcher__1, 0)):
+                                    call1(Stream[12], strm)
+                                    return call1(
+                                        Char[1],
+                                        int(
+                                            int(
+                                                int(int(e + -48) * 100)
+                                                + int(int(f + -48) * 10)
+                                            )
+                                            + int(g + -48)
+                                        ),
+                                    )
+                            raise (
+                                empty["caml_wrap_thrown_exception"](
+                                    [0, Stream[2], cst__4]
+                                )
+                            )
+                    raise (empty["caml_wrap_thrown_exception"]([0, Stream[2], cst__3]))
+            call1(Stream[12], strm)
+            return e
+        raise (empty["caml_wrap_thrown_exception"](Stream[1]))
+
+    def comment__0(counter, strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                switcher = int(match[1] + -40)
+                if not (2 < lsr(switcher, 0)):
+                    while True:
+                        if switcher is 0:
+                            call1(Stream[12], strm)
+                            if counter < 50:
+                                counter__1 = int(counter + 1)
+                                return maybe_nested_comment(counter__1, strm)
+                            return caml_trampoline_return(
+                                maybe_nested_comment, [0, strm]
+                            )
+                        else:
+                            if switcher is 1:
+                                break
+                            else:
+                                call1(Stream[12], strm)
+                                if counter < 50:
+                                    counter__0 = int(counter + 1)
+                                    return maybe_end_comment(counter__0, strm)
+                                return caml_trampoline_return(
+                                    maybe_end_comment, [0, strm]
+                                )
+                        break
+                call1(Stream[12], strm)
+                continue
+            raise (empty["caml_wrap_thrown_exception"](Stream[1]))
+
+    def maybe_nested_comment(counter, strm):
+        match = call1(Stream[11], strm)
+        if match:
+            if 42 is match[1]:
+                call1(Stream[12], strm)
+                comment(strm)
+                if counter < 50:
+                    counter__1 = int(counter + 1)
+                    return comment__0(counter__1, strm)
+                return caml_trampoline_return(comment__0, [0, strm])
+            call1(Stream[12], strm)
+            if counter < 50:
+                counter__0 = int(counter + 1)
+                return comment__0(counter__0, strm)
+            return caml_trampoline_return(comment__0, [0, strm])
+        raise (empty["caml_wrap_thrown_exception"](Stream[1]))
+
+    def maybe_end_comment(counter, strm):
+        while True:
+            match = call1(Stream[11], strm)
+            if match:
+                d = match[1]
+                if 41 is d:
+                    call1(Stream[12], strm)
+                    return 0
+                if 42 is d:
+                    call1(Stream[12], strm)
+                    continue
+                call1(Stream[12], strm)
+                if counter < 50:
+                    counter__0 = int(counter + 1)
+                    return comment__0(counter__0, strm)
+                return caml_trampoline_return(comment__0, [0, strm])
+            raise (empty["caml_wrap_thrown_exception"](Stream[1]))
+
+    def comment(strm):
+        return caml_trampoline(comment__0(0, strm))
+
+    def function_expression_235(input):
+        def c(count):
+            return next_token(input)
+
+        return call1(Stream[3], c)
+
+    return function_expression_235
+
+
+Genlex = [0, make_lexer]
+empty["caml_register_global"](15, Genlex, "Genlex")

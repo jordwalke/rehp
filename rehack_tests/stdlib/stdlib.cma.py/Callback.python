@@ -1,0 +1,16 @@
+caml_register_named_value = empty["caml_register_named_value"]
+global_data = empty["caml_get_global_data"]()
+Obj = global_data["Obj"]
+
+
+def register(name, v):
+    return caml_register_named_value(name, v)
+
+
+def register_exception(name, exn):
+    slot = exn if empty["caml_obj_tag"](exn) is Obj[8] else exn[1]
+    return caml_register_named_value(name, slot)
+
+
+Callback = [0, register, register_exception]
+empty["caml_register_global"](1, Callback, "Callback")

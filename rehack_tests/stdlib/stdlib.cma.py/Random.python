@@ -1,0 +1,346 @@
+caml_check_bound = empty["caml_check_bound"]
+caml_greaterthan = empty["caml_greaterthan"]
+caml_int64_of_int32 = empty["caml_int64_of_int32"]
+caml_int64_or = empty["caml_int64_or"]
+caml_int64_shift_left = empty["caml_int64_shift_left"]
+caml_int64_sub = empty["caml_int64_sub"]
+caml_lessequal = empty["caml_lessequal"]
+caml_mod = empty["caml_mod"]
+string = empty["caml_new_string"]
+caml_string_get = empty["caml_string_get"]
+caml_sys_random_seed = empty["caml_sys_random_seed"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call5(f, a0, a1, a2, a3, a4):
+    return (
+        f(a0, a1, a2, a3, a4)
+        if arity_test is 5
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Random_int64 = string("Random.int64")
+cst_Random_int32 = string("Random.int32")
+cst_Random_int = string("Random.int")
+cst_x = string("x")
+Int32 = global_data["Int32"]
+Int64 = global_data["Int64"]
+Pervasives = global_data["Pervasives"]
+Digest = global_data["Digest"]
+Array = global_data["Array_"]
+Nativeint = global_data["Nativeint"]
+b = [255, 1, 0, 0]
+c = [255, 0, 0, 0]
+d = [
+    0,
+    987910699,
+    495797812,
+    364182224,
+    414272206,
+    318284740,
+    990407751,
+    383018966,
+    270373319,
+    840823159,
+    24560019,
+    536292337,
+    512266505,
+    189156120,
+    730249596,
+    143776328,
+    51606627,
+    140166561,
+    366354223,
+    1003410265,
+    700563762,
+    981890670,
+    913149062,
+    526082594,
+    1021425055,
+    784300257,
+    667753350,
+    630144451,
+    949649812,
+    48546892,
+    415514493,
+    258888527,
+    511570777,
+    89983870,
+    283659902,
+    308386020,
+    242688715,
+    482270760,
+    865188196,
+    1027664170,
+    207196989,
+    193777847,
+    619708188,
+    671350186,
+    149669678,
+    257044018,
+    87658204,
+    558145612,
+    183450813,
+    28133145,
+    901332182,
+    710253903,
+    510646120,
+    652377910,
+    409934019,
+    801085050,
+]
+
+
+def new_state(param):
+    return [0, empty["caml_make_vect"](55, 0), 0]
+
+
+def assign(st1, st2):
+    call5(Array[10], st2[1], 0, st1[1], 0, 55)
+    st1[2] = st2[2]
+    return 0
+
+
+def full_init(s, seed):
+    def combine(accu, x):
+        r = call1(Pervasives[21], x)
+        s = call2(Pervasives[16], accu, r)
+        return call1(Digest[3], s)
+
+    def extract(d):
+        o = caml_string_get(d, 3) << 24
+        p = caml_string_get(d, 2) << 16
+        q = caml_string_get(d, 1) << 8
+        return int(int(int(caml_string_get(d, 0) + q) + p) + o)
+
+    seed__0 = [0, 0] if 0 is len(seed) else seed
+    l = len(seed__0)
+    i__1 = 0
+    while True:
+        caml_check_bound(s[1], i__1)[i__1 + 1] = i__1
+        n = int(i__1 + 1)
+        if 54 is not i__1:
+            i__1 = n
+            continue
+        accu = [0, cst_x]
+        i = int(54 + call2(Pervasives[5], 55, l))
+        h = 0
+        if not (i < 0):
+            i__0 = h
+            while True:
+                j = int(i__0 % 55)
+                k = caml_mod(i__0, l)
+                j = caml_check_bound(seed__0, k)[k + 1]
+                accu[1] = combine(accu[1], j)
+                k = extract(accu[1])
+                l = caml_check_bound(s[1], j)[j + 1] ^ k & 1073741823
+                caml_check_bound(s[1], j)[j + 1] = l
+                m = int(i__0 + 1)
+                if i is not i__0:
+                    i__0 = m
+                    continue
+                break
+        s[2] = 0
+        return 0
+
+
+def make(seed):
+    result = new_state(0)
+    full_init(result, seed)
+    return result
+
+
+def make_self_init(param):
+    return make(caml_sys_random_seed(0))
+
+
+def copy(s):
+    result = new_state(0)
+    assign(result, s)
+    return result
+
+
+def bits(s):
+    s[2] = int(int(s[2] + 1) % 55)
+    e = s[2]
+    curval = caml_check_bound(s[1], e)[e + 1]
+    f = int(int(s[2] + 24) % 55)
+    newval = int(caml_check_bound(s[1], f)[f + 1] + curval ^ int(lsr(curval, 25)) & 31)
+    newval30 = newval & 1073741823
+    g = s[2]
+    caml_check_bound(s[1], g)[g + 1] = newval30
+    return newval30
+
+
+def intaux(s, n):
+    while True:
+        r = bits(s)
+        v = caml_mod(r, n)
+        if int(int(1073741823 - n) + 1) < int(r - v):
+            continue
+        return v
+
+
+def int__0(s, bound):
+    if not (1073741823 < bound):
+        if 0 < bound:
+            return intaux(s, bound)
+    return call1(Pervasives[1], cst_Random_int)
+
+
+def int32aux(s, n):
+    while True:
+        b1 = bits(s)
+        b2 = bits(s) & 1 << 30
+        r = b1 | b2
+        v = caml_mod(r, n)
+        if caml_greaterthan(int(r - v), int(int(Int32[7] - n) + 1)):
+            continue
+        return v
+
+
+def int32(s, bound):
+    return (
+        call1(Pervasives[1], cst_Random_int32)
+        if caml_lessequal(bound, 0)
+        else int32aux(s, bound)
+    )
+
+
+def int64aux(s, n):
+    while True:
+        b1 = caml_int64_of_int32(bits(s))
+        b2 = caml_int64_shift_left(caml_int64_of_int32(bits(s)), 30)
+        b3 = caml_int64_shift_left(caml_int64_of_int32(bits(s) & 7), 60)
+        r = caml_int64_or(b1, caml_int64_or(b2, b3))
+        v = empty["caml_int64_mod"](r, n)
+        if caml_greaterthan(
+            caml_int64_sub(r, v),
+            empty["caml_int64_add"](caml_int64_sub(Int64[7], n), b),
+        ):
+            continue
+        return v
+
+
+def int64(s, bound):
+    return (
+        call1(Pervasives[1], cst_Random_int64)
+        if caml_lessequal(bound, c)
+        else int64aux(s, bound)
+    )
+
+
+def function_expression_169(s, bound):
+    return int32(s, bound)
+
+
+def function_expression_170(s, bound):
+    return empty["caml_int64_to_int32"](int64(s, caml_int64_of_int32(bound)))
+
+
+nativeint = function_expression_169 if 32 is Nativeint[7] else function_expression_170
+
+
+def rawfloat(s):
+    r1 = bits(s)
+    r2 = bits(s)
+    return r1 / 1073741824.0 + r2 / 1073741824.0
+
+
+def float__0(s, bound):
+    return rawfloat(s) * bound
+
+
+def bool(s):
+    return 1 if 0 is bits(s) & 1 else 0
+
+
+default__0 = [0, list(d), 0]
+
+
+def bits__0(param):
+    return bits(default__0)
+
+
+def int__1(bound):
+    return int__0(default__0, bound)
+
+
+def int32__0(bound):
+    return int32(default__0, bound)
+
+
+def nativeint__0(bound):
+    return nativeint(default__0, bound)
+
+
+def int64__0(bound):
+    return int64(default__0, bound)
+
+
+def float__1(scale):
+    return float__0(default__0, scale)
+
+
+def bool__0(param):
+    return bool(default__0)
+
+
+def full_init__0(seed):
+    return full_init(default__0, seed)
+
+
+def init(seed):
+    return full_init(default__0, [0, seed])
+
+
+def self_init(param):
+    return full_init__0(caml_sys_random_seed(0))
+
+
+def get_state(param):
+    return copy(default__0)
+
+
+def set_state(s):
+    return assign(default__0, s)
+
+
+Random = [
+    0,
+    init,
+    full_init__0,
+    self_init,
+    bits__0,
+    int__1,
+    int32__0,
+    nativeint__0,
+    int64__0,
+    float__1,
+    bool__0,
+    [
+        0,
+        make,
+        make_self_init,
+        copy,
+        bits,
+        int__0,
+        int32,
+        nativeint,
+        int64,
+        float__0,
+        bool,
+    ],
+    get_state,
+    set_state,
+]
+empty["caml_register_global"](16, Random, "Random")

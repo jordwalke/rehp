@@ -1,0 +1,162 @@
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Sort_array = empty["caml_new_string"]("Sort.array")
+Invalid_argument = global_data["Invalid_argument"]
+
+
+def merge(order, l1, l2):
+    if l1:
+        t1 = l1[2]
+        h1 = l1[1]
+        if l2:
+            t2 = l2[2]
+            h2 = l2[1]
+            return (
+                [0, h1, merge(order, t1, l2)]
+                if call2(order, h1, h2)
+                else [0, h2, merge(order, l1, t2)]
+            )
+        return l1
+    return l2
+
+
+def list(order, l):
+    def initlist(param):
+        if param:
+            j = param[2]
+            k = param[1]
+            if j:
+                rest = j[2]
+                e2 = j[1]
+                l = initlist(rest)
+                m = [0, k, [0, e2, 0]] if call2(order, k, e2) else [0, e2, [0, k, 0]]
+                return [0, m, l]
+            return [0, [0, k, 0], 0]
+        return 0
+
+    def merge2(x):
+        if x:
+            h = x[2]
+            if h:
+                rest = h[2]
+                l2 = h[1]
+                l1 = x[1]
+                i = merge2(rest)
+                return [0, merge(order, l1, l2), i]
+        return x
+
+    def mergeall(llist):
+        llist__0 = llist
+        while True:
+            if llist__0:
+                if llist__0[2]:
+                    llist__1 = merge2(llist__0)
+                    llist__0 = llist__1
+                    continue
+                l = llist__0[1]
+                return l
+            return 0
+
+    return mergeall(initlist(l))
+
+
+def swap(arr, i, j):
+    tmp = arr[i + 1]
+    arr[i + 1] = arr[j + 1]
+    arr[j + 1] = tmp
+    return 0
+
+
+def array(cmp, arr):
+    def qsort(lo, hi):
+        lo__0 = lo
+        hi__0 = hi
+        while True:
+            continue_label = None
+            e = 1 if 6 <= int(hi__0 - lo__0) else 0
+            if e:
+                mid = int(lsr(int(lo__0 + hi__0), 1))
+                if call2(cmp, arr[mid + 1], arr[lo__0 + 1]):
+                    swap(arr, mid, lo__0)
+                if call2(cmp, arr[hi__0 + 1], arr[mid + 1]):
+                    swap(arr, mid, hi__0)
+                    if call2(cmp, arr[mid + 1], arr[lo__0 + 1]):
+                        swap(arr, mid, lo__0)
+                pivot = arr[mid + 1]
+                i = [0, int(lo__0 + 1)]
+                j = [0, int(hi__0 + -1)]
+                f = 1 - call2(cmp, pivot, arr[hi__0 + 1])
+                g = f if f else 1 - call2(cmp, arr[lo__0 + 1], pivot)
+                if g:
+                    raise (
+                        empty["caml_wrap_thrown_exception"](
+                            [0, Invalid_argument, cst_Sort_array]
+                        )
+                    )
+                while True:
+                    continue_label = None
+                    if i[1] < j[1]:
+                        while True:
+                            if call2(cmp, pivot, arr[i[1] + 1]):
+                                while True:
+                                    if call2(cmp, arr[j[1] + 1], pivot):
+                                        if i[1] < j[1]:
+                                            swap(arr, i[1], j[1])
+                                        i[1] += 1
+                                        j[1] += -1
+                                        continue_label = "b"
+                                        break
+                                    j[1] += -1
+                                    continue
+                                if label != None:
+                                    break
+                            i[1] += 1
+                            continue
+                        if label == "b":
+                            continue
+                    if int(j[1] - lo__0) <= int(hi__0 - i[1]):
+                        qsort(lo__0, j[1])
+                        lo__1 = i[1]
+                        lo__0 = lo__1
+                        continue_label = "a"
+                        break
+                    qsort(i[1], hi__0)
+                    hi__1 = j[1]
+                    hi__0 = hi__1
+                    continue_label = "a"
+                    break
+                if label == "a":
+                    continue
+            return e
+
+    qsort(0, int(len(arr) + -1))
+    c = int(len(arr) + -1)
+    b = 1
+    if not (c < 1):
+        i = b
+        while True:
+            val_i = arr[i + 1]
+            if 1 - call2(cmp, arr[int(i + -1) + 1], val_i):
+                arr[i + 1] = arr[int(i + -1) + 1]
+                j = [0, int(i + -1)]
+                while True:
+                    if 1 <= j[1]:
+                        if not (call2(cmp, arr[int(j[1] + -1) + 1], val_i)):
+                            arr[j[1] + 1] = arr[int(j[1] + -1) + 1]
+                            j[1] += -1
+                            continue
+                    arr[j[1] + 1] = val_i
+                    break
+            d = int(i + 1)
+            if c is not i:
+                i = d
+                continue
+            break
+    return 0
+
+
+Sort = [0, list, array, merge]
+empty["caml_register_global"](2, Sort, "Sort")

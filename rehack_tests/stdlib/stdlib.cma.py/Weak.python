@@ -1,0 +1,571 @@
+caml_check_bound = empty["caml_check_bound"]
+caml_make_vect = empty["caml_make_vect"]
+caml_mod = empty["caml_mod"]
+string = empty["caml_new_string"]
+caml_obj_truncate = empty["caml_obj_truncate"]
+caml_weak_blit = empty["caml_weak_blit"]
+caml_weak_check = empty["caml_weak_check"]
+caml_weak_create = empty["caml_weak_create"]
+caml_weak_get = empty["caml_weak_get"]
+caml_weak_get_copy = empty["caml_weak_get_copy"]
+caml_weak_set = empty["caml_weak_set"]
+
+
+def call1(f, a0):
+    return f(a0) if arity_test is 1 else empty["caml_call_gen"](f, [a0])
+
+
+def call2(f, a0, a1):
+    return f(a0, a1) if arity_test is 2 else empty["caml_call_gen"](f, [a0, a1])
+
+
+def call3(f, a0, a1, a2):
+    return f(a0, a1, a2) if arity_test is 3 else empty["caml_call_gen"](f, [a0, a1, a2])
+
+
+def call5(f, a0, a1, a2, a3, a4):
+    return (
+        f(a0, a1, a2, a3, a4)
+        if arity_test is 5
+        else empty["caml_call_gen"](f, [a0, a1, a2, a3, a4])
+    )
+
+
+global_data = empty["caml_get_global_data"]()
+cst_Weak_Make_hash_bucket_cannot_grow_more = string(
+    "Weak.Make: hash bucket cannot grow more"
+)
+cst_Weak_fill = string("Weak.fill")
+Pervasives = global_data["Pervasives"]
+Sys = global_data["Sys"]
+Array = global_data["Array_"]
+Not_found = global_data["Not_found"]
+Invalid_argument = global_data["Invalid_argument"]
+
+
+def length(x):
+    return int(len(x) - 2)
+
+
+def fill(ar, ofs, len, x):
+    if 0 <= ofs:
+        if 0 <= len:
+            if not (length(ar) < int(ofs + len)):
+                aE = int(int(ofs + len) + -1)
+                if not (aE < ofs):
+                    i = ofs
+                    while True:
+                        caml_weak_set(ar, i, x)
+                        aF = int(i + 1)
+                        if aE is not i:
+                            i = aF
+                            continue
+                        break
+                return 0
+    raise (empty["caml_wrap_thrown_exception"]([0, Invalid_argument, cst_Weak_fill]))
+
+
+def Make(H):
+    def weak_create(aD):
+        return caml_weak_create(aD)
+
+    emptybucket = weak_create(0)
+
+    def get_index(t, h):
+        return caml_mod(h & Pervasives[7], len(t[1]))
+
+    limit = 7
+
+    def create(sz):
+        sz__0 = sz if 7 <= sz else 7
+        sz__1 = Sys[14] if Sys[14] < sz__0 else sz__0
+        return [
+            0,
+            caml_make_vect(sz__1, emptybucket),
+            caml_make_vect(sz__1, [0]),
+            limit,
+            0,
+            0,
+        ]
+
+    def clear(t):
+        aB = int(len(t[1]) + -1)
+        aA = 0
+        if not (aB < 0):
+            i = aA
+            while True:
+                caml_check_bound(t[1], i)[i + 1] = emptybucket
+                caml_check_bound(t[2], i)[i + 1] = [0]
+                aC = int(i + 1)
+                if aB is not i:
+                    i = aC
+                    continue
+                break
+        t[3] = limit
+        t[4] = 0
+        return 0
+
+    def fold(f, t, init):
+        def fold_bucket(i, b, accu):
+            i__0 = i
+            accu__0 = accu
+            while True:
+                if length(b) <= i__0:
+                    return accu__0
+                match = caml_weak_get(b, i__0)
+                if match:
+                    v = match[1]
+                    accu__1 = call2(f, v, accu__0)
+                    i__1 = int(i__0 + 1)
+                    i__0 = i__1
+                    accu__0 = accu__1
+                    continue
+                i__2 = int(i__0 + 1)
+                i__0 = i__2
+                continue
+
+        av = t[1]
+        aw = 0
+
+        def ax(ay, az):
+            return fold_bucket(aw, ay, az)
+
+        return call3(Array[18], ax, av, init)
+
+    def iter(f, t):
+        def iter_bucket(i, b):
+            i__0 = i
+            while True:
+                if length(b) <= i__0:
+                    return 0
+                match = caml_weak_get(b, i__0)
+                if match:
+                    v = match[1]
+                    call1(f, v)
+                    i__1 = int(i__0 + 1)
+                    i__0 = i__1
+                    continue
+                i__2 = int(i__0 + 1)
+                i__0 = i__2
+                continue
+
+        aq = t[1]
+        ar = 0
+
+        def at(au):
+            return iter_bucket(ar, au)
+
+        return call2(Array[13], at, aq)
+
+    def iter_weak(f, t):
+        def iter_bucket(i, j, b):
+            i__0 = i
+            while True:
+                if length(b) <= i__0:
+                    return 0
+                match = caml_weak_check(b, i__0)
+                if 0 is match:
+                    i__1 = int(i__0 + 1)
+                    i__0 = i__1
+                    continue
+                call3(f, b, caml_check_bound(t[2], j)[j + 1], i__0)
+                i__2 = int(i__0 + 1)
+                i__0 = i__2
+                continue
+
+        al = t[1]
+        am = 0
+
+        def an(ao, ap):
+            return iter_bucket(am, ao, ap)
+
+        return call2(Array[14], an, al)
+
+    def count_bucket(i, b, accu):
+        i__0 = i
+        accu__0 = accu
+        while True:
+            if length(b) <= i__0:
+                return accu__0
+            ak = 1 if caml_weak_check(b, i__0) else 0
+            accu__1 = int(accu__0 + ak)
+            i__1 = int(i__0 + 1)
+            i__0 = i__1
+            accu__0 = accu__1
+            continue
+
+    def count(t):
+        ae = 0
+        af = t[1]
+        ag = 0
+
+        def ah(ai, aj):
+            return count_bucket(ag, ai, aj)
+
+        return call3(Array[18], ah, af, ae)
+
+    def next_sz(n):
+        return call2(Pervasives[4], int(int(int(3 * n) / 2) + 3), Sys[14])
+
+    def prev_sz(n):
+        return int(int(int(int(n + -3) * 2) + 2) / 3)
+
+    def test_shrink_bucket(t):
+        W = t[5]
+        bucket = caml_check_bound(t[1], W)[W + 1]
+        X = t[5]
+        hbucket = caml_check_bound(t[2], X)[X + 1]
+        len = length(bucket)
+        prev_len = prev_sz(len)
+        live = count_bucket(0, bucket, 0)
+        if live <= prev_len:
+
+            def loop(i, j):
+                i__0 = i
+                j__0 = j
+                while True:
+                    ac = 1 if prev_len <= j__0 else 0
+                    if ac:
+                        if caml_weak_check(bucket, i__0):
+                            i__1 = int(i__0 + 1)
+                            i__0 = i__1
+                            continue
+                        if caml_weak_check(bucket, j__0):
+                            caml_weak_blit(bucket, j__0, bucket, i__0, 1)
+                            ad = caml_check_bound(hbucket, j__0)[j__0 + 1]
+                            caml_check_bound(hbucket, i__0)[i__0 + 1] = ad
+                            j__1 = int(j__0 + -1)
+                            i__2 = int(i__0 + 1)
+                            i__0 = i__2
+                            j__0 = j__1
+                            continue
+                        j__2 = int(j__0 + -1)
+                        j__0 = j__2
+                        continue
+                    return ac
+
+            loop(0, int(length(bucket) + -1))
+            if 0 is prev_len:
+                Y = t[5]
+                caml_check_bound(t[1], Y)[Y + 1] = emptybucket
+                Z = t[5]
+                caml_check_bound(t[2], Z)[Z + 1] = [0]
+            else:
+                caml_obj_truncate(bucket, int(prev_len + 2))
+                caml_obj_truncate(hbucket, prev_len)
+            aa = 1 if t[3] < len else 0
+            ab = (1 if prev_len <= t[3] else 0) if aa else aa
+            if ab:
+                t[4] = int(t[4] + -1)
+        t[5] = caml_mod(int(t[5] + 1), len(t[1]))
+        return 0
+
+    def resize(t):
+        oldlen = len(t[1])
+        newlen = next_sz(oldlen)
+        if oldlen < newlen:
+            newt = create(newlen)
+
+            def add_weak(ob, oh, oi):
+                def setter(nb, ni, param):
+                    return caml_weak_blit(ob, oi, nb, ni, 1)
+
+                h = caml_check_bound(oh, oi)[oi + 1]
+                return add_aux(newt, setter, 0, h, get_index(newt, h))
+
+            iter_weak(add_weak, t)
+            t[1] = newt[1]
+            t[2] = newt[2]
+            t[3] = newt[3]
+            t[4] = newt[4]
+            t[5] = caml_mod(t[5], len(newt[1]))
+            return 0
+        t[3] = Pervasives[7]
+        t[4] = 0
+        return 0
+
+    def add_aux(t, setter, d, h, index):
+        bucket = caml_check_bound(t[1], index)[index + 1]
+        hashes = caml_check_bound(t[2], index)[index + 1]
+        sz = length(bucket)
+
+        def loop(i):
+            i__0 = i
+            while True:
+                if sz <= i__0:
+                    newsz = call2(
+                        Pervasives[4], int(int(int(3 * sz) / 2) + 3), int(Sys[14] - 2)
+                    )
+                    if newsz <= sz:
+                        call1(Pervasives[2], cst_Weak_Make_hash_bucket_cannot_grow_more)
+                    newbucket = weak_create(newsz)
+                    newhashes = caml_make_vect(newsz, 0)
+                    caml_weak_blit(bucket, 0, newbucket, 0, sz)
+                    call5(Array[10], hashes, 0, newhashes, 0, sz)
+                    call3(setter, newbucket, sz, d)
+                    caml_check_bound(newhashes, sz)[sz + 1] = h
+                    caml_check_bound(t[1], index)[index + 1] = newbucket
+                    caml_check_bound(t[2], index)[index + 1] = newhashes
+                    S = 1 if sz <= t[3] else 0
+                    T = (1 if t[3] < newsz else 0) if S else S
+                    if T:
+                        t[4] = int(t[4] + 1)
+                        i__1 = 0
+                        while True:
+                            test_shrink_bucket(t)
+                            V = int(i__1 + 1)
+                            if 2 is not i__1:
+                                i__1 = V
+                                continue
+                            break
+                    U = 1 if int(len(t[1]) / 2) < t[4] else 0
+                    return resize(t) if U else U
+                if caml_weak_check(bucket, i__0):
+                    i__2 = int(i__0 + 1)
+                    i__0 = i__2
+                    continue
+                call3(setter, bucket, i__0, d)
+                caml_check_bound(hashes, i__0)[i__0 + 1] = h
+                return 0
+
+        return loop(0)
+
+    def add(t, d):
+        h = call1(H[2], d)
+        N = get_index(t, h)
+        O = [0, d]
+
+        def function_expression_173(R, Q, P):
+            return caml_weak_set(R, Q, P)
+
+        return add_aux(t, function_expression_173, O, h, N)
+
+    def find_or(t, d, ifnotfound):
+        h = call1(H[2], d)
+        index = get_index(t, h)
+        bucket = caml_check_bound(t[1], index)[index + 1]
+        hashes = caml_check_bound(t[2], index)[index + 1]
+        sz = length(bucket)
+
+        def loop(i):
+            i__0 = i
+            while True:
+                if sz <= i__0:
+                    return call2(ifnotfound, h, index)
+                if h is caml_check_bound(hashes, i__0)[i__0 + 1]:
+                    match = caml_weak_get_copy(bucket, i__0)
+                    if match:
+                        v = match[1]
+                        if call2(H[1], v, d):
+                            match__0 = caml_weak_get(bucket, i__0)
+                            if match__0:
+                                v__0 = match__0[1]
+                                return v__0
+                            i__1 = int(i__0 + 1)
+                            i__0 = i__1
+                            continue
+                    i__2 = int(i__0 + 1)
+                    i__0 = i__2
+                    continue
+                i__3 = int(i__0 + 1)
+                i__0 = i__3
+                continue
+
+        return loop(0)
+
+    def merge(t, d):
+        def function_expression_174(h, index):
+            J = [0, d]
+
+            def function_expression_175(M, L, K):
+                return caml_weak_set(M, L, K)
+
+            add_aux(t, function_expression_175, J, h, index)
+            return d
+
+        return find_or(t, d, function_expression_174)
+
+    def find(t, d):
+        def function_expression_176(h, index):
+            raise (empty["caml_wrap_thrown_exception"](Not_found))
+
+        return find_or(t, d, function_expression_176)
+
+    def find_opt(t, d):
+        h = call1(H[2], d)
+        index = get_index(t, h)
+        bucket = caml_check_bound(t[1], index)[index + 1]
+        hashes = caml_check_bound(t[2], index)[index + 1]
+        sz = length(bucket)
+
+        def loop(i):
+            i__0 = i
+            while True:
+                if sz <= i__0:
+                    return 0
+                if h is caml_check_bound(hashes, i__0)[i__0 + 1]:
+                    match = caml_weak_get_copy(bucket, i__0)
+                    if match:
+                        v = match[1]
+                        if call2(H[1], v, d):
+                            v__0 = caml_weak_get(bucket, i__0)
+                            if v__0:
+                                return v__0
+                            i__1 = int(i__0 + 1)
+                            i__0 = i__1
+                            continue
+                    i__2 = int(i__0 + 1)
+                    i__0 = i__2
+                    continue
+                i__3 = int(i__0 + 1)
+                i__0 = i__3
+                continue
+
+        return loop(0)
+
+    def find_shadow(t, d, iffound, ifnotfound):
+        h = call1(H[2], d)
+        index = get_index(t, h)
+        bucket = caml_check_bound(t[1], index)[index + 1]
+        hashes = caml_check_bound(t[2], index)[index + 1]
+        sz = length(bucket)
+
+        def loop(i):
+            i__0 = i
+            while True:
+                if sz <= i__0:
+                    return ifnotfound
+                if h is caml_check_bound(hashes, i__0)[i__0 + 1]:
+                    match = caml_weak_get_copy(bucket, i__0)
+                    if match:
+                        v = match[1]
+                        if call2(H[1], v, d):
+                            return call2(iffound, bucket, i__0)
+                    i__1 = int(i__0 + 1)
+                    i__0 = i__1
+                    continue
+                i__2 = int(i__0 + 1)
+                i__0 = i__2
+                continue
+
+        return loop(0)
+
+    def remove(t, d):
+        I = 0
+
+        def function_expression_177(w, i):
+            return caml_weak_set(w, i, 0)
+
+        return find_shadow(t, d, function_expression_177, I)
+
+    def mem(t, d):
+        H = 0
+
+        def function_expression_178(w, i):
+            return 1
+
+        return find_shadow(t, d, function_expression_178, H)
+
+    def find_all(t, d):
+        h = call1(H[2], d)
+        index = get_index(t, h)
+        bucket = caml_check_bound(t[1], index)[index + 1]
+        hashes = caml_check_bound(t[2], index)[index + 1]
+        sz = length(bucket)
+
+        def loop(i, accu):
+            i__0 = i
+            accu__0 = accu
+            while True:
+                if sz <= i__0:
+                    return accu__0
+                if h is caml_check_bound(hashes, i__0)[i__0 + 1]:
+                    match = caml_weak_get_copy(bucket, i__0)
+                    if match:
+                        v = match[1]
+                        if call2(H[1], v, d):
+                            match__0 = caml_weak_get(bucket, i__0)
+                            if match__0:
+                                v__0 = match__0[1]
+                                accu__1 = [0, v__0, accu__0]
+                                i__1 = int(i__0 + 1)
+                                i__0 = i__1
+                                accu__0 = accu__1
+                                continue
+                            i__2 = int(i__0 + 1)
+                            i__0 = i__2
+                            continue
+                    i__3 = int(i__0 + 1)
+                    i__0 = i__3
+                    continue
+                i__4 = int(i__0 + 1)
+                i__0 = i__4
+                continue
+
+        return loop(0, 0)
+
+    def stats(t):
+        len = len(t[1])
+        lens = call2(Array[15], length, t[1])
+
+        def v(G, F):
+            return empty["caml_int_compare"](G, F)
+
+        call2(Array[25], v, lens)
+        w = 0
+
+        def x(E, D):
+            return int(E + D)
+
+        totlen = call3(Array[17], x, w, lens)
+        y = int(len + -1)
+        A = int(len / 2)
+        z = caml_check_bound(lens, y)[y + 1]
+        B = caml_check_bound(lens, A)[A + 1]
+        C = caml_check_bound(lens, 0)[1]
+        return [0, len, count(t), totlen, C, B, z]
+
+    return [
+        0,
+        create,
+        clear,
+        merge,
+        add,
+        remove,
+        find,
+        find_opt,
+        find_all,
+        mem,
+        iter,
+        fold,
+        count,
+        stats,
+    ]
+
+
+def b(u, t, s, r, q):
+    return caml_weak_blit(u, t, s, r, q)
+
+
+def c(p, o):
+    return caml_weak_check(p, o)
+
+
+def d(n, m):
+    return caml_weak_get_copy(n, m)
+
+
+def e(l, k):
+    return caml_weak_get(l, k)
+
+
+def f(j, i, h):
+    return caml_weak_set(j, i, h)
+
+
+def function_expression_179(g):
+    return caml_weak_create(g)
+
+
+Weak = [0, function_expression_179, length, f, e, d, c, fill, b, Make]
+empty["caml_register_global"](7, Weak, "Weak")

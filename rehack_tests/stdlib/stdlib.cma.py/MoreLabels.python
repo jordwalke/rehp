@@ -1,0 +1,6 @@
+global_data = empty["caml_get_global_data"]()
+Set = global_data["Set"]
+Map = global_data["Map"]
+Hashtbl = global_data["Hashtbl"]
+MoreLabels = [0, Hashtbl, Map, Set]
+empty["caml_register_global"](3, MoreLabels, "MoreLabels")
