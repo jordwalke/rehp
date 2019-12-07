@@ -120,7 +120,7 @@ let format_var t i x =
   if t.stable
   then Format.sprintf "v%d" i
   else if t.pretty
-  then Format.sprintf "%s" s
+  then Format.sprintf "%s_" s
   else s
 
 let reserved = ref StringSet.empty
