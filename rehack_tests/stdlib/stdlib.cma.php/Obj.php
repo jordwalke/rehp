@@ -51,8 +51,8 @@ final class Obj {
       return $runtime["caml_output_value_to_string"]($obj, 0);
     };
     $unmarshal = function(dynamic $str, dynamic $pos) use ($Marshal,$call2) {
-      $L = (int) ($pos + $call2($Marshal[8], $str, $pos));
-      return Vector{0, $call2($Marshal[4], $str, $pos), $L};
+      $L_ = (int) ($pos + $call2($Marshal[8], $str, $pos));
+      return Vector{0, $call2($Marshal[4], $str, $pos), $L_};
     };
     $first_non_constant_constructor_tag = 0;
     $last_non_constant_constructor_tag = 245;
@@ -98,41 +98,42 @@ final class Obj {
     $extension_name = function(dynamic $slot) {return $slot[1];};
     $extension_id = function(dynamic $slot) {return $slot[2];};
     $length = function(dynamic $x) {return (int) ($x->count() - 1 + -2);};
-    $a = function(dynamic $K, dynamic $J) use ($runtime) {
-      return $runtime["caml_ephe_blit_data"]($K, $J);
+    $a_ = function(dynamic $K_, dynamic $J_) use ($runtime) {
+      return $runtime["caml_ephe_blit_data"]($K_, $J_);
     };
-    $b = function(dynamic $I) use ($runtime) {
-      return $runtime["caml_ephe_check_data"]($I);
+    $b_ = function(dynamic $I_) use ($runtime) {
+      return $runtime["caml_ephe_check_data"]($I_);
     };
-    $c = function(dynamic $H) use ($runtime) {
-      return $runtime["caml_ephe_unset_data"]($H);
+    $c_ = function(dynamic $H_) use ($runtime) {
+      return $runtime["caml_ephe_unset_data"]($H_);
     };
-    $d = function(dynamic $G, dynamic $F) use ($runtime) {
-      return $runtime["caml_ephe_set_data"]($G, $F);
+    $d_ = function(dynamic $G_, dynamic $F_) use ($runtime) {
+      return $runtime["caml_ephe_set_data"]($G_, $F_);
     };
-    $e = function(dynamic $E) use ($runtime) {
-      return $runtime["caml_ephe_get_data_copy"]($E);
+    $e_ = function(dynamic $E_) use ($runtime) {
+      return $runtime["caml_ephe_get_data_copy"]($E_);
     };
-    $f = function(dynamic $D) use ($runtime) {
-      return $runtime["caml_ephe_get_data"]($D);
+    $f_ = function(dynamic $D_) use ($runtime) {
+      return $runtime["caml_ephe_get_data"]($D_);
     };
-    $g = function(dynamic $C, dynamic $B, dynamic $A, dynamic $z, dynamic $y) use ($runtime) {
-      return $runtime["caml_ephe_blit_key"]($C, $B, $A, $z, $y);
+    $g_ = function
+    (dynamic $C_, dynamic $B_, dynamic $A_, dynamic $z_, dynamic $y_) use ($runtime) {
+      return $runtime["caml_ephe_blit_key"]($C_, $B_, $A_, $z_, $y_);
     };
-    $h = function(dynamic $x, dynamic $w) use ($runtime) {
-      return $runtime["caml_ephe_check_key"]($x, $w);
+    $h_ = function(dynamic $x_, dynamic $w_) use ($runtime) {
+      return $runtime["caml_ephe_check_key"]($x_, $w_);
     };
-    $i = function(dynamic $v, dynamic $u) use ($runtime) {
-      return $runtime["caml_ephe_unset_key"]($v, $u);
+    $i_ = function(dynamic $v_, dynamic $u_) use ($runtime) {
+      return $runtime["caml_ephe_unset_key"]($v_, $u_);
     };
-    $j = function(dynamic $t, dynamic $s, dynamic $r) use ($runtime) {
-      return $runtime["caml_ephe_set_key"]($t, $s, $r);
+    $j_ = function(dynamic $t_, dynamic $s_, dynamic $r_) use ($runtime) {
+      return $runtime["caml_ephe_set_key"]($t_, $s_, $r_);
     };
-    $k = function(dynamic $q, dynamic $p) use ($runtime) {
-      return $runtime["caml_ephe_get_key_copy"]($q, $p);
+    $k_ = function(dynamic $q_, dynamic $p_) use ($runtime) {
+      return $runtime["caml_ephe_get_key_copy"]($q_, $p_);
     };
-    $l = function(dynamic $o, dynamic $n) use ($runtime) {
-      return $runtime["caml_ephe_get_key"]($o, $n);
+    $l_ = function(dynamic $o_, dynamic $n_) use ($runtime) {
+      return $runtime["caml_ephe_get_key"]($o_, $n_);
     };
     $Obj = Vector{
       0,
@@ -163,22 +164,22 @@ final class Obj {
       $unmarshal,
       Vector{
         0,
-        function(dynamic $m) use ($runtime) {
-          return $runtime["caml_ephe_create"]($m);
+        function(dynamic $m_) use ($runtime) {
+          return $runtime["caml_ephe_create"]($m_);
         },
         $length,
-        $l,
-        $k,
-        $j,
-        $i,
-        $h,
-        $g,
-        $f,
-        $e,
-        $d,
-        $c,
-        $b,
-        $a
+        $l_,
+        $k_,
+        $j_,
+        $i_,
+        $h_,
+        $g_,
+        $f_,
+        $e_,
+        $d_,
+        $c_,
+        $b_,
+        $a_
       }
     };
     

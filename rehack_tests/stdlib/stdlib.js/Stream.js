@@ -56,9 +56,9 @@ var Assert_failure = global_data["Assert_failure"];
 var CamlinternalLazy = global_data["CamlinternalLazy"];
 var Pervasives = global_data["Pervasives"];
 var List = global_data["List_"];
-var a = [0,string("stream.ml"),53,12];
-var b = [0,0];
-var c = [0,string("stream.ml"),82,12];
+var a_ = [0,string("stream.ml"),53,12];
+var b_ = [0,0];
+var c_ = [0,string("stream.ml"),82,12];
 var Failure = [248,cst_Stream_Failure,caml_fresh_oo_id(0)];
 var Error = [248,cst_Stream_Error,caml_fresh_oo_id(0)];
 
@@ -91,38 +91,38 @@ function get_data(count, d) {
           else {
             if (0 === match[0]) {
               var d11 = match[2];
-              var a__0 = match[1];
-              return [0,a__0,[1,d11,d2]];
+              var a = match[1];
+              return [0,a,[1,d11,d2]];
             }
-            throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a]);
+            throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
           }
         case 2:
           var f = d__0[1];
-          var q = caml_obj_tag(f);
-          var d__1 = 250 === q ?
+          var q_ = caml_obj_tag(f);
+          var d__1 = 250 === q_ ?
             f[1] :
-            246 === q ? call1(CamlinternalLazy[2], f) : f;
+            246 === q_ ? call1(CamlinternalLazy[2], f) : f;
           var d__0 = d__1;
           continue;
         case 3:
-          var r = d__0[1];
-          var s = r[1];
-          if (s) {
-            var t = s[1];
-            if (t) {var a__1 = t[1];r[1] = 0;return [0,a__1,d__0];}
+          var r_ = d__0[1];
+          var s_ = r_[1];
+          if (s_) {
+            var t_ = s_[1];
+            if (t_) {var a__0 = t_[1];r_[1] = 0;return [0,a__0,d__0];}
             return 0;
           }
-          var match__0 = call1(r[2], count);
-          if (match__0) {var a__2 = match__0[1];return [0,a__2,d__0];}
-          r[1] = b;
+          var match__0 = call1(r_[2], count);
+          if (match__0) {var a__1 = match__0[1];return [0,a__1,d__0];}
+          r_[1] = b_;
           return 0;
         case 4:
-          var b__0 = d__0[1];
-          if (b__0[3] <= b__0[4]) {fill_buff(b__0);}
-          if (0 === b__0[3]) {return 0;}
-          var r__0 = caml_bytes_unsafe_get(b__0[2], b__0[4]);
-          b__0[4] = b__0[4] + 1 | 0;
-          return [0,r__0,d__0]
+          var b = d__0[1];
+          if (b[3] <= b[4]) {fill_buff(b);}
+          if (0 === b[3]) {return 0;}
+          var r = caml_bytes_unsafe_get(b[2], b[4]);
+          b[4] = b[4] + 1 | 0;
+          return [0,r,d__0]
         }
     }
     return d__0;
@@ -131,36 +131,36 @@ function get_data(count, d) {
 
 function peek_data(s) {
   for (; ; ) {
-    var l = s[2];
-    if (typeof l === "number") return 0;
-    else switch (l[0]) {
+    var l_ = s[2];
+    if (typeof l_ === "number") return 0;
+    else switch (l_[0]) {
       case 0:
-        var a = l[1];
+        var a = l_[1];
         return [0,a];
       case 1:
         var d = get_data(s[1], s[2]);
         if (typeof d === "number") return 0;
         else {
           if (0 === d[0]) {var a__0 = d[1];s[2] = d;return [0,a__0];}
-          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,c]);
+          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,c_]);
         }
       case 2:
-        var f = l[1];
-        var m = caml_obj_tag(f);
-        var n = 250 === m ?
+        var f = l_[1];
+        var m_ = caml_obj_tag(f);
+        var n_ = 250 === m_ ?
           f[1] :
-          246 === m ? call1(CamlinternalLazy[2], f) : f;
-        s[2] = n;
+          246 === m_ ? call1(CamlinternalLazy[2], f) : f;
+        s[2] = n_;
         continue;
       case 3:
-        var o = l[1];
-        var p = o[1];
-        if (p) {var a__1 = p[1];return a__1;}
-        var x = call1(o[2], s[1]);
-        o[1] = [0,x];
+        var o_ = l_[1];
+        var p_ = o_[1];
+        if (p_) {var a__1 = p_[1];return a__1;}
+        var x = call1(o_[2], s[1]);
+        o_[1] = [0,x];
         return x;
       default:
-        var b = l[1];
+        var b = l_[1];
         if (b[3] <= b[4]) {fill_buff(b);}
         if (0 === b[3]) {s[2] = 0;return 0;}
         return [0,caml_bytes_unsafe_get(b[2], b[4])]
@@ -175,20 +175,20 @@ function peek(param) {
 
 function junk_data(s) {
   for (; ; ) {
-    var j = s[2];
-    if (! (typeof j === "number")) {
-      switch (j[0]) {
+    var j_ = s[2];
+    if (! (typeof j_ === "number")) {
+      switch (j_[0]) {
         case 0:
-          var d = j[2];
+          var d = j_[2];
           s[1] = s[1] + 1 | 0;
           s[2] = d;
           return 0;
         case 3:
-          var k = j[1];
-          if (k[1]) {s[1] = s[1] + 1 | 0;k[1] = 0;return 0;}
+          var k_ = j_[1];
+          if (k_[1]) {s[1] = s[1] + 1 | 0;k_[1] = 0;return 0;}
           break;
         case 4:
-          var b = j[1];
+          var b = j_[1];
           s[1] = s[1] + 1 | 0;
           b[4] = b[4] + 1 | 0;
           return 0
@@ -263,9 +263,9 @@ function iter(f, strm) {
 function from(f) {return [0,[0,0,[3,[0,0,f]]]];}
 
 function of_list(l) {
-  var h = 0;
-  function i(x, l) {return [0,x,l];}
-  return [0,[0,0,call3(List[21], i, l, h)]];
+  var h_ = 0;
+  function i_(x, l) {return [0,x,l];}
+  return [0,[0,0,call3(List[21], i_, l, h_)]];
 }
 
 function of_string(s) {
@@ -300,7 +300,7 @@ function of_channel(ic) {
   return [0,[0,0,[4,[0,ic,runtime["caml_create_bytes"](4096),0,0]]]];
 }
 
-function iapp(i, s) {var g = data(s);return [0,[0,0,[1,data(i),g]]];}
+function iapp(i, s) {var g_ = data(s);return [0,[0,0,[1,data(i),g_]]];}
 
 function icons(i, s) {return [0,[0,0,[0,i,data(s)]]];}
 
@@ -314,7 +314,9 @@ function lapp(f, s) {
       0,
       [
         2,
-        [246,function(param) {var f = data(s);return [1,data(call1(f, 0)),f];}
+        [
+          246,
+          function(param) {var f_ = data(s);return [1,data(call1(f, 0)),f_];}
         ]
       ]
     ]
@@ -324,7 +326,10 @@ function lapp(f, s) {
 function lcons(f, s) {
   return [
     0,
-    [0,0,[2,[246,function(param) {var e = data(s);return [0,call1(f, 0),e];}]]
+    [
+      0,
+      0,
+      [2,[246,function(param) {var e_ = data(s);return [0,call1(f, 0),e_];}]]
     ]
   ];
 }
@@ -341,8 +346,8 @@ function slazy(f) {
 
 function dump(f, s) {
   call1(Pervasives[30], cst_count);
-  var d = count(s);
-  call1(Pervasives[32], d);
+  var d_ = count(s);
+  call1(Pervasives[32], d_);
   call1(Pervasives[30], cst_data);
   dump_data(f, data(s));
   call1(Pervasives[30], cst);

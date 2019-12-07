@@ -89,37 +89,37 @@ function get_string(param) {
 
 function make_lexer(keywords) {
   var kwd_table = call2(Hashtbl[1], 0, 17);
-  function a(s) {return call3(Hashtbl[5], kwd_table, s, [0,s]);}
-  call2(List[15], a, keywords);
+  function a_(s) {return call3(Hashtbl[5], kwd_table, s, [0,s]);}
+  call2(List[15], a_, keywords);
   function ident_or_keyword(id) {
-    try {var C = call2(Hashtbl[6], kwd_table, id);return C;}
-    catch(D) {
-      D = caml_wrap_exception(D);
-      if (D === Not_found) {return [1,id];}
-      throw runtime["caml_wrap_thrown_exception_reraise"](D);
+    try {var C_ = call2(Hashtbl[6], kwd_table, id);return C_;}
+    catch(D_) {
+      D_ = caml_wrap_exception(D_);
+      if (D_ === Not_found) {return [1,id];}
+      throw runtime["caml_wrap_thrown_exception_reraise"](D_);
     }
   }
   function keyword_or_error(c) {
     var s = call2(String[1], 1, c);
-    try {var A = call2(Hashtbl[6], kwd_table, s);return A;}
-    catch(B) {
-      B = caml_wrap_exception(B);
-      if (B === Not_found) {
-        var z = call2(Pervasives[16], cst_Illegal_character, s);
-        throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],z]);
+    try {var A_ = call2(Hashtbl[6], kwd_table, s);return A_;}
+    catch(B_) {
+      B_ = caml_wrap_exception(B_);
+      if (B_ === Not_found) {
+        var z_ = call2(Pervasives[16], cst_Illegal_character, s);
+        throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],z_]);
       }
-      throw runtime["caml_wrap_thrown_exception_reraise"](B);
+      throw runtime["caml_wrap_thrown_exception_reraise"](B_);
     }
   }
   function end_exponent_part(strm) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var y = match[1];
-        var switcher = y + -48 | 0;
+        var y_ = match[1];
+        var switcher = y_ + -48 | 0;
         if (! (9 < switcher >>> 0)) {
           call1(Stream[12], strm);
-          store(y);
+          store(y_);
           continue;
         }
       }
@@ -129,11 +129,11 @@ function make_lexer(keywords) {
   function exponent_part(strm) {
     var match = call1(Stream[11], strm);
     if (match) {
-      var x = match[1];
-      var switch__0 = 43 === x ? 0 : 45 === x ? 0 : 1;
+      var x_ = match[1];
+      var switch__0 = 43 === x_ ? 0 : 45 === x_ ? 0 : 1;
       if (! switch__0) {
         call1(Stream[12], strm);
-        store(x);
+        store(x_);
         return end_exponent_part(strm);
       }
     }
@@ -143,18 +143,18 @@ function make_lexer(keywords) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var v = match[1];
-        var w = v + -69 | 0;
-        if (32 < w >>> 0) {
-          var switcher = w + 21 | 0;
+        var v_ = match[1];
+        var w_ = v_ + -69 | 0;
+        if (32 < w_ >>> 0) {
+          var switcher = w_ + 21 | 0;
           if (! (9 < switcher >>> 0)) {
             call1(Stream[12], strm);
-            store(v);
+            store(v_);
             continue;
           }
         }
         else {
-          var switcher__0 = w + -1 | 0;
+          var switcher__0 = w_ + -1 | 0;
           if (30 < switcher__0 >>> 0) {
             call1(Stream[12], strm);
             store(69);
@@ -169,9 +169,9 @@ function make_lexer(keywords) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var u = match[1];
-        if (58 <= u) {
-          var switch__0 = 69 === u ? 0 : 101 === u ? 0 : 1;
+        var u_ = match[1];
+        if (58 <= u_) {
+          var switch__0 = 69 === u_ ? 0 : 101 === u_ ? 0 : 1;
           if (! switch__0) {
             call1(Stream[12], strm);
             store(69);
@@ -179,12 +179,12 @@ function make_lexer(keywords) {
           }
         }
         else {
-          if (46 === u) {
+          if (46 === u_) {
             call1(Stream[12], strm);
             store(46);
             return decimal_part(strm);
           }
-          if (48 <= u) {call1(Stream[12], strm);store(u);continue;}
+          if (48 <= u_) {call1(Stream[12], strm);store(u_);continue;}
         }
       }
       return [0,[2,runtime["caml_int_of_string"](get_string(0))]];
@@ -194,17 +194,17 @@ function make_lexer(keywords) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var s = match[1];
-        if (94 <= s) {
-          var t = s + -95 | 0;
-          var switch__0 = 30 < t >>> 0 ? 32 <= t ? 1 : 0 : 29 === t ? 0 : 1;
+        var s_ = match[1];
+        if (94 <= s_) {
+          var t_ = s_ + -95 | 0;
+          var switch__0 = 30 < t_ >>> 0 ? 32 <= t_ ? 1 : 0 : 29 === t_ ? 0 : 1;
         }
-        else if (65 <= s) var switch__0 = 92 ===
-           s ?
+        else if (65 <= s_) var switch__0 = 92 ===
+           s_ ?
           0 :
           1;
-        else if (33 <= s) switch (
-          s + -33 | 0
+        else if (33 <= s_) switch (
+          s_ + -33 | 0
         ) {
           case 0:
           case 2:
@@ -227,7 +227,7 @@ function make_lexer(keywords) {
             var switch__0 = 1
           }
         else var switch__0 = 1;
-        if (! switch__0) {call1(Stream[12], strm);store(s);continue;}
+        if (! switch__0) {call1(Stream[12], strm);store(s_);continue;}
       }
       return [0,ident_or_keyword(get_string(0))];
     }
@@ -235,13 +235,13 @@ function make_lexer(keywords) {
   function neg_number(strm) {
     var match = call1(Stream[11], strm);
     if (match) {
-      var r = match[1];
-      var switcher = r + -48 | 0;
+      var r_ = match[1];
+      var switcher = r_ + -48 | 0;
       if (! (9 < switcher >>> 0)) {
         call1(Stream[12], strm);
         reset_buffer(0);
         store(45);
-        store(r);
+        store(r_);
         return number(strm);
       }
     }
@@ -253,15 +253,15 @@ function make_lexer(keywords) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var p = match[1];
-        if (91 <= p) {
-          var q = p + -95 | 0;
-          var switch__0 = 27 < q >>> 0 ? 97 <= q ? 0 : 1 : 1 === q ? 1 : 0;
+        var p_ = match[1];
+        if (91 <= p_) {
+          var q_ = p_ + -95 | 0;
+          var switch__0 = 27 < q_ >>> 0 ? 97 <= q_ ? 0 : 1 : 1 === q_ ? 1 : 0;
         }
-        else var switch__0 = 48 <= p ?
-          6 < (p + -58 | 0) >>> 0 ? 0 : 1 :
-          39 === p ? 0 : 1;
-        if (! switch__0) {call1(Stream[12], strm);store(p);continue;}
+        else var switch__0 = 48 <= p_ ?
+          6 < (p_ + -58 | 0) >>> 0 ? 0 : 1 :
+          39 === p_ ? 0 : 1;
+        if (! switch__0) {call1(Stream[12], strm);store(p_);continue;}
       }
       return [0,ident_or_keyword(get_string(0))];
     }
@@ -270,16 +270,16 @@ function make_lexer(keywords) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var l = match[1];
-        if (124 <= l) var switch__0 = 127 <=
-           l ?
-          192 <= l ? 1 : 0 :
-          125 === l ? 0 : 2;
+        var l_ = match[1];
+        if (124 <= l_) var switch__0 = 127 <=
+           l_ ?
+          192 <= l_ ? 1 : 0 :
+          125 === l_ ? 0 : 2;
         else {
-          var m = l + -65 | 0;
-          if (57 < m >>> 0) if (58 <= m) var switch__0 = 0;
+          var m_ = l_ + -65 | 0;
+          if (57 < m_ >>> 0) if (58 <= m_) var switch__0 = 0;
           else {
-            var switcher = m + 65 | 0;
+            var switcher = m_ + 65 | 0;
             switch (switcher) {
               case 34:
                 call1(Stream[12], strm);
@@ -288,13 +288,13 @@ function make_lexer(keywords) {
               case 39:
                 call1(Stream[12], strm);
                 try {var c = char__0(strm);}
-                catch(o) {
-                  o = caml_wrap_exception(o);
-                  if (o === Stream[1]) {
+                catch(o_) {
+                  o_ = caml_wrap_exception(o_);
+                  if (o_ === Stream[1]) {
                     throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst]
                           );
                   }
-                  throw runtime["caml_wrap_thrown_exception_reraise"](o);
+                  throw runtime["caml_wrap_thrown_exception_reraise"](o_);
                 }
                 var match__0 = call1(Stream[11], strm);
                 if (match__0) {
@@ -335,7 +335,7 @@ function make_lexer(keywords) {
               case 57:
                 call1(Stream[12], strm);
                 reset_buffer(0);
-                store(l);
+                store(l_);
                 return number(strm);
               case 33:
               case 35:
@@ -358,9 +358,9 @@ function make_lexer(keywords) {
               }
           }
           else {
-            var n = m + -26 | 0;
-            if (5 < n >>> 0) var switch__0 = 1;
-            else switch (n) {
+            var n_ = m_ + -26 | 0;
+            if (5 < n_ >>> 0) var switch__0 = 1;
+            else switch (n_) {
               case 4:
                 var switch__0 = 1;
                 break;
@@ -376,16 +376,16 @@ function make_lexer(keywords) {
         switch (switch__0) {
           case 0:
             call1(Stream[12], strm);
-            return [0,keyword_or_error(l)];
+            return [0,keyword_or_error(l_)];
           case 1:
             call1(Stream[12], strm);
             reset_buffer(0);
-            store(l);
+            store(l_);
             return ident(strm);
           default:
             call1(Stream[12], strm);
             reset_buffer(0);
-            store(l);
+            store(l_);
             return ident2(strm)
           }
       }
@@ -412,24 +412,24 @@ function make_lexer(keywords) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var j = match[1];
-        if (34 === j) {call1(Stream[12], strm);return get_string(0);}
-        if (92 === j) {
+        var j_ = match[1];
+        if (34 === j_) {call1(Stream[12], strm);return get_string(0);}
+        if (92 === j_) {
           call1(Stream[12], strm);
           try {var c = escape(strm);}
-          catch(k) {
-            k = caml_wrap_exception(k);
-            if (k === Stream[1]) {
+          catch(k_) {
+            k_ = caml_wrap_exception(k_);
+            if (k_ === Stream[1]) {
               throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__1]
                     );
             }
-            throw runtime["caml_wrap_thrown_exception_reraise"](k);
+            throw runtime["caml_wrap_thrown_exception_reraise"](k_);
           }
           store(c);
           continue;
         }
         call1(Stream[12], strm);
-        store(j);
+        store(j_);
         continue;
       }
       throw runtime["caml_wrap_thrown_exception"](Stream[1]);
@@ -438,29 +438,29 @@ function make_lexer(keywords) {
   function char__0(strm) {
     var match = call1(Stream[11], strm);
     if (match) {
-      var g = match[1];
-      if (92 === g) {
+      var g_ = match[1];
+      if (92 === g_) {
         call1(Stream[12], strm);
-        try {var h = escape(strm);return h;}
-        catch(i) {
-          i = caml_wrap_exception(i);
-          if (i === Stream[1]) {
+        try {var h_ = escape(strm);return h_;}
+        catch(i_) {
+          i_ = caml_wrap_exception(i_);
+          if (i_ === Stream[1]) {
             throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__2]);
           }
-          throw runtime["caml_wrap_thrown_exception_reraise"](i);
+          throw runtime["caml_wrap_thrown_exception_reraise"](i_);
         }
       }
       call1(Stream[12], strm);
-      return g;
+      return g_;
     }
     throw runtime["caml_wrap_thrown_exception"](Stream[1]);
   }
   function escape(strm) {
     var match = call1(Stream[11], strm);
     if (match) {
-      var d = match[1];
-      if (58 <= d) {
-        var switcher = d + -110 | 0;
+      var d_ = match[1];
+      if (58 <= d_) {
+        var switcher = d_ + -110 | 0;
         if (! (6 < switcher >>> 0)) {
           switch (switcher) {
             case 0:
@@ -475,23 +475,23 @@ function make_lexer(keywords) {
             }
         }
       }
-      else if (48 <= d) {
+      else if (48 <= d_) {
         call1(Stream[12], strm);
         var match__0 = call1(Stream[11], strm);
         if (match__0) {
-          var e = match__0[1];
-          var switcher__0 = e + -48 | 0;
+          var e_ = match__0[1];
+          var switcher__0 = e_ + -48 | 0;
           if (! (9 < switcher__0 >>> 0)) {
             call1(Stream[12], strm);
             var match__1 = call1(Stream[11], strm);
             if (match__1) {
-              var f = match__1[1];
-              var switcher__1 = f + -48 | 0;
+              var f_ = match__1[1];
+              var switcher__1 = f_ + -48 | 0;
               if (! (9 < switcher__1 >>> 0)) {
                 call1(Stream[12], strm);
                 return call1(
                   Char[1],
-                  (((d + -48 | 0) * 100 | 0) + ((e + -48 | 0) * 10 | 0) | 0) + (f + -48 | 0) | 0
+                  (((d_ + -48 | 0) * 100 | 0) + ((e_ + -48 | 0) * 10 | 0) | 0) + (f_ + -48 | 0) | 0
                 );
               }
             }
@@ -501,7 +501,7 @@ function make_lexer(keywords) {
         throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__3]);
       }
       call1(Stream[12], strm);
-      return d;
+      return d_;
     }
     throw runtime["caml_wrap_thrown_exception"](Stream[1]);
   }
@@ -560,9 +560,9 @@ function make_lexer(keywords) {
     for (; ; ) {
       var match = call1(Stream[11], strm);
       if (match) {
-        var c = match[1];
-        if (41 === c) {call1(Stream[12], strm);return 0;}
-        if (42 === c) {call1(Stream[12], strm);continue;}
+        var c_ = match[1];
+        if (41 === c_) {call1(Stream[12], strm);return 0;}
+        if (42 === c_) {call1(Stream[12], strm);continue;}
         call1(Stream[12], strm);
         if (counter < 50) {
           var counter__0 = counter + 1 | 0;
@@ -575,8 +575,8 @@ function make_lexer(keywords) {
   }
   function comment(strm) {return caml_trampoline(comment__0(0, strm));}
   return function(input) {
-    function b(count) {return next_token(input);}
-    return call1(Stream[3], b);
+    function b_(count) {return next_token(input);}
+    return call1(Stream[3], b_);
   };
 }
 

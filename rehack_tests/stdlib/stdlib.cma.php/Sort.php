@@ -54,30 +54,30 @@ final class Sort {
       $initlist = new Ref();$merge2 = new Ref();
       $initlist->contents = function(dynamic $param) use ($call2,$initlist,$order) {
         if ($param) {
-          $i = $param[2];
-          $j = $param[1];
-          if ($i) {
-            $rest = $i[2];
-            $e2 = $i[1];
-            $k = $initlist->contents($rest);
-            $l = $call2($order, $j, $e2)
-              ? Vector{0, $j, Vector{0, $e2, 0}}
-              : (Vector{0, $e2, Vector{0, $j, 0}});
-            return Vector{0, $l, $k};
+          $i_ = $param[2];
+          $j_ = $param[1];
+          if ($i_) {
+            $rest = $i_[2];
+            $e2 = $i_[1];
+            $k_ = $initlist->contents($rest);
+            $l_ = $call2($order, $j_, $e2)
+              ? Vector{0, $j_, Vector{0, $e2, 0}}
+              : (Vector{0, $e2, Vector{0, $j_, 0}});
+            return Vector{0, $l_, $k_};
           }
-          return Vector{0, Vector{0, $j, 0}, 0};
+          return Vector{0, Vector{0, $j_, 0}, 0};
         }
         return 0;
       };
       $merge2->contents = function(dynamic $x) use ($merge,$merge2,$order) {
         if ($x) {
-          $g = $x[2];
-          if ($g) {
-            $rest = $g[2];
-            $l2 = $g[1];
+          $g_ = $x[2];
+          if ($g_) {
+            $rest = $g_[2];
+            $l2 = $g_[1];
             $l1 = $x[1];
-            $h = $merge2->contents($rest);
-            return Vector{0, $merge->contents($order, $l1, $l2), $h};
+            $h_ = $merge2->contents($rest);
+            return Vector{0, $merge->contents($order, $l1, $l2), $h_};
           }
         }
         return $x;
@@ -112,8 +112,8 @@ final class Sort {
         $hi__0 = $hi;
         for (;;) {
           $continue_label = null;
-          $d = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
-          if ($d) {
+          $d_ = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
+          if ($d_) {
             $mid = (int) $unsigned_right_shift_32((int) ($lo__0 + $hi__0), 1);
             if ($call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
             if ($call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
@@ -123,9 +123,9 @@ final class Sort {
             $pivot = $arr[$mid + 1];
             $i = Vector{0, (int) ($lo__0 + 1)};
             $j = Vector{0, (int) ($hi__0 + -1)};
-            $e = 1 - $call2($cmp, $pivot, $arr[$hi__0 + 1]);
-            $f = $e ? $e : (1 - $call2($cmp, $arr[$lo__0 + 1], $pivot));
-            if ($f) {
+            $e_ = 1 - $call2($cmp, $pivot, $arr[$hi__0 + 1]);
+            $f_ = $e_ ? $e_ : (1 - $call2($cmp, $arr[$lo__0 + 1], $pivot));
+            if ($f_) {
               throw $runtime["caml_wrap_thrown_exception"](
                       Vector{0, $Invalid_argument, $cst_Sort_array}
                     ) as \Throwable;
@@ -165,14 +165,14 @@ final class Sort {
             }
             if ($continue_label === "a") {continue;}
           }
-          return $d;
+          return $d_;
         }
       };
       $qsort->contents(0, (int) ($arr->count() - 1 + -1));
-      $b = (int) ($arr->count() - 1 + -1);
-      $a = 1;
-      if (! ($b < 1)) {
-        $i = $a;
+      $b_ = (int) ($arr->count() - 1 + -1);
+      $a_ = 1;
+      if (! ($b_ < 1)) {
+        $i = $a_;
         for (;;) {
           $val_i = $arr[$i + 1];
           if (1 - $call2($cmp, $arr[(int) ($i + -1) + 1], $val_i)) {
@@ -190,8 +190,8 @@ final class Sort {
               break;
             }
           }
-          $c = (int) ($i + 1);
-          if ($b !== $i) {$i = $c;continue;}
+          $c_ = (int) ($i + 1);
+          if ($b_ !== $i) {$i = $c_;continue;}
           break;
         }
       }

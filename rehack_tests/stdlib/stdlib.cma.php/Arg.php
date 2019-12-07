@@ -100,14 +100,14 @@ final class Arg {
     $Sys = $global_data["Sys"];
     $Invalid_argument = $global_data["Invalid_argument"];
     $Failure = $global_data["Failure"];
-    $v = Vector{0, Vector{2, 0, Vector{0, 0}}, $string("%s%c")};
-    $p = Vector{0, Vector{2, 0, 0}, $string("%s")};
-    $q = Vector{0, Vector{2, 0, 0}, $string("%s")};
-    $n = Vector{0, Vector{2, 0, 0}, $string("%s")};
-    $o = Vector{0, Vector{2, 0, 0}, $string("%s")};
-    $l = Vector{0, Vector{2, 0, 0}, $string("%s")};
-    $m = Vector{0, Vector{2, 0, 0}, $string("%s")};
-    $f = Vector{
+    $v_ = Vector{0, Vector{2, 0, Vector{0, 0}}, $string("%s%c")};
+    $p_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $q_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $n_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $o_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $l_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $m_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $f_ = Vector{
       0,
       Vector{
         2,
@@ -120,7 +120,7 @@ final class Arg {
       },
       $string("%s: unknown option '%s'.\n")
     };
-    $i = Vector{
+    $i_ = Vector{
       0,
       Vector{
         2,
@@ -149,7 +149,7 @@ final class Arg {
       },
       $string("%s: wrong argument '%s'; option '%s' expects %s.\n")
     };
-    $j = Vector{
+    $j_ = Vector{
       0,
       Vector{
         2,
@@ -162,7 +162,7 @@ final class Arg {
       },
       $string("%s: option '%s' needs an argument.\n")
     };
-    $k = Vector{
+    $k_ = Vector{
       0,
       Vector{
         2,
@@ -171,12 +171,12 @@ final class Arg {
       },
       $string("%s: %s.\n")
     };
-    $g = Vector{0, $string("-help")};
-    $h = Vector{0, $string("--help")};
-    $e = Vector{0, Vector{2, 0, 0}, $string("%s")};
-    $d = Vector{0, Vector{2, 0, Vector{12, 10, 0}}, $string("%s\n")};
-    $c = Vector{0, $string("-help")};
-    $a = Vector{
+    $g_ = Vector{0, $string("-help")};
+    $h_ = Vector{0, $string("--help")};
+    $e_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
+    $d_ = Vector{0, Vector{2, 0, Vector{12, 10, 0}}, $string("%s\n")};
+    $c_ = Vector{0, $string("-help")};
+    $a_ = Vector{
       0,
       Vector{
         11,
@@ -185,7 +185,7 @@ final class Arg {
       },
       $string("  %s %s\n")
     };
-    $b = Vector{
+    $b_ = Vector{
       0,
       Vector{
         11,
@@ -219,7 +219,7 @@ final class Arg {
     $split = function(dynamic $s) use ($String,$call2,$call3,$caml_ml_string_length) {
       $i = $call2($String[14], $s, 61);
       $len = $caml_ml_string_length($s);
-      $aG = $call3(
+      $aG_ = $call3(
         $String[4],
         $s,
         (int)
@@ -227,49 +227,49 @@ final class Arg {
         (int)
         ($len - (int) ($i + 1))
       );
-      return Vector{0, $call3($String[4], $s, 0, $i), $aG};
+      return Vector{0, $call3($String[4], $s, 0, $i), $aG_};
     };
     $make_symlist = function
     (dynamic $prefix, dynamic $sep, dynamic $suffix, dynamic $l) use ($List,$Pervasives,$call2,$call3,$cst_none) {
       if ($l) {
         $t = $l[2];
         $h = $l[1];
-        $aC = $call2($Pervasives[16], $prefix, $h);
-        $aD = function(dynamic $x, dynamic $y) use ($Pervasives,$call2,$sep) {
-          $aF = $call2($Pervasives[16], $sep, $y);
-          return $call2($Pervasives[16], $x, $aF);
+        $aC_ = $call2($Pervasives[16], $prefix, $h);
+        $aD_ = function(dynamic $x, dynamic $y) use ($Pervasives,$call2,$sep) {
+          $aF_ = $call2($Pervasives[16], $sep, $y);
+          return $call2($Pervasives[16], $x, $aF_);
         };
-        $aE = $call3($List[20], $aD, $aC, $t);
-        return $call2($Pervasives[16], $aE, $suffix);
+        $aE_ = $call3($List[20], $aD_, $aC_, $t);
+        return $call2($Pervasives[16], $aE_, $suffix);
       }
       return $cst_none;
     };
-    $print_spec = function(dynamic $buf, dynamic $param) use ($Printf,$a,$b,$call4,$call5,$caml_ml_string_length,$cst,$cst__0,$cst__1,$make_symlist) {
+    $print_spec = function(dynamic $buf, dynamic $param) use ($Printf,$a_,$b_,$call4,$call5,$caml_ml_string_length,$cst,$cst__0,$cst__1,$make_symlist) {
       $doc = $param[3];
       $spec = $param[2];
       $key = $param[1];
-      $aA = 0 < $caml_ml_string_length($doc) ? 1 : (0);
-      if ($aA) {
+      $aA_ = 0 < $caml_ml_string_length($doc) ? 1 : (0);
+      if ($aA_) {
         if (11 === $spec[0]) {
           $l = $spec[1];
-          $aB = $make_symlist($cst__1, $cst__0, $cst, $l);
-          return $call5($Printf[5], $buf, $b, $key, $aB, $doc);
+          $aB_ = $make_symlist($cst__1, $cst__0, $cst, $l);
+          return $call5($Printf[5], $buf, $b_, $key, $aB_, $doc);
         }
-        return $call4($Printf[5], $buf, $a, $key, $doc);
+        return $call4($Printf[5], $buf, $a_, $key, $doc);
       }
-      return $aA;
+      return $aA_;
     };
-    $help_action = function(dynamic $param) use ($Stop,$c,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stop, $c}) as \Throwable;
+    $help_action = function(dynamic $param) use ($Stop,$c_,$runtime) {
+      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stop, $c_}) as \Throwable;
     };
     $add_help = function(dynamic $speclist) use ($Not_found,$Pervasives,$assoc3,$call2,$caml_wrap_exception,$cst_Display_this_list_of_options,$cst_Display_this_list_of_options__0,$cst_help,$cst_help__0,$cst_help__1,$cst_help__2,$help_action,$runtime) {
-      try {$assoc3($cst_help__2, $speclist);$ax = 0;$at = $ax;}
-      catch(\Throwable $az) {
-        $az = $caml_wrap_exception($az);
-        if ($az !== $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($az) as \Throwable;
+      try {$assoc3($cst_help__2, $speclist);$ax_ = 0;$at_ = $ax_;}
+      catch(\Throwable $az_) {
+        $az_ = $caml_wrap_exception($az_);
+        if ($az_ !== $Not_found) {
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($az_) as \Throwable;
         }
-        $as = Vector{
+        $as_ = Vector{
           0,
           Vector{
             0,
@@ -279,15 +279,15 @@ final class Arg {
           },
           0
         };
-        $at = $as;
+        $at_ = $as_;
       }
-      try {$assoc3($cst_help__1, $speclist);$aw = 0;$add2 = $aw;}
-      catch(\Throwable $ay) {
-        $ay = $caml_wrap_exception($ay);
-        if ($ay !== $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($ay) as \Throwable;
+      try {$assoc3($cst_help__1, $speclist);$aw_ = 0;$add2 = $aw_;}
+      catch(\Throwable $ay_) {
+        $ay_ = $caml_wrap_exception($ay_);
+        if ($ay_ !== $Not_found) {
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($ay_) as \Throwable;
         }
-        $au = Vector{
+        $au_ = Vector{
           0,
           Vector{
             0,
@@ -297,57 +297,58 @@ final class Arg {
           },
           0
         };
-        $add2 = $au;
+        $add2 = $au_;
       }
-      $av = $call2($Pervasives[25], $at, $add2);
-      return $call2($Pervasives[25], $speclist, $av);
+      $av_ = $call2($Pervasives[25], $at_, $add2);
+      return $call2($Pervasives[25], $speclist, $av_);
     };
-    $usage_b = function(dynamic $buf, dynamic $speclist, dynamic $errmsg) use ($List,$Printf,$add_help,$call2,$call3,$d,$print_spec) {
-      $call3($Printf[5], $buf, $d, $errmsg);
-      $ap = $add_help($speclist);
-      $aq = function(dynamic $ar) use ($buf,$print_spec) {
-        return $print_spec($buf, $ar);
+    $usage_b = function(dynamic $buf, dynamic $speclist, dynamic $errmsg) use ($List,$Printf,$add_help,$call2,$call3,$d_,$print_spec) {
+      $call3($Printf[5], $buf, $d_, $errmsg);
+      $ap_ = $add_help($speclist);
+      $aq_ = function(dynamic $ar_) use ($buf,$print_spec) {
+        return $print_spec($buf, $ar_);
       };
-      return $call2($List[15], $aq, $ap);
+      return $call2($List[15], $aq_, $ap_);
     };
     $usage_string = function(dynamic $speclist, dynamic $errmsg) use ($Buffer,$call1,$usage_b) {
       $b = $call1($Buffer[1], 200);
       $usage_b($b, $speclist, $errmsg);
       return $call1($Buffer[2], $b);
     };
-    $usage = function(dynamic $speclist, dynamic $errmsg) use ($Printf,$call2,$e,$usage_string) {
-      $ao = $usage_string($speclist, $errmsg);
-      return $call2($Printf[3], $e, $ao);
+    $usage = function(dynamic $speclist, dynamic $errmsg) use ($Printf,$call2,$e_,$usage_string) {
+      $ao_ = $usage_string($speclist, $errmsg);
+      return $call2($Printf[3], $e_, $ao_);
     };
     $current = Vector{0, 0};
     $bool_of_string_opt = function(dynamic $x) use ($Invalid_argument,$Pervasives,$call1,$caml_wrap_exception,$runtime) {
-      try {$am = Vector{0, $call1($Pervasives[19], $x)};return $am;}
-      catch(\Throwable $an) {
-        $an = $caml_wrap_exception($an);
-        if ($an[1] === $Invalid_argument) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($an) as \Throwable;
+      try {$am_ = Vector{0, $call1($Pervasives[19], $x)};return $am_;}
+      catch(\Throwable $an_) {
+        $an_ = $caml_wrap_exception($an_);
+        if ($an_[1] === $Invalid_argument) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($an_) as \Throwable;
       }
     };
     $int_of_string_opt = function(dynamic $x) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$ak = Vector{0, $runtime["caml_int_of_string"]($x)};return $ak;}
-      catch(\Throwable $al) {
-        $al = $caml_wrap_exception($al);
-        if ($al[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($al) as \Throwable;
+      try {$ak_ = Vector{0, $runtime["caml_int_of_string"]($x)};return $ak_;}
+      catch(\Throwable $al_) {
+        $al_ = $caml_wrap_exception($al_);
+        if ($al_[1] === $Failure) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($al_) as \Throwable;
       }
     };
     $float_of_string_opt = function(dynamic $x) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$ai = Vector{0, $runtime["caml_float_of_string"]($x)};return $ai;}
-      catch(\Throwable $aj) {
-        $aj = $caml_wrap_exception($aj);
-        if ($aj[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($aj) as \Throwable;
+      try {$ai_ = Vector{0, $runtime["caml_float_of_string"]($x)};return $ai_;
+      }
+      catch(\Throwable $aj_) {
+        $aj_ = $caml_wrap_exception($aj_);
+        if ($aj_[1] === $Failure) {return 0;}
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($aj_) as \Throwable;
       }
     };
     $parse_and_expand_argv_dynamic_aux = function
-    (dynamic $allow_expand, dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) use ($Array,$Bad,$Buffer,$Help,$Invalid_argument,$List,$Not_found,$Pervasives,$Printf,$Stop,$assoc3,$bool_of_string_opt,$call1,$call2,$call3,$call4,$call6,$caml_check_bound,$caml_equal,$caml_ml_string_length,$caml_string_get,$caml_string_notequal,$caml_wrap_exception,$cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic,$cst__2,$cst__3,$cst__4,$cst__5,$cst_a_boolean,$cst_a_float,$cst_a_float__0,$cst_an_integer,$cst_an_integer__0,$cst_help__3,$cst_help__4,$cst_no_argument,$cst_one_of,$f,$float_of_string_opt,$g,$h,$i,$int_of_string_opt,$j,$k,$make_symlist,$runtime,$split,$usage_b) {
+    (dynamic $allow_expand, dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) use ($Array,$Bad,$Buffer,$Help,$Invalid_argument,$List,$Not_found,$Pervasives,$Printf,$Stop,$assoc3,$bool_of_string_opt,$call1,$call2,$call3,$call4,$call6,$caml_check_bound,$caml_equal,$caml_ml_string_length,$caml_string_get,$caml_string_notequal,$caml_wrap_exception,$cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic,$cst__2,$cst__3,$cst__4,$cst__5,$cst_a_boolean,$cst_a_float,$cst_a_float__0,$cst_an_integer,$cst_an_integer__0,$cst_help__3,$cst_help__4,$cst_no_argument,$cst_one_of,$f_,$float_of_string_opt,$g_,$h_,$i_,$int_of_string_opt,$j_,$k_,$make_symlist,$runtime,$split,$usage_b) {
       $initpos = $current[1];
-      $convert_error = function(dynamic $error) use ($Bad,$Buffer,$Help,$Printf,$argv,$call1,$call4,$call6,$caml_check_bound,$caml_equal,$caml_string_notequal,$cst__2,$cst_help__3,$cst_help__4,$errmsg,$f,$g,$h,$i,$initpos,$j,$k,$speclist,$usage_b) {
+      $convert_error = function(dynamic $error) use ($Bad,$Buffer,$Help,$Printf,$argv,$call1,$call4,$call6,$caml_check_bound,$caml_equal,$caml_string_notequal,$cst__2,$cst_help__3,$cst_help__4,$errmsg,$f_,$g_,$h_,$i_,$initpos,$j_,$k_,$speclist,$usage_b) {
         $b = $call1($Buffer[1], 200);
         $progname = $initpos < $argv[1]->count() - 1
           ? $caml_check_bound($argv[1], $initpos)[$initpos + 1]
@@ -355,9 +356,9 @@ final class Arg {
         switch($error[0]) {
           // FALLTHROUGH
           case 0:
-            $ah = $error[1];
-            if ($caml_string_notequal($ah, $cst_help__3)) {
-              if ($caml_string_notequal($ah, $cst_help__4)) {$call4($Printf[5], $b, $f, $progname, $ah);}
+            $ah_ = $error[1];
+            if ($caml_string_notequal($ah_, $cst_help__3)) {
+              if ($caml_string_notequal($ah_, $cst_help__4)) {$call4($Printf[5], $b, $f_, $progname, $ah_);}
             }
             break;
           // FALLTHROUGH
@@ -365,21 +366,21 @@ final class Arg {
             $expected = $error[3];
             $arg = $error[2];
             $opt = $error[1];
-            $call6($Printf[5], $b, $i, $progname, $arg, $opt, $expected);
+            $call6($Printf[5], $b, $i_, $progname, $arg, $opt, $expected);
             break;
           // FALLTHROUGH
           case 2:
             $s = $error[1];
-            $call4($Printf[5], $b, $j, $progname, $s);
+            $call4($Printf[5], $b, $j_, $progname, $s);
             break;
           // FALLTHROUGH
           default:
             $s__0 = $error[1];
-            $call4($Printf[5], $b, $k, $progname, $s__0);
+            $call4($Printf[5], $b, $k_, $progname, $s__0);
           }
         $usage_b($b, $speclist[1], $errmsg);
-        if (! $caml_equal($error, $g)) {
-          if (! $caml_equal($error, $h)) {
+        if (! $caml_equal($error, $g_)) {
+          if (! $caml_equal($error, $h_)) {
             return Vector{0, $Bad, $call1($Buffer[2], $b)};
           }
         }
@@ -389,36 +390,36 @@ final class Arg {
       for (;;) {
         if ($current[1] < $argv[1]->count() - 1) {
           try {
-            $Z = $current[1];
-            $s = $caml_check_bound($argv[1], $Z)[$Z + 1];
+            $Z_ = $current[1];
+            $s = $caml_check_bound($argv[1], $Z_)[$Z_ + 1];
             if (1 <= $caml_ml_string_length($s)) {
               if (45 === $caml_string_get($s, 0)) {
                 try {
                   $follow__1 = 0;
-                  $ab = $assoc3($s, $speclist[1]);
-                  $action = $ab;
+                  $ab_ = $assoc3($s, $speclist[1]);
+                  $action = $ab_;
                   $follow__0 = $follow__1;
                 }
-                catch(\Throwable $af) {
-                  $af = $caml_wrap_exception($af);
-                  if ($af !== $Not_found) {
-                    throw $runtime["caml_wrap_thrown_exception_reraise"]($af) as \Throwable;
+                catch(\Throwable $af_) {
+                  $af_ = $caml_wrap_exception($af_);
+                  if ($af_ !== $Not_found) {
+                    throw $runtime["caml_wrap_thrown_exception_reraise"]($af_) as \Throwable;
                   }
                   try {
                     $match = $split($s);
                     $arg = $match[2];
                     $keyword = $match[1];
                     $follow = Vector{0, $arg};
-                    $aa = $assoc3($keyword, $speclist[1]);
+                    $aa_ = $assoc3($keyword, $speclist[1]);
                   }
-                  catch(\Throwable $ag) {
-                    $ag = $caml_wrap_exception($ag);
-                    if ($ag === $Not_found) {
+                  catch(\Throwable $ag_) {
+                    $ag_ = $caml_wrap_exception($ag_);
+                    if ($ag_ === $Not_found) {
                       throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stop, Vector{0, $s}}) as \Throwable;
                     }
-                    throw $runtime["caml_wrap_thrown_exception_reraise"]($ag) as \Throwable;
+                    throw $runtime["caml_wrap_thrown_exception_reraise"]($ag_) as \Throwable;
                   }
-                  $action = $aa;
+                  $action = $aa_;
                   $follow__0 = $follow;
                 }
                 $no_arg__0 = function(dynamic $s, dynamic $follow) use ($Stop,$cst_no_argument,$runtime) {
@@ -438,8 +439,8 @@ final class Arg {
                   $get_arg = function(dynamic $param) use ($Stop,$argv,$caml_check_bound,$current,$follow,$runtime,$s) {
                     if ($follow) {$arg = $follow[1];return $arg;}
                     if ((int) ($current[1] + 1) < $argv[1]->count() - 1) {
-                      $ae = (int) ($current[1] + 1);
-                      return $caml_check_bound($argv[1], $ae)[$ae + 1];
+                      $ae_ = (int) ($current[1] + 1);
+                      return $caml_check_bound($argv[1], $ae_)[$ae_ + 1];
                     }
                     throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stop, Vector{2, $s}}) as \Throwable;
                   };
@@ -565,7 +566,7 @@ final class Arg {
                           $call1($f__4, $arg__5);
                           return $consume_arg(0);
                         }
-                        $ac = $make_symlist($cst__5, $cst__4, $cst__3, $symb);
+                        $ac_ = $make_symlist($cst__5, $cst__4, $cst__3, $symb);
                         throw $runtime["caml_wrap_thrown_exception"](
                                 Vector{
                                   0,
@@ -574,7 +575,7 @@ final class Arg {
                                     1,
                                     $s,
                                     $arg__5,
-                                    $call2($Pervasives[16], $cst_one_of, $ac)
+                                    $call2($Pervasives[16], $cst_one_of, $ac_)
                                   }
                                 }
                               ) as \Throwable;
@@ -583,8 +584,8 @@ final class Arg {
                         $f__5 = $param[1];
                         for (;;) {
                           if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
-                            $ad = (int) ($current[1] + 1);
-                            $call1($f__5, $caml_check_bound($argv[1], $ad)[$ad + 1]);
+                            $ad_ = (int) ($current[1] + 1);
+                            $call1($f__5, $caml_check_bound($argv[1], $ad_)[$ad_ + 1]);
                             $consume_arg(0);
                             continue;
                           }
@@ -704,64 +705,64 @@ final class Arg {
         $errmsg
       );
     };
-    $parse = function(dynamic $l__0, dynamic $f, dynamic $msg) use ($Bad,$Help,$Pervasives,$Printf,$Sys,$call1,$call2,$caml_wrap_exception,$l,$m,$parse_argv,$runtime) {
-      try {$Y = $parse_argv(0, $Sys[1], $l__0, $f, $msg);return $Y;}
+    $parse = function(dynamic $l, dynamic $f, dynamic $msg) use ($Bad,$Help,$Pervasives,$Printf,$Sys,$call1,$call2,$caml_wrap_exception,$l_,$m_,$parse_argv,$runtime) {
+      try {$Y_ = $parse_argv(0, $Sys[1], $l, $f, $msg);return $Y_;}
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($exn[1] === $Bad) {
           $msg__0 = $exn[2];
-          $call2($Printf[3], $l, $msg__0);
+          $call2($Printf[3], $l_, $msg__0);
           return $call1($Pervasives[87], 2);
         }
         if ($exn[1] === $Help) {
           $msg__1 = $exn[2];
-          $call2($Printf[2], $m, $msg__1);
+          $call2($Printf[2], $m_, $msg__1);
           return $call1($Pervasives[87], 0);
         }
         throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
-    $parse_dynamic = function(dynamic $l, dynamic $f, dynamic $msg) use ($Bad,$Help,$Pervasives,$Printf,$Sys,$call1,$call2,$caml_wrap_exception,$n,$o,$parse_argv_dynamic,$runtime) {
-      try {$X = $parse_argv_dynamic(0, $Sys[1], $l, $f, $msg);return $X;}
+    $parse_dynamic = function(dynamic $l, dynamic $f, dynamic $msg) use ($Bad,$Help,$Pervasives,$Printf,$Sys,$call1,$call2,$caml_wrap_exception,$n_,$o_,$parse_argv_dynamic,$runtime) {
+      try {$X_ = $parse_argv_dynamic(0, $Sys[1], $l, $f, $msg);return $X_;}
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($exn[1] === $Bad) {
           $msg__0 = $exn[2];
-          $call2($Printf[3], $n, $msg__0);
+          $call2($Printf[3], $n_, $msg__0);
           return $call1($Pervasives[87], 2);
         }
         if ($exn[1] === $Help) {
           $msg__1 = $exn[2];
-          $call2($Printf[2], $o, $msg__1);
+          $call2($Printf[2], $o_, $msg__1);
           return $call1($Pervasives[87], 0);
         }
         throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
       }
     };
-    $parse_expand = function(dynamic $l, dynamic $f, dynamic $msg) use ($Bad,$Help,$Pervasives,$Printf,$Sys,$call1,$call2,$caml_wrap_exception,$current,$p,$parse_and_expand_argv_dynamic,$q,$runtime) {
+    $parse_expand = function(dynamic $l, dynamic $f, dynamic $msg) use ($Bad,$Help,$Pervasives,$Printf,$Sys,$call1,$call2,$caml_wrap_exception,$current,$p_,$parse_and_expand_argv_dynamic,$q_,$runtime) {
       try {
         $argv = Vector{0, $Sys[1]};
         $spec = Vector{0, $l};
         $current__0 = Vector{0, $current[1]};
-        $W = $parse_and_expand_argv_dynamic(
+        $W_ = $parse_and_expand_argv_dynamic(
           $current__0,
           $argv,
           $spec,
           $f,
           $msg
         );
-        return $W;
+        return $W_;
       }
       catch(\Throwable $exn) {
         $exn = $caml_wrap_exception($exn);
         if ($exn[1] === $Bad) {
           $msg__0 = $exn[2];
-          $call2($Printf[3], $p, $msg__0);
+          $call2($Printf[3], $p_, $msg__0);
           return $call1($Pervasives[87], 2);
         }
         if ($exn[1] === $Help) {
           $msg__1 = $exn[2];
-          $call2($Printf[2], $q, $msg__1);
+          $call2($Printf[2], $q_, $msg__1);
           return $call1($Pervasives[87], 0);
         }
         throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
@@ -782,18 +783,18 @@ final class Arg {
         }
       };
       try {$n__0 = $call2($String[14], $s, 9);}
-      catch(\Throwable $U) {
-        $U = $caml_wrap_exception($U);
-        if ($U === $Not_found) {
+      catch(\Throwable $U_) {
+        $U_ = $caml_wrap_exception($U_);
+        if ($U_ === $Not_found) {
           try {$n = $call2($String[14], $s, 32);}
-          catch(\Throwable $V) {
-            $V = $caml_wrap_exception($V);
-            if ($V === $Not_found) {return $len;}
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($V) as \Throwable;
+          catch(\Throwable $V_) {
+            $V_ = $caml_wrap_exception($V_);
+            if ($V_ === $Not_found) {return $len;}
+            throw $runtime["caml_wrap_thrown_exception_reraise"]($V_) as \Throwable;
           }
           return $loop((int) ($n + 1));
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($U) as \Throwable;
+        throw $runtime["caml_wrap_thrown_exception_reraise"]($U_) as \Throwable;
       }
       return $loop((int) ($n__0 + 1));
     };
@@ -804,39 +805,39 @@ final class Arg {
       if (11 === $spec[0]) {
         return $call2($Pervasives[5], $cur, $caml_ml_string_length($kwd));
       }
-      $T = (int) ($caml_ml_string_length($kwd) + $second_word($doc));
-      return $call2($Pervasives[5], $cur, $T);
+      $T_ = (int) ($caml_ml_string_length($kwd) + $second_word($doc));
+      return $call2($Pervasives[5], $cur, $T_);
     };
     $replace_leading_tab = function(dynamic $s) use ($String,$call2) {
       $seen = Vector{0, 0};
-      $S = function(dynamic $c) use ($seen) {
+      $S_ = function(dynamic $c) use ($seen) {
         if (9 === $c) {if (! $seen[1]) {$seen[1] = 1;return 32;}}
         return $c;
       };
-      return $call2($String[10], $S, $s);
+      return $call2($String[10], $S_, $s);
     };
     $add_padding = function(dynamic $len, dynamic $ksd) use ($Pervasives,$String,$call2,$call3,$caml_ml_string_length,$caml_string_notequal,$cst__6,$cst__7,$replace_leading_tab,$second_word) {
-      $L = $ksd[2];
-      $M = $ksd[1];
+      $L_ = $ksd[2];
+      $M_ = $ksd[1];
       if ($caml_string_notequal($ksd[3], $cst__6)) {
-        if (11 === $L[0]) {
+        if (11 === $L_[0]) {
           $msg__0 = $ksd[3];
           $cutcol__0 = $second_word($msg__0);
-          $P = (int)
+          $P_ = (int)
           ($call2($Pervasives[5], 0, (int) ($len - $cutcol__0)) + 3);
-          $spaces__0 = $call2($String[1], $P, 32);
-          $Q = $replace_leading_tab($msg__0);
-          $R = $call2($Pervasives[16], $spaces__0, $Q);
-          return Vector{0, $M, $L, $call2($Pervasives[16], $cst__7, $R)};
+          $spaces__0 = $call2($String[1], $P_, 32);
+          $Q_ = $replace_leading_tab($msg__0);
+          $R_ = $call2($Pervasives[16], $spaces__0, $Q_);
+          return Vector{0, $M_, $L_, $call2($Pervasives[16], $cst__7, $R_)};
         }
         $msg = $ksd[3];
         $cutcol = $second_word($msg);
-        $kwd_len = $caml_ml_string_length($M);
+        $kwd_len = $caml_ml_string_length($M_);
         $diff = (int) ((int) ($len - $kwd_len) - $cutcol);
         if (0 < $diff) {
           $spaces = $call2($String[1], $diff, 32);
-          $N = $replace_leading_tab($msg);
-          $prefix = $call3($String[4], $N, 0, $cutcol);
+          $N_ = $replace_leading_tab($msg);
+          $prefix = $call3($String[4], $N_, 0, $cutcol);
           $suffix = $call3(
             $String[4],
             $msg,
@@ -844,10 +845,10 @@ final class Arg {
             (int)
             ($caml_ml_string_length($msg) - $cutcol)
           );
-          $O = $call2($Pervasives[16], $spaces, $suffix);
-          return Vector{0, $M, $L, $call2($Pervasives[16], $prefix, $O)};
+          $O_ = $call2($Pervasives[16], $spaces, $suffix);
+          return Vector{0, $M_, $L_, $call2($Pervasives[16], $prefix, $O_)};
         }
-        return Vector{0, $M, $L, $replace_leading_tab($msg)};
+        return Vector{0, $M_, $L_, $replace_leading_tab($msg)};
       }
       return $ksd;
     };
@@ -860,10 +861,10 @@ final class Arg {
       $completed = $add_help($speclist);
       $len = $call3($List[20], $max_arg_len, 0, $completed);
       $len__0 = $call2($Pervasives[4], $len, $limit);
-      $J = function(dynamic $K) use ($add_padding,$len__0) {
-        return $add_padding($len__0, $K);
+      $J_ = function(dynamic $K_) use ($add_padding,$len__0) {
+        return $add_padding($len__0, $K_);
       };
-      return $call2($List[17], $J, $completed);
+      return $call2($List[17], $J_, $completed);
     };
     $trim_cr = function(dynamic $s) use ($String,$call3,$caml_ml_string_length,$caml_string_get) {
       $len = $caml_ml_string_length($s);
@@ -890,50 +891,50 @@ final class Arg {
           $c = $call1($Pervasives[70], $ic);
           if ($c === $sep) {
             $stash(0);
-            $H = $read->contents(0);
+            $H_ = $read->contents(0);
           }
-          else {$call2($Buffer[10], $buf, $c);$H = $read->contents(0);}
-          return $H;
+          else {$call2($Buffer[10], $buf, $c);$H_ = $read->contents(0);}
+          return $H_;
         }
-        catch(\Throwable $I) {
-          $I = $caml_wrap_exception($I);
-          if ($I === $End_of_file) {
-            $G = 0 < $call1($Buffer[7], $buf) ? 1 : (0);
-            return $G ? $stash(0) : ($G);
+        catch(\Throwable $I_) {
+          $I_ = $caml_wrap_exception($I_);
+          if ($I_ === $End_of_file) {
+            $G_ = 0 < $call1($Buffer[7], $buf) ? 1 : (0);
+            return $G_ ? $stash(0) : ($G_);
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($I) as \Throwable;
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($I_) as \Throwable;
         }
       };
       $read->contents(0);
       $call1($Pervasives[81], $ic);
-      $F = $call1($List[9], $words[1]);
-      return $call1($Array[12], $F);
+      $F_ = $call1($List[9], $words[1]);
+      return $call1($Array[12], $F_);
     };
-    $r = 10;
-    $s = 1;
-    $read_arg = function(dynamic $E) use ($r,$read_aux,$s) {
-      return $read_aux($s, $r, $E);
+    $r_ = 10;
+    $s_ = 1;
+    $read_arg = function(dynamic $E_) use ($r_,$read_aux,$s_) {
+      return $read_aux($s_, $r_, $E_);
     };
-    $t = 0;
-    $u = 0;
-    $read_arg0 = function(dynamic $D) use ($read_aux,$t,$u) {
-      return $read_aux($u, $t, $D);
+    $t_ = 0;
+    $u_ = 0;
+    $read_arg0 = function(dynamic $D_) use ($read_aux,$t_,$u_) {
+      return $read_aux($u_, $t_, $D_);
     };
-    $write_aux = function(dynamic $sep, dynamic $file, dynamic $args) use ($Array,$Pervasives,$Printf,$call1,$call2,$call4,$v) {
+    $write_aux = function(dynamic $sep, dynamic $file, dynamic $args) use ($Array,$Pervasives,$Printf,$call1,$call2,$call4,$v_) {
       $oc = $call1($Pervasives[49], $file);
-      $C = function(dynamic $s) use ($Printf,$call4,$oc,$sep,$v) {
-        return $call4($Printf[1], $oc, $v, $s, $sep);
+      $C_ = function(dynamic $s) use ($Printf,$call4,$oc,$sep,$v_) {
+        return $call4($Printf[1], $oc, $v_, $s, $sep);
       };
-      $call2($Array[13], $C, $args);
+      $call2($Array[13], $C_, $args);
       return $call1($Pervasives[64], $oc);
     };
-    $w = 10;
-    $write_arg = function(dynamic $A, dynamic $B) use ($w,$write_aux) {
-      return $write_aux($w, $A, $B);
+    $w_ = 10;
+    $write_arg = function(dynamic $A_, dynamic $B_) use ($w_,$write_aux) {
+      return $write_aux($w_, $A_, $B_);
     };
-    $x = 0;
-    $write_arg0 = function(dynamic $y, dynamic $z) use ($write_aux,$x) {
-      return $write_aux($x, $y, $z);
+    $x_ = 0;
+    $write_arg0 = function(dynamic $y_, dynamic $z_) use ($write_aux,$x_) {
+      return $write_aux($x_, $y_, $z_);
     };
     $Arg = Vector{
       0,

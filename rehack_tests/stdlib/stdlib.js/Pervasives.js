@@ -69,18 +69,18 @@ var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
 var Sys_error = global_data["Sys_error"];
 var Failure = global_data["Failure"];
 var Invalid_argument = global_data["Invalid_argument"];
-var l = [0,0,[0,6,0]];
-var k = [0,0,[0,7,0]];
-var j = [0,1,[0,3,[0,4,[0,6,0]]]];
-var i = [0,1,[0,3,[0,4,[0,7,0]]]];
-var g = [0,1];
-var h = [0,0];
-var a = [255,0,0,32752];
-var b = [255,0,0,65520];
-var c = [255,1,0,32752];
-var d = [255,16777215,16777215,32751];
-var e = [255,0,0,16];
-var f = [255,0,0,15536];
+var l_ = [0,0,[0,6,0]];
+var k_ = [0,0,[0,7,0]];
+var j_ = [0,1,[0,3,[0,4,[0,6,0]]]];
+var i_ = [0,1,[0,3,[0,4,[0,7,0]]]];
+var g_ = [0,1];
+var h_ = [0,0];
+var a_ = [255,0,0,32752];
+var b_ = [255,0,0,65520];
+var c_ = [255,1,0,32752];
+var d_ = [255,16777215,16777215,32751];
+var e_ = [255,0,0,16];
+var f_ = [255,0,0,15536];
 
 function failwith(s) {
   throw runtime["caml_wrap_thrown_exception"]([0,Failure,s]);
@@ -100,12 +100,12 @@ function abs(x) {return 0 <= x ? x : - x | 0;}
 
 function lnot(x) {return x ^ -1;}
 
-var infinity = caml_int64_float_of_bits(a);
-var neg_infinity = caml_int64_float_of_bits(b);
-var nan = caml_int64_float_of_bits(c);
-var max_float = caml_int64_float_of_bits(d);
-var min_float = caml_int64_float_of_bits(e);
-var epsilon_float = caml_int64_float_of_bits(f);
+var infinity = caml_int64_float_of_bits(a_);
+var neg_infinity = caml_int64_float_of_bits(b_);
+var nan = caml_int64_float_of_bits(c_);
+var max_float = caml_int64_float_of_bits(d_);
+var min_float = caml_int64_float_of_bits(e_);
+var epsilon_float = caml_int64_float_of_bits(f_);
 var max_int = 2147483647;
 var min_int = -2147483648;
 
@@ -135,18 +135,18 @@ function bool_of_string(param) {
 
 function bool_of_string_opt(param) {
   return caml_string_notequal(param, cst_false__1) ?
-    caml_string_notequal(param, cst_true__1) ? 0 : g :
-    h;
+    caml_string_notequal(param, cst_true__1) ? 0 : g_ :
+    h_;
 }
 
 function string_of_int(n) {return string("" + n);}
 
 function int_of_string_opt(s) {
-  try {var ay = [0,caml_int_of_string(s)];return ay;}
-  catch(az) {
-    az = caml_wrap_exception(az);
-    if (az[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](az);
+  try {var ay_ = [0,caml_int_of_string(s)];return ay_;}
+  catch(az_) {
+    az_ = caml_wrap_exception(az_);
+    if (az_[1] === Failure) {return 0;}
+    throw runtime["caml_wrap_thrown_exception_reraise"](az_);
   }
 }
 
@@ -170,11 +170,11 @@ function string_of_float(f) {
 }
 
 function float_of_string_opt(s) {
-  try {var aw = [0,caml_float_of_string(s)];return aw;}
-  catch(ax) {
-    ax = caml_wrap_exception(ax);
-    if (ax[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](ax);
+  try {var aw_ = [0,caml_float_of_string(s)];return aw_;}
+  catch(ax_) {
+    ax_ = caml_wrap_exception(ax_);
+    if (ax_[1] === Failure) {return 0;}
+    throw runtime["caml_wrap_thrown_exception_reraise"](ax_);
   }
 }
 
@@ -193,9 +193,9 @@ function open_out_gen(mode, perm, name) {
   return c;
 }
 
-function open_out(name) {return open_out_gen(i, 438, name);}
+function open_out(name) {return open_out_gen(i_, 438, name);}
 
-function open_out_bin(name) {return open_out_gen(j, 438, name);}
+function open_out_bin(name) {return open_out_gen(j_, 438, name);}
 
 function flush_all(param) {
   function iter(param) {
@@ -205,10 +205,10 @@ function flush_all(param) {
         var l = param__0[2];
         var a = param__0[1];
         try {caml_ml_flush(a);}
-        catch(av) {
-          av = caml_wrap_exception(av);
-          if (av[1] !== Sys_error) {
-            throw runtime["caml_wrap_thrown_exception_reraise"](av);
+        catch(av_) {
+          av_ = caml_wrap_exception(av_);
+          if (av_[1] !== Sys_error) {
+            throw runtime["caml_wrap_thrown_exception_reraise"](av_);
           }
         }
         var param__0 = l;
@@ -253,8 +253,8 @@ function output_value(chan, v) {
 function close_out(oc) {caml_ml_flush(oc);return caml_ml_close_channel(oc);}
 
 function close_out_noerr(oc) {
-  try {caml_ml_flush(oc);}catch(au) {}
-  try {var as = caml_ml_close_channel(oc);return as;}catch(at) {return 0;}
+  try {caml_ml_flush(oc);}catch(au_) {}
+  try {var as_ = caml_ml_close_channel(oc);return as_;}catch(at_) {return 0;}
 }
 
 function open_in_gen(mode, perm, name) {
@@ -263,9 +263,9 @@ function open_in_gen(mode, perm, name) {
   return c;
 }
 
-function open_in(name) {return open_in_gen(k, 0, name);}
+function open_in(name) {return open_in_gen(k_, 0, name);}
 
-function open_in_bin(name) {return open_in_gen(l, 0, name);}
+function open_in_bin(name) {return open_in_gen(l_, 0, name);}
 
 function input(ic, s, ofs, len) {
   if (0 <= ofs) {
@@ -364,7 +364,7 @@ function input_line(chan) {
 }
 
 function close_in_noerr(ic) {
-  try {var aq = caml_ml_close_channel(ic);return aq;}catch(ar) {return 0;}
+  try {var aq_ = caml_ml_close_channel(ic);return aq_;}catch(ar_) {return 0;}
 }
 
 function print_char(c) {return caml_ml_output_char(stdout, c);}
@@ -421,13 +421,13 @@ function read_float_opt(param) {return float_of_string_opt(read_line(0));}
 
 function string_of_format(param) {var str = param[2];return str;}
 
-function symbol__1(param, ao) {
-  var str2 = ao[2];
-  var fmt2 = ao[1];
+function symbol__1(param, ao_) {
+  var str2 = ao_[2];
+  var fmt2 = ao_[1];
   var str1 = param[2];
   var fmt1 = param[1];
-  var ap = symbol(str1, symbol(cst__0, str2));
-  return [0,call2(CamlinternalFormatBasics[3], fmt1, fmt2),ap];
+  var ap_ = symbol(str1, symbol(cst__0, str2));
+  return [0,call2(CamlinternalFormatBasics[3], fmt1, fmt2),ap_];
 }
 
 var exit_function = [0,flush_all];
@@ -445,57 +445,57 @@ function exit(retcode) {
   return runtime["caml_sys_exit"](retcode);
 }
 
-function m(an) {return caml_ml_channel_size_64(an);}
+function m_(an_) {return caml_ml_channel_size_64(an_);}
 
-function n(am) {return runtime["caml_ml_pos_in_64"](am);}
+function n_(am_) {return runtime["caml_ml_pos_in_64"](am_);}
 
-function o(al, ak) {return runtime["caml_ml_seek_in_64"](al, ak);}
+function o_(al_, ak_) {return runtime["caml_ml_seek_in_64"](al_, ak_);}
 
-function p(aj) {return caml_ml_channel_size_64(aj);}
+function p_(aj_) {return caml_ml_channel_size_64(aj_);}
 
-function q(ai) {return runtime["caml_ml_pos_out_64"](ai);}
+function q_(ai_) {return runtime["caml_ml_pos_out_64"](ai_);}
 
-var r = [
+var r_ = [
   0,
-  function(ah, ag) {return runtime["caml_ml_seek_out_64"](ah, ag);},
-  q,
-  p,
-  o,
-  n,
-  m
+  function(ah_, ag_) {return runtime["caml_ml_seek_out_64"](ah_, ag_);},
+  q_,
+  p_,
+  o_,
+  n_,
+  m_
 ];
 
-function s(af, ae) {return caml_ml_set_binary_mode(af, ae);}
+function s_(af_, ae_) {return caml_ml_set_binary_mode(af_, ae_);}
 
-function t(ad) {return caml_ml_close_channel(ad);}
+function t_(ad_) {return caml_ml_close_channel(ad_);}
 
-function u(ac) {return caml_ml_channel_size(ac);}
+function u_(ac_) {return caml_ml_channel_size(ac_);}
 
-function v(ab) {return runtime["caml_ml_pos_in"](ab);}
+function v_(ab_) {return runtime["caml_ml_pos_in"](ab_);}
 
-function w(aa, Z) {return runtime["caml_ml_seek_in"](aa, Z);}
+function w_(aa_, Z_) {return runtime["caml_ml_seek_in"](aa_, Z_);}
 
-function x(Y) {return runtime["caml_input_value"](Y);}
+function x_(Y_) {return runtime["caml_input_value"](Y_);}
 
-function y(X) {return runtime["caml_ml_input_int"](X);}
+function y_(X_) {return runtime["caml_ml_input_int"](X_);}
 
-function z(W) {return caml_ml_input_char(W);}
+function z_(W_) {return caml_ml_input_char(W_);}
 
-function A(V) {return caml_ml_input_char(V);}
+function A_(V_) {return caml_ml_input_char(V_);}
 
-function B(U, T) {return caml_ml_set_binary_mode(U, T);}
+function B_(U_, T_) {return caml_ml_set_binary_mode(U_, T_);}
 
-function C(S) {return caml_ml_channel_size(S);}
+function C_(S_) {return caml_ml_channel_size(S_);}
 
-function D(R) {return runtime["caml_ml_pos_out"](R);}
+function D_(R_) {return runtime["caml_ml_pos_out"](R_);}
 
-function E(Q, P) {return runtime["caml_ml_seek_out"](Q, P);}
+function E_(Q_, P_) {return runtime["caml_ml_seek_out"](Q_, P_);}
 
-function F(O, N) {return runtime["caml_ml_output_int"](O, N);}
+function F_(O_, N_) {return runtime["caml_ml_output_int"](O_, N_);}
 
-function G(M, L) {return caml_ml_output_char(M, L);}
+function G_(M_, L_) {return caml_ml_output_char(M_, L_);}
 
-function H(K, J) {return caml_ml_output_char(K, J);}
+function H_(K_, J_) {return caml_ml_output_char(K_, J_);}
 
 var Pervasives = [
   0,
@@ -549,40 +549,40 @@ var Pervasives = [
   open_out,
   open_out_bin,
   open_out_gen,
-  function(I) {return caml_ml_flush(I);},
+  function(I_) {return caml_ml_flush(I_);},
   flush_all,
-  H,
+  H_,
   output_string,
   output_bytes,
   output,
   output_substring,
-  G,
-  F,
+  G_,
+  F_,
   output_value,
-  E,
-  D,
-  C,
+  E_,
+  D_,
+  C_,
   close_out,
   close_out_noerr,
-  B,
+  B_,
   open_in,
   open_in_bin,
   open_in_gen,
-  A,
+  A_,
   input_line,
   input,
   really_input,
   really_input_string,
-  z,
-  y,
-  x,
-  w,
-  v,
-  u,
-  t,
+  z_,
+  y_,
+  x_,
+  w_,
+  v_,
+  u_,
+  t_,
   close_in_noerr,
-  s,
-  r,
+  s_,
+  r_,
   string_of_format,
   symbol__1,
   exit,

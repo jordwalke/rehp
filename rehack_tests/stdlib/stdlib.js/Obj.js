@@ -39,8 +39,8 @@ function set_double_field(x, i, v) {
 function marshal(obj) {return runtime["caml_output_value_to_string"](obj, 0);}
 
 function unmarshal(str, pos) {
-  var L = pos + call2(Marshal[8], str, pos) | 0;
-  return [0,call2(Marshal[4], str, pos),L];
+  var L_ = pos + call2(Marshal[8], str, pos) | 0;
+  return [0,call2(Marshal[4], str, pos),L_];
 }
 
 var first_non_constant_constructor_tag = 0;
@@ -90,31 +90,31 @@ function extension_id(slot) {return slot[2];}
 
 function length(x) {return x.length - 1 + -2 | 0;}
 
-function a(K, J) {return runtime["caml_ephe_blit_data"](K, J);}
+function a_(K_, J_) {return runtime["caml_ephe_blit_data"](K_, J_);}
 
-function b(I) {return runtime["caml_ephe_check_data"](I);}
+function b_(I_) {return runtime["caml_ephe_check_data"](I_);}
 
-function c(H) {return runtime["caml_ephe_unset_data"](H);}
+function c_(H_) {return runtime["caml_ephe_unset_data"](H_);}
 
-function d(G, F) {return runtime["caml_ephe_set_data"](G, F);}
+function d_(G_, F_) {return runtime["caml_ephe_set_data"](G_, F_);}
 
-function e(E) {return runtime["caml_ephe_get_data_copy"](E);}
+function e_(E_) {return runtime["caml_ephe_get_data_copy"](E_);}
 
-function f(D) {return runtime["caml_ephe_get_data"](D);}
+function f_(D_) {return runtime["caml_ephe_get_data"](D_);}
 
-function g(C, B, A, z, y) {
-  return runtime["caml_ephe_blit_key"](C, B, A, z, y);
+function g_(C_, B_, A_, z_, y_) {
+  return runtime["caml_ephe_blit_key"](C_, B_, A_, z_, y_);
 }
 
-function h(x, w) {return runtime["caml_ephe_check_key"](x, w);}
+function h_(x_, w_) {return runtime["caml_ephe_check_key"](x_, w_);}
 
-function i(v, u) {return runtime["caml_ephe_unset_key"](v, u);}
+function i_(v_, u_) {return runtime["caml_ephe_unset_key"](v_, u_);}
 
-function j(t, s, r) {return runtime["caml_ephe_set_key"](t, s, r);}
+function j_(t_, s_, r_) {return runtime["caml_ephe_set_key"](t_, s_, r_);}
 
-function k(q, p) {return runtime["caml_ephe_get_key_copy"](q, p);}
+function k_(q_, p_) {return runtime["caml_ephe_get_key_copy"](q_, p_);}
 
-function l(o, n) {return runtime["caml_ephe_get_key"](o, n);}
+function l_(o_, n_) {return runtime["caml_ephe_get_key"](o_, n_);}
 
 var Obj = [
   0,
@@ -145,20 +145,20 @@ var Obj = [
   unmarshal,
   [
     0,
-    function(m) {return runtime["caml_ephe_create"](m);},
+    function(m_) {return runtime["caml_ephe_create"](m_);},
     length,
-    l,
-    k,
-    j,
-    i,
-    h,
-    g,
-    f,
-    e,
-    d,
-    c,
-    b,
-    a
+    l_,
+    k_,
+    j_,
+    i_,
+    h_,
+    g_,
+    f_,
+    e_,
+    d_,
+    c_,
+    b_,
+    a_
   ]
 ];
 

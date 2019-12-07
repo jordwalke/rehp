@@ -32,15 +32,15 @@ final class Js_of_ocaml__WebSockets {
     $call1 = $runtime["caml_call1"];
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $a = function(dynamic $x) use ($call1,$runtime) {
+    $a_ = function(dynamic $x) use ($call1,$runtime) {
       return $call1(
         $runtime["caml_get_public_method"]($x, -492394744, 211),
         $x
       );
     };
-    $b = $Js_of_ocaml_Js[50][1];
+    $b_ = $Js_of_ocaml_Js[50][1];
     $webSocket = (function(dynamic $t0, dynamic $param) {return $t0->WebSocket;
-     })($b, $a);
+     })($b_, $a_);
     $is_supported = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$webSocket) {
       return $call1($Js_of_ocaml_Js[6][5], $webSocket);
     };

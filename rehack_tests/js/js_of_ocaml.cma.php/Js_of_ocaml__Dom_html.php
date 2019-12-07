@@ -461,9 +461,9 @@ final class Js_of_ocaml__Dom_html {
     $Printf = $global_data["Printf"];
     $Pervasives = $global_data["Pervasives"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $g = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2704, 58};
-    $f = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2703, 61};
-    $b = Vector{
+    $g_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2704, 58};
+    $f_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2703, 61};
+    $b_ = Vector{
       0,
       Vector{
         11,
@@ -636,138 +636,138 @@ final class Js_of_ocaml__Dom_html {
     $removeEventListener = $Js_of_ocaml_Dom[16];
     $d = "2d";
     $location_origin = function(dynamic $loc) use ($Js_of_ocaml_Js,$call1,$call3,$caml_get_public_method) {
-      $dg = function(dynamic $o) {return $o;};
-      $dh = function(dynamic $param) use ($call1,$caml_get_public_method,$loc) {
-        $dk = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $dg_ = function(dynamic $o) {return $o;};
+      $dh_ = function(dynamic $param) use ($call1,$caml_get_public_method,$loc) {
+        $dk_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 6510168, 67), $x);
         };
         $protocol = (function(dynamic $t13, dynamic $param) {return $t13->protocol;
-         })($loc, $dk);
-        $dl = function(dynamic $x) use ($call1,$caml_get_public_method) {
+         })($loc, $dk_);
+        $dl_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -757983821, 68), $x);
         };
         $hostname = (function(dynamic $t12, dynamic $param) {return $t12->hostname;
-         })($loc, $dl);
-        $dm = function(dynamic $x) use ($call1,$caml_get_public_method) {
+         })($loc, $dl_);
+        $dm_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -899906687, 69), $x);
         };
-        $port = (function(dynamic $t11, dynamic $param) {return $t11->port;})($loc, $dm);
-        $dn = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $port = (function(dynamic $t11, dynamic $param) {return $t11->port;})($loc, $dm_);
+        $dn_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 520590566, 70), $x);
         };
         if (
           0 ===
-            (function(dynamic $t9, dynamic $param) {return $t9->length;})($protocol, $dn)
+            (function(dynamic $t9, dynamic $param) {return $t9->length;})($protocol, $dn_)
         ) {
-          $dp = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $do_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, 520590566, 71), $x);
           };
           if (
             0 ===
-              (function(dynamic $t10, dynamic $param) {return $t10->length;})($hostname, $dp)
+              (function(dynamic $t10, dynamic $param) {return $t10->length;})($hostname, $do_)
           ) {return "";}
         }
-        $dq = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $dp_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -491534073, 72), $x);
         };
-        $dr = "//";
+        $dq_ = "//";
         $origin = (function
          (dynamic $t8, dynamic $t6, dynamic $t7, dynamic $param) {return $t8->concat($t6, $t7);
-         })($protocol, $dr, $hostname, $dq);
-        $ds = function(dynamic $x) use ($call1,$caml_get_public_method) {
+         })($protocol, $dq_, $hostname, $dp_);
+        $dr_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 520590566, 73), $x);
         };
         if (
           0 <
-            (function(dynamic $t5, dynamic $param) {return $t5->length;})($port, $ds)
+            (function(dynamic $t5, dynamic $param) {return $t5->length;})($port, $dr_)
         ) {
-          $dt = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $ds_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -491534073, 74), $x);
           };
-          $du = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $dt_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -899906687, 75), $x);
           };
-          $dv = (function(dynamic $t1, dynamic $param) {return $t1->port;})($loc, $du);
-          $dw = ":";
+          $du_ = (function(dynamic $t1, dynamic $param) {return $t1->port;})($loc, $dt_);
+          $dv_ = ":";
           return (function
            (dynamic $t4, dynamic $t2, dynamic $t3, dynamic $param) {return $t4->concat($t2, $t3);
-           })($origin, $dw, $dv, $dt);
+           })($origin, $dv_, $du_, $ds_);
         }
         return $origin;
       };
-      $di = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $di_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -889120282, 76), $x);
       };
-      $dj = (function(dynamic $t0, dynamic $param) {return $t0->origin;})($loc, $di);
-      return $call3($Js_of_ocaml_Js[6][7], $dj, $dh, $dg);
+      $dj_ = (function(dynamic $t0, dynamic $param) {return $t0->origin;})($loc, $di_);
+      return $call3($Js_of_ocaml_Js[6][7], $dj_, $dh_, $dg_);
     };
     $window = $Js_of_ocaml_Js[50][1];
-    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 454225691, 77), $x);
     };
     $document = (function(dynamic $t14, dynamic $param) {return $t14->document;
-     })($window, $a);
+     })($window, $a_);
     $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$document,$runtime) {
-      $db = function(dynamic $pnode) {return $pnode;};
-      $dc = function(dynamic $param) use ($Not_found,$runtime) {
+      $db_ = function(dynamic $pnode) {return $pnode;};
+      $dc_ = function(dynamic $param) use ($Not_found,$runtime) {
         throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
       };
-      $dd = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $dd_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -332188296, 78), $x);
       };
-      $de = $id->toString();
-      $df = (function(dynamic $t16, dynamic $t15, dynamic $param) {return $t16->getElementById($t15);
-       })($document, $de, $dd);
-      return $call3($Js_of_ocaml_Js[5][7], $df, $dc, $db);
+      $de_ = $id->toString();
+      $df_ = (function(dynamic $t16, dynamic $t15, dynamic $param) {return $t16->getElementById($t15);
+       })($document, $de_, $dd_);
+      return $call3($Js_of_ocaml_Js[5][7], $df_, $dc_, $db_);
     };
-    $getElementById_exn = function(dynamic $id) use ($Js_of_ocaml_Js,$Pervasives,$Printf,$b,$call1,$call2,$call3,$caml_get_public_method,$document) {
-      $c6 = function(dynamic $pnode) {return $pnode;};
-      $c7 = function(dynamic $param) use ($Pervasives,$Printf,$b,$call1,$call2,$id) {
-        $da = $call2($Printf[4], $b, $id);
-        return $call1($Pervasives[2], $da);
+    $getElementById_exn = function(dynamic $id) use ($Js_of_ocaml_Js,$Pervasives,$Printf,$b_,$call1,$call2,$call3,$caml_get_public_method,$document) {
+      $c6_ = function(dynamic $pnode) {return $pnode;};
+      $c7_ = function(dynamic $param) use ($Pervasives,$Printf,$b_,$call1,$call2,$id) {
+        $da_ = $call2($Printf[4], $b_, $id);
+        return $call1($Pervasives[2], $da_);
       };
-      $c8 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $c8_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -332188296, 79), $x);
       };
-      $c9 = $id->toString();
-      $c_ = (function(dynamic $t18, dynamic $t17, dynamic $param) {return $t18->getElementById($t17);
-       })($document, $c9, $c8);
-      return $call3($Js_of_ocaml_Js[5][7], $c_, $c7, $c6);
+      $c9_ = $id->toString();
+      $c__ = (function(dynamic $t18, dynamic $t17, dynamic $param) {return $t18->getElementById($t17);
+       })($document, $c9_, $c8_);
+      return $call3($Js_of_ocaml_Js[5][7], $c__, $c7_, $c6_);
     };
     $getElementById_opt = function(dynamic $id) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$document) {
-      $c3 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $c3_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -332188296, 80), $x);
       };
-      $c4 = $id->toString();
-      $c5 = (function(dynamic $t20, dynamic $t19, dynamic $param) {return $t20->getElementById($t19);
-       })($document, $c4, $c3);
-      return $call1($Js_of_ocaml_Js[5][10], $c5);
+      $c4_ = $id->toString();
+      $c5_ = (function(dynamic $t20, dynamic $t19, dynamic $param) {return $t20->getElementById($t19);
+       })($document, $c4_, $c3_);
+      return $call1($Js_of_ocaml_Js[5][10], $c5_);
     };
     $getElementById_coerce = function(dynamic $id, dynamic $coerce) use ($Js_of_ocaml_Js,$call1,$call3,$caml_get_public_method,$document) {
-      $cX = function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$coerce) {
-        $c2 = $call1($coerce, $e);
-        return $call1($Js_of_ocaml_Js[5][10], $c2);
+      $cX_ = function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$coerce) {
+        $c2_ = $call1($coerce, $e);
+        return $call1($Js_of_ocaml_Js[5][10], $c2_);
       };
-      $cY = function(dynamic $param) {return 0;};
-      $cZ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $cY_ = function(dynamic $param) {return 0;};
+      $cZ_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -332188296, 81), $x);
       };
-      $c0 = $id->toString();
-      $c1 = (function(dynamic $t22, dynamic $t21, dynamic $param) {return $t22->getElementById($t21);
-       })($document, $c0, $cZ);
-      return $call3($Js_of_ocaml_Js[5][7], $c1, $cY, $cX);
+      $c0_ = $id->toString();
+      $c1_ = (function(dynamic $t22, dynamic $t21, dynamic $param) {return $t22->getElementById($t21);
+       })($document, $c0_, $cZ_);
+      return $call3($Js_of_ocaml_Js[5][7], $c1_, $cY_, $cX_);
     };
     $opt_iter = function(dynamic $x, dynamic $f) use ($call1) {
       if ($x) {$v = $x[1];return $call1($f, $v);}
       return 0;
     };
     $createElement = function(dynamic $doc, dynamic $name) use ($call1,$caml_get_public_method) {
-      $cV = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $cV_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -292059360, 82), $x);
       };
-      $cW = $name->toString();
+      $cW_ = $name->toString();
       return (function(dynamic $t24, dynamic $t23, dynamic $param) {return $t24->createElement($t23);
-       })($doc, $cW, $cV);
+       })($doc, $cW_, $cV_);
     };
     $unsafeCreateElement = function(dynamic $doc, dynamic $name) use ($createElement) {
       return $createElement($doc, $name);
@@ -779,126 +779,126 @@ final class Js_of_ocaml__Dom_html {
         if (0 === $type) {
           if (0 === $name) {return $createElement($doc, $elt);}
         }
-        $cm = $createElementSyntax[1];
-        if (785140586 === $cm) {
+        $cm_ = $createElementSyntax[1];
+        if (785140586 === $cm_) {
           try {
-            $cp = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            $cp_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
               return $call1($caml_get_public_method($x, -292059360, 83), $x);
             };
-            $cq = "<input name=\"x\">";
+            $cq_ = "<input name=\"x\">";
             $el = (function(dynamic $t51, dynamic $t50, dynamic $param) {return $t51->createElement($t50);
-             })($document, $cq, $cp);
-            $cr = "input";
-            $cs = function(dynamic $x) use ($call1,$caml_get_public_method) {
+             })($document, $cq_, $cp_);
+            $cr_ = "input";
+            $cs_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
               return $call1($caml_get_public_method($x, 946097238, 84), $x);
             };
-            $ct = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            $ct_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
               return $call1($caml_get_public_method($x, 578170309, 85), $x);
             };
-            $cu = (function(dynamic $t47, dynamic $param) {return $t47->tagName;
-             })($el, $ct);
-            $cv = (function(dynamic $t48, dynamic $param) {return $t48->toLowerCase();
-              })($cu, $cs) === $cr
+            $cu_ = (function(dynamic $t47, dynamic $param) {return $t47->tagName;
+             })($el, $ct_);
+            $cv_ = (function(dynamic $t48, dynamic $param) {return $t48->toLowerCase();
+              })($cu_, $cs_) === $cr_
               ? 1
               : (0);
-            if ($cv) {
-              $cw = "x";
-              $cx = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            if ($cv_) {
+              $cw_ = "x";
+              $cx_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
                 return $call1($caml_get_public_method($x, -922783157, 86), $x);
               };
-              $cy = (function(dynamic $t49, dynamic $param) {return $t49->name;
-                })($el, $cx) === $cw
+              $cy_ = (function(dynamic $t49, dynamic $param) {return $t49->name;
+                })($el, $cx_) === $cw_
                 ? 1
                 : (0);
             }
-            else {$cy = $cv;}
-            $cn = $cy;
+            else {$cy_ = $cv_;}
+            $cn_ = $cy_;
           }
-          catch(\Throwable $cU) {$cn = 0;}
-          $co = $cn ? 982028505 : (-1003883683);
-          $createElementSyntax[1] = $co;
+          catch(\Throwable $cU_) {$cn_ = 0;}
+          $co_ = $cn_ ? 982028505 : (-1003883683);
+          $createElementSyntax[1] = $co_;
           continue;
         }
-        if (982028505 <= $cm) {
-          $cz = 0;
-          $cA = $Js_of_ocaml_Js[14];
-          $a = (function(dynamic $t46, dynamic $param) {return new $t46();})($cA, $cz);
-          $cB = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        if (982028505 <= $cm_) {
+          $cz_ = 0;
+          $cA_ = $Js_of_ocaml_Js[14];
+          $a = (function(dynamic $t46, dynamic $param) {return new $t46();})($cA_, $cz_);
+          $cB_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -231927987, 87), $x);
           };
-          $cC = $elt->toString();
-          $cD = "<";
+          $cC_ = $elt->toString();
+          $cD_ = "<";
           ((function(dynamic $t45, dynamic $t43, dynamic $t44, dynamic $param) {return $t45->push($t43, $t44);
-            })($a, $cD, $cC, $cB));
+            })($a, $cD_, $cC_, $cB_));
           $opt_iter(
             $type,
             function(dynamic $t) use ($a,$call1,$caml_get_public_method,$caml_js_html_escape) {
-              $cQ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+              $cQ_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
                 return $call1($caml_get_public_method($x, -231927986, 88), $x);
               };
-              $cR = "\"";
-              $cS = $caml_js_html_escape($t);
-              $cT = " type=\"";
+              $cR_ = "\"";
+              $cS_ = $caml_js_html_escape($t);
+              $cT_ = " type=\"";
               ((function
                 (dynamic $t42, dynamic $t39, dynamic $t40, dynamic $t41, dynamic $param) {
                   return $t42->push($t39, $t40, $t41);
-                })($a, $cT, $cS, $cR, $cQ));
+                })($a, $cT_, $cS_, $cR_, $cQ_));
               return 0;
             }
           );
           $opt_iter(
             $name,
             function(dynamic $n) use ($a,$call1,$caml_get_public_method,$caml_js_html_escape) {
-              $cM = function(dynamic $x) use ($call1,$caml_get_public_method) {
+              $cM_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
                 return $call1($caml_get_public_method($x, -231927986, 89), $x);
               };
-              $cN = "\"";
-              $cO = $caml_js_html_escape($n);
-              $cP = " name=\"";
+              $cN_ = "\"";
+              $cO_ = $caml_js_html_escape($n);
+              $cP_ = " name=\"";
               ((function
                 (dynamic $t38, dynamic $t35, dynamic $t36, dynamic $t37, dynamic $param) {
                   return $t38->push($t35, $t36, $t37);
-                })($a, $cP, $cO, $cN, $cM));
+                })($a, $cP_, $cO_, $cN_, $cM_));
               return 0;
             }
           );
-          $cE = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $cE_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -899608102, 90), $x);
           };
-          $cF = ">";
+          $cF_ = ">";
           ((function(dynamic $t34, dynamic $t33, dynamic $param) {return $t34->push($t33);
-            })($a, $cF, $cE));
-          $cG = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            })($a, $cF_, $cE_));
+          $cG_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -292059360, 91), $x);
           };
-          $cH = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $cH_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -966446102, 92), $x);
           };
-          $cI = "";
-          $cJ = (function(dynamic $t30, dynamic $t29, dynamic $param) {return $t30->join($t29);
-           })($a, $cI, $cH);
+          $cI_ = "";
+          $cJ_ = (function(dynamic $t30, dynamic $t29, dynamic $param) {return $t30->join($t29);
+           })($a, $cI_, $cH_);
           return (function(dynamic $t32, dynamic $t31, dynamic $param) {return $t32->createElement($t31);
-           })($doc, $cJ, $cG);
+           })($doc, $cJ_, $cG_);
         }
         $res = $createElement($doc, $elt);
         $opt_iter(
           $type,
           function(dynamic $t) use ($call1,$caml_get_public_method,$res) {
-            $cL = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            $cL_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
               return $call1($caml_get_public_method($x, 1707673, 93), $x);
             };
             return (function(dynamic $t28, dynamic $t27, dynamic $param) {$t28->type = $t27;return 0;
-             })($res, $t, $cL);
+             })($res, $t, $cL_);
           }
         );
         $opt_iter(
           $name,
           function(dynamic $n) use ($call1,$caml_get_public_method,$res) {
-            $cK = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            $cK_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
               return $call1($caml_get_public_method($x, -922783157, 94), $x);
             };
             return (function(dynamic $t26, dynamic $t25, dynamic $param) {$t26->name = $t25;return 0;
-             })($res, $n, $cK);
+             })($res, $n, $cK_);
           }
         );
         return $res;
@@ -1154,30 +1154,32 @@ final class Js_of_ocaml__Dom_html {
     };
     $createCanvas = function(dynamic $doc) use ($Canvas_not_available,$Js_of_ocaml_Js,$call1,$caml_get_public_method,$cst_canvas,$runtime,$unsafeCreateElement) {
       $c = $unsafeCreateElement($doc, $cst_canvas);
-      $ck = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $ck_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -388424711, 95), $x);
       };
-      $cl = (function(dynamic $t52, dynamic $param) {return $t52->getContext;})($c, $ck);
-      if (1 - $call1($Js_of_ocaml_Js[5][5], $cl)) {
+      $cl_ = (function(dynamic $t52, dynamic $param) {return $t52->getContext;
+       })($c, $ck_);
+      if (1 - $call1($Js_of_ocaml_Js[5][5], $cl_)) {
         throw $runtime["caml_wrap_thrown_exception"]($Canvas_not_available) as \Throwable;
       }
       return $c;
     };
-    $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $c_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, -29132142, 96), $x);
     };
-    $d = $Js_of_ocaml_Js[50][1];
+    $d_ = $Js_of_ocaml_Js[50][1];
     $html_element = (function(dynamic $t53, dynamic $param) {return $t53->HTMLElement;
-     })($d, $c);
-    $e = $Js_of_ocaml_Js[3];
-    $element = $call1($Js_of_ocaml_Js[4], $html_element) === $e
+     })($d_, $c_);
+    $e_ = $Js_of_ocaml_Js[3];
+    $element = $call1($Js_of_ocaml_Js[4], $html_element) === $e_
       ? function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
-       $ch = $Js_of_ocaml_Js[3];
-       $ci = function(dynamic $x) use ($call1,$caml_get_public_method) {
+       $ch_ = $Js_of_ocaml_Js[3];
+       $ci_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
          return $call1($caml_get_public_method($x, 746263041, 97), $x);
        };
-       $cj = (function(dynamic $t54, dynamic $param) {return $t54->innerHTML;})($e, $ci);
-       return $call1($Js_of_ocaml_Js[4], $cj) === $ch
+       $cj_ = (function(dynamic $t54, dynamic $param) {return $t54->innerHTML;
+        })($e, $ci_);
+       return $call1($Js_of_ocaml_Js[4], $cj_) === $ch_
          ? $Js_of_ocaml_Js[1]
          : ($call1($Js_of_ocaml_Js[2], $e));
      }
@@ -1187,20 +1189,20 @@ final class Js_of_ocaml__Dom_html {
          : ($Js_of_ocaml_Js[1]);
      });
     $unsafeCoerce = function(dynamic $tag, dynamic $e) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
-      $cd = $tag->toString();
-      $ce = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $cd_ = $tag->toString();
+      $ce_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 946097238, 98), $x);
       };
-      $cf = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $cf_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 578170309, 99), $x);
       };
-      $cg = (function(dynamic $t55, dynamic $param) {return $t55->tagName;})($e, $cf);
+      $cg_ = (function(dynamic $t55, dynamic $param) {return $t55->tagName;})($e, $cf_);
       return (function(dynamic $t56, dynamic $param) {return $t56->toLowerCase();
-        })($cg, $ce) === $cd
+        })($cg_, $ce_) === $cd_
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $a__0 = function(dynamic $e) use ($cst_a__0,$unsafeCoerce) {
+    $a = function(dynamic $e) use ($cst_a__0,$unsafeCoerce) {
       return $unsafeCoerce($cst_a__0, $e);
     };
     $area = function(dynamic $e) use ($cst_area__0,$unsafeCoerce) {
@@ -1384,8 +1386,8 @@ final class Js_of_ocaml__Dom_html {
       return $unsafeCoerce($cst_video__0, $e);
     };
     $unsafeCoerceEvent = function(dynamic $constr, dynamic $ev) use ($Js_of_ocaml_Js,$call1) {
-      $cc = $Js_of_ocaml_Js[3];
-      if ($call1($Js_of_ocaml_Js[4], $constr) !== $cc) {
+      $cc_ = $Js_of_ocaml_Js[3];
+      if ($call1($Js_of_ocaml_Js[4], $constr) !== $cc_) {
         if (instance_of($ev, $constr)) {
           return $call1($Js_of_ocaml_Js[2], $ev);
         }
@@ -1393,201 +1395,205 @@ final class Js_of_ocaml__Dom_html {
       return $Js_of_ocaml_Js[1];
     };
     $mouseEvent = function(dynamic $ev) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$unsafeCoerceEvent) {
-      $ca = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $ca_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -590574348, 100), $x);
       };
-      $cb = $Js_of_ocaml_Js[50][1];
+      $cb_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        (function(dynamic $t57, dynamic $param) {return $t57->MouseEvent;})($cb, $ca),
+        (function(dynamic $t57, dynamic $param) {return $t57->MouseEvent;})($cb_, $ca_),
         $ev
       );
     };
     $keyboardEvent = function(dynamic $ev) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$unsafeCoerceEvent) {
-      $b9 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $b9_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -807764460, 101), $x);
       };
-      $b_ = $Js_of_ocaml_Js[50][1];
+      $b__ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        (function(dynamic $t58, dynamic $param) {return $t58->KeyboardEvent;})($b_, $b9),
+        (function(dynamic $t58, dynamic $param) {return $t58->KeyboardEvent;})($b__, $b9_),
         $ev
       );
     };
     $wheelEvent = function(dynamic $ev) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$unsafeCoerceEvent) {
-      $b7 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $b7_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 239551166, 102), $x);
       };
-      $b8 = $Js_of_ocaml_Js[50][1];
+      $b8_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        (function(dynamic $t59, dynamic $param) {return $t59->WheelEvent;})($b8, $b7),
+        (function(dynamic $t59, dynamic $param) {return $t59->WheelEvent;})($b8_, $b7_),
         $ev
       );
     };
     $mouseScrollEvent = function(dynamic $ev) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$unsafeCoerceEvent) {
-      $b5 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $b5_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -31722201, 103), $x);
       };
-      $b6 = $Js_of_ocaml_Js[50][1];
+      $b6_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
         (function(dynamic $t60, dynamic $param) {return $t60->MouseScrollEvent;
-         })($b6, $b5),
+         })($b6_, $b5_),
         $ev
       );
     };
     $popStateEvent = function(dynamic $ev) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$unsafeCoerceEvent) {
-      $b3 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $b3_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -903494309, 104), $x);
       };
-      $b4 = $Js_of_ocaml_Js[50][1];
+      $b4_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        (function(dynamic $t61, dynamic $param) {return $t61->PopStateEvent;})($b4, $b3),
+        (function(dynamic $t61, dynamic $param) {return $t61->PopStateEvent;})($b4_, $b3_),
         $ev
       );
     };
     $eventTarget = $Js_of_ocaml_Dom[13];
-    $eventRelatedTarget = function(dynamic $e) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$cst_mouseout__0,$cst_mouseover__0,$f,$g,$runtime) {
-      $bT = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$cst_mouseout__0,$cst_mouseover__0,$e,$f,$g,$runtime) {
-        $bW = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $eventRelatedTarget = function(dynamic $e) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$cst_mouseout__0,$cst_mouseover__0,$f_,$g_,$runtime) {
+      $bT_ = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$cst_mouseout__0,$cst_mouseover__0,$e,$f_,$g_,$runtime) {
+        $bW_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 1707673, 105), $x);
         };
         $match = $caml_js_to_string(
-          (function(dynamic $t65, dynamic $param) {return $t65->type;})($e, $bW)
+          (function(dynamic $t65, dynamic $param) {return $t65->type;})($e, $bW_)
         );
         if ($caml_string_notequal($match, $cst_mouseout__0)) {
           if ($caml_string_notequal($match, $cst_mouseover__0)) {return $Js_of_ocaml_Js[1];}
-          $bX = function(dynamic $param) use ($Assert_failure,$f,$runtime) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $f}) as \Throwable;
+          $bX_ = function(dynamic $param) use ($Assert_failure,$f_,$runtime) {
+            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $f_}) as \Throwable;
           };
-          $bY = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $bY_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, 513086066, 106), $x);
           };
-          $bZ = (function(dynamic $t63, dynamic $param) {return $t63->fromElement;
-           })($e, $bY);
-          return $call2($Js_of_ocaml_Js[6][8], $bZ, $bX);
+          $bZ_ = (function(dynamic $t63, dynamic $param) {return $t63->fromElement;
+           })($e, $bY_);
+          return $call2($Js_of_ocaml_Js[6][8], $bZ_, $bX_);
         }
-        $b0 = function(dynamic $param) use ($Assert_failure,$g,$runtime) {
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g}) as \Throwable;
+        $b0_ = function(dynamic $param) use ($Assert_failure,$g_,$runtime) {
+          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g_}) as \Throwable;
         };
-        $b1 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $b1_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 904455809, 107), $x);
         };
-        $b2 = (function(dynamic $t64, dynamic $param) {return $t64->toElement;
-         })($e, $b1);
-        return $call2($Js_of_ocaml_Js[6][8], $b2, $b0);
+        $b2_ = (function(dynamic $t64, dynamic $param) {return $t64->toElement;
+         })($e, $b1_);
+        return $call2($Js_of_ocaml_Js[6][8], $b2_, $b0_);
       };
-      $bU = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bU_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -629591140, 108), $x);
       };
-      $bV = (function(dynamic $t62, dynamic $param) {return $t62->relatedTarget;
-       })($e, $bU);
-      return $call2($Js_of_ocaml_Js[6][8], $bV, $bT);
+      $bV_ = (function(dynamic $t62, dynamic $param) {return $t62->relatedTarget;
+       })($e, $bU_);
+      return $call2($Js_of_ocaml_Js[6][8], $bV_, $bT_);
     };
     $eventAbsolutePosition = function(dynamic $e) use ($call1,$caml_get_public_method,$document) {
-      $bG = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bG_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -1055163742, 109), $x);
       };
-      $body = (function(dynamic $t73, dynamic $param) {return $t73->body;})($document, $bG);
-      $bH = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $body = (function(dynamic $t73, dynamic $param) {return $t73->body;})($document, $bG_);
+      $bH_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1068552417, 110), $x);
       };
       $html = (function(dynamic $t72, dynamic $param) {return $t72->documentElement;
-       })($document, $bH);
-      $bI = function(dynamic $x) use ($call1,$caml_get_public_method) {
+       })($document, $bH_);
+      $bI_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1040845960, 111), $x);
       };
-      $bJ = (function(dynamic $t71, dynamic $param) {return $t71->scrollTop;})($html, $bI);
-      $bK = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bJ_ = (function(dynamic $t71, dynamic $param) {return $t71->scrollTop;})($html, $bI_);
+      $bK_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1040845960, 112), $x);
       };
-      $bL = (function(dynamic $t70, dynamic $param) {return $t70->scrollTop;})($body, $bK);
-      $bM = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bL_ = (function(dynamic $t70, dynamic $param) {return $t70->scrollTop;})($body, $bK_);
+      $bM_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -75417682, 113), $x);
       };
-      $bN = (int)
+      $bN_ = (int)
       ((int)
-       ((function(dynamic $t69, dynamic $param) {return $t69->clientY;})($e, $bM) + $bL) +
-         $bJ);
-      $bO = function(dynamic $x) use ($call1,$caml_get_public_method) {
+       ((function(dynamic $t69, dynamic $param) {return $t69->clientY;})($e, $bM_) + $bL_) +
+         $bJ_);
+      $bO_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 91199156, 114), $x);
       };
-      $bP = (function(dynamic $t68, dynamic $param) {return $t68->scrollLeft;})($html, $bO);
-      $bQ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bP_ = (function(dynamic $t68, dynamic $param) {return $t68->scrollLeft;
+       })($html, $bO_);
+      $bQ_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 91199156, 115), $x);
       };
-      $bR = (function(dynamic $t67, dynamic $param) {return $t67->scrollLeft;})($body, $bQ);
-      $bS = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bR_ = (function(dynamic $t67, dynamic $param) {return $t67->scrollLeft;
+       })($body, $bQ_);
+      $bS_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -75417683, 116), $x);
       };
       return Vector{
         0,
         (int)
         ((int)
-         ((function(dynamic $t66, dynamic $param) {return $t66->clientX;})($e, $bS) + $bR) +
-           $bP),
-        $bN
+         ((function(dynamic $t66, dynamic $param) {return $t66->clientX;})($e, $bS_) + $bR_) +
+           $bP_),
+        $bN_
       };
     };
     $eventAbsolutePosition__0 = function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$call3,$caml_get_public_method,$eventAbsolutePosition) {
-      $by = function(dynamic $x) use ($Js_of_ocaml_Js,$call1,$call3,$caml_get_public_method,$e,$eventAbsolutePosition) {
-        $bC = function(dynamic $y) use ($x) {return Vector{0, $x, $y};};
-        $bD = function(dynamic $param) use ($e,$eventAbsolutePosition) {
+      $by_ = function(dynamic $x) use ($Js_of_ocaml_Js,$call1,$call3,$caml_get_public_method,$e,$eventAbsolutePosition) {
+        $bC_ = function(dynamic $y) use ($x) {return Vector{0, $x, $y};};
+        $bD_ = function(dynamic $param) use ($e,$eventAbsolutePosition) {
           return $eventAbsolutePosition($e);
         };
-        $bE = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $bE_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 1028467498, 117), $x);
         };
-        $bF = (function(dynamic $t75, dynamic $param) {return $t75->pageY;})($e, $bE);
-        return $call3($Js_of_ocaml_Js[6][7], $bF, $bD, $bC);
+        $bF_ = (function(dynamic $t75, dynamic $param) {return $t75->pageY;})($e, $bE_);
+        return $call3($Js_of_ocaml_Js[6][7], $bF_, $bD_, $bC_);
       };
-      $bz = function(dynamic $param) use ($e,$eventAbsolutePosition) {
+      $bz_ = function(dynamic $param) use ($e,$eventAbsolutePosition) {
         return $eventAbsolutePosition($e);
       };
-      $bA = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bA_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1028467497, 118), $x);
       };
-      $bB = (function(dynamic $t74, dynamic $param) {return $t74->pageX;})($e, $bA);
-      return $call3($Js_of_ocaml_Js[6][7], $bB, $bz, $by);
+      $bB_ = (function(dynamic $t74, dynamic $param) {return $t74->pageX;})($e, $bA_);
+      return $call3($Js_of_ocaml_Js[6][7], $bB_, $bz_, $by_);
     };
     $elementClientPosition = function(dynamic $e) use ($call1,$caml_get_public_method,$document) {
-      $bk = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bk_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 718768073, 119), $x);
       };
       $r = (function(dynamic $t84, dynamic $param) {
          return $t84->getBoundingClientRect();
-       })($e, $bk);
-      $bl = function(dynamic $x) use ($call1,$caml_get_public_method) {
+       })($e, $bk_);
+      $bl_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -1055163742, 120), $x);
       };
-      $body = (function(dynamic $t83, dynamic $param) {return $t83->body;})($document, $bl);
-      $bm = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $body = (function(dynamic $t83, dynamic $param) {return $t83->body;})($document, $bl_);
+      $bm_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1068552417, 121), $x);
       };
       $html = (function(dynamic $t82, dynamic $param) {return $t82->documentElement;
-       })($document, $bm);
-      $bn = function(dynamic $x) use ($call1,$caml_get_public_method) {
+       })($document, $bm_);
+      $bn_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -939682550, 122), $x);
       };
-      $bo = (function(dynamic $t81, dynamic $param) {return $t81->clientTop;})($html, $bn);
-      $bp = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bo_ = (function(dynamic $t81, dynamic $param) {return $t81->clientTop;})($html, $bn_);
+      $bp_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -939682550, 123), $x);
       };
-      $bq = (function(dynamic $t80, dynamic $param) {return $t80->clientTop;})($body, $bp);
-      $br = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bq_ = (function(dynamic $t80, dynamic $param) {return $t80->clientTop;})($body, $bp_);
+      $br_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 5793429, 124), $x);
       };
-      $bs = (int)
+      $bs_ = (int)
       ((int)
        ((int)
-        (function(dynamic $t79, dynamic $param) {return $t79->top;})($r, $br) - $bq) -
-         $bo);
-      $bt = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (function(dynamic $t79, dynamic $param) {return $t79->top;})($r, $br_) - $bq_) -
+         $bo_);
+      $bt_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 814972914, 125), $x);
       };
-      $bu = (function(dynamic $t78, dynamic $param) {return $t78->clientLeft;})($html, $bt);
-      $bv = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bu_ = (function(dynamic $t78, dynamic $param) {return $t78->clientLeft;
+       })($html, $bt_);
+      $bv_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 814972914, 126), $x);
       };
-      $bw = (function(dynamic $t77, dynamic $param) {return $t77->clientLeft;})($body, $bv);
-      $bx = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bw_ = (function(dynamic $t77, dynamic $param) {return $t77->clientLeft;
+       })($body, $bv_);
+      $bx_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -944764921, 127), $x);
       };
       return Vector{
@@ -1595,52 +1601,53 @@ final class Js_of_ocaml__Dom_html {
         (int)
         ((int)
          ((int)
-          (function(dynamic $t76, dynamic $param) {return $t76->left;})($r, $bx) - $bw) -
-           $bu),
-        $bs
+          (function(dynamic $t76, dynamic $param) {return $t76->left;})($r, $bx_) - $bw_) -
+           $bu_),
+        $bs_
       };
     };
     $getDocumentScroll = function(dynamic $param) use ($call1,$caml_get_public_method,$document) {
-      $bb = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bb_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -1055163742, 128), $x);
       };
-      $body = (function(dynamic $t90, dynamic $param) {return $t90->body;})($document, $bb);
-      $bc = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $body = (function(dynamic $t90, dynamic $param) {return $t90->body;})($document, $bb_);
+      $bc_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1068552417, 129), $x);
       };
       $html = (function(dynamic $t89, dynamic $param) {return $t89->documentElement;
-       })($document, $bc);
-      $bd = function(dynamic $x) use ($call1,$caml_get_public_method) {
+       })($document, $bc_);
+      $bd_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1040845960, 130), $x);
       };
-      $be = (function(dynamic $t88, dynamic $param) {return $t88->scrollTop;})($html, $bd);
-      $bf = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $be_ = (function(dynamic $t88, dynamic $param) {return $t88->scrollTop;})($html, $bd_);
+      $bf_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 1040845960, 131), $x);
       };
-      $bg = (int)
-      ((function(dynamic $t87, dynamic $param) {return $t87->scrollTop;})($body, $bf) + $be);
-      $bh = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bg_ = (int)
+      ((function(dynamic $t87, dynamic $param) {return $t87->scrollTop;})($body, $bf_) + $be_);
+      $bh_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 91199156, 132), $x);
       };
-      $bi = (function(dynamic $t86, dynamic $param) {return $t86->scrollLeft;})($html, $bh);
-      $bj = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $bi_ = (function(dynamic $t86, dynamic $param) {return $t86->scrollLeft;
+       })($html, $bh_);
+      $bj_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 91199156, 133), $x);
       };
       return Vector{
         0,
         (int)
-        ((function(dynamic $t85, dynamic $param) {return $t85->scrollLeft;})($body, $bj) + $bi),
-        $bg
+        ((function(dynamic $t85, dynamic $param) {return $t85->scrollLeft;})($body, $bj_) + $bi_),
+        $bg_
       };
     };
     $buttonPressed = function(dynamic $ev) use ($Js_of_ocaml_Js,$call1,$call3,$caml_get_public_method,$unsigned_right_shift_32) {
-      $a7 = function(dynamic $x) {return $x;};
-      $a8 = function(dynamic $param) use ($call1,$caml_get_public_method,$ev,$unsigned_right_shift_32) {
-        $ba = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $a7_ = function(dynamic $x) {return $x;};
+      $a8_ = function(dynamic $param) use ($call1,$caml_get_public_method,$ev,$unsigned_right_shift_32) {
+        $ba_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -639606286, 134), $x);
         };
         $match = (function(dynamic $t92, dynamic $param) {return $t92->button;
-         })($ev, $ba);
+         })($ev, $ba_);
         $switcher = (int) ($match + -1);
         if (! (3 < $unsigned_right_shift_32($switcher, 0))) {
           switch($switcher) {
@@ -1659,77 +1666,77 @@ final class Js_of_ocaml__Dom_html {
         }
         return 0;
       };
-      $a9 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $a9_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -910345251, 135), $x);
       };
-      $a_ = (function(dynamic $t91, dynamic $param) {return $t91->which;})($ev, $a9);
-      return $call3($Js_of_ocaml_Js[6][7], $a_, $a8, $a7);
+      $a__ = (function(dynamic $t91, dynamic $param) {return $t91->which;})($ev, $a9_);
+      return $call3($Js_of_ocaml_Js[6][7], $a__, $a8_, $a7_);
     };
     $hasMousewheelEvents = function(dynamic $param) use ($call1,$caml_get_public_method,$createDiv,$document) {
       $d = $createDiv($document);
-      $a4 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $a4_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 524300314, 136), $x);
       };
-      $a5 = "return;";
-      $a6 = "onmousewheel";
+      $a5_ = "return;";
+      $a6_ = "onmousewheel";
       ((function(dynamic $t95, dynamic $t93, dynamic $t94, dynamic $param) {return $t95->setAttribute($t93, $t94);
-        })($d, $a6, $a5, $a4));
+        })($d, $a6_, $a5_, $a4_));
       return typeof($d->onmousewheel) === "function" ? 1 : (0);
     };
     $addMousewheelEventListener = function
     (dynamic $e, dynamic $h, dynamic $capt) use ($Event,$Js_of_ocaml_Js,$addEventListener,$call1,$call2,$call3,$call4,$caml_get_public_method,$handler,$hasMousewheelEvents) {
       if ($hasMousewheelEvents(0)) {
-        $aR = $call1(
+        $aR_ = $call1(
           $handler,
           function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$call2,$call3,$caml_get_public_method,$h) {
-            $aX = function(dynamic $param) {return 0;};
-            $aY = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            $aX_ = function(dynamic $param) {return 0;};
+            $aY_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
               return $call1($caml_get_public_method($x, -95379365, 137), $x);
             };
-            $aZ = (function(dynamic $t101, dynamic $param) {return $t101->wheelDeltaX;
-             })($e, $aY);
+            $aZ_ = (function(dynamic $t101, dynamic $param) {return $t101->wheelDeltaX;
+             })($e, $aY_);
             $dx = (int)
-            ((int) - $call2($Js_of_ocaml_Js[6][8], $aZ, $aX) / 40);
-            $a0 = function(dynamic $param) use ($call1,$caml_get_public_method,$e) {
-              $a3 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            ((int) - $call2($Js_of_ocaml_Js[6][8], $aZ_, $aX_) / 40);
+            $a0_ = function(dynamic $param) use ($call1,$caml_get_public_method,$e) {
+              $a3_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
                 return $call1($caml_get_public_method($x, 644780381, 138), $x);
               };
               return (function(dynamic $t100, dynamic $param) {return $t100->wheelDelta;
-               })($e, $a3);
+               })($e, $a3_);
             };
-            $a1 = function(dynamic $x) use ($call1,$caml_get_public_method) {
+            $a1_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
               return $call1($caml_get_public_method($x, -95379364, 139), $x);
             };
-            $a2 = (function(dynamic $t99, dynamic $param) {return $t99->wheelDeltaY;
-             })($e, $a1);
+            $a2_ = (function(dynamic $t99, dynamic $param) {return $t99->wheelDeltaY;
+             })($e, $a1_);
             $dy = (int)
-            ((int) - $call2($Js_of_ocaml_Js[6][8], $a2, $a0) / 40);
+            ((int) - $call2($Js_of_ocaml_Js[6][8], $a2_, $a0_) / 40);
             return $call3($h, $e, $dx, $dy);
           }
         );
-        return $call4($addEventListener, $e, $Event[11], $aR, $capt);
+        return $call4($addEventListener, $e, $Event[11], $aR_, $capt);
       }
-      $aS = $call1(
+      $aS_ = $call1(
         $handler,
         function(dynamic $e) use ($call1,$call3,$caml_get_public_method,$h) {
-          $aT = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $aT_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -266378607, 140), $x);
           };
-          $d = (function(dynamic $t98, dynamic $param) {return $t98->detail;})($e, $aT);
-          $aU = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $d = (function(dynamic $t98, dynamic $param) {return $t98->detail;})($e, $aT_);
+          $aU_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -66775139, 141), $x);
           };
-          $aV = (function(dynamic $t97, dynamic $param) {return $t97->HORIZONTAL;
-           })($e, $aU);
-          $aW = function(dynamic $x) use ($call1,$caml_get_public_method) {
+          $aV_ = (function(dynamic $t97, dynamic $param) {return $t97->HORIZONTAL;
+           })($e, $aU_);
+          $aW_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -1065804639, 142), $x);
           };
-          return (function(dynamic $t96, dynamic $param) {return $t96->axis;})($e, $aW) === $aV
+          return (function(dynamic $t96, dynamic $param) {return $t96->axis;})($e, $aW_) === $aV_
             ? $call3($h, $e, $d, 0)
             : ($call3($h, $e, 0, $d));
         }
       );
-      return $call4($addEventListener, $e, $Event[12], $aS, $capt);
+      return $call4($addEventListener, $e, $Event[12], $aS_, $capt);
     };
     $try_code = function(dynamic $v) use ($caml_js_to_string,$caml_string_compare,$caml_string_notequal,$cst_AltLeft,$cst_AltRight,$cst_ArrowDown,$cst_ArrowLeft,$cst_ArrowRight,$cst_ArrowUp,$cst_Backquote,$cst_Backslash,$cst_Backspace,$cst_BracketLeft,$cst_BracketRight,$cst_BrowserBack,$cst_BrowserFavorites,$cst_BrowserForward,$cst_BrowserHome,$cst_BrowserRefresh,$cst_BrowserSearch,$cst_BrowserStop,$cst_CapsLock,$cst_Comma,$cst_ContextMenu,$cst_ControlLeft,$cst_ControlRight,$cst_Delete,$cst_Digit0,$cst_Digit1,$cst_Digit2,$cst_Digit3,$cst_Digit4,$cst_Digit5,$cst_Digit6,$cst_Digit7,$cst_Digit8,$cst_Digit9,$cst_End,$cst_Enter,$cst_Equal,$cst_Escape,$cst_F1,$cst_F10,$cst_F11,$cst_F12,$cst_F2,$cst_F3,$cst_F4,$cst_F5,$cst_F6,$cst_F7,$cst_F8,$cst_F9,$cst_Home,$cst_Insert,$cst_IntlBackslash,$cst_IntlYen,$cst_KeyA,$cst_KeyB,$cst_KeyC,$cst_KeyD,$cst_KeyE,$cst_KeyF,$cst_KeyG,$cst_KeyH,$cst_KeyI,$cst_KeyJ,$cst_KeyK,$cst_KeyL,$cst_KeyM,$cst_KeyN,$cst_KeyO,$cst_KeyP,$cst_KeyQ,$cst_KeyR,$cst_KeyS,$cst_KeyT,$cst_KeyU,$cst_KeyV,$cst_KeyW,$cst_KeyX,$cst_KeyY,$cst_KeyZ,$cst_MediaPlayPause,$cst_MediaStop,$cst_MediaTrackNext,$cst_MediaTrackPrevious,$cst_MetaLeft,$cst_MetaRight,$cst_Minus,$cst_NumLock,$cst_Numpad0,$cst_Numpad1,$cst_Numpad2,$cst_Numpad3,$cst_Numpad4,$cst_Numpad5,$cst_Numpad6,$cst_Numpad7,$cst_Numpad8,$cst_Numpad9,$cst_NumpadAdd,$cst_NumpadDecimal,$cst_NumpadDivide,$cst_NumpadEnter,$cst_NumpadEqual,$cst_NumpadMultiply,$cst_NumpadSubtract,$cst_OSLeft,$cst_OSRight,$cst_PageDown,$cst_PageUp,$cst_Pause,$cst_Period,$cst_PrintScreen,$cst_Quote,$cst_ScrollLock,$cst_Semicolon,$cst_ShiftLeft,$cst_ShiftRight,$cst_Slash,$cst_Space,$cst_Tab,$cst_VolumeDown,$cst_VolumeMute,$cst_VolumeUp) {
       $match = $caml_js_to_string($v);
@@ -2080,9 +2087,9 @@ final class Js_of_ocaml__Dom_html {
     $try_key_code_normal = function(dynamic $param) use ($unsigned_right_shift_32) {
       $switcher = (int) ($param + -8);
       if (! (214 < $unsigned_right_shift_32($switcher, 0))) {
-        $aQ = $switcher;
-        if (67 <= $aQ) {
-          switch($aQ) {
+        $aQ_ = $switcher;
+        if (67 <= $aQ_) {
+          switch($aQ_) {
             // FALLTHROUGH
             case 67:
               return 11;
@@ -2209,7 +2216,7 @@ final class Js_of_ocaml__Dom_html {
             }
         }
         else {
-          switch($aQ) {
+          switch($aQ_) {
             // FALLTHROUGH
             case 0:
               return 43;
@@ -2339,37 +2346,37 @@ final class Js_of_ocaml__Dom_html {
       return 0 === $v ? $call1($f, $value) : ($v);
     };
     $get_key_code = function(dynamic $evt) use ($call1,$caml_get_public_method) {
-      $aP = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $aP_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 463348332, 143), $x);
       };
-      return (function(dynamic $t102, dynamic $param) {return $t102->keyCode;})($evt, $aP);
+      return (function(dynamic $t102, dynamic $param) {return $t102->keyCode;})($evt, $aP_);
     };
     $try_key_location = function(dynamic $evt) use ($call1,$caml_get_public_method,$get_key_code,$make_unidentified,$run_next,$try_key_code_left,$try_key_code_numpad,$try_key_code_right,$unsigned_right_shift_32) {
-      $aI = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $aI_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -448369099, 144), $x);
       };
       $match = (function(dynamic $t103, dynamic $param) {return $t103->location;
-       })($evt, $aI);
+       })($evt, $aI_);
       $switcher = (int) ($match + -1);
       if (2 < $unsigned_right_shift_32($switcher, 0)) {return $make_unidentified;}
       switch($switcher) {
         // FALLTHROUGH
         case 0:
-          $aJ = $get_key_code($evt);
-          return function(dynamic $aN) use ($aJ,$run_next,$try_key_code_left) {
-            return $run_next($aJ, $try_key_code_left, $aN);
+          $aJ_ = $get_key_code($evt);
+          return function(dynamic $aN_) use ($aJ_,$run_next,$try_key_code_left) {
+            return $run_next($aJ_, $try_key_code_left, $aN_);
           };
         // FALLTHROUGH
         case 1:
-          $aK = $get_key_code($evt);
-          return function(dynamic $aM) use ($aK,$run_next,$try_key_code_right) {
-            return $run_next($aK, $try_key_code_right, $aM);
+          $aK_ = $get_key_code($evt);
+          return function(dynamic $aM_) use ($aK_,$run_next,$try_key_code_right) {
+            return $run_next($aK_, $try_key_code_right, $aM_);
           };
         // FALLTHROUGH
         default:
-          $aL = $get_key_code($evt);
-          return function(dynamic $aO) use ($aL,$run_next,$try_key_code_numpad) {
-            return $run_next($aL, $try_key_code_numpad, $aO);
+          $aL_ = $get_key_code($evt);
+          return function(dynamic $aO_) use ($aL_,$run_next,$try_key_code_numpad) {
+            return $run_next($aL_, $try_key_code_numpad, $aO_);
           };
         }
     };
@@ -2377,82 +2384,82 @@ final class Js_of_ocaml__Dom_html {
       return $call1($f, $x);
     };
     $of_event = function(dynamic $evt) use ($call1,$caml_get_public_method,$get_key_code,$run_next,$symbol,$try_code,$try_key_code_normal,$try_key_location,$try_next) {
-      $aB = $get_key_code($evt);
-      $aC = function(dynamic $aH) use ($aB,$run_next,$try_key_code_normal) {
-        return $run_next($aB, $try_key_code_normal, $aH);
+      $aB_ = $get_key_code($evt);
+      $aC_ = function(dynamic $aH_) use ($aB_,$run_next,$try_key_code_normal) {
+        return $run_next($aB_, $try_key_code_normal, $aH_);
       };
-      $aD = $try_key_location($evt);
-      $aE = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $aD_ = $try_key_location($evt);
+      $aE_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -1044074195, 145), $x);
       };
-      $aF = (function(dynamic $t104, dynamic $param) {return $t104->code;})($evt, $aE);
+      $aF_ = (function(dynamic $t104, dynamic $param) {return $t104->code;})($evt, $aE_);
       return $symbol(
         $symbol(
           $symbol(
             0,
-            function(dynamic $aG) use ($aF,$try_code,$try_next) {
-              return $try_next($aF, $try_code, $aG);
+            function(dynamic $aG_) use ($aF_,$try_code,$try_next) {
+              return $try_next($aF_, $try_code, $aG_);
             }
           ),
-          $aD
+          $aD_
         ),
-        $aC
+        $aC_
       );
     };
     $char_of_int = function(dynamic $value) use ($Uchar,$call1) {
       if (0 < $value) {
-        try {$az = Vector{0, $call1($Uchar[8], $value)};return $az;}
-        catch(\Throwable $aA) {return 0;}
+        try {$az_ = Vector{0, $call1($Uchar[8], $value)};return $az_;}
+        catch(\Throwable $aA_) {return 0;}
       }
       return 0;
     };
     $empty_string = function(dynamic $param) {return "";};
     $none = function(dynamic $param) {return 0;};
     $of_event__0 = function(dynamic $evt) use ($Js_of_ocaml_Js,$call1,$call2,$call3,$caml_get_public_method,$char_of_int,$empty_string,$none) {
-      $as = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $as_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 5343647, 146), $x);
       };
-      $at = (function(dynamic $t109, dynamic $param) {return $t109->key;})($evt, $as);
-      $key = $call2($Js_of_ocaml_Js[6][8], $at, $empty_string);
-      $au = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $at_ = (function(dynamic $t109, dynamic $param) {return $t109->key;})($evt, $as_);
+      $key = $call2($Js_of_ocaml_Js[6][8], $at_, $empty_string);
+      $au_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 520590566, 147), $x);
       };
       $match = (function(dynamic $t108, dynamic $param) {return $t108->length;
-       })($key, $au);
+       })($key, $au_);
       if (0 === $match) {
-        $av = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $av_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 472145699, 148), $x);
         };
-        $aw = (function(dynamic $t105, dynamic $param) {return $t105->charCode;
-         })($evt, $av);
-        return $call3($Js_of_ocaml_Js[6][7], $aw, $none, $char_of_int);
+        $aw_ = (function(dynamic $t105, dynamic $param) {return $t105->charCode;
+         })($evt, $av_);
+        return $call3($Js_of_ocaml_Js[6][7], $aw_, $none, $char_of_int);
       }
       if (1 === $match) {
-        $ax = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $ax_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 894756598, 149), $x);
         };
-        $ay = 0;
+        $ay_ = 0;
         return $char_of_int(
           (int)
           (function(dynamic $t107, dynamic $t106, dynamic $param) {return $t107->charCodeAt($t106);
-           })($key, $ay, $ax)
+           })($key, $ay_, $ax_)
         );
       }
       return 0;
     };
-    $element__0 = function(dynamic $ar) {return $ar;};
+    $element__0 = function(dynamic $ar_) {return $ar_;};
     $other = function(dynamic $e) {return Vector{61, $e};};
     $tagged = function(dynamic $e) use ($call1,$caml_get_public_method,$caml_string_notequal,$cst_a__1,$cst_area__1,$cst_audio__1,$cst_base__1,$cst_blockquote__1,$cst_body__1,$cst_br__1,$cst_button__1,$cst_canvas__1,$cst_caption__1,$cst_col__1,$cst_colgroup__1,$cst_del__1,$cst_div__1,$cst_dl__1,$cst_embed__1,$cst_fieldset__1,$cst_form__1,$cst_frame__1,$cst_frameset__1,$cst_h1__1,$cst_h2__1,$cst_h3__1,$cst_h4__1,$cst_h5__1,$cst_h6__1,$cst_head__1,$cst_hr__1,$cst_html__1,$cst_iframe__1,$cst_img__1,$cst_input__2,$cst_ins__1,$cst_label__1,$cst_legend__1,$cst_li__1,$cst_link__1,$cst_map__1,$cst_meta__1,$cst_object__1,$cst_ol__1,$cst_optgroup__1,$cst_option__1,$cst_p__1,$cst_param__1,$cst_pre__1,$cst_q__1,$cst_script__1,$cst_select__2,$cst_style__1,$cst_table__1,$cst_tbody__1,$cst_td__1,$cst_textarea__1,$cst_tfoot__1,$cst_th__1,$cst_thead__1,$cst_title__1,$cst_tr__1,$cst_ul__1,$cst_video__1,$other,$runtime,$unsigned_right_shift_32) {
-      $ao = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $ao_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 946097238, 150), $x);
       };
-      $ap = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $ap_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 578170309, 151), $x);
       };
-      $aq = (function(dynamic $t110, dynamic $param) {return $t110->tagName;})($e, $ap);
+      $aq_ = (function(dynamic $t110, dynamic $param) {return $t110->tagName;})($e, $ap_);
       $tag = $runtime["caml_js_to_byte_string"](
         (function(dynamic $t111, dynamic $param) {return $t111->toLowerCase();
-         })($aq, $ao)
+         })($aq_, $ao_)
       );
       if (0 === $runtime["caml_ml_string_length"]($tag)) {return $other($e);}
       $match = $runtime["caml_bytes_unsafe_get"]($tag, 0);
@@ -2637,144 +2644,144 @@ final class Js_of_ocaml__Dom_html {
       return $other($e);
     };
     $opt_tagged = function(dynamic $e) use ($Js_of_ocaml_Js,$call3,$tagged) {
-      $am = function(dynamic $e) use ($tagged) {
+      $am_ = function(dynamic $e) use ($tagged) {
         return Vector{0, $tagged($e)};
       };
-      $an = function(dynamic $param) {return 0;};
-      return $call3($Js_of_ocaml_Js[5][7], $e, $an, $am);
+      $an_ = function(dynamic $param) {return 0;};
+      return $call3($Js_of_ocaml_Js[5][7], $e, $an_, $am_);
     };
     $taggedEvent = function(dynamic $ev) use ($Js_of_ocaml_Js,$call3,$keyboardEvent,$mouseEvent,$mouseScrollEvent,$popStateEvent,$wheelEvent) {
-      $X = function(dynamic $ev) {return Vector{0, $ev};};
-      $Y = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$keyboardEvent,$mouseScrollEvent,$popStateEvent,$wheelEvent) {
-        $aa = function(dynamic $ev) {return Vector{1, $ev};};
-        $ab = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$mouseScrollEvent,$popStateEvent,$wheelEvent) {
-          $ad = function(dynamic $ev) {return Vector{2, $ev};};
-          $ae = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$mouseScrollEvent,$popStateEvent) {
-            $ag = function(dynamic $ev) {return Vector{3, $ev};};
-            $ah = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$popStateEvent) {
-              $aj = function(dynamic $ev) {return Vector{4, $ev};};
-              $ak = function(dynamic $param) use ($ev) {
+      $X_ = function(dynamic $ev) {return Vector{0, $ev};};
+      $Y_ = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$keyboardEvent,$mouseScrollEvent,$popStateEvent,$wheelEvent) {
+        $aa_ = function(dynamic $ev) {return Vector{1, $ev};};
+        $ab_ = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$mouseScrollEvent,$popStateEvent,$wheelEvent) {
+          $ad_ = function(dynamic $ev) {return Vector{2, $ev};};
+          $ae_ = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$mouseScrollEvent,$popStateEvent) {
+            $ag_ = function(dynamic $ev) {return Vector{3, $ev};};
+            $ah_ = function(dynamic $param) use ($Js_of_ocaml_Js,$call3,$ev,$popStateEvent) {
+              $aj_ = function(dynamic $ev) {return Vector{4, $ev};};
+              $ak_ = function(dynamic $param) use ($ev) {
                 return Vector{5, $ev};
               };
-              $al = $popStateEvent($ev);
-              return $call3($Js_of_ocaml_Js[5][7], $al, $ak, $aj);
+              $al_ = $popStateEvent($ev);
+              return $call3($Js_of_ocaml_Js[5][7], $al_, $ak_, $aj_);
             };
-            $ai = $mouseScrollEvent($ev);
-            return $call3($Js_of_ocaml_Js[5][7], $ai, $ah, $ag);
+            $ai_ = $mouseScrollEvent($ev);
+            return $call3($Js_of_ocaml_Js[5][7], $ai_, $ah_, $ag_);
           };
-          $af = $wheelEvent($ev);
-          return $call3($Js_of_ocaml_Js[5][7], $af, $ae, $ad);
+          $af_ = $wheelEvent($ev);
+          return $call3($Js_of_ocaml_Js[5][7], $af_, $ae_, $ad_);
         };
-        $ac = $keyboardEvent($ev);
-        return $call3($Js_of_ocaml_Js[5][7], $ac, $ab, $aa);
+        $ac_ = $keyboardEvent($ev);
+        return $call3($Js_of_ocaml_Js[5][7], $ac_, $ab_, $aa_);
       };
-      $Z = $mouseEvent($ev);
-      return $call3($Js_of_ocaml_Js[5][7], $Z, $Y, $X);
+      $Z_ = $mouseEvent($ev);
+      return $call3($Js_of_ocaml_Js[5][7], $Z_, $Y_, $X_);
     };
     $opt_taggedEvent = function(dynamic $ev) use ($Js_of_ocaml_Js,$call3,$taggedEvent) {
-      $V = function(dynamic $ev) use ($taggedEvent) {
+      $V_ = function(dynamic $ev) use ($taggedEvent) {
         return Vector{0, $taggedEvent($ev)};
       };
-      $W = function(dynamic $param) {return 0;};
-      return $call3($Js_of_ocaml_Js[5][7], $ev, $W, $V);
+      $W_ = function(dynamic $param) {return 0;};
+      return $call3($Js_of_ocaml_Js[5][7], $ev, $W_, $V_);
     };
     $stopPropagation = function(dynamic $ev) use ($Js_of_ocaml_Js,$call1,$call3,$caml_get_public_method) {
-      $O = function(dynamic $param) use ($call1,$caml_get_public_method,$ev) {
-        $U = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $O_ = function(dynamic $param) use ($call1,$caml_get_public_method,$ev) {
+        $U_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 189842539, 152), $x);
         };
         return (function(dynamic $t115, dynamic $param) {return $t115->stopPropagation();
-         })($ev, $U);
+         })($ev, $U_);
       };
-      $P = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$ev) {
-        $S = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $P_ = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$ev) {
+        $S_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 320837798, 153), $x);
         };
-        $T = $Js_of_ocaml_Js[7];
+        $T_ = $Js_of_ocaml_Js[7];
         return (function(dynamic $t114, dynamic $t113, dynamic $param) {$t114->cancelBubble = $t113;return 0;
-         })($ev, $T, $S);
+         })($ev, $T_, $S_);
       };
-      $Q = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $Q_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 544309738, 154), $x);
       };
-      $R = (function(dynamic $t112, dynamic $param) {return $t112->stopPropagation;
-       })($ev, $Q);
-      return $call3($Js_of_ocaml_Js[6][7], $R, $P, $O);
+      $R_ = (function(dynamic $t112, dynamic $param) {return $t112->stopPropagation;
+       })($ev, $Q_);
+      return $call3($Js_of_ocaml_Js[6][7], $R_, $P_, $O_);
     };
     $requestAnimationFrame = $runtime["caml_js_pure_expr"](
       function(dynamic $param) use ($Js_of_ocaml_Js,$List,$Not_found,$call1,$call2,$caml_get_public_method,$caml_wrap_exception,$runtime,$window) {
-        $w = 0;
-        $x = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $w_ = 0;
+        $x_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 497949938, 155), $x);
         };
-        $y = Vector{
+        $y_ = Vector{
           0,
           (function(dynamic $t125, dynamic $param) {
              return $t125->msRequestAnimationFrame;
-           })($window, $x),
-          $w
+           })($window, $x_),
+          $w_
         };
-        $z = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $z_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -153781943, 156), $x);
         };
-        $A = Vector{
+        $A_ = Vector{
           0,
           (function(dynamic $t124, dynamic $param) {return $t124->oRequestAnimationFrame;
-           })($window, $z),
-          $y
+           })($window, $z_),
+          $y_
         };
-        $B = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $B_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -151539242, 157), $x);
         };
-        $C = Vector{
+        $C_ = Vector{
           0,
           (function(dynamic $t123, dynamic $param) {
              return $t123->webkitRequestAnimationFrame;
-           })($window, $B),
-          $A
+           })($window, $B_),
+          $A_
         };
-        $D = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $D_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -769448896, 158), $x);
         };
-        $E = Vector{
+        $E_ = Vector{
           0,
           (function(dynamic $t122, dynamic $param) {
              return $t122->mozRequestAnimationFrame;
-           })($window, $D),
-          $C
+           })($window, $D_),
+          $C_
         };
-        $F = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $F_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 240126520, 159), $x);
         };
         $l = Vector{
           0,
           (function(dynamic $t121, dynamic $param) {return $t121->requestAnimationFrame;
-           })($window, $F),
-          $E
+           })($window, $F_),
+          $E_
         };
         try {
-          $G = function(dynamic $c) use ($Js_of_ocaml_Js,$call1) {
+          $G_ = function(dynamic $c) use ($Js_of_ocaml_Js,$call1) {
             return $call1($Js_of_ocaml_Js[6][5], $c);
           };
-          $req = $call2($List[33], $G, $l);
-          $H = function(dynamic $callback) use ($req) {
+          $req = $call2($List[33], $G_, $l);
+          $H_ = function(dynamic $callback) use ($req) {
             return $req($callback);
           };
-          return $H;
+          return $H_;
         }
-        catch(\Throwable $I) {
-          $I = $caml_wrap_exception($I);
-          if ($I === $Not_found) {
+        catch(\Throwable $I_) {
+          $I_ = $caml_wrap_exception($I_);
+          if ($I_ === $Not_found) {
             $now = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
-              $K = function(dynamic $x) use ($call1,$caml_get_public_method) {
+              $K_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
                 return $call1($caml_get_public_method($x, 528448451, 160), $x);
               };
-              $L = 0;
-              $M = $Js_of_ocaml_Js[22];
-              $N = (function(dynamic $t119, dynamic $param) {return new $t119();
-               })($M, $L);
+              $L_ = 0;
+              $M_ = $Js_of_ocaml_Js[22];
+              $N_ = (function(dynamic $t119, dynamic $param) {return new $t119();
+               })($M_, $L_);
               return (function(dynamic $t120, dynamic $param) {return $t120->getTime();
-               })($N, $K);
+               })($N_, $K_);
             };
             $last = Vector{0, $now(0)};
             return function(dynamic $callback) use ($call1,$caml_get_public_method,$last,$now,$window) {
@@ -2782,46 +2789,47 @@ final class Js_of_ocaml__Dom_html {
               $dt = $last[1] + 16.6666666666666679 - $t;
               $dt__0 = $dt < 0 ? 0 : ($dt);
               $last[1] = $t;
-              $J = function(dynamic $x) use ($call1,$caml_get_public_method) {
+              $J_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
                 return $call1($caml_get_public_method($x, 735461151, 161), $x);
               };
               ((function
                 (dynamic $t118, dynamic $t116, dynamic $t117, dynamic $param) {return $t118->setTimeout($t116, $t117);
-                })($window, $callback, $dt__0, $J));
+                })($window, $callback, $dt__0, $J_));
               return 0;
             };
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($I) as \Throwable;
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($I_) as \Throwable;
         }
       }
     );
     $hasPushState = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$window) {
-      $s = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $s_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -936976937, 162), $x);
       };
-      $t = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $t_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -465095340, 163), $x);
       };
-      $u = (function(dynamic $t126, dynamic $param) {return $t126->history;})($window, $t);
-      $v = (function(dynamic $t127, dynamic $param) {return $t127->pushState;})($u, $s);
-      return $call1($Js_of_ocaml_Js[6][5], $v);
+      $u_ = (function(dynamic $t126, dynamic $param) {return $t126->history;})($window, $t_);
+      $v_ = (function(dynamic $t127, dynamic $param) {return $t127->pushState;
+       })($u_, $s_);
+      return $call1($Js_of_ocaml_Js[6][5], $v_);
     };
     $hasPlaceholder = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$createInput,$document) {
       $i = $createInput(0, 0, $document);
-      $q = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $q_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 989033331, 164), $x);
       };
-      $r = (function(dynamic $t128, dynamic $param) {return $t128->placeholder;
-       })($i, $q);
-      return $call1($Js_of_ocaml_Js[6][5], $r);
+      $r_ = (function(dynamic $t128, dynamic $param) {return $t128->placeholder;
+       })($i, $q_);
+      return $call1($Js_of_ocaml_Js[6][5], $r_);
     };
     $hasRequired = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method,$createInput,$document) {
       $i = $createInput(0, 0, $document);
-      $o = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $o_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 845320543, 165), $x);
       };
-      $p = (function(dynamic $t129, dynamic $param) {return $t129->required;})($i, $o);
-      return $call1($Js_of_ocaml_Js[6][5], $p);
+      $p_ = (function(dynamic $t129, dynamic $param) {return $t129->required;})($i, $o_);
+      return $call1($Js_of_ocaml_Js[6][5], $p_);
     };
     $overflow_limit = 2147483000;
     $setTimeout = function(dynamic $callback, dynamic $d) use ($call1,$caml_get_public_method,$overflow_limit,$runtime,$window) {
@@ -2829,26 +2837,26 @@ final class Js_of_ocaml__Dom_html {
       $id = Vector{0, 0};
       $loop->contents = function(dynamic $step, dynamic $param) use ($call1,$callback,$caml_get_public_method,$id,$loop,$overflow_limit,$runtime,$window) {
         if (2147483000 < $step) {
-          $k = $step - 2147483000;
+          $k_ = $step - 2147483000;
           $step__0 = $overflow_limit;
-          $remain = $k;
+          $remain = $k_;
         }
         else {$remain__0 = 0;$step__0 = $step;$remain = $remain__0;}
         $cb = $remain == 0
           ? $callback
-          : (function(dynamic $n) use ($loop,$remain) {
-           return $loop->contents($remain, $n);
+          : (function(dynamic $n_) use ($loop,$remain) {
+           return $loop->contents($remain, $n_);
          });
-        $l = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $l_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 735461151, 166), $x);
         };
-        $m = $runtime["caml_js_wrap_callback"]($cb);
+        $m_ = $runtime["caml_js_wrap_callback"]($cb);
         $id[1] =
           Vector{
             0,
             (function
              (dynamic $t132, dynamic $t130, dynamic $t131, dynamic $param) {return $t132->setTimeout($t130, $t131);
-             })($window, $m, $step__0, $l)
+             })($window, $m_, $step__0, $l_)
           };
         return 0;
       };
@@ -2856,15 +2864,15 @@ final class Js_of_ocaml__Dom_html {
       return $id;
     };
     $clearTimeout = function(dynamic $id) use ($call1,$caml_get_public_method,$window) {
-      $i = $id[1];
-      if ($i) {
-        $x = $i[1];
+      $i_ = $id[1];
+      if ($i_) {
+        $x = $i_[1];
         $id[1] = 0;
-        $j = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        $j_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 880135316, 167), $x);
         };
         return (function(dynamic $t134, dynamic $t133, dynamic $param) {return $t134->clearTimeout($t133);
-         })($window, $x, $j);
+         })($window, $x, $j_);
       }
       return 0;
     };
@@ -2989,7 +2997,7 @@ final class Js_of_ocaml__Dom_html {
       Vector{
         0,
         $element,
-        $a__0,
+        $a,
         $area,
         $audio,
         $base,
@@ -3060,8 +3068,8 @@ final class Js_of_ocaml__Dom_html {
       $clearTimeout,
       $js_array_of_collection,
       $requestAnimationFrame,
-      function(dynamic $h) use ($runtime) {
-        return $runtime["caml_js_html_entities"]($h);
+      function(dynamic $h_) use ($runtime) {
+        return $runtime["caml_js_html_entities"]($h_);
       },
       $onIE,
       $hasPushState,

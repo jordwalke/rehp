@@ -35,11 +35,11 @@ function lognot(n) {return n ^ -1;}
 function to_string(n) {return runtime["caml_format_int"](cst_d, n);}
 
 function of_string_opt(s) {
-  try {var a = [0,runtime["caml_int_of_string"](s)];return a;}
-  catch(b) {
-    b = caml_wrap_exception(b);
-    if (b[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](b);
+  try {var a_ = [0,runtime["caml_int_of_string"](s)];return a_;}
+  catch(b_) {
+    b_ = caml_wrap_exception(b_);
+    if (b_[1] === Failure) {return 0;}
+    throw runtime["caml_wrap_thrown_exception_reraise"](b_);
   }
 }
 

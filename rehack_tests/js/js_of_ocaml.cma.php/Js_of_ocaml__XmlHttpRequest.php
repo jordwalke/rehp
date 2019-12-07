@@ -46,7 +46,7 @@ final class Js_of_ocaml__XmlHttpRequest {
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Assert_failure = $global_data["Assert_failure"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $a = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75};
+    $a_ = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75};
     $readystatechange = $call1($Js_of_ocaml_Dom[14][1], $cst_readystatechange);
     $loadstart = $call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
     $progress = $call1($Js_of_ocaml_Dom[14][1], $cst_progress);
@@ -66,50 +66,50 @@ final class Js_of_ocaml__XmlHttpRequest {
       $timeout,
       $loadend
     };
-    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$a,$call1,$caml_get_public_method,$runtime) {
-      $b = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$a_,$call1,$caml_get_public_method,$runtime) {
+      $b_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -1035517745, 201), $x);
       };
-      $c = $Js_of_ocaml_Js[50][1];
+      $c_ = $Js_of_ocaml_Js[50][1];
       $xmlHttpRequest = (function(dynamic $t8, dynamic $param) {return $t8->XMLHttpRequest;
-       })($c, $b);
-      $d = function(dynamic $x) use ($call1,$caml_get_public_method) {
+       })($c_, $b_);
+      $d_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -5445583, 202), $x);
       };
-      $e = $Js_of_ocaml_Js[50][1];
+      $e_ = $Js_of_ocaml_Js[50][1];
       $activeXObject = (function(dynamic $t7, dynamic $param) {return $t7->activeXObject;
-       })($e, $d);
+       })($e_, $d_);
       try {
-        $o = 0;
-        $p = (function(dynamic $t6, dynamic $param) {return new $t6();})($xmlHttpRequest, $o);
-        return $p;
+        $o_ = 0;
+        $p_ = (function(dynamic $t6, dynamic $param) {return new $t6();})($xmlHttpRequest, $o_);
+        return $p_;
       }
-      catch(\Throwable $q) {
+      catch(\Throwable $q_) {
         try {
-          $l = 0;
-          $m = "Msxml2.XMLHTTP";
-          $n = (function(dynamic $t5, dynamic $t4, dynamic $param) {return new $t5($t4);
-           })($activeXObject, $m, $l);
-          return $n;
+          $l_ = 0;
+          $m_ = "Msxml2.XMLHTTP";
+          $n_ = (function(dynamic $t5, dynamic $t4, dynamic $param) {return new $t5($t4);
+           })($activeXObject, $m_, $l_);
+          return $n_;
         }
-        catch(\Throwable $r) {
+        catch(\Throwable $r_) {
           try {
-            $i = 0;
-            $j = "Msxml3.XMLHTTP";
-            $k = (function(dynamic $t3, dynamic $t2, dynamic $param) {return new $t3($t2);
-             })($activeXObject, $j, $i);
-            return $k;
+            $i_ = 0;
+            $j_ = "Msxml3.XMLHTTP";
+            $k_ = (function(dynamic $t3, dynamic $t2, dynamic $param) {return new $t3($t2);
+             })($activeXObject, $j_, $i_);
+            return $k_;
           }
-          catch(\Throwable $s) {
+          catch(\Throwable $s_) {
             try {
-              $f = 0;
-              $g = "Microsoft.XMLHTTP";
-              $h = (function(dynamic $t1, dynamic $t0, dynamic $param) {return new $t1($t0);
-               })($activeXObject, $g, $f);
-              return $h;
+              $f_ = 0;
+              $g_ = "Microsoft.XMLHTTP";
+              $h_ = (function(dynamic $t1, dynamic $t0, dynamic $param) {return new $t1($t0);
+               })($activeXObject, $g_, $f_);
+              return $h_;
             }
-            catch(\Throwable $t) {
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a}) as \Throwable;
+            catch(\Throwable $t_) {
+              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
             }
           }
         }

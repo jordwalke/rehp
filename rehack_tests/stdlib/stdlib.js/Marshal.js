@@ -68,13 +68,13 @@ function from_string(buff, ofs) {
   return from_bytes(call1(Bytes[43], buff), ofs);
 }
 
-function a(e) {return runtime["caml_input_value"](e);}
+function a_(e_) {return runtime["caml_input_value"](e_);}
 
 var Marshal = [
   0,
-  function(d, c, b) {return runtime["caml_output_value"](d, c, b);},
+  function(d_, c_, b_) {return runtime["caml_output_value"](d_, c_, b_);},
   to_buffer,
-  a,
+  a_,
   from_bytes,
   from_string,
   header_size,

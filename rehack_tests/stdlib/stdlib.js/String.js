@@ -66,13 +66,13 @@ function make(n, c) {return call1(bts, call2(Bytes[1], n, c));}
 function init(n, f) {return call1(bts, call2(Bytes[2], n, f));}
 
 function copy(s) {
-  var J = call1(bos, s);
-  return call1(bts, call1(Bytes[4], J));
+  var J_ = call1(bos, s);
+  return call1(bts, call1(Bytes[4], J_));
 }
 
 function sub(s, ofs, len) {
-  var I = call1(bos, s);
-  return call1(bts, call3(Bytes[7], I, ofs, len));
+  var I_ = call1(bos, s);
+  return call1(bts, call3(Bytes[7], I_, ofs, len));
 }
 
 var fill = Bytes[10];
@@ -87,18 +87,18 @@ function sum_lengths(acc, seplen, param) {
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var G = param__0[2];
-      var H = param__0[1];
-      if (G) {
+      var G_ = param__0[2];
+      var H_ = param__0[1];
+      if (G_) {
         var acc__1 = ensure_ge(
-          (caml_ml_string_length(H) + seplen | 0) + acc__0 | 0,
+          (caml_ml_string_length(H_) + seplen | 0) + acc__0 | 0,
           acc__0
         );
         var acc__0 = acc__1;
-        var param__0 = G;
+        var param__0 = G_;
         continue;
       }
-      return caml_ml_string_length(H) + acc__0 | 0;
+      return caml_ml_string_length(H_) + acc__0 | 0;
     }
     return acc__0;
   }
@@ -109,23 +109,23 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var E = param__0[2];
-      var F = param__0[1];
-      if (E) {
-        caml_blit_string(F, 0, dst, pos__0, caml_ml_string_length(F));
+      var E_ = param__0[2];
+      var F_ = param__0[1];
+      if (E_) {
+        caml_blit_string(F_, 0, dst, pos__0, caml_ml_string_length(F_));
         caml_blit_string(
           sep,
           0,
           dst,
-          pos__0 + caml_ml_string_length(F) | 0,
+          pos__0 + caml_ml_string_length(F_) | 0,
           seplen
         );
-        var pos__1 = (pos__0 + caml_ml_string_length(F) | 0) + seplen | 0;
+        var pos__1 = (pos__0 + caml_ml_string_length(F_) | 0) + seplen | 0;
         var pos__0 = pos__1;
-        var param__0 = E;
+        var param__0 = E_;
         continue;
       }
-      caml_blit_string(F, 0, dst, pos__0, caml_ml_string_length(F));
+      caml_blit_string(F_, 0, dst, pos__0, caml_ml_string_length(F_));
       return dst;
     }
     return dst;
@@ -150,14 +150,14 @@ function concat(sep, l) {
 }
 
 function iter(f, s) {
-  var C = caml_ml_string_length(s) + -1 | 0;
-  var B = 0;
-  if (! (C < 0)) {
-    var i = B;
+  var C_ = caml_ml_string_length(s) + -1 | 0;
+  var B_ = 0;
+  if (! (C_ < 0)) {
+    var i = B_;
     for (; ; ) {
       call1(f, caml_bytes_unsafe_get(s, i));
-      var D = i + 1 | 0;
-      if (C !== i) {var i = D;continue;}
+      var D_ = i + 1 | 0;
+      if (C_ !== i) {var i = D_;continue;}
       break;
     }
   }
@@ -165,14 +165,14 @@ function iter(f, s) {
 }
 
 function iteri(f, s) {
-  var z = caml_ml_string_length(s) + -1 | 0;
-  var y = 0;
-  if (! (z < 0)) {
-    var i = y;
+  var z_ = caml_ml_string_length(s) + -1 | 0;
+  var y_ = 0;
+  if (! (z_ < 0)) {
+    var i = y_;
     for (; ; ) {
       call2(f, i, caml_bytes_unsafe_get(s, i));
-      var A = i + 1 | 0;
-      if (z !== i) {var i = A;continue;}
+      var A_ = i + 1 | 0;
+      if (z_ !== i) {var i = A_;continue;}
       break;
     }
   }
@@ -180,18 +180,18 @@ function iteri(f, s) {
 }
 
 function map(f, s) {
-  var x = call1(bos, s);
-  return call1(bts, call2(Bytes[17], f, x));
+  var x_ = call1(bos, s);
+  return call1(bts, call2(Bytes[17], f, x_));
 }
 
 function mapi(f, s) {
-  var w = call1(bos, s);
-  return call1(bts, call2(Bytes[18], f, w));
+  var w_ = call1(bos, s);
+  return call1(bts, call2(Bytes[18], f, w_));
 }
 
 function is_space(param) {
-  var v = param + -9 | 0;
-  var switch__0 = 4 < v >>> 0 ? 23 === v ? 1 : 0 : 2 === v ? 0 : 1;
+  var v_ = param + -9 | 0;
+  var switch__0 = 4 < v_ >>> 0 ? 23 === v_ ? 1 : 0 : 2 === v_ ? 0 : 1;
   return switch__0 ? 1 : 0;
 }
 
@@ -203,8 +203,8 @@ function trim(s) {
     is_space(caml_bytes_unsafe_get(s, caml_ml_string_length(s) + -1 | 0))
     ) {return s;}
   }
-  var u = call1(bos, s);
-  return call1(bts, call1(Bytes[19], u));
+  var u_ = call1(bos, s);
+  return call1(bts, call1(Bytes[19], u_));
 }
 
 function escaped(s) {
@@ -214,13 +214,13 @@ function escaped(s) {
       if (caml_ml_string_length(s) <= i__0) {return 0;}
       var match = caml_bytes_unsafe_get(s, i__0);
       if (32 <= match) {
-        var t = match + -34 | 0;
-        if (58 < t >>> 0) if (93 <= t) {
+        var t_ = match + -34 | 0;
+        if (58 < t_ >>> 0) if (93 <= t_) {
           var switch__0 = 0;
           var switch__1 = 0;
         }
         else var switch__1 = 1;
-        else if (56 < (t + -1 | 0) >>> 0) {
+        else if (56 < (t_ + -1 | 0) >>> 0) {
           var switch__0 = 1;
           var switch__1 = 0;
         }
@@ -234,8 +234,8 @@ function escaped(s) {
     }
   }
   if (needs_escape(0)) {
-    var s = call1(bos, s);
-    return call1(bts, call1(Bytes[20], s));
+    var s_ = call1(bos, s);
+    return call1(bts, call1(Bytes[20], s_));
   }
   return s;
 }
@@ -333,11 +333,11 @@ function contains_from(s, i, c) {
   var l = caml_ml_string_length(s);
   if (0 <= i) {
     if (! (l < i)) {
-      try {index_rec(s, l, i, c);var q = 1;return q;}
-      catch(r) {
-        r = caml_wrap_exception(r);
-        if (r === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](r);
+      try {index_rec(s, l, i, c);var q_ = 1;return q_;}
+      catch(r_) {
+        r_ = caml_wrap_exception(r_);
+        if (r_ === Not_found) {return 0;}
+        throw runtime["caml_wrap_thrown_exception_reraise"](r_);
       }
     }
   }
@@ -349,11 +349,11 @@ function contains(s, c) {return contains_from(s, 0, c);}
 function rcontains_from(s, i, c) {
   if (0 <= i) {
     if (! (caml_ml_string_length(s) <= i)) {
-      try {rindex_rec(s, i, c);var o = 1;return o;}
-      catch(p) {
-        p = caml_wrap_exception(p);
-        if (p === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](p);
+      try {rindex_rec(s, i, c);var o_ = 1;return o_;}
+      catch(p_) {
+        p_ = caml_wrap_exception(p_);
+        if (p_ === Not_found) {return 0;}
+        throw runtime["caml_wrap_thrown_exception_reraise"](p_);
       }
     }
   }
@@ -361,23 +361,23 @@ function rcontains_from(s, i, c) {
 }
 
 function uppercase_ascii(s) {
-  var n = call1(bos, s);
-  return call1(bts, call1(Bytes[36], n));
+  var n_ = call1(bos, s);
+  return call1(bts, call1(Bytes[36], n_));
 }
 
 function lowercase_ascii(s) {
-  var m = call1(bos, s);
-  return call1(bts, call1(Bytes[37], m));
+  var m_ = call1(bos, s);
+  return call1(bts, call1(Bytes[37], m_));
 }
 
 function capitalize_ascii(s) {
-  var l = call1(bos, s);
-  return call1(bts, call1(Bytes[38], l));
+  var l_ = call1(bos, s);
+  return call1(bts, call1(Bytes[38], l_));
 }
 
 function uncapitalize_ascii(s) {
-  var k = call1(bos, s);
-  return call1(bts, call1(Bytes[39], k));
+  var k_ = call1(bos, s);
+  return call1(bts, call1(Bytes[39], k_));
 }
 
 function compare(x, y) {return runtime["caml_string_compare"](x, y);}
@@ -385,42 +385,42 @@ function compare(x, y) {return runtime["caml_string_compare"](x, y);}
 function split_on_char(sep, s) {
   var r = [0,0];
   var j = [0,caml_ml_string_length(s)];
-  var g = caml_ml_string_length(s) + -1 | 0;
-  if (! (g < 0)) {
-    var i = g;
+  var g_ = caml_ml_string_length(s) + -1 | 0;
+  if (! (g_ < 0)) {
+    var i = g_;
     for (; ; ) {
       if (caml_bytes_unsafe_get(s, i) === sep) {
-        var i = r[1];
-        r[1] = [0,sub(s, i + 1 | 0, (j[1] - i | 0) + -1 | 0),i];
+        var i_ = r[1];
+        r[1] = [0,sub(s, i + 1 | 0, (j[1] - i | 0) + -1 | 0),i_];
         j[1] = i;
       }
-      var j = i + -1 | 0;
-      if (0 !== i) {var i = j;continue;}
+      var j_ = i + -1 | 0;
+      if (0 !== i) {var i = j_;continue;}
       break;
     }
   }
-  var h = r[1];
-  return [0,sub(s, 0, j[1]),h];
+  var h_ = r[1];
+  return [0,sub(s, 0, j[1]),h_];
 }
 
 function uppercase(s) {
-  var f = call1(bos, s);
-  return call1(bts, call1(Bytes[32], f));
+  var f_ = call1(bos, s);
+  return call1(bts, call1(Bytes[32], f_));
 }
 
 function lowercase(s) {
-  var e = call1(bos, s);
-  return call1(bts, call1(Bytes[33], e));
+  var e_ = call1(bos, s);
+  return call1(bts, call1(Bytes[33], e_));
 }
 
 function capitalize(s) {
-  var d = call1(bos, s);
-  return call1(bts, call1(Bytes[34], d));
+  var d_ = call1(bos, s);
+  return call1(bts, call1(Bytes[34], d_));
 }
 
 function uncapitalize(s) {
-  var c = call1(bos, s);
-  return call1(bts, call1(Bytes[35], c));
+  var c_ = call1(bos, s);
+  return call1(bts, call1(Bytes[35], c_));
 }
 
 var String = [
@@ -458,7 +458,7 @@ var String = [
   capitalize_ascii,
   uncapitalize_ascii,
   compare,
-  function(b, a) {return caml_string_equal(b, a);},
+  function(b_, a_) {return caml_string_equal(b_, a_);},
   split_on_char
 ];
 

@@ -54,8 +54,9 @@ final class Lexing {
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
-        $z = $buf[12];
-        $buf[12] = Vector{0, $z[1], $z[2], $z[3], (int) ($buf[4] + $buf[6])};
+        $z_ = $buf[12];
+        $buf[12] =
+          Vector{0, $z_[1], $z_[2], $z_[3], (int) ($buf[4] + $buf[6])};
       }
       return $result;
     };
@@ -63,8 +64,9 @@ final class Lexing {
       $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
-        $y = $buf[12];
-        $buf[12] = Vector{0, $y[1], $y[2], $y[3], (int) ($buf[4] + $buf[6])};
+        $y_ = $buf[12];
+        $buf[12] =
+          Vector{0, $y_[1], $y_[2], $y_[3], (int) ($buf[4] + $buf[6])};
       }
       return $result;
     };
@@ -121,17 +123,17 @@ final class Lexing {
         $lexbuf[7] = (int) ($lexbuf[7] - $s);
         $lexbuf[3] = (int) ($lexbuf[3] - $s);
         $t = $lexbuf[10];
-        $w = (int) ($t->count() - 1 + -1);
-        $v = 0;
-        if (! ($w < 0)) {
-          $i = $v;
+        $w_ = (int) ($t->count() - 1 + -1);
+        $v_ = 0;
+        if (! ($w_ < 0)) {
+          $i = $v_;
           for (;;) {
-            $v__0 = $caml_check_bound($t, $i)[$i + 1];
-            if (0 <= $v__0) {
-              $caml_check_bound($t, $i)[$i + 1] = (int) ($v__0 - $s);
+            $v = $caml_check_bound($t, $i)[$i + 1];
+            if (0 <= $v) {
+              $caml_check_bound($t, $i)[$i + 1] = (int) ($v - $s);
             }
-            $x = (int) ($i + 1);
-            if ($w !== $i) {$i = $x;continue;}
+            $x_ = (int) ($i + 1);
+            if ($w_ !== $i) {$i = $x_;continue;}
             break;
           }
         }
@@ -141,30 +143,30 @@ final class Lexing {
       return 0;
     };
     $from_function = function(dynamic $f) use ($caml_create_bytes,$lex_refill,$zero_pos) {
-      $k = Vector{0};
-      $l = 0;
-      $m = 0;
-      $n = 0;
-      $o = 0;
-      $p = 0;
-      $q = 0;
-      $r = 0;
-      $s = $caml_create_bytes(1024);
-      $t = $caml_create_bytes(512);
+      $k_ = Vector{0};
+      $l_ = 0;
+      $m_ = 0;
+      $n_ = 0;
+      $o_ = 0;
+      $p_ = 0;
+      $q_ = 0;
+      $r_ = 0;
+      $s_ = $caml_create_bytes(1024);
+      $t_ = $caml_create_bytes(512);
       return Vector{
         0,
-        function(dynamic $u) use ($f,$lex_refill,$t) {
-          return $lex_refill($f, $t, $u);
+        function(dynamic $u_) use ($f,$lex_refill,$t_) {
+          return $lex_refill($f, $t_, $u_);
         },
-        $s,
-        $r,
-        $q,
-        $p,
-        $o,
-        $n,
-        $m,
-        $l,
-        $k,
+        $s_,
+        $r_,
+        $q_,
+        $p_,
+        $o_,
+        $n_,
+        $m_,
+        $l_,
+        $k_,
         $zero_pos,
         $zero_pos
       };
@@ -177,27 +179,27 @@ final class Lexing {
       );
     };
     $from_string = function(dynamic $s) use ($Bytes,$call1,$runtime,$zero_pos) {
-      $b = Vector{0};
-      $c = 1;
-      $d = 0;
-      $e = 0;
-      $f = 0;
-      $g = 0;
-      $h = 0;
-      $i = $runtime["caml_ml_string_length"]($s);
-      $j = $call1($Bytes[5], $s);
+      $b_ = Vector{0};
+      $c_ = 1;
+      $d_ = 0;
+      $e_ = 0;
+      $f_ = 0;
+      $g_ = 0;
+      $h_ = 0;
+      $i_ = $runtime["caml_ml_string_length"]($s);
+      $j_ = $call1($Bytes[5], $s);
       return Vector{
         0,
         function(dynamic $lexbuf) {$lexbuf[9] = 1;return 0;},
-        $j,
-        $i,
-        $h,
-        $g,
-        $f,
-        $e,
-        $d,
-        $c,
-        $b,
+        $j_,
+        $i_,
+        $h_,
+        $g_,
+        $f_,
+        $e_,
+        $d_,
+        $c_,
+        $b_,
         $zero_pos,
         $zero_pos
       };
@@ -238,8 +240,8 @@ final class Lexing {
     $flush_input = function(dynamic $lb) {
       $lb[6] = 0;
       $lb[4] = 0;
-      $a = $lb[12];
-      $lb[12] = Vector{0, $a[1], $a[2], $a[3], 0};
+      $a_ = $lb[12];
+      $lb[12] = Vector{0, $a_[1], $a_[2], $a_[3], 0};
       $lb[3] = 0;
       return 0;
     };

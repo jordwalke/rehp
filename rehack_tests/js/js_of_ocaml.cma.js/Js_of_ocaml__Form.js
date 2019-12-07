@@ -40,18 +40,18 @@ var List = global_data["List_"];
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Js_of_ocaml_Dom_html = global_data["Js_of_ocaml__Dom_html"];
 var Array = global_data["Array_"];
-var f = [0,string("lib/js_of_ocaml/form.ml"),170,58];
-var e = [0,1];
+var f_ = [0,string("lib/js_of_ocaml/form.ml"),170,58];
+var e_ = [0,1];
 
-function a(x) {return call1(caml_get_public_method(x, -137852659, 168), x);}
+function a_(x) {return call1(caml_get_public_method(x, -137852659, 168), x);}
 
-var b = Js_of_ocaml_Js[50][1];
-var formData = function(t0, param) {return t0.FormData;}(b, a);
+var b_ = Js_of_ocaml_Js[50][1];
+var formData = function(t0, param) {return t0.FormData;}(b_, a_);
 
-function c(x) {return call1(caml_get_public_method(x, -137852659, 169), x);}
+function c_(x) {return call1(caml_get_public_method(x, -137852659, 169), x);}
 
-var d = Js_of_ocaml_Js[50][1];
-var formData_form = function(t1, param) {return t1.FormData;}(d, c);
+var d_ = Js_of_ocaml_Js[50][1];
+var formData_form = function(t1, param) {return t1.FormData;}(d_, c_);
 
 function filter_map(f, param) {
   var param__0 = param;
@@ -69,38 +69,40 @@ function filter_map(f, param) {
 }
 
 function have_content(elt) {
-  function at(x) {return call1(caml_get_public_method(x, 520590566, 170), x);}
-  function au(x) {
+  function at_(x) {
+    return call1(caml_get_public_method(x, 520590566, 170), x);
+  }
+  function au_(x) {
     return call1(caml_get_public_method(x, -922783157, 171), x);
   }
-  var av = function(t2, param) {return t2.name;}(elt, au);
-  var aw = 0 < function(t3, param) {return t3.length;}(av, at) ? 1 : 0;
-  if (aw) {
-    var ax = function(x) {
+  var av_ = function(t2, param) {return t2.name;}(elt, au_);
+  var aw_ = 0 < function(t3, param) {return t3.length;}(av_, at_) ? 1 : 0;
+  if (aw_) {
+    var ax_ = function(x) {
       return call1(caml_get_public_method(x, -66829956, 172), x);
     };
-    var ay = 1 - (function(t4, param) {return t4.disabled;}(elt, ax) | 0);
+    var ay_ = 1 - (function(t4, param) {return t4.disabled;}(elt, ax_) | 0);
   }
-  else var ay = aw;
-  return ay;
+  else var ay_ = aw_;
+  return ay_;
 }
 
 function get_textarea_val(elt) {
   if (have_content(elt)) {
-    var aq = function(x) {
+    var aq_ = function(x) {
       return call1(caml_get_public_method(x, -922783157, 173), x);
     };
     var name = caml_js_to_string(
-      function(t6, param) {return t6.name;}(elt, aq)
+      function(t6, param) {return t6.name;}(elt, aq_)
     );
-    var ar = 0;
-    var as = function(x) {
+    var ar_ = 0;
+    var as_ = function(x) {
       return call1(caml_get_public_method(x, 834174833, 174), x);
     };
     return [
       0,
-      [0,name,[0,-976970511,function(t5, param) {return t5.value;}(elt, as)]],
-      ar
+      [0,name,[0,-976970511,function(t5, param) {return t5.value;}(elt, as_)]],
+      ar_
     ];
   }
   return 0;
@@ -108,46 +110,47 @@ function get_textarea_val(elt) {
 
 function get_select_val(elt) {
   if (have_content(elt)) {
-    var aa = function(x) {
+    var aa_ = function(x) {
       return call1(caml_get_public_method(x, -922783157, 175), x);
     };
     var name = caml_js_to_string(
-      function(t16, param) {return t16.name;}(elt, aa)
+      function(t16, param) {return t16.name;}(elt, aa_)
     );
-    var ab = function(x) {
+    var ab_ = function(x) {
       return call1(caml_get_public_method(x, 445440528, 176), x);
     };
-    if (function(t15, param) {return t15.multiple;}(elt, ab) | 0) {
-      var ac = function(i) {
-        function am(x) {
+    if (function(t15, param) {return t15.multiple;}(elt, ab_) | 0) {
+      var ac_ = function(i) {
+        function am_(x) {
           return call1(caml_get_public_method(x, -977287917, 177), x);
         }
-        function an(x) {
+        function an_(x) {
           return call1(caml_get_public_method(x, -536988834, 178), x);
         }
-        var ao = function(t12, param) {return t12.options;}(elt, an);
-        var ap = function(t14, t13, param) {return t14.item(t13);}(ao, i, am);
-        return call1(Js_of_ocaml_Js[5][10], ap);
+        var ao_ = function(t12, param) {return t12.options;}(elt, an_);
+        var ap_ = function(t14, t13, param) {return t14.item(t13);}(ao_, i, am_
+        );
+        return call1(Js_of_ocaml_Js[5][10], ap_);
       };
-      var ad = function(x) {
+      var ad_ = function(x) {
         return call1(caml_get_public_method(x, 520590566, 179), x);
       };
-      var ae = function(x) {
+      var ae_ = function(x) {
         return call1(caml_get_public_method(x, -536988834, 180), x);
       };
-      var af = function(t10, param) {return t10.options;}(elt, ae);
-      var ag = function(t11, param) {return t11.length;}(af, ad);
-      var options = call2(Array[2], ag, ac);
-      var ah = call1(Array[11], options);
+      var af_ = function(t10, param) {return t10.options;}(elt, ae_);
+      var ag_ = function(t11, param) {return t11.length;}(af_, ad_);
+      var options = call2(Array[2], ag_, ac_);
+      var ah_ = call1(Array[11], options);
       return filter_map(
         function(param) {
           if (param) {
             var e = param[1];
-            var ak = function(x) {
+            var ak_ = function(x) {
               return call1(caml_get_public_method(x, 829237851, 181), x);
             };
-            if (function(t9, param) {return t9.selected;}(e, ak) | 0) {
-              var al = function(x) {
+            if (function(t9, param) {return t9.selected;}(e, ak_) | 0) {
+              var al_ = function(x) {
                 return call1(caml_get_public_method(x, 834174833, 182), x);
               };
               return [
@@ -155,7 +158,8 @@ function get_select_val(elt) {
                 [
                   0,
                   name,
-                  [0,-976970511,function(t8, param) {return t8.value;}(e, al)]
+                  [0,-976970511,function(t8, param) {return t8.value;}(e, al_)
+                  ]
                 ]
               ];
             }
@@ -163,17 +167,17 @@ function get_select_val(elt) {
           }
           return 0;
         },
-        ah
+        ah_
       );
     }
-    var ai = 0;
-    var aj = function(x) {
+    var ai_ = 0;
+    var aj_ = function(x) {
       return call1(caml_get_public_method(x, 834174833, 183), x);
     };
     return [
       0,
-      [0,name,[0,-976970511,function(t7, param) {return t7.value;}(elt, aj)]],
-      ai
+      [0,name,[0,-976970511,function(t7, param) {return t7.value;}(elt, aj_)]],
+      ai_
     ];
   }
   return 0;
@@ -186,60 +190,60 @@ function get_input_val(opt, elt) {
   }
   else var get = 0;
   if (have_content(elt)) {
-    var G = function(x) {
+    var G_ = function(x) {
       return call1(caml_get_public_method(x, -922783157, 184), x);
     };
     var name = caml_js_to_string(
-      function(t29, param) {return t29.name;}(elt, G)
+      function(t29, param) {return t29.name;}(elt, G_)
     );
-    var H = function(x) {
+    var H_ = function(x) {
       return call1(caml_get_public_method(x, 834174833, 185), x);
     };
-    var value = function(t28, param) {return t28.value;}(elt, H);
-    var I = function(x) {
+    var value = function(t28, param) {return t28.value;}(elt, H_);
+    var I_ = function(x) {
       return call1(caml_get_public_method(x, 946097238, 186), x);
     };
-    var J = function(x) {
+    var J_ = function(x) {
       return call1(caml_get_public_method(x, 1707673, 187), x);
     };
-    var K = function(t26, param) {return t26.type;}(elt, J);
+    var K_ = function(t26, param) {return t26.type;}(elt, J_);
     var match = runtime["caml_js_to_byte_string"](
-      function(t27, param) {return t27.toLowerCase();}(K, I)
+      function(t27, param) {return t27.toLowerCase();}(K_, I_)
     );
     if (caml_string_notequal(match, cst_checkbox)) {
       if (! caml_string_notequal(match, cst_file)) {
         if (get) {return [0,[0,name,[0,-976970511,value]],0];}
-        var M = function(x) {
+        var M_ = function(x) {
           return call1(caml_get_public_method(x, 10018423, 189), x);
         };
-        var N = function(t25, param) {return t25.files;}(elt, M);
-        var match__0 = call1(Js_of_ocaml_Js[6][10], N);
+        var N_ = function(t25, param) {return t25.files;}(elt, M_);
+        var match__0 = call1(Js_of_ocaml_Js[6][10], N_);
         if (match__0) {
           var list = match__0[1];
-          var O = function(x) {
+          var O_ = function(x) {
             return call1(caml_get_public_method(x, 520590566, 190), x);
           };
-          if (0 === function(t24, param) {return t24.length;}(list, O)) {return [0,[0,name,[0,-976970511,""]],0];}
-          var P = function(x) {
+          if (0 === function(t24, param) {return t24.length;}(list, O_)) {return [0,[0,name,[0,-976970511,""]],0];}
+          var P_ = function(x) {
             return call1(caml_get_public_method(x, 445440528, 191), x);
           };
-          var Q = function(t23, param) {return t23.multiple;}(elt, P);
-          var match__1 = call1(Js_of_ocaml_Js[6][10], Q);
+          var Q_ = function(t23, param) {return t23.multiple;}(elt, P_);
+          var match__1 = call1(Js_of_ocaml_Js[6][10], Q_);
           if (match__1) {
             if (0 !== match__1[1]) {
-              var U = function(i) {
-                function Z(x) {
+              var U_ = function(i) {
+                function Z_(x) {
                   return call1(caml_get_public_method(x, -977287917, 193), x);
                 }
-                return function(t22, t21, param) {return t22.item(t21);}(list, i, Z
+                return function(t22, t21, param) {return t22.item(t21);}(list, i, Z_
                 );
               };
-              var V = function(x) {
+              var V_ = function(x) {
                 return call1(caml_get_public_method(x, 520590566, 194), x);
               };
-              var W = function(t20, param) {return t20.length;}(list, V);
-              var X = call2(Array[2], W, U);
-              var Y = call1(Array[11], X);
+              var W_ = function(t20, param) {return t20.length;}(list, V_);
+              var X_ = call2(Array[2], W_, U_);
+              var Y_ = call1(Array[11], X_);
               return filter_map(
                 function(f) {
                   var match = call1(Js_of_ocaml_Js[5][10], f);
@@ -249,17 +253,17 @@ function get_input_val(opt, elt) {
                   }
                   return 0;
                 },
-                Y
+                Y_
               );
             }
           }
-          var R = function(x) {
+          var R_ = function(x) {
             return call1(caml_get_public_method(x, -977287917, 192), x);
           };
-          var S = 0;
-          var T = function(t19, t18, param) {return t19.item(t18);}(list, S, R
+          var S_ = 0;
+          var T_ = function(t19, t18, param) {return t19.item(t18);}(list, S_, R_
           );
-          var match__2 = call1(Js_of_ocaml_Js[5][10], T);
+          var match__2 = call1(Js_of_ocaml_Js[5][10], T_);
           if (match__2) {
             var file = match__2[1];
             return [0,[0,name,[0,781515420,file]],0];
@@ -285,10 +289,10 @@ function get_input_val(opt, elt) {
       else var switch__0 = 1;
       if (switch__0) {return [0,[0,name,[0,-976970511,value]],0];}
     }
-    var L = function(x) {
+    var L_ = function(x) {
       return call1(caml_get_public_method(x, 321172263, 188), x);
     };
-    return function(t17, param) {return t17.checked;}(elt, L) | 0 ?
+    return function(t17, param) {return t17.checked;}(elt, L_) | 0 ?
       [0,[0,name,[0,-976970511,value]],0] :
       0;
   }
@@ -296,22 +300,24 @@ function get_input_val(opt, elt) {
 }
 
 function form_elements(get, form) {
-  function v(x) {return call1(caml_get_public_method(x, 520590566, 195), x);}
-  function w(x) {return call1(caml_get_public_method(x, 63190583, 196), x);}
-  var x = function(t33, param) {return t33.elements;}(form, w);
-  var length = function(t34, param) {return t34.length;}(x, v);
-  function y(i) {
-    function C(x) {
+  function v_(x) {return call1(caml_get_public_method(x, 520590566, 195), x);}
+  function w_(x) {return call1(caml_get_public_method(x, 63190583, 196), x);}
+  var x_ = function(t33, param) {return t33.elements;}(form, w_);
+  var length = function(t34, param) {return t34.length;}(x_, v_);
+  function y_(i) {
+    function C_(x) {
       return call1(caml_get_public_method(x, -977287917, 197), x);
     }
-    function D(x) {return call1(caml_get_public_method(x, 63190583, 198), x);}
-    var E = function(t30, param) {return t30.elements;}(form, D);
-    var F = function(t32, t31, param) {return t32.item(t31);}(E, i, C);
-    return call1(Js_of_ocaml_Js[5][10], F);
+    function D_(x) {
+      return call1(caml_get_public_method(x, 63190583, 198), x);
+    }
+    var E_ = function(t30, param) {return t30.elements;}(form, D_);
+    var F_ = function(t32, t31, param) {return t32.item(t31);}(E_, i, C_);
+    return call1(Js_of_ocaml_Js[5][10], F_);
   }
-  var z = call2(Array[2], length, y);
-  var elements = call1(Array[11], z);
-  function A(param) {
+  var z_ = call2(Array[2], length, y_);
+  var elements = call1(Array[11], z_);
+  function A_(param) {
     if (param) {
       var v = param[1];
       var match = call1(Js_of_ocaml_Dom_html[109], v);
@@ -330,8 +336,8 @@ function form_elements(get, form) {
     }
     return 0;
   }
-  var B = call2(List[17], A, elements);
-  var contents = call1(List[14], B);
+  var B_ = call2(List[17], A_, elements);
+  var contents = call1(List[14], B_);
   return contents;
 }
 
@@ -342,57 +348,57 @@ function append(form_contents, form_elt) {
     return 0;
   }
   var f = form_contents[2];
-  var p = form_elt[2];
-  var q = form_elt[1];
-  if (781515420 <= p[1]) {
-    var file = p[2];
-    var r = function(x) {
+  var p_ = form_elt[2];
+  var q_ = form_elt[1];
+  if (781515420 <= p_[1]) {
+    var file = p_[2];
+    var r_ = function(x) {
       return call1(caml_get_public_method(x, 494108962, 199), x);
     };
-    var s = q.toString();
-    return function(t40, t38, t39, param) {return t40.append(t38, t39);}(f, s, file, r
+    var s_ = q_.toString();
+    return function(t40, t38, t39, param) {return t40.append(t38, t39);}(f, s_, file, r_
     );
   }
-  var s__0 = p[2];
-  function t(x) {return call1(caml_get_public_method(x, 265544154, 200), x);}
-  var u = q.toString();
-  return function(t37, t35, t36, param) {return t37.append(t35, t36);}(f, u, s__0, t
+  var s = p_[2];
+  function t_(x) {return call1(caml_get_public_method(x, 265544154, 200), x);}
+  var u_ = q_.toString();
+  return function(t37, t35, t36, param) {return t37.append(t35, t36);}(f, u_, s, t_
   );
 }
 
 function empty_form_contents(param) {
-  var n = call1(Js_of_ocaml_Js[4], formData);
-  var match = call1(Js_of_ocaml_Js[6][10], n);
+  var n_ = call1(Js_of_ocaml_Js[4], formData);
+  var match = call1(Js_of_ocaml_Js[6][10], n_);
   if (match) {
     var constr = match[1];
-    var o = 0;
-    return [0,808620462,function(t41, param) {return new t41();}(constr, o)];
+    var o_ = 0;
+    return [0,808620462,function(t41, param) {return new t41();}(constr, o_)];
   }
   return [0,891486873,[0,0]];
 }
 
 function post_form_contents(form) {
   var contents = empty_form_contents(0);
-  var k = form_elements(0, form);
-  function l(m) {return append(contents, m);}
-  call2(List[15], l, k);
+  var k_ = form_elements(0, form);
+  function l_(m_) {return append(contents, m_);}
+  call2(List[15], l_, k_);
   return contents;
 }
 
 function get_form_contents(form) {
-  var g = form_elements(e, form);
-  function h(param) {
-    var i = param[2];
-    var j = param[1];
-    if (! (typeof i === "number")) {
-      if (-976970511 === i[1]) {
-        var s = i[2];
-        return [0,j,caml_js_to_string(s)];
+  var g_ = form_elements(e_, form);
+  function h_(param) {
+    var i_ = param[2];
+    var j_ = param[1];
+    if (! (typeof i_ === "number")) {
+      if (-976970511 === i_[1]) {
+        var s = i_[2];
+        return [0,j_,caml_js_to_string(s)];
       }
     }
-    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,f]);
+    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,f_]);
   }
-  return call2(List[17], h, g);
+  return call2(List[17], h_, g_);
 }
 
 var Js_of_ocaml_Form = [

@@ -18,12 +18,12 @@ function call1(f, a0) {
 var global_data = runtime["caml_get_global_data"]();
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 
-function a(x) {
+function a_(x) {
   return call1(runtime["caml_get_public_method"](x, -492394744, 211), x);
 }
 
-var b = Js_of_ocaml_Js[50][1];
-var webSocket = function(t0, param) {return t0.WebSocket;}(b, a);
+var b_ = Js_of_ocaml_Js[50][1];
+var webSocket = function(t0, param) {return t0.WebSocket;}(b_, a_);
 
 function is_supported(param) {return call1(Js_of_ocaml_Js[6][5], webSocket);}
 

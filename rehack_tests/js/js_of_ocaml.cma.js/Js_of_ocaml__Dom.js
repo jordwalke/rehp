@@ -29,22 +29,22 @@ var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Assert_failure = global_data["Assert_failure"];
 var Not_found = global_data["Not_found"];
 var List = global_data["List_"];
-var a = [0,string("lib/js_of_ocaml/dom.ml"),343,67];
+var a_ = [0,string("lib/js_of_ocaml/dom.ml"),343,67];
 
 function list_of_nodeList(nodeList) {
-  function X(x) {return call1(caml_get_public_method(x, 520590566, 24), x);}
-  var length = function(t2, param) {return t2.length;}(nodeList, X);
+  function X_(x) {return call1(caml_get_public_method(x, 520590566, 24), x);}
+  var length = function(t2, param) {return t2.length;}(nodeList, X_);
   function add_item(acc, i) {
     var acc__0 = acc;
     var i__0 = i;
     for (; ; ) {
       if (i__0 < length) {
-        var Y = function(x) {
+        var Y_ = function(x) {
           return call1(caml_get_public_method(x, -977287917, 25), x);
         };
-        var Z = function(t1, t0, param) {return t1.item(t0);}(nodeList, i__0, Y
+        var Z_ = function(t1, t0, param) {return t1.item(t0);}(nodeList, i__0, Y_
         );
-        var match = call1(Js_of_ocaml_Js[5][10], Z);
+        var match = call1(Js_of_ocaml_Js[5][10], Z_);
         if (match) {
           var e = match[1];
           var i__1 = i__0 + 1 | 0;
@@ -88,33 +88,35 @@ var DocumentPosition = [
 ];
 
 function appendChild(p, n) {
-  function W(x) {return call1(caml_get_public_method(x, 36716898, 26), x);}
-  (function(t4, t3, param) {return t4.appendChild(t3);}(p, n, W));
+  function W_(x) {return call1(caml_get_public_method(x, 36716898, 26), x);}
+  (function(t4, t3, param) {return t4.appendChild(t3);}(p, n, W_));
   return 0;
 }
 
 function removeChild(p, n) {
-  function V(x) {return call1(caml_get_public_method(x, -1007843656, 27), x);}
-  (function(t6, t5, param) {return t6.removeChild(t5);}(p, n, V));
+  function V_(x) {
+    return call1(caml_get_public_method(x, -1007843656, 27), x);
+  }
+  (function(t6, t5, param) {return t6.removeChild(t5);}(p, n, V_));
   return 0;
 }
 
 function replaceChild(p, n, o) {
-  function U(x) {return call1(caml_get_public_method(x, 961057992, 28), x);}
-  (function(t9, t7, t8, param) {return t9.replaceChild(t7, t8);}(p, n, o, U));
+  function U_(x) {return call1(caml_get_public_method(x, 961057992, 28), x);}
+  (function(t9, t7, t8, param) {return t9.replaceChild(t7, t8);}(p, n, o, U_));
   return 0;
 }
 
 function insertBefore(p, n, o) {
-  function T(x) {return call1(caml_get_public_method(x, 281001112, 29), x);}
-  (function(t12, t10, t11, param) {return t12.insertBefore(t10, t11);}(p, n, o, T
+  function T_(x) {return call1(caml_get_public_method(x, 281001112, 29), x);}
+  (function(t12, t10, t11, param) {return t12.insertBefore(t10, t11);}(p, n, o, T_
    ));
   return 0;
 }
 
 function nodeType(e) {
-  function S(x) {return call1(caml_get_public_method(x, -158969380, 30), x);}
-  var match = function(t13, param) {return t13.nodeType;}(e, S);
+  function S_(x) {return call1(caml_get_public_method(x, -158969380, 30), x);}
+  var match = function(t13, param) {return t13.nodeType;}(e, S_);
   if (0 !== match) {
     var switcher = match + -1 | 0;
     switch (switcher) {
@@ -131,8 +133,8 @@ function nodeType(e) {
 }
 
 function cast(e, t) {
-  function R(x) {return call1(caml_get_public_method(x, -158969380, 31), x);}
-  return function(t14, param) {return t14.nodeType;}(e, R) === t ?
+  function R_(x) {return call1(caml_get_public_method(x, -158969380, 31), x);}
+  return function(t14, param) {return t14.nodeType;}(e, R_) === t ?
     call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
@@ -140,12 +142,12 @@ function cast(e, t) {
 function element(e) {return cast(e, 1);}
 
 function text(e) {
-  function P(x) {return call1(caml_get_public_method(x, -158969380, 32), x);}
-  if (3 !== function(t15, param) {return t15.nodeType;}(e, P)) {
-    var Q = function(x) {
+  function P_(x) {return call1(caml_get_public_method(x, -158969380, 32), x);}
+  if (3 !== function(t15, param) {return t15.nodeType;}(e, P_)) {
+    var Q_ = function(x) {
       return call1(caml_get_public_method(x, -158969380, 33), x);
     };
-    if (4 !== function(t16, param) {return t16.nodeType;}(e, Q)) {return Js_of_ocaml_Js[1];}
+    if (4 !== function(t16, param) {return t16.nodeType;}(e, Q_)) {return Js_of_ocaml_Js[1];}
   }
   return call1(Js_of_ocaml_Js[2], e);
 }
@@ -157,92 +159,92 @@ var no_handler = Js_of_ocaml_Js[1];
 function window_event(param) {return  event ;}
 
 function handler(f) {
-  function L(e) {
-    var M = call1(Js_of_ocaml_Js[2], e);
-    if (call1(Js_of_ocaml_Js[5][5], M)) {
+  function L_(e) {
+    var M_ = call1(Js_of_ocaml_Js[2], e);
+    if (call1(Js_of_ocaml_Js[5][5], M_)) {
       var res = call1(f, e);
       if (1 - (res | 0)) {
-        var N = function(x) {
+        var N_ = function(x) {
           return call1(caml_get_public_method(x, -408605495, 34), x);
         };
-        (function(t17, param) {return t17.preventDefault();}(e, N));
+        (function(t17, param) {return t17.preventDefault();}(e, N_));
       }
       return res;
     }
     var e__0 = window_event(0);
     var res__0 = call1(f, e__0);
     if (1 - (res__0 | 0)) {
-      var O = function(x) {
+      var O_ = function(x) {
         return call1(caml_get_public_method(x, 1049971873, 35), x);
       };
-      (function(t19, t18, param) {t19.returnValue = t18;return 0;}(e__0, res__0, O
+      (function(t19, t18, param) {t19.returnValue = t18;return 0;}(e__0, res__0, O_
        ));
     }
     return res__0;
   }
-  return call1(Js_of_ocaml_Js[2], L);
+  return call1(Js_of_ocaml_Js[2], L_);
 }
 
 function full_handler(f) {
-  var H = runtime["caml_js_wrap_meth_callback_unsafe"](
+  var H_ = runtime["caml_js_wrap_meth_callback_unsafe"](
     function(this__0, e) {
-      var I = call1(Js_of_ocaml_Js[2], e);
-      if (call1(Js_of_ocaml_Js[5][5], I)) {
+      var I_ = call1(Js_of_ocaml_Js[2], e);
+      if (call1(Js_of_ocaml_Js[5][5], I_)) {
         var res = call2(f, this__0, e);
         if (1 - (res | 0)) {
-          var J = function(x) {
+          var J_ = function(x) {
             return call1(caml_get_public_method(x, -408605495, 36), x);
           };
-          (function(t20, param) {return t20.preventDefault();}(e, J));
+          (function(t20, param) {return t20.preventDefault();}(e, J_));
         }
         return res;
       }
       var e__0 = window_event(0);
       var res__0 = call2(f, this__0, e__0);
       if (1 - (res__0 | 0)) {
-        var K = function(x) {
+        var K_ = function(x) {
           return call1(caml_get_public_method(x, 1049971873, 37), x);
         };
-        (function(t22, t21, param) {t22.returnValue = t21;return 0;}(e__0, res__0, K
+        (function(t22, t21, param) {t22.returnValue = t21;return 0;}(e__0, res__0, K_
          ));
       }
       return res__0;
     }
   );
-  return call1(Js_of_ocaml_Js[2], H);
+  return call1(Js_of_ocaml_Js[2], H_);
 }
 
 function invoke_handler(f, this__0, event) {return f.call(this__0, event);}
 
 function eventTarget(e) {
-  function v(param) {
-    function E(param) {
+  function v_(param) {
+    function E_(param) {
       throw runtime["caml_wrap_thrown_exception"](Not_found);
     }
-    function F(x) {
+    function F_(x) {
       return call1(caml_get_public_method(x, -1021537224, 38), x);
     }
-    var G = function(t27, param) {return t27.srcElement;}(e, F);
-    return call2(Js_of_ocaml_Js[5][8], G, E);
+    var G_ = function(t27, param) {return t27.srcElement;}(e, F_);
+    return call2(Js_of_ocaml_Js[5][8], G_, E_);
   }
-  function w(x) {return call1(caml_get_public_method(x, 116192081, 39), x);}
-  var x = function(t26, param) {return t26.target;}(e, w);
-  var target = call2(Js_of_ocaml_Js[5][8], x, v);
-  function y(x) {return call1(caml_get_public_method(x, -420195839, 40), x);}
-  var z = Js_of_ocaml_Js[50][1];
-  if (target instanceof function(t25, param) {return t25.Node;}(z, y)) {
-    var A = function(x) {
+  function w_(x) {return call1(caml_get_public_method(x, 116192081, 39), x);}
+  var x_ = function(t26, param) {return t26.target;}(e, w_);
+  var target = call2(Js_of_ocaml_Js[5][8], x_, v_);
+  function y_(x) {return call1(caml_get_public_method(x, -420195839, 40), x);}
+  var z_ = Js_of_ocaml_Js[50][1];
+  if (target instanceof function(t25, param) {return t25.Node;}(z_, y_)) {
+    var A_ = function(x) {
       return call1(caml_get_public_method(x, -158969380, 41), x);
     };
-    if (3 === function(t24, param) {return t24.nodeType;}(target, A)) {
-      var B = function(param) {
-        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a]);
+    if (3 === function(t24, param) {return t24.nodeType;}(target, A_)) {
+      var B_ = function(param) {
+        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
       };
-      var C = function(x) {
+      var C_ = function(x) {
         return call1(caml_get_public_method(x, -400811956, 42), x);
       };
-      var D = function(t23, param) {return t23.parentNode;}(target, C);
-      return call2(Js_of_ocaml_Js[5][8], D, B);
+      var D_ = function(t23, param) {return t23.parentNode;}(target, C_);
+      return call2(Js_of_ocaml_Js[5][8], D_, B_);
     }
     return target;
   }
@@ -254,46 +256,46 @@ function make(s) {return s.toString();}
 var Event = [0,make];
 
 function addEventListener(e, typ, h, capt) {
-  var g = Js_of_ocaml_Js[3];
-  function h(x) {return call1(caml_get_public_method(x, -245101619, 43), x);}
-  if (function(t44, param) {return t44.addEventListener;}(e, h) === g) {
-    var i = function(x) {
+  var g_ = Js_of_ocaml_Js[3];
+  function h_(x) {return call1(caml_get_public_method(x, -245101619, 43), x);}
+  if (function(t44, param) {return t44.addEventListener;}(e, h_) === g_) {
+    var i_ = function(x) {
       return call1(caml_get_public_method(x, -942667500, 44), x);
     };
-    var j = "on";
-    var ev = function(t43, t42, param) {return t43.concat(t42);}(j, typ, i);
+    var j_ = "on";
+    var ev = function(t43, t42, param) {return t43.concat(t42);}(j_, typ, i_);
     var callback = function(e) {
-      var o = [0,h,e,[0]];
-      function p(u, t, s) {return runtime["caml_js_call"](u, t, s);}
-      return function(q, r) {return p(o, q, r);};
+      var o_ = [0,h,e,[0]];
+      function p_(u_, t_, s_) {return runtime["caml_js_call"](u_, t_, s_);}
+      return function(q_, r_) {return p_(o_, q_, r_);};
     };
-    var k = function(x) {
+    var k_ = function(x) {
       return call1(caml_get_public_method(x, -362647019, 45), x);
     };
-    (function(t41, t39, t40, param) {return t41.attachEvent(t39, t40);}(e, ev, callback, k
+    (function(t41, t39, t40, param) {return t41.attachEvent(t39, t40);}(e, ev, callback, k_
      ));
     return function(param) {
-      function n(x) {
+      function n_(x) {
         return call1(caml_get_public_method(x, 681618887, 46), x);
       }
       return function(t38, t36, t37, param) {
         return t38.detachEvent(t36, t37);
-      }(e, ev, callback, n
+      }(e, ev, callback, n_
       );
     };
   }
-  function l(x) {return call1(caml_get_public_method(x, -245101619, 47), x);}
+  function l_(x) {return call1(caml_get_public_method(x, -245101619, 47), x);}
   (function(t35, t32, t33, t34, param) {
      return t35.addEventListener(t32, t33, t34);
-   }(e, typ, h, capt, l
+   }(e, typ, h, capt, l_
    ));
   return function(param) {
-    function m(x) {
+    function m_(x) {
       return call1(caml_get_public_method(x, -713717814, 48), x);
     }
     return function(t31, t28, t29, t30, param) {
       return t31.removeEventListener(t28, t29, t30);
-    }(e, typ, h, capt, m
+    }(e, typ, h, capt, m_
     );
   };
 }
@@ -301,17 +303,18 @@ function addEventListener(e, typ, h, capt) {
 function removeEventListener(id) {return call1(id, 0);}
 
 function preventDefault(ev) {
-  function b(x) {return call1(caml_get_public_method(x, -408605495, 49), x);}
-  var c = function(t48, param) {return t48.preventDefault;}(ev, b);
-  if (call1(Js_of_ocaml_Js[6][5], c)) {
-    var d = function(x) {
+  function b_(x) {return call1(caml_get_public_method(x, -408605495, 49), x);}
+  var c_ = function(t48, param) {return t48.preventDefault;}(ev, b_);
+  if (call1(Js_of_ocaml_Js[6][5], c_)) {
+    var d_ = function(x) {
       return call1(caml_get_public_method(x, -408605495, 50), x);
     };
-    return function(t47, param) {return t47.preventDefault();}(ev, d);
+    return function(t47, param) {return t47.preventDefault();}(ev, d_);
   }
-  function e(x) {return call1(caml_get_public_method(x, 1049971873, 51), x);}
-  var f = ! ! 0;
-  return function(t46, t45, param) {t46.returnValue = t45;return 0;}(ev, f, e);
+  function e_(x) {return call1(caml_get_public_method(x, 1049971873, 51), x);}
+  var f_ = ! ! 0;
+  return function(t46, t45, param) {t46.returnValue = t45;return 0;}(ev, f_, e_
+  );
 }
 
 var Js_of_ocaml_Dom = [

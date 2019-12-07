@@ -31,129 +31,133 @@ var cst = string("[\\][()\\\\|+*.?{}^$]");
 var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 var Assert_failure = global_data["Assert_failure"];
 var Pervasives = global_data["Pervasives"];
-var a = [0,string("lib/js_of_ocaml/regexp.ml"),33,64];
+var a_ = [0,string("lib/js_of_ocaml/regexp.ml"),33,64];
 
 function regexp(s) {
-  var al = 0;
-  var am = "g";
-  var an = caml_jsbytes_of_string(s);
-  var ao = Js_of_ocaml_Js[11];
-  return function(t2, t0, t1, param) {return new t2(t0, t1);}(ao, an, am, al);
+  var al_ = 0;
+  var am_ = "g";
+  var an_ = caml_jsbytes_of_string(s);
+  var ao_ = Js_of_ocaml_Js[11];
+  return function(t2, t0, t1, param) {return new t2(t0, t1);}(ao_, an_, am_, al_
+  );
 }
 
 function regexp_case_fold(s) {
-  var ah = 0;
-  var ai = "gi";
-  var aj = caml_jsbytes_of_string(s);
-  var ak = Js_of_ocaml_Js[11];
-  return function(t5, t3, t4, param) {return new t5(t3, t4);}(ak, aj, ai, ah);
+  var ah_ = 0;
+  var ai_ = "gi";
+  var aj_ = caml_jsbytes_of_string(s);
+  var ak_ = Js_of_ocaml_Js[11];
+  return function(t5, t3, t4, param) {return new t5(t3, t4);}(ak_, aj_, ai_, ah_
+  );
 }
 
 function regexp_with_flag(s, f) {
-  var ae = call2(Pervasives[16], cst_g, f).toString();
-  var ad = 0;
-  var af = caml_jsbytes_of_string(s);
-  var ag = Js_of_ocaml_Js[11];
-  return function(t8, t6, t7, param) {return new t8(t6, t7);}(ag, af, ae, ad);
+  var ae_ = call2(Pervasives[16], cst_g, f).toString();
+  var ad_ = 0;
+  var af_ = caml_jsbytes_of_string(s);
+  var ag_ = Js_of_ocaml_Js[11];
+  return function(t8, t6, t7, param) {return new t8(t6, t7);}(ag_, af_, ae_, ad_
+  );
 }
 
-function blunt_str_array_get(a__0, i) {
-  function ab(param) {
-    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a]);
+function blunt_str_array_get(a, i) {
+  function ab_(param) {
+    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
   }
-  var ac = call2(Js_of_ocaml_Js[16], a__0, i);
-  return caml_js_to_byte_string(call2(Js_of_ocaml_Js[6][8], ac, ab));
+  var ac_ = call2(Js_of_ocaml_Js[16], a, i);
+  return caml_js_to_byte_string(call2(Js_of_ocaml_Js[6][8], ac_, ab_));
 }
 
 function string_match(r, s, i) {
-  function V(x) {return call1(caml_get_public_method(x, 180472028, 216), x);}
-  (function(t12, t11, param) {t12.lastIndex = t11;return 0;}(r, i, V));
-  var W = Js_of_ocaml_Js[21];
-  function X(x) {
+  function V_(x) {return call1(caml_get_public_method(x, 180472028, 216), x);}
+  (function(t12, t11, param) {t12.lastIndex = t11;return 0;}(r, i, V_));
+  var W_ = Js_of_ocaml_Js[21];
+  function X_(x) {
     return call1(caml_get_public_method(x, -1021447279, 217), x);
   }
-  var Y = caml_jsbytes_of_string(s);
-  var Z = function(t10, t9, param) {return t10.exec(t9);}(r, Y, X);
-  var aa = call2(Js_of_ocaml_Js[5][3], Z, W);
-  return call1(Js_of_ocaml_Js[5][10], aa);
+  var Y_ = caml_jsbytes_of_string(s);
+  var Z_ = function(t10, t9, param) {return t10.exec(t9);}(r, Y_, X_);
+  var aa_ = call2(Js_of_ocaml_Js[5][3], Z_, W_);
+  return call1(Js_of_ocaml_Js[5][10], aa_);
 }
 
 function search(r, s, i) {
-  function O(x) {return call1(caml_get_public_method(x, 180472028, 218), x);}
-  (function(t17, t16, param) {t17.lastIndex = t16;return 0;}(r, i, O));
-  function P(res_pre) {
+  function O_(x) {return call1(caml_get_public_method(x, 180472028, 218), x);}
+  (function(t17, t16, param) {t17.lastIndex = t16;return 0;}(r, i, O_));
+  function P_(res_pre) {
     var res = call1(Js_of_ocaml_Js[21], res_pre);
-    function U(x) {
+    function U_(x) {
       return call1(caml_get_public_method(x, 1041537810, 219), x);
     }
-    return [0,function(t15, param) {return t15.index;}(res, U),res];
+    return [0,function(t15, param) {return t15.index;}(res, U_),res];
   }
-  function Q(x) {
+  function Q_(x) {
     return call1(caml_get_public_method(x, -1021447279, 220), x);
   }
-  var R = caml_jsbytes_of_string(s);
-  var S = function(t14, t13, param) {return t14.exec(t13);}(r, R, Q);
-  var T = call2(Js_of_ocaml_Js[5][3], S, P);
-  return call1(Js_of_ocaml_Js[5][10], T);
+  var R_ = caml_jsbytes_of_string(s);
+  var S_ = function(t14, t13, param) {return t14.exec(t13);}(r, R_, Q_);
+  var T_ = call2(Js_of_ocaml_Js[5][3], S_, P_);
+  return call1(Js_of_ocaml_Js[5][10], T_);
 }
 
 function matched_string(r) {return blunt_str_array_get(r, 0);}
 
 function matched_group(r, i) {
-  function K(N) {return caml_js_to_byte_string(N);}
-  var L = call2(Js_of_ocaml_Js[16], r, i);
-  var M = call2(Js_of_ocaml_Js[6][3], L, K);
-  return call1(Js_of_ocaml_Js[6][10], M);
+  function K_(N_) {return caml_js_to_byte_string(N_);}
+  var L_ = call2(Js_of_ocaml_Js[16], r, i);
+  var M_ = call2(Js_of_ocaml_Js[6][3], L_, K_);
+  return call1(Js_of_ocaml_Js[6][10], M_);
 }
 
-var b = 0;
-var c = "g";
-var d = "[$]";
-var e = Js_of_ocaml_Js[11];
-var quote_repl_re = function(t20, t18, t19, param) {return new t20(t18, t19);}(e, d, c, b
+var b_ = 0;
+var c_ = "g";
+var d_ = "[$]";
+var e_ = Js_of_ocaml_Js[11];
+var quote_repl_re = function(t20, t18, t19, param) {return new t20(t18, t19);}(e_, d_, c_, b_
 );
 
 function quote_repl(s) {
-  function H(x) {return call1(caml_get_public_method(x, 724060212, 221), x);}
-  var I = "$$$$";
-  var J = caml_jsbytes_of_string(s);
-  return function(t23, t21, t22, param) {return t23.replace(t21, t22);}(J, quote_repl_re, I, H
+  function H_(x) {return call1(caml_get_public_method(x, 724060212, 221), x);}
+  var I_ = "$$$$";
+  var J_ = caml_jsbytes_of_string(s);
+  return function(t23, t21, t22, param) {return t23.replace(t21, t22);}(J_, quote_repl_re, I_, H_
   );
 }
 
 function global_replace(r, s, s_by) {
-  function C(x) {return call1(caml_get_public_method(x, 180472028, 222), x);}
-  var D = 0;
-  (function(t28, t27, param) {t28.lastIndex = t27;return 0;}(r, D, C));
-  function E(x) {return call1(caml_get_public_method(x, 724060212, 223), x);}
-  var F = quote_repl(s_by);
-  var G = caml_jsbytes_of_string(s);
+  function C_(x) {return call1(caml_get_public_method(x, 180472028, 222), x);}
+  var D_ = 0;
+  (function(t28, t27, param) {t28.lastIndex = t27;return 0;}(r, D_, C_));
+  function E_(x) {return call1(caml_get_public_method(x, 724060212, 223), x);}
+  var F_ = quote_repl(s_by);
+  var G_ = caml_jsbytes_of_string(s);
   return caml_js_to_byte_string(
-    function(t26, t24, t25, param) {return t26.replace(t24, t25);}(G, r, F, E)
+    function(t26, t24, t25, param) {return t26.replace(t24, t25);}(G_, r, F_, E_
+    )
   );
 }
 
 function replace_first(r, s, s_by) {
-  function t(x) {
+  function t_(x) {
     return call1(caml_get_public_method(x, -1042090782, 224), x);
   }
-  var match = function(t36, param) {return t36.ignoreCase;}(r, t) | 0;
-  function u(x) {return call1(caml_get_public_method(x, 504484589, 225), x);}
-  var match__0 = function(t37, param) {return t37.multiline;}(r, u) | 0;
+  var match = function(t36, param) {return t36.ignoreCase;}(r, t_) | 0;
+  function u_(x) {return call1(caml_get_public_method(x, 504484589, 225), x);}
+  var match__0 = function(t37, param) {return t37.multiline;}(r, u_) | 0;
   var flags = 0 === match ?
     0 === match__0 ? "" : "m" :
     0 === match__0 ? "i" : "mi";
-  var v = 0;
-  function w(x) {return call1(caml_get_public_method(x, 842117339, 226), x);}
-  var x = function(t32, param) {return t32.source;}(r, w);
-  var y = Js_of_ocaml_Js[11];
-  var r__0 = function(t35, t33, t34, param) {return new t35(t33, t34);}(y, x, flags, v
+  var v_ = 0;
+  function w_(x) {return call1(caml_get_public_method(x, 842117339, 226), x);}
+  var x_ = function(t32, param) {return t32.source;}(r, w_);
+  var y_ = Js_of_ocaml_Js[11];
+  var r__0 = function(t35, t33, t34, param) {return new t35(t33, t34);}(y_, x_, flags, v_
   );
-  function z(x) {return call1(caml_get_public_method(x, 724060212, 227), x);}
-  var A = quote_repl(s_by);
-  var B = caml_jsbytes_of_string(s);
+  function z_(x) {return call1(caml_get_public_method(x, 724060212, 227), x);}
+  var A_ = quote_repl(s_by);
+  var B_ = caml_jsbytes_of_string(s);
   return caml_js_to_byte_string(
-    function(t31, t29, t30, param) {return t31.replace(t29, t30);}(B, r__0, A, z
+    function(t31, t29, t30, param) {return t31.replace(t29, t30);}(B_, r__0, A_, z_
     )
   );
 }
@@ -173,39 +177,43 @@ function list_of_js_array(a) {
       return accu__0;
     }
   }
-  function s(x) {return call1(caml_get_public_method(x, 520590566, 228), x);}
-  return aux(0, function(t38, param) {return t38.length;}(a, s) + -1 | 0);
+  function s_(x) {return call1(caml_get_public_method(x, 520590566, 228), x);}
+  return aux(0, function(t38, param) {return t38.length;}(a, s_) + -1 | 0);
 }
 
 function split(r, s) {
-  function n(x) {return call1(caml_get_public_method(x, 180472028, 229), x);}
-  var o = 0;
-  (function(t42, t41, param) {t42.lastIndex = t41;return 0;}(r, o, n));
-  function p(x) {return call1(caml_get_public_method(x, -394261074, 230), x);}
-  var q = caml_jsbytes_of_string(s);
-  var r = function(t40, t39, param) {return t40.split(t39);}(q, r, p);
-  return list_of_js_array(call1(Js_of_ocaml_Js[20], r));
+  function n_(x) {return call1(caml_get_public_method(x, 180472028, 229), x);}
+  var o_ = 0;
+  (function(t42, t41, param) {t42.lastIndex = t41;return 0;}(r, o_, n_));
+  function p_(x) {
+    return call1(caml_get_public_method(x, -394261074, 230), x);
+  }
+  var q_ = caml_jsbytes_of_string(s);
+  var r_ = function(t40, t39, param) {return t40.split(t39);}(q_, r, p_);
+  return list_of_js_array(call1(Js_of_ocaml_Js[20], r_));
 }
 
 function bounded_split(r, s, i) {
-  function i(x) {return call1(caml_get_public_method(x, 180472028, 231), x);}
-  var j = 0;
-  (function(t47, t46, param) {t47.lastIndex = t46;return 0;}(r, j, i));
-  function k(x) {return call1(caml_get_public_method(x, -203798452, 232), x);}
-  var l = caml_jsbytes_of_string(s);
-  var m = function(t45, t43, t44, param) {return t45.split(t43, t44);}(l, r, i, k
+  function i_(x) {return call1(caml_get_public_method(x, 180472028, 231), x);}
+  var j_ = 0;
+  (function(t47, t46, param) {t47.lastIndex = t46;return 0;}(r, j_, i_));
+  function k_(x) {
+    return call1(caml_get_public_method(x, -203798452, 232), x);
+  }
+  var l_ = caml_jsbytes_of_string(s);
+  var m_ = function(t45, t43, t44, param) {return t45.split(t43, t44);}(l_, r, i, k_
   );
-  return list_of_js_array(call1(Js_of_ocaml_Js[20], m));
+  return list_of_js_array(call1(Js_of_ocaml_Js[20], m_));
 }
 
 var quote_re = regexp(cst);
 
 function quote(s) {
-  function f(x) {return call1(caml_get_public_method(x, 724060212, 233), x);}
-  var g = "\\$&";
-  var h = caml_jsbytes_of_string(s);
+  function f_(x) {return call1(caml_get_public_method(x, 724060212, 233), x);}
+  var g_ = "\\$&";
+  var h_ = caml_jsbytes_of_string(s);
   return caml_js_to_byte_string(
-    function(t50, t48, t49, param) {return t50.replace(t48, t49);}(h, quote_re, g, f
+    function(t50, t48, t49, param) {return t50.replace(t48, t49);}(h_, quote_re, g_, f_
     )
   );
 }

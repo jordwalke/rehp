@@ -1443,13 +1443,13 @@ caml_register_global(1, Sys_error, "Sys_error");
 
 caml_register_global(0, Out_of_memory, "Out_of_memory");
 
-var b = caml_new_string("%.12g");
-var a = caml_new_string(".");
-var f = caml_new_string("String.contains_from / Bytes.contains_from");
-var e = caml_new_string("");
-var d = caml_new_string("String.concat");
-var g = caml_new_string("Random.int");
-var h = [
+var b_ = caml_new_string("%.12g");
+var a_ = caml_new_string(".");
+var f_ = caml_new_string("String.contains_from / Bytes.contains_from");
+var e_ = caml_new_string("");
+var d_ = caml_new_string("String.concat");
+var g_ = caml_new_string("Random.int");
+var h_ = [
   0,
   987910699,
   495797812,
@@ -1507,151 +1507,151 @@ var h = [
   409934019,
   801085050
 ];
-var j = [0,0,0];
-var l = caml_new_string("  ");
-var m = caml_new_string("");
-var n = caml_new_string("  ");
-var o = caml_new_string("    ");
-var p = caml_new_string("      ");
-var q = caml_new_string("        ");
-var r = caml_new_string("          ");
-var s = caml_new_string("            ");
-var t = caml_new_string("              ");
-var u = caml_new_string("                ");
-var ai = caml_new_string('"');
-var aj = caml_new_string('"');
-var af = caml_new_string("@max-depth");
-var ad = caml_new_string("@max-length");
-var ab = caml_new_string("~unknown");
-var Z = caml_new_string("~lazy");
-var X = [0,caml_new_string("[|"),caml_new_string("|]")];
-var U = caml_new_string(")");
-var V = caml_new_string("closure(");
-var S = [0,caml_new_string("{"),caml_new_string("}")];
-var J = caml_new_string(",\n");
-var D = caml_new_string("");
-var E = caml_new_string("]");
-var F = caml_new_string("\n");
-var G = caml_new_string(",\n");
-var H = caml_new_string("\n");
-var I = caml_new_string("[");
-var O = caml_new_string(", ");
-var K = caml_new_string("");
-var L = caml_new_string("]");
-var M = caml_new_string(", ");
-var N = caml_new_string("[");
-var z = caml_new_string(",\n");
-var v = caml_new_string("");
-var w = caml_new_string("\n");
-var x = caml_new_string(",\n");
-var y = caml_new_string("\n");
-var C = caml_new_string(", ");
-var A = caml_new_string("");
-var B = caml_new_string(", ");
-var k = [0,0,0];
-var ao = caml_new_string("\n");
-var an = caml_new_string("\n");
-var am = caml_new_string("\n");
-var al = caml_new_string("\n");
-var ap = caml_new_string("Length changing sequences aren't supported yet.");
-var aq = caml_new_string("Empty list cannot be split at ");
-var ar = caml_new_string("");
-var as = caml_new_string("Impossible");
-var aJ = caml_new_string("");
-var au = caml_new_string(" ");
-var av = caml_new_string("IEmpty");
-var aw = caml_new_string(")");
-var ax = caml_new_string(" ");
-var ay = caml_new_string("IOne(");
-var az = caml_new_string(")");
-var aA = caml_new_string("\n");
-var aB = caml_new_string("\n");
-var aC = caml_new_string(",");
-var aD = caml_new_string("\n");
-var aE = caml_new_string("ITwo(");
-var aF = caml_new_string(")");
-var aG = caml_new_string(" ");
-var aH = caml_new_string(",");
-var aI = caml_new_string("IOrderedMap(");
-var aU = caml_new_string("");
-var aK = caml_new_string("}");
-var aL = caml_new_string("\n");
-var aM = caml_new_string(" ");
-var aN = caml_new_string("  subtree: ");
-var aO = caml_new_string(",\n");
-var aR = caml_new_string('"');
-var aS = caml_new_string('"');
-var aT = caml_new_string("-");
-var aP = caml_new_string("  state: ");
-var aQ = caml_new_string("{\n");
-var aW = caml_new_string("\n");
-var aX = caml_new_string("\n\n");
-var aY = caml_new_string("\n");
-var aZ = caml_new_string("<NotRendered>");
-var a0 = caml_new_string("\n\n");
-var aV = caml_new_string("\n\n");
-var a1 = caml_new_string("");
-var a3 = caml_new_string("deafult");
-var a2 = [0,caml_new_string("buttonClass")];
-var a5 = caml_new_string("deafult");
-var a4 = [0,caml_new_string("childContainer")];
-var a6 = caml_new_string("size changed times:");
-var a7 = [0,caml_new_string("ButtonInContainerThatCountsSizeChanges")];
-var a9 = caml_new_string("deafult");
-var a8 = [0,caml_new_string("divRenderedByInput")];
-var ba = caml_new_string("divClicked!");
-var a_ = caml_new_string("MyReducer:");
-var be = caml_new_string("AppInstance");
-var bb = [0,caml_new_string("initialInputText")];
-var bd = caml_new_string("haha I am controlling your input");
-var bc = [0,caml_new_string("divRenderedByAppContainsInput")];
-var bh = caml_new_string(")");
-var bi = caml_new_string("->animFiredWithDeepDivState(");
-var bj = caml_new_string("rafDeepDiv");
-var bk = [0,caml_new_string("rafSecond")];
-var bl = [0,caml_new_string("rafFirstDiv")];
-var bg = caml_new_string("initialAnimationFrameSetup");
-var bf = [0,caml_new_string("TODO")];
-var bm = caml_new_string("default");
-var bn = caml_new_string("HELLO");
-var bq = [0,caml_new_string("stateless")];
-var br = caml_new_string(
+var j_ = [0,0,0];
+var l_ = caml_new_string("  ");
+var m_ = caml_new_string("");
+var n_ = caml_new_string("  ");
+var o_ = caml_new_string("    ");
+var p_ = caml_new_string("      ");
+var q_ = caml_new_string("        ");
+var r_ = caml_new_string("          ");
+var s_ = caml_new_string("            ");
+var t_ = caml_new_string("              ");
+var u_ = caml_new_string("                ");
+var ai_ = caml_new_string('"');
+var aj_ = caml_new_string('"');
+var af_ = caml_new_string("@max-depth");
+var ad_ = caml_new_string("@max-length");
+var ab_ = caml_new_string("~unknown");
+var Z_ = caml_new_string("~lazy");
+var X_ = [0,caml_new_string("[|"),caml_new_string("|]")];
+var U_ = caml_new_string(")");
+var V_ = caml_new_string("closure(");
+var S_ = [0,caml_new_string("{"),caml_new_string("}")];
+var J_ = caml_new_string(",\n");
+var D_ = caml_new_string("");
+var E_ = caml_new_string("]");
+var F_ = caml_new_string("\n");
+var G_ = caml_new_string(",\n");
+var H_ = caml_new_string("\n");
+var I_ = caml_new_string("[");
+var O_ = caml_new_string(", ");
+var K_ = caml_new_string("");
+var L_ = caml_new_string("]");
+var M_ = caml_new_string(", ");
+var N_ = caml_new_string("[");
+var z_ = caml_new_string(",\n");
+var v_ = caml_new_string("");
+var w_ = caml_new_string("\n");
+var x_ = caml_new_string(",\n");
+var y_ = caml_new_string("\n");
+var C_ = caml_new_string(", ");
+var A_ = caml_new_string("");
+var B_ = caml_new_string(", ");
+var k_ = [0,0,0];
+var ao_ = caml_new_string("\n");
+var an_ = caml_new_string("\n");
+var am_ = caml_new_string("\n");
+var al_ = caml_new_string("\n");
+var ap_ = caml_new_string("Length changing sequences aren't supported yet.");
+var aq_ = caml_new_string("Empty list cannot be split at ");
+var ar_ = caml_new_string("");
+var as_ = caml_new_string("Impossible");
+var aJ_ = caml_new_string("");
+var au_ = caml_new_string(" ");
+var av_ = caml_new_string("IEmpty");
+var aw_ = caml_new_string(")");
+var ax_ = caml_new_string(" ");
+var ay_ = caml_new_string("IOne(");
+var az_ = caml_new_string(")");
+var aA_ = caml_new_string("\n");
+var aB_ = caml_new_string("\n");
+var aC_ = caml_new_string(",");
+var aD_ = caml_new_string("\n");
+var aE_ = caml_new_string("ITwo(");
+var aF_ = caml_new_string(")");
+var aG_ = caml_new_string(" ");
+var aH_ = caml_new_string(",");
+var aI_ = caml_new_string("IOrderedMap(");
+var aU_ = caml_new_string("");
+var aK_ = caml_new_string("}");
+var aL_ = caml_new_string("\n");
+var aM_ = caml_new_string(" ");
+var aN_ = caml_new_string("  subtree: ");
+var aO_ = caml_new_string(",\n");
+var aR_ = caml_new_string('"');
+var aS_ = caml_new_string('"');
+var aT_ = caml_new_string("-");
+var aP_ = caml_new_string("  state: ");
+var aQ_ = caml_new_string("{\n");
+var aW_ = caml_new_string("\n");
+var aX_ = caml_new_string("\n\n");
+var aY_ = caml_new_string("\n");
+var aZ_ = caml_new_string("<NotRendered>");
+var a0_ = caml_new_string("\n\n");
+var aV_ = caml_new_string("\n\n");
+var a1_ = caml_new_string("");
+var a3_ = caml_new_string("deafult");
+var a2_ = [0,caml_new_string("buttonClass")];
+var a5_ = caml_new_string("deafult");
+var a4_ = [0,caml_new_string("childContainer")];
+var a6_ = caml_new_string("size changed times:");
+var a7_ = [0,caml_new_string("ButtonInContainerThatCountsSizeChanges")];
+var a9_ = caml_new_string("deafult");
+var a8_ = [0,caml_new_string("divRenderedByInput")];
+var ba_ = caml_new_string("divClicked!");
+var a__ = caml_new_string("MyReducer:");
+var be_ = caml_new_string("AppInstance");
+var bb_ = [0,caml_new_string("initialInputText")];
+var bd_ = caml_new_string("haha I am controlling your input");
+var bc_ = [0,caml_new_string("divRenderedByAppContainsInput")];
+var bh_ = caml_new_string(")");
+var bi_ = caml_new_string("->animFiredWithDeepDivState(");
+var bj_ = caml_new_string("rafDeepDiv");
+var bk_ = [0,caml_new_string("rafSecond")];
+var bl_ = [0,caml_new_string("rafFirstDiv")];
+var bg_ = caml_new_string("initialAnimationFrameSetup");
+var bf_ = [0,caml_new_string("TODO")];
+var bm_ = caml_new_string("default");
+var bn_ = caml_new_string("HELLO");
+var bq_ = [0,caml_new_string("stateless")];
+var br_ = caml_new_string(
   "\n\n-------------------\nChild Container \n-------------------"
 );
-var bY = [0,caml_new_string("stateless")];
-var b0 = [0,caml_new_string("Foo")];
-var bs = caml_new_string(
+var bY_ = [0,caml_new_string("stateless")];
+var b0_ = [0,caml_new_string("Foo")];
+var bs_ = caml_new_string(
   "\n\n-------------------\nGets Derived State From Props\n-------------------"
 );
-var bu = [0,caml_new_string("Foo")];
-var bv = caml_new_string("Init:");
-var bx = [0,caml_new_string("Foo")];
-var by = caml_new_string("Update Without Changing Props:");
-var bA = [0,caml_new_string("Foo")];
-var bB = caml_new_string("Update With Changing Props:");
-var bC = caml_new_string(
+var bu_ = [0,caml_new_string("Foo")];
+var bv_ = caml_new_string("Init:");
+var bx_ = [0,caml_new_string("Foo")];
+var by_ = caml_new_string("Update Without Changing Props:");
+var bA_ = [0,caml_new_string("Foo")];
+var bB_ = caml_new_string("Update With Changing Props:");
+var bC_ = caml_new_string(
   "\n\n------------------------------\nApp With Controlled Input\n------------------------------"
 );
-var bE = caml_new_string("Init:");
-var bH = caml_new_string("Update:");
-var bI = caml_new_string(
+var bE_ = caml_new_string("Init:");
+var bH_ = caml_new_string("Update:");
+var bI_ = caml_new_string(
   "\n\n------------------------------\nApp With Request Animation Frame \n----------------------"
 );
-var bJ = [0,2,3];
-var bK = [0,caml_new_string("")];
-var bL = caml_new_string("Init:");
-var bM = caml_new_string("Update After raf tick:");
-var bN = caml_new_string("Update After raf tick:");
-var bO = caml_new_string(
+var bJ_ = [0,2,3];
+var bK_ = [0,caml_new_string("")];
+var bL_ = caml_new_string("Init:");
+var bM_ = caml_new_string("Update After raf tick:");
+var bN_ = caml_new_string("Update After raf tick:");
+var bO_ = caml_new_string(
   "\n\n------------------------------\nApp With Polymoprhic State \n----------------------------"
 );
-var bQ = caml_new_string("zero");
-var bR = caml_new_string("hello");
-var bS = caml_new_string("Init:");
-var bU = caml_new_string("zero");
-var bW = caml_new_string("Another Type Init:");
-var bo = caml_new_string("Total ms (Title): %d ");
-var bp = caml_new_string("Second Part Of Tuple:");
+var bQ_ = caml_new_string("zero");
+var bR_ = caml_new_string("hello");
+var bS_ = caml_new_string("Init:");
+var bU_ = caml_new_string("zero");
+var bW_ = caml_new_string("Another Type Init:");
+var bo_ = caml_new_string("Total ms (Title): %d ");
+var bp_ = caml_new_string("Second Part Of Tuple:");
 
 function invalid_arg(s) {
   throw caml_wrap_thrown_exception([0,Invalid_argument,s]);
@@ -1675,7 +1675,7 @@ function valid_float_lexem(s) {
   function loop(i) {
     var i__0 = i;
     for (; ; ) {
-      if (l <= i__0) {return symbol(s, a);}
+      if (l <= i__0) {return symbol(s, a_);}
       var match = caml_string_get(s, i__0);
       var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
       if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
@@ -1686,7 +1686,7 @@ function valid_float_lexem(s) {
 }
 
 function string_of_float(f) {
-  return valid_float_lexem(caml_format_float(b, f));
+  return valid_float_lexem(caml_format_float(b_, f));
 }
 
 function append(l1, l2) {
@@ -1708,10 +1708,10 @@ function flush_all(param) {
         var l = param__0[2];
         var a = param__0[1];
         try {caml_ml_flush(a);}
-        catch(eu) {
-          eu = caml_wrap_exception(eu);
-          if (eu[1] !== Sys_error) {
-            throw caml_wrap_thrown_exception_reraise(eu);
+        catch(et_) {
+          et_ = caml_wrap_exception(et_);
+          if (et_[1] !== Sys_error) {
+            throw caml_wrap_thrown_exception_reraise(et_);
           }
         }
         var param__0 = l;
@@ -1764,17 +1764,17 @@ function map(f, param) {
   return 0;
 }
 
-function c(i, f, param) {
+function c_(i, f, param) {
   if (param) {
     var l = param[2];
     var a = param[1];
     var r = call2(f, i, a);
-    return [0,r,c(i + 1 | 0, f, l)];
+    return [0,r,c_(i + 1 | 0, f, l)];
   }
   return 0;
 }
 
-function mapi(f, l) {return c(0, f, l);}
+function mapi(f, l) {return c_(0, f, l);}
 
 function iter(f, param) {
   var param__0 = param;
@@ -1815,43 +1815,43 @@ function copy(s) {
 
 function escaped(s) {
   var n = [0,0];
-  var en = caml_ml_bytes_length(s) + -1 | 0;
-  var em = 0;
-  if (! (en < 0)) {
-    var i__0 = em;
+  var em_ = caml_ml_bytes_length(s) + -1 | 0;
+  var el_ = 0;
+  if (! (em_ < 0)) {
+    var i__0 = el_;
     for (; ; ) {
       var match = caml_bytes_unsafe_get(s, i__0);
       if (32 <= match) {
-        var er = match + -34 | 0;
-        if (58 < er >>> 0) if (93 <= er) {
+        var eq_ = match + -34 | 0;
+        if (58 < eq_ >>> 0) if (93 <= eq_) {
           var switch__0 = 0;
           var switch__1 = 0;
         }
         else var switch__1 = 1;
-        else if (56 < (er + -1 | 0) >>> 0) {
+        else if (56 < (eq_ + -1 | 0) >>> 0) {
           var switch__0 = 1;
           var switch__1 = 0;
         }
         else var switch__1 = 1;
-        if (switch__1) {var es = 1;var switch__0 = 2;}
+        if (switch__1) {var er_ = 1;var switch__0 = 2;}
       }
       else var switch__0 = 11 <= match ?
         13 === match ? 1 : 0 :
         8 <= match ? 1 : 0;
-      switch (switch__0) {case 0:var es = 4;break;case 1:var es = 2;break}
-      n[1] = n[1] + es | 0;
-      var et = i__0 + 1 | 0;
-      if (en !== i__0) {var i__0 = et;continue;}
+      switch (switch__0) {case 0:var er_ = 4;break;case 1:var er_ = 2;break}
+      n[1] = n[1] + er_ | 0;
+      var es_ = i__0 + 1 | 0;
+      if (em_ !== i__0) {var i__0 = es_;continue;}
       break;
     }
   }
   if (n[1] === caml_ml_bytes_length(s)) {return copy(s);}
   var s__0 = caml_create_bytes(n[1]);
   n[1] = 0;
-  var ep = caml_ml_bytes_length(s) + -1 | 0;
-  var eo = 0;
-  if (! (ep < 0)) {
-    var i = eo;
+  var eo_ = caml_ml_bytes_length(s) + -1 | 0;
+  var en_ = 0;
+  if (! (eo_ < 0)) {
+    var i = en_;
     for (; ; ) {
       var c = caml_bytes_unsafe_get(s, i);
       if (35 <= c) var switch__2 = 92 ===
@@ -1911,37 +1911,37 @@ function escaped(s) {
           break
         }
       n[1] += 1;
-      var eq = i + 1 | 0;
-      if (ep !== i) {var i = eq;continue;}
+      var ep_ = i + 1 | 0;
+      if (eo_ !== i) {var i = ep_;continue;}
       break;
     }
   }
   return s__0;
 }
 
-function bos(el) {return el;}
+function bos(ek_) {return ek_;}
 
-function bts(ek) {return ek;}
+function bts(ej_) {return ej_;}
 
-function ensure_ge(x, y) {return y <= x ? x : invalid_arg(d);}
+function ensure_ge(x, y) {return y <= x ? x : invalid_arg(d_);}
 
 function sum_lengths(acc, seplen, param) {
   var acc__0 = acc;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var ei = param__0[2];
-      var ej = param__0[1];
-      if (ei) {
+      var eh_ = param__0[2];
+      var ei_ = param__0[1];
+      if (eh_) {
         var acc__1 = ensure_ge(
-          (caml_ml_string_length(ej) + seplen | 0) + acc__0 | 0,
+          (caml_ml_string_length(ei_) + seplen | 0) + acc__0 | 0,
           acc__0
         );
         var acc__0 = acc__1;
-        var param__0 = ei;
+        var param__0 = eh_;
         continue;
       }
-      return caml_ml_string_length(ej) + acc__0 | 0;
+      return caml_ml_string_length(ei_) + acc__0 | 0;
     }
     return acc__0;
   }
@@ -1952,23 +1952,23 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var eg = param__0[2];
-      var eh = param__0[1];
-      if (eg) {
-        caml_blit_string(eh, 0, dst, pos__0, caml_ml_string_length(eh));
+      var ef_ = param__0[2];
+      var eg_ = param__0[1];
+      if (ef_) {
+        caml_blit_string(eg_, 0, dst, pos__0, caml_ml_string_length(eg_));
         caml_blit_string(
           sep,
           0,
           dst,
-          pos__0 + caml_ml_string_length(eh) | 0,
+          pos__0 + caml_ml_string_length(eg_) | 0,
           seplen
         );
-        var pos__1 = (pos__0 + caml_ml_string_length(eh) | 0) + seplen | 0;
+        var pos__1 = (pos__0 + caml_ml_string_length(eg_) | 0) + seplen | 0;
         var pos__0 = pos__1;
-        var param__0 = eg;
+        var param__0 = ef_;
         continue;
       }
-      caml_blit_string(eh, 0, dst, pos__0, caml_ml_string_length(eh));
+      caml_blit_string(eg_, 0, dst, pos__0, caml_ml_string_length(eg_));
       return dst;
     }
     return dst;
@@ -1988,7 +1988,7 @@ function concat(sep, l) {
       )
     );
   }
-  return e;
+  return e_;
 }
 
 function escaped__0(s) {
@@ -1998,13 +1998,13 @@ function escaped__0(s) {
       if (caml_ml_string_length(s) <= i__0) {return 0;}
       var match = caml_bytes_unsafe_get(s, i__0);
       if (32 <= match) {
-        var ef = match + -34 | 0;
-        if (58 < ef >>> 0) if (93 <= ef) {
+        var ee_ = match + -34 | 0;
+        if (58 < ee_ >>> 0) if (93 <= ee_) {
           var switch__0 = 0;
           var switch__1 = 0;
         }
         else var switch__1 = 1;
-        else if (56 < (ef + -1 | 0) >>> 0) {
+        else if (56 < (ee_ + -1 | 0) >>> 0) {
           var switch__0 = 1;
           var switch__1 = 0;
         }
@@ -2035,15 +2035,15 @@ function contains_from(s, i, c) {
   var l = caml_ml_string_length(s);
   if (0 <= i) {
     if (! (l < i)) {
-      try {index_rec(s, l, i, c);var ed = 1;return ed;}
-      catch(ee) {
-        ee = caml_wrap_exception(ee);
-        if (ee === Not_found) {return 0;}
-        throw caml_wrap_thrown_exception_reraise(ee);
+      try {index_rec(s, l, i, c);var ec_ = 1;return ec_;}
+      catch(ed_) {
+        ed_ = caml_wrap_exception(ed_);
+        if (ed_ === Not_found) {return 0;}
+        throw caml_wrap_thrown_exception_reraise(ed_);
       }
     }
   }
-  return invalid_arg(f);
+  return invalid_arg(f_);
 }
 
 function contains(s, c) {return contains_from(s, 0, c);}
@@ -2054,14 +2054,14 @@ caml_fresh_oo_id(0);
 
 function bits(s) {
   s[2] = (s[2] + 1 | 0) % 55 | 0;
-  var ea = s[2];
-  var curval = caml_check_bound(s[1], ea)[ea + 1];
-  var eb = (s[2] + 24 | 0) % 55 | 0;
-  var newval = caml_check_bound(s[1], eb)[eb + 1] +
+  var d__ = s[2];
+  var curval = caml_check_bound(s[1], d__)[d__ + 1];
+  var ea_ = (s[2] + 24 | 0) % 55 | 0;
+  var newval = caml_check_bound(s[1], ea_)[ea_ + 1] +
     (curval ^ (curval >>> 25 | 0) & 31) | 0;
   var newval30 = newval & 1073741823;
-  var ec = s[2];
-  caml_check_bound(s[1], ec)[ec + 1] = newval30;
+  var eb_ = s[2];
+  caml_check_bound(s[1], eb_)[eb_ + 1] = newval30;
   return newval30;
 }
 
@@ -2076,14 +2076,14 @@ function intaux(s, n) {
 
 function int__0(s, bound) {
   if (! (1073741823 < bound)) {if (0 < bound) {return intaux(s, bound);}}
-  return invalid_arg(g);
+  return invalid_arg(g_);
 }
 
-var default__0 = [0,h.slice(),0];
+var default__0 = [0,h_.slice(),0];
 
 function int__1(bound) {return int__0(default__0, bound);}
 
-var i = 5;
+var i_ = 5;
 
 function detectList(maxLength, o) {
   var maxLength__0 = maxLength;
@@ -2094,20 +2094,20 @@ function detectList(maxLength, o) {
     var match = tag === 1e3 ? 1 : 0;
     if (0 === match) {
       var size = o__0.length - 1;
-      var d8 = tag === 0 ? 1 : 0;
-      if (d8) {
-        var d9 = 2 === size ? 1 : 0;
-        if (d9) {
+      var d7_ = tag === 0 ? 1 : 0;
+      if (d7_) {
+        var d8_ = 2 === size ? 1 : 0;
+        if (d8_) {
           var o__1 = o__0[2];
           var maxLength__1 = maxLength__0 + -1 | 0;
           var maxLength__0 = maxLength__1;
           var o__0 = o__1;
           continue;
         }
-        var d_ = d9;
+        var d9_ = d8_;
       }
-      else var d_ = d8;
-      return d_;
+      else var d9_ = d7_;
+      return d9_;
     }
     return caml_equal(o__0, 0);
   }
@@ -2115,7 +2115,7 @@ function detectList(maxLength, o) {
 
 function extractList(maxNum, o) {
   if (0 === maxNum) {return [0,1 - (typeof o === "number"),0];}
-  if (typeof o === "number") {return j;}
+  if (typeof o === "number") {return j_;}
   var match = extractList(maxNum + -1 | 0, o[2]);
   var rest = match[2];
   var restWasTruncated = match[1];
@@ -2157,7 +2157,7 @@ function getBreakData(itms) {
         curDidBreak__0
       ];
     },
-    k,
+    k_,
     itms
   );
   var someChildBroke = match[2];
@@ -2165,33 +2165,34 @@ function getBreakData(itms) {
   return [0,allItemsLen,someChildBroke];
 }
 
-function indentForDepth(n__0) {
-  if (8 < n__0 >>> 0) {return symbol(indentForDepth(n__0 + -1 | 0), l);}
-  switch (n__0) {
+function indentForDepth(n) {
+  if (8 < n >>> 0) {return symbol(indentForDepth(n + -1 | 0), l_);}
+  switch (n) {
     case 0:
-      return m;
+      return m_;
     case 1:
-      return n;
+      return n_;
     case 2:
-      return o;
+      return o_;
     case 3:
-      return p;
+      return p_;
     case 4:
-      return q;
+      return q_;
     case 5:
-      return r;
+      return r_;
     case 6:
-      return s;
+      return s_;
     case 7:
-      return t;
-    default:return u
+      return t_;
+    default:
+      return u_
     }
 }
 
 function printTreeShape(pair, self, depth, o) {
   var right = pair[2];
   var left = pair[1];
-  var match = extractFields(i, o);
+  var match = extractFields(i_, o);
   var lst = match[2];
   var wasTruncated = match[1];
   var dNext = 1 + depth | 0;
@@ -2207,27 +2208,27 @@ function printTreeShape(pair, self, depth, o) {
   if (! (70 <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))) {
     if (! someChildBroke) {
       var truncationMsg__0 = 0 === wasTruncated ?
-        A :
-        symbol(C, call1(self[6], self));
-      var d7 = symbol(truncationMsg__0, right);
-      return symbol(left, symbol(concat(B, itms), d7));
+        A_ :
+        symbol(C_, call1(self[6], self));
+      var d6_ = symbol(truncationMsg__0, right);
+      return symbol(left, symbol(concat(B_, itms), d6_));
     }
   }
   var truncationMsg = 0 === wasTruncated ?
-    v :
-    symbol(z, symbol(indentNext, call1(self[6], self)));
-  var d6 = symbol(truncationMsg, symbol(w, symbol(indent, right)));
+    v_ :
+    symbol(z_, symbol(indentNext, call1(self[6], self)));
+  var d5_ = symbol(truncationMsg, symbol(w_, symbol(indent, right)));
   return symbol(
     left,
     symbol(
-      y,
-      symbol(indentNext, symbol(concat(symbol(x, indentNext), itms), d6))
+      y_,
+      symbol(indentNext, symbol(concat(symbol(x_, indentNext), itms), d5_))
     )
   );
 }
 
 function printListShape(self, depth, o) {
-  var match = extractList(i, o);
+  var match = extractList(i_, o);
   var lst = match[2];
   var wasTruncated = match[1];
   var dNext = 1 + depth | 0;
@@ -2243,26 +2244,26 @@ function printListShape(self, depth, o) {
   if (! (70 <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))) {
     if (! someChildBroke) {
       var truncationMsg__0 = 0 === wasTruncated ?
-        K :
-        symbol(O, call1(self[6], self));
-      var d5 = symbol(truncationMsg__0, L);
-      return symbol(N, symbol(concat(M, itms), d5));
+        K_ :
+        symbol(O_, call1(self[6], self));
+      var d4_ = symbol(truncationMsg__0, L_);
+      return symbol(N_, symbol(concat(M_, itms), d4_));
     }
   }
   var truncationMsg = 0 === wasTruncated ?
-    D :
-    symbol(J, symbol(indentNext, call1(self[6], self)));
-  var d4 = symbol(truncationMsg, symbol(F, symbol(indent, E)));
+    D_ :
+    symbol(J_, symbol(indentNext, call1(self[6], self)));
+  var d3_ = symbol(truncationMsg, symbol(F_, symbol(indent, E_)));
   return symbol(
-    I,
+    I_,
     symbol(
-      H,
-      symbol(indentNext, symbol(concat(symbol(G, indentNext), itms), d4))
+      H_,
+      symbol(indentNext, symbol(concat(symbol(G_, indentNext), itms), d3_))
     )
   );
 }
 
-function P(self, opt, o) {
+function P_(self, opt, o) {
   if (opt) {
     var sth = opt[1];
     var depth = sth;
@@ -2284,14 +2285,14 @@ function P(self, opt, o) {
        call3(self[9], self, 0, o) :
        tag === 246 ?
         call2(self[8], self, o) :
-        detectList(i, o) ?
+        detectList(i_, o) ?
          call3(self[12], self, [0,depth], o) :
          tag === 0 ?
           call3(self[11], self, [0,depth], o) :
           call2(self[7], self, o);
 }
 
-function Q(self, opt, o) {
+function Q_(self, opt, o) {
   if (opt) {
     var sth = opt[1];
     var depth = sth;
@@ -2300,87 +2301,89 @@ function Q(self, opt, o) {
   return printListShape(self, depth, o);
 }
 
-function R(self, opt, o) {
+function R_(self, opt, o) {
   if (opt) {
     var sth = opt[1];
     var depth = sth;
   }
   else var depth = 0;
-  return printTreeShape(S, self, depth, o);
+  return printTreeShape(S_, self, depth, o);
 }
 
-function T(self, f) {return symbol(V, symbol(string_of_int(f | 0), U));}
+function T_(self, f) {return symbol(V_, symbol(string_of_int(f | 0), U_));}
 
-function W(self, opt, o) {
+function W_(self, opt, o) {
   if (opt) {
     var sth = opt[1];
     var depth = sth;
   }
   else var depth = 0;
-  return printTreeShape(X, self, depth, o);
+  return printTreeShape(X_, self, depth, o);
 }
 
-function Y(self, o) {return Z;}
+function Y_(self, o) {return Z_;}
 
-function aa(self, o) {return ab;}
+function aa_(self, o) {return ab_;}
 
-function ac(self) {return ad;}
+function ac_(self) {return ad_;}
 
-function ae(self) {return af;}
+function ae_(self) {return af_;}
 
-function ag(self, f) {return string_of_float(f);}
+function ag_(self, f) {return string_of_float(f);}
 
-function ah(self, s) {return symbol(aj, symbol(call2(self[2], self, s), ai));}
+function ah_(self, s) {
+  return symbol(aj_, symbol(call2(self[2], self, s), ai_));
+}
 
-function ak(self, s) {return s;}
+function ak_(self, s) {return s;}
 
 var base = [
   0,
   function(self, i) {return string_of_int(i);},
-  ak,
-  ah,
-  ag,
-  ae,
-  ac,
-  aa,
-  Y,
-  W,
-  T,
-  R,
-  Q,
-  P
+  ak_,
+  ah_,
+  ag_,
+  ae_,
+  ac_,
+  aa_,
+  Y_,
+  W_,
+  T_,
+  R_,
+  Q_,
+  P_
 ];
 
 function makeStandardChannelsConsole(objectPrinter) {
-  function d0(a) {
+  function dZ_(a) {
     return native_debug(
-      symbol(call3(objectPrinter[13], objectPrinter, 0, a), al)
+      symbol(call3(objectPrinter[13], objectPrinter, 0, a), al_)
     );
   }
-  function d1(a) {
+  function d0_(a) {
     return native_error(
-      symbol(call3(objectPrinter[13], objectPrinter, 0, a), am)
+      symbol(call3(objectPrinter[13], objectPrinter, 0, a), am_)
     );
   }
-  function d2(a) {
+  function d1_(a) {
     return native_warn(
-      symbol(call3(objectPrinter[13], objectPrinter, 0, a), an)
+      symbol(call3(objectPrinter[13], objectPrinter, 0, a), an_)
     );
   }
-  function d3(a) {
+  function d2_(a) {
     return native_log(call3(objectPrinter[13], objectPrinter, 0, a));
   }
   return [
     0,
     function(a) {
       return native_log(
-        symbol(call3(objectPrinter[13], objectPrinter, 0, a), ao)
+        symbol(call3(objectPrinter[13], objectPrinter, 0, a), ao_)
       );
     },
-    d3,
-    d2,
-    d1,
-    d0
+    d2_,
+    d1_,
+    d0_,
+    dZ_
   ];
 }
 
@@ -2416,7 +2419,7 @@ function mapi3(f, iSoFar, revSoFar, listA, listB, listC) {
       }
     }
     else if (! listB__0) {if (! listC__0) {return rev(revSoFar__0);}}
-    throw caml_wrap_thrown_exception([0,Invalid_argument,ap]);
+    throw caml_wrap_thrown_exception([0,Invalid_argument,ap_]);
   }
 }
 
@@ -2444,14 +2447,14 @@ function splitList(revCount, revSoFar, splitAt, lst) {
       return [0,rev(revSoFar__0),hd,tl];
     }
     throw caml_wrap_thrown_exception(
-            [0,Invalid_argument,symbol(aq, string_of_int(splitAt))]
+            [0,Invalid_argument,symbol(aq_, string_of_int(splitAt))]
           );
   }
 }
 
 function splitList__0(splitAt, lst) {return splitList(0, 0, splitAt, lst);}
 
-function nonReducer(param, dZ) {return ar;}
+function nonReducer(param, dY_) {return ar_;}
 
 function nonEventHandler(e) {return 0;}
 
@@ -2467,33 +2470,33 @@ function spec(param) {
 }
 
 function withState(inst, state) {
-  var dY = inst[5];
+  var dX_ = inst[5];
   return [
     0,
     inst[1],
     inst[2],
     inst[3],
     inst[4],
-    [0,state,dY[2],dY[3],dY[4]],
+    [0,state,dX_[2],dX_[3],dX_[4]],
     inst[6]
   ];
 }
 
 function newSelf(replacer, subreplacer) {
   var self = [];
-  function dS(extractor, e, inst) {
-    var dW = call1(extractor, e);
-    var nextState = call2(inst[5][2], inst, dW);
-    var dX = inst[4];
-    return reconcile(withState(inst, nextState), dX);
+  function dR_(extractor, e, inst) {
+    var dV_ = call1(extractor, e);
+    var nextState = call2(inst[5][2], inst, dV_);
+    var dW_ = inst[4];
+    return reconcile(withState(inst, nextState), dW_);
   }
-  function dT(action) {
+  function dS_(action) {
     return call1(
       replacer,
       function(inst) {
         var nextState = call2(inst[5][2], inst, action);
-        var dV = inst[4];
-        return reconcile(withState(inst, nextState), dV);
+        var dU_ = inst[4];
+        return reconcile(withState(inst, nextState), dU_);
       }
     );
   }
@@ -2507,13 +2510,13 @@ function newSelf(replacer, subreplacer) {
           replacer,
           function(inst) {
             var nextState = call2(inst[5][2], inst, action);
-            var dU = inst[4];
-            return reconcile(withState(inst, nextState), dU);
+            var dT_ = inst[4];
+            return reconcile(withState(inst, nextState), dT_);
           }
         );
       },
-      dT,
-      dS
+      dS_,
+      dR_
     ]
   );
   return self;
@@ -2589,8 +2592,8 @@ function initSubtree(thisReplacer, jsx) {
           }
         );
       };
-      var dR = initSubtree(nextReplacerB, stateRendererB);
-      return [1,initSubtree(nextReplacerA, stateRendererA),dR];
+      var dQ_ = initSubtree(nextReplacerB, stateRendererB);
+      return [1,initSubtree(nextReplacerA, stateRendererA),dQ_];
     default:
       var elems = jsx[1];
       var initElem = function(i, e) {
@@ -2620,8 +2623,8 @@ function initSubtree(thisReplacer, jsx) {
 
 function reconcile(inst, renderable) {
   var nextSpec = spec(call2(renderable, [0,inst[5][1]], inst[3]));
-  var dQ = reconcileSubtree(inst[6], inst[5][4], nextSpec[4]);
-  return [0,inst[1],inst[2],inst[3],renderable,nextSpec,dQ];
+  var dP_ = reconcileSubtree(inst[6], inst[5][4], nextSpec[4]);
+  return [0,inst[1],inst[2],inst[3],renderable,nextSpec,dP_];
 }
 
 function reconcileSubtree(subtree, prevJsx, match) {
@@ -2640,8 +2643,8 @@ function reconcileSubtree(subtree, prevJsx, match) {
       var raPrev = prevJsx[1];
       var ib = subtree[2];
       var ia = subtree[1];
-      var dP = reconcileSubtree(ib, rbPrev, rb);
-      return [1,reconcileSubtree(ia, raPrev, ra),dP];
+      var dO_ = reconcileSubtree(ib, rbPrev, rb);
+      return [1,reconcileSubtree(ia, raPrev, ra),dO_];
     default:
       var eLst = match[1];
       var eLstPrev = prevJsx[1];
@@ -2668,33 +2671,33 @@ function control(param, controlledState) {
 
 function create(param) {
   var root = [];
-  var dN = 0;
+  var dM_ = 0;
   caml_update_dummy(
     root,
     [
       0,
       function(swapper) {
-        var dO = root[2];
-        if (dO) {
-          var ei = dO[1];
+        var dN_ = root[2];
+        if (dN_) {
+          var ei = dN_[1];
           var curInst = ei[2];
           var curElems = ei[1];
           var nextEi = [0,curElems,call1(swapper, curInst)];
           root[2] = [0,nextEi];
           return 0;
         }
-        throw caml_wrap_thrown_exception([0,Invalid_argument,as]);
+        throw caml_wrap_thrown_exception([0,Invalid_argument,as_]);
       },
-      dN
+      dM_
     ]
   );
   return root;
 }
 
 function render(root, elems) {
-  var dM = root[2];
-  if (dM) {
-    var ei = dM[1];
+  var dL_ = root[2];
+  if (dL_) {
+    var ei = dL_[1];
     var curSubtree = ei[2];
     var curElems = ei[1];
     var nextEi = [0,elems,reconcileSubtree(curSubtree, curElems, elems)];
@@ -2732,85 +2735,89 @@ function printInstanceCollection(opt, subtree) {
     var sth = opt[1];
     var s = sth;
   }
-  else var s = aJ;
-  var dNext = symbol(au, s);
-  if (typeof subtree === "number") return av;
+  else var s = aJ_;
+  var dNext = symbol(au_, s);
+  if (typeof subtree === "number") return av_;
   else switch (subtree[0]) {
     case 0:
       var n = subtree[1];
-      return symbol(ay, symbol(at([0,symbol(ax, s)], n), aw));
+      return symbol(ay_, symbol(at_([0,symbol(ax_, s)], n), aw_));
     case 1:
       var n2 = subtree[2];
       var n1 = subtree[1];
-      var dI = symbol(aA, symbol(s, az));
-      var dJ = symbol(
-        aC,
+      var dH_ = symbol(aA_, symbol(s, az_));
+      var dI_ = symbol(
+        aC_,
         symbol(
-          aB,
-          symbol(dNext, symbol(printInstanceCollection([0,dNext], n2), dI))
+          aB_,
+          symbol(dNext, symbol(printInstanceCollection([0,dNext], n2), dH_))
         )
       );
       return symbol(
-        aE,
+        aE_,
         symbol(
-          aD,
-          symbol(dNext, symbol(printInstanceCollection([0,dNext], n1), dJ))
+          aD_,
+          symbol(dNext, symbol(printInstanceCollection([0,dNext], n1), dI_))
         )
       );
     default:
       var lst = subtree[1];
-      var dK = [0,symbol(aG, s)];
+      var dJ_ = [0,symbol(aG_, s)];
       return symbol(
-        aI,
+        aI_,
         symbol(
           concat(
-            aH,
-            map(function(dL) {return printInstanceCollection(dK, dL);}, lst)
+            aH_,
+            map(function(dK_) {return printInstanceCollection(dJ_, dK_);}, lst
+            )
           ),
-          aF
+          aF_
         )
       )
     }
 }
 
-function at(opt, n) {
+function at_(opt, n) {
   if (opt) {
     var sth = opt[1];
     var s = sth;
   }
-  else var s = aU;
+  else var s = aU_;
   var match = n[5];
   var state = match[1];
-  var dE = symbol(aL, symbol(s, aK));
-  var dF = n[6];
-  var dG = symbol(
-    aO,
+  var dD_ = symbol(aL_, symbol(s, aK_));
+  var dE_ = n[6];
+  var dF_ = symbol(
+    aO_,
     symbol(
       s,
-      symbol(aN, symbol(printInstanceCollection([0,symbol(aM, s)], dF), dE))
+      symbol(
+        aN_,
+        symbol(printInstanceCollection([0,symbol(aM_, s)], dE_), dD_)
+      )
     )
   );
-  var dH = typeof state === "number" ?
+  var dG_ = typeof state === "number" ?
     string_of_int(state) :
     caml_obj_tag(state) === 252 ?
-     symbol(aS, symbol(escaped__0(state), aR)) :
-     aT;
-  return symbol(aQ, symbol(s, symbol(aP, symbol(dH, dG))));
+     symbol(aS_, symbol(escaped__0(state), aR_)) :
+     aT_;
+  return symbol(aQ_, symbol(s, symbol(aP_, symbol(dG_, dF_))));
 }
 
-function printSection(s) {return suppress[1] ? 0 : log(symbol(aV, s));}
+function printSection(s) {return suppress[1] ? 0 : log(symbol(aV_, s));}
 
 function printRoot(title, root) {
-  var dD = root[2];
+  var dC_ = root[2];
   if (0 === suppress[1]) {
-    if (dD) {
-      var match = dD[1];
+    if (dC_) {
+      var match = dC_[1];
       var subtree = match[2];
-      log(symbol(aX, symbol(title, aW)));
+      log(symbol(aX_, symbol(title, aW_)));
       return log(printInstanceCollection(0, subtree));
     }
     log(title);
-    return log(symbol(a0, symbol(aZ, aY)));
+    return log(symbol(a0_, symbol(aZ_, aY_)));
   }
   return 0;
 }
@@ -2824,7 +2831,7 @@ function render__0(onClick, opt, children, state, self) {
     var sth = opt[1];
     var className = sth;
   }
-  else var className = a1;
+  else var className = a1_;
   return [
     1,
     [
@@ -2837,52 +2844,55 @@ function render__0(onClick, opt, children, state, self) {
   ];
 }
 
-function render__1(opt, size, children, dy, self) {
+function render__1(opt, size, children, dx_, self) {
   if (opt) {
     var sth = opt[1];
     var txt = sth;
   }
-  else var txt = a3;
-  if (dy) {
-    var sth__0 = dy[1];
+  else var txt = a3_;
+  if (dx_) {
+    var sth__0 = dx_[1];
     var state = sth__0;
   }
   else var state = txt;
-  var dz = 0;
-  var dA = 0;
+  var dy_ = 0;
+  var dz_ = 0;
   return [
     0,
     state,
-    element([0,function(dB, dC) {return render__0(dA, a2, dz, dB, dC);}]),
-    nonReducer
-  ];
-}
-
-function render__2(opt, children, du, self) {
-  if (opt) {
-    var sth = opt[1];
-    var txt = sth;
-  }
-  else var txt = a5;
-  if (du) {
-    var sth__0 = du[1];
-    var state = sth__0;
-  }
-  else var state = txt;
-  var dv = 0;
-  return [
-    0,
-    state,
-    element([0,function(dw, dx) {return render__0(dv, a4, children, dw, dx);}]
+    element(
+      [0,function(dA_, dB_) {return render__0(dz_, a2_, dy_, dA_, dB_);}]
     ),
     nonReducer
   ];
 }
 
-function render__3(opt, size, children, dh, self) {
+function render__2(opt, children, dt_, self) {
+  if (opt) {
+    var sth = opt[1];
+    var txt = sth;
+  }
+  else var txt = a5_;
+  if (dt_) {
+    var sth__0 = dt_[1];
+    var state = sth__0;
+  }
+  else var state = txt;
+  var du_ = 0;
+  return [
+    0,
+    state,
+    element(
+      [0,function(dv_, dw_) {return render__0(du_, a4_, children, dv_, dw_);}]
+    ),
+    nonReducer
+  ];
+}
+
+function render__3(opt, size, children, dh_, self) {
   ;
-  if (dh) {
-    var sth = dh[1];
+  if (dh_) {
+    var sth = dh_[1];
     var state = sth;
   }
   else var state = [0,size,0];
@@ -2890,47 +2900,52 @@ function render__3(opt, size, children, dh, self) {
   var curSize = state[1];
   var match = curSize !== size ? 1 : 0;
   var nextChangeCount = 0 === match ? curChangeCount : curChangeCount + 1 | 0;
-  function di(param, dt) {return state;}
-  var dj = 0;
-  var dk = [0,symbol(a6, string_of_int(nextChangeCount))];
-  var dl = 0;
-  var dm = element(
-    [0,function(dr, ds) {return render__0(dl, dk, dj, dr, ds);}]
+  function di_(param, ds_) {return state;}
+  var dj_ = 0;
+  var dk_ = [0,symbol(a6_, string_of_int(nextChangeCount))];
+  var dl_ = 0;
+  var dm_ = element(
+    [0,function(dq_, dr_) {return render__0(dl_, dk_, dj_, dq_, dr_);}]
   );
-  var dn = 0;
+  var dn_ = 0;
   return [
     0,
     [0,size,nextChangeCount],
     [
       1,
       element(
-        [0,function(dp, dq) {return render__1(a7, dn, children, dp, dq);}]
+        [
+          0,
+          function(do_, dp_) {return render__1(a7_, dn_, children, do_, dp_);}
+        ]
       ),
-      dm
+      dm_
     ],
-    di
+    di_
   ];
 }
 
-function render__4(opt, children, da, self) {
+function render__4(opt, children, da_, self) {
   if (opt) {
     var sth = opt[1];
     var initialText = sth;
   }
-  else var initialText = a9;
-  if (da) {
-    var sth__0 = da[1];
+  else var initialText = a9_;
+  if (da_) {
+    var sth__0 = da_[1];
     var state = sth__0;
   }
   else var state = initialText;
-  function db(param, dg) {return state;}
-  var dc = 0;
-  var dd = 0;
+  function db_(param, dg_) {return state;}
+  var dc_ = 0;
+  var dd_ = 0;
   return [
     0,
     state,
-    element([0,function(de, df) {return render__0(dd, a8, dc, de, df);}]),
-    db
+    element(
+      [0,function(de_, df_) {return render__0(dd_, a8_, dc_, de_, df_);}]
+    ),
+    db_
   ];
 }
 
@@ -2940,15 +2955,18 @@ function render__5(children, opt, self) {
     var state = sth;
   }
   else var state = 0;
-  function c4(param, c_) {var next = c_[1];return caml_int_of_string(next);}
-  var c5 = 0;
-  var c6 = [0,symbol(a_, string_of_int(state))];
-  var c7 = [0,function(e) {return print_string(ba);}];
+  function c4_(param, c__) {
+    var next = c__[1];
+    return caml_int_of_string(next);
+  }
+  var c5_ = 0;
+  var c6_ = [0,symbol(a__, string_of_int(state))];
+  var c7_ = [0,function(e) {return print_string(ba_);}];
   return [
     0,
     state,
-    [0,function(c8, c9) {return render__0(c7, c6, c5, c8, c9);}],
-    c4
+    [0,function(c8_, c9_) {return render__0(c7_, c6_, c5_, c8_, c9_);}],
+    c4_
   ];
 }
 
@@ -2957,23 +2975,27 @@ function render__6(shouldControlInput, children, opt, self) {
     var sth = opt[1];
     var state = sth;
   }
-  else var state = be;
-  var cU = 0;
-  var input = element([0,function(c2, c3) {return render__4(bb, cU, c2, c3);}]
+  else var state = be_;
+  var cU_ = 0;
+  var input = element(
+    [0,function(c2_, c3_) {return render__4(bb_, cU_, c2_, c3_);}]
   );
-  var input__0 = 0 === shouldControlInput ? input : control(input, bd);
-  var cV = 0;
-  var cW = element([0,function(c0, c1) {return render__5(cV, c0, c1);}]);
-  var cX = 0;
+  var input__0 = 0 === shouldControlInput ? input : control(input, bd_);
+  var cV_ = 0;
+  var cW_ = element([0,function(c0_, c1_) {return render__5(cV_, c0_, c1_);}]);
+  var cX_ = 0;
   return [
     0,
     state,
     [
       1,
       element(
-        [0,function(cY, cZ) {return render__0(cX, bc, input__0, cY, cZ);}]
+        [
+          0,
+          function(cY_, cZ_) {return render__0(cX_, bc_, input__0, cY_, cZ_);}
+        ]
       ),
-      cW
+      cW_
     ],
     nonReducer
   ];
@@ -2985,15 +3007,15 @@ function render__7(anyProp, size, children, opt, self) {
     var state = sth;
   }
   else var state = [0,anyProp,anyProp];
-  function cO(param, action) {return state;}
-  var cP = 0;
-  var cQ = [0,size];
-  var cR = 0;
+  function cO_(param, action) {return state;}
+  var cP_ = 0;
+  var cQ_ = [0,size];
+  var cR_ = 0;
   return [
     0,
     state,
-    [0,function(cS, cT) {return render__0(cR, cQ, cP, cS, cT);}],
-    cO
+    [0,function(cS_, cT_) {return render__0(cR_, cQ_, cP_, cS_, cT_);}],
+    cO_
   ];
 }
 
@@ -3002,47 +3024,49 @@ function symbol__0(x, getDefault) {
   return call1(getDefault, 0);
 }
 
-function onRaf(e) {return bf;}
+function onRaf(e) {return bf_;}
 
 function initialStateGetter(self, param) {
   request(call1(self[1], onRaf));
-  return bg;
+  return bg_;
 }
 
 function render__8(opt, param, state, self) {
   ;
   var state__0 = symbol__0(
     state,
-    function(cN) {return initialStateGetter(self, cN);}
+    function(cN_) {return initialStateGetter(self, cN_);}
   );
-  function cy(inst, action) {
+  function cy_(inst, action) {
     var match = inst[6][2][1][6];
     var deepestDiv = match[1];
     var divStateStr = domStateToString(deepestDiv[5][1]);
     request(call1(self[1], onRaf));
-    return symbol(state__0, symbol(bi, symbol(divStateStr, bh)));
+    return symbol(state__0, symbol(bi_, symbol(divStateStr, bh_)));
   }
-  var cz = 0;
-  var cA = [0,symbol(bj, string_of_int(int__1(10)))];
-  var cB = 0;
-  var cC = element(
-    [0,function(cL, cM) {return render__0(cB, cA, cz, cL, cM);}]
+  var cz_ = 0;
+  var cA_ = [0,symbol(bj_, string_of_int(int__1(10)))];
+  var cB_ = 0;
+  var cC_ = element(
+    [0,function(cL_, cM_) {return render__0(cB_, cA_, cz_, cL_, cM_);}]
   );
-  var cD = 0;
-  var cE = element(
-    [0,function(cJ, cK) {return render__0(cD, bk, cC, cJ, cK);}]
+  var cD_ = 0;
+  var cE_ = element(
+    [0,function(cJ_, cK_) {return render__0(cD_, bk_, cC_, cJ_, cK_);}]
   );
-  var cF = 0;
-  var cG = 0;
+  var cF_ = 0;
+  var cG_ = 0;
   return [
     0,
     state__0,
     [
       1,
-      element([0,function(cH, cI) {return render__0(cG, bl, cF, cH, cI);}]),
-      cE
+      element(
+        [0,function(cH_, cI_) {return render__0(cG_, bl_, cF_, cH_, cI_);}]
+      ),
+      cE_
     ],
-    cy
+    cy_
   ];
 }
 
@@ -3051,183 +3075,187 @@ function render__9(opt, children) {
     var sth = opt[1];
     var txt = sth;
   }
-  else var txt = bm;
-  var ct = 0;
-  var cu = [0,txt];
-  var cv = 0;
-  return function(cw, cx) {return render__0(cv, cu, ct, cw, cx);};
+  else var txt = bm_;
+  var ct_ = 0;
+  var cu_ = [0,txt];
+  var cv_ = 0;
+  return function(cw_, cx_) {return render__0(cv_, cu_, ct_, cw_, cx_);};
 }
 
-log(bn);
+log(bn_);
 
 var startSeconds = caml_sys_time(0);
 
 suppress[1] = 0;
 
-var i__0 = 0;
+var i = 0;
 
 a:
 for (; ; ) {
-  var stateless = element([0,render__9(bq, 0)]);
-  printSection(br);
+  var stateless = element([0,render__9(bq_, 0)]);
+  printSection(br_);
   var containerRoot = create(0);
-  var j__0 = 0;
+  var j = 0;
   for (; ; ) {
-    var bZ = element([0,render__9(bY, 0)]);
+    var bZ_ = element([0,render__9(bY_, 0)]);
     render(
       containerRoot,
       element(
         [
           0,
-          function(cq) {
-            return function(cr, cs) {return render__2(b0, cq, cr, cs);};
-          }(bZ
+          function(cq_) {
+            return function(cr_, cs_) {return render__2(b0_, cq_, cr_, cs_);};
+          }(bZ_
           )
         ]
       )
     );
-    var b1 = j__0 + 1 | 0;
-    if (10 !== j__0) {var j__0 = b1;continue;}
-    printSection(bs);
+    var b1_ = j + 1 | 0;
+    if (10 !== j) {var j = b1_;continue;}
+    printSection(bs_);
     var counterRoot = create(0);
-    var bt = 0;
+    var bt_ = 0;
     render(
       counterRoot,
       element(
         [
           0,
-          function(stateless, cn) {
-            return function(co, cp) {
-              return render__3(bu, cn, stateless, co, cp);
+          function(stateless, cn_) {
+            return function(co_, cp_) {
+              return render__3(bu_, cn_, stateless, co_, cp_);
             };
-          }(stateless, bt
+          }(stateless, bt_
           )
         ]
       )
     );
-    printRoot(bv, counterRoot);
-    var bw = 0;
+    printRoot(bv_, counterRoot);
+    var bw_ = 0;
     render(
       counterRoot,
       element(
         [
           0,
-          function(stateless, ck) {
-            return function(cl, cm) {
-              return render__3(bx, ck, stateless, cl, cm);
+          function(stateless, ck_) {
+            return function(cl_, cm_) {
+              return render__3(bx_, ck_, stateless, cl_, cm_);
             };
-          }(stateless, bw
+          }(stateless, bw_
           )
         ]
       )
     );
-    printRoot(by, counterRoot);
-    var bz = 8;
+    printRoot(by_, counterRoot);
+    var bz_ = 8;
     render(
       counterRoot,
       element(
         [
           0,
-          function(stateless, ch) {
-            return function(ci, cj) {
-              return render__3(bA, ch, stateless, ci, cj);
+          function(stateless, ch_) {
+            return function(ci_, cj_) {
+              return render__3(bA_, ch_, stateless, ci_, cj_);
             };
-          }(stateless, bz
+          }(stateless, bz_
           )
         ]
       )
     );
-    printRoot(bB, counterRoot);
-    printSection(bC);
+    printRoot(bB_, counterRoot);
+    printSection(bC_);
     var appRoot = create(0);
-    var bD = 0;
+    var bD_ = 0;
     render(
       appRoot,
       element(
         [
           0,
-          function(stateless, ce) {
-            return function(cf, cg) {
-              return render__6(ce, stateless, cf, cg);
+          function(stateless, ce_) {
+            return function(cf_, cg_) {
+              return render__6(ce_, stateless, cf_, cg_);
             };
-          }(stateless, bD
+          }(stateless, bD_
           )
         ]
       )
     );
-    printRoot(bE, appRoot);
-    var bF = 0;
-    var bG = 1;
+    printRoot(bE_, appRoot);
+    var bF_ = 0;
+    var bG_ = 1;
     render(
       appRoot,
       element(
         [
           0,
-          function(ca, cb) {
-            return function(cc, cd) {return render__6(cb, ca, cc, cd);};
-          }(bF, bG
+          function(ca_, cb_) {
+            return function(cc_, cd_) {return render__6(cb_, ca_, cc_, cd_);};
+          }(bF_, bG_
           )
         ]
       )
     );
-    printRoot(bH, appRoot);
-    printSection(bI);
+    printRoot(bH_, appRoot);
+    printSection(bI_);
     var animRoot = create(0);
     render(
       animRoot,
-      element([0,function(b9, b_) {return render__8(bK, bJ, b9, b_);}])
+      element([0,function(b9_, b__) {return render__8(bK_, bJ_, b9_, b__);}])
     );
-    printRoot(bL, animRoot);
+    printRoot(bL_, animRoot);
     tick(0);
-    printRoot(bM, animRoot);
+    printRoot(bM_, animRoot);
     tick(0);
-    printRoot(bN, animRoot);
+    printRoot(bN_, animRoot);
     clearAll(0);
-    printSection(bO);
+    printSection(bO_);
     var polyRoot = create(0);
-    var bP = 0;
+    var bP_ = 0;
     render(
       polyRoot,
       element(
         [
           0,
-          function(b6) {
-            return function(b7, b8) {return render__7(bR, bQ, b6, b7, b8);};
-          }(bP
+          function(b6_) {
+            return function(b7_, b8_) {
+              return render__7(bR_, bQ_, b6_, b7_, b8_);
+            };
+          }(bP_
           )
         ]
       )
     );
-    printRoot(bS, polyRoot);
+    printRoot(bS_, polyRoot);
     var anotherPolyRoot = create(0);
-    var bT = 0;
-    var bV = 0;
+    var bT_ = 0;
+    var bV_ = 0;
     render(
       anotherPolyRoot,
       element(
         [
           0,
-          function(b2, b3) {
-            return function(b4, b5) {return render__7(b3, bU, b2, b4, b5);};
-          }(bT, bV
+          function(b2_, b3_) {
+            return function(b4_, b5_) {
+              return render__7(b3_, bU_, b2_, b4_, b5_);
+            };
+          }(bT_, bV_
           )
         ]
       )
     );
-    printRoot(bW, anotherPolyRoot);
-    var bX = i__0 + 1 | 0;
-    if (0 !== i__0) {var i__0 = bX;continue a;}
+    printRoot(bW_, anotherPolyRoot);
+    var bX_ = i + 1 | 0;
+    if (0 !== i) {var i = bX_;continue a;}
     var endSeconds = caml_sys_time(0);
-    log(symbol(bo, string_of_int((endSeconds - startSeconds) * 1e3 | 0)));
-    var f__0 = caml_alloc_dummy_function(1, 2);
-    var z__0 = [];
-    caml_update_dummy(f__0, function(x, y) {return 1;});
-    caml_update_dummy(z__0, [0,[0,f__0,bp]]);
-    if (z__0) {
-      var match = z__0[1];
+    log(symbol(bo_, string_of_int((endSeconds - startSeconds) * 1e3 | 0)));
+    var f = caml_alloc_dummy_function(1, 2);
+    var z = [];
+    caml_update_dummy(f, function(x, y) {return 1;});
+    caml_update_dummy(z, [0,[0,f,bp_]]);
+    if (z) {
+      var match = z[1];
       var str = match[2];
-      var f__1 = match[1];
-      log(symbol(str, string_of_int(call2(f__1, 0, 0))));
+      var f__0 = match[1];
+      log(symbol(str, string_of_int(call2(f__0, 0, 0))));
     }
     do_at_exit(0);
   }

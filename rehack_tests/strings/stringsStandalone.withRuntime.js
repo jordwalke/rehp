@@ -1217,43 +1217,45 @@ caml_register_global(1, Sys_error, "Sys_error");
 
 caml_register_global(0, Out_of_memory, "Out_of_memory");
 
-var b = caml_new_string("true");
-var c = caml_new_string("false");
-var a = [255,1,0,32752];
-var d = caml_new_string("String.sub / Bytes.sub");
-var e = caml_new_string("");
-var v = caml_new_string(
+var b_ = caml_new_string("true");
+var c_ = caml_new_string("false");
+var a_ = [255,1,0,32752];
+var d_ = caml_new_string("String.sub / Bytes.sub");
+var e_ = caml_new_string("");
+var v_ = caml_new_string(
   "The variable v_ should not conflict with any other variables in scope"
 );
-var f = caml_new_string('String.length("\xc9\x8a") should be two:');
-var h = caml_new_string("-1");
-var i = caml_new_string("-6");
-var j = caml_new_string("1");
-var k = caml_new_string("6");
-var l = caml_new_string("as_df");
-var m = caml_new_string("index from string with char: ");
-var P = caml_new_string("asdf");
-var o = caml_new_string("index from string without char: ");
-var p = caml_new_string("Prints seven:");
-var q = caml_new_string("Prints six:");
-var r = caml_new_string("Prints six:");
-var s = caml_new_string("6");
-var t = caml_new_string("Reason is on \xf0\x9f\x94\xa5");
-var u = caml_new_string(" trimmed string ");
-var w = caml_new_string("tmp");
-var N = caml_new_string("WHEREAMI");
-var z = caml_new_string("Properly caught invalid string to int conversion.");
-var M = caml_new_string("Did not properly catch Failure exception");
-var K = caml_new_string("20");
-var C = caml_new_string("Properly caught conversion from string '20' to int ");
-var J = caml_new_string("Did not properly catch conversion from string to int"
+var f_ = caml_new_string('String.length("\xc9\x8a") should be two:');
+var h_ = caml_new_string("-1");
+var i_ = caml_new_string("-6");
+var j_ = caml_new_string("1");
+var k_ = caml_new_string("6");
+var l_ = caml_new_string("as_df");
+var m_ = caml_new_string("index from string with char: ");
+var P_ = caml_new_string("asdf");
+var o_ = caml_new_string("index from string without char: ");
+var p_ = caml_new_string("Prints seven:");
+var q_ = caml_new_string("Prints six:");
+var r_ = caml_new_string("Prints six:");
+var s_ = caml_new_string("6");
+var t_ = caml_new_string("Reason is on \xf0\x9f\x94\xa5");
+var u_ = caml_new_string(" trimmed string ");
+var w_ = caml_new_string("tmp");
+var N_ = caml_new_string("WHEREAMI");
+var z_ = caml_new_string("Properly caught invalid string to int conversion.");
+var M_ = caml_new_string("Did not properly catch Failure exception");
+var K_ = caml_new_string("20");
+var C_ = caml_new_string("Properly caught conversion from string '20' to int "
 );
-var D = [0,1,[0,2,[0,3,[0,4,0]]]];
-var E = [0,1,[0,2,[0,3,[0,4,0]]]];
-var F = caml_new_string("ARE == T: ");
-var G = caml_new_string("ARE === F: ");
-var H = caml_new_string("Nans are === (should output true):");
-var I = caml_new_string("Nans are == (should output false):");
+var J_ = caml_new_string(
+  "Did not properly catch conversion from string to int"
+);
+var D_ = [0,1,[0,2,[0,3,[0,4,0]]]];
+var E_ = [0,1,[0,2,[0,3,[0,4,0]]]];
+var F_ = caml_new_string("ARE == T: ");
+var G_ = caml_new_string("ARE === F: ");
+var H_ = caml_new_string("Nans are === (should output true):");
+var I_ = caml_new_string("Nans are == (should output false):");
 
 function failwith(s) {throw caml_wrap_thrown_exception([0,Failure,s]);}
 
@@ -1263,7 +1265,7 @@ function invalid_arg(s) {
 
 caml_fresh_oo_id(0);
 
-var anotherName = caml_int64_float_of_bits(a);
+var anotherName = caml_int64_float_of_bits(a_);
 
 function symbol(s1, s2) {
   var l1 = caml_ml_string_length(s1);
@@ -1274,7 +1276,7 @@ function symbol(s1, s2) {
   return s;
 }
 
-function string_of_bool(b__0) {return b__0 ? b : c;}
+function string_of_bool(b) {return b ? b_ : c_;}
 
 function string_of_int(n) {return caml_new_string("" + n);}
 
@@ -1292,10 +1294,10 @@ function flush_all(param) {
         var l = param__0[2];
         var a = param__0[1];
         try {caml_ml_flush(a);}
-        catch(Y) {
-          Y = caml_wrap_exception(Y);
-          if (Y[1] !== Sys_error) {
-            throw caml_wrap_thrown_exception_reraise(Y);
+        catch(Y_) {
+          Y_ = caml_wrap_exception(Y_);
+          if (Y_[1] !== Sys_error) {
+            throw caml_wrap_thrown_exception_reraise(Y_);
           }
         }
         var param__0 = l;
@@ -1346,12 +1348,12 @@ function sub(s, ofs, len) {
       }
     }
   }
-  return invalid_arg(d);
+  return invalid_arg(d_);
 }
 
 function is_space(param) {
-  var X = param + -9 | 0;
-  var switch__0 = 4 < X >>> 0 ? 23 === X ? 1 : 0 : 2 === X ? 0 : 1;
+  var X_ = param + -9 | 0;
+  var switch__0 = 4 < X_ >>> 0 ? 23 === X_ ? 1 : 0 : 2 === X_ ? 0 : 1;
   return switch__0 ? 1 : 0;
 }
 
@@ -1372,20 +1374,20 @@ function trim(s) {
   }
 }
 
-function bos(W) {return W;}
+function bos(W_) {return W_;}
 
-function bts(V) {return V;}
+function bts(V_) {return V_;}
 
 function make__0(n, c) {return bts(make(n, c));}
 
 function is_space__0(param) {
-  var U = param + -9 | 0;
-  var switch__0 = 4 < U >>> 0 ? 23 === U ? 1 : 0 : 2 === U ? 0 : 1;
+  var U_ = param + -9 | 0;
+  var switch__0 = 4 < U_ >>> 0 ? 23 === U_ ? 1 : 0 : 2 === U_ ? 0 : 1;
   return switch__0 ? 1 : 0;
 }
 
 function trim__0(s) {
-  if (caml_string_equal(s, e)) {return s;}
+  if (caml_string_equal(s, e_)) {return s;}
   if (! is_space__0(caml_bytes_unsafe_get(s, 0))) {
     if (
     !
@@ -1412,111 +1414,111 @@ print_endline(greeting);
 
 print_endline(greeting__0);
 
-print_endline(symbol(f, string_of_int(2)));
+print_endline(symbol(f_, string_of_int(2)));
 
-var g = make__0(1, 138);
+var g_ = make__0(1, 138);
 
-print_endline(symbol(make__0(1, 201), g));
+print_endline(symbol(make__0(1, 201), g_));
 
-caml_int_of_string(h);
+caml_int_of_string(h_);
 
-caml_int_of_string(i);
+caml_int_of_string(i_);
 
-var one = caml_int_of_string(j);
-var six = caml_int_of_string(k);
-var index__0 = index(l, 95);
+var one = caml_int_of_string(j_);
+var six = caml_int_of_string(k_);
+var index__0 = index(l_, 95);
 
-print_endline(symbol(m, string_of_int(index__0)));
+print_endline(symbol(m_, string_of_int(index__0)));
 
-try {var Q = index(P, 95);var index__1 = Q;}
-catch(T) {
-  T = caml_wrap_exception(T);
-  if (T !== Not_found) {throw caml_wrap_thrown_exception_reraise(T);}
-  var n = -1;
-  var index__1 = n;
+try {var Q_ = index(P_, 95);var index__1 = Q_;}
+catch(T_) {
+  T_ = caml_wrap_exception(T_);
+  if (T_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(T_);}
+  var n_ = -1;
+  var index__1 = n_;
 }
 
-print_endline(symbol(o, string_of_int(index__1)));
+print_endline(symbol(o_, string_of_int(index__1)));
 
 print_int(index__1);
 
-print_endline(p);
+print_endline(p_);
 
 print_int(one + six | 0);
 
 print_newline(0);
 
-print_endline(q);
+print_endline(q_);
 
 print_int(six);
 
 print_newline(0);
 
-print_endline(r);
+print_endline(r_);
 
-print_string(s);
+print_string(s_);
 
 print_newline(0);
 
 print_endline(helperVal);
 
-print_endline(t);
+print_endline(t_);
 
-print_endline(trim__0(u));
+print_endline(trim__0(u_));
 
 function createIntFromString(ss) {return caml_int_of_string(ss);}
 
 function myFunction(cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
-  print_string(v);
+  print_string(v_);
   return print_newline(0);
 }
 
-myFunction(w);
+myFunction(w_);
 
-try {var O = createIntFromString(N);var y = O;}
-catch(S) {
-  S = caml_wrap_exception(S);
-  if (S[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(S);}
-  var x = 102;
-  var y = x;
+try {var O_ = createIntFromString(N_);var y_ = O_;}
+catch(S_) {
+  S_ = caml_wrap_exception(S_);
+  if (S_[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(S_);}
+  var x_ = 102;
+  var y_ = x_;
 }
 
-if (102 === y) {
-  print_string(z);
+if (102 === y_) {
+  print_string(z_);
   print_newline(0);
 }
-else failwith(M);
+else failwith(M_);
 
-try {var L = createIntFromString(K);var B = L;}
-catch(R) {
-  R = caml_wrap_exception(R);
-  if (R[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(R);}
-  var A = 102;
-  var B = A;
+try {var L_ = createIntFromString(K_);var B_ = L_;}
+catch(R_) {
+  R_ = caml_wrap_exception(R_);
+  if (R_[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(R_);}
+  var A_ = 102;
+  var B_ = A_;
 }
 
-if (20 === B) {
-  print_string(symbol(C, string_of_int(B)));
+if (20 === B_) {
+  print_string(symbol(C_, string_of_int(B_)));
   print_newline(0);
 }
-else failwith(J);
+else failwith(J_);
 
-var one__0 = [0,D];
-var two = [0,E];
+var one__0 = [0,D_];
+var two = [0,E_];
 
-print_string(symbol(F, string_of_bool(caml_equal(one__0, two))));
-
-print_newline(0);
-
-print_string(symbol(G, string_of_bool(one__0 === two ? 1 : 0)));
+print_string(symbol(F_, string_of_bool(caml_equal(one__0, two))));
 
 print_newline(0);
 
-print_string(symbol(H, string_of_bool(anotherName === anotherName ? 1 : 0)));
+print_string(symbol(G_, string_of_bool(one__0 === two ? 1 : 0)));
 
 print_newline(0);
 
-print_string(symbol(I, string_of_bool(anotherName === anotherName ? 1 : 0)));
+print_string(symbol(H_, string_of_bool(anotherName === anotherName ? 1 : 0)));
+
+print_newline(0);
+
+print_string(symbol(I_, string_of_bool(anotherName === anotherName ? 1 : 0)));
 
 print_newline(0);
 

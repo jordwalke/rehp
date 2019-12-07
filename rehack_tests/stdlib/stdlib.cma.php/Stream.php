@@ -63,9 +63,9 @@ final class Stream {
     $CamlinternalLazy = $global_data["CamlinternalLazy"];
     $Pervasives = $global_data["Pervasives"];
     $List = $global_data["List_"];
-    $a = Vector{0, $string("stream.ml"), 53, 12};
-    $b = Vector{0, 0};
-    $c = Vector{0, $string("stream.ml"), 82, 12};
+    $a_ = Vector{0, $string("stream.ml"), 53, 12};
+    $b_ = Vector{0, 0};
+    $c_ = Vector{0, $string("stream.ml"), 82, 12};
     $Failure = Vector{248, $cst_Stream_Failure, $caml_fresh_oo_id(0)};
     $Error = Vector{248, $cst_Stream_Error, $caml_fresh_oo_id(0)};
     $count = function(dynamic $param) {
@@ -82,7 +82,7 @@ final class Stream {
       $b[4] = 0;
       return 0;
     };
-    $get_data->contents = function(dynamic $count, dynamic $d) use ($Assert_failure,$CamlinternalLazy,$a,$b,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$get_data,$is_int,$runtime) {
+    $get_data->contents = function(dynamic $count, dynamic $d) use ($Assert_failure,$CamlinternalLazy,$a_,$b_,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$get_data,$is_int,$runtime) {
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
@@ -100,64 +100,64 @@ final class Stream {
               else {
                 if (0 === $match[0]) {
                   $d11 = $match[2];
-                  $a__0 = $match[1];
-                  return Vector{0, $a__0, Vector{1, $d11, $d2}};
+                  $a = $match[1];
+                  return Vector{0, $a, Vector{1, $d11, $d2}};
                 }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a}) as \Throwable;
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
               }
             // FALLTHROUGH
             case 2:
               $f = $d__0[1];
-              $q = $caml_obj_tag($f);
-              $d__1 = 250 === $q
+              $q_ = $caml_obj_tag($f);
+              $d__1 = 250 === $q_
                 ? $f[1]
-                : (246 === $q ? $call1($CamlinternalLazy[2], $f) : ($f));
+                : (246 === $q_ ? $call1($CamlinternalLazy[2], $f) : ($f));
               $d__0 = $d__1;
               $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
-              $r = $d__0[1];
-              $s = $r[1];
-              if ($s) {
-                $t = $s[1];
-                if ($t) {
-                  $a__1 = $t[1];
-                  $r[1] = 0;
-                  return Vector{0, $a__1, $d__0};
+              $r_ = $d__0[1];
+              $s_ = $r_[1];
+              if ($s_) {
+                $t_ = $s_[1];
+                if ($t_) {
+                  $a__0 = $t_[1];
+                  $r_[1] = 0;
+                  return Vector{0, $a__0, $d__0};
                 }
                 return 0;
               }
-              $match__0 = $call1($r[2], $count);
+              $match__0 = $call1($r_[2], $count);
               if ($match__0) {
-                $a__2 = $match__0[1];
-                return Vector{0, $a__2, $d__0};
+                $a__1 = $match__0[1];
+                return Vector{0, $a__1, $d__0};
               }
-              $r[1] = $b;
+              $r_[1] = $b_;
               return 0;
             // FALLTHROUGH
             case 4:
-              $b__0 = $d__0[1];
-              if ($b__0[3] <= $b__0[4]) {$fill_buff($b__0);}
-              if (0 === $b__0[3]) {return 0;}
-              $r__0 = $caml_bytes_unsafe_get($b__0[2], $b__0[4]);
-              $b__0[4] = (int) ($b__0[4] + 1);
-              return Vector{0, $r__0, $d__0};
+              $b = $d__0[1];
+              if ($b[3] <= $b[4]) {$fill_buff($b);}
+              if (0 === $b[3]) {return 0;}
+              $r = $caml_bytes_unsafe_get($b[2], $b[4]);
+              $b[4] = (int) ($b[4] + 1);
+              return Vector{0, $r, $d__0};
             }
           if ($continue_label === "#") {continue;}
         }
         return $d__0;
       }
     };
-    $peek_data = function(dynamic $s) use ($Assert_failure,$CamlinternalLazy,$c,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$get_data,$is_int,$runtime) {
+    $peek_data = function(dynamic $s) use ($Assert_failure,$CamlinternalLazy,$c_,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$get_data,$is_int,$runtime) {
       for (;;) {
-        $l = $s[2];
-        if ($is_int($l)) {return 0;}
+        $l_ = $s[2];
+        if ($is_int($l_)) {return 0;}
         else {
           $continue_label = null;
-          switch($l[0]) {
+          switch($l_[0]) {
             // FALLTHROUGH
             case 0:
-              $a = $l[1];
+              $a = $l_[1];
               return Vector{0, $a};
             // FALLTHROUGH
             case 1:
@@ -169,28 +169,28 @@ final class Stream {
                   $s[2] = $d;
                   return Vector{0, $a__0};
                 }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c}) as \Throwable;
+                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c_}) as \Throwable;
               }
             // FALLTHROUGH
             case 2:
-              $f = $l[1];
-              $m = $caml_obj_tag($f);
-              $n = 250 === $m
+              $f = $l_[1];
+              $m_ = $caml_obj_tag($f);
+              $n_ = 250 === $m_
                 ? $f[1]
-                : (246 === $m ? $call1($CamlinternalLazy[2], $f) : ($f));
-              $s[2] = $n;
+                : (246 === $m_ ? $call1($CamlinternalLazy[2], $f) : ($f));
+              $s[2] = $n_;
               $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
-              $o = $l[1];
-              $p = $o[1];
-              if ($p) {$a__1 = $p[1];return $a__1;}
-              $x = $call1($o[2], $s[1]);
-              $o[1] = Vector{0, $x};
+              $o_ = $l_[1];
+              $p_ = $o_[1];
+              if ($p_) {$a__1 = $p_[1];return $a__1;}
+              $x = $call1($o_[2], $s[1]);
+              $o_[1] = Vector{0, $x};
               return $x;
             // FALLTHROUGH
             default:
-              $b = $l[1];
+              $b = $l_[1];
               if ($b[3] <= $b[4]) {$fill_buff($b);}
               if (0 === $b[3]) {$s[2] = 0;return 0;}
               return Vector{0, $caml_bytes_unsafe_get($b[2], $b[4])};
@@ -205,23 +205,23 @@ final class Stream {
     };
     $junk_data = function(dynamic $s) use ($is_int,$peek_data) {
       for (;;) {
-        $j = $s[2];
-        if (! $is_int($j)) {
-          switch($j[0]) {
+        $j_ = $s[2];
+        if (! $is_int($j_)) {
+          switch($j_[0]) {
             // FALLTHROUGH
             case 0:
-              $d = $j[2];
+              $d = $j_[2];
               $s[1] = (int) ($s[1] + 1);
               $s[2] = $d;
               return 0;
             // FALLTHROUGH
             case 3:
-              $k = $j[1];
-              if ($k[1]) {$s[1] = (int) ($s[1] + 1);$k[1] = 0;return 0;}
+              $k_ = $j_[1];
+              if ($k_[1]) {$s[1] = (int) ($s[1] + 1);$k_[1] = 0;return 0;}
               break;
             // FALLTHROUGH
             case 4:
-              $b = $j[1];
+              $b = $j_[1];
               $s[1] = (int) ($s[1] + 1);
               $b[4] = (int) ($b[4] + 1);
               return 0;
@@ -297,9 +297,9 @@ final class Stream {
       return Vector{0, Vector{0, 0, Vector{3, Vector{0, 0, $f}}}};
     };
     $of_list = function(dynamic $l) use ($List,$call3) {
-      $h = 0;
-      $i = function(dynamic $x, dynamic $l) {return Vector{0, $x, $l};};
-      return Vector{0, Vector{0, 0, $call3($List[21], $i, $l, $h)}};
+      $h_ = 0;
+      $i_ = function(dynamic $x, dynamic $l) {return Vector{0, $x, $l};};
+      return Vector{0, Vector{0, 0, $call3($List[21], $i_, $l, $h_)}};
     };
     $of_string = function(dynamic $s) use ($from,$runtime) {
       $count = Vector{0, 0};
@@ -338,8 +338,8 @@ final class Stream {
       };
     };
     $iapp = function(dynamic $i, dynamic $s) use ($data) {
-      $g = $data($s);
-      return Vector{0, Vector{0, 0, Vector{1, $data($i), $g}}};
+      $g_ = $data($s);
+      return Vector{0, Vector{0, 0, Vector{1, $data($i), $g_}}};
     };
     $icons = function(dynamic $i, dynamic $s) use ($data) {
       return Vector{0, Vector{0, 0, Vector{0, $i, $data($s)}}};
@@ -357,9 +357,9 @@ final class Stream {
             2,
             Vector{
               246,
-              function(dynamic $param) use ($call1,$data,$s) {
-                $f = $data($s);
-                return Vector{1, $data($call1($f, 0)), $f};
+              function(dynamic $param) use ($call1,$data,$f,$s) {
+                $f_ = $data($s);
+                return Vector{1, $data($call1($f, 0)), $f_};
               }
             }
           }
@@ -377,8 +377,8 @@ final class Stream {
             Vector{
               246,
               function(dynamic $param) use ($call1,$data,$f,$s) {
-                $e = $data($s);
-                return Vector{0, $call1($f, 0), $e};
+                $e_ = $data($s);
+                return Vector{0, $call1($f, 0), $e_};
               }
             }
           }
@@ -424,8 +424,8 @@ final class Stream {
     };
     $dump = function(dynamic $f, dynamic $s) use ($Pervasives,$call1,$count,$cst,$cst_count,$cst_data,$data,$dump_data) {
       $call1($Pervasives[30], $cst_count);
-      $d = $count($s);
-      $call1($Pervasives[32], $d);
+      $d_ = $count($s);
+      $call1($Pervasives[32], $d_);
       $call1($Pervasives[30], $cst_data);
       $dump_data->contents($f, $data($s));
       $call1($Pervasives[30], $cst);

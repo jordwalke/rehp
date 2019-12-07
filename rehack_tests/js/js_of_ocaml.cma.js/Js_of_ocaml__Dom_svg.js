@@ -144,9 +144,11 @@ var SVGError = [
 ];
 
 function createElement(doc, name) {
-  function q(x) {return call1(caml_get_public_method(x, -387984539, 288), x);}
-  var r = name.toString();
-  return function(t2, t0, t1, param) {return t2.createElementNS(t0, t1);}(doc, xmlns, r, q
+  function q_(x) {
+    return call1(caml_get_public_method(x, -387984539, 288), x);
+  }
+  var r_ = name.toString();
+  return function(t2, t0, t1, param) {return t2.createElementNS(t0, t1);}(doc, xmlns, r_, q_
   );
 }
 
@@ -286,29 +288,31 @@ function createView(doc) {return unsafeCreateElement(doc, cst_view);}
 
 function createvkern(doc) {return unsafeCreateElement(doc, cst_vkern);}
 
-function a(x) {return call1(caml_get_public_method(x, 946564599, 289), x);}
+function a_(x) {return call1(caml_get_public_method(x, 946564599, 289), x);}
 
-var b = Js_of_ocaml_Js[50][1];
-var svg_element = function(t3, param) {return t3.SVGElement;}(b, a);
+var b_ = Js_of_ocaml_Js[50][1];
+var svg_element = function(t3, param) {return t3.SVGElement;}(b_, a_);
 
-function c(x) {return call1(caml_get_public_method(x, 454225691, 290), x);}
+function c_(x) {return call1(caml_get_public_method(x, 454225691, 290), x);}
 
-var d = Js_of_ocaml_Js[50][1];
-var document = function(t4, param) {return t4.document;}(d, c);
+var d_ = Js_of_ocaml_Js[50][1];
+var document = function(t4, param) {return t4.document;}(d_, c_);
 
 function getElementById(id) {
-  function i(e) {
+  function i_(e) {
     if (e instanceof svg_element) {return e;}
     throw runtime["caml_wrap_thrown_exception"](Not_found);
   }
-  function j(param) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
-  function k(x) {return call1(caml_get_public_method(x, -332188296, 291), x);}
-  var l = id.toString();
-  function m(x) {return call1(caml_get_public_method(x, 454225691, 292), x);}
-  var n = Js_of_ocaml_Js[50][1];
-  var o = function(t5, param) {return t5.document;}(n, m);
-  var p = function(t7, t6, param) {return t7.getElementById(t6);}(o, l, k);
-  return call3(Js_of_ocaml_Js[5][7], p, j, i);
+  function j_(param) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
+  function k_(x) {
+    return call1(caml_get_public_method(x, -332188296, 291), x);
+  }
+  var l_ = id.toString();
+  function m_(x) {return call1(caml_get_public_method(x, 454225691, 292), x);}
+  var n_ = Js_of_ocaml_Js[50][1];
+  var o_ = function(t5, param) {return t5.document;}(n_, m_);
+  var p_ = function(t7, t6, param) {return t7.getElementById(t6);}(o_, l_, k_);
+  return call3(Js_of_ocaml_Js[5][7], p_, j_, i_);
 }
 
 function element(e) {
@@ -318,16 +322,16 @@ function element(e) {
 }
 
 function unsafeCoerce(e, tag) {
-  var e = tag.toString();
-  function f(x) {return call1(caml_get_public_method(x, 946097238, 293), x);}
-  function g(x) {return call1(caml_get_public_method(x, 578170309, 294), x);}
-  var h = function(t8, param) {return t8.tagName;}(e, g);
-  return function(t9, param) {return t9.toLowerCase();}(h, f) === e ?
+  var e_ = tag.toString();
+  function f_(x) {return call1(caml_get_public_method(x, 946097238, 293), x);}
+  function g_(x) {return call1(caml_get_public_method(x, 578170309, 294), x);}
+  var h_ = function(t8, param) {return t8.tagName;}(e, g_);
+  return function(t9, param) {return t9.toLowerCase();}(h_, f_) === e_ ?
     call1(Js_of_ocaml_Js[2], e) :
     Js_of_ocaml_Js[1];
 }
 
-function a__0(e) {return unsafeCoerce(e, cst_a__0);}
+function a(e) {return unsafeCoerce(e, cst_a__0);}
 
 function altGlyph(e) {return unsafeCoerce(e, cst_altglyph__0);}
 
@@ -502,7 +506,7 @@ var Js_of_ocaml_Dom_svg = [
   [
     0,
     element,
-    a__0,
+    a,
     altGlyph,
     altGlyphDef,
     altGlyphItem,

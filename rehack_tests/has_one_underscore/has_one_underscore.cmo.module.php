@@ -39,20 +39,20 @@ final class Has_one_underscore {
     $Not_found = $global_data["Not_found"];
     $hasOneUnderscore = function(dynamic $id_or_token) use ($Not_found,$String,$call2,$call3,$caml_wrap_exception,$runtime) {
       $id_or_token__0 = $runtime["caml_js_to_string"]($id_or_token);
-      try {$d = $call2($String[14], $id_or_token__0, 95);$index = $d;}
-      catch(\Throwable $e) {
-        $e = $caml_wrap_exception($e);
-        if ($e !== $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+      try {$d_ = $call2($String[14], $id_or_token__0, 95);$index = $d_;}
+      catch(\Throwable $e_) {
+        $e_ = $caml_wrap_exception($e_);
+        if ($e_ !== $Not_found) {
+          throw $runtime["caml_wrap_thrown_exception_reraise"]($e_) as \Throwable;
         }
-        $a = -1;
-        $index = $a;
+        $a_ = -1;
+        $index = $a_;
       }
-      $b = -1 < $index ? 1 : (0);
-      $c = $b
+      $b_ = -1 < $index ? 1 : (0);
+      $c_ = $b_
         ? 1 - $call3($String[23], $id_or_token__0, (int) ($index + 1), 95)
-        : ($b);
-      return $c;
+        : ($b_);
+      return $c_;
     };
     $Has_one_underscore = Vector{0, $hasOneUnderscore};
     

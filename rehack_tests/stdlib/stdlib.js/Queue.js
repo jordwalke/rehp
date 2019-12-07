@@ -28,8 +28,8 @@ function clear(q) {q[1] = 0;q[2] = 0;q[3] = 0;return 0;}
 
 function add(x, q) {
   var cell = [0,x,0];
-  var g = q[3];
-  if (g) {q[1] = q[1] + 1 | 0;g[2] = cell;q[3] = cell;return 0;}
+  var g_ = q[3];
+  if (g_) {q[1] = q[1] + 1 | 0;g_[2] = cell;q[3] = cell;return 0;}
   q[1] = 1;
   q[2] = cell;
   q[3] = cell;
@@ -37,19 +37,19 @@ function add(x, q) {
 }
 
 function peek(q) {
-  var f = q[2];
-  if (f) {var content = f[1];return content;}
+  var f_ = q[2];
+  if (f_) {var content = f_[1];return content;}
   throw runtime["caml_wrap_thrown_exception"](Empty);
 }
 
 function take(q) {
-  var c = q[2];
-  if (c) {
-    var d = c[1];
-    var e = c[2];
-    if (e) {q[1] = q[1] + -1 | 0;q[2] = e;return d;}
+  var c_ = q[2];
+  if (c_) {
+    var d_ = c_[1];
+    var e_ = c_[2];
+    if (e_) {q[1] = q[1] + -1 | 0;q[2] = e_;return d_;}
     clear(q);
-    return d;
+    return d_;
   }
   throw runtime["caml_wrap_thrown_exception"](Empty);
 }
@@ -114,12 +114,12 @@ function fold(f, accu, cell) {
 function fold__0(f, accu, q) {return fold(f, accu, q[2]);}
 
 function transfer(q1, q2) {
-  var a = 0 < q1[1] ? 1 : 0;
-  if (a) {
-    var b = q2[3];
-    if (b) {
+  var a_ = 0 < q1[1] ? 1 : 0;
+  if (a_) {
+    var b_ = q2[3];
+    if (b_) {
       q2[1] = q2[1] + q1[1] | 0;
-      b[2] = q1[2];
+      b_[2] = q1[2];
       q2[3] = q1[3];
       return clear(q1);
     }
@@ -128,7 +128,7 @@ function transfer(q1, q2) {
     q2[3] = q1[3];
     return clear(q1);
   }
-  return a;
+  return a_;
 }
 
 var Queue = [
