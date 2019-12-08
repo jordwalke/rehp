@@ -327,7 +327,6 @@ let placeRuntimeVarAtTop = (~runtimeVarName, idents, rehp) =>
   switch (runtimeVarName) {
   | None => rehp
   | Some(runtimeName) =>
-    report_missing_primitives(idents);
     let mainRuntimeVar = (
       Id.V(runtimeName),
       Some((Rehp.EDot(globalVar, "jsoo_runtime"), Loc.N)),
