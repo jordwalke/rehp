@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var global_data = runtime["caml_get_global_data"]();
 var String = global_data["String_"];

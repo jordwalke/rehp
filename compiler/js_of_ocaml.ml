@@ -99,7 +99,12 @@ let gen_file file f =
     Sys.remove f_tmp;
     raise exc
 
-let gen_unit_filename ~backend ?(ext = Backend.extension backend) dir u =
+let gen_unit_filename ?ext dir u =
+  let ext =
+    match ext with
+    | None -> Backend.Current.extension ()
+    | Some(e) -> e
+  in
   Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
 
 let f
@@ -126,9 +131,11 @@ let f
   let dynlink = dynlink || toplevel || runtime_only in
   let backend =
     match backend with
-    | None -> Backend.Js
+    | None ->
+      ((module Backend_js): (module Backend.Backend_implementation))
     | Some be -> be
   in
+  Backend.set_backend(backend);
   let use_hashing = common.CommonArg.use_hashing in
   let custom_header = common.CommonArg.custom_header in
   let implicit_ext = common.CommonArg.implicit_ext in
@@ -184,7 +191,7 @@ let f
         Some (Hashtbl.fold (fun cmi () acc -> cmi :: acc) t [])
   in
   (* Benchmarking shows this takes on the order of 100ms *)
-  Linker.load_files ~backend runtime_files;
+  Linker.load_files (Backend.Current.extension()) runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"]
     with Not_found -> include_dir
@@ -254,7 +261,6 @@ let f
         let fmt = Pretty_print.to_out_channel stdout in
         RehpDriver.f
           ~standalone
-          ~backend
           ?profile
           ~linkall
           ~dynlink
@@ -279,7 +285,6 @@ let f
               let fmt = Pretty_print.to_out_channel chan in
               RehpDriver.f
                 ~standalone
-                ~backend
                 ?profile
                 ~linkall
                 ~dynlink
@@ -295,7 +300,6 @@ let f
                   let pfs_fmt = Pretty_print.to_out_channel chan in
                   RehpDriver.f
                     ~standalone
-                    ~backend
                     ?profile
                     ~custom_header
                     pfs_fmt
@@ -337,16 +341,16 @@ let f
     | `Cmo cmo ->
         let output_file =
           match output_file, keep_unit_names with
-          | (`Stdout, false), true -> `Name (gen_unit_filename ~backend "./" cmo)
+          | (`Stdout, false), true -> `Name (gen_unit_filename "./" cmo)
           | (`Name x, false), true ->
               ensure_dir (Filename.dirname x);
-              `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
+              `Name (gen_unit_filename (Filename.dirname x) cmo)
           | (`Stdout, _), false -> `Stdout
           | (`Name x, _), false -> `Name x
           | (`Name x, true), true
             when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
               ensure_dir x;
-              `Name (gen_unit_filename ~backend x cmo)
+              `Name (gen_unit_filename x cmo)
           | (`Name _, true), true | (`Stdout, true), true ->
               failwith "use [-o dirname/] or remove [--keep-unit-names]"
         in
@@ -361,19 +365,18 @@ let f
             let output_file =
               match output_file with
               | `Stdout, false ->
-                  `Name (gen_unit_filename ?ext:implicit_ext ~backend "./" cmo)
+                  `Name (gen_unit_filename ?ext:implicit_ext "./" cmo)
               | `Name x, false ->
                   ensure_dir (Filename.dirname x);
                   `Name
                     (gen_unit_filename
                        ?ext:implicit_ext
-                       ~backend
                        (Filename.dirname x)
                        cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
                   ensure_dir x;
-                  `Name (gen_unit_filename ?ext:implicit_ext ~backend x cmo)
+                  `Name (gen_unit_filename ?ext:implicit_ext x cmo)
               | `Stdout, true | `Name _, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
             in

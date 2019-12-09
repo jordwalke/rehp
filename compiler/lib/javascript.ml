@@ -250,29 +250,6 @@ let compare_ident t1 t2 =
 
 exception Not_an_ident
 
-let is_ident =
-  let l =
-    Array.init 256 ~f:(fun i ->
-        let c = Char.chr i in
-        match c with
-        | 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' -> 1
-        | '0' .. '9' -> 2
-        | _ -> 0)
-  in
-  fun s ->
-    (not (StringSet.mem s Reserved.keyword))
-    &&
-    try
-      for i = 0 to String.length s - 1 do
-        let code = l.(Char.code s.[i]) in
-        if i = 0
-        then (if code <> 1 then raise Not_an_ident)
-        else if code < 1
-        then raise Not_an_ident
-      done;
-      true
-    with Not_an_ident -> false
-
 let ident ?(loc = N) ?var name = S {name; var; loc}
 
 module IdentSet = Set.Make (struct

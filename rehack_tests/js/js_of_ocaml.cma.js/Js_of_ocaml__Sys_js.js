@@ -11,6 +11,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_js_wrap_callback = runtime["caml_js_wrap_callback"];
 var string = runtime["caml_new_string"];

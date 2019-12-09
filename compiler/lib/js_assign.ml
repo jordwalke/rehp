@@ -298,7 +298,7 @@ module Preserve : Strategy = struct
           [
             state.Rehp_traverse.def_name;
             state.Rehp_traverse.use_name;
-            Reserved.keyword
+            (Backend.Current.keyword ())
           ]
       in
       let assigned = S.fold (fun var acc  ->

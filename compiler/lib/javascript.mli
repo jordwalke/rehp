@@ -205,8 +205,6 @@ val string_of_number : float -> string
 
 val compare_ident : ident -> ident -> int
 
-val is_ident : string -> bool
-
 val ident : ?loc:location -> ?var:Code.Var.t -> identifier -> ident
 
 module IdentSet : Set.S with type elt = ident

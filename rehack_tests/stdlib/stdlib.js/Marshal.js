@@ -10,6 +10,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_marshal_data_size = runtime["caml_marshal_data_size"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];

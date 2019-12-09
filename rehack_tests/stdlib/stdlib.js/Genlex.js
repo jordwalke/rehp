@@ -16,6 +16,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_float_of_string = runtime["caml_float_of_string"];

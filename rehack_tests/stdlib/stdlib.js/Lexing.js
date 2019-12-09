@@ -11,6 +11,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_get = runtime["caml_bytes_get"];
 var caml_check_bound = runtime["caml_check_bound"];

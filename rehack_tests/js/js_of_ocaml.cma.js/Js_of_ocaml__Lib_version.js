@@ -9,10 +9,11 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
 var s = string("3.3.0");
-var git_version = string("93c420af2");
+var git_version = string("79639f9c6");
 var Js_of_ocaml_Lib_version = [0,s,git_version];
 
 runtime["caml_register_global"](

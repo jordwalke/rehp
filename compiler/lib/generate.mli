@@ -21,7 +21,6 @@
 val f :
      Code.program
   -> exported_runtime:Code.Var.t option
-  -> backend:Backend.t
   -> int array
   -> Parse_bytecode.Debug.data
   -> Rehp.program

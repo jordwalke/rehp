@@ -7,6 +7,7 @@
 let joo_global_object = typeof global !== 'undefined' ? global : window;
 
 
+
 function raw_array_sub(a, i, l) {
   var b = new Array(l);
   for (var j = 0; j < l; j++) b[j] = a[i + j];

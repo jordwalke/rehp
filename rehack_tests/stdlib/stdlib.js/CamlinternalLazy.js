@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_obj_set_tag = runtime["caml_obj_set_tag"];
 var caml_obj_tag = runtime["caml_obj_tag"];

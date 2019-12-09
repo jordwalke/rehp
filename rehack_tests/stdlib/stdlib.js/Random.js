@@ -14,6 +14,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_greaterthan = runtime["caml_greaterthan"];
@@ -252,7 +253,7 @@ function rawfloat(s) {
   return (r1 / 1073741824 + r2) / 1073741824;
 }
 
-function float__0(s, bound) {return rawfloat(s) * bound;}
+function float(s, bound) {return rawfloat(s) * bound;}
 
 function bool(s) {return 0 === (bits(s) & 1) ? 1 : 0;}
 
@@ -268,7 +269,7 @@ function nativeint__0(bound) {return nativeint(default__0, bound);}
 
 function int64__0(bound) {return int64(default__0, bound);}
 
-function float__1(scale) {return float__0(default__0, scale);}
+function float__0(scale) {return float(default__0, scale);}
 
 function bool__0(param) {return bool(default__0);}
 
@@ -292,9 +293,9 @@ var Random = [
   int32__0,
   nativeint__0,
   int64__0,
-  float__1,
+  float__0,
   bool__0,
-  [0,make,make_self_init,copy,bits,int__0,int32,nativeint,int64,float__0,bool],
+  [0,make,make_self_init,copy,bits,int__0,int32,nativeint,int64,float,bool],
   get_state,
   set_state
 ];

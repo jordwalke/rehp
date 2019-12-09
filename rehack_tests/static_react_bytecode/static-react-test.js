@@ -7,6 +7,7 @@ function polymorphic_log(s) {console.log("c" in s ? s.c : s);} /**
 let joo_global_object = typeof global !== 'undefined' ? global : window;
 
 
+
 function caml_alloc_dummy_function(size, arity) {
   function f() {return f.fun.apply(this, arguments);}
   ;

@@ -13,6 +13,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_int_of_string = runtime["caml_int_of_string"];
 var string = runtime["caml_new_string"];

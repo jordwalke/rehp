@@ -13,6 +13,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
 var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];

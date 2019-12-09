@@ -30,7 +30,7 @@ type fragment =
 
 val parse_file : string -> fragment list
 
-val load_files : ?backend:Backend.t -> string list -> unit
+val load_files : string -> string list -> unit
 
 type state
 

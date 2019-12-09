@@ -13,6 +13,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var update_mod = runtime["caml_CamlinternalMod_update_mod"];
 var init_mod = runtime["caml_CamlinternalMod_init_mod"];
