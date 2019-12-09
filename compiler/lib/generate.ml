@@ -101,6 +101,8 @@ module Share = struct
      passed to one of the register_prim functions in generate.ml *)
   let add_special_prim_if_exists s t =
     if Primitive.exists s then {t with prims = StringMap.add s (-1) t.prims} else t
+  let add_special_prim_even_if_not_exists s t =
+    {t with prims = StringMap.add s (-1) t.prims}
 
   let add_apply i t =
     let n = try IntMap.find i t.applies with Not_found -> 0 in
@@ -154,15 +156,13 @@ module Share = struct
         blocks
         empty_aux
     in
+    (* TODO: Probably need to make it so that we add special prims even if they
+       don't "exist". Each backend can determine which primitives it needs *)
     let count =
       List.fold_left
         [ "caml_trampoline"
         ; "caml_trampoline_return"
-        ; "caml_wrap_exception"
         ; "caml_list_of_js_array"
-        ; "caml_wrap_thrown_exception_traceless"
-        ; "caml_wrap_thrown_exception_reraise"
-        ; "caml_wrap_thrown_exception"
           (* These need to be added to the "special prims" in order to be
            shared/hoisted(because they don't appear in bytecode I think?).
            TODO: Renamed these. *)
@@ -188,6 +188,32 @@ module Share = struct
         ~init:count
         ~f:(fun acc x -> add_special_prim_if_exists x acc)
     in
+    let count =
+      List.fold_left
+        [ "caml_wrap_thrown_exception_traceless"
+        ; "caml_wrap_thrown_exception_reraise"
+        ; "caml_wrap_thrown_exception"
+        ; "caml_arity_test"
+        ; "caml_call1"
+        ; "caml_call2"
+        ; "caml_call3"
+        ; "caml_call4"
+        ; "caml_call5"
+        ; "caml_call6"
+        ; "caml_call7"
+        ; "caml_call8"
+        ; "caml_call9"
+        ; "caml_call10"
+        ; "caml_call11"
+        ; "caml_call12"
+        ; "caml_call13"
+        ; "is_int"
+        ; "left_shift_32"
+        ; "unsigned_right_shift_32"
+        ; "right_shift_32" ]
+        ~init:count
+        ~f:(fun acc x -> add_special_prim_even_if_not_exists x acc)
+    in
     {count; vars = empty_aux; alias_strings; alias_prims; alias_apply}
 
   let get_string gen s t =
@@ -207,9 +233,9 @@ module Share = struct
         else gen s
       with Not_found -> gen s
 
-  let get_prim ?preferred_local_varname_for_alias gen s t =
+  let get_prim ?pretty_name gen s t =
     let varname =
-      match preferred_local_varname_for_alias with
+      match pretty_name with
       | None -> s
       | Some nm -> nm
     in
@@ -245,25 +271,11 @@ module Share = struct
         J.EVar v
 end
 
-(* Checks if a primitive is supplied by a stub js file or by a generate.ml
-   registered primitive *)
 let if_prim_supplied s ~if_supplied ~fallback =
   let s = Primitive.resolve s in
-  (* Primitive.exists only returns true if it was provided by the linker
-     or something that actually registers it with its arity/kind etc typically
-     from runtime stubs, or from one of the register_prim functions here.  If
-     it is not registered by linker or by one of the register_prim functions
-     here, but it is found in bytecode, it will merely be "added" as a
-     Primitive.add_external, but it won't "exist". Being "aliased" as a
-     primitive also does not mean it exists, though it too will be added as
-     Primitive.add_external.
-     *)
-  if Primitive.exists s
-  then
-    (* These "optional" prmitives still need to be added via
-       add_special_prim_if_exists in order to get "shared"/hoisted. *)
-    if_supplied ()
-  else fallback ()
+  match Backend.Current.is_prim_supplied () s with
+  | None -> fallback()
+  | Some(pretty_name) -> if_supplied ~pretty_name
 
 module Ctx = struct
   type t =
@@ -326,24 +338,42 @@ let str_js s = J.EStr (s, `Bytes)
 let unsigned ~ctx x =
   if_prim_supplied
     "unsigned_right_shift_32"
-    ~if_supplied:(fun () ->
-      let p = Share.get_prim (runtime_fun ctx) "unsigned_right_shift_32" ctx.Ctx.share in
+    ~if_supplied:(fun ~pretty_name ->
+      let p =
+        Share.get_prim
+          ~pretty_name
+          (runtime_fun ctx)
+          "unsigned_right_shift_32"
+          ctx.Ctx.share
+      in
       J.ECall (p, [x; int 0], Loc.N))
     ~fallback:(fun () -> J.EBin (J.Lsr, x, int 0))
 
 let arity_test ~ctx x =
   if_prim_supplied
     "caml_arity_test"
-    ~if_supplied:(fun () ->
-      let p = Share.get_prim (runtime_fun ctx) "caml_arity_test" ctx.Ctx.share in
+    ~if_supplied:(fun ~pretty_name ->
+      let p =
+        Share.get_prim
+        ~pretty_name
+        (runtime_fun ctx)
+        "caml_arity_test"
+        ctx.Ctx.share
+      in
       J.ECall (p, [x], Loc.N))
     ~fallback:(fun () -> J.EArityTest x)
 
 let is_int ~ctx x =
   if_prim_supplied
     "is_int"
-    ~if_supplied:(fun () ->
-      let p = Share.get_prim (runtime_fun ctx) "is_int" ctx.Ctx.share in
+    ~if_supplied:(fun ~pretty_name ->
+      let p =
+        Share.get_prim
+          ~pretty_name
+          (runtime_fun ctx)
+          "is_int"
+          ctx.Ctx.share
+      in
       J.ECall (p, [x], Loc.N))
     ~fallback:(fun () -> J.EUn (IsInt, x))
 
@@ -382,10 +412,10 @@ let rec constant_rec ~ctx x level instrs =
   match x with
   | String s ->
       let e = Share.get_string str_js s ctx.Ctx.share in
-      let preferred_local_varname_for_alias = "string" in
+      let pretty_name = "string" in
       let p =
         Share.get_prim
-          ~preferred_local_varname_for_alias
+          ~pretty_name
           (runtime_fun ctx)
           "caml_new_string"
           ctx.Ctx.share
@@ -799,15 +829,14 @@ let apply_fun ctx f params loc =
   else
     let len = List.length params in
     let prim_name = Printf.sprintf "caml_call%d" len in
-    let preferred_local_varname_for_alias = Printf.sprintf "call%d" len in
     if_prim_supplied
       prim_name
       (* If compiled with a runtime.js input that has defined caml_call_x
          then we can pull in references to those runtime functions. *)
-      ~if_supplied:(fun () ->
+      ~if_supplied:(fun ~pretty_name ->
         let p =
           Share.get_prim
-            ~preferred_local_varname_for_alias
+            ~pretty_name
             (runtime_fun ctx)
             prim_name
             ctx.Ctx.share
@@ -990,24 +1019,40 @@ let _ =
   register_bin_prim_ctx "%int_lsl" `Pure (fun ctx cx cy _ ->
       if_prim_supplied
         "left_shift_32"
-        ~if_supplied:(fun () ->
-          let p = Share.get_prim (runtime_fun ctx) "left_shift_32" ctx.Ctx.share in
+        ~if_supplied:(fun ~pretty_name ->
+          let p =
+            Share.get_prim
+            ~pretty_name
+            (runtime_fun ctx)
+            "left_shift_32"
+            ctx.Ctx.share
+          in
           J.ECall (p, [cx; cy], Loc.N))
         ~fallback:(fun () -> J.EBin (J.Lsl, cx, cy)));
   register_bin_prim_ctx "%int_lsr" `Pure (fun ctx cx cy _ ->
       if_prim_supplied
         "unsigned_right_shift_32"
-        ~if_supplied:(fun () ->
+        ~if_supplied:(fun ~pretty_name ->
           let p =
-            Share.get_prim (runtime_fun ctx) "unsigned_right_shift_32" ctx.Ctx.share
+            Share.get_prim
+              ~pretty_name
+              (runtime_fun ctx)
+              "unsigned_right_shift_32"
+              ctx.Ctx.share
           in
           to_int (J.ECall (p, [cx; cy], Loc.N)))
         ~fallback:(fun () -> to_int (J.EBin (J.Lsr, cx, cy))));
   register_bin_prim_ctx "%int_asr" `Pure (fun ctx cx cy _ ->
       if_prim_supplied
         "right_shift_32"
-        ~if_supplied:(fun () ->
-          let p = Share.get_prim (runtime_fun ctx) "right_shift_32" ctx.Ctx.share in
+        ~if_supplied:(fun ~pretty_name ->
+          let p =
+            Share.get_prim
+              ~pretty_name
+              (runtime_fun ctx)
+              "right_shift_32"
+              ctx.Ctx.share
+          in
           J.ECall (p, [cx; cy], Loc.N))
         ~fallback:(fun () -> J.EBin (J.Asr, cx, cy)));
   register_un_prim "%int_neg" `Pure (fun cx _ -> to_int (J.EUn (J.Neg, cx)));
@@ -1085,16 +1130,28 @@ let throw_statement ctx cx k loc =
   match (k : [`Normal | `Reraise | `Notrace]) with
   | _ when not (Config.Flag.improved_stacktrace ()) -> [J.Throw_statement cx, loc]
   | `Notrace ->
-      [ ( J.Throw_statement
-            (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception_traceless", [cx], loc))
+      [(J.Throw_statement
+          (J.ECall (
+            (Share.get_prim (runtime_fun ctx) "caml_wrap_thrown_exception_traceless" ctx.Ctx.share),
+            [cx],
+            loc)
+          )
         , loc ) ]
   | `Normal ->
-      [ ( J.Throw_statement
-            (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception", [cx], loc))
+      [(J.Throw_statement
+         (J.ECall (
+            (Share.get_prim (runtime_fun ctx) "caml_wrap_thrown_exception" ctx.Ctx.share),
+            [cx],
+            loc
+          ))
         , loc ) ]
   | `Reraise ->
-      [ ( J.Throw_statement
-            (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception_reraise", [cx], loc))
+      [(J.Throw_statement
+          (J.ECall (
+            (Share.get_prim (runtime_fun ctx) "caml_wrap_thrown_exception_reraise" ctx.Ctx.share),
+            [cx],
+            loc
+          ))
         , loc ) ]
 
 let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =

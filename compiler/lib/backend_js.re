@@ -165,3 +165,27 @@ let output =
     Format.eprintf("  write: %a@.", Timer.print, t);
   };
 };
+
+/**
+   * Primitive.exists only returns true if it was provided by the linker or
+   * something that actually registers it with its arity/kind etc typically
+   * from runtime stubs, or from one of the register_prim functions here.  If
+   * it is not registered by linker or by one of the register_prim functions
+   * here, but it is found in bytecode, it will merely be "added" as a
+   * Primitive.add_external, but it won't "exist". Being "aliased" as a
+   * primitive also does not mean it exists, though it too will be added as
+   * Primitive.add_external.
+   */
+let is_prim_supplied = ((), s) => {
+  let len = String.length(s);
+  let s = Primitive.resolve(s);
+  if (Primitive.exists(s)) {
+    let pretty_name = {
+      len > 9 && String.equal(String.sub(s, ~pos=0, ~len=9), "caml_call")
+        ? "call" ++ String.sub(s, ~pos=9, ~len=len - 9) : s;
+    };
+    Some(pretty_name);
+  } else {
+    None;
+  };
+};

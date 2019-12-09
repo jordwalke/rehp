@@ -609,9 +609,8 @@ let f =
     ) => {
   let shouldExportRuntime = dynlink;
   /* You either export a runtime or consume an exported runtime. */
-  let usesExternalRuntime = !standalone;
   let accessRuntimeThrough =
-    if (usesExternalRuntime) {
+    if (!linkall && !shouldExportRuntime) {
       Some(Code.Var.fresh_n("runtime"));
     } else {
       None;

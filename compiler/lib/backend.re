@@ -94,6 +94,7 @@ module type Rehp_external_implementations = {};
 
 module type Backend_implementation = {
   /* module Rehp_external_implementations: Rehp_external_implementations; */
+  let is_prim_supplied: (unit, string) => option(string);
   let extension: unit => string;
   let compiler_backend_flag: unit => string;
   let keyword: unit => StringSet.t;
@@ -171,5 +172,10 @@ module Current: Backend_implementation = {
     switch (current^) {
     | None => raise(Invalid_argument("Compiler backend not set"))
     | Some((module CurrentBackend)) => CurrentBackend.allow_simplify_ifdecl()
+    };
+  let is_prim_supplied = () =>
+    switch (current^) {
+    | None => raise(Invalid_argument("Compiler backend not set"))
+    | Some((module CurrentBackend)) => CurrentBackend.is_prim_supplied()
     };
 };

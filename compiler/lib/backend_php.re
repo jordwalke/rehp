@@ -187,3 +187,36 @@ let output =
     Format.eprintf("  write: %a@.", Timer.print, t);
   };
 };
+
+/**
+ * In PHP or other backends, we aren't doing any intelligent detection of
+ * which external bindings are linked in. So instead we keep a manual list of
+ * externals we know we need to implement.
+ */
+let is_prim_supplied = ((), s) => {
+  let len = String.length(s);
+  switch (s) {
+  | "caml_call1"
+  | "caml_call2"
+  | "caml_call3"
+  | "caml_call4"
+  | "caml_call5"
+  | "caml_call6"
+  | "caml_call7"
+  | "caml_call8" =>
+    let pretty_name =
+      len > 9 && String.equal(String.sub(s, ~pos=0, ~len=9), "caml_call")
+        ? "call" ++ String.sub(s, ~pos=9, ~len=len - 9) : s;
+    Some(pretty_name);
+  | "unsigned_right_shift_32"
+  | "left_shift_32"
+  | "right_shift_32"
+  | "is_int"
+  | "caml_wrap_thrown_exception_traceless"
+  | "caml_wrap_thrown_exception_reraise"
+  | "caml_wrap_thrown_exception"
+  | "caml_wrap_exception"
+  | "caml_arity_test" => Some(s)
+  | _ => None
+  };
+};
