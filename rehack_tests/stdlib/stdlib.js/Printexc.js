@@ -25,7 +25,8 @@ var caml_get_exception_raw_backtrace = runtime
  ["caml_get_exception_raw_backtrace"];
 var string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -277,18 +278,18 @@ function to_string(x) {
 function print(fct, arg) {
   try {var V_ = call1(fct, arg);return V_;}
   catch(x) {
-    x = caml_wrap_exception(x);
+    x = runtime["caml_wrap_exception"](x);
     var U_ = to_string(x);
     call2(Printf[3], f_, U_);
     call1(Pervasives[51], Pervasives[28]);
-    throw runtime["caml_wrap_thrown_exception_reraise"](x);
+    throw caml_wrap_thrown_exception_reraise(x);
   }
 }
 
 function catch__0(fct, arg) {
   try {var T_ = call1(fct, arg);return T_;}
   catch(x) {
-    x = caml_wrap_exception(x);
+    x = runtime["caml_wrap_exception"](x);
     call1(Pervasives[51], Pervasives[27]);
     var S_ = to_string(x);
     call2(Printf[3], g_, S_);
@@ -479,4 +480,4 @@ runtime["caml_register_global"](45, Printexc, "Printexc");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Printexc;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

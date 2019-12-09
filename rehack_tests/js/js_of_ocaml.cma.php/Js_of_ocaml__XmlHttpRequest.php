@@ -34,6 +34,7 @@ final class Js_of_ocaml__XmlHttpRequest {
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_readystatechange = $string("readystatechange");
     $cst_loadstart = $string("loadstart");
@@ -66,7 +67,7 @@ final class Js_of_ocaml__XmlHttpRequest {
       $timeout,
       $loadend
     };
-    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$a_,$call1,$caml_get_public_method,$runtime) {
+    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$a_,$call1,$caml_get_public_method,$caml_wrap_thrown_exception) {
       $b_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -1035517745, 201), $x);
       };
@@ -109,7 +110,9 @@ final class Js_of_ocaml__XmlHttpRequest {
               return $h_;
             }
             catch(\Throwable $t_) {
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
+              throw $caml_wrap_thrown_exception(
+                      Vector{0, $Assert_failure, $a_}
+                    ) as \Throwable;
             }
           }
         }
@@ -126,4 +129,4 @@ final class Js_of_ocaml__XmlHttpRequest {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

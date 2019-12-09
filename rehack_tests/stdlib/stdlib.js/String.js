@@ -18,7 +18,9 @@ var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
 var string = runtime["caml_new_string"];
 var caml_string_equal = runtime["caml_string_equal"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -244,7 +246,7 @@ function escaped(s) {
 function index_rec(s, lim, i, c) {
   var i__0 = i;
   for (; ; ) {
-    if (lim <= i__0) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
+    if (lim <= i__0) {throw caml_wrap_thrown_exception(Not_found);}
     if (caml_bytes_unsafe_get(s, i__0) === c) {return i__0;}
     var i__1 = i__0 + 1 | 0;
     var i__0 = i__1;
@@ -290,7 +292,7 @@ function rindex_rec(s, i, c) {
       var i__0 = i__1;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -336,9 +338,9 @@ function contains_from(s, i, c) {
     if (! (l < i)) {
       try {index_rec(s, l, i, c);var q_ = 1;return q_;}
       catch(r_) {
-        r_ = caml_wrap_exception(r_);
+        r_ = runtime["caml_wrap_exception"](r_);
         if (r_ === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](r_);
+        throw caml_wrap_thrown_exception_reraise(r_);
       }
     }
   }
@@ -352,9 +354,9 @@ function rcontains_from(s, i, c) {
     if (! (caml_ml_string_length(s) <= i)) {
       try {rindex_rec(s, i, c);var o_ = 1;return o_;}
       catch(p_) {
-        p_ = caml_wrap_exception(p_);
+        p_ = runtime["caml_wrap_exception"](p_);
         if (p_ === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](p_);
+        throw caml_wrap_thrown_exception_reraise(p_);
       }
     }
   }
@@ -467,4 +469,4 @@ runtime["caml_register_global"](12, String, "String_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().String_;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

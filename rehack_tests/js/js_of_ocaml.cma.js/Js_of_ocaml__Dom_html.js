@@ -24,7 +24,9 @@ var caml_js_to_string = runtime["caml_js_to_string"];
 var string = runtime["caml_new_string"];
 var caml_string_compare = runtime["caml_string_compare"];
 var caml_string_notequal = runtime["caml_string_notequal"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -684,9 +686,7 @@ var document = function(t14, param) {return t14.document;}(window, a_);
 
 function getElementById(id) {
   function db_(pnode) {return pnode;}
-  function dc_(param) {
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
-  }
+  function dc_(param) {throw caml_wrap_thrown_exception(Not_found);}
   function dd_(x) {
     return call1(caml_get_public_method(x, -332188296, 78), x);
   }
@@ -1058,7 +1058,7 @@ function createCanvas(doc) {
   }
   var cl_ = function(t52, param) {return t52.getContext;}(c, ck_);
   if (1 - call1(Js_of_ocaml_Js[5][5], cl_)) {
-    throw runtime["caml_wrap_thrown_exception"](Canvas_not_available);
+    throw caml_wrap_thrown_exception(Canvas_not_available);
   }
   return c;
 }
@@ -1293,7 +1293,7 @@ function eventRelatedTarget(e) {
     if (caml_string_notequal(match, cst_mouseout__0)) {
       if (caml_string_notequal(match, cst_mouseover__0)) {return Js_of_ocaml_Js[1];}
       var bX_ = function(param) {
-        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,f_]);
+        throw caml_wrap_thrown_exception([0,Assert_failure,f_]);
       };
       var bY_ = function(x) {
         return call1(caml_get_public_method(x, 513086066, 106), x);
@@ -1302,7 +1302,7 @@ function eventRelatedTarget(e) {
       return call2(Js_of_ocaml_Js[6][8], bZ_, bX_);
     }
     function b0_(param) {
-      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,g_]);
+      throw caml_wrap_thrown_exception([0,Assert_failure,g_]);
     }
     function b1_(x) {
       return call1(caml_get_public_method(x, 904455809, 107), x);
@@ -2345,7 +2345,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
       return H_;
     }
     catch(I_) {
-      I_ = caml_wrap_exception(I_);
+      I_ = runtime["caml_wrap_exception"](I_);
       if (I_ === Not_found) {
         var now = function(param) {
           function K_(x) {
@@ -2372,7 +2372,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
           return 0;
         };
       }
-      throw runtime["caml_wrap_thrown_exception_reraise"](I_);
+      throw caml_wrap_thrown_exception_reraise(I_);
     }
   }
 );
@@ -2653,4 +2653,4 @@ runtime["caml_register_global"](
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Dom_html;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

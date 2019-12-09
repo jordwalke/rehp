@@ -39,7 +39,10 @@ final class String_ {
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $string = $runtime["caml_new_string"];
     $caml_string_equal = $runtime["caml_string_equal"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_String_rcontains_from_Bytes_rcontains_from = $string(
@@ -258,11 +261,11 @@ final class String_ {
       }
       return $s;
     };
-    $index_rec = function(dynamic $s, dynamic $lim, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$runtime) {
+    $index_rec = function(dynamic $s, dynamic $lim, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
         $i__1 = (int) ($i__0 + 1);
@@ -300,7 +303,7 @@ final class String_ {
         $cst_String_index_from_opt_Bytes_index_from_opt
       );
     };
-    $rindex_rec = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$runtime) {
+    $rindex_rec = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
@@ -309,7 +312,7 @@ final class String_ {
           $i__0 = $i__1;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
     $rindex = function(dynamic $s, dynamic $c) use ($caml_ml_string_length,$rindex_rec) {
@@ -345,15 +348,15 @@ final class String_ {
         $cst_String_rindex_from_opt_Bytes_rindex_from_opt
       );
     };
-    $contains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$Pervasives,$call1,$caml_ml_string_length,$caml_wrap_exception,$cst_String_contains_from_Bytes_contains_from,$index_rec,$runtime) {
+    $contains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$Pervasives,$call1,$caml_ml_string_length,$caml_wrap_thrown_exception_reraise,$cst_String_contains_from_Bytes_contains_from,$index_rec,$runtime) {
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {
         if (! ($l < $i)) {
           try {$index_rec($s, $l, $i, $c);$q_ = 1;return $q_;}
           catch(\Throwable $r_) {
-            $r_ = $caml_wrap_exception($r_);
+            $r_ = $runtime["caml_wrap_exception"]($r_);
             if ($r_ === $Not_found) {return 0;}
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($r_) as \Throwable;
+            throw $caml_wrap_thrown_exception_reraise($r_) as \Throwable;
           }
         }
       }
@@ -365,14 +368,14 @@ final class String_ {
     $contains = function(dynamic $s, dynamic $c) use ($contains_from) {
       return $contains_from($s, 0, $c);
     };
-    $rcontains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$Pervasives,$call1,$caml_ml_string_length,$caml_wrap_exception,$cst_String_rcontains_from_Bytes_rcontains_from,$rindex_rec,$runtime) {
+    $rcontains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$Pervasives,$call1,$caml_ml_string_length,$caml_wrap_thrown_exception_reraise,$cst_String_rcontains_from_Bytes_rcontains_from,$rindex_rec,$runtime) {
       if (0 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {
           try {$rindex_rec($s, $i, $c);$o_ = 1;return $o_;}
           catch(\Throwable $p_) {
-            $p_ = $caml_wrap_exception($p_);
+            $p_ = $runtime["caml_wrap_exception"]($p_);
             if ($p_ === $Not_found) {return 0;}
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($p_) as \Throwable;
+            throw $caml_wrap_thrown_exception_reraise($p_) as \Throwable;
           }
         }
       }
@@ -487,4 +490,4 @@ final class String_ {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

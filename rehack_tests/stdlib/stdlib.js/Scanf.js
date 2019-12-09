@@ -31,7 +31,9 @@ var caml_string_get = runtime["caml_string_get"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_trampoline = runtime["caml_trampoline"];
 var caml_trampoline_return = runtime["caml_trampoline_return"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -215,14 +217,14 @@ function next_char(ib) {
     return c;
   }
   catch(bH_) {
-    bH_ = caml_wrap_exception(bH_);
+    bH_ = runtime["caml_wrap_exception"](bH_);
     if (bH_ === End_of_file) {
       ib[2] = null_char;
       ib[3] = 0;
       ib[1] = 1;
       return null_char;
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](bH_);
+    throw caml_wrap_thrown_exception_reraise(bH_);
   }
 }
 
@@ -230,7 +232,7 @@ function peek_char(ib) {return ib[3] ? ib[2] : next_char(ib);}
 
 function checked_peek_char(ib) {
   var c = peek_char(ib);
-  if (ib[1]) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
+  if (ib[1]) {throw caml_wrap_thrown_exception(End_of_file);}
   return c;
 }
 
@@ -300,9 +302,7 @@ function from_string(s) {
   var i = [0,0];
   var len = caml_ml_string_length(s);
   function next(param) {
-    if (len <= i[1]) {
-      throw runtime["caml_wrap_thrown_exception"](End_of_file);
-    }
+    if (len <= i[1]) {throw caml_wrap_thrown_exception(End_of_file);}
     var c = caml_string_get(s, i[1]);
     i[1] += 1;
     return c;
@@ -318,11 +318,11 @@ var len = 1024;
 
 function scan_close_at_end(ic) {
   call1(Pervasives[81], ic);
-  throw runtime["caml_wrap_thrown_exception"](End_of_file);
+  throw caml_wrap_thrown_exception(End_of_file);
 }
 
 function scan_raise_at_end(ic) {
-  throw runtime["caml_wrap_thrown_exception"](End_of_file);
+  throw caml_wrap_thrown_exception(End_of_file);
 }
 
 function from_ic(scan_close_ic, iname, ic) {
@@ -332,7 +332,7 @@ function from_ic(scan_close_ic, iname, ic) {
   var eof = [0,0];
   function next(param) {
     if (i[1] < lim[1]) {var c = caml_bytes_get(buf, i[1]);i[1] += 1;return c;}
-    if (eof[1]) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
+    if (eof[1]) {throw caml_wrap_thrown_exception(End_of_file);}
     lim[1] = call4(Pervasives[72], ic, buf, 0, len);
     if (0 === lim[1]) {eof[1] = 1;return call1(scan_close_ic, ic);}
     i[1] = 1;
@@ -384,13 +384,13 @@ var memo = [0,0];
 function memo_from_ic(scan_close_ic, ic) {
   try {var bw_ = call2(List[40], ic, memo[1]);return bw_;}
   catch(bx_) {
-    bx_ = caml_wrap_exception(bx_);
+    bx_ = runtime["caml_wrap_exception"](bx_);
     if (bx_ === Not_found) {
       var ib = from_ic(scan_close_ic, [0,ic], ic);
       memo[1] = [0,[0,ic,ib],memo[1]];
       return ib;
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](bx_);
+    throw caml_wrap_thrown_exception_reraise(bx_);
   }
 }
 
@@ -398,9 +398,7 @@ function memo_from_channel(bv_) {return memo_from_ic(scan_raise_at_end, bv_);}
 
 var Scan_failure = [248,cst_Scanf_Scan_failure,runtime["caml_fresh_oo_id"](0)];
 
-function bad_input(s) {
-  throw runtime["caml_wrap_thrown_exception"]([0,Scan_failure,s]);
-}
+function bad_input(s) {throw caml_wrap_thrown_exception([0,Scan_failure,s]);}
 
 function bad_input_escape(c) {return bad_input(call2(Printf[4], d_, c));}
 
@@ -487,7 +485,7 @@ function integer_conversion_of_char(param) {
       case 32:return 5
       }
   }
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,i_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,i_]);
 }
 
 function token_int_literal(conv, ib) {
@@ -1281,7 +1279,7 @@ function scan_chars_in_char_set(char_set, scan_indic, width, ib) {
 function scanf_bad_input(ib, x) {
   if (x[1] === Scan_failure) var s = x[2];
   else {
-    if (x[1] !== Failure) {throw runtime["caml_wrap_thrown_exception"](x);}
+    if (x[1] !== Failure) {throw caml_wrap_thrown_exception(x);}
     var s = x[2];
   }
   var i = char_count(ib);
@@ -1950,9 +1948,9 @@ function make_scanf(ib, fmt, readers) {
       var s = token_string(ib);
       try {var Q_ = call2(CamlinternalFormat[14], s, fmtty);var fmt__5 = Q_;}
       catch(exn) {
-        exn = caml_wrap_exception(exn);
+        exn = runtime["caml_wrap_exception"](exn);
         if (exn[1] !== Failure) {
-          throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+          throw caml_wrap_thrown_exception_reraise(exn);
         }
         var msg = exn[2];
         var P_ = bad_input(msg);
@@ -1979,9 +1977,9 @@ function make_scanf(ib, fmt, readers) {
         var fmt__6 = fmt__10;
       }
       catch(exn) {
-        exn = caml_wrap_exception(exn);
+        exn = runtime["caml_wrap_exception"](exn);
         if (exn[1] !== Failure) {
-          throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+          throw caml_wrap_thrown_exception_reraise(exn);
         }
         var msg__0 = exn[2];
         var R_ = bad_input(msg__0);
@@ -2076,7 +2074,7 @@ function make_scanf(ib, fmt, readers) {
       var fmt__16 = match__7[1];
       var match__8 = make_scanf(ib, fmt__16, readers);
       if (match__8) {var arg_rest = match__8[2];return arg_rest;}
-      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,s_]);
+      throw caml_wrap_thrown_exception([0,Assert_failure,s_]);
     default:
       return call1(Pervasives[1], cst_scanf_bad_conversion_custom_converter)
     }
@@ -2104,13 +2102,13 @@ function kscanf(ib, ef, param) {
     reset_token(ib);
     try {var J_ = [0,make_scanf(ib, fmt, readers)];var D_ = J_;}
     catch(exc) {
-      exc = caml_wrap_exception(exc);
+      exc = runtime["caml_wrap_exception"](exc);
       if (exc[1] === Scan_failure) var switch__0 = 0;
       else if (exc[1] === Failure) var switch__0 = 0;
       else if (exc === End_of_file) var switch__0 = 0;
       else {
         if (exc[1] !== Invalid_argument) {
-          throw runtime["caml_wrap_thrown_exception_reraise"](exc);
+          throw caml_wrap_thrown_exception_reraise(exc);
         }
         var msg = exc[2];
         var E_ = call1(String[13], str);
@@ -2144,10 +2142,8 @@ function bscanf_format(ib, format, f) {
   var str = token_string(ib);
   try {var B_ = call2(CamlinternalFormat[15], str, format);var fmt = B_;}
   catch(exn) {
-    exn = caml_wrap_exception(exn);
-    if (exn[1] !== Failure) {
-      throw runtime["caml_wrap_thrown_exception_reraise"](exn);
-    }
+    exn = runtime["caml_wrap_exception"](exn);
+    if (exn[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(exn);}
     var msg = exn[2];
     var A_ = bad_input(msg);
     var fmt = A_;
@@ -2233,4 +2229,4 @@ runtime["caml_register_global"](66, Scanf, "Scanf");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Scanf;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

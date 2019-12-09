@@ -38,7 +38,9 @@ var caml_ml_string_length = runtime["caml_ml_string_length"];
 var string = runtime["caml_new_string"];
 var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_sys_open = runtime["caml_sys_open"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -83,12 +85,10 @@ var d_ = [255,16777215,16777215,32751];
 var e_ = [255,0,0,16];
 var f_ = [255,0,0,15536];
 
-function failwith(s) {
-  throw runtime["caml_wrap_thrown_exception"]([0,Failure,s]);
-}
+function failwith(s) {throw caml_wrap_thrown_exception([0,Failure,s]);}
 
 function invalid_arg(s) {
-  throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,s]);
+  throw caml_wrap_thrown_exception([0,Invalid_argument,s]);
 }
 
 var Exit = [248,cst_Pervasives_Exit,runtime["caml_fresh_oo_id"](0)];
@@ -145,9 +145,9 @@ function string_of_int(n) {return string("" + n);}
 function int_of_string_opt(s) {
   try {var ay_ = [0,caml_int_of_string(s)];return ay_;}
   catch(az_) {
-    az_ = caml_wrap_exception(az_);
+    az_ = runtime["caml_wrap_exception"](az_);
     if (az_[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](az_);
+    throw caml_wrap_thrown_exception_reraise(az_);
   }
 }
 
@@ -173,9 +173,9 @@ function string_of_float(f) {
 function float_of_string_opt(s) {
   try {var aw_ = [0,caml_float_of_string(s)];return aw_;}
   catch(ax_) {
-    ax_ = caml_wrap_exception(ax_);
+    ax_ = runtime["caml_wrap_exception"](ax_);
     if (ax_[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](ax_);
+    throw caml_wrap_thrown_exception_reraise(ax_);
   }
 }
 
@@ -207,9 +207,9 @@ function flush_all(param) {
         var a = param__0[1];
         try {caml_ml_flush(a);}
         catch(av_) {
-          av_ = caml_wrap_exception(av_);
+          av_ = runtime["caml_wrap_exception"](av_);
           if (av_[1] !== Sys_error) {
-            throw runtime["caml_wrap_thrown_exception_reraise"](av_);
+            throw caml_wrap_thrown_exception_reraise(av_);
           }
         }
         var param__0 = l;
@@ -283,7 +283,7 @@ function unsafe_really_input(ic, s, ofs, len) {
   for (; ; ) {
     if (0 < len__0) {
       var r = caml_ml_input(ic, s, ofs__0, len__0);
-      if (0 === r) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
+      if (0 === r) {throw caml_wrap_thrown_exception(End_of_file);}
       var len__1 = len__0 - r | 0;
       var ofs__1 = ofs__0 + r | 0;
       var ofs__0 = ofs__1;
@@ -336,7 +336,7 @@ function input_line(chan) {
         if (accu__0) {
           return build_result(caml_create_bytes(len__0), len__0, accu__0);
         }
-        throw runtime["caml_wrap_thrown_exception"](End_of_file);
+        throw caml_wrap_thrown_exception(End_of_file);
       }
       if (0 < n) {
         var res = caml_create_bytes(n + -1 | 0);
@@ -597,4 +597,4 @@ runtime["caml_register_global"](37, Pervasives, "Pervasives");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Pervasives;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

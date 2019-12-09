@@ -11,6 +11,7 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -40,7 +41,7 @@ function add(x, q) {
 function peek(q) {
   var f_ = q[2];
   if (f_) {var content = f_[1];return content;}
-  throw runtime["caml_wrap_thrown_exception"](Empty);
+  throw caml_wrap_thrown_exception(Empty);
 }
 
 function take(q) {
@@ -52,7 +53,7 @@ function take(q) {
     clear(q);
     return d_;
   }
-  throw runtime["caml_wrap_thrown_exception"](Empty);
+  throw caml_wrap_thrown_exception(Empty);
 }
 
 function copy(q_res, prev, cell) {
@@ -155,4 +156,4 @@ runtime["caml_register_global"](1, Queue, "Queue");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Queue;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

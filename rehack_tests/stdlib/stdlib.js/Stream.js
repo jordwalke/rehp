@@ -20,6 +20,7 @@ var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -95,7 +96,7 @@ function get_data(count, d) {
               var a = match[1];
               return [0,a,[1,d11,d2]];
             }
-            throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
+            throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
           }
         case 2:
           var f = d__0[1];
@@ -143,7 +144,7 @@ function peek_data(s) {
         if (typeof d === "number") return 0;
         else {
           if (0 === d[0]) {var a__0 = d[1];s[2] = d;return [0,a__0];}
-          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,c_]);
+          throw caml_wrap_thrown_exception([0,Assert_failure,c_]);
         }
       case 2:
         var f = l_[1];
@@ -241,12 +242,12 @@ function npeek(n, param) {
 function next(s) {
   var match = peek(s);
   if (match) {var a = match[1];junk(s);return a;}
-  throw runtime["caml_wrap_thrown_exception"](Failure);
+  throw caml_wrap_thrown_exception(Failure);
 }
 
 function empty(s) {
   var match = peek(s);
-  if (match) {throw runtime["caml_wrap_thrown_exception"](Failure);}
+  if (match) {throw caml_wrap_thrown_exception(Failure);}
   return 0;
 }
 
@@ -417,4 +418,4 @@ runtime["caml_register_global"](22, Stream, "Stream");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Stream;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

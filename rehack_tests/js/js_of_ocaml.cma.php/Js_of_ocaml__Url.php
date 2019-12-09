@@ -48,7 +48,10 @@ final class Js_of_ocaml__Url {
     $caml_jsbytes_of_string = $runtime["caml_jsbytes_of_string"];
     $string = $runtime["caml_new_string"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst__36 = $string("");
     $cst__37 = $string("");
@@ -191,8 +194,8 @@ final class Js_of_ocaml__Url {
       $cst_Js_of_ocaml_Url_Local_exn,
       $caml_fresh_oo_id(0)
     };
-    $interrupt = function(dynamic $param) use ($Local_exn,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"]($Local_exn) as \Throwable;
+    $interrupt = function(dynamic $param) use ($Local_exn,$caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception($Local_exn) as \Throwable;
     };
     $plus_re = $call1($Js_of_ocaml_Regexp[5], $cst);
     $escape_plus = function(dynamic $s) use ($Js_of_ocaml_Regexp,$call3,$cst_2B,$plus_re) {
@@ -252,7 +255,7 @@ final class Js_of_ocaml__Url {
       $cst_Js_of_ocaml_Url_Not_an_http_protocol,
       $caml_fresh_oo_id(0)
     };
-    $is_secure = function(dynamic $prot_string) use ($Not_an_http_protocol,$call1,$caml_get_public_method,$caml_js_to_byte_string,$caml_string_notequal,$cst_file,$cst_file__0,$cst_http,$cst_http__0,$cst_https,$cst_https__0,$runtime) {
+    $is_secure = function(dynamic $prot_string) use ($Not_an_http_protocol,$call1,$caml_get_public_method,$caml_js_to_byte_string,$caml_string_notequal,$caml_wrap_thrown_exception,$cst_file,$cst_file__0,$cst_http,$cst_http__0,$cst_https,$cst_https__0) {
       $b9_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 946097238, 240), $x);
       };
@@ -276,19 +279,19 @@ final class Js_of_ocaml__Url {
           if (! $switch__0) {return 0;}
         }
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Not_an_http_protocol) as \Throwable;
+      throw $caml_wrap_thrown_exception($Not_an_http_protocol) as \Throwable;
     };
     $default_http_port = 80;
     $default_https_port = 443;
-    $path_of_path_string = function(dynamic $s) use ($Not_found,$String,$call3,$caml_string_notequal,$caml_wrap_exception,$cst__1,$cst__2,$f_,$runtime) {
+    $path_of_path_string = function(dynamic $s) use ($Not_found,$String,$call3,$caml_string_notequal,$caml_wrap_thrown_exception_reraise,$cst__1,$cst__2,$f_,$runtime) {
       $aux = new Ref();
       $l = $runtime["caml_ml_string_length"]($s);
-      $aux->contents = function(dynamic $i) use ($Not_found,$String,$aux,$call3,$caml_wrap_exception,$l,$runtime,$s) {
+      $aux->contents = function(dynamic $i) use ($Not_found,$String,$aux,$call3,$caml_wrap_thrown_exception_reraise,$l,$runtime,$s) {
         try {$b7_ = $call3($String[18], $s, $i, 47);$j = $b7_;}
         catch(\Throwable $b8_) {
-          $b8_ = $caml_wrap_exception($b8_);
+          $b8_ = $runtime["caml_wrap_exception"]($b8_);
           if ($b8_ !== $Not_found) {
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($b8_) as \Throwable;
+            throw $caml_wrap_thrown_exception_reraise($b8_) as \Throwable;
           }
           $j = $l;
         }
@@ -319,7 +322,7 @@ final class Js_of_ocaml__Url {
       $b2_ = $call2($List[17], $b1_, $l);
       return $call2($String[7], $cst__4, $b2_);
     };
-    $decode_arguments_js_string = function(dynamic $s) use ($Js_of_ocaml_Js,$Local_exn,$call1,$call2,$call3,$caml_get_public_method,$caml_wrap_exception,$interrupt,$runtime,$split,$split_2,$urldecode_js_string_string) {
+    $decode_arguments_js_string = function(dynamic $s) use ($Js_of_ocaml_Js,$Local_exn,$call1,$call2,$call3,$caml_get_public_method,$caml_wrap_thrown_exception_reraise,$interrupt,$runtime,$split,$split_2,$urldecode_js_string_string) {
       $aux = new Ref();
       $arr = $split(38, $s);
       $bS_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
@@ -329,7 +332,7 @@ final class Js_of_ocaml__Url {
       $name_value_split = function(dynamic $s) use ($split_2) {
         return $split_2(61, $s);
       };
-      $aux->contents = function(dynamic $acc, dynamic $idx) use ($Js_of_ocaml_Js,$Local_exn,$arr,$aux,$call2,$call3,$caml_wrap_exception,$interrupt,$name_value_split,$runtime,$urldecode_js_string_string) {
+      $aux->contents = function(dynamic $acc, dynamic $idx) use ($Js_of_ocaml_Js,$Local_exn,$arr,$aux,$call2,$call3,$caml_wrap_thrown_exception_reraise,$interrupt,$name_value_split,$runtime,$urldecode_js_string_string) {
         $idx__0 = $idx;
         for (;;) {
           if (0 <= $idx__0) {
@@ -357,13 +360,13 @@ final class Js_of_ocaml__Url {
               return $bW_;
             }
             catch(\Throwable $bX_) {
-              $bX_ = $caml_wrap_exception($bX_);
+              $bX_ = $runtime["caml_wrap_exception"]($bX_);
               if ($bX_ === $Local_exn) {
                 $idx__1 = (int) ($idx__0 + -1);
                 $idx__0 = $idx__1;
                 continue;
               }
-              throw $runtime["caml_wrap_thrown_exception_reraise"]($bX_) as \Throwable;
+              throw $caml_wrap_thrown_exception_reraise($bX_) as \Throwable;
             }
           }
           return $acc;
@@ -773,7 +776,7 @@ final class Js_of_ocaml__Url {
       (function(dynamic $t44, dynamic $param) {return $t44->protocol;})($l, $t_)
     );
     $u_ = 0;
-    $port = (function(dynamic $param) use ($Failure,$call1,$caml_get_public_method,$caml_int_of_string,$caml_js_to_byte_string,$caml_wrap_exception,$l,$runtime) {
+    $port = (function(dynamic $param) use ($Failure,$call1,$caml_get_public_method,$caml_int_of_string,$caml_js_to_byte_string,$caml_wrap_thrown_exception_reraise,$l,$runtime) {
        try {
          $ad_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
            return $call1($caml_get_public_method($x, -899906687, 248), $x);
@@ -789,9 +792,9 @@ final class Js_of_ocaml__Url {
          return $ae_;
        }
        catch(\Throwable $af_) {
-         $af_ = $caml_wrap_exception($af_);
+         $af_ = $runtime["caml_wrap_exception"]($af_);
          if ($af_[1] === $Failure) {return 0;}
-         throw $runtime["caml_wrap_thrown_exception_reraise"]($af_) as \Throwable;
+         throw $caml_wrap_thrown_exception_reraise($af_) as \Throwable;
        }
      })($u_);
     $v_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
@@ -922,4 +925,4 @@ final class Js_of_ocaml__Url {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

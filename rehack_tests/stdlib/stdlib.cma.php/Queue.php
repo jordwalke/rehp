@@ -31,6 +31,7 @@ final class Queue {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
     $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)};
     $create = function(dynamic $param) {return Vector{0, 0, 0, 0};};
@@ -49,12 +50,12 @@ final class Queue {
       $q[3] = $cell;
       return 0;
     };
-    $peek = function(dynamic $q) use ($Empty,$runtime) {
+    $peek = function(dynamic $q) use ($Empty,$caml_wrap_thrown_exception) {
       $f_ = $q[2];
       if ($f_) {$content = $f_[1];return $content;}
-      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
+      throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $take = function(dynamic $q) use ($Empty,$clear,$runtime) {
+    $take = function(dynamic $q) use ($Empty,$caml_wrap_thrown_exception,$clear) {
       $c_ = $q[2];
       if ($c_) {
         $d_ = $c_[1];
@@ -63,7 +64,7 @@ final class Queue {
         $clear($q);
         return $d_;
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
+      throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $copy = function(dynamic $q_res, dynamic $prev, dynamic $cell) {
       $prev__0 = $prev;
@@ -164,4 +165,4 @@ final class Queue {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

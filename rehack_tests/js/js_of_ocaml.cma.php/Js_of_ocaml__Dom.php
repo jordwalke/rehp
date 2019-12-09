@@ -36,6 +36,7 @@ final class Js_of_ocaml__Dom {
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $Assert_failure = $global_data["Assert_failure"];
@@ -241,10 +242,10 @@ final class Js_of_ocaml__Dom {
     };
     $invoke_handler = function(dynamic $f, dynamic $this__0, dynamic $event) {return $f->call($this__0, $event);
     };
-    $eventTarget = function(dynamic $e) use ($Assert_failure,$Js_of_ocaml_Js,$Not_found,$a_,$call1,$call2,$caml_get_public_method,$runtime) {
-      $v_ = function(dynamic $param) use ($Js_of_ocaml_Js,$Not_found,$call1,$call2,$caml_get_public_method,$e,$runtime) {
-        $E_ = function(dynamic $param) use ($Not_found,$runtime) {
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+    $eventTarget = function(dynamic $e) use ($Assert_failure,$Js_of_ocaml_Js,$Not_found,$a_,$call1,$call2,$caml_get_public_method,$caml_wrap_thrown_exception) {
+      $v_ = function(dynamic $param) use ($Js_of_ocaml_Js,$Not_found,$call1,$call2,$caml_get_public_method,$caml_wrap_thrown_exception,$e) {
+        $E_ = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         };
         $F_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, -1021537224, 38), $x);
@@ -274,8 +275,8 @@ final class Js_of_ocaml__Dom {
           3 ===
             (function(dynamic $t24, dynamic $param) {return $t24->nodeType;})($target, $A_)
         ) {
-          $B_ = function(dynamic $param) use ($Assert_failure,$a_,$runtime) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
+          $B_ = function(dynamic $param) use ($Assert_failure,$a_,$caml_wrap_thrown_exception) {
+            throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $a_}) as \Throwable;
           };
           $C_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, -400811956, 42), $x);
@@ -395,4 +396,4 @@ final class Js_of_ocaml__Dom {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -49,7 +49,10 @@ final class CamlinternalOO {
     $caml_obj_block = $runtime["caml_obj_block"];
     $caml_set_oo_id = $runtime["caml_set_oo_id"];
     $caml_string_compare = $runtime["caml_string_compare"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $is_int = $runtime["is_int"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst = $string("");
@@ -183,17 +186,17 @@ final class CamlinternalOO {
       $resize($table, (int) ($index + 1));
       return $index;
     };
-    $get_method_label = function(dynamic $table, dynamic $name) use ($Labs,$Meths,$Not_found,$call2,$call3,$caml_wrap_exception,$new_method,$runtime) {
+    $get_method_label = function(dynamic $table, dynamic $name) use ($Labs,$Meths,$Not_found,$call2,$call3,$caml_wrap_thrown_exception_reraise,$new_method,$runtime) {
       try {$aq_ = $call2($Meths[27], $name, $table[3]);return $aq_;}
       catch(\Throwable $ar_) {
-        $ar_ = $caml_wrap_exception($ar_);
+        $ar_ = $runtime["caml_wrap_exception"]($ar_);
         if ($ar_ === $Not_found) {
           $label = $new_method($table);
           $table[3] = $call3($Meths[4], $name, $label, $table[3]);
           $table[4] = $call3($Labs[4], $label, 1, $table[4]);
           return $label;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($ar_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($ar_) as \Throwable;
       }
     };
     $get_method_labels = function(dynamic $table, dynamic $names) use ($Array,$call2,$get_method_label) {
@@ -208,21 +211,21 @@ final class CamlinternalOO {
       $table[6] = Vector{0, Vector{0, $label, $element}, $table[6]};
       return 0;
     };
-    $get_method = function(dynamic $table, dynamic $label) use ($List,$Not_found,$call2,$caml_check_bound,$caml_wrap_exception,$runtime) {
+    $get_method = function(dynamic $table, dynamic $label) use ($List,$Not_found,$call2,$caml_check_bound,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$am_ = $call2($List[38], $label, $table[6]);return $am_;}
       catch(\Throwable $an_) {
-        $an_ = $caml_wrap_exception($an_);
+        $an_ = $runtime["caml_wrap_exception"]($an_);
         if ($an_ === $Not_found) {
           return $caml_check_bound($table[2], $label)[$label + 1];
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($an_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($an_) as \Throwable;
       }
     };
     $to_list = function(dynamic $arr) use ($Array,$call1) {
       return $arr === 0 ? 0 : ($call1($Array[11], $arr));
     };
     $narrow = function
-    (dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths) use ($Labs,$List,$Meths,$Not_found,$Vars,$call2,$call3,$caml_wrap_exception,$get_method_label,$runtime,$to_list) {
+    (dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths) use ($Labs,$List,$Meths,$Not_found,$Vars,$call2,$call3,$caml_wrap_thrown_exception_reraise,$get_method_label,$runtime,$to_list) {
       $vars__0 = $to_list($vars);
       $virt_meths__0 = $to_list($virt_meths);
       $concr_meths__0 = $to_list($concr_meths);
@@ -258,14 +261,14 @@ final class CamlinternalOO {
       $table[7] = $call3($Vars[13], $Z_, $Y_, $X_);
       $by_name = Vector{0, $Meths[1]};
       $by_label = Vector{0, $Labs[1]};
-      $aa_ = function(dynamic $met, dynamic $label) use ($Labs,$Meths,$Not_found,$by_label,$by_name,$call2,$call3,$caml_wrap_exception,$runtime,$table) {
+      $aa_ = function(dynamic $met, dynamic $label) use ($Labs,$Meths,$Not_found,$by_label,$by_name,$call2,$call3,$caml_wrap_thrown_exception_reraise,$runtime,$table) {
         $by_name[1] = $call3($Meths[4], $met, $label, $by_name[1]);
         $af_ = $by_label[1];
         try {$ai_ = $call2($Labs[27], $label, $table[4]);$ah_ = $ai_;}
         catch(\Throwable $aj_) {
-          $aj_ = $caml_wrap_exception($aj_);
+          $aj_ = $runtime["caml_wrap_exception"]($aj_);
           if ($aj_ !== $Not_found) {
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($aj_) as \Throwable;
+            throw $caml_wrap_thrown_exception_reraise($aj_) as \Throwable;
           }
           $ag_ = 1;
           $ah_ = $ag_;
@@ -324,10 +327,10 @@ final class CamlinternalOO {
       $table[1] = (int) ($index + 1);
       return $index;
     };
-    $new_variable = function(dynamic $table, dynamic $name) use ($Not_found,$Vars,$call2,$call3,$caml_wrap_exception,$cst,$new_slot,$runtime) {
+    $new_variable = function(dynamic $table, dynamic $name) use ($Not_found,$Vars,$call2,$call3,$caml_wrap_thrown_exception_reraise,$cst,$new_slot,$runtime) {
       try {$P_ = $call2($Vars[27], $name, $table[7]);return $P_;}
       catch(\Throwable $Q_) {
-        $Q_ = $caml_wrap_exception($Q_);
+        $Q_ = $runtime["caml_wrap_exception"]($Q_);
         if ($Q_ === $Not_found) {
           $index = $new_slot($table);
           if ($runtime["caml_string_notequal"]($name, $cst)) {
@@ -335,7 +338,7 @@ final class CamlinternalOO {
           }
           return $index;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($Q_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($Q_) as \Throwable;
       }
     };
     $to_array = function(dynamic $arr) use ($runtime) {
@@ -377,14 +380,14 @@ final class CamlinternalOO {
       }
       return $res;
     };
-    $get_variable = function(dynamic $table, dynamic $name) use ($Assert_failure,$Not_found,$Vars,$a_,$call2,$caml_wrap_exception,$runtime) {
+    $get_variable = function(dynamic $table, dynamic $name) use ($Assert_failure,$Not_found,$Vars,$a_,$call2,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$E_ = $call2($Vars[27], $name, $table[7]);return $E_;}
       catch(\Throwable $F_) {
-        $F_ = $caml_wrap_exception($F_);
+        $F_ = $runtime["caml_wrap_exception"]($F_);
         if ($F_ === $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
+          throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $a_}) as \Throwable;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($F_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($F_) as \Throwable;
       }
     };
     $get_variables = function(dynamic $table, dynamic $names) use ($Array,$call2,$get_variable) {
@@ -461,9 +464,9 @@ final class CamlinternalOO {
       $init_table[1] = $env_init;
       return 0;
     };
-    $dummy_class = function(dynamic $loc) use ($Undefined_recursive_module,$runtime) {
-      $undef = function(dynamic $param) use ($Undefined_recursive_module,$loc,$runtime) {
-        throw $runtime["caml_wrap_thrown_exception"](
+    $dummy_class = function(dynamic $loc) use ($Undefined_recursive_module,$caml_wrap_thrown_exception) {
+      $undef = function(dynamic $param) use ($Undefined_recursive_module,$caml_wrap_thrown_exception,$loc) {
+        throw $caml_wrap_thrown_exception(
                 Vector{0, $Undefined_recursive_module, $loc}
               ) as \Throwable;
       };
@@ -512,25 +515,25 @@ final class CamlinternalOO {
       $run_initializers($obj, $table);
       return $obj;
     };
-    $set_data = function(dynamic $tables, dynamic $v) use ($Assert_failure,$b_,$runtime) {
+    $set_data = function(dynamic $tables, dynamic $v) use ($Assert_failure,$b_,$caml_wrap_thrown_exception) {
       if ($tables) {$tables[2] = $v;return 0;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $b_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
     };
-    $set_next = function(dynamic $tables, dynamic $v) use ($Assert_failure,$c_,$runtime) {
+    $set_next = function(dynamic $tables, dynamic $v) use ($Assert_failure,$c_,$caml_wrap_thrown_exception) {
       if ($tables) {$tables[3] = $v;return 0;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $c_}) as \Throwable;
     };
-    $get_key = function(dynamic $param) use ($Assert_failure,$d_,$runtime) {
+    $get_key = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$d_) {
       if ($param) {return $param[1];}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $d_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
     };
-    $get_data = function(dynamic $param) use ($Assert_failure,$e_,$runtime) {
+    $get_data = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$e_) {
       if ($param) {return $param[2];}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $e_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $e_}) as \Throwable;
     };
-    $get_next = function(dynamic $param) use ($Assert_failure,$f_,$runtime) {
+    $get_next = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$f_) {
       if ($param) {return $param[3];}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $f_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
     };
     $build_path = function(dynamic $n, dynamic $keys, dynamic $tables) use ($caml_check_bound,$set_data) {
       $res = Vector{0, 0, 0, 0};
@@ -550,10 +553,10 @@ final class CamlinternalOO {
       return $res;
     };
     $lookup_keys->contents = function
-    (dynamic $i, dynamic $keys, dynamic $tables) use ($Assert_failure,$build_path,$caml_check_bound,$g_,$get_data,$get_key,$get_next,$lookup_keys,$runtime,$set_next) {
+    (dynamic $i, dynamic $keys, dynamic $tables) use ($Assert_failure,$build_path,$caml_check_bound,$caml_wrap_thrown_exception,$g_,$get_data,$get_key,$get_next,$lookup_keys,$set_next) {
       if (0 <= $i) {
         $key = $caml_check_bound($keys, $i)[$i + 1];
-        $lookup_key = function(dynamic $tables) use ($Assert_failure,$build_path,$g_,$get_data,$get_key,$get_next,$i,$key,$keys,$lookup_keys,$runtime,$set_next) {
+        $lookup_key = function(dynamic $tables) use ($Assert_failure,$build_path,$caml_wrap_thrown_exception,$g_,$get_data,$get_key,$get_next,$i,$key,$keys,$lookup_keys,$set_next) {
           $tables__0 = $tables;
           for (;;) {
             if ($get_key($tables__0) === $key) {
@@ -566,7 +569,9 @@ final class CamlinternalOO {
                   $tables_data
                 );
               }
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g_}) as \Throwable;
+              throw $caml_wrap_thrown_exception(
+                      Vector{0, $Assert_failure, $g_}
+                    ) as \Throwable;
             }
             $next = $get_next($tables__0);
             if ($next) {$tables__0 = $next;continue;}
@@ -922,4 +927,4 @@ final class CamlinternalOO {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

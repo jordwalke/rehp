@@ -58,7 +58,10 @@ final class Scanf {
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_trampoline = $runtime["caml_trampoline"];
     $caml_trampoline_return = $runtime["caml_trampoline_return"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $is_int = $runtime["is_int"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
@@ -247,7 +250,7 @@ final class Scanf {
       $string("illegal escape character %C")
     };
     $null_char = 0;
-    $next_char = function(dynamic $ib) use ($End_of_file,$call1,$caml_wrap_exception,$null_char,$runtime) {
+    $next_char = function(dynamic $ib) use ($End_of_file,$call1,$caml_wrap_thrown_exception_reraise,$null_char,$runtime) {
       try {
         $c = $call1($ib[7], 0);
         $ib[2] = $c;
@@ -257,23 +260,23 @@ final class Scanf {
         return $c;
       }
       catch(\Throwable $bH_) {
-        $bH_ = $caml_wrap_exception($bH_);
+        $bH_ = $runtime["caml_wrap_exception"]($bH_);
         if ($bH_ === $End_of_file) {
           $ib[2] = $null_char;
           $ib[3] = 0;
           $ib[1] = 1;
           return $null_char;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($bH_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($bH_) as \Throwable;
       }
     };
     $peek_char = function(dynamic $ib) use ($next_char) {
       return $ib[3] ? $ib[2] : ($next_char($ib));
     };
-    $checked_peek_char = function(dynamic $ib) use ($End_of_file,$peek_char,$runtime) {
+    $checked_peek_char = function(dynamic $ib) use ($End_of_file,$caml_wrap_thrown_exception,$peek_char) {
       $c = $peek_char($ib);
       if ($ib[1]) {
-        throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+        throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
       }
       return $c;
     };
@@ -340,12 +343,12 @@ final class Scanf {
         $iname
       };
     };
-    $from_string = function(dynamic $s) use ($End_of_file,$caml_ml_string_length,$caml_string_get,$create,$runtime) {
+    $from_string = function(dynamic $s) use ($End_of_file,$caml_ml_string_length,$caml_string_get,$caml_wrap_thrown_exception,$create) {
       $i = Vector{0, 0};
       $len = $caml_ml_string_length($s);
-      $next = function(dynamic $param) use ($End_of_file,$caml_string_get,$i,$len,$runtime,$s) {
+      $next = function(dynamic $param) use ($End_of_file,$caml_string_get,$caml_wrap_thrown_exception,$i,$len,$s) {
         if ($len <= $i[1]) {
-          throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+          throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
         }
         $c = $caml_string_get($s, $i[1]);
         $i[1] += 1;
@@ -358,26 +361,26 @@ final class Scanf {
       return $create($a_, $bF_);
     };
     $len = 1024;
-    $scan_close_at_end = function(dynamic $ic) use ($End_of_file,$Pervasives,$call1,$runtime) {
+    $scan_close_at_end = function(dynamic $ic) use ($End_of_file,$Pervasives,$call1,$caml_wrap_thrown_exception) {
       $call1($Pervasives[81], $ic);
-      throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+      throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
     };
-    $scan_raise_at_end = function(dynamic $ic) use ($End_of_file,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+    $scan_raise_at_end = function(dynamic $ic) use ($End_of_file,$caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
     };
-    $from_ic = function(dynamic $scan_close_ic, dynamic $iname, dynamic $ic) use ($End_of_file,$Pervasives,$call1,$call4,$caml_bytes_get,$create,$len,$runtime) {
+    $from_ic = function(dynamic $scan_close_ic, dynamic $iname, dynamic $ic) use ($End_of_file,$Pervasives,$call1,$call4,$caml_bytes_get,$caml_wrap_thrown_exception,$create,$len,$runtime) {
       $buf = $runtime["caml_create_bytes"](1024);
       $i = Vector{0, 0};
       $lim = Vector{0, 0};
       $eof = Vector{0, 0};
-      $next = function(dynamic $param) use ($End_of_file,$Pervasives,$buf,$call1,$call4,$caml_bytes_get,$eof,$i,$ic,$len,$lim,$runtime,$scan_close_ic) {
+      $next = function(dynamic $param) use ($End_of_file,$Pervasives,$buf,$call1,$call4,$caml_bytes_get,$caml_wrap_thrown_exception,$eof,$i,$ic,$len,$lim,$scan_close_ic) {
         if ($i[1] < $lim[1]) {
           $c = $caml_bytes_get($buf, $i[1]);
           $i[1] += 1;
           return $c;
         }
         if ($eof[1]) {
-          throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+          throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
         }
         $lim[1] = $call4($Pervasives[72], $ic, $buf, 0, $len);
         if (0 === $lim[1]) {$eof[1] = 1;return $call1($scan_close_ic, $ic);}
@@ -428,16 +431,16 @@ final class Scanf {
       }
     };
     $memo = Vector{0, 0};
-    $memo_from_ic = function(dynamic $scan_close_ic, dynamic $ic) use ($List,$Not_found,$call2,$caml_wrap_exception,$from_ic,$memo,$runtime) {
+    $memo_from_ic = function(dynamic $scan_close_ic, dynamic $ic) use ($List,$Not_found,$call2,$caml_wrap_thrown_exception_reraise,$from_ic,$memo,$runtime) {
       try {$bw_ = $call2($List[40], $ic, $memo[1]);return $bw_;}
       catch(\Throwable $bx_) {
-        $bx_ = $caml_wrap_exception($bx_);
+        $bx_ = $runtime["caml_wrap_exception"]($bx_);
         if ($bx_ === $Not_found) {
           $ib = $from_ic($scan_close_ic, Vector{0, $ic}, $ic);
           $memo[1] = Vector{0, Vector{0, $ic, $ib}, $memo[1]};
           return $ib;
         }
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($bx_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($bx_) as \Throwable;
       }
     };
     $memo_from_channel = function(dynamic $bv_) use ($memo_from_ic,$scan_raise_at_end) {
@@ -448,8 +451,8 @@ final class Scanf {
       $cst_Scanf_Scan_failure,
       $runtime["caml_fresh_oo_id"](0)
     };
-    $bad_input = function(dynamic $s) use ($Scan_failure,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Scan_failure, $s}) as \Throwable;
+    $bad_input = function(dynamic $s) use ($Scan_failure,$caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception(Vector{0, $Scan_failure, $s}) as \Throwable;
     };
     $bad_input_escape = function(dynamic $c) use ($Printf,$bad_input,$call2,$d_) {
       return $bad_input($call2($Printf[4], $d_, $c));
@@ -518,7 +521,7 @@ final class Scanf {
          : (1)
         : (0);
     };
-    $integer_conversion_of_char = function(dynamic $param) use ($Assert_failure,$i_,$runtime,$unsigned_right_shift_32) {
+    $integer_conversion_of_char = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$i_,$unsigned_right_shift_32) {
       $switcher = (int) ($param + -88);
       if (! (32 < $unsigned_right_shift_32($switcher, 0))) {
         switch($switcher) {
@@ -544,7 +547,7 @@ final class Scanf {
             return 5;
           }
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $i_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $i_}) as \Throwable;
     };
     $token_int_literal = function(dynamic $conv, dynamic $ib) use ($Pervasives,$String,$call2,$call3,$caml_ml_string_length,$caml_string_get,$cst_0b,$cst_0o,$cst_0u,$cst_0x,$token_string) {
       switch($conv) {
@@ -1392,11 +1395,11 @@ final class Scanf {
       }
       return $scan_chars($width, -1);
     };
-    $scanf_bad_input = function(dynamic $ib, dynamic $x) use ($Failure,$Printf,$Scan_failure,$bad_input,$call3,$char_count,$o_,$runtime) {
+    $scanf_bad_input = function(dynamic $ib, dynamic $x) use ($Failure,$Printf,$Scan_failure,$bad_input,$call3,$caml_wrap_thrown_exception,$char_count,$o_) {
       if ($x[1] === $Scan_failure) {$s = $x[2];}
       else {
         if ($x[1] !== $Failure) {
-          throw $runtime["caml_wrap_thrown_exception"]($x) as \Throwable;
+          throw $caml_wrap_thrown_exception($x) as \Throwable;
         }
         $s = $x[2];
       }
@@ -1967,7 +1970,7 @@ final class Scanf {
       }
     };
     $make_scanf->contents = function
-    (dynamic $ib, dynamic $fmt, dynamic $readers) use ($Assert_failure,$CamlinternalFormat,$CamlinternalFormatBasics,$Failure,$Pervasives,$String,$bad_input,$call1,$call2,$caml_wrap_exception,$check_char,$checked_peek_char,$cst_end_of_input_not_found,$cst_scanf_bad_conversion_a,$cst_scanf_bad_conversion_custom_converter,$cst_scanf_bad_conversion_t,$cst_scanf_missing_reader,$end_of_input,$get_counter,$integer_conversion_of_char,$is_int,$make_scanf,$pad_prec_scanf,$q_,$r_,$runtime,$s_,$scan_bool,$scan_caml_char,$scan_caml_float,$scan_caml_string,$scan_char,$scan_chars_in_char_set,$scan_float,$scan_hex_float,$scan_int_conversion,$scan_string,$stopper_of_formatting_lit,$token_bool,$token_char,$token_float,$token_int,$token_int32,$token_int64,$token_nativeint,$token_string,$width_of_pad_opt) {
+    (dynamic $ib, dynamic $fmt, dynamic $readers) use ($Assert_failure,$CamlinternalFormat,$CamlinternalFormatBasics,$Failure,$Pervasives,$String,$bad_input,$call1,$call2,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$check_char,$checked_peek_char,$cst_end_of_input_not_found,$cst_scanf_bad_conversion_a,$cst_scanf_bad_conversion_custom_converter,$cst_scanf_bad_conversion_t,$cst_scanf_missing_reader,$end_of_input,$get_counter,$integer_conversion_of_char,$is_int,$make_scanf,$pad_prec_scanf,$q_,$r_,$runtime,$s_,$scan_bool,$scan_caml_char,$scan_caml_float,$scan_caml_string,$scan_char,$scan_chars_in_char_set,$scan_float,$scan_hex_float,$scan_int_conversion,$scan_string,$stopper_of_formatting_lit,$token_bool,$token_char,$token_float,$token_int,$token_int32,$token_int64,$token_nativeint,$token_string,$width_of_pad_opt) {
       $fmt__0 = $fmt;
       for (;;) {
         if ($is_int($fmt__0)) {return 0;}
@@ -2272,9 +2275,9 @@ final class Scanf {
                 $fmt__5 = $Q_;
               }
               catch(\Throwable $exn) {
-                $exn = $caml_wrap_exception($exn);
+                $exn = $runtime["caml_wrap_exception"]($exn);
                 if ($exn[1] !== $Failure) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+                  throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
                 }
                 $msg = $exn[2];
                 $P_ = $bad_input($msg);
@@ -2306,9 +2309,9 @@ final class Scanf {
                 $fmt__6 = $fmt__10;
               }
               catch(\Throwable $exn) {
-                $exn = $caml_wrap_exception($exn);
+                $exn = $runtime["caml_wrap_exception"]($exn);
                 if ($exn[1] !== $Failure) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+                  throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
                 }
                 $msg__0 = $exn[2];
                 $R_ = $bad_input($msg__0);
@@ -2447,7 +2450,9 @@ final class Scanf {
               $fmt__16 = $match__7[1];
               $match__8 = $make_scanf->contents($ib, $fmt__16, $readers);
               if ($match__8) {$arg_rest = $match__8[2];return $arg_rest;}
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $s_}) as \Throwable;
+              throw $caml_wrap_thrown_exception(
+                      Vector{0, $Assert_failure, $s_}
+                    ) as \Throwable;
             // FALLTHROUGH
             default:
               return $call1(
@@ -2459,7 +2464,7 @@ final class Scanf {
         }
       }
     };
-    $kscanf = function(dynamic $ib, dynamic $ef, dynamic $param) use ($End_of_file,$Failure,$Invalid_argument,$Pervasives,$Scan_failure,$String,$call1,$call2,$caml_wrap_exception,$cst__1,$cst_in_format,$make_scanf,$reset_token,$runtime,$take_format_readers) {
+    $kscanf = function(dynamic $ib, dynamic $ef, dynamic $param) use ($End_of_file,$Failure,$Invalid_argument,$Pervasives,$Scan_failure,$String,$call1,$call2,$caml_wrap_thrown_exception_reraise,$cst__1,$cst_in_format,$make_scanf,$reset_token,$runtime,$take_format_readers) {
       $str = $param[2];
       $fmt = $param[1];
       $apply = function(dynamic $f, dynamic $args) use ($call1) {
@@ -2477,14 +2482,14 @@ final class Scanf {
           return $f__0;
         }
       };
-      $k = function(dynamic $readers, dynamic $f) use ($End_of_file,$Failure,$Invalid_argument,$Pervasives,$Scan_failure,$String,$apply,$call1,$call2,$caml_wrap_exception,$cst__1,$cst_in_format,$ef,$fmt,$ib,$make_scanf,$reset_token,$runtime,$str) {
+      $k = function(dynamic $readers, dynamic $f) use ($End_of_file,$Failure,$Invalid_argument,$Pervasives,$Scan_failure,$String,$apply,$call1,$call2,$caml_wrap_thrown_exception_reraise,$cst__1,$cst_in_format,$ef,$fmt,$ib,$make_scanf,$reset_token,$runtime,$str) {
         $reset_token($ib);
         try {
           $J_ = Vector{0, $make_scanf->contents($ib, $fmt, $readers)};
           $D_ = $J_;
         }
         catch(\Throwable $exc) {
-          $exc = $caml_wrap_exception($exc);
+          $exc = $runtime["caml_wrap_exception"]($exc);
           if ($exc[1] === $Scan_failure) {$switch__0 = 0;}
           else {
             if ($exc[1] === $Failure) {$switch__0 = 0;}
@@ -2492,7 +2497,7 @@ final class Scanf {
               if ($exc === $End_of_file) {$switch__0 = 0;}
               else {
                 if ($exc[1] !== $Invalid_argument) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($exc) as \Throwable;
+                  throw $caml_wrap_thrown_exception_reraise($exc) as \Throwable;
                 }
                 $msg = $exc[2];
                 $E_ = $call1($String[13], $str);
@@ -2526,14 +2531,14 @@ final class Scanf {
     $scanf = function(dynamic $fmt) use ($kscanf,$scanf_bad_input,$stdin) {
       return $kscanf($stdin, $scanf_bad_input, $fmt);
     };
-    $bscanf_format = function(dynamic $ib, dynamic $format, dynamic $f) use ($CamlinternalFormat,$Failure,$Pervasives,$bad_input,$call1,$call2,$caml_wrap_exception,$runtime,$scan_caml_string,$token_string) {
+    $bscanf_format = function(dynamic $ib, dynamic $format, dynamic $f) use ($CamlinternalFormat,$Failure,$Pervasives,$bad_input,$call1,$call2,$caml_wrap_thrown_exception_reraise,$runtime,$scan_caml_string,$token_string) {
       $scan_caml_string($Pervasives[7], $ib);
       $str = $token_string($ib);
       try {$B_ = $call2($CamlinternalFormat[15], $str, $format);$fmt = $B_;}
       catch(\Throwable $exn) {
-        $exn = $caml_wrap_exception($exn);
+        $exn = $runtime["caml_wrap_exception"]($exn);
         if ($exn[1] !== $Failure) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
         }
         $msg = $exn[2];
         $A_ = $bad_input($msg);
@@ -2616,4 +2621,4 @@ final class Scanf {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

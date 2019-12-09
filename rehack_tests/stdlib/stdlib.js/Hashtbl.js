@@ -24,7 +24,9 @@ var caml_hash = runtime["caml_hash"];
 var caml_make_vect = runtime["caml_make_vect"];
 var string = runtime["caml_new_string"];
 var caml_sys_getenv = runtime["caml_sys_getenv"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -71,16 +73,12 @@ function flip_ongoing_traversal(h) {h[4] = - h[4] | 0;return 0;}
 
 try {var e_ = caml_sys_getenv(cst_OCAMLRUNPARAM);var params = e_;}
 catch(ap_) {
-  ap_ = caml_wrap_exception(ap_);
-  if (ap_ !== Not_found) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](ap_);
-  }
+  ap_ = runtime["caml_wrap_exception"](ap_);
+  if (ap_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(ap_);}
   try {var d_ = caml_sys_getenv(cst_CAMLRUNPARAM);var a_ = d_;}
   catch(aq_) {
-    aq_ = caml_wrap_exception(aq_);
-    if (aq_ !== Not_found) {
-      throw runtime["caml_wrap_thrown_exception_reraise"](aq_);
-    }
+    aq_ = runtime["caml_wrap_exception"](aq_);
+    if (aq_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(aq_);}
     var a_ = cst;
   }
   var params = a_;
@@ -173,7 +171,7 @@ function copy_bucketlist(param) {
             var param__0 = next;
             continue;
           }
-          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,b_]);
+          throw caml_wrap_thrown_exception([0,Assert_failure,b_]);
         }
         return 0;
       }
@@ -312,7 +310,7 @@ function find_rec(key, param) {
       var param__0 = next;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -335,11 +333,11 @@ function find(h, key) {
         var next3 = next2[3];
         return 0 === caml_compare(key, k3) ? d3 : find_rec(key, next3);
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
-  throw runtime["caml_wrap_thrown_exception"](Not_found);
+  throw caml_wrap_thrown_exception(Not_found);
 }
 
 function find_rec_opt(key, param) {
@@ -491,10 +489,10 @@ function iter(f, h) {
     return M_;
   }
   catch(exn) {
-    exn = caml_wrap_exception(exn);
-    if (old_trav) {throw runtime["caml_wrap_thrown_exception_reraise"](exn);}
+    exn = runtime["caml_wrap_exception"](exn);
+    if (old_trav) {throw caml_wrap_thrown_exception_reraise(exn);}
     flip_ongoing_traversal(h);
-    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+    throw caml_wrap_thrown_exception_reraise(exn);
   }
 }
 
@@ -547,10 +545,10 @@ function filter_map_inplace(f, h) {
     return H_;
   }
   catch(exn) {
-    exn = caml_wrap_exception(exn);
-    if (old_trav) {throw runtime["caml_wrap_thrown_exception_reraise"](exn);}
+    exn = runtime["caml_wrap_exception"](exn);
+    if (old_trav) {throw caml_wrap_thrown_exception_reraise(exn);}
     flip_ongoing_traversal(h);
-    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+    throw caml_wrap_thrown_exception_reraise(exn);
   }
 }
 
@@ -593,10 +591,10 @@ function fold(f, h, init) {
     return C_;
   }
   catch(exn) {
-    exn = caml_wrap_exception(exn);
-    if (old_trav) {throw runtime["caml_wrap_thrown_exception_reraise"](exn);}
+    exn = runtime["caml_wrap_exception"](exn);
+    if (old_trav) {throw caml_wrap_thrown_exception_reraise(exn);}
     flip_ongoing_traversal(h);
-    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+    throw caml_wrap_thrown_exception_reraise(exn);
   }
 }
 
@@ -682,7 +680,7 @@ function MakeSeeded(H) {
         var param__0 = next;
         continue;
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
   }
   function find(h, key) {
@@ -704,11 +702,11 @@ function MakeSeeded(H) {
           var next3 = next2[3];
           return call2(H[1], key, k3) ? d3 : find_rec(key, next3);
         }
-        throw runtime["caml_wrap_thrown_exception"](Not_found);
+        throw caml_wrap_thrown_exception(Not_found);
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
   function find_rec_opt(key, param) {
     var param__0 = param;
@@ -911,4 +909,4 @@ runtime["caml_register_global"](13, Hashtbl, "Hashtbl");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Hashtbl;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -46,7 +46,10 @@ final class Js_of_ocaml__Dom_html {
     $string = $runtime["caml_new_string"];
     $caml_string_compare = $runtime["caml_string_compare"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_a__1 = $string("a");
@@ -707,10 +710,10 @@ final class Js_of_ocaml__Dom_html {
     };
     $document = (function(dynamic $t14, dynamic $param) {return $t14->document;
      })($window, $a_);
-    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$document,$runtime) {
+    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$caml_wrap_thrown_exception,$document) {
       $db_ = function(dynamic $pnode) {return $pnode;};
-      $dc_ = function(dynamic $param) use ($Not_found,$runtime) {
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+      $dc_ = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
       $dd_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -332188296, 78), $x);
@@ -1152,7 +1155,7 @@ final class Js_of_ocaml__Dom_html {
       $cst_Js_of_ocaml_Dom_html_Canvas_not_available,
       $runtime["caml_fresh_oo_id"](0)
     };
-    $createCanvas = function(dynamic $doc) use ($Canvas_not_available,$Js_of_ocaml_Js,$call1,$caml_get_public_method,$cst_canvas,$runtime,$unsafeCreateElement) {
+    $createCanvas = function(dynamic $doc) use ($Canvas_not_available,$Js_of_ocaml_Js,$call1,$caml_get_public_method,$caml_wrap_thrown_exception,$cst_canvas,$unsafeCreateElement) {
       $c = $unsafeCreateElement($doc, $cst_canvas);
       $ck_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -388424711, 95), $x);
@@ -1160,7 +1163,7 @@ final class Js_of_ocaml__Dom_html {
       $cl_ = (function(dynamic $t52, dynamic $param) {return $t52->getContext;
        })($c, $ck_);
       if (1 - $call1($Js_of_ocaml_Js[5][5], $cl_)) {
-        throw $runtime["caml_wrap_thrown_exception"]($Canvas_not_available) as \Throwable;
+        throw $caml_wrap_thrown_exception($Canvas_not_available) as \Throwable;
       }
       return $c;
     };
@@ -1446,8 +1449,8 @@ final class Js_of_ocaml__Dom_html {
       );
     };
     $eventTarget = $Js_of_ocaml_Dom[13];
-    $eventRelatedTarget = function(dynamic $e) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$cst_mouseout__0,$cst_mouseover__0,$f_,$g_,$runtime) {
-      $bT_ = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$cst_mouseout__0,$cst_mouseover__0,$e,$f_,$g_,$runtime) {
+    $eventRelatedTarget = function(dynamic $e) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$caml_wrap_thrown_exception,$cst_mouseout__0,$cst_mouseover__0,$f_,$g_) {
+      $bT_ = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$call1,$call2,$caml_get_public_method,$caml_js_to_string,$caml_string_notequal,$caml_wrap_thrown_exception,$cst_mouseout__0,$cst_mouseover__0,$e,$f_,$g_) {
         $bW_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 1707673, 105), $x);
         };
@@ -1456,8 +1459,8 @@ final class Js_of_ocaml__Dom_html {
         );
         if ($caml_string_notequal($match, $cst_mouseout__0)) {
           if ($caml_string_notequal($match, $cst_mouseover__0)) {return $Js_of_ocaml_Js[1];}
-          $bX_ = function(dynamic $param) use ($Assert_failure,$f_,$runtime) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $f_}) as \Throwable;
+          $bX_ = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$f_) {
+            throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
           };
           $bY_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
             return $call1($caml_get_public_method($x, 513086066, 106), $x);
@@ -1466,8 +1469,8 @@ final class Js_of_ocaml__Dom_html {
            })($e, $bY_);
           return $call2($Js_of_ocaml_Js[6][8], $bZ_, $bX_);
         }
-        $b0_ = function(dynamic $param) use ($Assert_failure,$g_,$runtime) {
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g_}) as \Throwable;
+        $b0_ = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$g_) {
+          throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $g_}) as \Throwable;
         };
         $b1_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 904455809, 107), $x);
@@ -2709,7 +2712,7 @@ final class Js_of_ocaml__Dom_html {
       return $call3($Js_of_ocaml_Js[6][7], $R_, $P_, $O_);
     };
     $requestAnimationFrame = $runtime["caml_js_pure_expr"](
-      function(dynamic $param) use ($Js_of_ocaml_Js,$List,$Not_found,$call1,$call2,$caml_get_public_method,$caml_wrap_exception,$runtime,$window) {
+      function(dynamic $param) use ($Js_of_ocaml_Js,$List,$Not_found,$call1,$call2,$caml_get_public_method,$caml_wrap_thrown_exception_reraise,$runtime,$window) {
         $w_ = 0;
         $x_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
           return $call1($caml_get_public_method($x, 497949938, 155), $x);
@@ -2770,7 +2773,7 @@ final class Js_of_ocaml__Dom_html {
           return $H_;
         }
         catch(\Throwable $I_) {
-          $I_ = $caml_wrap_exception($I_);
+          $I_ = $runtime["caml_wrap_exception"]($I_);
           if ($I_ === $Not_found) {
             $now = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
               $K_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
@@ -2798,7 +2801,7 @@ final class Js_of_ocaml__Dom_html {
               return 0;
             };
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($I_) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($I_) as \Throwable;
         }
       }
     );
@@ -3086,4 +3089,4 @@ final class Js_of_ocaml__Dom_html {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

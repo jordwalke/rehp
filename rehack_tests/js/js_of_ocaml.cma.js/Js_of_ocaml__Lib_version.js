@@ -13,7 +13,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
 var s = string("3.3.0");
-var git_version = string("5e9257f77");
+var git_version = string("ada05f5cb");
 var Js_of_ocaml_Lib_version = [0,s,git_version];
 
 runtime["caml_register_global"](
@@ -24,4 +24,4 @@ runtime["caml_register_global"](
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Lib_version;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

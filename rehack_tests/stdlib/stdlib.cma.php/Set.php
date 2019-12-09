@@ -35,6 +35,7 @@ final class Set {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Set_remove_min_elt = $string("Set.remove_min_elt");
@@ -49,7 +50,7 @@ final class Set {
     $a_ = Vector{0, 0, 0, 0};
     $b_ = Vector{0, 0, 0};
     $c_ = Vector{0, $string("set.ml"), 510, 18};
-    $Make = function(dynamic $Ord) use ($Assert_failure,$List,$Not_found,$Pervasives,$a_,$b_,$c_,$call1,$call2,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$cst_Set_remove_min_elt,$runtime,$unsigned_right_shift_32) {
+    $Make = function(dynamic $Ord) use ($Assert_failure,$List,$Not_found,$Pervasives,$a_,$b_,$c_,$call1,$call2,$caml_wrap_thrown_exception,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$cst_Set_remove_min_elt,$unsigned_right_shift_32) {
       $add = new Ref();
       $add_max_element = new Ref();
       $add_min_element = new Ref();
@@ -198,7 +199,7 @@ final class Set {
         }
         return $add_min_element->contents($v, $r);
       };
-      $min_elt = function(dynamic $param) use ($Not_found,$runtime) {
+      $min_elt = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -207,7 +208,7 @@ final class Set {
             $v = $param__0[2];
             return $v;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $min_elt_opt = function(dynamic $param) {
@@ -222,7 +223,7 @@ final class Set {
           return 0;
         }
       };
-      $max_elt = function(dynamic $param) use ($Not_found,$runtime) {
+      $max_elt = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -231,7 +232,7 @@ final class Set {
             if ($V_) {$param__0 = $V_;continue;}
             return $W_;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $max_elt_opt = function(dynamic $param) {
@@ -626,7 +627,7 @@ final class Set {
       $elements = function(dynamic $s) use ($elements_aux) {
         return $elements_aux->contents(0, $s);
       };
-      $find = function(dynamic $x, dynamic $param) use ($Not_found,$Ord,$call2,$runtime) {
+      $find = function(dynamic $x, dynamic $param) use ($Not_found,$Ord,$call2,$caml_wrap_thrown_exception) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -639,7 +640,7 @@ final class Set {
             $param__0 = $param__1;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $find_first_aux = function(dynamic $v0, dynamic $f, dynamic $param) use ($call1) {
@@ -657,7 +658,7 @@ final class Set {
           return $v0__0;
         }
       };
-      $find_first = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$find_first_aux,$runtime) {
+      $find_first = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$caml_wrap_thrown_exception,$find_first_aux) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -668,7 +669,7 @@ final class Set {
             $param__0 = $r;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $find_first_opt_aux = function(dynamic $v0, dynamic $f, dynamic $param) use ($call1) {
@@ -715,7 +716,7 @@ final class Set {
           return $v0__0;
         }
       };
-      $find_last = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$find_last_aux,$runtime) {
+      $find_last = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$caml_wrap_thrown_exception,$find_last_aux) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -726,7 +727,7 @@ final class Set {
             $param__0 = $l;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $find_last_opt_aux = function(dynamic $v0, dynamic $f, dynamic $param) use ($call1) {
@@ -809,9 +810,9 @@ final class Set {
         }
         return 0;
       };
-      $of_sorted_list = function(dynamic $l) use ($Assert_failure,$List,$c_,$call1,$create,$runtime,$unsigned_right_shift_32) {
+      $of_sorted_list = function(dynamic $l) use ($Assert_failure,$List,$c_,$call1,$caml_wrap_thrown_exception,$create,$unsigned_right_shift_32) {
         $sub = new Ref();
-        $sub->contents = function(dynamic $n, dynamic $l) use ($Assert_failure,$c_,$create,$runtime,$sub,$unsigned_right_shift_32) {
+        $sub->contents = function(dynamic $n, dynamic $l) use ($Assert_failure,$c_,$caml_wrap_thrown_exception,$create,$sub,$unsigned_right_shift_32) {
           if (! (3 < $unsigned_right_shift_32($n, 0))) {
             switch($n) {
               // FALLTHROUGH
@@ -880,7 +881,7 @@ final class Set {
             $right = $match__0[1];
             return Vector{0, $create($left, $mid, $right), $l__2};
           }
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c_}) as \Throwable;
+          throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $c_}) as \Throwable;
         };
         return $sub->contents($call1($List[1], $l), $l)[1];
       };
@@ -1030,4 +1031,4 @@ final class Set {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

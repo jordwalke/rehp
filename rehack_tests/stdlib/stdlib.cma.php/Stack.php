@@ -31,6 +31,7 @@ final class Stack {
     $runtime = $joo_global_object->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Stack_Empty = $runtime["caml_new_string"]("Stack.Empty");
     $List = $global_data["List_"];
@@ -43,7 +44,7 @@ final class Stack {
       $s[2] = (int) ($s[2] + 1);
       return 0;
     };
-    $pop = function(dynamic $s) use ($Empty,$runtime) {
+    $pop = function(dynamic $s) use ($Empty,$caml_wrap_thrown_exception) {
       $b_ = $s[1];
       if ($b_) {
         $tl = $b_[2];
@@ -52,12 +53,12 @@ final class Stack {
         $s[2] = (int) ($s[2] + -1);
         return $hd;
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
+      throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $top = function(dynamic $s) use ($Empty,$runtime) {
+    $top = function(dynamic $s) use ($Empty,$caml_wrap_thrown_exception) {
       $a_ = $s[1];
       if ($a_) {$hd = $a_[1];return $hd;}
-      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
+      throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $is_empty = function(dynamic $s) {return 0 === $s[1] ? 1 : (0);};
     $length = function(dynamic $s) {return $s[2];};
@@ -87,4 +88,4 @@ final class Stack {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

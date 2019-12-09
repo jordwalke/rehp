@@ -21,7 +21,9 @@ var caml_md5_string = runtime["caml_md5_string"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
 var string__0 = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -67,9 +69,9 @@ function file(filename) {
   var ic = call1(Pervasives[68], filename);
   try {var d = runtime["caml_md5_chan"](ic, -1);}
   catch(e) {
-    e = caml_wrap_exception(e);
+    e = runtime["caml_wrap_exception"](e);
     call1(Pervasives[81], ic);
-    throw runtime["caml_wrap_thrown_exception_reraise"](e);
+    throw caml_wrap_thrown_exception_reraise(e);
   }
   call1(Pervasives[81], ic);
   return d;
@@ -112,7 +114,7 @@ function from_hex(s) {
       var switcher = c + -48 | 0;
       if (! (9 < switcher >>> 0)) {return c - 48 | 0;}
     }
-    throw runtime["caml_wrap_thrown_exception"](
+    throw caml_wrap_thrown_exception(
             [0,Invalid_argument,cst_Digest_from_hex__0]
           );
   }
@@ -150,4 +152,4 @@ runtime["caml_register_global"](9, Digest, "Digest");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Digest;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

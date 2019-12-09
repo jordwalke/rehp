@@ -11,7 +11,8 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var global_data = runtime["caml_get_global_data"]();
 var cst_d = runtime["caml_new_string"]("%d");
 var zero = [255,0,0,0];
@@ -42,9 +43,9 @@ function to_string(n) {return runtime["caml_int64_format"](cst_d, n);}
 function of_string_opt(s) {
   try {var e_ = [0,runtime["caml_int64_of_string"](s)];return e_;}
   catch(f_) {
-    f_ = caml_wrap_exception(f_);
+    f_ = runtime["caml_wrap_exception"](f_);
     if (f_[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](f_);
+    throw caml_wrap_thrown_exception_reraise(f_);
   }
 }
 
@@ -73,4 +74,4 @@ runtime["caml_register_global"](11, Int64, "Int64");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Int64;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

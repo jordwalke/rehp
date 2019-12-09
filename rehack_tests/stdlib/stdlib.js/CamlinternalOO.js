@@ -26,7 +26,9 @@ var string = runtime["caml_new_string"];
 var caml_obj_block = runtime["caml_obj_block"];
 var caml_set_oo_id = runtime["caml_set_oo_id"];
 var caml_string_compare = runtime["caml_string_compare"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -165,14 +167,14 @@ function new_method(table) {
 function get_method_label(table, name) {
   try {var aq_ = call2(Meths[27], name, table[3]);return aq_;}
   catch(ar_) {
-    ar_ = caml_wrap_exception(ar_);
+    ar_ = runtime["caml_wrap_exception"](ar_);
     if (ar_ === Not_found) {
       var label = new_method(table);
       table[3] = call3(Meths[4], name, label, table[3]);
       table[4] = call3(Labs[4], label, 1, table[4]);
       return label;
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](ar_);
+    throw caml_wrap_thrown_exception_reraise(ar_);
   }
 }
 
@@ -191,11 +193,11 @@ function set_method(table, label, element) {
 function get_method(table, label) {
   try {var am_ = call2(List[38], label, table[6]);return am_;}
   catch(an_) {
-    an_ = caml_wrap_exception(an_);
+    an_ = runtime["caml_wrap_exception"](an_);
     if (an_ === Not_found) {
       return caml_check_bound(table[2], label)[label + 1];
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](an_);
+    throw caml_wrap_thrown_exception_reraise(an_);
   }
 }
 
@@ -227,10 +229,8 @@ function narrow(table, vars, virt_meths, concr_meths) {
     var af_ = by_label[1];
     try {var ai_ = call2(Labs[27], label, table[4]);var ah_ = ai_;}
     catch(aj_) {
-      aj_ = caml_wrap_exception(aj_);
-      if (aj_ !== Not_found) {
-        throw runtime["caml_wrap_thrown_exception_reraise"](aj_);
-      }
+      aj_ = runtime["caml_wrap_exception"](aj_);
+      if (aj_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(aj_);}
       var ag_ = 1;
       var ah_ = ag_;
     }
@@ -290,7 +290,7 @@ function new_slot(table) {
 function new_variable(table, name) {
   try {var P_ = call2(Vars[27], name, table[7]);return P_;}
   catch(Q_) {
-    Q_ = caml_wrap_exception(Q_);
+    Q_ = runtime["caml_wrap_exception"](Q_);
     if (Q_ === Not_found) {
       var index = new_slot(table);
       if (runtime["caml_string_notequal"](name, cst)) {
@@ -298,7 +298,7 @@ function new_variable(table, name) {
       }
       return index;
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](Q_);
+    throw caml_wrap_thrown_exception_reraise(Q_);
   }
 }
 
@@ -343,11 +343,11 @@ function new_methods_variables(table, meths, vals) {
 function get_variable(table, name) {
   try {var E_ = call2(Vars[27], name, table[7]);return E_;}
   catch(F_) {
-    F_ = caml_wrap_exception(F_);
+    F_ = runtime["caml_wrap_exception"](F_);
     if (F_ === Not_found) {
-      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
+      throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](F_);
+    throw caml_wrap_thrown_exception_reraise(F_);
   }
 }
 
@@ -416,8 +416,7 @@ function make_class_store(pub_meths, class_init, init_table) {
 
 function dummy_class(loc) {
   function undef(param) {
-    throw runtime["caml_wrap_thrown_exception"]([0,Undefined_recursive_module,loc]
-          );
+    throw caml_wrap_thrown_exception([0,Undefined_recursive_module,loc]);
   }
   return [0,undef,undef,undef,0];
 }
@@ -471,27 +470,27 @@ function create_object_and_run_initializers(obj_0, table) {
 
 function set_data(tables, v) {
   if (tables) {tables[2] = v;return 0;}
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,b_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,b_]);
 }
 
 function set_next(tables, v) {
   if (tables) {tables[3] = v;return 0;}
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,c_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,c_]);
 }
 
 function get_key(param) {
   if (param) {return param[1];}
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,d_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,d_]);
 }
 
 function get_data(param) {
   if (param) {return param[2];}
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,e_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,e_]);
 }
 
 function get_next(param) {
   if (param) {return param[3];}
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,f_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,f_]);
 }
 
 function build_path(n, keys, tables) {
@@ -523,7 +522,7 @@ function lookup_keys(i, keys, tables) {
           if (tables_data) {
             return lookup_keys(i + -1 | 0, keys, tables_data);
           }
-          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,g_]);
+          throw caml_wrap_thrown_exception([0,Assert_failure,g_]);
         }
         var next = get_next(tables__0);
         if (next) {var tables__0 = next;continue;}
@@ -830,4 +829,4 @@ runtime["caml_register_global"](18, CamlinternalOO, "CamlinternalOO");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalOO;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

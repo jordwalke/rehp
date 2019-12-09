@@ -38,7 +38,10 @@ final class Parsing {
     $caml_fresh_oo_id = $runtime["caml_fresh_oo_id"];
     $caml_make_vect = $runtime["caml_make_vect"];
     $string = $runtime["caml_new_string"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_syntax_error = $string("syntax error");
     $cst_Parsing_YYexit = $string("Parsing.YYexit");
@@ -92,8 +95,8 @@ final class Parsing {
     };
     $current_lookahead_fun = Vector{0, function(dynamic $param) {return 0;}};
     $yyparse = function
-    (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) use ($Obj,$Parse_error,$YYexit,$call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$current_lookahead_fun,$env,$grow_stacks,$runtime) {
-      $loop = function(dynamic $cmd, dynamic $arg) use ($Parse_error,$call1,$caml_check_bound,$caml_wrap_exception,$cst_syntax_error,$env,$grow_stacks,$lexbuf,$lexer,$runtime,$tables) {
+    (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) use ($Obj,$Parse_error,$YYexit,$call1,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst_syntax_error,$current_lookahead_fun,$env,$grow_stacks,$runtime) {
+      $loop = function(dynamic $cmd, dynamic $arg) use ($Parse_error,$call1,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst_syntax_error,$env,$grow_stacks,$lexbuf,$lexer,$runtime,$tables) {
         $cmd__0 = $cmd;
         $arg__0 = $arg;
         for (;;) {
@@ -115,7 +118,7 @@ final class Parsing {
               $continue_label = "#";break;
             // FALLTHROUGH
             case 1:
-              throw $runtime["caml_wrap_thrown_exception"]($Parse_error) as \Throwable;
+              throw $caml_wrap_thrown_exception($Parse_error) as \Throwable;
             // FALLTHROUGH
             case 2:
               $grow_stacks(0);
@@ -139,9 +142,9 @@ final class Parsing {
                 $arg__2 = $n_;
               }
               catch(\Throwable $p_) {
-                $p_ = $caml_wrap_exception($p_);
+                $p_ = $runtime["caml_wrap_exception"]($p_);
                 if ($p_ !== $Parse_error) {
-                  throw $runtime["caml_wrap_thrown_exception_reraise"]($p_) as \Throwable;
+                  throw $caml_wrap_thrown_exception_reraise($p_) as \Throwable;
                 }
                 $k_ = 0;
                 $l_ = 5;
@@ -173,7 +176,7 @@ final class Parsing {
       $env[10] = $lexbuf[12];
       try {$i_ = $loop(0, 0);return $i_;}
       catch(\Throwable $exn) {
-        $exn = $caml_wrap_exception($exn);
+        $exn = $runtime["caml_wrap_exception"]($exn);
         $curr_char = $env[7];
         $env[11] = $init_asp;
         $env[14] = $init_sp;
@@ -195,7 +198,7 @@ final class Parsing {
               ? 1
               : (0);
           };
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
       }
     };
     $peek_val = function(dynamic $env, dynamic $n) use ($caml_check_bound) {
@@ -277,4 +280,4 @@ final class Parsing {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

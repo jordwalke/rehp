@@ -46,6 +46,7 @@ final class Buffer {
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $string = $runtime["caml_new_string"];
     $caml_string_get = $runtime["caml_string_get"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Buffer_truncate = $string("Buffer.truncate");
@@ -159,14 +160,16 @@ final class Buffer {
       $b[2] = (int) ($pos + 1);
       return 0;
     };
-    $add_utf_8_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$a_,$add_char,$b_,$call1,$caml_bytes_unsafe_set,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_8_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$a_,$add_char,$b_,$call1,$caml_bytes_unsafe_set,$caml_wrap_thrown_exception,$resize,$unsigned_right_shift_32) {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (127 < $u__0) {
           if (2047 < $u__0) {
             if (65535 < $u__0) {
               if (1114111 < $u__0) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
+                throw $caml_wrap_thrown_exception(
+                        Vector{0, $Assert_failure, $a_}
+                      ) as \Throwable;
               }
               $pos = $b[2];
               if ($b[3] < (int) ($pos + 4)) {$resize($b, 4);}
@@ -227,14 +230,14 @@ final class Buffer {
         }
         return $add_char($b, $u__0);
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $b_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
     };
-    $add_utf_16be_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$c_,$call1,$caml_bytes_unsafe_set,$d_,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_16be_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$c_,$call1,$caml_bytes_unsafe_set,$caml_wrap_thrown_exception,$d_,$resize,$unsigned_right_shift_32) {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c_}) as \Throwable;
+            throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $c_}) as \Throwable;
           }
           $u__1 = (int) ($u__0 + -65536);
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
@@ -271,14 +274,14 @@ final class Buffer {
         $b[2] = (int) ($pos__0 + 2);
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $d_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
     };
-    $add_utf_16le_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$call1,$caml_bytes_unsafe_set,$e_,$f_,$resize,$runtime,$unsigned_right_shift_32) {
+    $add_utf_16le_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$call1,$caml_bytes_unsafe_set,$caml_wrap_thrown_exception,$e_,$f_,$resize,$unsigned_right_shift_32) {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $e_}) as \Throwable;
+            throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $e_}) as \Throwable;
           }
           $u__1 = (int) ($u__0 + -65536);
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
@@ -317,7 +320,7 @@ final class Buffer {
         $b[2] = (int) ($pos__0 + 2);
         return 0;
       }
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $f_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
     };
     $add_substring = function
     (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) use ($Bytes,$Pervasives,$call1,$call5,$caml_ml_string_length,$cst_Buffer_add_substring_add_subbytes,$resize) {
@@ -358,7 +361,7 @@ final class Buffer {
     $add_buffer = function(dynamic $b, dynamic $bs) use ($add_subbytes) {
       return $add_subbytes($b, $bs[1], 0, $bs[2]);
     };
-    $add_channel_rec = function(dynamic $b, dynamic $ic, dynamic $len) use ($End_of_file,$Pervasives,$call4,$runtime) {
+    $add_channel_rec = function(dynamic $b, dynamic $ic, dynamic $len) use ($End_of_file,$Pervasives,$call4,$caml_wrap_thrown_exception) {
       $len__0 = $len;
       for (;;) {
         $k_ = 0 < $len__0 ? 1 : (0);
@@ -366,7 +369,7 @@ final class Buffer {
           $n = $call4($Pervasives[72], $ic, $b[1], $b[2], $len__0);
           $b[2] = (int) ($b[2] + $n);
           if (0 === $n) {
-            throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+            throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
           $len__1 = (int) ($len__0 - $n);
           $len__0 = $len__1;
@@ -385,19 +388,19 @@ final class Buffer {
     $output_buffer = function(dynamic $oc, dynamic $b) use ($Pervasives,$call4) {
       return $call4($Pervasives[56], $oc, $b[1], 0, $b[2]);
     };
-    $closing = function(dynamic $param) use ($Assert_failure,$g_,$runtime) {
+    $closing = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$g_) {
       if (40 === $param) {return 41;}
       if (123 === $param) {return 125;}
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $g_}) as \Throwable;
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $g_}) as \Throwable;
     };
     $advance_to_closing = function
-    (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) use ($Not_found,$caml_ml_string_length,$caml_string_get,$runtime) {
-      $advance = function(dynamic $k, dynamic $i, dynamic $lim) use ($Not_found,$caml_string_get,$closing,$opening,$runtime,$s) {
+    (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) use ($Not_found,$caml_ml_string_length,$caml_string_get,$caml_wrap_thrown_exception) {
+      $advance = function(dynamic $k, dynamic $i, dynamic $lim) use ($Not_found,$caml_string_get,$caml_wrap_thrown_exception,$closing,$opening,$s) {
         $k__0 = $k;
         $i__0 = $i;
         for (;;) {
           if ($lim <= $i__0) {
-            throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+            throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
           }
           if ($caml_string_get($s, $i__0) === $opening) {
             $i__1 = (int) ($i__0 + 1);
@@ -440,9 +443,9 @@ final class Buffer {
       };
       return $advance($start, $caml_ml_string_length($s));
     };
-    $find_ident = function(dynamic $s, dynamic $start, dynamic $lim) use ($Not_found,$String,$advance_to_closing,$advance_to_non_alpha,$call3,$caml_string_get,$closing,$runtime) {
+    $find_ident = function(dynamic $s, dynamic $start, dynamic $lim) use ($Not_found,$String,$advance_to_closing,$advance_to_non_alpha,$call3,$caml_string_get,$caml_wrap_thrown_exception,$closing) {
       if ($lim <= $start) {
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
       $c = $caml_string_get($s, $start);
       if (40 !== $c) {
@@ -551,4 +554,4 @@ final class Buffer {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

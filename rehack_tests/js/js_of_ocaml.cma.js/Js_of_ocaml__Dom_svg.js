@@ -14,6 +14,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -302,9 +303,9 @@ var document = function(t4, param) {return t4.document;}(d_, c_);
 function getElementById(id) {
   function i_(e) {
     if (e instanceof svg_element) {return e;}
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
-  function j_(param) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
+  function j_(param) {throw caml_wrap_thrown_exception(Not_found);}
   function k_(x) {
     return call1(caml_get_public_method(x, -332188296, 291), x);
   }
@@ -572,4 +573,4 @@ runtime["caml_register_global"](
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Dom_svg;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

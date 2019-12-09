@@ -17,7 +17,9 @@ var caml_check_bound = runtime["caml_check_bound"];
 var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
 var caml_make_vect = runtime["caml_make_vect"];
 var string = runtime["caml_new_string"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -106,7 +108,7 @@ function yyparse(tables, start, lexer, lexbuf) {
           var arg__0 = arg__1;
           continue;
         case 1:
-          throw runtime["caml_wrap_thrown_exception"](Parse_error);
+          throw caml_wrap_thrown_exception(Parse_error);
         case 2:
           grow_stacks(0);
           var cmd__0 = 2;
@@ -126,9 +128,9 @@ function yyparse(tables, start, lexer, lexbuf) {
             var arg__2 = n_;
           }
           catch(p_) {
-            p_ = caml_wrap_exception(p_);
+            p_ = runtime["caml_wrap_exception"](p_);
             if (p_ !== Parse_error) {
-              throw runtime["caml_wrap_thrown_exception_reraise"](p_);
+              throw caml_wrap_thrown_exception_reraise(p_);
             }
             var k_ = 0;
             var l_ = 5;
@@ -158,7 +160,7 @@ function yyparse(tables, start, lexer, lexbuf) {
   env[10] = lexbuf[12];
   try {var i_ = loop(0, 0);return i_;}
   catch(exn) {
-    exn = caml_wrap_exception(exn);
+    exn = runtime["caml_wrap_exception"](exn);
     var curr_char = env[7];
     env[11] = init_asp;
     env[14] = init_sp;
@@ -176,7 +178,7 @@ function yyparse(tables, start, lexer, lexbuf) {
         }
         return caml_check_bound(tables[2], tok)[tok + 1] === curr_char ? 1 : 0;
       };
-    throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+    throw caml_wrap_thrown_exception_reraise(exn);
   }
 }
 
@@ -259,4 +261,4 @@ runtime["caml_register_global"](7, Parsing, "Parsing");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Parsing;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

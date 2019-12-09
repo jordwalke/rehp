@@ -19,6 +19,7 @@ var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
 var string = runtime["caml_new_string"];
 var caml_string_notequal = runtime["caml_string_notequal"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -397,7 +398,7 @@ function get_form_contents(form) {
         return [0,j_,caml_js_to_string(s)];
       }
     }
-    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,f_]);
+    throw caml_wrap_thrown_exception([0,Assert_failure,f_]);
   }
   return call2(List[17], h_, g_);
 }
@@ -417,4 +418,4 @@ runtime["caml_register_global"](48, Js_of_ocaml_Form, "Js_of_ocaml__Form");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Form;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

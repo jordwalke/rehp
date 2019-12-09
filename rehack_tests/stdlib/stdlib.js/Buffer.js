@@ -24,6 +24,7 @@ var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
 var string = runtime["caml_new_string"];
 var caml_string_get = runtime["caml_string_get"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -171,7 +172,7 @@ function add_utf_8_uchar(b, u) {
       if (2047 < u__0) {
         if (65535 < u__0) {
           if (1114111 < u__0) {
-            throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
+            throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
           }
           var pos = b[2];
           if (b[3] < (pos + 4 | 0)) {resize(b, 4);}
@@ -208,7 +209,7 @@ function add_utf_8_uchar(b, u) {
     }
     return add_char(b, u__0);
   }
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,b_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,b_]);
 }
 
 function add_utf_16be_uchar(b, u) {
@@ -216,7 +217,7 @@ function add_utf_16be_uchar(b, u) {
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
-        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,c_]);
+        throw caml_wrap_thrown_exception([0,Assert_failure,c_]);
       }
       var u__1 = u__0 + -65536 | 0;
       var hi = 55296 | u__1 >>> 10 | 0;
@@ -237,7 +238,7 @@ function add_utf_16be_uchar(b, u) {
     b[2] = pos__0 + 2 | 0;
     return 0;
   }
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,d_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,d_]);
 }
 
 function add_utf_16le_uchar(b, u) {
@@ -245,7 +246,7 @@ function add_utf_16le_uchar(b, u) {
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
-        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,e_]);
+        throw caml_wrap_thrown_exception([0,Assert_failure,e_]);
       }
       var u__1 = u__0 + -65536 | 0;
       var hi = 55296 | u__1 >>> 10 | 0;
@@ -266,7 +267,7 @@ function add_utf_16le_uchar(b, u) {
     b[2] = pos__0 + 2 | 0;
     return 0;
   }
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,f_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,f_]);
 }
 
 function add_substring(b, s, offset, len) {
@@ -308,7 +309,7 @@ function add_channel_rec(b, ic, len) {
     if (k_) {
       var n = call4(Pervasives[72], ic, b[1], b[2], len__0);
       b[2] = b[2] + n | 0;
-      if (0 === n) {throw runtime["caml_wrap_thrown_exception"](End_of_file);}
+      if (0 === n) {throw caml_wrap_thrown_exception(End_of_file);}
       var len__1 = len__0 - n | 0;
       var len__0 = len__1;
       continue;
@@ -332,7 +333,7 @@ function output_buffer(oc, b) {
 function closing(param) {
   if (40 === param) {return 41;}
   if (123 === param) {return 125;}
-  throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,g_]);
+  throw caml_wrap_thrown_exception([0,Assert_failure,g_]);
 }
 
 function advance_to_closing(opening, closing, k, s, start) {
@@ -340,9 +341,7 @@ function advance_to_closing(opening, closing, k, s, start) {
     var k__0 = k;
     var i__0 = i;
     for (; ; ) {
-      if (lim <= i__0) {
-        throw runtime["caml_wrap_thrown_exception"](Not_found);
-      }
+      if (lim <= i__0) {throw caml_wrap_thrown_exception(Not_found);}
       if (caml_string_get(s, i__0) === opening) {
         var i__1 = i__0 + 1 | 0;
         var k__1 = k__0 + 1 | 0;
@@ -383,7 +382,7 @@ function advance_to_non_alpha(s, start) {
 }
 
 function find_ident(s, start, lim) {
-  if (lim <= start) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
+  if (lim <= start) {throw caml_wrap_thrown_exception(Not_found);}
   var c = caml_string_get(s, start);
   if (40 !== c) {
     if (123 !== c) {
@@ -487,4 +486,4 @@ runtime["caml_register_global"](22, Buffer, "Buffer");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Buffer;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

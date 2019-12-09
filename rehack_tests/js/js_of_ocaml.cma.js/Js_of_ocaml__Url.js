@@ -27,7 +27,9 @@ var caml_js_wrap_meth_callback = runtime["caml_js_wrap_meth_callback"];
 var caml_jsbytes_of_string = runtime["caml_jsbytes_of_string"];
 var string = runtime["caml_new_string"];
 var caml_string_notequal = runtime["caml_string_notequal"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -180,9 +182,7 @@ function split_2(c, s) {
 
 var Local_exn = [248,cst_Js_of_ocaml_Url_Local_exn,caml_fresh_oo_id(0)];
 
-function interrupt(param) {
-  throw runtime["caml_wrap_thrown_exception"](Local_exn);
-}
+function interrupt(param) {throw caml_wrap_thrown_exception(Local_exn);}
 
 var plus_re = call1(Js_of_ocaml_Regexp[5], cst);
 
@@ -274,7 +274,7 @@ function is_secure(prot_string) {
       if (! switch__0) {return 0;}
     }
   }
-  throw runtime["caml_wrap_thrown_exception"](Not_an_http_protocol);
+  throw caml_wrap_thrown_exception(Not_an_http_protocol);
 }
 
 var default_http_port = 80;
@@ -285,10 +285,8 @@ function path_of_path_string(s) {
   function aux(i) {
     try {var b7_ = call3(String[18], s, i, 47);var j = b7_;}
     catch(b8_) {
-      b8_ = caml_wrap_exception(b8_);
-      if (b8_ !== Not_found) {
-        throw runtime["caml_wrap_thrown_exception_reraise"](b8_);
-      }
+      b8_ = runtime["caml_wrap_exception"](b8_);
+      if (b8_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(b8_);}
       var j = l;
     }
     var word = call3(String[4], s, i, j - i | 0);
@@ -349,13 +347,13 @@ function decode_arguments_js_string(s) {
           return bW_;
         }
         catch(bX_) {
-          bX_ = caml_wrap_exception(bX_);
+          bX_ = runtime["caml_wrap_exception"](bX_);
           if (bX_ === Local_exn) {
             var idx__1 = idx__0 + -1 | 0;
             var idx__0 = idx__1;
             continue;
           }
-          throw runtime["caml_wrap_thrown_exception_reraise"](bX_);
+          throw caml_wrap_thrown_exception_reraise(bX_);
         }
       }
       return acc;
@@ -706,9 +704,9 @@ var port = function(param) {
     return ae_;
   }
   catch(af_) {
-    af_ = caml_wrap_exception(af_);
+    af_ = runtime["caml_wrap_exception"](af_);
     if (af_[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](af_);
+    throw caml_wrap_thrown_exception_reraise(af_);
   }
 }(u_
 );
@@ -827,4 +825,4 @@ runtime["caml_register_global"](110, Js_of_ocaml_Url, "Js_of_ocaml__Url");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Url;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

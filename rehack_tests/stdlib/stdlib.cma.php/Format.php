@@ -41,7 +41,10 @@ final class Format {
     $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $string = $runtime["caml_new_string"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $is_int = $runtime["is_int"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst__4 = $string(".");
@@ -74,12 +77,12 @@ final class Format {
       $cst_Format_Empty_queue,
       $runtime["caml_fresh_oo_id"](0)
     };
-    $peek_queue = function(dynamic $param) use ($Empty_queue,$runtime) {
+    $peek_queue = function(dynamic $param) use ($Empty_queue,$caml_wrap_thrown_exception) {
       $cw_ = $param[2];
       if ($cw_) {$x = $cw_[1];return $x;}
-      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue) as \Throwable;
+      throw $caml_wrap_thrown_exception($Empty_queue) as \Throwable;
     };
-    $take_queue = function(dynamic $q) use ($Empty_queue,$runtime) {
+    $take_queue = function(dynamic $q) use ($Empty_queue,$caml_wrap_thrown_exception) {
       $cv_ = $q[2];
       if ($cv_) {
         $x = $cv_[1];
@@ -88,7 +91,7 @@ final class Format {
         if (0 === $tl) {$q[1] = 0;}
         return $x;
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Empty_queue) as \Throwable;
+      throw $caml_wrap_thrown_exception($Empty_queue) as \Throwable;
     };
     $pp_enqueue = function(dynamic $state, dynamic $token) use ($add_queue) {
       $len = $token[3];
@@ -156,7 +159,7 @@ final class Format {
       $state[9] = (int) ($state[9] + $size);
       return 0;
     };
-    $format_pp_token = function(dynamic $state, dynamic $size, dynamic $param) use ($Not_found,$add_tab,$break_line,$break_new_line,$break_same_line,$call1,$caml_wrap_exception,$is_int,$pp_force_break_line,$pp_output_newline,$pp_output_string,$pp_skip_token,$runtime) {
+    $format_pp_token = function(dynamic $state, dynamic $size, dynamic $param) use ($Not_found,$add_tab,$break_line,$break_new_line,$break_same_line,$call1,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$is_int,$pp_force_break_line,$pp_output_newline,$pp_output_string,$pp_skip_token,$runtime) {
       if ($is_int($param)) {
         switch($param) {
           // FALLTHROUGH
@@ -275,7 +278,7 @@ final class Format {
             if ($co_) {
               $match__2 = $co_[1];
               $tabs__0 = $match__2[1];
-              $find = function(dynamic $n, dynamic $param) use ($Not_found,$runtime) {
+              $find = function(dynamic $n, dynamic $param) use ($Not_found,$caml_wrap_thrown_exception,$runtime) {
                 $param__0 = $param;
                 for (;;) {
                   if ($param__0) {
@@ -285,7 +288,7 @@ final class Format {
                     $param__0 = $l;
                     continue;
                   }
-                  throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+                  throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
                 }
               };
               $cp_ = $tabs__0[1];
@@ -294,9 +297,9 @@ final class Format {
                 try {$cq_ = $find($insertion_point, $tabs__0[1]);$x__0 = $cq_;
                 }
                 catch(\Throwable $cr_) {
-                  $cr_ = $caml_wrap_exception($cr_);
+                  $cr_ = $runtime["caml_wrap_exception"]($cr_);
                   if ($cr_ !== $Not_found) {
-                    throw $runtime["caml_wrap_thrown_exception_reraise"]($cr_) as \Throwable;
+                    throw $caml_wrap_thrown_exception_reraise($cr_) as \Throwable;
                   }
                   $x__0 = $x;
                 }
@@ -355,12 +358,12 @@ final class Format {
         return $cg_;
       }
     };
-    $advance_left = function(dynamic $state) use ($Empty_queue,$advance_loop,$caml_wrap_exception,$runtime) {
+    $advance_left = function(dynamic $state) use ($Empty_queue,$advance_loop,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$cc_ = $advance_loop($state);return $cc_;}
       catch(\Throwable $cd_) {
-        $cd_ = $caml_wrap_exception($cd_);
+        $cd_ = $runtime["caml_wrap_exception"]($cd_);
         if ($cd_ === $Empty_queue) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($cd_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($cd_) as \Throwable;
       }
     };
     $enqueue_advance = function(dynamic $state, dynamic $tok) use ($advance_left,$pp_enqueue) {
@@ -1868,4 +1871,4 @@ final class Format {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

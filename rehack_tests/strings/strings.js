@@ -17,7 +17,8 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_int_of_string = runtime["caml_int_of_string"];
 var string = runtime["caml_new_string"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -113,10 +114,8 @@ var unicodeLength = 2;
 
 try {var D_ = call2(String[14], cst_asdf, 95);var index__0 = D_;}
 catch(G_) {
-  G_ = caml_wrap_exception(G_);
-  if (G_ !== Not_found) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](G_);
-  }
+  G_ = runtime["caml_wrap_exception"](G_);
+  if (G_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(G_);}
   var h_ = -1;
   var index__0 = h_;
 }
@@ -168,10 +167,8 @@ myFunction(cst_tmp);
 
 try {var C_ = createIntFromString(cst_WHEREAMI);var m_ = C_;}
 catch(F_) {
-  F_ = caml_wrap_exception(F_);
-  if (F_[1] !== Failure) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](F_);
-  }
+  F_ = runtime["caml_wrap_exception"](F_);
+  if (F_[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(F_);}
   var l_ = 102;
   var m_ = l_;
 }
@@ -184,10 +181,8 @@ else call1(Pervasives[2], cst_Did_not_properly_catch_Failure_exception);
 
 try {var B_ = createIntFromString(cst_20);var o_ = B_;}
 catch(E_) {
-  E_ = caml_wrap_exception(E_);
-  if (E_[1] !== Failure) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](E_);
-  }
+  E_ = runtime["caml_wrap_exception"](E_);
+  if (E_[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(E_);}
   var n_ = 102;
   var o_ = n_;
 }
@@ -259,4 +254,4 @@ runtime["caml_register_global"](39, Strings, "Strings");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Strings;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

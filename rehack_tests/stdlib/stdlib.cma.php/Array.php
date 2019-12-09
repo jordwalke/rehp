@@ -36,7 +36,10 @@ final class Array_ {
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_make_vect = $runtime["caml_make_vect"];
     $string = $runtime["caml_new_string"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Array_map2_arrays_must_have_the_same_length = $string(
       "Array.map2: arrays must have the same length"
@@ -401,8 +404,8 @@ final class Array_ {
       return $loop(0);
     };
     $Bottom = Vector{248, $cst_Array_Bottom, $runtime["caml_fresh_oo_id"](0)};
-    $sort = function(dynamic $cmp, dynamic $a) use ($Assert_failure,$Bottom,$a_,$call2,$caml_check_bound,$caml_wrap_exception,$runtime) {
-      $maxson = function(dynamic $l, dynamic $i) use ($Bottom,$a,$call2,$caml_check_bound,$cmp,$runtime) {
+    $sort = function(dynamic $cmp, dynamic $a) use ($Assert_failure,$Bottom,$a_,$call2,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$runtime) {
+      $maxson = function(dynamic $l, dynamic $i) use ($Bottom,$a,$call2,$caml_check_bound,$caml_wrap_thrown_exception,$cmp) {
         $i31 = (int) ((int) ((int) ($i + $i) + $i) + 1);
         $x = Vector{0, $i31};
         if ((int) ($i31 + 2) < $l) {
@@ -424,7 +427,7 @@ final class Array_ {
           ) {return (int) ($i31 + 1);}
         }
         if ($i31 < $l) {return $i31;}
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Bottom, $i}) as \Throwable;
+        throw $caml_wrap_thrown_exception(Vector{0, $Bottom, $i}) as \Throwable;
       };
       $trickledown = function(dynamic $l, dynamic $i, dynamic $e) use ($a,$call2,$caml_check_bound,$cmp,$maxson) {
         $i__0 = $i;
@@ -440,16 +443,16 @@ final class Array_ {
           return 0;
         }
       };
-      $trickle = function(dynamic $l, dynamic $i, dynamic $e) use ($Bottom,$a,$caml_check_bound,$caml_wrap_exception,$runtime,$trickledown) {
+      $trickle = function(dynamic $l, dynamic $i, dynamic $e) use ($Bottom,$a,$caml_check_bound,$caml_wrap_thrown_exception_reraise,$runtime,$trickledown) {
         try {$v_ = $trickledown($l, $i, $e);return $v_;}
         catch(\Throwable $exn) {
-          $exn = $caml_wrap_exception($exn);
+          $exn = $runtime["caml_wrap_exception"]($exn);
           if ($exn[1] === $Bottom) {
             $i__0 = $exn[2];
             $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
             return 0;
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
         }
       };
       $bubbledown = function(dynamic $l, dynamic $i) use ($a,$caml_check_bound,$maxson) {
@@ -462,15 +465,15 @@ final class Array_ {
           continue;
         }
       };
-      $bubble = function(dynamic $l, dynamic $i) use ($Bottom,$bubbledown,$caml_wrap_exception,$runtime) {
+      $bubble = function(dynamic $l, dynamic $i) use ($Bottom,$bubbledown,$caml_wrap_thrown_exception_reraise,$runtime) {
         try {$t_ = $bubbledown($l, $i);return $t_;}
         catch(\Throwable $exn) {
-          $exn = $caml_wrap_exception($exn);
+          $exn = $runtime["caml_wrap_exception"]($exn);
           if ($exn[1] === $Bottom) {$i__0 = $exn[2];return $i__0;}
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
         }
       };
-      $trickleup = function(dynamic $i, dynamic $e) use ($Assert_failure,$a,$a_,$call2,$caml_check_bound,$cmp,$runtime) {
+      $trickleup = function(dynamic $i, dynamic $e) use ($Assert_failure,$a,$a_,$call2,$caml_check_bound,$caml_wrap_thrown_exception,$cmp) {
         $i__0 = $i;
         for (;;) {
           $father = (int) ((int) ($i__0 + -1) / 3);
@@ -485,7 +488,7 @@ final class Array_ {
             $caml_check_bound($a, 0)[1] = $e;
             return 0;
           }
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
+          throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $a_}) as \Throwable;
         }
       };
       $l = $a->count() - 1;
@@ -697,4 +700,4 @@ final class Array_ {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

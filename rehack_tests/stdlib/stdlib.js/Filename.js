@@ -27,7 +27,8 @@ var caml_string_notequal = runtime["caml_string_notequal"];
 var caml_sys_getenv = runtime["caml_sys_getenv"];
 var caml_trampoline = runtime["caml_trampoline"];
 var caml_trampoline_return = runtime["caml_trampoline_return"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -236,10 +237,8 @@ function check_suffix(name, suff) {
 
 try {var n_ = caml_sys_getenv(cst_TMPDIR);var temp_dir_name = n_;}
 catch(af_) {
-  af_ = caml_wrap_exception(af_);
-  if (af_ !== Not_found) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](af_);
-  }
+  af_ = runtime["caml_wrap_exception"](af_);
+  if (af_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(af_);}
   var temp_dir_name = cst_tmp;
 }
 
@@ -326,10 +325,8 @@ function check_suffix__0(name, suff) {
 
 try {var m_ = caml_sys_getenv(cst_TEMP);var temp_dir_name__0 = m_;}
 catch(G_) {
-  G_ = caml_wrap_exception(G_);
-  if (G_ !== Not_found) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](G_);
-  }
+  G_ = runtime["caml_wrap_exception"](G_);
+  if (G_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(G_);}
   var temp_dir_name__0 = cst__8;
 }
 
@@ -636,16 +633,16 @@ function temp_file(opt, prefix, suffix) {
         return name;
       }
       catch(e) {
-        e = caml_wrap_exception(e);
+        e = runtime["caml_wrap_exception"](e);
         if (e[1] === Sys_error) {
           if (1e3 <= counter__0) {
-            throw runtime["caml_wrap_thrown_exception_reraise"](e);
+            throw caml_wrap_thrown_exception_reraise(e);
           }
           var counter__1 = counter__0 + 1 | 0;
           var counter__0 = counter__1;
           continue;
         }
-        throw runtime["caml_wrap_thrown_exception_reraise"](e);
+        throw caml_wrap_thrown_exception_reraise(e);
       }
     }
   }
@@ -681,16 +678,16 @@ function open_temp_file(opt, p_, o_, prefix, suffix) {
         return q_;
       }
       catch(e) {
-        e = caml_wrap_exception(e);
+        e = runtime["caml_wrap_exception"](e);
         if (e[1] === Sys_error) {
           if (1e3 <= counter__0) {
-            throw runtime["caml_wrap_thrown_exception_reraise"](e);
+            throw caml_wrap_thrown_exception_reraise(e);
           }
           var counter__1 = counter__0 + 1 | 0;
           var counter__0 = counter__1;
           continue;
         }
-        throw runtime["caml_wrap_thrown_exception_reraise"](e);
+        throw caml_wrap_thrown_exception_reraise(e);
       }
     }
   }
@@ -724,4 +721,4 @@ runtime["caml_register_global"](40, Filename, "Filename");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Filename;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

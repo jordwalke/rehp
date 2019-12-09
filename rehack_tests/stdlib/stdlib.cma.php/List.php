@@ -48,6 +48,7 @@ final class List_ {
     $call3 = $runtime["caml_call3"];
     $caml_compare = $runtime["caml_compare"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $right_shift_32 = $runtime["right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_List_map2 = $string("List.map2");
@@ -480,7 +481,7 @@ final class List_ {
         return 0;
       }
     };
-    $assoc = function(dynamic $x, dynamic $param) use ($Not_found,$caml_compare,$runtime) {
+    $assoc = function(dynamic $x, dynamic $param) use ($Not_found,$caml_compare,$caml_wrap_thrown_exception) {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -492,7 +493,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
     $assoc_opt = function(dynamic $x, dynamic $param) use ($caml_compare) {
@@ -510,7 +511,7 @@ final class List_ {
         return 0;
       }
     };
-    $assq = function(dynamic $x, dynamic $param) use ($Not_found,$runtime) {
+    $assq = function(dynamic $x, dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -522,7 +523,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
     $assq_opt = function(dynamic $x, dynamic $param) {
@@ -592,7 +593,7 @@ final class List_ {
       }
       return 0;
     };
-    $find = function(dynamic $p, dynamic $param) use ($Not_found,$call1,$runtime) {
+    $find = function(dynamic $p, dynamic $param) use ($Not_found,$call1,$caml_wrap_thrown_exception) {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -602,7 +603,7 @@ final class List_ {
           $param__0 = $l;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
     $find_opt = function(dynamic $p, dynamic $param) use ($call1) {
@@ -712,7 +713,7 @@ final class List_ {
       }
       return $match;
     };
-    $chop = function(dynamic $k, dynamic $l) use ($Assert_failure,$d_,$runtime) {
+    $chop = function(dynamic $k, dynamic $l) use ($Assert_failure,$caml_wrap_thrown_exception,$d_) {
       $k__0 = $k;
       $l__0 = $l;
       for (;;) {
@@ -724,7 +725,7 @@ final class List_ {
           $l__0 = $l__1;
           continue;
         }
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $d_}) as \Throwable;
+        throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
       }
     };
     $stable_sort = function(dynamic $cmp, dynamic $l) use ($call2,$chop,$length,$rev_append,$right_shift_32) {
@@ -1214,4 +1215,4 @@ final class List_ {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

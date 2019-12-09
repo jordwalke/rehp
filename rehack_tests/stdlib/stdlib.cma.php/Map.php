@@ -35,6 +35,7 @@ final class Map {
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Map_remove_min_elt = $string("Map.remove_min_elt");
     $cst_Map_bal = $string("Map.bal");
@@ -47,7 +48,7 @@ final class Map {
     $a_ = Vector{0, 0, 0, 0};
     $b_ = Vector{0, $string("map.ml"), 393, 10};
     $c_ = Vector{0, 0, 0};
-    $Make = function(dynamic $Ord) use ($Assert_failure,$Not_found,$Pervasives,$a_,$b_,$c_,$call1,$call2,$call3,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$cst_Map_remove_min_elt,$runtime) {
+    $Make = function(dynamic $Ord) use ($Assert_failure,$Not_found,$Pervasives,$a_,$b_,$c_,$call1,$call2,$call3,$caml_wrap_thrown_exception,$cst_Map_bal,$cst_Map_bal__0,$cst_Map_bal__1,$cst_Map_bal__2,$cst_Map_remove_min_elt) {
       $add = new Ref();
       $add_max_binding = new Ref();
       $add_min_binding = new Ref();
@@ -161,7 +162,7 @@ final class Map {
         }
         return Vector{0, 0, $x, $data, 0, 1};
       };
-      $find = function(dynamic $x, dynamic $param) use ($Not_found,$Ord,$call2,$runtime) {
+      $find = function(dynamic $x, dynamic $param) use ($Not_found,$Ord,$call2,$caml_wrap_thrown_exception) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -175,7 +176,7 @@ final class Map {
             $param__0 = $param__1;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $find_first_aux = function
@@ -201,7 +202,7 @@ final class Map {
           return Vector{0, $v0__0, $d0__0};
         }
       };
-      $find_first = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$find_first_aux,$runtime) {
+      $find_first = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$caml_wrap_thrown_exception,$find_first_aux) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -213,7 +214,7 @@ final class Map {
             $param__0 = $r;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $find_first_opt_aux = function
@@ -277,7 +278,7 @@ final class Map {
           return Vector{0, $v0__0, $d0__0};
         }
       };
-      $find_last = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$find_last_aux,$runtime) {
+      $find_last = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$caml_wrap_thrown_exception,$find_last_aux) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -289,7 +290,7 @@ final class Map {
             $param__0 = $l;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $find_last_opt_aux = function
@@ -364,7 +365,7 @@ final class Map {
           return 0;
         }
       };
-      $min_binding = function(dynamic $param) use ($Not_found,$runtime) {
+      $min_binding = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -374,7 +375,7 @@ final class Map {
             $v = $param__0[2];
             return Vector{0, $v, $d};
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $min_binding_opt = function(dynamic $param) {
@@ -390,7 +391,7 @@ final class Map {
           return 0;
         }
       };
-      $max_binding = function(dynamic $param) use ($Not_found,$runtime) {
+      $max_binding = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -400,7 +401,7 @@ final class Map {
             if ($C_) {$param__0 = $C_;continue;}
             return Vector{0, $E_, $D_};
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $max_binding_opt = function(dynamic $param) {
@@ -683,7 +684,7 @@ final class Map {
         }
         return $a_;
       };
-      $merge->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($Assert_failure,$b_,$call3,$concat_or_join,$height,$merge,$runtime,$split) {
+      $merge->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($Assert_failure,$b_,$call3,$caml_wrap_thrown_exception,$concat_or_join,$height,$merge,$split) {
         if ($s1) {
           $h1 = $s1[5];
           $r1 = $s1[4];
@@ -724,7 +725,7 @@ final class Map {
             $q_
           );
         }
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $b_}) as \Throwable;
+        throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
       };
       $union->contents = function(dynamic $f, dynamic $s1, dynamic $s2) use ($call3,$concat_or_join,$join,$split,$union) {
         if ($s1) {
@@ -1045,4 +1046,4 @@ final class Map {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

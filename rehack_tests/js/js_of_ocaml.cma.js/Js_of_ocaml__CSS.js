@@ -25,7 +25,9 @@ var caml_list_of_js_array = runtime["caml_list_of_js_array"];
 var string = runtime["caml_new_string"];
 var caml_string_compare = runtime["caml_string_compare"];
 var caml_string_notequal = runtime["caml_string_notequal"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -1378,7 +1380,7 @@ function name_of_string(s) {
       }
     }
   }
-  throw runtime["caml_wrap_thrown_exception"](
+  throw caml_wrap_thrown_exception(
           [
             0,
             Invalid_argument,
@@ -1765,7 +1767,7 @@ function hex_of_rgb(param) {
     var c0_ = cZ_ ? cZ_ : 255 < i ? 1 : 0;
     if (c0_) {
       var c1_ = call1(Pervasives[21], i);
-      throw runtime["caml_wrap_thrown_exception"](
+      throw caml_wrap_thrown_exception(
               [
                 0,
                 Invalid_argument,
@@ -1849,7 +1851,7 @@ function js_t_of_js_string(s) {
              ) | 0)
             ) {
               if (call2(List[31], caml_js_to_string(s), bN_)) {return s;}
-              throw runtime["caml_wrap_thrown_exception"](
+              throw caml_wrap_thrown_exception(
                       [
                         0,
                         Invalid_argument,
@@ -1880,10 +1882,10 @@ function ml(c) {
   var s = caml_js_to_string(c);
   try {var cr_ = [0,name_of_string(s)];return cr_;}
   catch(cs_) {
-    cs_ = caml_wrap_exception(cs_);
+    cs_ = runtime["caml_wrap_exception"](cs_);
     if (cs_[1] === Invalid_argument) {
       var fail = function(param) {
-        throw runtime["caml_wrap_thrown_exception"](
+        throw caml_wrap_thrown_exception(
                 [
                   0,
                   Invalid_argument,
@@ -1899,17 +1901,17 @@ function ml(c) {
           var i = param[1];
           try {var cz_ = runtime["caml_int_of_string"](i);return cz_;}
           catch(cA_) {
-            cA_ = caml_wrap_exception(cA_);
+            cA_ = runtime["caml_wrap_exception"](cA_);
             if (cA_[1] === Invalid_argument) var s = cA_[2];
             else {
               if (cA_[1] !== Failure) {
-                throw runtime["caml_wrap_thrown_exception_reraise"](cA_);
+                throw caml_wrap_thrown_exception_reraise(cA_);
               }
               var s = cA_[2];
             }
             var cx_ = call2(Pervasives[16], cst, s);
             var cy_ = call2(Pervasives[16], i, cx_);
-            throw runtime["caml_wrap_thrown_exception"](
+            throw caml_wrap_thrown_exception(
                     [
                       0,
                       Invalid_argument,
@@ -1923,17 +1925,17 @@ function ml(c) {
       var f_of_s = function(f) {
         try {var cv_ = caml_float_of_string(f);return cv_;}
         catch(cw_) {
-          cw_ = caml_wrap_exception(cw_);
+          cw_ = runtime["caml_wrap_exception"](cw_);
           if (cw_[1] === Invalid_argument) var s = cw_[2];
           else {
             if (cw_[1] !== Failure) {
-              throw runtime["caml_wrap_thrown_exception_reraise"](cw_);
+              throw caml_wrap_thrown_exception_reraise(cw_);
             }
             var s = cw_[2];
           }
           var ct_ = call2(Pervasives[16], cst__0, s);
           var cu_ = call2(Pervasives[16], f, ct_);
-          throw runtime["caml_wrap_thrown_exception"](
+          throw caml_wrap_thrown_exception(
                   [
                     0,
                     Invalid_argument,
@@ -2031,7 +2033,7 @@ function ml(c) {
       }
       return fail(0);
     }
-    throw runtime["caml_wrap_thrown_exception_reraise"](cs_);
+    throw caml_wrap_thrown_exception_reraise(cs_);
   }
 }
 
@@ -2089,7 +2091,7 @@ function ml__0(t) {
   var s = caml_js_to_string(t);
   if (runtime["caml_string_equal"](s, cst_0__0)) {return 0;}
   function fail(param) {
-    throw runtime["caml_wrap_thrown_exception"](
+    throw caml_wrap_thrown_exception(
             [
               0,
               Invalid_argument,
@@ -2106,10 +2108,10 @@ function ml__0(t) {
       var f = match__0[1];
       try {var b8_ = caml_float_of_string(f);}
       catch(exn) {
-        exn = caml_wrap_exception(exn);
+        exn = runtime["caml_wrap_exception"](exn);
         if (exn[1] === Invalid_argument) {
           var s__0 = exn[2];
-          throw runtime["caml_wrap_thrown_exception"](
+          throw caml_wrap_thrown_exception(
                   [
                     0,
                     Invalid_argument,
@@ -2117,7 +2119,7 @@ function ml__0(t) {
                   ]
                 );
         }
-        throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+        throw caml_wrap_thrown_exception_reraise(exn);
       }
       var f__0 = b8_;
     }
@@ -2176,7 +2178,7 @@ function ml__1(j) {
   var s = caml_js_to_string(j);
   var re = call1(Js_of_ocaml_Regexp[1], cst_d_d_deg_grad_rad_turns);
   function fail(param) {
-    throw runtime["caml_wrap_thrown_exception"](
+    throw caml_wrap_thrown_exception(
             [
               0,
               Invalid_argument,
@@ -2192,10 +2194,10 @@ function ml__1(j) {
       var f = match__0[1];
       try {var b6_ = caml_float_of_string(f);}
       catch(exn) {
-        exn = caml_wrap_exception(exn);
+        exn = runtime["caml_wrap_exception"](exn);
         if (exn[1] === Invalid_argument) {
           var s__0 = exn[2];
-          throw runtime["caml_wrap_thrown_exception"](
+          throw caml_wrap_thrown_exception(
                   [
                     0,
                     Invalid_argument,
@@ -2203,7 +2205,7 @@ function ml__1(j) {
                   ]
                 );
         }
-        throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+        throw caml_wrap_thrown_exception_reraise(exn);
       }
       var f__0 = b6_;
     }
@@ -2244,4 +2246,4 @@ runtime["caml_register_global"](547, Js_of_ocaml_CSS, "Js_of_ocaml__CSS");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__CSS;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

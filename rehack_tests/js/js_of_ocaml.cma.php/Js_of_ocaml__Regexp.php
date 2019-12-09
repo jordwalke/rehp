@@ -37,6 +37,7 @@ final class Js_of_ocaml__Regexp {
     $caml_js_to_byte_string = $runtime["caml_js_to_byte_string"];
     $caml_jsbytes_of_string = $runtime["caml_jsbytes_of_string"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_g = $string("g");
     $cst = $string("[\\][()\\\\|+*.?{}^\\$]");
@@ -68,9 +69,9 @@ final class Js_of_ocaml__Regexp {
       return (function(dynamic $t8, dynamic $t6, dynamic $t7, dynamic $param) {return new $t8($t6, $t7);
        })($ag_, $af_, $ae_, $ad_);
     };
-    $blunt_str_array_get = function(dynamic $a, dynamic $i) use ($Assert_failure,$Js_of_ocaml_Js,$a_,$call2,$caml_js_to_byte_string,$runtime) {
-      $ab_ = function(dynamic $param) use ($Assert_failure,$a_,$runtime) {
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
+    $blunt_str_array_get = function(dynamic $a, dynamic $i) use ($Assert_failure,$Js_of_ocaml_Js,$a_,$call2,$caml_js_to_byte_string,$caml_wrap_thrown_exception) {
+      $ab_ = function(dynamic $param) use ($Assert_failure,$a_,$caml_wrap_thrown_exception) {
+        throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $a_}) as \Throwable;
       };
       $ac_ = $call2($Js_of_ocaml_Js[16], $a, $i);
       return $caml_js_to_byte_string($call2($Js_of_ocaml_Js[6][8], $ac_, $ab_)
@@ -297,4 +298,4 @@ final class Js_of_ocaml__Regexp {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

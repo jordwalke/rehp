@@ -30,7 +30,10 @@ final class Sys {
 
     $runtime = $joo_global_object->jsoo_runtime;
     $string = $runtime["caml_new_string"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Sys_Break = $string("Sys.Break");
     $ocaml_version = $string("4.06.0");
@@ -49,12 +52,12 @@ final class Sys {
     $big_endian = 0;
     $word_size = 32;
     $int_size = 32;
-    $getenv_opt = function(dynamic $s) use ($Not_found,$caml_wrap_exception,$runtime) {
+    $getenv_opt = function(dynamic $s) use ($Not_found,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$d_ = Vector{0, $runtime["caml_sys_getenv"]($s)};return $d_;}
       catch(\Throwable $e_) {
-        $e_ = $caml_wrap_exception($e_);
+        $e_ = $runtime["caml_wrap_exception"]($e_);
         if ($e_ === $Not_found) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($e_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($e_) as \Throwable;
       }
     };
     $interactive = Vector{0, 0};
@@ -88,14 +91,14 @@ final class Sys {
     $sigurg = -26;
     $sigxcpu = -27;
     $sigxfsz = -28;
-    $catch_break = function(dynamic $on) use ($Break,$runtime,$set_signal,$sigint) {
+    $catch_break = function(dynamic $on) use ($Break,$caml_wrap_thrown_exception,$set_signal,$sigint) {
       return $on
         ? $set_signal(
          $sigint,
          Vector{
            0,
-           function(dynamic $param) use ($Break,$runtime) {
-             throw $runtime["caml_wrap_thrown_exception"]($Break) as \Throwable;
+           function(dynamic $param) use ($Break,$caml_wrap_thrown_exception) {
+             throw $caml_wrap_thrown_exception($Break) as \Throwable;
            }
          }
        )
@@ -163,4 +166,4 @@ final class Sys {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

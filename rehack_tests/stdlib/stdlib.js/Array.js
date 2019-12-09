@@ -16,7 +16,9 @@ var caml_array_sub = runtime["caml_array_sub"];
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_make_vect = runtime["caml_make_vect"];
 var string = runtime["caml_new_string"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -427,7 +429,7 @@ function sort(cmp, a) {
       if (! (0 <= call2(cmp, caml_check_bound(a, i31)[i31 + 1], D_))) {return i31 + 1 | 0;}
     }
     if (i31 < l) {return i31;}
-    throw runtime["caml_wrap_thrown_exception"]([0,Bottom,i]);
+    throw caml_wrap_thrown_exception([0,Bottom,i]);
   }
   function trickledown(l, i, e) {
     var i__0 = i;
@@ -446,13 +448,13 @@ function sort(cmp, a) {
   function trickle(l, i, e) {
     try {var v_ = trickledown(l, i, e);return v_;}
     catch(exn) {
-      exn = caml_wrap_exception(exn);
+      exn = runtime["caml_wrap_exception"](exn);
       if (exn[1] === Bottom) {
         var i__0 = exn[2];
         caml_check_bound(a, i__0)[i__0 + 1] = e;
         return 0;
       }
-      throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+      throw caml_wrap_thrown_exception_reraise(exn);
     }
   }
   function bubbledown(l, i) {
@@ -468,9 +470,9 @@ function sort(cmp, a) {
   function bubble(l, i) {
     try {var t_ = bubbledown(l, i);return t_;}
     catch(exn) {
-      exn = caml_wrap_exception(exn);
+      exn = runtime["caml_wrap_exception"](exn);
       if (exn[1] === Bottom) {var i__0 = exn[2];return i__0;}
-      throw runtime["caml_wrap_thrown_exception_reraise"](exn);
+      throw caml_wrap_thrown_exception_reraise(exn);
     }
   }
   function trickleup(i, e) {
@@ -485,7 +487,7 @@ function sort(cmp, a) {
         caml_check_bound(a, 0)[1] = e;
         return 0;
       }
-      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
+      throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
     }
   }
   var l = a.length - 1;
@@ -655,4 +657,4 @@ runtime["caml_register_global"](10, Array, "Array_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Array_;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -16,6 +16,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -219,9 +220,7 @@ function invoke_handler(f, this__0, event) {return f.call(this__0, event);}
 
 function eventTarget(e) {
   function v_(param) {
-    function E_(param) {
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
-    }
+    function E_(param) {throw caml_wrap_thrown_exception(Not_found);}
     function F_(x) {
       return call1(caml_get_public_method(x, -1021537224, 38), x);
     }
@@ -239,7 +238,7 @@ function eventTarget(e) {
     };
     if (3 === function(t24, param) {return t24.nodeType;}(target, A_)) {
       var B_ = function(param) {
-        throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
+        throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
       };
       var C_ = function(x) {
         return call1(caml_get_public_method(x, -400811956, 42), x);
@@ -343,4 +342,4 @@ runtime["caml_register_global"](35, Js_of_ocaml_Dom, "Js_of_ocaml__Dom");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Dom;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

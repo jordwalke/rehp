@@ -113,4 +113,4 @@ final class Js_of_ocaml__WebGL {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

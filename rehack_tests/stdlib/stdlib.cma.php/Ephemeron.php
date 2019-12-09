@@ -42,7 +42,10 @@ final class Ephemeron {
     $call5 = $runtime["caml_call5"];
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_make_vect = $runtime["caml_make_vect"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
@@ -57,7 +60,7 @@ final class Ephemeron {
     $c_ = Vector{0, 0};
     $b_ = Vector{0, 0};
     $a_ = Vector{0, 0};
-    $MakeSeeded = function(dynamic $H) use ($Array,$CamlinternalLazy,$Hashtbl,$Not_found,$Pervasives,$Random,$Sys,$call1,$call2,$call3,$caml_check_bound,$caml_make_vect,$caml_wrap_exception,$insert_bucket,$left_shift_32,$runtime,$unsigned_right_shift_32) {
+    $MakeSeeded = function(dynamic $H) use ($Array,$CamlinternalLazy,$Hashtbl,$Not_found,$Pervasives,$Random,$Sys,$call1,$call2,$call3,$caml_check_bound,$caml_make_vect,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$insert_bucket,$left_shift_32,$runtime,$unsigned_right_shift_32) {
       $power_2_above = function(dynamic $x, dynamic $n) use ($Sys) {
         $x__0 = $x;
         for (;;) {
@@ -257,7 +260,7 @@ final class Ephemeron {
         $caml_check_bound($h[2], $i)[$i + 1] = $ae_;
         return 0;
       };
-      $find_rec = function(dynamic $key, dynamic $hkey, dynamic $param) use ($H,$Not_found,$call1,$call2,$runtime) {
+      $find_rec = function(dynamic $key, dynamic $hkey, dynamic $param) use ($H,$Not_found,$call1,$call2,$caml_wrap_thrown_exception) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -288,7 +291,7 @@ final class Ephemeron {
             $param__0 = $rest;
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
       $find = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$find_rec,$key_index) {
@@ -385,9 +388,9 @@ final class Ephemeron {
           $caml_check_bound($h[2], $ab_)[$ab_ + 1]
         );
       };
-      $replace = function(dynamic $h, dynamic $key, dynamic $info) use ($H,$Not_found,$call2,$call3,$caml_check_bound,$caml_wrap_exception,$key_index,$left_shift_32,$resize,$runtime) {
+      $replace = function(dynamic $h, dynamic $key, dynamic $info) use ($H,$Not_found,$call2,$call3,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$key_index,$left_shift_32,$resize,$runtime) {
         $hkey = $call2($H[2], $h[3], $key);
-        $replace_bucket = function(dynamic $param) use ($H,$Not_found,$call2,$call3,$hkey,$info,$key,$runtime) {
+        $replace_bucket = function(dynamic $param) use ($H,$Not_found,$call2,$call3,$caml_wrap_thrown_exception,$hkey,$info,$key) {
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -403,14 +406,14 @@ final class Ephemeron {
               $param__0 = $next;
               continue;
             }
-            throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+            throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
           }
         };
         $i = $key_index($h, $hkey);
         $l = $caml_check_bound($h[2], $i)[$i + 1];
         try {$Z_ = $replace_bucket($l);return $Z_;}
         catch(\Throwable $aa_) {
-          $aa_ = $caml_wrap_exception($aa_);
+          $aa_ = $runtime["caml_wrap_exception"]($aa_);
           if ($aa_ === $Not_found) {
             $container = $call2($H[1], $key, $info);
             $caml_check_bound($h[2], $i)[$i + 1] = Vector{0, $hkey, $container, $l};
@@ -418,7 +421,7 @@ final class Ephemeron {
             $Y_ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
             return $Y_ ? $resize($h) : ($Y_);
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($aa_) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($aa_) as \Throwable;
         }
       };
       $mem = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$key_index) {
@@ -1283,4 +1286,4 @@ final class Ephemeron {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

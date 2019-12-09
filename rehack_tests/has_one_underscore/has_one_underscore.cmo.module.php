@@ -33,17 +33,19 @@ final class Has_one_underscore {
     $runtime = $joo_global_object->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $String = $global_data["String_"];
     $Not_found = $global_data["Not_found"];
-    $hasOneUnderscore = function(dynamic $id_or_token) use ($Not_found,$String,$call2,$call3,$caml_wrap_exception,$runtime) {
+    $hasOneUnderscore = function(dynamic $id_or_token) use ($Not_found,$String,$call2,$call3,$caml_wrap_thrown_exception_reraise,$runtime) {
       $id_or_token__0 = $runtime["caml_js_to_string"]($id_or_token);
       try {$d_ = $call2($String[14], $id_or_token__0, 95);$index = $d_;}
       catch(\Throwable $e_) {
-        $e_ = $caml_wrap_exception($e_);
+        $e_ = $runtime["caml_wrap_exception"]($e_);
         if ($e_ !== $Not_found) {
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($e_) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($e_) as \Throwable;
         }
         $a_ = -1;
         $index = $a_;
@@ -65,4 +67,4 @@ final class Has_one_underscore {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

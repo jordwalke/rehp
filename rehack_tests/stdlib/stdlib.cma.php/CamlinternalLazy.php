@@ -32,7 +32,10 @@ final class CamlinternalLazy {
     $call1 = $runtime["caml_call1"];
     $caml_obj_set_tag = $runtime["caml_obj_set_tag"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_CamlinternalLazy_Undefined = $runtime["caml_new_string"](
       "CamlinternalLazy.Undefined"
@@ -43,10 +46,10 @@ final class CamlinternalLazy {
       $cst_CamlinternalLazy_Undefined,
       $runtime["caml_fresh_oo_id"](0)
     };
-    $raise_undefined = function(dynamic $param) use ($Undefined,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"]($Undefined) as \Throwable;
+    $raise_undefined = function(dynamic $param) use ($Undefined,$caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception($Undefined) as \Throwable;
     };
-    $force_lazy_block = function(dynamic $blk) use ($Obj,$call1,$caml_obj_set_tag,$caml_wrap_exception,$raise_undefined,$runtime) {
+    $force_lazy_block = function(dynamic $blk) use ($Obj,$call1,$caml_obj_set_tag,$caml_wrap_thrown_exception_reraise,$raise_undefined,$runtime) {
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
       try {
@@ -56,12 +59,12 @@ final class CamlinternalLazy {
         return $result;
       }
       catch(\Throwable $e) {
-        $e = $caml_wrap_exception($e);
+        $e = $runtime["caml_wrap_exception"]($e);
         $blk[1] =
-          function(dynamic $param) use ($e,$runtime) {
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+          function(dynamic $param) use ($caml_wrap_thrown_exception_reraise,$e) {
+            throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
           };
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
       }
     };
     $force_val_lazy_block = function(dynamic $blk) use ($Obj,$call1,$caml_obj_set_tag,$raise_undefined) {
@@ -98,4 +101,4 @@ final class CamlinternalLazy {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

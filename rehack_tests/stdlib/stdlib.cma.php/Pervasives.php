@@ -59,7 +59,10 @@ final class Pervasives {
     $string = $runtime["caml_new_string"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_sys_open = $runtime["caml_sys_open"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst__0 = $string("%,");
     $cst_really_input = $string("really_input");
@@ -94,11 +97,11 @@ final class Pervasives {
     $d_ = Vector{255, 16777215, 16777215, 32751};
     $e_ = Vector{255, 0, 0, 16};
     $f_ = Vector{255, 0, 0, 15536};
-    $failwith = function(dynamic $s) use ($Failure,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Failure, $s}) as \Throwable;
+    $failwith = function(dynamic $s) use ($Failure,$caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception(Vector{0, $Failure, $s}) as \Throwable;
     };
-    $invalid_arg = function(dynamic $s) use ($Invalid_argument,$runtime) {
-      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Invalid_argument, $s}) as \Throwable;
+    $invalid_arg = function(dynamic $s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
+      throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
     };
     $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)};
     $min = function(dynamic $x, dynamic $y) use ($runtime) {
@@ -147,12 +150,12 @@ final class Pervasives {
     $string_of_int = function(dynamic $n) use ($string) {
       return $string("" . $n);
     };
-    $int_of_string_opt = function(dynamic $s) use ($Failure,$caml_int_of_string,$caml_wrap_exception,$runtime) {
+    $int_of_string_opt = function(dynamic $s) use ($Failure,$caml_int_of_string,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$ay_ = Vector{0, $caml_int_of_string($s)};return $ay_;}
       catch(\Throwable $az_) {
-        $az_ = $caml_wrap_exception($az_);
+        $az_ = $runtime["caml_wrap_exception"]($az_);
         if ($az_[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($az_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($az_) as \Throwable;
       }
     };
     $valid_float_lexem = function(dynamic $s) use ($caml_ml_string_length,$cst,$runtime,$symbol) {
@@ -174,12 +177,12 @@ final class Pervasives {
     $string_of_float = function(dynamic $f) use ($cst_12g,$runtime,$valid_float_lexem) {
       return $valid_float_lexem($runtime["caml_format_float"]($cst_12g, $f));
     };
-    $float_of_string_opt = function(dynamic $s) use ($Failure,$caml_float_of_string,$caml_wrap_exception,$runtime) {
+    $float_of_string_opt = function(dynamic $s) use ($Failure,$caml_float_of_string,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$aw_ = Vector{0, $caml_float_of_string($s)};return $aw_;}
       catch(\Throwable $ax_) {
-        $ax_ = $caml_wrap_exception($ax_);
+        $ax_ = $runtime["caml_wrap_exception"]($ax_);
         if ($ax_[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($ax_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($ax_) as \Throwable;
       }
     };
     $symbol__0->contents = function(dynamic $l1, dynamic $l2) use ($symbol__0) {
@@ -204,8 +207,8 @@ final class Pervasives {
     $open_out_bin = function(dynamic $name) use ($j_,$open_out_gen) {
       return $open_out_gen($j_, 438, $name);
     };
-    $flush_all = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$runtime) {
-      $iter = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_wrap_exception,$runtime) {
+    $flush_all = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_wrap_thrown_exception_reraise,$runtime) {
+      $iter = function(dynamic $param) use ($Sys_error,$caml_ml_flush,$caml_wrap_thrown_exception_reraise,$runtime) {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -213,9 +216,9 @@ final class Pervasives {
             $a = $param__0[1];
             try {$caml_ml_flush($a);}
             catch(\Throwable $av_) {
-              $av_ = $caml_wrap_exception($av_);
+              $av_ = $runtime["caml_wrap_exception"]($av_);
               if ($av_[1] !== $Sys_error) {
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($av_) as \Throwable;
+                throw $caml_wrap_thrown_exception_reraise($av_) as \Throwable;
               }
             }
             $param__0 = $l;
@@ -281,14 +284,14 @@ final class Pervasives {
       return $invalid_arg($cst_input);
     };
     $unsafe_really_input = function
-    (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) use ($End_of_file,$caml_ml_input,$runtime) {
+    (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) use ($End_of_file,$caml_ml_input,$caml_wrap_thrown_exception) {
       $ofs__0 = $ofs;
       $len__0 = $len;
       for (;;) {
         if (0 < $len__0) {
           $r = $caml_ml_input($ic, $s, $ofs__0, $len__0);
           if (0 === $r) {
-            throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+            throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
           $len__1 = (int) ($len__0 - $r);
           $ofs__1 = (int) ($ofs__0 + $r);
@@ -313,7 +316,7 @@ final class Pervasives {
       $really_input($ic, $s, 0, $len);
       return $s;
     };
-    $input_line = function(dynamic $chan) use ($End_of_file,$caml_create_bytes,$caml_ml_bytes_length,$caml_ml_input,$caml_ml_input_char,$runtime) {
+    $input_line = function(dynamic $chan) use ($End_of_file,$caml_create_bytes,$caml_ml_bytes_length,$caml_ml_input,$caml_ml_input_char,$caml_wrap_thrown_exception,$runtime) {
       $build_result = function(dynamic $buf, dynamic $pos, dynamic $param) use ($caml_ml_bytes_length,$runtime) {
         $pos__0 = $pos;
         $param__0 = $param;
@@ -338,7 +341,7 @@ final class Pervasives {
           return $buf;
         }
       };
-      $scan = function(dynamic $accu, dynamic $len) use ($End_of_file,$build_result,$caml_create_bytes,$caml_ml_input,$caml_ml_input_char,$chan,$runtime) {
+      $scan = function(dynamic $accu, dynamic $len) use ($End_of_file,$build_result,$caml_create_bytes,$caml_ml_input,$caml_ml_input_char,$caml_wrap_thrown_exception,$chan,$runtime) {
         $accu__0 = $accu;
         $len__0 = $len;
         for (;;) {
@@ -351,7 +354,7 @@ final class Pervasives {
                 $accu__0
               );
             }
-            throw $runtime["caml_wrap_thrown_exception"]($End_of_file) as \Throwable;
+            throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
           if (0 < $n) {
             $res = $caml_create_bytes((int) ($n + -1));
@@ -653,4 +656,4 @@ final class Pervasives {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

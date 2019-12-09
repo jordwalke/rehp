@@ -29,7 +29,9 @@ final class Int64 {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_d = $runtime["caml_new_string"]("%d");
     $zero = Vector{255, 0, 0, 0};
@@ -59,12 +61,12 @@ final class Int64 {
     $to_string = function(dynamic $n) use ($cst_d,$runtime) {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
-    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_exception,$runtime) {
+    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$e_ = Vector{0, $runtime["caml_int64_of_string"]($s)};return $e_;}
       catch(\Throwable $f_) {
-        $f_ = $caml_wrap_exception($f_);
+        $f_ = $runtime["caml_wrap_exception"]($f_);
         if ($f_[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($f_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($f_) as \Throwable;
       }
     };
     $compare = function(dynamic $x, dynamic $y) use ($runtime) {
@@ -95,4 +97,4 @@ final class Int64 {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

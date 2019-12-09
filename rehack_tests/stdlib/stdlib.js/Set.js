@@ -15,6 +15,7 @@ let joo_global_object = global;
 
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -164,7 +165,7 @@ function Make(Ord) {
         var v = param__0[2];
         return v;
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
   }
   function min_elt_opt(param) {
@@ -188,7 +189,7 @@ function Make(Ord) {
         if (V_) {var param__0 = V_;continue;}
         return W_;
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
   }
   function max_elt_opt(param) {
@@ -584,7 +585,7 @@ function Make(Ord) {
         var param__0 = param__1;
         continue;
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
   }
   function find_first_aux(v0, f, param) {
@@ -613,7 +614,7 @@ function Make(Ord) {
         var param__0 = r;
         continue;
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
   }
   function find_first_opt_aux(v0, f, param) {
@@ -671,7 +672,7 @@ function Make(Ord) {
         var param__0 = l;
         continue;
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
   }
   function find_last_opt_aux(v0, f, param) {
@@ -800,7 +801,7 @@ function Make(Ord) {
         var right = match__0[1];
         return [0,create(left, mid, right),l__2];
       }
-      throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,c_]);
+      throw caml_wrap_thrown_exception([0,Assert_failure,c_]);
     }
     return sub(call1(List[1], l), l)[1];
   }
@@ -939,4 +940,4 @@ runtime["caml_register_global"](12, Set, "Set");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Set;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

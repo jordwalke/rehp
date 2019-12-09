@@ -49,7 +49,9 @@ final class Filename {
     $caml_sys_getenv = $runtime["caml_sys_getenv"];
     $caml_trampoline = $runtime["caml_trampoline"];
     $caml_trampoline_return = $runtime["caml_trampoline_return"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Filename_chop_extension = $string("Filename.chop_extension");
@@ -252,9 +254,9 @@ final class Filename {
     
     try {$n_ = $caml_sys_getenv($cst_TMPDIR);$temp_dir_name = $n_;}
     catch(\Throwable $af_) {
-      $af_ = $caml_wrap_exception($af_);
+      $af_ = $runtime["caml_wrap_exception"]($af_);
       if ($af_ !== $Not_found) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($af_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($af_) as \Throwable;
       }
       $temp_dir_name = $cst_tmp;
     }
@@ -349,9 +351,9 @@ final class Filename {
     
     try {$m_ = $caml_sys_getenv($cst_TEMP);$temp_dir_name__0 = $m_;}
     catch(\Throwable $G_) {
-      $G_ = $caml_wrap_exception($G_);
+      $G_ = $runtime["caml_wrap_exception"]($G_);
       if ($G_ !== $Not_found) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($G_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($G_) as \Throwable;
       }
       $temp_dir_name__0 = $cst__8;
     }
@@ -679,13 +681,13 @@ final class Filename {
     $get_temp_dir_name = function(dynamic $param) use ($current_temp_dir_name) {
       return $current_temp_dir_name[1];
     };
-    $temp_file = function(dynamic $opt, dynamic $prefix, dynamic $suffix) use ($Sys_error,$c_,$caml_wrap_exception,$current_temp_dir_name,$runtime,$temp_file_name) {
+    $temp_file = function(dynamic $opt, dynamic $prefix, dynamic $suffix) use ($Sys_error,$c_,$caml_wrap_thrown_exception_reraise,$current_temp_dir_name,$runtime,$temp_file_name) {
       if ($opt) {
         $sth = $opt[1];
         $temp_dir = $sth;
       }
       else {$temp_dir = $current_temp_dir_name[1];}
-      $try_name = function(dynamic $counter) use ($Sys_error,$c_,$caml_wrap_exception,$prefix,$runtime,$suffix,$temp_dir,$temp_file_name) {
+      $try_name = function(dynamic $counter) use ($Sys_error,$c_,$caml_wrap_thrown_exception_reraise,$prefix,$runtime,$suffix,$temp_dir,$temp_file_name) {
         $counter__0 = $counter;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
@@ -696,23 +698,23 @@ final class Filename {
             return $name;
           }
           catch(\Throwable $e) {
-            $e = $caml_wrap_exception($e);
+            $e = $runtime["caml_wrap_exception"]($e);
             if ($e[1] === $Sys_error) {
               if (1000 <= $counter__0) {
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+                throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
               }
               $counter__1 = (int) ($counter__0 + 1);
               $counter__0 = $counter__1;
               continue;
             }
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+            throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
           }
         }
       };
       return $try_name(0);
     };
     $open_temp_file = function
-    (dynamic $opt, dynamic $p_, dynamic $o_, dynamic $prefix, dynamic $suffix) use ($Pervasives,$Sys_error,$call3,$caml_wrap_exception,$current_temp_dir_name,$d_,$runtime,$temp_file_name) {
+    (dynamic $opt, dynamic $p_, dynamic $o_, dynamic $prefix, dynamic $suffix) use ($Pervasives,$Sys_error,$call3,$caml_wrap_thrown_exception_reraise,$current_temp_dir_name,$d_,$runtime,$temp_file_name) {
       if ($opt) {
         $sth = $opt[1];
         $mode = $sth;
@@ -728,7 +730,7 @@ final class Filename {
         $temp_dir = $sth__1;
       }
       else {$temp_dir = $current_temp_dir_name[1];}
-      $try_name = function(dynamic $counter) use ($Pervasives,$Sys_error,$call3,$caml_wrap_exception,$mode,$perms,$prefix,$runtime,$suffix,$temp_dir,$temp_file_name) {
+      $try_name = function(dynamic $counter) use ($Pervasives,$Sys_error,$call3,$caml_wrap_thrown_exception_reraise,$mode,$perms,$prefix,$runtime,$suffix,$temp_dir,$temp_file_name) {
         $counter__0 = $counter;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
@@ -746,16 +748,16 @@ final class Filename {
             return $q_;
           }
           catch(\Throwable $e) {
-            $e = $caml_wrap_exception($e);
+            $e = $runtime["caml_wrap_exception"]($e);
             if ($e[1] === $Sys_error) {
               if (1000 <= $counter__0) {
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+                throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
               }
               $counter__1 = (int) ($counter__0 + 1);
               $counter__0 = $counter__1;
               continue;
             }
-            throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+            throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
           }
         }
       };
@@ -789,4 +791,4 @@ final class Filename {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

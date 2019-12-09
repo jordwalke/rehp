@@ -11,6 +11,7 @@ let joo_global_object = global;
 
 
 var runtime = joo_global_object.jsoo_runtime;
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
@@ -110,7 +111,7 @@ function array(cmp, arr) {
         var e_ = 1 - call2(cmp, pivot, arr[hi__0 + 1]);
         var f_ = e_ ? e_ : 1 - call2(cmp, arr[lo__0 + 1], pivot);
         if (f_) {
-          throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Sort_array]
+          throw caml_wrap_thrown_exception([0,Invalid_argument,cst_Sort_array]
                 );
         }
         b:
@@ -184,4 +185,4 @@ runtime["caml_register_global"](2, Sort, "Sort");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Sort;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -123,4 +123,4 @@ runtime["caml_register_global"](8, Char, "Char");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Char;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

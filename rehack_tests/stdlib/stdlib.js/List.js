@@ -15,6 +15,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_compare = runtime["caml_compare"];
 var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -492,7 +493,7 @@ function assoc(x, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -524,7 +525,7 @@ function assq(x, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -606,7 +607,7 @@ function find(p, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -731,7 +732,7 @@ function chop(k, l) {
       var l__0 = l__1;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,d_]);
+    throw caml_wrap_thrown_exception([0,Assert_failure,d_]);
   }
 }
 
@@ -1175,4 +1176,4 @@ runtime["caml_register_global"](19, List, "List_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().List_;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

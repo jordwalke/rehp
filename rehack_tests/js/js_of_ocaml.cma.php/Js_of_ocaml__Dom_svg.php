@@ -34,6 +34,7 @@ final class Js_of_ocaml__Dom_svg {
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_vkern__0 = $string("vkern");
     $cst_view__0 = $string("view");
@@ -338,13 +339,13 @@ final class Js_of_ocaml__Dom_svg {
     };
     $d_ = $Js_of_ocaml_Js[50][1];
     $document = (function(dynamic $t4, dynamic $param) {return $t4->document;})($d_, $c_);
-    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$runtime,$svg_element) {
-      $i_ = function(dynamic $e) use ($Not_found,$runtime,$svg_element) {
+    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$caml_wrap_thrown_exception,$svg_element) {
+      $i_ = function(dynamic $e) use ($Not_found,$caml_wrap_thrown_exception,$svg_element) {
         if (instance_of($e, $svg_element)) {return $e;}
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
-      $j_ = function(dynamic $param) use ($Not_found,$runtime) {
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+      $j_ = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
       $k_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -332188296, 291), $x);
@@ -671,4 +672,4 @@ final class Js_of_ocaml__Dom_svg {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

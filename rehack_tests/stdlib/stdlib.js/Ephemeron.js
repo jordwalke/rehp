@@ -20,7 +20,9 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_make_vect = runtime["caml_make_vect"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -252,7 +254,7 @@ function MakeSeeded(H) {
         var param__0 = rest;
         continue;
       }
-      throw runtime["caml_wrap_thrown_exception"](Not_found);
+      throw caml_wrap_thrown_exception(Not_found);
     }
   }
   function find(h, key) {
@@ -349,14 +351,14 @@ function MakeSeeded(H) {
           var param__0 = next;
           continue;
         }
-        throw runtime["caml_wrap_thrown_exception"](Not_found);
+        throw caml_wrap_thrown_exception(Not_found);
       }
     }
     var i = key_index(h, hkey);
     var l = caml_check_bound(h[2], i)[i + 1];
     try {var Z_ = replace_bucket(l);return Z_;}
     catch(aa_) {
-      aa_ = caml_wrap_exception(aa_);
+      aa_ = runtime["caml_wrap_exception"](aa_);
       if (aa_ === Not_found) {
         var container = call2(H[1], key, info);
         caml_check_bound(h[2], i)[i + 1] = [0,hkey,container,l];
@@ -364,7 +366,7 @@ function MakeSeeded(H) {
         var Y_ = h[2].length - 1 << 1 < h[1] ? 1 : 0;
         return Y_ ? resize(h) : Y_;
       }
-      throw runtime["caml_wrap_thrown_exception_reraise"](aa_);
+      throw caml_wrap_thrown_exception_reraise(aa_);
     }
   }
   function mem(h, key) {
@@ -1138,4 +1140,4 @@ runtime["caml_register_global"](11, Ephemeron, "Ephemeron");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Ephemeron;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -20,7 +20,9 @@ var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_fill_bytes = runtime["caml_fill_bytes"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var string = runtime["caml_new_string"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -466,7 +468,7 @@ function uncapitalize_ascii(s) {return apply1(Char[5], s);}
 function index_rec(s, lim, i, c) {
   var i__0 = i;
   for (; ; ) {
-    if (lim <= i__0) {throw runtime["caml_wrap_thrown_exception"](Not_found);}
+    if (lim <= i__0) {throw caml_wrap_thrown_exception(Not_found);}
     if (caml_bytes_unsafe_get(s, i__0) === c) {return i__0;}
     var i__1 = i__0 + 1 | 0;
     var i__0 = i__1;
@@ -512,7 +514,7 @@ function rindex_rec(s, i, c) {
       var i__0 = i__1;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -558,9 +560,9 @@ function contains_from(s, i, c) {
     if (! (l < i)) {
       try {index_rec(s, l, i, c);var i_ = 1;return i_;}
       catch(j_) {
-        j_ = caml_wrap_exception(j_);
+        j_ = runtime["caml_wrap_exception"](j_);
         if (j_ === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](j_);
+        throw caml_wrap_thrown_exception_reraise(j_);
       }
     }
   }
@@ -574,9 +576,9 @@ function rcontains_from(s, i, c) {
     if (! (caml_ml_bytes_length(s) <= i)) {
       try {rindex_rec(s, i, c);var g_ = 1;return g_;}
       catch(h_) {
-        h_ = caml_wrap_exception(h_);
+        h_ = runtime["caml_wrap_exception"](h_);
         if (h_ === Not_found) {return 0;}
-        throw runtime["caml_wrap_thrown_exception_reraise"](h_);
+        throw caml_wrap_thrown_exception_reraise(h_);
       }
     }
   }
@@ -648,4 +650,4 @@ runtime["caml_register_global"](15, Bytes, "Bytes");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Bytes;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -49,6 +49,7 @@ final class Weak {
     $caml_weak_get = $runtime["caml_weak_get"];
     $caml_weak_get_copy = $runtime["caml_weak_get_copy"];
     $caml_weak_set = $runtime["caml_weak_set"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Weak_Make_hash_bucket_cannot_grow_more = $string(
       "Weak.Make: hash bucket cannot grow more"
@@ -60,7 +61,7 @@ final class Weak {
     $Not_found = $global_data["Not_found"];
     $Invalid_argument = $global_data["Invalid_argument"];
     $length = function(dynamic $x) {return (int) ($x->count() - 1 - 2);};
-    $fill = function(dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x) use ($Invalid_argument,$caml_weak_set,$cst_Weak_fill,$length,$runtime) {
+    $fill = function(dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x) use ($Invalid_argument,$caml_weak_set,$caml_wrap_thrown_exception,$cst_Weak_fill,$length) {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ($length($ar) < (int) ($ofs + $len))) {
@@ -78,11 +79,11 @@ final class Weak {
           }
         }
       }
-      throw $runtime["caml_wrap_thrown_exception"](
+      throw $caml_wrap_thrown_exception(
               Vector{0, $Invalid_argument, $cst_Weak_fill}
             ) as \Throwable;
     };
-    $Make = function(dynamic $H) use ($Array,$Not_found,$Pervasives,$Sys,$call1,$call2,$call3,$call5,$caml_check_bound,$caml_make_vect,$caml_mod,$caml_obj_truncate,$caml_weak_blit,$caml_weak_check,$caml_weak_create,$caml_weak_get,$caml_weak_get_copy,$caml_weak_set,$cst_Weak_Make_hash_bucket_cannot_grow_more,$length,$runtime) {
+    $Make = function(dynamic $H) use ($Array,$Not_found,$Pervasives,$Sys,$call1,$call2,$call3,$call5,$caml_check_bound,$caml_make_vect,$caml_mod,$caml_obj_truncate,$caml_weak_blit,$caml_weak_check,$caml_weak_create,$caml_weak_get,$caml_weak_get_copy,$caml_weak_set,$caml_wrap_thrown_exception,$cst_Weak_Make_hash_bucket_cannot_grow_more,$length,$runtime) {
       $add_aux = new Ref();
       $weak_create = function(dynamic $aB_) use ($caml_weak_create) {
         return $caml_weak_create($aB_);
@@ -438,12 +439,12 @@ final class Weak {
           }
         );
       };
-      $find = function(dynamic $t, dynamic $d) use ($Not_found,$find_or,$runtime) {
+      $find = function(dynamic $t, dynamic $d) use ($Not_found,$caml_wrap_thrown_exception,$find_or) {
         return $find_or(
           $t,
           $d,
-          function(dynamic $h, dynamic $index) use ($Not_found,$runtime) {
-            throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+          function(dynamic $h, dynamic $index) use ($Not_found,$caml_wrap_thrown_exception) {
+            throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
           }
         );
       };
@@ -641,4 +642,4 @@ final class Weak {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

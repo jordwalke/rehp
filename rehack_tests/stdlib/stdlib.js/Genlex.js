@@ -23,7 +23,9 @@ var caml_float_of_string = runtime["caml_float_of_string"];
 var string = runtime["caml_new_string"];
 var caml_trampoline = runtime["caml_trampoline"];
 var caml_trampoline_return = runtime["caml_trampoline_return"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -95,21 +97,21 @@ function make_lexer(keywords) {
   function ident_or_keyword(id) {
     try {var C_ = call2(Hashtbl[6], kwd_table, id);return C_;}
     catch(D_) {
-      D_ = caml_wrap_exception(D_);
+      D_ = runtime["caml_wrap_exception"](D_);
       if (D_ === Not_found) {return [1,id];}
-      throw runtime["caml_wrap_thrown_exception_reraise"](D_);
+      throw caml_wrap_thrown_exception_reraise(D_);
     }
   }
   function keyword_or_error(c) {
     var s = call2(String[1], 1, c);
     try {var A_ = call2(Hashtbl[6], kwd_table, s);return A_;}
     catch(B_) {
-      B_ = caml_wrap_exception(B_);
+      B_ = runtime["caml_wrap_exception"](B_);
       if (B_ === Not_found) {
         var z_ = call2(Pervasives[16], cst_Illegal_character, s);
-        throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],z_]);
+        throw caml_wrap_thrown_exception([0,Stream[2],z_]);
       }
-      throw runtime["caml_wrap_thrown_exception_reraise"](B_);
+      throw caml_wrap_thrown_exception_reraise(B_);
     }
   }
   function end_exponent_part(strm) {
@@ -290,12 +292,11 @@ function make_lexer(keywords) {
                 call1(Stream[12], strm);
                 try {var c = char__0(strm);}
                 catch(o_) {
-                  o_ = caml_wrap_exception(o_);
+                  o_ = runtime["caml_wrap_exception"](o_);
                   if (o_ === Stream[1]) {
-                    throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst]
-                          );
+                    throw caml_wrap_thrown_exception([0,Stream[2],cst]);
                   }
-                  throw runtime["caml_wrap_thrown_exception_reraise"](o_);
+                  throw caml_wrap_thrown_exception_reraise(o_);
                 }
                 var match__0 = call1(Stream[11], strm);
                 if (match__0) {
@@ -304,8 +305,7 @@ function make_lexer(keywords) {
                     return [0,[5,c]];
                   }
                 }
-                throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__0]
-                      );
+                throw caml_wrap_thrown_exception([0,Stream[2],cst__0]);
               case 40:
                 call1(Stream[12], strm);
                 if (counter < 50) {
@@ -419,12 +419,11 @@ function make_lexer(keywords) {
           call1(Stream[12], strm);
           try {var c = escape(strm);}
           catch(k_) {
-            k_ = caml_wrap_exception(k_);
+            k_ = runtime["caml_wrap_exception"](k_);
             if (k_ === Stream[1]) {
-              throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__1]
-                    );
+              throw caml_wrap_thrown_exception([0,Stream[2],cst__1]);
             }
-            throw runtime["caml_wrap_thrown_exception_reraise"](k_);
+            throw caml_wrap_thrown_exception_reraise(k_);
           }
           store(c);
           continue;
@@ -433,7 +432,7 @@ function make_lexer(keywords) {
         store(j_);
         continue;
       }
-      throw runtime["caml_wrap_thrown_exception"](Stream[1]);
+      throw caml_wrap_thrown_exception(Stream[1]);
     }
   }
   function char__0(strm) {
@@ -444,17 +443,17 @@ function make_lexer(keywords) {
         call1(Stream[12], strm);
         try {var h_ = escape(strm);return h_;}
         catch(i_) {
-          i_ = caml_wrap_exception(i_);
+          i_ = runtime["caml_wrap_exception"](i_);
           if (i_ === Stream[1]) {
-            throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__2]);
+            throw caml_wrap_thrown_exception([0,Stream[2],cst__2]);
           }
-          throw runtime["caml_wrap_thrown_exception_reraise"](i_);
+          throw caml_wrap_thrown_exception_reraise(i_);
         }
       }
       call1(Stream[12], strm);
       return g_;
     }
-    throw runtime["caml_wrap_thrown_exception"](Stream[1]);
+    throw caml_wrap_thrown_exception(Stream[1]);
   }
   function escape(strm) {
     var match = call1(Stream[11], strm);
@@ -496,15 +495,15 @@ function make_lexer(keywords) {
                 );
               }
             }
-            throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__4]);
+            throw caml_wrap_thrown_exception([0,Stream[2],cst__4]);
           }
         }
-        throw runtime["caml_wrap_thrown_exception"]([0,Stream[2],cst__3]);
+        throw caml_wrap_thrown_exception([0,Stream[2],cst__3]);
       }
       call1(Stream[12], strm);
       return d_;
     }
-    throw runtime["caml_wrap_thrown_exception"](Stream[1]);
+    throw caml_wrap_thrown_exception(Stream[1]);
   }
   function comment__0(counter, strm) {
     for (; ; ) {
@@ -533,7 +532,7 @@ function make_lexer(keywords) {
         call1(Stream[12], strm);
         continue;
       }
-      throw runtime["caml_wrap_thrown_exception"](Stream[1]);
+      throw caml_wrap_thrown_exception(Stream[1]);
     }
   }
   function maybe_nested_comment(counter, strm) {
@@ -555,7 +554,7 @@ function make_lexer(keywords) {
       }
       return caml_trampoline_return(comment__0, [0,strm]);
     }
-    throw runtime["caml_wrap_thrown_exception"](Stream[1]);
+    throw caml_wrap_thrown_exception(Stream[1]);
   }
   function maybe_end_comment(counter, strm) {
     for (; ; ) {
@@ -571,7 +570,7 @@ function make_lexer(keywords) {
         }
         return caml_trampoline_return(comment__0, [0,strm]);
       }
-      throw runtime["caml_wrap_thrown_exception"](Stream[1]);
+      throw caml_wrap_thrown_exception(Stream[1]);
     }
   }
   function comment(strm) {return caml_trampoline(comment__0(0, strm));}
@@ -587,4 +586,4 @@ runtime["caml_register_global"](15, Genlex, "Genlex");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Genlex;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

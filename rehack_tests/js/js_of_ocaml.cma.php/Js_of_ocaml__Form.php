@@ -40,6 +40,7 @@ final class Js_of_ocaml__Form {
     $caml_js_to_string = $runtime["caml_js_to_string"];
     $string = $runtime["caml_new_string"];
     $caml_string_notequal = $runtime["caml_string_notequal"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $is_int = $runtime["is_int"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_checkbox = $string("checkbox");
@@ -501,9 +502,9 @@ final class Js_of_ocaml__Form {
       $call2($List[15], $l_, $k_);
       return $contents;
     };
-    $get_form_contents = function(dynamic $form) use ($Assert_failure,$List,$call2,$caml_js_to_string,$e_,$f_,$form_elements,$is_int,$runtime) {
+    $get_form_contents = function(dynamic $form) use ($Assert_failure,$List,$call2,$caml_js_to_string,$caml_wrap_thrown_exception,$e_,$f_,$form_elements,$is_int) {
       $g_ = $form_elements($e_, $form);
-      $h_ = function(dynamic $param) use ($Assert_failure,$caml_js_to_string,$f_,$is_int,$runtime) {
+      $h_ = function(dynamic $param) use ($Assert_failure,$caml_js_to_string,$caml_wrap_thrown_exception,$f_,$is_int) {
         $i_ = $param[2];
         $j_ = $param[1];
         if (! $is_int($i_)) {
@@ -512,7 +513,7 @@ final class Js_of_ocaml__Form {
             return Vector{0, $j_, $caml_js_to_string($s)};
           }
         }
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $f_}) as \Throwable;
+        throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
       };
       return $call2($List[17], $h_, $g_);
     };
@@ -536,4 +537,4 @@ final class Js_of_ocaml__Form {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

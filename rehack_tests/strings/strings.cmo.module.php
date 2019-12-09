@@ -37,7 +37,9 @@ final class Strings {
     $call2 = $runtime["caml_call2"];
     $caml_int_of_string = $runtime["caml_int_of_string"];
     $string = $runtime["caml_new_string"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = $string(
       "The variable v_ should not conflict with any other variables in scope"
@@ -125,9 +127,9 @@ final class Strings {
     
     try {$D_ = $call2($String[14], $cst_asdf, 95);$index__0 = $D_;}
     catch(\Throwable $G_) {
-      $G_ = $caml_wrap_exception($G_);
+      $G_ = $runtime["caml_wrap_exception"]($G_);
       if ($G_ !== $Not_found) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($G_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($G_) as \Throwable;
       }
       $h_ = -1;
       $index__0 = $h_;
@@ -182,9 +184,9 @@ final class Strings {
     
     try {$C_ = $createIntFromString($cst_WHEREAMI);$m_ = $C_;}
     catch(\Throwable $F_) {
-      $F_ = $caml_wrap_exception($F_);
+      $F_ = $runtime["caml_wrap_exception"]($F_);
       if ($F_[1] !== $Failure) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($F_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($F_) as \Throwable;
       }
       $l_ = 102;
       $m_ = $l_;
@@ -203,9 +205,9 @@ final class Strings {
     
     try {$B_ = $createIntFromString($cst_20);$o_ = $B_;}
     catch(\Throwable $E_) {
-      $E_ = $caml_wrap_exception($E_);
+      $E_ = $runtime["caml_wrap_exception"]($E_);
       if ($E_[1] !== $Failure) {
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($E_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($E_) as \Throwable;
       }
       $n_ = 102;
       $o_ = $n_;
@@ -281,4 +283,4 @@ final class Strings {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

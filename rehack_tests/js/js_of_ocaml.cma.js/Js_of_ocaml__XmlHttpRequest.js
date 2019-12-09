@@ -15,6 +15,7 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -91,9 +92,7 @@ function create(param) {
           );
           return h_;
         }
-        catch(t_) {
-          throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
-        }
+        catch(t_) {throw caml_wrap_thrown_exception([0,Assert_failure,a_]);}
       }
     }
   }
@@ -109,4 +108,4 @@ runtime["caml_register_global"](
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__XmlHttpRequest;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -42,6 +42,7 @@ final class Stream {
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $is_int = $runtime["is_int"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_count = $string("{count = ");
@@ -82,7 +83,7 @@ final class Stream {
       $b[4] = 0;
       return 0;
     };
-    $get_data->contents = function(dynamic $count, dynamic $d) use ($Assert_failure,$CamlinternalLazy,$a_,$b_,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$get_data,$is_int,$runtime) {
+    $get_data->contents = function(dynamic $count, dynamic $d) use ($Assert_failure,$CamlinternalLazy,$a_,$b_,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$caml_wrap_thrown_exception,$fill_buff,$get_data,$is_int) {
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
@@ -103,7 +104,9 @@ final class Stream {
                   $a = $match[1];
                   return Vector{0, $a, Vector{1, $d11, $d2}};
                 }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a_}) as \Throwable;
+                throw $caml_wrap_thrown_exception(
+                        Vector{0, $Assert_failure, $a_}
+                      ) as \Throwable;
               }
             // FALLTHROUGH
             case 2:
@@ -148,7 +151,7 @@ final class Stream {
         return $d__0;
       }
     };
-    $peek_data = function(dynamic $s) use ($Assert_failure,$CamlinternalLazy,$c_,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$fill_buff,$get_data,$is_int,$runtime) {
+    $peek_data = function(dynamic $s) use ($Assert_failure,$CamlinternalLazy,$c_,$call1,$caml_bytes_unsafe_get,$caml_obj_tag,$caml_wrap_thrown_exception,$fill_buff,$get_data,$is_int) {
       for (;;) {
         $l_ = $s[2];
         if ($is_int($l_)) {return 0;}
@@ -169,7 +172,9 @@ final class Stream {
                   $s[2] = $d;
                   return Vector{0, $a__0};
                 }
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $c_}) as \Throwable;
+                throw $caml_wrap_thrown_exception(
+                        Vector{0, $Assert_failure, $c_}
+                      ) as \Throwable;
               }
             // FALLTHROUGH
             case 2:
@@ -271,16 +276,14 @@ final class Stream {
       if ($param) {$d = $param[1];return $npeek_data($n, $d);}
       return 0;
     };
-    $next = function(dynamic $s) use ($Failure,$junk,$peek,$runtime) {
+    $next = function(dynamic $s) use ($Failure,$caml_wrap_thrown_exception,$junk,$peek) {
       $match = $peek($s);
       if ($match) {$a = $match[1];$junk($s);return $a;}
-      throw $runtime["caml_wrap_thrown_exception"]($Failure) as \Throwable;
+      throw $caml_wrap_thrown_exception($Failure) as \Throwable;
     };
-    $empty = function(dynamic $s) use ($Failure,$peek,$runtime) {
+    $empty = function(dynamic $s) use ($Failure,$caml_wrap_thrown_exception,$peek) {
       $match = $peek($s);
-      if ($match) {
-        throw $runtime["caml_wrap_thrown_exception"]($Failure) as \Throwable;
-      }
+      if ($match) {throw $caml_wrap_thrown_exception($Failure) as \Throwable;}
       return 0;
     };
     $iter = function(dynamic $f, dynamic $strm) use ($call1,$junk,$peek) {
@@ -499,4 +502,4 @@ final class Stream {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -17,6 +17,7 @@ var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_byte_string = runtime["caml_js_to_byte_string"];
 var caml_jsbytes_of_string = runtime["caml_jsbytes_of_string"];
 var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -63,7 +64,7 @@ function regexp_with_flag(s, f) {
 
 function blunt_str_array_get(a, i) {
   function ab_(param) {
-    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,a_]);
+    throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
   }
   var ac_ = call2(Js_of_ocaml_Js[16], a, i);
   return caml_js_to_byte_string(call2(Js_of_ocaml_Js[6][8], ac_, ab_));
@@ -246,4 +247,4 @@ runtime["caml_register_global"](34, Js_of_ocaml_Regexp, "Js_of_ocaml__Regexp");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Regexp;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

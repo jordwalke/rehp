@@ -45,7 +45,10 @@ final class Genlex {
     $string = $runtime["caml_new_string"];
     $caml_trampoline = $runtime["caml_trampoline"];
     $caml_trampoline_return = $runtime["caml_trampoline_return"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst = $string("");
@@ -86,7 +89,7 @@ final class Genlex {
       $buffer[1] = $initial_buffer;
       return $s;
     };
-    $make_lexer = function(dynamic $keywords) use ($Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$call1,$call2,$call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_exception,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
+    $make_lexer = function(dynamic $keywords) use ($Char,$Hashtbl,$List,$Not_found,$Pervasives,$Stream,$String,$call1,$call2,$call3,$caml_float_of_string,$caml_trampoline,$caml_trampoline_return,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst,$cst_Illegal_character,$cst__0,$cst__1,$cst__2,$cst__3,$cst__4,$get_string,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
       $char__0 = new Ref();
       $comment = new Ref();
       $escape = new Ref();
@@ -98,24 +101,24 @@ final class Genlex {
         return $call3($Hashtbl[5], $kwd_table, $s, Vector{0, $s});
       };
       $call2($List[15], $a_, $keywords);
-      $ident_or_keyword = function(dynamic $id) use ($Hashtbl,$Not_found,$call2,$caml_wrap_exception,$kwd_table,$runtime) {
+      $ident_or_keyword = function(dynamic $id) use ($Hashtbl,$Not_found,$call2,$caml_wrap_thrown_exception_reraise,$kwd_table,$runtime) {
         try {$C_ = $call2($Hashtbl[6], $kwd_table, $id);return $C_;}
         catch(\Throwable $D_) {
-          $D_ = $caml_wrap_exception($D_);
+          $D_ = $runtime["caml_wrap_exception"]($D_);
           if ($D_ === $Not_found) {return Vector{1, $id};}
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($D_) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($D_) as \Throwable;
         }
       };
-      $keyword_or_error = function(dynamic $c) use ($Hashtbl,$Not_found,$Pervasives,$Stream,$String,$call2,$caml_wrap_exception,$cst_Illegal_character,$kwd_table,$runtime) {
+      $keyword_or_error = function(dynamic $c) use ($Hashtbl,$Not_found,$Pervasives,$Stream,$String,$call2,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst_Illegal_character,$kwd_table,$runtime) {
         $s = $call2($String[1], 1, $c);
         try {$A_ = $call2($Hashtbl[6], $kwd_table, $s);return $A_;}
         catch(\Throwable $B_) {
-          $B_ = $caml_wrap_exception($B_);
+          $B_ = $runtime["caml_wrap_exception"]($B_);
           if ($B_ === $Not_found) {
             $z_ = $call2($Pervasives[16], $cst_Illegal_character, $s);
-            throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $z_}) as \Throwable;
+            throw $caml_wrap_thrown_exception(Vector{0, $Stream[2], $z_}) as \Throwable;
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($B_) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($B_) as \Throwable;
         }
       };
       $end_exponent_part = function(dynamic $strm) use ($Stream,$call1,$caml_float_of_string,$get_string,$store,$unsigned_right_shift_32) {
@@ -305,7 +308,7 @@ final class Genlex {
           return Vector{0, $ident_or_keyword($get_string(0))};
         }
       };
-      $next_token__0 = function(dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$caml_wrap_exception,$char__0,$cst,$cst__0,$ident,$ident2,$keyword_or_error,$maybe_comment,$neg_number,$number,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
+      $next_token__0 = function(dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$char__0,$cst,$cst__0,$ident,$ident2,$keyword_or_error,$maybe_comment,$neg_number,$number,$reset_buffer,$runtime,$store,$string,$unsigned_right_shift_32) {
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
@@ -335,11 +338,13 @@ final class Genlex {
                       $call1($Stream[12], $strm);
                       try {$c = $char__0->contents($strm);}
                       catch(\Throwable $o_) {
-                        $o_ = $caml_wrap_exception($o_);
+                        $o_ = $runtime["caml_wrap_exception"]($o_);
                         if ($o_ === $Stream[1]) {
-                          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst}) as \Throwable;
+                          throw $caml_wrap_thrown_exception(
+                                  Vector{0, $Stream[2], $cst}
+                                ) as \Throwable;
                         }
-                        throw $runtime["caml_wrap_thrown_exception_reraise"]($o_) as \Throwable;
+                        throw $caml_wrap_thrown_exception_reraise($o_) as \Throwable;
                       }
                       $match__0 = $call1($Stream[11], $strm);
                       if ($match__0) {
@@ -348,7 +353,9 @@ final class Genlex {
                           return Vector{0, Vector{5, $c}};
                         }
                       }
-                      throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__0}) as \Throwable;
+                      throw $caml_wrap_thrown_exception(
+                              Vector{0, $Stream[2], $cst__0}
+                            ) as \Throwable;
                     // FALLTHROUGH
                     case 40:
                       $call1($Stream[12], $strm);
@@ -501,7 +508,7 @@ final class Genlex {
       $next_token = function(dynamic $strm) use ($caml_trampoline,$next_token__0) {
         return $caml_trampoline($next_token__0(0, $strm));
       };
-      $string->contents = function(dynamic $strm) use ($Stream,$call1,$caml_wrap_exception,$cst__1,$escape,$get_string,$runtime,$store) {
+      $string->contents = function(dynamic $strm) use ($Stream,$call1,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst__1,$escape,$get_string,$runtime,$store) {
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
@@ -514,11 +521,13 @@ final class Genlex {
               $call1($Stream[12], $strm);
               try {$c = $escape->contents($strm);}
               catch(\Throwable $k_) {
-                $k_ = $caml_wrap_exception($k_);
+                $k_ = $runtime["caml_wrap_exception"]($k_);
                 if ($k_ === $Stream[1]) {
-                  throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__1}) as \Throwable;
+                  throw $caml_wrap_thrown_exception(
+                          Vector{0, $Stream[2], $cst__1}
+                        ) as \Throwable;
                 }
-                throw $runtime["caml_wrap_thrown_exception_reraise"]($k_) as \Throwable;
+                throw $caml_wrap_thrown_exception_reraise($k_) as \Throwable;
               }
               $store($c);
               continue;
@@ -527,10 +536,10 @@ final class Genlex {
             $store($j_);
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
+          throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
         }
       };
-      $char__0->contents = function(dynamic $strm) use ($Stream,$call1,$caml_wrap_exception,$cst__2,$escape,$runtime) {
+      $char__0->contents = function(dynamic $strm) use ($Stream,$call1,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst__2,$escape,$runtime) {
         $match = $call1($Stream[11], $strm);
         if ($match) {
           $g_ = $match[1];
@@ -538,19 +547,21 @@ final class Genlex {
             $call1($Stream[12], $strm);
             try {$h_ = $escape->contents($strm);return $h_;}
             catch(\Throwable $i_) {
-              $i_ = $caml_wrap_exception($i_);
+              $i_ = $runtime["caml_wrap_exception"]($i_);
               if ($i_ === $Stream[1]) {
-                throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__2}) as \Throwable;
+                throw $caml_wrap_thrown_exception(
+                        Vector{0, $Stream[2], $cst__2}
+                      ) as \Throwable;
               }
-              throw $runtime["caml_wrap_thrown_exception_reraise"]($i_) as \Throwable;
+              throw $caml_wrap_thrown_exception_reraise($i_) as \Throwable;
             }
           }
           $call1($Stream[12], $strm);
           return $g_;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
+        throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
-      $escape->contents = function(dynamic $strm) use ($Char,$Stream,$call1,$cst__3,$cst__4,$runtime,$unsigned_right_shift_32) {
+      $escape->contents = function(dynamic $strm) use ($Char,$Stream,$call1,$caml_wrap_thrown_exception,$cst__3,$cst__4,$unsigned_right_shift_32) {
         $match = $call1($Stream[11], $strm);
         if ($match) {
           $d_ = $match[1];
@@ -599,18 +610,21 @@ final class Genlex {
                       );
                     }
                   }
-                  throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__4}) as \Throwable;
+                  throw $caml_wrap_thrown_exception(
+                          Vector{0, $Stream[2], $cst__4}
+                        ) as \Throwable;
                 }
               }
-              throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Stream[2], $cst__3}) as \Throwable;
+              throw $caml_wrap_thrown_exception(Vector{0, $Stream[2], $cst__3}
+                    ) as \Throwable;
             }
           }
           $call1($Stream[12], $strm);
           return $d_;
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
+        throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
-      $comment__0 = function(dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$maybe_end_comment,$maybe_nested_comment,$runtime,$unsigned_right_shift_32) {
+      $comment__0 = function(dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$caml_wrap_thrown_exception,$maybe_end_comment,$maybe_nested_comment,$unsigned_right_shift_32) {
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
@@ -646,11 +660,11 @@ final class Genlex {
             $call1($Stream[12], $strm);
             continue;
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
+          throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
         }
       };
       $maybe_nested_comment->contents = function
-      (dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$comment,$comment__0,$runtime) {
+      (dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$caml_wrap_thrown_exception,$comment,$comment__0) {
         $match = $call1($Stream[11], $strm);
         if ($match) {
           if (42 === $match[1]) {
@@ -669,9 +683,9 @@ final class Genlex {
           }
           return $caml_trampoline_return($comment__0, varray[0,$strm]);
         }
-        throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
+        throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
-      $maybe_end_comment->contents = function(dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$comment__0,$runtime) {
+      $maybe_end_comment->contents = function(dynamic $counter, dynamic $strm) use ($Stream,$call1,$caml_trampoline_return,$caml_wrap_thrown_exception,$comment__0) {
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
@@ -685,7 +699,7 @@ final class Genlex {
             }
             return $caml_trampoline_return($comment__0, varray[0,$strm]);
           }
-          throw $runtime["caml_wrap_thrown_exception"]($Stream[1]) as \Throwable;
+          throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
         }
       };
       $comment->contents = function(dynamic $strm) use ($caml_trampoline,$comment__0) {
@@ -705,4 +719,4 @@ final class Genlex {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

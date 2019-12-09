@@ -30,7 +30,9 @@ final class Nativeint {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $left_shift_32 = $runtime["left_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_d = $runtime["caml_new_string"]("%d");
@@ -51,12 +53,12 @@ final class Nativeint {
     $to_string = function(dynamic $n) use ($cst_d,$runtime) {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
-    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_exception,$runtime) {
+    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_thrown_exception_reraise,$runtime) {
       try {$a_ = Vector{0, $runtime["caml_int_of_string"]($s)};return $a_;}
       catch(\Throwable $b_) {
-        $b_ = $caml_wrap_exception($b_);
+        $b_ = $runtime["caml_wrap_exception"]($b_);
         if ($b_[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($b_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($b_) as \Throwable;
       }
     };
     $compare = function(dynamic $x, dynamic $y) use ($runtime) {
@@ -88,4 +90,4 @@ final class Nativeint {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

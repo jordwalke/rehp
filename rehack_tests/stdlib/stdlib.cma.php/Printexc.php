@@ -50,7 +50,9 @@ final class Printexc {
      ];
     $string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst__0 = $string("");
@@ -327,20 +329,20 @@ final class Printexc {
       };
       return $conv($printers[1]);
     };
-    $print = function(dynamic $fct, dynamic $arg) use ($Pervasives,$Printf,$call1,$call2,$caml_wrap_exception,$f_,$runtime,$to_string) {
+    $print = function(dynamic $fct, dynamic $arg) use ($Pervasives,$Printf,$call1,$call2,$caml_wrap_thrown_exception_reraise,$f_,$runtime,$to_string) {
       try {$V_ = $call1($fct, $arg);return $V_;}
       catch(\Throwable $x) {
-        $x = $caml_wrap_exception($x);
+        $x = $runtime["caml_wrap_exception"]($x);
         $U_ = $to_string($x);
         $call2($Printf[3], $f_, $U_);
         $call1($Pervasives[51], $Pervasives[28]);
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($x) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($x) as \Throwable;
       }
     };
-    $catch__0 = function(dynamic $fct, dynamic $arg) use ($Pervasives,$Printf,$call1,$call2,$caml_wrap_exception,$g_,$to_string) {
+    $catch__0 = function(dynamic $fct, dynamic $arg) use ($Pervasives,$Printf,$call1,$call2,$g_,$runtime,$to_string) {
       try {$T_ = $call1($fct, $arg);return $T_;}
       catch(\Throwable $x) {
-        $x = $caml_wrap_exception($x);
+        $x = $runtime["caml_wrap_exception"]($x);
         $call1($Pervasives[51], $Pervasives[27]);
         $S_ = $to_string($x);
         $call2($Printf[3], $g_, $S_);
@@ -556,4 +558,4 @@ final class Printexc {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

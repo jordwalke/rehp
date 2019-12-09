@@ -31,6 +31,7 @@ final class Sort {
     $merge = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
@@ -105,9 +106,9 @@ final class Sort {
       $arr[$j + 1] = $tmp;
       return 0;
     };
-    $array = function(dynamic $cmp, dynamic $arr) use ($Invalid_argument,$call2,$cst_Sort_array,$runtime,$swap,$unsigned_right_shift_32) {
+    $array = function(dynamic $cmp, dynamic $arr) use ($Invalid_argument,$call2,$caml_wrap_thrown_exception,$cst_Sort_array,$swap,$unsigned_right_shift_32) {
       $qsort = new Ref();
-      $qsort->contents = function(dynamic $lo, dynamic $hi) use ($Invalid_argument,$arr,$call2,$cmp,$cst_Sort_array,$qsort,$runtime,$swap,$unsigned_right_shift_32) {
+      $qsort->contents = function(dynamic $lo, dynamic $hi) use ($Invalid_argument,$arr,$call2,$caml_wrap_thrown_exception,$cmp,$cst_Sort_array,$qsort,$swap,$unsigned_right_shift_32) {
         $lo__0 = $lo;
         $hi__0 = $hi;
         for (;;) {
@@ -126,7 +127,7 @@ final class Sort {
             $e_ = 1 - $call2($cmp, $pivot, $arr[$hi__0 + 1]);
             $f_ = $e_ ? $e_ : (1 - $call2($cmp, $arr[$lo__0 + 1], $pivot));
             if ($f_) {
-              throw $runtime["caml_wrap_thrown_exception"](
+              throw $caml_wrap_thrown_exception(
                       Vector{0, $Invalid_argument, $cst_Sort_array}
                     ) as \Throwable;
             }
@@ -204,4 +205,4 @@ final class Sort {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

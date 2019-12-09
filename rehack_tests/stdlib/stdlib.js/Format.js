@@ -18,7 +18,9 @@ let joo_global_object = global;
 var runtime = joo_global_object.jsoo_runtime;
 var caml_ml_string_length = runtime["caml_ml_string_length"];
 var string = runtime["caml_new_string"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -75,7 +77,7 @@ var Empty_queue = [248,cst_Format_Empty_queue,runtime["caml_fresh_oo_id"](0)];
 function peek_queue(param) {
   var cw_ = param[2];
   if (cw_) {var x = cw_[1];return x;}
-  throw runtime["caml_wrap_thrown_exception"](Empty_queue);
+  throw caml_wrap_thrown_exception(Empty_queue);
 }
 
 function take_queue(q) {
@@ -87,7 +89,7 @@ function take_queue(q) {
     if (0 === tl) {q[1] = 0;}
     return x;
   }
-  throw runtime["caml_wrap_thrown_exception"](Empty_queue);
+  throw caml_wrap_thrown_exception(Empty_queue);
 }
 
 function pp_enqueue(state, token) {
@@ -266,7 +268,7 @@ function format_pp_token(state, size, param) {
               var param__0 = l;
               continue;
             }
-            throw runtime["caml_wrap_thrown_exception"](Not_found);
+            throw caml_wrap_thrown_exception(Not_found);
           }
         };
         var cp_ = tabs__0[1];
@@ -274,9 +276,9 @@ function format_pp_token(state, size, param) {
           var x = cp_[1];
           try {var cq_ = find(insertion_point, tabs__0[1]);var x__0 = cq_;}
           catch(cr_) {
-            cr_ = caml_wrap_exception(cr_);
+            cr_ = runtime["caml_wrap_exception"](cr_);
             if (cr_ !== Not_found) {
-              throw runtime["caml_wrap_thrown_exception_reraise"](cr_);
+              throw caml_wrap_thrown_exception_reraise(cr_);
             }
             var x__0 = x;
           }
@@ -334,9 +336,9 @@ function advance_loop(state) {
 function advance_left(state) {
   try {var cc_ = advance_loop(state);return cc_;}
   catch(cd_) {
-    cd_ = caml_wrap_exception(cd_);
+    cd_ = runtime["caml_wrap_exception"](cd_);
     if (cd_ === Empty_queue) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](cd_);
+    throw caml_wrap_thrown_exception_reraise(cd_);
   }
 }
 
@@ -1673,4 +1675,4 @@ runtime["caml_register_global"](15, Format, "Format");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Format;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

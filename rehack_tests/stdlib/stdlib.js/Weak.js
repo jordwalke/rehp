@@ -27,6 +27,7 @@ var caml_weak_create = runtime["caml_weak_create"];
 var caml_weak_get = runtime["caml_weak_get"];
 var caml_weak_get_copy = runtime["caml_weak_get_copy"];
 var caml_weak_set = runtime["caml_weak_set"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -79,8 +80,7 @@ function fill(ar, ofs, len, x) {
       }
     }
   }
-  throw runtime["caml_wrap_thrown_exception"]([0,Invalid_argument,cst_Weak_fill]
-        );
+  throw caml_wrap_thrown_exception([0,Invalid_argument,cst_Weak_fill]);
 }
 
 function Make(H) {
@@ -405,9 +405,7 @@ function Make(H) {
     return find_or(
       t,
       d,
-      function(h, index) {
-        throw runtime["caml_wrap_thrown_exception"](Not_found);
-      }
+      function(h, index) {throw caml_wrap_thrown_exception(Not_found);}
     );
   }
   function find_opt(t, d) {
@@ -584,4 +582,4 @@ runtime["caml_register_global"](7, Weak, "Weak");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Weak;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */
