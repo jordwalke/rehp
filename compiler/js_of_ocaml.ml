@@ -72,18 +72,8 @@ let compute_hashes
 let file_contains_hashes hashes_comment file =
   let file_contents = Fs.read_file file in
   match Stdlib.String.find_substring hashes_comment file_contents 0 with
-  | exception Not_found ->
-      (
-        print_endline("Could not find comment");
-        print_endline(hashes_comment);
-      );
-      false
-  | i ->
-      (
-        print_endline("Could find comment");
-        print_endline(hashes_comment);
-      );
-      true
+  | exception Not_found -> false
+  | i -> true
 
 let file_needs_update use_hashing hashes_comment file =
   if not (Sys.file_exists file)
