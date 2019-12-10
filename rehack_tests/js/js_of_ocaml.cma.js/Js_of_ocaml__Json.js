@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
@@ -29,14 +30,16 @@ function reviver(this__0, key, value) {
 var input_reviver = runtime["caml_js_wrap_meth_callback"](reviver);
 
 function unsafe_input(s) {
-  function c(x) {return call1(caml_get_public_method(x, -309814068, 279), x);}
-  return function(t2, t0, t1, param) {return t2.parse(t0, t1);}(json, s, input_reviver, c
+  function c_(x) {
+    return call1(caml_get_public_method(x, -309814068, 279), x);
+  }
+  return function(t2, t0, t1, param) {return t2.parse(t0, t1);}(json, s, input_reviver, c_
   );
 }
 
-function a(x) {return call1(caml_get_public_method(x, 398798074, 280), x);}
+function a_(x) {return call1(caml_get_public_method(x, 398798074, 280), x);}
 
-var mlString_constr = function(t3, param) {return t3.constructor;}(dummy_string, a
+var mlString_constr = function(t3, param) {return t3.constructor;}(dummy_string, a_
 );
 
 function output_reviver(key, value) {
@@ -46,8 +49,8 @@ function output_reviver(key, value) {
 }
 
 function output(obj) {
-  function b(x) {return call1(caml_get_public_method(x, 215522356, 281), x);}
-  return function(t6, t4, t5, param) {return t6.stringify(t4, t5);}(json, obj, output_reviver, b
+  function b_(x) {return call1(caml_get_public_method(x, 215522356, 281), x);}
+  return function(t6, t4, t5, param) {return t6.stringify(t4, t5);}(json, obj, output_reviver, b_
   );
 }
 
@@ -57,4 +60,4 @@ runtime["caml_register_global"](5, Js_of_ocaml_Json, "Js_of_ocaml__Json");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Json;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

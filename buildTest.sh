@@ -82,7 +82,7 @@ export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exc
 
 # node -e 'global.native_log=(s)=>console.log(s); require("./rehack_tests/static_react_bytecode/static-react-test.js")'
 echo "./rehack_tests/static_react_bytecode/static-react-test.js"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js --prettiest-js --custom-header "function polymorphic_log(s) {console.log(\"c\" in s ? s.c : s);} $(< ./rehack_tests/templates/common-js-exe-header.js)"  ./rehack_tests/static_react_bytecode/static-react-test.bc -o ./rehack_tests/static_react_bytecode/static-react-test.js
+export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --linkall --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js --prettiest-js --custom-header "function polymorphic_log(s) {console.log(\"c\" in s ? s.c : s);} $(< ./rehack_tests/templates/common-js-exe-header.js)"  ./rehack_tests/static_react_bytecode/static-react-test.bc -o ./rehack_tests/static_react_bytecode/static-react-test.js
 
 # JS separate compilation + require modules.
 # NODE_PATH="${PWD}/rehack_tests/strings/:${PWD}/rehack_tests/stdlib/stdlib.js:${PWD}/runtime/rehack/js/" node -e 'require("Strings")'

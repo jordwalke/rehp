@@ -9,7 +9,9 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
@@ -35,21 +37,21 @@ function copy(s) {return [0,s[1],s[2]];}
 function push(x, s) {s[1] = [0,x,s[1]];s[2] = s[2] + 1 | 0;return 0;}
 
 function pop(s) {
-  var b = s[1];
-  if (b) {
-    var tl = b[2];
-    var hd = b[1];
+  var b_ = s[1];
+  if (b_) {
+    var tl = b_[2];
+    var hd = b_[1];
     s[1] = tl;
     s[2] = s[2] + -1 | 0;
     return hd;
   }
-  throw runtime["caml_wrap_thrown_exception"](Empty);
+  throw caml_wrap_thrown_exception(Empty);
 }
 
 function top(s) {
-  var a = s[1];
-  if (a) {var hd = a[1];return hd;}
-  throw runtime["caml_wrap_thrown_exception"](Empty);
+  var a_ = s[1];
+  if (a_) {var hd = a_[1];return hd;}
+  throw caml_wrap_thrown_exception(Empty);
 }
 
 function is_empty(s) {return 0 === s[1] ? 1 : 0;}
@@ -66,4 +68,4 @@ runtime["caml_register_global"](2, Stack, "Stack");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Stack;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

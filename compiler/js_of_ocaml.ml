@@ -27,29 +27,63 @@ let debug_mem = Debug.find "mem"
 
 let _ = Sys.catch_break true
 
-let compute_hashes custom_header_text args (bc : Parse_bytecode.one) =
+type ('a, 'b, 'c, 'd, 'e) extra_hash_data = {
+  args: 'a;
+  imports: 'b;
+  globals: 'c;
+  primitives: 'd;
+  reloc: 'e;
+}
+
+let empty_extra_hash_data = {
+  args = [];
+  imports = [];
+  globals = [];
+  primitives = [];
+  reloc = []
+}
+
+(* URGENT: String constants passed to externs are not stored in any of these hashed fields! Where are they? *)
+let compute_hashes
+    custom_header_text
+    {args; imports; globals; primitives; reloc}
+    (bc : Parse_bytecode.one) =
   let args_hash = Hashtbl.hash args in
   let custom_header_hash = Hashtbl.hash custom_header_text in
-  (* Rollover is fine *)
-  ( Compiler_version.git_version
-  , string_of_int (custom_header_hash + args_hash)
-  , string_of_int (Hashtbl.hash bc) )
-
-let compute_hashes_comment hashes =
-  let git_version, input_hashes, bytecode_hashes = hashes in
   "/*____hashes compiler:"
-  ^ git_version
-  ^ " inputs:"
-  ^ input_hashes
+  ^ Compiler_version.git_version
+  ^ " flags:"
+  ^ string_of_int (custom_header_hash + args_hash)
+  ^ " imports:"
+  ^ string_of_int (Hashtbl.hash imports)
+  ^ " required-globals:"
+  ^ string_of_int (Hashtbl.hash globals)
+  (* Lists are "deep" and therefore overlooked by hashing *)
+  ^ " primitives:"
+  ^ string_of_int (Hashtbl.hash (String.concat "-" primitives))
+  (* Lists are deep and overlooked by hashing. Convert to Array and also set
+   * depth to 256 *)
+  ^ " reloc:"
+  ^ string_of_int (Hashtbl.hash_param 256 256 (Array.of_list reloc))
   ^ " bytecode:"
-  ^ bytecode_hashes
+  ^ string_of_int (Hashtbl.hash bc)
   ^ "*/"
 
 let file_contains_hashes hashes_comment file =
   let file_contents = Fs.read_file file in
   match Stdlib.String.find_substring hashes_comment file_contents 0 with
-  | exception Not_found -> false
-  | i -> true
+  | exception Not_found ->
+      (
+        print_endline("Could not find comment");
+        print_endline(hashes_comment);
+      );
+      false
+  | i ->
+      (
+        print_endline("Could find comment");
+        print_endline(hashes_comment);
+      );
+      true
 
 let file_needs_update use_hashing hashes_comment file =
   if not (Sys.file_exists file)
@@ -99,7 +133,12 @@ let gen_file file f =
     Sys.remove f_tmp;
     raise exc
 
-let gen_unit_filename ~backend ?(ext = Backend.extension backend) dir u =
+let gen_unit_filename ?ext dir u =
+  let ext =
+    match ext with
+    | None -> Backend.Current.extension ()
+    | Some(e) -> e
+  in
   Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
 
 let f
@@ -126,9 +165,11 @@ let f
   let dynlink = dynlink || toplevel || runtime_only in
   let backend =
     match backend with
-    | None -> Backend.Js
+    | None ->
+      ((module Backend_js): (module Backend.Backend_implementation))
     | Some be -> be
   in
+  Backend.set_backend(backend);
   let use_hashing = common.CommonArg.use_hashing in
   let custom_header = common.CommonArg.custom_header in
   let implicit_ext = common.CommonArg.implicit_ext in
@@ -184,7 +225,7 @@ let f
         Some (Hashtbl.fold (fun cmi () acc -> cmi :: acc) t [])
   in
   (* Benchmarking shows this takes on the order of 100ms *)
-  Linker.load_files ~backend runtime_files;
+  Linker.load_files (Backend.Current.extension()) runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"]
     with Not_found -> include_dir
@@ -225,16 +266,16 @@ let f
   let output
       unit_name
       ordered_compunit_deps
+      extra_hash_data
       (one : Parse_bytecode.one)
       standalone
       output_file =
     check_debug one.debug;
-    let hashes =
+    let hashes_comment =
       if not use_hashing
-      then "hashing-disabled", "hashing-disabled", "hashing-disabled"
-      else compute_hashes custom_header args one
+      then "/* Hashing disabled */"
+      else compute_hashes custom_header extra_hash_data one
     in
-    let hashes_comment = compute_hashes_comment hashes in
     let custom_header =
       Module_loader.substitute_and_split
         custom_header
@@ -254,7 +295,6 @@ let f
         let fmt = Pretty_print.to_out_channel stdout in
         RehpDriver.f
           ~standalone
-          ~backend
           ?profile
           ~linkall
           ~dynlink
@@ -279,7 +319,6 @@ let f
               let fmt = Pretty_print.to_out_channel chan in
               RehpDriver.f
                 ~standalone
-                ~backend
                 ?profile
                 ~linkall
                 ~dynlink
@@ -295,7 +334,6 @@ let f
                   let pfs_fmt = Pretty_print.to_out_channel chan in
                   RehpDriver.f
                     ~standalone
-                    ~backend
                     ?profile
                     ~custom_header
                     pfs_fmt
@@ -310,7 +348,7 @@ let f
       ; cmis = StringSet.empty
       ; debug = Parse_bytecode.Debug.create () }
     in
-    output "Runtime" [] code true (fst output_file)
+    output "Runtime" [] empty_extra_hash_data code true (fst output_file)
   else
     let kind, ic, close_ic =
       match input_file with
@@ -333,20 +371,21 @@ let f
             ic
         in
         if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
-        output "Exe" [] code true (fst output_file)
+        (* Fast hashing disabled for exe mode *)
+        output "Exe" [] empty_extra_hash_data code true (fst output_file)
     | `Cmo cmo ->
         let output_file =
           match output_file, keep_unit_names with
-          | (`Stdout, false), true -> `Name (gen_unit_filename ~backend "./" cmo)
+          | (`Stdout, false), true -> `Name (gen_unit_filename "./" cmo)
           | (`Name x, false), true ->
               ensure_dir (Filename.dirname x);
-              `Name (gen_unit_filename ~backend (Filename.dirname x) cmo)
+              `Name (gen_unit_filename (Filename.dirname x) cmo)
           | (`Stdout, _), false -> `Stdout
           | (`Name x, _), false -> `Name x
           | (`Name x, true), true
             when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
               ensure_dir x;
-              `Name (gen_unit_filename ~backend x cmo)
+              `Name (gen_unit_filename x cmo)
           | (`Name _, true), true | (`Stdout, true), true ->
               failwith "use [-o dirname/] or remove [--keep-unit-names]"
         in
@@ -355,25 +394,26 @@ let f
           Parse_bytecode.from_cmo ~includes:paths ~toplevel ~debug:need_debug cmo ic
         in
         if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
-        output cmo.cu_name cmo.cu_required_globals code false output_file
+        let extra_hash_data = empty_extra_hash_data in
+        (* Fast hashing not supported for cmo mode *)
+        output cmo.cu_name cmo.cu_required_globals extra_hash_data code false output_file
     | `Cma cma when keep_unit_names ->
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
               | `Stdout, false ->
-                  `Name (gen_unit_filename ?ext:implicit_ext ~backend "./" cmo)
+                  `Name (gen_unit_filename ?ext:implicit_ext "./" cmo)
               | `Name x, false ->
                   ensure_dir (Filename.dirname x);
                   `Name
                     (gen_unit_filename
                        ?ext:implicit_ext
-                       ~backend
                        (Filename.dirname x)
                        cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
                   ensure_dir x;
-                  `Name (gen_unit_filename ?ext:implicit_ext ~backend x cmo)
+                  `Name (gen_unit_filename ?ext:implicit_ext x cmo)
               | `Stdout, true | `Name _, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
             in
@@ -383,7 +423,14 @@ let f
             in
             if times ()
             then Format.eprintf "  parsing: %a (%s)@." Timer.print t1 cmo.cu_name;
-            output cmo.cu_name cmo.cu_required_globals code false output_file)
+            let extra_hash_data = {
+              args = args;
+              imports = cmo.cu_imports;
+              globals = cmo.cu_required_globals;
+              primitives = cmo.cu_primitives;
+              reloc = cmo.cu_reloc;
+            } in
+            output cmo.cu_name cmo.cu_required_globals extra_hash_data code false output_file)
     | `Cma cma ->
         let t1 = Timer.make () in
         let code =
@@ -391,7 +438,8 @@ let f
         in
         if times () then Format.eprintf "  parsing: %a@." Timer.print t1;
         (* Module loading not supported in library compilation mode *)
-        output "Library" [] code false (fst output_file));
+        (* Hashing also is not supported in non-separate library mode *)
+        output "Library" [] empty_extra_hash_data code false (fst output_file));
     close_ic ());
   Debug.stop_profiling ()
 

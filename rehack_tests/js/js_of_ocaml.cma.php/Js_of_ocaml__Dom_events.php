@@ -42,12 +42,12 @@ final class Js_of_ocaml__Dom_events {
         $capture = $sth;
       }
       else {$capture = 0;}
-      $a = ! ! $capture;
-      $b = function(dynamic $n, dynamic $e) use ($call2,$cb) {
+      $a_ = ! ! $capture;
+      $b_ = function(dynamic $n, dynamic $e) use ($call2,$cb) {
         return ! ! $call2($cb, $n, $e);
       };
-      $c = $call1($Js_of_ocaml_Dom_html[11], $b);
-      return $call4($Js_of_ocaml_Dom_html[16], $target, $typ, $c, $a);
+      $c_ = $call1($Js_of_ocaml_Dom_html[11], $b_);
+      return $call4($Js_of_ocaml_Dom_html[16], $target, $typ, $c_, $a_);
     };
     $stop_listen = $Js_of_ocaml_Dom_html[17];
     $Js_of_ocaml_Dom_events = Vector{
@@ -66,4 +66,4 @@ final class Js_of_ocaml__Dom_events {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

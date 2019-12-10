@@ -10,8 +10,10 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var global_data = runtime["caml_get_global_data"]();
 var cst_d = runtime["caml_new_string"]("%d");
 var Failure = global_data["Failure"];
@@ -35,11 +37,11 @@ function lognot(n) {return n ^ -1;}
 function to_string(n) {return runtime["caml_format_int"](cst_d, n);}
 
 function of_string_opt(s) {
-  try {var a = [0,runtime["caml_int_of_string"](s)];return a;}
-  catch(b) {
-    b = caml_wrap_exception(b);
-    if (b[1] === Failure) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](b);
+  try {var a_ = [0,runtime["caml_int_of_string"](s)];return a_;}
+  catch(b_) {
+    b_ = runtime["caml_wrap_exception"](b_);
+    if (b_[1] === Failure) {return 0;}
+    throw caml_wrap_thrown_exception_reraise(b_);
   }
 }
 
@@ -69,4 +71,4 @@ runtime["caml_register_global"](12, Nativeint, "Nativeint");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Nativeint;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

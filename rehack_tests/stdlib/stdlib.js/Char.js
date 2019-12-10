@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
@@ -122,4 +123,4 @@ runtime["caml_register_global"](8, Char, "Char");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Char;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

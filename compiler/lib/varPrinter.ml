@@ -81,6 +81,15 @@ let propagate_name t v v' =
      *  with _ -> ()) *)
   with Not_found -> ()
 
+(*
+ * 1. All leading underscores end up being stripped from debug section derived
+ * variable names (in the name() function).
+ * 2. All debug section derived names will not conflict ($n is appended to the
+ * name elsewhere).
+ * 3. Remaining identifiers are just numeric and would potentially conflict
+ * with debug section derived names, if not for the fact that underscores are
+ * prepended/appended in format_var. (Using the assumption of #1 above).
+ *)
 let name t v nm_orig =
   let len = String.length nm_orig in
   if len > 0
@@ -119,8 +128,11 @@ let format_var t i x =
   let s = Alphabet.to_string t.alphabet x in
   if t.stable
   then Format.sprintf "v%d" i
+  (* jordwalke: I believe this pretty check is here because if preserving
+   * original variable names, it could cause a conflict with unnamed variables,
+   * and therefore the underscore padding is necessary *)
   else if t.pretty
-  then Format.sprintf "%s" s
+  then Format.sprintf "%s_" s
   else s
 
 let reserved = ref StringSet.empty
@@ -128,7 +140,7 @@ let reserved = ref StringSet.empty
 let add_reserved s =
   reserved := List.fold_left s ~init:!reserved ~f:(fun acc x -> StringSet.add x acc)
 
-let _ = reserved := StringSet.union !reserved Reserved.keyword
+(* let _ = reserved := StringSet.union !reserved (Backend.Current.keyword ()) *)
 
 (* ; *)
 (* add_reserved Reserved.provided *)

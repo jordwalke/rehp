@@ -14,6 +14,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_greaterthan = runtime["caml_greaterthan"];
@@ -52,9 +53,9 @@ var Pervasives = global_data["Pervasives"];
 var Digest = global_data["Digest"];
 var Array = global_data["Array_"];
 var Nativeint = global_data["Nativeint"];
-var a = [255,1,0,0];
-var b = [255,0,0,0];
-var c = [
+var a_ = [255,1,0,0];
+var b_ = [255,0,0,0];
+var c_ = [
   0,
   987910699,
   495797812,
@@ -123,38 +124,38 @@ function assign(st1, st2) {
 
 function full_init(s, seed) {
   function combine(accu, x) {
-    var q = call1(Pervasives[21], x);
-    var r = call2(Pervasives[16], accu, q);
-    return call1(Digest[3], r);
+    var q_ = call1(Pervasives[21], x);
+    var r_ = call2(Pervasives[16], accu, q_);
+    return call1(Digest[3], r_);
   }
   function extract(d) {
-    var n = caml_string_get(d, 3) << 24;
-    var o = caml_string_get(d, 2) << 16;
-    var p = caml_string_get(d, 1) << 8;
-    return ((caml_string_get(d, 0) + p | 0) + o | 0) + n | 0;
+    var n_ = caml_string_get(d, 3) << 24;
+    var o_ = caml_string_get(d, 2) << 16;
+    var p_ = caml_string_get(d, 1) << 8;
+    return ((caml_string_get(d, 0) + p_ | 0) + o_ | 0) + n_ | 0;
   }
   var seed__0 = 0 === seed.length - 1 ? [0,0] : seed;
   var l = seed__0.length - 1;
   var i__0 = 0;
   for (; ; ) {
     caml_check_bound(s[1], i__0)[i__0 + 1] = i__0;
-    var m = i__0 + 1 | 0;
-    if (54 !== i__0) {var i__0 = m;continue;}
+    var m_ = i__0 + 1 | 0;
+    if (54 !== i__0) {var i__0 = m_;continue;}
     var accu = [0,cst_x];
-    var h = 54 + call2(Pervasives[5], 55, l) | 0;
-    var g = 0;
-    if (! (h < 0)) {
-      var i = g;
+    var h_ = 54 + call2(Pervasives[5], 55, l) | 0;
+    var g_ = 0;
+    if (! (h_ < 0)) {
+      var i = g_;
       for (; ; ) {
         var j = i % 55 | 0;
         var k = caml_mod(i, l);
-        var i = caml_check_bound(seed__0, k)[k + 1];
-        accu[1] = combine(accu[1], i);
-        var j = extract(accu[1]);
-        var k = (caml_check_bound(s[1], j)[j + 1] ^ j) & 1073741823;
-        caml_check_bound(s[1], j)[j + 1] = k;
-        var l = i + 1 | 0;
-        if (h !== i) {var i = l;continue;}
+        var i_ = caml_check_bound(seed__0, k)[k + 1];
+        accu[1] = combine(accu[1], i_);
+        var j_ = extract(accu[1]);
+        var k_ = (caml_check_bound(s[1], j)[j + 1] ^ j_) & 1073741823;
+        caml_check_bound(s[1], j)[j + 1] = k_;
+        var l_ = i + 1 | 0;
+        if (h_ !== i) {var i = l_;continue;}
         break;
       }
     }
@@ -175,14 +176,14 @@ function copy(s) {var result = new_state(0);assign(result, s);return result;}
 
 function bits(s) {
   s[2] = (s[2] + 1 | 0) % 55 | 0;
-  var d = s[2];
-  var curval = caml_check_bound(s[1], d)[d + 1];
-  var e = (s[2] + 24 | 0) % 55 | 0;
-  var newval = caml_check_bound(s[1], e)[e + 1] +
+  var d_ = s[2];
+  var curval = caml_check_bound(s[1], d_)[d_ + 1];
+  var e_ = (s[2] + 24 | 0) % 55 | 0;
+  var newval = caml_check_bound(s[1], e_)[e_ + 1] +
     (curval ^ (curval >>> 25 | 0) & 31) | 0;
   var newval30 = newval & 1073741823;
-  var f = s[2];
-  caml_check_bound(s[1], f)[f + 1] = newval30;
+  var f_ = s[2];
+  caml_check_bound(s[1], f_)[f_ + 1] = newval30;
   return newval30;
 }
 
@@ -227,7 +228,7 @@ function int64aux(s, n) {
     if (
     caml_greaterthan(
       caml_int64_sub(r, v),
-      runtime["caml_int64_add"](caml_int64_sub(Int64[7], n), a)
+      runtime["caml_int64_add"](caml_int64_sub(Int64[7], n), a_)
     )
     ) {continue;}
     return v;
@@ -235,7 +236,7 @@ function int64aux(s, n) {
 }
 
 function int64(s, bound) {
-  return caml_lessequal(bound, b) ?
+  return caml_lessequal(bound, b_) ?
     call1(Pervasives[1], cst_Random_int64) :
     int64aux(s, bound);
 }
@@ -252,11 +253,11 @@ function rawfloat(s) {
   return (r1 / 1073741824 + r2) / 1073741824;
 }
 
-function float__0(s, bound) {return rawfloat(s) * bound;}
+function float(s, bound) {return rawfloat(s) * bound;}
 
 function bool(s) {return 0 === (bits(s) & 1) ? 1 : 0;}
 
-var default__0 = [0,c.slice(),0];
+var default__0 = [0,c_.slice(),0];
 
 function bits__0(param) {return bits(default__0);}
 
@@ -268,7 +269,7 @@ function nativeint__0(bound) {return nativeint(default__0, bound);}
 
 function int64__0(bound) {return int64(default__0, bound);}
 
-function float__1(scale) {return float__0(default__0, scale);}
+function float__0(scale) {return float(default__0, scale);}
 
 function bool__0(param) {return bool(default__0);}
 
@@ -292,9 +293,9 @@ var Random = [
   int32__0,
   nativeint__0,
   int64__0,
-  float__1,
+  float__0,
   bool__0,
-  [0,make,make_self_init,copy,bits,int__0,int32,nativeint,int64,float__0,bool],
+  [0,make,make_self_init,copy,bits,int__0,int32,nativeint,int64,float,bool],
   get_state,
   set_state
 ];
@@ -303,4 +304,4 @@ runtime["caml_register_global"](16, Random, "Random");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Random;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

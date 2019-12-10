@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 
@@ -21,16 +22,16 @@ var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
 
 function empty_position_options(param) {return {};}
 
-function a(x) {return call1(caml_get_public_method(x, 82957527, 298), x);}
+function a_(x) {return call1(caml_get_public_method(x, 82957527, 298), x);}
 
-var b = Js_of_ocaml_Js[50][1];
-var x = function(t1, param) {return t1.navigator;}(b, a);
+var b_ = Js_of_ocaml_Js[50][1];
+var x = function(t1, param) {return t1.navigator;}(b_, a_);
 
 if (call1(Js_of_ocaml_Js[6][5], x)) {
-  var c = function(x) {
+  var c_ = function(x) {
     return call1(caml_get_public_method(x, 315713478, 299), x);
   };
-  var geolocation = function(t0, param) {return t0.geolocation;}(x, c);
+  var geolocation = function(t0, param) {return t0.geolocation;}(x, c_);
 }
 else var geolocation = x;
 
@@ -53,4 +54,4 @@ runtime["caml_register_global"](
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Geolocation;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

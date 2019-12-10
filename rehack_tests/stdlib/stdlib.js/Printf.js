@@ -11,6 +11,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 
 function call1(f, a0) {
@@ -40,22 +41,22 @@ var Pervasives = global_data["Pervasives"];
 
 function kfprintf(k, o, param) {
   var fmt = param[1];
-  var f = 0;
-  function g(o, acc) {
+  var f_ = 0;
+  function g_(o, acc) {
     call2(CamlinternalFormat[9], o, acc);
     return call1(k, o);
   }
-  return call4(CamlinternalFormat[7], g, o, f, fmt);
+  return call4(CamlinternalFormat[7], g_, o, f_, fmt);
 }
 
 function kbprintf(k, b, param) {
   var fmt = param[1];
-  var d = 0;
-  function e(b, acc) {
+  var d_ = 0;
+  function e_(b, acc) {
     call2(CamlinternalFormat[10], b, acc);
     return call1(k, b);
   }
-  return call4(CamlinternalFormat[7], e, b, d, fmt);
+  return call4(CamlinternalFormat[7], e_, b, d_, fmt);
 }
 
 function ikfprintf(k, oc, param) {
@@ -63,12 +64,14 @@ function ikfprintf(k, oc, param) {
   return call3(CamlinternalFormat[8], k, oc, fmt);
 }
 
-function fprintf(oc, fmt) {return kfprintf(function(c) {return 0;}, oc, fmt);}
+function fprintf(oc, fmt) {
+  return kfprintf(function(c_) {return 0;}, oc, fmt);
+}
 
-function bprintf(b, fmt) {return kbprintf(function(b) {return 0;}, b, fmt);}
+function bprintf(b, fmt) {return kbprintf(function(b_) {return 0;}, b, fmt);}
 
 function ifprintf(oc, fmt) {
-  return ikfprintf(function(a) {return 0;}, oc, fmt);
+  return ikfprintf(function(a_) {return 0;}, oc, fmt);
 }
 
 function printf(fmt) {return fprintf(Pervasives[27], fmt);}
@@ -106,4 +109,4 @@ runtime["caml_register_global"](3, Printf, "Printf");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Printf;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

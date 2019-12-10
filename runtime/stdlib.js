@@ -53,19 +53,6 @@ function raw_array_append_one(a,x) {
   return b
 }
 
-//Provides: caml_arity_test (const)
-//ForBackend: php
-var caml_arity_test = raw_backend([
-  "$caml_arity_test = function($f) {",
-  "  $php_f = ($f instanceof Func) ? $f->fun : $f;",
-  "  if (is_object($php_f) && ($php_f instanceof \Closure)) {",
-  "    return (new \ReflectionFunction($php_f))->getNumberOfRequiredParameters();",
-  "  } else {",
-  "    throw new \ErrorException(\"Passed non closure to rehack_arity\");",
-  "  }",
-  "};"
-]);
-
 //Provides: caml_call_gen (const, shallow)
 //Requires: raw_array_sub
 //Requires: raw_array_append_one
@@ -83,197 +70,6 @@ function caml_call_gen(f, args) {
   else
     return function (x){ return caml_call_gen(f, raw_array_append_one(args,x)); };
 }
-
-
-//This version doesn't yet handle mutable caml_alloc_dummy_functions.
-//It needs to be updated to handle the result of caml_alloc_dummy_functions,
-//and so does each caml_calln.
-//Provides: caml_call_gen (const, shallow)
-//Requires: raw_array_sub
-//Requires: caml_arity_test
-//ForBackend: php
-var caml_call_gen = raw_backend([
-  "  $caml_call_gen=function(",
-  "    (function(mixed...): mixed) $f,",
-  "    varray<mixed> $args,",
-  "  ): mixed",
-  "  use($raw_array_sub, $caml_arity_test) {",
-  "    $n = caml_arity_test($f);",
-  "    $argsLen = C\count($args);",
-  "    $d = $n - $argsLen;",
-  "",
-  "    if ($d === 0) {",
-  "      return $f(...$args);",
-  "    } else if ($d < 0) {",
-  "      return $caml_call_gen(",
-  "        /* HH_IGNORE_ERROR[4110] $f must return a function here */",
-  "        $f(...$raw_array_sub($args, 0, $n)),",
-  "        $raw_array_sub($args, $n, $argsLen - $n),",
-  "      );",
-  "    } else {",
-  "      return function(mixed $x) use ($f, $args) {",
-  "        $args[] = $x;",
-  "        return $caml_call_gen($f, $args);",
-  "      };",
-  "    }",
-  "  };"
-]);
-
-
-//Provides: caml_call1 (const, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call1 = raw_backend([
-  "  $caml_call1=function((function(mixed...): mixed) $f, dynamic $a1): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "    return $caml_arity_test($f) === 1 ? $f($a1) : $caml_call_gen($f, varray[$a1]);",
-  "  };"
-]);
-
-//Provides: caml_call2 (const, mutable, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call2 = raw_backend([
-  "  $caml_call2=function(",
-  "   (function(mixed...): mixed) $f,",
-  "   dynamic $a1,",
-  "   dynamic $a2,",
-  " ): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "   return $caml_arity_test($f) === 2",
-  "     ? $f($a1, $a2)",
-  "     : $caml_call_gen($f, varray[$a1, $a2]);",
-  " };"
-]);
-
-//Provides: caml_call3 (const, mutable, mutable, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call3 = raw_backend([
-
-  " $caml_call3=function(",
-  "   (function(mixed...): mixed) $f,",
-  "   dynamic $a1,",
-  "   dynamic $a2,",
-  "   dynamic $a3,",
-  " ): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "   return $caml_arity_test($f) === 3",
-  "     ? $f($a1, $a2, $a3)",
-  "     : $caml_call_gen($f, varray[$a1, $a2, $a3]);",
-  " };"
-]);
-
-//Provides: caml_call4 (const, mutable, mutable, mutable, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call4 = raw_backend([
-  " $caml_call4=function(",
-  "   (function(mixed...): mixed) $f,",
-  "   dynamic $a1,",
-  "   dynamic $a2,",
-  "   dynamic $a3,",
-  "   dynamic $a4,",
-  " ): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "   return $caml_arity_test($f) === 4",
-  "     ? $f($a1, $a2, $a3, $a4)",
-  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4]);",
-  " }"
-]);
-
-//Provides: caml_call5 (const, mutable, mutable, mutable, mutable, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call5 = raw_backend([
-  " $caml_call5=function(",
-  "   (function(mixed...): mixed) $f,",
-  "   dynamic $a1,",
-  "   dynamic $a2,",
-  "   dynamic $a3,",
-  "   dynamic $a4,",
-  "   dynamic $a5,",
-  " ): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "   return $caml_arity_test($f) === 5",
-  "     ? $f($a1, $a2, $a3, $a4, $a5)",
-  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5]);",
-  " };"
-]);
-
-//Provides: caml_call6 (const, mutable, mutable, mutable, mutable, mutable, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call6 = raw_backend([
-  " $caml_call6=function(",
-  "   (function(mixed...): mixed) $f,",
-  "   dynamic $a1,",
-  "   dynamic $a2,",
-  "   dynamic $a3,",
-  "   dynamic $a4,",
-  "   dynamic $a5,",
-  "   dynamic $a6,",
-  " ): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "   return $caml_arity_test($f) === 6",
-  "     ? $f($a1, $a2, $a3, $a4, $a5, $a6)",
-  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6]);",
-  " };"
-]);
-
-//Provides: caml_call7 (const, mutable, mutable, mutable, mutable, mutable, mutable, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call7 = raw_backend([
-  " $caml_call7=function(",
-  "   (function(mixed...): mixed) $f,",
-  "   dynamic $a1,",
-  "   dynamic $a2,",
-  "   dynamic $a3,",
-  "   dynamic $a4,",
-  "   dynamic $a5,",
-  "   dynamic $a6,",
-  "   dynamic $a7,",
-  " ): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "   return $caml_arity_test($f) === 7",
-  "     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7)",
-  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7]);",
-  " };"
-]);
-
-//Provides: caml_call8 (const, mutable, mutable, mutable, mutable, mutable, mutable, mutable, mutable)
-//Requires: caml_arity_test
-//Requires: caml_call_gen
-//ForBackend: php
-var caml_call8 = raw_backend([
-  " $caml_call8=function(",
-  "   (function(mixed...): mixed) $f,",
-  "   dynamic $a1,",
-  "   dynamic $a2,",
-  "   dynamic $a3,",
-  "   dynamic $a4,",
-  "   dynamic $a5,",
-  "   dynamic $a6,",
-  "   dynamic $a7,",
-  "   dynamic $a8,",
-  " ): dynamic",
-  "  use($caml_arity_test, $caml_call_gen) {",
-  "   return $caml_arity_test($f) === 8",
-  "     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8)",
-  "     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8]);",
-  " };"
-]);
-
-
-
 
 //Provides: caml_named_values
 var caml_named_values = {};
@@ -375,86 +171,6 @@ function caml_wrap_thrown_exception_traceless(exn, force) {
  * records upward.
  */
 
-
-//Provides: String
-//ForBackend: php
-var String = raw_backend([
-  "$String = $joo_global_object->String;",
-]);
-
-// Wraps JS caught exceptions as ocaml ones.
-//Provides: caml_wrap_exception (mutable)
-//Requires: String, caml_named_value, caml_global_data
-//ForBackend: php
-var caml_wrap_exception = raw_backend([
-  "$caml_wrap_exception = function($e) use($String, $caml_global_data) {",
-  "  if ($e instanceof RehpExceptionBox) {",
-  "    return $e->contents;",
-  "  }",
-  "  // Check for __isArrayLike because some exceptions are manually constructed in stubs",
-  "  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {",
-  "    return $e;",
-  "  }",
-  "  // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily",
-  "  // map it to Stack_overflow.",
-  "  // Wrap Error in Js.Error exception",
-  "  if($e instanceof \Throwable) { // && $caml_named_value(\"phpError\"))",
-  "    // return [0,caml_named_value(\"phpError\"),e];",
-  "    return R(0, $String->new(\"phpError\"), $e);",
-  "  }",
-  "  //fallback: wrapped in Failure",
-  "  // Again, with proper stubs this will refer to the actual Failure - always",
-  "  // kept in sync.",
-  "  return R(0, $caml_global_data->Failure, $e);",
-  "};"
-]);
-
-
-// Php only allows raising exception objects, so RehpExceptionBox
-// is like a record array that can also be thrown.
-
-//Provides: caml_wrap_thrown_exception
-//Requires: String, caml_named_value, caml_global_data
-//ForBackend: php
-var caml_wrap_thrown_exception = raw_backend([
-  "$caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {",
-  "  if ($e instanceof RehpExceptionBox) {",
-  "    return $e;",
-  "  }",
-  "  // Check for __isArrayLike because some exceptions are manually constructed in stubs",
-  "  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {",
-  "    return new RehpExceptionBox($e);",
-  "  }",
-  "  // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily",
-  "  // map it to Stack_overflow.",
-  "",
-  "  // Wrap Error in Js.Error exception",
-  "  if($e instanceof \Exception) { // && $caml_named_value(\"phpError\"))",
-  "    // return [0,caml_named_value(\"phpError\"),e];",
-  "    return new RehpExceptionBox(R(0, $String->new(\"phpError\"), $e), $e->getCode(), $e);",
-  "  }",
-  "  //fallback: wrapped in Failure",
-  "  // Again, with proper stubs this will refer to the actual Failure - always",
-  "  // kept in sync.",
-  "  return new RehpExceptionBox(R(0, $caml_global_data->Failure, $e));",
-  "};"
-]);
-
-//Provides: caml_wrap_thrown_exception_reraise
-//Requires: caml_wrap_thrown_exception
-//ForBackend: php
-var caml_wrap_thrown_exception_reraise = raw_backend([
-  "$caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;"
-]);
-
-//Provides: caml_wrap_thrown_exception_traceless
-//Requires: caml_wrap_thrown_exception
-//ForBackend: php
-var caml_wrap_thrown_exception_traceless = raw_backend([
-  "$caml_wrap_thrown_exception_traceless = $caml_wrap_thrown_exception;"
-]);
-
-
 //Provides: caml_raise_constant (const)
 //Requires: caml_wrap_thrown_exception
 //Version: < 4.02
@@ -523,35 +239,6 @@ function caml_alloc_dummy_function (size, arity) {
   return f;
 }
 
-//Provides: caml_alloc_dummy_function (const, const)
-//Requires: ArrayLiteral, Func
-//ForBackend: php
-var caml_alloc_dummy_function = raw_backend([
-  "    $caml_alloc_dummy_function = $Func(",
-  "      function($size, $arity) use (",
-  "        $ArrayLiteral,",
-  "        $Func,",
-  "        $joo_global_object",
-  "      ) {",
-  "        print(\"WARNING: caml_alloc_dummy_function is not yet tested\");",
-  "        $f = new Ref();",
-  "        $f->contents = $Func(",
-  "          function() use ($ArrayLiteral, $f, $joo_global_object) {",
-  "            return $f->contents",
-  "              ->fun",
-  "              ->apply(",
-  "                $joo_global_object->context,",
-  "                $ArrayLiteral(\func_get_args())",
-  "              );",
-  "          }",
-  "        );",
-  "        $f->contents->length = $arity;",
-  "        return $f->contents;",
-  "      }",
-  "    );",
-]);
-
-
 //Provides: caml_invalid_argument (const)
 //Requires: caml_raise_with_string, caml_global_data
 function caml_invalid_argument (msg) {
@@ -608,25 +295,6 @@ function caml_update_dummy (x, y) {
   if( y.fun ) { x.fun = y.fun; return 0; }
   var i = y.length; while (i--) x[i] = y[i]; return 0;
 }
-
-// dummy arrays waiting to hold cyclical structures.
-//Provides: caml_update_dummy
-//ForBackend: php
-var caml_update_dummy = raw_backend([
-  "  $caml_update_dummy = function($x, $y) {",
-  "    if(PHP\is_callable($y)) {",
-  "      $x->fun = $y;",
-  "      return 0;",
-  "    }",
-  "    if(isset($y->fun)) {",
-  "      $x->fun = $y->fun;",
-  "      return 0;",
-  "    }",
-  "    $i = $y->length;",
-  "    while ($i--) $x[$i] = $y[$i];",
-  "    return 0;",
-  "  };"
-])
 
 //Provides: caml_obj_is_block const (const)
 function caml_obj_is_block (x) { return +(x instanceof Array); }
@@ -740,7 +408,7 @@ function caml_floatarray_create(len){
 }
 
 //Provides: caml_compare_val (const, const, const)
-//Requires: MlBytes, caml_int64_compare, caml_int_compare, caml_string_compare, NaN, is_in
+//Requires: MlBytes, caml_int64_compare, caml_int_compare, caml_string_compare
 //Requires: caml_invalid_argument
 function caml_compare_val (a, b, total) {
   var stack = [];
@@ -908,24 +576,8 @@ function caml_int_of_string (s) {
   return res | 0;
 }
 
-//Provides: parseInt
-//ForBackend: js
-var parseInt = raw_backend([
-  "  // Consumes parseInt",
-]);
-
-//Provides: parseInt
-//ForBackend: php
-var parseInt = raw_backend([
-  "    $parseInt = function($str, $base) {",
-  "      print('oh hi markk');",
-  "      return PHP\intval($str, $base);",
-  "    };",
-]);
-
-
 //Provides: caml_float_of_string (const)
-//Requires: caml_failwith, caml_jsbytes_of_string, parseInt
+//Requires: caml_failwith, caml_jsbytes_of_string
 function caml_float_of_string(s) {
   var res;
   s = caml_jsbytes_of_string (s);
@@ -1054,7 +706,7 @@ function caml_format_int(fmt, i) {
 }
 
 //Provides: caml_format_float const
-//Requires: isFinite, caml_parse_format, caml_finish_formatting, isNaN
+//Requires: caml_parse_format, caml_finish_formatting
 function caml_format_float (fmt, x) {
   var s, f = caml_parse_format(fmt);
   var prec = (f.prec < 0)?6:f.prec;
@@ -1682,204 +1334,3 @@ function polymorphic_log(x) {
     joo_global_object.console.log(x);
   }
 }
-
-
-//Provides: ArrayLiteral
-//ForBackend: php
-var ArrayLiteral = raw_backend([
-  "$ArrayLiteral=$joo_global_object->ArrayLiteral;"
-]);
-
-//Provides: RegExp
-//ForBackend: php
-var Regex = raw_backend([
-  "$RegExp=$joo_global_object->RegExp;"
-]);
-
-//Provides: Func
-//ForBackend: php
-var Func = raw_backend([
-  "$Func=$joo_global_object->Func;"
-]);
-
-//Provides: polymorphic_log
-//ForBackend: php
-var polymorphic_log = raw_backend([
-  "$polymorphic_log=$joo_global_object->polymorphic_log;"
-]);
-
-
-//Provides: is_int
-//ForBackend: php
-var is_int = raw_backend([
-  "  $is_int=$joo_global_object->is_int;"
-]);
-
-//Provides: NaN
-//ForBackend: js
-var NaN = raw_backend([
-  "  // Consumes NaN"
-]);
-
-//Provides: NaN
-//ForBackend: php
-var NaN = raw_backend([
-  "  $NaN=\NAN;"
-]);
-
-//Provides: ObjectLiteral
-//ForBackend: php
-var ObjectLiteral = raw_backend([
-  "  $ObjectLiteral = $joo_global_object->ObjectLiteral;"
-]);
-
-//Provides: Error
-//ForBackend: js
-var Error = raw_backend([
-  "  /* Uses Error */"
-]);
-
-// Should probably make a version that accepts more than just a string
-// (ErrorException only accepts a string).
-//Provides: Error
-//Requires: ObjectLiteral
-//ForBackend: php
-var Error = raw_backend([
-  "  $Error = $ObjectLiteral(darray[",
-  "     // Define to return a PHP exception subclass.",
-  "    \"new\" => function($payload) {",
-  "       return new \ErrorException($payload->__php_str);",
-  "    }",
-  "  ]);"
-]);
-
-//Provides: SyntaxError
-//ForBackend: js
-var SyntaxError = raw_backend([
-  "  /* Uses SyntaxError */"
-]);
-
-//Provides: SyntaxError
-//Requires: ObjectLiteral
-//ForBackend: php
-var SyntaxError = raw_backend([
-  "  $SyntaxError = $ObjectLiteral(darray[",
-  "     // Define to return a PHP exception subclass.",
-  "    \"new\" => function($payload) {",
-  "       return new \ErrorException('SyntaxError: ' .$payload->__php_str);",
-  "    }",
-  "  ]);"
-]);
-
-//Provides: isNaN
-//ForBackend: js
-var isNaN = raw_backend([
-  "  /* Uses isNaN */"
-]);
-
-//Provides: isNaN
-//ForBackend: php
-var isNaN = raw_backend([
-  "  $isNaN = function($value) {",
-  "   return PHP\is_nan(to_number($value));",
-  "  };"
-]);
-
-//Provides: isFinite
-//ForBackend: js
-var isFinite = raw_backend([
-  "  /* Uses isFinite */"
-]);
-
-//Provides: isFinite
-//ForBackend: php
-var isFinite = raw_backend([
-  "  $isFinite = function($value) {",
-  "   $value = to_number($value);",
-  "   return !($value === \INF || $value === -\INF || PHP\is_nan($value));",
-  "  };"
-]);
-
-// This won't even be used. It's only a temporary placeholder required while
-// compiling JS to PHP.
-//Provides: is_in
-//ForBackend: js
-var is_in = raw_backend(["var is_in = 0;"]);
-
-//Provides: is_in
-//ForBackend: php
-var is_in = raw_backend([
-  "  $is_in = function($key, $val) {",
-  "   return isset($val[$key]);",
-  "  };"
-]);
-
-// Bit shifters: To emulate 32 bits on 64 bit platforms, we shift off any
-// leading 32 bits.
-
-// << Left shift.
-// See also:
-// https://stackoverflow.com/a/25587827
-// https://stackoverflow.com/questions/6303241/find-windows-32-or-64-bit-using-php
-
-//Provides: left_shift_32 const (const, const)
-//ForBackend: php
-var left_shift_32 = raw_backend([
-  "    $left_shift_32 = (int $a, int $b): int {",
-  "      $shifted = $a << $b;",
-  "      if (\PHP_INT_SIZE === 8) {",
-  "        // 64 bit.",
-  "        return ($shifted << 32) >> 32;",
-  "      } else {",
-  "        // Size four means 32bit",
-  "        return $shifted;",
-  "      }",
-  "    };"
-]);
-
-// >>> Unsigned shift right:
-// https://stackoverflow.com/a/43359819
-
-//Provides: unsigned_right_shift_32 const (const, const)
-//ForBackend: php
-var unsigned_right_shift_32 = raw_backend([
-  "    $unsigned_right_shift_32 = function(int $a, int $b): int {",
-  "      if ($b >= 32 || $b < -32) {",
-  "        $m = (int)($b / 32);",
-  "        $b = $b - ($m * 32);",
-  "      }",
-  "      if ($b < 0) {",
-  "        $b = 32 + $b;",
-  "      }",
-  "      if ($b === 0) {",
-  "        return (($a >> 1) & 0x7fffffff) * 2 + (($a >> $b) & 1);",
-  "      }",
-  "      if ($a < 0) {",
-  "        $a = ($a >> 1);",
-  "        $a &= 2147483647;",
-  "        $a |= 0x40000000;",
-  "        $a = ($a >> ($b - 1));",
-  "      } else {",
-  "        $a = ($a >> $b);",
-  "      }",
-  "      return $a;",
-  "    };"
-]);
-
-// >> Right shift:
-
-//Provides: right_shift_32 const (const, const)
-//ForBackend: php
-var right_shift_32 = raw_backend([
-"    $right_shift_32 = function(int $a, int $b): int {",
-"      if (\PHP_INT_SIZE === 8) {",
-"        // 64 bit.",
-"        $a_normalized = ($a << 32) >> 32;",
-"      } else {",
-"        // Size four means 32bit",
-"        $a_normalized = $a;",
-"      }",
-"      return $a_normalized >> $b;",
-"    };"
-]);
-

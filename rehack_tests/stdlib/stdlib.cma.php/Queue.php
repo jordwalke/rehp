@@ -31,16 +31,17 @@ final class Queue {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
     $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)};
     $create = function(dynamic $param) {return Vector{0, 0, 0, 0};};
     $clear = function(dynamic $q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
     $add = function(dynamic $x, dynamic $q) {
       $cell = Vector{0, $x, 0};
-      $g = $q[3];
-      if ($g) {
+      $g_ = $q[3];
+      if ($g_) {
         $q[1] = (int) ($q[1] + 1);
-        $g[2] = $cell;
+        $g_[2] = $cell;
         $q[3] = $cell;
         return 0;
       }
@@ -49,21 +50,21 @@ final class Queue {
       $q[3] = $cell;
       return 0;
     };
-    $peek = function(dynamic $q) use ($Empty,$runtime) {
-      $f = $q[2];
-      if ($f) {$content = $f[1];return $content;}
-      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
+    $peek = function(dynamic $q) use ($Empty,$caml_wrap_thrown_exception) {
+      $f_ = $q[2];
+      if ($f_) {$content = $f_[1];return $content;}
+      throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $take = function(dynamic $q) use ($Empty,$clear,$runtime) {
-      $c = $q[2];
-      if ($c) {
-        $d = $c[1];
-        $e = $c[2];
-        if ($e) {$q[1] = (int) ($q[1] + -1);$q[2] = $e;return $d;}
+    $take = function(dynamic $q) use ($Empty,$caml_wrap_thrown_exception,$clear) {
+      $c_ = $q[2];
+      if ($c_) {
+        $d_ = $c_[1];
+        $e_ = $c_[2];
+        if ($e_) {$q[1] = (int) ($q[1] + -1);$q[2] = $e_;return $d_;}
         $clear($q);
-        return $d;
+        return $d_;
       }
-      throw $runtime["caml_wrap_thrown_exception"]($Empty) as \Throwable;
+      throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $copy = function(dynamic $q_res, dynamic $prev, dynamic $cell) {
       $prev__0 = $prev;
@@ -124,12 +125,12 @@ final class Queue {
     $fold__0 = function(dynamic $f, dynamic $accu, dynamic $q) use ($fold) {return $fold($f, $accu, $q[2]);
     };
     $transfer = function(dynamic $q1, dynamic $q2) use ($clear) {
-      $a = 0 < $q1[1] ? 1 : (0);
-      if ($a) {
-        $b = $q2[3];
-        if ($b) {
+      $a_ = 0 < $q1[1] ? 1 : (0);
+      if ($a_) {
+        $b_ = $q2[3];
+        if ($b_) {
           $q2[1] = (int) ($q2[1] + $q1[1]);
-          $b[2] = $q1[2];
+          $b_[2] = $q1[2];
           $q2[3] = $q1[3];
           return $clear($q1);
         }
@@ -138,7 +139,7 @@ final class Queue {
         $q2[3] = $q1[3];
         return $clear($q1);
       }
-      return $a;
+      return $a_;
     };
     $Queue = Vector{
       0,
@@ -164,4 +165,4 @@ final class Queue {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 
 function erase_rel(param) {
@@ -241,4 +242,4 @@ runtime["caml_register_global"](
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalFormatBasics;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

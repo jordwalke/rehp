@@ -9,9 +9,12 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var global_data = runtime["caml_get_global_data"]();
 var cst_Sys_Break = string("Sys.Break");
 var ocaml_version = string("4.06.0");
@@ -32,11 +35,11 @@ var word_size = 32;
 var int_size = 32;
 
 function getenv_opt(s) {
-  try {var d = [0,runtime["caml_sys_getenv"](s)];return d;}
-  catch(e) {
-    e = caml_wrap_exception(e);
-    if (e === Not_found) {return 0;}
-    throw runtime["caml_wrap_thrown_exception_reraise"](e);
+  try {var d_ = [0,runtime["caml_sys_getenv"](s)];return d_;}
+  catch(e_) {
+    e_ = runtime["caml_wrap_exception"](e_);
+    if (e_ === Not_found) {return 0;}
+    throw caml_wrap_thrown_exception_reraise(e_);
   }
 }
 
@@ -78,12 +81,12 @@ function catch_break(on) {
   return on ?
     set_signal(
      sigint,
-     [0,function(param) {throw runtime["caml_wrap_thrown_exception"](Break);}]
+     [0,function(param) {throw caml_wrap_thrown_exception(Break);}]
    ) :
     set_signal(sigint, 0);
 }
 
-function a(c) {return runtime["caml_ml_runtime_warnings_enabled"](c);}
+function a_(c_) {return runtime["caml_ml_runtime_warnings_enabled"](c_);}
 
 var Sys = [
   0,
@@ -133,12 +136,12 @@ var Sys = [
   Break,
   catch_break,
   ocaml_version,
-  function(b) {return runtime["caml_ml_enable_runtime_warnings"](b);},
-  a
+  function(b_) {return runtime["caml_ml_enable_runtime_warnings"](b_);},
+  a_
 ];
 
 runtime["caml_register_global"](3, Sys, "Sys");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Sys;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

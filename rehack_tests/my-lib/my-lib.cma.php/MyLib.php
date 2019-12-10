@@ -72,47 +72,48 @@ final class MyLib {
       };
     };
     $testPartialFunctionCalls = function(dynamic $o) use ($bar,$baz) {
-      $s = function(dynamic $Q, dynamic $P) {return $Q($P);};
-      $callResult1 = function(dynamic $O) use ($o,$s) {return $s($o, $O);};
-      $t = "passThis";
-      $u = function(dynamic $N, dynamic $M, dynamic $L) {return $N($M, $L);};
-      $callResult2 = function(dynamic $K) use ($o,$t,$u) {
-        return $u($o, $t, $K);
+      $s_ = function(dynamic $Q_, dynamic $P_) {return $Q_($P_);};
+      $callResult1 = function(dynamic $O_) use ($o,$s_) {return $s_($o, $O_);};
+      $t_ = "passThis";
+      $u_ = function(dynamic $N_, dynamic $M_, dynamic $L_) {return $N_($M_, $L_);
       };
-      $v = "passThis";
-      $w = function(dynamic $J, dynamic $I, dynamic $H, dynamic $G) {return $J($I, $H, $G);
+      $callResult2 = function(dynamic $K_) use ($o,$t_,$u_) {
+        return $u_($o, $t_, $K_);
       };
-      $callResult3 = function(dynamic $F) use ($bar,$o,$v,$w) {
-        return $w($o, $v, $bar, $F);
+      $v_ = "passThis";
+      $w_ = function(dynamic $J_, dynamic $I_, dynamic $H_, dynamic $G_) {return $J_($I_, $H_, $G_);
       };
-      $x = "passThis";
-      $y = function
-      (dynamic $E, dynamic $D, dynamic $C, dynamic $B, dynamic $A) {return $E($D, $C, $B, $A);
+      $callResult3 = function(dynamic $F_) use ($bar,$o,$v_,$w_) {
+        return $w_($o, $v_, $bar, $F_);
       };
-      $callResult4 = function(dynamic $z) use ($baz,$o,$x,$y) {
-        return $y($o, $x, $baz, $baz, $z);
+      $x_ = "passThis";
+      $y_ = function
+      (dynamic $E_, dynamic $D_, dynamic $C_, dynamic $B_, dynamic $A_) {return $E_($D_, $C_, $B_, $A_);
+      };
+      $callResult4 = function(dynamic $z_) use ($baz,$o,$x_,$y_) {
+        return $y_($o, $x_, $baz, $baz, $z_);
       };
       return Vector{0, $callResult1, $callResult2, $callResult3, $callResult4};
     };
     $testPartialMethodCalls = function(dynamic $o) use ($bar,$cst_myPartiallyAppliedMethod,$cst_myPartiallyAppliedMethod__0,$cst_myPartiallyAppliedMethod__1,$foo,$runtime) {
-      $a = function(dynamic $r, dynamic $q, dynamic $p) use ($runtime) {
-        return $runtime["caml_js_meth_call1"]($r, $q, $p);
+      $a_ = function(dynamic $r_, dynamic $q_, dynamic $p_) use ($runtime) {
+        return $runtime["caml_js_meth_call1"]($r_, $q_, $p_);
       };
-      $sendResult1 = function(dynamic $o) use ($a,$cst_myPartiallyAppliedMethod) {
-        return $a($o, $cst_myPartiallyAppliedMethod, $o);
+      $sendResult1 = function(dynamic $o_) use ($a_,$cst_myPartiallyAppliedMethod,$o) {
+        return $a_($o, $cst_myPartiallyAppliedMethod, $o_);
       };
-      $b = function(dynamic $n, dynamic $m, dynamic $l, dynamic $k) use ($runtime) {
-        return $runtime["caml_js_meth_call2"]($n, $m, $l, $k);
+      $b_ = function(dynamic $n_, dynamic $m_, dynamic $l_, dynamic $k_) use ($runtime) {
+        return $runtime["caml_js_meth_call2"]($n_, $m_, $l_, $k_);
       };
-      $sendResult2 = function(dynamic $j) use ($b,$cst_myPartiallyAppliedMethod__0,$foo,$o) {
-        return $b($o, $cst_myPartiallyAppliedMethod__0, $foo, $j);
+      $sendResult2 = function(dynamic $j_) use ($b_,$cst_myPartiallyAppliedMethod__0,$foo,$o) {
+        return $b_($o, $cst_myPartiallyAppliedMethod__0, $foo, $j_);
       };
-      $c = function
-      (dynamic $i, dynamic $h, dynamic $g, dynamic $f, dynamic $e) use ($runtime) {
-        return $runtime["caml_js_meth_call3"]($i, $h, $g, $f, $e);
+      $c_ = function
+      (dynamic $i_, dynamic $h_, dynamic $g_, dynamic $f_, dynamic $e_) use ($runtime) {
+        return $runtime["caml_js_meth_call3"]($i_, $h_, $g_, $f_, $e_);
       };
-      $sendResult3 = function(dynamic $d) use ($bar,$c,$cst_myPartiallyAppliedMethod__1,$foo,$o) {
-        return $c($o, $cst_myPartiallyAppliedMethod__1, $bar, $foo, $d);
+      $sendResult3 = function(dynamic $d_) use ($bar,$c_,$cst_myPartiallyAppliedMethod__1,$foo,$o) {
+        return $c_($o, $cst_myPartiallyAppliedMethod__1, $bar, $foo, $d_);
       };
       return Vector{0, $sendResult1, $sendResult2, $sendResult3};
     };
@@ -134,4 +135,4 @@ final class MyLib {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -10,6 +10,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
 
@@ -23,21 +24,23 @@ var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
 
 function withCredentials(b) {
   var init = {};
-  function e(x) {return call1(caml_get_public_method(x, -893090218, 295), x);}
-  var f = ! ! b;
-  (function(t1, t0, param) {t1.withCredentials = t0;return 0;}(init, f, e));
+  function e_(x) {
+    return call1(caml_get_public_method(x, -893090218, 295), x);
+  }
+  var f_ = ! ! b;
+  (function(t1, t0, param) {t1.withCredentials = t0;return 0;}(init, f_, e_));
   return init;
 }
 
-function a(x) {return call1(caml_get_public_method(x, -809811338, 296), x);}
+function a_(x) {return call1(caml_get_public_method(x, -809811338, 296), x);}
 
-var b = Js_of_ocaml_Js[50][1];
-var eventSource = function(t2, param) {return t2.EventSource;}(b, a);
+var b_ = Js_of_ocaml_Js[50][1];
+var eventSource = function(t2, param) {return t2.EventSource;}(b_, a_);
 
-function c(x) {return call1(caml_get_public_method(x, -809811338, 297), x);}
+function c_(x) {return call1(caml_get_public_method(x, -809811338, 297), x);}
 
-var d = Js_of_ocaml_Js[50][1];
-var eventSource_options = function(t3, param) {return t3.EventSource;}(d, c);
+var d_ = Js_of_ocaml_Js[50][1];
+var eventSource_options = function(t3, param) {return t3.EventSource;}(d_, c_);
 var addEventListener = Js_of_ocaml_Dom[15];
 var Js_of_ocaml_EventSource = [
   0,
@@ -55,4 +58,4 @@ runtime["caml_register_global"](
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__EventSource;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

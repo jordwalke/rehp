@@ -25,7 +25,6 @@ let f:
     ~standalone: bool=?,
     ~profile: profile=?,
     ~dynlink: bool=?,
-    ~backend: Backend.t=?,
     ~linkall: bool=?,
     ~source_map: (option(string), Source_map.t)=?,
     ~custom_header: (string, int, string),

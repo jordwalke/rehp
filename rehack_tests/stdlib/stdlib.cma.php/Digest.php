@@ -41,7 +41,10 @@ final class Digest {
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $string__0 = $runtime["caml_new_string"];
     $caml_string_get = $runtime["caml_string_get"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $global_data = $runtime["caml_get_global_data"]();
@@ -73,13 +76,13 @@ final class Digest {
     $subbytes = function(dynamic $b, dynamic $ofs, dynamic $len) use ($Bytes,$call1,$substring) {
       return $substring($call1($Bytes[42], $b), $ofs, $len);
     };
-    $file = function(dynamic $filename) use ($Pervasives,$call1,$caml_wrap_exception,$runtime) {
+    $file = function(dynamic $filename) use ($Pervasives,$call1,$caml_wrap_thrown_exception_reraise,$runtime) {
       $ic = $call1($Pervasives[68], $filename);
       try {$d = $runtime["caml_md5_chan"]($ic, -1);}
       catch(\Throwable $e) {
-        $e = $caml_wrap_exception($e);
+        $e = $runtime["caml_wrap_exception"]($e);
         $call1($Pervasives[81], $ic);
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($e) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
       }
       $call1($Pervasives[81], $ic);
       return $d;
@@ -91,8 +94,8 @@ final class Digest {
       return $call2($Pervasives[74], $chan, 16);
     };
     $char_hex = function(dynamic $n) {
-      $e = 10 <= $n ? 87 : (48);
-      return (int) ($n + $e);
+      $e_ = 10 <= $n ? 87 : (48);
+      return (int) ($n + $e_);
     };
     $to_hex = function(dynamic $d) use ($Bytes,$Pervasives,$call1,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$char_hex,$cst_Digest_to_hex,$unsigned_right_shift_32) {
       if (16 !== $caml_ml_string_length($d)) {
@@ -114,16 +117,16 @@ final class Digest {
           ((int) ($i * 2) + 1),
           $char_hex($x & 15)
         );
-        $d = (int) ($i + 1);
-        if (15 !== $i) {$i = $d;continue;}
+        $d_ = (int) ($i + 1);
+        if (15 !== $i) {$i = $d_;continue;}
         return $call1($Bytes[42], $result);
       }
     };
-    $from_hex = function(dynamic $s) use ($Bytes,$Char,$Invalid_argument,$Pervasives,$call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$cst_Digest_from_hex,$cst_Digest_from_hex__0,$left_shift_32,$runtime,$unsigned_right_shift_32) {
+    $from_hex = function(dynamic $s) use ($Bytes,$Char,$Invalid_argument,$Pervasives,$call1,$caml_create_bytes,$caml_ml_string_length,$caml_string_get,$caml_wrap_thrown_exception,$cst_Digest_from_hex,$cst_Digest_from_hex__0,$left_shift_32,$runtime,$unsigned_right_shift_32) {
       if (32 !== $caml_ml_string_length($s)) {
         $call1($Pervasives[1], $cst_Digest_from_hex);
       }
-      $digit = function(dynamic $c) use ($Invalid_argument,$cst_Digest_from_hex__0,$runtime,$unsigned_right_shift_32) {
+      $digit = function(dynamic $c) use ($Invalid_argument,$caml_wrap_thrown_exception,$cst_Digest_from_hex__0,$unsigned_right_shift_32) {
         if (65 <= $c) {
           if (97 <= $c) {
             if (! (103 <= $c)) {return (int) ((int) ($c - 97) + 10);}
@@ -134,22 +137,22 @@ final class Digest {
           $switcher = (int) ($c + -48);
           if (! (9 < $unsigned_right_shift_32($switcher, 0))) {return (int) ($c - 48);}
         }
-        throw $runtime["caml_wrap_thrown_exception"](
+        throw $caml_wrap_thrown_exception(
                 Vector{0, $Invalid_argument, $cst_Digest_from_hex__0}
               ) as \Throwable;
       };
       $byte__0 = function(dynamic $i) use ($caml_string_get,$digit,$left_shift_32,$s) {
-        $c = $digit($caml_string_get($s, (int) ($i + 1)));
+        $c_ = $digit($caml_string_get($s, (int) ($i + 1)));
         return (int)
-        ($left_shift_32($digit($caml_string_get($s, $i)), 4) + $c);
+        ($left_shift_32($digit($caml_string_get($s, $i)), 4) + $c_);
       };
       $result = $caml_create_bytes(16);
       $i = 0;
       for (;;) {
-        $a = $byte__0((int) (2 * $i));
-        $runtime["caml_bytes_set"]($result, $i, $call1($Char[1], $a));
-        $b = (int) ($i + 1);
-        if (15 !== $i) {$i = $b;continue;}
+        $a_ = $byte__0((int) (2 * $i));
+        $runtime["caml_bytes_set"]($result, $i, $call1($Char[1], $a_));
+        $b_ = (int) ($i + 1);
+        if (15 !== $i) {$i = $b_;continue;}
         return $call1($Bytes[42], $result);
       }
     };
@@ -173,4 +176,4 @@ final class Digest {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

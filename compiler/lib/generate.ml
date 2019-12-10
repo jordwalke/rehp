@@ -101,6 +101,8 @@ module Share = struct
      passed to one of the register_prim functions in generate.ml *)
   let add_special_prim_if_exists s t =
     if Primitive.exists s then {t with prims = StringMap.add s (-1) t.prims} else t
+  let add_special_prim_even_if_not_exists s t =
+    {t with prims = StringMap.add s (-1) t.prims}
 
   let add_apply i t =
     let n = try IntMap.find i t.applies with Not_found -> 0 in
@@ -154,17 +156,16 @@ module Share = struct
         blocks
         empty_aux
     in
+    (* TODO: Probably need to make it so that we add special prims even if they
+       don't "exist". Each backend can determine which primitives it needs *)
     let count =
       List.fold_left
         [ "caml_trampoline"
         ; "caml_trampoline_return"
-        ; "caml_wrap_exception"
         ; "caml_list_of_js_array"
-        ; "caml_wrap_thrown_exception_traceless"
-        ; "caml_wrap_thrown_exception_reraise"
-        ; "caml_wrap_thrown_exception"
           (* These need to be added to the "special prims" in order to be
-           shared/hoisted. TODO: Renamed these. *)
+           shared/hoisted(because they don't appear in bytecode I think?).
+           TODO: Renamed these. *)
         ; "caml_arity_test"
           (* Allow the runtime to optionally predefine several caml_calls. *)
         ; "caml_call1"
@@ -187,6 +188,32 @@ module Share = struct
         ~init:count
         ~f:(fun acc x -> add_special_prim_if_exists x acc)
     in
+    let count =
+      List.fold_left
+        [ "caml_wrap_thrown_exception_traceless"
+        ; "caml_wrap_thrown_exception_reraise"
+        ; "caml_wrap_thrown_exception"
+        ; "caml_arity_test"
+        ; "caml_call1"
+        ; "caml_call2"
+        ; "caml_call3"
+        ; "caml_call4"
+        ; "caml_call5"
+        ; "caml_call6"
+        ; "caml_call7"
+        ; "caml_call8"
+        ; "caml_call9"
+        ; "caml_call10"
+        ; "caml_call11"
+        ; "caml_call12"
+        ; "caml_call13"
+        ; "is_int"
+        ; "left_shift_32"
+        ; "unsigned_right_shift_32"
+        ; "right_shift_32" ]
+        ~init:count
+        ~f:(fun acc x -> add_special_prim_even_if_not_exists x acc)
+    in
     {count; vars = empty_aux; alias_strings; alias_prims; alias_apply}
 
   let get_string gen s t =
@@ -206,9 +233,9 @@ module Share = struct
         else gen s
       with Not_found -> gen s
 
-  let get_prim ?preferred_local_varname_for_alias gen s t =
+  let get_prim ?pretty_name gen s t =
     let varname =
-      match preferred_local_varname_for_alias with
+      match pretty_name with
       | None -> s
       | Some nm -> nm
     in
@@ -244,25 +271,11 @@ module Share = struct
         J.EVar v
 end
 
-(* Checks if a primitive is supplied by a stub js file or by a generate.ml
-   registered primitive *)
 let if_prim_supplied s ~if_supplied ~fallback =
   let s = Primitive.resolve s in
-  (* Primitive.exists only returns true if it was provided by the linker
-     or something that actually registers it with its arity/kind etc typically
-     from runtime stubs, or from one of the register_prim functions here.  If
-     it is not registered by linker or by one of the register_prim functions
-     here, but it is found in bytecode, it will merely be "added" as a
-     Primitive.add_external, but it won't "exist". Being "aliased" as a
-     primitive also does not mean it exists, though it too will be added as
-     Primitive.add_external.
-     *)
-  if Primitive.exists s
-  then
-    (* These "optional" prmitives still need to be added via
-       add_special_prim_if_exists in order to get "shared"/hoisted. *)
-    if_supplied ()
-  else fallback ()
+  match Backend.Current.is_prim_supplied () s with
+  | None -> fallback()
+  | Some(pretty_name) -> if_supplied ~pretty_name
 
 module Ctx = struct
   type t =
@@ -325,24 +338,42 @@ let str_js s = J.EStr (s, `Bytes)
 let unsigned ~ctx x =
   if_prim_supplied
     "unsigned_right_shift_32"
-    ~if_supplied:(fun () ->
-      let p = Share.get_prim (runtime_fun ctx) "unsigned_right_shift_32" ctx.Ctx.share in
+    ~if_supplied:(fun ~pretty_name ->
+      let p =
+        Share.get_prim
+          ~pretty_name
+          (runtime_fun ctx)
+          "unsigned_right_shift_32"
+          ctx.Ctx.share
+      in
       J.ECall (p, [x; int 0], Loc.N))
     ~fallback:(fun () -> J.EBin (J.Lsr, x, int 0))
 
 let arity_test ~ctx x =
   if_prim_supplied
     "caml_arity_test"
-    ~if_supplied:(fun () ->
-      let p = Share.get_prim (runtime_fun ctx) "caml_arity_test" ctx.Ctx.share in
+    ~if_supplied:(fun ~pretty_name ->
+      let p =
+        Share.get_prim
+        ~pretty_name
+        (runtime_fun ctx)
+        "caml_arity_test"
+        ctx.Ctx.share
+      in
       J.ECall (p, [x], Loc.N))
     ~fallback:(fun () -> J.EArityTest x)
 
 let is_int ~ctx x =
   if_prim_supplied
     "is_int"
-    ~if_supplied:(fun () ->
-      let p = Share.get_prim (runtime_fun ctx) "is_int" ctx.Ctx.share in
+    ~if_supplied:(fun ~pretty_name ->
+      let p =
+        Share.get_prim
+          ~pretty_name
+          (runtime_fun ctx)
+          "is_int"
+          ctx.Ctx.share
+      in
       J.ECall (p, [x], Loc.N))
     ~fallback:(fun () -> J.EUn (IsInt, x))
 
@@ -381,10 +412,10 @@ let rec constant_rec ~ctx x level instrs =
   match x with
   | String s ->
       let e = Share.get_string str_js s ctx.Ctx.share in
-      let preferred_local_varname_for_alias = "string" in
+      let pretty_name = "string" in
       let p =
         Share.get_prim
-          ~preferred_local_varname_for_alias
+          ~pretty_name
           (runtime_fun ctx)
           "caml_new_string"
           ctx.Ctx.share
@@ -798,15 +829,14 @@ let apply_fun ctx f params loc =
   else
     let len = List.length params in
     let prim_name = Printf.sprintf "caml_call%d" len in
-    let preferred_local_varname_for_alias = Printf.sprintf "call%d" len in
     if_prim_supplied
       prim_name
       (* If compiled with a runtime.js input that has defined caml_call_x
          then we can pull in references to those runtime functions. *)
-      ~if_supplied:(fun () ->
+      ~if_supplied:(fun ~pretty_name ->
         let p =
           Share.get_prim
-            ~preferred_local_varname_for_alias
+            ~pretty_name
             (runtime_fun ctx)
             prim_name
             ctx.Ctx.share
@@ -989,24 +1019,40 @@ let _ =
   register_bin_prim_ctx "%int_lsl" `Pure (fun ctx cx cy _ ->
       if_prim_supplied
         "left_shift_32"
-        ~if_supplied:(fun () ->
-          let p = Share.get_prim (runtime_fun ctx) "left_shift_32" ctx.Ctx.share in
+        ~if_supplied:(fun ~pretty_name ->
+          let p =
+            Share.get_prim
+            ~pretty_name
+            (runtime_fun ctx)
+            "left_shift_32"
+            ctx.Ctx.share
+          in
           J.ECall (p, [cx; cy], Loc.N))
         ~fallback:(fun () -> J.EBin (J.Lsl, cx, cy)));
   register_bin_prim_ctx "%int_lsr" `Pure (fun ctx cx cy _ ->
       if_prim_supplied
         "unsigned_right_shift_32"
-        ~if_supplied:(fun () ->
+        ~if_supplied:(fun ~pretty_name ->
           let p =
-            Share.get_prim (runtime_fun ctx) "unsigned_right_shift_32" ctx.Ctx.share
+            Share.get_prim
+              ~pretty_name
+              (runtime_fun ctx)
+              "unsigned_right_shift_32"
+              ctx.Ctx.share
           in
           to_int (J.ECall (p, [cx; cy], Loc.N)))
         ~fallback:(fun () -> to_int (J.EBin (J.Lsr, cx, cy))));
   register_bin_prim_ctx "%int_asr" `Pure (fun ctx cx cy _ ->
       if_prim_supplied
         "right_shift_32"
-        ~if_supplied:(fun () ->
-          let p = Share.get_prim (runtime_fun ctx) "right_shift_32" ctx.Ctx.share in
+        ~if_supplied:(fun ~pretty_name ->
+          let p =
+            Share.get_prim
+              ~pretty_name
+              (runtime_fun ctx)
+              "right_shift_32"
+              ctx.Ctx.share
+          in
           J.ECall (p, [cx; cy], Loc.N))
         ~fallback:(fun () -> J.EBin (J.Asr, cx, cy)));
   register_un_prim "%int_neg" `Pure (fun cx _ -> to_int (J.EUn (J.Neg, cx)));
@@ -1084,19 +1130,31 @@ let throw_statement ctx cx k loc =
   match (k : [`Normal | `Reraise | `Notrace]) with
   | _ when not (Config.Flag.improved_stacktrace ()) -> [J.Throw_statement cx, loc]
   | `Notrace ->
-      [ ( J.Throw_statement
-            (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception_traceless", [cx], loc))
+      [(J.Throw_statement
+          (J.ECall (
+            (Share.get_prim (runtime_fun ctx) "caml_wrap_thrown_exception_traceless" ctx.Ctx.share),
+            [cx],
+            loc)
+          )
         , loc ) ]
   | `Normal ->
-      [ ( J.Throw_statement
-            (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception", [cx], loc))
+      [(J.Throw_statement
+         (J.ECall (
+            (Share.get_prim (runtime_fun ctx) "caml_wrap_thrown_exception" ctx.Ctx.share),
+            [cx],
+            loc
+          ))
         , loc ) ]
   | `Reraise ->
-      [ ( J.Throw_statement
-            (J.ECall (runtime_fun ctx "caml_wrap_thrown_exception_reraise", [cx], loc))
+      [(J.Throw_statement
+          (J.ECall (
+            (Share.get_prim (runtime_fun ctx) "caml_wrap_thrown_exception_reraise" ctx.Ctx.share),
+            [cx],
+            loc
+          ))
         , loc ) ]
 
-let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
+let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
   match e with
   | Const i -> (int32 i, const_p, queue), []
   | Apply (x, l, true) ->
@@ -1146,7 +1204,7 @@ let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
       (J.EStructAccess (cx, int (n + 1)), or_p px mutable_p, queue), []
   | Closure (args, ((pc, _) as cont)) ->
       let loc = source_location ctx ~after:true pc in
-      let clo = compile_closure ctx false cont backend in
+      let clo = compile_closure ctx false cont in
       let clo =
         match clo with
         | (st, Loc.N) :: rem -> (st, Loc.U) :: rem
@@ -1249,18 +1307,18 @@ let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
          optimized to EDot and cannot use the runtime fallback *)
         | ( Extern ("caml_js_get" | "caml_js_property_get")
           , [Pv o; Pc (String f | IString f)] )
-          when Id.is_ident f ->
+          when Backend.Current.is_ident () f ->
             let (po, co), queue = access_queue queue o in
             J.EDot (co, f), or_p po mutable_p, queue
         (* caml_js_property_set is like caml_js_set but will _only_ be
          optimized to EDot and cannot use the runtime fallback *)
         | ( Extern ("caml_js_set" | "caml_js_property_set")
           , [Pv o; Pc (String f | IString f); v] )
-          when Id.is_ident f ->
+          when Backend.Current.is_ident () f ->
             let (po, co), queue = access_queue queue o in
             let (pv, cv), queue = access_queue' ~ctx queue v in
             J.EBin (J.Eq, J.EDot (co, f), cv), or_p (or_p po pv) mutator_p, queue
-        | Extern "caml_js_delete", [Pv o; Pc (String f | IString f)] when Id.is_ident f
+        | Extern "caml_js_delete", [Pv o; Pc (String f | IString f)] when Backend.Current.is_ident () f
           ->
             let (po, co), queue = access_queue queue o in
             J.EUn (J.Delete, J.EDot (co, f)), or_p po mutator_p, queue
@@ -1334,11 +1392,11 @@ let rec translate_expr ctx queue loc _x e level backend : _ * J.statement_list =
       in
       res, []
 
-and translate_instr ctx expr_queue loc instr backend =
+and translate_instr ctx expr_queue loc instr =
   match instr with
   | Let (x, e) -> (
       let (ce, prop, expr_queue), instrs =
-        translate_expr ctx expr_queue loc x e 0 backend
+        translate_expr ctx expr_queue loc x e 0
       in
       let keep_name x =
         match Code.Var.get_name x with
@@ -1402,17 +1460,17 @@ and translate_instr ctx expr_queue loc instr backend =
         [ ( J.Expression_statement (J.EBin (J.Eq, J.EArrAccess (cx, plus_int cy one), cz))
           , loc ) ]
 
-and translate_instrs ctx expr_queue loc instr backend =
+and translate_instrs ctx expr_queue loc instr =
   match instr with
   | [] -> [], expr_queue
   | instr :: rem ->
-      let st, expr_queue = translate_instr ctx expr_queue loc instr backend in
-      let instrs, expr_queue = translate_instrs ctx expr_queue loc rem backend in
+      let st, expr_queue = translate_instr ctx expr_queue loc instr in
+      let instrs, expr_queue = translate_instrs ctx expr_queue loc rem in
       st @ instrs, expr_queue
 
-and compile_block st queue (pc : Addr.t) frontier interm backend =
+and compile_block st queue (pc : Addr.t) frontier interm =
   if queue <> [] && (Addr.Set.mem pc st.loops || not (Config.Flag.inline ()))
-  then flush_all queue (compile_block st [] pc frontier interm backend)
+  then flush_all queue (compile_block st [] pc frontier interm )
   else (
     if pc >= 0
     then (
@@ -1447,7 +1505,7 @@ and compile_block st queue (pc : Addr.t) frontier interm backend =
     let new_frontier = resolve_nodes interm grey in
     let block = Addr.Map.find pc st.blocks in
     let seq, queue =
-      translate_instrs st.ctx queue (source_location st.ctx pc) block.body backend
+      translate_instrs st.ctx queue (source_location st.ctx pc) block.body
     in
     let body =
       seq
@@ -1497,7 +1555,6 @@ and compile_block st queue (pc : Addr.t) frontier interm backend =
               Addr.Set.empty
               inner_frontier
               new_interm
-              backend
           in
           if debug () then Format.eprintf "} catch {@,";
           let x =
@@ -1505,7 +1562,7 @@ and compile_block st queue (pc : Addr.t) frontier interm backend =
             let m = Subst.build_mapping args2 block2.params in
             try Var.Map.find x m with Not_found -> x
           in
-          let handler = compile_block st [] pc2 inner_frontier new_interm backend in
+          let handler = compile_block st [] pc2 inner_frontier new_interm in
           let handler =
             if st.ctx.Ctx.live.(Var.idx x) > 0 && Config.Flag.excwrap ()
             then
@@ -1536,7 +1593,7 @@ and compile_block st queue (pc : Addr.t) frontier interm backend =
               let pc = Addr.Set.choose grey' in
               if Addr.Set.mem pc frontier
               then []
-              else compile_block st [] pc frontier interm backend
+              else compile_block st [] pc frontier interm
             else []))
       | _ ->
           let new_frontier, new_interm = colapse_frontier st new_frontier interm in
@@ -1553,7 +1610,6 @@ and compile_block st queue (pc : Addr.t) frontier interm backend =
               new_frontier
               new_interm
               succs
-              backend
           in
           cond
           @
@@ -1563,7 +1619,7 @@ and compile_block st queue (pc : Addr.t) frontier interm backend =
             let pc = Addr.Set.choose new_frontier in
             if Addr.Set.mem pc frontier
             then []
-            else compile_block st [] pc frontier interm backend
+            else compile_block st [] pc frontier interm
     in
     if Addr.Set.mem pc st.loops
     then
@@ -1650,8 +1706,7 @@ and compile_decision_tree
     succs
     loc
     cx
-    dtree
-    backend =
+    dtree =
   (* Some changes here may require corresponding changes
      in function [DTree.fold_cont] above. *)
   let rec loop cx = function
@@ -1665,7 +1720,7 @@ and compile_decision_tree
           (not (Addr.Set.mem pc frontier || Addr.Map.mem pc interm))
           && Addr.Set.is_empty d
         in
-        never, compile_branch st [] cont handler backs frontier interm backend
+        never, compile_branch st [] cont handler backs frontier interm
     | DTree.If (cond, cont1, cont2) ->
         let never1, iftrue = loop cx cont1 in
         let never2, iffalse = loop cx cont2 in
@@ -1687,7 +1742,7 @@ and compile_decision_tree
             never1
             (J.Block iffalse, Loc.N)
             never2
-            (backend != Backend.Php && Config.Flag.simplify_ifdecl ()) )
+            (Backend.Current.allow_simplify_ifdecl() && Config.Flag.simplify_ifdecl ()))
     | DTree.Switch a ->
         let all_never = ref true in
         let len = Array.length a in
@@ -1721,7 +1776,7 @@ and compile_decision_tree
   in
   binds @ snd (loop cx dtree)
 
-and compile_conditional st queue pc last handler backs frontier interm succs backend =
+and compile_conditional st queue pc last handler backs frontier interm succs =
   List.iter succs ~f:(fun (pc, _) -> if Addr.Map.mem pc interm then decr_preds st pc);
   (if debug ()
   then
@@ -1742,10 +1797,10 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
         let (_px, cx), queue = access_queue queue x in
         flush_all queue (throw_statement st.ctx cx k loc)
     | Stop -> flush_all queue []
-    | Branch cont -> compile_branch st queue cont handler backs frontier interm backend
+    | Branch cont -> compile_branch st queue cont handler backs frontier interm
     | Pushtrap _ -> assert false
     | Poptrap (cont, _) ->
-        flush_all queue (compile_branch st [] cont None backs frontier interm backend)
+        flush_all queue (compile_branch st [] cont None backs frontier interm )
     | Cond (cond, x, c1, c2) ->
         let (_px, cx), queue = access_queue queue x in
         let b =
@@ -1760,7 +1815,6 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
             loc
             cx
             (DTree.build_if cond c1 c2)
-            backend
         in
         flush_all queue b
     | Switch (x, [||], a2) ->
@@ -1777,7 +1831,6 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
             loc
             (J.EStructAccess (cx, J.EInt 0))
             (DTree.build_switch a2)
-            backend
         in
         flush_all queue code
     | Switch (x, a1, [||]) ->
@@ -1794,7 +1847,6 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
             loc
             cx
             (DTree.build_switch a1)
-            backend
         in
         flush_all queue code
     | Switch (x, a1, a2) ->
@@ -1814,7 +1866,6 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
             loc
             (var x)
             (DTree.build_switch a1)
-            backend
         in
         let b2 =
           compile_decision_tree
@@ -1828,7 +1879,6 @@ and compile_conditional st queue pc last handler backs frontier interm succs bac
             loc
             (J.EStructAccess (var x, J.EInt 0))
             (DTree.build_switch a2)
-            backend
         in
         let code =
           Js_simpl.if_statement
@@ -1916,7 +1966,7 @@ and index_of test li =
   if !i = -1 then raise Not_found;
   !i
 
-and compile_branch st queue ((pc, _) as cont) handler backs frontier interm backend =
+and compile_branch st queue ((pc, _) as cont) handler backs frontier interm =
   compile_argument_passing st.ctx queue cont backs (fun queue ->
       compile_exn_handling st.ctx queue cont handler (fun queue ->
           if Addr.Set.mem pc backs
@@ -1943,7 +1993,7 @@ and compile_branch st queue ((pc, _) as cont) handler backs frontier interm back
           then (
             if debug () then Format.eprintf "(br %d)@ " pc;
             flush_all queue (compile_branch_selection pc interm))
-          else compile_block st queue pc frontier interm backend))
+          else compile_block st queue pc frontier interm ))
 
 and compile_branch_selection pc interm =
   try
@@ -1953,7 +2003,7 @@ and compile_branch_selection pc interm =
     :: compile_branch_selection pc interm
   with Not_found -> []
 
-and compile_closure ctx at_toplevel (pc, args) backend =
+and compile_closure ctx at_toplevel (pc, args) =
   let st =
     { visited_blocks = Addr.Set.empty
     ; loops = Addr.Set.empty
@@ -1980,7 +2030,6 @@ and compile_closure ctx at_toplevel (pc, args) backend =
       Addr.Set.empty
       Addr.Set.empty
       Addr.Map.empty
-      backend
   in
   if Addr.Set.cardinal st.visited_blocks <> Addr.Set.cardinal current_blocks
   then (
@@ -2021,16 +2070,16 @@ let generate_shared_value ctx =
   in
   strings :: applies
 
-let compile_program ctx pc backend =
-  let res = compile_closure ctx true (pc, []) backend in
+let compile_program ctx pc =
+  let res = compile_closure ctx true (pc, []) in
   let res = generate_shared_value ctx @ res in
   if debug () then Format.eprintf "@.@.";
   res
 
-let f ((pc, blocks, _) as p) ~exported_runtime ~backend live_vars debug =
+let f ((pc, blocks, _) as p) ~exported_runtime live_vars debug =
   let t' = Timer.make () in
   let share = Share.get ~alias_prims:(exported_runtime != None) p in
   let ctx = Ctx.initial ~exported_runtime blocks live_vars share debug in
-  let p = compile_program ctx pc backend in
+  let p = compile_program ctx pc in
   if times () then Format.eprintf "  code gen.: %a@." Timer.print t';
   p

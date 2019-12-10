@@ -166,7 +166,6 @@
 // Create a JSON object only if one does not already exist. We create the
 // methods in a closure to avoid creating global variables.
 //Provides: JSON
-//Requires: SyntaxError
 //Version-IE: < 8
 var JSON = joo_global_object.JSON;
 if (typeof JSON !== 'object') {

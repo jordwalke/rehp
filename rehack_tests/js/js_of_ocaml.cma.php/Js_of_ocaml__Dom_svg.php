@@ -34,6 +34,7 @@ final class Js_of_ocaml__Dom_svg {
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_vkern__0 = $string("vkern");
     $cst_view__0 = $string("view");
@@ -155,12 +156,12 @@ final class Js_of_ocaml__Dom_svg {
       $runtime["caml_fresh_oo_id"](0)
     };
     $createElement = function(dynamic $doc, dynamic $name) use ($call1,$caml_get_public_method,$xmlns) {
-      $q = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $q_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -387984539, 288), $x);
       };
-      $r = $name->toString();
+      $r_ = $name->toString();
       return (function(dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) {return $t2->createElementNS($t0, $t1);
-       })($doc, $xmlns, $r, $q);
+       })($doc, $xmlns, $r_, $q_);
     };
     $unsafeCreateElement = function(dynamic $doc, dynamic $name) use ($createElement) {
       return $createElement($doc, $name);
@@ -327,37 +328,37 @@ final class Js_of_ocaml__Dom_svg {
     $createvkern = function(dynamic $doc) use ($cst_vkern,$unsafeCreateElement) {
       return $unsafeCreateElement($doc, $cst_vkern);
     };
-    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 946564599, 289), $x);
     };
-    $b = $Js_of_ocaml_Js[50][1];
+    $b_ = $Js_of_ocaml_Js[50][1];
     $svg_element = (function(dynamic $t3, dynamic $param) {return $t3->SVGElement;
-     })($b, $a);
-    $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+     })($b_, $a_);
+    $c_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 454225691, 290), $x);
     };
-    $d = $Js_of_ocaml_Js[50][1];
-    $document = (function(dynamic $t4, dynamic $param) {return $t4->document;})($d, $c);
-    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$runtime,$svg_element) {
-      $i = function(dynamic $e) use ($Not_found,$runtime,$svg_element) {
+    $d_ = $Js_of_ocaml_Js[50][1];
+    $document = (function(dynamic $t4, dynamic $param) {return $t4->document;})($d_, $c_);
+    $getElementById = function(dynamic $id) use ($Js_of_ocaml_Js,$Not_found,$call1,$call3,$caml_get_public_method,$caml_wrap_thrown_exception,$svg_element) {
+      $i_ = function(dynamic $e) use ($Not_found,$caml_wrap_thrown_exception,$svg_element) {
         if (instance_of($e, $svg_element)) {return $e;}
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
-      $j = function(dynamic $param) use ($Not_found,$runtime) {
-        throw $runtime["caml_wrap_thrown_exception"]($Not_found) as \Throwable;
+      $j_ = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
-      $k = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $k_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -332188296, 291), $x);
       };
-      $l = $id->toString();
-      $m = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $l_ = $id->toString();
+      $m_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 454225691, 292), $x);
       };
-      $n = $Js_of_ocaml_Js[50][1];
-      $o = (function(dynamic $t5, dynamic $param) {return $t5->document;})($n, $m);
-      $p = (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->getElementById($t6);
-       })($o, $l, $k);
-      return $call3($Js_of_ocaml_Js[5][7], $p, $j, $i);
+      $n_ = $Js_of_ocaml_Js[50][1];
+      $o_ = (function(dynamic $t5, dynamic $param) {return $t5->document;})($n_, $m_);
+      $p_ = (function(dynamic $t7, dynamic $t6, dynamic $param) {return $t7->getElementById($t6);
+       })($o_, $l_, $k_);
+      return $call3($Js_of_ocaml_Js[5][7], $p_, $j_, $i_);
     };
     $element = function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$svg_element) {
       return instance_of($e, $svg_element)
@@ -365,20 +366,20 @@ final class Js_of_ocaml__Dom_svg {
         : ($Js_of_ocaml_Js[1]);
     };
     $unsafeCoerce = function(dynamic $e, dynamic $tag) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
-      $e = $tag->toString();
-      $f = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $e_ = $tag->toString();
+      $f_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 946097238, 293), $x);
       };
-      $g = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $g_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 578170309, 294), $x);
       };
-      $h = (function(dynamic $t8, dynamic $param) {return $t8->tagName;})($e, $g);
+      $h_ = (function(dynamic $t8, dynamic $param) {return $t8->tagName;})($e, $g_);
       return (function(dynamic $t9, dynamic $param) {return $t9->toLowerCase();
-        })($h, $f) === $e
+        })($h_, $f_) === $e_
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $a__0 = function(dynamic $e) use ($cst_a__0,$unsafeCoerce) {
+    $a = function(dynamic $e) use ($cst_a__0,$unsafeCoerce) {
       return $unsafeCoerce($e, $cst_a__0);
     };
     $altGlyph = function(dynamic $e) use ($cst_altglyph__0,$unsafeCoerce) {
@@ -605,7 +606,7 @@ final class Js_of_ocaml__Dom_svg {
       Vector{
         0,
         $element,
-        $a__0,
+        $a,
         $altGlyph,
         $altGlyphDef,
         $altGlyphItem,
@@ -671,4 +672,4 @@ final class Js_of_ocaml__Dom_svg {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

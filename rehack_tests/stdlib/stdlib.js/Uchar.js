@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_format_int = runtime["caml_format_int"];
 var string = runtime["caml_new_string"];
@@ -42,12 +43,12 @@ function err_not_sv(i) {
 }
 
 function err_not_latin1(u) {
-  var p = call2(
+  var p_ = call2(
     Pervasives[16],
     caml_format_int(cst_04X, u),
     cst_is_not_a_latin1_character
   );
-  return call2(Pervasives[16], cst_U, p);
+  return call2(Pervasives[16], cst_U, p_);
 }
 
 var min = 0;
@@ -70,17 +71,17 @@ function pred(u) {
 }
 
 function is_valid(i) {
-  var l = 0 <= i ? 1 : 0;
-  var m = l ? i <= 55295 ? 1 : 0 : l;
-  if (m) var n = m;
-  else {var o = 57344 <= i ? 1 : 0;var n = o ? i <= 1114111 ? 1 : 0 : o;}
-  return n;
+  var l_ = 0 <= i ? 1 : 0;
+  var m_ = l_ ? i <= 55295 ? 1 : 0 : l_;
+  if (m_) var n_ = m_;
+  else {var o_ = 57344 <= i ? 1 : 0;var n_ = o_ ? i <= 1114111 ? 1 : 0 : o_;}
+  return n_;
 }
 
 function of_int(i) {
   if (is_valid(i)) {return i;}
-  var k = err_not_sv(i);
-  return call1(Pervasives[1], k);
+  var k_ = err_not_sv(i);
+  return call1(Pervasives[1], k_);
 }
 
 function is_char(u) {return u < 256 ? 1 : 0;}
@@ -88,19 +89,19 @@ function is_char(u) {return u < 256 ? 1 : 0;}
 function of_char(c) {return c;}
 
 function to_char(u) {
-  if (255 < u) {var j = err_not_latin1(u);return call1(Pervasives[1], j);}
+  if (255 < u) {var j_ = err_not_latin1(u);return call1(Pervasives[1], j_);}
   return u;
 }
 
-function unsafe_to_char(i) {return i;}
+function unsafe_to_char(i_) {return i_;}
 
-function equal(h, g) {return h === g ? 1 : 0;}
+function equal(h_, g_) {return h_ === g_ ? 1 : 0;}
 
-function compare(f, e) {return runtime["caml_int_compare"](f, e);}
+function compare(f_, e_) {return runtime["caml_int_compare"](f_, e_);}
 
-function hash(d) {return d;}
+function hash(d_) {return d_;}
 
-function a(c) {return c;}
+function a_(c_) {return c_;}
 
 var Uchar = [
   0,
@@ -112,8 +113,8 @@ var Uchar = [
   pred,
   is_valid,
   of_int,
-  function(b) {return b;},
-  a,
+  function(b_) {return b_;},
+  a_,
   is_char,
   of_char,
   to_char,
@@ -127,4 +128,4 @@ runtime["caml_register_global"](8, Uchar, "Uchar");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Uchar;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

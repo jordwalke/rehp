@@ -36,7 +36,10 @@ final class Array_ {
     $caml_check_bound = $runtime["caml_check_bound"];
     $caml_make_vect = $runtime["caml_make_vect"];
     $string = $runtime["caml_new_string"];
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_Array_map2_arrays_must_have_the_same_length = $string(
       "Array.map2: arrays must have the same length"
@@ -51,23 +54,23 @@ final class Array_ {
     $cst_Array_Bottom = $string("Array.Bottom");
     $Assert_failure = $global_data["Assert_failure"];
     $Pervasives = $global_data["Pervasives"];
-    $a = Vector{0, $string("array.ml"), 233, 4};
-    $make_float = function(dynamic $aj) use ($runtime) {
-      return $runtime["caml_make_float_vect"]($aj);
+    $a_ = Vector{0, $string("array.ml"), 233, 4};
+    $make_float = function(dynamic $aj_) use ($runtime) {
+      return $runtime["caml_make_float_vect"]($aj_);
     };
     $Floatarray = Vector{0};
     $init = function(dynamic $l, dynamic $f) use ($Pervasives,$call1,$caml_make_vect,$cst_Array_init) {
       if (0 === $l) {return Vector{0};}
       if (0 <= $l) {
         $res = $caml_make_vect($l, $call1($f, 0));
-        $ah = (int) ($l + -1);
-        $ag = 1;
-        if (! ($ah < 1)) {
-          $i = $ag;
+        $ah_ = (int) ($l + -1);
+        $ag_ = 1;
+        if (! ($ah_ < 1)) {
+          $i = $ag_;
           for (;;) {
             $res[$i + 1] = $call1($f, $i);
-            $ai = (int) ($i + 1);
-            if ($ah !== $i) {$i = $ai;continue;}
+            $ai_ = (int) ($i + 1);
+            if ($ah_ !== $i) {$i = $ai_;continue;}
             break;
           }
         }
@@ -77,14 +80,14 @@ final class Array_ {
     };
     $make_matrix = function(dynamic $sx, dynamic $sy, dynamic $init) use ($caml_make_vect) {
       $res = $caml_make_vect($sx, Vector{0});
-      $ae = (int) ($sx + -1);
-      $ad = 0;
-      if (! ($ae < 0)) {
-        $x = $ad;
+      $ae_ = (int) ($sx + -1);
+      $ad_ = 0;
+      if (! ($ae_ < 0)) {
+        $x = $ad_;
         for (;;) {
           $res[$x + 1] = $caml_make_vect($sy, $init);
-          $af = (int) ($x + 1);
-          if ($ae !== $x) {$x = $af;continue;}
+          $af_ = (int) ($x + 1);
+          if ($ae_ !== $x) {$x = $af_;continue;}
           break;
         }
       }
@@ -114,13 +117,13 @@ final class Array_ {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($a->count() - 1 - $len) < $ofs)) {
-            $ab = (int) ((int) ($ofs + $len) + -1);
-            if (! ($ab < $ofs)) {
+            $ab_ = (int) ((int) ($ofs + $len) + -1);
+            if (! ($ab_ < $ofs)) {
               $i = $ofs;
               for (;;) {
                 $a[$i + 1] = $v;
-                $ac = (int) ($i + 1);
-                if ($ab !== $i) {$i = $ac;continue;}
+                $ac_ = (int) ($i + 1);
+                if ($ab_ !== $i) {$i = $ac_;continue;}
                 break;
               }
             }
@@ -152,14 +155,14 @@ final class Array_ {
       return $call1($Pervasives[1], $cst_Array_blit);
     };
     $iter = function(dynamic $f, dynamic $a) use ($call1) {
-      $Z = (int) ($a->count() - 1 + -1);
-      $Y = 0;
-      if (! ($Z < 0)) {
-        $i = $Y;
+      $Z_ = (int) ($a->count() - 1 + -1);
+      $Y_ = 0;
+      if (! ($Z_ < 0)) {
+        $i = $Y_;
         for (;;) {
           $call1($f, $a[$i + 1]);
-          $aa = (int) ($i + 1);
-          if ($Z !== $i) {$i = $aa;continue;}
+          $aa_ = (int) ($i + 1);
+          if ($Z_ !== $i) {$i = $aa_;continue;}
           break;
         }
       }
@@ -172,14 +175,14 @@ final class Array_ {
           $cst_Array_iter2_arrays_must_have_the_same_length
         );
       }
-      $W = (int) ($a->count() - 1 + -1);
-      $V = 0;
-      if (! ($W < 0)) {
-        $i = $V;
+      $W_ = (int) ($a->count() - 1 + -1);
+      $V_ = 0;
+      if (! ($W_ < 0)) {
+        $i = $V_;
         for (;;) {
           $call2($f, $a[$i + 1], $b[$i + 1]);
-          $X = (int) ($i + 1);
-          if ($W !== $i) {$i = $X;continue;}
+          $X_ = (int) ($i + 1);
+          if ($W_ !== $i) {$i = $X_;continue;}
           break;
         }
       }
@@ -189,14 +192,14 @@ final class Array_ {
       $l = $a->count() - 1;
       if (0 === $l) {return Vector{0};}
       $r = $caml_make_vect($l, $call1($f, $a[1]));
-      $T = (int) ($l + -1);
-      $S = 1;
-      if (! ($T < 1)) {
-        $i = $S;
+      $T_ = (int) ($l + -1);
+      $S_ = 1;
+      if (! ($T_ < 1)) {
+        $i = $S_;
         for (;;) {
           $r[$i + 1] = $call1($f, $a[$i + 1]);
-          $U = (int) ($i + 1);
-          if ($T !== $i) {$i = $U;continue;}
+          $U_ = (int) ($i + 1);
+          if ($T_ !== $i) {$i = $U_;continue;}
           break;
         }
       }
@@ -213,28 +216,28 @@ final class Array_ {
       }
       if (0 === $la) {return Vector{0};}
       $r = $caml_make_vect($la, $call2($f, $a[1], $b[1]));
-      $Q = (int) ($la + -1);
-      $P = 1;
-      if (! ($Q < 1)) {
-        $i = $P;
+      $Q_ = (int) ($la + -1);
+      $P_ = 1;
+      if (! ($Q_ < 1)) {
+        $i = $P_;
         for (;;) {
           $r[$i + 1] = $call2($f, $a[$i + 1], $b[$i + 1]);
-          $R = (int) ($i + 1);
-          if ($Q !== $i) {$i = $R;continue;}
+          $R_ = (int) ($i + 1);
+          if ($Q_ !== $i) {$i = $R_;continue;}
           break;
         }
       }
       return $r;
     };
     $iteri = function(dynamic $f, dynamic $a) use ($call2) {
-      $N = (int) ($a->count() - 1 + -1);
-      $M = 0;
-      if (! ($N < 0)) {
-        $i = $M;
+      $N_ = (int) ($a->count() - 1 + -1);
+      $M_ = 0;
+      if (! ($N_ < 0)) {
+        $i = $M_;
         for (;;) {
           $call2($f, $i, $a[$i + 1]);
-          $O = (int) ($i + 1);
-          if ($N !== $i) {$i = $O;continue;}
+          $O_ = (int) ($i + 1);
+          if ($N_ !== $i) {$i = $O_;continue;}
           break;
         }
       }
@@ -244,14 +247,14 @@ final class Array_ {
       $l = $a->count() - 1;
       if (0 === $l) {return Vector{0};}
       $r = $caml_make_vect($l, $call2($f, 0, $a[1]));
-      $K = (int) ($l + -1);
-      $J = 1;
-      if (! ($K < 1)) {
-        $i = $J;
+      $K_ = (int) ($l + -1);
+      $J_ = 1;
+      if (! ($K_ < 1)) {
+        $i = $J_;
         for (;;) {
           $r[$i + 1] = $call2($f, $i, $a[$i + 1]);
-          $L = (int) ($i + 1);
-          if ($K !== $i) {$i = $L;continue;}
+          $L_ = (int) ($i + 1);
+          if ($K_ !== $i) {$i = $L_;continue;}
           break;
         }
       }
@@ -315,14 +318,14 @@ final class Array_ {
     };
     $fold_left = function(dynamic $f, dynamic $x, dynamic $a) use ($call2) {
       $r = Vector{0, $x};
-      $H = (int) ($a->count() - 1 + -1);
-      $G = 0;
-      if (! ($H < 0)) {
-        $i = $G;
+      $H_ = (int) ($a->count() - 1 + -1);
+      $G_ = 0;
+      if (! ($H_ < 0)) {
+        $i = $G_;
         for (;;) {
           $r[1] = $call2($f, $r[1], $a[$i + 1]);
-          $I = (int) ($i + 1);
-          if ($H !== $i) {$i = $I;continue;}
+          $I_ = (int) ($i + 1);
+          if ($H_ !== $i) {$i = $I_;continue;}
           break;
         }
       }
@@ -330,13 +333,13 @@ final class Array_ {
     };
     $fold_right = function(dynamic $f, dynamic $a, dynamic $x) use ($call2) {
       $r = Vector{0, $x};
-      $E = (int) ($a->count() - 1 + -1);
-      if (! ($E < 0)) {
-        $i = $E;
+      $E_ = (int) ($a->count() - 1 + -1);
+      if (! ($E_ < 0)) {
+        $i = $E_;
         for (;;) {
           $r[1] = $call2($f, $a[$i + 1], $r[1]);
-          $F = (int) ($i + -1);
-          if (0 !== $i) {$i = $F;continue;}
+          $F_ = (int) ($i + -1);
+          if (0 !== $i) {$i = $F_;continue;}
           break;
         }
       }
@@ -401,129 +404,125 @@ final class Array_ {
       return $loop(0);
     };
     $Bottom = Vector{248, $cst_Array_Bottom, $runtime["caml_fresh_oo_id"](0)};
-    $sort = function(dynamic $cmp, dynamic $a__0) use ($Assert_failure,$Bottom,$a,$call2,$caml_check_bound,$caml_wrap_exception,$runtime) {
-      $maxson = function(dynamic $l, dynamic $i) use ($Bottom,$a__0,$call2,$caml_check_bound,$cmp,$runtime) {
+    $sort = function(dynamic $cmp, dynamic $a) use ($Assert_failure,$Bottom,$a_,$call2,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$runtime) {
+      $maxson = function(dynamic $l, dynamic $i) use ($Bottom,$a,$call2,$caml_check_bound,$caml_wrap_thrown_exception,$cmp) {
         $i31 = (int) ((int) ((int) ($i + $i) + $i) + 1);
         $x = Vector{0, $i31};
         if ((int) ($i31 + 2) < $l) {
-          $x = (int) ($i31 + 1);
-          $y = $caml_check_bound($a__0, $x)[$x + 1];
-          if ($call2($cmp, $caml_check_bound($a__0, $i31)[$i31 + 1], $y) < 0) {$x[1] = (int) ($i31 + 1);}
-          $z = (int) ($i31 + 2);
-          $A = $caml_check_bound($a__0, $z)[$z + 1];
-          $B = $x[1];
-          if ($call2($cmp, $caml_check_bound($a__0, $B)[$B + 1], $A) < 0) {$x[1] = (int) ($i31 + 2);}
+          $x_ = (int) ($i31 + 1);
+          $y_ = $caml_check_bound($a, $x_)[$x_ + 1];
+          if ($call2($cmp, $caml_check_bound($a, $i31)[$i31 + 1], $y_) < 0) {$x[1] = (int) ($i31 + 1);}
+          $z_ = (int) ($i31 + 2);
+          $A_ = $caml_check_bound($a, $z_)[$z_ + 1];
+          $B_ = $x[1];
+          if ($call2($cmp, $caml_check_bound($a, $B_)[$B_ + 1], $A_) < 0) {$x[1] = (int) ($i31 + 2);}
           return $x[1];
         }
         if ((int) ($i31 + 1) < $l) {
-          $C = (int) ($i31 + 1);
-          $D = $caml_check_bound($a__0, $C)[$C + 1];
+          $C_ = (int) ($i31 + 1);
+          $D_ = $caml_check_bound($a, $C_)[$C_ + 1];
           if (
             !
-            (0 <= $call2($cmp, $caml_check_bound($a__0, $i31)[$i31 + 1], $D))
+            (0 <= $call2($cmp, $caml_check_bound($a, $i31)[$i31 + 1], $D_))
           ) {return (int) ($i31 + 1);}
         }
         if ($i31 < $l) {return $i31;}
-        throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Bottom, $i}) as \Throwable;
+        throw $caml_wrap_thrown_exception(Vector{0, $Bottom, $i}) as \Throwable;
       };
-      $trickledown = function(dynamic $l, dynamic $i, dynamic $e) use ($a__0,$call2,$caml_check_bound,$cmp,$maxson) {
+      $trickledown = function(dynamic $l, dynamic $i, dynamic $e) use ($a,$call2,$caml_check_bound,$cmp,$maxson) {
         $i__0 = $i;
         for (;;) {
           $j = $maxson($l, $i__0);
-          if (0 < $call2($cmp, $caml_check_bound($a__0, $j)[$j + 1], $e)) {
-            $w = $caml_check_bound($a__0, $j)[$j + 1];
-            $caml_check_bound($a__0, $i__0)[$i__0 + 1] = $w;
+          if (0 < $call2($cmp, $caml_check_bound($a, $j)[$j + 1], $e)) {
+            $w_ = $caml_check_bound($a, $j)[$j + 1];
+            $caml_check_bound($a, $i__0)[$i__0 + 1] = $w_;
             $i__0 = $j;
             continue;
           }
-          $caml_check_bound($a__0, $i__0)[$i__0 + 1] = $e;
+          $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
           return 0;
         }
       };
-      $trickle = function(dynamic $l, dynamic $i, dynamic $e) use ($Bottom,$a__0,$caml_check_bound,$caml_wrap_exception,$runtime,$trickledown) {
-        try {$v = $trickledown($l, $i, $e);return $v;}
+      $trickle = function(dynamic $l, dynamic $i, dynamic $e) use ($Bottom,$a,$caml_check_bound,$caml_wrap_thrown_exception_reraise,$runtime,$trickledown) {
+        try {$v_ = $trickledown($l, $i, $e);return $v_;}
         catch(\Throwable $exn) {
-          $exn = $caml_wrap_exception($exn);
+          $exn = $runtime["caml_wrap_exception"]($exn);
           if ($exn[1] === $Bottom) {
             $i__0 = $exn[2];
-            $caml_check_bound($a__0, $i__0)[$i__0 + 1] = $e;
+            $caml_check_bound($a, $i__0)[$i__0 + 1] = $e;
             return 0;
           }
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
         }
       };
-      $bubbledown = function(dynamic $l, dynamic $i) use ($a__0,$caml_check_bound,$maxson) {
+      $bubbledown = function(dynamic $l, dynamic $i) use ($a,$caml_check_bound,$maxson) {
         $i__0 = $i;
         for (;;) {
           $i__1 = $maxson($l, $i__0);
-          $u = $caml_check_bound($a__0, $i__1)[$i__1 + 1];
-          $caml_check_bound($a__0, $i__0)[$i__0 + 1] = $u;
+          $u_ = $caml_check_bound($a, $i__1)[$i__1 + 1];
+          $caml_check_bound($a, $i__0)[$i__0 + 1] = $u_;
           $i__0 = $i__1;
           continue;
         }
       };
-      $bubble = function(dynamic $l, dynamic $i) use ($Bottom,$bubbledown,$caml_wrap_exception,$runtime) {
-        try {$t = $bubbledown($l, $i);return $t;}
+      $bubble = function(dynamic $l, dynamic $i) use ($Bottom,$bubbledown,$caml_wrap_thrown_exception_reraise,$runtime) {
+        try {$t_ = $bubbledown($l, $i);return $t_;}
         catch(\Throwable $exn) {
-          $exn = $caml_wrap_exception($exn);
+          $exn = $runtime["caml_wrap_exception"]($exn);
           if ($exn[1] === $Bottom) {$i__0 = $exn[2];return $i__0;}
-          throw $runtime["caml_wrap_thrown_exception_reraise"]($exn) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
         }
       };
-      $trickleup = function(dynamic $i, dynamic $e) use ($Assert_failure,$a,$a__0,$call2,$caml_check_bound,$cmp,$runtime) {
+      $trickleup = function(dynamic $i, dynamic $e) use ($Assert_failure,$a,$a_,$call2,$caml_check_bound,$caml_wrap_thrown_exception,$cmp) {
         $i__0 = $i;
         for (;;) {
           $father = (int) ((int) ($i__0 + -1) / 3);
           if ($i__0 !== $father) {
             if (
               0 <=
-                $call2(
-                  $cmp,
-                  $caml_check_bound($a__0, $father)[$father + 1],
-                  $e
-                )
-            ) {$caml_check_bound($a__0, $i__0)[$i__0 + 1] = $e;return 0;}
-            $s = $caml_check_bound($a__0, $father)[$father + 1];
-            $caml_check_bound($a__0, $i__0)[$i__0 + 1] = $s;
+                $call2($cmp, $caml_check_bound($a, $father)[$father + 1], $e)
+            ) {$caml_check_bound($a, $i__0)[$i__0 + 1] = $e;return 0;}
+            $s_ = $caml_check_bound($a, $father)[$father + 1];
+            $caml_check_bound($a, $i__0)[$i__0 + 1] = $s_;
             if (0 < $father) {$i__0 = $father;continue;}
-            $caml_check_bound($a__0, 0)[1] = $e;
+            $caml_check_bound($a, 0)[1] = $e;
             return 0;
           }
-          throw $runtime["caml_wrap_thrown_exception"](Vector{0, $Assert_failure, $a}) as \Throwable;
+          throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $a_}) as \Throwable;
         }
       };
-      $l = $a__0->count() - 1;
-      $m = (int) ((int) ((int) ($l + 1) / 3) + -1);
-      if (! ($m < 0)) {
-        $i__0 = $m;
+      $l = $a->count() - 1;
+      $m_ = (int) ((int) ((int) ($l + 1) / 3) + -1);
+      if (! ($m_ < 0)) {
+        $i__0 = $m_;
         for (;;) {
-          $trickle($l, $i__0, $caml_check_bound($a__0, $i__0)[$i__0 + 1]);
-          $r = (int) ($i__0 + -1);
-          if (0 !== $i__0) {$i__0 = $r;continue;}
+          $trickle($l, $i__0, $caml_check_bound($a, $i__0)[$i__0 + 1]);
+          $r_ = (int) ($i__0 + -1);
+          if (0 !== $i__0) {$i__0 = $r_;continue;}
           break;
         }
       }
-      $n = (int) ($l + -1);
-      if (! ($n < 2)) {
-        $i = $n;
+      $n_ = (int) ($l + -1);
+      if (! ($n_ < 2)) {
+        $i = $n_;
         for (;;) {
-          $e__0 = $caml_check_bound($a__0, $i)[$i + 1];
-          $a__0[$i + 1] = $caml_check_bound($a__0, 0)[1];
+          $e__0 = $caml_check_bound($a, $i)[$i + 1];
+          $a[$i + 1] = $caml_check_bound($a, 0)[1];
           $trickleup($bubble($i, 0), $e__0);
-          $q = (int) ($i + -1);
-          if (2 !== $i) {$i = $q;continue;}
+          $q_ = (int) ($i + -1);
+          if (2 !== $i) {$i = $q_;continue;}
           break;
         }
       }
-      $o = 1 < $l ? 1 : (0);
-      if ($o) {
-        $e = $caml_check_bound($a__0, 1)[2];
-        $a__0[2] = $caml_check_bound($a__0, 0)[1];
-        $a__0[1] = $e;
-        $p = 0;
+      $o_ = 1 < $l ? 1 : (0);
+      if ($o_) {
+        $e = $caml_check_bound($a, 1)[2];
+        $a[2] = $caml_check_bound($a, 0)[1];
+        $a[1] = $e;
+        $p_ = 0;
       }
-      else {$p = $o;}
-      return $p;
+      else {$p_ = $o_;}
+      return $p_;
     };
     $stable_sort = function(dynamic $cmp, dynamic $a) use ($blit,$call2,$caml_check_bound,$caml_make_vect) {
       $sortto = new Ref();
@@ -581,44 +580,44 @@ final class Array_ {
             );
           }
         };
-        $l = $caml_check_bound($src2, $src2ofs)[$src2ofs + 1];
+        $l_ = $caml_check_bound($src2, $src2ofs)[$src2ofs + 1];
         return $loop(
           $src1ofs,
           $caml_check_bound($a, $src1ofs)[$src1ofs + 1],
           $src2ofs,
-          $l,
+          $l_,
           $dstofs
         );
       };
       $isortto = function
       (dynamic $srcofs, dynamic $dst, dynamic $dstofs, dynamic $len) use ($a,$call2,$caml_check_bound,$cmp) {
-        $d = (int) ($len + -1);
-        $c = 0;
-        if (! ($d < 0)) {
-          $i = $c;
+        $d_ = (int) ($len + -1);
+        $c_ = 0;
+        if (! ($d_ < 0)) {
+          $i = $c_;
           for (;;) {
             $continue_label = null;
-            $e = (int) ($srcofs + $i);
-            $e__0 = $caml_check_bound($a, $e)[$e + 1];
+            $e_ = (int) ($srcofs + $i);
+            $e = $caml_check_bound($a, $e_)[$e_ + 1];
             $j = Vector{0, (int) ((int) ($dstofs + $i) + -1)};
             for (;;) {
               if ($dstofs <= $j[1]) {
-                $f = $j[1];
+                $f_ = $j[1];
                 if (
-                  0 < $call2($cmp, $caml_check_bound($dst, $f)[$f + 1], $e__0)
+                  0 < $call2($cmp, $caml_check_bound($dst, $f_)[$f_ + 1], $e)
                 ) {
-                  $g = $j[1];
-                  $h = $caml_check_bound($dst, $g)[$g + 1];
-                  $i = (int) ($j[1] + 1);
-                  $caml_check_bound($dst, $i)[$i + 1] = $h;
+                  $g_ = $j[1];
+                  $h_ = $caml_check_bound($dst, $g_)[$g_ + 1];
+                  $i_ = (int) ($j[1] + 1);
+                  $caml_check_bound($dst, $i_)[$i_ + 1] = $h_;
                   $j[1] += -1;
                   continue;
                 }
               }
-              $j = (int) ($j[1] + 1);
-              $caml_check_bound($dst, $j)[$j + 1] = $e__0;
-              $k = (int) ($i + 1);
-              if ($d !== $i) {$i = $k;$continue_label = "a";break;}
+              $j_ = (int) ($j[1] + 1);
+              $caml_check_bound($dst, $j_)[$j_ + 1] = $e;
+              $k_ = (int) ($i + 1);
+              if ($d_ !== $i) {$i = $k_;$continue_label = "a";break;}
               break;
             }
             if ($continue_label === "a") {continue;}
@@ -669,8 +668,8 @@ final class Array_ {
       $make_matrix,
       $make_matrix,
       $append,
-      function(dynamic $b) use ($runtime) {
-        return $runtime["caml_array_concat"]($b);
+      function(dynamic $b_) use ($runtime) {
+        return $runtime["caml_array_concat"]($b_);
       },
       $sub,
       $copy,
@@ -701,4 +700,4 @@ final class Array_ {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

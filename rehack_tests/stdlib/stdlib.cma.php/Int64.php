@@ -29,7 +29,9 @@ final class Int64 {
     
 
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_wrap_exception = $runtime["caml_wrap_exception"];
+    $caml_wrap_thrown_exception_reraise = $runtime[
+       "caml_wrap_thrown_exception_reraise"
+     ];
     $global_data = $runtime["caml_get_global_data"]();
     $cst_d = $runtime["caml_new_string"]("%d");
     $zero = Vector{255, 0, 0, 0};
@@ -38,33 +40,33 @@ final class Int64 {
     $min_int = Vector{255, 0, 0, 32768};
     $max_int = Vector{255, 16777215, 16777215, 32767};
     $Failure = $global_data["Failure"];
-    $d = Vector{255, 16777215, 16777215, 65535};
-    $c = Vector{255, 0, 0, 0};
-    $b = Vector{255, 1, 0, 0};
-    $a = Vector{255, 1, 0, 0};
-    $succ = function(dynamic $n) use ($a,$runtime) {
-      return $runtime["caml_int64_add"]($n, $a);
+    $d_ = Vector{255, 16777215, 16777215, 65535};
+    $c_ = Vector{255, 0, 0, 0};
+    $b_ = Vector{255, 1, 0, 0};
+    $a_ = Vector{255, 1, 0, 0};
+    $succ = function(dynamic $n) use ($a_,$runtime) {
+      return $runtime["caml_int64_add"]($n, $a_);
     };
-    $pred = function(dynamic $n) use ($b,$runtime) {
-      return $runtime["caml_int64_sub"]($n, $b);
+    $pred = function(dynamic $n) use ($b_,$runtime) {
+      return $runtime["caml_int64_sub"]($n, $b_);
     };
-    $abs = function(dynamic $n) use ($c,$runtime) {
-      return $runtime["caml_greaterequal"]($n, $c)
+    $abs = function(dynamic $n) use ($c_,$runtime) {
+      return $runtime["caml_greaterequal"]($n, $c_)
         ? $n
         : ($runtime["caml_int64_neg"]($n));
     };
-    $lognot = function(dynamic $n) use ($d,$runtime) {
-      return $runtime["caml_int64_xor"]($n, $d);
+    $lognot = function(dynamic $n) use ($d_,$runtime) {
+      return $runtime["caml_int64_xor"]($n, $d_);
     };
     $to_string = function(dynamic $n) use ($cst_d,$runtime) {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
-    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_exception,$runtime) {
-      try {$e = Vector{0, $runtime["caml_int64_of_string"]($s)};return $e;}
-      catch(\Throwable $f) {
-        $f = $caml_wrap_exception($f);
-        if ($f[1] === $Failure) {return 0;}
-        throw $runtime["caml_wrap_thrown_exception_reraise"]($f) as \Throwable;
+    $of_string_opt = function(dynamic $s) use ($Failure,$caml_wrap_thrown_exception_reraise,$runtime) {
+      try {$e_ = Vector{0, $runtime["caml_int64_of_string"]($s)};return $e_;}
+      catch(\Throwable $f_) {
+        $f_ = $runtime["caml_wrap_exception"]($f_);
+        if ($f_[1] === $Failure) {return 0;}
+        throw $caml_wrap_thrown_exception_reraise($f_) as \Throwable;
       }
     };
     $compare = function(dynamic $x, dynamic $y) use ($runtime) {
@@ -95,4 +97,4 @@ final class Int64 {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

@@ -59,51 +59,6 @@ let compare_ident = (t1, t2) =>
   | (V(_), S(_)) => 1
   };
 
-exception Not_an_ident;
-
-let is_ident = {
-  let l =
-    Array.init(
-      256,
-      ~f=i => {
-        let c = Char.chr(i);
-        if (c >= 'a'
-            && c <= 'z'
-            || c >= 'A'
-            && c <= 'Z'
-            || c == '_'
-            || c == '$') {
-          1;
-        } else if (c >= '0' && c <= '9') {
-          2;
-        } else {
-          0;
-        };
-      },
-    );
-  s =>
-    !StringSet.mem(s, Reserved.keyword)
-    && (
-      try(
-        {
-          for (i in 0 to String.length(s) - 1) {
-            let code = l[Char.code(s.[i])];
-            if (i == 0) {
-              if (code != 1) {
-                raise(Not_an_ident);
-              };
-            } else if (code < 1) {
-              raise(Not_an_ident);
-            };
-          };
-          true;
-        }
-      ) {
-      | Not_an_ident => false
-      }
-    );
-};
-
 module IdentSet =
   Set.Make({
     type nonrec t = t;

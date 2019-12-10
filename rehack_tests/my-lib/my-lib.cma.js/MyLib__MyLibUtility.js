@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 
 function call1(f, a0) {
@@ -26,4 +27,4 @@ runtime["caml_register_global"](1, MyLib_MyLibUtility, "MyLib__MyLibUtility");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().MyLib__MyLibUtility;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

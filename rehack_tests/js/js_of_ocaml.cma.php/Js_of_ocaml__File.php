@@ -57,13 +57,13 @@ final class Js_of_ocaml__File {
     $List = $global_data["List_"];
     $Array = $global_data["Array_"];
     $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
-    $c = Vector{0, $string__0("transparent")};
-    $d = Vector{0, $string__0("native")};
-    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $c_ = Vector{0, $string__0("transparent")};
+    $d_ = Vector{0, $string__0("native")};
+    $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, -553417380, 62), $x);
     };
-    $b = $Js_of_ocaml_Js[50][1];
-    $blob_constr = (function(dynamic $t0, dynamic $param) {return $t0->Blob;})($b, $a);
+    $b_ = $Js_of_ocaml_Js[50][1];
+    $blob_constr = (function(dynamic $t0, dynamic $param) {return $t0->Blob;})($b_, $a_);
     $filter_map->contents = function(dynamic $f, dynamic $param) use ($call1,$filter_map) {
       $param__0 = $param;
       for (;;) {
@@ -81,17 +81,17 @@ final class Js_of_ocaml__File {
         return 0;
       }
     };
-    $make_blob_options = function(dynamic $contentType, dynamic $endings) use ($Array,$Js_of_ocaml_Js,$c,$call1,$cst_endings,$cst_type,$d,$filter_map,$runtime) {
-      $r = 0;
+    $make_blob_options = function(dynamic $contentType, dynamic $endings) use ($Array,$Js_of_ocaml_Js,$c_,$call1,$cst_endings,$cst_type,$d_,$filter_map,$runtime) {
+      $r_ = 0;
       if ($endings) {
-        $s = 116179762 <= $endings[1] ? $c : ($d);
-        $t = $s;
+        $s_ = 116179762 <= $endings[1] ? $c_ : ($d_);
+        $t_ = $s_;
       }
-      else {$t = 0;}
-      $u = Vector{
+      else {$t_ = 0;}
+      $u_ = Vector{
         0,
         Vector{0, $cst_type, $contentType},
-        Vector{0, Vector{0, $cst_endings, $t}, $r}
+        Vector{0, Vector{0, $cst_endings, $t_}, $r_}
       };
       $options = $filter_map->contents(
         function(dynamic $param) {
@@ -103,7 +103,7 @@ final class Js_of_ocaml__File {
           }
           return 0;
         },
-        $u
+        $u_
       );
       return $options
         ? $runtime["caml_js_object"]($call1($Array[12], $options))
@@ -111,10 +111,10 @@ final class Js_of_ocaml__File {
     };
     $blob_raw = function(dynamic $contentType, dynamic $endings, dynamic $a) use ($blob_constr,$make_blob_options,$runtime) {
       $options = $make_blob_options($contentType, $endings);
-      $p = 0;
-      $q = $runtime["caml_js_from_array"]($a);
+      $p_ = 0;
+      $q_ = $runtime["caml_js_from_array"]($a);
       return (function(dynamic $t3, dynamic $t1, dynamic $t2, dynamic $param) {return new $t3($t1, $t2);
-       })($blob_constr, $q, $options, $p);
+       })($blob_constr, $q_, $options, $p_);
     };
     $blob_from_string = function
     (dynamic $contentType, dynamic $endings, dynamic $s) use ($blob_raw) {
@@ -122,45 +122,45 @@ final class Js_of_ocaml__File {
     };
     $blob_from_any = function
     (dynamic $contentType, dynamic $endings, dynamic $l) use ($Array,$List,$blob_raw,$call1,$call2) {
-      $n = function(dynamic $param) {
-        $o = $param[1];
-        if (155580615 === $o) {$s = $param[2];return $s;}
-        if (486041214 <= $o) {
-          if (1037850489 <= $o) {$a = $param[2];return $a;}
+      $n_ = function(dynamic $param) {
+        $o_ = $param[1];
+        if (155580615 === $o_) {$s = $param[2];return $s;}
+        if (486041214 <= $o_) {
+          if (1037850489 <= $o_) {$a = $param[2];return $a;}
           $a__0 = $param[2];
           return $a__0;
         }
-        if (288368849 <= $o) {$s__0 = $param[2];return $s__0->toString();}
+        if (288368849 <= $o_) {$s__0 = $param[2];return $s__0->toString();}
         $b = $param[2];
         return $b;
       };
-      $l__0 = $call2($List[17], $n, $l);
+      $l__0 = $call2($List[17], $n_, $l);
       return $blob_raw($contentType, $endings, $call1($Array[12], $l__0));
     };
     $filename = function(dynamic $file) use ($Js_of_ocaml_Js,$Pervasives,$call1,$caml_get_public_method,$cst_can_t_retrieve_file_name_not_implemented) {
-      $j = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $j_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -922783157, 63), $x);
       };
-      $k = (function(dynamic $t5, dynamic $param) {return $t5->name;})($file, $j);
-      $match = $call1($Js_of_ocaml_Js[6][10], $k);
+      $k_ = (function(dynamic $t5, dynamic $param) {return $t5->name;})($file, $j_);
+      $match = $call1($Js_of_ocaml_Js[6][10], $k_);
       if ($match) {$name = $match[1];return $name;}
-      $l = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $l_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -498902297, 64), $x);
       };
-      $m = (function(dynamic $t4, dynamic $param) {return $t4->fileName;})($file, $l);
-      $match__0 = $call1($Js_of_ocaml_Js[6][10], $m);
+      $m_ = (function(dynamic $t4, dynamic $param) {return $t4->fileName;})($file, $l_);
+      $match__0 = $call1($Js_of_ocaml_Js[6][10], $m_);
       if ($match__0) {$name__0 = $match__0[1];return $name__0;}
       return $call1(
         $Pervasives[2],
         $cst_can_t_retrieve_file_name_not_implemented
       );
     };
-    $e = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $e_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 1012572826, 65), $x);
     };
-    $f = $Js_of_ocaml_Js[50][1];
+    $f_ = $Js_of_ocaml_Js[50][1];
     $doc_constr = (function(dynamic $t6, dynamic $param) {return $t6->Document;
-     })($f, $e);
+     })($f_, $e_);
     $document = function(dynamic $e) use ($Js_of_ocaml_Js,$call1,$doc_constr) {
       return instance_of($e, $doc_constr)
         ? $call1($Js_of_ocaml_Js[2], $e)
@@ -196,12 +196,12 @@ final class Js_of_ocaml__File {
       $load,
       $loadend
     };
-    $g = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $g_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 642825758, 66), $x);
     };
-    $h = $Js_of_ocaml_Js[50][1];
+    $h_ = $Js_of_ocaml_Js[50][1];
     $fileReader = (function(dynamic $t7, dynamic $param) {return $t7->FileReader;
-     })($h, $g);
+     })($h_, $g_);
     $addEventListener = $Js_of_ocaml_Dom[15];
     $Js_of_ocaml_File = Vector{
       0,
@@ -211,7 +211,7 @@ final class Js_of_ocaml__File {
         0,
         $document,
         $blob,
-        function(dynamic $i) {return $i;},
+        function(dynamic $i_) {return $i_;},
         $string,
         $arrayBuffer
       },
@@ -230,4 +230,4 @@ final class Js_of_ocaml__File {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

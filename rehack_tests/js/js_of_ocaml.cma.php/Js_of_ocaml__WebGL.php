@@ -67,34 +67,34 @@ final class Js_of_ocaml__WebGL {
       $webglcontextcreationerror
     };
     $getContext = function(dynamic $c) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
-      $e = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $e_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -388424711, 212), $x);
       };
-      $f = "webgl";
+      $f_ = "webgl";
       $ctx = (function(dynamic $t3, dynamic $t2, dynamic $param) {return $t3->getContext($t2);
-       })($c, $f, $e);
+       })($c, $f_, $e_);
       if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $g = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $g_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -388424711, 213), $x);
       };
-      $h = "experimental-webgl";
+      $h_ = "experimental-webgl";
       return (function(dynamic $t1, dynamic $t0, dynamic $param) {return $t1->getContext($t0);
-       })($c, $h, $g);
+       })($c, $h_, $g_);
     };
     $getContextWithAttributes = function(dynamic $c, dynamic $attribs) use ($Js_of_ocaml_Js,$call1,$caml_get_public_method) {
-      $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -719364538, 214), $x);
       };
-      $b = "webgl";
+      $b_ = "webgl";
       $ctx = (function(dynamic $t9, dynamic $t7, dynamic $t8, dynamic $param) {return $t9->getContext($t7, $t8);
-       })($c, $b, $attribs, $a);
+       })($c, $b_, $attribs, $a_);
       if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $c_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, -719364538, 215), $x);
       };
-      $d = "experimental-webgl";
+      $d_ = "experimental-webgl";
       return (function(dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) {return $t6->getContext($t4, $t5);
-       })($c, $d, $attribs, $c);
+       })($c, $d_, $attribs, $c_);
     };
     $Js_of_ocaml_WebGL = Vector{
       0,
@@ -113,4 +113,4 @@ final class Js_of_ocaml__WebGL {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

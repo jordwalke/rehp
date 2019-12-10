@@ -11,9 +11,11 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_compare = runtime["caml_compare"];
 var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -47,8 +49,8 @@ var cst_hd = string("hd");
 var Pervasives = global_data["Pervasives"];
 var Not_found = global_data["Not_found"];
 var Assert_failure = global_data["Assert_failure"];
-var c = [0,0,0];
-var d = [0,string("list.ml"),262,11];
+var c_ = [0,0,0];
+var d_ = [0,string("list.ml"),262,11];
 
 function length_aux(len, param) {
   var len__0 = len;
@@ -174,8 +176,8 @@ function flatten(param) {
   if (param) {
     var r = param[2];
     var l = param[1];
-    var B = flatten(r);
-    return call2(Pervasives[25], l, B);
+    var B_ = flatten(r);
+    return call2(Pervasives[25], l, B_);
   }
   return 0;
 }
@@ -190,17 +192,17 @@ function map(f, param) {
   return 0;
 }
 
-function a(i, f, param) {
+function a_(i, f, param) {
   if (param) {
     var l = param[2];
-    var a__0 = param[1];
-    var r = call2(f, i, a__0);
-    return [0,r,a(i + 1 | 0, f, l)];
+    var a = param[1];
+    var r = call2(f, i, a);
+    return [0,r,a_(i + 1 | 0, f, l)];
   }
   return 0;
 }
 
-function mapi(f, l) {return a(0, f, l);}
+function mapi(f, l) {return a_(0, f, l);}
 
 function rev_map(f, l) {
   function rmap_f(accu, param) {
@@ -235,7 +237,7 @@ function iter(f, param) {
   }
 }
 
-function b(i, f, param) {
+function b_(i, f, param) {
   var i__0 = i;
   var param__0 = param;
   for (; ; ) {
@@ -252,7 +254,7 @@ function b(i, f, param) {
   }
 }
 
-function iteri(f, l) {return b(0, f, l);}
+function iteri(f, l) {return b_(0, f, l);}
 
 function fold_left(f, accu, l) {
   var accu__0 = accu;
@@ -384,9 +386,9 @@ function for_all(p, param) {
     if (param__0) {
       var l = param__0[2];
       var a = param__0[1];
-      var A = call1(p, a);
-      if (A) {var param__0 = l;continue;}
-      return A;
+      var A_ = call1(p, a);
+      if (A_) {var param__0 = l;continue;}
+      return A_;
     }
     return 1;
   }
@@ -398,8 +400,8 @@ function exists(p, param) {
     if (param__0) {
       var l = param__0[2];
       var a = param__0[1];
-      var z = call1(p, a);
-      if (z) {return z;}
+      var z_ = call1(p, a);
+      if (z_) {return z_;}
       var param__0 = l;
       continue;
     }
@@ -417,9 +419,9 @@ function for_all2(p, l1, l2) {
         var a2 = l2__0[1];
         var l1__1 = l1__0[2];
         var a1 = l1__0[1];
-        var y = call2(p, a1, a2);
-        if (y) {var l1__0 = l1__1;var l2__0 = l2__1;continue;}
-        return y;
+        var y_ = call2(p, a1, a2);
+        if (y_) {var l1__0 = l1__1;var l2__0 = l2__1;continue;}
+        return y_;
       }
     }
     else if (! l2__0) {return 1;}
@@ -437,8 +439,8 @@ function exists2(p, l1, l2) {
         var a2 = l2__0[1];
         var l1__1 = l1__0[2];
         var a1 = l1__0[1];
-        var x = call2(p, a1, a2);
-        if (x) {return x;}
+        var x_ = call2(p, a1, a2);
+        if (x_) {return x_;}
         var l1__0 = l1__1;
         var l2__0 = l2__1;
         continue;
@@ -455,8 +457,8 @@ function mem(x, param) {
     if (param__0) {
       var l = param__0[2];
       var a = param__0[1];
-      var w = 0 === caml_compare(a, x) ? 1 : 0;
-      if (w) {return w;}
+      var w_ = 0 === caml_compare(a, x) ? 1 : 0;
+      if (w_) {return w_;}
       var param__0 = l;
       continue;
     }
@@ -470,8 +472,8 @@ function memq(x, param) {
     if (param__0) {
       var l = param__0[2];
       var a = param__0[1];
-      var v = a === x ? 1 : 0;
-      if (v) {return v;}
+      var v_ = a === x ? 1 : 0;
+      if (v_) {return v_;}
       var param__0 = l;
       continue;
     }
@@ -491,7 +493,7 @@ function assoc(x, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -523,7 +525,7 @@ function assq(x, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -550,8 +552,8 @@ function mem_assoc(x, param) {
       var l = param__0[2];
       var match = param__0[1];
       var a = match[1];
-      var u = 0 === caml_compare(a, x) ? 1 : 0;
-      if (u) {return u;}
+      var u_ = 0 === caml_compare(a, x) ? 1 : 0;
+      if (u_) {return u_;}
       var param__0 = l;
       continue;
     }
@@ -566,8 +568,8 @@ function mem_assq(x, param) {
       var l = param__0[2];
       var match = param__0[1];
       var a = match[1];
-      var t = a === x ? 1 : 0;
-      if (t) {return t;}
+      var t_ = a === x ? 1 : 0;
+      if (t_) {return t_;}
       var param__0 = l;
       continue;
     }
@@ -605,7 +607,7 @@ function find(p, param) {
       var param__0 = l;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"](Not_found);
+    throw caml_wrap_thrown_exception(Not_found);
   }
 }
 
@@ -643,8 +645,8 @@ function find_all(p) {
       return rev(accu__0);
     }
   }
-  var r = 0;
-  return function(s) {return find(r, s);};
+  var r_ = 0;
+  return function(s_) {return find(r_, s_);};
 }
 
 function partition(p, l) {
@@ -667,8 +669,8 @@ function partition(p, l) {
         var param__0 = l;
         continue;
       }
-      var q = rev(no__0);
-      return [0,rev(yes__0),q];
+      var q_ = rev(no__0);
+      return [0,rev(yes__0),q_];
     }
   }
   return part(0, 0, l);
@@ -685,7 +687,7 @@ function split(param) {
     var rx = match__0[1];
     return [0,[0,x,rx],[0,y,ry]];
   }
-  return c;
+  return c_;
 }
 
 function combine(l1, l2) {
@@ -730,7 +732,7 @@ function chop(k, l) {
       var l__0 = l__1;
       continue;
     }
-    throw runtime["caml_wrap_thrown_exception"]([0,Assert_failure,d]);
+    throw caml_wrap_thrown_exception([0,Assert_failure,d_]);
   }
 }
 
@@ -792,9 +794,9 @@ function stable_sort(cmp, l) {
   function sort(n, l) {
     if (2 === n) {
       if (l) {
-        var n = l[2];
-        if (n) {
-          var x2 = n[1];
+        var n_ = l[2];
+        if (n_) {
+          var x2 = n_[1];
           var x1 = l[1];
           return 0 < call2(cmp, x1, x2) ? [0,x2,[0,x1,0]] : [0,x1,[0,x2,0]];
         }
@@ -802,12 +804,12 @@ function stable_sort(cmp, l) {
     }
     else if (3 === n) {
       if (l) {
-        var o = l[2];
-        if (o) {
-          var p = o[2];
-          if (p) {
-            var x3 = p[1];
-            var x2__0 = o[1];
+        var o_ = l[2];
+        if (o_) {
+          var p_ = o_[2];
+          if (p_) {
+            var x3 = p_[1];
+            var x2__0 = o_[1];
             var x1__0 = l[1];
             return 0 < call2(cmp, x1__0, x2__0) ?
               0 < call2(cmp, x1__0, x3) ?
@@ -834,9 +836,9 @@ function stable_sort(cmp, l) {
   function rev_sort(n, l) {
     if (2 === n) {
       if (l) {
-        var k = l[2];
-        if (k) {
-          var x2 = k[1];
+        var k_ = l[2];
+        if (k_) {
+          var x2 = k_[1];
           var x1 = l[1];
           return 0 < call2(cmp, x1, x2) ? [0,x1,[0,x2,0]] : [0,x2,[0,x1,0]];
         }
@@ -844,12 +846,12 @@ function stable_sort(cmp, l) {
     }
     else if (3 === n) {
       if (l) {
-        var l = l[2];
-        if (l) {
-          var m = l[2];
-          if (m) {
-            var x3 = m[1];
-            var x2__0 = l[1];
+        var l_ = l[2];
+        if (l_) {
+          var m_ = l_[2];
+          if (m_) {
+            var x3 = m_[1];
+            var x2__0 = l_[1];
             var x1__0 = l[1];
             return 0 < call2(cmp, x1__0, x2__0) ?
               0 < call2(cmp, x2__0, x3) ?
@@ -951,9 +953,9 @@ function sort_uniq(cmp, l) {
   function sort(n, l) {
     if (2 === n) {
       if (l) {
-        var h = l[2];
-        if (h) {
-          var x2 = h[1];
+        var h_ = l[2];
+        if (h_) {
+          var x2 = h_[1];
           var x1 = l[1];
           var c = call2(cmp, x1, x2);
           return 0 === c ?
@@ -964,12 +966,12 @@ function sort_uniq(cmp, l) {
     }
     else if (3 === n) {
       if (l) {
-        var i = l[2];
-        if (i) {
-          var j = i[2];
-          if (j) {
-            var x3 = j[1];
-            var x2__0 = i[1];
+        var i_ = l[2];
+        if (i_) {
+          var j_ = i_[2];
+          if (j_) {
+            var x3 = j_[1];
+            var x2__0 = i_[1];
             var x1__0 = l[1];
             var c__0 = call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
@@ -1016,9 +1018,9 @@ function sort_uniq(cmp, l) {
   function rev_sort(n, l) {
     if (2 === n) {
       if (l) {
-        var e = l[2];
-        if (e) {
-          var x2 = e[1];
+        var e_ = l[2];
+        if (e_) {
+          var x2 = e_[1];
           var x1 = l[1];
           var c = call2(cmp, x1, x2);
           return 0 === c ?
@@ -1029,12 +1031,12 @@ function sort_uniq(cmp, l) {
     }
     else if (3 === n) {
       if (l) {
-        var f = l[2];
-        if (f) {
-          var g = f[2];
-          if (g) {
-            var x3 = g[1];
-            var x2__0 = f[1];
+        var f_ = l[2];
+        if (f_) {
+          var g_ = f_[2];
+          if (g_) {
+            var x3 = g_[1];
+            var x2__0 = f_[1];
             var x1__0 = l[1];
             var c__0 = call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
@@ -1174,4 +1176,4 @@ runtime["caml_register_global"](19, List, "List_");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().List_;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

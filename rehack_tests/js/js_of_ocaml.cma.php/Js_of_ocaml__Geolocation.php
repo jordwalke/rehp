@@ -34,18 +34,18 @@ final class Js_of_ocaml__Geolocation {
     $global_data = $runtime["caml_get_global_data"]();
     $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
     $empty_position_options = function(dynamic $param) {return darray[];};
-    $a = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 82957527, 298), $x);
     };
-    $b = $Js_of_ocaml_Js[50][1];
-    $x = (function(dynamic $t1, dynamic $param) {return $t1->navigator;})($b, $a);
+    $b_ = $Js_of_ocaml_Js[50][1];
+    $x = (function(dynamic $t1, dynamic $param) {return $t1->navigator;})($b_, $a_);
     
     if ($call1($Js_of_ocaml_Js[6][5], $x)) {
-      $c = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $c_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
         return $call1($caml_get_public_method($x, 315713478, 299), $x);
       };
       $geolocation = (function(dynamic $t0, dynamic $param) {return $t0->geolocation;
-       })($x, $c);
+       })($x, $c_);
     }
     else {$geolocation = $x;}
     
@@ -68,4 +68,4 @@ final class Js_of_ocaml__Geolocation {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

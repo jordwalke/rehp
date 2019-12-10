@@ -18,13 +18,15 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_get_exception_raw_backtrace = runtime
  ["caml_get_exception_raw_backtrace"];
 var string = runtime["caml_new_string"];
 var caml_obj_tag = runtime["caml_obj_tag"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -110,16 +112,16 @@ var Match_failure = global_data["Match_failure"];
 var Assert_failure = global_data["Assert_failure"];
 var Undefined_recursive_module = global_data["Undefined_recursive_module"];
 var Obj = global_data["Obj"];
-var c = [0,[11,string(", "),[2,0,[2,0,0]]],string(", %s%s")];
-var l = [0,[2,0,[12,10,0]],string("%s\n")];
-var j = [0,[2,0,[12,10,0]],string("%s\n")];
-var k = [
+var c_ = [0,[11,string(", "),[2,0,[2,0,0]]],string(", %s%s")];
+var l_ = [0,[2,0,[12,10,0]],string("%s\n")];
+var j_ = [0,[2,0,[12,10,0]],string("%s\n")];
+var k_ = [
   0,
   [11,string("(Program not linked with -g, cannot print stack backtrace)\n"),0
   ],
   string("(Program not linked with -g, cannot print stack backtrace)\n")
 ];
-var h = [
+var h_ = [
   0,
   [
     2,
@@ -148,49 +150,49 @@ var h = [
   ],
   string('%s file "%s"%s, line %d, characters %d-%d')
 ];
-var i = [
+var i_ = [
   0,
   [2,0,[11,string(" unknown location"),0]],
   string("%s unknown location")
 ];
-var g = [
+var g_ = [
   0,
   [11,string("Uncaught exception: "),[2,0,[12,10,0]]],
   string("Uncaught exception: %s\n")
 ];
-var f = [
+var f_ = [
   0,
   [11,string("Uncaught exception: "),[2,0,[12,10,0]]],
   string("Uncaught exception: %s\n")
 ];
-var d = [0,[12,40,[2,0,[2,0,[12,41,0]]]],string("(%s%s)")];
-var e = [0,[12,40,[2,0,[12,41,0]]],string("(%s)")];
-var b = [0,[4,0,0,0,0],string("%d")];
-var a = [0,[3,0,0],string("%S")];
+var d_ = [0,[12,40,[2,0,[2,0,[12,41,0]]]],string("(%s%s)")];
+var e_ = [0,[12,40,[2,0,[12,41,0]]],string("(%s)")];
+var b_ = [0,[4,0,0,0,0],string("%d")];
+var a_ = [0,[3,0,0],string("%S")];
 var printers = [0,0];
 
 function field(x, i) {
   var f = x[i + 1];
   return call1(Obj[1], f) ?
     caml_obj_tag(f) === Obj[13] ?
-     call2(Printf[4], a, f) :
+     call2(Printf[4], a_, f) :
      caml_obj_tag(f) === Obj[14] ? call1(Pervasives[23], f) : cst :
-    call2(Printf[4], b, f);
+    call2(Printf[4], b_, f);
 }
 
 function other_fields(x, i) {
   if (x.length - 1 <= i) {return cst__0;}
-  var ad = other_fields(x, i + 1 | 0);
-  var ae = field(x, i);
-  return call3(Printf[4], c, ae, ad);
+  var ad_ = other_fields(x, i + 1 | 0);
+  var ae_ = field(x, i);
+  return call3(Printf[4], c_, ae_, ad_);
 }
 
 function fields(x) {
   var match = x.length - 1;
   if (2 < match >>> 0) {
-    var aa = other_fields(x, 2);
-    var ab = field(x, 1);
-    return call3(Printf[4], d, ab, aa);
+    var aa_ = other_fields(x, 2);
+    var ab_ = field(x, 1);
+    return call3(Printf[4], d_, ab_, aa_);
   }
   switch (match) {
     case 0:
@@ -198,8 +200,8 @@ function fields(x) {
     case 1:
       return cst__2;
     default:
-      var ac = field(x, 1);
-      return call2(Printf[4], e, ac)
+      var ac_ = field(x, 1);
+      return call2(Printf[4], e_, ac_)
     }
 }
 
@@ -210,8 +212,8 @@ function to_string(x) {
       if (param__0) {
         var tl = param__0[2];
         var hd = param__0[1];
-        try {var X = call1(hd, x);var W = X;}catch(Z) {var W = 0;}
-        if (W) {var s = W[1];return s;}
+        try {var X_ = call1(hd, x);var W_ = X_;}catch(Z_) {var W_ = 0;}
+        if (W_) {var s = W_[1];return s;}
         var param__0 = tl;
         continue;
       }
@@ -264,8 +266,8 @@ function to_string(x) {
       }
       if (0 === caml_obj_tag(x)) {
         var constructor = x[1][1];
-        var Y = fields(x);
-        return call2(Pervasives[16], constructor, Y);
+        var Y_ = fields(x);
+        return call2(Pervasives[16], constructor, Y_);
       }
       return x[1];
     }
@@ -274,30 +276,30 @@ function to_string(x) {
 }
 
 function print(fct, arg) {
-  try {var V = call1(fct, arg);return V;}
+  try {var V_ = call1(fct, arg);return V_;}
   catch(x) {
-    x = caml_wrap_exception(x);
-    var U = to_string(x);
-    call2(Printf[3], f, U);
+    x = runtime["caml_wrap_exception"](x);
+    var U_ = to_string(x);
+    call2(Printf[3], f_, U_);
     call1(Pervasives[51], Pervasives[28]);
-    throw runtime["caml_wrap_thrown_exception_reraise"](x);
+    throw caml_wrap_thrown_exception_reraise(x);
   }
 }
 
 function catch__0(fct, arg) {
-  try {var T = call1(fct, arg);return T;}
+  try {var T_ = call1(fct, arg);return T_;}
   catch(x) {
-    x = caml_wrap_exception(x);
+    x = runtime["caml_wrap_exception"](x);
     call1(Pervasives[51], Pervasives[27]);
-    var S = to_string(x);
-    call2(Printf[3], g, S);
+    var S_ = to_string(x);
+    call2(Printf[3], g_, S_);
     return call1(Pervasives[87], 2);
   }
 }
 
 function convert_raw_backtrace(bt) {
-  var R = [0,runtime["caml_convert_raw_backtrace"](bt)];
-  return R;
+  var R_ = [0,runtime["caml_convert_raw_backtrace"](bt)];
+  return R_;
 }
 
 function format_backtrace_slot(pos, slot) {
@@ -307,37 +309,37 @@ function format_backtrace_slot(pos, slot) {
       0 === pos ? cst_Raised_by_primitive_operation_at : cst_Called_from;
   }
   if (0 === slot[0]) {
-    var K = slot[5];
-    var L = slot[4];
-    var M = slot[3];
-    var N = slot[6] ? cst_inlined : cst__3;
-    var O = slot[2];
-    var P = info(slot[1]);
-    return [0,call7(Printf[4], h, P, O, N, M, L, K)];
+    var K_ = slot[5];
+    var L_ = slot[4];
+    var M_ = slot[3];
+    var N_ = slot[6] ? cst_inlined : cst__3;
+    var O_ = slot[2];
+    var P_ = info(slot[1]);
+    return [0,call7(Printf[4], h_, P_, O_, N_, M_, L_, K_)];
   }
   if (slot[1]) {return 0;}
-  var Q = info(0);
-  return [0,call2(Printf[4], i, Q)];
+  var Q_ = info(0);
+  return [0,call2(Printf[4], i_, Q_)];
 }
 
 function print_exception_backtrace(outchan, backtrace) {
   if (backtrace) {
     var a = backtrace[1];
-    var I = a.length - 1 + -1 | 0;
-    var H = 0;
-    if (! (I < 0)) {
-      var i = H;
+    var I_ = a.length - 1 + -1 | 0;
+    var H_ = 0;
+    if (! (I_ < 0)) {
+      var i = H_;
       for (; ; ) {
         var match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
-        if (match) {var str = match[1];call3(Printf[1], outchan, j, str);}
-        var J = i + 1 | 0;
-        if (I !== i) {var i = J;continue;}
+        if (match) {var str = match[1];call3(Printf[1], outchan, j_, str);}
+        var J_ = i + 1 | 0;
+        if (I_ !== i) {var i = J_;continue;}
         break;
       }
     }
     return 0;
   }
-  return call2(Printf[1], outchan, k);
+  return call2(Printf[1], outchan, k_);
 }
 
 function print_raw_backtrace(outchan, raw_backtrace) {
@@ -355,15 +357,15 @@ function backtrace_to_string(backtrace) {
   if (backtrace) {
     var a = backtrace[1];
     var b = call1(Buffer[1], 1024);
-    var F = a.length - 1 + -1 | 0;
-    var E = 0;
-    if (! (F < 0)) {
-      var i = E;
+    var F_ = a.length - 1 + -1 | 0;
+    var E_ = 0;
+    if (! (F_ < 0)) {
+      var i = E_;
       for (; ; ) {
         var match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
-        if (match) {var str = match[1];call3(Printf[5], b, l, str);}
-        var G = i + 1 | 0;
-        if (F !== i) {var i = G;continue;}
+        if (match) {var str = match[1];call3(Printf[5], b, l_, str);}
+        var G_ = i + 1 | 0;
+        if (F_ !== i) {var i = G_;continue;}
         break;
       }
     }
@@ -396,8 +398,8 @@ function backtrace_slots(raw_backtrace) {
       var i__0 = i;
       for (; ; ) {
         if (-1 === i__0) {return 0;}
-        var D = usable_slot(caml_check_bound(backtrace, i__0)[i__0 + 1]);
-        if (D) {return D;}
+        var D_ = usable_slot(caml_check_bound(backtrace, i__0)[i__0 + 1]);
+        if (D_) {return D_;}
         var i__1 = i__0 + -1 | 0;
         var i__0 = i__1;
         continue;
@@ -427,15 +429,15 @@ function set_uncaught_exception_handler(fn) {
   return 0;
 }
 
-function m(C) {return runtime["caml_raw_backtrace_next_slot"](C);}
+function m_(C_) {return runtime["caml_raw_backtrace_next_slot"](C_);}
 
-function n(B) {return runtime["caml_convert_raw_backtrace_slot"](B);}
+function n_(B_) {return runtime["caml_convert_raw_backtrace_slot"](B_);}
 
-function o(A, z) {return runtime["caml_raw_backtrace_slot"](A, z);}
+function o_(A_, z_) {return runtime["caml_raw_backtrace_slot"](A_, z_);}
 
-function p(y) {return runtime["caml_raw_backtrace_length"](y);}
+function p_(y_) {return runtime["caml_raw_backtrace_length"](y_);}
 
-var q = [
+var q_ = [
   0,
   backtrace_slot_is_raise,
   backtrace_slot_is_inline,
@@ -443,11 +445,11 @@ var q = [
   format_backtrace_slot
 ];
 
-function r(x) {return runtime["caml_get_current_callstack"](x);}
+function r_(x_) {return runtime["caml_get_current_callstack"](x_);}
 
-function s(w) {return caml_get_exception_raw_backtrace(w);}
+function s_(w_) {return caml_get_exception_raw_backtrace(w_);}
 
-function t(v) {return runtime["caml_backtrace_status"](v);}
+function t_(v_) {return runtime["caml_backtrace_status"](v_);}
 
 var Printexc = [
   0,
@@ -456,20 +458,20 @@ var Printexc = [
   catch__0,
   print_backtrace,
   get_backtrace,
-  function(u) {return runtime["caml_record_backtrace"](u);},
-  t,
+  function(u_) {return runtime["caml_record_backtrace"](u_);},
+  t_,
   register_printer,
-  s,
+  s_,
   print_raw_backtrace,
   raw_backtrace_to_string,
-  r,
+  r_,
   set_uncaught_exception_handler,
   backtrace_slots,
-  q,
-  p,
-  o,
-  n,
-  m,
+  q_,
+  p_,
+  o_,
+  n_,
+  m_,
   exn_slot_id,
   exn_slot_name
 ];
@@ -478,4 +480,4 @@ runtime["caml_register_global"](45, Printexc, "Printexc");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Printexc;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

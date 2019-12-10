@@ -9,6 +9,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
 
@@ -53,32 +54,34 @@ function testMethodCalls(o) {
 }
 
 function testPartialFunctionCalls(o) {
-  function s(Q, P) {return Q(P);}
-  function callResult1(O) {return s(o, O);}
-  var t = "passThis";
-  function u(N, M, L) {return N(M, L);}
-  function callResult2(K) {return u(o, t, K);}
-  var v = "passThis";
-  function w(J, I, H, G) {return J(I, H, G);}
-  function callResult3(F) {return w(o, v, bar, F);}
-  var x = "passThis";
-  function y(E, D, C, B, A) {return E(D, C, B, A);}
-  function callResult4(z) {return y(o, x, baz, baz, z);}
+  function s_(Q_, P_) {return Q_(P_);}
+  function callResult1(O_) {return s_(o, O_);}
+  var t_ = "passThis";
+  function u_(N_, M_, L_) {return N_(M_, L_);}
+  function callResult2(K_) {return u_(o, t_, K_);}
+  var v_ = "passThis";
+  function w_(J_, I_, H_, G_) {return J_(I_, H_, G_);}
+  function callResult3(F_) {return w_(o, v_, bar, F_);}
+  var x_ = "passThis";
+  function y_(E_, D_, C_, B_, A_) {return E_(D_, C_, B_, A_);}
+  function callResult4(z_) {return y_(o, x_, baz, baz, z_);}
   return [0,callResult1,callResult2,callResult3,callResult4];
 }
 
 function testPartialMethodCalls(o) {
-  function a(r, q, p) {return runtime["caml_js_meth_call1"](r, q, p);}
-  function sendResult1(o) {return a(o, cst_myPartiallyAppliedMethod, o);}
-  function b(n, m, l, k) {return runtime["caml_js_meth_call2"](n, m, l, k);}
-  function sendResult2(j) {
-    return b(o, cst_myPartiallyAppliedMethod__0, foo, j);
+  function a_(r_, q_, p_) {return runtime["caml_js_meth_call1"](r_, q_, p_);}
+  function sendResult1(o_) {return a_(o, cst_myPartiallyAppliedMethod, o_);}
+  function b_(n_, m_, l_, k_) {
+    return runtime["caml_js_meth_call2"](n_, m_, l_, k_);
   }
-  function c(i, h, g, f, e) {
-    return runtime["caml_js_meth_call3"](i, h, g, f, e);
+  function sendResult2(j_) {
+    return b_(o, cst_myPartiallyAppliedMethod__0, foo, j_);
   }
-  function sendResult3(d) {
-    return c(o, cst_myPartiallyAppliedMethod__1, bar, foo, d);
+  function c_(i_, h_, g_, f_, e_) {
+    return runtime["caml_js_meth_call3"](i_, h_, g_, f_, e_);
+  }
+  function sendResult3(d_) {
+    return c_(o, cst_myPartiallyAppliedMethod__1, bar, foo, d_);
   }
   return [0,sendResult1,sendResult2,sendResult3];
 }
@@ -100,4 +103,4 @@ runtime["caml_register_global"](19, MyLib, "MyLib");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().MyLib;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

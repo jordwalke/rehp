@@ -41,34 +41,34 @@ final class Printf {
     $Pervasives = $global_data["Pervasives"];
     $kfprintf = function(dynamic $k, dynamic $o, dynamic $param) use ($CamlinternalFormat,$call1,$call2,$call4) {
       $fmt = $param[1];
-      $f = 0;
-      $g = function(dynamic $o, dynamic $acc) use ($CamlinternalFormat,$call1,$call2,$k) {
+      $f_ = 0;
+      $g_ = function(dynamic $o, dynamic $acc) use ($CamlinternalFormat,$call1,$call2,$k) {
         $call2($CamlinternalFormat[9], $o, $acc);
         return $call1($k, $o);
       };
-      return $call4($CamlinternalFormat[7], $g, $o, $f, $fmt);
+      return $call4($CamlinternalFormat[7], $g_, $o, $f_, $fmt);
     };
     $kbprintf = function(dynamic $k, dynamic $b, dynamic $param) use ($CamlinternalFormat,$call1,$call2,$call4) {
       $fmt = $param[1];
-      $d = 0;
-      $e = function(dynamic $b, dynamic $acc) use ($CamlinternalFormat,$call1,$call2,$k) {
+      $d_ = 0;
+      $e_ = function(dynamic $b, dynamic $acc) use ($CamlinternalFormat,$call1,$call2,$k) {
         $call2($CamlinternalFormat[10], $b, $acc);
         return $call1($k, $b);
       };
-      return $call4($CamlinternalFormat[7], $e, $b, $d, $fmt);
+      return $call4($CamlinternalFormat[7], $e_, $b, $d_, $fmt);
     };
     $ikfprintf = function(dynamic $k, dynamic $oc, dynamic $param) use ($CamlinternalFormat,$call3) {
       $fmt = $param[1];
       return $call3($CamlinternalFormat[8], $k, $oc, $fmt);
     };
     $fprintf = function(dynamic $oc, dynamic $fmt) use ($kfprintf) {
-      return $kfprintf(function(dynamic $c) {return 0;}, $oc, $fmt);
+      return $kfprintf(function(dynamic $c_) {return 0;}, $oc, $fmt);
     };
     $bprintf = function(dynamic $b, dynamic $fmt) use ($kbprintf) {
-      return $kbprintf(function(dynamic $b) {return 0;}, $b, $fmt);
+      return $kbprintf(function(dynamic $b_) {return 0;}, $b, $fmt);
     };
     $ifprintf = function(dynamic $oc, dynamic $fmt) use ($ikfprintf) {
-      return $ikfprintf(function(dynamic $a) {return 0;}, $oc, $fmt);
+      return $ikfprintf(function(dynamic $a_) {return 0;}, $oc, $fmt);
     };
     $printf = function(dynamic $fmt) use ($Pervasives,$fprintf) {
       return $fprintf($Pervasives[27], $fmt);
@@ -108,4 +108,4 @@ final class Printf {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

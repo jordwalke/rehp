@@ -46,20 +46,20 @@ let testFunctionCalls = (o: t('anything)) => {
   );
 };
 
-let testMethodCalls = (o: t('anything)) => {
-  let withArgsResult = sendWithArgs(o, "yourMethod", [|toUnsafe(foo)|]);
-  let sendResult = send(o, "myMethod");
-  let sendResult1 = send1(o, "myMethod", foo);
-  let sendResult2 = send2(o, "myMethod", foo, foo);
-  let sendResult3 = send3(o, "myMethod", bar, foo, foo);
+let testMethodCalls = (o__: t('anything)) => {
+  let withArgsResult = sendWithArgs(o__, "yourMethod", [|toUnsafe(foo)|]);
+  let sendResult = send(o__, "myMethod");
+  let sendResult1 = send1(o__, "myMethod", foo);
+  let sendResult2 = send2(o__, "myMethod", foo, foo);
+  let sendResult3 = send3(o__, "myMethod", bar, foo, foo);
   (withArgsResult, sendResult, sendResult1, sendResult2, sendResult3);
 };
 
-let testPartialFunctionCalls = (o: t('anything)) => {
-  let callResult1 = call1(o);
-  let callResult2 = call2(o, fromString("passThis"));
-  let callResult3 = call3(o, fromString("passThis"), bar);
-  let callResult4 = call4(o, fromString("passThis"), baz, baz);
+let testPartialFunctionCalls = (s_: t('anything)) => {
+  let callResult1 = call1(s_);
+  let callResult2 = call2(s_, fromString("passThis"));
+  let callResult3 = call3(s_, fromString("passThis"), bar);
+  let callResult4 = call4(s_, fromString("passThis"), baz, baz);
   (callResult1, callResult2, callResult3, callResult4);
 };
 

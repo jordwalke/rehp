@@ -13,10 +13,12 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_int_of_string = runtime["caml_int_of_string"];
 var string = runtime["caml_new_string"];
-var caml_wrap_exception = runtime["caml_wrap_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -79,23 +81,23 @@ var String = global_data["String_"];
 var Not_found = global_data["Not_found"];
 var StringHelper = global_data["StringHelper"];
 var Failure = global_data["Failure"];
-var r = [0,1,[0,2,[0,3,[0,4,0]]]];
-var s = [0,1,[0,2,[0,3,[0,4,0]]]];
+var r_ = [0,1,[0,2,[0,3,[0,4,0]]]];
+var s_ = [0,1,[0,2,[0,3,[0,4,0]]]];
 
 call1(Pervasives[34], greeting);
 
 call1(Pervasives[34], greeting__0);
 
-var a = call1(Pervasives[21], 2);
-var b = call2(Pervasives[16], cst_String_length_should_be_two, a);
+var a_ = call1(Pervasives[21], 2);
+var b_ = call2(Pervasives[16], cst_String_length_should_be_two, a_);
 
-call1(Pervasives[34], b);
+call1(Pervasives[34], b_);
 
-var c = call2(String[1], 1, 138);
-var d = call2(String[1], 1, 201);
-var e = call2(Pervasives[16], d, c);
+var c_ = call2(String[1], 1, 138);
+var d_ = call2(String[1], 1, 201);
+var e_ = call2(Pervasives[16], d_, c_);
 
-call1(Pervasives[34], e);
+call1(Pervasives[34], e_);
 
 caml_int_of_string(cst_1);
 
@@ -103,27 +105,25 @@ var negativeOne = caml_int_of_string(cst_6);
 var one = caml_int_of_string(cst_1__0);
 var six = caml_int_of_string(cst_6__0);
 var index = call2(String[14], cst_as_df, 95);
-var f = call1(Pervasives[21], index);
-var g = call2(Pervasives[16], cst_index_from_string_with_char, f);
+var f_ = call1(Pervasives[21], index);
+var g_ = call2(Pervasives[16], cst_index_from_string_with_char, f_);
 
-call1(Pervasives[34], g);
+call1(Pervasives[34], g_);
 
 var unicodeLength = 2;
 
-try {var D = call2(String[14], cst_asdf, 95);var index__0 = D;}
-catch(G) {
-  G = caml_wrap_exception(G);
-  if (G !== Not_found) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](G);
-  }
-  var h = -1;
-  var index__0 = h;
+try {var D_ = call2(String[14], cst_asdf, 95);var index__0 = D_;}
+catch(G_) {
+  G_ = runtime["caml_wrap_exception"](G_);
+  if (G_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(G_);}
+  var h_ = -1;
+  var index__0 = h_;
 }
 
-var i = call1(Pervasives[21], index__0);
-var j = call2(Pervasives[16], cst_index_from_string_without_char, i);
+var i_ = call1(Pervasives[21], index__0);
+var j_ = call2(Pervasives[16], cst_index_from_string_without_char, i_);
 
-call1(Pervasives[34], j);
+call1(Pervasives[34], j_);
 
 call1(Pervasives[32], index__0);
 
@@ -149,9 +149,9 @@ call1(Pervasives[34], StringHelper[1]);
 
 call1(Pervasives[34], cst_Reason_is_on);
 
-var k = call1(String[12], cst_trimmed_string);
+var k_ = call1(String[12], cst_trimmed_string);
 
-call1(Pervasives[34], k);
+call1(Pervasives[34], k_);
 
 function createIntFromString(ss) {return caml_int_of_string(ss);}
 
@@ -165,40 +165,36 @@ function myFunction(cst_The_variable_v_should_not_conflict_with_any_other_variab
 
 myFunction(cst_tmp);
 
-try {var C = createIntFromString(cst_WHEREAMI);var m = C;}
-catch(F) {
-  F = caml_wrap_exception(F);
-  if (F[1] !== Failure) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](F);
-  }
-  var l = 102;
-  var m = l;
+try {var C_ = createIntFromString(cst_WHEREAMI);var m_ = C_;}
+catch(F_) {
+  F_ = runtime["caml_wrap_exception"](F_);
+  if (F_[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(F_);}
+  var l_ = 102;
+  var m_ = l_;
 }
 
-if (102 === m) {
+if (102 === m_) {
   call1(Pervasives[30], cst_Properly_caught_invalid_string_to_int_conversion);
   call1(Pervasives[35], 0);
 }
 else call1(Pervasives[2], cst_Did_not_properly_catch_Failure_exception);
 
-try {var B = createIntFromString(cst_20);var o = B;}
-catch(E) {
-  E = caml_wrap_exception(E);
-  if (E[1] !== Failure) {
-    throw runtime["caml_wrap_thrown_exception_reraise"](E);
-  }
-  var n = 102;
-  var o = n;
+try {var B_ = createIntFromString(cst_20);var o_ = B_;}
+catch(E_) {
+  E_ = runtime["caml_wrap_exception"](E_);
+  if (E_[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(E_);}
+  var n_ = 102;
+  var o_ = n_;
 }
 
-if (20 === o) {
-  var p = call1(Pervasives[21], o);
-  var q = call2(
+if (20 === o_) {
+  var p_ = call1(Pervasives[21], o_);
+  var q_ = call2(
     Pervasives[16],
     cst_Properly_caught_conversion_from_string_20_to_int,
-    p
+    p_
   );
-  call1(Pervasives[30], q);
+  call1(Pervasives[30], q_);
   call1(Pervasives[35], 0);
 }
 else call1(
@@ -206,35 +202,35 @@ else call1(
   cst_Did_not_properly_catch_conversion_from_string_to_int
 );
 
-var one__0 = [0,r];
-var two = [0,s];
-var t = call1(Pervasives[18], runtime["caml_equal"](one__0, two));
-var u = call2(Pervasives[16], cst_ARE_T, t);
+var one__0 = [0,r_];
+var two = [0,s_];
+var t_ = call1(Pervasives[18], runtime["caml_equal"](one__0, two));
+var u_ = call2(Pervasives[16], cst_ARE_T, t_);
 
-call1(Pervasives[30], u);
-
-call1(Pervasives[35], 0);
-
-var v = call1(Pervasives[18], one__0 === two ? 1 : 0);
-var w = call2(Pervasives[16], cst_ARE_F, v);
-
-call1(Pervasives[30], w);
+call1(Pervasives[30], u_);
 
 call1(Pervasives[35], 0);
 
-var n__0 = Pervasives[12];
+var v_ = call1(Pervasives[18], one__0 === two ? 1 : 0);
+var w_ = call2(Pervasives[16], cst_ARE_F, v_);
+
+call1(Pervasives[30], w_);
+
+call1(Pervasives[35], 0);
+
+var n = Pervasives[12];
 var anotherName = Pervasives[12];
-var x = call1(Pervasives[18], n__0 === anotherName ? 1 : 0);
-var y = call2(Pervasives[16], cst_Nans_are_should_output_true, x);
+var x_ = call1(Pervasives[18], n === anotherName ? 1 : 0);
+var y_ = call2(Pervasives[16], cst_Nans_are_should_output_true, x_);
 
-call1(Pervasives[30], y);
+call1(Pervasives[30], y_);
 
 call1(Pervasives[35], 0);
 
-var z = call1(Pervasives[18], n__0 === anotherName ? 1 : 0);
-var A = call2(Pervasives[16], cst_Nans_are_should_output_false, z);
+var z_ = call1(Pervasives[18], n === anotherName ? 1 : 0);
+var A_ = call2(Pervasives[16], cst_Nans_are_should_output_false, z_);
 
-call1(Pervasives[30], A);
+call1(Pervasives[30], A_);
 
 call1(Pervasives[35], 0);
 
@@ -247,10 +243,10 @@ var Strings = [
   index__0,
   createIntFromString,
   myFunction,
-  o,
+  o_,
   one__0,
   two,
-  n__0,
+  n,
   anotherName
 ];
 
@@ -258,4 +254,4 @@ runtime["caml_register_global"](39, Strings, "Strings");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Strings;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

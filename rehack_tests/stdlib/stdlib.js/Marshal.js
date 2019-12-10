@@ -10,6 +10,7 @@ var runtime = require('runtime.js');
 let joo_global_object = global;
 
 
+
 var runtime = joo_global_object.jsoo_runtime;
 var caml_marshal_data_size = runtime["caml_marshal_data_size"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
@@ -68,13 +69,13 @@ function from_string(buff, ofs) {
   return from_bytes(call1(Bytes[43], buff), ofs);
 }
 
-function a(e) {return runtime["caml_input_value"](e);}
+function a_(e_) {return runtime["caml_input_value"](e_);}
 
 var Marshal = [
   0,
-  function(d, c, b) {return runtime["caml_output_value"](d, c, b);},
+  function(d_, c_, b_) {return runtime["caml_output_value"](d_, c_, b_);},
   to_buffer,
-  a,
+  a_,
   from_bytes,
   from_string,
   header_size,
@@ -86,4 +87,4 @@ runtime["caml_register_global"](6, Marshal, "Marshal");
 
 
 module.exports = global.jsoo_runtime.caml_get_global_data().Marshal;
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

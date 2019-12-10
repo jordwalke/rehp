@@ -253,8 +253,7 @@ let rec process_raw prov req lst =
     )
   | hd :: tl -> hd :: process_raw prov req tl
 
-let add_file ~backend f =
-  let backend = Backend.to_string backend in
+let add_file backend_str f =
   List.iter (parse_file f)
     ~f:(fun {provides; requires; version_constraint;backends; weakdef;code} ->
        let vmatch = match version_constraint with
@@ -262,7 +261,7 @@ let add_file ~backend f =
          | l -> List.exists l ~f:version_match in
        let bmatch = match backends with
          | [] -> true
-         | l -> List.exists l ~f:(fun backend' -> backend' = backend) in
+         | l -> List.exists l ~f:(fun backend_str' -> backend_str' = backend_str) in
        if vmatch && bmatch
        then begin
          incr last_code_id;
@@ -329,8 +328,8 @@ let add_file ~backend f =
 let get_provided () =
   Hashtbl.fold (fun k _ acc -> StringSet.add k acc) provided StringSet.empty
 
-let load_files ?(backend=Backend.Js) l =
-  List.iter l ~f:(add_file ~backend)
+let load_files backend_str l =
+  List.iter l ~f:(add_file backend_str)
   (*;  check_deps () *)
 
 (* resolve *)

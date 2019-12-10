@@ -73,31 +73,31 @@ final class Js_of_ocaml__Sys_js {
     
     if ($runtime["caml_string_equal"]($Js_of_ocaml_Lib_version[2], $cst)) {$js_of_ocaml_version = $Js_of_ocaml_Lib_version[1];}
     else {
-      $c = $call2($Pervasives[16], $cst__0, $Js_of_ocaml_Lib_version[2]);
+      $c_ = $call2($Pervasives[16], $cst__0, $Js_of_ocaml_Lib_version[2]);
       $js_of_ocaml_version = $call2(
         $Pervasives[16],
         $Js_of_ocaml_Lib_version[1],
-        $c
+        $c_
       );
     }
     
-    $a = function(dynamic $g, dynamic $f) use ($runtime) {
-      return $runtime["caml_create_file"]($g, $f);
+    $a_ = function(dynamic $g_, dynamic $f_) use ($runtime) {
+      return $runtime["caml_create_file"]($g_, $f_);
     };
-    $b = function(dynamic $e) use ($runtime) {
-      return $runtime["caml_read_file_content"]($e);
+    $b_ = function(dynamic $e_) use ($runtime) {
+      return $runtime["caml_read_file_content"]($e_);
     };
     $Js_of_ocaml_Sys_js = Vector{
       0,
       $set_channel_flusher,
       $set_channel_filler,
-      function(dynamic $d) use ($runtime) {
-        return $runtime["caml_list_mount_point"]($d);
+      function(dynamic $d_) use ($runtime) {
+        return $runtime["caml_list_mount_point"]($d_);
       },
       $unmount,
       $mount,
-      $b,
-      $a,
+      $b_,
+      $a_,
       $update_file,
       $js_of_ocaml_version
     };
@@ -111,4 +111,4 @@ final class Js_of_ocaml__Sys_js {
   }
 }
 
-/*____hashes compiler:hashing-disabled inputs:hashing-disabled bytecode:hashing-disabled*/
+/* Hashing disabled */

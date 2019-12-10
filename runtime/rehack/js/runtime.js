@@ -7,6 +7,7 @@
 let joo_global_object = global;
 
 
+
 var caml_oo_last_id = 0;
 
 function caml_ml_string_length(s) {return s.l;}
@@ -1000,11 +1001,6 @@ function caml_utf8_of_utf16(s) {
   return b + t;
 }
 
-
-
-  /* Uses Error */
-
-
 function caml_js_to_string(s) {
   if (typeof s !== "string") {
     throw new Error("caml_js_to_string called with non-string");
@@ -1198,16 +1194,6 @@ var caml_runtime_warnings = 0;
 function caml_ml_enable_runtime_warnings(bool) {caml_runtime_warnings = bool;return 0;
 }
 
-
-
-  /* Uses isFinite */
-
-
-
-
-  /* Uses isNaN */
-
-
 function caml_classify_float(x) {
   if (isFinite(x)) {
     if (Math.abs(x) >= 2.22507385850720138e-308) {return 0;}
@@ -1216,11 +1202,6 @@ function caml_classify_float(x) {
   }
   return isNaN(x) ? 4 : 3;
 }
-
-
-
-  // Uses eval
-
 
 function caml_js_var(x) {
   var x = x.toString();
@@ -1307,16 +1288,6 @@ function caml_string_compare(s1, s2) {
   s2.t & 6 && caml_convert_string_to_bytes(s2);
   return s1.c < s2.c ? - 1 : s1.c > s2.c ? 1 : 0;
 }
-
-
-
-  // Consumes NaN
-
-
-
-
-var is_in = 0;
-
 
 function caml_compare_val(a, b, total) {
   var stack = [];
@@ -3184,11 +3155,6 @@ var caml_output_val = function() {
 
 function caml_js_from_float(x) {return x;}
 
-
-
-  // Consumes parseInt
-
-
 function caml_floatarray_create(len) {
   var len = len + 1 | 0;
   var b = new Array(len);
@@ -3598,11 +3564,6 @@ function caml_tanh_float(x) {
   var y = Math.exp(x), z = Math.exp(- x);
   return (y - z) / (y + z);
 }
-
-
-
-  /* Uses SyntaxError */
-
 
 var JSON = joo_global_object.JSON;
 
@@ -5177,7 +5138,6 @@ joo_global_object.jsoo_runtime =
     caml_gc_minor: caml_gc_minor,
     caml_CamlinternalMod_update_mod: caml_CamlinternalMod_update_mod,
     caml_CamlinternalMod_init_mod: caml_CamlinternalMod_init_mod,
-    eval: eval,
     caml_js_export_var: caml_js_export_var,
     caml_js_object: caml_js_object,
     caml_pure_js_expr: caml_pure_js_expr,
@@ -5297,12 +5257,6 @@ joo_global_object.jsoo_runtime =
     caml_sys_open: caml_sys_open,
     caml_std_output: caml_std_output,
     caml_sys_close: caml_sys_close,
-    is_in: is_in,
-    isFinite: isFinite,
-    isNaN: isNaN,
-    SyntaxError: SyntaxError,
-    Error: Error,
-    NaN: NaN,
     polymorphic_log: polymorphic_log,
     caml_is_js: caml_is_js,
     caml_spacetime_only_works_for_native_code: caml_spacetime_only_works_for_native_code,
@@ -5373,7 +5327,6 @@ joo_global_object.jsoo_runtime =
     caml_parse_format: caml_parse_format,
     caml_is_printable: caml_is_printable,
     caml_float_of_string: caml_float_of_string,
-    parseInt: parseInt,
     caml_int_of_string: caml_int_of_string,
     caml_parse_digit: caml_parse_digit,
     caml_parse_sign_and_base: caml_parse_sign_and_base,

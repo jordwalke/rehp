@@ -29,7 +29,7 @@ function jsoo_floor_log2(x) {
 }
 
 //Provides: caml_int64_bits_of_float const
-//Requires: jsoo_floor_log2, isFinite, isNaN
+//Requires: jsoo_floor_log2
 function caml_int64_bits_of_float (x) {
   if (!isFinite(x)) {
     if (isNaN(x)) return [255, 1, 0, 0x7ff0];
@@ -73,7 +73,7 @@ function caml_int32_bits_of_float (x) {
 //notation 0x<mantissa in hex>p<exponent> from ISO C99.
 //https://github.com/dankogai/js-hexfloat/blob/master/hexfloat.js
 //Provides: caml_hexstring_of_float const
-//Requires: caml_js_to_string, caml_str_repeat, isFinite, isNaN
+//Requires: caml_js_to_string, caml_str_repeat
 function caml_hexstring_of_float (x, prec, style) {
   if (!isFinite(x)) {
     if (isNaN(x)) return caml_js_to_string("nan");
@@ -149,7 +149,6 @@ function caml_int32_float_of_bits (x) {
 }
 
 //Provides: caml_classify_float const
-//Requires: isFinite, isNaN
 function caml_classify_float (x) {
   if (isFinite (x)) {
     if (Math.abs(x) >= 2.2250738585072014e-308) return 0;
@@ -159,7 +158,6 @@ function caml_classify_float (x) {
   return isNaN(x)?4:3;
 }
 //Provides: caml_modf_float const
-//Requires: isFinite, isNaN
 function caml_modf_float (x) {
   if (isFinite (x)) {
     var neg = (1/x) < 0;
@@ -191,7 +189,7 @@ function caml_ldexp_float (x,exp) {
   return x;
 }
 //Provides: caml_frexp_float const
-//Requires: jsoo_floor_log2, isFinite
+//Requires: jsoo_floor_log2
 function caml_frexp_float (x) {
   if ((x == 0) || !isFinite(x)) return [0, x, 0];
   var neg = x < 0;
