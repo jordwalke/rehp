@@ -642,13 +642,23 @@ let access_global g i =
       g.vars.(i) <- Some x;
       x
 
-let register_global ?(force = false) g i rem =
+let register_global ?(suffix="") ?(force = false) g i rem =
   if force || g.is_exported.(i)
   then
     let args =
       match g.named_value.(i) with
-      | None -> []
+      | None ->
+          (if suffix <> "" then
+            print_endline("register_global NON named value i:" ^ string_of_int i ^ " " ^ suffix));
+          []
       | Some name ->
+          (* This is the place where each module is registered in separate
+             compilation mode. In exe mode, nothing is exported so this code
+             path is never hit. I have never observed this code path hit for
+             anything other than the main module of each separately compiled
+             module. *)
+          (if suffix <> "" then
+            print_endline("register_global named value " ^ name ^ " i:" ^ string_of_int i ^ " " ^ suffix));
           Code.Var.name (access_global g i) name;
           [Pc (IString (normalize_module_name name))]
     in
@@ -658,7 +668,18 @@ let register_global ?(force = false) g i rem =
           ( Extern "caml_register_global"
           , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
     :: rem
-  else rem
+  else (
+    (* This is where exe style compilation happens *)
+      (match g.named_value.(i) with
+      | None ->
+          (if suffix <> "" then
+            print_endline("NOT EXPORTED register_global NON named value i:" ^ string_of_int i ^ " " ^ suffix));
+      | Some name ->
+          (if suffix <> "" then
+            print_endline("NOT EXPORTED register_global named value " ^ name ^ " i:" ^ string_of_int i ^ " " ^ suffix));
+      );
+    rem
+  )
 
 let get_global state instrs i =
   State.size_globals state (i + 1);
@@ -1055,19 +1076,21 @@ and compile infos pc state instrs =
         let g = State.globals state in
         assert (Option.is_none g.vars.(i));
         if debug_parser () then Format.printf "(global %d) = %a@." i Var.print y;
-        let instrs =
+        let (suffix, instrs) =
           match g.override.(i) with
           | Some f ->
               let v, instrs = f y instrs in
               g.vars.(i) <- Some v;
-              instrs
+              (Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print v,
+              instrs)
           | None ->
               g.vars.(i) <- Some y;
-              instrs
+              (Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print y,
+              instrs)
         in
         let x, state = State.fresh_var state in
         if debug_parser () then Format.printf "%a = 0@." Var.print x;
-        let instrs = register_global g i instrs in
+        let instrs = register_global ~suffix g i instrs in
         compile infos (pc + 2) state (Let (x, Const 0l) :: instrs)
     | ATOM0 ->
         let x, state = State.fresh_var state in
@@ -2140,7 +2163,8 @@ let from_exe
     Array.fold_right_i globals.constants ~init:body ~f:(fun i _ l ->
         match globals.vars.(i) with
         | Some x when globals.is_const.(i) ->
-            let l = register_global globals i l in
+            let suffix = "body global.constants " ^ string_of_int i in
+            let l = register_global ~suffix globals i l in
             Let (x, Constant globals.constants.(i)) :: l
         | _ -> l)
   in
@@ -2293,8 +2317,12 @@ module Reloc = struct
     let slot_for_getglobal id = next id in
     let slot_for_setglobal id = next id in
     List.iter compunit.cu_reloc ~f:(function
-        | Reloc_getglobal id, pos -> gen_patch_int code pos (slot_for_getglobal id)
-        | Reloc_setglobal id, pos -> gen_patch_int code pos (slot_for_setglobal id)
+        | Reloc_getglobal id, pos ->
+            print_endline("getting global name from reloc2 " ^ id.name ^ " " ^ string_of_int(pos));
+            gen_patch_int code pos (slot_for_getglobal id)
+        | Reloc_setglobal id, pos ->
+            print_endline("setting global name from reloc2 " ^ id.name ^ " " ^ string_of_int(pos));
+            gen_patch_int code pos (slot_for_setglobal id)
         | _ -> ())
 
   let primitives t =
@@ -2338,16 +2366,24 @@ let from_compilation_units ~includes:_ ~toplevel ~debug ~debug_data l =
         | Some x when globals.is_const.(i) -> (
           match globals.named_value.(i) with
           | None ->
-              let l = register_global globals i l in
               let cst = globals.constants.(i) in
-              (match cst, Code.Var.get_name x with
+              let l = (match cst, Code.Var.get_name x with
               | (String str | IString str), None ->
-                  Code.Var.name x (Printf.sprintf "cst_%s" str)
-              | _ -> ());
+                  let suffix = str ^ " from globals.vars " ^ " i:" ^ string_of_int(i) in
+                  let l = register_global ~suffix globals i l in
+                  Code.Var.name x (Printf.sprintf "cst_%s" str);
+                  l
+
+              | _ ->
+                  let suffix = " from globals.vars i:" ^ string_of_int(i) in
+                  let l = register_global globals ~suffix i l in
+                  l
+              ) in
               Let (x, Constant cst) :: l
           | Some name ->
             (* TODO: This is where you would inject an operation for module
                loading that should incorporate with the module template. *)
+              print_endline("Loading named_value global_data[ " ^ name ^ "] from global.vars");
               Var.name x name;
               (* Currently, global data is a very loose dictionary registry
                  so it's appropriate to force this to be a dictionary *)

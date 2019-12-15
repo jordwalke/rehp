@@ -56,6 +56,10 @@ let specialize_instr info i rem =
       | Some s -> Let (x, Prim (Extern prim, [Pc (String s)]))
       | _ -> i)
       :: rem
+  (* Avoid registering named values if none of the stubs ever try to consume
+     it. Named values are ways to expose named data to C code, and linked
+     stubs play the role of the C code. This optimization was disabled in
+     linker.ml anyways, but keeping it here *)
   | Let (x, Prim (Extern ("caml_register_named_value" as prim), [y; z])) ->
       (match the_string_of info y with
       | Some s when Primitive.need_named_value s ->
