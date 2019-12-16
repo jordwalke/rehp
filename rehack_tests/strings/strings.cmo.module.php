@@ -230,6 +230,7 @@ final class Strings {
       );
     }
     
+    $myRefCell = Vector{0, 0};
     $one__0 = Vector{0, $r_};
     $two = Vector{0, $s_};
     $t_ = $call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
@@ -272,6 +273,8 @@ final class Strings {
       $createIntFromString,
       $myFunction,
       $o_,
+      $myRefCell,
+      0,
       $one__0,
       $two,
       $n,

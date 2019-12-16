@@ -33,7 +33,7 @@ function create(path) {
   if (caml_spacetime_enabled(0)) {
     var channel = call1(Pervasives[48], path);
     var t = [0,channel,0];
-    caml_spacetime_only_works_for_native_code(t[1]);
+    caml_spacetime_only_works_for_native_code(channel);
     return t;
   }
   return [0,Pervasives[27],1];

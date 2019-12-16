@@ -3505,6 +3505,9 @@ function caml_js_wrap_meth_callback(f) {
 
 function caml_sys_const_int_size() {return 32;}
 
+function caml_register_global_module(n, v, name) {return caml_register_global(n, v, name);
+}
+
 var caml_blit_bigstring_to_string = bigstring_blit_bigstring_bytes_stub;
 
 function caml_is_js() {return 1;}
@@ -4839,6 +4842,9 @@ function caml_float_compare(x, y) {
 function caml_string_set32(s, i, i32) {return caml_bytes_set32(s, i, i32);}
 
 function caml_js_fun_call1(f, a) {return f(a);}
+
+function caml_register_global_module_metadata(n, v, name) {return caml_register_global(n, v, name);
+}
 
 function caml_parse_engine(tables, env, cmd, arg) {
   var ERRCODE = 256;

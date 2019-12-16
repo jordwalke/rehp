@@ -202,6 +202,7 @@ else call1(
   cst_Did_not_properly_catch_conversion_from_string_to_int
 );
 
+var myRefCell = [0,0];
 var one__0 = [0,r_];
 var two = [0,s_];
 var t_ = call1(Pervasives[18], runtime["caml_equal"](one__0, two));
@@ -244,6 +245,8 @@ var Strings = [
   createIntFromString,
   myFunction,
   o_,
+  myRefCell,
+  0,
   one__0,
   two,
   n,

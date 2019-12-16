@@ -327,6 +327,9 @@ final class Runtime {
          "caml_wrap_exception"=>$caml_wrap_exception,
          "caml_return_exn_constant"=>$caml_return_exn_constant,
          "caml_get_global_data"=>$caml_get_global_data,
+         "caml_register_global_module_metadata"=>
+         $caml_register_global_module_metadata,
+         "caml_register_global_module"=>$caml_register_global_module,
          "caml_register_global"=>$caml_register_global,
          "caml_global_data"=>$caml_global_data,
          "caml_named_value"=>$caml_named_value,

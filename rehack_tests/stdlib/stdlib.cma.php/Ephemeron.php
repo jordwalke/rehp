@@ -71,13 +71,11 @@ final class Ephemeron {
           continue;
         }
       };
-      $prng = Vector{
-        246,
-        function(dynamic $ax_) use ($Random,$call1) {
-          return $call1($Random[11][2], 0);
-        }
+      $B_ = function(dynamic $ay_) use ($Random,$call1) {
+        return $call1($Random[11][2], 0);
       };
-      $create = function(dynamic $opt, dynamic $initial_size) use ($CamlinternalLazy,$Hashtbl,$Random,$call1,$caml_make_vect,$power_2_above,$prng,$runtime) {
+      $prng = Vector{246, $B_};
+      $create = function(dynamic $opt, dynamic $initial_size) use ($B_,$CamlinternalLazy,$Hashtbl,$Random,$call1,$caml_make_vect,$power_2_above,$prng,$runtime) {
         if ($opt) {
           $sth = $opt[1];
           $random = $sth;
@@ -85,11 +83,11 @@ final class Ephemeron {
         else {$random = $call1($Hashtbl[17], 0);}
         $s = $power_2_above(16, $initial_size);
         if ($random) {
-          $av_ = $runtime["caml_obj_tag"]($prng);
-          $aw_ = 250 === $av_
-            ? $prng[1]
-            : (246 === $av_ ? $call1($CamlinternalLazy[2], $prng) : ($prng));
-          $seed = $call1($Random[11][4], $aw_);
+          $aw_ = $runtime["caml_obj_tag"]($prng);
+          $ax_ = 250 === $aw_
+            ? $B_
+            : (246 === $aw_ ? $call1($CamlinternalLazy[2], $prng) : ($prng));
+          $seed = $call1($Random[11][4], $ax_);
         }
         else {$seed = 0;}
         return Vector{0, 0, $caml_make_vect($s, 0), $seed, $s};
@@ -97,14 +95,14 @@ final class Ephemeron {
       $clear = function(dynamic $h) use ($caml_check_bound) {
         $h[1] = 0;
         $len = $h[2]->count() - 1;
-        $at_ = (int) ($len + -1);
-        $as_ = 0;
-        if (! ($at_ < 0)) {
-          $i = $as_;
+        $au_ = (int) ($len + -1);
+        $at_ = 0;
+        if (! ($au_ < 0)) {
+          $i = $at_;
           for (;;) {
             $caml_check_bound($h[2], $i)[$i + 1] = 0;
-            $au_ = (int) ($i + 1);
-            if ($at_ !== $i) {$i = $au_;continue;}
+            $av_ = (int) ($i + 1);
+            if ($au_ !== $i) {$i = $av_;continue;}
             break;
           }
         }
@@ -118,10 +116,10 @@ final class Ephemeron {
         return 0;
       };
       $copy = function(dynamic $h) use ($Array,$call1) {
-        $ap_ = $h[4];
-        $aq_ = $h[3];
-        $ar_ = $call1($Array[8], $h[2]);
-        return Vector{0, $h[1], $ar_, $aq_, $ap_};
+        $aq_ = $h[4];
+        $ar_ = $h[3];
+        $as_ = $call1($Array[8], $h[2]);
+        return Vector{0, $h[1], $as_, $ar_, $aq_};
       };
       $key_index = function(dynamic $h, dynamic $hkey) {
         return $hkey & (int) ($h[2]->count() - 1 + -1);
@@ -146,15 +144,15 @@ final class Ephemeron {
           }
         };
         $d = $h[2];
-        $an_ = (int) ($d->count() - 1 + -1);
-        $am_ = 0;
-        if (! ($an_ < 0)) {
-          $i = $am_;
+        $ao_ = (int) ($d->count() - 1 + -1);
+        $an_ = 0;
+        if (! ($ao_ < 0)) {
+          $i = $an_;
           for (;;) {
             $d[$i + 1] =
               $do_bucket->contents($caml_check_bound($d, $i)[$i + 1]);
-            $ao_ = (int) ($i + 1);
-            if ($an_ !== $i) {$i = $ao_;continue;}
+            $ap_ = (int) ($i + 1);
+            if ($ao_ !== $i) {$i = $ap_;continue;}
             break;
           }
         }
@@ -165,11 +163,11 @@ final class Ephemeron {
         $osize = $odata->count() - 1;
         $nsize = (int) ($osize * 2);
         $clean($h);
-        $ag_ = $nsize < $Sys[14] ? 1 : (0);
-        $ah_ = $ag_
+        $ah_ = $nsize < $Sys[14] ? 1 : (0);
+        $ai_ = $ah_
           ? (int) $unsigned_right_shift_32($osize, 1) <= $h[1] ? 1 : (0)
-          : ($ag_);
-        if ($ah_) {
+          : ($ah_);
+        if ($ai_) {
           $ndata = $caml_make_vect($nsize, 0);
           $h[2] = $ndata;
           $insert_bucket->contents = function(dynamic $param) use ($caml_check_bound,$h,$insert_bucket,$key_index,$ndata) {
@@ -190,21 +188,21 @@ final class Ephemeron {
             }
             return 0;
           };
-          $aj_ = (int) ($osize + -1);
-          $ai_ = 0;
-          if (! ($aj_ < 0)) {
-            $i = $ai_;
+          $ak_ = (int) ($osize + -1);
+          $aj_ = 0;
+          if (! ($ak_ < 0)) {
+            $i = $aj_;
             for (;;) {
               $insert_bucket->contents($caml_check_bound($odata, $i)[$i + 1]);
-              $al_ = (int) ($i + 1);
-              if ($aj_ !== $i) {$i = $al_;continue;}
+              $am_ = (int) ($i + 1);
+              if ($ak_ !== $i) {$i = $am_;continue;}
               break;
             }
           }
-          $ak_ = 0;
+          $al_ = 0;
         }
-        else {$ak_ = $ah_;}
-        return $ak_;
+        else {$al_ = $ai_;}
+        return $al_;
       };
       $add = function(dynamic $h, dynamic $key, dynamic $info) use ($H,$call2,$caml_check_bound,$key_index,$left_shift_32,$resize) {
         $hkey = $call2($H[2], $h[3], $key);
@@ -218,8 +216,8 @@ final class Ephemeron {
         };
         $caml_check_bound($h[2], $i)[$i + 1] = $bucket;
         $h[1] = (int) ($h[1] + 1);
-        $af_ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-        return $af_ ? $resize($h) : ($af_);
+        $ag_ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
+        return $ag_ ? $resize($h) : ($ag_);
       };
       $remove = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$key_index) {
         $remove_bucket = new Ref();
@@ -256,8 +254,8 @@ final class Ephemeron {
           }
         };
         $i = $key_index($h, $hkey);
-        $ae_ = $remove_bucket->contents($caml_check_bound($h[2], $i)[$i + 1]);
-        $caml_check_bound($h[2], $i)[$i + 1] = $ae_;
+        $af_ = $remove_bucket->contents($caml_check_bound($h[2], $i)[$i + 1]);
+        $caml_check_bound($h[2], $i)[$i + 1] = $af_;
         return 0;
       };
       $find_rec = function(dynamic $key, dynamic $hkey, dynamic $param) use ($H,$Not_found,$call1,$call2,$caml_wrap_thrown_exception) {
@@ -296,8 +294,8 @@ final class Ephemeron {
       };
       $find = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$find_rec,$key_index) {
         $hkey = $call2($H[2], $h[3], $key);
-        $ad_ = $key_index($h, $hkey);
-        return $find_rec($key, $hkey, $caml_check_bound($h[2], $ad_)[$ad_ + 1]
+        $ae_ = $key_index($h, $hkey);
+        return $find_rec($key, $hkey, $caml_check_bound($h[2], $ae_)[$ae_ + 1]
         );
       };
       $find_rec_opt = function(dynamic $key, dynamic $hkey, dynamic $param) use ($H,$call1,$call2) {
@@ -336,11 +334,11 @@ final class Ephemeron {
       };
       $find_opt = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$find_rec_opt,$key_index) {
         $hkey = $call2($H[2], $h[3], $key);
-        $ac_ = $key_index($h, $hkey);
+        $ad_ = $key_index($h, $hkey);
         return $find_rec_opt(
           $key,
           $hkey,
-          $caml_check_bound($h[2], $ac_)[$ac_ + 1]
+          $caml_check_bound($h[2], $ad_)[$ad_ + 1]
         );
       };
       $find_all = function(dynamic $h, dynamic $key) use ($H,$call1,$call2,$caml_check_bound,$key_index) {
@@ -383,9 +381,9 @@ final class Ephemeron {
             return 0;
           }
         };
-        $ab_ = $key_index($h, $hkey);
+        $ac_ = $key_index($h, $hkey);
         return $find_in_bucket->contents(
-          $caml_check_bound($h[2], $ab_)[$ab_ + 1]
+          $caml_check_bound($h[2], $ac_)[$ac_ + 1]
         );
       };
       $replace = function(dynamic $h, dynamic $key, dynamic $info) use ($H,$Not_found,$call2,$call3,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$key_index,$left_shift_32,$resize,$runtime) {
@@ -411,17 +409,17 @@ final class Ephemeron {
         };
         $i = $key_index($h, $hkey);
         $l = $caml_check_bound($h[2], $i)[$i + 1];
-        try {$Z_ = $replace_bucket($l);return $Z_;}
-        catch(\Throwable $aa_) {
-          $aa_ = $runtime["caml_wrap_exception"]($aa_);
-          if ($aa_ === $Not_found) {
+        try {$aa_ = $replace_bucket($l);return $aa_;}
+        catch(\Throwable $ab_) {
+          $ab_ = $runtime["caml_wrap_exception"]($ab_);
+          if ($ab_ === $Not_found) {
             $container = $call2($H[1], $key, $info);
             $caml_check_bound($h[2], $i)[$i + 1] = Vector{0, $hkey, $container, $l};
             $h[1] = (int) ($h[1] + 1);
-            $Y_ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
-            return $Y_ ? $resize($h) : ($Y_);
+            $Z_ = $left_shift_32($h[2]->count() - 1, 1) < $h[1] ? 1 : (0);
+            return $Z_ ? $resize($h) : ($Z_);
           }
-          throw $caml_wrap_thrown_exception_reraise($aa_) as \Throwable;
+          throw $caml_wrap_thrown_exception_reraise($ab_) as \Throwable;
         }
       };
       $mem = function(dynamic $h, dynamic $key) use ($H,$call2,$caml_check_bound,$key_index) {
@@ -445,8 +443,8 @@ final class Ephemeron {
             return 0;
           }
         };
-        $X_ = $key_index($h, $hkey);
-        return $mem_in_bucket($caml_check_bound($h[2], $X_)[$X_ + 1]);
+        $Y_ = $key_index($h, $hkey);
+        return $mem_in_bucket($caml_check_bound($h[2], $Y_)[$Y_ + 1]);
       };
       $iter = function(dynamic $f, dynamic $h) use ($H,$call1,$call2,$caml_check_bound) {
         $do_bucket = function(dynamic $param) use ($H,$call1,$call2,$f) {
@@ -475,14 +473,14 @@ final class Ephemeron {
           }
         };
         $d = $h[2];
-        $V_ = (int) ($d->count() - 1 + -1);
-        $U_ = 0;
-        if (! ($V_ < 0)) {
-          $i = $U_;
+        $W_ = (int) ($d->count() - 1 + -1);
+        $V_ = 0;
+        if (! ($W_ < 0)) {
+          $i = $V_;
           for (;;) {
             $do_bucket($caml_check_bound($d, $i)[$i + 1]);
-            $W_ = (int) ($i + 1);
-            if ($V_ !== $i) {$i = $W_;continue;}
+            $X_ = (int) ($i + 1);
+            if ($W_ !== $i) {$i = $X_;continue;}
             break;
           }
         }
@@ -518,15 +516,15 @@ final class Ephemeron {
         };
         $d = $h[2];
         $accu = Vector{0, $init};
-        $R_ = (int) ($d->count() - 1 + -1);
-        $Q_ = 0;
-        if (! ($R_ < 0)) {
-          $i = $Q_;
+        $S_ = (int) ($d->count() - 1 + -1);
+        $R_ = 0;
+        if (! ($S_ < 0)) {
+          $i = $R_;
           for (;;) {
-            $S_ = $accu[1];
-            $accu[1] = $do_bucket($caml_check_bound($d, $i)[$i + 1], $S_);
-            $T_ = (int) ($i + 1);
-            if ($R_ !== $i) {$i = $T_;continue;}
+            $T_ = $accu[1];
+            $accu[1] = $do_bucket($caml_check_bound($d, $i)[$i + 1], $T_);
+            $U_ = (int) ($i + 1);
+            if ($S_ !== $i) {$i = $U_;continue;}
             break;
           }
         }
@@ -564,15 +562,15 @@ final class Ephemeron {
           }
         };
         $d = $h[2];
-        $O_ = (int) ($d->count() - 1 + -1);
-        $N_ = 0;
-        if (! ($O_ < 0)) {
-          $i = $N_;
+        $P_ = (int) ($d->count() - 1 + -1);
+        $O_ = 0;
+        if (! ($P_ < 0)) {
+          $i = $O_;
           for (;;) {
             $d[$i + 1] =
               $do_bucket->contents($caml_check_bound($d, $i)[$i + 1]);
-            $P_ = (int) ($i + 1);
-            if ($O_ !== $i) {$i = $P_;continue;}
+            $Q_ = (int) ($i + 1);
+            if ($P_ !== $i) {$i = $Q_;continue;}
             break;
           }
         }
@@ -594,21 +592,21 @@ final class Ephemeron {
         }
       };
       $stats = function(dynamic $h) use ($Array,$Pervasives,$bucket_length,$call2,$call3,$caml_check_bound,$caml_make_vect) {
-        $H_ = $h[2];
-        $I_ = 0;
-        $J_ = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length,$call2) {
-          $M_ = $bucket_length(0, $b);
-          return $call2($Pervasives[5], $m, $M_);
+        $I_ = $h[2];
+        $J_ = 0;
+        $K_ = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length,$call2) {
+          $N_ = $bucket_length(0, $b);
+          return $call2($Pervasives[5], $m, $N_);
         };
-        $mbl = $call3($Array[17], $J_, $I_, $H_);
+        $mbl = $call3($Array[17], $K_, $J_, $I_);
         $histo = $caml_make_vect((int) ($mbl + 1), 0);
-        $K_ = $h[2];
-        $L_ = function(dynamic $b) use ($bucket_length,$caml_check_bound,$histo) {
+        $L_ = $h[2];
+        $M_ = function(dynamic $b) use ($bucket_length,$caml_check_bound,$histo) {
           $l = $bucket_length(0, $b);
           $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
           return 0;
         };
-        $call2($Array[13], $L_, $K_);
+        $call2($Array[13], $M_, $L_);
         return Vector{0, $h[1], $h[2]->count() - 1, $mbl, $histo};
       };
       $bucket_length_alive = function(dynamic $accu, dynamic $param) use ($H,$call1) {
@@ -632,22 +630,22 @@ final class Ephemeron {
       };
       $stats_alive = function(dynamic $h) use ($Array,$Pervasives,$bucket_length_alive,$call2,$call3,$caml_check_bound,$caml_make_vect) {
         $size = Vector{0, 0};
-        $B_ = $h[2];
-        $C_ = 0;
-        $D_ = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length_alive,$call2) {
-          $G_ = $bucket_length_alive(0, $b);
-          return $call2($Pervasives[5], $m, $G_);
+        $C_ = $h[2];
+        $D_ = 0;
+        $E_ = function(dynamic $m, dynamic $b) use ($Pervasives,$bucket_length_alive,$call2) {
+          $H_ = $bucket_length_alive(0, $b);
+          return $call2($Pervasives[5], $m, $H_);
         };
-        $mbl = $call3($Array[17], $D_, $C_, $B_);
+        $mbl = $call3($Array[17], $E_, $D_, $C_);
         $histo = $caml_make_vect((int) ($mbl + 1), 0);
-        $E_ = $h[2];
-        $F_ = function(dynamic $b) use ($bucket_length_alive,$caml_check_bound,$histo,$size) {
+        $F_ = $h[2];
+        $G_ = function(dynamic $b) use ($bucket_length_alive,$caml_check_bound,$histo,$size) {
           $l = $bucket_length_alive(0, $b);
           $size[1] = (int) ($size[1] + $l);
           $histo[$l + 1] = (int) ($caml_check_bound($histo, $l)[$l + 1] + 1);
           return 0;
         };
-        $call2($Array[13], $F_, $E_);
+        $call2($Array[13], $G_, $F_);
         return Vector{0, $size[1], $h[2]->count() - 1, $mbl, $histo};
       };
       return Vector{
