@@ -65,6 +65,8 @@ module Var : sig
 
   val to_string : ?origin:t -> t -> string
 
+  val orig_string_name_debug : t -> string
+
   val fresh : unit -> t
 
   val fresh_n : string -> t
@@ -149,6 +151,8 @@ end = struct
     VarPrinter.reset printer
 
   let to_string ?origin i = VarPrinter.to_string printer ?origin i
+
+  let orig_string_name_debug i = VarPrinter.orig_string_name_debug printer i
 
   let print f x = Format.fprintf f "v%d" x
 

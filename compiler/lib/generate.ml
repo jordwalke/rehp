@@ -984,6 +984,16 @@ let register_tern_prim name f =
           f cx cy cz loc, or_p mutator_p (or_p px (or_p py pz)), queue
       | _ -> assert false)
 
+let register_module_loader name f =
+  register_prim name `Mutator (fun l queue ctx loc ->
+      match l with
+      | x :: y :: z :: rest ->
+          let (px, cx), queue = access_queue' ~ctx queue x in
+          let (py, cy), queue = access_queue' ~ctx queue y in
+          let (pz, cz), queue = access_queue' ~ctx queue z in
+          f ctx cx cy cz loc, or_p mutator_p (or_p px (or_p py pz)), queue
+      | _ -> assert false)
+
 let register_un_math_prim name prim =
   register_un_prim name `Pure (fun cx loc ->
       J.ECall (J.EDot (s_var "Math", prim), [cx], loc))
@@ -1001,6 +1011,9 @@ let _ =
    * int_to_string.
    *)
       J.ECall (p, [J.EBin (J.Plus, str_js "", cx)], loc));
+  register_module_loader "caml_register_global_module_metadata" (fun ctx cx cy cz loc ->
+      let p = Share.get_prim (runtime_fun ctx) "caml_register_global" ctx.Ctx.share in
+      J.ECall (p, [cx; cy; cz], loc));
   register_un_prim "polymorphic_log" `Mutable (fun cx loc ->
       J.ECall (s_var "polymorphic_log", [cx], loc));
   register_bin_prim "caml_array_unsafe_get" `Mutable (fun cx cy _ ->

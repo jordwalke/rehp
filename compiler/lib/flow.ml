@@ -178,11 +178,16 @@ let rec block_escape st x =
       let idx = Var.idx y in
       if not st.may_escape.(idx)
       then (
-        st.may_escape.(idx) <- true;
-        st.possibly_mutable.(idx) <- true;
         match st.defs.(Var.idx y) with
-        | Expr (Block (_, l, _)) -> Array.iter l ~f:(fun z -> block_escape st z)
-        | _ -> ()))
+        | Expr (Const _ | Constant _ | Closure _ | Block _ | Field _) -> ()
+        | (_ as def) -> (
+          st.may_escape.(idx) <- true;
+          st.possibly_mutable.(idx) <- true;
+          match def with
+          | Expr (Block (_, l, _)) -> Array.iter l ~f:(fun z -> block_escape st z)
+          | _ -> ()
+        )
+      ))
     (Var.Tbl.get st.known_origins x)
 
 let expr_escape st _x e =

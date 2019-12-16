@@ -642,44 +642,79 @@ let access_global g i =
       g.vars.(i) <- Some x;
       x
 
-let register_global ?(suffix="") ?(force = false) g i rem =
+let register_global
+    ?(definitely_not_module = false)
+    ?(suffix = "")
+    ?(force = false)
+    g
+    i
+    rem =
   if force || g.is_exported.(i)
-  then
-    let args =
-      match g.named_value.(i) with
-      | None ->
-          (if suffix <> "" then
-            print_endline("register_global NON named value i:" ^ string_of_int i ^ " " ^ suffix));
-          []
-      | Some name ->
-          (* This is the place where each module is registered in separate
-             compilation mode. In exe mode, nothing is exported so this code
-             path is never hit. I have never observed this code path hit for
-             anything other than the main module of each separately compiled
-             module. *)
-          (if suffix <> "" then
-            print_endline("register_global named value " ^ name ^ " i:" ^ string_of_int i ^ " " ^ suffix));
-          Code.Var.name (access_global g i) name;
-          [Pc (IString (normalize_module_name name))]
-    in
-    Let
-      ( Var.fresh ()
-      , Prim
-          ( Extern "caml_register_global"
-          , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
-    :: rem
+  then (
+    match g.named_value.(i) with
+    | None ->
+        if suffix <> ""
+        then
+          print_endline
+            ("register_global NON named value i:" ^ string_of_int i ^ " " ^ suffix);
+        let args = [] in
+        Let
+          ( Var.fresh ()
+          , Prim
+              ( Extern "caml_register_global"
+              , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
+        :: rem
+    | Some name ->
+        (* This is the place where each module is registered in separate
+           compilation mode. In exe mode, nothing is exported so this code path
+           is never hit. I have never observed this code path hit for anything
+           other than the main module of each separately compiled module.
+           Exception: In exe mode predefined_exceptions hits this case.  Likely need to
+           make sure registering predefined exceptions are not "exported". *)
+        if suffix <> ""
+        then
+          print_endline
+            ("register_global named value "
+            ^ name
+            ^ " i:"
+            ^ string_of_int i
+            ^ " "
+            ^ suffix);
+        Code.Var.name (access_global g i) name;
+        let args = [Pc (IString (normalize_module_name name))] in
+        Let
+          ( Var.fresh ()
+          , Prim
+              ( Extern
+                  (if (* Unless this is marked as definitely not a module, it's almost
+                     certainly a "module" *)
+                      definitely_not_module
+                  then "caml_register_global"
+                  else "caml_register_global_module")
+              , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
+        :: rem)
   else (
     (* This is where exe style compilation happens *)
-      (match g.named_value.(i) with
-      | None ->
-          (if suffix <> "" then
-            print_endline("NOT EXPORTED register_global NON named value i:" ^ string_of_int i ^ " " ^ suffix));
-      | Some name ->
-          (if suffix <> "" then
-            print_endline("NOT EXPORTED register_global named value " ^ name ^ " i:" ^ string_of_int i ^ " " ^ suffix));
-      );
-    rem
-  )
+    (match g.named_value.(i) with
+    | None ->
+        if suffix <> ""
+        then
+          print_endline
+            ("NOT EXPORTED register_global NON named value i:"
+            ^ string_of_int i
+            ^ " "
+            ^ suffix)
+    | Some name ->
+        if suffix <> ""
+        then
+          print_endline
+            ("NOT EXPORTED register_global named value "
+            ^ name
+            ^ " i:"
+            ^ string_of_int i
+            ^ " "
+            ^ suffix));
+    rem)
 
 let get_global state instrs i =
   State.size_globals state (i + 1);
@@ -1076,17 +1111,15 @@ and compile infos pc state instrs =
         let g = State.globals state in
         assert (Option.is_none g.vars.(i));
         if debug_parser () then Format.printf "(global %d) = %a@." i Var.print y;
-        let (suffix, instrs) =
+        let suffix, instrs =
           match g.override.(i) with
           | Some f ->
               let v, instrs = f y instrs in
               g.vars.(i) <- Some v;
-              (Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print v,
-              instrs)
+              Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print v, instrs
           | None ->
               g.vars.(i) <- Some y;
-              (Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print y,
-              instrs)
+              Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print y, instrs
         in
         let x, state = State.fresh_var state in
         if debug_parser () then Format.printf "%a = 0@." Var.print x;
@@ -2155,8 +2188,20 @@ let from_exe
   let body =
     List.fold_left predefined_exceptions ~init:[] ~f:(fun body (i, name) ->
         globals.named_value.(i) <- Some name;
-        let body = register_global ~force:true globals i body in
+        (* Need to mark is_exported false before registering globals.  Sadly,
+         * that's not enough to distinguish them as non modules because of the
+         * force=true arg. Needed to add another arg for definitely_not_module.
+         *)
         globals.is_exported.(i) <- false;
+        let body =
+          register_global
+            ~suffix:"predefined_exceptions"
+            ~definitely_not_module:true
+            ~force:true
+            globals
+            i
+            body
+        in
         body)
   in
   let body =
@@ -2318,10 +2363,12 @@ module Reloc = struct
     let slot_for_setglobal id = next id in
     List.iter compunit.cu_reloc ~f:(function
         | Reloc_getglobal id, pos ->
-            print_endline("getting global name from reloc2 " ^ id.name ^ " " ^ string_of_int(pos));
+            print_endline
+              ("getting global name from reloc2 " ^ id.name ^ " " ^ string_of_int pos);
             gen_patch_int code pos (slot_for_getglobal id)
         | Reloc_setglobal id, pos ->
-            print_endline("setting global name from reloc2 " ^ id.name ^ " " ^ string_of_int(pos));
+            print_endline
+              ("setting global name from reloc2 " ^ id.name ^ " " ^ string_of_int pos);
             gen_patch_int code pos (slot_for_setglobal id)
         | _ -> ())
 
@@ -2367,23 +2414,24 @@ let from_compilation_units ~includes:_ ~toplevel ~debug ~debug_data l =
           match globals.named_value.(i) with
           | None ->
               let cst = globals.constants.(i) in
-              let l = (match cst, Code.Var.get_name x with
-              | (String str | IString str), None ->
-                  let suffix = str ^ " from globals.vars " ^ " i:" ^ string_of_int(i) in
-                  let l = register_global ~suffix globals i l in
-                  Code.Var.name x (Printf.sprintf "cst_%s" str);
-                  l
-
-              | _ ->
-                  let suffix = " from globals.vars i:" ^ string_of_int(i) in
-                  let l = register_global globals ~suffix i l in
-                  l
-              ) in
+              let l =
+                match cst, Code.Var.get_name x with
+                | (String str | IString str), None ->
+                    let suffix = str ^ " from globals.vars " ^ " i:" ^ string_of_int i in
+                    let l = register_global ~suffix globals i l in
+                    Code.Var.name x (Printf.sprintf "cst_%s" str);
+                    l
+                | _ ->
+                    let suffix = " from globals.vars i:" ^ string_of_int i in
+                    let l = register_global globals ~suffix i l in
+                    l
+              in
               Let (x, Constant cst) :: l
           | Some name ->
-            (* TODO: This is where you would inject an operation for module
+              (* TODO: This is where you would inject an operation for module
                loading that should incorporate with the module template. *)
-              print_endline("Loading named_value global_data[ " ^ name ^ "] from global.vars");
+              print_endline
+                ("Loading named_value global_data[ " ^ name ^ "] from global.vars");
               Var.name x name;
               (* Currently, global data is a very loose dictionary registry
                  so it's appropriate to force this to be a dictionary *)

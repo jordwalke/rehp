@@ -3505,6 +3505,9 @@ function caml_js_wrap_meth_callback(f) {
 
 function caml_sys_const_int_size() {return 32;}
 
+function caml_register_global_module(n, v, name) {return caml_register_global(n, v, name);
+}
+
 var caml_blit_bigstring_to_string = bigstring_blit_bigstring_bytes_stub;
 
 function caml_is_js() {return 1;}
@@ -4840,6 +4843,9 @@ function caml_string_set32(s, i, i32) {return caml_bytes_set32(s, i, i32);}
 
 function caml_js_fun_call1(f, a) {return f(a);}
 
+function caml_register_global_module_metadata(n, v, name) {return caml_register_global(n, v, name);
+}
+
 function caml_parse_engine(tables, env, cmd, arg) {
   var ERRCODE = 256;
   var loop = 6;
@@ -5374,6 +5380,8 @@ joo_global_object.jsoo_runtime =
     caml_wrap_exception: caml_wrap_exception,
     caml_return_exn_constant: caml_return_exn_constant,
     caml_get_global_data: caml_get_global_data,
+    caml_register_global_module_metadata: caml_register_global_module_metadata,
+    caml_register_global_module: caml_register_global_module,
     caml_register_global: caml_register_global,
     caml_global_data: caml_global_data,
     caml_named_value: caml_named_value,

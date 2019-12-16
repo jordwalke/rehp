@@ -127,10 +127,11 @@ let get_name t v = try Some (Hashtbl.find t.names v) with Not_found -> None
 let format_var t i x =
   let s = Alphabet.to_string t.alphabet x in
   if t.stable
-  then Format.sprintf "v%d" i
-  (* jordwalke: I believe this pretty check is here because if preserving
-   * original variable names, it could cause a conflict with unnamed variables,
-   * and therefore the underscore padding is necessary *)
+  then
+    Format.sprintf "v%d" i
+    (* jordwalke: I believe this pretty check is here because if preserving
+     * original variable names, it could cause a conflict with unnamed variables,
+     * and therefore the underscore padding is necessary *)
   else if t.pretty
   then Format.sprintf "%s_" s
   else s
@@ -148,6 +149,9 @@ let add_reserved s =
 let get_reserved () = !reserved
 
 let is_reserved s = StringSet.mem s !reserved
+
+let rec orig_string_name_debug t origin =
+  try Hashtbl.find t.names origin with Not_found -> "unknown"
 
 let rec to_string t ?origin i =
   let origin =

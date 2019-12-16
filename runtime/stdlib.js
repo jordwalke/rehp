@@ -90,6 +90,11 @@ function caml_named_value(nm) {
 //Provides: caml_global_data
 var caml_global_data = [0];
 
+// The functions caml_register_global_module and caml_register_global had to be
+// marked shallowly const in order for their blocks to not be considered
+// "escaped" and therefore properly track variable origin for exporting
+// idiomatic modules in eval.ml (required to correctly extract arity).
+
 //Provides: caml_register_global (const, shallow, const)
 //Requires: caml_global_data
 function caml_register_global (n, v, name_opt) {
@@ -97,6 +102,18 @@ function caml_register_global (n, v, name_opt) {
     n = joo_global_object.toplevelReloc(name_opt);
   caml_global_data[n + 1] = v;
   if(name_opt) caml_global_data[name_opt] = v;
+}
+
+//Provides: caml_register_global_module (const, shallow, const)
+//Requires: caml_register_global
+function caml_register_global_module (n, v, name) {
+  return caml_register_global(n, v, name);
+}
+
+//Provides: caml_register_global_module_metadata (const, shallow, const)
+//Requires: caml_register_global
+function caml_register_global_module_metadata (n, v, name) {
+  return caml_register_global(n, v, name);
 }
 
 //Provides: caml_get_global_data mutable
