@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Stack
- * @providesModule Stack
  */
+
+// @ts-check
+
+
 "use strict";
-var List_ = require('List_.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
@@ -23,9 +23,8 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Stack_Empty = runtime["caml_new_string"]("Stack.Empty");
-var List = global_data["List_"];
+var List = require("List_.js");
 var Empty = [248,cst_Stack_Empty,runtime["caml_fresh_oo_id"](0)];
 
 function create(param) {return [0,0,0];}
@@ -64,8 +63,45 @@ function fold(f, acc, s) {return call3(List[20], f, acc, s[1]);}
 
 var Stack = [0,Empty,create,push,pop,top,clear,copy,is_empty,length,iter,fold];
 
-runtime["caml_register_global"](2, Stack, "Stack");
+exports = Stack;
 
+/*::type Exports = {
+  fold: (f: any, acc: any, s: any) => any,
+  iter: (f: any, s: any) => any,
+  length: (s: any) => any,
+  is_empty: (s: any) => any,
+  copy: (s: any) => any,
+  clear: (s: any) => any,
+  top: (s: any) => any,
+  pop: (s: any) => any,
+  push: (x: any, s: any) => any,
+  create: (param: any) => any,
+  Empty: any
+}*/
+/** @type {{
+  fold: (any, any, any) => any,
+  iter: (any, any) => any,
+  length: (any) => any,
+  is_empty: (any) => any,
+  copy: (any) => any,
+  clear: (any) => any,
+  top: (any) => any,
+  pop: (any) => any,
+  push: (any, any) => any,
+  create: (any) => any,
+  Empty: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.fold = module.exports[11];
+module.exports.iter = module.exports[10];
+module.exports.length = module.exports[9];
+module.exports.is_empty = module.exports[8];
+module.exports.copy = module.exports[7];
+module.exports.clear = module.exports[6];
+module.exports.top = module.exports[5];
+module.exports.pop = module.exports[4];
+module.exports.push = module.exports[3];
+module.exports.create = module.exports[2];
+module.exports.Empty = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Stack;
 /* Hashing disabled */

@@ -7,7 +7,6 @@
 let joo_global_object = global;
 
 
-
 var caml_oo_last_id = 0;
 
 function caml_ml_string_length(s) {return s.l;}
@@ -1002,9 +1001,6 @@ function caml_utf8_of_utf16(s) {
 }
 
 function caml_js_to_string(s) {
-  if (typeof s !== "string") {
-    throw new Error("caml_js_to_string called with non-string");
-  }
   var tag = 9;
   if (! caml_is_ascii(s)) {tag = 8,s = caml_utf8_of_utf16(s);}
   return new MlBytes(tag, s, s.length);
@@ -1471,6 +1467,8 @@ function caml_wrap_exception(e) {
   if (e instanceof joo_global_object.Error && caml_named_value("jsError")) {return [0,caml_named_value("jsError"),e];}
   return [0,caml_global_data.Failure,caml_js_to_string(new String(e))];
 }
+
+function caml_load_global_module(n) {return caml_global_data[n];}
 
 function caml_final_register_called_without_value() {return 0;}
 
@@ -5380,6 +5378,7 @@ joo_global_object.jsoo_runtime =
     caml_wrap_exception: caml_wrap_exception,
     caml_return_exn_constant: caml_return_exn_constant,
     caml_get_global_data: caml_get_global_data,
+    caml_load_global_module: caml_load_global_module,
     caml_register_global_module_metadata: caml_register_global_module_metadata,
     caml_register_global_module: caml_register_global_module,
     caml_register_global: caml_register_global,
@@ -5623,7 +5622,6 @@ caml_register_global(
   [248,caml_new_string("Undefined_recursive_module"),-11],
   "Undefined_recursive_module"
 );
-
 
 module.exports = global.jsoo_runtime;
 

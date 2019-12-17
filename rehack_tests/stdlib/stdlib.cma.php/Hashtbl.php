@@ -1,40 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Hashtbl.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Hashtbl {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $CamlinternalLazy = CamlinternalLazy::get();
-    $Pervasives = Pervasives::get();
-    $Random = Random::get();
-    $String_ = String_::get();
-    $Sys = Sys::get();
-    $Not_found = Not_found::get();
-    $Assert_failure = Assert_failure::get();
-    Hashtbl::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Hashtbl;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -50,18 +27,17 @@ final class Hashtbl {
        "caml_wrap_thrown_exception_reraise"
      ];
     $left_shift_32 = $runtime["left_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_OCAMLRUNPARAM = $string("OCAMLRUNPARAM");
     $cst_CAMLRUNPARAM = $string("CAMLRUNPARAM");
     $cst = $string("");
-    $Sys = $global_data["Sys"];
-    $Not_found = $global_data["Not_found"];
-    $Pervasives = $global_data["Pervasives"];
-    $Array = $global_data["Array_"];
-    $Assert_failure = $global_data["Assert_failure"];
-    $CamlinternalLazy = $global_data["CamlinternalLazy"];
-    $Random = $global_data["Random"];
-    $String = $global_data["String_"];
+    $Sys =  Sys::get ();
+    $Not_found =  Not_found::get ();
+    $Pervasives =  Pervasives::get ();
+    $Array =  Array_::get ();
+    $Assert_failure =  Assert_failure::get ();
+    $CamlinternalLazy =  CamlinternalLazy::get ();
+    $Random =  Random::get ();
+    $String =  String_::get ();
     $d_ = Vector{0, 0};
     $c_ = Vector{0, $string("hashtbl.ml"), 108, 23};
     $hash = function(dynamic $x) use ($caml_hash) {
@@ -948,9 +924,78 @@ final class Hashtbl {
       }
     };
     
-    $runtime["caml_register_global"](13, $Hashtbl, "Hashtbl");
+     return ($Hashtbl);
 
   }
-}
+  public static function hash_param(dynamic $n1, dynamic $n2, dynamic $x) {
+    return static::get()[23]($n1, $n2, $x);
+  }
+  public static function seeded_hash(dynamic $seed, dynamic $x) {
+    return static::get()[22]($seed, $x);
+  }
+  public static function hash(dynamic $x) {
+    return static::get()[21]($x);
+  }
+  public static function MakeSeeded(dynamic $H) {
+    return static::get()[20]($H);
+  }
+  public static function Make(dynamic $H) {
+    return static::get()[19]($H);
+  }
+  public static function stats(dynamic $h) {
+    return static::get()[18]($h);
+  }
+  public static function is_randomized(dynamic $param) {
+    return static::get()[17]($param);
+  }
+  public static function randomize(dynamic $param) {
+    return static::get()[16]($param);
+  }
+  public static function length(dynamic $h) {
+    return static::get()[15]($h);
+  }
+  public static function fold(dynamic $f, dynamic $h, dynamic $init) {
+    return static::get()[14]($f, $h, $init);
+  }
+  public static function filter_map_inplace(dynamic $f, dynamic $h) {
+    return static::get()[13]($f, $h);
+  }
+  public static function iter(dynamic $f, dynamic $h) {
+    return static::get()[12]($f, $h);
+  }
+  public static function replace(dynamic $h, dynamic $key, dynamic $data) {
+    return static::get()[11]($h, $key, $data);
+  }
+  public static function remove(dynamic $h, dynamic $key) {
+    return static::get()[10]($h, $key);
+  }
+  public static function mem(dynamic $h, dynamic $key) {
+    return static::get()[9]($h, $key);
+  }
+  public static function find_all(dynamic $h, dynamic $key) {
+    return static::get()[8]($h, $key);
+  }
+  public static function find_opt(dynamic $h, dynamic $key) {
+    return static::get()[7]($h, $key);
+  }
+  public static function find(dynamic $h, dynamic $key) {
+    return static::get()[6]($h, $key);
+  }
+  public static function add(dynamic $h, dynamic $key, dynamic $data) {
+    return static::get()[5]($h, $key, $data);
+  }
+  public static function copy(dynamic $h) {
+    return static::get()[4]($h);
+  }
+  public static function reset(dynamic $h) {
+    return static::get()[3]($h);
+  }
+  public static function clear(dynamic $h) {
+    return static::get()[2]($h);
+  }
+  public static function create(dynamic $opt, dynamic $initial_size) {
+    return static::get()[1]($opt, $initial_size);
+  }
 
+}
 /* Hashing disabled */

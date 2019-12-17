@@ -1,37 +1,20 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Callback.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Callback {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Obj = Obj::get();
-    Callback::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Callback;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_register_named_value = $runtime["caml_register_named_value"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Obj = $global_data["Obj"];
+    $Obj =  Obj::get ();
     $register = function(dynamic $name, dynamic $v) use ($caml_register_named_value) {
       return $caml_register_named_value($name, $v);
     };
@@ -41,9 +24,15 @@ final class Callback {
     };
     $Callback = Vector{0, $register, $register_exception};
     
-    $runtime["caml_register_global"](1, $Callback, "Callback");
+     return ($Callback);
 
   }
-}
+  public static function register_exception(dynamic $name, dynamic $exn) {
+    return static::get()[2]($name, $exn);
+  }
+  public static function register(dynamic $name, dynamic $v) {
+    return static::get()[1]($name, $v);
+  }
 
+}
 /* Hashing disabled */

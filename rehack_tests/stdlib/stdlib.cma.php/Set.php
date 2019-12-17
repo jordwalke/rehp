@@ -1,52 +1,32 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Set.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Set {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $Not_found = Not_found::get();
-    $Assert_failure = Assert_failure::get();
-    Set::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Set;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Set_remove_min_elt = $string("Set.remove_min_elt");
     $cst_Set_bal = $string("Set.bal");
     $cst_Set_bal__0 = $string("Set.bal");
     $cst_Set_bal__1 = $string("Set.bal");
     $cst_Set_bal__2 = $string("Set.bal");
-    $Not_found = $global_data["Not_found"];
-    $Pervasives = $global_data["Pervasives"];
-    $List = $global_data["List_"];
-    $Assert_failure = $global_data["Assert_failure"];
+    $Not_found =  Not_found::get ();
+    $Pervasives =  Pervasives::get ();
+    $List =  List_::get ();
+    $Assert_failure =  Assert_failure::get ();
     $a_ = Vector{0, 0, 0, 0};
     $b_ = Vector{0, 0, 0};
     $c_ = Vector{0, $string("set.ml"), 510, 18};
@@ -1026,9 +1006,9 @@ final class Set {
       }
     };
     
-    $runtime["caml_register_global"](12, $Set, "Set");
+     return ($Set);
 
   }
-}
 
+}
 /* Hashing disabled */

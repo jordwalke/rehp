@@ -1,18 +1,17 @@
 /**
+ * @flow strict
  * ArrayLabels
- * @providesModule ArrayLabels
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime["caml_get_global_data"]();
-var Array = global_data["Array_"];
+var Array = require("Array_.js");
 var make_float = Array[1];
 var init = Array[2];
 var make_matrix = Array[3];
@@ -73,8 +72,96 @@ var ArrayLabels = [
   Floatarray
 ];
 
-runtime["caml_register_global"](1, ArrayLabels, "ArrayLabels");
+exports = ArrayLabels;
 
+/*::type Exports = {
+  Floatarray: any
+  fast_sort: any
+  stable_sort: any
+  sort: any
+  make_float: any
+  memq: any
+  mem: any
+  for_all: any
+  exists: any
+  map2: any
+  iter2: any
+  fold_right: any
+  fold_left: any
+  mapi: any
+  iteri: any
+  map: any
+  iter: any
+  of_list: any
+  to_list: any
+  blit: any
+  fill: any
+  copy: any
+  sub: any
+  concat: any
+  append: any
+  create_matrix: any
+  make_matrix: any
+  init: any
+}*/
+/** @type {{
+  Floatarray: any,
+  fast_sort: any,
+  stable_sort: any,
+  sort: any,
+  make_float: any,
+  memq: any,
+  mem: any,
+  for_all: any,
+  exists: any,
+  map2: any,
+  iter2: any,
+  fold_right: any,
+  fold_left: any,
+  mapi: any,
+  iteri: any,
+  map: any,
+  iter: any,
+  of_list: any,
+  to_list: any,
+  blit: any,
+  fill: any,
+  copy: any,
+  sub: any,
+  concat: any,
+  append: any,
+  create_matrix: any,
+  make_matrix: any,
+  init: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.Floatarray = module.exports[28];
+module.exports.fast_sort = module.exports[27];
+module.exports.stable_sort = module.exports[26];
+module.exports.sort = module.exports[25];
+module.exports.make_float = module.exports[24];
+module.exports.memq = module.exports[23];
+module.exports.mem = module.exports[22];
+module.exports.for_all = module.exports[21];
+module.exports.exists = module.exports[20];
+module.exports.map2 = module.exports[19];
+module.exports.iter2 = module.exports[18];
+module.exports.fold_right = module.exports[17];
+module.exports.fold_left = module.exports[16];
+module.exports.mapi = module.exports[15];
+module.exports.iteri = module.exports[14];
+module.exports.map = module.exports[13];
+module.exports.iter = module.exports[12];
+module.exports.of_list = module.exports[11];
+module.exports.to_list = module.exports[10];
+module.exports.blit = module.exports[9];
+module.exports.fill = module.exports[8];
+module.exports.copy = module.exports[7];
+module.exports.sub = module.exports[6];
+module.exports.concat = module.exports[5];
+module.exports.append = module.exports[4];
+module.exports.create_matrix = module.exports[3];
+module.exports.make_matrix = module.exports[2];
+module.exports.init = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().ArrayLabels;
 /* Hashing disabled */

@@ -1,38 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Random.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Random {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Digest = Digest::get();
-    $Int32 = Int32::get();
-    $Int64 = Int64::get();
-    $Nativeint = Nativeint::get();
-    $Pervasives = Pervasives::get();
-    Random::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Random;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -50,17 +29,16 @@ final class Random {
     $caml_sys_random_seed = $runtime["caml_sys_random_seed"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Random_int64 = $string("Random.int64");
     $cst_Random_int32 = $string("Random.int32");
     $cst_Random_int = $string("Random.int");
     $cst_x = $string("x");
-    $Int32 = $global_data["Int32"];
-    $Int64 = $global_data["Int64"];
-    $Pervasives = $global_data["Pervasives"];
-    $Digest = $global_data["Digest"];
-    $Array = $global_data["Array_"];
-    $Nativeint = $global_data["Nativeint"];
+    $Int32 =  Int32::get ();
+    $Int64 =  Int64::get ();
+    $Pervasives =  Pervasives::get ();
+    $Digest =  Digest::get ();
+    $Array =  Array_::get ();
+    $Nativeint =  Nativeint::get ();
     $a_ = Vector{255, 1, 0, 0};
     $b_ = Vector{255, 0, 0, 0};
     $c_ = Vector{
@@ -340,9 +318,45 @@ final class Random {
       $set_state
     };
     
-    $runtime["caml_register_global"](16, $Random, "Random");
+     return ($Random);
 
   }
-}
+  public static function set_state(dynamic $s) {
+    return static::get()[13]($s);
+  }
+  public static function get_state(dynamic $param) {
+    return static::get()[12]($param);
+  }
+  public static function bool(dynamic $param) {
+    return static::get()[10]($param);
+  }
+  public static function float(dynamic $scale) {
+    return static::get()[9]($scale);
+  }
+  public static function int64(dynamic $bound) {
+    return static::get()[8]($bound);
+  }
+  public static function nativeint(dynamic $bound) {
+    return static::get()[7]($bound);
+  }
+  public static function int32(dynamic $bound) {
+    return static::get()[6]($bound);
+  }
+  public static function int(dynamic $bound) {
+    return static::get()[5]($bound);
+  }
+  public static function bits(dynamic $param) {
+    return static::get()[4]($param);
+  }
+  public static function self_init(dynamic $param) {
+    return static::get()[3]($param);
+  }
+  public static function full_init(dynamic $seed) {
+    return static::get()[2]($seed);
+  }
+  public static function init(dynamic $seed) {
+    return static::get()[1]($seed);
+  }
 
+}
 /* Hashing disabled */

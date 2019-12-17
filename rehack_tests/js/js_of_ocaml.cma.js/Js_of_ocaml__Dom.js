@@ -1,17 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Dom
- * @providesModule Js_of_ocaml__Dom
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var List_ = require('List_.js');
-var Not_found = require('Not_found.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -26,11 +23,10 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Assert_failure = global_data["Assert_failure"];
-var Not_found = global_data["Not_found"];
-var List = global_data["List_"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Assert_failure = require("Assert_failure.js");
+var Not_found = require("Not_found.js");
+var List = require("List_.js");
 var a_ = [0,string("lib/js_of_ocaml/dom.ml"),343,67];
 
 function list_of_nodeList(nodeList) {
@@ -338,8 +334,60 @@ var Js_of_ocaml_Dom = [
   preventDefault
 ];
 
-runtime["caml_register_global"](35, Js_of_ocaml_Dom, "Js_of_ocaml__Dom");
+exports = Js_of_ocaml_Dom;
 
+/*::type Exports = {
+  preventDefault: (ev: any) => any,
+  removeEventListener: (id: any) => any,
+  addEventListener: (e: any, typ: any, h: any, capt: any) => any,
+  Event: any
+  eventTarget: (e: any) => any,
+  invoke_handler: (f: any, this: any, event: any) => any,
+  full_handler: (f: any) => any,
+  handler: (f: any) => any,
+  no_handler: any
+  nodeType: (e: any) => any,
+  list_of_nodeList: (nodeList: any) => any,
+  appendChild: (p: any, n: any) => any,
+  removeChild: (p: any, n: any) => any,
+  replaceChild: (p: any, n: any, o: any) => any,
+  insertBefore: (p: any, n: any, o: any) => any,
+  DocumentPosition: any
+}*/
+/** @type {{
+  preventDefault: (any) => any,
+  removeEventListener: (any) => any,
+  addEventListener: (any, any, any, any) => any,
+  Event: any,
+  eventTarget: (any) => any,
+  invoke_handler: (any, any, any) => any,
+  full_handler: (any) => any,
+  handler: (any) => any,
+  no_handler: any,
+  nodeType: (any) => any,
+  list_of_nodeList: (any) => any,
+  appendChild: (any, any) => any,
+  removeChild: (any, any) => any,
+  replaceChild: (any, any, any) => any,
+  insertBefore: (any, any, any) => any,
+  DocumentPosition: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.preventDefault = module.exports[17];
+module.exports.removeEventListener = module.exports[16];
+module.exports.addEventListener = module.exports[15];
+module.exports.Event = module.exports[14];
+module.exports.eventTarget = module.exports[13];
+module.exports.invoke_handler = module.exports[12];
+module.exports.full_handler = module.exports[11];
+module.exports.handler = module.exports[10];
+module.exports.no_handler = module.exports[9];
+module.exports.nodeType = module.exports[7];
+module.exports.list_of_nodeList = module.exports[6];
+module.exports.appendChild = module.exports[5];
+module.exports.removeChild = module.exports[4];
+module.exports.replaceChild = module.exports[3];
+module.exports.insertBefore = module.exports[2];
+module.exports.DocumentPosition = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Dom;
 /* Hashing disabled */

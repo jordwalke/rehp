@@ -1,42 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * CamlinternalFormat.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class CamlinternalFormat {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Buffer = Buffer::get();
-    $Bytes = Bytes::get();
-    $CamlinternalFormatBasics = CamlinternalFormatBasics::get();
-    $Char = Char::get();
-    $Pervasives = Pervasives::get();
-    $String_ = String_::get();
-    $Sys = Sys::get();
-    $Failure = Failure::get();
-    $Not_found = Not_found::get();
-    $Assert_failure = Assert_failure::get();
-    CamlinternalFormat::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->CamlinternalFormat;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $bprint_fmtty = new Ref();
     $bufput_acc = new Ref();
     $fmtty_of_custom = new Ref();
@@ -86,7 +61,6 @@ final class CamlinternalFormat {
     $is_int = $runtime["is_int"];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_c = $string("%c");
     $cst_s = $string("%s");
     $cst_i = $string("%i");
@@ -227,16 +201,16 @@ final class CamlinternalFormat {
     $cst_CamlinternalFormat_Type_mismatch = $string(
       "CamlinternalFormat.Type_mismatch"
     );
-    $Assert_failure = $global_data["Assert_failure"];
-    $CamlinternalFormatBasics = $global_data["CamlinternalFormatBasics"];
-    $Pervasives = $global_data["Pervasives"];
-    $Buffer = $global_data["Buffer"];
-    $Failure = $global_data["Failure"];
-    $Not_found = $global_data["Not_found"];
-    $String = $global_data["String_"];
-    $Sys = $global_data["Sys"];
-    $Char = $global_data["Char"];
-    $Bytes = $global_data["Bytes"];
+    $Assert_failure =  Assert_failure::get ();
+    $CamlinternalFormatBasics =  CamlinternalFormatBasics::get ();
+    $Pervasives =  Pervasives::get ();
+    $Buffer =  Buffer::get ();
+    $Failure =  Failure::get ();
+    $Not_found =  Not_found::get ();
+    $String =  String_::get ();
+    $Sys =  Sys::get ();
+    $Char =  Char::get ();
+    $Bytes =  Bytes::get ();
     $a_ = Vector{0, $string("camlinternalFormat.ml"), 846, 23};
     $l_ = Vector{0, $string("camlinternalFormat.ml"), 810, 21};
     $d_ = Vector{0, $string("camlinternalFormat.ml"), 811, 21};
@@ -8392,13 +8366,81 @@ final class CamlinternalFormat {
       $recast
     };
     
-    $runtime["caml_register_global"](
-      198,
-      $CamlinternalFormat,
-      "CamlinternalFormat"
-    );
+     return ($CamlinternalFormat);
 
   }
-}
+  public static function recast(dynamic $fmt, dynamic $fmtty) {
+    return static::get()[24]($fmt, $fmtty);
+  }
+  public static function trans(dynamic $ty1, dynamic $ty2) {
+    return static::get()[23]($ty1, $ty2);
+  }
+  public static function symm(dynamic $param) {
+    return static::get()[22]($param);
+  }
+  public static function open_box_of_string(dynamic $str) {
+    return static::get()[21]($str);
+  }
+  public static function string_of_fmt(dynamic $fmt) {
+    return static::get()[20]($fmt);
+  }
+  public static function string_of_fmtty(dynamic $fmtty) {
+    return static::get()[19]($fmtty);
+  }
+  public static function string_of_formatting_gen(dynamic $formatting_gen) {
+    return static::get()[18]($formatting_gen);
+  }
+  public static function string_of_formatting_lit(dynamic $formatting_lit) {
+    return static::get()[17]($formatting_lit);
+  }
+  public static function char_of_iconv(dynamic $iconv) {
+    return static::get()[16]($iconv);
+  }
+  public static function format_of_string_format(dynamic $str, dynamic $param) {
+    return static::get()[15]($str, $param);
+  }
+  public static function format_of_string_fmtty(dynamic $str, dynamic $fmtty) {
+    return static::get()[14]($str, $fmtty);
+  }
+  public static function fmt_ebb_of_string(dynamic $legacy_behavior, dynamic $str) {
+    return static::get()[13]($legacy_behavior, $str);
+  }
+  public static function type_format(dynamic $fmt, dynamic $fmtty) {
+    return static::get()[12]($fmt, $fmtty);
+  }
+  public static function strput_acc(dynamic $b, dynamic $acc) {
+    return static::get()[11]($b, $acc);
+  }
+  public static function bufput_acc(dynamic $b, dynamic $acc) {
+    return static::get()[10]($b, $acc);
+  }
+  public static function output_acc(dynamic $o, dynamic $acc) {
+    return static::get()[9]($o, $acc);
+  }
+  public static function make_iprintf(dynamic $k, dynamic $o, dynamic $fmt) {
+    return static::get()[8]($k, $o, $fmt);
+  }
+  public static function make_printf(dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt) {
+    return static::get()[7]($k, $o, $acc, $fmt);
+  }
+  public static function param_format_of_ignored_format(dynamic $ign, dynamic $fmt) {
+    return static::get()[6]($ign, $fmt);
+  }
+  public static function freeze_char_set(dynamic $char_set) {
+    return static::get()[5]($char_set);
+  }
+  public static function add_in_char_set(dynamic $char_set, dynamic $c) {
+    return static::get()[4]($char_set, $c);
+  }
+  public static function create_char_set(dynamic $param) {
+    return static::get()[3]($param);
+  }
+  public static function rev_char_set(dynamic $char_set) {
+    return static::get()[2]($char_set);
+  }
+  public static function is_in_char_set(dynamic $char_set, dynamic $c) {
+    return static::get()[1]($char_set, $c);
+  }
 
+}
 /* Hashing disabled */

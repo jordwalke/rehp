@@ -1,40 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Ephemeron.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Ephemeron {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $CamlinternalLazy = CamlinternalLazy::get();
-    $Hashtbl = Hashtbl::get();
-    $Obj = Obj::get();
-    $Pervasives = Pervasives::get();
-    $Random = Random::get();
-    $Sys = Sys::get();
-    $Not_found = Not_found::get();
-    Ephemeron::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Ephemeron;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -48,15 +25,14 @@ final class Ephemeron {
      ];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Obj = $global_data["Obj"];
-    $Sys = $global_data["Sys"];
-    $Not_found = $global_data["Not_found"];
-    $Pervasives = $global_data["Pervasives"];
-    $Array = $global_data["Array_"];
-    $Hashtbl = $global_data["Hashtbl"];
-    $CamlinternalLazy = $global_data["CamlinternalLazy"];
-    $Random = $global_data["Random"];
+    $Obj =  Obj::get ();
+    $Sys =  Sys::get ();
+    $Not_found =  Not_found::get ();
+    $Pervasives =  Pervasives::get ();
+    $Array =  Array_::get ();
+    $Hashtbl =  Hashtbl::get ();
+    $CamlinternalLazy =  CamlinternalLazy::get ();
+    $Random =  Random::get ();
     $c_ = Vector{0, 0};
     $b_ = Vector{0, 0};
     $a_ = Vector{0, 0};
@@ -1279,9 +1255,9 @@ final class Ephemeron {
       }
     };
     
-    $runtime["caml_register_global"](11, $Ephemeron, "Ephemeron");
+     return ($Ephemeron);
 
   }
-}
 
+}
 /* Hashing disabled */

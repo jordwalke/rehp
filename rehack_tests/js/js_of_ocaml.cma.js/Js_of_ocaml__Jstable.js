@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Jstable
- * @providesModule Js_of_ocaml__Jstable
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -24,11 +22,10 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Jstable_keys = string("Jstable.keys");
-var Pervasives = global_data["Pervasives"];
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var List = global_data["List_"];
+var Pervasives = require("Pervasives.js");
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var List = require("List_.js");
 
 function a_(x) {return call1(caml_get_public_method(x, 944440446, 270), x);}
 
@@ -114,12 +111,27 @@ function keys(t) {
 
 var Js_of_ocaml_Jstable = [0,create,add,remove,find,keys];
 
-runtime["caml_register_global"](
-  16,
-  Js_of_ocaml_Jstable,
-  "Js_of_ocaml__Jstable"
-);
+exports = Js_of_ocaml_Jstable;
 
+/*::type Exports = {
+  keys: (t: any) => any,
+  find: (t: any, k: any) => any,
+  remove: (t: any, k: any) => any,
+  add: (t: any, k: any, v: any) => any,
+  create: (param: any) => any,
+}*/
+/** @type {{
+  keys: (any) => any,
+  find: (any, any) => any,
+  remove: (any, any) => any,
+  add: (any, any, any) => any,
+  create: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.keys = module.exports[5];
+module.exports.find = module.exports[4];
+module.exports.remove = module.exports[3];
+module.exports.add = module.exports[2];
+module.exports.create = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Jstable;
 /* Hashing disabled */

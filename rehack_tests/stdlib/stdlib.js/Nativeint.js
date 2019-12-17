@@ -1,23 +1,21 @@
 /**
+ * @flow strict
  * Nativeint
- * @providesModule Nativeint
  */
+
+// @ts-check
+
+
 "use strict";
-var Sys = require('Sys.js');
-var Failure = require('Failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
-var global_data = runtime["caml_get_global_data"]();
 var cst_d = runtime["caml_new_string"]("%d");
-var Failure = global_data["Failure"];
-var Sys = global_data["Sys"];
+var Failure = require("Failure.js");
+var Sys = require("Sys.js");
 var zero = 0;
 var one = 1;
 var minus_one = -1;
@@ -67,8 +65,54 @@ var Nativeint = [
   equal
 ];
 
-runtime["caml_register_global"](12, Nativeint, "Nativeint");
+exports = Nativeint;
 
+/*::type Exports = {
+  equal: (x: any, y: any) => any,
+  compare: (x: any, y: any) => any,
+  to_string: (n: any) => any,
+  of_string_opt: (s: any) => any,
+  lognot: (n: any) => any,
+  min_int: any
+  max_int: any
+  size: any
+  abs: (n: any) => any,
+  pred: (n: any) => any,
+  succ: (n: any) => any,
+  minus_one: any
+  one: any
+  zero: any
+}*/
+/** @type {{
+  equal: (any, any) => any,
+  compare: (any, any) => any,
+  to_string: (any) => any,
+  of_string_opt: (any) => any,
+  lognot: (any) => any,
+  min_int: any,
+  max_int: any,
+  size: any,
+  abs: (any) => any,
+  pred: (any) => any,
+  succ: (any) => any,
+  minus_one: any,
+  one: any,
+  zero: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.equal = module.exports[14];
+module.exports.compare = module.exports[13];
+module.exports.to_string = module.exports[12];
+module.exports.of_string_opt = module.exports[11];
+module.exports.lognot = module.exports[10];
+module.exports.min_int = module.exports[9];
+module.exports.max_int = module.exports[8];
+module.exports.size = module.exports[7];
+module.exports.abs = module.exports[6];
+module.exports.pred = module.exports[5];
+module.exports.succ = module.exports[4];
+module.exports.minus_one = module.exports[3];
+module.exports.one = module.exports[2];
+module.exports.zero = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Nativeint;
 /* Hashing disabled */

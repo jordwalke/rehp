@@ -7,7 +7,6 @@ function polymorphic_log(s) {console.log("c" in s ? s.c : s);} /**
 let joo_global_object = typeof global !== 'undefined' ? global : window;
 
 
-
 var caml_oo_last_id = 0;
 
 function caml_ml_string_length(s) {return s.l;}
@@ -1471,6 +1470,8 @@ function caml_wrap_exception(e) {
   if (e instanceof joo_global_object.Error && caml_named_value("jsError")) {return [0,caml_named_value("jsError"),e];}
   return [0,caml_global_data.Failure,caml_js_to_string(new String(e))];
 }
+
+function caml_load_global_module(n) {return caml_global_data[n];}
 
 function caml_final_register_called_without_value() {return 0;}
 
@@ -6989,4 +6990,3 @@ for (; ; ) {
     do_at_exit(0);
   }
 }
-

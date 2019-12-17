@@ -1,41 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Url.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Url {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $CamlinternalOO = CamlinternalOO::get();
-    $Js_of_ocaml__Dom_html = Js_of_ocaml__Dom_html::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $Js_of_ocaml__Regexp = Js_of_ocaml__Regexp::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $String_ = String_::get();
-    $Failure = Failure::get();
-    $Not_found = Not_found::get();
-    Js_of_ocaml__Url::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Url;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -52,7 +28,6 @@ final class Js_of_ocaml__Url {
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst__36 = $string("");
     $cst__37 = $string("");
     $cst__12 = $string("");
@@ -127,15 +102,15 @@ final class Js_of_ocaml__Url {
     $cst_Ff_Ii_Ll_Ee = $string(
       "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?\\$"
     );
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Failure = $global_data["Failure"];
-    $CamlinternalOO = $global_data["CamlinternalOO"];
-    $Pervasives = $global_data["Pervasives"];
-    $List = $global_data["List_"];
-    $String = $global_data["String_"];
-    $Not_found = $global_data["Not_found"];
-    $Js_of_ocaml_Regexp = $global_data["Js_of_ocaml__Regexp"];
-    $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Failure =  Failure::get ();
+    $CamlinternalOO =  CamlinternalOO::get ();
+    $Pervasives =  Pervasives::get ();
+    $List =  List_::get ();
+    $String =  String_::get ();
+    $Not_found =  Not_found::get ();
+    $Js_of_ocaml_Regexp =  Js_of_ocaml__Regexp::get ();
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
     $f_ = Vector{0, $string(""), 0};
     $a_ = Vector{
       0,
@@ -916,13 +891,36 @@ final class Js_of_ocaml__Url {
       }
     };
     
-    $runtime["caml_register_global"](
-      110,
-      $Js_of_ocaml_Url,
-      "Js_of_ocaml__Url"
-    );
+     return ($Js_of_ocaml_Url);
 
   }
-}
+  public static function string_of_url(dynamic $param) {
+    return static::get()[9]($param);
+  }
+  public static function url_of_string(dynamic $s) {
+    return static::get()[8]($s);
+  }
+  public static function decode_arguments(dynamic $s) {
+    return static::get()[7]($s);
+  }
+  public static function encode_arguments(dynamic $l) {
+    return static::get()[6]($l);
+  }
+  public static function path_of_path_string(dynamic $s) {
+    return static::get()[5]($s);
+  }
+  public static function default_https_port() {
+    return static::get()[4]();
+  }
+  public static function default_http_port() {
+    return static::get()[3]();
+  }
+  public static function urlencode(dynamic $opt, dynamic $s) {
+    return static::get()[2]($opt, $s);
+  }
+  public static function urldecode(dynamic $s) {
+    return static::get()[1]($s);
+  }
 
+}
 /* Hashing disabled */

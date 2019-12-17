@@ -1,41 +1,22 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Worker.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Worker {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $Pervasives = Pervasives::get();
-    Js_of_ocaml__Worker::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Worker;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Worker_onmessage_is_undefined__0 = $string(
       "Worker.onmessage is undefined"
     );
@@ -45,9 +26,9 @@ final class Js_of_ocaml__Worker {
     $cst_Worker_import_scripts_is_undefined = $string(
       "Worker.import_scripts is undefined"
     );
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Pervasives = $global_data["Pervasives"];
-    $Array = $global_data["Array_"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Pervasives =  Pervasives::get ();
+    $Array =  Array_::get ();
     $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, -324422083, 203), $x);
     };
@@ -130,13 +111,21 @@ final class Js_of_ocaml__Worker {
       $post_message
     };
     
-    $runtime["caml_register_global"](
-      14,
-      $Js_of_ocaml_Worker,
-      "Js_of_ocaml__Worker"
-    );
+     return ($Js_of_ocaml_Worker);
 
   }
-}
+  public static function post_message(dynamic $msg) {
+    return static::get()[4]($msg);
+  }
+  public static function set_onmessage(dynamic $handler) {
+    return static::get()[3]($handler);
+  }
+  public static function import_scripts(dynamic $scripts) {
+    return static::get()[2]($scripts);
+  }
+  public static function create(dynamic $script) {
+    return static::get()[1]($script);
+  }
 
+}
 /* Hashing disabled */

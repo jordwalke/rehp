@@ -1,40 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Genlex.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Genlex {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Bytes = Bytes::get();
-    $Char = Char::get();
-    $Hashtbl = Hashtbl::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $Stream = Stream::get();
-    $String_ = String_::get();
-    $Not_found = Not_found::get();
-    Genlex::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Genlex;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -50,7 +27,6 @@ final class Genlex {
        "caml_wrap_thrown_exception_reraise"
      ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst = $string("");
     $cst__0 = $string("");
     $cst__1 = $string("");
@@ -58,14 +34,14 @@ final class Genlex {
     $cst__4 = $string("");
     $cst__3 = $string("");
     $cst_Illegal_character = $string("Illegal character ");
-    $Stream = $global_data["Stream"];
-    $Char = $global_data["Char"];
-    $String = $global_data["String_"];
-    $Hashtbl = $global_data["Hashtbl"];
-    $Not_found = $global_data["Not_found"];
-    $Pervasives = $global_data["Pervasives"];
-    $List = $global_data["List_"];
-    $Bytes = $global_data["Bytes"];
+    $Stream =  Stream::get ();
+    $Char =  Char::get ();
+    $String =  String_::get ();
+    $Hashtbl =  Hashtbl::get ();
+    $Not_found =  Not_found::get ();
+    $Pervasives =  Pervasives::get ();
+    $List =  List_::get ();
+    $Bytes =  Bytes::get ();
     $initial_buffer = $caml_create_bytes(32);
     $buffer = Vector{0, $initial_buffer};
     $bufpos = Vector{0, 0};
@@ -714,9 +690,12 @@ final class Genlex {
     };
     $Genlex = Vector{0, $make_lexer};
     
-    $runtime["caml_register_global"](15, $Genlex, "Genlex");
+     return ($Genlex);
 
   }
-}
+  public static function make_lexer(dynamic $keywords) {
+    return static::get()[1]($keywords);
+  }
 
+}
 /* Hashing disabled */

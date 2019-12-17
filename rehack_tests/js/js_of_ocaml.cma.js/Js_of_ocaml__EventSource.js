@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__EventSource
- * @providesModule Js_of_ocaml__EventSource
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Dom = require('Js_of_ocaml__Dom.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -18,9 +17,8 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Js_of_ocaml_Dom = require("Js_of_ocaml__Dom.js");
 
 function withCredentials(b) {
   var init = {};
@@ -50,12 +48,24 @@ var Js_of_ocaml_EventSource = [
   addEventListener
 ];
 
-runtime["caml_register_global"](
-  5,
-  Js_of_ocaml_EventSource,
-  "Js_of_ocaml__EventSource"
-);
+exports = Js_of_ocaml_EventSource;
 
+/*::type Exports = {
+  addEventListener: any
+  eventSource_options: any
+  eventSource: any
+  withCredentials: (b: any) => any,
+}*/
+/** @type {{
+  addEventListener: any,
+  eventSource_options: any,
+  eventSource: any,
+  withCredentials: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.addEventListener = module.exports[4];
+module.exports.eventSource_options = module.exports[3];
+module.exports.eventSource = module.exports[2];
+module.exports.withCredentials = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__EventSource;
 /* Hashing disabled */

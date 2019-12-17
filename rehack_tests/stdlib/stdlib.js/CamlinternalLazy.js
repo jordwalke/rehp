@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * CamlinternalLazy
- * @providesModule CamlinternalLazy
  */
+
+// @ts-check
+
+
 "use strict";
-var Obj = require('Obj.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_obj_set_tag = runtime["caml_obj_set_tag"];
@@ -21,11 +21,10 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_CamlinternalLazy_Undefined = runtime["caml_new_string"](
   "CamlinternalLazy.Undefined"
 );
-var Obj = global_data["Obj"];
+var Obj = require("Obj.js");
 var Undefined = [
   248,
   cst_CamlinternalLazy_Undefined,
@@ -80,8 +79,27 @@ var CamlinternalLazy = [
   force_val
 ];
 
-runtime["caml_register_global"](2, CamlinternalLazy, "CamlinternalLazy");
+exports = CamlinternalLazy;
 
+/*::type Exports = {
+  force_val: (lzv: any) => any,
+  force: (lzv: any) => any,
+  force_val_lazy_block: (blk: any) => any,
+  force_lazy_block: (blk: any) => any,
+  Undefined: any
+}*/
+/** @type {{
+  force_val: (any) => any,
+  force: (any) => any,
+  force_val_lazy_block: (any) => any,
+  force_lazy_block: (any) => any,
+  Undefined: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.force_val = module.exports[5];
+module.exports.force = module.exports[4];
+module.exports.force_val_lazy_block = module.exports[3];
+module.exports.force_lazy_block = module.exports[2];
+module.exports.Undefined = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalLazy;
 /* Hashing disabled */

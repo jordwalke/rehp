@@ -1,45 +1,27 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Obj.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Obj {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Marshal = Marshal::get();
-    $Pervasives = Pervasives::get();
-    Obj::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Obj;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $string = $runtime["caml_new_string"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $is_int = $runtime["is_int"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Obj_extension_constructor__0 = $string("Obj.extension_constructor");
     $cst_Obj_extension_constructor = $string("Obj.extension_constructor");
-    $Pervasives = $global_data["Pervasives"];
-    $Marshal = $global_data["Marshal"];
+    $Pervasives =  Pervasives::get ();
+    $Marshal =  Marshal::get ();
     $is_block = function(dynamic $a) use ($is_int) {return 1 - $is_int($a);};
     $double_field = function(dynamic $x, dynamic $i) use ($runtime) {
       return $runtime["caml_array_get"]($x, $i);
@@ -183,9 +165,84 @@ final class Obj {
       }
     };
     
-    $runtime["caml_register_global"](4, $Obj, "Obj");
+     return ($Obj);
 
   }
-}
+  public static function unmarshal(dynamic $str, dynamic $pos) {
+    return static::get()[25]($str, $pos);
+  }
+  public static function marshal(dynamic $obj) {
+    return static::get()[24]($obj);
+  }
+  public static function extension_id(dynamic $slot) {
+    return static::get()[23]($slot);
+  }
+  public static function extension_name(dynamic $slot) {
+    return static::get()[22]($slot);
+  }
+  public static function extension_constructor(dynamic $x) {
+    return static::get()[21]($x);
+  }
+  public static function unaligned_tag() {
+    return static::get()[20]();
+  }
+  public static function out_of_heap_tag() {
+    return static::get()[19]();
+  }
+  public static function int_tag() {
+    return static::get()[18]();
+  }
+  public static function custom_tag() {
+    return static::get()[17]();
+  }
+  public static function custom_tag() {
+    return static::get()[16]();
+  }
+  public static function double_array_tag() {
+    return static::get()[15]();
+  }
+  public static function double_tag() {
+    return static::get()[14]();
+  }
+  public static function string_tag() {
+    return static::get()[13]();
+  }
+  public static function abstract_tag() {
+    return static::get()[12]();
+  }
+  public static function no_scan_tag() {
+    return static::get()[11]();
+  }
+  public static function forward_tag() {
+    return static::get()[10]();
+  }
+  public static function infix_tag() {
+    return static::get()[9]();
+  }
+  public static function object_tag() {
+    return static::get()[8]();
+  }
+  public static function closure_tag() {
+    return static::get()[7]();
+  }
+  public static function lazy_tag() {
+    return static::get()[6]();
+  }
+  public static function last_non_constant_constructor_tag() {
+    return static::get()[5]();
+  }
+  public static function first_non_constant_constructor_tag() {
+    return static::get()[4]();
+  }
+  public static function set_double_field(dynamic $x, dynamic $i, dynamic $v) {
+    return static::get()[3]($x, $i, $v);
+  }
+  public static function double_field(dynamic $x, dynamic $i) {
+    return static::get()[2]($x, $i);
+  }
+  public static function is_block(dynamic $a) {
+    return static::get()[1]($a);
+  }
 
+}
 /* Hashing disabled */

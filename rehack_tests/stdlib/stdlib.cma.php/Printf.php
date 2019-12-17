@@ -1,44 +1,25 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Printf.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Printf {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Buffer = Buffer::get();
-    $CamlinternalFormat = CamlinternalFormat::get();
-    $Pervasives = Pervasives::get();
-    Printf::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Printf;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Buffer = $global_data["Buffer"];
-    $CamlinternalFormat = $global_data["CamlinternalFormat"];
-    $Pervasives = $global_data["Pervasives"];
+    $Buffer =  Buffer::get ();
+    $CamlinternalFormat =  CamlinternalFormat::get ();
+    $Pervasives =  Pervasives::get ();
     $kfprintf = function(dynamic $k, dynamic $o, dynamic $param) use ($CamlinternalFormat,$call1,$call2,$call4) {
       $fmt = $param[1];
       $f_ = 0;
@@ -103,9 +84,42 @@ final class Printf {
       $ksprintf
     };
     
-    $runtime["caml_register_global"](3, $Printf, "Printf");
+     return ($Printf);
 
   }
-}
+  public static function ksprintf(dynamic $k, dynamic $param) {
+    return static::get()[11]($k, $param);
+  }
+  public static function kbprintf(dynamic $k, dynamic $b, dynamic $param) {
+    return static::get()[10]($k, $b, $param);
+  }
+  public static function ksprintf(dynamic $k, dynamic $param) {
+    return static::get()[9]($k, $param);
+  }
+  public static function ikfprintf(dynamic $k, dynamic $oc, dynamic $param) {
+    return static::get()[8]($k, $oc, $param);
+  }
+  public static function kfprintf(dynamic $k, dynamic $o, dynamic $param) {
+    return static::get()[7]($k, $o, $param);
+  }
+  public static function ifprintf(dynamic $oc, dynamic $fmt) {
+    return static::get()[6]($oc, $fmt);
+  }
+  public static function bprintf(dynamic $b, dynamic $fmt) {
+    return static::get()[5]($b, $fmt);
+  }
+  public static function sprintf(dynamic $fmt) {
+    return static::get()[4]($fmt);
+  }
+  public static function eprintf(dynamic $fmt) {
+    return static::get()[3]($fmt);
+  }
+  public static function printf(dynamic $fmt) {
+    return static::get()[2]($fmt);
+  }
+  public static function fprintf(dynamic $oc, dynamic $fmt) {
+    return static::get()[1]($oc, $fmt);
+  }
 
+}
 /* Hashing disabled */

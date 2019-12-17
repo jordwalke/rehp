@@ -1,19 +1,14 @@
 /**
+ * @flow strict
  * Weak
- * @providesModule Weak
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Obj = require('Obj.js');
-var Pervasives = require('Pervasives.js');
-var Sys = require('Sys.js');
-var Invalid_argument = require('Invalid_argument.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -49,16 +44,15 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Weak_Make_hash_bucket_cannot_grow_more = string(
   "Weak.Make: hash bucket cannot grow more"
 );
 var cst_Weak_fill = string("Weak.fill");
-var Pervasives = global_data["Pervasives"];
-var Sys = global_data["Sys"];
-var Array = global_data["Array_"];
-var Not_found = global_data["Not_found"];
-var Invalid_argument = global_data["Invalid_argument"];
+var Pervasives = require("Pervasives.js");
+var Sys = require("Sys.js");
+var Array = require("Array_.js");
+var Not_found = require("Not_found.js");
+var Invalid_argument = require("Invalid_argument.js");
 
 function length(x) {return x.length - 1 - 2 | 0;}
 
@@ -578,8 +572,21 @@ var Weak = [
   Make
 ];
 
-runtime["caml_register_global"](7, Weak, "Weak");
+exports = Weak;
 
+/*::type Exports = {
+  Make: (H: any) => any,
+  fill: (ar: any, ofs: any, len: any, x: any) => any,
+  length: (x: any) => any,
+}*/
+/** @type {{
+  Make: (any) => any,
+  fill: (any, any, any, any) => any,
+  length: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.Make = module.exports[9];
+module.exports.fill = module.exports[7];
+module.exports.length = module.exports[2];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Weak;
 /* Hashing disabled */

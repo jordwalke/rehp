@@ -1,36 +1,19 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * BytesLabels.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class BytesLabels {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Bytes = Bytes::get();
-    BytesLabels::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->BytesLabels;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
-    $global_data = $runtime["caml_get_global_data"]();
-    $Bytes = $global_data["Bytes"];
+    $Bytes =  Bytes::get ();
     $make = $Bytes[1];
     $init = $Bytes[2];
     $empty = $Bytes[3];
@@ -121,9 +104,138 @@ final class BytesLabels {
       $unsafe_of_string
     };
     
-    $runtime["caml_register_global"](1, $BytesLabels, "BytesLabels");
+     return ($BytesLabels);
 
   }
-}
+  public static function unsafe_of_string() {
+    return static::get()[43]();
+  }
+  public static function unsafe_to_string() {
+    return static::get()[42]();
+  }
+  public static function equal() {
+    return static::get()[41]();
+  }
+  public static function compare() {
+    return static::get()[40]();
+  }
+  public static function uncapitalize_ascii() {
+    return static::get()[39]();
+  }
+  public static function capitalize_ascii() {
+    return static::get()[38]();
+  }
+  public static function lowercase_ascii() {
+    return static::get()[37]();
+  }
+  public static function uppercase_ascii() {
+    return static::get()[36]();
+  }
+  public static function uncapitalize() {
+    return static::get()[35]();
+  }
+  public static function capitalize() {
+    return static::get()[34]();
+  }
+  public static function lowercase() {
+    return static::get()[33]();
+  }
+  public static function uppercase() {
+    return static::get()[32]();
+  }
+  public static function rcontains_from() {
+    return static::get()[31]();
+  }
+  public static function contains_from() {
+    return static::get()[30]();
+  }
+  public static function contains() {
+    return static::get()[29]();
+  }
+  public static function rindex_from_opt() {
+    return static::get()[28]();
+  }
+  public static function rindex_from() {
+    return static::get()[27]();
+  }
+  public static function index_from_opt() {
+    return static::get()[26]();
+  }
+  public static function index_from() {
+    return static::get()[25]();
+  }
+  public static function rindex_opt() {
+    return static::get()[24]();
+  }
+  public static function rindex() {
+    return static::get()[23]();
+  }
+  public static function index_opt() {
+    return static::get()[22]();
+  }
+  public static function index() {
+    return static::get()[21]();
+  }
+  public static function escaped() {
+    return static::get()[20]();
+  }
+  public static function trim() {
+    return static::get()[19]();
+  }
+  public static function mapi() {
+    return static::get()[18]();
+  }
+  public static function map() {
+    return static::get()[17]();
+  }
+  public static function iteri() {
+    return static::get()[16]();
+  }
+  public static function iter() {
+    return static::get()[15]();
+  }
+  public static function cat() {
+    return static::get()[14]();
+  }
+  public static function concat() {
+    return static::get()[13]();
+  }
+  public static function blit_string() {
+    return static::get()[12]();
+  }
+  public static function blit() {
+    return static::get()[11]();
+  }
+  public static function fill() {
+    return static::get()[10]();
+  }
+  public static function extend() {
+    return static::get()[9]();
+  }
+  public static function sub_string() {
+    return static::get()[8]();
+  }
+  public static function sub() {
+    return static::get()[7]();
+  }
+  public static function to_string() {
+    return static::get()[6]();
+  }
+  public static function of_string() {
+    return static::get()[5]();
+  }
+  public static function copy() {
+    return static::get()[4]();
+  }
+  public static function empty() {
+    return static::get()[3]();
+  }
+  public static function init() {
+    return static::get()[2]();
+  }
+  public static function make() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Marshal
- * @providesModule Marshal
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_marshal_data_size = runtime["caml_marshal_data_size"];
@@ -20,15 +19,14 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Marshal_from_bytes = string("Marshal.from_bytes");
 var cst_Marshal_from_bytes__0 = string("Marshal.from_bytes");
 var cst_Marshal_data_size = string("Marshal.data_size");
 var cst_Marshal_to_buffer_substring_out_of_bounds = string(
   "Marshal.to_buffer: substring out of bounds"
 );
-var Bytes = global_data["Bytes"];
-var Pervasives = global_data["Pervasives"];
+var Bytes = require("Bytes.js");
+var Pervasives = require("Pervasives.js");
 
 function to_buffer(buff, ofs, len, v, flags) {
   if (0 <= ofs) {
@@ -83,8 +81,30 @@ var Marshal = [
   total_size
 ];
 
-runtime["caml_register_global"](6, Marshal, "Marshal");
+exports = Marshal;
 
+/*::type Exports = {
+  total_size: (buff: any, ofs: any) => any,
+  data_size: (buff: any, ofs: any) => any,
+  header_size: any
+  from_string: (buff: any, ofs: any) => any,
+  from_bytes: (buff: any, ofs: any) => any,
+  to_buffer: (buff: any, ofs: any, len: any, v: any, flags: any) => any,
+}*/
+/** @type {{
+  total_size: (any, any) => any,
+  data_size: (any, any) => any,
+  header_size: any,
+  from_string: (any, any) => any,
+  from_bytes: (any, any) => any,
+  to_buffer: (any, any, any, any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.total_size = module.exports[8];
+module.exports.data_size = module.exports[7];
+module.exports.header_size = module.exports[6];
+module.exports.from_string = module.exports[5];
+module.exports.from_bytes = module.exports[4];
+module.exports.to_buffer = module.exports[2];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Marshal;
 /* Hashing disabled */

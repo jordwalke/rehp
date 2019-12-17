@@ -1,18 +1,17 @@
 /**
+ * @flow strict
  * BytesLabels
- * @providesModule BytesLabels
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime["caml_get_global_data"]();
-var Bytes = global_data["Bytes"];
+var Bytes = require("Bytes.js");
 var make = Bytes[1];
 var init = Bytes[2];
 var empty = Bytes[3];
@@ -103,8 +102,141 @@ var BytesLabels = [
   unsafe_of_string
 ];
 
-runtime["caml_register_global"](1, BytesLabels, "BytesLabels");
+exports = BytesLabels;
 
+/*::type Exports = {
+  unsafe_of_string: any
+  unsafe_to_string: any
+  equal: any
+  compare: any
+  uncapitalize_ascii: any
+  capitalize_ascii: any
+  lowercase_ascii: any
+  uppercase_ascii: any
+  uncapitalize: any
+  capitalize: any
+  lowercase: any
+  uppercase: any
+  rcontains_from: any
+  contains_from: any
+  contains: any
+  rindex_from_opt: any
+  rindex_from: any
+  index_from_opt: any
+  index_from: any
+  rindex_opt: any
+  rindex: any
+  index_opt: any
+  index: any
+  escaped: any
+  trim: any
+  mapi: any
+  map: any
+  iteri: any
+  iter: any
+  cat: any
+  concat: any
+  blit_string: any
+  blit: any
+  fill: any
+  extend: any
+  sub_string: any
+  sub: any
+  to_string: any
+  of_string: any
+  copy: any
+  empty: any
+  init: any
+  make: any
+}*/
+/** @type {{
+  unsafe_of_string: any,
+  unsafe_to_string: any,
+  equal: any,
+  compare: any,
+  uncapitalize_ascii: any,
+  capitalize_ascii: any,
+  lowercase_ascii: any,
+  uppercase_ascii: any,
+  uncapitalize: any,
+  capitalize: any,
+  lowercase: any,
+  uppercase: any,
+  rcontains_from: any,
+  contains_from: any,
+  contains: any,
+  rindex_from_opt: any,
+  rindex_from: any,
+  index_from_opt: any,
+  index_from: any,
+  rindex_opt: any,
+  rindex: any,
+  index_opt: any,
+  index: any,
+  escaped: any,
+  trim: any,
+  mapi: any,
+  map: any,
+  iteri: any,
+  iter: any,
+  cat: any,
+  concat: any,
+  blit_string: any,
+  blit: any,
+  fill: any,
+  extend: any,
+  sub_string: any,
+  sub: any,
+  to_string: any,
+  of_string: any,
+  copy: any,
+  empty: any,
+  init: any,
+  make: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.unsafe_of_string = module.exports[43];
+module.exports.unsafe_to_string = module.exports[42];
+module.exports.equal = module.exports[41];
+module.exports.compare = module.exports[40];
+module.exports.uncapitalize_ascii = module.exports[39];
+module.exports.capitalize_ascii = module.exports[38];
+module.exports.lowercase_ascii = module.exports[37];
+module.exports.uppercase_ascii = module.exports[36];
+module.exports.uncapitalize = module.exports[35];
+module.exports.capitalize = module.exports[34];
+module.exports.lowercase = module.exports[33];
+module.exports.uppercase = module.exports[32];
+module.exports.rcontains_from = module.exports[31];
+module.exports.contains_from = module.exports[30];
+module.exports.contains = module.exports[29];
+module.exports.rindex_from_opt = module.exports[28];
+module.exports.rindex_from = module.exports[27];
+module.exports.index_from_opt = module.exports[26];
+module.exports.index_from = module.exports[25];
+module.exports.rindex_opt = module.exports[24];
+module.exports.rindex = module.exports[23];
+module.exports.index_opt = module.exports[22];
+module.exports.index = module.exports[21];
+module.exports.escaped = module.exports[20];
+module.exports.trim = module.exports[19];
+module.exports.mapi = module.exports[18];
+module.exports.map = module.exports[17];
+module.exports.iteri = module.exports[16];
+module.exports.iter = module.exports[15];
+module.exports.cat = module.exports[14];
+module.exports.concat = module.exports[13];
+module.exports.blit_string = module.exports[12];
+module.exports.blit = module.exports[11];
+module.exports.fill = module.exports[10];
+module.exports.extend = module.exports[9];
+module.exports.sub_string = module.exports[8];
+module.exports.sub = module.exports[7];
+module.exports.to_string = module.exports[6];
+module.exports.of_string = module.exports[5];
+module.exports.copy = module.exports[4];
+module.exports.empty = module.exports[3];
+module.exports.init = module.exports[2];
+module.exports.make = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().BytesLabels;
 /* Hashing disabled */

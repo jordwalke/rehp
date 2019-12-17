@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Js
- * @providesModule Js_of_ocaml__Js
  */
+
+// @ts-check
+
+
 "use strict";
-var Callback = require('Callback.js');
-var Pervasives = require('Pervasives.js');
-var Printexc = require('Printexc.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -26,14 +24,13 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_parseFloat = string("parseFloat");
 var cst_parseInt = string("parseInt");
 var cst_Js_of_ocaml_Js_Error = string("Js_of_ocaml__Js.Error");
 var cst_jsError = string("jsError");
-var Pervasives = global_data["Pervasives"];
-var Callback = global_data["Callback"];
-var Printexc = global_data["Printexc"];
+var Pervasives = require("Pervasives.js");
+var Callback = require("Callback.js");
+var Printexc = require("Printexc.js");
 var global =  joo_global_object ;
 var Unsafe = [0,global];
 var null__0 =  null ;
@@ -354,8 +351,156 @@ var Js_of_ocaml_Js = [
   Unsafe
 ];
 
-runtime["caml_register_global"](36, Js_of_ocaml_Js, "Js_of_ocaml__Js");
+exports = Js_of_ocaml_Js;
 
+/*::type Exports = {
+  Unsafe: any
+  export_all: (obj: any) => any,
+  export: (field: any, x: any) => any,
+  coerce_opt: (x: any, f: any, g: any) => any,
+  coerce: (x: any, f: any, g: any) => any,
+  parseFloat: (s: any) => any,
+  parseInt: (s: any) => any,
+  isNaN: (i: any) => any,
+  unescape: (s: any) => any,
+  escape: (s: any) => any,
+  encodeURIComponent: (s: any) => any,
+  encodeURI: (s: any) => any,
+  decodeURIComponent: (s: any) => any,
+  decodeURI: (s: any) => any,
+  JSON: any
+  Error: any
+  raise_js_error: any
+  string_of_error: (e: any) => any,
+  error_constr: any
+  math: any
+  date_constr: any
+  date_constr: any
+  date_constr: any
+  date_constr: any
+  date_constr: any
+  date_constr: any
+  date_constr: any
+  date_constr: any
+  date_constr: any
+  match_result: (unnamed1: any) => any,
+  str_array: (unnamed1: any) => any,
+  array_mapi: (f: any, a: any) => any,
+  array_map: (f: any, a: any) => any,
+  array_set: (unnamed1: any, unnamed2: any, unnamed3: any) => any,
+  array_get: (unnamed1: any, unnamed2: any) => any,
+  array_constructor: any
+  array_constructor: any
+  object_keys: (o: any) => any,
+  regExp: any
+  regExp: any
+  regExp: any
+  string_constr: any
+  false: any
+  true: any
+  Optdef: any
+  Opt: any
+  undefined: any
+  null: any
+}*/
+/** @type {{
+  Unsafe: any,
+  export_all: (any) => any,
+  export: (any, any) => any,
+  coerce_opt: (any, any, any) => any,
+  coerce: (any, any, any) => any,
+  parseFloat: (any) => any,
+  parseInt: (any) => any,
+  isNaN: (any) => any,
+  unescape: (any) => any,
+  escape: (any) => any,
+  encodeURIComponent: (any) => any,
+  encodeURI: (any) => any,
+  decodeURIComponent: (any) => any,
+  decodeURI: (any) => any,
+  JSON: any,
+  Error: any,
+  raise_js_error: any,
+  string_of_error: (any) => any,
+  error_constr: any,
+  math: any,
+  date_constr: any,
+  date_constr: any,
+  date_constr: any,
+  date_constr: any,
+  date_constr: any,
+  date_constr: any,
+  date_constr: any,
+  date_constr: any,
+  date_constr: any,
+  match_result: (any) => any,
+  str_array: (any) => any,
+  array_mapi: (any, any) => any,
+  array_map: (any, any) => any,
+  array_set: (any, any, any) => any,
+  array_get: (any, any) => any,
+  array_constructor: any,
+  array_constructor: any,
+  object_keys: (any) => any,
+  regExp: any,
+  regExp: any,
+  regExp: any,
+  string_constr: any,
+  false: any,
+  true: any,
+  Optdef: any,
+  Opt: any,
+  undefined: any,
+  null: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.Unsafe = module.exports[50];
+module.exports.export_all = module.exports[49];
+module.exports.export = module.exports[48];
+module.exports.coerce_opt = module.exports[47];
+module.exports.coerce = module.exports[46];
+module.exports.parseFloat = module.exports[45];
+module.exports.parseInt = module.exports[44];
+module.exports.isNaN = module.exports[43];
+module.exports.unescape = module.exports[42];
+module.exports.escape = module.exports[41];
+module.exports.encodeURIComponent = module.exports[40];
+module.exports.encodeURI = module.exports[39];
+module.exports.decodeURIComponent = module.exports[38];
+module.exports.decodeURI = module.exports[37];
+module.exports.JSON = module.exports[36];
+module.exports.Error = module.exports[35];
+module.exports.raise_js_error = module.exports[34];
+module.exports.string_of_error = module.exports[33];
+module.exports.error_constr = module.exports[32];
+module.exports.math = module.exports[31];
+module.exports.date_constr = module.exports[30];
+module.exports.date_constr = module.exports[29];
+module.exports.date_constr = module.exports[28];
+module.exports.date_constr = module.exports[27];
+module.exports.date_constr = module.exports[26];
+module.exports.date_constr = module.exports[25];
+module.exports.date_constr = module.exports[24];
+module.exports.date_constr = module.exports[23];
+module.exports.date_constr = module.exports[22];
+module.exports.match_result = module.exports[21];
+module.exports.str_array = module.exports[20];
+module.exports.array_mapi = module.exports[19];
+module.exports.array_map = module.exports[18];
+module.exports.array_set = module.exports[17];
+module.exports.array_get = module.exports[16];
+module.exports.array_constructor = module.exports[15];
+module.exports.array_constructor = module.exports[14];
+module.exports.object_keys = module.exports[13];
+module.exports.regExp = module.exports[12];
+module.exports.regExp = module.exports[11];
+module.exports.regExp = module.exports[10];
+module.exports.string_constr = module.exports[9];
+module.exports.false = module.exports[8];
+module.exports.true = module.exports[7];
+module.exports.Optdef = module.exports[6];
+module.exports.Opt = module.exports[5];
+module.exports.undefined = module.exports[3];
+module.exports.null = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Js;
 /* Hashing disabled */

@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * MyLib
- * @providesModule MyLib
  */
+
+// @ts-check
+
+
 "use strict";
-var MyLib__MyLibUtility = require('MyLib__MyLibUtility.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
@@ -17,11 +17,10 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_myPartiallyAppliedMethod = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__0 = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__1 = string("myPartiallyAppliedMethod");
-var MyLib_MyLibUtility = global_data["MyLib__MyLibUtility"];
+var MyLib_MyLibUtility = require("MyLib__MyLibUtility.js");
 var foo = "foo";
 var bar = "bar";
 var baz = "baz";
@@ -99,8 +98,36 @@ var MyLib = [
   x
 ];
 
-runtime["caml_register_global"](19, MyLib, "MyLib");
+exports = MyLib;
 
+/*::type Exports = {
+  x: any
+  testPartialMethodCalls: (o: any) => any,
+  testPartialFunctionCalls: (o: any) => any,
+  testMethodCalls: (o: any) => any,
+  testFunctionCalls: (o: any) => any,
+  baz: any
+  bar: any
+  foo: any
+}*/
+/** @type {{
+  x: any,
+  testPartialMethodCalls: (any) => any,
+  testPartialFunctionCalls: (any) => any,
+  testMethodCalls: (any) => any,
+  testFunctionCalls: (any) => any,
+  baz: any,
+  bar: any,
+  foo: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.x = module.exports[8];
+module.exports.testPartialMethodCalls = module.exports[7];
+module.exports.testPartialFunctionCalls = module.exports[6];
+module.exports.testMethodCalls = module.exports[5];
+module.exports.testFunctionCalls = module.exports[4];
+module.exports.baz = module.exports[3];
+module.exports.bar = module.exports[2];
+module.exports.foo = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().MyLib;
 /* Hashing disabled */

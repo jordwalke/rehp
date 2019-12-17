@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Typed_array
- * @providesModule Js_of_ocaml__Typed_array
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -23,8 +23,7 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
 
 function a_(x) {return call1(caml_get_public_method(x, 135830874, 52), x);}
 
@@ -145,12 +144,153 @@ var Js_of_ocaml_Typed_array = [
   String
 ];
 
-runtime["caml_register_global"](
-  11,
-  Js_of_ocaml_Typed_array,
-  "Js_of_ocaml__Typed_array"
-);
+exports = Js_of_ocaml_Typed_array;
 
+/*::type Exports = {
+  String: any
+  dataView: any
+  dataView: any
+  unsafe_get: (a: any, i: any) => any,
+  get: (a: any, i: any) => any,
+  set: (a: any, i: any, v: any) => any,
+  float64Array: any
+  float64Array: any
+  float64Array: any
+  float64Array: any
+  float64Array: any
+  float32Array: any
+  float32Array: any
+  float32Array: any
+  float32Array: any
+  float32Array: any
+  uint32Array: any
+  uint32Array: any
+  uint32Array: any
+  uint32Array: any
+  uint32Array: any
+  int32Array: any
+  int32Array: any
+  int32Array: any
+  int32Array: any
+  int32Array: any
+  uint16Array: any
+  uint16Array: any
+  uint16Array: any
+  uint16Array: any
+  uint16Array: any
+  int16Array: any
+  int16Array: any
+  int16Array: any
+  int16Array: any
+  int16Array: any
+  uint8Array: any
+  uint8Array: any
+  uint8Array: any
+  uint8Array: any
+  uint8Array: any
+  int8Array: any
+  int8Array: any
+  int8Array: any
+  int8Array: any
+  int8Array: any
+  arrayBuffer: any
+}*/
+/** @type {{
+  String: any,
+  dataView: any,
+  dataView: any,
+  unsafe_get: (any, any) => any,
+  get: (any, any) => any,
+  set: (any, any, any) => any,
+  float64Array: any,
+  float64Array: any,
+  float64Array: any,
+  float64Array: any,
+  float64Array: any,
+  float32Array: any,
+  float32Array: any,
+  float32Array: any,
+  float32Array: any,
+  float32Array: any,
+  uint32Array: any,
+  uint32Array: any,
+  uint32Array: any,
+  uint32Array: any,
+  uint32Array: any,
+  int32Array: any,
+  int32Array: any,
+  int32Array: any,
+  int32Array: any,
+  int32Array: any,
+  uint16Array: any,
+  uint16Array: any,
+  uint16Array: any,
+  uint16Array: any,
+  uint16Array: any,
+  int16Array: any,
+  int16Array: any,
+  int16Array: any,
+  int16Array: any,
+  int16Array: any,
+  uint8Array: any,
+  uint8Array: any,
+  uint8Array: any,
+  uint8Array: any,
+  uint8Array: any,
+  int8Array: any,
+  int8Array: any,
+  int8Array: any,
+  int8Array: any,
+  int8Array: any,
+  arrayBuffer: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.String = module.exports[48];
+module.exports.dataView = module.exports[46];
+module.exports.dataView = module.exports[45];
+module.exports.unsafe_get = module.exports[44];
+module.exports.get = module.exports[43];
+module.exports.set = module.exports[42];
+module.exports.float64Array = module.exports[41];
+module.exports.float64Array = module.exports[40];
+module.exports.float64Array = module.exports[39];
+module.exports.float64Array = module.exports[38];
+module.exports.float64Array = module.exports[37];
+module.exports.float32Array = module.exports[36];
+module.exports.float32Array = module.exports[35];
+module.exports.float32Array = module.exports[34];
+module.exports.float32Array = module.exports[33];
+module.exports.float32Array = module.exports[32];
+module.exports.uint32Array = module.exports[31];
+module.exports.uint32Array = module.exports[30];
+module.exports.uint32Array = module.exports[29];
+module.exports.uint32Array = module.exports[28];
+module.exports.uint32Array = module.exports[27];
+module.exports.int32Array = module.exports[26];
+module.exports.int32Array = module.exports[25];
+module.exports.int32Array = module.exports[24];
+module.exports.int32Array = module.exports[23];
+module.exports.int32Array = module.exports[22];
+module.exports.uint16Array = module.exports[21];
+module.exports.uint16Array = module.exports[20];
+module.exports.uint16Array = module.exports[19];
+module.exports.uint16Array = module.exports[18];
+module.exports.uint16Array = module.exports[17];
+module.exports.int16Array = module.exports[16];
+module.exports.int16Array = module.exports[15];
+module.exports.int16Array = module.exports[14];
+module.exports.int16Array = module.exports[13];
+module.exports.int16Array = module.exports[12];
+module.exports.uint8Array = module.exports[11];
+module.exports.uint8Array = module.exports[10];
+module.exports.uint8Array = module.exports[9];
+module.exports.uint8Array = module.exports[8];
+module.exports.uint8Array = module.exports[7];
+module.exports.int8Array = module.exports[6];
+module.exports.int8Array = module.exports[5];
+module.exports.int8Array = module.exports[4];
+module.exports.int8Array = module.exports[3];
+module.exports.int8Array = module.exports[2];
+module.exports.arrayBuffer = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Typed_array;
 /* Hashing disabled */

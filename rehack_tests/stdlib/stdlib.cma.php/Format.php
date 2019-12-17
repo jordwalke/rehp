@@ -1,38 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Format.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Format {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Buffer = Buffer::get();
-    $CamlinternalFormat = CamlinternalFormat::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $String_ = String_::get();
-    $Not_found = Not_found::get();
-    Format::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Format;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $output_acc = new Ref();$strput_acc = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
@@ -46,7 +25,6 @@ final class Format {
        "caml_wrap_thrown_exception_reraise"
      ];
     $is_int = $runtime["is_int"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst__4 = $string(".");
     $cst__2 = $string(">");
     $cst__3 = $string("</");
@@ -54,12 +32,12 @@ final class Format {
     $cst__1 = $string("<");
     $cst = $string("\n");
     $cst_Format_Empty_queue = $string("Format.Empty_queue");
-    $CamlinternalFormat = $global_data["CamlinternalFormat"];
-    $Pervasives = $global_data["Pervasives"];
-    $String = $global_data["String_"];
-    $Buffer = $global_data["Buffer"];
-    $List = $global_data["List_"];
-    $Not_found = $global_data["Not_found"];
+    $CamlinternalFormat =  CamlinternalFormat::get ();
+    $Pervasives =  Pervasives::get ();
+    $String =  String_::get ();
+    $Buffer =  Buffer::get ();
+    $List =  List_::get ();
+    $Not_found =  Not_found::get ();
     $b_ = Vector{3, 0, 3};
     $a_ = Vector{0, $string("")};
     $make_queue = function(dynamic $param) {return Vector{0, 0, 0};};
@@ -1866,9 +1844,390 @@ final class Format {
       $pp_get_all_formatter_output_functions
     };
     
-    $runtime["caml_register_global"](15, $Format, "Format");
+     return ($Format);
 
   }
-}
+  public static function pp_get_all_formatter_output_functions(dynamic $state, dynamic $param) {
+    return static::get()[127]($state, $param);
+  }
+  public static function pp_set_all_formatter_output_functions(dynamic $state, dynamic $f, dynamic $g, dynamic $h, dynamic $i) {
+    return static::get()[126]($state, $f, $g, $h, $i);
+  }
+  public static function get_all_formatter_output_functions() {
+    return static::get()[125]();
+  }
+  public static function set_all_formatter_output_functions() {
+    return static::get()[124]();
+  }
+  public static function ksprintf(dynamic $k, dynamic $param) {
+    return static::get()[123]($k, $param);
+  }
+  public static function bprintf(dynamic $b, dynamic $param) {
+    return static::get()[122]($b, $param);
+  }
+  public static function kasprintf(dynamic $k, dynamic $param) {
+    return static::get()[121]($k, $param);
+  }
+  public static function ksprintf(dynamic $k, dynamic $param) {
+    return static::get()[120]($k, $param);
+  }
+  public static function ikfprintf(dynamic $k, dynamic $ppf, dynamic $param) {
+    return static::get()[119]($k, $ppf, $param);
+  }
+  public static function kfprintf(dynamic $k, dynamic $ppf, dynamic $param) {
+    return static::get()[118]($k, $ppf, $param);
+  }
+  public static function ifprintf(dynamic $ppf) {
+    return static::get()[117]($ppf);
+  }
+  public static function asprintf(dynamic $fmt) {
+    return static::get()[116]($fmt);
+  }
+  public static function sprintf(dynamic $fmt) {
+    return static::get()[115]($fmt);
+  }
+  public static function eprintf(dynamic $fmt) {
+    return static::get()[114]($fmt);
+  }
+  public static function printf(dynamic $fmt) {
+    return static::get()[113]($fmt);
+  }
+  public static function fprintf(dynamic $ppf) {
+    return static::get()[112]($ppf);
+  }
+  public static function pp_print_text(dynamic $ppf, dynamic $s) {
+    return static::get()[111]($ppf, $s);
+  }
+  public static function pp_print_list(dynamic $opt, dynamic $pp_v, dynamic $ppf, dynamic $param) {
+    return static::get()[110]($opt, $pp_v, $ppf, $param);
+  }
+  public static function formatter_of_symbolic_output_buffer(dynamic $sob) {
+    return static::get()[109]($sob);
+  }
+  public static function add_symbolic_output_item(dynamic $sob, dynamic $item) {
+    return static::get()[108]($sob, $item);
+  }
+  public static function flush_symbolic_output_buffer(dynamic $sob) {
+    return static::get()[107]($sob);
+  }
+  public static function get_symbolic_output_buffer(dynamic $sob) {
+    return static::get()[106]($sob);
+  }
+  public static function clear_symbolic_output_buffer(dynamic $sob) {
+    return static::get()[105]($sob);
+  }
+  public static function make_symbolic_output_buffer(dynamic $param) {
+    return static::get()[104]($param);
+  }
+  public static function formatter_of_out_functions(dynamic $out_funs) {
+    return static::get()[103]($out_funs);
+  }
+  public static function make_formatter(dynamic $output, dynamic $flush) {
+    return static::get()[102]($output, $flush);
+  }
+  public static function flush_str_formatter(dynamic $param) {
+    return static::get()[101]($param);
+  }
+  public static function str_formatter() {
+    return static::get()[100]();
+  }
+  public static function stdbuf() {
+    return static::get()[99]();
+  }
+  public static function formatter_of_buffer(dynamic $b) {
+    return static::get()[98]($b);
+  }
+  public static function err_formatter() {
+    return static::get()[97]();
+  }
+  public static function std_formatter() {
+    return static::get()[96]();
+  }
+  public static function formatter_of_out_channel(dynamic $oc) {
+    return static::get()[95]($oc);
+  }
+  public static function get_formatter_tag_functions() {
+    return static::get()[94]();
+  }
+  public static function pp_get_formatter_tag_functions(dynamic $state, dynamic $param) {
+    return static::get()[93]($state, $param);
+  }
+  public static function set_formatter_tag_functions() {
+    return static::get()[92]();
+  }
+  public static function pp_set_formatter_tag_functions(dynamic $state, dynamic $param) {
+    return static::get()[91]($state, $param);
+  }
+  public static function get_formatter_out_functions() {
+    return static::get()[90]();
+  }
+  public static function pp_get_formatter_out_functions(dynamic $state, dynamic $param) {
+    return static::get()[89]($state, $param);
+  }
+  public static function set_formatter_out_functions() {
+    return static::get()[88]();
+  }
+  public static function pp_set_formatter_out_functions(dynamic $state, dynamic $param) {
+    return static::get()[87]($state, $param);
+  }
+  public static function get_formatter_output_functions() {
+    return static::get()[86]();
+  }
+  public static function pp_get_formatter_output_functions(dynamic $state, dynamic $param) {
+    return static::get()[85]($state, $param);
+  }
+  public static function set_formatter_output_functions() {
+    return static::get()[84]();
+  }
+  public static function pp_set_formatter_output_functions(dynamic $state, dynamic $f, dynamic $g) {
+    return static::get()[83]($state, $f, $g);
+  }
+  public static function set_formatter_out_channel() {
+    return static::get()[82]();
+  }
+  public static function pp_set_formatter_out_channel(dynamic $state, dynamic $oc) {
+    return static::get()[81]($state, $oc);
+  }
+  public static function get_mark_tags() {
+    return static::get()[80]();
+  }
+  public static function pp_get_mark_tags(dynamic $state, dynamic $param) {
+    return static::get()[79]($state, $param);
+  }
+  public static function get_print_tags() {
+    return static::get()[78]();
+  }
+  public static function pp_get_print_tags(dynamic $state, dynamic $param) {
+    return static::get()[77]($state, $param);
+  }
+  public static function set_mark_tags() {
+    return static::get()[76]();
+  }
+  public static function pp_set_mark_tags(dynamic $state, dynamic $b) {
+    return static::get()[75]($state, $b);
+  }
+  public static function set_print_tags() {
+    return static::get()[74]();
+  }
+  public static function pp_set_print_tags(dynamic $state, dynamic $b) {
+    return static::get()[73]($state, $b);
+  }
+  public static function set_tags() {
+    return static::get()[72]();
+  }
+  public static function pp_set_tags(dynamic $state, dynamic $b) {
+    return static::get()[71]($state, $b);
+  }
+  public static function close_tag() {
+    return static::get()[70]();
+  }
+  public static function pp_close_tag(dynamic $state, dynamic $param) {
+    return static::get()[69]($state, $param);
+  }
+  public static function open_tag() {
+    return static::get()[68]();
+  }
+  public static function pp_open_tag(dynamic $state, dynamic $tag_name) {
+    return static::get()[67]($state, $tag_name);
+  }
+  public static function get_ellipsis_text() {
+    return static::get()[66]();
+  }
+  public static function pp_get_ellipsis_text(dynamic $state, dynamic $param) {
+    return static::get()[65]($state, $param);
+  }
+  public static function set_ellipsis_text() {
+    return static::get()[64]();
+  }
+  public static function pp_set_ellipsis_text(dynamic $state, dynamic $s) {
+    return static::get()[63]($state, $s);
+  }
+  public static function print_tbreak() {
+    return static::get()[62]();
+  }
+  public static function pp_print_tbreak(dynamic $state, dynamic $width, dynamic $offset) {
+    return static::get()[61]($state, $width, $offset);
+  }
+  public static function print_tab() {
+    return static::get()[60]();
+  }
+  public static function pp_print_tab(dynamic $state, dynamic $param) {
+    return static::get()[59]($state, $param);
+  }
+  public static function set_tab() {
+    return static::get()[58]();
+  }
+  public static function pp_set_tab(dynamic $state, dynamic $param) {
+    return static::get()[57]($state, $param);
+  }
+  public static function close_tbox() {
+    return static::get()[56]();
+  }
+  public static function pp_close_tbox(dynamic $state, dynamic $param) {
+    return static::get()[55]($state, $param);
+  }
+  public static function open_tbox() {
+    return static::get()[54]();
+  }
+  public static function pp_open_tbox(dynamic $state, dynamic $param) {
+    return static::get()[53]($state, $param);
+  }
+  public static function over_max_boxes() {
+    return static::get()[52]();
+  }
+  public static function pp_over_max_boxes(dynamic $state, dynamic $param) {
+    return static::get()[51]($state, $param);
+  }
+  public static function get_max_boxes() {
+    return static::get()[50]();
+  }
+  public static function pp_get_max_boxes(dynamic $state, dynamic $param) {
+    return static::get()[49]($state, $param);
+  }
+  public static function set_max_boxes() {
+    return static::get()[48]();
+  }
+  public static function pp_set_max_boxes(dynamic $state, dynamic $n) {
+    return static::get()[47]($state, $n);
+  }
+  public static function get_max_indent() {
+    return static::get()[46]();
+  }
+  public static function pp_get_max_indent(dynamic $state, dynamic $param) {
+    return static::get()[45]($state, $param);
+  }
+  public static function set_max_indent() {
+    return static::get()[44]();
+  }
+  public static function pp_set_max_indent(dynamic $state, dynamic $n) {
+    return static::get()[43]($state, $n);
+  }
+  public static function get_margin() {
+    return static::get()[42]();
+  }
+  public static function pp_get_margin(dynamic $state, dynamic $param) {
+    return static::get()[41]($state, $param);
+  }
+  public static function set_margin() {
+    return static::get()[40]();
+  }
+  public static function pp_set_margin(dynamic $state, dynamic $n) {
+    return static::get()[39]($state, $n);
+  }
+  public static function print_newline() {
+    return static::get()[38]();
+  }
+  public static function pp_print_newline(dynamic $state, dynamic $param) {
+    return static::get()[37]($state, $param);
+  }
+  public static function print_flush() {
+    return static::get()[36]();
+  }
+  public static function pp_print_flush(dynamic $state, dynamic $param) {
+    return static::get()[35]($state, $param);
+  }
+  public static function print_if_newline() {
+    return static::get()[34]();
+  }
+  public static function pp_print_if_newline(dynamic $state, dynamic $param) {
+    return static::get()[33]($state, $param);
+  }
+  public static function force_newline() {
+    return static::get()[32]();
+  }
+  public static function pp_force_newline(dynamic $state, dynamic $param) {
+    return static::get()[31]($state, $param);
+  }
+  public static function print_break() {
+    return static::get()[30]();
+  }
+  public static function pp_print_break(dynamic $state, dynamic $width, dynamic $offset) {
+    return static::get()[29]($state, $width, $offset);
+  }
+  public static function print_cut() {
+    return static::get()[28]();
+  }
+  public static function pp_print_cut(dynamic $state, dynamic $param) {
+    return static::get()[27]($state, $param);
+  }
+  public static function print_space() {
+    return static::get()[26]();
+  }
+  public static function pp_print_space(dynamic $state, dynamic $param) {
+    return static::get()[25]($state, $param);
+  }
+  public static function print_bool() {
+    return static::get()[24]();
+  }
+  public static function pp_print_bool(dynamic $state, dynamic $b) {
+    return static::get()[23]($state, $b);
+  }
+  public static function print_char() {
+    return static::get()[22]();
+  }
+  public static function pp_print_char(dynamic $state, dynamic $c) {
+    return static::get()[21]($state, $c);
+  }
+  public static function print_float() {
+    return static::get()[20]();
+  }
+  public static function pp_print_float(dynamic $state, dynamic $f) {
+    return static::get()[19]($state, $f);
+  }
+  public static function print_int() {
+    return static::get()[18]();
+  }
+  public static function pp_print_int(dynamic $state, dynamic $i) {
+    return static::get()[17]($state, $i);
+  }
+  public static function print_as() {
+    return static::get()[16]();
+  }
+  public static function pp_print_as(dynamic $state, dynamic $isize, dynamic $s) {
+    return static::get()[15]($state, $isize, $s);
+  }
+  public static function print_string() {
+    return static::get()[14]();
+  }
+  public static function pp_print_string(dynamic $state, dynamic $s) {
+    return static::get()[13]($state, $s);
+  }
+  public static function open_hovbox() {
+    return static::get()[12]();
+  }
+  public static function pp_open_hovbox(dynamic $state, dynamic $indent) {
+    return static::get()[11]($state, $indent);
+  }
+  public static function open_hvbox() {
+    return static::get()[10]();
+  }
+  public static function pp_open_hvbox(dynamic $state, dynamic $indent) {
+    return static::get()[9]($state, $indent);
+  }
+  public static function open_vbox() {
+    return static::get()[8]();
+  }
+  public static function pp_open_vbox(dynamic $state, dynamic $indent) {
+    return static::get()[7]($state, $indent);
+  }
+  public static function open_hbox() {
+    return static::get()[6]();
+  }
+  public static function pp_open_hbox(dynamic $state, dynamic $param) {
+    return static::get()[5]($state, $param);
+  }
+  public static function close_box() {
+    return static::get()[4]();
+  }
+  public static function pp_close_box(dynamic $state, dynamic $param) {
+    return static::get()[3]($state, $param);
+  }
+  public static function open_box() {
+    return static::get()[2]();
+  }
+  public static function pp_open_box(dynamic $state, dynamic $indent) {
+    return static::get()[1]($state, $indent);
+  }
 
+}
 /* Hashing disabled */

@@ -1,20 +1,27 @@
 /**
+ * @flow strict
  * MyLib__
- * @providesModule MyLib__
  */
+
+// @ts-check
+
+
 "use strict";
-
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var MyLib = [0,0];
 
-runtime["caml_register_global"](0, MyLib, "MyLib__");
+exports = MyLib;
 
+/*::type Exports = {
+  MyLibUtility: any
+}*/
+/** @type {{
+  MyLibUtility: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.MyLibUtility = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().MyLib__;
 /* Hashing disabled */

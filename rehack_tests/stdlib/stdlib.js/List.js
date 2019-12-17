@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * List_
- * @providesModule List_
  */
+
+// @ts-check
+
+
 "use strict";
-var Pervasives = require('Pervasives.js');
-var Not_found = require('Not_found.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_compare = runtime["caml_compare"];
@@ -31,7 +29,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_List_map2 = string("List.map2");
 var cst_List_iter2 = string("List.iter2");
 var cst_List_fold_left2 = string("List.fold_left2");
@@ -46,9 +43,9 @@ var cst_nth = string("nth");
 var cst_List_nth = string("List.nth");
 var cst_tl = string("tl");
 var cst_hd = string("hd");
-var Pervasives = global_data["Pervasives"];
-var Not_found = global_data["Not_found"];
-var Assert_failure = global_data["Assert_failure"];
+var Pervasives = require("Pervasives.js");
+var Not_found = require("Not_found.js");
+var Assert_failure = require("Assert_failure.js");
 var c_ = [0,0,0];
 var d_ = [0,string("list.ml"),262,11];
 
@@ -1172,8 +1169,168 @@ var List = [
   merge
 ];
 
-runtime["caml_register_global"](19, List, "List_");
+exports = List;
 
+/*::type Exports = {
+  merge: (cmp: any, l1: any, l2: any) => any,
+  sort_uniq: (cmp: any, l: any) => any,
+  stable_sort: (cmp: any, l: any) => any,
+  stable_sort: (cmp: any, l: any) => any,
+  stable_sort: (cmp: any, l: any) => any,
+  combine: (l1: any, l2: any) => any,
+  split: (param: any) => any,
+  remove_assq: (x: any, param: any) => any,
+  remove_assoc: (x: any, param: any) => any,
+  mem_assq: (x: any, param: any) => any,
+  mem_assoc: (x: any, param: any) => any,
+  assq_opt: (x: any, param: any) => any,
+  assq: (x: any, param: any) => any,
+  assoc_opt: (x: any, param: any) => any,
+  assoc: (x: any, param: any) => any,
+  partition: (p: any, l: any) => any,
+  find_all: (p: any) => any,
+  find_all: (p: any) => any,
+  find_opt: (p: any, param: any) => any,
+  find: (p: any, param: any) => any,
+  memq: (x: any, param: any) => any,
+  mem: (x: any, param: any) => any,
+  exists2: (p: any, l1: any, l2: any) => any,
+  for_all2: (p: any, l1: any, l2: any) => any,
+  exists: (p: any, param: any) => any,
+  for_all: (p: any, param: any) => any,
+  fold_right2: (f: any, l1: any, l2: any, accu: any) => any,
+  fold_left2: (f: any, accu: any, l1: any, l2: any) => any,
+  rev_map2: (f: any, l1: any, l2: any) => any,
+  map2: (f: any, l1: any, l2: any) => any,
+  iter2: (f: any, l1: any, l2: any) => any,
+  fold_right: (f: any, l: any, accu: any) => any,
+  fold_left: (f: any, accu: any, l: any) => any,
+  rev_map: (f: any, l: any) => any,
+  mapi: (f: any, l: any) => any,
+  map: (f: any, param: any) => any,
+  iteri: (f: any, l: any) => any,
+  iter: (f: any, param: any) => any,
+  flatten: (param: any) => any,
+  flatten: (param: any) => any,
+  rev_append: (l1: any, l2: any) => any,
+  append: any
+  init: (len: any, f: any) => any,
+  rev: (l: any) => any,
+  nth_opt: (l: any, n: any) => any,
+  nth: (l: any, n: any) => any,
+  tl: (param: any) => any,
+  hd: (param: any) => any,
+  cons: (a: any, l: any) => any,
+  compare_length_with: (l: any, n: any) => any,
+  compare_lengths: (l1: any, l2: any) => any,
+  length: (l: any) => any,
+}*/
+/** @type {{
+  merge: (any, any, any) => any,
+  sort_uniq: (any, any) => any,
+  stable_sort: (any, any) => any,
+  stable_sort: (any, any) => any,
+  stable_sort: (any, any) => any,
+  combine: (any, any) => any,
+  split: (any) => any,
+  remove_assq: (any, any) => any,
+  remove_assoc: (any, any) => any,
+  mem_assq: (any, any) => any,
+  mem_assoc: (any, any) => any,
+  assq_opt: (any, any) => any,
+  assq: (any, any) => any,
+  assoc_opt: (any, any) => any,
+  assoc: (any, any) => any,
+  partition: (any, any) => any,
+  find_all: (any) => any,
+  find_all: (any) => any,
+  find_opt: (any, any) => any,
+  find: (any, any) => any,
+  memq: (any, any) => any,
+  mem: (any, any) => any,
+  exists2: (any, any, any) => any,
+  for_all2: (any, any, any) => any,
+  exists: (any, any) => any,
+  for_all: (any, any) => any,
+  fold_right2: (any, any, any, any) => any,
+  fold_left2: (any, any, any, any) => any,
+  rev_map2: (any, any, any) => any,
+  map2: (any, any, any) => any,
+  iter2: (any, any, any) => any,
+  fold_right: (any, any, any) => any,
+  fold_left: (any, any, any) => any,
+  rev_map: (any, any) => any,
+  mapi: (any, any) => any,
+  map: (any, any) => any,
+  iteri: (any, any) => any,
+  iter: (any, any) => any,
+  flatten: (any) => any,
+  flatten: (any) => any,
+  rev_append: (any, any) => any,
+  append: any,
+  init: (any, any) => any,
+  rev: (any) => any,
+  nth_opt: (any, any) => any,
+  nth: (any, any) => any,
+  tl: (any) => any,
+  hd: (any) => any,
+  cons: (any, any) => any,
+  compare_length_with: (any, any) => any,
+  compare_lengths: (any, any) => any,
+  length: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.merge = module.exports[52];
+module.exports.sort_uniq = module.exports[51];
+module.exports.stable_sort = module.exports[50];
+module.exports.stable_sort = module.exports[49];
+module.exports.stable_sort = module.exports[48];
+module.exports.combine = module.exports[47];
+module.exports.split = module.exports[46];
+module.exports.remove_assq = module.exports[45];
+module.exports.remove_assoc = module.exports[44];
+module.exports.mem_assq = module.exports[43];
+module.exports.mem_assoc = module.exports[42];
+module.exports.assq_opt = module.exports[41];
+module.exports.assq = module.exports[40];
+module.exports.assoc_opt = module.exports[39];
+module.exports.assoc = module.exports[38];
+module.exports.partition = module.exports[37];
+module.exports.find_all = module.exports[36];
+module.exports.find_all = module.exports[35];
+module.exports.find_opt = module.exports[34];
+module.exports.find = module.exports[33];
+module.exports.memq = module.exports[32];
+module.exports.mem = module.exports[31];
+module.exports.exists2 = module.exports[30];
+module.exports.for_all2 = module.exports[29];
+module.exports.exists = module.exports[28];
+module.exports.for_all = module.exports[27];
+module.exports.fold_right2 = module.exports[26];
+module.exports.fold_left2 = module.exports[25];
+module.exports.rev_map2 = module.exports[24];
+module.exports.map2 = module.exports[23];
+module.exports.iter2 = module.exports[22];
+module.exports.fold_right = module.exports[21];
+module.exports.fold_left = module.exports[20];
+module.exports.rev_map = module.exports[19];
+module.exports.mapi = module.exports[18];
+module.exports.map = module.exports[17];
+module.exports.iteri = module.exports[16];
+module.exports.iter = module.exports[15];
+module.exports.flatten = module.exports[14];
+module.exports.flatten = module.exports[13];
+module.exports.rev_append = module.exports[12];
+module.exports.append = module.exports[11];
+module.exports.init = module.exports[10];
+module.exports.rev = module.exports[9];
+module.exports.nth_opt = module.exports[8];
+module.exports.nth = module.exports[7];
+module.exports.tl = module.exports[6];
+module.exports.hd = module.exports[5];
+module.exports.cons = module.exports[4];
+module.exports.compare_length_with = module.exports[3];
+module.exports.compare_lengths = module.exports[2];
+module.exports.length = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().List_;
 /* Hashing disabled */

@@ -1,21 +1,14 @@
 /**
+ * @flow strict
  * Hashtbl
- * @providesModule Hashtbl
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var CamlinternalLazy = require('CamlinternalLazy.js');
-var Pervasives = require('Pervasives.js');
-var Random = require('Random.js');
-var String_ = require('String_.js');
-var Sys = require('Sys.js');
-var Not_found = require('Not_found.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -42,18 +35,17 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_OCAMLRUNPARAM = string("OCAMLRUNPARAM");
 var cst_CAMLRUNPARAM = string("CAMLRUNPARAM");
 var cst = string("");
-var Sys = global_data["Sys"];
-var Not_found = global_data["Not_found"];
-var Pervasives = global_data["Pervasives"];
-var Array = global_data["Array_"];
-var Assert_failure = global_data["Assert_failure"];
-var CamlinternalLazy = global_data["CamlinternalLazy"];
-var Random = global_data["Random"];
-var String = global_data["String_"];
+var Sys = require("Sys.js");
+var Not_found = require("Not_found.js");
+var Pervasives = require("Pervasives.js");
+var Array = require("Array_.js");
+var Assert_failure = require("Assert_failure.js");
+var CamlinternalLazy = require("CamlinternalLazy.js");
+var Random = require("Random.js");
+var String = require("String_.js");
 var d_ = [0,0];
 var c_ = [0,string("hashtbl.ml"),108,23];
 
@@ -907,8 +899,81 @@ var Hashtbl = [
   function(j_, i_, h_, g_) {return caml_hash(j_, i_, h_, g_);}
 ];
 
-runtime["caml_register_global"](13, Hashtbl, "Hashtbl");
+exports = Hashtbl;
 
+/*::type Exports = {
+  hash_param: (n1: any, n2: any, x: any) => any,
+  seeded_hash: (seed: any, x: any) => any,
+  hash: (x: any) => any,
+  MakeSeeded: (H: any) => any,
+  Make: (H: any) => any,
+  stats: (h: any) => any,
+  is_randomized: (param: any) => any,
+  randomize: (param: any) => any,
+  length: (h: any) => any,
+  fold: (f: any, h: any, init: any) => any,
+  filter_map_inplace: (f: any, h: any) => any,
+  iter: (f: any, h: any) => any,
+  replace: (h: any, key: any, data: any) => any,
+  remove: (h: any, key: any) => any,
+  mem: (h: any, key: any) => any,
+  find_all: (h: any, key: any) => any,
+  find_opt: (h: any, key: any) => any,
+  find: (h: any, key: any) => any,
+  add: (h: any, key: any, data: any) => any,
+  copy: (h: any) => any,
+  reset: (h: any) => any,
+  clear: (h: any) => any,
+  create: (opt: any, initial_size: any) => any,
+}*/
+/** @type {{
+  hash_param: (any, any, any) => any,
+  seeded_hash: (any, any) => any,
+  hash: (any) => any,
+  MakeSeeded: (any) => any,
+  Make: (any) => any,
+  stats: (any) => any,
+  is_randomized: (any) => any,
+  randomize: (any) => any,
+  length: (any) => any,
+  fold: (any, any, any) => any,
+  filter_map_inplace: (any, any) => any,
+  iter: (any, any) => any,
+  replace: (any, any, any) => any,
+  remove: (any, any) => any,
+  mem: (any, any) => any,
+  find_all: (any, any) => any,
+  find_opt: (any, any) => any,
+  find: (any, any) => any,
+  add: (any, any, any) => any,
+  copy: (any) => any,
+  reset: (any) => any,
+  clear: (any) => any,
+  create: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.hash_param = module.exports[23];
+module.exports.seeded_hash = module.exports[22];
+module.exports.hash = module.exports[21];
+module.exports.MakeSeeded = module.exports[20];
+module.exports.Make = module.exports[19];
+module.exports.stats = module.exports[18];
+module.exports.is_randomized = module.exports[17];
+module.exports.randomize = module.exports[16];
+module.exports.length = module.exports[15];
+module.exports.fold = module.exports[14];
+module.exports.filter_map_inplace = module.exports[13];
+module.exports.iter = module.exports[12];
+module.exports.replace = module.exports[11];
+module.exports.remove = module.exports[10];
+module.exports.mem = module.exports[9];
+module.exports.find_all = module.exports[8];
+module.exports.find_opt = module.exports[7];
+module.exports.find = module.exports[6];
+module.exports.add = module.exports[5];
+module.exports.copy = module.exports[4];
+module.exports.reset = module.exports[3];
+module.exports.clear = module.exports[2];
+module.exports.create = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Hashtbl;
 /* Hashing disabled */

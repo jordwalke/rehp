@@ -1,23 +1,14 @@
 /**
+ * @flow strict
  * Printexc
- * @providesModule Printexc
  */
+
+// @ts-check
+
+
 "use strict";
-var Buffer = require('Buffer.js');
-var Obj = require('Obj.js');
-var Pervasives = require('Pervasives.js');
-var Printf = require('Printf.js');
-var Match_failure = require('Match_failure.js');
-var Out_of_memory = require('Out_of_memory.js');
-var Failure = require('Failure.js');
-var Stack_overflow = require('Stack_overflow.js');
-var Assert_failure = require('Assert_failure.js');
-var Undefined_recursive_module = require('Undefined_recursive_module.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -54,7 +45,6 @@ function call7(f, a0, a1, a2, a3, a4, a5, a6) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5,a6]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst__0 = string("");
 var cst_Program_not_linked_with_g_cannot_print_stack_backtrace = string(
   "(Program not linked with -g, cannot print stack backtrace)\n"
@@ -103,15 +93,15 @@ var locfmt = [
   ],
   string('File "%s", line %d, characters %d-%d: %s')
 ];
-var Printf = global_data["Printf"];
-var Pervasives = global_data["Pervasives"];
-var Out_of_memory = global_data["Out_of_memory"];
-var Buffer = global_data["Buffer"];
-var Stack_overflow = global_data["Stack_overflow"];
-var Match_failure = global_data["Match_failure"];
-var Assert_failure = global_data["Assert_failure"];
-var Undefined_recursive_module = global_data["Undefined_recursive_module"];
-var Obj = global_data["Obj"];
+var Printf = require("Printf.js");
+var Pervasives = require("Pervasives.js");
+var Out_of_memory = require("Out_of_memory.js");
+var Buffer = require("Buffer.js");
+var Stack_overflow = require("Stack_overflow.js");
+var Match_failure = require("Match_failure.js");
+var Assert_failure = require("Assert_failure.js");
+var Undefined_recursive_module = require("Undefined_recursive_module.js");
+var Obj = require("Obj.js");
 var c_ = [0,[11,string(", "),[2,0,[2,0,0]]],string(", %s%s")];
 var l_ = [0,[2,0,[12,10,0]],string("%s\n")];
 var j_ = [0,[2,0,[12,10,0]],string("%s\n")];
@@ -476,8 +466,48 @@ var Printexc = [
   exn_slot_name
 ];
 
-runtime["caml_register_global"](45, Printexc, "Printexc");
+exports = Printexc;
 
+/*::type Exports = {
+  exn_slot_name: (x: any) => any,
+  exn_slot_id: (x: any) => any,
+  backtrace_slots: (raw_backtrace: any) => any,
+  set_uncaught_exception_handler: (fn: any) => any,
+  raw_backtrace_to_string: (raw_backtrace: any) => any,
+  print_raw_backtrace: (outchan: any, raw_backtrace: any) => any,
+  register_printer: (fn: any) => any,
+  get_backtrace: (param: any) => any,
+  print_backtrace: (outchan: any) => any,
+  catch: (fct: any, arg: any) => any,
+  print: (fct: any, arg: any) => any,
+  to_string: (x: any) => any,
+}*/
+/** @type {{
+  exn_slot_name: (any) => any,
+  exn_slot_id: (any) => any,
+  backtrace_slots: (any) => any,
+  set_uncaught_exception_handler: (any) => any,
+  raw_backtrace_to_string: (any) => any,
+  print_raw_backtrace: (any, any) => any,
+  register_printer: (any) => any,
+  get_backtrace: (any) => any,
+  print_backtrace: (any) => any,
+  catch: (any, any) => any,
+  print: (any, any) => any,
+  to_string: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.exn_slot_name = module.exports[21];
+module.exports.exn_slot_id = module.exports[20];
+module.exports.backtrace_slots = module.exports[14];
+module.exports.set_uncaught_exception_handler = module.exports[13];
+module.exports.raw_backtrace_to_string = module.exports[11];
+module.exports.print_raw_backtrace = module.exports[10];
+module.exports.register_printer = module.exports[8];
+module.exports.get_backtrace = module.exports[5];
+module.exports.print_backtrace = module.exports[4];
+module.exports.catch = module.exports[3];
+module.exports.print = module.exports[2];
+module.exports.to_string = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Printexc;
 /* Hashing disabled */

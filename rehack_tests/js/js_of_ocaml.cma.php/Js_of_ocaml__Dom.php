@@ -1,47 +1,27 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Dom.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Dom {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $List_ = List_::get();
-    $Not_found = Not_found::get();
-    $Assert_failure = Assert_failure::get();
-    Js_of_ocaml__Dom::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Dom;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Assert_failure = $global_data["Assert_failure"];
-    $Not_found = $global_data["Not_found"];
-    $List = $global_data["List_"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Assert_failure =  Assert_failure::get ();
+    $Not_found =  Not_found::get ();
+    $List =  List_::get ();
     $a_ = Vector{0, $string("lib/js_of_ocaml/dom.ml"), 343, 67};
     $list_of_nodeList = function(dynamic $nodeList) use ($Js_of_ocaml_Js,$List,$call1,$caml_get_public_method) {
       $X_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
@@ -391,9 +371,57 @@ final class Js_of_ocaml__Dom {
       $preventDefault
     };
     
-    $runtime["caml_register_global"](35, $Js_of_ocaml_Dom, "Js_of_ocaml__Dom");
+     return ($Js_of_ocaml_Dom);
 
   }
-}
+  public static function preventDefault(dynamic $ev) {
+    return static::get()[17]($ev);
+  }
+  public static function removeEventListener(dynamic $id) {
+    return static::get()[16]($id);
+  }
+  public static function addEventListener(dynamic $e, dynamic $typ, dynamic $h, dynamic $capt) {
+    return static::get()[15]($e, $typ, $h, $capt);
+  }
+  public static function Event() {
+    return static::get()[14]();
+  }
+  public static function eventTarget(dynamic $e) {
+    return static::get()[13]($e);
+  }
+  public static function invoke_handler(dynamic $f, dynamic $this, dynamic $event) {
+    return static::get()[12]($f, $this, $event);
+  }
+  public static function full_handler(dynamic $f) {
+    return static::get()[11]($f);
+  }
+  public static function handler(dynamic $f) {
+    return static::get()[10]($f);
+  }
+  public static function no_handler() {
+    return static::get()[9]();
+  }
+  public static function nodeType(dynamic $e) {
+    return static::get()[7]($e);
+  }
+  public static function list_of_nodeList(dynamic $nodeList) {
+    return static::get()[6]($nodeList);
+  }
+  public static function appendChild(dynamic $p, dynamic $n) {
+    return static::get()[5]($p, $n);
+  }
+  public static function removeChild(dynamic $p, dynamic $n) {
+    return static::get()[4]($p, $n);
+  }
+  public static function replaceChild(dynamic $p, dynamic $n, dynamic $o) {
+    return static::get()[3]($p, $n, $o);
+  }
+  public static function insertBefore(dynamic $p, dynamic $n, dynamic $o) {
+    return static::get()[2]($p, $n, $o);
+  }
+  public static function DocumentPosition() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

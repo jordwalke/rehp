@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Parsing
- * @providesModule Parsing
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Lexing = require('Lexing.js');
-var Obj = require('Obj.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -37,13 +35,12 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_syntax_error = string("syntax error");
 var cst_Parsing_YYexit = string("Parsing.YYexit");
 var cst_Parsing_Parse_error = string("Parsing.Parse_error");
-var Obj = global_data["Obj"];
-var Array = global_data["Array_"];
-var Lexing = global_data["Lexing"];
+var Obj = require("Obj.js");
+var Array = require("Array_.js");
+var Lexing = require("Lexing.js");
 var YYexit = [248,cst_Parsing_YYexit,caml_fresh_oo_id(0)];
 var Parse_error = [248,cst_Parsing_Parse_error,caml_fresh_oo_id(0)];
 var env = [
@@ -257,8 +254,57 @@ var Parsing = [
   parse_error
 ];
 
-runtime["caml_register_global"](7, Parsing, "Parsing");
+exports = Parsing;
 
+/*::type Exports = {
+  parse_error: (param: any) => any,
+  is_current_lookahead: (tok: any) => any,
+  peek_val: (env: any, n: any) => any,
+  yyparse: (tables: any, start: any, lexer: any, lexbuf: any) => any,
+  YYexit: any
+  Parse_error: any
+  clear_parser: (param: any) => any,
+  rhs_end_pos: (n: any) => any,
+  rhs_start_pos: (n: any) => any,
+  symbol_end_pos: (param: any) => any,
+  symbol_start_pos: (param: any) => any,
+  rhs_end: (n: any) => any,
+  rhs_start: (n: any) => any,
+  symbol_end: (param: any) => any,
+  symbol_start: (param: any) => any,
+}*/
+/** @type {{
+  parse_error: (any) => any,
+  is_current_lookahead: (any) => any,
+  peek_val: (any, any) => any,
+  yyparse: (any, any, any, any) => any,
+  YYexit: any,
+  Parse_error: any,
+  clear_parser: (any) => any,
+  rhs_end_pos: (any) => any,
+  rhs_start_pos: (any) => any,
+  symbol_end_pos: (any) => any,
+  symbol_start_pos: (any) => any,
+  rhs_end: (any) => any,
+  rhs_start: (any) => any,
+  symbol_end: (any) => any,
+  symbol_start: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.parse_error = module.exports[16];
+module.exports.is_current_lookahead = module.exports[15];
+module.exports.peek_val = module.exports[14];
+module.exports.yyparse = module.exports[13];
+module.exports.YYexit = module.exports[12];
+module.exports.Parse_error = module.exports[10];
+module.exports.clear_parser = module.exports[9];
+module.exports.rhs_end_pos = module.exports[8];
+module.exports.rhs_start_pos = module.exports[7];
+module.exports.symbol_end_pos = module.exports[6];
+module.exports.symbol_start_pos = module.exports[5];
+module.exports.rhs_end = module.exports[4];
+module.exports.rhs_start = module.exports[3];
+module.exports.symbol_end = module.exports[2];
+module.exports.symbol_start = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Parsing;
 /* Hashing disabled */

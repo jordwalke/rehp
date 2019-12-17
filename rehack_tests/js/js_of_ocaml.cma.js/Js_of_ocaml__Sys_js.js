@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Sys_js
- * @providesModule Js_of_ocaml__Sys_js
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Js_of_ocaml__Lib_version = require('Js_of_ocaml__Lib_version.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_js_wrap_callback = runtime["caml_js_wrap_callback"];
@@ -24,11 +22,10 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst = string("");
 var cst__0 = string("+");
-var Pervasives = global_data["Pervasives"];
-var Js_of_ocaml_Lib_version = global_data["Js_of_ocaml__Lib_version"];
+var Pervasives = require("Pervasives.js");
+var Js_of_ocaml_Lib_version = require("Js_of_ocaml__Lib_version.js");
 
 function update_file(name, content) {
   var oc = call1(Pervasives[48], name);
@@ -86,8 +83,30 @@ var Js_of_ocaml_Sys_js = [
   js_of_ocaml_version
 ];
 
-runtime["caml_register_global"](4, Js_of_ocaml_Sys_js, "Js_of_ocaml__Sys_js");
+exports = Js_of_ocaml_Sys_js;
 
+/*::type Exports = {
+  js_of_ocaml_version: any
+  update_file: (name: any, content: any) => any,
+  mount: (path: any, f: any) => any,
+  unmount: (path: any) => any,
+  set_channel_filler: (in_channel: any, f: any) => any,
+  set_channel_flusher: (out_channel: any, f: any) => any,
+}*/
+/** @type {{
+  js_of_ocaml_version: any,
+  update_file: (any, any) => any,
+  mount: (any, any) => any,
+  unmount: (any) => any,
+  set_channel_filler: (any, any) => any,
+  set_channel_flusher: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.js_of_ocaml_version = module.exports[9];
+module.exports.update_file = module.exports[8];
+module.exports.mount = module.exports[5];
+module.exports.unmount = module.exports[4];
+module.exports.set_channel_filler = module.exports[2];
+module.exports.set_channel_flusher = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Sys_js;
 /* Hashing disabled */

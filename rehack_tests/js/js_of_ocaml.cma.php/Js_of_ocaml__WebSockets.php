@@ -1,37 +1,20 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__WebSockets.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__WebSockets {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__WebSockets::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__WebSockets;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
     $a_ = function(dynamic $x) use ($call1,$runtime) {
       return $call1(
         $runtime["caml_get_public_method"]($x, -492394744, 211),
@@ -52,13 +35,21 @@ final class Js_of_ocaml__WebSockets {
       $is_supported
     };
     
-    $runtime["caml_register_global"](
-      2,
-      $Js_of_ocaml_WebSockets,
-      "Js_of_ocaml__WebSockets"
-    );
+     return ($Js_of_ocaml_WebSockets);
 
   }
-}
+  public static function is_supported(dynamic $param) {
+    return static::get()[4]($param);
+  }
+  public static function webSocket() {
+    return static::get()[3]();
+  }
+  public static function webSocket() {
+    return static::get()[2]();
+  }
+  public static function webSocket() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

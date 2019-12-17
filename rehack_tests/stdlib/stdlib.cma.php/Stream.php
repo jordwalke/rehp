@@ -1,37 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Stream.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Stream {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Bytes = Bytes::get();
-    $CamlinternalLazy = CamlinternalLazy::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $Assert_failure = Assert_failure::get();
-    Stream::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Stream;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $dump_data = new Ref();$get_data = new Ref();$nget_data = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
@@ -44,7 +24,6 @@ final class Stream {
     $caml_obj_tag = $runtime["caml_obj_tag"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $is_int = $runtime["is_int"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_count = $string("{count = ");
     $cst_data = $string("; data = ");
     $cst = $string("}");
@@ -60,10 +39,10 @@ final class Stream {
     $cst_Sbuffio = $string("Sbuffio");
     $cst_Stream_Failure = $string("Stream.Failure");
     $cst_Stream_Error = $string("Stream.Error");
-    $Assert_failure = $global_data["Assert_failure"];
-    $CamlinternalLazy = $global_data["CamlinternalLazy"];
-    $Pervasives = $global_data["Pervasives"];
-    $List = $global_data["List_"];
+    $Assert_failure =  Assert_failure::get ();
+    $CamlinternalLazy =  CamlinternalLazy::get ();
+    $Pervasives =  Pervasives::get ();
+    $List =  List_::get ();
     $a_ = Vector{0, $string("stream.ml"), 53, 12};
     $b_ = Vector{0, 0};
     $c_ = Vector{0, $string("stream.ml"), 82, 12};
@@ -497,9 +476,78 @@ final class Stream {
       $dump
     };
     
-    $runtime["caml_register_global"](22, $Stream, "Stream");
+     return ($Stream);
 
   }
-}
+  public static function dump(dynamic $f, dynamic $s) {
+    return static::get()[23]($f, $s);
+  }
+  public static function slazy(dynamic $f) {
+    return static::get()[22]($f);
+  }
+  public static function sempty() {
+    return static::get()[21]();
+  }
+  public static function lsing(dynamic $f) {
+    return static::get()[20]($f);
+  }
+  public static function lcons(dynamic $f, dynamic $s) {
+    return static::get()[19]($f, $s);
+  }
+  public static function lapp(dynamic $f, dynamic $s) {
+    return static::get()[18]($f, $s);
+  }
+  public static function ising(dynamic $i) {
+    return static::get()[17]($i);
+  }
+  public static function icons(dynamic $i, dynamic $s) {
+    return static::get()[16]($i, $s);
+  }
+  public static function iapp(dynamic $i, dynamic $s) {
+    return static::get()[15]($i, $s);
+  }
+  public static function npeek(dynamic $n, dynamic $param) {
+    return static::get()[14]($n, $param);
+  }
+  public static function count(dynamic $param) {
+    return static::get()[13]($param);
+  }
+  public static function junk(dynamic $param) {
+    return static::get()[12]($param);
+  }
+  public static function peek(dynamic $param) {
+    return static::get()[11]($param);
+  }
+  public static function empty(dynamic $s) {
+    return static::get()[10]($s);
+  }
+  public static function next(dynamic $s) {
+    return static::get()[9]($s);
+  }
+  public static function iter(dynamic $f, dynamic $strm) {
+    return static::get()[8]($f, $strm);
+  }
+  public static function of_channel(dynamic $ic) {
+    return static::get()[7]($ic);
+  }
+  public static function of_bytes(dynamic $s) {
+    return static::get()[6]($s);
+  }
+  public static function of_string(dynamic $s) {
+    return static::get()[5]($s);
+  }
+  public static function of_list(dynamic $l) {
+    return static::get()[4]($l);
+  }
+  public static function from(dynamic $f) {
+    return static::get()[3]($f);
+  }
+  public static function Error() {
+    return static::get()[2]();
+  }
+  public static function Failure() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

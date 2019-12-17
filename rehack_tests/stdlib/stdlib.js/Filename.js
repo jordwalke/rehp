@@ -1,22 +1,14 @@
 /**
+ * @flow strict
  * Filename
- * @providesModule Filename
  */
+
+// @ts-check
+
+
 "use strict";
-var Buffer = require('Buffer.js');
-var CamlinternalLazy = require('CamlinternalLazy.js');
-var Pervasives = require('Pervasives.js');
-var Printf = require('Printf.js');
-var Random = require('Random.js');
-var String_ = require('String_.js');
-var Sys = require('Sys.js');
-var Not_found = require('Not_found.js');
-var Sys_error = require('Sys_error.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_ml_string_length = runtime["caml_ml_string_length"];
@@ -50,7 +42,6 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Filename_chop_extension = string("Filename.chop_extension");
 var cst__10 = string("");
 var cst_Filename_chop_suffix = string("Filename.chop_suffix");
@@ -79,15 +70,15 @@ var parent_dir_name__1 = string("..");
 var dir_sep__1 = string("/");
 var cst_Cygwin = string("Cygwin");
 var cst_Win32 = string("Win32");
-var Pervasives = global_data["Pervasives"];
-var Sys_error = global_data["Sys_error"];
-var CamlinternalLazy = global_data["CamlinternalLazy"];
-var Random = global_data["Random"];
-var Printf = global_data["Printf"];
-var String = global_data["String_"];
-var Buffer = global_data["Buffer"];
-var Not_found = global_data["Not_found"];
-var Sys = global_data["Sys"];
+var Pervasives = require("Pervasives.js");
+var Sys_error = require("Sys_error.js");
+var CamlinternalLazy = require("CamlinternalLazy.js");
+var Random = require("Random.js");
+var Printf = require("Printf.js");
+var String = require("String_.js");
+var Buffer = require("Buffer.js");
+var Not_found = require("Not_found.js");
+var Sys = require("Sys.js");
 var e_ = [0,7,0];
 var d_ = [0,1,[0,3,[0,5,0]]];
 var c_ = [0,[2,0,[4,6,[0,2,6],0,[2,0,0]]],string("%s%06x%s")];
@@ -719,8 +710,69 @@ var Filename = [
   quote__1
 ];
 
-runtime["caml_register_global"](40, Filename, "Filename");
+exports = Filename;
 
+/*::type Exports = {
+  quote: any
+  temp_dir_name: any
+  set_temp_dir_name: (s: any) => any,
+  get_temp_dir_name: (param: any) => any,
+  open_temp_file: (opt: any, unnamed1: any, unnamed2: any, prefix: any, suffix: any) => any,
+  temp_file: (opt: any, prefix: any, suffix: any) => any,
+  dirname: any
+  basename: any
+  chop_extension: (name: any) => any,
+  remove_extension: (name: any) => any,
+  extension: (name: any) => any,
+  chop_suffix: (name: any, suff: any) => any,
+  check_suffix: any
+  is_implicit: any
+  is_relative: any
+  concat: (dirname: any, filename: any) => any,
+  dir_sep: any
+  parent_dir_name: any
+  current_dir_name: any
+}*/
+/** @type {{
+  quote: any,
+  temp_dir_name: any,
+  set_temp_dir_name: (any) => any,
+  get_temp_dir_name: (any) => any,
+  open_temp_file: (any, any, any, any, any) => any,
+  temp_file: (any, any, any) => any,
+  dirname: any,
+  basename: any,
+  chop_extension: (any) => any,
+  remove_extension: (any) => any,
+  extension: (any) => any,
+  chop_suffix: (any, any) => any,
+  check_suffix: any,
+  is_implicit: any,
+  is_relative: any,
+  concat: (any, any) => any,
+  dir_sep: any,
+  parent_dir_name: any,
+  current_dir_name: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.quote = module.exports[19];
+module.exports.temp_dir_name = module.exports[18];
+module.exports.set_temp_dir_name = module.exports[17];
+module.exports.get_temp_dir_name = module.exports[16];
+module.exports.open_temp_file = module.exports[15];
+module.exports.temp_file = module.exports[14];
+module.exports.dirname = module.exports[13];
+module.exports.basename = module.exports[12];
+module.exports.chop_extension = module.exports[11];
+module.exports.remove_extension = module.exports[10];
+module.exports.extension = module.exports[9];
+module.exports.chop_suffix = module.exports[8];
+module.exports.check_suffix = module.exports[7];
+module.exports.is_implicit = module.exports[6];
+module.exports.is_relative = module.exports[5];
+module.exports.concat = module.exports[4];
+module.exports.dir_sep = module.exports[3];
+module.exports.parent_dir_name = module.exports[2];
+module.exports.current_dir_name = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Filename;
 /* Hashing disabled */

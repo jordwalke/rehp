@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Geolocation
- * @providesModule Js_of_ocaml__Geolocation
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -17,8 +17,7 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
 
 function empty_position_options(param) {return {};}
 
@@ -46,12 +45,21 @@ var Js_of_ocaml_Geolocation = [
   is_supported
 ];
 
-runtime["caml_register_global"](
-  3,
-  Js_of_ocaml_Geolocation,
-  "Js_of_ocaml__Geolocation"
-);
+exports = Js_of_ocaml_Geolocation;
 
+/*::type Exports = {
+  is_supported: (param: any) => any,
+  geolocation: any
+  empty_position_options: (param: any) => any,
+}*/
+/** @type {{
+  is_supported: (any) => any,
+  geolocation: any,
+  empty_position_options: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.is_supported = module.exports[3];
+module.exports.geolocation = module.exports[2];
+module.exports.empty_position_options = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Geolocation;
 /* Hashing disabled */

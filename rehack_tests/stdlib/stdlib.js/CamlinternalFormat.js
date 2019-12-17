@@ -1,23 +1,14 @@
 /**
+ * @flow strict
  * CamlinternalFormat
- * @providesModule CamlinternalFormat
  */
+
+// @ts-check
+
+
 "use strict";
-var Buffer = require('Buffer.js');
-var Bytes = require('Bytes.js');
-var CamlinternalFormatBasics = require('CamlinternalFormatBasics.js');
-var Char = require('Char.js');
-var Pervasives = require('Pervasives.js');
-var String_ = require('String_.js');
-var Sys = require('Sys.js');
-var Failure = require('Failure.js');
-var Not_found = require('Not_found.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_blit_string = runtime["caml_blit_string"];
@@ -61,7 +52,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_c = string("%c");
 var cst_s = string("%s");
 var cst_i = string("%i");
@@ -202,16 +192,16 @@ var cst = string(".*");
 var cst_CamlinternalFormat_Type_mismatch = string(
   "CamlinternalFormat.Type_mismatch"
 );
-var Assert_failure = global_data["Assert_failure"];
-var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
-var Pervasives = global_data["Pervasives"];
-var Buffer = global_data["Buffer"];
-var Failure = global_data["Failure"];
-var Not_found = global_data["Not_found"];
-var String = global_data["String_"];
-var Sys = global_data["Sys"];
-var Char = global_data["Char"];
-var Bytes = global_data["Bytes"];
+var Assert_failure = require("Assert_failure.js");
+var CamlinternalFormatBasics = require("CamlinternalFormatBasics.js");
+var Pervasives = require("Pervasives.js");
+var Buffer = require("Buffer.js");
+var Failure = require("Failure.js");
+var Not_found = require("Not_found.js");
+var String = require("String_.js");
+var Sys = require("Sys.js");
+var Char = require("Char.js");
+var Bytes = require("Bytes.js");
 var a_ = [0,string("camlinternalFormat.ml"),846,23];
 var l_ = [0,string("camlinternalFormat.ml"),810,21];
 var d_ = [0,string("camlinternalFormat.ml"),811,21];
@@ -6291,8 +6281,84 @@ var CamlinternalFormat = [
   recast
 ];
 
-runtime["caml_register_global"](198, CamlinternalFormat, "CamlinternalFormat");
+exports = CamlinternalFormat;
 
+/*::type Exports = {
+  recast: (fmt: any, fmtty: any) => any,
+  trans: (ty1: any, ty2: any) => any,
+  symm: (param: any) => any,
+  open_box_of_string: (str: any) => any,
+  string_of_fmt: (fmt: any) => any,
+  string_of_fmtty: (fmtty: any) => any,
+  string_of_formatting_gen: (formatting_gen: any) => any,
+  string_of_formatting_lit: (formatting_lit: any) => any,
+  char_of_iconv: (iconv: any) => any,
+  format_of_string_format: (str: any, param: any) => any,
+  format_of_string_fmtty: (str: any, fmtty: any) => any,
+  fmt_ebb_of_string: (legacy_behavior: any, str: any) => any,
+  type_format: (fmt: any, fmtty: any) => any,
+  strput_acc: (b: any, acc: any) => any,
+  bufput_acc: (b: any, acc: any) => any,
+  output_acc: (o: any, acc: any) => any,
+  make_iprintf: (k: any, o: any, fmt: any) => any,
+  make_printf: (k: any, o: any, acc: any, fmt: any) => any,
+  param_format_of_ignored_format: (ign: any, fmt: any) => any,
+  freeze_char_set: (char_set: any) => any,
+  add_in_char_set: (char_set: any, c: any) => any,
+  create_char_set: (param: any) => any,
+  rev_char_set: (char_set: any) => any,
+  is_in_char_set: (char_set: any, c: any) => any,
+}*/
+/** @type {{
+  recast: (any, any) => any,
+  trans: (any, any) => any,
+  symm: (any) => any,
+  open_box_of_string: (any) => any,
+  string_of_fmt: (any) => any,
+  string_of_fmtty: (any) => any,
+  string_of_formatting_gen: (any) => any,
+  string_of_formatting_lit: (any) => any,
+  char_of_iconv: (any) => any,
+  format_of_string_format: (any, any) => any,
+  format_of_string_fmtty: (any, any) => any,
+  fmt_ebb_of_string: (any, any) => any,
+  type_format: (any, any) => any,
+  strput_acc: (any, any) => any,
+  bufput_acc: (any, any) => any,
+  output_acc: (any, any) => any,
+  make_iprintf: (any, any, any) => any,
+  make_printf: (any, any, any, any) => any,
+  param_format_of_ignored_format: (any, any) => any,
+  freeze_char_set: (any) => any,
+  add_in_char_set: (any, any) => any,
+  create_char_set: (any) => any,
+  rev_char_set: (any) => any,
+  is_in_char_set: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.recast = module.exports[24];
+module.exports.trans = module.exports[23];
+module.exports.symm = module.exports[22];
+module.exports.open_box_of_string = module.exports[21];
+module.exports.string_of_fmt = module.exports[20];
+module.exports.string_of_fmtty = module.exports[19];
+module.exports.string_of_formatting_gen = module.exports[18];
+module.exports.string_of_formatting_lit = module.exports[17];
+module.exports.char_of_iconv = module.exports[16];
+module.exports.format_of_string_format = module.exports[15];
+module.exports.format_of_string_fmtty = module.exports[14];
+module.exports.fmt_ebb_of_string = module.exports[13];
+module.exports.type_format = module.exports[12];
+module.exports.strput_acc = module.exports[11];
+module.exports.bufput_acc = module.exports[10];
+module.exports.output_acc = module.exports[9];
+module.exports.make_iprintf = module.exports[8];
+module.exports.make_printf = module.exports[7];
+module.exports.param_format_of_ignored_format = module.exports[6];
+module.exports.freeze_char_set = module.exports[5];
+module.exports.add_in_char_set = module.exports[4];
+module.exports.create_char_set = module.exports[3];
+module.exports.rev_char_set = module.exports[2];
+module.exports.is_in_char_set = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalFormat;
 /* Hashing disabled */

@@ -1,21 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Dom_html
- * @providesModule Js_of_ocaml__Dom_html
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Dom = require('Js_of_ocaml__Dom.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var Printf = require('Printf.js');
-var Uchar = require('Uchar.js');
-var Not_found = require('Not_found.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -48,7 +41,6 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_a__1 = string("a");
 var cst_area__1 = string("area");
 var cst_audio__1 = string("audio");
@@ -453,14 +445,14 @@ var cst_waiting = string("waiting");
 var cst_Js_of_ocaml_Dom_html_Canvas_not_available = string(
   "Js_of_ocaml__Dom_html.Canvas_not_available"
 );
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var List = global_data["List_"];
-var Not_found = global_data["Not_found"];
-var Uchar = global_data["Uchar"];
-var Assert_failure = global_data["Assert_failure"];
-var Printf = global_data["Printf"];
-var Pervasives = global_data["Pervasives"];
-var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var List = require("List_.js");
+var Not_found = require("Not_found.js");
+var Uchar = require("Uchar.js");
+var Assert_failure = require("Assert_failure.js");
+var Printf = require("Printf.js");
+var Pervasives = require("Pervasives.js");
+var Js_of_ocaml_Dom = require("Js_of_ocaml__Dom.js");
 var g_ = [0,string("lib/js_of_ocaml/dom_html.ml"),2704,58];
 var f_ = [0,string("lib/js_of_ocaml/dom_html.ml"),2703,61];
 var b_ = [
@@ -2654,12 +2646,369 @@ var Js_of_ocaml_Dom_html = [
   hasRequired
 ];
 
-runtime["caml_register_global"](
-  542,
-  Js_of_ocaml_Dom_html,
-  "Js_of_ocaml__Dom_html"
-);
+exports = Js_of_ocaml_Dom_html;
 
+/*::type Exports = {
+  hasRequired: (param: any) => any,
+  hasPlaceholder: (param: any) => any,
+  hasPushState: (param: any) => any,
+  onIE: any
+  requestAnimationFrame: any
+  js_array_of_collection: (c: any) => any,
+  clearTimeout: (id: any) => any,
+  setTimeout: (callback: any, d: any) => any,
+  stopPropagation: (ev: any) => any,
+  opt_taggedEvent: (ev: any) => any,
+  taggedEvent: (ev: any) => any,
+  opt_tagged: (e: any) => any,
+  tagged: (e: any) => any,
+  element: (unnamed1: any) => any,
+  createCanvas: (doc: any) => any,
+  Canvas_not_available: any
+  createVideo: (doc: any) => any,
+  createAudio: (doc: any) => any,
+  createIframe: (doc: any) => any,
+  createFrame: (doc: any) => any,
+  createFrameset: (doc: any) => any,
+  createAddress: (doc: any) => any,
+  createNoscript: (doc: any) => any,
+  createDt: (doc: any) => any,
+  createDd: (doc: any) => any,
+  createAbbr: (doc: any) => any,
+  createVar: (doc: any) => any,
+  createKbd: (doc: any) => any,
+  createSamp: (doc: any) => any,
+  createCode: (doc: any) => any,
+  createDfn: (doc: any) => any,
+  createCite: (doc: any) => any,
+  createStrong: (doc: any) => any,
+  createEm: (doc: any) => any,
+  createSmall: (doc: any) => any,
+  createBig: (doc: any) => any,
+  createB: (doc: any) => any,
+  createI: (doc: any) => any,
+  createTt: (doc: any) => any,
+  createSpan: (doc: any) => any,
+  createSup: (doc: any) => any,
+  createSub: (doc: any) => any,
+  createTd: (doc: any) => any,
+  createTh: (doc: any) => any,
+  createTr: (doc: any) => any,
+  createTbody: (doc: any) => any,
+  createTfoot: (doc: any) => any,
+  createThead: (doc: any) => any,
+  createColgroup: (doc: any) => any,
+  createCol: (doc: any) => any,
+  createCaption: (doc: any) => any,
+  createTable: (doc: any) => any,
+  createScript: (doc: any) => any,
+  createArea: (doc: any) => any,
+  createMap: (doc: any) => any,
+  createParam: (doc: any) => any,
+  createObject: (doc: any) => any,
+  createImg: (doc: any) => any,
+  createA: (doc: any) => any,
+  createDel: (doc: any) => any,
+  createIns: (doc: any) => any,
+  createHr: (doc: any) => any,
+  createBr: (doc: any) => any,
+  createPre: (doc: any) => any,
+  createBlockquote: (doc: any) => any,
+  createQ: (doc: any) => any,
+  createH6: (doc: any) => any,
+  createH5: (doc: any) => any,
+  createH4: (doc: any) => any,
+  createH3: (doc: any) => any,
+  createH2: (doc: any) => any,
+  createH1: (doc: any) => any,
+  createP: (doc: any) => any,
+  createEmbed: (doc: any) => any,
+  createDiv: (doc: any) => any,
+  createLi: (doc: any) => any,
+  createDl: (doc: any) => any,
+  createOl: (doc: any) => any,
+  createUl: (doc: any) => any,
+  createLegend: (doc: any) => any,
+  createFieldset: (doc: any) => any,
+  createLabel: (doc: any) => any,
+  createButton: (type: any, name: any, doc: any) => any,
+  createTextarea: (type: any, name: any, doc: any) => any,
+  createInput: (type: any, name: any, doc: any) => any,
+  createSelect: (type: any, name: any, doc: any) => any,
+  createOption: (doc: any) => any,
+  createOptgroup: (doc: any) => any,
+  createForm: (doc: any) => any,
+  createBody: (doc: any) => any,
+  createStyle: (doc: any) => any,
+  createBase: (doc: any) => any,
+  createMeta: (doc: any) => any,
+  createTitle: (doc: any) => any,
+  createLink: (doc: any) => any,
+  createHead: (doc: any) => any,
+  createHtml: (doc: any) => any,
+  getDocumentScroll: (param: any) => any,
+  elementClientPosition: (e: any) => any,
+  eventAbsolutePosition: (e: any) => any,
+  buttonPressed: (ev: any) => any,
+  addMousewheelEventListener: (e: any, h: any, capt: any) => any,
+  removeEventListener: any
+  addEventListener: any
+  Event: any
+  eventRelatedTarget: (e: any) => any,
+  eventTarget: any
+  invoke_handler: any
+  full_handler: any
+  handler: any
+  no_handler: any
+  window: any
+  location_origin: (loc: any) => any,
+  getElementById: (id: any) => any,
+  getElementById_coerce: (id: any, coerce: any) => any,
+  getElementById_exn: (id: any) => any,
+  getElementById_opt: (id: any) => any,
+  document: any
+  d: any
+}*/
+/** @type {{
+  hasRequired: (any) => any,
+  hasPlaceholder: (any) => any,
+  hasPushState: (any) => any,
+  onIE: any,
+  requestAnimationFrame: any,
+  js_array_of_collection: (any) => any,
+  clearTimeout: (any) => any,
+  setTimeout: (any, any) => any,
+  stopPropagation: (any) => any,
+  opt_taggedEvent: (any) => any,
+  taggedEvent: (any) => any,
+  opt_tagged: (any) => any,
+  tagged: (any) => any,
+  element: (any) => any,
+  createCanvas: (any) => any,
+  Canvas_not_available: any,
+  createVideo: (any) => any,
+  createAudio: (any) => any,
+  createIframe: (any) => any,
+  createFrame: (any) => any,
+  createFrameset: (any) => any,
+  createAddress: (any) => any,
+  createNoscript: (any) => any,
+  createDt: (any) => any,
+  createDd: (any) => any,
+  createAbbr: (any) => any,
+  createVar: (any) => any,
+  createKbd: (any) => any,
+  createSamp: (any) => any,
+  createCode: (any) => any,
+  createDfn: (any) => any,
+  createCite: (any) => any,
+  createStrong: (any) => any,
+  createEm: (any) => any,
+  createSmall: (any) => any,
+  createBig: (any) => any,
+  createB: (any) => any,
+  createI: (any) => any,
+  createTt: (any) => any,
+  createSpan: (any) => any,
+  createSup: (any) => any,
+  createSub: (any) => any,
+  createTd: (any) => any,
+  createTh: (any) => any,
+  createTr: (any) => any,
+  createTbody: (any) => any,
+  createTfoot: (any) => any,
+  createThead: (any) => any,
+  createColgroup: (any) => any,
+  createCol: (any) => any,
+  createCaption: (any) => any,
+  createTable: (any) => any,
+  createScript: (any) => any,
+  createArea: (any) => any,
+  createMap: (any) => any,
+  createParam: (any) => any,
+  createObject: (any) => any,
+  createImg: (any) => any,
+  createA: (any) => any,
+  createDel: (any) => any,
+  createIns: (any) => any,
+  createHr: (any) => any,
+  createBr: (any) => any,
+  createPre: (any) => any,
+  createBlockquote: (any) => any,
+  createQ: (any) => any,
+  createH6: (any) => any,
+  createH5: (any) => any,
+  createH4: (any) => any,
+  createH3: (any) => any,
+  createH2: (any) => any,
+  createH1: (any) => any,
+  createP: (any) => any,
+  createEmbed: (any) => any,
+  createDiv: (any) => any,
+  createLi: (any) => any,
+  createDl: (any) => any,
+  createOl: (any) => any,
+  createUl: (any) => any,
+  createLegend: (any) => any,
+  createFieldset: (any) => any,
+  createLabel: (any) => any,
+  createButton: (any, any, any) => any,
+  createTextarea: (any, any, any) => any,
+  createInput: (any, any, any) => any,
+  createSelect: (any, any, any) => any,
+  createOption: (any) => any,
+  createOptgroup: (any) => any,
+  createForm: (any) => any,
+  createBody: (any) => any,
+  createStyle: (any) => any,
+  createBase: (any) => any,
+  createMeta: (any) => any,
+  createTitle: (any) => any,
+  createLink: (any) => any,
+  createHead: (any) => any,
+  createHtml: (any) => any,
+  getDocumentScroll: (any) => any,
+  elementClientPosition: (any) => any,
+  eventAbsolutePosition: (any) => any,
+  buttonPressed: (any) => any,
+  addMousewheelEventListener: (any, any, any) => any,
+  removeEventListener: any,
+  addEventListener: any,
+  Event: any,
+  eventRelatedTarget: (any) => any,
+  eventTarget: any,
+  invoke_handler: any,
+  full_handler: any,
+  handler: any,
+  no_handler: any,
+  window: any,
+  location_origin: (any) => any,
+  getElementById: (any) => any,
+  getElementById_coerce: (any, any) => any,
+  getElementById_exn: (any) => any,
+  getElementById_opt: (any) => any,
+  document: any,
+  d: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.hasRequired = module.exports[123];
+module.exports.hasPlaceholder = module.exports[122];
+module.exports.hasPushState = module.exports[121];
+module.exports.onIE = module.exports[120];
+module.exports.requestAnimationFrame = module.exports[118];
+module.exports.js_array_of_collection = module.exports[117];
+module.exports.clearTimeout = module.exports[116];
+module.exports.setTimeout = module.exports[115];
+module.exports.stopPropagation = module.exports[113];
+module.exports.opt_taggedEvent = module.exports[112];
+module.exports.taggedEvent = module.exports[111];
+module.exports.opt_tagged = module.exports[110];
+module.exports.tagged = module.exports[109];
+module.exports.element = module.exports[108];
+module.exports.createCanvas = module.exports[107];
+module.exports.Canvas_not_available = module.exports[106];
+module.exports.createVideo = module.exports[105];
+module.exports.createAudio = module.exports[104];
+module.exports.createIframe = module.exports[103];
+module.exports.createFrame = module.exports[102];
+module.exports.createFrameset = module.exports[101];
+module.exports.createAddress = module.exports[100];
+module.exports.createNoscript = module.exports[99];
+module.exports.createDt = module.exports[98];
+module.exports.createDd = module.exports[97];
+module.exports.createAbbr = module.exports[96];
+module.exports.createVar = module.exports[95];
+module.exports.createKbd = module.exports[94];
+module.exports.createSamp = module.exports[93];
+module.exports.createCode = module.exports[92];
+module.exports.createDfn = module.exports[91];
+module.exports.createCite = module.exports[90];
+module.exports.createStrong = module.exports[89];
+module.exports.createEm = module.exports[88];
+module.exports.createSmall = module.exports[87];
+module.exports.createBig = module.exports[86];
+module.exports.createB = module.exports[85];
+module.exports.createI = module.exports[84];
+module.exports.createTt = module.exports[83];
+module.exports.createSpan = module.exports[82];
+module.exports.createSup = module.exports[81];
+module.exports.createSub = module.exports[80];
+module.exports.createTd = module.exports[79];
+module.exports.createTh = module.exports[78];
+module.exports.createTr = module.exports[77];
+module.exports.createTbody = module.exports[76];
+module.exports.createTfoot = module.exports[75];
+module.exports.createThead = module.exports[74];
+module.exports.createColgroup = module.exports[73];
+module.exports.createCol = module.exports[72];
+module.exports.createCaption = module.exports[71];
+module.exports.createTable = module.exports[70];
+module.exports.createScript = module.exports[69];
+module.exports.createArea = module.exports[68];
+module.exports.createMap = module.exports[67];
+module.exports.createParam = module.exports[66];
+module.exports.createObject = module.exports[65];
+module.exports.createImg = module.exports[64];
+module.exports.createA = module.exports[63];
+module.exports.createDel = module.exports[62];
+module.exports.createIns = module.exports[61];
+module.exports.createHr = module.exports[60];
+module.exports.createBr = module.exports[59];
+module.exports.createPre = module.exports[58];
+module.exports.createBlockquote = module.exports[57];
+module.exports.createQ = module.exports[56];
+module.exports.createH6 = module.exports[55];
+module.exports.createH5 = module.exports[54];
+module.exports.createH4 = module.exports[53];
+module.exports.createH3 = module.exports[52];
+module.exports.createH2 = module.exports[51];
+module.exports.createH1 = module.exports[50];
+module.exports.createP = module.exports[49];
+module.exports.createEmbed = module.exports[48];
+module.exports.createDiv = module.exports[47];
+module.exports.createLi = module.exports[46];
+module.exports.createDl = module.exports[45];
+module.exports.createOl = module.exports[44];
+module.exports.createUl = module.exports[43];
+module.exports.createLegend = module.exports[42];
+module.exports.createFieldset = module.exports[41];
+module.exports.createLabel = module.exports[40];
+module.exports.createButton = module.exports[39];
+module.exports.createTextarea = module.exports[38];
+module.exports.createInput = module.exports[37];
+module.exports.createSelect = module.exports[36];
+module.exports.createOption = module.exports[35];
+module.exports.createOptgroup = module.exports[34];
+module.exports.createForm = module.exports[33];
+module.exports.createBody = module.exports[32];
+module.exports.createStyle = module.exports[31];
+module.exports.createBase = module.exports[30];
+module.exports.createMeta = module.exports[29];
+module.exports.createTitle = module.exports[28];
+module.exports.createLink = module.exports[27];
+module.exports.createHead = module.exports[26];
+module.exports.createHtml = module.exports[25];
+module.exports.getDocumentScroll = module.exports[22];
+module.exports.elementClientPosition = module.exports[21];
+module.exports.eventAbsolutePosition = module.exports[20];
+module.exports.buttonPressed = module.exports[19];
+module.exports.addMousewheelEventListener = module.exports[18];
+module.exports.removeEventListener = module.exports[17];
+module.exports.addEventListener = module.exports[16];
+module.exports.Event = module.exports[15];
+module.exports.eventRelatedTarget = module.exports[14];
+module.exports.eventTarget = module.exports[13];
+module.exports.invoke_handler = module.exports[12];
+module.exports.full_handler = module.exports[11];
+module.exports.handler = module.exports[10];
+module.exports.no_handler = module.exports[9];
+module.exports.window = module.exports[8];
+module.exports.location_origin = module.exports[7];
+module.exports.getElementById = module.exports[6];
+module.exports.getElementById_coerce = module.exports[5];
+module.exports.getElementById_exn = module.exports[4];
+module.exports.getElementById_opt = module.exports[3];
+module.exports.document = module.exports[2];
+module.exports.d = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Dom_html;
 /* Hashing disabled */

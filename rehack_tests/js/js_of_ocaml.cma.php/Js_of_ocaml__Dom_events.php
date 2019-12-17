@@ -1,40 +1,22 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Dom_events.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Dom_events {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Dom_html = Js_of_ocaml__Dom_html::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__Dom_events::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Dom_events;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call4 = $runtime["caml_call4"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
     $listen = function
     (dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb) use ($Js_of_ocaml_Dom_html,$call1,$call2,$call4) {
       if ($opt) {
@@ -57,13 +39,15 @@ final class Js_of_ocaml__Dom_events {
       $stop_listen
     };
     
-    $runtime["caml_register_global"](
-      1,
-      $Js_of_ocaml_Dom_events,
-      "Js_of_ocaml__Dom_events"
-    );
+     return ($Js_of_ocaml_Dom_events);
 
   }
-}
+  public static function stop_listen() {
+    return static::get()[3]();
+  }
+  public static function listen(dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb) {
+    return static::get()[2]($opt, $target, $typ, $cb);
+  }
 
+}
 /* Hashing disabled */

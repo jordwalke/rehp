@@ -1,19 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__File
- * @providesModule Js_of_ocaml__File
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Js_of_ocaml__Dom = require('Js_of_ocaml__Dom.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Js_of_ocaml__Typed_array = require('Js_of_ocaml__Typed_array.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -27,7 +22,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_can_t_retrieve_file_name_not_implemented = string__0(
   "can't retrieve file name: not implemented"
 );
@@ -39,12 +33,12 @@ var cst_abort = string__0("abort");
 var cst_error = string__0("error");
 var cst_load = string__0("load");
 var cst_loadend = string__0("loadend");
-var Js_of_ocaml_Typed_array = global_data["Js_of_ocaml__Typed_array"];
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Pervasives = global_data["Pervasives"];
-var List = global_data["List_"];
-var Array = global_data["Array_"];
-var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
+var Js_of_ocaml_Typed_array = require("Js_of_ocaml__Typed_array.js");
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Pervasives = require("Pervasives.js");
+var List = require("List_.js");
+var Array = require("Array_.js");
+var Js_of_ocaml_Dom = require("Js_of_ocaml__Dom.js");
 var c_ = [0,string__0("transparent")];
 var d_ = [0,string__0("native")];
 
@@ -184,8 +178,30 @@ var Js_of_ocaml_File = [
   addEventListener
 ];
 
-runtime["caml_register_global"](23, Js_of_ocaml_File, "Js_of_ocaml__File");
+exports = Js_of_ocaml_File;
 
+/*::type Exports = {
+  addEventListener: any
+  fileReader: any
+  filename: (file: any) => any,
+  ReaderEvent: any
+  blob_from_any: (contentType: any, endings: any, l: any) => any,
+  blob_from_string: (contentType: any, endings: any, s: any) => any,
+}*/
+/** @type {{
+  addEventListener: any,
+  fileReader: any,
+  filename: (any) => any,
+  ReaderEvent: any,
+  blob_from_any: (any, any, any) => any,
+  blob_from_string: (any, any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.addEventListener = module.exports[7];
+module.exports.fileReader = module.exports[6];
+module.exports.filename = module.exports[5];
+module.exports.ReaderEvent = module.exports[4];
+module.exports.blob_from_any = module.exports[2];
+module.exports.blob_from_string = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__File;
 /* Hashing disabled */

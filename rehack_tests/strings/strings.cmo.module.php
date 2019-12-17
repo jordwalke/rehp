@@ -1,37 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Strings.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Strings {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Pervasives = Pervasives::get();
-    $String_ = String_::get();
-    $StringHelper = StringHelper::get();
-    $Failure = Failure::get();
-    $Not_found = Not_found::get();
-    Strings::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Strings;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -40,7 +20,6 @@ final class Strings {
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = $string(
       "The variable v_ should not conflict with any other variables in scope"
     );
@@ -89,11 +68,11 @@ final class Strings {
     $cst_Nans_are_should_output_false = $string(
       "Nans are == (should output false):"
     );
-    $Pervasives = $global_data["Pervasives"];
-    $String = $global_data["String_"];
-    $Not_found = $global_data["Not_found"];
-    $StringHelper = $global_data["StringHelper"];
-    $Failure = $global_data["Failure"];
+    $Pervasives =  Pervasives::get ();
+    $String =  String_::get ();
+    $Not_found =  Not_found::get ();
+    $StringHelper =  StringHelper::get ();
+    $Failure =  Failure::get ();
     $r_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
     $s_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
     
@@ -281,9 +260,51 @@ final class Strings {
       $anotherName
     };
     
-    $runtime["caml_register_global"](39, $Strings, "Strings");
+     return ($Strings);
 
   }
-}
+  public static function anotherName() {
+    return static::get()[14]();
+  }
+  public static function n() {
+    return static::get()[13]();
+  }
+  public static function two() {
+    return static::get()[12]();
+  }
+  public static function one() {
+    return static::get()[11]();
+  }
+  public static function myRefCellContents() {
+    return static::get()[10]();
+  }
+  public static function myRefCell() {
+    return static::get()[9]();
+  }
+  public static function i() {
+    return static::get()[8]();
+  }
+  public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
+    return static::get()[7]($cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope);
+  }
+  public static function createIntFromString(dynamic $ss) {
+    return static::get()[6]($ss);
+  }
+  public static function index() {
+    return static::get()[5]();
+  }
+  public static function six() {
+    return static::get()[4]();
+  }
+  public static function negativeOne() {
+    return static::get()[3]();
+  }
+  public static function unicodeLength() {
+    return static::get()[2]();
+  }
+  public static function greeting() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

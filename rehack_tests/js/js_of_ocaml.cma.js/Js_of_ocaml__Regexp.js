@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Regexp
- * @providesModule Js_of_ocaml__Regexp
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Pervasives = require('Pervasives.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -27,12 +25,11 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_g = string("g");
 var cst = string("[\\][()\\\\|+*.?{}^$]");
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Assert_failure = global_data["Assert_failure"];
-var Pervasives = global_data["Pervasives"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Assert_failure = require("Assert_failure.js");
+var Pervasives = require("Pervasives.js");
 var a_ = [0,string("lib/js_of_ocaml/regexp.ml"),33,64];
 
 function regexp(s) {
@@ -243,8 +240,57 @@ var Js_of_ocaml_Regexp = [
   bounded_split
 ];
 
-runtime["caml_register_global"](34, Js_of_ocaml_Regexp, "Js_of_ocaml__Regexp");
+exports = Js_of_ocaml_Regexp;
 
+/*::type Exports = {
+  bounded_split: (r: any, s: any, i: any) => any,
+  split: (r: any, s: any) => any,
+  replace_first: (r: any, s: any, s_by: any) => any,
+  global_replace: (r: any, s: any, s_by: any) => any,
+  matched_group: (r: any, i: any) => any,
+  matched_string: (r: any) => any,
+  search: (r: any, s: any, i: any) => any,
+  search: (r: any, s: any, i: any) => any,
+  string_match: (r: any, s: any, i: any) => any,
+  regexp_string_case_fold: (s: any) => any,
+  regexp_string: (s: any) => any,
+  quote: (s: any) => any,
+  regexp_with_flag: (s: any, f: any) => any,
+  regexp_case_fold: (s: any) => any,
+  regexp: (s: any) => any,
+}*/
+/** @type {{
+  bounded_split: (any, any, any) => any,
+  split: (any, any) => any,
+  replace_first: (any, any, any) => any,
+  global_replace: (any, any, any) => any,
+  matched_group: (any, any) => any,
+  matched_string: (any) => any,
+  search: (any, any, any) => any,
+  search: (any, any, any) => any,
+  string_match: (any, any, any) => any,
+  regexp_string_case_fold: (any) => any,
+  regexp_string: (any) => any,
+  quote: (any) => any,
+  regexp_with_flag: (any, any) => any,
+  regexp_case_fold: (any) => any,
+  regexp: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.bounded_split = module.exports[15];
+module.exports.split = module.exports[14];
+module.exports.replace_first = module.exports[13];
+module.exports.global_replace = module.exports[12];
+module.exports.matched_group = module.exports[11];
+module.exports.matched_string = module.exports[10];
+module.exports.search = module.exports[9];
+module.exports.search = module.exports[8];
+module.exports.string_match = module.exports[7];
+module.exports.regexp_string_case_fold = module.exports[6];
+module.exports.regexp_string = module.exports[5];
+module.exports.quote = module.exports[4];
+module.exports.regexp_with_flag = module.exports[3];
+module.exports.regexp_case_fold = module.exports[2];
+module.exports.regexp = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Regexp;
 /* Hashing disabled */

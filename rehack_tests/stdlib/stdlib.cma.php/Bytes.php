@@ -1,35 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Bytes.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Bytes {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Char = Char::get();
-    $Pervasives = Pervasives::get();
-    $Not_found = Not_found::get();
-    Bytes::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Bytes;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_blit_bytes = $runtime["caml_blit_bytes"];
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
@@ -45,7 +27,6 @@ final class Bytes {
        "caml_wrap_thrown_exception_reraise"
      ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_String_rcontains_from_Bytes_rcontains_from = $string(
       "String.rcontains_from / Bytes.rcontains_from"
     );
@@ -72,9 +53,9 @@ final class Bytes {
     $cst_String_fill_Bytes_fill = $string("String.fill / Bytes.fill");
     $cst_Bytes_extend = $string("Bytes.extend");
     $cst_String_sub_Bytes_sub = $string("String.sub / Bytes.sub");
-    $Not_found = $global_data["Not_found"];
-    $Char = $global_data["Char"];
-    $Pervasives = $global_data["Pervasives"];
+    $Not_found =  Not_found::get ();
+    $Char =  Char::get ();
+    $Pervasives =  Pervasives::get ();
     $make = function(dynamic $n, dynamic $c) use ($caml_create_bytes,$caml_fill_bytes) {
       $s = $caml_create_bytes($n);
       $caml_fill_bytes($s, 0, $n, $c);
@@ -718,9 +699,129 @@ final class Bytes {
       $a_
     };
     
-    $runtime["caml_register_global"](15, $Bytes, "Bytes");
+     return ($Bytes);
 
   }
-}
+  public static function compare(dynamic $x, dynamic $y) {
+    return static::get()[40]($x, $y);
+  }
+  public static function uncapitalize_ascii(dynamic $s) {
+    return static::get()[39]($s);
+  }
+  public static function capitalize_ascii(dynamic $s) {
+    return static::get()[38]($s);
+  }
+  public static function lowercase_ascii(dynamic $s) {
+    return static::get()[37]($s);
+  }
+  public static function uppercase_ascii(dynamic $s) {
+    return static::get()[36]($s);
+  }
+  public static function uncapitalize(dynamic $s) {
+    return static::get()[35]($s);
+  }
+  public static function capitalize(dynamic $s) {
+    return static::get()[34]($s);
+  }
+  public static function lowercase(dynamic $s) {
+    return static::get()[33]($s);
+  }
+  public static function uppercase(dynamic $s) {
+    return static::get()[32]($s);
+  }
+  public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[31]($s, $i, $c);
+  }
+  public static function contains_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[30]($s, $i, $c);
+  }
+  public static function contains(dynamic $s, dynamic $c) {
+    return static::get()[29]($s, $c);
+  }
+  public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[28]($s, $i, $c);
+  }
+  public static function rindex_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[27]($s, $i, $c);
+  }
+  public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[26]($s, $i, $c);
+  }
+  public static function index_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[25]($s, $i, $c);
+  }
+  public static function rindex_opt(dynamic $s, dynamic $c) {
+    return static::get()[24]($s, $c);
+  }
+  public static function rindex(dynamic $s, dynamic $c) {
+    return static::get()[23]($s, $c);
+  }
+  public static function index_opt(dynamic $s, dynamic $c) {
+    return static::get()[22]($s, $c);
+  }
+  public static function index(dynamic $s, dynamic $c) {
+    return static::get()[21]($s, $c);
+  }
+  public static function escaped(dynamic $s) {
+    return static::get()[20]($s);
+  }
+  public static function trim(dynamic $s) {
+    return static::get()[19]($s);
+  }
+  public static function mapi(dynamic $f, dynamic $s) {
+    return static::get()[18]($f, $s);
+  }
+  public static function map(dynamic $f, dynamic $s) {
+    return static::get()[17]($f, $s);
+  }
+  public static function iteri(dynamic $f, dynamic $a) {
+    return static::get()[16]($f, $a);
+  }
+  public static function iter(dynamic $f, dynamic $a) {
+    return static::get()[15]($f, $a);
+  }
+  public static function cat(dynamic $s1, dynamic $s2) {
+    return static::get()[14]($s1, $s2);
+  }
+  public static function concat(dynamic $sep, dynamic $l) {
+    return static::get()[13]($sep, $l);
+  }
+  public static function blit_string(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
+    return static::get()[12]($s1, $ofs1, $s2, $ofs2, $len);
+  }
+  public static function blit(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
+    return static::get()[11]($s1, $ofs1, $s2, $ofs2, $len);
+  }
+  public static function fill(dynamic $s, dynamic $ofs, dynamic $len, dynamic $c) {
+    return static::get()[10]($s, $ofs, $len, $c);
+  }
+  public static function extend(dynamic $s, dynamic $left, dynamic $right) {
+    return static::get()[9]($s, $left, $right);
+  }
+  public static function sub_string(dynamic $b, dynamic $ofs, dynamic $len) {
+    return static::get()[8]($b, $ofs, $len);
+  }
+  public static function sub(dynamic $s, dynamic $ofs, dynamic $len) {
+    return static::get()[7]($s, $ofs, $len);
+  }
+  public static function to_string(dynamic $b) {
+    return static::get()[6]($b);
+  }
+  public static function of_string(dynamic $s) {
+    return static::get()[5]($s);
+  }
+  public static function copy(dynamic $s) {
+    return static::get()[4]($s);
+  }
+  public static function empty() {
+    return static::get()[3]();
+  }
+  public static function init(dynamic $n, dynamic $f) {
+    return static::get()[2]($n, $f);
+  }
+  public static function make(dynamic $n, dynamic $c) {
+    return static::get()[1]($n, $c);
+  }
 
+}
 /* Hashing disabled */

@@ -1,39 +1,21 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Lazy.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Lazy {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $CamlinternalLazy = CamlinternalLazy::get();
-    $Obj = Obj::get();
-    Lazy::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Lazy;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_obj_tag = $runtime["caml_obj_tag"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Obj = $global_data["Obj"];
-    $CamlinternalLazy = $global_data["CamlinternalLazy"];
+    $Obj =  Obj::get ();
+    $CamlinternalLazy =  CamlinternalLazy::get ();
     $Undefined = $CamlinternalLazy[1];
     $force_val = $CamlinternalLazy[5];
     $from_fun = function(dynamic $f) use ($Obj,$runtime) {
@@ -63,9 +45,33 @@ final class Lazy {
       $is_val
     };
     
-    $runtime["caml_register_global"](2, $Lazy, "Lazy");
+     return ($Lazy);
 
   }
-}
+  public static function is_val(dynamic $l) {
+    return static::get()[8]($l);
+  }
+  public static function from_val(dynamic $v) {
+    return static::get()[7]($v);
+  }
+  public static function from_fun(dynamic $f) {
+    return static::get()[6]($f);
+  }
+  public static function is_val(dynamic $l) {
+    return static::get()[5]($l);
+  }
+  public static function from_val(dynamic $v) {
+    return static::get()[4]($v);
+  }
+  public static function from_fun(dynamic $f) {
+    return static::get()[3]($f);
+  }
+  public static function force_val() {
+    return static::get()[2]();
+  }
+  public static function Undefined() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

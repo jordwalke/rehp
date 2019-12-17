@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Sort
- * @providesModule Sort
  */
+
+// @ts-check
+
+
 "use strict";
-var Invalid_argument = require('Invalid_argument.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
@@ -17,9 +17,8 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Sort_array = runtime["caml_new_string"]("Sort.array");
-var Invalid_argument = global_data["Invalid_argument"];
+var Invalid_argument = require("Invalid_argument.js");
 
 function merge(order, l1, l2) {
   if (l1) {
@@ -181,8 +180,21 @@ function array(cmp, arr) {
 
 var Sort = [0,list,array,merge];
 
-runtime["caml_register_global"](2, Sort, "Sort");
+exports = Sort;
 
+/*::type Exports = {
+  merge: (order: any, l1: any, l2: any) => any,
+  array: (cmp: any, arr: any) => any,
+  list: (order: any, l: any) => any,
+}*/
+/** @type {{
+  merge: (any, any, any) => any,
+  array: (any, any) => any,
+  list: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.merge = module.exports[3];
+module.exports.array = module.exports[2];
+module.exports.list = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Sort;
 /* Hashing disabled */

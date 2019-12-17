@@ -1,33 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * CamlinternalFormatBasics.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class CamlinternalFormatBasics {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-
-    CamlinternalFormatBasics::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->CamlinternalFormatBasics;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $concat_fmt = new Ref();$concat_fmtty = new Ref();$erase_rel = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $is_int = $runtime["is_int"];
@@ -383,13 +367,18 @@ final class CamlinternalFormatBasics {
       $concat_fmt->contents
     };
     
-    $runtime["caml_register_global"](
-      0,
-      $CamlinternalFormatBasics,
-      "CamlinternalFormatBasics"
-    );
+     return ($CamlinternalFormatBasics);
 
   }
-}
+  public static function concat_fmt(dynamic $fmt1, dynamic $fmt2) {
+    return static::get()[3]($fmt1, $fmt2);
+  }
+  public static function erase_rel(dynamic $param) {
+    return static::get()[2]($param);
+  }
+  public static function concat_fmtty(dynamic $fmtty1, dynamic $fmtty2) {
+    return static::get()[1]($fmtty1, $fmtty2);
+  }
 
+}
 /* Hashing disabled */

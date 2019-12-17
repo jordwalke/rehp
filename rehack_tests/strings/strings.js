@@ -1,18 +1,14 @@
 /**
+ * @flow strict
  * Strings
- * @providesModule Strings
  */
+
+// @ts-check
+
+
 "use strict";
-var Pervasives = require('Pervasives.js');
-var String_ = require('String_.js');
-var StringHelper = require('StringHelper.js');
-var Failure = require('Failure.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_int_of_string = runtime["caml_int_of_string"];
@@ -28,7 +24,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope = string(
   "The variable v_ should not conflict with any other variables in scope"
 );
@@ -76,11 +71,11 @@ var cst_Nans_are_should_output_true = string(
 var cst_Nans_are_should_output_false = string(
   "Nans are == (should output false):"
 );
-var Pervasives = global_data["Pervasives"];
-var String = global_data["String_"];
-var Not_found = global_data["Not_found"];
-var StringHelper = global_data["StringHelper"];
-var Failure = global_data["Failure"];
+var Pervasives = require("Pervasives.js");
+var String = require("String_.js");
+var Not_found = require("Not_found.js");
+var StringHelper = require("StringHelper.js");
+var Failure = require("Failure.js");
 var r_ = [0,1,[0,2,[0,3,[0,4,0]]]];
 var s_ = [0,1,[0,2,[0,3,[0,4,0]]]];
 
@@ -253,8 +248,54 @@ var Strings = [
   anotherName
 ];
 
-runtime["caml_register_global"](39, Strings, "Strings");
+exports = Strings;
 
+/*::type Exports = {
+  anotherName: any
+  n: any
+  two: any
+  one: any
+  myRefCellContents: any
+  myRefCell: any
+  i: any
+  myFunction: (cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope: any) => any,
+  createIntFromString: (ss: any) => any,
+  index: any
+  six: any
+  negativeOne: any
+  unicodeLength: any
+  greeting: any
+}*/
+/** @type {{
+  anotherName: any,
+  n: any,
+  two: any,
+  one: any,
+  myRefCellContents: any,
+  myRefCell: any,
+  i: any,
+  myFunction: (any) => any,
+  createIntFromString: (any) => any,
+  index: any,
+  six: any,
+  negativeOne: any,
+  unicodeLength: any,
+  greeting: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.anotherName = module.exports[14];
+module.exports.n = module.exports[13];
+module.exports.two = module.exports[12];
+module.exports.one = module.exports[11];
+module.exports.myRefCellContents = module.exports[10];
+module.exports.myRefCell = module.exports[9];
+module.exports.i = module.exports[8];
+module.exports.myFunction = module.exports[7];
+module.exports.createIntFromString = module.exports[6];
+module.exports.index = module.exports[5];
+module.exports.six = module.exports[4];
+module.exports.negativeOne = module.exports[3];
+module.exports.unicodeLength = module.exports[2];
+module.exports.greeting = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Strings;
 /* Hashing disabled */

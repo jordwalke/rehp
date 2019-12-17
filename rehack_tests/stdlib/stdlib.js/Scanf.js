@@ -1,26 +1,14 @@
 /**
+ * @flow strict
  * Scanf
- * @providesModule Scanf
  */
+
+// @ts-check
+
+
 "use strict";
-var Buffer = require('Buffer.js');
-var Bytes = require('Bytes.js');
-var CamlinternalFormat = require('CamlinternalFormat.js');
-var CamlinternalFormatBasics = require('CamlinternalFormatBasics.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var Printf = require('Printf.js');
-var String_ = require('String_.js');
-var Invalid_argument = require('Invalid_argument.js');
-var Failure = require('Failure.js');
-var Not_found = require('Not_found.js');
-var End_of_file = require('End_of_file.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_get = runtime["caml_bytes_get"];
@@ -55,7 +43,6 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_end_of_input_not_found = string("end of input not found");
 var cst_scanf_bad_conversion_a = string('scanf: bad conversion "%a"');
 var cst_scanf_bad_conversion_t = string('scanf: bad conversion "%t"');
@@ -101,18 +88,18 @@ var cst_octal = string("octal");
 var cst_hexadecimal = string("hexadecimal");
 var cst_a_Char = string("a Char");
 var cst_a_String = string("a String");
-var CamlinternalFormat = global_data["CamlinternalFormat"];
-var CamlinternalFormatBasics = global_data["CamlinternalFormatBasics"];
-var String = global_data["String_"];
-var Failure = global_data["Failure"];
-var Pervasives = global_data["Pervasives"];
-var Assert_failure = global_data["Assert_failure"];
-var Buffer = global_data["Buffer"];
-var End_of_file = global_data["End_of_file"];
-var Invalid_argument = global_data["Invalid_argument"];
-var Printf = global_data["Printf"];
-var List = global_data["List_"];
-var Not_found = global_data["Not_found"];
+var CamlinternalFormat = require("CamlinternalFormat.js");
+var CamlinternalFormatBasics = require("CamlinternalFormatBasics.js");
+var String = require("String_.js");
+var Failure = require("Failure.js");
+var Pervasives = require("Pervasives.js");
+var Assert_failure = require("Assert_failure.js");
+var Buffer = require("Buffer.js");
+var End_of_file = require("End_of_file.js");
+var Invalid_argument = require("Invalid_argument.js");
+var Printf = require("Printf.js");
+var List = require("List_.js");
+var Not_found = require("Not_found.js");
 var r_ = [0,91];
 var q_ = [0,123];
 var s_ = [0,string("scanf.ml"),1455,13];
@@ -2225,8 +2212,48 @@ var Scanf = [
   kfscanf
 ];
 
-runtime["caml_register_global"](66, Scanf, "Scanf");
+exports = Scanf;
 
+/*::type Exports = {
+  kfscanf: (ic: any, ef: any, fmt: any) => any,
+  fscanf: (ic: any, fmt: any) => any,
+  unescaped: (s: any) => any,
+  format_from_string: (s: any, fmt: any) => any,
+  sscanf_format: (s: any, format: any, f: any) => any,
+  bscanf_format: (ib: any, format: any, f: any) => any,
+  ksscanf: (s: any, ef: any, fmt: any) => any,
+  kscanf: (ib: any, ef: any, param: any) => any,
+  scanf: (fmt: any) => any,
+  sscanf: (s: any, fmt: any) => any,
+  bscanf: (ib: any, fmt: any) => any,
+  Scan_failure: any
+}*/
+/** @type {{
+  kfscanf: (any, any, any) => any,
+  fscanf: (any, any) => any,
+  unescaped: (any) => any,
+  format_from_string: (any, any) => any,
+  sscanf_format: (any, any, any) => any,
+  bscanf_format: (any, any, any) => any,
+  ksscanf: (any, any, any) => any,
+  kscanf: (any, any, any) => any,
+  scanf: (any) => any,
+  sscanf: (any, any) => any,
+  bscanf: (any, any) => any,
+  Scan_failure: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.kfscanf = module.exports[13];
+module.exports.fscanf = module.exports[12];
+module.exports.unescaped = module.exports[11];
+module.exports.format_from_string = module.exports[10];
+module.exports.sscanf_format = module.exports[9];
+module.exports.bscanf_format = module.exports[8];
+module.exports.ksscanf = module.exports[7];
+module.exports.kscanf = module.exports[6];
+module.exports.scanf = module.exports[5];
+module.exports.sscanf = module.exports[4];
+module.exports.bscanf = module.exports[3];
+module.exports.Scan_failure = module.exports[2];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Scanf;
 /* Hashing disabled */

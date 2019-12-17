@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Complex
- * @providesModule Complex
  */
+
+// @ts-check
+
+
 "use strict";
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var zero = [254,0,0];
@@ -109,8 +109,66 @@ var Complex = [
   pow
 ];
 
-runtime["caml_register_global"](19, Complex, "Complex");
+exports = Complex;
 
+/*::type Exports = {
+  pow: (x: any, y: any) => any,
+  log: (x: any) => any,
+  exp: (x: any) => any,
+  polar: (n: any, a: any) => any,
+  arg: (x: any) => any,
+  norm: (x: any) => any,
+  norm2: (x: any) => any,
+  sqrt: (x: any) => any,
+  div: (x: any, y: any) => any,
+  inv: (x: any) => any,
+  mul: (x: any, y: any) => any,
+  sub: (x: any, y: any) => any,
+  add: (x: any, y: any) => any,
+  conj: (x: any) => any,
+  neg: (x: any) => any,
+  i: any
+  one: any
+  zero: any
+}*/
+/** @type {{
+  pow: (any, any) => any,
+  log: (any) => any,
+  exp: (any) => any,
+  polar: (any, any) => any,
+  arg: (any) => any,
+  norm: (any) => any,
+  norm2: (any) => any,
+  sqrt: (any) => any,
+  div: (any, any) => any,
+  inv: (any) => any,
+  mul: (any, any) => any,
+  sub: (any, any) => any,
+  add: (any, any) => any,
+  conj: (any) => any,
+  neg: (any) => any,
+  i: any,
+  one: any,
+  zero: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.pow = module.exports[18];
+module.exports.log = module.exports[17];
+module.exports.exp = module.exports[16];
+module.exports.polar = module.exports[15];
+module.exports.arg = module.exports[14];
+module.exports.norm = module.exports[13];
+module.exports.norm2 = module.exports[12];
+module.exports.sqrt = module.exports[11];
+module.exports.div = module.exports[10];
+module.exports.inv = module.exports[9];
+module.exports.mul = module.exports[8];
+module.exports.sub = module.exports[7];
+module.exports.add = module.exports[6];
+module.exports.conj = module.exports[5];
+module.exports.neg = module.exports[4];
+module.exports.i = module.exports[3];
+module.exports.one = module.exports[2];
+module.exports.zero = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Complex;
 /* Hashing disabled */

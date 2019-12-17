@@ -1,44 +1,26 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__WebGL.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__WebGL {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Dom_html = Js_of_ocaml__Dom_html::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__WebGL::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__WebGL;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_webglcontextlost = $string("webglcontextlost");
     $cst_webglcontextrestored = $string("webglcontextrestored");
     $cst_webglcontextcreationerror = $string("webglcontextcreationerror");
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
     $defaultContextAttributes = darray[
      "alpha"=>$Js_of_ocaml_Js[7],
      "depth"=>$Js_of_ocaml_Js[7],
@@ -104,13 +86,21 @@ final class Js_of_ocaml__WebGL {
       $getContextWithAttributes
     };
     
-    $runtime["caml_register_global"](
-      21,
-      $Js_of_ocaml_WebGL,
-      "Js_of_ocaml__WebGL"
-    );
+     return ($Js_of_ocaml_WebGL);
 
   }
-}
+  public static function getContextWithAttributes(dynamic $c, dynamic $attribs) {
+    return static::get()[4]($c, $attribs);
+  }
+  public static function getContext(dynamic $c) {
+    return static::get()[3]($c);
+  }
+  public static function Event() {
+    return static::get()[2]();
+  }
+  public static function defaultContextAttributes() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

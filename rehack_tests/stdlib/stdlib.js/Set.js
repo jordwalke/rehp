@@ -1,17 +1,14 @@
 /**
+ * @flow strict
  * Set
- * @providesModule Set
  */
+
+// @ts-check
+
+
 "use strict";
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var Not_found = require('Not_found.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
@@ -25,16 +22,15 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Set_remove_min_elt = string("Set.remove_min_elt");
 var cst_Set_bal = string("Set.bal");
 var cst_Set_bal__0 = string("Set.bal");
 var cst_Set_bal__1 = string("Set.bal");
 var cst_Set_bal__2 = string("Set.bal");
-var Not_found = global_data["Not_found"];
-var Pervasives = global_data["Pervasives"];
-var List = global_data["List_"];
-var Assert_failure = global_data["Assert_failure"];
+var Not_found = require("Not_found.js");
+var Pervasives = require("Pervasives.js");
+var List = require("List_.js");
+var Assert_failure = require("Assert_failure.js");
 var a_ = [0,0,0,0];
 var b_ = [0,0,0];
 var c_ = [0,string("set.ml"),510,18];
@@ -936,8 +932,12 @@ var Set = [
   }
 ];
 
-runtime["caml_register_global"](12, Set, "Set");
+exports = Set;
 
+/*::type Exports = {
+}*/
+/** @type {{
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Set;
 /* Hashing disabled */

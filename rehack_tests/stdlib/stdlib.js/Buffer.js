@@ -1,21 +1,14 @@
 /**
+ * @flow strict
  * Buffer
- * @providesModule Buffer
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var Pervasives = require('Pervasives.js');
-var String_ = require('String_.js');
-var Sys = require('Sys.js');
-var Uchar = require('Uchar.js');
-var Not_found = require('Not_found.js');
-var End_of_file = require('End_of_file.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
@@ -48,7 +41,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Buffer_truncate = string("Buffer.truncate");
 var cst_Buffer_add_channel = string("Buffer.add_channel");
 var cst_Buffer_add_substring_add_subbytes = string(
@@ -60,14 +52,14 @@ var cst_Buffer_add_cannot_grow_buffer = string(
 var cst_Buffer_nth = string("Buffer.nth");
 var cst_Buffer_blit = string("Buffer.blit");
 var cst_Buffer_sub = string("Buffer.sub");
-var Pervasives = global_data["Pervasives"];
-var End_of_file = global_data["End_of_file"];
-var Not_found = global_data["Not_found"];
-var String = global_data["String_"];
-var Assert_failure = global_data["Assert_failure"];
-var Sys = global_data["Sys"];
-var Bytes = global_data["Bytes"];
-var Uchar = global_data["Uchar"];
+var Pervasives = require("Pervasives.js");
+var End_of_file = require("End_of_file.js");
+var Not_found = require("Not_found.js");
+var String = require("String_.js");
+var Assert_failure = require("Assert_failure.js");
+var Sys = require("Sys.js");
+var Bytes = require("Bytes.js");
+var Uchar = require("Uchar.js");
 var g_ = [0,string("buffer.ml"),205,9];
 var f_ = [0,string("buffer.ml"),141,19];
 var e_ = [0,string("buffer.ml"),159,8];
@@ -482,8 +474,78 @@ var Buffer = [
   truncate
 ];
 
-runtime["caml_register_global"](22, Buffer, "Buffer");
+exports = Buffer;
 
+/*::type Exports = {
+  truncate: (b: any, len: any) => any,
+  output_buffer: (oc: any, b: any) => any,
+  add_channel: (b: any, ic: any, len: any) => any,
+  add_buffer: (b: any, bs: any) => any,
+  add_substitute: (b: any, f: any, s: any) => any,
+  add_subbytes: (b: any, s: any, offset: any, len: any) => any,
+  add_substring: (b: any, s: any, offset: any, len: any) => any,
+  add_bytes: (b: any, s: any) => any,
+  add_string: (b: any, s: any) => any,
+  add_utf_16be_uchar: (b: any, u: any) => any,
+  add_utf_16le_uchar: (b: any, u: any) => any,
+  add_utf_8_uchar: (b: any, u: any) => any,
+  add_char: (b: any, c: any) => any,
+  reset: (b: any) => any,
+  clear: (b: any) => any,
+  length: (b: any) => any,
+  nth: (b: any, ofs: any) => any,
+  blit: (src: any, srcoff: any, dst: any, dstoff: any, len: any) => any,
+  sub: (b: any, ofs: any, len: any) => any,
+  to_bytes: (b: any) => any,
+  contents: (b: any) => any,
+  create: (n: any) => any,
+}*/
+/** @type {{
+  truncate: (any, any) => any,
+  output_buffer: (any, any) => any,
+  add_channel: (any, any, any) => any,
+  add_buffer: (any, any) => any,
+  add_substitute: (any, any, any) => any,
+  add_subbytes: (any, any, any, any) => any,
+  add_substring: (any, any, any, any) => any,
+  add_bytes: (any, any) => any,
+  add_string: (any, any) => any,
+  add_utf_16be_uchar: (any, any) => any,
+  add_utf_16le_uchar: (any, any) => any,
+  add_utf_8_uchar: (any, any) => any,
+  add_char: (any, any) => any,
+  reset: (any) => any,
+  clear: (any) => any,
+  length: (any) => any,
+  nth: (any, any) => any,
+  blit: (any, any, any, any, any) => any,
+  sub: (any, any, any) => any,
+  to_bytes: (any) => any,
+  contents: (any) => any,
+  create: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.truncate = module.exports[22];
+module.exports.output_buffer = module.exports[21];
+module.exports.add_channel = module.exports[20];
+module.exports.add_buffer = module.exports[19];
+module.exports.add_substitute = module.exports[18];
+module.exports.add_subbytes = module.exports[17];
+module.exports.add_substring = module.exports[16];
+module.exports.add_bytes = module.exports[15];
+module.exports.add_string = module.exports[14];
+module.exports.add_utf_16be_uchar = module.exports[13];
+module.exports.add_utf_16le_uchar = module.exports[12];
+module.exports.add_utf_8_uchar = module.exports[11];
+module.exports.add_char = module.exports[10];
+module.exports.reset = module.exports[9];
+module.exports.clear = module.exports[8];
+module.exports.length = module.exports[7];
+module.exports.nth = module.exports[6];
+module.exports.blit = module.exports[5];
+module.exports.sub = module.exports[4];
+module.exports.to_bytes = module.exports[3];
+module.exports.contents = module.exports[2];
+module.exports.create = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Buffer;
 /* Hashing disabled */

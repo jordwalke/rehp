@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Lexing
- * @providesModule Lexing
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var Pervasives = require('Pervasives.js');
-var Sys = require('Sys.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_get = runtime["caml_bytes_get"];
@@ -45,15 +43,14 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Lexing_lex_refill_cannot_grow_buffer = string(
   "Lexing.lex_refill: cannot grow buffer"
 );
 var dummy_pos = [0,string(""),0,0,-1];
 var zero_pos = [0,string(""),1,0,0];
-var Bytes = global_data["Bytes"];
-var Pervasives = global_data["Pervasives"];
-var Sys = global_data["Sys"];
+var Bytes = require("Bytes.js");
+var Pervasives = require("Pervasives.js");
+var Sys = require("Sys.js");
 
 function engine(tbl, state, buf) {
   var result = runtime["caml_lex_engine"](tbl, state, buf);
@@ -269,8 +266,66 @@ var Lexing = [
   new_engine
 ];
 
-runtime["caml_register_global"](6, Lexing, "Lexing");
+exports = Lexing;
 
+/*::type Exports = {
+  new_engine: (tbl: any, state: any, buf: any) => any,
+  engine: (tbl: any, state: any, buf: any) => any,
+  sub_lexeme_char_opt: (lexbuf: any, i: any) => any,
+  sub_lexeme_char: (lexbuf: any, i: any) => any,
+  sub_lexeme_opt: (lexbuf: any, i1: any, i2: any) => any,
+  sub_lexeme: (lexbuf: any, i1: any, i2: any) => any,
+  flush_input: (lb: any) => any,
+  new_line: (lexbuf: any) => any,
+  lexeme_end_p: (lexbuf: any) => any,
+  lexeme_start_p: (lexbuf: any) => any,
+  lexeme_end: (lexbuf: any) => any,
+  lexeme_start: (lexbuf: any) => any,
+  lexeme_char: (lexbuf: any, i: any) => any,
+  lexeme: (lexbuf: any) => any,
+  from_function: (f: any) => any,
+  from_string: (s: any) => any,
+  from_channel: (ic: any) => any,
+  dummy_pos: any
+}*/
+/** @type {{
+  new_engine: (any, any, any) => any,
+  engine: (any, any, any) => any,
+  sub_lexeme_char_opt: (any, any) => any,
+  sub_lexeme_char: (any, any) => any,
+  sub_lexeme_opt: (any, any, any) => any,
+  sub_lexeme: (any, any, any) => any,
+  flush_input: (any) => any,
+  new_line: (any) => any,
+  lexeme_end_p: (any) => any,
+  lexeme_start_p: (any) => any,
+  lexeme_end: (any) => any,
+  lexeme_start: (any) => any,
+  lexeme_char: (any, any) => any,
+  lexeme: (any) => any,
+  from_function: (any) => any,
+  from_string: (any) => any,
+  from_channel: (any) => any,
+  dummy_pos: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.new_engine = module.exports[18];
+module.exports.engine = module.exports[17];
+module.exports.sub_lexeme_char_opt = module.exports[16];
+module.exports.sub_lexeme_char = module.exports[15];
+module.exports.sub_lexeme_opt = module.exports[14];
+module.exports.sub_lexeme = module.exports[13];
+module.exports.flush_input = module.exports[12];
+module.exports.new_line = module.exports[11];
+module.exports.lexeme_end_p = module.exports[10];
+module.exports.lexeme_start_p = module.exports[9];
+module.exports.lexeme_end = module.exports[8];
+module.exports.lexeme_start = module.exports[7];
+module.exports.lexeme_char = module.exports[6];
+module.exports.lexeme = module.exports[5];
+module.exports.from_function = module.exports[4];
+module.exports.from_string = module.exports[3];
+module.exports.from_channel = module.exports[2];
+module.exports.dummy_pos = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Lexing;
 /* Hashing disabled */

@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * CamlinternalFormatBasics
- * @providesModule CamlinternalFormatBasics
  */
+
+// @ts-check
+
+
 "use strict";
-
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 
@@ -234,12 +234,21 @@ function concat_fmt(fmt1, fmt2) {
 
 var CamlinternalFormatBasics = [0,concat_fmtty,erase_rel,concat_fmt];
 
-runtime["caml_register_global"](
-  0,
-  CamlinternalFormatBasics,
-  "CamlinternalFormatBasics"
-);
+exports = CamlinternalFormatBasics;
 
+/*::type Exports = {
+  concat_fmt: (fmt1: any, fmt2: any) => any,
+  erase_rel: (param: any) => any,
+  concat_fmtty: (fmtty1: any, fmtty2: any) => any,
+}*/
+/** @type {{
+  concat_fmt: (any, any) => any,
+  erase_rel: (any) => any,
+  concat_fmtty: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.concat_fmt = module.exports[3];
+module.exports.erase_rel = module.exports[2];
+module.exports.concat_fmtty = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalFormatBasics;
 /* Hashing disabled */

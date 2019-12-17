@@ -1,40 +1,22 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__MutationObserver.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__MutationObserver {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__MutationObserver::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__MutationObserver;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Array = $global_data["Array_"];
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
+    $Array =  Array_::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
     $empty_mutation_observer_init = function(dynamic $param) {return darray[];
     };
     $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
@@ -143,13 +125,21 @@ final class Js_of_ocaml__MutationObserver {
       $observe
     };
     
-    $runtime["caml_register_global"](
-      11,
-      $Js_of_ocaml_MutationObserver,
-      "Js_of_ocaml__MutationObserver"
-    );
+     return ($Js_of_ocaml_MutationObserver);
 
   }
-}
+  public static function observe(dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param) {
+    return static::get()[4]($node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param);
+  }
+  public static function is_supported(dynamic $param) {
+    return static::get()[3]($param);
+  }
+  public static function mutationObserver() {
+    return static::get()[2]();
+  }
+  public static function empty_mutation_observer_init(dynamic $param) {
+    return static::get()[1]($param);
+  }
 
+}
 /* Hashing disabled */

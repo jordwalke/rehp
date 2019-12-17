@@ -1,41 +1,24 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * MyLib.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class MyLib {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $MyLib__MyLibUtility = MyLib__MyLibUtility::get();
-    MyLib::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->MyLib;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_myPartiallyAppliedMethod = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__0 = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__1 = $string("myPartiallyAppliedMethod");
-    $MyLib_MyLibUtility = $global_data["MyLib__MyLibUtility"];
+    $MyLib_MyLibUtility =  MyLib__MyLibUtility::get ();
     $foo = "foo";
     $bar = "bar";
     $baz = "baz";
@@ -130,9 +113,33 @@ final class MyLib {
       $x
     };
     
-    $runtime["caml_register_global"](19, $MyLib, "MyLib");
+     return ($MyLib);
 
   }
-}
+  public static function x() {
+    return static::get()[8]();
+  }
+  public static function testPartialMethodCalls(dynamic $o) {
+    return static::get()[7]($o);
+  }
+  public static function testPartialFunctionCalls(dynamic $o) {
+    return static::get()[6]($o);
+  }
+  public static function testMethodCalls(dynamic $o) {
+    return static::get()[5]($o);
+  }
+  public static function testFunctionCalls(dynamic $o) {
+    return static::get()[4]($o);
+  }
+  public static function baz() {
+    return static::get()[3]();
+  }
+  public static function bar() {
+    return static::get()[2]();
+  }
+  public static function foo() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

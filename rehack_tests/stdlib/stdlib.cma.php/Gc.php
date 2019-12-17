@@ -1,43 +1,25 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Gc.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Gc {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Printf = Printf::get();
-    $Sys = Sys::get();
-    Gc::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Gc;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Sys = $global_data["Sys"];
-    $Printf = $global_data["Printf"];
+    $Sys =  Sys::get ();
+    $Printf =  Printf::get ();
     $a_ = Vector{
       0,
       Vector{
@@ -229,9 +211,21 @@ final class Gc {
       $delete_alarm
     };
     
-    $runtime["caml_register_global"](22, $Gc, "Gc");
+     return ($Gc);
 
   }
-}
+  public static function delete_alarm(dynamic $a) {
+    return static::get()[7]($a);
+  }
+  public static function create_alarm(dynamic $f) {
+    return static::get()[6]($f);
+  }
+  public static function allocated_bytes(dynamic $param) {
+    return static::get()[2]($param);
+  }
+  public static function print_stat(dynamic $c) {
+    return static::get()[1]($c);
+  }
 
+}
 /* Hashing disabled */

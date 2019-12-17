@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Spacetime
- * @providesModule Spacetime
  */
+
+// @ts-check
+
+
 "use strict";
-var Gc = require('Gc.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
@@ -21,10 +20,9 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Series_is_closed__0 = string("Series is closed");
 var cst_Series_is_closed = string("Series is closed");
-var Pervasives = global_data["Pervasives"];
+var Pervasives = require("Pervasives.js");
 var enabled = caml_spacetime_enabled(0);
 
 function if_spacetime_enabled(f) {return enabled ? call1(f, 0) : 0;}
@@ -85,8 +83,24 @@ function save_event_for_automatic_snapshots(event_name) {
 
 var Spacetime = [0,enabled,Series,Snapshot,save_event_for_automatic_snapshots];
 
-runtime["caml_register_global"](3, Spacetime, "Spacetime");
+exports = Spacetime;
 
+/*::type Exports = {
+  save_event_for_automatic_snapshots: (event_name: any) => any,
+  Snapshot: any
+  Series: any
+  enabled: any
+}*/
+/** @type {{
+  save_event_for_automatic_snapshots: (any) => any,
+  Snapshot: any,
+  Series: any,
+  enabled: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.save_event_for_automatic_snapshots = module.exports[4];
+module.exports.Snapshot = module.exports[3];
+module.exports.Series = module.exports[2];
+module.exports.enabled = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Spacetime;
 /* Hashing disabled */

@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Intl
- * @providesModule Js_of_ocaml__Intl
  */
+
+// @ts-check
+
+
 "use strict";
-var CamlinternalOO = require('CamlinternalOO.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -29,7 +28,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst__3 = string("");
 var cst__2 = string("");
 var cst__1 = string("");
@@ -45,8 +43,8 @@ var shared = [
   string("usage"),
   string("numeric")
 ];
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var CamlinternalOO = global_data["CamlinternalOO"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var CamlinternalOO = require("CamlinternalOO.js");
 var a_ = [0,string("_type"),string("localeMatcher")];
 var b_ = [
   0,
@@ -542,8 +540,42 @@ var Js_of_ocaml_Intl = [
   is_supported
 ];
 
-runtime["caml_register_global"](70, Js_of_ocaml_Intl, "Js_of_ocaml__Intl");
+exports = Js_of_ocaml_Intl;
 
+/*::type Exports = {
+  is_supported: (param: any) => any,
+  pluralRules_constr: any
+  numberFormat_constr: any
+  dateTimeFormat_constr: any
+  collator_constr: any
+  intl: any
+  PluralRules: any
+  NumberFormat: any
+  DateTimeFormat: any
+  Collator: any
+}*/
+/** @type {{
+  is_supported: (any) => any,
+  pluralRules_constr: any,
+  numberFormat_constr: any,
+  dateTimeFormat_constr: any,
+  collator_constr: any,
+  intl: any,
+  PluralRules: any,
+  NumberFormat: any,
+  DateTimeFormat: any,
+  Collator: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.is_supported = module.exports[10];
+module.exports.pluralRules_constr = module.exports[9];
+module.exports.numberFormat_constr = module.exports[8];
+module.exports.dateTimeFormat_constr = module.exports[7];
+module.exports.collator_constr = module.exports[6];
+module.exports.intl = module.exports[5];
+module.exports.PluralRules = module.exports[4];
+module.exports.NumberFormat = module.exports[3];
+module.exports.DateTimeFormat = module.exports[2];
+module.exports.Collator = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Intl;
 /* Hashing disabled */

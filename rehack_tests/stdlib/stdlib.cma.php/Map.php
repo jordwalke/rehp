@@ -1,50 +1,31 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Map.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Map {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Pervasives = Pervasives::get();
-    $Not_found = Not_found::get();
-    $Assert_failure = Assert_failure::get();
-    Map::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Map;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Map_remove_min_elt = $string("Map.remove_min_elt");
     $cst_Map_bal = $string("Map.bal");
     $cst_Map_bal__0 = $string("Map.bal");
     $cst_Map_bal__1 = $string("Map.bal");
     $cst_Map_bal__2 = $string("Map.bal");
-    $Not_found = $global_data["Not_found"];
-    $Pervasives = $global_data["Pervasives"];
-    $Assert_failure = $global_data["Assert_failure"];
+    $Not_found =  Not_found::get ();
+    $Pervasives =  Pervasives::get ();
+    $Assert_failure =  Assert_failure::get ();
     $a_ = Vector{0, 0, 0, 0};
     $b_ = Vector{0, $string("map.ml"), 393, 10};
     $c_ = Vector{0, 0, 0};
@@ -1041,9 +1022,9 @@ final class Map {
       }
     };
     
-    $runtime["caml_register_global"](11, $Map, "Map");
+     return ($Map);
 
   }
-}
 
+}
 /* Hashing disabled */

@@ -1,40 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * CamlinternalOO.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class CamlinternalOO {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $List_ = List_::get();
-    $Map = Map::get();
-    $Obj = Obj::get();
-    $Sys = Sys::get();
-    $Not_found = Not_found::get();
-    $Assert_failure = Assert_failure::get();
-    $Undefined_recursive_module = Undefined_recursive_module::get();
-    CamlinternalOO::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->CamlinternalOO;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $fit_size = new Ref();$lookup_keys = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
@@ -54,16 +31,15 @@ final class CamlinternalOO {
        "caml_wrap_thrown_exception_reraise"
      ];
     $is_int = $runtime["is_int"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst = $string("");
-    $Assert_failure = $global_data["Assert_failure"];
-    $Sys = $global_data["Sys"];
-    $Obj = $global_data["Obj"];
-    $Undefined_recursive_module = $global_data["Undefined_recursive_module"];
-    $Array = $global_data["Array_"];
-    $List = $global_data["List_"];
-    $Not_found = $global_data["Not_found"];
-    $Map = $global_data["Map"];
+    $Assert_failure =  Assert_failure::get ();
+    $Sys =  Sys::get ();
+    $Obj =  Obj::get ();
+    $Undefined_recursive_module =  Undefined_recursive_module::get ();
+    $Array =  Array_::get ();
+    $List =  List_::get ();
+    $Not_found =  Not_found::get ();
+    $Map =  Map::get ();
     $g_ = Vector{0, $string("camlinternalOO.ml"), 438, 17};
     $f_ = Vector{0, $string("camlinternalOO.ml"), 420, 13};
     $e_ = Vector{0, $string("camlinternalOO.ml"), 417, 13};
@@ -922,9 +898,99 @@ final class CamlinternalOO {
       $stats
     };
     
-    $runtime["caml_register_global"](18, $CamlinternalOO, "CamlinternalOO");
+     return ($CamlinternalOO);
 
   }
-}
+  public static function stats(dynamic $param) {
+    return static::get()[30]($param);
+  }
+  public static function params() {
+    return static::get()[29]();
+  }
+  public static function lookup_tables(dynamic $root, dynamic $keys) {
+    return static::get()[28]($root, $keys);
+  }
+  public static function create_object_and_run_initializers(dynamic $obj_0, dynamic $table) {
+    return static::get()[27]($obj_0, $table);
+  }
+  public static function run_initializers_opt(dynamic $obj_0, dynamic $obj, dynamic $table) {
+    return static::get()[26]($obj_0, $obj, $table);
+  }
+  public static function run_initializers(dynamic $obj, dynamic $table) {
+    return static::get()[25]($obj, $table);
+  }
+  public static function create_object_opt(dynamic $obj_0, dynamic $table) {
+    return static::get()[24]($obj_0, $table);
+  }
+  public static function create_object(dynamic $table) {
+    return static::get()[23]($table);
+  }
+  public static function copy(dynamic $o) {
+    return static::get()[22]($o);
+  }
+  public static function dummy_class(dynamic $loc) {
+    return static::get()[21]($loc);
+  }
+  public static function make_class_store(dynamic $pub_meths, dynamic $class_init, dynamic $init_table) {
+    return static::get()[20]($pub_meths, $class_init, $init_table);
+  }
+  public static function make_class(dynamic $pub_meths, dynamic $class_init) {
+    return static::get()[19]($pub_meths, $class_init);
+  }
+  public static function inherits(dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top) {
+    return static::get()[18]($cla, $vals, $virt_meths, $concr_meths, $param, $top);
+  }
+  public static function init_class(dynamic $table) {
+    return static::get()[17]($table);
+  }
+  public static function create_table(dynamic $public_methods) {
+    return static::get()[16]($public_methods);
+  }
+  public static function dummy_table() {
+    return static::get()[15]();
+  }
+  public static function add_initializer(dynamic $table, dynamic $f) {
+    return static::get()[14]($table, $f);
+  }
+  public static function widen(dynamic $table) {
+    return static::get()[13]($table);
+  }
+  public static function narrow(dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths) {
+    return static::get()[12]($table, $vars, $virt_meths, $concr_meths);
+  }
+  public static function set_methods(dynamic $table, dynamic $methods) {
+    return static::get()[11]($table, $methods);
+  }
+  public static function set_method(dynamic $table, dynamic $label, dynamic $element) {
+    return static::get()[10]($table, $label, $element);
+  }
+  public static function get_method(dynamic $table, dynamic $label) {
+    return static::get()[9]($table, $label);
+  }
+  public static function get_method_labels(dynamic $table, dynamic $names) {
+    return static::get()[8]($table, $names);
+  }
+  public static function get_method_label(dynamic $table, dynamic $name) {
+    return static::get()[7]($table, $name);
+  }
+  public static function get_variables(dynamic $table, dynamic $names) {
+    return static::get()[6]($table, $names);
+  }
+  public static function get_variable(dynamic $table, dynamic $name) {
+    return static::get()[5]($table, $name);
+  }
+  public static function new_methods_variables(dynamic $table, dynamic $meths, dynamic $vals) {
+    return static::get()[4]($table, $meths, $vals);
+  }
+  public static function new_variable(dynamic $table, dynamic $name) {
+    return static::get()[3]($table, $name);
+  }
+  public static function new_method(dynamic $table) {
+    return static::get()[2]($table);
+  }
+  public static function public_method_label(dynamic $s) {
+    return static::get()[1]($s);
+  }
 
+}
 /* Hashing disabled */

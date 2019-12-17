@@ -1,40 +1,23 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Stack.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Stack {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $List_ = List_::get();
-    Stack::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Stack;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Stack_Empty = $runtime["caml_new_string"]("Stack.Empty");
-    $List = $global_data["List_"];
+    $List =  List_::get ();
     $Empty = Vector{248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0)};
     $create = function(dynamic $param) {return Vector{0, 0, 0};};
     $clear = function(dynamic $s) {$s[1] = 0;$s[2] = 0;return 0;};
@@ -83,9 +66,42 @@ final class Stack {
       $fold
     };
     
-    $runtime["caml_register_global"](2, $Stack, "Stack");
+     return ($Stack);
 
   }
-}
+  public static function fold(dynamic $f, dynamic $acc, dynamic $s) {
+    return static::get()[11]($f, $acc, $s);
+  }
+  public static function iter(dynamic $f, dynamic $s) {
+    return static::get()[10]($f, $s);
+  }
+  public static function length(dynamic $s) {
+    return static::get()[9]($s);
+  }
+  public static function is_empty(dynamic $s) {
+    return static::get()[8]($s);
+  }
+  public static function copy(dynamic $s) {
+    return static::get()[7]($s);
+  }
+  public static function clear(dynamic $s) {
+    return static::get()[6]($s);
+  }
+  public static function top(dynamic $s) {
+    return static::get()[5]($s);
+  }
+  public static function pop(dynamic $s) {
+    return static::get()[4]($s);
+  }
+  public static function push(dynamic $x, dynamic $s) {
+    return static::get()[3]($x, $s);
+  }
+  public static function create(dynamic $param) {
+    return static::get()[2]($param);
+  }
+  public static function Empty() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

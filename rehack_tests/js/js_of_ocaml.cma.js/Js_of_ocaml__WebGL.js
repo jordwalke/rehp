@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__WebGL
- * @providesModule Js_of_ocaml__WebGL
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Dom_html = require('Js_of_ocaml__Dom_html.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -19,12 +18,11 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_webglcontextlost = string("webglcontextlost");
 var cst_webglcontextrestored = string("webglcontextrestored");
 var cst_webglcontextcreationerror = string("webglcontextcreationerror");
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Js_of_ocaml_Dom_html = global_data["Js_of_ocaml__Dom_html"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
 var defaultContextAttributes = {
   "alpha": Js_of_ocaml_Js[7],
   "depth": Js_of_ocaml_Js[7],
@@ -88,8 +86,24 @@ var Js_of_ocaml_WebGL = [
   getContextWithAttributes
 ];
 
-runtime["caml_register_global"](21, Js_of_ocaml_WebGL, "Js_of_ocaml__WebGL");
+exports = Js_of_ocaml_WebGL;
 
+/*::type Exports = {
+  getContextWithAttributes: (c: any, attribs: any) => any,
+  getContext: (c: any) => any,
+  Event: any
+  defaultContextAttributes: any
+}*/
+/** @type {{
+  getContextWithAttributes: (any, any) => any,
+  getContext: (any) => any,
+  Event: any,
+  defaultContextAttributes: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.getContextWithAttributes = module.exports[4];
+module.exports.getContext = module.exports[3];
+module.exports.Event = module.exports[2];
+module.exports.defaultContextAttributes = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__WebGL;
 /* Hashing disabled */

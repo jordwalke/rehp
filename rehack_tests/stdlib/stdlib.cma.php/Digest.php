@@ -1,37 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Digest.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Digest {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Bytes = Bytes::get();
-    $Char = Char::get();
-    $Pervasives = Pervasives::get();
-    $String_ = String_::get();
-    $Invalid_argument = Invalid_argument::get();
-    Digest::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Digest;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $call1 = $runtime["caml_call1"];
@@ -47,16 +27,15 @@ final class Digest {
      ];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Digest_from_hex__0 = $string__0("Digest.from_hex");
     $cst_Digest_from_hex = $string__0("Digest.from_hex");
     $cst_Digest_to_hex = $string__0("Digest.to_hex");
     $cst_Digest_substring = $string__0("Digest.substring");
-    $Invalid_argument = $global_data["Invalid_argument"];
-    $Pervasives = $global_data["Pervasives"];
-    $Char = $global_data["Char"];
-    $Bytes = $global_data["Bytes"];
-    $String = $global_data["String_"];
+    $Invalid_argument =  Invalid_argument::get ();
+    $Pervasives =  Pervasives::get ();
+    $Char =  Char::get ();
+    $Bytes =  Bytes::get ();
+    $String =  String_::get ();
     $compare = $String[33];
     $equal = $String[34];
     $string = function(dynamic $str) use ($caml_md5_string,$caml_ml_string_length) {
@@ -171,9 +150,42 @@ final class Digest {
       $from_hex
     };
     
-    $runtime["caml_register_global"](9, $Digest, "Digest");
+     return ($Digest);
 
   }
-}
+  public static function from_hex(dynamic $s) {
+    return static::get()[11]($s);
+  }
+  public static function to_hex(dynamic $d) {
+    return static::get()[10]($d);
+  }
+  public static function input(dynamic $chan) {
+    return static::get()[9]($chan);
+  }
+  public static function output(dynamic $chan, dynamic $digest) {
+    return static::get()[8]($chan, $digest);
+  }
+  public static function file(dynamic $filename) {
+    return static::get()[7]($filename);
+  }
+  public static function subbytes(dynamic $b, dynamic $ofs, dynamic $len) {
+    return static::get()[6]($b, $ofs, $len);
+  }
+  public static function substring(dynamic $str, dynamic $ofs, dynamic $len) {
+    return static::get()[5]($str, $ofs, $len);
+  }
+  public static function bytes(dynamic $b) {
+    return static::get()[4]($b);
+  }
+  public static function string(dynamic $str) {
+    return static::get()[3]($str);
+  }
+  public static function equal() {
+    return static::get()[2]();
+  }
+  public static function compare() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

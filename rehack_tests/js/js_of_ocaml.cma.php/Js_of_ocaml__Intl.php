@@ -1,41 +1,23 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Intl.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Intl {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $CamlinternalOO = CamlinternalOO::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__Intl::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Intl;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst__3 = $string("");
     $cst__2 = $string("");
     $cst__1 = $string("");
@@ -51,8 +33,8 @@ final class Js_of_ocaml__Intl {
       $string("usage"),
       $string("numeric")
     };
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $CamlinternalOO = $global_data["CamlinternalOO"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $CamlinternalOO =  CamlinternalOO::get ();
     $a_ = Vector{0, $string("_type"), $string("localeMatcher")};
     $b_ = Vector{
       0,
@@ -666,13 +648,39 @@ final class Js_of_ocaml__Intl {
       $is_supported
     };
     
-    $runtime["caml_register_global"](
-      70,
-      $Js_of_ocaml_Intl,
-      "Js_of_ocaml__Intl"
-    );
+     return ($Js_of_ocaml_Intl);
 
   }
-}
+  public static function is_supported(dynamic $param) {
+    return static::get()[10]($param);
+  }
+  public static function pluralRules_constr() {
+    return static::get()[9]();
+  }
+  public static function numberFormat_constr() {
+    return static::get()[8]();
+  }
+  public static function dateTimeFormat_constr() {
+    return static::get()[7]();
+  }
+  public static function collator_constr() {
+    return static::get()[6]();
+  }
+  public static function intl() {
+    return static::get()[5]();
+  }
+  public static function PluralRules() {
+    return static::get()[4]();
+  }
+  public static function NumberFormat() {
+    return static::get()[3]();
+  }
+  public static function DateTimeFormat() {
+    return static::get()[2]();
+  }
+  public static function Collator() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

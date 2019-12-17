@@ -1,37 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Pervasives.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Pervasives {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $CamlinternalFormatBasics = CamlinternalFormatBasics::get();
-    $Invalid_argument = Invalid_argument::get();
-    $Failure = Failure::get();
-    $Sys_error = Sys_error::get();
-    $End_of_file = End_of_file::get();
-    Pervasives::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Pervasives;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $symbol__0 = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_blit_string = $runtime["caml_blit_string"];
@@ -63,7 +43,6 @@ final class Pervasives {
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst__0 = $string("%,");
     $cst_really_input = $string("really_input");
     $cst_input = $string("input");
@@ -80,11 +59,11 @@ final class Pervasives {
     $cst_false = $string("false");
     $cst_char_of_int = $string("char_of_int");
     $cst_Pervasives_Exit = $string("Pervasives.Exit");
-    $End_of_file = $global_data["End_of_file"];
-    $CamlinternalFormatBasics = $global_data["CamlinternalFormatBasics"];
-    $Sys_error = $global_data["Sys_error"];
-    $Failure = $global_data["Failure"];
-    $Invalid_argument = $global_data["Invalid_argument"];
+    $End_of_file =  End_of_file::get ();
+    $CamlinternalFormatBasics =  CamlinternalFormatBasics::get ();
+    $Sys_error =  Sys_error::get ();
+    $Failure =  Failure::get ();
+    $Invalid_argument =  Invalid_argument::get ();
     $l_ = Vector{0, 0, Vector{0, 6, 0}};
     $k_ = Vector{0, 0, Vector{0, 7, 0}};
     $j_ = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 6, 0}}}};
@@ -651,9 +630,228 @@ final class Pervasives {
       $do_at_exit
     };
     
-    $runtime["caml_register_global"](37, $Pervasives, "Pervasives");
+     return ($Pervasives);
 
   }
-}
+  public static function do_at_exit(dynamic $param) {
+    return static::get()[91]($param);
+  }
+  public static function unsafe_really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) {
+    return static::get()[90]($ic, $s, $ofs, $len);
+  }
+  public static function valid_float_lexem(dynamic $s) {
+    return static::get()[89]($s);
+  }
+  public static function at_exit(dynamic $f) {
+    return static::get()[88]($f);
+  }
+  public static function exit(dynamic $retcode) {
+    return static::get()[87]($retcode);
+  }
+  public static function symbol(dynamic $param, dynamic $unnamed1) {
+    return static::get()[86]($param, $unnamed1);
+  }
+  public static function string_of_format(dynamic $param) {
+    return static::get()[85]($param);
+  }
+  public static function close_in_noerr(dynamic $ic) {
+    return static::get()[82]($ic);
+  }
+  public static function really_input_string(dynamic $ic, dynamic $len) {
+    return static::get()[74]($ic, $len);
+  }
+  public static function really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) {
+    return static::get()[73]($ic, $s, $ofs, $len);
+  }
+  public static function input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) {
+    return static::get()[72]($ic, $s, $ofs, $len);
+  }
+  public static function input_line(dynamic $chan) {
+    return static::get()[71]($chan);
+  }
+  public static function open_in_gen(dynamic $mode, dynamic $perm, dynamic $name) {
+    return static::get()[69]($mode, $perm, $name);
+  }
+  public static function open_in_bin(dynamic $name) {
+    return static::get()[68]($name);
+  }
+  public static function open_in(dynamic $name) {
+    return static::get()[67]($name);
+  }
+  public static function close_out_noerr(dynamic $oc) {
+    return static::get()[65]($oc);
+  }
+  public static function close_out(dynamic $oc) {
+    return static::get()[64]($oc);
+  }
+  public static function output_value(dynamic $chan, dynamic $v) {
+    return static::get()[60]($chan, $v);
+  }
+  public static function output_substring(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) {
+    return static::get()[57]($oc, $s, $ofs, $len);
+  }
+  public static function output(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) {
+    return static::get()[56]($oc, $s, $ofs, $len);
+  }
+  public static function output_bytes(dynamic $oc, dynamic $s) {
+    return static::get()[55]($oc, $s);
+  }
+  public static function output_string(dynamic $oc, dynamic $s) {
+    return static::get()[54]($oc, $s);
+  }
+  public static function flush_all(dynamic $param) {
+    return static::get()[52]($param);
+  }
+  public static function open_out_gen(dynamic $mode, dynamic $perm, dynamic $name) {
+    return static::get()[50]($mode, $perm, $name);
+  }
+  public static function open_out_bin(dynamic $name) {
+    return static::get()[49]($name);
+  }
+  public static function open_out(dynamic $name) {
+    return static::get()[48]($name);
+  }
+  public static function read_float_opt(dynamic $param) {
+    return static::get()[47]($param);
+  }
+  public static function read_float(dynamic $param) {
+    return static::get()[46]($param);
+  }
+  public static function read_int_opt(dynamic $param) {
+    return static::get()[45]($param);
+  }
+  public static function read_int(dynamic $param) {
+    return static::get()[44]($param);
+  }
+  public static function read_line(dynamic $param) {
+    return static::get()[43]($param);
+  }
+  public static function prerr_newline(dynamic $param) {
+    return static::get()[42]($param);
+  }
+  public static function prerr_endline(dynamic $s) {
+    return static::get()[41]($s);
+  }
+  public static function prerr_float(dynamic $f) {
+    return static::get()[40]($f);
+  }
+  public static function prerr_int(dynamic $i) {
+    return static::get()[39]($i);
+  }
+  public static function prerr_bytes(dynamic $s) {
+    return static::get()[38]($s);
+  }
+  public static function prerr_string(dynamic $s) {
+    return static::get()[37]($s);
+  }
+  public static function prerr_char(dynamic $c) {
+    return static::get()[36]($c);
+  }
+  public static function print_newline(dynamic $param) {
+    return static::get()[35]($param);
+  }
+  public static function print_endline(dynamic $s) {
+    return static::get()[34]($s);
+  }
+  public static function print_float(dynamic $f) {
+    return static::get()[33]($f);
+  }
+  public static function print_int(dynamic $i) {
+    return static::get()[32]($i);
+  }
+  public static function print_bytes(dynamic $s) {
+    return static::get()[31]($s);
+  }
+  public static function print_string(dynamic $s) {
+    return static::get()[30]($s);
+  }
+  public static function print_char(dynamic $c) {
+    return static::get()[29]($c);
+  }
+  public static function stderr() {
+    return static::get()[28]();
+  }
+  public static function stdout() {
+    return static::get()[27]();
+  }
+  public static function stdin() {
+    return static::get()[26]();
+  }
+  public static function symbol(dynamic $l1, dynamic $l2) {
+    return static::get()[25]($l1, $l2);
+  }
+  public static function float_of_string_opt(dynamic $s) {
+    return static::get()[24]($s);
+  }
+  public static function string_of_float(dynamic $f) {
+    return static::get()[23]($f);
+  }
+  public static function int_of_string_opt(dynamic $s) {
+    return static::get()[22]($s);
+  }
+  public static function string_of_int(dynamic $n) {
+    return static::get()[21]($n);
+  }
+  public static function bool_of_string_opt(dynamic $param) {
+    return static::get()[20]($param);
+  }
+  public static function bool_of_string(dynamic $param) {
+    return static::get()[19]($param);
+  }
+  public static function string_of_bool(dynamic $b) {
+    return static::get()[18]($b);
+  }
+  public static function char_of_int(dynamic $n) {
+    return static::get()[17]($n);
+  }
+  public static function symbol(dynamic $s1, dynamic $s2) {
+    return static::get()[16]($s1, $s2);
+  }
+  public static function epsilon_float() {
+    return static::get()[15]();
+  }
+  public static function min_float() {
+    return static::get()[14]();
+  }
+  public static function max_float() {
+    return static::get()[13]();
+  }
+  public static function nan() {
+    return static::get()[12]();
+  }
+  public static function neg_infinity() {
+    return static::get()[11]();
+  }
+  public static function infinity() {
+    return static::get()[10]();
+  }
+  public static function lnot(dynamic $x) {
+    return static::get()[9]($x);
+  }
+  public static function min_int() {
+    return static::get()[8]();
+  }
+  public static function max_int() {
+    return static::get()[7]();
+  }
+  public static function abs(dynamic $x) {
+    return static::get()[6]($x);
+  }
+  public static function max(dynamic $x, dynamic $y) {
+    return static::get()[5]($x, $y);
+  }
+  public static function min(dynamic $x, dynamic $y) {
+    return static::get()[4]($x, $y);
+  }
+  public static function Exit() {
+    return static::get()[3]();
+  }
+  public static function failwith(dynamic $s) {
+    return static::get()[2]($s);
+  }
+  public static function invalid_arg(dynamic $s) {
+    return static::get()[1]($s);
+  }
 
+}
 /* Hashing disabled */

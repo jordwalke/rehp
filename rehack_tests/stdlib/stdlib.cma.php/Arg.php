@@ -1,43 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Arg.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Arg {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Buffer = Buffer::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $Printf = Printf::get();
-    $String_ = String_::get();
-    $Sys = Sys::get();
-    $Invalid_argument = Invalid_argument::get();
-    $Failure = Failure::get();
-    $Not_found = Not_found::get();
-    $End_of_file = End_of_file::get();
-    Arg::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Arg;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -56,7 +30,6 @@ final class Arg {
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst__6 = $string("");
     $cst__7 = $string("\n");
     $cst_a_boolean = $string("a boolean");
@@ -92,17 +65,17 @@ final class Arg {
     $cst_Arg_Bad = $string("Arg.Bad");
     $cst_Arg_Help = $string("Arg.Help");
     $cst_Arg_Stop = $string("Arg.Stop");
-    $Not_found = $global_data["Not_found"];
-    $Printf = $global_data["Printf"];
-    $Pervasives = $global_data["Pervasives"];
-    $Array = $global_data["Array_"];
-    $Buffer = $global_data["Buffer"];
-    $End_of_file = $global_data["End_of_file"];
-    $List = $global_data["List_"];
-    $String = $global_data["String_"];
-    $Sys = $global_data["Sys"];
-    $Invalid_argument = $global_data["Invalid_argument"];
-    $Failure = $global_data["Failure"];
+    $Not_found =  Not_found::get ();
+    $Printf =  Printf::get ();
+    $Pervasives =  Pervasives::get ();
+    $Array =  Array_::get ();
+    $Buffer =  Buffer::get ();
+    $End_of_file =  End_of_file::get ();
+    $List =  List_::get ();
+    $String =  String_::get ();
+    $Sys =  Sys::get ();
+    $Invalid_argument =  Invalid_argument::get ();
+    $Failure =  Failure::get ();
     $w_ = Vector{0, Vector{2, 0, Vector{0, 0}}, $string("%s%c")};
     $q_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
     $r_ = Vector{0, Vector{2, 0, 0}, $string("%s")};
@@ -958,9 +931,57 @@ final class Arg {
       $write_arg0
     };
     
-    $runtime["caml_register_global"](58, $Arg, "Arg");
+     return ($Arg);
 
   }
-}
+  public static function write_arg0() {
+    return static::get()[16]();
+  }
+  public static function write_arg() {
+    return static::get()[15]();
+  }
+  public static function read_arg0() {
+    return static::get()[14]();
+  }
+  public static function read_arg() {
+    return static::get()[13]();
+  }
+  public static function current() {
+    return static::get()[12]();
+  }
+  public static function align(dynamic $opt, dynamic $speclist) {
+    return static::get()[11]($opt, $speclist);
+  }
+  public static function usage_string(dynamic $speclist, dynamic $errmsg) {
+    return static::get()[10]($speclist, $errmsg);
+  }
+  public static function usage(dynamic $speclist, dynamic $errmsg) {
+    return static::get()[9]($speclist, $errmsg);
+  }
+  public static function Bad() {
+    return static::get()[8]();
+  }
+  public static function Help() {
+    return static::get()[7]();
+  }
+  public static function parse_expand(dynamic $l, dynamic $f, dynamic $msg) {
+    return static::get()[6]($l, $f, $msg);
+  }
+  public static function parse_and_expand_argv_dynamic(dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) {
+    return static::get()[5]($current, $argv, $speclist, $anonfun, $errmsg);
+  }
+  public static function parse_argv_dynamic(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) {
+    return static::get()[4]($opt, $argv, $speclist, $anonfun, $errmsg);
+  }
+  public static function parse_argv(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) {
+    return static::get()[3]($opt, $argv, $speclist, $anonfun, $errmsg);
+  }
+  public static function parse_dynamic(dynamic $l, dynamic $f, dynamic $msg) {
+    return static::get()[2]($l, $f, $msg);
+  }
+  public static function parse(dynamic $l, dynamic $f, dynamic $msg) {
+    return static::get()[1]($l, $f, $msg);
+  }
 
+}
 /* Hashing disabled */

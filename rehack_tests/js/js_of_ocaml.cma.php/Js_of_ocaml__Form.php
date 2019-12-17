@@ -1,37 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Form.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Form {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Js_of_ocaml__Dom_html = Js_of_ocaml__Dom_html::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $List_ = List_::get();
-    $Assert_failure = Assert_failure::get();
-    Js_of_ocaml__Form::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Form;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $filter_map = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
@@ -42,7 +22,6 @@ final class Js_of_ocaml__Form {
     $caml_string_notequal = $runtime["caml_string_notequal"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $is_int = $runtime["is_int"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_checkbox = $string("checkbox");
     $cst_file = $string("file");
     $cst_password = $string("password");
@@ -50,11 +29,11 @@ final class Js_of_ocaml__Form {
     $cst_reset = $string("reset");
     $cst_submit = $string("submit");
     $cst_text = $string("text");
-    $Assert_failure = $global_data["Assert_failure"];
-    $List = $global_data["List_"];
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Js_of_ocaml_Dom_html = $global_data["Js_of_ocaml__Dom_html"];
-    $Array = $global_data["Array_"];
+    $Assert_failure =  Assert_failure::get ();
+    $List =  List_::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
+    $Array =  Array_::get ();
     $f_ = Vector{0, $string("lib/js_of_ocaml/form.ml"), 170, 58};
     $e_ = Vector{0, 1};
     $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
@@ -528,13 +507,30 @@ final class Js_of_ocaml__Form {
       $form_elements
     };
     
-    $runtime["caml_register_global"](
-      48,
-      $Js_of_ocaml_Form,
-      "Js_of_ocaml__Form"
-    );
+     return ($Js_of_ocaml_Form);
 
   }
-}
+  public static function form_elements(dynamic $get, dynamic $form) {
+    return static::get()[7]($get, $form);
+  }
+  public static function empty_form_contents(dynamic $param) {
+    return static::get()[6]($param);
+  }
+  public static function get_form_contents(dynamic $form) {
+    return static::get()[5]($form);
+  }
+  public static function post_form_contents(dynamic $form) {
+    return static::get()[4]($form);
+  }
+  public static function append(dynamic $form_contents, dynamic $form_elt) {
+    return static::get()[3]($form_contents, $form_elt);
+  }
+  public static function formData_form() {
+    return static::get()[2]();
+  }
+  public static function formData() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Calls
- * @providesModule Calls
  */
+
+// @ts-check
+
+
 "use strict";
-
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
@@ -90,8 +90,33 @@ var Calls = [
   testPartialMethodCalls
 ];
 
-runtime["caml_register_global"](18, Calls, "Calls");
+exports = Calls;
 
+/*::type Exports = {
+  testPartialMethodCalls: (o: any) => any,
+  testPartialFunctionCalls: (s: any) => any,
+  testMethodCalls: (o: any) => any,
+  testFunctionCalls: (o: any) => any,
+  baz: any
+  bar: any
+  foo: any
+}*/
+/** @type {{
+  testPartialMethodCalls: (any) => any,
+  testPartialFunctionCalls: (any) => any,
+  testMethodCalls: (any) => any,
+  testFunctionCalls: (any) => any,
+  baz: any,
+  bar: any,
+  foo: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.testPartialMethodCalls = module.exports[7];
+module.exports.testPartialFunctionCalls = module.exports[6];
+module.exports.testMethodCalls = module.exports[5];
+module.exports.testFunctionCalls = module.exports[4];
+module.exports.baz = module.exports[3];
+module.exports.bar = module.exports[2];
+module.exports.foo = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Calls;
 /* Hashing disabled */

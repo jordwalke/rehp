@@ -1,35 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Regexp.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Regexp {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $Pervasives = Pervasives::get();
-    $Assert_failure = Assert_failure::get();
-    Js_of_ocaml__Regexp::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Regexp;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -38,12 +20,11 @@ final class Js_of_ocaml__Regexp {
     $caml_jsbytes_of_string = $runtime["caml_jsbytes_of_string"];
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_g = $string("g");
     $cst = $string("[\\][()\\\\|+*.?{}^\\$]");
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Assert_failure = $global_data["Assert_failure"];
-    $Pervasives = $global_data["Pervasives"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Assert_failure =  Assert_failure::get ();
+    $Pervasives =  Pervasives::get ();
     $a_ = Vector{0, $string("lib/js_of_ocaml/regexp.ml"), 33, 64};
     $regexp = function(dynamic $s) use ($Js_of_ocaml_Js,$caml_jsbytes_of_string) {
       $al_ = 0;
@@ -289,13 +270,54 @@ final class Js_of_ocaml__Regexp {
       $bounded_split
     };
     
-    $runtime["caml_register_global"](
-      34,
-      $Js_of_ocaml_Regexp,
-      "Js_of_ocaml__Regexp"
-    );
+     return ($Js_of_ocaml_Regexp);
 
   }
-}
+  public static function bounded_split(dynamic $r, dynamic $s, dynamic $i) {
+    return static::get()[15]($r, $s, $i);
+  }
+  public static function split(dynamic $r, dynamic $s) {
+    return static::get()[14]($r, $s);
+  }
+  public static function replace_first(dynamic $r, dynamic $s, dynamic $s_by) {
+    return static::get()[13]($r, $s, $s_by);
+  }
+  public static function global_replace(dynamic $r, dynamic $s, dynamic $s_by) {
+    return static::get()[12]($r, $s, $s_by);
+  }
+  public static function matched_group(dynamic $r, dynamic $i) {
+    return static::get()[11]($r, $i);
+  }
+  public static function matched_string(dynamic $r) {
+    return static::get()[10]($r);
+  }
+  public static function search(dynamic $r, dynamic $s, dynamic $i) {
+    return static::get()[9]($r, $s, $i);
+  }
+  public static function search(dynamic $r, dynamic $s, dynamic $i) {
+    return static::get()[8]($r, $s, $i);
+  }
+  public static function string_match(dynamic $r, dynamic $s, dynamic $i) {
+    return static::get()[7]($r, $s, $i);
+  }
+  public static function regexp_string_case_fold(dynamic $s) {
+    return static::get()[6]($s);
+  }
+  public static function regexp_string(dynamic $s) {
+    return static::get()[5]($s);
+  }
+  public static function quote(dynamic $s) {
+    return static::get()[4]($s);
+  }
+  public static function regexp_with_flag(dynamic $s, dynamic $f) {
+    return static::get()[3]($s, $f);
+  }
+  public static function regexp_case_fold(dynamic $s) {
+    return static::get()[2]($s);
+  }
+  public static function regexp(dynamic $s) {
+    return static::get()[1]($s);
+  }
 
+}
 /* Hashing disabled */

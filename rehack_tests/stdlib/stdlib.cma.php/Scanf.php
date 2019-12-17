@@ -1,45 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Scanf.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Scanf {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Buffer = Buffer::get();
-    $Bytes = Bytes::get();
-    $CamlinternalFormat = CamlinternalFormat::get();
-    $CamlinternalFormatBasics = CamlinternalFormatBasics::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $Printf = Printf::get();
-    $String_ = String_::get();
-    $Invalid_argument = Invalid_argument::get();
-    $Failure = Failure::get();
-    $Not_found = Not_found::get();
-    $End_of_file = End_of_file::get();
-    $Assert_failure = Assert_failure::get();
-    Scanf::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Scanf;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $make_scanf = new Ref();
     $take_fmtty_format_readers = new Ref();
     $take_fmtty_format_readers__0 = new Ref();
@@ -64,7 +36,6 @@ final class Scanf {
      ];
     $is_int = $runtime["is_int"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_end_of_input_not_found = $string("end of input not found");
     $cst_scanf_bad_conversion_a = $string("scanf: bad conversion \"%a\"");
     $cst_scanf_bad_conversion_t = $string("scanf: bad conversion \"%t\"");
@@ -110,18 +81,18 @@ final class Scanf {
     $cst_hexadecimal = $string("hexadecimal");
     $cst_a_Char = $string("a Char");
     $cst_a_String = $string("a String");
-    $CamlinternalFormat = $global_data["CamlinternalFormat"];
-    $CamlinternalFormatBasics = $global_data["CamlinternalFormatBasics"];
-    $String = $global_data["String_"];
-    $Failure = $global_data["Failure"];
-    $Pervasives = $global_data["Pervasives"];
-    $Assert_failure = $global_data["Assert_failure"];
-    $Buffer = $global_data["Buffer"];
-    $End_of_file = $global_data["End_of_file"];
-    $Invalid_argument = $global_data["Invalid_argument"];
-    $Printf = $global_data["Printf"];
-    $List = $global_data["List_"];
-    $Not_found = $global_data["Not_found"];
+    $CamlinternalFormat =  CamlinternalFormat::get ();
+    $CamlinternalFormatBasics =  CamlinternalFormatBasics::get ();
+    $String =  String_::get ();
+    $Failure =  Failure::get ();
+    $Pervasives =  Pervasives::get ();
+    $Assert_failure =  Assert_failure::get ();
+    $Buffer =  Buffer::get ();
+    $End_of_file =  End_of_file::get ();
+    $Invalid_argument =  Invalid_argument::get ();
+    $Printf =  Printf::get ();
+    $List =  List_::get ();
+    $Not_found =  Not_found::get ();
     $r_ = Vector{0, 91};
     $q_ = Vector{0, 123};
     $s_ = Vector{0, $string("scanf.ml"), 1455, 13};
@@ -2616,9 +2587,45 @@ final class Scanf {
       $kfscanf
     };
     
-    $runtime["caml_register_global"](66, $Scanf, "Scanf");
+     return ($Scanf);
 
   }
-}
+  public static function kfscanf(dynamic $ic, dynamic $ef, dynamic $fmt) {
+    return static::get()[13]($ic, $ef, $fmt);
+  }
+  public static function fscanf(dynamic $ic, dynamic $fmt) {
+    return static::get()[12]($ic, $fmt);
+  }
+  public static function unescaped(dynamic $s) {
+    return static::get()[11]($s);
+  }
+  public static function format_from_string(dynamic $s, dynamic $fmt) {
+    return static::get()[10]($s, $fmt);
+  }
+  public static function sscanf_format(dynamic $s, dynamic $format, dynamic $f) {
+    return static::get()[9]($s, $format, $f);
+  }
+  public static function bscanf_format(dynamic $ib, dynamic $format, dynamic $f) {
+    return static::get()[8]($ib, $format, $f);
+  }
+  public static function ksscanf(dynamic $s, dynamic $ef, dynamic $fmt) {
+    return static::get()[7]($s, $ef, $fmt);
+  }
+  public static function kscanf(dynamic $ib, dynamic $ef, dynamic $param) {
+    return static::get()[6]($ib, $ef, $param);
+  }
+  public static function scanf(dynamic $fmt) {
+    return static::get()[5]($fmt);
+  }
+  public static function sscanf(dynamic $s, dynamic $fmt) {
+    return static::get()[4]($s, $fmt);
+  }
+  public static function bscanf(dynamic $ib, dynamic $fmt) {
+    return static::get()[3]($ib, $fmt);
+  }
+  public static function Scan_failure() {
+    return static::get()[2]();
+  }
 
+}
 /* Hashing disabled */

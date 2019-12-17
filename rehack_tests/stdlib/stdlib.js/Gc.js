@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Gc
- * @providesModule Gc
  */
+
+// @ts-check
+
+
 "use strict";
-var Printf = require('Printf.js');
-var Sys = require('Sys.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_ml_string_length = runtime["caml_ml_string_length"];
@@ -31,9 +30,8 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Sys = global_data["Sys"];
-var Printf = global_data["Printf"];
+var Sys = require("Sys.js");
+var Printf = require("Printf.js");
 var a_ = [
   0,
   [11,string("minor_collections: "),[4,0,0,0,[12,10,0]]],
@@ -168,8 +166,24 @@ var Gc = [
   delete_alarm
 ];
 
-runtime["caml_register_global"](22, Gc, "Gc");
+exports = Gc;
 
+/*::type Exports = {
+  delete_alarm: (a: any) => any,
+  create_alarm: (f: any) => any,
+  allocated_bytes: (param: any) => any,
+  print_stat: (c: any) => any,
+}*/
+/** @type {{
+  delete_alarm: (any) => any,
+  create_alarm: (any) => any,
+  allocated_bytes: (any) => any,
+  print_stat: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.delete_alarm = module.exports[7];
+module.exports.create_alarm = module.exports[6];
+module.exports.allocated_bytes = module.exports[2];
+module.exports.print_stat = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Gc;
 /* Hashing disabled */

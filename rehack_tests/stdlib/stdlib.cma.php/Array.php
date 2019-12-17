@@ -1,34 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Array_.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Array_ {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Pervasives = Pervasives::get();
-    $Assert_failure = Assert_failure::get();
-    Array_::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Array_;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_array_sub = $runtime["caml_array_sub"];
     $call1 = $runtime["caml_call1"];
@@ -40,7 +23,6 @@ final class Array_ {
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Array_map2_arrays_must_have_the_same_length = $string(
       "Array.map2: arrays must have the same length"
     );
@@ -52,8 +34,8 @@ final class Array_ {
     $cst_Array_sub = $string("Array.sub");
     $cst_Array_init = $string("Array.init");
     $cst_Array_Bottom = $string("Array.Bottom");
-    $Assert_failure = $global_data["Assert_failure"];
-    $Pervasives = $global_data["Pervasives"];
+    $Assert_failure =  Assert_failure::get ();
+    $Pervasives =  Pervasives::get ();
     $a_ = Vector{0, $string("array.ml"), 233, 4};
     $make_float = function(dynamic $aj_) use ($runtime) {
       return $runtime["caml_make_float_vect"]($aj_);
@@ -695,9 +677,90 @@ final class Array_ {
       $Floatarray
     };
     
-    $runtime["caml_register_global"](10, $Array, "Array_");
+     return ($Array);
 
   }
-}
+  public static function Floatarray() {
+    return static::get()[28]();
+  }
+  public static function stable_sort(dynamic $cmp, dynamic $a) {
+    return static::get()[27]($cmp, $a);
+  }
+  public static function stable_sort(dynamic $cmp, dynamic $a) {
+    return static::get()[26]($cmp, $a);
+  }
+  public static function sort(dynamic $cmp, dynamic $a) {
+    return static::get()[25]($cmp, $a);
+  }
+  public static function memq(dynamic $x, dynamic $a) {
+    return static::get()[24]($x, $a);
+  }
+  public static function mem(dynamic $x, dynamic $a) {
+    return static::get()[23]($x, $a);
+  }
+  public static function exists(dynamic $p, dynamic $a) {
+    return static::get()[22]($p, $a);
+  }
+  public static function for_all(dynamic $p, dynamic $a) {
+    return static::get()[21]($p, $a);
+  }
+  public static function map2(dynamic $f, dynamic $a, dynamic $b) {
+    return static::get()[20]($f, $a, $b);
+  }
+  public static function iter2(dynamic $f, dynamic $a, dynamic $b) {
+    return static::get()[19]($f, $a, $b);
+  }
+  public static function fold_right(dynamic $f, dynamic $a, dynamic $x) {
+    return static::get()[18]($f, $a, $x);
+  }
+  public static function fold_left(dynamic $f, dynamic $x, dynamic $a) {
+    return static::get()[17]($f, $x, $a);
+  }
+  public static function mapi(dynamic $f, dynamic $a) {
+    return static::get()[16]($f, $a);
+  }
+  public static function map(dynamic $f, dynamic $a) {
+    return static::get()[15]($f, $a);
+  }
+  public static function iteri(dynamic $f, dynamic $a) {
+    return static::get()[14]($f, $a);
+  }
+  public static function iter(dynamic $f, dynamic $a) {
+    return static::get()[13]($f, $a);
+  }
+  public static function of_list(dynamic $l) {
+    return static::get()[12]($l);
+  }
+  public static function to_list(dynamic $a) {
+    return static::get()[11]($a);
+  }
+  public static function blit(dynamic $a1, dynamic $ofs1, dynamic $a2, dynamic $ofs2, dynamic $len) {
+    return static::get()[10]($a1, $ofs1, $a2, $ofs2, $len);
+  }
+  public static function fill(dynamic $a, dynamic $ofs, dynamic $len, dynamic $v) {
+    return static::get()[9]($a, $ofs, $len, $v);
+  }
+  public static function copy(dynamic $a) {
+    return static::get()[8]($a);
+  }
+  public static function sub(dynamic $a, dynamic $ofs, dynamic $len) {
+    return static::get()[7]($a, $ofs, $len);
+  }
+  public static function append(dynamic $a1, dynamic $a2) {
+    return static::get()[5]($a1, $a2);
+  }
+  public static function make_matrix(dynamic $sx, dynamic $sy, dynamic $init) {
+    return static::get()[4]($sx, $sy, $init);
+  }
+  public static function make_matrix(dynamic $sx, dynamic $sy, dynamic $init) {
+    return static::get()[3]($sx, $sy, $init);
+  }
+  public static function init(dynamic $l, dynamic $f) {
+    return static::get()[2]($l, $f);
+  }
+  public static function make_float(dynamic $unnamed1) {
+    return static::get()[1]($unnamed1);
+  }
 
+}
 /* Hashing disabled */

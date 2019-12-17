@@ -1,19 +1,14 @@
 /**
+ * @flow strict
  * Format
- * @providesModule Format
  */
+
+// @ts-check
+
+
 "use strict";
-var Buffer = require('Buffer.js');
-var CamlinternalFormat = require('CamlinternalFormat.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var String_ = require('String_.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_ml_string_length = runtime["caml_ml_string_length"];
@@ -42,7 +37,6 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst__4 = string(".");
 var cst__2 = string(">");
 var cst__3 = string("</");
@@ -50,12 +44,12 @@ var cst__0 = string(">");
 var cst__1 = string("<");
 var cst = string("\n");
 var cst_Format_Empty_queue = string("Format.Empty_queue");
-var CamlinternalFormat = global_data["CamlinternalFormat"];
-var Pervasives = global_data["Pervasives"];
-var String = global_data["String_"];
-var Buffer = global_data["Buffer"];
-var List = global_data["List_"];
-var Not_found = global_data["Not_found"];
+var CamlinternalFormat = require("CamlinternalFormat.js");
+var Pervasives = require("Pervasives.js");
+var String = require("String_.js");
+var Buffer = require("Buffer.js");
+var List = require("List_.js");
+var Not_found = require("Not_found.js");
 var b_ = [3,0,3];
 var a_ = [0,string("")];
 
@@ -1671,8 +1665,393 @@ var Format = [
   pp_get_all_formatter_output_functions
 ];
 
-runtime["caml_register_global"](15, Format, "Format");
+exports = Format;
 
+/*::type Exports = {
+  pp_get_all_formatter_output_functions: (state: any, param: any) => any,
+  pp_set_all_formatter_output_functions: (state: any, f: any, g: any, h: any, i: any) => any,
+  get_all_formatter_output_functions: any
+  set_all_formatter_output_functions: any
+  ksprintf: (k: any, param: any) => any,
+  bprintf: (b: any, param: any) => any,
+  kasprintf: (k: any, param: any) => any,
+  ksprintf: (k: any, param: any) => any,
+  ikfprintf: (k: any, ppf: any, param: any) => any,
+  kfprintf: (k: any, ppf: any, param: any) => any,
+  ifprintf: (ppf: any) => any,
+  asprintf: (fmt: any) => any,
+  sprintf: (fmt: any) => any,
+  eprintf: (fmt: any) => any,
+  printf: (fmt: any) => any,
+  fprintf: (ppf: any) => any,
+  pp_print_text: (ppf: any, s: any) => any,
+  pp_print_list: (opt: any, pp_v: any, ppf: any, param: any) => any,
+  formatter_of_symbolic_output_buffer: (sob: any) => any,
+  add_symbolic_output_item: (sob: any, item: any) => any,
+  flush_symbolic_output_buffer: (sob: any) => any,
+  get_symbolic_output_buffer: (sob: any) => any,
+  clear_symbolic_output_buffer: (sob: any) => any,
+  make_symbolic_output_buffer: (param: any) => any,
+  formatter_of_out_functions: (out_funs: any) => any,
+  make_formatter: (output: any, flush: any) => any,
+  flush_str_formatter: (param: any) => any,
+  str_formatter: any
+  stdbuf: any
+  formatter_of_buffer: (b: any) => any,
+  err_formatter: any
+  std_formatter: any
+  formatter_of_out_channel: (oc: any) => any,
+  get_formatter_tag_functions: any
+  pp_get_formatter_tag_functions: (state: any, param: any) => any,
+  set_formatter_tag_functions: any
+  pp_set_formatter_tag_functions: (state: any, param: any) => any,
+  get_formatter_out_functions: any
+  pp_get_formatter_out_functions: (state: any, param: any) => any,
+  set_formatter_out_functions: any
+  pp_set_formatter_out_functions: (state: any, param: any) => any,
+  get_formatter_output_functions: any
+  pp_get_formatter_output_functions: (state: any, param: any) => any,
+  set_formatter_output_functions: any
+  pp_set_formatter_output_functions: (state: any, f: any, g: any) => any,
+  set_formatter_out_channel: any
+  pp_set_formatter_out_channel: (state: any, oc: any) => any,
+  get_mark_tags: any
+  pp_get_mark_tags: (state: any, param: any) => any,
+  get_print_tags: any
+  pp_get_print_tags: (state: any, param: any) => any,
+  set_mark_tags: any
+  pp_set_mark_tags: (state: any, b: any) => any,
+  set_print_tags: any
+  pp_set_print_tags: (state: any, b: any) => any,
+  set_tags: any
+  pp_set_tags: (state: any, b: any) => any,
+  close_tag: any
+  pp_close_tag: (state: any, param: any) => any,
+  open_tag: any
+  pp_open_tag: (state: any, tag_name: any) => any,
+  get_ellipsis_text: any
+  pp_get_ellipsis_text: (state: any, param: any) => any,
+  set_ellipsis_text: any
+  pp_set_ellipsis_text: (state: any, s: any) => any,
+  print_tbreak: any
+  pp_print_tbreak: (state: any, width: any, offset: any) => any,
+  print_tab: any
+  pp_print_tab: (state: any, param: any) => any,
+  set_tab: any
+  pp_set_tab: (state: any, param: any) => any,
+  close_tbox: any
+  pp_close_tbox: (state: any, param: any) => any,
+  open_tbox: any
+  pp_open_tbox: (state: any, param: any) => any,
+  over_max_boxes: any
+  pp_over_max_boxes: (state: any, param: any) => any,
+  get_max_boxes: any
+  pp_get_max_boxes: (state: any, param: any) => any,
+  set_max_boxes: any
+  pp_set_max_boxes: (state: any, n: any) => any,
+  get_max_indent: any
+  pp_get_max_indent: (state: any, param: any) => any,
+  set_max_indent: any
+  pp_set_max_indent: (state: any, n: any) => any,
+  get_margin: any
+  pp_get_margin: (state: any, param: any) => any,
+  set_margin: any
+  pp_set_margin: (state: any, n: any) => any,
+  print_newline: any
+  pp_print_newline: (state: any, param: any) => any,
+  print_flush: any
+  pp_print_flush: (state: any, param: any) => any,
+  print_if_newline: any
+  pp_print_if_newline: (state: any, param: any) => any,
+  force_newline: any
+  pp_force_newline: (state: any, param: any) => any,
+  print_break: any
+  pp_print_break: (state: any, width: any, offset: any) => any,
+  print_cut: any
+  pp_print_cut: (state: any, param: any) => any,
+  print_space: any
+  pp_print_space: (state: any, param: any) => any,
+  print_bool: any
+  pp_print_bool: (state: any, b: any) => any,
+  print_char: any
+  pp_print_char: (state: any, c: any) => any,
+  print_float: any
+  pp_print_float: (state: any, f: any) => any,
+  print_int: any
+  pp_print_int: (state: any, i: any) => any,
+  print_as: any
+  pp_print_as: (state: any, isize: any, s: any) => any,
+  print_string: any
+  pp_print_string: (state: any, s: any) => any,
+  open_hovbox: any
+  pp_open_hovbox: (state: any, indent: any) => any,
+  open_hvbox: any
+  pp_open_hvbox: (state: any, indent: any) => any,
+  open_vbox: any
+  pp_open_vbox: (state: any, indent: any) => any,
+  open_hbox: any
+  pp_open_hbox: (state: any, param: any) => any,
+  close_box: any
+  pp_close_box: (state: any, param: any) => any,
+  open_box: any
+  pp_open_box: (state: any, indent: any) => any,
+}*/
+/** @type {{
+  pp_get_all_formatter_output_functions: (any, any) => any,
+  pp_set_all_formatter_output_functions: (any, any, any, any, any) => any,
+  get_all_formatter_output_functions: any,
+  set_all_formatter_output_functions: any,
+  ksprintf: (any, any) => any,
+  bprintf: (any, any) => any,
+  kasprintf: (any, any) => any,
+  ksprintf: (any, any) => any,
+  ikfprintf: (any, any, any) => any,
+  kfprintf: (any, any, any) => any,
+  ifprintf: (any) => any,
+  asprintf: (any) => any,
+  sprintf: (any) => any,
+  eprintf: (any) => any,
+  printf: (any) => any,
+  fprintf: (any) => any,
+  pp_print_text: (any, any) => any,
+  pp_print_list: (any, any, any, any) => any,
+  formatter_of_symbolic_output_buffer: (any) => any,
+  add_symbolic_output_item: (any, any) => any,
+  flush_symbolic_output_buffer: (any) => any,
+  get_symbolic_output_buffer: (any) => any,
+  clear_symbolic_output_buffer: (any) => any,
+  make_symbolic_output_buffer: (any) => any,
+  formatter_of_out_functions: (any) => any,
+  make_formatter: (any, any) => any,
+  flush_str_formatter: (any) => any,
+  str_formatter: any,
+  stdbuf: any,
+  formatter_of_buffer: (any) => any,
+  err_formatter: any,
+  std_formatter: any,
+  formatter_of_out_channel: (any) => any,
+  get_formatter_tag_functions: any,
+  pp_get_formatter_tag_functions: (any, any) => any,
+  set_formatter_tag_functions: any,
+  pp_set_formatter_tag_functions: (any, any) => any,
+  get_formatter_out_functions: any,
+  pp_get_formatter_out_functions: (any, any) => any,
+  set_formatter_out_functions: any,
+  pp_set_formatter_out_functions: (any, any) => any,
+  get_formatter_output_functions: any,
+  pp_get_formatter_output_functions: (any, any) => any,
+  set_formatter_output_functions: any,
+  pp_set_formatter_output_functions: (any, any, any) => any,
+  set_formatter_out_channel: any,
+  pp_set_formatter_out_channel: (any, any) => any,
+  get_mark_tags: any,
+  pp_get_mark_tags: (any, any) => any,
+  get_print_tags: any,
+  pp_get_print_tags: (any, any) => any,
+  set_mark_tags: any,
+  pp_set_mark_tags: (any, any) => any,
+  set_print_tags: any,
+  pp_set_print_tags: (any, any) => any,
+  set_tags: any,
+  pp_set_tags: (any, any) => any,
+  close_tag: any,
+  pp_close_tag: (any, any) => any,
+  open_tag: any,
+  pp_open_tag: (any, any) => any,
+  get_ellipsis_text: any,
+  pp_get_ellipsis_text: (any, any) => any,
+  set_ellipsis_text: any,
+  pp_set_ellipsis_text: (any, any) => any,
+  print_tbreak: any,
+  pp_print_tbreak: (any, any, any) => any,
+  print_tab: any,
+  pp_print_tab: (any, any) => any,
+  set_tab: any,
+  pp_set_tab: (any, any) => any,
+  close_tbox: any,
+  pp_close_tbox: (any, any) => any,
+  open_tbox: any,
+  pp_open_tbox: (any, any) => any,
+  over_max_boxes: any,
+  pp_over_max_boxes: (any, any) => any,
+  get_max_boxes: any,
+  pp_get_max_boxes: (any, any) => any,
+  set_max_boxes: any,
+  pp_set_max_boxes: (any, any) => any,
+  get_max_indent: any,
+  pp_get_max_indent: (any, any) => any,
+  set_max_indent: any,
+  pp_set_max_indent: (any, any) => any,
+  get_margin: any,
+  pp_get_margin: (any, any) => any,
+  set_margin: any,
+  pp_set_margin: (any, any) => any,
+  print_newline: any,
+  pp_print_newline: (any, any) => any,
+  print_flush: any,
+  pp_print_flush: (any, any) => any,
+  print_if_newline: any,
+  pp_print_if_newline: (any, any) => any,
+  force_newline: any,
+  pp_force_newline: (any, any) => any,
+  print_break: any,
+  pp_print_break: (any, any, any) => any,
+  print_cut: any,
+  pp_print_cut: (any, any) => any,
+  print_space: any,
+  pp_print_space: (any, any) => any,
+  print_bool: any,
+  pp_print_bool: (any, any) => any,
+  print_char: any,
+  pp_print_char: (any, any) => any,
+  print_float: any,
+  pp_print_float: (any, any) => any,
+  print_int: any,
+  pp_print_int: (any, any) => any,
+  print_as: any,
+  pp_print_as: (any, any, any) => any,
+  print_string: any,
+  pp_print_string: (any, any) => any,
+  open_hovbox: any,
+  pp_open_hovbox: (any, any) => any,
+  open_hvbox: any,
+  pp_open_hvbox: (any, any) => any,
+  open_vbox: any,
+  pp_open_vbox: (any, any) => any,
+  open_hbox: any,
+  pp_open_hbox: (any, any) => any,
+  close_box: any,
+  pp_close_box: (any, any) => any,
+  open_box: any,
+  pp_open_box: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.pp_get_all_formatter_output_functions = module.exports[127];
+module.exports.pp_set_all_formatter_output_functions = module.exports[126];
+module.exports.get_all_formatter_output_functions = module.exports[125];
+module.exports.set_all_formatter_output_functions = module.exports[124];
+module.exports.ksprintf = module.exports[123];
+module.exports.bprintf = module.exports[122];
+module.exports.kasprintf = module.exports[121];
+module.exports.ksprintf = module.exports[120];
+module.exports.ikfprintf = module.exports[119];
+module.exports.kfprintf = module.exports[118];
+module.exports.ifprintf = module.exports[117];
+module.exports.asprintf = module.exports[116];
+module.exports.sprintf = module.exports[115];
+module.exports.eprintf = module.exports[114];
+module.exports.printf = module.exports[113];
+module.exports.fprintf = module.exports[112];
+module.exports.pp_print_text = module.exports[111];
+module.exports.pp_print_list = module.exports[110];
+module.exports.formatter_of_symbolic_output_buffer = module.exports[109];
+module.exports.add_symbolic_output_item = module.exports[108];
+module.exports.flush_symbolic_output_buffer = module.exports[107];
+module.exports.get_symbolic_output_buffer = module.exports[106];
+module.exports.clear_symbolic_output_buffer = module.exports[105];
+module.exports.make_symbolic_output_buffer = module.exports[104];
+module.exports.formatter_of_out_functions = module.exports[103];
+module.exports.make_formatter = module.exports[102];
+module.exports.flush_str_formatter = module.exports[101];
+module.exports.str_formatter = module.exports[100];
+module.exports.stdbuf = module.exports[99];
+module.exports.formatter_of_buffer = module.exports[98];
+module.exports.err_formatter = module.exports[97];
+module.exports.std_formatter = module.exports[96];
+module.exports.formatter_of_out_channel = module.exports[95];
+module.exports.get_formatter_tag_functions = module.exports[94];
+module.exports.pp_get_formatter_tag_functions = module.exports[93];
+module.exports.set_formatter_tag_functions = module.exports[92];
+module.exports.pp_set_formatter_tag_functions = module.exports[91];
+module.exports.get_formatter_out_functions = module.exports[90];
+module.exports.pp_get_formatter_out_functions = module.exports[89];
+module.exports.set_formatter_out_functions = module.exports[88];
+module.exports.pp_set_formatter_out_functions = module.exports[87];
+module.exports.get_formatter_output_functions = module.exports[86];
+module.exports.pp_get_formatter_output_functions = module.exports[85];
+module.exports.set_formatter_output_functions = module.exports[84];
+module.exports.pp_set_formatter_output_functions = module.exports[83];
+module.exports.set_formatter_out_channel = module.exports[82];
+module.exports.pp_set_formatter_out_channel = module.exports[81];
+module.exports.get_mark_tags = module.exports[80];
+module.exports.pp_get_mark_tags = module.exports[79];
+module.exports.get_print_tags = module.exports[78];
+module.exports.pp_get_print_tags = module.exports[77];
+module.exports.set_mark_tags = module.exports[76];
+module.exports.pp_set_mark_tags = module.exports[75];
+module.exports.set_print_tags = module.exports[74];
+module.exports.pp_set_print_tags = module.exports[73];
+module.exports.set_tags = module.exports[72];
+module.exports.pp_set_tags = module.exports[71];
+module.exports.close_tag = module.exports[70];
+module.exports.pp_close_tag = module.exports[69];
+module.exports.open_tag = module.exports[68];
+module.exports.pp_open_tag = module.exports[67];
+module.exports.get_ellipsis_text = module.exports[66];
+module.exports.pp_get_ellipsis_text = module.exports[65];
+module.exports.set_ellipsis_text = module.exports[64];
+module.exports.pp_set_ellipsis_text = module.exports[63];
+module.exports.print_tbreak = module.exports[62];
+module.exports.pp_print_tbreak = module.exports[61];
+module.exports.print_tab = module.exports[60];
+module.exports.pp_print_tab = module.exports[59];
+module.exports.set_tab = module.exports[58];
+module.exports.pp_set_tab = module.exports[57];
+module.exports.close_tbox = module.exports[56];
+module.exports.pp_close_tbox = module.exports[55];
+module.exports.open_tbox = module.exports[54];
+module.exports.pp_open_tbox = module.exports[53];
+module.exports.over_max_boxes = module.exports[52];
+module.exports.pp_over_max_boxes = module.exports[51];
+module.exports.get_max_boxes = module.exports[50];
+module.exports.pp_get_max_boxes = module.exports[49];
+module.exports.set_max_boxes = module.exports[48];
+module.exports.pp_set_max_boxes = module.exports[47];
+module.exports.get_max_indent = module.exports[46];
+module.exports.pp_get_max_indent = module.exports[45];
+module.exports.set_max_indent = module.exports[44];
+module.exports.pp_set_max_indent = module.exports[43];
+module.exports.get_margin = module.exports[42];
+module.exports.pp_get_margin = module.exports[41];
+module.exports.set_margin = module.exports[40];
+module.exports.pp_set_margin = module.exports[39];
+module.exports.print_newline = module.exports[38];
+module.exports.pp_print_newline = module.exports[37];
+module.exports.print_flush = module.exports[36];
+module.exports.pp_print_flush = module.exports[35];
+module.exports.print_if_newline = module.exports[34];
+module.exports.pp_print_if_newline = module.exports[33];
+module.exports.force_newline = module.exports[32];
+module.exports.pp_force_newline = module.exports[31];
+module.exports.print_break = module.exports[30];
+module.exports.pp_print_break = module.exports[29];
+module.exports.print_cut = module.exports[28];
+module.exports.pp_print_cut = module.exports[27];
+module.exports.print_space = module.exports[26];
+module.exports.pp_print_space = module.exports[25];
+module.exports.print_bool = module.exports[24];
+module.exports.pp_print_bool = module.exports[23];
+module.exports.print_char = module.exports[22];
+module.exports.pp_print_char = module.exports[21];
+module.exports.print_float = module.exports[20];
+module.exports.pp_print_float = module.exports[19];
+module.exports.print_int = module.exports[18];
+module.exports.pp_print_int = module.exports[17];
+module.exports.print_as = module.exports[16];
+module.exports.pp_print_as = module.exports[15];
+module.exports.print_string = module.exports[14];
+module.exports.pp_print_string = module.exports[13];
+module.exports.open_hovbox = module.exports[12];
+module.exports.pp_open_hovbox = module.exports[11];
+module.exports.open_hvbox = module.exports[10];
+module.exports.pp_open_hvbox = module.exports[9];
+module.exports.open_vbox = module.exports[8];
+module.exports.pp_open_vbox = module.exports[7];
+module.exports.open_hbox = module.exports[6];
+module.exports.pp_open_hbox = module.exports[5];
+module.exports.close_box = module.exports[4];
+module.exports.pp_close_box = module.exports[3];
+module.exports.open_box = module.exports[2];
+module.exports.pp_open_box = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Format;
 /* Hashing disabled */

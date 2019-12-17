@@ -1,33 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Queue.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Queue {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-
-    Queue::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Queue;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -160,9 +144,54 @@ final class Queue {
       $transfer
     };
     
-    $runtime["caml_register_global"](1, $Queue, "Queue");
+     return ($Queue);
 
   }
-}
+  public static function transfer(dynamic $q1, dynamic $q2) {
+    return static::get()[15]($q1, $q2);
+  }
+  public static function fold(dynamic $f, dynamic $accu, dynamic $q) {
+    return static::get()[14]($f, $accu, $q);
+  }
+  public static function iter(dynamic $f, dynamic $q) {
+    return static::get()[13]($f, $q);
+  }
+  public static function length(dynamic $q) {
+    return static::get()[12]($q);
+  }
+  public static function is_empty(dynamic $q) {
+    return static::get()[11]($q);
+  }
+  public static function copy(dynamic $q) {
+    return static::get()[10]($q);
+  }
+  public static function clear(dynamic $q) {
+    return static::get()[9]($q);
+  }
+  public static function peek(dynamic $q) {
+    return static::get()[8]($q);
+  }
+  public static function peek(dynamic $q) {
+    return static::get()[7]($q);
+  }
+  public static function take(dynamic $q) {
+    return static::get()[6]($q);
+  }
+  public static function take(dynamic $q) {
+    return static::get()[5]($q);
+  }
+  public static function add(dynamic $x, dynamic $q) {
+    return static::get()[4]($x, $q);
+  }
+  public static function add(dynamic $x, dynamic $q) {
+    return static::get()[3]($x, $q);
+  }
+  public static function create(dynamic $param) {
+    return static::get()[2]($param);
+  }
+  public static function Empty() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * String_
- * @providesModule String_
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var Pervasives = require('Pervasives.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_blit_string = runtime["caml_blit_string"];
@@ -36,7 +34,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_String_rcontains_from_Bytes_rcontains_from = string(
   "String.rcontains_from / Bytes.rcontains_from"
 );
@@ -58,9 +55,9 @@ var cst_String_index_from_Bytes_index_from = string(
 var cst__0 = string("");
 var cst = string("");
 var cst_String_concat = string("String.concat");
-var Not_found = global_data["Not_found"];
-var Bytes = global_data["Bytes"];
-var Pervasives = global_data["Pervasives"];
+var Not_found = require("Not_found.js");
+var Bytes = require("Bytes.js");
+var Pervasives = require("Pervasives.js");
 var bts = Bytes[42];
 var bos = Bytes[43];
 
@@ -465,8 +462,114 @@ var String = [
   split_on_char
 ];
 
-runtime["caml_register_global"](12, String, "String_");
+exports = String;
 
+/*::type Exports = {
+  split_on_char: (sep: any, s: any) => any,
+  compare: (x: any, y: any) => any,
+  uncapitalize_ascii: (s: any) => any,
+  capitalize_ascii: (s: any) => any,
+  lowercase_ascii: (s: any) => any,
+  uppercase_ascii: (s: any) => any,
+  uncapitalize: (s: any) => any,
+  capitalize: (s: any) => any,
+  lowercase: (s: any) => any,
+  uppercase: (s: any) => any,
+  rcontains_from: (s: any, i: any, c: any) => any,
+  contains_from: (s: any, i: any, c: any) => any,
+  contains: (s: any, c: any) => any,
+  rindex_from_opt: (s: any, i: any, c: any) => any,
+  rindex_from: (s: any, i: any, c: any) => any,
+  index_from_opt: (s: any, i: any, c: any) => any,
+  index_from: (s: any, i: any, c: any) => any,
+  rindex_opt: (s: any, c: any) => any,
+  rindex: (s: any, c: any) => any,
+  index_opt: (s: any, c: any) => any,
+  index: (s: any, c: any) => any,
+  escaped: (s: any) => any,
+  trim: (s: any) => any,
+  mapi: (f: any, s: any) => any,
+  map: (f: any, s: any) => any,
+  iteri: (f: any, s: any) => any,
+  iter: (f: any, s: any) => any,
+  concat: (sep: any, l: any) => any,
+  blit: any
+  fill: any
+  sub: (s: any, ofs: any, len: any) => any,
+  copy: (s: any) => any,
+  init: (n: any, f: any) => any,
+  make: (n: any, c: any) => any,
+}*/
+/** @type {{
+  split_on_char: (any, any) => any,
+  compare: (any, any) => any,
+  uncapitalize_ascii: (any) => any,
+  capitalize_ascii: (any) => any,
+  lowercase_ascii: (any) => any,
+  uppercase_ascii: (any) => any,
+  uncapitalize: (any) => any,
+  capitalize: (any) => any,
+  lowercase: (any) => any,
+  uppercase: (any) => any,
+  rcontains_from: (any, any, any) => any,
+  contains_from: (any, any, any) => any,
+  contains: (any, any) => any,
+  rindex_from_opt: (any, any, any) => any,
+  rindex_from: (any, any, any) => any,
+  index_from_opt: (any, any, any) => any,
+  index_from: (any, any, any) => any,
+  rindex_opt: (any, any) => any,
+  rindex: (any, any) => any,
+  index_opt: (any, any) => any,
+  index: (any, any) => any,
+  escaped: (any) => any,
+  trim: (any) => any,
+  mapi: (any, any) => any,
+  map: (any, any) => any,
+  iteri: (any, any) => any,
+  iter: (any, any) => any,
+  concat: (any, any) => any,
+  blit: any,
+  fill: any,
+  sub: (any, any, any) => any,
+  copy: (any) => any,
+  init: (any, any) => any,
+  make: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.split_on_char = module.exports[35];
+module.exports.compare = module.exports[33];
+module.exports.uncapitalize_ascii = module.exports[32];
+module.exports.capitalize_ascii = module.exports[31];
+module.exports.lowercase_ascii = module.exports[30];
+module.exports.uppercase_ascii = module.exports[29];
+module.exports.uncapitalize = module.exports[28];
+module.exports.capitalize = module.exports[27];
+module.exports.lowercase = module.exports[26];
+module.exports.uppercase = module.exports[25];
+module.exports.rcontains_from = module.exports[24];
+module.exports.contains_from = module.exports[23];
+module.exports.contains = module.exports[22];
+module.exports.rindex_from_opt = module.exports[21];
+module.exports.rindex_from = module.exports[20];
+module.exports.index_from_opt = module.exports[19];
+module.exports.index_from = module.exports[18];
+module.exports.rindex_opt = module.exports[17];
+module.exports.rindex = module.exports[16];
+module.exports.index_opt = module.exports[15];
+module.exports.index = module.exports[14];
+module.exports.escaped = module.exports[13];
+module.exports.trim = module.exports[12];
+module.exports.mapi = module.exports[11];
+module.exports.map = module.exports[10];
+module.exports.iteri = module.exports[9];
+module.exports.iter = module.exports[8];
+module.exports.concat = module.exports[7];
+module.exports.blit = module.exports[6];
+module.exports.fill = module.exports[5];
+module.exports.sub = module.exports[4];
+module.exports.copy = module.exports[3];
+module.exports.init = module.exports[2];
+module.exports.make = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().String_;
 /* Hashing disabled */

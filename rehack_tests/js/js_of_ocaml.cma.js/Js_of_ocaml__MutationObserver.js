@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__MutationObserver
- * @providesModule Js_of_ocaml__MutationObserver
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -18,9 +17,8 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Array = global_data["Array_"];
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
+var Array = require("Array_.js");
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
 
 function empty_mutation_observer_init(param) {return {};}
 
@@ -129,12 +127,24 @@ var Js_of_ocaml_MutationObserver = [
   observe
 ];
 
-runtime["caml_register_global"](
-  11,
-  Js_of_ocaml_MutationObserver,
-  "Js_of_ocaml__MutationObserver"
-);
+exports = Js_of_ocaml_MutationObserver;
 
+/*::type Exports = {
+  observe: (node: any, f: any, child_list: any, attributes: any, character_data: any, subtree: any, attribute_old_value: any, character_data_old_value: any, attribute_filter: any, param: any) => any,
+  is_supported: (param: any) => any,
+  mutationObserver: any
+  empty_mutation_observer_init: (param: any) => any,
+}*/
+/** @type {{
+  observe: (any, any, any, any, any, any, any, any, any, any) => any,
+  is_supported: (any) => any,
+  mutationObserver: any,
+  empty_mutation_observer_init: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.observe = module.exports[4];
+module.exports.is_supported = module.exports[3];
+module.exports.mutationObserver = module.exports[2];
+module.exports.empty_mutation_observer_init = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__MutationObserver;
 /* Hashing disabled */

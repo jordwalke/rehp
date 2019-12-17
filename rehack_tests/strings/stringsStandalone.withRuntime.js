@@ -7,7 +7,6 @@
 let joo_global_object = typeof global !== 'undefined' ? global : window;
 
 
-
 var runtime = joo_global_object.jsoo_runtime;
 
 var caml_blit_string = runtime["caml_blit_string"];
@@ -372,5 +371,4 @@ print_string(symbol(I_, string_of_bool(anotherName === anotherName ? 1 : 0)));
 print_newline(0);
 
 do_at_exit(0);
-
 

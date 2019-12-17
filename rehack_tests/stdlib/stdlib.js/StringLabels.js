@@ -1,18 +1,17 @@
 /**
+ * @flow strict
  * StringLabels
- * @providesModule StringLabels
  */
+
+// @ts-check
+
+
 "use strict";
-var String_ = require('String_.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime["caml_get_global_data"]();
-var String = global_data["String_"];
+var String = require("String_.js");
 var make = String[1];
 var init = String[2];
 var copy = String[3];
@@ -87,8 +86,117 @@ var StringLabels = [
   split_on_char
 ];
 
-runtime["caml_register_global"](1, StringLabels, "StringLabels");
+exports = StringLabels;
 
+/*::type Exports = {
+  split_on_char: any
+  equal: any
+  compare: any
+  uncapitalize_ascii: any
+  capitalize_ascii: any
+  lowercase_ascii: any
+  uppercase_ascii: any
+  uncapitalize: any
+  capitalize: any
+  lowercase: any
+  uppercase: any
+  rcontains_from: any
+  contains_from: any
+  contains: any
+  rindex_from_opt: any
+  rindex_from: any
+  index_from_opt: any
+  index_from: any
+  rindex_opt: any
+  rindex: any
+  index_opt: any
+  index: any
+  escaped: any
+  trim: any
+  mapi: any
+  map: any
+  iteri: any
+  iter: any
+  concat: any
+  blit: any
+  fill: any
+  sub: any
+  copy: any
+  init: any
+  make: any
+}*/
+/** @type {{
+  split_on_char: any,
+  equal: any,
+  compare: any,
+  uncapitalize_ascii: any,
+  capitalize_ascii: any,
+  lowercase_ascii: any,
+  uppercase_ascii: any,
+  uncapitalize: any,
+  capitalize: any,
+  lowercase: any,
+  uppercase: any,
+  rcontains_from: any,
+  contains_from: any,
+  contains: any,
+  rindex_from_opt: any,
+  rindex_from: any,
+  index_from_opt: any,
+  index_from: any,
+  rindex_opt: any,
+  rindex: any,
+  index_opt: any,
+  index: any,
+  escaped: any,
+  trim: any,
+  mapi: any,
+  map: any,
+  iteri: any,
+  iter: any,
+  concat: any,
+  blit: any,
+  fill: any,
+  sub: any,
+  copy: any,
+  init: any,
+  make: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.split_on_char = module.exports[35];
+module.exports.equal = module.exports[34];
+module.exports.compare = module.exports[33];
+module.exports.uncapitalize_ascii = module.exports[32];
+module.exports.capitalize_ascii = module.exports[31];
+module.exports.lowercase_ascii = module.exports[30];
+module.exports.uppercase_ascii = module.exports[29];
+module.exports.uncapitalize = module.exports[28];
+module.exports.capitalize = module.exports[27];
+module.exports.lowercase = module.exports[26];
+module.exports.uppercase = module.exports[25];
+module.exports.rcontains_from = module.exports[24];
+module.exports.contains_from = module.exports[23];
+module.exports.contains = module.exports[22];
+module.exports.rindex_from_opt = module.exports[21];
+module.exports.rindex_from = module.exports[20];
+module.exports.index_from_opt = module.exports[19];
+module.exports.index_from = module.exports[18];
+module.exports.rindex_opt = module.exports[17];
+module.exports.rindex = module.exports[16];
+module.exports.index_opt = module.exports[15];
+module.exports.index = module.exports[14];
+module.exports.escaped = module.exports[13];
+module.exports.trim = module.exports[12];
+module.exports.mapi = module.exports[11];
+module.exports.map = module.exports[10];
+module.exports.iteri = module.exports[9];
+module.exports.iter = module.exports[8];
+module.exports.concat = module.exports[7];
+module.exports.blit = module.exports[6];
+module.exports.fill = module.exports[5];
+module.exports.sub = module.exports[4];
+module.exports.copy = module.exports[3];
+module.exports.init = module.exports[2];
+module.exports.make = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().StringLabels;
 /* Hashing disabled */

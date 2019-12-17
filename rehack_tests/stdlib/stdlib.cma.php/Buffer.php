@@ -1,40 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Buffer.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Buffer {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Bytes = Bytes::get();
-    $Pervasives = Pervasives::get();
-    $String_ = String_::get();
-    $Sys = Sys::get();
-    $Uchar = Uchar::get();
-    $Not_found = Not_found::get();
-    $End_of_file = End_of_file::get();
-    $Assert_failure = Assert_failure::get();
-    Buffer::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Buffer;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $call1 = $runtime["caml_call1"];
@@ -48,7 +25,6 @@ final class Buffer {
     $caml_string_get = $runtime["caml_string_get"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Buffer_truncate = $string("Buffer.truncate");
     $cst_Buffer_add_channel = $string("Buffer.add_channel");
     $cst_Buffer_add_substring_add_subbytes = $string(
@@ -60,14 +36,14 @@ final class Buffer {
     $cst_Buffer_nth = $string("Buffer.nth");
     $cst_Buffer_blit = $string("Buffer.blit");
     $cst_Buffer_sub = $string("Buffer.sub");
-    $Pervasives = $global_data["Pervasives"];
-    $End_of_file = $global_data["End_of_file"];
-    $Not_found = $global_data["Not_found"];
-    $String = $global_data["String_"];
-    $Assert_failure = $global_data["Assert_failure"];
-    $Sys = $global_data["Sys"];
-    $Bytes = $global_data["Bytes"];
-    $Uchar = $global_data["Uchar"];
+    $Pervasives =  Pervasives::get ();
+    $End_of_file =  End_of_file::get ();
+    $Not_found =  Not_found::get ();
+    $String =  String_::get ();
+    $Assert_failure =  Assert_failure::get ();
+    $Sys =  Sys::get ();
+    $Bytes =  Bytes::get ();
+    $Uchar =  Uchar::get ();
     $g_ = Vector{0, $string("buffer.ml"), 205, 9};
     $f_ = Vector{0, $string("buffer.ml"), 141, 19};
     $e_ = Vector{0, $string("buffer.ml"), 159, 8};
@@ -549,9 +525,75 @@ final class Buffer {
       $truncate
     };
     
-    $runtime["caml_register_global"](22, $Buffer, "Buffer");
+     return ($Buffer);
 
   }
-}
+  public static function truncate(dynamic $b, dynamic $len) {
+    return static::get()[22]($b, $len);
+  }
+  public static function output_buffer(dynamic $oc, dynamic $b) {
+    return static::get()[21]($oc, $b);
+  }
+  public static function add_channel(dynamic $b, dynamic $ic, dynamic $len) {
+    return static::get()[20]($b, $ic, $len);
+  }
+  public static function add_buffer(dynamic $b, dynamic $bs) {
+    return static::get()[19]($b, $bs);
+  }
+  public static function add_substitute(dynamic $b, dynamic $f, dynamic $s) {
+    return static::get()[18]($b, $f, $s);
+  }
+  public static function add_subbytes(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
+    return static::get()[17]($b, $s, $offset, $len);
+  }
+  public static function add_substring(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
+    return static::get()[16]($b, $s, $offset, $len);
+  }
+  public static function add_bytes(dynamic $b, dynamic $s) {
+    return static::get()[15]($b, $s);
+  }
+  public static function add_string(dynamic $b, dynamic $s) {
+    return static::get()[14]($b, $s);
+  }
+  public static function add_utf_16be_uchar(dynamic $b, dynamic $u) {
+    return static::get()[13]($b, $u);
+  }
+  public static function add_utf_16le_uchar(dynamic $b, dynamic $u) {
+    return static::get()[12]($b, $u);
+  }
+  public static function add_utf_8_uchar(dynamic $b, dynamic $u) {
+    return static::get()[11]($b, $u);
+  }
+  public static function add_char(dynamic $b, dynamic $c) {
+    return static::get()[10]($b, $c);
+  }
+  public static function reset(dynamic $b) {
+    return static::get()[9]($b);
+  }
+  public static function clear(dynamic $b) {
+    return static::get()[8]($b);
+  }
+  public static function length(dynamic $b) {
+    return static::get()[7]($b);
+  }
+  public static function nth(dynamic $b, dynamic $ofs) {
+    return static::get()[6]($b, $ofs);
+  }
+  public static function blit(dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) {
+    return static::get()[5]($src, $srcoff, $dst, $dstoff, $len);
+  }
+  public static function sub(dynamic $b, dynamic $ofs, dynamic $len) {
+    return static::get()[4]($b, $ofs, $len);
+  }
+  public static function to_bytes(dynamic $b) {
+    return static::get()[3]($b);
+  }
+  public static function contents(dynamic $b) {
+    return static::get()[2]($b);
+  }
+  public static function create(dynamic $n) {
+    return static::get()[1]($n);
+  }
 
+}
 /* Hashing disabled */

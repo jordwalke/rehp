@@ -1,40 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Dom_html.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Dom_html {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Dom = Js_of_ocaml__Dom::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $Printf = Printf::get();
-    $Uchar = Uchar::get();
-    $Not_found = Not_found::get();
-    $Assert_failure = Assert_failure::get();
-    Js_of_ocaml__Dom_html::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Dom_html;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -51,7 +28,6 @@ final class Js_of_ocaml__Dom_html {
        "caml_wrap_thrown_exception_reraise"
      ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_a__1 = $string("a");
     $cst_area__1 = $string("area");
     $cst_audio__1 = $string("audio");
@@ -456,14 +432,14 @@ final class Js_of_ocaml__Dom_html {
     $cst_Js_of_ocaml_Dom_html_Canvas_not_available = $string(
       "Js_of_ocaml__Dom_html.Canvas_not_available"
     );
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $List = $global_data["List_"];
-    $Not_found = $global_data["Not_found"];
-    $Uchar = $global_data["Uchar"];
-    $Assert_failure = $global_data["Assert_failure"];
-    $Printf = $global_data["Printf"];
-    $Pervasives = $global_data["Pervasives"];
-    $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $List =  List_::get ();
+    $Not_found =  Not_found::get ();
+    $Uchar =  Uchar::get ();
+    $Assert_failure =  Assert_failure::get ();
+    $Printf =  Printf::get ();
+    $Pervasives =  Pervasives::get ();
+    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::get ();
     $g_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2704, 58};
     $f_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2703, 61};
     $b_ = Vector{
@@ -3093,13 +3069,366 @@ final class Js_of_ocaml__Dom_html {
       $hasRequired
     };
     
-    $runtime["caml_register_global"](
-      542,
-      $Js_of_ocaml_Dom_html,
-      "Js_of_ocaml__Dom_html"
-    );
+     return ($Js_of_ocaml_Dom_html);
 
   }
-}
+  public static function hasRequired(dynamic $param) {
+    return static::get()[123]($param);
+  }
+  public static function hasPlaceholder(dynamic $param) {
+    return static::get()[122]($param);
+  }
+  public static function hasPushState(dynamic $param) {
+    return static::get()[121]($param);
+  }
+  public static function onIE() {
+    return static::get()[120]();
+  }
+  public static function requestAnimationFrame() {
+    return static::get()[118]();
+  }
+  public static function js_array_of_collection(dynamic $c) {
+    return static::get()[117]($c);
+  }
+  public static function clearTimeout(dynamic $id) {
+    return static::get()[116]($id);
+  }
+  public static function setTimeout(dynamic $callback, dynamic $d) {
+    return static::get()[115]($callback, $d);
+  }
+  public static function stopPropagation(dynamic $ev) {
+    return static::get()[113]($ev);
+  }
+  public static function opt_taggedEvent(dynamic $ev) {
+    return static::get()[112]($ev);
+  }
+  public static function taggedEvent(dynamic $ev) {
+    return static::get()[111]($ev);
+  }
+  public static function opt_tagged(dynamic $e) {
+    return static::get()[110]($e);
+  }
+  public static function tagged(dynamic $e) {
+    return static::get()[109]($e);
+  }
+  public static function element(dynamic $unnamed1) {
+    return static::get()[108]($unnamed1);
+  }
+  public static function createCanvas(dynamic $doc) {
+    return static::get()[107]($doc);
+  }
+  public static function Canvas_not_available() {
+    return static::get()[106]();
+  }
+  public static function createVideo(dynamic $doc) {
+    return static::get()[105]($doc);
+  }
+  public static function createAudio(dynamic $doc) {
+    return static::get()[104]($doc);
+  }
+  public static function createIframe(dynamic $doc) {
+    return static::get()[103]($doc);
+  }
+  public static function createFrame(dynamic $doc) {
+    return static::get()[102]($doc);
+  }
+  public static function createFrameset(dynamic $doc) {
+    return static::get()[101]($doc);
+  }
+  public static function createAddress(dynamic $doc) {
+    return static::get()[100]($doc);
+  }
+  public static function createNoscript(dynamic $doc) {
+    return static::get()[99]($doc);
+  }
+  public static function createDt(dynamic $doc) {
+    return static::get()[98]($doc);
+  }
+  public static function createDd(dynamic $doc) {
+    return static::get()[97]($doc);
+  }
+  public static function createAbbr(dynamic $doc) {
+    return static::get()[96]($doc);
+  }
+  public static function createVar(dynamic $doc) {
+    return static::get()[95]($doc);
+  }
+  public static function createKbd(dynamic $doc) {
+    return static::get()[94]($doc);
+  }
+  public static function createSamp(dynamic $doc) {
+    return static::get()[93]($doc);
+  }
+  public static function createCode(dynamic $doc) {
+    return static::get()[92]($doc);
+  }
+  public static function createDfn(dynamic $doc) {
+    return static::get()[91]($doc);
+  }
+  public static function createCite(dynamic $doc) {
+    return static::get()[90]($doc);
+  }
+  public static function createStrong(dynamic $doc) {
+    return static::get()[89]($doc);
+  }
+  public static function createEm(dynamic $doc) {
+    return static::get()[88]($doc);
+  }
+  public static function createSmall(dynamic $doc) {
+    return static::get()[87]($doc);
+  }
+  public static function createBig(dynamic $doc) {
+    return static::get()[86]($doc);
+  }
+  public static function createB(dynamic $doc) {
+    return static::get()[85]($doc);
+  }
+  public static function createI(dynamic $doc) {
+    return static::get()[84]($doc);
+  }
+  public static function createTt(dynamic $doc) {
+    return static::get()[83]($doc);
+  }
+  public static function createSpan(dynamic $doc) {
+    return static::get()[82]($doc);
+  }
+  public static function createSup(dynamic $doc) {
+    return static::get()[81]($doc);
+  }
+  public static function createSub(dynamic $doc) {
+    return static::get()[80]($doc);
+  }
+  public static function createTd(dynamic $doc) {
+    return static::get()[79]($doc);
+  }
+  public static function createTh(dynamic $doc) {
+    return static::get()[78]($doc);
+  }
+  public static function createTr(dynamic $doc) {
+    return static::get()[77]($doc);
+  }
+  public static function createTbody(dynamic $doc) {
+    return static::get()[76]($doc);
+  }
+  public static function createTfoot(dynamic $doc) {
+    return static::get()[75]($doc);
+  }
+  public static function createThead(dynamic $doc) {
+    return static::get()[74]($doc);
+  }
+  public static function createColgroup(dynamic $doc) {
+    return static::get()[73]($doc);
+  }
+  public static function createCol(dynamic $doc) {
+    return static::get()[72]($doc);
+  }
+  public static function createCaption(dynamic $doc) {
+    return static::get()[71]($doc);
+  }
+  public static function createTable(dynamic $doc) {
+    return static::get()[70]($doc);
+  }
+  public static function createScript(dynamic $doc) {
+    return static::get()[69]($doc);
+  }
+  public static function createArea(dynamic $doc) {
+    return static::get()[68]($doc);
+  }
+  public static function createMap(dynamic $doc) {
+    return static::get()[67]($doc);
+  }
+  public static function createParam(dynamic $doc) {
+    return static::get()[66]($doc);
+  }
+  public static function createObject(dynamic $doc) {
+    return static::get()[65]($doc);
+  }
+  public static function createImg(dynamic $doc) {
+    return static::get()[64]($doc);
+  }
+  public static function createA(dynamic $doc) {
+    return static::get()[63]($doc);
+  }
+  public static function createDel(dynamic $doc) {
+    return static::get()[62]($doc);
+  }
+  public static function createIns(dynamic $doc) {
+    return static::get()[61]($doc);
+  }
+  public static function createHr(dynamic $doc) {
+    return static::get()[60]($doc);
+  }
+  public static function createBr(dynamic $doc) {
+    return static::get()[59]($doc);
+  }
+  public static function createPre(dynamic $doc) {
+    return static::get()[58]($doc);
+  }
+  public static function createBlockquote(dynamic $doc) {
+    return static::get()[57]($doc);
+  }
+  public static function createQ(dynamic $doc) {
+    return static::get()[56]($doc);
+  }
+  public static function createH6(dynamic $doc) {
+    return static::get()[55]($doc);
+  }
+  public static function createH5(dynamic $doc) {
+    return static::get()[54]($doc);
+  }
+  public static function createH4(dynamic $doc) {
+    return static::get()[53]($doc);
+  }
+  public static function createH3(dynamic $doc) {
+    return static::get()[52]($doc);
+  }
+  public static function createH2(dynamic $doc) {
+    return static::get()[51]($doc);
+  }
+  public static function createH1(dynamic $doc) {
+    return static::get()[50]($doc);
+  }
+  public static function createP(dynamic $doc) {
+    return static::get()[49]($doc);
+  }
+  public static function createEmbed(dynamic $doc) {
+    return static::get()[48]($doc);
+  }
+  public static function createDiv(dynamic $doc) {
+    return static::get()[47]($doc);
+  }
+  public static function createLi(dynamic $doc) {
+    return static::get()[46]($doc);
+  }
+  public static function createDl(dynamic $doc) {
+    return static::get()[45]($doc);
+  }
+  public static function createOl(dynamic $doc) {
+    return static::get()[44]($doc);
+  }
+  public static function createUl(dynamic $doc) {
+    return static::get()[43]($doc);
+  }
+  public static function createLegend(dynamic $doc) {
+    return static::get()[42]($doc);
+  }
+  public static function createFieldset(dynamic $doc) {
+    return static::get()[41]($doc);
+  }
+  public static function createLabel(dynamic $doc) {
+    return static::get()[40]($doc);
+  }
+  public static function createButton(dynamic $type, dynamic $name, dynamic $doc) {
+    return static::get()[39]($type, $name, $doc);
+  }
+  public static function createTextarea(dynamic $type, dynamic $name, dynamic $doc) {
+    return static::get()[38]($type, $name, $doc);
+  }
+  public static function createInput(dynamic $type, dynamic $name, dynamic $doc) {
+    return static::get()[37]($type, $name, $doc);
+  }
+  public static function createSelect(dynamic $type, dynamic $name, dynamic $doc) {
+    return static::get()[36]($type, $name, $doc);
+  }
+  public static function createOption(dynamic $doc) {
+    return static::get()[35]($doc);
+  }
+  public static function createOptgroup(dynamic $doc) {
+    return static::get()[34]($doc);
+  }
+  public static function createForm(dynamic $doc) {
+    return static::get()[33]($doc);
+  }
+  public static function createBody(dynamic $doc) {
+    return static::get()[32]($doc);
+  }
+  public static function createStyle(dynamic $doc) {
+    return static::get()[31]($doc);
+  }
+  public static function createBase(dynamic $doc) {
+    return static::get()[30]($doc);
+  }
+  public static function createMeta(dynamic $doc) {
+    return static::get()[29]($doc);
+  }
+  public static function createTitle(dynamic $doc) {
+    return static::get()[28]($doc);
+  }
+  public static function createLink(dynamic $doc) {
+    return static::get()[27]($doc);
+  }
+  public static function createHead(dynamic $doc) {
+    return static::get()[26]($doc);
+  }
+  public static function createHtml(dynamic $doc) {
+    return static::get()[25]($doc);
+  }
+  public static function getDocumentScroll(dynamic $param) {
+    return static::get()[22]($param);
+  }
+  public static function elementClientPosition(dynamic $e) {
+    return static::get()[21]($e);
+  }
+  public static function eventAbsolutePosition(dynamic $e) {
+    return static::get()[20]($e);
+  }
+  public static function buttonPressed(dynamic $ev) {
+    return static::get()[19]($ev);
+  }
+  public static function addMousewheelEventListener(dynamic $e, dynamic $h, dynamic $capt) {
+    return static::get()[18]($e, $h, $capt);
+  }
+  public static function removeEventListener() {
+    return static::get()[17]();
+  }
+  public static function addEventListener() {
+    return static::get()[16]();
+  }
+  public static function Event() {
+    return static::get()[15]();
+  }
+  public static function eventRelatedTarget(dynamic $e) {
+    return static::get()[14]($e);
+  }
+  public static function eventTarget() {
+    return static::get()[13]();
+  }
+  public static function invoke_handler() {
+    return static::get()[12]();
+  }
+  public static function full_handler() {
+    return static::get()[11]();
+  }
+  public static function handler() {
+    return static::get()[10]();
+  }
+  public static function no_handler() {
+    return static::get()[9]();
+  }
+  public static function window() {
+    return static::get()[8]();
+  }
+  public static function location_origin(dynamic $loc) {
+    return static::get()[7]($loc);
+  }
+  public static function getElementById(dynamic $id) {
+    return static::get()[6]($id);
+  }
+  public static function getElementById_coerce(dynamic $id, dynamic $coerce) {
+    return static::get()[5]($id, $coerce);
+  }
+  public static function getElementById_exn(dynamic $id) {
+    return static::get()[4]($id);
+  }
+  public static function getElementById_opt(dynamic $id) {
+    return static::get()[3]($id);
+  }
+  public static function document() {
+    return static::get()[2]();
+  }
+  public static function d() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

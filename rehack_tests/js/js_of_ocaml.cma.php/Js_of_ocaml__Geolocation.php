@@ -1,38 +1,21 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Geolocation.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Geolocation {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__Geolocation::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Geolocation;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
     $empty_position_options = function(dynamic $param) {return darray[];};
     $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 82957527, 298), $x);
@@ -59,13 +42,18 @@ final class Js_of_ocaml__Geolocation {
       $is_supported
     };
     
-    $runtime["caml_register_global"](
-      3,
-      $Js_of_ocaml_Geolocation,
-      "Js_of_ocaml__Geolocation"
-    );
+     return ($Js_of_ocaml_Geolocation);
 
   }
-}
+  public static function is_supported(dynamic $param) {
+    return static::get()[3]($param);
+  }
+  public static function geolocation() {
+    return static::get()[2]();
+  }
+  public static function empty_position_options(dynamic $param) {
+    return static::get()[1]($param);
+  }
 
+}
 /* Hashing disabled */

@@ -1,34 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Spacetime.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Spacetime {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Gc = Gc::get();
-    $Pervasives = Pervasives::get();
-    Spacetime::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Spacetime;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
@@ -36,10 +19,9 @@ final class Spacetime {
     $caml_spacetime_only_works_for_native_code = $runtime[
        "caml_spacetime_only_works_for_native_code"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Series_is_closed__0 = $string("Series is closed");
     $cst_Series_is_closed = $string("Series is closed");
-    $Pervasives = $global_data["Pervasives"];
+    $Pervasives =  Pervasives::get ();
     $enabled = $caml_spacetime_enabled(0);
     $if_spacetime_enabled = function(dynamic $f) use ($call1,$enabled) {
       return $enabled ? $call1($f, 0) : (0);
@@ -103,9 +85,21 @@ final class Spacetime {
       $save_event_for_automatic_snapshots
     };
     
-    $runtime["caml_register_global"](3, $Spacetime, "Spacetime");
+     return ($Spacetime);
 
   }
-}
+  public static function save_event_for_automatic_snapshots(dynamic $event_name) {
+    return static::get()[4]($event_name);
+  }
+  public static function Snapshot() {
+    return static::get()[3]();
+  }
+  public static function Series() {
+    return static::get()[2]();
+  }
+  public static function enabled() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

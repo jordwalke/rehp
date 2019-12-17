@@ -1,45 +1,28 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Int64.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Int64 {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Failure = Failure::get();
-    Int64::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Int64;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_d = $runtime["caml_new_string"]("%d");
     $zero = Vector{255, 0, 0, 0};
     $one = Vector{255, 1, 0, 0};
     $minus_one = Vector{255, 16777215, 16777215, 65535};
     $min_int = Vector{255, 0, 0, 32768};
     $max_int = Vector{255, 16777215, 16777215, 32767};
-    $Failure = $global_data["Failure"];
+    $Failure =  Failure::get ();
     $d_ = Vector{255, 16777215, 16777215, 65535};
     $c_ = Vector{255, 0, 0, 0};
     $b_ = Vector{255, 1, 0, 0};
@@ -92,9 +75,48 @@ final class Int64 {
       $equal
     };
     
-    $runtime["caml_register_global"](11, $Int64, "Int64");
+     return ($Int64);
 
   }
-}
+  public static function equal(dynamic $x, dynamic $y) {
+    return static::get()[13]($x, $y);
+  }
+  public static function compare(dynamic $x, dynamic $y) {
+    return static::get()[12]($x, $y);
+  }
+  public static function to_string(dynamic $n) {
+    return static::get()[11]($n);
+  }
+  public static function of_string_opt(dynamic $s) {
+    return static::get()[10]($s);
+  }
+  public static function lognot(dynamic $n) {
+    return static::get()[9]($n);
+  }
+  public static function min_int() {
+    return static::get()[8]();
+  }
+  public static function max_int() {
+    return static::get()[7]();
+  }
+  public static function abs(dynamic $n) {
+    return static::get()[6]($n);
+  }
+  public static function pred(dynamic $n) {
+    return static::get()[5]($n);
+  }
+  public static function succ(dynamic $n) {
+    return static::get()[4]($n);
+  }
+  public static function minus_one() {
+    return static::get()[3]();
+  }
+  public static function one() {
+    return static::get()[2]();
+  }
+  public static function zero() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

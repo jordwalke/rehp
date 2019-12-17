@@ -1,35 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Lexing.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Lexing {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Bytes = Bytes::get();
-    $Pervasives = Pervasives::get();
-    $Sys = Sys::get();
-    Lexing::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Lexing;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_bytes_get = $runtime["caml_bytes_get"];
     $call1 = $runtime["caml_call1"];
@@ -41,15 +23,14 @@ final class Lexing {
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Lexing_lex_refill_cannot_grow_buffer = $string(
       "Lexing.lex_refill: cannot grow buffer"
     );
     $dummy_pos = Vector{0, $string(""), 0, 0, -1};
     $zero_pos = Vector{0, $string(""), 1, 0, 0};
-    $Bytes = $global_data["Bytes"];
-    $Pervasives = $global_data["Pervasives"];
-    $Sys = $global_data["Sys"];
+    $Bytes =  Bytes::get ();
+    $Pervasives =  Pervasives::get ();
+    $Sys =  Sys::get ();
     $engine = function(dynamic $tbl, dynamic $state, dynamic $buf) use ($runtime) {
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
@@ -267,9 +248,63 @@ final class Lexing {
       $new_engine
     };
     
-    $runtime["caml_register_global"](6, $Lexing, "Lexing");
+     return ($Lexing);
 
   }
-}
+  public static function new_engine(dynamic $tbl, dynamic $state, dynamic $buf) {
+    return static::get()[18]($tbl, $state, $buf);
+  }
+  public static function engine(dynamic $tbl, dynamic $state, dynamic $buf) {
+    return static::get()[17]($tbl, $state, $buf);
+  }
+  public static function sub_lexeme_char_opt(dynamic $lexbuf, dynamic $i) {
+    return static::get()[16]($lexbuf, $i);
+  }
+  public static function sub_lexeme_char(dynamic $lexbuf, dynamic $i) {
+    return static::get()[15]($lexbuf, $i);
+  }
+  public static function sub_lexeme_opt(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
+    return static::get()[14]($lexbuf, $i1, $i2);
+  }
+  public static function sub_lexeme(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
+    return static::get()[13]($lexbuf, $i1, $i2);
+  }
+  public static function flush_input(dynamic $lb) {
+    return static::get()[12]($lb);
+  }
+  public static function new_line(dynamic $lexbuf) {
+    return static::get()[11]($lexbuf);
+  }
+  public static function lexeme_end_p(dynamic $lexbuf) {
+    return static::get()[10]($lexbuf);
+  }
+  public static function lexeme_start_p(dynamic $lexbuf) {
+    return static::get()[9]($lexbuf);
+  }
+  public static function lexeme_end(dynamic $lexbuf) {
+    return static::get()[8]($lexbuf);
+  }
+  public static function lexeme_start(dynamic $lexbuf) {
+    return static::get()[7]($lexbuf);
+  }
+  public static function lexeme_char(dynamic $lexbuf, dynamic $i) {
+    return static::get()[6]($lexbuf, $i);
+  }
+  public static function lexeme(dynamic $lexbuf) {
+    return static::get()[5]($lexbuf);
+  }
+  public static function from_function(dynamic $f) {
+    return static::get()[4]($f);
+  }
+  public static function from_string(dynamic $s) {
+    return static::get()[3]($s);
+  }
+  public static function from_channel(dynamic $ic) {
+    return static::get()[2]($ic);
+  }
+  public static function dummy_pos() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

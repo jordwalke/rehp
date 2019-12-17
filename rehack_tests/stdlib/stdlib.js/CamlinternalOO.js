@@ -1,21 +1,14 @@
 /**
+ * @flow strict
  * CamlinternalOO
- * @providesModule CamlinternalOO
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var List_ = require('List_.js');
-var Map = require('Map.js');
-var Obj = require('Obj.js');
-var Sys = require('Sys.js');
-var Not_found = require('Not_found.js');
-var Assert_failure = require('Assert_failure.js');
-var Undefined_recursive_module = require('Undefined_recursive_module.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -50,16 +43,15 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst = string("");
-var Assert_failure = global_data["Assert_failure"];
-var Sys = global_data["Sys"];
-var Obj = global_data["Obj"];
-var Undefined_recursive_module = global_data["Undefined_recursive_module"];
-var Array = global_data["Array_"];
-var List = global_data["List_"];
-var Not_found = global_data["Not_found"];
-var Map = global_data["Map"];
+var Assert_failure = require("Assert_failure.js");
+var Sys = require("Sys.js");
+var Obj = require("Obj.js");
+var Undefined_recursive_module = require("Undefined_recursive_module.js");
+var Array = require("Array_.js");
+var List = require("List_.js");
+var Not_found = require("Not_found.js");
+var Map = require("Map.js");
 var g_ = [0,string("camlinternalOO.ml"),438,17];
 var f_ = [0,string("camlinternalOO.ml"),420,13];
 var e_ = [0,string("camlinternalOO.ml"),417,13];
@@ -825,8 +817,102 @@ var CamlinternalOO = [
   stats
 ];
 
-runtime["caml_register_global"](18, CamlinternalOO, "CamlinternalOO");
+exports = CamlinternalOO;
 
+/*::type Exports = {
+  stats: (param: any) => any,
+  params: any
+  lookup_tables: (root: any, keys: any) => any,
+  create_object_and_run_initializers: (obj_0: any, table: any) => any,
+  run_initializers_opt: (obj_0: any, obj: any, table: any) => any,
+  run_initializers: (obj: any, table: any) => any,
+  create_object_opt: (obj_0: any, table: any) => any,
+  create_object: (table: any) => any,
+  copy: (o: any) => any,
+  dummy_class: (loc: any) => any,
+  make_class_store: (pub_meths: any, class_init: any, init_table: any) => any,
+  make_class: (pub_meths: any, class_init: any) => any,
+  inherits: (cla: any, vals: any, virt_meths: any, concr_meths: any, param: any, top: any) => any,
+  init_class: (table: any) => any,
+  create_table: (public_methods: any) => any,
+  dummy_table: any
+  add_initializer: (table: any, f: any) => any,
+  widen: (table: any) => any,
+  narrow: (table: any, vars: any, virt_meths: any, concr_meths: any) => any,
+  set_methods: (table: any, methods: any) => any,
+  set_method: (table: any, label: any, element: any) => any,
+  get_method: (table: any, label: any) => any,
+  get_method_labels: (table: any, names: any) => any,
+  get_method_label: (table: any, name: any) => any,
+  get_variables: (table: any, names: any) => any,
+  get_variable: (table: any, name: any) => any,
+  new_methods_variables: (table: any, meths: any, vals: any) => any,
+  new_variable: (table: any, name: any) => any,
+  new_method: (table: any) => any,
+  public_method_label: (s: any) => any,
+}*/
+/** @type {{
+  stats: (any) => any,
+  params: any,
+  lookup_tables: (any, any) => any,
+  create_object_and_run_initializers: (any, any) => any,
+  run_initializers_opt: (any, any, any) => any,
+  run_initializers: (any, any) => any,
+  create_object_opt: (any, any) => any,
+  create_object: (any) => any,
+  copy: (any) => any,
+  dummy_class: (any) => any,
+  make_class_store: (any, any, any) => any,
+  make_class: (any, any) => any,
+  inherits: (any, any, any, any, any, any) => any,
+  init_class: (any) => any,
+  create_table: (any) => any,
+  dummy_table: any,
+  add_initializer: (any, any) => any,
+  widen: (any) => any,
+  narrow: (any, any, any, any) => any,
+  set_methods: (any, any) => any,
+  set_method: (any, any, any) => any,
+  get_method: (any, any) => any,
+  get_method_labels: (any, any) => any,
+  get_method_label: (any, any) => any,
+  get_variables: (any, any) => any,
+  get_variable: (any, any) => any,
+  new_methods_variables: (any, any, any) => any,
+  new_variable: (any, any) => any,
+  new_method: (any) => any,
+  public_method_label: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.stats = module.exports[30];
+module.exports.params = module.exports[29];
+module.exports.lookup_tables = module.exports[28];
+module.exports.create_object_and_run_initializers = module.exports[27];
+module.exports.run_initializers_opt = module.exports[26];
+module.exports.run_initializers = module.exports[25];
+module.exports.create_object_opt = module.exports[24];
+module.exports.create_object = module.exports[23];
+module.exports.copy = module.exports[22];
+module.exports.dummy_class = module.exports[21];
+module.exports.make_class_store = module.exports[20];
+module.exports.make_class = module.exports[19];
+module.exports.inherits = module.exports[18];
+module.exports.init_class = module.exports[17];
+module.exports.create_table = module.exports[16];
+module.exports.dummy_table = module.exports[15];
+module.exports.add_initializer = module.exports[14];
+module.exports.widen = module.exports[13];
+module.exports.narrow = module.exports[12];
+module.exports.set_methods = module.exports[11];
+module.exports.set_method = module.exports[10];
+module.exports.get_method = module.exports[9];
+module.exports.get_method_labels = module.exports[8];
+module.exports.get_method_label = module.exports[7];
+module.exports.get_variables = module.exports[6];
+module.exports.get_variable = module.exports[5];
+module.exports.new_methods_variables = module.exports[4];
+module.exports.new_variable = module.exports[3];
+module.exports.new_method = module.exports[2];
+module.exports.public_method_label = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalOO;
 /* Hashing disabled */

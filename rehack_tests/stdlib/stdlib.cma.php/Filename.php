@@ -1,41 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Filename.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Filename {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Buffer = Buffer::get();
-    $CamlinternalLazy = CamlinternalLazy::get();
-    $Pervasives = Pervasives::get();
-    $Printf = Printf::get();
-    $Random = Random::get();
-    $String_ = String_::get();
-    $Sys = Sys::get();
-    $Not_found = Not_found::get();
-    $Sys_error = Sys_error::get();
-    Filename::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Filename;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -53,7 +29,6 @@ final class Filename {
        "caml_wrap_thrown_exception_reraise"
      ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Filename_chop_extension = $string("Filename.chop_extension");
     $cst__10 = $string("");
     $cst_Filename_chop_suffix = $string("Filename.chop_suffix");
@@ -82,15 +57,15 @@ final class Filename {
     $dir_sep__1 = $string("/");
     $cst_Cygwin = $string("Cygwin");
     $cst_Win32 = $string("Win32");
-    $Pervasives = $global_data["Pervasives"];
-    $Sys_error = $global_data["Sys_error"];
-    $CamlinternalLazy = $global_data["CamlinternalLazy"];
-    $Random = $global_data["Random"];
-    $Printf = $global_data["Printf"];
-    $String = $global_data["String_"];
-    $Buffer = $global_data["Buffer"];
-    $Not_found = $global_data["Not_found"];
-    $Sys = $global_data["Sys"];
+    $Pervasives =  Pervasives::get ();
+    $Sys_error =  Sys_error::get ();
+    $CamlinternalLazy =  CamlinternalLazy::get ();
+    $Random =  Random::get ();
+    $Printf =  Printf::get ();
+    $String =  String_::get ();
+    $Buffer =  Buffer::get ();
+    $Not_found =  Not_found::get ();
+    $Sys =  Sys::get ();
     $e_ = Vector{0, 7, 0};
     $d_ = Vector{0, 1, Vector{0, 3, Vector{0, 5, 0}}};
     $c_ = Vector{
@@ -784,9 +759,66 @@ final class Filename {
       $quote__1
     };
     
-    $runtime["caml_register_global"](40, $Filename, "Filename");
+     return ($Filename);
 
   }
-}
+  public static function quote() {
+    return static::get()[19]();
+  }
+  public static function temp_dir_name() {
+    return static::get()[18]();
+  }
+  public static function set_temp_dir_name(dynamic $s) {
+    return static::get()[17]($s);
+  }
+  public static function get_temp_dir_name(dynamic $param) {
+    return static::get()[16]($param);
+  }
+  public static function open_temp_file(dynamic $opt, dynamic $unnamed1, dynamic $unnamed2, dynamic $prefix, dynamic $suffix) {
+    return static::get()[15]($opt, $unnamed1, $unnamed2, $prefix, $suffix);
+  }
+  public static function temp_file(dynamic $opt, dynamic $prefix, dynamic $suffix) {
+    return static::get()[14]($opt, $prefix, $suffix);
+  }
+  public static function dirname() {
+    return static::get()[13]();
+  }
+  public static function basename() {
+    return static::get()[12]();
+  }
+  public static function chop_extension(dynamic $name) {
+    return static::get()[11]($name);
+  }
+  public static function remove_extension(dynamic $name) {
+    return static::get()[10]($name);
+  }
+  public static function extension(dynamic $name) {
+    return static::get()[9]($name);
+  }
+  public static function chop_suffix(dynamic $name, dynamic $suff) {
+    return static::get()[8]($name, $suff);
+  }
+  public static function check_suffix() {
+    return static::get()[7]();
+  }
+  public static function is_implicit() {
+    return static::get()[6]();
+  }
+  public static function is_relative() {
+    return static::get()[5]();
+  }
+  public static function concat(dynamic $dirname, dynamic $filename) {
+    return static::get()[4]($dirname, $filename);
+  }
+  public static function dir_sep() {
+    return static::get()[3]();
+  }
+  public static function parent_dir_name() {
+    return static::get()[2]();
+  }
+  public static function current_dir_name() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

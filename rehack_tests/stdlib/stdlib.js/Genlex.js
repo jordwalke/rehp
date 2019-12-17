@@ -1,21 +1,14 @@
 /**
+ * @flow strict
  * Genlex
- * @providesModule Genlex
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var Char = require('Char.js');
-var Hashtbl = require('Hashtbl.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var Stream = require('Stream.js');
-var String_ = require('String_.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_create_bytes = runtime["caml_create_bytes"];
@@ -47,7 +40,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst = string("");
 var cst__0 = string("");
 var cst__1 = string("");
@@ -55,14 +47,14 @@ var cst__2 = string("");
 var cst__4 = string("");
 var cst__3 = string("");
 var cst_Illegal_character = string("Illegal character ");
-var Stream = global_data["Stream"];
-var Char = global_data["Char"];
-var String = global_data["String_"];
-var Hashtbl = global_data["Hashtbl"];
-var Not_found = global_data["Not_found"];
-var Pervasives = global_data["Pervasives"];
-var List = global_data["List_"];
-var Bytes = global_data["Bytes"];
+var Stream = require("Stream.js");
+var Char = require("Char.js");
+var String = require("String_.js");
+var Hashtbl = require("Hashtbl.js");
+var Not_found = require("Not_found.js");
+var Pervasives = require("Pervasives.js");
+var List = require("List_.js");
+var Bytes = require("Bytes.js");
 var initial_buffer = caml_create_bytes(32);
 var buffer = [0,initial_buffer];
 var bufpos = [0,0];
@@ -582,8 +574,15 @@ function make_lexer(keywords) {
 
 var Genlex = [0,make_lexer];
 
-runtime["caml_register_global"](15, Genlex, "Genlex");
+exports = Genlex;
 
+/*::type Exports = {
+  make_lexer: (keywords: any) => any,
+}*/
+/** @type {{
+  make_lexer: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.make_lexer = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Genlex;
 /* Hashing disabled */

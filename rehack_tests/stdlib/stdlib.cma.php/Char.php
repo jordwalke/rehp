@@ -1,39 +1,22 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Char.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Char {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Pervasives = Pervasives::get();
-    Char::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Char;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $call1 = $runtime["caml_call1"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst = $string("\\\\");
     $cst__0 = $string("\\'");
     $cst_b = $string("\\b");
@@ -41,7 +24,7 @@ final class Char {
     $cst_n = $string("\\n");
     $cst_r = $string("\\r");
     $cst_Char_chr = $string("Char.chr");
-    $Pervasives = $global_data["Pervasives"];
+    $Pervasives =  Pervasives::get ();
     $chr = function(dynamic $n) use ($Pervasives,$call1,$cst_Char_chr) {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $call1($Pervasives[1], $cst_Char_chr);
@@ -139,9 +122,33 @@ final class Char {
       $equal
     };
     
-    $runtime["caml_register_global"](8, $Char, "Char");
+     return ($Char);
 
   }
-}
+  public static function equal(dynamic $c1, dynamic $c2) {
+    return static::get()[8]($c1, $c2);
+  }
+  public static function compare(dynamic $c1, dynamic $c2) {
+    return static::get()[7]($c1, $c2);
+  }
+  public static function uppercase_ascii(dynamic $c) {
+    return static::get()[6]($c);
+  }
+  public static function lowercase_ascii(dynamic $c) {
+    return static::get()[5]($c);
+  }
+  public static function uppercase(dynamic $c) {
+    return static::get()[4]($c);
+  }
+  public static function lowercase(dynamic $c) {
+    return static::get()[3]($c);
+  }
+  public static function escaped(dynamic $c) {
+    return static::get()[2]($c);
+  }
+  public static function chr(dynamic $n) {
+    return static::get()[1]($n);
+  }
 
+}
 /* Hashing disabled */

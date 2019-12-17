@@ -1,18 +1,14 @@
 /**
+ * @flow strict
  * Digest
- * @providesModule Digest
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var Char = require('Char.js');
-var Pervasives = require('Pervasives.js');
-var String_ = require('String_.js');
-var Invalid_argument = require('Invalid_argument.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
@@ -33,16 +29,15 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Digest_from_hex__0 = string__0("Digest.from_hex");
 var cst_Digest_from_hex = string__0("Digest.from_hex");
 var cst_Digest_to_hex = string__0("Digest.to_hex");
 var cst_Digest_substring = string__0("Digest.substring");
-var Invalid_argument = global_data["Invalid_argument"];
-var Pervasives = global_data["Pervasives"];
-var Char = global_data["Char"];
-var Bytes = global_data["Bytes"];
-var String = global_data["String_"];
+var Invalid_argument = require("Invalid_argument.js");
+var Pervasives = require("Pervasives.js");
+var Char = require("Char.js");
+var Bytes = require("Bytes.js");
+var String = require("String_.js");
 var compare = String[33];
 var equal = String[34];
 
@@ -148,8 +143,45 @@ var Digest = [
   from_hex
 ];
 
-runtime["caml_register_global"](9, Digest, "Digest");
+exports = Digest;
 
+/*::type Exports = {
+  from_hex: (s: any) => any,
+  to_hex: (d: any) => any,
+  input: (chan: any) => any,
+  output: (chan: any, digest: any) => any,
+  file: (filename: any) => any,
+  subbytes: (b: any, ofs: any, len: any) => any,
+  substring: (str: any, ofs: any, len: any) => any,
+  bytes: (b: any) => any,
+  string: (str: any) => any,
+  equal: any
+  compare: any
+}*/
+/** @type {{
+  from_hex: (any) => any,
+  to_hex: (any) => any,
+  input: (any) => any,
+  output: (any, any) => any,
+  file: (any) => any,
+  subbytes: (any, any, any) => any,
+  substring: (any, any, any) => any,
+  bytes: (any) => any,
+  string: (any) => any,
+  equal: any,
+  compare: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.from_hex = module.exports[11];
+module.exports.to_hex = module.exports[10];
+module.exports.input = module.exports[9];
+module.exports.output = module.exports[8];
+module.exports.file = module.exports[7];
+module.exports.subbytes = module.exports[6];
+module.exports.substring = module.exports[5];
+module.exports.bytes = module.exports[4];
+module.exports.string = module.exports[3];
+module.exports.equal = module.exports[2];
+module.exports.compare = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Digest;
 /* Hashing disabled */

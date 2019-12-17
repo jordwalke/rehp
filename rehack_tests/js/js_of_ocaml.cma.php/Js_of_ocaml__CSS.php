@@ -1,39 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__CSS.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__CSS {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $Js_of_ocaml__Regexp = Js_of_ocaml__Regexp::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    $Printf = Printf::get();
-    $Invalid_argument = Invalid_argument::get();
-    $Failure = Failure::get();
-    Js_of_ocaml__CSS::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__CSS;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -53,7 +31,6 @@ final class Js_of_ocaml__CSS {
        "caml_wrap_thrown_exception_reraise"
      ];
     $is_int = $runtime["is_int"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_is_not_a_valid_length__0 = $string(" is not a valid length");
     $cst_d_d_deg_grad_rad_turns = $string(
       "^(\\d*(?:\\.\\d*))(deg|grad|rad|turns)\\$"
@@ -434,13 +411,13 @@ final class Js_of_ocaml__CSS {
     $cst_whitesmoke = $string("whitesmoke");
     $cst_yellow = $string("yellow");
     $cst_yellowgreen = $string("yellowgreen");
-    $Pervasives = $global_data["Pervasives"];
-    $Invalid_argument = $global_data["Invalid_argument"];
-    $Js_of_ocaml_Regexp = $global_data["Js_of_ocaml__Regexp"];
-    $Printf = $global_data["Printf"];
-    $Failure = $global_data["Failure"];
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $List = $global_data["List_"];
+    $Pervasives =  Pervasives::get ();
+    $Invalid_argument =  Invalid_argument::get ();
+    $Js_of_ocaml_Regexp =  Js_of_ocaml__Regexp::get ();
+    $Printf =  Printf::get ();
+    $Failure =  Failure::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $List =  List_::get ();
     $b2_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
     $b3_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
     $b4_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
@@ -2725,13 +2702,15 @@ final class Js_of_ocaml__CSS {
       $Angle
     };
     
-    $runtime["caml_register_global"](
-      547,
-      $Js_of_ocaml_CSS,
-      "Js_of_ocaml__CSS"
-    );
+     return ($Js_of_ocaml_CSS);
 
   }
-}
+  public static function Angle() {
+    return static::get()[3]();
+  }
+  public static function Length() {
+    return static::get()[2]();
+  }
 
+}
 /* Hashing disabled */

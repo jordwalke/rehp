@@ -1,43 +1,26 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Sys.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Sys {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Not_found = Not_found::get();
-    Sys::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Sys;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Sys_Break = $string("Sys.Break");
     $ocaml_version = $string("4.06.0");
-    $Not_found = $global_data["Not_found"];
+    $Not_found =  Not_found::get ();
     $match = $runtime["caml_sys_get_argv"](0);
     $argv = $match[2];
     $executable_name = $match[1];
@@ -161,9 +144,147 @@ final class Sys {
       $a_
     };
     
-    $runtime["caml_register_global"](3, $Sys, "Sys");
+     return ($Sys);
 
   }
-}
+  public static function ocaml_version() {
+    return static::get()[46]();
+  }
+  public static function catch_break(dynamic $on) {
+    return static::get()[45]($on);
+  }
+  public static function Break() {
+    return static::get()[44]();
+  }
+  public static function sigxfsz() {
+    return static::get()[43]();
+  }
+  public static function sigxcpu() {
+    return static::get()[42]();
+  }
+  public static function sigurg() {
+    return static::get()[41]();
+  }
+  public static function sigtrap() {
+    return static::get()[40]();
+  }
+  public static function sigsys() {
+    return static::get()[39]();
+  }
+  public static function sigpoll() {
+    return static::get()[38]();
+  }
+  public static function sigbus() {
+    return static::get()[37]();
+  }
+  public static function sigprof() {
+    return static::get()[36]();
+  }
+  public static function sigvtalrm() {
+    return static::get()[35]();
+  }
+  public static function sigttou() {
+    return static::get()[34]();
+  }
+  public static function sigttin() {
+    return static::get()[33]();
+  }
+  public static function sigtstp() {
+    return static::get()[32]();
+  }
+  public static function sigstop() {
+    return static::get()[31]();
+  }
+  public static function sigcont() {
+    return static::get()[30]();
+  }
+  public static function sigchld() {
+    return static::get()[29]();
+  }
+  public static function sigusr2() {
+    return static::get()[28]();
+  }
+  public static function sigusr1() {
+    return static::get()[27]();
+  }
+  public static function sigterm() {
+    return static::get()[26]();
+  }
+  public static function sigsegv() {
+    return static::get()[25]();
+  }
+  public static function sigquit() {
+    return static::get()[24]();
+  }
+  public static function sigpipe() {
+    return static::get()[23]();
+  }
+  public static function sigkill() {
+    return static::get()[22]();
+  }
+  public static function sigint() {
+    return static::get()[21]();
+  }
+  public static function sigill() {
+    return static::get()[20]();
+  }
+  public static function sighup() {
+    return static::get()[19]();
+  }
+  public static function sigfpe() {
+    return static::get()[18]();
+  }
+  public static function sigalrm() {
+    return static::get()[17]();
+  }
+  public static function sigabrt() {
+    return static::get()[16]();
+  }
+  public static function set_signal(dynamic $sig_num, dynamic $sig_beh) {
+    return static::get()[15]($sig_num, $sig_beh);
+  }
+  public static function max_array_length() {
+    return static::get()[14]();
+  }
+  public static function max_string_length() {
+    return static::get()[13]();
+  }
+  public static function big_endian() {
+    return static::get()[12]();
+  }
+  public static function int_size() {
+    return static::get()[11]();
+  }
+  public static function word_size() {
+    return static::get()[10]();
+  }
+  public static function cygwin() {
+    return static::get()[9]();
+  }
+  public static function win32() {
+    return static::get()[8]();
+  }
+  public static function unix() {
+    return static::get()[7]();
+  }
+  public static function backend_type() {
+    return static::get()[6]();
+  }
+  public static function os_type() {
+    return static::get()[5]();
+  }
+  public static function interactive() {
+    return static::get()[4]();
+  }
+  public static function getenv_opt(dynamic $s) {
+    return static::get()[3]($s);
+  }
+  public static function executable_name() {
+    return static::get()[2]();
+  }
+  public static function argv() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

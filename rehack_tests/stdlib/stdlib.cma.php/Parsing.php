@@ -1,35 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Parsing.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Parsing {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Lexing = Lexing::get();
-    $Obj = Obj::get();
-    Parsing::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Parsing;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call4 = $runtime["caml_call4"];
@@ -42,13 +24,12 @@ final class Parsing {
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_syntax_error = $string("syntax error");
     $cst_Parsing_YYexit = $string("Parsing.YYexit");
     $cst_Parsing_Parse_error = $string("Parsing.Parse_error");
-    $Obj = $global_data["Obj"];
-    $Array = $global_data["Array_"];
-    $Lexing = $global_data["Lexing"];
+    $Obj =  Obj::get ();
+    $Array =  Array_::get ();
+    $Lexing =  Lexing::get ();
     $YYexit = Vector{248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0)};
     $Parse_error = Vector{248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0)};
     $env = Vector{
@@ -275,9 +256,54 @@ final class Parsing {
       $parse_error
     };
     
-    $runtime["caml_register_global"](7, $Parsing, "Parsing");
+     return ($Parsing);
 
   }
-}
+  public static function parse_error(dynamic $param) {
+    return static::get()[16]($param);
+  }
+  public static function is_current_lookahead(dynamic $tok) {
+    return static::get()[15]($tok);
+  }
+  public static function peek_val(dynamic $env, dynamic $n) {
+    return static::get()[14]($env, $n);
+  }
+  public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) {
+    return static::get()[13]($tables, $start, $lexer, $lexbuf);
+  }
+  public static function YYexit() {
+    return static::get()[12]();
+  }
+  public static function Parse_error() {
+    return static::get()[10]();
+  }
+  public static function clear_parser(dynamic $param) {
+    return static::get()[9]($param);
+  }
+  public static function rhs_end_pos(dynamic $n) {
+    return static::get()[8]($n);
+  }
+  public static function rhs_start_pos(dynamic $n) {
+    return static::get()[7]($n);
+  }
+  public static function symbol_end_pos(dynamic $param) {
+    return static::get()[6]($param);
+  }
+  public static function symbol_start_pos(dynamic $param) {
+    return static::get()[5]($param);
+  }
+  public static function rhs_end(dynamic $n) {
+    return static::get()[4]($n);
+  }
+  public static function rhs_start(dynamic $n) {
+    return static::get()[3]($n);
+  }
+  public static function symbol_end(dynamic $param) {
+    return static::get()[2]($param);
+  }
+  public static function symbol_start(dynamic $param) {
+    return static::get()[1]($param);
+  }
 
+}
 /* Hashing disabled */

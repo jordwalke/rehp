@@ -1,33 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * CamlinternalLazy.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class CamlinternalLazy {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Obj = Obj::get();
-    CamlinternalLazy::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->CamlinternalLazy;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_obj_set_tag = $runtime["caml_obj_set_tag"];
@@ -36,11 +20,10 @@ final class CamlinternalLazy {
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_CamlinternalLazy_Undefined = $runtime["caml_new_string"](
       "CamlinternalLazy.Undefined"
     );
-    $Obj = $global_data["Obj"];
+    $Obj =  Obj::get ();
     $Undefined = Vector{
       248,
       $cst_CamlinternalLazy_Undefined,
@@ -96,9 +79,24 @@ final class CamlinternalLazy {
       $force_val
     };
     
-    $runtime["caml_register_global"](2, $CamlinternalLazy, "CamlinternalLazy");
+     return ($CamlinternalLazy);
 
   }
-}
+  public static function force_val(dynamic $lzv) {
+    return static::get()[5]($lzv);
+  }
+  public static function force(dynamic $lzv) {
+    return static::get()[4]($lzv);
+  }
+  public static function force_val_lazy_block(dynamic $blk) {
+    return static::get()[3]($blk);
+  }
+  public static function force_lazy_block(dynamic $blk) {
+    return static::get()[2]($blk);
+  }
+  public static function Undefined() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Printf
- * @providesModule Printf
  */
+
+// @ts-check
+
+
 "use strict";
-var Buffer = require('Buffer.js');
-var CamlinternalFormat = require('CamlinternalFormat.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 
@@ -34,10 +32,9 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Buffer = global_data["Buffer"];
-var CamlinternalFormat = global_data["CamlinternalFormat"];
-var Pervasives = global_data["Pervasives"];
+var Buffer = require("Buffer.js");
+var CamlinternalFormat = require("CamlinternalFormat.js");
+var Pervasives = require("Pervasives.js");
 
 function kfprintf(k, o, param) {
   var fmt = param[1];
@@ -105,8 +102,45 @@ var Printf = [
   ksprintf
 ];
 
-runtime["caml_register_global"](3, Printf, "Printf");
+exports = Printf;
 
+/*::type Exports = {
+  ksprintf: (k: any, param: any) => any,
+  kbprintf: (k: any, b: any, param: any) => any,
+  ksprintf: (k: any, param: any) => any,
+  ikfprintf: (k: any, oc: any, param: any) => any,
+  kfprintf: (k: any, o: any, param: any) => any,
+  ifprintf: (oc: any, fmt: any) => any,
+  bprintf: (b: any, fmt: any) => any,
+  sprintf: (fmt: any) => any,
+  eprintf: (fmt: any) => any,
+  printf: (fmt: any) => any,
+  fprintf: (oc: any, fmt: any) => any,
+}*/
+/** @type {{
+  ksprintf: (any, any) => any,
+  kbprintf: (any, any, any) => any,
+  ksprintf: (any, any) => any,
+  ikfprintf: (any, any, any) => any,
+  kfprintf: (any, any, any) => any,
+  ifprintf: (any, any) => any,
+  bprintf: (any, any) => any,
+  sprintf: (any) => any,
+  eprintf: (any) => any,
+  printf: (any) => any,
+  fprintf: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.ksprintf = module.exports[11];
+module.exports.kbprintf = module.exports[10];
+module.exports.ksprintf = module.exports[9];
+module.exports.ikfprintf = module.exports[8];
+module.exports.kfprintf = module.exports[7];
+module.exports.ifprintf = module.exports[6];
+module.exports.bprintf = module.exports[5];
+module.exports.sprintf = module.exports[4];
+module.exports.eprintf = module.exports[3];
+module.exports.printf = module.exports[2];
+module.exports.fprintf = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Printf;
 /* Hashing disabled */

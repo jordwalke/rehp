@@ -1,22 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Url
- * @providesModule Js_of_ocaml__Url
  */
+
+// @ts-check
+
+
 "use strict";
-var CamlinternalOO = require('CamlinternalOO.js');
-var Js_of_ocaml__Dom_html = require('Js_of_ocaml__Dom_html.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Js_of_ocaml__Regexp = require('Js_of_ocaml__Regexp.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var String_ = require('String_.js');
-var Failure = require('Failure.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
@@ -45,7 +37,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst__36 = string("");
 var cst__37 = string("");
 var cst__12 = string("");
@@ -120,15 +111,15 @@ var cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9 = string(
 var cst_Ff_Ii_Ll_Ee = string(
   "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?$"
 );
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Failure = global_data["Failure"];
-var CamlinternalOO = global_data["CamlinternalOO"];
-var Pervasives = global_data["Pervasives"];
-var List = global_data["List_"];
-var String = global_data["String_"];
-var Not_found = global_data["Not_found"];
-var Js_of_ocaml_Regexp = global_data["Js_of_ocaml__Regexp"];
-var Js_of_ocaml_Dom_html = global_data["Js_of_ocaml__Dom_html"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Failure = require("Failure.js");
+var CamlinternalOO = require("CamlinternalOO.js");
+var Pervasives = require("Pervasives.js");
+var List = require("List_.js");
+var String = require("String_.js");
+var Not_found = require("Not_found.js");
+var Js_of_ocaml_Regexp = require("Js_of_ocaml__Regexp.js");
+var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
 var f_ = [0,string(""),0];
 var a_ = [
   0,
@@ -821,8 +812,39 @@ var Js_of_ocaml_Url = [
   ]
 ];
 
-runtime["caml_register_global"](110, Js_of_ocaml_Url, "Js_of_ocaml__Url");
+exports = Js_of_ocaml_Url;
 
+/*::type Exports = {
+  string_of_url: (param: any) => any,
+  url_of_string: (s: any) => any,
+  decode_arguments: (s: any) => any,
+  encode_arguments: (l: any) => any,
+  path_of_path_string: (s: any) => any,
+  default_https_port: any
+  default_http_port: any
+  urlencode: (opt: any, s: any) => any,
+  urldecode: (s: any) => any,
+}*/
+/** @type {{
+  string_of_url: (any) => any,
+  url_of_string: (any) => any,
+  decode_arguments: (any) => any,
+  encode_arguments: (any) => any,
+  path_of_path_string: (any) => any,
+  default_https_port: any,
+  default_http_port: any,
+  urlencode: (any, any) => any,
+  urldecode: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.string_of_url = module.exports[9];
+module.exports.url_of_string = module.exports[8];
+module.exports.decode_arguments = module.exports[7];
+module.exports.encode_arguments = module.exports[6];
+module.exports.path_of_path_string = module.exports[5];
+module.exports.default_https_port = module.exports[4];
+module.exports.default_http_port = module.exports[3];
+module.exports.urlencode = module.exports[2];
+module.exports.urldecode = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Url;
 /* Hashing disabled */

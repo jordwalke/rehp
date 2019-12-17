@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Worker
- * @providesModule Js_of_ocaml__Worker
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -24,7 +22,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Worker_onmessage_is_undefined__0 = string(
   "Worker.onmessage is undefined"
 );
@@ -33,9 +30,9 @@ var cst_Worker_onmessage_is_undefined = string("Worker.onmessage is undefined"
 var cst_Worker_import_scripts_is_undefined = string(
   "Worker.import_scripts is undefined"
 );
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Pervasives = global_data["Pervasives"];
-var Array = global_data["Array_"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Pervasives = require("Pervasives.js");
+var Array = require("Array_.js");
 
 function a_(x) {return call1(caml_get_public_method(x, -324422083, 203), x);}
 
@@ -97,8 +94,24 @@ function post_message(msg) {
 
 var Js_of_ocaml_Worker = [0,create,import_scripts,set_onmessage,post_message];
 
-runtime["caml_register_global"](14, Js_of_ocaml_Worker, "Js_of_ocaml__Worker");
+exports = Js_of_ocaml_Worker;
 
+/*::type Exports = {
+  post_message: (msg: any) => any,
+  set_onmessage: (handler: any) => any,
+  import_scripts: (scripts: any) => any,
+  create: (script: any) => any,
+}*/
+/** @type {{
+  post_message: (any) => any,
+  set_onmessage: (any) => any,
+  import_scripts: (any) => any,
+  create: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.post_message = module.exports[4];
+module.exports.set_onmessage = module.exports[3];
+module.exports.import_scripts = module.exports[2];
+module.exports.create = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Worker;
 /* Hashing disabled */

@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Dom_svg
- * @providesModule Js_of_ocaml__Dom_svg
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -26,7 +25,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_vkern__0 = string("vkern");
 var cst_view__0 = string("view");
 var cst_use__0 = string("use");
@@ -136,8 +134,8 @@ var cst_altglyphdef = string("altglyphdef");
 var cst_altglyph = string("altglyph");
 var cst_a = string("a");
 var cst_Js_of_ocaml_Dom_svg_SVGError = string("Js_of_ocaml__Dom_svg.SVGError");
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Not_found = global_data["Not_found"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Not_found = require("Not_found.js");
 var xmlns = "http://www.w3.org/2000/svg";
 var SVGError = [
   248,
@@ -565,12 +563,192 @@ var Js_of_ocaml_Dom_svg = [
   ]
 ];
 
-runtime["caml_register_global"](
-  119,
-  Js_of_ocaml_Dom_svg,
-  "Js_of_ocaml__Dom_svg"
-);
+exports = Js_of_ocaml_Dom_svg;
 
+/*::type Exports = {
+  getElementById: (id: any) => any,
+  document: any
+  svg_element: any
+  createvkern: (doc: any) => any,
+  createView: (doc: any) => any,
+  createUse: (doc: any) => any,
+  createTspan: (doc: any) => any,
+  createTref: (doc: any) => any,
+  createTitle: (doc: any) => any,
+  createTextpath: (doc: any) => any,
+  createTextElement: (doc: any) => any,
+  createSymbol: (doc: any) => any,
+  createSwitch: (doc: any) => any,
+  createSvg: (doc: any) => any,
+  createStyle: (doc: any) => any,
+  createStop: (doc: any) => any,
+  createSet: (doc: any) => any,
+  createScript: (doc: any) => any,
+  createRect: (doc: any) => any,
+  createRadialgradient: (doc: any) => any,
+  createPolyline: (doc: any) => any,
+  createPolygon: (doc: any) => any,
+  createPattern: (doc: any) => any,
+  createPath: (doc: any) => any,
+  createMPath: (doc: any) => any,
+  createMissingGlyph: (doc: any) => any,
+  createMetaData: (doc: any) => any,
+  createMask: (doc: any) => any,
+  createLinearElement: (doc: any) => any,
+  createLineElement: (doc: any) => any,
+  createImage: (doc: any) => any,
+  createhkern: (doc: any) => any,
+  createGlyphRef: (doc: any) => any,
+  createGlyph: (doc: any) => any,
+  createG: (doc: any) => any,
+  createForeignObject: (doc: any) => any,
+  createFontFaceUri: (doc: any) => any,
+  createFontFaceSrc: (doc: any) => any,
+  createFontFaceName: (doc: any) => any,
+  createFontFaceFormat: (doc: any) => any,
+  createFontFace: (doc: any) => any,
+  createFont: (doc: any) => any,
+  createFilter: (doc: any) => any,
+  createEllipse: (doc: any) => any,
+  createDesc: (doc: any) => any,
+  createDefs: (doc: any) => any,
+  createCursor: (doc: any) => any,
+  createClipPath: (doc: any) => any,
+  createCircle: (doc: any) => any,
+  createAnimateTransform: (doc: any) => any,
+  createAnimateMotion: (doc: any) => any,
+  createAnimateColor: (doc: any) => any,
+  createAnimate: (doc: any) => any,
+  createAltGlyphItem: (doc: any) => any,
+  createAltGlyphDef: (doc: any) => any,
+  createAltGlyph: (doc: any) => any,
+  createA: (doc: any) => any,
+  createElement: (doc: any, name: any) => any,
+  SVGError: any
+  xmlns: any
+}*/
+/** @type {{
+  getElementById: (any) => any,
+  document: any,
+  svg_element: any,
+  createvkern: (any) => any,
+  createView: (any) => any,
+  createUse: (any) => any,
+  createTspan: (any) => any,
+  createTref: (any) => any,
+  createTitle: (any) => any,
+  createTextpath: (any) => any,
+  createTextElement: (any) => any,
+  createSymbol: (any) => any,
+  createSwitch: (any) => any,
+  createSvg: (any) => any,
+  createStyle: (any) => any,
+  createStop: (any) => any,
+  createSet: (any) => any,
+  createScript: (any) => any,
+  createRect: (any) => any,
+  createRadialgradient: (any) => any,
+  createPolyline: (any) => any,
+  createPolygon: (any) => any,
+  createPattern: (any) => any,
+  createPath: (any) => any,
+  createMPath: (any) => any,
+  createMissingGlyph: (any) => any,
+  createMetaData: (any) => any,
+  createMask: (any) => any,
+  createLinearElement: (any) => any,
+  createLineElement: (any) => any,
+  createImage: (any) => any,
+  createhkern: (any) => any,
+  createGlyphRef: (any) => any,
+  createGlyph: (any) => any,
+  createG: (any) => any,
+  createForeignObject: (any) => any,
+  createFontFaceUri: (any) => any,
+  createFontFaceSrc: (any) => any,
+  createFontFaceName: (any) => any,
+  createFontFaceFormat: (any) => any,
+  createFontFace: (any) => any,
+  createFont: (any) => any,
+  createFilter: (any) => any,
+  createEllipse: (any) => any,
+  createDesc: (any) => any,
+  createDefs: (any) => any,
+  createCursor: (any) => any,
+  createClipPath: (any) => any,
+  createCircle: (any) => any,
+  createAnimateTransform: (any) => any,
+  createAnimateMotion: (any) => any,
+  createAnimateColor: (any) => any,
+  createAnimate: (any) => any,
+  createAltGlyphItem: (any) => any,
+  createAltGlyphDef: (any) => any,
+  createAltGlyph: (any) => any,
+  createA: (any) => any,
+  createElement: (any, any) => any,
+  SVGError: any,
+  xmlns: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.getElementById = module.exports[60];
+module.exports.document = module.exports[59];
+module.exports.svg_element = module.exports[58];
+module.exports.createvkern = module.exports[57];
+module.exports.createView = module.exports[56];
+module.exports.createUse = module.exports[55];
+module.exports.createTspan = module.exports[54];
+module.exports.createTref = module.exports[53];
+module.exports.createTitle = module.exports[52];
+module.exports.createTextpath = module.exports[51];
+module.exports.createTextElement = module.exports[50];
+module.exports.createSymbol = module.exports[49];
+module.exports.createSwitch = module.exports[48];
+module.exports.createSvg = module.exports[47];
+module.exports.createStyle = module.exports[46];
+module.exports.createStop = module.exports[45];
+module.exports.createSet = module.exports[44];
+module.exports.createScript = module.exports[43];
+module.exports.createRect = module.exports[42];
+module.exports.createRadialgradient = module.exports[41];
+module.exports.createPolyline = module.exports[40];
+module.exports.createPolygon = module.exports[39];
+module.exports.createPattern = module.exports[38];
+module.exports.createPath = module.exports[37];
+module.exports.createMPath = module.exports[36];
+module.exports.createMissingGlyph = module.exports[35];
+module.exports.createMetaData = module.exports[34];
+module.exports.createMask = module.exports[33];
+module.exports.createLinearElement = module.exports[32];
+module.exports.createLineElement = module.exports[31];
+module.exports.createImage = module.exports[30];
+module.exports.createhkern = module.exports[29];
+module.exports.createGlyphRef = module.exports[28];
+module.exports.createGlyph = module.exports[27];
+module.exports.createG = module.exports[26];
+module.exports.createForeignObject = module.exports[25];
+module.exports.createFontFaceUri = module.exports[24];
+module.exports.createFontFaceSrc = module.exports[23];
+module.exports.createFontFaceName = module.exports[22];
+module.exports.createFontFaceFormat = module.exports[21];
+module.exports.createFontFace = module.exports[20];
+module.exports.createFont = module.exports[19];
+module.exports.createFilter = module.exports[18];
+module.exports.createEllipse = module.exports[17];
+module.exports.createDesc = module.exports[16];
+module.exports.createDefs = module.exports[15];
+module.exports.createCursor = module.exports[14];
+module.exports.createClipPath = module.exports[13];
+module.exports.createCircle = module.exports[12];
+module.exports.createAnimateTransform = module.exports[11];
+module.exports.createAnimateMotion = module.exports[10];
+module.exports.createAnimateColor = module.exports[9];
+module.exports.createAnimate = module.exports[8];
+module.exports.createAltGlyphItem = module.exports[7];
+module.exports.createAltGlyphDef = module.exports[6];
+module.exports.createAltGlyph = module.exports[5];
+module.exports.createA = module.exports[4];
+module.exports.createElement = module.exports[3];
+module.exports.SVGError = module.exports[2];
+module.exports.xmlns = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Dom_svg;
 /* Hashing disabled */

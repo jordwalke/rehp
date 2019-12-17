@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Queue
- * @providesModule Queue
  */
+
+// @ts-check
+
+
 "use strict";
-
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
@@ -152,8 +152,57 @@ var Queue = [
   transfer
 ];
 
-runtime["caml_register_global"](1, Queue, "Queue");
+exports = Queue;
 
+/*::type Exports = {
+  transfer: (q1: any, q2: any) => any,
+  fold: (f: any, accu: any, q: any) => any,
+  iter: (f: any, q: any) => any,
+  length: (q: any) => any,
+  is_empty: (q: any) => any,
+  copy: (q: any) => any,
+  clear: (q: any) => any,
+  peek: (q: any) => any,
+  peek: (q: any) => any,
+  take: (q: any) => any,
+  take: (q: any) => any,
+  add: (x: any, q: any) => any,
+  add: (x: any, q: any) => any,
+  create: (param: any) => any,
+  Empty: any
+}*/
+/** @type {{
+  transfer: (any, any) => any,
+  fold: (any, any, any) => any,
+  iter: (any, any) => any,
+  length: (any) => any,
+  is_empty: (any) => any,
+  copy: (any) => any,
+  clear: (any) => any,
+  peek: (any) => any,
+  peek: (any) => any,
+  take: (any) => any,
+  take: (any) => any,
+  add: (any, any) => any,
+  add: (any, any) => any,
+  create: (any) => any,
+  Empty: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.transfer = module.exports[15];
+module.exports.fold = module.exports[14];
+module.exports.iter = module.exports[13];
+module.exports.length = module.exports[12];
+module.exports.is_empty = module.exports[11];
+module.exports.copy = module.exports[10];
+module.exports.clear = module.exports[9];
+module.exports.peek = module.exports[8];
+module.exports.peek = module.exports[7];
+module.exports.take = module.exports[6];
+module.exports.take = module.exports[5];
+module.exports.add = module.exports[4];
+module.exports.add = module.exports[3];
+module.exports.create = module.exports[2];
+module.exports.Empty = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Queue;
 /* Hashing disabled */

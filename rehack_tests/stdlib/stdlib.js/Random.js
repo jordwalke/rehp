@@ -1,19 +1,14 @@
 /**
+ * @flow strict
  * Random
- * @providesModule Random
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Digest = require('Digest.js');
-var Int32 = require('Int32.js');
-var Int64 = require('Int64.js');
-var Nativeint = require('Nativeint.js');
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -42,17 +37,16 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Random_int64 = string("Random.int64");
 var cst_Random_int32 = string("Random.int32");
 var cst_Random_int = string("Random.int");
 var cst_x = string("x");
-var Int32 = global_data["Int32"];
-var Int64 = global_data["Int64"];
-var Pervasives = global_data["Pervasives"];
-var Digest = global_data["Digest"];
-var Array = global_data["Array_"];
-var Nativeint = global_data["Nativeint"];
+var Int32 = require("Int32.js");
+var Int64 = require("Int64.js");
+var Pervasives = require("Pervasives.js");
+var Digest = require("Digest.js");
+var Array = require("Array_.js");
+var Nativeint = require("Nativeint.js");
 var a_ = [255,1,0,0];
 var b_ = [255,0,0,0];
 var c_ = [
@@ -300,8 +294,48 @@ var Random = [
   set_state
 ];
 
-runtime["caml_register_global"](16, Random, "Random");
+exports = Random;
 
+/*::type Exports = {
+  set_state: (s: any) => any,
+  get_state: (param: any) => any,
+  bool: (param: any) => any,
+  float: (scale: any) => any,
+  int64: (bound: any) => any,
+  nativeint: (bound: any) => any,
+  int32: (bound: any) => any,
+  int: (bound: any) => any,
+  bits: (param: any) => any,
+  self_init: (param: any) => any,
+  full_init: (seed: any) => any,
+  init: (seed: any) => any,
+}*/
+/** @type {{
+  set_state: (any) => any,
+  get_state: (any) => any,
+  bool: (any) => any,
+  float: (any) => any,
+  int64: (any) => any,
+  nativeint: (any) => any,
+  int32: (any) => any,
+  int: (any) => any,
+  bits: (any) => any,
+  self_init: (any) => any,
+  full_init: (any) => any,
+  init: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.set_state = module.exports[13];
+module.exports.get_state = module.exports[12];
+module.exports.bool = module.exports[10];
+module.exports.float = module.exports[9];
+module.exports.int64 = module.exports[8];
+module.exports.nativeint = module.exports[7];
+module.exports.int32 = module.exports[6];
+module.exports.int = module.exports[5];
+module.exports.bits = module.exports[4];
+module.exports.self_init = module.exports[3];
+module.exports.full_init = module.exports[2];
+module.exports.init = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Random;
 /* Hashing disabled */

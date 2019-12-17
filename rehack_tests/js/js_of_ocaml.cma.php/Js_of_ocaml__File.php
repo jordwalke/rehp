@@ -1,45 +1,23 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__File.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__File {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Js_of_ocaml__Dom = Js_of_ocaml__Dom::get();
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $Js_of_ocaml__Typed_array = Js_of_ocaml__Typed_array::get();
-    $List_ = List_::get();
-    $Pervasives = Pervasives::get();
-    Js_of_ocaml__File::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__File;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $filter_map = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string__0 = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_can_t_retrieve_file_name_not_implemented = $string__0(
       "can't retrieve file name: not implemented"
     );
@@ -51,12 +29,12 @@ final class Js_of_ocaml__File {
     $cst_error = $string__0("error");
     $cst_load = $string__0("load");
     $cst_loadend = $string__0("loadend");
-    $Js_of_ocaml_Typed_array = $global_data["Js_of_ocaml__Typed_array"];
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Pervasives = $global_data["Pervasives"];
-    $List = $global_data["List_"];
-    $Array = $global_data["Array_"];
-    $Js_of_ocaml_Dom = $global_data["Js_of_ocaml__Dom"];
+    $Js_of_ocaml_Typed_array =  Js_of_ocaml__Typed_array::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Pervasives =  Pervasives::get ();
+    $List =  List_::get ();
+    $Array =  Array_::get ();
+    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::get ();
     $c_ = Vector{0, $string__0("transparent")};
     $d_ = Vector{0, $string__0("native")};
     $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
@@ -221,13 +199,27 @@ final class Js_of_ocaml__File {
       $addEventListener
     };
     
-    $runtime["caml_register_global"](
-      23,
-      $Js_of_ocaml_File,
-      "Js_of_ocaml__File"
-    );
+     return ($Js_of_ocaml_File);
 
   }
-}
+  public static function addEventListener() {
+    return static::get()[7]();
+  }
+  public static function fileReader() {
+    return static::get()[6]();
+  }
+  public static function filename(dynamic $file) {
+    return static::get()[5]($file);
+  }
+  public static function ReaderEvent() {
+    return static::get()[4]();
+  }
+  public static function blob_from_any(dynamic $contentType, dynamic $endings, dynamic $l) {
+    return static::get()[2]($contentType, $endings, $l);
+  }
+  public static function blob_from_string(dynamic $contentType, dynamic $endings, dynamic $s) {
+    return static::get()[1]($contentType, $endings, $s);
+  }
 
+}
 /* Hashing disabled */

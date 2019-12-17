@@ -1,26 +1,36 @@
 /**
+ * @flow strict
  * MoreLabels
- * @providesModule MoreLabels
  */
+
+// @ts-check
+
+
 "use strict";
-var Hashtbl = require('Hashtbl.js');
-var Map = require('Map.js');
-var Set = require('Set.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
-var global_data = runtime["caml_get_global_data"]();
-var Set = global_data["Set"];
-var Map = global_data["Map"];
-var Hashtbl = global_data["Hashtbl"];
+var Set = require("Set.js");
+var Map = require("Map.js");
+var Hashtbl = require("Hashtbl.js");
 var MoreLabels = [0,Hashtbl,Map,Set];
 
-runtime["caml_register_global"](3, MoreLabels, "MoreLabels");
+exports = MoreLabels;
 
+/*::type Exports = {
+  Set: any
+  Map: any
+  Hashtbl: any
+}*/
+/** @type {{
+  Set: any,
+  Map: any,
+  Hashtbl: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.Set = module.exports[3];
+module.exports.Map = module.exports[2];
+module.exports.Hashtbl = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().MoreLabels;
 /* Hashing disabled */

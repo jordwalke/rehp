@@ -1,33 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Json.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Json {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__Json::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Json;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
@@ -66,13 +50,15 @@ final class Js_of_ocaml__Json {
     };
     $Js_of_ocaml_Json = Vector{0, $output, $unsafe_input};
     
-    $runtime["caml_register_global"](
-      5,
-      $Js_of_ocaml_Json,
-      "Js_of_ocaml__Json"
-    );
+     return ($Js_of_ocaml_Json);
 
   }
-}
+  public static function unsafe_input(dynamic $s) {
+    return static::get()[2]($s);
+  }
+  public static function output(dynamic $obj) {
+    return static::get()[1]($obj);
+  }
 
+}
 /* Hashing disabled */

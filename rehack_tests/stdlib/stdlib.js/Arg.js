@@ -1,24 +1,14 @@
 /**
+ * @flow strict
  * Arg
- * @providesModule Arg
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Buffer = require('Buffer.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var Printf = require('Printf.js');
-var String_ = require('String_.js');
-var Sys = require('Sys.js');
-var Invalid_argument = require('Invalid_argument.js');
-var Failure = require('Failure.js');
-var Not_found = require('Not_found.js');
-var End_of_file = require('End_of_file.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -64,7 +54,6 @@ function call6(f, a0, a1, a2, a3, a4, a5) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst__6 = string("");
 var cst__7 = string("\n");
 var cst_a_boolean = string("a boolean");
@@ -98,17 +87,17 @@ var cst_none = string("<none>");
 var cst_Arg_Bad = string("Arg.Bad");
 var cst_Arg_Help = string("Arg.Help");
 var cst_Arg_Stop = string("Arg.Stop");
-var Not_found = global_data["Not_found"];
-var Printf = global_data["Printf"];
-var Pervasives = global_data["Pervasives"];
-var Array = global_data["Array_"];
-var Buffer = global_data["Buffer"];
-var End_of_file = global_data["End_of_file"];
-var List = global_data["List_"];
-var String = global_data["String_"];
-var Sys = global_data["Sys"];
-var Invalid_argument = global_data["Invalid_argument"];
-var Failure = global_data["Failure"];
+var Not_found = require("Not_found.js");
+var Printf = require("Printf.js");
+var Pervasives = require("Pervasives.js");
+var Array = require("Array_.js");
+var Buffer = require("Buffer.js");
+var End_of_file = require("End_of_file.js");
+var List = require("List_.js");
+var String = require("String_.js");
+var Sys = require("Sys.js");
+var Invalid_argument = require("Invalid_argument.js");
+var Failure = require("Failure.js");
 var w_ = [0,[2,0,[0,0]],string("%s%c")];
 var q_ = [0,[2,0,0],string("%s")];
 var r_ = [0,[2,0,0],string("%s")];
@@ -863,8 +852,60 @@ var Arg = [
   write_arg0
 ];
 
-runtime["caml_register_global"](58, Arg, "Arg");
+exports = Arg;
 
+/*::type Exports = {
+  write_arg0: any
+  write_arg: any
+  read_arg0: any
+  read_arg: any
+  current: any
+  align: (opt: any, speclist: any) => any,
+  usage_string: (speclist: any, errmsg: any) => any,
+  usage: (speclist: any, errmsg: any) => any,
+  Bad: any
+  Help: any
+  parse_expand: (l: any, f: any, msg: any) => any,
+  parse_and_expand_argv_dynamic: (current: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
+  parse_argv_dynamic: (opt: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
+  parse_argv: (opt: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
+  parse_dynamic: (l: any, f: any, msg: any) => any,
+  parse: (l: any, f: any, msg: any) => any,
+}*/
+/** @type {{
+  write_arg0: any,
+  write_arg: any,
+  read_arg0: any,
+  read_arg: any,
+  current: any,
+  align: (any, any) => any,
+  usage_string: (any, any) => any,
+  usage: (any, any) => any,
+  Bad: any,
+  Help: any,
+  parse_expand: (any, any, any) => any,
+  parse_and_expand_argv_dynamic: (any, any, any, any, any) => any,
+  parse_argv_dynamic: (any, any, any, any, any) => any,
+  parse_argv: (any, any, any, any, any) => any,
+  parse_dynamic: (any, any, any) => any,
+  parse: (any, any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.write_arg0 = module.exports[16];
+module.exports.write_arg = module.exports[15];
+module.exports.read_arg0 = module.exports[14];
+module.exports.read_arg = module.exports[13];
+module.exports.current = module.exports[12];
+module.exports.align = module.exports[11];
+module.exports.usage_string = module.exports[10];
+module.exports.usage = module.exports[9];
+module.exports.Bad = module.exports[8];
+module.exports.Help = module.exports[7];
+module.exports.parse_expand = module.exports[6];
+module.exports.parse_and_expand_argv_dynamic = module.exports[5];
+module.exports.parse_argv_dynamic = module.exports[4];
+module.exports.parse_argv = module.exports[3];
+module.exports.parse_dynamic = module.exports[2];
+module.exports.parse = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Arg;
 /* Hashing disabled */

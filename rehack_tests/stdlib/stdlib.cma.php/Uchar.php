@@ -1,39 +1,22 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Uchar.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Uchar {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Pervasives = Pervasives::get();
-    Uchar::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Uchar;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_format_int = $runtime["caml_format_int"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_is_not_a_latin1_character = $string(" is not a latin1 character");
     $cst_04X = $string("%04X");
     $cst_U = $string("U+");
@@ -43,7 +26,7 @@ final class Uchar {
     $cst_X = $string("%X");
     $err_no_pred = $string("U+0000 has no predecessor");
     $err_no_succ = $string("U+10FFFF has no successor");
-    $Pervasives = $global_data["Pervasives"];
+    $Pervasives =  Pervasives::get ();
     $err_not_sv = function(dynamic $i) use ($Pervasives,$call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
       return $call2(
         $Pervasives[16],
@@ -132,9 +115,54 @@ final class Uchar {
       $hash
     };
     
-    $runtime["caml_register_global"](8, $Uchar, "Uchar");
+     return ($Uchar);
 
   }
-}
+  public static function hash(dynamic $unnamed1) {
+    return static::get()[17]($unnamed1);
+  }
+  public static function compare(dynamic $unnamed1, dynamic $unnamed2) {
+    return static::get()[16]($unnamed1, $unnamed2);
+  }
+  public static function equal(dynamic $unnamed1, dynamic $unnamed2) {
+    return static::get()[15]($unnamed1, $unnamed2);
+  }
+  public static function unsafe_to_char(dynamic $unnamed1) {
+    return static::get()[14]($unnamed1);
+  }
+  public static function to_char(dynamic $u) {
+    return static::get()[13]($u);
+  }
+  public static function of_char(dynamic $c) {
+    return static::get()[12]($c);
+  }
+  public static function is_char(dynamic $u) {
+    return static::get()[11]($u);
+  }
+  public static function of_int(dynamic $i) {
+    return static::get()[8]($i);
+  }
+  public static function is_valid(dynamic $i) {
+    return static::get()[7]($i);
+  }
+  public static function pred(dynamic $u) {
+    return static::get()[6]($u);
+  }
+  public static function succ(dynamic $u) {
+    return static::get()[5]($u);
+  }
+  public static function rep() {
+    return static::get()[4]();
+  }
+  public static function bom() {
+    return static::get()[3]();
+  }
+  public static function max() {
+    return static::get()[2]();
+  }
+  public static function min() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

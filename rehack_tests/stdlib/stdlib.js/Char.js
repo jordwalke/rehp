@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Char
- * @providesModule Char
  */
+
+// @ts-check
+
+
 "use strict";
-var Pervasives = require('Pervasives.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
@@ -19,7 +19,6 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst = string("\\\\");
 var cst__0 = string("\\'");
 var cst_b = string("\\b");
@@ -27,7 +26,7 @@ var cst_t = string("\\t");
 var cst_n = string("\\n");
 var cst_r = string("\\r");
 var cst_Char_chr = string("Char.chr");
-var Pervasives = global_data["Pervasives"];
+var Pervasives = require("Pervasives.js");
 
 function chr(n) {
   if (0 <= n) {if (! (255 < n)) {return n;}}
@@ -119,8 +118,36 @@ var Char = [
   equal
 ];
 
-runtime["caml_register_global"](8, Char, "Char");
+exports = Char;
 
+/*::type Exports = {
+  equal: (c1: any, c2: any) => any,
+  compare: (c1: any, c2: any) => any,
+  uppercase_ascii: (c: any) => any,
+  lowercase_ascii: (c: any) => any,
+  uppercase: (c: any) => any,
+  lowercase: (c: any) => any,
+  escaped: (c: any) => any,
+  chr: (n: any) => any,
+}*/
+/** @type {{
+  equal: (any, any) => any,
+  compare: (any, any) => any,
+  uppercase_ascii: (any) => any,
+  lowercase_ascii: (any) => any,
+  uppercase: (any) => any,
+  lowercase: (any) => any,
+  escaped: (any) => any,
+  chr: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.equal = module.exports[8];
+module.exports.compare = module.exports[7];
+module.exports.uppercase_ascii = module.exports[6];
+module.exports.lowercase_ascii = module.exports[5];
+module.exports.uppercase = module.exports[4];
+module.exports.lowercase = module.exports[3];
+module.exports.escaped = module.exports[2];
+module.exports.chr = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Char;
 /* Hashing disabled */

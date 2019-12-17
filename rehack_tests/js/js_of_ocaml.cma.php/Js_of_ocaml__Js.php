@@ -1,35 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Js.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Js {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Callback = Callback::get();
-    $Pervasives = Pervasives::get();
-    $Printexc = Printexc::get();
-    Js_of_ocaml__Js::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Js;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -37,14 +19,13 @@ final class Js_of_ocaml__Js {
     $caml_js_to_string = $runtime["caml_js_to_string"];
     $caml_js_wrap_callback = $runtime["caml_js_wrap_callback"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_parseFloat = $string("parseFloat");
     $cst_parseInt = $string("parseInt");
     $cst_Js_of_ocaml_Js_Error = $string("Js_of_ocaml__Js.Error");
     $cst_jsError = $string("jsError");
-    $Pervasives = $global_data["Pervasives"];
-    $Callback = $global_data["Callback"];
-    $Printexc = $global_data["Printexc"];
+    $Pervasives =  Pervasives::get ();
+    $Callback =  Callback::get ();
+    $Printexc =  Printexc::get ();
     $global =  joo_global_object ;
     $Unsafe = Vector{0, $global};
     $null__0 =  null ;
@@ -405,9 +386,153 @@ final class Js_of_ocaml__Js {
       $Unsafe
     };
     
-    $runtime["caml_register_global"](36, $Js_of_ocaml_Js, "Js_of_ocaml__Js");
+     return ($Js_of_ocaml_Js);
 
   }
-}
+  public static function Unsafe() {
+    return static::get()[50]();
+  }
+  public static function export_all(dynamic $obj) {
+    return static::get()[49]($obj);
+  }
+  public static function export(dynamic $field, dynamic $x) {
+    return static::get()[48]($field, $x);
+  }
+  public static function coerce_opt(dynamic $x, dynamic $f, dynamic $g) {
+    return static::get()[47]($x, $f, $g);
+  }
+  public static function coerce(dynamic $x, dynamic $f, dynamic $g) {
+    return static::get()[46]($x, $f, $g);
+  }
+  public static function parseFloat(dynamic $s) {
+    return static::get()[45]($s);
+  }
+  public static function parseInt(dynamic $s) {
+    return static::get()[44]($s);
+  }
+  public static function isNaN(dynamic $i) {
+    return static::get()[43]($i);
+  }
+  public static function unescape(dynamic $s) {
+    return static::get()[42]($s);
+  }
+  public static function escape(dynamic $s) {
+    return static::get()[41]($s);
+  }
+  public static function encodeURIComponent(dynamic $s) {
+    return static::get()[40]($s);
+  }
+  public static function encodeURI(dynamic $s) {
+    return static::get()[39]($s);
+  }
+  public static function decodeURIComponent(dynamic $s) {
+    return static::get()[38]($s);
+  }
+  public static function decodeURI(dynamic $s) {
+    return static::get()[37]($s);
+  }
+  public static function JSON() {
+    return static::get()[36]();
+  }
+  public static function Error() {
+    return static::get()[35]();
+  }
+  public static function raise_js_error() {
+    return static::get()[34]();
+  }
+  public static function string_of_error(dynamic $e) {
+    return static::get()[33]($e);
+  }
+  public static function error_constr() {
+    return static::get()[32]();
+  }
+  public static function math() {
+    return static::get()[31]();
+  }
+  public static function date_constr() {
+    return static::get()[30]();
+  }
+  public static function date_constr() {
+    return static::get()[29]();
+  }
+  public static function date_constr() {
+    return static::get()[28]();
+  }
+  public static function date_constr() {
+    return static::get()[27]();
+  }
+  public static function date_constr() {
+    return static::get()[26]();
+  }
+  public static function date_constr() {
+    return static::get()[25]();
+  }
+  public static function date_constr() {
+    return static::get()[24]();
+  }
+  public static function date_constr() {
+    return static::get()[23]();
+  }
+  public static function date_constr() {
+    return static::get()[22]();
+  }
+  public static function match_result(dynamic $unnamed1) {
+    return static::get()[21]($unnamed1);
+  }
+  public static function str_array(dynamic $unnamed1) {
+    return static::get()[20]($unnamed1);
+  }
+  public static function array_mapi(dynamic $f, dynamic $a) {
+    return static::get()[19]($f, $a);
+  }
+  public static function array_map(dynamic $f, dynamic $a) {
+    return static::get()[18]($f, $a);
+  }
+  public static function array_set(dynamic $unnamed1, dynamic $unnamed2, dynamic $unnamed3) {
+    return static::get()[17]($unnamed1, $unnamed2, $unnamed3);
+  }
+  public static function array_get(dynamic $unnamed1, dynamic $unnamed2) {
+    return static::get()[16]($unnamed1, $unnamed2);
+  }
+  public static function array_constructor() {
+    return static::get()[15]();
+  }
+  public static function array_constructor() {
+    return static::get()[14]();
+  }
+  public static function object_keys(dynamic $o) {
+    return static::get()[13]($o);
+  }
+  public static function regExp() {
+    return static::get()[12]();
+  }
+  public static function regExp() {
+    return static::get()[11]();
+  }
+  public static function regExp() {
+    return static::get()[10]();
+  }
+  public static function string_constr() {
+    return static::get()[9]();
+  }
+  public static function false() {
+    return static::get()[8]();
+  }
+  public static function true() {
+    return static::get()[7]();
+  }
+  public static function Optdef() {
+    return static::get()[6]();
+  }
+  public static function Opt() {
+    return static::get()[5]();
+  }
+  public static function undefined() {
+    return static::get()[3]();
+  }
+  public static function null() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

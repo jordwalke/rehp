@@ -1,27 +1,33 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Lib_version
- * @providesModule Js_of_ocaml__Lib_version
  */
+
+// @ts-check
+
+
 "use strict";
-
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
 var s = string("3.3.0");
-var git_version = string("788927a3c");
+var git_version = string("696649d19");
 var Js_of_ocaml_Lib_version = [0,s,git_version];
 
-runtime["caml_register_global"](
-  2,
-  Js_of_ocaml_Lib_version,
-  "Js_of_ocaml__Lib_version"
-);
+exports = Js_of_ocaml_Lib_version;
 
+/*::type Exports = {
+  git_version: any
+  s: any
+}*/
+/** @type {{
+  git_version: any,
+  s: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.git_version = module.exports[2];
+module.exports.s = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Lib_version;
 /* Hashing disabled */

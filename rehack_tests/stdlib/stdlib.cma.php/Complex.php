@@ -1,33 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Complex.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Complex {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Pervasives = Pervasives::get();
-    Complex::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Complex;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $zero = Vector{254, 0, 0};
     $one = Vector{254, 1, 0};
@@ -140,9 +124,63 @@ final class Complex {
       $pow
     };
     
-    $runtime["caml_register_global"](19, $Complex, "Complex");
+     return ($Complex);
 
   }
-}
+  public static function pow(dynamic $x, dynamic $y) {
+    return static::get()[18]($x, $y);
+  }
+  public static function log(dynamic $x) {
+    return static::get()[17]($x);
+  }
+  public static function exp(dynamic $x) {
+    return static::get()[16]($x);
+  }
+  public static function polar(dynamic $n, dynamic $a) {
+    return static::get()[15]($n, $a);
+  }
+  public static function arg(dynamic $x) {
+    return static::get()[14]($x);
+  }
+  public static function norm(dynamic $x) {
+    return static::get()[13]($x);
+  }
+  public static function norm2(dynamic $x) {
+    return static::get()[12]($x);
+  }
+  public static function sqrt(dynamic $x) {
+    return static::get()[11]($x);
+  }
+  public static function div(dynamic $x, dynamic $y) {
+    return static::get()[10]($x, $y);
+  }
+  public static function inv(dynamic $x) {
+    return static::get()[9]($x);
+  }
+  public static function mul(dynamic $x, dynamic $y) {
+    return static::get()[8]($x, $y);
+  }
+  public static function sub(dynamic $x, dynamic $y) {
+    return static::get()[7]($x, $y);
+  }
+  public static function add(dynamic $x, dynamic $y) {
+    return static::get()[6]($x, $y);
+  }
+  public static function conj(dynamic $x) {
+    return static::get()[5]($x);
+  }
+  public static function neg(dynamic $x) {
+    return static::get()[4]($x);
+  }
+  public static function i() {
+    return static::get()[3]();
+  }
+  public static function one() {
+    return static::get()[2]();
+  }
+  public static function zero() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

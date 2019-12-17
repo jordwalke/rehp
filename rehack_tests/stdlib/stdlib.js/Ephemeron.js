@@ -1,21 +1,14 @@
 /**
+ * @flow strict
  * Ephemeron
- * @providesModule Ephemeron
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var CamlinternalLazy = require('CamlinternalLazy.js');
-var Hashtbl = require('Hashtbl.js');
-var Obj = require('Obj.js');
-var Pervasives = require('Pervasives.js');
-var Random = require('Random.js');
-var Sys = require('Sys.js');
-var Not_found = require('Not_found.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_check_bound = runtime["caml_check_bound"];
@@ -44,15 +37,14 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Obj = global_data["Obj"];
-var Sys = global_data["Sys"];
-var Not_found = global_data["Not_found"];
-var Pervasives = global_data["Pervasives"];
-var Array = global_data["Array_"];
-var Hashtbl = global_data["Hashtbl"];
-var CamlinternalLazy = global_data["CamlinternalLazy"];
-var Random = global_data["Random"];
+var Obj = require("Obj.js");
+var Sys = require("Sys.js");
+var Not_found = require("Not_found.js");
+var Pervasives = require("Pervasives.js");
+var Array = require("Array_.js");
+var Hashtbl = require("Hashtbl.js");
+var CamlinternalLazy = require("CamlinternalLazy.js");
+var Random = require("Random.js");
 var c_ = [0,0];
 var b_ = [0,0];
 var a_ = [0,0];
@@ -1137,8 +1129,12 @@ var Ephemeron = [
   ]
 ];
 
-runtime["caml_register_global"](11, Ephemeron, "Ephemeron");
+exports = Ephemeron;
 
+/*::type Exports = {
+}*/
+/** @type {{
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Ephemeron;
 /* Hashing disabled */

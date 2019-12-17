@@ -1,41 +1,23 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Dom_svg.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Dom_svg {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $Not_found = Not_found::get();
-    Js_of_ocaml__Dom_svg::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Dom_svg;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_vkern__0 = $string("vkern");
     $cst_view__0 = $string("view");
     $cst_use__0 = $string("use");
@@ -147,8 +129,8 @@ final class Js_of_ocaml__Dom_svg {
     $cst_Js_of_ocaml_Dom_svg_SVGError = $string(
       "Js_of_ocaml__Dom_svg.SVGError"
     );
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
-    $Not_found = $global_data["Not_found"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Not_found =  Not_found::get ();
     $xmlns = "http://www.w3.org/2000/svg";
     $SVGError = Vector{
       248,
@@ -663,13 +645,189 @@ final class Js_of_ocaml__Dom_svg {
       }
     };
     
-    $runtime["caml_register_global"](
-      119,
-      $Js_of_ocaml_Dom_svg,
-      "Js_of_ocaml__Dom_svg"
-    );
+     return ($Js_of_ocaml_Dom_svg);
 
   }
-}
+  public static function getElementById(dynamic $id) {
+    return static::get()[60]($id);
+  }
+  public static function document() {
+    return static::get()[59]();
+  }
+  public static function svg_element() {
+    return static::get()[58]();
+  }
+  public static function createvkern(dynamic $doc) {
+    return static::get()[57]($doc);
+  }
+  public static function createView(dynamic $doc) {
+    return static::get()[56]($doc);
+  }
+  public static function createUse(dynamic $doc) {
+    return static::get()[55]($doc);
+  }
+  public static function createTspan(dynamic $doc) {
+    return static::get()[54]($doc);
+  }
+  public static function createTref(dynamic $doc) {
+    return static::get()[53]($doc);
+  }
+  public static function createTitle(dynamic $doc) {
+    return static::get()[52]($doc);
+  }
+  public static function createTextpath(dynamic $doc) {
+    return static::get()[51]($doc);
+  }
+  public static function createTextElement(dynamic $doc) {
+    return static::get()[50]($doc);
+  }
+  public static function createSymbol(dynamic $doc) {
+    return static::get()[49]($doc);
+  }
+  public static function createSwitch(dynamic $doc) {
+    return static::get()[48]($doc);
+  }
+  public static function createSvg(dynamic $doc) {
+    return static::get()[47]($doc);
+  }
+  public static function createStyle(dynamic $doc) {
+    return static::get()[46]($doc);
+  }
+  public static function createStop(dynamic $doc) {
+    return static::get()[45]($doc);
+  }
+  public static function createSet(dynamic $doc) {
+    return static::get()[44]($doc);
+  }
+  public static function createScript(dynamic $doc) {
+    return static::get()[43]($doc);
+  }
+  public static function createRect(dynamic $doc) {
+    return static::get()[42]($doc);
+  }
+  public static function createRadialgradient(dynamic $doc) {
+    return static::get()[41]($doc);
+  }
+  public static function createPolyline(dynamic $doc) {
+    return static::get()[40]($doc);
+  }
+  public static function createPolygon(dynamic $doc) {
+    return static::get()[39]($doc);
+  }
+  public static function createPattern(dynamic $doc) {
+    return static::get()[38]($doc);
+  }
+  public static function createPath(dynamic $doc) {
+    return static::get()[37]($doc);
+  }
+  public static function createMPath(dynamic $doc) {
+    return static::get()[36]($doc);
+  }
+  public static function createMissingGlyph(dynamic $doc) {
+    return static::get()[35]($doc);
+  }
+  public static function createMetaData(dynamic $doc) {
+    return static::get()[34]($doc);
+  }
+  public static function createMask(dynamic $doc) {
+    return static::get()[33]($doc);
+  }
+  public static function createLinearElement(dynamic $doc) {
+    return static::get()[32]($doc);
+  }
+  public static function createLineElement(dynamic $doc) {
+    return static::get()[31]($doc);
+  }
+  public static function createImage(dynamic $doc) {
+    return static::get()[30]($doc);
+  }
+  public static function createhkern(dynamic $doc) {
+    return static::get()[29]($doc);
+  }
+  public static function createGlyphRef(dynamic $doc) {
+    return static::get()[28]($doc);
+  }
+  public static function createGlyph(dynamic $doc) {
+    return static::get()[27]($doc);
+  }
+  public static function createG(dynamic $doc) {
+    return static::get()[26]($doc);
+  }
+  public static function createForeignObject(dynamic $doc) {
+    return static::get()[25]($doc);
+  }
+  public static function createFontFaceUri(dynamic $doc) {
+    return static::get()[24]($doc);
+  }
+  public static function createFontFaceSrc(dynamic $doc) {
+    return static::get()[23]($doc);
+  }
+  public static function createFontFaceName(dynamic $doc) {
+    return static::get()[22]($doc);
+  }
+  public static function createFontFaceFormat(dynamic $doc) {
+    return static::get()[21]($doc);
+  }
+  public static function createFontFace(dynamic $doc) {
+    return static::get()[20]($doc);
+  }
+  public static function createFont(dynamic $doc) {
+    return static::get()[19]($doc);
+  }
+  public static function createFilter(dynamic $doc) {
+    return static::get()[18]($doc);
+  }
+  public static function createEllipse(dynamic $doc) {
+    return static::get()[17]($doc);
+  }
+  public static function createDesc(dynamic $doc) {
+    return static::get()[16]($doc);
+  }
+  public static function createDefs(dynamic $doc) {
+    return static::get()[15]($doc);
+  }
+  public static function createCursor(dynamic $doc) {
+    return static::get()[14]($doc);
+  }
+  public static function createClipPath(dynamic $doc) {
+    return static::get()[13]($doc);
+  }
+  public static function createCircle(dynamic $doc) {
+    return static::get()[12]($doc);
+  }
+  public static function createAnimateTransform(dynamic $doc) {
+    return static::get()[11]($doc);
+  }
+  public static function createAnimateMotion(dynamic $doc) {
+    return static::get()[10]($doc);
+  }
+  public static function createAnimateColor(dynamic $doc) {
+    return static::get()[9]($doc);
+  }
+  public static function createAnimate(dynamic $doc) {
+    return static::get()[8]($doc);
+  }
+  public static function createAltGlyphItem(dynamic $doc) {
+    return static::get()[7]($doc);
+  }
+  public static function createAltGlyphDef(dynamic $doc) {
+    return static::get()[6]($doc);
+  }
+  public static function createAltGlyph(dynamic $doc) {
+    return static::get()[5]($doc);
+  }
+  public static function createA(dynamic $doc) {
+    return static::get()[4]($doc);
+  }
+  public static function createElement(dynamic $doc, dynamic $name) {
+    return static::get()[3]($doc, $name);
+  }
+  public static function SVGError() {
+    return static::get()[2]();
+  }
+  public static function xmlns() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

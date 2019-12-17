@@ -1,39 +1,22 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Typed_array.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Typed_array {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    Js_of_ocaml__Typed_array::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Typed_array;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $global_data = $runtime["caml_get_global_data"]();
-    $Js_of_ocaml_Js = $global_data["Js_of_ocaml__Js"];
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
     $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
       return $call1($caml_get_public_method($x, 135830874, 52), $x);
     };
@@ -166,13 +149,150 @@ final class Js_of_ocaml__Typed_array {
       $String
     };
     
-    $runtime["caml_register_global"](
-      11,
-      $Js_of_ocaml_Typed_array,
-      "Js_of_ocaml__Typed_array"
-    );
+     return ($Js_of_ocaml_Typed_array);
 
   }
-}
+  public static function String() {
+    return static::get()[48]();
+  }
+  public static function dataView() {
+    return static::get()[46]();
+  }
+  public static function dataView() {
+    return static::get()[45]();
+  }
+  public static function unsafe_get(dynamic $a, dynamic $i) {
+    return static::get()[44]($a, $i);
+  }
+  public static function get(dynamic $a, dynamic $i) {
+    return static::get()[43]($a, $i);
+  }
+  public static function set(dynamic $a, dynamic $i, dynamic $v) {
+    return static::get()[42]($a, $i, $v);
+  }
+  public static function float64Array() {
+    return static::get()[41]();
+  }
+  public static function float64Array() {
+    return static::get()[40]();
+  }
+  public static function float64Array() {
+    return static::get()[39]();
+  }
+  public static function float64Array() {
+    return static::get()[38]();
+  }
+  public static function float64Array() {
+    return static::get()[37]();
+  }
+  public static function float32Array() {
+    return static::get()[36]();
+  }
+  public static function float32Array() {
+    return static::get()[35]();
+  }
+  public static function float32Array() {
+    return static::get()[34]();
+  }
+  public static function float32Array() {
+    return static::get()[33]();
+  }
+  public static function float32Array() {
+    return static::get()[32]();
+  }
+  public static function uint32Array() {
+    return static::get()[31]();
+  }
+  public static function uint32Array() {
+    return static::get()[30]();
+  }
+  public static function uint32Array() {
+    return static::get()[29]();
+  }
+  public static function uint32Array() {
+    return static::get()[28]();
+  }
+  public static function uint32Array() {
+    return static::get()[27]();
+  }
+  public static function int32Array() {
+    return static::get()[26]();
+  }
+  public static function int32Array() {
+    return static::get()[25]();
+  }
+  public static function int32Array() {
+    return static::get()[24]();
+  }
+  public static function int32Array() {
+    return static::get()[23]();
+  }
+  public static function int32Array() {
+    return static::get()[22]();
+  }
+  public static function uint16Array() {
+    return static::get()[21]();
+  }
+  public static function uint16Array() {
+    return static::get()[20]();
+  }
+  public static function uint16Array() {
+    return static::get()[19]();
+  }
+  public static function uint16Array() {
+    return static::get()[18]();
+  }
+  public static function uint16Array() {
+    return static::get()[17]();
+  }
+  public static function int16Array() {
+    return static::get()[16]();
+  }
+  public static function int16Array() {
+    return static::get()[15]();
+  }
+  public static function int16Array() {
+    return static::get()[14]();
+  }
+  public static function int16Array() {
+    return static::get()[13]();
+  }
+  public static function int16Array() {
+    return static::get()[12]();
+  }
+  public static function uint8Array() {
+    return static::get()[11]();
+  }
+  public static function uint8Array() {
+    return static::get()[10]();
+  }
+  public static function uint8Array() {
+    return static::get()[9]();
+  }
+  public static function uint8Array() {
+    return static::get()[8]();
+  }
+  public static function uint8Array() {
+    return static::get()[7]();
+  }
+  public static function int8Array() {
+    return static::get()[6]();
+  }
+  public static function int8Array() {
+    return static::get()[5]();
+  }
+  public static function int8Array() {
+    return static::get()[4]();
+  }
+  public static function int8Array() {
+    return static::get()[3]();
+  }
+  public static function int8Array() {
+    return static::get()[2]();
+  }
+  public static function arrayBuffer() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

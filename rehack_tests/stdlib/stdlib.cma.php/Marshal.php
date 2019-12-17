@@ -1,48 +1,30 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Marshal.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Marshal {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Bytes = Bytes::get();
-    $Pervasives = Pervasives::get();
-    Marshal::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Marshal;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_marshal_data_size = $runtime["caml_marshal_data_size"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Marshal_from_bytes = $string("Marshal.from_bytes");
     $cst_Marshal_from_bytes__0 = $string("Marshal.from_bytes");
     $cst_Marshal_data_size = $string("Marshal.data_size");
     $cst_Marshal_to_buffer_substring_out_of_bounds = $string(
       "Marshal.to_buffer: substring out of bounds"
     );
-    $Bytes = $global_data["Bytes"];
-    $Pervasives = $global_data["Pervasives"];
+    $Bytes =  Bytes::get ();
+    $Pervasives =  Pervasives::get ();
     $to_buffer = function
     (dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags) use ($Pervasives,$call1,$caml_ml_bytes_length,$cst_Marshal_to_buffer_substring_out_of_bounds,$runtime) {
       if (0 <= $ofs) {
@@ -99,9 +81,27 @@ final class Marshal {
       $total_size
     };
     
-    $runtime["caml_register_global"](6, $Marshal, "Marshal");
+     return ($Marshal);
 
   }
-}
+  public static function total_size(dynamic $buff, dynamic $ofs) {
+    return static::get()[8]($buff, $ofs);
+  }
+  public static function data_size(dynamic $buff, dynamic $ofs) {
+    return static::get()[7]($buff, $ofs);
+  }
+  public static function header_size() {
+    return static::get()[6]();
+  }
+  public static function from_string(dynamic $buff, dynamic $ofs) {
+    return static::get()[5]($buff, $ofs);
+  }
+  public static function from_bytes(dynamic $buff, dynamic $ofs) {
+    return static::get()[4]($buff, $ofs);
+  }
+  public static function to_buffer(dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags) {
+    return static::get()[2]($buff, $ofs, $len, $v, $flags);
+  }
 
+}
 /* Hashing disabled */

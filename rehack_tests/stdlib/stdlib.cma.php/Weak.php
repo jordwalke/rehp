@@ -1,38 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Weak.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Weak {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Array_ = Array_::get();
-    $Obj = Obj::get();
-    $Pervasives = Pervasives::get();
-    $Sys = Sys::get();
-    $Invalid_argument = Invalid_argument::get();
-    $Not_found = Not_found::get();
-    Weak::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Weak;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -50,16 +29,15 @@ final class Weak {
     $caml_weak_get_copy = $runtime["caml_weak_get_copy"];
     $caml_weak_set = $runtime["caml_weak_set"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Weak_Make_hash_bucket_cannot_grow_more = $string(
       "Weak.Make: hash bucket cannot grow more"
     );
     $cst_Weak_fill = $string("Weak.fill");
-    $Pervasives = $global_data["Pervasives"];
-    $Sys = $global_data["Sys"];
-    $Array = $global_data["Array_"];
-    $Not_found = $global_data["Not_found"];
-    $Invalid_argument = $global_data["Invalid_argument"];
+    $Pervasives =  Pervasives::get ();
+    $Sys =  Sys::get ();
+    $Array =  Array_::get ();
+    $Not_found =  Not_found::get ();
+    $Invalid_argument =  Invalid_argument::get ();
     $length = function(dynamic $x) {return (int) ($x->count() - 1 - 2);};
     $fill = function(dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x) use ($Invalid_argument,$caml_weak_set,$caml_wrap_thrown_exception,$cst_Weak_fill,$length) {
       if (0 <= $ofs) {
@@ -637,9 +615,18 @@ final class Weak {
       $Make
     };
     
-    $runtime["caml_register_global"](7, $Weak, "Weak");
+     return ($Weak);
 
   }
-}
+  public static function Make(dynamic $H) {
+    return static::get()[9]($H);
+  }
+  public static function fill(dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x) {
+    return static::get()[7]($ar, $ofs, $len, $x);
+  }
+  public static function length(dynamic $x) {
+    return static::get()[2]($x);
+  }
 
+}
 /* Hashing disabled */

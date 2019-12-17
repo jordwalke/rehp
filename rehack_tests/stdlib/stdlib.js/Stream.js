@@ -1,18 +1,14 @@
 /**
+ * @flow strict
  * Stream
- * @providesModule Stream
  */
+
+// @ts-check
+
+
 "use strict";
-var Bytes = require('Bytes.js');
-var CamlinternalLazy = require('CamlinternalLazy.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
@@ -38,7 +34,6 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_count = string("{count = ");
 var cst_data = string("; data = ");
 var cst = string("}");
@@ -54,10 +49,10 @@ var cst_Sgen = string("Sgen");
 var cst_Sbuffio = string("Sbuffio");
 var cst_Stream_Failure = string("Stream.Failure");
 var cst_Stream_Error = string("Stream.Error");
-var Assert_failure = global_data["Assert_failure"];
-var CamlinternalLazy = global_data["CamlinternalLazy"];
-var Pervasives = global_data["Pervasives"];
-var List = global_data["List_"];
+var Assert_failure = require("Assert_failure.js");
+var CamlinternalLazy = require("CamlinternalLazy.js");
+var Pervasives = require("Pervasives.js");
+var List = require("List_.js");
 var a_ = [0,string("stream.ml"),53,12];
 var b_ = [0,0];
 var c_ = [0,string("stream.ml"),82,12];
@@ -414,8 +409,81 @@ var Stream = [
   dump
 ];
 
-runtime["caml_register_global"](22, Stream, "Stream");
+exports = Stream;
 
+/*::type Exports = {
+  dump: (f: any, s: any) => any,
+  slazy: (f: any) => any,
+  sempty: any
+  lsing: (f: any) => any,
+  lcons: (f: any, s: any) => any,
+  lapp: (f: any, s: any) => any,
+  ising: (i: any) => any,
+  icons: (i: any, s: any) => any,
+  iapp: (i: any, s: any) => any,
+  npeek: (n: any, param: any) => any,
+  count: (param: any) => any,
+  junk: (param: any) => any,
+  peek: (param: any) => any,
+  empty: (s: any) => any,
+  next: (s: any) => any,
+  iter: (f: any, strm: any) => any,
+  of_channel: (ic: any) => any,
+  of_bytes: (s: any) => any,
+  of_string: (s: any) => any,
+  of_list: (l: any) => any,
+  from: (f: any) => any,
+  Error: any
+  Failure: any
+}*/
+/** @type {{
+  dump: (any, any) => any,
+  slazy: (any) => any,
+  sempty: any,
+  lsing: (any) => any,
+  lcons: (any, any) => any,
+  lapp: (any, any) => any,
+  ising: (any) => any,
+  icons: (any, any) => any,
+  iapp: (any, any) => any,
+  npeek: (any, any) => any,
+  count: (any) => any,
+  junk: (any) => any,
+  peek: (any) => any,
+  empty: (any) => any,
+  next: (any) => any,
+  iter: (any, any) => any,
+  of_channel: (any) => any,
+  of_bytes: (any) => any,
+  of_string: (any) => any,
+  of_list: (any) => any,
+  from: (any) => any,
+  Error: any,
+  Failure: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.dump = module.exports[23];
+module.exports.slazy = module.exports[22];
+module.exports.sempty = module.exports[21];
+module.exports.lsing = module.exports[20];
+module.exports.lcons = module.exports[19];
+module.exports.lapp = module.exports[18];
+module.exports.ising = module.exports[17];
+module.exports.icons = module.exports[16];
+module.exports.iapp = module.exports[15];
+module.exports.npeek = module.exports[14];
+module.exports.count = module.exports[13];
+module.exports.junk = module.exports[12];
+module.exports.peek = module.exports[11];
+module.exports.empty = module.exports[10];
+module.exports.next = module.exports[9];
+module.exports.iter = module.exports[8];
+module.exports.of_channel = module.exports[7];
+module.exports.of_bytes = module.exports[6];
+module.exports.of_string = module.exports[5];
+module.exports.of_list = module.exports[4];
+module.exports.from = module.exports[3];
+module.exports.Error = module.exports[2];
+module.exports.Failure = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Stream;
 /* Hashing disabled */

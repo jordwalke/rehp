@@ -1,41 +1,24 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Sort.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Sort {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Invalid_argument = Invalid_argument::get();
-    Sort::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Sort;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $merge = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
-    $Invalid_argument = $global_data["Invalid_argument"];
+    $Invalid_argument =  Invalid_argument::get ();
     $merge->contents = function(dynamic $order, dynamic $l1, dynamic $l2) use ($call2,$merge) {
       if ($l1) {
         $t1 = $l1[2];
@@ -200,9 +183,18 @@ final class Sort {
     };
     $Sort = Vector{0, $list, $array, $merge->contents};
     
-    $runtime["caml_register_global"](2, $Sort, "Sort");
+     return ($Sort);
 
   }
-}
+  public static function merge(dynamic $order, dynamic $l1, dynamic $l2) {
+    return static::get()[3]($order, $l1, $l2);
+  }
+  public static function array(dynamic $cmp, dynamic $arr) {
+    return static::get()[2]($cmp, $arr);
+  }
+  public static function list(dynamic $order, dynamic $l) {
+    return static::get()[1]($order, $l);
+  }
 
+}
 /* Hashing disabled */

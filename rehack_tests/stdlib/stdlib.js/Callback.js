@@ -1,19 +1,18 @@
 /**
+ * @flow strict
  * Callback
- * @providesModule Callback
  */
+
+// @ts-check
+
+
 "use strict";
-var Obj = require('Obj.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_register_named_value = runtime["caml_register_named_value"];
-var global_data = runtime["caml_get_global_data"]();
-var Obj = global_data["Obj"];
+var Obj = require("Obj.js");
 
 function register(name, v) {return caml_register_named_value(name, v);}
 
@@ -24,8 +23,18 @@ function register_exception(name, exn) {
 
 var Callback = [0,register,register_exception];
 
-runtime["caml_register_global"](1, Callback, "Callback");
+exports = Callback;
 
+/*::type Exports = {
+  register_exception: (name: any, exn: any) => any,
+  register: (name: any, v: any) => any,
+}*/
+/** @type {{
+  register_exception: (any, any) => any,
+  register: (any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.register_exception = module.exports[2];
+module.exports.register = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Callback;
 /* Hashing disabled */

@@ -1,42 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Printexc.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Printexc {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Buffer = Buffer::get();
-    $Obj = Obj::get();
-    $Pervasives = Pervasives::get();
-    $Printf = Printf::get();
-    $Match_failure = Match_failure::get();
-    $Out_of_memory = Out_of_memory::get();
-    $Failure = Failure::get();
-    $Stack_overflow = Stack_overflow::get();
-    $Assert_failure = Assert_failure::get();
-    $Undefined_recursive_module = Undefined_recursive_module::get();
-    Printexc::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Printexc;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $other_fields = new Ref();
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
@@ -54,7 +29,6 @@ final class Printexc {
        "caml_wrap_thrown_exception_reraise"
      ];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst__0 = $string("");
     $cst_Program_not_linked_with_g_cannot_print_stack_backtrace = $string(
       "(Program not linked with -g, cannot print stack backtrace)\n"
@@ -119,15 +93,15 @@ final class Printexc {
       },
       $string("File \"%s\", line %d, characters %d-%d: %s")
     };
-    $Printf = $global_data["Printf"];
-    $Pervasives = $global_data["Pervasives"];
-    $Out_of_memory = $global_data["Out_of_memory"];
-    $Buffer = $global_data["Buffer"];
-    $Stack_overflow = $global_data["Stack_overflow"];
-    $Match_failure = $global_data["Match_failure"];
-    $Assert_failure = $global_data["Assert_failure"];
-    $Undefined_recursive_module = $global_data["Undefined_recursive_module"];
-    $Obj = $global_data["Obj"];
+    $Printf =  Printf::get ();
+    $Pervasives =  Pervasives::get ();
+    $Out_of_memory =  Out_of_memory::get ();
+    $Buffer =  Buffer::get ();
+    $Stack_overflow =  Stack_overflow::get ();
+    $Match_failure =  Match_failure::get ();
+    $Assert_failure =  Assert_failure::get ();
+    $Undefined_recursive_module =  Undefined_recursive_module::get ();
+    $Obj =  Obj::get ();
     $c_ = Vector{
       0,
       Vector{11, $string(", "), Vector{2, 0, Vector{2, 0, 0}}},
@@ -553,9 +527,45 @@ final class Printexc {
       $exn_slot_name
     };
     
-    $runtime["caml_register_global"](45, $Printexc, "Printexc");
+     return ($Printexc);
 
   }
-}
+  public static function exn_slot_name(dynamic $x) {
+    return static::get()[21]($x);
+  }
+  public static function exn_slot_id(dynamic $x) {
+    return static::get()[20]($x);
+  }
+  public static function backtrace_slots(dynamic $raw_backtrace) {
+    return static::get()[14]($raw_backtrace);
+  }
+  public static function set_uncaught_exception_handler(dynamic $fn) {
+    return static::get()[13]($fn);
+  }
+  public static function raw_backtrace_to_string(dynamic $raw_backtrace) {
+    return static::get()[11]($raw_backtrace);
+  }
+  public static function print_raw_backtrace(dynamic $outchan, dynamic $raw_backtrace) {
+    return static::get()[10]($outchan, $raw_backtrace);
+  }
+  public static function register_printer(dynamic $fn) {
+    return static::get()[8]($fn);
+  }
+  public static function get_backtrace(dynamic $param) {
+    return static::get()[5]($param);
+  }
+  public static function print_backtrace(dynamic $outchan) {
+    return static::get()[4]($outchan);
+  }
+  public static function catch(dynamic $fct, dynamic $arg) {
+    return static::get()[3]($fct, $arg);
+  }
+  public static function print(dynamic $fct, dynamic $arg) {
+    return static::get()[2]($fct, $arg);
+  }
+  public static function to_string(dynamic $x) {
+    return static::get()[1]($x);
+  }
 
+}
 /* Hashing disabled */

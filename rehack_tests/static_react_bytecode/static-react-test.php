@@ -34,7 +34,6 @@ function main() {
   $module = $joo_global_object->module;
 
   
-
   $append = new Ref();
   $at_ = new Ref();
   $c_ = new Ref();

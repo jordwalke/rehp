@@ -1,16 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__XmlHttpRequest
- * @providesModule Js_of_ocaml__XmlHttpRequest
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Dom = require('Js_of_ocaml__Dom.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -21,7 +19,6 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_readystatechange = string("readystatechange");
 var cst_loadstart = string("loadstart");
 var cst_progress = string("progress");
@@ -30,9 +27,9 @@ var cst_error = string("error");
 var cst_load = string("load");
 var cst_timeout = string("timeout");
 var cst_loadend = string("loadend");
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Assert_failure = global_data["Assert_failure"];
-var Js_of_ocaml_Dom = global_data["Js_of_ocaml__Dom"];
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Assert_failure = require("Assert_failure.js");
+var Js_of_ocaml_Dom = require("Js_of_ocaml__Dom.js");
 var a_ = [0,string("lib/js_of_ocaml/xmlHttpRequest.ml"),125,75];
 var readystatechange = call1(Js_of_ocaml_Dom[14][1], cst_readystatechange);
 var loadstart = call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
@@ -100,12 +97,18 @@ function create(param) {
 
 var Js_of_ocaml_XmlHttpRequest = [0,create,Event];
 
-runtime["caml_register_global"](
-  17,
-  Js_of_ocaml_XmlHttpRequest,
-  "Js_of_ocaml__XmlHttpRequest"
-);
+exports = Js_of_ocaml_XmlHttpRequest;
 
+/*::type Exports = {
+  Event: any
+  create: (param: any) => any,
+}*/
+/** @type {{
+  Event: any,
+  create: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.Event = module.exports[2];
+module.exports.create = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__XmlHttpRequest;
 /* Hashing disabled */

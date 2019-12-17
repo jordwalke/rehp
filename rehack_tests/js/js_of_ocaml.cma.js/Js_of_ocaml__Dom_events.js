@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Dom_events
- * @providesModule Js_of_ocaml__Dom_events
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Dom_html = require('Js_of_ocaml__Dom_html.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 
@@ -27,8 +26,7 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
-var Js_of_ocaml_Dom_html = global_data["Js_of_ocaml__Dom_html"];
+var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
 
 function listen(opt, target, typ, cb) {
   if (opt) {
@@ -45,12 +43,18 @@ function listen(opt, target, typ, cb) {
 var stop_listen = Js_of_ocaml_Dom_html[17];
 var Js_of_ocaml_Dom_events = [0,Js_of_ocaml_Dom_html[15],listen,stop_listen];
 
-runtime["caml_register_global"](
-  1,
-  Js_of_ocaml_Dom_events,
-  "Js_of_ocaml__Dom_events"
-);
+exports = Js_of_ocaml_Dom_events;
 
+/*::type Exports = {
+  stop_listen: any
+  listen: (opt: any, target: any, typ: any, cb: any) => any,
+}*/
+/** @type {{
+  stop_listen: any,
+  listen: (any, any, any, any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.stop_listen = module.exports[3];
+module.exports.listen = module.exports[2];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Dom_events;
 /* Hashing disabled */

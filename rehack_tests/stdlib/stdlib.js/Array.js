@@ -1,15 +1,14 @@
 /**
+ * @flow strict
  * Array_
- * @providesModule Array_
  */
+
+// @ts-check
+
+
 "use strict";
-var Pervasives = require('Pervasives.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_array_sub = runtime["caml_array_sub"];
@@ -28,7 +27,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_Array_map2_arrays_must_have_the_same_length = string(
   "Array.map2: arrays must have the same length"
 );
@@ -40,8 +38,8 @@ var cst_Array_fill = string("Array.fill");
 var cst_Array_sub = string("Array.sub");
 var cst_Array_init = string("Array.init");
 var cst_Array_Bottom = string("Array.Bottom");
-var Assert_failure = global_data["Assert_failure"];
-var Pervasives = global_data["Pervasives"];
+var Assert_failure = require("Assert_failure.js");
+var Pervasives = require("Pervasives.js");
 var a_ = [0,string("array.ml"),233,4];
 
 function make_float(aj_) {return runtime["caml_make_float_vect"](aj_);}
@@ -653,8 +651,93 @@ var Array = [
   Floatarray
 ];
 
-runtime["caml_register_global"](10, Array, "Array_");
+exports = Array;
 
+/*::type Exports = {
+  Floatarray: any
+  stable_sort: (cmp: any, a: any) => any,
+  stable_sort: (cmp: any, a: any) => any,
+  sort: (cmp: any, a: any) => any,
+  memq: (x: any, a: any) => any,
+  mem: (x: any, a: any) => any,
+  exists: (p: any, a: any) => any,
+  for_all: (p: any, a: any) => any,
+  map2: (f: any, a: any, b: any) => any,
+  iter2: (f: any, a: any, b: any) => any,
+  fold_right: (f: any, a: any, x: any) => any,
+  fold_left: (f: any, x: any, a: any) => any,
+  mapi: (f: any, a: any) => any,
+  map: (f: any, a: any) => any,
+  iteri: (f: any, a: any) => any,
+  iter: (f: any, a: any) => any,
+  of_list: (l: any) => any,
+  to_list: (a: any) => any,
+  blit: (a1: any, ofs1: any, a2: any, ofs2: any, len: any) => any,
+  fill: (a: any, ofs: any, len: any, v: any) => any,
+  copy: (a: any) => any,
+  sub: (a: any, ofs: any, len: any) => any,
+  append: (a1: any, a2: any) => any,
+  make_matrix: (sx: any, sy: any, init: any) => any,
+  make_matrix: (sx: any, sy: any, init: any) => any,
+  init: (l: any, f: any) => any,
+  make_float: (unnamed1: any) => any,
+}*/
+/** @type {{
+  Floatarray: any,
+  stable_sort: (any, any) => any,
+  stable_sort: (any, any) => any,
+  sort: (any, any) => any,
+  memq: (any, any) => any,
+  mem: (any, any) => any,
+  exists: (any, any) => any,
+  for_all: (any, any) => any,
+  map2: (any, any, any) => any,
+  iter2: (any, any, any) => any,
+  fold_right: (any, any, any) => any,
+  fold_left: (any, any, any) => any,
+  mapi: (any, any) => any,
+  map: (any, any) => any,
+  iteri: (any, any) => any,
+  iter: (any, any) => any,
+  of_list: (any) => any,
+  to_list: (any) => any,
+  blit: (any, any, any, any, any) => any,
+  fill: (any, any, any, any) => any,
+  copy: (any) => any,
+  sub: (any, any, any) => any,
+  append: (any, any) => any,
+  make_matrix: (any, any, any) => any,
+  make_matrix: (any, any, any) => any,
+  init: (any, any) => any,
+  make_float: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.Floatarray = module.exports[28];
+module.exports.stable_sort = module.exports[27];
+module.exports.stable_sort = module.exports[26];
+module.exports.sort = module.exports[25];
+module.exports.memq = module.exports[24];
+module.exports.mem = module.exports[23];
+module.exports.exists = module.exports[22];
+module.exports.for_all = module.exports[21];
+module.exports.map2 = module.exports[20];
+module.exports.iter2 = module.exports[19];
+module.exports.fold_right = module.exports[18];
+module.exports.fold_left = module.exports[17];
+module.exports.mapi = module.exports[16];
+module.exports.map = module.exports[15];
+module.exports.iteri = module.exports[14];
+module.exports.iter = module.exports[13];
+module.exports.of_list = module.exports[12];
+module.exports.to_list = module.exports[11];
+module.exports.blit = module.exports[10];
+module.exports.fill = module.exports[9];
+module.exports.copy = module.exports[8];
+module.exports.sub = module.exports[7];
+module.exports.append = module.exports[5];
+module.exports.make_matrix = module.exports[4];
+module.exports.make_matrix = module.exports[3];
+module.exports.init = module.exports[2];
+module.exports.make_float = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Array_;
 /* Hashing disabled */

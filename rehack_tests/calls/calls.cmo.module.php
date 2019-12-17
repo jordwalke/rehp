@@ -1,33 +1,17 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Calls.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Calls {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-
-    Calls::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Calls;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $string = $runtime["caml_new_string"];
     $cst_myPartiallyAppliedMethod = $string("myPartiallyAppliedMethod");
@@ -125,9 +109,30 @@ final class Calls {
       $testPartialMethodCalls
     };
     
-    $runtime["caml_register_global"](18, $Calls, "Calls");
+     return ($Calls);
 
   }
-}
+  public static function testPartialMethodCalls(dynamic $o) {
+    return static::get()[7]($o);
+  }
+  public static function testPartialFunctionCalls(dynamic $s) {
+    return static::get()[6]($s);
+  }
+  public static function testMethodCalls(dynamic $o) {
+    return static::get()[5]($o);
+  }
+  public static function testFunctionCalls(dynamic $o) {
+    return static::get()[4]($o);
+  }
+  public static function baz() {
+    return static::get()[3]();
+  }
+  public static function bar() {
+    return static::get()[2]();
+  }
+  public static function foo() {
+    return static::get()[1]();
+  }
 
+}
 /* Hashing disabled */

@@ -1,20 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__CSS
- * @providesModule Js_of_ocaml__CSS
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var Js_of_ocaml__Regexp = require('Js_of_ocaml__Regexp.js');
-var List_ = require('List_.js');
-var Pervasives = require('Pervasives.js');
-var Printf = require('Printf.js');
-var Invalid_argument = require('Invalid_argument.js');
-var Failure = require('Failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_float_of_string = runtime["caml_float_of_string"];
@@ -55,7 +49,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_is_not_a_valid_length__0 = string(" is not a valid length");
 var cst_d_d_deg_grad_rad_turns = string(
   "^(\\d*(?:\\.\\d*))(deg|grad|rad|turns)$"
@@ -434,13 +427,13 @@ var cst_white = string("white");
 var cst_whitesmoke = string("whitesmoke");
 var cst_yellow = string("yellow");
 var cst_yellowgreen = string("yellowgreen");
-var Pervasives = global_data["Pervasives"];
-var Invalid_argument = global_data["Invalid_argument"];
-var Js_of_ocaml_Regexp = global_data["Js_of_ocaml__Regexp"];
-var Printf = global_data["Printf"];
-var Failure = global_data["Failure"];
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var List = global_data["List_"];
+var Pervasives = require("Pervasives.js");
+var Invalid_argument = require("Invalid_argument.js");
+var Js_of_ocaml_Regexp = require("Js_of_ocaml__Regexp.js");
+var Printf = require("Printf.js");
+var Failure = require("Failure.js");
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var List = require("List_.js");
 var b2_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
 var b3_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
 var b4_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
@@ -2242,8 +2235,18 @@ var Js_of_ocaml_CSS = [
   Angle
 ];
 
-runtime["caml_register_global"](547, Js_of_ocaml_CSS, "Js_of_ocaml__CSS");
+exports = Js_of_ocaml_CSS;
 
+/*::type Exports = {
+  Angle: any
+  Length: any
+}*/
+/** @type {{
+  Angle: any,
+  Length: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.Angle = module.exports[3];
+module.exports.Length = module.exports[2];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__CSS;
 /* Hashing disabled */

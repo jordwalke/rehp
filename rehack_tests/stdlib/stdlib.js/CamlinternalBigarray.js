@@ -1,24 +1,24 @@
 /**
+ * @flow strict
  * CamlinternalBigarray
- * @providesModule CamlinternalBigarray
  */
+
+// @ts-check
+
+
 "use strict";
-
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var CamlinternalBigarray = [0];
 
-runtime["caml_register_global"](
-  0,
-  CamlinternalBigarray,
-  "CamlinternalBigarray"
-);
+exports = CamlinternalBigarray;
 
+/*::type Exports = {
+}*/
+/** @type {{
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 
-module.exports = global.jsoo_runtime.caml_get_global_data().CamlinternalBigarray;
 /* Hashing disabled */

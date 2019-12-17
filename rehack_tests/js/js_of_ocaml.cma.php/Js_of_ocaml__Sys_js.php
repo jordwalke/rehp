@@ -1,45 +1,26 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
- * Js_of_ocaml__Sys_js.php
+ * @generated
+ *
  */
-
 namespace Rehack;
 
 final class Js_of_ocaml__Sys_js {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    $runtime = \Rehack\Runtime::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
-    $Js_of_ocaml__Js = Js_of_ocaml__Js::get();
-    $Js_of_ocaml__Lib_version = Js_of_ocaml__Lib_version::get();
-    $Pervasives = Pervasives::get();
-    Js_of_ocaml__Sys_js::load($global_object);
-    $memoized = $runtime->caml_get_global_data()->Js_of_ocaml__Sys_js;
-    return $memoized;
-  }
-
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
+  <<__Override, __Memoize>>
+  public static function get() : Vector<dynamic> {
+    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_js_wrap_callback = $runtime["caml_js_wrap_callback"];
     $string = $runtime["caml_new_string"];
-    $global_data = $runtime["caml_get_global_data"]();
     $cst = $string("");
     $cst__0 = $string("+");
-    $Pervasives = $global_data["Pervasives"];
-    $Js_of_ocaml_Lib_version = $global_data["Js_of_ocaml__Lib_version"];
+    $Pervasives =  Pervasives::get ();
+    $Js_of_ocaml_Lib_version =  Js_of_ocaml__Lib_version::get ();
     $update_file = function(dynamic $name, dynamic $content) use ($Pervasives,$call1,$call2) {
       $oc = $call1($Pervasives[48], $name);
       $call2($Pervasives[54], $oc, $content);
@@ -102,13 +83,27 @@ final class Js_of_ocaml__Sys_js {
       $js_of_ocaml_version
     };
     
-    $runtime["caml_register_global"](
-      4,
-      $Js_of_ocaml_Sys_js,
-      "Js_of_ocaml__Sys_js"
-    );
+     return ($Js_of_ocaml_Sys_js);
 
   }
-}
+  public static function js_of_ocaml_version() {
+    return static::get()[9]();
+  }
+  public static function update_file(dynamic $name, dynamic $content) {
+    return static::get()[8]($name, $content);
+  }
+  public static function mount(dynamic $path, dynamic $f) {
+    return static::get()[5]($path, $f);
+  }
+  public static function unmount(dynamic $path) {
+    return static::get()[4]($path);
+  }
+  public static function set_channel_filler(dynamic $in_channel, dynamic $f) {
+    return static::get()[2]($in_channel, $f);
+  }
+  public static function set_channel_flusher(dynamic $out_channel, dynamic $f) {
+    return static::get()[1]($out_channel, $f);
+  }
 
+}
 /* Hashing disabled */

@@ -1,14 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Json
- * @providesModule Js_of_ocaml__Json
  */
+
+// @ts-check
+
+
 "use strict";
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -56,8 +56,18 @@ function output(obj) {
 
 var Js_of_ocaml_Json = [0,output,unsafe_input];
 
-runtime["caml_register_global"](5, Js_of_ocaml_Json, "Js_of_ocaml__Json");
+exports = Js_of_ocaml_Json;
 
+/*::type Exports = {
+  unsafe_input: (s: any) => any,
+  output: (obj: any) => any,
+}*/
+/** @type {{
+  unsafe_input: (any) => any,
+  output: (any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.unsafe_input = module.exports[2];
+module.exports.output = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Json;
 /* Hashing disabled */

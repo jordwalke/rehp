@@ -1,18 +1,14 @@
 /**
+ * @flow strict
  * Js_of_ocaml__Form
- * @providesModule Js_of_ocaml__Form
  */
+
+// @ts-check
+
+
 "use strict";
-var Array_ = require('Array_.js');
-var Js_of_ocaml__Dom_html = require('Js_of_ocaml__Dom_html.js');
-var Js_of_ocaml__Js = require('Js_of_ocaml__Js.js');
-var List_ = require('List_.js');
-var Assert_failure = require('Assert_failure.js');
-var runtime = require('runtime.js');
-
-let joo_global_object = global;
-
-
+let joo_global_object = typeof global !== 'undefined' ? global : window;
+require('runtime.js');
 
 var runtime = joo_global_object.jsoo_runtime;
 var caml_get_public_method = runtime["caml_get_public_method"];
@@ -29,7 +25,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var global_data = runtime["caml_get_global_data"]();
 var cst_checkbox = string("checkbox");
 var cst_file = string("file");
 var cst_password = string("password");
@@ -37,11 +32,11 @@ var cst_radio = string("radio");
 var cst_reset = string("reset");
 var cst_submit = string("submit");
 var cst_text = string("text");
-var Assert_failure = global_data["Assert_failure"];
-var List = global_data["List_"];
-var Js_of_ocaml_Js = global_data["Js_of_ocaml__Js"];
-var Js_of_ocaml_Dom_html = global_data["Js_of_ocaml__Dom_html"];
-var Array = global_data["Array_"];
+var Assert_failure = require("Assert_failure.js");
+var List = require("List_.js");
+var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
+var Array = require("Array_.js");
 var f_ = [0,string("lib/js_of_ocaml/form.ml"),170,58];
 var e_ = [0,1];
 
@@ -414,8 +409,33 @@ var Js_of_ocaml_Form = [
   form_elements
 ];
 
-runtime["caml_register_global"](48, Js_of_ocaml_Form, "Js_of_ocaml__Form");
+exports = Js_of_ocaml_Form;
 
+/*::type Exports = {
+  form_elements: (get: any, form: any) => any,
+  empty_form_contents: (param: any) => any,
+  get_form_contents: (form: any) => any,
+  post_form_contents: (form: any) => any,
+  append: (form_contents: any, form_elt: any) => any,
+  formData_form: any
+  formData: any
+}*/
+/** @type {{
+  form_elements: (any, any) => any,
+  empty_form_contents: (any) => any,
+  get_form_contents: (any) => any,
+  post_form_contents: (any) => any,
+  append: (any, any) => any,
+  formData_form: any,
+  formData: any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.form_elements = module.exports[7];
+module.exports.empty_form_contents = module.exports[6];
+module.exports.get_form_contents = module.exports[5];
+module.exports.post_form_contents = module.exports[4];
+module.exports.append = module.exports[3];
+module.exports.formData_form = module.exports[2];
+module.exports.formData = module.exports[1];
 
-module.exports = global.jsoo_runtime.caml_get_global_data().Js_of_ocaml__Form;
 /* Hashing disabled */
