@@ -1,4 +1,5 @@
 open Stdlib;
+module PP = Pretty_print;
 let times = Debug.find("times");
 let php_keywords =
   List.fold_left(
@@ -85,6 +86,10 @@ let keyword = () => php_keywords;
 let is_ident = () => Backend.Helpers.is_ident(keyword());
 let allow_simplify_ifdecl = () => false;
 let _php_globals = [
+  /* This allows us to use return as an identifier in certain situations
+   * without causing it to be ref boxed. Let's us fake return(x) as a function
+   * call expression in module loading scenarios. */
+  "return",
   "joo_global_object",
   "Object",
   "Func",
@@ -109,6 +114,40 @@ let _php_globals = [
   "NaN",
   "isNaN",
 ];
+
+let compute_footer_summary = (moduleName, metadatas) => {
+  List.map(metadatas, ~f=metadata =>
+    switch (metadata.Module_export_metadata.original_name) {
+    | None => []
+    | Some(nm) =>
+      let noNames = {contents: 0};
+      let argsList =
+        List.map(metadata.arg_names, ~f=nm =>
+          switch (nm) {
+          | None =>
+            noNames.contents = noNames.contents + 1;
+            "unnamed" ++ string_of_int(noNames.contents);
+          | Some(n) => n
+          }
+        );
+      let params =
+        List.map(~f=nm => "dynamic $" ++ nm, argsList)
+        |> String.concat(~sep=", ");
+      let args =
+        List.map(~f=nm => "$" ++ nm, argsList) |> String.concat(~sep=", ");
+      [
+        "  public static function " ++ nm ++ "(" ++ params ++ ") {",
+        "    return static::get()["
+        ++ string_of_int(metadata.export_index)
+        ++ "]("
+        ++ args
+        ++ ");",
+        "  }",
+      ];
+    }
+  )
+  |> List.concat;
+};
 let provided = () =>
   List.fold_left(
     ~f=(acc, x) => StringSet.add(x, acc),
@@ -119,7 +158,13 @@ let object_wrapper = ((), obj) =>
   Rehp.ECall(EVar(Id.ident("ObjectLiteral")), [obj], N);
 
 let output =
-    ((), formatter, ~custom_header, ~source_map=?, (), (rehp, linkinfos)) => {
+    (
+      (),
+      formatter,
+      ~custom_header,
+      ~source_map=?,
+      ((rehp, module_export_metadatas), linkinfos),
+    ) => {
   let addOneStr = (env, name) => Php_from_rehp.addOne(env, Id.ident(name));
 
   /* let missing = StringSet.diff(used, languageProvided); */
@@ -181,8 +226,29 @@ let output =
     Format.eprintf("Start Writing file (Php)...@.");
   };
   let allPhp = List.concat([runtimePhp, php]);
-  Backend.Helpers.print_header_head(~custom_header, formatter);
-  Php_output.program(formatter, ~custom_header, ~source_map?, allPhp);
+  let remainingChunks =
+    Backend.Helpers.print_until_compilation_output(
+      formatter,
+      custom_header.Module_prep.chunks,
+    );
+  Php_output.program(formatter, ~source_map?, allPhp);
+  let (remainingChunks, shouldPrintSummary) =
+    Backend.Helpers.print_until_summary(formatter, remainingChunks);
+  if (shouldPrintSummary) {
+    let summary =
+      compute_footer_summary(
+        custom_header.module_name,
+        module_export_metadatas,
+      );
+    List.iter(
+      summary,
+      ~f=s => {
+        PP.string(formatter, s);
+        PP.newline(formatter);
+      },
+    );
+  };
+  Backend.Helpers.print_texts(formatter, remainingChunks);
   if (times()) {
     Format.eprintf("  write: %a@.", Timer.print, t);
   };
@@ -220,3 +286,17 @@ let is_prim_supplied = ((), s) => {
   | _ => None
   };
 };
+
+let custom_module_registration = () =>
+  Some(
+    (runtime_getter, module_expression, module_export_metadatas) => {
+      let moduleExports =
+        Rehp.ECall(Rehp.ERaw("return"), [module_expression], Loc.N);
+      Some(moduleExports);
+    },
+  );
+let custom_module_loader = () =>
+  Some(
+    (runtime_getter, name) =>
+      Some(Rehp.ECall(Rehp.ERaw(name ++ "::get"), [], Loc.N)),
+  );

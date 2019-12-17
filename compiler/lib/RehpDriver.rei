@@ -27,7 +27,7 @@ let f:
     ~dynlink: bool=?,
     ~linkall: bool=?,
     ~source_map: (option(string), Source_map.t)=?,
-    ~custom_header: (string, int, string),
+    ~custom_header: Module_prep.parsed,
     Pretty_print.t,
     Parse_bytecode.Debug.data,
     Code.program

@@ -39,14 +39,28 @@
     The header and footer is split on a comment equalling
     /*____CompilationOutput*/
 
+    The footer may also include an optional summary:
+    /*____CompilationSummary*/
 
     Returns header_text * footer_text
 
    */
+
+type chunk =
+  | Text(string)
+  /*Placeholder for where compilation output will go. Integer indentation. */
+  | CompilationOutputPlaceholder(int)
+  /* Placeholder for where compilation output will go. Integer indentation. */
+  | SummaryPlaceholder(int);
+type parsed = {
+  module_name: string,
+  chunks: list(chunk),
+};
+
 let substitute_and_split:
   /* Custom template text */
+  /* Template */
   (
-    /* Template */
     string,
     /* string hashes comment: Git version of compiler, input hashes, bytecode hash */
     string,
@@ -55,8 +69,7 @@ let substitute_and_split:
     /* Module dependency list */
     list(string)
   ) =>
-  /* Header, ident, footer */
-  (string, int, string);
+  parsed;
 
 /* Normalizes a module name (by same convention that substitute_and_split does)
    Some names tend to be reserved (class) names in languages so this

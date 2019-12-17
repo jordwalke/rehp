@@ -58,7 +58,7 @@ module Var : sig
 
   val to_string : ?origin:t -> t -> string
 
-  val orig_string_name_debug : t -> string
+  val orig_string_name_debug : t -> string option
 
   val fresh : unit -> t
 

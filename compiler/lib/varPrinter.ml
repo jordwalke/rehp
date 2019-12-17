@@ -150,8 +150,11 @@ let get_reserved () = !reserved
 
 let is_reserved s = StringSet.mem s !reserved
 
+(*
+ * Not to be relied on for important programatic uses.
+ *)
 let rec orig_string_name_debug t origin =
-  try Hashtbl.find t.names origin with Not_found -> "unknown"
+  try Some(Hashtbl.find t.names origin) with Not_found -> None
 
 let rec to_string t ?origin i =
   let origin =

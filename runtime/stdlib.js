@@ -110,10 +110,18 @@ function caml_register_global_module (n, v, name) {
   return caml_register_global(n, v, name);
 }
 
+// Not a real stub, but eval.ml will take the purity of this into account when
+// evaling.
 //Provides: caml_register_global_module_metadata (const, shallow, const)
 //Requires: caml_register_global
 function caml_register_global_module_metadata (n, v, name) {
   return caml_register_global(n, v, name);
+}
+
+//Provides: caml_load_global_module (const)
+//Requires: caml_global_data
+function caml_load_global_module(n) {
+  return caml_global_data[n];
 }
 
 //Provides: caml_get_global_data mutable

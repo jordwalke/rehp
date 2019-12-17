@@ -118,7 +118,7 @@ class map : mapper = object(m)
   method switch_case e = m#expression e
 
   method expression x = match x with
-    ERaw s -> ERaw s
+  | ERaw s -> ERaw s
   | ESeq(e1,e2) -> ESeq(m#expression  e1, m#expression  e2)
   | ECond(e1,e2,e3) ->
     ECond(m#expression  e1,m#expression  e2,m#expression  e3)

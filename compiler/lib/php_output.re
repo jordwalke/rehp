@@ -409,7 +409,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | [i] =>
       PP.string(f, "dynamic");
       PP.non_breaking_space(f);
-      ident(f, i)
+      ident(f, i);
     | [i, ...r] =>
       PP.string(f, "dynamic");
       PP.non_breaking_space(f);
@@ -579,6 +579,11 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     switch (e) {
     | ERaw(_) => true
     | ENULL => false
+    /*
+     * Major hack. We use ERaw to inject a return in a place that only expects
+     * an expression. (In php backend module exporting code).
+     */
+    | ECall(ERaw("return"), _, _) => false
     | ECond(e, _, _) => l <= 2 && need_paren(3, e)
     /*
      * Instanceof is just a function call now.
@@ -591,6 +596,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       let (out, lft, _rght) = op_prec(op);
       l <= out && need_paren(lft, e);
     | EArrLen(e) /* Since EArrLen is just expanded to a EDot */
+    | ECall(ERaw(_) as e, _, _)
     | ECall(e, _, _)
     | EAccess(e, _)
     | EStructAccess(e, _)
@@ -1677,7 +1683,7 @@ let need_space = (a, b) =>
   || a == '-'
   && b == '-';
 
-let program = (f, ~custom_header=?, ~source_map=?, p) => {
+let program = (f, ~source_map=?, p) => {
   let smo =
     switch (source_map) {
     | None => None
@@ -1692,10 +1698,6 @@ let program = (f, ~custom_header=?, ~source_map=?, p) => {
   O.program(f, p);
   PP.end_group(f);
   PP.newline(f);
-  switch (custom_header) {
-  | None => ()
-  | Some((_hd, _indent, ft)) => PP.string(f, Printf.sprintf("%s", ft))
-  };
   switch (source_map) {
   | None => ()
   | Some((out_file, sm)) =>

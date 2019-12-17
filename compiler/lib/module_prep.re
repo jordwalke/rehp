@@ -3,6 +3,16 @@
  * injected code, which your template should make defined (making those
  * variables no longer free)
  */
+type chunk =
+  | Text(string)
+  /*Placeholder for where compilation output will go. Integer indentation. */
+  | CompilationOutputPlaceholder(int)
+  /* Placeholder for where compilation output will go. Integer indentation. */
+  | SummaryPlaceholder(int);
+type parsed = {
+  module_name: string,
+  chunks: list(chunk),
+};
 
 /* From Reason Repo */
 let is_prefixed = (prefix, str, i) => {
@@ -112,9 +122,10 @@ let split_on = (on, str) =>
     ));
   };
 
-let normalize_module_name = Js_of_ocaml_compiler.Parse_bytecode.normalize_module_name;
+let normalize_module_name = Parse_bytecode.normalize_module_name;
 
-let substitute_and_split = (txt, hashesComment, compunit_name, ordered_compunit_deps) => {
+let substitute_and_split =
+    (txt, hashesComment, compunit_name, ordered_compunit_deps) => {
   let compunit_name = normalize_module_name(compunit_name);
   let lower_compunit_name = lower_leading(compunit_name);
   let upper_compunit_name = upper_leading(compunit_name);
@@ -165,10 +176,34 @@ let substitute_and_split = (txt, hashesComment, compunit_name, ordered_compunit_
       String.concat("\n", lines);
     };
 
-  switch (split_on("/*____CompilationOutput*/", substituted)) {
-  | None => (substituted, 0, "")
-  | Some((l, r)) => (l, code_indent_amount(l), r)
-  };
+  let chunks =
+    switch (split_on("/*____CompilationOutput*/", substituted)) {
+    | None =>
+      switch (split_on("/*____CompilationSummary*/", substituted)) {
+      | None => [Text(substituted), CompilationOutputPlaceholder(0)]
+      | Some((l, r)) => [
+          Text(l),
+          SummaryPlaceholder(code_indent_amount(l)),
+          Text(r),
+        ]
+      }
+    | Some((l, r)) =>
+      switch (split_on("/*____CompilationSummary*/", r)) {
+      | None => [
+          Text(l),
+          CompilationOutputPlaceholder(code_indent_amount(l)),
+          Text(r),
+        ]
+      | Some((rl, rr)) => [
+          Text(l),
+          CompilationOutputPlaceholder(code_indent_amount(l)),
+          Text(rl),
+          SummaryPlaceholder(code_indent_amount(rl)),
+          Text(rr),
+        ]
+      }
+    };
+  {module_name: compunit_name, chunks};
 };
 
 /* This is difficult to get injected correctly with the way source maps are

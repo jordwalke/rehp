@@ -181,10 +181,16 @@ let the_arity_of info x =
  * point in the compiler. TODO: Implement that without using new
  * orig_string_name_debug function.
  *)
+(* A Pc of -1 indicate the name is not readable *)
+let readable_name v =
+  match Var.orig_string_name_debug v with
+  | None -> Pc (Int (Int32.of_int (-1)))
+  | Some s -> Pc (IString (s))
+
 let argument_names_of info x =
   match the_def_of info (Pv x) with
   | Some (Closure (params, _)) ->
-      List.map ~f:(fun v -> Pc (IString (Var.orig_string_name_debug v))) params
+      List.map ~f:(fun v -> readable_name v) params
   | None | Some _ -> []
 
 type is_int =
@@ -235,7 +241,7 @@ let eval_instr info i =
           let c = Constant (Int c) in
           Flow.update_def info x c;
           Let (x, c))
-  | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) -> (
+  | Let (x, Prim (Extern "%caml_register_global_module", [ind; modul; name])) -> (
       let the_metadata_of info x =
         match the_block_of info x with
         | Some blk -> Some blk
@@ -244,7 +250,7 @@ let eval_instr info i =
       match the_metadata_of info modul with
       | None -> i
       | Some block_items ->
-          let f block_index v =
+          let f v =
             (* Original name of identifier in scope *)
             (* Identifier in scope *)
             (* Not a great idea to include the identifier reference
@@ -254,21 +260,16 @@ let eval_instr info i =
              * argument_names_of *)
             (* Pv v; *)
 
-            (* Block index in export *)
             (* Arity if function *)
-            Pc (IString (Var.orig_string_name_debug v))
-            :: Pc (Int (Int32.of_int (block_index + 1)))
+            readable_name v
             :: the_arity_of info v
             :: (* Argument names if function with arity *)
                argument_names_of info v
           in
-          let prim_block_items =
-            List.mapi (Array.to_list block_items) ~f |> List.concat
-          in
-          (* let md_call = metadata_call md in *)
+          let prim_block_items = List.map (Array.to_list block_items) ~f |> List.concat in
           let md_call =
             Prim
-              ( Extern "caml_register_global_module_metadata"
+              ( Extern "%caml_register_global_module_metadata"
               , ind :: modul :: name :: prim_block_items )
           in
           Flow.update_def info x md_call;

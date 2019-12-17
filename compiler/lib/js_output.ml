@@ -1126,9 +1126,9 @@ let need_space a b =
   (* https://github.com/ocsigen/js_of_ocaml/issues/507 *)
   (a = '-' && b = '-')
 
-(* js_output must be responsible for printing any footer portion of the
- * custom_header because the source maps must be the final item in the file.  *)
-let program f ?custom_header ?source_map p =
+(* Returns function that prints source maps so that caller can first print a
+ * footer. *)
+let program f ?source_map p =
   let smo = match source_map with
     | None -> None
     | Some (_,sm) -> Some sm in
@@ -1137,13 +1137,10 @@ let program f ?custom_header ?source_map p =
     end) in
   PP.set_needed_space_function f need_space;
   PP.start_group f 0; O.program f p; PP.end_group f; PP.newline f;
-   match custom_header with
-   | None -> ()
-   | Some (_hd, _indent, ft) -> begin
-     PP.newline f;
-     PP.string f (Printf.sprintf "%s" ft);
-   end;
-  (match source_map with
+ (* Returns the function that prints source maps after everything else is done *)
+ (* This is so that whoever calls js_output has an opportunity to print footers first *)
+ (fun () ->
+   (match source_map with
    | None -> ()
    | Some (out_file,sm) ->
      let sm = { sm with Source_map.sources = List.rev sm.Source_map.sources;
@@ -1204,3 +1201,4 @@ let program f ?custom_header ?source_map p =
     let total_s = PP.total f in
     Format.eprintf "total size : %s@." (size total_s);
   end
+ )

@@ -690,7 +690,7 @@ let register_global
                      certainly a "module" *)
                       definitely_not_module
                   then "caml_register_global"
-                  else "caml_register_global_module")
+                  else "%caml_register_global_module")
               , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
         :: rem)
   else (
@@ -2438,8 +2438,8 @@ let from_compilation_units ~includes:_ ~toplevel ~debug ~debug_data l =
               Let
                 ( x
                 , Prim
-                    ( Extern "caml_js_dict_get"
-                    , [Pv gdata; Pc (IString (normalize_module_name name))] ) )
+                    ( Extern "%caml_load_global_module"
+                    , [Pc (IString (normalize_module_name name))] ) )
               :: l)
         | _ -> l)
   in

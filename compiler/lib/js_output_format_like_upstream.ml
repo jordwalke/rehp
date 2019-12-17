@@ -1177,10 +1177,7 @@ let need_space a b =
       true
   | _, _ -> false
 
-(* js_output must be responsible for printing any footer portion of the
- * custom_header because the source maps must be the final item in the file.  *)
-let program f ?custom_header ?source_map p =
-  ignore(custom_header);
+let program f ?source_map p =
   let smo =
     match source_map with
     | None -> None
@@ -1194,72 +1191,75 @@ let program f ?custom_header ?source_map p =
   O.program f p;
   PP.end_group f;
   PP.newline f;
-  (match source_map with
-  | None -> ()
-  | Some (out_file, sm) ->
-      let sm =
-        { sm with
-          Source_map.sources = List.rev sm.Source_map.sources
-        ; Source_map.names = List.rev sm.Source_map.names }
-      in
-      let sources = sm.Source_map.sources in
-      let sources_content =
-        match sm.Source_map.sources_content with
-        | None -> None
-        | Some [] ->
-            Some
-              (List.map sources ~f:(fun file ->
-                   if Sys.file_exists file
-                   then
-                     let content = Fs.read_file file in
-                     Some content
-                   else None))
-        | Some _ -> assert false
-      in
-      let mappings =
-        List.map !O.temp_mappings ~f:(fun (pos, m) ->
-            { m with
-              Source_map.gen_line = pos.PP.p_line
-            ; Source_map.gen_col = pos.PP.p_col })
-      in
-      let sources =
-        match sm.Source_map.sourceroot with
-        | None -> sources
-        | Some root ->
-            let script_file =
-              Filename.chop_extension sm.Source_map.file ^ ".make-sourcemap-links.sh"
-            in
-            let oc = open_out script_file in
-            let printf fmt = Printf.fprintf oc fmt in
-            let targets = List.map sources ~f:(fun src -> Filename.basename src) in
-            printf "#! /bin/bash\n";
-            printf "mkdir -p %s\n" root;
-            List.iter2 sources targets ~f:(fun src tg ->
-                printf "ln -s %s %s\n" src (Filename.concat root tg));
-            close_out oc;
-            warn
-              "Source-map info: run 'sh %s' to create links to sources in %s.\n%!"
-              script_file
-              root;
-            targets
-      in
-      let sm = {sm with Source_map.sources; sources_content; mappings} in
-      let urlData =
-       match out_file with
-       | None ->
-         let data = Source_map_io.to_string sm in
-         "data:application/json;base64," ^ (B64.encode data)
-       | Some out_file ->
-         Source_map_io.to_file sm out_file;
-         Filename.basename out_file
-      in
-      PP.newline f;
-      PP.string f (Printf.sprintf "//# sourceMappingURL=%s\n" urlData));
-  if stats ()
-  then
-    let size i = Printf.sprintf "%.2fKo" (float_of_int i /. 1024.) in
-    let _percent n d =
-      Printf.sprintf "%.1f%%" (float_of_int n *. 100. /. float_of_int d)
-    in
-    let total_s = PP.total f in
-    Format.eprintf "total size : %s@." (size total_s)
+  (fun () ->
+    (match source_map with
+    | None -> ()
+    | Some (out_file, sm) ->
+        let sm =
+          { sm with
+            Source_map.sources = List.rev sm.Source_map.sources
+          ; Source_map.names = List.rev sm.Source_map.names }
+        in
+        let sources = sm.Source_map.sources in
+        let sources_content =
+          match sm.Source_map.sources_content with
+          | None -> None
+          | Some [] ->
+              Some
+                (List.map sources ~f:(fun file ->
+                     if Sys.file_exists file
+                     then
+                       let content = Fs.read_file file in
+                       Some content
+                     else None))
+          | Some _ -> assert false
+        in
+        let mappings =
+          List.map !O.temp_mappings ~f:(fun (pos, m) ->
+              { m with
+                Source_map.gen_line = pos.PP.p_line
+              ; Source_map.gen_col = pos.PP.p_col })
+        in
+        let sources =
+          match sm.Source_map.sourceroot with
+          | None -> sources
+          | Some root ->
+              let script_file =
+                Filename.chop_extension sm.Source_map.file ^ ".make-sourcemap-links.sh"
+              in
+              let oc = open_out script_file in
+              let printf fmt = Printf.fprintf oc fmt in
+              let targets = List.map sources ~f:(fun src -> Filename.basename src) in
+              printf "#! /bin/bash\n";
+              printf "mkdir -p %s\n" root;
+              List.iter2 sources targets ~f:(fun src tg ->
+                  printf "ln -s %s %s\n" src (Filename.concat root tg));
+              close_out oc;
+              warn
+                "Source-map info: run 'sh %s' to create links to sources in %s.\n%!"
+                script_file
+                root;
+              targets
+        in
+        let sm = {sm with Source_map.sources; sources_content; mappings} in
+        let urlData =
+         match out_file with
+         | None ->
+           let data = Source_map_io.to_string sm in
+           "data:application/json;base64," ^ (B64.encode data)
+         | Some out_file ->
+           Source_map_io.to_file sm out_file;
+           Filename.basename out_file
+        in
+        PP.newline f;
+        PP.string f (Printf.sprintf "//# sourceMappingURL=%s\n" urlData);
+        (if stats ()
+        then
+          let size i = Printf.sprintf "%.2fKo" (float_of_int i /. 1024.) in
+          let _percent n d =
+            Printf.sprintf "%.1f%%" (float_of_int n *. 100. /. float_of_int d)
+          in
+          let total_s = PP.total f in
+          Format.eprintf "total size : %s@." (size total_s))
+    )
+  )

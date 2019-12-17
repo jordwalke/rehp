@@ -267,7 +267,7 @@ let f
       else compute_hashes custom_header extra_hash_data one
     in
     let custom_header =
-      Module_loader.substitute_and_split
+      Module_prep.substitute_and_split
         custom_header
         hashes_comment
         unit_name
