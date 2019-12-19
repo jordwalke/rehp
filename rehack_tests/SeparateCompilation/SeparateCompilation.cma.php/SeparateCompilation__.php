@@ -7,20 +7,20 @@
  */
 namespace Rehack;
 
-final class MyLib__ {
+final class SeparateCompilation__ {
   <<__Override, __Memoize>>
   public static function get() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $MyLib = Vector{0, 0};
+    $SeparateCompilation = Vector{0, 0};
     
-     return ($MyLib);
+     return ($SeparateCompilation);
 
   }
-  public static function MyLibUtility() {
+  public static function SeparateCompilationHelper() {
     return static::get()[1]();
   }
 
 }
-/*____hashes compiler: 6d834f124 flags: 1183596006 bytecode: 3970371514 debug-data: 1818446335 primitives: 1058613066*/
+/*____hashes compiler: 6d834f124 flags: 1183596006 bytecode: 3984913853 debug-data: 2457943818 primitives: 1058613066*/

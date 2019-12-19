@@ -28,4 +28,4 @@ final class MyLib__MyLibUtility {
   }
 
 }
-/* Hashing disabled */
+/*____hashes compiler: 6d834f124 flags: 1183596006 bytecode: 9609593791 debug-data: 2989761887 primitives: 1058613066*/

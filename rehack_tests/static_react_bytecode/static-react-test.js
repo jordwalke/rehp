@@ -1001,9 +1001,6 @@ function caml_utf8_of_utf16(s) {
 }
 
 function caml_js_to_string(s) {
-  if (typeof s !== "string") {
-    throw new Error("caml_js_to_string called with non-string");
-  }
   var tag = 9;
   if (! caml_is_ascii(s)) {tag = 8,s = caml_utf8_of_utf16(s);}
   return new MlBytes(tag, s, s.length);

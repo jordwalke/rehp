@@ -130,4 +130,4 @@ module.exports.baz = module.exports[3];
 module.exports.bar = module.exports[2];
 module.exports.foo = module.exports[1];
 
-/* Hashing disabled */
+/*____hashes compiler: 6d834f124 flags: 404119557 bytecode: 57313895614 debug-data: 26008205103 primitives: 314532832*/

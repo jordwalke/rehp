@@ -142,4 +142,4 @@ final class MyLib {
   }
 
 }
-/* Hashing disabled */
+/*____hashes compiler: 6d834f124 flags: 1183596006 bytecode: 57313895614 debug-data: 26008205103 primitives: 314532832*/

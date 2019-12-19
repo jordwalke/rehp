@@ -1,0 +1,2 @@
+
+let helperVal = "hello!goodbye";
