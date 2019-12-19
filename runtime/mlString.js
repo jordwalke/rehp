@@ -448,9 +448,6 @@ function caml_jsbytes_of_string (s) {
 //Provides: caml_js_to_string const
 //Requires: caml_is_ascii, caml_utf8_of_utf16, MlBytes
 function caml_js_to_string (s) {
-  if(typeof s !== "string") {
-    throw new Error("caml_js_to_string called with non-string");
-  }
   var tag = 9 /* BYTES | ASCII */;
   if (!caml_is_ascii(s))
     tag = 8 /* BYTES | NOT_ASCII */, s = caml_utf8_of_utf16(s);
