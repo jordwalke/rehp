@@ -200,6 +200,8 @@ type block =
 
 type program = Addr.t * block Addr.Map.t * Addr.t
 
+val hash_program : program -> int
+
 type xinstr =
   | Instr of instr
   | Last of last

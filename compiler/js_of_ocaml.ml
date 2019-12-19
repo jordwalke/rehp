@@ -27,47 +27,63 @@ let debug_mem = Debug.find "mem"
 
 let _ = Sys.catch_break true
 
-type ('a, 'b, 'c, 'd, 'e) extra_hash_data = {
-  args: 'a;
-  imports: 'b;
-  globals: 'c;
-  primitives: 'd;
-  reloc: 'e;
-}
+type ('a, 'b, 'c, 'd, 'e) extra_hash_data =
+  { args : 'a
+  ; imports : 'b
+  ; globals : 'c
+  ; primitives : 'd
+  ; reloc : 'e }
 
-let empty_extra_hash_data = {
-  args = [];
-  imports = [];
-  globals = [];
-  primitives = [];
-  reloc = []
-}
+let empty_extra_hash_data =
+  {args = []; imports = []; globals = []; primitives = []; reloc = []}
 
-(* URGENT: String constants passed to externs are not stored in any of these hashed fields! Where are they? *)
 let compute_hashes
     custom_header_text
     {args; imports; globals; primitives; reloc}
     (bc : Parse_bytecode.one) =
   let args_hash = Hashtbl.hash args in
   let custom_header_hash = Hashtbl.hash custom_header_text in
-  "/*____hashes compiler:"
-  ^ Compiler_version.git_version
-  ^ " flags:"
-  ^ string_of_int (custom_header_hash + args_hash)
-  ^ " imports:"
-  ^ string_of_int (Hashtbl.hash imports)
-  ^ " required-globals:"
-  ^ string_of_int (Hashtbl.hash globals)
-  (* Lists are "deep" and therefore overlooked by hashing *)
-  ^ " primitives:"
-  ^ string_of_int (Hashtbl.hash (String.concat "-" primitives))
+  (* The only fields that must be tracked for changes are the bytecode and the
+   * debug data. We don't really need to track primitives, because if they are
+   * changed in a file without changing export ordering, and without being
+   * used, then it has no change in the compilation output that wouldn't show
+   * up in debug data. Consumers will have their bytecode changed as a result
+   * of the changed primitive string.*)
   (* Lists are deep and overlooked by hashing. Convert to Array and also set
-   * depth to 256 *)
-  ^ " reloc:"
-  ^ string_of_int (Hashtbl.hash_param 256 256 (Array.of_list reloc))
-  ^ " bytecode:"
-  ^ string_of_int (Hashtbl.hash bc)
-  ^ "*/"
+   * depth to 256. Including some commented examples of things that don't work. *)
+  (* As a future feature, the "imports" crcs can be tracked to detect when recompilation
+   * needs to occur to optimize arity calls *)
+  let lines =
+    [ "/*____hashes"
+    ; "compiler: " ^ Compiler_version.git_version
+    ; (* :: ("bytecode(bad): " ^ string_of_int (Hashtbl.hash_param 256 256 bc.code)) *)
+      "flags: " ^ string_of_int (custom_header_hash + args_hash)
+    ; (* :: ("bytecode.cmis: " ^ string_of_int (Hashtbl.hash_param 256 256 bc.cmis)) *)
+      (* :: ("bytecode.debug(bad): " ^ string_of_int (Hashtbl.hash_param 256 256 bc.debug)) *)
+      "bytecode: " ^ string_of_int (Code.hash_program bc.code)
+    ; (* Reloc changes are redundant with bytecode + debug data changes *)
+      (* :: ("reloc-granular: " ^
+       String.concat ~sep:"-" (List.map reloc ~f:(fun (reloc_info, int) ->
+          "\n" ^ string_of_int (
+            (Hashtbl.hash_param 256 256 reloc_info) + int
+            ))
+          )
+       ) *)
+      "debug-data: " ^ string_of_int (Parse_bytecode.Debug.hash_data bc.debug)
+    ; "primitives: "
+      ^ string_of_int (Hashtbl.hash_param 256 256 (Array.of_list primitives)) ]
+    (* This will be needed to know when to recompile arity optimizations
+     * across modules:
+      :: List.map imports ~f:(
+        fun (name, digest) ->
+          ("require " ^ name ^ ": ") ^
+          (match digest with
+          | None -> "None"
+          | Some(d) -> Digest.to_hex d)
+      )
+     *)
+  in
+  String.concat ~sep:" " lines ^ "*/"
 
 let file_contains_hashes hashes_comment file =
   let file_contents = Fs.read_file file in
@@ -127,7 +143,7 @@ let gen_unit_filename ?ext dir u =
   let ext =
     match ext with
     | None -> Backend.Current.extension ()
-    | Some(e) -> e
+    | Some e -> e
   in
   Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
 
@@ -155,11 +171,10 @@ let f
   let dynlink = dynlink || toplevel || runtime_only in
   let backend =
     match backend with
-    | None ->
-      ((module Backend_js): (module Backend.Backend_implementation))
+    | None -> (module Backend_js : Backend.Backend_implementation)
     | Some be -> be
   in
-  Backend.set_backend(backend);
+  Backend.set_backend backend;
   let use_hashing = common.CommonArg.use_hashing in
   let custom_header = common.CommonArg.custom_header in
   let implicit_ext = common.CommonArg.implicit_ext in
@@ -215,7 +230,7 @@ let f
         Some (Hashtbl.fold (fun cmi () acc -> cmi :: acc) t [])
   in
   (* Benchmarking shows this takes on the order of 100ms *)
-  Linker.load_files (Backend.Current.extension()) runtime_files;
+  Linker.load_files (Backend.Current.extension ()) runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"]
     with Not_found -> include_dir
@@ -322,13 +337,7 @@ let f
                   let instr = fs_instr2 in
                   let code = Code.prepend Code.empty instr in
                   let pfs_fmt = Pretty_print.to_out_channel chan in
-                  RehpDriver.f
-                    ~standalone
-                    ?profile
-                    ~custom_header
-                    pfs_fmt
-                    one.debug
-                    code))));
+                  RehpDriver.f ~standalone ?profile ~custom_header pfs_fmt one.debug code))));
     if times () then Format.eprintf "compilation: %a@." Timer.print t
   in
   (if runtime_only
@@ -391,15 +400,10 @@ let f
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
-              | `Stdout, false ->
-                  `Name (gen_unit_filename ?ext:implicit_ext "./" cmo)
+              | `Stdout, false -> `Name (gen_unit_filename ?ext:implicit_ext "./" cmo)
               | `Name x, false ->
                   ensure_dir (Filename.dirname x);
-                  `Name
-                    (gen_unit_filename
-                       ?ext:implicit_ext
-                       (Filename.dirname x)
-                       cmo)
+                  `Name (gen_unit_filename ?ext:implicit_ext (Filename.dirname x) cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
                   ensure_dir x;
@@ -413,14 +417,20 @@ let f
             in
             if times ()
             then Format.eprintf "  parsing: %a (%s)@." Timer.print t1 cmo.cu_name;
-            let extra_hash_data = {
-              args = args;
-              imports = cmo.cu_imports;
-              globals = cmo.cu_required_globals;
-              primitives = cmo.cu_primitives;
-              reloc = cmo.cu_reloc;
-            } in
-            output cmo.cu_name cmo.cu_required_globals extra_hash_data code false output_file)
+            let extra_hash_data =
+              { args
+              ; imports = cmo.cu_imports
+              ; globals = cmo.cu_required_globals
+              ; primitives = cmo.cu_primitives
+              ; reloc = cmo.cu_reloc }
+            in
+            output
+              cmo.cu_name
+              cmo.cu_required_globals
+              extra_hash_data
+              code
+              false
+              output_file)
     | `Cma cma ->
         let t1 = Timer.make () in
         let code =

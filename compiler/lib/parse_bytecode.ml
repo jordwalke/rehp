@@ -88,6 +88,8 @@ module Debug : sig
   val fold : data -> (Code.Addr.t -> Instruct.debug_event -> 'a -> 'a) -> 'a -> 'a
 
   val paths : data -> units:StringSet.t -> StringSet.t
+
+  val hash_data : data -> int
 end = struct
   open Instruct
 
@@ -101,6 +103,28 @@ end = struct
   type data =
     { events_by_pc : (int, debug_event * ml_unit) Hashtbl.t
     ; units : (string * string, ml_unit) Hashtbl.t }
+
+  (* Because OCaml's built in Hashtb hash only traverses to a certain depth
+   * we have to do some outside traversal to get a complete hash. *)
+  let hash_block block =
+    Hashtbl.hash_param 256 256 block.params
+    + Hashtbl.hash_param 256 256 block.handler
+    + List.fold_left
+        ~init:0
+        ~f:(fun cur itm -> cur + Hashtbl.hash_param 256 256 itm)
+        block.body
+    + Hashtbl.hash_param 256 256 block.branch
+
+  let hash_unit_folder (key : string * string) value cur =
+    cur + Hashtbl.hash_param 256 256 key + Hashtbl.hash_param 256 256 value
+
+  let hash_event_folder (key : int) value cur =
+    cur + key + Hashtbl.hash_param 256 256 value
+
+  (* Computing a Digest of the bytes themselves might be a lot faster. *)
+  (* Hashes only the events  *)
+  let hash_data {events_by_pc; units} =
+    Hashtbl.fold hash_unit_folder units 0 + Hashtbl.fold hash_event_folder events_by_pc 0
 
   let relocate_event orig ev = ev.ev_pos <- (orig + ev.ev_pos) / 4
 

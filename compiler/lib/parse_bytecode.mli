@@ -30,6 +30,8 @@ module Debug : sig
   val is_empty : data -> bool
 
   val paths : data -> units:StringSet.t -> StringSet.t
+
+  val hash_data : data -> int
 end
 
 type one =
