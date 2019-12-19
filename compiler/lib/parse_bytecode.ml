@@ -668,7 +668,6 @@ let access_global g i =
 
 let register_global
     ?(definitely_not_module = false)
-    ?(suffix = "")
     ?(force = false)
     g
     i
@@ -677,10 +676,6 @@ let register_global
   then (
     match g.named_value.(i) with
     | None ->
-        if suffix <> ""
-        then
-          print_endline
-            ("register_global NON named value i:" ^ string_of_int i ^ " " ^ suffix);
         let args = [] in
         Let
           ( Var.fresh ()
@@ -695,15 +690,6 @@ let register_global
            other than the main module of each separately compiled module.
            Exception: In exe mode predefined_exceptions hits this case.  Likely need to
            make sure registering predefined exceptions are not "exported". *)
-        if suffix <> ""
-        then
-          print_endline
-            ("register_global named value "
-            ^ name
-            ^ " i:"
-            ^ string_of_int i
-            ^ " "
-            ^ suffix);
         Code.Var.name (access_global g i) name;
         let args = [Pc (IString (normalize_module_name name))] in
         Let
@@ -717,28 +703,7 @@ let register_global
                   else "%caml_register_global_module")
               , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
         :: rem)
-  else (
-    (* This is where exe style compilation happens *)
-    (match g.named_value.(i) with
-    | None ->
-        if suffix <> ""
-        then
-          print_endline
-            ("NOT EXPORTED register_global NON named value i:"
-            ^ string_of_int i
-            ^ " "
-            ^ suffix)
-    | Some name ->
-        if suffix <> ""
-        then
-          print_endline
-            ("NOT EXPORTED register_global named value "
-            ^ name
-            ^ " i:"
-            ^ string_of_int i
-            ^ " "
-            ^ suffix));
-    rem)
+  else rem
 
 let get_global state instrs i =
   State.size_globals state (i + 1);
@@ -1135,19 +1100,19 @@ and compile infos pc state instrs =
         let g = State.globals state in
         assert (Option.is_none g.vars.(i));
         if debug_parser () then Format.printf "(global %d) = %a@." i Var.print y;
-        let suffix, instrs =
+        let instrs =
           match g.override.(i) with
           | Some f ->
               let v, instrs = f y instrs in
               g.vars.(i) <- Some v;
-              Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print v, instrs
+              instrs
           | None ->
               g.vars.(i) <- Some y;
-              Format.asprintf "SETGLOBAL IN BYTECODE %d = %a" i Var.print y, instrs
+              instrs
         in
         let x, state = State.fresh_var state in
         if debug_parser () then Format.printf "%a = 0@." Var.print x;
-        let instrs = register_global ~suffix g i instrs in
+        let instrs = register_global g i instrs in
         compile infos (pc + 2) state (Let (x, Const 0l) :: instrs)
     | ATOM0 ->
         let x, state = State.fresh_var state in
@@ -2218,13 +2183,7 @@ let from_exe
          *)
         globals.is_exported.(i) <- false;
         let body =
-          register_global
-            ~suffix:"predefined_exceptions"
-            ~definitely_not_module:true
-            ~force:true
-            globals
-            i
-            body
+          register_global ~definitely_not_module:true ~force:true globals i body
         in
         body)
   in
@@ -2232,8 +2191,7 @@ let from_exe
     Array.fold_right_i globals.constants ~init:body ~f:(fun i _ l ->
         match globals.vars.(i) with
         | Some x when globals.is_const.(i) ->
-            let suffix = "body global.constants " ^ string_of_int i in
-            let l = register_global ~suffix globals i l in
+            let l = register_global globals i l in
             Let (x, Constant globals.constants.(i)) :: l
         | _ -> l)
   in
@@ -2386,14 +2344,8 @@ module Reloc = struct
     let slot_for_getglobal id = next id in
     let slot_for_setglobal id = next id in
     List.iter compunit.cu_reloc ~f:(function
-        | Reloc_getglobal id, pos ->
-            print_endline
-              ("getting global name from reloc2 " ^ id.name ^ " " ^ string_of_int pos);
-            gen_patch_int code pos (slot_for_getglobal id)
-        | Reloc_setglobal id, pos ->
-            print_endline
-              ("setting global name from reloc2 " ^ id.name ^ " " ^ string_of_int pos);
-            gen_patch_int code pos (slot_for_setglobal id)
+        | Reloc_getglobal id, pos -> gen_patch_int code pos (slot_for_getglobal id)
+        | Reloc_setglobal id, pos -> gen_patch_int code pos (slot_for_setglobal id)
         | _ -> ())
 
   let primitives t =
@@ -2441,21 +2393,15 @@ let from_compilation_units ~includes:_ ~toplevel ~debug ~debug_data l =
               let l =
                 match cst, Code.Var.get_name x with
                 | (String str | IString str), None ->
-                    let suffix = str ^ " from globals.vars " ^ " i:" ^ string_of_int i in
-                    let l = register_global ~suffix globals i l in
+                    let l = register_global globals i l in
                     Code.Var.name x (Printf.sprintf "cst_%s" str);
                     l
-                | _ ->
-                    let suffix = " from globals.vars i:" ^ string_of_int i in
-                    let l = register_global globals ~suffix i l in
-                    l
+                | _ -> register_global globals i l
               in
               Let (x, Constant cst) :: l
           | Some name ->
-              (* TODO: This is where you would inject an operation for module
-               loading that should incorporate with the module template. *)
-              print_endline
-                ("Loading named_value global_data[ " ^ name ^ "] from global.vars");
+              (* This is where we inject an operation for module
+               loading that should incorporate the module template. *)
               Var.name x name;
               (* Currently, global data is a very loose dictionary registry
                  so it's appropriate to force this to be a dictionary *)
