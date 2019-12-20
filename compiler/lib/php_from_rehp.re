@@ -639,7 +639,7 @@ let rec expression = (input: input, x) =>
 
     (
       out,
-      EFun((
+      ELam((
         idopt,
         paramIdentList,
         bodyMap,
