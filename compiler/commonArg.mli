@@ -27,6 +27,7 @@ type t =
   ; quiet : bool
   ; implicit_ext : string option
   ; custom_header : string option
+  ; hide_compilation_summary : bool
   ; use_hashing : bool }
 
 val t : t Cmdliner.Term.t

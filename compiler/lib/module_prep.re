@@ -125,7 +125,13 @@ let split_on = (on, str) =>
 let normalize_module_name = Parse_bytecode.normalize_module_name;
 
 let substitute_and_split =
-    (txt, hashesComment, compunit_name, ordered_compunit_deps) => {
+    (
+      ~hide_compilation_summary,
+      txt,
+      hashesComment,
+      compunit_name,
+      ordered_compunit_deps,
+    ) => {
   let compunit_name = normalize_module_name(compunit_name);
   let lower_compunit_name = lower_leading(compunit_name);
   let upper_compunit_name = upper_leading(compunit_name);
@@ -177,31 +183,42 @@ let substitute_and_split =
     };
 
   let chunks =
-    switch (split_on("/*____CompilationOutput*/", substituted)) {
-    | None =>
-      switch (split_on("/*____CompilationSummary*/", substituted)) {
+    if (!hide_compilation_summary) {
+      switch (split_on("/*____CompilationOutput*/", substituted)) {
+      | None =>
+        switch (split_on("/*____CompilationSummary*/", substituted)) {
+        | None => [Text(substituted), CompilationOutputPlaceholder(0)]
+        | Some((l, r)) => [
+            Text(l),
+            SummaryPlaceholder(code_indent_amount(l)),
+            Text(r),
+          ]
+        }
+      | Some((l, r)) =>
+        switch (split_on("/*____CompilationSummary*/", r)) {
+        | None => [
+            Text(l),
+            CompilationOutputPlaceholder(code_indent_amount(l)),
+            Text(r),
+          ]
+        | Some((rl, rr)) => [
+            Text(l),
+            CompilationOutputPlaceholder(code_indent_amount(l)),
+            Text(rl),
+            SummaryPlaceholder(code_indent_amount(rl)),
+            Text(rr),
+          ]
+        }
+      };
+    } else {
+      switch (split_on("/*____CompilationOutput*/", substituted)) {
       | None => [Text(substituted), CompilationOutputPlaceholder(0)]
       | Some((l, r)) => [
           Text(l),
-          SummaryPlaceholder(code_indent_amount(l)),
-          Text(r),
-        ]
-      }
-    | Some((l, r)) =>
-      switch (split_on("/*____CompilationSummary*/", r)) {
-      | None => [
-          Text(l),
           CompilationOutputPlaceholder(code_indent_amount(l)),
           Text(r),
         ]
-      | Some((rl, rr)) => [
-          Text(l),
-          CompilationOutputPlaceholder(code_indent_amount(l)),
-          Text(rl),
-          SummaryPlaceholder(code_indent_amount(rl)),
-          Text(rr),
-        ]
-      }
+      };
     };
   {module_name: compunit_name, chunks};
 };

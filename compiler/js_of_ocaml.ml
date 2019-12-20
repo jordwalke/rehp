@@ -179,6 +179,7 @@ let f
   Backend.set_backend backend;
   let use_hashing = common.CommonArg.use_hashing in
   let custom_header = common.CommonArg.custom_header in
+  let hide_compilation_summary = common.CommonArg.hide_compilation_summary in
   let implicit_ext = common.CommonArg.implicit_ext in
   let custom_header =
     match custom_header with
@@ -285,6 +286,7 @@ let f
     in
     let custom_header =
       Module_prep.substitute_and_split
+        ~hide_compilation_summary
         custom_header
         hashes_comment
         unit_name

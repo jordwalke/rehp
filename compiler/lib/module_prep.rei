@@ -61,6 +61,7 @@ let substitute_and_split:
   /* Custom template text */
   /* Template */
   (
+    ~hide_compilation_summary: bool,
     string,
     /* string hashes comment: Git version of compiler, input hashes, bytecode hash */
     string,
