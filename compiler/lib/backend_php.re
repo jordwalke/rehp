@@ -136,7 +136,7 @@ let compute_footer_summary = (moduleName, metadatas) => {
       let args =
         List.map(~f=nm => "$" ++ nm, argsList) |> String.concat(~sep=", ");
       [
-        "  public static function " ++ nm ++ "(" ++ params ++ ") {",
+        "  public static function " ++ nm ++ "(" ++ params ++ "): dynamic {",
         "    return static::get()["
         ++ string_of_int(metadata.export_index)
         ++ "]("
