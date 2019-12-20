@@ -1036,7 +1036,7 @@ let register_module_loader name f =
           let (px, cx), queue = access_queue' ~ctx queue x in
           let (py, cy), queue = access_queue' ~ctx queue y in
           let (pz, cz), queue = access_queue' ~ctx queue z in
-          let module_md = List.rev (module_metadata [] rest) in
+          let module_md = module_metadata [] rest in
           ctx.Ctx.module_export_metadatas <- module_md;
           f ctx cx cy cz module_md loc, or_p mutator_p (or_p px (or_p py pz)), queue
       | _ -> assert false)
