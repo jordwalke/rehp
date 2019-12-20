@@ -83,37 +83,37 @@ final class Printf {
      return ($Printf);
 
   }
-  public static function fprintf(dynamic $oc, dynamic $fmt) {
+  public static function fprintf(dynamic $oc, dynamic $fmt): dynamic {
     return static::get()[1]($oc, $fmt);
   }
-  public static function printf(dynamic $fmt) {
+  public static function printf(dynamic $fmt): dynamic {
     return static::get()[2]($fmt);
   }
-  public static function eprintf(dynamic $fmt) {
+  public static function eprintf(dynamic $fmt): dynamic {
     return static::get()[3]($fmt);
   }
-  public static function sprintf(dynamic $fmt) {
+  public static function sprintf(dynamic $fmt): dynamic {
     return static::get()[4]($fmt);
   }
-  public static function bprintf(dynamic $b, dynamic $fmt) {
+  public static function bprintf(dynamic $b, dynamic $fmt): dynamic {
     return static::get()[5]($b, $fmt);
   }
-  public static function ifprintf(dynamic $oc, dynamic $fmt) {
+  public static function ifprintf(dynamic $oc, dynamic $fmt): dynamic {
     return static::get()[6]($oc, $fmt);
   }
-  public static function kfprintf(dynamic $k, dynamic $o, dynamic $param) {
+  public static function kfprintf(dynamic $k, dynamic $o, dynamic $param): dynamic {
     return static::get()[7]($k, $o, $param);
   }
-  public static function ikfprintf(dynamic $k, dynamic $oc, dynamic $param) {
+  public static function ikfprintf(dynamic $k, dynamic $oc, dynamic $param): dynamic {
     return static::get()[8]($k, $oc, $param);
   }
-  public static function ksprintf(dynamic $k, dynamic $param) {
+  public static function ksprintf(dynamic $k, dynamic $param): dynamic {
     return static::get()[9]($k, $param);
   }
-  public static function kbprintf(dynamic $k, dynamic $b, dynamic $param) {
+  public static function kbprintf(dynamic $k, dynamic $b, dynamic $param): dynamic {
     return static::get()[10]($k, $b, $param);
   }
-  public static function ksprintf(dynamic $k, dynamic $param) {
+  public static function ksprintf(dynamic $k, dynamic $param): dynamic {
     return static::get()[11]($k, $param);
   }
 

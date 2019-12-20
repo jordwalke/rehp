@@ -2699,10 +2699,10 @@ final class Js_of_ocaml__CSS {
      return ($Js_of_ocaml_CSS);
 
   }
-  public static function Length() {
+  public static function Length(): dynamic {
     return static::get()[2]();
   }
-  public static function Angle() {
+  public static function Angle(): dynamic {
     return static::get()[3]();
   }
 

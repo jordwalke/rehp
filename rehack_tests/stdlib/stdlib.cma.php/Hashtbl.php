@@ -914,73 +914,73 @@ final class Hashtbl {
      return ($Hashtbl);
 
   }
-  public static function create(dynamic $opt, dynamic $initial_size) {
+  public static function create(dynamic $opt, dynamic $initial_size): dynamic {
     return static::get()[1]($opt, $initial_size);
   }
-  public static function clear(dynamic $h) {
+  public static function clear(dynamic $h): dynamic {
     return static::get()[2]($h);
   }
-  public static function reset(dynamic $h) {
+  public static function reset(dynamic $h): dynamic {
     return static::get()[3]($h);
   }
-  public static function copy(dynamic $h) {
+  public static function copy(dynamic $h): dynamic {
     return static::get()[4]($h);
   }
-  public static function add(dynamic $h, dynamic $key, dynamic $data) {
+  public static function add(dynamic $h, dynamic $key, dynamic $data): dynamic {
     return static::get()[5]($h, $key, $data);
   }
-  public static function find(dynamic $h, dynamic $key) {
+  public static function find(dynamic $h, dynamic $key): dynamic {
     return static::get()[6]($h, $key);
   }
-  public static function find_opt(dynamic $h, dynamic $key) {
+  public static function find_opt(dynamic $h, dynamic $key): dynamic {
     return static::get()[7]($h, $key);
   }
-  public static function find_all(dynamic $h, dynamic $key) {
+  public static function find_all(dynamic $h, dynamic $key): dynamic {
     return static::get()[8]($h, $key);
   }
-  public static function mem(dynamic $h, dynamic $key) {
+  public static function mem(dynamic $h, dynamic $key): dynamic {
     return static::get()[9]($h, $key);
   }
-  public static function remove(dynamic $h, dynamic $key) {
+  public static function remove(dynamic $h, dynamic $key): dynamic {
     return static::get()[10]($h, $key);
   }
-  public static function replace(dynamic $h, dynamic $key, dynamic $data) {
+  public static function replace(dynamic $h, dynamic $key, dynamic $data): dynamic {
     return static::get()[11]($h, $key, $data);
   }
-  public static function iter(dynamic $f, dynamic $h) {
+  public static function iter(dynamic $f, dynamic $h): dynamic {
     return static::get()[12]($f, $h);
   }
-  public static function filter_map_inplace(dynamic $f, dynamic $h) {
+  public static function filter_map_inplace(dynamic $f, dynamic $h): dynamic {
     return static::get()[13]($f, $h);
   }
-  public static function fold(dynamic $f, dynamic $h, dynamic $init) {
+  public static function fold(dynamic $f, dynamic $h, dynamic $init): dynamic {
     return static::get()[14]($f, $h, $init);
   }
-  public static function length(dynamic $h) {
+  public static function length(dynamic $h): dynamic {
     return static::get()[15]($h);
   }
-  public static function randomize(dynamic $param) {
+  public static function randomize(dynamic $param): dynamic {
     return static::get()[16]($param);
   }
-  public static function is_randomized(dynamic $param) {
+  public static function is_randomized(dynamic $param): dynamic {
     return static::get()[17]($param);
   }
-  public static function stats(dynamic $h) {
+  public static function stats(dynamic $h): dynamic {
     return static::get()[18]($h);
   }
-  public static function Make(dynamic $H) {
+  public static function Make(dynamic $H): dynamic {
     return static::get()[19]($H);
   }
-  public static function MakeSeeded(dynamic $H) {
+  public static function MakeSeeded(dynamic $H): dynamic {
     return static::get()[20]($H);
   }
-  public static function hash(dynamic $x) {
+  public static function hash(dynamic $x): dynamic {
     return static::get()[21]($x);
   }
-  public static function seeded_hash(dynamic $seed, dynamic $x) {
+  public static function seeded_hash(dynamic $seed, dynamic $x): dynamic {
     return static::get()[22]($seed, $x);
   }
-  public static function hash_param(dynamic $n1, dynamic $n2, dynamic $x) {
+  public static function hash_param(dynamic $n1, dynamic $n2, dynamic $x): dynamic {
     return static::get()[23]($n1, $n2, $x);
   }
 

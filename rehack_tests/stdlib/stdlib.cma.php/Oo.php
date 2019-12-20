@@ -22,13 +22,13 @@ final class Oo {
      return ($Oo);
 
   }
-  public static function copy() {
+  public static function copy(): dynamic {
     return static::get()[1]();
   }
-  public static function new_method() {
+  public static function new_method(): dynamic {
     return static::get()[2]();
   }
-  public static function public_method_label() {
+  public static function public_method_label(): dynamic {
     return static::get()[3]();
   }
 

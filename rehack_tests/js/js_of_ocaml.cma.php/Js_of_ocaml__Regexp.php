@@ -264,49 +264,49 @@ final class Js_of_ocaml__Regexp {
      return ($Js_of_ocaml_Regexp);
 
   }
-  public static function regexp(dynamic $s) {
+  public static function regexp(dynamic $s): dynamic {
     return static::get()[1]($s);
   }
-  public static function regexp_case_fold(dynamic $s) {
+  public static function regexp_case_fold(dynamic $s): dynamic {
     return static::get()[2]($s);
   }
-  public static function regexp_with_flag(dynamic $s, dynamic $f) {
+  public static function regexp_with_flag(dynamic $s, dynamic $f): dynamic {
     return static::get()[3]($s, $f);
   }
-  public static function quote(dynamic $s) {
+  public static function quote(dynamic $s): dynamic {
     return static::get()[4]($s);
   }
-  public static function regexp_string(dynamic $s) {
+  public static function regexp_string(dynamic $s): dynamic {
     return static::get()[5]($s);
   }
-  public static function regexp_string_case_fold(dynamic $s) {
+  public static function regexp_string_case_fold(dynamic $s): dynamic {
     return static::get()[6]($s);
   }
-  public static function string_match(dynamic $r, dynamic $s, dynamic $i) {
+  public static function string_match(dynamic $r, dynamic $s, dynamic $i): dynamic {
     return static::get()[7]($r, $s, $i);
   }
-  public static function search(dynamic $r, dynamic $s, dynamic $i) {
+  public static function search(dynamic $r, dynamic $s, dynamic $i): dynamic {
     return static::get()[8]($r, $s, $i);
   }
-  public static function search(dynamic $r, dynamic $s, dynamic $i) {
+  public static function search(dynamic $r, dynamic $s, dynamic $i): dynamic {
     return static::get()[9]($r, $s, $i);
   }
-  public static function matched_string(dynamic $r) {
+  public static function matched_string(dynamic $r): dynamic {
     return static::get()[10]($r);
   }
-  public static function matched_group(dynamic $r, dynamic $i) {
+  public static function matched_group(dynamic $r, dynamic $i): dynamic {
     return static::get()[11]($r, $i);
   }
-  public static function global_replace(dynamic $r, dynamic $s, dynamic $s_by) {
+  public static function global_replace(dynamic $r, dynamic $s, dynamic $s_by): dynamic {
     return static::get()[12]($r, $s, $s_by);
   }
-  public static function replace_first(dynamic $r, dynamic $s, dynamic $s_by) {
+  public static function replace_first(dynamic $r, dynamic $s, dynamic $s_by): dynamic {
     return static::get()[13]($r, $s, $s_by);
   }
-  public static function split(dynamic $r, dynamic $s) {
+  public static function split(dynamic $r, dynamic $s): dynamic {
     return static::get()[14]($r, $s);
   }
-  public static function bounded_split(dynamic $r, dynamic $s, dynamic $i) {
+  public static function bounded_split(dynamic $r, dynamic $s, dynamic $i): dynamic {
     return static::get()[15]($r, $s, $i);
   }
 

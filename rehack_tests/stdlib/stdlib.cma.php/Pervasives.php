@@ -575,223 +575,223 @@ final class Pervasives {
      return ($Pervasives);
 
   }
-  public static function invalid_arg(dynamic $s) {
+  public static function invalid_arg(dynamic $s): dynamic {
     return static::get()[1]($s);
   }
-  public static function failwith(dynamic $s) {
+  public static function failwith(dynamic $s): dynamic {
     return static::get()[2]($s);
   }
-  public static function Exit() {
+  public static function Exit(): dynamic {
     return static::get()[3]();
   }
-  public static function min(dynamic $x, dynamic $y) {
+  public static function min(dynamic $x, dynamic $y): dynamic {
     return static::get()[4]($x, $y);
   }
-  public static function max(dynamic $x, dynamic $y) {
+  public static function max(dynamic $x, dynamic $y): dynamic {
     return static::get()[5]($x, $y);
   }
-  public static function abs(dynamic $x) {
+  public static function abs(dynamic $x): dynamic {
     return static::get()[6]($x);
   }
-  public static function max_int() {
+  public static function max_int(): dynamic {
     return static::get()[7]();
   }
-  public static function min_int() {
+  public static function min_int(): dynamic {
     return static::get()[8]();
   }
-  public static function lnot(dynamic $x) {
+  public static function lnot(dynamic $x): dynamic {
     return static::get()[9]($x);
   }
-  public static function infinity() {
+  public static function infinity(): dynamic {
     return static::get()[10]();
   }
-  public static function neg_infinity() {
+  public static function neg_infinity(): dynamic {
     return static::get()[11]();
   }
-  public static function nan() {
+  public static function nan(): dynamic {
     return static::get()[12]();
   }
-  public static function max_float() {
+  public static function max_float(): dynamic {
     return static::get()[13]();
   }
-  public static function min_float() {
+  public static function min_float(): dynamic {
     return static::get()[14]();
   }
-  public static function epsilon_float() {
+  public static function epsilon_float(): dynamic {
     return static::get()[15]();
   }
-  public static function symbol(dynamic $s1, dynamic $s2) {
+  public static function symbol(dynamic $s1, dynamic $s2): dynamic {
     return static::get()[16]($s1, $s2);
   }
-  public static function char_of_int(dynamic $n) {
+  public static function char_of_int(dynamic $n): dynamic {
     return static::get()[17]($n);
   }
-  public static function string_of_bool(dynamic $b) {
+  public static function string_of_bool(dynamic $b): dynamic {
     return static::get()[18]($b);
   }
-  public static function bool_of_string(dynamic $param) {
+  public static function bool_of_string(dynamic $param): dynamic {
     return static::get()[19]($param);
   }
-  public static function bool_of_string_opt(dynamic $param) {
+  public static function bool_of_string_opt(dynamic $param): dynamic {
     return static::get()[20]($param);
   }
-  public static function string_of_int(dynamic $n) {
+  public static function string_of_int(dynamic $n): dynamic {
     return static::get()[21]($n);
   }
-  public static function int_of_string_opt(dynamic $s) {
+  public static function int_of_string_opt(dynamic $s): dynamic {
     return static::get()[22]($s);
   }
-  public static function string_of_float(dynamic $f) {
+  public static function string_of_float(dynamic $f): dynamic {
     return static::get()[23]($f);
   }
-  public static function float_of_string_opt(dynamic $s) {
+  public static function float_of_string_opt(dynamic $s): dynamic {
     return static::get()[24]($s);
   }
-  public static function symbol(dynamic $l1, dynamic $l2) {
+  public static function symbol(dynamic $l1, dynamic $l2): dynamic {
     return static::get()[25]($l1, $l2);
   }
-  public static function stdin() {
+  public static function stdin(): dynamic {
     return static::get()[26]();
   }
-  public static function stdout() {
+  public static function stdout(): dynamic {
     return static::get()[27]();
   }
-  public static function stderr() {
+  public static function stderr(): dynamic {
     return static::get()[28]();
   }
-  public static function print_char(dynamic $c) {
+  public static function print_char(dynamic $c): dynamic {
     return static::get()[29]($c);
   }
-  public static function print_string(dynamic $s) {
+  public static function print_string(dynamic $s): dynamic {
     return static::get()[30]($s);
   }
-  public static function print_bytes(dynamic $s) {
+  public static function print_bytes(dynamic $s): dynamic {
     return static::get()[31]($s);
   }
-  public static function print_int(dynamic $i) {
+  public static function print_int(dynamic $i): dynamic {
     return static::get()[32]($i);
   }
-  public static function print_float(dynamic $f) {
+  public static function print_float(dynamic $f): dynamic {
     return static::get()[33]($f);
   }
-  public static function print_endline(dynamic $s) {
+  public static function print_endline(dynamic $s): dynamic {
     return static::get()[34]($s);
   }
-  public static function print_newline(dynamic $param) {
+  public static function print_newline(dynamic $param): dynamic {
     return static::get()[35]($param);
   }
-  public static function prerr_char(dynamic $c) {
+  public static function prerr_char(dynamic $c): dynamic {
     return static::get()[36]($c);
   }
-  public static function prerr_string(dynamic $s) {
+  public static function prerr_string(dynamic $s): dynamic {
     return static::get()[37]($s);
   }
-  public static function prerr_bytes(dynamic $s) {
+  public static function prerr_bytes(dynamic $s): dynamic {
     return static::get()[38]($s);
   }
-  public static function prerr_int(dynamic $i) {
+  public static function prerr_int(dynamic $i): dynamic {
     return static::get()[39]($i);
   }
-  public static function prerr_float(dynamic $f) {
+  public static function prerr_float(dynamic $f): dynamic {
     return static::get()[40]($f);
   }
-  public static function prerr_endline(dynamic $s) {
+  public static function prerr_endline(dynamic $s): dynamic {
     return static::get()[41]($s);
   }
-  public static function prerr_newline(dynamic $param) {
+  public static function prerr_newline(dynamic $param): dynamic {
     return static::get()[42]($param);
   }
-  public static function read_line(dynamic $param) {
+  public static function read_line(dynamic $param): dynamic {
     return static::get()[43]($param);
   }
-  public static function read_int(dynamic $param) {
+  public static function read_int(dynamic $param): dynamic {
     return static::get()[44]($param);
   }
-  public static function read_int_opt(dynamic $param) {
+  public static function read_int_opt(dynamic $param): dynamic {
     return static::get()[45]($param);
   }
-  public static function read_float(dynamic $param) {
+  public static function read_float(dynamic $param): dynamic {
     return static::get()[46]($param);
   }
-  public static function read_float_opt(dynamic $param) {
+  public static function read_float_opt(dynamic $param): dynamic {
     return static::get()[47]($param);
   }
-  public static function open_out(dynamic $name) {
+  public static function open_out(dynamic $name): dynamic {
     return static::get()[48]($name);
   }
-  public static function open_out_bin(dynamic $name) {
+  public static function open_out_bin(dynamic $name): dynamic {
     return static::get()[49]($name);
   }
-  public static function open_out_gen(dynamic $mode, dynamic $perm, dynamic $name) {
+  public static function open_out_gen(dynamic $mode, dynamic $perm, dynamic $name): dynamic {
     return static::get()[50]($mode, $perm, $name);
   }
-  public static function flush_all(dynamic $param) {
+  public static function flush_all(dynamic $param): dynamic {
     return static::get()[52]($param);
   }
-  public static function output_string(dynamic $oc, dynamic $s) {
+  public static function output_string(dynamic $oc, dynamic $s): dynamic {
     return static::get()[54]($oc, $s);
   }
-  public static function output_bytes(dynamic $oc, dynamic $s) {
+  public static function output_bytes(dynamic $oc, dynamic $s): dynamic {
     return static::get()[55]($oc, $s);
   }
-  public static function output(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) {
+  public static function output(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[56]($oc, $s, $ofs, $len);
   }
-  public static function output_substring(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) {
+  public static function output_substring(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[57]($oc, $s, $ofs, $len);
   }
-  public static function output_value(dynamic $chan, dynamic $v) {
+  public static function output_value(dynamic $chan, dynamic $v): dynamic {
     return static::get()[60]($chan, $v);
   }
-  public static function close_out(dynamic $oc) {
+  public static function close_out(dynamic $oc): dynamic {
     return static::get()[64]($oc);
   }
-  public static function close_out_noerr(dynamic $oc) {
+  public static function close_out_noerr(dynamic $oc): dynamic {
     return static::get()[65]($oc);
   }
-  public static function open_in(dynamic $name) {
+  public static function open_in(dynamic $name): dynamic {
     return static::get()[67]($name);
   }
-  public static function open_in_bin(dynamic $name) {
+  public static function open_in_bin(dynamic $name): dynamic {
     return static::get()[68]($name);
   }
-  public static function open_in_gen(dynamic $mode, dynamic $perm, dynamic $name) {
+  public static function open_in_gen(dynamic $mode, dynamic $perm, dynamic $name): dynamic {
     return static::get()[69]($mode, $perm, $name);
   }
-  public static function input_line(dynamic $chan) {
+  public static function input_line(dynamic $chan): dynamic {
     return static::get()[71]($chan);
   }
-  public static function input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) {
+  public static function input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[72]($ic, $s, $ofs, $len);
   }
-  public static function really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) {
+  public static function really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[73]($ic, $s, $ofs, $len);
   }
-  public static function really_input_string(dynamic $ic, dynamic $len) {
+  public static function really_input_string(dynamic $ic, dynamic $len): dynamic {
     return static::get()[74]($ic, $len);
   }
-  public static function close_in_noerr(dynamic $ic) {
+  public static function close_in_noerr(dynamic $ic): dynamic {
     return static::get()[82]($ic);
   }
-  public static function string_of_format(dynamic $param) {
+  public static function string_of_format(dynamic $param): dynamic {
     return static::get()[85]($param);
   }
-  public static function symbol(dynamic $param, dynamic $unnamed1) {
+  public static function symbol(dynamic $param, dynamic $unnamed1): dynamic {
     return static::get()[86]($param, $unnamed1);
   }
-  public static function exit(dynamic $retcode) {
+  public static function exit(dynamic $retcode): dynamic {
     return static::get()[87]($retcode);
   }
-  public static function at_exit(dynamic $f) {
+  public static function at_exit(dynamic $f): dynamic {
     return static::get()[88]($f);
   }
-  public static function valid_float_lexem(dynamic $s) {
+  public static function valid_float_lexem(dynamic $s): dynamic {
     return static::get()[89]($s);
   }
-  public static function unsafe_really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) {
+  public static function unsafe_really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[90]($ic, $s, $ofs, $len);
   }
-  public static function do_at_exit(dynamic $param) {
+  public static function do_at_exit(dynamic $param): dynamic {
     return static::get()[91]($param);
   }
 

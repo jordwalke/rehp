@@ -19,7 +19,7 @@ final class Js_of_ocaml__Firebug {
      return ($Js_of_ocaml_Firebug);
 
   }
-  public static function console() {
+  public static function console(): dynamic {
     return static::get()[1]();
   }
 

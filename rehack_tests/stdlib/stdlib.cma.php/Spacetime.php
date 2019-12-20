@@ -88,16 +88,16 @@ final class Spacetime {
      return ($Spacetime);
 
   }
-  public static function enabled() {
+  public static function enabled(): dynamic {
     return static::get()[1]();
   }
-  public static function Series() {
+  public static function Series(): dynamic {
     return static::get()[2]();
   }
-  public static function Snapshot() {
+  public static function Snapshot(): dynamic {
     return static::get()[3]();
   }
-  public static function save_event_for_automatic_snapshots(dynamic $event_name) {
+  public static function save_event_for_automatic_snapshots(dynamic $event_name): dynamic {
     return static::get()[4]($event_name);
   }
 

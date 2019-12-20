@@ -125,160 +125,160 @@ final class ListLabels {
      return ($ListLabels);
 
   }
-  public static function length() {
+  public static function length(): dynamic {
     return static::get()[1]();
   }
-  public static function hd() {
+  public static function hd(): dynamic {
     return static::get()[2]();
   }
-  public static function compare_lengths() {
+  public static function compare_lengths(): dynamic {
     return static::get()[3]();
   }
-  public static function compare_length_with() {
+  public static function compare_length_with(): dynamic {
     return static::get()[4]();
   }
-  public static function cons() {
+  public static function cons(): dynamic {
     return static::get()[5]();
   }
-  public static function tl() {
+  public static function tl(): dynamic {
     return static::get()[6]();
   }
-  public static function nth() {
+  public static function nth(): dynamic {
     return static::get()[7]();
   }
-  public static function nth_opt() {
+  public static function nth_opt(): dynamic {
     return static::get()[8]();
   }
-  public static function rev() {
+  public static function rev(): dynamic {
     return static::get()[9]();
   }
-  public static function init() {
+  public static function init(): dynamic {
     return static::get()[10]();
   }
-  public static function append() {
+  public static function append(): dynamic {
     return static::get()[11]();
   }
-  public static function rev_append() {
+  public static function rev_append(): dynamic {
     return static::get()[12]();
   }
-  public static function concat() {
+  public static function concat(): dynamic {
     return static::get()[13]();
   }
-  public static function flatten() {
+  public static function flatten(): dynamic {
     return static::get()[14]();
   }
-  public static function iter() {
+  public static function iter(): dynamic {
     return static::get()[15]();
   }
-  public static function iteri() {
+  public static function iteri(): dynamic {
     return static::get()[16]();
   }
-  public static function map() {
+  public static function map(): dynamic {
     return static::get()[17]();
   }
-  public static function mapi() {
+  public static function mapi(): dynamic {
     return static::get()[18]();
   }
-  public static function rev_map() {
+  public static function rev_map(): dynamic {
     return static::get()[19]();
   }
-  public static function fold_left() {
+  public static function fold_left(): dynamic {
     return static::get()[20]();
   }
-  public static function fold_right() {
+  public static function fold_right(): dynamic {
     return static::get()[21]();
   }
-  public static function iter2() {
+  public static function iter2(): dynamic {
     return static::get()[22]();
   }
-  public static function map2() {
+  public static function map2(): dynamic {
     return static::get()[23]();
   }
-  public static function rev_map2() {
+  public static function rev_map2(): dynamic {
     return static::get()[24]();
   }
-  public static function fold_left2() {
+  public static function fold_left2(): dynamic {
     return static::get()[25]();
   }
-  public static function fold_right2() {
+  public static function fold_right2(): dynamic {
     return static::get()[26]();
   }
-  public static function for_all() {
+  public static function for_all(): dynamic {
     return static::get()[27]();
   }
-  public static function exists() {
+  public static function exists(): dynamic {
     return static::get()[28]();
   }
-  public static function for_all2() {
+  public static function for_all2(): dynamic {
     return static::get()[29]();
   }
-  public static function exists2() {
+  public static function exists2(): dynamic {
     return static::get()[30]();
   }
-  public static function mem() {
+  public static function mem(): dynamic {
     return static::get()[31]();
   }
-  public static function memq() {
+  public static function memq(): dynamic {
     return static::get()[32]();
   }
-  public static function find() {
+  public static function find(): dynamic {
     return static::get()[33]();
   }
-  public static function find_opt() {
+  public static function find_opt(): dynamic {
     return static::get()[34]();
   }
-  public static function filter() {
+  public static function filter(): dynamic {
     return static::get()[35]();
   }
-  public static function find_all() {
+  public static function find_all(): dynamic {
     return static::get()[36]();
   }
-  public static function partition() {
+  public static function partition(): dynamic {
     return static::get()[37]();
   }
-  public static function assoc() {
+  public static function assoc(): dynamic {
     return static::get()[38]();
   }
-  public static function assoc_opt() {
+  public static function assoc_opt(): dynamic {
     return static::get()[39]();
   }
-  public static function assq() {
+  public static function assq(): dynamic {
     return static::get()[40]();
   }
-  public static function assq_opt() {
+  public static function assq_opt(): dynamic {
     return static::get()[41]();
   }
-  public static function mem_assoc() {
+  public static function mem_assoc(): dynamic {
     return static::get()[42]();
   }
-  public static function mem_assq() {
+  public static function mem_assq(): dynamic {
     return static::get()[43]();
   }
-  public static function remove_assoc() {
+  public static function remove_assoc(): dynamic {
     return static::get()[44]();
   }
-  public static function remove_assq() {
+  public static function remove_assq(): dynamic {
     return static::get()[45]();
   }
-  public static function split() {
+  public static function split(): dynamic {
     return static::get()[46]();
   }
-  public static function combine() {
+  public static function combine(): dynamic {
     return static::get()[47]();
   }
-  public static function sort() {
+  public static function sort(): dynamic {
     return static::get()[48]();
   }
-  public static function stable_sort() {
+  public static function stable_sort(): dynamic {
     return static::get()[49]();
   }
-  public static function fast_sort() {
+  public static function fast_sort(): dynamic {
     return static::get()[50]();
   }
-  public static function sort_uniq() {
+  public static function sort_uniq(): dynamic {
     return static::get()[51]();
   }
-  public static function merge() {
+  public static function merge(): dynamic {
     return static::get()[52]();
   }
 

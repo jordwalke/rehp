@@ -248,58 +248,58 @@ final class Lexing {
      return ($Lexing);
 
   }
-  public static function dummy_pos() {
+  public static function dummy_pos(): dynamic {
     return static::get()[1]();
   }
-  public static function from_channel(dynamic $ic) {
+  public static function from_channel(dynamic $ic): dynamic {
     return static::get()[2]($ic);
   }
-  public static function from_string(dynamic $s) {
+  public static function from_string(dynamic $s): dynamic {
     return static::get()[3]($s);
   }
-  public static function from_function(dynamic $f) {
+  public static function from_function(dynamic $f): dynamic {
     return static::get()[4]($f);
   }
-  public static function lexeme(dynamic $lexbuf) {
+  public static function lexeme(dynamic $lexbuf): dynamic {
     return static::get()[5]($lexbuf);
   }
-  public static function lexeme_char(dynamic $lexbuf, dynamic $i) {
+  public static function lexeme_char(dynamic $lexbuf, dynamic $i): dynamic {
     return static::get()[6]($lexbuf, $i);
   }
-  public static function lexeme_start(dynamic $lexbuf) {
+  public static function lexeme_start(dynamic $lexbuf): dynamic {
     return static::get()[7]($lexbuf);
   }
-  public static function lexeme_end(dynamic $lexbuf) {
+  public static function lexeme_end(dynamic $lexbuf): dynamic {
     return static::get()[8]($lexbuf);
   }
-  public static function lexeme_start_p(dynamic $lexbuf) {
+  public static function lexeme_start_p(dynamic $lexbuf): dynamic {
     return static::get()[9]($lexbuf);
   }
-  public static function lexeme_end_p(dynamic $lexbuf) {
+  public static function lexeme_end_p(dynamic $lexbuf): dynamic {
     return static::get()[10]($lexbuf);
   }
-  public static function new_line(dynamic $lexbuf) {
+  public static function new_line(dynamic $lexbuf): dynamic {
     return static::get()[11]($lexbuf);
   }
-  public static function flush_input(dynamic $lb) {
+  public static function flush_input(dynamic $lb): dynamic {
     return static::get()[12]($lb);
   }
-  public static function sub_lexeme(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
+  public static function sub_lexeme(dynamic $lexbuf, dynamic $i1, dynamic $i2): dynamic {
     return static::get()[13]($lexbuf, $i1, $i2);
   }
-  public static function sub_lexeme_opt(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
+  public static function sub_lexeme_opt(dynamic $lexbuf, dynamic $i1, dynamic $i2): dynamic {
     return static::get()[14]($lexbuf, $i1, $i2);
   }
-  public static function sub_lexeme_char(dynamic $lexbuf, dynamic $i) {
+  public static function sub_lexeme_char(dynamic $lexbuf, dynamic $i): dynamic {
     return static::get()[15]($lexbuf, $i);
   }
-  public static function sub_lexeme_char_opt(dynamic $lexbuf, dynamic $i) {
+  public static function sub_lexeme_char_opt(dynamic $lexbuf, dynamic $i): dynamic {
     return static::get()[16]($lexbuf, $i);
   }
-  public static function engine(dynamic $tbl, dynamic $state, dynamic $buf) {
+  public static function engine(dynamic $tbl, dynamic $state, dynamic $buf): dynamic {
     return static::get()[17]($tbl, $state, $buf);
   }
-  public static function new_engine(dynamic $tbl, dynamic $state, dynamic $buf) {
+  public static function new_engine(dynamic $tbl, dynamic $state, dynamic $buf): dynamic {
     return static::get()[18]($tbl, $state, $buf);
   }
 

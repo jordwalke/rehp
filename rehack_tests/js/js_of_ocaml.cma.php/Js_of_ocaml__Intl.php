@@ -643,34 +643,34 @@ final class Js_of_ocaml__Intl {
      return ($Js_of_ocaml_Intl);
 
   }
-  public static function Collator() {
+  public static function Collator(): dynamic {
     return static::get()[1]();
   }
-  public static function DateTimeFormat() {
+  public static function DateTimeFormat(): dynamic {
     return static::get()[2]();
   }
-  public static function NumberFormat() {
+  public static function NumberFormat(): dynamic {
     return static::get()[3]();
   }
-  public static function PluralRules() {
+  public static function PluralRules(): dynamic {
     return static::get()[4]();
   }
-  public static function intl() {
+  public static function intl(): dynamic {
     return static::get()[5]();
   }
-  public static function collator_constr() {
+  public static function collator_constr(): dynamic {
     return static::get()[6]();
   }
-  public static function dateTimeFormat_constr() {
+  public static function dateTimeFormat_constr(): dynamic {
     return static::get()[7]();
   }
-  public static function numberFormat_constr() {
+  public static function numberFormat_constr(): dynamic {
     return static::get()[8]();
   }
-  public static function pluralRules_constr() {
+  public static function pluralRules_constr(): dynamic {
     return static::get()[9]();
   }
-  public static function is_supported(dynamic $param) {
+  public static function is_supported(dynamic $param): dynamic {
     return static::get()[10]($param);
   }
 

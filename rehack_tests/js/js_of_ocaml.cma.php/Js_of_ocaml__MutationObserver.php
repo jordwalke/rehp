@@ -132,16 +132,16 @@ final class Js_of_ocaml__MutationObserver {
      return ($Js_of_ocaml_MutationObserver);
 
   }
-  public static function empty_mutation_observer_init(dynamic $param) {
+  public static function empty_mutation_observer_init(dynamic $param): dynamic {
     return static::get()[1]($param);
   }
-  public static function mutationObserver() {
+  public static function mutationObserver(): dynamic {
     return static::get()[2]();
   }
-  public static function is_supported(dynamic $param) {
+  public static function is_supported(dynamic $param): dynamic {
     return static::get()[3]($param);
   }
-  public static function observe(dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param) {
+  public static function observe(dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param): dynamic {
     return static::get()[4]($node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param);
   }
 

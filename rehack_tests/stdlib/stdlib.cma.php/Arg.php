@@ -924,52 +924,52 @@ final class Arg {
      return ($Arg);
 
   }
-  public static function parse(dynamic $l, dynamic $f, dynamic $msg) {
+  public static function parse(dynamic $l, dynamic $f, dynamic $msg): dynamic {
     return static::get()[1]($l, $f, $msg);
   }
-  public static function parse_dynamic(dynamic $l, dynamic $f, dynamic $msg) {
+  public static function parse_dynamic(dynamic $l, dynamic $f, dynamic $msg): dynamic {
     return static::get()[2]($l, $f, $msg);
   }
-  public static function parse_argv(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) {
+  public static function parse_argv(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
     return static::get()[3]($opt, $argv, $speclist, $anonfun, $errmsg);
   }
-  public static function parse_argv_dynamic(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) {
+  public static function parse_argv_dynamic(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
     return static::get()[4]($opt, $argv, $speclist, $anonfun, $errmsg);
   }
-  public static function parse_and_expand_argv_dynamic(dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) {
+  public static function parse_and_expand_argv_dynamic(dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
     return static::get()[5]($current, $argv, $speclist, $anonfun, $errmsg);
   }
-  public static function parse_expand(dynamic $l, dynamic $f, dynamic $msg) {
+  public static function parse_expand(dynamic $l, dynamic $f, dynamic $msg): dynamic {
     return static::get()[6]($l, $f, $msg);
   }
-  public static function Help() {
+  public static function Help(): dynamic {
     return static::get()[7]();
   }
-  public static function Bad() {
+  public static function Bad(): dynamic {
     return static::get()[8]();
   }
-  public static function usage(dynamic $speclist, dynamic $errmsg) {
+  public static function usage(dynamic $speclist, dynamic $errmsg): dynamic {
     return static::get()[9]($speclist, $errmsg);
   }
-  public static function usage_string(dynamic $speclist, dynamic $errmsg) {
+  public static function usage_string(dynamic $speclist, dynamic $errmsg): dynamic {
     return static::get()[10]($speclist, $errmsg);
   }
-  public static function align(dynamic $opt, dynamic $speclist) {
+  public static function align(dynamic $opt, dynamic $speclist): dynamic {
     return static::get()[11]($opt, $speclist);
   }
-  public static function current() {
+  public static function current(): dynamic {
     return static::get()[12]();
   }
-  public static function read_arg() {
+  public static function read_arg(): dynamic {
     return static::get()[13]();
   }
-  public static function read_arg0() {
+  public static function read_arg0(): dynamic {
     return static::get()[14]();
   }
-  public static function write_arg() {
+  public static function write_arg(): dynamic {
     return static::get()[15]();
   }
-  public static function write_arg0() {
+  public static function write_arg0(): dynamic {
     return static::get()[16]();
   }
 

@@ -874,31 +874,31 @@ final class Js_of_ocaml__Url {
      return ($Js_of_ocaml_Url);
 
   }
-  public static function urldecode(dynamic $s) {
+  public static function urldecode(dynamic $s): dynamic {
     return static::get()[1]($s);
   }
-  public static function urlencode(dynamic $opt, dynamic $s) {
+  public static function urlencode(dynamic $opt, dynamic $s): dynamic {
     return static::get()[2]($opt, $s);
   }
-  public static function default_http_port() {
+  public static function default_http_port(): dynamic {
     return static::get()[3]();
   }
-  public static function default_https_port() {
+  public static function default_https_port(): dynamic {
     return static::get()[4]();
   }
-  public static function path_of_path_string(dynamic $s) {
+  public static function path_of_path_string(dynamic $s): dynamic {
     return static::get()[5]($s);
   }
-  public static function encode_arguments(dynamic $l) {
+  public static function encode_arguments(dynamic $l): dynamic {
     return static::get()[6]($l);
   }
-  public static function decode_arguments(dynamic $s) {
+  public static function decode_arguments(dynamic $s): dynamic {
     return static::get()[7]($s);
   }
-  public static function url_of_string(dynamic $s) {
+  public static function url_of_string(dynamic $s): dynamic {
     return static::get()[8]($s);
   }
-  public static function string_of_url(dynamic $param) {
+  public static function string_of_url(dynamic $param): dynamic {
     return static::get()[9]($param);
   }
 

@@ -89,16 +89,16 @@ final class Js_of_ocaml__WebGL {
      return ($Js_of_ocaml_WebGL);
 
   }
-  public static function defaultContextAttributes() {
+  public static function defaultContextAttributes(): dynamic {
     return static::get()[1]();
   }
-  public static function Event() {
+  public static function Event(): dynamic {
     return static::get()[2]();
   }
-  public static function getContext(dynamic $c) {
+  public static function getContext(dynamic $c): dynamic {
     return static::get()[3]($c);
   }
-  public static function getContextWithAttributes(dynamic $c, dynamic $attribs) {
+  public static function getContextWithAttributes(dynamic $c, dynamic $attribs): dynamic {
     return static::get()[4]($c, $attribs);
   }
 

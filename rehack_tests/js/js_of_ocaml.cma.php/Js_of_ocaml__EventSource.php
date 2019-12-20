@@ -53,16 +53,16 @@ final class Js_of_ocaml__EventSource {
      return ($Js_of_ocaml_EventSource);
 
   }
-  public static function withCredentials(dynamic $b) {
+  public static function withCredentials(dynamic $b): dynamic {
     return static::get()[1]($b);
   }
-  public static function eventSource() {
+  public static function eventSource(): dynamic {
     return static::get()[2]();
   }
-  public static function eventSource_options() {
+  public static function eventSource_options(): dynamic {
     return static::get()[3]();
   }
-  public static function addEventListener() {
+  public static function addEventListener(): dynamic {
     return static::get()[4]();
   }
 

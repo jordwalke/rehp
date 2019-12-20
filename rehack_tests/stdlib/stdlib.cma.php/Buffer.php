@@ -522,70 +522,70 @@ final class Buffer {
      return ($Buffer);
 
   }
-  public static function create(dynamic $n) {
+  public static function create(dynamic $n): dynamic {
     return static::get()[1]($n);
   }
-  public static function contents(dynamic $b) {
+  public static function contents(dynamic $b): dynamic {
     return static::get()[2]($b);
   }
-  public static function to_bytes(dynamic $b) {
+  public static function to_bytes(dynamic $b): dynamic {
     return static::get()[3]($b);
   }
-  public static function sub(dynamic $b, dynamic $ofs, dynamic $len) {
+  public static function sub(dynamic $b, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[4]($b, $ofs, $len);
   }
-  public static function blit(dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) {
+  public static function blit(dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len): dynamic {
     return static::get()[5]($src, $srcoff, $dst, $dstoff, $len);
   }
-  public static function nth(dynamic $b, dynamic $ofs) {
+  public static function nth(dynamic $b, dynamic $ofs): dynamic {
     return static::get()[6]($b, $ofs);
   }
-  public static function length(dynamic $b) {
+  public static function length(dynamic $b): dynamic {
     return static::get()[7]($b);
   }
-  public static function clear(dynamic $b) {
+  public static function clear(dynamic $b): dynamic {
     return static::get()[8]($b);
   }
-  public static function reset(dynamic $b) {
+  public static function reset(dynamic $b): dynamic {
     return static::get()[9]($b);
   }
-  public static function add_char(dynamic $b, dynamic $c) {
+  public static function add_char(dynamic $b, dynamic $c): dynamic {
     return static::get()[10]($b, $c);
   }
-  public static function add_utf_8_uchar(dynamic $b, dynamic $u) {
+  public static function add_utf_8_uchar(dynamic $b, dynamic $u): dynamic {
     return static::get()[11]($b, $u);
   }
-  public static function add_utf_16le_uchar(dynamic $b, dynamic $u) {
+  public static function add_utf_16le_uchar(dynamic $b, dynamic $u): dynamic {
     return static::get()[12]($b, $u);
   }
-  public static function add_utf_16be_uchar(dynamic $b, dynamic $u) {
+  public static function add_utf_16be_uchar(dynamic $b, dynamic $u): dynamic {
     return static::get()[13]($b, $u);
   }
-  public static function add_string(dynamic $b, dynamic $s) {
+  public static function add_string(dynamic $b, dynamic $s): dynamic {
     return static::get()[14]($b, $s);
   }
-  public static function add_bytes(dynamic $b, dynamic $s) {
+  public static function add_bytes(dynamic $b, dynamic $s): dynamic {
     return static::get()[15]($b, $s);
   }
-  public static function add_substring(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
+  public static function add_substring(dynamic $b, dynamic $s, dynamic $offset, dynamic $len): dynamic {
     return static::get()[16]($b, $s, $offset, $len);
   }
-  public static function add_subbytes(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
+  public static function add_subbytes(dynamic $b, dynamic $s, dynamic $offset, dynamic $len): dynamic {
     return static::get()[17]($b, $s, $offset, $len);
   }
-  public static function add_substitute(dynamic $b, dynamic $f, dynamic $s) {
+  public static function add_substitute(dynamic $b, dynamic $f, dynamic $s): dynamic {
     return static::get()[18]($b, $f, $s);
   }
-  public static function add_buffer(dynamic $b, dynamic $bs) {
+  public static function add_buffer(dynamic $b, dynamic $bs): dynamic {
     return static::get()[19]($b, $bs);
   }
-  public static function add_channel(dynamic $b, dynamic $ic, dynamic $len) {
+  public static function add_channel(dynamic $b, dynamic $ic, dynamic $len): dynamic {
     return static::get()[20]($b, $ic, $len);
   }
-  public static function output_buffer(dynamic $oc, dynamic $b) {
+  public static function output_buffer(dynamic $oc, dynamic $b): dynamic {
     return static::get()[21]($oc, $b);
   }
-  public static function truncate(dynamic $b, dynamic $len) {
+  public static function truncate(dynamic $b, dynamic $len): dynamic {
     return static::get()[22]($b, $len);
   }
 

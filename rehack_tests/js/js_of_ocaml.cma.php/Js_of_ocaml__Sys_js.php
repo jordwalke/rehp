@@ -80,22 +80,22 @@ final class Js_of_ocaml__Sys_js {
      return ($Js_of_ocaml_Sys_js);
 
   }
-  public static function set_channel_flusher(dynamic $out_channel, dynamic $f) {
+  public static function set_channel_flusher(dynamic $out_channel, dynamic $f): dynamic {
     return static::get()[1]($out_channel, $f);
   }
-  public static function set_channel_filler(dynamic $in_channel, dynamic $f) {
+  public static function set_channel_filler(dynamic $in_channel, dynamic $f): dynamic {
     return static::get()[2]($in_channel, $f);
   }
-  public static function unmount(dynamic $path) {
+  public static function unmount(dynamic $path): dynamic {
     return static::get()[4]($path);
   }
-  public static function mount(dynamic $path, dynamic $f) {
+  public static function mount(dynamic $path, dynamic $f): dynamic {
     return static::get()[5]($path, $f);
   }
-  public static function update_file(dynamic $name, dynamic $content) {
+  public static function update_file(dynamic $name, dynamic $content): dynamic {
     return static::get()[8]($name, $content);
   }
-  public static function js_of_ocaml_version() {
+  public static function js_of_ocaml_version(): dynamic {
     return static::get()[9]();
   }
 

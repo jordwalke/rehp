@@ -379,148 +379,148 @@ final class Js_of_ocaml__Js {
      return ($Js_of_ocaml_Js);
 
   }
-  public static function null() {
+  public static function null(): dynamic {
     return static::get()[1]();
   }
-  public static function undefined() {
+  public static function undefined(): dynamic {
     return static::get()[3]();
   }
-  public static function Opt() {
+  public static function Opt(): dynamic {
     return static::get()[5]();
   }
-  public static function Optdef() {
+  public static function Optdef(): dynamic {
     return static::get()[6]();
   }
-  public static function true() {
+  public static function true(): dynamic {
     return static::get()[7]();
   }
-  public static function false() {
+  public static function false(): dynamic {
     return static::get()[8]();
   }
-  public static function string_constr() {
+  public static function string_constr(): dynamic {
     return static::get()[9]();
   }
-  public static function regExp() {
+  public static function regExp(): dynamic {
     return static::get()[10]();
   }
-  public static function regExp() {
+  public static function regExp(): dynamic {
     return static::get()[11]();
   }
-  public static function regExp() {
+  public static function regExp(): dynamic {
     return static::get()[12]();
   }
-  public static function object_keys(dynamic $o) {
+  public static function object_keys(dynamic $o): dynamic {
     return static::get()[13]($o);
   }
-  public static function array_constructor() {
+  public static function array_constructor(): dynamic {
     return static::get()[14]();
   }
-  public static function array_constructor() {
+  public static function array_constructor(): dynamic {
     return static::get()[15]();
   }
-  public static function array_get(dynamic $unnamed1, dynamic $unnamed2) {
+  public static function array_get(dynamic $unnamed1, dynamic $unnamed2): dynamic {
     return static::get()[16]($unnamed1, $unnamed2);
   }
-  public static function array_set(dynamic $unnamed1, dynamic $unnamed2, dynamic $unnamed3) {
+  public static function array_set(dynamic $unnamed1, dynamic $unnamed2, dynamic $unnamed3): dynamic {
     return static::get()[17]($unnamed1, $unnamed2, $unnamed3);
   }
-  public static function array_map(dynamic $f, dynamic $a) {
+  public static function array_map(dynamic $f, dynamic $a): dynamic {
     return static::get()[18]($f, $a);
   }
-  public static function array_mapi(dynamic $f, dynamic $a) {
+  public static function array_mapi(dynamic $f, dynamic $a): dynamic {
     return static::get()[19]($f, $a);
   }
-  public static function str_array(dynamic $unnamed1) {
+  public static function str_array(dynamic $unnamed1): dynamic {
     return static::get()[20]($unnamed1);
   }
-  public static function match_result(dynamic $unnamed1) {
+  public static function match_result(dynamic $unnamed1): dynamic {
     return static::get()[21]($unnamed1);
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[22]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[23]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[24]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[25]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[26]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[27]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[28]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[29]();
   }
-  public static function date_constr() {
+  public static function date_constr(): dynamic {
     return static::get()[30]();
   }
-  public static function math() {
+  public static function math(): dynamic {
     return static::get()[31]();
   }
-  public static function error_constr() {
+  public static function error_constr(): dynamic {
     return static::get()[32]();
   }
-  public static function string_of_error(dynamic $e) {
+  public static function string_of_error(dynamic $e): dynamic {
     return static::get()[33]($e);
   }
-  public static function raise_js_error() {
+  public static function raise_js_error(): dynamic {
     return static::get()[34]();
   }
-  public static function Error() {
+  public static function Error(): dynamic {
     return static::get()[35]();
   }
-  public static function JSON() {
+  public static function JSON(): dynamic {
     return static::get()[36]();
   }
-  public static function decodeURI(dynamic $s) {
+  public static function decodeURI(dynamic $s): dynamic {
     return static::get()[37]($s);
   }
-  public static function decodeURIComponent(dynamic $s) {
+  public static function decodeURIComponent(dynamic $s): dynamic {
     return static::get()[38]($s);
   }
-  public static function encodeURI(dynamic $s) {
+  public static function encodeURI(dynamic $s): dynamic {
     return static::get()[39]($s);
   }
-  public static function encodeURIComponent(dynamic $s) {
+  public static function encodeURIComponent(dynamic $s): dynamic {
     return static::get()[40]($s);
   }
-  public static function escape(dynamic $s) {
+  public static function escape(dynamic $s): dynamic {
     return static::get()[41]($s);
   }
-  public static function unescape(dynamic $s) {
+  public static function unescape(dynamic $s): dynamic {
     return static::get()[42]($s);
   }
-  public static function isNaN(dynamic $i) {
+  public static function isNaN(dynamic $i): dynamic {
     return static::get()[43]($i);
   }
-  public static function parseInt(dynamic $s) {
+  public static function parseInt(dynamic $s): dynamic {
     return static::get()[44]($s);
   }
-  public static function parseFloat(dynamic $s) {
+  public static function parseFloat(dynamic $s): dynamic {
     return static::get()[45]($s);
   }
-  public static function coerce(dynamic $x, dynamic $f, dynamic $g) {
+  public static function coerce(dynamic $x, dynamic $f, dynamic $g): dynamic {
     return static::get()[46]($x, $f, $g);
   }
-  public static function coerce_opt(dynamic $x, dynamic $f, dynamic $g) {
+  public static function coerce_opt(dynamic $x, dynamic $f, dynamic $g): dynamic {
     return static::get()[47]($x, $f, $g);
   }
-  public static function export(dynamic $field, dynamic $x) {
+  public static function export(dynamic $field, dynamic $x): dynamic {
     return static::get()[48]($field, $x);
   }
-  public static function export_all(dynamic $obj) {
+  public static function export_all(dynamic $obj): dynamic {
     return static::get()[49]($obj);
   }
-  public static function Unsafe() {
+  public static function Unsafe(): dynamic {
     return static::get()[50]();
   }
 

@@ -186,13 +186,13 @@ final class Sort {
      return ($Sort);
 
   }
-  public static function list(dynamic $order, dynamic $l) {
+  public static function list(dynamic $order, dynamic $l): dynamic {
     return static::get()[1]($order, $l);
   }
-  public static function array(dynamic $cmp, dynamic $arr) {
+  public static function array(dynamic $cmp, dynamic $arr): dynamic {
     return static::get()[2]($cmp, $arr);
   }
-  public static function merge(dynamic $order, dynamic $l1, dynamic $l2) {
+  public static function merge(dynamic $order, dynamic $l1, dynamic $l2): dynamic {
     return static::get()[3]($order, $l1, $l2);
   }
 

@@ -147,142 +147,142 @@ final class Sys {
      return ($Sys);
 
   }
-  public static function argv() {
+  public static function argv(): dynamic {
     return static::get()[1]();
   }
-  public static function executable_name() {
+  public static function executable_name(): dynamic {
     return static::get()[2]();
   }
-  public static function getenv_opt(dynamic $s) {
+  public static function getenv_opt(dynamic $s): dynamic {
     return static::get()[3]($s);
   }
-  public static function interactive() {
+  public static function interactive(): dynamic {
     return static::get()[4]();
   }
-  public static function os_type() {
+  public static function os_type(): dynamic {
     return static::get()[5]();
   }
-  public static function backend_type() {
+  public static function backend_type(): dynamic {
     return static::get()[6]();
   }
-  public static function unix() {
+  public static function unix(): dynamic {
     return static::get()[7]();
   }
-  public static function win32() {
+  public static function win32(): dynamic {
     return static::get()[8]();
   }
-  public static function cygwin() {
+  public static function cygwin(): dynamic {
     return static::get()[9]();
   }
-  public static function word_size() {
+  public static function word_size(): dynamic {
     return static::get()[10]();
   }
-  public static function int_size() {
+  public static function int_size(): dynamic {
     return static::get()[11]();
   }
-  public static function big_endian() {
+  public static function big_endian(): dynamic {
     return static::get()[12]();
   }
-  public static function max_string_length() {
+  public static function max_string_length(): dynamic {
     return static::get()[13]();
   }
-  public static function max_array_length() {
+  public static function max_array_length(): dynamic {
     return static::get()[14]();
   }
-  public static function set_signal(dynamic $sig_num, dynamic $sig_beh) {
+  public static function set_signal(dynamic $sig_num, dynamic $sig_beh): dynamic {
     return static::get()[15]($sig_num, $sig_beh);
   }
-  public static function sigabrt() {
+  public static function sigabrt(): dynamic {
     return static::get()[16]();
   }
-  public static function sigalrm() {
+  public static function sigalrm(): dynamic {
     return static::get()[17]();
   }
-  public static function sigfpe() {
+  public static function sigfpe(): dynamic {
     return static::get()[18]();
   }
-  public static function sighup() {
+  public static function sighup(): dynamic {
     return static::get()[19]();
   }
-  public static function sigill() {
+  public static function sigill(): dynamic {
     return static::get()[20]();
   }
-  public static function sigint() {
+  public static function sigint(): dynamic {
     return static::get()[21]();
   }
-  public static function sigkill() {
+  public static function sigkill(): dynamic {
     return static::get()[22]();
   }
-  public static function sigpipe() {
+  public static function sigpipe(): dynamic {
     return static::get()[23]();
   }
-  public static function sigquit() {
+  public static function sigquit(): dynamic {
     return static::get()[24]();
   }
-  public static function sigsegv() {
+  public static function sigsegv(): dynamic {
     return static::get()[25]();
   }
-  public static function sigterm() {
+  public static function sigterm(): dynamic {
     return static::get()[26]();
   }
-  public static function sigusr1() {
+  public static function sigusr1(): dynamic {
     return static::get()[27]();
   }
-  public static function sigusr2() {
+  public static function sigusr2(): dynamic {
     return static::get()[28]();
   }
-  public static function sigchld() {
+  public static function sigchld(): dynamic {
     return static::get()[29]();
   }
-  public static function sigcont() {
+  public static function sigcont(): dynamic {
     return static::get()[30]();
   }
-  public static function sigstop() {
+  public static function sigstop(): dynamic {
     return static::get()[31]();
   }
-  public static function sigtstp() {
+  public static function sigtstp(): dynamic {
     return static::get()[32]();
   }
-  public static function sigttin() {
+  public static function sigttin(): dynamic {
     return static::get()[33]();
   }
-  public static function sigttou() {
+  public static function sigttou(): dynamic {
     return static::get()[34]();
   }
-  public static function sigvtalrm() {
+  public static function sigvtalrm(): dynamic {
     return static::get()[35]();
   }
-  public static function sigprof() {
+  public static function sigprof(): dynamic {
     return static::get()[36]();
   }
-  public static function sigbus() {
+  public static function sigbus(): dynamic {
     return static::get()[37]();
   }
-  public static function sigpoll() {
+  public static function sigpoll(): dynamic {
     return static::get()[38]();
   }
-  public static function sigsys() {
+  public static function sigsys(): dynamic {
     return static::get()[39]();
   }
-  public static function sigtrap() {
+  public static function sigtrap(): dynamic {
     return static::get()[40]();
   }
-  public static function sigurg() {
+  public static function sigurg(): dynamic {
     return static::get()[41]();
   }
-  public static function sigxcpu() {
+  public static function sigxcpu(): dynamic {
     return static::get()[42]();
   }
-  public static function sigxfsz() {
+  public static function sigxfsz(): dynamic {
     return static::get()[43]();
   }
-  public static function Break() {
+  public static function Break(): dynamic {
     return static::get()[44]();
   }
-  public static function catch_break(dynamic $on) {
+  public static function catch_break(dynamic $on): dynamic {
     return static::get()[45]($on);
   }
-  public static function ocaml_version() {
+  public static function ocaml_version(): dynamic {
     return static::get()[46]();
   }
 

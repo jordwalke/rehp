@@ -755,61 +755,61 @@ final class Filename {
      return ($Filename);
 
   }
-  public static function current_dir_name() {
+  public static function current_dir_name(): dynamic {
     return static::get()[1]();
   }
-  public static function parent_dir_name() {
+  public static function parent_dir_name(): dynamic {
     return static::get()[2]();
   }
-  public static function dir_sep() {
+  public static function dir_sep(): dynamic {
     return static::get()[3]();
   }
-  public static function concat(dynamic $dirname, dynamic $filename) {
+  public static function concat(dynamic $dirname, dynamic $filename): dynamic {
     return static::get()[4]($dirname, $filename);
   }
-  public static function is_relative() {
+  public static function is_relative(): dynamic {
     return static::get()[5]();
   }
-  public static function is_implicit() {
+  public static function is_implicit(): dynamic {
     return static::get()[6]();
   }
-  public static function check_suffix() {
+  public static function check_suffix(): dynamic {
     return static::get()[7]();
   }
-  public static function chop_suffix(dynamic $name, dynamic $suff) {
+  public static function chop_suffix(dynamic $name, dynamic $suff): dynamic {
     return static::get()[8]($name, $suff);
   }
-  public static function extension(dynamic $name) {
+  public static function extension(dynamic $name): dynamic {
     return static::get()[9]($name);
   }
-  public static function remove_extension(dynamic $name) {
+  public static function remove_extension(dynamic $name): dynamic {
     return static::get()[10]($name);
   }
-  public static function chop_extension(dynamic $name) {
+  public static function chop_extension(dynamic $name): dynamic {
     return static::get()[11]($name);
   }
-  public static function basename() {
+  public static function basename(): dynamic {
     return static::get()[12]();
   }
-  public static function dirname() {
+  public static function dirname(): dynamic {
     return static::get()[13]();
   }
-  public static function temp_file(dynamic $opt, dynamic $prefix, dynamic $suffix) {
+  public static function temp_file(dynamic $opt, dynamic $prefix, dynamic $suffix): dynamic {
     return static::get()[14]($opt, $prefix, $suffix);
   }
-  public static function open_temp_file(dynamic $opt, dynamic $unnamed1, dynamic $unnamed2, dynamic $prefix, dynamic $suffix) {
+  public static function open_temp_file(dynamic $opt, dynamic $unnamed1, dynamic $unnamed2, dynamic $prefix, dynamic $suffix): dynamic {
     return static::get()[15]($opt, $unnamed1, $unnamed2, $prefix, $suffix);
   }
-  public static function get_temp_dir_name(dynamic $param) {
+  public static function get_temp_dir_name(dynamic $param): dynamic {
     return static::get()[16]($param);
   }
-  public static function set_temp_dir_name(dynamic $s) {
+  public static function set_temp_dir_name(dynamic $s): dynamic {
     return static::get()[17]($s);
   }
-  public static function temp_dir_name() {
+  public static function temp_dir_name(): dynamic {
     return static::get()[18]();
   }
-  public static function quote() {
+  public static function quote(): dynamic {
     return static::get()[19]();
   }
 

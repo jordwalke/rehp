@@ -2871,361 +2871,361 @@ final class Js_of_ocaml__Dom_html {
      return ($Js_of_ocaml_Dom_html);
 
   }
-  public static function d() {
+  public static function d(): dynamic {
     return static::get()[1]();
   }
-  public static function document() {
+  public static function document(): dynamic {
     return static::get()[2]();
   }
-  public static function getElementById_opt(dynamic $id) {
+  public static function getElementById_opt(dynamic $id): dynamic {
     return static::get()[3]($id);
   }
-  public static function getElementById_exn(dynamic $id) {
+  public static function getElementById_exn(dynamic $id): dynamic {
     return static::get()[4]($id);
   }
-  public static function getElementById_coerce(dynamic $id, dynamic $coerce) {
+  public static function getElementById_coerce(dynamic $id, dynamic $coerce): dynamic {
     return static::get()[5]($id, $coerce);
   }
-  public static function getElementById(dynamic $id) {
+  public static function getElementById(dynamic $id): dynamic {
     return static::get()[6]($id);
   }
-  public static function location_origin(dynamic $loc) {
+  public static function location_origin(dynamic $loc): dynamic {
     return static::get()[7]($loc);
   }
-  public static function window() {
+  public static function window(): dynamic {
     return static::get()[8]();
   }
-  public static function no_handler() {
+  public static function no_handler(): dynamic {
     return static::get()[9]();
   }
-  public static function handler() {
+  public static function handler(): dynamic {
     return static::get()[10]();
   }
-  public static function full_handler() {
+  public static function full_handler(): dynamic {
     return static::get()[11]();
   }
-  public static function invoke_handler() {
+  public static function invoke_handler(): dynamic {
     return static::get()[12]();
   }
-  public static function eventTarget() {
+  public static function eventTarget(): dynamic {
     return static::get()[13]();
   }
-  public static function eventRelatedTarget(dynamic $e) {
+  public static function eventRelatedTarget(dynamic $e): dynamic {
     return static::get()[14]($e);
   }
-  public static function Event() {
+  public static function Event(): dynamic {
     return static::get()[15]();
   }
-  public static function addEventListener() {
+  public static function addEventListener(): dynamic {
     return static::get()[16]();
   }
-  public static function removeEventListener() {
+  public static function removeEventListener(): dynamic {
     return static::get()[17]();
   }
-  public static function addMousewheelEventListener(dynamic $e, dynamic $h, dynamic $capt) {
+  public static function addMousewheelEventListener(dynamic $e, dynamic $h, dynamic $capt): dynamic {
     return static::get()[18]($e, $h, $capt);
   }
-  public static function buttonPressed(dynamic $ev) {
+  public static function buttonPressed(dynamic $ev): dynamic {
     return static::get()[19]($ev);
   }
-  public static function eventAbsolutePosition(dynamic $e) {
+  public static function eventAbsolutePosition(dynamic $e): dynamic {
     return static::get()[20]($e);
   }
-  public static function elementClientPosition(dynamic $e) {
+  public static function elementClientPosition(dynamic $e): dynamic {
     return static::get()[21]($e);
   }
-  public static function getDocumentScroll(dynamic $param) {
+  public static function getDocumentScroll(dynamic $param): dynamic {
     return static::get()[22]($param);
   }
-  public static function createHtml(dynamic $doc) {
+  public static function createHtml(dynamic $doc): dynamic {
     return static::get()[25]($doc);
   }
-  public static function createHead(dynamic $doc) {
+  public static function createHead(dynamic $doc): dynamic {
     return static::get()[26]($doc);
   }
-  public static function createLink(dynamic $doc) {
+  public static function createLink(dynamic $doc): dynamic {
     return static::get()[27]($doc);
   }
-  public static function createTitle(dynamic $doc) {
+  public static function createTitle(dynamic $doc): dynamic {
     return static::get()[28]($doc);
   }
-  public static function createMeta(dynamic $doc) {
+  public static function createMeta(dynamic $doc): dynamic {
     return static::get()[29]($doc);
   }
-  public static function createBase(dynamic $doc) {
+  public static function createBase(dynamic $doc): dynamic {
     return static::get()[30]($doc);
   }
-  public static function createStyle(dynamic $doc) {
+  public static function createStyle(dynamic $doc): dynamic {
     return static::get()[31]($doc);
   }
-  public static function createBody(dynamic $doc) {
+  public static function createBody(dynamic $doc): dynamic {
     return static::get()[32]($doc);
   }
-  public static function createForm(dynamic $doc) {
+  public static function createForm(dynamic $doc): dynamic {
     return static::get()[33]($doc);
   }
-  public static function createOptgroup(dynamic $doc) {
+  public static function createOptgroup(dynamic $doc): dynamic {
     return static::get()[34]($doc);
   }
-  public static function createOption(dynamic $doc) {
+  public static function createOption(dynamic $doc): dynamic {
     return static::get()[35]($doc);
   }
-  public static function createSelect(dynamic $type, dynamic $name, dynamic $doc) {
+  public static function createSelect(dynamic $type, dynamic $name, dynamic $doc): dynamic {
     return static::get()[36]($type, $name, $doc);
   }
-  public static function createInput(dynamic $type, dynamic $name, dynamic $doc) {
+  public static function createInput(dynamic $type, dynamic $name, dynamic $doc): dynamic {
     return static::get()[37]($type, $name, $doc);
   }
-  public static function createTextarea(dynamic $type, dynamic $name, dynamic $doc) {
+  public static function createTextarea(dynamic $type, dynamic $name, dynamic $doc): dynamic {
     return static::get()[38]($type, $name, $doc);
   }
-  public static function createButton(dynamic $type, dynamic $name, dynamic $doc) {
+  public static function createButton(dynamic $type, dynamic $name, dynamic $doc): dynamic {
     return static::get()[39]($type, $name, $doc);
   }
-  public static function createLabel(dynamic $doc) {
+  public static function createLabel(dynamic $doc): dynamic {
     return static::get()[40]($doc);
   }
-  public static function createFieldset(dynamic $doc) {
+  public static function createFieldset(dynamic $doc): dynamic {
     return static::get()[41]($doc);
   }
-  public static function createLegend(dynamic $doc) {
+  public static function createLegend(dynamic $doc): dynamic {
     return static::get()[42]($doc);
   }
-  public static function createUl(dynamic $doc) {
+  public static function createUl(dynamic $doc): dynamic {
     return static::get()[43]($doc);
   }
-  public static function createOl(dynamic $doc) {
+  public static function createOl(dynamic $doc): dynamic {
     return static::get()[44]($doc);
   }
-  public static function createDl(dynamic $doc) {
+  public static function createDl(dynamic $doc): dynamic {
     return static::get()[45]($doc);
   }
-  public static function createLi(dynamic $doc) {
+  public static function createLi(dynamic $doc): dynamic {
     return static::get()[46]($doc);
   }
-  public static function createDiv(dynamic $doc) {
+  public static function createDiv(dynamic $doc): dynamic {
     return static::get()[47]($doc);
   }
-  public static function createEmbed(dynamic $doc) {
+  public static function createEmbed(dynamic $doc): dynamic {
     return static::get()[48]($doc);
   }
-  public static function createP(dynamic $doc) {
+  public static function createP(dynamic $doc): dynamic {
     return static::get()[49]($doc);
   }
-  public static function createH1(dynamic $doc) {
+  public static function createH1(dynamic $doc): dynamic {
     return static::get()[50]($doc);
   }
-  public static function createH2(dynamic $doc) {
+  public static function createH2(dynamic $doc): dynamic {
     return static::get()[51]($doc);
   }
-  public static function createH3(dynamic $doc) {
+  public static function createH3(dynamic $doc): dynamic {
     return static::get()[52]($doc);
   }
-  public static function createH4(dynamic $doc) {
+  public static function createH4(dynamic $doc): dynamic {
     return static::get()[53]($doc);
   }
-  public static function createH5(dynamic $doc) {
+  public static function createH5(dynamic $doc): dynamic {
     return static::get()[54]($doc);
   }
-  public static function createH6(dynamic $doc) {
+  public static function createH6(dynamic $doc): dynamic {
     return static::get()[55]($doc);
   }
-  public static function createQ(dynamic $doc) {
+  public static function createQ(dynamic $doc): dynamic {
     return static::get()[56]($doc);
   }
-  public static function createBlockquote(dynamic $doc) {
+  public static function createBlockquote(dynamic $doc): dynamic {
     return static::get()[57]($doc);
   }
-  public static function createPre(dynamic $doc) {
+  public static function createPre(dynamic $doc): dynamic {
     return static::get()[58]($doc);
   }
-  public static function createBr(dynamic $doc) {
+  public static function createBr(dynamic $doc): dynamic {
     return static::get()[59]($doc);
   }
-  public static function createHr(dynamic $doc) {
+  public static function createHr(dynamic $doc): dynamic {
     return static::get()[60]($doc);
   }
-  public static function createIns(dynamic $doc) {
+  public static function createIns(dynamic $doc): dynamic {
     return static::get()[61]($doc);
   }
-  public static function createDel(dynamic $doc) {
+  public static function createDel(dynamic $doc): dynamic {
     return static::get()[62]($doc);
   }
-  public static function createA(dynamic $doc) {
+  public static function createA(dynamic $doc): dynamic {
     return static::get()[63]($doc);
   }
-  public static function createImg(dynamic $doc) {
+  public static function createImg(dynamic $doc): dynamic {
     return static::get()[64]($doc);
   }
-  public static function createObject(dynamic $doc) {
+  public static function createObject(dynamic $doc): dynamic {
     return static::get()[65]($doc);
   }
-  public static function createParam(dynamic $doc) {
+  public static function createParam(dynamic $doc): dynamic {
     return static::get()[66]($doc);
   }
-  public static function createMap(dynamic $doc) {
+  public static function createMap(dynamic $doc): dynamic {
     return static::get()[67]($doc);
   }
-  public static function createArea(dynamic $doc) {
+  public static function createArea(dynamic $doc): dynamic {
     return static::get()[68]($doc);
   }
-  public static function createScript(dynamic $doc) {
+  public static function createScript(dynamic $doc): dynamic {
     return static::get()[69]($doc);
   }
-  public static function createTable(dynamic $doc) {
+  public static function createTable(dynamic $doc): dynamic {
     return static::get()[70]($doc);
   }
-  public static function createCaption(dynamic $doc) {
+  public static function createCaption(dynamic $doc): dynamic {
     return static::get()[71]($doc);
   }
-  public static function createCol(dynamic $doc) {
+  public static function createCol(dynamic $doc): dynamic {
     return static::get()[72]($doc);
   }
-  public static function createColgroup(dynamic $doc) {
+  public static function createColgroup(dynamic $doc): dynamic {
     return static::get()[73]($doc);
   }
-  public static function createThead(dynamic $doc) {
+  public static function createThead(dynamic $doc): dynamic {
     return static::get()[74]($doc);
   }
-  public static function createTfoot(dynamic $doc) {
+  public static function createTfoot(dynamic $doc): dynamic {
     return static::get()[75]($doc);
   }
-  public static function createTbody(dynamic $doc) {
+  public static function createTbody(dynamic $doc): dynamic {
     return static::get()[76]($doc);
   }
-  public static function createTr(dynamic $doc) {
+  public static function createTr(dynamic $doc): dynamic {
     return static::get()[77]($doc);
   }
-  public static function createTh(dynamic $doc) {
+  public static function createTh(dynamic $doc): dynamic {
     return static::get()[78]($doc);
   }
-  public static function createTd(dynamic $doc) {
+  public static function createTd(dynamic $doc): dynamic {
     return static::get()[79]($doc);
   }
-  public static function createSub(dynamic $doc) {
+  public static function createSub(dynamic $doc): dynamic {
     return static::get()[80]($doc);
   }
-  public static function createSup(dynamic $doc) {
+  public static function createSup(dynamic $doc): dynamic {
     return static::get()[81]($doc);
   }
-  public static function createSpan(dynamic $doc) {
+  public static function createSpan(dynamic $doc): dynamic {
     return static::get()[82]($doc);
   }
-  public static function createTt(dynamic $doc) {
+  public static function createTt(dynamic $doc): dynamic {
     return static::get()[83]($doc);
   }
-  public static function createI(dynamic $doc) {
+  public static function createI(dynamic $doc): dynamic {
     return static::get()[84]($doc);
   }
-  public static function createB(dynamic $doc) {
+  public static function createB(dynamic $doc): dynamic {
     return static::get()[85]($doc);
   }
-  public static function createBig(dynamic $doc) {
+  public static function createBig(dynamic $doc): dynamic {
     return static::get()[86]($doc);
   }
-  public static function createSmall(dynamic $doc) {
+  public static function createSmall(dynamic $doc): dynamic {
     return static::get()[87]($doc);
   }
-  public static function createEm(dynamic $doc) {
+  public static function createEm(dynamic $doc): dynamic {
     return static::get()[88]($doc);
   }
-  public static function createStrong(dynamic $doc) {
+  public static function createStrong(dynamic $doc): dynamic {
     return static::get()[89]($doc);
   }
-  public static function createCite(dynamic $doc) {
+  public static function createCite(dynamic $doc): dynamic {
     return static::get()[90]($doc);
   }
-  public static function createDfn(dynamic $doc) {
+  public static function createDfn(dynamic $doc): dynamic {
     return static::get()[91]($doc);
   }
-  public static function createCode(dynamic $doc) {
+  public static function createCode(dynamic $doc): dynamic {
     return static::get()[92]($doc);
   }
-  public static function createSamp(dynamic $doc) {
+  public static function createSamp(dynamic $doc): dynamic {
     return static::get()[93]($doc);
   }
-  public static function createKbd(dynamic $doc) {
+  public static function createKbd(dynamic $doc): dynamic {
     return static::get()[94]($doc);
   }
-  public static function createVar(dynamic $doc) {
+  public static function createVar(dynamic $doc): dynamic {
     return static::get()[95]($doc);
   }
-  public static function createAbbr(dynamic $doc) {
+  public static function createAbbr(dynamic $doc): dynamic {
     return static::get()[96]($doc);
   }
-  public static function createDd(dynamic $doc) {
+  public static function createDd(dynamic $doc): dynamic {
     return static::get()[97]($doc);
   }
-  public static function createDt(dynamic $doc) {
+  public static function createDt(dynamic $doc): dynamic {
     return static::get()[98]($doc);
   }
-  public static function createNoscript(dynamic $doc) {
+  public static function createNoscript(dynamic $doc): dynamic {
     return static::get()[99]($doc);
   }
-  public static function createAddress(dynamic $doc) {
+  public static function createAddress(dynamic $doc): dynamic {
     return static::get()[100]($doc);
   }
-  public static function createFrameset(dynamic $doc) {
+  public static function createFrameset(dynamic $doc): dynamic {
     return static::get()[101]($doc);
   }
-  public static function createFrame(dynamic $doc) {
+  public static function createFrame(dynamic $doc): dynamic {
     return static::get()[102]($doc);
   }
-  public static function createIframe(dynamic $doc) {
+  public static function createIframe(dynamic $doc): dynamic {
     return static::get()[103]($doc);
   }
-  public static function createAudio(dynamic $doc) {
+  public static function createAudio(dynamic $doc): dynamic {
     return static::get()[104]($doc);
   }
-  public static function createVideo(dynamic $doc) {
+  public static function createVideo(dynamic $doc): dynamic {
     return static::get()[105]($doc);
   }
-  public static function Canvas_not_available() {
+  public static function Canvas_not_available(): dynamic {
     return static::get()[106]();
   }
-  public static function createCanvas(dynamic $doc) {
+  public static function createCanvas(dynamic $doc): dynamic {
     return static::get()[107]($doc);
   }
-  public static function element(dynamic $unnamed1) {
+  public static function element(dynamic $unnamed1): dynamic {
     return static::get()[108]($unnamed1);
   }
-  public static function tagged(dynamic $e) {
+  public static function tagged(dynamic $e): dynamic {
     return static::get()[109]($e);
   }
-  public static function opt_tagged(dynamic $e) {
+  public static function opt_tagged(dynamic $e): dynamic {
     return static::get()[110]($e);
   }
-  public static function taggedEvent(dynamic $ev) {
+  public static function taggedEvent(dynamic $ev): dynamic {
     return static::get()[111]($ev);
   }
-  public static function opt_taggedEvent(dynamic $ev) {
+  public static function opt_taggedEvent(dynamic $ev): dynamic {
     return static::get()[112]($ev);
   }
-  public static function stopPropagation(dynamic $ev) {
+  public static function stopPropagation(dynamic $ev): dynamic {
     return static::get()[113]($ev);
   }
-  public static function setTimeout(dynamic $callback, dynamic $d) {
+  public static function setTimeout(dynamic $callback, dynamic $d): dynamic {
     return static::get()[115]($callback, $d);
   }
-  public static function clearTimeout(dynamic $id) {
+  public static function clearTimeout(dynamic $id): dynamic {
     return static::get()[116]($id);
   }
-  public static function js_array_of_collection(dynamic $c) {
+  public static function js_array_of_collection(dynamic $c): dynamic {
     return static::get()[117]($c);
   }
-  public static function requestAnimationFrame() {
+  public static function requestAnimationFrame(): dynamic {
     return static::get()[118]();
   }
-  public static function onIE() {
+  public static function onIE(): dynamic {
     return static::get()[120]();
   }
-  public static function hasPushState(dynamic $param) {
+  public static function hasPushState(dynamic $param): dynamic {
     return static::get()[121]($param);
   }
-  public static function hasPlaceholder(dynamic $param) {
+  public static function hasPlaceholder(dynamic $param): dynamic {
     return static::get()[122]($param);
   }
-  public static function hasRequired(dynamic $param) {
+  public static function hasRequired(dynamic $param): dynamic {
     return static::get()[123]($param);
   }
 

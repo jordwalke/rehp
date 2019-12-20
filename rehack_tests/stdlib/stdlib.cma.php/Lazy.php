@@ -48,28 +48,28 @@ final class Lazy {
      return ($Lazy);
 
   }
-  public static function Undefined() {
+  public static function Undefined(): dynamic {
     return static::get()[1]();
   }
-  public static function force_val() {
+  public static function force_val(): dynamic {
     return static::get()[2]();
   }
-  public static function from_fun(dynamic $f) {
+  public static function from_fun(dynamic $f): dynamic {
     return static::get()[3]($f);
   }
-  public static function from_val(dynamic $v) {
+  public static function from_val(dynamic $v): dynamic {
     return static::get()[4]($v);
   }
-  public static function is_val(dynamic $l) {
+  public static function is_val(dynamic $l): dynamic {
     return static::get()[5]($l);
   }
-  public static function from_fun(dynamic $f) {
+  public static function from_fun(dynamic $f): dynamic {
     return static::get()[6]($f);
   }
-  public static function from_val(dynamic $v) {
+  public static function from_val(dynamic $v): dynamic {
     return static::get()[7]($v);
   }
-  public static function is_val(dynamic $l) {
+  public static function is_val(dynamic $l): dynamic {
     return static::get()[8]($l);
   }
 

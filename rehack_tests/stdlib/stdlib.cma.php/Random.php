@@ -301,40 +301,40 @@ final class Random {
      return ($Random);
 
   }
-  public static function init(dynamic $seed) {
+  public static function init(dynamic $seed): dynamic {
     return static::get()[1]($seed);
   }
-  public static function full_init(dynamic $seed) {
+  public static function full_init(dynamic $seed): dynamic {
     return static::get()[2]($seed);
   }
-  public static function self_init(dynamic $param) {
+  public static function self_init(dynamic $param): dynamic {
     return static::get()[3]($param);
   }
-  public static function bits(dynamic $param) {
+  public static function bits(dynamic $param): dynamic {
     return static::get()[4]($param);
   }
-  public static function int(dynamic $bound) {
+  public static function int(dynamic $bound): dynamic {
     return static::get()[5]($bound);
   }
-  public static function int32(dynamic $bound) {
+  public static function int32(dynamic $bound): dynamic {
     return static::get()[6]($bound);
   }
-  public static function nativeint(dynamic $bound) {
+  public static function nativeint(dynamic $bound): dynamic {
     return static::get()[7]($bound);
   }
-  public static function int64(dynamic $bound) {
+  public static function int64(dynamic $bound): dynamic {
     return static::get()[8]($bound);
   }
-  public static function float(dynamic $scale) {
+  public static function float(dynamic $scale): dynamic {
     return static::get()[9]($scale);
   }
-  public static function bool(dynamic $param) {
+  public static function bool(dynamic $param): dynamic {
     return static::get()[10]($param);
   }
-  public static function get_state(dynamic $param) {
+  public static function get_state(dynamic $param): dynamic {
     return static::get()[12]($param);
   }
-  public static function set_state(dynamic $s) {
+  public static function set_state(dynamic $s): dynamic {
     return static::get()[13]($s);
   }
 

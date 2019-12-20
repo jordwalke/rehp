@@ -66,43 +66,43 @@ final class Int32 {
      return ($Int32);
 
   }
-  public static function zero() {
+  public static function zero(): dynamic {
     return static::get()[1]();
   }
-  public static function one() {
+  public static function one(): dynamic {
     return static::get()[2]();
   }
-  public static function minus_one() {
+  public static function minus_one(): dynamic {
     return static::get()[3]();
   }
-  public static function succ(dynamic $n) {
+  public static function succ(dynamic $n): dynamic {
     return static::get()[4]($n);
   }
-  public static function pred(dynamic $n) {
+  public static function pred(dynamic $n): dynamic {
     return static::get()[5]($n);
   }
-  public static function abs(dynamic $n) {
+  public static function abs(dynamic $n): dynamic {
     return static::get()[6]($n);
   }
-  public static function max_int() {
+  public static function max_int(): dynamic {
     return static::get()[7]();
   }
-  public static function min_int() {
+  public static function min_int(): dynamic {
     return static::get()[8]();
   }
-  public static function lognot(dynamic $n) {
+  public static function lognot(dynamic $n): dynamic {
     return static::get()[9]($n);
   }
-  public static function of_string_opt(dynamic $s) {
+  public static function of_string_opt(dynamic $s): dynamic {
     return static::get()[10]($s);
   }
-  public static function to_string(dynamic $n) {
+  public static function to_string(dynamic $n): dynamic {
     return static::get()[11]($n);
   }
-  public static function compare(dynamic $x, dynamic $y) {
+  public static function compare(dynamic $x, dynamic $y): dynamic {
     return static::get()[12]($x, $y);
   }
-  public static function equal(dynamic $x, dynamic $y) {
+  public static function equal(dynamic $x, dynamic $y): dynamic {
     return static::get()[13]($x, $y);
   }
 

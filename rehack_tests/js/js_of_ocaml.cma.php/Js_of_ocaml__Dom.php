@@ -366,52 +366,52 @@ final class Js_of_ocaml__Dom {
      return ($Js_of_ocaml_Dom);
 
   }
-  public static function DocumentPosition() {
+  public static function DocumentPosition(): dynamic {
     return static::get()[1]();
   }
-  public static function insertBefore(dynamic $p, dynamic $n, dynamic $o) {
+  public static function insertBefore(dynamic $p, dynamic $n, dynamic $o): dynamic {
     return static::get()[2]($p, $n, $o);
   }
-  public static function replaceChild(dynamic $p, dynamic $n, dynamic $o) {
+  public static function replaceChild(dynamic $p, dynamic $n, dynamic $o): dynamic {
     return static::get()[3]($p, $n, $o);
   }
-  public static function removeChild(dynamic $p, dynamic $n) {
+  public static function removeChild(dynamic $p, dynamic $n): dynamic {
     return static::get()[4]($p, $n);
   }
-  public static function appendChild(dynamic $p, dynamic $n) {
+  public static function appendChild(dynamic $p, dynamic $n): dynamic {
     return static::get()[5]($p, $n);
   }
-  public static function list_of_nodeList(dynamic $nodeList) {
+  public static function list_of_nodeList(dynamic $nodeList): dynamic {
     return static::get()[6]($nodeList);
   }
-  public static function nodeType(dynamic $e) {
+  public static function nodeType(dynamic $e): dynamic {
     return static::get()[7]($e);
   }
-  public static function no_handler() {
+  public static function no_handler(): dynamic {
     return static::get()[9]();
   }
-  public static function handler(dynamic $f) {
+  public static function handler(dynamic $f): dynamic {
     return static::get()[10]($f);
   }
-  public static function full_handler(dynamic $f) {
+  public static function full_handler(dynamic $f): dynamic {
     return static::get()[11]($f);
   }
-  public static function invoke_handler(dynamic $f, dynamic $this, dynamic $event) {
+  public static function invoke_handler(dynamic $f, dynamic $this, dynamic $event): dynamic {
     return static::get()[12]($f, $this, $event);
   }
-  public static function eventTarget(dynamic $e) {
+  public static function eventTarget(dynamic $e): dynamic {
     return static::get()[13]($e);
   }
-  public static function Event() {
+  public static function Event(): dynamic {
     return static::get()[14]();
   }
-  public static function addEventListener(dynamic $e, dynamic $typ, dynamic $h, dynamic $capt) {
+  public static function addEventListener(dynamic $e, dynamic $typ, dynamic $h, dynamic $capt): dynamic {
     return static::get()[15]($e, $typ, $h, $capt);
   }
-  public static function removeEventListener(dynamic $id) {
+  public static function removeEventListener(dynamic $id): dynamic {
     return static::get()[16]($id);
   }
-  public static function preventDefault(dynamic $ev) {
+  public static function preventDefault(dynamic $ev): dynamic {
     return static::get()[17]($ev);
   }
 

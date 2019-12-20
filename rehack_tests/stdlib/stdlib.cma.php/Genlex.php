@@ -690,7 +690,7 @@ final class Genlex {
      return ($Genlex);
 
   }
-  public static function make_lexer(dynamic $keywords) {
+  public static function make_lexer(dynamic $keywords): dynamic {
     return static::get()[1]($keywords);
   }
 

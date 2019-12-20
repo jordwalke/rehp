@@ -157,79 +157,79 @@ final class Obj {
      return ($Obj);
 
   }
-  public static function is_block(dynamic $a) {
+  public static function is_block(dynamic $a): dynamic {
     return static::get()[1]($a);
   }
-  public static function double_field(dynamic $x, dynamic $i) {
+  public static function double_field(dynamic $x, dynamic $i): dynamic {
     return static::get()[2]($x, $i);
   }
-  public static function set_double_field(dynamic $x, dynamic $i, dynamic $v) {
+  public static function set_double_field(dynamic $x, dynamic $i, dynamic $v): dynamic {
     return static::get()[3]($x, $i, $v);
   }
-  public static function first_non_constant_constructor_tag() {
+  public static function first_non_constant_constructor_tag(): dynamic {
     return static::get()[4]();
   }
-  public static function last_non_constant_constructor_tag() {
+  public static function last_non_constant_constructor_tag(): dynamic {
     return static::get()[5]();
   }
-  public static function lazy_tag() {
+  public static function lazy_tag(): dynamic {
     return static::get()[6]();
   }
-  public static function closure_tag() {
+  public static function closure_tag(): dynamic {
     return static::get()[7]();
   }
-  public static function object_tag() {
+  public static function object_tag(): dynamic {
     return static::get()[8]();
   }
-  public static function infix_tag() {
+  public static function infix_tag(): dynamic {
     return static::get()[9]();
   }
-  public static function forward_tag() {
+  public static function forward_tag(): dynamic {
     return static::get()[10]();
   }
-  public static function no_scan_tag() {
+  public static function no_scan_tag(): dynamic {
     return static::get()[11]();
   }
-  public static function abstract_tag() {
+  public static function abstract_tag(): dynamic {
     return static::get()[12]();
   }
-  public static function string_tag() {
+  public static function string_tag(): dynamic {
     return static::get()[13]();
   }
-  public static function double_tag() {
+  public static function double_tag(): dynamic {
     return static::get()[14]();
   }
-  public static function double_array_tag() {
+  public static function double_array_tag(): dynamic {
     return static::get()[15]();
   }
-  public static function custom_tag() {
+  public static function custom_tag(): dynamic {
     return static::get()[16]();
   }
-  public static function custom_tag() {
+  public static function custom_tag(): dynamic {
     return static::get()[17]();
   }
-  public static function int_tag() {
+  public static function int_tag(): dynamic {
     return static::get()[18]();
   }
-  public static function out_of_heap_tag() {
+  public static function out_of_heap_tag(): dynamic {
     return static::get()[19]();
   }
-  public static function unaligned_tag() {
+  public static function unaligned_tag(): dynamic {
     return static::get()[20]();
   }
-  public static function extension_constructor(dynamic $x) {
+  public static function extension_constructor(dynamic $x): dynamic {
     return static::get()[21]($x);
   }
-  public static function extension_name(dynamic $slot) {
+  public static function extension_name(dynamic $slot): dynamic {
     return static::get()[22]($slot);
   }
-  public static function extension_id(dynamic $slot) {
+  public static function extension_id(dynamic $slot): dynamic {
     return static::get()[23]($slot);
   }
-  public static function marshal(dynamic $obj) {
+  public static function marshal(dynamic $obj): dynamic {
     return static::get()[24]($obj);
   }
-  public static function unmarshal(dynamic $str, dynamic $pos) {
+  public static function unmarshal(dynamic $str, dynamic $pos): dynamic {
     return static::get()[25]($str, $pos);
   }
 

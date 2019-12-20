@@ -77,88 +77,88 @@ final class ArrayLabels {
      return ($ArrayLabels);
 
   }
-  public static function init() {
+  public static function init(): dynamic {
     return static::get()[1]();
   }
-  public static function make_matrix() {
+  public static function make_matrix(): dynamic {
     return static::get()[2]();
   }
-  public static function create_matrix() {
+  public static function create_matrix(): dynamic {
     return static::get()[3]();
   }
-  public static function append() {
+  public static function append(): dynamic {
     return static::get()[4]();
   }
-  public static function concat() {
+  public static function concat(): dynamic {
     return static::get()[5]();
   }
-  public static function sub() {
+  public static function sub(): dynamic {
     return static::get()[6]();
   }
-  public static function copy() {
+  public static function copy(): dynamic {
     return static::get()[7]();
   }
-  public static function fill() {
+  public static function fill(): dynamic {
     return static::get()[8]();
   }
-  public static function blit() {
+  public static function blit(): dynamic {
     return static::get()[9]();
   }
-  public static function to_list() {
+  public static function to_list(): dynamic {
     return static::get()[10]();
   }
-  public static function of_list() {
+  public static function of_list(): dynamic {
     return static::get()[11]();
   }
-  public static function iter() {
+  public static function iter(): dynamic {
     return static::get()[12]();
   }
-  public static function map() {
+  public static function map(): dynamic {
     return static::get()[13]();
   }
-  public static function iteri() {
+  public static function iteri(): dynamic {
     return static::get()[14]();
   }
-  public static function mapi() {
+  public static function mapi(): dynamic {
     return static::get()[15]();
   }
-  public static function fold_left() {
+  public static function fold_left(): dynamic {
     return static::get()[16]();
   }
-  public static function fold_right() {
+  public static function fold_right(): dynamic {
     return static::get()[17]();
   }
-  public static function iter2() {
+  public static function iter2(): dynamic {
     return static::get()[18]();
   }
-  public static function map2() {
+  public static function map2(): dynamic {
     return static::get()[19]();
   }
-  public static function exists() {
+  public static function exists(): dynamic {
     return static::get()[20]();
   }
-  public static function for_all() {
+  public static function for_all(): dynamic {
     return static::get()[21]();
   }
-  public static function mem() {
+  public static function mem(): dynamic {
     return static::get()[22]();
   }
-  public static function memq() {
+  public static function memq(): dynamic {
     return static::get()[23]();
   }
-  public static function make_float() {
+  public static function make_float(): dynamic {
     return static::get()[24]();
   }
-  public static function sort() {
+  public static function sort(): dynamic {
     return static::get()[25]();
   }
-  public static function stable_sort() {
+  public static function stable_sort(): dynamic {
     return static::get()[26]();
   }
-  public static function fast_sort() {
+  public static function fast_sort(): dynamic {
     return static::get()[27]();
   }
-  public static function Floatarray() {
+  public static function Floatarray(): dynamic {
     return static::get()[28]();
   }
 

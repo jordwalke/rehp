@@ -198,22 +198,22 @@ final class Js_of_ocaml__File {
      return ($Js_of_ocaml_File);
 
   }
-  public static function blob_from_string(dynamic $contentType, dynamic $endings, dynamic $s) {
+  public static function blob_from_string(dynamic $contentType, dynamic $endings, dynamic $s): dynamic {
     return static::get()[1]($contentType, $endings, $s);
   }
-  public static function blob_from_any(dynamic $contentType, dynamic $endings, dynamic $l) {
+  public static function blob_from_any(dynamic $contentType, dynamic $endings, dynamic $l): dynamic {
     return static::get()[2]($contentType, $endings, $l);
   }
-  public static function ReaderEvent() {
+  public static function ReaderEvent(): dynamic {
     return static::get()[4]();
   }
-  public static function filename(dynamic $file) {
+  public static function filename(dynamic $file): dynamic {
     return static::get()[5]($file);
   }
-  public static function fileReader() {
+  public static function fileReader(): dynamic {
     return static::get()[6]();
   }
-  public static function addEventListener() {
+  public static function addEventListener(): dynamic {
     return static::get()[7]();
   }
 

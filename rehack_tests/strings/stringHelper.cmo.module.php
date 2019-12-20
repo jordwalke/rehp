@@ -19,7 +19,7 @@ final class StringHelper {
      return ($StringHelper);
 
   }
-  public static function helperVal() {
+  public static function helperVal(): dynamic {
     return static::get()[1]();
   }
 

@@ -249,49 +249,49 @@ final class Parsing {
      return ($Parsing);
 
   }
-  public static function symbol_start(dynamic $param) {
+  public static function symbol_start(dynamic $param): dynamic {
     return static::get()[1]($param);
   }
-  public static function symbol_end(dynamic $param) {
+  public static function symbol_end(dynamic $param): dynamic {
     return static::get()[2]($param);
   }
-  public static function rhs_start(dynamic $n) {
+  public static function rhs_start(dynamic $n): dynamic {
     return static::get()[3]($n);
   }
-  public static function rhs_end(dynamic $n) {
+  public static function rhs_end(dynamic $n): dynamic {
     return static::get()[4]($n);
   }
-  public static function symbol_start_pos(dynamic $param) {
+  public static function symbol_start_pos(dynamic $param): dynamic {
     return static::get()[5]($param);
   }
-  public static function symbol_end_pos(dynamic $param) {
+  public static function symbol_end_pos(dynamic $param): dynamic {
     return static::get()[6]($param);
   }
-  public static function rhs_start_pos(dynamic $n) {
+  public static function rhs_start_pos(dynamic $n): dynamic {
     return static::get()[7]($n);
   }
-  public static function rhs_end_pos(dynamic $n) {
+  public static function rhs_end_pos(dynamic $n): dynamic {
     return static::get()[8]($n);
   }
-  public static function clear_parser(dynamic $param) {
+  public static function clear_parser(dynamic $param): dynamic {
     return static::get()[9]($param);
   }
-  public static function Parse_error() {
+  public static function Parse_error(): dynamic {
     return static::get()[10]();
   }
-  public static function YYexit() {
+  public static function YYexit(): dynamic {
     return static::get()[12]();
   }
-  public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) {
+  public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf): dynamic {
     return static::get()[13]($tables, $start, $lexer, $lexbuf);
   }
-  public static function peek_val(dynamic $env, dynamic $n) {
+  public static function peek_val(dynamic $env, dynamic $n): dynamic {
     return static::get()[14]($env, $n);
   }
-  public static function is_current_lookahead(dynamic $tok) {
+  public static function is_current_lookahead(dynamic $tok): dynamic {
     return static::get()[15]($tok);
   }
-  public static function parse_error(dynamic $param) {
+  public static function parse_error(dynamic $param): dynamic {
     return static::get()[16]($param);
   }
 

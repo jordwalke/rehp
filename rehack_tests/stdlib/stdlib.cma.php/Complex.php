@@ -123,58 +123,58 @@ final class Complex {
      return ($Complex);
 
   }
-  public static function zero() {
+  public static function zero(): dynamic {
     return static::get()[1]();
   }
-  public static function one() {
+  public static function one(): dynamic {
     return static::get()[2]();
   }
-  public static function i() {
+  public static function i(): dynamic {
     return static::get()[3]();
   }
-  public static function neg(dynamic $x) {
+  public static function neg(dynamic $x): dynamic {
     return static::get()[4]($x);
   }
-  public static function conj(dynamic $x) {
+  public static function conj(dynamic $x): dynamic {
     return static::get()[5]($x);
   }
-  public static function add(dynamic $x, dynamic $y) {
+  public static function add(dynamic $x, dynamic $y): dynamic {
     return static::get()[6]($x, $y);
   }
-  public static function sub(dynamic $x, dynamic $y) {
+  public static function sub(dynamic $x, dynamic $y): dynamic {
     return static::get()[7]($x, $y);
   }
-  public static function mul(dynamic $x, dynamic $y) {
+  public static function mul(dynamic $x, dynamic $y): dynamic {
     return static::get()[8]($x, $y);
   }
-  public static function inv(dynamic $x) {
+  public static function inv(dynamic $x): dynamic {
     return static::get()[9]($x);
   }
-  public static function div(dynamic $x, dynamic $y) {
+  public static function div(dynamic $x, dynamic $y): dynamic {
     return static::get()[10]($x, $y);
   }
-  public static function sqrt(dynamic $x) {
+  public static function sqrt(dynamic $x): dynamic {
     return static::get()[11]($x);
   }
-  public static function norm2(dynamic $x) {
+  public static function norm2(dynamic $x): dynamic {
     return static::get()[12]($x);
   }
-  public static function norm(dynamic $x) {
+  public static function norm(dynamic $x): dynamic {
     return static::get()[13]($x);
   }
-  public static function arg(dynamic $x) {
+  public static function arg(dynamic $x): dynamic {
     return static::get()[14]($x);
   }
-  public static function polar(dynamic $n, dynamic $a) {
+  public static function polar(dynamic $n, dynamic $a): dynamic {
     return static::get()[15]($n, $a);
   }
-  public static function exp(dynamic $x) {
+  public static function exp(dynamic $x): dynamic {
     return static::get()[16]($x);
   }
-  public static function log(dynamic $x) {
+  public static function log(dynamic $x): dynamic {
     return static::get()[17]($x);
   }
-  public static function pow(dynamic $x, dynamic $y) {
+  public static function pow(dynamic $x, dynamic $y): dynamic {
     return static::get()[18]($x, $y);
   }
 

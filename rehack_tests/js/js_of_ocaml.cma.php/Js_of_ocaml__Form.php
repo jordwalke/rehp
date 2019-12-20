@@ -499,25 +499,25 @@ final class Js_of_ocaml__Form {
      return ($Js_of_ocaml_Form);
 
   }
-  public static function formData() {
+  public static function formData(): dynamic {
     return static::get()[1]();
   }
-  public static function formData_form() {
+  public static function formData_form(): dynamic {
     return static::get()[2]();
   }
-  public static function append(dynamic $form_contents, dynamic $form_elt) {
+  public static function append(dynamic $form_contents, dynamic $form_elt): dynamic {
     return static::get()[3]($form_contents, $form_elt);
   }
-  public static function post_form_contents(dynamic $form) {
+  public static function post_form_contents(dynamic $form): dynamic {
     return static::get()[4]($form);
   }
-  public static function get_form_contents(dynamic $form) {
+  public static function get_form_contents(dynamic $form): dynamic {
     return static::get()[5]($form);
   }
-  public static function empty_form_contents(dynamic $param) {
+  public static function empty_form_contents(dynamic $param): dynamic {
     return static::get()[6]($param);
   }
-  public static function form_elements(dynamic $get, dynamic $form) {
+  public static function form_elements(dynamic $get, dynamic $form): dynamic {
     return static::get()[7]($get, $form);
   }
 

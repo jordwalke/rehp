@@ -145,49 +145,49 @@ final class Queue {
      return ($Queue);
 
   }
-  public static function Empty() {
+  public static function Empty(): dynamic {
     return static::get()[1]();
   }
-  public static function create(dynamic $param) {
+  public static function create(dynamic $param): dynamic {
     return static::get()[2]($param);
   }
-  public static function add(dynamic $x, dynamic $q) {
+  public static function add(dynamic $x, dynamic $q): dynamic {
     return static::get()[3]($x, $q);
   }
-  public static function add(dynamic $x, dynamic $q) {
+  public static function add(dynamic $x, dynamic $q): dynamic {
     return static::get()[4]($x, $q);
   }
-  public static function take(dynamic $q) {
+  public static function take(dynamic $q): dynamic {
     return static::get()[5]($q);
   }
-  public static function take(dynamic $q) {
+  public static function take(dynamic $q): dynamic {
     return static::get()[6]($q);
   }
-  public static function peek(dynamic $q) {
+  public static function peek(dynamic $q): dynamic {
     return static::get()[7]($q);
   }
-  public static function peek(dynamic $q) {
+  public static function peek(dynamic $q): dynamic {
     return static::get()[8]($q);
   }
-  public static function clear(dynamic $q) {
+  public static function clear(dynamic $q): dynamic {
     return static::get()[9]($q);
   }
-  public static function copy(dynamic $q) {
+  public static function copy(dynamic $q): dynamic {
     return static::get()[10]($q);
   }
-  public static function is_empty(dynamic $q) {
+  public static function is_empty(dynamic $q): dynamic {
     return static::get()[11]($q);
   }
-  public static function length(dynamic $q) {
+  public static function length(dynamic $q): dynamic {
     return static::get()[12]($q);
   }
-  public static function iter(dynamic $f, dynamic $q) {
+  public static function iter(dynamic $f, dynamic $q): dynamic {
     return static::get()[13]($f, $q);
   }
-  public static function fold(dynamic $f, dynamic $accu, dynamic $q) {
+  public static function fold(dynamic $f, dynamic $accu, dynamic $q): dynamic {
     return static::get()[14]($f, $accu, $q);
   }
-  public static function transfer(dynamic $q1, dynamic $q2) {
+  public static function transfer(dynamic $q1, dynamic $q2): dynamic {
     return static::get()[15]($q1, $q2);
   }
 

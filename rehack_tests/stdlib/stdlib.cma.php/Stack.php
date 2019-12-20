@@ -69,37 +69,37 @@ final class Stack {
      return ($Stack);
 
   }
-  public static function Empty() {
+  public static function Empty(): dynamic {
     return static::get()[1]();
   }
-  public static function create(dynamic $param) {
+  public static function create(dynamic $param): dynamic {
     return static::get()[2]($param);
   }
-  public static function push(dynamic $x, dynamic $s) {
+  public static function push(dynamic $x, dynamic $s): dynamic {
     return static::get()[3]($x, $s);
   }
-  public static function pop(dynamic $s) {
+  public static function pop(dynamic $s): dynamic {
     return static::get()[4]($s);
   }
-  public static function top(dynamic $s) {
+  public static function top(dynamic $s): dynamic {
     return static::get()[5]($s);
   }
-  public static function clear(dynamic $s) {
+  public static function clear(dynamic $s): dynamic {
     return static::get()[6]($s);
   }
-  public static function copy(dynamic $s) {
+  public static function copy(dynamic $s): dynamic {
     return static::get()[7]($s);
   }
-  public static function is_empty(dynamic $s) {
+  public static function is_empty(dynamic $s): dynamic {
     return static::get()[8]($s);
   }
-  public static function length(dynamic $s) {
+  public static function length(dynamic $s): dynamic {
     return static::get()[9]($s);
   }
-  public static function iter(dynamic $f, dynamic $s) {
+  public static function iter(dynamic $f, dynamic $s): dynamic {
     return static::get()[10]($f, $s);
   }
-  public static function fold(dynamic $f, dynamic $acc, dynamic $s) {
+  public static function fold(dynamic $f, dynamic $acc, dynamic $s): dynamic {
     return static::get()[11]($f, $acc, $s);
   }
 

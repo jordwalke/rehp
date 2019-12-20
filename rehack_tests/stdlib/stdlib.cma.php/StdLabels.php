@@ -18,16 +18,16 @@ final class StdLabels {
      return ($StdLabels);
 
   }
-  public static function Array() {
+  public static function Array(): dynamic {
     return static::get()[1]();
   }
-  public static function Bytes() {
+  public static function Bytes(): dynamic {
     return static::get()[2]();
   }
-  public static function List() {
+  public static function List(): dynamic {
     return static::get()[3]();
   }
-  public static function String() {
+  public static function String(): dynamic {
     return static::get()[4]();
   }
 

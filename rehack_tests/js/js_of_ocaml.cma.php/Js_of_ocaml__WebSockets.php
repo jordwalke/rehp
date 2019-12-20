@@ -37,16 +37,16 @@ final class Js_of_ocaml__WebSockets {
      return ($Js_of_ocaml_WebSockets);
 
   }
-  public static function webSocket() {
+  public static function webSocket(): dynamic {
     return static::get()[1]();
   }
-  public static function webSocket() {
+  public static function webSocket(): dynamic {
     return static::get()[2]();
   }
-  public static function webSocket() {
+  public static function webSocket(): dynamic {
     return static::get()[3]();
   }
-  public static function is_supported(dynamic $param) {
+  public static function is_supported(dynamic $param): dynamic {
     return static::get()[4]($param);
   }
 

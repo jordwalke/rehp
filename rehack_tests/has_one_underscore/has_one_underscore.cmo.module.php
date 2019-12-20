@@ -42,7 +42,7 @@ final class Has_one_underscore {
      return ($Has_one_underscore);
 
   }
-  public static function hasOneUnderscore(dynamic $id_or_token) {
+  public static function hasOneUnderscore(dynamic $id_or_token): dynamic {
     return static::get()[1]($id_or_token);
   }
 

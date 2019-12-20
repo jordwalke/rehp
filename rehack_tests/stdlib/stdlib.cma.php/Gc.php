@@ -212,16 +212,16 @@ final class Gc {
      return ($Gc);
 
   }
-  public static function print_stat(dynamic $c) {
+  public static function print_stat(dynamic $c): dynamic {
     return static::get()[1]($c);
   }
-  public static function allocated_bytes(dynamic $param) {
+  public static function allocated_bytes(dynamic $param): dynamic {
     return static::get()[2]($param);
   }
-  public static function create_alarm(dynamic $f) {
+  public static function create_alarm(dynamic $f): dynamic {
     return static::get()[6]($f);
   }
-  public static function delete_alarm(dynamic $a) {
+  public static function delete_alarm(dynamic $a): dynamic {
     return static::get()[7]($a);
   }
 

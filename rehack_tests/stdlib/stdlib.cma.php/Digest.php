@@ -149,37 +149,37 @@ final class Digest {
      return ($Digest);
 
   }
-  public static function compare() {
+  public static function compare(): dynamic {
     return static::get()[1]();
   }
-  public static function equal() {
+  public static function equal(): dynamic {
     return static::get()[2]();
   }
-  public static function string(dynamic $str) {
+  public static function string(dynamic $str): dynamic {
     return static::get()[3]($str);
   }
-  public static function bytes(dynamic $b) {
+  public static function bytes(dynamic $b): dynamic {
     return static::get()[4]($b);
   }
-  public static function substring(dynamic $str, dynamic $ofs, dynamic $len) {
+  public static function substring(dynamic $str, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[5]($str, $ofs, $len);
   }
-  public static function subbytes(dynamic $b, dynamic $ofs, dynamic $len) {
+  public static function subbytes(dynamic $b, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[6]($b, $ofs, $len);
   }
-  public static function file(dynamic $filename) {
+  public static function file(dynamic $filename): dynamic {
     return static::get()[7]($filename);
   }
-  public static function output(dynamic $chan, dynamic $digest) {
+  public static function output(dynamic $chan, dynamic $digest): dynamic {
     return static::get()[8]($chan, $digest);
   }
-  public static function input(dynamic $chan) {
+  public static function input(dynamic $chan): dynamic {
     return static::get()[9]($chan);
   }
-  public static function to_hex(dynamic $d) {
+  public static function to_hex(dynamic $d): dynamic {
     return static::get()[10]($d);
   }
-  public static function from_hex(dynamic $s) {
+  public static function from_hex(dynamic $s): dynamic {
     return static::get()[11]($s);
   }
 

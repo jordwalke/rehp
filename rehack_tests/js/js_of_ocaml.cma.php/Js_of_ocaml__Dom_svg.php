@@ -563,184 +563,184 @@ final class Js_of_ocaml__Dom_svg {
      return ($Js_of_ocaml_Dom_svg);
 
   }
-  public static function xmlns() {
+  public static function xmlns(): dynamic {
     return static::get()[1]();
   }
-  public static function SVGError() {
+  public static function SVGError(): dynamic {
     return static::get()[2]();
   }
-  public static function createElement(dynamic $doc, dynamic $name) {
+  public static function createElement(dynamic $doc, dynamic $name): dynamic {
     return static::get()[3]($doc, $name);
   }
-  public static function createA(dynamic $doc) {
+  public static function createA(dynamic $doc): dynamic {
     return static::get()[4]($doc);
   }
-  public static function createAltGlyph(dynamic $doc) {
+  public static function createAltGlyph(dynamic $doc): dynamic {
     return static::get()[5]($doc);
   }
-  public static function createAltGlyphDef(dynamic $doc) {
+  public static function createAltGlyphDef(dynamic $doc): dynamic {
     return static::get()[6]($doc);
   }
-  public static function createAltGlyphItem(dynamic $doc) {
+  public static function createAltGlyphItem(dynamic $doc): dynamic {
     return static::get()[7]($doc);
   }
-  public static function createAnimate(dynamic $doc) {
+  public static function createAnimate(dynamic $doc): dynamic {
     return static::get()[8]($doc);
   }
-  public static function createAnimateColor(dynamic $doc) {
+  public static function createAnimateColor(dynamic $doc): dynamic {
     return static::get()[9]($doc);
   }
-  public static function createAnimateMotion(dynamic $doc) {
+  public static function createAnimateMotion(dynamic $doc): dynamic {
     return static::get()[10]($doc);
   }
-  public static function createAnimateTransform(dynamic $doc) {
+  public static function createAnimateTransform(dynamic $doc): dynamic {
     return static::get()[11]($doc);
   }
-  public static function createCircle(dynamic $doc) {
+  public static function createCircle(dynamic $doc): dynamic {
     return static::get()[12]($doc);
   }
-  public static function createClipPath(dynamic $doc) {
+  public static function createClipPath(dynamic $doc): dynamic {
     return static::get()[13]($doc);
   }
-  public static function createCursor(dynamic $doc) {
+  public static function createCursor(dynamic $doc): dynamic {
     return static::get()[14]($doc);
   }
-  public static function createDefs(dynamic $doc) {
+  public static function createDefs(dynamic $doc): dynamic {
     return static::get()[15]($doc);
   }
-  public static function createDesc(dynamic $doc) {
+  public static function createDesc(dynamic $doc): dynamic {
     return static::get()[16]($doc);
   }
-  public static function createEllipse(dynamic $doc) {
+  public static function createEllipse(dynamic $doc): dynamic {
     return static::get()[17]($doc);
   }
-  public static function createFilter(dynamic $doc) {
+  public static function createFilter(dynamic $doc): dynamic {
     return static::get()[18]($doc);
   }
-  public static function createFont(dynamic $doc) {
+  public static function createFont(dynamic $doc): dynamic {
     return static::get()[19]($doc);
   }
-  public static function createFontFace(dynamic $doc) {
+  public static function createFontFace(dynamic $doc): dynamic {
     return static::get()[20]($doc);
   }
-  public static function createFontFaceFormat(dynamic $doc) {
+  public static function createFontFaceFormat(dynamic $doc): dynamic {
     return static::get()[21]($doc);
   }
-  public static function createFontFaceName(dynamic $doc) {
+  public static function createFontFaceName(dynamic $doc): dynamic {
     return static::get()[22]($doc);
   }
-  public static function createFontFaceSrc(dynamic $doc) {
+  public static function createFontFaceSrc(dynamic $doc): dynamic {
     return static::get()[23]($doc);
   }
-  public static function createFontFaceUri(dynamic $doc) {
+  public static function createFontFaceUri(dynamic $doc): dynamic {
     return static::get()[24]($doc);
   }
-  public static function createForeignObject(dynamic $doc) {
+  public static function createForeignObject(dynamic $doc): dynamic {
     return static::get()[25]($doc);
   }
-  public static function createG(dynamic $doc) {
+  public static function createG(dynamic $doc): dynamic {
     return static::get()[26]($doc);
   }
-  public static function createGlyph(dynamic $doc) {
+  public static function createGlyph(dynamic $doc): dynamic {
     return static::get()[27]($doc);
   }
-  public static function createGlyphRef(dynamic $doc) {
+  public static function createGlyphRef(dynamic $doc): dynamic {
     return static::get()[28]($doc);
   }
-  public static function createhkern(dynamic $doc) {
+  public static function createhkern(dynamic $doc): dynamic {
     return static::get()[29]($doc);
   }
-  public static function createImage(dynamic $doc) {
+  public static function createImage(dynamic $doc): dynamic {
     return static::get()[30]($doc);
   }
-  public static function createLineElement(dynamic $doc) {
+  public static function createLineElement(dynamic $doc): dynamic {
     return static::get()[31]($doc);
   }
-  public static function createLinearElement(dynamic $doc) {
+  public static function createLinearElement(dynamic $doc): dynamic {
     return static::get()[32]($doc);
   }
-  public static function createMask(dynamic $doc) {
+  public static function createMask(dynamic $doc): dynamic {
     return static::get()[33]($doc);
   }
-  public static function createMetaData(dynamic $doc) {
+  public static function createMetaData(dynamic $doc): dynamic {
     return static::get()[34]($doc);
   }
-  public static function createMissingGlyph(dynamic $doc) {
+  public static function createMissingGlyph(dynamic $doc): dynamic {
     return static::get()[35]($doc);
   }
-  public static function createMPath(dynamic $doc) {
+  public static function createMPath(dynamic $doc): dynamic {
     return static::get()[36]($doc);
   }
-  public static function createPath(dynamic $doc) {
+  public static function createPath(dynamic $doc): dynamic {
     return static::get()[37]($doc);
   }
-  public static function createPattern(dynamic $doc) {
+  public static function createPattern(dynamic $doc): dynamic {
     return static::get()[38]($doc);
   }
-  public static function createPolygon(dynamic $doc) {
+  public static function createPolygon(dynamic $doc): dynamic {
     return static::get()[39]($doc);
   }
-  public static function createPolyline(dynamic $doc) {
+  public static function createPolyline(dynamic $doc): dynamic {
     return static::get()[40]($doc);
   }
-  public static function createRadialgradient(dynamic $doc) {
+  public static function createRadialgradient(dynamic $doc): dynamic {
     return static::get()[41]($doc);
   }
-  public static function createRect(dynamic $doc) {
+  public static function createRect(dynamic $doc): dynamic {
     return static::get()[42]($doc);
   }
-  public static function createScript(dynamic $doc) {
+  public static function createScript(dynamic $doc): dynamic {
     return static::get()[43]($doc);
   }
-  public static function createSet(dynamic $doc) {
+  public static function createSet(dynamic $doc): dynamic {
     return static::get()[44]($doc);
   }
-  public static function createStop(dynamic $doc) {
+  public static function createStop(dynamic $doc): dynamic {
     return static::get()[45]($doc);
   }
-  public static function createStyle(dynamic $doc) {
+  public static function createStyle(dynamic $doc): dynamic {
     return static::get()[46]($doc);
   }
-  public static function createSvg(dynamic $doc) {
+  public static function createSvg(dynamic $doc): dynamic {
     return static::get()[47]($doc);
   }
-  public static function createSwitch(dynamic $doc) {
+  public static function createSwitch(dynamic $doc): dynamic {
     return static::get()[48]($doc);
   }
-  public static function createSymbol(dynamic $doc) {
+  public static function createSymbol(dynamic $doc): dynamic {
     return static::get()[49]($doc);
   }
-  public static function createTextElement(dynamic $doc) {
+  public static function createTextElement(dynamic $doc): dynamic {
     return static::get()[50]($doc);
   }
-  public static function createTextpath(dynamic $doc) {
+  public static function createTextpath(dynamic $doc): dynamic {
     return static::get()[51]($doc);
   }
-  public static function createTitle(dynamic $doc) {
+  public static function createTitle(dynamic $doc): dynamic {
     return static::get()[52]($doc);
   }
-  public static function createTref(dynamic $doc) {
+  public static function createTref(dynamic $doc): dynamic {
     return static::get()[53]($doc);
   }
-  public static function createTspan(dynamic $doc) {
+  public static function createTspan(dynamic $doc): dynamic {
     return static::get()[54]($doc);
   }
-  public static function createUse(dynamic $doc) {
+  public static function createUse(dynamic $doc): dynamic {
     return static::get()[55]($doc);
   }
-  public static function createView(dynamic $doc) {
+  public static function createView(dynamic $doc): dynamic {
     return static::get()[56]($doc);
   }
-  public static function createvkern(dynamic $doc) {
+  public static function createvkern(dynamic $doc): dynamic {
     return static::get()[57]($doc);
   }
-  public static function svg_element() {
+  public static function svg_element(): dynamic {
     return static::get()[58]();
   }
-  public static function document() {
+  public static function document(): dynamic {
     return static::get()[59]();
   }
-  public static function getElementById(dynamic $id) {
+  public static function getElementById(dynamic $id): dynamic {
     return static::get()[60]($id);
   }
 

@@ -107,133 +107,133 @@ final class BytesLabels {
      return ($BytesLabels);
 
   }
-  public static function make() {
+  public static function make(): dynamic {
     return static::get()[1]();
   }
-  public static function init() {
+  public static function init(): dynamic {
     return static::get()[2]();
   }
-  public static function empty() {
+  public static function empty(): dynamic {
     return static::get()[3]();
   }
-  public static function copy() {
+  public static function copy(): dynamic {
     return static::get()[4]();
   }
-  public static function of_string() {
+  public static function of_string(): dynamic {
     return static::get()[5]();
   }
-  public static function to_string() {
+  public static function to_string(): dynamic {
     return static::get()[6]();
   }
-  public static function sub() {
+  public static function sub(): dynamic {
     return static::get()[7]();
   }
-  public static function sub_string() {
+  public static function sub_string(): dynamic {
     return static::get()[8]();
   }
-  public static function extend() {
+  public static function extend(): dynamic {
     return static::get()[9]();
   }
-  public static function fill() {
+  public static function fill(): dynamic {
     return static::get()[10]();
   }
-  public static function blit() {
+  public static function blit(): dynamic {
     return static::get()[11]();
   }
-  public static function blit_string() {
+  public static function blit_string(): dynamic {
     return static::get()[12]();
   }
-  public static function concat() {
+  public static function concat(): dynamic {
     return static::get()[13]();
   }
-  public static function cat() {
+  public static function cat(): dynamic {
     return static::get()[14]();
   }
-  public static function iter() {
+  public static function iter(): dynamic {
     return static::get()[15]();
   }
-  public static function iteri() {
+  public static function iteri(): dynamic {
     return static::get()[16]();
   }
-  public static function map() {
+  public static function map(): dynamic {
     return static::get()[17]();
   }
-  public static function mapi() {
+  public static function mapi(): dynamic {
     return static::get()[18]();
   }
-  public static function trim() {
+  public static function trim(): dynamic {
     return static::get()[19]();
   }
-  public static function escaped() {
+  public static function escaped(): dynamic {
     return static::get()[20]();
   }
-  public static function index() {
+  public static function index(): dynamic {
     return static::get()[21]();
   }
-  public static function index_opt() {
+  public static function index_opt(): dynamic {
     return static::get()[22]();
   }
-  public static function rindex() {
+  public static function rindex(): dynamic {
     return static::get()[23]();
   }
-  public static function rindex_opt() {
+  public static function rindex_opt(): dynamic {
     return static::get()[24]();
   }
-  public static function index_from() {
+  public static function index_from(): dynamic {
     return static::get()[25]();
   }
-  public static function index_from_opt() {
+  public static function index_from_opt(): dynamic {
     return static::get()[26]();
   }
-  public static function rindex_from() {
+  public static function rindex_from(): dynamic {
     return static::get()[27]();
   }
-  public static function rindex_from_opt() {
+  public static function rindex_from_opt(): dynamic {
     return static::get()[28]();
   }
-  public static function contains() {
+  public static function contains(): dynamic {
     return static::get()[29]();
   }
-  public static function contains_from() {
+  public static function contains_from(): dynamic {
     return static::get()[30]();
   }
-  public static function rcontains_from() {
+  public static function rcontains_from(): dynamic {
     return static::get()[31]();
   }
-  public static function uppercase() {
+  public static function uppercase(): dynamic {
     return static::get()[32]();
   }
-  public static function lowercase() {
+  public static function lowercase(): dynamic {
     return static::get()[33]();
   }
-  public static function capitalize() {
+  public static function capitalize(): dynamic {
     return static::get()[34]();
   }
-  public static function uncapitalize() {
+  public static function uncapitalize(): dynamic {
     return static::get()[35]();
   }
-  public static function uppercase_ascii() {
+  public static function uppercase_ascii(): dynamic {
     return static::get()[36]();
   }
-  public static function lowercase_ascii() {
+  public static function lowercase_ascii(): dynamic {
     return static::get()[37]();
   }
-  public static function capitalize_ascii() {
+  public static function capitalize_ascii(): dynamic {
     return static::get()[38]();
   }
-  public static function uncapitalize_ascii() {
+  public static function uncapitalize_ascii(): dynamic {
     return static::get()[39]();
   }
-  public static function compare() {
+  public static function compare(): dynamic {
     return static::get()[40]();
   }
-  public static function equal() {
+  public static function equal(): dynamic {
     return static::get()[41]();
   }
-  public static function unsafe_to_string() {
+  public static function unsafe_to_string(): dynamic {
     return static::get()[42]();
   }
-  public static function unsafe_of_string() {
+  public static function unsafe_of_string(): dynamic {
     return static::get()[43]();
   }
 

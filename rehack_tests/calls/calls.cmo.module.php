@@ -104,25 +104,25 @@ final class Calls {
      return ($Calls);
 
   }
-  public static function foo() {
+  public static function foo(): dynamic {
     return static::get()[1]();
   }
-  public static function bar() {
+  public static function bar(): dynamic {
     return static::get()[2]();
   }
-  public static function baz() {
+  public static function baz(): dynamic {
     return static::get()[3]();
   }
-  public static function testFunctionCalls(dynamic $o) {
+  public static function testFunctionCalls(dynamic $o): dynamic {
     return static::get()[4]($o);
   }
-  public static function testMethodCalls(dynamic $o) {
+  public static function testMethodCalls(dynamic $o): dynamic {
     return static::get()[5]($o);
   }
-  public static function testPartialFunctionCalls(dynamic $s) {
+  public static function testPartialFunctionCalls(dynamic $s): dynamic {
     return static::get()[6]($s);
   }
-  public static function testPartialMethodCalls(dynamic $o) {
+  public static function testPartialMethodCalls(dynamic $o): dynamic {
     return static::get()[7]($o);
   }
 

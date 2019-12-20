@@ -117,49 +117,49 @@ final class Uchar {
      return ($Uchar);
 
   }
-  public static function min() {
+  public static function min(): dynamic {
     return static::get()[1]();
   }
-  public static function max() {
+  public static function max(): dynamic {
     return static::get()[2]();
   }
-  public static function bom() {
+  public static function bom(): dynamic {
     return static::get()[3]();
   }
-  public static function rep() {
+  public static function rep(): dynamic {
     return static::get()[4]();
   }
-  public static function succ(dynamic $u) {
+  public static function succ(dynamic $u): dynamic {
     return static::get()[5]($u);
   }
-  public static function pred(dynamic $u) {
+  public static function pred(dynamic $u): dynamic {
     return static::get()[6]($u);
   }
-  public static function is_valid(dynamic $i) {
+  public static function is_valid(dynamic $i): dynamic {
     return static::get()[7]($i);
   }
-  public static function of_int(dynamic $i) {
+  public static function of_int(dynamic $i): dynamic {
     return static::get()[8]($i);
   }
-  public static function is_char(dynamic $u) {
+  public static function is_char(dynamic $u): dynamic {
     return static::get()[11]($u);
   }
-  public static function of_char(dynamic $c) {
+  public static function of_char(dynamic $c): dynamic {
     return static::get()[12]($c);
   }
-  public static function to_char(dynamic $u) {
+  public static function to_char(dynamic $u): dynamic {
     return static::get()[13]($u);
   }
-  public static function unsafe_to_char(dynamic $unnamed1) {
+  public static function unsafe_to_char(dynamic $unnamed1): dynamic {
     return static::get()[14]($unnamed1);
   }
-  public static function equal(dynamic $unnamed1, dynamic $unnamed2) {
+  public static function equal(dynamic $unnamed1, dynamic $unnamed2): dynamic {
     return static::get()[15]($unnamed1, $unnamed2);
   }
-  public static function compare(dynamic $unnamed1, dynamic $unnamed2) {
+  public static function compare(dynamic $unnamed1, dynamic $unnamed2): dynamic {
     return static::get()[16]($unnamed1, $unnamed2);
   }
-  public static function hash(dynamic $unnamed1) {
+  public static function hash(dynamic $unnamed1): dynamic {
     return static::get()[17]($unnamed1);
   }
 

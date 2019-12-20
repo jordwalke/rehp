@@ -263,46 +263,46 @@ final class Strings {
      return ($Strings);
 
   }
-  public static function greeting() {
+  public static function greeting(): dynamic {
     return static::get()[1]();
   }
-  public static function unicodeLength() {
+  public static function unicodeLength(): dynamic {
     return static::get()[2]();
   }
-  public static function negativeOne() {
+  public static function negativeOne(): dynamic {
     return static::get()[3]();
   }
-  public static function six() {
+  public static function six(): dynamic {
     return static::get()[4]();
   }
-  public static function index() {
+  public static function index(): dynamic {
     return static::get()[5]();
   }
-  public static function createIntFromString(dynamic $ss) {
+  public static function createIntFromString(dynamic $ss): dynamic {
     return static::get()[6]($ss);
   }
-  public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
+  public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope): dynamic {
     return static::get()[7]($cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope);
   }
-  public static function i() {
+  public static function i(): dynamic {
     return static::get()[8]();
   }
-  public static function myRefCell() {
+  public static function myRefCell(): dynamic {
     return static::get()[9]();
   }
-  public static function myRefCellContents() {
+  public static function myRefCellContents(): dynamic {
     return static::get()[10]();
   }
-  public static function one() {
+  public static function one(): dynamic {
     return static::get()[11]();
   }
-  public static function two() {
+  public static function two(): dynamic {
     return static::get()[12]();
   }
-  public static function n() {
+  public static function n(): dynamic {
     return static::get()[13]();
   }
-  public static function anotherName() {
+  public static function anotherName(): dynamic {
     return static::get()[14]();
   }
 

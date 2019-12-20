@@ -685,124 +685,124 @@ final class Bytes {
      return ($Bytes);
 
   }
-  public static function make(dynamic $n, dynamic $c) {
+  public static function make(dynamic $n, dynamic $c): dynamic {
     return static::get()[1]($n, $c);
   }
-  public static function init(dynamic $n, dynamic $f) {
+  public static function init(dynamic $n, dynamic $f): dynamic {
     return static::get()[2]($n, $f);
   }
-  public static function empty() {
+  public static function empty(): dynamic {
     return static::get()[3]();
   }
-  public static function copy(dynamic $s) {
+  public static function copy(dynamic $s): dynamic {
     return static::get()[4]($s);
   }
-  public static function of_string(dynamic $s) {
+  public static function of_string(dynamic $s): dynamic {
     return static::get()[5]($s);
   }
-  public static function to_string(dynamic $b) {
+  public static function to_string(dynamic $b): dynamic {
     return static::get()[6]($b);
   }
-  public static function sub(dynamic $s, dynamic $ofs, dynamic $len) {
+  public static function sub(dynamic $s, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[7]($s, $ofs, $len);
   }
-  public static function sub_string(dynamic $b, dynamic $ofs, dynamic $len) {
+  public static function sub_string(dynamic $b, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[8]($b, $ofs, $len);
   }
-  public static function extend(dynamic $s, dynamic $left, dynamic $right) {
+  public static function extend(dynamic $s, dynamic $left, dynamic $right): dynamic {
     return static::get()[9]($s, $left, $right);
   }
-  public static function fill(dynamic $s, dynamic $ofs, dynamic $len, dynamic $c) {
+  public static function fill(dynamic $s, dynamic $ofs, dynamic $len, dynamic $c): dynamic {
     return static::get()[10]($s, $ofs, $len, $c);
   }
-  public static function blit(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
+  public static function blit(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len): dynamic {
     return static::get()[11]($s1, $ofs1, $s2, $ofs2, $len);
   }
-  public static function blit_string(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
+  public static function blit_string(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len): dynamic {
     return static::get()[12]($s1, $ofs1, $s2, $ofs2, $len);
   }
-  public static function concat(dynamic $sep, dynamic $l) {
+  public static function concat(dynamic $sep, dynamic $l): dynamic {
     return static::get()[13]($sep, $l);
   }
-  public static function cat(dynamic $s1, dynamic $s2) {
+  public static function cat(dynamic $s1, dynamic $s2): dynamic {
     return static::get()[14]($s1, $s2);
   }
-  public static function iter(dynamic $f, dynamic $a) {
+  public static function iter(dynamic $f, dynamic $a): dynamic {
     return static::get()[15]($f, $a);
   }
-  public static function iteri(dynamic $f, dynamic $a) {
+  public static function iteri(dynamic $f, dynamic $a): dynamic {
     return static::get()[16]($f, $a);
   }
-  public static function map(dynamic $f, dynamic $s) {
+  public static function map(dynamic $f, dynamic $s): dynamic {
     return static::get()[17]($f, $s);
   }
-  public static function mapi(dynamic $f, dynamic $s) {
+  public static function mapi(dynamic $f, dynamic $s): dynamic {
     return static::get()[18]($f, $s);
   }
-  public static function trim(dynamic $s) {
+  public static function trim(dynamic $s): dynamic {
     return static::get()[19]($s);
   }
-  public static function escaped(dynamic $s) {
+  public static function escaped(dynamic $s): dynamic {
     return static::get()[20]($s);
   }
-  public static function index(dynamic $s, dynamic $c) {
+  public static function index(dynamic $s, dynamic $c): dynamic {
     return static::get()[21]($s, $c);
   }
-  public static function index_opt(dynamic $s, dynamic $c) {
+  public static function index_opt(dynamic $s, dynamic $c): dynamic {
     return static::get()[22]($s, $c);
   }
-  public static function rindex(dynamic $s, dynamic $c) {
+  public static function rindex(dynamic $s, dynamic $c): dynamic {
     return static::get()[23]($s, $c);
   }
-  public static function rindex_opt(dynamic $s, dynamic $c) {
+  public static function rindex_opt(dynamic $s, dynamic $c): dynamic {
     return static::get()[24]($s, $c);
   }
-  public static function index_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function index_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[25]($s, $i, $c);
   }
-  public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+  public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[26]($s, $i, $c);
   }
-  public static function rindex_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function rindex_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[27]($s, $i, $c);
   }
-  public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+  public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[28]($s, $i, $c);
   }
-  public static function contains(dynamic $s, dynamic $c) {
+  public static function contains(dynamic $s, dynamic $c): dynamic {
     return static::get()[29]($s, $c);
   }
-  public static function contains_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function contains_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[30]($s, $i, $c);
   }
-  public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[31]($s, $i, $c);
   }
-  public static function uppercase(dynamic $s) {
+  public static function uppercase(dynamic $s): dynamic {
     return static::get()[32]($s);
   }
-  public static function lowercase(dynamic $s) {
+  public static function lowercase(dynamic $s): dynamic {
     return static::get()[33]($s);
   }
-  public static function capitalize(dynamic $s) {
+  public static function capitalize(dynamic $s): dynamic {
     return static::get()[34]($s);
   }
-  public static function uncapitalize(dynamic $s) {
+  public static function uncapitalize(dynamic $s): dynamic {
     return static::get()[35]($s);
   }
-  public static function uppercase_ascii(dynamic $s) {
+  public static function uppercase_ascii(dynamic $s): dynamic {
     return static::get()[36]($s);
   }
-  public static function lowercase_ascii(dynamic $s) {
+  public static function lowercase_ascii(dynamic $s): dynamic {
     return static::get()[37]($s);
   }
-  public static function capitalize_ascii(dynamic $s) {
+  public static function capitalize_ascii(dynamic $s): dynamic {
     return static::get()[38]($s);
   }
-  public static function uncapitalize_ascii(dynamic $s) {
+  public static function uncapitalize_ascii(dynamic $s): dynamic {
     return static::get()[39]($s);
   }
-  public static function compare(dynamic $x, dynamic $y) {
+  public static function compare(dynamic $x, dynamic $y): dynamic {
     return static::get()[40]($x, $y);
   }
 

@@ -54,10 +54,10 @@ final class Js_of_ocaml__Json {
      return ($Js_of_ocaml_Json);
 
   }
-  public static function output(dynamic $obj) {
+  public static function output(dynamic $obj): dynamic {
     return static::get()[1]($obj);
   }
-  public static function unsafe_input(dynamic $s) {
+  public static function unsafe_input(dynamic $s): dynamic {
     return static::get()[2]($s);
   }
 

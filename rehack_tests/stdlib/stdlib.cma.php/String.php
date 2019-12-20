@@ -466,106 +466,106 @@ final class String_ {
      return ($String);
 
   }
-  public static function make(dynamic $n, dynamic $c) {
+  public static function make(dynamic $n, dynamic $c): dynamic {
     return static::get()[1]($n, $c);
   }
-  public static function init(dynamic $n, dynamic $f) {
+  public static function init(dynamic $n, dynamic $f): dynamic {
     return static::get()[2]($n, $f);
   }
-  public static function copy(dynamic $s) {
+  public static function copy(dynamic $s): dynamic {
     return static::get()[3]($s);
   }
-  public static function sub(dynamic $s, dynamic $ofs, dynamic $len) {
+  public static function sub(dynamic $s, dynamic $ofs, dynamic $len): dynamic {
     return static::get()[4]($s, $ofs, $len);
   }
-  public static function fill() {
+  public static function fill(): dynamic {
     return static::get()[5]();
   }
-  public static function blit() {
+  public static function blit(): dynamic {
     return static::get()[6]();
   }
-  public static function concat(dynamic $sep, dynamic $l) {
+  public static function concat(dynamic $sep, dynamic $l): dynamic {
     return static::get()[7]($sep, $l);
   }
-  public static function iter(dynamic $f, dynamic $s) {
+  public static function iter(dynamic $f, dynamic $s): dynamic {
     return static::get()[8]($f, $s);
   }
-  public static function iteri(dynamic $f, dynamic $s) {
+  public static function iteri(dynamic $f, dynamic $s): dynamic {
     return static::get()[9]($f, $s);
   }
-  public static function map(dynamic $f, dynamic $s) {
+  public static function map(dynamic $f, dynamic $s): dynamic {
     return static::get()[10]($f, $s);
   }
-  public static function mapi(dynamic $f, dynamic $s) {
+  public static function mapi(dynamic $f, dynamic $s): dynamic {
     return static::get()[11]($f, $s);
   }
-  public static function trim(dynamic $s) {
+  public static function trim(dynamic $s): dynamic {
     return static::get()[12]($s);
   }
-  public static function escaped(dynamic $s) {
+  public static function escaped(dynamic $s): dynamic {
     return static::get()[13]($s);
   }
-  public static function index(dynamic $s, dynamic $c) {
+  public static function index(dynamic $s, dynamic $c): dynamic {
     return static::get()[14]($s, $c);
   }
-  public static function index_opt(dynamic $s, dynamic $c) {
+  public static function index_opt(dynamic $s, dynamic $c): dynamic {
     return static::get()[15]($s, $c);
   }
-  public static function rindex(dynamic $s, dynamic $c) {
+  public static function rindex(dynamic $s, dynamic $c): dynamic {
     return static::get()[16]($s, $c);
   }
-  public static function rindex_opt(dynamic $s, dynamic $c) {
+  public static function rindex_opt(dynamic $s, dynamic $c): dynamic {
     return static::get()[17]($s, $c);
   }
-  public static function index_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function index_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[18]($s, $i, $c);
   }
-  public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+  public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[19]($s, $i, $c);
   }
-  public static function rindex_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function rindex_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[20]($s, $i, $c);
   }
-  public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+  public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[21]($s, $i, $c);
   }
-  public static function contains(dynamic $s, dynamic $c) {
+  public static function contains(dynamic $s, dynamic $c): dynamic {
     return static::get()[22]($s, $c);
   }
-  public static function contains_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function contains_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[23]($s, $i, $c);
   }
-  public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c) {
+  public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
     return static::get()[24]($s, $i, $c);
   }
-  public static function uppercase(dynamic $s) {
+  public static function uppercase(dynamic $s): dynamic {
     return static::get()[25]($s);
   }
-  public static function lowercase(dynamic $s) {
+  public static function lowercase(dynamic $s): dynamic {
     return static::get()[26]($s);
   }
-  public static function capitalize(dynamic $s) {
+  public static function capitalize(dynamic $s): dynamic {
     return static::get()[27]($s);
   }
-  public static function uncapitalize(dynamic $s) {
+  public static function uncapitalize(dynamic $s): dynamic {
     return static::get()[28]($s);
   }
-  public static function uppercase_ascii(dynamic $s) {
+  public static function uppercase_ascii(dynamic $s): dynamic {
     return static::get()[29]($s);
   }
-  public static function lowercase_ascii(dynamic $s) {
+  public static function lowercase_ascii(dynamic $s): dynamic {
     return static::get()[30]($s);
   }
-  public static function capitalize_ascii(dynamic $s) {
+  public static function capitalize_ascii(dynamic $s): dynamic {
     return static::get()[31]($s);
   }
-  public static function uncapitalize_ascii(dynamic $s) {
+  public static function uncapitalize_ascii(dynamic $s): dynamic {
     return static::get()[32]($s);
   }
-  public static function compare(dynamic $x, dynamic $y) {
+  public static function compare(dynamic $x, dynamic $y): dynamic {
     return static::get()[33]($x, $y);
   }
-  public static function split_on_char(dynamic $sep, dynamic $s) {
+  public static function split_on_char(dynamic $sep, dynamic $s): dynamic {
     return static::get()[35]($sep, $s);
   }
 

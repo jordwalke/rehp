@@ -862,94 +862,94 @@ final class CamlinternalOO {
      return ($CamlinternalOO);
 
   }
-  public static function public_method_label(dynamic $s) {
+  public static function public_method_label(dynamic $s): dynamic {
     return static::get()[1]($s);
   }
-  public static function new_method(dynamic $table) {
+  public static function new_method(dynamic $table): dynamic {
     return static::get()[2]($table);
   }
-  public static function new_variable(dynamic $table, dynamic $name) {
+  public static function new_variable(dynamic $table, dynamic $name): dynamic {
     return static::get()[3]($table, $name);
   }
-  public static function new_methods_variables(dynamic $table, dynamic $meths, dynamic $vals) {
+  public static function new_methods_variables(dynamic $table, dynamic $meths, dynamic $vals): dynamic {
     return static::get()[4]($table, $meths, $vals);
   }
-  public static function get_variable(dynamic $table, dynamic $name) {
+  public static function get_variable(dynamic $table, dynamic $name): dynamic {
     return static::get()[5]($table, $name);
   }
-  public static function get_variables(dynamic $table, dynamic $names) {
+  public static function get_variables(dynamic $table, dynamic $names): dynamic {
     return static::get()[6]($table, $names);
   }
-  public static function get_method_label(dynamic $table, dynamic $name) {
+  public static function get_method_label(dynamic $table, dynamic $name): dynamic {
     return static::get()[7]($table, $name);
   }
-  public static function get_method_labels(dynamic $table, dynamic $names) {
+  public static function get_method_labels(dynamic $table, dynamic $names): dynamic {
     return static::get()[8]($table, $names);
   }
-  public static function get_method(dynamic $table, dynamic $label) {
+  public static function get_method(dynamic $table, dynamic $label): dynamic {
     return static::get()[9]($table, $label);
   }
-  public static function set_method(dynamic $table, dynamic $label, dynamic $element) {
+  public static function set_method(dynamic $table, dynamic $label, dynamic $element): dynamic {
     return static::get()[10]($table, $label, $element);
   }
-  public static function set_methods(dynamic $table, dynamic $methods) {
+  public static function set_methods(dynamic $table, dynamic $methods): dynamic {
     return static::get()[11]($table, $methods);
   }
-  public static function narrow(dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths) {
+  public static function narrow(dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths): dynamic {
     return static::get()[12]($table, $vars, $virt_meths, $concr_meths);
   }
-  public static function widen(dynamic $table) {
+  public static function widen(dynamic $table): dynamic {
     return static::get()[13]($table);
   }
-  public static function add_initializer(dynamic $table, dynamic $f) {
+  public static function add_initializer(dynamic $table, dynamic $f): dynamic {
     return static::get()[14]($table, $f);
   }
-  public static function dummy_table() {
+  public static function dummy_table(): dynamic {
     return static::get()[15]();
   }
-  public static function create_table(dynamic $public_methods) {
+  public static function create_table(dynamic $public_methods): dynamic {
     return static::get()[16]($public_methods);
   }
-  public static function init_class(dynamic $table) {
+  public static function init_class(dynamic $table): dynamic {
     return static::get()[17]($table);
   }
-  public static function inherits(dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top) {
+  public static function inherits(dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top): dynamic {
     return static::get()[18]($cla, $vals, $virt_meths, $concr_meths, $param, $top);
   }
-  public static function make_class(dynamic $pub_meths, dynamic $class_init) {
+  public static function make_class(dynamic $pub_meths, dynamic $class_init): dynamic {
     return static::get()[19]($pub_meths, $class_init);
   }
-  public static function make_class_store(dynamic $pub_meths, dynamic $class_init, dynamic $init_table) {
+  public static function make_class_store(dynamic $pub_meths, dynamic $class_init, dynamic $init_table): dynamic {
     return static::get()[20]($pub_meths, $class_init, $init_table);
   }
-  public static function dummy_class(dynamic $loc) {
+  public static function dummy_class(dynamic $loc): dynamic {
     return static::get()[21]($loc);
   }
-  public static function copy(dynamic $o) {
+  public static function copy(dynamic $o): dynamic {
     return static::get()[22]($o);
   }
-  public static function create_object(dynamic $table) {
+  public static function create_object(dynamic $table): dynamic {
     return static::get()[23]($table);
   }
-  public static function create_object_opt(dynamic $obj_0, dynamic $table) {
+  public static function create_object_opt(dynamic $obj_0, dynamic $table): dynamic {
     return static::get()[24]($obj_0, $table);
   }
-  public static function run_initializers(dynamic $obj, dynamic $table) {
+  public static function run_initializers(dynamic $obj, dynamic $table): dynamic {
     return static::get()[25]($obj, $table);
   }
-  public static function run_initializers_opt(dynamic $obj_0, dynamic $obj, dynamic $table) {
+  public static function run_initializers_opt(dynamic $obj_0, dynamic $obj, dynamic $table): dynamic {
     return static::get()[26]($obj_0, $obj, $table);
   }
-  public static function create_object_and_run_initializers(dynamic $obj_0, dynamic $table) {
+  public static function create_object_and_run_initializers(dynamic $obj_0, dynamic $table): dynamic {
     return static::get()[27]($obj_0, $table);
   }
-  public static function lookup_tables(dynamic $root, dynamic $keys) {
+  public static function lookup_tables(dynamic $root, dynamic $keys): dynamic {
     return static::get()[28]($root, $keys);
   }
-  public static function params() {
+  public static function params(): dynamic {
     return static::get()[29]();
   }
-  public static function stats(dynamic $param) {
+  public static function stats(dynamic $param): dynamic {
     return static::get()[30]($param);
   }
 

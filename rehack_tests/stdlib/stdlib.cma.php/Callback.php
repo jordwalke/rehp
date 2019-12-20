@@ -27,10 +27,10 @@ final class Callback {
      return ($Callback);
 
   }
-  public static function register(dynamic $name, dynamic $v) {
+  public static function register(dynamic $name, dynamic $v): dynamic {
     return static::get()[1]($name, $v);
   }
-  public static function register_exception(dynamic $name, dynamic $exn) {
+  public static function register_exception(dynamic $name, dynamic $exn): dynamic {
     return static::get()[2]($name, $exn);
   }
 
