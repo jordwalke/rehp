@@ -32,21 +32,21 @@ var Js_of_ocaml_WebSockets = [0,webSocket,webSocket,webSocket,is_supported];
 exports = Js_of_ocaml_WebSockets;
 
 /*::type Exports = {
+  webSocket: any
+  webSocket: any
+  webSocket: any
   is_supported: (param: any) => any,
-  webSocket: any
-  webSocket: any
-  webSocket: any
 }*/
 /** @type {{
+  webSocket: any,
+  webSocket: any,
+  webSocket: any,
   is_supported: (any) => any,
-  webSocket: any,
-  webSocket: any,
-  webSocket: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.is_supported = module.exports[4];
-module.exports.webSocket = module.exports[3];
-module.exports.webSocket = module.exports[2];
 module.exports.webSocket = module.exports[1];
+module.exports.webSocket = module.exports[2];
+module.exports.webSocket = module.exports[3];
+module.exports.is_supported = module.exports[4];
 
 /* Hashing disabled */

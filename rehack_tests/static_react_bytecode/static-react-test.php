@@ -325,13 +325,13 @@ function main() {
   $bW_ = $string("Another Type Init:");
   $bo_ = $string("Total ms (Title): %d ");
   $bp_ = $string("Second Part Of Tuple:");
-  $invalid_arg = function(dynamic $s) use ($Invalid_argument,$caml_wrap_thrown_exception) {
+  $invalid_arg = (dynamic $s) ==> {
     throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
   };
   
   $caml_fresh_oo_id(0);
   
-  $symbol = function(dynamic $s1, dynamic $s2) use ($caml_blit_string,$caml_create_bytes,$caml_ml_string_length) {
+  $symbol = (dynamic $s1, dynamic $s2) ==> {
     $l1 = $caml_ml_string_length($s1);
     $l2 = $caml_ml_string_length($s2);
     $s = $caml_create_bytes((int) ($l1 + $l2));
@@ -339,12 +339,10 @@ function main() {
     $caml_blit_string($s2, 0, $s, $l1, $l2);
     return $s;
   };
-  $string_of_int = function(dynamic $n) use ($string) {
-    return $string("" . $n);
-  };
-  $valid_float_lexem = function(dynamic $s) use ($a_,$caml_ml_string_length,$runtime,$symbol) {
+  $string_of_int = (dynamic $n) ==> {return $string("" . $n);};
+  $valid_float_lexem = (dynamic $s) ==> {
     $l = $caml_ml_string_length($s);
-    $loop = function(dynamic $i) use ($a_,$l,$runtime,$s,$symbol) {
+    $loop = (dynamic $i) ==> {
       $i__0 = $i;
       for (;;) {
         if ($l <= $i__0) {return $symbol($s, $a_);}
@@ -358,10 +356,10 @@ function main() {
     };
     return $loop(0);
   };
-  $string_of_float = function(dynamic $f) use ($b_,$runtime,$valid_float_lexem) {
+  $string_of_float = (dynamic $f) ==> {
     return $valid_float_lexem($runtime["caml_format_float"]($b_, $f));
   };
-  $append->contents = function(dynamic $l1, dynamic $l2) use ($append) {
+  $append->contents = (dynamic $l1, dynamic $l2) ==> {
     if ($l1) {
       $tl = $l1[2];
       $hd = $l1[1];
@@ -376,8 +374,8 @@ function main() {
   
   $caml_ml_open_descriptor_out(2);
   
-  $flush_all = function(dynamic $param) use ($Sys_error,$caml_wrap_thrown_exception_reraise,$runtime) {
-    $iter = function(dynamic $param) use ($Sys_error,$caml_wrap_thrown_exception_reraise,$runtime) {
+  $flush_all = (dynamic $param) ==> {
+    $iter = (dynamic $param) ==> {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -398,16 +396,12 @@ function main() {
     };
     return $iter($runtime["caml_ml_out_channels_list"](0));
   };
-  $output_string = function(dynamic $oc, dynamic $s) use ($caml_ml_string_length,$runtime) {
+  $output_string = (dynamic $oc, dynamic $s) ==> {
     return $runtime["caml_ml_output"]($oc, $s, 0, $caml_ml_string_length($s));
   };
-  $print_string = function(dynamic $s) use ($output_string,$stdout) {
-    return $output_string($stdout, $s);
-  };
-  $do_at_exit = function(dynamic $param) use ($flush_all) {
-    return $flush_all(0);
-  };
-  $rev_append = function(dynamic $l1, dynamic $l2) {
+  $print_string = (dynamic $s) ==> {return $output_string($stdout, $s);};
+  $do_at_exit = (dynamic $param) ==> {return $flush_all(0);};
+  $rev_append = (dynamic $l1, dynamic $l2) ==> {
     $l1__0 = $l1;
     $l2__0 = $l2;
     for (;;) {
@@ -422,8 +416,8 @@ function main() {
       return $l2__0;
     }
   };
-  $rev = function(dynamic $l) use ($rev_append) {return $rev_append($l, 0);};
-  $flatten->contents = function(dynamic $param) use ($append,$flatten) {
+  $rev = (dynamic $l) ==> {return $rev_append($l, 0);};
+  $flatten->contents = (dynamic $param) ==> {
     if ($param) {
       $r = $param[2];
       $l = $param[1];
@@ -431,7 +425,7 @@ function main() {
     }
     return 0;
   };
-  $map->contents = function(dynamic $f, dynamic $param) use ($call1,$map) {
+  $map->contents = (dynamic $f, dynamic $param) ==> {
     if ($param) {
       $l = $param[2];
       $a = $param[1];
@@ -440,7 +434,7 @@ function main() {
     }
     return 0;
   };
-  $c_->contents = function(dynamic $i, dynamic $f, dynamic $param) use ($c_,$call2) {
+  $c_->contents = (dynamic $i, dynamic $f, dynamic $param) ==> {
     if ($param) {
       $l = $param[2];
       $a = $param[1];
@@ -449,10 +443,8 @@ function main() {
     }
     return 0;
   };
-  $mapi = function(dynamic $f, dynamic $l) use ($c_) {
-    return $c_->contents(0, $f, $l);
-  };
-  $iter = function(dynamic $f, dynamic $param) use ($call1) {
+  $mapi = (dynamic $f, dynamic $l) ==> {return $c_->contents(0, $f, $l);};
+  $iter = (dynamic $f, dynamic $param) ==> {
     $param__0 = $param;
     for (;;) {
       if ($param__0) {
@@ -465,7 +457,7 @@ function main() {
       return 0;
     }
   };
-  $fold_left = function(dynamic $f, dynamic $accu, dynamic $l) use ($call2) {
+  $fold_left = (dynamic $f, dynamic $accu, dynamic $l) ==> {
     $accu__0 = $accu;
     $l__0 = $l;
     for (;;) {
@@ -480,13 +472,13 @@ function main() {
       return $accu__0;
     }
   };
-  $copy = function(dynamic $s) use ($caml_create_bytes,$caml_ml_bytes_length,$runtime) {
+  $copy = (dynamic $s) ==> {
     $len = $caml_ml_bytes_length($s);
     $r = $caml_create_bytes($len);
     $runtime["caml_blit_bytes"]($s, 0, $r, 0, $len);
     return $r;
   };
-  $escaped = function(dynamic $s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
+  $escaped = (dynamic $s) ==> {
     $n = Vector{0, 0};
     $em_ = (int) ($caml_ml_bytes_length($s) + -1);
     $el_ = 0;
@@ -623,12 +615,12 @@ function main() {
     }
     return $s__0;
   };
-  $bos = function(dynamic $ek_) {return $ek_;};
-  $bts = function(dynamic $ej_) {return $ej_;};
-  $ensure_ge = function(dynamic $x, dynamic $y) use ($d_,$invalid_arg) {
+  $bos = (dynamic $ek_) ==> {return $ek_;};
+  $bts = (dynamic $ej_) ==> {return $ej_;};
+  $ensure_ge = (dynamic $x, dynamic $y) ==> {
     return $y <= $x ? $x : ($invalid_arg($d_));
   };
-  $sum_lengths = function(dynamic $acc, dynamic $seplen, dynamic $param) use ($caml_ml_string_length,$ensure_ge) {
+  $sum_lengths = (dynamic $acc, dynamic $seplen, dynamic $param) ==> {
     $acc__0 = $acc;
     $param__0 = $param;
     for (;;) {
@@ -650,8 +642,8 @@ function main() {
       return $acc__0;
     }
   };
-  $unsafe_blits = function
-  (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) use ($caml_blit_string,$caml_ml_string_length) {
+  $unsafe_blits = 
+  (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) ==> {
     $pos__0 = $pos;
     $param__0 = $param;
     for (;;) {
@@ -687,7 +679,7 @@ function main() {
       return $dst;
     }
   };
-  $concat = function(dynamic $sep, dynamic $l) use ($bts,$caml_create_bytes,$caml_ml_string_length,$e_,$sum_lengths,$unsafe_blits) {
+  $concat = (dynamic $sep, dynamic $l) ==> {
     if ($l) {
       $seplen = $caml_ml_string_length($sep);
       return $bts(
@@ -702,8 +694,8 @@ function main() {
     }
     return $e_;
   };
-  $escaped__0 = function(dynamic $s) use ($bos,$bts,$caml_bytes_unsafe_get,$caml_ml_string_length,$escaped,$unsigned_right_shift_32) {
-    $needs_escape = function(dynamic $i) use ($caml_bytes_unsafe_get,$caml_ml_string_length,$s,$unsigned_right_shift_32) {
+  $escaped__0 = (dynamic $s) ==> {
+    $needs_escape = (dynamic $i) ==> {
       $i__0 = $i;
       for (;;) {
         if ($caml_ml_string_length($s) <= $i__0) {return 0;}
@@ -733,7 +725,7 @@ function main() {
     };
     return $needs_escape(0) ? $bts($escaped($bos($s))) : ($s);
   };
-  $index_rec = function(dynamic $s, dynamic $lim, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
+  $index_rec = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
     $i__0 = $i;
     for (;;) {
       if ($lim <= $i__0) {
@@ -745,7 +737,7 @@ function main() {
       continue;
     }
   };
-  $contains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$caml_ml_string_length,$caml_wrap_thrown_exception_reraise,$f_,$index_rec,$invalid_arg,$runtime) {
+  $contains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
     $l = $caml_ml_string_length($s);
     if (0 <= $i) {
       if (! ($l < $i)) {
@@ -759,15 +751,13 @@ function main() {
     }
     return $invalid_arg($f_);
   };
-  $contains = function(dynamic $s, dynamic $c) use ($contains_from) {
-    return $contains_from($s, 0, $c);
-  };
+  $contains = (dynamic $s, dynamic $c) ==> {return $contains_from($s, 0, $c);};
   
   $caml_fresh_oo_id(0);
   
   $caml_fresh_oo_id(0);
   
-  $bits = function(dynamic $s) use ($caml_check_bound,$unsigned_right_shift_32) {
+  $bits = (dynamic $s) ==> {
     $s[2] = (int) ((int) ($s[2] + 1) % 55);
     $d__ = $s[2];
     $curval = $caml_check_bound($s[1], $d__)[$d__ + 1];
@@ -780,7 +770,7 @@ function main() {
     $caml_check_bound($s[1], $eb_)[$eb_ + 1] = $newval30;
     return $newval30;
   };
-  $intaux = function(dynamic $s, dynamic $n) use ($bits,$runtime) {
+  $intaux = (dynamic $s, dynamic $n) ==> {
     for (;;) {
       $r = $bits($s);
       $v = $runtime["caml_mod"]($r, $n);
@@ -788,18 +778,16 @@ function main() {
       return $v;
     }
   };
-  $int__0 = function(dynamic $s, dynamic $bound) use ($g_,$intaux,$invalid_arg) {
+  $int__0 = (dynamic $s, dynamic $bound) ==> {
     if (! (1073741823 < $bound)) {
       if (0 < $bound) {return $intaux($s, $bound);}
     }
     return $invalid_arg($g_);
   };
   $default__0 = Vector{0, $h_->toVector(), 0};
-  $int__1 = function(dynamic $bound) use ($default__0,$int__0) {
-    return $int__0($default__0, $bound);
-  };
+  $int__1 = (dynamic $bound) ==> {return $int__0($default__0, $bound);};
   $i_ = 5;
-  $detectList = function(dynamic $maxLength, dynamic $o) use ($caml_obj_tag,$runtime) {
+  $detectList = (dynamic $maxLength, dynamic $o) ==> {
     $maxLength__0 = $maxLength;
     $o__0 = $o;
     for (;;) {
@@ -826,7 +814,7 @@ function main() {
       return $runtime["caml_equal"]($o__0, 0);
     }
   };
-  $extractList->contents = function(dynamic $maxNum, dynamic $o) use ($extractList,$is_int,$j_) {
+  $extractList->contents = (dynamic $maxNum, dynamic $o) ==> {
     if (0 === $maxNum) {return Vector{0, 1 - $is_int($o), 0};}
     if ($is_int($o)) {return $j_;}
     $match = $extractList->contents((int) ($maxNum + -1), $o[2]);
@@ -834,9 +822,9 @@ function main() {
     $restWasTruncated = $match[1];
     return Vector{0, $restWasTruncated, Vector{0, $o[1], $rest}};
   };
-  $extractFields = function(dynamic $maxNum, dynamic $o) {
-    $extractFields = function
-    (dynamic $maxNum, dynamic $fieldsSoFar, dynamic $numFields) use ($o) {
+  $extractFields = (dynamic $maxNum, dynamic $o) ==> {
+    $extractFields = 
+    (dynamic $maxNum, dynamic $fieldsSoFar, dynamic $numFields) ==> {
       $maxNum__0 = $maxNum;
       $fieldsSoFar__0 = $fieldsSoFar;
       $numFields__0 = $numFields;
@@ -860,9 +848,9 @@ function main() {
     };
     return $extractFields($maxNum, 0, $o->count() - 1);
   };
-  $getBreakData = function(dynamic $itms) use ($caml_ml_string_length,$contains,$fold_left,$k_) {
+  $getBreakData = (dynamic $itms) ==> {
     $match = $fold_left(
-      function(dynamic $param, dynamic $itm) use ($caml_ml_string_length,$contains) {
+      (dynamic $param, dynamic $itm) ==> {
         $curDidBreak = $param[2];
         $curTotalLen = $param[1];
         $containsNewline = $contains($itm, 10);
@@ -881,7 +869,7 @@ function main() {
     $allItemsLen = $match[1];
     return Vector{0, $allItemsLen, $someChildBroke};
   };
-  $indentForDepth->contents = function(dynamic $n) use ($indentForDepth,$l_,$m_,$n_,$o_,$p_,$q_,$r_,$s_,$symbol,$t_,$u_,$unsigned_right_shift_32) {
+  $indentForDepth->contents = (dynamic $n) ==> {
     if (8 < $unsigned_right_shift_32($n, 0)) {
       return $symbol($indentForDepth->contents((int) ($n + -1)), $l_);
     }
@@ -915,8 +903,7 @@ function main() {
         return $u_;
       }
   };
-  $printTreeShape = function
-  (dynamic $pair, dynamic $self, dynamic $depth, dynamic $o) use ($A_,$B_,$C_,$call1,$call3,$caml_ml_string_length,$concat,$extractFields,$getBreakData,$i_,$indentForDepth,$map,$symbol,$v_,$w_,$x_,$y_,$z_) {
+  $printTreeShape = (dynamic $pair, dynamic $self, dynamic $depth, dynamic $o) ==> {
     $right = $pair[2];
     $left = $pair[1];
     $match = $extractFields($i_, $o);
@@ -926,7 +913,7 @@ function main() {
     $indent = $indentForDepth->contents($depth);
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
-      function(dynamic $o) use ($call3,$dNext,$self) {
+      (dynamic $o) ==> {
         return $call3($self[13], $self, Vector{0, $dNext}, $o);
       },
       $lst
@@ -963,7 +950,7 @@ function main() {
       )
     );
   };
-  $printListShape = function(dynamic $self, dynamic $depth, dynamic $o) use ($D_,$E_,$F_,$G_,$H_,$I_,$J_,$K_,$L_,$M_,$N_,$O_,$call1,$call3,$caml_ml_string_length,$concat,$extractList,$getBreakData,$i_,$indentForDepth,$map,$symbol) {
+  $printListShape = (dynamic $self, dynamic $depth, dynamic $o) ==> {
     $match = $extractList->contents($i_, $o);
     $lst = $match[2];
     $wasTruncated = $match[1];
@@ -971,7 +958,7 @@ function main() {
     $indent = $indentForDepth->contents($depth);
     $indentNext = $indentForDepth->contents($dNext);
     $itms = $map->contents(
-      function(dynamic $o) use ($call3,$dNext,$self) {
+      (dynamic $o) ==> {
         return $call3($self[13], $self, Vector{0, $dNext}, $o);
       },
       $lst
@@ -1008,7 +995,7 @@ function main() {
       )
     );
   };
-  $P_ = function(dynamic $self, dynamic $opt, dynamic $o) use ($call1,$call2,$call3,$caml_obj_tag,$detectList,$i_) {
+  $P_ = (dynamic $self, dynamic $opt, dynamic $o) ==> {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1038,7 +1025,7 @@ function main() {
             ? $call3($self[11], $self, Vector{0, $depth}, $o)
             : ($call2($self[7], $self, $o))))))));
   };
-  $Q_ = function(dynamic $self, dynamic $opt, dynamic $o) use ($printListShape) {
+  $Q_ = (dynamic $self, dynamic $opt, dynamic $o) ==> {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1046,7 +1033,7 @@ function main() {
     else {$depth = 0;}
     return $printListShape($self, $depth, $o);
   };
-  $R_ = function(dynamic $self, dynamic $opt, dynamic $o) use ($S_,$printTreeShape) {
+  $R_ = (dynamic $self, dynamic $opt, dynamic $o) ==> {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1054,10 +1041,10 @@ function main() {
     else {$depth = 0;}
     return $printTreeShape($S_, $self, $depth, $o);
   };
-  $T_ = function(dynamic $self, dynamic $f) use ($U_,$V_,$string_of_int,$symbol) {
+  $T_ = (dynamic $self, dynamic $f) ==> {
     return $symbol($V_, $symbol($string_of_int((int) $f), $U_));
   };
-  $W_ = function(dynamic $self, dynamic $opt, dynamic $o) use ($X_,$printTreeShape) {
+  $W_ = (dynamic $self, dynamic $opt, dynamic $o) ==> {
     if ($opt) {
       $sth = $opt[1];
       $depth = $sth;
@@ -1065,22 +1052,18 @@ function main() {
     else {$depth = 0;}
     return $printTreeShape($X_, $self, $depth, $o);
   };
-  $Y_ = function(dynamic $self, dynamic $o) use ($Z_) {return $Z_;};
-  $aa_ = function(dynamic $self, dynamic $o) use ($ab_) {return $ab_;};
-  $ac_ = function(dynamic $self) use ($ad_) {return $ad_;};
-  $ae_ = function(dynamic $self) use ($af_) {return $af_;};
-  $ag_ = function(dynamic $self, dynamic $f) use ($string_of_float) {
-    return $string_of_float($f);
-  };
-  $ah_ = function(dynamic $self, dynamic $s) use ($ai_,$aj_,$call2,$symbol) {
+  $Y_ = (dynamic $self, dynamic $o) ==> {return $Z_;};
+  $aa_ = (dynamic $self, dynamic $o) ==> {return $ab_;};
+  $ac_ = (dynamic $self) ==> {return $ad_;};
+  $ae_ = (dynamic $self) ==> {return $af_;};
+  $ag_ = (dynamic $self, dynamic $f) ==> {return $string_of_float($f);};
+  $ah_ = (dynamic $self, dynamic $s) ==> {
     return $symbol($aj_, $symbol($call2($self[2], $self, $s), $ai_));
   };
-  $ak_ = function(dynamic $self, dynamic $s) {return $s;};
+  $ak_ = (dynamic $self, dynamic $s) ==> {return $s;};
   $base = Vector{
     0,
-    function(dynamic $self, dynamic $i) use ($string_of_int) {
-      return $string_of_int($i);
-    },
+    (dynamic $self, dynamic $i) ==> {return $string_of_int($i);},
     $ak_,
     $ah_,
     $ag_,
@@ -1094,30 +1077,30 @@ function main() {
     $Q_,
     $P_
   };
-  $makeStandardChannelsConsole = function(dynamic $objectPrinter) use ($al_,$am_,$an_,$ao_,$call3,$runtime,$symbol) {
-    $dZ_ = function(dynamic $a) use ($al_,$call3,$objectPrinter,$runtime,$symbol) {
+  $makeStandardChannelsConsole = (dynamic $objectPrinter) ==> {
+    $dZ_ = (dynamic $a) ==> {
       return $runtime["native_debug"](
         $symbol($call3($objectPrinter[13], $objectPrinter, 0, $a), $al_)
       );
     };
-    $d0_ = function(dynamic $a) use ($am_,$call3,$objectPrinter,$runtime,$symbol) {
+    $d0_ = (dynamic $a) ==> {
       return $runtime["native_error"](
         $symbol($call3($objectPrinter[13], $objectPrinter, 0, $a), $am_)
       );
     };
-    $d1_ = function(dynamic $a) use ($an_,$call3,$objectPrinter,$runtime,$symbol) {
+    $d1_ = (dynamic $a) ==> {
       return $runtime["native_warn"](
         $symbol($call3($objectPrinter[13], $objectPrinter, 0, $a), $an_)
       );
     };
-    $d2_ = function(dynamic $a) use ($call3,$objectPrinter,$runtime) {
+    $d2_ = (dynamic $a) ==> {
       return $runtime["native_log"](
         $call3($objectPrinter[13], $objectPrinter, 0, $a)
       );
     };
     return Vector{
       0,
-      function(dynamic $a) use ($ao_,$call3,$objectPrinter,$runtime,$symbol) {
+      (dynamic $a) ==> {
         return $runtime["native_log"](
           $symbol($call3($objectPrinter[13], $objectPrinter, 0, $a), $ao_)
         );
@@ -1129,11 +1112,9 @@ function main() {
     };
   };
   $defaultGlobalConsole = $makeStandardChannelsConsole($base);
-  $log = function(dynamic $a) use ($call1,$defaultGlobalConsole) {
-    return $call1($defaultGlobalConsole[1], $a);
-  };
-  $mapi3 = function
-  (dynamic $f, dynamic $iSoFar, dynamic $revSoFar, dynamic $listA, dynamic $listB, dynamic $listC) use ($Invalid_argument,$ap_,$call4,$caml_wrap_thrown_exception,$rev) {
+  $log = (dynamic $a) ==> {return $call1($defaultGlobalConsole[1], $a);};
+  $mapi3 = 
+  (dynamic $f, dynamic $iSoFar, dynamic $revSoFar, dynamic $listA, dynamic $listB, dynamic $listC) ==> {
     $iSoFar__0 = $iSoFar;
     $revSoFar__0 = $revSoFar;
     $listA__0 = $listA;
@@ -1168,12 +1149,10 @@ function main() {
       throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $ap_}) as \Throwable;
     }
   };
-  $mapi3__0 = function
-  (dynamic $f, dynamic $listA, dynamic $listB, dynamic $listC) use ($mapi3) {
-    return $mapi3($f, 0, 0, $listA, $listB, $listC);
+  $mapi3__0 = (dynamic $f, dynamic $listA, dynamic $listB, dynamic $listC) ==> {return $mapi3($f, 0, 0, $listA, $listB, $listC);
   };
-  $splitList = function
-  (dynamic $revCount, dynamic $revSoFar, dynamic $splitAt, dynamic $lst) use ($Invalid_argument,$aq_,$caml_wrap_thrown_exception,$rev,$string_of_int,$symbol) {
+  $splitList = 
+  (dynamic $revCount, dynamic $revSoFar, dynamic $splitAt, dynamic $lst) ==> {
     $revCount__0 = $revCount;
     $revSoFar__0 = $revSoFar;
     $lst__0 = $lst;
@@ -1201,13 +1180,12 @@ function main() {
             ) as \Throwable;
     }
   };
-  $splitList__0 = function(dynamic $splitAt, dynamic $lst) use ($splitList) {
+  $splitList__0 = (dynamic $splitAt, dynamic $lst) ==> {
     return $splitList(0, 0, $splitAt, $lst);
   };
-  $nonReducer = function(dynamic $param, dynamic $dY_) use ($ar_) {return $ar_;
-  };
-  $nonEventHandler = function(dynamic $e) {return 0;};
-  $spec = function(dynamic $param) use ($nonEventHandler) {
+  $nonReducer = (dynamic $param, dynamic $dY_) ==> {return $ar_;};
+  $nonEventHandler = (dynamic $e) ==> {return 0;};
+  $spec = (dynamic $param) ==> {
     if (0 === $param[0]) {
       $reducer = $param[3];
       $subelems = $param[2];
@@ -1217,7 +1195,7 @@ function main() {
     $spec = $param[1];
     return $spec;
   };
-  $withState = function(dynamic $inst, dynamic $state) {
+  $withState = (dynamic $inst, dynamic $state) ==> {
     $dX_ = $inst[5];
     return Vector{
       0,
@@ -1229,18 +1207,18 @@ function main() {
       $inst[6]
     };
   };
-  $newSelf = function(dynamic $replacer, dynamic $subreplacer) use ($call1,$call2,$caml_update_dummy,$reconcile,$withState) {
+  $newSelf = (dynamic $replacer, dynamic $subreplacer) ==> {
     $self = varray[];
-    $dR_ = function(dynamic $extractor, dynamic $e, dynamic $inst) use ($call1,$call2,$reconcile,$withState) {
+    $dR_ = (dynamic $extractor, dynamic $e, dynamic $inst) ==> {
       $dV_ = $call1($extractor, $e);
       $nextState = $call2($inst[5][2], $inst, $dV_);
       $dW_ = $inst[4];
       return $reconcile->contents($withState($inst, $nextState), $dW_);
     };
-    $dS_ = function(dynamic $action) use ($call1,$call2,$reconcile,$replacer,$withState) {
+    $dS_ = (dynamic $action) ==> {
       return $call1(
         $replacer,
-        function(dynamic $inst) use ($action,$call2,$reconcile,$withState) {
+        (dynamic $inst) ==> {
           $nextState = $call2($inst[5][2], $inst, $action);
           $dU_ = $inst[4];
           return $reconcile->contents($withState($inst, $nextState), $dU_);
@@ -1251,11 +1229,11 @@ function main() {
       $self,
       Vector{
         0,
-        function(dynamic $actionExtractor, dynamic $ev) use ($call1,$call2,$reconcile,$replacer,$withState) {
+        (dynamic $actionExtractor, dynamic $ev) ==> {
           $action = $call1($actionExtractor, $ev);
           return $call1(
             $replacer,
-            function(dynamic $inst) use ($action,$call2,$reconcile,$withState) {
+            (dynamic $inst) ==> {
               $nextState = $call2($inst[5][2], $inst, $action);
               $dT_ = $inst[4];
               return $reconcile->contents($withState($inst, $nextState), $dT_);
@@ -1268,11 +1246,11 @@ function main() {
     );
     return $self;
   };
-  $init = function(dynamic $replacer, dynamic $renderable) use ($call1,$call2,$initSubtree,$newSelf,$spec) {
-    $subreplacer = function(dynamic $subtreeSwapper) use ($call1,$replacer) {
+  $init = (dynamic $replacer, dynamic $renderable) ==> {
+    $subreplacer = (dynamic $subtreeSwapper) ==> {
       return $call1(
         $replacer,
-        function(dynamic $inst) use ($call1,$subtreeSwapper) {
+        (dynamic $inst) ==> {
           $nextSubtree = $call1($subtreeSwapper, $inst[6]);
           $match = $inst[6] !== $nextSubtree ? 1 : (0);
           return 0 === $match
@@ -1301,17 +1279,17 @@ function main() {
       $initSubtree->contents($subreplacer, $nextSpec[4])
     };
   };
-  $initSubtree->contents = function(dynamic $thisReplacer, dynamic $jsx) use ($call1,$flatten,$init,$initSubtree,$is_int,$mapi,$splitList__0) {
+  $initSubtree->contents = (dynamic $thisReplacer, dynamic $jsx) ==> {
     if ($is_int($jsx)) {return 0;}
     else {
       switch($jsx[0]) {
         // FALLTHROUGH
         case 0:
           $renderable = $jsx[1];
-          $nextReplacer = function(dynamic $instSwapper) use ($call1,$thisReplacer) {
+          $nextReplacer = (dynamic $instSwapper) ==> {
             return $call1(
               $thisReplacer,
-              function(dynamic $subtree) use ($call1,$instSwapper) {
+              (dynamic $subtree) ==> {
                 $inst = $subtree[1];
                 $next = $call1($instSwapper, $inst);
                 $match = $inst !== $next ? 1 : (0);
@@ -1324,10 +1302,10 @@ function main() {
         case 1:
           $stateRendererB = $jsx[2];
           $stateRendererA = $jsx[1];
-          $nextReplacerA = function(dynamic $aSwapper) use ($call1,$thisReplacer) {
+          $nextReplacerA = (dynamic $aSwapper) ==> {
             return $call1(
               $thisReplacer,
-              function(dynamic $subtree) use ($aSwapper,$call1) {
+              (dynamic $subtree) ==> {
                 $b = $subtree[2];
                 $a = $subtree[1];
                 $next = $call1($aSwapper, $a);
@@ -1336,10 +1314,10 @@ function main() {
               }
             );
           };
-          $nextReplacerB = function(dynamic $bSwapper) use ($call1,$thisReplacer) {
+          $nextReplacerB = (dynamic $bSwapper) ==> {
             return $call1(
               $thisReplacer,
-              function(dynamic $subtree) use ($bSwapper,$call1) {
+              (dynamic $subtree) ==> {
                 $b = $subtree[2];
                 $a = $subtree[1];
                 $next = $call1($bSwapper, $b);
@@ -1357,11 +1335,11 @@ function main() {
         // FALLTHROUGH
         default:
           $elems = $jsx[1];
-          $initElem = function(dynamic $i, dynamic $e) use ($call1,$flatten,$initSubtree,$splitList__0,$thisReplacer) {
-            $subreplacer = function(dynamic $swapper) use ($call1,$flatten,$i,$splitList__0,$thisReplacer) {
+          $initElem = (dynamic $i, dynamic $e) ==> {
+            $subreplacer = (dynamic $swapper) ==> {
               return $call1(
                 $thisReplacer,
-                function(dynamic $subtree) use ($call1,$flatten,$i,$splitList__0,$swapper) {
+                (dynamic $subtree) ==> {
                   $iLst = $subtree[1];
                   $match = $splitList__0($i, $iLst);
                   $post = $match[3];
@@ -1391,7 +1369,7 @@ function main() {
         }
     }
   };
-  $reconcile->contents = function(dynamic $inst, dynamic $renderable) use ($call2,$reconcileSubtree,$spec) {
+  $reconcile->contents = (dynamic $inst, dynamic $renderable) ==> {
     $nextSpec = $spec($call2($renderable, Vector{0, $inst[5][1]}, $inst[3]));
     $dP_ = $reconcileSubtree->contents($inst[6], $inst[5][4], $nextSpec[4]);
     return Vector{
@@ -1404,8 +1382,8 @@ function main() {
       $dP_
     };
   };
-  $reconcileSubtree->contents = function
-  (dynamic $subtree, dynamic $prevJsx, dynamic $match) use ($is_int,$mapi3__0,$reconcile,$reconcileSubtree) {
+  $reconcileSubtree->contents = 
+  (dynamic $subtree, dynamic $prevJsx, dynamic $match) ==> {
     if ($is_int($subtree)) {return 0;}
     else {
       switch($subtree[0]) {
@@ -1438,7 +1416,7 @@ function main() {
           $eLstPrev = $prevJsx[1];
           $iLst = $subtree[1];
           $nextSeq = $mapi3__0(
-            function(dynamic $i, dynamic $itm, dynamic $r, dynamic $rPrev) use ($reconcileSubtree) {
+            (dynamic $i, dynamic $itm, dynamic $r, dynamic $rPrev) ==> {
               return $reconcileSubtree->contents($itm, $rPrev, $r);
             },
             $iLst,
@@ -1449,23 +1427,23 @@ function main() {
         }
     }
   };
-  $control = function(dynamic $param, dynamic $controlledState) use ($call2) {
+  $control = (dynamic $param, dynamic $controlledState) ==> {
     $renderable = $param[1];
     return Vector{
       0,
-      function(dynamic $state, dynamic $self) use ($call2,$controlledState,$renderable) {
+      (dynamic $state, dynamic $self) ==> {
         return $call2($renderable, Vector{0, $controlledState}, $self);
       }
     };
   };
-  $create = function(dynamic $param) use ($Invalid_argument,$as_,$call1,$caml_update_dummy,$caml_wrap_thrown_exception) {
+  $create = (dynamic $param) ==> {
     $root = varray[];
     $dM_ = 0;
     $caml_update_dummy(
       $root,
       Vector{
         0,
-        function(dynamic $swapper) use ($Invalid_argument,$as_,$call1,$caml_wrap_thrown_exception,$root) {
+        (dynamic $swapper) ==> {
           $dN_ = $root[2];
           if ($dN_) {
             $ei = $dN_[1];
@@ -1483,7 +1461,7 @@ function main() {
     );
     return $root;
   };
-  $render = function(dynamic $root, dynamic $elems) use ($initSubtree,$reconcileSubtree) {
+  $render = (dynamic $root, dynamic $elems) ==> {
     $dL_ = $root[2];
     if ($dL_) {
       $ei = $dL_[1];
@@ -1503,27 +1481,20 @@ function main() {
   };
   $counter = Vector{0, 0};
   $subscribers = Vector{0, 0};
-  $request = function(dynamic $cb) use ($counter,$subscribers) {
+  $request = (dynamic $cb) ==> {
     $subscribers[1] = Vector{0, $cb, $subscribers[1]};
     $counter[1] = (int) ($counter[1] + 1);
     return $counter[1];
   };
-  $tick = function(dynamic $param) use ($call1,$iter,$subscribers) {
+  $tick = (dynamic $param) ==> {
     $prevSubscribers = $subscribers[1];
     $subscribers[1] = 0;
-    return $iter(
-      function(dynamic $cb) use ($call1) {return $call1($cb, 0);},
-      $prevSubscribers
-    );
+    return $iter((dynamic $cb) ==> {return $call1($cb, 0);}, $prevSubscribers);
   };
-  $clearAll = function(dynamic $param) use ($subscribers) {
-    $subscribers[1] = 0;
-    return 0;
-  };
-  $element = function(dynamic $x) {return $x;};
+  $clearAll = (dynamic $param) ==> {$subscribers[1] = 0;return 0;};
+  $element = (dynamic $x) ==> {return $x;};
   $suppress = Vector{0, 0};
-  $printInstanceCollection->contents = function
-  (dynamic $opt, dynamic $subtree) use ($aA_,$aB_,$aC_,$aD_,$aE_,$aF_,$aG_,$aH_,$aI_,$aJ_,$at_,$au_,$av_,$aw_,$ax_,$ay_,$az_,$concat,$is_int,$map,$printInstanceCollection,$symbol) {
+  $printInstanceCollection->contents = (dynamic $opt, dynamic $subtree) ==> {
     if ($opt) {
       $sth = $opt[1];
       $s = $sth;
@@ -1581,7 +1552,7 @@ function main() {
               $concat(
                 $aH_,
                 $map->contents(
-                  function(dynamic $dK_) use ($dJ_,$printInstanceCollection) {
+                  (dynamic $dK_) ==> {
                     return $printInstanceCollection->contents($dJ_, $dK_);
                   },
                   $lst
@@ -1593,7 +1564,7 @@ function main() {
         }
     }
   };
-  $at_->contents = function(dynamic $opt, dynamic $n) use ($aK_,$aL_,$aM_,$aN_,$aO_,$aP_,$aQ_,$aR_,$aS_,$aT_,$aU_,$caml_obj_tag,$escaped__0,$is_int,$printInstanceCollection,$string_of_int,$symbol) {
+  $at_->contents = (dynamic $opt, dynamic $n) ==> {
     if ($opt) {
       $sth = $opt[1];
       $s = $sth;
@@ -1626,10 +1597,10 @@ function main() {
        : ($aT_));
     return $symbol($aQ_, $symbol($s, $symbol($aP_, $symbol($dG_, $dF_))));
   };
-  $printSection = function(dynamic $s) use ($aV_,$log,$suppress,$symbol) {
+  $printSection = (dynamic $s) ==> {
     return $suppress[1] ? 0 : ($log($symbol($aV_, $s)));
   };
-  $printRoot = function(dynamic $title, dynamic $root) use ($a0_,$aW_,$aX_,$aY_,$aZ_,$log,$printInstanceCollection,$suppress,$symbol) {
+  $printRoot = (dynamic $title, dynamic $root) ==> {
     $dC_ = $root[2];
     if (0 === $suppress[1]) {
       if ($dC_) {
@@ -1643,10 +1614,10 @@ function main() {
     }
     return 0;
   };
-  $domEventHandler = function(dynamic $e) {return 0;};
-  $domStateToString = function(dynamic $state) {return $state;};
-  $render__0 = function
-  (dynamic $onClick, dynamic $opt, dynamic $children, dynamic $state, dynamic $self) use ($a1_,$domEventHandler) {
+  $domEventHandler = (dynamic $e) ==> {return 0;};
+  $domStateToString = (dynamic $state) ==> {return $state;};
+  $render__0 = 
+  (dynamic $onClick, dynamic $opt, dynamic $children, dynamic $state, dynamic $self) ==> {
     if ($opt) {
       $sth = $opt[1];
       $className = $sth;
@@ -1657,15 +1628,14 @@ function main() {
       Vector{
         0,
         $className,
-        function(dynamic $inst, dynamic $param) {$str = $param[1];return $str;
-        },
+        (dynamic $inst, dynamic $param) ==> {$str = $param[1];return $str;},
         $domEventHandler,
         $children
       }
     };
   };
-  $render__1 = function
-  (dynamic $opt, dynamic $size, dynamic $children, dynamic $dx_, dynamic $self) use ($a2_,$a3_,$element,$nonReducer,$render__0) {
+  $render__1 = 
+  (dynamic $opt, dynamic $size, dynamic $children, dynamic $dx_, dynamic $self) ==> {
     if ($opt) {
       $sth = $opt[1];
       $txt = $sth;
@@ -1684,7 +1654,7 @@ function main() {
       $element(
         Vector{
           0,
-          function(dynamic $dA_, dynamic $dB_) use ($a2_,$dy_,$dz_,$render__0) {
+          (dynamic $dA_, dynamic $dB_) ==> {
             return $render__0($dz_, $a2_, $dy_, $dA_, $dB_);
           }
         }
@@ -1692,8 +1662,7 @@ function main() {
       $nonReducer
     };
   };
-  $render__2 = function
-  (dynamic $opt, dynamic $children, dynamic $dt_, dynamic $self) use ($a4_,$a5_,$element,$nonReducer,$render__0) {
+  $render__2 = (dynamic $opt, dynamic $children, dynamic $dt_, dynamic $self) ==> {
     if ($opt) {
       $sth = $opt[1];
       $txt = $sth;
@@ -1711,7 +1680,7 @@ function main() {
       $element(
         Vector{
           0,
-          function(dynamic $dv_, dynamic $dw_) use ($a4_,$children,$du_,$render__0) {
+          (dynamic $dv_, dynamic $dw_) ==> {
             return $render__0($du_, $a4_, $children, $dv_, $dw_);
           }
         }
@@ -1719,8 +1688,8 @@ function main() {
       $nonReducer
     };
   };
-  $render__3 = function
-  (dynamic $opt, dynamic $size, dynamic $children, dynamic $dh_, dynamic $self) use ($a6_,$a7_,$element,$render__0,$render__1,$string_of_int,$symbol) {
+  $render__3 = 
+  (dynamic $opt, dynamic $size, dynamic $children, dynamic $dh_, dynamic $self) ==> {
     ;
     if ($dh_) {
       $sth = $dh_[1];
@@ -1733,15 +1702,14 @@ function main() {
     $nextChangeCount = 0 === $match
       ? $curChangeCount
       : ((int) ($curChangeCount + 1));
-    $di_ = function(dynamic $param, dynamic $ds_) use ($state) {return $state;
-    };
+    $di_ = (dynamic $param, dynamic $ds_) ==> {return $state;};
     $dj_ = 0;
     $dk_ = Vector{0, $symbol($a6_, $string_of_int($nextChangeCount))};
     $dl_ = 0;
     $dm_ = $element(
       Vector{
         0,
-        function(dynamic $dq_, dynamic $dr_) use ($dj_,$dk_,$dl_,$render__0) {
+        (dynamic $dq_, dynamic $dr_) ==> {
           return $render__0($dl_, $dk_, $dj_, $dq_, $dr_);
         }
       }
@@ -1755,7 +1723,7 @@ function main() {
         $element(
           Vector{
             0,
-            function(dynamic $do_, dynamic $dp_) use ($a7_,$children,$dn_,$render__1) {
+            (dynamic $do_, dynamic $dp_) ==> {
               return $render__1($a7_, $dn_, $children, $do_, $dp_);
             }
           }
@@ -1765,8 +1733,7 @@ function main() {
       $di_
     };
   };
-  $render__4 = function
-  (dynamic $opt, dynamic $children, dynamic $da_, dynamic $self) use ($a8_,$a9_,$element,$render__0) {
+  $render__4 = (dynamic $opt, dynamic $children, dynamic $da_, dynamic $self) ==> {
     if ($opt) {
       $sth = $opt[1];
       $initialText = $sth;
@@ -1777,8 +1744,7 @@ function main() {
       $state = $sth__0;
     }
     else {$state = $initialText;}
-    $db_ = function(dynamic $param, dynamic $dg_) use ($state) {return $state;
-    };
+    $db_ = (dynamic $param, dynamic $dg_) ==> {return $state;};
     $dc_ = 0;
     $dd_ = 0;
     return Vector{
@@ -1787,7 +1753,7 @@ function main() {
       $element(
         Vector{
           0,
-          function(dynamic $de_, dynamic $df_) use ($a8_,$dc_,$dd_,$render__0) {
+          (dynamic $de_, dynamic $df_) ==> {
             return $render__0($dd_, $a8_, $dc_, $de_, $df_);
           }
         }
@@ -1795,38 +1761,33 @@ function main() {
       $db_
     };
   };
-  $render__5 = function(dynamic $children, dynamic $opt, dynamic $self) use ($a__,$ba_,$print_string,$render__0,$runtime,$string_of_int,$symbol) {
+  $render__5 = (dynamic $children, dynamic $opt, dynamic $self) ==> {
     if ($opt) {
       $sth = $opt[1];
       $state = $sth;
     }
     else {$state = 0;}
-    $c4_ = function(dynamic $param, dynamic $c__) use ($runtime) {
+    $c4_ = (dynamic $param, dynamic $c__) ==> {
       $next = $c__[1];
       return $runtime["caml_int_of_string"]($next);
     };
     $c5_ = 0;
     $c6_ = Vector{0, $symbol($a__, $string_of_int($state))};
-    $c7_ = Vector{
-      0,
-      function(dynamic $e) use ($ba_,$print_string) {
-        return $print_string($ba_);
-      }
-    };
+    $c7_ = Vector{0, (dynamic $e) ==> {return $print_string($ba_);}};
     return Vector{
       0,
       $state,
       Vector{
         0,
-        function(dynamic $c8_, dynamic $c9_) use ($c5_,$c6_,$c7_,$render__0) {
+        (dynamic $c8_, dynamic $c9_) ==> {
           return $render__0($c7_, $c6_, $c5_, $c8_, $c9_);
         }
       },
       $c4_
     };
   };
-  $render__6 = function
-  (dynamic $shouldControlInput, dynamic $children, dynamic $opt, dynamic $self) use ($bb_,$bc_,$bd_,$be_,$control,$element,$nonReducer,$render__0,$render__4,$render__5) {
+  $render__6 = 
+  (dynamic $shouldControlInput, dynamic $children, dynamic $opt, dynamic $self) ==> {
     if ($opt) {
       $sth = $opt[1];
       $state = $sth;
@@ -1836,7 +1797,7 @@ function main() {
     $input = $element(
       Vector{
         0,
-        function(dynamic $c2_, dynamic $c3_) use ($bb_,$cU_,$render__4) {
+        (dynamic $c2_, dynamic $c3_) ==> {
           return $render__4($bb_, $cU_, $c2_, $c3_);
         }
       }
@@ -1846,7 +1807,7 @@ function main() {
     $cW_ = $element(
       Vector{
         0,
-        function(dynamic $c0_, dynamic $c1_) use ($cV_,$render__5) {
+        (dynamic $c0_, dynamic $c1_) ==> {
           return $render__5($cV_, $c0_, $c1_);
         }
       }
@@ -1860,7 +1821,7 @@ function main() {
         $element(
           Vector{
             0,
-            function(dynamic $cY_, dynamic $cZ_) use ($bc_,$cX_,$input__0,$render__0) {
+            (dynamic $cY_, dynamic $cZ_) ==> {
               return $render__0($cX_, $bc_, $input__0, $cY_, $cZ_);
             }
           }
@@ -1870,15 +1831,14 @@ function main() {
       $nonReducer
     };
   };
-  $render__7 = function
-  (dynamic $anyProp, dynamic $size, dynamic $children, dynamic $opt, dynamic $self) use ($render__0) {
+  $render__7 = 
+  (dynamic $anyProp, dynamic $size, dynamic $children, dynamic $opt, dynamic $self) ==> {
     if ($opt) {
       $sth = $opt[1];
       $state = $sth;
     }
     else {$state = Vector{0, $anyProp, $anyProp};}
-    $cO_ = function(dynamic $param, dynamic $action) use ($state) {return $state;
-    };
+    $cO_ = (dynamic $param, dynamic $action) ==> {return $state;};
     $cP_ = 0;
     $cQ_ = Vector{0, $size};
     $cR_ = 0;
@@ -1887,32 +1847,29 @@ function main() {
       $state,
       Vector{
         0,
-        function(dynamic $cS_, dynamic $cT_) use ($cP_,$cQ_,$cR_,$render__0) {
+        (dynamic $cS_, dynamic $cT_) ==> {
           return $render__0($cR_, $cQ_, $cP_, $cS_, $cT_);
         }
       },
       $cO_
     };
   };
-  $symbol__0 = function(dynamic $x, dynamic $getDefault) use ($call1) {
+  $symbol__0 = (dynamic $x, dynamic $getDefault) ==> {
     if ($x) {$x__0 = $x[1];return $x__0;}
     return $call1($getDefault, 0);
   };
-  $onRaf = function(dynamic $e) use ($bf_) {return $bf_;};
-  $initialStateGetter = function(dynamic $self, dynamic $param) use ($bg_,$call1,$onRaf,$request) {
+  $onRaf = (dynamic $e) ==> {return $bf_;};
+  $initialStateGetter = (dynamic $self, dynamic $param) ==> {
     $request($call1($self[1], $onRaf));
     return $bg_;
   };
-  $render__8 = function
-  (dynamic $opt, dynamic $param, dynamic $state, dynamic $self) use ($bh_,$bi_,$bj_,$bk_,$bl_,$call1,$domStateToString,$element,$initialStateGetter,$int__1,$onRaf,$render__0,$request,$string_of_int,$symbol,$symbol__0) {
+  $render__8 = (dynamic $opt, dynamic $param, dynamic $state, dynamic $self) ==> {
     ;
     $state__0 = $symbol__0(
       $state,
-      function(dynamic $cN_) use ($initialStateGetter,$self) {
-        return $initialStateGetter($self, $cN_);
-      }
+      (dynamic $cN_) ==> {return $initialStateGetter($self, $cN_);}
     );
-    $cy_ = function(dynamic $inst, dynamic $action) use ($bh_,$bi_,$call1,$domStateToString,$onRaf,$request,$self,$state__0,$symbol) {
+    $cy_ = (dynamic $inst, dynamic $action) ==> {
       $match = $inst[6][2][1][6];
       $deepestDiv = $match[1];
       $divStateStr = $domStateToString($deepestDiv[5][1]);
@@ -1925,7 +1882,7 @@ function main() {
     $cC_ = $element(
       Vector{
         0,
-        function(dynamic $cL_, dynamic $cM_) use ($cA_,$cB_,$cz_,$render__0) {
+        (dynamic $cL_, dynamic $cM_) ==> {
           return $render__0($cB_, $cA_, $cz_, $cL_, $cM_);
         }
       }
@@ -1934,7 +1891,7 @@ function main() {
     $cE_ = $element(
       Vector{
         0,
-        function(dynamic $cJ_, dynamic $cK_) use ($bk_,$cC_,$cD_,$render__0) {
+        (dynamic $cJ_, dynamic $cK_) ==> {
           return $render__0($cD_, $bk_, $cC_, $cJ_, $cK_);
         }
       }
@@ -1949,7 +1906,7 @@ function main() {
         $element(
           Vector{
             0,
-            function(dynamic $cH_, dynamic $cI_) use ($bl_,$cF_,$cG_,$render__0) {
+            (dynamic $cH_, dynamic $cI_) ==> {
               return $render__0($cG_, $bl_, $cF_, $cH_, $cI_);
             }
           }
@@ -1959,7 +1916,7 @@ function main() {
       $cy_
     };
   };
-  $render__9 = function(dynamic $opt, dynamic $children) use ($bm_,$render__0) {
+  $render__9 = (dynamic $opt, dynamic $children) ==> {
     if ($opt) {
       $sth = $opt[1];
       $txt = $sth;
@@ -1968,7 +1925,7 @@ function main() {
     $ct_ = 0;
     $cu_ = Vector{0, $txt};
     $cv_ = 0;
-    return function(dynamic $cw_, dynamic $cx_) use ($ct_,$cu_,$cv_,$render__0) {
+    return (dynamic $cw_, dynamic $cx_) ==> {
       return $render__0($cv_, $cu_, $ct_, $cw_, $cx_);
     };
   };
@@ -1994,8 +1951,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $cq_) use ($b0_,$render__2) {
-               return function(dynamic $cr_, dynamic $cs_) use ($b0_,$cq_,$render__2) {
+            ((dynamic $cq_) ==> {
+               return (dynamic $cr_, dynamic $cs_) ==> {
                  return $render__2($b0_, $cq_, $cr_, $cs_);
                };
              })($bZ_)
@@ -2012,8 +1969,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $stateless, dynamic $cn_) use ($bu_,$render__3) {
-               return function(dynamic $co_, dynamic $cp_) use ($bu_,$cn_,$render__3,$stateless) {
+            ((dynamic $stateless, dynamic $cn_) ==> {
+               return (dynamic $co_, dynamic $cp_) ==> {
                  return $render__3($bu_, $cn_, $stateless, $co_, $cp_);
                };
              })($stateless, $bt_)
@@ -2027,8 +1984,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $stateless, dynamic $ck_) use ($bx_,$render__3) {
-               return function(dynamic $cl_, dynamic $cm_) use ($bx_,$ck_,$render__3,$stateless) {
+            ((dynamic $stateless, dynamic $ck_) ==> {
+               return (dynamic $cl_, dynamic $cm_) ==> {
                  return $render__3($bx_, $ck_, $stateless, $cl_, $cm_);
                };
              })($stateless, $bw_)
@@ -2042,8 +1999,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $stateless, dynamic $ch_) use ($bA_,$render__3) {
-               return function(dynamic $ci_, dynamic $cj_) use ($bA_,$ch_,$render__3,$stateless) {
+            ((dynamic $stateless, dynamic $ch_) ==> {
+               return (dynamic $ci_, dynamic $cj_) ==> {
                  return $render__3($bA_, $ch_, $stateless, $ci_, $cj_);
                };
              })($stateless, $bz_)
@@ -2059,8 +2016,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $stateless, dynamic $ce_) use ($render__6) {
-               return function(dynamic $cf_, dynamic $cg_) use ($ce_,$render__6,$stateless) {
+            ((dynamic $stateless, dynamic $ce_) ==> {
+               return (dynamic $cf_, dynamic $cg_) ==> {
                  return $render__6($ce_, $stateless, $cf_, $cg_);
                };
              })($stateless, $bD_)
@@ -2075,8 +2032,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $ca_, dynamic $cb_) use ($render__6) {
-               return function(dynamic $cc_, dynamic $cd_) use ($ca_,$cb_,$render__6) {
+            ((dynamic $ca_, dynamic $cb_) ==> {
+               return (dynamic $cc_, dynamic $cd_) ==> {
                  return $render__6($cb_, $ca_, $cc_, $cd_);
                };
              })($bF_, $bG_)
@@ -2091,7 +2048,7 @@ function main() {
         $element(
           Vector{
             0,
-            function(dynamic $b9_, dynamic $b__) use ($bJ_,$bK_,$render__8) {
+            (dynamic $b9_, dynamic $b__) ==> {
               return $render__8($bK_, $bJ_, $b9_, $b__);
             }
           }
@@ -2111,8 +2068,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $b6_) use ($bQ_,$bR_,$render__7) {
-               return function(dynamic $b7_, dynamic $b8_) use ($b6_,$bQ_,$bR_,$render__7) {
+            ((dynamic $b6_) ==> {
+               return (dynamic $b7_, dynamic $b8_) ==> {
                  return $render__7($bR_, $bQ_, $b6_, $b7_, $b8_);
                };
              })($bP_)
@@ -2128,8 +2085,8 @@ function main() {
         $element(
           Vector{
             0,
-            (function(dynamic $b2_, dynamic $b3_) use ($bU_,$render__7) {
-               return function(dynamic $b4_, dynamic $b5_) use ($b2_,$b3_,$bU_,$render__7) {
+            ((dynamic $b2_, dynamic $b3_) ==> {
+               return (dynamic $b4_, dynamic $b5_) ==> {
                  return $render__7($b3_, $bU_, $b2_, $b4_, $b5_);
                };
              })($bT_, $bV_)
@@ -2148,7 +2105,7 @@ function main() {
       );
       $f = $runtime["caml_alloc_dummy_function"](1, 2);
       $z = varray[];
-      $caml_update_dummy($f, function(dynamic $x, dynamic $y) {return 1;});
+      $caml_update_dummy($f, (dynamic $x, dynamic $y) ==> {return 1;});
       $caml_update_dummy($z, Vector{0, Vector{0, $f, $bp_}});
       if ($z) {
         $match = $z[1];

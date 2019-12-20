@@ -29,10 +29,10 @@ final class CamlinternalLazy {
       $cst_CamlinternalLazy_Undefined,
       $runtime["caml_fresh_oo_id"](0)
     };
-    $raise_undefined = function(dynamic $param) use ($Undefined,$caml_wrap_thrown_exception) {
+    $raise_undefined = (dynamic $param) ==> {
       throw $caml_wrap_thrown_exception($Undefined) as \Throwable;
     };
-    $force_lazy_block = function(dynamic $blk) use ($Obj,$call1,$caml_obj_set_tag,$caml_wrap_thrown_exception_reraise,$raise_undefined,$runtime) {
+    $force_lazy_block = (dynamic $blk) ==> {
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
       try {
@@ -44,13 +44,13 @@ final class CamlinternalLazy {
       catch(\Throwable $e) {
         $e = $runtime["caml_wrap_exception"]($e);
         $blk[1] =
-          function(dynamic $param) use ($caml_wrap_thrown_exception_reraise,$e) {
+          (dynamic $param) ==> {
             throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
           };
         throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
       }
     };
-    $force_val_lazy_block = function(dynamic $blk) use ($Obj,$call1,$caml_obj_set_tag,$raise_undefined) {
+    $force_val_lazy_block = (dynamic $blk) ==> {
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
       $result = $call1($closure, 0);
@@ -58,13 +58,13 @@ final class CamlinternalLazy {
       $caml_obj_set_tag($blk, $Obj[10]);
       return $result;
     };
-    $force = function(dynamic $lzv) use ($Obj,$caml_obj_tag,$force_lazy_block) {
+    $force = (dynamic $lzv) ==> {
       $t = $caml_obj_tag($lzv);
       return $t === $Obj[10]
         ? $lzv[1]
         : ($t !== $Obj[6] ? $lzv : ($force_lazy_block($lzv)));
     };
-    $force_val = function(dynamic $lzv) use ($Obj,$caml_obj_tag,$force_val_lazy_block) {
+    $force_val = (dynamic $lzv) ==> {
       $t = $caml_obj_tag($lzv);
       return $t === $Obj[10]
         ? $lzv[1]
@@ -82,20 +82,20 @@ final class CamlinternalLazy {
      return ($CamlinternalLazy);
 
   }
-  public static function force_val(dynamic $lzv) {
-    return static::get()[5]($lzv);
-  }
-  public static function force(dynamic $lzv) {
-    return static::get()[4]($lzv);
-  }
-  public static function force_val_lazy_block(dynamic $blk) {
-    return static::get()[3]($blk);
+  public static function Undefined() {
+    return static::get()[1]();
   }
   public static function force_lazy_block(dynamic $blk) {
     return static::get()[2]($blk);
   }
-  public static function Undefined() {
-    return static::get()[1]();
+  public static function force_val_lazy_block(dynamic $blk) {
+    return static::get()[3]($blk);
+  }
+  public static function force(dynamic $lzv) {
+    return static::get()[4]($lzv);
+  }
+  public static function force_val(dynamic $lzv) {
+    return static::get()[5]($lzv);
   }
 
 }

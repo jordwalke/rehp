@@ -100,15 +100,15 @@ var Js_of_ocaml_XmlHttpRequest = [0,create,Event];
 exports = Js_of_ocaml_XmlHttpRequest;
 
 /*::type Exports = {
-  Event: any
   create: (param: any) => any,
+  Event: any
 }*/
 /** @type {{
-  Event: any,
   create: (any) => any,
+  Event: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.Event = module.exports[2];
 module.exports.create = module.exports[1];
+module.exports.Event = module.exports[2];
 
 /* Hashing disabled */

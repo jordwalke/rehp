@@ -543,39 +543,39 @@ var Js_of_ocaml_Intl = [
 exports = Js_of_ocaml_Intl;
 
 /*::type Exports = {
-  is_supported: (param: any) => any,
-  pluralRules_constr: any
-  numberFormat_constr: any
-  dateTimeFormat_constr: any
-  collator_constr: any
-  intl: any
-  PluralRules: any
-  NumberFormat: any
-  DateTimeFormat: any
   Collator: any
+  DateTimeFormat: any
+  NumberFormat: any
+  PluralRules: any
+  intl: any
+  collator_constr: any
+  dateTimeFormat_constr: any
+  numberFormat_constr: any
+  pluralRules_constr: any
+  is_supported: (param: any) => any,
 }*/
 /** @type {{
-  is_supported: (any) => any,
-  pluralRules_constr: any,
-  numberFormat_constr: any,
-  dateTimeFormat_constr: any,
-  collator_constr: any,
-  intl: any,
-  PluralRules: any,
-  NumberFormat: any,
-  DateTimeFormat: any,
   Collator: any,
+  DateTimeFormat: any,
+  NumberFormat: any,
+  PluralRules: any,
+  intl: any,
+  collator_constr: any,
+  dateTimeFormat_constr: any,
+  numberFormat_constr: any,
+  pluralRules_constr: any,
+  is_supported: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.is_supported = module.exports[10];
-module.exports.pluralRules_constr = module.exports[9];
-module.exports.numberFormat_constr = module.exports[8];
-module.exports.dateTimeFormat_constr = module.exports[7];
-module.exports.collator_constr = module.exports[6];
-module.exports.intl = module.exports[5];
-module.exports.PluralRules = module.exports[4];
-module.exports.NumberFormat = module.exports[3];
-module.exports.DateTimeFormat = module.exports[2];
 module.exports.Collator = module.exports[1];
+module.exports.DateTimeFormat = module.exports[2];
+module.exports.NumberFormat = module.exports[3];
+module.exports.PluralRules = module.exports[4];
+module.exports.intl = module.exports[5];
+module.exports.collator_constr = module.exports[6];
+module.exports.dateTimeFormat_constr = module.exports[7];
+module.exports.numberFormat_constr = module.exports[8];
+module.exports.pluralRules_constr = module.exports[9];
+module.exports.is_supported = module.exports[10];
 
 /* Hashing disabled */

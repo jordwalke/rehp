@@ -126,54 +126,54 @@ var Uchar = [
 exports = Uchar;
 
 /*::type Exports = {
-  hash: (unnamed1: any) => any,
-  compare: (unnamed1: any, unnamed2: any) => any,
-  equal: (unnamed1: any, unnamed2: any) => any,
-  unsafe_to_char: (unnamed1: any) => any,
-  to_char: (u: any) => any,
-  of_char: (c: any) => any,
-  is_char: (u: any) => any,
-  of_int: (i: any) => any,
-  is_valid: (i: any) => any,
-  pred: (u: any) => any,
-  succ: (u: any) => any,
-  rep: any
-  bom: any
-  max: any
   min: any
+  max: any
+  bom: any
+  rep: any
+  succ: (u: any) => any,
+  pred: (u: any) => any,
+  is_valid: (i: any) => any,
+  of_int: (i: any) => any,
+  is_char: (u: any) => any,
+  of_char: (c: any) => any,
+  to_char: (u: any) => any,
+  unsafe_to_char: (unnamed1: any) => any,
+  equal: (unnamed1: any, unnamed2: any) => any,
+  compare: (unnamed1: any, unnamed2: any) => any,
+  hash: (unnamed1: any) => any,
 }*/
 /** @type {{
-  hash: (any) => any,
-  compare: (any, any) => any,
-  equal: (any, any) => any,
-  unsafe_to_char: (any) => any,
-  to_char: (any) => any,
-  of_char: (any) => any,
-  is_char: (any) => any,
-  of_int: (any) => any,
-  is_valid: (any) => any,
-  pred: (any) => any,
-  succ: (any) => any,
-  rep: any,
-  bom: any,
-  max: any,
   min: any,
+  max: any,
+  bom: any,
+  rep: any,
+  succ: (any) => any,
+  pred: (any) => any,
+  is_valid: (any) => any,
+  of_int: (any) => any,
+  is_char: (any) => any,
+  of_char: (any) => any,
+  to_char: (any) => any,
+  unsafe_to_char: (any) => any,
+  equal: (any, any) => any,
+  compare: (any, any) => any,
+  hash: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.hash = module.exports[17];
-module.exports.compare = module.exports[16];
-module.exports.equal = module.exports[15];
-module.exports.unsafe_to_char = module.exports[14];
-module.exports.to_char = module.exports[13];
-module.exports.of_char = module.exports[12];
-module.exports.is_char = module.exports[11];
-module.exports.of_int = module.exports[8];
-module.exports.is_valid = module.exports[7];
-module.exports.pred = module.exports[6];
-module.exports.succ = module.exports[5];
-module.exports.rep = module.exports[4];
-module.exports.bom = module.exports[3];
-module.exports.max = module.exports[2];
 module.exports.min = module.exports[1];
+module.exports.max = module.exports[2];
+module.exports.bom = module.exports[3];
+module.exports.rep = module.exports[4];
+module.exports.succ = module.exports[5];
+module.exports.pred = module.exports[6];
+module.exports.is_valid = module.exports[7];
+module.exports.of_int = module.exports[8];
+module.exports.is_char = module.exports[11];
+module.exports.of_char = module.exports[12];
+module.exports.to_char = module.exports[13];
+module.exports.unsafe_to_char = module.exports[14];
+module.exports.equal = module.exports[15];
+module.exports.compare = module.exports[16];
+module.exports.hash = module.exports[17];
 
 /* Hashing disabled */

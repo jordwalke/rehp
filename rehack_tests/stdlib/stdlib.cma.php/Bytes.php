@@ -56,12 +56,12 @@ final class Bytes {
     $Not_found =  Not_found::get ();
     $Char =  Char::get ();
     $Pervasives =  Pervasives::get ();
-    $make = function(dynamic $n, dynamic $c) use ($caml_create_bytes,$caml_fill_bytes) {
+    $make = (dynamic $n, dynamic $c) ==> {
       $s = $caml_create_bytes($n);
       $caml_fill_bytes($s, 0, $n, $c);
       return $s;
     };
-    $init = function(dynamic $n, dynamic $f) use ($call1,$caml_bytes_unsafe_set,$caml_create_bytes) {
+    $init = (dynamic $n, dynamic $f) ==> {
       $s = $caml_create_bytes($n);
       $N_ = (int) ($n + -1);
       $M_ = 0;
@@ -77,15 +77,15 @@ final class Bytes {
       return $s;
     };
     $empty = $caml_create_bytes(0);
-    $copy = function(dynamic $s) use ($caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length) {
+    $copy = (dynamic $s) ==> {
       $len = $caml_ml_bytes_length($s);
       $r = $caml_create_bytes($len);
       $caml_blit_bytes($s, 0, $r, 0, $len);
       return $r;
     };
-    $to_string = function(dynamic $b) use ($copy) {return $copy($b);};
-    $of_string = function(dynamic $s) use ($copy) {return $copy($s);};
-    $sub = function(dynamic $s, dynamic $ofs, dynamic $len) use ($Pervasives,$call1,$caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length,$cst_String_sub_Bytes_sub) {
+    $to_string = (dynamic $b) ==> {return $copy($b);};
+    $of_string = (dynamic $s) ==> {return $copy($s);};
+    $sub = (dynamic $s, dynamic $ofs, dynamic $len) ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {
@@ -97,9 +97,9 @@ final class Bytes {
       }
       return $call1($Pervasives[1], $cst_String_sub_Bytes_sub);
     };
-    $sub_string = function(dynamic $b, dynamic $ofs, dynamic $len) use ($sub) {return $sub($b, $ofs, $len);
+    $sub_string = (dynamic $b, dynamic $ofs, dynamic $len) ==> {return $sub($b, $ofs, $len);
     };
-    $symbol = function(dynamic $a, dynamic $b) use ($Pervasives,$call1,$cst_Bytes_extend) {
+    $symbol = (dynamic $a, dynamic $b) ==> {
       $c = (int) ($a + $b);
       $L_ = $b < 0 ? 1 : (0);
       $match = $c < 0 ? 1 : (0);
@@ -108,7 +108,7 @@ final class Bytes {
         : (0 === $L_ ? 0 : (0 === $match ? 1 : (0)));
       return $switch__0 ? $call1($Pervasives[1], $cst_Bytes_extend) : ($c);
     };
-    $extend = function(dynamic $s, dynamic $left, dynamic $right) use ($Pervasives,$call2,$caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length,$symbol) {
+    $extend = (dynamic $s, dynamic $left, dynamic $right) ==> {
       $len = $symbol($symbol($caml_ml_bytes_length($s), $left), $right);
       $r = $caml_create_bytes($len);
       if (0 <= $left) {
@@ -129,7 +129,7 @@ final class Bytes {
       }
       return $r;
     };
-    $fill = function(dynamic $s, dynamic $ofs, dynamic $len, dynamic $c) use ($Pervasives,$call1,$caml_fill_bytes,$caml_ml_bytes_length,$cst_String_fill_Bytes_fill) {
+    $fill = (dynamic $s, dynamic $ofs, dynamic $len, dynamic $c) ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {return $caml_fill_bytes($s, $ofs, $len, $c);}
@@ -137,8 +137,8 @@ final class Bytes {
       }
       return $call1($Pervasives[1], $cst_String_fill_Bytes_fill);
     };
-    $blit = function
-    (dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) use ($Pervasives,$call1,$caml_blit_bytes,$caml_ml_bytes_length,$cst_Bytes_blit) {
+    $blit = 
+    (dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) ==> {
       if (0 <= $len) {
         if (0 <= $ofs1) {
           if (! ((int) ($caml_ml_bytes_length($s1) - $len) < $ofs1)) {
@@ -150,8 +150,8 @@ final class Bytes {
       }
       return $call1($Pervasives[1], $cst_Bytes_blit);
     };
-    $blit_string = function
-    (dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) use ($Pervasives,$call1,$caml_ml_bytes_length,$cst_String_blit_Bytes_blit_string,$runtime) {
+    $blit_string = 
+    (dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) ==> {
       if (0 <= $len) {
         if (0 <= $ofs1) {
           if (
@@ -174,7 +174,7 @@ final class Bytes {
       }
       return $call1($Pervasives[1], $cst_String_blit_Bytes_blit_string);
     };
-    $iter = function(dynamic $f, dynamic $a) use ($call1,$caml_bytes_unsafe_get,$caml_ml_bytes_length) {
+    $iter = (dynamic $f, dynamic $a) ==> {
       $H_ = (int) ($caml_ml_bytes_length($a) + -1);
       $G_ = 0;
       if (! ($H_ < 0)) {
@@ -188,7 +188,7 @@ final class Bytes {
       }
       return 0;
     };
-    $iteri = function(dynamic $f, dynamic $a) use ($call2,$caml_bytes_unsafe_get,$caml_ml_bytes_length) {
+    $iteri = (dynamic $f, dynamic $a) ==> {
       $E_ = (int) ($caml_ml_bytes_length($a) + -1);
       $D_ = 0;
       if (! ($E_ < 0)) {
@@ -202,10 +202,10 @@ final class Bytes {
       }
       return 0;
     };
-    $ensure_ge = function(dynamic $x, dynamic $y) use ($Pervasives,$call1,$cst_Bytes_concat) {
+    $ensure_ge = (dynamic $x, dynamic $y) ==> {
       return $y <= $x ? $x : ($call1($Pervasives[1], $cst_Bytes_concat));
     };
-    $sum_lengths = function(dynamic $acc, dynamic $seplen, dynamic $param) use ($caml_ml_bytes_length,$ensure_ge) {
+    $sum_lengths = (dynamic $acc, dynamic $seplen, dynamic $param) ==> {
       $acc__0 = $acc;
       $param__0 = $param;
       for (;;) {
@@ -227,8 +227,8 @@ final class Bytes {
         return $acc__0;
       }
     };
-    $unsafe_blits = function
-    (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) use ($caml_blit_bytes,$caml_ml_bytes_length) {
+    $unsafe_blits = 
+    (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) ==> {
       $pos__0 = $pos;
       $param__0 = $param;
       for (;;) {
@@ -258,7 +258,7 @@ final class Bytes {
         return $dst;
       }
     };
-    $concat = function(dynamic $sep, dynamic $l) use ($caml_create_bytes,$caml_ml_bytes_length,$empty,$sum_lengths,$unsafe_blits) {
+    $concat = (dynamic $sep, dynamic $l) ==> {
       if ($l) {
         $seplen = $caml_ml_bytes_length($sep);
         return $unsafe_blits(
@@ -271,7 +271,7 @@ final class Bytes {
       }
       return $empty;
     };
-    $cat = function(dynamic $s1, dynamic $s2) use ($caml_blit_bytes,$caml_create_bytes,$caml_ml_bytes_length) {
+    $cat = (dynamic $s1, dynamic $s2) ==> {
       $l1 = $caml_ml_bytes_length($s1);
       $l2 = $caml_ml_bytes_length($s2);
       $r = $caml_create_bytes((int) ($l1 + $l2));
@@ -279,14 +279,14 @@ final class Bytes {
       $caml_blit_bytes($s2, 0, $r, $l1, $l2);
       return $r;
     };
-    $is_space = function(dynamic $param) use ($unsigned_right_shift_32) {
+    $is_space = (dynamic $param) ==> {
       $y_ = (int) ($param + -9);
       $switch__0 = 4 < $unsigned_right_shift_32($y_, 0)
         ? 23 === $y_ ? 1 : (0)
         : (2 === $y_ ? 0 : (1));
       return $switch__0 ? 1 : (0);
     };
-    $trim = function(dynamic $s) use ($caml_bytes_unsafe_get,$caml_ml_bytes_length,$empty,$is_space,$sub) {
+    $trim = (dynamic $s) ==> {
       $len = $caml_ml_bytes_length($s);
       $i = Vector{0, 0};
       for (;;) {
@@ -304,7 +304,7 @@ final class Bytes {
         }
       }
     };
-    $escaped = function(dynamic $s) use ($caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length,$copy,$unsigned_right_shift_32) {
+    $escaped = (dynamic $s) ==> {
       $n = Vector{0, 0};
       $r_ = (int) ($caml_ml_bytes_length($s) + -1);
       $q_ = 0;
@@ -450,7 +450,7 @@ final class Bytes {
       }
       return $s__0;
     };
-    $map = function(dynamic $f, dynamic $s) use ($call1,$caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length) {
+    $map = (dynamic $f, dynamic $s) ==> {
       $l = $caml_ml_bytes_length($s);
       if (0 === $l) {return $s;}
       $r = $caml_create_bytes($l);
@@ -471,7 +471,7 @@ final class Bytes {
       }
       return $r;
     };
-    $mapi = function(dynamic $f, dynamic $s) use ($call2,$caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_create_bytes,$caml_ml_bytes_length) {
+    $mapi = (dynamic $f, dynamic $s) ==> {
       $l = $caml_ml_bytes_length($s);
       if (0 === $l) {return $s;}
       $r = $caml_create_bytes($l);
@@ -492,25 +492,17 @@ final class Bytes {
       }
       return $r;
     };
-    $uppercase_ascii = function(dynamic $s) use ($Char,$map) {
-      return $map($Char[6], $s);
-    };
-    $lowercase_ascii = function(dynamic $s) use ($Char,$map) {
-      return $map($Char[5], $s);
-    };
-    $apply1 = function(dynamic $f, dynamic $s) use ($call1,$caml_bytes_unsafe_get,$caml_bytes_unsafe_set,$caml_ml_bytes_length,$copy) {
+    $uppercase_ascii = (dynamic $s) ==> {return $map($Char[6], $s);};
+    $lowercase_ascii = (dynamic $s) ==> {return $map($Char[5], $s);};
+    $apply1 = (dynamic $f, dynamic $s) ==> {
       if (0 === $caml_ml_bytes_length($s)) {return $s;}
       $r = $copy($s);
       $caml_bytes_unsafe_set($r, 0, $call1($f, $caml_bytes_unsafe_get($s, 0)));
       return $r;
     };
-    $capitalize_ascii = function(dynamic $s) use ($Char,$apply1) {
-      return $apply1($Char[6], $s);
-    };
-    $uncapitalize_ascii = function(dynamic $s) use ($Char,$apply1) {
-      return $apply1($Char[5], $s);
-    };
-    $index_rec = function(dynamic $s, dynamic $lim, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
+    $capitalize_ascii = (dynamic $s) ==> {return $apply1($Char[6], $s);};
+    $uncapitalize_ascii = (dynamic $s) ==> {return $apply1($Char[5], $s);};
+    $index_rec = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {
@@ -522,11 +514,10 @@ final class Bytes {
         continue;
       }
     };
-    $index = function(dynamic $s, dynamic $c) use ($caml_ml_bytes_length,$index_rec) {
+    $index = (dynamic $s, dynamic $c) ==> {
       return $index_rec($s, $caml_ml_bytes_length($s), 0, $c);
     };
-    $index_rec_opt = function
-    (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) use ($caml_bytes_unsafe_get) {
+    $index_rec_opt = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {return 0;}
@@ -536,15 +527,15 @@ final class Bytes {
         continue;
       }
     };
-    $index_opt = function(dynamic $s, dynamic $c) use ($caml_ml_bytes_length,$index_rec_opt) {
+    $index_opt = (dynamic $s, dynamic $c) ==> {
       return $index_rec_opt($s, $caml_ml_bytes_length($s), 0, $c);
     };
-    $index_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Pervasives,$call1,$caml_ml_bytes_length,$cst_String_index_from_Bytes_index_from,$index_rec) {
+    $index_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
       $l = $caml_ml_bytes_length($s);
       if (0 <= $i) {if (! ($l < $i)) {return $index_rec($s, $l, $i, $c);}}
       return $call1($Pervasives[1], $cst_String_index_from_Bytes_index_from);
     };
-    $index_from_opt = function(dynamic $s, dynamic $i, dynamic $c) use ($Pervasives,$call1,$caml_ml_bytes_length,$cst_String_index_from_opt_Bytes_index_from_opt,$index_rec_opt) {
+    $index_from_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
       $l = $caml_ml_bytes_length($s);
       if (0 <= $i) {if (! ($l < $i)) {return $index_rec_opt($s, $l, $i, $c);}}
       return $call1(
@@ -552,7 +543,7 @@ final class Bytes {
         $cst_String_index_from_opt_Bytes_index_from_opt
       );
     };
-    $rindex_rec = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$caml_bytes_unsafe_get,$caml_wrap_thrown_exception) {
+    $rindex_rec = (dynamic $s, dynamic $i, dynamic $c) ==> {
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
@@ -564,16 +555,16 @@ final class Bytes {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
-    $rindex = function(dynamic $s, dynamic $c) use ($caml_ml_bytes_length,$rindex_rec) {
+    $rindex = (dynamic $s, dynamic $c) ==> {
       return $rindex_rec($s, (int) ($caml_ml_bytes_length($s) + -1), $c);
     };
-    $rindex_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Pervasives,$call1,$caml_ml_bytes_length,$cst_String_rindex_from_Bytes_rindex_from,$rindex_rec) {
+    $rindex_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
       if (-1 <= $i) {
         if (! ($caml_ml_bytes_length($s) <= $i)) {return $rindex_rec($s, $i, $c);}
       }
       return $call1($Pervasives[1], $cst_String_rindex_from_Bytes_rindex_from);
     };
-    $rindex_rec_opt = function(dynamic $s, dynamic $i, dynamic $c) use ($caml_bytes_unsafe_get) {
+    $rindex_rec_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
@@ -585,10 +576,10 @@ final class Bytes {
         return 0;
       }
     };
-    $rindex_opt = function(dynamic $s, dynamic $c) use ($caml_ml_bytes_length,$rindex_rec_opt) {
+    $rindex_opt = (dynamic $s, dynamic $c) ==> {
       return $rindex_rec_opt($s, (int) ($caml_ml_bytes_length($s) + -1), $c);
     };
-    $rindex_from_opt = function(dynamic $s, dynamic $i, dynamic $c) use ($Pervasives,$call1,$caml_ml_bytes_length,$cst_String_rindex_from_opt_Bytes_rindex_from_opt,$rindex_rec_opt) {
+    $rindex_from_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
       if (-1 <= $i) {
         if (! ($caml_ml_bytes_length($s) <= $i)) {return $rindex_rec_opt($s, $i, $c);}
       }
@@ -597,7 +588,7 @@ final class Bytes {
         $cst_String_rindex_from_opt_Bytes_rindex_from_opt
       );
     };
-    $contains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$Pervasives,$call1,$caml_ml_bytes_length,$caml_wrap_thrown_exception_reraise,$cst_String_contains_from_Bytes_contains_from,$index_rec,$runtime) {
+    $contains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
       $l = $caml_ml_bytes_length($s);
       if (0 <= $i) {
         if (! ($l < $i)) {
@@ -614,10 +605,10 @@ final class Bytes {
         $cst_String_contains_from_Bytes_contains_from
       );
     };
-    $contains = function(dynamic $s, dynamic $c) use ($contains_from) {
+    $contains = (dynamic $s, dynamic $c) ==> {
       return $contains_from($s, 0, $c);
     };
-    $rcontains_from = function(dynamic $s, dynamic $i, dynamic $c) use ($Not_found,$Pervasives,$call1,$caml_ml_bytes_length,$caml_wrap_thrown_exception_reraise,$cst_String_rcontains_from_Bytes_rcontains_from,$rindex_rec,$runtime) {
+    $rcontains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
       if (0 <= $i) {
         if (! ($caml_ml_bytes_length($s) <= $i)) {
           try {$rindex_rec($s, $i, $c);$g_ = 1;return $g_;}
@@ -633,23 +624,15 @@ final class Bytes {
         $cst_String_rcontains_from_Bytes_rcontains_from
       );
     };
-    $compare = function(dynamic $x, dynamic $y) use ($runtime) {
+    $compare = (dynamic $x, dynamic $y) ==> {
       return $runtime["caml_bytes_compare"]($x, $y);
     };
-    $uppercase = function(dynamic $s) use ($Char,$map) {
-      return $map($Char[4], $s);
-    };
-    $lowercase = function(dynamic $s) use ($Char,$map) {
-      return $map($Char[3], $s);
-    };
-    $capitalize = function(dynamic $s) use ($Char,$apply1) {
-      return $apply1($Char[4], $s);
-    };
-    $uncapitalize = function(dynamic $s) use ($Char,$apply1) {
-      return $apply1($Char[3], $s);
-    };
-    $a_ = function(dynamic $f_) {return $f_;};
-    $b_ = function(dynamic $e_) {return $e_;};
+    $uppercase = (dynamic $s) ==> {return $map($Char[4], $s);};
+    $lowercase = (dynamic $s) ==> {return $map($Char[3], $s);};
+    $capitalize = (dynamic $s) ==> {return $apply1($Char[4], $s);};
+    $uncapitalize = (dynamic $s) ==> {return $apply1($Char[3], $s);};
+    $a_ = (dynamic $f_) ==> {return $f_;};
+    $b_ = (dynamic $e_) ==> {return $e_;};
     $Bytes = Vector{
       0,
       $make,
@@ -692,7 +675,7 @@ final class Bytes {
       $capitalize_ascii,
       $uncapitalize_ascii,
       $compare,
-      function(dynamic $d_, dynamic $c_) use ($runtime) {
+      (dynamic $d_, dynamic $c_) ==> {
         return $runtime["caml_bytes_equal"]($d_, $c_);
       },
       $b_,
@@ -702,125 +685,125 @@ final class Bytes {
      return ($Bytes);
 
   }
-  public static function compare(dynamic $x, dynamic $y) {
-    return static::get()[40]($x, $y);
-  }
-  public static function uncapitalize_ascii(dynamic $s) {
-    return static::get()[39]($s);
-  }
-  public static function capitalize_ascii(dynamic $s) {
-    return static::get()[38]($s);
-  }
-  public static function lowercase_ascii(dynamic $s) {
-    return static::get()[37]($s);
-  }
-  public static function uppercase_ascii(dynamic $s) {
-    return static::get()[36]($s);
-  }
-  public static function uncapitalize(dynamic $s) {
-    return static::get()[35]($s);
-  }
-  public static function capitalize(dynamic $s) {
-    return static::get()[34]($s);
-  }
-  public static function lowercase(dynamic $s) {
-    return static::get()[33]($s);
-  }
-  public static function uppercase(dynamic $s) {
-    return static::get()[32]($s);
-  }
-  public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c) {
-    return static::get()[31]($s, $i, $c);
-  }
-  public static function contains_from(dynamic $s, dynamic $i, dynamic $c) {
-    return static::get()[30]($s, $i, $c);
-  }
-  public static function contains(dynamic $s, dynamic $c) {
-    return static::get()[29]($s, $c);
-  }
-  public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c) {
-    return static::get()[28]($s, $i, $c);
-  }
-  public static function rindex_from(dynamic $s, dynamic $i, dynamic $c) {
-    return static::get()[27]($s, $i, $c);
-  }
-  public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c) {
-    return static::get()[26]($s, $i, $c);
-  }
-  public static function index_from(dynamic $s, dynamic $i, dynamic $c) {
-    return static::get()[25]($s, $i, $c);
-  }
-  public static function rindex_opt(dynamic $s, dynamic $c) {
-    return static::get()[24]($s, $c);
-  }
-  public static function rindex(dynamic $s, dynamic $c) {
-    return static::get()[23]($s, $c);
-  }
-  public static function index_opt(dynamic $s, dynamic $c) {
-    return static::get()[22]($s, $c);
-  }
-  public static function index(dynamic $s, dynamic $c) {
-    return static::get()[21]($s, $c);
-  }
-  public static function escaped(dynamic $s) {
-    return static::get()[20]($s);
-  }
-  public static function trim(dynamic $s) {
-    return static::get()[19]($s);
-  }
-  public static function mapi(dynamic $f, dynamic $s) {
-    return static::get()[18]($f, $s);
-  }
-  public static function map(dynamic $f, dynamic $s) {
-    return static::get()[17]($f, $s);
-  }
-  public static function iteri(dynamic $f, dynamic $a) {
-    return static::get()[16]($f, $a);
-  }
-  public static function iter(dynamic $f, dynamic $a) {
-    return static::get()[15]($f, $a);
-  }
-  public static function cat(dynamic $s1, dynamic $s2) {
-    return static::get()[14]($s1, $s2);
-  }
-  public static function concat(dynamic $sep, dynamic $l) {
-    return static::get()[13]($sep, $l);
-  }
-  public static function blit_string(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
-    return static::get()[12]($s1, $ofs1, $s2, $ofs2, $len);
-  }
-  public static function blit(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
-    return static::get()[11]($s1, $ofs1, $s2, $ofs2, $len);
-  }
-  public static function fill(dynamic $s, dynamic $ofs, dynamic $len, dynamic $c) {
-    return static::get()[10]($s, $ofs, $len, $c);
-  }
-  public static function extend(dynamic $s, dynamic $left, dynamic $right) {
-    return static::get()[9]($s, $left, $right);
-  }
-  public static function sub_string(dynamic $b, dynamic $ofs, dynamic $len) {
-    return static::get()[8]($b, $ofs, $len);
-  }
-  public static function sub(dynamic $s, dynamic $ofs, dynamic $len) {
-    return static::get()[7]($s, $ofs, $len);
-  }
-  public static function to_string(dynamic $b) {
-    return static::get()[6]($b);
-  }
-  public static function of_string(dynamic $s) {
-    return static::get()[5]($s);
-  }
-  public static function copy(dynamic $s) {
-    return static::get()[4]($s);
-  }
-  public static function empty() {
-    return static::get()[3]();
+  public static function make(dynamic $n, dynamic $c) {
+    return static::get()[1]($n, $c);
   }
   public static function init(dynamic $n, dynamic $f) {
     return static::get()[2]($n, $f);
   }
-  public static function make(dynamic $n, dynamic $c) {
-    return static::get()[1]($n, $c);
+  public static function empty() {
+    return static::get()[3]();
+  }
+  public static function copy(dynamic $s) {
+    return static::get()[4]($s);
+  }
+  public static function of_string(dynamic $s) {
+    return static::get()[5]($s);
+  }
+  public static function to_string(dynamic $b) {
+    return static::get()[6]($b);
+  }
+  public static function sub(dynamic $s, dynamic $ofs, dynamic $len) {
+    return static::get()[7]($s, $ofs, $len);
+  }
+  public static function sub_string(dynamic $b, dynamic $ofs, dynamic $len) {
+    return static::get()[8]($b, $ofs, $len);
+  }
+  public static function extend(dynamic $s, dynamic $left, dynamic $right) {
+    return static::get()[9]($s, $left, $right);
+  }
+  public static function fill(dynamic $s, dynamic $ofs, dynamic $len, dynamic $c) {
+    return static::get()[10]($s, $ofs, $len, $c);
+  }
+  public static function blit(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
+    return static::get()[11]($s1, $ofs1, $s2, $ofs2, $len);
+  }
+  public static function blit_string(dynamic $s1, dynamic $ofs1, dynamic $s2, dynamic $ofs2, dynamic $len) {
+    return static::get()[12]($s1, $ofs1, $s2, $ofs2, $len);
+  }
+  public static function concat(dynamic $sep, dynamic $l) {
+    return static::get()[13]($sep, $l);
+  }
+  public static function cat(dynamic $s1, dynamic $s2) {
+    return static::get()[14]($s1, $s2);
+  }
+  public static function iter(dynamic $f, dynamic $a) {
+    return static::get()[15]($f, $a);
+  }
+  public static function iteri(dynamic $f, dynamic $a) {
+    return static::get()[16]($f, $a);
+  }
+  public static function map(dynamic $f, dynamic $s) {
+    return static::get()[17]($f, $s);
+  }
+  public static function mapi(dynamic $f, dynamic $s) {
+    return static::get()[18]($f, $s);
+  }
+  public static function trim(dynamic $s) {
+    return static::get()[19]($s);
+  }
+  public static function escaped(dynamic $s) {
+    return static::get()[20]($s);
+  }
+  public static function index(dynamic $s, dynamic $c) {
+    return static::get()[21]($s, $c);
+  }
+  public static function index_opt(dynamic $s, dynamic $c) {
+    return static::get()[22]($s, $c);
+  }
+  public static function rindex(dynamic $s, dynamic $c) {
+    return static::get()[23]($s, $c);
+  }
+  public static function rindex_opt(dynamic $s, dynamic $c) {
+    return static::get()[24]($s, $c);
+  }
+  public static function index_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[25]($s, $i, $c);
+  }
+  public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[26]($s, $i, $c);
+  }
+  public static function rindex_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[27]($s, $i, $c);
+  }
+  public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[28]($s, $i, $c);
+  }
+  public static function contains(dynamic $s, dynamic $c) {
+    return static::get()[29]($s, $c);
+  }
+  public static function contains_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[30]($s, $i, $c);
+  }
+  public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c) {
+    return static::get()[31]($s, $i, $c);
+  }
+  public static function uppercase(dynamic $s) {
+    return static::get()[32]($s);
+  }
+  public static function lowercase(dynamic $s) {
+    return static::get()[33]($s);
+  }
+  public static function capitalize(dynamic $s) {
+    return static::get()[34]($s);
+  }
+  public static function uncapitalize(dynamic $s) {
+    return static::get()[35]($s);
+  }
+  public static function uppercase_ascii(dynamic $s) {
+    return static::get()[36]($s);
+  }
+  public static function lowercase_ascii(dynamic $s) {
+    return static::get()[37]($s);
+  }
+  public static function capitalize_ascii(dynamic $s) {
+    return static::get()[38]($s);
+  }
+  public static function uncapitalize_ascii(dynamic $s) {
+    return static::get()[39]($s);
+  }
+  public static function compare(dynamic $x, dynamic $y) {
+    return static::get()[40]($x, $y);
   }
 
 }

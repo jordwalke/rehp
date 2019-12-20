@@ -30,7 +30,7 @@ final class Set {
     $a_ = Vector{0, 0, 0, 0};
     $b_ = Vector{0, 0, 0};
     $c_ = Vector{0, $string("set.ml"), 510, 18};
-    $Make = function(dynamic $Ord) use ($Assert_failure,$List,$Not_found,$Pervasives,$a_,$b_,$c_,$call1,$call2,$caml_wrap_thrown_exception,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$cst_Set_remove_min_elt,$unsigned_right_shift_32) {
+    $Make = (dynamic $Ord) ==> {
       $add = new Ref();
       $add_max_element = new Ref();
       $add_min_element = new Ref();
@@ -51,11 +51,11 @@ final class Set {
       $split = new Ref();
       $subset = new Ref();
       $union = new Ref();
-      $height = function(dynamic $param) {
+      $height = (dynamic $param) ==> {
         if ($param) {$h = $param[4];return $h;}
         return 0;
       };
-      $create = function(dynamic $l, dynamic $v, dynamic $r) {
+      $create = (dynamic $l, dynamic $v, dynamic $r) ==> {
         if ($l) {
           $h = $l[4];
           $hl = $h;
@@ -69,7 +69,7 @@ final class Set {
         $ae_ = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $ae_};
       };
-      $bal = function(dynamic $l, dynamic $v, dynamic $r) use ($Pervasives,$call1,$create,$cst_Set_bal,$cst_Set_bal__0,$cst_Set_bal__1,$cst_Set_bal__2,$height) {
+      $bal = (dynamic $l, dynamic $v, dynamic $r) ==> {
         if ($l) {
           $h = $l[4];
           $hl = $h;
@@ -123,7 +123,7 @@ final class Set {
         $ad_ = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $ad_};
       };
-      $add->contents = function(dynamic $x, dynamic $t) use ($Ord,$add,$bal,$call2) {
+      $add->contents = (dynamic $x, dynamic $t) ==> {
         if ($t) {
           $r = $t[3];
           $v = $t[2];
@@ -139,8 +139,8 @@ final class Set {
         }
         return Vector{0, 0, $x, 0, 1};
       };
-      $singleton = function(dynamic $x) {return Vector{0, 0, $x, 0, 1};};
-      $add_min_element->contents = function(dynamic $x, dynamic $param) use ($add_min_element,$bal,$singleton) {
+      $singleton = (dynamic $x) ==> {return Vector{0, 0, $x, 0, 1};};
+      $add_min_element->contents = (dynamic $x, dynamic $param) ==> {
         if ($param) {
           $r = $param[3];
           $v = $param[2];
@@ -149,7 +149,7 @@ final class Set {
         }
         return $singleton($x);
       };
-      $add_max_element->contents = function(dynamic $x, dynamic $param) use ($add_max_element,$bal,$singleton) {
+      $add_max_element->contents = (dynamic $x, dynamic $param) ==> {
         if ($param) {
           $r = $param[3];
           $v = $param[2];
@@ -158,7 +158,7 @@ final class Set {
         }
         return $singleton($x);
       };
-      $join->contents = function(dynamic $l, dynamic $v, dynamic $r) use ($add_max_element,$add_min_element,$bal,$create,$join) {
+      $join->contents = (dynamic $l, dynamic $v, dynamic $r) ==> {
         if ($l) {
           if ($r) {
             $rh = $r[4];
@@ -179,7 +179,7 @@ final class Set {
         }
         return $add_min_element->contents($v, $r);
       };
-      $min_elt = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
+      $min_elt = (dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -191,7 +191,7 @@ final class Set {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $min_elt_opt = function(dynamic $param) {
+      $min_elt_opt = (dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -203,7 +203,7 @@ final class Set {
           return 0;
         }
       };
-      $max_elt = function(dynamic $param) use ($Not_found,$caml_wrap_thrown_exception) {
+      $max_elt = (dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -215,7 +215,7 @@ final class Set {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $max_elt_opt = function(dynamic $param) {
+      $max_elt_opt = (dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -227,7 +227,7 @@ final class Set {
           return 0;
         }
       };
-      $remove_min_elt->contents = function(dynamic $param) use ($Pervasives,$bal,$call1,$cst_Set_remove_min_elt,$remove_min_elt) {
+      $remove_min_elt->contents = (dynamic $param) ==> {
         if ($param) {
           $S_ = $param[1];
           if ($S_) {
@@ -240,7 +240,7 @@ final class Set {
         }
         return $call1($Pervasives[1], $cst_Set_remove_min_elt);
       };
-      $merge = function(dynamic $t, dynamic $match) use ($bal,$min_elt,$remove_min_elt) {
+      $merge = (dynamic $t, dynamic $match) ==> {
         if ($t) {
           if ($match) {
             $R_ = $remove_min_elt->contents($match);
@@ -250,7 +250,7 @@ final class Set {
         }
         return $match;
       };
-      $concat = function(dynamic $t, dynamic $match) use ($join,$min_elt,$remove_min_elt) {
+      $concat = (dynamic $t, dynamic $match) ==> {
         if ($t) {
           if ($match) {
             $Q_ = $remove_min_elt->contents($match);
@@ -260,7 +260,7 @@ final class Set {
         }
         return $match;
       };
-      $split->contents = function(dynamic $x, dynamic $param) use ($Ord,$a_,$call2,$join,$split) {
+      $split->contents = (dynamic $x, dynamic $param) ==> {
         if ($param) {
           $r = $param[3];
           $v = $param[2];
@@ -283,8 +283,8 @@ final class Set {
         return $a_;
       };
       $empty = 0;
-      $is_empty = function(dynamic $param) {return $param ? 0 : (1);};
-      $mem = function(dynamic $x, dynamic $param) use ($Ord,$call2) {
+      $is_empty = (dynamic $param) ==> {return $param ? 0 : (1);};
+      $mem = (dynamic $x, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -301,7 +301,7 @@ final class Set {
           return 0;
         }
       };
-      $remove->contents = function(dynamic $x, dynamic $t) use ($Ord,$bal,$call2,$merge,$remove) {
+      $remove->contents = (dynamic $x, dynamic $t) ==> {
         if ($t) {
           $r = $t[3];
           $v = $t[2];
@@ -317,7 +317,7 @@ final class Set {
         }
         return 0;
       };
-      $union->contents = function(dynamic $t1, dynamic $match) use ($add,$join,$split,$union) {
+      $union->contents = (dynamic $t1, dynamic $match) ==> {
         if ($t1) {
           if ($match) {
             $h2 = $match[4];
@@ -347,7 +347,7 @@ final class Set {
         }
         return $match;
       };
-      $inter->contents = function(dynamic $s1, dynamic $match) use ($concat,$inter,$join,$split) {
+      $inter->contents = (dynamic $s1, dynamic $match) ==> {
         if ($s1) {
           if ($match) {
             $r1 = $s1[3];
@@ -368,7 +368,7 @@ final class Set {
         }
         return 0;
       };
-      $diff->contents = function(dynamic $t1, dynamic $match) use ($concat,$diff,$join,$split) {
+      $diff->contents = (dynamic $t1, dynamic $match) ==> {
         if ($t1) {
           if ($match) {
             $r1 = $t1[3];
@@ -389,7 +389,7 @@ final class Set {
         }
         return 0;
       };
-      $cons_enum = function(dynamic $s, dynamic $e) {
+      $cons_enum = (dynamic $s, dynamic $e) ==> {
         $s__0 = $s;
         $e__0 = $e;
         for (;;) {
@@ -405,7 +405,7 @@ final class Set {
           return $e__0;
         }
       };
-      $compare_aux = function(dynamic $e1, dynamic $e2) use ($Ord,$call2,$cons_enum) {
+      $compare_aux = (dynamic $e1, dynamic $e2) ==> {
         $e1__0 = $e1;
         $e2__0 = $e2;
         for (;;) {
@@ -432,14 +432,14 @@ final class Set {
           return $e2__0 ? -1 : (0);
         }
       };
-      $compare = function(dynamic $s1, dynamic $s2) use ($compare_aux,$cons_enum) {
+      $compare = (dynamic $s1, dynamic $s2) ==> {
         $E_ = $cons_enum($s2, 0);
         return $compare_aux($cons_enum($s1, 0), $E_);
       };
-      $equal = function(dynamic $s1, dynamic $s2) use ($compare) {
+      $equal = (dynamic $s1, dynamic $s2) ==> {
         return 0 === $compare($s1, $s2) ? 1 : (0);
       };
-      $subset->contents = function(dynamic $s1, dynamic $s2) use ($Ord,$call2,$subset) {
+      $subset->contents = (dynamic $s1, dynamic $s2) ==> {
         $s1__0 = $s1;
         $s2__0 = $s2;
         for (;;) {
@@ -471,7 +471,7 @@ final class Set {
           return 1;
         }
       };
-      $iter->contents = function(dynamic $f, dynamic $param) use ($call1,$iter) {
+      $iter->contents = (dynamic $f, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -486,7 +486,7 @@ final class Set {
           return 0;
         }
       };
-      $fold->contents = function(dynamic $f, dynamic $s, dynamic $accu) use ($call2,$fold) {
+      $fold->contents = (dynamic $f, dynamic $s, dynamic $accu) ==> {
         $s__0 = $s;
         $accu__0 = $accu;
         for (;;) {
@@ -502,7 +502,7 @@ final class Set {
           return $accu__0;
         }
       };
-      $for_all->contents = function(dynamic $p, dynamic $param) use ($call1,$for_all) {
+      $for_all->contents = (dynamic $p, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -521,7 +521,7 @@ final class Set {
           return 1;
         }
       };
-      $exists->contents = function(dynamic $p, dynamic $param) use ($call1,$exists) {
+      $exists->contents = (dynamic $p, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -542,7 +542,7 @@ final class Set {
           return 0;
         }
       };
-      $filter->contents = function(dynamic $p, dynamic $t) use ($call1,$concat,$filter,$join) {
+      $filter->contents = (dynamic $p, dynamic $t) ==> {
         if ($t) {
           $r = $t[3];
           $v = $t[2];
@@ -558,7 +558,7 @@ final class Set {
         }
         return 0;
       };
-      $partition->contents = function(dynamic $p, dynamic $param) use ($b_,$call1,$concat,$join,$partition) {
+      $partition->contents = (dynamic $p, dynamic $param) ==> {
         if ($param) {
           $r = $param[3];
           $v = $param[2];
@@ -579,7 +579,7 @@ final class Set {
         }
         return $b_;
       };
-      $cardinal->contents = function(dynamic $param) use ($cardinal) {
+      $cardinal->contents = (dynamic $param) ==> {
         if ($param) {
           $r = $param[3];
           $l = $param[1];
@@ -588,7 +588,7 @@ final class Set {
         }
         return 0;
       };
-      $elements_aux->contents = function(dynamic $accu, dynamic $param) use ($elements_aux) {
+      $elements_aux->contents = (dynamic $accu, dynamic $param) ==> {
         $accu__0 = $accu;
         $param__0 = $param;
         for (;;) {
@@ -604,10 +604,8 @@ final class Set {
           return $accu__0;
         }
       };
-      $elements = function(dynamic $s) use ($elements_aux) {
-        return $elements_aux->contents(0, $s);
-      };
-      $find = function(dynamic $x, dynamic $param) use ($Not_found,$Ord,$call2,$caml_wrap_thrown_exception) {
+      $elements = (dynamic $s) ==> {return $elements_aux->contents(0, $s);};
+      $find = (dynamic $x, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -623,7 +621,7 @@ final class Set {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $find_first_aux = function(dynamic $v0, dynamic $f, dynamic $param) use ($call1) {
+      $find_first_aux = (dynamic $v0, dynamic $f, dynamic $param) ==> {
         $v0__0 = $v0;
         $param__0 = $param;
         for (;;) {
@@ -638,7 +636,7 @@ final class Set {
           return $v0__0;
         }
       };
-      $find_first = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$caml_wrap_thrown_exception,$find_first_aux) {
+      $find_first = (dynamic $f, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -652,7 +650,7 @@ final class Set {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $find_first_opt_aux = function(dynamic $v0, dynamic $f, dynamic $param) use ($call1) {
+      $find_first_opt_aux = (dynamic $v0, dynamic $f, dynamic $param) ==> {
         $v0__0 = $v0;
         $param__0 = $param;
         for (;;) {
@@ -667,7 +665,7 @@ final class Set {
           return Vector{0, $v0__0};
         }
       };
-      $find_first_opt = function(dynamic $f, dynamic $param) use ($call1,$find_first_opt_aux) {
+      $find_first_opt = (dynamic $f, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -681,7 +679,7 @@ final class Set {
           return 0;
         }
       };
-      $find_last_aux = function(dynamic $v0, dynamic $f, dynamic $param) use ($call1) {
+      $find_last_aux = (dynamic $v0, dynamic $f, dynamic $param) ==> {
         $v0__0 = $v0;
         $param__0 = $param;
         for (;;) {
@@ -696,7 +694,7 @@ final class Set {
           return $v0__0;
         }
       };
-      $find_last = function(dynamic $f, dynamic $param) use ($Not_found,$call1,$caml_wrap_thrown_exception,$find_last_aux) {
+      $find_last = (dynamic $f, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -710,7 +708,7 @@ final class Set {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $find_last_opt_aux = function(dynamic $v0, dynamic $f, dynamic $param) use ($call1) {
+      $find_last_opt_aux = (dynamic $v0, dynamic $f, dynamic $param) ==> {
         $v0__0 = $v0;
         $param__0 = $param;
         for (;;) {
@@ -725,7 +723,7 @@ final class Set {
           return Vector{0, $v0__0};
         }
       };
-      $find_last_opt = function(dynamic $f, dynamic $param) use ($call1,$find_last_opt_aux) {
+      $find_last_opt = (dynamic $f, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -739,7 +737,7 @@ final class Set {
           return 0;
         }
       };
-      $find_opt = function(dynamic $x, dynamic $param) use ($Ord,$call2) {
+      $find_opt = (dynamic $x, dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -755,7 +753,7 @@ final class Set {
           return 0;
         }
       };
-      $try_join = function(dynamic $l, dynamic $v, dynamic $r) use ($Ord,$add,$call2,$join,$max_elt,$min_elt,$union) {
+      $try_join = (dynamic $l, dynamic $v, dynamic $r) ==> {
         if (0 === $l) {
           $switch__0 = 0;
         }
@@ -775,7 +773,7 @@ final class Set {
         }
         return $union->contents($l, $add->contents($v, $r));
       };
-      $map->contents = function(dynamic $f, dynamic $t) use ($call1,$map,$try_join) {
+      $map->contents = (dynamic $f, dynamic $t) ==> {
         if ($t) {
           $r = $t[3];
           $v = $t[2];
@@ -790,9 +788,9 @@ final class Set {
         }
         return 0;
       };
-      $of_sorted_list = function(dynamic $l) use ($Assert_failure,$List,$c_,$call1,$caml_wrap_thrown_exception,$create,$unsigned_right_shift_32) {
+      $of_sorted_list = (dynamic $l) ==> {
         $sub = new Ref();
-        $sub->contents = function(dynamic $n, dynamic $l) use ($Assert_failure,$c_,$caml_wrap_thrown_exception,$create,$sub,$unsigned_right_shift_32) {
+        $sub->contents = (dynamic $n, dynamic $l) ==> {
           if (! (3 < $unsigned_right_shift_32($n, 0))) {
             switch($n) {
               // FALLTHROUGH
@@ -865,7 +863,7 @@ final class Set {
         };
         return $sub->contents($call1($List[1], $l), $l)[1];
       };
-      $of_list = function(dynamic $l) use ($List,$Ord,$add,$call2,$empty,$of_sorted_list,$singleton) {
+      $of_list = (dynamic $l) ==> {
         if ($l) {
           $f_ = $l[2];
           $g_ = $l[1];
@@ -963,7 +961,7 @@ final class Set {
     };
     $Set = Vector{
       0,
-      function(dynamic $d_) use ($Make) {
+      (dynamic $d_) ==> {
         $e_ = $Make($d_);
         return Vector{
           0,

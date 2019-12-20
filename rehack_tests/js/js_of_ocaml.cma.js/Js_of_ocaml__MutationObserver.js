@@ -130,21 +130,21 @@ var Js_of_ocaml_MutationObserver = [
 exports = Js_of_ocaml_MutationObserver;
 
 /*::type Exports = {
-  observe: (node: any, f: any, child_list: any, attributes: any, character_data: any, subtree: any, attribute_old_value: any, character_data_old_value: any, attribute_filter: any, param: any) => any,
-  is_supported: (param: any) => any,
-  mutationObserver: any
   empty_mutation_observer_init: (param: any) => any,
+  mutationObserver: any
+  is_supported: (param: any) => any,
+  observe: (node: any, f: any, child_list: any, attributes: any, character_data: any, subtree: any, attribute_old_value: any, character_data_old_value: any, attribute_filter: any, param: any) => any,
 }*/
 /** @type {{
-  observe: (any, any, any, any, any, any, any, any, any, any) => any,
-  is_supported: (any) => any,
-  mutationObserver: any,
   empty_mutation_observer_init: (any) => any,
+  mutationObserver: any,
+  is_supported: (any) => any,
+  observe: (any, any, any, any, any, any, any, any, any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.observe = module.exports[4];
-module.exports.is_supported = module.exports[3];
-module.exports.mutationObserver = module.exports[2];
 module.exports.empty_mutation_observer_init = module.exports[1];
+module.exports.mutationObserver = module.exports[2];
+module.exports.is_supported = module.exports[3];
+module.exports.observe = module.exports[4];
 
 /* Hashing disabled */

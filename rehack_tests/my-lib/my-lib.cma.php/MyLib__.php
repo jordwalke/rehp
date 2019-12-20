@@ -18,9 +18,6 @@ final class MyLib__ {
      return ($MyLib);
 
   }
-  public static function MyLibUtility() {
-    return static::get()[1]();
-  }
-
+/*____CompilationSummary*/
 }
-/*____hashes compiler: 6d834f124 flags: 1183596006 bytecode: 3970371514 debug-data: 1818446335 primitives: 1058613066*/
+/*____hashes flags: 1802415451 bytecode: 3970371514 debug-data: 1818446335 primitives: 1058613066*/

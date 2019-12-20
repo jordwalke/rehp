@@ -19,7 +19,7 @@ final class Sort {
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
     $Invalid_argument =  Invalid_argument::get ();
-    $merge->contents = function(dynamic $order, dynamic $l1, dynamic $l2) use ($call2,$merge) {
+    $merge->contents = (dynamic $order, dynamic $l1, dynamic $l2) ==> {
       if ($l1) {
         $t1 = $l1[2];
         $h1 = $l1[1];
@@ -34,9 +34,9 @@ final class Sort {
       }
       return $l2;
     };
-    $list = function(dynamic $order, dynamic $l) use ($call2,$merge) {
+    $list = (dynamic $order, dynamic $l) ==> {
       $initlist = new Ref();$merge2 = new Ref();
-      $initlist->contents = function(dynamic $param) use ($call2,$initlist,$order) {
+      $initlist->contents = (dynamic $param) ==> {
         if ($param) {
           $i_ = $param[2];
           $j_ = $param[1];
@@ -53,7 +53,7 @@ final class Sort {
         }
         return 0;
       };
-      $merge2->contents = function(dynamic $x) use ($merge,$merge2,$order) {
+      $merge2->contents = (dynamic $x) ==> {
         if ($x) {
           $g_ = $x[2];
           if ($g_) {
@@ -66,7 +66,7 @@ final class Sort {
         }
         return $x;
       };
-      $mergeall = function(dynamic $llist) use ($merge2) {
+      $mergeall = (dynamic $llist) ==> {
         $llist__0 = $llist;
         for (;;) {
           if ($llist__0) {
@@ -83,15 +83,15 @@ final class Sort {
       };
       return $mergeall($initlist->contents($l));
     };
-    $swap = function(dynamic $arr, dynamic $i, dynamic $j) {
+    $swap = (dynamic $arr, dynamic $i, dynamic $j) ==> {
       $tmp = $arr[$i + 1];
       $arr[$i + 1] = $arr[$j + 1];
       $arr[$j + 1] = $tmp;
       return 0;
     };
-    $array = function(dynamic $cmp, dynamic $arr) use ($Invalid_argument,$call2,$caml_wrap_thrown_exception,$cst_Sort_array,$swap,$unsigned_right_shift_32) {
+    $array = (dynamic $cmp, dynamic $arr) ==> {
       $qsort = new Ref();
-      $qsort->contents = function(dynamic $lo, dynamic $hi) use ($Invalid_argument,$arr,$call2,$caml_wrap_thrown_exception,$cmp,$cst_Sort_array,$qsort,$swap,$unsigned_right_shift_32) {
+      $qsort->contents = (dynamic $lo, dynamic $hi) ==> {
         $lo__0 = $lo;
         $hi__0 = $hi;
         for (;;) {
@@ -186,14 +186,14 @@ final class Sort {
      return ($Sort);
 
   }
-  public static function merge(dynamic $order, dynamic $l1, dynamic $l2) {
-    return static::get()[3]($order, $l1, $l2);
+  public static function list(dynamic $order, dynamic $l) {
+    return static::get()[1]($order, $l);
   }
   public static function array(dynamic $cmp, dynamic $arr) {
     return static::get()[2]($cmp, $arr);
   }
-  public static function list(dynamic $order, dynamic $l) {
-    return static::get()[1]($order, $l);
+  public static function merge(dynamic $order, dynamic $l1, dynamic $l2) {
+    return static::get()[3]($order, $l1, $l2);
   }
 
 }

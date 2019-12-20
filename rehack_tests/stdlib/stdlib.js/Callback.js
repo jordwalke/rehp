@@ -26,15 +26,15 @@ var Callback = [0,register,register_exception];
 exports = Callback;
 
 /*::type Exports = {
-  register_exception: (name: any, exn: any) => any,
   register: (name: any, v: any) => any,
+  register_exception: (name: any, exn: any) => any,
 }*/
 /** @type {{
-  register_exception: (any, any) => any,
   register: (any, any) => any,
+  register_exception: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.register_exception = module.exports[2];
 module.exports.register = module.exports[1];
+module.exports.register_exception = module.exports[2];
 
 /* Hashing disabled */

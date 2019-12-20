@@ -59,15 +59,15 @@ var Js_of_ocaml_Json = [0,output,unsafe_input];
 exports = Js_of_ocaml_Json;
 
 /*::type Exports = {
-  unsafe_input: (s: any) => any,
   output: (obj: any) => any,
+  unsafe_input: (s: any) => any,
 }*/
 /** @type {{
-  unsafe_input: (any) => any,
   output: (any) => any,
+  unsafe_input: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.unsafe_input = module.exports[2];
 module.exports.output = module.exports[1];
+module.exports.unsafe_input = module.exports[2];
 
 /* Hashing disabled */

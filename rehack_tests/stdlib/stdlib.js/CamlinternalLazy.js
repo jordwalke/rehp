@@ -82,24 +82,24 @@ var CamlinternalLazy = [
 exports = CamlinternalLazy;
 
 /*::type Exports = {
-  force_val: (lzv: any) => any,
-  force: (lzv: any) => any,
-  force_val_lazy_block: (blk: any) => any,
-  force_lazy_block: (blk: any) => any,
   Undefined: any
+  force_lazy_block: (blk: any) => any,
+  force_val_lazy_block: (blk: any) => any,
+  force: (lzv: any) => any,
+  force_val: (lzv: any) => any,
 }*/
 /** @type {{
-  force_val: (any) => any,
-  force: (any) => any,
-  force_val_lazy_block: (any) => any,
-  force_lazy_block: (any) => any,
   Undefined: any,
+  force_lazy_block: (any) => any,
+  force_val_lazy_block: (any) => any,
+  force: (any) => any,
+  force_val: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.force_val = module.exports[5];
-module.exports.force = module.exports[4];
-module.exports.force_val_lazy_block = module.exports[3];
-module.exports.force_lazy_block = module.exports[2];
 module.exports.Undefined = module.exports[1];
+module.exports.force_lazy_block = module.exports[2];
+module.exports.force_val_lazy_block = module.exports[3];
+module.exports.force = module.exports[4];
+module.exports.force_val = module.exports[5];
 
 /* Hashing disabled */

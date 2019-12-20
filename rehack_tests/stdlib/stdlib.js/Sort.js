@@ -183,18 +183,18 @@ var Sort = [0,list,array,merge];
 exports = Sort;
 
 /*::type Exports = {
-  merge: (order: any, l1: any, l2: any) => any,
-  array: (cmp: any, arr: any) => any,
   list: (order: any, l: any) => any,
+  array: (cmp: any, arr: any) => any,
+  merge: (order: any, l1: any, l2: any) => any,
 }*/
 /** @type {{
-  merge: (any, any, any) => any,
-  array: (any, any) => any,
   list: (any, any) => any,
+  array: (any, any) => any,
+  merge: (any, any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.merge = module.exports[3];
-module.exports.array = module.exports[2];
 module.exports.list = module.exports[1];
+module.exports.array = module.exports[2];
+module.exports.merge = module.exports[3];
 
 /* Hashing disabled */

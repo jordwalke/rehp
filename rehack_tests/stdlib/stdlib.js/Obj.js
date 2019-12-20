@@ -164,84 +164,84 @@ var Obj = [
 exports = Obj;
 
 /*::type Exports = {
-  unmarshal: (str: any, pos: any) => any,
-  marshal: (obj: any) => any,
-  extension_id: (slot: any) => any,
-  extension_name: (slot: any) => any,
-  extension_constructor: (x: any) => any,
-  unaligned_tag: any
-  out_of_heap_tag: any
-  int_tag: any
-  custom_tag: any
-  custom_tag: any
-  double_array_tag: any
-  double_tag: any
-  string_tag: any
-  abstract_tag: any
-  no_scan_tag: any
-  forward_tag: any
-  infix_tag: any
-  object_tag: any
-  closure_tag: any
-  lazy_tag: any
-  last_non_constant_constructor_tag: any
-  first_non_constant_constructor_tag: any
-  set_double_field: (x: any, i: any, v: any) => any,
-  double_field: (x: any, i: any) => any,
   is_block: (a: any) => any,
+  double_field: (x: any, i: any) => any,
+  set_double_field: (x: any, i: any, v: any) => any,
+  first_non_constant_constructor_tag: any
+  last_non_constant_constructor_tag: any
+  lazy_tag: any
+  closure_tag: any
+  object_tag: any
+  infix_tag: any
+  forward_tag: any
+  no_scan_tag: any
+  abstract_tag: any
+  string_tag: any
+  double_tag: any
+  double_array_tag: any
+  custom_tag: any
+  custom_tag: any
+  int_tag: any
+  out_of_heap_tag: any
+  unaligned_tag: any
+  extension_constructor: (x: any) => any,
+  extension_name: (slot: any) => any,
+  extension_id: (slot: any) => any,
+  marshal: (obj: any) => any,
+  unmarshal: (str: any, pos: any) => any,
 }*/
 /** @type {{
-  unmarshal: (any, any) => any,
-  marshal: (any) => any,
-  extension_id: (any) => any,
-  extension_name: (any) => any,
-  extension_constructor: (any) => any,
-  unaligned_tag: any,
-  out_of_heap_tag: any,
-  int_tag: any,
-  custom_tag: any,
-  custom_tag: any,
-  double_array_tag: any,
-  double_tag: any,
-  string_tag: any,
-  abstract_tag: any,
-  no_scan_tag: any,
-  forward_tag: any,
-  infix_tag: any,
-  object_tag: any,
-  closure_tag: any,
-  lazy_tag: any,
-  last_non_constant_constructor_tag: any,
-  first_non_constant_constructor_tag: any,
-  set_double_field: (any, any, any) => any,
-  double_field: (any, any) => any,
   is_block: (any) => any,
+  double_field: (any, any) => any,
+  set_double_field: (any, any, any) => any,
+  first_non_constant_constructor_tag: any,
+  last_non_constant_constructor_tag: any,
+  lazy_tag: any,
+  closure_tag: any,
+  object_tag: any,
+  infix_tag: any,
+  forward_tag: any,
+  no_scan_tag: any,
+  abstract_tag: any,
+  string_tag: any,
+  double_tag: any,
+  double_array_tag: any,
+  custom_tag: any,
+  custom_tag: any,
+  int_tag: any,
+  out_of_heap_tag: any,
+  unaligned_tag: any,
+  extension_constructor: (any) => any,
+  extension_name: (any) => any,
+  extension_id: (any) => any,
+  marshal: (any) => any,
+  unmarshal: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.unmarshal = module.exports[25];
-module.exports.marshal = module.exports[24];
-module.exports.extension_id = module.exports[23];
-module.exports.extension_name = module.exports[22];
-module.exports.extension_constructor = module.exports[21];
-module.exports.unaligned_tag = module.exports[20];
-module.exports.out_of_heap_tag = module.exports[19];
-module.exports.int_tag = module.exports[18];
-module.exports.custom_tag = module.exports[17];
-module.exports.custom_tag = module.exports[16];
-module.exports.double_array_tag = module.exports[15];
-module.exports.double_tag = module.exports[14];
-module.exports.string_tag = module.exports[13];
-module.exports.abstract_tag = module.exports[12];
-module.exports.no_scan_tag = module.exports[11];
-module.exports.forward_tag = module.exports[10];
-module.exports.infix_tag = module.exports[9];
-module.exports.object_tag = module.exports[8];
-module.exports.closure_tag = module.exports[7];
-module.exports.lazy_tag = module.exports[6];
-module.exports.last_non_constant_constructor_tag = module.exports[5];
-module.exports.first_non_constant_constructor_tag = module.exports[4];
-module.exports.set_double_field = module.exports[3];
-module.exports.double_field = module.exports[2];
 module.exports.is_block = module.exports[1];
+module.exports.double_field = module.exports[2];
+module.exports.set_double_field = module.exports[3];
+module.exports.first_non_constant_constructor_tag = module.exports[4];
+module.exports.last_non_constant_constructor_tag = module.exports[5];
+module.exports.lazy_tag = module.exports[6];
+module.exports.closure_tag = module.exports[7];
+module.exports.object_tag = module.exports[8];
+module.exports.infix_tag = module.exports[9];
+module.exports.forward_tag = module.exports[10];
+module.exports.no_scan_tag = module.exports[11];
+module.exports.abstract_tag = module.exports[12];
+module.exports.string_tag = module.exports[13];
+module.exports.double_tag = module.exports[14];
+module.exports.double_array_tag = module.exports[15];
+module.exports.custom_tag = module.exports[16];
+module.exports.custom_tag = module.exports[17];
+module.exports.int_tag = module.exports[18];
+module.exports.out_of_heap_tag = module.exports[19];
+module.exports.unaligned_tag = module.exports[20];
+module.exports.extension_constructor = module.exports[21];
+module.exports.extension_name = module.exports[22];
+module.exports.extension_id = module.exports[23];
+module.exports.marshal = module.exports[24];
+module.exports.unmarshal = module.exports[25];
 
 /* Hashing disabled */

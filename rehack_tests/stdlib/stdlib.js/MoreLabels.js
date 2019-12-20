@@ -19,18 +19,18 @@ var MoreLabels = [0,Hashtbl,Map,Set];
 exports = MoreLabels;
 
 /*::type Exports = {
-  Set: any
-  Map: any
   Hashtbl: any
+  Map: any
+  Set: any
 }*/
 /** @type {{
-  Set: any,
-  Map: any,
   Hashtbl: any,
+  Map: any,
+  Set: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.Set = module.exports[3];
-module.exports.Map = module.exports[2];
 module.exports.Hashtbl = module.exports[1];
+module.exports.Map = module.exports[2];
+module.exports.Set = module.exports[3];
 
 /* Hashing disabled */

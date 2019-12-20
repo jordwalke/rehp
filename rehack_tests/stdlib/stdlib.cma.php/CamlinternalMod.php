@@ -20,11 +20,11 @@ final class CamlinternalMod {
      return ($CamlinternalMod);
 
   }
-  public static function update_mod() {
-    return static::get()[2]();
-  }
   public static function init_mod() {
     return static::get()[1]();
+  }
+  public static function update_mod() {
+    return static::get()[2]();
   }
 
 }

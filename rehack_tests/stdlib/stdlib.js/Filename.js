@@ -713,66 +713,66 @@ var Filename = [
 exports = Filename;
 
 /*::type Exports = {
-  quote: any
-  temp_dir_name: any
-  set_temp_dir_name: (s: any) => any,
-  get_temp_dir_name: (param: any) => any,
-  open_temp_file: (opt: any, unnamed1: any, unnamed2: any, prefix: any, suffix: any) => any,
-  temp_file: (opt: any, prefix: any, suffix: any) => any,
-  dirname: any
-  basename: any
-  chop_extension: (name: any) => any,
-  remove_extension: (name: any) => any,
-  extension: (name: any) => any,
-  chop_suffix: (name: any, suff: any) => any,
-  check_suffix: any
-  is_implicit: any
-  is_relative: any
-  concat: (dirname: any, filename: any) => any,
-  dir_sep: any
-  parent_dir_name: any
   current_dir_name: any
+  parent_dir_name: any
+  dir_sep: any
+  concat: (dirname: any, filename: any) => any,
+  is_relative: any
+  is_implicit: any
+  check_suffix: any
+  chop_suffix: (name: any, suff: any) => any,
+  extension: (name: any) => any,
+  remove_extension: (name: any) => any,
+  chop_extension: (name: any) => any,
+  basename: any
+  dirname: any
+  temp_file: (opt: any, prefix: any, suffix: any) => any,
+  open_temp_file: (opt: any, unnamed1: any, unnamed2: any, prefix: any, suffix: any) => any,
+  get_temp_dir_name: (param: any) => any,
+  set_temp_dir_name: (s: any) => any,
+  temp_dir_name: any
+  quote: any
 }*/
 /** @type {{
-  quote: any,
-  temp_dir_name: any,
-  set_temp_dir_name: (any) => any,
-  get_temp_dir_name: (any) => any,
-  open_temp_file: (any, any, any, any, any) => any,
-  temp_file: (any, any, any) => any,
-  dirname: any,
-  basename: any,
-  chop_extension: (any) => any,
-  remove_extension: (any) => any,
-  extension: (any) => any,
-  chop_suffix: (any, any) => any,
-  check_suffix: any,
-  is_implicit: any,
-  is_relative: any,
-  concat: (any, any) => any,
-  dir_sep: any,
-  parent_dir_name: any,
   current_dir_name: any,
+  parent_dir_name: any,
+  dir_sep: any,
+  concat: (any, any) => any,
+  is_relative: any,
+  is_implicit: any,
+  check_suffix: any,
+  chop_suffix: (any, any) => any,
+  extension: (any) => any,
+  remove_extension: (any) => any,
+  chop_extension: (any) => any,
+  basename: any,
+  dirname: any,
+  temp_file: (any, any, any) => any,
+  open_temp_file: (any, any, any, any, any) => any,
+  get_temp_dir_name: (any) => any,
+  set_temp_dir_name: (any) => any,
+  temp_dir_name: any,
+  quote: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.quote = module.exports[19];
-module.exports.temp_dir_name = module.exports[18];
-module.exports.set_temp_dir_name = module.exports[17];
-module.exports.get_temp_dir_name = module.exports[16];
-module.exports.open_temp_file = module.exports[15];
-module.exports.temp_file = module.exports[14];
-module.exports.dirname = module.exports[13];
-module.exports.basename = module.exports[12];
-module.exports.chop_extension = module.exports[11];
-module.exports.remove_extension = module.exports[10];
-module.exports.extension = module.exports[9];
-module.exports.chop_suffix = module.exports[8];
-module.exports.check_suffix = module.exports[7];
-module.exports.is_implicit = module.exports[6];
-module.exports.is_relative = module.exports[5];
-module.exports.concat = module.exports[4];
-module.exports.dir_sep = module.exports[3];
-module.exports.parent_dir_name = module.exports[2];
 module.exports.current_dir_name = module.exports[1];
+module.exports.parent_dir_name = module.exports[2];
+module.exports.dir_sep = module.exports[3];
+module.exports.concat = module.exports[4];
+module.exports.is_relative = module.exports[5];
+module.exports.is_implicit = module.exports[6];
+module.exports.check_suffix = module.exports[7];
+module.exports.chop_suffix = module.exports[8];
+module.exports.extension = module.exports[9];
+module.exports.remove_extension = module.exports[10];
+module.exports.chop_extension = module.exports[11];
+module.exports.basename = module.exports[12];
+module.exports.dirname = module.exports[13];
+module.exports.temp_file = module.exports[14];
+module.exports.open_temp_file = module.exports[15];
+module.exports.get_temp_dir_name = module.exports[16];
+module.exports.set_temp_dir_name = module.exports[17];
+module.exports.temp_dir_name = module.exports[18];
+module.exports.quote = module.exports[19];
 
 /* Hashing disabled */

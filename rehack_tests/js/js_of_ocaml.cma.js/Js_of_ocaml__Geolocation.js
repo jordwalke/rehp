@@ -48,18 +48,18 @@ var Js_of_ocaml_Geolocation = [
 exports = Js_of_ocaml_Geolocation;
 
 /*::type Exports = {
-  is_supported: (param: any) => any,
-  geolocation: any
   empty_position_options: (param: any) => any,
+  geolocation: any
+  is_supported: (param: any) => any,
 }*/
 /** @type {{
-  is_supported: (any) => any,
-  geolocation: any,
   empty_position_options: (any) => any,
+  geolocation: any,
+  is_supported: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.is_supported = module.exports[3];
-module.exports.geolocation = module.exports[2];
 module.exports.empty_position_options = module.exports[1];
+module.exports.geolocation = module.exports[2];
+module.exports.is_supported = module.exports[3];
 
 /* Hashing disabled */

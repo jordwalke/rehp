@@ -146,42 +146,42 @@ var Digest = [
 exports = Digest;
 
 /*::type Exports = {
-  from_hex: (s: any) => any,
-  to_hex: (d: any) => any,
-  input: (chan: any) => any,
-  output: (chan: any, digest: any) => any,
-  file: (filename: any) => any,
-  subbytes: (b: any, ofs: any, len: any) => any,
-  substring: (str: any, ofs: any, len: any) => any,
-  bytes: (b: any) => any,
-  string: (str: any) => any,
-  equal: any
   compare: any
+  equal: any
+  string: (str: any) => any,
+  bytes: (b: any) => any,
+  substring: (str: any, ofs: any, len: any) => any,
+  subbytes: (b: any, ofs: any, len: any) => any,
+  file: (filename: any) => any,
+  output: (chan: any, digest: any) => any,
+  input: (chan: any) => any,
+  to_hex: (d: any) => any,
+  from_hex: (s: any) => any,
 }*/
 /** @type {{
-  from_hex: (any) => any,
-  to_hex: (any) => any,
-  input: (any) => any,
-  output: (any, any) => any,
-  file: (any) => any,
-  subbytes: (any, any, any) => any,
-  substring: (any, any, any) => any,
-  bytes: (any) => any,
-  string: (any) => any,
-  equal: any,
   compare: any,
+  equal: any,
+  string: (any) => any,
+  bytes: (any) => any,
+  substring: (any, any, any) => any,
+  subbytes: (any, any, any) => any,
+  file: (any) => any,
+  output: (any, any) => any,
+  input: (any) => any,
+  to_hex: (any) => any,
+  from_hex: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.from_hex = module.exports[11];
-module.exports.to_hex = module.exports[10];
-module.exports.input = module.exports[9];
-module.exports.output = module.exports[8];
-module.exports.file = module.exports[7];
-module.exports.subbytes = module.exports[6];
-module.exports.substring = module.exports[5];
-module.exports.bytes = module.exports[4];
-module.exports.string = module.exports[3];
-module.exports.equal = module.exports[2];
 module.exports.compare = module.exports[1];
+module.exports.equal = module.exports[2];
+module.exports.string = module.exports[3];
+module.exports.bytes = module.exports[4];
+module.exports.substring = module.exports[5];
+module.exports.subbytes = module.exports[6];
+module.exports.file = module.exports[7];
+module.exports.output = module.exports[8];
+module.exports.input = module.exports[9];
+module.exports.to_hex = module.exports[10];
+module.exports.from_hex = module.exports[11];
 
 /* Hashing disabled */

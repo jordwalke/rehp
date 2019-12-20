@@ -18,15 +18,15 @@ var CamlinternalMod = [0,init_mod,update_mod];
 exports = CamlinternalMod;
 
 /*::type Exports = {
-  update_mod: any
   init_mod: any
+  update_mod: any
 }*/
 /** @type {{
-  update_mod: any,
   init_mod: any,
+  update_mod: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.update_mod = module.exports[2];
 module.exports.init_mod = module.exports[1];
+module.exports.update_mod = module.exports[2];
 
 /* Hashing disabled */

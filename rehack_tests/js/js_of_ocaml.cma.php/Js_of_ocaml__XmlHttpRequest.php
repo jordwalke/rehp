@@ -48,29 +48,31 @@ final class Js_of_ocaml__XmlHttpRequest {
       $timeout,
       $loadend
     };
-    $create = function(dynamic $param) use ($Assert_failure,$Js_of_ocaml_Js,$a_,$call1,$caml_get_public_method,$caml_wrap_thrown_exception) {
-      $b_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $create = (dynamic $param) ==> {
+      $b_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -1035517745, 201), $x);
       };
       $c_ = $Js_of_ocaml_Js[50][1];
-      $xmlHttpRequest = (function(dynamic $t8, dynamic $param) {return $t8->XMLHttpRequest;
+      $xmlHttpRequest = ((dynamic $t8, dynamic $param) ==> {
+         return $t8->XMLHttpRequest;
        })($c_, $b_);
-      $d_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $d_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -5445583, 202), $x);
       };
       $e_ = $Js_of_ocaml_Js[50][1];
-      $activeXObject = (function(dynamic $t7, dynamic $param) {return $t7->activeXObject;
+      $activeXObject = ((dynamic $t7, dynamic $param) ==> {
+         return $t7->activeXObject;
        })($e_, $d_);
       try {
         $o_ = 0;
-        $p_ = (function(dynamic $t6, dynamic $param) {return new $t6();})($xmlHttpRequest, $o_);
+        $p_ = ((dynamic $t6, dynamic $param) ==> {return new $t6();})($xmlHttpRequest, $o_);
         return $p_;
       }
       catch(\Throwable $q_) {
         try {
           $l_ = 0;
           $m_ = "Msxml2.XMLHTTP";
-          $n_ = (function(dynamic $t5, dynamic $t4, dynamic $param) {return new $t5($t4);
+          $n_ = ((dynamic $t5, dynamic $t4, dynamic $param) ==> {return new $t5($t4);
            })($activeXObject, $m_, $l_);
           return $n_;
         }
@@ -78,7 +80,7 @@ final class Js_of_ocaml__XmlHttpRequest {
           try {
             $i_ = 0;
             $j_ = "Msxml3.XMLHTTP";
-            $k_ = (function(dynamic $t3, dynamic $t2, dynamic $param) {return new $t3($t2);
+            $k_ = ((dynamic $t3, dynamic $t2, dynamic $param) ==> {return new $t3($t2);
              })($activeXObject, $j_, $i_);
             return $k_;
           }
@@ -86,7 +88,7 @@ final class Js_of_ocaml__XmlHttpRequest {
             try {
               $f_ = 0;
               $g_ = "Microsoft.XMLHTTP";
-              $h_ = (function(dynamic $t1, dynamic $t0, dynamic $param) {return new $t1($t0);
+              $h_ = ((dynamic $t1, dynamic $t0, dynamic $param) ==> {return new $t1($t0);
                })($activeXObject, $g_, $f_);
               return $h_;
             }
@@ -104,11 +106,11 @@ final class Js_of_ocaml__XmlHttpRequest {
      return ($Js_of_ocaml_XmlHttpRequest);
 
   }
-  public static function Event() {
-    return static::get()[2]();
-  }
   public static function create(dynamic $param) {
     return static::get()[1]($param);
+  }
+  public static function Event() {
+    return static::get()[2]();
   }
 
 }

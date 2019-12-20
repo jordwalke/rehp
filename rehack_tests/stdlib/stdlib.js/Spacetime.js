@@ -86,21 +86,21 @@ var Spacetime = [0,enabled,Series,Snapshot,save_event_for_automatic_snapshots];
 exports = Spacetime;
 
 /*::type Exports = {
-  save_event_for_automatic_snapshots: (event_name: any) => any,
-  Snapshot: any
-  Series: any
   enabled: any
+  Series: any
+  Snapshot: any
+  save_event_for_automatic_snapshots: (event_name: any) => any,
 }*/
 /** @type {{
-  save_event_for_automatic_snapshots: (any) => any,
-  Snapshot: any,
-  Series: any,
   enabled: any,
+  Series: any,
+  Snapshot: any,
+  save_event_for_automatic_snapshots: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.save_event_for_automatic_snapshots = module.exports[4];
-module.exports.Snapshot = module.exports[3];
-module.exports.Series = module.exports[2];
 module.exports.enabled = module.exports[1];
+module.exports.Series = module.exports[2];
+module.exports.Snapshot = module.exports[3];
+module.exports.save_event_for_automatic_snapshots = module.exports[4];
 
 /* Hashing disabled */

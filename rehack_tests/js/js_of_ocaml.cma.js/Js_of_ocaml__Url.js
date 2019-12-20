@@ -815,36 +815,36 @@ var Js_of_ocaml_Url = [
 exports = Js_of_ocaml_Url;
 
 /*::type Exports = {
-  string_of_url: (param: any) => any,
-  url_of_string: (s: any) => any,
-  decode_arguments: (s: any) => any,
-  encode_arguments: (l: any) => any,
-  path_of_path_string: (s: any) => any,
-  default_https_port: any
-  default_http_port: any
-  urlencode: (opt: any, s: any) => any,
   urldecode: (s: any) => any,
+  urlencode: (opt: any, s: any) => any,
+  default_http_port: any
+  default_https_port: any
+  path_of_path_string: (s: any) => any,
+  encode_arguments: (l: any) => any,
+  decode_arguments: (s: any) => any,
+  url_of_string: (s: any) => any,
+  string_of_url: (param: any) => any,
 }*/
 /** @type {{
-  string_of_url: (any) => any,
-  url_of_string: (any) => any,
-  decode_arguments: (any) => any,
-  encode_arguments: (any) => any,
-  path_of_path_string: (any) => any,
-  default_https_port: any,
-  default_http_port: any,
-  urlencode: (any, any) => any,
   urldecode: (any) => any,
+  urlencode: (any, any) => any,
+  default_http_port: any,
+  default_https_port: any,
+  path_of_path_string: (any) => any,
+  encode_arguments: (any) => any,
+  decode_arguments: (any) => any,
+  url_of_string: (any) => any,
+  string_of_url: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.string_of_url = module.exports[9];
-module.exports.url_of_string = module.exports[8];
-module.exports.decode_arguments = module.exports[7];
-module.exports.encode_arguments = module.exports[6];
-module.exports.path_of_path_string = module.exports[5];
-module.exports.default_https_port = module.exports[4];
-module.exports.default_http_port = module.exports[3];
-module.exports.urlencode = module.exports[2];
 module.exports.urldecode = module.exports[1];
+module.exports.urlencode = module.exports[2];
+module.exports.default_http_port = module.exports[3];
+module.exports.default_https_port = module.exports[4];
+module.exports.path_of_path_string = module.exports[5];
+module.exports.encode_arguments = module.exports[6];
+module.exports.decode_arguments = module.exports[7];
+module.exports.url_of_string = module.exports[8];
+module.exports.string_of_url = module.exports[9];
 
 /* Hashing disabled */

@@ -237,18 +237,18 @@ var CamlinternalFormatBasics = [0,concat_fmtty,erase_rel,concat_fmt];
 exports = CamlinternalFormatBasics;
 
 /*::type Exports = {
-  concat_fmt: (fmt1: any, fmt2: any) => any,
-  erase_rel: (param: any) => any,
   concat_fmtty: (fmtty1: any, fmtty2: any) => any,
+  erase_rel: (param: any) => any,
+  concat_fmt: (fmt1: any, fmt2: any) => any,
 }*/
 /** @type {{
-  concat_fmt: (any, any) => any,
-  erase_rel: (any) => any,
   concat_fmtty: (any, any) => any,
+  erase_rel: (any) => any,
+  concat_fmt: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.concat_fmt = module.exports[3];
-module.exports.erase_rel = module.exports[2];
 module.exports.concat_fmtty = module.exports[1];
+module.exports.erase_rel = module.exports[2];
+module.exports.concat_fmt = module.exports[3];
 
 /* Hashing disabled */

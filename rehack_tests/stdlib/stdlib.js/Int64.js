@@ -72,48 +72,48 @@ var Int64 = [
 exports = Int64;
 
 /*::type Exports = {
-  equal: (x: any, y: any) => any,
-  compare: (x: any, y: any) => any,
-  to_string: (n: any) => any,
-  of_string_opt: (s: any) => any,
-  lognot: (n: any) => any,
-  min_int: any
-  max_int: any
-  abs: (n: any) => any,
-  pred: (n: any) => any,
-  succ: (n: any) => any,
-  minus_one: any
-  one: any
   zero: any
+  one: any
+  minus_one: any
+  succ: (n: any) => any,
+  pred: (n: any) => any,
+  abs: (n: any) => any,
+  max_int: any
+  min_int: any
+  lognot: (n: any) => any,
+  of_string_opt: (s: any) => any,
+  to_string: (n: any) => any,
+  compare: (x: any, y: any) => any,
+  equal: (x: any, y: any) => any,
 }*/
 /** @type {{
-  equal: (any, any) => any,
-  compare: (any, any) => any,
-  to_string: (any) => any,
-  of_string_opt: (any) => any,
-  lognot: (any) => any,
-  min_int: any,
-  max_int: any,
-  abs: (any) => any,
-  pred: (any) => any,
-  succ: (any) => any,
-  minus_one: any,
-  one: any,
   zero: any,
+  one: any,
+  minus_one: any,
+  succ: (any) => any,
+  pred: (any) => any,
+  abs: (any) => any,
+  max_int: any,
+  min_int: any,
+  lognot: (any) => any,
+  of_string_opt: (any) => any,
+  to_string: (any) => any,
+  compare: (any, any) => any,
+  equal: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.equal = module.exports[13];
-module.exports.compare = module.exports[12];
-module.exports.to_string = module.exports[11];
-module.exports.of_string_opt = module.exports[10];
-module.exports.lognot = module.exports[9];
-module.exports.min_int = module.exports[8];
-module.exports.max_int = module.exports[7];
-module.exports.abs = module.exports[6];
-module.exports.pred = module.exports[5];
-module.exports.succ = module.exports[4];
-module.exports.minus_one = module.exports[3];
-module.exports.one = module.exports[2];
 module.exports.zero = module.exports[1];
+module.exports.one = module.exports[2];
+module.exports.minus_one = module.exports[3];
+module.exports.succ = module.exports[4];
+module.exports.pred = module.exports[5];
+module.exports.abs = module.exports[6];
+module.exports.max_int = module.exports[7];
+module.exports.min_int = module.exports[8];
+module.exports.lognot = module.exports[9];
+module.exports.of_string_opt = module.exports[10];
+module.exports.to_string = module.exports[11];
+module.exports.compare = module.exports[12];
+module.exports.equal = module.exports[13];
 
 /* Hashing disabled */

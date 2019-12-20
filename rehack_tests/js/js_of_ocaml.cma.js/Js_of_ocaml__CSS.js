@@ -2238,15 +2238,15 @@ var Js_of_ocaml_CSS = [
 exports = Js_of_ocaml_CSS;
 
 /*::type Exports = {
-  Angle: any
   Length: any
+  Angle: any
 }*/
 /** @type {{
-  Angle: any,
   Length: any,
+  Angle: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.Angle = module.exports[3];
 module.exports.Length = module.exports[2];
+module.exports.Angle = module.exports[3];
 
 /* Hashing disabled */

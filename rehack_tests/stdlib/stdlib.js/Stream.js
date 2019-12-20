@@ -412,78 +412,78 @@ var Stream = [
 exports = Stream;
 
 /*::type Exports = {
-  dump: (f: any, s: any) => any,
-  slazy: (f: any) => any,
-  sempty: any
-  lsing: (f: any) => any,
-  lcons: (f: any, s: any) => any,
-  lapp: (f: any, s: any) => any,
-  ising: (i: any) => any,
-  icons: (i: any, s: any) => any,
-  iapp: (i: any, s: any) => any,
-  npeek: (n: any, param: any) => any,
-  count: (param: any) => any,
-  junk: (param: any) => any,
-  peek: (param: any) => any,
-  empty: (s: any) => any,
-  next: (s: any) => any,
-  iter: (f: any, strm: any) => any,
-  of_channel: (ic: any) => any,
-  of_bytes: (s: any) => any,
-  of_string: (s: any) => any,
-  of_list: (l: any) => any,
-  from: (f: any) => any,
-  Error: any
   Failure: any
+  Error: any
+  from: (f: any) => any,
+  of_list: (l: any) => any,
+  of_string: (s: any) => any,
+  of_bytes: (s: any) => any,
+  of_channel: (ic: any) => any,
+  iter: (f: any, strm: any) => any,
+  next: (s: any) => any,
+  empty: (s: any) => any,
+  peek: (param: any) => any,
+  junk: (param: any) => any,
+  count: (param: any) => any,
+  npeek: (n: any, param: any) => any,
+  iapp: (i: any, s: any) => any,
+  icons: (i: any, s: any) => any,
+  ising: (i: any) => any,
+  lapp: (f: any, s: any) => any,
+  lcons: (f: any, s: any) => any,
+  lsing: (f: any) => any,
+  sempty: any
+  slazy: (f: any) => any,
+  dump: (f: any, s: any) => any,
 }*/
 /** @type {{
-  dump: (any, any) => any,
-  slazy: (any) => any,
-  sempty: any,
-  lsing: (any) => any,
-  lcons: (any, any) => any,
-  lapp: (any, any) => any,
-  ising: (any) => any,
-  icons: (any, any) => any,
-  iapp: (any, any) => any,
-  npeek: (any, any) => any,
-  count: (any) => any,
-  junk: (any) => any,
-  peek: (any) => any,
-  empty: (any) => any,
-  next: (any) => any,
-  iter: (any, any) => any,
-  of_channel: (any) => any,
-  of_bytes: (any) => any,
-  of_string: (any) => any,
-  of_list: (any) => any,
-  from: (any) => any,
-  Error: any,
   Failure: any,
+  Error: any,
+  from: (any) => any,
+  of_list: (any) => any,
+  of_string: (any) => any,
+  of_bytes: (any) => any,
+  of_channel: (any) => any,
+  iter: (any, any) => any,
+  next: (any) => any,
+  empty: (any) => any,
+  peek: (any) => any,
+  junk: (any) => any,
+  count: (any) => any,
+  npeek: (any, any) => any,
+  iapp: (any, any) => any,
+  icons: (any, any) => any,
+  ising: (any) => any,
+  lapp: (any, any) => any,
+  lcons: (any, any) => any,
+  lsing: (any) => any,
+  sempty: any,
+  slazy: (any) => any,
+  dump: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.dump = module.exports[23];
-module.exports.slazy = module.exports[22];
-module.exports.sempty = module.exports[21];
-module.exports.lsing = module.exports[20];
-module.exports.lcons = module.exports[19];
-module.exports.lapp = module.exports[18];
-module.exports.ising = module.exports[17];
-module.exports.icons = module.exports[16];
-module.exports.iapp = module.exports[15];
-module.exports.npeek = module.exports[14];
-module.exports.count = module.exports[13];
-module.exports.junk = module.exports[12];
-module.exports.peek = module.exports[11];
-module.exports.empty = module.exports[10];
-module.exports.next = module.exports[9];
-module.exports.iter = module.exports[8];
-module.exports.of_channel = module.exports[7];
-module.exports.of_bytes = module.exports[6];
-module.exports.of_string = module.exports[5];
-module.exports.of_list = module.exports[4];
-module.exports.from = module.exports[3];
-module.exports.Error = module.exports[2];
 module.exports.Failure = module.exports[1];
+module.exports.Error = module.exports[2];
+module.exports.from = module.exports[3];
+module.exports.of_list = module.exports[4];
+module.exports.of_string = module.exports[5];
+module.exports.of_bytes = module.exports[6];
+module.exports.of_channel = module.exports[7];
+module.exports.iter = module.exports[8];
+module.exports.next = module.exports[9];
+module.exports.empty = module.exports[10];
+module.exports.peek = module.exports[11];
+module.exports.junk = module.exports[12];
+module.exports.count = module.exports[13];
+module.exports.npeek = module.exports[14];
+module.exports.iapp = module.exports[15];
+module.exports.icons = module.exports[16];
+module.exports.ising = module.exports[17];
+module.exports.lapp = module.exports[18];
+module.exports.lcons = module.exports[19];
+module.exports.lsing = module.exports[20];
+module.exports.sempty = module.exports[21];
+module.exports.slazy = module.exports[22];
+module.exports.dump = module.exports[23];
 
 /* Hashing disabled */

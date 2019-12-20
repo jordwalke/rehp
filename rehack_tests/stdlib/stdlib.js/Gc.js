@@ -169,21 +169,21 @@ var Gc = [
 exports = Gc;
 
 /*::type Exports = {
-  delete_alarm: (a: any) => any,
-  create_alarm: (f: any) => any,
-  allocated_bytes: (param: any) => any,
   print_stat: (c: any) => any,
+  allocated_bytes: (param: any) => any,
+  create_alarm: (f: any) => any,
+  delete_alarm: (a: any) => any,
 }*/
 /** @type {{
-  delete_alarm: (any) => any,
-  create_alarm: (any) => any,
-  allocated_bytes: (any) => any,
   print_stat: (any) => any,
+  allocated_bytes: (any) => any,
+  create_alarm: (any) => any,
+  delete_alarm: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.delete_alarm = module.exports[7];
-module.exports.create_alarm = module.exports[6];
-module.exports.allocated_bytes = module.exports[2];
 module.exports.print_stat = module.exports[1];
+module.exports.allocated_bytes = module.exports[2];
+module.exports.create_alarm = module.exports[6];
+module.exports.delete_alarm = module.exports[7];
 
 /* Hashing disabled */

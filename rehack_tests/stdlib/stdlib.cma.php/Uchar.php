@@ -27,14 +27,14 @@ final class Uchar {
     $err_no_pred = $string("U+0000 has no predecessor");
     $err_no_succ = $string("U+10FFFF has no successor");
     $Pervasives =  Pervasives::get ();
-    $err_not_sv = function(dynamic $i) use ($Pervasives,$call2,$caml_format_int,$cst_X,$cst_is_not_an_Unicode_scalar_value) {
+    $err_not_sv = (dynamic $i) ==> {
       return $call2(
         $Pervasives[16],
         $caml_format_int($cst_X, $i),
         $cst_is_not_an_Unicode_scalar_value
       );
     };
-    $err_not_latin1 = function(dynamic $u) use ($Pervasives,$call2,$caml_format_int,$cst_04X,$cst_U,$cst_is_not_a_latin1_character) {
+    $err_not_latin1 = (dynamic $u) ==> {
       $p_ = $call2(
         $Pervasives[16],
         $caml_format_int($cst_04X, $u),
@@ -48,19 +48,19 @@ final class Uchar {
     $hi_bound = 57344;
     $bom = 65279;
     $rep = 65533;
-    $succ = function(dynamic $u) use ($Pervasives,$call1,$err_no_succ,$hi_bound) {
+    $succ = (dynamic $u) ==> {
       return $u === 55295
         ? $hi_bound
         : ($u === 1114111
          ? $call1($Pervasives[1], $err_no_succ)
          : ((int) ($u + 1)));
     };
-    $pred = function(dynamic $u) use ($Pervasives,$call1,$err_no_pred,$lo_bound) {
+    $pred = (dynamic $u) ==> {
       return $u === 57344
         ? $lo_bound
         : ($u === 0 ? $call1($Pervasives[1], $err_no_pred) : ((int) ($u + -1)));
     };
-    $is_valid = function(dynamic $i) {
+    $is_valid = (dynamic $i) ==> {
       $l_ = 0 <= $i ? 1 : (0);
       $m_ = $l_ ? $i <= 55295 ? 1 : (0) : ($l_);
       if ($m_) {
@@ -72,28 +72,27 @@ final class Uchar {
       }
       return $n_;
     };
-    $of_int = function(dynamic $i) use ($Pervasives,$call1,$err_not_sv,$is_valid) {
+    $of_int = (dynamic $i) ==> {
       if ($is_valid($i)) {return $i;}
       $k_ = $err_not_sv($i);
       return $call1($Pervasives[1], $k_);
     };
-    $is_char = function(dynamic $u) {return $u < 256 ? 1 : (0);};
-    $of_char = function(dynamic $c) {return $c;};
-    $to_char = function(dynamic $u) use ($Pervasives,$call1,$err_not_latin1) {
+    $is_char = (dynamic $u) ==> {return $u < 256 ? 1 : (0);};
+    $of_char = (dynamic $c) ==> {return $c;};
+    $to_char = (dynamic $u) ==> {
       if (255 < $u) {
         $j_ = $err_not_latin1($u);
         return $call1($Pervasives[1], $j_);
       }
       return $u;
     };
-    $unsafe_to_char = function(dynamic $i_) {return $i_;};
-    $equal = function(dynamic $h_, dynamic $g_) {return $h_ === $g_ ? 1 : (0);
-    };
-    $compare = function(dynamic $f_, dynamic $e_) use ($runtime) {
+    $unsafe_to_char = (dynamic $i_) ==> {return $i_;};
+    $equal = (dynamic $h_, dynamic $g_) ==> {return $h_ === $g_ ? 1 : (0);};
+    $compare = (dynamic $f_, dynamic $e_) ==> {
       return $runtime["caml_int_compare"]($f_, $e_);
     };
-    $hash = function(dynamic $d_) {return $d_;};
-    $a_ = function(dynamic $c_) {return $c_;};
+    $hash = (dynamic $d_) ==> {return $d_;};
+    $a_ = (dynamic $c_) ==> {return $c_;};
     $Uchar = Vector{
       0,
       $min,
@@ -104,7 +103,7 @@ final class Uchar {
       $pred,
       $is_valid,
       $of_int,
-      function(dynamic $b_) {return $b_;},
+      (dynamic $b_) ==> {return $b_;},
       $a_,
       $is_char,
       $of_char,
@@ -118,50 +117,50 @@ final class Uchar {
      return ($Uchar);
 
   }
-  public static function hash(dynamic $unnamed1) {
-    return static::get()[17]($unnamed1);
-  }
-  public static function compare(dynamic $unnamed1, dynamic $unnamed2) {
-    return static::get()[16]($unnamed1, $unnamed2);
-  }
-  public static function equal(dynamic $unnamed1, dynamic $unnamed2) {
-    return static::get()[15]($unnamed1, $unnamed2);
-  }
-  public static function unsafe_to_char(dynamic $unnamed1) {
-    return static::get()[14]($unnamed1);
-  }
-  public static function to_char(dynamic $u) {
-    return static::get()[13]($u);
-  }
-  public static function of_char(dynamic $c) {
-    return static::get()[12]($c);
-  }
-  public static function is_char(dynamic $u) {
-    return static::get()[11]($u);
-  }
-  public static function of_int(dynamic $i) {
-    return static::get()[8]($i);
-  }
-  public static function is_valid(dynamic $i) {
-    return static::get()[7]($i);
-  }
-  public static function pred(dynamic $u) {
-    return static::get()[6]($u);
-  }
-  public static function succ(dynamic $u) {
-    return static::get()[5]($u);
-  }
-  public static function rep() {
-    return static::get()[4]();
-  }
-  public static function bom() {
-    return static::get()[3]();
+  public static function min() {
+    return static::get()[1]();
   }
   public static function max() {
     return static::get()[2]();
   }
-  public static function min() {
-    return static::get()[1]();
+  public static function bom() {
+    return static::get()[3]();
+  }
+  public static function rep() {
+    return static::get()[4]();
+  }
+  public static function succ(dynamic $u) {
+    return static::get()[5]($u);
+  }
+  public static function pred(dynamic $u) {
+    return static::get()[6]($u);
+  }
+  public static function is_valid(dynamic $i) {
+    return static::get()[7]($i);
+  }
+  public static function of_int(dynamic $i) {
+    return static::get()[8]($i);
+  }
+  public static function is_char(dynamic $u) {
+    return static::get()[11]($u);
+  }
+  public static function of_char(dynamic $c) {
+    return static::get()[12]($c);
+  }
+  public static function to_char(dynamic $u) {
+    return static::get()[13]($u);
+  }
+  public static function unsafe_to_char(dynamic $unnamed1) {
+    return static::get()[14]($unnamed1);
+  }
+  public static function equal(dynamic $unnamed1, dynamic $unnamed2) {
+    return static::get()[15]($unnamed1, $unnamed2);
+  }
+  public static function compare(dynamic $unnamed1, dynamic $unnamed2) {
+    return static::get()[16]($unnamed1, $unnamed2);
+  }
+  public static function hash(dynamic $unnamed1) {
+    return static::get()[17]($unnamed1);
   }
 
 }

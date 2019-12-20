@@ -23,10 +23,10 @@ final class Spacetime {
     $cst_Series_is_closed = $string("Series is closed");
     $Pervasives =  Pervasives::get ();
     $enabled = $caml_spacetime_enabled(0);
-    $if_spacetime_enabled = function(dynamic $f) use ($call1,$enabled) {
+    $if_spacetime_enabled = (dynamic $f) ==> {
       return $enabled ? $call1($f, 0) : (0);
     };
-    $create = function(dynamic $path) use ($Pervasives,$call1,$caml_spacetime_enabled,$caml_spacetime_only_works_for_native_code) {
+    $create = (dynamic $path) ==> {
       if ($caml_spacetime_enabled(0)) {
         $channel = $call1($Pervasives[48], $path);
         $t = Vector{0, $channel, 0};
@@ -35,9 +35,9 @@ final class Spacetime {
       }
       return Vector{0, $Pervasives[27], 1};
     };
-    $save_event = function(dynamic $time, dynamic $t, dynamic $event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
+    $save_event = (dynamic $time, dynamic $t, dynamic $event_name) ==> {
       return $if_spacetime_enabled(
-        function(dynamic $param) use ($caml_spacetime_only_works_for_native_code,$event_name,$t,$time) {
+        (dynamic $param) ==> {
           return $caml_spacetime_only_works_for_native_code(
             $time,
             $t[1],
@@ -46,9 +46,9 @@ final class Spacetime {
         }
       );
     };
-    $save_and_close = function(dynamic $time, dynamic $t) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$if_spacetime_enabled) {
+    $save_and_close = (dynamic $time, dynamic $t) ==> {
       return $if_spacetime_enabled(
-        function(dynamic $param) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed,$t,$time) {
+        (dynamic $param) ==> {
           if ($t[2]) {$call1($Pervasives[2], $cst_Series_is_closed);}
           $caml_spacetime_only_works_for_native_code($time, $t[1]);
           $call1($Pervasives[64], $t[1]);
@@ -58,11 +58,11 @@ final class Spacetime {
       );
     };
     $Series = Vector{0, $create, $save_event, $save_and_close};
-    $take = function(dynamic $time, dynamic $param) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$cst_Series_is_closed__0,$if_spacetime_enabled,$runtime) {
+    $take = (dynamic $time, dynamic $param) ==> {
       $channel = $param[1];
       $closed = $param[2];
       return $if_spacetime_enabled(
-        function(dynamic $param) use ($Pervasives,$call1,$caml_spacetime_only_works_for_native_code,$channel,$closed,$cst_Series_is_closed__0,$runtime,$time) {
+        (dynamic $param) ==> {
           if ($closed) {$call1($Pervasives[2], $cst_Series_is_closed__0);}
           $runtime["caml_gc_minor"](0);
           return $caml_spacetime_only_works_for_native_code($time, $channel);
@@ -70,9 +70,9 @@ final class Spacetime {
       );
     };
     $Snapshot = Vector{0, $take};
-    $save_event_for_automatic_snapshots = function(dynamic $event_name) use ($caml_spacetime_only_works_for_native_code,$if_spacetime_enabled) {
+    $save_event_for_automatic_snapshots = (dynamic $event_name) ==> {
       return $if_spacetime_enabled(
-        function(dynamic $param) use ($caml_spacetime_only_works_for_native_code,$event_name) {
+        (dynamic $param) ==> {
           return $caml_spacetime_only_works_for_native_code($event_name);
         }
       );
@@ -88,17 +88,17 @@ final class Spacetime {
      return ($Spacetime);
 
   }
-  public static function save_event_for_automatic_snapshots(dynamic $event_name) {
-    return static::get()[4]($event_name);
-  }
-  public static function Snapshot() {
-    return static::get()[3]();
+  public static function enabled() {
+    return static::get()[1]();
   }
   public static function Series() {
     return static::get()[2]();
   }
-  public static function enabled() {
-    return static::get()[1]();
+  public static function Snapshot() {
+    return static::get()[3]();
+  }
+  public static function save_event_for_automatic_snapshots(dynamic $event_name) {
+    return static::get()[4]($event_name);
   }
 
 }

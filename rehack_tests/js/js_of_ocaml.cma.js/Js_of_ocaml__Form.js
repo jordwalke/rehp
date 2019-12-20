@@ -412,30 +412,30 @@ var Js_of_ocaml_Form = [
 exports = Js_of_ocaml_Form;
 
 /*::type Exports = {
-  form_elements: (get: any, form: any) => any,
-  empty_form_contents: (param: any) => any,
-  get_form_contents: (form: any) => any,
-  post_form_contents: (form: any) => any,
-  append: (form_contents: any, form_elt: any) => any,
-  formData_form: any
   formData: any
+  formData_form: any
+  append: (form_contents: any, form_elt: any) => any,
+  post_form_contents: (form: any) => any,
+  get_form_contents: (form: any) => any,
+  empty_form_contents: (param: any) => any,
+  form_elements: (get: any, form: any) => any,
 }*/
 /** @type {{
-  form_elements: (any, any) => any,
-  empty_form_contents: (any) => any,
-  get_form_contents: (any) => any,
-  post_form_contents: (any) => any,
-  append: (any, any) => any,
-  formData_form: any,
   formData: any,
+  formData_form: any,
+  append: (any, any) => any,
+  post_form_contents: (any) => any,
+  get_form_contents: (any) => any,
+  empty_form_contents: (any) => any,
+  form_elements: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.form_elements = module.exports[7];
-module.exports.empty_form_contents = module.exports[6];
-module.exports.get_form_contents = module.exports[5];
-module.exports.post_form_contents = module.exports[4];
-module.exports.append = module.exports[3];
-module.exports.formData_form = module.exports[2];
 module.exports.formData = module.exports[1];
+module.exports.formData_form = module.exports[2];
+module.exports.append = module.exports[3];
+module.exports.post_form_contents = module.exports[4];
+module.exports.get_form_contents = module.exports[5];
+module.exports.empty_form_contents = module.exports[6];
+module.exports.form_elements = module.exports[7];
 
 /* Hashing disabled */

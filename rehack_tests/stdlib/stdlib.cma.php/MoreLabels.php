@@ -21,14 +21,14 @@ final class MoreLabels {
      return ($MoreLabels);
 
   }
-  public static function Set() {
-    return static::get()[3]();
+  public static function Hashtbl() {
+    return static::get()[1]();
   }
   public static function Map() {
     return static::get()[2]();
   }
-  public static function Hashtbl() {
-    return static::get()[1]();
+  public static function Set() {
+    return static::get()[3]();
   }
 
 }

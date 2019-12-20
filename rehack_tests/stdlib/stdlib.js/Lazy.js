@@ -46,33 +46,33 @@ var Lazy = [
 exports = Lazy;
 
 /*::type Exports = {
-  is_val: (l: any) => any,
-  from_val: (v: any) => any,
-  from_fun: (f: any) => any,
-  is_val: (l: any) => any,
-  from_val: (v: any) => any,
-  from_fun: (f: any) => any,
-  force_val: any
   Undefined: any
+  force_val: any
+  from_fun: (f: any) => any,
+  from_val: (v: any) => any,
+  is_val: (l: any) => any,
+  from_fun: (f: any) => any,
+  from_val: (v: any) => any,
+  is_val: (l: any) => any,
 }*/
 /** @type {{
-  is_val: (any) => any,
-  from_val: (any) => any,
-  from_fun: (any) => any,
-  is_val: (any) => any,
-  from_val: (any) => any,
-  from_fun: (any) => any,
-  force_val: any,
   Undefined: any,
+  force_val: any,
+  from_fun: (any) => any,
+  from_val: (any) => any,
+  is_val: (any) => any,
+  from_fun: (any) => any,
+  from_val: (any) => any,
+  is_val: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.is_val = module.exports[8];
-module.exports.from_val = module.exports[7];
-module.exports.from_fun = module.exports[6];
-module.exports.is_val = module.exports[5];
-module.exports.from_val = module.exports[4];
-module.exports.from_fun = module.exports[3];
-module.exports.force_val = module.exports[2];
 module.exports.Undefined = module.exports[1];
+module.exports.force_val = module.exports[2];
+module.exports.from_fun = module.exports[3];
+module.exports.from_val = module.exports[4];
+module.exports.is_val = module.exports[5];
+module.exports.from_fun = module.exports[6];
+module.exports.from_val = module.exports[7];
+module.exports.is_val = module.exports[8];
 
 /* Hashing disabled */

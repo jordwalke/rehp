@@ -25,11 +25,11 @@ final class Char {
     $cst_r = $string("\\r");
     $cst_Char_chr = $string("Char.chr");
     $Pervasives =  Pervasives::get ();
-    $chr = function(dynamic $n) use ($Pervasives,$call1,$cst_Char_chr) {
+    $chr = (dynamic $n) ==> {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $call1($Pervasives[1], $cst_Char_chr);
     };
-    $escaped = function(dynamic $c) use ($caml_bytes_unsafe_set,$caml_create_bytes,$cst,$cst__0,$cst_b,$cst_n,$cst_r,$cst_t) {
+    $escaped = (dynamic $c) ==> {
       if (40 <= $c) {
         if (92 === $c) {return $cst;}
         $switch__0 = 127 <= $c ? 0 : (1);
@@ -76,7 +76,7 @@ final class Char {
       $caml_bytes_unsafe_set($s, 3, (int) (48 + (int) ($c % 10)));
       return $s;
     };
-    $lowercase = function(dynamic $c) {
+    $lowercase = (dynamic $c) ==> {
       $switch__0 = 65 <= $c ? 90 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 192 <= $c ? 214 < $c ? 0 : (1) : (0);
@@ -87,7 +87,7 @@ final class Char {
       }
       return (int) ($c + 32);
     };
-    $uppercase = function(dynamic $c) {
+    $uppercase = (dynamic $c) ==> {
       $switch__0 = 97 <= $c ? 122 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 224 <= $c ? 246 < $c ? 0 : (1) : (0);
@@ -98,16 +98,16 @@ final class Char {
       }
       return (int) ($c + -32);
     };
-    $lowercase_ascii = function(dynamic $c) {
+    $lowercase_ascii = (dynamic $c) ==> {
       if (65 <= $c) {if (! (90 < $c)) {return (int) ($c + 32);}}
       return $c;
     };
-    $uppercase_ascii = function(dynamic $c) {
+    $uppercase_ascii = (dynamic $c) ==> {
       if (97 <= $c) {if (! (122 < $c)) {return (int) ($c + -32);}}
       return $c;
     };
-    $compare = function(dynamic $c1, dynamic $c2) {return (int) ($c1 - $c2);};
-    $equal = function(dynamic $c1, dynamic $c2) use ($compare) {
+    $compare = (dynamic $c1, dynamic $c2) ==> {return (int) ($c1 - $c2);};
+    $equal = (dynamic $c1, dynamic $c2) ==> {
       return 0 === $compare($c1, $c2) ? 1 : (0);
     };
     $Char = Vector{
@@ -125,29 +125,29 @@ final class Char {
      return ($Char);
 
   }
-  public static function equal(dynamic $c1, dynamic $c2) {
-    return static::get()[8]($c1, $c2);
-  }
-  public static function compare(dynamic $c1, dynamic $c2) {
-    return static::get()[7]($c1, $c2);
-  }
-  public static function uppercase_ascii(dynamic $c) {
-    return static::get()[6]($c);
-  }
-  public static function lowercase_ascii(dynamic $c) {
-    return static::get()[5]($c);
-  }
-  public static function uppercase(dynamic $c) {
-    return static::get()[4]($c);
-  }
-  public static function lowercase(dynamic $c) {
-    return static::get()[3]($c);
+  public static function chr(dynamic $n) {
+    return static::get()[1]($n);
   }
   public static function escaped(dynamic $c) {
     return static::get()[2]($c);
   }
-  public static function chr(dynamic $n) {
-    return static::get()[1]($n);
+  public static function lowercase(dynamic $c) {
+    return static::get()[3]($c);
+  }
+  public static function uppercase(dynamic $c) {
+    return static::get()[4]($c);
+  }
+  public static function lowercase_ascii(dynamic $c) {
+    return static::get()[5]($c);
+  }
+  public static function uppercase_ascii(dynamic $c) {
+    return static::get()[6]($c);
+  }
+  public static function compare(dynamic $c1, dynamic $c2) {
+    return static::get()[7]($c1, $c2);
+  }
+  public static function equal(dynamic $c1, dynamic $c2) {
+    return static::get()[8]($c1, $c2);
   }
 
 }

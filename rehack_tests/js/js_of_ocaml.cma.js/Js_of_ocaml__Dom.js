@@ -337,57 +337,57 @@ var Js_of_ocaml_Dom = [
 exports = Js_of_ocaml_Dom;
 
 /*::type Exports = {
-  preventDefault: (ev: any) => any,
-  removeEventListener: (id: any) => any,
-  addEventListener: (e: any, typ: any, h: any, capt: any) => any,
-  Event: any
-  eventTarget: (e: any) => any,
-  invoke_handler: (f: any, this: any, event: any) => any,
-  full_handler: (f: any) => any,
-  handler: (f: any) => any,
-  no_handler: any
-  nodeType: (e: any) => any,
-  list_of_nodeList: (nodeList: any) => any,
-  appendChild: (p: any, n: any) => any,
-  removeChild: (p: any, n: any) => any,
-  replaceChild: (p: any, n: any, o: any) => any,
-  insertBefore: (p: any, n: any, o: any) => any,
   DocumentPosition: any
+  insertBefore: (p: any, n: any, o: any) => any,
+  replaceChild: (p: any, n: any, o: any) => any,
+  removeChild: (p: any, n: any) => any,
+  appendChild: (p: any, n: any) => any,
+  list_of_nodeList: (nodeList: any) => any,
+  nodeType: (e: any) => any,
+  no_handler: any
+  handler: (f: any) => any,
+  full_handler: (f: any) => any,
+  invoke_handler: (f: any, this: any, event: any) => any,
+  eventTarget: (e: any) => any,
+  Event: any
+  addEventListener: (e: any, typ: any, h: any, capt: any) => any,
+  removeEventListener: (id: any) => any,
+  preventDefault: (ev: any) => any,
 }*/
 /** @type {{
-  preventDefault: (any) => any,
-  removeEventListener: (any) => any,
-  addEventListener: (any, any, any, any) => any,
-  Event: any,
-  eventTarget: (any) => any,
-  invoke_handler: (any, any, any) => any,
-  full_handler: (any) => any,
-  handler: (any) => any,
-  no_handler: any,
-  nodeType: (any) => any,
-  list_of_nodeList: (any) => any,
-  appendChild: (any, any) => any,
-  removeChild: (any, any) => any,
-  replaceChild: (any, any, any) => any,
-  insertBefore: (any, any, any) => any,
   DocumentPosition: any,
+  insertBefore: (any, any, any) => any,
+  replaceChild: (any, any, any) => any,
+  removeChild: (any, any) => any,
+  appendChild: (any, any) => any,
+  list_of_nodeList: (any) => any,
+  nodeType: (any) => any,
+  no_handler: any,
+  handler: (any) => any,
+  full_handler: (any) => any,
+  invoke_handler: (any, any, any) => any,
+  eventTarget: (any) => any,
+  Event: any,
+  addEventListener: (any, any, any, any) => any,
+  removeEventListener: (any) => any,
+  preventDefault: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.preventDefault = module.exports[17];
-module.exports.removeEventListener = module.exports[16];
-module.exports.addEventListener = module.exports[15];
-module.exports.Event = module.exports[14];
-module.exports.eventTarget = module.exports[13];
-module.exports.invoke_handler = module.exports[12];
-module.exports.full_handler = module.exports[11];
-module.exports.handler = module.exports[10];
-module.exports.no_handler = module.exports[9];
-module.exports.nodeType = module.exports[7];
-module.exports.list_of_nodeList = module.exports[6];
-module.exports.appendChild = module.exports[5];
-module.exports.removeChild = module.exports[4];
-module.exports.replaceChild = module.exports[3];
-module.exports.insertBefore = module.exports[2];
 module.exports.DocumentPosition = module.exports[1];
+module.exports.insertBefore = module.exports[2];
+module.exports.replaceChild = module.exports[3];
+module.exports.removeChild = module.exports[4];
+module.exports.appendChild = module.exports[5];
+module.exports.list_of_nodeList = module.exports[6];
+module.exports.nodeType = module.exports[7];
+module.exports.no_handler = module.exports[9];
+module.exports.handler = module.exports[10];
+module.exports.full_handler = module.exports[11];
+module.exports.invoke_handler = module.exports[12];
+module.exports.eventTarget = module.exports[13];
+module.exports.Event = module.exports[14];
+module.exports.addEventListener = module.exports[15];
+module.exports.removeEventListener = module.exports[16];
+module.exports.preventDefault = module.exports[17];
 
 /* Hashing disabled */

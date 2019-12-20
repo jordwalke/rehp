@@ -51,19 +51,15 @@ final class Buffer {
     $c_ = Vector{0, $string("buffer.ml"), 138, 8};
     $b_ = Vector{0, $string("buffer.ml"), 84, 19};
     $a_ = Vector{0, $string("buffer.ml"), 117, 8};
-    $create = function(dynamic $n) use ($Sys,$caml_create_bytes) {
+    $create = (dynamic $n) ==> {
       $n__0 = 1 <= $n ? $n : (1);
       $n__1 = $Sys[13] < $n__0 ? $Sys[13] : ($n__0);
       $s = $caml_create_bytes($n__1);
       return Vector{0, $s, 0, $n__1, $s};
     };
-    $contents = function(dynamic $b) use ($Bytes,$call3) {
-      return $call3($Bytes[8], $b[1], 0, $b[2]);
-    };
-    $to_bytes = function(dynamic $b) use ($Bytes,$call3) {
-      return $call3($Bytes[7], $b[1], 0, $b[2]);
-    };
-    $sub = function(dynamic $b, dynamic $ofs, dynamic $len) use ($Bytes,$Pervasives,$call1,$call3,$cst_Buffer_sub) {
+    $contents = (dynamic $b) ==> {return $call3($Bytes[8], $b[1], 0, $b[2]);};
+    $to_bytes = (dynamic $b) ==> {return $call3($Bytes[7], $b[1], 0, $b[2]);};
+    $sub = (dynamic $b, dynamic $ofs, dynamic $len) ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($b[2] - $len) < $ofs)) {
@@ -73,8 +69,8 @@ final class Buffer {
       }
       return $call1($Pervasives[1], $cst_Buffer_sub);
     };
-    $blit = function
-    (dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) use ($Pervasives,$call1,$caml_ml_bytes_length,$cst_Buffer_blit,$runtime) {
+    $blit = 
+    (dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) ==> {
       if (0 <= $len) {
         if (0 <= $srcoff) {
           if (! ((int) ($src[2] - $len) < $srcoff)) {
@@ -94,7 +90,7 @@ final class Buffer {
       }
       return $call1($Pervasives[1], $cst_Buffer_blit);
     };
-    $nth = function(dynamic $b, dynamic $ofs) use ($Pervasives,$call1,$cst_Buffer_nth,$runtime) {
+    $nth = (dynamic $b, dynamic $ofs) ==> {
       if (0 <= $ofs) {
         if (! ($b[2] <= $ofs)) {
           return $runtime["caml_bytes_unsafe_get"]($b[1], $ofs);
@@ -102,15 +98,15 @@ final class Buffer {
       }
       return $call1($Pervasives[1], $cst_Buffer_nth);
     };
-    $length = function(dynamic $b) {return $b[2];};
-    $clear = function(dynamic $b) {$b[2] = 0;return 0;};
-    $reset = function(dynamic $b) use ($caml_ml_bytes_length) {
+    $length = (dynamic $b) ==> {return $b[2];};
+    $clear = (dynamic $b) ==> {$b[2] = 0;return 0;};
+    $reset = (dynamic $b) ==> {
       $b[2] = 0;
       $b[1] = $b[4];
       $b[3] = $caml_ml_bytes_length($b[1]);
       return 0;
     };
-    $resize = function(dynamic $b, dynamic $more) use ($Bytes,$Pervasives,$Sys,$call1,$call5,$caml_create_bytes,$cst_Buffer_add_cannot_grow_buffer) {
+    $resize = (dynamic $b, dynamic $more) ==> {
       $len = $b[3];
       $new_len = Vector{0, $len};
       for (;;) {
@@ -129,14 +125,14 @@ final class Buffer {
         return 0;
       }
     };
-    $add_char = function(dynamic $b, dynamic $c) use ($caml_bytes_unsafe_set,$resize) {
+    $add_char = (dynamic $b, dynamic $c) ==> {
       $pos = $b[2];
       if ($b[3] <= $pos) {$resize($b, 1);}
       $caml_bytes_unsafe_set($b[1], $pos, $c);
       $b[2] = (int) ($pos + 1);
       return 0;
     };
-    $add_utf_8_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$a_,$add_char,$b_,$call1,$caml_bytes_unsafe_set,$caml_wrap_thrown_exception,$resize,$unsigned_right_shift_32) {
+    $add_utf_8_uchar = (dynamic $b, dynamic $u) ==> {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (127 < $u__0) {
@@ -208,7 +204,7 @@ final class Buffer {
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
     };
-    $add_utf_16be_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$c_,$call1,$caml_bytes_unsafe_set,$caml_wrap_thrown_exception,$d_,$resize,$unsigned_right_shift_32) {
+    $add_utf_16be_uchar = (dynamic $b, dynamic $u) ==> {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
@@ -252,7 +248,7 @@ final class Buffer {
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
     };
-    $add_utf_16le_uchar = function(dynamic $b, dynamic $u) use ($Assert_failure,$Uchar,$call1,$caml_bytes_unsafe_set,$caml_wrap_thrown_exception,$e_,$f_,$resize,$unsigned_right_shift_32) {
+    $add_utf_16le_uchar = (dynamic $b, dynamic $u) ==> {
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
@@ -298,8 +294,7 @@ final class Buffer {
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
     };
-    $add_substring = function
-    (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) use ($Bytes,$Pervasives,$call1,$call5,$caml_ml_string_length,$cst_Buffer_add_substring_add_subbytes,$resize) {
+    $add_substring = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) ==> {
       $l_ = $offset < 0 ? 1 : (0);
       if ($l_) {
         $m_ = $l_;
@@ -319,11 +314,10 @@ final class Buffer {
       $b[2] = $new_position;
       return 0;
     };
-    $add_subbytes = function
-    (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) use ($Bytes,$add_substring,$call1) {
+    $add_subbytes = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) ==> {
       return $add_substring($b, $call1($Bytes[42], $s), $offset, $len);
     };
-    $add_string = function(dynamic $b, dynamic $s) use ($Bytes,$call5,$caml_ml_string_length,$resize) {
+    $add_string = (dynamic $b, dynamic $s) ==> {
       $len = $caml_ml_string_length($s);
       $new_position = (int) ($b[2] + $len);
       if ($b[3] < $new_position) {$resize($b, $len);}
@@ -331,13 +325,13 @@ final class Buffer {
       $b[2] = $new_position;
       return 0;
     };
-    $add_bytes = function(dynamic $b, dynamic $s) use ($Bytes,$add_string,$call1) {
+    $add_bytes = (dynamic $b, dynamic $s) ==> {
       return $add_string($b, $call1($Bytes[42], $s));
     };
-    $add_buffer = function(dynamic $b, dynamic $bs) use ($add_subbytes) {
+    $add_buffer = (dynamic $b, dynamic $bs) ==> {
       return $add_subbytes($b, $bs[1], 0, $bs[2]);
     };
-    $add_channel_rec = function(dynamic $b, dynamic $ic, dynamic $len) use ($End_of_file,$Pervasives,$call4,$caml_wrap_thrown_exception) {
+    $add_channel_rec = (dynamic $b, dynamic $ic, dynamic $len) ==> {
       $len__0 = $len;
       for (;;) {
         $k_ = 0 < $len__0 ? 1 : (0);
@@ -354,24 +348,24 @@ final class Buffer {
         return $k_;
       }
     };
-    $add_channel = function(dynamic $b, dynamic $ic, dynamic $len) use ($Pervasives,$Sys,$add_channel_rec,$call1,$cst_Buffer_add_channel,$resize) {
+    $add_channel = (dynamic $b, dynamic $ic, dynamic $len) ==> {
       $i_ = $len < 0 ? 1 : (0);
       $j_ = $i_ ? $i_ : ($Sys[13] < $len ? 1 : (0));
       if ($j_) {$call1($Pervasives[1], $cst_Buffer_add_channel);}
       if ($b[3] < (int) ($b[2] + $len)) {$resize($b, $len);}
       return $add_channel_rec($b, $ic, $len);
     };
-    $output_buffer = function(dynamic $oc, dynamic $b) use ($Pervasives,$call4) {
+    $output_buffer = (dynamic $oc, dynamic $b) ==> {
       return $call4($Pervasives[56], $oc, $b[1], 0, $b[2]);
     };
-    $closing = function(dynamic $param) use ($Assert_failure,$caml_wrap_thrown_exception,$g_) {
+    $closing = (dynamic $param) ==> {
       if (40 === $param) {return 41;}
       if (123 === $param) {return 125;}
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $g_}) as \Throwable;
     };
-    $advance_to_closing = function
-    (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) use ($Not_found,$caml_ml_string_length,$caml_string_get,$caml_wrap_thrown_exception) {
-      $advance = function(dynamic $k, dynamic $i, dynamic $lim) use ($Not_found,$caml_string_get,$caml_wrap_thrown_exception,$closing,$opening,$s) {
+    $advance_to_closing = 
+    (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) ==> {
+      $advance = (dynamic $k, dynamic $i, dynamic $lim) ==> {
         $k__0 = $k;
         $i__0 = $i;
         for (;;) {
@@ -400,8 +394,8 @@ final class Buffer {
       };
       return $advance($k, $start, $caml_ml_string_length($s));
     };
-    $advance_to_non_alpha = function(dynamic $s, dynamic $start) use ($caml_ml_string_length,$caml_string_get) {
-      $advance = function(dynamic $i, dynamic $lim) use ($caml_string_get,$s) {
+    $advance_to_non_alpha = (dynamic $s, dynamic $start) ==> {
+      $advance = (dynamic $i, dynamic $lim) ==> {
         $i__0 = $i;
         for (;;) {
           if ($lim <= $i__0) {return $lim;}
@@ -419,7 +413,7 @@ final class Buffer {
       };
       return $advance($start, $caml_ml_string_length($s));
     };
-    $find_ident = function(dynamic $s, dynamic $start, dynamic $lim) use ($Not_found,$String,$advance_to_closing,$advance_to_non_alpha,$call3,$caml_string_get,$caml_wrap_thrown_exception,$closing) {
+    $find_ident = (dynamic $s, dynamic $start, dynamic $lim) ==> {
       if ($lim <= $start) {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
@@ -444,9 +438,9 @@ final class Buffer {
         ($stop + 1)
       };
     };
-    $add_substitute = function(dynamic $b, dynamic $f, dynamic $s) use ($add_char,$add_string,$call1,$caml_ml_string_length,$caml_string_get,$find_ident) {
+    $add_substitute = (dynamic $b, dynamic $f, dynamic $s) ==> {
       $lim = $caml_ml_string_length($s);
-      $subst = function(dynamic $previous, dynamic $i) use ($add_char,$add_string,$b,$call1,$caml_string_get,$f,$find_ident,$lim,$s) {
+      $subst = (dynamic $previous, dynamic $i) ==> {
         $previous__0 = $previous;
         $i__0 = $i;
         for (;;) {
@@ -495,7 +489,7 @@ final class Buffer {
       };
       return $subst(32, 0);
     };
-    $truncate = function(dynamic $b, dynamic $len) use ($Pervasives,$call1,$cst_Buffer_truncate,$length) {
+    $truncate = (dynamic $b, dynamic $len) ==> {
       if (0 <= $len) {if (! ($length($b) < $len)) {$b[2] = $len;return 0;}}
       return $call1($Pervasives[1], $cst_Buffer_truncate);
     };
@@ -528,71 +522,71 @@ final class Buffer {
      return ($Buffer);
 
   }
-  public static function truncate(dynamic $b, dynamic $len) {
-    return static::get()[22]($b, $len);
-  }
-  public static function output_buffer(dynamic $oc, dynamic $b) {
-    return static::get()[21]($oc, $b);
-  }
-  public static function add_channel(dynamic $b, dynamic $ic, dynamic $len) {
-    return static::get()[20]($b, $ic, $len);
-  }
-  public static function add_buffer(dynamic $b, dynamic $bs) {
-    return static::get()[19]($b, $bs);
-  }
-  public static function add_substitute(dynamic $b, dynamic $f, dynamic $s) {
-    return static::get()[18]($b, $f, $s);
-  }
-  public static function add_subbytes(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
-    return static::get()[17]($b, $s, $offset, $len);
-  }
-  public static function add_substring(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
-    return static::get()[16]($b, $s, $offset, $len);
-  }
-  public static function add_bytes(dynamic $b, dynamic $s) {
-    return static::get()[15]($b, $s);
-  }
-  public static function add_string(dynamic $b, dynamic $s) {
-    return static::get()[14]($b, $s);
-  }
-  public static function add_utf_16be_uchar(dynamic $b, dynamic $u) {
-    return static::get()[13]($b, $u);
-  }
-  public static function add_utf_16le_uchar(dynamic $b, dynamic $u) {
-    return static::get()[12]($b, $u);
-  }
-  public static function add_utf_8_uchar(dynamic $b, dynamic $u) {
-    return static::get()[11]($b, $u);
-  }
-  public static function add_char(dynamic $b, dynamic $c) {
-    return static::get()[10]($b, $c);
-  }
-  public static function reset(dynamic $b) {
-    return static::get()[9]($b);
-  }
-  public static function clear(dynamic $b) {
-    return static::get()[8]($b);
-  }
-  public static function length(dynamic $b) {
-    return static::get()[7]($b);
-  }
-  public static function nth(dynamic $b, dynamic $ofs) {
-    return static::get()[6]($b, $ofs);
-  }
-  public static function blit(dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) {
-    return static::get()[5]($src, $srcoff, $dst, $dstoff, $len);
-  }
-  public static function sub(dynamic $b, dynamic $ofs, dynamic $len) {
-    return static::get()[4]($b, $ofs, $len);
-  }
-  public static function to_bytes(dynamic $b) {
-    return static::get()[3]($b);
+  public static function create(dynamic $n) {
+    return static::get()[1]($n);
   }
   public static function contents(dynamic $b) {
     return static::get()[2]($b);
   }
-  public static function create(dynamic $n) {
-    return static::get()[1]($n);
+  public static function to_bytes(dynamic $b) {
+    return static::get()[3]($b);
+  }
+  public static function sub(dynamic $b, dynamic $ofs, dynamic $len) {
+    return static::get()[4]($b, $ofs, $len);
+  }
+  public static function blit(dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) {
+    return static::get()[5]($src, $srcoff, $dst, $dstoff, $len);
+  }
+  public static function nth(dynamic $b, dynamic $ofs) {
+    return static::get()[6]($b, $ofs);
+  }
+  public static function length(dynamic $b) {
+    return static::get()[7]($b);
+  }
+  public static function clear(dynamic $b) {
+    return static::get()[8]($b);
+  }
+  public static function reset(dynamic $b) {
+    return static::get()[9]($b);
+  }
+  public static function add_char(dynamic $b, dynamic $c) {
+    return static::get()[10]($b, $c);
+  }
+  public static function add_utf_8_uchar(dynamic $b, dynamic $u) {
+    return static::get()[11]($b, $u);
+  }
+  public static function add_utf_16le_uchar(dynamic $b, dynamic $u) {
+    return static::get()[12]($b, $u);
+  }
+  public static function add_utf_16be_uchar(dynamic $b, dynamic $u) {
+    return static::get()[13]($b, $u);
+  }
+  public static function add_string(dynamic $b, dynamic $s) {
+    return static::get()[14]($b, $s);
+  }
+  public static function add_bytes(dynamic $b, dynamic $s) {
+    return static::get()[15]($b, $s);
+  }
+  public static function add_substring(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
+    return static::get()[16]($b, $s, $offset, $len);
+  }
+  public static function add_subbytes(dynamic $b, dynamic $s, dynamic $offset, dynamic $len) {
+    return static::get()[17]($b, $s, $offset, $len);
+  }
+  public static function add_substitute(dynamic $b, dynamic $f, dynamic $s) {
+    return static::get()[18]($b, $f, $s);
+  }
+  public static function add_buffer(dynamic $b, dynamic $bs) {
+    return static::get()[19]($b, $bs);
+  }
+  public static function add_channel(dynamic $b, dynamic $ic, dynamic $len) {
+    return static::get()[20]($b, $ic, $len);
+  }
+  public static function output_buffer(dynamic $oc, dynamic $b) {
+    return static::get()[21]($oc, $b);
+  }
+  public static function truncate(dynamic $b, dynamic $len) {
+    return static::get()[22]($b, $len);
   }
 
 }

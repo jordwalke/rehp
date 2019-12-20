@@ -86,27 +86,27 @@ var Js_of_ocaml_Sys_js = [
 exports = Js_of_ocaml_Sys_js;
 
 /*::type Exports = {
-  js_of_ocaml_version: any
-  update_file: (name: any, content: any) => any,
-  mount: (path: any, f: any) => any,
-  unmount: (path: any) => any,
-  set_channel_filler: (in_channel: any, f: any) => any,
   set_channel_flusher: (out_channel: any, f: any) => any,
+  set_channel_filler: (in_channel: any, f: any) => any,
+  unmount: (path: any) => any,
+  mount: (path: any, f: any) => any,
+  update_file: (name: any, content: any) => any,
+  js_of_ocaml_version: any
 }*/
 /** @type {{
-  js_of_ocaml_version: any,
-  update_file: (any, any) => any,
-  mount: (any, any) => any,
-  unmount: (any) => any,
-  set_channel_filler: (any, any) => any,
   set_channel_flusher: (any, any) => any,
+  set_channel_filler: (any, any) => any,
+  unmount: (any) => any,
+  mount: (any, any) => any,
+  update_file: (any, any) => any,
+  js_of_ocaml_version: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.js_of_ocaml_version = module.exports[9];
-module.exports.update_file = module.exports[8];
-module.exports.mount = module.exports[5];
-module.exports.unmount = module.exports[4];
-module.exports.set_channel_filler = module.exports[2];
 module.exports.set_channel_flusher = module.exports[1];
+module.exports.set_channel_filler = module.exports[2];
+module.exports.unmount = module.exports[4];
+module.exports.mount = module.exports[5];
+module.exports.update_file = module.exports[8];
+module.exports.js_of_ocaml_version = module.exports[9];
 
 /* Hashing disabled */

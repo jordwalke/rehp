@@ -31,7 +31,7 @@ final class Lexing {
     $Bytes =  Bytes::get ();
     $Pervasives =  Pervasives::get ();
     $Sys =  Sys::get ();
-    $engine = function(dynamic $tbl, dynamic $state, dynamic $buf) use ($runtime) {
+    $engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -41,7 +41,7 @@ final class Lexing {
       }
       return $result;
     };
-    $new_engine = function(dynamic $tbl, dynamic $state, dynamic $buf) use ($runtime) {
+    $new_engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
       $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -51,8 +51,7 @@ final class Lexing {
       }
       return $result;
     };
-    $lex_refill = function
-    (dynamic $read_fun, dynamic $aux_buffer, dynamic $lexbuf) use ($Bytes,$Pervasives,$Sys,$call1,$call2,$call5,$caml_check_bound,$caml_create_bytes,$caml_ml_bytes_length,$cst_Lexing_lex_refill_cannot_grow_buffer) {
+    $lex_refill = (dynamic $read_fun, dynamic $aux_buffer, dynamic $lexbuf) ==> {
       $read = $call2(
         $read_fun,
         $aux_buffer,
@@ -123,7 +122,7 @@ final class Lexing {
       $lexbuf[3] = (int) ($lexbuf[3] + $n);
       return 0;
     };
-    $from_function = function(dynamic $f) use ($caml_create_bytes,$lex_refill,$zero_pos) {
+    $from_function = (dynamic $f) ==> {
       $k_ = Vector{0};
       $l_ = 0;
       $m_ = 0;
@@ -136,9 +135,7 @@ final class Lexing {
       $t_ = $caml_create_bytes(512);
       return Vector{
         0,
-        function(dynamic $u_) use ($f,$lex_refill,$t_) {
-          return $lex_refill($f, $t_, $u_);
-        },
+        (dynamic $u_) ==> {return $lex_refill($f, $t_, $u_);},
         $s_,
         $r_,
         $q_,
@@ -152,14 +149,14 @@ final class Lexing {
         $zero_pos
       };
     };
-    $from_channel = function(dynamic $ic) use ($Pervasives,$call4,$from_function) {
+    $from_channel = (dynamic $ic) ==> {
       return $from_function(
-        function(dynamic $buf, dynamic $n) use ($Pervasives,$call4,$ic) {
+        (dynamic $buf, dynamic $n) ==> {
           return $call4($Pervasives[72], $ic, $buf, 0, $n);
         }
       );
     };
-    $from_string = function(dynamic $s) use ($Bytes,$call1,$runtime,$zero_pos) {
+    $from_string = (dynamic $s) ==> {
       $b_ = Vector{0};
       $c_ = 1;
       $d_ = 0;
@@ -171,7 +168,7 @@ final class Lexing {
       $j_ = $call1($Bytes[5], $s);
       return Vector{
         0,
-        function(dynamic $lexbuf) {$lexbuf[9] = 1;return 0;},
+        (dynamic $lexbuf) ==> {$lexbuf[9] = 1;return 0;},
         $j_,
         $i_,
         $h_,
@@ -185,40 +182,40 @@ final class Lexing {
         $zero_pos
       };
     };
-    $lexeme = function(dynamic $lexbuf) use ($Bytes,$call3) {
+    $lexeme = (dynamic $lexbuf) ==> {
       $len = (int) ($lexbuf[6] - $lexbuf[5]);
       return $call3($Bytes[8], $lexbuf[2], $lexbuf[5], $len);
     };
-    $sub_lexeme = function(dynamic $lexbuf, dynamic $i1, dynamic $i2) use ($Bytes,$call3) {
+    $sub_lexeme = (dynamic $lexbuf, dynamic $i1, dynamic $i2) ==> {
       $len = (int) ($i2 - $i1);
       return $call3($Bytes[8], $lexbuf[2], $i1, $len);
     };
-    $sub_lexeme_opt = function(dynamic $lexbuf, dynamic $i1, dynamic $i2) use ($Bytes,$call3) {
+    $sub_lexeme_opt = (dynamic $lexbuf, dynamic $i1, dynamic $i2) ==> {
       if (0 <= $i1) {
         $len = (int) ($i2 - $i1);
         return Vector{0, $call3($Bytes[8], $lexbuf[2], $i1, $len)};
       }
       return 0;
     };
-    $sub_lexeme_char = function(dynamic $lexbuf, dynamic $i) use ($caml_bytes_get) {
+    $sub_lexeme_char = (dynamic $lexbuf, dynamic $i) ==> {
       return $caml_bytes_get($lexbuf[2], $i);
     };
-    $sub_lexeme_char_opt = function(dynamic $lexbuf, dynamic $i) use ($caml_bytes_get) {
+    $sub_lexeme_char_opt = (dynamic $lexbuf, dynamic $i) ==> {
       return 0 <= $i ? Vector{0, $caml_bytes_get($lexbuf[2], $i)} : (0);
     };
-    $lexeme_char = function(dynamic $lexbuf, dynamic $i) use ($caml_bytes_get) {
+    $lexeme_char = (dynamic $lexbuf, dynamic $i) ==> {
       return $caml_bytes_get($lexbuf[2], (int) ($lexbuf[5] + $i));
     };
-    $lexeme_start = function(dynamic $lexbuf) {return $lexbuf[11][4];};
-    $lexeme_end = function(dynamic $lexbuf) {return $lexbuf[12][4];};
-    $lexeme_start_p = function(dynamic $lexbuf) {return $lexbuf[11];};
-    $lexeme_end_p = function(dynamic $lexbuf) {return $lexbuf[12];};
-    $new_line = function(dynamic $lexbuf) {
+    $lexeme_start = (dynamic $lexbuf) ==> {return $lexbuf[11][4];};
+    $lexeme_end = (dynamic $lexbuf) ==> {return $lexbuf[12][4];};
+    $lexeme_start_p = (dynamic $lexbuf) ==> {return $lexbuf[11];};
+    $lexeme_end_p = (dynamic $lexbuf) ==> {return $lexbuf[12];};
+    $new_line = (dynamic $lexbuf) ==> {
       $lcp = $lexbuf[12];
       $lexbuf[12] = Vector{0, $lcp[1], (int) ($lcp[2] + 1), $lcp[4], $lcp[4]};
       return 0;
     };
-    $flush_input = function(dynamic $lb) {
+    $flush_input = (dynamic $lb) ==> {
       $lb[6] = 0;
       $lb[4] = 0;
       $a_ = $lb[12];
@@ -251,59 +248,59 @@ final class Lexing {
      return ($Lexing);
 
   }
-  public static function new_engine(dynamic $tbl, dynamic $state, dynamic $buf) {
-    return static::get()[18]($tbl, $state, $buf);
-  }
-  public static function engine(dynamic $tbl, dynamic $state, dynamic $buf) {
-    return static::get()[17]($tbl, $state, $buf);
-  }
-  public static function sub_lexeme_char_opt(dynamic $lexbuf, dynamic $i) {
-    return static::get()[16]($lexbuf, $i);
-  }
-  public static function sub_lexeme_char(dynamic $lexbuf, dynamic $i) {
-    return static::get()[15]($lexbuf, $i);
-  }
-  public static function sub_lexeme_opt(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
-    return static::get()[14]($lexbuf, $i1, $i2);
-  }
-  public static function sub_lexeme(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
-    return static::get()[13]($lexbuf, $i1, $i2);
-  }
-  public static function flush_input(dynamic $lb) {
-    return static::get()[12]($lb);
-  }
-  public static function new_line(dynamic $lexbuf) {
-    return static::get()[11]($lexbuf);
-  }
-  public static function lexeme_end_p(dynamic $lexbuf) {
-    return static::get()[10]($lexbuf);
-  }
-  public static function lexeme_start_p(dynamic $lexbuf) {
-    return static::get()[9]($lexbuf);
-  }
-  public static function lexeme_end(dynamic $lexbuf) {
-    return static::get()[8]($lexbuf);
-  }
-  public static function lexeme_start(dynamic $lexbuf) {
-    return static::get()[7]($lexbuf);
-  }
-  public static function lexeme_char(dynamic $lexbuf, dynamic $i) {
-    return static::get()[6]($lexbuf, $i);
-  }
-  public static function lexeme(dynamic $lexbuf) {
-    return static::get()[5]($lexbuf);
-  }
-  public static function from_function(dynamic $f) {
-    return static::get()[4]($f);
-  }
-  public static function from_string(dynamic $s) {
-    return static::get()[3]($s);
+  public static function dummy_pos() {
+    return static::get()[1]();
   }
   public static function from_channel(dynamic $ic) {
     return static::get()[2]($ic);
   }
-  public static function dummy_pos() {
-    return static::get()[1]();
+  public static function from_string(dynamic $s) {
+    return static::get()[3]($s);
+  }
+  public static function from_function(dynamic $f) {
+    return static::get()[4]($f);
+  }
+  public static function lexeme(dynamic $lexbuf) {
+    return static::get()[5]($lexbuf);
+  }
+  public static function lexeme_char(dynamic $lexbuf, dynamic $i) {
+    return static::get()[6]($lexbuf, $i);
+  }
+  public static function lexeme_start(dynamic $lexbuf) {
+    return static::get()[7]($lexbuf);
+  }
+  public static function lexeme_end(dynamic $lexbuf) {
+    return static::get()[8]($lexbuf);
+  }
+  public static function lexeme_start_p(dynamic $lexbuf) {
+    return static::get()[9]($lexbuf);
+  }
+  public static function lexeme_end_p(dynamic $lexbuf) {
+    return static::get()[10]($lexbuf);
+  }
+  public static function new_line(dynamic $lexbuf) {
+    return static::get()[11]($lexbuf);
+  }
+  public static function flush_input(dynamic $lb) {
+    return static::get()[12]($lb);
+  }
+  public static function sub_lexeme(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
+    return static::get()[13]($lexbuf, $i1, $i2);
+  }
+  public static function sub_lexeme_opt(dynamic $lexbuf, dynamic $i1, dynamic $i2) {
+    return static::get()[14]($lexbuf, $i1, $i2);
+  }
+  public static function sub_lexeme_char(dynamic $lexbuf, dynamic $i) {
+    return static::get()[15]($lexbuf, $i);
+  }
+  public static function sub_lexeme_char_opt(dynamic $lexbuf, dynamic $i) {
+    return static::get()[16]($lexbuf, $i);
+  }
+  public static function engine(dynamic $tbl, dynamic $state, dynamic $buf) {
+    return static::get()[17]($tbl, $state, $buf);
+  }
+  public static function new_engine(dynamic $tbl, dynamic $state, dynamic $buf) {
+    return static::get()[18]($tbl, $state, $buf);
   }
 
 }

@@ -15,10 +15,10 @@ final class Callback {
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_register_named_value = $runtime["caml_register_named_value"];
     $Obj =  Obj::get ();
-    $register = function(dynamic $name, dynamic $v) use ($caml_register_named_value) {
+    $register = (dynamic $name, dynamic $v) ==> {
       return $caml_register_named_value($name, $v);
     };
-    $register_exception = function(dynamic $name, dynamic $exn) use ($Obj,$caml_register_named_value,$runtime) {
+    $register_exception = (dynamic $name, dynamic $exn) ==> {
       $slot = $runtime["caml_obj_tag"]($exn) === $Obj[8] ? $exn : ($exn[1]);
       return $caml_register_named_value($name, $slot);
     };
@@ -27,11 +27,11 @@ final class Callback {
      return ($Callback);
 
   }
-  public static function register_exception(dynamic $name, dynamic $exn) {
-    return static::get()[2]($name, $exn);
-  }
   public static function register(dynamic $name, dynamic $v) {
     return static::get()[1]($name, $v);
+  }
+  public static function register_exception(dynamic $name, dynamic $exn) {
+    return static::get()[2]($name, $exn);
   }
 
 }

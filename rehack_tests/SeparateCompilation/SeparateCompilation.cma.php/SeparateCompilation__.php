@@ -23,4 +23,4 @@ final class SeparateCompilation__ {
   }
 
 }
-/*____hashes compiler: 6d834f124 flags: 1183596006 bytecode: 3984913853 debug-data: 2457943818 primitives: 1058613066*/
+/*____hashes flags: 1802415451 bytecode: 3984913853 debug-data: 2457943818 primitives: 1058613066*/

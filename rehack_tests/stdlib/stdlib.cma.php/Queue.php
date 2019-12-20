@@ -18,9 +18,9 @@ final class Queue {
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
     $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)};
-    $create = function(dynamic $param) {return Vector{0, 0, 0, 0};};
-    $clear = function(dynamic $q) {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
-    $add = function(dynamic $x, dynamic $q) {
+    $create = (dynamic $param) ==> {return Vector{0, 0, 0, 0};};
+    $clear = (dynamic $q) ==> {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
+    $add = (dynamic $x, dynamic $q) ==> {
       $cell = Vector{0, $x, 0};
       $g_ = $q[3];
       if ($g_) {
@@ -34,12 +34,12 @@ final class Queue {
       $q[3] = $cell;
       return 0;
     };
-    $peek = function(dynamic $q) use ($Empty,$caml_wrap_thrown_exception) {
+    $peek = (dynamic $q) ==> {
       $f_ = $q[2];
       if ($f_) {$content = $f_[1];return $content;}
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $take = function(dynamic $q) use ($Empty,$caml_wrap_thrown_exception,$clear) {
+    $take = (dynamic $q) ==> {
       $c_ = $q[2];
       if ($c_) {
         $d_ = $c_[1];
@@ -50,7 +50,7 @@ final class Queue {
       }
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $copy = function(dynamic $q_res, dynamic $prev, dynamic $cell) {
+    $copy = (dynamic $q_res, dynamic $prev, dynamic $cell) ==> {
       $prev__0 = $prev;
       $cell__0 = $cell;
       for (;;) {
@@ -70,12 +70,12 @@ final class Queue {
         return $q_res;
       }
     };
-    $copy__0 = function(dynamic $q) use ($copy) {
+    $copy__0 = (dynamic $q) ==> {
       return $copy(Vector{0, $q[1], 0, 0}, 0, $q[2]);
     };
-    $is_empty = function(dynamic $q) {return 0 === $q[1] ? 1 : (0);};
-    $length = function(dynamic $q) {return $q[1];};
-    $iter = function(dynamic $f, dynamic $cell) use ($call1) {
+    $is_empty = (dynamic $q) ==> {return 0 === $q[1] ? 1 : (0);};
+    $length = (dynamic $q) ==> {return $q[1];};
+    $iter = (dynamic $f, dynamic $cell) ==> {
       $cell__0 = $cell;
       for (;;) {
         if ($cell__0) {
@@ -88,10 +88,8 @@ final class Queue {
         return 0;
       }
     };
-    $iter__0 = function(dynamic $f, dynamic $q) use ($iter) {
-      return $iter($f, $q[2]);
-    };
-    $fold = function(dynamic $f, dynamic $accu, dynamic $cell) use ($call2) {
+    $iter__0 = (dynamic $f, dynamic $q) ==> {return $iter($f, $q[2]);};
+    $fold = (dynamic $f, dynamic $accu, dynamic $cell) ==> {
       $accu__0 = $accu;
       $cell__0 = $cell;
       for (;;) {
@@ -106,9 +104,9 @@ final class Queue {
         return $accu__0;
       }
     };
-    $fold__0 = function(dynamic $f, dynamic $accu, dynamic $q) use ($fold) {return $fold($f, $accu, $q[2]);
+    $fold__0 = (dynamic $f, dynamic $accu, dynamic $q) ==> {return $fold($f, $accu, $q[2]);
     };
-    $transfer = function(dynamic $q1, dynamic $q2) use ($clear) {
+    $transfer = (dynamic $q1, dynamic $q2) ==> {
       $a_ = 0 < $q1[1] ? 1 : (0);
       if ($a_) {
         $b_ = $q2[3];
@@ -147,50 +145,50 @@ final class Queue {
      return ($Queue);
 
   }
-  public static function transfer(dynamic $q1, dynamic $q2) {
-    return static::get()[15]($q1, $q2);
-  }
-  public static function fold(dynamic $f, dynamic $accu, dynamic $q) {
-    return static::get()[14]($f, $accu, $q);
-  }
-  public static function iter(dynamic $f, dynamic $q) {
-    return static::get()[13]($f, $q);
-  }
-  public static function length(dynamic $q) {
-    return static::get()[12]($q);
-  }
-  public static function is_empty(dynamic $q) {
-    return static::get()[11]($q);
-  }
-  public static function copy(dynamic $q) {
-    return static::get()[10]($q);
-  }
-  public static function clear(dynamic $q) {
-    return static::get()[9]($q);
-  }
-  public static function peek(dynamic $q) {
-    return static::get()[8]($q);
-  }
-  public static function peek(dynamic $q) {
-    return static::get()[7]($q);
-  }
-  public static function take(dynamic $q) {
-    return static::get()[6]($q);
-  }
-  public static function take(dynamic $q) {
-    return static::get()[5]($q);
-  }
-  public static function add(dynamic $x, dynamic $q) {
-    return static::get()[4]($x, $q);
-  }
-  public static function add(dynamic $x, dynamic $q) {
-    return static::get()[3]($x, $q);
+  public static function Empty() {
+    return static::get()[1]();
   }
   public static function create(dynamic $param) {
     return static::get()[2]($param);
   }
-  public static function Empty() {
-    return static::get()[1]();
+  public static function add(dynamic $x, dynamic $q) {
+    return static::get()[3]($x, $q);
+  }
+  public static function add(dynamic $x, dynamic $q) {
+    return static::get()[4]($x, $q);
+  }
+  public static function take(dynamic $q) {
+    return static::get()[5]($q);
+  }
+  public static function take(dynamic $q) {
+    return static::get()[6]($q);
+  }
+  public static function peek(dynamic $q) {
+    return static::get()[7]($q);
+  }
+  public static function peek(dynamic $q) {
+    return static::get()[8]($q);
+  }
+  public static function clear(dynamic $q) {
+    return static::get()[9]($q);
+  }
+  public static function copy(dynamic $q) {
+    return static::get()[10]($q);
+  }
+  public static function is_empty(dynamic $q) {
+    return static::get()[11]($q);
+  }
+  public static function length(dynamic $q) {
+    return static::get()[12]($q);
+  }
+  public static function iter(dynamic $f, dynamic $q) {
+    return static::get()[13]($f, $q);
+  }
+  public static function fold(dynamic $f, dynamic $accu, dynamic $q) {
+    return static::get()[14]($f, $accu, $q);
+  }
+  public static function transfer(dynamic $q1, dynamic $q2) {
+    return static::get()[15]($q1, $q2);
   }
 
 }

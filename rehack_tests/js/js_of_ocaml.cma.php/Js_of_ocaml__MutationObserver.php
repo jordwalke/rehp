@@ -17,103 +17,107 @@ final class Js_of_ocaml__MutationObserver {
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $Array =  Array_::get ();
     $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $empty_mutation_observer_init = function(dynamic $param) {return darray[];
-    };
-    $a_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+    $empty_mutation_observer_init = (dynamic $param) ==> {return darray[];};
+    $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -412262690, 261), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
-    $mutationObserver = (function(dynamic $t0, dynamic $param) {return $t0->MutationObserver;
+    $mutationObserver = ((dynamic $t0, dynamic $param) ==> {
+       return $t0->MutationObserver;
      })($b_, $a_);
-    $is_supported = function(dynamic $param) use ($Js_of_ocaml_Js,$call1,$mutationObserver) {
+    $is_supported = (dynamic $param) ==> {
       return $call1($Js_of_ocaml_Js[6][5], $mutationObserver);
     };
-    $observe = function
-    (dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param) use ($Array,$call1,$caml_get_public_method,$empty_mutation_observer_init,$mutationObserver,$runtime) {
-      $opt_iter = function(dynamic $x, dynamic $f) use ($call1) {
+    $observe = 
+    (dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param) ==> {
+      $opt_iter = (dynamic $x, dynamic $f) ==> {
         if ($x) {$x__0 = $x[1];return $call1($f, $x__0);}
         return 0;
       };
       $c_ = 0;
       $d_ = $runtime["caml_js_wrap_callback"]($f);
-      $obs = (function(dynamic $t19, dynamic $t18, dynamic $param) {return new $t19($t18);
+      $obs = ((dynamic $t19, dynamic $t18, dynamic $param) ==> {return new $t19($t18);
        })($mutationObserver, $d_, $c_);
       $cfg = $empty_mutation_observer_init(0);
       $opt_iter(
         $child_list,
-        function(dynamic $v) use ($call1,$caml_get_public_method,$cfg) {
-          $m_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (dynamic $v) ==> {
+          $m_ = (dynamic $x) ==> {
             return $call1($caml_get_public_method($x, -749670374, 262), $x);
           };
-          return (function(dynamic $t17, dynamic $t16, dynamic $param) {$t17->childList = $t16;return 0;
+          return ((dynamic $t17, dynamic $t16, dynamic $param) ==> {$t17->childList = $t16;return 0;
            })($cfg, $v, $m_);
         }
       );
       $opt_iter(
         $attributes,
-        function(dynamic $v) use ($call1,$caml_get_public_method,$cfg) {
-          $l_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (dynamic $v) ==> {
+          $l_ = (dynamic $x) ==> {
             return $call1($caml_get_public_method($x, 393324759, 263), $x);
           };
-          return (function(dynamic $t15, dynamic $t14, dynamic $param) {$t15->attributes = $t14;return 0;
+          return ((dynamic $t15, dynamic $t14, dynamic $param) ==> {$t15->attributes = $t14;return 0;
            })($cfg, $v, $l_);
         }
       );
       $opt_iter(
         $character_data,
-        function(dynamic $v) use ($call1,$caml_get_public_method,$cfg) {
-          $k_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (dynamic $v) ==> {
+          $k_ = (dynamic $x) ==> {
             return $call1($caml_get_public_method($x, 995092083, 264), $x);
           };
-          return (function(dynamic $t13, dynamic $t12, dynamic $param) {$t13->characterData = $t12;return 0;
+          return ((dynamic $t13, dynamic $t12, dynamic $param) ==> {$t13->characterData = $t12;return 0;
            })($cfg, $v, $k_);
         }
       );
       $opt_iter(
         $subtree,
-        function(dynamic $v) use ($call1,$caml_get_public_method,$cfg) {
-          $j_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (dynamic $v) ==> {
+          $j_ = (dynamic $x) ==> {
             return $call1($caml_get_public_method($x, 808321758, 265), $x);
           };
-          return (function(dynamic $t11, dynamic $t10, dynamic $param) {$t11->subtree = $t10;return 0;
+          return ((dynamic $t11, dynamic $t10, dynamic $param) ==> {$t11->subtree = $t10;return 0;
            })($cfg, $v, $j_);
         }
       );
       $opt_iter(
         $attribute_old_value,
-        function(dynamic $v) use ($call1,$caml_get_public_method,$cfg) {
-          $i_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (dynamic $v) ==> {
+          $i_ = (dynamic $x) ==> {
             return $call1($caml_get_public_method($x, 226312582, 266), $x);
           };
-          return (function(dynamic $t9, dynamic $t8, dynamic $param) {$t9->attributeOldValue = $t8;return 0;
+          return ((dynamic $t9, dynamic $t8, dynamic $param) ==> {
+             $t9->attributeOldValue = $t8;
+             return 0;
            })($cfg, $v, $i_);
         }
       );
       $opt_iter(
         $character_data_old_value,
-        function(dynamic $v) use ($call1,$caml_get_public_method,$cfg) {
-          $h_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (dynamic $v) ==> {
+          $h_ = (dynamic $x) ==> {
             return $call1($caml_get_public_method($x, 994928349, 267), $x);
           };
-          return (function(dynamic $t7, dynamic $t6, dynamic $param) {$t7->characterDataOldValue = $t6;return 0;
+          return ((dynamic $t7, dynamic $t6, dynamic $param) ==> {
+             $t7->characterDataOldValue = $t6;
+             return 0;
            })($cfg, $v, $h_);
         }
       );
       $opt_iter(
         $attribute_filter,
-        function(dynamic $l) use ($Array,$call1,$caml_get_public_method,$cfg,$runtime) {
-          $f_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+        (dynamic $l) ==> {
+          $f_ = (dynamic $x) ==> {
             return $call1($caml_get_public_method($x, -116981516, 268), $x);
           };
           $g_ = $runtime["caml_js_from_array"]($call1($Array[12], $l));
-          return (function(dynamic $t5, dynamic $t4, dynamic $param) {$t5->attributeFilter = $t4;return 0;
+          return ((dynamic $t5, dynamic $t4, dynamic $param) ==> {$t5->attributeFilter = $t4;return 0;
            })($cfg, $g_, $f_);
         }
       );
-      $e_ = function(dynamic $x) use ($call1,$caml_get_public_method) {
+      $e_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 821429468, 269), $x);
       };
-      ((function(dynamic $t3, dynamic $t1, dynamic $t2, dynamic $param) {return $t3->observe($t1, $t2);
+      (((dynamic $t3, dynamic $t1, dynamic $t2, dynamic $param) ==> {return $t3->observe($t1, $t2);
         })($obs, $node, $cfg, $e_));
       return $obs;
     };
@@ -128,17 +132,17 @@ final class Js_of_ocaml__MutationObserver {
      return ($Js_of_ocaml_MutationObserver);
 
   }
-  public static function observe(dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param) {
-    return static::get()[4]($node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param);
-  }
-  public static function is_supported(dynamic $param) {
-    return static::get()[3]($param);
+  public static function empty_mutation_observer_init(dynamic $param) {
+    return static::get()[1]($param);
   }
   public static function mutationObserver() {
     return static::get()[2]();
   }
-  public static function empty_mutation_observer_init(dynamic $param) {
-    return static::get()[1]($param);
+  public static function is_supported(dynamic $param) {
+    return static::get()[3]($param);
+  }
+  public static function observe(dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param) {
+    return static::get()[4]($node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param);
   }
 
 }

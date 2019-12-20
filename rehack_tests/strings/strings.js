@@ -251,51 +251,51 @@ var Strings = [
 exports = Strings;
 
 /*::type Exports = {
-  anotherName: any
-  n: any
-  two: any
-  one: any
-  myRefCellContents: any
-  myRefCell: any
-  i: any
-  myFunction: (cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope: any) => any,
-  createIntFromString: (ss: any) => any,
-  index: any
-  six: any
-  negativeOne: any
-  unicodeLength: any
   greeting: any
+  unicodeLength: any
+  negativeOne: any
+  six: any
+  index: any
+  createIntFromString: (ss: any) => any,
+  myFunction: (cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope: any) => any,
+  i: any
+  myRefCell: any
+  myRefCellContents: any
+  one: any
+  two: any
+  n: any
+  anotherName: any
 }*/
 /** @type {{
-  anotherName: any,
-  n: any,
-  two: any,
-  one: any,
-  myRefCellContents: any,
-  myRefCell: any,
-  i: any,
-  myFunction: (any) => any,
-  createIntFromString: (any) => any,
-  index: any,
-  six: any,
-  negativeOne: any,
-  unicodeLength: any,
   greeting: any,
+  unicodeLength: any,
+  negativeOne: any,
+  six: any,
+  index: any,
+  createIntFromString: (any) => any,
+  myFunction: (any) => any,
+  i: any,
+  myRefCell: any,
+  myRefCellContents: any,
+  one: any,
+  two: any,
+  n: any,
+  anotherName: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.anotherName = module.exports[14];
-module.exports.n = module.exports[13];
-module.exports.two = module.exports[12];
-module.exports.one = module.exports[11];
-module.exports.myRefCellContents = module.exports[10];
-module.exports.myRefCell = module.exports[9];
-module.exports.i = module.exports[8];
-module.exports.myFunction = module.exports[7];
-module.exports.createIntFromString = module.exports[6];
-module.exports.index = module.exports[5];
-module.exports.six = module.exports[4];
-module.exports.negativeOne = module.exports[3];
-module.exports.unicodeLength = module.exports[2];
 module.exports.greeting = module.exports[1];
+module.exports.unicodeLength = module.exports[2];
+module.exports.negativeOne = module.exports[3];
+module.exports.six = module.exports[4];
+module.exports.index = module.exports[5];
+module.exports.createIntFromString = module.exports[6];
+module.exports.myFunction = module.exports[7];
+module.exports.i = module.exports[8];
+module.exports.myRefCell = module.exports[9];
+module.exports.myRefCellContents = module.exports[10];
+module.exports.one = module.exports[11];
+module.exports.two = module.exports[12];
+module.exports.n = module.exports[13];
+module.exports.anotherName = module.exports[14];
 
 /* Hashing disabled */

@@ -575,18 +575,18 @@ var Weak = [
 exports = Weak;
 
 /*::type Exports = {
-  Make: (H: any) => any,
-  fill: (ar: any, ofs: any, len: any, x: any) => any,
   length: (x: any) => any,
+  fill: (ar: any, ofs: any, len: any, x: any) => any,
+  Make: (H: any) => any,
 }*/
 /** @type {{
-  Make: (any) => any,
-  fill: (any, any, any, any) => any,
   length: (any) => any,
+  fill: (any, any, any, any) => any,
+  Make: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.Make = module.exports[9];
-module.exports.fill = module.exports[7];
 module.exports.length = module.exports[2];
+module.exports.fill = module.exports[7];
+module.exports.Make = module.exports[9];
 
 /* Hashing disabled */

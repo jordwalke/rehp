@@ -20,7 +20,7 @@ final class Has_one_underscore {
      ];
     $String =  String_::get ();
     $Not_found =  Not_found::get ();
-    $hasOneUnderscore = function(dynamic $id_or_token) use ($Not_found,$String,$call2,$call3,$caml_wrap_thrown_exception_reraise,$runtime) {
+    $hasOneUnderscore = (dynamic $id_or_token) ==> {
       $id_or_token__0 = $runtime["caml_js_to_string"]($id_or_token);
       try {$d_ = $call2($String[14], $id_or_token__0, 95);$index = $d_;}
       catch(\Throwable $e_) {

@@ -17,15 +17,15 @@ final class Complex {
     $one = Vector{254, 1, 0};
     $i = Vector{254, 0, 1};
     $a_ = Vector{254, 0, 0};
-    $add = function(dynamic $x, dynamic $y) {
+    $add = (dynamic $x, dynamic $y) ==> {
       return Vector{254, $x[1] + $y[1], $x[2] + $y[2]};
     };
-    $sub = function(dynamic $x, dynamic $y) {
+    $sub = (dynamic $x, dynamic $y) ==> {
       return Vector{254, $x[1] - $y[1], $x[2] - $y[2]};
     };
-    $neg = function(dynamic $x) {return Vector{254, - $x[1], - $x[2]};};
-    $conj = function(dynamic $x) {return Vector{254, $x[1], - $x[2]};};
-    $mul = function(dynamic $x, dynamic $y) {
+    $neg = (dynamic $x) ==> {return Vector{254, - $x[1], - $x[2]};};
+    $conj = (dynamic $x) ==> {return Vector{254, $x[1], - $x[2]};};
+    $mul = (dynamic $x, dynamic $y) ==> {
       return Vector{
         254,
         $x[1] *
@@ -38,7 +38,7 @@ final class Complex {
             $y[1]
       };
     };
-    $div = function(dynamic $x, dynamic $y) use ($Math) {
+    $div = (dynamic $x, dynamic $y) ==> {
       if ($Math->abs($y[2]) <= $Math->abs($y[1])) {
         $r = $y[2] / $y[1];
         $d = $y[1] + $r * $y[2];
@@ -56,9 +56,9 @@ final class Complex {
         ($r__0 * $x[2] - $x[1]) / $d__0
       };
     };
-    $inv = function(dynamic $x) use ($div,$one) {return $div($one, $x);};
-    $norm2 = function(dynamic $x) {return $x[1] * $x[1] + $x[2] * $x[2];};
-    $norm = function(dynamic $x) use ($Math) {
+    $inv = (dynamic $x) ==> {return $div($one, $x);};
+    $norm2 = (dynamic $x) ==> {return $x[1] * $x[1] + $x[2] * $x[2];};
+    $norm = (dynamic $x) ==> {
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);
       if ($r == 0) {return $i;}
@@ -67,13 +67,11 @@ final class Complex {
       $q__0 = $r / $i;
       return $i * $Math->sqrt(1 + $q__0 * $q__0);
     };
-    $arg = function(dynamic $x) use ($Math) {
-      return $Math->atan2($x[2], $x[1]);
-    };
-    $polar = function(dynamic $n, dynamic $a) use ($Math) {
+    $arg = (dynamic $x) ==> {return $Math->atan2($x[2], $x[1]);};
+    $polar = (dynamic $n, dynamic $a) ==> {
       return Vector{254, $Math->cos($a) * $n, $Math->sin($a) * $n};
     };
-    $sqrt = function(dynamic $x) use ($Math,$a_) {
+    $sqrt = (dynamic $x) ==> {
       if ($x[1] == 0) {if ($x[2] == 0) {return $a_;}}
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);
@@ -91,17 +89,15 @@ final class Complex {
       $w__0 = 0 <= $x[2] ? $w : (- $w);
       return Vector{254, 0.5 * $i / $w, $w__0};
     };
-    $exp = function(dynamic $x) use ($Math) {
+    $exp = (dynamic $x) ==> {
       $e = $Math->exp($x[1]);
       return Vector{254, $e * $Math->cos($x[2]), $e * $Math->sin($x[2])};
     };
-    $log = function(dynamic $x) use ($Math,$norm) {
+    $log = (dynamic $x) ==> {
       $b_ = $Math->atan2($x[2], $x[1]);
       return Vector{254, $Math->log($norm($x)), $b_};
     };
-    $pow = function(dynamic $x, dynamic $y) use ($exp,$log,$mul) {
-      return $exp($mul($y, $log($x)));
-    };
+    $pow = (dynamic $x, dynamic $y) ==> {return $exp($mul($y, $log($x)));};
     $Complex = Vector{
       0,
       $zero,
@@ -127,59 +123,59 @@ final class Complex {
      return ($Complex);
 
   }
-  public static function pow(dynamic $x, dynamic $y) {
-    return static::get()[18]($x, $y);
-  }
-  public static function log(dynamic $x) {
-    return static::get()[17]($x);
-  }
-  public static function exp(dynamic $x) {
-    return static::get()[16]($x);
-  }
-  public static function polar(dynamic $n, dynamic $a) {
-    return static::get()[15]($n, $a);
-  }
-  public static function arg(dynamic $x) {
-    return static::get()[14]($x);
-  }
-  public static function norm(dynamic $x) {
-    return static::get()[13]($x);
-  }
-  public static function norm2(dynamic $x) {
-    return static::get()[12]($x);
-  }
-  public static function sqrt(dynamic $x) {
-    return static::get()[11]($x);
-  }
-  public static function div(dynamic $x, dynamic $y) {
-    return static::get()[10]($x, $y);
-  }
-  public static function inv(dynamic $x) {
-    return static::get()[9]($x);
-  }
-  public static function mul(dynamic $x, dynamic $y) {
-    return static::get()[8]($x, $y);
-  }
-  public static function sub(dynamic $x, dynamic $y) {
-    return static::get()[7]($x, $y);
-  }
-  public static function add(dynamic $x, dynamic $y) {
-    return static::get()[6]($x, $y);
-  }
-  public static function conj(dynamic $x) {
-    return static::get()[5]($x);
-  }
-  public static function neg(dynamic $x) {
-    return static::get()[4]($x);
-  }
-  public static function i() {
-    return static::get()[3]();
+  public static function zero() {
+    return static::get()[1]();
   }
   public static function one() {
     return static::get()[2]();
   }
-  public static function zero() {
-    return static::get()[1]();
+  public static function i() {
+    return static::get()[3]();
+  }
+  public static function neg(dynamic $x) {
+    return static::get()[4]($x);
+  }
+  public static function conj(dynamic $x) {
+    return static::get()[5]($x);
+  }
+  public static function add(dynamic $x, dynamic $y) {
+    return static::get()[6]($x, $y);
+  }
+  public static function sub(dynamic $x, dynamic $y) {
+    return static::get()[7]($x, $y);
+  }
+  public static function mul(dynamic $x, dynamic $y) {
+    return static::get()[8]($x, $y);
+  }
+  public static function inv(dynamic $x) {
+    return static::get()[9]($x);
+  }
+  public static function div(dynamic $x, dynamic $y) {
+    return static::get()[10]($x, $y);
+  }
+  public static function sqrt(dynamic $x) {
+    return static::get()[11]($x);
+  }
+  public static function norm2(dynamic $x) {
+    return static::get()[12]($x);
+  }
+  public static function norm(dynamic $x) {
+    return static::get()[13]($x);
+  }
+  public static function arg(dynamic $x) {
+    return static::get()[14]($x);
+  }
+  public static function polar(dynamic $n, dynamic $a) {
+    return static::get()[15]($n, $a);
+  }
+  public static function exp(dynamic $x) {
+    return static::get()[16]($x);
+  }
+  public static function log(dynamic $x) {
+    return static::get()[17]($x);
+  }
+  public static function pow(dynamic $x, dynamic $y) {
+    return static::get()[18]($x, $y);
   }
 
 }

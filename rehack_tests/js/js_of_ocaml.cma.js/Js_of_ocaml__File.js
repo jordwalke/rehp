@@ -181,27 +181,27 @@ var Js_of_ocaml_File = [
 exports = Js_of_ocaml_File;
 
 /*::type Exports = {
-  addEventListener: any
-  fileReader: any
-  filename: (file: any) => any,
-  ReaderEvent: any
-  blob_from_any: (contentType: any, endings: any, l: any) => any,
   blob_from_string: (contentType: any, endings: any, s: any) => any,
+  blob_from_any: (contentType: any, endings: any, l: any) => any,
+  ReaderEvent: any
+  filename: (file: any) => any,
+  fileReader: any
+  addEventListener: any
 }*/
 /** @type {{
-  addEventListener: any,
-  fileReader: any,
-  filename: (any) => any,
-  ReaderEvent: any,
-  blob_from_any: (any, any, any) => any,
   blob_from_string: (any, any, any) => any,
+  blob_from_any: (any, any, any) => any,
+  ReaderEvent: any,
+  filename: (any) => any,
+  fileReader: any,
+  addEventListener: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.addEventListener = module.exports[7];
-module.exports.fileReader = module.exports[6];
-module.exports.filename = module.exports[5];
-module.exports.ReaderEvent = module.exports[4];
-module.exports.blob_from_any = module.exports[2];
 module.exports.blob_from_string = module.exports[1];
+module.exports.blob_from_any = module.exports[2];
+module.exports.ReaderEvent = module.exports[4];
+module.exports.filename = module.exports[5];
+module.exports.fileReader = module.exports[6];
+module.exports.addEventListener = module.exports[7];
 
 /* Hashing disabled */

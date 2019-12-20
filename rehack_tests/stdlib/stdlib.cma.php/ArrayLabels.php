@@ -77,89 +77,89 @@ final class ArrayLabels {
      return ($ArrayLabels);
 
   }
-  public static function Floatarray() {
-    return static::get()[28]();
-  }
-  public static function fast_sort() {
-    return static::get()[27]();
-  }
-  public static function stable_sort() {
-    return static::get()[26]();
-  }
-  public static function sort() {
-    return static::get()[25]();
-  }
-  public static function make_float() {
-    return static::get()[24]();
-  }
-  public static function memq() {
-    return static::get()[23]();
-  }
-  public static function mem() {
-    return static::get()[22]();
-  }
-  public static function for_all() {
-    return static::get()[21]();
-  }
-  public static function exists() {
-    return static::get()[20]();
-  }
-  public static function map2() {
-    return static::get()[19]();
-  }
-  public static function iter2() {
-    return static::get()[18]();
-  }
-  public static function fold_right() {
-    return static::get()[17]();
-  }
-  public static function fold_left() {
-    return static::get()[16]();
-  }
-  public static function mapi() {
-    return static::get()[15]();
-  }
-  public static function iteri() {
-    return static::get()[14]();
-  }
-  public static function map() {
-    return static::get()[13]();
-  }
-  public static function iter() {
-    return static::get()[12]();
-  }
-  public static function of_list() {
-    return static::get()[11]();
-  }
-  public static function to_list() {
-    return static::get()[10]();
-  }
-  public static function blit() {
-    return static::get()[9]();
-  }
-  public static function fill() {
-    return static::get()[8]();
-  }
-  public static function copy() {
-    return static::get()[7]();
-  }
-  public static function sub() {
-    return static::get()[6]();
-  }
-  public static function concat() {
-    return static::get()[5]();
-  }
-  public static function append() {
-    return static::get()[4]();
-  }
-  public static function create_matrix() {
-    return static::get()[3]();
+  public static function init() {
+    return static::get()[1]();
   }
   public static function make_matrix() {
     return static::get()[2]();
   }
-  public static function init() {
-    return static::get()[1]();
+  public static function create_matrix() {
+    return static::get()[3]();
+  }
+  public static function append() {
+    return static::get()[4]();
+  }
+  public static function concat() {
+    return static::get()[5]();
+  }
+  public static function sub() {
+    return static::get()[6]();
+  }
+  public static function copy() {
+    return static::get()[7]();
+  }
+  public static function fill() {
+    return static::get()[8]();
+  }
+  public static function blit() {
+    return static::get()[9]();
+  }
+  public static function to_list() {
+    return static::get()[10]();
+  }
+  public static function of_list() {
+    return static::get()[11]();
+  }
+  public static function iter() {
+    return static::get()[12]();
+  }
+  public static function map() {
+    return static::get()[13]();
+  }
+  public static function iteri() {
+    return static::get()[14]();
+  }
+  public static function mapi() {
+    return static::get()[15]();
+  }
+  public static function fold_left() {
+    return static::get()[16]();
+  }
+  public static function fold_right() {
+    return static::get()[17]();
+  }
+  public static function iter2() {
+    return static::get()[18]();
+  }
+  public static function map2() {
+    return static::get()[19]();
+  }
+  public static function exists() {
+    return static::get()[20]();
+  }
+  public static function for_all() {
+    return static::get()[21]();
+  }
+  public static function mem() {
+    return static::get()[22]();
+  }
+  public static function memq() {
+    return static::get()[23]();
+  }
+  public static function make_float() {
+    return static::get()[24]();
+  }
+  public static function sort() {
+    return static::get()[25]();
+  }
+  public static function stable_sort() {
+    return static::get()[26]();
+  }
+  public static function fast_sort() {
+    return static::get()[27]();
+  }
+  public static function Floatarray() {
+    return static::get()[28]();
   }
 
 }

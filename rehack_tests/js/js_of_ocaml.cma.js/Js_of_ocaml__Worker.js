@@ -97,21 +97,21 @@ var Js_of_ocaml_Worker = [0,create,import_scripts,set_onmessage,post_message];
 exports = Js_of_ocaml_Worker;
 
 /*::type Exports = {
-  post_message: (msg: any) => any,
-  set_onmessage: (handler: any) => any,
-  import_scripts: (scripts: any) => any,
   create: (script: any) => any,
+  import_scripts: (scripts: any) => any,
+  set_onmessage: (handler: any) => any,
+  post_message: (msg: any) => any,
 }*/
 /** @type {{
-  post_message: (any) => any,
-  set_onmessage: (any) => any,
-  import_scripts: (any) => any,
   create: (any) => any,
+  import_scripts: (any) => any,
+  set_onmessage: (any) => any,
+  post_message: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.post_message = module.exports[4];
-module.exports.set_onmessage = module.exports[3];
-module.exports.import_scripts = module.exports[2];
 module.exports.create = module.exports[1];
+module.exports.import_scripts = module.exports[2];
+module.exports.set_onmessage = module.exports[3];
+module.exports.post_message = module.exports[4];
 
 /* Hashing disabled */

@@ -160,7 +160,7 @@ final class Gc {
       },
       $string("heap_chunks: %d\n")
     };
-    $print_stat = function(dynamic $c) use ($Printf,$a_,$b_,$c_,$call2,$call3,$call4,$caml_ml_string_length,$d_,$e_,$f_,$g_,$h_,$i_,$j_,$k_,$l_,$m_,$n_,$o_,$p_,$q_,$r_,$runtime,$s_,$t_) {
+    $print_stat = (dynamic $c) ==> {
       $st = $runtime["caml_gc_stat"](0);
       $call3($Printf[1], $c, $a_, $st[4]);
       $call3($Printf[1], $c, $b_, $st[5]);
@@ -183,26 +183,24 @@ final class Gc {
       $call3($Printf[1], $c, $s_, $st[11]);
       return $call3($Printf[1], $c, $t_, $st[7]);
     };
-    $allocated_bytes = function(dynamic $param) use ($Sys,$runtime) {
+    $allocated_bytes = (dynamic $param) ==> {
       $match = $runtime["caml_gc_counters"](0);
       $ma = $match[3];
       $pro = $match[2];
       $mi = $match[1];
       return ($mi + $ma - $pro) * (int) ($Sys[10] / 8);
     };
-    $create_alarm = function(dynamic $f) {return Vector{0, 1};};
-    $delete_alarm = function(dynamic $a) {$a[1] = 0;return 0;};
-    $u_ = function(dynamic $A_) use ($runtime) {
-      return $runtime["caml_final_release"]($A_);
-    };
-    $v_ = function(dynamic $z_, dynamic $y_) use ($runtime) {
+    $create_alarm = (dynamic $f) ==> {return Vector{0, 1};};
+    $delete_alarm = (dynamic $a) ==> {$a[1] = 0;return 0;};
+    $u_ = (dynamic $A_) ==> {return $runtime["caml_final_release"]($A_);};
+    $v_ = (dynamic $z_, dynamic $y_) ==> {
       return $runtime["caml_final_register_called_without_value"]($z_, $y_);
     };
     $Gc = Vector{
       0,
       $print_stat,
       $allocated_bytes,
-      function(dynamic $x_, dynamic $w_) use ($runtime) {
+      (dynamic $x_, dynamic $w_) ==> {
         return $runtime["caml_final_register"]($x_, $w_);
       },
       $v_,
@@ -214,17 +212,17 @@ final class Gc {
      return ($Gc);
 
   }
-  public static function delete_alarm(dynamic $a) {
-    return static::get()[7]($a);
-  }
-  public static function create_alarm(dynamic $f) {
-    return static::get()[6]($f);
+  public static function print_stat(dynamic $c) {
+    return static::get()[1]($c);
   }
   public static function allocated_bytes(dynamic $param) {
     return static::get()[2]($param);
   }
-  public static function print_stat(dynamic $c) {
-    return static::get()[1]($c);
+  public static function create_alarm(dynamic $f) {
+    return static::get()[6]($f);
+  }
+  public static function delete_alarm(dynamic $a) {
+    return static::get()[7]($a);
   }
 
 }

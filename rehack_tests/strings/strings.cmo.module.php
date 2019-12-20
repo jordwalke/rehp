@@ -147,11 +147,11 @@ final class Strings {
     
     $call1($Pervasives[34], $k_);
     
-    $createIntFromString = function(dynamic $ss) use ($caml_int_of_string) {
+    $createIntFromString = (dynamic $ss) ==> {
       return $caml_int_of_string($ss);
     };
-    $myFunction = function
-    (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) use ($Pervasives,$call1,$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
+    $myFunction = 
+    (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) ==> {
       $call1(
         $Pervasives[30],
         $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope
@@ -263,47 +263,47 @@ final class Strings {
      return ($Strings);
 
   }
-  public static function anotherName() {
-    return static::get()[14]();
-  }
-  public static function n() {
-    return static::get()[13]();
-  }
-  public static function two() {
-    return static::get()[12]();
-  }
-  public static function one() {
-    return static::get()[11]();
-  }
-  public static function myRefCellContents() {
-    return static::get()[10]();
-  }
-  public static function myRefCell() {
-    return static::get()[9]();
-  }
-  public static function i() {
-    return static::get()[8]();
-  }
-  public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
-    return static::get()[7]($cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope);
-  }
-  public static function createIntFromString(dynamic $ss) {
-    return static::get()[6]($ss);
-  }
-  public static function index() {
-    return static::get()[5]();
-  }
-  public static function six() {
-    return static::get()[4]();
-  }
-  public static function negativeOne() {
-    return static::get()[3]();
+  public static function greeting() {
+    return static::get()[1]();
   }
   public static function unicodeLength() {
     return static::get()[2]();
   }
-  public static function greeting() {
-    return static::get()[1]();
+  public static function negativeOne() {
+    return static::get()[3]();
+  }
+  public static function six() {
+    return static::get()[4]();
+  }
+  public static function index() {
+    return static::get()[5]();
+  }
+  public static function createIntFromString(dynamic $ss) {
+    return static::get()[6]($ss);
+  }
+  public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope) {
+    return static::get()[7]($cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope);
+  }
+  public static function i() {
+    return static::get()[8]();
+  }
+  public static function myRefCell() {
+    return static::get()[9]();
+  }
+  public static function myRefCellContents() {
+    return static::get()[10]();
+  }
+  public static function one() {
+    return static::get()[11]();
+  }
+  public static function two() {
+    return static::get()[12]();
+  }
+  public static function n() {
+    return static::get()[13]();
+  }
+  public static function anotherName() {
+    return static::get()[14]();
   }
 
 }

@@ -114,24 +114,24 @@ var Js_of_ocaml_Jstable = [0,create,add,remove,find,keys];
 exports = Js_of_ocaml_Jstable;
 
 /*::type Exports = {
-  keys: (t: any) => any,
-  find: (t: any, k: any) => any,
-  remove: (t: any, k: any) => any,
-  add: (t: any, k: any, v: any) => any,
   create: (param: any) => any,
+  add: (t: any, k: any, v: any) => any,
+  remove: (t: any, k: any) => any,
+  find: (t: any, k: any) => any,
+  keys: (t: any) => any,
 }*/
 /** @type {{
-  keys: (any) => any,
-  find: (any, any) => any,
-  remove: (any, any) => any,
-  add: (any, any, any) => any,
   create: (any) => any,
+  add: (any, any, any) => any,
+  remove: (any, any) => any,
+  find: (any, any) => any,
+  keys: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.keys = module.exports[5];
-module.exports.find = module.exports[4];
-module.exports.remove = module.exports[3];
-module.exports.add = module.exports[2];
 module.exports.create = module.exports[1];
+module.exports.add = module.exports[2];
+module.exports.remove = module.exports[3];
+module.exports.find = module.exports[4];
+module.exports.keys = module.exports[5];
 
 /* Hashing disabled */

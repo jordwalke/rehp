@@ -93,30 +93,30 @@ var Calls = [
 exports = Calls;
 
 /*::type Exports = {
-  testPartialMethodCalls: (o: any) => any,
-  testPartialFunctionCalls: (s: any) => any,
-  testMethodCalls: (o: any) => any,
-  testFunctionCalls: (o: any) => any,
-  baz: any
-  bar: any
   foo: any
+  bar: any
+  baz: any
+  testFunctionCalls: (o: any) => any,
+  testMethodCalls: (o: any) => any,
+  testPartialFunctionCalls: (s: any) => any,
+  testPartialMethodCalls: (o: any) => any,
 }*/
 /** @type {{
-  testPartialMethodCalls: (any) => any,
-  testPartialFunctionCalls: (any) => any,
-  testMethodCalls: (any) => any,
-  testFunctionCalls: (any) => any,
-  baz: any,
-  bar: any,
   foo: any,
+  bar: any,
+  baz: any,
+  testFunctionCalls: (any) => any,
+  testMethodCalls: (any) => any,
+  testPartialFunctionCalls: (any) => any,
+  testPartialMethodCalls: (any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.testPartialMethodCalls = module.exports[7];
-module.exports.testPartialFunctionCalls = module.exports[6];
-module.exports.testMethodCalls = module.exports[5];
-module.exports.testFunctionCalls = module.exports[4];
-module.exports.baz = module.exports[3];
-module.exports.bar = module.exports[2];
 module.exports.foo = module.exports[1];
+module.exports.bar = module.exports[2];
+module.exports.baz = module.exports[3];
+module.exports.testFunctionCalls = module.exports[4];
+module.exports.testMethodCalls = module.exports[5];
+module.exports.testPartialFunctionCalls = module.exports[6];
+module.exports.testPartialMethodCalls = module.exports[7];
 
 /* Hashing disabled */

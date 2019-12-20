@@ -20,18 +20,18 @@ var Oo = [0,copy,new_method,public_method_label];
 exports = Oo;
 
 /*::type Exports = {
-  public_method_label: any
-  new_method: any
   copy: any
+  new_method: any
+  public_method_label: any
 }*/
 /** @type {{
-  public_method_label: any,
-  new_method: any,
   copy: any,
+  new_method: any,
+  public_method_label: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.public_method_label = module.exports[3];
-module.exports.new_method = module.exports[2];
 module.exports.copy = module.exports[1];
+module.exports.new_method = module.exports[2];
+module.exports.public_method_label = module.exports[3];
 
 /* Hashing disabled */

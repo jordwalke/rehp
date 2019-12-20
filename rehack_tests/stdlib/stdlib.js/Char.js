@@ -121,33 +121,33 @@ var Char = [
 exports = Char;
 
 /*::type Exports = {
-  equal: (c1: any, c2: any) => any,
-  compare: (c1: any, c2: any) => any,
-  uppercase_ascii: (c: any) => any,
-  lowercase_ascii: (c: any) => any,
-  uppercase: (c: any) => any,
-  lowercase: (c: any) => any,
-  escaped: (c: any) => any,
   chr: (n: any) => any,
+  escaped: (c: any) => any,
+  lowercase: (c: any) => any,
+  uppercase: (c: any) => any,
+  lowercase_ascii: (c: any) => any,
+  uppercase_ascii: (c: any) => any,
+  compare: (c1: any, c2: any) => any,
+  equal: (c1: any, c2: any) => any,
 }*/
 /** @type {{
-  equal: (any, any) => any,
-  compare: (any, any) => any,
-  uppercase_ascii: (any) => any,
-  lowercase_ascii: (any) => any,
-  uppercase: (any) => any,
-  lowercase: (any) => any,
-  escaped: (any) => any,
   chr: (any) => any,
+  escaped: (any) => any,
+  lowercase: (any) => any,
+  uppercase: (any) => any,
+  lowercase_ascii: (any) => any,
+  uppercase_ascii: (any) => any,
+  compare: (any, any) => any,
+  equal: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.equal = module.exports[8];
-module.exports.compare = module.exports[7];
-module.exports.uppercase_ascii = module.exports[6];
-module.exports.lowercase_ascii = module.exports[5];
-module.exports.uppercase = module.exports[4];
-module.exports.lowercase = module.exports[3];
-module.exports.escaped = module.exports[2];
 module.exports.chr = module.exports[1];
+module.exports.escaped = module.exports[2];
+module.exports.lowercase = module.exports[3];
+module.exports.uppercase = module.exports[4];
+module.exports.lowercase_ascii = module.exports[5];
+module.exports.uppercase_ascii = module.exports[6];
+module.exports.compare = module.exports[7];
+module.exports.equal = module.exports[8];
 
 /* Hashing disabled */

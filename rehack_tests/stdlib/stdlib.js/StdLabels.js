@@ -16,21 +16,21 @@ var StdLabels = [0,0,0,0,0];
 exports = StdLabels;
 
 /*::type Exports = {
-  String: any
-  List: any
-  Bytes: any
   Array: any
+  Bytes: any
+  List: any
+  String: any
 }*/
 /** @type {{
-  String: any,
-  List: any,
-  Bytes: any,
   Array: any,
+  Bytes: any,
+  List: any,
+  String: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.String = module.exports[4];
-module.exports.List = module.exports[3];
-module.exports.Bytes = module.exports[2];
 module.exports.Array = module.exports[1];
+module.exports.Bytes = module.exports[2];
+module.exports.List = module.exports[3];
+module.exports.String = module.exports[4];
 
 /* Hashing disabled */

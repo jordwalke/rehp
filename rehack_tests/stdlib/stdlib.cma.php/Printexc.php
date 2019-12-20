@@ -194,7 +194,7 @@ final class Printexc {
     $b_ = Vector{0, Vector{4, 0, 0, 0, 0}, $string("%d")};
     $a_ = Vector{0, Vector{3, 0, 0}, $string("%S")};
     $printers = Vector{0, 0};
-    $field = function(dynamic $x, dynamic $i) use ($Obj,$Pervasives,$Printf,$a_,$b_,$call1,$call2,$caml_obj_tag,$cst) {
+    $field = (dynamic $x, dynamic $i) ==> {
       $f = $x[$i + 1];
       return $call1($Obj[1], $f)
         ? $caml_obj_tag($f) === $Obj[13]
@@ -204,13 +204,13 @@ final class Printexc {
           : ($cst))
         : ($call2($Printf[4], $b_, $f));
     };
-    $other_fields->contents = function(dynamic $x, dynamic $i) use ($Printf,$c_,$call3,$cst__0,$field,$other_fields) {
+    $other_fields->contents = (dynamic $x, dynamic $i) ==> {
       if ($x->count() - 1 <= $i) {return $cst__0;}
       $ad_ = $other_fields->contents($x, (int) ($i + 1));
       $ae_ = $field($x, $i);
       return $call3($Printf[4], $c_, $ae_, $ad_);
     };
-    $fields = function(dynamic $x) use ($Printf,$call2,$call3,$cst__1,$cst__2,$d_,$e_,$field,$other_fields,$unsigned_right_shift_32) {
+    $fields = (dynamic $x) ==> {
       $match = $x->count() - 1;
       if (2 < $unsigned_right_shift_32($match, 0)) {
         $aa_ = $other_fields->contents($x, 2);
@@ -230,8 +230,8 @@ final class Printexc {
           return $call2($Printf[4], $e_, $ac_);
         }
     };
-    $to_string = function(dynamic $x) use ($Assert_failure,$Match_failure,$Out_of_memory,$Pervasives,$Printf,$Stack_overflow,$Undefined_recursive_module,$call1,$call2,$call6,$caml_obj_tag,$cst_Assertion_failed,$cst_Out_of_memory,$cst_Pattern_matching_failed,$cst_Stack_overflow,$cst_Undefined_recursive_module,$fields,$locfmt,$printers) {
-      $conv = function(dynamic $param) use ($Assert_failure,$Match_failure,$Out_of_memory,$Pervasives,$Printf,$Stack_overflow,$Undefined_recursive_module,$call1,$call2,$call6,$caml_obj_tag,$cst_Assertion_failed,$cst_Out_of_memory,$cst_Pattern_matching_failed,$cst_Stack_overflow,$cst_Undefined_recursive_module,$fields,$locfmt,$x) {
+    $to_string = (dynamic $x) ==> {
+      $conv = (dynamic $param) ==> {
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -303,7 +303,7 @@ final class Printexc {
       };
       return $conv($printers[1]);
     };
-    $print = function(dynamic $fct, dynamic $arg) use ($Pervasives,$Printf,$call1,$call2,$caml_wrap_thrown_exception_reraise,$f_,$runtime,$to_string) {
+    $print = (dynamic $fct, dynamic $arg) ==> {
       try {$V_ = $call1($fct, $arg);return $V_;}
       catch(\Throwable $x) {
         $x = $runtime["caml_wrap_exception"]($x);
@@ -313,7 +313,7 @@ final class Printexc {
         throw $caml_wrap_thrown_exception_reraise($x) as \Throwable;
       }
     };
-    $catch__0 = function(dynamic $fct, dynamic $arg) use ($Pervasives,$Printf,$call1,$call2,$g_,$runtime,$to_string) {
+    $catch__0 = (dynamic $fct, dynamic $arg) ==> {
       try {$T_ = $call1($fct, $arg);return $T_;}
       catch(\Throwable $x) {
         $x = $runtime["caml_wrap_exception"]($x);
@@ -323,12 +323,12 @@ final class Printexc {
         return $call1($Pervasives[87], 2);
       }
     };
-    $convert_raw_backtrace = function(dynamic $bt) use ($runtime) {
+    $convert_raw_backtrace = (dynamic $bt) ==> {
       $R_ = Vector{0, $runtime["caml_convert_raw_backtrace"]($bt)};
       return $R_;
     };
-    $format_backtrace_slot = function(dynamic $pos, dynamic $slot) use ($Printf,$call2,$call7,$cst_Called_from,$cst_Raised_at,$cst_Raised_by_primitive_operation_at,$cst_Re_raised_at,$cst__3,$cst_inlined,$h_,$i_) {
-      $info = function(dynamic $is_raise) use ($cst_Called_from,$cst_Raised_at,$cst_Raised_by_primitive_operation_at,$cst_Re_raised_at,$pos) {
+    $format_backtrace_slot = (dynamic $pos, dynamic $slot) ==> {
+      $info = (dynamic $is_raise) ==> {
         return $is_raise
           ? 0 === $pos ? $cst_Raised_at : ($cst_Re_raised_at)
           : (0 === $pos
@@ -349,8 +349,7 @@ final class Printexc {
       $Q_ = $info(0);
       return Vector{0, $call2($Printf[4], $i_, $Q_)};
     };
-    $print_exception_backtrace = function
-    (dynamic $outchan, dynamic $backtrace) use ($Printf,$call2,$call3,$caml_check_bound,$format_backtrace_slot,$j_,$k_) {
+    $print_exception_backtrace = (dynamic $outchan, dynamic $backtrace) ==> {
       if ($backtrace) {
         $a = $backtrace[1];
         $I_ = (int) ($a->count() - 1 + -1);
@@ -375,19 +374,19 @@ final class Printexc {
       }
       return $call2($Printf[1], $outchan, $k_);
     };
-    $print_raw_backtrace = function(dynamic $outchan, dynamic $raw_backtrace) use ($convert_raw_backtrace,$print_exception_backtrace) {
+    $print_raw_backtrace = (dynamic $outchan, dynamic $raw_backtrace) ==> {
       return $print_exception_backtrace(
         $outchan,
         $convert_raw_backtrace($raw_backtrace)
       );
     };
-    $print_backtrace = function(dynamic $outchan) use ($caml_get_exception_raw_backtrace,$print_raw_backtrace) {
+    $print_backtrace = (dynamic $outchan) ==> {
       return $print_raw_backtrace(
         $outchan,
         $caml_get_exception_raw_backtrace(0)
       );
     };
-    $backtrace_to_string = function(dynamic $backtrace) use ($Buffer,$Printf,$call1,$call3,$caml_check_bound,$cst_Program_not_linked_with_g_cannot_print_stack_backtrace,$format_backtrace_slot,$l_) {
+    $backtrace_to_string = (dynamic $backtrace) ==> {
       if ($backtrace) {
         $a = $backtrace[1];
         $b = $call1($Buffer[1], 1024);
@@ -410,28 +409,28 @@ final class Printexc {
       }
       return $cst_Program_not_linked_with_g_cannot_print_stack_backtrace;
     };
-    $raw_backtrace_to_string = function(dynamic $raw_backtrace) use ($backtrace_to_string,$convert_raw_backtrace) {
+    $raw_backtrace_to_string = (dynamic $raw_backtrace) ==> {
       return $backtrace_to_string($convert_raw_backtrace($raw_backtrace));
     };
-    $backtrace_slot_is_raise = function(dynamic $param) {
+    $backtrace_slot_is_raise = (dynamic $param) ==> {
       return 0 === $param[0] ? $param[1] : ($param[1]);
     };
-    $backtrace_slot_is_inline = function(dynamic $param) {
+    $backtrace_slot_is_inline = (dynamic $param) ==> {
       return 0 === $param[0] ? $param[6] : (0);
     };
-    $backtrace_slot_location = function(dynamic $param) {
+    $backtrace_slot_location = (dynamic $param) ==> {
       return 0 === $param[0]
         ? Vector{0, Vector{0, $param[2], $param[3], $param[4], $param[5]}}
         : (0);
     };
-    $backtrace_slots = function(dynamic $raw_backtrace) use ($caml_check_bound,$convert_raw_backtrace) {
+    $backtrace_slots = (dynamic $raw_backtrace) ==> {
       $match = $convert_raw_backtrace($raw_backtrace);
       if ($match) {
         $backtrace = $match[1];
-        $usable_slot = function(dynamic $param) {
+        $usable_slot = (dynamic $param) ==> {
           return 0 === $param[0] ? 1 : (0);
         };
-        $exists_usable = function(dynamic $i) use ($backtrace,$caml_check_bound,$usable_slot) {
+        $exists_usable = (dynamic $i) ==> {
           $i__0 = $i;
           for (;;) {
             if (-1 === $i__0) {return 0;}
@@ -449,39 +448,33 @@ final class Printexc {
       }
       return 0;
     };
-    $get_backtrace = function(dynamic $param) use ($caml_get_exception_raw_backtrace,$raw_backtrace_to_string) {
+    $get_backtrace = (dynamic $param) ==> {
       return $raw_backtrace_to_string($caml_get_exception_raw_backtrace(0));
     };
-    $register_printer = function(dynamic $fn) use ($printers) {
+    $register_printer = (dynamic $fn) ==> {
       $printers[1] = Vector{0, $fn, $printers[1]};
       return 0;
     };
-    $exn_slot = function(dynamic $x) use ($caml_obj_tag) {
+    $exn_slot = (dynamic $x) ==> {
       return 0 === $caml_obj_tag($x) ? $x[1] : ($x);
     };
-    $exn_slot_id = function(dynamic $x) use ($exn_slot) {
-      $slot = $exn_slot($x);
-      return $slot[2];
-    };
-    $exn_slot_name = function(dynamic $x) use ($exn_slot) {
-      $slot = $exn_slot($x);
-      return $slot[1];
-    };
+    $exn_slot_id = (dynamic $x) ==> {$slot = $exn_slot($x);return $slot[2];};
+    $exn_slot_name = (dynamic $x) ==> {$slot = $exn_slot($x);return $slot[1];};
     $uncaught_exception_handler = Vector{0, 0};
-    $set_uncaught_exception_handler = function(dynamic $fn) use ($uncaught_exception_handler) {
+    $set_uncaught_exception_handler = (dynamic $fn) ==> {
       $uncaught_exception_handler[1] = Vector{0, $fn};
       return 0;
     };
-    $m_ = function(dynamic $C_) use ($runtime) {
+    $m_ = (dynamic $C_) ==> {
       return $runtime["caml_raw_backtrace_next_slot"]($C_);
     };
-    $n_ = function(dynamic $B_) use ($runtime) {
+    $n_ = (dynamic $B_) ==> {
       return $runtime["caml_convert_raw_backtrace_slot"]($B_);
     };
-    $o_ = function(dynamic $A_, dynamic $z_) use ($runtime) {
+    $o_ = (dynamic $A_, dynamic $z_) ==> {
       return $runtime["caml_raw_backtrace_slot"]($A_, $z_);
     };
-    $p_ = function(dynamic $y_) use ($runtime) {
+    $p_ = (dynamic $y_) ==> {
       return $runtime["caml_raw_backtrace_length"]($y_);
     };
     $q_ = Vector{
@@ -491,15 +484,11 @@ final class Printexc {
       $backtrace_slot_location,
       $format_backtrace_slot
     };
-    $r_ = function(dynamic $x_) use ($runtime) {
+    $r_ = (dynamic $x_) ==> {
       return $runtime["caml_get_current_callstack"]($x_);
     };
-    $s_ = function(dynamic $w_) use ($caml_get_exception_raw_backtrace) {
-      return $caml_get_exception_raw_backtrace($w_);
-    };
-    $t_ = function(dynamic $v_) use ($runtime) {
-      return $runtime["caml_backtrace_status"]($v_);
-    };
+    $s_ = (dynamic $w_) ==> {return $caml_get_exception_raw_backtrace($w_);};
+    $t_ = (dynamic $v_) ==> {return $runtime["caml_backtrace_status"]($v_);};
     $Printexc = Vector{
       0,
       $to_string,
@@ -507,9 +496,7 @@ final class Printexc {
       $catch__0,
       $print_backtrace,
       $get_backtrace,
-      function(dynamic $u_) use ($runtime) {
-        return $runtime["caml_record_backtrace"]($u_);
-      },
+      (dynamic $u_) ==> {return $runtime["caml_record_backtrace"]($u_);},
       $t_,
       $register_printer,
       $s_,
@@ -530,41 +517,41 @@ final class Printexc {
      return ($Printexc);
 
   }
-  public static function exn_slot_name(dynamic $x) {
-    return static::get()[21]($x);
-  }
-  public static function exn_slot_id(dynamic $x) {
-    return static::get()[20]($x);
-  }
-  public static function backtrace_slots(dynamic $raw_backtrace) {
-    return static::get()[14]($raw_backtrace);
-  }
-  public static function set_uncaught_exception_handler(dynamic $fn) {
-    return static::get()[13]($fn);
-  }
-  public static function raw_backtrace_to_string(dynamic $raw_backtrace) {
-    return static::get()[11]($raw_backtrace);
-  }
-  public static function print_raw_backtrace(dynamic $outchan, dynamic $raw_backtrace) {
-    return static::get()[10]($outchan, $raw_backtrace);
-  }
-  public static function register_printer(dynamic $fn) {
-    return static::get()[8]($fn);
-  }
-  public static function get_backtrace(dynamic $param) {
-    return static::get()[5]($param);
-  }
-  public static function print_backtrace(dynamic $outchan) {
-    return static::get()[4]($outchan);
-  }
-  public static function catch(dynamic $fct, dynamic $arg) {
-    return static::get()[3]($fct, $arg);
+  public static function to_string(dynamic $x) {
+    return static::get()[1]($x);
   }
   public static function print(dynamic $fct, dynamic $arg) {
     return static::get()[2]($fct, $arg);
   }
-  public static function to_string(dynamic $x) {
-    return static::get()[1]($x);
+  public static function catch(dynamic $fct, dynamic $arg) {
+    return static::get()[3]($fct, $arg);
+  }
+  public static function print_backtrace(dynamic $outchan) {
+    return static::get()[4]($outchan);
+  }
+  public static function get_backtrace(dynamic $param) {
+    return static::get()[5]($param);
+  }
+  public static function register_printer(dynamic $fn) {
+    return static::get()[8]($fn);
+  }
+  public static function print_raw_backtrace(dynamic $outchan, dynamic $raw_backtrace) {
+    return static::get()[10]($outchan, $raw_backtrace);
+  }
+  public static function raw_backtrace_to_string(dynamic $raw_backtrace) {
+    return static::get()[11]($raw_backtrace);
+  }
+  public static function set_uncaught_exception_handler(dynamic $fn) {
+    return static::get()[13]($fn);
+  }
+  public static function backtrace_slots(dynamic $raw_backtrace) {
+    return static::get()[14]($raw_backtrace);
+  }
+  public static function exn_slot_id(dynamic $x) {
+    return static::get()[20]($x);
+  }
+  public static function exn_slot_name(dynamic $x) {
+    return static::get()[21]($x);
   }
 
 }

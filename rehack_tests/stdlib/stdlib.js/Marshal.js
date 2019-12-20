@@ -84,27 +84,27 @@ var Marshal = [
 exports = Marshal;
 
 /*::type Exports = {
-  total_size: (buff: any, ofs: any) => any,
-  data_size: (buff: any, ofs: any) => any,
-  header_size: any
-  from_string: (buff: any, ofs: any) => any,
-  from_bytes: (buff: any, ofs: any) => any,
   to_buffer: (buff: any, ofs: any, len: any, v: any, flags: any) => any,
+  from_bytes: (buff: any, ofs: any) => any,
+  from_string: (buff: any, ofs: any) => any,
+  header_size: any
+  data_size: (buff: any, ofs: any) => any,
+  total_size: (buff: any, ofs: any) => any,
 }*/
 /** @type {{
-  total_size: (any, any) => any,
-  data_size: (any, any) => any,
-  header_size: any,
-  from_string: (any, any) => any,
-  from_bytes: (any, any) => any,
   to_buffer: (any, any, any, any, any) => any,
+  from_bytes: (any, any) => any,
+  from_string: (any, any) => any,
+  header_size: any,
+  data_size: (any, any) => any,
+  total_size: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.total_size = module.exports[8];
-module.exports.data_size = module.exports[7];
-module.exports.header_size = module.exports[6];
-module.exports.from_string = module.exports[5];
-module.exports.from_bytes = module.exports[4];
 module.exports.to_buffer = module.exports[2];
+module.exports.from_bytes = module.exports[4];
+module.exports.from_string = module.exports[5];
+module.exports.header_size = module.exports[6];
+module.exports.data_size = module.exports[7];
+module.exports.total_size = module.exports[8];
 
 /* Hashing disabled */

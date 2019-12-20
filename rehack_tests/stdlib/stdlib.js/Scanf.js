@@ -2215,45 +2215,45 @@ var Scanf = [
 exports = Scanf;
 
 /*::type Exports = {
-  kfscanf: (ic: any, ef: any, fmt: any) => any,
-  fscanf: (ic: any, fmt: any) => any,
-  unescaped: (s: any) => any,
-  format_from_string: (s: any, fmt: any) => any,
-  sscanf_format: (s: any, format: any, f: any) => any,
-  bscanf_format: (ib: any, format: any, f: any) => any,
-  ksscanf: (s: any, ef: any, fmt: any) => any,
-  kscanf: (ib: any, ef: any, param: any) => any,
-  scanf: (fmt: any) => any,
-  sscanf: (s: any, fmt: any) => any,
-  bscanf: (ib: any, fmt: any) => any,
   Scan_failure: any
+  bscanf: (ib: any, fmt: any) => any,
+  sscanf: (s: any, fmt: any) => any,
+  scanf: (fmt: any) => any,
+  kscanf: (ib: any, ef: any, param: any) => any,
+  ksscanf: (s: any, ef: any, fmt: any) => any,
+  bscanf_format: (ib: any, format: any, f: any) => any,
+  sscanf_format: (s: any, format: any, f: any) => any,
+  format_from_string: (s: any, fmt: any) => any,
+  unescaped: (s: any) => any,
+  fscanf: (ic: any, fmt: any) => any,
+  kfscanf: (ic: any, ef: any, fmt: any) => any,
 }*/
 /** @type {{
-  kfscanf: (any, any, any) => any,
-  fscanf: (any, any) => any,
-  unescaped: (any) => any,
-  format_from_string: (any, any) => any,
-  sscanf_format: (any, any, any) => any,
-  bscanf_format: (any, any, any) => any,
-  ksscanf: (any, any, any) => any,
-  kscanf: (any, any, any) => any,
-  scanf: (any) => any,
-  sscanf: (any, any) => any,
-  bscanf: (any, any) => any,
   Scan_failure: any,
+  bscanf: (any, any) => any,
+  sscanf: (any, any) => any,
+  scanf: (any) => any,
+  kscanf: (any, any, any) => any,
+  ksscanf: (any, any, any) => any,
+  bscanf_format: (any, any, any) => any,
+  sscanf_format: (any, any, any) => any,
+  format_from_string: (any, any) => any,
+  unescaped: (any) => any,
+  fscanf: (any, any) => any,
+  kfscanf: (any, any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.kfscanf = module.exports[13];
-module.exports.fscanf = module.exports[12];
-module.exports.unescaped = module.exports[11];
-module.exports.format_from_string = module.exports[10];
-module.exports.sscanf_format = module.exports[9];
-module.exports.bscanf_format = module.exports[8];
-module.exports.ksscanf = module.exports[7];
-module.exports.kscanf = module.exports[6];
-module.exports.scanf = module.exports[5];
-module.exports.sscanf = module.exports[4];
-module.exports.bscanf = module.exports[3];
 module.exports.Scan_failure = module.exports[2];
+module.exports.bscanf = module.exports[3];
+module.exports.sscanf = module.exports[4];
+module.exports.scanf = module.exports[5];
+module.exports.kscanf = module.exports[6];
+module.exports.ksscanf = module.exports[7];
+module.exports.bscanf_format = module.exports[8];
+module.exports.sscanf_format = module.exports[9];
+module.exports.format_from_string = module.exports[10];
+module.exports.unescaped = module.exports[11];
+module.exports.fscanf = module.exports[12];
+module.exports.kfscanf = module.exports[13];
 
 /* Hashing disabled */

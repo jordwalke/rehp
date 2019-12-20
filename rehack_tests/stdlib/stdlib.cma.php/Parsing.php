@@ -51,7 +51,7 @@ final class Parsing {
       0,
       0
     };
-    $grow_stacks = function(dynamic $param) use ($Array,$Lexing,$call5,$caml_make_vect,$env) {
+    $grow_stacks = (dynamic $param) ==> {
       $oldsize = $env[5];
       $newsize = (int) ($oldsize * 2);
       $new_s = $caml_make_vect($newsize, 0);
@@ -69,15 +69,15 @@ final class Parsing {
       $env[5] = $newsize;
       return 0;
     };
-    $clear_parser = function(dynamic $param) use ($Array,$call4,$env) {
+    $clear_parser = (dynamic $param) ==> {
       $call4($Array[9], $env[2], 0, $env[5], 0);
       $env[8] = 0;
       return 0;
     };
-    $current_lookahead_fun = Vector{0, function(dynamic $param) {return 0;}};
-    $yyparse = function
-    (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) use ($Obj,$Parse_error,$YYexit,$call1,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst_syntax_error,$current_lookahead_fun,$env,$grow_stacks,$runtime) {
-      $loop = function(dynamic $cmd, dynamic $arg) use ($Parse_error,$call1,$caml_check_bound,$caml_wrap_thrown_exception,$caml_wrap_thrown_exception_reraise,$cst_syntax_error,$env,$grow_stacks,$lexbuf,$lexer,$runtime,$tables) {
+    $current_lookahead_fun = Vector{0, (dynamic $param) ==> {return 0;}};
+    $yyparse = 
+    (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) ==> {
+      $loop = (dynamic $cmd, dynamic $arg) ==> {
         $cmd__0 = $cmd;
         $arg__0 = $arg;
         for (;;) {
@@ -168,7 +168,7 @@ final class Parsing {
         $env[16] = $init_errflag;
         if ($exn[1] === $YYexit) {$v = $exn[2];return $v;}
         $current_lookahead_fun[1] =
-          function(dynamic $tok) use ($Obj,$call1,$caml_check_bound,$curr_char,$runtime,$tables) {
+          (dynamic $tok) ==> {
             if ($call1($Obj[1], $tok)) {
               $j_ = $runtime["caml_obj_tag"]($tok);
               return $caml_check_bound($tables[3], $j_)[$j_ + 1] === $curr_char
@@ -182,12 +182,12 @@ final class Parsing {
         throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
       }
     };
-    $peek_val = function(dynamic $env, dynamic $n) use ($caml_check_bound) {
+    $peek_val = (dynamic $env, dynamic $n) ==> {
       $h_ = (int) ($env[11] - $n);
       return $caml_check_bound($env[2], $h_)[$h_ + 1];
     };
-    $symbol_start_pos = function(dynamic $param) use ($caml_check_bound,$env,$runtime) {
-      $loop = function(dynamic $i) use ($caml_check_bound,$env,$runtime) {
+    $symbol_start_pos = (dynamic $param) ==> {
+      $loop = (dynamic $i) ==> {
         $i__0 = $i;
         for (;;) {
           if (0 < $i__0) {
@@ -206,34 +206,26 @@ final class Parsing {
       };
       return $loop($env[12]);
     };
-    $symbol_end_pos = function(dynamic $param) use ($caml_check_bound,$env) {
+    $symbol_end_pos = (dynamic $param) ==> {
       $d_ = $env[11];
       return $caml_check_bound($env[4], $d_)[$d_ + 1];
     };
-    $rhs_start_pos = function(dynamic $n) use ($caml_check_bound,$env) {
+    $rhs_start_pos = (dynamic $n) ==> {
       $c_ = (int) ($env[11] - (int) ($env[12] - $n));
       return $caml_check_bound($env[3], $c_)[$c_ + 1];
     };
-    $rhs_end_pos = function(dynamic $n) use ($caml_check_bound,$env) {
+    $rhs_end_pos = (dynamic $n) ==> {
       $b_ = (int) ($env[11] - (int) ($env[12] - $n));
       return $caml_check_bound($env[4], $b_)[$b_ + 1];
     };
-    $symbol_start = function(dynamic $param) use ($symbol_start_pos) {
-      return $symbol_start_pos(0)[4];
-    };
-    $symbol_end = function(dynamic $param) use ($symbol_end_pos) {
-      return $symbol_end_pos(0)[4];
-    };
-    $rhs_start = function(dynamic $n) use ($rhs_start_pos) {
-      return $rhs_start_pos($n)[4];
-    };
-    $rhs_end = function(dynamic $n) use ($rhs_end_pos) {
-      return $rhs_end_pos($n)[4];
-    };
-    $is_current_lookahead = function(dynamic $tok) use ($call1,$current_lookahead_fun) {
+    $symbol_start = (dynamic $param) ==> {return $symbol_start_pos(0)[4];};
+    $symbol_end = (dynamic $param) ==> {return $symbol_end_pos(0)[4];};
+    $rhs_start = (dynamic $n) ==> {return $rhs_start_pos($n)[4];};
+    $rhs_end = (dynamic $n) ==> {return $rhs_end_pos($n)[4];};
+    $is_current_lookahead = (dynamic $tok) ==> {
       return $call1($current_lookahead_fun[1], $tok);
     };
-    $parse_error = function(dynamic $param) {return 0;};
+    $parse_error = (dynamic $param) ==> {return 0;};
     $Parsing = Vector{
       0,
       $symbol_start,
@@ -246,9 +238,7 @@ final class Parsing {
       $rhs_end_pos,
       $clear_parser,
       $Parse_error,
-      function(dynamic $a_) use ($runtime) {
-        return $runtime["caml_set_parser_trace"]($a_);
-      },
+      (dynamic $a_) ==> {return $runtime["caml_set_parser_trace"]($a_);},
       $YYexit,
       $yyparse,
       $peek_val,
@@ -259,50 +249,50 @@ final class Parsing {
      return ($Parsing);
 
   }
-  public static function parse_error(dynamic $param) {
-    return static::get()[16]($param);
-  }
-  public static function is_current_lookahead(dynamic $tok) {
-    return static::get()[15]($tok);
-  }
-  public static function peek_val(dynamic $env, dynamic $n) {
-    return static::get()[14]($env, $n);
-  }
-  public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) {
-    return static::get()[13]($tables, $start, $lexer, $lexbuf);
-  }
-  public static function YYexit() {
-    return static::get()[12]();
-  }
-  public static function Parse_error() {
-    return static::get()[10]();
-  }
-  public static function clear_parser(dynamic $param) {
-    return static::get()[9]($param);
-  }
-  public static function rhs_end_pos(dynamic $n) {
-    return static::get()[8]($n);
-  }
-  public static function rhs_start_pos(dynamic $n) {
-    return static::get()[7]($n);
-  }
-  public static function symbol_end_pos(dynamic $param) {
-    return static::get()[6]($param);
-  }
-  public static function symbol_start_pos(dynamic $param) {
-    return static::get()[5]($param);
-  }
-  public static function rhs_end(dynamic $n) {
-    return static::get()[4]($n);
-  }
-  public static function rhs_start(dynamic $n) {
-    return static::get()[3]($n);
+  public static function symbol_start(dynamic $param) {
+    return static::get()[1]($param);
   }
   public static function symbol_end(dynamic $param) {
     return static::get()[2]($param);
   }
-  public static function symbol_start(dynamic $param) {
-    return static::get()[1]($param);
+  public static function rhs_start(dynamic $n) {
+    return static::get()[3]($n);
+  }
+  public static function rhs_end(dynamic $n) {
+    return static::get()[4]($n);
+  }
+  public static function symbol_start_pos(dynamic $param) {
+    return static::get()[5]($param);
+  }
+  public static function symbol_end_pos(dynamic $param) {
+    return static::get()[6]($param);
+  }
+  public static function rhs_start_pos(dynamic $n) {
+    return static::get()[7]($n);
+  }
+  public static function rhs_end_pos(dynamic $n) {
+    return static::get()[8]($n);
+  }
+  public static function clear_parser(dynamic $param) {
+    return static::get()[9]($param);
+  }
+  public static function Parse_error() {
+    return static::get()[10]();
+  }
+  public static function YYexit() {
+    return static::get()[12]();
+  }
+  public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) {
+    return static::get()[13]($tables, $start, $lexer, $lexbuf);
+  }
+  public static function peek_val(dynamic $env, dynamic $n) {
+    return static::get()[14]($env, $n);
+  }
+  public static function is_current_lookahead(dynamic $tok) {
+    return static::get()[15]($tok);
+  }
+  public static function parse_error(dynamic $param) {
+    return static::get()[16]($param);
   }
 
 }

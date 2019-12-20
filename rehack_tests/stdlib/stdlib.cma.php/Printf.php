@@ -20,54 +20,50 @@ final class Printf {
     $Buffer =  Buffer::get ();
     $CamlinternalFormat =  CamlinternalFormat::get ();
     $Pervasives =  Pervasives::get ();
-    $kfprintf = function(dynamic $k, dynamic $o, dynamic $param) use ($CamlinternalFormat,$call1,$call2,$call4) {
+    $kfprintf = (dynamic $k, dynamic $o, dynamic $param) ==> {
       $fmt = $param[1];
       $f_ = 0;
-      $g_ = function(dynamic $o, dynamic $acc) use ($CamlinternalFormat,$call1,$call2,$k) {
+      $g_ = (dynamic $o, dynamic $acc) ==> {
         $call2($CamlinternalFormat[9], $o, $acc);
         return $call1($k, $o);
       };
       return $call4($CamlinternalFormat[7], $g_, $o, $f_, $fmt);
     };
-    $kbprintf = function(dynamic $k, dynamic $b, dynamic $param) use ($CamlinternalFormat,$call1,$call2,$call4) {
+    $kbprintf = (dynamic $k, dynamic $b, dynamic $param) ==> {
       $fmt = $param[1];
       $d_ = 0;
-      $e_ = function(dynamic $b, dynamic $acc) use ($CamlinternalFormat,$call1,$call2,$k) {
+      $e_ = (dynamic $b, dynamic $acc) ==> {
         $call2($CamlinternalFormat[10], $b, $acc);
         return $call1($k, $b);
       };
       return $call4($CamlinternalFormat[7], $e_, $b, $d_, $fmt);
     };
-    $ikfprintf = function(dynamic $k, dynamic $oc, dynamic $param) use ($CamlinternalFormat,$call3) {
+    $ikfprintf = (dynamic $k, dynamic $oc, dynamic $param) ==> {
       $fmt = $param[1];
       return $call3($CamlinternalFormat[8], $k, $oc, $fmt);
     };
-    $fprintf = function(dynamic $oc, dynamic $fmt) use ($kfprintf) {
-      return $kfprintf(function(dynamic $c_) {return 0;}, $oc, $fmt);
+    $fprintf = (dynamic $oc, dynamic $fmt) ==> {
+      return $kfprintf((dynamic $c_) ==> {return 0;}, $oc, $fmt);
     };
-    $bprintf = function(dynamic $b, dynamic $fmt) use ($kbprintf) {
-      return $kbprintf(function(dynamic $b_) {return 0;}, $b, $fmt);
+    $bprintf = (dynamic $b, dynamic $fmt) ==> {
+      return $kbprintf((dynamic $b_) ==> {return 0;}, $b, $fmt);
     };
-    $ifprintf = function(dynamic $oc, dynamic $fmt) use ($ikfprintf) {
-      return $ikfprintf(function(dynamic $a_) {return 0;}, $oc, $fmt);
+    $ifprintf = (dynamic $oc, dynamic $fmt) ==> {
+      return $ikfprintf((dynamic $a_) ==> {return 0;}, $oc, $fmt);
     };
-    $printf = function(dynamic $fmt) use ($Pervasives,$fprintf) {
-      return $fprintf($Pervasives[27], $fmt);
-    };
-    $eprintf = function(dynamic $fmt) use ($Pervasives,$fprintf) {
-      return $fprintf($Pervasives[28], $fmt);
-    };
-    $ksprintf = function(dynamic $k, dynamic $param) use ($Buffer,$CamlinternalFormat,$call1,$call2,$call4) {
+    $printf = (dynamic $fmt) ==> {return $fprintf($Pervasives[27], $fmt);};
+    $eprintf = (dynamic $fmt) ==> {return $fprintf($Pervasives[28], $fmt);};
+    $ksprintf = (dynamic $k, dynamic $param) ==> {
       $fmt = $param[1];
-      $k__0 = function(dynamic $param, dynamic $acc) use ($Buffer,$CamlinternalFormat,$call1,$call2,$k) {
+      $k__0 = (dynamic $param, dynamic $acc) ==> {
         $buf = $call1($Buffer[1], 64);
         $call2($CamlinternalFormat[11], $buf, $acc);
         return $call1($k, $call1($Buffer[2], $buf));
       };
       return $call4($CamlinternalFormat[7], $k__0, 0, 0, $fmt);
     };
-    $sprintf = function(dynamic $fmt) use ($ksprintf) {
-      return $ksprintf(function(dynamic $s) {return $s;}, $fmt);
+    $sprintf = (dynamic $fmt) ==> {
+      return $ksprintf((dynamic $s) ==> {return $s;}, $fmt);
     };
     $Printf = Vector{
       0,
@@ -87,38 +83,38 @@ final class Printf {
      return ($Printf);
 
   }
+  public static function fprintf(dynamic $oc, dynamic $fmt) {
+    return static::get()[1]($oc, $fmt);
+  }
+  public static function printf(dynamic $fmt) {
+    return static::get()[2]($fmt);
+  }
+  public static function eprintf(dynamic $fmt) {
+    return static::get()[3]($fmt);
+  }
+  public static function sprintf(dynamic $fmt) {
+    return static::get()[4]($fmt);
+  }
+  public static function bprintf(dynamic $b, dynamic $fmt) {
+    return static::get()[5]($b, $fmt);
+  }
+  public static function ifprintf(dynamic $oc, dynamic $fmt) {
+    return static::get()[6]($oc, $fmt);
+  }
+  public static function kfprintf(dynamic $k, dynamic $o, dynamic $param) {
+    return static::get()[7]($k, $o, $param);
+  }
+  public static function ikfprintf(dynamic $k, dynamic $oc, dynamic $param) {
+    return static::get()[8]($k, $oc, $param);
+  }
   public static function ksprintf(dynamic $k, dynamic $param) {
-    return static::get()[11]($k, $param);
+    return static::get()[9]($k, $param);
   }
   public static function kbprintf(dynamic $k, dynamic $b, dynamic $param) {
     return static::get()[10]($k, $b, $param);
   }
   public static function ksprintf(dynamic $k, dynamic $param) {
-    return static::get()[9]($k, $param);
-  }
-  public static function ikfprintf(dynamic $k, dynamic $oc, dynamic $param) {
-    return static::get()[8]($k, $oc, $param);
-  }
-  public static function kfprintf(dynamic $k, dynamic $o, dynamic $param) {
-    return static::get()[7]($k, $o, $param);
-  }
-  public static function ifprintf(dynamic $oc, dynamic $fmt) {
-    return static::get()[6]($oc, $fmt);
-  }
-  public static function bprintf(dynamic $b, dynamic $fmt) {
-    return static::get()[5]($b, $fmt);
-  }
-  public static function sprintf(dynamic $fmt) {
-    return static::get()[4]($fmt);
-  }
-  public static function eprintf(dynamic $fmt) {
-    return static::get()[3]($fmt);
-  }
-  public static function printf(dynamic $fmt) {
-    return static::get()[2]($fmt);
-  }
-  public static function fprintf(dynamic $oc, dynamic $fmt) {
-    return static::get()[1]($oc, $fmt);
+    return static::get()[11]($k, $param);
   }
 
 }

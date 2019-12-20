@@ -855,57 +855,57 @@ var Arg = [
 exports = Arg;
 
 /*::type Exports = {
-  write_arg0: any
-  write_arg: any
-  read_arg0: any
-  read_arg: any
-  current: any
-  align: (opt: any, speclist: any) => any,
-  usage_string: (speclist: any, errmsg: any) => any,
-  usage: (speclist: any, errmsg: any) => any,
-  Bad: any
-  Help: any
-  parse_expand: (l: any, f: any, msg: any) => any,
-  parse_and_expand_argv_dynamic: (current: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
-  parse_argv_dynamic: (opt: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
-  parse_argv: (opt: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
-  parse_dynamic: (l: any, f: any, msg: any) => any,
   parse: (l: any, f: any, msg: any) => any,
+  parse_dynamic: (l: any, f: any, msg: any) => any,
+  parse_argv: (opt: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
+  parse_argv_dynamic: (opt: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
+  parse_and_expand_argv_dynamic: (current: any, argv: any, speclist: any, anonfun: any, errmsg: any) => any,
+  parse_expand: (l: any, f: any, msg: any) => any,
+  Help: any
+  Bad: any
+  usage: (speclist: any, errmsg: any) => any,
+  usage_string: (speclist: any, errmsg: any) => any,
+  align: (opt: any, speclist: any) => any,
+  current: any
+  read_arg: any
+  read_arg0: any
+  write_arg: any
+  write_arg0: any
 }*/
 /** @type {{
-  write_arg0: any,
-  write_arg: any,
-  read_arg0: any,
-  read_arg: any,
-  current: any,
-  align: (any, any) => any,
-  usage_string: (any, any) => any,
-  usage: (any, any) => any,
-  Bad: any,
-  Help: any,
-  parse_expand: (any, any, any) => any,
-  parse_and_expand_argv_dynamic: (any, any, any, any, any) => any,
-  parse_argv_dynamic: (any, any, any, any, any) => any,
-  parse_argv: (any, any, any, any, any) => any,
-  parse_dynamic: (any, any, any) => any,
   parse: (any, any, any) => any,
+  parse_dynamic: (any, any, any) => any,
+  parse_argv: (any, any, any, any, any) => any,
+  parse_argv_dynamic: (any, any, any, any, any) => any,
+  parse_and_expand_argv_dynamic: (any, any, any, any, any) => any,
+  parse_expand: (any, any, any) => any,
+  Help: any,
+  Bad: any,
+  usage: (any, any) => any,
+  usage_string: (any, any) => any,
+  align: (any, any) => any,
+  current: any,
+  read_arg: any,
+  read_arg0: any,
+  write_arg: any,
+  write_arg0: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.write_arg0 = module.exports[16];
-module.exports.write_arg = module.exports[15];
-module.exports.read_arg0 = module.exports[14];
-module.exports.read_arg = module.exports[13];
-module.exports.current = module.exports[12];
-module.exports.align = module.exports[11];
-module.exports.usage_string = module.exports[10];
-module.exports.usage = module.exports[9];
-module.exports.Bad = module.exports[8];
-module.exports.Help = module.exports[7];
-module.exports.parse_expand = module.exports[6];
-module.exports.parse_and_expand_argv_dynamic = module.exports[5];
-module.exports.parse_argv_dynamic = module.exports[4];
-module.exports.parse_argv = module.exports[3];
-module.exports.parse_dynamic = module.exports[2];
 module.exports.parse = module.exports[1];
+module.exports.parse_dynamic = module.exports[2];
+module.exports.parse_argv = module.exports[3];
+module.exports.parse_argv_dynamic = module.exports[4];
+module.exports.parse_and_expand_argv_dynamic = module.exports[5];
+module.exports.parse_expand = module.exports[6];
+module.exports.Help = module.exports[7];
+module.exports.Bad = module.exports[8];
+module.exports.usage = module.exports[9];
+module.exports.usage_string = module.exports[10];
+module.exports.align = module.exports[11];
+module.exports.current = module.exports[12];
+module.exports.read_arg = module.exports[13];
+module.exports.read_arg0 = module.exports[14];
+module.exports.write_arg = module.exports[15];
+module.exports.write_arg0 = module.exports[16];
 
 /* Hashing disabled */

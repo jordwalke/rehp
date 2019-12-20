@@ -89,21 +89,21 @@ var Js_of_ocaml_WebGL = [
 exports = Js_of_ocaml_WebGL;
 
 /*::type Exports = {
-  getContextWithAttributes: (c: any, attribs: any) => any,
-  getContext: (c: any) => any,
-  Event: any
   defaultContextAttributes: any
+  Event: any
+  getContext: (c: any) => any,
+  getContextWithAttributes: (c: any, attribs: any) => any,
 }*/
 /** @type {{
-  getContextWithAttributes: (any, any) => any,
-  getContext: (any) => any,
-  Event: any,
   defaultContextAttributes: any,
+  Event: any,
+  getContext: (any) => any,
+  getContextWithAttributes: (any, any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.getContextWithAttributes = module.exports[4];
-module.exports.getContext = module.exports[3];
-module.exports.Event = module.exports[2];
 module.exports.defaultContextAttributes = module.exports[1];
+module.exports.Event = module.exports[2];
+module.exports.getContext = module.exports[3];
+module.exports.getContextWithAttributes = module.exports[4];
 
 /* Hashing disabled */

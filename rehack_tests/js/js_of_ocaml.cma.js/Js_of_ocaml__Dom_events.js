@@ -46,15 +46,15 @@ var Js_of_ocaml_Dom_events = [0,Js_of_ocaml_Dom_html[15],listen,stop_listen];
 exports = Js_of_ocaml_Dom_events;
 
 /*::type Exports = {
-  stop_listen: any
   listen: (opt: any, target: any, typ: any, cb: any) => any,
+  stop_listen: any
 }*/
 /** @type {{
-  stop_listen: any,
   listen: (any, any, any, any) => any,
+  stop_listen: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.stop_listen = module.exports[3];
 module.exports.listen = module.exports[2];
+module.exports.stop_listen = module.exports[3];
 
 /* Hashing disabled */
