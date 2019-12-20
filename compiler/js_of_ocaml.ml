@@ -55,7 +55,9 @@ let compute_hashes
    * needs to occur to optimize arity calls *)
   let lines =
     [ "/*____hashes"
-    ; "compiler: " ^ Compiler_version.git_version
+    (* Disabling compiler in hash because it makes it hard to update lots of
+     * checked in files if you apply a small compiler fix. *)
+    (* ; "compiler: " ^ Compiler_version.git_version *)
     ; (* :: ("bytecode(bad): " ^ string_of_int (Hashtbl.hash_param 256 256 bc.code)) *)
       "flags: " ^ string_of_int (custom_header_hash + args_hash)
     ; (* :: ("bytecode.cmis: " ^ string_of_int (Hashtbl.hash_param 256 256 bc.cmis)) *)
