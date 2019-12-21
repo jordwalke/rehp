@@ -22,13 +22,13 @@ final class MoreLabels {
 
   }
   public static function Hashtbl(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function Map(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function Set(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
 
 }

@@ -115,16 +115,16 @@ final class Js_of_ocaml__Worker {
 
   }
   public static function create(dynamic $script): dynamic {
-    return static::get()[1]($script);
+    return static::callRehackFunction(static::get()[1], varray[$script]);
   }
   public static function import_scripts(dynamic $scripts): dynamic {
-    return static::get()[2]($scripts);
+    return static::callRehackFunction(static::get()[2], varray[$scripts]);
   }
   public static function set_onmessage(dynamic $handler): dynamic {
-    return static::get()[3]($handler);
+    return static::callRehackFunction(static::get()[3], varray[$handler]);
   }
   public static function post_message(dynamic $msg): dynamic {
-    return static::get()[4]($msg);
+    return static::callRehackFunction(static::get()[4], varray[$msg]);
   }
 
 }

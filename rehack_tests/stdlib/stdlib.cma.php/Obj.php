@@ -158,79 +158,76 @@ final class Obj {
 
   }
   public static function is_block(dynamic $a): dynamic {
-    return static::get()[1]($a);
+    return static::callRehackFunction(static::get()[1], varray[$a]);
   }
   public static function double_field(dynamic $x, dynamic $i): dynamic {
-    return static::get()[2]($x, $i);
+    return static::callRehackFunction(static::get()[2], varray[$x, $i]);
   }
   public static function set_double_field(dynamic $x, dynamic $i, dynamic $v): dynamic {
-    return static::get()[3]($x, $i, $v);
+    return static::callRehackFunction(static::get()[3], varray[$x, $i, $v]);
   }
   public static function first_non_constant_constructor_tag(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function last_non_constant_constructor_tag(): dynamic {
-    return static::get()[5]();
+    return static::callRehackFunction(static::get()[5], varray[]);
   }
   public static function lazy_tag(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function closure_tag(): dynamic {
-    return static::get()[7]();
+    return static::callRehackFunction(static::get()[7], varray[]);
   }
   public static function object_tag(): dynamic {
-    return static::get()[8]();
+    return static::callRehackFunction(static::get()[8], varray[]);
   }
   public static function infix_tag(): dynamic {
-    return static::get()[9]();
+    return static::callRehackFunction(static::get()[9], varray[]);
   }
   public static function forward_tag(): dynamic {
-    return static::get()[10]();
+    return static::callRehackFunction(static::get()[10], varray[]);
   }
   public static function no_scan_tag(): dynamic {
-    return static::get()[11]();
+    return static::callRehackFunction(static::get()[11], varray[]);
   }
   public static function abstract_tag(): dynamic {
-    return static::get()[12]();
+    return static::callRehackFunction(static::get()[12], varray[]);
   }
   public static function string_tag(): dynamic {
-    return static::get()[13]();
+    return static::callRehackFunction(static::get()[13], varray[]);
   }
   public static function double_tag(): dynamic {
-    return static::get()[14]();
+    return static::callRehackFunction(static::get()[14], varray[]);
   }
   public static function double_array_tag(): dynamic {
-    return static::get()[15]();
+    return static::callRehackFunction(static::get()[15], varray[]);
   }
   public static function custom_tag(): dynamic {
-    return static::get()[16]();
-  }
-  public static function custom_tag(): dynamic {
-    return static::get()[17]();
+    return static::callRehackFunction(static::get()[16], varray[]);
   }
   public static function int_tag(): dynamic {
-    return static::get()[18]();
+    return static::callRehackFunction(static::get()[18], varray[]);
   }
   public static function out_of_heap_tag(): dynamic {
-    return static::get()[19]();
+    return static::callRehackFunction(static::get()[19], varray[]);
   }
   public static function unaligned_tag(): dynamic {
-    return static::get()[20]();
+    return static::callRehackFunction(static::get()[20], varray[]);
   }
   public static function extension_constructor(dynamic $x): dynamic {
-    return static::get()[21]($x);
+    return static::callRehackFunction(static::get()[21], varray[$x]);
   }
   public static function extension_name(dynamic $slot): dynamic {
-    return static::get()[22]($slot);
+    return static::callRehackFunction(static::get()[22], varray[$slot]);
   }
   public static function extension_id(dynamic $slot): dynamic {
-    return static::get()[23]($slot);
+    return static::callRehackFunction(static::get()[23], varray[$slot]);
   }
   public static function marshal(dynamic $obj): dynamic {
-    return static::get()[24]($obj);
+    return static::callRehackFunction(static::get()[24], varray[$obj]);
   }
   public static function unmarshal(dynamic $str, dynamic $pos): dynamic {
-    return static::get()[25]($str, $pos);
+    return static::callRehackFunction(static::get()[25], varray[$str, $pos]);
   }
 
 }

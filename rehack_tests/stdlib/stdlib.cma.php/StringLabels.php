@@ -92,109 +92,109 @@ final class StringLabels {
 
   }
   public static function make(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function init(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function copy(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function sub(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function fill(): dynamic {
-    return static::get()[5]();
+    return static::callRehackFunction(static::get()[5], varray[]);
   }
   public static function blit(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function concat(): dynamic {
-    return static::get()[7]();
+    return static::callRehackFunction(static::get()[7], varray[]);
   }
   public static function iter(): dynamic {
-    return static::get()[8]();
+    return static::callRehackFunction(static::get()[8], varray[]);
   }
   public static function iteri(): dynamic {
-    return static::get()[9]();
+    return static::callRehackFunction(static::get()[9], varray[]);
   }
   public static function map(): dynamic {
-    return static::get()[10]();
+    return static::callRehackFunction(static::get()[10], varray[]);
   }
   public static function mapi(): dynamic {
-    return static::get()[11]();
+    return static::callRehackFunction(static::get()[11], varray[]);
   }
   public static function trim(): dynamic {
-    return static::get()[12]();
+    return static::callRehackFunction(static::get()[12], varray[]);
   }
   public static function escaped(): dynamic {
-    return static::get()[13]();
+    return static::callRehackFunction(static::get()[13], varray[]);
   }
   public static function index(): dynamic {
-    return static::get()[14]();
+    return static::callRehackFunction(static::get()[14], varray[]);
   }
   public static function index_opt(): dynamic {
-    return static::get()[15]();
+    return static::callRehackFunction(static::get()[15], varray[]);
   }
   public static function rindex(): dynamic {
-    return static::get()[16]();
+    return static::callRehackFunction(static::get()[16], varray[]);
   }
   public static function rindex_opt(): dynamic {
-    return static::get()[17]();
+    return static::callRehackFunction(static::get()[17], varray[]);
   }
   public static function index_from(): dynamic {
-    return static::get()[18]();
+    return static::callRehackFunction(static::get()[18], varray[]);
   }
   public static function index_from_opt(): dynamic {
-    return static::get()[19]();
+    return static::callRehackFunction(static::get()[19], varray[]);
   }
   public static function rindex_from(): dynamic {
-    return static::get()[20]();
+    return static::callRehackFunction(static::get()[20], varray[]);
   }
   public static function rindex_from_opt(): dynamic {
-    return static::get()[21]();
+    return static::callRehackFunction(static::get()[21], varray[]);
   }
   public static function contains(): dynamic {
-    return static::get()[22]();
+    return static::callRehackFunction(static::get()[22], varray[]);
   }
   public static function contains_from(): dynamic {
-    return static::get()[23]();
+    return static::callRehackFunction(static::get()[23], varray[]);
   }
   public static function rcontains_from(): dynamic {
-    return static::get()[24]();
+    return static::callRehackFunction(static::get()[24], varray[]);
   }
   public static function uppercase(): dynamic {
-    return static::get()[25]();
+    return static::callRehackFunction(static::get()[25], varray[]);
   }
   public static function lowercase(): dynamic {
-    return static::get()[26]();
+    return static::callRehackFunction(static::get()[26], varray[]);
   }
   public static function capitalize(): dynamic {
-    return static::get()[27]();
+    return static::callRehackFunction(static::get()[27], varray[]);
   }
   public static function uncapitalize(): dynamic {
-    return static::get()[28]();
+    return static::callRehackFunction(static::get()[28], varray[]);
   }
   public static function uppercase_ascii(): dynamic {
-    return static::get()[29]();
+    return static::callRehackFunction(static::get()[29], varray[]);
   }
   public static function lowercase_ascii(): dynamic {
-    return static::get()[30]();
+    return static::callRehackFunction(static::get()[30], varray[]);
   }
   public static function capitalize_ascii(): dynamic {
-    return static::get()[31]();
+    return static::callRehackFunction(static::get()[31], varray[]);
   }
   public static function uncapitalize_ascii(): dynamic {
-    return static::get()[32]();
+    return static::callRehackFunction(static::get()[32], varray[]);
   }
   public static function compare(): dynamic {
-    return static::get()[33]();
+    return static::callRehackFunction(static::get()[33], varray[]);
   }
   public static function equal(): dynamic {
-    return static::get()[34]();
+    return static::callRehackFunction(static::get()[34], varray[]);
   }
   public static function split_on_char(): dynamic {
-    return static::get()[35]();
+    return static::callRehackFunction(static::get()[35], varray[]);
   }
 
 }

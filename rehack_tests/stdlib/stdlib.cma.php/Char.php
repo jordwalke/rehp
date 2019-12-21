@@ -126,28 +126,28 @@ final class Char {
 
   }
   public static function chr(dynamic $n): dynamic {
-    return static::get()[1]($n);
+    return static::callRehackFunction(static::get()[1], varray[$n]);
   }
   public static function escaped(dynamic $c): dynamic {
-    return static::get()[2]($c);
+    return static::callRehackFunction(static::get()[2], varray[$c]);
   }
   public static function lowercase(dynamic $c): dynamic {
-    return static::get()[3]($c);
+    return static::callRehackFunction(static::get()[3], varray[$c]);
   }
   public static function uppercase(dynamic $c): dynamic {
-    return static::get()[4]($c);
+    return static::callRehackFunction(static::get()[4], varray[$c]);
   }
   public static function lowercase_ascii(dynamic $c): dynamic {
-    return static::get()[5]($c);
+    return static::callRehackFunction(static::get()[5], varray[$c]);
   }
   public static function uppercase_ascii(dynamic $c): dynamic {
-    return static::get()[6]($c);
+    return static::callRehackFunction(static::get()[6], varray[$c]);
   }
   public static function compare(dynamic $c1, dynamic $c2): dynamic {
-    return static::get()[7]($c1, $c2);
+    return static::callRehackFunction(static::get()[7], varray[$c1, $c2]);
   }
   public static function equal(dynamic $c1, dynamic $c2): dynamic {
-    return static::get()[8]($c1, $c2);
+    return static::callRehackFunction(static::get()[8], varray[$c1, $c2]);
   }
 
 }

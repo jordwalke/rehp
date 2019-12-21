@@ -47,13 +47,13 @@ final class Js_of_ocaml__Geolocation {
 
   }
   public static function empty_position_options(dynamic $param): dynamic {
-    return static::get()[1]($param);
+    return static::callRehackFunction(static::get()[1], varray[$param]);
   }
   public static function geolocation(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::get()[3]($param);
+    return static::callRehackFunction(static::get()[3], varray[$param]);
   }
 
 }

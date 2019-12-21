@@ -107,10 +107,10 @@ final class Js_of_ocaml__XmlHttpRequest {
 
   }
   public static function create(dynamic $param): dynamic {
-    return static::get()[1]($param);
+    return static::callRehackFunction(static::get()[1], varray[$param]);
   }
   public static function Event(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
 
 }

@@ -467,106 +467,106 @@ final class String_ {
 
   }
   public static function make(dynamic $n, dynamic $c): dynamic {
-    return static::get()[1]($n, $c);
+    return static::callRehackFunction(static::get()[1], varray[$n, $c]);
   }
   public static function init(dynamic $n, dynamic $f): dynamic {
-    return static::get()[2]($n, $f);
+    return static::callRehackFunction(static::get()[2], varray[$n, $f]);
   }
   public static function copy(dynamic $s): dynamic {
-    return static::get()[3]($s);
+    return static::callRehackFunction(static::get()[3], varray[$s]);
   }
   public static function sub(dynamic $s, dynamic $ofs, dynamic $len): dynamic {
-    return static::get()[4]($s, $ofs, $len);
+    return static::callRehackFunction(static::get()[4], varray[$s, $ofs, $len]);
   }
   public static function fill(): dynamic {
-    return static::get()[5]();
+    return static::callRehackFunction(static::get()[5], varray[]);
   }
   public static function blit(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function concat(dynamic $sep, dynamic $l): dynamic {
-    return static::get()[7]($sep, $l);
+    return static::callRehackFunction(static::get()[7], varray[$sep, $l]);
   }
   public static function iter(dynamic $f, dynamic $s): dynamic {
-    return static::get()[8]($f, $s);
+    return static::callRehackFunction(static::get()[8], varray[$f, $s]);
   }
   public static function iteri(dynamic $f, dynamic $s): dynamic {
-    return static::get()[9]($f, $s);
+    return static::callRehackFunction(static::get()[9], varray[$f, $s]);
   }
   public static function map(dynamic $f, dynamic $s): dynamic {
-    return static::get()[10]($f, $s);
+    return static::callRehackFunction(static::get()[10], varray[$f, $s]);
   }
   public static function mapi(dynamic $f, dynamic $s): dynamic {
-    return static::get()[11]($f, $s);
+    return static::callRehackFunction(static::get()[11], varray[$f, $s]);
   }
   public static function trim(dynamic $s): dynamic {
-    return static::get()[12]($s);
+    return static::callRehackFunction(static::get()[12], varray[$s]);
   }
   public static function escaped(dynamic $s): dynamic {
-    return static::get()[13]($s);
+    return static::callRehackFunction(static::get()[13], varray[$s]);
   }
   public static function index(dynamic $s, dynamic $c): dynamic {
-    return static::get()[14]($s, $c);
+    return static::callRehackFunction(static::get()[14], varray[$s, $c]);
   }
   public static function index_opt(dynamic $s, dynamic $c): dynamic {
-    return static::get()[15]($s, $c);
+    return static::callRehackFunction(static::get()[15], varray[$s, $c]);
   }
   public static function rindex(dynamic $s, dynamic $c): dynamic {
-    return static::get()[16]($s, $c);
+    return static::callRehackFunction(static::get()[16], varray[$s, $c]);
   }
   public static function rindex_opt(dynamic $s, dynamic $c): dynamic {
-    return static::get()[17]($s, $c);
+    return static::callRehackFunction(static::get()[17], varray[$s, $c]);
   }
   public static function index_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
-    return static::get()[18]($s, $i, $c);
+    return static::callRehackFunction(static::get()[18], varray[$s, $i, $c]);
   }
   public static function index_from_opt(dynamic $s, dynamic $i, dynamic $c): dynamic {
-    return static::get()[19]($s, $i, $c);
+    return static::callRehackFunction(static::get()[19], varray[$s, $i, $c]);
   }
   public static function rindex_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
-    return static::get()[20]($s, $i, $c);
+    return static::callRehackFunction(static::get()[20], varray[$s, $i, $c]);
   }
   public static function rindex_from_opt(dynamic $s, dynamic $i, dynamic $c): dynamic {
-    return static::get()[21]($s, $i, $c);
+    return static::callRehackFunction(static::get()[21], varray[$s, $i, $c]);
   }
   public static function contains(dynamic $s, dynamic $c): dynamic {
-    return static::get()[22]($s, $c);
+    return static::callRehackFunction(static::get()[22], varray[$s, $c]);
   }
   public static function contains_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
-    return static::get()[23]($s, $i, $c);
+    return static::callRehackFunction(static::get()[23], varray[$s, $i, $c]);
   }
   public static function rcontains_from(dynamic $s, dynamic $i, dynamic $c): dynamic {
-    return static::get()[24]($s, $i, $c);
+    return static::callRehackFunction(static::get()[24], varray[$s, $i, $c]);
   }
   public static function uppercase(dynamic $s): dynamic {
-    return static::get()[25]($s);
+    return static::callRehackFunction(static::get()[25], varray[$s]);
   }
   public static function lowercase(dynamic $s): dynamic {
-    return static::get()[26]($s);
+    return static::callRehackFunction(static::get()[26], varray[$s]);
   }
   public static function capitalize(dynamic $s): dynamic {
-    return static::get()[27]($s);
+    return static::callRehackFunction(static::get()[27], varray[$s]);
   }
   public static function uncapitalize(dynamic $s): dynamic {
-    return static::get()[28]($s);
+    return static::callRehackFunction(static::get()[28], varray[$s]);
   }
   public static function uppercase_ascii(dynamic $s): dynamic {
-    return static::get()[29]($s);
+    return static::callRehackFunction(static::get()[29], varray[$s]);
   }
   public static function lowercase_ascii(dynamic $s): dynamic {
-    return static::get()[30]($s);
+    return static::callRehackFunction(static::get()[30], varray[$s]);
   }
   public static function capitalize_ascii(dynamic $s): dynamic {
-    return static::get()[31]($s);
+    return static::callRehackFunction(static::get()[31], varray[$s]);
   }
   public static function uncapitalize_ascii(dynamic $s): dynamic {
-    return static::get()[32]($s);
+    return static::callRehackFunction(static::get()[32], varray[$s]);
   }
   public static function compare(dynamic $x, dynamic $y): dynamic {
-    return static::get()[33]($x, $y);
+    return static::callRehackFunction(static::get()[33], varray[$x, $y]);
   }
   public static function split_on_char(dynamic $sep, dynamic $s): dynamic {
-    return static::get()[35]($sep, $s);
+    return static::callRehackFunction(static::get()[35], varray[$sep, $s]);
   }
 
 }

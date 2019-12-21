@@ -21,10 +21,10 @@ final class CamlinternalMod {
 
   }
   public static function init_mod(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function update_mod(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
 
 }

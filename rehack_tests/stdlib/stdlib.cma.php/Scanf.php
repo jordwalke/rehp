@@ -2552,40 +2552,40 @@ final class Scanf {
 
   }
   public static function Scan_failure(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function bscanf(dynamic $ib, dynamic $fmt): dynamic {
-    return static::get()[3]($ib, $fmt);
+    return static::callRehackFunction(static::get()[3], varray[$ib, $fmt]);
   }
   public static function sscanf(dynamic $s, dynamic $fmt): dynamic {
-    return static::get()[4]($s, $fmt);
+    return static::callRehackFunction(static::get()[4], varray[$s, $fmt]);
   }
   public static function scanf(dynamic $fmt): dynamic {
-    return static::get()[5]($fmt);
+    return static::callRehackFunction(static::get()[5], varray[$fmt]);
   }
   public static function kscanf(dynamic $ib, dynamic $ef, dynamic $param): dynamic {
-    return static::get()[6]($ib, $ef, $param);
+    return static::callRehackFunction(static::get()[6], varray[$ib, $ef, $param]);
   }
   public static function ksscanf(dynamic $s, dynamic $ef, dynamic $fmt): dynamic {
-    return static::get()[7]($s, $ef, $fmt);
+    return static::callRehackFunction(static::get()[7], varray[$s, $ef, $fmt]);
   }
   public static function bscanf_format(dynamic $ib, dynamic $format, dynamic $f): dynamic {
-    return static::get()[8]($ib, $format, $f);
+    return static::callRehackFunction(static::get()[8], varray[$ib, $format, $f]);
   }
   public static function sscanf_format(dynamic $s, dynamic $format, dynamic $f): dynamic {
-    return static::get()[9]($s, $format, $f);
+    return static::callRehackFunction(static::get()[9], varray[$s, $format, $f]);
   }
   public static function format_from_string(dynamic $s, dynamic $fmt): dynamic {
-    return static::get()[10]($s, $fmt);
+    return static::callRehackFunction(static::get()[10], varray[$s, $fmt]);
   }
   public static function unescaped(dynamic $s): dynamic {
-    return static::get()[11]($s);
+    return static::callRehackFunction(static::get()[11], varray[$s]);
   }
   public static function fscanf(dynamic $ic, dynamic $fmt): dynamic {
-    return static::get()[12]($ic, $fmt);
+    return static::callRehackFunction(static::get()[12], varray[$ic, $fmt]);
   }
   public static function kfscanf(dynamic $ic, dynamic $ef, dynamic $fmt): dynamic {
-    return static::get()[13]($ic, $ef, $fmt);
+    return static::callRehackFunction(static::get()[13], varray[$ic, $ef, $fmt]);
   }
 
 }

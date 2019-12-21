@@ -2700,10 +2700,10 @@ final class Js_of_ocaml__CSS {
 
   }
   public static function Length(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function Angle(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
 
 }

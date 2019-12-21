@@ -15,17 +15,17 @@ final class Js_of_ocaml__Lib_version {
     $runtime = $joo_global_object->jsoo_runtime;
     $string = $runtime["caml_new_string"];
     $s = $string("3.3.0");
-    $git_version = $string("890634217");
+    $git_version = $string("80442e068");
     $Js_of_ocaml_Lib_version = Vector{0, $s, $git_version};
     
      return ($Js_of_ocaml_Lib_version);
 
   }
   public static function s(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function git_version(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
 
 }

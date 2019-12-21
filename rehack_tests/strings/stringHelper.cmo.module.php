@@ -20,7 +20,7 @@ final class StringHelper {
 
   }
   public static function helperVal(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
 
 }

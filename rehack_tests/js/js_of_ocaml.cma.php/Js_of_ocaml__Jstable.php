@@ -122,19 +122,19 @@ final class Js_of_ocaml__Jstable {
 
   }
   public static function create(dynamic $param): dynamic {
-    return static::get()[1]($param);
+    return static::callRehackFunction(static::get()[1], varray[$param]);
   }
   public static function add(dynamic $t, dynamic $k, dynamic $v): dynamic {
-    return static::get()[2]($t, $k, $v);
+    return static::callRehackFunction(static::get()[2], varray[$t, $k, $v]);
   }
   public static function remove(dynamic $t, dynamic $k): dynamic {
-    return static::get()[3]($t, $k);
+    return static::callRehackFunction(static::get()[3], varray[$t, $k]);
   }
   public static function find(dynamic $t, dynamic $k): dynamic {
-    return static::get()[4]($t, $k);
+    return static::callRehackFunction(static::get()[4], varray[$t, $k]);
   }
   public static function keys(dynamic $t): dynamic {
-    return static::get()[5]($t);
+    return static::callRehackFunction(static::get()[5], varray[$t]);
   }
 
 }

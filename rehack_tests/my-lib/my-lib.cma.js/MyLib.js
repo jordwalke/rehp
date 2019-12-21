@@ -86,6 +86,10 @@ function testPartialMethodCalls(o) {
 }
 
 var x = call1(MyLib_MyLibUtility[1], 0);
+
+function genThisShouldBeAsyncTransformed(input, cb) {return call1(cb, input + 1 | 0);
+}
+
 var MyLib = [
   0,
   foo,
@@ -95,39 +99,12 @@ var MyLib = [
   testMethodCalls,
   testPartialFunctionCalls,
   testPartialMethodCalls,
-  x
+  x,
+  genThisShouldBeAsyncTransformed,
+  genThisShouldBeAsyncTransformed
 ];
 
 exports = MyLib;
 
-/*::type Exports = {
-  foo: any
-  bar: any
-  baz: any
-  testFunctionCalls: (o: any) => any,
-  testMethodCalls: (o: any) => any,
-  testPartialFunctionCalls: (o: any) => any,
-  testPartialMethodCalls: (o: any) => any,
-  x: any
-}*/
-/** @type {{
-  foo: any,
-  bar: any,
-  baz: any,
-  testFunctionCalls: (any) => any,
-  testMethodCalls: (any) => any,
-  testPartialFunctionCalls: (any) => any,
-  testPartialMethodCalls: (any) => any,
-  x: any,
-}} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.foo = module.exports[1];
-module.exports.bar = module.exports[2];
-module.exports.baz = module.exports[3];
-module.exports.testFunctionCalls = module.exports[4];
-module.exports.testMethodCalls = module.exports[5];
-module.exports.testPartialFunctionCalls = module.exports[6];
-module.exports.testPartialMethodCalls = module.exports[7];
-module.exports.x = module.exports[8];
-
-/*____hashes flags: 1022939002 bytecode: 57313895614 debug-data: 26008205103 primitives: 314532832*/
+/*____CompilationSummary*/
+/*____hashes flags: 585918536 bytecode: 55757916712 debug-data: 21475993188 primitives: 314532832*/

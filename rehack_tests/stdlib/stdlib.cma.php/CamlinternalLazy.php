@@ -83,19 +83,19 @@ final class CamlinternalLazy {
 
   }
   public static function Undefined(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function force_lazy_block(dynamic $blk): dynamic {
-    return static::get()[2]($blk);
+    return static::callRehackFunction(static::get()[2], varray[$blk]);
   }
   public static function force_val_lazy_block(dynamic $blk): dynamic {
-    return static::get()[3]($blk);
+    return static::callRehackFunction(static::get()[3], varray[$blk]);
   }
   public static function force(dynamic $lzv): dynamic {
-    return static::get()[4]($lzv);
+    return static::callRehackFunction(static::get()[4], varray[$lzv]);
   }
   public static function force_val(dynamic $lzv): dynamic {
-    return static::get()[5]($lzv);
+    return static::callRehackFunction(static::get()[5], varray[$lzv]);
   }
 
 }

@@ -89,16 +89,16 @@ final class Spacetime {
 
   }
   public static function enabled(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function Series(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function Snapshot(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function save_event_for_automatic_snapshots(dynamic $event_name): dynamic {
-    return static::get()[4]($event_name);
+    return static::callRehackFunction(static::get()[4], varray[$event_name]);
   }
 
 }

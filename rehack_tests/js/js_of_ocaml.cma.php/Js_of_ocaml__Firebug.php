@@ -20,7 +20,7 @@ final class Js_of_ocaml__Firebug {
 
   }
   public static function console(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
 
 }

@@ -40,10 +40,10 @@ final class Js_of_ocaml__Dom_events {
 
   }
   public static function listen(dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb): dynamic {
-    return static::get()[2]($opt, $target, $typ, $cb);
+    return static::callRehackFunction(static::get()[2], varray[$opt, $target, $typ, $cb]);
   }
   public static function stop_listen(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
 
 }

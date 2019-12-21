@@ -1187,160 +1187,148 @@ final class List_ {
 
   }
   public static function length(dynamic $l): dynamic {
-    return static::get()[1]($l);
+    return static::callRehackFunction(static::get()[1], varray[$l]);
   }
   public static function compare_lengths(dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[2]($l1, $l2);
+    return static::callRehackFunction(static::get()[2], varray[$l1, $l2]);
   }
   public static function compare_length_with(dynamic $l, dynamic $n): dynamic {
-    return static::get()[3]($l, $n);
+    return static::callRehackFunction(static::get()[3], varray[$l, $n]);
   }
   public static function cons(dynamic $a, dynamic $l): dynamic {
-    return static::get()[4]($a, $l);
+    return static::callRehackFunction(static::get()[4], varray[$a, $l]);
   }
   public static function hd(dynamic $param): dynamic {
-    return static::get()[5]($param);
+    return static::callRehackFunction(static::get()[5], varray[$param]);
   }
   public static function tl(dynamic $param): dynamic {
-    return static::get()[6]($param);
+    return static::callRehackFunction(static::get()[6], varray[$param]);
   }
   public static function nth(dynamic $l, dynamic $n): dynamic {
-    return static::get()[7]($l, $n);
+    return static::callRehackFunction(static::get()[7], varray[$l, $n]);
   }
   public static function nth_opt(dynamic $l, dynamic $n): dynamic {
-    return static::get()[8]($l, $n);
+    return static::callRehackFunction(static::get()[8], varray[$l, $n]);
   }
   public static function rev(dynamic $l): dynamic {
-    return static::get()[9]($l);
+    return static::callRehackFunction(static::get()[9], varray[$l]);
   }
   public static function init(dynamic $len, dynamic $f): dynamic {
-    return static::get()[10]($len, $f);
+    return static::callRehackFunction(static::get()[10], varray[$len, $f]);
   }
   public static function append(): dynamic {
-    return static::get()[11]();
+    return static::callRehackFunction(static::get()[11], varray[]);
   }
   public static function rev_append(dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[12]($l1, $l2);
+    return static::callRehackFunction(static::get()[12], varray[$l1, $l2]);
   }
   public static function flatten(dynamic $param): dynamic {
-    return static::get()[13]($param);
-  }
-  public static function flatten(dynamic $param): dynamic {
-    return static::get()[14]($param);
+    return static::callRehackFunction(static::get()[13], varray[$param]);
   }
   public static function iter(dynamic $f, dynamic $param): dynamic {
-    return static::get()[15]($f, $param);
+    return static::callRehackFunction(static::get()[15], varray[$f, $param]);
   }
   public static function iteri(dynamic $f, dynamic $l): dynamic {
-    return static::get()[16]($f, $l);
+    return static::callRehackFunction(static::get()[16], varray[$f, $l]);
   }
   public static function map(dynamic $f, dynamic $param): dynamic {
-    return static::get()[17]($f, $param);
+    return static::callRehackFunction(static::get()[17], varray[$f, $param]);
   }
   public static function mapi(dynamic $f, dynamic $l): dynamic {
-    return static::get()[18]($f, $l);
+    return static::callRehackFunction(static::get()[18], varray[$f, $l]);
   }
   public static function rev_map(dynamic $f, dynamic $l): dynamic {
-    return static::get()[19]($f, $l);
+    return static::callRehackFunction(static::get()[19], varray[$f, $l]);
   }
   public static function fold_left(dynamic $f, dynamic $accu, dynamic $l): dynamic {
-    return static::get()[20]($f, $accu, $l);
+    return static::callRehackFunction(static::get()[20], varray[$f, $accu, $l]);
   }
   public static function fold_right(dynamic $f, dynamic $l, dynamic $accu): dynamic {
-    return static::get()[21]($f, $l, $accu);
+    return static::callRehackFunction(static::get()[21], varray[$f, $l, $accu]);
   }
   public static function iter2(dynamic $f, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[22]($f, $l1, $l2);
+    return static::callRehackFunction(static::get()[22], varray[$f, $l1, $l2]);
   }
   public static function map2(dynamic $f, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[23]($f, $l1, $l2);
+    return static::callRehackFunction(static::get()[23], varray[$f, $l1, $l2]);
   }
   public static function rev_map2(dynamic $f, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[24]($f, $l1, $l2);
+    return static::callRehackFunction(static::get()[24], varray[$f, $l1, $l2]);
   }
   public static function fold_left2(dynamic $f, dynamic $accu, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[25]($f, $accu, $l1, $l2);
+    return static::callRehackFunction(static::get()[25], varray[$f, $accu, $l1, $l2]);
   }
   public static function fold_right2(dynamic $f, dynamic $l1, dynamic $l2, dynamic $accu): dynamic {
-    return static::get()[26]($f, $l1, $l2, $accu);
+    return static::callRehackFunction(static::get()[26], varray[$f, $l1, $l2, $accu]);
   }
   public static function for_all(dynamic $p, dynamic $param): dynamic {
-    return static::get()[27]($p, $param);
+    return static::callRehackFunction(static::get()[27], varray[$p, $param]);
   }
   public static function exists(dynamic $p, dynamic $param): dynamic {
-    return static::get()[28]($p, $param);
+    return static::callRehackFunction(static::get()[28], varray[$p, $param]);
   }
   public static function for_all2(dynamic $p, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[29]($p, $l1, $l2);
+    return static::callRehackFunction(static::get()[29], varray[$p, $l1, $l2]);
   }
   public static function exists2(dynamic $p, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[30]($p, $l1, $l2);
+    return static::callRehackFunction(static::get()[30], varray[$p, $l1, $l2]);
   }
   public static function mem(dynamic $x, dynamic $param): dynamic {
-    return static::get()[31]($x, $param);
+    return static::callRehackFunction(static::get()[31], varray[$x, $param]);
   }
   public static function memq(dynamic $x, dynamic $param): dynamic {
-    return static::get()[32]($x, $param);
+    return static::callRehackFunction(static::get()[32], varray[$x, $param]);
   }
   public static function find(dynamic $p, dynamic $param): dynamic {
-    return static::get()[33]($p, $param);
+    return static::callRehackFunction(static::get()[33], varray[$p, $param]);
   }
   public static function find_opt(dynamic $p, dynamic $param): dynamic {
-    return static::get()[34]($p, $param);
+    return static::callRehackFunction(static::get()[34], varray[$p, $param]);
   }
   public static function find_all(dynamic $p): dynamic {
-    return static::get()[35]($p);
-  }
-  public static function find_all(dynamic $p): dynamic {
-    return static::get()[36]($p);
+    return static::callRehackFunction(static::get()[35], varray[$p]);
   }
   public static function partition(dynamic $p, dynamic $l): dynamic {
-    return static::get()[37]($p, $l);
+    return static::callRehackFunction(static::get()[37], varray[$p, $l]);
   }
   public static function assoc(dynamic $x, dynamic $param): dynamic {
-    return static::get()[38]($x, $param);
+    return static::callRehackFunction(static::get()[38], varray[$x, $param]);
   }
   public static function assoc_opt(dynamic $x, dynamic $param): dynamic {
-    return static::get()[39]($x, $param);
+    return static::callRehackFunction(static::get()[39], varray[$x, $param]);
   }
   public static function assq(dynamic $x, dynamic $param): dynamic {
-    return static::get()[40]($x, $param);
+    return static::callRehackFunction(static::get()[40], varray[$x, $param]);
   }
   public static function assq_opt(dynamic $x, dynamic $param): dynamic {
-    return static::get()[41]($x, $param);
+    return static::callRehackFunction(static::get()[41], varray[$x, $param]);
   }
   public static function mem_assoc(dynamic $x, dynamic $param): dynamic {
-    return static::get()[42]($x, $param);
+    return static::callRehackFunction(static::get()[42], varray[$x, $param]);
   }
   public static function mem_assq(dynamic $x, dynamic $param): dynamic {
-    return static::get()[43]($x, $param);
+    return static::callRehackFunction(static::get()[43], varray[$x, $param]);
   }
   public static function remove_assoc(dynamic $x, dynamic $param): dynamic {
-    return static::get()[44]($x, $param);
+    return static::callRehackFunction(static::get()[44], varray[$x, $param]);
   }
   public static function remove_assq(dynamic $x, dynamic $param): dynamic {
-    return static::get()[45]($x, $param);
+    return static::callRehackFunction(static::get()[45], varray[$x, $param]);
   }
   public static function split(dynamic $param): dynamic {
-    return static::get()[46]($param);
+    return static::callRehackFunction(static::get()[46], varray[$param]);
   }
   public static function combine(dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[47]($l1, $l2);
+    return static::callRehackFunction(static::get()[47], varray[$l1, $l2]);
   }
   public static function stable_sort(dynamic $cmp, dynamic $l): dynamic {
-    return static::get()[48]($cmp, $l);
-  }
-  public static function stable_sort(dynamic $cmp, dynamic $l): dynamic {
-    return static::get()[49]($cmp, $l);
-  }
-  public static function stable_sort(dynamic $cmp, dynamic $l): dynamic {
-    return static::get()[50]($cmp, $l);
+    return static::callRehackFunction(static::get()[48], varray[$cmp, $l]);
   }
   public static function sort_uniq(dynamic $cmp, dynamic $l): dynamic {
-    return static::get()[51]($cmp, $l);
+    return static::callRehackFunction(static::get()[51], varray[$cmp, $l]);
   }
   public static function merge(dynamic $cmp, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[52]($cmp, $l1, $l2);
+    return static::callRehackFunction(static::get()[52], varray[$cmp, $l1, $l2]);
   }
 
 }

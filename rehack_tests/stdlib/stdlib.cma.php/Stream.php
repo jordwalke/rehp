@@ -473,73 +473,73 @@ final class Stream {
 
   }
   public static function Failure(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function Error(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function from(dynamic $f): dynamic {
-    return static::get()[3]($f);
+    return static::callRehackFunction(static::get()[3], varray[$f]);
   }
   public static function of_list(dynamic $l): dynamic {
-    return static::get()[4]($l);
+    return static::callRehackFunction(static::get()[4], varray[$l]);
   }
   public static function of_string(dynamic $s): dynamic {
-    return static::get()[5]($s);
+    return static::callRehackFunction(static::get()[5], varray[$s]);
   }
   public static function of_bytes(dynamic $s): dynamic {
-    return static::get()[6]($s);
+    return static::callRehackFunction(static::get()[6], varray[$s]);
   }
   public static function of_channel(dynamic $ic): dynamic {
-    return static::get()[7]($ic);
+    return static::callRehackFunction(static::get()[7], varray[$ic]);
   }
   public static function iter(dynamic $f, dynamic $strm): dynamic {
-    return static::get()[8]($f, $strm);
+    return static::callRehackFunction(static::get()[8], varray[$f, $strm]);
   }
   public static function next(dynamic $s): dynamic {
-    return static::get()[9]($s);
+    return static::callRehackFunction(static::get()[9], varray[$s]);
   }
   public static function empty(dynamic $s): dynamic {
-    return static::get()[10]($s);
+    return static::callRehackFunction(static::get()[10], varray[$s]);
   }
   public static function peek(dynamic $param): dynamic {
-    return static::get()[11]($param);
+    return static::callRehackFunction(static::get()[11], varray[$param]);
   }
   public static function junk(dynamic $param): dynamic {
-    return static::get()[12]($param);
+    return static::callRehackFunction(static::get()[12], varray[$param]);
   }
   public static function count(dynamic $param): dynamic {
-    return static::get()[13]($param);
+    return static::callRehackFunction(static::get()[13], varray[$param]);
   }
   public static function npeek(dynamic $n, dynamic $param): dynamic {
-    return static::get()[14]($n, $param);
+    return static::callRehackFunction(static::get()[14], varray[$n, $param]);
   }
   public static function iapp(dynamic $i, dynamic $s): dynamic {
-    return static::get()[15]($i, $s);
+    return static::callRehackFunction(static::get()[15], varray[$i, $s]);
   }
   public static function icons(dynamic $i, dynamic $s): dynamic {
-    return static::get()[16]($i, $s);
+    return static::callRehackFunction(static::get()[16], varray[$i, $s]);
   }
   public static function ising(dynamic $i): dynamic {
-    return static::get()[17]($i);
+    return static::callRehackFunction(static::get()[17], varray[$i]);
   }
   public static function lapp(dynamic $f, dynamic $s): dynamic {
-    return static::get()[18]($f, $s);
+    return static::callRehackFunction(static::get()[18], varray[$f, $s]);
   }
   public static function lcons(dynamic $f, dynamic $s): dynamic {
-    return static::get()[19]($f, $s);
+    return static::callRehackFunction(static::get()[19], varray[$f, $s]);
   }
   public static function lsing(dynamic $f): dynamic {
-    return static::get()[20]($f);
+    return static::callRehackFunction(static::get()[20], varray[$f]);
   }
   public static function sempty(): dynamic {
-    return static::get()[21]();
+    return static::callRehackFunction(static::get()[21], varray[]);
   }
   public static function slazy(dynamic $f): dynamic {
-    return static::get()[22]($f);
+    return static::callRehackFunction(static::get()[22], varray[$f]);
   }
   public static function dump(dynamic $f, dynamic $s): dynamic {
-    return static::get()[23]($f, $s);
+    return static::callRehackFunction(static::get()[23], varray[$f, $s]);
   }
 
 }

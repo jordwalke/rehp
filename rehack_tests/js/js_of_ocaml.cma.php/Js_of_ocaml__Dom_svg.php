@@ -564,184 +564,184 @@ final class Js_of_ocaml__Dom_svg {
 
   }
   public static function xmlns(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function SVGError(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function createElement(dynamic $doc, dynamic $name): dynamic {
-    return static::get()[3]($doc, $name);
+    return static::callRehackFunction(static::get()[3], varray[$doc, $name]);
   }
   public static function createA(dynamic $doc): dynamic {
-    return static::get()[4]($doc);
+    return static::callRehackFunction(static::get()[4], varray[$doc]);
   }
   public static function createAltGlyph(dynamic $doc): dynamic {
-    return static::get()[5]($doc);
+    return static::callRehackFunction(static::get()[5], varray[$doc]);
   }
   public static function createAltGlyphDef(dynamic $doc): dynamic {
-    return static::get()[6]($doc);
+    return static::callRehackFunction(static::get()[6], varray[$doc]);
   }
   public static function createAltGlyphItem(dynamic $doc): dynamic {
-    return static::get()[7]($doc);
+    return static::callRehackFunction(static::get()[7], varray[$doc]);
   }
   public static function createAnimate(dynamic $doc): dynamic {
-    return static::get()[8]($doc);
+    return static::callRehackFunction(static::get()[8], varray[$doc]);
   }
   public static function createAnimateColor(dynamic $doc): dynamic {
-    return static::get()[9]($doc);
+    return static::callRehackFunction(static::get()[9], varray[$doc]);
   }
   public static function createAnimateMotion(dynamic $doc): dynamic {
-    return static::get()[10]($doc);
+    return static::callRehackFunction(static::get()[10], varray[$doc]);
   }
   public static function createAnimateTransform(dynamic $doc): dynamic {
-    return static::get()[11]($doc);
+    return static::callRehackFunction(static::get()[11], varray[$doc]);
   }
   public static function createCircle(dynamic $doc): dynamic {
-    return static::get()[12]($doc);
+    return static::callRehackFunction(static::get()[12], varray[$doc]);
   }
   public static function createClipPath(dynamic $doc): dynamic {
-    return static::get()[13]($doc);
+    return static::callRehackFunction(static::get()[13], varray[$doc]);
   }
   public static function createCursor(dynamic $doc): dynamic {
-    return static::get()[14]($doc);
+    return static::callRehackFunction(static::get()[14], varray[$doc]);
   }
   public static function createDefs(dynamic $doc): dynamic {
-    return static::get()[15]($doc);
+    return static::callRehackFunction(static::get()[15], varray[$doc]);
   }
   public static function createDesc(dynamic $doc): dynamic {
-    return static::get()[16]($doc);
+    return static::callRehackFunction(static::get()[16], varray[$doc]);
   }
   public static function createEllipse(dynamic $doc): dynamic {
-    return static::get()[17]($doc);
+    return static::callRehackFunction(static::get()[17], varray[$doc]);
   }
   public static function createFilter(dynamic $doc): dynamic {
-    return static::get()[18]($doc);
+    return static::callRehackFunction(static::get()[18], varray[$doc]);
   }
   public static function createFont(dynamic $doc): dynamic {
-    return static::get()[19]($doc);
+    return static::callRehackFunction(static::get()[19], varray[$doc]);
   }
   public static function createFontFace(dynamic $doc): dynamic {
-    return static::get()[20]($doc);
+    return static::callRehackFunction(static::get()[20], varray[$doc]);
   }
   public static function createFontFaceFormat(dynamic $doc): dynamic {
-    return static::get()[21]($doc);
+    return static::callRehackFunction(static::get()[21], varray[$doc]);
   }
   public static function createFontFaceName(dynamic $doc): dynamic {
-    return static::get()[22]($doc);
+    return static::callRehackFunction(static::get()[22], varray[$doc]);
   }
   public static function createFontFaceSrc(dynamic $doc): dynamic {
-    return static::get()[23]($doc);
+    return static::callRehackFunction(static::get()[23], varray[$doc]);
   }
   public static function createFontFaceUri(dynamic $doc): dynamic {
-    return static::get()[24]($doc);
+    return static::callRehackFunction(static::get()[24], varray[$doc]);
   }
   public static function createForeignObject(dynamic $doc): dynamic {
-    return static::get()[25]($doc);
+    return static::callRehackFunction(static::get()[25], varray[$doc]);
   }
   public static function createG(dynamic $doc): dynamic {
-    return static::get()[26]($doc);
+    return static::callRehackFunction(static::get()[26], varray[$doc]);
   }
   public static function createGlyph(dynamic $doc): dynamic {
-    return static::get()[27]($doc);
+    return static::callRehackFunction(static::get()[27], varray[$doc]);
   }
   public static function createGlyphRef(dynamic $doc): dynamic {
-    return static::get()[28]($doc);
+    return static::callRehackFunction(static::get()[28], varray[$doc]);
   }
   public static function createhkern(dynamic $doc): dynamic {
-    return static::get()[29]($doc);
+    return static::callRehackFunction(static::get()[29], varray[$doc]);
   }
   public static function createImage(dynamic $doc): dynamic {
-    return static::get()[30]($doc);
+    return static::callRehackFunction(static::get()[30], varray[$doc]);
   }
   public static function createLineElement(dynamic $doc): dynamic {
-    return static::get()[31]($doc);
+    return static::callRehackFunction(static::get()[31], varray[$doc]);
   }
   public static function createLinearElement(dynamic $doc): dynamic {
-    return static::get()[32]($doc);
+    return static::callRehackFunction(static::get()[32], varray[$doc]);
   }
   public static function createMask(dynamic $doc): dynamic {
-    return static::get()[33]($doc);
+    return static::callRehackFunction(static::get()[33], varray[$doc]);
   }
   public static function createMetaData(dynamic $doc): dynamic {
-    return static::get()[34]($doc);
+    return static::callRehackFunction(static::get()[34], varray[$doc]);
   }
   public static function createMissingGlyph(dynamic $doc): dynamic {
-    return static::get()[35]($doc);
+    return static::callRehackFunction(static::get()[35], varray[$doc]);
   }
   public static function createMPath(dynamic $doc): dynamic {
-    return static::get()[36]($doc);
+    return static::callRehackFunction(static::get()[36], varray[$doc]);
   }
   public static function createPath(dynamic $doc): dynamic {
-    return static::get()[37]($doc);
+    return static::callRehackFunction(static::get()[37], varray[$doc]);
   }
   public static function createPattern(dynamic $doc): dynamic {
-    return static::get()[38]($doc);
+    return static::callRehackFunction(static::get()[38], varray[$doc]);
   }
   public static function createPolygon(dynamic $doc): dynamic {
-    return static::get()[39]($doc);
+    return static::callRehackFunction(static::get()[39], varray[$doc]);
   }
   public static function createPolyline(dynamic $doc): dynamic {
-    return static::get()[40]($doc);
+    return static::callRehackFunction(static::get()[40], varray[$doc]);
   }
   public static function createRadialgradient(dynamic $doc): dynamic {
-    return static::get()[41]($doc);
+    return static::callRehackFunction(static::get()[41], varray[$doc]);
   }
   public static function createRect(dynamic $doc): dynamic {
-    return static::get()[42]($doc);
+    return static::callRehackFunction(static::get()[42], varray[$doc]);
   }
   public static function createScript(dynamic $doc): dynamic {
-    return static::get()[43]($doc);
+    return static::callRehackFunction(static::get()[43], varray[$doc]);
   }
   public static function createSet(dynamic $doc): dynamic {
-    return static::get()[44]($doc);
+    return static::callRehackFunction(static::get()[44], varray[$doc]);
   }
   public static function createStop(dynamic $doc): dynamic {
-    return static::get()[45]($doc);
+    return static::callRehackFunction(static::get()[45], varray[$doc]);
   }
   public static function createStyle(dynamic $doc): dynamic {
-    return static::get()[46]($doc);
+    return static::callRehackFunction(static::get()[46], varray[$doc]);
   }
   public static function createSvg(dynamic $doc): dynamic {
-    return static::get()[47]($doc);
+    return static::callRehackFunction(static::get()[47], varray[$doc]);
   }
   public static function createSwitch(dynamic $doc): dynamic {
-    return static::get()[48]($doc);
+    return static::callRehackFunction(static::get()[48], varray[$doc]);
   }
   public static function createSymbol(dynamic $doc): dynamic {
-    return static::get()[49]($doc);
+    return static::callRehackFunction(static::get()[49], varray[$doc]);
   }
   public static function createTextElement(dynamic $doc): dynamic {
-    return static::get()[50]($doc);
+    return static::callRehackFunction(static::get()[50], varray[$doc]);
   }
   public static function createTextpath(dynamic $doc): dynamic {
-    return static::get()[51]($doc);
+    return static::callRehackFunction(static::get()[51], varray[$doc]);
   }
   public static function createTitle(dynamic $doc): dynamic {
-    return static::get()[52]($doc);
+    return static::callRehackFunction(static::get()[52], varray[$doc]);
   }
   public static function createTref(dynamic $doc): dynamic {
-    return static::get()[53]($doc);
+    return static::callRehackFunction(static::get()[53], varray[$doc]);
   }
   public static function createTspan(dynamic $doc): dynamic {
-    return static::get()[54]($doc);
+    return static::callRehackFunction(static::get()[54], varray[$doc]);
   }
   public static function createUse(dynamic $doc): dynamic {
-    return static::get()[55]($doc);
+    return static::callRehackFunction(static::get()[55], varray[$doc]);
   }
   public static function createView(dynamic $doc): dynamic {
-    return static::get()[56]($doc);
+    return static::callRehackFunction(static::get()[56], varray[$doc]);
   }
   public static function createvkern(dynamic $doc): dynamic {
-    return static::get()[57]($doc);
+    return static::callRehackFunction(static::get()[57], varray[$doc]);
   }
   public static function svg_element(): dynamic {
-    return static::get()[58]();
+    return static::callRehackFunction(static::get()[58], varray[]);
   }
   public static function document(): dynamic {
-    return static::get()[59]();
+    return static::callRehackFunction(static::get()[59], varray[]);
   }
   public static function getElementById(dynamic $id): dynamic {
-    return static::get()[60]($id);
+    return static::callRehackFunction(static::get()[60], varray[$id]);
   }
 
 }

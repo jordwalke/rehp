@@ -644,34 +644,34 @@ final class Js_of_ocaml__Intl {
 
   }
   public static function Collator(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function DateTimeFormat(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function NumberFormat(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function PluralRules(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function intl(): dynamic {
-    return static::get()[5]();
+    return static::callRehackFunction(static::get()[5], varray[]);
   }
   public static function collator_constr(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function dateTimeFormat_constr(): dynamic {
-    return static::get()[7]();
+    return static::callRehackFunction(static::get()[7], varray[]);
   }
   public static function numberFormat_constr(): dynamic {
-    return static::get()[8]();
+    return static::callRehackFunction(static::get()[8], varray[]);
   }
   public static function pluralRules_constr(): dynamic {
-    return static::get()[9]();
+    return static::callRehackFunction(static::get()[9], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::get()[10]($param);
+    return static::callRehackFunction(static::get()[10], varray[$param]);
   }
 
 }

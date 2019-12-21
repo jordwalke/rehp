@@ -605,13 +605,13 @@ final class Weak {
 
   }
   public static function length(dynamic $x): dynamic {
-    return static::get()[2]($x);
+    return static::callRehackFunction(static::get()[2], varray[$x]);
   }
   public static function fill(dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x): dynamic {
-    return static::get()[7]($ar, $ofs, $len, $x);
+    return static::callRehackFunction(static::get()[7], varray[$ar, $ofs, $len, $x]);
   }
   public static function Make(dynamic $H): dynamic {
-    return static::get()[9]($H);
+    return static::callRehackFunction(static::get()[9], varray[$H]);
   }
 
 }

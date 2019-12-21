@@ -70,37 +70,37 @@ final class Stack {
 
   }
   public static function Empty(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function create(dynamic $param): dynamic {
-    return static::get()[2]($param);
+    return static::callRehackFunction(static::get()[2], varray[$param]);
   }
   public static function push(dynamic $x, dynamic $s): dynamic {
-    return static::get()[3]($x, $s);
+    return static::callRehackFunction(static::get()[3], varray[$x, $s]);
   }
   public static function pop(dynamic $s): dynamic {
-    return static::get()[4]($s);
+    return static::callRehackFunction(static::get()[4], varray[$s]);
   }
   public static function top(dynamic $s): dynamic {
-    return static::get()[5]($s);
+    return static::callRehackFunction(static::get()[5], varray[$s]);
   }
   public static function clear(dynamic $s): dynamic {
-    return static::get()[6]($s);
+    return static::callRehackFunction(static::get()[6], varray[$s]);
   }
   public static function copy(dynamic $s): dynamic {
-    return static::get()[7]($s);
+    return static::callRehackFunction(static::get()[7], varray[$s]);
   }
   public static function is_empty(dynamic $s): dynamic {
-    return static::get()[8]($s);
+    return static::callRehackFunction(static::get()[8], varray[$s]);
   }
   public static function length(dynamic $s): dynamic {
-    return static::get()[9]($s);
+    return static::callRehackFunction(static::get()[9], varray[$s]);
   }
   public static function iter(dynamic $f, dynamic $s): dynamic {
-    return static::get()[10]($f, $s);
+    return static::callRehackFunction(static::get()[10], varray[$f, $s]);
   }
   public static function fold(dynamic $f, dynamic $acc, dynamic $s): dynamic {
-    return static::get()[11]($f, $acc, $s);
+    return static::callRehackFunction(static::get()[11], varray[$f, $acc, $s]);
   }
 
 }

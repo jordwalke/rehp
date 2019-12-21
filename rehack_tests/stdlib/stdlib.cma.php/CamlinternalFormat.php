@@ -8157,76 +8157,76 @@ final class CamlinternalFormat {
 
   }
   public static function is_in_char_set(dynamic $char_set, dynamic $c): dynamic {
-    return static::get()[1]($char_set, $c);
+    return static::callRehackFunction(static::get()[1], varray[$char_set, $c]);
   }
   public static function rev_char_set(dynamic $char_set): dynamic {
-    return static::get()[2]($char_set);
+    return static::callRehackFunction(static::get()[2], varray[$char_set]);
   }
   public static function create_char_set(dynamic $param): dynamic {
-    return static::get()[3]($param);
+    return static::callRehackFunction(static::get()[3], varray[$param]);
   }
   public static function add_in_char_set(dynamic $char_set, dynamic $c): dynamic {
-    return static::get()[4]($char_set, $c);
+    return static::callRehackFunction(static::get()[4], varray[$char_set, $c]);
   }
   public static function freeze_char_set(dynamic $char_set): dynamic {
-    return static::get()[5]($char_set);
+    return static::callRehackFunction(static::get()[5], varray[$char_set]);
   }
   public static function param_format_of_ignored_format(dynamic $ign, dynamic $fmt): dynamic {
-    return static::get()[6]($ign, $fmt);
+    return static::callRehackFunction(static::get()[6], varray[$ign, $fmt]);
   }
   public static function make_printf(dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt): dynamic {
-    return static::get()[7]($k, $o, $acc, $fmt);
+    return static::callRehackFunction(static::get()[7], varray[$k, $o, $acc, $fmt]);
   }
   public static function make_iprintf(dynamic $k, dynamic $o, dynamic $fmt): dynamic {
-    return static::get()[8]($k, $o, $fmt);
+    return static::callRehackFunction(static::get()[8], varray[$k, $o, $fmt]);
   }
   public static function output_acc(dynamic $o, dynamic $acc): dynamic {
-    return static::get()[9]($o, $acc);
+    return static::callRehackFunction(static::get()[9], varray[$o, $acc]);
   }
   public static function bufput_acc(dynamic $b, dynamic $acc): dynamic {
-    return static::get()[10]($b, $acc);
+    return static::callRehackFunction(static::get()[10], varray[$b, $acc]);
   }
   public static function strput_acc(dynamic $b, dynamic $acc): dynamic {
-    return static::get()[11]($b, $acc);
+    return static::callRehackFunction(static::get()[11], varray[$b, $acc]);
   }
   public static function type_format(dynamic $fmt, dynamic $fmtty): dynamic {
-    return static::get()[12]($fmt, $fmtty);
+    return static::callRehackFunction(static::get()[12], varray[$fmt, $fmtty]);
   }
   public static function fmt_ebb_of_string(dynamic $legacy_behavior, dynamic $str): dynamic {
-    return static::get()[13]($legacy_behavior, $str);
+    return static::callRehackFunction(static::get()[13], varray[$legacy_behavior, $str]);
   }
   public static function format_of_string_fmtty(dynamic $str, dynamic $fmtty): dynamic {
-    return static::get()[14]($str, $fmtty);
+    return static::callRehackFunction(static::get()[14], varray[$str, $fmtty]);
   }
   public static function format_of_string_format(dynamic $str, dynamic $param): dynamic {
-    return static::get()[15]($str, $param);
+    return static::callRehackFunction(static::get()[15], varray[$str, $param]);
   }
   public static function char_of_iconv(dynamic $iconv): dynamic {
-    return static::get()[16]($iconv);
+    return static::callRehackFunction(static::get()[16], varray[$iconv]);
   }
   public static function string_of_formatting_lit(dynamic $formatting_lit): dynamic {
-    return static::get()[17]($formatting_lit);
+    return static::callRehackFunction(static::get()[17], varray[$formatting_lit]);
   }
   public static function string_of_formatting_gen(dynamic $formatting_gen): dynamic {
-    return static::get()[18]($formatting_gen);
+    return static::callRehackFunction(static::get()[18], varray[$formatting_gen]);
   }
   public static function string_of_fmtty(dynamic $fmtty): dynamic {
-    return static::get()[19]($fmtty);
+    return static::callRehackFunction(static::get()[19], varray[$fmtty]);
   }
   public static function string_of_fmt(dynamic $fmt): dynamic {
-    return static::get()[20]($fmt);
+    return static::callRehackFunction(static::get()[20], varray[$fmt]);
   }
   public static function open_box_of_string(dynamic $str): dynamic {
-    return static::get()[21]($str);
+    return static::callRehackFunction(static::get()[21], varray[$str]);
   }
   public static function symm(dynamic $param): dynamic {
-    return static::get()[22]($param);
+    return static::callRehackFunction(static::get()[22], varray[$param]);
   }
   public static function trans(dynamic $ty1, dynamic $ty2): dynamic {
-    return static::get()[23]($ty1, $ty2);
+    return static::callRehackFunction(static::get()[23], varray[$ty1, $ty2]);
   }
   public static function recast(dynamic $fmt, dynamic $fmtty): dynamic {
-    return static::get()[24]($fmt, $fmtty);
+    return static::callRehackFunction(static::get()[24], varray[$fmt, $fmtty]);
   }
 
 }

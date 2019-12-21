@@ -18,9 +18,9 @@ final class SeparateCompilation__ {
      return ($SeparateCompilation);
 
   }
-  public static function SeparateCompilationHelper() {
-    return static::get()[1]();
+  public static function SeparateCompilationHelper(): dynamic {
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
 
 }
-/*____hashes flags: 1802415451 bytecode: 3984913853 debug-data: 2457943818 primitives: 1058613066*/
+/*____hashes flags: 1365394985 bytecode: 4208011095 debug-data: 2457943818 primitives: 1058613066*/

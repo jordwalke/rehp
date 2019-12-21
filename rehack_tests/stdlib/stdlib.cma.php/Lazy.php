@@ -49,28 +49,19 @@ final class Lazy {
 
   }
   public static function Undefined(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function force_val(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function from_fun(dynamic $f): dynamic {
-    return static::get()[3]($f);
+    return static::callRehackFunction(static::get()[3], varray[$f]);
   }
   public static function from_val(dynamic $v): dynamic {
-    return static::get()[4]($v);
+    return static::callRehackFunction(static::get()[4], varray[$v]);
   }
   public static function is_val(dynamic $l): dynamic {
-    return static::get()[5]($l);
-  }
-  public static function from_fun(dynamic $f): dynamic {
-    return static::get()[6]($f);
-  }
-  public static function from_val(dynamic $v): dynamic {
-    return static::get()[7]($v);
-  }
-  public static function is_val(dynamic $l): dynamic {
-    return static::get()[8]($l);
+    return static::callRehackFunction(static::get()[5], varray[$l]);
   }
 
 }

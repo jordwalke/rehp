@@ -302,40 +302,40 @@ final class Random {
 
   }
   public static function init(dynamic $seed): dynamic {
-    return static::get()[1]($seed);
+    return static::callRehackFunction(static::get()[1], varray[$seed]);
   }
   public static function full_init(dynamic $seed): dynamic {
-    return static::get()[2]($seed);
+    return static::callRehackFunction(static::get()[2], varray[$seed]);
   }
   public static function self_init(dynamic $param): dynamic {
-    return static::get()[3]($param);
+    return static::callRehackFunction(static::get()[3], varray[$param]);
   }
   public static function bits(dynamic $param): dynamic {
-    return static::get()[4]($param);
+    return static::callRehackFunction(static::get()[4], varray[$param]);
   }
   public static function int(dynamic $bound): dynamic {
-    return static::get()[5]($bound);
+    return static::callRehackFunction(static::get()[5], varray[$bound]);
   }
   public static function int32(dynamic $bound): dynamic {
-    return static::get()[6]($bound);
+    return static::callRehackFunction(static::get()[6], varray[$bound]);
   }
   public static function nativeint(dynamic $bound): dynamic {
-    return static::get()[7]($bound);
+    return static::callRehackFunction(static::get()[7], varray[$bound]);
   }
   public static function int64(dynamic $bound): dynamic {
-    return static::get()[8]($bound);
+    return static::callRehackFunction(static::get()[8], varray[$bound]);
   }
   public static function float(dynamic $scale): dynamic {
-    return static::get()[9]($scale);
+    return static::callRehackFunction(static::get()[9], varray[$scale]);
   }
   public static function bool(dynamic $param): dynamic {
-    return static::get()[10]($param);
+    return static::callRehackFunction(static::get()[10], varray[$param]);
   }
   public static function get_state(dynamic $param): dynamic {
-    return static::get()[12]($param);
+    return static::callRehackFunction(static::get()[12], varray[$param]);
   }
   public static function set_state(dynamic $s): dynamic {
-    return static::get()[13]($s);
+    return static::callRehackFunction(static::get()[13], varray[$s]);
   }
 
 }

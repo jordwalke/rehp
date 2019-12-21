@@ -199,22 +199,22 @@ final class Js_of_ocaml__File {
 
   }
   public static function blob_from_string(dynamic $contentType, dynamic $endings, dynamic $s): dynamic {
-    return static::get()[1]($contentType, $endings, $s);
+    return static::callRehackFunction(static::get()[1], varray[$contentType, $endings, $s]);
   }
   public static function blob_from_any(dynamic $contentType, dynamic $endings, dynamic $l): dynamic {
-    return static::get()[2]($contentType, $endings, $l);
+    return static::callRehackFunction(static::get()[2], varray[$contentType, $endings, $l]);
   }
   public static function ReaderEvent(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function filename(dynamic $file): dynamic {
-    return static::get()[5]($file);
+    return static::callRehackFunction(static::get()[5], varray[$file]);
   }
   public static function fileReader(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function addEventListener(): dynamic {
-    return static::get()[7]();
+    return static::callRehackFunction(static::get()[7], varray[]);
   }
 
 }

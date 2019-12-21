@@ -148,142 +148,142 @@ final class Sys {
 
   }
   public static function argv(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function executable_name(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function getenv_opt(dynamic $s): dynamic {
-    return static::get()[3]($s);
+    return static::callRehackFunction(static::get()[3], varray[$s]);
   }
   public static function interactive(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function os_type(): dynamic {
-    return static::get()[5]();
+    return static::callRehackFunction(static::get()[5], varray[]);
   }
   public static function backend_type(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function unix(): dynamic {
-    return static::get()[7]();
+    return static::callRehackFunction(static::get()[7], varray[]);
   }
   public static function win32(): dynamic {
-    return static::get()[8]();
+    return static::callRehackFunction(static::get()[8], varray[]);
   }
   public static function cygwin(): dynamic {
-    return static::get()[9]();
+    return static::callRehackFunction(static::get()[9], varray[]);
   }
   public static function word_size(): dynamic {
-    return static::get()[10]();
+    return static::callRehackFunction(static::get()[10], varray[]);
   }
   public static function int_size(): dynamic {
-    return static::get()[11]();
+    return static::callRehackFunction(static::get()[11], varray[]);
   }
   public static function big_endian(): dynamic {
-    return static::get()[12]();
+    return static::callRehackFunction(static::get()[12], varray[]);
   }
   public static function max_string_length(): dynamic {
-    return static::get()[13]();
+    return static::callRehackFunction(static::get()[13], varray[]);
   }
   public static function max_array_length(): dynamic {
-    return static::get()[14]();
+    return static::callRehackFunction(static::get()[14], varray[]);
   }
   public static function set_signal(dynamic $sig_num, dynamic $sig_beh): dynamic {
-    return static::get()[15]($sig_num, $sig_beh);
+    return static::callRehackFunction(static::get()[15], varray[$sig_num, $sig_beh]);
   }
   public static function sigabrt(): dynamic {
-    return static::get()[16]();
+    return static::callRehackFunction(static::get()[16], varray[]);
   }
   public static function sigalrm(): dynamic {
-    return static::get()[17]();
+    return static::callRehackFunction(static::get()[17], varray[]);
   }
   public static function sigfpe(): dynamic {
-    return static::get()[18]();
+    return static::callRehackFunction(static::get()[18], varray[]);
   }
   public static function sighup(): dynamic {
-    return static::get()[19]();
+    return static::callRehackFunction(static::get()[19], varray[]);
   }
   public static function sigill(): dynamic {
-    return static::get()[20]();
+    return static::callRehackFunction(static::get()[20], varray[]);
   }
   public static function sigint(): dynamic {
-    return static::get()[21]();
+    return static::callRehackFunction(static::get()[21], varray[]);
   }
   public static function sigkill(): dynamic {
-    return static::get()[22]();
+    return static::callRehackFunction(static::get()[22], varray[]);
   }
   public static function sigpipe(): dynamic {
-    return static::get()[23]();
+    return static::callRehackFunction(static::get()[23], varray[]);
   }
   public static function sigquit(): dynamic {
-    return static::get()[24]();
+    return static::callRehackFunction(static::get()[24], varray[]);
   }
   public static function sigsegv(): dynamic {
-    return static::get()[25]();
+    return static::callRehackFunction(static::get()[25], varray[]);
   }
   public static function sigterm(): dynamic {
-    return static::get()[26]();
+    return static::callRehackFunction(static::get()[26], varray[]);
   }
   public static function sigusr1(): dynamic {
-    return static::get()[27]();
+    return static::callRehackFunction(static::get()[27], varray[]);
   }
   public static function sigusr2(): dynamic {
-    return static::get()[28]();
+    return static::callRehackFunction(static::get()[28], varray[]);
   }
   public static function sigchld(): dynamic {
-    return static::get()[29]();
+    return static::callRehackFunction(static::get()[29], varray[]);
   }
   public static function sigcont(): dynamic {
-    return static::get()[30]();
+    return static::callRehackFunction(static::get()[30], varray[]);
   }
   public static function sigstop(): dynamic {
-    return static::get()[31]();
+    return static::callRehackFunction(static::get()[31], varray[]);
   }
   public static function sigtstp(): dynamic {
-    return static::get()[32]();
+    return static::callRehackFunction(static::get()[32], varray[]);
   }
   public static function sigttin(): dynamic {
-    return static::get()[33]();
+    return static::callRehackFunction(static::get()[33], varray[]);
   }
   public static function sigttou(): dynamic {
-    return static::get()[34]();
+    return static::callRehackFunction(static::get()[34], varray[]);
   }
   public static function sigvtalrm(): dynamic {
-    return static::get()[35]();
+    return static::callRehackFunction(static::get()[35], varray[]);
   }
   public static function sigprof(): dynamic {
-    return static::get()[36]();
+    return static::callRehackFunction(static::get()[36], varray[]);
   }
   public static function sigbus(): dynamic {
-    return static::get()[37]();
+    return static::callRehackFunction(static::get()[37], varray[]);
   }
   public static function sigpoll(): dynamic {
-    return static::get()[38]();
+    return static::callRehackFunction(static::get()[38], varray[]);
   }
   public static function sigsys(): dynamic {
-    return static::get()[39]();
+    return static::callRehackFunction(static::get()[39], varray[]);
   }
   public static function sigtrap(): dynamic {
-    return static::get()[40]();
+    return static::callRehackFunction(static::get()[40], varray[]);
   }
   public static function sigurg(): dynamic {
-    return static::get()[41]();
+    return static::callRehackFunction(static::get()[41], varray[]);
   }
   public static function sigxcpu(): dynamic {
-    return static::get()[42]();
+    return static::callRehackFunction(static::get()[42], varray[]);
   }
   public static function sigxfsz(): dynamic {
-    return static::get()[43]();
+    return static::callRehackFunction(static::get()[43], varray[]);
   }
   public static function Break(): dynamic {
-    return static::get()[44]();
+    return static::callRehackFunction(static::get()[44], varray[]);
   }
   public static function catch_break(dynamic $on): dynamic {
-    return static::get()[45]($on);
+    return static::callRehackFunction(static::get()[45], varray[$on]);
   }
   public static function ocaml_version(): dynamic {
-    return static::get()[46]();
+    return static::callRehackFunction(static::get()[46], varray[]);
   }
 
 }

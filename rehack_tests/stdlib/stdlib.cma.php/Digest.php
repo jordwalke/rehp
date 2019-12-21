@@ -150,37 +150,37 @@ final class Digest {
 
   }
   public static function compare(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function equal(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function string(dynamic $str): dynamic {
-    return static::get()[3]($str);
+    return static::callRehackFunction(static::get()[3], varray[$str]);
   }
   public static function bytes(dynamic $b): dynamic {
-    return static::get()[4]($b);
+    return static::callRehackFunction(static::get()[4], varray[$b]);
   }
   public static function substring(dynamic $str, dynamic $ofs, dynamic $len): dynamic {
-    return static::get()[5]($str, $ofs, $len);
+    return static::callRehackFunction(static::get()[5], varray[$str, $ofs, $len]);
   }
   public static function subbytes(dynamic $b, dynamic $ofs, dynamic $len): dynamic {
-    return static::get()[6]($b, $ofs, $len);
+    return static::callRehackFunction(static::get()[6], varray[$b, $ofs, $len]);
   }
   public static function file(dynamic $filename): dynamic {
-    return static::get()[7]($filename);
+    return static::callRehackFunction(static::get()[7], varray[$filename]);
   }
   public static function output(dynamic $chan, dynamic $digest): dynamic {
-    return static::get()[8]($chan, $digest);
+    return static::callRehackFunction(static::get()[8], varray[$chan, $digest]);
   }
   public static function input(dynamic $chan): dynamic {
-    return static::get()[9]($chan);
+    return static::callRehackFunction(static::get()[9], varray[$chan]);
   }
   public static function to_hex(dynamic $d): dynamic {
-    return static::get()[10]($d);
+    return static::callRehackFunction(static::get()[10], varray[$d]);
   }
   public static function from_hex(dynamic $s): dynamic {
-    return static::get()[11]($s);
+    return static::callRehackFunction(static::get()[11], varray[$s]);
   }
 
 }

@@ -105,25 +105,25 @@ final class Calls {
 
   }
   public static function foo(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function bar(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function baz(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function testFunctionCalls(dynamic $o): dynamic {
-    return static::get()[4]($o);
+    return static::callRehackFunction(static::get()[4], varray[$o]);
   }
   public static function testMethodCalls(dynamic $o): dynamic {
-    return static::get()[5]($o);
+    return static::callRehackFunction(static::get()[5], varray[$o]);
   }
   public static function testPartialFunctionCalls(dynamic $s): dynamic {
-    return static::get()[6]($s);
+    return static::callRehackFunction(static::get()[6], varray[$s]);
   }
   public static function testPartialMethodCalls(dynamic $o): dynamic {
-    return static::get()[7]($o);
+    return static::callRehackFunction(static::get()[7], varray[$o]);
   }
 
 }

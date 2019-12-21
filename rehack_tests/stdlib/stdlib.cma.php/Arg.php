@@ -925,52 +925,52 @@ final class Arg {
 
   }
   public static function parse(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::get()[1]($l, $f, $msg);
+    return static::callRehackFunction(static::get()[1], varray[$l, $f, $msg]);
   }
   public static function parse_dynamic(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::get()[2]($l, $f, $msg);
+    return static::callRehackFunction(static::get()[2], varray[$l, $f, $msg]);
   }
   public static function parse_argv(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::get()[3]($opt, $argv, $speclist, $anonfun, $errmsg);
+    return static::callRehackFunction(static::get()[3], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
   }
   public static function parse_argv_dynamic(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::get()[4]($opt, $argv, $speclist, $anonfun, $errmsg);
+    return static::callRehackFunction(static::get()[4], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
   }
   public static function parse_and_expand_argv_dynamic(dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::get()[5]($current, $argv, $speclist, $anonfun, $errmsg);
+    return static::callRehackFunction(static::get()[5], varray[$current, $argv, $speclist, $anonfun, $errmsg]);
   }
   public static function parse_expand(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::get()[6]($l, $f, $msg);
+    return static::callRehackFunction(static::get()[6], varray[$l, $f, $msg]);
   }
   public static function Help(): dynamic {
-    return static::get()[7]();
+    return static::callRehackFunction(static::get()[7], varray[]);
   }
   public static function Bad(): dynamic {
-    return static::get()[8]();
+    return static::callRehackFunction(static::get()[8], varray[]);
   }
   public static function usage(dynamic $speclist, dynamic $errmsg): dynamic {
-    return static::get()[9]($speclist, $errmsg);
+    return static::callRehackFunction(static::get()[9], varray[$speclist, $errmsg]);
   }
   public static function usage_string(dynamic $speclist, dynamic $errmsg): dynamic {
-    return static::get()[10]($speclist, $errmsg);
+    return static::callRehackFunction(static::get()[10], varray[$speclist, $errmsg]);
   }
   public static function align(dynamic $opt, dynamic $speclist): dynamic {
-    return static::get()[11]($opt, $speclist);
+    return static::callRehackFunction(static::get()[11], varray[$opt, $speclist]);
   }
   public static function current(): dynamic {
-    return static::get()[12]();
+    return static::callRehackFunction(static::get()[12], varray[]);
   }
   public static function read_arg(): dynamic {
-    return static::get()[13]();
+    return static::callRehackFunction(static::get()[13], varray[]);
   }
   public static function read_arg0(): dynamic {
-    return static::get()[14]();
+    return static::callRehackFunction(static::get()[14], varray[]);
   }
   public static function write_arg(): dynamic {
-    return static::get()[15]();
+    return static::callRehackFunction(static::get()[15], varray[]);
   }
   public static function write_arg0(): dynamic {
-    return static::get()[16]();
+    return static::callRehackFunction(static::get()[16], varray[]);
   }
 
 }

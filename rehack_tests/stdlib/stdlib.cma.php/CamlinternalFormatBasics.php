@@ -371,13 +371,13 @@ final class CamlinternalFormatBasics {
 
   }
   public static function concat_fmtty(dynamic $fmtty1, dynamic $fmtty2): dynamic {
-    return static::get()[1]($fmtty1, $fmtty2);
+    return static::callRehackFunction(static::get()[1], varray[$fmtty1, $fmtty2]);
   }
   public static function erase_rel(dynamic $param): dynamic {
-    return static::get()[2]($param);
+    return static::callRehackFunction(static::get()[2], varray[$param]);
   }
   public static function concat_fmt(dynamic $fmt1, dynamic $fmt2): dynamic {
-    return static::get()[3]($fmt1, $fmt2);
+    return static::callRehackFunction(static::get()[3], varray[$fmt1, $fmt2]);
   }
 
 }

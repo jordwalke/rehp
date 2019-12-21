@@ -83,22 +83,22 @@ final class Marshal {
 
   }
   public static function to_buffer(dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags): dynamic {
-    return static::get()[2]($buff, $ofs, $len, $v, $flags);
+    return static::callRehackFunction(static::get()[2], varray[$buff, $ofs, $len, $v, $flags]);
   }
   public static function from_bytes(dynamic $buff, dynamic $ofs): dynamic {
-    return static::get()[4]($buff, $ofs);
+    return static::callRehackFunction(static::get()[4], varray[$buff, $ofs]);
   }
   public static function from_string(dynamic $buff, dynamic $ofs): dynamic {
-    return static::get()[5]($buff, $ofs);
+    return static::callRehackFunction(static::get()[5], varray[$buff, $ofs]);
   }
   public static function header_size(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function data_size(dynamic $buff, dynamic $ofs): dynamic {
-    return static::get()[7]($buff, $ofs);
+    return static::callRehackFunction(static::get()[7], varray[$buff, $ofs]);
   }
   public static function total_size(dynamic $buff, dynamic $ofs): dynamic {
-    return static::get()[8]($buff, $ofs);
+    return static::callRehackFunction(static::get()[8], varray[$buff, $ofs]);
   }
 
 }

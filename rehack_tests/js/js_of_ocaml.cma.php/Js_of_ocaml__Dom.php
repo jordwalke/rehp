@@ -367,52 +367,52 @@ final class Js_of_ocaml__Dom {
 
   }
   public static function DocumentPosition(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function insertBefore(dynamic $p, dynamic $n, dynamic $o): dynamic {
-    return static::get()[2]($p, $n, $o);
+    return static::callRehackFunction(static::get()[2], varray[$p, $n, $o]);
   }
   public static function replaceChild(dynamic $p, dynamic $n, dynamic $o): dynamic {
-    return static::get()[3]($p, $n, $o);
+    return static::callRehackFunction(static::get()[3], varray[$p, $n, $o]);
   }
   public static function removeChild(dynamic $p, dynamic $n): dynamic {
-    return static::get()[4]($p, $n);
+    return static::callRehackFunction(static::get()[4], varray[$p, $n]);
   }
   public static function appendChild(dynamic $p, dynamic $n): dynamic {
-    return static::get()[5]($p, $n);
+    return static::callRehackFunction(static::get()[5], varray[$p, $n]);
   }
   public static function list_of_nodeList(dynamic $nodeList): dynamic {
-    return static::get()[6]($nodeList);
+    return static::callRehackFunction(static::get()[6], varray[$nodeList]);
   }
   public static function nodeType(dynamic $e): dynamic {
-    return static::get()[7]($e);
+    return static::callRehackFunction(static::get()[7], varray[$e]);
   }
   public static function no_handler(): dynamic {
-    return static::get()[9]();
+    return static::callRehackFunction(static::get()[9], varray[]);
   }
   public static function handler(dynamic $f): dynamic {
-    return static::get()[10]($f);
+    return static::callRehackFunction(static::get()[10], varray[$f]);
   }
   public static function full_handler(dynamic $f): dynamic {
-    return static::get()[11]($f);
+    return static::callRehackFunction(static::get()[11], varray[$f]);
   }
   public static function invoke_handler(dynamic $f, dynamic $this, dynamic $event): dynamic {
-    return static::get()[12]($f, $this, $event);
+    return static::callRehackFunction(static::get()[12], varray[$f, $this, $event]);
   }
   public static function eventTarget(dynamic $e): dynamic {
-    return static::get()[13]($e);
+    return static::callRehackFunction(static::get()[13], varray[$e]);
   }
   public static function Event(): dynamic {
-    return static::get()[14]();
+    return static::callRehackFunction(static::get()[14], varray[]);
   }
   public static function addEventListener(dynamic $e, dynamic $typ, dynamic $h, dynamic $capt): dynamic {
-    return static::get()[15]($e, $typ, $h, $capt);
+    return static::callRehackFunction(static::get()[15], varray[$e, $typ, $h, $capt]);
   }
   public static function removeEventListener(dynamic $id): dynamic {
-    return static::get()[16]($id);
+    return static::callRehackFunction(static::get()[16], varray[$id]);
   }
   public static function preventDefault(dynamic $ev): dynamic {
-    return static::get()[17]($ev);
+    return static::callRehackFunction(static::get()[17], varray[$ev]);
   }
 
 }

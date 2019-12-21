@@ -118,49 +118,49 @@ final class Uchar {
 
   }
   public static function min(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function max(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function bom(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function rep(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function succ(dynamic $u): dynamic {
-    return static::get()[5]($u);
+    return static::callRehackFunction(static::get()[5], varray[$u]);
   }
   public static function pred(dynamic $u): dynamic {
-    return static::get()[6]($u);
+    return static::callRehackFunction(static::get()[6], varray[$u]);
   }
   public static function is_valid(dynamic $i): dynamic {
-    return static::get()[7]($i);
+    return static::callRehackFunction(static::get()[7], varray[$i]);
   }
   public static function of_int(dynamic $i): dynamic {
-    return static::get()[8]($i);
+    return static::callRehackFunction(static::get()[8], varray[$i]);
   }
   public static function is_char(dynamic $u): dynamic {
-    return static::get()[11]($u);
+    return static::callRehackFunction(static::get()[11], varray[$u]);
   }
   public static function of_char(dynamic $c): dynamic {
-    return static::get()[12]($c);
+    return static::callRehackFunction(static::get()[12], varray[$c]);
   }
   public static function to_char(dynamic $u): dynamic {
-    return static::get()[13]($u);
+    return static::callRehackFunction(static::get()[13], varray[$u]);
   }
   public static function unsafe_to_char(dynamic $unnamed1): dynamic {
-    return static::get()[14]($unnamed1);
+    return static::callRehackFunction(static::get()[14], varray[$unnamed1]);
   }
   public static function equal(dynamic $unnamed1, dynamic $unnamed2): dynamic {
-    return static::get()[15]($unnamed1, $unnamed2);
+    return static::callRehackFunction(static::get()[15], varray[$unnamed1, $unnamed2]);
   }
   public static function compare(dynamic $unnamed1, dynamic $unnamed2): dynamic {
-    return static::get()[16]($unnamed1, $unnamed2);
+    return static::callRehackFunction(static::get()[16], varray[$unnamed1, $unnamed2]);
   }
   public static function hash(dynamic $unnamed1): dynamic {
-    return static::get()[17]($unnamed1);
+    return static::callRehackFunction(static::get()[17], varray[$unnamed1]);
   }
 
 }

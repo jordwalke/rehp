@@ -24,13 +24,5 @@ var MyLib_MyLibUtility = [0,thisIsAUtilityFunction];
 
 exports = MyLib_MyLibUtility;
 
-/*::type Exports = {
-  thisIsAUtilityFunction: (param: any) => any,
-}*/
-/** @type {{
-  thisIsAUtilityFunction: (any) => any,
-}} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.thisIsAUtilityFunction = module.exports[1];
-
-/*____hashes flags: 1022939002 bytecode: 9609593791 debug-data: 2989761887 primitives: 1058613066*/
+/*____CompilationSummary*/
+/*____hashes flags: 585918536 bytecode: 10023863734 debug-data: 2989761887 primitives: 1058613066*/

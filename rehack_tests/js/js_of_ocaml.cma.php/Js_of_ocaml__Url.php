@@ -875,31 +875,31 @@ final class Js_of_ocaml__Url {
 
   }
   public static function urldecode(dynamic $s): dynamic {
-    return static::get()[1]($s);
+    return static::callRehackFunction(static::get()[1], varray[$s]);
   }
   public static function urlencode(dynamic $opt, dynamic $s): dynamic {
-    return static::get()[2]($opt, $s);
+    return static::callRehackFunction(static::get()[2], varray[$opt, $s]);
   }
   public static function default_http_port(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function default_https_port(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function path_of_path_string(dynamic $s): dynamic {
-    return static::get()[5]($s);
+    return static::callRehackFunction(static::get()[5], varray[$s]);
   }
   public static function encode_arguments(dynamic $l): dynamic {
-    return static::get()[6]($l);
+    return static::callRehackFunction(static::get()[6], varray[$l]);
   }
   public static function decode_arguments(dynamic $s): dynamic {
-    return static::get()[7]($s);
+    return static::callRehackFunction(static::get()[7], varray[$s]);
   }
   public static function url_of_string(dynamic $s): dynamic {
-    return static::get()[8]($s);
+    return static::callRehackFunction(static::get()[8], varray[$s]);
   }
   public static function string_of_url(dynamic $param): dynamic {
-    return static::get()[9]($param);
+    return static::callRehackFunction(static::get()[9], varray[$param]);
   }
 
 }

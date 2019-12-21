@@ -93,6 +93,9 @@ final class MyLib {
       return Vector{0, $sendResult1, $sendResult2, $sendResult3};
     };
     $x = $call1($MyLib_MyLibUtility[1], 0);
+    $genThisShouldBeAsyncTransformed = (dynamic $input, dynamic $cb) ==> {
+      return $call1($cb, (int) ($input + 1));
+    };
     $MyLib = Vector{
       0,
       $foo,
@@ -102,12 +105,41 @@ final class MyLib {
       $testMethodCalls,
       $testPartialFunctionCalls,
       $testPartialMethodCalls,
-      $x
+      $x,
+      $genThisShouldBeAsyncTransformed,
+      $genThisShouldBeAsyncTransformed
     };
     
      return ($MyLib);
 
   }
-/*____CompilationSummary*/
+  public static function foo(): dynamic {
+    return static::callRehackFunction(static::get()[1], varray[]);
+  }
+  public static function bar(): dynamic {
+    return static::callRehackFunction(static::get()[2], varray[]);
+  }
+  public static function baz(): dynamic {
+    return static::callRehackFunction(static::get()[3], varray[]);
+  }
+  public static function testFunctionCalls(dynamic $o): dynamic {
+    return static::callRehackFunction(static::get()[4], varray[$o]);
+  }
+  public static function testMethodCalls(dynamic $o): dynamic {
+    return static::callRehackFunction(static::get()[5], varray[$o]);
+  }
+  public static function testPartialFunctionCalls(dynamic $o): dynamic {
+    return static::callRehackFunction(static::get()[6], varray[$o]);
+  }
+  public static function testPartialMethodCalls(dynamic $o): dynamic {
+    return static::callRehackFunction(static::get()[7], varray[$o]);
+  }
+  public static function x(): dynamic {
+    return static::callRehackFunction(static::get()[8], varray[]);
+  }
+  public static function genThisShouldBeAsyncTransformed(dynamic $input, dynamic $cb): Awaitable<dynamic> {
+    return static::genCallFunctionWithArgs("genThisShouldBeAsyncTransformed", static::get()[9], varray[$input, $cb]);
+  }
+
 }
-/*____hashes flags: 1802415451 bytecode: 57313895614 debug-data: 26008205103 primitives: 314532832*/
+/*____hashes flags: 1365394985 bytecode: 55757916712 debug-data: 21475993188 primitives: 314532832*/

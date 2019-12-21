@@ -691,7 +691,7 @@ final class Genlex {
 
   }
   public static function make_lexer(dynamic $keywords): dynamic {
-    return static::get()[1]($keywords);
+    return static::callRehackFunction(static::get()[1], varray[$keywords]);
   }
 
 }

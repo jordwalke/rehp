@@ -187,13 +187,13 @@ final class Sort {
 
   }
   public static function list(dynamic $order, dynamic $l): dynamic {
-    return static::get()[1]($order, $l);
+    return static::callRehackFunction(static::get()[1], varray[$order, $l]);
   }
   public static function array(dynamic $cmp, dynamic $arr): dynamic {
-    return static::get()[2]($cmp, $arr);
+    return static::callRehackFunction(static::get()[2], varray[$cmp, $arr]);
   }
   public static function merge(dynamic $order, dynamic $l1, dynamic $l2): dynamic {
-    return static::get()[3]($order, $l1, $l2);
+    return static::callRehackFunction(static::get()[3], varray[$order, $l1, $l2]);
   }
 
 }

@@ -146,49 +146,40 @@ final class Queue {
 
   }
   public static function Empty(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function create(dynamic $param): dynamic {
-    return static::get()[2]($param);
+    return static::callRehackFunction(static::get()[2], varray[$param]);
   }
   public static function add(dynamic $x, dynamic $q): dynamic {
-    return static::get()[3]($x, $q);
-  }
-  public static function add(dynamic $x, dynamic $q): dynamic {
-    return static::get()[4]($x, $q);
+    return static::callRehackFunction(static::get()[3], varray[$x, $q]);
   }
   public static function take(dynamic $q): dynamic {
-    return static::get()[5]($q);
-  }
-  public static function take(dynamic $q): dynamic {
-    return static::get()[6]($q);
+    return static::callRehackFunction(static::get()[5], varray[$q]);
   }
   public static function peek(dynamic $q): dynamic {
-    return static::get()[7]($q);
-  }
-  public static function peek(dynamic $q): dynamic {
-    return static::get()[8]($q);
+    return static::callRehackFunction(static::get()[7], varray[$q]);
   }
   public static function clear(dynamic $q): dynamic {
-    return static::get()[9]($q);
+    return static::callRehackFunction(static::get()[9], varray[$q]);
   }
   public static function copy(dynamic $q): dynamic {
-    return static::get()[10]($q);
+    return static::callRehackFunction(static::get()[10], varray[$q]);
   }
   public static function is_empty(dynamic $q): dynamic {
-    return static::get()[11]($q);
+    return static::callRehackFunction(static::get()[11], varray[$q]);
   }
   public static function length(dynamic $q): dynamic {
-    return static::get()[12]($q);
+    return static::callRehackFunction(static::get()[12], varray[$q]);
   }
   public static function iter(dynamic $f, dynamic $q): dynamic {
-    return static::get()[13]($f, $q);
+    return static::callRehackFunction(static::get()[13], varray[$f, $q]);
   }
   public static function fold(dynamic $f, dynamic $accu, dynamic $q): dynamic {
-    return static::get()[14]($f, $accu, $q);
+    return static::callRehackFunction(static::get()[14], varray[$f, $accu, $q]);
   }
   public static function transfer(dynamic $q1, dynamic $q2): dynamic {
-    return static::get()[15]($q1, $q2);
+    return static::callRehackFunction(static::get()[15], varray[$q1, $q2]);
   }
 
 }

@@ -915,73 +915,73 @@ final class Hashtbl {
 
   }
   public static function create(dynamic $opt, dynamic $initial_size): dynamic {
-    return static::get()[1]($opt, $initial_size);
+    return static::callRehackFunction(static::get()[1], varray[$opt, $initial_size]);
   }
   public static function clear(dynamic $h): dynamic {
-    return static::get()[2]($h);
+    return static::callRehackFunction(static::get()[2], varray[$h]);
   }
   public static function reset(dynamic $h): dynamic {
-    return static::get()[3]($h);
+    return static::callRehackFunction(static::get()[3], varray[$h]);
   }
   public static function copy(dynamic $h): dynamic {
-    return static::get()[4]($h);
+    return static::callRehackFunction(static::get()[4], varray[$h]);
   }
   public static function add(dynamic $h, dynamic $key, dynamic $data): dynamic {
-    return static::get()[5]($h, $key, $data);
+    return static::callRehackFunction(static::get()[5], varray[$h, $key, $data]);
   }
   public static function find(dynamic $h, dynamic $key): dynamic {
-    return static::get()[6]($h, $key);
+    return static::callRehackFunction(static::get()[6], varray[$h, $key]);
   }
   public static function find_opt(dynamic $h, dynamic $key): dynamic {
-    return static::get()[7]($h, $key);
+    return static::callRehackFunction(static::get()[7], varray[$h, $key]);
   }
   public static function find_all(dynamic $h, dynamic $key): dynamic {
-    return static::get()[8]($h, $key);
+    return static::callRehackFunction(static::get()[8], varray[$h, $key]);
   }
   public static function mem(dynamic $h, dynamic $key): dynamic {
-    return static::get()[9]($h, $key);
+    return static::callRehackFunction(static::get()[9], varray[$h, $key]);
   }
   public static function remove(dynamic $h, dynamic $key): dynamic {
-    return static::get()[10]($h, $key);
+    return static::callRehackFunction(static::get()[10], varray[$h, $key]);
   }
   public static function replace(dynamic $h, dynamic $key, dynamic $data): dynamic {
-    return static::get()[11]($h, $key, $data);
+    return static::callRehackFunction(static::get()[11], varray[$h, $key, $data]);
   }
   public static function iter(dynamic $f, dynamic $h): dynamic {
-    return static::get()[12]($f, $h);
+    return static::callRehackFunction(static::get()[12], varray[$f, $h]);
   }
   public static function filter_map_inplace(dynamic $f, dynamic $h): dynamic {
-    return static::get()[13]($f, $h);
+    return static::callRehackFunction(static::get()[13], varray[$f, $h]);
   }
   public static function fold(dynamic $f, dynamic $h, dynamic $init): dynamic {
-    return static::get()[14]($f, $h, $init);
+    return static::callRehackFunction(static::get()[14], varray[$f, $h, $init]);
   }
   public static function length(dynamic $h): dynamic {
-    return static::get()[15]($h);
+    return static::callRehackFunction(static::get()[15], varray[$h]);
   }
   public static function randomize(dynamic $param): dynamic {
-    return static::get()[16]($param);
+    return static::callRehackFunction(static::get()[16], varray[$param]);
   }
   public static function is_randomized(dynamic $param): dynamic {
-    return static::get()[17]($param);
+    return static::callRehackFunction(static::get()[17], varray[$param]);
   }
   public static function stats(dynamic $h): dynamic {
-    return static::get()[18]($h);
+    return static::callRehackFunction(static::get()[18], varray[$h]);
   }
   public static function Make(dynamic $H): dynamic {
-    return static::get()[19]($H);
+    return static::callRehackFunction(static::get()[19], varray[$H]);
   }
   public static function MakeSeeded(dynamic $H): dynamic {
-    return static::get()[20]($H);
+    return static::callRehackFunction(static::get()[20], varray[$H]);
   }
   public static function hash(dynamic $x): dynamic {
-    return static::get()[21]($x);
+    return static::callRehackFunction(static::get()[21], varray[$x]);
   }
   public static function seeded_hash(dynamic $seed, dynamic $x): dynamic {
-    return static::get()[22]($seed, $x);
+    return static::callRehackFunction(static::get()[22], varray[$seed, $x]);
   }
   public static function hash_param(dynamic $n1, dynamic $n2, dynamic $x): dynamic {
-    return static::get()[23]($n1, $n2, $x);
+    return static::callRehackFunction(static::get()[23], varray[$n1, $n2, $x]);
   }
 
 }

@@ -518,40 +518,40 @@ final class Printexc {
 
   }
   public static function to_string(dynamic $x): dynamic {
-    return static::get()[1]($x);
+    return static::callRehackFunction(static::get()[1], varray[$x]);
   }
   public static function print(dynamic $fct, dynamic $arg): dynamic {
-    return static::get()[2]($fct, $arg);
+    return static::callRehackFunction(static::get()[2], varray[$fct, $arg]);
   }
   public static function catch(dynamic $fct, dynamic $arg): dynamic {
-    return static::get()[3]($fct, $arg);
+    return static::callRehackFunction(static::get()[3], varray[$fct, $arg]);
   }
   public static function print_backtrace(dynamic $outchan): dynamic {
-    return static::get()[4]($outchan);
+    return static::callRehackFunction(static::get()[4], varray[$outchan]);
   }
   public static function get_backtrace(dynamic $param): dynamic {
-    return static::get()[5]($param);
+    return static::callRehackFunction(static::get()[5], varray[$param]);
   }
   public static function register_printer(dynamic $fn): dynamic {
-    return static::get()[8]($fn);
+    return static::callRehackFunction(static::get()[8], varray[$fn]);
   }
   public static function print_raw_backtrace(dynamic $outchan, dynamic $raw_backtrace): dynamic {
-    return static::get()[10]($outchan, $raw_backtrace);
+    return static::callRehackFunction(static::get()[10], varray[$outchan, $raw_backtrace]);
   }
   public static function raw_backtrace_to_string(dynamic $raw_backtrace): dynamic {
-    return static::get()[11]($raw_backtrace);
+    return static::callRehackFunction(static::get()[11], varray[$raw_backtrace]);
   }
   public static function set_uncaught_exception_handler(dynamic $fn): dynamic {
-    return static::get()[13]($fn);
+    return static::callRehackFunction(static::get()[13], varray[$fn]);
   }
   public static function backtrace_slots(dynamic $raw_backtrace): dynamic {
-    return static::get()[14]($raw_backtrace);
+    return static::callRehackFunction(static::get()[14], varray[$raw_backtrace]);
   }
   public static function exn_slot_id(dynamic $x): dynamic {
-    return static::get()[20]($x);
+    return static::callRehackFunction(static::get()[20], varray[$x]);
   }
   public static function exn_slot_name(dynamic $x): dynamic {
-    return static::get()[21]($x);
+    return static::callRehackFunction(static::get()[21], varray[$x]);
   }
 
 }

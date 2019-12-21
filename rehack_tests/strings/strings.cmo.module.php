@@ -264,46 +264,46 @@ final class Strings {
 
   }
   public static function greeting(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function unicodeLength(): dynamic {
-    return static::get()[2]();
+    return static::callRehackFunction(static::get()[2], varray[]);
   }
   public static function negativeOne(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function six(): dynamic {
-    return static::get()[4]();
+    return static::callRehackFunction(static::get()[4], varray[]);
   }
   public static function index(): dynamic {
-    return static::get()[5]();
+    return static::callRehackFunction(static::get()[5], varray[]);
   }
   public static function createIntFromString(dynamic $ss): dynamic {
-    return static::get()[6]($ss);
+    return static::callRehackFunction(static::get()[6], varray[$ss]);
   }
   public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope): dynamic {
-    return static::get()[7]($cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope);
+    return static::callRehackFunction(static::get()[7], varray[$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope]);
   }
   public static function i(): dynamic {
-    return static::get()[8]();
+    return static::callRehackFunction(static::get()[8], varray[]);
   }
   public static function myRefCell(): dynamic {
-    return static::get()[9]();
+    return static::callRehackFunction(static::get()[9], varray[]);
   }
   public static function myRefCellContents(): dynamic {
-    return static::get()[10]();
+    return static::callRehackFunction(static::get()[10], varray[]);
   }
   public static function one(): dynamic {
-    return static::get()[11]();
+    return static::callRehackFunction(static::get()[11], varray[]);
   }
   public static function two(): dynamic {
-    return static::get()[12]();
+    return static::callRehackFunction(static::get()[12], varray[]);
   }
   public static function n(): dynamic {
-    return static::get()[13]();
+    return static::callRehackFunction(static::get()[13], varray[]);
   }
   public static function anotherName(): dynamic {
-    return static::get()[14]();
+    return static::callRehackFunction(static::get()[14], varray[]);
   }
 
 }

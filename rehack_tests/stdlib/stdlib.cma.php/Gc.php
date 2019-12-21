@@ -213,16 +213,16 @@ final class Gc {
 
   }
   public static function print_stat(dynamic $c): dynamic {
-    return static::get()[1]($c);
+    return static::callRehackFunction(static::get()[1], varray[$c]);
   }
   public static function allocated_bytes(dynamic $param): dynamic {
-    return static::get()[2]($param);
+    return static::callRehackFunction(static::get()[2], varray[$param]);
   }
   public static function create_alarm(dynamic $f): dynamic {
-    return static::get()[6]($f);
+    return static::callRehackFunction(static::get()[6], varray[$f]);
   }
   public static function delete_alarm(dynamic $a): dynamic {
-    return static::get()[7]($a);
+    return static::callRehackFunction(static::get()[7], varray[$a]);
   }
 
 }

@@ -250,49 +250,49 @@ final class Parsing {
 
   }
   public static function symbol_start(dynamic $param): dynamic {
-    return static::get()[1]($param);
+    return static::callRehackFunction(static::get()[1], varray[$param]);
   }
   public static function symbol_end(dynamic $param): dynamic {
-    return static::get()[2]($param);
+    return static::callRehackFunction(static::get()[2], varray[$param]);
   }
   public static function rhs_start(dynamic $n): dynamic {
-    return static::get()[3]($n);
+    return static::callRehackFunction(static::get()[3], varray[$n]);
   }
   public static function rhs_end(dynamic $n): dynamic {
-    return static::get()[4]($n);
+    return static::callRehackFunction(static::get()[4], varray[$n]);
   }
   public static function symbol_start_pos(dynamic $param): dynamic {
-    return static::get()[5]($param);
+    return static::callRehackFunction(static::get()[5], varray[$param]);
   }
   public static function symbol_end_pos(dynamic $param): dynamic {
-    return static::get()[6]($param);
+    return static::callRehackFunction(static::get()[6], varray[$param]);
   }
   public static function rhs_start_pos(dynamic $n): dynamic {
-    return static::get()[7]($n);
+    return static::callRehackFunction(static::get()[7], varray[$n]);
   }
   public static function rhs_end_pos(dynamic $n): dynamic {
-    return static::get()[8]($n);
+    return static::callRehackFunction(static::get()[8], varray[$n]);
   }
   public static function clear_parser(dynamic $param): dynamic {
-    return static::get()[9]($param);
+    return static::callRehackFunction(static::get()[9], varray[$param]);
   }
   public static function Parse_error(): dynamic {
-    return static::get()[10]();
+    return static::callRehackFunction(static::get()[10], varray[]);
   }
   public static function YYexit(): dynamic {
-    return static::get()[12]();
+    return static::callRehackFunction(static::get()[12], varray[]);
   }
   public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf): dynamic {
-    return static::get()[13]($tables, $start, $lexer, $lexbuf);
+    return static::callRehackFunction(static::get()[13], varray[$tables, $start, $lexer, $lexbuf]);
   }
   public static function peek_val(dynamic $env, dynamic $n): dynamic {
-    return static::get()[14]($env, $n);
+    return static::callRehackFunction(static::get()[14], varray[$env, $n]);
   }
   public static function is_current_lookahead(dynamic $tok): dynamic {
-    return static::get()[15]($tok);
+    return static::callRehackFunction(static::get()[15], varray[$tok]);
   }
   public static function parse_error(dynamic $param): dynamic {
-    return static::get()[16]($param);
+    return static::callRehackFunction(static::get()[16], varray[$param]);
   }
 
 }

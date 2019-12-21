@@ -380,148 +380,115 @@ final class Js_of_ocaml__Js {
 
   }
   public static function null(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::get()[1], varray[]);
   }
   public static function undefined(): dynamic {
-    return static::get()[3]();
+    return static::callRehackFunction(static::get()[3], varray[]);
   }
   public static function Opt(): dynamic {
-    return static::get()[5]();
+    return static::callRehackFunction(static::get()[5], varray[]);
   }
   public static function Optdef(): dynamic {
-    return static::get()[6]();
+    return static::callRehackFunction(static::get()[6], varray[]);
   }
   public static function true(): dynamic {
-    return static::get()[7]();
+    return static::callRehackFunction(static::get()[7], varray[]);
   }
   public static function false(): dynamic {
-    return static::get()[8]();
+    return static::callRehackFunction(static::get()[8], varray[]);
   }
   public static function string_constr(): dynamic {
-    return static::get()[9]();
+    return static::callRehackFunction(static::get()[9], varray[]);
   }
   public static function regExp(): dynamic {
-    return static::get()[10]();
-  }
-  public static function regExp(): dynamic {
-    return static::get()[11]();
-  }
-  public static function regExp(): dynamic {
-    return static::get()[12]();
+    return static::callRehackFunction(static::get()[10], varray[]);
   }
   public static function object_keys(dynamic $o): dynamic {
-    return static::get()[13]($o);
+    return static::callRehackFunction(static::get()[13], varray[$o]);
   }
   public static function array_constructor(): dynamic {
-    return static::get()[14]();
-  }
-  public static function array_constructor(): dynamic {
-    return static::get()[15]();
+    return static::callRehackFunction(static::get()[14], varray[]);
   }
   public static function array_get(dynamic $unnamed1, dynamic $unnamed2): dynamic {
-    return static::get()[16]($unnamed1, $unnamed2);
+    return static::callRehackFunction(static::get()[16], varray[$unnamed1, $unnamed2]);
   }
   public static function array_set(dynamic $unnamed1, dynamic $unnamed2, dynamic $unnamed3): dynamic {
-    return static::get()[17]($unnamed1, $unnamed2, $unnamed3);
+    return static::callRehackFunction(static::get()[17], varray[$unnamed1, $unnamed2, $unnamed3]);
   }
   public static function array_map(dynamic $f, dynamic $a): dynamic {
-    return static::get()[18]($f, $a);
+    return static::callRehackFunction(static::get()[18], varray[$f, $a]);
   }
   public static function array_mapi(dynamic $f, dynamic $a): dynamic {
-    return static::get()[19]($f, $a);
+    return static::callRehackFunction(static::get()[19], varray[$f, $a]);
   }
   public static function str_array(dynamic $unnamed1): dynamic {
-    return static::get()[20]($unnamed1);
+    return static::callRehackFunction(static::get()[20], varray[$unnamed1]);
   }
   public static function match_result(dynamic $unnamed1): dynamic {
-    return static::get()[21]($unnamed1);
+    return static::callRehackFunction(static::get()[21], varray[$unnamed1]);
   }
   public static function date_constr(): dynamic {
-    return static::get()[22]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[23]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[24]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[25]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[26]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[27]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[28]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[29]();
-  }
-  public static function date_constr(): dynamic {
-    return static::get()[30]();
+    return static::callRehackFunction(static::get()[22], varray[]);
   }
   public static function math(): dynamic {
-    return static::get()[31]();
+    return static::callRehackFunction(static::get()[31], varray[]);
   }
   public static function error_constr(): dynamic {
-    return static::get()[32]();
+    return static::callRehackFunction(static::get()[32], varray[]);
   }
   public static function string_of_error(dynamic $e): dynamic {
-    return static::get()[33]($e);
+    return static::callRehackFunction(static::get()[33], varray[$e]);
   }
   public static function raise_js_error(): dynamic {
-    return static::get()[34]();
+    return static::callRehackFunction(static::get()[34], varray[]);
   }
   public static function Error(): dynamic {
-    return static::get()[35]();
+    return static::callRehackFunction(static::get()[35], varray[]);
   }
   public static function JSON(): dynamic {
-    return static::get()[36]();
+    return static::callRehackFunction(static::get()[36], varray[]);
   }
   public static function decodeURI(dynamic $s): dynamic {
-    return static::get()[37]($s);
+    return static::callRehackFunction(static::get()[37], varray[$s]);
   }
   public static function decodeURIComponent(dynamic $s): dynamic {
-    return static::get()[38]($s);
+    return static::callRehackFunction(static::get()[38], varray[$s]);
   }
   public static function encodeURI(dynamic $s): dynamic {
-    return static::get()[39]($s);
+    return static::callRehackFunction(static::get()[39], varray[$s]);
   }
   public static function encodeURIComponent(dynamic $s): dynamic {
-    return static::get()[40]($s);
+    return static::callRehackFunction(static::get()[40], varray[$s]);
   }
   public static function escape(dynamic $s): dynamic {
-    return static::get()[41]($s);
+    return static::callRehackFunction(static::get()[41], varray[$s]);
   }
   public static function unescape(dynamic $s): dynamic {
-    return static::get()[42]($s);
+    return static::callRehackFunction(static::get()[42], varray[$s]);
   }
   public static function isNaN(dynamic $i): dynamic {
-    return static::get()[43]($i);
+    return static::callRehackFunction(static::get()[43], varray[$i]);
   }
   public static function parseInt(dynamic $s): dynamic {
-    return static::get()[44]($s);
+    return static::callRehackFunction(static::get()[44], varray[$s]);
   }
   public static function parseFloat(dynamic $s): dynamic {
-    return static::get()[45]($s);
+    return static::callRehackFunction(static::get()[45], varray[$s]);
   }
   public static function coerce(dynamic $x, dynamic $f, dynamic $g): dynamic {
-    return static::get()[46]($x, $f, $g);
+    return static::callRehackFunction(static::get()[46], varray[$x, $f, $g]);
   }
   public static function coerce_opt(dynamic $x, dynamic $f, dynamic $g): dynamic {
-    return static::get()[47]($x, $f, $g);
+    return static::callRehackFunction(static::get()[47], varray[$x, $f, $g]);
   }
   public static function export(dynamic $field, dynamic $x): dynamic {
-    return static::get()[48]($field, $x);
+    return static::callRehackFunction(static::get()[48], varray[$field, $x]);
   }
   public static function export_all(dynamic $obj): dynamic {
-    return static::get()[49]($obj);
+    return static::callRehackFunction(static::get()[49], varray[$obj]);
   }
   public static function Unsafe(): dynamic {
-    return static::get()[50]();
+    return static::callRehackFunction(static::get()[50], varray[]);
   }
 
 }

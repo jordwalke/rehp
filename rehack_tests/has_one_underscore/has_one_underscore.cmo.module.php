@@ -43,7 +43,7 @@ final class Has_one_underscore {
 
   }
   public static function hasOneUnderscore(dynamic $id_or_token): dynamic {
-    return static::get()[1]($id_or_token);
+    return static::callRehackFunction(static::get()[1], varray[$id_or_token]);
   }
 
 }
