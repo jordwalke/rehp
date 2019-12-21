@@ -32,6 +32,7 @@ type t =
   ; implicit_ext : string option
   ; custom_header : string option
   ; hide_compilation_summary : bool
+  ; async_compilation_summary : bool
   ; use_hashing : bool }
 
 let debug =
@@ -96,9 +97,16 @@ let custom_header =
 let hide_compilation_summary =
   let doc =
     "Enables hiding of /*____CompilationSummary*/ replacement inthe custom header (if \
-     it is present in the first place)."
+     /*____CompilationSummary*/ is present in the first place)."
   in
   Arg.(value & flag & info ["hide-compilation-summary"] ~doc)
+
+let async_compilation_summary =
+  let doc =
+    "Enables backend specific async transforms of /*____CompilationSummary*/ in the custom header (if \
+     /*____CompilationSummary*/ is present in the first place)."
+  in
+  Arg.(value & flag & info ["async-compilation-summary"] ~doc)
 
 let use_hashing =
   let doc = "If enabled, then avoids rebuilds via hashing of inputs." in
@@ -126,6 +134,7 @@ let t =
            use_hashing
            c_header
            hide_compilation_summary
+           async_compilation_summary
            ->
         let enable = if pretty then "pretty" :: enable else enable in
         let enable = if prettiestJs then "prettiest-js" :: enable else enable in
@@ -142,6 +151,7 @@ let t =
         ; implicit_ext
         ; custom_header = c_header
         ; hide_compilation_summary
+        ; async_compilation_summary
         ; use_hashing })
     $ debug
     $ enable
@@ -154,7 +164,8 @@ let t =
     $ implicit_ext
     $ use_hashing
     $ custom_header
-    $ hide_compilation_summary)
+    $ hide_compilation_summary
+    $ async_compilation_summary)
 
 let on_off on off t =
   List.iter ~f:on t.enable;

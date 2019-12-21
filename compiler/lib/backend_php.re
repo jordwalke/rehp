@@ -115,7 +115,26 @@ let _php_globals = [
   "isNaN",
 ];
 
-let compute_footer_summary = (moduleName, metadatas) => {
+let compute_footer_summary = (moduleName, metadatas, should_async) => {
+  let rec dedupeAndFilter = (revDeduped, rest) => {
+    switch (rest) {
+    | [] => List.rev(revDeduped)
+    | [(hd: Module_export_metadata.t), ...tl] =>
+      switch (hd.original_name) {
+      | None => dedupeAndFilter(revDeduped, tl)
+      | Some(nm) =>
+        List.exists(revDeduped, ~f=md =>
+          switch (md.Module_export_metadata.original_name) {
+          | None => true
+          | Some(dedupedNm) => String.equal(dedupedNm, nm)
+          }
+        )
+          ? dedupeAndFilter(revDeduped, tl)
+          : dedupeAndFilter([hd, ...revDeduped], tl)
+      }
+    };
+  };
+  let metadatas = dedupeAndFilter([], metadatas);
   List.map(metadatas, ~f=metadata =>
     switch (metadata.Module_export_metadata.original_name) {
     | None => []
@@ -133,17 +152,42 @@ let compute_footer_summary = (moduleName, metadatas) => {
       let params =
         List.map(~f=nm => "dynamic $" ++ nm, argsList)
         |> String.concat(~sep=", ");
+      let nmLen = String.length(nm);
       let args =
         List.map(~f=nm => "$" ++ nm, argsList) |> String.concat(~sep=", ");
-      [
-        "  public static function " ++ nm ++ "(" ++ params ++ "): dynamic {",
-        "    return static::get()["
-        ++ string_of_int(metadata.export_index)
-        ++ "]("
-        ++ args
-        ++ ");",
-        "  }",
-      ];
+      if (should_async
+          && String.is_prefixed_i("gen", nm, 0)
+          && (
+            nmLen === 3
+            || nmLen > 3
+            && nm.[3] !== Char.lowercase_ascii(nm.[4])
+          )) {
+        [
+          "  public static function "
+          ++ nm
+          ++ "("
+          ++ params
+          ++ "): Awaitable<dynamic> {",
+          "    return static::genCallFunctionWithArgs(\""
+          ++ nm
+          ++ "\", static::get()["
+          ++ string_of_int(metadata.export_index)
+          ++ "], varray["
+          ++ args
+          ++ "]);",
+          "  }",
+        ];
+      } else {
+        [
+          "  public static function " ++ nm ++ "(" ++ params ++ "): dynamic {",
+          "    return static::callRehackFunction(static::get()["
+          ++ string_of_int(metadata.export_index)
+          ++ "], varray["
+          ++ args
+          ++ "]);",
+          "  }",
+        ];
+      };
     }
   )
   |> List.concat;
@@ -232,13 +276,14 @@ let output =
       custom_header.Module_prep.chunks,
     );
   Php_output.program(formatter, ~source_map?, allPhp);
-  let (remainingChunks, shouldPrintSummary) =
+  let (remainingChunks, shouldPrintSummary, should_async) =
     Backend.Helpers.print_until_summary(formatter, remainingChunks);
   if (shouldPrintSummary) {
     let summary =
       compute_footer_summary(
         custom_header.module_name,
         module_export_metadatas,
+        should_async,
       );
     List.iter(
       summary,

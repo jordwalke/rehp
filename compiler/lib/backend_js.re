@@ -250,7 +250,7 @@ let output =
     );
   let print_sourcemaps =
     Js_output.program(formatter, ~source_map?, jsWithRuntime);
-  let (remainingChunks, shouldPrintSummary) =
+  let (remainingChunks, shouldPrintSummary, _should_async) =
     Backend.Helpers.print_until_summary(formatter, remainingChunks);
   if (shouldPrintSummary) {
     let summary =

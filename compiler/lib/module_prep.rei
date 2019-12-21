@@ -50,8 +50,9 @@ type chunk =
   | Text(string)
   /*Placeholder for where compilation output will go. Integer indentation. */
   | CompilationOutputPlaceholder(int)
-  /* Placeholder for where compilation output will go. Integer indentation. */
-  | SummaryPlaceholder(int);
+  /* Placeholder for where compilation output will go. Boolean flag for
+   * enabling async transforms in compilation summary, integer indentation. */
+  | SummaryPlaceholder(bool, int);
 type parsed = {
   module_name: string,
   chunks: list(chunk),
@@ -62,6 +63,7 @@ let substitute_and_split:
   /* Template */
   (
     ~hide_compilation_summary: bool,
+    ~async_compilation_summary: bool,
     string,
     /* string hashes comment: Git version of compiler, input hashes, bytecode hash */
     string,

@@ -74,5 +74,15 @@ let testPartialMethodCalls = (o: t('anything)) => {
   (sendResult1, sendResult2, sendResult3);
 };
 
-
 let x = MyLibUtility.thisIsAUtilityFunction();
+
+let genThisShouldBeAsyncTransformed = (input, cb) => {
+  cb(input + 1);
+};
+
+/**
+ * References to prior values aren't going to get re-exported in the summary
+ * because their names are lost at bytecode compilation time. (I verified in
+ * bytecode parser).
+ */
+let thisWontAppearInSummary = genThisShouldBeAsyncTransformed;

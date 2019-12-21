@@ -7,8 +7,9 @@ type chunk =
   | Text(string)
   /*Placeholder for where compilation output will go. Integer indentation. */
   | CompilationOutputPlaceholder(int)
-  /* Placeholder for where compilation output will go. Integer indentation. */
-  | SummaryPlaceholder(int);
+  /* Placeholder for where compilation output will go. Boolean flag for
+   * enabling async transforms in compilation summary, integer indentation. */
+  | SummaryPlaceholder(bool, int);
 type parsed = {
   module_name: string,
   chunks: list(chunk),
@@ -127,6 +128,7 @@ let normalize_module_name = Parse_bytecode.normalize_module_name;
 let substitute_and_split =
     (
       ~hide_compilation_summary,
+      ~async_compilation_summary,
       txt,
       hashesComment,
       compunit_name,
@@ -190,7 +192,10 @@ let substitute_and_split =
         | None => [Text(substituted), CompilationOutputPlaceholder(0)]
         | Some((l, r)) => [
             Text(l),
-            SummaryPlaceholder(code_indent_amount(l)),
+            SummaryPlaceholder(
+              async_compilation_summary,
+              code_indent_amount(l),
+            ),
             Text(r),
           ]
         }
@@ -205,7 +210,10 @@ let substitute_and_split =
             Text(l),
             CompilationOutputPlaceholder(code_indent_amount(l)),
             Text(rl),
-            SummaryPlaceholder(code_indent_amount(rl)),
+            SummaryPlaceholder(
+              async_compilation_summary,
+              code_indent_amount(rl),
+            ),
             Text(rr),
           ]
         }

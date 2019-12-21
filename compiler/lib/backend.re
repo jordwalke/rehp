@@ -21,7 +21,7 @@ module Helpers = {
     | [Module_prep.CompilationOutputPlaceholder(indent), ...tl] =>
       Pretty_print.space(~indent, formatter);
       tl;
-    | [Module_prep.SummaryPlaceholder(indent), ...tl] =>
+    | [Module_prep.SummaryPlaceholder(async, indent), ...tl] =>
       raise(
         Invalid_argument(
           "Summary should not come before compilation output in template",
@@ -38,7 +38,7 @@ module Helpers = {
    */
   let rec print_until_summary = (formatter, chunks: list(Module_prep.chunk)) => {
     switch (chunks) {
-    | [] => ([], false)
+    | [] => ([], false, false)
     | [Text(s), ...tl] =>
       Pretty_print.string(formatter, s);
       print_until_summary(formatter, tl);
@@ -48,7 +48,11 @@ module Helpers = {
           "Summary should not come before compilation output in template",
         ),
       )
-    | [Module_prep.SummaryPlaceholder(indent), ...tl] => (tl, true)
+    | [Module_prep.SummaryPlaceholder(should_async, _), ...tl] => (
+        tl,
+        true,
+        should_async,
+      )
     };
   };
 
@@ -58,8 +62,8 @@ module Helpers = {
       Pretty_print.string(formatter, s);
       print_texts(formatter, tl);
     | [] => ()
-    | [Module_prep.CompilationOutputPlaceholder(indent), ...tl]
-    | [Module_prep.SummaryPlaceholder(indent), ...tl] =>
+    | [Module_prep.CompilationOutputPlaceholder(_), ...tl]
+    | [Module_prep.SummaryPlaceholder(_, _), ...tl] =>
       print_texts(formatter, tl)
     };
   };
