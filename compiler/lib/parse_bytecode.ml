@@ -700,7 +700,7 @@ let register_global
                      certainly a "module" *)
                       definitely_not_module
                   then "caml_register_global"
-                  else "%caml_register_global_module")
+                  else "caml_register_global_module")
               , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
         :: rem)
   else rem

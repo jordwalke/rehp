@@ -165,34 +165,6 @@ let the_length_of info x =
       | _ -> None)
     x
 
-let the_block_of info x =
-  match the_def_of info x with
-  | Some (Block (_, itms, _)) -> Some itms
-  | Some _ | None -> None
-
-(* TODO: There's a better implementation of this in specialize.ml *)
-let the_arity_of info x =
-  match the_def_of info (Pv x) with
-  | Some (Closure (params, _)) -> Pc (Int (Int32.of_int (List.length params)))
-  | None | Some _ -> Pc (Int (Int32.of_int 0))
-
-(* Could add Pc (IString (Var.to_string v)); to get the string name of
- * the identifier, but the names aren't registered correctly at this
- * point in the compiler. TODO: Implement that without using new
- * orig_string_name_debug function.
- *)
-(* A Pc of -1 indicate the name is not readable *)
-let readable_name v =
-  match Var.orig_string_name_debug v with
-  | None -> Pc (Int (Int32.of_int (-1)))
-  | Some s -> Pc (IString (s))
-
-let argument_names_of info x =
-  match the_def_of info (Pv x) with
-  | Some (Closure (params, _)) ->
-      List.map ~f:(fun v -> readable_name v) params
-  | None | Some _ -> []
-
 type is_int =
   | Y
   | N
@@ -241,39 +213,6 @@ let eval_instr info i =
           let c = Constant (Int c) in
           Flow.update_def info x c;
           Let (x, c))
-  | Let (x, Prim (Extern "%caml_register_global_module", [ind; modul; name])) -> (
-      let the_metadata_of info x =
-        match the_block_of info x with
-        | Some blk -> Some blk
-        | _ -> None
-      in
-      match the_metadata_of info modul with
-      | None -> i
-      | Some block_items ->
-          let f v =
-            (* Original name of identifier in scope *)
-            (* Identifier in scope *)
-            (* Not a great idea to include the identifier reference
-             * itself as it will cause there to not be inlinine of
-             * those constant functions. Inlining them is good, and we
-             * can still recover their string original name as we do in
-             * argument_names_of *)
-            (* Pv v; *)
-
-            (* Arity if function *)
-            readable_name v
-            :: the_arity_of info v
-            :: (* Argument names if function with arity *)
-               argument_names_of info v
-          in
-          let prim_block_items = List.map (Array.to_list block_items) ~f |> List.concat in
-          let md_call =
-            Prim
-              ( Extern "%caml_register_global_module_metadata"
-              , ind :: modul :: name :: prim_block_items )
-          in
-          Flow.update_def info x md_call;
-          Let (x, md_call))
   | Let (_, Prim (Extern ("caml_array_unsafe_get" | "caml_array_unsafe_set"), _)) ->
       (* Fresh parameters can be introduced for these primitives
            in Specialize_js, which would make the call to [the_const_of]
