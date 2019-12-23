@@ -372,5 +372,5 @@ let custom_module_registration = () =>
 let custom_module_loader = () =>
   Some(
     (runtime_getter, name) =>
-      Some(Rehp.ECall(Rehp.ERaw(name ++ "::get"), [], Loc.N)),
+      Some(Rehp.ECall(Rehp.ERaw(name ++ "::requireModule"), [], Loc.N)),
   );
