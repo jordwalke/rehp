@@ -122,6 +122,9 @@ let ident = (~ref=false, _input, i): Id.t =>
   | Id.V(_) => assert(false)
   };
 
+let nullExprLoc =
+  Some((Php.EVar(Id.S({name: "null", var: None, loc: Loc.N})), Loc.N));
+
 exception Unsupported_statement;
 
 let binop_from_rehp = binop =>
@@ -498,10 +501,7 @@ let rec foldVars =
         let (out, initMapped) =
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
-        let input = {
-          ...curInput,
-          vars: addOne(curInput.vars, id),
-        };
+        let input = {...curInput, vars: addOne(curInput.vars, id)};
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       }
@@ -967,6 +967,13 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
   ({...outs, free_labels}, Php.Statement_list(li));
 }
 
+and nullifyInitializers = (revSoFar, lst) =>
+  switch (lst) {
+  | [] => Some(List.rev_map(~f=((e, none)) => (e, nullExprLoc), revSoFar))
+  | [(_, None) as hd, ...tl] => nullifyInitializers([hd, ...revSoFar], tl)
+  | [(_, Some(_)), ...tl] => None
+  }
+
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
 and statement = (curOut, input: input, x) => {
   let (out, mapped) =
@@ -986,6 +993,11 @@ and statement = (curOut, input: input, x) => {
       indent.contents = indent.contents + 2;
       /* print_newline(); */
       let (out, mappedResults) = foldVars(initialiser, curOut, input, [], l);
+      let mappedResults =
+        switch (nullifyInitializers([], mappedResults)) {
+        | None => mappedResults
+        | Some(nulled) => nulled
+        };
       let ret = (out, Php.Variable_statement(mappedResults));
       indent.contents = indent.contents - 2;
       /* print_string(String.make(indent.contents, ' ') ++ "</vars>"); */
@@ -1063,10 +1075,7 @@ and statement = (curOut, input: input, x) => {
       | Left(_) => continueWithAugmentedScope(input, x)
       | Right((id, _eopt)) =>
         let addedVars = useOneVar(id);
-        let augmentedInput = {
-          ...input,
-          vars: append(input.vars, addedVars),
-        };
+        let augmentedInput = {...input, vars: append(input.vars, addedVars)};
         let (out, res) = continueWithAugmentedScope(augmentedInput, x);
         let out = {...out, dec: append(out.dec, addedVars)};
         (out, res);
