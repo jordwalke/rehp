@@ -6,6 +6,10 @@ let times = Debug.find("times");
 module Helpers = {
   let git_version = () => "temporarily-disabled-git-version";
 
+  let is_prefixed_with_one_of = (set, str) => {
+    StringSet.exists(elem => set)
+  };
+
   /**
    * Prints leading chunks until compilation output placeholder, and performs
    * the required formatter indent command at that point. Returns remaining

@@ -115,6 +115,22 @@ let _php_globals = [
   "isNaN",
 ];
 
+/**
+ * Names of methods which might conflict with the base class that each module
+ * extends.
+ */
+let static_methods =
+  List.fold_left(
+    ~f=(acc, x) => StringSet.add(x, acc),
+    ~init=StringSet.empty,
+    [
+      "__construct",
+      /* requireModule will be the assumed base static method used to load a
+       * module */
+      "requireModule",
+    ],
+  );
+
 let compute_footer_summary = (moduleName, metadatas, should_async) => {
   let rec dedupeAndFilter = (revDeduped, rest) => {
     switch (rest) {
@@ -139,6 +155,19 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
     switch (metadata.Module_export_metadata.original_name) {
     | None => []
     | Some(nm) =>
+      let nm_no_unders = String.trim_leading_char('_', nm);
+      let elem_matches = elem =>
+        String.equal(String.trim_leading_char('_', elem), nm_no_unders);
+      /*
+       * If there's a keyword that is a prefix of (_*)nm without underscores,
+       * then prepend an underscore. If there's a keyword 'keyword' then name
+       * keyword becomes _keyword name _keyword => __keyword
+       */
+      let nm =
+        StringSet.exists(elem_matches, php_keywords) ? "_" ++ nm ++ "_" : nm;
+      let nm =
+        StringSet.exists(elem_matches, static_methods)
+          ? "_" ++ nm ++ "_" : nm;
       let noNames = {contents: 0};
       let argsList =
         List.map(metadata.arg_names, ~f=nm =>
@@ -170,7 +199,7 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
           ++ "): Awaitable<dynamic> {",
           "    return static::genCallFunctionWithArgs(\""
           ++ nm
-          ++ "\", static::get()["
+          ++ "\", static::requireModule()["
           ++ string_of_int(metadata.export_index)
           ++ "], varray["
           ++ args
@@ -180,7 +209,7 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
       } else {
         [
           "  public static function " ++ nm ++ "(" ++ params ++ "): dynamic {",
-          "    return static::callRehackFunction(static::get()["
+          "    return static::callRehackFunction(static::requireModule()["
           ++ string_of_int(metadata.export_index)
           ++ "], varray["
           ++ args

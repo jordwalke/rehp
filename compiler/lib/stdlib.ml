@@ -356,6 +356,25 @@ module String = struct
     done;
     if not !found then raise Not_found;
     !i
+
+
+  let num_leading_char char str =
+    let len = String.length str in
+    let first_non = ref(-1) in
+    for i = 0 to len - 1 do
+      if !first_non == -1 && get str i == char then (
+        first_non := i
+      )
+    done;
+    if !first_non == -1 then 0 else !first_non + 1
+
+  let trim_leading_char char str =
+    let len = String.length str in
+    let num_leading = num_leading_char char str in
+    if num_leading == 0 then
+      str else
+    sub str ~pos:num_leading ~len:(len - num_leading)
+
 end
 
 module Int = struct
