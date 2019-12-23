@@ -33,8 +33,8 @@ final class Js_of_ocaml__Intl {
       $string("usage"),
       $string("numeric")
     };
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $CamlinternalOO =  CamlinternalOO::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $CamlinternalOO =  CamlinternalOO::requireModule ();
     $a_ = Vector{0, $string("_type"), $string("localeMatcher")};
     $b_ = Vector{
       0,

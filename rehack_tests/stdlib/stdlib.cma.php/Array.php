@@ -34,8 +34,8 @@ final class Array_ {
     $cst_Array_sub = $string("Array.sub");
     $cst_Array_init = $string("Array.init");
     $cst_Array_Bottom = $string("Array.Bottom");
-    $Assert_failure =  Assert_failure::get ();
-    $Pervasives =  Pervasives::get ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
     $a_ = Vector{0, $string("array.ml"), 233, 4};
     $make_float = (dynamic $aj_) ==> {
       return $runtime["caml_make_float_vect"]($aj_);
@@ -678,7 +678,7 @@ final class Array_ {
      return ($Array);
 
   }
-  public static function make_float(dynamic $unnamed1): dynamic {
+  public static function _make_float_(dynamic $unnamed1): dynamic {
     return static::callRehackFunction(static::requireModule()[1], varray[$unnamed1]);
   }
   public static function init(dynamic $l, dynamic $f): dynamic {

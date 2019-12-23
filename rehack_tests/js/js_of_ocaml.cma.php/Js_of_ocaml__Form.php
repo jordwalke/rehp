@@ -29,11 +29,11 @@ final class Js_of_ocaml__Form {
     $cst_reset = $string("reset");
     $cst_submit = $string("submit");
     $cst_text = $string("text");
-    $Assert_failure =  Assert_failure::get ();
-    $List =  List_::get ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
-    $Array =  Array_::get ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $List =  List_::requireModule ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
+    $Array =  Array_::requireModule ();
     $f_ = Vector{0, $string("lib/js_of_ocaml/form.ml"), 170, 58};
     $e_ = Vector{0, 1};
     $a_ = (dynamic $x) ==> {

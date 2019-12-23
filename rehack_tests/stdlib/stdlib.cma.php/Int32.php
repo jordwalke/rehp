@@ -17,7 +17,7 @@ final class Int32 {
        "caml_wrap_thrown_exception_reraise"
      ];
     $cst_d = $runtime["caml_new_string"]("%d");
-    $Failure =  Failure::get ();
+    $Failure =  Failure::requireModule ();
     $zero = 0;
     $one = 1;
     $minus_one = -1;
@@ -84,10 +84,10 @@ final class Int32 {
   public static function abs(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$n]);
   }
-  public static function max_int(): dynamic {
+  public static function _max_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
-  public static function min_int(): dynamic {
+  public static function _min_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function lognot(dynamic $n): dynamic {

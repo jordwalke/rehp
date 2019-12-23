@@ -13,7 +13,7 @@ require('runtime.js');
 var runtime = joo_global_object.jsoo_runtime;
 var string = runtime["caml_new_string"];
 var s = string("3.3.0");
-var git_version = string("5cad561d7");
+var git_version = string("5fdbca036");
 var Js_of_ocaml_Lib_version = [0,s,git_version];
 
 exports = Js_of_ocaml_Lib_version;

@@ -68,11 +68,11 @@ final class Strings {
     $cst_Nans_are_should_output_false = $string(
       "Nans are == (should output false):"
     );
-    $Pervasives =  Pervasives::get ();
-    $String =  String_::get ();
-    $Not_found =  Not_found::get ();
-    $StringHelper =  StringHelper::get ();
-    $Failure =  Failure::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $String =  String_::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $StringHelper =  StringHelper::requireModule ();
+    $Failure =  Failure::requireModule ();
     $r_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
     $s_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
     

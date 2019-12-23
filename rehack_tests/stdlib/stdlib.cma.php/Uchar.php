@@ -26,7 +26,7 @@ final class Uchar {
     $cst_X = $string("%X");
     $err_no_pred = $string("U+0000 has no predecessor");
     $err_no_succ = $string("U+10FFFF has no successor");
-    $Pervasives =  Pervasives::get ();
+    $Pervasives =  Pervasives::requireModule ();
     $err_not_sv = (dynamic $i) ==> {
       return $call2(
         $Pervasives[16],
@@ -138,16 +138,16 @@ final class Uchar {
   public static function is_valid(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$i]);
   }
-  public static function of_int(dynamic $i): dynamic {
+  public static function _of_int_(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[$i]);
   }
-  public static function is_char(dynamic $u): dynamic {
+  public static function _is_char_(dynamic $u): dynamic {
     return static::callRehackFunction(static::requireModule()[11], varray[$u]);
   }
-  public static function of_char(dynamic $c): dynamic {
+  public static function _of_char_(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[12], varray[$c]);
   }
-  public static function to_char(dynamic $u): dynamic {
+  public static function _to_char_(dynamic $u): dynamic {
     return static::callRehackFunction(static::requireModule()[13], varray[$u]);
   }
   public static function unsafe_to_char(dynamic $unnamed1): dynamic {

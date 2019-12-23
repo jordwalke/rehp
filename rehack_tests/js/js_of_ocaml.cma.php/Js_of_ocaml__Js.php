@@ -23,9 +23,9 @@ final class Js_of_ocaml__Js {
     $cst_parseInt = $string("parseInt");
     $cst_Js_of_ocaml_Js_Error = $string("Js_of_ocaml__Js.Error");
     $cst_jsError = $string("jsError");
-    $Pervasives =  Pervasives::get ();
-    $Callback =  Callback::get ();
-    $Printexc =  Printexc::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Callback =  Callback::requireModule ();
+    $Printexc =  Printexc::requireModule ();
     $global =  joo_global_object ;
     $Unsafe = Vector{0, $global};
     $null__0 =  null ;
@@ -379,10 +379,10 @@ final class Js_of_ocaml__Js {
      return ($Js_of_ocaml_Js);
 
   }
-  public static function _null(): dynamic {
+  public static function _null_(): dynamic {
     return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
-  public static function _undefined(): dynamic {
+  public static function _undefined_(): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function Opt(): dynamic {
@@ -391,10 +391,10 @@ final class Js_of_ocaml__Js {
   public static function Optdef(): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[]);
   }
-  public static function _true(): dynamic {
+  public static function _true_(): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
-  public static function _false(): dynamic {
+  public static function _false_(): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function string_constr(): dynamic {
@@ -481,7 +481,7 @@ final class Js_of_ocaml__Js {
   public static function coerce_opt(dynamic $x, dynamic $f, dynamic $g): dynamic {
     return static::callRehackFunction(static::requireModule()[47], varray[$x, $f, $g]);
   }
-  public static function _export(dynamic $field, dynamic $x): dynamic {
+  public static function _export_(dynamic $field, dynamic $x): dynamic {
     return static::callRehackFunction(static::requireModule()[48], varray[$field, $x]);
   }
   public static function export_all(dynamic $obj): dynamic {

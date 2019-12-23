@@ -18,10 +18,10 @@ final class Js_of_ocaml__Dom {
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Assert_failure =  Assert_failure::get ();
-    $Not_found =  Not_found::get ();
-    $List =  List_::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $List =  List_::requireModule ();
     $a_ = Vector{0, $string("lib/js_of_ocaml/dom.ml"), 343, 67};
     $list_of_nodeList = (dynamic $nodeList) ==> {
       $X_ = (dynamic $x) ==> {

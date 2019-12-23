@@ -18,8 +18,8 @@ final class Nativeint {
      ];
     $left_shift_32 = $runtime["left_shift_32"];
     $cst_d = $runtime["caml_new_string"]("%d");
-    $Failure =  Failure::get ();
-    $Sys =  Sys::get ();
+    $Failure =  Failure::requireModule ();
+    $Sys =  Sys::requireModule ();
     $zero = 0;
     $one = 1;
     $minus_one = -1;
@@ -91,10 +91,10 @@ final class Nativeint {
   public static function size(): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
-  public static function max_int(): dynamic {
+  public static function _max_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
-  public static function min_int(): dynamic {
+  public static function _min_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[]);
   }
   public static function lognot(dynamic $n): dynamic {

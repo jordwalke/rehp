@@ -23,8 +23,8 @@ final class Marshal {
     $cst_Marshal_to_buffer_substring_out_of_bounds = $string(
       "Marshal.to_buffer: substring out of bounds"
     );
-    $Bytes =  Bytes::get ();
-    $Pervasives =  Pervasives::get ();
+    $Bytes =  Bytes::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
     $to_buffer = 
     (dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags) ==> {
       if (0 <= $ofs) {

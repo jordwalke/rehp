@@ -20,7 +20,7 @@ final class Sys {
      ];
     $cst_Sys_Break = $string("Sys.Break");
     $ocaml_version = $string("4.06.0");
-    $Not_found =  Not_found::get ();
+    $Not_found =  Not_found::requireModule ();
     $match = $runtime["caml_sys_get_argv"](0);
     $argv = $match[2];
     $executable_name = $match[1];
@@ -279,7 +279,7 @@ final class Sys {
   public static function Break(): dynamic {
     return static::callRehackFunction(static::requireModule()[44], varray[]);
   }
-  public static function catch_break(dynamic $on): dynamic {
+  public static function _catch_break_(dynamic $on): dynamic {
     return static::callRehackFunction(static::requireModule()[45], varray[$on]);
   }
   public static function ocaml_version(): dynamic {

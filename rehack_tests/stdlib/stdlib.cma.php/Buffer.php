@@ -36,14 +36,14 @@ final class Buffer {
     $cst_Buffer_nth = $string("Buffer.nth");
     $cst_Buffer_blit = $string("Buffer.blit");
     $cst_Buffer_sub = $string("Buffer.sub");
-    $Pervasives =  Pervasives::get ();
-    $End_of_file =  End_of_file::get ();
-    $Not_found =  Not_found::get ();
-    $String =  String_::get ();
-    $Assert_failure =  Assert_failure::get ();
-    $Sys =  Sys::get ();
-    $Bytes =  Bytes::get ();
-    $Uchar =  Uchar::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $End_of_file =  End_of_file::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $String =  String_::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Sys =  Sys::requireModule ();
+    $Bytes =  Bytes::requireModule ();
+    $Uchar =  Uchar::requireModule ();
     $g_ = Vector{0, $string("buffer.ml"), 205, 9};
     $f_ = Vector{0, $string("buffer.ml"), 141, 19};
     $e_ = Vector{0, $string("buffer.ml"), 159, 8};
@@ -549,7 +549,7 @@ final class Buffer {
   public static function reset(dynamic $b): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[$b]);
   }
-  public static function add_char(dynamic $b, dynamic $c): dynamic {
+  public static function _add_char_(dynamic $b, dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[10], varray[$b, $c]);
   }
   public static function add_utf_8_uchar(dynamic $b, dynamic $u): dynamic {

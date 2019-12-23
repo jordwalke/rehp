@@ -13,7 +13,7 @@ final class ArrayLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $Array =  Array_::get ();
+    $Array =  Array_::requireModule ();
     $make_float = $Array[1];
     $init = $Array[2];
     $make_matrix = $Array[3];
@@ -146,7 +146,7 @@ final class ArrayLabels {
   public static function memq(): dynamic {
     return static::callRehackFunction(static::requireModule()[23], varray[]);
   }
-  public static function make_float(): dynamic {
+  public static function _make_float_(): dynamic {
     return static::callRehackFunction(static::requireModule()[24], varray[]);
   }
   public static function sort(): dynamic {

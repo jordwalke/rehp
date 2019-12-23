@@ -23,7 +23,7 @@ final class CamlinternalLazy {
     $cst_CamlinternalLazy_Undefined = $runtime["caml_new_string"](
       "CamlinternalLazy.Undefined"
     );
-    $Obj =  Obj::get ();
+    $Obj =  Obj::requireModule ();
     $Undefined = Vector{
       248,
       $cst_CamlinternalLazy_Undefined,

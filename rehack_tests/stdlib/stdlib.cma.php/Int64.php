@@ -22,7 +22,7 @@ final class Int64 {
     $minus_one = Vector{255, 16777215, 16777215, 65535};
     $min_int = Vector{255, 0, 0, 32768};
     $max_int = Vector{255, 16777215, 16777215, 32767};
-    $Failure =  Failure::get ();
+    $Failure =  Failure::requireModule ();
     $d_ = Vector{255, 16777215, 16777215, 65535};
     $c_ = Vector{255, 0, 0, 0};
     $b_ = Vector{255, 1, 0, 0};
@@ -90,10 +90,10 @@ final class Int64 {
   public static function abs(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$n]);
   }
-  public static function max_int(): dynamic {
+  public static function _max_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
-  public static function min_int(): dynamic {
+  public static function _min_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function lognot(dynamic $n): dynamic {

@@ -129,8 +129,8 @@ final class Js_of_ocaml__Dom_svg {
     $cst_Js_of_ocaml_Dom_svg_SVGError = $string(
       "Js_of_ocaml__Dom_svg.SVGError"
     );
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Not_found =  Not_found::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Not_found =  Not_found::requireModule ();
     $xmlns = "http://www.w3.org/2000/svg";
     $SVGError = Vector{
       248,

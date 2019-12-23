@@ -23,9 +23,9 @@ final class Map {
     $cst_Map_bal__0 = $string("Map.bal");
     $cst_Map_bal__1 = $string("Map.bal");
     $cst_Map_bal__2 = $string("Map.bal");
-    $Not_found =  Not_found::get ();
-    $Pervasives =  Pervasives::get ();
-    $Assert_failure =  Assert_failure::get ();
+    $Not_found =  Not_found::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
     $a_ = Vector{0, 0, 0, 0};
     $b_ = Vector{0, $string("map.ml"), 393, 10};
     $c_ = Vector{0, 0, 0};

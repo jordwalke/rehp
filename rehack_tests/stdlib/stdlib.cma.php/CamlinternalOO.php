@@ -32,14 +32,15 @@ final class CamlinternalOO {
      ];
     $is_int = $runtime["is_int"];
     $cst = $string("");
-    $Assert_failure =  Assert_failure::get ();
-    $Sys =  Sys::get ();
-    $Obj =  Obj::get ();
-    $Undefined_recursive_module =  Undefined_recursive_module::get ();
-    $Array =  Array_::get ();
-    $List =  List_::get ();
-    $Not_found =  Not_found::get ();
-    $Map =  Map::get ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Sys =  Sys::requireModule ();
+    $Obj =  Obj::requireModule ();
+    $Undefined_recursive_module =  Undefined_recursive_module::requireModule (
+    );
+    $Array =  Array_::requireModule ();
+    $List =  List_::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $Map =  Map::requireModule ();
     $g_ = Vector{0, $string("camlinternalOO.ml"), 438, 17};
     $f_ = Vector{0, $string("camlinternalOO.ml"), 420, 13};
     $e_ = Vector{0, $string("camlinternalOO.ml"), 417, 13};
@@ -910,19 +911,19 @@ final class CamlinternalOO {
   public static function create_table(dynamic $public_methods): dynamic {
     return static::callRehackFunction(static::requireModule()[16], varray[$public_methods]);
   }
-  public static function init_class(dynamic $table): dynamic {
+  public static function _init_class_(dynamic $table): dynamic {
     return static::callRehackFunction(static::requireModule()[17], varray[$table]);
   }
   public static function inherits(dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top): dynamic {
     return static::callRehackFunction(static::requireModule()[18], varray[$cla, $vals, $virt_meths, $concr_meths, $param, $top]);
   }
-  public static function make_class(dynamic $pub_meths, dynamic $class_init): dynamic {
+  public static function _make_class_(dynamic $pub_meths, dynamic $class_init): dynamic {
     return static::callRehackFunction(static::requireModule()[19], varray[$pub_meths, $class_init]);
   }
   public static function make_class_store(dynamic $pub_meths, dynamic $class_init, dynamic $init_table): dynamic {
     return static::callRehackFunction(static::requireModule()[20], varray[$pub_meths, $class_init, $init_table]);
   }
-  public static function dummy_class(dynamic $loc): dynamic {
+  public static function _dummy_class_(dynamic $loc): dynamic {
     return static::callRehackFunction(static::requireModule()[21], varray[$loc]);
   }
   public static function copy(dynamic $o): dynamic {

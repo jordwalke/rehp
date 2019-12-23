@@ -33,12 +33,12 @@ final class Random {
     $cst_Random_int32 = $string("Random.int32");
     $cst_Random_int = $string("Random.int");
     $cst_x = $string("x");
-    $Int32 =  Int32::get ();
-    $Int64 =  Int64::get ();
-    $Pervasives =  Pervasives::get ();
-    $Digest =  Digest::get ();
-    $Array =  Array_::get ();
-    $Nativeint =  Nativeint::get ();
+    $Int32 =  Int32::requireModule ();
+    $Int64 =  Int64::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Digest =  Digest::requireModule ();
+    $Array =  Array_::requireModule ();
+    $Nativeint =  Nativeint::requireModule ();
     $a_ = Vector{255, 1, 0, 0};
     $b_ = Vector{255, 0, 0, 0};
     $c_ = Vector{
@@ -313,7 +313,7 @@ final class Random {
   public static function bits(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$param]);
   }
-  public static function _int(dynamic $bound): dynamic {
+  public static function _int_(dynamic $bound): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$bound]);
   }
   public static function int32(dynamic $bound): dynamic {
@@ -325,7 +325,7 @@ final class Random {
   public static function int64(dynamic $bound): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[$bound]);
   }
-  public static function _float(dynamic $scale): dynamic {
+  public static function _float_(dynamic $scale): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[$scale]);
   }
   public static function bool(dynamic $param): dynamic {

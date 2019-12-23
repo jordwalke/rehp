@@ -23,10 +23,10 @@ final class Set {
     $cst_Set_bal__0 = $string("Set.bal");
     $cst_Set_bal__1 = $string("Set.bal");
     $cst_Set_bal__2 = $string("Set.bal");
-    $Not_found =  Not_found::get ();
-    $Pervasives =  Pervasives::get ();
-    $List =  List_::get ();
-    $Assert_failure =  Assert_failure::get ();
+    $Not_found =  Not_found::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $List =  List_::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
     $a_ = Vector{0, 0, 0, 0};
     $b_ = Vector{0, 0, 0};
     $c_ = Vector{0, $string("set.ml"), 510, 18};

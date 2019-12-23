@@ -432,14 +432,14 @@ final class Js_of_ocaml__Dom_html {
     $cst_Js_of_ocaml_Dom_html_Canvas_not_available = $string(
       "Js_of_ocaml__Dom_html.Canvas_not_available"
     );
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $List =  List_::get ();
-    $Not_found =  Not_found::get ();
-    $Uchar =  Uchar::get ();
-    $Assert_failure =  Assert_failure::get ();
-    $Printf =  Printf::get ();
-    $Pervasives =  Pervasives::get ();
-    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $List =  List_::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $Uchar =  Uchar::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Printf =  Printf::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
     $g_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2704, 58};
     $f_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2703, 61};
     $b_ = Vector{

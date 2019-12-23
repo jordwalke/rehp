@@ -17,9 +17,9 @@ final class Printf {
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
-    $Buffer =  Buffer::get ();
-    $CamlinternalFormat =  CamlinternalFormat::get ();
-    $Pervasives =  Pervasives::get ();
+    $Buffer =  Buffer::requireModule ();
+    $CamlinternalFormat =  CamlinternalFormat::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
     $kfprintf = (dynamic $k, dynamic $o, dynamic $param) ==> {
       $fmt = $param[1];
       $f_ = 0;

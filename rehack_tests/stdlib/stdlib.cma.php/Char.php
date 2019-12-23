@@ -24,7 +24,7 @@ final class Char {
     $cst_n = $string("\\n");
     $cst_r = $string("\\r");
     $cst_Char_chr = $string("Char.chr");
-    $Pervasives =  Pervasives::get ();
+    $Pervasives =  Pervasives::requireModule ();
     $chr = (dynamic $n) ==> {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $call1($Pervasives[1], $cst_Char_chr);

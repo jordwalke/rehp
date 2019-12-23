@@ -47,9 +47,9 @@ final class String_ {
     $cst__0 = $string("");
     $cst = $string("");
     $cst_String_concat = $string("String.concat");
-    $Not_found =  Not_found::get ();
-    $Bytes =  Bytes::get ();
-    $Pervasives =  Pervasives::get ();
+    $Not_found =  Not_found::requireModule ();
+    $Bytes =  Bytes::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
     $bts = $Bytes[42];
     $bos = $Bytes[43];
     $make = (dynamic $n, dynamic $c) ==> {

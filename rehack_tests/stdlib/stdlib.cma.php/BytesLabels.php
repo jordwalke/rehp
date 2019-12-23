@@ -13,7 +13,7 @@ final class BytesLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $Bytes =  Bytes::get ();
+    $Bytes =  Bytes::requireModule ();
     $make = $Bytes[1];
     $init = $Bytes[2];
     $empty = $Bytes[3];

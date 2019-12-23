@@ -18,8 +18,8 @@ final class Gc {
     $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $string = $runtime["caml_new_string"];
-    $Sys =  Sys::get ();
-    $Printf =  Printf::get ();
+    $Sys =  Sys::requireModule ();
+    $Printf =  Printf::requireModule ();
     $a_ = Vector{
       0,
       Vector{

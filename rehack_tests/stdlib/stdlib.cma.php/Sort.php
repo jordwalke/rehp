@@ -18,7 +18,7 @@ final class Sort {
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
-    $Invalid_argument =  Invalid_argument::get ();
+    $Invalid_argument =  Invalid_argument::requireModule ();
     $merge->contents = (dynamic $order, dynamic $l1, dynamic $l2) ==> {
       if ($l1) {
         $t1 = $l1[2];

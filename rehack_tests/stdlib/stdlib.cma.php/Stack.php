@@ -17,7 +17,7 @@ final class Stack {
     $call3 = $runtime["caml_call3"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_Stack_Empty = $runtime["caml_new_string"]("Stack.Empty");
-    $List =  List_::get ();
+    $List =  List_::requireModule ();
     $Empty = Vector{248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0)};
     $create = (dynamic $param) ==> {return Vector{0, 0, 0};};
     $clear = (dynamic $s) ==> {$s[1] = 0;$s[2] = 0;return 0;};

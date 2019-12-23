@@ -13,7 +13,7 @@ final class StringLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $String =  String_::get ();
+    $String =  String_::requireModule ();
     $make = $String[1];
     $init = $String[2];
     $copy = $String[3];

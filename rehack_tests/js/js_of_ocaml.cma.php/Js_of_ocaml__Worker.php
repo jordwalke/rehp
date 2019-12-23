@@ -26,9 +26,9 @@ final class Js_of_ocaml__Worker {
     $cst_Worker_import_scripts_is_undefined = $string(
       "Worker.import_scripts is undefined"
     );
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Pervasives =  Pervasives::get ();
-    $Array =  Array_::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Array =  Array_::requireModule ();
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -324422083, 203), $x);
     };

@@ -31,11 +31,11 @@ final class Digest {
     $cst_Digest_from_hex = $string__0("Digest.from_hex");
     $cst_Digest_to_hex = $string__0("Digest.to_hex");
     $cst_Digest_substring = $string__0("Digest.substring");
-    $Invalid_argument =  Invalid_argument::get ();
-    $Pervasives =  Pervasives::get ();
-    $Char =  Char::get ();
-    $Bytes =  Bytes::get ();
-    $String =  String_::get ();
+    $Invalid_argument =  Invalid_argument::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Char =  Char::requireModule ();
+    $Bytes =  Bytes::requireModule ();
+    $String =  String_::requireModule ();
     $compare = $String[33];
     $equal = $String[34];
     $string = (dynamic $str) ==> {

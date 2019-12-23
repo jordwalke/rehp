@@ -28,9 +28,9 @@ final class Lexing {
     );
     $dummy_pos = Vector{0, $string(""), 0, 0, -1};
     $zero_pos = Vector{0, $string(""), 1, 0, 0};
-    $Bytes =  Bytes::get ();
-    $Pervasives =  Pervasives::get ();
-    $Sys =  Sys::get ();
+    $Bytes =  Bytes::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Sys =  Sys::requireModule ();
     $engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
@@ -257,13 +257,13 @@ final class Lexing {
   public static function from_string(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$s]);
   }
-  public static function from_function(dynamic $f): dynamic {
+  public static function _from_function_(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$f]);
   }
   public static function lexeme(dynamic $lexbuf): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$lexbuf]);
   }
-  public static function lexeme_char(dynamic $lexbuf, dynamic $i): dynamic {
+  public static function _lexeme_char_(dynamic $lexbuf, dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$lexbuf, $i]);
   }
   public static function lexeme_start(dynamic $lexbuf): dynamic {

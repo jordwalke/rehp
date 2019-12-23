@@ -22,9 +22,9 @@ final class Js_of_ocaml__Regexp {
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_g = $string("g");
     $cst = $string("[\\][()\\\\|+*.?{}^\\$]");
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Assert_failure =  Assert_failure::get ();
-    $Pervasives =  Pervasives::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
     $a_ = Vector{0, $string("lib/js_of_ocaml/regexp.ml"), 33, 64};
     $regexp = (dynamic $s) ==> {
       $al_ = 0;

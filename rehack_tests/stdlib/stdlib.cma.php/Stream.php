@@ -39,10 +39,10 @@ final class Stream {
     $cst_Sbuffio = $string("Sbuffio");
     $cst_Stream_Failure = $string("Stream.Failure");
     $cst_Stream_Error = $string("Stream.Error");
-    $Assert_failure =  Assert_failure::get ();
-    $CamlinternalLazy =  CamlinternalLazy::get ();
-    $Pervasives =  Pervasives::get ();
-    $List =  List_::get ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $CamlinternalLazy =  CamlinternalLazy::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $List =  List_::requireModule ();
     $a_ = Vector{0, $string("stream.ml"), 53, 12};
     $b_ = Vector{0, 0};
     $c_ = Vector{0, $string("stream.ml"), 82, 12};

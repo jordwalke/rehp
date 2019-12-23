@@ -14,7 +14,7 @@ final class Callback {
     
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_register_named_value = $runtime["caml_register_named_value"];
-    $Obj =  Obj::get ();
+    $Obj =  Obj::requireModule ();
     $register = (dynamic $name, dynamic $v) ==> {
       return $caml_register_named_value($name, $v);
     };

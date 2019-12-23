@@ -13,7 +13,7 @@ final class ListLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $List =  List_::get ();
+    $List =  List_::requireModule ();
     $length = $List[1];
     $compare_lengths = $List[2];
     $compare_length_with = $List[3];

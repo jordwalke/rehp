@@ -16,7 +16,7 @@ final class Js_of_ocaml__Dom_events {
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call4 = $runtime["caml_call4"];
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
     $listen = (dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb) ==> {
       if ($opt) {
         $sth = $opt[1];

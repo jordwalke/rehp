@@ -15,8 +15,8 @@ final class Js_of_ocaml__MutationObserver {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Array =  Array_::get ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Array =  Array_::requireModule ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $empty_mutation_observer_init = (dynamic $param) ==> {return darray[];};
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -412262690, 261), $x);

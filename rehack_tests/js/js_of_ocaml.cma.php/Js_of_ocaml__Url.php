@@ -102,15 +102,15 @@ final class Js_of_ocaml__Url {
     $cst_Ff_Ii_Ll_Ee = $string(
       "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?\\$"
     );
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Failure =  Failure::get ();
-    $CamlinternalOO =  CamlinternalOO::get ();
-    $Pervasives =  Pervasives::get ();
-    $List =  List_::get ();
-    $String =  String_::get ();
-    $Not_found =  Not_found::get ();
-    $Js_of_ocaml_Regexp =  Js_of_ocaml__Regexp::get ();
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Failure =  Failure::requireModule ();
+    $CamlinternalOO =  CamlinternalOO::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $List =  List_::requireModule ();
+    $String =  String_::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $Js_of_ocaml_Regexp =  Js_of_ocaml__Regexp::requireModule ();
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
     $f_ = Vector{0, $string(""), 0};
     $a_ = Vector{
       0,
@@ -889,10 +889,10 @@ final class Js_of_ocaml__Url {
   public static function path_of_path_string(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$s]);
   }
-  public static function encode_arguments(dynamic $l): dynamic {
+  public static function _encode_arguments_(dynamic $l): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$l]);
   }
-  public static function decode_arguments(dynamic $s): dynamic {
+  public static function _decode_arguments_(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$s]);
   }
   public static function url_of_string(dynamic $s): dynamic {

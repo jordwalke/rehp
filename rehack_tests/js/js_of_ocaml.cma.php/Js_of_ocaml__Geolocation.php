@@ -15,7 +15,7 @@ final class Js_of_ocaml__Geolocation {
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $empty_position_options = (dynamic $param) ==> {return darray[];};
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 82957527, 298), $x);

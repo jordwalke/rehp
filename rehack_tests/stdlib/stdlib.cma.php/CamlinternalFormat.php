@@ -201,16 +201,16 @@ final class CamlinternalFormat {
     $cst_CamlinternalFormat_Type_mismatch = $string(
       "CamlinternalFormat.Type_mismatch"
     );
-    $Assert_failure =  Assert_failure::get ();
-    $CamlinternalFormatBasics =  CamlinternalFormatBasics::get ();
-    $Pervasives =  Pervasives::get ();
-    $Buffer =  Buffer::get ();
-    $Failure =  Failure::get ();
-    $Not_found =  Not_found::get ();
-    $String =  String_::get ();
-    $Sys =  Sys::get ();
-    $Char =  Char::get ();
-    $Bytes =  Bytes::get ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $CamlinternalFormatBasics =  CamlinternalFormatBasics::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Buffer =  Buffer::requireModule ();
+    $Failure =  Failure::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $String =  String_::requireModule ();
+    $Sys =  Sys::requireModule ();
+    $Char =  Char::requireModule ();
+    $Bytes =  Bytes::requireModule ();
     $a_ = Vector{0, $string("camlinternalFormat.ml"), 846, 23};
     $l_ = Vector{0, $string("camlinternalFormat.ml"), 810, 21};
     $d_ = Vector{0, $string("camlinternalFormat.ml"), 811, 21};

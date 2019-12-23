@@ -46,9 +46,9 @@ final class List_ {
     $cst_List_nth = $string("List.nth");
     $cst_tl = $string("tl");
     $cst_hd = $string("hd");
-    $Pervasives =  Pervasives::get ();
-    $Not_found =  Not_found::get ();
-    $Assert_failure =  Assert_failure::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
     $c_ = Vector{0, 0, 0};
     $d_ = Vector{0, $string("list.ml"), 262, 11};
     $length_aux = (dynamic $len, dynamic $param) ==> {

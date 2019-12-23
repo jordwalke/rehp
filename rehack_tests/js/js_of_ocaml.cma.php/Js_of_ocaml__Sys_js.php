@@ -19,8 +19,8 @@ final class Js_of_ocaml__Sys_js {
     $string = $runtime["caml_new_string"];
     $cst = $string("");
     $cst__0 = $string("+");
-    $Pervasives =  Pervasives::get ();
-    $Js_of_ocaml_Lib_version =  Js_of_ocaml__Lib_version::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Js_of_ocaml_Lib_version =  Js_of_ocaml__Lib_version::requireModule ();
     $update_file = (dynamic $name, dynamic $content) ==> {
       $oc = $call1($Pervasives[48], $name);
       $call2($Pervasives[54], $oc, $content);

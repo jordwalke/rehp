@@ -10,7 +10,6 @@ namespace Rehack;
 final class MyLib__ {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -24,4 +23,4 @@ final class MyLib__ {
   }
 
 }
-/*____hashes flags: 675529036 bytecode: 4096869352 debug-data: 1818446335 primitives: 1058613066*/
+/*____hashes flags: 421562097 bytecode: 4096869352 debug-data: 1818446335 primitives: 1058613066*/

@@ -14,8 +14,8 @@ final class Lazy {
     
     $runtime = $joo_global_object->jsoo_runtime;
     $caml_obj_tag = $runtime["caml_obj_tag"];
-    $Obj =  Obj::get ();
-    $CamlinternalLazy =  CamlinternalLazy::get ();
+    $Obj =  Obj::requireModule ();
+    $CamlinternalLazy =  CamlinternalLazy::requireModule ();
     $Undefined = $CamlinternalLazy[1];
     $force_val = $CamlinternalLazy[5];
     $from_fun = (dynamic $f) ==> {

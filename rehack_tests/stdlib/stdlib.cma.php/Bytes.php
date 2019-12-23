@@ -53,9 +53,9 @@ final class Bytes {
     $cst_String_fill_Bytes_fill = $string("String.fill / Bytes.fill");
     $cst_Bytes_extend = $string("Bytes.extend");
     $cst_String_sub_Bytes_sub = $string("String.sub / Bytes.sub");
-    $Not_found =  Not_found::get ();
-    $Char =  Char::get ();
-    $Pervasives =  Pervasives::get ();
+    $Not_found =  Not_found::requireModule ();
+    $Char =  Char::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
     $make = (dynamic $n, dynamic $c) ==> {
       $s = $caml_create_bytes($n);
       $caml_fill_bytes($s, 0, $n, $c);

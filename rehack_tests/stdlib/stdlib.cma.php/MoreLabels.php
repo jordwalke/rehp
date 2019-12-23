@@ -13,9 +13,9 @@ final class MoreLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $Set =  Set::get ();
-    $Map =  Map::get ();
-    $Hashtbl =  Hashtbl::get ();
+    $Set =  Set::requireModule ();
+    $Map =  Map::requireModule ();
+    $Hashtbl =  Hashtbl::requireModule ();
     $MoreLabels = Vector{0, $Hashtbl, $Map, $Set};
     
      return ($MoreLabels);

@@ -29,12 +29,12 @@ final class Js_of_ocaml__File {
     $cst_error = $string__0("error");
     $cst_load = $string__0("load");
     $cst_loadend = $string__0("loadend");
-    $Js_of_ocaml_Typed_array =  Js_of_ocaml__Typed_array::get ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Pervasives =  Pervasives::get ();
-    $List =  List_::get ();
-    $Array =  Array_::get ();
-    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::get ();
+    $Js_of_ocaml_Typed_array =  Js_of_ocaml__Typed_array::requireModule ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $List =  List_::requireModule ();
+    $Array =  Array_::requireModule ();
+    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
     $c_ = Vector{0, $string__0("transparent")};
     $d_ = Vector{0, $string__0("native")};
     $a_ = (dynamic $x) ==> {

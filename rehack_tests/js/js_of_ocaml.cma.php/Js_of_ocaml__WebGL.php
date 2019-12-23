@@ -19,8 +19,8 @@ final class Js_of_ocaml__WebGL {
     $cst_webglcontextlost = $string("webglcontextlost");
     $cst_webglcontextrestored = $string("webglcontextrestored");
     $cst_webglcontextcreationerror = $string("webglcontextcreationerror");
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
     $defaultContextAttributes = darray[
      "alpha"=>$Js_of_ocaml_Js[7],
      "depth"=>$Js_of_ocaml_Js[7],

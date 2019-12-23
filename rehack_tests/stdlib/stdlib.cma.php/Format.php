@@ -32,12 +32,12 @@ final class Format {
     $cst__1 = $string("<");
     $cst = $string("\n");
     $cst_Format_Empty_queue = $string("Format.Empty_queue");
-    $CamlinternalFormat =  CamlinternalFormat::get ();
-    $Pervasives =  Pervasives::get ();
-    $String =  String_::get ();
-    $Buffer =  Buffer::get ();
-    $List =  List_::get ();
-    $Not_found =  Not_found::get ();
+    $CamlinternalFormat =  CamlinternalFormat::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $String =  String_::requireModule ();
+    $Buffer =  Buffer::requireModule ();
+    $List =  List_::requireModule ();
+    $Not_found =  Not_found::requireModule ();
     $b_ = Vector{3, 0, 3};
     $a_ = Vector{0, $string("")};
     $make_queue = (dynamic $param) ==> {return Vector{0, 0, 0};};
@@ -1851,19 +1851,19 @@ final class Format {
   public static function pp_print_int(dynamic $state, dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[17], varray[$state, $i]);
   }
-  public static function print_int(): dynamic {
+  public static function _print_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[18], varray[]);
   }
   public static function pp_print_float(dynamic $state, dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[19], varray[$state, $f]);
   }
-  public static function print_float(): dynamic {
+  public static function _print_float_(): dynamic {
     return static::callRehackFunction(static::requireModule()[20], varray[]);
   }
   public static function pp_print_char(dynamic $state, dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[21], varray[$state, $c]);
   }
-  public static function print_char(): dynamic {
+  public static function _print_char_(): dynamic {
     return static::callRehackFunction(static::requireModule()[22], varray[]);
   }
   public static function pp_print_bool(dynamic $state, dynamic $b): dynamic {
@@ -1887,7 +1887,7 @@ final class Format {
   public static function pp_print_break(dynamic $state, dynamic $width, dynamic $offset): dynamic {
     return static::callRehackFunction(static::requireModule()[29], varray[$state, $width, $offset]);
   }
-  public static function print_break(): dynamic {
+  public static function _print_break_(): dynamic {
     return static::callRehackFunction(static::requireModule()[30], varray[]);
   }
   public static function pp_force_newline(dynamic $state, dynamic $param): dynamic {

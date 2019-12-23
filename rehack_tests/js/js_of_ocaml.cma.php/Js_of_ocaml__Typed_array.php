@@ -16,7 +16,7 @@ final class Js_of_ocaml__Typed_array {
     $call1 = $runtime["caml_call1"];
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 135830874, 52), $x);
     };

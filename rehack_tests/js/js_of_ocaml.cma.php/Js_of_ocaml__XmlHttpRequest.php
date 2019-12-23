@@ -25,9 +25,9 @@ final class Js_of_ocaml__XmlHttpRequest {
     $cst_load = $string("load");
     $cst_timeout = $string("timeout");
     $cst_loadend = $string("loadend");
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::get ();
-    $Assert_failure =  Assert_failure::get ();
-    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::get ();
+    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
     $a_ = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75};
     $readystatechange = $call1($Js_of_ocaml_Dom[14][1], $cst_readystatechange);
     $loadstart = $call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);

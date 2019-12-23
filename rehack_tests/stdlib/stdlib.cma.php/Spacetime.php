@@ -21,7 +21,7 @@ final class Spacetime {
      ];
     $cst_Series_is_closed__0 = $string("Series is closed");
     $cst_Series_is_closed = $string("Series is closed");
-    $Pervasives =  Pervasives::get ();
+    $Pervasives =  Pervasives::requireModule ();
     $enabled = $caml_spacetime_enabled(0);
     $if_spacetime_enabled = (dynamic $f) ==> {
       return $enabled ? $call1($f, 0) : (0);

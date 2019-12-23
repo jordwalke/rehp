@@ -20,8 +20,8 @@ final class Obj {
     $is_int = $runtime["is_int"];
     $cst_Obj_extension_constructor__0 = $string("Obj.extension_constructor");
     $cst_Obj_extension_constructor = $string("Obj.extension_constructor");
-    $Pervasives =  Pervasives::get ();
-    $Marshal =  Marshal::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Marshal =  Marshal::requireModule ();
     $is_block = (dynamic $a) ==> {return 1 - $is_int($a);};
     $double_field = (dynamic $x, dynamic $i) ==> {
       return $runtime["caml_array_get"]($x, $i);

@@ -27,9 +27,9 @@ final class Parsing {
     $cst_syntax_error = $string("syntax error");
     $cst_Parsing_YYexit = $string("Parsing.YYexit");
     $cst_Parsing_Parse_error = $string("Parsing.Parse_error");
-    $Obj =  Obj::get ();
-    $Array =  Array_::get ();
-    $Lexing =  Lexing::get ();
+    $Obj =  Obj::requireModule ();
+    $Array =  Array_::requireModule ();
+    $Lexing =  Lexing::requireModule ();
     $YYexit = Vector{248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0)};
     $Parse_error = Vector{248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0)};
     $env = Vector{

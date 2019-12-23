@@ -33,11 +33,11 @@ final class Weak {
       "Weak.Make: hash bucket cannot grow more"
     );
     $cst_Weak_fill = $string("Weak.fill");
-    $Pervasives =  Pervasives::get ();
-    $Sys =  Sys::get ();
-    $Array =  Array_::get ();
-    $Not_found =  Not_found::get ();
-    $Invalid_argument =  Invalid_argument::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Sys =  Sys::requireModule ();
+    $Array =  Array_::requireModule ();
+    $Not_found =  Not_found::requireModule ();
+    $Invalid_argument =  Invalid_argument::requireModule ();
     $length = (dynamic $x) ==> {return (int) ($x->count() - 1 - 2);};
     $fill = (dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x) ==> {
       if (0 <= $ofs) {

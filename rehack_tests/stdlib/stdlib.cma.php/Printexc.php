@@ -93,15 +93,16 @@ final class Printexc {
       },
       $string("File \"%s\", line %d, characters %d-%d: %s")
     };
-    $Printf =  Printf::get ();
-    $Pervasives =  Pervasives::get ();
-    $Out_of_memory =  Out_of_memory::get ();
-    $Buffer =  Buffer::get ();
-    $Stack_overflow =  Stack_overflow::get ();
-    $Match_failure =  Match_failure::get ();
-    $Assert_failure =  Assert_failure::get ();
-    $Undefined_recursive_module =  Undefined_recursive_module::get ();
-    $Obj =  Obj::get ();
+    $Printf =  Printf::requireModule ();
+    $Pervasives =  Pervasives::requireModule ();
+    $Out_of_memory =  Out_of_memory::requireModule ();
+    $Buffer =  Buffer::requireModule ();
+    $Stack_overflow =  Stack_overflow::requireModule ();
+    $Match_failure =  Match_failure::requireModule ();
+    $Assert_failure =  Assert_failure::requireModule ();
+    $Undefined_recursive_module =  Undefined_recursive_module::requireModule (
+    );
+    $Obj =  Obj::requireModule ();
     $c_ = Vector{
       0,
       Vector{11, $string(", "), Vector{2, 0, Vector{2, 0, 0}}},
@@ -523,7 +524,7 @@ final class Printexc {
   public static function print(dynamic $fct, dynamic $arg): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$fct, $arg]);
   }
-  public static function _catch(dynamic $fct, dynamic $arg): dynamic {
+  public static function _catch_(dynamic $fct, dynamic $arg): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$fct, $arg]);
   }
   public static function print_backtrace(dynamic $outchan): dynamic {

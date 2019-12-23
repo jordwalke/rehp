@@ -59,11 +59,11 @@ final class Pervasives {
     $cst_false = $string("false");
     $cst_char_of_int = $string("char_of_int");
     $cst_Pervasives_Exit = $string("Pervasives.Exit");
-    $End_of_file =  End_of_file::get ();
-    $CamlinternalFormatBasics =  CamlinternalFormatBasics::get ();
-    $Sys_error =  Sys_error::get ();
-    $Failure =  Failure::get ();
-    $Invalid_argument =  Invalid_argument::get ();
+    $End_of_file =  End_of_file::requireModule ();
+    $CamlinternalFormatBasics =  CamlinternalFormatBasics::requireModule ();
+    $Sys_error =  Sys_error::requireModule ();
+    $Failure =  Failure::requireModule ();
+    $Invalid_argument =  Invalid_argument::requireModule ();
     $l_ = Vector{0, 0, Vector{0, 6, 0}};
     $k_ = Vector{0, 0, Vector{0, 7, 0}};
     $j_ = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 6, 0}}}};
@@ -593,10 +593,10 @@ final class Pervasives {
   public static function abs(dynamic $x): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$x]);
   }
-  public static function max_int(): dynamic {
+  public static function _max_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
-  public static function min_int(): dynamic {
+  public static function _min_int_(): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function lnot(dynamic $x): dynamic {
@@ -611,13 +611,13 @@ final class Pervasives {
   public static function nan(): dynamic {
     return static::callRehackFunction(static::requireModule()[12], varray[]);
   }
-  public static function max_float(): dynamic {
+  public static function _max_float_(): dynamic {
     return static::callRehackFunction(static::requireModule()[13], varray[]);
   }
-  public static function min_float(): dynamic {
+  public static function _min_float_(): dynamic {
     return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
-  public static function epsilon_float(): dynamic {
+  public static function _epsilon_float_(): dynamic {
     return static::callRehackFunction(static::requireModule()[15], varray[]);
   }
   public static function symbol(dynamic $s1, dynamic $s2): dynamic {
@@ -656,7 +656,7 @@ final class Pervasives {
   public static function stderr(): dynamic {
     return static::callRehackFunction(static::requireModule()[28], varray[]);
   }
-  public static function print_char(dynamic $c): dynamic {
+  public static function _print_char_(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[29], varray[$c]);
   }
   public static function print_string(dynamic $s): dynamic {
@@ -665,10 +665,10 @@ final class Pervasives {
   public static function print_bytes(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[31], varray[$s]);
   }
-  public static function print_int(dynamic $i): dynamic {
+  public static function _print_int_(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[32], varray[$i]);
   }
-  public static function print_float(dynamic $f): dynamic {
+  public static function _print_float_(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[33], varray[$f]);
   }
   public static function print_endline(dynamic $s): dynamic {
@@ -677,7 +677,7 @@ final class Pervasives {
   public static function print_newline(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[35], varray[$param]);
   }
-  public static function prerr_char(dynamic $c): dynamic {
+  public static function _prerr_char_(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[36], varray[$c]);
   }
   public static function prerr_string(dynamic $s): dynamic {
@@ -686,10 +686,10 @@ final class Pervasives {
   public static function prerr_bytes(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[38], varray[$s]);
   }
-  public static function prerr_int(dynamic $i): dynamic {
+  public static function _prerr_int_(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[39], varray[$i]);
   }
-  public static function prerr_float(dynamic $f): dynamic {
+  public static function _prerr_float_(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[40], varray[$f]);
   }
   public static function prerr_endline(dynamic $s): dynamic {
@@ -701,13 +701,13 @@ final class Pervasives {
   public static function read_line(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[43], varray[$param]);
   }
-  public static function read_int(dynamic $param): dynamic {
+  public static function _read_int_(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[44], varray[$param]);
   }
   public static function read_int_opt(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[45], varray[$param]);
   }
-  public static function read_float(dynamic $param): dynamic {
+  public static function _read_float_(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[46], varray[$param]);
   }
   public static function read_float_opt(dynamic $param): dynamic {
@@ -746,7 +746,7 @@ final class Pervasives {
   public static function close_out_noerr(dynamic $oc): dynamic {
     return static::callRehackFunction(static::requireModule()[65], varray[$oc]);
   }
-  public static function open_in(dynamic $name): dynamic {
+  public static function _open_in_(dynamic $name): dynamic {
     return static::callRehackFunction(static::requireModule()[67], varray[$name]);
   }
   public static function open_in_bin(dynamic $name): dynamic {
