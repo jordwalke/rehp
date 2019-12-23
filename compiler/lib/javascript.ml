@@ -238,11 +238,11 @@ let string_of_number v =
 let compare_ident t1 t2 =
   match t1, t2 with
   | V v1, V v2 -> Code.Var.compare v1 v2
-  | S {name = s1; var = v1; loc = l1}, S {name = s2; var = v2; loc = l2} -> (
+  | S {name = s1; var = v1; loc = _}, S {name = s2; var = v2; loc = _} -> (
     match String.compare s1 s2 with
     | 0 -> (
       match Option.compare Code.Var.compare v1 v2 with
-      | 0 -> Poly.compare l1 l2
+      | 0 -> 0
       | n -> n)
     | n -> n)
   | S _, V _ -> -1
