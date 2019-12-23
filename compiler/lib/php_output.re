@@ -1158,7 +1158,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.break(f);
       elements_as_args(f, r);
     }
-  and variable_declaration = (f, v) =>
+  and variable_declaration = (f, v) => {
     switch (v) {
     | (EVar(i), None) => ident(f, i)
     | (e, None) => expression(1, f, e)
@@ -1179,10 +1179,17 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.non_breaking_space(f);
       expression(1, f, e2);
       PP.end_group(f);
-    }
+    };
+    switch (v) {
+    | (EVar(i), Some((ETag(_) | EStruct(_), pc))) =>
+      PP.non_breaking_space(f);
+      PP.string(f, "as dynamic");
+    | _ => ()
+    };
+  }
   and variable_declaration_list_aux = (~separator, f, l) =>
     switch (l) {
-    | [] => assert(false)
+    | [] => ()
     | [d] => variable_declaration(f, d)
     | [d, ...r] =>
       variable_declaration(f, d);
@@ -1190,63 +1197,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.break(f);
       variable_declaration_list_aux(~separator, f, r);
     }
-  and variable_declaration_list = (~separator, close, f) =>
-    fun
-    | [] => ()
-    | [(EVar(i), None)] => {
-        PP.start_group(f, 0);
-        ident(f, i);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-      }
-    | [(e, None)] => {
-        PP.start_group(f, 0);
-        expression(1, f, e);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-      }
-    | [(EVar(i), Some((e, pc)))] => {
-        PP.start_group(f, 0);
-        output_debug_info(f, pc);
-        ident(f, i);
-        PP.non_breaking_space(f);
-        PP.string(f, "=");
-        PP.non_breaking_space(f);
-        PP.start_group(f, 0);
-        expression(1, f, e);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-        PP.end_group(f);
-      }
-    | [(e1, Some((e2, pc)))] => {
-        PP.start_group(f, 0);
-        output_debug_info(f, pc);
-        expression(1, f, e1);
-        PP.non_breaking_space(f);
-        PP.string(f, "=");
-        PP.non_breaking_space(f);
-        PP.start_group(f, 0);
-        expression(1, f, e2);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-        PP.end_group(f);
-      }
-    | l => {
-        PP.start_group(f, 0);
-        variable_declaration_list_aux(~separator, f, l);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-      }
+  and variable_declaration_list = (~separator, close, f, decls) => {
+    PP.start_group(f, 0);
+    variable_declaration_list_aux(~separator, f, decls);
+    if (close && decls !== []) {
+      PP.string(f, ";");
+    };
+    PP.end_group(f);
+  }
   and opt_expression = (l, f, e) =>
     switch (e) {
     | None => ()
