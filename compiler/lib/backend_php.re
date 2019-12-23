@@ -142,7 +142,11 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
         List.exists(revDeduped, ~f=md =>
           switch (md.Module_export_metadata.original_name) {
           | None => true
-          | Some(dedupedNm) => String.equal(dedupedNm, nm)
+          | Some(dedupedNm) =>
+            String.equal(
+              String.lowercase_ascii(dedupedNm),
+              String.lowercase_ascii(nm),
+            )
           }
         )
           ? dedupeAndFilter(revDeduped, tl)
@@ -152,9 +156,13 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
   };
   let metadatas = dedupeAndFilter([], metadatas);
   List.map(metadatas, ~f=metadata =>
-    switch (metadata.Module_export_metadata.original_name) {
-    | None => []
-    | Some(nm) =>
+    switch (
+      metadata.Module_export_metadata.arity,
+      metadata.Module_export_metadata.original_name,
+    ) {
+    | (0, _)
+    | (_, None) => []
+    | (_, Some(nm)) =>
       let nm_no_unders = String.trim_leading_char('_', nm);
       let elem_matches = elem =>
         String.equal(String.trim_leading_char('_', elem), nm_no_unders);
