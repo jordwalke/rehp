@@ -13,18 +13,15 @@ final class CamlinternalMod {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
+    
+    ;
+    
     $update_mod = $runtime["caml_CamlinternalMod_update_mod"];
     $init_mod = $runtime["caml_CamlinternalMod_init_mod"];
-    $CamlinternalMod = Vector{0, $init_mod, $update_mod};
+    $CamlinternalMod = Vector{0, $init_mod, $update_mod} as dynamic;
     
      return ($CamlinternalMod);
 
-  }
-  public static function init_mod(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function update_mod(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
 
 }

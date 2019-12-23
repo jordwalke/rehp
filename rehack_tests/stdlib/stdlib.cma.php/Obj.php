@@ -53,6 +53,10 @@ final class Obj {
     $out_of_heap_tag = 1001;
     $unaligned_tag = 1002;
     $extension_constructor = (dynamic $x) ==> {
+      $switch__1 = null;
+      $switch__0 = null;
+      $name = null;
+      $slot = null;
       if ($is_block($x)) {
         if ($caml_obj_tag($x) !== 248) {
           if (1 <= $x->count() - 1) {
@@ -152,7 +156,7 @@ final class Obj {
         $b_,
         $a_
       }
-    };
+    } as dynamic;
     
      return ($Obj);
 
@@ -165,54 +169,6 @@ final class Obj {
   }
   public static function set_double_field(dynamic $x, dynamic $i, dynamic $v): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$x, $i, $v]);
-  }
-  public static function first_non_constant_constructor_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[]);
-  }
-  public static function last_non_constant_constructor_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[]);
-  }
-  public static function lazy_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[]);
-  }
-  public static function closure_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function object_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
-  public static function infix_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
-  }
-  public static function forward_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[]);
-  }
-  public static function no_scan_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[]);
-  }
-  public static function abstract_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[]);
-  }
-  public static function string_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[]);
-  }
-  public static function double_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[]);
-  }
-  public static function double_array_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[]);
-  }
-  public static function custom_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[]);
-  }
-  public static function int_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[18], varray[]);
-  }
-  public static function out_of_heap_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[19], varray[]);
-  }
-  public static function unaligned_tag(): dynamic {
-    return static::callRehackFunction(static::requireModule()[20], varray[]);
   }
   public static function extension_constructor(dynamic $x): dynamic {
     return static::callRehackFunction(static::requireModule()[21], varray[$x]);

@@ -13,6 +13,9 @@ final class ArrayLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
+    
+    ;
+    
     $Array =  Array_::requireModule ();
     $make_float = $Array[1];
     $init = $Array[2];
@@ -72,94 +75,10 @@ final class ArrayLabels {
       $stable_sort,
       $fast_sort,
       $Floatarray
-    };
+    } as dynamic;
     
      return ($ArrayLabels);
 
-  }
-  public static function init(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function make_matrix(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function create_matrix(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
-  }
-  public static function append(): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[]);
-  }
-  public static function concat(): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[]);
-  }
-  public static function sub(): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[]);
-  }
-  public static function copy(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function fill(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
-  public static function blit(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
-  }
-  public static function to_list(): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[]);
-  }
-  public static function of_list(): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[]);
-  }
-  public static function iter(): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[]);
-  }
-  public static function map(): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[]);
-  }
-  public static function iteri(): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[]);
-  }
-  public static function mapi(): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[]);
-  }
-  public static function fold_left(): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[]);
-  }
-  public static function fold_right(): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[]);
-  }
-  public static function iter2(): dynamic {
-    return static::callRehackFunction(static::requireModule()[18], varray[]);
-  }
-  public static function map2(): dynamic {
-    return static::callRehackFunction(static::requireModule()[19], varray[]);
-  }
-  public static function exists(): dynamic {
-    return static::callRehackFunction(static::requireModule()[20], varray[]);
-  }
-  public static function for_all(): dynamic {
-    return static::callRehackFunction(static::requireModule()[21], varray[]);
-  }
-  public static function mem(): dynamic {
-    return static::callRehackFunction(static::requireModule()[22], varray[]);
-  }
-  public static function memq(): dynamic {
-    return static::callRehackFunction(static::requireModule()[23], varray[]);
-  }
-  public static function _make_float_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[24], varray[]);
-  }
-  public static function sort(): dynamic {
-    return static::callRehackFunction(static::requireModule()[25], varray[]);
-  }
-  public static function stable_sort(): dynamic {
-    return static::callRehackFunction(static::requireModule()[26], varray[]);
-  }
-  public static function fast_sort(): dynamic {
-    return static::callRehackFunction(static::requireModule()[27], varray[]);
-  }
-  public static function Floatarray(): dynamic {
-    return static::callRehackFunction(static::requireModule()[28], varray[]);
   }
 
 }

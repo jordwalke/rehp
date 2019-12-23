@@ -39,8 +39,8 @@ final class Random {
     $Digest =  Digest::requireModule ();
     $Array =  Array_::requireModule ();
     $Nativeint =  Nativeint::requireModule ();
-    $a_ = Vector{255, 1, 0, 0};
-    $b_ = Vector{255, 0, 0, 0};
+    $a_ = Vector{255, 1, 0, 0} as dynamic;
+    $b_ = Vector{255, 0, 0, 0} as dynamic;
     $c_ = Vector{
       0,
       987910699,
@@ -98,7 +98,7 @@ final class Random {
       652377910,
       409934019,
       801085050
-    };
+    } as dynamic;
     $new_state = (dynamic $param) ==> {
       return Vector{0, $runtime["caml_make_vect"](55, 0), 0};
     };
@@ -108,40 +108,55 @@ final class Random {
       return 0;
     };
     $full_init = (dynamic $s, dynamic $seed) ==> {
-      $combine = (dynamic $accu, dynamic $x) ==> {
-        $q_ = $call1($Pervasives[21], $x);
-        $r_ = $call2($Pervasives[16], $accu, $q_);
-        return $call1($Digest[3], $r_);
-      };
-      $extract = (dynamic $d) ==> {
-        $n_ = $left_shift_32($caml_string_get($d, 3), 24);
-        $o_ = $left_shift_32($caml_string_get($d, 2), 16);
-        $p_ = $left_shift_32($caml_string_get($d, 1), 8);
-        return (int)
-        ((int) ((int) ($caml_string_get($d, 0) + $p_) + $o_) + $n_);
-      };
+      $g_ = null;
+      $h_ = null;
+      $i_ = null;
+      $j_ = null;
+      $k_ = null;
+      $l_ = null;
+      $accu = null;
+      $m_ = null;
+      $n_ = null;
+      $i = null;
+      $j = null;
+      $k = null;
+      $x = null;
+      $o_ = null;
+      $p_ = null;
+      $q_ = null;
+      $r_ = null;
+      $s_ = null;
       $seed__0 = 0 === $seed->count() - 1 ? Vector{0, 0} : ($seed);
       $l = $seed__0->count() - 1;
       $i__0 = 0;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;
-        $m_ = (int) ($i__0 + 1);
-        if (54 !== $i__0) {$i__0 = $m_;continue;}
+        $s_ = (int) ($i__0 + 1);
+        if (54 !== $i__0) {$i__0 = $s_;continue;}
         $accu = Vector{0, $cst_x};
-        $h_ = (int) (54 + $call2($Pervasives[5], 55, $l));
-        $g_ = 0;
-        if (! ($h_ < 0)) {
-          $i = $g_;
+        $n_ = (int) (54 + $call2($Pervasives[5], 55, $l));
+        $m_ = 0;
+        if (! ($n_ < 0)) {
+          $i = $m_;
           for (;;) {
             $j = (int) ($i % 55);
             $k = $caml_mod($i, $l);
-            $i_ = $caml_check_bound($seed__0, $k)[$k + 1];
-            $accu[1] = $combine($accu[1], $i_);
-            $j_ = $extract($accu[1]);
-            $k_ = ($caml_check_bound($s[1], $j)[$j + 1] ^ $j_) & 1073741823;
-            $caml_check_bound($s[1], $j)[$j + 1] = $k_;
-            $l_ = (int) ($i + 1);
-            if ($h_ !== $i) {$i = $l_;continue;}
+            $x = $caml_check_bound($seed__0, $k)[$k + 1];
+            $o_ = $accu[1];
+            $g_ = $call1($Pervasives[21], $x);
+            $h_ = $call2($Pervasives[16], $o_, $g_);
+            $accu[1] = $call1($Digest[3], $h_);
+            $p_ = $accu[1];
+            $i_ = $left_shift_32($caml_string_get($p_, 3), 24);
+            $j_ = $left_shift_32($caml_string_get($p_, 2), 16);
+            $k_ = $left_shift_32($caml_string_get($p_, 1), 8);
+            $l_ =
+              (int)
+              ((int) ((int) ($caml_string_get($p_, 0) + $k_) + $j_) + $i_);
+            $q_ = ($caml_check_bound($s[1], $j)[$j + 1] ^ $l_) & 1073741823;
+            $caml_check_bound($s[1], $j)[$j + 1] = $q_;
+            $r_ = (int) ($i + 1);
+            if ($n_ !== $i) {$i = $r_;continue;}
             break;
           }
         }
@@ -175,62 +190,71 @@ final class Random {
       $caml_check_bound($s[1], $f_)[$f_ + 1] = $newval30;
       return $newval30;
     };
-    $intaux = (dynamic $s, dynamic $n) ==> {
-      for (;;) {
-        $r = $bits($s);
-        $v = $caml_mod($r, $n);
-        if ((int) ((int) (1073741823 - $n) + 1) < (int) ($r - $v)) {continue;}
-        return $v;
-      }
-    };
     $int__0 = (dynamic $s, dynamic $bound) ==> {
+      $v = null;
+      $r = null;
       if (! (1073741823 < $bound)) {
-        if (0 < $bound) {return $intaux($s, $bound);}
+        if (0 < $bound) {
+          for (;;) {
+            $r = $bits($s);
+            $v = $caml_mod($r, $bound);
+            if ((int) ((int) (1073741823 - $bound) + 1) < (int) ($r - $v)) {continue;}
+            return $v;
+          }
+        }
       }
       return $call1($Pervasives[1], $cst_Random_int);
     };
-    $int32aux = (dynamic $s, dynamic $n) ==> {
+    $int32 = (dynamic $s, dynamic $bound) ==> {
+      $v = null;
+      $r = null;
+      $b2 = null;
+      $b1 = null;
+      if ($caml_lessequal($bound, 0)) {
+        return $call1($Pervasives[1], $cst_Random_int32);
+      }
       for (;;) {
         $b1 = $bits($s);
         $b2 = $left_shift_32($bits($s) & 1, 30);
         $r = $b1 | $b2;
-        $v = $caml_mod($r, $n);
+        $v = $caml_mod($r, $bound);
         if (
           $caml_greaterthan(
             (int)
             ($r - $v),
             (int)
-            ((int) ($Int32[7] - $n) + 1)
-          )
-        ) {continue;}
-        return $v;
-      }
-    };
-    $int32 = (dynamic $s, dynamic $bound) ==> {
-      return $caml_lessequal($bound, 0)
-        ? $call1($Pervasives[1], $cst_Random_int32)
-        : ($int32aux($s, $bound));
-    };
-    $int64aux = (dynamic $s, dynamic $n) ==> {
-      for (;;) {
-        $b1 = $caml_int64_of_int32($bits($s));
-        $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);
-        $b3 = $caml_int64_shift_left($caml_int64_of_int32($bits($s) & 7), 60);
-        $r = $caml_int64_or($b1, $caml_int64_or($b2, $b3));
-        $v = $runtime["caml_int64_mod"]($r, $n);
-        if (
-          $caml_greaterthan(
-            $caml_int64_sub($r, $v),
-            $runtime["caml_int64_add"]($caml_int64_sub($Int64[7], $n), $a_)
+            ((int) ($Int32[7] - $bound) + 1)
           )
         ) {continue;}
         return $v;
       }
     };
     $int64 = (dynamic $s, dynamic $bound) ==> {
-      return $caml_lessequal($bound, $b_)
-        ? $call1($Pervasives[1], $cst_Random_int64)
-        : ($int64aux($s, $bound));
+      $v = null;
+      $r = null;
+      $b3 = null;
+      $b2 = null;
+      $b1 = null;
+      if ($caml_lessequal($bound, $b_)) {
+        return $call1($Pervasives[1], $cst_Random_int64);
+      }
+      for (;;) {
+        $b1 = $caml_int64_of_int32($bits($s));
+        $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);
+        $b3 = $caml_int64_shift_left($caml_int64_of_int32($bits($s) & 7), 60);
+        $r = $caml_int64_or($b1, $caml_int64_or($b2, $b3));
+        $v = $runtime["caml_int64_mod"]($r, $bound);
+        if (
+          $caml_greaterthan(
+            $caml_int64_sub($r, $v),
+            $runtime["caml_int64_add"](
+              $caml_int64_sub($Int64[7], $bound),
+              $a_
+            )
+          )
+        ) {continue;}
+        return $v;
+      }
     };
     $nativeint = 32 === $Nativeint[7]
       ? (dynamic $s, dynamic $bound) ==> {return $int32($s, $bound);}
@@ -239,16 +263,13 @@ final class Random {
          $int64($s, $caml_int64_of_int32($bound))
        );
      });
-    $rawfloat = (dynamic $s) ==> {
+    $float__0 = (dynamic $s, dynamic $bound) ==> {
       $r1 = $bits($s);
       $r2 = $bits($s);
-      return ($r1 / 1073741824 + $r2) / 1073741824;
-    };
-    $float__0 = (dynamic $s, dynamic $bound) ==> {
-      return $rawfloat($s) * $bound;
+      return ($r1 / 1073741824 + $r2) / 1073741824 * $bound;
     };
     $bool = (dynamic $s) ==> {return 0 === ($bits($s) & 1) ? 1 : (0);};
-    $default__0 = Vector{0, $c_->toVector(), 0};
+    $default__0 = Vector{0, $c_->toVector(), 0} as dynamic;
     $bits__0 = (dynamic $param) ==> {return $bits($default__0);};
     $int__1 = (dynamic $bound) ==> {return $int__0($default__0, $bound);};
     $int32__0 = (dynamic $bound) ==> {return $int32($default__0, $bound);};
@@ -296,7 +317,7 @@ final class Random {
       },
       $get_state,
       $set_state
-    };
+    } as dynamic;
     
      return ($Random);
 

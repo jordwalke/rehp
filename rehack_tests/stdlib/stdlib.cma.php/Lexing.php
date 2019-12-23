@@ -26,104 +26,36 @@ final class Lexing {
     $cst_Lexing_lex_refill_cannot_grow_buffer = $string(
       "Lexing.lex_refill: cannot grow buffer"
     );
-    $dummy_pos = Vector{0, $string(""), 0, 0, -1};
-    $zero_pos = Vector{0, $string(""), 1, 0, 0};
+    $dummy_pos = Vector{0, $string(""), 0, 0, -1} as dynamic;
+    $zero_pos = Vector{0, $string(""), 1, 0, 0} as dynamic;
     $Bytes =  Bytes::requireModule ();
     $Pervasives =  Pervasives::requireModule ();
     $Sys =  Sys::requireModule ();
     $engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
+      $x_ = null;
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
-        $z_ = $buf[12];
+        $x_ = $buf[12];
         $buf[12] =
-          Vector{0, $z_[1], $z_[2], $z_[3], (int) ($buf[4] + $buf[6])};
+          Vector{0, $x_[1], $x_[2], $x_[3], (int) ($buf[4] + $buf[6])};
       }
       return $result;
     };
     $new_engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
+      $w_ = null;
       $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
-        $y_ = $buf[12];
+        $w_ = $buf[12];
         $buf[12] =
-          Vector{0, $y_[1], $y_[2], $y_[3], (int) ($buf[4] + $buf[6])};
+          Vector{0, $w_[1], $w_[2], $w_[3], (int) ($buf[4] + $buf[6])};
       }
       return $result;
     };
-    $lex_refill = (dynamic $read_fun, dynamic $aux_buffer, dynamic $lexbuf) ==> {
-      $read = $call2(
-        $read_fun,
-        $aux_buffer,
-        $caml_ml_bytes_length($aux_buffer)
-      );
-      if (0 < $read) {$n = $read;}
-      else {$lexbuf[9] = 1;$n = 0;}
-      if ($caml_ml_bytes_length($lexbuf[2]) < (int) ($lexbuf[3] + $n)) {
-        if (
-          (int)
-          ((int) ($lexbuf[3] - $lexbuf[5]) + $n) <= $caml_ml_bytes_length($lexbuf[2])
-        ) {
-          $call5(
-            $Bytes[11],
-            $lexbuf[2],
-            $lexbuf[5],
-            $lexbuf[2],
-            0,
-            (int)
-            ($lexbuf[3] - $lexbuf[5])
-          );
-        }
-        else {
-          $newlen = $call2(
-            $Pervasives[4],
-            (int)
-            (2 * $caml_ml_bytes_length($lexbuf[2])),
-            $Sys[13]
-          );
-          if ($newlen < (int) ((int) ($lexbuf[3] - $lexbuf[5]) + $n)) {
-            $call1($Pervasives[2], $cst_Lexing_lex_refill_cannot_grow_buffer);
-          }
-          $newbuf = $caml_create_bytes($newlen);
-          $call5(
-            $Bytes[11],
-            $lexbuf[2],
-            $lexbuf[5],
-            $newbuf,
-            0,
-            (int)
-            ($lexbuf[3] - $lexbuf[5])
-          );
-          $lexbuf[2] = $newbuf;
-        }
-        $s = $lexbuf[5];
-        $lexbuf[4] = (int) ($lexbuf[4] + $s);
-        $lexbuf[6] = (int) ($lexbuf[6] - $s);
-        $lexbuf[5] = 0;
-        $lexbuf[7] = (int) ($lexbuf[7] - $s);
-        $lexbuf[3] = (int) ($lexbuf[3] - $s);
-        $t = $lexbuf[10];
-        $w_ = (int) ($t->count() - 1 + -1);
-        $v_ = 0;
-        if (! ($w_ < 0)) {
-          $i = $v_;
-          for (;;) {
-            $v = $caml_check_bound($t, $i)[$i + 1];
-            if (0 <= $v) {
-              $caml_check_bound($t, $i)[$i + 1] = (int) ($v - $s);
-            }
-            $x_ = (int) ($i + 1);
-            if ($w_ !== $i) {$i = $x_;continue;}
-            break;
-          }
-        }
-      }
-      $call5($Bytes[11], $aux_buffer, 0, $lexbuf[2], $lexbuf[3], $n);
-      $lexbuf[3] = (int) ($lexbuf[3] + $n);
-      return 0;
-    };
     $from_function = (dynamic $f) ==> {
-      $k_ = Vector{0};
+      $aux_buffer = $caml_create_bytes(512);
+      $k_ = Vector{0} as dynamic;
       $l_ = 0;
       $m_ = 0;
       $n_ = 0;
@@ -132,10 +64,89 @@ final class Lexing {
       $q_ = 0;
       $r_ = 0;
       $s_ = $caml_create_bytes(1024);
-      $t_ = $caml_create_bytes(512);
       return Vector{
         0,
-        (dynamic $u_) ==> {return $lex_refill($f, $t_, $u_);},
+        (dynamic $lexbuf) ==> {
+          $n = null;
+          $s = null;
+          $t = null;
+          $t_ = null;
+          $u_ = null;
+          $i = null;
+          $v = null;
+          $v_ = null;
+          $newlen = null;
+          $newbuf = null;
+          $read = $call2($f, $aux_buffer, $caml_ml_bytes_length($aux_buffer));
+          if (0 < $read) {$n = $read;}
+          else {$lexbuf[9] = 1;$n = 0;}
+          if ($caml_ml_bytes_length($lexbuf[2]) < (int) ($lexbuf[3] + $n)) {
+            if (
+              (int)
+              ((int) ($lexbuf[3] - $lexbuf[5]) + $n) <= $caml_ml_bytes_length($lexbuf[2])
+            ) {
+              $call5(
+                $Bytes[11],
+                $lexbuf[2],
+                $lexbuf[5],
+                $lexbuf[2],
+                0,
+                (int)
+                ($lexbuf[3] - $lexbuf[5])
+              );
+            }
+            else {
+              $newlen =
+                $call2(
+                  $Pervasives[4],
+                  (int)
+                  (2 * $caml_ml_bytes_length($lexbuf[2])),
+                  $Sys[13]
+                );
+              if ($newlen < (int) ((int) ($lexbuf[3] - $lexbuf[5]) + $n)) {
+                $call1(
+                  $Pervasives[2],
+                  $cst_Lexing_lex_refill_cannot_grow_buffer
+                );
+              }
+              $newbuf = $caml_create_bytes($newlen);
+              $call5(
+                $Bytes[11],
+                $lexbuf[2],
+                $lexbuf[5],
+                $newbuf,
+                0,
+                (int)
+                ($lexbuf[3] - $lexbuf[5])
+              );
+              $lexbuf[2] = $newbuf;
+            }
+            $s = $lexbuf[5];
+            $lexbuf[4] = (int) ($lexbuf[4] + $s);
+            $lexbuf[6] = (int) ($lexbuf[6] - $s);
+            $lexbuf[5] = 0;
+            $lexbuf[7] = (int) ($lexbuf[7] - $s);
+            $lexbuf[3] = (int) ($lexbuf[3] - $s);
+            $t = $lexbuf[10];
+            $u_ = (int) ($t->count() - 1 + -1);
+            $t_ = 0;
+            if (! ($u_ < 0)) {
+              $i = $t_;
+              for (;;) {
+                $v = $caml_check_bound($t, $i)[$i + 1];
+                if (0 <= $v) {
+                  $caml_check_bound($t, $i)[$i + 1] = (int) ($v - $s);
+                }
+                $v_ = (int) ($i + 1);
+                if ($u_ !== $i) {$i = $v_;continue;}
+                break;
+              }
+            }
+          }
+          $call5($Bytes[11], $aux_buffer, 0, $lexbuf[2], $lexbuf[3], $n);
+          $lexbuf[3] = (int) ($lexbuf[3] + $n);
+          return 0;
+        },
         $s_,
         $r_,
         $q_,
@@ -157,7 +168,7 @@ final class Lexing {
       );
     };
     $from_string = (dynamic $s) ==> {
-      $b_ = Vector{0};
+      $b_ = Vector{0} as dynamic;
       $c_ = 1;
       $d_ = 0;
       $e_ = 0;
@@ -191,6 +202,7 @@ final class Lexing {
       return $call3($Bytes[8], $lexbuf[2], $i1, $len);
     };
     $sub_lexeme_opt = (dynamic $lexbuf, dynamic $i1, dynamic $i2) ==> {
+      $len = null;
       if (0 <= $i1) {
         $len = (int) ($i2 - $i1);
         return Vector{0, $call3($Bytes[8], $lexbuf[2], $i1, $len)};
@@ -243,13 +255,10 @@ final class Lexing {
       $sub_lexeme_char_opt,
       $engine,
       $new_engine
-    };
+    } as dynamic;
     
      return ($Lexing);
 
-  }
-  public static function dummy_pos(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function from_channel(dynamic $ic): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$ic]);

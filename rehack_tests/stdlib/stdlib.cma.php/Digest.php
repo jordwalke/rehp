@@ -54,6 +54,7 @@ final class Digest {
       return $substring($call1($Bytes[42], $b), $ofs, $len);
     };
     $file = (dynamic $filename) ==> {
+      $d = null;
       $ic = $call1($Pervasives[68], $filename);
       try {$d = $runtime["caml_md5_chan"]($ic, -1);}
       catch(\Throwable $e) {
@@ -73,6 +74,8 @@ final class Digest {
       return (int) ($n + $e_);
     };
     $to_hex = (dynamic $d) ==> {
+      $d_ = null;
+      $x = null;
       if (16 !== $caml_ml_string_length($d)) {
         $call1($Pervasives[1], $cst_Digest_to_hex);
       }
@@ -98,10 +101,15 @@ final class Digest {
       }
     };
     $from_hex = (dynamic $s) ==> {
+      $c_ = null;
+      $i__0 = null;
+      $b_ = null;
+      $a_ = null;
       if (32 !== $caml_ml_string_length($s)) {
         $call1($Pervasives[1], $cst_Digest_from_hex);
       }
       $digit = (dynamic $c) ==> {
+        $switcher = null;
         if (65 <= $c) {
           if (97 <= $c) {
             if (! (103 <= $c)) {return (int) ((int) ($c - 97) + 10);}
@@ -116,18 +124,17 @@ final class Digest {
                 Vector{0, $Invalid_argument, $cst_Digest_from_hex__0}
               ) as \Throwable;
       };
-      $byte__0 = (dynamic $i) ==> {
-        $c_ = $digit($caml_string_get($s, (int) ($i + 1)));
-        return (int)
-        ($left_shift_32($digit($caml_string_get($s, $i)), 4) + $c_);
-      };
       $result = $caml_create_bytes(16);
       $i = 0;
       for (;;) {
-        $a_ = $byte__0((int) (2 * $i));
-        $runtime["caml_bytes_set"]($result, $i, $call1($Char[1], $a_));
-        $b_ = (int) ($i + 1);
-        if (15 !== $i) {$i = $b_;continue;}
+        $i__0 = (int) (2 * $i);
+        $a_ = $digit($caml_string_get($s, (int) ($i__0 + 1)));
+        $b_ =
+          (int)
+          ($left_shift_32($digit($caml_string_get($s, $i__0)), 4) + $a_);
+        $runtime["caml_bytes_set"]($result, $i, $call1($Char[1], $b_));
+        $c_ = (int) ($i + 1);
+        if (15 !== $i) {$i = $c_;continue;}
         return $call1($Bytes[42], $result);
       }
     };
@@ -144,16 +151,10 @@ final class Digest {
       $input,
       $to_hex,
       $from_hex
-    };
+    } as dynamic;
     
      return ($Digest);
 
-  }
-  public static function compare(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function equal(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function string(dynamic $str): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$str]);

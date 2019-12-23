@@ -17,11 +17,11 @@ final class Queue {
     $call2 = $runtime["caml_call2"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
-    $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)};
+    $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)} as dynamic;
     $create = (dynamic $param) ==> {return Vector{0, 0, 0, 0};};
     $clear = (dynamic $q) ==> {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
     $add = (dynamic $x, dynamic $q) ==> {
-      $cell = Vector{0, $x, 0};
+      $cell = Vector{0, $x, 0} as dynamic;
       $g_ = $q[3];
       if ($g_) {
         $q[1] = (int) ($q[1] + 1);
@@ -35,11 +35,14 @@ final class Queue {
       return 0;
     };
     $peek = (dynamic $q) ==> {
+      $content = null;
       $f_ = $q[2];
       if ($f_) {$content = $f_[1];return $content;}
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $take = (dynamic $q) ==> {
+      $d_ = null;
+      $e_ = null;
       $c_ = $q[2];
       if ($c_) {
         $d_ = $c_[1];
@@ -50,63 +53,67 @@ final class Queue {
       }
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $copy = (dynamic $q_res, dynamic $prev, dynamic $cell) ==> {
-      $prev__0 = $prev;
-      $cell__0 = $cell;
+    $copy = (dynamic $q) ==> {
+      $content = null;
+      $next = null;
+      $res = null;
+      $q_res = Vector{0, $q[1], 0, 0} as dynamic;
+      $prev = 0;
+      $cell = $q[2];
       for (;;) {
-        if ($cell__0) {
-          $content = $cell__0[1];
-          $next = $cell__0[2];
+        if ($cell) {
+          $content = $cell[1];
+          $next = $cell[2];
           $res = Vector{0, $content, 0};
-          if ($prev__0) {
-            $prev__0[2] = $res;
+          if ($prev) {
+            $prev[2] = $res;
           }
           else {$q_res[2] = $res;}
-          $prev__0 = $res;
-          $cell__0 = $next;
+          $prev = $res;
+          $cell = $next;
           continue;
         }
-        $q_res[3] = $prev__0;
+        $q_res[3] = $prev;
         return $q_res;
       }
     };
-    $copy__0 = (dynamic $q) ==> {
-      return $copy(Vector{0, $q[1], 0, 0}, 0, $q[2]);
-    };
     $is_empty = (dynamic $q) ==> {return 0 === $q[1] ? 1 : (0);};
     $length = (dynamic $q) ==> {return $q[1];};
-    $iter = (dynamic $f, dynamic $cell) ==> {
-      $cell__0 = $cell;
+    $iter = (dynamic $f, dynamic $q) ==> {
+      $content = null;
+      $cell__0 = null;
+      $cell = $q[2];
       for (;;) {
-        if ($cell__0) {
-          $content = $cell__0[1];
-          $cell__1 = $cell__0[2];
+        if ($cell) {
+          $content = $cell[1];
+          $cell__0 = $cell[2];
           $call1($f, $content);
-          $cell__0 = $cell__1;
+          $cell = $cell__0;
           continue;
         }
         return 0;
       }
     };
-    $iter__0 = (dynamic $f, dynamic $q) ==> {return $iter($f, $q[2]);};
-    $fold = (dynamic $f, dynamic $accu, dynamic $cell) ==> {
-      $accu__0 = $accu;
-      $cell__0 = $cell;
+    $fold = (dynamic $f, dynamic $accu__1, dynamic $q) ==> {
+      $content = null;
+      $cell__0 = null;
+      $accu__0 = null;
+      $accu = $accu__1;
+      $cell = $q[2];
       for (;;) {
-        if ($cell__0) {
-          $content = $cell__0[1];
-          $cell__1 = $cell__0[2];
-          $accu__1 = $call2($f, $accu__0, $content);
-          $accu__0 = $accu__1;
-          $cell__0 = $cell__1;
+        if ($cell) {
+          $content = $cell[1];
+          $cell__0 = $cell[2];
+          $accu__0 = $call2($f, $accu, $content);
+          $accu = $accu__0;
+          $cell = $cell__0;
           continue;
         }
-        return $accu__0;
+        return $accu;
       }
     };
-    $fold__0 = (dynamic $f, dynamic $accu, dynamic $q) ==> {return $fold($f, $accu, $q[2]);
-    };
     $transfer = (dynamic $q1, dynamic $q2) ==> {
+      $b_ = null;
       $a_ = 0 < $q1[1] ? 1 : (0);
       if ($a_) {
         $b_ = $q2[3];
@@ -134,19 +141,16 @@ final class Queue {
       $peek,
       $peek,
       $clear,
-      $copy__0,
+      $copy,
       $is_empty,
       $length,
-      $iter__0,
-      $fold__0,
+      $iter,
+      $fold,
       $transfer
-    };
+    } as dynamic;
     
      return ($Queue);
 
-  }
-  public static function Empty(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function create(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$param]);

@@ -16,6 +16,23 @@ final class CamlinternalFormatBasics {
     $runtime = $joo_global_object->jsoo_runtime;
     $is_int = $runtime["is_int"];
     $erase_rel->contents = (dynamic $param) ==> {
+      $rest__13 = null;
+      $rest__12 = null;
+      $rest__11 = null;
+      $rest__10 = null;
+      $rest__9 = null;
+      $ty1 = null;
+      $rest__8 = null;
+      $ty = null;
+      $rest__7 = null;
+      $rest__6 = null;
+      $rest__5 = null;
+      $rest__4 = null;
+      $rest__3 = null;
+      $rest__2 = null;
+      $rest__1 = null;
+      $rest__0 = null;
+      $rest = null;
       if ($is_int($param)) {return 0;}
       else {
         switch($param[0]) {
@@ -85,6 +102,24 @@ final class CamlinternalFormatBasics {
       }
     };
     $concat_fmtty->contents = (dynamic $fmtty1, dynamic $fmtty2) ==> {
+      $rest__13 = null;
+      $rest__12 = null;
+      $rest__11 = null;
+      $rest__10 = null;
+      $rest__9 = null;
+      $ty1 = null;
+      $ty2 = null;
+      $rest__8 = null;
+      $ty = null;
+      $rest__7 = null;
+      $rest__6 = null;
+      $rest__5 = null;
+      $rest__4 = null;
+      $rest__3 = null;
+      $rest__2 = null;
+      $rest__1 = null;
+      $rest__0 = null;
+      $rest = null;
       if ($is_int($fmtty1)) {return $fmtty2;}
       else {
         switch($fmtty1[0]) {
@@ -160,6 +195,63 @@ final class CamlinternalFormatBasics {
       }
     };
     $concat_fmt->contents = (dynamic $fmt1, dynamic $fmt2) ==> {
+      $arity = null;
+      $f = null;
+      $rest__23 = null;
+      $ign = null;
+      $rest__22 = null;
+      $rest__21 = null;
+      $counter = null;
+      $rest__20 = null;
+      $width_opt = null;
+      $char_set = null;
+      $rest__19 = null;
+      $rest__18 = null;
+      $fmting_gen = null;
+      $rest__17 = null;
+      $fmting_lit = null;
+      $rest__16 = null;
+      $rest__15 = null;
+      $rest__14 = null;
+      $pad__8 = null;
+      $fmtty__0 = null;
+      $rest__13 = null;
+      $pad__7 = null;
+      $fmtty = null;
+      $rest__12 = null;
+      $chr = null;
+      $rest__11 = null;
+      $str = null;
+      $rest__10 = null;
+      $rest__9 = null;
+      $pad__6 = null;
+      $rest__8 = null;
+      $fconv = null;
+      $pad__5 = null;
+      $prec__3 = null;
+      $rest__7 = null;
+      $iconv__2 = null;
+      $pad__4 = null;
+      $prec__2 = null;
+      $rest__6 = null;
+      $iconv__1 = null;
+      $pad__3 = null;
+      $prec__1 = null;
+      $rest__5 = null;
+      $iconv__0 = null;
+      $pad__2 = null;
+      $prec__0 = null;
+      $rest__4 = null;
+      $iconv = null;
+      $pad__1 = null;
+      $prec = null;
+      $rest__3 = null;
+      $pad__0 = null;
+      $rest__2 = null;
+      $pad = null;
+      $rest__1 = null;
+      $rest__0 = null;
+      $rest = null;
       if ($is_int($fmt1)) {return $fmt2;}
       else {
         switch($fmt1[0]) {
@@ -365,7 +457,7 @@ final class CamlinternalFormatBasics {
       $concat_fmtty->contents,
       $erase_rel->contents,
       $concat_fmt->contents
-    };
+    } as dynamic;
     
      return ($CamlinternalFormatBasics);
 

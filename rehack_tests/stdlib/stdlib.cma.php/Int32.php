@@ -13,6 +13,7 @@ final class Int32 {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
+    $caml_int_compare = $runtime["caml_int_compare"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
@@ -33,6 +34,7 @@ final class Int32 {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = (dynamic $s) ==> {
+      $a_ = null;
       try {$a_ = Vector{0, $runtime["caml_int_of_string"]($s)};return $a_;}
       catch(\Throwable $b_) {
         $b_ = $runtime["caml_wrap_exception"]($b_);
@@ -41,10 +43,10 @@ final class Int32 {
       }
     };
     $compare = (dynamic $x, dynamic $y) ==> {
-      return $runtime["caml_int_compare"]($x, $y);
+      return $caml_int_compare($x, $y);
     };
     $equal = (dynamic $x, dynamic $y) ==> {
-      return 0 === $compare($x, $y) ? 1 : (0);
+      return 0 === $caml_int_compare($x, $y) ? 1 : (0);
     };
     $Int32 = Vector{
       0,
@@ -61,19 +63,10 @@ final class Int32 {
       $to_string,
       $compare,
       $equal
-    };
+    } as dynamic;
     
      return ($Int32);
 
-  }
-  public static function zero(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function one(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function minus_one(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function succ(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$n]);
@@ -83,12 +76,6 @@ final class Int32 {
   }
   public static function abs(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$n]);
-  }
-  public static function _max_int_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function _min_int_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function lognot(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[$n]);

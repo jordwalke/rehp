@@ -13,20 +13,21 @@ final class Int64 {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
+    $caml_int64_compare = $runtime["caml_int64_compare"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
     $cst_d = $runtime["caml_new_string"]("%d");
-    $zero = Vector{255, 0, 0, 0};
-    $one = Vector{255, 1, 0, 0};
-    $minus_one = Vector{255, 16777215, 16777215, 65535};
-    $min_int = Vector{255, 0, 0, 32768};
-    $max_int = Vector{255, 16777215, 16777215, 32767};
+    $zero = Vector{255, 0, 0, 0} as dynamic;
+    $one = Vector{255, 1, 0, 0} as dynamic;
+    $minus_one = Vector{255, 16777215, 16777215, 65535} as dynamic;
+    $min_int = Vector{255, 0, 0, 32768} as dynamic;
+    $max_int = Vector{255, 16777215, 16777215, 32767} as dynamic;
     $Failure =  Failure::requireModule ();
-    $d_ = Vector{255, 16777215, 16777215, 65535};
-    $c_ = Vector{255, 0, 0, 0};
-    $b_ = Vector{255, 1, 0, 0};
-    $a_ = Vector{255, 1, 0, 0};
+    $d_ = Vector{255, 16777215, 16777215, 65535} as dynamic;
+    $c_ = Vector{255, 0, 0, 0} as dynamic;
+    $b_ = Vector{255, 1, 0, 0} as dynamic;
+    $a_ = Vector{255, 1, 0, 0} as dynamic;
     $succ = (dynamic $n) ==> {return $runtime["caml_int64_add"]($n, $a_);};
     $pred = (dynamic $n) ==> {return $runtime["caml_int64_sub"]($n, $b_);};
     $abs = (dynamic $n) ==> {
@@ -39,6 +40,7 @@ final class Int64 {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
     $of_string_opt = (dynamic $s) ==> {
+      $e_ = null;
       try {$e_ = Vector{0, $runtime["caml_int64_of_string"]($s)};return $e_;}
       catch(\Throwable $f_) {
         $f_ = $runtime["caml_wrap_exception"]($f_);
@@ -47,10 +49,10 @@ final class Int64 {
       }
     };
     $compare = (dynamic $x, dynamic $y) ==> {
-      return $runtime["caml_int64_compare"]($x, $y);
+      return $caml_int64_compare($x, $y);
     };
     $equal = (dynamic $x, dynamic $y) ==> {
-      return 0 === $compare($x, $y) ? 1 : (0);
+      return 0 === $caml_int64_compare($x, $y) ? 1 : (0);
     };
     $Int64 = Vector{
       0,
@@ -67,19 +69,10 @@ final class Int64 {
       $to_string,
       $compare,
       $equal
-    };
+    } as dynamic;
     
      return ($Int64);
 
-  }
-  public static function zero(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function one(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function minus_one(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function succ(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$n]);
@@ -89,12 +82,6 @@ final class Int64 {
   }
   public static function abs(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$n]);
-  }
-  public static function _max_int_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function _min_int_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function lognot(dynamic $n): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[$n]);

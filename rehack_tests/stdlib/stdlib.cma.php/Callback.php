@@ -22,7 +22,7 @@ final class Callback {
       $slot = $runtime["caml_obj_tag"]($exn) === $Obj[8] ? $exn : ($exn[1]);
       return $caml_register_named_value($name, $slot);
     };
-    $Callback = Vector{0, $register, $register_exception};
+    $Callback = Vector{0, $register, $register_exception} as dynamic;
     
      return ($Callback);
 

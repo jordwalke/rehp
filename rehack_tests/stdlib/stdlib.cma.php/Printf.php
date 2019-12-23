@@ -78,7 +78,7 @@ final class Printf {
       $ksprintf,
       $kbprintf,
       $ksprintf
-    };
+    } as dynamic;
     
      return ($Printf);
 

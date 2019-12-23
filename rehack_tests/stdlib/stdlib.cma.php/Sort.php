@@ -20,6 +20,10 @@ final class Sort {
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
     $Invalid_argument =  Invalid_argument::requireModule ();
     $merge->contents = (dynamic $order, dynamic $l1, dynamic $l2) ==> {
+      $h2 = null;
+      $t2 = null;
+      $h1 = null;
+      $t1 = null;
       if ($l1) {
         $t1 = $l1[2];
         $h1 = $l1[1];
@@ -36,7 +40,15 @@ final class Sort {
     };
     $list = (dynamic $order, dynamic $l) ==> {
       $initlist = new Ref();$merge2 = new Ref();
+      $llist__0 = null;
+      $l__0 = null;
       $initlist->contents = (dynamic $param) ==> {
+        $l_ = null;
+        $k_ = null;
+        $e2 = null;
+        $rest = null;
+        $j_ = null;
+        $i_ = null;
         if ($param) {
           $i_ = $param[2];
           $j_ = $param[1];
@@ -44,9 +56,10 @@ final class Sort {
             $rest = $i_[2];
             $e2 = $i_[1];
             $k_ = $initlist->contents($rest);
-            $l_ = $call2($order, $j_, $e2)
-              ? Vector{0, $j_, Vector{0, $e2, 0}}
-              : (Vector{0, $e2, Vector{0, $j_, 0}});
+            $l_ =
+              $call2($order, $j_, $e2)
+                ? Vector{0, $j_, Vector{0, $e2, 0}}
+                : (Vector{0, $e2, Vector{0, $j_, 0}});
             return Vector{0, $l_, $k_};
           }
           return Vector{0, Vector{0, $j_, 0}, 0};
@@ -54,6 +67,11 @@ final class Sort {
         return 0;
       };
       $merge2->contents = (dynamic $x) ==> {
+        $h_ = null;
+        $l1 = null;
+        $l2 = null;
+        $rest = null;
+        $g_ = null;
         if ($x) {
           $g_ = $x[2];
           if ($g_) {
@@ -66,22 +84,20 @@ final class Sort {
         }
         return $x;
       };
-      $mergeall = (dynamic $llist) ==> {
-        $llist__0 = $llist;
-        for (;;) {
-          if ($llist__0) {
-            if ($llist__0[2]) {
-              $llist__1 = $merge2->contents($llist__0);
-              $llist__0 = $llist__1;
-              continue;
-            }
-            $l = $llist__0[1];
-            return $l;
+      $llist__1 = $initlist->contents($l);
+      $llist = $llist__1;
+      for (;;) {
+        if ($llist) {
+          if ($llist[2]) {
+            $llist__0 = $merge2->contents($llist);
+            $llist = $llist__0;
+            continue;
           }
-          return 0;
+          $l__0 = $llist[1];
+          return $l__0;
         }
-      };
-      return $mergeall($initlist->contents($l));
+        return 0;
+      }
     };
     $swap = (dynamic $arr, dynamic $i, dynamic $j) ==> {
       $tmp = $arr[$i + 1];
@@ -91,7 +107,20 @@ final class Sort {
     };
     $array = (dynamic $cmp, dynamic $arr) ==> {
       $qsort = new Ref();
+      $i = null;
+      $val_i = null;
+      $j = null;
+      $c_ = null;
       $qsort->contents = (dynamic $lo, dynamic $hi) ==> {
+        $d_ = null;
+        $mid = null;
+        $pivot = null;
+        $i = null;
+        $j = null;
+        $e_ = null;
+        $f_ = null;
+        $lo__1 = null;
+        $hi__1 = null;
         $lo__0 = $lo;
         $hi__0 = $hi;
         for (;;) {
@@ -181,7 +210,7 @@ final class Sort {
       }
       return 0;
     };
-    $Sort = Vector{0, $list, $array, $merge->contents};
+    $Sort = Vector{0, $list, $array, $merge->contents} as dynamic;
     
      return ($Sort);
 

@@ -50,6 +50,7 @@ final class Marshal {
       return (int) (20 + $data_size($buff, $ofs));
     };
     $from_bytes = (dynamic $buff, dynamic $ofs) ==> {
+      $len = null;
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {
           $len = $caml_marshal_data_size($buff, $ofs);
@@ -77,7 +78,7 @@ final class Marshal {
       $header_size,
       $data_size,
       $total_size
-    };
+    } as dynamic;
     
      return ($Marshal);
 
@@ -90,9 +91,6 @@ final class Marshal {
   }
   public static function from_string(dynamic $buff, dynamic $ofs): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$buff, $ofs]);
-  }
-  public static function header_size(): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[]);
   }
   public static function data_size(dynamic $buff, dynamic $ofs): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$buff, $ofs]);

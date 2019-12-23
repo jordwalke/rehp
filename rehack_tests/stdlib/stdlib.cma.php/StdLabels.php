@@ -13,22 +13,13 @@ final class StdLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $StdLabels = Vector{0, 0, 0, 0, 0};
+    
+    ;
+    
+    $StdLabels = Vector{0, 0, 0, 0, 0} as dynamic;
     
      return ($StdLabels);
 
-  }
-  public static function Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function Bytes(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function List(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
-  }
-  public static function String(): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[]);
   }
 
 }

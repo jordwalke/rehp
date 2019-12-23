@@ -28,7 +28,7 @@ final class Gc {
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
       $string("minor_collections: %d\n")
-    };
+    } as dynamic;
     $b_ = Vector{
       0,
       Vector{
@@ -37,7 +37,7 @@ final class Gc {
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
       $string("major_collections: %d\n")
-    };
+    } as dynamic;
     $c_ = Vector{
       0,
       Vector{
@@ -46,9 +46,9 @@ final class Gc {
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
       $string("compactions:       %d\n")
-    };
-    $d_ = Vector{0, Vector{12, 10, 0}, $string("\n")};
-    $e_ = Vector{0, Vector{8, 0, 0, Vector{0, 0}, 0}, $string("%.0f")};
+    } as dynamic;
+    $d_ = Vector{0, Vector{12, 10, 0}, $string("\n")} as dynamic;
+    $e_ = Vector{0, Vector{8, 0, 0, Vector{0, 0}, 0}, $string("%.0f")} as dynamic;
     $f_ = Vector{
       0,
       Vector{
@@ -57,7 +57,7 @@ final class Gc {
         Vector{8, 0, Vector{1, 1}, Vector{0, 0}, Vector{12, 10, 0}}
       },
       $string("minor_words:    %*.0f\n")
-    };
+    } as dynamic;
     $g_ = Vector{
       0,
       Vector{
@@ -66,7 +66,7 @@ final class Gc {
         Vector{8, 0, Vector{1, 1}, Vector{0, 0}, Vector{12, 10, 0}}
       },
       $string("promoted_words: %*.0f\n")
-    };
+    } as dynamic;
     $h_ = Vector{
       0,
       Vector{
@@ -75,9 +75,9 @@ final class Gc {
         Vector{8, 0, Vector{1, 1}, Vector{0, 0}, Vector{12, 10, 0}}
       },
       $string("major_words:    %*.0f\n")
-    };
-    $i_ = Vector{0, Vector{12, 10, 0}, $string("\n")};
-    $j_ = Vector{0, Vector{4, 0, 0, 0, 0}, $string("%d")};
+    } as dynamic;
+    $i_ = Vector{0, Vector{12, 10, 0}, $string("\n")} as dynamic;
+    $j_ = Vector{0, Vector{4, 0, 0, 0, 0}, $string("%d")} as dynamic;
     $k_ = Vector{
       0,
       Vector{
@@ -86,7 +86,7 @@ final class Gc {
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
       $string("top_heap_words: %*d\n")
-    };
+    } as dynamic;
     $l_ = Vector{
       0,
       Vector{
@@ -95,7 +95,7 @@ final class Gc {
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
       $string("heap_words:     %*d\n")
-    };
+    } as dynamic;
     $m_ = Vector{
       0,
       Vector{
@@ -104,7 +104,7 @@ final class Gc {
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
       $string("live_words:     %*d\n")
-    };
+    } as dynamic;
     $n_ = Vector{
       0,
       Vector{
@@ -113,7 +113,7 @@ final class Gc {
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
       $string("free_words:     %*d\n")
-    };
+    } as dynamic;
     $o_ = Vector{
       0,
       Vector{
@@ -122,7 +122,7 @@ final class Gc {
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
       $string("largest_free:   %*d\n")
-    };
+    } as dynamic;
     $p_ = Vector{
       0,
       Vector{
@@ -131,8 +131,8 @@ final class Gc {
         Vector{4, 0, Vector{1, 1}, 0, Vector{12, 10, 0}}
       },
       $string("fragments:      %*d\n")
-    };
-    $q_ = Vector{0, Vector{12, 10, 0}, $string("\n")};
+    } as dynamic;
+    $q_ = Vector{0, Vector{12, 10, 0}, $string("\n")} as dynamic;
     $r_ = Vector{
       0,
       Vector{
@@ -141,7 +141,7 @@ final class Gc {
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
       $string("live_blocks: %d\n")
-    };
+    } as dynamic;
     $s_ = Vector{
       0,
       Vector{
@@ -150,7 +150,7 @@ final class Gc {
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
       $string("free_blocks: %d\n")
-    };
+    } as dynamic;
     $t_ = Vector{
       0,
       Vector{
@@ -159,7 +159,7 @@ final class Gc {
         Vector{4, 0, 0, 0, Vector{12, 10, 0}}
       },
       $string("heap_chunks: %d\n")
-    };
+    } as dynamic;
     $print_stat = (dynamic $c) ==> {
       $st = $runtime["caml_gc_stat"](0);
       $call3($Printf[1], $c, $a_, $st[4]);
@@ -207,7 +207,7 @@ final class Gc {
       $u_,
       $create_alarm,
       $delete_alarm
-    };
+    } as dynamic;
     
      return ($Gc);
 

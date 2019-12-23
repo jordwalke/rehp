@@ -43,16 +43,10 @@ final class Lazy {
       $from_fun,
       $from_val,
       $is_val
-    };
+    } as dynamic;
     
      return ($Lazy);
 
-  }
-  public static function Undefined(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function force_val(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function from_fun(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$f]);

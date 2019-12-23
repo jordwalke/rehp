@@ -27,6 +27,8 @@ final class Spacetime {
       return $enabled ? $call1($f, 0) : (0);
     };
     $create = (dynamic $path) ==> {
+      $t = null;
+      $channel = null;
       if ($caml_spacetime_enabled(0)) {
         $channel = $call1($Pervasives[48], $path);
         $t = Vector{0, $channel, 0};
@@ -57,7 +59,7 @@ final class Spacetime {
         }
       );
     };
-    $Series = Vector{0, $create, $save_event, $save_and_close};
+    $Series = Vector{0, $create, $save_event, $save_and_close} as dynamic;
     $take = (dynamic $time, dynamic $param) ==> {
       $channel = $param[1];
       $closed = $param[2];
@@ -69,7 +71,7 @@ final class Spacetime {
         }
       );
     };
-    $Snapshot = Vector{0, $take};
+    $Snapshot = Vector{0, $take} as dynamic;
     $save_event_for_automatic_snapshots = (dynamic $event_name) ==> {
       return $if_spacetime_enabled(
         (dynamic $param) ==> {
@@ -83,19 +85,10 @@ final class Spacetime {
       $Series,
       $Snapshot,
       $save_event_for_automatic_snapshots
-    };
+    } as dynamic;
     
      return ($Spacetime);
 
-  }
-  public static function enabled(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function Series(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function Snapshot(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function save_event_for_automatic_snapshots(dynamic $event_name): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$event_name]);

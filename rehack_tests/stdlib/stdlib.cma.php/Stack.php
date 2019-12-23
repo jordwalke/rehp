@@ -18,7 +18,7 @@ final class Stack {
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_Stack_Empty = $runtime["caml_new_string"]("Stack.Empty");
     $List =  List_::requireModule ();
-    $Empty = Vector{248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0)};
+    $Empty = Vector{248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0)} as dynamic;
     $create = (dynamic $param) ==> {return Vector{0, 0, 0};};
     $clear = (dynamic $s) ==> {$s[1] = 0;$s[2] = 0;return 0;};
     $copy = (dynamic $s) ==> {return Vector{0, $s[1], $s[2]};};
@@ -28,6 +28,8 @@ final class Stack {
       return 0;
     };
     $pop = (dynamic $s) ==> {
+      $tl = null;
+      $hd = null;
       $b_ = $s[1];
       if ($b_) {
         $tl = $b_[2];
@@ -39,6 +41,7 @@ final class Stack {
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $top = (dynamic $s) ==> {
+      $hd = null;
       $a_ = $s[1];
       if ($a_) {$hd = $a_[1];return $hd;}
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
@@ -64,13 +67,10 @@ final class Stack {
       $length,
       $iter,
       $fold
-    };
+    } as dynamic;
     
      return ($Stack);
 
-  }
-  public static function Empty(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function create(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$param]);

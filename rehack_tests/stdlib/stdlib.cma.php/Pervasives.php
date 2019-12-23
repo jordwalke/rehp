@@ -64,25 +64,25 @@ final class Pervasives {
     $Sys_error =  Sys_error::requireModule ();
     $Failure =  Failure::requireModule ();
     $Invalid_argument =  Invalid_argument::requireModule ();
-    $l_ = Vector{0, 0, Vector{0, 6, 0}};
-    $k_ = Vector{0, 0, Vector{0, 7, 0}};
-    $j_ = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 6, 0}}}};
-    $i_ = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 7, 0}}}};
-    $g_ = Vector{0, 1};
-    $h_ = Vector{0, 0};
-    $a_ = Vector{255, 0, 0, 32752};
-    $b_ = Vector{255, 0, 0, 65520};
-    $c_ = Vector{255, 1, 0, 32752};
-    $d_ = Vector{255, 16777215, 16777215, 32751};
-    $e_ = Vector{255, 0, 0, 16};
-    $f_ = Vector{255, 0, 0, 15536};
+    $l_ = Vector{0, 0, Vector{0, 6, 0}} as dynamic;
+    $k_ = Vector{0, 0, Vector{0, 7, 0}} as dynamic;
+    $j_ = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 6, 0}}}} as dynamic;
+    $i_ = Vector{0, 1, Vector{0, 3, Vector{0, 4, Vector{0, 7, 0}}}} as dynamic;
+    $g_ = Vector{0, 1} as dynamic;
+    $h_ = Vector{0, 0} as dynamic;
+    $a_ = Vector{255, 0, 0, 32752} as dynamic;
+    $b_ = Vector{255, 0, 0, 65520} as dynamic;
+    $c_ = Vector{255, 1, 0, 32752} as dynamic;
+    $d_ = Vector{255, 16777215, 16777215, 32751} as dynamic;
+    $e_ = Vector{255, 0, 0, 16} as dynamic;
+    $f_ = Vector{255, 0, 0, 15536} as dynamic;
     $failwith = (dynamic $s) ==> {
       throw $caml_wrap_thrown_exception(Vector{0, $Failure, $s}) as \Throwable;
     };
     $invalid_arg = (dynamic $s) ==> {
       throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
     };
-    $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)};
+    $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)} as dynamic;
     $min = (dynamic $x, dynamic $y) ==> {
       return $runtime["caml_lessequal"]($x, $y) ? $x : ($y);
     };
@@ -126,6 +126,7 @@ final class Pervasives {
     };
     $string_of_int = (dynamic $n) ==> {return $string("" . $n);};
     $int_of_string_opt = (dynamic $s) ==> {
+      $ay_ = null;
       try {$ay_ = Vector{0, $caml_int_of_string($s)};return $ay_;}
       catch(\Throwable $az_) {
         $az_ = $runtime["caml_wrap_exception"]($az_);
@@ -134,25 +135,25 @@ final class Pervasives {
       }
     };
     $valid_float_lexem = (dynamic $s) ==> {
+      $match = null;
+      $i__0 = null;
+      $switch__0 = null;
       $l = $caml_ml_string_length($s);
-      $loop = (dynamic $i) ==> {
-        $i__0 = $i;
-        for (;;) {
-          if ($l <= $i__0) {return $symbol($s, $cst);}
-          $match = $runtime["caml_string_get"]($s, $i__0);
-          $switch__0 = 48 <= $match
-            ? 58 <= $match ? 0 : (1)
-            : (45 === $match ? 1 : (0));
-          if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
-          return $s;
-        }
-      };
-      return $loop(0);
+      $i = 0;
+      for (;;) {
+        if ($l <= $i) {return $symbol($s, $cst);}
+        $match = $runtime["caml_string_get"]($s, $i);
+        $switch__0 =
+          48 <= $match ? 58 <= $match ? 0 : (1) : (45 === $match ? 1 : (0));
+        if ($switch__0) {$i__0 = (int) ($i + 1);$i = $i__0;continue;}
+        return $s;
+      }
     };
     $string_of_float = (dynamic $f) ==> {
       return $valid_float_lexem($runtime["caml_format_float"]($cst_12g, $f));
     };
     $float_of_string_opt = (dynamic $s) ==> {
+      $aw_ = null;
       try {$aw_ = Vector{0, $caml_float_of_string($s)};return $aw_;}
       catch(\Throwable $ax_) {
         $ax_ = $runtime["caml_wrap_exception"]($ax_);
@@ -161,6 +162,8 @@ final class Pervasives {
       }
     };
     $symbol__0->contents = (dynamic $l1, dynamic $l2) ==> {
+      $hd = null;
+      $tl = null;
       if ($l1) {
         $tl = $l1[2];
         $hd = $l1[1];
@@ -182,6 +185,8 @@ final class Pervasives {
     };
     $flush_all = (dynamic $param) ==> {
       $iter = (dynamic $param) ==> {
+        $l = null;
+        $a = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -232,6 +237,7 @@ final class Pervasives {
       return $caml_ml_close_channel($oc);
     };
     $close_out_noerr = (dynamic $oc) ==> {
+      $as_ = null;
       try {$caml_ml_flush($oc);}catch(\Throwable $au_) {}
       try {$as_ = $caml_ml_close_channel($oc);return $as_;}
       catch(\Throwable $at_) {return 0;}
@@ -253,6 +259,9 @@ final class Pervasives {
     };
     $unsafe_really_input = 
     (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) ==> {
+      $r = null;
+      $len__1 = null;
+      $ofs__1 = null;
       $ofs__0 = $ofs;
       $len__0 = $len;
       for (;;) {
@@ -284,7 +293,17 @@ final class Pervasives {
       return $s;
     };
     $input_line = (dynamic $chan) ==> {
+      $n = null;
+      $res = null;
+      $len__0 = null;
+      $beg = null;
+      $len__1 = null;
+      $accu__0 = null;
       $build_result = (dynamic $buf, dynamic $pos, dynamic $param) ==> {
+        $param__1 = null;
+        $hd = null;
+        $len = null;
+        $pos__1 = null;
         $pos__0 = $pos;
         $param__0 = $param;
         for (;;) {
@@ -308,47 +327,41 @@ final class Pervasives {
           return $buf;
         }
       };
-      $scan = (dynamic $accu, dynamic $len) ==> {
-        $accu__0 = $accu;
-        $len__0 = $len;
-        for (;;) {
-          $n = $runtime["caml_ml_input_scan_line"]($chan);
-          if (0 === $n) {
-            if ($accu__0) {
-              return $build_result(
-                $caml_create_bytes($len__0),
-                $len__0,
-                $accu__0
-              );
-            }
-            throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
+      $accu = 0;
+      $len = 0;
+      for (;;) {
+        $n = $runtime["caml_ml_input_scan_line"]($chan);
+        if (0 === $n) {
+          if ($accu) {
+            return $build_result($caml_create_bytes($len), $len, $accu);
           }
-          if (0 < $n) {
-            $res = $caml_create_bytes((int) ($n + -1));
-            $caml_ml_input($chan, $res, 0, (int) ($n + -1));
-            $caml_ml_input_char($chan);
-            if ($accu__0) {
-              $len__1 = (int) ((int) ($len__0 + $n) + -1);
-              return $build_result(
-                $caml_create_bytes($len__1),
-                $len__1,
-                Vector{0, $res, $accu__0}
-              );
-            }
-            return $res;
-          }
-          $beg = $caml_create_bytes((int) - $n);
-          $caml_ml_input($chan, $beg, 0, (int) - $n);
-          $len__2 = (int) ($len__0 - $n);
-          $accu__1 = Vector{0, $beg, $accu__0};
-          $accu__0 = $accu__1;
-          $len__0 = $len__2;
-          continue;
+          throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
         }
-      };
-      return $scan(0, 0);
+        if (0 < $n) {
+          $res = $caml_create_bytes((int) ($n + -1));
+          $caml_ml_input($chan, $res, 0, (int) ($n + -1));
+          $caml_ml_input_char($chan);
+          if ($accu) {
+            $len__0 = (int) ((int) ($len + $n) + -1);
+            return $build_result(
+              $caml_create_bytes($len__0),
+              $len__0,
+              Vector{0, $res, $accu}
+            );
+          }
+          return $res;
+        }
+        $beg = $caml_create_bytes((int) - $n);
+        $caml_ml_input($chan, $beg, 0, (int) - $n);
+        $len__1 = (int) ($len - $n);
+        $accu__0 = Vector{0, $beg, $accu};
+        $accu = $accu__0;
+        $len = $len__1;
+        continue;
+      }
     };
     $close_in_noerr = (dynamic $ic) ==> {
+      $aq_ = null;
       try {$aq_ = $caml_ml_close_channel($ic);return $aq_;}
       catch(\Throwable $ar_) {return 0;}
     };
@@ -356,7 +369,7 @@ final class Pervasives {
     $print_string = (dynamic $s) ==> {return $output_string($stdout, $s);};
     $print_bytes = (dynamic $s) ==> {return $output_bytes($stdout, $s);};
     $print_int = (dynamic $i) ==> {
-      return $output_string($stdout, $string_of_int($i));
+      return $output_string($stdout, $string("" . $i));
     };
     $print_float = (dynamic $f) ==> {
       return $output_string($stdout, $string_of_float($f));
@@ -374,7 +387,7 @@ final class Pervasives {
     $prerr_string = (dynamic $s) ==> {return $output_string($stderr, $s);};
     $prerr_bytes = (dynamic $s) ==> {return $output_bytes($stderr, $s);};
     $prerr_int = (dynamic $i) ==> {
-      return $output_string($stderr, $string_of_int($i));
+      return $output_string($stderr, $string("" . $i));
     };
     $prerr_float = (dynamic $f) ==> {
       return $output_string($stderr, $string_of_float($f));
@@ -417,7 +430,7 @@ final class Pervasives {
         $ap_
       };
     };
-    $exit_function = Vector{0, $flush_all};
+    $exit_function = Vector{0, $flush_all} as dynamic;
     $at_exit = (dynamic $f) ==> {
       $g = $exit_function[1];
       $exit_function[1] =
@@ -446,7 +459,7 @@ final class Pervasives {
       $o_,
       $n_,
       $m_
-    };
+    } as dynamic;
     $s_ = (dynamic $af_, dynamic $ae_) ==> {
       return $caml_ml_set_binary_mode($af_, $ae_);
     };
@@ -570,7 +583,7 @@ final class Pervasives {
       $valid_float_lexem,
       $unsafe_really_input,
       $do_at_exit
-    };
+    } as dynamic;
     
      return ($Pervasives);
 
@@ -581,9 +594,6 @@ final class Pervasives {
   public static function failwith(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$s]);
   }
-  public static function Exit(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
-  }
   public static function min(dynamic $x, dynamic $y): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$x, $y]);
   }
@@ -593,32 +603,8 @@ final class Pervasives {
   public static function abs(dynamic $x): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$x]);
   }
-  public static function _max_int_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function _min_int_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
   public static function lnot(dynamic $x): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[$x]);
-  }
-  public static function infinity(): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[]);
-  }
-  public static function neg_infinity(): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[]);
-  }
-  public static function nan(): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[]);
-  }
-  public static function _max_float_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[]);
-  }
-  public static function _min_float_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[]);
-  }
-  public static function _epsilon_float_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[]);
   }
   public static function symbol(dynamic $s1, dynamic $s2): dynamic {
     return static::callRehackFunction(static::requireModule()[16], varray[$s1, $s2]);
@@ -646,15 +632,6 @@ final class Pervasives {
   }
   public static function float_of_string_opt(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[24], varray[$s]);
-  }
-  public static function stdin(): dynamic {
-    return static::callRehackFunction(static::requireModule()[26], varray[]);
-  }
-  public static function stdout(): dynamic {
-    return static::callRehackFunction(static::requireModule()[27], varray[]);
-  }
-  public static function stderr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[28], varray[]);
   }
   public static function _print_char_(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[29], varray[$c]);
@@ -772,9 +749,6 @@ final class Pervasives {
   }
   public static function string_of_format(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[85], varray[$param]);
-  }
-  public static function exit(dynamic $retcode): dynamic {
-    return static::callRehackFunction(static::requireModule()[87], varray[$retcode]);
   }
   public static function at_exit(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[88], varray[$f]);

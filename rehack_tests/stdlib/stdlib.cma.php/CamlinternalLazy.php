@@ -28,11 +28,12 @@ final class CamlinternalLazy {
       248,
       $cst_CamlinternalLazy_Undefined,
       $runtime["caml_fresh_oo_id"](0)
-    };
+    } as dynamic;
     $raise_undefined = (dynamic $param) ==> {
       throw $caml_wrap_thrown_exception($Undefined) as \Throwable;
     };
     $force_lazy_block = (dynamic $blk) ==> {
+      $result = null;
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
       try {
@@ -77,13 +78,10 @@ final class CamlinternalLazy {
       $force_val_lazy_block,
       $force,
       $force_val
-    };
+    } as dynamic;
     
      return ($CamlinternalLazy);
 
-  }
-  public static function Undefined(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function force_lazy_block(dynamic $blk): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$blk]);

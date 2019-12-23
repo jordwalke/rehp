@@ -30,8 +30,8 @@ final class Parsing {
     $Obj =  Obj::requireModule ();
     $Array =  Array_::requireModule ();
     $Lexing =  Lexing::requireModule ();
-    $YYexit = Vector{248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0)};
-    $Parse_error = Vector{248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0)};
+    $YYexit = Vector{248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0)} as dynamic;
+    $Parse_error = Vector{248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0)} as dynamic;
     $env = Vector{
       0,
       $caml_make_vect(100, 0),
@@ -50,7 +50,7 @@ final class Parsing {
       0,
       0,
       0
-    };
+    } as dynamic;
     $grow_stacks = (dynamic $param) ==> {
       $oldsize = $env[5];
       $newsize = (int) ($oldsize * 2);
@@ -74,77 +74,20 @@ final class Parsing {
       $env[8] = 0;
       return 0;
     };
-    $current_lookahead_fun = Vector{0, (dynamic $param) ==> {return 0;}};
+    $current_lookahead_fun = Vector{0, (dynamic $param) ==> {return 0;}} as dynamic;
     $yyparse = 
     (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) ==> {
-      $loop = (dynamic $cmd, dynamic $arg) ==> {
-        $cmd__0 = $cmd;
-        $arg__0 = $arg;
-        for (;;) {
-          $match = $runtime["caml_parse_engine"](
-            $tables,
-            $env,
-            $cmd__0,
-            $arg__0
-          );
-          $continue_label = null;
-          switch($match) {
-            // FALLTHROUGH
-            case 0:
-              $arg__1 = $call1($lexer, $lexbuf);
-              $env[9] = $lexbuf[11];
-              $env[10] = $lexbuf[12];
-              $cmd__0 = 1;
-              $arg__0 = $arg__1;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            case 1:
-              throw $caml_wrap_thrown_exception($Parse_error) as \Throwable;
-            // FALLTHROUGH
-            case 2:
-              $grow_stacks(0);
-              $cmd__0 = 2;
-              $arg__0 = 0;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            case 3:
-              $grow_stacks(0);
-              $cmd__0 = 3;
-              $arg__0 = 0;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            case 4:
-              try {
-                $m_ = $env[13];
-                $n_ = $call1($caml_check_bound($tables[1], $m_)[$m_ + 1], $env
-                );
-                $o_ = 4;
-                $cmd__1 = $o_;
-                $arg__2 = $n_;
-              }
-              catch(\Throwable $p_) {
-                $p_ = $runtime["caml_wrap_exception"]($p_);
-                if ($p_ !== $Parse_error) {
-                  throw $caml_wrap_thrown_exception_reraise($p_) as \Throwable;
-                }
-                $k_ = 0;
-                $l_ = 5;
-                $cmd__1 = $l_;
-                $arg__2 = $k_;
-              }
-              $cmd__0 = $cmd__1;
-              $arg__0 = $arg__2;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            default:
-              $call1($tables[14], $cst_syntax_error);
-              $cmd__0 = 5;
-              $arg__0 = 0;
-              $continue_label = "#";break;
-            }
-          if ($continue_label === "#") {continue;}
-        }
-      };
+      $arg = null;
+      $cmd = null;
+      $match = null;
+      $arg__0 = null;
+      $arg__1 = null;
+      $cmd__0 = null;
+      $i_ = null;
+      $j_ = null;
+      $k_ = null;
+      $curr_char = null;
+      $v = null;
       $init_asp = $env[11];
       $init_sp = $env[14];
       $init_stackbase = $env[6];
@@ -155,7 +98,67 @@ final class Parsing {
       $env[6] = (int) ($env[14] + 1);
       $env[7] = $start;
       $env[10] = $lexbuf[12];
-      try {$i_ = $loop(0, 0);return $i_;}
+      try {
+        $cmd = 0;
+        $arg = 0;
+        for (;;) {
+          $match = $runtime["caml_parse_engine"]($tables, $env, $cmd, $arg);
+          $continue_label = null;
+          switch($match) {
+            // FALLTHROUGH
+            case 0:
+              $arg__0 = $call1($lexer, $lexbuf);
+              $env[9] = $lexbuf[11];
+              $env[10] = $lexbuf[12];
+              $cmd = 1;
+              $arg = $arg__0;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            case 1:
+              throw $caml_wrap_thrown_exception($Parse_error) as \Throwable;
+            // FALLTHROUGH
+            case 2:
+              $grow_stacks(0);
+              $cmd = 2;
+              $arg = 0;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            case 3:
+              $grow_stacks(0);
+              $cmd = 3;
+              $arg = 0;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            case 4:
+              try {
+                $i_ = $env[13];
+                $j_ =
+                  $call1($caml_check_bound($tables[1], $i_)[$i_ + 1], $env);
+                $k_ = 4;
+                $cmd__0 = $k_;
+                $arg__1 = $j_;
+              }
+              catch(\Throwable $m_) {
+                $m_ = $runtime["caml_wrap_exception"]($m_);
+                if ($m_ !== $Parse_error) {
+                  throw $caml_wrap_thrown_exception_reraise($m_) as \Throwable;
+                }
+                $cmd__0 = 5;
+                $arg__1 = 0;
+              }
+              $cmd = $cmd__0;
+              $arg = $arg__1;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            default:
+              $call1($tables[14], $cst_syntax_error);
+              $cmd = 5;
+              $arg = 0;
+              $continue_label = "#";break;
+            }
+          if ($continue_label === "#") {continue;}
+        }
+      }
       catch(\Throwable $exn) {
         $exn = $runtime["caml_wrap_exception"]($exn);
         $curr_char = $env[7];
@@ -169,9 +172,10 @@ final class Parsing {
         if ($exn[1] === $YYexit) {$v = $exn[2];return $v;}
         $current_lookahead_fun[1] =
           (dynamic $tok) ==> {
+            $l_ = null;
             if ($call1($Obj[1], $tok)) {
-              $j_ = $runtime["caml_obj_tag"]($tok);
-              return $caml_check_bound($tables[3], $j_)[$j_ + 1] === $curr_char
+              $l_ = $runtime["caml_obj_tag"]($tok);
+              return $caml_check_bound($tables[3], $l_)[$l_ + 1] === $curr_char
                 ? 1
                 : (0);
             }
@@ -187,24 +191,27 @@ final class Parsing {
       return $caml_check_bound($env[2], $h_)[$h_ + 1];
     };
     $symbol_start_pos = (dynamic $param) ==> {
-      $loop = (dynamic $i) ==> {
-        $i__0 = $i;
-        for (;;) {
-          if (0 < $i__0) {
-            $e_ = (int) ((int) ($env[11] - $i__0) + 1);
-            $st = $caml_check_bound($env[3], $e_)[$e_ + 1];
-            $f_ = (int) ((int) ($env[11] - $i__0) + 1);
-            $en = $caml_check_bound($env[4], $f_)[$f_ + 1];
-            if ($runtime["caml_notequal"]($st, $en)) {return $st;}
-            $i__1 = (int) ($i__0 + -1);
-            $i__0 = $i__1;
-            continue;
-          }
-          $g_ = $env[11];
-          return $caml_check_bound($env[4], $g_)[$g_ + 1];
+      $e_ = null;
+      $st = null;
+      $f_ = null;
+      $en = null;
+      $i__0 = null;
+      $g_ = null;
+      $i = $env[12];
+      for (;;) {
+        if (0 < $i) {
+          $e_ = (int) ((int) ($env[11] - $i) + 1);
+          $st = $caml_check_bound($env[3], $e_)[$e_ + 1];
+          $f_ = (int) ((int) ($env[11] - $i) + 1);
+          $en = $caml_check_bound($env[4], $f_)[$f_ + 1];
+          if ($runtime["caml_notequal"]($st, $en)) {return $st;}
+          $i__0 = (int) ($i + -1);
+          $i = $i__0;
+          continue;
         }
-      };
-      return $loop($env[12]);
+        $g_ = $env[11];
+        return $caml_check_bound($env[4], $g_)[$g_ + 1];
+      }
     };
     $symbol_end_pos = (dynamic $param) ==> {
       $d_ = $env[11];
@@ -244,7 +251,7 @@ final class Parsing {
       $peek_val,
       $is_current_lookahead,
       $parse_error
-    };
+    } as dynamic;
     
      return ($Parsing);
 
@@ -276,12 +283,6 @@ final class Parsing {
   public static function clear_parser(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[$param]);
   }
-  public static function Parse_error(): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[]);
-  }
-  public static function YYexit(): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[]);
-  }
   public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf): dynamic {
     return static::callRehackFunction(static::requireModule()[13], varray[$tables, $start, $lexer, $lexbuf]);
   }
@@ -290,9 +291,6 @@ final class Parsing {
   }
   public static function is_current_lookahead(dynamic $tok): dynamic {
     return static::callRehackFunction(static::requireModule()[15], varray[$tok]);
-  }
-  public static function parse_error(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$param]);
   }
 
 }

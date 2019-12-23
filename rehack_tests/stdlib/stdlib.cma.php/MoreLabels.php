@@ -13,22 +13,16 @@ final class MoreLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
+    
+    ;
+    
     $Set =  Set::requireModule ();
     $Map =  Map::requireModule ();
     $Hashtbl =  Hashtbl::requireModule ();
-    $MoreLabels = Vector{0, $Hashtbl, $Map, $Set};
+    $MoreLabels = Vector{0, $Hashtbl, $Map, $Set} as dynamic;
     
      return ($MoreLabels);
 
-  }
-  public static function Hashtbl(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function Map(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function Set(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
 
 }
