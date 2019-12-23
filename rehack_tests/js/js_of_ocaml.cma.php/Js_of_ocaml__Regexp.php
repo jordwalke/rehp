@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Regexp {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -265,46 +265,46 @@ final class Js_of_ocaml__Regexp {
 
   }
   public static function regexp(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$s]);
   }
   public static function regexp_case_fold(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$s]);
   }
   public static function regexp_with_flag(dynamic $s, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$s, $f]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$s, $f]);
   }
   public static function quote(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$s]);
   }
   public static function regexp_string(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$s]);
   }
   public static function regexp_string_case_fold(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$s]);
   }
   public static function string_match(dynamic $r, dynamic $s, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$r, $s, $i]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$r, $s, $i]);
   }
   public static function search(dynamic $r, dynamic $s, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$r, $s, $i]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$r, $s, $i]);
   }
   public static function matched_string(dynamic $r): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$r]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$r]);
   }
   public static function matched_group(dynamic $r, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$r, $i]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$r, $i]);
   }
   public static function global_replace(dynamic $r, dynamic $s, dynamic $s_by): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$r, $s, $s_by]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$r, $s, $s_by]);
   }
   public static function replace_first(dynamic $r, dynamic $s, dynamic $s_by): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$r, $s, $s_by]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$r, $s, $s_by]);
   }
   public static function split(dynamic $r, dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[$r, $s]);
+    return static::callRehackFunction(static::requireModule()[14], varray[$r, $s]);
   }
   public static function bounded_split(dynamic $r, dynamic $s, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[$r, $s, $i]);
+    return static::callRehackFunction(static::requireModule()[15], varray[$r, $s, $i]);
   }
 
 }

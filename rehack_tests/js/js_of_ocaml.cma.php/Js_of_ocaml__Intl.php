@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Intl {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -644,34 +644,34 @@ final class Js_of_ocaml__Intl {
 
   }
   public static function Collator(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function DateTimeFormat(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function NumberFormat(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function PluralRules(): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[]);
+    return static::callRehackFunction(static::requireModule()[4], varray[]);
   }
   public static function intl(): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[]);
+    return static::callRehackFunction(static::requireModule()[5], varray[]);
   }
   public static function collator_constr(): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[]);
+    return static::callRehackFunction(static::requireModule()[6], varray[]);
   }
   public static function dateTimeFormat_constr(): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[]);
+    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
   public static function numberFormat_constr(): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[]);
+    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function pluralRules_constr(): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[]);
+    return static::callRehackFunction(static::requireModule()[9], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$param]);
   }
 
 }

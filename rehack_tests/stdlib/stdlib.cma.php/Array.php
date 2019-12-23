@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Array_ {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -679,79 +679,79 @@ final class Array_ {
 
   }
   public static function make_float(dynamic $unnamed1): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$unnamed1]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$unnamed1]);
   }
   public static function init(dynamic $l, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$l, $f]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$l, $f]);
   }
   public static function make_matrix(dynamic $sx, dynamic $sy, dynamic $init): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$sx, $sy, $init]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$sx, $sy, $init]);
   }
   public static function append(dynamic $a1, dynamic $a2): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$a1, $a2]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$a1, $a2]);
   }
   public static function sub(dynamic $a, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$a, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$a, $ofs, $len]);
   }
   public static function copy(dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$a]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$a]);
   }
   public static function fill(dynamic $a, dynamic $ofs, dynamic $len, dynamic $v): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$a, $ofs, $len, $v]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$a, $ofs, $len, $v]);
   }
   public static function blit(dynamic $a1, dynamic $ofs1, dynamic $a2, dynamic $ofs2, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$a1, $ofs1, $a2, $ofs2, $len]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$a1, $ofs1, $a2, $ofs2, $len]);
   }
   public static function to_list(dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$a]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$a]);
   }
   public static function of_list(dynamic $l): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$l]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$l]);
   }
   public static function iter(dynamic $f, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$f, $a]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$f, $a]);
   }
   public static function iteri(dynamic $f, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[$f, $a]);
+    return static::callRehackFunction(static::requireModule()[14], varray[$f, $a]);
   }
   public static function map(dynamic $f, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[$f, $a]);
+    return static::callRehackFunction(static::requireModule()[15], varray[$f, $a]);
   }
   public static function mapi(dynamic $f, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[16], varray[$f, $a]);
+    return static::callRehackFunction(static::requireModule()[16], varray[$f, $a]);
   }
   public static function fold_left(dynamic $f, dynamic $x, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[17], varray[$f, $x, $a]);
+    return static::callRehackFunction(static::requireModule()[17], varray[$f, $x, $a]);
   }
   public static function fold_right(dynamic $f, dynamic $a, dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[18], varray[$f, $a, $x]);
+    return static::callRehackFunction(static::requireModule()[18], varray[$f, $a, $x]);
   }
   public static function iter2(dynamic $f, dynamic $a, dynamic $b): dynamic {
-    return static::callRehackFunction(static::get()[19], varray[$f, $a, $b]);
+    return static::callRehackFunction(static::requireModule()[19], varray[$f, $a, $b]);
   }
   public static function map2(dynamic $f, dynamic $a, dynamic $b): dynamic {
-    return static::callRehackFunction(static::get()[20], varray[$f, $a, $b]);
+    return static::callRehackFunction(static::requireModule()[20], varray[$f, $a, $b]);
   }
   public static function for_all(dynamic $p, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[21], varray[$p, $a]);
+    return static::callRehackFunction(static::requireModule()[21], varray[$p, $a]);
   }
   public static function exists(dynamic $p, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[22], varray[$p, $a]);
+    return static::callRehackFunction(static::requireModule()[22], varray[$p, $a]);
   }
   public static function mem(dynamic $x, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[23], varray[$x, $a]);
+    return static::callRehackFunction(static::requireModule()[23], varray[$x, $a]);
   }
   public static function memq(dynamic $x, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[24], varray[$x, $a]);
+    return static::callRehackFunction(static::requireModule()[24], varray[$x, $a]);
   }
   public static function sort(dynamic $cmp, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[25], varray[$cmp, $a]);
+    return static::callRehackFunction(static::requireModule()[25], varray[$cmp, $a]);
   }
   public static function stable_sort(dynamic $cmp, dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[26], varray[$cmp, $a]);
+    return static::callRehackFunction(static::requireModule()[26], varray[$cmp, $a]);
   }
   public static function Floatarray(): dynamic {
-    return static::callRehackFunction(static::get()[28], varray[]);
+    return static::callRehackFunction(static::requireModule()[28], varray[]);
   }
 
 }

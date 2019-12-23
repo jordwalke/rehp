@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Typed_array {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -152,46 +152,46 @@ final class Js_of_ocaml__Typed_array {
 
   }
   public static function arrayBuffer(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function int8Array(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function uint8Array(): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[]);
+    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
   public static function int16Array(): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[]);
+    return static::callRehackFunction(static::requireModule()[12], varray[]);
   }
   public static function uint16Array(): dynamic {
-    return static::callRehackFunction(static::get()[17], varray[]);
+    return static::callRehackFunction(static::requireModule()[17], varray[]);
   }
   public static function int32Array(): dynamic {
-    return static::callRehackFunction(static::get()[22], varray[]);
+    return static::callRehackFunction(static::requireModule()[22], varray[]);
   }
   public static function uint32Array(): dynamic {
-    return static::callRehackFunction(static::get()[27], varray[]);
+    return static::callRehackFunction(static::requireModule()[27], varray[]);
   }
   public static function float32Array(): dynamic {
-    return static::callRehackFunction(static::get()[32], varray[]);
+    return static::callRehackFunction(static::requireModule()[32], varray[]);
   }
   public static function float64Array(): dynamic {
-    return static::callRehackFunction(static::get()[37], varray[]);
+    return static::callRehackFunction(static::requireModule()[37], varray[]);
   }
   public static function set(dynamic $a, dynamic $i, dynamic $v): dynamic {
-    return static::callRehackFunction(static::get()[42], varray[$a, $i, $v]);
+    return static::callRehackFunction(static::requireModule()[42], varray[$a, $i, $v]);
   }
   public static function get(dynamic $a, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[43], varray[$a, $i]);
+    return static::callRehackFunction(static::requireModule()[43], varray[$a, $i]);
   }
   public static function unsafe_get(dynamic $a, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[44], varray[$a, $i]);
+    return static::callRehackFunction(static::requireModule()[44], varray[$a, $i]);
   }
   public static function dataView(): dynamic {
-    return static::callRehackFunction(static::get()[45], varray[]);
+    return static::callRehackFunction(static::requireModule()[45], varray[]);
   }
   public static function String(): dynamic {
-    return static::callRehackFunction(static::get()[48], varray[]);
+    return static::callRehackFunction(static::requireModule()[48], varray[]);
   }
 
 }

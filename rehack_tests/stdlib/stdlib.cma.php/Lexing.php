@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Lexing {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -249,58 +249,58 @@ final class Lexing {
 
   }
   public static function dummy_pos(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function from_channel(dynamic $ic): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$ic]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$ic]);
   }
   public static function from_string(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$s]);
   }
   public static function from_function(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$f]);
   }
   public static function lexeme(dynamic $lexbuf): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$lexbuf]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$lexbuf]);
   }
   public static function lexeme_char(dynamic $lexbuf, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$lexbuf, $i]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$lexbuf, $i]);
   }
   public static function lexeme_start(dynamic $lexbuf): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$lexbuf]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$lexbuf]);
   }
   public static function lexeme_end(dynamic $lexbuf): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$lexbuf]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$lexbuf]);
   }
   public static function lexeme_start_p(dynamic $lexbuf): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$lexbuf]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$lexbuf]);
   }
   public static function lexeme_end_p(dynamic $lexbuf): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$lexbuf]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$lexbuf]);
   }
   public static function new_line(dynamic $lexbuf): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$lexbuf]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$lexbuf]);
   }
   public static function flush_input(dynamic $lb): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$lb]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$lb]);
   }
   public static function sub_lexeme(dynamic $lexbuf, dynamic $i1, dynamic $i2): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$lexbuf, $i1, $i2]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$lexbuf, $i1, $i2]);
   }
   public static function sub_lexeme_opt(dynamic $lexbuf, dynamic $i1, dynamic $i2): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[$lexbuf, $i1, $i2]);
+    return static::callRehackFunction(static::requireModule()[14], varray[$lexbuf, $i1, $i2]);
   }
   public static function sub_lexeme_char(dynamic $lexbuf, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[$lexbuf, $i]);
+    return static::callRehackFunction(static::requireModule()[15], varray[$lexbuf, $i]);
   }
   public static function sub_lexeme_char_opt(dynamic $lexbuf, dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[16], varray[$lexbuf, $i]);
+    return static::callRehackFunction(static::requireModule()[16], varray[$lexbuf, $i]);
   }
   public static function engine(dynamic $tbl, dynamic $state, dynamic $buf): dynamic {
-    return static::callRehackFunction(static::get()[17], varray[$tbl, $state, $buf]);
+    return static::callRehackFunction(static::requireModule()[17], varray[$tbl, $state, $buf]);
   }
   public static function new_engine(dynamic $tbl, dynamic $state, dynamic $buf): dynamic {
-    return static::callRehackFunction(static::get()[18], varray[$tbl, $state, $buf]);
+    return static::callRehackFunction(static::requireModule()[18], varray[$tbl, $state, $buf]);
   }
 
 }

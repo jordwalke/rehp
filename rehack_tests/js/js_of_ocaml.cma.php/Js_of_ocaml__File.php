@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__File {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $filter_map = new Ref();
@@ -199,22 +199,22 @@ final class Js_of_ocaml__File {
 
   }
   public static function blob_from_string(dynamic $contentType, dynamic $endings, dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$contentType, $endings, $s]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$contentType, $endings, $s]);
   }
   public static function blob_from_any(dynamic $contentType, dynamic $endings, dynamic $l): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$contentType, $endings, $l]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$contentType, $endings, $l]);
   }
   public static function ReaderEvent(): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[]);
+    return static::callRehackFunction(static::requireModule()[4], varray[]);
   }
   public static function filename(dynamic $file): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$file]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$file]);
   }
   public static function fileReader(): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[]);
+    return static::callRehackFunction(static::requireModule()[6], varray[]);
   }
   public static function addEventListener(): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[]);
+    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
 
 }

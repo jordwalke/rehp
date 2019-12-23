@@ -9,12 +9,22 @@ namespace Rehack;
 
 final class MyLib {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
+
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
+    $cst_this_should_be_exported_with_three_leading = $string(
+      "this should be exported with three leading '_'"
+    );
+    $cst_this_should_be_exported_with_two_leading = $string(
+      "this should be exported with two leading '_'"
+    );
+    $cst_this_should_be_exported_with_leading = $string(
+      "this should be exported with leading '_'"
+    );
     $cst_myPartiallyAppliedMethod = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__0 = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__1 = $string("myPartiallyAppliedMethod");
@@ -96,6 +106,15 @@ final class MyLib {
     $genThisShouldBeAsyncTransformed = (dynamic $input, dynamic $cb) ==> {
       return $call1($cb, (int) ($input + 1));
     };
+    $requireModule = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_leading;
+    };
+    $requireModule__0 = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_two_leading;
+    };
+    $construct = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_three_leading;
+    };
     $MyLib = Vector{
       0,
       $foo,
@@ -107,39 +126,48 @@ final class MyLib {
       $testPartialMethodCalls,
       $x,
       $genThisShouldBeAsyncTransformed,
-      $genThisShouldBeAsyncTransformed
+      $genThisShouldBeAsyncTransformed,
+      $requireModule,
+      $requireModule__0,
+      $construct
     };
     
      return ($MyLib);
 
   }
   public static function foo(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function bar(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function baz(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function testFunctionCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$o]);
   }
   public static function testMethodCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$o]);
   }
   public static function testPartialFunctionCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$o]);
   }
   public static function testPartialMethodCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$o]);
   }
   public static function x(): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[]);
+    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function genThisShouldBeAsyncTransformed(dynamic $input, dynamic $cb): Awaitable<dynamic> {
-    return static::genCallFunctionWithArgs("genThisShouldBeAsyncTransformed", static::get()[9], varray[$input, $cb]);
+    return static::genCallFunctionWithArgs("genThisShouldBeAsyncTransformed", static::requireModule()[9], varray[$input, $cb]);
+  }
+  public static function _requireModule_(dynamic $param): dynamic {
+    return static::callRehackFunction(static::requireModule()[11], varray[$param]);
+  }
+  public static function construct(dynamic $param): dynamic {
+    return static::callRehackFunction(static::requireModule()[13], varray[$param]);
   }
 
 }
-/*____hashes flags: 1365394985 bytecode: 55757916712 debug-data: 21475993188 primitives: 314532832*/
+/*____hashes flags: 675529036 bytecode: 67843182350 debug-data: 26172921359 primitives: 314532832*/

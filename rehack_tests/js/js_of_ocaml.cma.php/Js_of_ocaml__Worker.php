@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Worker {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -115,16 +115,16 @@ final class Js_of_ocaml__Worker {
 
   }
   public static function create(dynamic $script): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$script]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$script]);
   }
   public static function import_scripts(dynamic $scripts): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$scripts]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$scripts]);
   }
   public static function set_onmessage(dynamic $handler): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$handler]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$handler]);
   }
   public static function post_message(dynamic $msg): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$msg]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$msg]);
   }
 
 }

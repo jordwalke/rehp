@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class CamlinternalFormatBasics {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $concat_fmt = new Ref();$concat_fmtty = new Ref();$erase_rel = new Ref();
@@ -371,13 +371,13 @@ final class CamlinternalFormatBasics {
 
   }
   public static function concat_fmtty(dynamic $fmtty1, dynamic $fmtty2): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$fmtty1, $fmtty2]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$fmtty1, $fmtty2]);
   }
   public static function erase_rel(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$param]);
   }
   public static function concat_fmt(dynamic $fmt1, dynamic $fmt2): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$fmt1, $fmt2]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$fmt1, $fmt2]);
   }
 
 }

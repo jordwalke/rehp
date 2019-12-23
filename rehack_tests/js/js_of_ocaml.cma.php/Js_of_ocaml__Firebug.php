@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Firebug {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -20,7 +20,7 @@ final class Js_of_ocaml__Firebug {
 
   }
   public static function console(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
 
 }

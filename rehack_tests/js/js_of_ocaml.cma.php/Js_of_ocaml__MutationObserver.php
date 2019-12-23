@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__MutationObserver {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -133,16 +133,16 @@ final class Js_of_ocaml__MutationObserver {
 
   }
   public static function empty_mutation_observer_init(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
   }
   public static function mutationObserver(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$param]);
   }
   public static function observe(dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param]);
   }
 
 }

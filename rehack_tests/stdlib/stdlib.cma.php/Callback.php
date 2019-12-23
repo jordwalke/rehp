@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Callback {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -28,10 +28,10 @@ final class Callback {
 
   }
   public static function register(dynamic $name, dynamic $v): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$name, $v]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$name, $v]);
   }
   public static function register_exception(dynamic $name, dynamic $exn): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$name, $exn]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$name, $exn]);
   }
 
 }

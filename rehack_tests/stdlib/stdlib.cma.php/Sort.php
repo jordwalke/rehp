@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Sort {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $merge = new Ref();
@@ -187,13 +187,13 @@ final class Sort {
 
   }
   public static function list(dynamic $order, dynamic $l): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$order, $l]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$order, $l]);
   }
   public static function array(dynamic $cmp, dynamic $arr): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$cmp, $arr]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$cmp, $arr]);
   }
   public static function merge(dynamic $order, dynamic $l1, dynamic $l2): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$order, $l1, $l2]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$order, $l1, $l2]);
   }
 
 }

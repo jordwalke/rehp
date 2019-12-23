@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Filename {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -756,61 +756,61 @@ final class Filename {
 
   }
   public static function current_dir_name(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function parent_dir_name(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function dir_sep(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function concat(dynamic $dirname, dynamic $filename): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$dirname, $filename]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$dirname, $filename]);
   }
   public static function is_relative(): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[]);
+    return static::callRehackFunction(static::requireModule()[5], varray[]);
   }
   public static function is_implicit(): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[]);
+    return static::callRehackFunction(static::requireModule()[6], varray[]);
   }
   public static function check_suffix(): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[]);
+    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
   public static function chop_suffix(dynamic $name, dynamic $suff): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$name, $suff]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$name, $suff]);
   }
   public static function extension(dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$name]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$name]);
   }
   public static function remove_extension(dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$name]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$name]);
   }
   public static function chop_extension(dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$name]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$name]);
   }
   public static function basename(): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[]);
+    return static::callRehackFunction(static::requireModule()[12], varray[]);
   }
   public static function dirname(): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[]);
+    return static::callRehackFunction(static::requireModule()[13], varray[]);
   }
   public static function temp_file(dynamic $opt, dynamic $prefix, dynamic $suffix): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[$opt, $prefix, $suffix]);
+    return static::callRehackFunction(static::requireModule()[14], varray[$opt, $prefix, $suffix]);
   }
   public static function open_temp_file(dynamic $opt, dynamic $unnamed1, dynamic $unnamed2, dynamic $prefix, dynamic $suffix): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[$opt, $unnamed1, $unnamed2, $prefix, $suffix]);
+    return static::callRehackFunction(static::requireModule()[15], varray[$opt, $unnamed1, $unnamed2, $prefix, $suffix]);
   }
   public static function get_temp_dir_name(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[16], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[16], varray[$param]);
   }
   public static function set_temp_dir_name(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[17], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[17], varray[$s]);
   }
   public static function temp_dir_name(): dynamic {
-    return static::callRehackFunction(static::get()[18], varray[]);
+    return static::callRehackFunction(static::requireModule()[18], varray[]);
   }
   public static function quote(): dynamic {
-    return static::callRehackFunction(static::get()[19], varray[]);
+    return static::callRehackFunction(static::requireModule()[19], varray[]);
   }
 
 }

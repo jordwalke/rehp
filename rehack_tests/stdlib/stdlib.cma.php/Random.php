@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Random {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -302,40 +302,40 @@ final class Random {
 
   }
   public static function init(dynamic $seed): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$seed]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$seed]);
   }
   public static function full_init(dynamic $seed): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$seed]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$seed]);
   }
   public static function self_init(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$param]);
   }
   public static function bits(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$param]);
   }
-  public static function int(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$bound]);
+  public static function _int(dynamic $bound): dynamic {
+    return static::callRehackFunction(static::requireModule()[5], varray[$bound]);
   }
   public static function int32(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$bound]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$bound]);
   }
   public static function nativeint(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$bound]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$bound]);
   }
   public static function int64(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$bound]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$bound]);
   }
-  public static function float(dynamic $scale): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$scale]);
+  public static function _float(dynamic $scale): dynamic {
+    return static::callRehackFunction(static::requireModule()[9], varray[$scale]);
   }
   public static function bool(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$param]);
   }
   public static function get_state(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$param]);
   }
   public static function set_state(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$s]);
   }
 
 }

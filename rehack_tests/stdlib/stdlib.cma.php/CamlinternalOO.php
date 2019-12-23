@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class CamlinternalOO {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $fit_size = new Ref();$lookup_keys = new Ref();
@@ -863,94 +863,94 @@ final class CamlinternalOO {
 
   }
   public static function public_method_label(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$s]);
   }
   public static function new_method(dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$table]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$table]);
   }
   public static function new_variable(dynamic $table, dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$table, $name]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$table, $name]);
   }
   public static function new_methods_variables(dynamic $table, dynamic $meths, dynamic $vals): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$table, $meths, $vals]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$table, $meths, $vals]);
   }
   public static function get_variable(dynamic $table, dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$table, $name]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$table, $name]);
   }
   public static function get_variables(dynamic $table, dynamic $names): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$table, $names]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$table, $names]);
   }
   public static function get_method_label(dynamic $table, dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$table, $name]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$table, $name]);
   }
   public static function get_method_labels(dynamic $table, dynamic $names): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$table, $names]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$table, $names]);
   }
   public static function get_method(dynamic $table, dynamic $label): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$table, $label]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$table, $label]);
   }
   public static function set_method(dynamic $table, dynamic $label, dynamic $element): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$table, $label, $element]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$table, $label, $element]);
   }
   public static function set_methods(dynamic $table, dynamic $methods): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$table, $methods]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$table, $methods]);
   }
   public static function narrow(dynamic $table, dynamic $vars, dynamic $virt_meths, dynamic $concr_meths): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$table, $vars, $virt_meths, $concr_meths]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$table, $vars, $virt_meths, $concr_meths]);
   }
   public static function widen(dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$table]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$table]);
   }
   public static function add_initializer(dynamic $table, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[$table, $f]);
+    return static::callRehackFunction(static::requireModule()[14], varray[$table, $f]);
   }
   public static function dummy_table(): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[]);
+    return static::callRehackFunction(static::requireModule()[15], varray[]);
   }
   public static function create_table(dynamic $public_methods): dynamic {
-    return static::callRehackFunction(static::get()[16], varray[$public_methods]);
+    return static::callRehackFunction(static::requireModule()[16], varray[$public_methods]);
   }
   public static function init_class(dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[17], varray[$table]);
+    return static::callRehackFunction(static::requireModule()[17], varray[$table]);
   }
   public static function inherits(dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top): dynamic {
-    return static::callRehackFunction(static::get()[18], varray[$cla, $vals, $virt_meths, $concr_meths, $param, $top]);
+    return static::callRehackFunction(static::requireModule()[18], varray[$cla, $vals, $virt_meths, $concr_meths, $param, $top]);
   }
   public static function make_class(dynamic $pub_meths, dynamic $class_init): dynamic {
-    return static::callRehackFunction(static::get()[19], varray[$pub_meths, $class_init]);
+    return static::callRehackFunction(static::requireModule()[19], varray[$pub_meths, $class_init]);
   }
   public static function make_class_store(dynamic $pub_meths, dynamic $class_init, dynamic $init_table): dynamic {
-    return static::callRehackFunction(static::get()[20], varray[$pub_meths, $class_init, $init_table]);
+    return static::callRehackFunction(static::requireModule()[20], varray[$pub_meths, $class_init, $init_table]);
   }
   public static function dummy_class(dynamic $loc): dynamic {
-    return static::callRehackFunction(static::get()[21], varray[$loc]);
+    return static::callRehackFunction(static::requireModule()[21], varray[$loc]);
   }
   public static function copy(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[22], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[22], varray[$o]);
   }
   public static function create_object(dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[23], varray[$table]);
+    return static::callRehackFunction(static::requireModule()[23], varray[$table]);
   }
   public static function create_object_opt(dynamic $obj_0, dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[24], varray[$obj_0, $table]);
+    return static::callRehackFunction(static::requireModule()[24], varray[$obj_0, $table]);
   }
   public static function run_initializers(dynamic $obj, dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[25], varray[$obj, $table]);
+    return static::callRehackFunction(static::requireModule()[25], varray[$obj, $table]);
   }
   public static function run_initializers_opt(dynamic $obj_0, dynamic $obj, dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[26], varray[$obj_0, $obj, $table]);
+    return static::callRehackFunction(static::requireModule()[26], varray[$obj_0, $obj, $table]);
   }
   public static function create_object_and_run_initializers(dynamic $obj_0, dynamic $table): dynamic {
-    return static::callRehackFunction(static::get()[27], varray[$obj_0, $table]);
+    return static::callRehackFunction(static::requireModule()[27], varray[$obj_0, $table]);
   }
   public static function lookup_tables(dynamic $root, dynamic $keys): dynamic {
-    return static::callRehackFunction(static::get()[28], varray[$root, $keys]);
+    return static::callRehackFunction(static::requireModule()[28], varray[$root, $keys]);
   }
   public static function params(): dynamic {
-    return static::callRehackFunction(static::get()[29], varray[]);
+    return static::callRehackFunction(static::requireModule()[29], varray[]);
   }
   public static function stats(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[30], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[30], varray[$param]);
   }
 
 }

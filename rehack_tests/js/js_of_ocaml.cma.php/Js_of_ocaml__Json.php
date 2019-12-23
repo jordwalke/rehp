@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Json {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -55,10 +55,10 @@ final class Js_of_ocaml__Json {
 
   }
   public static function output(dynamic $obj): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$obj]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$obj]);
   }
   public static function unsafe_input(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$s]);
   }
 
 }

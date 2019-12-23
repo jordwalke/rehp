@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Strings {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -264,46 +264,46 @@ final class Strings {
 
   }
   public static function greeting(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function unicodeLength(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function negativeOne(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function six(): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[]);
+    return static::callRehackFunction(static::requireModule()[4], varray[]);
   }
   public static function index(): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[]);
+    return static::callRehackFunction(static::requireModule()[5], varray[]);
   }
   public static function createIntFromString(dynamic $ss): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$ss]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$ss]);
   }
   public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope]);
   }
   public static function i(): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[]);
+    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function myRefCell(): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[]);
+    return static::callRehackFunction(static::requireModule()[9], varray[]);
   }
   public static function myRefCellContents(): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[]);
+    return static::callRehackFunction(static::requireModule()[10], varray[]);
   }
   public static function one(): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[]);
+    return static::callRehackFunction(static::requireModule()[11], varray[]);
   }
   public static function two(): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[]);
+    return static::callRehackFunction(static::requireModule()[12], varray[]);
   }
   public static function n(): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[]);
+    return static::callRehackFunction(static::requireModule()[13], varray[]);
   }
   public static function anotherName(): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[]);
+    return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
 
 }

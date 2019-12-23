@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Calls {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -105,25 +105,25 @@ final class Calls {
 
   }
   public static function foo(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function bar(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function baz(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function testFunctionCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$o]);
   }
   public static function testMethodCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$o]);
   }
   public static function testPartialFunctionCalls(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$s]);
   }
   public static function testPartialMethodCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$o]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$o]);
   }
 
 }

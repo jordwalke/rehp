@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Weak {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -605,13 +605,13 @@ final class Weak {
 
   }
   public static function length(dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$x]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$x]);
   }
   public static function fill(dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$ar, $ofs, $len, $x]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$ar, $ofs, $len, $x]);
   }
   public static function Make(dynamic $H): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$H]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$H]);
   }
 
 }

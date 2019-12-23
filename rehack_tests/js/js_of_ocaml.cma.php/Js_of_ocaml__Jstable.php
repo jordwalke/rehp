@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Jstable {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -122,19 +122,19 @@ final class Js_of_ocaml__Jstable {
 
   }
   public static function create(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
   }
   public static function add(dynamic $t, dynamic $k, dynamic $v): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$t, $k, $v]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$t, $k, $v]);
   }
   public static function remove(dynamic $t, dynamic $k): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$t, $k]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$t, $k]);
   }
   public static function find(dynamic $t, dynamic $k): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$t, $k]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$t, $k]);
   }
   public static function keys(dynamic $t): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$t]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$t]);
   }
 
 }

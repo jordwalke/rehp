@@ -86,3 +86,7 @@ let genThisShouldBeAsyncTransformed = (input, cb) => {
  * bytecode parser).
  */
 let thisWontAppearInSummary = genThisShouldBeAsyncTransformed;
+
+let requireModule = () => "this should be exported with leading '_'";
+let _requireModule = () => "this should be exported with two leading '_'";
+let __construct = () => "this should be exported with three leading '_'";

@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Marshal {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -83,22 +83,22 @@ final class Marshal {
 
   }
   public static function to_buffer(dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$buff, $ofs, $len, $v, $flags]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$buff, $ofs, $len, $v, $flags]);
   }
   public static function from_bytes(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$buff, $ofs]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$buff, $ofs]);
   }
   public static function from_string(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$buff, $ofs]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$buff, $ofs]);
   }
   public static function header_size(): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[]);
+    return static::callRehackFunction(static::requireModule()[6], varray[]);
   }
   public static function data_size(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$buff, $ofs]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$buff, $ofs]);
   }
   public static function total_size(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$buff, $ofs]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$buff, $ofs]);
   }
 
 }

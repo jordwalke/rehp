@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Form {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $filter_map = new Ref();
@@ -500,25 +500,25 @@ final class Js_of_ocaml__Form {
 
   }
   public static function formData(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function formData_form(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function append(dynamic $form_contents, dynamic $form_elt): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$form_contents, $form_elt]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$form_contents, $form_elt]);
   }
   public static function post_form_contents(dynamic $form): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$form]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$form]);
   }
   public static function get_form_contents(dynamic $form): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$form]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$form]);
   }
   public static function empty_form_contents(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$param]);
   }
   public static function form_elements(dynamic $get, dynamic $form): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$get, $form]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$get, $form]);
   }
 
 }

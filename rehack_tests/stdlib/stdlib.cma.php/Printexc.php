@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Printexc {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $other_fields = new Ref();
@@ -518,40 +518,40 @@ final class Printexc {
 
   }
   public static function to_string(dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$x]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$x]);
   }
   public static function print(dynamic $fct, dynamic $arg): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$fct, $arg]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$fct, $arg]);
   }
-  public static function catch(dynamic $fct, dynamic $arg): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$fct, $arg]);
+  public static function _catch(dynamic $fct, dynamic $arg): dynamic {
+    return static::callRehackFunction(static::requireModule()[3], varray[$fct, $arg]);
   }
   public static function print_backtrace(dynamic $outchan): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$outchan]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$outchan]);
   }
   public static function get_backtrace(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$param]);
   }
   public static function register_printer(dynamic $fn): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$fn]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$fn]);
   }
   public static function print_raw_backtrace(dynamic $outchan, dynamic $raw_backtrace): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$outchan, $raw_backtrace]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$outchan, $raw_backtrace]);
   }
   public static function raw_backtrace_to_string(dynamic $raw_backtrace): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$raw_backtrace]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$raw_backtrace]);
   }
   public static function set_uncaught_exception_handler(dynamic $fn): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$fn]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$fn]);
   }
   public static function backtrace_slots(dynamic $raw_backtrace): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[$raw_backtrace]);
+    return static::callRehackFunction(static::requireModule()[14], varray[$raw_backtrace]);
   }
   public static function exn_slot_id(dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[20], varray[$x]);
+    return static::callRehackFunction(static::requireModule()[20], varray[$x]);
   }
   public static function exn_slot_name(dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[21], varray[$x]);
+    return static::callRehackFunction(static::requireModule()[21], varray[$x]);
   }
 
 }

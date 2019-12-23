@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Geolocation {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -47,13 +47,13 @@ final class Js_of_ocaml__Geolocation {
 
   }
   public static function empty_position_options(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
   }
   public static function geolocation(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$param]);
   }
 
 }

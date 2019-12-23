@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Int64 {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -73,43 +73,43 @@ final class Int64 {
 
   }
   public static function zero(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function one(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function minus_one(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function succ(dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$n]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$n]);
   }
   public static function pred(dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$n]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$n]);
   }
   public static function abs(dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$n]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$n]);
   }
   public static function max_int(): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[]);
+    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
   public static function min_int(): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[]);
+    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function lognot(dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$n]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$n]);
   }
   public static function of_string_opt(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$s]);
   }
   public static function to_string(dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$n]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$n]);
   }
   public static function compare(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$x, $y]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$x, $y]);
   }
   public static function equal(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$x, $y]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$x, $y]);
   }
 
 }

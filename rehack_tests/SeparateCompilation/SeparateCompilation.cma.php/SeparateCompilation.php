@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class SeparateCompilation {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -31,4 +31,4 @@ final class SeparateCompilation {
   }
 
 }
-/*____hashes flags: 1365394985 bytecode: 10647412249 debug-data: 2687966505 primitives: 1058613066*/
+/*____hashes flags: 421562097 bytecode: 10647412249 debug-data: 2536091606 primitives: 1058613066*/

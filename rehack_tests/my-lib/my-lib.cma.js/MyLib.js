@@ -17,6 +17,15 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
+var cst_this_should_be_exported_with_three_leading = string(
+  "this should be exported with three leading '_'"
+);
+var cst_this_should_be_exported_with_two_leading = string(
+  "this should be exported with two leading '_'"
+);
+var cst_this_should_be_exported_with_leading = string(
+  "this should be exported with leading '_'"
+);
 var cst_myPartiallyAppliedMethod = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__0 = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__1 = string("myPartiallyAppliedMethod");
@@ -90,6 +99,18 @@ var x = call1(MyLib_MyLibUtility[1], 0);
 function genThisShouldBeAsyncTransformed(input, cb) {return call1(cb, input + 1 | 0);
 }
 
+function requireModule(param) {
+  return cst_this_should_be_exported_with_leading;
+}
+
+function requireModule__0(param) {
+  return cst_this_should_be_exported_with_two_leading;
+}
+
+function construct(param) {
+  return cst_this_should_be_exported_with_three_leading;
+}
+
 var MyLib = [
   0,
   foo,
@@ -101,10 +122,13 @@ var MyLib = [
   testPartialMethodCalls,
   x,
   genThisShouldBeAsyncTransformed,
-  genThisShouldBeAsyncTransformed
+  genThisShouldBeAsyncTransformed,
+  requireModule,
+  requireModule__0,
+  construct
 ];
 
 exports = MyLib;
 
 /*____CompilationSummary*/
-/*____hashes flags: 585918536 bytecode: 55757916712 debug-data: 21475993188 primitives: 314532832*/
+/*____hashes flags: 585918536 bytecode: 67843182350 debug-data: 26172921359 primitives: 314532832*/

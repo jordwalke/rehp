@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Scanf {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $make_scanf = new Ref();
@@ -2552,40 +2552,40 @@ final class Scanf {
 
   }
   public static function Scan_failure(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function bscanf(dynamic $ib, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$ib, $fmt]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$ib, $fmt]);
   }
   public static function sscanf(dynamic $s, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$s, $fmt]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$s, $fmt]);
   }
   public static function scanf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$fmt]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$fmt]);
   }
   public static function kscanf(dynamic $ib, dynamic $ef, dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$ib, $ef, $param]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$ib, $ef, $param]);
   }
   public static function ksscanf(dynamic $s, dynamic $ef, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$s, $ef, $fmt]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$s, $ef, $fmt]);
   }
   public static function bscanf_format(dynamic $ib, dynamic $format, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$ib, $format, $f]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$ib, $format, $f]);
   }
   public static function sscanf_format(dynamic $s, dynamic $format, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$s, $format, $f]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$s, $format, $f]);
   }
   public static function format_from_string(dynamic $s, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$s, $fmt]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$s, $fmt]);
   }
   public static function unescaped(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$s]);
   }
   public static function fscanf(dynamic $ic, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$ic, $fmt]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$ic, $fmt]);
   }
   public static function kfscanf(dynamic $ic, dynamic $ef, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$ic, $ef, $fmt]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$ic, $ef, $fmt]);
   }
 
 }

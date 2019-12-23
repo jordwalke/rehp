@@ -9,7 +9,8 @@ namespace Rehack;
 
 final class MyLib__ {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
+
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -19,8 +20,8 @@ final class MyLib__ {
 
   }
   public static function MyLibUtility(): dynamic {
-    return static::get()[1]();
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
 
 }
-/*____hashes flags: 1365394985 bytecode: 4096869352 debug-data: 1818446335 primitives: 1058613066*/
+/*____hashes flags: 675529036 bytecode: 4096869352 debug-data: 1818446335 primitives: 1058613066*/

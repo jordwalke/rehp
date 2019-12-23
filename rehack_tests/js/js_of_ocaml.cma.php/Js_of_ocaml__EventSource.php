@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__EventSource {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -54,16 +54,16 @@ final class Js_of_ocaml__EventSource {
 
   }
   public static function withCredentials(dynamic $b): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$b]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$b]);
   }
   public static function eventSource(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function eventSource_options(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function addEventListener(): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[]);
+    return static::callRehackFunction(static::requireModule()[4], varray[]);
   }
 
 }

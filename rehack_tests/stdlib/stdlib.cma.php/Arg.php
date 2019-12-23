@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Arg {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -925,52 +925,52 @@ final class Arg {
 
   }
   public static function parse(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$l, $f, $msg]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$l, $f, $msg]);
   }
   public static function parse_dynamic(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$l, $f, $msg]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$l, $f, $msg]);
   }
   public static function parse_argv(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
   }
   public static function parse_argv_dynamic(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
   }
   public static function parse_and_expand_argv_dynamic(dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$current, $argv, $speclist, $anonfun, $errmsg]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$current, $argv, $speclist, $anonfun, $errmsg]);
   }
   public static function parse_expand(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$l, $f, $msg]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$l, $f, $msg]);
   }
   public static function Help(): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[]);
+    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
   public static function Bad(): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[]);
+    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function usage(dynamic $speclist, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$speclist, $errmsg]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$speclist, $errmsg]);
   }
   public static function usage_string(dynamic $speclist, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$speclist, $errmsg]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$speclist, $errmsg]);
   }
   public static function align(dynamic $opt, dynamic $speclist): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$opt, $speclist]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$opt, $speclist]);
   }
   public static function current(): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[]);
+    return static::callRehackFunction(static::requireModule()[12], varray[]);
   }
   public static function read_arg(): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[]);
+    return static::callRehackFunction(static::requireModule()[13], varray[]);
   }
   public static function read_arg0(): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[]);
+    return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
   public static function write_arg(): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[]);
+    return static::callRehackFunction(static::requireModule()[15], varray[]);
   }
   public static function write_arg0(): dynamic {
-    return static::callRehackFunction(static::get()[16], varray[]);
+    return static::callRehackFunction(static::requireModule()[16], varray[]);
   }
 
 }

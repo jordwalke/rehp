@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Gc {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -213,16 +213,16 @@ final class Gc {
 
   }
   public static function print_stat(dynamic $c): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$c]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$c]);
   }
   public static function allocated_bytes(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$param]);
   }
   public static function create_alarm(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$f]);
   }
   public static function delete_alarm(dynamic $a): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$a]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$a]);
   }
 
 }

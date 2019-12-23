@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Digest {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -150,37 +150,37 @@ final class Digest {
 
   }
   public static function compare(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function equal(): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[]);
+    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function string(dynamic $str): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$str]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$str]);
   }
   public static function bytes(dynamic $b): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$b]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$b]);
   }
   public static function substring(dynamic $str, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$str, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$str, $ofs, $len]);
   }
   public static function subbytes(dynamic $b, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$b, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$b, $ofs, $len]);
   }
   public static function file(dynamic $filename): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$filename]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$filename]);
   }
   public static function output(dynamic $chan, dynamic $digest): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$chan, $digest]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$chan, $digest]);
   }
   public static function input(dynamic $chan): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$chan]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$chan]);
   }
   public static function to_hex(dynamic $d): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$d]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$d]);
   }
   public static function from_hex(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$s]);
   }
 
 }

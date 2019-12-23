@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Sys_js {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -81,22 +81,22 @@ final class Js_of_ocaml__Sys_js {
 
   }
   public static function set_channel_flusher(dynamic $out_channel, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$out_channel, $f]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$out_channel, $f]);
   }
   public static function set_channel_filler(dynamic $in_channel, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$in_channel, $f]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$in_channel, $f]);
   }
   public static function unmount(dynamic $path): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$path]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$path]);
   }
   public static function mount(dynamic $path, dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$path, $f]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$path, $f]);
   }
   public static function update_file(dynamic $name, dynamic $content): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[$name, $content]);
+    return static::callRehackFunction(static::requireModule()[8], varray[$name, $content]);
   }
   public static function js_of_ocaml_version(): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[]);
+    return static::callRehackFunction(static::requireModule()[9], varray[]);
   }
 
 }

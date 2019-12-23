@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Pervasives {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $symbol__0 = new Ref();
@@ -576,217 +576,217 @@ final class Pervasives {
 
   }
   public static function invalid_arg(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[1], varray[$s]);
   }
   public static function failwith(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$s]);
   }
   public static function Exit(): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[]);
+    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function min(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$x, $y]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$x, $y]);
   }
   public static function max(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$x, $y]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$x, $y]);
   }
   public static function abs(dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$x]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$x]);
   }
   public static function max_int(): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[]);
+    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
   public static function min_int(): dynamic {
-    return static::callRehackFunction(static::get()[8], varray[]);
+    return static::callRehackFunction(static::requireModule()[8], varray[]);
   }
   public static function lnot(dynamic $x): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[$x]);
+    return static::callRehackFunction(static::requireModule()[9], varray[$x]);
   }
   public static function infinity(): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[]);
+    return static::callRehackFunction(static::requireModule()[10], varray[]);
   }
   public static function neg_infinity(): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[]);
+    return static::callRehackFunction(static::requireModule()[11], varray[]);
   }
   public static function nan(): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[]);
+    return static::callRehackFunction(static::requireModule()[12], varray[]);
   }
   public static function max_float(): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[]);
+    return static::callRehackFunction(static::requireModule()[13], varray[]);
   }
   public static function min_float(): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[]);
+    return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
   public static function epsilon_float(): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[]);
+    return static::callRehackFunction(static::requireModule()[15], varray[]);
   }
   public static function symbol(dynamic $s1, dynamic $s2): dynamic {
-    return static::callRehackFunction(static::get()[16], varray[$s1, $s2]);
+    return static::callRehackFunction(static::requireModule()[16], varray[$s1, $s2]);
   }
   public static function char_of_int(dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[17], varray[$n]);
+    return static::callRehackFunction(static::requireModule()[17], varray[$n]);
   }
   public static function string_of_bool(dynamic $b): dynamic {
-    return static::callRehackFunction(static::get()[18], varray[$b]);
+    return static::callRehackFunction(static::requireModule()[18], varray[$b]);
   }
   public static function bool_of_string(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[19], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[19], varray[$param]);
   }
   public static function bool_of_string_opt(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[20], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[20], varray[$param]);
   }
   public static function string_of_int(dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[21], varray[$n]);
+    return static::callRehackFunction(static::requireModule()[21], varray[$n]);
   }
   public static function int_of_string_opt(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[22], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[22], varray[$s]);
   }
   public static function string_of_float(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[23], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[23], varray[$f]);
   }
   public static function float_of_string_opt(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[24], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[24], varray[$s]);
   }
   public static function stdin(): dynamic {
-    return static::callRehackFunction(static::get()[26], varray[]);
+    return static::callRehackFunction(static::requireModule()[26], varray[]);
   }
   public static function stdout(): dynamic {
-    return static::callRehackFunction(static::get()[27], varray[]);
+    return static::callRehackFunction(static::requireModule()[27], varray[]);
   }
   public static function stderr(): dynamic {
-    return static::callRehackFunction(static::get()[28], varray[]);
+    return static::callRehackFunction(static::requireModule()[28], varray[]);
   }
   public static function print_char(dynamic $c): dynamic {
-    return static::callRehackFunction(static::get()[29], varray[$c]);
+    return static::callRehackFunction(static::requireModule()[29], varray[$c]);
   }
   public static function print_string(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[30], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[30], varray[$s]);
   }
   public static function print_bytes(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[31], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[31], varray[$s]);
   }
   public static function print_int(dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[32], varray[$i]);
+    return static::callRehackFunction(static::requireModule()[32], varray[$i]);
   }
   public static function print_float(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[33], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[33], varray[$f]);
   }
   public static function print_endline(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[34], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[34], varray[$s]);
   }
   public static function print_newline(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[35], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[35], varray[$param]);
   }
   public static function prerr_char(dynamic $c): dynamic {
-    return static::callRehackFunction(static::get()[36], varray[$c]);
+    return static::callRehackFunction(static::requireModule()[36], varray[$c]);
   }
   public static function prerr_string(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[37], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[37], varray[$s]);
   }
   public static function prerr_bytes(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[38], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[38], varray[$s]);
   }
   public static function prerr_int(dynamic $i): dynamic {
-    return static::callRehackFunction(static::get()[39], varray[$i]);
+    return static::callRehackFunction(static::requireModule()[39], varray[$i]);
   }
   public static function prerr_float(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[40], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[40], varray[$f]);
   }
   public static function prerr_endline(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[41], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[41], varray[$s]);
   }
   public static function prerr_newline(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[42], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[42], varray[$param]);
   }
   public static function read_line(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[43], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[43], varray[$param]);
   }
   public static function read_int(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[44], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[44], varray[$param]);
   }
   public static function read_int_opt(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[45], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[45], varray[$param]);
   }
   public static function read_float(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[46], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[46], varray[$param]);
   }
   public static function read_float_opt(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[47], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[47], varray[$param]);
   }
   public static function open_out(dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[48], varray[$name]);
+    return static::callRehackFunction(static::requireModule()[48], varray[$name]);
   }
   public static function open_out_bin(dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[49], varray[$name]);
+    return static::callRehackFunction(static::requireModule()[49], varray[$name]);
   }
   public static function open_out_gen(dynamic $mode, dynamic $perm, dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[50], varray[$mode, $perm, $name]);
+    return static::callRehackFunction(static::requireModule()[50], varray[$mode, $perm, $name]);
   }
   public static function flush_all(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[52], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[52], varray[$param]);
   }
   public static function output_string(dynamic $oc, dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[54], varray[$oc, $s]);
+    return static::callRehackFunction(static::requireModule()[54], varray[$oc, $s]);
   }
   public static function output_bytes(dynamic $oc, dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[55], varray[$oc, $s]);
+    return static::callRehackFunction(static::requireModule()[55], varray[$oc, $s]);
   }
   public static function output(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[56], varray[$oc, $s, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[56], varray[$oc, $s, $ofs, $len]);
   }
   public static function output_substring(dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[57], varray[$oc, $s, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[57], varray[$oc, $s, $ofs, $len]);
   }
   public static function output_value(dynamic $chan, dynamic $v): dynamic {
-    return static::callRehackFunction(static::get()[60], varray[$chan, $v]);
+    return static::callRehackFunction(static::requireModule()[60], varray[$chan, $v]);
   }
   public static function close_out(dynamic $oc): dynamic {
-    return static::callRehackFunction(static::get()[64], varray[$oc]);
+    return static::callRehackFunction(static::requireModule()[64], varray[$oc]);
   }
   public static function close_out_noerr(dynamic $oc): dynamic {
-    return static::callRehackFunction(static::get()[65], varray[$oc]);
+    return static::callRehackFunction(static::requireModule()[65], varray[$oc]);
   }
   public static function open_in(dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[67], varray[$name]);
+    return static::callRehackFunction(static::requireModule()[67], varray[$name]);
   }
   public static function open_in_bin(dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[68], varray[$name]);
+    return static::callRehackFunction(static::requireModule()[68], varray[$name]);
   }
   public static function open_in_gen(dynamic $mode, dynamic $perm, dynamic $name): dynamic {
-    return static::callRehackFunction(static::get()[69], varray[$mode, $perm, $name]);
+    return static::callRehackFunction(static::requireModule()[69], varray[$mode, $perm, $name]);
   }
   public static function input_line(dynamic $chan): dynamic {
-    return static::callRehackFunction(static::get()[71], varray[$chan]);
+    return static::callRehackFunction(static::requireModule()[71], varray[$chan]);
   }
   public static function input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[72], varray[$ic, $s, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[72], varray[$ic, $s, $ofs, $len]);
   }
   public static function really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[73], varray[$ic, $s, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[73], varray[$ic, $s, $ofs, $len]);
   }
   public static function really_input_string(dynamic $ic, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[74], varray[$ic, $len]);
+    return static::callRehackFunction(static::requireModule()[74], varray[$ic, $len]);
   }
   public static function close_in_noerr(dynamic $ic): dynamic {
-    return static::callRehackFunction(static::get()[82], varray[$ic]);
+    return static::callRehackFunction(static::requireModule()[82], varray[$ic]);
   }
   public static function string_of_format(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[85], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[85], varray[$param]);
   }
   public static function exit(dynamic $retcode): dynamic {
-    return static::callRehackFunction(static::get()[87], varray[$retcode]);
+    return static::callRehackFunction(static::requireModule()[87], varray[$retcode]);
   }
   public static function at_exit(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[88], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[88], varray[$f]);
   }
   public static function valid_float_lexem(dynamic $s): dynamic {
-    return static::callRehackFunction(static::get()[89], varray[$s]);
+    return static::callRehackFunction(static::requireModule()[89], varray[$s]);
   }
   public static function unsafe_really_input(dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::get()[90], varray[$ic, $s, $ofs, $len]);
+    return static::callRehackFunction(static::requireModule()[90], varray[$ic, $s, $ofs, $len]);
   }
   public static function do_at_exit(dynamic $param): dynamic {
-    return static::callRehackFunction(static::get()[91], varray[$param]);
+    return static::callRehackFunction(static::requireModule()[91], varray[$param]);
   }
 
 }

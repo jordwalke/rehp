@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Js_of_ocaml__Dom {
   <<__Override, __Memoize>>
-  public static function get() : Vector<dynamic> {
+  public static function requireModule() : Vector<dynamic> {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
@@ -367,52 +367,52 @@ final class Js_of_ocaml__Dom {
 
   }
   public static function DocumentPosition(): dynamic {
-    return static::callRehackFunction(static::get()[1], varray[]);
+    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function insertBefore(dynamic $p, dynamic $n, dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[2], varray[$p, $n, $o]);
+    return static::callRehackFunction(static::requireModule()[2], varray[$p, $n, $o]);
   }
   public static function replaceChild(dynamic $p, dynamic $n, dynamic $o): dynamic {
-    return static::callRehackFunction(static::get()[3], varray[$p, $n, $o]);
+    return static::callRehackFunction(static::requireModule()[3], varray[$p, $n, $o]);
   }
   public static function removeChild(dynamic $p, dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[4], varray[$p, $n]);
+    return static::callRehackFunction(static::requireModule()[4], varray[$p, $n]);
   }
   public static function appendChild(dynamic $p, dynamic $n): dynamic {
-    return static::callRehackFunction(static::get()[5], varray[$p, $n]);
+    return static::callRehackFunction(static::requireModule()[5], varray[$p, $n]);
   }
   public static function list_of_nodeList(dynamic $nodeList): dynamic {
-    return static::callRehackFunction(static::get()[6], varray[$nodeList]);
+    return static::callRehackFunction(static::requireModule()[6], varray[$nodeList]);
   }
   public static function nodeType(dynamic $e): dynamic {
-    return static::callRehackFunction(static::get()[7], varray[$e]);
+    return static::callRehackFunction(static::requireModule()[7], varray[$e]);
   }
   public static function no_handler(): dynamic {
-    return static::callRehackFunction(static::get()[9], varray[]);
+    return static::callRehackFunction(static::requireModule()[9], varray[]);
   }
   public static function handler(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[10], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[10], varray[$f]);
   }
   public static function full_handler(dynamic $f): dynamic {
-    return static::callRehackFunction(static::get()[11], varray[$f]);
+    return static::callRehackFunction(static::requireModule()[11], varray[$f]);
   }
   public static function invoke_handler(dynamic $f, dynamic $this, dynamic $event): dynamic {
-    return static::callRehackFunction(static::get()[12], varray[$f, $this, $event]);
+    return static::callRehackFunction(static::requireModule()[12], varray[$f, $this, $event]);
   }
   public static function eventTarget(dynamic $e): dynamic {
-    return static::callRehackFunction(static::get()[13], varray[$e]);
+    return static::callRehackFunction(static::requireModule()[13], varray[$e]);
   }
   public static function Event(): dynamic {
-    return static::callRehackFunction(static::get()[14], varray[]);
+    return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
   public static function addEventListener(dynamic $e, dynamic $typ, dynamic $h, dynamic $capt): dynamic {
-    return static::callRehackFunction(static::get()[15], varray[$e, $typ, $h, $capt]);
+    return static::callRehackFunction(static::requireModule()[15], varray[$e, $typ, $h, $capt]);
   }
   public static function removeEventListener(dynamic $id): dynamic {
-    return static::callRehackFunction(static::get()[16], varray[$id]);
+    return static::callRehackFunction(static::requireModule()[16], varray[$id]);
   }
   public static function preventDefault(dynamic $ev): dynamic {
-    return static::callRehackFunction(static::get()[17], varray[$ev]);
+    return static::callRehackFunction(static::requireModule()[17], varray[$ev]);
   }
 
 }
