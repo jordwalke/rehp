@@ -120,7 +120,10 @@ and property_name_and_value_list = list((Id.property_name, expression))
 /* Probably need to distinguish between platform array (parsed from JS) and
    stdlib arrays. Currently they're one and the same. */
 and expression =
-  | ERaw(string)
+  /**
+   * Raw code to inject, and possible list of $1-n substitutions.
+   */
+  | ERaw(string, list(expression))
   | ESeq(expression, expression)
   | ECond(expression, expression, expression)
   | EBin(binop, expression, expression)

@@ -252,7 +252,7 @@ module Make(D : sig
   let rec need_paren l e =
     match e with
     (* Who knows what the raw expression could hold! *)
-      ERaw s -> true
+      ERaw _ -> true
     | ESeq (e, _) ->
       l <= 0 && need_paren 0 e
     | ECond (e, _, _) ->
@@ -323,7 +323,7 @@ module Make(D : sig
 
   let rec expression l f e =
     match e with
-      ERaw s ->
+      ERaw (s, substs) ->
       (* Non breaking space because what if this is on the rhs of a return? *)
       PP.non_breaking_space f;
       PP.string f s;

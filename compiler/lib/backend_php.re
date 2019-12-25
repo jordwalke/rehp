@@ -373,12 +373,12 @@ let custom_module_registration = () =>
   Some(
     (runtime_getter, module_expression, module_export_metadatas) => {
       let moduleExports =
-        Rehp.ECall(Rehp.ERaw("return"), [module_expression], Loc.N);
+        Rehp.ECall(Rehp.ERaw("return", []), [module_expression], Loc.N);
       Some(moduleExports);
     },
   );
 let custom_module_loader = () =>
   Some(
     (runtime_getter, name) =>
-      Some(Rehp.ECall(Rehp.ERaw(name ++ "::requireModule"), [], Loc.N)),
+      Some(Rehp.ECall(Rehp.ERaw(name ++ "::requireModule", []), [], Loc.N)),
   );

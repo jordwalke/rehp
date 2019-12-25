@@ -42,50 +42,51 @@ let the_arity_of info x =
 let readable_name v =
   match Var.orig_string_name_debug v with
   | None -> Pc (Int (Int32.of_int (-1)))
-  | Some s -> Pc (IString (s))
+  | Some s -> Pc (IString s)
 
 let argument_names_of info x =
   match the_def_of info (Pv x) with
-  | Some (Closure (params, _)) ->
-      List.map ~f:(fun v -> readable_name v) params
+  | Some (Closure (params, _)) -> List.map ~f:(fun v -> readable_name v) params
   | None | Some _ -> []
 
 let specialize_instr info i rem =
   match i with
-  | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) -> (
-      let the_metadata_of info x =
-        match the_block_of info x with
-        | Some blk -> Some blk
-        | _ -> None
-      in
-      match the_metadata_of info modul with
-      | None -> i
-      | Some block_items ->
-          let f v =
-            (* Original name of identifier in scope *)
-            (* Identifier in scope *)
-            (* Not a great idea to include the identifier reference
-             * itself as it will cause there to not be inlinine of
-             * those constant functions. Inlining them is good, and we
-             * can still recover their string original name as we do in
-             * argument_names_of *)
-            (* Pv v; *)
-            (* Arity if function *)
-            readable_name v
-            :: the_arity_of info v
-            :: (* Argument names if function with arity *)
-              argument_names_of info v
-          in
-          let prim_block_items = List.map (Array.to_list block_items) ~f |> List.concat in
-          let md_call =
-            Prim
-              ( Extern "%caml_register_global_module_metadata"
-              , ind :: modul :: name :: prim_block_items )
-          in
-          (* Shouldn't we need to update the defs for all of these? *)
-          (* Flow.update_def info x md_call; *)
-          Let (x, md_call))
-          ::rem
+  | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) ->
+      (let the_metadata_of info x =
+         match the_block_of info x with
+         | Some blk -> Some blk
+         | _ -> None
+       in
+       match the_metadata_of info modul with
+       | None -> i
+       | Some block_items ->
+           let f v =
+             (* Original name of identifier in scope *)
+             (* Identifier in scope *)
+             (* Not a great idea to include the identifier reference
+              * itself as it will cause there to not be inlinine of
+              * those constant functions. Inlining them is good, and we
+              * can still recover their string original name as we do in
+              * argument_names_of *)
+             (* Pv v; *)
+             (* Arity if function *)
+             readable_name v
+             :: the_arity_of info v
+             :: (* Argument names if function with arity *)
+                argument_names_of info v
+           in
+           let prim_block_items =
+             List.map (Array.to_list block_items) ~f |> List.concat
+           in
+           let md_call =
+             Prim
+               ( Extern "%caml_register_global_module_metadata"
+               , ind :: modul :: name :: prim_block_items )
+           in
+           (* Shouldn't we need to update the defs for all of these? *)
+           (* Flow.update_def info x md_call; *)
+           Let (x, md_call))
+      :: rem
   | Let (x, Prim (Extern "caml_format_int", [y; z])) ->
       (match the_string_of info y with
       (* Specializes calls to format_int when format string is "%d". Allows
@@ -107,15 +108,21 @@ let specialize_instr info i rem =
       | Some i -> Let (x, Constant (String (Int32.to_string i)))
       | None -> i)
       :: rem
+  (* Finds local string references for raw expressions *)
   | Let
       ( x
       , Prim
           ( Extern
-              (("caml_js_var" | "caml_js_raw_expr" | "caml_js_expr" | "caml_pure_js_expr")
+              (("caml_js_raw_expr" | "caml_js_var" | "caml_js_expr" | "caml_pure_js_expr")
               as prim)
           , [y] ) ) ->
       (match the_string_of info y with
       | Some s -> Let (x, Prim (Extern prim, [Pc (String s)]))
+      | _ -> i)
+      :: rem
+  | Let (x, Prim (Extern "caml_js_raw_expr", y :: rest)) ->
+      (match the_string_of info y with
+      | Some s -> Let (x, Prim (Extern "%caml_js_opt_raw_expr", Pc (String s) :: rest))
       | _ -> i)
       :: rem
   (* Avoid registering named values if none of the stubs ever try to consume

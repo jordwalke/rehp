@@ -121,7 +121,7 @@ class map : mapper =
 
     method expression x =
       match x with
-      | ERaw s -> ERaw s
+      | ERaw (s, exprs) -> ERaw (s, List.map exprs ~f:m#expression)
       | ESeq (e1, e2) -> ESeq (m#expression e1, m#expression e2)
       | ECond (e1, e2, e3) -> ECond (m#expression e1, m#expression e2, m#expression e3)
       | EBin (b, e1, e2) -> EBin (b, m#expression e1, m#expression e2)

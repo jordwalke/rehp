@@ -13,6 +13,7 @@ module Expand = {
     Php.ERaw(
       String.compare(s, "(function (exn) { throw exn })") === 0
         ? "(function($exn) {throw $exn;})" : s,
+      [],
     );
 };
 
@@ -538,7 +539,7 @@ let rec expression = (input: input, x) =>
     let (e2Out, e2Mapped) = expression(input, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Expand.seq(e1Mapped, e2Mapped));
-  | Rehp.ERaw(s) => (emptyOutput, Expand.raw(s))
+  | Rehp.ERaw(s, substs) => (emptyOutput, Expand.raw(s))
   | Rehp.ECond(e1, e2, e3) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);

@@ -1322,13 +1322,22 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
             let (px, cx), queue = access_queue' ~ctx queue x in
             let (py, cy), queue = access_queue' ~ctx queue y in
             J.EArrAccess (cx, plus_int cy one), or_p mutable_p (or_p px py), queue
-        | Extern "caml_js_var", [Pc (String nm | IString nm)]
-         |Extern "caml_js_raw_expr", [Pc (String nm | IString nm)] ->
-            ERaw nm, const_p, queue
+        | Extern "caml_js_var", [Pc (String nm | IString nm)] ->
+            ERaw (nm, []) , const_p, queue
+        | Extern "caml_js_raw_expr", Pc (String m | IString m) :: l ->
+            let args, prop, queue =
+              List.fold_right
+                ~f:(fun x (args, prop, queue) ->
+                  let (prop', cx), queue = access_queue' ~ctx queue x in
+                  cx :: args, or_p prop prop', queue)
+                l
+                ~init:([], mutator_p, queue)
+            in
+            J.ERaw (m, args), prop, queue
         | Extern ("caml_js_expr" | "caml_pure_js_expr"), [Pc (String nm | IString nm)]
           -> (
           try
-            let e = Rehp.ERaw nm in
+            let e = Rehp.ERaw (nm, []) in
             e, const_p, queue
           with Parse_js.Parsing_error pi ->
             failwith

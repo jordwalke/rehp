@@ -327,7 +327,7 @@ struct
 
   let rec expression l f e =
     match e with
-    | ERaw s ->
+    | ERaw (s, substs) ->
       (* Non breaking space because what if this is on the rhs of a return? *)
       PP.non_breaking_space f;
       PP.string f s;

@@ -80,7 +80,8 @@ and from_binop =
 and from_expression_loc = ((e, loc)) => (from_expression(e), loc)
 and from_expression = e =>
   switch (e) {
-  | Rehp.ERaw(s) => Javascript.ERaw(s)
+  | Rehp.ERaw(s, substs) =>
+    Javascript.ERaw(s, List.map(~f=from_expression, substs))
   | Rehp.ESeq(e1, e2) =>
     Javascript.ESeq(from_expression(e1), from_expression(e2))
   | ETag(index, itms) =>

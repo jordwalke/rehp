@@ -583,7 +583,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
      * Major hack. We use ERaw to inject a return in a place that only expects
      * an expression. (In php backend module exporting code).
      */
-    | ECall(ERaw("return"), _, _) => false
+    | ECall(ERaw("return", []), _, _) => false
     | ECond(e, _, _) => l <= 2 && need_paren(3, e)
     /*
      * Instanceof is just a function call now.
@@ -668,7 +668,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
 
   let rec expression = (l, f, e) =>
     switch (e) {
-    | ERaw(s) =>
+    | ERaw(s, substs) =>
       /* Non breaking space because what if this is on the rhs of a return? */
       PP.non_breaking_space(f);
       PP.string(f, s);
@@ -1181,7 +1181,10 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.end_group(f);
     };
     switch (v) {
-    | (EVar(i), Some((ETag(_) | EStruct(_), pc))) =>
+    | (
+        EVar(i),
+        Some((EInt(_) | ENum(_) | EUn(ToInt, _) | ETag(_) | EStruct(_), pc)),
+      ) =>
       PP.non_breaking_space(f);
       PP.string(f, "as dynamic");
     | _ => ()
