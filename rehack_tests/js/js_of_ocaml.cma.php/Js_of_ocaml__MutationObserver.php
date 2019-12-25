@@ -34,7 +34,7 @@ final class Js_of_ocaml__MutationObserver {
         if ($x) {$x__0 = $x[1];return $call1($f, $x__0);}
         return 0;
       };
-      $c_ = 0;
+      $c_ = 0 as dynamic;
       $d_ = $runtime["caml_js_wrap_callback"]($f);
       $obs = ((dynamic $t19, dynamic $t18, dynamic $param) ==> {return new $t19($t18);
        })($mutationObserver, $d_, $c_);
@@ -127,16 +127,13 @@ final class Js_of_ocaml__MutationObserver {
       $mutationObserver,
       $is_supported,
       $observe
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_MutationObserver);
 
   }
   public static function empty_mutation_observer_init(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[1], varray[$param]);
-  }
-  public static function mutationObserver(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$param]);

@@ -83,12 +83,12 @@ final class Js_of_ocaml__Typed_array {
     $t_ = $Js_of_ocaml_Js[50][1];
     $dataView = ((dynamic $t9, dynamic $param) ==> {return $t9->DataView;})($t_, $s_);
     $of_arrayBuffer = (dynamic $ab) ==> {
-      $x_ = 0;
+      $x_ = 0 as dynamic;
       $uint8 = ((dynamic $t11, dynamic $t10, dynamic $param) ==> {return new $t11($t10);
        })($uint8Array, $ab, $x_);
       return $runtime["caml_string_of_array"]($uint8);
     };
-    $String = Vector{0, $of_arrayBuffer};
+    $String = Vector{0, $of_arrayBuffer} as dynamic;
     $u_ = (dynamic $w_) ==> {
       return $runtime["bigstring_of_array_buffer"]($w_);
     };
@@ -146,37 +146,10 @@ final class Js_of_ocaml__Typed_array {
         $u_
       },
       $String
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Typed_array);
 
-  }
-  public static function arrayBuffer(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function int8Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function uint8Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function int16Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[]);
-  }
-  public static function uint16Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[]);
-  }
-  public static function int32Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[22], varray[]);
-  }
-  public static function uint32Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[27], varray[]);
-  }
-  public static function float32Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[32], varray[]);
-  }
-  public static function float64Array(): dynamic {
-    return static::callRehackFunction(static::requireModule()[37], varray[]);
   }
   public static function set(dynamic $a, dynamic $i, dynamic $v): dynamic {
     return static::callRehackFunction(static::requireModule()[42], varray[$a, $i, $v]);
@@ -186,12 +159,6 @@ final class Js_of_ocaml__Typed_array {
   }
   public static function unsafe_get(dynamic $a, dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[44], varray[$a, $i]);
-  }
-  public static function dataView(): dynamic {
-    return static::callRehackFunction(static::requireModule()[45], varray[]);
-  }
-  public static function String(): dynamic {
-    return static::callRehackFunction(static::requireModule()[48], varray[]);
   }
 
 }

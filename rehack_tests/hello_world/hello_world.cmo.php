@@ -6,6 +6,6 @@ $Pervasives =  Pervasives::requireModule ();
 
 $call1($Pervasives[34], $cst_hello_world);
 
-$Hello_world = Vector{0};
+$Hello_world = Vector{0} as dynamic;
 
  return ($Hello_world);

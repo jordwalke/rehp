@@ -13,7 +13,6 @@ final class Nativeint {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_int_compare = $runtime["caml_int_compare"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
@@ -21,9 +20,9 @@ final class Nativeint {
     $cst_d = $runtime["caml_new_string"]("%d");
     $Failure =  Failure::requireModule ();
     $Sys =  Sys::requireModule ();
-    $zero = 0;
-    $one = 1;
-    $minus_one = -1;
+    $zero = 0 as dynamic;
+    $one = 1 as dynamic;
+    $minus_one = -1 as dynamic;
     $succ = (dynamic $n) ==> {return (int) ($n + 1);};
     $pred = (dynamic $n) ==> {return (int) ($n - 1);};
     $abs = (dynamic $n) ==> {
@@ -31,14 +30,16 @@ final class Nativeint {
     };
     $size = $Sys[10];
     $min_int = $left_shift_32(1, (int) ($size + -1));
-    $max_int = (int) ($min_int - 1);
+    $max_int = (int) ($min_int - 1) as dynamic;
     $lognot = (dynamic $n) ==> {return $n ^ -1;};
     $to_string = (dynamic $n) ==> {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = (dynamic $s) ==> {
-      $a_ = null;
-      try {$a_ = Vector{0, $runtime["caml_int_of_string"]($s)};return $a_;}
+      try {
+        $a_ = Vector{0, $runtime["caml_int_of_string"]($s)} as dynamic;
+        return $a_;
+      }
       catch(\Throwable $b_) {
         $b_ = $runtime["caml_wrap_exception"]($b_);
         if ($b_[1] === $Failure) {return 0;}
@@ -46,10 +47,10 @@ final class Nativeint {
       }
     };
     $compare = (dynamic $x, dynamic $y) ==> {
-      return $caml_int_compare($x, $y);
+      return $runtime["caml_int_compare"]($x, $y);
     };
     $equal = (dynamic $x, dynamic $y) ==> {
-      return 0 === $caml_int_compare($x, $y) ? 1 : (0);
+      return 0 === $compare($x, $y) ? 1 : (0);
     };
     $Nativeint = Vector{
       0,

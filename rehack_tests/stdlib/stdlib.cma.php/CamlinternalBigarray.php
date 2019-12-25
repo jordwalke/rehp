@@ -13,9 +13,6 @@ final class CamlinternalBigarray {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    
-    ;
-    
     $CamlinternalBigarray = Vector{0} as dynamic;
     
      return ($CamlinternalBigarray);

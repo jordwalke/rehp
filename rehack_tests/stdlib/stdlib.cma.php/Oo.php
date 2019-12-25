@@ -13,9 +13,6 @@ final class Oo {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    
-    ;
-    
     $CamlinternalOO =  CamlinternalOO::requireModule ();
     $copy = $CamlinternalOO[22];
     $new_method = $CamlinternalOO[1];

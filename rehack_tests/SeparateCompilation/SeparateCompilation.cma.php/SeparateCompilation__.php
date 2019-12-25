@@ -13,13 +13,10 @@ final class SeparateCompilation__ {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $SeparateCompilation = Vector{0, 0};
+    $SeparateCompilation = Vector{0, 0} as dynamic;
     
      return ($SeparateCompilation);
 
-  }
-  public static function SeparateCompilationHelper(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
 
 }

@@ -30,8 +30,6 @@ final class Char {
       return $call1($Pervasives[1], $cst_Char_chr);
     };
     $escaped = (dynamic $c) ==> {
-      $switch__0 = null;
-      $s__0 = null;
       if (40 <= $c) {
         if (92 === $c) {return $cst;}
         $switch__0 = 127 <= $c ? 0 : (1);
@@ -39,11 +37,11 @@ final class Char {
       else {
         if (32 <= $c) {
           if (39 <= $c) {return $cst__0;}
-          $switch__0 = 1;
+          $switch__0 = 1 as dynamic;
         }
         else {
           if (14 <= $c) {
-            $switch__0 = 0;
+            $switch__0 = 0 as dynamic;
           }
           else {
             switch($c) {
@@ -61,7 +59,7 @@ final class Char {
                 return $cst_r;
               // FALLTHROUGH
               default:
-                $switch__0 = 0;
+                $switch__0 = 0 as dynamic;
               }
           }
         }
@@ -79,8 +77,6 @@ final class Char {
       return $s;
     };
     $lowercase = (dynamic $c) ==> {
-      $switch__1 = null;
-      $switch__2 = null;
       $switch__0 = 65 <= $c ? 90 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 192 <= $c ? 214 < $c ? 0 : (1) : (0);
@@ -92,8 +88,6 @@ final class Char {
       return (int) ($c + 32);
     };
     $uppercase = (dynamic $c) ==> {
-      $switch__1 = null;
-      $switch__2 = null;
       $switch__0 = 97 <= $c ? 122 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 224 <= $c ? 246 < $c ? 0 : (1) : (0);
@@ -114,7 +108,7 @@ final class Char {
     };
     $compare = (dynamic $c1, dynamic $c2) ==> {return (int) ($c1 - $c2);};
     $equal = (dynamic $c1, dynamic $c2) ==> {
-      return 0 === (int) ($c1 - $c2) ? 1 : (0);
+      return 0 === $compare($c1, $c2) ? 1 : (0);
     };
     $Char = Vector{
       0,

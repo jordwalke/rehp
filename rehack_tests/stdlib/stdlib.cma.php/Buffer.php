@@ -107,7 +107,6 @@ final class Buffer {
       return 0;
     };
     $resize = (dynamic $b, dynamic $more) ==> {
-      $new_buffer = null;
       $len = $b[3];
       $new_len = Vector{0, $len} as dynamic;
       for (;;) {
@@ -134,9 +133,6 @@ final class Buffer {
       return 0;
     };
     $add_utf_8_uchar = (dynamic $b, dynamic $u) ==> {
-      $pos = null;
-      $pos__0 = null;
-      $pos__1 = null;
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (127 < $u__0) {
@@ -209,18 +205,13 @@ final class Buffer {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
     };
     $add_utf_16be_uchar = (dynamic $b, dynamic $u) ==> {
-      $u__1 = null;
-      $hi = null;
-      $lo = null;
-      $pos = null;
-      $pos__0 = null;
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
             throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $c_}) as \Throwable;
           }
-          $u__1 = (int) ($u__0 + -65536);
+          $u__1 = (int) ($u__0 + -65536) as dynamic;
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
           $lo = 56320 | $u__1 & 1023;
           $pos = $b[2];
@@ -258,18 +249,13 @@ final class Buffer {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
     };
     $add_utf_16le_uchar = (dynamic $b, dynamic $u) ==> {
-      $u__1 = null;
-      $hi = null;
-      $lo = null;
-      $pos = null;
-      $pos__0 = null;
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
           if (1114111 < $u__0) {
             throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $e_}) as \Throwable;
           }
-          $u__1 = (int) ($u__0 + -65536);
+          $u__1 = (int) ($u__0 + -65536) as dynamic;
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
           $lo = 56320 | $u__1 & 1023;
           $pos = $b[2];
@@ -309,23 +295,20 @@ final class Buffer {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
     };
     $add_substring = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) ==> {
-      $n_ = null;
-      $o_ = null;
-      $m_ = $offset < 0 ? 1 : (0);
-      if ($m_) {
-        $n_ = $m_;
+      $l_ = $offset < 0 ? 1 : (0);
+      if ($l_) {
+        $m_ = $l_;
       }
       else {
-        $o_ = $len < 0 ? 1 : (0);
-        $n_ =
-          $o_
-            ? $o_
-            : ((int) ($caml_ml_string_length($s) - $len) < $offset ? 1 : (0));
+        $n_ = $len < 0 ? 1 : (0);
+        $m_ = $n_
+          ? $n_
+          : ((int) ($caml_ml_string_length($s) - $len) < $offset ? 1 : (0));
       }
-      if ($n_) {
+      if ($m_) {
         $call1($Pervasives[1], $cst_Buffer_add_substring_add_subbytes);
       }
-      $new_position = (int) ($b[2] + $len);
+      $new_position = (int) ($b[2] + $len) as dynamic;
       if ($b[3] < $new_position) {$resize($b, $len);}
       $call5($Bytes[12], $s, $offset, $b[1], $b[2], $len);
       $b[2] = $new_position;
@@ -336,7 +319,7 @@ final class Buffer {
     };
     $add_string = (dynamic $b, dynamic $s) ==> {
       $len = $caml_ml_string_length($s);
-      $new_position = (int) ($b[2] + $len);
+      $new_position = (int) ($b[2] + $len) as dynamic;
       if ($b[3] < $new_position) {$resize($b, $len);}
       $call5($Bytes[12], $s, 0, $b[1], $b[2], $len);
       $b[2] = $new_position;
@@ -348,207 +331,170 @@ final class Buffer {
     $add_buffer = (dynamic $b, dynamic $bs) ==> {
       return $add_subbytes($b, $bs[1], 0, $bs[2]);
     };
-    $add_channel = (dynamic $b, dynamic $ic, dynamic $len__1) ==> {
-      $j_ = null;
-      $n = null;
-      $len__0 = null;
-      $k_ = $len__1 < 0 ? 1 : (0);
-      $l_ = $k_ ? $k_ : ($Sys[13] < $len__1 ? 1 : (0));
-      if ($l_) {$call1($Pervasives[1], $cst_Buffer_add_channel);}
-      if ($b[3] < (int) ($b[2] + $len__1)) {$resize($b, $len__1);}
-      $len = $len__1;
+    $add_channel_rec = (dynamic $b, dynamic $ic, dynamic $len) ==> {
+      $len__0 = $len;
       for (;;) {
-        $j_ = 0 < $len ? 1 : (0);
-        if ($j_) {
-          $n = $call4($Pervasives[72], $ic, $b[1], $b[2], $len);
+        $k_ = 0 < $len__0 ? 1 : (0);
+        if ($k_) {
+          $n = $call4($Pervasives[72], $ic, $b[1], $b[2], $len__0);
           $b[2] = (int) ($b[2] + $n);
           if (0 === $n) {
             throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
-          $len__0 = (int) ($len - $n);
-          $len = $len__0;
+          $len__1 = (int) ($len__0 - $n) as dynamic;
+          $len__0 = $len__1;
           continue;
         }
-        return $j_;
+        return $k_;
       }
+    };
+    $add_channel = (dynamic $b, dynamic $ic, dynamic $len) ==> {
+      $i_ = $len < 0 ? 1 : (0);
+      $j_ = $i_ ? $i_ : ($Sys[13] < $len ? 1 : (0));
+      if ($j_) {$call1($Pervasives[1], $cst_Buffer_add_channel);}
+      if ($b[3] < (int) ($b[2] + $len)) {$resize($b, $len);}
+      return $add_channel_rec($b, $ic, $len);
     };
     $output_buffer = (dynamic $oc, dynamic $b) ==> {
       return $call4($Pervasives[56], $oc, $b[1], 0, $b[2]);
     };
-    $add_substitute = (dynamic $b, dynamic $f, dynamic $s) ==> {
-      $i = null;
-      $k = null;
-      $i__0 = null;
-      $k__0 = null;
-      $i__1 = null;
-      $k__1 = null;
-      $i__2 = null;
-      $lim = null;
-      $i__3 = null;
-      $match = null;
-      $i__4 = null;
-      $lim__0 = null;
-      $opening = null;
-      $i__5 = null;
-      $k__2 = null;
-      $h_ = null;
-      $i__6 = null;
-      $stop = null;
-      $current = null;
-      $i__8 = null;
-      $start = null;
-      $match__0 = null;
-      $i__9 = null;
-      $ident = null;
-      $i__10 = null;
-      $i__11 = null;
-      $i__12 = null;
-      $i_ = null;
-      $switch__0 = null;
-      $switch__1 = null;
-      $lim__1 = $caml_ml_string_length($s);
-      $previous = 32;
-      $i__7 = 0;
-      for (;;) {
-        if ($i__7 < $lim__1) {
-          $current = $caml_string_get($s, $i__7);
-          if (36 === $current) {
-            if (92 === $previous) {
-              $add_char($b, $current);
-              $i__8 = (int) ($i__7 + 1);
-              $previous = 32;
-              $i__7 = $i__8;
-              continue;
-            }
-            $start = (int) ($i__7 + 1);
-            if ($lim__1 <= $start) {
-              throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
-            }
-            $opening = $caml_string_get($s, $start);
-            if (40 === $opening) {$switch__0 = 0;}
-            else {
-              if (123 === $opening) {$switch__0 = 0;}
-              else {
-                $i__6 = (int) ($start + 1);
-                $lim__0 = $caml_ml_string_length($s);
-                $i__3 = $i__6;
-                for (;;) {
-                  if ($lim__0 <= $i__3) {$stop = $lim__0;}
-                  else {
-                    $match = $caml_string_get($s, $i__3);
-                    $switch__1 =
-                      91 <= $match
-                        ? 97 <= $match
-                         ? 123 <= $match ? 0 : (1)
-                         : (95 === $match ? 1 : (0))
-                        : (58 <= $match
-                         ? 65 <= $match ? 1 : (0)
-                         : (48 <= $match ? 1 : (0)));
-                    if ($switch__1) {
-                      $i__4 = (int) ($i__3 + 1);
-                      $i__3 = $i__4;
-                      continue;
-                    }
-                    $stop = $i__3;
-                  }
-                  $match__0 =
-                    Vector{
-                      0,
-                      $call3($String[4], $s, $start, (int) ($stop - $start)),
-                      $stop
-                    };
-                  $switch__0 = 1;
-                  break;
-                }
-              }
-            }
-            if (! $switch__0) {
-              $i__5 = (int) ($start + 1);
-              $k__2 = 0;
-              if (40 === $opening) {$h_ = 41;}
-              else {
-                if (123 !== $opening) {
-                  throw $caml_wrap_thrown_exception(
-                          Vector{0, $Assert_failure, $g_}
-                        ) as \Throwable;
-                }
-                $h_ = 125;
-              }
-              $lim = $caml_ml_string_length($s);
-              $k = $k__2;
-              $i = $i__5;
-              for (;;) {
-                if ($lim <= $i) {
-                  throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
-                }
-                if ($caml_string_get($s, $i) === $opening) {
-                  $i__0 = (int) ($i + 1);
-                  $k__0 = (int) ($k + 1);
-                  $k = $k__0;
-                  $i = $i__0;
-                  continue;
-                }
-                if ($caml_string_get($s, $i) !== $h_) {
-                  $i__2 = (int) ($i + 1);
-                  $i = $i__2;
-                  continue;
-                }
-                if (0 !== $k) {
-                  $i__1 = (int) ($i + 1);
-                  $k__1 = (int) ($k + -1);
-                  $k = $k__1;
-                  $i = $i__1;
-                  continue;
-                }
-                $match__0 =
-                  Vector{
-                    0,
-                    $call3(
-                      $String[4],
-                      $s,
-                      $i__5,
-                      (int)
-                      ((int) ($i - $start) + -1)
-                    ),
-                    (int)
-                    ($i + 1)
-                  };
-                break;
-              }
-            }
-            $i__9 = $match__0[2];
-            $ident = $match__0[1];
-            $add_string($b, $call1($f, $ident));
-            $previous = 32;
-            $i__7 = $i__9;
+    $closing = (dynamic $param) ==> {
+      if (40 === $param) {return 41;}
+      if (123 === $param) {return 125;}
+      throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $g_}) as \Throwable;
+    };
+    $advance_to_closing = 
+    (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) ==> {
+      $advance = (dynamic $k, dynamic $i, dynamic $lim) ==> {
+        $k__0 = $k;
+        $i__0 = $i;
+        for (;;) {
+          if ($lim <= $i__0) {
+            throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+          }
+          if ($caml_string_get($s, $i__0) === $opening) {
+            $i__1 = (int) ($i__0 + 1) as dynamic;
+            $k__1 = (int) ($k__0 + 1) as dynamic;
+            $k__0 = $k__1;
+            $i__0 = $i__1;
             continue;
           }
-          if (92 === $previous) {
-            $add_char($b, 92);
-            $add_char($b, $current);
-            $i__10 = (int) ($i__7 + 1);
-            $previous = 32;
-            $i__7 = $i__10;
+          if ($caml_string_get($s, $i__0) === $closing) {
+            if (0 === $k__0) {return $i__0;}
+            $i__2 = (int) ($i__0 + 1) as dynamic;
+            $k__2 = (int) ($k__0 + -1) as dynamic;
+            $k__0 = $k__2;
+            $i__0 = $i__2;
             continue;
           }
-          if (92 === $current) {
-            $i__11 = (int) ($i__7 + 1);
-            $previous = $current;
-            $i__7 = $i__11;
-            continue;
-          }
-          $add_char($b, $current);
-          $i__12 = (int) ($i__7 + 1);
-          $previous = $current;
-          $i__7 = $i__12;
+          $i__3 = (int) ($i__0 + 1) as dynamic;
+          $i__0 = $i__3;
           continue;
         }
-        $i_ = 92 === $previous ? 1 : (0);
-        return $i_ ? $add_char($b, $previous) : ($i_);
+      };
+      return $advance($k, $start, $caml_ml_string_length($s));
+    };
+    $advance_to_non_alpha = (dynamic $s, dynamic $start) ==> {
+      $advance = (dynamic $i, dynamic $lim) ==> {
+        $i__0 = $i;
+        for (;;) {
+          if ($lim <= $i__0) {return $lim;}
+          $match = $caml_string_get($s, $i__0);
+          $switch__0 = 91 <= $match
+            ? 97 <= $match
+             ? 123 <= $match ? 0 : (1)
+             : (95 === $match ? 1 : (0))
+            : (58 <= $match
+             ? 65 <= $match ? 1 : (0)
+             : (48 <= $match ? 1 : (0)));
+          if ($switch__0) {
+            $i__1 = (int) ($i__0 + 1) as dynamic;
+            $i__0 = $i__1;
+            continue;
+          }
+          return $i__0;
+        }
+      };
+      return $advance($start, $caml_ml_string_length($s));
+    };
+    $find_ident = (dynamic $s, dynamic $start, dynamic $lim) ==> {
+      if ($lim <= $start) {
+        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
+      $c = $caml_string_get($s, $start);
+      if (40 !== $c) {
+        if (123 !== $c) {
+          $stop__0 = $advance_to_non_alpha($s, (int) ($start + 1));
+          return Vector{
+            0,
+            $call3($String[4], $s, $start, (int) ($stop__0 - $start)),
+            $stop__0
+          };
+        }
+      }
+      $new_start = (int) ($start + 1) as dynamic;
+      $stop = $advance_to_closing($c, $closing($c), 0, $s, $new_start);
+      return Vector{
+        0,
+        $call3($String[4], $s, $new_start, (int) ((int) ($stop - $start) + -1)
+        ),
+        (int)
+        ($stop + 1)
+      };
+    };
+    $add_substitute = (dynamic $b, dynamic $f, dynamic $s) ==> {
+      $lim = $caml_ml_string_length($s);
+      $subst = (dynamic $previous, dynamic $i) ==> {
+        $previous__0 = $previous;
+        $i__0 = $i;
+        for (;;) {
+          if ($i__0 < $lim) {
+            $current = $caml_string_get($s, $i__0);
+            if (36 === $current) {
+              if (92 === $previous__0) {
+                $add_char($b, $current);
+                $i__1 = (int) ($i__0 + 1) as dynamic;
+                $previous__0 = 32 as dynamic;
+                $i__0 = $i__1;
+                continue;
+              }
+              $j = (int) ($i__0 + 1) as dynamic;
+              $match = $find_ident($s, $j, $lim);
+              $i__2 = $match[2];
+              $ident = $match[1];
+              $add_string($b, $call1($f, $ident));
+              $previous__0 = 32 as dynamic;
+              $i__0 = $i__2;
+              continue;
+            }
+            if (92 === $previous__0) {
+              $add_char($b, 92);
+              $add_char($b, $current);
+              $i__3 = (int) ($i__0 + 1) as dynamic;
+              $previous__0 = 32 as dynamic;
+              $i__0 = $i__3;
+              continue;
+            }
+            if (92 === $current) {
+              $i__4 = (int) ($i__0 + 1) as dynamic;
+              $previous__0 = $current;
+              $i__0 = $i__4;
+              continue;
+            }
+            $add_char($b, $current);
+            $i__5 = (int) ($i__0 + 1) as dynamic;
+            $previous__0 = $current;
+            $i__0 = $i__5;
+            continue;
+          }
+          $h_ = 92 === $previous__0 ? 1 : (0);
+          return $h_ ? $add_char($b, $previous__0) : ($h_);
+        }
+      };
+      return $subst(32, 0);
     };
     $truncate = (dynamic $b, dynamic $len) ==> {
-      if (0 <= $len) {if (! ($b[2] < $len)) {$b[2] = $len;return 0;}}
+      if (0 <= $len) {if (! ($length($b) < $len)) {$b[2] = $len;return 0;}}
       return $call1($Pervasives[1], $cst_Buffer_truncate);
     };
     $Buffer = Vector{

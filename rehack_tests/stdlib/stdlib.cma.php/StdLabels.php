@@ -13,9 +13,6 @@ final class StdLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    
-    ;
-    
     $StdLabels = Vector{0, 0, 0, 0, 0} as dynamic;
     
      return ($StdLabels);

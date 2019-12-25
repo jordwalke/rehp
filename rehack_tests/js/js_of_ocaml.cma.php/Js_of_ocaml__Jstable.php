@@ -27,7 +27,7 @@ final class Js_of_ocaml__Jstable {
     $b_ = $Js_of_ocaml_Js[50][1];
     $obj = ((dynamic $t0, dynamic $param) ==> {return $t0->Object;})($b_, $a_);
     $create = (dynamic $param) ==> {
-      $z_ = 0;
+      $z_ = 0 as dynamic;
       return ((dynamic $t1, dynamic $param) ==> {return new $t1();})($obj, $z_);
     };
     $add = (dynamic $t, dynamic $k, dynamic $v) ==> {
@@ -35,7 +35,7 @@ final class Js_of_ocaml__Jstable {
         return $call1($caml_get_public_method($x, -942667500, 271), $x);
       };
       $x_ = "_";
-      $y_ = 0;
+      $y_ = 0 as dynamic;
       $t[
          ((dynamic $t3, dynamic $t2, dynamic $param) ==> {return $t3->concat($t2);
           })($k, $x_, $w_)
@@ -47,7 +47,7 @@ final class Js_of_ocaml__Jstable {
         return $call1($caml_get_public_method($x, -942667500, 272), $x);
       };
       $u_ = "_";
-      $v_ = 0;
+      $v_ = 0 as dynamic;
       unset(
         $t[
            ((dynamic $t5, dynamic $t4, dynamic $param) ==> {return $t5->concat($t4);
@@ -77,13 +77,13 @@ final class Js_of_ocaml__Jstable {
       $f_ = ((dynamic $t13, dynamic $param) ==> {return $t13->Object;})($e_, $d_);
       $key_array = ((dynamic $t15, dynamic $t14, dynamic $param) ==> {return $t15->keys($t14);
        })($f_, $t, $c_);
-      $res = Vector{0, 0};
-      $g_ = 0;
+      $res = Vector{0, 0} as dynamic;
+      $g_ = 0 as dynamic;
       $h_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 520590566, 276), $x);
       };
       $i_ = (int)
-      (((dynamic $t12, dynamic $param) ==> {return $t12->length;})($key_array, $h_) + -1);
+      (((dynamic $t12, dynamic $param) ==> {return $t12->length;})($key_array, $h_) + -1) as dynamic;
       if (! ($i_ < 0)) {
         $i = $g_;
         for (;;) {
@@ -100,8 +100,8 @@ final class Js_of_ocaml__Jstable {
             return $call1($caml_get_public_method($x, 520590566, 278), $x);
           };
           $o_ = (int)
-          (((dynamic $t8, dynamic $param) ==> {return $t8->length;})($key, $n_) + -1);
-          $p_ = 0;
+          (((dynamic $t8, dynamic $param) ==> {return $t8->length;})($key, $n_) + -1) as dynamic;
+          $p_ = 0 as dynamic;
           $res[1] =
             Vector{
               0,
@@ -109,14 +109,14 @@ final class Js_of_ocaml__Jstable {
                })($key, $p_, $o_, $m_),
               $l_
             };
-          $q_ = (int) ($i + 1);
+          $q_ = (int) ($i + 1) as dynamic;
           if ($i_ !== $i) {$i = $q_;continue;}
           break;
         }
       }
       return $call1($List[9], $res[1]);
     };
-    $Js_of_ocaml_Jstable = Vector{0, $create, $add, $remove, $find, $keys};
+    $Js_of_ocaml_Jstable = Vector{0, $create, $add, $remove, $find, $keys} as dynamic;
     
      return ($Js_of_ocaml_Jstable);
 

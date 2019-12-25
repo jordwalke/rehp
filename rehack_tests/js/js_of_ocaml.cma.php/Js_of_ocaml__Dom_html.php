@@ -440,8 +440,8 @@ final class Js_of_ocaml__Dom_html {
     $Printf =  Printf::requireModule ();
     $Pervasives =  Pervasives::requireModule ();
     $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
-    $g_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2704, 58};
-    $f_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2703, 61};
+    $g_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2704, 58} as dynamic;
+    $f_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2703, 61} as dynamic;
     $b_ = Vector{
       0,
       Vector{
@@ -450,8 +450,8 @@ final class Js_of_ocaml__Dom_html {
         Vector{3, 0, Vector{11, $string(" not found"), 0}}
       },
       $string("getElementById_exn: %S not found")
-    };
-    $onIE = (int) $runtime["caml_js_on_ie"](0);
+    } as dynamic;
+    $onIE = (int) $runtime["caml_js_on_ie"](0) as dynamic;
     $no_handler = $Js_of_ocaml_Dom[9];
     $handler = $Js_of_ocaml_Dom[10];
     $full_handler = $Js_of_ocaml_Dom[11];
@@ -610,7 +610,7 @@ final class Js_of_ocaml__Dom_html {
       $volumechange,
       $waiting,
       $make
-    };
+    } as dynamic;
     $addEventListener = $Js_of_ocaml_Dom[15];
     $removeEventListener = $Js_of_ocaml_Dom[16];
     $d = "2d";
@@ -748,7 +748,7 @@ final class Js_of_ocaml__Dom_html {
     $unsafeCreateElement = (dynamic $doc, dynamic $name) ==> {
       return $createElement($doc, $name);
     };
-    $createElementSyntax = Vector{0, 785140586};
+    $createElementSyntax = Vector{0, 785140586} as dynamic;
     $unsafeCreateElementEx = 
     (dynamic $type, dynamic $name, dynamic $doc, dynamic $elt) ==> {
       for (;;) {
@@ -789,13 +789,13 @@ final class Js_of_ocaml__Dom_html {
             else {$cw_ = $ct_;}
             $cl_ = $cw_;
           }
-          catch(\Throwable $cS_) {$cl_ = 0;}
+          catch(\Throwable $cS_) {$cl_ = 0 as dynamic;}
           $cm_ = $cl_ ? 982028505 : (-1003883683);
           $createElementSyntax[1] = $cm_;
           continue;
         }
         if (982028505 <= $ck_) {
-          $cx_ = 0;
+          $cx_ = 0 as dynamic;
           $cy_ = $Js_of_ocaml_Js[14];
           $a = ((dynamic $t46, dynamic $param) ==> {return new $t46();})($cy_, $cx_);
           $cz_ = (dynamic $x) ==> {
@@ -1086,7 +1086,7 @@ final class Js_of_ocaml__Dom_html {
       248,
       $cst_Js_of_ocaml_Dom_html_Canvas_not_available,
       $runtime["caml_fresh_oo_id"](0)
-    };
+    } as dynamic;
     $createCanvas = (dynamic $doc) ==> {
       $c = $unsafeCreateElement($doc, $cst_canvas);
       $ci_ = (dynamic $x) ==> {
@@ -1319,7 +1319,7 @@ final class Js_of_ocaml__Dom_html {
       $bL_ = (int)
       ((int)
        (((dynamic $t69, dynamic $param) ==> {return $t69->clientY;})($e, $bK_) + $bJ_) +
-         $bH_);
+         $bH_) as dynamic;
       $bM_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 91199156, 114), $x);
       };
@@ -1389,7 +1389,7 @@ final class Js_of_ocaml__Dom_html {
       ((int)
        ((int)
         ((dynamic $t79, dynamic $param) ==> {return $t79->top;})($r, $bp_) - $bo_) -
-         $bm_);
+         $bm_) as dynamic;
       $br_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 814972914, 125), $x);
       };
@@ -1430,7 +1430,7 @@ final class Js_of_ocaml__Dom_html {
         return $call1($caml_get_public_method($x, 1040845960, 131), $x);
       };
       $be_ = (int)
-      (((dynamic $t87, dynamic $param) ==> {return $t87->scrollTop;})($body, $bd_) + $bc_);
+      (((dynamic $t87, dynamic $param) ==> {return $t87->scrollTop;})($body, $bd_) + $bc_) as dynamic;
       $bf_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 91199156, 132), $x);
       };
@@ -1452,7 +1452,7 @@ final class Js_of_ocaml__Dom_html {
           return $call1($caml_get_public_method($x, -639606286, 134), $x);
         };
         $match = ((dynamic $t92, dynamic $param) ==> {return $t92->button;})($ev, $a9_);
-        $switcher = (int) ($match + -1);
+        $switcher = (int) ($match + -1) as dynamic;
         if (! (3 < $unsigned_right_shift_32($switcher, 0))) {
           switch($switcher) {
             // FALLTHROUGH
@@ -1504,7 +1504,7 @@ final class Js_of_ocaml__Dom_html {
                 return $t101->wheelDeltaX;
               })($e, $aS_);
              $dx = (int)
-             ((int) - $call2($Js_of_ocaml_Js[6][8], $aT_, $aR_) / 40);
+             ((int) - $call2($Js_of_ocaml_Js[6][8], $aT_, $aR_) / 40) as dynamic;
              $aU_ = (dynamic $param) ==> {
                $aX_ = (dynamic $x) ==> {
                  return $call1($caml_get_public_method($x, 644780381, 138), $x
@@ -1520,7 +1520,7 @@ final class Js_of_ocaml__Dom_html {
                 return $t99->wheelDeltaY;
               })($e, $aV_);
              $dy = (int)
-             ((int) - $call2($Js_of_ocaml_Js[6][8], $aW_, $aU_) / 40);
+             ((int) - $call2($Js_of_ocaml_Js[6][8], $aW_, $aU_) / 40) as dynamic;
              return $call3($h, $e, $dx, $dy);
            }
          ),
@@ -1762,7 +1762,7 @@ final class Js_of_ocaml__Dom_html {
       }
       else {
         if (16 <= $param) {
-          $switcher = (int) ($param + -16);
+          $switcher = (int) ($param + -16) as dynamic;
           switch($switcher) {
             // FALLTHROUGH
             case 0:
@@ -1784,7 +1784,7 @@ final class Js_of_ocaml__Dom_html {
       }
       else {
         if (16 <= $param) {
-          $switcher = (int) ($param + -16);
+          $switcher = (int) ($param + -16) as dynamic;
           switch($switcher) {
             // FALLTHROUGH
             case 0:
@@ -1802,7 +1802,7 @@ final class Js_of_ocaml__Dom_html {
     };
     $try_key_code_numpad = (dynamic $param) ==> {
       if (47 <= $param) {
-        $switcher = (int) ($param + -96);
+        $switcher = (int) ($param + -96) as dynamic;
         if (! (15 < $unsigned_right_shift_32($switcher, 0))) {
           switch($switcher) {
             // FALLTHROUGH
@@ -1857,7 +1857,7 @@ final class Js_of_ocaml__Dom_html {
       }
       else {
         if (12 <= $param) {
-          $switcher__0 = (int) ($param + -12);
+          $switcher__0 = (int) ($param + -12) as dynamic;
           switch($switcher__0) {
             // FALLTHROUGH
             case 0:
@@ -1901,7 +1901,7 @@ final class Js_of_ocaml__Dom_html {
       return 0;
     };
     $try_key_code_normal = (dynamic $param) ==> {
-      $switcher = (int) ($param + -8);
+      $switcher = (int) ($param + -8) as dynamic;
       if (! (214 < $unsigned_right_shift_32($switcher, 0))) {
         $aQ_ = $switcher;
         if (67 <= $aQ_) {
@@ -2172,7 +2172,7 @@ final class Js_of_ocaml__Dom_html {
         return $call1($caml_get_public_method($x, -448369099, 144), $x);
       };
       $match = ((dynamic $t103, dynamic $param) ==> {return $t103->location;})($evt, $aI_);
-      $switcher = (int) ($match + -1);
+      $switcher = (int) ($match + -1) as dynamic;
       if (2 < $unsigned_right_shift_32($switcher, 0)) {return $make_unidentified;}
       switch($switcher) {
         // FALLTHROUGH
@@ -2219,7 +2219,10 @@ final class Js_of_ocaml__Dom_html {
     };
     $char_of_int = (dynamic $value) ==> {
       if (0 < $value) {
-        try {$az_ = Vector{0, $call1($Uchar[8], $value)};return $az_;}
+        try {
+          $az_ = Vector{0, $call1($Uchar[8], $value)} as dynamic;
+          return $az_;
+        }
         catch(\Throwable $aA_) {return 0;}
       }
       return 0;
@@ -2247,7 +2250,7 @@ final class Js_of_ocaml__Dom_html {
         $ax_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, 894756598, 149), $x);
         };
-        $ay_ = 0;
+        $ay_ = 0 as dynamic;
         return $char_of_int(
           (int)
           ((dynamic $t107, dynamic $t106, dynamic $param) ==> {return $t107->charCodeAt($t106);
@@ -2271,7 +2274,7 @@ final class Js_of_ocaml__Dom_html {
       );
       if (0 === $runtime["caml_ml_string_length"]($tag)) {return $other($e);}
       $match = $runtime["caml_bytes_unsafe_get"]($tag, 0);
-      $switcher = (int) ($match + -97);
+      $switcher = (int) ($match + -97) as dynamic;
       if (! (21 < $unsigned_right_shift_32($switcher, 0))) {
         switch($switcher) {
           // FALLTHROUGH
@@ -2514,7 +2517,7 @@ final class Js_of_ocaml__Dom_html {
     };
     $requestAnimationFrame = $runtime["caml_js_pure_expr"](
       (dynamic $param) ==> {
-        $w_ = 0;
+        $w_ = 0 as dynamic;
         $x_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, 497949938, 155), $x);
         };
@@ -2524,7 +2527,7 @@ final class Js_of_ocaml__Dom_html {
              return $t125->msRequestAnimationFrame;
            })($window, $x_),
           $w_
-        };
+        } as dynamic;
         $z_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, -153781943, 156), $x);
         };
@@ -2534,7 +2537,7 @@ final class Js_of_ocaml__Dom_html {
              return $t124->oRequestAnimationFrame;
            })($window, $z_),
           $y_
-        };
+        } as dynamic;
         $B_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, -151539242, 157), $x);
         };
@@ -2544,7 +2547,7 @@ final class Js_of_ocaml__Dom_html {
              return $t123->webkitRequestAnimationFrame;
            })($window, $B_),
           $A_
-        };
+        } as dynamic;
         $D_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, -769448896, 158), $x);
         };
@@ -2554,7 +2557,7 @@ final class Js_of_ocaml__Dom_html {
              return $t122->mozRequestAnimationFrame;
            })($window, $D_),
           $C_
-        };
+        } as dynamic;
         $F_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, 240126520, 159), $x);
         };
@@ -2564,7 +2567,7 @@ final class Js_of_ocaml__Dom_html {
              return $t121->requestAnimationFrame;
            })($window, $F_),
           $E_
-        };
+        } as dynamic;
         try {
           $G_ = (dynamic $c) ==> {return $call1($Js_of_ocaml_Js[6][5], $c);};
           $req = $call2($List[33], $G_, $l);
@@ -2578,13 +2581,13 @@ final class Js_of_ocaml__Dom_html {
               $K_ = (dynamic $x) ==> {
                 return $call1($caml_get_public_method($x, 528448451, 160), $x);
               };
-              $L_ = 0;
+              $L_ = 0 as dynamic;
               $M_ = $Js_of_ocaml_Js[22];
               $N_ = ((dynamic $t119, dynamic $param) ==> {return new $t119();})($M_, $L_);
               return ((dynamic $t120, dynamic $param) ==> {return $t120->getTime();
                })($N_, $K_);
             };
-            $last = Vector{0, $now(0)};
+            $last = Vector{0, $now(0)} as dynamic;
             return (dynamic $callback) ==> {
               $t = $now(0);
               $dt = $last[1] + 16.6666666666666679 - $t;
@@ -2629,17 +2632,18 @@ final class Js_of_ocaml__Dom_html {
       $p_ = ((dynamic $t129, dynamic $param) ==> {return $t129->required;})($i, $o_);
       return $call1($Js_of_ocaml_Js[6][5], $p_);
     };
-    $overflow_limit = 2147483000;
+    $overflow_limit = 2147483000 as dynamic;
     $setTimeout = (dynamic $callback, dynamic $d) ==> {
       $loop = new Ref();
-      $id = Vector{0, 0};
+      $id = Vector{0, 0} as dynamic;
       $loop->contents = (dynamic $step, dynamic $param) ==> {
         if (2147483000 < $step) {
           $k_ = $step - 2147483000;
           $step__0 = $overflow_limit;
           $remain = $k_;
         }
-        else {$remain__0 = 0;$step__0 = $step;$remain = $remain__0;}
+        else {$remain__0 = 0 as dynamic;$step__0 = $step;$remain = $remain__0;
+        }
         $cb = $remain == 0
           ? $callback
           : ((dynamic $n_) ==> {return $loop->contents($remain, $n_);});
@@ -2866,16 +2870,10 @@ final class Js_of_ocaml__Dom_html {
       $hasPushState,
       $hasPlaceholder,
       $hasRequired
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Dom_html);
 
-  }
-  public static function d(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function document(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function getElementById_opt(dynamic $id): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$id]);
@@ -2892,35 +2890,8 @@ final class Js_of_ocaml__Dom_html {
   public static function location_origin(dynamic $loc): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$loc]);
   }
-  public static function window(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
-  public static function no_handler(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
-  }
-  public static function handler(): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[]);
-  }
-  public static function full_handler(): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[]);
-  }
-  public static function invoke_handler(): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[]);
-  }
-  public static function eventTarget(): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[]);
-  }
   public static function eventRelatedTarget(dynamic $e): dynamic {
     return static::callRehackFunction(static::requireModule()[14], varray[$e]);
-  }
-  public static function Event(): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[]);
-  }
-  public static function addEventListener(): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[]);
-  }
-  public static function removeEventListener(): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[]);
   }
   public static function addMousewheelEventListener(dynamic $e, dynamic $h, dynamic $capt): dynamic {
     return static::callRehackFunction(static::requireModule()[18], varray[$e, $h, $capt]);
@@ -3180,9 +3151,6 @@ final class Js_of_ocaml__Dom_html {
   public static function createVideo(dynamic $doc): dynamic {
     return static::callRehackFunction(static::requireModule()[105], varray[$doc]);
   }
-  public static function Canvas_not_available(): dynamic {
-    return static::callRehackFunction(static::requireModule()[106], varray[]);
-  }
   public static function createCanvas(dynamic $doc): dynamic {
     return static::callRehackFunction(static::requireModule()[107], varray[$doc]);
   }
@@ -3212,12 +3180,6 @@ final class Js_of_ocaml__Dom_html {
   }
   public static function js_array_of_collection(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[117], varray[$c]);
-  }
-  public static function requestAnimationFrame(): dynamic {
-    return static::callRehackFunction(static::requireModule()[118], varray[]);
-  }
-  public static function onIE(): dynamic {
-    return static::callRehackFunction(static::requireModule()[120], varray[]);
   }
   public static function hasPushState(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[121], varray[$param]);

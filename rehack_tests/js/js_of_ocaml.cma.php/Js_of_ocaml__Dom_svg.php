@@ -136,7 +136,7 @@ final class Js_of_ocaml__Dom_svg {
       248,
       $cst_Js_of_ocaml_Dom_svg_SVGError,
       $runtime["caml_fresh_oo_id"](0)
-    };
+    } as dynamic;
     $createElement = (dynamic $doc, dynamic $name) ==> {
       $q_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -387984539, 288), $x);
@@ -558,16 +558,10 @@ final class Js_of_ocaml__Dom_svg {
         $view,
         $vkern
       }
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Dom_svg);
 
-  }
-  public static function xmlns(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function SVGError(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function createElement(dynamic $doc, dynamic $name): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$doc, $name]);
@@ -733,12 +727,6 @@ final class Js_of_ocaml__Dom_svg {
   }
   public static function createvkern(dynamic $doc): dynamic {
     return static::callRehackFunction(static::requireModule()[57], varray[$doc]);
-  }
-  public static function svg_element(): dynamic {
-    return static::callRehackFunction(static::requireModule()[58], varray[]);
-  }
-  public static function document(): dynamic {
-    return static::callRehackFunction(static::requireModule()[59], varray[]);
   }
   public static function getElementById(dynamic $id): dynamic {
     return static::callRehackFunction(static::requireModule()[60], varray[$id]);

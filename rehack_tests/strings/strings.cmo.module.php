@@ -73,8 +73,8 @@ final class Strings {
     $Not_found =  Not_found::requireModule ();
     $StringHelper =  StringHelper::requireModule ();
     $Failure =  Failure::requireModule ();
-    $r_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
-    $s_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}};
+    $r_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}} as dynamic;
+    $s_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}} as dynamic;
     
     $call1($Pervasives[34], $greeting);
     
@@ -102,7 +102,7 @@ final class Strings {
     
     $call1($Pervasives[34], $g_);
     
-    $unicodeLength = 2;
+    $unicodeLength = 2 as dynamic;
     
     try {$D_ = $call2($String[14], $cst_asdf, 95);$index__0 = $D_;}
     catch(\Throwable $G_) {
@@ -110,7 +110,7 @@ final class Strings {
       if ($G_ !== $Not_found) {
         throw $caml_wrap_thrown_exception_reraise($G_) as \Throwable;
       }
-      $h_ = -1;
+      $h_ = -1 as dynamic;
       $index__0 = $h_;
     }
     
@@ -167,7 +167,7 @@ final class Strings {
       if ($F_[1] !== $Failure) {
         throw $caml_wrap_thrown_exception_reraise($F_) as \Throwable;
       }
-      $l_ = 102;
+      $l_ = 102 as dynamic;
       $m_ = $l_;
     }
     
@@ -188,7 +188,7 @@ final class Strings {
       if ($E_[1] !== $Failure) {
         throw $caml_wrap_thrown_exception_reraise($E_) as \Throwable;
       }
-      $n_ = 102;
+      $n_ = 102 as dynamic;
       $o_ = $n_;
     }
     
@@ -209,9 +209,9 @@ final class Strings {
       );
     }
     
-    $myRefCell = Vector{0, 0};
-    $one__0 = Vector{0, $r_};
-    $two = Vector{0, $s_};
+    $myRefCell = Vector{0, 0} as dynamic;
+    $one__0 = Vector{0, $r_} as dynamic;
+    $two = Vector{0, $s_} as dynamic;
     $t_ = $call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
     $u_ = $call2($Pervasives[16], $cst_ARE_T, $t_);
     
@@ -258,52 +258,16 @@ final class Strings {
       $two,
       $n,
       $anotherName
-    };
+    } as dynamic;
     
      return ($Strings);
 
-  }
-  public static function greeting(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function unicodeLength(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function negativeOne(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
-  }
-  public static function six(): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[]);
-  }
-  public static function index(): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[]);
   }
   public static function createIntFromString(dynamic $ss): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$ss]);
   }
   public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope]);
-  }
-  public static function i(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
-  public static function myRefCell(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
-  }
-  public static function myRefCellContents(): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[]);
-  }
-  public static function one(): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[]);
-  }
-  public static function two(): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[]);
-  }
-  public static function n(): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[]);
-  }
-  public static function anotherName(): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
 
 }

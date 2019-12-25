@@ -114,8 +114,8 @@ final class Js_of_ocaml__CSS {
     );
     $cst_is_not_a_valid_color = $string(" is not a valid color");
     $cst_is_out_of_valid_range = $string(" is out of valid range");
-    $partial = Vector{8, 0, 0, 0, Vector{12, 41, 0}};
-    $partial__0 = Vector{12, 41, 0};
+    $partial = Vector{8, 0, 0, 0, Vector{12, 41, 0}} as dynamic;
+    $partial__0 = Vector{12, 41, 0} as dynamic;
     $cst_lightgrey__0 = $string("lightgrey");
     $cst_darkslategray__0 = $string("darkslategray");
     $cst_cornsilk__0 = $string("cornsilk");
@@ -418,24 +418,24 @@ final class Js_of_ocaml__CSS {
     $Failure =  Failure::requireModule ();
     $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $List =  List_::requireModule ();
-    $b2_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $b3_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $b4_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $b5_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bO_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bP_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bQ_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bR_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bS_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bT_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bU_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bV_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bW_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bX_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bY_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $bZ_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $b0_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
-    $b1_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")};
+    $b2_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $b3_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $b4_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $b5_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bO_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bP_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bQ_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bR_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bS_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bT_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bU_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bV_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bW_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bX_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bY_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $bZ_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $b0_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $b1_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
     $bN_ = $caml_list_of_js_array(
       varray[
         $string("aliceblue"),
@@ -602,7 +602,7 @@ final class Js_of_ocaml__CSS {
         }
       },
       $string("#%02X%02X%02X")
-    };
+    } as dynamic;
     $bG_ = Vector{
       0,
       Vector{
@@ -627,7 +627,7 @@ final class Js_of_ocaml__CSS {
         }
       },
       $string("rgb(%d,%d,%d)")
-    };
+    } as dynamic;
     $bH_ = Vector{
       0,
       Vector{
@@ -664,7 +664,7 @@ final class Js_of_ocaml__CSS {
         }
       },
       $string("rgb(%d%%,%d%%,%d%%)")
-    };
+    } as dynamic;
     $bI_ = Vector{
       0,
       Vector{
@@ -699,7 +699,7 @@ final class Js_of_ocaml__CSS {
         }
       },
       $string("rgba(%d,%d,%d,%f)")
-    };
+    } as dynamic;
     $bJ_ = Vector{
       0,
       Vector{
@@ -736,7 +736,7 @@ final class Js_of_ocaml__CSS {
         }
       },
       $string("rgba(%d%%,%d%%,%d%%,%f)")
-    };
+    } as dynamic;
     $bK_ = Vector{
       0,
       Vector{
@@ -769,7 +769,7 @@ final class Js_of_ocaml__CSS {
         }
       },
       $string("hsl(%d,%d%%,%d%%)")
-    };
+    } as dynamic;
     $bL_ = Vector{
       0,
       Vector{
@@ -812,154 +812,154 @@ final class Js_of_ocaml__CSS {
         }
       },
       $string("hsla(%d,%d%%,%d%%,%f)")
-    };
-    $a_ = Vector{0, 240, 248, 255};
-    $b_ = Vector{0, 250, 235, 215};
-    $c_ = Vector{0, 0, 255, 255};
-    $d_ = Vector{0, 127, 255, 212};
-    $e_ = Vector{0, 240, 255, 255};
-    $f_ = Vector{0, 245, 245, 220};
-    $g_ = Vector{0, 255, 228, 196};
-    $h_ = Vector{0, 0, 0, 0};
-    $i_ = Vector{0, 255, 235, 205};
-    $j_ = Vector{0, 0, 0, 255};
-    $k_ = Vector{0, 138, 43, 226};
-    $l_ = Vector{0, 165, 42, 42};
-    $m_ = Vector{0, 222, 184, 135};
-    $n_ = Vector{0, 95, 158, 160};
-    $o_ = Vector{0, 127, 255, 0};
-    $p_ = Vector{0, 210, 105, 30};
-    $q_ = Vector{0, 255, 127, 80};
-    $r_ = Vector{0, 100, 149, 237};
-    $s_ = Vector{0, 255, 248, 220};
-    $t_ = Vector{0, 220, 20, 60};
-    $u_ = Vector{0, 0, 255, 255};
-    $v_ = Vector{0, 0, 0, 139};
-    $w_ = Vector{0, 0, 139, 139};
-    $x_ = Vector{0, 184, 134, 11};
-    $y_ = Vector{0, 169, 169, 169};
-    $z_ = Vector{0, 0, 100, 0};
-    $A_ = Vector{0, 169, 169, 169};
-    $B_ = Vector{0, 189, 183, 107};
-    $C_ = Vector{0, 139, 0, 139};
-    $D_ = Vector{0, 85, 107, 47};
-    $E_ = Vector{0, 255, 140, 0};
-    $F_ = Vector{0, 153, 50, 204};
-    $G_ = Vector{0, 139, 0, 0};
-    $H_ = Vector{0, 233, 150, 122};
-    $I_ = Vector{0, 143, 188, 143};
-    $J_ = Vector{0, 72, 61, 139};
-    $K_ = Vector{0, 47, 79, 79};
-    $L_ = Vector{0, 47, 79, 79};
-    $M_ = Vector{0, 0, 206, 209};
-    $N_ = Vector{0, 148, 0, 211};
-    $O_ = Vector{0, 255, 20, 147};
-    $P_ = Vector{0, 0, 191, 255};
-    $Q_ = Vector{0, 105, 105, 105};
-    $R_ = Vector{0, 105, 105, 105};
-    $S_ = Vector{0, 30, 144, 255};
-    $T_ = Vector{0, 178, 34, 34};
-    $U_ = Vector{0, 255, 250, 240};
-    $V_ = Vector{0, 34, 139, 34};
-    $W_ = Vector{0, 255, 0, 255};
-    $X_ = Vector{0, 220, 220, 220};
-    $Y_ = Vector{0, 248, 248, 255};
-    $Z_ = Vector{0, 255, 215, 0};
-    $aa_ = Vector{0, 218, 165, 32};
-    $ab_ = Vector{0, 128, 128, 128};
-    $ac_ = Vector{0, 128, 128, 128};
-    $ad_ = Vector{0, 0, 128, 0};
-    $ae_ = Vector{0, 173, 255, 47};
-    $af_ = Vector{0, 240, 255, 240};
-    $ag_ = Vector{0, 255, 105, 180};
-    $ah_ = Vector{0, 205, 92, 92};
-    $ai_ = Vector{0, 75, 0, 130};
-    $aj_ = Vector{0, 255, 255, 240};
-    $ak_ = Vector{0, 240, 230, 140};
-    $al_ = Vector{0, 230, 230, 250};
-    $am_ = Vector{0, 255, 240, 245};
-    $an_ = Vector{0, 124, 252, 0};
-    $ao_ = Vector{0, 255, 250, 205};
-    $ap_ = Vector{0, 173, 216, 230};
-    $aq_ = Vector{0, 240, 128, 128};
-    $ar_ = Vector{0, 224, 255, 255};
-    $as_ = Vector{0, 250, 250, 210};
-    $at_ = Vector{0, 211, 211, 211};
-    $au_ = Vector{0, 144, 238, 144};
-    $av_ = Vector{0, 211, 211, 211};
-    $aw_ = Vector{0, 255, 182, 193};
-    $ax_ = Vector{0, 255, 160, 122};
-    $ay_ = Vector{0, 32, 178, 170};
-    $az_ = Vector{0, 135, 206, 250};
-    $aA_ = Vector{0, 119, 136, 153};
-    $aB_ = Vector{0, 119, 136, 153};
-    $aC_ = Vector{0, 176, 196, 222};
-    $aD_ = Vector{0, 255, 255, 224};
-    $aE_ = Vector{0, 0, 255, 0};
-    $aF_ = Vector{0, 50, 205, 50};
-    $aG_ = Vector{0, 250, 240, 230};
-    $aH_ = Vector{0, 255, 0, 255};
-    $aI_ = Vector{0, 128, 0, 0};
-    $aJ_ = Vector{0, 102, 205, 170};
-    $aK_ = Vector{0, 0, 0, 205};
-    $aL_ = Vector{0, 186, 85, 211};
-    $aM_ = Vector{0, 147, 112, 219};
-    $aN_ = Vector{0, 60, 179, 113};
-    $aO_ = Vector{0, 123, 104, 238};
-    $aP_ = Vector{0, 0, 250, 154};
-    $aQ_ = Vector{0, 72, 209, 204};
-    $aR_ = Vector{0, 199, 21, 133};
-    $aS_ = Vector{0, 25, 25, 112};
-    $aT_ = Vector{0, 245, 255, 250};
-    $aU_ = Vector{0, 255, 228, 225};
-    $aV_ = Vector{0, 255, 228, 181};
-    $aW_ = Vector{0, 255, 222, 173};
-    $aX_ = Vector{0, 0, 0, 128};
-    $aY_ = Vector{0, 253, 245, 230};
-    $aZ_ = Vector{0, 128, 128, 0};
-    $a0_ = Vector{0, 107, 142, 35};
-    $a1_ = Vector{0, 255, 165, 0};
-    $a2_ = Vector{0, 255, 69, 0};
-    $a3_ = Vector{0, 218, 112, 214};
-    $a4_ = Vector{0, 238, 232, 170};
-    $a5_ = Vector{0, 152, 251, 152};
-    $a6_ = Vector{0, 175, 238, 238};
-    $a7_ = Vector{0, 219, 112, 147};
-    $a8_ = Vector{0, 255, 239, 213};
-    $a9_ = Vector{0, 255, 218, 185};
-    $a__ = Vector{0, 205, 133, 63};
-    $ba_ = Vector{0, 255, 192, 203};
-    $bb_ = Vector{0, 221, 160, 221};
-    $bc_ = Vector{0, 176, 224, 230};
-    $bd_ = Vector{0, 128, 0, 128};
-    $be_ = Vector{0, 255, 0, 0};
-    $bf_ = Vector{0, 188, 143, 143};
-    $bg_ = Vector{0, 65, 105, 225};
-    $bh_ = Vector{0, 139, 69, 19};
-    $bi_ = Vector{0, 250, 128, 114};
-    $bj_ = Vector{0, 244, 164, 96};
-    $bk_ = Vector{0, 46, 139, 87};
-    $bl_ = Vector{0, 255, 245, 238};
-    $bm_ = Vector{0, 160, 82, 45};
-    $bn_ = Vector{0, 192, 192, 192};
-    $bo_ = Vector{0, 135, 206, 235};
-    $bp_ = Vector{0, 106, 90, 205};
-    $bq_ = Vector{0, 112, 128, 144};
-    $br_ = Vector{0, 112, 128, 144};
-    $bs_ = Vector{0, 255, 250, 250};
-    $bt_ = Vector{0, 0, 255, 127};
-    $bu_ = Vector{0, 70, 130, 180};
-    $bv_ = Vector{0, 210, 180, 140};
-    $bw_ = Vector{0, 0, 128, 128};
-    $bx_ = Vector{0, 216, 191, 216};
-    $by_ = Vector{0, 255, 99, 71};
-    $bz_ = Vector{0, 64, 224, 208};
-    $bA_ = Vector{0, 238, 130, 238};
-    $bB_ = Vector{0, 245, 222, 179};
-    $bC_ = Vector{0, 255, 255, 255};
-    $bD_ = Vector{0, 245, 245, 245};
-    $bE_ = Vector{0, 255, 255, 0};
-    $bF_ = Vector{0, 154, 205, 50};
+    } as dynamic;
+    $a_ = Vector{0, 240, 248, 255} as dynamic;
+    $b_ = Vector{0, 250, 235, 215} as dynamic;
+    $c_ = Vector{0, 0, 255, 255} as dynamic;
+    $d_ = Vector{0, 127, 255, 212} as dynamic;
+    $e_ = Vector{0, 240, 255, 255} as dynamic;
+    $f_ = Vector{0, 245, 245, 220} as dynamic;
+    $g_ = Vector{0, 255, 228, 196} as dynamic;
+    $h_ = Vector{0, 0, 0, 0} as dynamic;
+    $i_ = Vector{0, 255, 235, 205} as dynamic;
+    $j_ = Vector{0, 0, 0, 255} as dynamic;
+    $k_ = Vector{0, 138, 43, 226} as dynamic;
+    $l_ = Vector{0, 165, 42, 42} as dynamic;
+    $m_ = Vector{0, 222, 184, 135} as dynamic;
+    $n_ = Vector{0, 95, 158, 160} as dynamic;
+    $o_ = Vector{0, 127, 255, 0} as dynamic;
+    $p_ = Vector{0, 210, 105, 30} as dynamic;
+    $q_ = Vector{0, 255, 127, 80} as dynamic;
+    $r_ = Vector{0, 100, 149, 237} as dynamic;
+    $s_ = Vector{0, 255, 248, 220} as dynamic;
+    $t_ = Vector{0, 220, 20, 60} as dynamic;
+    $u_ = Vector{0, 0, 255, 255} as dynamic;
+    $v_ = Vector{0, 0, 0, 139} as dynamic;
+    $w_ = Vector{0, 0, 139, 139} as dynamic;
+    $x_ = Vector{0, 184, 134, 11} as dynamic;
+    $y_ = Vector{0, 169, 169, 169} as dynamic;
+    $z_ = Vector{0, 0, 100, 0} as dynamic;
+    $A_ = Vector{0, 169, 169, 169} as dynamic;
+    $B_ = Vector{0, 189, 183, 107} as dynamic;
+    $C_ = Vector{0, 139, 0, 139} as dynamic;
+    $D_ = Vector{0, 85, 107, 47} as dynamic;
+    $E_ = Vector{0, 255, 140, 0} as dynamic;
+    $F_ = Vector{0, 153, 50, 204} as dynamic;
+    $G_ = Vector{0, 139, 0, 0} as dynamic;
+    $H_ = Vector{0, 233, 150, 122} as dynamic;
+    $I_ = Vector{0, 143, 188, 143} as dynamic;
+    $J_ = Vector{0, 72, 61, 139} as dynamic;
+    $K_ = Vector{0, 47, 79, 79} as dynamic;
+    $L_ = Vector{0, 47, 79, 79} as dynamic;
+    $M_ = Vector{0, 0, 206, 209} as dynamic;
+    $N_ = Vector{0, 148, 0, 211} as dynamic;
+    $O_ = Vector{0, 255, 20, 147} as dynamic;
+    $P_ = Vector{0, 0, 191, 255} as dynamic;
+    $Q_ = Vector{0, 105, 105, 105} as dynamic;
+    $R_ = Vector{0, 105, 105, 105} as dynamic;
+    $S_ = Vector{0, 30, 144, 255} as dynamic;
+    $T_ = Vector{0, 178, 34, 34} as dynamic;
+    $U_ = Vector{0, 255, 250, 240} as dynamic;
+    $V_ = Vector{0, 34, 139, 34} as dynamic;
+    $W_ = Vector{0, 255, 0, 255} as dynamic;
+    $X_ = Vector{0, 220, 220, 220} as dynamic;
+    $Y_ = Vector{0, 248, 248, 255} as dynamic;
+    $Z_ = Vector{0, 255, 215, 0} as dynamic;
+    $aa_ = Vector{0, 218, 165, 32} as dynamic;
+    $ab_ = Vector{0, 128, 128, 128} as dynamic;
+    $ac_ = Vector{0, 128, 128, 128} as dynamic;
+    $ad_ = Vector{0, 0, 128, 0} as dynamic;
+    $ae_ = Vector{0, 173, 255, 47} as dynamic;
+    $af_ = Vector{0, 240, 255, 240} as dynamic;
+    $ag_ = Vector{0, 255, 105, 180} as dynamic;
+    $ah_ = Vector{0, 205, 92, 92} as dynamic;
+    $ai_ = Vector{0, 75, 0, 130} as dynamic;
+    $aj_ = Vector{0, 255, 255, 240} as dynamic;
+    $ak_ = Vector{0, 240, 230, 140} as dynamic;
+    $al_ = Vector{0, 230, 230, 250} as dynamic;
+    $am_ = Vector{0, 255, 240, 245} as dynamic;
+    $an_ = Vector{0, 124, 252, 0} as dynamic;
+    $ao_ = Vector{0, 255, 250, 205} as dynamic;
+    $ap_ = Vector{0, 173, 216, 230} as dynamic;
+    $aq_ = Vector{0, 240, 128, 128} as dynamic;
+    $ar_ = Vector{0, 224, 255, 255} as dynamic;
+    $as_ = Vector{0, 250, 250, 210} as dynamic;
+    $at_ = Vector{0, 211, 211, 211} as dynamic;
+    $au_ = Vector{0, 144, 238, 144} as dynamic;
+    $av_ = Vector{0, 211, 211, 211} as dynamic;
+    $aw_ = Vector{0, 255, 182, 193} as dynamic;
+    $ax_ = Vector{0, 255, 160, 122} as dynamic;
+    $ay_ = Vector{0, 32, 178, 170} as dynamic;
+    $az_ = Vector{0, 135, 206, 250} as dynamic;
+    $aA_ = Vector{0, 119, 136, 153} as dynamic;
+    $aB_ = Vector{0, 119, 136, 153} as dynamic;
+    $aC_ = Vector{0, 176, 196, 222} as dynamic;
+    $aD_ = Vector{0, 255, 255, 224} as dynamic;
+    $aE_ = Vector{0, 0, 255, 0} as dynamic;
+    $aF_ = Vector{0, 50, 205, 50} as dynamic;
+    $aG_ = Vector{0, 250, 240, 230} as dynamic;
+    $aH_ = Vector{0, 255, 0, 255} as dynamic;
+    $aI_ = Vector{0, 128, 0, 0} as dynamic;
+    $aJ_ = Vector{0, 102, 205, 170} as dynamic;
+    $aK_ = Vector{0, 0, 0, 205} as dynamic;
+    $aL_ = Vector{0, 186, 85, 211} as dynamic;
+    $aM_ = Vector{0, 147, 112, 219} as dynamic;
+    $aN_ = Vector{0, 60, 179, 113} as dynamic;
+    $aO_ = Vector{0, 123, 104, 238} as dynamic;
+    $aP_ = Vector{0, 0, 250, 154} as dynamic;
+    $aQ_ = Vector{0, 72, 209, 204} as dynamic;
+    $aR_ = Vector{0, 199, 21, 133} as dynamic;
+    $aS_ = Vector{0, 25, 25, 112} as dynamic;
+    $aT_ = Vector{0, 245, 255, 250} as dynamic;
+    $aU_ = Vector{0, 255, 228, 225} as dynamic;
+    $aV_ = Vector{0, 255, 228, 181} as dynamic;
+    $aW_ = Vector{0, 255, 222, 173} as dynamic;
+    $aX_ = Vector{0, 0, 0, 128} as dynamic;
+    $aY_ = Vector{0, 253, 245, 230} as dynamic;
+    $aZ_ = Vector{0, 128, 128, 0} as dynamic;
+    $a0_ = Vector{0, 107, 142, 35} as dynamic;
+    $a1_ = Vector{0, 255, 165, 0} as dynamic;
+    $a2_ = Vector{0, 255, 69, 0} as dynamic;
+    $a3_ = Vector{0, 218, 112, 214} as dynamic;
+    $a4_ = Vector{0, 238, 232, 170} as dynamic;
+    $a5_ = Vector{0, 152, 251, 152} as dynamic;
+    $a6_ = Vector{0, 175, 238, 238} as dynamic;
+    $a7_ = Vector{0, 219, 112, 147} as dynamic;
+    $a8_ = Vector{0, 255, 239, 213} as dynamic;
+    $a9_ = Vector{0, 255, 218, 185} as dynamic;
+    $a__ = Vector{0, 205, 133, 63} as dynamic;
+    $ba_ = Vector{0, 255, 192, 203} as dynamic;
+    $bb_ = Vector{0, 221, 160, 221} as dynamic;
+    $bc_ = Vector{0, 176, 224, 230} as dynamic;
+    $bd_ = Vector{0, 128, 0, 128} as dynamic;
+    $be_ = Vector{0, 255, 0, 0} as dynamic;
+    $bf_ = Vector{0, 188, 143, 143} as dynamic;
+    $bg_ = Vector{0, 65, 105, 225} as dynamic;
+    $bh_ = Vector{0, 139, 69, 19} as dynamic;
+    $bi_ = Vector{0, 250, 128, 114} as dynamic;
+    $bj_ = Vector{0, 244, 164, 96} as dynamic;
+    $bk_ = Vector{0, 46, 139, 87} as dynamic;
+    $bl_ = Vector{0, 255, 245, 238} as dynamic;
+    $bm_ = Vector{0, 160, 82, 45} as dynamic;
+    $bn_ = Vector{0, 192, 192, 192} as dynamic;
+    $bo_ = Vector{0, 135, 206, 235} as dynamic;
+    $bp_ = Vector{0, 106, 90, 205} as dynamic;
+    $bq_ = Vector{0, 112, 128, 144} as dynamic;
+    $br_ = Vector{0, 112, 128, 144} as dynamic;
+    $bs_ = Vector{0, 255, 250, 250} as dynamic;
+    $bt_ = Vector{0, 0, 255, 127} as dynamic;
+    $bu_ = Vector{0, 70, 130, 180} as dynamic;
+    $bv_ = Vector{0, 210, 180, 140} as dynamic;
+    $bw_ = Vector{0, 0, 128, 128} as dynamic;
+    $bx_ = Vector{0, 216, 191, 216} as dynamic;
+    $by_ = Vector{0, 255, 99, 71} as dynamic;
+    $bz_ = Vector{0, 64, 224, 208} as dynamic;
+    $bA_ = Vector{0, 238, 130, 238} as dynamic;
+    $bB_ = Vector{0, 245, 222, 179} as dynamic;
+    $bC_ = Vector{0, 255, 255, 255} as dynamic;
+    $bD_ = Vector{0, 245, 245, 245} as dynamic;
+    $bE_ = Vector{0, 255, 255, 0} as dynamic;
+    $bF_ = Vector{0, 154, 205, 50} as dynamic;
     $string_of_name = (dynamic $param) ==> {
       $c3_ = $param;
       if (74 <= $c3_) {
@@ -2193,32 +2193,32 @@ final class Js_of_ocaml__CSS {
       return $call4($Printf[4], $bM_, $red, $green, $blue);
     };
     $js_t_of_js_string = (dynamic $s) ==> {
-      $cB_ = 0;
+      $cB_ = 0 as dynamic;
       $cC_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d);
       $cD_ = $Js_of_ocaml_Js[10];
       $rgb_re = ((dynamic $t23, dynamic $t22, dynamic $param) ==> {return new $t23($t22);
        })($cD_, $cC_, $cB_);
-      $cE_ = 0;
+      $cE_ = 0 as dynamic;
       $cF_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d__0);
       $cG_ = $Js_of_ocaml_Js[10];
       $rgb_pct_re = ((dynamic $t21, dynamic $t20, dynamic $param) ==> {return new $t21($t20);
        })($cG_, $cF_, $cE_);
-      $cH_ = 0;
+      $cH_ = 0 as dynamic;
       $cI_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d);
       $cJ_ = $Js_of_ocaml_Js[10];
       $rgba_re = ((dynamic $t19, dynamic $t18, dynamic $param) ==> {return new $t19($t18);
        })($cJ_, $cI_, $cH_);
-      $cK_ = 0;
+      $cK_ = 0 as dynamic;
       $cL_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d__0);
       $cM_ = $Js_of_ocaml_Js[10];
       $rgba_pct_re = ((dynamic $t17, dynamic $t16, dynamic $param) ==> {return new $t17($t16);
        })($cM_, $cL_, $cK_);
-      $cN_ = 0;
+      $cN_ = 0 as dynamic;
       $cO_ = $caml_jsbytes_of_string($cst_hsl_s_d_s_d_s_d);
       $cP_ = $Js_of_ocaml_Js[10];
       $hsl_re = ((dynamic $t15, dynamic $t14, dynamic $param) ==> {return new $t15($t14);
        })($cP_, $cO_, $cN_);
-      $cQ_ = 0;
+      $cQ_ = 0 as dynamic;
       $cR_ = $caml_jsbytes_of_string($cst_hsla_s_d_s_d_s_d_d_d);
       $cS_ = $Js_of_ocaml_Js[10];
       $hsla_re = ((dynamic $t13, dynamic $t12, dynamic $param) ==> {return new $t13($t12);
@@ -2308,7 +2308,7 @@ final class Js_of_ocaml__CSS {
     };
     $ml = (dynamic $c) ==> {
       $s = $caml_js_to_string($c);
-      try {$cr_ = Vector{0, $name_of_string($s)};return $cr_;}
+      try {$cr_ = Vector{0, $name_of_string($s)} as dynamic;return $cr_;}
       catch(\Throwable $cs_) {
         $cs_ = $runtime["caml_wrap_exception"]($cs_);
         if ($cs_[1] === $Invalid_argument) {
@@ -2603,7 +2603,7 @@ final class Js_of_ocaml__CSS {
       }
       return $fail(0);
     };
-    $Length = Vector{0, $string_of_t__0, $js__0, $ml__0};
+    $Length = Vector{0, $string_of_t__0, $js__0, $ml__0} as dynamic;
     $string_of_t__1 = (dynamic $param) ==> {
       switch($param[0]) {
         // FALLTHROUGH
@@ -2677,7 +2677,7 @@ final class Js_of_ocaml__CSS {
       }
       return $fail(0);
     };
-    $Angle = Vector{0, $string_of_t__1, $js__1, $ml__1};
+    $Angle = Vector{0, $string_of_t__1, $js__1, $ml__1} as dynamic;
     $Js_of_ocaml_CSS = Vector{
       0,
       Vector{
@@ -2694,16 +2694,10 @@ final class Js_of_ocaml__CSS {
       },
       $Length,
       $Angle
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_CSS);
 
-  }
-  public static function Length(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function Angle(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
 
 }

@@ -28,8 +28,6 @@ final class Stack {
       return 0;
     };
     $pop = (dynamic $s) ==> {
-      $tl = null;
-      $hd = null;
       $b_ = $s[1];
       if ($b_) {
         $tl = $b_[2];
@@ -41,7 +39,6 @@ final class Stack {
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $top = (dynamic $s) ==> {
-      $hd = null;
       $a_ = $s[1];
       if ($a_) {$hd = $a_[1];return $hd;}
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;

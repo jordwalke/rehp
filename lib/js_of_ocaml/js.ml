@@ -52,7 +52,7 @@ module Unsafe = struct
   external fun_call : 'a -> any array -> 'b = "caml_js_fun_call"
 
   external fun_call0 : 'a -> 'b = "caml_js_fun_call0"
-  
+
   external fun_call1 : 'a -> 'b -> 'c = "caml_js_fun_call1"
 
   external fun_call2 : 'a -> 'b -> 'c -> 'd = "caml_js_fun_call2"
@@ -65,11 +65,13 @@ module Unsafe = struct
 
   external meth_call : 'a -> string -> any array -> 'b = "caml_js_meth_call"
 
-  external meth_call1 : 'a -> string -> 'b -> 'c  = "caml_js_meth_call1"
+  external meth_call1 : 'a -> string -> 'b -> 'c = "caml_js_meth_call1"
 
   external meth_call2 : 'a -> string -> 'b -> 'c -> 'd = "caml_js_meth_call2"
 
   external meth_call3 : 'a -> string -> 'b -> 'c -> 'd -> 'e = "caml_js_meth_call3"
+
+  (* external meth_call4 : 'a -> string -> 'b -> 'c -> 'd -> 'e -> 'f = "caml_js_meth_call4" *)
 
   external new_obj : 'a -> any array -> 'b = "caml_js_new"
 
@@ -85,6 +87,14 @@ module Unsafe = struct
 
   external raw_expr : string -> 'a = "caml_js_raw_expr"
 
+  external raw_expr1 : string -> 'a -> 'b = "caml_js_raw_expr"
+
+  external raw_expr2 : string -> 'a -> 'b -> 'c = "caml_js_raw_expr"
+
+  external raw_expr3 : string -> 'a -> 'b -> 'c -> 'd = "caml_js_raw_expr"
+
+  external raw_expr4 : string -> 'a -> 'b -> 'c -> 'd -> 'e = "caml_js_raw_expr"
+
   external js_expr : string -> 'a = "caml_js_expr"
 
   external pure_js_expr : string -> 'a = "caml_pure_js_expr"
@@ -97,16 +107,13 @@ module Unsafe = struct
     (any_js_array -> 'b) -> ('c, any_js_array -> 'b) meth_callback
     = "caml_js_wrap_callback_arguments"
 
-  external callback_with_arity :
-    int -> ('a -> 'b) -> ('c, 'a -> 'b) meth_callback
+  external callback_with_arity : int -> ('a -> 'b) -> ('c, 'a -> 'b) meth_callback
     = "caml_js_wrap_callback_strict"
 
-  external meth_callback :
-    ('b -> 'a) -> ('b, 'a) meth_callback
+  external meth_callback : ('b -> 'a) -> ('b, 'a) meth_callback
     = "caml_js_wrap_meth_callback_unsafe"
 
-  external meth_callback_with_arity :
-    int -> ('b -> 'a) -> ('b, 'a) meth_callback
+  external meth_callback_with_arity : int -> ('b -> 'a) -> ('b, 'a) meth_callback
     = "caml_js_wrap_meth_callback_strict"
 
   external meth_callback_with_arguments :
@@ -176,7 +183,10 @@ module Opt : OPT with type 'a t = 'a opt = struct
 
   let get x f = if Unsafe.equals x null then f () else x
 
-  let option x = match x with None -> empty | Some x -> return x
+  let option x =
+    match x with
+    | None -> empty
+    | Some x -> return x
 
   let to_option x = case x (fun () -> None) (fun x -> Some x)
 end
@@ -200,7 +210,10 @@ module Optdef : OPT with type 'a t = 'a optdef = struct
 
   let get x f = if x == undefined then f () else x
 
-  let option x = match x with None -> empty | Some x -> return x
+  let option x =
+    match x with
+    | None -> empty
+    | Some x -> return x
 
   let to_option x = case x (fun () -> None) (fun x -> Some x)
 end
@@ -231,12 +244,10 @@ type +'a constr
 
 type 'a callback = (unit, 'a) meth_callback
 
-external wrap_callback :
-  ('a -> 'b) -> ('c, 'a -> 'b) meth_callback
+external wrap_callback : ('a -> 'b) -> ('c, 'a -> 'b) meth_callback
   = "caml_js_wrap_callback"
 
-external wrap_meth_callback :
-  ('a -> 'b) -> ('a, 'b) meth_callback
+external wrap_meth_callback : ('a -> 'b) -> ('a, 'b) meth_callback
   = "caml_js_wrap_meth_callback"
 
 (****)
@@ -755,12 +766,12 @@ let parseFloat (s : js_string t) : float =
 let _ =
   Printexc.register_printer (function
       | Error e -> Some (to_string e##toString)
-      | _ -> None )
+      | _ -> None)
 
 let _ =
   Printexc.register_printer (fun e ->
       let e : < .. > t = Obj.magic e in
-      if instanceof e array_constructor then None else Some (to_string e##toString) )
+      if instanceof e array_constructor then None else Some (to_string e##toString))
 
 let string_of_error e = to_string e##toString
 

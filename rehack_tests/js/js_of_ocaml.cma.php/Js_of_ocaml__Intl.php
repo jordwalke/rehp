@@ -32,10 +32,10 @@ final class Js_of_ocaml__Intl {
       $string("localeMatcher"),
       $string("usage"),
       $string("numeric")
-    };
+    } as dynamic;
     $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $CamlinternalOO =  CamlinternalOO::requireModule ();
-    $a_ = Vector{0, $string("_type"), $string("localeMatcher")};
+    $a_ = Vector{0, $string("_type"), $string("localeMatcher")} as dynamic;
     $b_ = Vector{
       0,
       $string("year"),
@@ -52,7 +52,7 @@ final class Js_of_ocaml__Intl {
       $string("formatMatcher"),
       $string("era"),
       $string("day")
-    };
+    } as dynamic;
     $c_ = Vector{
       0,
       $string("useGrouping"),
@@ -65,8 +65,8 @@ final class Js_of_ocaml__Intl {
       $string("localeMatcher"),
       $string("currencyDisplay"),
       $string("currency")
-    };
-    $d_ = Vector{0, $string("localeMatcher"), $string("_type")};
+    } as dynamic;
+    $d_ = Vector{0, $string("localeMatcher"), $string("_type")} as dynamic;
     $e_ = Vector{
       0,
       $string("usage"),
@@ -75,7 +75,7 @@ final class Js_of_ocaml__Intl {
       $string("localeMatcher"),
       $string("ignorePunctuation"),
       $string("caseFirst")
-    };
+    } as dynamic;
     $f_ = Vector{
       0,
       $string("hour"),
@@ -92,8 +92,8 @@ final class Js_of_ocaml__Intl {
       $string("weekday"),
       $string("timeZoneName"),
       $string("formatMatcher")
-    };
-    $g_ = Vector{0, $string("localeMatcher")};
+    } as dynamic;
+    $g_ = Vector{0, $string("localeMatcher")} as dynamic;
     $h_ = Vector{
       0,
       $string("minimumIntegerDigits"),
@@ -106,8 +106,8 @@ final class Js_of_ocaml__Intl {
       $string("currencyDisplay"),
       $string("maximumSignificantDigits"),
       $string("currency")
-    };
-    $i_ = Vector{0, 0, 0, 0};
+    } as dynamic;
+    $i_ = Vector{0, 0, 0, 0} as dynamic;
     $object_options = (dynamic $param) ==> {
       $bO_ = (dynamic $self, dynamic $localeMatcher) ==> {
         if (! $i_[1]) {
@@ -134,7 +134,7 @@ final class Js_of_ocaml__Intl {
          return darray["localeMatcher"=>$t0];
        })($bP_, $bO_);
     };
-    $j_ = Vector{0, 0, 0, 0};
+    $j_ = Vector{0, 0, 0, 0} as dynamic;
     $options = (dynamic $param) ==> {
       $bp_ = 
       (dynamic $self, dynamic $localeMatcher, dynamic $usage, dynamic $sensitivity, dynamic $ignorePunctuation, dynamic $numeric, dynamic $caseFirst) ==> {
@@ -182,7 +182,7 @@ final class Js_of_ocaml__Intl {
             $bG_,
             $bE_,
             $bF_
-          };
+          } as dynamic;
           $call2($CamlinternalOO[11], $bw_, $bK_);
           $bL_ = (dynamic $bM_) ==> {
             $bN_ = $call2($CamlinternalOO[24], 0, $bw_);
@@ -222,8 +222,8 @@ final class Js_of_ocaml__Intl {
           "caseFirst"=>$t6];
        })($bv_, $bu_, $bt_, $bs_, $br_, $bq_, $bp_);
     };
-    $Collator = Vector{0, $object_options, $options};
-    $k_ = Vector{0, 0, 0, 0};
+    $Collator = Vector{0, $object_options, $options} as dynamic;
+    $k_ = Vector{0, 0, 0, 0} as dynamic;
     $options__0 = (dynamic $param) ==> {
       $aD_ = 
       (dynamic $self, dynamic $localeMatcher, dynamic $timeZone, dynamic $hour12, dynamic $hourCycle, dynamic $formatMatcher, dynamic $weekday, dynamic $era, dynamic $year, dynamic $month, dynamic $day, dynamic $hour, dynamic $minute, dynamic $second, dynamic $timeZoneName) ==> {
@@ -327,7 +327,7 @@ final class Js_of_ocaml__Intl {
             $a__,
             $aX_,
             $a9_
-          };
+          } as dynamic;
           $call2($CamlinternalOO[11], $aS_, $bl_);
           $bm_ = (dynamic $bn_) ==> {
             $bo_ = $call2($CamlinternalOO[24], 0, $aS_);
@@ -407,8 +407,8 @@ final class Js_of_ocaml__Intl {
         $aD_
       );
     };
-    $DateTimeFormat = Vector{0, $object_options, $options__0};
-    $l_ = Vector{0, 0, 0, 0};
+    $DateTimeFormat = Vector{0, $object_options, $options__0} as dynamic;
+    $l_ = Vector{0, 0, 0, 0} as dynamic;
     $options__1 = (dynamic $param) ==> {
       $S_ = 
       (dynamic $self, dynamic $localeMatcher, dynamic $style, dynamic $currency, dynamic $currencyDisplay, dynamic $useGrouping, dynamic $minimumIntegerDigits, dynamic $minimumFractionDigits, dynamic $maximumFractionDigits, dynamic $minimumSignificantDigits, dynamic $maximumSignificantDigits) ==> {
@@ -484,7 +484,7 @@ final class Js_of_ocaml__Intl {
             $ar_,
             $al_,
             $aq_
-          };
+          } as dynamic;
           $call2($CamlinternalOO[11], $ad_, $az_);
           $aA_ = (dynamic $aB_) ==> {
             $aC_ = $call2($CamlinternalOO[24], 0, $ad_);
@@ -536,8 +536,8 @@ final class Js_of_ocaml__Intl {
           "maximumSignificantDigits"=>$t30];
        })($ac_, $ab_, $aa_, $Z_, $Y_, $X_, $W_, $V_, $U_, $T_, $S_);
     };
-    $NumberFormat = Vector{0, $object_options, $options__1};
-    $m_ = Vector{0, 0, 0, 0};
+    $NumberFormat = Vector{0, $object_options, $options__1} as dynamic;
+    $m_ = Vector{0, 0, 0, 0} as dynamic;
     $options__2 = (dynamic $param) ==> {
       $F_ = (dynamic $self, dynamic $localeMatcher, dynamic $type) ==> {
         if (! $m_[1]) {
@@ -556,7 +556,7 @@ final class Js_of_ocaml__Intl {
             (dynamic $self_5) ==> {$env = $self_5[$J_ + 1];return $env[2];},
             $M_,
             $N_
-          };
+          } as dynamic;
           $call2($CamlinternalOO[11], $I_, $O_);
           $P_ = (dynamic $Q_) ==> {
             $R_ = $call2($CamlinternalOO[24], 0, $I_);
@@ -574,7 +574,7 @@ final class Js_of_ocaml__Intl {
          return darray["localeMatcher"=>$t31,"type"=>$t32];
        })($H_, $G_, $F_);
     };
-    $PluralRules = Vector{0, $object_options, $options__2};
+    $PluralRules = Vector{0, $object_options, $options__2} as dynamic;
     $n_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -475689828, 300), $x);
     };
@@ -638,37 +638,10 @@ final class Js_of_ocaml__Intl {
       $numberFormat_constr,
       $pluralRules_constr,
       $is_supported
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Intl);
 
-  }
-  public static function Collator(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function DateTimeFormat(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function NumberFormat(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
-  }
-  public static function PluralRules(): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[]);
-  }
-  public static function intl(): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[]);
-  }
-  public static function collator_constr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[]);
-  }
-  public static function dateTimeFormat_constr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function numberFormat_constr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
-  public static function pluralRules_constr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[10], varray[$param]);

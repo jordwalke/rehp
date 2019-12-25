@@ -13,9 +13,6 @@ final class ArrayLabels {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    
-    ;
-    
     $Array =  Array_::requireModule ();
     $make_float = $Array[1];
     $init = $Array[2];

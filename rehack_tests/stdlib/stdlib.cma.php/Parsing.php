@@ -53,7 +53,7 @@ final class Parsing {
     } as dynamic;
     $grow_stacks = (dynamic $param) ==> {
       $oldsize = $env[5];
-      $newsize = (int) ($oldsize * 2);
+      $newsize = (int) ($oldsize * 2) as dynamic;
       $new_s = $caml_make_vect($newsize, 0);
       $new_v = $caml_make_vect($newsize, 0);
       $new_start = $caml_make_vect($newsize, $Lexing[1]);
@@ -77,17 +77,74 @@ final class Parsing {
     $current_lookahead_fun = Vector{0, (dynamic $param) ==> {return 0;}} as dynamic;
     $yyparse = 
     (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) ==> {
-      $arg = null;
-      $cmd = null;
-      $match = null;
-      $arg__0 = null;
-      $arg__1 = null;
-      $cmd__0 = null;
-      $i_ = null;
-      $j_ = null;
-      $k_ = null;
-      $curr_char = null;
-      $v = null;
+      $loop = (dynamic $cmd, dynamic $arg) ==> {
+        $cmd__0 = $cmd;
+        $arg__0 = $arg;
+        for (;;) {
+          $match = $runtime["caml_parse_engine"](
+            $tables,
+            $env,
+            $cmd__0,
+            $arg__0
+          );
+          $continue_label = null;
+          switch($match) {
+            // FALLTHROUGH
+            case 0:
+              $arg__1 = $call1($lexer, $lexbuf);
+              $env[9] = $lexbuf[11];
+              $env[10] = $lexbuf[12];
+              $cmd__0 = 1 as dynamic;
+              $arg__0 = $arg__1;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            case 1:
+              throw $caml_wrap_thrown_exception($Parse_error) as \Throwable;
+            // FALLTHROUGH
+            case 2:
+              $grow_stacks(0);
+              $cmd__0 = 2 as dynamic;
+              $arg__0 = 0 as dynamic;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            case 3:
+              $grow_stacks(0);
+              $cmd__0 = 3 as dynamic;
+              $arg__0 = 0 as dynamic;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            case 4:
+              try {
+                $m_ = $env[13];
+                $n_ = $call1($caml_check_bound($tables[1], $m_)[$m_ + 1], $env
+                );
+                $o_ = 4 as dynamic;
+                $cmd__1 = $o_;
+                $arg__2 = $n_;
+              }
+              catch(\Throwable $p_) {
+                $p_ = $runtime["caml_wrap_exception"]($p_);
+                if ($p_ !== $Parse_error) {
+                  throw $caml_wrap_thrown_exception_reraise($p_) as \Throwable;
+                }
+                $k_ = 0 as dynamic;
+                $l_ = 5 as dynamic;
+                $cmd__1 = $l_;
+                $arg__2 = $k_;
+              }
+              $cmd__0 = $cmd__1;
+              $arg__0 = $arg__2;
+              $continue_label = "#";break;
+            // FALLTHROUGH
+            default:
+              $call1($tables[14], $cst_syntax_error);
+              $cmd__0 = 5 as dynamic;
+              $arg__0 = 0 as dynamic;
+              $continue_label = "#";break;
+            }
+          if ($continue_label === "#") {continue;}
+        }
+      };
       $init_asp = $env[11];
       $init_sp = $env[14];
       $init_stackbase = $env[6];
@@ -98,67 +155,7 @@ final class Parsing {
       $env[6] = (int) ($env[14] + 1);
       $env[7] = $start;
       $env[10] = $lexbuf[12];
-      try {
-        $cmd = 0;
-        $arg = 0;
-        for (;;) {
-          $match = $runtime["caml_parse_engine"]($tables, $env, $cmd, $arg);
-          $continue_label = null;
-          switch($match) {
-            // FALLTHROUGH
-            case 0:
-              $arg__0 = $call1($lexer, $lexbuf);
-              $env[9] = $lexbuf[11];
-              $env[10] = $lexbuf[12];
-              $cmd = 1;
-              $arg = $arg__0;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            case 1:
-              throw $caml_wrap_thrown_exception($Parse_error) as \Throwable;
-            // FALLTHROUGH
-            case 2:
-              $grow_stacks(0);
-              $cmd = 2;
-              $arg = 0;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            case 3:
-              $grow_stacks(0);
-              $cmd = 3;
-              $arg = 0;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            case 4:
-              try {
-                $i_ = $env[13];
-                $j_ =
-                  $call1($caml_check_bound($tables[1], $i_)[$i_ + 1], $env);
-                $k_ = 4;
-                $cmd__0 = $k_;
-                $arg__1 = $j_;
-              }
-              catch(\Throwable $m_) {
-                $m_ = $runtime["caml_wrap_exception"]($m_);
-                if ($m_ !== $Parse_error) {
-                  throw $caml_wrap_thrown_exception_reraise($m_) as \Throwable;
-                }
-                $cmd__0 = 5;
-                $arg__1 = 0;
-              }
-              $cmd = $cmd__0;
-              $arg = $arg__1;
-              $continue_label = "#";break;
-            // FALLTHROUGH
-            default:
-              $call1($tables[14], $cst_syntax_error);
-              $cmd = 5;
-              $arg = 0;
-              $continue_label = "#";break;
-            }
-          if ($continue_label === "#") {continue;}
-        }
-      }
+      try {$i_ = $loop(0, 0);return $i_;}
       catch(\Throwable $exn) {
         $exn = $runtime["caml_wrap_exception"]($exn);
         $curr_char = $env[7];
@@ -172,10 +169,9 @@ final class Parsing {
         if ($exn[1] === $YYexit) {$v = $exn[2];return $v;}
         $current_lookahead_fun[1] =
           (dynamic $tok) ==> {
-            $l_ = null;
             if ($call1($Obj[1], $tok)) {
-              $l_ = $runtime["caml_obj_tag"]($tok);
-              return $caml_check_bound($tables[3], $l_)[$l_ + 1] === $curr_char
+              $j_ = $runtime["caml_obj_tag"]($tok);
+              return $caml_check_bound($tables[3], $j_)[$j_ + 1] === $curr_char
                 ? 1
                 : (0);
             }
@@ -187,42 +183,39 @@ final class Parsing {
       }
     };
     $peek_val = (dynamic $env, dynamic $n) ==> {
-      $h_ = (int) ($env[11] - $n);
+      $h_ = (int) ($env[11] - $n) as dynamic;
       return $caml_check_bound($env[2], $h_)[$h_ + 1];
     };
     $symbol_start_pos = (dynamic $param) ==> {
-      $e_ = null;
-      $st = null;
-      $f_ = null;
-      $en = null;
-      $i__0 = null;
-      $g_ = null;
-      $i = $env[12];
-      for (;;) {
-        if (0 < $i) {
-          $e_ = (int) ((int) ($env[11] - $i) + 1);
-          $st = $caml_check_bound($env[3], $e_)[$e_ + 1];
-          $f_ = (int) ((int) ($env[11] - $i) + 1);
-          $en = $caml_check_bound($env[4], $f_)[$f_ + 1];
-          if ($runtime["caml_notequal"]($st, $en)) {return $st;}
-          $i__0 = (int) ($i + -1);
-          $i = $i__0;
-          continue;
+      $loop = (dynamic $i) ==> {
+        $i__0 = $i;
+        for (;;) {
+          if (0 < $i__0) {
+            $e_ = (int) ((int) ($env[11] - $i__0) + 1) as dynamic;
+            $st = $caml_check_bound($env[3], $e_)[$e_ + 1];
+            $f_ = (int) ((int) ($env[11] - $i__0) + 1) as dynamic;
+            $en = $caml_check_bound($env[4], $f_)[$f_ + 1];
+            if ($runtime["caml_notequal"]($st, $en)) {return $st;}
+            $i__1 = (int) ($i__0 + -1) as dynamic;
+            $i__0 = $i__1;
+            continue;
+          }
+          $g_ = $env[11];
+          return $caml_check_bound($env[4], $g_)[$g_ + 1];
         }
-        $g_ = $env[11];
-        return $caml_check_bound($env[4], $g_)[$g_ + 1];
-      }
+      };
+      return $loop($env[12]);
     };
     $symbol_end_pos = (dynamic $param) ==> {
       $d_ = $env[11];
       return $caml_check_bound($env[4], $d_)[$d_ + 1];
     };
     $rhs_start_pos = (dynamic $n) ==> {
-      $c_ = (int) ($env[11] - (int) ($env[12] - $n));
+      $c_ = (int) ($env[11] - (int) ($env[12] - $n)) as dynamic;
       return $caml_check_bound($env[3], $c_)[$c_ + 1];
     };
     $rhs_end_pos = (dynamic $n) ==> {
-      $b_ = (int) ($env[11] - (int) ($env[12] - $n));
+      $b_ = (int) ($env[11] - (int) ($env[12] - $n)) as dynamic;
       return $caml_check_bound($env[4], $b_)[$b_ + 1];
     };
     $symbol_start = (dynamic $param) ==> {return $symbol_start_pos(0)[4];};

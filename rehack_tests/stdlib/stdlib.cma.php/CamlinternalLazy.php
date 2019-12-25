@@ -33,7 +33,6 @@ final class CamlinternalLazy {
       throw $caml_wrap_thrown_exception($Undefined) as \Throwable;
     };
     $force_lazy_block = (dynamic $blk) ==> {
-      $result = null;
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
       try {

@@ -28,7 +28,7 @@ final class Has_one_underscore {
         if ($e_ !== $Not_found) {
           throw $caml_wrap_thrown_exception_reraise($e_) as \Throwable;
         }
-        $a_ = -1;
+        $a_ = -1 as dynamic;
         $index = $a_;
       }
       $b_ = -1 < $index ? 1 : (0);
@@ -37,7 +37,7 @@ final class Has_one_underscore {
         : ($b_);
       return $c_;
     };
-    $Has_one_underscore = Vector{0, $hasOneUnderscore};
+    $Has_one_underscore = Vector{0, $hasOneUnderscore} as dynamic;
     
      return ($Has_one_underscore);
 

@@ -35,7 +35,7 @@ final class Js_of_ocaml__Worker {
     $b_ = $Js_of_ocaml_Js[50][1];
     $worker = ((dynamic $t0, dynamic $param) ==> {return $t0->Worker;})($b_, $a_);
     $create = (dynamic $script) ==> {
-      $w_ = 0;
+      $w_ = 0 as dynamic;
       $x_ = $script->toString();
       return ((dynamic $t2, dynamic $t1, dynamic $param) ==> {return new $t2($t1);
        })($worker, $x_, $w_);
@@ -109,7 +109,7 @@ final class Js_of_ocaml__Worker {
       $import_scripts,
       $set_onmessage,
       $post_message
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Worker);
 

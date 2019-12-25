@@ -27,7 +27,7 @@ final class Js_of_ocaml__Js {
     $Callback =  Callback::requireModule ();
     $Printexc =  Printexc::requireModule ();
     $global =  joo_global_object ;
-    $Unsafe = Vector{0, $global};
+    $Unsafe = Vector{0, $global} as dynamic;
     $null__0 =  null ;
     $undefined__0 =  undefined ;
     $return__0 = (dynamic $S_) ==> {return $S_;};
@@ -68,7 +68,7 @@ final class Js_of_ocaml__Js {
       $get,
       $option,
       $to_option
-    };
+    } as dynamic;
     $return__1 = (dynamic $P_) ==> {return $P_;};
     $map__0 = (dynamic $x, dynamic $f) ==> {
       return $x === $undefined__0
@@ -109,7 +109,7 @@ final class Js_of_ocaml__Js {
       $get__0,
       $option__0,
       $to_option__0
-    };
+    } as dynamic;
     $coerce = (dynamic $x, dynamic $f, dynamic $g) ==> {
       $M_ = (dynamic $param) ==> {return $call1($g, $x);};
       return $get($call1($f, $x), $M_);
@@ -187,7 +187,7 @@ final class Js_of_ocaml__Js {
       248,
       $cst_Js_of_ocaml_Js_Error,
       $runtime["caml_fresh_oo_id"](0)
-    };
+    } as dynamic;
     $g_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 37651177, 9), $x);
     };
@@ -374,40 +374,13 @@ final class Js_of_ocaml__Js {
       $export__0,
       $export_all,
       $Unsafe
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Js);
 
   }
-  public static function _null_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function _undefined_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
-  }
-  public static function Opt(): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[]);
-  }
-  public static function Optdef(): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[]);
-  }
-  public static function _true_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
-  }
-  public static function _false_(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
-  public static function string_constr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
-  }
-  public static function regExp(): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[]);
-  }
   public static function object_keys(dynamic $o): dynamic {
     return static::callRehackFunction(static::requireModule()[13], varray[$o]);
-  }
-  public static function array_constructor(): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
   public static function array_get(dynamic $unnamed1, dynamic $unnamed2): dynamic {
     return static::callRehackFunction(static::requireModule()[16], varray[$unnamed1, $unnamed2]);
@@ -427,26 +400,8 @@ final class Js_of_ocaml__Js {
   public static function match_result(dynamic $unnamed1): dynamic {
     return static::callRehackFunction(static::requireModule()[21], varray[$unnamed1]);
   }
-  public static function date_constr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[22], varray[]);
-  }
-  public static function math(): dynamic {
-    return static::callRehackFunction(static::requireModule()[31], varray[]);
-  }
-  public static function error_constr(): dynamic {
-    return static::callRehackFunction(static::requireModule()[32], varray[]);
-  }
   public static function string_of_error(dynamic $e): dynamic {
     return static::callRehackFunction(static::requireModule()[33], varray[$e]);
-  }
-  public static function raise_js_error(): dynamic {
-    return static::callRehackFunction(static::requireModule()[34], varray[]);
-  }
-  public static function Error(): dynamic {
-    return static::callRehackFunction(static::requireModule()[35], varray[]);
-  }
-  public static function JSON(): dynamic {
-    return static::callRehackFunction(static::requireModule()[36], varray[]);
   }
   public static function decodeURI(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[37], varray[$s]);
@@ -486,9 +441,6 @@ final class Js_of_ocaml__Js {
   }
   public static function export_all(dynamic $obj): dynamic {
     return static::callRehackFunction(static::requireModule()[49], varray[$obj]);
-  }
-  public static function Unsafe(): dynamic {
-    return static::callRehackFunction(static::requireModule()[50], varray[]);
   }
 
 }

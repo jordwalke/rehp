@@ -14,13 +14,10 @@ final class SeparateCompilation__SeparateCompilationHelper {
     
     $runtime = $joo_global_object->jsoo_runtime;
     $helperVal = $runtime["caml_new_string"]("hello!goodbye");
-    $SeparateCompilation_SeparateCompilationHelper = Vector{0, $helperVal};
+    $SeparateCompilation_SeparateCompilationHelper = Vector{0, $helperVal} as dynamic;
     
      return ($SeparateCompilation_SeparateCompilationHelper);
 
-  }
-  public static function helperVal(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
 
 }

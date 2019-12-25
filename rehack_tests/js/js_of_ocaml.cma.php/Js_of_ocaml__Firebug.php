@@ -14,13 +14,10 @@ final class Js_of_ocaml__Firebug {
     
     $runtime = $joo_global_object->jsoo_runtime;
     $console = $runtime["caml_js_get_console"](0);
-    $Js_of_ocaml_Firebug = Vector{0, $console};
+    $Js_of_ocaml_Firebug = Vector{0, $console} as dynamic;
     
      return ($Js_of_ocaml_Firebug);
 
-  }
-  public static function console(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
 
 }

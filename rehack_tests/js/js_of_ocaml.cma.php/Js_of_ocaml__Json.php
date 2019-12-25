@@ -49,7 +49,7 @@ final class Js_of_ocaml__Json {
       return ((dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) ==> {return $t6->stringify($t4, $t5);
        })($json, $obj, $output_reviver, $b_);
     };
-    $Js_of_ocaml_Json = Vector{0, $output, $unsafe_input};
+    $Js_of_ocaml_Json = Vector{0, $output, $unsafe_input} as dynamic;
     
      return ($Js_of_ocaml_Json);
 

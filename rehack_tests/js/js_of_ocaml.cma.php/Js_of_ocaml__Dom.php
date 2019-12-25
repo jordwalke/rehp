@@ -22,7 +22,7 @@ final class Js_of_ocaml__Dom {
     $Assert_failure =  Assert_failure::requireModule ();
     $Not_found =  Not_found::requireModule ();
     $List =  List_::requireModule ();
-    $a_ = Vector{0, $string("lib/js_of_ocaml/dom.ml"), 343, 67};
+    $a_ = Vector{0, $string("lib/js_of_ocaml/dom.ml"), 343, 67} as dynamic;
     $list_of_nodeList = (dynamic $nodeList) ==> {
       $X_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 520590566, 24), $x);
@@ -41,13 +41,13 @@ final class Js_of_ocaml__Dom {
             $match = $call1($Js_of_ocaml_Js[5][10], $Z_);
             if ($match) {
               $e = $match[1];
-              $i__1 = (int) ($i__0 + 1);
-              $acc__1 = Vector{0, $e, $acc__0};
+              $i__1 = (int) ($i__0 + 1) as dynamic;
+              $acc__1 = Vector{0, $e, $acc__0} as dynamic;
               $acc__0 = $acc__1;
               $i__0 = $i__1;
               continue;
             }
-            $i__2 = (int) ($i__0 + 1);
+            $i__2 = (int) ($i__0 + 1) as dynamic;
             $i__0 = $i__2;
             continue;
           }
@@ -56,12 +56,12 @@ final class Js_of_ocaml__Dom {
       };
       return $add_item(0, 0);
     };
-    $disconnected = 1;
-    $preceding = 2;
-    $following = 4;
-    $contains = 8;
-    $contained_by = 16;
-    $implementation_specific = 32;
+    $disconnected = 1 as dynamic;
+    $preceding = 2 as dynamic;
+    $following = 4 as dynamic;
+    $contains = 8 as dynamic;
+    $contained_by = 16 as dynamic;
+    $implementation_specific = 32 as dynamic;
     $has = (dynamic $t, dynamic $mask) ==> {
       return ($t & $mask) === $mask ? 1 : (0);
     };
@@ -77,7 +77,7 @@ final class Js_of_ocaml__Dom {
       $has,
       $add,
       $add
-    };
+    } as dynamic;
     $appendChild = (dynamic $p, dynamic $n) ==> {
       $W_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 36716898, 26), $x);
@@ -116,7 +116,7 @@ final class Js_of_ocaml__Dom {
       };
       $match = ((dynamic $t13, dynamic $param) ==> {return $t13->nodeType;})($e, $S_);
       if (0 !== $match) {
-        $switcher = (int) ($match + -1);
+        $switcher = (int) ($match + -1) as dynamic;
         switch($switcher) {
           // FALLTHROUGH
           case 0:
@@ -269,7 +269,7 @@ final class Js_of_ocaml__Dom {
       return $target;
     };
     $make = (dynamic $s) ==> {return $s->toString();};
-    $Event = Vector{0, $make};
+    $Event = Vector{0, $make} as dynamic;
     $addEventListener = (dynamic $e, dynamic $typ, dynamic $h, dynamic $capt) ==> {
       $g_ = $Js_of_ocaml_Js[3];
       $h_ = (dynamic $x) ==> {
@@ -285,7 +285,7 @@ final class Js_of_ocaml__Dom {
         $ev = ((dynamic $t43, dynamic $t42, dynamic $param) ==> {return $t43->concat($t42);
          })($j_, $typ, $i_);
         $callback = (dynamic $e) ==> {
-          $o_ = Vector{0, $h, $e, Vector{0}};
+          $o_ = Vector{0, $h, $e, Vector{0}} as dynamic;
           $p_ = (dynamic $u_, dynamic $t_, dynamic $s_) ==> {
             return $runtime["caml_js_call"]($u_, $t_, $s_);
           };
@@ -361,13 +361,10 @@ final class Js_of_ocaml__Dom {
       $addEventListener,
       $removeEventListener,
       $preventDefault
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Dom);
 
-  }
-  public static function DocumentPosition(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function insertBefore(dynamic $p, dynamic $n, dynamic $o): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$p, $n, $o]);
@@ -387,9 +384,6 @@ final class Js_of_ocaml__Dom {
   public static function nodeType(dynamic $e): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$e]);
   }
-  public static function no_handler(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
-  }
   public static function handler(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[10], varray[$f]);
   }
@@ -401,9 +395,6 @@ final class Js_of_ocaml__Dom {
   }
   public static function eventTarget(dynamic $e): dynamic {
     return static::callRehackFunction(static::requireModule()[13], varray[$e]);
-  }
-  public static function Event(): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[]);
   }
   public static function addEventListener(dynamic $e, dynamic $typ, dynamic $h, dynamic $capt): dynamic {
     return static::callRehackFunction(static::requireModule()[15], varray[$e, $typ, $h, $capt]);

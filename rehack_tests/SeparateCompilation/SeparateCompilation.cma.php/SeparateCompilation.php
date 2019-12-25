@@ -14,17 +14,17 @@ final class SeparateCompilation {
     
     $runtime = $joo_global_object->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
-    $SeparateCompilation_SeparateCompilationHelper =  SeparateCompilation__SeparateCompilationHelper::get (
+    $SeparateCompilation_SeparateCompilationHelper =  SeparateCompilation__SeparateCompilationHelper::requireModule (
       
     );
-    $Pervasives =  Pervasives::get ();
-    $MyLib =  MyLib::get ();
+    $Pervasives =  Pervasives::requireModule ();
+    $MyLib =  MyLib::requireModule ();
     
     $call1($Pervasives[34], $SeparateCompilation_SeparateCompilationHelper[1]);
     
     $call1($Pervasives[30], $runtime["caml_js_to_string"]($MyLib[2]));
     
-    $SeparateCompilation = Vector{0};
+    $SeparateCompilation = Vector{0} as dynamic;
     
      return ($SeparateCompilation);
 

@@ -27,12 +27,27 @@ final class Uchar {
     $err_no_pred = $string("U+0000 has no predecessor");
     $err_no_succ = $string("U+10FFFF has no successor");
     $Pervasives =  Pervasives::requireModule ();
-    $min = 0;
-    $max = 1114111;
-    $lo_bound = 55295;
-    $hi_bound = 57344;
-    $bom = 65279;
-    $rep = 65533;
+    $err_not_sv = (dynamic $i) ==> {
+      return $call2(
+        $Pervasives[16],
+        $caml_format_int($cst_X, $i),
+        $cst_is_not_an_Unicode_scalar_value
+      );
+    };
+    $err_not_latin1 = (dynamic $u) ==> {
+      $p_ = $call2(
+        $Pervasives[16],
+        $caml_format_int($cst_04X, $u),
+        $cst_is_not_a_latin1_character
+      );
+      return $call2($Pervasives[16], $cst_U, $p_);
+    };
+    $min = 0 as dynamic;
+    $max = 1114111 as dynamic;
+    $lo_bound = 55295 as dynamic;
+    $hi_bound = 57344 as dynamic;
+    $bom = 65279 as dynamic;
+    $rep = 65533 as dynamic;
     $succ = (dynamic $u) ==> {
       return $u === 55295
         ? $hi_bound
@@ -46,42 +61,28 @@ final class Uchar {
         : ($u === 0 ? $call1($Pervasives[1], $err_no_pred) : ((int) ($u + -1)));
     };
     $is_valid = (dynamic $i) ==> {
-      $o_ = null;
-      $p_ = null;
-      $m_ = 0 <= $i ? 1 : (0);
-      $n_ = $m_ ? $i <= 55295 ? 1 : (0) : ($m_);
-      if ($n_) {
-        $o_ = $n_;
+      $l_ = 0 <= $i ? 1 : (0);
+      $m_ = $l_ ? $i <= 55295 ? 1 : (0) : ($l_);
+      if ($m_) {
+        $n_ = $m_;
       }
       else {
-        $p_ = 57344 <= $i ? 1 : (0);
-        $o_ = $p_ ? $i <= 1114111 ? 1 : (0) : ($p_);
+        $o_ = 57344 <= $i ? 1 : (0);
+        $n_ = $o_ ? $i <= 1114111 ? 1 : (0) : ($o_);
       }
-      return $o_;
+      return $n_;
     };
     $of_int = (dynamic $i) ==> {
       if ($is_valid($i)) {return $i;}
-      $l_ = $call2(
-        $Pervasives[16],
-        $caml_format_int($cst_X, $i),
-        $cst_is_not_an_Unicode_scalar_value
-      );
-      return $call1($Pervasives[1], $l_);
+      $k_ = $err_not_sv($i);
+      return $call1($Pervasives[1], $k_);
     };
     $is_char = (dynamic $u) ==> {return $u < 256 ? 1 : (0);};
     $of_char = (dynamic $c) ==> {return $c;};
     $to_char = (dynamic $u) ==> {
-      $k_ = null;
-      $j_ = null;
       if (255 < $u) {
-        $j_ =
-          $call2(
-            $Pervasives[16],
-            $caml_format_int($cst_04X, $u),
-            $cst_is_not_a_latin1_character
-          );
-        $k_ = $call2($Pervasives[16], $cst_U, $j_);
-        return $call1($Pervasives[1], $k_);
+        $j_ = $err_not_latin1($u);
+        return $call1($Pervasives[1], $j_);
       }
       return $u;
     };

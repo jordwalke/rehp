@@ -34,8 +34,8 @@ final class Js_of_ocaml__Form {
     $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
     $Array =  Array_::requireModule ();
-    $f_ = Vector{0, $string("lib/js_of_ocaml/form.ml"), 170, 58};
-    $e_ = Vector{0, 1};
+    $f_ = Vector{0, $string("lib/js_of_ocaml/form.ml"), 170, 58} as dynamic;
+    $e_ = Vector{0, 1} as dynamic;
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -137852659, 168), $x);
     };
@@ -95,7 +95,7 @@ final class Js_of_ocaml__Form {
         $name = $caml_js_to_string(
           ((dynamic $t6, dynamic $param) ==> {return $t6->name;})($elt, $aq_)
         );
-        $ar_ = 0;
+        $ar_ = 0 as dynamic;
         $as_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, 834174833, 174), $x);
         };
@@ -192,7 +192,7 @@ final class Js_of_ocaml__Form {
             $ah_
           );
         }
-        $ai_ = 0;
+        $ai_ = 0 as dynamic;
         $aj_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, 834174833, 183), $x);
         };
@@ -217,7 +217,7 @@ final class Js_of_ocaml__Form {
         $sth = $opt[1];
         $get = $sth;
       }
-      else {$get = 0;}
+      else {$get = 0 as dynamic;}
       if ($have_content($elt)) {
         $G_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, -922783157, 184), $x);
@@ -316,7 +316,7 @@ final class Js_of_ocaml__Form {
                 return $call1($caml_get_public_method($x, -977287917, 192), $x
                 );
               };
-              $S_ = 0;
+              $S_ = 0 as dynamic;
               $T_ = ((dynamic $t19, dynamic $t18, dynamic $param) ==> {return $t19->item($t18);
                })($list, $S_, $R_);
               $match__2 = $call1($Js_of_ocaml_Js[5][10], $T_);
@@ -343,17 +343,17 @@ final class Js_of_ocaml__Form {
                       0
                     };
                   }
-                  $switch__0 = 1;
-                  $switch__1 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__1 = 0 as dynamic;
                 }
-                else {$switch__1 = 1;}
+                else {$switch__1 = 1 as dynamic;}
               }
-              else {$switch__1 = 1;}
+              else {$switch__1 = 1 as dynamic;}
               if ($switch__1) {return 0;}
             }
-            else {$switch__0 = 0;}
+            else {$switch__0 = 0 as dynamic;}
           }
-          else {$switch__0 = 1;}
+          else {$switch__0 = 1 as dynamic;}
           if ($switch__0) {
             return Vector{
               0,
@@ -454,7 +454,7 @@ final class Js_of_ocaml__Form {
       $match = $call1($Js_of_ocaml_Js[6][10], $n_);
       if ($match) {
         $constr = $match[1];
-        $o_ = 0;
+        $o_ = 0 as dynamic;
         return Vector{
           0,
           808620462,
@@ -494,16 +494,10 @@ final class Js_of_ocaml__Form {
       $get_form_contents,
       $empty_form_contents,
       $form_elements
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Form);
 
-  }
-  public static function formData(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function formData_form(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function append(dynamic $form_contents, dynamic $form_elt): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$form_contents, $form_elt]);

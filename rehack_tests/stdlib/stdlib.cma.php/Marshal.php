@@ -39,7 +39,7 @@ final class Marshal {
         $cst_Marshal_to_buffer_substring_out_of_bounds
       );
     };
-    $header_size = 20;
+    $header_size = 20 as dynamic;
     $data_size = (dynamic $buff, dynamic $ofs) ==> {
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {return $caml_marshal_data_size($buff, $ofs);}
@@ -50,7 +50,6 @@ final class Marshal {
       return (int) (20 + $data_size($buff, $ofs));
     };
     $from_bytes = (dynamic $buff, dynamic $ofs) ==> {
-      $len = null;
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {
           $len = $caml_marshal_data_size($buff, $ofs);

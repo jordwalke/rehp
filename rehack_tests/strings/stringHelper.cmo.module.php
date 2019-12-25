@@ -14,13 +14,10 @@ final class StringHelper {
     
     $runtime = $joo_global_object->jsoo_runtime;
     $helperVal = $runtime["caml_new_string"]("hello");
-    $StringHelper = Vector{0, $helperVal};
+    $StringHelper = Vector{0, $helperVal} as dynamic;
     
      return ($StringHelper);
 
-  }
-  public static function helperVal(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
 
 }

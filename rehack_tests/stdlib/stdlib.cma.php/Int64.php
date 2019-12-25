@@ -13,7 +13,6 @@ final class Int64 {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_int64_compare = $runtime["caml_int64_compare"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
@@ -40,8 +39,10 @@ final class Int64 {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
     $of_string_opt = (dynamic $s) ==> {
-      $e_ = null;
-      try {$e_ = Vector{0, $runtime["caml_int64_of_string"]($s)};return $e_;}
+      try {
+        $e_ = Vector{0, $runtime["caml_int64_of_string"]($s)} as dynamic;
+        return $e_;
+      }
       catch(\Throwable $f_) {
         $f_ = $runtime["caml_wrap_exception"]($f_);
         if ($f_[1] === $Failure) {return 0;}
@@ -49,10 +50,10 @@ final class Int64 {
       }
     };
     $compare = (dynamic $x, dynamic $y) ==> {
-      return $caml_int64_compare($x, $y);
+      return $runtime["caml_int64_compare"]($x, $y);
     };
     $equal = (dynamic $x, dynamic $y) ==> {
-      return 0 === $caml_int64_compare($x, $y) ? 1 : (0);
+      return 0 === $compare($x, $y) ? 1 : (0);
     };
     $Int64 = Vector{
       0,

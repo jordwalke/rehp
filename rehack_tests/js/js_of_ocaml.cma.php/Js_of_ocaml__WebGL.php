@@ -47,7 +47,7 @@ final class Js_of_ocaml__WebGL {
       $webglcontextlost,
       $webglcontextrestored,
       $webglcontextcreationerror
-    };
+    } as dynamic;
     $getContext = (dynamic $c) ==> {
       $e_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -388424711, 212), $x);
@@ -84,16 +84,10 @@ final class Js_of_ocaml__WebGL {
       $Event,
       $getContext,
       $getContextWithAttributes
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_WebGL);
 
-  }
-  public static function defaultContextAttributes(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function Event(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
   public static function getContext(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$c]);

@@ -22,7 +22,7 @@ final class Js_of_ocaml__Dom_events {
         $sth = $opt[1];
         $capture = $sth;
       }
-      else {$capture = 0;}
+      else {$capture = 0 as dynamic;}
       $a_ = ! ! $capture;
       $b_ = (dynamic $n, dynamic $e) ==> {return ! ! $call2($cb, $n, $e);};
       $c_ = $call1($Js_of_ocaml_Dom_html[11], $b_);
@@ -34,16 +34,13 @@ final class Js_of_ocaml__Dom_events {
       $Js_of_ocaml_Dom_html[15],
       $listen,
       $stop_listen
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Dom_events);
 
   }
   public static function listen(dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$opt, $target, $typ, $cb]);
-  }
-  public static function stop_listen(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
 
 }

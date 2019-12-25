@@ -33,47 +33,46 @@ final class Obj {
       return $runtime["caml_output_value_to_string"]($obj, 0);
     };
     $unmarshal = (dynamic $str, dynamic $pos) ==> {
-      $L_ = (int) ($pos + $call2($Marshal[8], $str, $pos));
+      $L_ = (int) ($pos + $call2($Marshal[8], $str, $pos)) as dynamic;
       return Vector{0, $call2($Marshal[4], $str, $pos), $L_};
     };
-    $first_non_constant_constructor_tag = 0;
-    $last_non_constant_constructor_tag = 245;
-    $lazy_tag = 246;
-    $closure_tag = 247;
-    $object_tag = 248;
-    $infix_tag = 249;
-    $forward_tag = 250;
-    $no_scan_tag = 251;
-    $abstract_tag = 251;
-    $string_tag = 252;
-    $double_tag = 253;
-    $double_array_tag = 254;
-    $custom_tag = 255;
-    $int_tag = 1000;
-    $out_of_heap_tag = 1001;
-    $unaligned_tag = 1002;
+    $first_non_constant_constructor_tag = 0 as dynamic;
+    $last_non_constant_constructor_tag = 245 as dynamic;
+    $lazy_tag = 246 as dynamic;
+    $closure_tag = 247 as dynamic;
+    $object_tag = 248 as dynamic;
+    $infix_tag = 249 as dynamic;
+    $forward_tag = 250 as dynamic;
+    $no_scan_tag = 251 as dynamic;
+    $abstract_tag = 251 as dynamic;
+    $string_tag = 252 as dynamic;
+    $double_tag = 253 as dynamic;
+    $double_array_tag = 254 as dynamic;
+    $custom_tag = 255 as dynamic;
+    $int_tag = 1000 as dynamic;
+    $out_of_heap_tag = 1001 as dynamic;
+    $unaligned_tag = 1002 as dynamic;
     $extension_constructor = (dynamic $x) ==> {
-      $switch__1 = null;
-      $switch__0 = null;
-      $name = null;
-      $slot = null;
       if ($is_block($x)) {
         if ($caml_obj_tag($x) !== 248) {
           if (1 <= $x->count() - 1) {
             $slot = $x[1];
-            $switch__0 = 1;
+            $switch__0 = 1 as dynamic;
           }
-          else {$switch__0 = 0;}
+          else {$switch__0 = 0 as dynamic;}
         }
-        else {$switch__0 = 0;}
+        else {$switch__0 = 0 as dynamic;}
       }
-      else {$switch__0 = 0;}
+      else {$switch__0 = 0 as dynamic;}
       if (! $switch__0) {$slot = $x;}
       if ($is_block($slot)) {
-        if ($caml_obj_tag($slot) === 248) {$name = $slot[1];$switch__1 = 1;}
-        else {$switch__1 = 0;}
+        if ($caml_obj_tag($slot) === 248) {
+          $name = $slot[1];
+          $switch__1 = 1 as dynamic;
+        }
+        else {$switch__1 = 0 as dynamic;}
       }
-      else {$switch__1 = 0;}
+      else {$switch__1 = 0 as dynamic;}
       if (! $switch__1) {
         $name = $call1($Pervasives[1], $cst_Obj_extension_constructor__0);
       }

@@ -97,8 +97,8 @@ final class Pervasives {
     $max_float = $caml_int64_float_of_bits($d_);
     $min_float = $caml_int64_float_of_bits($e_);
     $epsilon_float = $caml_int64_float_of_bits($f_);
-    $max_int = 2147483647;
-    $min_int = -2147483648;
+    $max_int = 2147483647 as dynamic;
+    $min_int = -2147483648 as dynamic;
     $symbol = (dynamic $s1, dynamic $s2) ==> {
       $l1 = $caml_ml_string_length($s1);
       $l2 = $caml_ml_string_length($s2);
@@ -126,8 +126,7 @@ final class Pervasives {
     };
     $string_of_int = (dynamic $n) ==> {return $string("" . $n);};
     $int_of_string_opt = (dynamic $s) ==> {
-      $ay_ = null;
-      try {$ay_ = Vector{0, $caml_int_of_string($s)};return $ay_;}
+      try {$ay_ = Vector{0, $caml_int_of_string($s)} as dynamic;return $ay_;}
       catch(\Throwable $az_) {
         $az_ = $runtime["caml_wrap_exception"]($az_);
         if ($az_[1] === $Failure) {return 0;}
@@ -135,26 +134,31 @@ final class Pervasives {
       }
     };
     $valid_float_lexem = (dynamic $s) ==> {
-      $match = null;
-      $i__0 = null;
-      $switch__0 = null;
       $l = $caml_ml_string_length($s);
-      $i = 0;
-      for (;;) {
-        if ($l <= $i) {return $symbol($s, $cst);}
-        $match = $runtime["caml_string_get"]($s, $i);
-        $switch__0 =
-          48 <= $match ? 58 <= $match ? 0 : (1) : (45 === $match ? 1 : (0));
-        if ($switch__0) {$i__0 = (int) ($i + 1);$i = $i__0;continue;}
-        return $s;
-      }
+      $loop = (dynamic $i) ==> {
+        $i__0 = $i;
+        for (;;) {
+          if ($l <= $i__0) {return $symbol($s, $cst);}
+          $match = $runtime["caml_string_get"]($s, $i__0);
+          $switch__0 = 48 <= $match
+            ? 58 <= $match ? 0 : (1)
+            : (45 === $match ? 1 : (0));
+          if ($switch__0) {
+            $i__1 = (int) ($i__0 + 1) as dynamic;
+            $i__0 = $i__1;
+            continue;
+          }
+          return $s;
+        }
+      };
+      return $loop(0);
     };
     $string_of_float = (dynamic $f) ==> {
       return $valid_float_lexem($runtime["caml_format_float"]($cst_12g, $f));
     };
     $float_of_string_opt = (dynamic $s) ==> {
-      $aw_ = null;
-      try {$aw_ = Vector{0, $caml_float_of_string($s)};return $aw_;}
+      try {$aw_ = Vector{0, $caml_float_of_string($s)} as dynamic;return $aw_;
+      }
       catch(\Throwable $ax_) {
         $ax_ = $runtime["caml_wrap_exception"]($ax_);
         if ($ax_[1] === $Failure) {return 0;}
@@ -162,8 +166,6 @@ final class Pervasives {
       }
     };
     $symbol__0->contents = (dynamic $l1, dynamic $l2) ==> {
-      $hd = null;
-      $tl = null;
       if ($l1) {
         $tl = $l1[2];
         $hd = $l1[1];
@@ -185,8 +187,6 @@ final class Pervasives {
     };
     $flush_all = (dynamic $param) ==> {
       $iter = (dynamic $param) ==> {
-        $l = null;
-        $a = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -237,7 +237,6 @@ final class Pervasives {
       return $caml_ml_close_channel($oc);
     };
     $close_out_noerr = (dynamic $oc) ==> {
-      $as_ = null;
       try {$caml_ml_flush($oc);}catch(\Throwable $au_) {}
       try {$as_ = $caml_ml_close_channel($oc);return $as_;}
       catch(\Throwable $at_) {return 0;}
@@ -259,9 +258,6 @@ final class Pervasives {
     };
     $unsafe_really_input = 
     (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) ==> {
-      $r = null;
-      $len__1 = null;
-      $ofs__1 = null;
       $ofs__0 = $ofs;
       $len__0 = $len;
       for (;;) {
@@ -270,8 +266,8 @@ final class Pervasives {
           if (0 === $r) {
             throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
-          $len__1 = (int) ($len__0 - $r);
-          $ofs__1 = (int) ($ofs__0 + $r);
+          $len__1 = (int) ($len__0 - $r) as dynamic;
+          $ofs__1 = (int) ($ofs__0 + $r) as dynamic;
           $ofs__0 = $ofs__1;
           $len__0 = $len__1;
           continue;
@@ -293,17 +289,7 @@ final class Pervasives {
       return $s;
     };
     $input_line = (dynamic $chan) ==> {
-      $n = null;
-      $res = null;
-      $len__0 = null;
-      $beg = null;
-      $len__1 = null;
-      $accu__0 = null;
       $build_result = (dynamic $buf, dynamic $pos, dynamic $param) ==> {
-        $param__1 = null;
-        $hd = null;
-        $len = null;
-        $pos__1 = null;
         $pos__0 = $pos;
         $param__0 = $param;
         for (;;) {
@@ -319,7 +305,7 @@ final class Pervasives {
               ($pos__0 - $len),
               $len
             );
-            $pos__1 = (int) ($pos__0 - $len);
+            $pos__1 = (int) ($pos__0 - $len) as dynamic;
             $pos__0 = $pos__1;
             $param__0 = $param__1;
             continue;
@@ -327,41 +313,47 @@ final class Pervasives {
           return $buf;
         }
       };
-      $accu = 0;
-      $len = 0;
-      for (;;) {
-        $n = $runtime["caml_ml_input_scan_line"]($chan);
-        if (0 === $n) {
-          if ($accu) {
-            return $build_result($caml_create_bytes($len), $len, $accu);
+      $scan = (dynamic $accu, dynamic $len) ==> {
+        $accu__0 = $accu;
+        $len__0 = $len;
+        for (;;) {
+          $n = $runtime["caml_ml_input_scan_line"]($chan);
+          if (0 === $n) {
+            if ($accu__0) {
+              return $build_result(
+                $caml_create_bytes($len__0),
+                $len__0,
+                $accu__0
+              );
+            }
+            throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
-          throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
-        }
-        if (0 < $n) {
-          $res = $caml_create_bytes((int) ($n + -1));
-          $caml_ml_input($chan, $res, 0, (int) ($n + -1));
-          $caml_ml_input_char($chan);
-          if ($accu) {
-            $len__0 = (int) ((int) ($len + $n) + -1);
-            return $build_result(
-              $caml_create_bytes($len__0),
-              $len__0,
-              Vector{0, $res, $accu}
-            );
+          if (0 < $n) {
+            $res = $caml_create_bytes((int) ($n + -1));
+            $caml_ml_input($chan, $res, 0, (int) ($n + -1));
+            $caml_ml_input_char($chan);
+            if ($accu__0) {
+              $len__1 = (int) ((int) ($len__0 + $n) + -1) as dynamic;
+              return $build_result(
+                $caml_create_bytes($len__1),
+                $len__1,
+                Vector{0, $res, $accu__0}
+              );
+            }
+            return $res;
           }
-          return $res;
+          $beg = $caml_create_bytes((int) - $n);
+          $caml_ml_input($chan, $beg, 0, (int) - $n);
+          $len__2 = (int) ($len__0 - $n) as dynamic;
+          $accu__1 = Vector{0, $beg, $accu__0} as dynamic;
+          $accu__0 = $accu__1;
+          $len__0 = $len__2;
+          continue;
         }
-        $beg = $caml_create_bytes((int) - $n);
-        $caml_ml_input($chan, $beg, 0, (int) - $n);
-        $len__1 = (int) ($len - $n);
-        $accu__0 = Vector{0, $beg, $accu};
-        $accu = $accu__0;
-        $len = $len__1;
-        continue;
-      }
+      };
+      return $scan(0, 0);
     };
     $close_in_noerr = (dynamic $ic) ==> {
-      $aq_ = null;
       try {$aq_ = $caml_ml_close_channel($ic);return $aq_;}
       catch(\Throwable $ar_) {return 0;}
     };
@@ -369,7 +361,7 @@ final class Pervasives {
     $print_string = (dynamic $s) ==> {return $output_string($stdout, $s);};
     $print_bytes = (dynamic $s) ==> {return $output_bytes($stdout, $s);};
     $print_int = (dynamic $i) ==> {
-      return $output_string($stdout, $string("" . $i));
+      return $output_string($stdout, $string_of_int($i));
     };
     $print_float = (dynamic $f) ==> {
       return $output_string($stdout, $string_of_float($f));
@@ -387,7 +379,7 @@ final class Pervasives {
     $prerr_string = (dynamic $s) ==> {return $output_string($stderr, $s);};
     $prerr_bytes = (dynamic $s) ==> {return $output_bytes($stderr, $s);};
     $prerr_int = (dynamic $i) ==> {
-      return $output_string($stderr, $string("" . $i));
+      return $output_string($stderr, $string_of_int($i));
     };
     $prerr_float = (dynamic $f) ==> {
       return $output_string($stderr, $string_of_float($f));

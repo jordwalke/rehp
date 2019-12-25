@@ -99,19 +99,10 @@ final class Calls {
       $testMethodCalls,
       $testPartialFunctionCalls,
       $testPartialMethodCalls
-    };
+    } as dynamic;
     
      return ($Calls);
 
-  }
-  public static function foo(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function bar(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function baz(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function testFunctionCalls(dynamic $o): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$o]);

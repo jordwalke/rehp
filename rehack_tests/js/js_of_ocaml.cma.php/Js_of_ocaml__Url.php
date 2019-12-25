@@ -90,7 +90,7 @@ final class Js_of_ocaml__Url {
       $string("protocol"),
       $string("reload"),
       $string("replace")
-    };
+    } as dynamic;
     $cst_Js_of_ocaml_Url_Local_exn = $string("Js_of_ocaml__Url.Local_exn");
     $cst = $string("+");
     $cst_Js_of_ocaml_Url_Not_an_http_protocol = $string(
@@ -111,7 +111,7 @@ final class Js_of_ocaml__Url {
     $Not_found =  Not_found::requireModule ();
     $Js_of_ocaml_Regexp =  Js_of_ocaml__Regexp::requireModule ();
     $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
-    $f_ = Vector{0, $string(""), 0};
+    $f_ = Vector{0, $string(""), 0} as dynamic;
     $a_ = Vector{
       0,
       $string("search"),
@@ -126,7 +126,7 @@ final class Js_of_ocaml__Url {
       $string("host"),
       $string("hash"),
       $string("assign")
-    };
+    } as dynamic;
     $split = (dynamic $c, dynamic $s) ==> {
       $cn_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 24046298, 234), $x);
@@ -147,19 +147,19 @@ final class Js_of_ocaml__Url {
         $ch_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, -303194578, 236), $x);
         };
-        $ci_ = (int) ($index + 1);
+        $ci_ = (int) ($index + 1) as dynamic;
         $cj_ = ((dynamic $t6, dynamic $t5, dynamic $param) ==> {return $t6->slice($t5);
          })($s, $ci_, $ch_);
         $ck_ = (dynamic $x) ==> {
           return $call1($caml_get_public_method($x, -20462510, 237), $x);
         };
-        $cl_ = 0;
+        $cl_ = 0 as dynamic;
         $cm_ = Vector{
           0,
           ((dynamic $t4, dynamic $t2, dynamic $t3, dynamic $param) ==> {return $t4->slice($t2, $t3);
            })($s, $cl_, $index, $ck_),
           $cj_
-        };
+        } as dynamic;
         return $call1($Js_of_ocaml_Js[4], $cm_);
       }
       return $Js_of_ocaml_Js[3];
@@ -168,7 +168,7 @@ final class Js_of_ocaml__Url {
       248,
       $cst_Js_of_ocaml_Url_Local_exn,
       $caml_fresh_oo_id(0)
-    };
+    } as dynamic;
     $interrupt = (dynamic $param) ==> {
       throw $caml_wrap_thrown_exception($Local_exn) as \Throwable;
     };
@@ -179,7 +179,7 @@ final class Js_of_ocaml__Url {
     $unescape_plus = (dynamic $s) ==> {
       return $call3($Js_of_ocaml_Regexp[12], $plus_re, $s, $cst__0);
     };
-    $b_ = 0;
+    $b_ = 0 as dynamic;
     $c_ = "g";
     $d_ = "\\+";
     $e_ = $Js_of_ocaml_Js[11];
@@ -190,7 +190,7 @@ final class Js_of_ocaml__Url {
       $cb_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 180472028, 238), $x);
       };
-      $cc_ = 0;
+      $cc_ = 0 as dynamic;
       (((dynamic $t16, dynamic $t15, dynamic $param) ==> {$t16->lastIndex = $t15;return 0;
         })($plus_re_js_string, $cc_, $cb_));
       $cd_ = (dynamic $x) ==> {
@@ -213,7 +213,7 @@ final class Js_of_ocaml__Url {
         $sth = $opt[1];
         $with_plus = $sth;
       }
-      else {$with_plus = 1;}
+      else {$with_plus = 1 as dynamic;}
       return $with_plus
         ? $escape_plus(
          $caml_js_to_byte_string(
@@ -228,7 +228,7 @@ final class Js_of_ocaml__Url {
       248,
       $cst_Js_of_ocaml_Url_Not_an_http_protocol,
       $caml_fresh_oo_id(0)
-    };
+    } as dynamic;
     $is_secure = (dynamic $prot_string) ==> {
       $b9_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 946097238, 240), $x);
@@ -241,22 +241,25 @@ final class Js_of_ocaml__Url {
           if ($caml_string_notequal($match, $cst_http)) {
             if ($caml_string_notequal($match, $cst_http__0)) {
               if ($caml_string_notequal($match, $cst_https)) {
-                if ($caml_string_notequal($match, $cst_https__0)) {$switch__0 = 1;$switch__1 = 0;}
-                else {$switch__1 = 1;}
+                if ($caml_string_notequal($match, $cst_https__0)) {
+                  $switch__0 = 1 as dynamic;
+                  $switch__1 = 0 as dynamic;
+                }
+                else {$switch__1 = 1 as dynamic;}
               }
-              else {$switch__1 = 1;}
+              else {$switch__1 = 1 as dynamic;}
               if ($switch__1) {return 1;}
             }
-            else {$switch__0 = 0;}
+            else {$switch__0 = 0 as dynamic;}
           }
-          else {$switch__0 = 0;}
+          else {$switch__0 = 0 as dynamic;}
           if (! $switch__0) {return 0;}
         }
       }
       throw $caml_wrap_thrown_exception($Not_an_http_protocol) as \Throwable;
     };
-    $default_http_port = 80;
-    $default_https_port = 443;
+    $default_http_port = 80 as dynamic;
+    $default_https_port = 443 as dynamic;
     $path_of_path_string = (dynamic $s) ==> {
       $aux = new Ref();
       $l = $runtime["caml_ml_string_length"]($s);
@@ -309,7 +312,7 @@ final class Js_of_ocaml__Url {
         for (;;) {
           if (0 <= $idx__0) {
             try {
-              $bT_ = (int) ($idx__0 + -1);
+              $bT_ = (int) ($idx__0 + -1) as dynamic;
               $bU_ = (dynamic $s) ==> {
                 $bY_ = (dynamic $param) ==> {
                   $y = $param[2];
@@ -334,7 +337,7 @@ final class Js_of_ocaml__Url {
             catch(\Throwable $bX_) {
               $bX_ = $runtime["caml_wrap_exception"]($bX_);
               if ($bX_ === $Local_exn) {
-                $idx__1 = (int) ($idx__0 + -1);
+                $idx__1 = (int) ($idx__0 + -1) as dynamic;
                 $idx__0 = $idx__1;
                 continue;
               }
@@ -349,14 +352,14 @@ final class Js_of_ocaml__Url {
     $decode_arguments = (dynamic $s) ==> {
       return $decode_arguments_js_string($caml_jsbytes_of_string($s));
     };
-    $g_ = 0;
+    $g_ = 0 as dynamic;
     $h_ = $caml_jsbytes_of_string(
       $cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9
     );
     $i_ = $Js_of_ocaml_Js[10];
     $url_re = ((dynamic $t20, dynamic $t19, dynamic $param) ==> {return new $t20($t19);
      })($i_, $h_, $g_);
-    $j_ = 0;
+    $j_ = 0 as dynamic;
     $k_ = $caml_jsbytes_of_string($cst_Ff_Ii_Ll_Ee);
     $l_ = $Js_of_ocaml_Js[10];
     $file_re = ((dynamic $t22, dynamic $t21, dynamic $param) ==> {return new $t22($t21);
@@ -403,7 +406,7 @@ final class Js_of_ocaml__Url {
           $path_str,
           $bL_,
           $bI_
-        };
+        } as dynamic;
         $bR_ = $ssl ? Vector{1, $url} : (Vector{0, $url});
         return Vector{0, $bR_};
       };
@@ -563,7 +566,7 @@ final class Js_of_ocaml__Url {
     }
     else {
       $empty = "";
-      $I_ = Vector{0, 0, 0, 0};
+      $I_ = Vector{0, 0, 0, 0} as dynamic;
       $J_ = 
       (dynamic $self, dynamic $href, dynamic $protocol, dynamic $host, dynamic $hostname, dynamic $port, dynamic $pathname, dynamic $search, dynamic $hash, dynamic $origin, dynamic $reload, dynamic $replace, dynamic $assign) ==> {
         if (! $I_[1]) {
@@ -652,7 +655,7 @@ final class Js_of_ocaml__Url {
             $ay_,
             $aw_,
             $ax_
-          };
+          } as dynamic;
           $call2($CamlinternalOO[11], $ai_, $aI_);
           $aJ_ = (dynamic $aK_) ==> {
             $aL_ = $call2($CamlinternalOO[24], 0, $ai_);
@@ -730,7 +733,7 @@ final class Js_of_ocaml__Url {
     $protocol = $urldecode_js_string_string(
       ((dynamic $t44, dynamic $param) ==> {return $t44->protocol;})($l, $t_)
     );
-    $u_ = 0;
+    $u_ = 0 as dynamic;
     $port = ((dynamic $param) ==> {
        try {
          $ad_ = (dynamic $x) ==> {
@@ -743,7 +746,7 @@ final class Js_of_ocaml__Url {
                ((dynamic $t45, dynamic $param) ==> {return $t45->port;})($l, $ad_)
              )
            )
-         };
+         } as dynamic;
          return $ae_;
        }
        catch(\Throwable $af_) {
@@ -763,7 +766,7 @@ final class Js_of_ocaml__Url {
     $x_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 930445673, 250), $x);
     };
-    $y_ = 0;
+    $y_ = 0 as dynamic;
     $z_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -487088280, 251), $x);
     };
@@ -776,7 +779,7 @@ final class Js_of_ocaml__Url {
       $B_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -303194578, 252), $x);
       };
-      $C_ = 1;
+      $C_ = 1 as dynamic;
       $D_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -487088280, 253), $x);
       };
@@ -801,7 +804,7 @@ final class Js_of_ocaml__Url {
       $V_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -16084858, 254), $x);
       };
-      $W_ = 0;
+      $W_ = 0 as dynamic;
       $X_ = "#(.*)";
       $Y_ = $Js_of_ocaml_Js[10];
       $Z_ = ((dynamic $t56, dynamic $t55, dynamic $param) ==> {return new $t56($t55);
@@ -869,7 +872,7 @@ final class Js_of_ocaml__Url {
         $set,
         $as_string
       }
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Url);
 
@@ -879,12 +882,6 @@ final class Js_of_ocaml__Url {
   }
   public static function urlencode(dynamic $opt, dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$opt, $s]);
-  }
-  public static function default_http_port(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
-  }
-  public static function default_https_port(): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[]);
   }
   public static function path_of_path_string(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$s]);

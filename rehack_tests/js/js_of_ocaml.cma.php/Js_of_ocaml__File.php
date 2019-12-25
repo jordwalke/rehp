@@ -35,8 +35,8 @@ final class Js_of_ocaml__File {
     $List =  List_::requireModule ();
     $Array =  Array_::requireModule ();
     $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
-    $c_ = Vector{0, $string__0("transparent")};
-    $d_ = Vector{0, $string__0("native")};
+    $c_ = Vector{0, $string__0("transparent")} as dynamic;
+    $d_ = Vector{0, $string__0("native")} as dynamic;
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -553417380, 62), $x);
     };
@@ -60,17 +60,17 @@ final class Js_of_ocaml__File {
       }
     };
     $make_blob_options = (dynamic $contentType, dynamic $endings) ==> {
-      $r_ = 0;
+      $r_ = 0 as dynamic;
       if ($endings) {
         $s_ = 116179762 <= $endings[1] ? $c_ : ($d_);
         $t_ = $s_;
       }
-      else {$t_ = 0;}
+      else {$t_ = 0 as dynamic;}
       $u_ = Vector{
         0,
         Vector{0, $cst_type, $contentType},
         Vector{0, Vector{0, $cst_endings, $t_}, $r_}
-      };
+      } as dynamic;
       $options = $filter_map->contents(
         (dynamic $param) ==> {
           $v = $param[2];
@@ -89,7 +89,7 @@ final class Js_of_ocaml__File {
     };
     $blob_raw = (dynamic $contentType, dynamic $endings, dynamic $a) ==> {
       $options = $make_blob_options($contentType, $endings);
-      $p_ = 0;
+      $p_ = 0 as dynamic;
       $q_ = $runtime["caml_js_from_array"]($a);
       return ((dynamic $t3, dynamic $t1, dynamic $t2, dynamic $param) ==> {return new $t3($t1, $t2);
        })($blob_constr, $q_, $options, $p_);
@@ -170,7 +170,7 @@ final class Js_of_ocaml__File {
       $error,
       $load,
       $loadend
-    };
+    } as dynamic;
     $g_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 642825758, 66), $x);
     };
@@ -193,7 +193,7 @@ final class Js_of_ocaml__File {
       $filename,
       $fileReader,
       $addEventListener
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_File);
 
@@ -204,17 +204,8 @@ final class Js_of_ocaml__File {
   public static function blob_from_any(dynamic $contentType, dynamic $endings, dynamic $l): dynamic {
     return static::callRehackFunction(static::requireModule()[2], varray[$contentType, $endings, $l]);
   }
-  public static function ReaderEvent(): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[]);
-  }
   public static function filename(dynamic $file): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$file]);
-  }
-  public static function fileReader(): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[]);
-  }
-  public static function addEventListener(): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[]);
   }
 
 }

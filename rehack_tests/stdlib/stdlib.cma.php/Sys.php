@@ -14,6 +14,7 @@ final class Sys {
     
     $runtime = $joo_global_object->jsoo_runtime;
     $string = $runtime["caml_new_string"];
+    $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
@@ -30,13 +31,15 @@ final class Sys {
     $win32 = $runtime["caml_sys_const_ostype_win32"](0);
     $cygwin = $runtime["caml_sys_const_ostype_cygwin"](0);
     $max_array_length = $runtime["caml_sys_const_max_wosize"](0);
-    $max_string_length = (int) ((int) (4 * $max_array_length) + -1);
-    $big_endian = 0;
-    $word_size = 32;
-    $int_size = 32;
+    $max_string_length = (int) ((int) (4 * $max_array_length) + -1) as dynamic;
+    $big_endian = 0 as dynamic;
+    $word_size = 32 as dynamic;
+    $int_size = 32 as dynamic;
     $getenv_opt = (dynamic $s) ==> {
-      $d_ = null;
-      try {$d_ = Vector{0, $runtime["caml_sys_getenv"]($s)};return $d_;}
+      try {
+        $d_ = Vector{0, $runtime["caml_sys_getenv"]($s)} as dynamic;
+        return $d_;
+      }
       catch(\Throwable $e_) {
         $e_ = $runtime["caml_wrap_exception"]($e_);
         if ($e_ === $Not_found) {return 0;}
@@ -46,35 +49,47 @@ final class Sys {
     $interactive = Vector{0, 0} as dynamic;
     $set_signal = (dynamic $sig_num, dynamic $sig_beh) ==> {return 0;};
     $Break = Vector{248, $cst_Sys_Break, $runtime["caml_fresh_oo_id"](0)} as dynamic;
-    $sigabrt = -1;
-    $sigalrm = -2;
-    $sigfpe = -3;
-    $sighup = -4;
-    $sigill = -5;
-    $sigint = -6;
-    $sigkill = -7;
-    $sigpipe = -8;
-    $sigquit = -9;
-    $sigsegv = -10;
-    $sigterm = -11;
-    $sigusr1 = -12;
-    $sigusr2 = -13;
-    $sigchld = -14;
-    $sigcont = -15;
-    $sigstop = -16;
-    $sigtstp = -17;
-    $sigttin = -18;
-    $sigttou = -19;
-    $sigvtalrm = -20;
-    $sigprof = -21;
-    $sigbus = -22;
-    $sigpoll = -23;
-    $sigsys = -24;
-    $sigtrap = -25;
-    $sigurg = -26;
-    $sigxcpu = -27;
-    $sigxfsz = -28;
-    $catch_break = (dynamic $on) ==> {return $on ? 0 : (0);};
+    $sigabrt = -1 as dynamic;
+    $sigalrm = -2 as dynamic;
+    $sigfpe = -3 as dynamic;
+    $sighup = -4 as dynamic;
+    $sigill = -5 as dynamic;
+    $sigint = -6 as dynamic;
+    $sigkill = -7 as dynamic;
+    $sigpipe = -8 as dynamic;
+    $sigquit = -9 as dynamic;
+    $sigsegv = -10 as dynamic;
+    $sigterm = -11 as dynamic;
+    $sigusr1 = -12 as dynamic;
+    $sigusr2 = -13 as dynamic;
+    $sigchld = -14 as dynamic;
+    $sigcont = -15 as dynamic;
+    $sigstop = -16 as dynamic;
+    $sigtstp = -17 as dynamic;
+    $sigttin = -18 as dynamic;
+    $sigttou = -19 as dynamic;
+    $sigvtalrm = -20 as dynamic;
+    $sigprof = -21 as dynamic;
+    $sigbus = -22 as dynamic;
+    $sigpoll = -23 as dynamic;
+    $sigsys = -24 as dynamic;
+    $sigtrap = -25 as dynamic;
+    $sigurg = -26 as dynamic;
+    $sigxcpu = -27 as dynamic;
+    $sigxfsz = -28 as dynamic;
+    $catch_break = (dynamic $on) ==> {
+      return $on
+        ? $set_signal(
+         $sigint,
+         Vector{
+           0,
+           (dynamic $param) ==> {
+             throw $caml_wrap_thrown_exception($Break) as \Throwable;
+           }
+         }
+       )
+        : ($set_signal($sigint, 0));
+    };
     $a_ = (dynamic $c_) ==> {
       return $runtime["caml_ml_runtime_warnings_enabled"]($c_);
     };

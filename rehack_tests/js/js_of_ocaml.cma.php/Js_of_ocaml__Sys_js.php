@@ -75,7 +75,7 @@ final class Js_of_ocaml__Sys_js {
       $a_,
       $update_file,
       $js_of_ocaml_version
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Sys_js);
 
@@ -94,9 +94,6 @@ final class Js_of_ocaml__Sys_js {
   }
   public static function update_file(dynamic $name, dynamic $content): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[$name, $content]);
-  }
-  public static function js_of_ocaml_version(): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[]);
   }
 
 }

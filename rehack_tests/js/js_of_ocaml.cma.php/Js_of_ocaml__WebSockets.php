@@ -32,13 +32,10 @@ final class Js_of_ocaml__WebSockets {
       $webSocket,
       $webSocket,
       $is_supported
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_WebSockets);
 
-  }
-  public static function webSocket(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
   }
   public static function is_supported(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$param]);

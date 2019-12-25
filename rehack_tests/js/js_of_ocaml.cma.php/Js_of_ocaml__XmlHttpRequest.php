@@ -28,7 +28,7 @@ final class Js_of_ocaml__XmlHttpRequest {
     $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $Assert_failure =  Assert_failure::requireModule ();
     $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
-    $a_ = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75};
+    $a_ = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75} as dynamic;
     $readystatechange = $call1($Js_of_ocaml_Dom[14][1], $cst_readystatechange);
     $loadstart = $call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
     $progress = $call1($Js_of_ocaml_Dom[14][1], $cst_progress);
@@ -47,7 +47,7 @@ final class Js_of_ocaml__XmlHttpRequest {
       $load,
       $timeout,
       $loadend
-    };
+    } as dynamic;
     $create = (dynamic $param) ==> {
       $b_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, -1035517745, 201), $x);
@@ -64,13 +64,13 @@ final class Js_of_ocaml__XmlHttpRequest {
          return $t7->activeXObject;
        })($e_, $d_);
       try {
-        $o_ = 0;
+        $o_ = 0 as dynamic;
         $p_ = ((dynamic $t6, dynamic $param) ==> {return new $t6();})($xmlHttpRequest, $o_);
         return $p_;
       }
       catch(\Throwable $q_) {
         try {
-          $l_ = 0;
+          $l_ = 0 as dynamic;
           $m_ = "Msxml2.XMLHTTP";
           $n_ = ((dynamic $t5, dynamic $t4, dynamic $param) ==> {return new $t5($t4);
            })($activeXObject, $m_, $l_);
@@ -78,7 +78,7 @@ final class Js_of_ocaml__XmlHttpRequest {
         }
         catch(\Throwable $r_) {
           try {
-            $i_ = 0;
+            $i_ = 0 as dynamic;
             $j_ = "Msxml3.XMLHTTP";
             $k_ = ((dynamic $t3, dynamic $t2, dynamic $param) ==> {return new $t3($t2);
              })($activeXObject, $j_, $i_);
@@ -86,7 +86,7 @@ final class Js_of_ocaml__XmlHttpRequest {
           }
           catch(\Throwable $s_) {
             try {
-              $f_ = 0;
+              $f_ = 0 as dynamic;
               $g_ = "Microsoft.XMLHTTP";
               $h_ = ((dynamic $t1, dynamic $t0, dynamic $param) ==> {return new $t1($t0);
                })($activeXObject, $g_, $f_);
@@ -101,16 +101,13 @@ final class Js_of_ocaml__XmlHttpRequest {
         }
       }
     };
-    $Js_of_ocaml_XmlHttpRequest = Vector{0, $create, $Event};
+    $Js_of_ocaml_XmlHttpRequest = Vector{0, $create, $Event} as dynamic;
     
      return ($Js_of_ocaml_XmlHttpRequest);
 
   }
   public static function create(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[1], varray[$param]);
-  }
-  public static function Event(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
   }
 
 }

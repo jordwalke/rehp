@@ -43,20 +43,16 @@ final class Stream {
     $CamlinternalLazy =  CamlinternalLazy::requireModule ();
     $Pervasives =  Pervasives::requireModule ();
     $List =  List_::requireModule ();
-    $Failure = Vector{248, $cst_Stream_Failure, $caml_fresh_oo_id(0)} as dynamic;
-    $Error = Vector{248, $cst_Stream_Error, $caml_fresh_oo_id(0)} as dynamic;
     $a_ = Vector{0, $string("stream.ml"), 53, 12} as dynamic;
     $b_ = Vector{0, 0} as dynamic;
     $c_ = Vector{0, $string("stream.ml"), 82, 12} as dynamic;
+    $Failure = Vector{248, $cst_Stream_Failure, $caml_fresh_oo_id(0)} as dynamic;
+    $Error = Vector{248, $cst_Stream_Error, $caml_fresh_oo_id(0)} as dynamic;
     $count = (dynamic $param) ==> {
-      $count = null;
-      $match = null;
       if ($param) {$match = $param[1];$count = $match[1];return $count;}
       return 0;
     };
     $data = (dynamic $param) ==> {
-      $data = null;
-      $match = null;
       if ($param) {$match = $param[1];$data = $match[2];return $data;}
       return 0;
     };
@@ -67,22 +63,6 @@ final class Stream {
       return 0;
     };
     $get_data->contents = (dynamic $count, dynamic $d) ==> {
-      $d2 = null;
-      $d1 = null;
-      $match = null;
-      $d11 = null;
-      $a = null;
-      $f = null;
-      $q_ = null;
-      $d__1 = null;
-      $r_ = null;
-      $s_ = null;
-      $t_ = null;
-      $a__0 = null;
-      $match__0 = null;
-      $a__1 = null;
-      $b = null;
-      $r = null;
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
@@ -111,10 +91,9 @@ final class Stream {
             case 2:
               $f = $d__0[1];
               $q_ = $caml_obj_tag($f);
-              $d__1 =
-                250 === $q_
-                  ? $f[1]
-                  : (246 === $q_ ? $call1($CamlinternalLazy[2], $f) : ($f));
+              $d__1 = 250 === $q_
+                ? $f[1]
+                : (246 === $q_ ? $call1($CamlinternalLazy[2], $f) : ($f));
               $d__0 = $d__1;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -152,18 +131,6 @@ final class Stream {
       }
     };
     $peek_data = (dynamic $s) ==> {
-      $b = null;
-      $x = null;
-      $a__1 = null;
-      $p_ = null;
-      $o_ = null;
-      $n_ = null;
-      $m_ = null;
-      $f = null;
-      $a__0 = null;
-      $d = null;
-      $a = null;
-      $l_ = null;
       for (;;) {
         $l_ = $s[2];
         if ($is_int($l_)) {return 0;}
@@ -192,10 +159,9 @@ final class Stream {
             case 2:
               $f = $l_[1];
               $m_ = $caml_obj_tag($f);
-              $n_ =
-                250 === $m_
-                  ? $f[1]
-                  : (246 === $m_ ? $call1($CamlinternalLazy[2], $f) : ($f));
+              $n_ = 250 === $m_
+                ? $f[1]
+                : (246 === $m_ ? $call1($CamlinternalLazy[2], $f) : ($f));
               $s[2] = $n_;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -218,16 +184,10 @@ final class Stream {
       }
     };
     $peek = (dynamic $param) ==> {
-      $s = null;
       if ($param) {$s = $param[1];return $peek_data($s);}
       return 0;
     };
     $junk_data = (dynamic $s) ==> {
-      $b = null;
-      $k_ = null;
-      $d = null;
-      $match = null;
-      $j_ = null;
       for (;;) {
         $j_ = $s[2];
         if (! $is_int($j_)) {
@@ -257,17 +217,10 @@ final class Stream {
       }
     };
     $junk = (dynamic $param) ==> {
-      $data = null;
       if ($param) {$data = $param[1];return $junk_data($data);}
       return 0;
     };
     $nget_data->contents = (dynamic $n, dynamic $s) ==> {
-      $al = null;
-      $d = null;
-      $k = null;
-      $match__0 = null;
-      $a = null;
-      $match = null;
       if (0 < $n) {
         $match = $peek_data($s);
         if ($match) {
@@ -289,26 +242,20 @@ final class Stream {
       }
       return Vector{0, 0, $s[2], 0};
     };
+    $npeek_data = (dynamic $n, dynamic $s) ==> {
+      $match = $nget_data->contents($n, $s);
+      $len = $match[3];
+      $d = $match[2];
+      $al = $match[1];
+      $s[1] = (int) ($s[1] - $len);
+      $s[2] = $d;
+      return $al;
+    };
     $npeek = (dynamic $n, dynamic $param) ==> {
-      $d__0 = null;
-      $al = null;
-      $d = null;
-      $len = null;
-      $match = null;
-      if ($param) {
-        $d__0 = $param[1];
-        $match = $nget_data->contents($n, $d__0);
-        $len = $match[3];
-        $d = $match[2];
-        $al = $match[1];
-        $d__0[1] = (int) ($d__0[1] - $len);
-        $d__0[2] = $d;
-        return $al;
-      }
+      if ($param) {$d = $param[1];return $npeek_data($n, $d);}
       return 0;
     };
     $next = (dynamic $s) ==> {
-      $a = null;
       $match = $peek($s);
       if ($match) {$a = $match[1];$junk($s);return $a;}
       throw $caml_wrap_thrown_exception($Failure) as \Throwable;
@@ -319,19 +266,20 @@ final class Stream {
       return 0;
     };
     $iter = (dynamic $f, dynamic $strm) ==> {
-      $a = null;
-      $match = null;
-      for (;;) {
-        $match = $peek($strm);
-        if ($match) {$a = $match[1];$junk($strm);$call1($f, $a);continue;}
-        return 0;
-      }
+      $do_rec = (dynamic $param) ==> {
+        for (;;) {
+          $match = $peek($strm);
+          if ($match) {$a = $match[1];$junk($strm);$call1($f, $a);continue;}
+          return 0;
+        }
+      };
+      return $do_rec(0);
     };
     $from = (dynamic $f) ==> {
       return Vector{0, Vector{0, 0, Vector{3, Vector{0, 0, $f}}}};
     };
     $of_list = (dynamic $l) ==> {
-      $h_ = 0;
+      $h_ = 0 as dynamic;
       $i_ = (dynamic $x, dynamic $l) ==> {return Vector{0, $x, $l};};
       return Vector{0, Vector{0, 0, $call3($List[21], $i_, $l, $h_)}};
     };
@@ -435,7 +383,7 @@ final class Stream {
         }
       };
     };
-    $sempty = 0;
+    $sempty = 0 as dynamic;
     $slazy = (dynamic $f) ==> {
       return Vector{
         0,
@@ -459,10 +407,6 @@ final class Stream {
       return $call1($Pervasives[35], 0);
     };
     $dump_data->contents = (dynamic $f, dynamic $param) ==> {
-      $d1 = null;
-      $d2 = null;
-      $a = null;
-      $d = null;
       if ($is_int($param)) {
         return $call1($Pervasives[30], $cst_Sempty);
       }

@@ -25,9 +25,9 @@ final class Js_of_ocaml__Regexp {
     $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
     $Assert_failure =  Assert_failure::requireModule ();
     $Pervasives =  Pervasives::requireModule ();
-    $a_ = Vector{0, $string("lib/js_of_ocaml/regexp.ml"), 33, 64};
+    $a_ = Vector{0, $string("lib/js_of_ocaml/regexp.ml"), 33, 64} as dynamic;
     $regexp = (dynamic $s) ==> {
-      $al_ = 0;
+      $al_ = 0 as dynamic;
       $am_ = "g";
       $an_ = $caml_jsbytes_of_string($s);
       $ao_ = $Js_of_ocaml_Js[11];
@@ -35,7 +35,7 @@ final class Js_of_ocaml__Regexp {
        })($ao_, $an_, $am_, $al_);
     };
     $regexp_case_fold = (dynamic $s) ==> {
-      $ah_ = 0;
+      $ah_ = 0 as dynamic;
       $ai_ = "gi";
       $aj_ = $caml_jsbytes_of_string($s);
       $ak_ = $Js_of_ocaml_Js[11];
@@ -44,7 +44,7 @@ final class Js_of_ocaml__Regexp {
     };
     $regexp_with_flag = (dynamic $s, dynamic $f) ==> {
       $ae_ = $call2($Pervasives[16], $cst_g, $f)->toString();
-      $ad_ = 0;
+      $ad_ = 0 as dynamic;
       $af_ = $caml_jsbytes_of_string($s);
       $ag_ = $Js_of_ocaml_Js[11];
       return ((dynamic $t8, dynamic $t6, dynamic $t7, dynamic $param) ==> {return new $t8($t6, $t7);
@@ -107,7 +107,7 @@ final class Js_of_ocaml__Regexp {
       $M_ = $call2($Js_of_ocaml_Js[6][3], $L_, $K_);
       return $call1($Js_of_ocaml_Js[6][10], $M_);
     };
-    $b_ = 0;
+    $b_ = 0 as dynamic;
     $c_ = "g";
     $d_ = "[\\$]";
     $e_ = $Js_of_ocaml_Js[11];
@@ -127,7 +127,7 @@ final class Js_of_ocaml__Regexp {
       $C_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 180472028, 222), $x);
       };
-      $D_ = 0;
+      $D_ = 0 as dynamic;
       (((dynamic $t28, dynamic $t27, dynamic $param) ==> {$t28->lastIndex = $t27;return 0;
         })($r, $D_, $C_));
       $E_ = (dynamic $x) ==> {
@@ -145,16 +145,16 @@ final class Js_of_ocaml__Regexp {
         return $call1($caml_get_public_method($x, -1042090782, 224), $x);
       };
       $match = (int)
-      ((dynamic $t36, dynamic $param) ==> {return $t36->ignoreCase;})($r, $t_);
+      ((dynamic $t36, dynamic $param) ==> {return $t36->ignoreCase;})($r, $t_) as dynamic;
       $u_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 504484589, 225), $x);
       };
       $match__0 = (int)
-      ((dynamic $t37, dynamic $param) ==> {return $t37->multiline;})($r, $u_);
+      ((dynamic $t37, dynamic $param) ==> {return $t37->multiline;})($r, $u_) as dynamic;
       $flags = 0 === $match
         ? 0 === $match__0 ? "" : ("m")
         : (0 === $match__0 ? "i" : ("mi"));
-      $v_ = 0;
+      $v_ = 0 as dynamic;
       $w_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 842117339, 226), $x);
       };
@@ -178,8 +178,8 @@ final class Js_of_ocaml__Regexp {
         $idx__0 = $idx;
         for (;;) {
           if (0 <= $idx__0) {
-            $idx__1 = (int) ($idx__0 + -1);
-            $accu__1 = Vector{0, $blunt_str_array_get($a, $idx__0), $accu__0};
+            $idx__1 = (int) ($idx__0 + -1) as dynamic;
+            $accu__1 = Vector{0, $blunt_str_array_get($a, $idx__0), $accu__0} as dynamic;
             $accu__0 = $accu__1;
             $idx__0 = $idx__1;
             continue;
@@ -200,7 +200,7 @@ final class Js_of_ocaml__Regexp {
       $n_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 180472028, 229), $x);
       };
-      $o_ = 0;
+      $o_ = 0 as dynamic;
       (((dynamic $t42, dynamic $t41, dynamic $param) ==> {$t42->lastIndex = $t41;return 0;
         })($r, $o_, $n_));
       $p_ = (dynamic $x) ==> {
@@ -215,7 +215,7 @@ final class Js_of_ocaml__Regexp {
       $i_ = (dynamic $x) ==> {
         return $call1($caml_get_public_method($x, 180472028, 231), $x);
       };
-      $j_ = 0;
+      $j_ = 0 as dynamic;
       (((dynamic $t47, dynamic $t46, dynamic $param) ==> {$t47->lastIndex = $t46;return 0;
         })($r, $j_, $i_));
       $k_ = (dynamic $x) ==> {
@@ -259,7 +259,7 @@ final class Js_of_ocaml__Regexp {
       $replace_first,
       $split,
       $bounded_split
-    };
+    } as dynamic;
     
      return ($Js_of_ocaml_Regexp);
 

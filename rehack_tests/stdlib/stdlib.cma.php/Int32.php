@@ -13,29 +13,30 @@ final class Int32 {
     $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $runtime = $joo_global_object->jsoo_runtime;
-    $caml_int_compare = $runtime["caml_int_compare"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
     $cst_d = $runtime["caml_new_string"]("%d");
     $Failure =  Failure::requireModule ();
-    $zero = 0;
-    $one = 1;
-    $minus_one = -1;
+    $zero = 0 as dynamic;
+    $one = 1 as dynamic;
+    $minus_one = -1 as dynamic;
     $succ = (dynamic $n) ==> {return (int) ($n + 1);};
     $pred = (dynamic $n) ==> {return (int) ($n - 1);};
     $abs = (dynamic $n) ==> {
       return $runtime["caml_greaterequal"]($n, 0) ? $n : ((int) - $n);
     };
-    $min_int = -2147483648;
-    $max_int = 2147483647;
+    $min_int = -2147483648 as dynamic;
+    $max_int = 2147483647 as dynamic;
     $lognot = (dynamic $n) ==> {return $n ^ -1;};
     $to_string = (dynamic $n) ==> {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = (dynamic $s) ==> {
-      $a_ = null;
-      try {$a_ = Vector{0, $runtime["caml_int_of_string"]($s)};return $a_;}
+      try {
+        $a_ = Vector{0, $runtime["caml_int_of_string"]($s)} as dynamic;
+        return $a_;
+      }
       catch(\Throwable $b_) {
         $b_ = $runtime["caml_wrap_exception"]($b_);
         if ($b_[1] === $Failure) {return 0;}
@@ -43,10 +44,10 @@ final class Int32 {
       }
     };
     $compare = (dynamic $x, dynamic $y) ==> {
-      return $caml_int_compare($x, $y);
+      return $runtime["caml_int_compare"]($x, $y);
     };
     $equal = (dynamic $x, dynamic $y) ==> {
-      return 0 === $caml_int_compare($x, $y) ? 1 : (0);
+      return 0 === $compare($x, $y) ? 1 : (0);
     };
     $Int32 = Vector{
       0,

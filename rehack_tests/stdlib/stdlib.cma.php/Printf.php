@@ -22,7 +22,7 @@ final class Printf {
     $Pervasives =  Pervasives::requireModule ();
     $kfprintf = (dynamic $k, dynamic $o, dynamic $param) ==> {
       $fmt = $param[1];
-      $f_ = 0;
+      $f_ = 0 as dynamic;
       $g_ = (dynamic $o, dynamic $acc) ==> {
         $call2($CamlinternalFormat[9], $o, $acc);
         return $call1($k, $o);
@@ -31,7 +31,7 @@ final class Printf {
     };
     $kbprintf = (dynamic $k, dynamic $b, dynamic $param) ==> {
       $fmt = $param[1];
-      $d_ = 0;
+      $d_ = 0 as dynamic;
       $e_ = (dynamic $b, dynamic $acc) ==> {
         $call2($CamlinternalFormat[10], $b, $acc);
         return $call1($k, $b);
