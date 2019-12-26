@@ -55,9 +55,9 @@ let compute_hashes
    * needs to occur to optimize arity calls *)
   let lines =
     [ "/*____hashes"
-    (* Disabling compiler in hash because it makes it hard to update lots of
-     * checked in files if you apply a small compiler fix. *)
-    (* ; "compiler: " ^ Compiler_version.git_version *)
+      (* Disabling compiler in hash because it makes it hard to update lots of
+       * checked in files if you apply a small compiler fix. *)
+      (* ; "compiler: " ^ Compiler_version.git_version *)
     ; (* :: ("bytecode(bad): " ^ string_of_int (Hashtbl.hash_param 256 256 bc.code)) *)
       "flags: " ^ string_of_int (custom_header_hash + args_hash)
     ; (* :: ("bytecode.cmis: " ^ string_of_int (Hashtbl.hash_param 256 256 bc.cmis)) *)
@@ -115,6 +115,19 @@ let ensure_dir dir =
         (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")))
   else Unix.mkdir dir 0o777
 
+let dir_contents dir =
+  let exists = Sys.file_exists dir in
+  if exists
+  then
+    if not (Sys.is_directory dir)
+    then
+      raise
+        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory."))
+    else
+      let dir_contents = Sys.readdir dir in
+      Array.to_list dir_contents
+  else []
+
 let temp_file_name =
   (* Inlined unavailable Filename.temp_file_name. Filename.temp_file gives
      us incorrect permissions. https://github.com/ocsigen/js_of_ocaml/issues/182 *)
@@ -148,6 +161,22 @@ let gen_unit_filename ?ext dir u =
     | Some e -> e
   in
   Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
+
+let remove_unexpected_files expected observed =
+  let expected = List.sort ~cmp:String.compare expected in
+  let observed = List.sort ~cmp:String.compare observed in
+  let rec files_to_remove cur expected observed =
+    match expected, observed with
+    | [], [] -> cur
+    | expect_hd :: expect_tl, [] -> cur (* This is actually a problem - what happened? *)
+    | [], observe_hd :: observe_tl -> files_to_remove (observe_hd :: cur) [] observe_tl
+    | expect_hd :: expect_tl, observe_hd :: observe_tl ->
+        if String.equal expect_hd observe_hd
+        then files_to_remove cur expect_tl observe_tl
+        else files_to_remove (observe_hd :: cur) expected observe_tl
+  in
+  let remove_these = files_to_remove [] expected observed in
+  List.iter ~f:(fun file -> try Sys.remove file with Sys_error _ -> ()) remove_these
 
 let f
     ({ CompileArg.common
@@ -402,7 +431,7 @@ let f
         let extra_hash_data = empty_extra_hash_data in
         (* Fast hashing not supported for cmo mode *)
         output cmo.cu_name cmo.cu_required_globals extra_hash_data code false output_file
-    | `Cma cma when keep_unit_names ->
+    | `Cma cma when keep_unit_names -> (
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
@@ -436,7 +465,16 @@ let f
               extra_hash_data
               code
               false
-              output_file)
+              output_file);
+        match output_file with
+        | `Name x, true ->
+            let expected =
+              List.map cma.lib_units ~f:(fun cmo ->
+                  gen_unit_filename ?ext:implicit_ext x cmo)
+            in
+            let observed = List.map ~f:(fun d -> Filename.concat x d) (dir_contents x) in
+            remove_unexpected_files expected observed
+        | _ -> ())
     | `Cma cma ->
         let t1 = Timer.make () in
         let code =
