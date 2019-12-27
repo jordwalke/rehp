@@ -76,8 +76,8 @@ export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --ena
 export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js  --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/SeparateCompilation/SeparateCompilation.cma -o ./rehack_tests/output/SeparateCompilation.cma.js/
 
 
-echo "./runtime/rehack/php/runtime.js"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --custom-header "file:./rehack_tests/templates/common-js-runtime-header.js" --runtime-only --noinline --disable shortvar --pretty --backend js --prettiest-js "${1}"/default/rehack_tests/strings/strings.bc -o ./runtime/rehack/js/runtime.js
+echo "./rehack_tests/output/runtime/runtime.js"
+export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --custom-header "file:./rehack_tests/templates/common-js-runtime-header.js" --runtime-only --noinline --disable shortvar --pretty --backend js --prettiest-js "${1}"/default/rehack_tests/strings/strings.bc -o ./rehack_tests/output/runtime/runtime.js
 echo "./rehack_tests/output/stdlib.cma.js"
 export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/output/stdlib.cma.js/
 

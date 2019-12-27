@@ -382,3 +382,6 @@ let custom_module_loader = () =>
     (runtime_getter, name) =>
       Some(Rehp.ECall(Rehp.ERaw(name ++ "::requireModule", []), [], Loc.N)),
   );
+
+let runtime_module_var = () =>
+  Rehp.ERaw("(\\Rehack\\GlobalObject::get() as dynamic)->jsoo_runtime", []);

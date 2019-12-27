@@ -1,9 +1,7 @@
 /**
  * @providesModule Assert_failure
  */
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require('./runtime.js');
 var caml_register_global = runtime["caml_register_global"];
 var string = runtime["caml_new_string"];
 

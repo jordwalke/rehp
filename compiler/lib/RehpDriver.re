@@ -321,7 +321,7 @@ let placeRuntimeVarAtTop = (~runtimeVarName, idents, rehp) =>
   | Some(runtimeName) =>
     let mainRuntimeVar = (
       Id.V(runtimeName),
-      Some((Rehp.EDot(globalVar, "jsoo_runtime"), Loc.N)),
+      Some((Backend.Current.runtime_module_var(), Loc.N)),
     );
     /* let freeVars = */
     /*   List.fold_left(StringSet.elements(idents), ~init=[], ~f=(soFar, id) => */

@@ -7,8 +7,7 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
+var runtime = require('../runtime/runtime.js');
 /*____CompilationOutput*/
 /*____CompilationSummary*/
 /*____hashes*/

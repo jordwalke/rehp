@@ -316,12 +316,33 @@ let custom_module_registration = () =>
 
 let custom_module_loader = () =>
   Some(
-    (runtime_getter, name) =>
+    (runtime_getter, name) => {
+      print_endline("getting module " ++ name);
+      let dependency_outputs = Dependency_outputs.get();
+      open Dependency_outputs;
+      let found =
+        List.find_all(dependency_outputs, ~f=output =>
+          String.equal(output.normalized_compilation_unit, name)
+        );
+      let requireStr =
+        switch (found) {
+        | [] => name ++ ".js"
+        | [hd, ...tl] =>
+          Filename.concat(hd.relative_dir_from_output, hd.filename)
+        };
       Some(
         Rehp.ECall(
           Rehp.EVar(Id.ident("require")),
-          [Rehp.EStr(name ++ ".js", `Bytes)],
+          [Rehp.EStr(requireStr, `Bytes)],
           Loc.N,
         ),
-      ),
+      );
+    },
+  );
+
+let runtime_module_var = () =>
+  Rehp.ECall(
+    Rehp.EVar(Id.ident("require")),
+    [Rehp.EStr("../runtime/runtime.js", `Bytes)],
+    Loc.N,
   );

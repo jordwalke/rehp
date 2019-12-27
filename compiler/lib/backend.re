@@ -162,6 +162,11 @@ module type Backend_implementation = {
     );
   let custom_module_loader:
     unit => option((runtime_getter, string) => option(Rehp.expression));
+  /**
+   * Variable expression that the runtime variable is set to in separate
+   * compilation mode.
+   */
+  let runtime_module_var: unit => Rehp.expression;
   let is_prim_supplied: (unit, string) => option(string);
   let extension: unit => string;
   let compiler_backend_flag: unit => string;
@@ -258,5 +263,10 @@ module Current: Backend_implementation = {
     switch (current^) {
     | None => raise(Invalid_argument("Compiler backend not set"))
     | Some((module CurrentBackend)) => CurrentBackend.custom_module_loader()
+    };
+  let runtime_module_var = () =>
+    switch (current^) {
+    | None => raise(Invalid_argument("Runtime setter not set"))
+    | Some((module CurrentBackend)) => CurrentBackend.runtime_module_var()
     };
 };
