@@ -176,10 +176,12 @@ let relativizeRelativePaths from p =
 
 (* Intentionally don't return the contents of the dir because they are stale at this point.
  * We will append the expected dependencies to the returned list. *)
-let get_potential_dependency_outputs dir =
+let get_potential_dependency_outputs ?ext dir =
   let parent_dir = Filename.dirname dir in
   let parent_dir_contents = dir_contents parent_dir in
   List.map parent_dir_contents ~f:(fun sibling_dir ->
+      let backend_ext = Backend.Current.extension () in
+      let dot_backend_ext = "." ^ backend_ext in
       let full_sibling_dir = Filename.concat parent_dir sibling_dir in
       if (not (String.equal full_sibling_dir dir)) && Sys.is_directory full_sibling_dir
       then
@@ -188,13 +190,30 @@ let get_potential_dependency_outputs dir =
            == None
         then []
         else
-          List.rev_map sibling_dir_contents ~f:(fun sib_child ->
+          let matching_suffix =
+            List.filter_map sibling_dir_contents ~f:(fun nm ->
+                match ext with
+                | None ->
+                    if Filename.check_suffix nm dot_backend_ext
+                    then Some (nm, Filename.chop_suffix nm dot_backend_ext)
+                    else None
+                | Some e ->
+                    let dot_ext = "." ^ e in
+                    if Filename.check_suffix nm dot_backend_ext
+                    then Some (nm, Filename.chop_suffix nm dot_backend_ext)
+                    else if Filename.check_suffix nm dot_ext
+                    then Some (nm, Filename.chop_suffix nm dot_ext)
+                    else None)
+          in
+          List.rev_map matching_suffix ~f:(fun (file_name, base_name) ->
               { Dependency_outputs.relative_dir_from_project = full_sibling_dir
               ; relative_dir_from_output =
                   relativizeRelativePaths
                     (Filename.concat dir "pretend.js")
                     full_sibling_dir
-              ; filename = sib_child })
+              ; normalized_compilation_unit =
+                  Parse_bytecode.normalize_module_name base_name
+              ; filename = file_name })
       else [])
   |> List.concat
 
@@ -232,13 +251,15 @@ let gen_file file f =
     Sys.remove f_tmp;
     raise exc
 
-let gen_unit_filename ?ext dir u =
+let gen_unit_filename ?ext u =
   let ext =
     match ext with
     | None -> Backend.Current.extension ()
     | Some e -> e
   in
-  Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
+  Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext
+
+let gen_unit_filepath ?ext dir u = Filename.concat dir (gen_unit_filename ?ext u)
 
 let ensure_file path =
   let exists = Sys.file_exists path in
@@ -498,16 +519,16 @@ let f
     | `Cmo cmo ->
         let output_file =
           match output_file, keep_unit_names with
-          | (`Stdout, false), true -> `Name (gen_unit_filename "./" cmo)
+          | (`Stdout, false), true -> `Name (gen_unit_filepath "./" cmo)
           | (`Name x, false), true ->
               ensure_dir (Filename.dirname x);
-              `Name (gen_unit_filename (Filename.dirname x) cmo)
+              `Name (gen_unit_filepath (Filename.dirname x) cmo)
           | (`Stdout, _), false -> `Stdout
           | (`Name x, _), false -> `Name x
           | (`Name x, true), true
             when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
               ensure_dir x;
-              `Name (gen_unit_filename x cmo)
+              `Name (gen_unit_filepath x cmo)
           | (`Name _, true), true | (`Stdout, true), true ->
               failwith "use [-o dirname/] or remove [--keep-unit-names]"
         in
@@ -525,24 +546,39 @@ let f
         let likely_dependency_outputs =
           match output_file with
           | `Name x, b ->
-              if b then ensure_dir x else ensure_dir (Filename.dirname x);
+              let dir = if b then x else Filename.dirname x in
+              (* Add the files that *will* be compiled to the set of
+               * resolveable modules *)
+              ensure_dir dir;
               (* Mark the directory as a rehp output dir *)
-              ensure_file (Filename.concat x "rehp-output-dir.txt");
-              let all_outputs = get_potential_dependency_outputs (Filename.dirname x) in
-              (* remove_dependency_outputs all_outputs (Filename.dirname x) *)
-              all_outputs
+              ensure_file (Filename.concat dir "rehp-output-dir.txt");
+              let existing_outputs = get_potential_dependency_outputs dir in
+              let add =
+                List.map cma.lib_units ~f:(fun cmo ->
+                    let filename =
+                      if not b
+                      then gen_unit_filename ?ext:implicit_ext cmo
+                      else gen_unit_filename ?ext:implicit_ext cmo
+                    in
+                    { Dependency_outputs.relative_dir_from_project = dir
+                    ; relative_dir_from_output = "./"
+                    ; normalized_compilation_unit =
+                        Parse_bytecode.normalize_module_name cmo.cu_name
+                    ; filename })
+              in
+              List.concat [add; existing_outputs]
           | _ -> []
         in
         Dependency_outputs.set likely_dependency_outputs;
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
-              | `Stdout, false -> `Name (gen_unit_filename ?ext:implicit_ext "./" cmo)
+              | `Stdout, false -> `Name (gen_unit_filepath ?ext:implicit_ext "./" cmo)
               | `Name x, false ->
-                  `Name (gen_unit_filename ?ext:implicit_ext (Filename.dirname x) cmo)
+                  `Name (gen_unit_filepath ?ext:implicit_ext (Filename.dirname x) cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
-                  `Name (gen_unit_filename ?ext:implicit_ext x cmo)
+                  `Name (gen_unit_filepath ?ext:implicit_ext x cmo)
               | `Stdout, true | `Name _, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
             in
@@ -570,7 +606,7 @@ let f
         | `Name x, true ->
             let expected =
               List.map cma.lib_units ~f:(fun cmo ->
-                  gen_unit_filename ?ext:implicit_ext x cmo)
+                  gen_unit_filepath ?ext:implicit_ext x cmo)
             in
             let observed = List.map ~f:(fun d -> Filename.concat x d) (dir_contents x) in
             remove_unexpected_files
