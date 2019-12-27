@@ -524,8 +524,8 @@ let f
          * output doesn't need to search for them for each file. *)
         let likely_dependency_outputs =
           match output_file with
-          | `Name x, true ->
-              ensure_dir (Filename.dirname x);
+          | `Name x, b ->
+              if b then ensure_dir x else ensure_dir (Filename.dirname x);
               (* Mark the directory as a rehp output dir *)
               ensure_file (Filename.concat x "rehp-output-dir.txt");
               let all_outputs = get_potential_dependency_outputs (Filename.dirname x) in
