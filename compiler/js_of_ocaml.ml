@@ -128,6 +128,84 @@ let dir_contents dir =
       Array.to_list dir_contents
   else []
 
+let remove_last lst =
+  match List.rev lst with
+  | [] -> []
+  | hd :: tl -> List.rev tl
+
+let rec relativizeRelativePathsImp from p =
+  match from, p with
+  | [], [] -> []
+  | [fromHd], [pHd] -> [".."; pHd]
+  | fromHd :: fromTl, pHd :: pTl ->
+      if fromHd = pHd
+      then relativizeRelativePathsImp fromTl pTl
+      else ".." :: relativizeRelativePathsImp (remove_last from) (pHd :: pTl)
+  | [fromHd], [] -> relativizeRelativePathsImp [] []
+  | fromHd :: fromTl :: fromTlTl, [] -> ".." :: relativizeRelativePathsImp fromTlTl []
+  | [], pHd :: pTl -> pHd :: relativizeRelativePathsImp [] pTl
+
+(*
+ * relativizeRelativePaths "./foo/bar/baz.js" "./foo/hi.js" == "../hi.js"
+ *
+ * relativizeRelativePaths "./foo/bar/barbar/baz.js" "./foo/hi.js" == "../../hi.js"
+ * relativizeRelativePaths "./foo/bar/baz.js" "./foo/bye/now.js" == "../bye/now.js"
+ * relativizeRelativePaths "./bar/baz.js" "./bye/now.js"
+ * relativizeRelativePaths "../bye" + relativizeRelativePaths "./baz.js" "./now.js"
+ *
+ * relativizeRelativePaths "./foo/bar/baz.js" "./foo/bar/baz2.js" == "./baz2.js"
+ *)
+let relativizeRelativePaths from p =
+  match String.find_substring "./" from 0, String.find_substring "./" from 0 with
+  | exception Not_found ->
+      raise (Sys_error ("Paths not both relative " ^ from ^ ", " ^ p))
+  | 0, 0 ->
+      let from = String.sub ~pos:2 ~len:(String.length from - 2) from in
+      let p = String.sub ~pos:2 ~len:(String.length p - 2) p in
+      let res =
+        String.concat
+          ~sep:"/"
+          (relativizeRelativePathsImp
+             (String.split_char ~sep:'/' from)
+             (String.split_char ~sep:'/' p))
+      in
+      if String.length res > 1 && res.[0] == '.' && res.[1] == '.'
+      then res
+      else "./" ^ res
+  | _, _ -> raise (Sys_error ("Paths not both relative " ^ from ^ ", " ^ p))
+
+(* Intentionally don't return the contents of the dir because they are stale at this point.
+ * We will append the expected dependencies to the returned list. *)
+let get_potential_dependency_outputs dir =
+  let parent_dir = Filename.dirname dir in
+  let parent_dir_contents = dir_contents parent_dir in
+  List.map parent_dir_contents ~f:(fun sibling_dir ->
+      let full_sibling_dir = Filename.concat parent_dir sibling_dir in
+      if (not (String.equal full_sibling_dir dir)) && Sys.is_directory full_sibling_dir
+      then
+        let sibling_dir_contents = dir_contents full_sibling_dir in
+        if List.find_opt ~f:(fun nm -> nm = "rehp-output-dir.txt") sibling_dir_contents
+           == None
+        then []
+        else
+          List.rev_map sibling_dir_contents ~f:(fun sib_child ->
+              { Dependency_outputs.relative_dir_from_project = full_sibling_dir
+              ; relative_dir_from_output =
+                  relativizeRelativePaths
+                    (Filename.concat dir "pretend.js")
+                    full_sibling_dir
+              ; filename = sib_child })
+      else [])
+  |> List.concat
+
+let remove_dependency_outputs from remove_dir =
+  List.filter
+    ~f:
+      (fun { Dependency_outputs.relative_dir_from_project
+           ; relative_dir_from_output
+           ; filename } -> relative_dir_from_project <> remove_dir)
+    from
+
 let temp_file_name =
   (* Inlined unavailable Filename.temp_file_name. Filename.temp_file gives
      us incorrect permissions. https://github.com/ocsigen/js_of_ocaml/issues/182 *)
@@ -161,6 +239,16 @@ let gen_unit_filename ?ext dir u =
     | Some e -> e
   in
   Filename.concat dir (Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext)
+
+let ensure_file path =
+  let exists = Sys.file_exists path in
+  if exists
+  then ()
+  else
+    gen_file path (fun chan ->
+        let fmt = Pretty_print.to_out_channel chan in
+        Pretty_print.string fmt "true";
+        Pretty_print.newline fmt)
 
 let remove_unexpected_files expected observed =
   let expected = List.sort ~cmp:String.compare expected in
@@ -432,16 +520,28 @@ let f
         (* Fast hashing not supported for cmo mode *)
         output cmo.cu_name cmo.cu_required_globals extra_hash_data code false output_file
     | `Cma cma when keep_unit_names -> (
+        (* These can be useful to backend module loading - compute them once so each
+         * output doesn't need to search for them for each file. *)
+        let likely_dependency_outputs =
+          match output_file with
+          | `Name x, true ->
+              ensure_dir (Filename.dirname x);
+              (* Mark the directory as a rehp output dir *)
+              ensure_file (Filename.concat x "rehp-output-dir.txt");
+              let all_outputs = get_potential_dependency_outputs (Filename.dirname x) in
+              (* remove_dependency_outputs all_outputs (Filename.dirname x) *)
+              all_outputs
+          | _ -> []
+        in
+        Dependency_outputs.set likely_dependency_outputs;
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
               | `Stdout, false -> `Name (gen_unit_filename ?ext:implicit_ext "./" cmo)
               | `Name x, false ->
-                  ensure_dir (Filename.dirname x);
                   `Name (gen_unit_filename ?ext:implicit_ext (Filename.dirname x) cmo)
               | `Name x, true
                 when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
-                  ensure_dir x;
                   `Name (gen_unit_filename ?ext:implicit_ext x cmo)
               | `Stdout, true | `Name _, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
@@ -473,7 +573,9 @@ let f
                   gen_unit_filename ?ext:implicit_ext x cmo)
             in
             let observed = List.map ~f:(fun d -> Filename.concat x d) (dir_contents x) in
-            remove_unexpected_files expected observed
+            remove_unexpected_files
+              (Filename.concat x "rehp-output-dir.txt" :: expected)
+              observed
         | _ -> ())
     | `Cma cma ->
         let t1 = Timer.make () in
