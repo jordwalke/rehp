@@ -133,6 +133,7 @@ let remove_last lst =
   | [] -> []
   | hd :: tl -> List.rev tl
 
+
 let rec relativizeRelativePathsImp from p =
   match from, p with
   | [], [] -> []
@@ -143,7 +144,7 @@ let rec relativizeRelativePathsImp from p =
       else ".." :: relativizeRelativePathsImp (remove_last from) (pHd :: pTl)
   | [fromHd], [] -> relativizeRelativePathsImp [] []
   | fromHd :: fromTl :: fromTlTl, [] -> ".." :: relativizeRelativePathsImp fromTlTl []
-  | [], pHd :: pTl -> pHd :: relativizeRelativePathsImp [] pTl
+  | [], pHd :: pTl -> p
 
 (*
  * relativizeRelativePaths "./foo/bar/baz.js" "./foo/hi.js" == "../hi.js"
@@ -209,7 +210,7 @@ let get_potential_dependency_outputs ?ext dir =
               { Dependency_outputs.relative_dir_from_project = full_sibling_dir
               ; relative_dir_from_output =
                   relativizeRelativePaths
-                    (Filename.concat dir "pretend.js")
+                    dir
                     full_sibling_dir
               ; normalized_compilation_unit =
                   Parse_bytecode.normalize_module_name base_name
