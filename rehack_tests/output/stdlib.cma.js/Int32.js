@@ -7,14 +7,12 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
 var cst_d = runtime["caml_new_string"]("%d");
-var Failure = require("Failure.js");
+var Failure = require("../runtime/Failure.js");
 var zero = 0;
 var one = 1;
 var minus_one = -1;
@@ -33,7 +31,8 @@ function lognot(n) {return n ^ -1;}
 function to_string(n) {return runtime["caml_format_int"](cst_d, n);}
 
 function of_string_opt(s) {
-  try {var a_ = [0,runtime["caml_int_of_string"](s)];return a_;}
+  var a_;
+  try {a_ = [0,runtime["caml_int_of_string"](s)];return a_;}
   catch(b_) {
     b_ = runtime["caml_wrap_exception"](b_);
     if (b_[1] === Failure) {return 0;}
@@ -65,14 +64,14 @@ var Int32 = [
 exports = Int32;
 
 /*::type Exports = {
-  zero: any
-  one: any
-  minus_one: any
+  zero: any,
+  one: any,
+  minus_one: any,
   succ: (n: any) => any,
   pred: (n: any) => any,
   abs: (n: any) => any,
-  max_int: any
-  min_int: any
+  max_int: any,
+  min_int: any,
   lognot: (n: any) => any,
   of_string_opt: (s: any) => any,
   to_string: (n: any) => any,
@@ -83,16 +82,16 @@ exports = Int32;
   zero: any,
   one: any,
   minus_one: any,
-  succ: (any) => any,
-  pred: (any) => any,
-  abs: (any) => any,
+  succ: (n: any) => any,
+  pred: (n: any) => any,
+  abs: (n: any) => any,
   max_int: any,
   min_int: any,
-  lognot: (any) => any,
-  of_string_opt: (any) => any,
-  to_string: (any) => any,
-  compare: (any, any) => any,
-  equal: (any, any) => any,
+  lognot: (n: any) => any,
+  of_string_opt: (s: any) => any,
+  to_string: (n: any) => any,
+  compare: (x: any, y: any) => any,
+  equal: (x: any, y: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.zero = module.exports[1];

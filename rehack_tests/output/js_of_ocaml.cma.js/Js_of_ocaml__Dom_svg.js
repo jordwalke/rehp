@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
@@ -134,8 +132,8 @@ var cst_altglyphdef = string("altglyphdef");
 var cst_altglyph = string("altglyph");
 var cst_a = string("a");
 var cst_Js_of_ocaml_Dom_svg_SVGError = string("Js_of_ocaml__Dom_svg.SVGError");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Not_found = require("Not_found.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Not_found = require("../runtime/Not_found.js");
 var xmlns = "http://www.w3.org/2000/svg";
 var SVGError = [
   248,
@@ -566,8 +564,8 @@ var Js_of_ocaml_Dom_svg = [
 exports = Js_of_ocaml_Dom_svg;
 
 /*::type Exports = {
-  xmlns: any
-  SVGError: any
+  xmlns: any,
+  SVGError: any,
   createElement: (doc: any, name: any) => any,
   createA: (doc: any) => any,
   createAltGlyph: (doc: any) => any,
@@ -623,71 +621,71 @@ exports = Js_of_ocaml_Dom_svg;
   createUse: (doc: any) => any,
   createView: (doc: any) => any,
   createvkern: (doc: any) => any,
-  svg_element: any
-  document: any
+  svg_element: any,
+  document: any,
   getElementById: (id: any) => any,
 }*/
 /** @type {{
   xmlns: any,
   SVGError: any,
-  createElement: (any, any) => any,
-  createA: (any) => any,
-  createAltGlyph: (any) => any,
-  createAltGlyphDef: (any) => any,
-  createAltGlyphItem: (any) => any,
-  createAnimate: (any) => any,
-  createAnimateColor: (any) => any,
-  createAnimateMotion: (any) => any,
-  createAnimateTransform: (any) => any,
-  createCircle: (any) => any,
-  createClipPath: (any) => any,
-  createCursor: (any) => any,
-  createDefs: (any) => any,
-  createDesc: (any) => any,
-  createEllipse: (any) => any,
-  createFilter: (any) => any,
-  createFont: (any) => any,
-  createFontFace: (any) => any,
-  createFontFaceFormat: (any) => any,
-  createFontFaceName: (any) => any,
-  createFontFaceSrc: (any) => any,
-  createFontFaceUri: (any) => any,
-  createForeignObject: (any) => any,
-  createG: (any) => any,
-  createGlyph: (any) => any,
-  createGlyphRef: (any) => any,
-  createhkern: (any) => any,
-  createImage: (any) => any,
-  createLineElement: (any) => any,
-  createLinearElement: (any) => any,
-  createMask: (any) => any,
-  createMetaData: (any) => any,
-  createMissingGlyph: (any) => any,
-  createMPath: (any) => any,
-  createPath: (any) => any,
-  createPattern: (any) => any,
-  createPolygon: (any) => any,
-  createPolyline: (any) => any,
-  createRadialgradient: (any) => any,
-  createRect: (any) => any,
-  createScript: (any) => any,
-  createSet: (any) => any,
-  createStop: (any) => any,
-  createStyle: (any) => any,
-  createSvg: (any) => any,
-  createSwitch: (any) => any,
-  createSymbol: (any) => any,
-  createTextElement: (any) => any,
-  createTextpath: (any) => any,
-  createTitle: (any) => any,
-  createTref: (any) => any,
-  createTspan: (any) => any,
-  createUse: (any) => any,
-  createView: (any) => any,
-  createvkern: (any) => any,
+  createElement: (doc: any, name: any) => any,
+  createA: (doc: any) => any,
+  createAltGlyph: (doc: any) => any,
+  createAltGlyphDef: (doc: any) => any,
+  createAltGlyphItem: (doc: any) => any,
+  createAnimate: (doc: any) => any,
+  createAnimateColor: (doc: any) => any,
+  createAnimateMotion: (doc: any) => any,
+  createAnimateTransform: (doc: any) => any,
+  createCircle: (doc: any) => any,
+  createClipPath: (doc: any) => any,
+  createCursor: (doc: any) => any,
+  createDefs: (doc: any) => any,
+  createDesc: (doc: any) => any,
+  createEllipse: (doc: any) => any,
+  createFilter: (doc: any) => any,
+  createFont: (doc: any) => any,
+  createFontFace: (doc: any) => any,
+  createFontFaceFormat: (doc: any) => any,
+  createFontFaceName: (doc: any) => any,
+  createFontFaceSrc: (doc: any) => any,
+  createFontFaceUri: (doc: any) => any,
+  createForeignObject: (doc: any) => any,
+  createG: (doc: any) => any,
+  createGlyph: (doc: any) => any,
+  createGlyphRef: (doc: any) => any,
+  createhkern: (doc: any) => any,
+  createImage: (doc: any) => any,
+  createLineElement: (doc: any) => any,
+  createLinearElement: (doc: any) => any,
+  createMask: (doc: any) => any,
+  createMetaData: (doc: any) => any,
+  createMissingGlyph: (doc: any) => any,
+  createMPath: (doc: any) => any,
+  createPath: (doc: any) => any,
+  createPattern: (doc: any) => any,
+  createPolygon: (doc: any) => any,
+  createPolyline: (doc: any) => any,
+  createRadialgradient: (doc: any) => any,
+  createRect: (doc: any) => any,
+  createScript: (doc: any) => any,
+  createSet: (doc: any) => any,
+  createStop: (doc: any) => any,
+  createStyle: (doc: any) => any,
+  createSvg: (doc: any) => any,
+  createSwitch: (doc: any) => any,
+  createSymbol: (doc: any) => any,
+  createTextElement: (doc: any) => any,
+  createTextpath: (doc: any) => any,
+  createTitle: (doc: any) => any,
+  createTref: (doc: any) => any,
+  createTspan: (doc: any) => any,
+  createUse: (doc: any) => any,
+  createView: (doc: any) => any,
+  createvkern: (doc: any) => any,
   svg_element: any,
   document: any,
-  getElementById: (any) => any,
+  getElementById: (id: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.xmlns = module.exports[1];

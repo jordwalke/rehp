@@ -7,10 +7,10 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
+
+;
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -32,9 +32,9 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var Buffer = require("Buffer.js");
-var CamlinternalFormat = require("CamlinternalFormat.js");
-var Pervasives = require("Pervasives.js");
+var Buffer = require("./Buffer.js");
+var CamlinternalFormat = require("./CamlinternalFormat.js");
+var Pervasives = require("./Pervasives.js");
 
 function kfprintf(k, o, param) {
   var fmt = param[1];
@@ -115,20 +115,18 @@ exports = Printf;
   ikfprintf: (k: any, oc: any, param: any) => any,
   ksprintf: (k: any, param: any) => any,
   kbprintf: (k: any, b: any, param: any) => any,
-  ksprintf: (k: any, param: any) => any,
 }*/
 /** @type {{
-  fprintf: (any, any) => any,
-  printf: (any) => any,
-  eprintf: (any) => any,
-  sprintf: (any) => any,
-  bprintf: (any, any) => any,
-  ifprintf: (any, any) => any,
-  kfprintf: (any, any, any) => any,
-  ikfprintf: (any, any, any) => any,
-  ksprintf: (any, any) => any,
-  kbprintf: (any, any, any) => any,
-  ksprintf: (any, any) => any,
+  fprintf: (oc: any, fmt: any) => any,
+  printf: (fmt: any) => any,
+  eprintf: (fmt: any) => any,
+  sprintf: (fmt: any) => any,
+  bprintf: (b: any, fmt: any) => any,
+  ifprintf: (oc: any, fmt: any) => any,
+  kfprintf: (k: any, o: any, param: any) => any,
+  ikfprintf: (k: any, oc: any, param: any) => any,
+  ksprintf: (k: any, param: any) => any,
+  kbprintf: (k: any, b: any, param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.fprintf = module.exports[1];
@@ -141,6 +139,5 @@ module.exports.kfprintf = module.exports[7];
 module.exports.ikfprintf = module.exports[8];
 module.exports.ksprintf = module.exports[9];
 module.exports.kbprintf = module.exports[10];
-module.exports.ksprintf = module.exports[11];
 
 /* Hashing disabled */

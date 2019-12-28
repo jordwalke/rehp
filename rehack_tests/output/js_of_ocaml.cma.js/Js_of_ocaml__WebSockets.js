@@ -7,16 +7,14 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 
 function a_(x) {
   return call1(runtime["caml_get_public_method"](x, -492394744, 211), x);
@@ -32,21 +30,15 @@ var Js_of_ocaml_WebSockets = [0,webSocket,webSocket,webSocket,is_supported];
 exports = Js_of_ocaml_WebSockets;
 
 /*::type Exports = {
-  webSocket: any
-  webSocket: any
-  webSocket: any
+  webSocket: any,
   is_supported: (param: any) => any,
 }*/
 /** @type {{
   webSocket: any,
-  webSocket: any,
-  webSocket: any,
-  is_supported: (any) => any,
+  is_supported: (param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.webSocket = module.exports[1];
-module.exports.webSocket = module.exports[2];
-module.exports.webSocket = module.exports[3];
 module.exports.is_supported = module.exports[4];
 
 /* Hashing disabled */

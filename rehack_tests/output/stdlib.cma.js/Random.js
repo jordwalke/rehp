@@ -7,21 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime["caml_check_bound"];
-var caml_greaterthan = runtime["caml_greaterthan"];
-var caml_int64_of_int32 = runtime["caml_int64_of_int32"];
-var caml_int64_or = runtime["caml_int64_or"];
-var caml_int64_shift_left = runtime["caml_int64_shift_left"];
-var caml_int64_sub = runtime["caml_int64_sub"];
-var caml_lessequal = runtime["caml_lessequal"];
-var caml_mod = runtime["caml_mod"];
-var string = runtime["caml_new_string"];
-var caml_string_get = runtime["caml_string_get"];
-var caml_sys_random_seed = runtime["caml_sys_random_seed"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -37,16 +24,27 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_greaterthan = runtime["caml_greaterthan"];
+var caml_int64_of_int32 = runtime["caml_int64_of_int32"];
+var caml_int64_or = runtime["caml_int64_or"];
+var caml_int64_shift_left = runtime["caml_int64_shift_left"];
+var caml_int64_sub = runtime["caml_int64_sub"];
+var caml_lessequal = runtime["caml_lessequal"];
+var caml_mod = runtime["caml_mod"];
+var string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_sys_random_seed = runtime["caml_sys_random_seed"];
 var cst_Random_int64 = string("Random.int64");
 var cst_Random_int32 = string("Random.int32");
 var cst_Random_int = string("Random.int");
 var cst_x = string("x");
-var Int32 = require("Int32.js");
-var Int64 = require("Int64.js");
-var Pervasives = require("Pervasives.js");
-var Digest = require("Digest.js");
-var Array = require("Array_.js");
-var Nativeint = require("Nativeint.js");
+var Int32 = require("./Int32.js");
+var Int64 = require("./Int64.js");
+var Pervasives = require("./Pervasives.js");
+var Digest = require("./Digest.js");
+var Array = require("./Array.js");
+var Nativeint = require("./Nativeint.js");
 var a_ = [255,1,0,0];
 var b_ = [255,0,0,0];
 var c_ = [
@@ -117,6 +115,17 @@ function assign(st1, st2) {
 }
 
 function full_init(s, seed) {
+  var accu;
+  var g_;
+  var h_;
+  var i;
+  var j;
+  var k;
+  var i_;
+  var j_;
+  var k_;
+  var l_;
+  var m_;
   function combine(accu, x) {
     var q_ = call1(Pervasives[21], x);
     var r_ = call2(Pervasives[16], accu, q_);
@@ -133,23 +142,23 @@ function full_init(s, seed) {
   var i__0 = 0;
   for (; ; ) {
     caml_check_bound(s[1], i__0)[i__0 + 1] = i__0;
-    var m_ = i__0 + 1 | 0;
-    if (54 !== i__0) {var i__0 = m_;continue;}
-    var accu = [0,cst_x];
-    var h_ = 54 + call2(Pervasives[5], 55, l) | 0;
-    var g_ = 0;
+    m_ = i__0 + 1 | 0;
+    if (54 !== i__0) {i__0 = m_;continue;}
+    accu = [0,cst_x];
+    h_ = 54 + call2(Pervasives[5], 55, l) | 0;
+    g_ = 0;
     if (! (h_ < 0)) {
-      var i = g_;
+      i = g_;
       for (; ; ) {
-        var j = i % 55 | 0;
-        var k = caml_mod(i, l);
-        var i_ = caml_check_bound(seed__0, k)[k + 1];
+        j = i % 55 | 0;
+        k = caml_mod(i, l);
+        i_ = caml_check_bound(seed__0, k)[k + 1];
         accu[1] = combine(accu[1], i_);
-        var j_ = extract(accu[1]);
-        var k_ = (caml_check_bound(s[1], j)[j + 1] ^ j_) & 1073741823;
+        j_ = extract(accu[1]);
+        k_ = (caml_check_bound(s[1], j)[j + 1] ^ j_) & 1073741823;
         caml_check_bound(s[1], j)[j + 1] = k_;
-        var l_ = i + 1 | 0;
-        if (h_ !== i) {var i = l_;continue;}
+        l_ = i + 1 | 0;
+        if (h_ !== i) {i = l_;continue;}
         break;
       }
     }
@@ -182,9 +191,11 @@ function bits(s) {
 }
 
 function intaux(s, n) {
+  var v;
+  var r;
   for (; ; ) {
-    var r = bits(s);
-    var v = caml_mod(r, n);
+    r = bits(s);
+    v = caml_mod(r, n);
     if (((1073741823 - n | 0) + 1 | 0) < (r - v | 0)) {continue;}
     return v;
   }
@@ -196,11 +207,15 @@ function int__0(s, bound) {
 }
 
 function int32aux(s, n) {
+  var v;
+  var r;
+  var b2;
+  var b1;
   for (; ; ) {
-    var b1 = bits(s);
-    var b2 = (bits(s) & 1) << 30;
-    var r = b1 | b2;
-    var v = caml_mod(r, n);
+    b1 = bits(s);
+    b2 = (bits(s) & 1) << 30;
+    r = b1 | b2;
+    v = caml_mod(r, n);
     if (caml_greaterthan(r - v | 0, (Int32[7] - n | 0) + 1 | 0)) {continue;}
     return v;
   }
@@ -213,12 +228,17 @@ function int32(s, bound) {
 }
 
 function int64aux(s, n) {
+  var v;
+  var r;
+  var b3;
+  var b2;
+  var b1;
   for (; ; ) {
-    var b1 = caml_int64_of_int32(bits(s));
-    var b2 = caml_int64_shift_left(caml_int64_of_int32(bits(s)), 30);
-    var b3 = caml_int64_shift_left(caml_int64_of_int32(bits(s) & 7), 60);
-    var r = caml_int64_or(b1, caml_int64_or(b2, b3));
-    var v = runtime["caml_int64_mod"](r, n);
+    b1 = caml_int64_of_int32(bits(s));
+    b2 = caml_int64_shift_left(caml_int64_of_int32(bits(s)), 30);
+    b3 = caml_int64_shift_left(caml_int64_of_int32(bits(s) & 7), 60);
+    r = caml_int64_or(b1, caml_int64_or(b2, b3));
+    v = runtime["caml_int64_mod"](r, n);
     if (
     caml_greaterthan(
       caml_int64_sub(r, v),
@@ -301,7 +321,7 @@ exports = Random;
   full_init: (seed: any) => any,
   self_init: (param: any) => any,
   bits: (param: any) => any,
-  int: (bound: any) => any,
+  _int_: (bound: any) => any,
   int32: (bound: any) => any,
   nativeint: (bound: any) => any,
   int64: (bound: any) => any,
@@ -311,25 +331,25 @@ exports = Random;
   set_state: (s: any) => any,
 }*/
 /** @type {{
-  init: (any) => any,
-  full_init: (any) => any,
-  self_init: (any) => any,
-  bits: (any) => any,
-  int: (any) => any,
-  int32: (any) => any,
-  nativeint: (any) => any,
-  int64: (any) => any,
-  float: (any) => any,
-  bool: (any) => any,
-  get_state: (any) => any,
-  set_state: (any) => any,
+  init: (seed: any) => any,
+  full_init: (seed: any) => any,
+  self_init: (param: any) => any,
+  bits: (param: any) => any,
+  _int_: (bound: any) => any,
+  int32: (bound: any) => any,
+  nativeint: (bound: any) => any,
+  int64: (bound: any) => any,
+  float: (scale: any) => any,
+  bool: (param: any) => any,
+  get_state: (param: any) => any,
+  set_state: (s: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.init = module.exports[1];
 module.exports.full_init = module.exports[2];
 module.exports.self_init = module.exports[3];
 module.exports.bits = module.exports[4];
-module.exports.int = module.exports[5];
+module.exports._int_ = module.exports[5];
 module.exports.int32 = module.exports[6];
 module.exports.nativeint = module.exports[7];
 module.exports.int64 = module.exports[8];

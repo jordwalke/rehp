@@ -10,9 +10,8 @@ namespace Rehack;
 final class Bytes {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_blit_bytes = $runtime["caml_blit_bytes"];
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];

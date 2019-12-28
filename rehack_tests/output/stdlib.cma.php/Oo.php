@@ -10,9 +10,8 @@ namespace Rehack;
 final class Oo {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $CamlinternalOO =  CamlinternalOO::requireModule ();
     $copy = $CamlinternalOO[22];
     $new_method = $CamlinternalOO[1];

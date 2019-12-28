@@ -10,7 +10,6 @@ namespace Rehack;
 final class CamlinternalFormat {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $bprint_fmtty = new Ref();
     $bufput_acc = new Ref();
@@ -37,7 +36,7 @@ final class CamlinternalFormat {
     $trans = new Ref();
     $type_format_gen = new Ref();
     $type_ignored_format_substitution = new Ref();
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_blit_string = $runtime["caml_blit_string"];
     $caml_bytes_set = $runtime["caml_bytes_set"];
     $call1 = $runtime["caml_call1"];

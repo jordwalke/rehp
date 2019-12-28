@@ -7,24 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_blit_string = runtime["caml_blit_string"];
-var caml_bytes_set = runtime["caml_bytes_set"];
-var caml_create_bytes = runtime["caml_create_bytes"];
-var caml_format_int = runtime["caml_format_int"];
-var caml_ml_string_length = runtime["caml_ml_string_length"];
-var string = runtime["caml_new_string"];
-var caml_notequal = runtime["caml_notequal"];
-var caml_string_get = runtime["caml_string_get"];
-var caml_string_notequal = runtime["caml_string_notequal"];
-var caml_trampoline = runtime["caml_trampoline"];
-var caml_trampoline_return = runtime["caml_trampoline_return"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -52,6 +36,20 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
+var caml_blit_string = runtime["caml_blit_string"];
+var caml_bytes_set = runtime["caml_bytes_set"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_format_int = runtime["caml_format_int"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var string = runtime["caml_new_string"];
+var caml_notequal = runtime["caml_notequal"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_string_notequal = runtime["caml_string_notequal"];
+var caml_trampoline = runtime["caml_trampoline"];
+var caml_trampoline_return = runtime["caml_trampoline_return"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var cst_c = string("%c");
 var cst_s = string("%s");
 var cst_i = string("%i");
@@ -192,16 +190,16 @@ var cst = string(".*");
 var cst_CamlinternalFormat_Type_mismatch = string(
   "CamlinternalFormat.Type_mismatch"
 );
-var Assert_failure = require("Assert_failure.js");
-var CamlinternalFormatBasics = require("CamlinternalFormatBasics.js");
-var Pervasives = require("Pervasives.js");
-var Buffer = require("Buffer.js");
-var Failure = require("Failure.js");
-var Not_found = require("Not_found.js");
-var String = require("String_.js");
-var Sys = require("Sys.js");
-var Char = require("Char.js");
-var Bytes = require("Bytes.js");
+var Assert_failure = require("../runtime/Assert_failure.js");
+var CamlinternalFormatBasics = require("./CamlinternalFormatBasics.js");
+var Pervasives = require("./Pervasives.js");
+var Buffer = require("./Buffer.js");
+var Failure = require("../runtime/Failure.js");
+var Not_found = require("../runtime/Not_found.js");
+var String = require("./String.js");
+var Sys = require("./Sys.js");
+var Char = require("./Char.js");
+var Bytes = require("./Bytes.js");
 var a_ = [0,string("camlinternalFormat.ml"),846,23];
 var l_ = [0,string("camlinternalFormat.ml"),810,21];
 var d_ = [0,string("camlinternalFormat.ml"),811,21];
@@ -501,13 +499,15 @@ function add_in_char_set(char_set, c) {
 function freeze_char_set(char_set) {return call1(Bytes[6], char_set);}
 
 function rev_char_set(char_set) {
+  var eS_;
+  var eT_;
   var char_set__0 = create_char_set(0);
   var i = 0;
   for (; ; ) {
-    var eS_ = caml_string_get(char_set, i) ^ 255;
+    eS_ = caml_string_get(char_set, i) ^ 255;
     caml_bytes_set(char_set__0, i, call1(Pervasives[17], eS_));
-    var eT_ = i + 1 | 0;
-    if (31 !== i) {var i = eT_;continue;}
+    eT_ = i + 1 | 0;
+    if (31 !== i) {i = eT_;continue;}
     return call1(Bytes[42], char_set__0);
   }
 }
@@ -519,16 +519,39 @@ function is_in_char_set(char_set, c) {
 }
 
 function pad_of_pad_opt(pad_opt) {
-  if (pad_opt) {var width = pad_opt[1];return [0,1,width];}
+  var width;
+  if (pad_opt) {width = pad_opt[1];return [0,1,width];}
   return 0;
 }
 
 function prec_of_prec_opt(prec_opt) {
-  if (prec_opt) {var ndec = prec_opt[1];return [0,ndec];}
+  var ndec;
+  if (prec_opt) {ndec = prec_opt[1];return [0,ndec];}
   return 0;
 }
 
 function param_format_of_ignored_format(ign, fmt) {
+  var counter;
+  var width_opt;
+  var char_set;
+  var pad_opt__8;
+  var fmtty__0;
+  var pad_opt__7;
+  var fmtty;
+  var pad_opt__6;
+  var eR_;
+  var pad_opt__5;
+  var prec_opt;
+  var iconv__2;
+  var pad_opt__4;
+  var iconv__1;
+  var pad_opt__3;
+  var iconv__0;
+  var pad_opt__2;
+  var iconv;
+  var pad_opt__1;
+  var pad_opt__0;
+  var pad_opt;
   if (typeof ign === "number") switch (ign) {
     case 0:
       return [0,[0,fmt]];
@@ -541,49 +564,49 @@ function param_format_of_ignored_format(ign, fmt) {
     }
   else switch (ign[0]) {
     case 0:
-      var pad_opt = ign[1];
+      pad_opt = ign[1];
       return [0,[2,pad_of_pad_opt(pad_opt),fmt]];
     case 1:
-      var pad_opt__0 = ign[1];
+      pad_opt__0 = ign[1];
       return [0,[3,pad_of_pad_opt(pad_opt__0),fmt]];
     case 2:
-      var pad_opt__1 = ign[2];
-      var iconv = ign[1];
+      pad_opt__1 = ign[2];
+      iconv = ign[1];
       return [0,[4,iconv,pad_of_pad_opt(pad_opt__1),0,fmt]];
     case 3:
-      var pad_opt__2 = ign[2];
-      var iconv__0 = ign[1];
+      pad_opt__2 = ign[2];
+      iconv__0 = ign[1];
       return [0,[5,iconv__0,pad_of_pad_opt(pad_opt__2),0,fmt]];
     case 4:
-      var pad_opt__3 = ign[2];
-      var iconv__1 = ign[1];
+      pad_opt__3 = ign[2];
+      iconv__1 = ign[1];
       return [0,[6,iconv__1,pad_of_pad_opt(pad_opt__3),0,fmt]];
     case 5:
-      var pad_opt__4 = ign[2];
-      var iconv__2 = ign[1];
+      pad_opt__4 = ign[2];
+      iconv__2 = ign[1];
       return [0,[7,iconv__2,pad_of_pad_opt(pad_opt__4),0,fmt]];
     case 6:
-      var prec_opt = ign[2];
-      var pad_opt__5 = ign[1];
-      var eR_ = prec_of_prec_opt(prec_opt);
+      prec_opt = ign[2];
+      pad_opt__5 = ign[1];
+      eR_ = prec_of_prec_opt(prec_opt);
       return [0,[8,0,pad_of_pad_opt(pad_opt__5),eR_,fmt]];
     case 7:
-      var pad_opt__6 = ign[1];
+      pad_opt__6 = ign[1];
       return [0,[9,pad_of_pad_opt(pad_opt__6),fmt]];
     case 8:
-      var fmtty = ign[2];
-      var pad_opt__7 = ign[1];
+      fmtty = ign[2];
+      pad_opt__7 = ign[1];
       return [0,[13,pad_opt__7,fmtty,fmt]];
     case 9:
-      var fmtty__0 = ign[2];
-      var pad_opt__8 = ign[1];
+      fmtty__0 = ign[2];
+      pad_opt__8 = ign[1];
       return [0,[14,pad_opt__8,fmtty__0,fmt]];
     case 10:
-      var char_set = ign[2];
-      var width_opt = ign[1];
+      char_set = ign[2];
+      width_opt = ign[1];
       return [0,[20,width_opt,char_set,fmt]];
     default:
-      var counter = ign[1];
+      counter = ign[1];
       return [0,[21,counter,fmt]]
     }
 }
@@ -593,17 +616,20 @@ var default_float_precision = -6;
 function buffer_create(init_size) {return [0,0,caml_create_bytes(init_size)];}
 
 function buffer_check_size(buf, overhead) {
+  var new_len;
+  var new_str;
+  var eQ_;
   var len = runtime["caml_ml_bytes_length"](buf[2]);
   var min_len = buf[1] + overhead | 0;
   var eP_ = len < min_len ? 1 : 0;
   if (eP_) {
-    var new_len = call2(Pervasives[5], len * 2 | 0, min_len);
-    var new_str = caml_create_bytes(new_len);
+    new_len = call2(Pervasives[5], len * 2 | 0, min_len);
+    new_str = caml_create_bytes(new_len);
     call5(Bytes[11], buf[2], 0, new_str, 0, len);
     buf[2] = new_str;
-    var eQ_ = 0;
+    eQ_ = 0;
   }
-  else var eQ_ = eP_;
+  else eQ_ = eP_;
   return eQ_;
 }
 
@@ -684,17 +710,21 @@ function char_of_counter(counter) {
 }
 
 function bprint_char_set(buf, char_set) {
+  var ez_;
   function print_start(set) {
     function is_alone(c) {
+      var eM_;
+      var eN_;
+      var eO_;
       var after = call1(Char[1], c + 1 | 0);
       var before = call1(Char[1], c + -1 | 0);
       var eL_ = is_in_char_set(set, c);
       if (eL_) {
-        var eM_ = is_in_char_set(set, before);
-        var eN_ = eM_ ? is_in_char_set(set, after) : eM_;
-        var eO_ = 1 - eN_;
+        eM_ = is_in_char_set(set, before);
+        eN_ = eM_ ? is_in_char_set(set, after) : eM_;
+        eO_ = 1 - eN_;
       }
-      else var eO_ = eL_;
+      else eO_ = eL_;
       return eO_;
     }
     if (is_alone(93)) {buffer_add_char(buf, 93);}
@@ -709,36 +739,43 @@ function bprint_char_set(buf, char_set) {
     return buffer_add_char(buf, c);
   }
   function print_out__0(counter, set, i) {
+    var eJ_;
+    var i__1;
+    var counter__0;
     var i__0 = i;
     for (; ; ) {
-      var eJ_ = i__0 < 256 ? 1 : 0;
+      eJ_ = i__0 < 256 ? 1 : 0;
       if (eJ_) {
         if (is_in_char_set(set, call1(Pervasives[17], i__0))) {
           if (counter < 50) {
-            var counter__0 = counter + 1 | 0;
+            counter__0 = counter + 1 | 0;
             return print_first(counter__0, set, i__0);
           }
           return caml_trampoline_return(print_first, [0,set,i__0]);
         }
-        var i__1 = i__0 + 1 | 0;
-        var i__0 = i__1;
+        i__1 = i__0 + 1 | 0;
+        i__0 = i__1;
         continue;
       }
       return eJ_;
     }
   }
   function print_first(counter, set, i) {
+    var switcher__0;
+    var eI_;
+    var counter__0;
+    var counter__1;
     var match = call1(Pervasives[17], i);
     var switcher = match + -45 | 0;
     if (48 < switcher >>> 0) {
       if (210 <= switcher) {return print_char(buf, 255);}
     }
     else {
-      var switcher__0 = switcher + -1 | 0;
+      switcher__0 = switcher + -1 | 0;
       if (46 < switcher__0 >>> 0) {
-        var eI_ = i + 1 | 0;
+        eI_ = i + 1 | 0;
         if (counter < 50) {
-          var counter__1 = counter + 1 | 0;
+          counter__1 = counter + 1 | 0;
           return print_out__0(counter__1, set, eI_);
         }
         return caml_trampoline_return(print_out__0, [0,set,eI_]);
@@ -746,15 +783,26 @@ function bprint_char_set(buf, char_set) {
     }
     var eH_ = i + 1 | 0;
     if (counter < 50) {
-      var counter__0 = counter + 1 | 0;
+      counter__0 = counter + 1 | 0;
       return print_second(counter__0, set, eH_);
     }
     return caml_trampoline_return(print_second, [0,set,eH_]);
   }
   function print_second(counter, set, i) {
+    var counter__3;
+    var counter__2;
+    var counter__1;
+    var counter__0;
+    var eF_;
+    var switcher__0;
+    var eE_;
+    var eD_;
+    var eC_;
+    var switcher;
+    var match;
     if (is_in_char_set(set, call1(Pervasives[17], i))) {
-      var match = call1(Pervasives[17], i);
-      var switcher = match + -45 | 0;
+      match = call1(Pervasives[17], i);
+      switcher = match + -45 | 0;
       if (48 < switcher >>> 0) {
         if (210 <= switcher) {
           print_char(buf, 254);
@@ -762,13 +810,13 @@ function bprint_char_set(buf, char_set) {
         }
       }
       else {
-        var switcher__0 = switcher + -1 | 0;
+        switcher__0 = switcher + -1 | 0;
         if (46 < switcher__0 >>> 0) {
           if (! is_in_char_set(set, call1(Pervasives[17], i + 1 | 0))) {
             print_char(buf, i + -1 | 0);
-            var eF_ = i + 1 | 0;
+            eF_ = i + 1 | 0;
             if (counter < 50) {
-              var counter__1 = counter + 1 | 0;
+              counter__1 = counter + 1 | 0;
               return print_out__0(counter__1, set, eF_);
             }
             return caml_trampoline_return(print_out__0, [0,set,eF_]);
@@ -776,19 +824,19 @@ function bprint_char_set(buf, char_set) {
         }
       }
       if (is_in_char_set(set, call1(Pervasives[17], i + 1 | 0))) {
-        var eC_ = i + 2 | 0;
-        var eD_ = i + -1 | 0;
+        eC_ = i + 2 | 0;
+        eD_ = i + -1 | 0;
         if (counter < 50) {
-          var counter__0 = counter + 1 | 0;
+          counter__0 = counter + 1 | 0;
           return print_in(counter__0, set, eD_, eC_);
         }
         return caml_trampoline_return(print_in, [0,set,eD_,eC_]);
       }
       print_char(buf, i + -1 | 0);
       print_char(buf, i);
-      var eE_ = i + 2 | 0;
+      eE_ = i + 2 | 0;
       if (counter < 50) {
-        var counter__2 = counter + 1 | 0;
+        counter__2 = counter + 1 | 0;
         return print_out__0(counter__2, set, eE_);
       }
       return caml_trampoline_return(print_out__0, [0,set,eE_]);
@@ -796,25 +844,29 @@ function bprint_char_set(buf, char_set) {
     print_char(buf, i + -1 | 0);
     var eG_ = i + 1 | 0;
     if (counter < 50) {
-      var counter__3 = counter + 1 | 0;
+      counter__3 = counter + 1 | 0;
       return print_out__0(counter__3, set, eG_);
     }
     return caml_trampoline_return(print_out__0, [0,set,eG_]);
   }
   function print_in(counter, set, i, j) {
+    var eA_;
+    var eB_;
+    var j__1;
+    var counter__0;
     var j__0 = j;
     for (; ; ) {
       if (256 !== j__0) {
-        if (is_in_char_set(set, call1(Pervasives[17], j__0))) {var j__1 = j__0 + 1 | 0;var j__0 = j__1;continue;}
+        if (is_in_char_set(set, call1(Pervasives[17], j__0))) {j__1 = j__0 + 1 | 0;j__0 = j__1;continue;}
       }
       print_char(buf, i);
       print_char(buf, 45);
       print_char(buf, j__0 + -1 | 0);
-      var eA_ = j__0 < 256 ? 1 : 0;
+      eA_ = j__0 < 256 ? 1 : 0;
       if (eA_) {
-        var eB_ = j__0 + 1 | 0;
+        eB_ = j__0 + 1 | 0;
         if (counter < 50) {
-          var counter__0 = counter + 1 | 0;
+          counter__0 = counter + 1 | 0;
           return print_out__0(counter__0, set, eB_);
         }
         return caml_trampoline_return(print_out__0, [0,set,eB_]);
@@ -828,9 +880,9 @@ function bprint_char_set(buf, char_set) {
   buffer_add_char(buf, 91);
   if (is_in_char_set(char_set, 0)) {
     buffer_add_char(buf, 94);
-    var ez_ = rev_char_set(char_set);
+    ez_ = rev_char_set(char_set);
   }
-  else var ez_ = char_set;
+  else ez_ = char_set;
   print_start(ez_);
   return buffer_add_char(buf, 93);
 }
@@ -851,23 +903,27 @@ function bprint_ignored_flag(buf, ign_flag) {
 }
 
 function bprint_pad_opt(buf, pad_opt) {
+  var width;
   if (pad_opt) {
-    var width = pad_opt[1];
+    width = pad_opt[1];
     return buffer_add_string(buf, call1(Pervasives[21], width));
   }
   return 0;
 }
 
 function bprint_padding(buf, pad) {
+  var padty__0;
+  var padty;
+  var n;
   if (typeof pad === "number") return 0;
   else {
     if (0 === pad[0]) {
-      var n = pad[2];
-      var padty = pad[1];
+      n = pad[2];
+      padty = pad[1];
       bprint_padty(buf, padty);
       return buffer_add_string(buf, call1(Pervasives[21], n));
     }
-    var padty__0 = pad[1];
+    padty__0 = pad[1];
     bprint_padty(buf, padty__0);
     return buffer_add_char(buf, 42);
   }
@@ -949,6 +1005,10 @@ function bprint_float_fmt(buf, ign_flag, fconv, pad, prec) {
 }
 
 function string_of_formatting_lit(formatting_lit) {
+  var ey_;
+  var c;
+  var str__0;
+  var str;
   if (typeof formatting_lit === "number") switch (formatting_lit) {
     case 0:
       return cst__0;
@@ -967,22 +1027,24 @@ function string_of_formatting_lit(formatting_lit) {
     }
   else switch (formatting_lit[0]) {
     case 0:
-      var str = formatting_lit[1];
+      str = formatting_lit[1];
       return str;
     case 1:
-      var str__0 = formatting_lit[1];
+      str__0 = formatting_lit[1];
       return str__0;
     default:
-      var c = formatting_lit[1];
-      var ey_ = call2(String[1], 1, c);
+      c = formatting_lit[1];
+      ey_ = call2(String[1], 1, c);
       return call2(Pervasives[16], cst__7, ey_)
     }
 }
 
 function string_of_formatting_gen(formatting_gen) {
+  var str;
+  var match;
   if (0 === formatting_gen[0]) {
-    var match = formatting_gen[1];
-    var str = match[2];
+    match = formatting_gen[1];
+    str = match[2];
     return str;
   }
   var match__0 = formatting_gen[1];
@@ -997,14 +1059,16 @@ function bprint_char_literal(buf, chr) {
 }
 
 function bprint_string_literal(buf, str) {
+  var i;
+  var ex_;
   var ew_ = caml_ml_string_length(str) + -1 | 0;
   var ev_ = 0;
   if (! (ew_ < 0)) {
-    var i = ev_;
+    i = ev_;
     for (; ; ) {
       bprint_char_literal(buf, caml_string_get(str, i));
-      var ex_ = i + 1 | 0;
-      if (ew_ !== i) {var i = ex_;continue;}
+      ex_ = i + 1 | 0;
+      if (ew_ !== i) {i = ex_;continue;}
       break;
     }
   }
@@ -1012,102 +1076,182 @@ function bprint_string_literal(buf, str) {
 }
 
 function bprint_fmtty(buf, fmtty) {
+  var fmtty__1;
+  var fmtty__2;
+  var fmtty__3;
+  var fmtty__4;
+  var fmtty__5;
+  var fmtty__6;
+  var fmtty__7;
+  var fmtty__8;
+  var fmtty__9;
+  var sub_fmtty;
+  var fmtty__10;
+  var sub_fmtty__0;
+  var fmtty__11;
+  var fmtty__12;
+  var fmtty__13;
+  var fmtty__14;
+  var fmtty__15;
   var fmtty__0 = fmtty;
   for (; ; ) if (
     typeof fmtty__0 === "number"
   ) return 0;
   else switch (fmtty__0[0]) {
     case 0:
-      var fmtty__1 = fmtty__0[1];
+      fmtty__1 = fmtty__0[1];
       buffer_add_string(buf, cst_c);
-      var fmtty__0 = fmtty__1;
+      fmtty__0 = fmtty__1;
       continue;
     case 1:
-      var fmtty__2 = fmtty__0[1];
+      fmtty__2 = fmtty__0[1];
       buffer_add_string(buf, cst_s);
-      var fmtty__0 = fmtty__2;
+      fmtty__0 = fmtty__2;
       continue;
     case 2:
-      var fmtty__3 = fmtty__0[1];
+      fmtty__3 = fmtty__0[1];
       buffer_add_string(buf, cst_i);
-      var fmtty__0 = fmtty__3;
+      fmtty__0 = fmtty__3;
       continue;
     case 3:
-      var fmtty__4 = fmtty__0[1];
+      fmtty__4 = fmtty__0[1];
       buffer_add_string(buf, cst_li);
-      var fmtty__0 = fmtty__4;
+      fmtty__0 = fmtty__4;
       continue;
     case 4:
-      var fmtty__5 = fmtty__0[1];
+      fmtty__5 = fmtty__0[1];
       buffer_add_string(buf, cst_ni);
-      var fmtty__0 = fmtty__5;
+      fmtty__0 = fmtty__5;
       continue;
     case 5:
-      var fmtty__6 = fmtty__0[1];
+      fmtty__6 = fmtty__0[1];
       buffer_add_string(buf, cst_Li);
-      var fmtty__0 = fmtty__6;
+      fmtty__0 = fmtty__6;
       continue;
     case 6:
-      var fmtty__7 = fmtty__0[1];
+      fmtty__7 = fmtty__0[1];
       buffer_add_string(buf, cst_f);
-      var fmtty__0 = fmtty__7;
+      fmtty__0 = fmtty__7;
       continue;
     case 7:
-      var fmtty__8 = fmtty__0[1];
+      fmtty__8 = fmtty__0[1];
       buffer_add_string(buf, cst_B);
-      var fmtty__0 = fmtty__8;
+      fmtty__0 = fmtty__8;
       continue;
     case 8:
-      var fmtty__9 = fmtty__0[2];
-      var sub_fmtty = fmtty__0[1];
+      fmtty__9 = fmtty__0[2];
+      sub_fmtty = fmtty__0[1];
       buffer_add_string(buf, cst__9);
       bprint_fmtty(buf, sub_fmtty);
       buffer_add_string(buf, cst__10);
-      var fmtty__0 = fmtty__9;
+      fmtty__0 = fmtty__9;
       continue;
     case 9:
-      var fmtty__10 = fmtty__0[3];
-      var sub_fmtty__0 = fmtty__0[1];
+      fmtty__10 = fmtty__0[3];
+      sub_fmtty__0 = fmtty__0[1];
       buffer_add_string(buf, cst__11);
       bprint_fmtty(buf, sub_fmtty__0);
       buffer_add_string(buf, cst__12);
-      var fmtty__0 = fmtty__10;
+      fmtty__0 = fmtty__10;
       continue;
     case 10:
-      var fmtty__11 = fmtty__0[1];
+      fmtty__11 = fmtty__0[1];
       buffer_add_string(buf, cst_a);
-      var fmtty__0 = fmtty__11;
+      fmtty__0 = fmtty__11;
       continue;
     case 11:
-      var fmtty__12 = fmtty__0[1];
+      fmtty__12 = fmtty__0[1];
       buffer_add_string(buf, cst_t);
-      var fmtty__0 = fmtty__12;
+      fmtty__0 = fmtty__12;
       continue;
     case 12:
-      var fmtty__13 = fmtty__0[1];
+      fmtty__13 = fmtty__0[1];
       buffer_add_string(buf, cst__13);
-      var fmtty__0 = fmtty__13;
+      fmtty__0 = fmtty__13;
       continue;
     case 13:
-      var fmtty__14 = fmtty__0[1];
+      fmtty__14 = fmtty__0[1];
       buffer_add_string(buf, cst_r);
-      var fmtty__0 = fmtty__14;
+      fmtty__0 = fmtty__14;
       continue;
     default:
-      var fmtty__15 = fmtty__0[1];
+      fmtty__15 = fmtty__0[1];
       buffer_add_string(buf, cst_r__0);
-      var fmtty__0 = fmtty__15;
+      fmtty__0 = fmtty__15;
       continue
     }
 }
 
 function int_of_custom_arity(param) {
-  if (param) {var x = param[1];return 1 + int_of_custom_arity(x) | 0;}
+  var x;
+  if (param) {x = param[1];return 1 + int_of_custom_arity(x) | 0;}
   return 0;
 }
 
 function bprint_fmt(buf, fmt) {
   function fmtiter(fmt, ign_flag) {
+    var fmt__1;
+    var fmt__2;
+    var fmt__3;
+    var pad;
+    var fmt__4;
+    var pad__0;
+    var fmt__5;
+    var prec;
+    var pad__1;
+    var iconv;
+    var fmt__6;
+    var prec__0;
+    var pad__2;
+    var iconv__0;
+    var fmt__7;
+    var prec__1;
+    var pad__3;
+    var iconv__1;
+    var fmt__8;
+    var prec__2;
+    var pad__4;
+    var iconv__2;
+    var fmt__9;
+    var prec__3;
+    var pad__5;
+    var fconv;
+    var fmt__10;
+    var pad__6;
+    var fmt__11;
+    var fmt__12;
+    var str;
+    var fmt__13;
+    var chr;
+    var fmt__14;
+    var fmtty;
+    var pad_opt;
+    var fmt__15;
+    var fmtty__0;
+    var pad_opt__0;
+    var fmt__16;
+    var fmt__17;
+    var fmt__18;
+    var fmting_lit;
+    var fmt__19;
+    var fmting_gen;
+    var fmt__20;
+    var fmt__21;
+    var char_set;
+    var width_opt;
+    var fmt__22;
+    var counter;
+    var fmt__23;
+    var rest;
+    var ign;
+    var match;
+    var fmt__24;
+    var rest__0;
+    var arity;
+    var es_;
+    var et_;
+    var i;
+    var eu_;
     var fmt__0 = fmt;
     var ign_flag__0 = ign_flag;
     for (; ; ) if (
@@ -1115,117 +1259,117 @@ function bprint_fmt(buf, fmt) {
     ) return 0;
     else switch (fmt__0[0]) {
       case 0:
-        var fmt__1 = fmt__0[1];
+        fmt__1 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         buffer_add_char(buf, 99);
-        var fmt__0 = fmt__1;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__1;
+        ign_flag__0 = 0;
         continue;
       case 1:
-        var fmt__2 = fmt__0[1];
+        fmt__2 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         buffer_add_char(buf, 67);
-        var fmt__0 = fmt__2;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__2;
+        ign_flag__0 = 0;
         continue;
       case 2:
-        var fmt__3 = fmt__0[2];
-        var pad = fmt__0[1];
+        fmt__3 = fmt__0[2];
+        pad = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         bprint_padding(buf, pad);
         buffer_add_char(buf, 115);
-        var fmt__0 = fmt__3;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__3;
+        ign_flag__0 = 0;
         continue;
       case 3:
-        var fmt__4 = fmt__0[2];
-        var pad__0 = fmt__0[1];
+        fmt__4 = fmt__0[2];
+        pad__0 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         bprint_padding(buf, pad__0);
         buffer_add_char(buf, 83);
-        var fmt__0 = fmt__4;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__4;
+        ign_flag__0 = 0;
         continue;
       case 4:
-        var fmt__5 = fmt__0[4];
-        var prec = fmt__0[3];
-        var pad__1 = fmt__0[2];
-        var iconv = fmt__0[1];
+        fmt__5 = fmt__0[4];
+        prec = fmt__0[3];
+        pad__1 = fmt__0[2];
+        iconv = fmt__0[1];
         bprint_int_fmt(buf, ign_flag__0, iconv, pad__1, prec);
-        var fmt__0 = fmt__5;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__5;
+        ign_flag__0 = 0;
         continue;
       case 5:
-        var fmt__6 = fmt__0[4];
-        var prec__0 = fmt__0[3];
-        var pad__2 = fmt__0[2];
-        var iconv__0 = fmt__0[1];
+        fmt__6 = fmt__0[4];
+        prec__0 = fmt__0[3];
+        pad__2 = fmt__0[2];
+        iconv__0 = fmt__0[1];
         bprint_altint_fmt(buf, ign_flag__0, iconv__0, pad__2, prec__0, 108);
-        var fmt__0 = fmt__6;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__6;
+        ign_flag__0 = 0;
         continue;
       case 6:
-        var fmt__7 = fmt__0[4];
-        var prec__1 = fmt__0[3];
-        var pad__3 = fmt__0[2];
-        var iconv__1 = fmt__0[1];
+        fmt__7 = fmt__0[4];
+        prec__1 = fmt__0[3];
+        pad__3 = fmt__0[2];
+        iconv__1 = fmt__0[1];
         bprint_altint_fmt(buf, ign_flag__0, iconv__1, pad__3, prec__1, 110);
-        var fmt__0 = fmt__7;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__7;
+        ign_flag__0 = 0;
         continue;
       case 7:
-        var fmt__8 = fmt__0[4];
-        var prec__2 = fmt__0[3];
-        var pad__4 = fmt__0[2];
-        var iconv__2 = fmt__0[1];
+        fmt__8 = fmt__0[4];
+        prec__2 = fmt__0[3];
+        pad__4 = fmt__0[2];
+        iconv__2 = fmt__0[1];
         bprint_altint_fmt(buf, ign_flag__0, iconv__2, pad__4, prec__2, 76);
-        var fmt__0 = fmt__8;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__8;
+        ign_flag__0 = 0;
         continue;
       case 8:
-        var fmt__9 = fmt__0[4];
-        var prec__3 = fmt__0[3];
-        var pad__5 = fmt__0[2];
-        var fconv = fmt__0[1];
+        fmt__9 = fmt__0[4];
+        prec__3 = fmt__0[3];
+        pad__5 = fmt__0[2];
+        fconv = fmt__0[1];
         bprint_float_fmt(buf, ign_flag__0, fconv, pad__5, prec__3);
-        var fmt__0 = fmt__9;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__9;
+        ign_flag__0 = 0;
         continue;
       case 9:
-        var fmt__10 = fmt__0[2];
-        var pad__6 = fmt__0[1];
+        fmt__10 = fmt__0[2];
+        pad__6 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         bprint_padding(buf, pad__6);
         buffer_add_char(buf, 66);
-        var fmt__0 = fmt__10;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__10;
+        ign_flag__0 = 0;
         continue;
       case 10:
-        var fmt__11 = fmt__0[1];
+        fmt__11 = fmt__0[1];
         buffer_add_string(buf, cst__14);
-        var fmt__0 = fmt__11;
+        fmt__0 = fmt__11;
         continue;
       case 11:
-        var fmt__12 = fmt__0[2];
-        var str = fmt__0[1];
+        fmt__12 = fmt__0[2];
+        str = fmt__0[1];
         bprint_string_literal(buf, str);
-        var fmt__0 = fmt__12;
+        fmt__0 = fmt__12;
         continue;
       case 12:
-        var fmt__13 = fmt__0[2];
-        var chr = fmt__0[1];
+        fmt__13 = fmt__0[2];
+        chr = fmt__0[1];
         bprint_char_literal(buf, chr);
-        var fmt__0 = fmt__13;
+        fmt__0 = fmt__13;
         continue;
       case 13:
-        var fmt__14 = fmt__0[3];
-        var fmtty = fmt__0[2];
-        var pad_opt = fmt__0[1];
+        fmt__14 = fmt__0[3];
+        fmtty = fmt__0[2];
+        pad_opt = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         bprint_pad_opt(buf, pad_opt);
@@ -1233,13 +1377,13 @@ function bprint_fmt(buf, fmt) {
         bprint_fmtty(buf, fmtty);
         buffer_add_char(buf, 37);
         buffer_add_char(buf, 125);
-        var fmt__0 = fmt__14;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__14;
+        ign_flag__0 = 0;
         continue;
       case 14:
-        var fmt__15 = fmt__0[3];
-        var fmtty__0 = fmt__0[2];
-        var pad_opt__0 = fmt__0[1];
+        fmt__15 = fmt__0[3];
+        fmtty__0 = fmt__0[2];
+        pad_opt__0 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         bprint_pad_opt(buf, pad_opt__0);
@@ -1247,100 +1391,100 @@ function bprint_fmt(buf, fmt) {
         bprint_fmtty(buf, fmtty__0);
         buffer_add_char(buf, 37);
         buffer_add_char(buf, 41);
-        var fmt__0 = fmt__15;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__15;
+        ign_flag__0 = 0;
         continue;
       case 15:
-        var fmt__16 = fmt__0[1];
+        fmt__16 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         buffer_add_char(buf, 97);
-        var fmt__0 = fmt__16;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__16;
+        ign_flag__0 = 0;
         continue;
       case 16:
-        var fmt__17 = fmt__0[1];
+        fmt__17 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         buffer_add_char(buf, 116);
-        var fmt__0 = fmt__17;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__17;
+        ign_flag__0 = 0;
         continue;
       case 17:
-        var fmt__18 = fmt__0[2];
-        var fmting_lit = fmt__0[1];
+        fmt__18 = fmt__0[2];
+        fmting_lit = fmt__0[1];
         bprint_string_literal(buf, string_of_formatting_lit(fmting_lit));
-        var fmt__0 = fmt__18;
+        fmt__0 = fmt__18;
         continue;
       case 18:
-        var fmt__19 = fmt__0[2];
-        var fmting_gen = fmt__0[1];
+        fmt__19 = fmt__0[2];
+        fmting_gen = fmt__0[1];
         bprint_string_literal(buf, cst__15);
         bprint_string_literal(buf, string_of_formatting_gen(fmting_gen));
-        var fmt__0 = fmt__19;
+        fmt__0 = fmt__19;
         continue;
       case 19:
-        var fmt__20 = fmt__0[1];
+        fmt__20 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         buffer_add_char(buf, 114);
-        var fmt__0 = fmt__20;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__20;
+        ign_flag__0 = 0;
         continue;
       case 20:
-        var fmt__21 = fmt__0[3];
-        var char_set = fmt__0[2];
-        var width_opt = fmt__0[1];
+        fmt__21 = fmt__0[3];
+        char_set = fmt__0[2];
+        width_opt = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         bprint_pad_opt(buf, width_opt);
         bprint_char_set(buf, char_set);
-        var fmt__0 = fmt__21;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__21;
+        ign_flag__0 = 0;
         continue;
       case 21:
-        var fmt__22 = fmt__0[2];
-        var counter = fmt__0[1];
+        fmt__22 = fmt__0[2];
+        counter = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         buffer_add_char(buf, char_of_counter(counter));
-        var fmt__0 = fmt__22;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__22;
+        ign_flag__0 = 0;
         continue;
       case 22:
-        var fmt__23 = fmt__0[1];
+        fmt__23 = fmt__0[1];
         buffer_add_char(buf, 37);
         bprint_ignored_flag(buf, ign_flag__0);
         bprint_string_literal(buf, cst_0c);
-        var fmt__0 = fmt__23;
-        var ign_flag__0 = 0;
+        fmt__0 = fmt__23;
+        ign_flag__0 = 0;
         continue;
       case 23:
-        var rest = fmt__0[2];
-        var ign = fmt__0[1];
-        var match = param_format_of_ignored_format(ign, rest);
-        var fmt__24 = match[1];
-        var fmt__0 = fmt__24;
-        var ign_flag__0 = 1;
+        rest = fmt__0[2];
+        ign = fmt__0[1];
+        match = param_format_of_ignored_format(ign, rest);
+        fmt__24 = match[1];
+        fmt__0 = fmt__24;
+        ign_flag__0 = 1;
         continue;
       default:
-        var rest__0 = fmt__0[3];
-        var arity = fmt__0[1];
-        var et_ = int_of_custom_arity(arity);
-        var es_ = 1;
+        rest__0 = fmt__0[3];
+        arity = fmt__0[1];
+        et_ = int_of_custom_arity(arity);
+        es_ = 1;
         if (! (et_ < 1)) {
-          var i = es_;
+          i = es_;
           for (; ; ) {
             buffer_add_char(buf, 37);
             bprint_ignored_flag(buf, ign_flag__0);
             buffer_add_char(buf, 63);
-            var eu_ = i + 1 | 0;
-            if (et_ !== i) {var i = eu_;continue;}
+            eu_ = i + 1 | 0;
+            if (et_ !== i) {i = eu_;continue;}
             break;
           }
         }
-        var fmt__0 = rest__0;
-        var ign_flag__0 = 0;
+        fmt__0 = rest__0;
+        ign_flag__0 = 0;
         continue
       }
   }
@@ -1354,166 +1498,306 @@ function string_of_fmt(fmt) {
 }
 
 function symm(param) {
+  var rest__13;
+  var rest__12;
+  var rest__11;
+  var rest__10;
+  var rest__9;
+  var ty1;
+  var ty2;
+  var rest__8;
+  var ty;
+  var rest__7;
+  var rest__6;
+  var rest__5;
+  var rest__4;
+  var rest__3;
+  var rest__2;
+  var rest__1;
+  var rest__0;
+  var rest;
   if (typeof param === "number") return 0;
   else switch (param[0]) {
     case 0:
-      var rest = param[1];
+      rest = param[1];
       return [0,symm(rest)];
     case 1:
-      var rest__0 = param[1];
+      rest__0 = param[1];
       return [1,symm(rest__0)];
     case 2:
-      var rest__1 = param[1];
+      rest__1 = param[1];
       return [2,symm(rest__1)];
     case 3:
-      var rest__2 = param[1];
+      rest__2 = param[1];
       return [3,symm(rest__2)];
     case 4:
-      var rest__3 = param[1];
+      rest__3 = param[1];
       return [4,symm(rest__3)];
     case 5:
-      var rest__4 = param[1];
+      rest__4 = param[1];
       return [5,symm(rest__4)];
     case 6:
-      var rest__5 = param[1];
+      rest__5 = param[1];
       return [6,symm(rest__5)];
     case 7:
-      var rest__6 = param[1];
+      rest__6 = param[1];
       return [7,symm(rest__6)];
     case 8:
-      var rest__7 = param[2];
-      var ty = param[1];
+      rest__7 = param[2];
+      ty = param[1];
       return [8,ty,symm(rest__7)];
     case 9:
-      var rest__8 = param[3];
-      var ty2 = param[2];
-      var ty1 = param[1];
+      rest__8 = param[3];
+      ty2 = param[2];
+      ty1 = param[1];
       return [9,ty2,ty1,symm(rest__8)];
     case 10:
-      var rest__9 = param[1];
+      rest__9 = param[1];
       return [10,symm(rest__9)];
     case 11:
-      var rest__10 = param[1];
+      rest__10 = param[1];
       return [11,symm(rest__10)];
     case 12:
-      var rest__11 = param[1];
+      rest__11 = param[1];
       return [12,symm(rest__11)];
     case 13:
-      var rest__12 = param[1];
+      rest__12 = param[1];
       return [13,symm(rest__12)];
     default:
-      var rest__13 = param[1];
+      rest__13 = param[1];
       return [14,symm(rest__13)]
     }
 }
 
 function fmtty_rel_det(param) {
+  var er_;
+  var eq_;
+  var ep_;
+  var fa__13;
+  var af__13;
+  var ed__13;
+  var de__13;
+  var match__14;
+  var rest__13;
+  var eo_;
+  var en_;
+  var em_;
+  var fa__12;
+  var af__12;
+  var ed__12;
+  var de__12;
+  var match__13;
+  var rest__12;
+  var el_;
+  var fa__11;
+  var af__11;
+  var ed__11;
+  var de__11;
+  var match__12;
+  var rest__11;
+  var ek_;
+  var fa__10;
+  var af__10;
+  var ed__10;
+  var de__10;
+  var match__11;
+  var rest__10;
+  var ej_;
+  var fa__9;
+  var af__9;
+  var ed__9;
+  var de__9;
+  var match__10;
+  var rest__9;
+  var ei_;
+  var eh_;
+  var eg_;
+  var ag;
+  var ga;
+  var dj;
+  var jd;
+  var match__9;
+  var ty;
+  var fa__8;
+  var af__8;
+  var ed__8;
+  var de__8;
+  var match__8;
+  var ty1;
+  var ty2;
+  var rest__8;
+  var ef_;
+  var fa__7;
+  var af__7;
+  var ed__7;
+  var de__7;
+  var match__7;
+  var rest__7;
+  var ee_;
+  var fa__6;
+  var af__6;
+  var ed__6;
+  var de__6;
+  var match__6;
+  var rest__6;
+  var ed_;
+  var fa__5;
+  var af__5;
+  var ed__5;
+  var de__5;
+  var match__5;
+  var rest__5;
+  var ec_;
+  var fa__4;
+  var af__4;
+  var ed__4;
+  var de__4;
+  var match__4;
+  var rest__4;
+  var eb_;
+  var fa__3;
+  var af__3;
+  var ed__3;
+  var de__3;
+  var match__3;
+  var rest__3;
+  var ea_;
+  var fa__2;
+  var af__2;
+  var ed__2;
+  var de__2;
+  var match__2;
+  var rest__2;
+  var d__;
+  var fa__1;
+  var af__1;
+  var ed__1;
+  var de__1;
+  var match__1;
+  var rest__1;
+  var d9_;
+  var fa__0;
+  var af__0;
+  var ed__0;
+  var de__0;
+  var match__0;
+  var rest__0;
+  var d8_;
+  var fa;
+  var af;
+  var ed;
+  var de;
+  var match;
+  var rest;
+  var d7_;
+  var d6_;
+  var d5_;
   if (typeof param === "number") {
-    var d5_ = function(param) {return 0;};
-    var d6_ = function(param) {return 0;};
-    var d7_ = function(param) {return 0;};
+    d5_ = function(param) {return 0;};
+    d6_ = function(param) {return 0;};
+    d7_ = function(param) {return 0;};
     return [0,function(param) {return 0;},d7_,d6_,d5_];
   }
   else switch (param[0]) {
     case 0:
-      var rest = param[1];
-      var match = fmtty_rel_det(rest);
-      var de = match[4];
-      var ed = match[3];
-      var af = match[2];
-      var fa = match[1];
-      var d8_ = function(param) {call1(af, 0);return 0;};
+      rest = param[1];
+      match = fmtty_rel_det(rest);
+      de = match[4];
+      ed = match[3];
+      af = match[2];
+      fa = match[1];
+      d8_ = function(param) {call1(af, 0);return 0;};
       return [0,function(param) {call1(fa, 0);return 0;},d8_,ed,de];
     case 1:
-      var rest__0 = param[1];
-      var match__0 = fmtty_rel_det(rest__0);
-      var de__0 = match__0[4];
-      var ed__0 = match__0[3];
-      var af__0 = match__0[2];
-      var fa__0 = match__0[1];
-      var d9_ = function(param) {call1(af__0, 0);return 0;};
+      rest__0 = param[1];
+      match__0 = fmtty_rel_det(rest__0);
+      de__0 = match__0[4];
+      ed__0 = match__0[3];
+      af__0 = match__0[2];
+      fa__0 = match__0[1];
+      d9_ = function(param) {call1(af__0, 0);return 0;};
       return [0,function(param) {call1(fa__0, 0);return 0;},d9_,ed__0,de__0];
     case 2:
-      var rest__1 = param[1];
-      var match__1 = fmtty_rel_det(rest__1);
-      var de__1 = match__1[4];
-      var ed__1 = match__1[3];
-      var af__1 = match__1[2];
-      var fa__1 = match__1[1];
-      var d__ = function(param) {call1(af__1, 0);return 0;};
+      rest__1 = param[1];
+      match__1 = fmtty_rel_det(rest__1);
+      de__1 = match__1[4];
+      ed__1 = match__1[3];
+      af__1 = match__1[2];
+      fa__1 = match__1[1];
+      d__ = function(param) {call1(af__1, 0);return 0;};
       return [0,function(param) {call1(fa__1, 0);return 0;},d__,ed__1,de__1];
     case 3:
-      var rest__2 = param[1];
-      var match__2 = fmtty_rel_det(rest__2);
-      var de__2 = match__2[4];
-      var ed__2 = match__2[3];
-      var af__2 = match__2[2];
-      var fa__2 = match__2[1];
-      var ea_ = function(param) {call1(af__2, 0);return 0;};
+      rest__2 = param[1];
+      match__2 = fmtty_rel_det(rest__2);
+      de__2 = match__2[4];
+      ed__2 = match__2[3];
+      af__2 = match__2[2];
+      fa__2 = match__2[1];
+      ea_ = function(param) {call1(af__2, 0);return 0;};
       return [0,function(param) {call1(fa__2, 0);return 0;},ea_,ed__2,de__2];
     case 4:
-      var rest__3 = param[1];
-      var match__3 = fmtty_rel_det(rest__3);
-      var de__3 = match__3[4];
-      var ed__3 = match__3[3];
-      var af__3 = match__3[2];
-      var fa__3 = match__3[1];
-      var eb_ = function(param) {call1(af__3, 0);return 0;};
+      rest__3 = param[1];
+      match__3 = fmtty_rel_det(rest__3);
+      de__3 = match__3[4];
+      ed__3 = match__3[3];
+      af__3 = match__3[2];
+      fa__3 = match__3[1];
+      eb_ = function(param) {call1(af__3, 0);return 0;};
       return [0,function(param) {call1(fa__3, 0);return 0;},eb_,ed__3,de__3];
     case 5:
-      var rest__4 = param[1];
-      var match__4 = fmtty_rel_det(rest__4);
-      var de__4 = match__4[4];
-      var ed__4 = match__4[3];
-      var af__4 = match__4[2];
-      var fa__4 = match__4[1];
-      var ec_ = function(param) {call1(af__4, 0);return 0;};
+      rest__4 = param[1];
+      match__4 = fmtty_rel_det(rest__4);
+      de__4 = match__4[4];
+      ed__4 = match__4[3];
+      af__4 = match__4[2];
+      fa__4 = match__4[1];
+      ec_ = function(param) {call1(af__4, 0);return 0;};
       return [0,function(param) {call1(fa__4, 0);return 0;},ec_,ed__4,de__4];
     case 6:
-      var rest__5 = param[1];
-      var match__5 = fmtty_rel_det(rest__5);
-      var de__5 = match__5[4];
-      var ed__5 = match__5[3];
-      var af__5 = match__5[2];
-      var fa__5 = match__5[1];
-      var ed_ = function(param) {call1(af__5, 0);return 0;};
+      rest__5 = param[1];
+      match__5 = fmtty_rel_det(rest__5);
+      de__5 = match__5[4];
+      ed__5 = match__5[3];
+      af__5 = match__5[2];
+      fa__5 = match__5[1];
+      ed_ = function(param) {call1(af__5, 0);return 0;};
       return [0,function(param) {call1(fa__5, 0);return 0;},ed_,ed__5,de__5];
     case 7:
-      var rest__6 = param[1];
-      var match__6 = fmtty_rel_det(rest__6);
-      var de__6 = match__6[4];
-      var ed__6 = match__6[3];
-      var af__6 = match__6[2];
-      var fa__6 = match__6[1];
-      var ee_ = function(param) {call1(af__6, 0);return 0;};
+      rest__6 = param[1];
+      match__6 = fmtty_rel_det(rest__6);
+      de__6 = match__6[4];
+      ed__6 = match__6[3];
+      af__6 = match__6[2];
+      fa__6 = match__6[1];
+      ee_ = function(param) {call1(af__6, 0);return 0;};
       return [0,function(param) {call1(fa__6, 0);return 0;},ee_,ed__6,de__6];
     case 8:
-      var rest__7 = param[2];
-      var match__7 = fmtty_rel_det(rest__7);
-      var de__7 = match__7[4];
-      var ed__7 = match__7[3];
-      var af__7 = match__7[2];
-      var fa__7 = match__7[1];
-      var ef_ = function(param) {call1(af__7, 0);return 0;};
+      rest__7 = param[2];
+      match__7 = fmtty_rel_det(rest__7);
+      de__7 = match__7[4];
+      ed__7 = match__7[3];
+      af__7 = match__7[2];
+      fa__7 = match__7[1];
+      ef_ = function(param) {call1(af__7, 0);return 0;};
       return [0,function(param) {call1(fa__7, 0);return 0;},ef_,ed__7,de__7];
     case 9:
-      var rest__8 = param[3];
-      var ty2 = param[2];
-      var ty1 = param[1];
-      var match__8 = fmtty_rel_det(rest__8);
-      var de__8 = match__8[4];
-      var ed__8 = match__8[3];
-      var af__8 = match__8[2];
-      var fa__8 = match__8[1];
-      var ty = trans(symm(ty1), ty2);
-      var match__9 = fmtty_rel_det(ty);
-      var jd = match__9[4];
-      var dj = match__9[3];
-      var ga = match__9[2];
-      var ag = match__9[1];
-      var eg_ = function(param) {call1(jd, 0);call1(de__8, 0);return 0;};
-      var eh_ = function(param) {call1(ed__8, 0);call1(dj, 0);return 0;};
-      var ei_ = function(param) {call1(ga, 0);call1(af__8, 0);return 0;};
+      rest__8 = param[3];
+      ty2 = param[2];
+      ty1 = param[1];
+      match__8 = fmtty_rel_det(rest__8);
+      de__8 = match__8[4];
+      ed__8 = match__8[3];
+      af__8 = match__8[2];
+      fa__8 = match__8[1];
+      ty = trans(symm(ty1), ty2);
+      match__9 = fmtty_rel_det(ty);
+      jd = match__9[4];
+      dj = match__9[3];
+      ga = match__9[2];
+      ag = match__9[1];
+      eg_ = function(param) {call1(jd, 0);call1(de__8, 0);return 0;};
+      eh_ = function(param) {call1(ed__8, 0);call1(dj, 0);return 0;};
+      ei_ = function(param) {call1(ga, 0);call1(af__8, 0);return 0;};
       return [
         0,
         function(param) {call1(fa__8, 0);call1(ag, 0);return 0;},
@@ -1522,591 +1806,647 @@ function fmtty_rel_det(param) {
         eg_
       ];
     case 10:
-      var rest__9 = param[1];
-      var match__10 = fmtty_rel_det(rest__9);
-      var de__9 = match__10[4];
-      var ed__9 = match__10[3];
-      var af__9 = match__10[2];
-      var fa__9 = match__10[1];
-      var ej_ = function(param) {call1(af__9, 0);return 0;};
+      rest__9 = param[1];
+      match__10 = fmtty_rel_det(rest__9);
+      de__9 = match__10[4];
+      ed__9 = match__10[3];
+      af__9 = match__10[2];
+      fa__9 = match__10[1];
+      ej_ = function(param) {call1(af__9, 0);return 0;};
       return [0,function(param) {call1(fa__9, 0);return 0;},ej_,ed__9,de__9];
     case 11:
-      var rest__10 = param[1];
-      var match__11 = fmtty_rel_det(rest__10);
-      var de__10 = match__11[4];
-      var ed__10 = match__11[3];
-      var af__10 = match__11[2];
-      var fa__10 = match__11[1];
-      var ek_ = function(param) {call1(af__10, 0);return 0;};
+      rest__10 = param[1];
+      match__11 = fmtty_rel_det(rest__10);
+      de__10 = match__11[4];
+      ed__10 = match__11[3];
+      af__10 = match__11[2];
+      fa__10 = match__11[1];
+      ek_ = function(param) {call1(af__10, 0);return 0;};
       return [0,function(param) {call1(fa__10, 0);return 0;},ek_,ed__10,de__10
       ];
     case 12:
-      var rest__11 = param[1];
-      var match__12 = fmtty_rel_det(rest__11);
-      var de__11 = match__12[4];
-      var ed__11 = match__12[3];
-      var af__11 = match__12[2];
-      var fa__11 = match__12[1];
-      var el_ = function(param) {call1(af__11, 0);return 0;};
+      rest__11 = param[1];
+      match__12 = fmtty_rel_det(rest__11);
+      de__11 = match__12[4];
+      ed__11 = match__12[3];
+      af__11 = match__12[2];
+      fa__11 = match__12[1];
+      el_ = function(param) {call1(af__11, 0);return 0;};
       return [0,function(param) {call1(fa__11, 0);return 0;},el_,ed__11,de__11
       ];
     case 13:
-      var rest__12 = param[1];
-      var match__13 = fmtty_rel_det(rest__12);
-      var de__12 = match__13[4];
-      var ed__12 = match__13[3];
-      var af__12 = match__13[2];
-      var fa__12 = match__13[1];
-      var em_ = function(param) {call1(de__12, 0);return 0;};
-      var en_ = function(param) {call1(ed__12, 0);return 0;};
-      var eo_ = function(param) {call1(af__12, 0);return 0;};
+      rest__12 = param[1];
+      match__13 = fmtty_rel_det(rest__12);
+      de__12 = match__13[4];
+      ed__12 = match__13[3];
+      af__12 = match__13[2];
+      fa__12 = match__13[1];
+      em_ = function(param) {call1(de__12, 0);return 0;};
+      en_ = function(param) {call1(ed__12, 0);return 0;};
+      eo_ = function(param) {call1(af__12, 0);return 0;};
       return [0,function(param) {call1(fa__12, 0);return 0;},eo_,en_,em_];
     default:
-      var rest__13 = param[1];
-      var match__14 = fmtty_rel_det(rest__13);
-      var de__13 = match__14[4];
-      var ed__13 = match__14[3];
-      var af__13 = match__14[2];
-      var fa__13 = match__14[1];
-      var ep_ = function(param) {call1(de__13, 0);return 0;};
-      var eq_ = function(param) {call1(ed__13, 0);return 0;};
-      var er_ = function(param) {call1(af__13, 0);return 0;};
+      rest__13 = param[1];
+      match__14 = fmtty_rel_det(rest__13);
+      de__13 = match__14[4];
+      ed__13 = match__14[3];
+      af__13 = match__14[2];
+      fa__13 = match__14[1];
+      ep_ = function(param) {call1(de__13, 0);return 0;};
+      eq_ = function(param) {call1(ed__13, 0);return 0;};
+      er_ = function(param) {call1(af__13, 0);return 0;};
       return [0,function(param) {call1(fa__13, 0);return 0;},er_,eq_,ep_]
     }
 }
 
 function trans(ty1, match) {
+  var switch__14;
+  var switch__13;
+  var switch__12;
+  var switch__11;
+  var switch__10;
+  var switch__9;
+  var switch__8;
+  var switch__7;
+  var switch__6;
+  var switch__5;
+  var switch__4;
+  var switch__3;
+  var switch__2;
+  var switch__1;
+  var switch__0;
+  var rest2__13;
+  var d4_;
+  var rest2__12;
+  var d3_;
+  var rest2__11;
+  var d2_;
+  var rest2__10;
+  var d1_;
+  var rest2__9;
+  var d0_;
+  var f2;
+  var f4;
+  var match__0;
+  var ty;
+  var ty21;
+  var ty22;
+  var rest2__8;
+  var dZ_;
+  var dY_;
+  var dX_;
+  var dW_;
+  var ty2;
+  var rest2__7;
+  var dV_;
+  var dU_;
+  var rest2__6;
+  var dT_;
+  var rest2__5;
+  var dS_;
+  var rest2__4;
+  var dR_;
+  var rest2__3;
+  var dQ_;
+  var rest2__2;
+  var dP_;
+  var rest2__1;
+  var dO_;
+  var rest2__0;
+  var dN_;
+  var rest2;
+  var dM_;
   if (typeof ty1 === "number") if (typeof match === "number"
   ) return 0;
   else switch (match[0]) {
     case 10:
-      var switch__0 = 0;
+      switch__0 = 0;
       break;
     case 11:
-      var switch__0 = 1;
+      switch__0 = 1;
       break;
     case 12:
-      var switch__0 = 2;
+      switch__0 = 2;
       break;
     case 13:
-      var switch__0 = 3;
+      switch__0 = 3;
       break;
     case 14:
-      var switch__0 = 4;
+      switch__0 = 4;
       break;
     case 8:
-      var switch__0 = 5;
+      switch__0 = 5;
       break;
     case 9:
-      var switch__0 = 6;
+      switch__0 = 6;
       break;
     default:
       throw caml_wrap_thrown_exception([0,Assert_failure,a_])
     }
   else switch (ty1[0]) {
     case 0:
-      var dM_ = ty1[1];
-      if (typeof match === "number") var switch__1 = 1;
+      dM_ = ty1[1];
+      if (typeof match === "number") switch__1 = 1;
       else switch (match[0]) {
         case 0:
-          var rest2 = match[1];
+          rest2 = match[1];
           return [0,trans(dM_, rest2)];
         case 8:
-          var switch__0 = 5;
-          var switch__1 = 0;
+          switch__0 = 5;
+          switch__1 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__1 = 0;
+          switch__0 = 6;
+          switch__1 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__1 = 0;
+          switch__0 = 0;
+          switch__1 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__1 = 0;
+          switch__0 = 1;
+          switch__1 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__1 = 0;
+          switch__0 = 2;
+          switch__1 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__1 = 0;
+          switch__0 = 3;
+          switch__1 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__1 = 0;
+          switch__0 = 4;
+          switch__1 = 0;
           break;
         default:
-          var switch__1 = 1
+          switch__1 = 1
         }
-      if (switch__1) {var switch__0 = 7;}
+      if (switch__1) {switch__0 = 7;}
       break;
     case 1:
-      var dN_ = ty1[1];
-      if (typeof match === "number") var switch__2 = 1;
+      dN_ = ty1[1];
+      if (typeof match === "number") switch__2 = 1;
       else switch (match[0]) {
         case 1:
-          var rest2__0 = match[1];
+          rest2__0 = match[1];
           return [1,trans(dN_, rest2__0)];
         case 8:
-          var switch__0 = 5;
-          var switch__2 = 0;
+          switch__0 = 5;
+          switch__2 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__2 = 0;
+          switch__0 = 6;
+          switch__2 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__2 = 0;
+          switch__0 = 0;
+          switch__2 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__2 = 0;
+          switch__0 = 1;
+          switch__2 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__2 = 0;
+          switch__0 = 2;
+          switch__2 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__2 = 0;
+          switch__0 = 3;
+          switch__2 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__2 = 0;
+          switch__0 = 4;
+          switch__2 = 0;
           break;
         default:
-          var switch__2 = 1
+          switch__2 = 1
         }
-      if (switch__2) {var switch__0 = 7;}
+      if (switch__2) {switch__0 = 7;}
       break;
     case 2:
-      var dO_ = ty1[1];
-      if (typeof match === "number") var switch__3 = 1;
+      dO_ = ty1[1];
+      if (typeof match === "number") switch__3 = 1;
       else switch (match[0]) {
         case 2:
-          var rest2__1 = match[1];
+          rest2__1 = match[1];
           return [2,trans(dO_, rest2__1)];
         case 8:
-          var switch__0 = 5;
-          var switch__3 = 0;
+          switch__0 = 5;
+          switch__3 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__3 = 0;
+          switch__0 = 6;
+          switch__3 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__3 = 0;
+          switch__0 = 0;
+          switch__3 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__3 = 0;
+          switch__0 = 1;
+          switch__3 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__3 = 0;
+          switch__0 = 2;
+          switch__3 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__3 = 0;
+          switch__0 = 3;
+          switch__3 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__3 = 0;
+          switch__0 = 4;
+          switch__3 = 0;
           break;
         default:
-          var switch__3 = 1
+          switch__3 = 1
         }
-      if (switch__3) {var switch__0 = 7;}
+      if (switch__3) {switch__0 = 7;}
       break;
     case 3:
-      var dP_ = ty1[1];
-      if (typeof match === "number") var switch__4 = 1;
+      dP_ = ty1[1];
+      if (typeof match === "number") switch__4 = 1;
       else switch (match[0]) {
         case 3:
-          var rest2__2 = match[1];
+          rest2__2 = match[1];
           return [3,trans(dP_, rest2__2)];
         case 8:
-          var switch__0 = 5;
-          var switch__4 = 0;
+          switch__0 = 5;
+          switch__4 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__4 = 0;
+          switch__0 = 6;
+          switch__4 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__4 = 0;
+          switch__0 = 0;
+          switch__4 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__4 = 0;
+          switch__0 = 1;
+          switch__4 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__4 = 0;
+          switch__0 = 2;
+          switch__4 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__4 = 0;
+          switch__0 = 3;
+          switch__4 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__4 = 0;
+          switch__0 = 4;
+          switch__4 = 0;
           break;
         default:
-          var switch__4 = 1
+          switch__4 = 1
         }
-      if (switch__4) {var switch__0 = 7;}
+      if (switch__4) {switch__0 = 7;}
       break;
     case 4:
-      var dQ_ = ty1[1];
-      if (typeof match === "number") var switch__5 = 1;
+      dQ_ = ty1[1];
+      if (typeof match === "number") switch__5 = 1;
       else switch (match[0]) {
         case 4:
-          var rest2__3 = match[1];
+          rest2__3 = match[1];
           return [4,trans(dQ_, rest2__3)];
         case 8:
-          var switch__0 = 5;
-          var switch__5 = 0;
+          switch__0 = 5;
+          switch__5 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__5 = 0;
+          switch__0 = 6;
+          switch__5 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__5 = 0;
+          switch__0 = 0;
+          switch__5 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__5 = 0;
+          switch__0 = 1;
+          switch__5 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__5 = 0;
+          switch__0 = 2;
+          switch__5 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__5 = 0;
+          switch__0 = 3;
+          switch__5 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__5 = 0;
+          switch__0 = 4;
+          switch__5 = 0;
           break;
         default:
-          var switch__5 = 1
+          switch__5 = 1
         }
-      if (switch__5) {var switch__0 = 7;}
+      if (switch__5) {switch__0 = 7;}
       break;
     case 5:
-      var dR_ = ty1[1];
-      if (typeof match === "number") var switch__6 = 1;
+      dR_ = ty1[1];
+      if (typeof match === "number") switch__6 = 1;
       else switch (match[0]) {
         case 5:
-          var rest2__4 = match[1];
+          rest2__4 = match[1];
           return [5,trans(dR_, rest2__4)];
         case 8:
-          var switch__0 = 5;
-          var switch__6 = 0;
+          switch__0 = 5;
+          switch__6 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__6 = 0;
+          switch__0 = 6;
+          switch__6 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__6 = 0;
+          switch__0 = 0;
+          switch__6 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__6 = 0;
+          switch__0 = 1;
+          switch__6 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__6 = 0;
+          switch__0 = 2;
+          switch__6 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__6 = 0;
+          switch__0 = 3;
+          switch__6 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__6 = 0;
+          switch__0 = 4;
+          switch__6 = 0;
           break;
         default:
-          var switch__6 = 1
+          switch__6 = 1
         }
-      if (switch__6) {var switch__0 = 7;}
+      if (switch__6) {switch__0 = 7;}
       break;
     case 6:
-      var dS_ = ty1[1];
-      if (typeof match === "number") var switch__7 = 1;
+      dS_ = ty1[1];
+      if (typeof match === "number") switch__7 = 1;
       else switch (match[0]) {
         case 6:
-          var rest2__5 = match[1];
+          rest2__5 = match[1];
           return [6,trans(dS_, rest2__5)];
         case 8:
-          var switch__0 = 5;
-          var switch__7 = 0;
+          switch__0 = 5;
+          switch__7 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__7 = 0;
+          switch__0 = 6;
+          switch__7 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__7 = 0;
+          switch__0 = 0;
+          switch__7 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__7 = 0;
+          switch__0 = 1;
+          switch__7 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__7 = 0;
+          switch__0 = 2;
+          switch__7 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__7 = 0;
+          switch__0 = 3;
+          switch__7 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__7 = 0;
+          switch__0 = 4;
+          switch__7 = 0;
           break;
         default:
-          var switch__7 = 1
+          switch__7 = 1
         }
-      if (switch__7) {var switch__0 = 7;}
+      if (switch__7) {switch__0 = 7;}
       break;
     case 7:
-      var dT_ = ty1[1];
-      if (typeof match === "number") var switch__8 = 1;
+      dT_ = ty1[1];
+      if (typeof match === "number") switch__8 = 1;
       else switch (match[0]) {
         case 7:
-          var rest2__6 = match[1];
+          rest2__6 = match[1];
           return [7,trans(dT_, rest2__6)];
         case 8:
-          var switch__0 = 5;
-          var switch__8 = 0;
+          switch__0 = 5;
+          switch__8 = 0;
           break;
         case 9:
-          var switch__0 = 6;
-          var switch__8 = 0;
+          switch__0 = 6;
+          switch__8 = 0;
           break;
         case 10:
-          var switch__0 = 0;
-          var switch__8 = 0;
+          switch__0 = 0;
+          switch__8 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__8 = 0;
+          switch__0 = 1;
+          switch__8 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__8 = 0;
+          switch__0 = 2;
+          switch__8 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__8 = 0;
+          switch__0 = 3;
+          switch__8 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__8 = 0;
+          switch__0 = 4;
+          switch__8 = 0;
           break;
         default:
-          var switch__8 = 1
+          switch__8 = 1
         }
-      if (switch__8) {var switch__0 = 7;}
+      if (switch__8) {switch__0 = 7;}
       break;
     case 8:
-      var dU_ = ty1[2];
-      var dV_ = ty1[1];
-      if (typeof match === "number") var switch__9 = 1;
+      dU_ = ty1[2];
+      dV_ = ty1[1];
+      if (typeof match === "number") switch__9 = 1;
       else switch (match[0]) {
         case 8:
-          var rest2__7 = match[2];
-          var ty2 = match[1];
-          var dW_ = trans(dU_, rest2__7);
+          rest2__7 = match[2];
+          ty2 = match[1];
+          dW_ = trans(dU_, rest2__7);
           return [8,trans(dV_, ty2),dW_];
         case 10:
-          var switch__0 = 0;
-          var switch__9 = 0;
+          switch__0 = 0;
+          switch__9 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__9 = 0;
+          switch__0 = 1;
+          switch__9 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__9 = 0;
+          switch__0 = 2;
+          switch__9 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__9 = 0;
+          switch__0 = 3;
+          switch__9 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__9 = 0;
+          switch__0 = 4;
+          switch__9 = 0;
           break;
         default:
-          var switch__9 = 1
+          switch__9 = 1
         }
       if (switch__9) {
         throw caml_wrap_thrown_exception([0,Assert_failure,j_]);
       }
       break;
     case 9:
-      var dX_ = ty1[3];
-      var dY_ = ty1[2];
-      var dZ_ = ty1[1];
-      if (typeof match === "number") var switch__10 = 1;
+      dX_ = ty1[3];
+      dY_ = ty1[2];
+      dZ_ = ty1[1];
+      if (typeof match === "number") switch__10 = 1;
       else switch (match[0]) {
         case 8:
-          var switch__0 = 5;
-          var switch__10 = 0;
+          switch__0 = 5;
+          switch__10 = 0;
           break;
         case 9:
-          var rest2__8 = match[3];
-          var ty22 = match[2];
-          var ty21 = match[1];
-          var ty = trans(symm(dY_), ty21);
-          var match__0 = fmtty_rel_det(ty);
-          var f4 = match__0[4];
-          var f2 = match__0[2];
+          rest2__8 = match[3];
+          ty22 = match[2];
+          ty21 = match[1];
+          ty = trans(symm(dY_), ty21);
+          match__0 = fmtty_rel_det(ty);
+          f4 = match__0[4];
+          f2 = match__0[2];
           call1(f2, 0);
           call1(f4, 0);
           return [9,dZ_,ty22,trans(dX_, rest2__8)];
         case 10:
-          var switch__0 = 0;
-          var switch__10 = 0;
+          switch__0 = 0;
+          switch__10 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__10 = 0;
+          switch__0 = 1;
+          switch__10 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__10 = 0;
+          switch__0 = 2;
+          switch__10 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__10 = 0;
+          switch__0 = 3;
+          switch__10 = 0;
           break;
         case 14:
-          var switch__0 = 4;
-          var switch__10 = 0;
+          switch__0 = 4;
+          switch__10 = 0;
           break;
         default:
-          var switch__10 = 1
+          switch__10 = 1
         }
       if (switch__10) {
         throw caml_wrap_thrown_exception([0,Assert_failure,k_]);
       }
       break;
     case 10:
-      var d0_ = ty1[1];
+      d0_ = ty1[1];
       if (! (typeof match === "number") && 10 === match[0]) {
-        var rest2__9 = match[1];
+        rest2__9 = match[1];
         return [10,trans(d0_, rest2__9)];
       }
       throw caml_wrap_thrown_exception([0,Assert_failure,l_]);
     case 11:
-      var d1_ = ty1[1];
-      if (typeof match === "number") var switch__11 = 1;
+      d1_ = ty1[1];
+      if (typeof match === "number") switch__11 = 1;
       else switch (match[0]) {
         case 10:
-          var switch__0 = 0;
-          var switch__11 = 0;
+          switch__0 = 0;
+          switch__11 = 0;
           break;
         case 11:
-          var rest2__10 = match[1];
+          rest2__10 = match[1];
           return [11,trans(d1_, rest2__10)];
         default:
-          var switch__11 = 1
+          switch__11 = 1
         }
       if (switch__11) {
         throw caml_wrap_thrown_exception([0,Assert_failure,m_]);
       }
       break;
     case 12:
-      var d2_ = ty1[1];
-      if (typeof match === "number") var switch__12 = 1;
+      d2_ = ty1[1];
+      if (typeof match === "number") switch__12 = 1;
       else switch (match[0]) {
         case 10:
-          var switch__0 = 0;
-          var switch__12 = 0;
+          switch__0 = 0;
+          switch__12 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__12 = 0;
+          switch__0 = 1;
+          switch__12 = 0;
           break;
         case 12:
-          var rest2__11 = match[1];
+          rest2__11 = match[1];
           return [12,trans(d2_, rest2__11)];
         default:
-          var switch__12 = 1
+          switch__12 = 1
         }
       if (switch__12) {
         throw caml_wrap_thrown_exception([0,Assert_failure,n_]);
       }
       break;
     case 13:
-      var d3_ = ty1[1];
-      if (typeof match === "number") var switch__13 = 1;
+      d3_ = ty1[1];
+      if (typeof match === "number") switch__13 = 1;
       else switch (match[0]) {
         case 10:
-          var switch__0 = 0;
-          var switch__13 = 0;
+          switch__0 = 0;
+          switch__13 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__13 = 0;
+          switch__0 = 1;
+          switch__13 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__13 = 0;
+          switch__0 = 2;
+          switch__13 = 0;
           break;
         case 13:
-          var rest2__12 = match[1];
+          rest2__12 = match[1];
           return [13,trans(d3_, rest2__12)];
         default:
-          var switch__13 = 1
+          switch__13 = 1
         }
       if (switch__13) {
         throw caml_wrap_thrown_exception([0,Assert_failure,o_]);
       }
       break;
     default:
-      var d4_ = ty1[1];
-      if (typeof match === "number") var switch__14 = 1;
+      d4_ = ty1[1];
+      if (typeof match === "number") switch__14 = 1;
       else switch (match[0]) {
         case 10:
-          var switch__0 = 0;
-          var switch__14 = 0;
+          switch__0 = 0;
+          switch__14 = 0;
           break;
         case 11:
-          var switch__0 = 1;
-          var switch__14 = 0;
+          switch__0 = 1;
+          switch__14 = 0;
           break;
         case 12:
-          var switch__0 = 2;
-          var switch__14 = 0;
+          switch__0 = 2;
+          switch__14 = 0;
           break;
         case 13:
-          var switch__0 = 3;
-          var switch__14 = 0;
+          switch__0 = 3;
+          switch__14 = 0;
           break;
         case 14:
-          var rest2__13 = match[1];
+          rest2__13 = match[1];
           return [14,trans(d4_, rest2__13)];
         default:
-          var switch__14 = 1
+          switch__14 = 1
         }
       if (switch__14) {
         throw caml_wrap_thrown_exception([0,Assert_failure,p_]);
@@ -2137,146 +2477,219 @@ function fmtty_of_padding_fmtty(pad, fmtty) {
 }
 
 function fmtty_of_custom(arity, fmtty) {
+  var arity__0;
   if (arity) {
-    var arity__0 = arity[1];
+    arity__0 = arity[1];
     return [12,fmtty_of_custom(arity__0, fmtty)];
   }
   return fmtty;
 }
 
 function fmtty_of_fmt__0(counter, fmtty) {
+  var rest;
+  var rest__0;
+  var rest__1;
+  var pad;
+  var rest__2;
+  var pad__0;
+  var rest__3;
+  var prec;
+  var pad__1;
+  var ty_rest;
+  var prec_ty;
+  var rest__4;
+  var prec__0;
+  var pad__2;
+  var ty_rest__0;
+  var prec_ty__0;
+  var rest__5;
+  var prec__1;
+  var pad__3;
+  var ty_rest__1;
+  var prec_ty__1;
+  var rest__6;
+  var prec__2;
+  var pad__4;
+  var ty_rest__2;
+  var prec_ty__2;
+  var rest__7;
+  var prec__3;
+  var pad__5;
+  var ty_rest__3;
+  var prec_ty__3;
+  var rest__8;
+  var pad__6;
+  var fmtty__1;
+  var fmtty__2;
+  var fmtty__3;
+  var rest__9;
+  var ty;
+  var rest__10;
+  var ty__0;
+  var rest__11;
+  var rest__12;
+  var fmtty__4;
+  var rest__13;
+  var fmting_gen;
+  var dK_;
+  var dL_;
+  var rest__14;
+  var rest__15;
+  var rest__16;
+  var rest__17;
+  var rest__18;
+  var ign;
+  var rest__19;
+  var arity;
+  var counter__0;
   var fmtty__0 = fmtty;
   for (; ; ) if (
     typeof fmtty__0 === "number"
   ) return 0;
   else switch (fmtty__0[0]) {
     case 0:
-      var rest = fmtty__0[1];
+      rest = fmtty__0[1];
       return [0,fmtty_of_fmt(rest)];
     case 1:
-      var rest__0 = fmtty__0[1];
+      rest__0 = fmtty__0[1];
       return [0,fmtty_of_fmt(rest__0)];
     case 2:
-      var rest__1 = fmtty__0[2];
-      var pad = fmtty__0[1];
+      rest__1 = fmtty__0[2];
+      pad = fmtty__0[1];
       return fmtty_of_padding_fmtty(pad, [1,fmtty_of_fmt(rest__1)]);
     case 3:
-      var rest__2 = fmtty__0[2];
-      var pad__0 = fmtty__0[1];
+      rest__2 = fmtty__0[2];
+      pad__0 = fmtty__0[1];
       return fmtty_of_padding_fmtty(pad__0, [1,fmtty_of_fmt(rest__2)]);
     case 4:
-      var rest__3 = fmtty__0[4];
-      var prec = fmtty__0[3];
-      var pad__1 = fmtty__0[2];
-      var ty_rest = fmtty_of_fmt(rest__3);
-      var prec_ty = fmtty_of_precision_fmtty(prec, [2,ty_rest]);
+      rest__3 = fmtty__0[4];
+      prec = fmtty__0[3];
+      pad__1 = fmtty__0[2];
+      ty_rest = fmtty_of_fmt(rest__3);
+      prec_ty = fmtty_of_precision_fmtty(prec, [2,ty_rest]);
       return fmtty_of_padding_fmtty(pad__1, prec_ty);
     case 5:
-      var rest__4 = fmtty__0[4];
-      var prec__0 = fmtty__0[3];
-      var pad__2 = fmtty__0[2];
-      var ty_rest__0 = fmtty_of_fmt(rest__4);
-      var prec_ty__0 = fmtty_of_precision_fmtty(prec__0, [3,ty_rest__0]);
+      rest__4 = fmtty__0[4];
+      prec__0 = fmtty__0[3];
+      pad__2 = fmtty__0[2];
+      ty_rest__0 = fmtty_of_fmt(rest__4);
+      prec_ty__0 = fmtty_of_precision_fmtty(prec__0, [3,ty_rest__0]);
       return fmtty_of_padding_fmtty(pad__2, prec_ty__0);
     case 6:
-      var rest__5 = fmtty__0[4];
-      var prec__1 = fmtty__0[3];
-      var pad__3 = fmtty__0[2];
-      var ty_rest__1 = fmtty_of_fmt(rest__5);
-      var prec_ty__1 = fmtty_of_precision_fmtty(prec__1, [4,ty_rest__1]);
+      rest__5 = fmtty__0[4];
+      prec__1 = fmtty__0[3];
+      pad__3 = fmtty__0[2];
+      ty_rest__1 = fmtty_of_fmt(rest__5);
+      prec_ty__1 = fmtty_of_precision_fmtty(prec__1, [4,ty_rest__1]);
       return fmtty_of_padding_fmtty(pad__3, prec_ty__1);
     case 7:
-      var rest__6 = fmtty__0[4];
-      var prec__2 = fmtty__0[3];
-      var pad__4 = fmtty__0[2];
-      var ty_rest__2 = fmtty_of_fmt(rest__6);
-      var prec_ty__2 = fmtty_of_precision_fmtty(prec__2, [5,ty_rest__2]);
+      rest__6 = fmtty__0[4];
+      prec__2 = fmtty__0[3];
+      pad__4 = fmtty__0[2];
+      ty_rest__2 = fmtty_of_fmt(rest__6);
+      prec_ty__2 = fmtty_of_precision_fmtty(prec__2, [5,ty_rest__2]);
       return fmtty_of_padding_fmtty(pad__4, prec_ty__2);
     case 8:
-      var rest__7 = fmtty__0[4];
-      var prec__3 = fmtty__0[3];
-      var pad__5 = fmtty__0[2];
-      var ty_rest__3 = fmtty_of_fmt(rest__7);
-      var prec_ty__3 = fmtty_of_precision_fmtty(prec__3, [6,ty_rest__3]);
+      rest__7 = fmtty__0[4];
+      prec__3 = fmtty__0[3];
+      pad__5 = fmtty__0[2];
+      ty_rest__3 = fmtty_of_fmt(rest__7);
+      prec_ty__3 = fmtty_of_precision_fmtty(prec__3, [6,ty_rest__3]);
       return fmtty_of_padding_fmtty(pad__5, prec_ty__3);
     case 9:
-      var rest__8 = fmtty__0[2];
-      var pad__6 = fmtty__0[1];
+      rest__8 = fmtty__0[2];
+      pad__6 = fmtty__0[1];
       return fmtty_of_padding_fmtty(pad__6, [7,fmtty_of_fmt(rest__8)]);
     case 10:
-      var fmtty__1 = fmtty__0[1];
-      var fmtty__0 = fmtty__1;
+      fmtty__1 = fmtty__0[1];
+      fmtty__0 = fmtty__1;
       continue;
     case 11:
-      var fmtty__2 = fmtty__0[2];
-      var fmtty__0 = fmtty__2;
+      fmtty__2 = fmtty__0[2];
+      fmtty__0 = fmtty__2;
       continue;
     case 12:
-      var fmtty__3 = fmtty__0[2];
-      var fmtty__0 = fmtty__3;
+      fmtty__3 = fmtty__0[2];
+      fmtty__0 = fmtty__3;
       continue;
     case 13:
-      var rest__9 = fmtty__0[3];
-      var ty = fmtty__0[2];
+      rest__9 = fmtty__0[3];
+      ty = fmtty__0[2];
       return [8,ty,fmtty_of_fmt(rest__9)];
     case 14:
-      var rest__10 = fmtty__0[3];
-      var ty__0 = fmtty__0[2];
+      rest__10 = fmtty__0[3];
+      ty__0 = fmtty__0[2];
       return [9,ty__0,ty__0,fmtty_of_fmt(rest__10)];
     case 15:
-      var rest__11 = fmtty__0[1];
+      rest__11 = fmtty__0[1];
       return [10,fmtty_of_fmt(rest__11)];
     case 16:
-      var rest__12 = fmtty__0[1];
+      rest__12 = fmtty__0[1];
       return [11,fmtty_of_fmt(rest__12)];
     case 17:
-      var fmtty__4 = fmtty__0[2];
-      var fmtty__0 = fmtty__4;
+      fmtty__4 = fmtty__0[2];
+      fmtty__0 = fmtty__4;
       continue;
     case 18:
-      var rest__13 = fmtty__0[2];
-      var fmting_gen = fmtty__0[1];
-      var dK_ = fmtty_of_fmt(rest__13);
-      var dL_ = fmtty_of_formatting_gen(fmting_gen);
+      rest__13 = fmtty__0[2];
+      fmting_gen = fmtty__0[1];
+      dK_ = fmtty_of_fmt(rest__13);
+      dL_ = fmtty_of_formatting_gen(fmting_gen);
       return call2(CamlinternalFormatBasics[1], dL_, dK_);
     case 19:
-      var rest__14 = fmtty__0[1];
+      rest__14 = fmtty__0[1];
       return [13,fmtty_of_fmt(rest__14)];
     case 20:
-      var rest__15 = fmtty__0[3];
+      rest__15 = fmtty__0[3];
       return [1,fmtty_of_fmt(rest__15)];
     case 21:
-      var rest__16 = fmtty__0[2];
+      rest__16 = fmtty__0[2];
       return [2,fmtty_of_fmt(rest__16)];
     case 22:
-      var rest__17 = fmtty__0[1];
+      rest__17 = fmtty__0[1];
       return [0,fmtty_of_fmt(rest__17)];
     case 23:
-      var rest__18 = fmtty__0[2];
-      var ign = fmtty__0[1];
+      rest__18 = fmtty__0[2];
+      ign = fmtty__0[1];
       if (counter < 50) {
-        var counter__0 = counter + 1 | 0;
+        counter__0 = counter + 1 | 0;
         return fmtty_of_ignored_format(counter__0, ign, rest__18);
       }
       return caml_trampoline_return(fmtty_of_ignored_format, [0,ign,rest__18]);
     default:
-      var rest__19 = fmtty__0[3];
-      var arity = fmtty__0[1];
+      rest__19 = fmtty__0[3];
+      arity = fmtty__0[1];
       return fmtty_of_custom(arity, fmtty_of_fmt(rest__19))
     }
 }
 
 function fmtty_of_ignored_format(counter, ign, fmt) {
+  var counter__13;
+  var counter__12;
+  var counter__11;
+  var counter__10;
+  var counter__9;
+  var counter__8;
+  var counter__7;
+  var counter__6;
+  var counter__5;
+  var counter__4;
+  var counter__3;
+  var counter__2;
+  var counter__1;
+  var counter__0;
+  var dJ_;
+  var fmtty;
   if (typeof ign === "number") switch (ign) {
     case 0:
       if (counter < 50) {
-        var counter__0 = counter + 1 | 0;
+        counter__0 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__0, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 1:
       if (counter < 50) {
-        var counter__1 = counter + 1 | 0;
+        counter__1 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__1, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
@@ -2284,7 +2697,7 @@ function fmtty_of_ignored_format(counter, ign, fmt) {
       return [14,fmtty_of_fmt(fmt)];
     default:
       if (counter < 50) {
-        var counter__2 = counter + 1 | 0;
+        counter__2 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__2, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt])
@@ -2292,71 +2705,71 @@ function fmtty_of_ignored_format(counter, ign, fmt) {
   else switch (ign[0]) {
     case 0:
       if (counter < 50) {
-        var counter__3 = counter + 1 | 0;
+        counter__3 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__3, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 1:
       if (counter < 50) {
-        var counter__4 = counter + 1 | 0;
+        counter__4 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__4, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 2:
       if (counter < 50) {
-        var counter__5 = counter + 1 | 0;
+        counter__5 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__5, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 3:
       if (counter < 50) {
-        var counter__6 = counter + 1 | 0;
+        counter__6 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__6, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 4:
       if (counter < 50) {
-        var counter__7 = counter + 1 | 0;
+        counter__7 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__7, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 5:
       if (counter < 50) {
-        var counter__8 = counter + 1 | 0;
+        counter__8 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__8, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 6:
       if (counter < 50) {
-        var counter__9 = counter + 1 | 0;
+        counter__9 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__9, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 7:
       if (counter < 50) {
-        var counter__10 = counter + 1 | 0;
+        counter__10 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__10, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 8:
       if (counter < 50) {
-        var counter__11 = counter + 1 | 0;
+        counter__11 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__11, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     case 9:
-      var fmtty = ign[2];
-      var dJ_ = fmtty_of_fmt(fmt);
+      fmtty = ign[2];
+      dJ_ = fmtty_of_fmt(fmt);
       return call2(CamlinternalFormatBasics[1], fmtty, dJ_);
     case 10:
       if (counter < 50) {
-        var counter__12 = counter + 1 | 0;
+        counter__12 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__12, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt]);
     default:
       if (counter < 50) {
-        var counter__13 = counter + 1 | 0;
+        counter__13 = counter + 1 | 0;
         return fmtty_of_fmt__0(counter__13, fmt);
       }
       return caml_trampoline_return(fmtty_of_fmt__0, [0,fmt])
@@ -2368,9 +2781,11 @@ function fmtty_of_fmt(fmtty) {
 }
 
 function fmtty_of_formatting_gen(formatting_gen) {
+  var fmt;
+  var match;
   if (0 === formatting_gen[0]) {
-    var match = formatting_gen[1];
-    var fmt = match[1];
+    match = formatting_gen[1];
+    fmt = match[1];
     return fmtty_of_fmt(fmt);
   }
   var match__0 = formatting_gen[1];
@@ -2389,16 +2804,20 @@ var Type_mismatch = [
 ];
 
 function type_padding(pad, match) {
+  var padty__0;
+  var rest;
+  var padty;
+  var w;
   if (typeof pad === "number") return [0,0,match];
   else {
     if (0 === pad[0]) {
-      var w = pad[2];
-      var padty = pad[1];
+      w = pad[2];
+      padty = pad[1];
       return [0,[0,padty,w],match];
     }
     if (! (typeof match === "number") && 2 === match[0]) {
-      var rest = match[1];
-      var padty__0 = pad[1];
+      rest = match[1];
+      padty__0 = pad[1];
       return [0,[1,padty__0],rest];
     }
     throw caml_wrap_thrown_exception(Type_mismatch);
@@ -2406,17 +2825,22 @@ function type_padding(pad, match) {
 }
 
 function type_padprec(pad, prec, fmtty) {
+  var rest;
+  var pad__0;
+  var dI_;
+  var rest__0;
+  var pad__1;
   var match = type_padding(pad, fmtty);
   if (typeof prec === "number") {
     if (0 === prec) {
-      var rest = match[2];
-      var pad__0 = match[1];
+      rest = match[2];
+      pad__0 = match[1];
       return [0,pad__0,0,rest];
     }
-    var dI_ = match[2];
+    dI_ = match[2];
     if (! (typeof dI_ === "number") && 2 === dI_[0]) {
-      var rest__0 = dI_[1];
-      var pad__1 = match[1];
+      rest__0 = dI_[1];
+      pad__1 = match[1];
       return [0,pad__1,1,rest__0];
     }
     throw caml_wrap_thrown_exception(Type_mismatch);
@@ -2428,8 +2852,9 @@ function type_padprec(pad, prec, fmtty) {
 }
 
 function type_format(fmt, fmtty) {
+  var fmt__0;
   var dH_ = type_format_gen(fmt, fmtty);
-  if (typeof dH_[2] === "number") {var fmt__0 = dH_[1];return fmt__0;}
+  if (typeof dH_[2] === "number") {fmt__0 = dH_[1];return fmt__0;}
   throw caml_wrap_thrown_exception(Type_mismatch);
 }
 
@@ -2441,6 +2866,19 @@ function type_ignored_param_one(ign, fmt, fmtty) {
 }
 
 function type_ignored_param(ign, fmt, fmtty) {
+  var sub_fmtty__1;
+  var fmt__1;
+  var fmtty__1;
+  var match__0;
+  var dG_;
+  var pad_opt__0;
+  var sub_fmtty__0;
+  var pad_opt;
+  var sub_fmtty;
+  var fmt__0;
+  var fmtty__0;
+  var match;
+  var fmtty_rest;
   if (typeof ign === "number") switch (ign) {
     case 0:
       return type_ignored_param_one(ign, fmt, fmtty);
@@ -2448,10 +2886,10 @@ function type_ignored_param(ign, fmt, fmtty) {
       return type_ignored_param_one(ign, fmt, fmtty);
     case 2:
       if (! (typeof fmtty === "number") && 14 === fmtty[0]) {
-        var fmtty_rest = fmtty[1];
-        var match = type_format_gen(fmt, fmtty_rest);
-        var fmtty__0 = match[2];
-        var fmt__0 = match[1];
+        fmtty_rest = fmtty[1];
+        match = type_format_gen(fmt, fmtty_rest);
+        fmtty__0 = match[2];
+        fmt__0 = match[1];
         return [0,[23,2,fmt__0],fmtty__0];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
@@ -2476,17 +2914,17 @@ function type_ignored_param(ign, fmt, fmtty) {
     case 7:
       return type_ignored_param_one(ign, fmt, fmtty);
     case 8:
-      var sub_fmtty = ign[2];
-      var pad_opt = ign[1];
+      sub_fmtty = ign[2];
+      pad_opt = ign[1];
       return type_ignored_param_one([8,pad_opt,sub_fmtty], fmt, fmtty);
     case 9:
-      var sub_fmtty__0 = ign[2];
-      var pad_opt__0 = ign[1];
-      var dG_ = type_ignored_format_substitution(sub_fmtty__0, fmt, fmtty);
-      var match__0 = dG_[2];
-      var fmtty__1 = match__0[2];
-      var fmt__1 = match__0[1];
-      var sub_fmtty__1 = dG_[1];
+      sub_fmtty__0 = ign[2];
+      pad_opt__0 = ign[1];
+      dG_ = type_ignored_format_substitution(sub_fmtty__0, fmt, fmtty);
+      match__0 = dG_[2];
+      fmtty__1 = match__0[2];
+      fmt__1 = match__0[1];
+      sub_fmtty__1 = dG_[1];
       return [0,[23,[9,pad_opt__0,sub_fmtty__1],fmt__1],fmtty__1];
     case 10:
       return type_ignored_param_one(ign, fmt, fmtty);
@@ -2496,16 +2934,25 @@ function type_ignored_param(ign, fmt, fmtty) {
 }
 
 function type_formatting_gen(formatting_gen, fmt0, fmtty0) {
+  var fmt3;
+  var fmtty3;
+  var match__1;
+  var fmt2;
+  var fmtty2;
+  var match__0;
+  var fmt1;
+  var str;
+  var match;
   if (0 === formatting_gen[0]) {
-    var match = formatting_gen[1];
-    var str = match[2];
-    var fmt1 = match[1];
-    var match__0 = type_format_gen(fmt1, fmtty0);
-    var fmtty2 = match__0[2];
-    var fmt2 = match__0[1];
-    var match__1 = type_format_gen(fmt0, fmtty2);
-    var fmtty3 = match__1[2];
-    var fmt3 = match__1[1];
+    match = formatting_gen[1];
+    str = match[2];
+    fmt1 = match[1];
+    match__0 = type_format_gen(fmt1, fmtty0);
+    fmtty2 = match__0[2];
+    fmt2 = match__0[1];
+    match__1 = type_format_gen(fmt0, fmtty2);
+    fmtty3 = match__1[2];
+    fmt3 = match__1[1];
     return [0,[18,[0,[0,fmt2,str]],fmt3],fmtty3];
   }
   var match__2 = formatting_gen[1];
@@ -2521,285 +2968,533 @@ function type_formatting_gen(formatting_gen, fmt0, fmtty0) {
 }
 
 function type_format_gen(fmt, match) {
+  var ign;
+  var rest;
+  var fmt__20;
+  var fmtty__19;
+  var match__20;
+  var counter;
+  var fmt_rest__20;
+  var fmtty_rest__15;
+  var fmt__19;
+  var fmtty__18;
+  var match__19;
+  var width_opt;
+  var char_set;
+  var fmt_rest__19;
+  var fmtty_rest__14;
+  var fmt__18;
+  var fmtty__17;
+  var match__18;
+  var fmt_rest__18;
+  var fmtty_rest__13;
+  var formatting_gen;
+  var fmt_rest__17;
+  var fmt__17;
+  var fmtty__16;
+  var match__17;
+  var formatting_lit;
+  var fmt_rest__16;
+  var fmt__16;
+  var fmtty__15;
+  var match__16;
+  var fmt_rest__15;
+  var fmtty_rest__12;
+  var fmt__15;
+  var fmtty__14;
+  var match__15;
+  var fmt_rest__14;
+  var fmtty_rest__11;
+  var fmt__14;
+  var fmtty__13;
+  var match__14;
+  var dF_;
+  var pad_opt__0;
+  var sub_fmtty__1;
+  var fmt_rest__13;
+  var sub_fmtty1;
+  var fmtty_rest__10;
+  var fmt__13;
+  var fmtty__12;
+  var match__13;
+  var pad_opt;
+  var sub_fmtty__0;
+  var fmt_rest__12;
+  var sub_fmtty;
+  var fmtty_rest__9;
+  var fmt__12;
+  var fmtty__11;
+  var match__12;
+  var chr;
+  var fmt_rest__11;
+  var fmt__11;
+  var fmtty__10;
+  var match__11;
+  var str;
+  var fmt_rest__10;
+  var fmt__10;
+  var fmtty__9;
+  var match__10;
+  var fmt_rest__9;
+  var fmt__9;
+  var fmtty__8;
+  var match__9;
+  var fmtty_rest__8;
+  var dE_;
+  var dD_;
+  var dC_;
+  var pad__6;
+  var fmt_rest__8;
+  var fmt__8;
+  var fmtty__7;
+  var match__8;
+  var fmtty_rest__7;
+  var dB_;
+  var dA_;
+  var dz_;
+  var dy_;
+  var fconv;
+  var pad__5;
+  var prec__3;
+  var fmt_rest__7;
+  var fmt__7;
+  var fmtty__6;
+  var match__7;
+  var fmtty_rest__6;
+  var dx_;
+  var dw_;
+  var dv_;
+  var du_;
+  var iconv__2;
+  var pad__4;
+  var prec__2;
+  var fmt_rest__6;
+  var fmt__6;
+  var fmtty__5;
+  var match__6;
+  var fmtty_rest__5;
+  var dt_;
+  var ds_;
+  var dr_;
+  var dq_;
+  var iconv__1;
+  var pad__3;
+  var prec__1;
+  var fmt_rest__5;
+  var fmt__5;
+  var fmtty__4;
+  var match__5;
+  var fmtty_rest__4;
+  var dp_;
+  var do_;
+  var dn_;
+  var dm_;
+  var iconv__0;
+  var pad__2;
+  var prec__0;
+  var fmt_rest__4;
+  var fmt__4;
+  var fmtty__3;
+  var match__4;
+  var fmtty_rest__3;
+  var dl_;
+  var dk_;
+  var dj_;
+  var di_;
+  var iconv;
+  var pad__1;
+  var prec;
+  var fmt_rest__3;
+  var fmt__3;
+  var fmtty__2;
+  var match__3;
+  var fmtty_rest__2;
+  var dh_;
+  var dg_;
+  var df_;
+  var pad__0;
+  var fmt_rest__2;
+  var fmt__2;
+  var fmtty__1;
+  var match__2;
+  var fmtty_rest__1;
+  var de_;
+  var dd_;
+  var dc_;
+  var pad;
+  var fmt_rest__1;
+  var fmt__1;
+  var fmtty__0;
+  var match__1;
+  var fmt_rest__0;
+  var fmtty_rest__0;
+  var fmt__0;
+  var fmtty;
+  var match__0;
+  var fmt_rest;
+  var fmtty_rest;
   if (typeof fmt === "number") return [0,0,match];
   else switch (fmt[0]) {
     case 0:
       if (! (typeof match === "number") && 0 === match[0]) {
-        var fmtty_rest = match[1];
-        var fmt_rest = fmt[1];
-        var match__0 = type_format_gen(fmt_rest, fmtty_rest);
-        var fmtty = match__0[2];
-        var fmt__0 = match__0[1];
+        fmtty_rest = match[1];
+        fmt_rest = fmt[1];
+        match__0 = type_format_gen(fmt_rest, fmtty_rest);
+        fmtty = match__0[2];
+        fmt__0 = match__0[1];
         return [0,[0,fmt__0],fmtty];
       }
       break;
     case 1:
       if (! (typeof match === "number") && 0 === match[0]) {
-        var fmtty_rest__0 = match[1];
-        var fmt_rest__0 = fmt[1];
-        var match__1 = type_format_gen(fmt_rest__0, fmtty_rest__0);
-        var fmtty__0 = match__1[2];
-        var fmt__1 = match__1[1];
+        fmtty_rest__0 = match[1];
+        fmt_rest__0 = fmt[1];
+        match__1 = type_format_gen(fmt_rest__0, fmtty_rest__0);
+        fmtty__0 = match__1[2];
+        fmt__1 = match__1[1];
         return [0,[1,fmt__1],fmtty__0];
       }
       break;
     case 2:
-      var fmt_rest__1 = fmt[2];
-      var pad = fmt[1];
-      var dc_ = type_padding(pad, match);
-      var dd_ = dc_[2];
-      var de_ = dc_[1];
+      fmt_rest__1 = fmt[2];
+      pad = fmt[1];
+      dc_ = type_padding(pad, match);
+      dd_ = dc_[2];
+      de_ = dc_[1];
       if (! (typeof dd_ === "number") && 1 === dd_[0]) {
-        var fmtty_rest__1 = dd_[1];
-        var match__2 = type_format_gen(fmt_rest__1, fmtty_rest__1);
-        var fmtty__1 = match__2[2];
-        var fmt__2 = match__2[1];
+        fmtty_rest__1 = dd_[1];
+        match__2 = type_format_gen(fmt_rest__1, fmtty_rest__1);
+        fmtty__1 = match__2[2];
+        fmt__2 = match__2[1];
         return [0,[2,de_,fmt__2],fmtty__1];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 3:
-      var fmt_rest__2 = fmt[2];
-      var pad__0 = fmt[1];
-      var df_ = type_padding(pad__0, match);
-      var dg_ = df_[2];
-      var dh_ = df_[1];
+      fmt_rest__2 = fmt[2];
+      pad__0 = fmt[1];
+      df_ = type_padding(pad__0, match);
+      dg_ = df_[2];
+      dh_ = df_[1];
       if (! (typeof dg_ === "number") && 1 === dg_[0]) {
-        var fmtty_rest__2 = dg_[1];
-        var match__3 = type_format_gen(fmt_rest__2, fmtty_rest__2);
-        var fmtty__2 = match__3[2];
-        var fmt__3 = match__3[1];
+        fmtty_rest__2 = dg_[1];
+        match__3 = type_format_gen(fmt_rest__2, fmtty_rest__2);
+        fmtty__2 = match__3[2];
+        fmt__3 = match__3[1];
         return [0,[3,dh_,fmt__3],fmtty__2];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 4:
-      var fmt_rest__3 = fmt[4];
-      var prec = fmt[3];
-      var pad__1 = fmt[2];
-      var iconv = fmt[1];
-      var di_ = type_padprec(pad__1, prec, match);
-      var dj_ = di_[3];
-      var dk_ = di_[2];
-      var dl_ = di_[1];
+      fmt_rest__3 = fmt[4];
+      prec = fmt[3];
+      pad__1 = fmt[2];
+      iconv = fmt[1];
+      di_ = type_padprec(pad__1, prec, match);
+      dj_ = di_[3];
+      dk_ = di_[2];
+      dl_ = di_[1];
       if (! (typeof dj_ === "number") && 2 === dj_[0]) {
-        var fmtty_rest__3 = dj_[1];
-        var match__4 = type_format_gen(fmt_rest__3, fmtty_rest__3);
-        var fmtty__3 = match__4[2];
-        var fmt__4 = match__4[1];
+        fmtty_rest__3 = dj_[1];
+        match__4 = type_format_gen(fmt_rest__3, fmtty_rest__3);
+        fmtty__3 = match__4[2];
+        fmt__4 = match__4[1];
         return [0,[4,iconv,dl_,dk_,fmt__4],fmtty__3];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 5:
-      var fmt_rest__4 = fmt[4];
-      var prec__0 = fmt[3];
-      var pad__2 = fmt[2];
-      var iconv__0 = fmt[1];
-      var dm_ = type_padprec(pad__2, prec__0, match);
-      var dn_ = dm_[3];
-      var do_ = dm_[2];
-      var dp_ = dm_[1];
+      fmt_rest__4 = fmt[4];
+      prec__0 = fmt[3];
+      pad__2 = fmt[2];
+      iconv__0 = fmt[1];
+      dm_ = type_padprec(pad__2, prec__0, match);
+      dn_ = dm_[3];
+      do_ = dm_[2];
+      dp_ = dm_[1];
       if (! (typeof dn_ === "number") && 3 === dn_[0]) {
-        var fmtty_rest__4 = dn_[1];
-        var match__5 = type_format_gen(fmt_rest__4, fmtty_rest__4);
-        var fmtty__4 = match__5[2];
-        var fmt__5 = match__5[1];
+        fmtty_rest__4 = dn_[1];
+        match__5 = type_format_gen(fmt_rest__4, fmtty_rest__4);
+        fmtty__4 = match__5[2];
+        fmt__5 = match__5[1];
         return [0,[5,iconv__0,dp_,do_,fmt__5],fmtty__4];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 6:
-      var fmt_rest__5 = fmt[4];
-      var prec__1 = fmt[3];
-      var pad__3 = fmt[2];
-      var iconv__1 = fmt[1];
-      var dq_ = type_padprec(pad__3, prec__1, match);
-      var dr_ = dq_[3];
-      var ds_ = dq_[2];
-      var dt_ = dq_[1];
+      fmt_rest__5 = fmt[4];
+      prec__1 = fmt[3];
+      pad__3 = fmt[2];
+      iconv__1 = fmt[1];
+      dq_ = type_padprec(pad__3, prec__1, match);
+      dr_ = dq_[3];
+      ds_ = dq_[2];
+      dt_ = dq_[1];
       if (! (typeof dr_ === "number") && 4 === dr_[0]) {
-        var fmtty_rest__5 = dr_[1];
-        var match__6 = type_format_gen(fmt_rest__5, fmtty_rest__5);
-        var fmtty__5 = match__6[2];
-        var fmt__6 = match__6[1];
+        fmtty_rest__5 = dr_[1];
+        match__6 = type_format_gen(fmt_rest__5, fmtty_rest__5);
+        fmtty__5 = match__6[2];
+        fmt__6 = match__6[1];
         return [0,[6,iconv__1,dt_,ds_,fmt__6],fmtty__5];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 7:
-      var fmt_rest__6 = fmt[4];
-      var prec__2 = fmt[3];
-      var pad__4 = fmt[2];
-      var iconv__2 = fmt[1];
-      var du_ = type_padprec(pad__4, prec__2, match);
-      var dv_ = du_[3];
-      var dw_ = du_[2];
-      var dx_ = du_[1];
+      fmt_rest__6 = fmt[4];
+      prec__2 = fmt[3];
+      pad__4 = fmt[2];
+      iconv__2 = fmt[1];
+      du_ = type_padprec(pad__4, prec__2, match);
+      dv_ = du_[3];
+      dw_ = du_[2];
+      dx_ = du_[1];
       if (! (typeof dv_ === "number") && 5 === dv_[0]) {
-        var fmtty_rest__6 = dv_[1];
-        var match__7 = type_format_gen(fmt_rest__6, fmtty_rest__6);
-        var fmtty__6 = match__7[2];
-        var fmt__7 = match__7[1];
+        fmtty_rest__6 = dv_[1];
+        match__7 = type_format_gen(fmt_rest__6, fmtty_rest__6);
+        fmtty__6 = match__7[2];
+        fmt__7 = match__7[1];
         return [0,[7,iconv__2,dx_,dw_,fmt__7],fmtty__6];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 8:
-      var fmt_rest__7 = fmt[4];
-      var prec__3 = fmt[3];
-      var pad__5 = fmt[2];
-      var fconv = fmt[1];
-      var dy_ = type_padprec(pad__5, prec__3, match);
-      var dz_ = dy_[3];
-      var dA_ = dy_[2];
-      var dB_ = dy_[1];
+      fmt_rest__7 = fmt[4];
+      prec__3 = fmt[3];
+      pad__5 = fmt[2];
+      fconv = fmt[1];
+      dy_ = type_padprec(pad__5, prec__3, match);
+      dz_ = dy_[3];
+      dA_ = dy_[2];
+      dB_ = dy_[1];
       if (! (typeof dz_ === "number") && 6 === dz_[0]) {
-        var fmtty_rest__7 = dz_[1];
-        var match__8 = type_format_gen(fmt_rest__7, fmtty_rest__7);
-        var fmtty__7 = match__8[2];
-        var fmt__8 = match__8[1];
+        fmtty_rest__7 = dz_[1];
+        match__8 = type_format_gen(fmt_rest__7, fmtty_rest__7);
+        fmtty__7 = match__8[2];
+        fmt__8 = match__8[1];
         return [0,[8,fconv,dB_,dA_,fmt__8],fmtty__7];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 9:
-      var fmt_rest__8 = fmt[2];
-      var pad__6 = fmt[1];
-      var dC_ = type_padding(pad__6, match);
-      var dD_ = dC_[2];
-      var dE_ = dC_[1];
+      fmt_rest__8 = fmt[2];
+      pad__6 = fmt[1];
+      dC_ = type_padding(pad__6, match);
+      dD_ = dC_[2];
+      dE_ = dC_[1];
       if (! (typeof dD_ === "number") && 7 === dD_[0]) {
-        var fmtty_rest__8 = dD_[1];
-        var match__9 = type_format_gen(fmt_rest__8, fmtty_rest__8);
-        var fmtty__8 = match__9[2];
-        var fmt__9 = match__9[1];
+        fmtty_rest__8 = dD_[1];
+        match__9 = type_format_gen(fmt_rest__8, fmtty_rest__8);
+        fmtty__8 = match__9[2];
+        fmt__9 = match__9[1];
         return [0,[9,dE_,fmt__9],fmtty__8];
       }
       throw caml_wrap_thrown_exception(Type_mismatch);
     case 10:
-      var fmt_rest__9 = fmt[1];
-      var match__10 = type_format_gen(fmt_rest__9, match);
-      var fmtty__9 = match__10[2];
-      var fmt__10 = match__10[1];
+      fmt_rest__9 = fmt[1];
+      match__10 = type_format_gen(fmt_rest__9, match);
+      fmtty__9 = match__10[2];
+      fmt__10 = match__10[1];
       return [0,[10,fmt__10],fmtty__9];
     case 11:
-      var fmt_rest__10 = fmt[2];
-      var str = fmt[1];
-      var match__11 = type_format_gen(fmt_rest__10, match);
-      var fmtty__10 = match__11[2];
-      var fmt__11 = match__11[1];
+      fmt_rest__10 = fmt[2];
+      str = fmt[1];
+      match__11 = type_format_gen(fmt_rest__10, match);
+      fmtty__10 = match__11[2];
+      fmt__11 = match__11[1];
       return [0,[11,str,fmt__11],fmtty__10];
     case 12:
-      var fmt_rest__11 = fmt[2];
-      var chr = fmt[1];
-      var match__12 = type_format_gen(fmt_rest__11, match);
-      var fmtty__11 = match__12[2];
-      var fmt__12 = match__12[1];
+      fmt_rest__11 = fmt[2];
+      chr = fmt[1];
+      match__12 = type_format_gen(fmt_rest__11, match);
+      fmtty__11 = match__12[2];
+      fmt__12 = match__12[1];
       return [0,[12,chr,fmt__12],fmtty__11];
     case 13:
       if (! (typeof match === "number") && 8 === match[0]) {
-        var fmtty_rest__9 = match[2];
-        var sub_fmtty = match[1];
-        var fmt_rest__12 = fmt[3];
-        var sub_fmtty__0 = fmt[2];
-        var pad_opt = fmt[1];
+        fmtty_rest__9 = match[2];
+        sub_fmtty = match[1];
+        fmt_rest__12 = fmt[3];
+        sub_fmtty__0 = fmt[2];
+        pad_opt = fmt[1];
         if (caml_notequal([0,sub_fmtty__0], [0,sub_fmtty])) {throw caml_wrap_thrown_exception(Type_mismatch);}
-        var match__13 = type_format_gen(fmt_rest__12, fmtty_rest__9);
-        var fmtty__12 = match__13[2];
-        var fmt__13 = match__13[1];
+        match__13 = type_format_gen(fmt_rest__12, fmtty_rest__9);
+        fmtty__12 = match__13[2];
+        fmt__13 = match__13[1];
         return [0,[13,pad_opt,sub_fmtty,fmt__13],fmtty__12];
       }
       break;
     case 14:
       if (! (typeof match === "number") && 9 === match[0]) {
-        var fmtty_rest__10 = match[3];
-        var sub_fmtty1 = match[1];
-        var fmt_rest__13 = fmt[3];
-        var sub_fmtty__1 = fmt[2];
-        var pad_opt__0 = fmt[1];
-        var dF_ = [0,call1(CamlinternalFormatBasics[2], sub_fmtty1)];
+        fmtty_rest__10 = match[3];
+        sub_fmtty1 = match[1];
+        fmt_rest__13 = fmt[3];
+        sub_fmtty__1 = fmt[2];
+        pad_opt__0 = fmt[1];
+        dF_ = [0,call1(CamlinternalFormatBasics[2], sub_fmtty1)];
         if (
         caml_notequal(
           [0,call1(CamlinternalFormatBasics[2], sub_fmtty__1)],
           dF_
         )
         ) {throw caml_wrap_thrown_exception(Type_mismatch);}
-        var match__14 = type_format_gen(
-          fmt_rest__13,
-          call1(CamlinternalFormatBasics[2], fmtty_rest__10)
-        );
-        var fmtty__13 = match__14[2];
-        var fmt__14 = match__14[1];
+        match__14 =
+          type_format_gen(
+            fmt_rest__13,
+            call1(CamlinternalFormatBasics[2], fmtty_rest__10)
+          );
+        fmtty__13 = match__14[2];
+        fmt__14 = match__14[1];
         return [0,[14,pad_opt__0,sub_fmtty1,fmt__14],fmtty__13];
       }
       break;
     case 15:
       if (! (typeof match === "number") && 10 === match[0]) {
-        var fmtty_rest__11 = match[1];
-        var fmt_rest__14 = fmt[1];
-        var match__15 = type_format_gen(fmt_rest__14, fmtty_rest__11);
-        var fmtty__14 = match__15[2];
-        var fmt__15 = match__15[1];
+        fmtty_rest__11 = match[1];
+        fmt_rest__14 = fmt[1];
+        match__15 = type_format_gen(fmt_rest__14, fmtty_rest__11);
+        fmtty__14 = match__15[2];
+        fmt__15 = match__15[1];
         return [0,[15,fmt__15],fmtty__14];
       }
       break;
     case 16:
       if (! (typeof match === "number") && 11 === match[0]) {
-        var fmtty_rest__12 = match[1];
-        var fmt_rest__15 = fmt[1];
-        var match__16 = type_format_gen(fmt_rest__15, fmtty_rest__12);
-        var fmtty__15 = match__16[2];
-        var fmt__16 = match__16[1];
+        fmtty_rest__12 = match[1];
+        fmt_rest__15 = fmt[1];
+        match__16 = type_format_gen(fmt_rest__15, fmtty_rest__12);
+        fmtty__15 = match__16[2];
+        fmt__16 = match__16[1];
         return [0,[16,fmt__16],fmtty__15];
       }
       break;
     case 17:
-      var fmt_rest__16 = fmt[2];
-      var formatting_lit = fmt[1];
-      var match__17 = type_format_gen(fmt_rest__16, match);
-      var fmtty__16 = match__17[2];
-      var fmt__17 = match__17[1];
+      fmt_rest__16 = fmt[2];
+      formatting_lit = fmt[1];
+      match__17 = type_format_gen(fmt_rest__16, match);
+      fmtty__16 = match__17[2];
+      fmt__17 = match__17[1];
       return [0,[17,formatting_lit,fmt__17],fmtty__16];
     case 18:
-      var fmt_rest__17 = fmt[2];
-      var formatting_gen = fmt[1];
+      fmt_rest__17 = fmt[2];
+      formatting_gen = fmt[1];
       return type_formatting_gen(formatting_gen, fmt_rest__17, match);
     case 19:
       if (! (typeof match === "number") && 13 === match[0]) {
-        var fmtty_rest__13 = match[1];
-        var fmt_rest__18 = fmt[1];
-        var match__18 = type_format_gen(fmt_rest__18, fmtty_rest__13);
-        var fmtty__17 = match__18[2];
-        var fmt__18 = match__18[1];
+        fmtty_rest__13 = match[1];
+        fmt_rest__18 = fmt[1];
+        match__18 = type_format_gen(fmt_rest__18, fmtty_rest__13);
+        fmtty__17 = match__18[2];
+        fmt__18 = match__18[1];
         return [0,[19,fmt__18],fmtty__17];
       }
       break;
     case 20:
       if (! (typeof match === "number") && 1 === match[0]) {
-        var fmtty_rest__14 = match[1];
-        var fmt_rest__19 = fmt[3];
-        var char_set = fmt[2];
-        var width_opt = fmt[1];
-        var match__19 = type_format_gen(fmt_rest__19, fmtty_rest__14);
-        var fmtty__18 = match__19[2];
-        var fmt__19 = match__19[1];
+        fmtty_rest__14 = match[1];
+        fmt_rest__19 = fmt[3];
+        char_set = fmt[2];
+        width_opt = fmt[1];
+        match__19 = type_format_gen(fmt_rest__19, fmtty_rest__14);
+        fmtty__18 = match__19[2];
+        fmt__19 = match__19[1];
         return [0,[20,width_opt,char_set,fmt__19],fmtty__18];
       }
       break;
     case 21:
       if (! (typeof match === "number") && 2 === match[0]) {
-        var fmtty_rest__15 = match[1];
-        var fmt_rest__20 = fmt[2];
-        var counter = fmt[1];
-        var match__20 = type_format_gen(fmt_rest__20, fmtty_rest__15);
-        var fmtty__19 = match__20[2];
-        var fmt__20 = match__20[1];
+        fmtty_rest__15 = match[1];
+        fmt_rest__20 = fmt[2];
+        counter = fmt[1];
+        match__20 = type_format_gen(fmt_rest__20, fmtty_rest__15);
+        fmtty__19 = match__20[2];
+        fmt__20 = match__20[1];
         return [0,[21,counter,fmt__20],fmtty__19];
       }
       break;
     case 23:
-      var rest = fmt[2];
-      var ign = fmt[1];
+      rest = fmt[2];
+      ign = fmt[1];
       return type_ignored_param(ign, rest, match)
     }
   throw caml_wrap_thrown_exception(Type_mismatch);
 }
 
 function type_ignored_format_substitution(sub_fmtty, fmt, match) {
+  var sub_fmtty_rest__26;
+  var fmt__13;
+  var match__14;
+  var sub_fmtty_rest__25;
+  var fmtty_rest__12;
+  var sub_fmtty_rest__24;
+  var fmt__12;
+  var match__13;
+  var sub_fmtty_rest__23;
+  var fmtty_rest__11;
+  var sub_fmtty_rest__22;
+  var fmt__11;
+  var match__12;
+  var sub_fmtty_rest__21;
+  var fmtty_rest__10;
+  var sub_fmtty_rest__20;
+  var fmt__10;
+  var match__11;
+  var sub_fmtty_rest__19;
+  var fmtty_rest__9;
+  var sub_fmtty_rest__18;
+  var fmt__9;
+  var match__10;
+  var f2;
+  var f4;
+  var match__9;
+  var sub_fmtty__0;
+  var db_;
+  var da_;
+  var sub1_fmtty__0;
+  var sub2_fmtty__2;
+  var sub_fmtty_rest__17;
+  var sub1_fmtty;
+  var sub2_fmtty__1;
+  var fmtty_rest__8;
+  var sub_fmtty_rest__16;
+  var fmt__8;
+  var match__8;
+  var sub2_fmtty__0;
+  var sub_fmtty_rest__15;
+  var sub2_fmtty;
+  var fmtty_rest__7;
+  var sub_fmtty_rest__14;
+  var fmt__7;
+  var match__7;
+  var sub_fmtty_rest__13;
+  var fmtty_rest__6;
+  var sub_fmtty_rest__12;
+  var fmt__6;
+  var match__6;
+  var sub_fmtty_rest__11;
+  var fmtty_rest__5;
+  var sub_fmtty_rest__10;
+  var fmt__5;
+  var match__5;
+  var sub_fmtty_rest__9;
+  var fmtty_rest__4;
+  var sub_fmtty_rest__8;
+  var fmt__4;
+  var match__4;
+  var sub_fmtty_rest__7;
+  var fmtty_rest__3;
+  var sub_fmtty_rest__6;
+  var fmt__3;
+  var match__3;
+  var sub_fmtty_rest__5;
+  var fmtty_rest__2;
+  var sub_fmtty_rest__4;
+  var fmt__2;
+  var match__2;
+  var sub_fmtty_rest__3;
+  var fmtty_rest__1;
+  var sub_fmtty_rest__2;
+  var fmt__1;
+  var match__1;
+  var sub_fmtty_rest__1;
+  var fmtty_rest__0;
+  var sub_fmtty_rest__0;
+  var fmt__0;
+  var match__0;
+  var sub_fmtty_rest;
+  var fmtty_rest;
   if (typeof sub_fmtty === "number") return [
     0,
     0,
@@ -2808,225 +3503,235 @@ function type_ignored_format_substitution(sub_fmtty, fmt, match) {
   else switch (sub_fmtty[0]) {
     case 0:
       if (! (typeof match === "number") && 0 === match[0]) {
-        var fmtty_rest = match[1];
-        var sub_fmtty_rest = sub_fmtty[1];
-        var match__0 = type_ignored_format_substitution(
-          sub_fmtty_rest,
-          fmt,
-          fmtty_rest
-        );
-        var fmt__0 = match__0[2];
-        var sub_fmtty_rest__0 = match__0[1];
+        fmtty_rest = match[1];
+        sub_fmtty_rest = sub_fmtty[1];
+        match__0 =
+          type_ignored_format_substitution(sub_fmtty_rest, fmt, fmtty_rest);
+        fmt__0 = match__0[2];
+        sub_fmtty_rest__0 = match__0[1];
         return [0,[0,sub_fmtty_rest__0],fmt__0];
       }
       break;
     case 1:
       if (! (typeof match === "number") && 1 === match[0]) {
-        var fmtty_rest__0 = match[1];
-        var sub_fmtty_rest__1 = sub_fmtty[1];
-        var match__1 = type_ignored_format_substitution(
-          sub_fmtty_rest__1,
-          fmt,
-          fmtty_rest__0
-        );
-        var fmt__1 = match__1[2];
-        var sub_fmtty_rest__2 = match__1[1];
+        fmtty_rest__0 = match[1];
+        sub_fmtty_rest__1 = sub_fmtty[1];
+        match__1 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__1,
+            fmt,
+            fmtty_rest__0
+          );
+        fmt__1 = match__1[2];
+        sub_fmtty_rest__2 = match__1[1];
         return [0,[1,sub_fmtty_rest__2],fmt__1];
       }
       break;
     case 2:
       if (! (typeof match === "number") && 2 === match[0]) {
-        var fmtty_rest__1 = match[1];
-        var sub_fmtty_rest__3 = sub_fmtty[1];
-        var match__2 = type_ignored_format_substitution(
-          sub_fmtty_rest__3,
-          fmt,
-          fmtty_rest__1
-        );
-        var fmt__2 = match__2[2];
-        var sub_fmtty_rest__4 = match__2[1];
+        fmtty_rest__1 = match[1];
+        sub_fmtty_rest__3 = sub_fmtty[1];
+        match__2 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__3,
+            fmt,
+            fmtty_rest__1
+          );
+        fmt__2 = match__2[2];
+        sub_fmtty_rest__4 = match__2[1];
         return [0,[2,sub_fmtty_rest__4],fmt__2];
       }
       break;
     case 3:
       if (! (typeof match === "number") && 3 === match[0]) {
-        var fmtty_rest__2 = match[1];
-        var sub_fmtty_rest__5 = sub_fmtty[1];
-        var match__3 = type_ignored_format_substitution(
-          sub_fmtty_rest__5,
-          fmt,
-          fmtty_rest__2
-        );
-        var fmt__3 = match__3[2];
-        var sub_fmtty_rest__6 = match__3[1];
+        fmtty_rest__2 = match[1];
+        sub_fmtty_rest__5 = sub_fmtty[1];
+        match__3 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__5,
+            fmt,
+            fmtty_rest__2
+          );
+        fmt__3 = match__3[2];
+        sub_fmtty_rest__6 = match__3[1];
         return [0,[3,sub_fmtty_rest__6],fmt__3];
       }
       break;
     case 4:
       if (! (typeof match === "number") && 4 === match[0]) {
-        var fmtty_rest__3 = match[1];
-        var sub_fmtty_rest__7 = sub_fmtty[1];
-        var match__4 = type_ignored_format_substitution(
-          sub_fmtty_rest__7,
-          fmt,
-          fmtty_rest__3
-        );
-        var fmt__4 = match__4[2];
-        var sub_fmtty_rest__8 = match__4[1];
+        fmtty_rest__3 = match[1];
+        sub_fmtty_rest__7 = sub_fmtty[1];
+        match__4 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__7,
+            fmt,
+            fmtty_rest__3
+          );
+        fmt__4 = match__4[2];
+        sub_fmtty_rest__8 = match__4[1];
         return [0,[4,sub_fmtty_rest__8],fmt__4];
       }
       break;
     case 5:
       if (! (typeof match === "number") && 5 === match[0]) {
-        var fmtty_rest__4 = match[1];
-        var sub_fmtty_rest__9 = sub_fmtty[1];
-        var match__5 = type_ignored_format_substitution(
-          sub_fmtty_rest__9,
-          fmt,
-          fmtty_rest__4
-        );
-        var fmt__5 = match__5[2];
-        var sub_fmtty_rest__10 = match__5[1];
+        fmtty_rest__4 = match[1];
+        sub_fmtty_rest__9 = sub_fmtty[1];
+        match__5 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__9,
+            fmt,
+            fmtty_rest__4
+          );
+        fmt__5 = match__5[2];
+        sub_fmtty_rest__10 = match__5[1];
         return [0,[5,sub_fmtty_rest__10],fmt__5];
       }
       break;
     case 6:
       if (! (typeof match === "number") && 6 === match[0]) {
-        var fmtty_rest__5 = match[1];
-        var sub_fmtty_rest__11 = sub_fmtty[1];
-        var match__6 = type_ignored_format_substitution(
-          sub_fmtty_rest__11,
-          fmt,
-          fmtty_rest__5
-        );
-        var fmt__6 = match__6[2];
-        var sub_fmtty_rest__12 = match__6[1];
+        fmtty_rest__5 = match[1];
+        sub_fmtty_rest__11 = sub_fmtty[1];
+        match__6 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__11,
+            fmt,
+            fmtty_rest__5
+          );
+        fmt__6 = match__6[2];
+        sub_fmtty_rest__12 = match__6[1];
         return [0,[6,sub_fmtty_rest__12],fmt__6];
       }
       break;
     case 7:
       if (! (typeof match === "number") && 7 === match[0]) {
-        var fmtty_rest__6 = match[1];
-        var sub_fmtty_rest__13 = sub_fmtty[1];
-        var match__7 = type_ignored_format_substitution(
-          sub_fmtty_rest__13,
-          fmt,
-          fmtty_rest__6
-        );
-        var fmt__7 = match__7[2];
-        var sub_fmtty_rest__14 = match__7[1];
+        fmtty_rest__6 = match[1];
+        sub_fmtty_rest__13 = sub_fmtty[1];
+        match__7 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__13,
+            fmt,
+            fmtty_rest__6
+          );
+        fmt__7 = match__7[2];
+        sub_fmtty_rest__14 = match__7[1];
         return [0,[7,sub_fmtty_rest__14],fmt__7];
       }
       break;
     case 8:
       if (! (typeof match === "number") && 8 === match[0]) {
-        var fmtty_rest__7 = match[2];
-        var sub2_fmtty = match[1];
-        var sub_fmtty_rest__15 = sub_fmtty[2];
-        var sub2_fmtty__0 = sub_fmtty[1];
+        fmtty_rest__7 = match[2];
+        sub2_fmtty = match[1];
+        sub_fmtty_rest__15 = sub_fmtty[2];
+        sub2_fmtty__0 = sub_fmtty[1];
         if (caml_notequal([0,sub2_fmtty__0], [0,sub2_fmtty])) {throw caml_wrap_thrown_exception(Type_mismatch);}
-        var match__8 = type_ignored_format_substitution(
-          sub_fmtty_rest__15,
-          fmt,
-          fmtty_rest__7
-        );
-        var fmt__8 = match__8[2];
-        var sub_fmtty_rest__16 = match__8[1];
+        match__8 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__15,
+            fmt,
+            fmtty_rest__7
+          );
+        fmt__8 = match__8[2];
+        sub_fmtty_rest__16 = match__8[1];
         return [0,[8,sub2_fmtty,sub_fmtty_rest__16],fmt__8];
       }
       break;
     case 9:
       if (! (typeof match === "number") && 9 === match[0]) {
-        var fmtty_rest__8 = match[3];
-        var sub2_fmtty__1 = match[2];
-        var sub1_fmtty = match[1];
-        var sub_fmtty_rest__17 = sub_fmtty[3];
-        var sub2_fmtty__2 = sub_fmtty[2];
-        var sub1_fmtty__0 = sub_fmtty[1];
-        var da_ = [0,call1(CamlinternalFormatBasics[2], sub1_fmtty)];
+        fmtty_rest__8 = match[3];
+        sub2_fmtty__1 = match[2];
+        sub1_fmtty = match[1];
+        sub_fmtty_rest__17 = sub_fmtty[3];
+        sub2_fmtty__2 = sub_fmtty[2];
+        sub1_fmtty__0 = sub_fmtty[1];
+        da_ = [0,call1(CamlinternalFormatBasics[2], sub1_fmtty)];
         if (
         caml_notequal(
           [0,call1(CamlinternalFormatBasics[2], sub1_fmtty__0)],
           da_
         )
         ) {throw caml_wrap_thrown_exception(Type_mismatch);}
-        var db_ = [0,call1(CamlinternalFormatBasics[2], sub2_fmtty__1)];
+        db_ = [0,call1(CamlinternalFormatBasics[2], sub2_fmtty__1)];
         if (
         caml_notequal(
           [0,call1(CamlinternalFormatBasics[2], sub2_fmtty__2)],
           db_
         )
         ) {throw caml_wrap_thrown_exception(Type_mismatch);}
-        var sub_fmtty__0 = trans(symm(sub1_fmtty), sub2_fmtty__1);
-        var match__9 = fmtty_rel_det(sub_fmtty__0);
-        var f4 = match__9[4];
-        var f2 = match__9[2];
+        sub_fmtty__0 = trans(symm(sub1_fmtty), sub2_fmtty__1);
+        match__9 = fmtty_rel_det(sub_fmtty__0);
+        f4 = match__9[4];
+        f2 = match__9[2];
         call1(f2, 0);
         call1(f4, 0);
-        var match__10 = type_ignored_format_substitution(
-          call1(CamlinternalFormatBasics[2], sub_fmtty_rest__17),
-          fmt,
-          fmtty_rest__8
-        );
-        var fmt__9 = match__10[2];
-        var sub_fmtty_rest__18 = match__10[1];
+        match__10 =
+          type_ignored_format_substitution(
+            call1(CamlinternalFormatBasics[2], sub_fmtty_rest__17),
+            fmt,
+            fmtty_rest__8
+          );
+        fmt__9 = match__10[2];
+        sub_fmtty_rest__18 = match__10[1];
         return [0,[9,sub1_fmtty,sub2_fmtty__1,symm(sub_fmtty_rest__18)],fmt__9
         ];
       }
       break;
     case 10:
       if (! (typeof match === "number") && 10 === match[0]) {
-        var fmtty_rest__9 = match[1];
-        var sub_fmtty_rest__19 = sub_fmtty[1];
-        var match__11 = type_ignored_format_substitution(
-          sub_fmtty_rest__19,
-          fmt,
-          fmtty_rest__9
-        );
-        var fmt__10 = match__11[2];
-        var sub_fmtty_rest__20 = match__11[1];
+        fmtty_rest__9 = match[1];
+        sub_fmtty_rest__19 = sub_fmtty[1];
+        match__11 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__19,
+            fmt,
+            fmtty_rest__9
+          );
+        fmt__10 = match__11[2];
+        sub_fmtty_rest__20 = match__11[1];
         return [0,[10,sub_fmtty_rest__20],fmt__10];
       }
       break;
     case 11:
       if (! (typeof match === "number") && 11 === match[0]) {
-        var fmtty_rest__10 = match[1];
-        var sub_fmtty_rest__21 = sub_fmtty[1];
-        var match__12 = type_ignored_format_substitution(
-          sub_fmtty_rest__21,
-          fmt,
-          fmtty_rest__10
-        );
-        var fmt__11 = match__12[2];
-        var sub_fmtty_rest__22 = match__12[1];
+        fmtty_rest__10 = match[1];
+        sub_fmtty_rest__21 = sub_fmtty[1];
+        match__12 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__21,
+            fmt,
+            fmtty_rest__10
+          );
+        fmt__11 = match__12[2];
+        sub_fmtty_rest__22 = match__12[1];
         return [0,[11,sub_fmtty_rest__22],fmt__11];
       }
       break;
     case 13:
       if (! (typeof match === "number") && 13 === match[0]) {
-        var fmtty_rest__11 = match[1];
-        var sub_fmtty_rest__23 = sub_fmtty[1];
-        var match__13 = type_ignored_format_substitution(
-          sub_fmtty_rest__23,
-          fmt,
-          fmtty_rest__11
-        );
-        var fmt__12 = match__13[2];
-        var sub_fmtty_rest__24 = match__13[1];
+        fmtty_rest__11 = match[1];
+        sub_fmtty_rest__23 = sub_fmtty[1];
+        match__13 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__23,
+            fmt,
+            fmtty_rest__11
+          );
+        fmt__12 = match__13[2];
+        sub_fmtty_rest__24 = match__13[1];
         return [0,[13,sub_fmtty_rest__24],fmt__12];
       }
       break;
     case 14:
       if (! (typeof match === "number") && 14 === match[0]) {
-        var fmtty_rest__12 = match[1];
-        var sub_fmtty_rest__25 = sub_fmtty[1];
-        var match__14 = type_ignored_format_substitution(
-          sub_fmtty_rest__25,
-          fmt,
-          fmtty_rest__12
-        );
-        var fmt__13 = match__14[2];
-        var sub_fmtty_rest__26 = match__14[1];
+        fmtty_rest__12 = match[1];
+        sub_fmtty_rest__25 = sub_fmtty[1];
+        match__14 =
+          type_ignored_format_substitution(
+            sub_fmtty_rest__25,
+            fmt,
+            fmtty_rest__12
+          );
+        fmt__13 = match__14[2];
+        sub_fmtty_rest__26 = match__14[1];
         return [0,[14,sub_fmtty_rest__26],fmt__13];
       }
       break
@@ -3040,6 +3745,10 @@ function recast(fmt, fmtty) {
 }
 
 function fix_padding(padty, width, str) {
+  var switch__0;
+  var switch__1;
+  var switch__2;
+  var switch__3;
   var len = caml_ml_string_length(str);
   var padty__0 = 0 <= width ? padty : 0;
   var width__0 = call1(Pervasives[6], width);
@@ -3055,10 +3764,10 @@ function fix_padding(padty, width, str) {
       break;
     default:
       if (0 < len) {
-        if (43 === caml_string_get(str, 0)) var switch__1 = 1;
-        else if (45 === caml_string_get(str, 0)) var switch__1 = 1;
-        else if (32 === caml_string_get(str, 0)) var switch__1 = 1;
-        else {var switch__0 = 0;var switch__1 = 0;}
+        if (43 === caml_string_get(str, 0)) switch__1 = 1;
+        else if (45 === caml_string_get(str, 0)) switch__1 = 1;
+        else if (32 === caml_string_get(str, 0)) switch__1 = 1;
+        else {switch__0 = 0;switch__1 = 0;}
         if (switch__1) {
           caml_bytes_set(res, 0, caml_string_get(str, 0));
           call5(
@@ -3069,17 +3778,17 @@ function fix_padding(padty, width, str) {
             (width__0 - len | 0) + 1 | 0,
             len + -1 | 0
           );
-          var switch__0 = 1;
+          switch__0 = 1;
         }
       }
-      else var switch__0 = 0;
+      else switch__0 = 0;
       if (! switch__0) {
         if (1 < len) if (
           48 === caml_string_get(str, 0)
         ) {
-          if (120 === caml_string_get(str, 1)) var switch__3 = 1;
-          else if (88 === caml_string_get(str, 1)) var switch__3 = 1;
-          else {var switch__2 = 0;var switch__3 = 0;}
+          if (120 === caml_string_get(str, 1)) switch__3 = 1;
+          else if (88 === caml_string_get(str, 1)) switch__3 = 1;
+          else {switch__2 = 0;switch__3 = 0;}
           if (switch__3) {
             caml_bytes_set(res, 1, caml_string_get(str, 1));
             call5(
@@ -3090,11 +3799,11 @@ function fix_padding(padty, width, str) {
               (width__0 - len | 0) + 2 | 0,
               len + -2 | 0
             );
-            var switch__2 = 1;
+            switch__2 = 1;
           }
         }
-        else var switch__2 = 0;
-        else var switch__2 = 0;
+        else switch__2 = 0;
+        else switch__2 = 0;
         if (! switch__2) {
           call5(String[6], str, 0, res, width__0 - len | 0, len);
         }
@@ -3104,26 +3813,32 @@ function fix_padding(padty, width, str) {
 }
 
 function fix_int_precision(prec, str) {
+  var res;
+  var res__0;
+  var switcher;
+  var res__1;
+  var switch__0;
+  var switch__1;
+  var switch__2;
   var prec__0 = call1(Pervasives[6], prec);
   var len = caml_ml_string_length(str);
   var c = caml_string_get(str, 0);
-  if (58 <= c) var switch__0 = 71 <=
-     c ?
-    5 < (c + -97 | 0) >>> 0 ? 1 : 0 :
-    65 <= c ? 0 : 1;
+  if (58 <= c) switch__0 =
+    71 <= c ? 5 < (c + -97 | 0) >>> 0 ? 1 : 0 : 65 <= c ? 0 : 1;
   else {
-    if (32 === c) var switch__1 = 1;
+    if (32 === c) switch__1 = 1;
     else if (43 <= c) {
-      var switcher = c + -43 | 0;
+      switcher = c + -43 | 0;
       switch (switcher) {
         case 5:
           if (len < (prec__0 + 2 | 0)) {
             if (1 < len) {
-              var switch__2 = 120 === caml_string_get(str, 1) ?
-                0 :
-                88 === caml_string_get(str, 1) ? 0 : 1;
+              switch__2 =
+                120 === caml_string_get(str, 1) ?
+                  0 :
+                  88 === caml_string_get(str, 1) ? 0 : 1;
               if (! switch__2) {
-                var res__1 = call2(Bytes[1], prec__0 + 2 | 0, 48);
+                res__1 = call2(Bytes[1], prec__0 + 2 | 0, 48);
                 caml_bytes_set(res__1, 1, caml_string_get(str, 1));
                 call5(
                   String[6],
@@ -3137,28 +3852,28 @@ function fix_int_precision(prec, str) {
               }
             }
           }
-          var switch__0 = 0;
-          var switch__1 = 0;
+          switch__0 = 0;
+          switch__1 = 0;
           break;
         case 0:
         case 2:
-          var switch__1 = 1;
+          switch__1 = 1;
           break;
         case 1:
         case 3:
         case 4:
-          var switch__0 = 1;
-          var switch__1 = 0;
+          switch__0 = 1;
+          switch__1 = 0;
           break;
         default:
-          var switch__0 = 0;
-          var switch__1 = 0
+          switch__0 = 0;
+          switch__1 = 0
         }
     }
-    else {var switch__0 = 1;var switch__1 = 0;}
+    else {switch__0 = 1;switch__1 = 0;}
     if (switch__1) {
       if (len < (prec__0 + 1 | 0)) {
-        var res__0 = call2(Bytes[1], prec__0 + 1 | 0, 48);
+        res__0 = call2(Bytes[1], prec__0 + 1 | 0, 48);
         caml_bytes_set(res__0, 0, c);
         call5(
           String[6],
@@ -3170,12 +3885,12 @@ function fix_int_precision(prec, str) {
         );
         return call1(Bytes[42], res__0);
       }
-      var switch__0 = 1;
+      switch__0 = 1;
     }
   }
   if (! switch__0) {
     if (len < prec__0) {
-      var res = call2(Bytes[1], prec__0, 48);
+      res = call2(Bytes[1], prec__0, 48);
       call5(String[6], str, 0, res, prec__0 - len | 0, len);
       return call1(Bytes[42], res);
     }
@@ -3345,46 +4060,58 @@ function convert_int64(iconv, n) {
 }
 
 function convert_float(fconv, prec, x) {
+  var switch__0;
+  var match;
+  var is_valid;
+  var len;
+  var str;
+  var sign;
   if (16 <= fconv) {
     if (17 <= fconv) switch (
       fconv + -17 | 0
     ) {
       case 2:
-        var switch__0 = 0;
+        switch__0 = 0;
         break;
       case 0:
       case 3:
-        var sign = 43;
-        var switch__0 = 1;
+        sign = 43;
+        switch__0 = 1;
         break;
       default:
-        var sign = 32;
-        var switch__0 = 1
+        sign = 32;
+        switch__0 = 1
       }
-    else var switch__0 = 0;
-    if (! switch__0) {var sign = 45;}
-    var str = runtime["caml_hexstring_of_float"](x, prec, sign);
+    else switch__0 = 0;
+    if (! switch__0) {sign = 45;}
+    str = runtime["caml_hexstring_of_float"](x, prec, sign);
     return 19 <= fconv ? call1(String[29], str) : str;
   }
   var str__0 = runtime["caml_format_float"](format_of_fconv(fconv, prec), x);
   if (15 === fconv) {
-    var len = caml_ml_string_length(str__0);
-    var is_valid = function(i) {
-      var i__0 = i;
-      for (; ; ) {
-        if (i__0 === len) {return 0;}
-        var match = caml_string_get(str__0, i__0);
-        var c8_ = match + -46 | 0;
-        var switch__0 = 23 < c8_ >>> 0 ?
-          55 === c8_ ? 1 : 0 :
-          21 < (c8_ + -1 | 0) >>> 0 ? 1 : 0;
-        if (switch__0) {return 1;}
-        var i__1 = i__0 + 1 | 0;
-        var i__0 = i__1;
-        continue;
-      }
-    };
-    var match = runtime["caml_classify_float"](x);
+    len = caml_ml_string_length(str__0);
+    is_valid =
+      function(i) {
+        var match;
+        var c8_;
+        var i__1;
+        var switch__0;
+        var i__0 = i;
+        for (; ; ) {
+          if (i__0 === len) {return 0;}
+          match = caml_string_get(str__0, i__0);
+          c8_ = match + -46 | 0;
+          switch__0 =
+            23 < c8_ >>> 0 ?
+              55 === c8_ ? 1 : 0 :
+              21 < (c8_ + -1 | 0) >>> 0 ? 1 : 0;
+          if (switch__0) {return 1;}
+          i__1 = i__0 + 1 | 0;
+          i__0 = i__1;
+          continue;
+        }
+      };
+    match = runtime["caml_classify_float"](x);
     return 3 === match ?
       x < 0 ? cst_neg_infinity : cst_infinity :
       4 <= match ?
@@ -3409,6 +4136,12 @@ function string_of_fmtty(fmtty) {
 }
 
 function make_float_padding_precision(k, o, acc, fmt, pad, match, fconv) {
+  var p__1;
+  var c7_;
+  var p__0;
+  var c6_;
+  var c5_;
+  var p;
   if (typeof pad === "number") {
     if (typeof match === "number") {
       return 0 === match ?
@@ -3421,7 +4154,7 @@ function make_float_padding_precision(k, o, acc, fmt, pad, match, fconv) {
          return make_printf(k, o, [4,acc,str], fmt);
        };
     }
-    var p = match[1];
+    p = match[1];
     return function(x) {
       var str = convert_float(fconv, p, x);
       return make_printf(k, o, [4,acc,str], fmt);
@@ -3429,8 +4162,8 @@ function make_float_padding_precision(k, o, acc, fmt, pad, match, fconv) {
   }
   else {
     if (0 === pad[0]) {
-      var c5_ = pad[2];
-      var c6_ = pad[1];
+      c5_ = pad[2];
+      c6_ = pad[1];
       if (typeof match === "number") {
         return 0 === match ?
           function(x) {
@@ -3443,13 +4176,13 @@ function make_float_padding_precision(k, o, acc, fmt, pad, match, fconv) {
            return make_printf(k, o, [4,acc,str], fmt);
          };
       }
-      var p__0 = match[1];
+      p__0 = match[1];
       return function(x) {
         var str = fix_padding(c6_, c5_, convert_float(fconv, p__0, x));
         return make_printf(k, o, [4,acc,str], fmt);
       };
     }
-    var c7_ = pad[1];
+    c7_ = pad[1];
     if (typeof match === "number") {
       return 0 === match ?
         function(w, x) {
@@ -3462,7 +4195,7 @@ function make_float_padding_precision(k, o, acc, fmt, pad, match, fconv) {
          return make_printf(k, o, [4,acc,str], fmt);
        };
     }
-    var p__1 = match[1];
+    p__1 = match[1];
     return function(w, x) {
       var str = fix_padding(c7_, w, convert_float(fconv, p__1, x));
       return make_printf(k, o, [4,acc,str], fmt);
@@ -3471,6 +4204,12 @@ function make_float_padding_precision(k, o, acc, fmt, pad, match, fconv) {
 }
 
 function make_int_padding_precision(k, o, acc, fmt, pad, match, trans, iconv) {
+  var p__1;
+  var c4_;
+  var p__0;
+  var c3_;
+  var c2_;
+  var p;
   if (typeof pad === "number") {
     if (typeof match === "number") {
       return 0 === match ?
@@ -3483,7 +4222,7 @@ function make_int_padding_precision(k, o, acc, fmt, pad, match, trans, iconv) {
          return make_printf(k, o, [4,acc,str], fmt);
        };
     }
-    var p = match[1];
+    p = match[1];
     return function(x) {
       var str = fix_int_precision(p, call2(trans, iconv, x));
       return make_printf(k, o, [4,acc,str], fmt);
@@ -3491,8 +4230,8 @@ function make_int_padding_precision(k, o, acc, fmt, pad, match, trans, iconv) {
   }
   else {
     if (0 === pad[0]) {
-      var c2_ = pad[2];
-      var c3_ = pad[1];
+      c2_ = pad[2];
+      c3_ = pad[1];
       if (typeof match === "number") {
         return 0 === match ?
           function(x) {
@@ -3508,7 +4247,7 @@ function make_int_padding_precision(k, o, acc, fmt, pad, match, trans, iconv) {
            return make_printf(k, o, [4,acc,str], fmt);
          };
       }
-      var p__0 = match[1];
+      p__0 = match[1];
       return function(x) {
         var str = fix_padding(
           c3_,
@@ -3518,7 +4257,7 @@ function make_int_padding_precision(k, o, acc, fmt, pad, match, trans, iconv) {
         return make_printf(k, o, [4,acc,str], fmt);
       };
     }
-    var c4_ = pad[1];
+    c4_ = pad[1];
     if (typeof match === "number") {
       return 0 === match ?
         function(w, x) {
@@ -3534,7 +4273,7 @@ function make_int_padding_precision(k, o, acc, fmt, pad, match, trans, iconv) {
          return make_printf(k, o, [4,acc,str], fmt);
        };
     }
-    var p__1 = match[1];
+    p__1 = match[1];
     return function(w, x) {
       var str = fix_padding(
         c4_,
@@ -3547,20 +4286,23 @@ function make_int_padding_precision(k, o, acc, fmt, pad, match, trans, iconv) {
 }
 
 function make_padding(k, o, acc, fmt, pad, trans) {
+  var padty__0;
+  var padty;
+  var width;
   if (typeof pad === "number") return function(x) {
     var new_acc = [4,acc,call1(trans, x)];
     return make_printf(k, o, new_acc, fmt);
   };
   else {
     if (0 === pad[0]) {
-      var width = pad[2];
-      var padty = pad[1];
+      width = pad[2];
+      padty = pad[1];
       return function(x) {
         var new_acc = [4,acc,fix_padding(padty, width, call1(trans, x))];
         return make_printf(k, o, new_acc, fmt);
       };
     }
-    var padty__0 = pad[1];
+    padty__0 = pad[1];
     return function(w, x) {
       var new_acc = [4,acc,fix_padding(padty__0, w, call1(trans, x))];
       return make_printf(k, o, new_acc, fmt);
@@ -3569,6 +4311,75 @@ function make_padding(k, o, acc, fmt, pad, trans) {
 }
 
 function make_printf__0(counter, k, o, acc, fmt) {
+  var rest;
+  var rest__0;
+  var rest__1;
+  var pad;
+  var rest__2;
+  var pad__0;
+  var rest__3;
+  var prec;
+  var pad__1;
+  var iconv;
+  var rest__4;
+  var prec__0;
+  var pad__2;
+  var iconv__0;
+  var rest__5;
+  var prec__1;
+  var pad__3;
+  var iconv__1;
+  var rest__6;
+  var prec__2;
+  var pad__4;
+  var iconv__2;
+  var rest__7;
+  var prec__3;
+  var pad__5;
+  var fconv;
+  var rest__8;
+  var pad__6;
+  var fmt__1;
+  var acc__1;
+  var fmt__2;
+  var str;
+  var acc__2;
+  var fmt__3;
+  var chr;
+  var acc__3;
+  var rest__9;
+  var sub_fmtty;
+  var ty;
+  var rest__10;
+  var fmtty;
+  var rest__11;
+  var rest__12;
+  var fmt__4;
+  var fmting_lit;
+  var acc__4;
+  var cZ_;
+  var rest__13;
+  var match;
+  var fmt__5;
+  var k__1;
+  var rest__14;
+  var match__0;
+  var fmt__6;
+  var k__2;
+  var rest__15;
+  var new_acc;
+  var rest__16;
+  var rest__17;
+  var rest__18;
+  var ign;
+  var rest__19;
+  var f;
+  var arity;
+  var c0_;
+  var k__3;
+  var k__4;
+  var counter__0;
+  var counter__1;
   var k__0 = k;
   var acc__0 = acc;
   var fmt__0 = fmt;
@@ -3577,20 +4388,20 @@ function make_printf__0(counter, k, o, acc, fmt) {
   ) return call2(k__0, o, acc__0);
   else switch (fmt__0[0]) {
     case 0:
-      var rest = fmt__0[1];
+      rest = fmt__0[1];
       return function(c) {
         var new_acc = [5,acc__0,c];
         return make_printf(k__0, o, new_acc, rest);
       };
     case 1:
-      var rest__0 = fmt__0[1];
+      rest__0 = fmt__0[1];
       return function(c) {
         var new_acc = [4,acc__0,format_caml_char(c)];
         return make_printf(k__0, o, new_acc, rest__0);
       };
     case 2:
-      var rest__1 = fmt__0[2];
-      var pad = fmt__0[1];
+      rest__1 = fmt__0[2];
+      pad = fmt__0[1];
       return make_padding(
         k__0,
         o,
@@ -3600,8 +4411,8 @@ function make_printf__0(counter, k, o, acc, fmt) {
         function(str) {return str;}
       );
     case 3:
-      var rest__2 = fmt__0[2];
-      var pad__0 = fmt__0[1];
+      rest__2 = fmt__0[2];
+      pad__0 = fmt__0[1];
       return make_padding(
         k__0,
         o,
@@ -3611,10 +4422,10 @@ function make_printf__0(counter, k, o, acc, fmt) {
         string_to_caml_string
       );
     case 4:
-      var rest__3 = fmt__0[4];
-      var prec = fmt__0[3];
-      var pad__1 = fmt__0[2];
-      var iconv = fmt__0[1];
+      rest__3 = fmt__0[4];
+      prec = fmt__0[3];
+      pad__1 = fmt__0[2];
+      iconv = fmt__0[1];
       return make_int_padding_precision(
         k__0,
         o,
@@ -3626,10 +4437,10 @@ function make_printf__0(counter, k, o, acc, fmt) {
         iconv
       );
     case 5:
-      var rest__4 = fmt__0[4];
-      var prec__0 = fmt__0[3];
-      var pad__2 = fmt__0[2];
-      var iconv__0 = fmt__0[1];
+      rest__4 = fmt__0[4];
+      prec__0 = fmt__0[3];
+      pad__2 = fmt__0[2];
+      iconv__0 = fmt__0[1];
       return make_int_padding_precision(
         k__0,
         o,
@@ -3641,10 +4452,10 @@ function make_printf__0(counter, k, o, acc, fmt) {
         iconv__0
       );
     case 6:
-      var rest__5 = fmt__0[4];
-      var prec__1 = fmt__0[3];
-      var pad__3 = fmt__0[2];
-      var iconv__1 = fmt__0[1];
+      rest__5 = fmt__0[4];
+      prec__1 = fmt__0[3];
+      pad__3 = fmt__0[2];
+      iconv__1 = fmt__0[1];
       return make_int_padding_precision(
         k__0,
         o,
@@ -3656,10 +4467,10 @@ function make_printf__0(counter, k, o, acc, fmt) {
         iconv__1
       );
     case 7:
-      var rest__6 = fmt__0[4];
-      var prec__2 = fmt__0[3];
-      var pad__4 = fmt__0[2];
-      var iconv__2 = fmt__0[1];
+      rest__6 = fmt__0[4];
+      prec__2 = fmt__0[3];
+      pad__4 = fmt__0[2];
+      iconv__2 = fmt__0[1];
       return make_int_padding_precision(
         k__0,
         o,
@@ -3671,10 +4482,10 @@ function make_printf__0(counter, k, o, acc, fmt) {
         iconv__2
       );
     case 8:
-      var rest__7 = fmt__0[4];
-      var prec__3 = fmt__0[3];
-      var pad__5 = fmt__0[2];
-      var fconv = fmt__0[1];
+      rest__7 = fmt__0[4];
+      prec__3 = fmt__0[3];
+      pad__5 = fmt__0[2];
+      fconv = fmt__0[1];
       return make_float_padding_precision(
         k__0,
         o,
@@ -3685,39 +4496,39 @@ function make_printf__0(counter, k, o, acc, fmt) {
         fconv
       );
     case 9:
-      var rest__8 = fmt__0[2];
-      var pad__6 = fmt__0[1];
+      rest__8 = fmt__0[2];
+      pad__6 = fmt__0[1];
       return make_padding(k__0, o, acc__0, rest__8, pad__6, Pervasives[18]);
     case 10:
-      var fmt__1 = fmt__0[1];
-      var acc__1 = [7,acc__0];
-      var acc__0 = acc__1;
-      var fmt__0 = fmt__1;
+      fmt__1 = fmt__0[1];
+      acc__1 = [7,acc__0];
+      acc__0 = acc__1;
+      fmt__0 = fmt__1;
       continue;
     case 11:
-      var fmt__2 = fmt__0[2];
-      var str = fmt__0[1];
-      var acc__2 = [2,acc__0,str];
-      var acc__0 = acc__2;
-      var fmt__0 = fmt__2;
+      fmt__2 = fmt__0[2];
+      str = fmt__0[1];
+      acc__2 = [2,acc__0,str];
+      acc__0 = acc__2;
+      fmt__0 = fmt__2;
       continue;
     case 12:
-      var fmt__3 = fmt__0[2];
-      var chr = fmt__0[1];
-      var acc__3 = [3,acc__0,chr];
-      var acc__0 = acc__3;
-      var fmt__0 = fmt__3;
+      fmt__3 = fmt__0[2];
+      chr = fmt__0[1];
+      acc__3 = [3,acc__0,chr];
+      acc__0 = acc__3;
+      fmt__0 = fmt__3;
       continue;
     case 13:
-      var rest__9 = fmt__0[3];
-      var sub_fmtty = fmt__0[2];
-      var ty = string_of_fmtty(sub_fmtty);
+      rest__9 = fmt__0[3];
+      sub_fmtty = fmt__0[2];
+      ty = string_of_fmtty(sub_fmtty);
       return function(str) {
         return make_printf(k__0, o, [4,acc__0,ty], rest__9);
       };
     case 14:
-      var rest__10 = fmt__0[3];
-      var fmtty = fmt__0[2];
+      rest__10 = fmt__0[3];
+      fmtty = fmt__0[2];
       return function(param) {
         var fmt = param[1];
         var c1_ = recast(fmt, fmtty);
@@ -3729,7 +4540,7 @@ function make_printf__0(counter, k, o, acc, fmt) {
         );
       };
     case 15:
-      var rest__11 = fmt__0[1];
+      rest__11 = fmt__0[1];
       return function(f, x) {
         return make_printf(
           k__0,
@@ -3739,74 +4550,76 @@ function make_printf__0(counter, k, o, acc, fmt) {
         );
       };
     case 16:
-      var rest__12 = fmt__0[1];
+      rest__12 = fmt__0[1];
       return function(f) {
         return make_printf(k__0, o, [6,acc__0,f], rest__12);
       };
     case 17:
-      var fmt__4 = fmt__0[2];
-      var fmting_lit = fmt__0[1];
-      var acc__4 = [0,acc__0,fmting_lit];
-      var acc__0 = acc__4;
-      var fmt__0 = fmt__4;
+      fmt__4 = fmt__0[2];
+      fmting_lit = fmt__0[1];
+      acc__4 = [0,acc__0,fmting_lit];
+      acc__0 = acc__4;
+      fmt__0 = fmt__4;
       continue;
     case 18:
-      var cZ_ = fmt__0[1];
+      cZ_ = fmt__0[1];
       if (0 === cZ_[0]) {
-        var rest__13 = fmt__0[2];
-        var match = cZ_[1];
-        var fmt__5 = match[1];
-        var k__3 = function(acc, k, rest) {
+        rest__13 = fmt__0[2];
+        match = cZ_[1];
+        fmt__5 = match[1];
+        k__3 =
+          function(acc, k, rest) {
+            function k__0(koc, kacc) {
+              return make_printf(k, koc, [1,acc,[0,kacc]], rest);
+            }
+            return k__0;
+          };
+        k__1 = k__3(acc__0, k__0, rest__13);
+        k__0 = k__1;
+        acc__0 = 0;
+        fmt__0 = fmt__5;
+        continue;
+      }
+      rest__14 = fmt__0[2];
+      match__0 = cZ_[1];
+      fmt__6 = match__0[1];
+      k__4 =
+        function(acc, k, rest) {
           function k__0(koc, kacc) {
-            return make_printf(k, koc, [1,acc,[0,kacc]], rest);
+            return make_printf(k, koc, [1,acc,[1,kacc]], rest);
           }
           return k__0;
         };
-        var k__1 = k__3(acc__0, k__0, rest__13);
-        var k__0 = k__1;
-        var acc__0 = 0;
-        var fmt__0 = fmt__5;
-        continue;
-      }
-      var rest__14 = fmt__0[2];
-      var match__0 = cZ_[1];
-      var fmt__6 = match__0[1];
-      var k__4 = function(acc, k, rest) {
-        function k__0(koc, kacc) {
-          return make_printf(k, koc, [1,acc,[1,kacc]], rest);
-        }
-        return k__0;
-      };
-      var k__2 = k__4(acc__0, k__0, rest__14);
-      var k__0 = k__2;
-      var acc__0 = 0;
-      var fmt__0 = fmt__6;
+      k__2 = k__4(acc__0, k__0, rest__14);
+      k__0 = k__2;
+      acc__0 = 0;
+      fmt__0 = fmt__6;
       continue;
     case 19:
       throw caml_wrap_thrown_exception([0,Assert_failure,q_]);
     case 20:
-      var rest__15 = fmt__0[3];
-      var new_acc = [8,acc__0,cst_Printf_bad_conversion];
+      rest__15 = fmt__0[3];
+      new_acc = [8,acc__0,cst_Printf_bad_conversion];
       return function(param) {
         return make_printf(k__0, o, new_acc, rest__15);
       };
     case 21:
-      var rest__16 = fmt__0[2];
+      rest__16 = fmt__0[2];
       return function(n) {
         var new_acc = [4,acc__0,caml_format_int(cst_u__0, n)];
         return make_printf(k__0, o, new_acc, rest__16);
       };
     case 22:
-      var rest__17 = fmt__0[1];
+      rest__17 = fmt__0[1];
       return function(c) {
         var new_acc = [5,acc__0,c];
         return make_printf(k__0, o, new_acc, rest__17);
       };
     case 23:
-      var rest__18 = fmt__0[2];
-      var ign = fmt__0[1];
+      rest__18 = fmt__0[2];
+      ign = fmt__0[1];
       if (counter < 50) {
-        var counter__1 = counter + 1 | 0;
+        counter__1 = counter + 1 | 0;
         return make_ignored_param__0(
           counter__1,
           k__0,
@@ -3821,12 +4634,12 @@ function make_printf__0(counter, k, o, acc, fmt) {
         [0,k__0,o,acc__0,ign,rest__18]
       );
     default:
-      var rest__19 = fmt__0[3];
-      var f = fmt__0[2];
-      var arity = fmt__0[1];
-      var c0_ = call1(f, 0);
+      rest__19 = fmt__0[3];
+      f = fmt__0[2];
+      arity = fmt__0[1];
+      c0_ = call1(f, 0);
       if (counter < 50) {
-        var counter__0 = counter + 1 | 0;
+        counter__0 = counter + 1 | 0;
         return make_custom__0(
           counter__0,
           k__0,
@@ -3845,16 +4658,32 @@ function make_printf__0(counter, k, o, acc, fmt) {
 }
 
 function make_ignored_param__0(counter, k, o, acc, ign, fmt) {
+  var counter__14;
+  var counter__13;
+  var counter__12;
+  var counter__11;
+  var counter__10;
+  var counter__9;
+  var counter__8;
+  var counter__7;
+  var counter__6;
+  var counter__5;
+  var counter__4;
+  var counter__3;
+  var counter__2;
+  var counter__1;
+  var counter__0;
+  var fmtty;
   if (typeof ign === "number") switch (ign) {
     case 0:
       if (counter < 50) {
-        var counter__0 = counter + 1 | 0;
+        counter__0 = counter + 1 | 0;
         return make_invalid_arg(counter__0, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 1:
       if (counter < 50) {
-        var counter__1 = counter + 1 | 0;
+        counter__1 = counter + 1 | 0;
         return make_invalid_arg(counter__1, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
@@ -3862,7 +4691,7 @@ function make_ignored_param__0(counter, k, o, acc, ign, fmt) {
       throw caml_wrap_thrown_exception([0,Assert_failure,r_]);
     default:
       if (counter < 50) {
-        var counter__2 = counter + 1 | 0;
+        counter__2 = counter + 1 | 0;
         return make_invalid_arg(counter__2, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt])
@@ -3870,74 +4699,74 @@ function make_ignored_param__0(counter, k, o, acc, ign, fmt) {
   else switch (ign[0]) {
     case 0:
       if (counter < 50) {
-        var counter__3 = counter + 1 | 0;
+        counter__3 = counter + 1 | 0;
         return make_invalid_arg(counter__3, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 1:
       if (counter < 50) {
-        var counter__4 = counter + 1 | 0;
+        counter__4 = counter + 1 | 0;
         return make_invalid_arg(counter__4, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 2:
       if (counter < 50) {
-        var counter__5 = counter + 1 | 0;
+        counter__5 = counter + 1 | 0;
         return make_invalid_arg(counter__5, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 3:
       if (counter < 50) {
-        var counter__6 = counter + 1 | 0;
+        counter__6 = counter + 1 | 0;
         return make_invalid_arg(counter__6, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 4:
       if (counter < 50) {
-        var counter__7 = counter + 1 | 0;
+        counter__7 = counter + 1 | 0;
         return make_invalid_arg(counter__7, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 5:
       if (counter < 50) {
-        var counter__8 = counter + 1 | 0;
+        counter__8 = counter + 1 | 0;
         return make_invalid_arg(counter__8, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 6:
       if (counter < 50) {
-        var counter__9 = counter + 1 | 0;
+        counter__9 = counter + 1 | 0;
         return make_invalid_arg(counter__9, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 7:
       if (counter < 50) {
-        var counter__10 = counter + 1 | 0;
+        counter__10 = counter + 1 | 0;
         return make_invalid_arg(counter__10, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 8:
       if (counter < 50) {
-        var counter__11 = counter + 1 | 0;
+        counter__11 = counter + 1 | 0;
         return make_invalid_arg(counter__11, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     case 9:
-      var fmtty = ign[2];
+      fmtty = ign[2];
       if (counter < 50) {
-        var counter__14 = counter + 1 | 0;
+        counter__14 = counter + 1 | 0;
         return make_from_fmtty__0(counter__14, k, o, acc, fmtty, fmt);
       }
       return caml_trampoline_return(make_from_fmtty__0, [0,k,o,acc,fmtty,fmt]);
     case 10:
       if (counter < 50) {
-        var counter__12 = counter + 1 | 0;
+        counter__12 = counter + 1 | 0;
         return make_invalid_arg(counter__12, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
     default:
       if (counter < 50) {
-        var counter__13 = counter + 1 | 0;
+        counter__13 = counter + 1 | 0;
         return make_invalid_arg(counter__13, k, o, acc, fmt);
       }
       return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt])
@@ -3945,62 +4774,79 @@ function make_ignored_param__0(counter, k, o, acc, ign, fmt) {
 }
 
 function make_from_fmtty__0(counter, k, o, acc, fmtty, fmt) {
+  var counter__0;
+  var rest__11;
+  var rest__10;
+  var rest__9;
+  var ty;
+  var ty1;
+  var ty2;
+  var rest__8;
+  var rest__7;
+  var rest__6;
+  var rest__5;
+  var rest__4;
+  var rest__3;
+  var rest__2;
+  var rest__1;
+  var rest__0;
+  var rest;
   if (typeof fmtty === "number") {
     if (counter < 50) {
-      var counter__0 = counter + 1 | 0;
+      counter__0 = counter + 1 | 0;
       return make_invalid_arg(counter__0, k, o, acc, fmt);
     }
     return caml_trampoline_return(make_invalid_arg, [0,k,o,acc,fmt]);
   }
   else switch (fmtty[0]) {
     case 0:
-      var rest = fmtty[1];
+      rest = fmtty[1];
       return function(param) {return make_from_fmtty(k, o, acc, rest, fmt);};
     case 1:
-      var rest__0 = fmtty[1];
+      rest__0 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__0, fmt);
       };
     case 2:
-      var rest__1 = fmtty[1];
+      rest__1 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__1, fmt);
       };
     case 3:
-      var rest__2 = fmtty[1];
+      rest__2 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__2, fmt);
       };
     case 4:
-      var rest__3 = fmtty[1];
+      rest__3 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__3, fmt);
       };
     case 5:
-      var rest__4 = fmtty[1];
+      rest__4 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__4, fmt);
       };
     case 6:
-      var rest__5 = fmtty[1];
+      rest__5 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__5, fmt);
       };
     case 7:
-      var rest__6 = fmtty[1];
+      rest__6 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__6, fmt);
       };
     case 8:
-      var rest__7 = fmtty[2];
+      rest__7 = fmtty[2];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__7, fmt);
       };
     case 9:
-      var rest__8 = fmtty[3];
-      var ty2 = fmtty[2];
-      var ty1 = fmtty[1];
-      var ty = trans(symm(ty1), ty2);
+      rest__8 = fmtty[3];
+      ty2 = fmtty[2];
+      ty1 = fmtty[1];
+      ty = trans(symm(ty1), ty2);
       return function(param) {
         return make_from_fmtty(
           k,
@@ -4011,17 +4857,17 @@ function make_from_fmtty__0(counter, k, o, acc, fmtty, fmt) {
         );
       };
     case 10:
-      var rest__9 = fmtty[1];
+      rest__9 = fmtty[1];
       return function(param, cY_) {
         return make_from_fmtty(k, o, acc, rest__9, fmt);
       };
     case 11:
-      var rest__10 = fmtty[1];
+      rest__10 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__10, fmt);
       };
     case 12:
-      var rest__11 = fmtty[1];
+      rest__11 = fmtty[1];
       return function(param) {
         return make_from_fmtty(k, o, acc, rest__11, fmt);
       };
@@ -4033,24 +4879,27 @@ function make_from_fmtty__0(counter, k, o, acc, fmtty, fmt) {
 }
 
 function make_invalid_arg(counter, k, o, acc, fmt) {
+  var counter__0;
   var cX_ = [8,acc,cst_Printf_bad_conversion__0];
   if (counter < 50) {
-    var counter__0 = counter + 1 | 0;
+    counter__0 = counter + 1 | 0;
     return make_printf__0(counter__0, k, o, cX_, fmt);
   }
   return caml_trampoline_return(make_printf__0, [0,k,o,cX_,fmt]);
 }
 
 function make_custom__0(counter, k, o, acc, rest, arity, f) {
+  var counter__0;
+  var arity__0;
   if (arity) {
-    var arity__0 = arity[1];
+    arity__0 = arity[1];
     return function(x) {
       return make_custom(k, o, acc, rest, arity__0, call1(f, x));
     };
   }
   var cW_ = [4,acc,f];
   if (counter < 50) {
-    var counter__0 = counter + 1 | 0;
+    counter__0 = counter + 1 | 0;
     return make_printf__0(counter__0, k, o, cW_, rest);
   }
   return caml_trampoline_return(make_printf__0, [0,k,o,cW_,rest]);
@@ -4075,51 +4924,145 @@ function make_custom(k, o, acc, rest, arity, f) {
 function const__0(x, param) {return x;}
 
 function fn_of_padding_precision(k, o, fmt, pad, prec) {
+  var cG_;
+  var cF_;
+  var cE_;
+  var cD_;
+  var cC_;
+  var cB_;
+  var cA_;
+  var cz_;
+  var cy_;
+  var cx_;
+  var cw_;
+  var cv_;
+  var cu_;
+  var ct_;
+  var cs_;
   if (typeof pad === "number") {
     if (typeof prec === "number") {
       if (0 === prec) {
-        var cs_ = make_iprintf(k, o, fmt);
+        cs_ = make_iprintf(k, o, fmt);
         return function(cK_) {return const__0(cs_, cK_);};
       }
-      var ct_ = make_iprintf(k, o, fmt);
-      var cu_ = function(cJ_) {return const__0(ct_, cJ_);};
+      ct_ = make_iprintf(k, o, fmt);
+      cu_ = function(cJ_) {return const__0(ct_, cJ_);};
       return function(cI_) {return const__0(cu_, cI_);};
     }
-    var cv_ = make_iprintf(k, o, fmt);
+    cv_ = make_iprintf(k, o, fmt);
     return function(cH_) {return const__0(cv_, cH_);};
   }
   else {
     if (0 === pad[0]) {
       if (typeof prec === "number") {
         if (0 === prec) {
-          var cw_ = make_iprintf(k, o, fmt);
+          cw_ = make_iprintf(k, o, fmt);
           return function(cV_) {return const__0(cw_, cV_);};
         }
-        var cx_ = make_iprintf(k, o, fmt);
-        var cy_ = function(cU_) {return const__0(cx_, cU_);};
+        cx_ = make_iprintf(k, o, fmt);
+        cy_ = function(cU_) {return const__0(cx_, cU_);};
         return function(cT_) {return const__0(cy_, cT_);};
       }
-      var cz_ = make_iprintf(k, o, fmt);
+      cz_ = make_iprintf(k, o, fmt);
       return function(cS_) {return const__0(cz_, cS_);};
     }
     if (typeof prec === "number") {
       if (0 === prec) {
-        var cA_ = make_iprintf(k, o, fmt);
-        var cB_ = function(cR_) {return const__0(cA_, cR_);};
+        cA_ = make_iprintf(k, o, fmt);
+        cB_ = function(cR_) {return const__0(cA_, cR_);};
         return function(cQ_) {return const__0(cB_, cQ_);};
       }
-      var cC_ = make_iprintf(k, o, fmt);
-      var cD_ = function(cP_) {return const__0(cC_, cP_);};
-      var cE_ = function(cO_) {return const__0(cD_, cO_);};
+      cC_ = make_iprintf(k, o, fmt);
+      cD_ = function(cP_) {return const__0(cC_, cP_);};
+      cE_ = function(cO_) {return const__0(cD_, cO_);};
       return function(cN_) {return const__0(cE_, cN_);};
     }
-    var cF_ = make_iprintf(k, o, fmt);
-    var cG_ = function(cM_) {return const__0(cF_, cM_);};
+    cF_ = make_iprintf(k, o, fmt);
+    cG_ = function(cM_) {return const__0(cF_, cM_);};
     return function(cL_) {return const__0(cG_, cL_);};
   }
 }
 
 function make_iprintf__0(counter, k, o, fmt) {
+  var rest;
+  var bH_;
+  var rest__0;
+  var bI_;
+  var bJ_;
+  var rest__1;
+  var bK_;
+  var rest__2;
+  var bL_;
+  var rest__3;
+  var bM_;
+  var bN_;
+  var bO_;
+  var rest__4;
+  var bP_;
+  var rest__5;
+  var bQ_;
+  var rest__6;
+  var bR_;
+  var bS_;
+  var rest__7;
+  var prec;
+  var pad;
+  var rest__8;
+  var prec__0;
+  var pad__0;
+  var rest__9;
+  var prec__1;
+  var pad__1;
+  var rest__10;
+  var prec__2;
+  var pad__2;
+  var rest__11;
+  var prec__3;
+  var pad__3;
+  var bT_;
+  var rest__12;
+  var bU_;
+  var rest__13;
+  var bV_;
+  var rest__14;
+  var bW_;
+  var bX_;
+  var fmt__1;
+  var fmt__2;
+  var fmt__3;
+  var rest__15;
+  var bY_;
+  var rest__16;
+  var fmtty;
+  var rest__17;
+  var bZ_;
+  var b0_;
+  var rest__18;
+  var b1_;
+  var fmt__4;
+  var b2_;
+  var rest__19;
+  var match;
+  var fmt__5;
+  var k__1;
+  var rest__20;
+  var match__0;
+  var fmt__6;
+  var k__2;
+  var rest__21;
+  var b3_;
+  var rest__22;
+  var b4_;
+  var rest__23;
+  var b5_;
+  var rest__24;
+  var ign;
+  var b6_;
+  var rest__25;
+  var arity;
+  var k__3;
+  var k__4;
+  var counter__0;
   var k__0 = k;
   var fmt__0 = fmt;
   for (; ; ) if (
@@ -4127,111 +5070,111 @@ function make_iprintf__0(counter, k, o, fmt) {
   ) return call1(k__0, o);
   else switch (fmt__0[0]) {
     case 0:
-      var rest = fmt__0[1];
-      var bH_ = make_iprintf(k__0, o, rest);
+      rest = fmt__0[1];
+      bH_ = make_iprintf(k__0, o, rest);
       return function(cr_) {return const__0(bH_, cr_);};
     case 1:
-      var rest__0 = fmt__0[1];
-      var bI_ = make_iprintf(k__0, o, rest__0);
+      rest__0 = fmt__0[1];
+      bI_ = make_iprintf(k__0, o, rest__0);
       return function(cq_) {return const__0(bI_, cq_);};
     case 2:
-      var bJ_ = fmt__0[1];
+      bJ_ = fmt__0[1];
       if (typeof bJ_ === "number") {
-        var rest__1 = fmt__0[2];
-        var bK_ = make_iprintf(k__0, o, rest__1);
+        rest__1 = fmt__0[2];
+        bK_ = make_iprintf(k__0, o, rest__1);
         return function(cm_) {return const__0(bK_, cm_);};
       }
       else {
         if (0 === bJ_[0]) {
-          var rest__2 = fmt__0[2];
-          var bL_ = make_iprintf(k__0, o, rest__2);
+          rest__2 = fmt__0[2];
+          bL_ = make_iprintf(k__0, o, rest__2);
           return function(cp_) {return const__0(bL_, cp_);};
         }
-        var rest__3 = fmt__0[2];
-        var bM_ = make_iprintf(k__0, o, rest__3);
-        var bN_ = function(co_) {return const__0(bM_, co_);};
+        rest__3 = fmt__0[2];
+        bM_ = make_iprintf(k__0, o, rest__3);
+        bN_ = function(co_) {return const__0(bM_, co_);};
         return function(cn_) {return const__0(bN_, cn_);};
       }
     case 3:
-      var bO_ = fmt__0[1];
+      bO_ = fmt__0[1];
       if (typeof bO_ === "number") {
-        var rest__4 = fmt__0[2];
-        var bP_ = make_iprintf(k__0, o, rest__4);
+        rest__4 = fmt__0[2];
+        bP_ = make_iprintf(k__0, o, rest__4);
         return function(ci_) {return const__0(bP_, ci_);};
       }
       else {
         if (0 === bO_[0]) {
-          var rest__5 = fmt__0[2];
-          var bQ_ = make_iprintf(k__0, o, rest__5);
+          rest__5 = fmt__0[2];
+          bQ_ = make_iprintf(k__0, o, rest__5);
           return function(cl_) {return const__0(bQ_, cl_);};
         }
-        var rest__6 = fmt__0[2];
-        var bR_ = make_iprintf(k__0, o, rest__6);
-        var bS_ = function(ck_) {return const__0(bR_, ck_);};
+        rest__6 = fmt__0[2];
+        bR_ = make_iprintf(k__0, o, rest__6);
+        bS_ = function(ck_) {return const__0(bR_, ck_);};
         return function(cj_) {return const__0(bS_, cj_);};
       }
     case 4:
-      var rest__7 = fmt__0[4];
-      var prec = fmt__0[3];
-      var pad = fmt__0[2];
+      rest__7 = fmt__0[4];
+      prec = fmt__0[3];
+      pad = fmt__0[2];
       return fn_of_padding_precision(k__0, o, rest__7, pad, prec);
     case 5:
-      var rest__8 = fmt__0[4];
-      var prec__0 = fmt__0[3];
-      var pad__0 = fmt__0[2];
+      rest__8 = fmt__0[4];
+      prec__0 = fmt__0[3];
+      pad__0 = fmt__0[2];
       return fn_of_padding_precision(k__0, o, rest__8, pad__0, prec__0);
     case 6:
-      var rest__9 = fmt__0[4];
-      var prec__1 = fmt__0[3];
-      var pad__1 = fmt__0[2];
+      rest__9 = fmt__0[4];
+      prec__1 = fmt__0[3];
+      pad__1 = fmt__0[2];
       return fn_of_padding_precision(k__0, o, rest__9, pad__1, prec__1);
     case 7:
-      var rest__10 = fmt__0[4];
-      var prec__2 = fmt__0[3];
-      var pad__2 = fmt__0[2];
+      rest__10 = fmt__0[4];
+      prec__2 = fmt__0[3];
+      pad__2 = fmt__0[2];
       return fn_of_padding_precision(k__0, o, rest__10, pad__2, prec__2);
     case 8:
-      var rest__11 = fmt__0[4];
-      var prec__3 = fmt__0[3];
-      var pad__3 = fmt__0[2];
+      rest__11 = fmt__0[4];
+      prec__3 = fmt__0[3];
+      pad__3 = fmt__0[2];
       return fn_of_padding_precision(k__0, o, rest__11, pad__3, prec__3);
     case 9:
-      var bT_ = fmt__0[1];
+      bT_ = fmt__0[1];
       if (typeof bT_ === "number") {
-        var rest__12 = fmt__0[2];
-        var bU_ = make_iprintf(k__0, o, rest__12);
+        rest__12 = fmt__0[2];
+        bU_ = make_iprintf(k__0, o, rest__12);
         return function(ce_) {return const__0(bU_, ce_);};
       }
       else {
         if (0 === bT_[0]) {
-          var rest__13 = fmt__0[2];
-          var bV_ = make_iprintf(k__0, o, rest__13);
+          rest__13 = fmt__0[2];
+          bV_ = make_iprintf(k__0, o, rest__13);
           return function(ch_) {return const__0(bV_, ch_);};
         }
-        var rest__14 = fmt__0[2];
-        var bW_ = make_iprintf(k__0, o, rest__14);
-        var bX_ = function(cg_) {return const__0(bW_, cg_);};
+        rest__14 = fmt__0[2];
+        bW_ = make_iprintf(k__0, o, rest__14);
+        bX_ = function(cg_) {return const__0(bW_, cg_);};
         return function(cf_) {return const__0(bX_, cf_);};
       }
     case 10:
-      var fmt__1 = fmt__0[1];
-      var fmt__0 = fmt__1;
+      fmt__1 = fmt__0[1];
+      fmt__0 = fmt__1;
       continue;
     case 11:
-      var fmt__2 = fmt__0[2];
-      var fmt__0 = fmt__2;
+      fmt__2 = fmt__0[2];
+      fmt__0 = fmt__2;
       continue;
     case 12:
-      var fmt__3 = fmt__0[2];
-      var fmt__0 = fmt__3;
+      fmt__3 = fmt__0[2];
+      fmt__0 = fmt__3;
       continue;
     case 13:
-      var rest__15 = fmt__0[3];
-      var bY_ = make_iprintf(k__0, o, rest__15);
+      rest__15 = fmt__0[3];
+      bY_ = make_iprintf(k__0, o, rest__15);
       return function(cd_) {return const__0(bY_, cd_);};
     case 14:
-      var rest__16 = fmt__0[3];
-      var fmtty = fmt__0[2];
+      rest__16 = fmt__0[3];
+      fmtty = fmt__0[2];
       return function(param) {
         var fmt = param[1];
         var cc_ = recast(fmt, fmtty);
@@ -4242,62 +5185,64 @@ function make_iprintf__0(counter, k, o, fmt) {
         );
       };
     case 15:
-      var rest__17 = fmt__0[1];
-      var bZ_ = make_iprintf(k__0, o, rest__17);
-      var b0_ = function(cb_) {return const__0(bZ_, cb_);};
+      rest__17 = fmt__0[1];
+      bZ_ = make_iprintf(k__0, o, rest__17);
+      b0_ = function(cb_) {return const__0(bZ_, cb_);};
       return function(ca_) {return const__0(b0_, ca_);};
     case 16:
-      var rest__18 = fmt__0[1];
-      var b1_ = make_iprintf(k__0, o, rest__18);
+      rest__18 = fmt__0[1];
+      b1_ = make_iprintf(k__0, o, rest__18);
       return function(b__) {return const__0(b1_, b__);};
     case 17:
-      var fmt__4 = fmt__0[2];
-      var fmt__0 = fmt__4;
+      fmt__4 = fmt__0[2];
+      fmt__0 = fmt__4;
       continue;
     case 18:
-      var b2_ = fmt__0[1];
+      b2_ = fmt__0[1];
       if (0 === b2_[0]) {
-        var rest__19 = fmt__0[2];
-        var match = b2_[1];
-        var fmt__5 = match[1];
-        var k__3 = function(k, rest) {
+        rest__19 = fmt__0[2];
+        match = b2_[1];
+        fmt__5 = match[1];
+        k__3 =
+          function(k, rest) {
+            function k__0(koc) {return make_iprintf(k, koc, rest);}
+            return k__0;
+          };
+        k__1 = k__3(k__0, rest__19);
+        k__0 = k__1;
+        fmt__0 = fmt__5;
+        continue;
+      }
+      rest__20 = fmt__0[2];
+      match__0 = b2_[1];
+      fmt__6 = match__0[1];
+      k__4 =
+        function(k, rest) {
           function k__0(koc) {return make_iprintf(k, koc, rest);}
           return k__0;
         };
-        var k__1 = k__3(k__0, rest__19);
-        var k__0 = k__1;
-        var fmt__0 = fmt__5;
-        continue;
-      }
-      var rest__20 = fmt__0[2];
-      var match__0 = b2_[1];
-      var fmt__6 = match__0[1];
-      var k__4 = function(k, rest) {
-        function k__0(koc) {return make_iprintf(k, koc, rest);}
-        return k__0;
-      };
-      var k__2 = k__4(k__0, rest__20);
-      var k__0 = k__2;
-      var fmt__0 = fmt__6;
+      k__2 = k__4(k__0, rest__20);
+      k__0 = k__2;
+      fmt__0 = fmt__6;
       continue;
     case 19:
       throw caml_wrap_thrown_exception([0,Assert_failure,u_]);
     case 20:
-      var rest__21 = fmt__0[3];
-      var b3_ = make_iprintf(k__0, o, rest__21);
+      rest__21 = fmt__0[3];
+      b3_ = make_iprintf(k__0, o, rest__21);
       return function(b9_) {return const__0(b3_, b9_);};
     case 21:
-      var rest__22 = fmt__0[2];
-      var b4_ = make_iprintf(k__0, o, rest__22);
+      rest__22 = fmt__0[2];
+      b4_ = make_iprintf(k__0, o, rest__22);
       return function(b8_) {return const__0(b4_, b8_);};
     case 22:
-      var rest__23 = fmt__0[1];
-      var b5_ = make_iprintf(k__0, o, rest__23);
+      rest__23 = fmt__0[1];
+      b5_ = make_iprintf(k__0, o, rest__23);
       return function(b7_) {return const__0(b5_, b7_);};
     case 23:
-      var rest__24 = fmt__0[2];
-      var ign = fmt__0[1];
-      var b6_ = 0;
+      rest__24 = fmt__0[2];
+      ign = fmt__0[1];
+      b6_ = 0;
       return make_ignored_param(
         function(x, param) {return call1(k__0, x);},
         o,
@@ -4306,10 +5251,10 @@ function make_iprintf__0(counter, k, o, fmt) {
         rest__24
       );
     default:
-      var rest__25 = fmt__0[3];
-      var arity = fmt__0[1];
+      rest__25 = fmt__0[3];
+      arity = fmt__0[1];
       if (counter < 50) {
-        var counter__0 = counter + 1 | 0;
+        counter__0 = counter + 1 | 0;
         return fn_of_custom_arity__0(counter__0, k__0, o, rest__25, arity);
       }
       return caml_trampoline_return(
@@ -4320,13 +5265,16 @@ function make_iprintf__0(counter, k, o, fmt) {
 }
 
 function fn_of_custom_arity__0(counter, k, o, fmt, param) {
+  var counter__0;
+  var bF_;
+  var arity;
   if (param) {
-    var arity = param[1];
-    var bF_ = fn_of_custom_arity(k, o, fmt, arity);
+    arity = param[1];
+    bF_ = fn_of_custom_arity(k, o, fmt, arity);
     return function(bG_) {return const__0(bF_, bG_);};
   }
   if (counter < 50) {
-    var counter__0 = counter + 1 | 0;
+    counter__0 = counter + 1 | 0;
     return make_iprintf__0(counter__0, k, o, fmt);
   }
   return caml_trampoline_return(make_iprintf__0, [0,k,o,fmt]);
@@ -4341,166 +5289,215 @@ function fn_of_custom_arity(k, o, fmt, param) {
 }
 
 function output_acc(o, acc) {
+  var fmting_lit;
+  var p;
+  var s;
+  var bD_;
+  var bE_;
+  var acc__1;
+  var acc__2;
+  var s__0;
+  var p__0;
+  var c;
+  var p__1;
+  var f;
+  var p__2;
+  var p__3;
+  var msg;
+  var p__4;
   var acc__0 = acc;
   for (; ; ) if (
     typeof acc__0 === "number"
   ) return 0;
   else switch (acc__0[0]) {
     case 0:
-      var fmting_lit = acc__0[2];
-      var p = acc__0[1];
-      var s = string_of_formatting_lit(fmting_lit);
+      fmting_lit = acc__0[2];
+      p = acc__0[1];
+      s = string_of_formatting_lit(fmting_lit);
       output_acc(o, p);
       return call2(Pervasives[54], o, s);
     case 1:
-      var bD_ = acc__0[2];
-      var bE_ = acc__0[1];
+      bD_ = acc__0[2];
+      bE_ = acc__0[1];
       if (0 === bD_[0]) {
-        var acc__1 = bD_[1];
+        acc__1 = bD_[1];
         output_acc(o, bE_);
         call2(Pervasives[54], o, cst__17);
-        var acc__0 = acc__1;
+        acc__0 = acc__1;
         continue;
       }
-      var acc__2 = bD_[1];
+      acc__2 = bD_[1];
       output_acc(o, bE_);
       call2(Pervasives[54], o, cst__18);
-      var acc__0 = acc__2;
+      acc__0 = acc__2;
       continue;
     case 6:
-      var f = acc__0[2];
-      var p__2 = acc__0[1];
+      f = acc__0[2];
+      p__2 = acc__0[1];
       output_acc(o, p__2);
       return call1(f, o);
     case 7:
-      var p__3 = acc__0[1];
+      p__3 = acc__0[1];
       output_acc(o, p__3);
       return call1(Pervasives[51], o);
     case 8:
-      var msg = acc__0[2];
-      var p__4 = acc__0[1];
+      msg = acc__0[2];
+      p__4 = acc__0[1];
       output_acc(o, p__4);
       return call1(Pervasives[1], msg);
     case 2:
     case 4:
-      var s__0 = acc__0[2];
-      var p__0 = acc__0[1];
+      s__0 = acc__0[2];
+      p__0 = acc__0[1];
       output_acc(o, p__0);
       return call2(Pervasives[54], o, s__0);
     default:
-      var c = acc__0[2];
-      var p__1 = acc__0[1];
+      c = acc__0[2];
+      p__1 = acc__0[1];
       output_acc(o, p__1);
       return call2(Pervasives[53], o, c)
     }
 }
 
 function bufput_acc(b, acc) {
+  var fmting_lit;
+  var p;
+  var s;
+  var bB_;
+  var bC_;
+  var acc__1;
+  var acc__2;
+  var s__0;
+  var p__0;
+  var c;
+  var p__1;
+  var f;
+  var p__2;
+  var acc__3;
+  var msg;
+  var p__3;
   var acc__0 = acc;
   for (; ; ) if (
     typeof acc__0 === "number"
   ) return 0;
   else switch (acc__0[0]) {
     case 0:
-      var fmting_lit = acc__0[2];
-      var p = acc__0[1];
-      var s = string_of_formatting_lit(fmting_lit);
+      fmting_lit = acc__0[2];
+      p = acc__0[1];
+      s = string_of_formatting_lit(fmting_lit);
       bufput_acc(b, p);
       return call2(Buffer[14], b, s);
     case 1:
-      var bB_ = acc__0[2];
-      var bC_ = acc__0[1];
+      bB_ = acc__0[2];
+      bC_ = acc__0[1];
       if (0 === bB_[0]) {
-        var acc__1 = bB_[1];
+        acc__1 = bB_[1];
         bufput_acc(b, bC_);
         call2(Buffer[14], b, cst__19);
-        var acc__0 = acc__1;
+        acc__0 = acc__1;
         continue;
       }
-      var acc__2 = bB_[1];
+      acc__2 = bB_[1];
       bufput_acc(b, bC_);
       call2(Buffer[14], b, cst__20);
-      var acc__0 = acc__2;
+      acc__0 = acc__2;
       continue;
     case 6:
-      var f = acc__0[2];
-      var p__2 = acc__0[1];
+      f = acc__0[2];
+      p__2 = acc__0[1];
       bufput_acc(b, p__2);
       return call1(f, b);
     case 7:
-      var acc__3 = acc__0[1];
-      var acc__0 = acc__3;
+      acc__3 = acc__0[1];
+      acc__0 = acc__3;
       continue;
     case 8:
-      var msg = acc__0[2];
-      var p__3 = acc__0[1];
+      msg = acc__0[2];
+      p__3 = acc__0[1];
       bufput_acc(b, p__3);
       return call1(Pervasives[1], msg);
     case 2:
     case 4:
-      var s__0 = acc__0[2];
-      var p__0 = acc__0[1];
+      s__0 = acc__0[2];
+      p__0 = acc__0[1];
       bufput_acc(b, p__0);
       return call2(Buffer[14], b, s__0);
     default:
-      var c = acc__0[2];
-      var p__1 = acc__0[1];
+      c = acc__0[2];
+      p__1 = acc__0[1];
       bufput_acc(b, p__1);
       return call2(Buffer[10], b, c)
     }
 }
 
 function strput_acc(b, acc) {
+  var fmting_lit;
+  var p;
+  var s;
+  var by_;
+  var bz_;
+  var acc__1;
+  var acc__2;
+  var s__0;
+  var p__0;
+  var c;
+  var p__1;
+  var f;
+  var p__2;
+  var bA_;
+  var acc__3;
+  var msg;
+  var p__3;
   var acc__0 = acc;
   for (; ; ) if (
     typeof acc__0 === "number"
   ) return 0;
   else switch (acc__0[0]) {
     case 0:
-      var fmting_lit = acc__0[2];
-      var p = acc__0[1];
-      var s = string_of_formatting_lit(fmting_lit);
+      fmting_lit = acc__0[2];
+      p = acc__0[1];
+      s = string_of_formatting_lit(fmting_lit);
       strput_acc(b, p);
       return call2(Buffer[14], b, s);
     case 1:
-      var by_ = acc__0[2];
-      var bz_ = acc__0[1];
+      by_ = acc__0[2];
+      bz_ = acc__0[1];
       if (0 === by_[0]) {
-        var acc__1 = by_[1];
+        acc__1 = by_[1];
         strput_acc(b, bz_);
         call2(Buffer[14], b, cst__21);
-        var acc__0 = acc__1;
+        acc__0 = acc__1;
         continue;
       }
-      var acc__2 = by_[1];
+      acc__2 = by_[1];
       strput_acc(b, bz_);
       call2(Buffer[14], b, cst__22);
-      var acc__0 = acc__2;
+      acc__0 = acc__2;
       continue;
     case 6:
-      var f = acc__0[2];
-      var p__2 = acc__0[1];
+      f = acc__0[2];
+      p__2 = acc__0[1];
       strput_acc(b, p__2);
-      var bA_ = call1(f, 0);
+      bA_ = call1(f, 0);
       return call2(Buffer[14], b, bA_);
     case 7:
-      var acc__3 = acc__0[1];
-      var acc__0 = acc__3;
+      acc__3 = acc__0[1];
+      acc__0 = acc__3;
       continue;
     case 8:
-      var msg = acc__0[2];
-      var p__3 = acc__0[1];
+      msg = acc__0[2];
+      p__3 = acc__0[1];
       strput_acc(b, p__3);
       return call1(Pervasives[1], msg);
     case 2:
     case 4:
-      var s__0 = acc__0[2];
-      var p__0 = acc__0[1];
+      s__0 = acc__0[2];
+      p__0 = acc__0[1];
       strput_acc(b, p__0);
       return call2(Buffer[14], b, s__0);
     default:
-      var c = acc__0[2];
-      var p__1 = acc__0[1];
+      c = acc__0[2];
+      p__1 = acc__0[1];
       strput_acc(b, p__1);
       return call2(Buffer[10], b, c)
     }
@@ -4518,39 +5515,52 @@ function failwith_message(param) {
 }
 
 function open_box_of_string(str) {
+  var switch__0;
+  var bv_;
+  var bu_;
+  var box_type;
+  var indent;
   if (runtime["caml_string_equal"](str, cst__23)) {return v_;}
   var len = caml_ml_string_length(str);
   function invalid_box(param) {return call1(failwith_message(w_), str);}
   function parse_spaces(i) {
+    var match;
+    var i__1;
     var i__0 = i;
     for (; ; ) {
       if (i__0 === len) {return i__0;}
-      var match = caml_string_get(str, i__0);
+      match = caml_string_get(str, i__0);
       if (9 !== match) {if (32 !== match) {return i__0;}}
-      var i__1 = i__0 + 1 | 0;
-      var i__0 = i__1;
+      i__1 = i__0 + 1 | 0;
+      i__0 = i__1;
       continue;
     }
   }
   function parse_lword(i, j) {
+    var match;
+    var switcher;
+    var j__1;
     var j__0 = j;
     for (; ; ) {
       if (j__0 === len) {return j__0;}
-      var match = caml_string_get(str, j__0);
-      var switcher = match + -97 | 0;
+      match = caml_string_get(str, j__0);
+      switcher = match + -97 | 0;
       if (25 < switcher >>> 0) {return j__0;}
-      var j__1 = j__0 + 1 | 0;
-      var j__0 = j__1;
+      j__1 = j__0 + 1 | 0;
+      j__0 = j__1;
       continue;
     }
   }
   function parse_int(i, j) {
+    var match;
+    var j__1;
+    var switch__0;
     var j__0 = j;
     for (; ; ) {
       if (j__0 === len) {return j__0;}
-      var match = caml_string_get(str, j__0);
-      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
-      if (switch__0) {var j__1 = j__0 + 1 | 0;var j__0 = j__1;continue;}
+      match = caml_string_get(str, j__0);
+      switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
+      if (switch__0) {j__1 = j__0 + 1 | 0;j__0 = j__1;continue;}
       return j__0;
     }
   }
@@ -4559,41 +5569,42 @@ function open_box_of_string(str) {
   var box_name = call3(String[4], str, wstart, wend - wstart | 0);
   var nstart = parse_spaces(wend);
   var nend = parse_int(nstart, nstart);
-  if (nstart === nend) var indent = 0;
+  if (nstart === nend) indent = 0;
   else try {
-    var bv_ = runtime["caml_int_of_string"](
-      call3(String[4], str, nstart, nend - nstart | 0)
-    );
-    var indent = bv_;
+    bv_ =
+      runtime["caml_int_of_string"](
+        call3(String[4], str, nstart, nend - nstart | 0)
+      );
+    indent = bv_;
   }
   catch(bw_) {
     bw_ = runtime["caml_wrap_exception"](bw_);
     if (bw_[1] !== Failure) {throw caml_wrap_thrown_exception_reraise(bw_);}
-    var bu_ = invalid_box(0);
-    var indent = bu_;
+    bu_ = invalid_box(0);
+    indent = bu_;
   }
   var exp_end = parse_spaces(nend);
   if (exp_end !== len) {invalid_box(0);}
   if (caml_string_notequal(box_name, cst__24)) if (caml_string_notequal(box_name, cst_b)) if (caml_string_notequal(box_name, cst_h)) if (caml_string_notequal(box_name, cst_hov)
-  ) if (caml_string_notequal(box_name, cst_hv)) if (caml_string_notequal(box_name, cst_v)) {
-    var box_type = invalid_box(0);
-    var switch__0 = 1;
-  }
-  else {var box_type = 1;var switch__0 = 1;}
-  else {var box_type = 2;var switch__0 = 1;}
-  else {var box_type = 3;var switch__0 = 1;}
-  else {var box_type = 0;var switch__0 = 1;}
-  else var switch__0 = 0;
-  else var switch__0 = 0;
-  if (! switch__0) {var box_type = 4;}
+  ) if (caml_string_notequal(box_name, cst_hv)) if (caml_string_notequal(box_name, cst_v)) {box_type = invalid_box(0);switch__0 = 1;}
+  else {box_type = 1;switch__0 = 1;}
+  else {box_type = 2;switch__0 = 1;}
+  else {box_type = 3;switch__0 = 1;}
+  else {box_type = 0;switch__0 = 1;}
+  else switch__0 = 0;
+  else switch__0 = 0;
+  if (! switch__0) {box_type = 4;}
   return [0,indent,box_type];
 }
 
 function make_padding_fmt_ebb(pad, fmt) {
+  var s__0;
+  var s;
+  var w;
   if (typeof pad === "number") return [0,0,fmt];
   else {
-    if (0 === pad[0]) {var w = pad[2];var s = pad[1];return [0,[0,s,w],fmt];}
-    var s__0 = pad[1];
+    if (0 === pad[0]) {w = pad[2];s = pad[1];return [0,[0,s,w],fmt];}
+    s__0 = pad[1];
     return [0,[1,s__0],fmt];
   }
 }
@@ -4605,27 +5616,32 @@ function make_precision_fmt_ebb(prec, fmt) {
 }
 
 function make_padprec_fmt_ebb(pad, prec, fmt) {
+  var w;
+  var s;
+  var s__0;
   var match = make_precision_fmt_ebb(prec, fmt);
   var fmt__0 = match[2];
   var prec__0 = match[1];
   if (typeof pad === "number") return [0,0,prec__0,fmt__0];
   else {
     if (0 === pad[0]) {
-      var w = pad[2];
-      var s = pad[1];
+      w = pad[2];
+      s = pad[1];
       return [0,[0,s,w],prec__0,fmt__0];
     }
-    var s__0 = pad[1];
+    s__0 = pad[1];
     return [0,[1,s__0],prec__0,fmt__0];
   }
 }
 
 function fmt_ebb_of_string(legacy_behavior, str) {
+  var legacy_behavior__0;
+  var flag;
   if (legacy_behavior) {
-    var flag = legacy_behavior[1];
-    var legacy_behavior__0 = flag;
+    flag = legacy_behavior[1];
+    legacy_behavior__0 = flag;
   }
-  else var legacy_behavior__0 = 1;
+  else legacy_behavior__0 = 1;
   function invalid_format_message(str_ind, msg) {
     return call3(failwith_message(x_), str, str_ind, msg);
   }
@@ -4653,24 +5669,30 @@ function fmt_ebb_of_string(legacy_behavior, str) {
        [0,[11,call3(String[4], str, lit_start, size),fmt]];
   }
   function parse_literal(lit_start, str_ind, end_ind) {
+    var match;
+    var match__0;
+    var fmt_rest;
+    var match__1;
+    var fmt_rest__0;
+    var str_ind__1;
     var str_ind__0 = str_ind;
     for (; ; ) {
       if (str_ind__0 === end_ind) {
         return add_literal(lit_start, str_ind__0, 0);
       }
-      var match = caml_string_get(str, str_ind__0);
+      match = caml_string_get(str, str_ind__0);
       if (37 === match) {
-        var match__0 = parse_format(str_ind__0, end_ind);
-        var fmt_rest = match__0[1];
+        match__0 = parse_format(str_ind__0, end_ind);
+        fmt_rest = match__0[1];
         return add_literal(lit_start, str_ind__0, fmt_rest);
       }
       if (64 === match) {
-        var match__1 = parse_after_at(str_ind__0 + 1 | 0, end_ind);
-        var fmt_rest__0 = match__1[1];
+        match__1 = parse_after_at(str_ind__0 + 1 | 0, end_ind);
+        fmt_rest__0 = match__1[1];
         return add_literal(lit_start, str_ind__0, fmt_rest__0);
       }
-      var str_ind__1 = str_ind__0 + 1 | 0;
-      var str_ind__0 = str_ind__1;
+      str_ind__1 = str_ind__0 + 1 | 0;
+      str_ind__0 = str_ind__1;
       continue;
     }
   }
@@ -4689,47 +5711,55 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     var bp_ = 0;
     var bq_ = 0;
     function set_flag(str_ind, flag) {
+      var bt_;
       var br_ = flag[1];
       var bs_ = br_ ? 1 - legacy_behavior__0 : br_;
       if (bs_) {
-        var bt_ = caml_string_get(str, str_ind);
+        bt_ = caml_string_get(str, str_ind);
         call3(failwith_message(A_), str, str_ind, bt_);
       }
       flag[1] = 1;
       return 0;
     }
     function read_flags(str_ind) {
+      var match;
+      var switcher;
+      var str_ind__1;
+      var str_ind__2;
+      var str_ind__3;
+      var str_ind__4;
+      var str_ind__5;
       var str_ind__0 = str_ind;
       for (; ; ) {
         if (str_ind__0 === end_ind) {unexpected_end_of_format(end_ind);}
-        var match = caml_string_get(str, str_ind__0);
-        var switcher = match + -32 | 0;
+        match = caml_string_get(str, str_ind__0);
+        switcher = match + -32 | 0;
         if (! (16 < switcher >>> 0)) {
           switch (switcher) {
             case 0:
               set_flag(str_ind__0, space);
-              var str_ind__1 = str_ind__0 + 1 | 0;
-              var str_ind__0 = str_ind__1;
+              str_ind__1 = str_ind__0 + 1 | 0;
+              str_ind__0 = str_ind__1;
               continue;
             case 3:
               set_flag(str_ind__0, hash);
-              var str_ind__2 = str_ind__0 + 1 | 0;
-              var str_ind__0 = str_ind__2;
+              str_ind__2 = str_ind__0 + 1 | 0;
+              str_ind__0 = str_ind__2;
               continue;
             case 11:
               set_flag(str_ind__0, plus);
-              var str_ind__3 = str_ind__0 + 1 | 0;
-              var str_ind__0 = str_ind__3;
+              str_ind__3 = str_ind__0 + 1 | 0;
+              str_ind__0 = str_ind__3;
               continue;
             case 13:
               set_flag(str_ind__0, minus);
-              var str_ind__4 = str_ind__0 + 1 | 0;
-              var str_ind__0 = str_ind__4;
+              str_ind__4 = str_ind__0 + 1 | 0;
+              str_ind__0 = str_ind__4;
               continue;
             case 16:
               set_flag(str_ind__0, zero);
-              var str_ind__5 = str_ind__0 + 1 | 0;
-              var str_ind__0 = str_ind__5;
+              str_ind__5 = str_ind__0 + 1 | 0;
+              str_ind__0 = str_ind__5;
               continue
             }
         }
@@ -4759,6 +5789,168 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     return parse_ign(pct_ind, pct_ind + 1 | 0, end_ind);
   }
   function parse_conversion(pct_ind, str_ind, end_ind, plus, hash, space, ign, pad, prec, padprec, symb) {
+    var fmt_result;
+    var aE_;
+    var plus__0;
+    var aF_;
+    var hash__0;
+    var aG_;
+    var space__0;
+    var aH_;
+    var aI_;
+    var aJ_;
+    var aK_;
+    var aL_;
+    var plus__1;
+    var switcher;
+    var aN_;
+    var aO_;
+    var aP_;
+    var iconv;
+    var match;
+    var fmt_rest;
+    var ignored;
+    var aQ_;
+    var aR_;
+    var aS_;
+    var match__0;
+    var fmt_rest__0;
+    var prec__0;
+    var pad__0;
+    var aT_;
+    var aU_;
+    var aV_;
+    var iconv__0;
+    var match__1;
+    var fmt_rest__1;
+    var ignored__0;
+    var aW_;
+    var aX_;
+    var match__2;
+    var fmt_rest__2;
+    var prec__1;
+    var pad__1;
+    var aY_;
+    var aZ_;
+    var a0_;
+    var iconv__1;
+    var match__3;
+    var fmt_rest__3;
+    var ignored__1;
+    var a1_;
+    var a2_;
+    var match__4;
+    var fmt_rest__4;
+    var prec__2;
+    var pad__2;
+    var match__5;
+    var fmt_rest__5;
+    var match__6;
+    var fmt_rest__6;
+    var sub_end;
+    var match__7;
+    var fmt_rest__7;
+    var match__8;
+    var sub_fmt;
+    var sub_fmtty;
+    var ignored__2;
+    var a3_;
+    var pad__3;
+    var match__9;
+    var fmt_rest__8;
+    var ignored__3;
+    var a4_;
+    var match__10;
+    var fmt_rest__9;
+    var pad__4;
+    var match__11;
+    var fmt_rest__10;
+    var a5_;
+    var a6_;
+    var fconv;
+    var match__12;
+    var fmt_rest__11;
+    var a7_;
+    var ignored__4;
+    var a8_;
+    var a9_;
+    var match__13;
+    var fmt_rest__12;
+    var prec__3;
+    var pad__5;
+    var match__14;
+    var fmt_rest__13;
+    var counter;
+    var ignored__5;
+    var a__;
+    var match__15;
+    var fmt_rest__14;
+    var counter__0;
+    var ignored__6;
+    var ba_;
+    var pad__6;
+    var match__16;
+    var fmt_rest__15;
+    var ignored__7;
+    var bb_;
+    var match__17;
+    var fmt_rest__16;
+    var pad__7;
+    var bc_;
+    var bd_;
+    var iconv__2;
+    var match__18;
+    var fmt_rest__17;
+    var ignored__8;
+    var be_;
+    var bf_;
+    var match__19;
+    var fmt_rest__18;
+    var prec__4;
+    var pad__8;
+    var match__20;
+    var char_set;
+    var next_ind;
+    var match__21;
+    var fmt_rest__19;
+    var ignored__9;
+    var bg_;
+    var match__22;
+    var fmt_rest__20;
+    var char_format;
+    var scan_format;
+    var match__23;
+    var fmt_rest__21;
+    var match__24;
+    var bh_;
+    var bi_;
+    var match__25;
+    var fmt_rest__22;
+    var bj_;
+    var pad__9;
+    var match__26;
+    var fmt_rest__23;
+    var ignored__10;
+    var bk_;
+    var match__27;
+    var fmt_rest__24;
+    var pad__10;
+    var match__28;
+    var fmt_rest__25;
+    var sub_end__0;
+    var match__29;
+    var sub_fmt__0;
+    var match__30;
+    var fmt_rest__26;
+    var sub_fmtty__0;
+    var ignored__11;
+    var bl_;
+    var switch__0;
+    var switch__1;
+    var switch__2;
+    var switch__3;
+    var switch__4;
+    var switch__5;
     var plus_used = [0,0];
     var hash_used = [0,0];
     var space_used = [0,0];
@@ -4773,6 +5965,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     function get_prec(param) {prec_used[1] = 1;return prec;}
     function get_padprec(param) {pad_used[1] = 1;return padprec;}
     function get_int_pad(param) {
+      var n;
       var pad = get_pad(0);
       var match = get_prec(0);
       if (typeof match === "number") {if (0 === match) {return pad;}}
@@ -4780,7 +5973,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       else {
         if (0 === pad[0]) {
           if (2 <= pad[1]) {
-            var n = pad[2];
+            n = pad[2];
             return legacy_behavior__0 ?
               [0,1,n] :
               incompatible_flag(pct_ind, str_ind, 48, cst_precision__0);
@@ -4795,11 +5988,12 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       }
     }
     function check_no_0(symb, pad) {
+      var width;
       if (typeof pad === "number") return pad;
       else {
         if (0 === pad[0]) {
           if (2 <= pad[1]) {
-            var width = pad[2];
+            width = pad[2];
             return legacy_behavior__0 ?
               [0,1,width] :
               incompatible_flag(pct_ind, str_ind, symb, cst_0__0);
@@ -4814,20 +6008,23 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       }
     }
     function opt_of_pad(c, pad) {
+      var width__1;
+      var width__0;
+      var width;
       if (typeof pad === "number") return 0;
       else {
         if (0 === pad[0]) {
           switch (pad[1]) {
             case 0:
-              var width = pad[2];
+              width = pad[2];
               return legacy_behavior__0 ?
                 [0,width] :
                 incompatible_flag(pct_ind, str_ind, c, cst__25);
             case 1:
-              var width__0 = pad[2];
+              width__0 = pad[2];
               return [0,width__0];
             default:
-              var width__1 = pad[2];
+              width__1 = pad[2];
               return legacy_behavior__0 ?
                 [0,width__1] :
                 incompatible_flag(pct_ind, str_ind, c, cst_0__2)
@@ -4848,198 +6045,201 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       var ndec = match[1];
       return [0,ndec];
     }
-    if (124 <= symb) var switch__0 = 0;
+    if (124 <= symb) switch__0 = 0;
     else switch (symb) {
       case 33:
-        var match__5 = parse(str_ind, end_ind);
-        var fmt_rest__5 = match__5[1];
-        var fmt_result = [0,[10,fmt_rest__5]];
-        var switch__0 = 1;
+        match__5 = parse(str_ind, end_ind);
+        fmt_rest__5 = match__5[1];
+        fmt_result = [0,[10,fmt_rest__5]];
+        switch__0 = 1;
         break;
       case 40:
-        var sub_end = search_subformat_end(str_ind, end_ind, 41);
-        var match__7 = parse(sub_end + 2 | 0, end_ind);
-        var fmt_rest__7 = match__7[1];
-        var match__8 = parse(str_ind, sub_end);
-        var sub_fmt = match__8[1];
-        var sub_fmtty = fmtty_of_fmt(sub_fmt);
+        sub_end = search_subformat_end(str_ind, end_ind, 41);
+        match__7 = parse(sub_end + 2 | 0, end_ind);
+        fmt_rest__7 = match__7[1];
+        match__8 = parse(str_ind, sub_end);
+        sub_fmt = match__8[1];
+        sub_fmtty = fmtty_of_fmt(sub_fmt);
         if (get_ign(0)) {
-          var ignored__2 = [9,get_pad_opt(95),sub_fmtty];
-          var a3_ = [0,[23,ignored__2,fmt_rest__7]];
+          ignored__2 = [9,get_pad_opt(95),sub_fmtty];
+          a3_ = [0,[23,ignored__2,fmt_rest__7]];
         }
-        else var a3_ = [0,[14,get_pad_opt(40),sub_fmtty,fmt_rest__7]];
-        var fmt_result = a3_;
-        var switch__0 = 1;
+        else a3_ = [0,[14,get_pad_opt(40),sub_fmtty,fmt_rest__7]];
+        fmt_result = a3_;
+        switch__0 = 1;
         break;
       case 44:
-        var fmt_result = parse(str_ind, end_ind);
-        var switch__0 = 1;
+        fmt_result = parse(str_ind, end_ind);
+        switch__0 = 1;
         break;
       case 67:
-        var match__11 = parse(str_ind, end_ind);
-        var fmt_rest__10 = match__11[1];
-        var a5_ = get_ign(0) ? [0,[23,1,fmt_rest__10]] : [0,[1,fmt_rest__10]];
-        var fmt_result = a5_;
-        var switch__0 = 1;
+        match__11 = parse(str_ind, end_ind);
+        fmt_rest__10 = match__11[1];
+        a5_ = get_ign(0) ? [0,[23,1,fmt_rest__10]] : [0,[1,fmt_rest__10]];
+        fmt_result = a5_;
+        switch__0 = 1;
         break;
       case 78:
-        var match__15 = parse(str_ind, end_ind);
-        var fmt_rest__14 = match__15[1];
-        var counter__0 = 2;
+        match__15 = parse(str_ind, end_ind);
+        fmt_rest__14 = match__15[1];
+        counter__0 = 2;
         if (get_ign(0)) {
-          var ignored__6 = [11,counter__0];
-          var ba_ = [0,[23,ignored__6,fmt_rest__14]];
+          ignored__6 = [11,counter__0];
+          ba_ = [0,[23,ignored__6,fmt_rest__14]];
         }
-        else var ba_ = [0,[21,counter__0,fmt_rest__14]];
-        var fmt_result = ba_;
-        var switch__0 = 1;
+        else ba_ = [0,[21,counter__0,fmt_rest__14]];
+        fmt_result = ba_;
+        switch__0 = 1;
         break;
       case 83:
-        var pad__6 = check_no_0(symb, get_padprec(0));
-        var match__16 = parse(str_ind, end_ind);
-        var fmt_rest__15 = match__16[1];
+        pad__6 = check_no_0(symb, get_padprec(0));
+        match__16 = parse(str_ind, end_ind);
+        fmt_rest__15 = match__16[1];
         if (get_ign(0)) {
-          var ignored__7 = [1,get_padprec_opt(95)];
-          var bb_ = [0,[23,ignored__7,fmt_rest__15]];
+          ignored__7 = [1,get_padprec_opt(95)];
+          bb_ = [0,[23,ignored__7,fmt_rest__15]];
         }
         else {
-          var match__17 = make_padding_fmt_ebb(pad__6, fmt_rest__15);
-          var fmt_rest__16 = match__17[2];
-          var pad__7 = match__17[1];
-          var bb_ = [0,[3,pad__7,fmt_rest__16]];
+          match__17 = make_padding_fmt_ebb(pad__6, fmt_rest__15);
+          fmt_rest__16 = match__17[2];
+          pad__7 = match__17[1];
+          bb_ = [0,[3,pad__7,fmt_rest__16]];
         }
-        var fmt_result = bb_;
-        var switch__0 = 1;
+        fmt_result = bb_;
+        switch__0 = 1;
         break;
       case 91:
-        var match__20 = parse_char_set(str_ind, end_ind);
-        var char_set = match__20[2];
-        var next_ind = match__20[1];
-        var match__21 = parse(next_ind, end_ind);
-        var fmt_rest__19 = match__21[1];
+        match__20 = parse_char_set(str_ind, end_ind);
+        char_set = match__20[2];
+        next_ind = match__20[1];
+        match__21 = parse(next_ind, end_ind);
+        fmt_rest__19 = match__21[1];
         if (get_ign(0)) {
-          var ignored__9 = [10,get_pad_opt(95),char_set];
-          var bg_ = [0,[23,ignored__9,fmt_rest__19]];
+          ignored__9 = [10,get_pad_opt(95),char_set];
+          bg_ = [0,[23,ignored__9,fmt_rest__19]];
         }
-        else var bg_ = [0,[20,get_pad_opt(91),char_set,fmt_rest__19]];
-        var fmt_result = bg_;
-        var switch__0 = 1;
+        else bg_ = [0,[20,get_pad_opt(91),char_set,fmt_rest__19]];
+        fmt_result = bg_;
+        switch__0 = 1;
         break;
       case 97:
-        var match__22 = parse(str_ind, end_ind);
-        var fmt_rest__20 = match__22[1];
-        var fmt_result = [0,[15,fmt_rest__20]];
-        var switch__0 = 1;
+        match__22 = parse(str_ind, end_ind);
+        fmt_rest__20 = match__22[1];
+        fmt_result = [0,[15,fmt_rest__20]];
+        switch__0 = 1;
         break;
       case 99:
-        var char_format = function(fmt_rest) {
-          return get_ign(0) ? [0,[23,0,fmt_rest]] : [0,[0,fmt_rest]];
-        };
-        var scan_format = function(fmt_rest) {
-          return get_ign(0) ? [0,[23,3,fmt_rest]] : [0,[22,fmt_rest]];
-        };
-        var match__23 = parse(str_ind, end_ind);
-        var fmt_rest__21 = match__23[1];
-        var match__24 = get_pad_opt(99);
+        char_format =
+          function(fmt_rest) {
+            return get_ign(0) ? [0,[23,0,fmt_rest]] : [0,[0,fmt_rest]];
+          };
+        scan_format =
+          function(fmt_rest) {
+            return get_ign(0) ? [0,[23,3,fmt_rest]] : [0,[22,fmt_rest]];
+          };
+        match__23 = parse(str_ind, end_ind);
+        fmt_rest__21 = match__23[1];
+        match__24 = get_pad_opt(99);
         if (match__24) {
-          var bh_ = 0 === match__24[1] ?
-            scan_format(fmt_rest__21) :
-            legacy_behavior__0 ?
-             char_format(fmt_rest__21) :
-             invalid_nonnull_char_width(str_ind);
-          var bi_ = bh_;
+          bh_ =
+            0 === match__24[1] ?
+              scan_format(fmt_rest__21) :
+              legacy_behavior__0 ?
+               char_format(fmt_rest__21) :
+               invalid_nonnull_char_width(str_ind);
+          bi_ = bh_;
         }
-        else var bi_ = char_format(fmt_rest__21);
-        var fmt_result = bi_;
-        var switch__0 = 1;
+        else bi_ = char_format(fmt_rest__21);
+        fmt_result = bi_;
+        switch__0 = 1;
         break;
       case 114:
-        var match__25 = parse(str_ind, end_ind);
-        var fmt_rest__22 = match__25[1];
-        var bj_ = get_ign(0) ? [0,[23,2,fmt_rest__22]] : [0,[19,fmt_rest__22]];
-        var fmt_result = bj_;
-        var switch__0 = 1;
+        match__25 = parse(str_ind, end_ind);
+        fmt_rest__22 = match__25[1];
+        bj_ = get_ign(0) ? [0,[23,2,fmt_rest__22]] : [0,[19,fmt_rest__22]];
+        fmt_result = bj_;
+        switch__0 = 1;
         break;
       case 115:
-        var pad__9 = check_no_0(symb, get_padprec(0));
-        var match__26 = parse(str_ind, end_ind);
-        var fmt_rest__23 = match__26[1];
+        pad__9 = check_no_0(symb, get_padprec(0));
+        match__26 = parse(str_ind, end_ind);
+        fmt_rest__23 = match__26[1];
         if (get_ign(0)) {
-          var ignored__10 = [0,get_padprec_opt(95)];
-          var bk_ = [0,[23,ignored__10,fmt_rest__23]];
+          ignored__10 = [0,get_padprec_opt(95)];
+          bk_ = [0,[23,ignored__10,fmt_rest__23]];
         }
         else {
-          var match__27 = make_padding_fmt_ebb(pad__9, fmt_rest__23);
-          var fmt_rest__24 = match__27[2];
-          var pad__10 = match__27[1];
-          var bk_ = [0,[2,pad__10,fmt_rest__24]];
+          match__27 = make_padding_fmt_ebb(pad__9, fmt_rest__23);
+          fmt_rest__24 = match__27[2];
+          pad__10 = match__27[1];
+          bk_ = [0,[2,pad__10,fmt_rest__24]];
         }
-        var fmt_result = bk_;
-        var switch__0 = 1;
+        fmt_result = bk_;
+        switch__0 = 1;
         break;
       case 116:
-        var match__28 = parse(str_ind, end_ind);
-        var fmt_rest__25 = match__28[1];
-        var fmt_result = [0,[16,fmt_rest__25]];
-        var switch__0 = 1;
+        match__28 = parse(str_ind, end_ind);
+        fmt_rest__25 = match__28[1];
+        fmt_result = [0,[16,fmt_rest__25]];
+        switch__0 = 1;
         break;
       case 123:
-        var sub_end__0 = search_subformat_end(str_ind, end_ind, 125);
-        var match__29 = parse(str_ind, sub_end__0);
-        var sub_fmt__0 = match__29[1];
-        var match__30 = parse(sub_end__0 + 2 | 0, end_ind);
-        var fmt_rest__26 = match__30[1];
-        var sub_fmtty__0 = fmtty_of_fmt(sub_fmt__0);
+        sub_end__0 = search_subformat_end(str_ind, end_ind, 125);
+        match__29 = parse(str_ind, sub_end__0);
+        sub_fmt__0 = match__29[1];
+        match__30 = parse(sub_end__0 + 2 | 0, end_ind);
+        fmt_rest__26 = match__30[1];
+        sub_fmtty__0 = fmtty_of_fmt(sub_fmt__0);
         if (get_ign(0)) {
-          var ignored__11 = [8,get_pad_opt(95),sub_fmtty__0];
-          var bl_ = [0,[23,ignored__11,fmt_rest__26]];
+          ignored__11 = [8,get_pad_opt(95),sub_fmtty__0];
+          bl_ = [0,[23,ignored__11,fmt_rest__26]];
         }
-        else var bl_ = [0,[13,get_pad_opt(123),sub_fmtty__0,fmt_rest__26]];
-        var fmt_result = bl_;
-        var switch__0 = 1;
+        else bl_ = [0,[13,get_pad_opt(123),sub_fmtty__0,fmt_rest__26]];
+        fmt_result = bl_;
+        switch__0 = 1;
         break;
       case 66:
       case 98:
-        var pad__3 = check_no_0(symb, get_padprec(0));
-        var match__9 = parse(str_ind, end_ind);
-        var fmt_rest__8 = match__9[1];
+        pad__3 = check_no_0(symb, get_padprec(0));
+        match__9 = parse(str_ind, end_ind);
+        fmt_rest__8 = match__9[1];
         if (get_ign(0)) {
-          var ignored__3 = [7,get_padprec_opt(95)];
-          var a4_ = [0,[23,ignored__3,fmt_rest__8]];
+          ignored__3 = [7,get_padprec_opt(95)];
+          a4_ = [0,[23,ignored__3,fmt_rest__8]];
         }
         else {
-          var match__10 = make_padding_fmt_ebb(pad__3, fmt_rest__8);
-          var fmt_rest__9 = match__10[2];
-          var pad__4 = match__10[1];
-          var a4_ = [0,[9,pad__4,fmt_rest__9]];
+          match__10 = make_padding_fmt_ebb(pad__3, fmt_rest__8);
+          fmt_rest__9 = match__10[2];
+          pad__4 = match__10[1];
+          a4_ = [0,[9,pad__4,fmt_rest__9]];
         }
-        var fmt_result = a4_;
-        var switch__0 = 1;
+        fmt_result = a4_;
+        switch__0 = 1;
         break;
       case 37:
       case 64:
-        var match__6 = parse(str_ind, end_ind);
-        var fmt_rest__6 = match__6[1];
-        var fmt_result = [0,[12,symb,fmt_rest__6]];
-        var switch__0 = 1;
+        match__6 = parse(str_ind, end_ind);
+        fmt_rest__6 = match__6[1];
+        fmt_result = [0,[12,symb,fmt_rest__6]];
+        switch__0 = 1;
         break;
       case 76:
       case 108:
       case 110:
-        if (str_ind === end_ind) var switch__1 = 1;
-        else if (is_int_base(caml_string_get(str, str_ind))) {var switch__0 = 0;var switch__1 = 0;}
-        else var switch__1 = 1;
+        if (str_ind === end_ind) switch__1 = 1;
+        else if (is_int_base(caml_string_get(str, str_ind))) {switch__0 = 0;switch__1 = 0;}
+        else switch__1 = 1;
         if (switch__1) {
-          var match__14 = parse(str_ind, end_ind);
-          var fmt_rest__13 = match__14[1];
-          var counter = counter_of_char(symb);
+          match__14 = parse(str_ind, end_ind);
+          fmt_rest__13 = match__14[1];
+          counter = counter_of_char(symb);
           if (get_ign(0)) {
-            var ignored__5 = [11,counter];
-            var a__ = [0,[23,ignored__5,fmt_rest__13]];
+            ignored__5 = [11,counter];
+            a__ = [0,[23,ignored__5,fmt_rest__13]];
           }
-          else var a__ = [0,[21,counter,fmt_rest__13]];
-          var fmt_result = a__;
-          var switch__0 = 1;
+          else a__ = [0,[21,counter,fmt_rest__13]];
+          fmt_result = a__;
+          switch__0 = 1;
         }
         break;
       case 32:
@@ -5047,8 +6247,8 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       case 43:
       case 45:
       case 95:
-        var fmt_result = call3(failwith_message(K_), str, pct_ind, symb);
-        var switch__0 = 1;
+        fmt_result = call3(failwith_message(K_), str, pct_ind, symb);
+        switch__0 = 1;
         break;
       case 88:
       case 100:
@@ -5056,36 +6256,26 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       case 111:
       case 117:
       case 120:
-        var bc_ = get_space(0);
-        var bd_ = get_hash(0);
-        var iconv__2 = compute_int_conv(
-          pct_ind,
-          str_ind,
-          get_plus(0),
-          bd_,
-          bc_,
-          symb
-        );
-        var match__18 = parse(str_ind, end_ind);
-        var fmt_rest__17 = match__18[1];
+        bc_ = get_space(0);
+        bd_ = get_hash(0);
+        iconv__2 =
+          compute_int_conv(pct_ind, str_ind, get_plus(0), bd_, bc_, symb);
+        match__18 = parse(str_ind, end_ind);
+        fmt_rest__17 = match__18[1];
         if (get_ign(0)) {
-          var ignored__8 = [2,iconv__2,get_pad_opt(95)];
-          var be_ = [0,[23,ignored__8,fmt_rest__17]];
+          ignored__8 = [2,iconv__2,get_pad_opt(95)];
+          be_ = [0,[23,ignored__8,fmt_rest__17]];
         }
         else {
-          var bf_ = get_prec(0);
-          var match__19 = make_padprec_fmt_ebb(
-            get_int_pad(0),
-            bf_,
-            fmt_rest__17
-          );
-          var fmt_rest__18 = match__19[3];
-          var prec__4 = match__19[2];
-          var pad__8 = match__19[1];
-          var be_ = [0,[4,iconv__2,pad__8,prec__4,fmt_rest__18]];
+          bf_ = get_prec(0);
+          match__19 = make_padprec_fmt_ebb(get_int_pad(0), bf_, fmt_rest__17);
+          fmt_rest__18 = match__19[3];
+          prec__4 = match__19[2];
+          pad__8 = match__19[1];
+          be_ = [0,[4,iconv__2,pad__8,prec__4,fmt_rest__18]];
         }
-        var fmt_result = be_;
-        var switch__0 = 1;
+        fmt_result = be_;
+        switch__0 = 1;
         break;
       case 69:
       case 70:
@@ -5095,186 +6285,173 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       case 102:
       case 103:
       case 104:
-        var a6_ = get_space(0);
-        var fconv = compute_float_conv(
-          pct_ind,
-          str_ind,
-          get_plus(0),
-          a6_,
-          symb
-        );
-        var match__12 = parse(str_ind, end_ind);
-        var fmt_rest__11 = match__12[1];
+        a6_ = get_space(0);
+        fconv = compute_float_conv(pct_ind, str_ind, get_plus(0), a6_, symb);
+        match__12 = parse(str_ind, end_ind);
+        fmt_rest__11 = match__12[1];
         if (get_ign(0)) {
-          var a7_ = get_prec_opt(0);
-          var ignored__4 = [6,get_pad_opt(95),a7_];
-          var a8_ = [0,[23,ignored__4,fmt_rest__11]];
+          a7_ = get_prec_opt(0);
+          ignored__4 = [6,get_pad_opt(95),a7_];
+          a8_ = [0,[23,ignored__4,fmt_rest__11]];
         }
         else {
-          var a9_ = get_prec(0);
-          var match__13 = make_padprec_fmt_ebb(get_pad(0), a9_, fmt_rest__11);
-          var fmt_rest__12 = match__13[3];
-          var prec__3 = match__13[2];
-          var pad__5 = match__13[1];
-          var a8_ = [0,[8,fconv,pad__5,prec__3,fmt_rest__12]];
+          a9_ = get_prec(0);
+          match__13 = make_padprec_fmt_ebb(get_pad(0), a9_, fmt_rest__11);
+          fmt_rest__12 = match__13[3];
+          prec__3 = match__13[2];
+          pad__5 = match__13[1];
+          a8_ = [0,[8,fconv,pad__5,prec__3,fmt_rest__12]];
         }
-        var fmt_result = a8_;
-        var switch__0 = 1;
+        fmt_result = a8_;
+        switch__0 = 1;
         break;
       default:
-        var switch__0 = 0
+        switch__0 = 0
       }
     if (! switch__0) {
-      if (108 <= symb) if (111 <= symb) var switch__2 = 0;
+      if (108 <= symb) if (111 <= symb) switch__2 = 0;
       else {
-        var switcher = symb + -108 | 0;
+        switcher = symb + -108 | 0;
         switch (switcher) {
           case 0:
-            var aN_ = caml_string_get(str, str_ind);
-            var aO_ = get_space(0);
-            var aP_ = get_hash(0);
-            var iconv = compute_int_conv(
-              pct_ind,
-              str_ind + 1 | 0,
-              get_plus(0),
-              aP_,
-              aO_,
-              aN_
-            );
-            var match = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest = match[1];
+            aN_ = caml_string_get(str, str_ind);
+            aO_ = get_space(0);
+            aP_ = get_hash(0);
+            iconv =
+              compute_int_conv(
+                pct_ind,
+                str_ind + 1 | 0,
+                get_plus(0),
+                aP_,
+                aO_,
+                aN_
+              );
+            match = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest = match[1];
             if (get_ign(0)) {
-              var ignored = [3,iconv,get_pad_opt(95)];
-              var aQ_ = [0,[23,ignored,fmt_rest]];
+              ignored = [3,iconv,get_pad_opt(95)];
+              aQ_ = [0,[23,ignored,fmt_rest]];
             }
             else {
-              var aS_ = get_prec(0);
-              var match__0 = make_padprec_fmt_ebb(
-                get_int_pad(0),
-                aS_,
-                fmt_rest
-              );
-              var fmt_rest__0 = match__0[3];
-              var prec__0 = match__0[2];
-              var pad__0 = match__0[1];
-              var aQ_ = [0,[5,iconv,pad__0,prec__0,fmt_rest__0]];
+              aS_ = get_prec(0);
+              match__0 = make_padprec_fmt_ebb(get_int_pad(0), aS_, fmt_rest);
+              fmt_rest__0 = match__0[3];
+              prec__0 = match__0[2];
+              pad__0 = match__0[1];
+              aQ_ = [0,[5,iconv,pad__0,prec__0,fmt_rest__0]];
             }
-            var aR_ = aQ_;
-            var switch__3 = 1;
+            aR_ = aQ_;
+            switch__3 = 1;
             break;
           case 1:
-            var switch__2 = 0;
-            var switch__3 = 0;
+            switch__2 = 0;
+            switch__3 = 0;
             break;
           default:
-            var aT_ = caml_string_get(str, str_ind);
-            var aU_ = get_space(0);
-            var aV_ = get_hash(0);
-            var iconv__0 = compute_int_conv(
-              pct_ind,
-              str_ind + 1 | 0,
-              get_plus(0),
-              aV_,
-              aU_,
-              aT_
-            );
-            var match__1 = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest__1 = match__1[1];
+            aT_ = caml_string_get(str, str_ind);
+            aU_ = get_space(0);
+            aV_ = get_hash(0);
+            iconv__0 =
+              compute_int_conv(
+                pct_ind,
+                str_ind + 1 | 0,
+                get_plus(0),
+                aV_,
+                aU_,
+                aT_
+              );
+            match__1 = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest__1 = match__1[1];
             if (get_ign(0)) {
-              var ignored__0 = [4,iconv__0,get_pad_opt(95)];
-              var aW_ = [0,[23,ignored__0,fmt_rest__1]];
+              ignored__0 = [4,iconv__0,get_pad_opt(95)];
+              aW_ = [0,[23,ignored__0,fmt_rest__1]];
             }
             else {
-              var aX_ = get_prec(0);
-              var match__2 = make_padprec_fmt_ebb(
-                get_int_pad(0),
-                aX_,
-                fmt_rest__1
-              );
-              var fmt_rest__2 = match__2[3];
-              var prec__1 = match__2[2];
-              var pad__1 = match__2[1];
-              var aW_ = [0,[6,iconv__0,pad__1,prec__1,fmt_rest__2]];
+              aX_ = get_prec(0);
+              match__2 =
+                make_padprec_fmt_ebb(get_int_pad(0), aX_, fmt_rest__1);
+              fmt_rest__2 = match__2[3];
+              prec__1 = match__2[2];
+              pad__1 = match__2[1];
+              aW_ = [0,[6,iconv__0,pad__1,prec__1,fmt_rest__2]];
             }
-            var aR_ = aW_;
-            var switch__3 = 1
+            aR_ = aW_;
+            switch__3 = 1
           }
-        if (switch__3) {var fmt_result = aR_;var switch__2 = 1;}
+        if (switch__3) {fmt_result = aR_;switch__2 = 1;}
       }
       else if (76 === symb) {
-        var aY_ = caml_string_get(str, str_ind);
-        var aZ_ = get_space(0);
-        var a0_ = get_hash(0);
-        var iconv__1 = compute_int_conv(
-          pct_ind,
-          str_ind + 1 | 0,
-          get_plus(0),
-          a0_,
-          aZ_,
-          aY_
-        );
-        var match__3 = parse(str_ind + 1 | 0, end_ind);
-        var fmt_rest__3 = match__3[1];
+        aY_ = caml_string_get(str, str_ind);
+        aZ_ = get_space(0);
+        a0_ = get_hash(0);
+        iconv__1 =
+          compute_int_conv(
+            pct_ind,
+            str_ind + 1 | 0,
+            get_plus(0),
+            a0_,
+            aZ_,
+            aY_
+          );
+        match__3 = parse(str_ind + 1 | 0, end_ind);
+        fmt_rest__3 = match__3[1];
         if (get_ign(0)) {
-          var ignored__1 = [5,iconv__1,get_pad_opt(95)];
-          var a1_ = [0,[23,ignored__1,fmt_rest__3]];
+          ignored__1 = [5,iconv__1,get_pad_opt(95)];
+          a1_ = [0,[23,ignored__1,fmt_rest__3]];
         }
         else {
-          var a2_ = get_prec(0);
-          var match__4 = make_padprec_fmt_ebb(get_int_pad(0), a2_, fmt_rest__3
-          );
-          var fmt_rest__4 = match__4[3];
-          var prec__2 = match__4[2];
-          var pad__2 = match__4[1];
-          var a1_ = [0,[7,iconv__1,pad__2,prec__2,fmt_rest__4]];
+          a2_ = get_prec(0);
+          match__4 = make_padprec_fmt_ebb(get_int_pad(0), a2_, fmt_rest__3);
+          fmt_rest__4 = match__4[3];
+          prec__2 = match__4[2];
+          pad__2 = match__4[1];
+          a1_ = [0,[7,iconv__1,pad__2,prec__2,fmt_rest__4]];
         }
-        var fmt_result = a1_;
-        var switch__2 = 1;
+        fmt_result = a1_;
+        switch__2 = 1;
       }
-      else var switch__2 = 0;
+      else switch__2 = 0;
       if (! switch__2) {
-        var fmt_result = call3(
-          failwith_message(H_),
-          str,
-          str_ind + -1 | 0,
-          symb
-        );
+        fmt_result = call3(failwith_message(H_), str, str_ind + -1 | 0, symb);
       }
     }
     if (1 - legacy_behavior__0) {
-      var aE_ = 1 - plus_used[1];
-      var plus__0 = aE_ ? plus : aE_;
+      aE_ = 1 - plus_used[1];
+      plus__0 = aE_ ? plus : aE_;
       if (plus__0) {incompatible_flag(pct_ind, str_ind, symb, cst__28);}
-      var aF_ = 1 - hash_used[1];
-      var hash__0 = aF_ ? hash : aF_;
+      aF_ = 1 - hash_used[1];
+      hash__0 = aF_ ? hash : aF_;
       if (hash__0) {incompatible_flag(pct_ind, str_ind, symb, cst__29);}
-      var aG_ = 1 - space_used[1];
-      var space__0 = aG_ ? space : aG_;
+      aG_ = 1 - space_used[1];
+      space__0 = aG_ ? space : aG_;
       if (space__0) {incompatible_flag(pct_ind, str_ind, symb, cst__30);}
-      var aH_ = 1 - pad_used[1];
-      var aI_ = aH_ ? caml_notequal([0,pad], I_) : aH_;
+      aH_ = 1 - pad_used[1];
+      aI_ = aH_ ? caml_notequal([0,pad], I_) : aH_;
       if (aI_) {incompatible_flag(pct_ind, str_ind, symb, cst_padding__0);}
-      var aJ_ = 1 - prec_used[1];
-      var aK_ = aJ_ ? caml_notequal([0,prec], J_) : aJ_;
+      aJ_ = 1 - prec_used[1];
+      aK_ = aJ_ ? caml_notequal([0,prec], J_) : aJ_;
       if (aK_) {
-        var aL_ = ign ? 95 : symb;
+        aL_ = ign ? 95 : symb;
         incompatible_flag(pct_ind, str_ind, aL_, cst_precision__2);
       }
-      var plus__1 = ign ? plus : ign;
+      plus__1 = ign ? plus : ign;
       if (plus__1) {incompatible_flag(pct_ind, str_ind, 95, cst__31);}
     }
     var aM_ = 1 - ign_used[1];
     var ign__0 = aM_ ? ign : aM_;
     if (ign__0) {
-      var switch__4 = 38 <= symb ?
-        44 === symb ? 0 : 64 === symb ? 0 : 1 :
-        33 === symb ? 0 : 37 <= symb ? 0 : 1;
-      var switch__5 = switch__4 ? 0 : legacy_behavior__0 ? 1 : 0;
+      switch__4 =
+        38 <= symb ?
+          44 === symb ? 0 : 64 === symb ? 0 : 1 :
+          33 === symb ? 0 : 37 <= symb ? 0 : 1;
+      switch__5 = switch__4 ? 0 : legacy_behavior__0 ? 1 : 0;
       if (! switch__5) {incompatible_flag(pct_ind, str_ind, symb, cst__32);}
     }
     return fmt_result;
   }
   function parse_after_precision(pct_ind, str_ind, end_ind, minus, plus, hash, space, ign, pad, match) {
+    var n__0;
+    var n;
     if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
     function parse_conv(padprec) {
       return parse_conversion(
@@ -5297,16 +6474,19 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       }
       if (0 === minus) {
         if (typeof match === "number") {return parse_conv(D_);}
-        var n = match[1];
+        n = match[1];
         return parse_conv([0,1,n]);
       }
       if (typeof match === "number") {return parse_conv(E_);}
-      var n__0 = match[1];
+      n__0 = match[1];
       return parse_conv([0,0,n__0]);
     }
     return parse_conv(pad);
   }
   function parse_precision(pct_ind, str_ind, end_ind, minus, plus, hash, space, ign, pad) {
+    var minus__0;
+    var aD_;
+    var switcher;
     if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
     function parse_literal(minus, str_ind) {
       var match = parse_positive(str_ind, end_ind, 0);
@@ -5330,7 +6510,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       if (! (58 <= symb)) {return parse_literal(minus, str_ind);}
     }
     else if (42 <= symb) {
-      var switcher = symb + -42 | 0;
+      switcher = symb + -42 | 0;
       switch (switcher) {
         case 0:
           return parse_after_precision(
@@ -5348,8 +6528,8 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         case 1:
         case 3:
           if (legacy_behavior__0) {
-            var aD_ = str_ind + 1 | 0;
-            var minus__0 = minus ? minus : 45 === symb ? 1 : 0;
+            aD_ = str_ind + 1 | 0;
+            minus__0 = minus ? minus : 45 === symb ? 1 : 0;
             return parse_literal(minus__0, aD_);
           }
           break
@@ -5400,6 +6580,9 @@ function fmt_ebb_of_string(legacy_behavior, str) {
      );
   }
   function parse_padding(pct_ind, str_ind, end_ind, zero, minus, plus, hash, space, ign) {
+    var new_ind;
+    var width;
+    var match__0;
     if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
     var padty = 0 === zero ?
       0 === minus ? 1 : 0 :
@@ -5409,9 +6592,9 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     var match = caml_string_get(str, str_ind);
     if (48 <= match) {
       if (! (58 <= match)) {
-        var match__0 = parse_positive(str_ind, end_ind, 0);
-        var width = match__0[2];
-        var new_ind = match__0[1];
+        match__0 = parse_positive(str_ind, end_ind, 0);
+        width = match__0[2];
+        new_ind = match__0[1];
         return parse_after_padding(
           pct_ind,
           new_ind,
@@ -5481,30 +6664,46 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       }
   }
   function parse_magic_size(str_ind, end_ind) {
+    var switch__0;
+    var s;
+    var str_ind_3;
+    var str_ind_2;
+    var size;
+    var match__3;
+    var aB_;
+    var match__2;
+    var str_ind_1;
+    var fmt_rest;
+    var match__0;
+    var next_ind;
+    var formatting_lit;
+    var match;
+    var aA_;
+    var az_;
     try {
-      var str_ind_1 = parse_spaces(str_ind, end_ind);
-      var match__2 = caml_string_get(str, str_ind_1);
-      var switch__0 = 48 <= match__2 ?
-        58 <= match__2 ? 0 : 1 :
-        45 === match__2 ? 1 : 0;
+      str_ind_1 = parse_spaces(str_ind, end_ind);
+      match__2 = caml_string_get(str, str_ind_1);
+      switch__0 =
+        48 <= match__2 ? 58 <= match__2 ? 0 : 1 : 45 === match__2 ? 1 : 0;
       if (switch__0) {
-        var match__3 = parse_integer(str_ind_1, end_ind);
-        var size = match__3[2];
-        var str_ind_2 = match__3[1];
-        var str_ind_3 = parse_spaces(str_ind_2, end_ind);
+        match__3 = parse_integer(str_ind_1, end_ind);
+        size = match__3[2];
+        str_ind_2 = match__3[1];
+        str_ind_3 = parse_spaces(str_ind_2, end_ind);
         if (62 !== caml_string_get(str, str_ind_3)) {
           throw caml_wrap_thrown_exception(Not_found);
         }
-        var s = call3(
-          String[4],
-          str,
-          str_ind + -2 | 0,
-          (str_ind_3 - str_ind | 0) + 3 | 0
-        );
-        var aB_ = [0,[0,str_ind_3 + 1 | 0,[1,s,size]]];
+        s =
+          call3(
+            String[4],
+            str,
+            str_ind + -2 | 0,
+            (str_ind_3 - str_ind | 0) + 3 | 0
+          );
+        aB_ = [0,[0,str_ind_3 + 1 | 0,[1,s,size]]];
       }
-      else var aB_ = 0;
-      var aA_ = aB_;
+      else aB_ = 0;
+      aA_ = aB_;
     }
     catch(aC_) {
       aC_ = runtime["caml_wrap_exception"](aC_);
@@ -5513,15 +6712,15 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           throw caml_wrap_thrown_exception_reraise(aC_);
         }
       }
-      var az_ = 0;
-      var aA_ = az_;
+      az_ = 0;
+      aA_ = az_;
     }
     if (aA_) {
-      var match = aA_[1];
-      var formatting_lit = match[2];
-      var next_ind = match[1];
-      var match__0 = parse(next_ind, end_ind);
-      var fmt_rest = match__0[1];
+      match = aA_[1];
+      formatting_lit = match[2];
+      next_ind = match[1];
+      match__0 = parse(next_ind, end_ind);
+      fmt_rest = match__0[1];
       return [0,[17,formatting_lit,fmt_rest]];
     }
     var match__1 = parse(str_ind, end_ind);
@@ -5529,59 +6728,85 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     return [0,[17,O_,fmt_rest__0]];
   }
   function parse_good_break(str_ind, end_ind) {
+    var switch__1;
+    var switch__0;
+    var ax_;
+    var aw_;
+    var s__0;
+    var str_ind_5;
+    var str_ind_4;
+    var offset;
+    var match__3;
+    var switcher__0;
+    var av_;
+    var au_;
+    var s;
+    var switcher;
+    var match__2;
+    var str_ind_3;
+    var str_ind_2;
+    var width;
+    var match__1;
+    var match__0;
+    var str_ind_1;
+    var at_;
+    var as_;
+    var next_ind;
+    var formatting_lit__0;
     try {
-      var as_ = str_ind === end_ind ? 1 : 0;
-      var at_ = as_ ? as_ : 60 !== caml_string_get(str, str_ind) ? 1 : 0;
+      as_ = str_ind === end_ind ? 1 : 0;
+      at_ = as_ ? as_ : 60 !== caml_string_get(str, str_ind) ? 1 : 0;
       if (at_) {throw caml_wrap_thrown_exception(Not_found);}
-      var str_ind_1 = parse_spaces(str_ind + 1 | 0, end_ind);
-      var match__0 = caml_string_get(str, str_ind_1);
-      var switch__0 = 48 <= match__0 ?
-        58 <= match__0 ? 0 : 1 :
-        45 === match__0 ? 1 : 0;
+      str_ind_1 = parse_spaces(str_ind + 1 | 0, end_ind);
+      match__0 = caml_string_get(str, str_ind_1);
+      switch__0 =
+        48 <= match__0 ? 58 <= match__0 ? 0 : 1 : 45 === match__0 ? 1 : 0;
       if (! switch__0) {throw caml_wrap_thrown_exception(Not_found);}
-      var match__1 = parse_integer(str_ind_1, end_ind);
-      var width = match__1[2];
-      var str_ind_2 = match__1[1];
-      var str_ind_3 = parse_spaces(str_ind_2, end_ind);
-      var match__2 = caml_string_get(str, str_ind_3);
-      var switcher = match__2 + -45 | 0;
+      match__1 = parse_integer(str_ind_1, end_ind);
+      width = match__1[2];
+      str_ind_2 = match__1[1];
+      str_ind_3 = parse_spaces(str_ind_2, end_ind);
+      match__2 = caml_string_get(str, str_ind_3);
+      switcher = match__2 + -45 | 0;
       if (12 < switcher >>> 0) if (17 === switcher) {
-        var s = call3(
-          String[4],
-          str,
-          str_ind + -2 | 0,
-          (str_ind_3 - str_ind | 0) + 3 | 0
-        );
-        var au_ = [0,s,width,0];
-        var av_ = str_ind_3 + 1 | 0;
-        var next_ind = av_;
-        var formatting_lit__0 = au_;
-        var switch__1 = 1;
-      }
-      else var switch__1 = 0;
-      else {
-        var switcher__0 = switcher + -1 | 0;
-        if (1 < switcher__0 >>> 0) {
-          var match__3 = parse_integer(str_ind_3, end_ind);
-          var offset = match__3[2];
-          var str_ind_4 = match__3[1];
-          var str_ind_5 = parse_spaces(str_ind_4, end_ind);
-          if (62 !== caml_string_get(str, str_ind_5)) {
-            throw caml_wrap_thrown_exception(Not_found);
-          }
-          var s__0 = call3(
+        s =
+          call3(
             String[4],
             str,
             str_ind + -2 | 0,
-            (str_ind_5 - str_ind | 0) + 3 | 0
+            (str_ind_3 - str_ind | 0) + 3 | 0
           );
-          var aw_ = [0,s__0,width,offset];
-          var ax_ = str_ind_5 + 1 | 0;
-          var next_ind = ax_;
-          var formatting_lit__0 = aw_;
-          var switch__1 = 1;
+        au_ = [0,s,width,0];
+        av_ = str_ind_3 + 1 | 0;
+        next_ind = av_;
+        formatting_lit__0 = au_;
+        switch__1 = 1;
+      }
+      else switch__1 = 0;
+      else {
+        switcher__0 = switcher + -1 | 0;
+        if (1 < switcher__0 >>> 0) {
+          match__3 = parse_integer(str_ind_3, end_ind);
+          offset = match__3[2];
+          str_ind_4 = match__3[1];
+          str_ind_5 = parse_spaces(str_ind_4, end_ind);
+          if (62 !== caml_string_get(str, str_ind_5)) {
+            throw caml_wrap_thrown_exception(Not_found);
+          }
+          s__0 =
+            call3(
+              String[4],
+              str,
+              str_ind + -2 | 0,
+              (str_ind_5 - str_ind | 0) + 3 | 0
+            );
+          aw_ = [0,s__0,width,offset];
+          ax_ = str_ind_5 + 1 | 0;
+          next_ind = ax_;
+          formatting_lit__0 = aw_;
+          switch__1 = 1;
         }
-        else var switch__1 = 0;
+        else switch__1 = 0;
       }
       if (! switch__1) {throw caml_wrap_thrown_exception(Not_found);}
     }
@@ -5592,37 +6817,43 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           throw caml_wrap_thrown_exception_reraise(ay_);
         }
       }
-      var next_ind = str_ind;
-      var formatting_lit__0 = formatting_lit;
+      next_ind = str_ind;
+      formatting_lit__0 = formatting_lit;
     }
     var match = parse(next_ind, end_ind);
     var fmt_rest = match[1];
     return [0,[17,formatting_lit__0,fmt_rest]];
   }
   function parse_tag(is_open_tag, str_ind, end_ind) {
+    var aq_;
+    var formatting__0;
+    var sub_format__0;
+    var sub_fmt;
+    var match__2;
+    var fmt_rest__0;
+    var match__1;
+    var sub_str;
+    var ind;
+    var match__0;
+    var formatting;
+    var fmt_rest;
+    var match;
     try {
       if (str_ind === end_ind) {throw caml_wrap_thrown_exception(Not_found);}
-      var match__0 = caml_string_get(str, str_ind);
+      match__0 = caml_string_get(str, str_ind);
       if (60 === match__0) {
-        var ind = call3(String[18], str, str_ind + 1 | 0, 62);
+        ind = call3(String[18], str, str_ind + 1 | 0, 62);
         if (end_ind <= ind) {throw caml_wrap_thrown_exception(Not_found);}
-        var sub_str = call3(
-          String[4],
-          str,
-          str_ind,
-          (ind - str_ind | 0) + 1 | 0
-        );
-        var match__1 = parse(ind + 1 | 0, end_ind);
-        var fmt_rest__0 = match__1[1];
-        var match__2 = parse(str_ind, ind + 1 | 0);
-        var sub_fmt = match__2[1];
-        var sub_format__0 = [0,sub_fmt,sub_str];
-        if (is_open_tag) var formatting__0 = [
-          0,
-          sub_format__0
-        ];
-        else {check_open_box(sub_fmt);var formatting__0 = [1,sub_format__0];}
-        var aq_ = [0,[18,formatting__0,fmt_rest__0]];
+        sub_str = call3(String[4], str, str_ind, (ind - str_ind | 0) + 1 | 0);
+        match__1 = parse(ind + 1 | 0, end_ind);
+        fmt_rest__0 = match__1[1];
+        match__2 = parse(str_ind, ind + 1 | 0);
+        sub_fmt = match__2[1];
+        sub_format__0 = [0,sub_fmt,sub_str];
+        if (is_open_tag) formatting__0 =
+          [0,sub_format__0];
+        else {check_open_box(sub_fmt);formatting__0 = [1,sub_format__0];}
+        aq_ = [0,[18,formatting__0,fmt_rest__0]];
         return aq_;
       }
       throw caml_wrap_thrown_exception(Not_found);
@@ -5630,88 +6861,111 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     catch(ar_) {
       ar_ = runtime["caml_wrap_exception"](ar_);
       if (ar_ === Not_found) {
-        var match = parse(str_ind, end_ind);
-        var fmt_rest = match[1];
-        var formatting = is_open_tag ? [0,sub_format] : [1,sub_format];
+        match = parse(str_ind, end_ind);
+        fmt_rest = match[1];
+        formatting = is_open_tag ? [0,sub_format] : [1,sub_format];
         return [0,[18,formatting,fmt_rest]];
       }
       throw caml_wrap_thrown_exception_reraise(ar_);
     }
   }
   function parse_after_at(str_ind, end_ind) {
+    var fmt_rest__9;
+    var match__9;
+    var fmt_rest__8;
+    var match__8;
+    var fmt_rest__7;
+    var match__7;
+    var fmt_rest__6;
+    var match__6;
+    var fmt_rest__5;
+    var match__5;
+    var fmt_rest__4;
+    var match__4;
+    var fmt_rest__3;
+    var match__3;
+    var switcher__1;
+    var fmt_rest__2;
+    var match__2;
+    var fmt_rest__1;
+    var match__1;
+    var switcher__0;
+    var fmt_rest__0;
+    var match__0;
+    var switcher;
     if (str_ind === end_ind) {return L_;}
     var c = caml_string_get(str, str_ind);
     if (65 <= c) {
       if (94 <= c) {
-        var switcher = c + -123 | 0;
+        switcher = c + -123 | 0;
         if (! (2 < switcher >>> 0)) {
           switch (switcher) {
             case 0:
               return parse_tag(1, str_ind + 1 | 0, end_ind);
             case 1:break;
             default:
-              var match__0 = parse(str_ind + 1 | 0, end_ind);
-              var fmt_rest__0 = match__0[1];
+              match__0 = parse(str_ind + 1 | 0, end_ind);
+              fmt_rest__0 = match__0[1];
               return [0,[17,1,fmt_rest__0]]
             }
         }
       }
       else if (91 <= c) {
-        var switcher__0 = c + -91 | 0;
+        switcher__0 = c + -91 | 0;
         switch (switcher__0) {
           case 0:
             return parse_tag(0, str_ind + 1 | 0, end_ind);
           case 1:break;
           default:
-            var match__1 = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest__1 = match__1[1];
+            match__1 = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest__1 = match__1[1];
             return [0,[17,0,fmt_rest__1]]
           }
       }
     }
     else {
       if (10 === c) {
-        var match__2 = parse(str_ind + 1 | 0, end_ind);
-        var fmt_rest__2 = match__2[1];
+        match__2 = parse(str_ind + 1 | 0, end_ind);
+        fmt_rest__2 = match__2[1];
         return [0,[17,3,fmt_rest__2]];
       }
       if (32 <= c) {
-        var switcher__1 = c + -32 | 0;
+        switcher__1 = c + -32 | 0;
         switch (switcher__1) {
           case 0:
-            var match__3 = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest__3 = match__3[1];
+            match__3 = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest__3 = match__3[1];
             return [0,[17,M_,fmt_rest__3]];
           case 5:
             if ((str_ind + 1 | 0) < end_ind) {
               if (37 === caml_string_get(str, str_ind + 1 | 0)) {
-                var match__4 = parse(str_ind + 2 | 0, end_ind);
-                var fmt_rest__4 = match__4[1];
+                match__4 = parse(str_ind + 2 | 0, end_ind);
+                fmt_rest__4 = match__4[1];
                 return [0,[17,6,fmt_rest__4]];
               }
             }
-            var match__5 = parse(str_ind, end_ind);
-            var fmt_rest__5 = match__5[1];
+            match__5 = parse(str_ind, end_ind);
+            fmt_rest__5 = match__5[1];
             return [0,[12,64,fmt_rest__5]];
           case 12:
-            var match__6 = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest__6 = match__6[1];
+            match__6 = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest__6 = match__6[1];
             return [0,[17,N_,fmt_rest__6]];
           case 14:
-            var match__7 = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest__7 = match__7[1];
+            match__7 = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest__7 = match__7[1];
             return [0,[17,4,fmt_rest__7]];
           case 27:
             return parse_good_break(str_ind + 1 | 0, end_ind);
           case 28:
             return parse_magic_size(str_ind + 1 | 0, end_ind);
           case 31:
-            var match__8 = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest__8 = match__8[1];
+            match__8 = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest__8 = match__8[1];
             return [0,[17,2,fmt_rest__8]];
           case 32:
-            var match__9 = parse(str_ind + 1 | 0, end_ind);
-            var fmt_rest__9 = match__9[1];
+            match__9 = parse(str_ind + 1 | 0, end_ind);
+            fmt_rest__9 = match__9[1];
             return [0,[17,5,fmt_rest__9]]
           }
       }
@@ -5721,10 +6975,12 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     return [0,[17,[2,c],fmt_rest]];
   }
   function check_open_box(fmt) {
+    var ao_;
+    var str;
     if (! (typeof fmt === "number") && 11 === fmt[0]) {
       if (typeof fmt[2] === "number") {
-        var str = fmt[1];
-        try {open_box_of_string(str);var ao_ = 0;return ao_;}
+        str = fmt[1];
+        try {open_box_of_string(str);ao_ = 0;return ao_;}
         catch(ap_) {
           ap_ = runtime["caml_wrap_exception"](ap_);
           if (ap_[1] === Failure) {return 0;}
@@ -5735,16 +6991,23 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     return 0;
   }
   function parse_char_set(str_ind, end_ind) {
+    var ah_;
+    var str_ind__1;
+    var reverse__0;
+    var str_ind__0;
+    var reverse;
     if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
     var char_set = create_char_set(0);
     function add_char(c) {return add_in_char_set(char_set, c);}
     function add_range(c__0, c) {
+      var an_;
+      var i;
       if (! (c < c__0)) {
-        var i = c__0;
+        i = c__0;
         for (; ; ) {
           add_in_char_set(char_set, call1(Pervasives[17], i));
-          var an_ = i + 1 | 0;
-          if (c !== i) {var i = an_;continue;}
+          an_ = i + 1 | 0;
+          if (c !== i) {i = an_;continue;}
           break;
         }
       }
@@ -5754,20 +7017,24 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       return call2(failwith_message(P_), str, str_ind);
     }
     function parse_char_set_content(counter, str_ind, end_ind) {
+      var c;
+      var str_ind__1;
+      var am_;
+      var counter__0;
       var str_ind__0 = str_ind;
       for (; ; ) {
         if (str_ind__0 === end_ind) {unexpected_end_of_format(end_ind);}
-        var c = caml_string_get(str, str_ind__0);
+        c = caml_string_get(str, str_ind__0);
         if (45 === c) {
           add_char(45);
-          var str_ind__1 = str_ind__0 + 1 | 0;
-          var str_ind__0 = str_ind__1;
+          str_ind__1 = str_ind__0 + 1 | 0;
+          str_ind__0 = str_ind__1;
           continue;
         }
         if (93 === c) {return str_ind__0 + 1 | 0;}
-        var am_ = str_ind__0 + 1 | 0;
+        am_ = str_ind__0 + 1 | 0;
         if (counter < 50) {
-          var counter__0 = counter + 1 | 0;
+          counter__0 = counter + 1 | 0;
           return parse_char_set_after_char__0(counter__0, am_, end_ind, c);
         }
         return caml_trampoline_return(
@@ -5777,23 +7044,30 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       }
     }
     function parse_char_set_after_char__0(counter, str_ind, end_ind, c) {
+      var c__1;
+      var ak_;
+      var str_ind__1;
+      var al_;
+      var counter__0;
+      var counter__1;
+      var switch__0;
       var str_ind__0 = str_ind;
       var c__0 = c;
       for (; ; ) {
         if (str_ind__0 === end_ind) {unexpected_end_of_format(end_ind);}
-        var c__1 = caml_string_get(str, str_ind__0);
+        c__1 = caml_string_get(str, str_ind__0);
         if (46 <= c__1) if (64 === c__1
-        ) var switch__0 = 0;
+        ) switch__0 = 0;
         else {
           if (93 === c__1) {add_char(c__0);return str_ind__0 + 1 | 0;}
-          var switch__0 = 1;
+          switch__0 = 1;
         }
-        else if (37 === c__1) var switch__0 = 0;
+        else if (37 === c__1) switch__0 = 0;
         else {
           if (45 <= c__1) {
-            var al_ = str_ind__0 + 1 | 0;
+            al_ = str_ind__0 + 1 | 0;
             if (counter < 50) {
-              var counter__0 = counter + 1 | 0;
+              counter__0 = counter + 1 | 0;
               return parse_char_set_after_minus(counter__0, al_, end_ind, c__0
               );
             }
@@ -5802,14 +7076,14 @@ function fmt_ebb_of_string(legacy_behavior, str) {
               [0,al_,end_ind,c__0]
             );
           }
-          var switch__0 = 1;
+          switch__0 = 1;
         }
         if (! switch__0) {
           if (37 === c__0) {
             add_char(c__1);
-            var ak_ = str_ind__0 + 1 | 0;
+            ak_ = str_ind__0 + 1 | 0;
             if (counter < 50) {
-              var counter__1 = counter + 1 | 0;
+              counter__1 = counter + 1 | 0;
               return parse_char_set_content(counter__1, ak_, end_ind);
             }
             return caml_trampoline_return(
@@ -5820,27 +7094,31 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         }
         if (37 === c__0) {fail_single_percent(str_ind__0);}
         add_char(c__0);
-        var str_ind__1 = str_ind__0 + 1 | 0;
-        var str_ind__0 = str_ind__1;
-        var c__0 = c__1;
+        str_ind__1 = str_ind__0 + 1 | 0;
+        str_ind__0 = str_ind__1;
+        c__0 = c__1;
         continue;
       }
     }
     function parse_char_set_after_minus(counter, str_ind, end_ind, c) {
+      var counter__1;
+      var counter__0;
+      var ai_;
+      var c__1;
       if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
       var c__0 = caml_string_get(str, str_ind);
       if (37 === c__0) {
         if ((str_ind + 1 | 0) === end_ind) {
           unexpected_end_of_format(end_ind);
         }
-        var c__1 = caml_string_get(str, str_ind + 1 | 0);
+        c__1 = caml_string_get(str, str_ind + 1 | 0);
         if (37 !== c__1) {
           if (64 !== c__1) {return fail_single_percent(str_ind);}
         }
         add_range(c, c__1);
-        var ai_ = str_ind + 2 | 0;
+        ai_ = str_ind + 2 | 0;
         if (counter < 50) {
-          var counter__1 = counter + 1 | 0;
+          counter__1 = counter + 1 | 0;
           return parse_char_set_content(counter__1, ai_, end_ind);
         }
         return caml_trampoline_return(parse_char_set_content, [0,ai_,end_ind]);
@@ -5849,7 +7127,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       add_range(c, c__0);
       var aj_ = str_ind + 1 | 0;
       if (counter < 50) {
-        var counter__0 = counter + 1 | 0;
+        counter__0 = counter + 1 | 0;
         return parse_char_set_content(counter__0, aj_, end_ind);
       }
       return caml_trampoline_return(parse_char_set_content, [0,aj_,end_ind]);
@@ -5867,49 +7145,60 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
     var match = caml_string_get(str, str_ind);
     if (94 === match) {
-      var str_ind__0 = str_ind + 1 | 0;
-      var reverse = 1;
-      var str_ind__1 = str_ind__0;
-      var reverse__0 = reverse;
+      str_ind__0 = str_ind + 1 | 0;
+      reverse = 1;
+      str_ind__1 = str_ind__0;
+      reverse__0 = reverse;
     }
-    else {var ah_ = 0;var str_ind__1 = str_ind;var reverse__0 = ah_;}
+    else {ah_ = 0;str_ind__1 = str_ind;reverse__0 = ah_;}
     var next_ind = parse_char_set_start(str_ind__1, end_ind);
     var char_set__0 = freeze_char_set(char_set);
     var ag_ = reverse__0 ? rev_char_set(char_set__0) : char_set__0;
     return [0,next_ind,ag_];
   }
   function parse_spaces(str_ind, end_ind) {
+    var str_ind__1;
     var str_ind__0 = str_ind;
     for (; ; ) {
       if (str_ind__0 === end_ind) {unexpected_end_of_format(end_ind);}
       if (32 === caml_string_get(str, str_ind__0)) {
-        var str_ind__1 = str_ind__0 + 1 | 0;
-        var str_ind__0 = str_ind__1;
+        str_ind__1 = str_ind__0 + 1 | 0;
+        str_ind__0 = str_ind__1;
         continue;
       }
       return str_ind__0;
     }
   }
   function parse_positive(str_ind, end_ind, acc) {
+    var c;
+    var switcher;
+    var acc__1;
+    var af_;
+    var str_ind__1;
     var str_ind__0 = str_ind;
     var acc__0 = acc;
     for (; ; ) {
       if (str_ind__0 === end_ind) {unexpected_end_of_format(end_ind);}
-      var c = caml_string_get(str, str_ind__0);
-      var switcher = c + -48 | 0;
+      c = caml_string_get(str, str_ind__0);
+      switcher = c + -48 | 0;
       if (9 < switcher >>> 0) {return [0,str_ind__0,acc__0];}
-      var acc__1 = (acc__0 * 10 | 0) + (c - 48 | 0) | 0;
+      acc__1 = (acc__0 * 10 | 0) + (c - 48 | 0) | 0;
       if (Sys[13] < acc__1) {
-        var af_ = Sys[13];
+        af_ = Sys[13];
         return call3(failwith_message(Q_), str, acc__1, af_);
       }
-      var str_ind__1 = str_ind__0 + 1 | 0;
-      var str_ind__0 = str_ind__1;
-      var acc__0 = acc__1;
+      str_ind__1 = str_ind__0 + 1 | 0;
+      str_ind__0 = str_ind__1;
+      acc__0 = acc__1;
       continue;
     }
   }
   function parse_integer(str_ind, end_ind) {
+    var next_ind;
+    var n;
+    var match__0;
+    var switcher;
+    var c;
     if (str_ind === end_ind) {unexpected_end_of_format(end_ind);}
     var match = caml_string_get(str, str_ind);
     if (48 <= match) {
@@ -5917,42 +7206,54 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     }
     else if (45 === match) {
       if ((str_ind + 1 | 0) === end_ind) {unexpected_end_of_format(end_ind);}
-      var c = caml_string_get(str, str_ind + 1 | 0);
-      var switcher = c + -48 | 0;
+      c = caml_string_get(str, str_ind + 1 | 0);
+      switcher = c + -48 | 0;
       if (9 < switcher >>> 0) {
         return expected_character(str_ind + 1 | 0, cst_digit, c);
       }
-      var match__0 = parse_positive(str_ind + 1 | 0, end_ind, 0);
-      var n = match__0[2];
-      var next_ind = match__0[1];
+      match__0 = parse_positive(str_ind + 1 | 0, end_ind, 0);
+      n = match__0[2];
+      next_ind = match__0[1];
       return [0,next_ind,- n | 0];
     }
     throw caml_wrap_thrown_exception([0,Assert_failure,R_]);
   }
   function search_subformat_end(str_ind, end_ind, c) {
+    var match;
+    var match__0;
+    var str_ind__1;
+    var switcher;
+    var sub_end;
+    var str_ind__2;
+    var match__1;
+    var sub_end__0;
+    var str_ind__3;
+    var sub_end__1;
+    var str_ind__4;
+    var str_ind__5;
+    var sub_end__2;
+    var str_ind__6;
+    var str_ind__7;
     var str_ind__0 = str_ind;
     for (; ; ) {
       if (str_ind__0 === end_ind) {
         call3(failwith_message(S_), str, c, end_ind);
       }
-      var match = caml_string_get(str, str_ind__0);
+      match = caml_string_get(str, str_ind__0);
       if (37 === match) {
         if ((str_ind__0 + 1 | 0) === end_ind) {unexpected_end_of_format(end_ind);}
         if (caml_string_get(str, str_ind__0 + 1 | 0) === c) {return str_ind__0;}
-        var match__0 = caml_string_get(str, str_ind__0 + 1 | 0);
+        match__0 = caml_string_get(str, str_ind__0 + 1 | 0);
         if (95 <= match__0) {
           if (123 <= match__0) {
             if (! (126 <= match__0)) {
-              var switcher = match__0 + -123 | 0;
+              switcher = match__0 + -123 | 0;
               switch (switcher) {
                 case 0:
-                  var sub_end = search_subformat_end(
-                    str_ind__0 + 2 | 0,
-                    end_ind,
-                    125
-                  );
-                  var str_ind__2 = sub_end + 2 | 0;
-                  var str_ind__0 = str_ind__2;
+                  sub_end =
+                    search_subformat_end(str_ind__0 + 2 | 0, end_ind, 125);
+                  str_ind__2 = sub_end + 2 | 0;
+                  str_ind__0 = str_ind__2;
                   continue;
                 case 1:break;
                 default:
@@ -5966,41 +7267,31 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           }
           else if (! (96 <= match__0)) {
             if ((str_ind__0 + 2 | 0) === end_ind) {unexpected_end_of_format(end_ind);}
-            var match__1 = caml_string_get(str, str_ind__0 + 2 | 0);
+            match__1 = caml_string_get(str, str_ind__0 + 2 | 0);
             if (40 === match__1) {
-              var sub_end__0 = search_subformat_end(
-                str_ind__0 + 3 | 0,
-                end_ind,
-                41
-              );
-              var str_ind__3 = sub_end__0 + 2 | 0;
-              var str_ind__0 = str_ind__3;
+              sub_end__0 =
+                search_subformat_end(str_ind__0 + 3 | 0, end_ind, 41);
+              str_ind__3 = sub_end__0 + 2 | 0;
+              str_ind__0 = str_ind__3;
               continue;
             }
             if (123 === match__1) {
-              var sub_end__1 = search_subformat_end(
-                str_ind__0 + 3 | 0,
-                end_ind,
-                125
-              );
-              var str_ind__4 = sub_end__1 + 2 | 0;
-              var str_ind__0 = str_ind__4;
+              sub_end__1 =
+                search_subformat_end(str_ind__0 + 3 | 0, end_ind, 125);
+              str_ind__4 = sub_end__1 + 2 | 0;
+              str_ind__0 = str_ind__4;
               continue;
             }
-            var str_ind__5 = str_ind__0 + 3 | 0;
-            var str_ind__0 = str_ind__5;
+            str_ind__5 = str_ind__0 + 3 | 0;
+            str_ind__0 = str_ind__5;
             continue;
           }
         }
         else {
           if (40 === match__0) {
-            var sub_end__2 = search_subformat_end(
-              str_ind__0 + 2 | 0,
-              end_ind,
-              41
-            );
-            var str_ind__6 = sub_end__2 + 2 | 0;
-            var str_ind__0 = str_ind__6;
+            sub_end__2 = search_subformat_end(str_ind__0 + 2 | 0, end_ind, 41);
+            str_ind__6 = sub_end__2 + 2 | 0;
+            str_ind__0 = str_ind__6;
             continue;
           }
           if (41 === match__0) {
@@ -6008,12 +7299,12 @@ function fmt_ebb_of_string(legacy_behavior, str) {
             );
           }
         }
-        var str_ind__1 = str_ind__0 + 2 | 0;
-        var str_ind__0 = str_ind__1;
+        str_ind__1 = str_ind__0 + 2 | 0;
+        str_ind__0 = str_ind__1;
         continue;
       }
-      var str_ind__7 = str_ind__0 + 1 | 0;
-      var str_ind__0 = str_ind__7;
+      str_ind__7 = str_ind__0 + 1 | 0;
+      str_ind__0 = str_ind__7;
       continue;
     }
   }
@@ -6025,9 +7316,10 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     return 0;
   }
   function counter_of_char(symb) {
+    var switcher;
     if (108 <= symb) {
       if (! (111 <= symb)) {
-        var switcher = symb + -108 | 0;
+        switcher = symb + -108 | 0;
         switch (switcher) {case 0:return 0;case 1:break;default:return 1}
       }
     }
@@ -6039,14 +7331,17 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     return call5(failwith_message(W_), str, pct_ind, option, symb, subfmt);
   }
   function compute_int_conv(pct_ind, str_ind, plus, hash, space, symb) {
+    var switcher;
+    var switcher__0;
+    var switch__0;
     var plus__0 = plus;
     var hash__0 = hash;
     var space__0 = space;
     for (; ; ) {
       if (0 === plus__0) if (0 === hash__0) if (0 === space__0
       ) {
-        var switcher = symb + -88 | 0;
-        if (32 < switcher >>> 0) var switch__0 = 1;
+        switcher = symb + -88 | 0;
+        if (32 < switcher >>> 0) switch__0 = 1;
         else switch (switcher) {
           case 0:
             return 8;
@@ -6061,31 +7356,31 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           case 32:
             return 6;
           default:
-            var switch__0 = 1
+            switch__0 = 1
           }
       }
       else {
         if (100 === symb) {return 2;}
         if (105 === symb) {return 5;}
-        var switch__0 = 1;
+        switch__0 = 1;
       }
       else if (0 === space__0) {
         if (88 === symb) {return 9;}
         if (111 === symb) {return 11;}
         if (120 === symb) {return 7;}
-        var switch__0 = 0;
+        switch__0 = 0;
       }
-      else var switch__0 = 0;
+      else switch__0 = 0;
       else if (0 === hash__0) if (0 === space__0
       ) {
         if (100 === symb) {return 1;}
         if (105 === symb) {return 4;}
-        var switch__0 = 1;
+        switch__0 = 1;
       }
-      else var switch__0 = 1;
-      else var switch__0 = 0;
+      else switch__0 = 1;
+      else switch__0 = 0;
       if (! switch__0) {
-        var switcher__0 = symb + -88 | 0;
+        switcher__0 = symb + -88 | 0;
         if (! (32 < switcher__0 >>> 0)) {
           switch (switcher__0) {
             case 0:
@@ -6100,7 +7395,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
             case 12:
             case 17:
             case 29:
-              if (legacy_behavior__0) {var hash__0 = 0;continue;}
+              if (legacy_behavior__0) {hash__0 = 0;continue;}
               return incompatible_flag(pct_ind, str_ind, symb, cst__36)
             }
         }
@@ -6109,25 +7404,31 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         if (0 === space__0) {
           throw caml_wrap_thrown_exception([0,Assert_failure,U_]);
         }
-        if (legacy_behavior__0) {var space__0 = 0;continue;}
+        if (legacy_behavior__0) {space__0 = 0;continue;}
         return incompatible_flag(pct_ind, str_ind, symb, cst__33);
       }
       if (0 === space__0) {
-        if (legacy_behavior__0) {var plus__0 = 0;continue;}
+        if (legacy_behavior__0) {plus__0 = 0;continue;}
         return incompatible_flag(pct_ind, str_ind, symb, cst__34);
       }
-      if (legacy_behavior__0) {var space__0 = 0;continue;}
+      if (legacy_behavior__0) {space__0 = 0;continue;}
       return incompatible_flag(pct_ind, str_ind, 32, cst__35);
     }
   }
   function compute_float_conv(pct_ind, str_ind, plus, space, symb) {
+    var switcher;
+    var switcher__0;
+    var switcher__1;
+    var switcher__2;
+    var switcher__3;
+    var switcher__4;
     var plus__0 = plus;
     var space__0 = space;
     for (; ; ) {
       if (0 === plus__0) {
         if (0 === space__0) {
           if (73 <= symb) {
-            var switcher = symb + -101 | 0;
+            switcher = symb + -101 | 0;
             if (! (3 < switcher >>> 0)) {
               switch (switcher) {
                 case 0:
@@ -6142,7 +7443,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
             }
           }
           else if (69 <= symb) {
-            var switcher__0 = symb + -69 | 0;
+            switcher__0 = symb + -69 | 0;
             switch (switcher__0) {
               case 0:
                 return 6;
@@ -6157,7 +7458,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           throw caml_wrap_thrown_exception([0,Assert_failure,V_]);
         }
         if (73 <= symb) {
-          var switcher__1 = symb + -101 | 0;
+          switcher__1 = symb + -101 | 0;
           if (! (3 < switcher__1 >>> 0)) {
             switch (switcher__1) {
               case 0:
@@ -6172,7 +7473,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           }
         }
         else if (69 <= symb) {
-          var switcher__2 = symb + -69 | 0;
+          switcher__2 = symb + -69 | 0;
           switch (switcher__2) {
             case 0:
               return 8;
@@ -6183,12 +7484,12 @@ function fmt_ebb_of_string(legacy_behavior, str) {
               return 21
             }
         }
-        if (legacy_behavior__0) {var space__0 = 0;continue;}
+        if (legacy_behavior__0) {space__0 = 0;continue;}
         return incompatible_flag(pct_ind, str_ind, symb, cst__37);
       }
       if (0 === space__0) {
         if (73 <= symb) {
-          var switcher__3 = symb + -101 | 0;
+          switcher__3 = symb + -101 | 0;
           if (! (3 < switcher__3 >>> 0)) {
             switch (switcher__3) {
               case 0:
@@ -6203,7 +7504,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
           }
         }
         else if (69 <= symb) {
-          var switcher__4 = symb + -69 | 0;
+          switcher__4 = symb + -69 | 0;
           switch (switcher__4) {
             case 0:
               return 7;
@@ -6214,10 +7515,10 @@ function fmt_ebb_of_string(legacy_behavior, str) {
               return 20
             }
         }
-        if (legacy_behavior__0) {var plus__0 = 0;continue;}
+        if (legacy_behavior__0) {plus__0 = 0;continue;}
         return incompatible_flag(pct_ind, str_ind, symb, cst__38);
       }
-      if (legacy_behavior__0) {var space__0 = 0;continue;}
+      if (legacy_behavior__0) {space__0 = 0;continue;}
       return incompatible_flag(pct_ind, str_ind, 32, cst__39);
     }
   }
@@ -6225,13 +7526,15 @@ function fmt_ebb_of_string(legacy_behavior, str) {
 }
 
 function format_of_string_fmtty(str, fmtty) {
+  var ab_;
+  var ac_;
   var match = fmt_ebb_of_string(0, str);
   var fmt = match[1];
-  try {var ac_ = [0,type_format(fmt, fmtty),str];return ac_;}
+  try {ac_ = [0,type_format(fmt, fmtty),str];return ac_;}
   catch(ad_) {
     ad_ = runtime["caml_wrap_exception"](ad_);
     if (ad_ === Type_mismatch) {
-      var ab_ = string_of_fmtty(fmtty);
+      ab_ = string_of_fmtty(fmtty);
       return call2(failwith_message(X_), str, ab_);
     }
     throw caml_wrap_thrown_exception_reraise(ad_);
@@ -6239,11 +7542,12 @@ function format_of_string_fmtty(str, fmtty) {
 }
 
 function format_of_string_format(str, param) {
+  var Z_;
   var str__0 = param[2];
   var fmt = param[1];
   var match = fmt_ebb_of_string(0, str);
   var fmt__0 = match[1];
-  try {var Z_ = [0,type_format(fmt__0, fmtty_of_fmt(fmt)),str];return Z_;}
+  try {Z_ = [0,type_format(fmt__0, fmtty_of_fmt(fmt)),str];return Z_;}
   catch(aa_) {
     aa_ = runtime["caml_wrap_exception"](aa_);
     if (aa_ === Type_mismatch) {
@@ -6310,30 +7614,30 @@ exports = CamlinternalFormat;
   recast: (fmt: any, fmtty: any) => any,
 }*/
 /** @type {{
-  is_in_char_set: (any, any) => any,
-  rev_char_set: (any) => any,
-  create_char_set: (any) => any,
-  add_in_char_set: (any, any) => any,
-  freeze_char_set: (any) => any,
-  param_format_of_ignored_format: (any, any) => any,
-  make_printf: (any, any, any, any) => any,
-  make_iprintf: (any, any, any) => any,
-  output_acc: (any, any) => any,
-  bufput_acc: (any, any) => any,
-  strput_acc: (any, any) => any,
-  type_format: (any, any) => any,
-  fmt_ebb_of_string: (any, any) => any,
-  format_of_string_fmtty: (any, any) => any,
-  format_of_string_format: (any, any) => any,
-  char_of_iconv: (any) => any,
-  string_of_formatting_lit: (any) => any,
-  string_of_formatting_gen: (any) => any,
-  string_of_fmtty: (any) => any,
-  string_of_fmt: (any) => any,
-  open_box_of_string: (any) => any,
-  symm: (any) => any,
-  trans: (any, any) => any,
-  recast: (any, any) => any,
+  is_in_char_set: (char_set: any, c: any) => any,
+  rev_char_set: (char_set: any) => any,
+  create_char_set: (param: any) => any,
+  add_in_char_set: (char_set: any, c: any) => any,
+  freeze_char_set: (char_set: any) => any,
+  param_format_of_ignored_format: (ign: any, fmt: any) => any,
+  make_printf: (k: any, o: any, acc: any, fmt: any) => any,
+  make_iprintf: (k: any, o: any, fmt: any) => any,
+  output_acc: (o: any, acc: any) => any,
+  bufput_acc: (b: any, acc: any) => any,
+  strput_acc: (b: any, acc: any) => any,
+  type_format: (fmt: any, fmtty: any) => any,
+  fmt_ebb_of_string: (legacy_behavior: any, str: any) => any,
+  format_of_string_fmtty: (str: any, fmtty: any) => any,
+  format_of_string_format: (str: any, param: any) => any,
+  char_of_iconv: (iconv: any) => any,
+  string_of_formatting_lit: (formatting_lit: any) => any,
+  string_of_formatting_gen: (formatting_gen: any) => any,
+  string_of_fmtty: (fmtty: any) => any,
+  string_of_fmt: (fmt: any) => any,
+  open_box_of_string: (str: any) => any,
+  symm: (param: any) => any,
+  trans: (ty1: any, ty2: any) => any,
+  recast: (fmt: any, fmtty: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.is_in_char_set = module.exports[1];

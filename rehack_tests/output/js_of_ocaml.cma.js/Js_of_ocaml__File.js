@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string__0 = runtime["caml_new_string"];
 
@@ -33,12 +31,12 @@ var cst_abort = string__0("abort");
 var cst_error = string__0("error");
 var cst_load = string__0("load");
 var cst_loadend = string__0("loadend");
-var Js_of_ocaml_Typed_array = require("Js_of_ocaml__Typed_array.js");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Pervasives = require("Pervasives.js");
-var List = require("List_.js");
-var Array = require("Array_.js");
-var Js_of_ocaml_Dom = require("Js_of_ocaml__Dom.js");
+var Js_of_ocaml_Typed_array = require("./Js_of_ocaml__Typed_array.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var List = require("../stdlib.cma.js/List.js");
+var Array = require("../stdlib.cma.js/Array.js");
+var Js_of_ocaml_Dom = require("./Js_of_ocaml__Dom.js");
 var c_ = [0,string__0("transparent")];
 var d_ = [0,string__0("native")];
 
@@ -183,16 +181,16 @@ exports = Js_of_ocaml_File;
 /*::type Exports = {
   blob_from_string: (contentType: any, endings: any, s: any) => any,
   blob_from_any: (contentType: any, endings: any, l: any) => any,
-  ReaderEvent: any
+  ReaderEvent: any,
   filename: (file: any) => any,
-  fileReader: any
-  addEventListener: any
+  fileReader: any,
+  addEventListener: any,
 }*/
 /** @type {{
-  blob_from_string: (any, any, any) => any,
-  blob_from_any: (any, any, any) => any,
+  blob_from_string: (contentType: any, endings: any, s: any) => any,
+  blob_from_any: (contentType: any, endings: any, l: any) => any,
   ReaderEvent: any,
-  filename: (any) => any,
+  filename: (file: any) => any,
   fileReader: any,
   addEventListener: any,
 }} */

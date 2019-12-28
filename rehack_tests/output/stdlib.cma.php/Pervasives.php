@@ -10,10 +10,9 @@ namespace Rehack;
 final class Pervasives {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $symbol__0 = new Ref();
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_blit_string = $runtime["caml_blit_string"];
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -625,7 +624,7 @@ final class Pervasives {
   public static function float_of_string_opt(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[24], varray[$s]);
   }
-  public static function _print_char_(dynamic $c): dynamic {
+  public static function print_char(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[29], varray[$c]);
   }
   public static function print_string(dynamic $s): dynamic {
@@ -634,10 +633,10 @@ final class Pervasives {
   public static function print_bytes(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[31], varray[$s]);
   }
-  public static function _print_int_(dynamic $i): dynamic {
+  public static function print_int(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[32], varray[$i]);
   }
-  public static function _print_float_(dynamic $f): dynamic {
+  public static function print_float(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[33], varray[$f]);
   }
   public static function print_endline(dynamic $s): dynamic {
@@ -646,7 +645,7 @@ final class Pervasives {
   public static function print_newline(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[35], varray[$param]);
   }
-  public static function _prerr_char_(dynamic $c): dynamic {
+  public static function prerr_char(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[36], varray[$c]);
   }
   public static function prerr_string(dynamic $s): dynamic {
@@ -655,10 +654,10 @@ final class Pervasives {
   public static function prerr_bytes(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[38], varray[$s]);
   }
-  public static function _prerr_int_(dynamic $i): dynamic {
+  public static function prerr_int(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[39], varray[$i]);
   }
-  public static function _prerr_float_(dynamic $f): dynamic {
+  public static function prerr_float(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[40], varray[$f]);
   }
   public static function prerr_endline(dynamic $s): dynamic {
@@ -670,13 +669,13 @@ final class Pervasives {
   public static function read_line(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[43], varray[$param]);
   }
-  public static function _read_int_(dynamic $param): dynamic {
+  public static function read_int(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[44], varray[$param]);
   }
   public static function read_int_opt(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[45], varray[$param]);
   }
-  public static function _read_float_(dynamic $param): dynamic {
+  public static function read_float(dynamic $param): dynamic {
     return static::callRehackFunction(static::requireModule()[46], varray[$param]);
   }
   public static function read_float_opt(dynamic $param): dynamic {
@@ -715,7 +714,7 @@ final class Pervasives {
   public static function close_out_noerr(dynamic $oc): dynamic {
     return static::callRehackFunction(static::requireModule()[65], varray[$oc]);
   }
-  public static function _open_in_(dynamic $name): dynamic {
+  public static function open_in(dynamic $name): dynamic {
     return static::callRehackFunction(static::requireModule()[67], varray[$name]);
   }
   public static function open_in_bin(dynamic $name): dynamic {

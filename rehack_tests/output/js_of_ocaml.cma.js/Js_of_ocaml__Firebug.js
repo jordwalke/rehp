@@ -7,17 +7,15 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var console = runtime["caml_js_get_console"](0);
 var Js_of_ocaml_Firebug = [0,console];
 
 exports = Js_of_ocaml_Firebug;
 
 /*::type Exports = {
-  console: any
+  console: any,
 }*/
 /** @type {{
   console: any,

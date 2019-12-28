@@ -10,9 +10,8 @@ namespace Rehack;
 final class MyLib {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
     $cst_this_should_be_exported_with_three_leading = $string(
@@ -27,7 +26,7 @@ final class MyLib {
     $cst_myPartiallyAppliedMethod = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__0 = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__1 = $string("myPartiallyAppliedMethod");
-    $MyLib_MyLibUtility =  MyLib__MyLibUtility::get ();
+    $MyLib_MyLibUtility =  MyLib__MyLibUtility::requireModule ();
     $foo = "foo";
     $bar = "bar";
     $baz = "baz";
@@ -129,19 +128,10 @@ final class MyLib {
       $requireModule,
       $requireModule__0,
       $construct
-    };
+    } as dynamic;
     
      return ($MyLib);
 
-  }
-  public static function foo(): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[]);
-  }
-  public static function bar(): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[]);
-  }
-  public static function baz(): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[]);
   }
   public static function testFunctionCalls(dynamic $o): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$o]);
@@ -155,9 +145,6 @@ final class MyLib {
   public static function testPartialMethodCalls(dynamic $o): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$o]);
   }
-  public static function x(): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[]);
-  }
   public static function genThisShouldBeAsyncTransformed(dynamic $input, dynamic $cb): Awaitable<dynamic> {
     return static::genCallFunctionWithArgs("genThisShouldBeAsyncTransformed", static::requireModule()[9], varray[$input, $cb]);
   }
@@ -169,4 +156,4 @@ final class MyLib {
   }
 
 }
-/*____hashes flags: 421562097 bytecode: 67843182350 debug-data: 26172921359 primitives: 314532832*/
+/*____hashes flags: 1406088649 bytecode: 67843182350 debug-data: 26172921359 primitives: 314532832*/

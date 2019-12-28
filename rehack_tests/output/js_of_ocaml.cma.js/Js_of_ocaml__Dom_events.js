@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -26,7 +24,7 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
+var Js_of_ocaml_Dom_html = require("./Js_of_ocaml__Dom_html.js");
 
 function listen(opt, target, typ, cb) {
   if (opt) {
@@ -47,10 +45,10 @@ exports = Js_of_ocaml_Dom_events;
 
 /*::type Exports = {
   listen: (opt: any, target: any, typ: any, cb: any) => any,
-  stop_listen: any
+  stop_listen: any,
 }*/
 /** @type {{
-  listen: (any, any, any, any) => any,
+  listen: (opt: any, target: any, typ: any, cb: any) => any,
   stop_listen: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);

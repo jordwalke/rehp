@@ -7,10 +7,11 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
+
+;
+
 var zero = [254,0,0];
 var one = [254,1,0];
 var i = [254,0,1];
@@ -29,9 +30,11 @@ function mul(x, y) {
 }
 
 function div(x, y) {
+  var d;
+  var r;
   if (Math.abs(y[2]) <= Math.abs(y[1])) {
-    var r = y[2] / y[1];
-    var d = y[1] + r * y[2];
+    r = y[2] / y[1];
+    d = y[1] + r * y[2];
     return [254,(x[1] + r * x[2]) / d,(x[2] - r * x[1]) / d];
   }
   var r__0 = y[1] / y[2];
@@ -44,11 +47,12 @@ function inv(x) {return div(one, x);}
 function norm2(x) {return x[1] * x[1] + x[2] * x[2];}
 
 function norm(x) {
+  var q;
   var r = Math.abs(x[1]);
   var i = Math.abs(x[2]);
   if (r == 0) {return i;}
   if (i == 0) {return r;}
-  if (i <= r) {var q = i / r;return r * Math.sqrt(1 + q * q);}
+  if (i <= r) {q = i / r;return r * Math.sqrt(1 + q * q);}
   var q__0 = r / i;
   return i * Math.sqrt(1 + q__0 * q__0);
 }
@@ -58,17 +62,19 @@ function arg(x) {return Math.atan2(x[2], x[1]);}
 function polar(n, a) {return [254,Math.cos(a) * n,Math.sin(a) * n];}
 
 function sqrt(x) {
+  var q__0;
+  var w;
+  var q;
   if (x[1] == 0) {if (x[2] == 0) {return a_;}}
   var r = Math.abs(x[1]);
   var i = Math.abs(x[2]);
   if (i <= r) {
-    var q = i / r;
-    var w = Math.sqrt(r) * Math.sqrt(0.5 * (1 + Math.sqrt(1 + q * q)));
+    q = i / r;
+    w = Math.sqrt(r) * Math.sqrt(0.5 * (1 + Math.sqrt(1 + q * q)));
   }
   else {
-    var q__0 = r / i;
-    var w = Math.sqrt(i) *
-      Math.sqrt(0.5 * (q__0 + Math.sqrt(1 + q__0 * q__0)));
+    q__0 = r / i;
+    w = Math.sqrt(i) * Math.sqrt(0.5 * (q__0 + Math.sqrt(1 + q__0 * q__0)));
   }
   if (0 <= x[1]) {return [254,w,0.5 * x[2] / w];}
   var w__0 = 0 <= x[2] ? w : - w;
@@ -112,9 +118,9 @@ var Complex = [
 exports = Complex;
 
 /*::type Exports = {
-  zero: any
-  one: any
-  i: any
+  zero: any,
+  one: any,
+  i: any,
   neg: (x: any) => any,
   conj: (x: any) => any,
   add: (x: any, y: any) => any,
@@ -135,21 +141,21 @@ exports = Complex;
   zero: any,
   one: any,
   i: any,
-  neg: (any) => any,
-  conj: (any) => any,
-  add: (any, any) => any,
-  sub: (any, any) => any,
-  mul: (any, any) => any,
-  inv: (any) => any,
-  div: (any, any) => any,
-  sqrt: (any) => any,
-  norm2: (any) => any,
-  norm: (any) => any,
-  arg: (any) => any,
-  polar: (any, any) => any,
-  exp: (any) => any,
-  log: (any) => any,
-  pow: (any, any) => any,
+  neg: (x: any) => any,
+  conj: (x: any) => any,
+  add: (x: any, y: any) => any,
+  sub: (x: any, y: any) => any,
+  mul: (x: any, y: any) => any,
+  inv: (x: any) => any,
+  div: (x: any, y: any) => any,
+  sqrt: (x: any) => any,
+  norm2: (x: any) => any,
+  norm: (x: any) => any,
+  arg: (x: any) => any,
+  polar: (n: any, a: any) => any,
+  exp: (x: any) => any,
+  log: (x: any) => any,
+  pow: (x: any, y: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.zero = module.exports[1];

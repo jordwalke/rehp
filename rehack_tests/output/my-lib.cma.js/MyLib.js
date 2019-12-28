@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
@@ -29,7 +27,7 @@ var cst_this_should_be_exported_with_leading = string(
 var cst_myPartiallyAppliedMethod = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__0 = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__1 = string("myPartiallyAppliedMethod");
-var MyLib_MyLibUtility = require("MyLib__MyLibUtility.js");
+var MyLib_MyLibUtility = require("./MyLib__MyLibUtility.js");
 var foo = "foo";
 var bar = "bar";
 var baz = "baz";
@@ -130,5 +128,43 @@ var MyLib = [
 
 exports = MyLib;
 
-/*____CompilationSummary*/
-/*____hashes flags: 585918536 bytecode: 67843182350 debug-data: 26172921359 primitives: 314532832*/
+/*::type Exports = {
+  foo: any,
+  _bar_: any,
+  baz: any,
+  testFunctionCalls: (o: any) => any,
+  testMethodCalls: (o: any) => any,
+  testPartialFunctionCalls: (o: any) => any,
+  testPartialMethodCalls: (o: any) => any,
+  x: any,
+  genThisShouldBeAsyncTransformed: (input: any, cb: any) => any,
+  requireModule: (param: any) => any,
+  construct: (param: any) => any,
+}*/
+/** @type {{
+  foo: any,
+  _bar_: any,
+  baz: any,
+  testFunctionCalls: (o: any) => any,
+  testMethodCalls: (o: any) => any,
+  testPartialFunctionCalls: (o: any) => any,
+  testPartialMethodCalls: (o: any) => any,
+  x: any,
+  genThisShouldBeAsyncTransformed: (input: any, cb: any) => any,
+  requireModule: (param: any) => any,
+  construct: (param: any) => any,
+}} */
+module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports.foo = module.exports[1];
+module.exports._bar_ = module.exports[2];
+module.exports.baz = module.exports[3];
+module.exports.testFunctionCalls = module.exports[4];
+module.exports.testMethodCalls = module.exports[5];
+module.exports.testPartialFunctionCalls = module.exports[6];
+module.exports.testPartialMethodCalls = module.exports[7];
+module.exports.x = module.exports[8];
+module.exports.genThisShouldBeAsyncTransformed = module.exports[9];
+module.exports.requireModule = module.exports[11];
+module.exports.construct = module.exports[13];
+
+/*____hashes flags: 589793685 bytecode: 67843182350 debug-data: 26172921359 primitives: 314532832*/

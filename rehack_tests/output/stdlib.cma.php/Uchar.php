@@ -10,9 +10,8 @@ namespace Rehack;
 final class Uchar {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_format_int = $runtime["caml_format_int"];
@@ -126,16 +125,16 @@ final class Uchar {
   public static function is_valid(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$i]);
   }
-  public static function _of_int_(dynamic $i): dynamic {
+  public static function of_int(dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[8], varray[$i]);
   }
-  public static function _is_char_(dynamic $u): dynamic {
+  public static function is_char(dynamic $u): dynamic {
     return static::callRehackFunction(static::requireModule()[11], varray[$u]);
   }
-  public static function _of_char_(dynamic $c): dynamic {
+  public static function of_char(dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[12], varray[$c]);
   }
-  public static function _to_char_(dynamic $u): dynamic {
+  public static function to_char(dynamic $u): dynamic {
     return static::callRehackFunction(static::requireModule()[13], varray[$u]);
   }
   public static function unsafe_to_char(dynamic $unnamed1): dynamic {

@@ -7,10 +7,17 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
+function call2(f, a0, a1) {
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+}
+
 var caml_blit_string = runtime["caml_blit_string"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_float_of_string = runtime["caml_float_of_string"];
@@ -37,15 +44,6 @@ var caml_sys_open = runtime["caml_sys_open"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
-
-function call1(f, a0) {
-  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
-}
-
-function call2(f, a0, a1) {
-  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
-}
-
 var cst__0 = string("%,");
 var cst_really_input = string("really_input");
 var cst_input = string("input");
@@ -62,11 +60,11 @@ var cst_true = string("true");
 var cst_false = string("false");
 var cst_char_of_int = string("char_of_int");
 var cst_Pervasives_Exit = string("Pervasives.Exit");
-var End_of_file = require("End_of_file.js");
-var CamlinternalFormatBasics = require("CamlinternalFormatBasics.js");
-var Sys_error = require("Sys_error.js");
-var Failure = require("Failure.js");
-var Invalid_argument = require("Invalid_argument.js");
+var End_of_file = require("../runtime/End_of_file.js");
+var CamlinternalFormatBasics = require("./CamlinternalFormatBasics.js");
+var Sys_error = require("../runtime/Sys_error.js");
+var Failure = require("../runtime/Failure.js");
+var Invalid_argument = require("../runtime/Invalid_argument.js");
 var l_ = [0,0,[0,6,0]];
 var k_ = [0,0,[0,7,0]];
 var j_ = [0,1,[0,3,[0,4,[0,6,0]]]];
@@ -138,7 +136,8 @@ function bool_of_string_opt(param) {
 function string_of_int(n) {return string("" + n);}
 
 function int_of_string_opt(s) {
-  try {var ay_ = [0,caml_int_of_string(s)];return ay_;}
+  var ay_;
+  try {ay_ = [0,caml_int_of_string(s)];return ay_;}
   catch(az_) {
     az_ = runtime["caml_wrap_exception"](az_);
     if (az_[1] === Failure) {return 0;}
@@ -149,12 +148,15 @@ function int_of_string_opt(s) {
 function valid_float_lexem(s) {
   var l = caml_ml_string_length(s);
   function loop(i) {
+    var match;
+    var i__1;
+    var switch__0;
     var i__0 = i;
     for (; ; ) {
       if (l <= i__0) {return symbol(s, cst);}
-      var match = runtime["caml_string_get"](s, i__0);
-      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
-      if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
+      match = runtime["caml_string_get"](s, i__0);
+      switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
+      if (switch__0) {i__1 = i__0 + 1 | 0;i__0 = i__1;continue;}
       return s;
     }
   }
@@ -166,7 +168,8 @@ function string_of_float(f) {
 }
 
 function float_of_string_opt(s) {
-  try {var aw_ = [0,caml_float_of_string(s)];return aw_;}
+  var aw_;
+  try {aw_ = [0,caml_float_of_string(s)];return aw_;}
   catch(ax_) {
     ax_ = runtime["caml_wrap_exception"](ax_);
     if (ax_[1] === Failure) {return 0;}
@@ -175,7 +178,9 @@ function float_of_string_opt(s) {
 }
 
 function symbol__0(l1, l2) {
-  if (l1) {var tl = l1[2];var hd = l1[1];return [0,hd,symbol__0(tl, l2)];}
+  var hd;
+  var tl;
+  if (l1) {tl = l1[2];hd = l1[1];return [0,hd,symbol__0(tl, l2)];}
   return l2;
 }
 
@@ -195,11 +200,13 @@ function open_out_bin(name) {return open_out_gen(j_, 438, name);}
 
 function flush_all(param) {
   function iter(param) {
+    var l;
+    var a;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        var l = param__0[2];
-        var a = param__0[1];
+        l = param__0[2];
+        a = param__0[1];
         try {caml_ml_flush(a);}
         catch(av_) {
           av_ = runtime["caml_wrap_exception"](av_);
@@ -207,7 +214,7 @@ function flush_all(param) {
             throw caml_wrap_thrown_exception_reraise(av_);
           }
         }
-        var param__0 = l;
+        param__0 = l;
         continue;
       }
       return 0;
@@ -249,8 +256,9 @@ function output_value(chan, v) {
 function close_out(oc) {caml_ml_flush(oc);return caml_ml_close_channel(oc);}
 
 function close_out_noerr(oc) {
+  var as_;
   try {caml_ml_flush(oc);}catch(au_) {}
-  try {var as_ = caml_ml_close_channel(oc);return as_;}catch(at_) {return 0;}
+  try {as_ = caml_ml_close_channel(oc);return as_;}catch(at_) {return 0;}
 }
 
 function open_in_gen(mode, perm, name) {
@@ -273,16 +281,19 @@ function input(ic, s, ofs, len) {
 }
 
 function unsafe_really_input(ic, s, ofs, len) {
+  var r;
+  var len__1;
+  var ofs__1;
   var ofs__0 = ofs;
   var len__0 = len;
   for (; ; ) {
     if (0 < len__0) {
-      var r = caml_ml_input(ic, s, ofs__0, len__0);
+      r = caml_ml_input(ic, s, ofs__0, len__0);
       if (0 === r) {throw caml_wrap_thrown_exception(End_of_file);}
-      var len__1 = len__0 - r | 0;
-      var ofs__1 = ofs__0 + r | 0;
-      var ofs__0 = ofs__1;
-      var len__0 = len__1;
+      len__1 = len__0 - r | 0;
+      ofs__1 = ofs__0 + r | 0;
+      ofs__0 = ofs__1;
+      len__0 = len__1;
       continue;
     }
     return 0;
@@ -306,27 +317,37 @@ function really_input_string(ic, len) {
 
 function input_line(chan) {
   function build_result(buf, pos, param) {
+    var param__1;
+    var hd;
+    var len;
+    var pos__1;
     var pos__0 = pos;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        var param__1 = param__0[2];
-        var hd = param__0[1];
-        var len = caml_ml_bytes_length(hd);
+        param__1 = param__0[2];
+        hd = param__0[1];
+        len = caml_ml_bytes_length(hd);
         runtime["caml_blit_bytes"](hd, 0, buf, pos__0 - len | 0, len);
-        var pos__1 = pos__0 - len | 0;
-        var pos__0 = pos__1;
-        var param__0 = param__1;
+        pos__1 = pos__0 - len | 0;
+        pos__0 = pos__1;
+        param__0 = param__1;
         continue;
       }
       return buf;
     }
   }
   function scan(accu, len) {
+    var n;
+    var res;
+    var len__1;
+    var beg;
+    var len__2;
+    var accu__1;
     var accu__0 = accu;
     var len__0 = len;
     for (; ; ) {
-      var n = runtime["caml_ml_input_scan_line"](chan);
+      n = runtime["caml_ml_input_scan_line"](chan);
       if (0 === n) {
         if (accu__0) {
           return build_result(caml_create_bytes(len__0), len__0, accu__0);
@@ -334,11 +355,11 @@ function input_line(chan) {
         throw caml_wrap_thrown_exception(End_of_file);
       }
       if (0 < n) {
-        var res = caml_create_bytes(n + -1 | 0);
+        res = caml_create_bytes(n + -1 | 0);
         caml_ml_input(chan, res, 0, n + -1 | 0);
         caml_ml_input_char(chan);
         if (accu__0) {
-          var len__1 = (len__0 + n | 0) + -1 | 0;
+          len__1 = (len__0 + n | 0) + -1 | 0;
           return build_result(
             caml_create_bytes(len__1),
             len__1,
@@ -347,12 +368,12 @@ function input_line(chan) {
         }
         return res;
       }
-      var beg = caml_create_bytes(- n | 0);
+      beg = caml_create_bytes(- n | 0);
       caml_ml_input(chan, beg, 0, - n | 0);
-      var len__2 = len__0 - n | 0;
-      var accu__1 = [0,beg,accu__0];
-      var accu__0 = accu__1;
-      var len__0 = len__2;
+      len__2 = len__0 - n | 0;
+      accu__1 = [0,beg,accu__0];
+      accu__0 = accu__1;
+      len__0 = len__2;
       continue;
     }
   }
@@ -360,7 +381,8 @@ function input_line(chan) {
 }
 
 function close_in_noerr(ic) {
-  try {var aq_ = caml_ml_close_channel(ic);return aq_;}catch(ar_) {return 0;}
+  var aq_;
+  try {aq_ = caml_ml_close_channel(ic);return aq_;}catch(ar_) {return 0;}
 }
 
 function print_char(c) {return caml_ml_output_char(stdout, c);}
@@ -593,19 +615,19 @@ exports = Pervasives;
 /*::type Exports = {
   invalid_arg: (s: any) => any,
   failwith: (s: any) => any,
-  Exit: any
+  Exit: any,
   min: (x: any, y: any) => any,
   max: (x: any, y: any) => any,
   abs: (x: any) => any,
-  max_int: any
-  min_int: any
+  max_int: any,
+  min_int: any,
   lnot: (x: any) => any,
-  infinity: any
-  neg_infinity: any
-  nan: any
-  max_float: any
-  min_float: any
-  epsilon_float: any
+  infinity: any,
+  neg_infinity: any,
+  nan: any,
+  max_float: any,
+  min_float: any,
+  epsilon_float: any,
   symbol: (s1: any, s2: any) => any,
   char_of_int: (n: any) => any,
   string_of_bool: (b: any) => any,
@@ -615,10 +637,9 @@ exports = Pervasives;
   int_of_string_opt: (s: any) => any,
   string_of_float: (f: any) => any,
   float_of_string_opt: (s: any) => any,
-  symbol: (l1: any, l2: any) => any,
-  stdin: any
-  stdout: any
-  stderr: any
+  stdin: any,
+  stdout: any,
+  stderr: any,
   print_char: (c: any) => any,
   print_string: (s: any) => any,
   print_bytes: (s: any) => any,
@@ -658,7 +679,6 @@ exports = Pervasives;
   really_input_string: (ic: any, len: any) => any,
   close_in_noerr: (ic: any) => any,
   string_of_format: (param: any) => any,
-  symbol: (param: any, unnamed1: any) => any,
   exit: (retcode: any) => any,
   at_exit: (f: any) => any,
   valid_float_lexem: (s: any) => any,
@@ -666,79 +686,77 @@ exports = Pervasives;
   do_at_exit: (param: any) => any,
 }*/
 /** @type {{
-  invalid_arg: (any) => any,
-  failwith: (any) => any,
+  invalid_arg: (s: any) => any,
+  failwith: (s: any) => any,
   Exit: any,
-  min: (any, any) => any,
-  max: (any, any) => any,
-  abs: (any) => any,
+  min: (x: any, y: any) => any,
+  max: (x: any, y: any) => any,
+  abs: (x: any) => any,
   max_int: any,
   min_int: any,
-  lnot: (any) => any,
+  lnot: (x: any) => any,
   infinity: any,
   neg_infinity: any,
   nan: any,
   max_float: any,
   min_float: any,
   epsilon_float: any,
-  symbol: (any, any) => any,
-  char_of_int: (any) => any,
-  string_of_bool: (any) => any,
-  bool_of_string: (any) => any,
-  bool_of_string_opt: (any) => any,
-  string_of_int: (any) => any,
-  int_of_string_opt: (any) => any,
-  string_of_float: (any) => any,
-  float_of_string_opt: (any) => any,
-  symbol: (any, any) => any,
+  symbol: (s1: any, s2: any) => any,
+  char_of_int: (n: any) => any,
+  string_of_bool: (b: any) => any,
+  bool_of_string: (param: any) => any,
+  bool_of_string_opt: (param: any) => any,
+  string_of_int: (n: any) => any,
+  int_of_string_opt: (s: any) => any,
+  string_of_float: (f: any) => any,
+  float_of_string_opt: (s: any) => any,
   stdin: any,
   stdout: any,
   stderr: any,
-  print_char: (any) => any,
-  print_string: (any) => any,
-  print_bytes: (any) => any,
-  print_int: (any) => any,
-  print_float: (any) => any,
-  print_endline: (any) => any,
-  print_newline: (any) => any,
-  prerr_char: (any) => any,
-  prerr_string: (any) => any,
-  prerr_bytes: (any) => any,
-  prerr_int: (any) => any,
-  prerr_float: (any) => any,
-  prerr_endline: (any) => any,
-  prerr_newline: (any) => any,
-  read_line: (any) => any,
-  read_int: (any) => any,
-  read_int_opt: (any) => any,
-  read_float: (any) => any,
-  read_float_opt: (any) => any,
-  open_out: (any) => any,
-  open_out_bin: (any) => any,
-  open_out_gen: (any, any, any) => any,
-  flush_all: (any) => any,
-  output_string: (any, any) => any,
-  output_bytes: (any, any) => any,
-  output: (any, any, any, any) => any,
-  output_substring: (any, any, any, any) => any,
-  output_value: (any, any) => any,
-  close_out: (any) => any,
-  close_out_noerr: (any) => any,
-  open_in: (any) => any,
-  open_in_bin: (any) => any,
-  open_in_gen: (any, any, any) => any,
-  input_line: (any) => any,
-  input: (any, any, any, any) => any,
-  really_input: (any, any, any, any) => any,
-  really_input_string: (any, any) => any,
-  close_in_noerr: (any) => any,
-  string_of_format: (any) => any,
-  symbol: (any, any) => any,
-  exit: (any) => any,
-  at_exit: (any) => any,
-  valid_float_lexem: (any) => any,
-  unsafe_really_input: (any, any, any, any) => any,
-  do_at_exit: (any) => any,
+  print_char: (c: any) => any,
+  print_string: (s: any) => any,
+  print_bytes: (s: any) => any,
+  print_int: (i: any) => any,
+  print_float: (f: any) => any,
+  print_endline: (s: any) => any,
+  print_newline: (param: any) => any,
+  prerr_char: (c: any) => any,
+  prerr_string: (s: any) => any,
+  prerr_bytes: (s: any) => any,
+  prerr_int: (i: any) => any,
+  prerr_float: (f: any) => any,
+  prerr_endline: (s: any) => any,
+  prerr_newline: (param: any) => any,
+  read_line: (param: any) => any,
+  read_int: (param: any) => any,
+  read_int_opt: (param: any) => any,
+  read_float: (param: any) => any,
+  read_float_opt: (param: any) => any,
+  open_out: (name: any) => any,
+  open_out_bin: (name: any) => any,
+  open_out_gen: (mode: any, perm: any, name: any) => any,
+  flush_all: (param: any) => any,
+  output_string: (oc: any, s: any) => any,
+  output_bytes: (oc: any, s: any) => any,
+  output: (oc: any, s: any, ofs: any, len: any) => any,
+  output_substring: (oc: any, s: any, ofs: any, len: any) => any,
+  output_value: (chan: any, v: any) => any,
+  close_out: (oc: any) => any,
+  close_out_noerr: (oc: any) => any,
+  open_in: (name: any) => any,
+  open_in_bin: (name: any) => any,
+  open_in_gen: (mode: any, perm: any, name: any) => any,
+  input_line: (chan: any) => any,
+  input: (ic: any, s: any, ofs: any, len: any) => any,
+  really_input: (ic: any, s: any, ofs: any, len: any) => any,
+  really_input_string: (ic: any, len: any) => any,
+  close_in_noerr: (ic: any) => any,
+  string_of_format: (param: any) => any,
+  exit: (retcode: any) => any,
+  at_exit: (f: any) => any,
+  valid_float_lexem: (s: any) => any,
+  unsafe_really_input: (ic: any, s: any, ofs: any, len: any) => any,
+  do_at_exit: (param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.invalid_arg = module.exports[1];
@@ -765,7 +783,6 @@ module.exports.string_of_int = module.exports[21];
 module.exports.int_of_string_opt = module.exports[22];
 module.exports.string_of_float = module.exports[23];
 module.exports.float_of_string_opt = module.exports[24];
-module.exports.symbol = module.exports[25];
 module.exports.stdin = module.exports[26];
 module.exports.stdout = module.exports[27];
 module.exports.stderr = module.exports[28];
@@ -808,7 +825,6 @@ module.exports.really_input = module.exports[73];
 module.exports.really_input_string = module.exports[74];
 module.exports.close_in_noerr = module.exports[82];
 module.exports.string_of_format = module.exports[85];
-module.exports.symbol = module.exports[86];
 module.exports.exit = module.exports[87];
 module.exports.at_exit = module.exports[88];
 module.exports.valid_float_lexem = module.exports[89];

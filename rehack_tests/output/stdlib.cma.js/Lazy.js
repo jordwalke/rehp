@@ -7,13 +7,11 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_obj_tag = runtime["caml_obj_tag"];
-var Obj = require("Obj.js");
-var CamlinternalLazy = require("CamlinternalLazy.js");
+var Obj = require("./Obj.js");
+var CamlinternalLazy = require("./CamlinternalLazy.js");
 var Undefined = CamlinternalLazy[1];
 var force_val = CamlinternalLazy[5];
 
@@ -46,11 +44,8 @@ var Lazy = [
 exports = Lazy;
 
 /*::type Exports = {
-  Undefined: any
-  force_val: any
-  from_fun: (f: any) => any,
-  from_val: (v: any) => any,
-  is_val: (l: any) => any,
+  Undefined: any,
+  force_val: any,
   from_fun: (f: any) => any,
   from_val: (v: any) => any,
   is_val: (l: any) => any,
@@ -58,12 +53,9 @@ exports = Lazy;
 /** @type {{
   Undefined: any,
   force_val: any,
-  from_fun: (any) => any,
-  from_val: (any) => any,
-  is_val: (any) => any,
-  from_fun: (any) => any,
-  from_val: (any) => any,
-  is_val: (any) => any,
+  from_fun: (f: any) => any,
+  from_val: (v: any) => any,
+  is_val: (l: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.Undefined = module.exports[1];
@@ -71,8 +63,5 @@ module.exports.force_val = module.exports[2];
 module.exports.from_fun = module.exports[3];
 module.exports.from_val = module.exports[4];
 module.exports.is_val = module.exports[5];
-module.exports.from_fun = module.exports[6];
-module.exports.from_val = module.exports[7];
-module.exports.is_val = module.exports[8];
 
 /* Hashing disabled */

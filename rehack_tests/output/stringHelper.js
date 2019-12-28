@@ -7,17 +7,15 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var helperVal = runtime["caml_new_string"]("hello");
 var StringHelper = [0,helperVal];
 
 exports = StringHelper;
 
 /*::type Exports = {
-  helperVal: any
+  helperVal: any,
 }*/
 /** @type {{
   helperVal: any,

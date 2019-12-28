@@ -7,11 +7,12 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var String = require("String_.js");
+var runtime = require("../runtime/runtime.js");
+
+;
+
+var String = require("./String.js");
 var make = String[1];
 var init = String[2];
 var copy = String[3];
@@ -89,41 +90,41 @@ var StringLabels = [
 exports = StringLabels;
 
 /*::type Exports = {
-  make: any
-  init: any
-  copy: any
-  sub: any
-  fill: any
-  blit: any
-  concat: any
-  iter: any
-  iteri: any
-  map: any
-  mapi: any
-  trim: any
-  escaped: any
-  index: any
-  index_opt: any
-  rindex: any
-  rindex_opt: any
-  index_from: any
-  index_from_opt: any
-  rindex_from: any
-  rindex_from_opt: any
-  contains: any
-  contains_from: any
-  rcontains_from: any
-  uppercase: any
-  lowercase: any
-  capitalize: any
-  uncapitalize: any
-  uppercase_ascii: any
-  lowercase_ascii: any
-  capitalize_ascii: any
-  uncapitalize_ascii: any
-  compare: any
-  equal: any
-  split_on_char: any
+  make: any,
+  init: any,
+  copy: any,
+  sub: any,
+  fill: any,
+  blit: any,
+  concat: any,
+  iter: any,
+  iteri: any,
+  map: any,
+  mapi: any,
+  trim: any,
+  escaped: any,
+  index: any,
+  index_opt: any,
+  rindex: any,
+  rindex_opt: any,
+  index_from: any,
+  index_from_opt: any,
+  rindex_from: any,
+  rindex_from_opt: any,
+  contains: any,
+  contains_from: any,
+  rcontains_from: any,
+  uppercase: any,
+  lowercase: any,
+  capitalize: any,
+  uncapitalize: any,
+  uppercase_ascii: any,
+  lowercase_ascii: any,
+  capitalize_ascii: any,
+  uncapitalize_ascii: any,
+  compare: any,
+  equal: any,
+  split_on_char: any,
 }*/
 /** @type {{
   make: any,

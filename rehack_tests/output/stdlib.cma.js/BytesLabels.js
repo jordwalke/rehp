@@ -7,11 +7,12 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var Bytes = require("Bytes.js");
+var runtime = require("../runtime/runtime.js");
+
+;
+
+var Bytes = require("./Bytes.js");
 var make = Bytes[1];
 var init = Bytes[2];
 var empty = Bytes[3];
@@ -105,49 +106,49 @@ var BytesLabels = [
 exports = BytesLabels;
 
 /*::type Exports = {
-  make: any
-  init: any
-  empty: any
-  copy: any
-  of_string: any
-  to_string: any
-  sub: any
-  sub_string: any
-  extend: any
-  fill: any
-  blit: any
-  blit_string: any
-  concat: any
-  cat: any
-  iter: any
-  iteri: any
-  map: any
-  mapi: any
-  trim: any
-  escaped: any
-  index: any
-  index_opt: any
-  rindex: any
-  rindex_opt: any
-  index_from: any
-  index_from_opt: any
-  rindex_from: any
-  rindex_from_opt: any
-  contains: any
-  contains_from: any
-  rcontains_from: any
-  uppercase: any
-  lowercase: any
-  capitalize: any
-  uncapitalize: any
-  uppercase_ascii: any
-  lowercase_ascii: any
-  capitalize_ascii: any
-  uncapitalize_ascii: any
-  compare: any
-  equal: any
-  unsafe_to_string: any
-  unsafe_of_string: any
+  make: any,
+  init: any,
+  empty: any,
+  copy: any,
+  of_string: any,
+  to_string: any,
+  sub: any,
+  sub_string: any,
+  extend: any,
+  fill: any,
+  blit: any,
+  blit_string: any,
+  concat: any,
+  cat: any,
+  iter: any,
+  iteri: any,
+  map: any,
+  mapi: any,
+  trim: any,
+  escaped: any,
+  index: any,
+  index_opt: any,
+  rindex: any,
+  rindex_opt: any,
+  index_from: any,
+  index_from_opt: any,
+  rindex_from: any,
+  rindex_from_opt: any,
+  contains: any,
+  contains_from: any,
+  rcontains_from: any,
+  uppercase: any,
+  lowercase: any,
+  capitalize: any,
+  uncapitalize: any,
+  uppercase_ascii: any,
+  lowercase_ascii: any,
+  capitalize_ascii: any,
+  uncapitalize_ascii: any,
+  compare: any,
+  equal: any,
+  unsafe_to_string: any,
+  unsafe_of_string: any,
 }*/
 /** @type {{
   make: any,

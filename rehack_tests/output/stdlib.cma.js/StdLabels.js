@@ -7,19 +7,20 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
+
+;
+
 var StdLabels = [0,0,0,0,0];
 
 exports = StdLabels;
 
 /*::type Exports = {
-  Array: any
-  Bytes: any
-  List: any
-  String: any
+  Array: any,
+  Bytes: any,
+  List: any,
+  String: any,
 }*/
 /** @type {{
   Array: any,

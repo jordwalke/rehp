@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
 var cst_d = runtime["caml_new_string"]("%d");
@@ -19,7 +17,7 @@ var one = [255,1,0,0];
 var minus_one = [255,16777215,16777215,65535];
 var min_int = [255,0,0,32768];
 var max_int = [255,16777215,16777215,32767];
-var Failure = require("Failure.js");
+var Failure = require("../runtime/Failure.js");
 var d_ = [255,16777215,16777215,65535];
 var c_ = [255,0,0,0];
 var b_ = [255,1,0,0];
@@ -40,7 +38,8 @@ function lognot(n) {return runtime["caml_int64_xor"](n, d_);}
 function to_string(n) {return runtime["caml_int64_format"](cst_d, n);}
 
 function of_string_opt(s) {
-  try {var e_ = [0,runtime["caml_int64_of_string"](s)];return e_;}
+  var e_;
+  try {e_ = [0,runtime["caml_int64_of_string"](s)];return e_;}
   catch(f_) {
     f_ = runtime["caml_wrap_exception"](f_);
     if (f_[1] === Failure) {return 0;}
@@ -72,14 +71,14 @@ var Int64 = [
 exports = Int64;
 
 /*::type Exports = {
-  zero: any
-  one: any
-  minus_one: any
+  zero: any,
+  one: any,
+  minus_one: any,
   succ: (n: any) => any,
   pred: (n: any) => any,
   abs: (n: any) => any,
-  max_int: any
-  min_int: any
+  max_int: any,
+  min_int: any,
   lognot: (n: any) => any,
   of_string_opt: (s: any) => any,
   to_string: (n: any) => any,
@@ -90,16 +89,16 @@ exports = Int64;
   zero: any,
   one: any,
   minus_one: any,
-  succ: (any) => any,
-  pred: (any) => any,
-  abs: (any) => any,
+  succ: (n: any) => any,
+  pred: (n: any) => any,
+  abs: (n: any) => any,
   max_int: any,
   min_int: any,
-  lognot: (any) => any,
-  of_string_opt: (any) => any,
-  to_string: (any) => any,
-  compare: (any, any) => any,
-  equal: (any, any) => any,
+  lognot: (n: any) => any,
+  of_string_opt: (s: any) => any,
+  to_string: (n: any) => any,
+  compare: (x: any, y: any) => any,
+  equal: (x: any, y: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.zero = module.exports[1];

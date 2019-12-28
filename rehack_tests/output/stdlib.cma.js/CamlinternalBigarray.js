@@ -7,10 +7,11 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
+
+;
+
 var CamlinternalBigarray = [0];
 
 exports = CamlinternalBigarray;

@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_byte_string = runtime["caml_js_to_byte_string"];
 var caml_jsbytes_of_string = runtime["caml_jsbytes_of_string"];
@@ -27,9 +25,9 @@ function call2(f, a0, a1) {
 
 var cst_g = string("g");
 var cst = string("[\\][()\\\\|+*.?{}^$]");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Assert_failure = require("Assert_failure.js");
-var Pervasives = require("Pervasives.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Assert_failure = require("../runtime/Assert_failure.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
 var a_ = [0,string("lib/js_of_ocaml/regexp.ml"),33,64];
 
 function regexp(s) {
@@ -251,7 +249,6 @@ exports = Js_of_ocaml_Regexp;
   regexp_string_case_fold: (s: any) => any,
   string_match: (r: any, s: any, i: any) => any,
   search: (r: any, s: any, i: any) => any,
-  search: (r: any, s: any, i: any) => any,
   matched_string: (r: any) => any,
   matched_group: (r: any, i: any) => any,
   global_replace: (r: any, s: any, s_by: any) => any,
@@ -260,21 +257,20 @@ exports = Js_of_ocaml_Regexp;
   bounded_split: (r: any, s: any, i: any) => any,
 }*/
 /** @type {{
-  regexp: (any) => any,
-  regexp_case_fold: (any) => any,
-  regexp_with_flag: (any, any) => any,
-  quote: (any) => any,
-  regexp_string: (any) => any,
-  regexp_string_case_fold: (any) => any,
-  string_match: (any, any, any) => any,
-  search: (any, any, any) => any,
-  search: (any, any, any) => any,
-  matched_string: (any) => any,
-  matched_group: (any, any) => any,
-  global_replace: (any, any, any) => any,
-  replace_first: (any, any, any) => any,
-  split: (any, any) => any,
-  bounded_split: (any, any, any) => any,
+  regexp: (s: any) => any,
+  regexp_case_fold: (s: any) => any,
+  regexp_with_flag: (s: any, f: any) => any,
+  quote: (s: any) => any,
+  regexp_string: (s: any) => any,
+  regexp_string_case_fold: (s: any) => any,
+  string_match: (r: any, s: any, i: any) => any,
+  search: (r: any, s: any, i: any) => any,
+  matched_string: (r: any) => any,
+  matched_group: (r: any, i: any) => any,
+  global_replace: (r: any, s: any, s_by: any) => any,
+  replace_first: (r: any, s: any, s_by: any) => any,
+  split: (r: any, s: any) => any,
+  bounded_split: (r: any, s: any, i: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.regexp = module.exports[1];
@@ -285,7 +281,6 @@ module.exports.regexp_string = module.exports[5];
 module.exports.regexp_string_case_fold = module.exports[6];
 module.exports.string_match = module.exports[7];
 module.exports.search = module.exports[8];
-module.exports.search = module.exports[9];
 module.exports.matched_string = module.exports[10];
 module.exports.matched_group = module.exports[11];
 module.exports.global_replace = module.exports[12];

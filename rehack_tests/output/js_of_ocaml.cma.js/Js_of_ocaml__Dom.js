@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
@@ -23,10 +21,10 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Assert_failure = require("Assert_failure.js");
-var Not_found = require("Not_found.js");
-var List = require("List_.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Assert_failure = require("../runtime/Assert_failure.js");
+var Not_found = require("../runtime/Not_found.js");
+var List = require("../stdlib.cma.js/List.js");
 var a_ = [0,string("lib/js_of_ocaml/dom.ml"),343,67];
 
 function list_of_nodeList(nodeList) {
@@ -337,40 +335,40 @@ var Js_of_ocaml_Dom = [
 exports = Js_of_ocaml_Dom;
 
 /*::type Exports = {
-  DocumentPosition: any
+  DocumentPosition: any,
   insertBefore: (p: any, n: any, o: any) => any,
   replaceChild: (p: any, n: any, o: any) => any,
   removeChild: (p: any, n: any) => any,
   appendChild: (p: any, n: any) => any,
   list_of_nodeList: (nodeList: any) => any,
   nodeType: (e: any) => any,
-  no_handler: any
+  no_handler: any,
   handler: (f: any) => any,
   full_handler: (f: any) => any,
-  invoke_handler: (f: any, this: any, event: any) => any,
+  invoke_handler: (f: any, _this_: any, event: any) => any,
   eventTarget: (e: any) => any,
-  Event: any
+  Event: any,
   addEventListener: (e: any, typ: any, h: any, capt: any) => any,
   removeEventListener: (id: any) => any,
   preventDefault: (ev: any) => any,
 }*/
 /** @type {{
   DocumentPosition: any,
-  insertBefore: (any, any, any) => any,
-  replaceChild: (any, any, any) => any,
-  removeChild: (any, any) => any,
-  appendChild: (any, any) => any,
-  list_of_nodeList: (any) => any,
-  nodeType: (any) => any,
+  insertBefore: (p: any, n: any, o: any) => any,
+  replaceChild: (p: any, n: any, o: any) => any,
+  removeChild: (p: any, n: any) => any,
+  appendChild: (p: any, n: any) => any,
+  list_of_nodeList: (nodeList: any) => any,
+  nodeType: (e: any) => any,
   no_handler: any,
-  handler: (any) => any,
-  full_handler: (any) => any,
-  invoke_handler: (any, any, any) => any,
-  eventTarget: (any) => any,
+  handler: (f: any) => any,
+  full_handler: (f: any) => any,
+  invoke_handler: (f: any, _this_: any, event: any) => any,
+  eventTarget: (e: any) => any,
   Event: any,
-  addEventListener: (any, any, any, any) => any,
-  removeEventListener: (any) => any,
-  preventDefault: (any) => any,
+  addEventListener: (e: any, typ: any, h: any, capt: any) => any,
+  removeEventListener: (id: any) => any,
+  preventDefault: (ev: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.DocumentPosition = module.exports[1];

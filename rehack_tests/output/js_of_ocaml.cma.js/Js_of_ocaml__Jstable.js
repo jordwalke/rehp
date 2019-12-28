@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 
@@ -23,9 +21,9 @@ function call2(f, a0, a1) {
 }
 
 var cst_Jstable_keys = string("Jstable.keys");
-var Pervasives = require("Pervasives.js");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var List = require("List_.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var List = require("../stdlib.cma.js/List.js");
 
 function a_(x) {return call1(caml_get_public_method(x, 944440446, 270), x);}
 
@@ -121,11 +119,11 @@ exports = Js_of_ocaml_Jstable;
   keys: (t: any) => any,
 }*/
 /** @type {{
-  create: (any) => any,
-  add: (any, any, any) => any,
-  remove: (any, any) => any,
-  find: (any, any) => any,
-  keys: (any) => any,
+  create: (param: any) => any,
+  add: (t: any, k: any, v: any) => any,
+  remove: (t: any, k: any) => any,
+  find: (t: any, k: any) => any,
+  keys: (t: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];

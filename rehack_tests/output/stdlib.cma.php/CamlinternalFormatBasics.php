@@ -10,10 +10,9 @@ namespace Rehack;
 final class CamlinternalFormatBasics {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $concat_fmt = new Ref();$concat_fmtty = new Ref();$erase_rel = new Ref();
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $is_int = $runtime["is_int"];
     $erase_rel->contents = (dynamic $param) ==> {
       if ($is_int($param)) {return 0;}

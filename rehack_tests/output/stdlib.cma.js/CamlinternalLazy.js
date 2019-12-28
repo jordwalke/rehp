@@ -7,24 +7,22 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_obj_set_tag = runtime["caml_obj_set_tag"];
-var caml_obj_tag = runtime["caml_obj_tag"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
+var caml_obj_set_tag = runtime["caml_obj_set_tag"];
+var caml_obj_tag = runtime["caml_obj_tag"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var cst_CamlinternalLazy_Undefined = runtime["caml_new_string"](
   "CamlinternalLazy.Undefined"
 );
-var Obj = require("Obj.js");
+var Obj = require("./Obj.js");
 var Undefined = [
   248,
   cst_CamlinternalLazy_Undefined,
@@ -34,10 +32,11 @@ var Undefined = [
 function raise_undefined(param) {throw caml_wrap_thrown_exception(Undefined);}
 
 function force_lazy_block(blk) {
+  var result;
   var closure = blk[1];
   blk[1] = raise_undefined;
   try {
-    var result = call1(closure, 0);
+    result = call1(closure, 0);
     blk[1] = result;
     caml_obj_set_tag(blk, Obj[10]);
     return result;
@@ -82,7 +81,7 @@ var CamlinternalLazy = [
 exports = CamlinternalLazy;
 
 /*::type Exports = {
-  Undefined: any
+  Undefined: any,
   force_lazy_block: (blk: any) => any,
   force_val_lazy_block: (blk: any) => any,
   force: (lzv: any) => any,
@@ -90,10 +89,10 @@ exports = CamlinternalLazy;
 }*/
 /** @type {{
   Undefined: any,
-  force_lazy_block: (any) => any,
-  force_val_lazy_block: (any) => any,
-  force: (any) => any,
-  force_val: (any) => any,
+  force_lazy_block: (blk: any) => any,
+  force_val_lazy_block: (blk: any) => any,
+  force: (lzv: any) => any,
+  force_val: (lzv: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.Undefined = module.exports[1];

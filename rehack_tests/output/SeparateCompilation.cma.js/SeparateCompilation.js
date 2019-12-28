@@ -7,20 +7,18 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
 var SeparateCompilation_SeparateCompilationHelper = require(
-  "SeparateCompilation__SeparateCompilationHelper.js"
+  "./SeparateCompilation__SeparateCompilationHelper.js"
 );
-var Pervasives = require("Pervasives.js");
-var MyLib = require("MyLib.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var MyLib = require("../my-lib.cma.js/MyLib.js");
 
 call1(Pervasives[34], SeparateCompilation_SeparateCompilationHelper[1]);
 
@@ -36,4 +34,4 @@ exports = SeparateCompilation;
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 
-/*____hashes flags: 585918536 bytecode: 10647412249 debug-data: 1986690936 primitives: 1058613066*/
+/*____hashes flags: 589793685 bytecode: 10647412249 debug-data: 1986690936 primitives: 1058613066*/

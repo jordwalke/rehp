@@ -10,9 +10,8 @@ namespace Rehack;
 final class Js_of_ocaml__Geolocation {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();

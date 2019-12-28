@@ -10,9 +10,8 @@ namespace Rehack;
 final class String_ {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_blit_string = $runtime["caml_blit_string"];
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
     $call1 = $runtime["caml_call1"];

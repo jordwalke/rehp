@@ -10,9 +10,8 @@ namespace Rehack;
 final class Has_one_underscore {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $caml_wrap_thrown_exception_reraise = $runtime[

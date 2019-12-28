@@ -10,9 +10,8 @@ namespace Rehack;
 final class Sys {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $caml_wrap_thrown_exception_reraise = $runtime[
@@ -156,7 +155,7 @@ final class Sys {
   public static function set_signal(dynamic $sig_num, dynamic $sig_beh): dynamic {
     return static::callRehackFunction(static::requireModule()[15], varray[$sig_num, $sig_beh]);
   }
-  public static function _catch_break_(dynamic $on): dynamic {
+  public static function catch_break(dynamic $on): dynamic {
     return static::callRehackFunction(static::requireModule()[45], varray[$on]);
   }
 

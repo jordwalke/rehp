@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
@@ -27,9 +25,9 @@ var cst_error = string("error");
 var cst_load = string("load");
 var cst_timeout = string("timeout");
 var cst_loadend = string("loadend");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Assert_failure = require("Assert_failure.js");
-var Js_of_ocaml_Dom = require("Js_of_ocaml__Dom.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Assert_failure = require("../runtime/Assert_failure.js");
+var Js_of_ocaml_Dom = require("./Js_of_ocaml__Dom.js");
 var a_ = [0,string("lib/js_of_ocaml/xmlHttpRequest.ml"),125,75];
 var readystatechange = call1(Js_of_ocaml_Dom[14][1], cst_readystatechange);
 var loadstart = call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
@@ -101,10 +99,10 @@ exports = Js_of_ocaml_XmlHttpRequest;
 
 /*::type Exports = {
   create: (param: any) => any,
-  Event: any
+  Event: any,
 }*/
 /** @type {{
-  create: (any) => any,
+  create: (param: any) => any,
   Event: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);

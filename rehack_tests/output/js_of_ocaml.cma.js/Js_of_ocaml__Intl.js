@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 
@@ -43,8 +41,8 @@ var shared = [
   string("usage"),
   string("numeric")
 ];
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var CamlinternalOO = require("CamlinternalOO.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var CamlinternalOO = require("../stdlib.cma.js/CamlinternalOO.js");
 var a_ = [0,string("_type"),string("localeMatcher")];
 var b_ = [
   0,
@@ -543,15 +541,15 @@ var Js_of_ocaml_Intl = [
 exports = Js_of_ocaml_Intl;
 
 /*::type Exports = {
-  Collator: any
-  DateTimeFormat: any
-  NumberFormat: any
-  PluralRules: any
-  intl: any
-  collator_constr: any
-  dateTimeFormat_constr: any
-  numberFormat_constr: any
-  pluralRules_constr: any
+  Collator: any,
+  DateTimeFormat: any,
+  NumberFormat: any,
+  PluralRules: any,
+  intl: any,
+  collator_constr: any,
+  dateTimeFormat_constr: any,
+  numberFormat_constr: any,
+  pluralRules_constr: any,
   is_supported: (param: any) => any,
 }*/
 /** @type {{
@@ -564,7 +562,7 @@ exports = Js_of_ocaml_Intl;
   dateTimeFormat_constr: any,
   numberFormat_constr: any,
   pluralRules_constr: any,
-  is_supported: (any) => any,
+  is_supported: (param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.Collator = module.exports[1];

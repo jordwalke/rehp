@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
 var cst_myPartiallyAppliedMethod = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__0 = string("myPartiallyAppliedMethod");
@@ -93,9 +91,9 @@ var Calls = [
 exports = Calls;
 
 /*::type Exports = {
-  foo: any
-  bar: any
-  baz: any
+  foo: any,
+  bar: any,
+  baz: any,
   testFunctionCalls: (o: any) => any,
   testMethodCalls: (o: any) => any,
   testPartialFunctionCalls: (s: any) => any,
@@ -105,10 +103,10 @@ exports = Calls;
   foo: any,
   bar: any,
   baz: any,
-  testFunctionCalls: (any) => any,
-  testMethodCalls: (any) => any,
-  testPartialFunctionCalls: (any) => any,
-  testPartialMethodCalls: (any) => any,
+  testFunctionCalls: (o: any) => any,
+  testMethodCalls: (o: any) => any,
+  testPartialFunctionCalls: (s: any) => any,
+  testPartialMethodCalls: (o: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.foo = module.exports[1];

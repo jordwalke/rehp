@@ -7,17 +7,15 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
 var cst_Sys_Break = string("Sys.Break");
 var ocaml_version = string("4.06.0");
-var Not_found = require("Not_found.js");
+var Not_found = require("../runtime/Not_found.js");
 var match = runtime["caml_sys_get_argv"](0);
 var argv = match[2];
 var executable_name = match[1];
@@ -34,7 +32,8 @@ var word_size = 32;
 var int_size = 32;
 
 function getenv_opt(s) {
-  try {var d_ = [0,runtime["caml_sys_getenv"](s)];return d_;}
+  var d_;
+  try {d_ = [0,runtime["caml_sys_getenv"](s)];return d_;}
   catch(e_) {
     e_ = runtime["caml_wrap_exception"](e_);
     if (e_ === Not_found) {return 0;}
@@ -142,57 +141,9 @@ var Sys = [
 exports = Sys;
 
 /*::type Exports = {
-  argv: any
-  executable_name: any
-  getenv_opt: (s: any) => any,
-  interactive: any
-  os_type: any
-  backend_type: any
-  unix: any
-  win32: any
-  cygwin: any
-  word_size: any
-  int_size: any
-  big_endian: any
-  max_string_length: any
-  max_array_length: any
-  set_signal: (sig_num: any, sig_beh: any) => any,
-  sigabrt: any
-  sigalrm: any
-  sigfpe: any
-  sighup: any
-  sigill: any
-  sigint: any
-  sigkill: any
-  sigpipe: any
-  sigquit: any
-  sigsegv: any
-  sigterm: any
-  sigusr1: any
-  sigusr2: any
-  sigchld: any
-  sigcont: any
-  sigstop: any
-  sigtstp: any
-  sigttin: any
-  sigttou: any
-  sigvtalrm: any
-  sigprof: any
-  sigbus: any
-  sigpoll: any
-  sigsys: any
-  sigtrap: any
-  sigurg: any
-  sigxcpu: any
-  sigxfsz: any
-  Break: any
-  catch_break: (on: any) => any,
-  ocaml_version: any
-}*/
-/** @type {{
   argv: any,
   executable_name: any,
-  getenv_opt: (any) => any,
+  getenv_opt: (s: any) => any,
   interactive: any,
   os_type: any,
   backend_type: any,
@@ -204,7 +155,7 @@ exports = Sys;
   big_endian: any,
   max_string_length: any,
   max_array_length: any,
-  set_signal: (any, any) => any,
+  set_signal: (sig_num: any, sig_beh: any) => any,
   sigabrt: any,
   sigalrm: any,
   sigfpe: any,
@@ -234,7 +185,55 @@ exports = Sys;
   sigxcpu: any,
   sigxfsz: any,
   Break: any,
-  catch_break: (any) => any,
+  catch_break: (on: any) => any,
+  ocaml_version: any,
+}*/
+/** @type {{
+  argv: any,
+  executable_name: any,
+  getenv_opt: (s: any) => any,
+  interactive: any,
+  os_type: any,
+  backend_type: any,
+  unix: any,
+  win32: any,
+  cygwin: any,
+  word_size: any,
+  int_size: any,
+  big_endian: any,
+  max_string_length: any,
+  max_array_length: any,
+  set_signal: (sig_num: any, sig_beh: any) => any,
+  sigabrt: any,
+  sigalrm: any,
+  sigfpe: any,
+  sighup: any,
+  sigill: any,
+  sigint: any,
+  sigkill: any,
+  sigpipe: any,
+  sigquit: any,
+  sigsegv: any,
+  sigterm: any,
+  sigusr1: any,
+  sigusr2: any,
+  sigchld: any,
+  sigcont: any,
+  sigstop: any,
+  sigtstp: any,
+  sigttin: any,
+  sigttou: any,
+  sigvtalrm: any,
+  sigprof: any,
+  sigbus: any,
+  sigpoll: any,
+  sigsys: any,
+  sigtrap: any,
+  sigurg: any,
+  sigxcpu: any,
+  sigxfsz: any,
+  Break: any,
+  catch_break: (on: any) => any,
   ocaml_version: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);

@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
 var string = runtime["caml_new_string"];
@@ -32,11 +30,11 @@ var cst_radio = string("radio");
 var cst_reset = string("reset");
 var cst_submit = string("submit");
 var cst_text = string("text");
-var Assert_failure = require("Assert_failure.js");
-var List = require("List_.js");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
-var Array = require("Array_.js");
+var Assert_failure = require("../runtime/Assert_failure.js");
+var List = require("../stdlib.cma.js/List.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Js_of_ocaml_Dom_html = require("./Js_of_ocaml__Dom_html.js");
+var Array = require("../stdlib.cma.js/Array.js");
 var f_ = [0,string("lib/js_of_ocaml/form.ml"),170,58];
 var e_ = [0,1];
 
@@ -412,8 +410,8 @@ var Js_of_ocaml_Form = [
 exports = Js_of_ocaml_Form;
 
 /*::type Exports = {
-  formData: any
-  formData_form: any
+  formData: any,
+  formData_form: any,
   append: (form_contents: any, form_elt: any) => any,
   post_form_contents: (form: any) => any,
   get_form_contents: (form: any) => any,
@@ -423,11 +421,11 @@ exports = Js_of_ocaml_Form;
 /** @type {{
   formData: any,
   formData_form: any,
-  append: (any, any) => any,
-  post_form_contents: (any) => any,
-  get_form_contents: (any) => any,
-  empty_form_contents: (any) => any,
-  form_elements: (any, any) => any,
+  append: (form_contents: any, form_elt: any) => any,
+  post_form_contents: (form: any) => any,
+  get_form_contents: (form: any) => any,
+  empty_form_contents: (param: any) => any,
+  form_elements: (get: any, form: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.formData = module.exports[1];

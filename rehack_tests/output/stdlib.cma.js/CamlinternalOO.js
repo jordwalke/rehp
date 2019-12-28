@@ -7,21 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime["caml_check_bound"];
-var caml_div = runtime["caml_div"];
-var caml_get_public_method = runtime["caml_get_public_method"];
-var caml_make_vect = runtime["caml_make_vect"];
-var string = runtime["caml_new_string"];
-var caml_obj_block = runtime["caml_obj_block"];
-var caml_set_oo_id = runtime["caml_set_oo_id"];
-var caml_string_compare = runtime["caml_string_compare"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -43,15 +30,28 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_div = runtime["caml_div"];
+var caml_get_public_method = runtime["caml_get_public_method"];
+var caml_make_vect = runtime["caml_make_vect"];
+var string = runtime["caml_new_string"];
+var caml_obj_block = runtime["caml_obj_block"];
+var caml_set_oo_id = runtime["caml_set_oo_id"];
+var caml_string_compare = runtime["caml_string_compare"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var cst = string("");
-var Assert_failure = require("Assert_failure.js");
-var Sys = require("Sys.js");
-var Obj = require("Obj.js");
-var Undefined_recursive_module = require("Undefined_recursive_module.js");
-var Array = require("Array_.js");
-var List = require("List_.js");
-var Not_found = require("Not_found.js");
-var Map = require("Map.js");
+var Assert_failure = require("../runtime/Assert_failure.js");
+var Sys = require("./Sys.js");
+var Obj = require("./Obj.js");
+var Undefined_recursive_module = require(
+  "../runtime/Undefined_recursive_module.js"
+);
+var Array = require("./Array.js");
+var List = require("./List.js");
+var Not_found = require("../runtime/Not_found.js");
+var Map = require("./Map.js");
 var g_ = [0,string("camlinternalOO.ml"),438,17];
 var f_ = [0,string("camlinternalOO.ml"),420,13];
 var e_ = [0,string("camlinternalOO.ml"),417,13];
@@ -67,16 +67,19 @@ var initial_object_size = 2;
 var dummy_item = 0;
 
 function public_method_label(s) {
+  var i;
+  var aD_;
+  var aE_;
   var accu = [0,0];
   var aC_ = runtime["caml_ml_string_length"](s) + -1 | 0;
   var aB_ = 0;
   if (! (aC_ < 0)) {
-    var i = aB_;
+    i = aB_;
     for (; ; ) {
-      var aD_ = runtime["caml_string_get"](s, i);
+      aD_ = runtime["caml_string_get"](s, i);
       accu[1] = (223 * accu[1] | 0) + aD_ | 0;
-      var aE_ = i + 1 | 0;
-      if (aC_ !== i) {var i = aE_;continue;}
+      aE_ = i + 1 | 0;
+      if (aC_ !== i) {i = aE_;continue;}
       break;
     }
   }
@@ -105,6 +108,10 @@ function fit_size(n) {
 }
 
 function new_table(pub_labels) {
+  var aA_;
+  var az_;
+  var ay_;
+  var i;
   table_count[1] += 1;
   var len = pub_labels.length - 1;
   var methods = caml_make_vect((len * 2 | 0) + 2 | 0, dummy_met);
@@ -115,13 +122,13 @@ function new_table(pub_labels) {
   var ax_ = len + -1 | 0;
   var aw_ = 0;
   if (! (ax_ < 0)) {
-    var i = aw_;
+    i = aw_;
     for (; ; ) {
-      var az_ = (i * 2 | 0) + 3 | 0;
-      var ay_ = caml_check_bound(pub_labels, i)[i + 1];
+      az_ = (i * 2 | 0) + 3 | 0;
+      ay_ = caml_check_bound(pub_labels, i)[i + 1];
       caml_check_bound(methods, az_)[az_ + 1] = ay_;
-      var aA_ = i + 1 | 0;
-      if (ax_ !== i) {var i = aA_;continue;}
+      aA_ = i + 1 | 0;
+      if (ax_ !== i) {i = aA_;continue;}
       break;
     }
   }
@@ -129,15 +136,17 @@ function new_table(pub_labels) {
 }
 
 function resize(array, new_size) {
+  var new_buck;
+  var at_;
   var old_size = array[2].length - 1;
   var as_ = old_size < new_size ? 1 : 0;
   if (as_) {
-    var new_buck = caml_make_vect(new_size, dummy_met);
+    new_buck = caml_make_vect(new_size, dummy_met);
     call5(Array[10], array[2], 0, new_buck, 0, old_size);
     array[2] = new_buck;
-    var at_ = 0;
+    at_ = 0;
   }
-  else var at_ = as_;
+  else at_ = as_;
   return at_;
 }
 
@@ -157,11 +166,13 @@ function new_method(table) {
 }
 
 function get_method_label(table, name) {
-  try {var aq_ = call2(Meths[27], name, table[3]);return aq_;}
+  var aq_;
+  var label;
+  try {aq_ = call2(Meths[27], name, table[3]);return aq_;}
   catch(ar_) {
     ar_ = runtime["caml_wrap_exception"](ar_);
     if (ar_ === Not_found) {
-      var label = new_method(table);
+      label = new_method(table);
       table[3] = call3(Meths[4], name, label, table[3]);
       table[4] = call3(Labs[4], label, 1, table[4]);
       return label;
@@ -183,7 +194,8 @@ function set_method(table, label, element) {
 }
 
 function get_method(table, label) {
-  try {var am_ = call2(List[38], label, table[6]);return am_;}
+  var am_;
+  try {am_ = call2(List[38], label, table[6]);return am_;}
   catch(an_) {
     an_ = runtime["caml_wrap_exception"](an_);
     if (an_ === Not_found) {
@@ -217,14 +229,17 @@ function narrow(table, vars, virt_meths, concr_meths) {
   var by_name = [0,Meths[1]];
   var by_label = [0,Labs[1]];
   function aa_(met, label) {
+    var ai_;
+    var ah_;
+    var ag_;
     by_name[1] = call3(Meths[4], met, label, by_name[1]);
     var af_ = by_label[1];
-    try {var ai_ = call2(Labs[27], label, table[4]);var ah_ = ai_;}
+    try {ai_ = call2(Labs[27], label, table[4]);ah_ = ai_;}
     catch(aj_) {
       aj_ = runtime["caml_wrap_exception"](aj_);
       if (aj_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(aj_);}
-      var ag_ = 1;
-      var ah_ = ag_;
+      ag_ = 1;
+      ah_ = ag_;
     }
     by_label[1] = call3(Labs[4], label, ah_, af_);
     return 0;
@@ -280,11 +295,13 @@ function new_slot(table) {
 }
 
 function new_variable(table, name) {
-  try {var P_ = call2(Vars[27], name, table[7]);return P_;}
+  var P_;
+  var index;
+  try {P_ = call2(Vars[27], name, table[7]);return P_;}
   catch(Q_) {
     Q_ = runtime["caml_wrap_exception"](Q_);
     if (Q_ === Not_found) {
-      var index = new_slot(table);
+      index = new_slot(table);
       if (runtime["caml_string_notequal"](name, cst)) {
         table[7] = call3(Vars[4], name, index, table[7]);
       }
@@ -297,6 +314,13 @@ function new_variable(table, name) {
 function to_array(arr) {return runtime["caml_equal"](arr, 0) ? [0] : arr;}
 
 function new_methods_variables(table, meths, vals) {
+  var i;
+  var K_;
+  var L_;
+  var M_;
+  var i__0;
+  var N_;
+  var O_;
   var meths__0 = to_array(meths);
   var nmeths = meths__0.length - 1;
   var nvals = vals.length - 1;
@@ -304,28 +328,25 @@ function new_methods_variables(table, meths, vals) {
   var H_ = nmeths + -1 | 0;
   var G_ = 0;
   if (! (H_ < 0)) {
-    var i__0 = G_;
+    i__0 = G_;
     for (; ; ) {
-      var N_ = get_method_label(
-        table,
-        caml_check_bound(meths__0, i__0)[i__0 + 1]
-      );
+      N_ = get_method_label(table, caml_check_bound(meths__0, i__0)[i__0 + 1]);
       caml_check_bound(res, i__0)[i__0 + 1] = N_;
-      var O_ = i__0 + 1 | 0;
-      if (H_ !== i__0) {var i__0 = O_;continue;}
+      O_ = i__0 + 1 | 0;
+      if (H_ !== i__0) {i__0 = O_;continue;}
       break;
     }
   }
   var J_ = nvals + -1 | 0;
   var I_ = 0;
   if (! (J_ < 0)) {
-    var i = I_;
+    i = I_;
     for (; ; ) {
-      var L_ = i + nmeths | 0;
-      var K_ = new_variable(table, caml_check_bound(vals, i)[i + 1]);
+      L_ = i + nmeths | 0;
+      K_ = new_variable(table, caml_check_bound(vals, i)[i + 1]);
       caml_check_bound(res, L_)[L_ + 1] = K_;
-      var M_ = i + 1 | 0;
-      if (J_ !== i) {var i = M_;continue;}
+      M_ = i + 1 | 0;
+      if (J_ !== i) {i = M_;continue;}
       break;
     }
   }
@@ -333,7 +354,8 @@ function new_methods_variables(table, meths, vals) {
 }
 
 function get_variable(table, name) {
-  try {var E_ = call2(Vars[27], name, table[7]);return E_;}
+  var E_;
+  try {E_ = call2(Vars[27], name, table[7]);return E_;}
   catch(F_) {
     F_ = runtime["caml_wrap_exception"](F_);
     if (F_ === Not_found) {
@@ -427,13 +449,15 @@ function create_object_opt(obj_0, table) {
 }
 
 function iter_f(obj, param) {
+  var param__1;
+  var f;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var param__1 = param__0[2];
-      var f = param__0[1];
+      param__1 = param__0[2];
+      f = param__0[1];
       call1(f, obj);
-      var param__0 = param__1;
+      param__0 = param__1;
       continue;
     }
     return 0;
@@ -486,16 +510,19 @@ function get_next(param) {
 }
 
 function build_path(n, keys, tables) {
+  var i;
+  var p_;
+  var q_;
   var res = [0,0,0,0];
   var r = [0,res];
   var o_ = 0;
   if (! (n < 0)) {
-    var i = o_;
+    i = o_;
     for (; ; ) {
-      var p_ = r[1];
+      p_ = r[1];
       r[1] = [0,caml_check_bound(keys, i)[i + 1],p_,0];
-      var q_ = i + 1 | 0;
-      if (n !== i) {var i = q_;continue;}
+      q_ = i + 1 | 0;
+      if (n !== i) {i = q_;continue;}
       break;
     }
   }
@@ -504,25 +531,31 @@ function build_path(n, keys, tables) {
 }
 
 function lookup_keys(i, keys, tables) {
+  var lookup_key;
+  var key;
   if (0 <= i) {
-    var key = caml_check_bound(keys, i)[i + 1];
-    var lookup_key = function(tables) {
-      var tables__0 = tables;
-      for (; ; ) {
-        if (get_key(tables__0) === key) {
-          var tables_data = get_data(tables__0);
-          if (tables_data) {
-            return lookup_keys(i + -1 | 0, keys, tables_data);
+    key = caml_check_bound(keys, i)[i + 1];
+    lookup_key =
+      function(tables) {
+        var tables_data;
+        var next;
+        var next__0;
+        var tables__0 = tables;
+        for (; ; ) {
+          if (get_key(tables__0) === key) {
+            tables_data = get_data(tables__0);
+            if (tables_data) {
+              return lookup_keys(i + -1 | 0, keys, tables_data);
+            }
+            throw caml_wrap_thrown_exception([0,Assert_failure,g_]);
           }
-          throw caml_wrap_thrown_exception([0,Assert_failure,g_]);
+          next = get_next(tables__0);
+          if (next) {tables__0 = next;continue;}
+          next__0 = [0,key,0,0];
+          set_next(tables__0, next__0);
+          return build_path(i + -1 | 0, keys, next__0);
         }
-        var next = get_next(tables__0);
-        if (next) {var tables__0 = next;continue;}
-        var next__0 = [0,key,0,0];
-        set_next(tables__0, next__0);
-        return build_path(i + -1 | 0, keys, next__0);
-      }
-    };
+      };
     return lookup_key(tables);
   }
   return tables;
@@ -632,20 +665,79 @@ function send_meth(m, n, c) {
 }
 
 function new_cache(table) {
+  var n__0;
+  var j_;
+  var switch__0;
   var n = new_method(table);
-  if (0 === (n % 2 | 0)) var switch__0 = 0;
+  if (0 === (n % 2 | 0)) switch__0 = 0;
   else {
-    var j_ = Sys[10];
+    j_ = Sys[10];
     if ((2 + caml_div(caml_check_bound(table[2], 1)[2] * 16 | 0, j_) | 0) < n
-    ) var switch__0 = 0;
-    else {var n__0 = new_method(table);var switch__0 = 1;}
+    ) switch__0 = 0;
+    else {n__0 = new_method(table);switch__0 = 1;}
   }
-  if (! switch__0) {var n__0 = n;}
+  if (! switch__0) {n__0 = n;}
   caml_check_bound(table[2], n__0)[n__0 + 1] = 0;
   return n__0;
 }
 
 function method_impl(table, i, arr) {
+  var x;
+  var n;
+  var e;
+  var n__0;
+  var n__1;
+  var n__2;
+  var f;
+  var x__0;
+  var f__0;
+  var n__3;
+  var f__1;
+  var e__0;
+  var n__4;
+  var f__2;
+  var n__5;
+  var f__3;
+  var x__1;
+  var y;
+  var f__4;
+  var x__2;
+  var n__6;
+  var f__5;
+  var x__3;
+  var e__1;
+  var n__7;
+  var f__6;
+  var x__4;
+  var n__8;
+  var f__7;
+  var n__9;
+  var x__5;
+  var f__8;
+  var e__2;
+  var n__10;
+  var x__6;
+  var f__9;
+  var n__11;
+  var x__7;
+  var n__12;
+  var x__8;
+  var n__13;
+  var m;
+  var n__14;
+  var e__3;
+  var m__0;
+  var n__15;
+  var m__1;
+  var m__2;
+  var x__9;
+  var m__3;
+  var n__16;
+  var m__4;
+  var e__4;
+  var n__17;
+  var m__5;
+  var n__18;
   function next(param) {
     i[1] += 1;
     var i_ = i[1];
@@ -655,108 +747,108 @@ function method_impl(table, i, arr) {
   if (typeof clo === "number") {
     switch (clo) {
       case 0:
-        var x = next(0);
+        x = next(0);
         return get_const(x);
       case 1:
-        var n = next(0);
+        n = next(0);
         return get_var(n);
       case 2:
-        var e = next(0);
-        var n__0 = next(0);
+        e = next(0);
+        n__0 = next(0);
         return get_env(e, n__0);
       case 3:
-        var n__1 = next(0);
+        n__1 = next(0);
         return get_meth(n__1);
       case 4:
-        var n__2 = next(0);
+        n__2 = next(0);
         return set_var(n__2);
       case 5:
-        var f = next(0);
-        var x__0 = next(0);
+        f = next(0);
+        x__0 = next(0);
         return app_const(f, x__0);
       case 6:
-        var f__0 = next(0);
-        var n__3 = next(0);
+        f__0 = next(0);
+        n__3 = next(0);
         return app_var(f__0, n__3);
       case 7:
-        var f__1 = next(0);
-        var e__0 = next(0);
-        var n__4 = next(0);
+        f__1 = next(0);
+        e__0 = next(0);
+        n__4 = next(0);
         return app_env(f__1, e__0, n__4);
       case 8:
-        var f__2 = next(0);
-        var n__5 = next(0);
+        f__2 = next(0);
+        n__5 = next(0);
         return app_meth(f__2, n__5);
       case 9:
-        var f__3 = next(0);
-        var x__1 = next(0);
-        var y = next(0);
+        f__3 = next(0);
+        x__1 = next(0);
+        y = next(0);
         return app_const_const(f__3, x__1, y);
       case 10:
-        var f__4 = next(0);
-        var x__2 = next(0);
-        var n__6 = next(0);
+        f__4 = next(0);
+        x__2 = next(0);
+        n__6 = next(0);
         return app_const_var(f__4, x__2, n__6);
       case 11:
-        var f__5 = next(0);
-        var x__3 = next(0);
-        var e__1 = next(0);
-        var n__7 = next(0);
+        f__5 = next(0);
+        x__3 = next(0);
+        e__1 = next(0);
+        n__7 = next(0);
         return app_const_env(f__5, x__3, e__1, n__7);
       case 12:
-        var f__6 = next(0);
-        var x__4 = next(0);
-        var n__8 = next(0);
+        f__6 = next(0);
+        x__4 = next(0);
+        n__8 = next(0);
         return app_const_meth(f__6, x__4, n__8);
       case 13:
-        var f__7 = next(0);
-        var n__9 = next(0);
-        var x__5 = next(0);
+        f__7 = next(0);
+        n__9 = next(0);
+        x__5 = next(0);
         return app_var_const(f__7, n__9, x__5);
       case 14:
-        var f__8 = next(0);
-        var e__2 = next(0);
-        var n__10 = next(0);
-        var x__6 = next(0);
+        f__8 = next(0);
+        e__2 = next(0);
+        n__10 = next(0);
+        x__6 = next(0);
         return app_env_const(f__8, e__2, n__10, x__6);
       case 15:
-        var f__9 = next(0);
-        var n__11 = next(0);
-        var x__7 = next(0);
+        f__9 = next(0);
+        n__11 = next(0);
+        x__7 = next(0);
         return app_meth_const(f__9, n__11, x__7);
       case 16:
-        var n__12 = next(0);
-        var x__8 = next(0);
+        n__12 = next(0);
+        x__8 = next(0);
         return meth_app_const(n__12, x__8);
       case 17:
-        var n__13 = next(0);
-        var m = next(0);
+        n__13 = next(0);
+        m = next(0);
         return meth_app_var(n__13, m);
       case 18:
-        var n__14 = next(0);
-        var e__3 = next(0);
-        var m__0 = next(0);
+        n__14 = next(0);
+        e__3 = next(0);
+        m__0 = next(0);
         return meth_app_env(n__14, e__3, m__0);
       case 19:
-        var n__15 = next(0);
-        var m__1 = next(0);
+        n__15 = next(0);
+        m__1 = next(0);
         return meth_app_meth(n__15, m__1);
       case 20:
-        var m__2 = next(0);
-        var x__9 = next(0);
+        m__2 = next(0);
+        x__9 = next(0);
         return send_const(m__2, x__9, new_cache(table));
       case 21:
-        var m__3 = next(0);
-        var n__16 = next(0);
+        m__3 = next(0);
+        n__16 = next(0);
         return send_var(m__3, n__16, new_cache(table));
       case 22:
-        var m__4 = next(0);
-        var e__4 = next(0);
-        var n__17 = next(0);
+        m__4 = next(0);
+        e__4 = next(0);
+        n__17 = next(0);
         return send_env(m__4, e__4, n__17, new_cache(table));
       default:
-        var m__5 = next(0);
-        var n__18 = next(0);
+        m__5 = next(0);
+        n__18 = next(0);
         return send_meth(m__5, n__18, new_cache(table))
       }
   }
@@ -764,13 +856,16 @@ function method_impl(table, i, arr) {
 }
 
 function set_methods(table, methods) {
+  var h_;
+  var label;
+  var clo;
   var len = methods.length - 1;
   var i = [0,0];
   for (; ; ) {
     if (i[1] < len) {
-      var h_ = i[1];
-      var label = caml_check_bound(methods, h_)[h_ + 1];
-      var clo = method_impl(table, i, methods);
+      h_ = i[1];
+      label = caml_check_bound(methods, h_)[h_ + 1];
+      clo = method_impl(table, i, methods);
       set_method(table, label, clo);
       i[1] += 1;
       continue;
@@ -834,7 +929,7 @@ exports = CamlinternalOO;
   narrow: (table: any, vars: any, virt_meths: any, concr_meths: any) => any,
   widen: (table: any) => any,
   add_initializer: (table: any, f: any) => any,
-  dummy_table: any
+  dummy_table: any,
   create_table: (public_methods: any) => any,
   init_class: (table: any) => any,
   inherits: (cla: any, vals: any, virt_meths: any, concr_meths: any, param: any, top: any) => any,
@@ -848,40 +943,40 @@ exports = CamlinternalOO;
   run_initializers_opt: (obj_0: any, obj: any, table: any) => any,
   create_object_and_run_initializers: (obj_0: any, table: any) => any,
   lookup_tables: (root: any, keys: any) => any,
-  params: any
+  params: any,
   stats: (param: any) => any,
 }*/
 /** @type {{
-  public_method_label: (any) => any,
-  new_method: (any) => any,
-  new_variable: (any, any) => any,
-  new_methods_variables: (any, any, any) => any,
-  get_variable: (any, any) => any,
-  get_variables: (any, any) => any,
-  get_method_label: (any, any) => any,
-  get_method_labels: (any, any) => any,
-  get_method: (any, any) => any,
-  set_method: (any, any, any) => any,
-  set_methods: (any, any) => any,
-  narrow: (any, any, any, any) => any,
-  widen: (any) => any,
-  add_initializer: (any, any) => any,
+  public_method_label: (s: any) => any,
+  new_method: (table: any) => any,
+  new_variable: (table: any, name: any) => any,
+  new_methods_variables: (table: any, meths: any, vals: any) => any,
+  get_variable: (table: any, name: any) => any,
+  get_variables: (table: any, names: any) => any,
+  get_method_label: (table: any, name: any) => any,
+  get_method_labels: (table: any, names: any) => any,
+  get_method: (table: any, label: any) => any,
+  set_method: (table: any, label: any, element: any) => any,
+  set_methods: (table: any, methods: any) => any,
+  narrow: (table: any, vars: any, virt_meths: any, concr_meths: any) => any,
+  widen: (table: any) => any,
+  add_initializer: (table: any, f: any) => any,
   dummy_table: any,
-  create_table: (any) => any,
-  init_class: (any) => any,
-  inherits: (any, any, any, any, any, any) => any,
-  make_class: (any, any) => any,
-  make_class_store: (any, any, any) => any,
-  dummy_class: (any) => any,
-  copy: (any) => any,
-  create_object: (any) => any,
-  create_object_opt: (any, any) => any,
-  run_initializers: (any, any) => any,
-  run_initializers_opt: (any, any, any) => any,
-  create_object_and_run_initializers: (any, any) => any,
-  lookup_tables: (any, any) => any,
+  create_table: (public_methods: any) => any,
+  init_class: (table: any) => any,
+  inherits: (cla: any, vals: any, virt_meths: any, concr_meths: any, param: any, top: any) => any,
+  make_class: (pub_meths: any, class_init: any) => any,
+  make_class_store: (pub_meths: any, class_init: any, init_table: any) => any,
+  dummy_class: (loc: any) => any,
+  copy: (o: any) => any,
+  create_object: (table: any) => any,
+  create_object_opt: (obj_0: any, table: any) => any,
+  run_initializers: (obj: any, table: any) => any,
+  run_initializers_opt: (obj_0: any, obj: any, table: any) => any,
+  create_object_and_run_initializers: (obj_0: any, table: any) => any,
+  lookup_tables: (root: any, keys: any) => any,
   params: any,
-  stats: (any) => any,
+  stats: (param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.public_method_label = module.exports[1];

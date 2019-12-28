@@ -7,17 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_check_bound = runtime["caml_check_bound"];
-var caml_get_exception_raw_backtrace = runtime
- ["caml_get_exception_raw_backtrace"];
-var string = runtime["caml_new_string"];
-var caml_obj_tag = runtime["caml_obj_tag"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -45,6 +36,13 @@ function call7(f, a0, a1, a2, a3, a4, a5, a6) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5,a6]);
 }
 
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_get_exception_raw_backtrace = runtime
+ ["caml_get_exception_raw_backtrace"];
+var string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var cst__0 = string("");
 var cst_Program_not_linked_with_g_cannot_print_stack_backtrace = string(
   "(Program not linked with -g, cannot print stack backtrace)\n"
@@ -93,15 +91,17 @@ var locfmt = [
   ],
   string('File "%s", line %d, characters %d-%d: %s')
 ];
-var Printf = require("Printf.js");
-var Pervasives = require("Pervasives.js");
-var Out_of_memory = require("Out_of_memory.js");
-var Buffer = require("Buffer.js");
-var Stack_overflow = require("Stack_overflow.js");
-var Match_failure = require("Match_failure.js");
-var Assert_failure = require("Assert_failure.js");
-var Undefined_recursive_module = require("Undefined_recursive_module.js");
-var Obj = require("Obj.js");
+var Printf = require("./Printf.js");
+var Pervasives = require("./Pervasives.js");
+var Out_of_memory = require("../runtime/Out_of_memory.js");
+var Buffer = require("./Buffer.js");
+var Stack_overflow = require("../runtime/Stack_overflow.js");
+var Match_failure = require("../runtime/Match_failure.js");
+var Assert_failure = require("../runtime/Assert_failure.js");
+var Undefined_recursive_module = require(
+  "../runtime/Undefined_recursive_module.js"
+);
+var Obj = require("./Obj.js");
 var c_ = [0,[11,string(", "),[2,0,[2,0,0]]],string(", %s%s")];
 var l_ = [0,[2,0,[12,10,0]],string("%s\n")];
 var j_ = [0,[2,0,[12,10,0]],string("%s\n")];
@@ -178,10 +178,13 @@ function other_fields(x, i) {
 }
 
 function fields(x) {
+  var aa_;
+  var ab_;
+  var ac_;
   var match = x.length - 1;
   if (2 < match >>> 0) {
-    var aa_ = other_fields(x, 2);
-    var ab_ = field(x, 1);
+    aa_ = other_fields(x, 2);
+    ab_ = field(x, 1);
     return call3(Printf[4], d_, ab_, aa_);
   }
   switch (match) {
@@ -190,30 +193,49 @@ function fields(x) {
     case 1:
       return cst__2;
     default:
-      var ac_ = field(x, 1);
+      ac_ = field(x, 1);
       return call2(Printf[4], e_, ac_)
     }
 }
 
 function to_string(x) {
   function conv(param) {
+    var tl;
+    var hd;
+    var W_;
+    var s;
+    var X_;
+    var match;
+    var char__0;
+    var line;
+    var file;
+    var match__0;
+    var char__1;
+    var line__0;
+    var file__0;
+    var match__1;
+    var char__2;
+    var line__1;
+    var file__1;
+    var constructor;
+    var Y_;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        var tl = param__0[2];
-        var hd = param__0[1];
-        try {var X_ = call1(hd, x);var W_ = X_;}catch(Z_) {var W_ = 0;}
-        if (W_) {var s = W_[1];return s;}
-        var param__0 = tl;
+        tl = param__0[2];
+        hd = param__0[1];
+        try {X_ = call1(hd, x);W_ = X_;}catch(Z_) {W_ = 0;}
+        if (W_) {s = W_[1];return s;}
+        param__0 = tl;
         continue;
       }
       if (x === Out_of_memory) {return cst_Out_of_memory;}
       if (x === Stack_overflow) {return cst_Stack_overflow;}
       if (x[1] === Match_failure) {
-        var match = x[2];
-        var char__0 = match[3];
-        var line = match[2];
-        var file = match[1];
+        match = x[2];
+        char__0 = match[3];
+        line = match[2];
+        file = match[1];
         return call6(
           Printf[4],
           locfmt,
@@ -225,10 +247,10 @@ function to_string(x) {
         );
       }
       if (x[1] === Assert_failure) {
-        var match__0 = x[2];
-        var char__1 = match__0[3];
-        var line__0 = match__0[2];
-        var file__0 = match__0[1];
+        match__0 = x[2];
+        char__1 = match__0[3];
+        line__0 = match__0[2];
+        file__0 = match__0[1];
         return call6(
           Printf[4],
           locfmt,
@@ -240,10 +262,10 @@ function to_string(x) {
         );
       }
       if (x[1] === Undefined_recursive_module) {
-        var match__1 = x[2];
-        var char__2 = match__1[3];
-        var line__1 = match__1[2];
-        var file__1 = match__1[1];
+        match__1 = x[2];
+        char__2 = match__1[3];
+        line__1 = match__1[2];
+        file__1 = match__1[1];
         return call6(
           Printf[4],
           locfmt,
@@ -255,8 +277,8 @@ function to_string(x) {
         );
       }
       if (0 === caml_obj_tag(x)) {
-        var constructor = x[1][1];
-        var Y_ = fields(x);
+        constructor = x[1][1];
+        Y_ = fields(x);
         return call2(Pervasives[16], constructor, Y_);
       }
       return x[1];
@@ -266,10 +288,12 @@ function to_string(x) {
 }
 
 function print(fct, arg) {
-  try {var V_ = call1(fct, arg);return V_;}
+  var V_;
+  var U_;
+  try {V_ = call1(fct, arg);return V_;}
   catch(x) {
     x = runtime["caml_wrap_exception"](x);
-    var U_ = to_string(x);
+    U_ = to_string(x);
     call2(Printf[3], f_, U_);
     call1(Pervasives[51], Pervasives[28]);
     throw caml_wrap_thrown_exception_reraise(x);
@@ -277,11 +301,13 @@ function print(fct, arg) {
 }
 
 function catch__0(fct, arg) {
-  try {var T_ = call1(fct, arg);return T_;}
+  var T_;
+  var S_;
+  try {T_ = call1(fct, arg);return T_;}
   catch(x) {
     x = runtime["caml_wrap_exception"](x);
     call1(Pervasives[51], Pervasives[27]);
-    var S_ = to_string(x);
+    S_ = to_string(x);
     call2(Printf[3], g_, S_);
     return call1(Pervasives[87], 2);
   }
@@ -293,18 +319,24 @@ function convert_raw_backtrace(bt) {
 }
 
 function format_backtrace_slot(pos, slot) {
+  var K_;
+  var L_;
+  var M_;
+  var N_;
+  var O_;
+  var P_;
   function info(is_raise) {
     return is_raise ?
       0 === pos ? cst_Raised_at : cst_Re_raised_at :
       0 === pos ? cst_Raised_by_primitive_operation_at : cst_Called_from;
   }
   if (0 === slot[0]) {
-    var K_ = slot[5];
-    var L_ = slot[4];
-    var M_ = slot[3];
-    var N_ = slot[6] ? cst_inlined : cst__3;
-    var O_ = slot[2];
-    var P_ = info(slot[1]);
+    K_ = slot[5];
+    L_ = slot[4];
+    M_ = slot[3];
+    N_ = slot[6] ? cst_inlined : cst__3;
+    O_ = slot[2];
+    P_ = info(slot[1]);
     return [0,call7(Printf[4], h_, P_, O_, N_, M_, L_, K_)];
   }
   if (slot[1]) {return 0;}
@@ -313,17 +345,24 @@ function format_backtrace_slot(pos, slot) {
 }
 
 function print_exception_backtrace(outchan, backtrace) {
+  var J_;
+  var str;
+  var match;
+  var i;
+  var I_;
+  var H_;
+  var a;
   if (backtrace) {
-    var a = backtrace[1];
-    var I_ = a.length - 1 + -1 | 0;
-    var H_ = 0;
+    a = backtrace[1];
+    I_ = a.length - 1 + -1 | 0;
+    H_ = 0;
     if (! (I_ < 0)) {
-      var i = H_;
+      i = H_;
       for (; ; ) {
-        var match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
-        if (match) {var str = match[1];call3(Printf[1], outchan, j_, str);}
-        var J_ = i + 1 | 0;
-        if (I_ !== i) {var i = J_;continue;}
+        match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
+        if (match) {str = match[1];call3(Printf[1], outchan, j_, str);}
+        J_ = i + 1 | 0;
+        if (I_ !== i) {i = J_;continue;}
         break;
       }
     }
@@ -344,18 +383,26 @@ function print_backtrace(outchan) {
 }
 
 function backtrace_to_string(backtrace) {
+  var G_;
+  var str;
+  var match;
+  var i;
+  var F_;
+  var E_;
+  var b;
+  var a;
   if (backtrace) {
-    var a = backtrace[1];
-    var b = call1(Buffer[1], 1024);
-    var F_ = a.length - 1 + -1 | 0;
-    var E_ = 0;
+    a = backtrace[1];
+    b = call1(Buffer[1], 1024);
+    F_ = a.length - 1 + -1 | 0;
+    E_ = 0;
     if (! (F_ < 0)) {
-      var i = E_;
+      i = E_;
       for (; ; ) {
-        var match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
-        if (match) {var str = match[1];call3(Printf[5], b, l_, str);}
-        var G_ = i + 1 | 0;
-        if (F_ !== i) {var i = G_;continue;}
+        match = format_backtrace_slot(i, caml_check_bound(a, i)[i + 1]);
+        if (match) {str = match[1];call3(Printf[5], b, l_, str);}
+        G_ = i + 1 | 0;
+        if (F_ !== i) {i = G_;continue;}
         break;
       }
     }
@@ -380,21 +427,27 @@ function backtrace_slot_location(param) {
 }
 
 function backtrace_slots(raw_backtrace) {
+  var backtrace;
+  var usable_slot;
+  var exists_usable;
   var match = convert_raw_backtrace(raw_backtrace);
   if (match) {
-    var backtrace = match[1];
-    var usable_slot = function(param) {return 0 === param[0] ? 1 : 0;};
-    var exists_usable = function(i) {
-      var i__0 = i;
-      for (; ; ) {
-        if (-1 === i__0) {return 0;}
-        var D_ = usable_slot(caml_check_bound(backtrace, i__0)[i__0 + 1]);
-        if (D_) {return D_;}
-        var i__1 = i__0 + -1 | 0;
-        var i__0 = i__1;
-        continue;
-      }
-    };
+    backtrace = match[1];
+    usable_slot = function(param) {return 0 === param[0] ? 1 : 0;};
+    exists_usable =
+      function(i) {
+        var D_;
+        var i__1;
+        var i__0 = i;
+        for (; ; ) {
+          if (-1 === i__0) {return 0;}
+          D_ = usable_slot(caml_check_bound(backtrace, i__0)[i__0 + 1]);
+          if (D_) {return D_;}
+          i__1 = i__0 + -1 | 0;
+          i__0 = i__1;
+          continue;
+        }
+      };
     return exists_usable(backtrace.length - 1 + -1 | 0) ? [0,backtrace] : 0;
   }
   return 0;
@@ -471,7 +524,7 @@ exports = Printexc;
 /*::type Exports = {
   to_string: (x: any) => any,
   print: (fct: any, arg: any) => any,
-  catch: (fct: any, arg: any) => any,
+  _catch_: (fct: any, arg: any) => any,
   print_backtrace: (outchan: any) => any,
   get_backtrace: (param: any) => any,
   register_printer: (fn: any) => any,
@@ -483,23 +536,23 @@ exports = Printexc;
   exn_slot_name: (x: any) => any,
 }*/
 /** @type {{
-  to_string: (any) => any,
-  print: (any, any) => any,
-  catch: (any, any) => any,
-  print_backtrace: (any) => any,
-  get_backtrace: (any) => any,
-  register_printer: (any) => any,
-  print_raw_backtrace: (any, any) => any,
-  raw_backtrace_to_string: (any) => any,
-  set_uncaught_exception_handler: (any) => any,
-  backtrace_slots: (any) => any,
-  exn_slot_id: (any) => any,
-  exn_slot_name: (any) => any,
+  to_string: (x: any) => any,
+  print: (fct: any, arg: any) => any,
+  _catch_: (fct: any, arg: any) => any,
+  print_backtrace: (outchan: any) => any,
+  get_backtrace: (param: any) => any,
+  register_printer: (fn: any) => any,
+  print_raw_backtrace: (outchan: any, raw_backtrace: any) => any,
+  raw_backtrace_to_string: (raw_backtrace: any) => any,
+  set_uncaught_exception_handler: (fn: any) => any,
+  backtrace_slots: (raw_backtrace: any) => any,
+  exn_slot_id: (x: any) => any,
+  exn_slot_name: (x: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.to_string = module.exports[1];
 module.exports.print = module.exports[2];
-module.exports.catch = module.exports[3];
+module.exports._catch_ = module.exports[3];
 module.exports.print_backtrace = module.exports[4];
 module.exports.get_backtrace = module.exports[5];
 module.exports.register_printer = module.exports[8];

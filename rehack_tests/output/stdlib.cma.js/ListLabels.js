@@ -7,11 +7,12 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var List = require("List_.js");
+var runtime = require("../runtime/runtime.js");
+
+;
+
+var List = require("./List.js");
 var length = List[1];
 var compare_lengths = List[2];
 var compare_length_with = List[3];
@@ -123,58 +124,58 @@ var ListLabels = [
 exports = ListLabels;
 
 /*::type Exports = {
-  length: any
-  hd: any
-  compare_lengths: any
-  compare_length_with: any
-  cons: any
-  tl: any
-  nth: any
-  nth_opt: any
-  rev: any
-  init: any
-  append: any
-  rev_append: any
-  concat: any
-  flatten: any
-  iter: any
-  iteri: any
-  map: any
-  mapi: any
-  rev_map: any
-  fold_left: any
-  fold_right: any
-  iter2: any
-  map2: any
-  rev_map2: any
-  fold_left2: any
-  fold_right2: any
-  for_all: any
-  exists: any
-  for_all2: any
-  exists2: any
-  mem: any
-  memq: any
-  find: any
-  find_opt: any
-  filter: any
-  find_all: any
-  partition: any
-  assoc: any
-  assoc_opt: any
-  assq: any
-  assq_opt: any
-  mem_assoc: any
-  mem_assq: any
-  remove_assoc: any
-  remove_assq: any
-  split: any
-  combine: any
-  sort: any
-  stable_sort: any
-  fast_sort: any
-  sort_uniq: any
-  merge: any
+  length: any,
+  hd: any,
+  compare_lengths: any,
+  compare_length_with: any,
+  cons: any,
+  tl: any,
+  nth: any,
+  nth_opt: any,
+  rev: any,
+  init: any,
+  append: any,
+  rev_append: any,
+  concat: any,
+  flatten: any,
+  iter: any,
+  iteri: any,
+  map: any,
+  mapi: any,
+  rev_map: any,
+  fold_left: any,
+  fold_right: any,
+  iter2: any,
+  map2: any,
+  rev_map2: any,
+  fold_left2: any,
+  fold_right2: any,
+  for_all: any,
+  exists: any,
+  for_all2: any,
+  exists2: any,
+  mem: any,
+  memq: any,
+  find: any,
+  find_opt: any,
+  filter: any,
+  find_all: any,
+  partition: any,
+  assoc: any,
+  assoc_opt: any,
+  assq: any,
+  assq_opt: any,
+  mem_assoc: any,
+  mem_assq: any,
+  remove_assoc: any,
+  remove_assq: any,
+  split: any,
+  combine: any,
+  sort: any,
+  stable_sort: any,
+  fast_sort: any,
+  sort_uniq: any,
+  merge: any,
 }*/
 /** @type {{
   length: any,

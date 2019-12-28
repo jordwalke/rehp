@@ -7,12 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var string = runtime["caml_new_string"];
-var caml_obj_tag = runtime["caml_obj_tag"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -22,10 +18,12 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
+var string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
 var cst_Obj_extension_constructor__0 = string("Obj.extension_constructor");
 var cst_Obj_extension_constructor = string("Obj.extension_constructor");
-var Pervasives = require("Pervasives.js");
-var Marshal = require("Marshal.js");
+var Pervasives = require("./Pervasives.js");
+var Marshal = require("./Marshal.js");
 
 function is_block(a) {return 1 - (typeof a === "number");}
 
@@ -60,23 +58,23 @@ var out_of_heap_tag = 1001;
 var unaligned_tag = 1002;
 
 function extension_constructor(x) {
+  var switch__1;
+  var switch__0;
+  var name;
+  var slot;
   if (is_block(x)) if (
     caml_obj_tag(x) !== 248
-  ) if (1 <= x.length - 1) {
-    var slot = x[1];
-    var switch__0 = 1;
-  }
-  else var switch__0 = 0;
-  else var switch__0 = 0;
-  else var switch__0 = 0;
-  if (! switch__0) {var slot = x;}
+  ) if (1 <= x.length - 1) {slot = x[1];switch__0 = 1;}else switch__0 = 0;
+  else switch__0 = 0;
+  else switch__0 = 0;
+  if (! switch__0) {slot = x;}
   if (is_block(slot)) if (
     caml_obj_tag(slot) === 248
-  ) {var name = slot[1];var switch__1 = 1;}
-  else var switch__1 = 0;
-  else var switch__1 = 0;
+  ) {name = slot[1];switch__1 = 1;}
+  else switch__1 = 0;
+  else switch__1 = 0;
   if (! switch__1) {
-    var name = call1(Pervasives[1], cst_Obj_extension_constructor__0);
+    name = call1(Pervasives[1], cst_Obj_extension_constructor__0);
   }
   return caml_obj_tag(name) === 252 ?
     slot :
@@ -167,33 +165,6 @@ exports = Obj;
   is_block: (a: any) => any,
   double_field: (x: any, i: any) => any,
   set_double_field: (x: any, i: any, v: any) => any,
-  first_non_constant_constructor_tag: any
-  last_non_constant_constructor_tag: any
-  lazy_tag: any
-  closure_tag: any
-  object_tag: any
-  infix_tag: any
-  forward_tag: any
-  no_scan_tag: any
-  abstract_tag: any
-  string_tag: any
-  double_tag: any
-  double_array_tag: any
-  custom_tag: any
-  custom_tag: any
-  int_tag: any
-  out_of_heap_tag: any
-  unaligned_tag: any
-  extension_constructor: (x: any) => any,
-  extension_name: (slot: any) => any,
-  extension_id: (slot: any) => any,
-  marshal: (obj: any) => any,
-  unmarshal: (str: any, pos: any) => any,
-}*/
-/** @type {{
-  is_block: (any) => any,
-  double_field: (any, any) => any,
-  set_double_field: (any, any, any) => any,
   first_non_constant_constructor_tag: any,
   last_non_constant_constructor_tag: any,
   lazy_tag: any,
@@ -207,15 +178,40 @@ exports = Obj;
   double_tag: any,
   double_array_tag: any,
   custom_tag: any,
+  int_tag: any,
+  out_of_heap_tag: any,
+  unaligned_tag: any,
+  extension_constructor: (x: any) => any,
+  extension_name: (slot: any) => any,
+  extension_id: (slot: any) => any,
+  marshal: (obj: any) => any,
+  unmarshal: (str: any, pos: any) => any,
+}*/
+/** @type {{
+  is_block: (a: any) => any,
+  double_field: (x: any, i: any) => any,
+  set_double_field: (x: any, i: any, v: any) => any,
+  first_non_constant_constructor_tag: any,
+  last_non_constant_constructor_tag: any,
+  lazy_tag: any,
+  closure_tag: any,
+  object_tag: any,
+  infix_tag: any,
+  forward_tag: any,
+  no_scan_tag: any,
+  abstract_tag: any,
+  string_tag: any,
+  double_tag: any,
+  double_array_tag: any,
   custom_tag: any,
   int_tag: any,
   out_of_heap_tag: any,
   unaligned_tag: any,
-  extension_constructor: (any) => any,
-  extension_name: (any) => any,
-  extension_id: (any) => any,
-  marshal: (any) => any,
-  unmarshal: (any, any) => any,
+  extension_constructor: (x: any) => any,
+  extension_name: (slot: any) => any,
+  extension_id: (slot: any) => any,
+  marshal: (obj: any) => any,
+  unmarshal: (str: any, pos: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.is_block = module.exports[1];
@@ -234,7 +230,6 @@ module.exports.string_tag = module.exports[13];
 module.exports.double_tag = module.exports[14];
 module.exports.double_array_tag = module.exports[15];
 module.exports.custom_tag = module.exports[16];
-module.exports.custom_tag = module.exports[17];
 module.exports.int_tag = module.exports[18];
 module.exports.out_of_heap_tag = module.exports[19];
 module.exports.unaligned_tag = module.exports[20];

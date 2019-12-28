@@ -7,12 +7,10 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_register_named_value = runtime["caml_register_named_value"];
-var Obj = require("Obj.js");
+var Obj = require("./Obj.js");
 
 function register(name, v) {return caml_register_named_value(name, v);}
 
@@ -30,8 +28,8 @@ exports = Callback;
   register_exception: (name: any, exn: any) => any,
 }*/
 /** @type {{
-  register: (any, any) => any,
-  register_exception: (any, any) => any,
+  register: (name: any, v: any) => any,
+  register_exception: (name: any, exn: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.register = module.exports[1];

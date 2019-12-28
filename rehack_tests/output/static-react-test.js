@@ -1008,7 +1008,7 @@ function caml_js_to_string(s) {
 
 function caml_raise_constant(tag) {throw caml_wrap_thrown_exception(tag);}
 
-function caml_raise_not_found() {
+function caml_raise_not_found(_unit) {
   caml_raise_constant(caml_global_data.Not_found);
 }
 
@@ -1129,11 +1129,11 @@ function caml_ml_may_refill_input(chanid) {
   caml_ml_refill_input(chan);
 }
 
-function caml_raise_end_of_file() {
+function caml_raise_end_of_file(_unit) {
   caml_raise_constant(caml_global_data.End_of_file);
 }
 
-function caml_array_bound_error() {
+function caml_array_bound_error(_unit) {
   caml_invalid_argument("index out of bounds");
 }
 
@@ -1146,7 +1146,7 @@ function caml_ml_input_char(chanid) {
   return res;
 }
 
-function caml_sys_const_ostype_win32() {return 0;}
+function caml_sys_const_ostype_win32(_unit) {return 0;}
 
 function caml_obj_is_block(x) {return + (x instanceof Array);}
 
@@ -1470,9 +1470,9 @@ function caml_wrap_exception(e) {
 
 function caml_load_global_module(n) {return caml_global_data[n];}
 
-function caml_final_register_called_without_value() {return 0;}
+function caml_final_register_called_without_value(_unit) {return 0;}
 
-function caml_sys_random_seed() {
+function caml_sys_random_seed(_unit) {
   var x = new Date().getTime() ^ 4294967295 * Math.random();
   return [0,x];
 }
@@ -1831,7 +1831,7 @@ function caml_js_from_array(a) {return raw_array_sub(a, 1, a.length - 1);}
 
 function caml_ba_slice(ba, vind) {return ba.slice(caml_js_from_array(vind));}
 
-function caml_raise_zero_divide() {
+function caml_raise_zero_divide(_unit) {
   caml_raise_constant(caml_global_data.Division_by_zero);
 }
 
@@ -2074,7 +2074,7 @@ function caml_set_oo_id(b) {b[2] = caml_oo_last_id++;return b;}
 function caml_js_meth_call2(o, f, a, b) {return o[f.toString()].call(o, a, b);
 }
 
-function caml_record_backtrace() {return 0;}
+function caml_record_backtrace(_unit) {return 0;}
 
 function polymorphic_log(x) {
   if (typeof x == "string") {
@@ -2086,7 +2086,7 @@ function polymorphic_log(x) {
   else {joo_global_object.console.log(x);}
 }
 
-function caml_get_global_data() {return caml_global_data;}
+function caml_get_global_data(_unit) {return caml_global_data;}
 
 function unix_gmtime(t) {
   var d = new Date(t * 1e3);
@@ -2129,17 +2129,17 @@ function caml_int64_shift_right_unsigned(x, s) {
   return [255,x[3] >> s - 48,0,0];
 }
 
-function caml_sys_const_backend_type() {
+function caml_sys_const_backend_type(_unit) {
   return [0,caml_new_string("js_of_ocaml")];
 }
 
-function caml_sys_get_config() {return [0,caml_new_string("Unix"),32,0];}
+function caml_sys_get_config(_unit) {return [0,caml_new_string("Unix"),32,0];}
 
 function caml_compare(a, b) {return caml_compare_val(a, b, true);}
 
 function unix_time() {return Math.floor(unix_gettimeofday());}
 
-function caml_ml_out_channels_list() {
+function caml_ml_out_channels_list(_unit) {
   var l = 0;
   for (var c = 0; c < caml_ml_channels.length; c++) {
     if (
@@ -2161,7 +2161,7 @@ function caml_js_dict_set(o, f, v) {
   return 0;
 }
 
-function caml_fresh_oo_id() {return caml_oo_last_id++;}
+function caml_fresh_oo_id(_unit) {return caml_oo_last_id++;}
 
 function caml_int64_to_float(x) {
   return (x[3] << 16) * Math.pow(2, 32) + x[2] * Math.pow(2, 24) + x[1];
@@ -2487,7 +2487,7 @@ function bigstring_destroy_stub(v_bstr) {
   return 0;
 }
 
-function caml_raw_backtrace_length() {return 0;}
+function caml_raw_backtrace_length(_unit) {return 0;}
 
 function caml_ba_uint8_get32(ba, i0) {
   var b1 = ba.get1(i0);
@@ -2510,7 +2510,7 @@ function caml_obj_block(tag, size) {
 
 function caml_ba_init() {return 0;}
 
-function caml_final_release() {return 0;}
+function caml_final_release(_unit) {return 0;}
 
 function caml_ba_get_generic(ba, index) {
   return ba.get(caml_js_from_array(index));
@@ -2557,7 +2557,7 @@ BigStringReader.prototype =
     }
   };
 
-function caml_get_exception_backtrace() {return 0;}
+function caml_get_exception_backtrace(_unit) {return 0;}
 
 function raw_array_cons(a, x) {
   var l = a.length;
@@ -2778,7 +2778,7 @@ function caml_lex_engine(tbl, start_state, lexbuf) {
   }
 }
 
-function caml_sys_get_argv() {
+function caml_sys_get_argv(_unit) {
   var g = joo_global_object;
   var main = "a.out";
   var args = [];
@@ -2826,7 +2826,7 @@ function caml_convert_raw_backtrace_slot() {
   caml_failwith("caml_convert_raw_backtrace_slot");
 }
 
-function caml_raw_backtrace_next_slot() {return 0;}
+function caml_raw_backtrace_next_slot(_unit) {return 0;}
 
 function caml_array_sub(a, i, len) {
   var a2 = new Array(len + 1);
@@ -2871,7 +2871,7 @@ function caml_ba_init_views() {
   }
 }
 
-function caml_sys_const_ostype_cygwin() {return 0;}
+function caml_sys_const_ostype_cygwin(_unit) {return 0;}
 
 function caml_register_global(n, v, name_opt) {
   if (name_opt && joo_global_object.toplevelReloc) {n = joo_global_object.toplevelReloc(name_opt);
@@ -3379,7 +3379,7 @@ function caml_js_wrap_meth_callback_arguments(f) {
   return function() {return caml_call_gen(f, [this,arguments]);};
 }
 
-function unix_inet_addr_of_string() {return 0;}
+function unix_inet_addr_of_string(_unit) {return 0;}
 
 function caml_sinh_float(x) {return (Math.exp(x) - Math.exp(- x)) / 2;}
 
@@ -3412,7 +3412,7 @@ function caml_array_get(array, index) {
   return array[index + 1];
 }
 
-function caml_get_current_callstack() {return [0];}
+function caml_get_current_callstack(_unit) {return [0];}
 
 function caml_int64_mod(x, y) {
   if (caml_int64_is_zero(y)) {caml_raise_zero_divide();}
@@ -3445,7 +3445,7 @@ function caml_int32_bswap(x) {
     (x & 4278190080) >>> 24;
 }
 
-function caml_spacetime_only_works_for_native_code() {
+function caml_spacetime_only_works_for_native_code(_unit) {
   caml_failwith("Spacetime profiling only works for native code");
 }
 
@@ -3501,14 +3501,14 @@ function caml_js_wrap_meth_callback(f) {
   };
 }
 
-function caml_sys_const_int_size() {return 32;}
+function caml_sys_const_int_size(_unit) {return 32;}
 
 function caml_register_global_module(n, v, name) {return caml_register_global(n, v, name);
 }
 
 var caml_blit_bigstring_to_string = bigstring_blit_bigstring_bytes_stub;
 
-function caml_is_js() {return 1;}
+function caml_is_js(_unit) {return 1;}
 
 function caml_string_set64(s, i, i64) {return caml_bytes_set64(s, i, i64);}
 
@@ -3841,7 +3841,7 @@ function caml_string_set(s, i, c) {
   return caml_string_unsafe_set(s, i, c);
 }
 
-function caml_sys_const_max_wosize() {return 2147483647 / 4 | 0;}
+function caml_sys_const_max_wosize(_unit) {return 2147483647 / 4 | 0;}
 
 function caml_ephe_unset_key(x, i) {return caml_weak_set(x, i, 0);}
 
@@ -3933,7 +3933,7 @@ function caml_ml_set_binary_mode(chanid, mode) {
   return 0;
 }
 
-function caml_final_register() {return 0;}
+function caml_final_register(_unit) {return 0;}
 
 function caml_sys_getcwd() {return caml_new_string(caml_current_dir);}
 
@@ -3965,7 +3965,7 @@ function caml_string_get16(s, i) {
   return b2 << 8 | b1;
 }
 
-function caml_sys_const_big_endian() {return 0;}
+function caml_sys_const_big_endian(_unit) {return 0;}
 
 function caml_ephe_unset_data(x, data) {
   x[caml_ephe_data_offset] = undefined;
@@ -4181,7 +4181,7 @@ function caml_int64_and(x, y) {
   return [255,x[1] & y[1],x[2] & y[2],x[3] & y[3]];
 }
 
-function caml_sys_const_word_size() {return 32;}
+function caml_sys_const_word_size(_unit) {return 32;}
 
 function caml_set_static_env(k, v) {
   if (! joo_global_object.jsoo_static_env) {
@@ -4317,7 +4317,7 @@ function caml_ba_uint8_set32(ba, i0, v) {
   return 0;
 }
 
-function caml_sys_const_ostype_unix() {return 1;}
+function caml_sys_const_ostype_unix(_unit) {return 1;}
 
 function caml_ephe_set_data(x, data) {
   x[caml_ephe_data_offset] = data;
@@ -4358,7 +4358,7 @@ function caml_js_wrap_meth_callback_unsafe(f) {
 
 function caml_ba_dim_3(ba) {return ba.nth_dim(2);}
 
-function caml_get_exception_raw_backtrace() {return [0];}
+function caml_get_exception_raw_backtrace(_unit) {return [0];}
 
 function caml_ephe_check_data(x) {
   if (x[caml_ephe_data_offset] === undefined) return 0;
@@ -4383,7 +4383,7 @@ function caml_int64_or(x, y) {
 
 function caml_js_from_bool(x) {return ! ! x;}
 
-function caml_ml_set_channel_name() {return 0;}
+function caml_ml_set_channel_name(_ignore, _ignore2) {return 0;}
 
 function caml_js_meth_call3(o, f, a, b, c) {return o[f.toString()].call(o, a, b, c);
 }
@@ -4569,7 +4569,7 @@ function caml_int64_shift_right(x, s) {
   return [255,x[3] << 16 >> s - 32 & 16777215,sign & 16777215,sign & 65535];
 }
 
-function caml_convert_raw_backtrace() {return [0];}
+function caml_convert_raw_backtrace(_unit) {return [0];}
 
 function caml_array_set(array, index, newval) {
   if (index < 0 || index >= array.length - 1) {caml_array_bound_error();}
@@ -4637,7 +4637,7 @@ function caml_ml_output_int(chanid, i) {
 
 var caml_initial_time = new Date().getTime() * 0.001;
 
-function caml_sys_time() {
+function caml_sys_time(_unit) {
   return new Date().getTime() * 0.001 - caml_initial_time;
 }
 
@@ -4657,7 +4657,7 @@ function caml_array_append(a1, a2) {
   return a;
 }
 
-function caml_raw_backtrace_slot() {
+function caml_raw_backtrace_slot(_unit) {
   caml_invalid_argument("Printexc.get_raw_backtrace_slot: index out of bounds"
   );
 }
@@ -4751,7 +4751,7 @@ function caml_js_wrap_meth_callback_strict(arity, f) {
 function caml_ml_runtime_warnings_enabled(_unit) {return caml_runtime_warnings;
 }
 
-function caml_backtrace_status() {return 0;}
+function caml_backtrace_status(_unit) {return 0;}
 
 function caml_install_signal_handler() {return 0;}
 

@@ -7,18 +7,16 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Js_of_ocaml_Dom = require("Js_of_ocaml__Dom.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Js_of_ocaml_Dom = require("./Js_of_ocaml__Dom.js");
 
 function withCredentials(b) {
   var init = {};
@@ -52,12 +50,12 @@ exports = Js_of_ocaml_EventSource;
 
 /*::type Exports = {
   withCredentials: (b: any) => any,
-  eventSource: any
-  eventSource_options: any
-  addEventListener: any
+  eventSource: any,
+  eventSource_options: any,
+  addEventListener: any,
 }*/
 /** @type {{
-  withCredentials: (any) => any,
+  withCredentials: (b: any) => any,
   eventSource: any,
   eventSource_options: any,
   addEventListener: any,

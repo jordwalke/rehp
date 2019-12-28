@@ -7,18 +7,16 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var Array = require("Array_.js");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
+var Array = require("../stdlib.cma.js/Array.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 
 function empty_mutation_observer_init(param) {return {};}
 
@@ -131,15 +129,15 @@ exports = Js_of_ocaml_MutationObserver;
 
 /*::type Exports = {
   empty_mutation_observer_init: (param: any) => any,
-  mutationObserver: any
+  mutationObserver: any,
   is_supported: (param: any) => any,
   observe: (node: any, f: any, child_list: any, attributes: any, character_data: any, subtree: any, attribute_old_value: any, character_data_old_value: any, attribute_filter: any, param: any) => any,
 }*/
 /** @type {{
-  empty_mutation_observer_init: (any) => any,
+  empty_mutation_observer_init: (param: any) => any,
   mutationObserver: any,
-  is_supported: (any) => any,
-  observe: (any, any, any, any, any, any, any, any, any, any) => any,
+  is_supported: (param: any) => any,
+  observe: (node: any, f: any, child_list: any, attributes: any, character_data: any, subtree: any, attribute_old_value: any, character_data_old_value: any, attribute_filter: any, param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.empty_mutation_observer_init = module.exports[1];

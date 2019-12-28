@@ -10,10 +10,9 @@ namespace Rehack;
 final class Sort {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $merge = new Ref();
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call2 = $runtime["caml_call2"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];

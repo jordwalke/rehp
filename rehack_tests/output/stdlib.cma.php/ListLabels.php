@@ -10,9 +10,8 @@ namespace Rehack;
 final class ListLabels {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $List =  List_::requireModule ();
     $length = $List[1];
     $compare_lengths = $List[2];

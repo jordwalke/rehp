@@ -10,9 +10,8 @@ namespace Rehack;
 final class Complex {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $zero = Vector{254, 0, 0} as dynamic;
     $one = Vector{254, 1, 0} as dynamic;
     $i = Vector{254, 0, 1} as dynamic;

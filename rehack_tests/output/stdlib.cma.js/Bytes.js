@@ -7,10 +7,17 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
+function call2(f, a0, a1) {
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+}
+
 var caml_blit_bytes = runtime["caml_blit_bytes"];
 var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
 var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
@@ -21,15 +28,6 @@ var string = runtime["caml_new_string"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
-
-function call1(f, a0) {
-  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
-}
-
-function call2(f, a0, a1) {
-  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
-}
-
 var cst_String_rcontains_from_Bytes_rcontains_from = string(
   "String.rcontains_from / Bytes.rcontains_from"
 );
@@ -56,9 +54,9 @@ var cst_Bytes_blit = string("Bytes.blit");
 var cst_String_fill_Bytes_fill = string("String.fill / Bytes.fill");
 var cst_Bytes_extend = string("Bytes.extend");
 var cst_String_sub_Bytes_sub = string("String.sub / Bytes.sub");
-var Not_found = require("Not_found.js");
-var Char = require("Char.js");
-var Pervasives = require("Pervasives.js");
+var Not_found = require("../runtime/Not_found.js");
+var Char = require("./Char.js");
+var Pervasives = require("./Pervasives.js");
 
 function make(n, c) {
   var s = caml_create_bytes(n);
@@ -67,15 +65,17 @@ function make(n, c) {
 }
 
 function init(n, f) {
+  var i;
+  var O_;
   var s = caml_create_bytes(n);
   var N_ = n + -1 | 0;
   var M_ = 0;
   if (! (N_ < 0)) {
-    var i = M_;
+    i = M_;
     for (; ; ) {
       caml_bytes_unsafe_set(s, i, call1(f, i));
-      var O_ = i + 1 | 0;
-      if (N_ !== i) {var i = O_;continue;}
+      O_ = i + 1 | 0;
+      if (N_ !== i) {i = O_;continue;}
       break;
     }
   }
@@ -96,10 +96,11 @@ function to_string(b) {return copy(b);}
 function of_string(s) {return copy(s);}
 
 function sub(s, ofs, len) {
+  var r;
   if (0 <= ofs) {
     if (0 <= len) {
       if (! ((caml_ml_bytes_length(s) - len | 0) < ofs)) {
-        var r = caml_create_bytes(len);
+        r = caml_create_bytes(len);
         caml_blit_bytes(s, ofs, r, 0, len);
         return r;
       }
@@ -121,14 +122,19 @@ function symbol(a, b) {
 }
 
 function extend(s, left, right) {
+  var srcoff;
+  var dstoff;
+  var srcoff__0;
+  var J_;
+  var K_;
   var len = symbol(symbol(caml_ml_bytes_length(s), left), right);
   var r = caml_create_bytes(len);
   if (0 <= left) {
-    var srcoff = 0;
-    var srcoff__0 = srcoff;
-    var dstoff = left;
+    srcoff = 0;
+    srcoff__0 = srcoff;
+    dstoff = left;
   }
-  else {var J_ = 0;var K_ = - left | 0;var srcoff__0 = K_;var dstoff = J_;}
+  else {J_ = 0;K_ = - left | 0;srcoff__0 = K_;dstoff = J_;}
   var cpylen = call2(
     Pervasives[4],
     caml_ml_bytes_length(s) - srcoff__0 | 0,
@@ -176,14 +182,16 @@ function blit_string(s1, ofs1, s2, ofs2, len) {
 }
 
 function iter(f, a) {
+  var i;
+  var I_;
   var H_ = caml_ml_bytes_length(a) + -1 | 0;
   var G_ = 0;
   if (! (H_ < 0)) {
-    var i = G_;
+    i = G_;
     for (; ; ) {
       call1(f, caml_bytes_unsafe_get(a, i));
-      var I_ = i + 1 | 0;
-      if (H_ !== i) {var i = I_;continue;}
+      I_ = i + 1 | 0;
+      if (H_ !== i) {i = I_;continue;}
       break;
     }
   }
@@ -191,14 +199,16 @@ function iter(f, a) {
 }
 
 function iteri(f, a) {
+  var i;
+  var F_;
   var E_ = caml_ml_bytes_length(a) + -1 | 0;
   var D_ = 0;
   if (! (E_ < 0)) {
-    var i = D_;
+    i = D_;
     for (; ; ) {
       call2(f, i, caml_bytes_unsafe_get(a, i));
-      var F_ = i + 1 | 0;
-      if (E_ !== i) {var i = F_;continue;}
+      F_ = i + 1 | 0;
+      if (E_ !== i) {i = F_;continue;}
       break;
     }
   }
@@ -210,19 +220,23 @@ function ensure_ge(x, y) {
 }
 
 function sum_lengths(acc, seplen, param) {
+  var B_;
+  var C_;
+  var acc__1;
   var acc__0 = acc;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var B_ = param__0[2];
-      var C_ = param__0[1];
+      B_ = param__0[2];
+      C_ = param__0[1];
       if (B_) {
-        var acc__1 = ensure_ge(
-          (caml_ml_bytes_length(C_) + seplen | 0) + acc__0 | 0,
-          acc__0
-        );
-        var acc__0 = acc__1;
-        var param__0 = B_;
+        acc__1 =
+          ensure_ge(
+            (caml_ml_bytes_length(C_) + seplen | 0) + acc__0 | 0,
+            acc__0
+          );
+        acc__0 = acc__1;
+        param__0 = B_;
         continue;
       }
       return caml_ml_bytes_length(C_) + acc__0 | 0;
@@ -232,12 +246,15 @@ function sum_lengths(acc, seplen, param) {
 }
 
 function unsafe_blits(dst, pos, sep, seplen, param) {
+  var z_;
+  var A_;
+  var pos__1;
   var pos__0 = pos;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      var z_ = param__0[2];
-      var A_ = param__0[1];
+      z_ = param__0[2];
+      A_ = param__0[1];
       if (z_) {
         caml_blit_bytes(A_, 0, dst, pos__0, caml_ml_bytes_length(A_));
         caml_blit_bytes(
@@ -247,9 +264,9 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
           pos__0 + caml_ml_bytes_length(A_) | 0,
           seplen
         );
-        var pos__1 = (pos__0 + caml_ml_bytes_length(A_) | 0) + seplen | 0;
-        var pos__0 = pos__1;
-        var param__0 = z_;
+        pos__1 = (pos__0 + caml_ml_bytes_length(A_) | 0) + seplen | 0;
+        pos__0 = pos__1;
+        param__0 = z_;
         continue;
       }
       caml_blit_bytes(A_, 0, dst, pos__0, caml_ml_bytes_length(A_));
@@ -260,8 +277,9 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
 }
 
 function concat(sep, l) {
+  var seplen;
   if (l) {
-    var seplen = caml_ml_bytes_length(sep);
+    seplen = caml_ml_bytes_length(sep);
     return unsafe_blits(
       caml_create_bytes(sum_lengths(0, seplen, l)),
       0,
@@ -289,13 +307,14 @@ function is_space(param) {
 }
 
 function trim(s) {
+  var j;
   var len = caml_ml_bytes_length(s);
   var i = [0,0];
   for (; ; ) {
     if (i[1] < len) {
       if (is_space(caml_bytes_unsafe_get(s, i[1]))) {i[1] += 1;continue;}
     }
-    var j = [0,len + -1 | 0];
+    j = [0,len + -1 | 0];
     for (; ; ) {
       if (i[1] <= j[1]) {
         if (is_space(caml_bytes_unsafe_get(s, j[1]))) {j[1] += -1;continue;}
@@ -306,34 +325,40 @@ function trim(s) {
 }
 
 function escaped(s) {
+  var i;
+  var c;
+  var u_;
+  var i__0;
+  var match;
+  var v_;
+  var w_;
+  var x_;
+  var switch__0;
+  var switch__1;
+  var switch__2;
   var n = [0,0];
   var r_ = caml_ml_bytes_length(s) + -1 | 0;
   var q_ = 0;
   if (! (r_ < 0)) {
-    var i__0 = q_;
+    i__0 = q_;
     for (; ; ) {
-      var match = caml_bytes_unsafe_get(s, i__0);
+      match = caml_bytes_unsafe_get(s, i__0);
       if (32 <= match) {
-        var v_ = match + -34 | 0;
+        v_ = match + -34 | 0;
         if (58 < v_ >>> 0) if (93 <= v_) {
-          var switch__0 = 0;
-          var switch__1 = 0;
+          switch__0 = 0;
+          switch__1 = 0;
         }
-        else var switch__1 = 1;
-        else if (56 < (v_ + -1 | 0) >>> 0) {
-          var switch__0 = 1;
-          var switch__1 = 0;
-        }
-        else var switch__1 = 1;
-        if (switch__1) {var w_ = 1;var switch__0 = 2;}
+        else switch__1 = 1;
+        else if (56 < (v_ + -1 | 0) >>> 0) {switch__0 = 1;switch__1 = 0;}
+        else switch__1 = 1;
+        if (switch__1) {w_ = 1;switch__0 = 2;}
       }
-      else var switch__0 = 11 <= match ?
-        13 === match ? 1 : 0 :
-        8 <= match ? 1 : 0;
-      switch (switch__0) {case 0:var w_ = 4;break;case 1:var w_ = 2;break}
+      else switch__0 = 11 <= match ? 13 === match ? 1 : 0 : 8 <= match ? 1 : 0;
+      switch (switch__0) {case 0:w_ = 4;break;case 1:w_ = 2;break}
       n[1] = n[1] + w_ | 0;
-      var x_ = i__0 + 1 | 0;
-      if (r_ !== i__0) {var i__0 = x_;continue;}
+      x_ = i__0 + 1 | 0;
+      if (r_ !== i__0) {i__0 = x_;continue;}
       break;
     }
   }
@@ -343,45 +368,41 @@ function escaped(s) {
   var t_ = caml_ml_bytes_length(s) + -1 | 0;
   var s_ = 0;
   if (! (t_ < 0)) {
-    var i = s_;
+    i = s_;
     for (; ; ) {
-      var c = caml_bytes_unsafe_get(s, i);
-      if (35 <= c) var switch__2 = 92 ===
-         c ?
-        1 :
-        127 <= c ? 0 : 2;
-      else if (32 <= c) var switch__2 = 34 <=
-         c ?
-        1 :
-        2;
-      else if (14 <= c) var switch__2 = 0;
+      c = caml_bytes_unsafe_get(s, i);
+      if (35 <= c) switch__2 =
+        92 === c ? 1 : 127 <= c ? 0 : 2;
+      else if (32 <= c) switch__2 =
+        34 <= c ? 1 : 2;
+      else if (14 <= c) switch__2 = 0;
       else switch (c) {
         case 8:
           caml_bytes_unsafe_set(s__0, n[1], 92);
           n[1] += 1;
           caml_bytes_unsafe_set(s__0, n[1], 98);
-          var switch__2 = 3;
+          switch__2 = 3;
           break;
         case 9:
           caml_bytes_unsafe_set(s__0, n[1], 92);
           n[1] += 1;
           caml_bytes_unsafe_set(s__0, n[1], 116);
-          var switch__2 = 3;
+          switch__2 = 3;
           break;
         case 10:
           caml_bytes_unsafe_set(s__0, n[1], 92);
           n[1] += 1;
           caml_bytes_unsafe_set(s__0, n[1], 110);
-          var switch__2 = 3;
+          switch__2 = 3;
           break;
         case 13:
           caml_bytes_unsafe_set(s__0, n[1], 92);
           n[1] += 1;
           caml_bytes_unsafe_set(s__0, n[1], 114);
-          var switch__2 = 3;
+          switch__2 = 3;
           break;
         default:
-          var switch__2 = 0
+          switch__2 = 0
         }
       switch (switch__2) {
         case 0:
@@ -403,8 +424,8 @@ function escaped(s) {
           break
         }
       n[1] += 1;
-      var u_ = i + 1 | 0;
-      if (t_ !== i) {var i = u_;continue;}
+      u_ = i + 1 | 0;
+      if (t_ !== i) {i = u_;continue;}
       break;
     }
   }
@@ -412,17 +433,19 @@ function escaped(s) {
 }
 
 function map(f, s) {
+  var i;
+  var p_;
   var l = caml_ml_bytes_length(s);
   if (0 === l) {return s;}
   var r = caml_create_bytes(l);
   var o_ = l + -1 | 0;
   var n_ = 0;
   if (! (o_ < 0)) {
-    var i = n_;
+    i = n_;
     for (; ; ) {
       caml_bytes_unsafe_set(r, i, call1(f, caml_bytes_unsafe_get(s, i)));
-      var p_ = i + 1 | 0;
-      if (o_ !== i) {var i = p_;continue;}
+      p_ = i + 1 | 0;
+      if (o_ !== i) {i = p_;continue;}
       break;
     }
   }
@@ -430,17 +453,19 @@ function map(f, s) {
 }
 
 function mapi(f, s) {
+  var i;
+  var m_;
   var l = caml_ml_bytes_length(s);
   if (0 === l) {return s;}
   var r = caml_create_bytes(l);
   var l_ = l + -1 | 0;
   var k_ = 0;
   if (! (l_ < 0)) {
-    var i = k_;
+    i = k_;
     for (; ; ) {
       caml_bytes_unsafe_set(r, i, call2(f, i, caml_bytes_unsafe_get(s, i)));
-      var m_ = i + 1 | 0;
-      if (l_ !== i) {var i = m_;continue;}
+      m_ = i + 1 | 0;
+      if (l_ !== i) {i = m_;continue;}
       break;
     }
   }
@@ -463,12 +488,13 @@ function capitalize_ascii(s) {return apply1(Char[6], s);}
 function uncapitalize_ascii(s) {return apply1(Char[5], s);}
 
 function index_rec(s, lim, i, c) {
+  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (lim <= i__0) {throw caml_wrap_thrown_exception(Not_found);}
     if (caml_bytes_unsafe_get(s, i__0) === c) {return i__0;}
-    var i__1 = i__0 + 1 | 0;
-    var i__0 = i__1;
+    i__1 = i__0 + 1 | 0;
+    i__0 = i__1;
     continue;
   }
 }
@@ -476,12 +502,13 @@ function index_rec(s, lim, i, c) {
 function index(s, c) {return index_rec(s, caml_ml_bytes_length(s), 0, c);}
 
 function index_rec_opt(s, lim, i, c) {
+  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (lim <= i__0) {return 0;}
     if (caml_bytes_unsafe_get(s, i__0) === c) {return [0,i__0];}
-    var i__1 = i__0 + 1 | 0;
-    var i__0 = i__1;
+    i__1 = i__0 + 1 | 0;
+    i__0 = i__1;
     continue;
   }
 }
@@ -503,12 +530,13 @@ function index_from_opt(s, i, c) {
 }
 
 function rindex_rec(s, i, c) {
+  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (0 <= i__0) {
       if (caml_bytes_unsafe_get(s, i__0) === c) {return i__0;}
-      var i__1 = i__0 + -1 | 0;
-      var i__0 = i__1;
+      i__1 = i__0 + -1 | 0;
+      i__0 = i__1;
       continue;
     }
     throw caml_wrap_thrown_exception(Not_found);
@@ -527,12 +555,13 @@ function rindex_from(s, i, c) {
 }
 
 function rindex_rec_opt(s, i, c) {
+  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (0 <= i__0) {
       if (caml_bytes_unsafe_get(s, i__0) === c) {return [0,i__0];}
-      var i__1 = i__0 + -1 | 0;
-      var i__0 = i__1;
+      i__1 = i__0 + -1 | 0;
+      i__0 = i__1;
       continue;
     }
     return 0;
@@ -552,10 +581,11 @@ function rindex_from_opt(s, i, c) {
 }
 
 function contains_from(s, i, c) {
+  var i_;
   var l = caml_ml_bytes_length(s);
   if (0 <= i) {
     if (! (l < i)) {
-      try {index_rec(s, l, i, c);var i_ = 1;return i_;}
+      try {index_rec(s, l, i, c);i_ = 1;return i_;}
       catch(j_) {
         j_ = runtime["caml_wrap_exception"](j_);
         if (j_ === Not_found) {return 0;}
@@ -569,9 +599,10 @@ function contains_from(s, i, c) {
 function contains(s, c) {return contains_from(s, 0, c);}
 
 function rcontains_from(s, i, c) {
+  var g_;
   if (0 <= i) {
     if (! (caml_ml_bytes_length(s) <= i)) {
-      try {rindex_rec(s, i, c);var g_ = 1;return g_;}
+      try {rindex_rec(s, i, c);g_ = 1;return g_;}
       catch(h_) {
         h_ = runtime["caml_wrap_exception"](h_);
         if (h_ === Not_found) {return 0;}
@@ -648,7 +679,7 @@ exports = Bytes;
 /*::type Exports = {
   make: (n: any, c: any) => any,
   init: (n: any, f: any) => any,
-  empty: any
+  empty: any,
   copy: (s: any) => any,
   of_string: (s: any) => any,
   to_string: (b: any) => any,
@@ -688,46 +719,46 @@ exports = Bytes;
   compare: (x: any, y: any) => any,
 }*/
 /** @type {{
-  make: (any, any) => any,
-  init: (any, any) => any,
+  make: (n: any, c: any) => any,
+  init: (n: any, f: any) => any,
   empty: any,
-  copy: (any) => any,
-  of_string: (any) => any,
-  to_string: (any) => any,
-  sub: (any, any, any) => any,
-  sub_string: (any, any, any) => any,
-  extend: (any, any, any) => any,
-  fill: (any, any, any, any) => any,
-  blit: (any, any, any, any, any) => any,
-  blit_string: (any, any, any, any, any) => any,
-  concat: (any, any) => any,
-  cat: (any, any) => any,
-  iter: (any, any) => any,
-  iteri: (any, any) => any,
-  map: (any, any) => any,
-  mapi: (any, any) => any,
-  trim: (any) => any,
-  escaped: (any) => any,
-  index: (any, any) => any,
-  index_opt: (any, any) => any,
-  rindex: (any, any) => any,
-  rindex_opt: (any, any) => any,
-  index_from: (any, any, any) => any,
-  index_from_opt: (any, any, any) => any,
-  rindex_from: (any, any, any) => any,
-  rindex_from_opt: (any, any, any) => any,
-  contains: (any, any) => any,
-  contains_from: (any, any, any) => any,
-  rcontains_from: (any, any, any) => any,
-  uppercase: (any) => any,
-  lowercase: (any) => any,
-  capitalize: (any) => any,
-  uncapitalize: (any) => any,
-  uppercase_ascii: (any) => any,
-  lowercase_ascii: (any) => any,
-  capitalize_ascii: (any) => any,
-  uncapitalize_ascii: (any) => any,
-  compare: (any, any) => any,
+  copy: (s: any) => any,
+  of_string: (s: any) => any,
+  to_string: (b: any) => any,
+  sub: (s: any, ofs: any, len: any) => any,
+  sub_string: (b: any, ofs: any, len: any) => any,
+  extend: (s: any, left: any, right: any) => any,
+  fill: (s: any, ofs: any, len: any, c: any) => any,
+  blit: (s1: any, ofs1: any, s2: any, ofs2: any, len: any) => any,
+  blit_string: (s1: any, ofs1: any, s2: any, ofs2: any, len: any) => any,
+  concat: (sep: any, l: any) => any,
+  cat: (s1: any, s2: any) => any,
+  iter: (f: any, a: any) => any,
+  iteri: (f: any, a: any) => any,
+  map: (f: any, s: any) => any,
+  mapi: (f: any, s: any) => any,
+  trim: (s: any) => any,
+  escaped: (s: any) => any,
+  index: (s: any, c: any) => any,
+  index_opt: (s: any, c: any) => any,
+  rindex: (s: any, c: any) => any,
+  rindex_opt: (s: any, c: any) => any,
+  index_from: (s: any, i: any, c: any) => any,
+  index_from_opt: (s: any, i: any, c: any) => any,
+  rindex_from: (s: any, i: any, c: any) => any,
+  rindex_from_opt: (s: any, i: any, c: any) => any,
+  contains: (s: any, c: any) => any,
+  contains_from: (s: any, i: any, c: any) => any,
+  rcontains_from: (s: any, i: any, c: any) => any,
+  uppercase: (s: any) => any,
+  lowercase: (s: any) => any,
+  capitalize: (s: any) => any,
+  uncapitalize: (s: any) => any,
+  uppercase_ascii: (s: any) => any,
+  lowercase_ascii: (s: any) => any,
+  capitalize_ascii: (s: any) => any,
+  uncapitalize_ascii: (s: any) => any,
+  compare: (x: any, y: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.make = module.exports[1];

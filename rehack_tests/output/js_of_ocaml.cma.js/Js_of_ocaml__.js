@@ -7,39 +7,37 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var Js_of_ocaml = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 exports = Js_of_ocaml;
 
 /*::type Exports = {
-  CSS: any
-  Dom: any
-  Dom_events: any
-  Dom_html: any
-  Dom_svg: any
-  EventSource: any
-  File: any
-  Firebug: any
-  Form: any
-  Geolocation: any
-  Intl: any
-  Js: any
-  Json: any
-  Jstable: any
-  Lib_version: any
-  MutationObserver: any
-  Regexp: any
-  Sys_js: any
-  Typed_array: any
-  Url: any
-  WebGL: any
-  WebSockets: any
-  Worker: any
-  XmlHttpRequest: any
+  CSS: any,
+  Dom: any,
+  Dom_events: any,
+  Dom_html: any,
+  Dom_svg: any,
+  EventSource: any,
+  File: any,
+  Firebug: any,
+  Form: any,
+  Geolocation: any,
+  Intl: any,
+  Js: any,
+  Json: any,
+  Jstable: any,
+  Lib_version: any,
+  MutationObserver: any,
+  Regexp: any,
+  Sys_js: any,
+  Typed_array: any,
+  Url: any,
+  WebGL: any,
+  WebSockets: any,
+  Worker: any,
+  XmlHttpRequest: any,
 }*/
 /** @type {{
   CSS: any,

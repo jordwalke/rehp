@@ -10,9 +10,8 @@ namespace Rehack;
 final class Js_of_ocaml__Url {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -886,10 +885,10 @@ final class Js_of_ocaml__Url {
   public static function path_of_path_string(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$s]);
   }
-  public static function _encode_arguments_(dynamic $l): dynamic {
+  public static function encode_arguments(dynamic $l): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$l]);
   }
-  public static function _decode_arguments_(dynamic $s): dynamic {
+  public static function decode_arguments(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$s]);
   }
   public static function url_of_string(dynamic $s): dynamic {

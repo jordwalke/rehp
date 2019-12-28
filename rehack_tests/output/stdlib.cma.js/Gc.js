@@ -7,12 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_ml_string_length = runtime["caml_ml_string_length"];
-var string = runtime["caml_new_string"];
+var runtime = require("../runtime/runtime.js");
 
 function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
@@ -30,8 +26,10 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var Sys = require("Sys.js");
-var Printf = require("Printf.js");
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var string = runtime["caml_new_string"];
+var Sys = require("./Sys.js");
+var Printf = require("./Printf.js");
 var a_ = [
   0,
   [11,string("minor_collections: "),[4,0,0,0,[12,10,0]]],
@@ -175,10 +173,10 @@ exports = Gc;
   delete_alarm: (a: any) => any,
 }*/
 /** @type {{
-  print_stat: (any) => any,
-  allocated_bytes: (any) => any,
-  create_alarm: (any) => any,
-  delete_alarm: (any) => any,
+  print_stat: (c: any) => any,
+  allocated_bytes: (param: any) => any,
+  create_alarm: (f: any) => any,
+  delete_alarm: (a: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.print_stat = module.exports[1];

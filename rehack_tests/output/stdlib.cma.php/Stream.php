@@ -10,10 +10,9 @@ namespace Rehack;
 final class Stream {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $dump_data = new Ref();$get_data = new Ref();$nget_data = new Ref();
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];
     $call1 = $runtime["caml_call1"];
     $call3 = $runtime["caml_call3"];

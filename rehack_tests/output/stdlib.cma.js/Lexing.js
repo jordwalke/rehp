@@ -7,15 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_bytes_get = runtime["caml_bytes_get"];
-var caml_check_bound = runtime["caml_check_bound"];
-var caml_create_bytes = runtime["caml_create_bytes"];
-var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var string = runtime["caml_new_string"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -43,39 +36,56 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
+var caml_bytes_get = runtime["caml_bytes_get"];
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var string = runtime["caml_new_string"];
 var cst_Lexing_lex_refill_cannot_grow_buffer = string(
   "Lexing.lex_refill: cannot grow buffer"
 );
 var dummy_pos = [0,string(""),0,0,-1];
 var zero_pos = [0,string(""),1,0,0];
-var Bytes = require("Bytes.js");
-var Pervasives = require("Pervasives.js");
-var Sys = require("Sys.js");
+var Bytes = require("./Bytes.js");
+var Pervasives = require("./Pervasives.js");
+var Sys = require("./Sys.js");
 
 function engine(tbl, state, buf) {
+  var z_;
   var result = runtime["caml_lex_engine"](tbl, state, buf);
   if (0 <= result) {
     buf[11] = buf[12];
-    var z_ = buf[12];
+    z_ = buf[12];
     buf[12] = [0,z_[1],z_[2],z_[3],buf[4] + buf[6] | 0];
   }
   return result;
 }
 
 function new_engine(tbl, state, buf) {
+  var y_;
   var result = runtime["caml_new_lex_engine"](tbl, state, buf);
   if (0 <= result) {
     buf[11] = buf[12];
-    var y_ = buf[12];
+    y_ = buf[12];
     buf[12] = [0,y_[1],y_[2],y_[3],buf[4] + buf[6] | 0];
   }
   return result;
 }
 
 function lex_refill(read_fun, aux_buffer, lexbuf) {
+  var n;
+  var s;
+  var t;
+  var v_;
+  var w_;
+  var i;
+  var v;
+  var x_;
+  var newlen;
+  var newbuf;
   var read = call2(read_fun, aux_buffer, caml_ml_bytes_length(aux_buffer));
-  if (0 < read) var n = read;
-  else {lexbuf[9] = 1;var n = 0;}
+  if (0 < read) n = read;
+  else {lexbuf[9] = 1;n = 0;}
   if (caml_ml_bytes_length(lexbuf[2]) < (lexbuf[3] + n | 0)) {
     if (
       ((lexbuf[3] - lexbuf[5] | 0) + n | 0) <= caml_ml_bytes_length(lexbuf[2])
@@ -88,15 +98,12 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
       lexbuf[3] - lexbuf[5] | 0
     );
     else {
-      var newlen = call2(
-        Pervasives[4],
-        2 * caml_ml_bytes_length(lexbuf[2]) | 0,
-        Sys[13]
-      );
+      newlen =
+        call2(Pervasives[4], 2 * caml_ml_bytes_length(lexbuf[2]) | 0, Sys[13]);
       if (newlen < ((lexbuf[3] - lexbuf[5] | 0) + n | 0)) {
         call1(Pervasives[2], cst_Lexing_lex_refill_cannot_grow_buffer);
       }
-      var newbuf = caml_create_bytes(newlen);
+      newbuf = caml_create_bytes(newlen);
       call5(
         Bytes[11],
         lexbuf[2],
@@ -107,22 +114,22 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
       );
       lexbuf[2] = newbuf;
     }
-    var s = lexbuf[5];
+    s = lexbuf[5];
     lexbuf[4] = lexbuf[4] + s | 0;
     lexbuf[6] = lexbuf[6] - s | 0;
     lexbuf[5] = 0;
     lexbuf[7] = lexbuf[7] - s | 0;
     lexbuf[3] = lexbuf[3] - s | 0;
-    var t = lexbuf[10];
-    var w_ = t.length - 1 + -1 | 0;
-    var v_ = 0;
+    t = lexbuf[10];
+    w_ = t.length - 1 + -1 | 0;
+    v_ = 0;
     if (! (w_ < 0)) {
-      var i = v_;
+      i = v_;
       for (; ; ) {
-        var v = caml_check_bound(t, i)[i + 1];
+        v = caml_check_bound(t, i)[i + 1];
         if (0 <= v) {caml_check_bound(t, i)[i + 1] = v - s | 0;}
-        var x_ = i + 1 | 0;
-        if (w_ !== i) {var i = x_;continue;}
+        x_ = i + 1 | 0;
+        if (w_ !== i) {i = x_;continue;}
         break;
       }
     }
@@ -204,8 +211,9 @@ function sub_lexeme(lexbuf, i1, i2) {
 }
 
 function sub_lexeme_opt(lexbuf, i1, i2) {
+  var len;
   if (0 <= i1) {
-    var len = i2 - i1 | 0;
+    len = i2 - i1 | 0;
     return [0,call3(Bytes[8], lexbuf[2], i1, len)];
   }
   return 0;
@@ -269,7 +277,7 @@ var Lexing = [
 exports = Lexing;
 
 /*::type Exports = {
-  dummy_pos: any
+  dummy_pos: any,
   from_channel: (ic: any) => any,
   from_string: (s: any) => any,
   from_function: (f: any) => any,
@@ -290,23 +298,23 @@ exports = Lexing;
 }*/
 /** @type {{
   dummy_pos: any,
-  from_channel: (any) => any,
-  from_string: (any) => any,
-  from_function: (any) => any,
-  lexeme: (any) => any,
-  lexeme_char: (any, any) => any,
-  lexeme_start: (any) => any,
-  lexeme_end: (any) => any,
-  lexeme_start_p: (any) => any,
-  lexeme_end_p: (any) => any,
-  new_line: (any) => any,
-  flush_input: (any) => any,
-  sub_lexeme: (any, any, any) => any,
-  sub_lexeme_opt: (any, any, any) => any,
-  sub_lexeme_char: (any, any) => any,
-  sub_lexeme_char_opt: (any, any) => any,
-  engine: (any, any, any) => any,
-  new_engine: (any, any, any) => any,
+  from_channel: (ic: any) => any,
+  from_string: (s: any) => any,
+  from_function: (f: any) => any,
+  lexeme: (lexbuf: any) => any,
+  lexeme_char: (lexbuf: any, i: any) => any,
+  lexeme_start: (lexbuf: any) => any,
+  lexeme_end: (lexbuf: any) => any,
+  lexeme_start_p: (lexbuf: any) => any,
+  lexeme_end_p: (lexbuf: any) => any,
+  new_line: (lexbuf: any) => any,
+  flush_input: (lb: any) => any,
+  sub_lexeme: (lexbuf: any, i1: any, i2: any) => any,
+  sub_lexeme_opt: (lexbuf: any, i1: any, i2: any) => any,
+  sub_lexeme_char: (lexbuf: any, i: any) => any,
+  sub_lexeme_char_opt: (lexbuf: any, i: any) => any,
+  engine: (tbl: any, state: any, buf: any) => any,
+  new_engine: (tbl: any, state: any, buf: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.dummy_pos = module.exports[1];

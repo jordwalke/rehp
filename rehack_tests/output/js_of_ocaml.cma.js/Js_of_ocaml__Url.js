@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_int_of_string = runtime["caml_int_of_string"];
@@ -111,15 +109,15 @@ var cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9 = string(
 var cst_Ff_Ii_Ll_Ee = string(
   "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?$"
 );
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Failure = require("Failure.js");
-var CamlinternalOO = require("CamlinternalOO.js");
-var Pervasives = require("Pervasives.js");
-var List = require("List_.js");
-var String = require("String_.js");
-var Not_found = require("Not_found.js");
-var Js_of_ocaml_Regexp = require("Js_of_ocaml__Regexp.js");
-var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Failure = require("../runtime/Failure.js");
+var CamlinternalOO = require("../stdlib.cma.js/CamlinternalOO.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var List = require("../stdlib.cma.js/List.js");
+var String = require("../stdlib.cma.js/String.js");
+var Not_found = require("../runtime/Not_found.js");
+var Js_of_ocaml_Regexp = require("./Js_of_ocaml__Regexp.js");
+var Js_of_ocaml_Dom_html = require("./Js_of_ocaml__Dom_html.js");
 var f_ = [0,string(""),0];
 var a_ = [
   0,
@@ -817,8 +815,8 @@ exports = Js_of_ocaml_Url;
 /*::type Exports = {
   urldecode: (s: any) => any,
   urlencode: (opt: any, s: any) => any,
-  default_http_port: any
-  default_https_port: any
+  default_http_port: any,
+  default_https_port: any,
   path_of_path_string: (s: any) => any,
   encode_arguments: (l: any) => any,
   decode_arguments: (s: any) => any,
@@ -826,15 +824,15 @@ exports = Js_of_ocaml_Url;
   string_of_url: (param: any) => any,
 }*/
 /** @type {{
-  urldecode: (any) => any,
-  urlencode: (any, any) => any,
+  urldecode: (s: any) => any,
+  urlencode: (opt: any, s: any) => any,
   default_http_port: any,
   default_https_port: any,
-  path_of_path_string: (any) => any,
-  encode_arguments: (any) => any,
-  decode_arguments: (any) => any,
-  url_of_string: (any) => any,
-  string_of_url: (any) => any,
+  path_of_path_string: (s: any) => any,
+  encode_arguments: (l: any) => any,
+  decode_arguments: (s: any) => any,
+  url_of_string: (s: any) => any,
+  string_of_url: (param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.urldecode = module.exports[1];

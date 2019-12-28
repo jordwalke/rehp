@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 
@@ -30,9 +28,9 @@ var cst_Worker_onmessage_is_undefined = string("Worker.onmessage is undefined"
 var cst_Worker_import_scripts_is_undefined = string(
   "Worker.import_scripts is undefined"
 );
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Pervasives = require("Pervasives.js");
-var Array = require("Array_.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Array = require("../stdlib.cma.js/Array.js");
 
 function a_(x) {return call1(caml_get_public_method(x, -324422083, 203), x);}
 
@@ -103,10 +101,10 @@ exports = Js_of_ocaml_Worker;
   post_message: (msg: any) => any,
 }*/
 /** @type {{
-  create: (any) => any,
-  import_scripts: (any) => any,
-  set_onmessage: (any) => any,
-  post_message: (any) => any,
+  create: (script: any) => any,
+  import_scripts: (scripts: any) => any,
+  set_onmessage: (handler: any) => any,
+  post_message: (msg: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];

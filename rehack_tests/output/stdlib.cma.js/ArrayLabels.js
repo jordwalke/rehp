@@ -7,11 +7,12 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var Array = require("Array_.js");
+var runtime = require("../runtime/runtime.js");
+
+;
+
+var Array = require("./Array.js");
 var make_float = Array[1];
 var init = Array[2];
 var make_matrix = Array[3];
@@ -75,34 +76,34 @@ var ArrayLabels = [
 exports = ArrayLabels;
 
 /*::type Exports = {
-  init: any
-  make_matrix: any
-  create_matrix: any
-  append: any
-  concat: any
-  sub: any
-  copy: any
-  fill: any
-  blit: any
-  to_list: any
-  of_list: any
-  iter: any
-  map: any
-  iteri: any
-  mapi: any
-  fold_left: any
-  fold_right: any
-  iter2: any
-  map2: any
-  exists: any
-  for_all: any
-  mem: any
-  memq: any
-  make_float: any
-  sort: any
-  stable_sort: any
-  fast_sort: any
-  Floatarray: any
+  init: any,
+  make_matrix: any,
+  create_matrix: any,
+  append: any,
+  concat: any,
+  sub: any,
+  copy: any,
+  fill: any,
+  blit: any,
+  to_list: any,
+  of_list: any,
+  iter: any,
+  map: any,
+  iteri: any,
+  mapi: any,
+  fold_left: any,
+  fold_right: any,
+  iter2: any,
+  map2: any,
+  exists: any,
+  for_all: any,
+  mem: any,
+  memq: any,
+  make_float: any,
+  sort: any,
+  stable_sort: any,
+  fast_sort: any,
+  Floatarray: any,
 }*/
 /** @type {{
   init: any,

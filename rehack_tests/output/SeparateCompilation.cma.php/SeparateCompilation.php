@@ -10,9 +10,8 @@ namespace Rehack;
 final class SeparateCompilation {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call1 = $runtime["caml_call1"];
     $SeparateCompilation_SeparateCompilationHelper =  SeparateCompilation__SeparateCompilationHelper::requireModule (
       
@@ -31,4 +30,4 @@ final class SeparateCompilation {
   }
 
 }
-/*____hashes flags: 421562097 bytecode: 10647412249 debug-data: 1986690936 primitives: 1058613066*/
+/*____hashes flags: 1406088649 bytecode: 10647412249 debug-data: 1986690936 primitives: 1058613066*/

@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_int_of_string = runtime["caml_int_of_string"];
 var string = runtime["caml_new_string"];
 var caml_wrap_thrown_exception_reraise = runtime
@@ -251,20 +249,20 @@ var Strings = [
 exports = Strings;
 
 /*::type Exports = {
-  greeting: any
-  unicodeLength: any
-  negativeOne: any
-  six: any
-  index: any
+  greeting: any,
+  unicodeLength: any,
+  negativeOne: any,
+  six: any,
+  index: any,
   createIntFromString: (ss: any) => any,
   myFunction: (cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope: any) => any,
-  i: any
-  myRefCell: any
-  myRefCellContents: any
-  one: any
-  two: any
-  n: any
-  anotherName: any
+  i: any,
+  myRefCell: any,
+  myRefCellContents: any,
+  one: any,
+  two: any,
+  n: any,
+  anotherName: any,
 }*/
 /** @type {{
   greeting: any,
@@ -272,8 +270,8 @@ exports = Strings;
   negativeOne: any,
   six: any,
   index: any,
-  createIntFromString: (any) => any,
-  myFunction: (any) => any,
+  createIntFromString: (ss: any) => any,
+  myFunction: (cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope: any) => any,
   i: any,
   myRefCell: any,
   myRefCellContents: any,

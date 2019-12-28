@@ -7,15 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_ml_string_length = runtime["caml_ml_string_length"];
-var string = runtime["caml_new_string"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -37,6 +30,11 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 var cst__4 = string(".");
 var cst__2 = string(">");
 var cst__3 = string("</");
@@ -44,12 +42,12 @@ var cst__0 = string(">");
 var cst__1 = string("<");
 var cst = string("\n");
 var cst_Format_Empty_queue = string("Format.Empty_queue");
-var CamlinternalFormat = require("CamlinternalFormat.js");
-var Pervasives = require("Pervasives.js");
-var String = require("String_.js");
-var Buffer = require("Buffer.js");
-var List = require("List_.js");
-var Not_found = require("Not_found.js");
+var CamlinternalFormat = require("./CamlinternalFormat.js");
+var Pervasives = require("./Pervasives.js");
+var String = require("./String.js");
+var Buffer = require("./Buffer.js");
+var List = require("./List.js");
+var Not_found = require("../runtime/Not_found.js");
 var b_ = [3,0,3];
 var a_ = [0,string("")];
 
@@ -69,16 +67,19 @@ function add_queue(x, q) {
 var Empty_queue = [248,cst_Format_Empty_queue,runtime["caml_fresh_oo_id"](0)];
 
 function peek_queue(param) {
+  var x;
   var cw_ = param[2];
-  if (cw_) {var x = cw_[1];return x;}
+  if (cw_) {x = cw_[1];return x;}
   throw caml_wrap_thrown_exception(Empty_queue);
 }
 
 function take_queue(q) {
+  var x;
+  var tl;
   var cv_ = q[2];
   if (cv_) {
-    var x = cv_[1];
-    var tl = cv_[2];
+    x = cv_[1];
+    tl = cv_[2];
     q[2] = tl;
     if (0 === tl) {q[1] = 0;}
     return x;
@@ -128,17 +129,22 @@ function break_same_line(state, width) {
 }
 
 function pp_force_break_line(state) {
+  var match;
+  var width;
+  var bl_ty;
+  var ct_;
+  var cu_;
   var cs_ = state[2];
   if (cs_) {
-    var match = cs_[1];
-    var width = match[2];
-    var bl_ty = match[1];
-    var ct_ = state[9] < width ? 1 : 0;
+    match = cs_[1];
+    width = match[2];
+    bl_ty = match[1];
+    ct_ = state[9] < width ? 1 : 0;
     if (ct_) {
       if (0 !== bl_ty) {return 5 <= bl_ty ? 0 : break_line(state, width);}
-      var cu_ = 0;
+      cu_ = 0;
     }
-    else var cu_ = ct_;
+    else cu_ = ct_;
     return cu_;
   }
   return pp_output_newline(state);
@@ -154,51 +160,98 @@ function pp_skip_token(state) {
 }
 
 function format_pp_token(state, size, param) {
+  var marker__0;
+  var tag_name__0;
+  var tbox;
+  var bl_type;
+  var offset__0;
+  var insertion_point__0;
+  var off__1;
+  var ty__0;
+  var cq_;
+  var offset;
+  var tab;
+  var x__0;
+  var x;
+  var cp_;
+  var find;
+  var tabs__0;
+  var match__2;
+  var co_;
+  var insertion_point;
+  var n__0;
+  var off__0;
+  var ty;
+  var width__0;
+  var match__1;
+  var cn_;
+  var n;
+  var off;
+  var s;
+  var marker;
+  var tag_name;
+  var tags;
+  var cm_;
+  var cl_;
+  var width;
+  var match__0;
+  var ck_;
+  var ls__0;
+  var cj_;
+  var ls;
+  var ci_;
+  var add_tab;
+  var tabs;
+  var match;
+  var ch_;
   if (typeof param === "number") switch (param) {
     case 0:
-      var ch_ = state[3];
+      ch_ = state[3];
       if (ch_) {
-        var match = ch_[1];
-        var tabs = match[1];
-        var add_tab = function(n, ls) {
-          if (ls) {
-            var l = ls[2];
-            var x = ls[1];
-            return runtime["caml_lessthan"](n, x) ?
-              [0,n,ls] :
-              [0,x,add_tab(n, l)];
-          }
-          return [0,n,0];
-        };
+        match = ch_[1];
+        tabs = match[1];
+        add_tab =
+          function(n, ls) {
+            var x;
+            var l;
+            if (ls) {
+              l = ls[2];
+              x = ls[1];
+              return runtime["caml_lessthan"](n, x) ?
+                [0,n,ls] :
+                [0,x,add_tab(n, l)];
+            }
+            return [0,n,0];
+          };
         tabs[1] = add_tab(state[6] - state[9] | 0, tabs[1]);
         return 0;
       }
       return 0;
     case 1:
-      var ci_ = state[2];
-      if (ci_) {var ls = ci_[2];state[2] = ls;return 0;}
+      ci_ = state[2];
+      if (ci_) {ls = ci_[2];state[2] = ls;return 0;}
       return 0;
     case 2:
-      var cj_ = state[3];
-      if (cj_) {var ls__0 = cj_[2];state[3] = ls__0;return 0;}
+      cj_ = state[3];
+      if (cj_) {ls__0 = cj_[2];state[3] = ls__0;return 0;}
       return 0;
     case 3:
-      var ck_ = state[2];
+      ck_ = state[2];
       if (ck_) {
-        var match__0 = ck_[1];
-        var width = match__0[2];
+        match__0 = ck_[1];
+        width = match__0[2];
         return break_line(state, width);
       }
       return pp_output_newline(state);
     case 4:
-      var cl_ = state[10] !== (state[6] - state[9] | 0) ? 1 : 0;
+      cl_ = state[10] !== (state[6] - state[9] | 0) ? 1 : 0;
       return cl_ ? pp_skip_token(state) : cl_;
     default:
-      var cm_ = state[5];
+      cm_ = state[5];
       if (cm_) {
-        var tags = cm_[2];
-        var tag_name = cm_[1];
-        var marker = call1(state[25], tag_name);
+        tags = cm_[2];
+        tag_name = cm_[1];
+        marker = call1(state[25], tag_name);
         pp_output_string(state, marker);
         state[5] = tags;
         return 0;
@@ -207,19 +260,19 @@ function format_pp_token(state, size, param) {
     }
   else switch (param[0]) {
     case 0:
-      var s = param[1];
+      s = param[1];
       state[9] = state[9] - size | 0;
       pp_output_string(state, s);
       state[11] = 0;
       return 0;
     case 1:
-      var off = param[2];
-      var n = param[1];
-      var cn_ = state[2];
+      off = param[2];
+      n = param[1];
+      cn_ = state[2];
       if (cn_) {
-        var match__1 = cn_[1];
-        var width__0 = match__1[2];
-        var ty = match__1[1];
+        match__1 = cn_[1];
+        width__0 = match__1[2];
+        ty = match__1[1];
         switch (ty) {
           case 0:
             return break_same_line(state, n);
@@ -245,62 +298,65 @@ function format_pp_token(state, size, param) {
       }
       return 0;
     case 2:
-      var off__0 = param[2];
-      var n__0 = param[1];
-      var insertion_point = state[6] - state[9] | 0;
-      var co_ = state[3];
+      off__0 = param[2];
+      n__0 = param[1];
+      insertion_point = state[6] - state[9] | 0;
+      co_ = state[3];
       if (co_) {
-        var match__2 = co_[1];
-        var tabs__0 = match__2[1];
-        var find = function(n, param) {
-          var param__0 = param;
-          for (; ; ) {
-            if (param__0) {
-              var l = param__0[2];
-              var x = param__0[1];
-              if (runtime["caml_greaterequal"](x, n)) {return x;}
-              var param__0 = l;
-              continue;
+        match__2 = co_[1];
+        tabs__0 = match__2[1];
+        find =
+          function(n, param) {
+            var l;
+            var x;
+            var param__0 = param;
+            for (; ; ) {
+              if (param__0) {
+                l = param__0[2];
+                x = param__0[1];
+                if (runtime["caml_greaterequal"](x, n)) {return x;}
+                param__0 = l;
+                continue;
+              }
+              throw caml_wrap_thrown_exception(Not_found);
             }
-            throw caml_wrap_thrown_exception(Not_found);
-          }
-        };
-        var cp_ = tabs__0[1];
+          };
+        cp_ = tabs__0[1];
         if (cp_) {
-          var x = cp_[1];
-          try {var cq_ = find(insertion_point, tabs__0[1]);var x__0 = cq_;}
+          x = cp_[1];
+          try {cq_ = find(insertion_point, tabs__0[1]);x__0 = cq_;}
           catch(cr_) {
             cr_ = runtime["caml_wrap_exception"](cr_);
             if (cr_ !== Not_found) {
               throw caml_wrap_thrown_exception_reraise(cr_);
             }
-            var x__0 = x;
+            x__0 = x;
           }
-          var tab = x__0;
+          tab = x__0;
         }
-        else var tab = insertion_point;
-        var offset = tab - insertion_point | 0;
+        else tab = insertion_point;
+        offset = tab - insertion_point | 0;
         return 0 <= offset ?
           break_same_line(state, offset + n__0 | 0) :
           break_new_line(state, tab + off__0 | 0, state[6]);
       }
       return 0;
     case 3:
-      var ty__0 = param[2];
-      var off__1 = param[1];
-      var insertion_point__0 = state[6] - state[9] | 0;
+      ty__0 = param[2];
+      off__1 = param[1];
+      insertion_point__0 = state[6] - state[9] | 0;
       if (state[8] < insertion_point__0) {pp_force_break_line(state);}
-      var offset__0 = state[9] - off__1 | 0;
-      var bl_type = 1 === ty__0 ? 1 : state[9] < size ? ty__0 : 5;
+      offset__0 = state[9] - off__1 | 0;
+      bl_type = 1 === ty__0 ? 1 : state[9] < size ? ty__0 : 5;
       state[2] = [0,[0,bl_type,offset__0],state[2]];
       return 0;
     case 4:
-      var tbox = param[1];
+      tbox = param[1];
       state[3] = [0,tbox,state[3]];
       return 0;
     default:
-      var tag_name__0 = param[1];
-      var marker__0 = call1(state[24], tag_name__0);
+      tag_name__0 = param[1];
+      marker__0 = call1(state[24], tag_name__0);
       pp_output_string(state, marker__0);
       state[5] = [0,tag_name__0,state[5]];
       return 0
@@ -308,17 +364,25 @@ function format_pp_token(state, size, param) {
 }
 
 function advance_loop(state) {
+  var size__0;
+  var cg_;
+  var cf_;
+  var ce_;
+  var tok;
+  var len;
+  var size;
+  var match;
   for (; ; ) {
-    var match = peek_queue(state[28]);
-    var size = match[1];
-    var len = match[3];
-    var tok = match[2];
-    var ce_ = size < 0 ? 1 : 0;
-    var cf_ = ce_ ? (state[13] - state[12] | 0) < state[9] ? 1 : 0 : ce_;
-    var cg_ = 1 - cf_;
+    match = peek_queue(state[28]);
+    size = match[1];
+    len = match[3];
+    tok = match[2];
+    ce_ = size < 0 ? 1 : 0;
+    cf_ = ce_ ? (state[13] - state[12] | 0) < state[9] ? 1 : 0 : ce_;
+    cg_ = 1 - cf_;
     if (cg_) {
       take_queue(state[28]);
-      var size__0 = 0 <= size ? size : pp_infinity;
+      size__0 = 0 <= size ? size : pp_infinity;
       format_pp_token(state, size__0, tok);
       state[12] = len + state[12] | 0;
       continue;
@@ -328,7 +392,8 @@ function advance_loop(state) {
 }
 
 function advance_left(state) {
-  try {var cc_ = advance_loop(state);return cc_;}
+  var cc_;
+  try {cc_ = advance_loop(state);return cc_;}
   catch(cd_) {
     cd_ = runtime["caml_wrap_exception"](cd_);
     if (cd_ === Empty_queue) {return 0;}
@@ -358,34 +423,43 @@ var scan_stack_bottom = [0,[0,-1,q_elem],0];
 function clear_scan_stack(state) {state[1] = scan_stack_bottom;return 0;}
 
 function set_size(state, ty) {
+  var match;
+  var queue_elem;
+  var left_tot;
+  var size;
+  var t;
+  var tok;
+  var b__;
+  var ca_;
+  var cb_;
   var b9_ = state[1];
   if (b9_) {
-    var match = b9_[1];
-    var queue_elem = match[2];
-    var left_tot = match[1];
-    var size = queue_elem[1];
-    var t = b9_[2];
-    var tok = queue_elem[2];
+    match = b9_[1];
+    queue_elem = match[2];
+    left_tot = match[1];
+    size = queue_elem[1];
+    t = b9_[2];
+    tok = queue_elem[2];
     if (left_tot < state[12]) {return clear_scan_stack(state);}
     if (! (typeof tok === "number")) {
       switch (tok[0]) {
         case 3:
-          var ca_ = 1 - ty;
+          ca_ = 1 - ty;
           if (ca_) {
             queue_elem[1] = state[13] + size | 0;
             state[1] = t;
-            var cb_ = 0;
+            cb_ = 0;
           }
-          else var cb_ = ca_;
+          else cb_ = ca_;
           return cb_;
         case 1:
         case 2:
           if (ty) {
             queue_elem[1] = state[13] + size | 0;
             state[1] = t;
-            var b__ = 0;
+            b__ = 0;
           }
-          else var b__ = ty;
+          else b__ = ty;
           return b__
         }
     }
@@ -402,9 +476,10 @@ function scan_push(state, b, tok) {
 }
 
 function pp_open_box_gen(state, indent, br_ty) {
+  var elem;
   state[14] = state[14] + 1 | 0;
   if (state[14] < state[15]) {
-    var elem = make_queue_elem(- state[13] | 0, [3,indent,br_ty], 0);
+    elem = make_queue_elem(- state[13] | 0, [3,indent,br_ty], 0);
     return scan_push(state, 0, elem);
   }
   var b8_ = state[14] === state[15] ? 1 : 0;
@@ -414,6 +489,7 @@ function pp_open_box_gen(state, indent, br_ty) {
 function pp_open_sys_box(state) {return pp_open_box_gen(state, 0, 3);}
 
 function pp_close_box(state, param) {
+  var b7_;
   var b6_ = 1 < state[14] ? 1 : 0;
   if (b6_) {
     if (state[14] < state[15]) {
@@ -422,9 +498,9 @@ function pp_close_box(state, param) {
       set_size(state, 0);
     }
     state[14] = state[14] + -1 | 0;
-    var b7_ = 0;
+    b7_ = 0;
   }
-  else var b7_ = b6_;
+  else b7_ = b6_;
   return b7_;
 }
 
@@ -438,20 +514,24 @@ function pp_open_tag(state, tag_name) {
 }
 
 function pp_close_tag(state, param) {
+  var b4_;
+  var tag_name;
+  var tags;
+  var b3_;
   if (state[23]) {pp_enqueue(state, [0,0,5,0]);}
   var b2_ = state[22];
   if (b2_) {
-    var b3_ = state[4];
+    b3_ = state[4];
     if (b3_) {
-      var tags = b3_[2];
-      var tag_name = b3_[1];
+      tags = b3_[2];
+      tag_name = b3_[1];
       call1(state[27], tag_name);
       state[4] = tags;
       return 0;
     }
-    var b4_ = 0;
+    b4_ = 0;
   }
-  else var b4_ = b2_;
+  else b4_ = b2_;
   return b4_;
 }
 
@@ -581,9 +661,10 @@ function pp_print_if_newline(state, param) {
 }
 
 function pp_print_break(state, width, offset) {
+  var elem;
   var bW_ = state[14] < state[15] ? 1 : 0;
   if (bW_) {
-    var elem = make_queue_elem(- state[13] | 0, [1,width,offset], width);
+    elem = make_queue_elem(- state[13] | 0, [1,width,offset], width);
     return scan_push(state, 1, elem);
   }
   return bW_;
@@ -594,35 +675,40 @@ function pp_print_space(state, param) {return pp_print_break(state, 1, 0);}
 function pp_print_cut(state, param) {return pp_print_break(state, 0, 0);}
 
 function pp_open_tbox(state, param) {
+  var elem;
   state[14] = state[14] + 1 | 0;
   var bV_ = state[14] < state[15] ? 1 : 0;
   if (bV_) {
-    var elem = make_queue_elem(0, [4,[0,[0,0]]], 0);
+    elem = make_queue_elem(0, [4,[0,[0,0]]], 0);
     return enqueue_advance(state, elem);
   }
   return bV_;
 }
 
 function pp_close_tbox(state, param) {
+  var bT_;
+  var elem;
+  var bU_;
   var bS_ = 1 < state[14] ? 1 : 0;
   if (bS_) {
-    var bT_ = state[14] < state[15] ? 1 : 0;
+    bT_ = state[14] < state[15] ? 1 : 0;
     if (bT_) {
-      var elem = make_queue_elem(0, 2, 0);
+      elem = make_queue_elem(0, 2, 0);
       enqueue_advance(state, elem);
       state[14] = state[14] + -1 | 0;
-      var bU_ = 0;
+      bU_ = 0;
     }
-    else var bU_ = bT_;
+    else bU_ = bT_;
   }
-  else var bU_ = bS_;
+  else bU_ = bS_;
   return bU_;
 }
 
 function pp_print_tbreak(state, width, offset) {
+  var elem;
   var bR_ = state[14] < state[15] ? 1 : 0;
   if (bR_) {
-    var elem = make_queue_elem(- state[13] | 0, [2,width,offset], width);
+    elem = make_queue_elem(- state[13] | 0, [2,width,offset], width);
     return scan_push(state, 1, elem);
   }
   return bR_;
@@ -631,21 +717,23 @@ function pp_print_tbreak(state, width, offset) {
 function pp_print_tab(state, param) {return pp_print_tbreak(state, 0, 0);}
 
 function pp_set_tab(state, param) {
+  var elem;
   var bQ_ = state[14] < state[15] ? 1 : 0;
   if (bQ_) {
-    var elem = make_queue_elem(0, 0, 0);
+    elem = make_queue_elem(0, 0, 0);
     return enqueue_advance(state, elem);
   }
   return bQ_;
 }
 
 function pp_set_max_boxes(state, n) {
+  var bP_;
   var bO_ = 1 < n ? 1 : 0;
   if (bO_) {
     state[15] = n;
-    var bP_ = 0;
+    bP_ = 0;
   }
-  else var bP_ = bO_;
+  else bP_ = bO_;
   return bP_;
 }
 
@@ -662,9 +750,10 @@ function pp_get_ellipsis_text(state, param) {return state[16];}
 function pp_limit(n) {return n < 1000000010 ? n : 1000000009;}
 
 function pp_set_min_space_left(state, n) {
+  var n__0;
   var bN_ = 1 <= n ? 1 : 0;
   if (bN_) {
-    var n__0 = pp_limit(n);
+    n__0 = pp_limit(n);
     state[7] = n__0;
     state[8] = state[6] - state[7] | 0;
     return pp_rinit(state);
@@ -679,16 +768,17 @@ function pp_set_max_indent(state, n) {
 function pp_get_max_indent(state, param) {return state[8];}
 
 function pp_set_margin(state, n) {
+  var n__0;
+  var new_max_indent;
+  var bM_;
   var bL_ = 1 <= n ? 1 : 0;
   if (bL_) {
-    var n__0 = pp_limit(n);
+    n__0 = pp_limit(n);
     state[6] = n__0;
-    if (state[8] <= state[6]) var new_max_indent = state
-     [8];
+    if (state[8] <= state[6]) new_max_indent = state[8];
     else {
-      var bM_ = call2(Pervasives[5], state[6] - state[7] | 0, state[6] / 2 | 0
-      );
-      var new_max_indent = call2(Pervasives[5], bM_, 1);
+      bM_ = call2(Pervasives[5], state[6] - state[7] | 0, state[6] / 2 | 0);
+      new_max_indent = call2(Pervasives[5], bM_, 1);
     }
     return pp_set_max_indent(state, new_max_indent);
   }
@@ -726,14 +816,16 @@ function display_newline(state, param) {return call3(state[17], cst, 0, 1);}
 var blank_line = call2(String[1], 80, 32);
 
 function display_blanks(state, n) {
+  var bK_;
+  var n__1;
   var n__0 = n;
   for (; ; ) {
-    var bK_ = 0 < n__0 ? 1 : 0;
+    bK_ = 0 < n__0 ? 1 : 0;
     if (bK_) {
       if (80 < n__0) {
         call3(state[17], blank_line, 0, 80);
-        var n__1 = n__0 + -80 | 0;
-        var n__0 = n__1;
+        n__1 = n__0 + -80 | 0;
+        n__0 = n__1;
         continue;
       }
       return call3(state[17], blank_line, 0, n__0);
@@ -1017,23 +1109,28 @@ function get_mark_tags(ay_) {return pp_get_mark_tags(std_formatter, ay_);}
 function set_tags(ax_) {return pp_set_tags(std_formatter, ax_);}
 
 function pp_print_list(opt, pp_v, ppf, param) {
+  var sth;
+  var pp_sep;
+  var av_;
+  var aw_;
+  var opt__1;
   var opt__0 = opt;
   var param__0 = param;
   for (; ; ) {
     if (opt__0) {
-      var sth = opt__0[1];
-      var pp_sep = sth;
+      sth = opt__0[1];
+      pp_sep = sth;
     }
-    else var pp_sep = pp_print_cut;
+    else pp_sep = pp_print_cut;
     if (param__0) {
-      var av_ = param__0[2];
-      var aw_ = param__0[1];
+      av_ = param__0[2];
+      aw_ = param__0[1];
       if (av_) {
         call2(pp_v, ppf, aw_);
         call2(pp_sep, ppf, 0);
-        var opt__1 = [0,pp_sep];
-        var opt__0 = opt__1;
-        var param__0 = av_;
+        opt__1 = [0,pp_sep];
+        opt__0 = opt__1;
+        param__0 = av_;
         continue;
       }
       return call2(pp_v, ppf, aw_);
@@ -1043,6 +1140,8 @@ function pp_print_list(opt, pp_v, ppf, param) {
 }
 
 function pp_print_text(ppf, s) {
+  var match;
+  var au_;
   var len = caml_ml_string_length(s);
   var left = [0,0];
   var right = [0,0];
@@ -1054,7 +1153,7 @@ function pp_print_text(ppf, s) {
   }
   for (; ; ) {
     if (right[1] !== len) {
-      var match = runtime["caml_string_get"](s, right[1]);
+      match = runtime["caml_string_get"](s, right[1]);
       if (10 === match) {
         flush(0);
         pp_force_newline(ppf, 0);
@@ -1066,7 +1165,7 @@ function pp_print_text(ppf, s) {
       else right[1] += 1;
       continue;
     }
-    var au_ = left[1] !== len ? 1 : 0;
+    au_ = left[1] !== len ? 1 : 0;
     return au_ ? flush(0) : au_;
   }
 }
@@ -1083,6 +1182,9 @@ function compute_tag(output, tag_acc) {
 }
 
 function output_formatting_lit(ppf, fmting_lit) {
+  var c;
+  var width;
+  var offset;
   if (typeof fmting_lit === "number") switch (fmting_lit) {
     case 0:
       return pp_close_box(ppf, 0);
@@ -1101,165 +1203,203 @@ function output_formatting_lit(ppf, fmting_lit) {
     }
   else switch (fmting_lit[0]) {
     case 0:
-      var offset = fmting_lit[3];
-      var width = fmting_lit[2];
+      offset = fmting_lit[3];
+      width = fmting_lit[2];
       return pp_print_break(ppf, width, offset);
     case 1:
       return 0;
     default:
-      var c = fmting_lit[1];
+      c = fmting_lit[1];
       pp_print_char(ppf, 64);
       return pp_print_char(ppf, c)
     }
 }
 
 function output_acc(ppf, acc) {
+  var switch__8;
+  var switch__7;
+  var switch__6;
+  var switch__5;
+  var switch__4;
+  var switch__3;
+  var switch__2;
+  var switch__1;
+  var switch__0;
+  var p__6;
+  var msg;
+  var p__5;
+  var p__4;
+  var f__0;
+  var at_;
+  var as_;
+  var ar_;
+  var aq_;
+  var ap_;
+  var ao_;
+  var an_;
+  var am_;
+  var al_;
+  var ak_;
+  var aj_;
+  var ai_;
+  var c__0;
+  var size__0;
+  var p__3;
+  var ah_;
+  var ag_;
+  var af_;
+  var ae_;
+  var c;
+  var p__2;
+  var ad_;
+  var ac_;
+  var s__0;
+  var size;
+  var p__1;
+  var ab_;
+  var aa_;
+  var Z_;
+  var Y_;
+  var s;
+  var p__0;
+  var X_;
+  var W_;
+  var indent;
+  var bty;
+  var match;
+  var V_;
+  var acc__1;
+  var acc__0;
+  var U_;
+  var T_;
+  var p;
+  var f;
   if (typeof acc === "number") return 0;
   else switch (acc[0]) {
     case 0:
-      var f = acc[2];
-      var p = acc[1];
+      f = acc[2];
+      p = acc[1];
       output_acc(ppf, p);
       return output_formatting_lit(ppf, f);
     case 1:
-      var T_ = acc[2];
-      var U_ = acc[1];
+      T_ = acc[2];
+      U_ = acc[1];
       if (0 === T_[0]) {
-        var acc__0 = T_[1];
+        acc__0 = T_[1];
         output_acc(ppf, U_);
         return pp_open_tag(ppf, compute_tag(output_acc, acc__0));
       }
-      var acc__1 = T_[1];
+      acc__1 = T_[1];
       output_acc(ppf, U_);
-      var V_ = compute_tag(output_acc, acc__1);
-      var match = call1(CamlinternalFormat[21], V_);
-      var bty = match[2];
-      var indent = match[1];
+      V_ = compute_tag(output_acc, acc__1);
+      match = call1(CamlinternalFormat[21], V_);
+      bty = match[2];
+      indent = match[1];
       return pp_open_box_gen(ppf, indent, bty);
     case 2:
-      var W_ = acc[1];
-      if (typeof W_ === "number") var switch__1 = 1;
+      W_ = acc[1];
+      if (typeof W_ === "number") switch__1 = 1;
       else if (0 === W_[0]) {
-        var Y_ = W_[2];
-        if (typeof Y_ === "number") var switch__2 = 1;
+        Y_ = W_[2];
+        if (typeof Y_ === "number") switch__2 = 1;
         else if (1 === Y_[0]) {
-          var Z_ = acc[2];
-          var aa_ = Y_[2];
-          var ab_ = W_[1];
-          var s__0 = Z_;
-          var size = aa_;
-          var p__1 = ab_;
-          var switch__0 = 0;
-          var switch__1 = 0;
-          var switch__2 = 0;
+          Z_ = acc[2];
+          aa_ = Y_[2];
+          ab_ = W_[1];
+          s__0 = Z_;
+          size = aa_;
+          p__1 = ab_;
+          switch__0 = 0;
+          switch__1 = 0;
+          switch__2 = 0;
         }
-        else var switch__2 = 1;
-        if (switch__2) {var switch__1 = 1;}
+        else switch__2 = 1;
+        if (switch__2) {switch__1 = 1;}
       }
-      else var switch__1 = 1;
-      if (switch__1) {
-        var X_ = acc[2];
-        var s = X_;
-        var p__0 = W_;
-        var switch__0 = 2;
-      }
+      else switch__1 = 1;
+      if (switch__1) {X_ = acc[2];s = X_;p__0 = W_;switch__0 = 2;}
       break;
     case 3:
-      var ac_ = acc[1];
-      if (typeof ac_ === "number") var switch__3 = 1;
+      ac_ = acc[1];
+      if (typeof ac_ === "number") switch__3 = 1;
       else if (0 === ac_[0]) {
-        var ae_ = ac_[2];
-        if (typeof ae_ === "number") var switch__4 = 1;
+        ae_ = ac_[2];
+        if (typeof ae_ === "number") switch__4 = 1;
         else if (1 === ae_[0]) {
-          var af_ = acc[2];
-          var ag_ = ae_[2];
-          var ah_ = ac_[1];
-          var c__0 = af_;
-          var size__0 = ag_;
-          var p__3 = ah_;
-          var switch__0 = 1;
-          var switch__3 = 0;
-          var switch__4 = 0;
+          af_ = acc[2];
+          ag_ = ae_[2];
+          ah_ = ac_[1];
+          c__0 = af_;
+          size__0 = ag_;
+          p__3 = ah_;
+          switch__0 = 1;
+          switch__3 = 0;
+          switch__4 = 0;
         }
-        else var switch__4 = 1;
-        if (switch__4) {var switch__3 = 1;}
+        else switch__4 = 1;
+        if (switch__4) {switch__3 = 1;}
       }
-      else var switch__3 = 1;
-      if (switch__3) {
-        var ad_ = acc[2];
-        var c = ad_;
-        var p__2 = ac_;
-        var switch__0 = 3;
-      }
+      else switch__3 = 1;
+      if (switch__3) {ad_ = acc[2];c = ad_;p__2 = ac_;switch__0 = 3;}
       break;
     case 4:
-      var ai_ = acc[1];
-      if (typeof ai_ === "number") var switch__5 = 1;
+      ai_ = acc[1];
+      if (typeof ai_ === "number") switch__5 = 1;
       else if (0 === ai_[0]) {
-        var ak_ = ai_[2];
-        if (typeof ak_ === "number") var switch__6 = 1;
+        ak_ = ai_[2];
+        if (typeof ak_ === "number") switch__6 = 1;
         else if (1 === ak_[0]) {
-          var al_ = acc[2];
-          var am_ = ak_[2];
-          var an_ = ai_[1];
-          var s__0 = al_;
-          var size = am_;
-          var p__1 = an_;
-          var switch__0 = 0;
-          var switch__5 = 0;
-          var switch__6 = 0;
+          al_ = acc[2];
+          am_ = ak_[2];
+          an_ = ai_[1];
+          s__0 = al_;
+          size = am_;
+          p__1 = an_;
+          switch__0 = 0;
+          switch__5 = 0;
+          switch__6 = 0;
         }
-        else var switch__6 = 1;
-        if (switch__6) {var switch__5 = 1;}
+        else switch__6 = 1;
+        if (switch__6) {switch__5 = 1;}
       }
-      else var switch__5 = 1;
-      if (switch__5) {
-        var aj_ = acc[2];
-        var s = aj_;
-        var p__0 = ai_;
-        var switch__0 = 2;
-      }
+      else switch__5 = 1;
+      if (switch__5) {aj_ = acc[2];s = aj_;p__0 = ai_;switch__0 = 2;}
       break;
     case 5:
-      var ao_ = acc[1];
-      if (typeof ao_ === "number") var switch__7 = 1;
+      ao_ = acc[1];
+      if (typeof ao_ === "number") switch__7 = 1;
       else if (0 === ao_[0]) {
-        var aq_ = ao_[2];
-        if (typeof aq_ === "number") var switch__8 = 1;
+        aq_ = ao_[2];
+        if (typeof aq_ === "number") switch__8 = 1;
         else if (1 === aq_[0]) {
-          var ar_ = acc[2];
-          var as_ = aq_[2];
-          var at_ = ao_[1];
-          var c__0 = ar_;
-          var size__0 = as_;
-          var p__3 = at_;
-          var switch__0 = 1;
-          var switch__7 = 0;
-          var switch__8 = 0;
+          ar_ = acc[2];
+          as_ = aq_[2];
+          at_ = ao_[1];
+          c__0 = ar_;
+          size__0 = as_;
+          p__3 = at_;
+          switch__0 = 1;
+          switch__7 = 0;
+          switch__8 = 0;
         }
-        else var switch__8 = 1;
-        if (switch__8) {var switch__7 = 1;}
+        else switch__8 = 1;
+        if (switch__8) {switch__7 = 1;}
       }
-      else var switch__7 = 1;
-      if (switch__7) {
-        var ap_ = acc[2];
-        var c = ap_;
-        var p__2 = ao_;
-        var switch__0 = 3;
-      }
+      else switch__7 = 1;
+      if (switch__7) {ap_ = acc[2];c = ap_;p__2 = ao_;switch__0 = 3;}
       break;
     case 6:
-      var f__0 = acc[2];
-      var p__4 = acc[1];
+      f__0 = acc[2];
+      p__4 = acc[1];
       output_acc(ppf, p__4);
       return call1(f__0, ppf);
     case 7:
-      var p__5 = acc[1];
+      p__5 = acc[1];
       output_acc(ppf, p__5);
       return pp_print_flush(ppf, 0);
     default:
-      var msg = acc[2];
-      var p__6 = acc[1];
+      msg = acc[2];
+      p__6 = acc[1];
       output_acc(ppf, p__6);
       return call1(Pervasives[1], msg)
     }
@@ -1280,162 +1420,204 @@ function output_acc(ppf, acc) {
 }
 
 function strput_acc(ppf, acc) {
+  var switch__8;
+  var switch__7;
+  var switch__6;
+  var switch__5;
+  var switch__4;
+  var switch__3;
+  var switch__2;
+  var switch__1;
+  var switch__0;
+  var p__6;
+  var msg;
+  var p__5;
+  var p__4;
+  var size__1;
+  var f__1;
+  var S_;
+  var f__0;
+  var R_;
+  var Q_;
+  var P_;
+  var O_;
+  var N_;
+  var M_;
+  var L_;
+  var K_;
+  var J_;
+  var I_;
+  var H_;
+  var G_;
+  var F_;
+  var c__0;
+  var size__0;
+  var p__3;
+  var E_;
+  var D_;
+  var C_;
+  var B_;
+  var c;
+  var p__2;
+  var A_;
+  var z_;
+  var s__0;
+  var size;
+  var p__1;
+  var y_;
+  var x_;
+  var w_;
+  var v_;
+  var s;
+  var p__0;
+  var u_;
+  var t_;
+  var indent;
+  var bty;
+  var match;
+  var s_;
+  var acc__1;
+  var acc__0;
+  var r_;
+  var q_;
+  var p;
+  var f;
   if (typeof acc === "number") return 0;
   else switch (acc[0]) {
     case 0:
-      var f = acc[2];
-      var p = acc[1];
+      f = acc[2];
+      p = acc[1];
       strput_acc(ppf, p);
       return output_formatting_lit(ppf, f);
     case 1:
-      var q_ = acc[2];
-      var r_ = acc[1];
+      q_ = acc[2];
+      r_ = acc[1];
       if (0 === q_[0]) {
-        var acc__0 = q_[1];
+        acc__0 = q_[1];
         strput_acc(ppf, r_);
         return pp_open_tag(ppf, compute_tag(strput_acc, acc__0));
       }
-      var acc__1 = q_[1];
+      acc__1 = q_[1];
       strput_acc(ppf, r_);
-      var s_ = compute_tag(strput_acc, acc__1);
-      var match = call1(CamlinternalFormat[21], s_);
-      var bty = match[2];
-      var indent = match[1];
+      s_ = compute_tag(strput_acc, acc__1);
+      match = call1(CamlinternalFormat[21], s_);
+      bty = match[2];
+      indent = match[1];
       return pp_open_box_gen(ppf, indent, bty);
     case 2:
-      var t_ = acc[1];
-      if (typeof t_ === "number") var switch__1 = 1;
+      t_ = acc[1];
+      if (typeof t_ === "number") switch__1 = 1;
       else if (0 === t_[0]) {
-        var v_ = t_[2];
-        if (typeof v_ === "number") var switch__2 = 1;
+        v_ = t_[2];
+        if (typeof v_ === "number") switch__2 = 1;
         else if (1 === v_[0]) {
-          var w_ = acc[2];
-          var x_ = v_[2];
-          var y_ = t_[1];
-          var s__0 = w_;
-          var size = x_;
-          var p__1 = y_;
-          var switch__0 = 0;
-          var switch__1 = 0;
-          var switch__2 = 0;
+          w_ = acc[2];
+          x_ = v_[2];
+          y_ = t_[1];
+          s__0 = w_;
+          size = x_;
+          p__1 = y_;
+          switch__0 = 0;
+          switch__1 = 0;
+          switch__2 = 0;
         }
-        else var switch__2 = 1;
-        if (switch__2) {var switch__1 = 1;}
+        else switch__2 = 1;
+        if (switch__2) {switch__1 = 1;}
       }
-      else var switch__1 = 1;
-      if (switch__1) {
-        var u_ = acc[2];
-        var s = u_;
-        var p__0 = t_;
-        var switch__0 = 2;
-      }
+      else switch__1 = 1;
+      if (switch__1) {u_ = acc[2];s = u_;p__0 = t_;switch__0 = 2;}
       break;
     case 3:
-      var z_ = acc[1];
-      if (typeof z_ === "number") var switch__3 = 1;
+      z_ = acc[1];
+      if (typeof z_ === "number") switch__3 = 1;
       else if (0 === z_[0]) {
-        var B_ = z_[2];
-        if (typeof B_ === "number") var switch__4 = 1;
+        B_ = z_[2];
+        if (typeof B_ === "number") switch__4 = 1;
         else if (1 === B_[0]) {
-          var C_ = acc[2];
-          var D_ = B_[2];
-          var E_ = z_[1];
-          var c__0 = C_;
-          var size__0 = D_;
-          var p__3 = E_;
-          var switch__0 = 1;
-          var switch__3 = 0;
-          var switch__4 = 0;
+          C_ = acc[2];
+          D_ = B_[2];
+          E_ = z_[1];
+          c__0 = C_;
+          size__0 = D_;
+          p__3 = E_;
+          switch__0 = 1;
+          switch__3 = 0;
+          switch__4 = 0;
         }
-        else var switch__4 = 1;
-        if (switch__4) {var switch__3 = 1;}
+        else switch__4 = 1;
+        if (switch__4) {switch__3 = 1;}
       }
-      else var switch__3 = 1;
-      if (switch__3) {
-        var A_ = acc[2];
-        var c = A_;
-        var p__2 = z_;
-        var switch__0 = 3;
-      }
+      else switch__3 = 1;
+      if (switch__3) {A_ = acc[2];c = A_;p__2 = z_;switch__0 = 3;}
       break;
     case 4:
-      var F_ = acc[1];
-      if (typeof F_ === "number") var switch__5 = 1;
+      F_ = acc[1];
+      if (typeof F_ === "number") switch__5 = 1;
       else if (0 === F_[0]) {
-        var H_ = F_[2];
-        if (typeof H_ === "number") var switch__6 = 1;
+        H_ = F_[2];
+        if (typeof H_ === "number") switch__6 = 1;
         else if (1 === H_[0]) {
-          var I_ = acc[2];
-          var J_ = H_[2];
-          var K_ = F_[1];
-          var s__0 = I_;
-          var size = J_;
-          var p__1 = K_;
-          var switch__0 = 0;
-          var switch__5 = 0;
-          var switch__6 = 0;
+          I_ = acc[2];
+          J_ = H_[2];
+          K_ = F_[1];
+          s__0 = I_;
+          size = J_;
+          p__1 = K_;
+          switch__0 = 0;
+          switch__5 = 0;
+          switch__6 = 0;
         }
-        else var switch__6 = 1;
-        if (switch__6) {var switch__5 = 1;}
+        else switch__6 = 1;
+        if (switch__6) {switch__5 = 1;}
       }
-      else var switch__5 = 1;
-      if (switch__5) {
-        var G_ = acc[2];
-        var s = G_;
-        var p__0 = F_;
-        var switch__0 = 2;
-      }
+      else switch__5 = 1;
+      if (switch__5) {G_ = acc[2];s = G_;p__0 = F_;switch__0 = 2;}
       break;
     case 5:
-      var L_ = acc[1];
-      if (typeof L_ === "number") var switch__7 = 1;
+      L_ = acc[1];
+      if (typeof L_ === "number") switch__7 = 1;
       else if (0 === L_[0]) {
-        var N_ = L_[2];
-        if (typeof N_ === "number") var switch__8 = 1;
+        N_ = L_[2];
+        if (typeof N_ === "number") switch__8 = 1;
         else if (1 === N_[0]) {
-          var O_ = acc[2];
-          var P_ = N_[2];
-          var Q_ = L_[1];
-          var c__0 = O_;
-          var size__0 = P_;
-          var p__3 = Q_;
-          var switch__0 = 1;
-          var switch__7 = 0;
-          var switch__8 = 0;
+          O_ = acc[2];
+          P_ = N_[2];
+          Q_ = L_[1];
+          c__0 = O_;
+          size__0 = P_;
+          p__3 = Q_;
+          switch__0 = 1;
+          switch__7 = 0;
+          switch__8 = 0;
         }
-        else var switch__8 = 1;
-        if (switch__8) {var switch__7 = 1;}
+        else switch__8 = 1;
+        if (switch__8) {switch__7 = 1;}
       }
-      else var switch__7 = 1;
-      if (switch__7) {
-        var M_ = acc[2];
-        var c = M_;
-        var p__2 = L_;
-        var switch__0 = 3;
-      }
+      else switch__7 = 1;
+      if (switch__7) {M_ = acc[2];c = M_;p__2 = L_;switch__0 = 3;}
       break;
     case 6:
-      var R_ = acc[1];
+      R_ = acc[1];
       if (! (typeof R_ === "number") && 0 === R_[0]) {
-        var S_ = R_[2];
+        S_ = R_[2];
         if (! (typeof S_ === "number") && 1 === S_[0]) {
-          var f__1 = acc[2];
-          var size__1 = S_[2];
-          var p__4 = R_[1];
+          f__1 = acc[2];
+          size__1 = S_[2];
+          p__4 = R_[1];
           strput_acc(ppf, p__4);
           return pp_print_as_size(ppf, size__1, call1(f__1, 0));
         }
       }
-      var f__0 = acc[2];
+      f__0 = acc[2];
       strput_acc(ppf, R_);
       return pp_print_string(ppf, call1(f__0, 0));
     case 7:
-      var p__5 = acc[1];
+      p__5 = acc[1];
       strput_acc(ppf, p__5);
       return pp_print_flush(ppf, 0);
     default:
-      var msg = acc[2];
-      var p__6 = acc[1];
+      msg = acc[2];
+      p__6 = acc[1];
       strput_acc(ppf, p__6);
       return call1(Pervasives[1], msg)
     }
@@ -1669,105 +1851,105 @@ exports = Format;
 
 /*::type Exports = {
   pp_open_box: (state: any, indent: any) => any,
-  open_box: any
+  open_box: any,
   pp_close_box: (state: any, param: any) => any,
-  close_box: any
+  close_box: any,
   pp_open_hbox: (state: any, param: any) => any,
-  open_hbox: any
+  open_hbox: any,
   pp_open_vbox: (state: any, indent: any) => any,
-  open_vbox: any
+  open_vbox: any,
   pp_open_hvbox: (state: any, indent: any) => any,
-  open_hvbox: any
+  open_hvbox: any,
   pp_open_hovbox: (state: any, indent: any) => any,
-  open_hovbox: any
+  open_hovbox: any,
   pp_print_string: (state: any, s: any) => any,
-  print_string: any
+  print_string: any,
   pp_print_as: (state: any, isize: any, s: any) => any,
-  print_as: any
+  print_as: any,
   pp_print_int: (state: any, i: any) => any,
-  print_int: any
+  print_int: any,
   pp_print_float: (state: any, f: any) => any,
-  print_float: any
+  print_float: any,
   pp_print_char: (state: any, c: any) => any,
-  print_char: any
+  print_char: any,
   pp_print_bool: (state: any, b: any) => any,
-  print_bool: any
+  print_bool: any,
   pp_print_space: (state: any, param: any) => any,
-  print_space: any
+  print_space: any,
   pp_print_cut: (state: any, param: any) => any,
-  print_cut: any
+  print_cut: any,
   pp_print_break: (state: any, width: any, offset: any) => any,
-  print_break: any
+  print_break: any,
   pp_force_newline: (state: any, param: any) => any,
-  force_newline: any
+  force_newline: any,
   pp_print_if_newline: (state: any, param: any) => any,
-  print_if_newline: any
+  print_if_newline: any,
   pp_print_flush: (state: any, param: any) => any,
-  print_flush: any
+  print_flush: any,
   pp_print_newline: (state: any, param: any) => any,
-  print_newline: any
+  print_newline: any,
   pp_set_margin: (state: any, n: any) => any,
-  set_margin: any
+  set_margin: any,
   pp_get_margin: (state: any, param: any) => any,
-  get_margin: any
+  get_margin: any,
   pp_set_max_indent: (state: any, n: any) => any,
-  set_max_indent: any
+  set_max_indent: any,
   pp_get_max_indent: (state: any, param: any) => any,
-  get_max_indent: any
+  get_max_indent: any,
   pp_set_max_boxes: (state: any, n: any) => any,
-  set_max_boxes: any
+  set_max_boxes: any,
   pp_get_max_boxes: (state: any, param: any) => any,
-  get_max_boxes: any
+  get_max_boxes: any,
   pp_over_max_boxes: (state: any, param: any) => any,
-  over_max_boxes: any
+  over_max_boxes: any,
   pp_open_tbox: (state: any, param: any) => any,
-  open_tbox: any
+  open_tbox: any,
   pp_close_tbox: (state: any, param: any) => any,
-  close_tbox: any
+  close_tbox: any,
   pp_set_tab: (state: any, param: any) => any,
-  set_tab: any
+  set_tab: any,
   pp_print_tab: (state: any, param: any) => any,
-  print_tab: any
+  print_tab: any,
   pp_print_tbreak: (state: any, width: any, offset: any) => any,
-  print_tbreak: any
+  print_tbreak: any,
   pp_set_ellipsis_text: (state: any, s: any) => any,
-  set_ellipsis_text: any
+  set_ellipsis_text: any,
   pp_get_ellipsis_text: (state: any, param: any) => any,
-  get_ellipsis_text: any
+  get_ellipsis_text: any,
   pp_open_tag: (state: any, tag_name: any) => any,
-  open_tag: any
+  open_tag: any,
   pp_close_tag: (state: any, param: any) => any,
-  close_tag: any
+  close_tag: any,
   pp_set_tags: (state: any, b: any) => any,
-  set_tags: any
+  set_tags: any,
   pp_set_print_tags: (state: any, b: any) => any,
-  set_print_tags: any
+  set_print_tags: any,
   pp_set_mark_tags: (state: any, b: any) => any,
-  set_mark_tags: any
+  set_mark_tags: any,
   pp_get_print_tags: (state: any, param: any) => any,
-  get_print_tags: any
+  get_print_tags: any,
   pp_get_mark_tags: (state: any, param: any) => any,
-  get_mark_tags: any
+  get_mark_tags: any,
   pp_set_formatter_out_channel: (state: any, oc: any) => any,
-  set_formatter_out_channel: any
+  set_formatter_out_channel: any,
   pp_set_formatter_output_functions: (state: any, f: any, g: any) => any,
-  set_formatter_output_functions: any
+  set_formatter_output_functions: any,
   pp_get_formatter_output_functions: (state: any, param: any) => any,
-  get_formatter_output_functions: any
+  get_formatter_output_functions: any,
   pp_set_formatter_out_functions: (state: any, param: any) => any,
-  set_formatter_out_functions: any
+  set_formatter_out_functions: any,
   pp_get_formatter_out_functions: (state: any, param: any) => any,
-  get_formatter_out_functions: any
+  get_formatter_out_functions: any,
   pp_set_formatter_tag_functions: (state: any, param: any) => any,
-  set_formatter_tag_functions: any
+  set_formatter_tag_functions: any,
   pp_get_formatter_tag_functions: (state: any, param: any) => any,
-  get_formatter_tag_functions: any
+  get_formatter_tag_functions: any,
   formatter_of_out_channel: (oc: any) => any,
-  std_formatter: any
-  err_formatter: any
+  std_formatter: any,
+  err_formatter: any,
   formatter_of_buffer: (b: any) => any,
-  stdbuf: any
-  str_formatter: any
+  stdbuf: any,
+  str_formatter: any,
   flush_str_formatter: (param: any) => any,
   make_formatter: (output: any, flush: any) => any,
   formatter_of_out_functions: (out_funs: any) => any,
@@ -1790,140 +1972,138 @@ exports = Format;
   ksprintf: (k: any, param: any) => any,
   kasprintf: (k: any, param: any) => any,
   bprintf: (b: any, param: any) => any,
-  ksprintf: (k: any, param: any) => any,
-  set_all_formatter_output_functions: any
-  get_all_formatter_output_functions: any
+  set_all_formatter_output_functions: any,
+  get_all_formatter_output_functions: any,
   pp_set_all_formatter_output_functions: (state: any, f: any, g: any, h: any, i: any) => any,
   pp_get_all_formatter_output_functions: (state: any, param: any) => any,
 }*/
 /** @type {{
-  pp_open_box: (any, any) => any,
+  pp_open_box: (state: any, indent: any) => any,
   open_box: any,
-  pp_close_box: (any, any) => any,
+  pp_close_box: (state: any, param: any) => any,
   close_box: any,
-  pp_open_hbox: (any, any) => any,
+  pp_open_hbox: (state: any, param: any) => any,
   open_hbox: any,
-  pp_open_vbox: (any, any) => any,
+  pp_open_vbox: (state: any, indent: any) => any,
   open_vbox: any,
-  pp_open_hvbox: (any, any) => any,
+  pp_open_hvbox: (state: any, indent: any) => any,
   open_hvbox: any,
-  pp_open_hovbox: (any, any) => any,
+  pp_open_hovbox: (state: any, indent: any) => any,
   open_hovbox: any,
-  pp_print_string: (any, any) => any,
+  pp_print_string: (state: any, s: any) => any,
   print_string: any,
-  pp_print_as: (any, any, any) => any,
+  pp_print_as: (state: any, isize: any, s: any) => any,
   print_as: any,
-  pp_print_int: (any, any) => any,
+  pp_print_int: (state: any, i: any) => any,
   print_int: any,
-  pp_print_float: (any, any) => any,
+  pp_print_float: (state: any, f: any) => any,
   print_float: any,
-  pp_print_char: (any, any) => any,
+  pp_print_char: (state: any, c: any) => any,
   print_char: any,
-  pp_print_bool: (any, any) => any,
+  pp_print_bool: (state: any, b: any) => any,
   print_bool: any,
-  pp_print_space: (any, any) => any,
+  pp_print_space: (state: any, param: any) => any,
   print_space: any,
-  pp_print_cut: (any, any) => any,
+  pp_print_cut: (state: any, param: any) => any,
   print_cut: any,
-  pp_print_break: (any, any, any) => any,
+  pp_print_break: (state: any, width: any, offset: any) => any,
   print_break: any,
-  pp_force_newline: (any, any) => any,
+  pp_force_newline: (state: any, param: any) => any,
   force_newline: any,
-  pp_print_if_newline: (any, any) => any,
+  pp_print_if_newline: (state: any, param: any) => any,
   print_if_newline: any,
-  pp_print_flush: (any, any) => any,
+  pp_print_flush: (state: any, param: any) => any,
   print_flush: any,
-  pp_print_newline: (any, any) => any,
+  pp_print_newline: (state: any, param: any) => any,
   print_newline: any,
-  pp_set_margin: (any, any) => any,
+  pp_set_margin: (state: any, n: any) => any,
   set_margin: any,
-  pp_get_margin: (any, any) => any,
+  pp_get_margin: (state: any, param: any) => any,
   get_margin: any,
-  pp_set_max_indent: (any, any) => any,
+  pp_set_max_indent: (state: any, n: any) => any,
   set_max_indent: any,
-  pp_get_max_indent: (any, any) => any,
+  pp_get_max_indent: (state: any, param: any) => any,
   get_max_indent: any,
-  pp_set_max_boxes: (any, any) => any,
+  pp_set_max_boxes: (state: any, n: any) => any,
   set_max_boxes: any,
-  pp_get_max_boxes: (any, any) => any,
+  pp_get_max_boxes: (state: any, param: any) => any,
   get_max_boxes: any,
-  pp_over_max_boxes: (any, any) => any,
+  pp_over_max_boxes: (state: any, param: any) => any,
   over_max_boxes: any,
-  pp_open_tbox: (any, any) => any,
+  pp_open_tbox: (state: any, param: any) => any,
   open_tbox: any,
-  pp_close_tbox: (any, any) => any,
+  pp_close_tbox: (state: any, param: any) => any,
   close_tbox: any,
-  pp_set_tab: (any, any) => any,
+  pp_set_tab: (state: any, param: any) => any,
   set_tab: any,
-  pp_print_tab: (any, any) => any,
+  pp_print_tab: (state: any, param: any) => any,
   print_tab: any,
-  pp_print_tbreak: (any, any, any) => any,
+  pp_print_tbreak: (state: any, width: any, offset: any) => any,
   print_tbreak: any,
-  pp_set_ellipsis_text: (any, any) => any,
+  pp_set_ellipsis_text: (state: any, s: any) => any,
   set_ellipsis_text: any,
-  pp_get_ellipsis_text: (any, any) => any,
+  pp_get_ellipsis_text: (state: any, param: any) => any,
   get_ellipsis_text: any,
-  pp_open_tag: (any, any) => any,
+  pp_open_tag: (state: any, tag_name: any) => any,
   open_tag: any,
-  pp_close_tag: (any, any) => any,
+  pp_close_tag: (state: any, param: any) => any,
   close_tag: any,
-  pp_set_tags: (any, any) => any,
+  pp_set_tags: (state: any, b: any) => any,
   set_tags: any,
-  pp_set_print_tags: (any, any) => any,
+  pp_set_print_tags: (state: any, b: any) => any,
   set_print_tags: any,
-  pp_set_mark_tags: (any, any) => any,
+  pp_set_mark_tags: (state: any, b: any) => any,
   set_mark_tags: any,
-  pp_get_print_tags: (any, any) => any,
+  pp_get_print_tags: (state: any, param: any) => any,
   get_print_tags: any,
-  pp_get_mark_tags: (any, any) => any,
+  pp_get_mark_tags: (state: any, param: any) => any,
   get_mark_tags: any,
-  pp_set_formatter_out_channel: (any, any) => any,
+  pp_set_formatter_out_channel: (state: any, oc: any) => any,
   set_formatter_out_channel: any,
-  pp_set_formatter_output_functions: (any, any, any) => any,
+  pp_set_formatter_output_functions: (state: any, f: any, g: any) => any,
   set_formatter_output_functions: any,
-  pp_get_formatter_output_functions: (any, any) => any,
+  pp_get_formatter_output_functions: (state: any, param: any) => any,
   get_formatter_output_functions: any,
-  pp_set_formatter_out_functions: (any, any) => any,
+  pp_set_formatter_out_functions: (state: any, param: any) => any,
   set_formatter_out_functions: any,
-  pp_get_formatter_out_functions: (any, any) => any,
+  pp_get_formatter_out_functions: (state: any, param: any) => any,
   get_formatter_out_functions: any,
-  pp_set_formatter_tag_functions: (any, any) => any,
+  pp_set_formatter_tag_functions: (state: any, param: any) => any,
   set_formatter_tag_functions: any,
-  pp_get_formatter_tag_functions: (any, any) => any,
+  pp_get_formatter_tag_functions: (state: any, param: any) => any,
   get_formatter_tag_functions: any,
-  formatter_of_out_channel: (any) => any,
+  formatter_of_out_channel: (oc: any) => any,
   std_formatter: any,
   err_formatter: any,
-  formatter_of_buffer: (any) => any,
+  formatter_of_buffer: (b: any) => any,
   stdbuf: any,
   str_formatter: any,
-  flush_str_formatter: (any) => any,
-  make_formatter: (any, any) => any,
-  formatter_of_out_functions: (any) => any,
-  make_symbolic_output_buffer: (any) => any,
-  clear_symbolic_output_buffer: (any) => any,
-  get_symbolic_output_buffer: (any) => any,
-  flush_symbolic_output_buffer: (any) => any,
-  add_symbolic_output_item: (any, any) => any,
-  formatter_of_symbolic_output_buffer: (any) => any,
-  pp_print_list: (any, any, any, any) => any,
-  pp_print_text: (any, any) => any,
-  fprintf: (any) => any,
-  printf: (any) => any,
-  eprintf: (any) => any,
-  sprintf: (any) => any,
-  asprintf: (any) => any,
-  ifprintf: (any) => any,
-  kfprintf: (any, any, any) => any,
-  ikfprintf: (any, any, any) => any,
-  ksprintf: (any, any) => any,
-  kasprintf: (any, any) => any,
-  bprintf: (any, any) => any,
-  ksprintf: (any, any) => any,
+  flush_str_formatter: (param: any) => any,
+  make_formatter: (output: any, flush: any) => any,
+  formatter_of_out_functions: (out_funs: any) => any,
+  make_symbolic_output_buffer: (param: any) => any,
+  clear_symbolic_output_buffer: (sob: any) => any,
+  get_symbolic_output_buffer: (sob: any) => any,
+  flush_symbolic_output_buffer: (sob: any) => any,
+  add_symbolic_output_item: (sob: any, item: any) => any,
+  formatter_of_symbolic_output_buffer: (sob: any) => any,
+  pp_print_list: (opt: any, pp_v: any, ppf: any, param: any) => any,
+  pp_print_text: (ppf: any, s: any) => any,
+  fprintf: (ppf: any) => any,
+  printf: (fmt: any) => any,
+  eprintf: (fmt: any) => any,
+  sprintf: (fmt: any) => any,
+  asprintf: (fmt: any) => any,
+  ifprintf: (ppf: any) => any,
+  kfprintf: (k: any, ppf: any, param: any) => any,
+  ikfprintf: (k: any, ppf: any, param: any) => any,
+  ksprintf: (k: any, param: any) => any,
+  kasprintf: (k: any, param: any) => any,
+  bprintf: (b: any, param: any) => any,
   set_all_formatter_output_functions: any,
   get_all_formatter_output_functions: any,
-  pp_set_all_formatter_output_functions: (any, any, any, any, any) => any,
-  pp_get_all_formatter_output_functions: (any, any) => any,
+  pp_set_all_formatter_output_functions: (state: any, f: any, g: any, h: any, i: any) => any,
+  pp_get_all_formatter_output_functions: (state: any, param: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.pp_open_box = module.exports[1];
@@ -2048,7 +2228,6 @@ module.exports.ikfprintf = module.exports[119];
 module.exports.ksprintf = module.exports[120];
 module.exports.kasprintf = module.exports[121];
 module.exports.bprintf = module.exports[122];
-module.exports.ksprintf = module.exports[123];
 module.exports.set_all_formatter_output_functions = module.exports[124];
 module.exports.get_all_formatter_output_functions = module.exports[125];
 module.exports.pp_set_all_formatter_output_functions = module.exports[126];

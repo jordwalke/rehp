@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 
@@ -21,8 +19,8 @@ function call1(f, a0) {
 var cst_webglcontextlost = string("webglcontextlost");
 var cst_webglcontextrestored = string("webglcontextrestored");
 var cst_webglcontextcreationerror = string("webglcontextcreationerror");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var Js_of_ocaml_Dom_html = require("Js_of_ocaml__Dom_html.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var Js_of_ocaml_Dom_html = require("./Js_of_ocaml__Dom_html.js");
 var defaultContextAttributes = {
   "alpha": Js_of_ocaml_Js[7],
   "depth": Js_of_ocaml_Js[7],
@@ -89,16 +87,16 @@ var Js_of_ocaml_WebGL = [
 exports = Js_of_ocaml_WebGL;
 
 /*::type Exports = {
-  defaultContextAttributes: any
-  Event: any
+  defaultContextAttributes: any,
+  Event: any,
   getContext: (c: any) => any,
   getContextWithAttributes: (c: any, attribs: any) => any,
 }*/
 /** @type {{
   defaultContextAttributes: any,
   Event: any,
-  getContext: (any) => any,
-  getContextWithAttributes: (any, any) => any,
+  getContext: (c: any) => any,
+  getContextWithAttributes: (c: any, attribs: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.defaultContextAttributes = module.exports[1];

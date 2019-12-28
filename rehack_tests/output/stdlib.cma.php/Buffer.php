@@ -10,9 +10,8 @@ namespace Rehack;
 final class Buffer {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $call1 = $runtime["caml_call1"];
     $call3 = $runtime["caml_call3"];
@@ -553,7 +552,7 @@ final class Buffer {
   public static function reset(dynamic $b): dynamic {
     return static::callRehackFunction(static::requireModule()[9], varray[$b]);
   }
-  public static function _add_char_(dynamic $b, dynamic $c): dynamic {
+  public static function add_char(dynamic $b, dynamic $c): dynamic {
     return static::callRehackFunction(static::requireModule()[10], varray[$b, $c]);
   }
   public static function add_utf_8_uchar(dynamic $b, dynamic $u): dynamic {

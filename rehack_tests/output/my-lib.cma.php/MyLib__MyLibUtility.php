@@ -10,15 +10,14 @@ namespace Rehack;
 final class MyLib__MyLibUtility {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call1 = $runtime["caml_call1"];
-    $Random =  Random::get ();
+    $Random =  Random::requireModule ();
     $thisIsAUtilityFunction = (dynamic $param) ==> {
       return $call1($Random[5], 100);
     };
-    $MyLib_MyLibUtility = Vector{0, $thisIsAUtilityFunction};
+    $MyLib_MyLibUtility = Vector{0, $thisIsAUtilityFunction} as dynamic;
     
      return ($MyLib_MyLibUtility);
 
@@ -28,4 +27,4 @@ final class MyLib__MyLibUtility {
   }
 
 }
-/*____hashes flags: 421562097 bytecode: 10023863734 debug-data: 2989761887 primitives: 1058613066*/
+/*____hashes flags: 1406088649 bytecode: 10023863734 debug-data: 2989761887 primitives: 1058613066*/

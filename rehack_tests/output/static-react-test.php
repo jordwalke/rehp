@@ -45,7 +45,7 @@ function main() {
   $printInstanceCollection = new Ref();
   $reconcile = new Ref();
   $reconcileSubtree = new Ref();
-  $runtime = $joo_global_object->jsoo_runtime;
+  $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
   
   $caml_blit_string = $runtime["caml_blit_string"];
   $caml_bytes_unsafe_get = $runtime["caml_bytes_unsafe_get"];

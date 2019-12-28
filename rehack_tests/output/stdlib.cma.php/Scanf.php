@@ -10,14 +10,13 @@ namespace Rehack;
 final class Scanf {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $make_scanf = new Ref();
     $take_fmtty_format_readers = new Ref();
     $take_fmtty_format_readers__0 = new Ref();
     $take_format_readers = new Ref();
     $take_ignored_format_readers = new Ref();
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_bytes_get = $runtime["caml_bytes_get"];
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];

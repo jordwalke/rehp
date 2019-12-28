@@ -10,9 +10,8 @@ namespace Rehack;
 final class ArrayLabels {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $Array =  Array_::requireModule ();
     $make_float = $Array[1];
     $init = $Array[2];

@@ -10,9 +10,8 @@ namespace Rehack;
 final class Lexing {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $caml_bytes_get = $runtime["caml_bytes_get"];
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -254,13 +253,13 @@ final class Lexing {
   public static function from_string(dynamic $s): dynamic {
     return static::callRehackFunction(static::requireModule()[3], varray[$s]);
   }
-  public static function _from_function_(dynamic $f): dynamic {
+  public static function from_function(dynamic $f): dynamic {
     return static::callRehackFunction(static::requireModule()[4], varray[$f]);
   }
   public static function lexeme(dynamic $lexbuf): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$lexbuf]);
   }
-  public static function _lexeme_char_(dynamic $lexbuf, dynamic $i): dynamic {
+  public static function lexeme_char(dynamic $lexbuf, dynamic $i): dynamic {
     return static::callRehackFunction(static::requireModule()[6], varray[$lexbuf, $i]);
   }
   public static function lexeme_start(dynamic $lexbuf): dynamic {

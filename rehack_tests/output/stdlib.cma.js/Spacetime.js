@@ -7,30 +7,30 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var string = runtime["caml_new_string"];
-var caml_spacetime_enabled = runtime["caml_spacetime_enabled"];
-var caml_spacetime_only_works_for_native_code = runtime
- ["caml_spacetime_only_works_for_native_code"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
+var string = runtime["caml_new_string"];
+var caml_spacetime_enabled = runtime["caml_spacetime_enabled"];
+var caml_spacetime_only_works_for_native_code = runtime
+ ["caml_spacetime_only_works_for_native_code"];
 var cst_Series_is_closed__0 = string("Series is closed");
 var cst_Series_is_closed = string("Series is closed");
-var Pervasives = require("Pervasives.js");
+var Pervasives = require("./Pervasives.js");
 var enabled = caml_spacetime_enabled(0);
 
 function if_spacetime_enabled(f) {return enabled ? call1(f, 0) : 0;}
 
 function create(path) {
+  var t;
+  var channel;
   if (caml_spacetime_enabled(0)) {
-    var channel = call1(Pervasives[48], path);
-    var t = [0,channel,0];
+    channel = call1(Pervasives[48], path);
+    t = [0,channel,0];
     caml_spacetime_only_works_for_native_code(channel);
     return t;
   }
@@ -86,16 +86,16 @@ var Spacetime = [0,enabled,Series,Snapshot,save_event_for_automatic_snapshots];
 exports = Spacetime;
 
 /*::type Exports = {
-  enabled: any
-  Series: any
-  Snapshot: any
+  enabled: any,
+  Series: any,
+  Snapshot: any,
   save_event_for_automatic_snapshots: (event_name: any) => any,
 }*/
 /** @type {{
   enabled: any,
   Series: any,
   Snapshot: any,
-  save_event_for_automatic_snapshots: (any) => any,
+  save_event_for_automatic_snapshots: (event_name: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.enabled = module.exports[1];

@@ -7,26 +7,28 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var runtime = require("../runtime/runtime.js");
 
 function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var cst_Sort_array = runtime["caml_new_string"]("Sort.array");
-var Invalid_argument = require("Invalid_argument.js");
+var Invalid_argument = require("../runtime/Invalid_argument.js");
 
 function merge(order, l1, l2) {
+  var h2;
+  var t2;
+  var h1;
+  var t1;
   if (l1) {
-    var t1 = l1[2];
-    var h1 = l1[1];
+    t1 = l1[2];
+    h1 = l1[1];
     if (l2) {
-      var t2 = l2[2];
-      var h2 = l2[1];
+      t2 = l2[2];
+      h2 = l2[1];
       return call2(order, h1, h2) ?
         [0,h1,merge(order, t1, l2)] :
         [0,h2,merge(order, l1, t2)];
@@ -38,14 +40,20 @@ function merge(order, l1, l2) {
 
 function list(order, l) {
   function initlist(param) {
+    var l_;
+    var k_;
+    var e2;
+    var rest;
+    var j_;
+    var i_;
     if (param) {
-      var i_ = param[2];
-      var j_ = param[1];
+      i_ = param[2];
+      j_ = param[1];
       if (i_) {
-        var rest = i_[2];
-        var e2 = i_[1];
-        var k_ = initlist(rest);
-        var l_ = call2(order, j_, e2) ? [0,j_,[0,e2,0]] : [0,e2,[0,j_,0]];
+        rest = i_[2];
+        e2 = i_[1];
+        k_ = initlist(rest);
+        l_ = call2(order, j_, e2) ? [0,j_,[0,e2,0]] : [0,e2,[0,j_,0]];
         return [0,l_,k_];
       }
       return [0,[0,j_,0],0];
@@ -53,28 +61,35 @@ function list(order, l) {
     return 0;
   }
   function merge2(x) {
+    var h_;
+    var l1;
+    var l2;
+    var rest;
+    var g_;
     if (x) {
-      var g_ = x[2];
+      g_ = x[2];
       if (g_) {
-        var rest = g_[2];
-        var l2 = g_[1];
-        var l1 = x[1];
-        var h_ = merge2(rest);
+        rest = g_[2];
+        l2 = g_[1];
+        l1 = x[1];
+        h_ = merge2(rest);
         return [0,merge(order, l1, l2),h_];
       }
     }
     return x;
   }
   function mergeall(llist) {
+    var llist__1;
+    var l;
     var llist__0 = llist;
     for (; ; ) {
       if (llist__0) {
         if (llist__0[2]) {
-          var llist__1 = merge2(llist__0);
-          var llist__0 = llist__1;
+          llist__1 = merge2(llist__0);
+          llist__0 = llist__1;
           continue;
         }
-        var l = llist__0[1];
+        l = llist__0[1];
         return l;
       }
       return 0;
@@ -91,24 +106,37 @@ function swap(arr, i, j) {
 }
 
 function array(cmp, arr) {
+  var i;
+  var val_i;
+  var j;
+  var c_;
   function qsort(lo, hi) {
+    var d_;
+    var mid;
+    var pivot;
+    var i;
+    var j;
+    var e_;
+    var f_;
+    var lo__1;
+    var hi__1;
     var lo__0 = lo;
     var hi__0 = hi;
     a:
     for (; ; ) {
-      var d_ = 6 <= (hi__0 - lo__0 | 0) ? 1 : 0;
+      d_ = 6 <= (hi__0 - lo__0 | 0) ? 1 : 0;
       if (d_) {
-        var mid = (lo__0 + hi__0 | 0) >>> 1 | 0;
+        mid = (lo__0 + hi__0 | 0) >>> 1 | 0;
         if (call2(cmp, arr[mid + 1], arr[lo__0 + 1])) {swap(arr, mid, lo__0);}
         if (call2(cmp, arr[hi__0 + 1], arr[mid + 1])) {
           swap(arr, mid, hi__0);
           if (call2(cmp, arr[mid + 1], arr[lo__0 + 1])) {swap(arr, mid, lo__0);}
         }
-        var pivot = arr[mid + 1];
-        var i = [0,lo__0 + 1 | 0];
-        var j = [0,hi__0 + -1 | 0];
-        var e_ = 1 - call2(cmp, pivot, arr[hi__0 + 1]);
-        var f_ = e_ ? e_ : 1 - call2(cmp, arr[lo__0 + 1], pivot);
+        pivot = arr[mid + 1];
+        i = [0,lo__0 + 1 | 0];
+        j = [0,hi__0 + -1 | 0];
+        e_ = 1 - call2(cmp, pivot, arr[hi__0 + 1]);
+        f_ = e_ ? e_ : 1 - call2(cmp, arr[lo__0 + 1], pivot);
         if (f_) {
           throw caml_wrap_thrown_exception([0,Invalid_argument,cst_Sort_array]
                 );
@@ -135,13 +163,13 @@ function array(cmp, arr) {
           }
           if ((j[1] - lo__0 | 0) <= (hi__0 - i[1] | 0)) {
             qsort(lo__0, j[1]);
-            var lo__1 = i[1];
-            var lo__0 = lo__1;
+            lo__1 = i[1];
+            lo__0 = lo__1;
             continue a;
           }
           qsort(i[1], hi__0);
-          var hi__1 = j[1];
-          var hi__0 = hi__1;
+          hi__1 = j[1];
+          hi__0 = hi__1;
           continue a;
         }
       }
@@ -152,12 +180,12 @@ function array(cmp, arr) {
   var b_ = arr.length - 1 + -1 | 0;
   var a_ = 1;
   if (! (b_ < 1)) {
-    var i = a_;
+    i = a_;
     for (; ; ) {
-      var val_i = arr[i + 1];
+      val_i = arr[i + 1];
       if (1 - call2(cmp, arr[(i + -1 | 0) + 1], val_i)) {
         arr[i + 1] = arr[(i + -1 | 0) + 1];
-        var j = [0,i + -1 | 0];
+        j = [0,i + -1 | 0];
         for (; ; ) {
           if (1 <= j[1]) {
             if (! call2(cmp, arr[(j[1] + -1 | 0) + 1], val_i)) {
@@ -170,8 +198,8 @@ function array(cmp, arr) {
           break;
         }
       }
-      var c_ = i + 1 | 0;
-      if (b_ !== i) {var i = c_;continue;}
+      c_ = i + 1 | 0;
+      if (b_ !== i) {i = c_;continue;}
       break;
     }
   }
@@ -188,9 +216,9 @@ exports = Sort;
   merge: (order: any, l1: any, l2: any) => any,
 }*/
 /** @type {{
-  list: (any, any) => any,
-  array: (any, any) => any,
-  merge: (any, any, any) => any,
+  list: (order: any, l: any) => any,
+  array: (cmp: any, arr: any) => any,
+  merge: (order: any, l1: any, l2: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.list = module.exports[1];

@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var string = runtime["caml_new_string"];
 
@@ -63,8 +61,8 @@ exports = Js_of_ocaml_Json;
   unsafe_input: (s: any) => any,
 }*/
 /** @type {{
-  output: (any) => any,
-  unsafe_input: (any) => any,
+  output: (obj: any) => any,
+  unsafe_input: (s: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.output = module.exports[1];

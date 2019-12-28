@@ -10,10 +10,9 @@ namespace Rehack;
 final class CamlinternalOO {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
-    $joo_global_object = \Rehack\GlobalObject::get() as dynamic;
     
     $fit_size = new Ref();$lookup_keys = new Ref();
-    $runtime = $joo_global_object->jsoo_runtime;
+    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -910,19 +909,19 @@ final class CamlinternalOO {
   public static function create_table(dynamic $public_methods): dynamic {
     return static::callRehackFunction(static::requireModule()[16], varray[$public_methods]);
   }
-  public static function _init_class_(dynamic $table): dynamic {
+  public static function init_class(dynamic $table): dynamic {
     return static::callRehackFunction(static::requireModule()[17], varray[$table]);
   }
   public static function inherits(dynamic $cla, dynamic $vals, dynamic $virt_meths, dynamic $concr_meths, dynamic $param, dynamic $top): dynamic {
     return static::callRehackFunction(static::requireModule()[18], varray[$cla, $vals, $virt_meths, $concr_meths, $param, $top]);
   }
-  public static function _make_class_(dynamic $pub_meths, dynamic $class_init): dynamic {
+  public static function make_class(dynamic $pub_meths, dynamic $class_init): dynamic {
     return static::callRehackFunction(static::requireModule()[19], varray[$pub_meths, $class_init]);
   }
   public static function make_class_store(dynamic $pub_meths, dynamic $class_init, dynamic $init_table): dynamic {
     return static::callRehackFunction(static::requireModule()[20], varray[$pub_meths, $class_init, $init_table]);
   }
-  public static function _dummy_class_(dynamic $loc): dynamic {
+  public static function dummy_class(dynamic $loc): dynamic {
     return static::callRehackFunction(static::requireModule()[21], varray[$loc]);
   }
   public static function copy(dynamic $o): dynamic {

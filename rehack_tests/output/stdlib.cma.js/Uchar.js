@@ -7,12 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
-var caml_format_int = runtime["caml_format_int"];
-var string = runtime["caml_new_string"];
+var runtime = require("../runtime/runtime.js");
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -22,6 +18,8 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
+var caml_format_int = runtime["caml_format_int"];
+var string = runtime["caml_new_string"];
 var cst_is_not_a_latin1_character = string(" is not a latin1 character");
 var cst_04X = string("%04X");
 var cst_U = string("U+");
@@ -31,7 +29,7 @@ var cst_is_not_an_Unicode_scalar_value = string(
 var cst_X = string("%X");
 var err_no_pred = string("U+0000 has no predecessor");
 var err_no_succ = string("U+10FFFF has no successor");
-var Pervasives = require("Pervasives.js");
+var Pervasives = require("./Pervasives.js");
 
 function err_not_sv(i) {
   return call2(
@@ -70,10 +68,12 @@ function pred(u) {
 }
 
 function is_valid(i) {
+  var n_;
+  var o_;
   var l_ = 0 <= i ? 1 : 0;
   var m_ = l_ ? i <= 55295 ? 1 : 0 : l_;
-  if (m_) var n_ = m_;
-  else {var o_ = 57344 <= i ? 1 : 0;var n_ = o_ ? i <= 1114111 ? 1 : 0 : o_;}
+  if (m_) n_ = m_;
+  else {o_ = 57344 <= i ? 1 : 0;n_ = o_ ? i <= 1114111 ? 1 : 0 : o_;}
   return n_;
 }
 
@@ -88,7 +88,8 @@ function is_char(u) {return u < 256 ? 1 : 0;}
 function of_char(c) {return c;}
 
 function to_char(u) {
-  if (255 < u) {var j_ = err_not_latin1(u);return call1(Pervasives[1], j_);}
+  var j_;
+  if (255 < u) {j_ = err_not_latin1(u);return call1(Pervasives[1], j_);}
   return u;
 }
 
@@ -126,10 +127,10 @@ var Uchar = [
 exports = Uchar;
 
 /*::type Exports = {
-  min: any
-  max: any
-  bom: any
-  rep: any
+  min: any,
+  max: any,
+  bom: any,
+  rep: any,
   succ: (u: any) => any,
   pred: (u: any) => any,
   is_valid: (i: any) => any,
@@ -137,27 +138,27 @@ exports = Uchar;
   is_char: (u: any) => any,
   of_char: (c: any) => any,
   to_char: (u: any) => any,
-  unsafe_to_char: (unnamed1: any) => any,
-  equal: (unnamed1: any, unnamed2: any) => any,
-  compare: (unnamed1: any, unnamed2: any) => any,
-  hash: (unnamed1: any) => any,
+  unsafe_to_char: (arg0: any) => any,
+  equal: (arg0: any, arg1: any) => any,
+  compare: (arg0: any, arg1: any) => any,
+  hash: (arg0: any) => any,
 }*/
 /** @type {{
   min: any,
   max: any,
   bom: any,
   rep: any,
-  succ: (any) => any,
-  pred: (any) => any,
-  is_valid: (any) => any,
-  of_int: (any) => any,
-  is_char: (any) => any,
-  of_char: (any) => any,
-  to_char: (any) => any,
-  unsafe_to_char: (any) => any,
-  equal: (any, any) => any,
-  compare: (any, any) => any,
-  hash: (any) => any,
+  succ: (u: any) => any,
+  pred: (u: any) => any,
+  is_valid: (i: any) => any,
+  of_int: (i: any) => any,
+  is_char: (u: any) => any,
+  of_char: (c: any) => any,
+  to_char: (u: any) => any,
+  unsafe_to_char: (arg0: any) => any,
+  equal: (arg0: any, arg1: any) => any,
+  compare: (arg0: any, arg1: any) => any,
+  hash: (arg0: any) => any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
 module.exports.min = module.exports[1];

@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
 var caml_js_wrap_callback = runtime["caml_js_wrap_callback"];
@@ -28,9 +26,9 @@ var cst_parseFloat = string("parseFloat");
 var cst_parseInt = string("parseInt");
 var cst_Js_of_ocaml_Js_Error = string("Js_of_ocaml__Js.Error");
 var cst_jsError = string("jsError");
-var Pervasives = require("Pervasives.js");
-var Callback = require("Callback.js");
-var Printexc = require("Printexc.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Callback = require("../stdlib.cma.js/Callback.js");
+var Printexc = require("../stdlib.cma.js/Printexc.js");
 var global =  joo_global_object ;
 var Unsafe = [0,global];
 var null__0 =  null ;
@@ -354,40 +352,29 @@ var Js_of_ocaml_Js = [
 exports = Js_of_ocaml_Js;
 
 /*::type Exports = {
-  null: any
-  undefined: any
-  Opt: any
-  Optdef: any
-  true: any
-  false: any
-  string_constr: any
-  regExp: any
-  regExp: any
-  regExp: any
+  _null_: any,
+  _undefined_: any,
+  Opt: any,
+  Optdef: any,
+  _true_: any,
+  _false_: any,
+  string_constr: any,
+  regExp: any,
   object_keys: (o: any) => any,
-  array_constructor: any
-  array_constructor: any
-  array_get: (unnamed1: any, unnamed2: any) => any,
-  array_set: (unnamed1: any, unnamed2: any, unnamed3: any) => any,
+  array_constructor: any,
+  array_get: (arg0: any, arg1: any) => any,
+  array_set: (arg0: any, arg1: any, arg2: any) => any,
   array_map: (f: any, a: any) => any,
   array_mapi: (f: any, a: any) => any,
-  str_array: (unnamed1: any) => any,
-  match_result: (unnamed1: any) => any,
-  date_constr: any
-  date_constr: any
-  date_constr: any
-  date_constr: any
-  date_constr: any
-  date_constr: any
-  date_constr: any
-  date_constr: any
-  date_constr: any
-  math: any
-  error_constr: any
+  str_array: (arg0: any) => any,
+  match_result: (arg0: any) => any,
+  date_constr: any,
+  math: any,
+  error_constr: any,
   string_of_error: (e: any) => any,
-  raise_js_error: any
-  Error: any
-  JSON: any
+  raise_js_error: any,
+  Error: any,
+  JSON: any,
   decodeURI: (s: any) => any,
   decodeURIComponent: (s: any) => any,
   encodeURI: (s: any) => any,
@@ -399,74 +386,60 @@ exports = Js_of_ocaml_Js;
   parseFloat: (s: any) => any,
   coerce: (x: any, f: any, g: any) => any,
   coerce_opt: (x: any, f: any, g: any) => any,
-  export: (field: any, x: any) => any,
+  _export_: (field: any, x: any) => any,
   export_all: (obj: any) => any,
-  Unsafe: any
+  Unsafe: any,
 }*/
 /** @type {{
-  null: any,
-  undefined: any,
+  _null_: any,
+  _undefined_: any,
   Opt: any,
   Optdef: any,
-  true: any,
-  false: any,
+  _true_: any,
+  _false_: any,
   string_constr: any,
   regExp: any,
-  regExp: any,
-  regExp: any,
-  object_keys: (any) => any,
+  object_keys: (o: any) => any,
   array_constructor: any,
-  array_constructor: any,
-  array_get: (any, any) => any,
-  array_set: (any, any, any) => any,
-  array_map: (any, any) => any,
-  array_mapi: (any, any) => any,
-  str_array: (any) => any,
-  match_result: (any) => any,
-  date_constr: any,
-  date_constr: any,
-  date_constr: any,
-  date_constr: any,
-  date_constr: any,
-  date_constr: any,
-  date_constr: any,
-  date_constr: any,
+  array_get: (arg0: any, arg1: any) => any,
+  array_set: (arg0: any, arg1: any, arg2: any) => any,
+  array_map: (f: any, a: any) => any,
+  array_mapi: (f: any, a: any) => any,
+  str_array: (arg0: any) => any,
+  match_result: (arg0: any) => any,
   date_constr: any,
   math: any,
   error_constr: any,
-  string_of_error: (any) => any,
+  string_of_error: (e: any) => any,
   raise_js_error: any,
   Error: any,
   JSON: any,
-  decodeURI: (any) => any,
-  decodeURIComponent: (any) => any,
-  encodeURI: (any) => any,
-  encodeURIComponent: (any) => any,
-  escape: (any) => any,
-  unescape: (any) => any,
-  isNaN: (any) => any,
-  parseInt: (any) => any,
-  parseFloat: (any) => any,
-  coerce: (any, any, any) => any,
-  coerce_opt: (any, any, any) => any,
-  export: (any, any) => any,
-  export_all: (any) => any,
+  decodeURI: (s: any) => any,
+  decodeURIComponent: (s: any) => any,
+  encodeURI: (s: any) => any,
+  encodeURIComponent: (s: any) => any,
+  escape: (s: any) => any,
+  unescape: (s: any) => any,
+  isNaN: (i: any) => any,
+  parseInt: (s: any) => any,
+  parseFloat: (s: any) => any,
+  coerce: (x: any, f: any, g: any) => any,
+  coerce_opt: (x: any, f: any, g: any) => any,
+  _export_: (field: any, x: any) => any,
+  export_all: (obj: any) => any,
   Unsafe: any,
 }} */
 module.exports = ((exports /*:: : any*/) /*:: :Exports */);
-module.exports.null = module.exports[1];
-module.exports.undefined = module.exports[3];
+module.exports._null_ = module.exports[1];
+module.exports._undefined_ = module.exports[3];
 module.exports.Opt = module.exports[5];
 module.exports.Optdef = module.exports[6];
-module.exports.true = module.exports[7];
-module.exports.false = module.exports[8];
+module.exports._true_ = module.exports[7];
+module.exports._false_ = module.exports[8];
 module.exports.string_constr = module.exports[9];
 module.exports.regExp = module.exports[10];
-module.exports.regExp = module.exports[11];
-module.exports.regExp = module.exports[12];
 module.exports.object_keys = module.exports[13];
 module.exports.array_constructor = module.exports[14];
-module.exports.array_constructor = module.exports[15];
 module.exports.array_get = module.exports[16];
 module.exports.array_set = module.exports[17];
 module.exports.array_map = module.exports[18];
@@ -474,14 +447,6 @@ module.exports.array_mapi = module.exports[19];
 module.exports.str_array = module.exports[20];
 module.exports.match_result = module.exports[21];
 module.exports.date_constr = module.exports[22];
-module.exports.date_constr = module.exports[23];
-module.exports.date_constr = module.exports[24];
-module.exports.date_constr = module.exports[25];
-module.exports.date_constr = module.exports[26];
-module.exports.date_constr = module.exports[27];
-module.exports.date_constr = module.exports[28];
-module.exports.date_constr = module.exports[29];
-module.exports.date_constr = module.exports[30];
 module.exports.math = module.exports[31];
 module.exports.error_constr = module.exports[32];
 module.exports.string_of_error = module.exports[33];
@@ -499,7 +464,7 @@ module.exports.parseInt = module.exports[44];
 module.exports.parseFloat = module.exports[45];
 module.exports.coerce = module.exports[46];
 module.exports.coerce_opt = module.exports[47];
-module.exports.export = module.exports[48];
+module.exports._export_ = module.exports[48];
 module.exports.export_all = module.exports[49];
 module.exports.Unsafe = module.exports[50];
 

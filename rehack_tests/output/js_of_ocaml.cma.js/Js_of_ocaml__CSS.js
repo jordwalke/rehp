@@ -7,10 +7,8 @@
 
 
 "use strict";
-let joo_global_object = typeof global !== 'undefined' ? global : window;
-require('runtime.js');
 
-var runtime = joo_global_object.jsoo_runtime;
+var runtime = require("../runtime/runtime.js");
 var caml_float_of_string = runtime["caml_float_of_string"];
 var caml_get_public_method = runtime["caml_get_public_method"];
 var caml_js_to_string = runtime["caml_js_to_string"];
@@ -427,13 +425,13 @@ var cst_white = string("white");
 var cst_whitesmoke = string("whitesmoke");
 var cst_yellow = string("yellow");
 var cst_yellowgreen = string("yellowgreen");
-var Pervasives = require("Pervasives.js");
-var Invalid_argument = require("Invalid_argument.js");
-var Js_of_ocaml_Regexp = require("Js_of_ocaml__Regexp.js");
-var Printf = require("Printf.js");
-var Failure = require("Failure.js");
-var Js_of_ocaml_Js = require("Js_of_ocaml__Js.js");
-var List = require("List_.js");
+var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Invalid_argument = require("../runtime/Invalid_argument.js");
+var Js_of_ocaml_Regexp = require("./Js_of_ocaml__Regexp.js");
+var Printf = require("../stdlib.cma.js/Printf.js");
+var Failure = require("../runtime/Failure.js");
+var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
+var List = require("../stdlib.cma.js/List.js");
 var b2_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
 var b3_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
 var b4_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
@@ -2238,8 +2236,8 @@ var Js_of_ocaml_CSS = [
 exports = Js_of_ocaml_CSS;
 
 /*::type Exports = {
-  Length: any
-  Angle: any
+  Length: any,
+  Angle: any,
 }*/
 /** @type {{
   Length: any,
