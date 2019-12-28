@@ -360,13 +360,13 @@ module String = struct
 
   let num_leading_char char str =
     let len = String.length str in
-    let first_non = ref(-1) in
+    let first_non = if get str 0 == char then ref(-1) else ref 0 in
     for i = 0 to len - 1 do
       if !first_non == -1 && get str i == char then (
         first_non := i
       )
     done;
-    if !first_non == -1 then 0 else !first_non + 1
+    if !first_non == -1 then len - 1 else !first_non
 
   let trim_leading_char char str =
     let len = String.length str in
