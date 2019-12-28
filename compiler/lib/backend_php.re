@@ -133,25 +133,22 @@ let static_methods =
 
 let compute_footer_summary = (moduleName, metadatas, should_async) => {
   let rec dedupeAndFilter = (revDeduped, rest) => {
-    switch (rest) {
+    switch ((rest: list(Module_export_metadata.t))) {
     | [] => List.rev(revDeduped)
-    | [(hd: Module_export_metadata.t), ...tl] =>
-      switch (hd.original_name) {
-      | None => dedupeAndFilter(revDeduped, tl)
-      | Some(nm) =>
-        List.exists(revDeduped, ~f=md =>
-          switch (md.Module_export_metadata.original_name) {
-          | None => true
-          | Some(dedupedNm) =>
-            String.equal(
-              String.lowercase_ascii(dedupedNm),
-              String.lowercase_ascii(nm),
-            )
-          }
-        )
-          ? dedupeAndFilter(revDeduped, tl)
-          : dedupeAndFilter([hd, ...revDeduped], tl)
-      }
+    | [{original_name: None}, ...tl] => dedupeAndFilter(revDeduped, tl)
+    | [{original_name: Some(nm)} as hd, ...tl] =>
+      List.exists(revDeduped, ~f=md =>
+        switch (md.Module_export_metadata.original_name) {
+        | None => true
+        | Some(dedupedNm) =>
+          String.equal(
+            String.lowercase_ascii(dedupedNm),
+            String.lowercase_ascii(nm),
+          )
+        }
+      )
+        ? dedupeAndFilter(revDeduped, tl)
+        : dedupeAndFilter([hd, ...revDeduped], tl)
     };
   };
   let metadatas = dedupeAndFilter([], metadatas);
