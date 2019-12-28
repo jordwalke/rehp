@@ -126,7 +126,7 @@ function caml_load_global_module(n) {
 
 //Provides: caml_get_global_data mutable
 //Requires: caml_global_data
-function caml_get_global_data () { return caml_global_data; }
+function caml_get_global_data (_unit) { return caml_global_data; }
 
 //Raise exception
 
@@ -272,25 +272,25 @@ function caml_invalid_argument (msg) {
 
 //Provides: caml_raise_end_of_file
 //Requires: caml_raise_constant, caml_global_data
-function caml_raise_end_of_file () {
+function caml_raise_end_of_file (_unit) {
   caml_raise_constant(caml_global_data.End_of_file);
 }
 
 //Provides: caml_raise_zero_divide
 //Requires: caml_raise_constant, caml_global_data
-function caml_raise_zero_divide () {
+function caml_raise_zero_divide (_unit) {
   caml_raise_constant(caml_global_data.Division_by_zero);
 }
 
 //Provides: caml_raise_not_found
 //Requires: caml_raise_constant, caml_global_data
-function caml_raise_not_found () {
+function caml_raise_not_found (_unit) {
   caml_raise_constant(caml_global_data.Not_found); }
 
 
 //Provides: caml_array_bound_error
 //Requires: caml_invalid_argument
-function caml_array_bound_error () {
+function caml_array_bound_error (_unit) {
   caml_invalid_argument("index out of bounds");
 }
 
@@ -1009,16 +1009,16 @@ function caml_hash (count, limit, seed, obj) {
 ///////////// Sys
 //Provides: caml_sys_time mutable
 var caml_initial_time = new Date().getTime() * 0.001;
-function caml_sys_time () { return new Date().getTime() * 0.001 - caml_initial_time; }
+function caml_sys_time (_unit) { return new Date().getTime() * 0.001 - caml_initial_time; }
 //Provides: caml_sys_get_config const
 //Requires: caml_new_string
-function caml_sys_get_config () {
+function caml_sys_get_config (_unit) {
   return [0, caml_new_string("Unix"), 32, 0];
 }
 
 //Provides: caml_sys_const_backend_type const
 //Requires: caml_new_string
-function caml_sys_const_backend_type () {
+function caml_sys_const_backend_type (_unit) {
   return [0, caml_new_string("js_of_ocaml")];
 }
 
@@ -1026,7 +1026,7 @@ function caml_sys_const_backend_type () {
 //Provides: caml_sys_random_seed mutable
 //Version: < 4.00
 //The function needs to return an array since OCaml 4.0...
-function caml_sys_random_seed () {
+function caml_sys_random_seed (_unit) {
   var x = new Date().getTime()^0xffffffff*Math.random();
   return x;
 }
@@ -1034,7 +1034,7 @@ function caml_sys_random_seed () {
 //Provides: caml_sys_random_seed mutable
 //Version: >= 4.00
 //The function needs to return an array since OCaml 4.0...
-function caml_sys_random_seed () {
+function caml_sys_random_seed (_unit) {
   var x = new Date().getTime()^0xffffffff*Math.random();
   return [0,x];
 }
@@ -1042,23 +1042,23 @@ function caml_sys_random_seed () {
 
 
 //Provides: caml_sys_const_big_endian const
-function caml_sys_const_big_endian () { return 0; }
+function caml_sys_const_big_endian (_unit) { return 0; }
 //Provides: caml_sys_const_word_size const
-function caml_sys_const_word_size () { return 32; }
+function caml_sys_const_word_size (_unit) { return 32; }
 //Provides: caml_sys_const_int_size const
-function caml_sys_const_int_size () { return 32; }
+function caml_sys_const_int_size (_unit) { return 32; }
 
 //Provides: caml_sys_const_max_wosize const
 // max_int / 4 so that the following does not overflow
 //let max_string_length = word_size / 8 * max_array_length - 1;;
-function caml_sys_const_max_wosize () { return (0x7FFFFFFF/4) | 0;}
+function caml_sys_const_max_wosize (_unit) { return (0x7FFFFFFF/4) | 0;}
 
 //Provides: caml_sys_const_ostype_cygwin const
-function caml_sys_const_ostype_cygwin () { return 0; }
+function caml_sys_const_ostype_cygwin (_unit) { return 0; }
 //Provides: caml_sys_const_ostype_unix const
-function caml_sys_const_ostype_unix () { return 1; }
+function caml_sys_const_ostype_unix (_unit) { return 1; }
 //Provides: caml_sys_const_ostype_win32 const
-function caml_sys_const_ostype_win32 () { return 0; }
+function caml_sys_const_ostype_win32 (_unit) { return 0; }
 
 //Provides: caml_sys_system_command
 function caml_sys_system_command(cmd){
@@ -1142,34 +1142,34 @@ function caml_get_public_method (obj, tag, cacheid) {
 }
 
 //Provides: caml_final_register const
-function caml_final_register () { return 0; }
+function caml_final_register (_unit) { return 0; }
 //Provides: caml_final_register_called_without_value const
-function caml_final_register_called_without_value () { return 0; }
+function caml_final_register_called_without_value (_unit) { return 0; }
 //Provides: caml_final_release const
-function caml_final_release () { return 0; }
+function caml_final_release (_unit) { return 0; }
 //Provides: caml_backtrace_status const
-function caml_backtrace_status () { return 0; }
+function caml_backtrace_status (_unit) { return 0; }
 //Provides: caml_get_exception_backtrace const
-function caml_get_exception_backtrace () { return 0; }
+function caml_get_exception_backtrace (_unit) { return 0; }
 //Provides: caml_get_exception_raw_backtrace const
-function caml_get_exception_raw_backtrace () { return [0]; }
+function caml_get_exception_raw_backtrace (_unit) { return [0]; }
 //Provides: caml_record_backtrace
-function caml_record_backtrace () { return 0; }
+function caml_record_backtrace (_unit) { return 0; }
 //Provides: caml_convert_raw_backtrace const
-function caml_convert_raw_backtrace () { return [0]; }
+function caml_convert_raw_backtrace (_unit) { return [0]; }
 //Provides: caml_raw_backtrace_length
-function caml_raw_backtrace_length() { return 0; }
+function caml_raw_backtrace_length(_unit) { return 0; }
 //Provides: caml_raw_backtrace_next_slot
-function caml_raw_backtrace_next_slot() { return 0 }
+function caml_raw_backtrace_next_slot(_unit) { return 0 }
 //Provides: caml_raw_backtrace_slot
 //Requires: caml_invalid_argument
-function caml_raw_backtrace_slot () {
+function caml_raw_backtrace_slot (_unit) {
   caml_invalid_argument("Printexc.get_raw_backtrace_slot: index out of bounds");
 }
 //Provides: caml_restore_raw_backtrace
 function caml_restore_raw_backtrace(exn, bt) { return 0 }
 //Provides: caml_get_current_callstack const
-function caml_get_current_callstack () { return [0]; }
+function caml_get_current_callstack (_unit) { return [0]; }
 
 //Provides: caml_set_static_env
 function caml_set_static_env(k,v){
@@ -1208,7 +1208,7 @@ function caml_sys_exit (code) {
 //Provides: caml_sys_get_argv const
 //Requires: caml_js_to_string
 //Requires: raw_array_sub
-function caml_sys_get_argv () {
+function caml_sys_get_argv (_unit) {
   var g = joo_global_object;
   var main = "a.out";
   var args = []
@@ -1230,7 +1230,7 @@ function caml_sys_get_argv () {
 }
 
 //Provides: unix_inet_addr_of_string
-function unix_inet_addr_of_string () {return 0;}
+function unix_inet_addr_of_string (_unit) {return 0;}
 
 //Provides: caml_oo_last_id
 var caml_oo_last_id = 0;
@@ -1244,7 +1244,7 @@ function caml_set_oo_id (b) {
 
 //Provides: caml_fresh_oo_id
 //Requires: caml_oo_last_id
-function caml_fresh_oo_id() {
+function caml_fresh_oo_id(_unit) {
   return caml_oo_last_id++;
 }
 
@@ -1339,13 +1339,13 @@ function caml_register_channel_for_spacetime(_channel) {
 
 //Provides: caml_spacetime_only_works_for_native_code
 //Requires: caml_failwith
-function caml_spacetime_only_works_for_native_code() {
+function caml_spacetime_only_works_for_native_code(_unit) {
   caml_failwith("Spacetime profiling only works for native code");
 }
 
 
 //Provides: caml_is_js
-function caml_is_js() {
+function caml_is_js(_unit) {
   return 1;
 }
 
