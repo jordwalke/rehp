@@ -133,51 +133,101 @@ let _js_globals = [
    }
   */
 /** @type {{_: any, bar: () => number, foo: String }} */
-// module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+// module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 // module.exports.foo = module.exports[1];
 // module.exports.bar = module.exports[2];
 //
 
+let normalize_name = nm => {
+  let nm_no_unders = String.trim_leading_char('_', nm);
+  let elem_matches = elem => {
+    if (String.equal(String.trim_leading_char('_', elem), nm_no_unders)) {
+      print_endline(
+        "normalize equals:"
+        ++ String.trim_leading_char('_', elem)
+        ++ " == "
+        ++ nm_no_unders,
+      );
+    };
+    String.equal(String.trim_leading_char('_', elem), nm_no_unders);
+  };
+  StringSet.exists(elem_matches, js_keywords) ? "_" ++ nm ++ "_" : nm;
+};
 let compute_footer_summary = (moduleName, metadatas) => {
+  let rec dedupeAndFilter = (revDeduped, rest) => {
+    switch ((rest: list(Module_export_metadata.t))) {
+    | [] => List.rev(revDeduped)
+    | [{original_name: None}, ...tl] => dedupeAndFilter(revDeduped, tl)
+    | [{original_name: Some(nm)} as hd, ...tl] =>
+      List.exists(revDeduped, ~f=md =>
+        switch (md.Module_export_metadata.original_name) {
+        | None => true
+        | Some(dedupedNm) => String.equal(dedupedNm, nm)
+        }
+      )
+        ? dedupeAndFilter(revDeduped, tl)
+        : dedupeAndFilter([hd, ...revDeduped], tl)
+    };
+  };
+  let metadatas = dedupeAndFilter([], metadatas);
   let flowRows =
     List.map(metadatas, ~f=metadata =>
       switch (metadata.Module_export_metadata.original_name) {
       | None => []
       | Some(nm) =>
+        let nm = normalize_name(nm);
         if (metadata.Module_export_metadata.arity === 0) {
-          ["  " ++ nm ++ ": any"];
+          ["  " ++ nm ++ ": any,"];
         } else {
-          let noNames = {contents: 0};
           let argsList =
-            List.map(metadata.arg_names, ~f=nm =>
+            List.mapi(metadata.arg_names, ~f=(i, nm) =>
               switch (nm) {
-              | None =>
-                noNames.contents = noNames.contents + 1;
-                "unnamed" ++ string_of_int(noNames.contents);
+              | None => "arg" ++ string_of_int(i)
               | Some(n) => n
               }
             );
           let flowTypeArgs =
-            List.map(~f=nm => nm ++ ": any", argsList)
+            List.map(
+              ~f=
+                nm => {
+                  let nrml = normalize_name(nm);
+                  if (nrml != nm) {
+                    print_endline(
+                      "NORMALIZED: " ++ nm ++ " to " ++ nrml ++ "",
+                    );
+                  };
+                  normalize_name(nm) ++ ": any";
+                },
+              argsList,
+            )
             |> String.concat(~sep=", ");
           ["  " ++ nm ++ ": (" ++ flowTypeArgs ++ ") => any,"];
-        }
+        };
       }
     )
     |> List.concat;
   let tsRows =
-    List.map(metadatas, ~f=metadata =>
+    List.mapi(metadatas, ~f=(i, metadata) =>
       switch (metadata.Module_export_metadata.original_name) {
       | None => []
       | Some(nm) =>
+        let nm = normalize_name(nm);
         if (metadata.Module_export_metadata.arity === 0) {
           ["  " ++ nm ++ ": any,"];
         } else {
           let tsTypeArgs =
-            List.map(~f=_ => "any", metadata.arg_names)
+            List.mapi(
+              ~f=
+                (i, nm) =>
+                  switch (nm) {
+                  | None => "arg" ++ string_of_int(i) ++ ": any"
+                  | Some(n) => normalize_name(n) ++ ": any"
+                  },
+              metadata.arg_names,
+            )
             |> String.concat(~sep=", ");
           ["  " ++ nm ++ ": (" ++ tsTypeArgs ++ ") => any,"];
-        }
+        };
       }
     )
     |> List.concat;
@@ -188,7 +238,7 @@ let compute_footer_summary = (moduleName, metadatas) => {
       | None => []
       | Some(nm) => [
           "module.exports."
-          ++ nm
+          ++ normalize_name(nm)
           ++ " = module.exports["
           ++ string_of_int(metadata.export_index)
           ++ "];",
@@ -317,7 +367,6 @@ let custom_module_registration = () =>
 let custom_module_loader = () =>
   Some(
     (runtime_getter, name) => {
-      print_endline("getting module " ++ name);
       let dependency_outputs = Dependency_outputs.get();
       open Dependency_outputs;
       let found =
