@@ -38,6 +38,16 @@ let normalize_module_name s =
   | "list" -> "list_"
   | _ -> s
 
+let denormalize_module_name s =
+  match s with
+  | "String_" -> "String"
+  | "string_" -> "string"
+  | "Array_" -> "Array"
+  | "array_" -> "array"
+  | "List_" -> "List"
+  | "list_" -> "list"
+  | _ -> s
+
 let predefined_exceptions =
   [ 0, "Out_of_memory"
   ; 1, "Sys_error"
@@ -666,12 +676,7 @@ let access_global g i =
       g.vars.(i) <- Some x;
       x
 
-let register_global
-    ?(definitely_not_module = false)
-    ?(force = false)
-    g
-    i
-    rem =
+let register_global ?(definitely_not_module = false) ?(force = false) g i rem =
   if force || g.is_exported.(i)
   then (
     match g.named_value.(i) with
