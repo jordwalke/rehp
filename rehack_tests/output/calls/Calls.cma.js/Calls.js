@@ -1,6 +1,6 @@
 /**
  * @flow strict
- * MyLib
+ * Calls
  */
 
 // @ts-check
@@ -10,24 +10,9 @@
 
 var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
-
-function call1(f, a0) {
-  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
-}
-
-var cst_this_should_be_exported_with_three_leading = string(
-  "this should be exported with three leading '_'"
-);
-var cst_this_should_be_exported_with_two_leading = string(
-  "this should be exported with two leading '_'"
-);
-var cst_this_should_be_exported_with_leading = string(
-  "this should be exported with leading '_'"
-);
 var cst_myPartiallyAppliedMethod = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__0 = string("myPartiallyAppliedMethod");
 var cst_myPartiallyAppliedMethod__1 = string("myPartiallyAppliedMethod");
-var MyLib_MyLibUtility = require("./MyLib__MyLibUtility.js");
 var foo = "foo";
 var bar = "bar";
 var baz = "baz";
@@ -59,18 +44,18 @@ function testMethodCalls(o) {
   return [0,withArgsResult,sendResult,sendResult1,sendResult2,sendResult3];
 }
 
-function testPartialFunctionCalls(o) {
+function testPartialFunctionCalls(s) {
   function s_(Q_, P_) {return Q_(P_);}
-  function callResult1(O_) {return s_(o, O_);}
+  function callResult1(O_) {return s_(s, O_);}
   var t_ = "passThis";
   function u_(N_, M_, L_) {return N_(M_, L_);}
-  function callResult2(K_) {return u_(o, t_, K_);}
+  function callResult2(K_) {return u_(s, t_, K_);}
   var v_ = "passThis";
   function w_(J_, I_, H_, G_) {return J_(I_, H_, G_);}
-  function callResult3(F_) {return w_(o, v_, bar, F_);}
+  function callResult3(F_) {return w_(s, v_, bar, F_);}
   var x_ = "passThis";
   function y_(E_, D_, C_, B_, A_) {return E_(D_, C_, B_, A_);}
-  function callResult4(z_) {return y_(o, x_, baz, baz, z_);}
+  function callResult4(z_) {return y_(s, x_, baz, baz, z_);}
   return [0,callResult1,callResult2,callResult3,callResult4];
 }
 
@@ -92,24 +77,7 @@ function testPartialMethodCalls(o) {
   return [0,sendResult1,sendResult2,sendResult3];
 }
 
-var x = call1(MyLib_MyLibUtility[1], 0);
-
-function genThisShouldBeAsyncTransformed(input, cb) {return call1(cb, input + 1 | 0);
-}
-
-function requireModule(param) {
-  return cst_this_should_be_exported_with_leading;
-}
-
-function requireModule__0(param) {
-  return cst_this_should_be_exported_with_two_leading;
-}
-
-function construct(param) {
-  return cst_this_should_be_exported_with_three_leading;
-}
-
-var MyLib = [
+var Calls = [
   0,
   foo,
   bar,
@@ -117,16 +85,10 @@ var MyLib = [
   testFunctionCalls,
   testMethodCalls,
   testPartialFunctionCalls,
-  testPartialMethodCalls,
-  x,
-  genThisShouldBeAsyncTransformed,
-  genThisShouldBeAsyncTransformed,
-  requireModule,
-  requireModule__0,
-  construct
+  testPartialMethodCalls
 ];
 
-module.exports = MyLib;
+module.exports = Calls;
 
 /*::type Exports = {
   foo: any,
@@ -134,12 +96,8 @@ module.exports = MyLib;
   baz: any,
   testFunctionCalls: (o: any) => any,
   testMethodCalls: (o: any) => any,
-  testPartialFunctionCalls: (o: any) => any,
+  testPartialFunctionCalls: (s: any) => any,
   testPartialMethodCalls: (o: any) => any,
-  x: any,
-  genThisShouldBeAsyncTransformed: (input: any, cb: any) => any,
-  requireModule: (param: any) => any,
-  construct: (param: any) => any,
 }*/
 /** @type {{
   foo: any,
@@ -147,12 +105,8 @@ module.exports = MyLib;
   baz: any,
   testFunctionCalls: (o: any) => any,
   testMethodCalls: (o: any) => any,
-  testPartialFunctionCalls: (o: any) => any,
+  testPartialFunctionCalls: (s: any) => any,
   testPartialMethodCalls: (o: any) => any,
-  x: any,
-  genThisShouldBeAsyncTransformed: (input: any, cb: any) => any,
-  requireModule: (param: any) => any,
-  construct: (param: any) => any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.foo = module.exports[1];
@@ -162,9 +116,5 @@ module.exports.testFunctionCalls = module.exports[4];
 module.exports.testMethodCalls = module.exports[5];
 module.exports.testPartialFunctionCalls = module.exports[6];
 module.exports.testPartialMethodCalls = module.exports[7];
-module.exports.x = module.exports[8];
-module.exports.genThisShouldBeAsyncTransformed = module.exports[9];
-module.exports.requireModule = module.exports[11];
-module.exports.construct = module.exports[13];
 
-/*____hashes flags: 589793685 bytecode: 67843182350 debug-data: 26995082478 primitives: 314532832*/
+/* Hashing disabled */

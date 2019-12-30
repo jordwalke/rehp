@@ -7,26 +7,15 @@
  */
 namespace Rehack;
 
-final class MyLib {
+final class Calls {
   <<__Override, __Memoize>>
   public static function requireModule() : Vector<dynamic> {
     
     $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
-    $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
-    $cst_this_should_be_exported_with_three_leading = $string(
-      "this should be exported with three leading '_'"
-    );
-    $cst_this_should_be_exported_with_two_leading = $string(
-      "this should be exported with two leading '_'"
-    );
-    $cst_this_should_be_exported_with_leading = $string(
-      "this should be exported with leading '_'"
-    );
     $cst_myPartiallyAppliedMethod = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__0 = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__1 = $string("myPartiallyAppliedMethod");
-    $MyLib_MyLibUtility =  MyLib__MyLibUtility::requireModule ();
     $foo = "foo";
     $bar = "bar";
     $baz = "baz";
@@ -62,21 +51,21 @@ final class MyLib {
         $sendResult3
       };
     };
-    $testPartialFunctionCalls = (dynamic $o) ==> {
+    $testPartialFunctionCalls = (dynamic $s) ==> {
       $s_ = (dynamic $Q_, dynamic $P_) ==> {return $Q_($P_);};
-      $callResult1 = (dynamic $O_) ==> {return $s_($o, $O_);};
+      $callResult1 = (dynamic $O_) ==> {return $s_($s, $O_);};
       $t_ = "passThis";
       $u_ = (dynamic $N_, dynamic $M_, dynamic $L_) ==> {return $N_($M_, $L_);
       };
-      $callResult2 = (dynamic $K_) ==> {return $u_($o, $t_, $K_);};
+      $callResult2 = (dynamic $K_) ==> {return $u_($s, $t_, $K_);};
       $v_ = "passThis";
       $w_ = (dynamic $J_, dynamic $I_, dynamic $H_, dynamic $G_) ==> {return $J_($I_, $H_, $G_);
       };
-      $callResult3 = (dynamic $F_) ==> {return $w_($o, $v_, $bar, $F_);};
+      $callResult3 = (dynamic $F_) ==> {return $w_($s, $v_, $bar, $F_);};
       $x_ = "passThis";
       $y_ = (dynamic $E_, dynamic $D_, dynamic $C_, dynamic $B_, dynamic $A_) ==> {return $E_($D_, $C_, $B_, $A_);
       };
-      $callResult4 = (dynamic $z_) ==> {return $y_($o, $x_, $baz, $baz, $z_);};
+      $callResult4 = (dynamic $z_) ==> {return $y_($s, $x_, $baz, $baz, $z_);};
       return Vector{0, $callResult1, $callResult2, $callResult3, $callResult4};
     };
     $testPartialMethodCalls = (dynamic $o) ==> {
@@ -100,20 +89,7 @@ final class MyLib {
       };
       return Vector{0, $sendResult1, $sendResult2, $sendResult3};
     };
-    $x = $call1($MyLib_MyLibUtility[1], 0);
-    $genThisShouldBeAsyncTransformed = (dynamic $input, dynamic $cb) ==> {
-      return $call1($cb, (int) ($input + 1));
-    };
-    $requireModule = (dynamic $param) ==> {
-      return $cst_this_should_be_exported_with_leading;
-    };
-    $requireModule__0 = (dynamic $param) ==> {
-      return $cst_this_should_be_exported_with_two_leading;
-    };
-    $construct = (dynamic $param) ==> {
-      return $cst_this_should_be_exported_with_three_leading;
-    };
-    $MyLib = Vector{
+    $Calls = Vector{
       0,
       $foo,
       $bar,
@@ -121,16 +97,10 @@ final class MyLib {
       $testFunctionCalls,
       $testMethodCalls,
       $testPartialFunctionCalls,
-      $testPartialMethodCalls,
-      $x,
-      $genThisShouldBeAsyncTransformed,
-      $genThisShouldBeAsyncTransformed,
-      $requireModule,
-      $requireModule__0,
-      $construct
+      $testPartialMethodCalls
     } as dynamic;
     
-     return ($MyLib);
+     return ($Calls);
 
   }
   public static function testFunctionCalls(dynamic $o): dynamic {
@@ -139,21 +109,12 @@ final class MyLib {
   public static function testMethodCalls(dynamic $o): dynamic {
     return static::callRehackFunction(static::requireModule()[5], varray[$o]);
   }
-  public static function testPartialFunctionCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$o]);
+  public static function testPartialFunctionCalls(dynamic $s): dynamic {
+    return static::callRehackFunction(static::requireModule()[6], varray[$s]);
   }
   public static function testPartialMethodCalls(dynamic $o): dynamic {
     return static::callRehackFunction(static::requireModule()[7], varray[$o]);
   }
-  public static function genThisShouldBeAsyncTransformed(dynamic $input, dynamic $cb): Awaitable<dynamic> {
-    return static::genCallFunctionWithArgs("genThisShouldBeAsyncTransformed", static::requireModule()[9], varray[$input, $cb]);
-  }
-  public static function _requireModule_(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$param]);
-  }
-  public static function construct(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$param]);
-  }
 
 }
-/*____hashes flags: 1406088649 bytecode: 67843182350 debug-data: 26995082478 primitives: 314532832*/
+/* Hashing disabled */
