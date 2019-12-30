@@ -141,14 +141,6 @@ let _js_globals = [
 let normalize_name = nm => {
   let nm_no_unders = String.trim_leading_char('_', nm);
   let elem_matches = elem => {
-    if (String.equal(String.trim_leading_char('_', elem), nm_no_unders)) {
-      print_endline(
-        "normalize equals:"
-        ++ String.trim_leading_char('_', elem)
-        ++ " == "
-        ++ nm_no_unders,
-      );
-    };
     String.equal(String.trim_leading_char('_', elem), nm_no_unders);
   };
   StringSet.exists(elem_matches, js_keywords) ? "_" ++ nm ++ "_" : nm;
@@ -187,19 +179,7 @@ let compute_footer_summary = (moduleName, metadatas) => {
               }
             );
           let flowTypeArgs =
-            List.map(
-              ~f=
-                nm => {
-                  let nrml = normalize_name(nm);
-                  if (nrml != nm) {
-                    print_endline(
-                      "NORMALIZED: " ++ nm ++ " to " ++ nrml ++ "",
-                    );
-                  };
-                  normalize_name(nm) ++ ": any";
-                },
-              argsList,
-            )
+            List.map(~f=nm => normalize_name(nm) ++ ": any", argsList)
             |> String.concat(~sep=", ");
           ["  " ++ nm ++ ": (" ++ flowTypeArgs ++ ") => any,"];
         };
@@ -254,7 +234,7 @@ let compute_footer_summary = (moduleName, metadatas) => {
     ["/** @type {{"],
     tsRows,
     ["}} */"],
-    ["module.exports = ((exports /*:: : any*/) /*:: :Exports */);"],
+    ["module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);"],
     exportRows,
   ]);
 };
@@ -357,7 +337,7 @@ let custom_module_registration = () =>
       let moduleExports =
         Rehp.EBin(
           Rehp.Eq,
-          Rehp.EVar(Id.ident("exports")),
+          Rehp.EDot(Rehp.EVar(Id.ident("module")), "exports"),
           module_expression,
         );
       Some(moduleExports);
