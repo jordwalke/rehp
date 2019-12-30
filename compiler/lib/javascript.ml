@@ -123,7 +123,7 @@ and property_name = Id.property_name =
   | PNN of float
 
 and expression =
-  | ERaw of string * expression list
+  | ERaw of string list * expression list
   | ESeq of expression * expression
   | ECond of expression * expression * expression
   | EBin of binop * expression * expression

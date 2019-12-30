@@ -327,10 +327,10 @@ struct
 
   let rec expression l f e =
     match e with
-    | ERaw (s, substs) ->
+    | ERaw (segments, substs) ->
       (* Non breaking space because what if this is on the rhs of a return? *)
       PP.non_breaking_space f;
-      PP.string f s;
+      List.iter ~f:(fun s -> PP.string f s) segments;
       PP.non_breaking_space f;
     | EVar v -> ident f v
     | ESeq (e1, e2) ->

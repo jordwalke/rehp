@@ -78,7 +78,7 @@ and unop =
 and arguments = list(expression)
 and property_name_and_value_list = list((Id.property_name, expression))
 and expression =
-  | ERaw(string, list(expression))
+  | ERaw(list(string), list(expression))
   | ECond(expression, expression, expression)
   | EBin(binop, expression, expression)
   | EUn(unop, expression)

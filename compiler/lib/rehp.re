@@ -123,7 +123,7 @@ and expression =
   /**
    * Raw code to inject, and possible list of $1-n substitutions.
    */
-  | ERaw(string, list(expression))
+  | ERaw(list(string), list(expression))
   | ESeq(expression, expression)
   | ECond(expression, expression, expression)
   | EBin(binop, expression, expression)
