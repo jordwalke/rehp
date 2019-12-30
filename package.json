@@ -36,7 +36,7 @@
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/my-lib/MyLib.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/SeparateCompilation/SeparateCompilation.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"],
-      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/calls/calls.bc"]
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/calls/Calls.cma"]
     ],
     "build": [
       [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-lwt"]

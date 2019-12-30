@@ -1,7 +1,5 @@
-(executable
-  (name calls)
-  (package js_of_ocaml)
-  (libraries js_of_ocaml)
-  (public_name calls.exe)
+(library
+  (name Calls)
+  (public_name js_of_ocaml.calls)
 )
 

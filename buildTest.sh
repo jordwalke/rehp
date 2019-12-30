@@ -57,11 +57,18 @@ export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exc
 
 # Tests various "calls" externs.
 echo "./rehack_tests/output/calls.module.php"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/calls/.calls.eobjs/byte/calls.cmo -o ./rehack_tests/output/calls.cmo.module.php
+export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/calls/.Calls.objs/byte/calls.cmo -o ./rehack_tests/output/calls.cmo.module.php
 
 # Tests various "calls" externs.
 echo "./rehack_tests/output/calls.module.js"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/calls/.calls.eobjs/byte/calls.cmo -o ./rehack_tests/output/calls.cmo.module.js
+export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/calls/.Calls.objs/byte/calls.cmo -o ./rehack_tests/output/calls.cmo.module.js
+
+# Tests various "calls" externs.
+echo "./rehack_tests/output/calls/Calls.cma.php"
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/calls/Calls.cma -o ./rehack_tests/output/calls/Calls.cma.php/
+# Tests various "calls" externs.
+echo "./rehack_tests/output/calls/Calls.cma.js"
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/calls/Calls.cma -o ./rehack_tests/output/calls/Calls.cma.js/
 
 # It's also possible to compile from a .cmo, which will also omit the runtime
 echo "./rehack_tests/output/hello_world.cmo.php"
