@@ -35,8 +35,8 @@ val kind : string -> kind
 val kind_args : string -> kind_arg list option
 val register : string -> kind -> kind_arg list option -> int option -> unit
 
-val arity : string -> int
-val has_arity : string -> int -> bool
+val registered_arity : string -> int
+val has_registered_arity : string -> int -> bool
 
 val alias : string -> string -> unit
 val resolve : string -> string

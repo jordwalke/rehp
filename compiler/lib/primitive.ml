@@ -43,9 +43,11 @@ let kind nm = try Hashtbl.find kinds (resolve nm) with Not_found -> `Mutator
 
 let kind_args nm = try Some (Hashtbl.find kind_args_tbl (resolve nm)) with Not_found -> None
 
-let arity nm = Hashtbl.find arities (resolve nm)
+let registered_arity nm = Hashtbl.find arities (resolve nm)
 
-let has_arity nm a =
+(* The arity registered explicitly - externs still have discoverable arity
+   even if not registered, as indicated by their type *)
+let has_registered_arity nm a =
   try Hashtbl.find arities (resolve nm) = a
   with Not_found -> false
 

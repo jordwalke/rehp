@@ -28,7 +28,7 @@ let rec function_cardinality info x acc =
       match info.info_defs.(Var.idx x) with
       | Expr (Closure (l, _)) -> Some (List.length l)
       | Expr (Prim (Extern "%closure", [Pc (IString prim)])) -> (
-        try Some (Primitive.arity prim) with Not_found -> None)
+        try Some (Primitive.registered_arity prim) with Not_found -> None)
       | Expr (Apply (f, l, _)) -> (
           if List.mem f ~set:acc
           then None
