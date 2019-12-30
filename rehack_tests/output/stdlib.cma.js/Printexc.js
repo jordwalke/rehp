@@ -519,7 +519,7 @@ var Printexc = [
   exn_slot_name
 ];
 
-exports = Printexc;
+module.exports = Printexc;
 
 /*::type Exports = {
   to_string: (x: any) => any,
@@ -549,7 +549,7 @@ exports = Printexc;
   exn_slot_id: (x: any) => any,
   exn_slot_name: (x: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.to_string = module.exports[1];
 module.exports.print = module.exports[2];
 module.exports._catch_ = module.exports[3];

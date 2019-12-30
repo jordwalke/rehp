@@ -14,7 +14,7 @@ var runtime = require("../runtime/runtime.js");
 
 var StdLabels = [0,0,0,0,0];
 
-exports = StdLabels;
+module.exports = StdLabels;
 
 /*::type Exports = {
   Array: any,
@@ -28,7 +28,7 @@ exports = StdLabels;
   List: any,
   String: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Array = module.exports[1];
 module.exports.Bytes = module.exports[2];
 module.exports.List = module.exports[3];

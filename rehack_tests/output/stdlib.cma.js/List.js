@@ -1381,7 +1381,7 @@ var List = [
   merge
 ];
 
-exports = List;
+module.exports = List;
 
 /*::type Exports = {
   length: (l: any) => any,
@@ -1483,7 +1483,7 @@ exports = List;
   sort_uniq: (cmp: any, l: any) => any,
   merge: (cmp: any, l1: any, l2: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.length = module.exports[1];
 module.exports.compare_lengths = module.exports[2];
 module.exports.compare_length_with = module.exports[3];

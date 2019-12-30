@@ -122,7 +122,7 @@ var Char = [
   equal
 ];
 
-exports = Char;
+module.exports = Char;
 
 /*::type Exports = {
   chr: (n: any) => any,
@@ -144,7 +144,7 @@ exports = Char;
   compare: (c1: any, c2: any) => any,
   equal: (c1: any, c2: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.chr = module.exports[1];
 module.exports.escaped = module.exports[2];
 module.exports.lowercase = module.exports[3];

@@ -314,7 +314,7 @@ var Random = [
   set_state
 ];
 
-exports = Random;
+module.exports = Random;
 
 /*::type Exports = {
   init: (seed: any) => any,
@@ -344,7 +344,7 @@ exports = Random;
   get_state: (param: any) => any,
   set_state: (s: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.init = module.exports[1];
 module.exports.full_init = module.exports[2];
 module.exports.self_init = module.exports[3];

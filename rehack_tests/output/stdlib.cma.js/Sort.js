@@ -208,7 +208,7 @@ function array(cmp, arr) {
 
 var Sort = [0,list,array,merge];
 
-exports = Sort;
+module.exports = Sort;
 
 /*::type Exports = {
   list: (order: any, l: any) => any,
@@ -220,7 +220,7 @@ exports = Sort;
   array: (cmp: any, arr: any) => any,
   merge: (order: any, l1: any, l2: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.list = module.exports[1];
 module.exports.array = module.exports[2];
 module.exports.merge = module.exports[3];

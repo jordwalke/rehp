@@ -73,7 +73,7 @@ var ArrayLabels = [
   Floatarray
 ];
 
-exports = ArrayLabels;
+module.exports = ArrayLabels;
 
 /*::type Exports = {
   init: any,
@@ -135,7 +135,7 @@ exports = ArrayLabels;
   fast_sort: any,
   Floatarray: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.init = module.exports[1];
 module.exports.make_matrix = module.exports[2];
 module.exports.create_matrix = module.exports[3];

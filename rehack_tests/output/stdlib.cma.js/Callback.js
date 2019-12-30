@@ -21,7 +21,7 @@ function register_exception(name, exn) {
 
 var Callback = [0,register,register_exception];
 
-exports = Callback;
+module.exports = Callback;
 
 /*::type Exports = {
   register: (name: any, v: any) => any,
@@ -31,7 +31,7 @@ exports = Callback;
   register: (name: any, v: any) => any,
   register_exception: (name: any, exn: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.register = module.exports[1];
 module.exports.register_exception = module.exports[2];
 

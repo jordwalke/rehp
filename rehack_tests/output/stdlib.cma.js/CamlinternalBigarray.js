@@ -14,12 +14,12 @@ var runtime = require("../runtime/runtime.js");
 
 var CamlinternalBigarray = [0];
 
-exports = CamlinternalBigarray;
+module.exports = CamlinternalBigarray;
 
 /*::type Exports = {
 }*/
 /** @type {{
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 
 /* Hashing disabled */

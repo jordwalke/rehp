@@ -126,11 +126,11 @@ var MyLib = [
   construct
 ];
 
-exports = MyLib;
+module.exports = MyLib;
 
 /*::type Exports = {
   foo: any,
-  _bar_: any,
+  bar: any,
   baz: any,
   testFunctionCalls: (o: any) => any,
   testMethodCalls: (o: any) => any,
@@ -143,7 +143,7 @@ exports = MyLib;
 }*/
 /** @type {{
   foo: any,
-  _bar_: any,
+  bar: any,
   baz: any,
   testFunctionCalls: (o: any) => any,
   testMethodCalls: (o: any) => any,
@@ -154,9 +154,9 @@ exports = MyLib;
   requireModule: (param: any) => any,
   construct: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.foo = module.exports[1];
-module.exports._bar_ = module.exports[2];
+module.exports.bar = module.exports[2];
 module.exports.baz = module.exports[3];
 module.exports.testFunctionCalls = module.exports[4];
 module.exports.testMethodCalls = module.exports[5];

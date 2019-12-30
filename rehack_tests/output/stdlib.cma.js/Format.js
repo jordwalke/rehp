@@ -1847,7 +1847,7 @@ var Format = [
   pp_get_all_formatter_output_functions
 ];
 
-exports = Format;
+module.exports = Format;
 
 /*::type Exports = {
   pp_open_box: (state: any, indent: any) => any,
@@ -2105,7 +2105,7 @@ exports = Format;
   pp_set_all_formatter_output_functions: (state: any, f: any, g: any, h: any, i: any) => any,
   pp_get_all_formatter_output_functions: (state: any, param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.pp_open_box = module.exports[1];
 module.exports.open_box = module.exports[2];
 module.exports.pp_close_box = module.exports[3];

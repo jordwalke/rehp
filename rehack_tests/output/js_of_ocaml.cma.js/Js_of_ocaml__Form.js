@@ -407,7 +407,7 @@ var Js_of_ocaml_Form = [
   form_elements
 ];
 
-exports = Js_of_ocaml_Form;
+module.exports = Js_of_ocaml_Form;
 
 /*::type Exports = {
   formData: any,
@@ -427,7 +427,7 @@ exports = Js_of_ocaml_Form;
   empty_form_contents: (param: any) => any,
   form_elements: (get: any, form: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.formData = module.exports[1];
 module.exports.formData_form = module.exports[2];
 module.exports.append = module.exports[3];

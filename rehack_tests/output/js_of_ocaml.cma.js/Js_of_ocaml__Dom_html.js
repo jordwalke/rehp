@@ -2644,7 +2644,7 @@ var Js_of_ocaml_Dom_html = [
   hasRequired
 ];
 
-exports = Js_of_ocaml_Dom_html;
+module.exports = Js_of_ocaml_Dom_html;
 
 /*::type Exports = {
   d: any,
@@ -2888,7 +2888,7 @@ exports = Js_of_ocaml_Dom_html;
   hasPlaceholder: (param: any) => any,
   hasRequired: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.d = module.exports[1];
 module.exports.document = module.exports[2];
 module.exports.getElementById_opt = module.exports[3];

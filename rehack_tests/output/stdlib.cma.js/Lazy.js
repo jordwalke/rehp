@@ -41,7 +41,7 @@ var Lazy = [
   is_val
 ];
 
-exports = Lazy;
+module.exports = Lazy;
 
 /*::type Exports = {
   Undefined: any,
@@ -57,7 +57,7 @@ exports = Lazy;
   from_val: (v: any) => any,
   is_val: (l: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Undefined = module.exports[1];
 module.exports.force_val = module.exports[2];
 module.exports.from_fun = module.exports[3];

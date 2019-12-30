@@ -1226,12 +1226,12 @@ var Map = [
   }
 ];
 
-exports = Map;
+module.exports = Map;
 
 /*::type Exports = {
 }*/
 /** @type {{
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 
 /* Hashing disabled */

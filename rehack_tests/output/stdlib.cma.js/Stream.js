@@ -458,7 +458,7 @@ var Stream = [
   dump
 ];
 
-exports = Stream;
+module.exports = Stream;
 
 /*::type Exports = {
   Failure: any,
@@ -510,7 +510,7 @@ exports = Stream;
   slazy: (f: any) => any,
   dump: (f: any, s: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Failure = module.exports[1];
 module.exports.Error = module.exports[2];
 module.exports.from = module.exports[3];

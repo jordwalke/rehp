@@ -810,7 +810,7 @@ var Js_of_ocaml_Url = [
   ]
 ];
 
-exports = Js_of_ocaml_Url;
+module.exports = Js_of_ocaml_Url;
 
 /*::type Exports = {
   urldecode: (s: any) => any,
@@ -834,7 +834,7 @@ exports = Js_of_ocaml_Url;
   url_of_string: (s: any) => any,
   string_of_url: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.urldecode = module.exports[1];
 module.exports.urlencode = module.exports[2];
 module.exports.default_http_port = module.exports[3];

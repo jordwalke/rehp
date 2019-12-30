@@ -17,7 +17,7 @@ var Map = require("./Map.js");
 var Hashtbl = require("./Hashtbl.js");
 var MoreLabels = [0,Hashtbl,Map,Set];
 
-exports = MoreLabels;
+module.exports = MoreLabels;
 
 /*::type Exports = {
   Hashtbl: any,
@@ -29,7 +29,7 @@ exports = MoreLabels;
   Map: any,
   Set: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Hashtbl = module.exports[1];
 module.exports.Map = module.exports[2];
 module.exports.Set = module.exports[3];

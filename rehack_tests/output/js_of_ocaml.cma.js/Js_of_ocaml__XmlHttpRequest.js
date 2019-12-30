@@ -95,7 +95,7 @@ function create(param) {
 
 var Js_of_ocaml_XmlHttpRequest = [0,create,Event];
 
-exports = Js_of_ocaml_XmlHttpRequest;
+module.exports = Js_of_ocaml_XmlHttpRequest;
 
 /*::type Exports = {
   create: (param: any) => any,
@@ -105,7 +105,7 @@ exports = Js_of_ocaml_XmlHttpRequest;
   create: (param: any) => any,
   Event: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];
 module.exports.Event = module.exports[2];
 

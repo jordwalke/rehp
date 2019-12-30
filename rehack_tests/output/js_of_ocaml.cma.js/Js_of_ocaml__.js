@@ -11,7 +11,7 @@
 var runtime = require("../runtime/runtime.js");
 var Js_of_ocaml = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-exports = Js_of_ocaml;
+module.exports = Js_of_ocaml;
 
 /*::type Exports = {
   CSS: any,
@@ -65,7 +65,7 @@ exports = Js_of_ocaml;
   Worker: any,
   XmlHttpRequest: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.CSS = module.exports[1];
 module.exports.Dom = module.exports[2];
 module.exports.Dom_events = module.exports[3];

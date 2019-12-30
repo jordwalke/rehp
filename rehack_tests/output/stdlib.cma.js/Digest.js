@@ -147,7 +147,7 @@ var Digest = [
   from_hex
 ];
 
-exports = Digest;
+module.exports = Digest;
 
 /*::type Exports = {
   compare: any,
@@ -175,7 +175,7 @@ exports = Digest;
   to_hex: (d: any) => any,
   from_hex: (s: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.compare = module.exports[1];
 module.exports.equal = module.exports[2];
 module.exports.string = module.exports[3];

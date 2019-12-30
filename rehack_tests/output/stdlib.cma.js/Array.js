@@ -727,7 +727,7 @@ var Array = [
   Floatarray
 ];
 
-exports = Array;
+module.exports = Array;
 
 /*::type Exports = {
   make_float: (arg0: any) => any,
@@ -783,7 +783,7 @@ exports = Array;
   stable_sort: (cmp: any, a: any) => any,
   Floatarray: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.make_float = module.exports[1];
 module.exports.init = module.exports[2];
 module.exports.make_matrix = module.exports[3];

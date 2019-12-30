@@ -81,7 +81,7 @@ var Js_of_ocaml_Sys_js = [
   js_of_ocaml_version
 ];
 
-exports = Js_of_ocaml_Sys_js;
+module.exports = Js_of_ocaml_Sys_js;
 
 /*::type Exports = {
   set_channel_flusher: (out_channel: any, f: any) => any,
@@ -99,7 +99,7 @@ exports = Js_of_ocaml_Sys_js;
   update_file: (name: any, content: any) => any,
   js_of_ocaml_version: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.set_channel_flusher = module.exports[1];
 module.exports.set_channel_filler = module.exports[2];
 module.exports.unmount = module.exports[4];

@@ -54,7 +54,7 @@ function output(obj) {
 
 var Js_of_ocaml_Json = [0,output,unsafe_input];
 
-exports = Js_of_ocaml_Json;
+module.exports = Js_of_ocaml_Json;
 
 /*::type Exports = {
   output: (obj: any) => any,
@@ -64,7 +64,7 @@ exports = Js_of_ocaml_Json;
   output: (obj: any) => any,
   unsafe_input: (s: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.output = module.exports[1];
 module.exports.unsafe_input = module.exports[2];
 

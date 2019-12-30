@@ -121,7 +121,7 @@ var ListLabels = [
   merge
 ];
 
-exports = ListLabels;
+module.exports = ListLabels;
 
 /*::type Exports = {
   length: any,
@@ -231,7 +231,7 @@ exports = ListLabels;
   sort_uniq: any,
   merge: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.length = module.exports[1];
 module.exports.hd = module.exports[2];
 module.exports.compare_lengths = module.exports[3];

@@ -78,7 +78,7 @@ var CamlinternalLazy = [
   force_val
 ];
 
-exports = CamlinternalLazy;
+module.exports = CamlinternalLazy;
 
 /*::type Exports = {
   Undefined: any,
@@ -94,7 +94,7 @@ exports = CamlinternalLazy;
   force: (lzv: any) => any,
   force_val: (lzv: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Undefined = module.exports[1];
 module.exports.force_lazy_block = module.exports[2];
 module.exports.force_val_lazy_block = module.exports[3];

@@ -88,7 +88,7 @@ var Calls = [
   testPartialMethodCalls
 ];
 
-exports = Calls;
+module.exports = Calls;
 
 /*::type Exports = {
   foo: any,
@@ -108,7 +108,7 @@ exports = Calls;
   testPartialFunctionCalls: (s: any) => any,
   testPartialMethodCalls: (o: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.foo = module.exports[1];
 module.exports.bar = module.exports[2];
 module.exports.baz = module.exports[3];

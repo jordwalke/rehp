@@ -43,7 +43,7 @@ var Js_of_ocaml_Geolocation = [
   is_supported
 ];
 
-exports = Js_of_ocaml_Geolocation;
+module.exports = Js_of_ocaml_Geolocation;
 
 /*::type Exports = {
   empty_position_options: (param: any) => any,
@@ -55,7 +55,7 @@ exports = Js_of_ocaml_Geolocation;
   geolocation: any,
   is_supported: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.empty_position_options = module.exports[1];
 module.exports.geolocation = module.exports[2];
 module.exports.is_supported = module.exports[3];

@@ -84,7 +84,7 @@ var Js_of_ocaml_WebGL = [
   getContextWithAttributes
 ];
 
-exports = Js_of_ocaml_WebGL;
+module.exports = Js_of_ocaml_WebGL;
 
 /*::type Exports = {
   defaultContextAttributes: any,
@@ -98,7 +98,7 @@ exports = Js_of_ocaml_WebGL;
   getContext: (c: any) => any,
   getContextWithAttributes: (c: any, attribs: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.defaultContextAttributes = module.exports[1];
 module.exports.Event = module.exports[2];
 module.exports.getContext = module.exports[3];

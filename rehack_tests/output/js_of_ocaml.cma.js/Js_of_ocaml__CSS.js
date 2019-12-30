@@ -2233,7 +2233,7 @@ var Js_of_ocaml_CSS = [
   Angle
 ];
 
-exports = Js_of_ocaml_CSS;
+module.exports = Js_of_ocaml_CSS;
 
 /*::type Exports = {
   Length: any,
@@ -2243,7 +2243,7 @@ exports = Js_of_ocaml_CSS;
   Length: any,
   Angle: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Length = module.exports[2];
 module.exports.Angle = module.exports[3];
 

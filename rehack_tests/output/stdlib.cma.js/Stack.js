@@ -58,7 +58,7 @@ function fold(f, acc, s) {return call3(List[20], f, acc, s[1]);}
 
 var Stack = [0,Empty,create,push,pop,top,clear,copy,is_empty,length,iter,fold];
 
-exports = Stack;
+module.exports = Stack;
 
 /*::type Exports = {
   Empty: any,
@@ -86,7 +86,7 @@ exports = Stack;
   iter: (f: any, s: any) => any,
   fold: (f: any, acc: any, s: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Empty = module.exports[1];
 module.exports.create = module.exports[2];
 module.exports.push = module.exports[3];

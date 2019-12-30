@@ -2582,7 +2582,7 @@ var Scanf = [
   kfscanf
 ];
 
-exports = Scanf;
+module.exports = Scanf;
 
 /*::type Exports = {
   Scan_failure: any,
@@ -2612,7 +2612,7 @@ exports = Scanf;
   fscanf: (ic: any, fmt: any) => any,
   kfscanf: (ic: any, ef: any, fmt: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Scan_failure = module.exports[2];
 module.exports.bscanf = module.exports[3];
 module.exports.sscanf = module.exports[4];

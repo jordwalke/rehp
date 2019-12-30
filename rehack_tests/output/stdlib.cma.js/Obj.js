@@ -159,7 +159,7 @@ var Obj = [
   ]
 ];
 
-exports = Obj;
+module.exports = Obj;
 
 /*::type Exports = {
   is_block: (a: any) => any,
@@ -213,7 +213,7 @@ exports = Obj;
   marshal: (obj: any) => any,
   unmarshal: (str: any, pos: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.is_block = module.exports[1];
 module.exports.double_field = module.exports[2];
 module.exports.set_double_field = module.exports[3];

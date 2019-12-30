@@ -80,7 +80,7 @@ var Marshal = [
   total_size
 ];
 
-exports = Marshal;
+module.exports = Marshal;
 
 /*::type Exports = {
   to_buffer: (buff: any, ofs: any, len: any, v: any, flags: any) => any,
@@ -98,7 +98,7 @@ exports = Marshal;
   data_size: (buff: any, ofs: any) => any,
   total_size: (buff: any, ofs: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.to_buffer = module.exports[2];
 module.exports.from_bytes = module.exports[4];
 module.exports.from_string = module.exports[5];

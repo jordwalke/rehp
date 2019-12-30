@@ -332,7 +332,7 @@ var Js_of_ocaml_Dom = [
   preventDefault
 ];
 
-exports = Js_of_ocaml_Dom;
+module.exports = Js_of_ocaml_Dom;
 
 /*::type Exports = {
   DocumentPosition: any,
@@ -370,7 +370,7 @@ exports = Js_of_ocaml_Dom;
   removeEventListener: (id: any) => any,
   preventDefault: (ev: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.DocumentPosition = module.exports[1];
 module.exports.insertBefore = module.exports[2];
 module.exports.replaceChild = module.exports[3];

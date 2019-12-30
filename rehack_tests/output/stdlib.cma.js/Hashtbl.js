@@ -1046,7 +1046,7 @@ var Hashtbl = [
   function(j_, i_, h_, g_) {return caml_hash(j_, i_, h_, g_);}
 ];
 
-exports = Hashtbl;
+module.exports = Hashtbl;
 
 /*::type Exports = {
   create: (opt: any, initial_size: any) => any,
@@ -1098,7 +1098,7 @@ exports = Hashtbl;
   seeded_hash: (seed: any, x: any) => any,
   hash_param: (n1: any, n2: any, x: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];
 module.exports.clear = module.exports[2];
 module.exports.reset = module.exports[3];

@@ -124,7 +124,7 @@ var Uchar = [
   hash
 ];
 
-exports = Uchar;
+module.exports = Uchar;
 
 /*::type Exports = {
   min: any,
@@ -160,7 +160,7 @@ exports = Uchar;
   compare: (arg0: any, arg1: any) => any,
   hash: (arg0: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.min = module.exports[1];
 module.exports.max = module.exports[2];
 module.exports.bom = module.exports[3];

@@ -12,7 +12,7 @@ var runtime = require("../runtime/runtime.js");
 var console = runtime["caml_js_get_console"](0);
 var Js_of_ocaml_Firebug = [0,console];
 
-exports = Js_of_ocaml_Firebug;
+module.exports = Js_of_ocaml_Firebug;
 
 /*::type Exports = {
   console: any,
@@ -20,7 +20,7 @@ exports = Js_of_ocaml_Firebug;
 /** @type {{
   console: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.console = module.exports[1];
 
 /* Hashing disabled */

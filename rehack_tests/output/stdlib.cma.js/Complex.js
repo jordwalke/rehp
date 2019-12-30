@@ -115,7 +115,7 @@ var Complex = [
   pow
 ];
 
-exports = Complex;
+module.exports = Complex;
 
 /*::type Exports = {
   zero: any,
@@ -157,7 +157,7 @@ exports = Complex;
   log: (x: any) => any,
   pow: (x: any, y: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.zero = module.exports[1];
 module.exports.one = module.exports[2];
 module.exports.i = module.exports[3];

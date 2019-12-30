@@ -138,7 +138,7 @@ var Sys = [
   a_
 ];
 
-exports = Sys;
+module.exports = Sys;
 
 /*::type Exports = {
   argv: any,
@@ -236,7 +236,7 @@ exports = Sys;
   catch_break: (on: any) => any,
   ocaml_version: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.argv = module.exports[1];
 module.exports.executable_name = module.exports[2];
 module.exports.getenv_opt = module.exports[3];

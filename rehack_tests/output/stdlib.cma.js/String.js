@@ -482,7 +482,7 @@ var String = [
   split_on_char
 ];
 
-exports = String;
+module.exports = String;
 
 /*::type Exports = {
   make: (n: any, c: any) => any,
@@ -556,7 +556,7 @@ exports = String;
   compare: (x: any, y: any) => any,
   split_on_char: (sep: any, s: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.make = module.exports[1];
 module.exports.init = module.exports[2];
 module.exports.copy = module.exports[3];

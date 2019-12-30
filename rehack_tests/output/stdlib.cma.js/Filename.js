@@ -786,7 +786,7 @@ var Filename = [
   quote__1
 ];
 
-exports = Filename;
+module.exports = Filename;
 
 /*::type Exports = {
   current_dir_name: any,
@@ -830,7 +830,7 @@ exports = Filename;
   temp_dir_name: any,
   quote: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.current_dir_name = module.exports[1];
 module.exports.parent_dir_name = module.exports[2];
 module.exports.dir_sep = module.exports[3];

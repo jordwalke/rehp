@@ -164,7 +164,7 @@ var Gc = [
   delete_alarm
 ];
 
-exports = Gc;
+module.exports = Gc;
 
 /*::type Exports = {
   print_stat: (c: any) => any,
@@ -178,7 +178,7 @@ exports = Gc;
   create_alarm: (f: any) => any,
   delete_alarm: (a: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.print_stat = module.exports[1];
 module.exports.allocated_bytes = module.exports[2];
 module.exports.create_alarm = module.exports[6];

@@ -92,7 +92,7 @@ function post_message(msg) {
 
 var Js_of_ocaml_Worker = [0,create,import_scripts,set_onmessage,post_message];
 
-exports = Js_of_ocaml_Worker;
+module.exports = Js_of_ocaml_Worker;
 
 /*::type Exports = {
   create: (script: any) => any,
@@ -106,7 +106,7 @@ exports = Js_of_ocaml_Worker;
   set_onmessage: (handler: any) => any,
   post_message: (msg: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];
 module.exports.import_scripts = module.exports[2];
 module.exports.set_onmessage = module.exports[3];

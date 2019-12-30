@@ -83,7 +83,7 @@ function save_event_for_automatic_snapshots(event_name) {
 
 var Spacetime = [0,enabled,Series,Snapshot,save_event_for_automatic_snapshots];
 
-exports = Spacetime;
+module.exports = Spacetime;
 
 /*::type Exports = {
   enabled: any,
@@ -97,7 +97,7 @@ exports = Spacetime;
   Snapshot: any,
   save_event_for_automatic_snapshots: (event_name: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.enabled = module.exports[1];
 module.exports.Series = module.exports[2];
 module.exports.Snapshot = module.exports[3];

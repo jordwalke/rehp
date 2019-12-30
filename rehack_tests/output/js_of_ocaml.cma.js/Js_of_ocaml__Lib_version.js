@@ -11,10 +11,10 @@
 var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
 var s = string("3.3.0");
-var git_version = string("96d110440");
+var git_version = string("7027b79ab");
 var Js_of_ocaml_Lib_version = [0,s,git_version];
 
-exports = Js_of_ocaml_Lib_version;
+module.exports = Js_of_ocaml_Lib_version;
 
 /*::type Exports = {
   s: any,
@@ -24,7 +24,7 @@ exports = Js_of_ocaml_Lib_version;
   s: any,
   git_version: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.s = module.exports[1];
 module.exports.git_version = module.exports[2];
 

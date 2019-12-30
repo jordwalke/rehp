@@ -176,7 +176,7 @@ var Js_of_ocaml_File = [
   addEventListener
 ];
 
-exports = Js_of_ocaml_File;
+module.exports = Js_of_ocaml_File;
 
 /*::type Exports = {
   blob_from_string: (contentType: any, endings: any, s: any) => any,
@@ -194,7 +194,7 @@ exports = Js_of_ocaml_File;
   fileReader: any,
   addEventListener: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.blob_from_string = module.exports[1];
 module.exports.blob_from_any = module.exports[2];
 module.exports.ReaderEvent = module.exports[4];

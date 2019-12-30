@@ -142,7 +142,7 @@ var Js_of_ocaml_Typed_array = [
   String
 ];
 
-exports = Js_of_ocaml_Typed_array;
+module.exports = Js_of_ocaml_Typed_array;
 
 /*::type Exports = {
   arrayBuffer: any,
@@ -176,7 +176,7 @@ exports = Js_of_ocaml_Typed_array;
   dataView: any,
   String: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.arrayBuffer = module.exports[1];
 module.exports.int8Array = module.exports[2];
 module.exports.uint8Array = module.exports[7];

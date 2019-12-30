@@ -46,7 +46,7 @@ var Js_of_ocaml_EventSource = [
   addEventListener
 ];
 
-exports = Js_of_ocaml_EventSource;
+module.exports = Js_of_ocaml_EventSource;
 
 /*::type Exports = {
   withCredentials: (b: any) => any,
@@ -60,7 +60,7 @@ exports = Js_of_ocaml_EventSource;
   eventSource_options: any,
   addEventListener: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.withCredentials = module.exports[1];
 module.exports.eventSource = module.exports[2];
 module.exports.eventSource_options = module.exports[3];

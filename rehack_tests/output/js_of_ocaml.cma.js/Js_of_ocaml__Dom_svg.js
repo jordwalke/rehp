@@ -561,7 +561,7 @@ var Js_of_ocaml_Dom_svg = [
   ]
 ];
 
-exports = Js_of_ocaml_Dom_svg;
+module.exports = Js_of_ocaml_Dom_svg;
 
 /*::type Exports = {
   xmlns: any,
@@ -687,7 +687,7 @@ exports = Js_of_ocaml_Dom_svg;
   document: any,
   getElementById: (id: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.xmlns = module.exports[1];
 module.exports.SVGError = module.exports[2];
 module.exports.createElement = module.exports[3];

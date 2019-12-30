@@ -538,7 +538,7 @@ var Js_of_ocaml_Intl = [
   is_supported
 ];
 
-exports = Js_of_ocaml_Intl;
+module.exports = Js_of_ocaml_Intl;
 
 /*::type Exports = {
   Collator: any,
@@ -564,7 +564,7 @@ exports = Js_of_ocaml_Intl;
   pluralRules_constr: any,
   is_supported: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Collator = module.exports[1];
 module.exports.DateTimeFormat = module.exports[2];
 module.exports.NumberFormat = module.exports[3];

@@ -610,7 +610,7 @@ var Pervasives = [
   do_at_exit
 ];
 
-exports = Pervasives;
+module.exports = Pervasives;
 
 /*::type Exports = {
   invalid_arg: (s: any) => any,
@@ -758,7 +758,7 @@ exports = Pervasives;
   unsafe_really_input: (ic: any, s: any, ofs: any, len: any) => any,
   do_at_exit: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.invalid_arg = module.exports[1];
 module.exports.failwith = module.exports[2];
 module.exports.Exit = module.exports[3];

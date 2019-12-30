@@ -626,7 +626,7 @@ function make_lexer(keywords) {
 
 var Genlex = [0,make_lexer];
 
-exports = Genlex;
+module.exports = Genlex;
 
 /*::type Exports = {
   make_lexer: (keywords: any) => any,
@@ -634,7 +634,7 @@ exports = Genlex;
 /** @type {{
   make_lexer: (keywords: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.make_lexer = module.exports[1];
 
 /* Hashing disabled */

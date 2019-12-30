@@ -7585,7 +7585,7 @@ var CamlinternalFormat = [
   recast
 ];
 
-exports = CamlinternalFormat;
+module.exports = CamlinternalFormat;
 
 /*::type Exports = {
   is_in_char_set: (char_set: any, c: any) => any,
@@ -7639,7 +7639,7 @@ exports = CamlinternalFormat;
   trans: (ty1: any, ty2: any) => any,
   recast: (fmt: any, fmtty: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.is_in_char_set = module.exports[1];
 module.exports.rev_char_set = module.exports[2];
 module.exports.create_char_set = module.exports[3];

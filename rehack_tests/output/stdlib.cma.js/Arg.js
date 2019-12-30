@@ -974,7 +974,7 @@ var Arg = [
   write_arg0
 ];
 
-exports = Arg;
+module.exports = Arg;
 
 /*::type Exports = {
   parse: (l: any, f: any, msg: any) => any,
@@ -1012,7 +1012,7 @@ exports = Arg;
   write_arg: any,
   write_arg0: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.parse = module.exports[1];
 module.exports.parse_dynamic = module.exports[2];
 module.exports.parse_argv = module.exports[3];

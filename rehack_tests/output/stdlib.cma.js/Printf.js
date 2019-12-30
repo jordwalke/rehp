@@ -102,7 +102,7 @@ var Printf = [
   ksprintf
 ];
 
-exports = Printf;
+module.exports = Printf;
 
 /*::type Exports = {
   fprintf: (oc: any, fmt: any) => any,
@@ -128,7 +128,7 @@ exports = Printf;
   ksprintf: (k: any, param: any) => any,
   kbprintf: (k: any, b: any, param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.fprintf = module.exports[1];
 module.exports.printf = module.exports[2];
 module.exports.eprintf = module.exports[3];

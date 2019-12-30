@@ -246,7 +246,7 @@ var Strings = [
   anotherName
 ];
 
-exports = Strings;
+module.exports = Strings;
 
 /*::type Exports = {
   greeting: any,
@@ -280,7 +280,7 @@ exports = Strings;
   n: any,
   anotherName: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.greeting = module.exports[1];
 module.exports.unicodeLength = module.exports[2];
 module.exports.negativeOne = module.exports[3];

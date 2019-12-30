@@ -511,7 +511,7 @@ var Buffer = [
   truncate
 ];
 
-exports = Buffer;
+module.exports = Buffer;
 
 /*::type Exports = {
   create: (n: any) => any,
@@ -561,7 +561,7 @@ exports = Buffer;
   output_buffer: (oc: any, b: any) => any,
   truncate: (b: any, len: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];
 module.exports.contents = module.exports[2];
 module.exports.to_bytes = module.exports[3];

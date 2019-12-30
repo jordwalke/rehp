@@ -274,7 +274,7 @@ var Lexing = [
   new_engine
 ];
 
-exports = Lexing;
+module.exports = Lexing;
 
 /*::type Exports = {
   dummy_pos: any,
@@ -316,7 +316,7 @@ exports = Lexing;
   engine: (tbl: any, state: any, buf: any) => any,
   new_engine: (tbl: any, state: any, buf: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.dummy_pos = module.exports[1];
 module.exports.from_channel = module.exports[2];
 module.exports.from_string = module.exports[3];

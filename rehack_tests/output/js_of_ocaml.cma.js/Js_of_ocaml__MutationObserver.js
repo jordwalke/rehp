@@ -125,7 +125,7 @@ var Js_of_ocaml_MutationObserver = [
   observe
 ];
 
-exports = Js_of_ocaml_MutationObserver;
+module.exports = Js_of_ocaml_MutationObserver;
 
 /*::type Exports = {
   empty_mutation_observer_init: (param: any) => any,
@@ -139,7 +139,7 @@ exports = Js_of_ocaml_MutationObserver;
   is_supported: (param: any) => any,
   observe: (node: any, f: any, child_list: any, attributes: any, character_data: any, subtree: any, attribute_old_value: any, character_data_old_value: any, attribute_filter: any, param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.empty_mutation_observer_init = module.exports[1];
 module.exports.mutationObserver = module.exports[2];
 module.exports.is_supported = module.exports[3];

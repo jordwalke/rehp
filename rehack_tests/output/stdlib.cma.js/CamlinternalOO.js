@@ -912,7 +912,7 @@ var CamlinternalOO = [
   stats
 ];
 
-exports = CamlinternalOO;
+module.exports = CamlinternalOO;
 
 /*::type Exports = {
   public_method_label: (s: any) => any,
@@ -978,7 +978,7 @@ exports = CamlinternalOO;
   params: any,
   stats: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.public_method_label = module.exports[1];
 module.exports.new_method = module.exports[2];
 module.exports.new_variable = module.exports[3];

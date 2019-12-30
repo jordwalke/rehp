@@ -271,7 +271,7 @@ var Parsing = [
   parse_error
 ];
 
-exports = Parsing;
+module.exports = Parsing;
 
 /*::type Exports = {
   symbol_start: (param: any) => any,
@@ -307,7 +307,7 @@ exports = Parsing;
   is_current_lookahead: (tok: any) => any,
   parse_error: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.symbol_start = module.exports[1];
 module.exports.symbol_end = module.exports[2];
 module.exports.rhs_start = module.exports[3];

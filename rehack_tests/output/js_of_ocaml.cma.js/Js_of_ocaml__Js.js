@@ -349,7 +349,7 @@ var Js_of_ocaml_Js = [
   Unsafe
 ];
 
-exports = Js_of_ocaml_Js;
+module.exports = Js_of_ocaml_Js;
 
 /*::type Exports = {
   _null_: any,
@@ -429,7 +429,7 @@ exports = Js_of_ocaml_Js;
   export_all: (obj: any) => any,
   Unsafe: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports._null_ = module.exports[1];
 module.exports._undefined_ = module.exports[3];
 module.exports.Opt = module.exports[5];

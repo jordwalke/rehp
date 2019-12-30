@@ -1169,12 +1169,12 @@ var Set = [
   }
 ];
 
-exports = Set;
+module.exports = Set;
 
 /*::type Exports = {
 }*/
 /** @type {{
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 
 /* Hashing disabled */

@@ -87,7 +87,7 @@ var StringLabels = [
   split_on_char
 ];
 
-exports = StringLabels;
+module.exports = StringLabels;
 
 /*::type Exports = {
   make: any,
@@ -163,7 +163,7 @@ exports = StringLabels;
   equal: any,
   split_on_char: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.make = module.exports[1];
 module.exports.init = module.exports[2];
 module.exports.copy = module.exports[3];

@@ -103,7 +103,7 @@ var BytesLabels = [
   unsafe_of_string
 ];
 
-exports = BytesLabels;
+module.exports = BytesLabels;
 
 /*::type Exports = {
   make: any,
@@ -195,7 +195,7 @@ exports = BytesLabels;
   unsafe_to_string: any,
   unsafe_of_string: any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.make = module.exports[1];
 module.exports.init = module.exports[2];
 module.exports.empty = module.exports[3];

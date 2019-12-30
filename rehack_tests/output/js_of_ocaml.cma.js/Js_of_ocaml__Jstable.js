@@ -109,7 +109,7 @@ function keys(t) {
 
 var Js_of_ocaml_Jstable = [0,create,add,remove,find,keys];
 
-exports = Js_of_ocaml_Jstable;
+module.exports = Js_of_ocaml_Jstable;
 
 /*::type Exports = {
   create: (param: any) => any,
@@ -125,7 +125,7 @@ exports = Js_of_ocaml_Jstable;
   find: (t: any, k: any) => any,
   keys: (t: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];
 module.exports.add = module.exports[2];
 module.exports.remove = module.exports[3];

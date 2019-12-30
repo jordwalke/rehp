@@ -162,7 +162,7 @@ var Queue = [
   transfer
 ];
 
-exports = Queue;
+module.exports = Queue;
 
 /*::type Exports = {
   Empty: any,
@@ -192,7 +192,7 @@ exports = Queue;
   fold: (f: any, accu: any, q: any) => any,
   transfer: (q1: any, q2: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Empty = module.exports[1];
 module.exports.create = module.exports[2];
 module.exports.add = module.exports[3];

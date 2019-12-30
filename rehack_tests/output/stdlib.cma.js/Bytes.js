@@ -674,7 +674,7 @@ var Bytes = [
   a_
 ];
 
-exports = Bytes;
+module.exports = Bytes;
 
 /*::type Exports = {
   make: (n: any, c: any) => any,
@@ -760,7 +760,7 @@ exports = Bytes;
   uncapitalize_ascii: (s: any) => any,
   compare: (x: any, y: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.make = module.exports[1];
 module.exports.init = module.exports[2];
 module.exports.empty = module.exports[3];

@@ -641,7 +641,7 @@ var Weak = [
   Make
 ];
 
-exports = Weak;
+module.exports = Weak;
 
 /*::type Exports = {
   length: (x: any) => any,
@@ -653,7 +653,7 @@ exports = Weak;
   fill: (ar: any, ofs: any, len: any, x: any) => any,
   Make: (H: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.length = module.exports[2];
 module.exports.fill = module.exports[7];
 module.exports.Make = module.exports[9];

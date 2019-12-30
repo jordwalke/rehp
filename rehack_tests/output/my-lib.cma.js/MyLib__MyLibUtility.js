@@ -20,7 +20,7 @@ function thisIsAUtilityFunction(param) {return call1(Random[5], 100);}
 
 var MyLib_MyLibUtility = [0,thisIsAUtilityFunction];
 
-exports = MyLib_MyLibUtility;
+module.exports = MyLib_MyLibUtility;
 
 /*::type Exports = {
   thisIsAUtilityFunction: (param: any) => any,
@@ -28,7 +28,7 @@ exports = MyLib_MyLibUtility;
 /** @type {{
   thisIsAUtilityFunction: (param: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.thisIsAUtilityFunction = module.exports[1];
 
 /*____hashes flags: 589793685 bytecode: 10023863734 debug-data: 2989761887 primitives: 1058613066*/

@@ -61,7 +61,7 @@ var Int32 = [
   equal
 ];
 
-exports = Int32;
+module.exports = Int32;
 
 /*::type Exports = {
   zero: any,
@@ -93,7 +93,7 @@ exports = Int32;
   compare: (x: any, y: any) => any,
   equal: (x: any, y: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.zero = module.exports[1];
 module.exports.one = module.exports[2];
 module.exports.minus_one = module.exports[3];

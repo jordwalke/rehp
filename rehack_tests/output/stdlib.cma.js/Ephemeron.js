@@ -1240,12 +1240,12 @@ var Ephemeron = [
   ]
 ];
 
-exports = Ephemeron;
+module.exports = Ephemeron;
 
 /*::type Exports = {
 }*/
 /** @type {{
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 
 /* Hashing disabled */

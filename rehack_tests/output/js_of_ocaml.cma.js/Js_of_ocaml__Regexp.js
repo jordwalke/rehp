@@ -238,7 +238,7 @@ var Js_of_ocaml_Regexp = [
   bounded_split
 ];
 
-exports = Js_of_ocaml_Regexp;
+module.exports = Js_of_ocaml_Regexp;
 
 /*::type Exports = {
   regexp: (s: any) => any,
@@ -272,7 +272,7 @@ exports = Js_of_ocaml_Regexp;
   split: (r: any, s: any) => any,
   bounded_split: (r: any, s: any, i: any) => any,
 }} */
-module.exports = ((exports /*:: : any*/) /*:: :Exports */);
+module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.regexp = module.exports[1];
 module.exports.regexp_case_fold = module.exports[2];
 module.exports.regexp_with_flag = module.exports[3];
