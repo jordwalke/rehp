@@ -269,14 +269,8 @@ abstract class RehackModuleBase {
     } else if ($count === 4) {
       return Rehack\caml_call4($f, $args[0], $args[1], $args[2], $args[3]);
     } else if ($count === 5) {
-      return Rehack\caml_call5(
-        $f,
-        $args[0],
-        $args[1],
-        $args[2],
-        $args[3],
-        $args[4],
-      );
+      return
+        Rehack\caml_call5($f, $args[0], $args[1], $args[2], $args[3], $args[4]);
     } else if ($count === 6) {
       return Rehack\caml_call6(
         $f,
@@ -317,27 +311,19 @@ abstract class RehackModuleBase {
     }
   }
 
-  /**
-   * Make blocking, non-async calls into Rehack code. If calling `syncCall`,
-   * and an IO is attempted, then a runtime exception will be raised because
-   * someone is calling into a synchronous entrypoint, and something is
-   * attempting to schedule a Awaitable.
-   * Because we always maintain a perceived queue count of zero outside of
-   * processing the queue, we can check if the queue count remains zero in
-   * order to detect syncCalls attempting to enqueue awaitables.
-   */
-  public static function syncCall(
-    string $field_name,
+  private static function syncCallFunctionWithArgs(
+    string $function_name_for_debug,
+    dynamic $f,
     dynamic ...$args
   ): dynamic {
     RehackAsyncInterop::assertQueueCount(0);
     // Synchronous calls should not ever add to the queue.
     $exports = self::getExports();
-    $f = $exports[$field_name];
+    $f = $exports[$function_name_for_debug];
     if (!PHP\is_callable($f)) {
       throw new \Exception(
         'Calling into generated Rehack code requesting to call function '.
-        $field_name.
+        $function_name_for_debug.
         ' but that field is not a function',
       );
     }
@@ -346,15 +332,53 @@ abstract class RehackModuleBase {
     return $ret;
   }
 
+
   /**
-   * Performs calls into Rehack code that may perform async operations.
+   * Make blocking, non-async calls into Rehack code. If calling `syncCall`,
+   * and an IO is attempted, then a runtime exception will be raised because
+   * someone is calling into a synchronous entrypoint, and something is
+   * attempting to schedule a Awaitable.
+   * Because we always maintain a perceived queue count of zero outside of
+   * processing the queue, we can check if the queue count remains zero in
+   * order to detect syncCalls attempting to enqueue awaitables.  In
+   * `syncCall`, the final argument is merely for debugging purposes.  In
+   * `syncCallName`, the first (string) argument is to resolve the name of the
+   * export from a dictionary (this API shouldn't be used any more now that we
+   * have `syncCall` with automatically named exports (no dictionary required).
    */
-  public static async function genCallFunctionWithArgs(
-    dynamic $f,
+  public static function syncCall(
+    string $debug_name,
+    int $index,
     dynamic ...$args
-  ): Awaitable<dynamic> {
+  ): dynamic {
+    // Synchronous calls should not ever add to the queue.
+    RehackAsyncInterop::assertQueueCount(0);
+    $module = static::get();
+    $f = $module[$index];
+    return self::syncCallFunctionWithArgs($debug_name, $f, ...$args);
+  }
+
+
+  public static function syncCallName(
+    string $field_name,
+    dynamic ...$args
+  ): dynamic {
+    // Synchronous calls should not ever add to the queue.
+    RehackAsyncInterop::assertQueueCount(0);
     $exports = self::getExports();
     $f = $exports[$field_name];
+    return self::syncCallFunctionWithArgs($field_name, $f, ...$args);
+  }
+
+  /**
+   * Performs calls into Rehack code that may perform async operations.
+   * @param $field_name is only used for debugging/logging purposes.
+   */
+  protected static async function genCallFunctionWithArgs(
+    dynamic $f,
+    varray<dynamic> $args,
+    dynamic $field_name,
+  ): Awaitable<dynamic> {
     if (!PHP\is_callable($f)) {
       throw new \Exception(
         'Calling into generated Rehack code requesting to call function '.
@@ -413,14 +437,28 @@ abstract class RehackModuleBase {
   }
 
   /**
-   * Performs calls into Rehack code that may perform async operations.
-   */
-  public static async function genCall(
+  * Performs calls into Rehack code that may perform async operations.
+  */
+  public static async function genCallName(
     string $field_name,
     dynamic ...$args
   ): Awaitable<dynamic> {
     $exports = self::getExports();
     $f = $exports[$field_name];
-    return self::genCallFunctionWithArgs($f, $args);
+    return await self::genCallFunctionWithArgs($f, $args, $field_name);
+  }
+
+  /**
+   * Performs calls into Rehack code that may perform async operations, and
+   * resolves the function by integer index.
+   */
+  public static async function genCall(
+    string $debug_name,
+    int $index,
+    dynamic ...$args
+  ): Awaitable<dynamic> {
+    $module = static::get();
+    $f = $module[$index];
+    return await self::genCallFunctionWithArgs($f, $args, $debug_name);
   }
 }

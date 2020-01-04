@@ -125,9 +125,15 @@ let static_methods =
     ~init=StringSet.empty,
     [
       "__construct",
-      /* requireModule will be the assumed base static method used to load a
-       * module */
-      "requireModule",
+      /* get will be the assumed base static method used to load a module */
+      "get",
+      "call",
+      "genCall",
+      "syncCall",
+      "getExports",
+      "callRehackFunction",
+      "genCallName",
+      "syncCallName",
     ],
   );
 
@@ -202,23 +208,21 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
           ++ "("
           ++ params
           ++ "): Awaitable<dynamic> {",
-          "    return static::genCallFunctionWithArgs(\""
-          ++ nm
-          ++ "\", static::requireModule()["
+          "    return static::genCall(__FUNCTION__, "
           ++ string_of_int(metadata.export_index)
-          ++ "], varray["
+          ++ ", "
           ++ args
-          ++ "]);",
+          ++ ");",
           "  }",
         ];
       } else {
         [
           "  public static function " ++ nm ++ "(" ++ params ++ "): dynamic {",
-          "    return static::callRehackFunction(static::requireModule()["
+          "    return static::syncCall(__FUNCTION__, "
           ++ string_of_int(metadata.export_index)
-          ++ "], varray["
+          ++ ", "
           ++ args
-          ++ "]);",
+          ++ ");",
           "  }",
         ];
       };
@@ -370,15 +374,27 @@ let custom_module_registration = () =>
   Some(
     (runtime_getter, module_expression, module_export_metadatas) => {
       let moduleExports =
-        Rehp.ECall(Rehp.ERaw(["return"], []), [module_expression], Loc.N);
+        Rehp.ECall(
+          Rehp.ERaw([Rehp.RawText("return")]),
+          [module_expression],
+          Loc.N,
+        );
       Some(moduleExports);
     },
   );
 let custom_module_loader = () =>
   Some(
     (runtime_getter, name) =>
-      Some(Rehp.ECall(Rehp.ERaw([name ++ "::requireModule"], []), [], Loc.N)),
+      Some(
+        Rehp.ECall(
+          Rehp.ERaw([Rehp.RawText(name ++ "::get")]),
+          [],
+          Loc.N,
+        ),
+      ),
   );
 
 let runtime_module_var = () =>
-  Rehp.ERaw(["(\\Rehack\\GlobalObject::get() as dynamic)->jsoo_runtime"], []);
+  Rehp.ERaw([
+    Rehp.RawText("(\\Rehack\\GlobalObject::get() as dynamic)->jsoo_runtime"),
+  ]);

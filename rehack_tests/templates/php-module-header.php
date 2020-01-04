@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class ____CompilationUnitName {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     /*____CompilationOutput*/
   }
 /*____CompilationSummary*/
