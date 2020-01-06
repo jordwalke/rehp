@@ -51,6 +51,12 @@ let argument_names_of info x =
 
 let specialize_instr addr info i rem =
   match i with
+  (* TODO: Enable this for caml_js_raw_expr *)
+  (* | Let (x, Prim (Extern "caml_js_raw_expr", y :: rest)) -> *)
+  (*     (match the_string_of info y with *)
+  (*     | Some s -> Let (x, Prim (Extern "caml_js_raw_expr", Pc (String s) :: rest)) *)
+  (*     | _ -> i) *)
+  (*     :: rem *)
   | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) ->
       (let the_metadata_of info x =
          match the_block_of info x with
@@ -339,6 +345,38 @@ let f_once debug_data_for_errors (pc, blocks, free_pc) =
     | [] -> []
     | i :: r -> (
       match i with
+      (* Arguably this should only be done in f_once (the round that only
+       * happens once) since the purpose of this is to expand arguments, and
+       * there will never be a case where some other compiler stage might
+       * create a new raw macro that should be expanded or re-expanded.
+       *)
+      | Let (x, Prim (Extern nm, args)) when Raw_macro.is nm ->
+          let loc =
+            match
+              ( Parse_bytecode.Debug.find_loc debug_data_for_errors addr
+              , Code.Var.get_loc x )
+            with
+            | Some pi, None | None, Some pi | Some _, Some pi -> Some pi
+            | _ -> None
+          in
+          let be = Backend.Current.compiler_backend_flag () in
+          let macro_data = Raw_macro.extract ~forBackend:be ?loc nm in
+          let node_list =
+            Raw_macro.evalContainers
+              (Raw_macro.parseNodeList macro_data)
+              (String.equal be)
+          in
+          let expandedArgs, mappedNodeList =
+            Raw_macro.expandIntoMultipleArguments macro_data args node_list
+          in
+          let expandedText = Raw_macro.printNodeList mappedNodeList in
+          (* Turn into special % primitive so that none of the inlining optimizations apply *)
+          Let
+            ( x
+            , Prim
+                ( Extern "%caml_js_expanded_raw_macro"
+                , Pc (String expandedText) :: expandedArgs ) )
+          :: loop addr r
       | Let
           ( x
           , ( (Prim (Extern "caml_js_delete", [_; _]) as p)
