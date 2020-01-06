@@ -67,11 +67,11 @@ let specialize_js = ((p, info)) => {
   Specialize_js.f(info, p);
 };
 
-let specialize_js_once = p => {
+let specialize_js_once = (debug_data, p) => {
   if (debug()) {
     Format.eprintf("Specialize js once...@.");
   };
-  Specialize_js.f_once(p);
+  Specialize_js.f_once(debug_data, p);
 };
 
 let specialize' = ((p, info)) => {
@@ -636,7 +636,7 @@ let f =
       : augmentWithLinkInfoSeparate;
 
   configure(formatter)
-  >> specialize_js_once
+  >> specialize_js_once(d)
   >> profile
   >> print
   >> Generate_closure.f

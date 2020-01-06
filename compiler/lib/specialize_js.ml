@@ -49,7 +49,7 @@ let argument_names_of info x =
   | Some (Closure (params, _)) -> List.map ~f:(fun v -> readable_name v) params
   | None | Some _ -> []
 
-let specialize_instr info i rem =
+let specialize_instr addr info i rem =
   match i with
   | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) ->
       (let the_metadata_of info x =
@@ -270,7 +270,7 @@ let specialize_instr info i rem =
       :: rem
   | _ -> i :: rem
 
-let rec specialize_instrs info checks l =
+let rec specialize_instrs addr info checks l =
   match l with
   | [] -> []
   | i :: r -> (
@@ -290,12 +290,12 @@ let rec specialize_instrs info checks l =
         if List.mem (y, idx) ~set:checks
         then
           Let (x, Prim (Extern "caml_array_unsafe_get", [y; z]))
-          :: specialize_instrs info checks r
+          :: specialize_instrs addr info checks r
         else
           let y' = Code.Var.fresh () in
           Let (y', Prim (Extern "caml_check_bound", [y; z]))
           :: Let (x, Prim (Extern "caml_array_unsafe_get", [Pv y'; z]))
-          :: specialize_instrs info ((y, idx) :: checks) r
+          :: specialize_instrs addr info ((y, idx) :: checks) r
     | Let (x, Prim (Extern "caml_array_set", [y; z; t]))
      |Let (x, Prim (Extern "caml_array_set_float", [y; z; t]))
      |Let (x, Prim (Extern "caml_array_set_addr", [y; z; t])) ->
@@ -307,28 +307,34 @@ let rec specialize_instrs info checks l =
         if List.mem (y, idx) ~set:checks
         then
           Let (x, Prim (Extern "caml_array_unsafe_set", [y; z; t]))
-          :: specialize_instrs info checks r
+          :: specialize_instrs addr info checks r
         else
           let y' = Code.Var.fresh () in
           Let (y', Prim (Extern "caml_check_bound", [y; z]))
           :: Let (x, Prim (Extern "caml_array_unsafe_set", [Pv y'; z; t]))
-          :: specialize_instrs info ((y, idx) :: checks) r
-    | _ -> specialize_instr info i (specialize_instrs info checks r))
+          :: specialize_instrs addr info ((y, idx) :: checks) r
+    | _ -> specialize_instr addr info i (specialize_instrs addr info checks r))
 
 let specialize_all_instrs info (pc, blocks, free_pc) =
   let blocks =
-    Addr.Map.map
-      (fun block -> {block with Code.body = specialize_instrs info [] block.body})
+    Addr.Map.mapi
+      (fun addr block ->
+        {block with Code.body = specialize_instrs addr info [] block.body})
       blocks
   in
   pc, blocks, free_pc
 
 (****)
 
+(* Used purely to extract useful locations for error messages *)
+(* let source_location_for_error debug ?after pc = *)
+(*   match Parse_bytecode.Debug.find_loc debug ?after pc with *)
+
 let f info p = specialize_all_instrs info p
 
-let f_once (pc, blocks, free_pc) =
-  let rec loop l =
+(* This is called from the driver before any Flow information is computed. *)
+let f_once debug_data_for_errors (pc, blocks, free_pc) =
+  let rec loop addr l =
     match l with
     | [] -> []
     | i :: r -> (
@@ -344,10 +350,12 @@ let f_once (pc, blocks, free_pc) =
                      | "caml_js_set" )
                  , [_; _; _] ) as p) ) ) ->
           let x' = Code.Var.fork x in
-          Let (x, Constant (Int 0l)) :: Let (x', p) :: loop r
-      | _ -> i :: loop r)
+          Let (x, Constant (Int 0l)) :: Let (x', p) :: loop addr r
+      | _ -> i :: loop addr r)
   in
   let blocks =
-    Addr.Map.map (fun block -> {block with Code.body = loop block.body}) blocks
+    Addr.Map.mapi
+      (fun addr block -> {block with Code.body = loop addr block.body})
+      blocks
   in
   pc, blocks, free_pc
