@@ -1,5 +1,7 @@
 (library
   (name Calls)
-  (public_name js_of_ocaml.calls)
+  ; Separate package so that we can build bytecode
+  ; exclusive which allows many arity externs.
+  (public_name js_of_ocaml-tests.calls)
 )
 
