@@ -113,7 +113,7 @@ let raiseMacroUnsupportedTag = (tagName, macroData) => {
   let msg =
     Printf.sprintf(
       {|%s
-  The macro was defined using unsupported tag (%s).
+  The macro being called was defined using unsupported tag (%s).
   The only supported macros are ones that specify portions to be used in backends such
   as <@js>...</@js> or argument substitution <@1 />. You can also supply multiple
   backends in one macro such as: external x : type = "raw-macro:<@js>...</@js><@php>...<@/php>)
@@ -131,7 +131,7 @@ let raiseMalformedMacro = (specificError, macroData) => {
   let msg =
     Printf.sprintf(
       {|%s
-  The macro itself has a parse error: %s.
+  The macro being called has a parse error: %s.
   The macro contents are:
 %s
 |},
@@ -146,7 +146,7 @@ let raiseMacroCallIndexNotSupported = (i, len, macroData) => {
   let msg =
     Printf.sprintf(
       {|%s
-  The macro uses index %d, but it should not.
+  The macro being called uses index %d, but it should not.
   It can only use indices 1 - %d. Hint: The number of arguments in the `external`'s
   type has to be compatible with the macro nodes referenced (<@1> - <@%d/>).
   The macro contents are:
