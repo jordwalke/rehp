@@ -153,7 +153,7 @@ module ReexportedMacros = {
 
 external callExternWithCommentSuppression: ('a, 'b) => 'any = {|
   raw-macro:
-  <@jl>
+  <@js>
 
   // FLOW_FIXME blah blah
   console.log(<@1/>, <@2/>)
