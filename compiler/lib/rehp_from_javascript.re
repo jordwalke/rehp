@@ -82,8 +82,17 @@ and from_js_expression_loc = ((e, loc)) => (from_js_expression(e), loc)
 and from_js_expression =
   fun
   /* This won't actually ever happen. */
-  | Javascript.ERaw(s, substs) =>
-    ERaw(s, List.map(from_js_expression, substs))
+  | Javascript.ERaw(segs) =>
+    ERaw(
+      List.map(
+        seg =>
+          switch (seg) {
+          | Javascript.RawText(s) => RawText(s)
+          | RawSubstitution(sub) => RawSubstitution(from_js_expression(sub))
+          },
+        segs,
+      ),
+    )
   | Javascript.ESeq(e1, e2) =>
     ESeq(from_js_expression(e1), from_js_expression(e2))
   | Javascript.ECond(e1, e2, e3) =>

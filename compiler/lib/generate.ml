@@ -1070,7 +1070,7 @@ let _ =
     )
   );
   
-  (* The version that has not been optimized by eval.ml *)
+  (* The version that has been optimized by inline_js.ml *)
   register_module_loader "%caml_register_global_module" (fun ctx cx cy cz md loc ->
     let runtime_var_getter () =
       Share.get_prim (runtime_fun ctx) "caml_register_global" ctx.Ctx.share in
@@ -1323,8 +1323,11 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
             let (py, cy), queue = access_queue' ~ctx queue y in
             J.EArrAccess (cx, plus_int cy one), or_p mutable_p (or_p px py), queue
         | Extern "caml_js_var", [Pc (String nm | IString nm)] ->
-            ERaw ([nm], []) , const_p, queue
-        | Extern "caml_js_raw_expr", Pc (String m | IString m) :: l ->
+            ERaw [Rehp.RawText nm] , const_p, queue
+        (* The fact that caml_js_raw_expr has "registered arity" is likely
+         * going to be a problem here *)
+        | Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: l
+        | Extern "caml_js_raw_expr", Pc (String m | IString m) :: ([] as l)->
             let args, prop, queue =
               List.fold_right
                 ~f:(fun x (args, prop, queue) ->
@@ -1333,11 +1336,25 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
                 l
                 ~init:([], mutator_p, queue)
             in
-            J.ERaw ([m], args), prop, queue
+            let be = Backend.Current.compiler_backend_flag() in
+            let macro_data = Raw_macro.extract ~forBackend:be ("raw-macro:" ^ m) in
+            let node_list = Raw_macro.parseNodeList macro_data in
+            let arg_len = List.length args in
+            let cb = (function
+              | Raw_macro.Raw r -> Rehp.RawText r
+              | Raw_macro.Node (s, _) -> (match int_of_string_opt s with
+                | Some i ->
+                    if (i - 1) < arg_len then RawSubstitution (List.nth args (i - 1))
+                    else (
+                      Raw_macro.raiseMacroCallIndexNotSupported i arg_len macro_data
+                    )
+                | None -> Raw_macro.raiseMacroUnsupportedTag s macro_data))
+            in
+            Rehp.ERaw (Raw_macro.flattenNodeList cb node_list), prop, queue
         | Extern ("caml_js_expr" | "caml_pure_js_expr"), [Pc (String nm | IString nm)]
           -> (
           try
-            let e = Rehp.ERaw ([nm], []) in
+            let e = Rehp.ERaw ([Rehp.RawText(nm)]) in
             e, const_p, queue
           with Parse_js.Parsing_error pi ->
             failwith

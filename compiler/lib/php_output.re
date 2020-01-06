@@ -583,7 +583,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
      * Major hack. We use ERaw to inject a return in a place that only expects
      * an expression. (In php backend module exporting code).
      */
-    | ECall(ERaw(["return"], []), _, _) => false
+    | ECall(ERaw([RawText("return")]), _, _) => false
     | ECond(e, _, _) => l <= 2 && need_paren(3, e)
     /*
      * Instanceof is just a function call now.
@@ -668,11 +668,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
 
   let rec expression = (l, f, e) =>
     switch (e) {
-    | ERaw(segments, substs) =>
-      /* Non breaking space because what if this is on the rhs of a return? */
-      PP.non_breaking_space(f);
-      List.iter(PP.string(f), segments);
-      PP.non_breaking_space(f);
+    | ERaw(segments) =>
+      Stdlib.List.iter(segments, ~f=itm =>
+        switch (itm) {
+        | RawText(s) => PP.string(f, s)
+        /* TODO: Get the right precedence ranking here */
+        | RawSubstitution(e) => expression(1, f, e)
+        }
+      )
     | ENULL => PP.string(f, "null")
     | EVar(v) => ident(f, v)
     /* JS:  (e1, e2)
@@ -1436,6 +1439,22 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       | None =>
         PP.string(f, "return");
         last_semi();
+      /* PHP doesn't have "automatic semicolon insertion", but still, it looks
+       * much better with parens guarding returned expressions which might
+       * start with a newline. */
+      | Some(ERaw(segs)) =>
+        PP.start_group(f, 0);
+        PP.string(f, "return");
+        PP.non_breaking_space(f);
+        PP.string(f, "(");
+        PP.start_group(f, 2);
+        PP.break(f);
+        expression(1, f, ERaw(segs));
+        PP.end_group(f);
+        PP.break(f);
+        PP.string(f, ")");
+        last_semi();
+        PP.end_group(f);
       | Some(e) =>
         PP.start_group(f, 0);
         PP.string(f, "return");

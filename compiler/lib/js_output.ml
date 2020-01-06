@@ -323,11 +323,13 @@ module Make(D : sig
 
   let rec expression l f e =
     match e with
-      ERaw (segments, substs) ->
-      (* Non breaking space because what if this is on the rhs of a return? *)
-      PP.non_breaking_space f;
-      List.iter ~f:(fun s -> PP.string f s) segments;
-      PP.non_breaking_space f;
+    | ERaw segments  ->
+      List.iter segments  ~f:(fun itm ->
+        match itm with
+        | RawText (s) -> PP.string f s
+        (* TODO: Get the right precedence ranking here *)
+        | RawSubstitution e  -> expression 1 f e
+      )
     | EVar v ->
       ident f v
     | ESeq (e1, e2) ->
@@ -365,7 +367,7 @@ module Make(D : sig
       output_debug_info f loc;
       PP.start_group f 0;
       expression 15 f e;
-      if el == [] then 
+      if el == [] then
         PP.string f "()"
       else (
         PP.string f "(";
@@ -925,6 +927,21 @@ module Make(D : sig
           PP.string f "}";
           last_semi();
           PP.end_group f
+        (* Because raw macros can have newlines in them, we should always make
+         * sure a return has a guarding paren immediately after it *)
+        | Some (ERaw segs) ->
+          PP.start_group f 0;
+          PP.string f "return";
+          PP.non_breaking_space f;
+          PP.string f "(";
+          PP.start_group f 2;
+          PP.break f;
+          expression 1 f (ERaw segs);
+          PP.end_group f;
+          PP.break f;
+          PP.string f ")";
+          last_semi();
+          PP.end_group f
         | Some e ->
           PP.start_group f 0;
           PP.string f "return";
@@ -1092,7 +1109,7 @@ module Make(D : sig
     | [s]    -> source_element f ?skip_last_semi s
     | s :: r -> begin
       source_element f s;
-      (match spaced, s, r with 
+      (match spaced, s, r with
       (* Break after every source element except when it's between 2 vars *)
       | (false, _, _)
       | (

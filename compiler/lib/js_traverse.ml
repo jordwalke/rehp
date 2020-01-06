@@ -121,7 +121,12 @@ class map : mapper =
 
     method expression x =
       match x with
-      | ERaw (s, exprs) -> ERaw (s, List.map exprs ~f:m#expression)
+      | ERaw (segments) ->
+          let raw_mapper = (function
+          | RawText s -> RawText s
+          | RawSubstitution e -> RawSubstitution (m#expression e))
+          in
+          ERaw (List.map segments ~f:raw_mapper)
       | ESeq (e1, e2) -> ESeq (m#expression e1, m#expression e2)
       | ECond (e1, e2, e3) -> ECond (m#expression e1, m#expression e2, m#expression e3)
       | EBin (b, e1, e2) -> EBin (b, m#expression e1, m#expression e2)

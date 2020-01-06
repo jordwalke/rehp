@@ -114,8 +114,11 @@ and property_name = Id.property_name =
   | PNS of string
   | PNN of float
 
+and raw_segment =
+  | RawText of string
+  | RawSubstitution of expression
 and expression =
-  | ERaw of string list  * expression list
+  | ERaw of raw_segment list
   | ESeq of expression * expression
   | ECond of expression * expression * expression
   | EBin of binop * expression * expression

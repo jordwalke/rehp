@@ -72,8 +72,11 @@ and unop =
   | DecrB
 and arguments = list(expression)
 and property_name_and_value_list = list((Id.property_name, expression))
+and raw_segment =
+  | RawText(string)
+  | RawSubstitution(expression)
 and expression =
-  | ERaw(list(string), list(expression))
+  | ERaw(list(raw_segment))
   | ESeq(expression, expression)
   | ECond(expression, expression, expression)
   | EBin(binop, expression, expression)

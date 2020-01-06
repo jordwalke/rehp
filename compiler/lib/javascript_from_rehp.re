@@ -80,8 +80,16 @@ and from_binop =
 and from_expression_loc = ((e, loc)) => (from_expression(e), loc)
 and from_expression = e =>
   switch (e) {
-  | Rehp.ERaw(s, substs) =>
-    Javascript.ERaw(s, List.map(~f=from_expression, substs))
+  | Rehp.ERaw(segments) =>
+    let revMapped =
+      List.map(segments, ~f=segment =>
+        switch (segment) {
+        | Rehp.RawText(s) => Javascript.RawText(s)
+        | Rehp.RawSubstitution(e) =>
+          Javascript.RawSubstitution(from_expression(e))
+        }
+      );
+    Javascript.ERaw(List.rev(revMapped));
   | Rehp.ESeq(e1, e2) =>
     Javascript.ESeq(from_expression(e1), from_expression(e2))
   | ETag(index, itms) =>

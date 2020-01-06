@@ -9,16 +9,9 @@ module Expand = {
    * There is one instance of a hardcoded JS expression value in the jsoo
    * library, which needs to be special cased when converting to PHP.
    */
-  let raw = (segments, substs) =>
-    Php.ERaw(
-      List.map(
-        s =>
-          String.compare(s, "(function (exn) { throw exn })") === 0
-            ? "(function($exn) {throw $exn;})" : s,
-        segments,
-      ),
-      substs,
-    );
+  let rawText = s =>
+    String.compare(s, "(function (exn) { throw exn })") === 0
+      ? "(function($exn) {throw $exn;})" : s;
 };
 
 let indent = {contents: 0};
@@ -543,10 +536,24 @@ let rec expression = (input: input, x) =>
     let (e2Out, e2Mapped) = expression(input, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Expand.seq(e1Mapped, e2Mapped));
-  | Rehp.ERaw(segments, substs) =>
-    let (substsOut, substsMappeds) =
-      List.split(List.map(~f=expression(input), substs));
-    (joinAll(substsOut), Expand.raw(segments, substsMappeds));
+  | Rehp.ERaw(segments) =>
+    let (out, mapped) =
+      List.fold_left(
+        segments, ~init=(emptyOutput, []), ~f=((curOut, curMapped), segment) =>
+        switch (segment) {
+        | Rehp.RawText(s) => (
+            curOut,
+            [Php.RawText(Expand.rawText(s)), ...curMapped],
+          )
+        | Rehp.RawSubstitution(e) =>
+          let (nextOut, nextMapped) = expression(input, e);
+          (
+            outAppend(nextOut, curOut),
+            [Php.RawSubstitution(nextMapped), ...curMapped],
+          );
+        }
+      );
+    (out, Php.ERaw(mapped));
   | Rehp.ECond(e1, e2, e3) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);
