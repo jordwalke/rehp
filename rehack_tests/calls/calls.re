@@ -69,3 +69,103 @@ let testPartialMethodCalls = (o: t('anything)) => {
   let sendResult3 = send3(o, "myPartiallyAppliedMethod", bar, foo);
   (sendResult1, sendResult2, sendResult3);
 };
+
+external sideEffect: unit => unit = "side_effect";
+
+external make1Array: 'a => 'any = {|
+  raw-macro:
+  <@js>
+  new Array(<@1/>)
+  <@/js>
+  <@php>varray[<@1/>]<@/php>
+|};
+
+external make1ArrayDouble: 'a => 'any = {|
+  raw-macro:
+  <@js>
+  new Array(<@1/>, <@1/>)
+  <@/js>
+  <@php>varray[<@1/>, <@1/>]<@/php>
+|};
+
+external make2Array: ('a, 'b) => 'any = {|
+  raw-macro:
+  <@js>
+  new Array(<@1/>, <@2/>)
+  <@/js>
+  <@php>varray[<@1/>, <@2/>]<@/php>
+|};
+
+
+
+/**
+ * The closures around the wrappers won't get eliminated by inline.ml because
+ * the macro doesn't have a *registered* arity, even though it has a detectable
+ * arity due to the extern definition. This is actually what we want. For macros,
+ * it is not safe to do that.
+ */
+let resultMake1Array = make1Array("one");
+/* Because the macro doesn't expand more than one reference to the argument,
+ * this side effectful operation can be inlined into the call site. */
+let resultMake1ArraySideEffect = make1Array(sideEffect());
+let wrapMake1Array = x => make1Array(x);
+let reexportCallMake1Array = make1Array;
+let partiallyCallMake1Array = make1Array;
+[@warning "-20"]
+let overCallMake1Array = make1Array((), ());
+let closeOverMake1Array = () => {
+  let tmp = make1Array(999);
+  [tmp, 100];
+};
+
+let r = {contents: 0};
+
+let resultMake1ArrayDouble = make1ArrayDouble("one-double");
+/* This argument should not be inlined into the callsite because the argument
+ * is referenced multiple times in the macro. */
+let resultMake1ArrayDoubleSideEffect = make1ArrayDouble(sideEffect());
+let wrapMake1ArrayDouble = x => make1ArrayDouble(x);
+let reexportCallMake1ArrayDouble = make1ArrayDouble;
+let partiallyCallMake1ArrayDouble = make1ArrayDouble;
+[@warning "-20"]
+let overCallMake1ArrayDouble = make1ArrayDouble((), ());
+let closeOverMake1ArrayDouble = () => {
+  let tmp = make1ArrayDouble(999);
+  [tmp, 100];
+};
+
+let resultMake2ArraySideEffect = make2Array(sideEffect(), sideEffect());
+let resultMake2Array = make2Array("two", "two");
+let wrapMake2Array = (x, y) => make2Array(x, y);
+/* Need a type annotation here to avoid generalization error */
+let reexportCallMake2Array = make2Array;
+let partiallyCallMake2Array: int => 'any = make2Array("hi");
+
+[@warning "-20"]
+let overCallMake2Array = make2Array((), (), ());
+let closeOverMake2Array = () => make2Array("hi", "bye");
+
+module ReexportedMacros = {
+  let make1Array = make1Array;
+  let make2Array = make2Array;
+};
+
+
+external callExternWithCommentSuppression: ('a, 'b) => 'any = {|
+  raw-macro:
+  <@jl>
+
+  // FLOW_FIXME blah blah
+  console.log(<@1/>, <@2/>)
+  <@/js>
+  <@php>
+
+  // HH_IGNORE blah blah
+  SomeUtilityClass::foo(<@1/>, <@2/>)
+  <@/php>
+|};
+
+
+let callsAFunctionWithSuppression = () => {
+  callExternWithCommentSuppression("fix", "me");
+};
