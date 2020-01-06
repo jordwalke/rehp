@@ -104,6 +104,37 @@ module List = struct
   let is_empty = function
     | [] -> true
     | _ -> false
+
+  (* Init functions Copied from stdlib, for greater compiler version compat *)
+  let rec init_tailrec_aux acc i n f =
+    if i >= n then acc
+    else init_tailrec_aux (f i :: acc) (i+1) n f
+
+  let rec init_aux i n f =
+    if i >= n then []
+    else
+      let r = f i in
+      r :: init_aux (i+1) n f
+
+  let init len f =
+    if len < 0 then invalid_arg "List.init" else
+    if len > 10_000 then rev (init_tailrec_aux [] 0 len f)
+    else init_aux 0 len f
+    let rec init_tailrec_aux acc i n f =
+      if i >= n then acc
+      else init_tailrec_aux (f i :: acc) (i+1) n f
+
+  let rec init_aux i n f =
+    if i >= n then []
+    else
+      let r = f i in
+      r :: init_aux (i+1) n f
+
+  let init len f =
+    if len < 0 then invalid_arg "List.init" else
+    if len > 10_000 then rev (init_tailrec_aux [] 0 len f)
+    else init_aux 0 len f
+
 end
 
 module Option = struct
@@ -207,6 +238,12 @@ module String = struct
   let equal (a : string) (b : string) = a = b [@@ocaml.warning "-32"]
 
   include StringLabels
+
+
+  let rec list_car ch = match ch with
+    | "" -> []
+    | ch -> (String.get ch 0 ) :: (list_car (String.sub ch 1 ( (String.length ch)-1) ) )  ;;
+
 
   let equal (a : string) (b : string) = Poly.(a = b)
 
@@ -380,6 +417,11 @@ module String = struct
       str else
     sub str ~pos:num_leading ~len:(len - num_leading)
 
+  let to_char_list s = List.init (String.length s) (String.get s)
+
+  let from_char_list (lst: char list) =
+    let arr = Array.of_list lst in
+    String.init (Array.length arr) (Array.get arr)
 end
 
 module Int = struct
