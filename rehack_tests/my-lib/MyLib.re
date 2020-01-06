@@ -87,6 +87,16 @@ let genThisShouldBeAsyncTransformed = (input, cb) => {
  */
 let thisWontAppearInSummary = genThisShouldBeAsyncTransformed;
 
-let requireModule = () => "this should be exported with leading '_'";
-let _requireModule = () => "this should be exported with two leading '_'";
-let __construct = () => "this should be exported with three leading '_'";
+let get = () => "this should be exported with (php)leading '_'";
+let call = () => "this should be exported with (php)leading '_'";
+let genCall = () => "this should be exported with (php)leading '_'";
+let syncCall = () => "this should be exported with (php)leading '_'";
+let getExports = () => "this should be exported with (php)leading '_'";
+let callRehackFunction = () => "this should be exported with (php)leading '_'";
+let genCallFunctionWithArgs = () => "this should be exported with (php)leading '_'";
+let genCallName = () => "this should be exported with (php)leading '_'";
+let syncCallName = () => "this should be exported with (php)leading '_'";
+let syncCallFunctionWithArgs = () => "this should be exported with (php)leading '_'";
+let get = () => "this should be exported with (php)leading '_'";
+let _get = () => "this should be exported with two (php)leading '_'";
+let _construct = () => "this should be exported with three (php)leading '_'";
