@@ -152,7 +152,7 @@ function attr(e) {return cast(e, 2);}
 
 var no_handler = Js_of_ocaml_Js[1];
 
-function window_event(param) {return  event ;}
+function window_event(param) {return (event);}
 
 function handler(f) {
   function L_(e) {

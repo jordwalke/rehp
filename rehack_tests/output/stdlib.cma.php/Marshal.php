@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Marshal {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_marshal_data_size = $runtime["caml_marshal_data_size"];
     $caml_ml_bytes_length = $runtime["caml_ml_bytes_length"];
@@ -22,8 +22,8 @@ final class Marshal {
     $cst_Marshal_to_buffer_substring_out_of_bounds = $string(
       "Marshal.to_buffer: substring out of bounds"
     );
-    $Bytes =  Bytes::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
+    $Bytes = Bytes::get();
+    $Pervasives = Pervasives::get();
     $to_buffer = 
     (dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags) ==> {
       if (0 <= $ofs) {
@@ -78,23 +78,23 @@ final class Marshal {
       $total_size
     } as dynamic;
     
-     return ($Marshal);
+    return($Marshal);
 
   }
   public static function to_buffer(dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$buff, $ofs, $len, $v, $flags]);
+    return static::syncCall(__FUNCTION__, 2, $buff, $ofs, $len, $v, $flags);
   }
   public static function from_bytes(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$buff, $ofs]);
+    return static::syncCall(__FUNCTION__, 4, $buff, $ofs);
   }
   public static function from_string(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$buff, $ofs]);
+    return static::syncCall(__FUNCTION__, 5, $buff, $ofs);
   }
   public static function data_size(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$buff, $ofs]);
+    return static::syncCall(__FUNCTION__, 7, $buff, $ofs);
   }
   public static function total_size(dynamic $buff, dynamic $ofs): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$buff, $ofs]);
+    return static::syncCall(__FUNCTION__, 8, $buff, $ofs);
   }
 
 }

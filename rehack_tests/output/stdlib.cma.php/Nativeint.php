@@ -9,16 +9,16 @@ namespace Rehack;
 
 final class Nativeint {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
     $left_shift_32 = $runtime["left_shift_32"];
     $cst_d = $runtime["caml_new_string"]("%d");
-    $Failure =  Failure::requireModule ();
-    $Sys =  Sys::requireModule ();
+    $Failure = Failure::get();
+    $Sys = Sys::get();
     $zero = 0 as dynamic;
     $one = 1 as dynamic;
     $minus_one = -1 as dynamic;
@@ -69,32 +69,32 @@ final class Nativeint {
       $equal
     } as dynamic;
     
-     return ($Nativeint);
+    return($Nativeint);
 
   }
   public static function succ(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$n]);
+    return static::syncCall(__FUNCTION__, 4, $n);
   }
   public static function pred(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$n]);
+    return static::syncCall(__FUNCTION__, 5, $n);
   }
   public static function abs(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$n]);
+    return static::syncCall(__FUNCTION__, 6, $n);
   }
   public static function lognot(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$n]);
+    return static::syncCall(__FUNCTION__, 10, $n);
   }
   public static function of_string_opt(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$s]);
+    return static::syncCall(__FUNCTION__, 11, $s);
   }
   public static function to_string(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$n]);
+    return static::syncCall(__FUNCTION__, 12, $n);
   }
   public static function compare(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$x, $y]);
+    return static::syncCall(__FUNCTION__, 13, $x, $y);
   }
   public static function equal(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$x, $y]);
+    return static::syncCall(__FUNCTION__, 14, $x, $y);
   }
 
 }

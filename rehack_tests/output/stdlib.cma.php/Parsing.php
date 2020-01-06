@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Parsing {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call4 = $runtime["caml_call4"];
     $call5 = $runtime["caml_call5"];
@@ -26,9 +26,9 @@ final class Parsing {
     $cst_syntax_error = $string("syntax error");
     $cst_Parsing_YYexit = $string("Parsing.YYexit");
     $cst_Parsing_Parse_error = $string("Parsing.Parse_error");
-    $Obj =  Obj::requireModule ();
-    $Array =  Array_::requireModule ();
-    $Lexing =  Lexing::requireModule ();
+    $Obj = Obj::get();
+    $Array = Array_::get();
+    $Lexing = Lexing::get();
     $YYexit = Vector{248, $cst_Parsing_YYexit, $caml_fresh_oo_id(0)} as dynamic;
     $Parse_error = Vector{248, $cst_Parsing_Parse_error, $caml_fresh_oo_id(0)} as dynamic;
     $env = Vector{
@@ -245,44 +245,44 @@ final class Parsing {
       $parse_error
     } as dynamic;
     
-     return ($Parsing);
+    return($Parsing);
 
   }
   public static function symbol_start(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
+    return static::syncCall(__FUNCTION__, 1, $param);
   }
   public static function symbol_end(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$param]);
+    return static::syncCall(__FUNCTION__, 2, $param);
   }
   public static function rhs_start(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$n]);
+    return static::syncCall(__FUNCTION__, 3, $n);
   }
   public static function rhs_end(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$n]);
+    return static::syncCall(__FUNCTION__, 4, $n);
   }
   public static function symbol_start_pos(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$param]);
+    return static::syncCall(__FUNCTION__, 5, $param);
   }
   public static function symbol_end_pos(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$param]);
+    return static::syncCall(__FUNCTION__, 6, $param);
   }
   public static function rhs_start_pos(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$n]);
+    return static::syncCall(__FUNCTION__, 7, $n);
   }
   public static function rhs_end_pos(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$n]);
+    return static::syncCall(__FUNCTION__, 8, $n);
   }
   public static function clear_parser(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$param]);
+    return static::syncCall(__FUNCTION__, 9, $param);
   }
   public static function yyparse(dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$tables, $start, $lexer, $lexbuf]);
+    return static::syncCall(__FUNCTION__, 13, $tables, $start, $lexer, $lexbuf);
   }
   public static function peek_val(dynamic $env, dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$env, $n]);
+    return static::syncCall(__FUNCTION__, 14, $env, $n);
   }
   public static function is_current_lookahead(dynamic $tok): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$tok]);
+    return static::syncCall(__FUNCTION__, 15, $tok);
   }
 
 }

@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__CSS {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -410,13 +410,13 @@ final class Js_of_ocaml__CSS {
     $cst_whitesmoke = $string("whitesmoke");
     $cst_yellow = $string("yellow");
     $cst_yellowgreen = $string("yellowgreen");
-    $Pervasives =  Pervasives::requireModule ();
-    $Invalid_argument =  Invalid_argument::requireModule ();
-    $Js_of_ocaml_Regexp =  Js_of_ocaml__Regexp::requireModule ();
-    $Printf =  Printf::requireModule ();
-    $Failure =  Failure::requireModule ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $List =  List_::requireModule ();
+    $Pervasives = Pervasives::get();
+    $Invalid_argument = Invalid_argument::get();
+    $Js_of_ocaml_Regexp = Js_of_ocaml__Regexp::get();
+    $Printf = Printf::get();
+    $Failure = Failure::get();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $List = List_::get();
     $b2_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
     $b3_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
     $b4_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
@@ -2695,7 +2695,7 @@ final class Js_of_ocaml__CSS {
       $Angle
     } as dynamic;
     
-     return ($Js_of_ocaml_CSS);
+    return($Js_of_ocaml_CSS);
 
   }
 

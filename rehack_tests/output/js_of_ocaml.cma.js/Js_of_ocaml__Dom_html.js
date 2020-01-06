@@ -2446,7 +2446,7 @@ function clearTimeout(id) {
   return 0;
 }
 
-function js_array_of_collection(c) {return  [].slice .call(c);}
+function js_array_of_collection(c) {return [].slice.call(c);}
 
 var Js_of_ocaml_Dom_html = [
   0,

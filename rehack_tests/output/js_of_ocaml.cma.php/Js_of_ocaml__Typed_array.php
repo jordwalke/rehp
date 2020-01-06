@@ -9,13 +9,13 @@ namespace Rehack;
 
 final class Js_of_ocaml__Typed_array {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 135830874, 52), $x);
     };
@@ -147,17 +147,17 @@ final class Js_of_ocaml__Typed_array {
       $String
     } as dynamic;
     
-     return ($Js_of_ocaml_Typed_array);
+    return($Js_of_ocaml_Typed_array);
 
   }
   public static function set(dynamic $a, dynamic $i, dynamic $v): dynamic {
-    return static::callRehackFunction(static::requireModule()[42], varray[$a, $i, $v]);
+    return static::syncCall(__FUNCTION__, 42, $a, $i, $v);
   }
-  public static function get(dynamic $a, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[43], varray[$a, $i]);
+  public static function _get(dynamic $a, dynamic $i): dynamic {
+    return static::syncCall(__FUNCTION__, 43, $a, $i);
   }
   public static function unsafe_get(dynamic $a, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[44], varray[$a, $i]);
+    return static::syncCall(__FUNCTION__, 44, $a, $i);
   }
 
 }

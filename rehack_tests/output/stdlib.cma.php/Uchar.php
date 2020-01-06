@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Uchar {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_format_int = $runtime["caml_format_int"];
@@ -25,7 +25,7 @@ final class Uchar {
     $cst_X = $string("%X");
     $err_no_pred = $string("U+0000 has no predecessor");
     $err_no_succ = $string("U+10FFFF has no successor");
-    $Pervasives =  Pervasives::requireModule ();
+    $Pervasives = Pervasives::get();
     $err_not_sv = (dynamic $i) ==> {
       return $call2(
         $Pervasives[16],
@@ -113,41 +113,41 @@ final class Uchar {
       $hash
     } as dynamic;
     
-     return ($Uchar);
+    return($Uchar);
 
   }
   public static function succ(dynamic $u): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$u]);
+    return static::syncCall(__FUNCTION__, 5, $u);
   }
   public static function pred(dynamic $u): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$u]);
+    return static::syncCall(__FUNCTION__, 6, $u);
   }
   public static function is_valid(dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$i]);
+    return static::syncCall(__FUNCTION__, 7, $i);
   }
   public static function of_int(dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$i]);
+    return static::syncCall(__FUNCTION__, 8, $i);
   }
   public static function is_char(dynamic $u): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$u]);
+    return static::syncCall(__FUNCTION__, 11, $u);
   }
   public static function of_char(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$c]);
+    return static::syncCall(__FUNCTION__, 12, $c);
   }
   public static function to_char(dynamic $u): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$u]);
+    return static::syncCall(__FUNCTION__, 13, $u);
   }
   public static function unsafe_to_char(dynamic $unnamed1): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$unnamed1]);
+    return static::syncCall(__FUNCTION__, 14, $unnamed1);
   }
   public static function equal(dynamic $unnamed1, dynamic $unnamed2): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$unnamed1, $unnamed2]);
+    return static::syncCall(__FUNCTION__, 15, $unnamed1, $unnamed2);
   }
   public static function compare(dynamic $unnamed1, dynamic $unnamed2): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$unnamed1, $unnamed2]);
+    return static::syncCall(__FUNCTION__, 16, $unnamed1, $unnamed2);
   }
   public static function hash(dynamic $unnamed1): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$unnamed1]);
+    return static::syncCall(__FUNCTION__, 17, $unnamed1);
   }
 
 }

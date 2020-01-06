@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Sys {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $caml_wrap_thrown_exception_reraise = $runtime[
@@ -19,7 +19,7 @@ final class Sys {
      ];
     $cst_Sys_Break = $string("Sys.Break");
     $ocaml_version = $string("4.06.0");
-    $Not_found =  Not_found::requireModule ();
+    $Not_found = Not_found::get();
     $match = $runtime["caml_sys_get_argv"](0);
     $argv = $match[2];
     $executable_name = $match[1];
@@ -146,17 +146,17 @@ final class Sys {
       $a_
     } as dynamic;
     
-     return ($Sys);
+    return($Sys);
 
   }
   public static function getenv_opt(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$s]);
+    return static::syncCall(__FUNCTION__, 3, $s);
   }
   public static function set_signal(dynamic $sig_num, dynamic $sig_beh): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$sig_num, $sig_beh]);
+    return static::syncCall(__FUNCTION__, 15, $sig_num, $sig_beh);
   }
   public static function catch_break(dynamic $on): dynamic {
-    return static::callRehackFunction(static::requireModule()[45], varray[$on]);
+    return static::syncCall(__FUNCTION__, 45, $on);
   }
 
 }

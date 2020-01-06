@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Arg {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -64,17 +64,17 @@ final class Arg {
     $cst_Arg_Bad = $string("Arg.Bad");
     $cst_Arg_Help = $string("Arg.Help");
     $cst_Arg_Stop = $string("Arg.Stop");
-    $Not_found =  Not_found::requireModule ();
-    $Printf =  Printf::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Array =  Array_::requireModule ();
-    $Buffer =  Buffer::requireModule ();
-    $End_of_file =  End_of_file::requireModule ();
-    $List =  List_::requireModule ();
-    $String =  String_::requireModule ();
-    $Sys =  Sys::requireModule ();
-    $Invalid_argument =  Invalid_argument::requireModule ();
-    $Failure =  Failure::requireModule ();
+    $Not_found = Not_found::get();
+    $Printf = Printf::get();
+    $Pervasives = Pervasives::get();
+    $Array = Array_::get();
+    $Buffer = Buffer::get();
+    $End_of_file = End_of_file::get();
+    $List = List_::get();
+    $String = String_::get();
+    $Sys = Sys::get();
+    $Invalid_argument = Invalid_argument::get();
+    $Failure = Failure::get();
     $w_ = Vector{0, Vector{2, 0, Vector{0, 0}}, $string("%s%c")} as dynamic;
     $q_ = Vector{0, Vector{2, 0, 0}, $string("%s")} as dynamic;
     $r_ = Vector{0, Vector{2, 0, 0}, $string("%s")} as dynamic;
@@ -928,35 +928,35 @@ final class Arg {
       $write_arg0
     } as dynamic;
     
-     return ($Arg);
+    return($Arg);
 
   }
   public static function parse(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$l, $f, $msg]);
+    return static::syncCall(__FUNCTION__, 1, $l, $f, $msg);
   }
   public static function parse_dynamic(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$l, $f, $msg]);
+    return static::syncCall(__FUNCTION__, 2, $l, $f, $msg);
   }
   public static function parse_argv(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
+    return static::syncCall(__FUNCTION__, 3, $opt, $argv, $speclist, $anonfun, $errmsg);
   }
   public static function parse_argv_dynamic(dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$opt, $argv, $speclist, $anonfun, $errmsg]);
+    return static::syncCall(__FUNCTION__, 4, $opt, $argv, $speclist, $anonfun, $errmsg);
   }
   public static function parse_and_expand_argv_dynamic(dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$current, $argv, $speclist, $anonfun, $errmsg]);
+    return static::syncCall(__FUNCTION__, 5, $current, $argv, $speclist, $anonfun, $errmsg);
   }
   public static function parse_expand(dynamic $l, dynamic $f, dynamic $msg): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$l, $f, $msg]);
+    return static::syncCall(__FUNCTION__, 6, $l, $f, $msg);
   }
   public static function usage(dynamic $speclist, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$speclist, $errmsg]);
+    return static::syncCall(__FUNCTION__, 9, $speclist, $errmsg);
   }
   public static function usage_string(dynamic $speclist, dynamic $errmsg): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$speclist, $errmsg]);
+    return static::syncCall(__FUNCTION__, 10, $speclist, $errmsg);
   }
   public static function align(dynamic $opt, dynamic $speclist): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$opt, $speclist]);
+    return static::syncCall(__FUNCTION__, 11, $opt, $speclist);
   }
 
 }

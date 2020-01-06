@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class CamlinternalLazy {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_obj_set_tag = $runtime["caml_obj_set_tag"];
     $caml_obj_tag = $runtime["caml_obj_tag"];
@@ -22,7 +22,7 @@ final class CamlinternalLazy {
     $cst_CamlinternalLazy_Undefined = $runtime["caml_new_string"](
       "CamlinternalLazy.Undefined"
     );
-    $Obj =  Obj::requireModule ();
+    $Obj = Obj::get();
     $Undefined = Vector{
       248,
       $cst_CamlinternalLazy_Undefined,
@@ -78,20 +78,20 @@ final class CamlinternalLazy {
       $force_val
     } as dynamic;
     
-     return ($CamlinternalLazy);
+    return($CamlinternalLazy);
 
   }
   public static function force_lazy_block(dynamic $blk): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$blk]);
+    return static::syncCall(__FUNCTION__, 2, $blk);
   }
   public static function force_val_lazy_block(dynamic $blk): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$blk]);
+    return static::syncCall(__FUNCTION__, 3, $blk);
   }
   public static function force(dynamic $lzv): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$lzv]);
+    return static::syncCall(__FUNCTION__, 4, $lzv);
   }
   public static function force_val(dynamic $lzv): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$lzv]);
+    return static::syncCall(__FUNCTION__, 5, $lzv);
   }
 
 }

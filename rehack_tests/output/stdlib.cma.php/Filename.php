@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Filename {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -56,15 +56,15 @@ final class Filename {
     $dir_sep__1 = $string("/");
     $cst_Cygwin = $string("Cygwin");
     $cst_Win32 = $string("Win32");
-    $Pervasives =  Pervasives::requireModule ();
-    $Sys_error =  Sys_error::requireModule ();
-    $CamlinternalLazy =  CamlinternalLazy::requireModule ();
-    $Random =  Random::requireModule ();
-    $Printf =  Printf::requireModule ();
-    $String =  String_::requireModule ();
-    $Buffer =  Buffer::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $Sys =  Sys::requireModule ();
+    $Pervasives = Pervasives::get();
+    $Sys_error = Sys_error::get();
+    $CamlinternalLazy = CamlinternalLazy::get();
+    $Random = Random::get();
+    $Printf = Printf::get();
+    $String = String_::get();
+    $Buffer = Buffer::get();
+    $Not_found = Not_found::get();
+    $Sys = Sys::get();
     $e_ = Vector{0, 7, 0} as dynamic;
     $d_ = Vector{0, 1, Vector{0, 3, Vector{0, 5, 0}}} as dynamic;
     $c_ = Vector{
@@ -751,35 +751,35 @@ final class Filename {
       $quote__1
     } as dynamic;
     
-     return ($Filename);
+    return($Filename);
 
   }
   public static function concat(dynamic $dirname, dynamic $filename): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$dirname, $filename]);
+    return static::syncCall(__FUNCTION__, 4, $dirname, $filename);
   }
   public static function chop_suffix(dynamic $name, dynamic $suff): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$name, $suff]);
+    return static::syncCall(__FUNCTION__, 8, $name, $suff);
   }
   public static function extension(dynamic $name): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$name]);
+    return static::syncCall(__FUNCTION__, 9, $name);
   }
   public static function remove_extension(dynamic $name): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$name]);
+    return static::syncCall(__FUNCTION__, 10, $name);
   }
   public static function chop_extension(dynamic $name): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$name]);
+    return static::syncCall(__FUNCTION__, 11, $name);
   }
   public static function temp_file(dynamic $opt, dynamic $prefix, dynamic $suffix): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$opt, $prefix, $suffix]);
+    return static::syncCall(__FUNCTION__, 14, $opt, $prefix, $suffix);
   }
   public static function open_temp_file(dynamic $opt, dynamic $unnamed1, dynamic $unnamed2, dynamic $prefix, dynamic $suffix): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$opt, $unnamed1, $unnamed2, $prefix, $suffix]);
+    return static::syncCall(__FUNCTION__, 15, $opt, $unnamed1, $unnamed2, $prefix, $suffix);
   }
   public static function get_temp_dir_name(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$param]);
+    return static::syncCall(__FUNCTION__, 16, $param);
   }
   public static function set_temp_dir_name(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$s]);
+    return static::syncCall(__FUNCTION__, 17, $s);
   }
 
 }

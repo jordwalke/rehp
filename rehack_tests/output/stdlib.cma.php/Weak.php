@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Weak {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -32,11 +32,11 @@ final class Weak {
       "Weak.Make: hash bucket cannot grow more"
     );
     $cst_Weak_fill = $string("Weak.fill");
-    $Pervasives =  Pervasives::requireModule ();
-    $Sys =  Sys::requireModule ();
-    $Array =  Array_::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $Invalid_argument =  Invalid_argument::requireModule ();
+    $Pervasives = Pervasives::get();
+    $Sys = Sys::get();
+    $Array = Array_::get();
+    $Not_found = Not_found::get();
+    $Invalid_argument = Invalid_argument::get();
     $length = (dynamic $x) ==> {return (int) ($x->count() - 1 - 2);};
     $fill = (dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x) ==> {
       if (0 <= $ofs) {
@@ -600,17 +600,17 @@ final class Weak {
       $Make
     } as dynamic;
     
-     return ($Weak);
+    return($Weak);
 
   }
   public static function length(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$x]);
+    return static::syncCall(__FUNCTION__, 2, $x);
   }
   public static function fill(dynamic $ar, dynamic $ofs, dynamic $len, dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$ar, $ofs, $len, $x]);
+    return static::syncCall(__FUNCTION__, 7, $ar, $ofs, $len, $x);
   }
   public static function Make(dynamic $H): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$H]);
+    return static::syncCall(__FUNCTION__, 9, $H);
   }
 
 }

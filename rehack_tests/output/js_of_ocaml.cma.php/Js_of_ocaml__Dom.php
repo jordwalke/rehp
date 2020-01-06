@@ -9,18 +9,18 @@ namespace Rehack;
 
 final class Js_of_ocaml__Dom {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Assert_failure =  Assert_failure::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $List =  List_::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Assert_failure = Assert_failure::get();
+    $Not_found = Not_found::get();
+    $List = List_::get();
     $a_ = Vector{0, $string("lib/js_of_ocaml/dom.ml"), 343, 67} as dynamic;
     $list_of_nodeList = (dynamic $nodeList) ==> {
       $X_ = (dynamic $x) ==> {
@@ -161,7 +161,7 @@ final class Js_of_ocaml__Dom {
     };
     $attr = (dynamic $e) ==> {return $cast($e, 2);};
     $no_handler = $Js_of_ocaml_Js[1];
-    $window_event = (dynamic $param) ==> {return  event ;};
+    $window_event = (dynamic $param) ==> {return (event);};
     $handler = (dynamic $f) ==> {
       $L_ = (dynamic $e) ==> {
         $M_ = $call1($Js_of_ocaml_Js[2], $e);
@@ -362,47 +362,47 @@ final class Js_of_ocaml__Dom {
       $preventDefault
     } as dynamic;
     
-     return ($Js_of_ocaml_Dom);
+    return($Js_of_ocaml_Dom);
 
   }
   public static function insertBefore(dynamic $p, dynamic $n, dynamic $o): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$p, $n, $o]);
+    return static::syncCall(__FUNCTION__, 2, $p, $n, $o);
   }
   public static function replaceChild(dynamic $p, dynamic $n, dynamic $o): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$p, $n, $o]);
+    return static::syncCall(__FUNCTION__, 3, $p, $n, $o);
   }
   public static function removeChild(dynamic $p, dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$p, $n]);
+    return static::syncCall(__FUNCTION__, 4, $p, $n);
   }
   public static function appendChild(dynamic $p, dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$p, $n]);
+    return static::syncCall(__FUNCTION__, 5, $p, $n);
   }
   public static function list_of_nodeList(dynamic $nodeList): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$nodeList]);
+    return static::syncCall(__FUNCTION__, 6, $nodeList);
   }
   public static function nodeType(dynamic $e): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$e]);
+    return static::syncCall(__FUNCTION__, 7, $e);
   }
   public static function handler(dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$f]);
+    return static::syncCall(__FUNCTION__, 10, $f);
   }
   public static function full_handler(dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$f]);
+    return static::syncCall(__FUNCTION__, 11, $f);
   }
   public static function invoke_handler(dynamic $f, dynamic $this, dynamic $event): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$f, $this, $event]);
+    return static::syncCall(__FUNCTION__, 12, $f, $this, $event);
   }
   public static function eventTarget(dynamic $e): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$e]);
+    return static::syncCall(__FUNCTION__, 13, $e);
   }
   public static function addEventListener(dynamic $e, dynamic $typ, dynamic $h, dynamic $capt): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$e, $typ, $h, $capt]);
+    return static::syncCall(__FUNCTION__, 15, $e, $typ, $h, $capt);
   }
   public static function removeEventListener(dynamic $id): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$id]);
+    return static::syncCall(__FUNCTION__, 16, $id);
   }
   public static function preventDefault(dynamic $ev): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$ev]);
+    return static::syncCall(__FUNCTION__, 17, $ev);
   }
 
 }

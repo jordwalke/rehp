@@ -9,10 +9,10 @@ namespace Rehack;
 
 final class BytesLabels {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
-    $Bytes =  Bytes::requireModule ();
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    $Bytes = Bytes::get();
     $make = $Bytes[1];
     $init = $Bytes[2];
     $empty = $Bytes[3];
@@ -103,7 +103,7 @@ final class BytesLabels {
       $unsafe_of_string
     } as dynamic;
     
-     return ($BytesLabels);
+    return($BytesLabels);
 
   }
 

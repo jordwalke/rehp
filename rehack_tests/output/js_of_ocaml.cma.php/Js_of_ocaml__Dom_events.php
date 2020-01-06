@@ -9,13 +9,13 @@ namespace Rehack;
 
 final class Js_of_ocaml__Dom_events {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call4 = $runtime["caml_call4"];
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
+    $Js_of_ocaml_Dom_html = Js_of_ocaml__Dom_html::get();
     $listen = (dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb) ==> {
       if ($opt) {
         $sth = $opt[1];
@@ -35,11 +35,11 @@ final class Js_of_ocaml__Dom_events {
       $stop_listen
     } as dynamic;
     
-     return ($Js_of_ocaml_Dom_events);
+    return($Js_of_ocaml_Dom_events);
 
   }
   public static function listen(dynamic $opt, dynamic $target, dynamic $typ, dynamic $cb): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$opt, $target, $typ, $cb]);
+    return static::syncCall(__FUNCTION__, 2, $opt, $target, $typ, $cb);
   }
 
 }

@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__Url {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -101,15 +101,15 @@ final class Js_of_ocaml__Url {
     $cst_Ff_Ii_Ll_Ee = $string(
       "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?\\$"
     );
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Failure =  Failure::requireModule ();
-    $CamlinternalOO =  CamlinternalOO::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $List =  List_::requireModule ();
-    $String =  String_::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $Js_of_ocaml_Regexp =  Js_of_ocaml__Regexp::requireModule ();
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Failure = Failure::get();
+    $CamlinternalOO = CamlinternalOO::get();
+    $Pervasives = Pervasives::get();
+    $List = List_::get();
+    $String = String_::get();
+    $Not_found = Not_found::get();
+    $Js_of_ocaml_Regexp = Js_of_ocaml__Regexp::get();
+    $Js_of_ocaml_Dom_html = Js_of_ocaml__Dom_html::get();
     $f_ = Vector{0, $string(""), 0} as dynamic;
     $a_ = Vector{
       0,
@@ -873,29 +873,29 @@ final class Js_of_ocaml__Url {
       }
     } as dynamic;
     
-     return ($Js_of_ocaml_Url);
+    return($Js_of_ocaml_Url);
 
   }
   public static function urldecode(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$s]);
+    return static::syncCall(__FUNCTION__, 1, $s);
   }
   public static function urlencode(dynamic $opt, dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$opt, $s]);
+    return static::syncCall(__FUNCTION__, 2, $opt, $s);
   }
   public static function path_of_path_string(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$s]);
+    return static::syncCall(__FUNCTION__, 5, $s);
   }
   public static function encode_arguments(dynamic $l): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$l]);
+    return static::syncCall(__FUNCTION__, 6, $l);
   }
   public static function decode_arguments(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$s]);
+    return static::syncCall(__FUNCTION__, 7, $s);
   }
   public static function url_of_string(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$s]);
+    return static::syncCall(__FUNCTION__, 8, $s);
   }
   public static function string_of_url(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$param]);
+    return static::syncCall(__FUNCTION__, 9, $param);
   }
 
 }

@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Digest {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -30,11 +30,11 @@ final class Digest {
     $cst_Digest_from_hex = $string__0("Digest.from_hex");
     $cst_Digest_to_hex = $string__0("Digest.to_hex");
     $cst_Digest_substring = $string__0("Digest.substring");
-    $Invalid_argument =  Invalid_argument::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Char =  Char::requireModule ();
-    $Bytes =  Bytes::requireModule ();
-    $String =  String_::requireModule ();
+    $Invalid_argument = Invalid_argument::get();
+    $Pervasives = Pervasives::get();
+    $Char = Char::get();
+    $Bytes = Bytes::get();
+    $String = String_::get();
     $compare = $String[33];
     $equal = $String[34];
     $string = (dynamic $str) ==> {
@@ -145,35 +145,35 @@ final class Digest {
       $from_hex
     } as dynamic;
     
-     return ($Digest);
+    return($Digest);
 
   }
   public static function string(dynamic $str): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$str]);
+    return static::syncCall(__FUNCTION__, 3, $str);
   }
   public static function bytes(dynamic $b): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$b]);
+    return static::syncCall(__FUNCTION__, 4, $b);
   }
   public static function substring(dynamic $str, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$str, $ofs, $len]);
+    return static::syncCall(__FUNCTION__, 5, $str, $ofs, $len);
   }
   public static function subbytes(dynamic $b, dynamic $ofs, dynamic $len): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$b, $ofs, $len]);
+    return static::syncCall(__FUNCTION__, 6, $b, $ofs, $len);
   }
   public static function file(dynamic $filename): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$filename]);
+    return static::syncCall(__FUNCTION__, 7, $filename);
   }
   public static function output(dynamic $chan, dynamic $digest): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$chan, $digest]);
+    return static::syncCall(__FUNCTION__, 8, $chan, $digest);
   }
   public static function input(dynamic $chan): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$chan]);
+    return static::syncCall(__FUNCTION__, 9, $chan);
   }
   public static function to_hex(dynamic $d): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$d]);
+    return static::syncCall(__FUNCTION__, 10, $d);
   }
   public static function from_hex(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$s]);
+    return static::syncCall(__FUNCTION__, 11, $s);
   }
 
 }

@@ -9,16 +9,16 @@ namespace Rehack;
 
 final class Has_one_underscore {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $caml_wrap_thrown_exception_reraise = $runtime[
        "caml_wrap_thrown_exception_reraise"
      ];
-    $String =  String_::requireModule ();
-    $Not_found =  Not_found::requireModule ();
+    $String = String_::get();
+    $Not_found = Not_found::get();
     $hasOneUnderscore = (dynamic $id_or_token) ==> {
       $id_or_token__0 = $runtime["caml_js_to_string"]($id_or_token);
       try {$d_ = $call2($String[14], $id_or_token__0, 95);$index = $d_;}
@@ -38,11 +38,11 @@ final class Has_one_underscore {
     };
     $Has_one_underscore = Vector{0, $hasOneUnderscore} as dynamic;
     
-     return ($Has_one_underscore);
+    return($Has_one_underscore);
 
   }
   public static function hasOneUnderscore(dynamic $id_or_token): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$id_or_token]);
+    return static::syncCall(__FUNCTION__, 1, $id_or_token);
   }
 
 }

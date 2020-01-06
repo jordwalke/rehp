@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Complex {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $zero = Vector{254, 0, 0} as dynamic;
     $one = Vector{254, 1, 0} as dynamic;
     $i = Vector{254, 0, 1} as dynamic;
@@ -119,53 +119,53 @@ final class Complex {
       $pow
     } as dynamic;
     
-     return ($Complex);
+    return($Complex);
 
   }
   public static function neg(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$x]);
+    return static::syncCall(__FUNCTION__, 4, $x);
   }
   public static function conj(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$x]);
+    return static::syncCall(__FUNCTION__, 5, $x);
   }
   public static function add(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$x, $y]);
+    return static::syncCall(__FUNCTION__, 6, $x, $y);
   }
   public static function sub(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$x, $y]);
+    return static::syncCall(__FUNCTION__, 7, $x, $y);
   }
   public static function mul(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$x, $y]);
+    return static::syncCall(__FUNCTION__, 8, $x, $y);
   }
   public static function inv(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$x]);
+    return static::syncCall(__FUNCTION__, 9, $x);
   }
   public static function div(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$x, $y]);
+    return static::syncCall(__FUNCTION__, 10, $x, $y);
   }
   public static function sqrt(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$x]);
+    return static::syncCall(__FUNCTION__, 11, $x);
   }
   public static function norm2(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$x]);
+    return static::syncCall(__FUNCTION__, 12, $x);
   }
   public static function norm(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$x]);
+    return static::syncCall(__FUNCTION__, 13, $x);
   }
   public static function arg(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$x]);
+    return static::syncCall(__FUNCTION__, 14, $x);
   }
   public static function polar(dynamic $n, dynamic $a): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$n, $a]);
+    return static::syncCall(__FUNCTION__, 15, $n, $a);
   }
   public static function exp(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$x]);
+    return static::syncCall(__FUNCTION__, 16, $x);
   }
   public static function log(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$x]);
+    return static::syncCall(__FUNCTION__, 17, $x);
   }
   public static function pow(dynamic $x, dynamic $y): dynamic {
-    return static::callRehackFunction(static::requireModule()[18], varray[$x, $y]);
+    return static::syncCall(__FUNCTION__, 18, $x, $y);
   }
 
 }

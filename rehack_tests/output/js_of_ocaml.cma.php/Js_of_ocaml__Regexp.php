@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__Regexp {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
@@ -21,9 +21,9 @@ final class Js_of_ocaml__Regexp {
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_g = $string("g");
     $cst = $string("[\\][()\\\\|+*.?{}^\\$]");
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Assert_failure =  Assert_failure::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Assert_failure = Assert_failure::get();
+    $Pervasives = Pervasives::get();
     $a_ = Vector{0, $string("lib/js_of_ocaml/regexp.ml"), 33, 64} as dynamic;
     $regexp = (dynamic $s) ==> {
       $al_ = 0 as dynamic;
@@ -260,50 +260,50 @@ final class Js_of_ocaml__Regexp {
       $bounded_split
     } as dynamic;
     
-     return ($Js_of_ocaml_Regexp);
+    return($Js_of_ocaml_Regexp);
 
   }
   public static function regexp(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$s]);
+    return static::syncCall(__FUNCTION__, 1, $s);
   }
   public static function regexp_case_fold(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$s]);
+    return static::syncCall(__FUNCTION__, 2, $s);
   }
   public static function regexp_with_flag(dynamic $s, dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$s, $f]);
+    return static::syncCall(__FUNCTION__, 3, $s, $f);
   }
   public static function quote(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$s]);
+    return static::syncCall(__FUNCTION__, 4, $s);
   }
   public static function regexp_string(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$s]);
+    return static::syncCall(__FUNCTION__, 5, $s);
   }
   public static function regexp_string_case_fold(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$s]);
+    return static::syncCall(__FUNCTION__, 6, $s);
   }
   public static function string_match(dynamic $r, dynamic $s, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$r, $s, $i]);
+    return static::syncCall(__FUNCTION__, 7, $r, $s, $i);
   }
   public static function search(dynamic $r, dynamic $s, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$r, $s, $i]);
+    return static::syncCall(__FUNCTION__, 8, $r, $s, $i);
   }
   public static function matched_string(dynamic $r): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$r]);
+    return static::syncCall(__FUNCTION__, 10, $r);
   }
   public static function matched_group(dynamic $r, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$r, $i]);
+    return static::syncCall(__FUNCTION__, 11, $r, $i);
   }
   public static function global_replace(dynamic $r, dynamic $s, dynamic $s_by): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$r, $s, $s_by]);
+    return static::syncCall(__FUNCTION__, 12, $r, $s, $s_by);
   }
   public static function replace_first(dynamic $r, dynamic $s, dynamic $s_by): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$r, $s, $s_by]);
+    return static::syncCall(__FUNCTION__, 13, $r, $s, $s_by);
   }
   public static function split(dynamic $r, dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$r, $s]);
+    return static::syncCall(__FUNCTION__, 14, $r, $s);
   }
   public static function bounded_split(dynamic $r, dynamic $s, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$r, $s, $i]);
+    return static::syncCall(__FUNCTION__, 15, $r, $s, $i);
   }
 
 }

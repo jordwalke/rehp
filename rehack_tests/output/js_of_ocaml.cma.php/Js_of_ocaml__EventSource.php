@@ -9,13 +9,13 @@ namespace Rehack;
 
 final class Js_of_ocaml__EventSource {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Js_of_ocaml_Dom = Js_of_ocaml__Dom::get();
     $withCredentials = (dynamic $b) ==> {
       $init = darray[];
       $e_ = (dynamic $x) ==> {
@@ -49,11 +49,11 @@ final class Js_of_ocaml__EventSource {
       $addEventListener
     } as dynamic;
     
-     return ($Js_of_ocaml_EventSource);
+    return($Js_of_ocaml_EventSource);
 
   }
   public static function withCredentials(dynamic $b): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$b]);
+    return static::syncCall(__FUNCTION__, 1, $b);
   }
 
 }

@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Set {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $string = $runtime["caml_new_string"];
@@ -22,10 +22,10 @@ final class Set {
     $cst_Set_bal__0 = $string("Set.bal");
     $cst_Set_bal__1 = $string("Set.bal");
     $cst_Set_bal__2 = $string("Set.bal");
-    $Not_found =  Not_found::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $List =  List_::requireModule ();
-    $Assert_failure =  Assert_failure::requireModule ();
+    $Not_found = Not_found::get();
+    $Pervasives = Pervasives::get();
+    $List = List_::get();
+    $Assert_failure = Assert_failure::get();
     $a_ = Vector{0, 0, 0, 0} as dynamic;
     $b_ = Vector{0, 0, 0} as dynamic;
     $c_ = Vector{0, $string("set.ml"), 510, 18} as dynamic;
@@ -1003,7 +1003,7 @@ final class Set {
       }
     } as dynamic;
     
-     return ($Set);
+    return($Set);
 
   }
 

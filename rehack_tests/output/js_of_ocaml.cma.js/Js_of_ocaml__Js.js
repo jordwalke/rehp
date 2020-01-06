@@ -29,10 +29,10 @@ var cst_jsError = string("jsError");
 var Pervasives = require("../stdlib.cma.js/Pervasives.js");
 var Callback = require("../stdlib.cma.js/Callback.js");
 var Printexc = require("../stdlib.cma.js/Printexc.js");
-var global =  joo_global_object ;
+var global = joo_global_object;
 var Unsafe = [0,global];
-var null__0 =  null ;
-var undefined__0 =  undefined ;
+var null__0 = null;
+var undefined__0 = undefined;
 
 function return__0(S_) {return S_;}
 
@@ -121,8 +121,8 @@ function coerce_opt(x, f, g) {
   return get(bind(x, f), L_);
 }
 
-var true__0 =  true ;
-var false__0 =  false ;
+var true__0 = true;
+var false__0 = false;
 
 function a_(x) {return call1(caml_get_public_method(x, 876326544, 1), x);}
 
@@ -188,7 +188,7 @@ var error_constr = function(t10, param) {return t10.Error;}(global, g_);
 
 call2(Callback[2], cst_jsError, [0,Error,{}]);
 
-var raise_js_error =  (function (exn) { throw exn }) ;
+var raise_js_error = (function (exn) { throw exn });
 
 function h_(x) {return call1(caml_get_public_method(x, -465951225, 10), x);}
 

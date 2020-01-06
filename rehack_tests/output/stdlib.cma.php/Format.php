@@ -9,10 +9,10 @@ namespace Rehack;
 
 final class Format {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $output_acc = new Ref();$strput_acc = new Ref();
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -31,12 +31,12 @@ final class Format {
     $cst__1 = $string("<");
     $cst = $string("\n");
     $cst_Format_Empty_queue = $string("Format.Empty_queue");
-    $CamlinternalFormat =  CamlinternalFormat::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $String =  String_::requireModule ();
-    $Buffer =  Buffer::requireModule ();
-    $List =  List_::requireModule ();
-    $Not_found =  Not_found::requireModule ();
+    $CamlinternalFormat = CamlinternalFormat::get();
+    $Pervasives = Pervasives::get();
+    $String = String_::get();
+    $Buffer = Buffer::get();
+    $List = List_::get();
+    $Not_found = Not_found::get();
     $b_ = Vector{3, 0, 3} as dynamic;
     $a_ = Vector{0, $string("")} as dynamic;
     $make_queue = (dynamic $param) ==> {return Vector{0, 0, 0};};
@@ -1828,227 +1828,227 @@ final class Format {
       $pp_get_all_formatter_output_functions
     } as dynamic;
     
-     return ($Format);
+    return($Format);
 
   }
   public static function pp_open_box(dynamic $state, dynamic $indent): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$state, $indent]);
+    return static::syncCall(__FUNCTION__, 1, $state, $indent);
   }
   public static function pp_close_box(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 3, $state, $param);
   }
   public static function pp_open_hbox(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 5, $state, $param);
   }
   public static function pp_open_vbox(dynamic $state, dynamic $indent): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$state, $indent]);
+    return static::syncCall(__FUNCTION__, 7, $state, $indent);
   }
   public static function pp_open_hvbox(dynamic $state, dynamic $indent): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$state, $indent]);
+    return static::syncCall(__FUNCTION__, 9, $state, $indent);
   }
   public static function pp_open_hovbox(dynamic $state, dynamic $indent): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$state, $indent]);
+    return static::syncCall(__FUNCTION__, 11, $state, $indent);
   }
   public static function pp_print_string(dynamic $state, dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$state, $s]);
+    return static::syncCall(__FUNCTION__, 13, $state, $s);
   }
   public static function pp_print_as(dynamic $state, dynamic $isize, dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$state, $isize, $s]);
+    return static::syncCall(__FUNCTION__, 15, $state, $isize, $s);
   }
   public static function pp_print_int(dynamic $state, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$state, $i]);
+    return static::syncCall(__FUNCTION__, 17, $state, $i);
   }
   public static function pp_print_float(dynamic $state, dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[19], varray[$state, $f]);
+    return static::syncCall(__FUNCTION__, 19, $state, $f);
   }
   public static function pp_print_char(dynamic $state, dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[21], varray[$state, $c]);
+    return static::syncCall(__FUNCTION__, 21, $state, $c);
   }
   public static function pp_print_bool(dynamic $state, dynamic $b): dynamic {
-    return static::callRehackFunction(static::requireModule()[23], varray[$state, $b]);
+    return static::syncCall(__FUNCTION__, 23, $state, $b);
   }
   public static function pp_print_space(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[25], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 25, $state, $param);
   }
   public static function pp_print_cut(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[27], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 27, $state, $param);
   }
   public static function pp_print_break(dynamic $state, dynamic $width, dynamic $offset): dynamic {
-    return static::callRehackFunction(static::requireModule()[29], varray[$state, $width, $offset]);
+    return static::syncCall(__FUNCTION__, 29, $state, $width, $offset);
   }
   public static function pp_force_newline(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[31], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 31, $state, $param);
   }
   public static function pp_print_if_newline(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[33], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 33, $state, $param);
   }
   public static function pp_print_flush(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[35], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 35, $state, $param);
   }
   public static function pp_print_newline(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[37], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 37, $state, $param);
   }
   public static function pp_set_margin(dynamic $state, dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[39], varray[$state, $n]);
+    return static::syncCall(__FUNCTION__, 39, $state, $n);
   }
   public static function pp_get_margin(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[41], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 41, $state, $param);
   }
   public static function pp_set_max_indent(dynamic $state, dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[43], varray[$state, $n]);
+    return static::syncCall(__FUNCTION__, 43, $state, $n);
   }
   public static function pp_get_max_indent(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[45], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 45, $state, $param);
   }
   public static function pp_set_max_boxes(dynamic $state, dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[47], varray[$state, $n]);
+    return static::syncCall(__FUNCTION__, 47, $state, $n);
   }
   public static function pp_get_max_boxes(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[49], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 49, $state, $param);
   }
   public static function pp_over_max_boxes(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[51], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 51, $state, $param);
   }
   public static function pp_open_tbox(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[53], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 53, $state, $param);
   }
   public static function pp_close_tbox(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[55], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 55, $state, $param);
   }
   public static function pp_set_tab(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[57], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 57, $state, $param);
   }
   public static function pp_print_tab(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[59], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 59, $state, $param);
   }
   public static function pp_print_tbreak(dynamic $state, dynamic $width, dynamic $offset): dynamic {
-    return static::callRehackFunction(static::requireModule()[61], varray[$state, $width, $offset]);
+    return static::syncCall(__FUNCTION__, 61, $state, $width, $offset);
   }
   public static function pp_set_ellipsis_text(dynamic $state, dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[63], varray[$state, $s]);
+    return static::syncCall(__FUNCTION__, 63, $state, $s);
   }
   public static function pp_get_ellipsis_text(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[65], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 65, $state, $param);
   }
   public static function pp_open_tag(dynamic $state, dynamic $tag_name): dynamic {
-    return static::callRehackFunction(static::requireModule()[67], varray[$state, $tag_name]);
+    return static::syncCall(__FUNCTION__, 67, $state, $tag_name);
   }
   public static function pp_close_tag(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[69], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 69, $state, $param);
   }
   public static function pp_set_tags(dynamic $state, dynamic $b): dynamic {
-    return static::callRehackFunction(static::requireModule()[71], varray[$state, $b]);
+    return static::syncCall(__FUNCTION__, 71, $state, $b);
   }
   public static function pp_set_print_tags(dynamic $state, dynamic $b): dynamic {
-    return static::callRehackFunction(static::requireModule()[73], varray[$state, $b]);
+    return static::syncCall(__FUNCTION__, 73, $state, $b);
   }
   public static function pp_set_mark_tags(dynamic $state, dynamic $b): dynamic {
-    return static::callRehackFunction(static::requireModule()[75], varray[$state, $b]);
+    return static::syncCall(__FUNCTION__, 75, $state, $b);
   }
   public static function pp_get_print_tags(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[77], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 77, $state, $param);
   }
   public static function pp_get_mark_tags(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[79], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 79, $state, $param);
   }
   public static function pp_set_formatter_out_channel(dynamic $state, dynamic $oc): dynamic {
-    return static::callRehackFunction(static::requireModule()[81], varray[$state, $oc]);
+    return static::syncCall(__FUNCTION__, 81, $state, $oc);
   }
   public static function pp_set_formatter_output_functions(dynamic $state, dynamic $f, dynamic $g): dynamic {
-    return static::callRehackFunction(static::requireModule()[83], varray[$state, $f, $g]);
+    return static::syncCall(__FUNCTION__, 83, $state, $f, $g);
   }
   public static function pp_get_formatter_output_functions(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[85], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 85, $state, $param);
   }
   public static function pp_set_formatter_out_functions(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[87], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 87, $state, $param);
   }
   public static function pp_get_formatter_out_functions(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[89], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 89, $state, $param);
   }
   public static function pp_set_formatter_tag_functions(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[91], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 91, $state, $param);
   }
   public static function pp_get_formatter_tag_functions(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[93], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 93, $state, $param);
   }
   public static function formatter_of_out_channel(dynamic $oc): dynamic {
-    return static::callRehackFunction(static::requireModule()[95], varray[$oc]);
+    return static::syncCall(__FUNCTION__, 95, $oc);
   }
   public static function formatter_of_buffer(dynamic $b): dynamic {
-    return static::callRehackFunction(static::requireModule()[98], varray[$b]);
+    return static::syncCall(__FUNCTION__, 98, $b);
   }
   public static function flush_str_formatter(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[101], varray[$param]);
+    return static::syncCall(__FUNCTION__, 101, $param);
   }
   public static function make_formatter(dynamic $output, dynamic $flush): dynamic {
-    return static::callRehackFunction(static::requireModule()[102], varray[$output, $flush]);
+    return static::syncCall(__FUNCTION__, 102, $output, $flush);
   }
   public static function formatter_of_out_functions(dynamic $out_funs): dynamic {
-    return static::callRehackFunction(static::requireModule()[103], varray[$out_funs]);
+    return static::syncCall(__FUNCTION__, 103, $out_funs);
   }
   public static function make_symbolic_output_buffer(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[104], varray[$param]);
+    return static::syncCall(__FUNCTION__, 104, $param);
   }
   public static function clear_symbolic_output_buffer(dynamic $sob): dynamic {
-    return static::callRehackFunction(static::requireModule()[105], varray[$sob]);
+    return static::syncCall(__FUNCTION__, 105, $sob);
   }
   public static function get_symbolic_output_buffer(dynamic $sob): dynamic {
-    return static::callRehackFunction(static::requireModule()[106], varray[$sob]);
+    return static::syncCall(__FUNCTION__, 106, $sob);
   }
   public static function flush_symbolic_output_buffer(dynamic $sob): dynamic {
-    return static::callRehackFunction(static::requireModule()[107], varray[$sob]);
+    return static::syncCall(__FUNCTION__, 107, $sob);
   }
   public static function add_symbolic_output_item(dynamic $sob, dynamic $item): dynamic {
-    return static::callRehackFunction(static::requireModule()[108], varray[$sob, $item]);
+    return static::syncCall(__FUNCTION__, 108, $sob, $item);
   }
   public static function formatter_of_symbolic_output_buffer(dynamic $sob): dynamic {
-    return static::callRehackFunction(static::requireModule()[109], varray[$sob]);
+    return static::syncCall(__FUNCTION__, 109, $sob);
   }
   public static function pp_print_list(dynamic $opt, dynamic $pp_v, dynamic $ppf, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[110], varray[$opt, $pp_v, $ppf, $param]);
+    return static::syncCall(__FUNCTION__, 110, $opt, $pp_v, $ppf, $param);
   }
   public static function pp_print_text(dynamic $ppf, dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[111], varray[$ppf, $s]);
+    return static::syncCall(__FUNCTION__, 111, $ppf, $s);
   }
   public static function fprintf(dynamic $ppf): dynamic {
-    return static::callRehackFunction(static::requireModule()[112], varray[$ppf]);
+    return static::syncCall(__FUNCTION__, 112, $ppf);
   }
   public static function printf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[113], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 113, $fmt);
   }
   public static function eprintf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[114], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 114, $fmt);
   }
   public static function sprintf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[115], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 115, $fmt);
   }
   public static function asprintf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[116], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 116, $fmt);
   }
   public static function ifprintf(dynamic $ppf): dynamic {
-    return static::callRehackFunction(static::requireModule()[117], varray[$ppf]);
+    return static::syncCall(__FUNCTION__, 117, $ppf);
   }
   public static function kfprintf(dynamic $k, dynamic $ppf, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[118], varray[$k, $ppf, $param]);
+    return static::syncCall(__FUNCTION__, 118, $k, $ppf, $param);
   }
   public static function ikfprintf(dynamic $k, dynamic $ppf, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[119], varray[$k, $ppf, $param]);
+    return static::syncCall(__FUNCTION__, 119, $k, $ppf, $param);
   }
   public static function ksprintf(dynamic $k, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[120], varray[$k, $param]);
+    return static::syncCall(__FUNCTION__, 120, $k, $param);
   }
   public static function kasprintf(dynamic $k, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[121], varray[$k, $param]);
+    return static::syncCall(__FUNCTION__, 121, $k, $param);
   }
   public static function bprintf(dynamic $b, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[122], varray[$b, $param]);
+    return static::syncCall(__FUNCTION__, 122, $b, $param);
   }
   public static function pp_set_all_formatter_output_functions(dynamic $state, dynamic $f, dynamic $g, dynamic $h, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[126], varray[$state, $f, $g, $h, $i]);
+    return static::syncCall(__FUNCTION__, 126, $state, $f, $g, $h, $i);
   }
   public static function pp_get_all_formatter_output_functions(dynamic $state, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[127], varray[$state, $param]);
+    return static::syncCall(__FUNCTION__, 127, $state, $param);
   }
 
 }

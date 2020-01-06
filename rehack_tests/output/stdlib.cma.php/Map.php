@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Map {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -22,9 +22,9 @@ final class Map {
     $cst_Map_bal__0 = $string("Map.bal");
     $cst_Map_bal__1 = $string("Map.bal");
     $cst_Map_bal__2 = $string("Map.bal");
-    $Not_found =  Not_found::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Assert_failure =  Assert_failure::requireModule ();
+    $Not_found = Not_found::get();
+    $Pervasives = Pervasives::get();
+    $Assert_failure = Assert_failure::get();
     $a_ = Vector{0, 0, 0, 0} as dynamic;
     $b_ = Vector{0, $string("map.ml"), 393, 10} as dynamic;
     $c_ = Vector{0, 0, 0} as dynamic;
@@ -1013,7 +1013,7 @@ final class Map {
       }
     } as dynamic;
     
-     return ($Map);
+    return($Map);
 
   }
 

@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Spacetime {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
     $caml_spacetime_enabled = $runtime["caml_spacetime_enabled"];
@@ -20,7 +20,7 @@ final class Spacetime {
      ];
     $cst_Series_is_closed__0 = $string("Series is closed");
     $cst_Series_is_closed = $string("Series is closed");
-    $Pervasives =  Pervasives::requireModule ();
+    $Pervasives = Pervasives::get();
     $enabled = $caml_spacetime_enabled(0);
     $if_spacetime_enabled = (dynamic $f) ==> {
       return $enabled ? $call1($f, 0) : (0);
@@ -84,11 +84,11 @@ final class Spacetime {
       $save_event_for_automatic_snapshots
     } as dynamic;
     
-     return ($Spacetime);
+    return($Spacetime);
 
   }
   public static function save_event_for_automatic_snapshots(dynamic $event_name): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$event_name]);
+    return static::syncCall(__FUNCTION__, 4, $event_name);
   }
 
 }

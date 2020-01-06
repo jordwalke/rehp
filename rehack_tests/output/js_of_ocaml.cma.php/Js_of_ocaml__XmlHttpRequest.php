@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__XmlHttpRequest {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
@@ -24,9 +24,9 @@ final class Js_of_ocaml__XmlHttpRequest {
     $cst_load = $string("load");
     $cst_timeout = $string("timeout");
     $cst_loadend = $string("loadend");
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Assert_failure =  Assert_failure::requireModule ();
-    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Assert_failure = Assert_failure::get();
+    $Js_of_ocaml_Dom = Js_of_ocaml__Dom::get();
     $a_ = Vector{0, $string("lib/js_of_ocaml/xmlHttpRequest.ml"), 125, 75} as dynamic;
     $readystatechange = $call1($Js_of_ocaml_Dom[14][1], $cst_readystatechange);
     $loadstart = $call1($Js_of_ocaml_Dom[14][1], $cst_loadstart);
@@ -102,11 +102,11 @@ final class Js_of_ocaml__XmlHttpRequest {
     };
     $Js_of_ocaml_XmlHttpRequest = Vector{0, $create, $Event} as dynamic;
     
-     return ($Js_of_ocaml_XmlHttpRequest);
+    return($Js_of_ocaml_XmlHttpRequest);
 
   }
   public static function create(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
+    return static::syncCall(__FUNCTION__, 1, $param);
   }
 
 }

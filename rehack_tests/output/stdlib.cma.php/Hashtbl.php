@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Hashtbl {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -29,14 +29,14 @@ final class Hashtbl {
     $cst_OCAMLRUNPARAM = $string("OCAMLRUNPARAM");
     $cst_CAMLRUNPARAM = $string("CAMLRUNPARAM");
     $cst = $string("");
-    $Sys =  Sys::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Array =  Array_::requireModule ();
-    $Assert_failure =  Assert_failure::requireModule ();
-    $CamlinternalLazy =  CamlinternalLazy::requireModule ();
-    $Random =  Random::requireModule ();
-    $String =  String_::requireModule ();
+    $Sys = Sys::get();
+    $Not_found = Not_found::get();
+    $Pervasives = Pervasives::get();
+    $Array = Array_::get();
+    $Assert_failure = Assert_failure::get();
+    $CamlinternalLazy = CamlinternalLazy::get();
+    $Random = Random::get();
+    $String = String_::get();
     $d_ = Vector{0, 0} as dynamic;
     $c_ = Vector{0, $string("hashtbl.ml"), 108, 23} as dynamic;
     $hash = (dynamic $x) ==> {return $caml_hash(10, 100, 0, $x);};
@@ -910,77 +910,77 @@ final class Hashtbl {
       }
     } as dynamic;
     
-     return ($Hashtbl);
+    return($Hashtbl);
 
   }
   public static function create(dynamic $opt, dynamic $initial_size): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$opt, $initial_size]);
+    return static::syncCall(__FUNCTION__, 1, $opt, $initial_size);
   }
   public static function clear(dynamic $h): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$h]);
+    return static::syncCall(__FUNCTION__, 2, $h);
   }
   public static function reset(dynamic $h): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$h]);
+    return static::syncCall(__FUNCTION__, 3, $h);
   }
   public static function copy(dynamic $h): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$h]);
+    return static::syncCall(__FUNCTION__, 4, $h);
   }
   public static function add(dynamic $h, dynamic $key, dynamic $data): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$h, $key, $data]);
+    return static::syncCall(__FUNCTION__, 5, $h, $key, $data);
   }
   public static function find(dynamic $h, dynamic $key): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$h, $key]);
+    return static::syncCall(__FUNCTION__, 6, $h, $key);
   }
   public static function find_opt(dynamic $h, dynamic $key): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$h, $key]);
+    return static::syncCall(__FUNCTION__, 7, $h, $key);
   }
   public static function find_all(dynamic $h, dynamic $key): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$h, $key]);
+    return static::syncCall(__FUNCTION__, 8, $h, $key);
   }
   public static function mem(dynamic $h, dynamic $key): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$h, $key]);
+    return static::syncCall(__FUNCTION__, 9, $h, $key);
   }
   public static function remove(dynamic $h, dynamic $key): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$h, $key]);
+    return static::syncCall(__FUNCTION__, 10, $h, $key);
   }
   public static function replace(dynamic $h, dynamic $key, dynamic $data): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$h, $key, $data]);
+    return static::syncCall(__FUNCTION__, 11, $h, $key, $data);
   }
   public static function iter(dynamic $f, dynamic $h): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$f, $h]);
+    return static::syncCall(__FUNCTION__, 12, $f, $h);
   }
   public static function filter_map_inplace(dynamic $f, dynamic $h): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$f, $h]);
+    return static::syncCall(__FUNCTION__, 13, $f, $h);
   }
   public static function fold(dynamic $f, dynamic $h, dynamic $init): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$f, $h, $init]);
+    return static::syncCall(__FUNCTION__, 14, $f, $h, $init);
   }
   public static function length(dynamic $h): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$h]);
+    return static::syncCall(__FUNCTION__, 15, $h);
   }
   public static function randomize(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$param]);
+    return static::syncCall(__FUNCTION__, 16, $param);
   }
   public static function is_randomized(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$param]);
+    return static::syncCall(__FUNCTION__, 17, $param);
   }
   public static function stats(dynamic $h): dynamic {
-    return static::callRehackFunction(static::requireModule()[18], varray[$h]);
+    return static::syncCall(__FUNCTION__, 18, $h);
   }
   public static function Make(dynamic $H): dynamic {
-    return static::callRehackFunction(static::requireModule()[19], varray[$H]);
+    return static::syncCall(__FUNCTION__, 19, $H);
   }
   public static function MakeSeeded(dynamic $H): dynamic {
-    return static::callRehackFunction(static::requireModule()[20], varray[$H]);
+    return static::syncCall(__FUNCTION__, 20, $H);
   }
   public static function hash(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[21], varray[$x]);
+    return static::syncCall(__FUNCTION__, 21, $x);
   }
   public static function seeded_hash(dynamic $seed, dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[22], varray[$seed, $x]);
+    return static::syncCall(__FUNCTION__, 22, $seed, $x);
   }
   public static function hash_param(dynamic $n1, dynamic $n2, dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[23], varray[$n1, $n2, $x]);
+    return static::syncCall(__FUNCTION__, 23, $n1, $n2, $x);
   }
 
 }

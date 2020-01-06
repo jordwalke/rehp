@@ -9,24 +9,51 @@ namespace Rehack;
 
 final class MyLib {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $string = $runtime["caml_new_string"];
-    $cst_this_should_be_exported_with_three_leading = $string(
-      "this should be exported with three leading '_'"
+    $cst_this_should_be_exported_with_three_php_leading = $string(
+      "this should be exported with three (php)leading '_'"
     );
-    $cst_this_should_be_exported_with_two_leading = $string(
-      "this should be exported with two leading '_'"
+    $cst_this_should_be_exported_with_two_php_leading = $string(
+      "this should be exported with two (php)leading '_'"
     );
-    $cst_this_should_be_exported_with_leading = $string(
-      "this should be exported with leading '_'"
+    $cst_this_should_be_exported_with_php_leading__8 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__7 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__6 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__5 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__4 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__3 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__2 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__1 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading__0 = $string(
+      "this should be exported with (php)leading '_'"
+    );
+    $cst_this_should_be_exported_with_php_leading = $string(
+      "this should be exported with (php)leading '_'"
     );
     $cst_myPartiallyAppliedMethod = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__0 = $string("myPartiallyAppliedMethod");
     $cst_myPartiallyAppliedMethod__1 = $string("myPartiallyAppliedMethod");
-    $MyLib_MyLibUtility =  MyLib__MyLibUtility::requireModule ();
+    $MyLib_MyLibUtility = MyLib__MyLibUtility::get();
     $foo = "foo";
     $bar = "bar";
     $baz = "baz";
@@ -104,14 +131,41 @@ final class MyLib {
     $genThisShouldBeAsyncTransformed = (dynamic $input, dynamic $cb) ==> {
       return $call1($cb, (int) ($input + 1));
     };
-    $requireModule = (dynamic $param) ==> {
-      return $cst_this_should_be_exported_with_leading;
+    $call = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading;
     };
-    $requireModule__0 = (dynamic $param) ==> {
-      return $cst_this_should_be_exported_with_two_leading;
+    $genCall = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__0;
+    };
+    $syncCall = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__1;
+    };
+    $getExports = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__2;
+    };
+    $callRehackFunction = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__3;
+    };
+    $genCallFunctionWithArgs = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__4;
+    };
+    $genCallName = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__5;
+    };
+    $syncCallName = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__6;
+    };
+    $syncCallFunctionWithArgs = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__7;
+    };
+    $get = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_php_leading__8;
+    };
+    $get__0 = (dynamic $param) ==> {
+      return $cst_this_should_be_exported_with_two_php_leading;
     };
     $construct = (dynamic $param) ==> {
-      return $cst_this_should_be_exported_with_three_leading;
+      return $cst_this_should_be_exported_with_three_php_leading;
     };
     $MyLib = Vector{
       0,
@@ -125,35 +179,71 @@ final class MyLib {
       $x,
       $genThisShouldBeAsyncTransformed,
       $genThisShouldBeAsyncTransformed,
-      $requireModule,
-      $requireModule__0,
+      $call,
+      $genCall,
+      $syncCall,
+      $getExports,
+      $callRehackFunction,
+      $genCallFunctionWithArgs,
+      $genCallName,
+      $syncCallName,
+      $syncCallFunctionWithArgs,
+      $get,
+      $get__0,
       $construct
     } as dynamic;
     
-     return ($MyLib);
+    return($MyLib);
 
   }
   public static function testFunctionCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$o]);
+    return static::syncCall(__FUNCTION__, 4, $o);
   }
   public static function testMethodCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$o]);
+    return static::syncCall(__FUNCTION__, 5, $o);
   }
   public static function testPartialFunctionCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$o]);
+    return static::syncCall(__FUNCTION__, 6, $o);
   }
   public static function testPartialMethodCalls(dynamic $o): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$o]);
+    return static::syncCall(__FUNCTION__, 7, $o);
   }
   public static function genThisShouldBeAsyncTransformed(dynamic $input, dynamic $cb): Awaitable<dynamic> {
-    return static::genCallFunctionWithArgs("genThisShouldBeAsyncTransformed", static::requireModule()[9], varray[$input, $cb]);
+    return static::genCall(__FUNCTION__, 9, $input, $cb);
   }
-  public static function _requireModule_(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$param]);
+  public static function _call(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 11, $param);
   }
-  public static function construct(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$param]);
+  public static function _genCall(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 12, $param);
+  }
+  public static function _syncCall(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 13, $param);
+  }
+  public static function _getExports(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 14, $param);
+  }
+  public static function _callRehackFunction(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 15, $param);
+  }
+  public static function _genCallFunctionWithArgs(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 16, $param);
+  }
+  public static function _genCallName(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 17, $param);
+  }
+  public static function _syncCallName(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 18, $param);
+  }
+  public static function _syncCallFunctionWithArgs(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 19, $param);
+  }
+  public static function _get(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 20, $param);
+  }
+  public static function ___construct(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 22, $param);
   }
 
 }
-/*____hashes flags: 1406088649 bytecode: 67843182350 debug-data: 26995082478 primitives: 314532832*/
+/*____hashes flags: 1314811087 bytecode: 81088226817 debug-data: 31666215215 primitives: 314532832*/

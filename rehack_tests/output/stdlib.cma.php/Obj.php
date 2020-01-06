@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Obj {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $string = $runtime["caml_new_string"];
@@ -19,8 +19,8 @@ final class Obj {
     $is_int = $runtime["is_int"];
     $cst_Obj_extension_constructor__0 = $string("Obj.extension_constructor");
     $cst_Obj_extension_constructor = $string("Obj.extension_constructor");
-    $Pervasives =  Pervasives::requireModule ();
-    $Marshal =  Marshal::requireModule ();
+    $Pervasives = Pervasives::get();
+    $Marshal = Marshal::get();
     $is_block = (dynamic $a) ==> {return 1 - $is_int($a);};
     $double_field = (dynamic $x, dynamic $i) ==> {
       return $runtime["caml_array_get"]($x, $i);
@@ -156,32 +156,32 @@ final class Obj {
       }
     } as dynamic;
     
-     return ($Obj);
+    return($Obj);
 
   }
   public static function is_block(dynamic $a): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$a]);
+    return static::syncCall(__FUNCTION__, 1, $a);
   }
   public static function double_field(dynamic $x, dynamic $i): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$x, $i]);
+    return static::syncCall(__FUNCTION__, 2, $x, $i);
   }
   public static function set_double_field(dynamic $x, dynamic $i, dynamic $v): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$x, $i, $v]);
+    return static::syncCall(__FUNCTION__, 3, $x, $i, $v);
   }
   public static function extension_constructor(dynamic $x): dynamic {
-    return static::callRehackFunction(static::requireModule()[21], varray[$x]);
+    return static::syncCall(__FUNCTION__, 21, $x);
   }
   public static function extension_name(dynamic $slot): dynamic {
-    return static::callRehackFunction(static::requireModule()[22], varray[$slot]);
+    return static::syncCall(__FUNCTION__, 22, $slot);
   }
   public static function extension_id(dynamic $slot): dynamic {
-    return static::callRehackFunction(static::requireModule()[23], varray[$slot]);
+    return static::syncCall(__FUNCTION__, 23, $slot);
   }
   public static function marshal(dynamic $obj): dynamic {
-    return static::callRehackFunction(static::requireModule()[24], varray[$obj]);
+    return static::syncCall(__FUNCTION__, 24, $obj);
   }
   public static function unmarshal(dynamic $str, dynamic $pos): dynamic {
-    return static::callRehackFunction(static::requireModule()[25], varray[$str, $pos]);
+    return static::syncCall(__FUNCTION__, 25, $str, $pos);
   }
 
 }

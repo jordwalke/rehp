@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class Runtime {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $joo_global_object->jsoo_runtime =
       $ObjectLiteral(

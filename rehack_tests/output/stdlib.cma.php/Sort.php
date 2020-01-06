@@ -9,15 +9,15 @@ namespace Rehack;
 
 final class Sort {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $merge = new Ref();
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
-    $Invalid_argument =  Invalid_argument::requireModule ();
+    $Invalid_argument = Invalid_argument::get();
     $merge->contents = (dynamic $order, dynamic $l1, dynamic $l2) ==> {
       if ($l1) {
         $t1 = $l1[2];
@@ -182,17 +182,17 @@ final class Sort {
     };
     $Sort = Vector{0, $list, $array, $merge->contents} as dynamic;
     
-     return ($Sort);
+    return($Sort);
 
   }
   public static function list(dynamic $order, dynamic $l): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$order, $l]);
+    return static::syncCall(__FUNCTION__, 1, $order, $l);
   }
   public static function array(dynamic $cmp, dynamic $arr): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$cmp, $arr]);
+    return static::syncCall(__FUNCTION__, 2, $cmp, $arr);
   }
   public static function merge(dynamic $order, dynamic $l1, dynamic $l2): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$order, $l1, $l2]);
+    return static::syncCall(__FUNCTION__, 3, $order, $l1, $l2);
   }
 
 }

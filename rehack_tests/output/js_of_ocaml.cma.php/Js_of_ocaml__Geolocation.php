@@ -9,12 +9,12 @@ namespace Rehack;
 
 final class Js_of_ocaml__Geolocation {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $empty_position_options = (dynamic $param) ==> {return darray[];};
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 82957527, 298), $x);
@@ -42,14 +42,14 @@ final class Js_of_ocaml__Geolocation {
       $is_supported
     } as dynamic;
     
-     return ($Js_of_ocaml_Geolocation);
+    return($Js_of_ocaml_Geolocation);
 
   }
   public static function empty_position_options(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
+    return static::syncCall(__FUNCTION__, 1, $param);
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$param]);
+    return static::syncCall(__FUNCTION__, 3, $param);
   }
 
 }

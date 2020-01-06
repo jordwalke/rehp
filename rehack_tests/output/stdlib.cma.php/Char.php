@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Char {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_bytes_unsafe_set = $runtime["caml_bytes_unsafe_set"];
     $call1 = $runtime["caml_call1"];
     $caml_create_bytes = $runtime["caml_create_bytes"];
@@ -23,7 +23,7 @@ final class Char {
     $cst_n = $string("\\n");
     $cst_r = $string("\\r");
     $cst_Char_chr = $string("Char.chr");
-    $Pervasives =  Pervasives::requireModule ();
+    $Pervasives = Pervasives::get();
     $chr = (dynamic $n) ==> {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $call1($Pervasives[1], $cst_Char_chr);
@@ -121,32 +121,32 @@ final class Char {
       $equal
     } as dynamic;
     
-     return ($Char);
+    return($Char);
 
   }
   public static function chr(dynamic $n): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$n]);
+    return static::syncCall(__FUNCTION__, 1, $n);
   }
   public static function escaped(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$c]);
+    return static::syncCall(__FUNCTION__, 2, $c);
   }
   public static function lowercase(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$c]);
+    return static::syncCall(__FUNCTION__, 3, $c);
   }
   public static function uppercase(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$c]);
+    return static::syncCall(__FUNCTION__, 4, $c);
   }
   public static function lowercase_ascii(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$c]);
+    return static::syncCall(__FUNCTION__, 5, $c);
   }
   public static function uppercase_ascii(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$c]);
+    return static::syncCall(__FUNCTION__, 6, $c);
   }
   public static function compare(dynamic $c1, dynamic $c2): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$c1, $c2]);
+    return static::syncCall(__FUNCTION__, 7, $c1, $c2);
   }
   public static function equal(dynamic $c1, dynamic $c2): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$c1, $c2]);
+    return static::syncCall(__FUNCTION__, 8, $c1, $c2);
   }
 
 }

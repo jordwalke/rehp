@@ -9,10 +9,10 @@ namespace Rehack;
 
 final class CamlinternalFormatBasics {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $concat_fmt = new Ref();$concat_fmtty = new Ref();$erase_rel = new Ref();
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $is_int = $runtime["is_int"];
     $erase_rel->contents = (dynamic $param) ==> {
       if ($is_int($param)) {return 0;}
@@ -366,17 +366,17 @@ final class CamlinternalFormatBasics {
       $concat_fmt->contents
     } as dynamic;
     
-     return ($CamlinternalFormatBasics);
+    return($CamlinternalFormatBasics);
 
   }
   public static function concat_fmtty(dynamic $fmtty1, dynamic $fmtty2): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$fmtty1, $fmtty2]);
+    return static::syncCall(__FUNCTION__, 1, $fmtty1, $fmtty2);
   }
   public static function erase_rel(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$param]);
+    return static::syncCall(__FUNCTION__, 2, $param);
   }
   public static function concat_fmt(dynamic $fmt1, dynamic $fmt2): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$fmt1, $fmt2]);
+    return static::syncCall(__FUNCTION__, 3, $fmt1, $fmt2);
   }
 
 }

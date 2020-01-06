@@ -9,17 +9,17 @@ namespace Rehack;
 
 final class Js_of_ocaml__Sys_js {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_js_wrap_callback = $runtime["caml_js_wrap_callback"];
     $string = $runtime["caml_new_string"];
     $cst = $string("");
     $cst__0 = $string("+");
-    $Pervasives =  Pervasives::requireModule ();
-    $Js_of_ocaml_Lib_version =  Js_of_ocaml__Lib_version::requireModule ();
+    $Pervasives = Pervasives::get();
+    $Js_of_ocaml_Lib_version = Js_of_ocaml__Lib_version::get();
     $update_file = (dynamic $name, dynamic $content) ==> {
       $oc = $call1($Pervasives[48], $name);
       $call2($Pervasives[54], $oc, $content);
@@ -76,23 +76,23 @@ final class Js_of_ocaml__Sys_js {
       $js_of_ocaml_version
     } as dynamic;
     
-     return ($Js_of_ocaml_Sys_js);
+    return($Js_of_ocaml_Sys_js);
 
   }
   public static function set_channel_flusher(dynamic $out_channel, dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$out_channel, $f]);
+    return static::syncCall(__FUNCTION__, 1, $out_channel, $f);
   }
   public static function set_channel_filler(dynamic $in_channel, dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$in_channel, $f]);
+    return static::syncCall(__FUNCTION__, 2, $in_channel, $f);
   }
   public static function unmount(dynamic $path): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$path]);
+    return static::syncCall(__FUNCTION__, 4, $path);
   }
   public static function mount(dynamic $path, dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$path, $f]);
+    return static::syncCall(__FUNCTION__, 5, $path, $f);
   }
   public static function update_file(dynamic $name, dynamic $content): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$name, $content]);
+    return static::syncCall(__FUNCTION__, 8, $name, $content);
   }
 
 }

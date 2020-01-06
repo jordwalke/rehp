@@ -9,7 +9,7 @@ namespace Rehack;
 
 final class CamlinternalFormat {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $bprint_fmtty = new Ref();
     $bufput_acc = new Ref();
@@ -36,7 +36,7 @@ final class CamlinternalFormat {
     $trans = new Ref();
     $type_format_gen = new Ref();
     $type_ignored_format_substitution = new Ref();
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_blit_string = $runtime["caml_blit_string"];
     $caml_bytes_set = $runtime["caml_bytes_set"];
     $call1 = $runtime["caml_call1"];
@@ -200,16 +200,16 @@ final class CamlinternalFormat {
     $cst_CamlinternalFormat_Type_mismatch = $string(
       "CamlinternalFormat.Type_mismatch"
     );
-    $Assert_failure =  Assert_failure::requireModule ();
-    $CamlinternalFormatBasics =  CamlinternalFormatBasics::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Buffer =  Buffer::requireModule ();
-    $Failure =  Failure::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $String =  String_::requireModule ();
-    $Sys =  Sys::requireModule ();
-    $Char =  Char::requireModule ();
-    $Bytes =  Bytes::requireModule ();
+    $Assert_failure = Assert_failure::get();
+    $CamlinternalFormatBasics = CamlinternalFormatBasics::get();
+    $Pervasives = Pervasives::get();
+    $Buffer = Buffer::get();
+    $Failure = Failure::get();
+    $Not_found = Not_found::get();
+    $String = String_::get();
+    $Sys = Sys::get();
+    $Char = Char::get();
+    $Bytes = Bytes::get();
     $a_ = Vector{0, $string("camlinternalFormat.ml"), 846, 23} as dynamic;
     $l_ = Vector{0, $string("camlinternalFormat.ml"), 810, 21} as dynamic;
     $d_ = Vector{0, $string("camlinternalFormat.ml"), 811, 21} as dynamic;
@@ -8209,80 +8209,80 @@ final class CamlinternalFormat {
       $recast
     } as dynamic;
     
-     return ($CamlinternalFormat);
+    return($CamlinternalFormat);
 
   }
   public static function is_in_char_set(dynamic $char_set, dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$char_set, $c]);
+    return static::syncCall(__FUNCTION__, 1, $char_set, $c);
   }
   public static function rev_char_set(dynamic $char_set): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$char_set]);
+    return static::syncCall(__FUNCTION__, 2, $char_set);
   }
   public static function create_char_set(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$param]);
+    return static::syncCall(__FUNCTION__, 3, $param);
   }
   public static function add_in_char_set(dynamic $char_set, dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$char_set, $c]);
+    return static::syncCall(__FUNCTION__, 4, $char_set, $c);
   }
   public static function freeze_char_set(dynamic $char_set): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$char_set]);
+    return static::syncCall(__FUNCTION__, 5, $char_set);
   }
   public static function param_format_of_ignored_format(dynamic $ign, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$ign, $fmt]);
+    return static::syncCall(__FUNCTION__, 6, $ign, $fmt);
   }
   public static function make_printf(dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$k, $o, $acc, $fmt]);
+    return static::syncCall(__FUNCTION__, 7, $k, $o, $acc, $fmt);
   }
   public static function make_iprintf(dynamic $k, dynamic $o, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$k, $o, $fmt]);
+    return static::syncCall(__FUNCTION__, 8, $k, $o, $fmt);
   }
   public static function output_acc(dynamic $o, dynamic $acc): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$o, $acc]);
+    return static::syncCall(__FUNCTION__, 9, $o, $acc);
   }
   public static function bufput_acc(dynamic $b, dynamic $acc): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$b, $acc]);
+    return static::syncCall(__FUNCTION__, 10, $b, $acc);
   }
   public static function strput_acc(dynamic $b, dynamic $acc): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$b, $acc]);
+    return static::syncCall(__FUNCTION__, 11, $b, $acc);
   }
   public static function type_format(dynamic $fmt, dynamic $fmtty): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$fmt, $fmtty]);
+    return static::syncCall(__FUNCTION__, 12, $fmt, $fmtty);
   }
   public static function fmt_ebb_of_string(dynamic $legacy_behavior, dynamic $str): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$legacy_behavior, $str]);
+    return static::syncCall(__FUNCTION__, 13, $legacy_behavior, $str);
   }
   public static function format_of_string_fmtty(dynamic $str, dynamic $fmtty): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$str, $fmtty]);
+    return static::syncCall(__FUNCTION__, 14, $str, $fmtty);
   }
   public static function format_of_string_format(dynamic $str, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$str, $param]);
+    return static::syncCall(__FUNCTION__, 15, $str, $param);
   }
   public static function char_of_iconv(dynamic $iconv): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$iconv]);
+    return static::syncCall(__FUNCTION__, 16, $iconv);
   }
   public static function string_of_formatting_lit(dynamic $formatting_lit): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$formatting_lit]);
+    return static::syncCall(__FUNCTION__, 17, $formatting_lit);
   }
   public static function string_of_formatting_gen(dynamic $formatting_gen): dynamic {
-    return static::callRehackFunction(static::requireModule()[18], varray[$formatting_gen]);
+    return static::syncCall(__FUNCTION__, 18, $formatting_gen);
   }
   public static function string_of_fmtty(dynamic $fmtty): dynamic {
-    return static::callRehackFunction(static::requireModule()[19], varray[$fmtty]);
+    return static::syncCall(__FUNCTION__, 19, $fmtty);
   }
   public static function string_of_fmt(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[20], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 20, $fmt);
   }
   public static function open_box_of_string(dynamic $str): dynamic {
-    return static::callRehackFunction(static::requireModule()[21], varray[$str]);
+    return static::syncCall(__FUNCTION__, 21, $str);
   }
   public static function symm(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[22], varray[$param]);
+    return static::syncCall(__FUNCTION__, 22, $param);
   }
   public static function trans(dynamic $ty1, dynamic $ty2): dynamic {
-    return static::callRehackFunction(static::requireModule()[23], varray[$ty1, $ty2]);
+    return static::syncCall(__FUNCTION__, 23, $ty1, $ty2);
   }
   public static function recast(dynamic $fmt, dynamic $fmtty): dynamic {
-    return static::callRehackFunction(static::requireModule()[24], varray[$fmt, $fmtty]);
+    return static::syncCall(__FUNCTION__, 24, $fmt, $fmtty);
   }
 
 }

@@ -9,15 +9,15 @@ namespace Rehack;
 
 final class SeparateCompilation {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
-    $SeparateCompilation_SeparateCompilationHelper =  SeparateCompilation__SeparateCompilationHelper::requireModule (
+    $SeparateCompilation_SeparateCompilationHelper = SeparateCompilation__SeparateCompilationHelper::get(
       
     );
-    $Pervasives =  Pervasives::requireModule ();
-    $MyLib =  MyLib::requireModule ();
+    $Pervasives = Pervasives::get();
+    $MyLib = MyLib::get();
     
     $call1($Pervasives[34], $SeparateCompilation_SeparateCompilationHelper[1]);
     
@@ -25,9 +25,9 @@ final class SeparateCompilation {
     
     $SeparateCompilation = Vector{0} as dynamic;
     
-     return ($SeparateCompilation);
+    return($SeparateCompilation);
 
   }
 
 }
-/*____hashes flags: 1406088649 bytecode: 10647412249 debug-data: 1689011161 primitives: 1058613066*/
+/*____hashes flags: 1314811087 bytecode: 10647412249 debug-data: 1421488860 primitives: 1058613066*/

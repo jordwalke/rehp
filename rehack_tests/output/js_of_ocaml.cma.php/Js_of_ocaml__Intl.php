@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__Intl {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -32,8 +32,8 @@ final class Js_of_ocaml__Intl {
       $string("usage"),
       $string("numeric")
     } as dynamic;
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $CamlinternalOO =  CamlinternalOO::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $CamlinternalOO = CamlinternalOO::get();
     $a_ = Vector{0, $string("_type"), $string("localeMatcher")} as dynamic;
     $b_ = Vector{
       0,
@@ -639,11 +639,11 @@ final class Js_of_ocaml__Intl {
       $is_supported
     } as dynamic;
     
-     return ($Js_of_ocaml_Intl);
+    return($Js_of_ocaml_Intl);
 
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$param]);
+    return static::syncCall(__FUNCTION__, 10, $param);
   }
 
 }

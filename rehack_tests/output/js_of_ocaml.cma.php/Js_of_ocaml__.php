@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__ {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $Js_of_ocaml = Vector{
       0,
       0,
@@ -40,7 +40,7 @@ final class Js_of_ocaml__ {
       0
     } as dynamic;
     
-     return ($Js_of_ocaml);
+    return($Js_of_ocaml);
 
   }
 

@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Strings {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_int_of_string = $runtime["caml_int_of_string"];
@@ -67,11 +67,11 @@ final class Strings {
     $cst_Nans_are_should_output_false = $string(
       "Nans are == (should output false):"
     );
-    $Pervasives =  Pervasives::requireModule ();
-    $String =  String_::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $StringHelper =  StringHelper::requireModule ();
-    $Failure =  Failure::requireModule ();
+    $Pervasives = Pervasives::get();
+    $String = String_::get();
+    $Not_found = Not_found::get();
+    $StringHelper = StringHelper::get();
+    $Failure = Failure::get();
     $r_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}} as dynamic;
     $s_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}} as dynamic;
     
@@ -259,14 +259,14 @@ final class Strings {
       $anotherName
     } as dynamic;
     
-     return ($Strings);
+    return($Strings);
 
   }
   public static function createIntFromString(dynamic $ss): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$ss]);
+    return static::syncCall(__FUNCTION__, 6, $ss);
   }
   public static function myFunction(dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope]);
+    return static::syncCall(__FUNCTION__, 7, $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope);
   }
 
 }

@@ -9,14 +9,14 @@ namespace Rehack;
 
 final class Scanf {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $make_scanf = new Ref();
     $take_fmtty_format_readers = new Ref();
     $take_fmtty_format_readers__0 = new Ref();
     $take_format_readers = new Ref();
     $take_ignored_format_readers = new Ref();
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_bytes_get = $runtime["caml_bytes_get"];
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
@@ -80,18 +80,18 @@ final class Scanf {
     $cst_hexadecimal = $string("hexadecimal");
     $cst_a_Char = $string("a Char");
     $cst_a_String = $string("a String");
-    $CamlinternalFormat =  CamlinternalFormat::requireModule ();
-    $CamlinternalFormatBasics =  CamlinternalFormatBasics::requireModule ();
-    $String =  String_::requireModule ();
-    $Failure =  Failure::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Assert_failure =  Assert_failure::requireModule ();
-    $Buffer =  Buffer::requireModule ();
-    $End_of_file =  End_of_file::requireModule ();
-    $Invalid_argument =  Invalid_argument::requireModule ();
-    $Printf =  Printf::requireModule ();
-    $List =  List_::requireModule ();
-    $Not_found =  Not_found::requireModule ();
+    $CamlinternalFormat = CamlinternalFormat::get();
+    $CamlinternalFormatBasics = CamlinternalFormatBasics::get();
+    $String = String_::get();
+    $Failure = Failure::get();
+    $Pervasives = Pervasives::get();
+    $Assert_failure = Assert_failure::get();
+    $Buffer = Buffer::get();
+    $End_of_file = End_of_file::get();
+    $Invalid_argument = Invalid_argument::get();
+    $Printf = Printf::get();
+    $List = List_::get();
+    $Not_found = Not_found::get();
     $r_ = Vector{0, 91} as dynamic;
     $q_ = Vector{0, 123} as dynamic;
     $s_ = Vector{0, $string("scanf.ml"), 1455, 13} as dynamic;
@@ -2568,41 +2568,41 @@ final class Scanf {
       $kfscanf
     } as dynamic;
     
-     return ($Scanf);
+    return($Scanf);
 
   }
   public static function bscanf(dynamic $ib, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$ib, $fmt]);
+    return static::syncCall(__FUNCTION__, 3, $ib, $fmt);
   }
   public static function sscanf(dynamic $s, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$s, $fmt]);
+    return static::syncCall(__FUNCTION__, 4, $s, $fmt);
   }
   public static function scanf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 5, $fmt);
   }
   public static function kscanf(dynamic $ib, dynamic $ef, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$ib, $ef, $param]);
+    return static::syncCall(__FUNCTION__, 6, $ib, $ef, $param);
   }
   public static function ksscanf(dynamic $s, dynamic $ef, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$s, $ef, $fmt]);
+    return static::syncCall(__FUNCTION__, 7, $s, $ef, $fmt);
   }
   public static function bscanf_format(dynamic $ib, dynamic $format, dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$ib, $format, $f]);
+    return static::syncCall(__FUNCTION__, 8, $ib, $format, $f);
   }
   public static function sscanf_format(dynamic $s, dynamic $format, dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$s, $format, $f]);
+    return static::syncCall(__FUNCTION__, 9, $s, $format, $f);
   }
   public static function format_from_string(dynamic $s, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$s, $fmt]);
+    return static::syncCall(__FUNCTION__, 10, $s, $fmt);
   }
   public static function unescaped(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$s]);
+    return static::syncCall(__FUNCTION__, 11, $s);
   }
   public static function fscanf(dynamic $ic, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$ic, $fmt]);
+    return static::syncCall(__FUNCTION__, 12, $ic, $fmt);
   }
   public static function kfscanf(dynamic $ic, dynamic $ef, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$ic, $ef, $fmt]);
+    return static::syncCall(__FUNCTION__, 13, $ic, $ef, $fmt);
   }
 
 }

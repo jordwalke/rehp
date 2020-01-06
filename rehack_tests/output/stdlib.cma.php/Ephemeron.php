@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Ephemeron {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -24,14 +24,14 @@ final class Ephemeron {
      ];
     $left_shift_32 = $runtime["left_shift_32"];
     $unsigned_right_shift_32 = $runtime["unsigned_right_shift_32"];
-    $Obj =  Obj::requireModule ();
-    $Sys =  Sys::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Array =  Array_::requireModule ();
-    $Hashtbl =  Hashtbl::requireModule ();
-    $CamlinternalLazy =  CamlinternalLazy::requireModule ();
-    $Random =  Random::requireModule ();
+    $Obj = Obj::get();
+    $Sys = Sys::get();
+    $Not_found = Not_found::get();
+    $Pervasives = Pervasives::get();
+    $Array = Array_::get();
+    $Hashtbl = Hashtbl::get();
+    $CamlinternalLazy = CamlinternalLazy::get();
+    $Random = Random::get();
     $c_ = Vector{0, 0} as dynamic;
     $b_ = Vector{0, 0} as dynamic;
     $a_ = Vector{0, 0} as dynamic;
@@ -1203,7 +1203,7 @@ final class Ephemeron {
       }
     } as dynamic;
     
-     return ($Ephemeron);
+    return($Ephemeron);
 
   }
 

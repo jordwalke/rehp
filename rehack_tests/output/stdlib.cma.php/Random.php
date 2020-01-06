@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Random {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call5 = $runtime["caml_call5"];
@@ -32,12 +32,12 @@ final class Random {
     $cst_Random_int32 = $string("Random.int32");
     $cst_Random_int = $string("Random.int");
     $cst_x = $string("x");
-    $Int32 =  Int32::requireModule ();
-    $Int64 =  Int64::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $Digest =  Digest::requireModule ();
-    $Array =  Array_::requireModule ();
-    $Nativeint =  Nativeint::requireModule ();
+    $Int32 = Int32::get();
+    $Int64 = Int64::get();
+    $Pervasives = Pervasives::get();
+    $Digest = Digest::get();
+    $Array = Array_::get();
+    $Nativeint = Nativeint::get();
     $a_ = Vector{255, 1, 0, 0} as dynamic;
     $b_ = Vector{255, 0, 0, 0} as dynamic;
     $c_ = Vector{
@@ -297,44 +297,44 @@ final class Random {
       $set_state
     } as dynamic;
     
-     return ($Random);
+    return($Random);
 
   }
   public static function init(dynamic $seed): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$seed]);
+    return static::syncCall(__FUNCTION__, 1, $seed);
   }
   public static function full_init(dynamic $seed): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$seed]);
+    return static::syncCall(__FUNCTION__, 2, $seed);
   }
   public static function self_init(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$param]);
+    return static::syncCall(__FUNCTION__, 3, $param);
   }
   public static function bits(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$param]);
+    return static::syncCall(__FUNCTION__, 4, $param);
   }
-  public static function _int_(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$bound]);
+  public static function _int(dynamic $bound): dynamic {
+    return static::syncCall(__FUNCTION__, 5, $bound);
   }
   public static function int32(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$bound]);
+    return static::syncCall(__FUNCTION__, 6, $bound);
   }
   public static function nativeint(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$bound]);
+    return static::syncCall(__FUNCTION__, 7, $bound);
   }
   public static function int64(dynamic $bound): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$bound]);
+    return static::syncCall(__FUNCTION__, 8, $bound);
   }
-  public static function _float_(dynamic $scale): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$scale]);
+  public static function _float(dynamic $scale): dynamic {
+    return static::syncCall(__FUNCTION__, 9, $scale);
   }
   public static function bool(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$param]);
+    return static::syncCall(__FUNCTION__, 10, $param);
   }
   public static function get_state(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$param]);
+    return static::syncCall(__FUNCTION__, 12, $param);
   }
   public static function set_state(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$s]);
+    return static::syncCall(__FUNCTION__, 13, $s);
   }
 
 }

@@ -9,10 +9,10 @@ namespace Rehack;
 
 final class StringLabels {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
-    $String =  String_::requireModule ();
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    $String = String_::get();
     $make = $String[1];
     $init = $String[2];
     $copy = $String[3];
@@ -87,7 +87,7 @@ final class StringLabels {
       $split_on_char
     } as dynamic;
     
-     return ($StringLabels);
+    return($StringLabels);
 
   }
 

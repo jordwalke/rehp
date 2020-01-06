@@ -9,17 +9,17 @@ namespace Rehack;
 
 final class Js_of_ocaml__WebGL {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
     $cst_webglcontextlost = $string("webglcontextlost");
     $cst_webglcontextrestored = $string("webglcontextrestored");
     $cst_webglcontextcreationerror = $string("webglcontextcreationerror");
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Js_of_ocaml_Dom_html = Js_of_ocaml__Dom_html::get();
     $defaultContextAttributes = darray[
      "alpha"=>$Js_of_ocaml_Js[7],
      "depth"=>$Js_of_ocaml_Js[7],
@@ -85,14 +85,14 @@ final class Js_of_ocaml__WebGL {
       $getContextWithAttributes
     } as dynamic;
     
-     return ($Js_of_ocaml_WebGL);
+    return($Js_of_ocaml_WebGL);
 
   }
   public static function getContext(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$c]);
+    return static::syncCall(__FUNCTION__, 3, $c);
   }
   public static function getContextWithAttributes(dynamic $c, dynamic $attribs): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$c, $attribs]);
+    return static::syncCall(__FUNCTION__, 4, $c, $attribs);
   }
 
 }

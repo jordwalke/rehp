@@ -9,16 +9,16 @@ namespace Rehack;
 
 final class Printf {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
-    $Buffer =  Buffer::requireModule ();
-    $CamlinternalFormat =  CamlinternalFormat::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
+    $Buffer = Buffer::get();
+    $CamlinternalFormat = CamlinternalFormat::get();
+    $Pervasives = Pervasives::get();
     $kfprintf = (dynamic $k, dynamic $o, dynamic $param) ==> {
       $fmt = $param[1];
       $f_ = 0 as dynamic;
@@ -79,38 +79,38 @@ final class Printf {
       $ksprintf
     } as dynamic;
     
-     return ($Printf);
+    return($Printf);
 
   }
   public static function fprintf(dynamic $oc, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$oc, $fmt]);
+    return static::syncCall(__FUNCTION__, 1, $oc, $fmt);
   }
   public static function printf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 2, $fmt);
   }
   public static function eprintf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 3, $fmt);
   }
   public static function sprintf(dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$fmt]);
+    return static::syncCall(__FUNCTION__, 4, $fmt);
   }
   public static function bprintf(dynamic $b, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$b, $fmt]);
+    return static::syncCall(__FUNCTION__, 5, $b, $fmt);
   }
   public static function ifprintf(dynamic $oc, dynamic $fmt): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$oc, $fmt]);
+    return static::syncCall(__FUNCTION__, 6, $oc, $fmt);
   }
   public static function kfprintf(dynamic $k, dynamic $o, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$k, $o, $param]);
+    return static::syncCall(__FUNCTION__, 7, $k, $o, $param);
   }
   public static function ikfprintf(dynamic $k, dynamic $oc, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$k, $oc, $param]);
+    return static::syncCall(__FUNCTION__, 8, $k, $oc, $param);
   }
   public static function ksprintf(dynamic $k, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$k, $param]);
+    return static::syncCall(__FUNCTION__, 9, $k, $param);
   }
   public static function kbprintf(dynamic $k, dynamic $b, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$k, $b, $param]);
+    return static::syncCall(__FUNCTION__, 10, $k, $b, $param);
   }
 
 }

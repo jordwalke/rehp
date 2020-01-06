@@ -9,16 +9,16 @@ namespace Rehack;
 
 final class Gc {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
     $call4 = $runtime["caml_call4"];
     $caml_ml_string_length = $runtime["caml_ml_string_length"];
     $string = $runtime["caml_new_string"];
-    $Sys =  Sys::requireModule ();
-    $Printf =  Printf::requireModule ();
+    $Sys = Sys::get();
+    $Printf = Printf::get();
     $a_ = Vector{
       0,
       Vector{
@@ -208,20 +208,20 @@ final class Gc {
       $delete_alarm
     } as dynamic;
     
-     return ($Gc);
+    return($Gc);
 
   }
   public static function print_stat(dynamic $c): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$c]);
+    return static::syncCall(__FUNCTION__, 1, $c);
   }
   public static function allocated_bytes(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$param]);
+    return static::syncCall(__FUNCTION__, 2, $param);
   }
   public static function create_alarm(dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$f]);
+    return static::syncCall(__FUNCTION__, 6, $f);
   }
   public static function delete_alarm(dynamic $a): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$a]);
+    return static::syncCall(__FUNCTION__, 7, $a);
   }
 
 }

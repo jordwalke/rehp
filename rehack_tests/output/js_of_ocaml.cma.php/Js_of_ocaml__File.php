@@ -9,10 +9,10 @@ namespace Rehack;
 
 final class Js_of_ocaml__File {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $filter_map = new Ref();
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
@@ -28,12 +28,12 @@ final class Js_of_ocaml__File {
     $cst_error = $string__0("error");
     $cst_load = $string__0("load");
     $cst_loadend = $string__0("loadend");
-    $Js_of_ocaml_Typed_array =  Js_of_ocaml__Typed_array::requireModule ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $List =  List_::requireModule ();
-    $Array =  Array_::requireModule ();
-    $Js_of_ocaml_Dom =  Js_of_ocaml__Dom::requireModule ();
+    $Js_of_ocaml_Typed_array = Js_of_ocaml__Typed_array::get();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Pervasives = Pervasives::get();
+    $List = List_::get();
+    $Array = Array_::get();
+    $Js_of_ocaml_Dom = Js_of_ocaml__Dom::get();
     $c_ = Vector{0, $string__0("transparent")} as dynamic;
     $d_ = Vector{0, $string__0("native")} as dynamic;
     $a_ = (dynamic $x) ==> {
@@ -194,17 +194,17 @@ final class Js_of_ocaml__File {
       $addEventListener
     } as dynamic;
     
-     return ($Js_of_ocaml_File);
+    return($Js_of_ocaml_File);
 
   }
   public static function blob_from_string(dynamic $contentType, dynamic $endings, dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$contentType, $endings, $s]);
+    return static::syncCall(__FUNCTION__, 1, $contentType, $endings, $s);
   }
   public static function blob_from_any(dynamic $contentType, dynamic $endings, dynamic $l): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$contentType, $endings, $l]);
+    return static::syncCall(__FUNCTION__, 2, $contentType, $endings, $l);
   }
   public static function filename(dynamic $file): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$file]);
+    return static::syncCall(__FUNCTION__, 5, $file);
   }
 
 }

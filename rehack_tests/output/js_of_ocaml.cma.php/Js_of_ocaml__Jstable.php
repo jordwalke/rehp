@@ -9,17 +9,17 @@ namespace Rehack;
 
 final class Js_of_ocaml__Jstable {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
     $cst_Jstable_keys = $string("Jstable.keys");
-    $Pervasives =  Pervasives::requireModule ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $List =  List_::requireModule ();
+    $Pervasives = Pervasives::get();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $List = List_::get();
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, 944440446, 270), $x);
     };
@@ -117,23 +117,23 @@ final class Js_of_ocaml__Jstable {
     };
     $Js_of_ocaml_Jstable = Vector{0, $create, $add, $remove, $find, $keys} as dynamic;
     
-     return ($Js_of_ocaml_Jstable);
+    return($Js_of_ocaml_Jstable);
 
   }
   public static function create(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
+    return static::syncCall(__FUNCTION__, 1, $param);
   }
   public static function add(dynamic $t, dynamic $k, dynamic $v): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$t, $k, $v]);
+    return static::syncCall(__FUNCTION__, 2, $t, $k, $v);
   }
   public static function remove(dynamic $t, dynamic $k): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$t, $k]);
+    return static::syncCall(__FUNCTION__, 3, $t, $k);
   }
   public static function find(dynamic $t, dynamic $k): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$t, $k]);
+    return static::syncCall(__FUNCTION__, 4, $t, $k);
   }
   public static function keys(dynamic $t): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$t]);
+    return static::syncCall(__FUNCTION__, 5, $t);
   }
 
 }

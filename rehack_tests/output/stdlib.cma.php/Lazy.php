@@ -9,12 +9,12 @@ namespace Rehack;
 
 final class Lazy {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_obj_tag = $runtime["caml_obj_tag"];
-    $Obj =  Obj::requireModule ();
-    $CamlinternalLazy =  CamlinternalLazy::requireModule ();
+    $Obj = Obj::get();
+    $CamlinternalLazy = CamlinternalLazy::get();
     $Undefined = $CamlinternalLazy[1];
     $force_val = $CamlinternalLazy[5];
     $from_fun = (dynamic $f) ==> {
@@ -44,17 +44,17 @@ final class Lazy {
       $is_val
     } as dynamic;
     
-     return ($Lazy);
+    return($Lazy);
 
   }
   public static function from_fun(dynamic $f): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$f]);
+    return static::syncCall(__FUNCTION__, 3, $f);
   }
   public static function from_val(dynamic $v): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$v]);
+    return static::syncCall(__FUNCTION__, 4, $v);
   }
   public static function is_val(dynamic $l): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$l]);
+    return static::syncCall(__FUNCTION__, 5, $l);
   }
 
 }

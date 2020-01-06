@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__Json {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
@@ -50,14 +50,14 @@ final class Js_of_ocaml__Json {
     };
     $Js_of_ocaml_Json = Vector{0, $output, $unsafe_input} as dynamic;
     
-     return ($Js_of_ocaml_Json);
+    return($Js_of_ocaml_Json);
 
   }
   public static function output(dynamic $obj): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$obj]);
+    return static::syncCall(__FUNCTION__, 1, $obj);
   }
   public static function unsafe_input(dynamic $s): dynamic {
-    return static::callRehackFunction(static::requireModule()[2], varray[$s]);
+    return static::syncCall(__FUNCTION__, 2, $s);
   }
 
 }

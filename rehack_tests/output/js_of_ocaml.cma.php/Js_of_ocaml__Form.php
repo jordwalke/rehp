@@ -9,10 +9,10 @@ namespace Rehack;
 
 final class Js_of_ocaml__Form {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
     $filter_map = new Ref();
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
@@ -28,11 +28,11 @@ final class Js_of_ocaml__Form {
     $cst_reset = $string("reset");
     $cst_submit = $string("submit");
     $cst_text = $string("text");
-    $Assert_failure =  Assert_failure::requireModule ();
-    $List =  List_::requireModule ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Js_of_ocaml_Dom_html =  Js_of_ocaml__Dom_html::requireModule ();
-    $Array =  Array_::requireModule ();
+    $Assert_failure = Assert_failure::get();
+    $List = List_::get();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Js_of_ocaml_Dom_html = Js_of_ocaml__Dom_html::get();
+    $Array = Array_::get();
     $f_ = Vector{0, $string("lib/js_of_ocaml/form.ml"), 170, 58} as dynamic;
     $e_ = Vector{0, 1} as dynamic;
     $a_ = (dynamic $x) ==> {
@@ -495,23 +495,23 @@ final class Js_of_ocaml__Form {
       $form_elements
     } as dynamic;
     
-     return ($Js_of_ocaml_Form);
+    return($Js_of_ocaml_Form);
 
   }
   public static function append(dynamic $form_contents, dynamic $form_elt): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$form_contents, $form_elt]);
+    return static::syncCall(__FUNCTION__, 3, $form_contents, $form_elt);
   }
   public static function post_form_contents(dynamic $form): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$form]);
+    return static::syncCall(__FUNCTION__, 4, $form);
   }
   public static function get_form_contents(dynamic $form): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$form]);
+    return static::syncCall(__FUNCTION__, 5, $form);
   }
   public static function empty_form_contents(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$param]);
+    return static::syncCall(__FUNCTION__, 6, $param);
   }
   public static function form_elements(dynamic $get, dynamic $form): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$get, $form]);
+    return static::syncCall(__FUNCTION__, 7, $get, $form);
   }
 
 }

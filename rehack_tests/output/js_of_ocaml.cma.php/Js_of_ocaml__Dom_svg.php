@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Js_of_ocaml__Dom_svg {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call3 = $runtime["caml_call3"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
@@ -128,8 +128,8 @@ final class Js_of_ocaml__Dom_svg {
     $cst_Js_of_ocaml_Dom_svg_SVGError = $string(
       "Js_of_ocaml__Dom_svg.SVGError"
     );
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
-    $Not_found =  Not_found::requireModule ();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
+    $Not_found = Not_found::get();
     $xmlns = "http://www.w3.org/2000/svg";
     $SVGError = Vector{
       248,
@@ -559,176 +559,176 @@ final class Js_of_ocaml__Dom_svg {
       }
     } as dynamic;
     
-     return ($Js_of_ocaml_Dom_svg);
+    return($Js_of_ocaml_Dom_svg);
 
   }
   public static function createElement(dynamic $doc, dynamic $name): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$doc, $name]);
+    return static::syncCall(__FUNCTION__, 3, $doc, $name);
   }
   public static function createA(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 4, $doc);
   }
   public static function createAltGlyph(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[5], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 5, $doc);
   }
   public static function createAltGlyphDef(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[6], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 6, $doc);
   }
   public static function createAltGlyphItem(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[7], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 7, $doc);
   }
   public static function createAnimate(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[8], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 8, $doc);
   }
   public static function createAnimateColor(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[9], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 9, $doc);
   }
   public static function createAnimateMotion(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[10], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 10, $doc);
   }
   public static function createAnimateTransform(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[11], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 11, $doc);
   }
   public static function createCircle(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[12], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 12, $doc);
   }
   public static function createClipPath(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[13], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 13, $doc);
   }
   public static function createCursor(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[14], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 14, $doc);
   }
   public static function createDefs(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[15], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 15, $doc);
   }
   public static function createDesc(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[16], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 16, $doc);
   }
   public static function createEllipse(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[17], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 17, $doc);
   }
   public static function createFilter(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[18], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 18, $doc);
   }
   public static function createFont(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[19], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 19, $doc);
   }
   public static function createFontFace(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[20], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 20, $doc);
   }
   public static function createFontFaceFormat(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[21], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 21, $doc);
   }
   public static function createFontFaceName(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[22], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 22, $doc);
   }
   public static function createFontFaceSrc(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[23], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 23, $doc);
   }
   public static function createFontFaceUri(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[24], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 24, $doc);
   }
   public static function createForeignObject(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[25], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 25, $doc);
   }
   public static function createG(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[26], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 26, $doc);
   }
   public static function createGlyph(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[27], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 27, $doc);
   }
   public static function createGlyphRef(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[28], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 28, $doc);
   }
   public static function createhkern(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[29], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 29, $doc);
   }
   public static function createImage(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[30], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 30, $doc);
   }
   public static function createLineElement(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[31], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 31, $doc);
   }
   public static function createLinearElement(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[32], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 32, $doc);
   }
   public static function createMask(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[33], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 33, $doc);
   }
   public static function createMetaData(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[34], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 34, $doc);
   }
   public static function createMissingGlyph(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[35], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 35, $doc);
   }
   public static function createMPath(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[36], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 36, $doc);
   }
   public static function createPath(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[37], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 37, $doc);
   }
   public static function createPattern(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[38], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 38, $doc);
   }
   public static function createPolygon(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[39], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 39, $doc);
   }
   public static function createPolyline(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[40], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 40, $doc);
   }
   public static function createRadialgradient(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[41], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 41, $doc);
   }
   public static function createRect(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[42], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 42, $doc);
   }
   public static function createScript(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[43], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 43, $doc);
   }
   public static function createSet(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[44], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 44, $doc);
   }
   public static function createStop(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[45], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 45, $doc);
   }
   public static function createStyle(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[46], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 46, $doc);
   }
   public static function createSvg(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[47], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 47, $doc);
   }
   public static function createSwitch(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[48], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 48, $doc);
   }
   public static function createSymbol(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[49], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 49, $doc);
   }
   public static function createTextElement(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[50], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 50, $doc);
   }
   public static function createTextpath(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[51], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 51, $doc);
   }
   public static function createTitle(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[52], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 52, $doc);
   }
   public static function createTref(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[53], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 53, $doc);
   }
   public static function createTspan(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[54], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 54, $doc);
   }
   public static function createUse(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[55], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 55, $doc);
   }
   public static function createView(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[56], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 56, $doc);
   }
   public static function createvkern(dynamic $doc): dynamic {
-    return static::callRehackFunction(static::requireModule()[57], varray[$doc]);
+    return static::syncCall(__FUNCTION__, 57, $doc);
   }
   public static function getElementById(dynamic $id): dynamic {
-    return static::callRehackFunction(static::requireModule()[60], varray[$id]);
+    return static::syncCall(__FUNCTION__, 60, $id);
   }
 
 }

@@ -9,9 +9,9 @@ namespace Rehack;
 
 final class Genlex {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -33,14 +33,14 @@ final class Genlex {
     $cst__4 = $string("");
     $cst__3 = $string("");
     $cst_Illegal_character = $string("Illegal character ");
-    $Stream =  Stream::requireModule ();
-    $Char =  Char::requireModule ();
-    $String =  String_::requireModule ();
-    $Hashtbl =  Hashtbl::requireModule ();
-    $Not_found =  Not_found::requireModule ();
-    $Pervasives =  Pervasives::requireModule ();
-    $List =  List_::requireModule ();
-    $Bytes =  Bytes::requireModule ();
+    $Stream = Stream::get();
+    $Char = Char::get();
+    $String = String_::get();
+    $Hashtbl = Hashtbl::get();
+    $Not_found = Not_found::get();
+    $Pervasives = Pervasives::get();
+    $List = List_::get();
+    $Bytes = Bytes::get();
     $initial_buffer = $caml_create_bytes(32);
     $buffer = Vector{0, $initial_buffer} as dynamic;
     $bufpos = Vector{0, 0} as dynamic;
@@ -686,11 +686,11 @@ final class Genlex {
     };
     $Genlex = Vector{0, $make_lexer} as dynamic;
     
-     return ($Genlex);
+    return($Genlex);
 
   }
   public static function make_lexer(dynamic $keywords): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$keywords]);
+    return static::syncCall(__FUNCTION__, 1, $keywords);
   }
 
 }

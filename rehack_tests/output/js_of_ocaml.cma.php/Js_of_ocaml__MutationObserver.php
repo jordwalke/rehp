@@ -9,13 +9,13 @@ namespace Rehack;
 
 final class Js_of_ocaml__MutationObserver {
   <<__Override, __Memoize>>
-  public static function requireModule() : Vector<dynamic> {
+  public static function get() : Vector<dynamic> {
     
-    $runtime =  (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime ;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Array =  Array_::requireModule ();
-    $Js_of_ocaml_Js =  Js_of_ocaml__Js::requireModule ();
+    $Array = Array_::get();
+    $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $empty_mutation_observer_init = (dynamic $param) ==> {return darray[];};
     $a_ = (dynamic $x) ==> {
       return $call1($caml_get_public_method($x, -412262690, 261), $x);
@@ -128,17 +128,17 @@ final class Js_of_ocaml__MutationObserver {
       $observe
     } as dynamic;
     
-     return ($Js_of_ocaml_MutationObserver);
+    return($Js_of_ocaml_MutationObserver);
 
   }
   public static function empty_mutation_observer_init(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[1], varray[$param]);
+    return static::syncCall(__FUNCTION__, 1, $param);
   }
   public static function is_supported(dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[3], varray[$param]);
+    return static::syncCall(__FUNCTION__, 3, $param);
   }
   public static function observe(dynamic $node, dynamic $f, dynamic $child_list, dynamic $attributes, dynamic $character_data, dynamic $subtree, dynamic $attribute_old_value, dynamic $character_data_old_value, dynamic $attribute_filter, dynamic $param): dynamic {
-    return static::callRehackFunction(static::requireModule()[4], varray[$node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param]);
+    return static::syncCall(__FUNCTION__, 4, $node, $f, $child_list, $attributes, $character_data, $subtree, $attribute_old_value, $character_data_old_value, $attribute_filter, $param);
   }
 
 }
