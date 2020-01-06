@@ -628,11 +628,22 @@ let f
 
 let main = Cmdliner.Term.(pure f $ CompileArg.options), CompileArg.info
 
+let print_file_error msg name line col = (
+  Format.eprintf "\nFile \"%s\", line %d, characters %d-%d:\n" name (line + 1) col (col + 2);
+  Format.eprintf "Error: %s\n\n" msg
+)
+
 let _ =
   Timer.init Sys.time;
   try
     Cmdliner.Term.eval ~catch:false ~argv:(Util.normalize_argv ~warn_:true Sys.argv) main
   with
+  (* TODO: Print this in a way that is parseable by refmterr *)
+  | Raw_macro.UserError (msg, opt_loc) ->
+      (match opt_loc with
+      | Some {Parse_info.name=Some name; line; col} -> print_file_error msg name line col
+      | _ -> Format.eprintf "Error: %s\n" msg);
+      exit 1
   | (Match_failure _ | Assert_failure _ | Not_found) as exc ->
       let backtrace = Printexc.get_backtrace () in
       Format.eprintf
