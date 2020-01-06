@@ -132,10 +132,44 @@ let static_methods =
       "syncCall",
       "getExports",
       "callRehackFunction",
+      "genCallFunctionWithArgs",
       "genCallName",
       "syncCallName",
+      "syncCallFunctionWithArgs",
     ],
   );
+
+let removeConflicts = (set, nm) => {
+  let nm_no_unders = String.trim_leading_char('_', nm);
+  let same_modulo_unders = elem =>
+    String.equal(String.trim_leading_char('_', elem), nm_no_unders);
+  /*
+   * reservedWord -> _reservedWord
+   * _reservedWord -> __reservedWord
+   *
+   * Or if the reserved word already has underscores (like __construct):
+   * construct -> ___construct
+   * _construct -> ____construct
+   */
+  let found = {contents: None};
+  /*
+   * Very strange, StringSet.find_first_opt(same_modulo_unders, set)
+   * isn't iterating through all of the items!! Need to manually loop.
+   * Seems like a really bad bug somewhere.
+   */
+  set
+  |> StringSet.iter(s =>
+       same_modulo_unders(s) ? found.contents = Some(s) : ()
+     );
+
+  switch (found.contents) {
+  | None => nm
+  | Some(found) =>
+    let conflictUnders = String.num_leading_char('_', found);
+    let numOrigUnders = String.num_leading_char('_', nm);
+    String.make(1 + conflictUnders + numOrigUnders, '_') ++ nm_no_unders;
+  };
+};
 
 let compute_footer_summary = (moduleName, metadatas, should_async) => {
   let rec dedupeAndFilter = (revDeduped, rest) => {
@@ -166,19 +200,8 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
     | (0, _)
     | (_, None) => []
     | (_, Some(nm)) =>
-      let nm_no_unders = String.trim_leading_char('_', nm);
-      let elem_matches = elem =>
-        String.equal(String.trim_leading_char('_', elem), nm_no_unders);
-      /*
-       * If there's a keyword that is a prefix of (_*)nm without underscores,
-       * then prepend an underscore. If there's a keyword 'keyword' then name
-       * keyword becomes _keyword name _keyword => __keyword
-       */
-      let nm =
-        StringSet.exists(elem_matches, php_keywords) ? "_" ++ nm ++ "_" : nm;
-      let nm =
-        StringSet.exists(elem_matches, static_methods)
-          ? "_" ++ nm ++ "_" : nm;
+      let nm = removeConflicts(static_methods, nm);
+      let nm = removeConflicts(php_keywords, nm);
       let noNames = {contents: 0};
       let argsList =
         List.map(metadata.arg_names, ~f=nm =>
@@ -386,11 +409,7 @@ let custom_module_loader = () =>
   Some(
     (runtime_getter, name) =>
       Some(
-        Rehp.ECall(
-          Rehp.ERaw([Rehp.RawText(name ++ "::get")]),
-          [],
-          Loc.N,
-        ),
+        Rehp.ECall(Rehp.ERaw([Rehp.RawText(name ++ "::get")]), [], Loc.N),
       ),
   );
 
