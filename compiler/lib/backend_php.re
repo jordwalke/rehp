@@ -212,39 +212,58 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
           | Some(n) => n
           }
         );
-      let params =
-        List.map(~f=nm => "dynamic $" ++ nm, argsList)
-        |> String.concat(~sep=", ");
       let nmLen = String.length(nm);
-      let args =
-        List.map(~f=nm => "$" ++ nm, argsList) |> String.concat(~sep=", ");
+      let argsLen = List.length(argsList);
       if (should_async
+          && argsLen > 0
           && String.is_prefixed_i("gen", nm, 0)
           && (
             nmLen === 3
             || nmLen > 3
             && nm.[3] !== Char.lowercase_ascii(nm.[4])
           )) {
+        let (params, argsList) =
+          switch (List.rev(argsList)) {
+          /* Remove the callback since genCall will handle that.*/
+          | [cb, ...tl] =>
+            let nonCallbacks = List.rev(tl);
+            let params =
+              List.map(~f=nm => "dynamic $" ++ nm, nonCallbacks)
+              |> String.concat(~sep="+, ");
+            (params, nonCallbacks);
+          | [] => failwith("This should never happen")
+          };
+        let args = List.map(~f=nm => "$" ++ nm, argsList);
+        let args = [
+          "__FUNCTION__",
+          string_of_int(metadata.export_index),
+          ...args,
+        ];
         [
           "  public static function "
           ++ nm
           ++ "("
           ++ params
           ++ "): Awaitable<dynamic> {",
-          "    return static::genCall(__FUNCTION__, "
-          ++ string_of_int(metadata.export_index)
-          ++ ", "
-          ++ args
+          "    return static::genCall("
+          ++ String.concat(~sep=", ", args)
           ++ ");",
           "  }",
         ];
       } else {
+        let args = List.map(~f=nm => "$" ++ nm, argsList);
+        let args = [
+          "__FUNCTION__",
+          string_of_int(metadata.export_index),
+          ...args,
+        ];
+        let params =
+          List.map(~f=nm => "dynamic $" ++ nm, argsList)
+          |> String.concat(~sep=", ");
         [
           "  public static function " ++ nm ++ "(" ++ params ++ "): dynamic {",
-          "    return static::syncCall(__FUNCTION__, "
-          ++ string_of_int(metadata.export_index)
-          ++ ", "
-          ++ args
+          "    return static::syncCall("
+          ++ String.concat(~sep=", ", args)
           ++ ");",
           "  }",
         ];
