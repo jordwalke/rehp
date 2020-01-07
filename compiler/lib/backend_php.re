@@ -229,7 +229,7 @@ let compute_footer_summary = (moduleName, metadatas, should_async) => {
             let nonCallbacks = List.rev(tl);
             let params =
               List.map(~f=nm => "dynamic $" ++ nm, nonCallbacks)
-              |> String.concat(~sep="+, ");
+              |> String.concat(~sep=", ");
             (params, nonCallbacks);
           | [] => failwith("This should never happen")
           };
