@@ -121,14 +121,12 @@ function testPartialMethodCalls(o) {
 
 var x = call1(MyLib_MyLibUtility[1], 0);
 
-function genThisShouldBeAsyncTransformed(input, cb) {return call1(cb, input + 1 | 0);
+function genThisShouldBeAsyncTransformed2(input, cb) {return call1(cb, input + 1 | 0);
 }
 
 function call(param) {return cst_this_should_be_exported_with_php_leading;}
 
-function genCall(param) {
-  return cst_this_should_be_exported_with_php_leading__0;
-}
+function genCall(cb) {return cst_this_should_be_exported_with_php_leading__0;}
 
 function syncCall(param) {
   return cst_this_should_be_exported_with_php_leading__1;
@@ -168,6 +166,8 @@ function construct(param) {
   return cst_this_should_be_exported_with_three_php_leading;
 }
 
+function genThisShouldBeAsyncTransformed1(cb) {return call1(cb, 100);}
+
 var MyLib = [
   0,
   foo,
@@ -178,8 +178,8 @@ var MyLib = [
   testPartialFunctionCalls,
   testPartialMethodCalls,
   x,
-  genThisShouldBeAsyncTransformed,
-  genThisShouldBeAsyncTransformed,
+  genThisShouldBeAsyncTransformed2,
+  genThisShouldBeAsyncTransformed2,
   call,
   genCall,
   syncCall,
@@ -191,7 +191,8 @@ var MyLib = [
   syncCallFunctionWithArgs,
   get,
   get__0,
-  construct
+  construct,
+  genThisShouldBeAsyncTransformed1
 ];
 
 module.exports = MyLib;
@@ -205,9 +206,9 @@ module.exports = MyLib;
   testPartialFunctionCalls: (o: any) => any,
   testPartialMethodCalls: (o: any) => any,
   x: any,
-  genThisShouldBeAsyncTransformed: (input: any, cb: any) => any,
+  genThisShouldBeAsyncTransformed2: (input: any, cb: any) => any,
   call: (param: any) => any,
-  genCall: (param: any) => any,
+  genCall: (cb: any) => any,
   syncCall: (param: any) => any,
   getExports: (param: any) => any,
   callRehackFunction: (param: any) => any,
@@ -217,6 +218,7 @@ module.exports = MyLib;
   syncCallFunctionWithArgs: (param: any) => any,
   get: (param: any) => any,
   construct: (param: any) => any,
+  genThisShouldBeAsyncTransformed1: (cb: any) => any,
 }*/
 /** @type {{
   foo: any,
@@ -227,9 +229,9 @@ module.exports = MyLib;
   testPartialFunctionCalls: (o: any) => any,
   testPartialMethodCalls: (o: any) => any,
   x: any,
-  genThisShouldBeAsyncTransformed: (input: any, cb: any) => any,
+  genThisShouldBeAsyncTransformed2: (input: any, cb: any) => any,
   call: (param: any) => any,
-  genCall: (param: any) => any,
+  genCall: (cb: any) => any,
   syncCall: (param: any) => any,
   getExports: (param: any) => any,
   callRehackFunction: (param: any) => any,
@@ -239,6 +241,7 @@ module.exports = MyLib;
   syncCallFunctionWithArgs: (param: any) => any,
   get: (param: any) => any,
   construct: (param: any) => any,
+  genThisShouldBeAsyncTransformed1: (cb: any) => any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.foo = module.exports[1];
@@ -249,7 +252,7 @@ module.exports.testMethodCalls = module.exports[5];
 module.exports.testPartialFunctionCalls = module.exports[6];
 module.exports.testPartialMethodCalls = module.exports[7];
 module.exports.x = module.exports[8];
-module.exports.genThisShouldBeAsyncTransformed = module.exports[9];
+module.exports.genThisShouldBeAsyncTransformed2 = module.exports[9];
 module.exports.call = module.exports[11];
 module.exports.genCall = module.exports[12];
 module.exports.syncCall = module.exports[13];
@@ -261,5 +264,6 @@ module.exports.syncCallName = module.exports[18];
 module.exports.syncCallFunctionWithArgs = module.exports[19];
 module.exports.get = module.exports[20];
 module.exports.construct = module.exports[22];
+module.exports.genThisShouldBeAsyncTransformed1 = module.exports[23];
 
-/*____hashes flags: 589793685 bytecode: 81088226817 debug-data: 31666215215 primitives: 314532832*/
+/*____hashes flags: 589793685 bytecode: 86060652964 debug-data: 35154437477 primitives: 314532832*/

@@ -76,7 +76,7 @@ let testPartialMethodCalls = (o: t('anything)) => {
 
 let x = MyLibUtility.thisIsAUtilityFunction();
 
-let genThisShouldBeAsyncTransformed = (input, cb) => {
+let genThisShouldBeAsyncTransformed2 = (input, cb) => {
   cb(input + 1);
 };
 
@@ -85,11 +85,11 @@ let genThisShouldBeAsyncTransformed = (input, cb) => {
  * because their names are lost at bytecode compilation time. (I verified in
  * bytecode parser).
  */
-let thisWontAppearInSummary = genThisShouldBeAsyncTransformed;
+let thisWontAppearInSummary = genThisShouldBeAsyncTransformed2;
 
 let get = () => "this should be exported with (php)leading '_'";
 let call = () => "this should be exported with (php)leading '_'";
-let genCall = () => "this should be exported with (php)leading '_'";
+let genCall = cb => "this should be exported with (php)leading '_'";
 let syncCall = () => "this should be exported with (php)leading '_'";
 let getExports = () => "this should be exported with (php)leading '_'";
 let callRehackFunction = () => "this should be exported with (php)leading '_'";
@@ -100,3 +100,8 @@ let syncCallFunctionWithArgs = () => "this should be exported with (php)leading 
 let get = () => "this should be exported with (php)leading '_'";
 let _get = () => "this should be exported with two (php)leading '_'";
 let _construct = () => "this should be exported with three (php)leading '_'";
+
+let genThisShouldBeAsyncTransformed1 = cb => {
+  cb(100);
+};
+

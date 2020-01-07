@@ -128,13 +128,13 @@ final class MyLib {
       return Vector{0, $sendResult1, $sendResult2, $sendResult3};
     };
     $x = $call1($MyLib_MyLibUtility[1], 0);
-    $genThisShouldBeAsyncTransformed = (dynamic $input, dynamic $cb) ==> {
+    $genThisShouldBeAsyncTransformed2 = (dynamic $input, dynamic $cb) ==> {
       return $call1($cb, (int) ($input + 1));
     };
     $call = (dynamic $param) ==> {
       return $cst_this_should_be_exported_with_php_leading;
     };
-    $genCall = (dynamic $param) ==> {
+    $genCall = (dynamic $cb) ==> {
       return $cst_this_should_be_exported_with_php_leading__0;
     };
     $syncCall = (dynamic $param) ==> {
@@ -167,6 +167,9 @@ final class MyLib {
     $construct = (dynamic $param) ==> {
       return $cst_this_should_be_exported_with_three_php_leading;
     };
+    $genThisShouldBeAsyncTransformed1 = (dynamic $cb) ==> {
+      return $call1($cb, 100);
+    };
     $MyLib = Vector{
       0,
       $foo,
@@ -177,8 +180,8 @@ final class MyLib {
       $testPartialFunctionCalls,
       $testPartialMethodCalls,
       $x,
-      $genThisShouldBeAsyncTransformed,
-      $genThisShouldBeAsyncTransformed,
+      $genThisShouldBeAsyncTransformed2,
+      $genThisShouldBeAsyncTransformed2,
       $call,
       $genCall,
       $syncCall,
@@ -190,7 +193,8 @@ final class MyLib {
       $syncCallFunctionWithArgs,
       $get,
       $get__0,
-      $construct
+      $construct,
+      $genThisShouldBeAsyncTransformed1
     } as dynamic;
     
     return($MyLib);
@@ -208,14 +212,14 @@ final class MyLib {
   public static function testPartialMethodCalls(dynamic $o): dynamic {
     return static::syncCall(__FUNCTION__, 7, $o);
   }
-  public static function genThisShouldBeAsyncTransformed(dynamic $input, dynamic $cb): Awaitable<dynamic> {
-    return static::genCall(__FUNCTION__, 9, $input, $cb);
+  public static function genThisShouldBeAsyncTransformed2(dynamic $input): Awaitable<dynamic> {
+    return static::genCall(__FUNCTION__, 9, $input);
   }
   public static function _call(dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 11, $param);
   }
-  public static function _genCall(dynamic $param): dynamic {
-    return static::syncCall(__FUNCTION__, 12, $param);
+  public static function _genCall(dynamic $cb): dynamic {
+    return static::syncCall(__FUNCTION__, 12, $cb);
   }
   public static function _syncCall(dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 13, $param);
@@ -244,6 +248,9 @@ final class MyLib {
   public static function ___construct(dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 22, $param);
   }
+  public static function genThisShouldBeAsyncTransformed1(): Awaitable<dynamic> {
+    return static::genCall(__FUNCTION__, 23);
+  }
 
 }
-/*____hashes flags: 1314811087 bytecode: 81088226817 debug-data: 31666215215 primitives: 314532832*/
+/*____hashes flags: 1314811087 bytecode: 86060652964 debug-data: 35154437477 primitives: 314532832*/
