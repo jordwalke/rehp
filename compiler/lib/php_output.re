@@ -1247,6 +1247,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       last_semi();
     | Global_statement(id) => global_statement(f, id)
     | Expression_statement(EVar(_)) => last_semi()
+
     | Expression_statement(e) =>
       /* Parentheses are required when the expression
          starts syntactically with "{" or "function" */
@@ -1260,6 +1261,24 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       } else {
         PP.start_group(f, 0);
         expression(0, f, e);
+        /**
+         * For Hack, we want expression statements that are essentially
+         * variable declarations to have an "as dynamic" attached to them.
+         */
+        (
+          switch (e) {
+          | EBin(
+              Eq,
+              EVar(_),
+              EVar(Id.S({name: "null"})) | EInt(_) | ENum(_) | EUn(ToInt, _) |
+              ETag(_) |
+              EStruct(_),
+            ) =>
+            PP.non_breaking_space(f);
+            PP.string(f, "as dynamic");
+          | _ => ()
+          }
+        );
         last_semi();
         PP.end_group(f);
       }
