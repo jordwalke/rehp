@@ -125,7 +125,7 @@ final class String_ {
             );
             $pos__1 =
               (int)
-              ((int) ($pos__0 + $caml_ml_string_length($F_)) + $seplen);
+              ((int) ($pos__0 + $caml_ml_string_length($F_)) + $seplen) as dynamic;
             $pos__0 = $pos__1;
             $param__0 = $E_;
             continue;
@@ -163,7 +163,7 @@ final class String_ {
         $i = $B_;
         for (;;) {
           $call1($f, $caml_bytes_unsafe_get($s, $i));
-          $D_ = (int) ($i + 1);
+          $D_ = (int) ($i + 1) as dynamic;
           if ($C_ !== $i) {$i = $D_;continue;}
           break;
         }
@@ -179,7 +179,7 @@ final class String_ {
         $i = $y_;
         for (;;) {
           $call2($f, $i, $caml_bytes_unsafe_get($s, $i));
-          $A_ = (int) ($i + 1);
+          $A_ = (int) ($i + 1) as dynamic;
           if ($z_ !== $i) {$i = $A_;continue;}
           break;
         }
@@ -228,20 +228,20 @@ final class String_ {
           if ($caml_ml_string_length($s) <= $i__0) {return 0;}
           $match = $caml_bytes_unsafe_get($s, $i__0);
           if (32 <= $match) {
-            $t_ = (int) ($match + -34);
+            $t_ = (int) ($match + -34) as dynamic;
             if (58 < $unsigned_right_shift_32($t_, 0)) {
               if (93 <= $t_) {
-                $switch__0 = 0;
-                $switch__1 = 0;
+                $switch__0 = 0 as dynamic;
+                $switch__1 = 0 as dynamic;
               }
-              else {$switch__1 = 1;}
+              else {$switch__1 = 1 as dynamic;}
             }
             else {
-              if (56 < $unsigned_right_shift_32((int) ($t_ + -1), 0)) {$switch__0 = 1;$switch__1 = 0;}
-              else {$switch__1 = 1;}
+              if (56 < $unsigned_right_shift_32((int) ($t_ + -1), 0)) {$switch__0 = 1 as dynamic;$switch__1 = 0 as dynamic;}
+              else {$switch__1 = 1 as dynamic;}
             }
             if ($switch__1) {
-              $i__1 = (int) ($i__0 + 1);
+              $i__1 = (int) ($i__0 + 1) as dynamic;
               $i__0 = $i__1;
               continue;
             }
@@ -267,7 +267,7 @@ final class String_ {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-        $i__1 = (int) ($i__0 + 1);
+        $i__1 = (int) ($i__0 + 1) as dynamic;
         $i__0 = $i__1;
         continue;
       }
@@ -281,7 +281,7 @@ final class String_ {
       for (;;) {
         if ($lim <= $i__0) {return 0;}
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-        $i__1 = (int) ($i__0 + 1);
+        $i__1 = (int) ($i__0 + 1) as dynamic;
         $i__0 = $i__1;
         continue;
       }
@@ -308,7 +308,7 @@ final class String_ {
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-          $i__1 = (int) ($i__0 + -1);
+          $i__1 = (int) ($i__0 + -1) as dynamic;
           $i__0 = $i__1;
           continue;
         }
@@ -330,7 +330,7 @@ final class String_ {
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-          $i__1 = (int) ($i__0 + -1);
+          $i__1 = (int) ($i__0 + -1) as dynamic;
           $i__0 = $i__1;
           continue;
         }
@@ -354,7 +354,7 @@ final class String_ {
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {
         if (! ($l < $i)) {
-          try {$index_rec($s, $l, $i, $c);$q_ = 1;return $q_;}
+          try {$index_rec($s, $l, $i, $c);$q_ = 1 as dynamic;return $q_;}
           catch(\Throwable $r_) {
             $r_ = $runtime["caml_wrap_exception"]($r_);
             if ($r_ === $Not_found) {return 0;}
@@ -374,7 +374,7 @@ final class String_ {
       $o_ = null as dynamic;
       if (0 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {
-          try {$rindex_rec($s, $i, $c);$o_ = 1;return $o_;}
+          try {$rindex_rec($s, $i, $c);$o_ = 1 as dynamic;return $o_;}
           catch(\Throwable $p_) {
             $p_ = $runtime["caml_wrap_exception"]($p_);
             if ($p_ === $Not_found) {return 0;}
@@ -426,7 +426,7 @@ final class String_ {
               };
             $j[1] = $i;
           }
-          $j_ = (int) ($i + -1);
+          $j_ = (int) ($i + -1) as dynamic;
           if (0 !== $i) {$i = $j_;continue;}
           break;
         }

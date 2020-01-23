@@ -256,7 +256,7 @@ final class Arg {
       $av_ = null as dynamic;
       $au_ = null as dynamic;
       $at_ = null as dynamic;
-      try {$assoc3($cst_help__2, $speclist);$ay_ = 0;$au_ = $ay_;}
+      try {$assoc3($cst_help__2, $speclist);$ay_ = 0 as dynamic;$au_ = $ay_;}
       catch(\Throwable $aA_) {
         $aA_ = $runtime["caml_wrap_exception"]($aA_);
         if ($aA_ !== $Not_found) {
@@ -272,10 +272,10 @@ final class Arg {
               $cst_Display_this_list_of_options
             },
             0
-          };
+          } as dynamic;
         $au_ = $at_;
       }
-      try {$assoc3($cst_help__1, $speclist);$ax_ = 0;$add2 = $ax_;}
+      try {$assoc3($cst_help__1, $speclist);$ax_ = 0 as dynamic;$add2 = $ax_;}
       catch(\Throwable $az_) {
         $az_ = $runtime["caml_wrap_exception"]($az_);
         if ($az_ !== $Not_found) {
@@ -291,7 +291,7 @@ final class Arg {
               $cst_Display_this_list_of_options__0
             },
             0
-          };
+          } as dynamic;
         $add2 = $av_;
       }
       $aw_ = $call2($Pervasives[25], $au_, $add2);
@@ -316,7 +316,10 @@ final class Arg {
     $f_ = 0 as dynamic;
     $bool_of_string_opt = (dynamic $x) ==> {
       $an_ = null as dynamic;
-      try {$an_ = Vector{0, $call1($Pervasives[19], $x)};return $an_;}
+      try {
+        $an_ = Vector{0, $call1($Pervasives[19], $x)} as dynamic;
+        return $an_;
+      }
       catch(\Throwable $ao_) {
         $ao_ = $runtime["caml_wrap_exception"]($ao_);
         if ($ao_[1] === $Invalid_argument) {return 0;}
@@ -325,7 +328,10 @@ final class Arg {
     };
     $int_of_string_opt = (dynamic $x) ==> {
       $al_ = null as dynamic;
-      try {$al_ = Vector{0, $runtime["caml_int_of_string"]($x)};return $al_;}
+      try {
+        $al_ = Vector{0, $runtime["caml_int_of_string"]($x)} as dynamic;
+        return $al_;
+      }
       catch(\Throwable $am_) {
         $am_ = $runtime["caml_wrap_exception"]($am_);
         if ($am_[1] === $Failure) {return 0;}
@@ -334,7 +340,9 @@ final class Arg {
     };
     $float_of_string_opt = (dynamic $x) ==> {
       $aj_ = null as dynamic;
-      try {$aj_ = Vector{0, $runtime["caml_float_of_string"]($x)};return $aj_;
+      try {
+        $aj_ = Vector{0, $runtime["caml_float_of_string"]($x)} as dynamic;
+        return $aj_;
       }
       catch(\Throwable $ak_) {
         $ak_ = $runtime["caml_wrap_exception"]($ak_);
@@ -420,7 +428,7 @@ final class Arg {
             if (1 <= $caml_ml_string_length($s)) {
               if (45 === $caml_string_get($s, 0)) {
                 try {
-                  $follow__1 = 0;
+                  $follow__1 = 0 as dynamic;
                   $ac_ = $assoc3($s, $speclist[1]);
                   $action = $ac_;
                   $follow__0 = $follow__1;
@@ -434,7 +442,7 @@ final class Arg {
                     $match = $split($s);
                     $arg = $match[2];
                     $keyword = $match[1];
-                    $follow = Vector{0, $arg};
+                    $follow = Vector{0, $arg} as dynamic;
                     $ab_ = $assoc3($keyword, $speclist[1]);
                   }
                   catch(\Throwable $ah_) {
@@ -471,7 +479,7 @@ final class Arg {
                       $arg = null as dynamic;
                       if ($follow) {$arg = $follow[1];return $arg;}
                       if ((int) ($current[1] + 1) < $argv[1]->count() - 1) {
-                        $af_ = (int) ($current[1] + 1);
+                        $af_ = (int) ($current[1] + 1) as dynamic;
                         return $caml_check_bound($argv[1], $af_)[$af_ + 1];
                       }
                       throw $caml_wrap_thrown_exception(
@@ -657,7 +665,7 @@ final class Arg {
                           $f__5 = $param[1];
                           for (;;) {
                             if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
-                              $ae_ = (int) ($current[1] + 1);
+                              $ae_ = (int) ($current[1] + 1) as dynamic;
                               $call1($f__5, $caml_check_bound($argv[1], $ae_)[$ae_ + 1]);
                               $consume_arg(0);
                               continue;
@@ -703,11 +711,11 @@ final class Arg {
                 $treat_action =
                   $treat_action__0($s, $no_arg, $get_arg, $consume_arg);
                 $treat_action($action);
-                $switch__0 = 1;
+                $switch__0 = 1 as dynamic;
               }
-              else {$switch__0 = 0;}
+              else {$switch__0 = 0 as dynamic;}
             }
-            else {$switch__0 = 0;}
+            else {$switch__0 = 0 as dynamic;}
             if (! $switch__0) {$call1($anonfun, $s);}
           }
           catch(\Throwable $exn) {
@@ -822,9 +830,9 @@ final class Arg {
       $msg__1 = null as dynamic;
       $msg__0 = null as dynamic;
       try {
-        $argv = Vector{0, $Sys[1]};
-        $spec = Vector{0, $l};
-        $current = Vector{0, $f_};
+        $argv = Vector{0, $Sys[1]} as dynamic;
+        $spec = Vector{0, $l} as dynamic;
+        $current = Vector{0, $f_} as dynamic;
         $X_ = $parse_and_expand_argv_dynamic($current, $argv, $spec, $f, $msg);
         return $X_;
       }
@@ -853,7 +861,7 @@ final class Arg {
         for (;;) {
           if ($len <= $n__0) {return $len;}
           if (32 === $caml_string_get($s, $n__0)) {
-            $n__1 = (int) ($n__0 + 1);
+            $n__1 = (int) ($n__0 + 1) as dynamic;
             $n__0 = $n__1;
             continue;
           }
@@ -918,7 +926,7 @@ final class Arg {
           $cutcol__0 = $second_word($msg__0);
           $Q_ =
             (int)
-            ($call2($Pervasives[5], 0, (int) ($len - $cutcol__0)) + 3);
+            ($call2($Pervasives[5], 0, (int) ($len - $cutcol__0)) + 3) as dynamic;
           $spaces__0 = $call2($String[1], $Q_, 32);
           $R_ = $replace_leading_tab($msg__0);
           $S_ = $call2($Pervasives[16], $spaces__0, $R_);
@@ -927,7 +935,7 @@ final class Arg {
         $msg = $ksd[3];
         $cutcol = $second_word($msg);
         $kwd_len = $caml_ml_string_length($N_);
-        $diff = (int) ((int) ($len - $kwd_len) - $cutcol);
+        $diff = (int) ((int) ($len - $kwd_len) - $cutcol) as dynamic;
         if (0 < $diff) {
           $spaces = $call2($String[1], $diff, 32);
           $O_ = $replace_leading_tab($msg);

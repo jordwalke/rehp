@@ -128,15 +128,15 @@ final class Sort {
           $continue_label = null;
           $d_ = 6 <= (int) ($hi__0 - $lo__0) ? 1 : (0);
           if ($d_) {
-            $mid = (int) $unsigned_right_shift_32((int) ($lo__0 + $hi__0), 1);
+            $mid = (int) $unsigned_right_shift_32((int) ($lo__0 + $hi__0), 1) as dynamic;
             if ($call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
             if ($call2($cmp, $arr[$hi__0 + 1], $arr[$mid + 1])) {
               $swap($arr, $mid, $hi__0);
               if ($call2($cmp, $arr[$mid + 1], $arr[$lo__0 + 1])) {$swap($arr, $mid, $lo__0);}
             }
             $pivot = $arr[$mid + 1];
-            $i = Vector{0, (int) ($lo__0 + 1)};
-            $j = Vector{0, (int) ($hi__0 + -1)};
+            $i = Vector{0, (int) ($lo__0 + 1)} as dynamic;
+            $j = Vector{0, (int) ($hi__0 + -1)} as dynamic;
             $e_ = 1 - $call2($cmp, $pivot, $arr[$hi__0 + 1]);
             $f_ = $e_ ? $e_ : (1 - $call2($cmp, $arr[$lo__0 + 1], $pivot));
             if ($f_) {
@@ -191,7 +191,7 @@ final class Sort {
           $val_i = $arr[$i + 1];
           if (1 - $call2($cmp, $arr[(int) ($i + -1) + 1], $val_i)) {
             $arr[$i + 1] = $arr[(int) ($i + -1) + 1];
-            $j = Vector{0, (int) ($i + -1)};
+            $j = Vector{0, (int) ($i + -1)} as dynamic;
             for (;;) {
               if (1 <= $j[1]) {
                 if (! $call2($cmp, $arr[(int) ($j[1] + -1) + 1], $val_i)) {
@@ -204,7 +204,7 @@ final class Sort {
               break;
             }
           }
-          $c_ = (int) ($i + 1);
+          $c_ = (int) ($i + 1) as dynamic;
           if ($b_ !== $i) {$i = $c_;continue;}
           break;
         }

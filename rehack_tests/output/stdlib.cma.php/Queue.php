@@ -62,7 +62,7 @@ final class Queue {
         if ($cell__0) {
           $content = $cell__0[1];
           $next = $cell__0[2];
-          $res = Vector{0, $content, 0};
+          $res = Vector{0, $content, 0} as dynamic;
           if ($prev__0) {
             $prev__0[2] = $res;
           }

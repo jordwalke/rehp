@@ -94,7 +94,7 @@ final class Digest {
           ((int) ($i * 2) + 1),
           $char_hex($x & 15)
         );
-        $d_ = (int) ($i + 1);
+        $d_ = (int) ($i + 1) as dynamic;
         if (15 !== $i) {$i = $d_;continue;}
         return $call1($Bytes[42], $result);
       }
@@ -114,7 +114,7 @@ final class Digest {
           else {if (! (71 <= $c)) {return (int) ((int) ($c - 65) + 10);}}
         }
         else {
-          $switcher = (int) ($c + -48);
+          $switcher = (int) ($c + -48) as dynamic;
           if (! (9 < $unsigned_right_shift_32($switcher, 0))) {return (int) ($c - 48);}
         }
         throw $caml_wrap_thrown_exception(
@@ -131,7 +131,7 @@ final class Digest {
       for (;;) {
         $a_ = $byte__0((int) (2 * $i));
         $runtime["caml_bytes_set"]($result, $i, $call1($Char[1], $a_));
-        $b_ = (int) ($i + 1);
+        $b_ = (int) ($i + 1) as dynamic;
         if (15 !== $i) {$i = $b_;continue;}
         return $call1($Bytes[42], $result);
       }

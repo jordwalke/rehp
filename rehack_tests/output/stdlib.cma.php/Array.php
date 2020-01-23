@@ -49,13 +49,13 @@ final class Array_ {
       if (0 === $l) {return Vector{0};}
       if (0 <= $l) {
         $res = $caml_make_vect($l, $call1($f, 0));
-        $ah_ = (int) ($l + -1);
-        $ag_ = 1;
+        $ah_ = (int) ($l + -1) as dynamic;
+        $ag_ = 1 as dynamic;
         if (! ($ah_ < 1)) {
           $i = $ag_;
           for (;;) {
             $res[$i + 1] = $call1($f, $i);
-            $ai_ = (int) ($i + 1);
+            $ai_ = (int) ($i + 1) as dynamic;
             if ($ah_ !== $i) {$i = $ai_;continue;}
             break;
           }
@@ -74,7 +74,7 @@ final class Array_ {
         $x = $ad_;
         for (;;) {
           $res[$x + 1] = $caml_make_vect($sy, $init);
-          $af_ = (int) ($x + 1);
+          $af_ = (int) ($x + 1) as dynamic;
           if ($ae_ !== $x) {$x = $af_;continue;}
           break;
         }
@@ -108,12 +108,12 @@ final class Array_ {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($a->count() - 1 - $len) < $ofs)) {
-            $ab_ = (int) ((int) ($ofs + $len) + -1);
+            $ab_ = (int) ((int) ($ofs + $len) + -1) as dynamic;
             if (! ($ab_ < $ofs)) {
               $i = $ofs;
               for (;;) {
                 $a[$i + 1] = $v;
-                $ac_ = (int) ($i + 1);
+                $ac_ = (int) ($i + 1) as dynamic;
                 if ($ab_ !== $i) {$i = $ac_;continue;}
                 break;
               }
@@ -154,7 +154,7 @@ final class Array_ {
         $i = $Y_;
         for (;;) {
           $call1($f, $a[$i + 1]);
-          $aa_ = (int) ($i + 1);
+          $aa_ = (int) ($i + 1) as dynamic;
           if ($Z_ !== $i) {$i = $aa_;continue;}
           break;
         }
@@ -176,7 +176,7 @@ final class Array_ {
         $i = $V_;
         for (;;) {
           $call2($f, $a[$i + 1], $b[$i + 1]);
-          $X_ = (int) ($i + 1);
+          $X_ = (int) ($i + 1) as dynamic;
           if ($W_ !== $i) {$i = $X_;continue;}
           break;
         }
@@ -195,7 +195,7 @@ final class Array_ {
         $i = $S_;
         for (;;) {
           $r[$i + 1] = $call1($f, $a[$i + 1]);
-          $U_ = (int) ($i + 1);
+          $U_ = (int) ($i + 1) as dynamic;
           if ($T_ !== $i) {$i = $U_;continue;}
           break;
         }
@@ -221,7 +221,7 @@ final class Array_ {
         $i = $P_;
         for (;;) {
           $r[$i + 1] = $call2($f, $a[$i + 1], $b[$i + 1]);
-          $R_ = (int) ($i + 1);
+          $R_ = (int) ($i + 1) as dynamic;
           if ($Q_ !== $i) {$i = $R_;continue;}
           break;
         }
@@ -237,7 +237,7 @@ final class Array_ {
         $i = $M_;
         for (;;) {
           $call2($f, $i, $a[$i + 1]);
-          $O_ = (int) ($i + 1);
+          $O_ = (int) ($i + 1) as dynamic;
           if ($N_ !== $i) {$i = $O_;continue;}
           break;
         }
@@ -256,7 +256,7 @@ final class Array_ {
         $i = $J_;
         for (;;) {
           $r[$i + 1] = $call2($f, $i, $a[$i + 1]);
-          $L_ = (int) ($i + 1);
+          $L_ = (int) ($i + 1) as dynamic;
           if ($K_ !== $i) {$i = $L_;continue;}
           break;
         }
@@ -271,8 +271,8 @@ final class Array_ {
         $res__0 = $res;
         for (;;) {
           if (0 <= $i__0) {
-            $res__1 = Vector{0, $a[$i__0 + 1], $res__0};
-            $i__1 = (int) ($i__0 + -1);
+            $res__1 = Vector{0, $a[$i__0 + 1], $res__0} as dynamic;
+            $i__1 = (int) ($i__0 + -1) as dynamic;
             $i__0 = $i__1;
             $res__0 = $res__1;
             continue;
@@ -290,7 +290,7 @@ final class Array_ {
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
-          $accu__1 = (int) ($accu__0 + 1);
+          $accu__1 = (int) ($accu__0 + 1) as dynamic;
           $accu__0 = $accu__1;
           $param__0 = $param__1;
           continue;
@@ -319,7 +319,7 @@ final class Array_ {
                 $param__1 = $param__0[2];
                 $hd = $param__0[1];
                 $a[$i__0 + 1] = $hd;
-                $i__1 = (int) ($i__0 + 1);
+                $i__1 = (int) ($i__0 + 1) as dynamic;
                 $i__0 = $i__1;
                 $param__0 = $param__1;
                 continue;
@@ -341,7 +341,7 @@ final class Array_ {
         $i = $G_;
         for (;;) {
           $r[1] = $call2($f, $r[1], $a[$i + 1]);
-          $I_ = (int) ($i + 1);
+          $I_ = (int) ($i + 1) as dynamic;
           if ($H_ !== $i) {$i = $I_;continue;}
           break;
         }
@@ -357,7 +357,7 @@ final class Array_ {
         $i = $E_;
         for (;;) {
           $r[1] = $call2($f, $a[$i + 1], $r[1]);
-          $F_ = (int) ($i + -1);
+          $F_ = (int) ($i + -1) as dynamic;
           if (0 !== $i) {$i = $F_;continue;}
           break;
         }
@@ -372,7 +372,7 @@ final class Array_ {
         for (;;) {
           if ($i__0 === $n) {return 0;}
           if ($call1($p, $a[$i__0 + 1])) {return 1;}
-          $i__1 = (int) ($i__0 + 1);
+          $i__1 = (int) ($i__0 + 1) as dynamic;
           $i__0 = $i__1;
           continue;
         }
@@ -387,7 +387,7 @@ final class Array_ {
         for (;;) {
           if ($i__0 === $n) {return 1;}
           if ($call1($p, $a[$i__0 + 1])) {
-            $i__1 = (int) ($i__0 + 1);
+            $i__1 = (int) ($i__0 + 1) as dynamic;
             $i__0 = $i__1;
             continue;
           }
@@ -404,7 +404,7 @@ final class Array_ {
         for (;;) {
           if ($i__0 === $n) {return 0;}
           if (0 === $runtime["caml_compare"]($a[$i__0 + 1], $x)) {return 1;}
-          $i__1 = (int) ($i__0 + 1);
+          $i__1 = (int) ($i__0 + 1) as dynamic;
           $i__0 = $i__1;
           continue;
         }
@@ -419,7 +419,7 @@ final class Array_ {
         for (;;) {
           if ($i__0 === $n) {return 0;}
           if ($x === $a[$i__0 + 1]) {return 1;}
-          $i__1 = (int) ($i__0 + 1);
+          $i__1 = (int) ($i__0 + 1) as dynamic;
           $i__0 = $i__1;
           continue;
         }
@@ -446,17 +446,17 @@ final class Array_ {
         $i31 = (int) ((int) ((int) ($i + $i) + $i) + 1) as dynamic;
         $x = Vector{0, $i31} as dynamic;
         if ((int) ($i31 + 2) < $l) {
-          $x_ = (int) ($i31 + 1);
+          $x_ = (int) ($i31 + 1) as dynamic;
           $y_ = $caml_check_bound($a, $x_)[$x_ + 1];
           if ($call2($cmp, $caml_check_bound($a, $i31)[$i31 + 1], $y_) < 0) {$x[1] = (int) ($i31 + 1);}
-          $z_ = (int) ($i31 + 2);
+          $z_ = (int) ($i31 + 2) as dynamic;
           $A_ = $caml_check_bound($a, $z_)[$z_ + 1];
           $B_ = $x[1];
           if ($call2($cmp, $caml_check_bound($a, $B_)[$B_ + 1], $A_) < 0) {$x[1] = (int) ($i31 + 2);}
           return $x[1];
         }
         if ((int) ($i31 + 1) < $l) {
-          $C_ = (int) ($i31 + 1);
+          $C_ = (int) ($i31 + 1) as dynamic;
           $D_ = $caml_check_bound($a, $C_)[$C_ + 1];
           if (
             !
@@ -523,7 +523,7 @@ final class Array_ {
         $s_ = null as dynamic;
         $i__0 = $i;
         for (;;) {
-          $father = (int) ((int) ($i__0 + -1) / 3);
+          $father = (int) ((int) ($i__0 + -1) / 3) as dynamic;
           if ($i__0 !== $father) {
             if (
               0 <=
@@ -544,7 +544,7 @@ final class Array_ {
         $i__0 = $m_;
         for (;;) {
           $trickle($l, $i__0, $caml_check_bound($a, $i__0)[$i__0 + 1]);
-          $r_ = (int) ($i__0 + -1);
+          $r_ = (int) ($i__0 + -1) as dynamic;
           if (0 !== $i__0) {$i__0 = $r_;continue;}
           break;
         }
@@ -556,7 +556,7 @@ final class Array_ {
           $e__0 = $caml_check_bound($a, $i)[$i + 1];
           $a[$i + 1] = $caml_check_bound($a, 0)[1];
           $trickleup($bubble($i, 0), $e__0);
-          $q_ = (int) ($i + -1);
+          $q_ = (int) ($i + -1) as dynamic;
           if (2 !== $i) {$i = $q_;continue;}
           break;
         }
@@ -566,7 +566,7 @@ final class Array_ {
         $e = $caml_check_bound($a, 1)[2];
         $a[2] = $caml_check_bound($a, 0)[1];
         $a[1] = $e;
-        $p_ = 0;
+        $p_ = 0 as dynamic;
       }
       else {$p_ = $o_;}
       return $p_;
@@ -593,9 +593,9 @@ final class Array_ {
           for (;;) {
             if (0 < $call2($cmp, $s1__0, $s2__0)) {
               $caml_check_bound($dst, $d__0)[$d__0 + 1] = $s2__0;
-              $i2__1 = (int) ($i2__0 + 1);
+              $i2__1 = (int) ($i2__0 + 1) as dynamic;
               if ($i2__1 < $src2r) {
-                $d__1 = (int) ($d__0 + 1);
+                $d__1 = (int) ($d__0 + 1) as dynamic;
                 $s2__1 = $caml_check_bound($src2, $i2__1)[$i2__1 + 1];
                 $i2__0 = $i2__1;
                 $s2__0 = $s2__1;
@@ -613,9 +613,9 @@ final class Array_ {
               );
             }
             $caml_check_bound($dst, $d__0)[$d__0 + 1] = $s1__0;
-            $i1__1 = (int) ($i1__0 + 1);
+            $i1__1 = (int) ($i1__0 + 1) as dynamic;
             if ($i1__1 < $src1r) {
-              $d__2 = (int) ($d__0 + 1);
+              $d__2 = (int) ($d__0 + 1) as dynamic;
               $s1__1 = $caml_check_bound($a, $i1__1)[$i1__1 + 1];
               $i1__0 = $i1__1;
               $s1__0 = $s1__1;
@@ -660,9 +660,9 @@ final class Array_ {
           $i = $c_;
           for (;;) {
             $continue_label = null;
-            $e_ = (int) ($srcofs + $i);
+            $e_ = (int) ($srcofs + $i) as dynamic;
             $e = $caml_check_bound($a, $e_)[$e_ + 1];
-            $j = Vector{0, (int) ((int) ($dstofs + $i) + -1)};
+            $j = Vector{0, (int) ((int) ($dstofs + $i) + -1)} as dynamic;
             for (;;) {
               if ($dstofs <= $j[1]) {
                 $f_ = $j[1];
@@ -671,15 +671,15 @@ final class Array_ {
                 ) {
                   $g_ = $j[1];
                   $h_ = $caml_check_bound($dst, $g_)[$g_ + 1];
-                  $i_ = (int) ($j[1] + 1);
+                  $i_ = (int) ($j[1] + 1) as dynamic;
                   $caml_check_bound($dst, $i_)[$i_ + 1] = $h_;
                   $j[1] += -1;
                   continue;
                 }
               }
-              $j_ = (int) ($j[1] + 1);
+              $j_ = (int) ($j[1] + 1) as dynamic;
               $caml_check_bound($dst, $j_)[$j_ + 1] = $e;
-              $k_ = (int) ($i + 1);
+              $k_ = (int) ($i + 1) as dynamic;
               if ($d_ !== $i) {$i = $k_;$continue_label = "a";break;}
               break;
             }

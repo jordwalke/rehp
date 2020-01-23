@@ -259,7 +259,7 @@ final class Printexc {
             $tl = $param__0[2];
             $hd = $param__0[1];
             try {$X_ = $call1($hd, $x);$W_ = $X_;}
-            catch(\Throwable $Z_) {$W_ = 0;}
+            catch(\Throwable $Z_) {$W_ = 0 as dynamic;}
             if ($W_) {$s = $W_[1];return $s;}
             $param__0 = $tl;
             continue;
@@ -390,8 +390,8 @@ final class Printexc {
       $a = null as dynamic;
       if ($backtrace) {
         $a = $backtrace[1];
-        $I_ = (int) ($a->count() - 1 + -1);
-        $H_ = 0;
+        $I_ = (int) ($a->count() - 1 + -1) as dynamic;
+        $H_ = 0 as dynamic;
         if (! ($I_ < 0)) {
           $i = $H_;
           for (;;) {
@@ -401,7 +401,7 @@ final class Printexc {
               $str = $match[1];
               $call3($Printf[1], $outchan, $j_, $str);
             }
-            $J_ = (int) ($i + 1);
+            $J_ = (int) ($i + 1) as dynamic;
             if ($I_ !== $i) {$i = $J_;continue;}
             break;
           }
@@ -434,15 +434,15 @@ final class Printexc {
       if ($backtrace) {
         $a = $backtrace[1];
         $b = $call1($Buffer[1], 1024);
-        $F_ = (int) ($a->count() - 1 + -1);
-        $E_ = 0;
+        $F_ = (int) ($a->count() - 1 + -1) as dynamic;
+        $E_ = 0 as dynamic;
         if (! ($F_ < 0)) {
           $i = $E_;
           for (;;) {
             $match =
               $format_backtrace_slot($i, $caml_check_bound($a, $i)[$i + 1]);
             if ($match) {$str = $match[1];$call3($Printf[5], $b, $l_, $str);}
-            $G_ = (int) ($i + 1);
+            $G_ = (int) ($i + 1) as dynamic;
             if ($F_ !== $i) {$i = $G_;continue;}
             break;
           }
@@ -484,7 +484,7 @@ final class Printexc {
               $D_ =
                 $usable_slot($caml_check_bound($backtrace, $i__0)[$i__0 + 1]);
               if ($D_) {return $D_;}
-              $i__1 = (int) ($i__0 + -1);
+              $i__1 = (int) ($i__0 + -1) as dynamic;
               $i__0 = $i__1;
               continue;
             }

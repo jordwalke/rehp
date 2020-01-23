@@ -58,7 +58,7 @@ final class List_ {
       for (;;) {
         if ($param__0) {
           $param__1 = $param__0[2];
-          $len__1 = (int) ($len__0 + 1);
+          $len__1 = (int) ($len__0 + 1) as dynamic;
           $len__0 = $len__1;
           $param__0 = $param__1;
           continue;
@@ -93,7 +93,7 @@ final class List_ {
                 $l__1 = $l__0[2];
                 $a = $l__0[1];
                 if (0 === $n__0) {return $a;}
-                $n__1 = (int) ($n__0 + -1);
+                $n__1 = (int) ($n__0 + -1) as dynamic;
                 $l__0 = $l__1;
                 $n__0 = $n__1;
                 continue;
@@ -120,7 +120,7 @@ final class List_ {
                 $l__1 = $l__0[2];
                 $a = $l__0[1];
                 if (0 === $n__0) {return Vector{0, $a};}
-                $n__1 = (int) ($n__0 + -1);
+                $n__1 = (int) ($n__0 + -1) as dynamic;
                 $l__0 = $l__1;
                 $n__0 = $n__1;
                 continue;
@@ -143,7 +143,7 @@ final class List_ {
         if ($l1__0) {
           $l1__1 = $l1__0[2];
           $a = $l1__0[1];
-          $l2__1 = Vector{0, $a, $l2__0};
+          $l2__1 = Vector{0, $a, $l2__0} as dynamic;
           $l1__0 = $l1__1;
           $l2__0 = $l2__1;
           continue;
@@ -159,8 +159,8 @@ final class List_ {
       $i__0 = $i;
       for (;;) {
         if ($n <= $i__0) {return $acc__0;}
-        $i__1 = (int) ($i__0 + 1);
-        $acc__1 = Vector{0, $call1($f, $i__0), $acc__0};
+        $i__1 = (int) ($i__0 + 1) as dynamic;
+        $acc__1 = Vector{0, $call1($f, $i__0), $acc__0} as dynamic;
         $acc__0 = $acc__1;
         $i__0 = $i__1;
         continue;
@@ -226,7 +226,7 @@ final class List_ {
           if ($param__0) {
             $param__1 = $param__0[2];
             $a = $param__0[1];
-            $accu__1 = Vector{0, $call1($f, $a), $accu__0};
+            $accu__1 = Vector{0, $call1($f, $a), $accu__0} as dynamic;
             $accu__0 = $accu__1;
             $param__0 = $param__1;
             continue;
@@ -262,7 +262,7 @@ final class List_ {
           $param__1 = $param__0[2];
           $a = $param__0[1];
           $call2($f, $i__0, $a);
-          $i__1 = (int) ($i__0 + 1);
+          $i__1 = (int) ($i__0 + 1) as dynamic;
           $i__0 = $i__1;
           $param__0 = $param__1;
           continue;
@@ -335,7 +335,7 @@ final class List_ {
               $a2 = $l2__0[1];
               $l1__1 = $l1__0[2];
               $a1 = $l1__0[1];
-              $accu__1 = Vector{0, $call2($f, $a1, $a2), $accu__0};
+              $accu__1 = Vector{0, $call2($f, $a1, $a2), $accu__0} as dynamic;
               $accu__0 = $accu__1;
               $l1__0 = $l1__1;
               $l2__0 = $l2__1;
@@ -723,7 +723,7 @@ final class List_ {
             $l = $param__0[2];
             $x = $param__0[1];
             if ($call1($p, $x)) {
-              $accu__1 = Vector{0, $x, $accu__0};
+              $accu__1 = Vector{0, $x, $accu__0} as dynamic;
               $accu__0 = $accu__1;
               $param__0 = $l;
               continue;
@@ -752,12 +752,12 @@ final class List_ {
             $l = $param__0[2];
             $x = $param__0[1];
             if ($call1($p, $x)) {
-              $yes__1 = Vector{0, $x, $yes__0};
+              $yes__1 = Vector{0, $x, $yes__0} as dynamic;
               $yes__0 = $yes__1;
               $param__0 = $l;
               continue;
             }
-            $no__1 = Vector{0, $x, $no__0};
+            $no__1 = Vector{0, $x, $no__0} as dynamic;
             $no__0 = $no__1;
             $param__0 = $l;
             continue;
@@ -837,7 +837,7 @@ final class List_ {
         if (0 === $k__0) {return $l__0;}
         if ($l__0) {
           $l__1 = $l__0[2];
-          $k__1 = (int) ($k__0 + -1);
+          $k__1 = (int) ($k__0 + -1) as dynamic;
           $k__0 = $k__1;
           $l__0 = $l__1;
           continue;
@@ -865,12 +865,12 @@ final class List_ {
               $t1 = $l1__0[2];
               $h1 = $l1__0[1];
               if (0 < $call2($cmp, $h1, $h2)) {
-                $accu__1 = Vector{0, $h2, $accu__0};
+                $accu__1 = Vector{0, $h2, $accu__0} as dynamic;
                 $l2__0 = $t2;
                 $accu__0 = $accu__1;
                 continue;
               }
-              $accu__2 = Vector{0, $h1, $accu__0};
+              $accu__2 = Vector{0, $h1, $accu__0} as dynamic;
               $l1__0 = $t1;
               $accu__0 = $accu__2;
               continue;
@@ -898,12 +898,12 @@ final class List_ {
               $t1 = $l1__0[2];
               $h1 = $l1__0[1];
               if (0 < $call2($cmp, $h1, $h2)) {
-                $accu__1 = Vector{0, $h1, $accu__0};
+                $accu__1 = Vector{0, $h1, $accu__0} as dynamic;
                 $l1__0 = $t1;
                 $accu__0 = $accu__1;
                 continue;
               }
-              $accu__2 = Vector{0, $h2, $accu__0};
+              $accu__2 = Vector{0, $h2, $accu__0} as dynamic;
               $l2__0 = $t2;
               $accu__0 = $accu__2;
               continue;
@@ -1047,19 +1047,19 @@ final class List_ {
               $h1 = $l1__0[1];
               $c = $call2($cmp, $h1, $h2);
               if (0 === $c) {
-                $accu__1 = Vector{0, $h1, $accu__0};
+                $accu__1 = Vector{0, $h1, $accu__0} as dynamic;
                 $l1__0 = $t1;
                 $l2__0 = $t2;
                 $accu__0 = $accu__1;
                 continue;
               }
               if (0 <= $c) {
-                $accu__2 = Vector{0, $h2, $accu__0};
+                $accu__2 = Vector{0, $h2, $accu__0} as dynamic;
                 $l2__0 = $t2;
                 $accu__0 = $accu__2;
                 continue;
               }
-              $accu__3 = Vector{0, $h1, $accu__0};
+              $accu__3 = Vector{0, $h1, $accu__0} as dynamic;
               $l1__0 = $t1;
               $accu__0 = $accu__3;
               continue;
@@ -1090,19 +1090,19 @@ final class List_ {
               $h1 = $l1__0[1];
               $c = $call2($cmp, $h1, $h2);
               if (0 === $c) {
-                $accu__1 = Vector{0, $h1, $accu__0};
+                $accu__1 = Vector{0, $h1, $accu__0} as dynamic;
                 $l1__0 = $t1;
                 $l2__0 = $t2;
                 $accu__0 = $accu__1;
                 continue;
               }
               if (0 < $c) {
-                $accu__2 = Vector{0, $h1, $accu__0};
+                $accu__2 = Vector{0, $h1, $accu__0} as dynamic;
                 $l1__0 = $t1;
                 $accu__0 = $accu__2;
                 continue;
               }
-              $accu__3 = Vector{0, $h2, $accu__0};
+              $accu__3 = Vector{0, $h2, $accu__0} as dynamic;
               $l2__0 = $t2;
               $accu__0 = $accu__3;
               continue;
@@ -1339,7 +1339,7 @@ final class List_ {
         if ($l__0) {
           $l__1 = $l__0[2];
           if (0 < $n__0) {
-            $n__1 = (int) ($n__0 + -1);
+            $n__1 = (int) ($n__0 + -1) as dynamic;
             $l__0 = $l__1;
             $n__0 = $n__1;
             continue;

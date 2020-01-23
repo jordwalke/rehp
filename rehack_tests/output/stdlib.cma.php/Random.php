@@ -135,22 +135,22 @@ final class Random {
       $i__0 = 0 as dynamic;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;
-        $m_ = (int) ($i__0 + 1);
+        $m_ = (int) ($i__0 + 1) as dynamic;
         if (54 !== $i__0) {$i__0 = $m_;continue;}
-        $accu = Vector{0, $cst_x};
-        $h_ = (int) (54 + $call2($Pervasives[5], 55, $l));
-        $g_ = 0;
+        $accu = Vector{0, $cst_x} as dynamic;
+        $h_ = (int) (54 + $call2($Pervasives[5], 55, $l)) as dynamic;
+        $g_ = 0 as dynamic;
         if (! ($h_ < 0)) {
           $i = $g_;
           for (;;) {
-            $j = (int) ($i % 55);
+            $j = (int) ($i % 55) as dynamic;
             $k = $caml_mod($i, $l);
             $i_ = $caml_check_bound($seed__0, $k)[$k + 1];
             $accu[1] = $combine($accu[1], $i_);
             $j_ = $extract($accu[1]);
             $k_ = ($caml_check_bound($s[1], $j)[$j + 1] ^ $j_) & 1073741823;
             $caml_check_bound($s[1], $j)[$j + 1] = $k_;
-            $l_ = (int) ($i + 1);
+            $l_ = (int) ($i + 1) as dynamic;
             if ($h_ !== $i) {$i = $l_;continue;}
             break;
           }

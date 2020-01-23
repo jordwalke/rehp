@@ -36,7 +36,10 @@ final class Nativeint {
     };
     $of_string_opt = (dynamic $s) ==> {
       $a_ = null as dynamic;
-      try {$a_ = Vector{0, $runtime["caml_int_of_string"]($s)};return $a_;}
+      try {
+        $a_ = Vector{0, $runtime["caml_int_of_string"]($s)} as dynamic;
+        return $a_;
+      }
       catch(\Throwable $b_) {
         $b_ = $runtime["caml_wrap_exception"]($b_);
         if ($b_[1] === $Failure) {return 0;}

@@ -598,7 +598,7 @@ final class CamlinternalFormat {
       for (;;) {
         $eS_ = $caml_string_get($char_set, $i) ^ 255;
         $caml_bytes_set($char_set__0, $i, $call1($Pervasives[17], $eS_));
-        $eT_ = (int) ($i + 1);
+        $eT_ = (int) ($i + 1) as dynamic;
         if (31 !== $i) {$i = $eT_;continue;}
         return $call1($Bytes[42], $char_set__0);
       }
@@ -749,7 +749,7 @@ final class CamlinternalFormat {
         $new_str = $caml_create_bytes($new_len);
         $call5($Bytes[11], $buf[2], 0, $new_str, 0, $len);
         $buf[2] = $new_str;
-        $eQ_ = 0;
+        $eQ_ = 0 as dynamic;
       }
       else {$eQ_ = $eP_;}
       return $eQ_;
@@ -916,7 +916,7 @@ final class CamlinternalFormat {
           if ($eJ_) {
             if ($is_in_char_set($set, $call1($Pervasives[17], $i__0))) {
               if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
+                $counter__0 = (int) ($counter + 1) as dynamic;
                 return $print_first->contents($counter__0, $set, $i__0);
               }
               return $caml_trampoline_return(
@@ -924,7 +924,7 @@ final class CamlinternalFormat {
                 varray[0,$set,$i__0]
               );
             }
-            $i__1 = (int) ($i__0 + 1);
+            $i__1 = (int) ($i__0 + 1) as dynamic;
             $i__0 = $i__1;
             continue;
           }
@@ -942,11 +942,11 @@ final class CamlinternalFormat {
           if (210 <= $switcher) {return $print_char($buf, 255);}
         }
         else {
-          $switcher__0 = (int) ($switcher + -1);
+          $switcher__0 = (int) ($switcher + -1) as dynamic;
           if (46 < $unsigned_right_shift_32($switcher__0, 0)) {
-            $eI_ = (int) ($i + 1);
+            $eI_ = (int) ($i + 1) as dynamic;
             if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1);
+              $counter__1 = (int) ($counter + 1) as dynamic;
               return $print_out__0($counter__1, $set, $eI_);
             }
             return $caml_trampoline_return($print_out__0, varray[0,$set,$eI_]);
@@ -954,7 +954,7 @@ final class CamlinternalFormat {
         }
         $eH_ = (int) ($i + 1) as dynamic;
         if ($counter < 50) {
-          $counter__0 = (int) ($counter + 1);
+          $counter__0 = (int) ($counter + 1) as dynamic;
           return $print_second->contents($counter__0, $set, $eH_);
         }
         return $caml_trampoline_return(
@@ -976,7 +976,7 @@ final class CamlinternalFormat {
         $match = null as dynamic;
         if ($is_in_char_set($set, $call1($Pervasives[17], $i))) {
           $match = $call1($Pervasives[17], $i);
-          $switcher = (int) ($match + -45);
+          $switcher = (int) ($match + -45) as dynamic;
           if (48 < $unsigned_right_shift_32($switcher, 0)) {
             if (210 <= $switcher) {
               $print_char($buf, 254);
@@ -984,16 +984,16 @@ final class CamlinternalFormat {
             }
           }
           else {
-            $switcher__0 = (int) ($switcher + -1);
+            $switcher__0 = (int) ($switcher + -1) as dynamic;
             if (46 < $unsigned_right_shift_32($switcher__0, 0)) {
               if (
                 !
                 $is_in_char_set($set, $call1($Pervasives[17], (int) ($i + 1)))
               ) {
                 $print_char($buf, (int) ($i + -1));
-                $eF_ = (int) ($i + 1);
+                $eF_ = (int) ($i + 1) as dynamic;
                 if ($counter < 50) {
-                  $counter__1 = (int) ($counter + 1);
+                  $counter__1 = (int) ($counter + 1) as dynamic;
                   return $print_out__0($counter__1, $set, $eF_);
                 }
                 return $caml_trampoline_return(
@@ -1004,10 +1004,10 @@ final class CamlinternalFormat {
             }
           }
           if ($is_in_char_set($set, $call1($Pervasives[17], (int) ($i + 1)))) {
-            $eC_ = (int) ($i + 2);
-            $eD_ = (int) ($i + -1);
+            $eC_ = (int) ($i + 2) as dynamic;
+            $eD_ = (int) ($i + -1) as dynamic;
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
+              $counter__0 = (int) ($counter + 1) as dynamic;
               return $print_in->contents($counter__0, $set, $eD_, $eC_);
             }
             return $caml_trampoline_return(
@@ -1017,9 +1017,9 @@ final class CamlinternalFormat {
           }
           $print_char($buf, (int) ($i + -1));
           $print_char($buf, $i);
-          $eE_ = (int) ($i + 2);
+          $eE_ = (int) ($i + 2) as dynamic;
           if ($counter < 50) {
-            $counter__2 = (int) ($counter + 1);
+            $counter__2 = (int) ($counter + 1) as dynamic;
             return $print_out__0($counter__2, $set, $eE_);
           }
           return $caml_trampoline_return($print_out__0, varray[0,$set,$eE_]);
@@ -1027,7 +1027,7 @@ final class CamlinternalFormat {
         $print_char($buf, (int) ($i + -1));
         $eG_ = (int) ($i + 1) as dynamic;
         if ($counter < 50) {
-          $counter__3 = (int) ($counter + 1);
+          $counter__3 = (int) ($counter + 1) as dynamic;
           return $print_out__0($counter__3, $set, $eG_);
         }
         return $caml_trampoline_return($print_out__0, varray[0,$set,$eG_]);
@@ -1041,16 +1041,20 @@ final class CamlinternalFormat {
         $j__0 = $j;
         for (;;) {
           if (256 !== $j__0) {
-            if ($is_in_char_set($set, $call1($Pervasives[17], $j__0))) {$j__1 = (int) ($j__0 + 1);$j__0 = $j__1;continue;}
+            if ($is_in_char_set($set, $call1($Pervasives[17], $j__0))) {
+              $j__1 = (int) ($j__0 + 1) as dynamic;
+              $j__0 = $j__1;
+              continue;
+            }
           }
           $print_char($buf, $i);
           $print_char($buf, 45);
           $print_char($buf, (int) ($j__0 + -1));
           $eA_ = $j__0 < 256 ? 1 : (0);
           if ($eA_) {
-            $eB_ = (int) ($j__0 + 1);
+            $eB_ = (int) ($j__0 + 1) as dynamic;
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
+              $counter__0 = (int) ($counter + 1) as dynamic;
               return $print_out__0($counter__0, $set, $eB_);
             }
             return $caml_trampoline_return($print_out__0, varray[0,$set,$eB_]);
@@ -1282,7 +1286,7 @@ final class CamlinternalFormat {
         $i = $ev_;
         for (;;) {
           $bprint_char_literal($buf, $caml_string_get($str, $i));
-          $ex_ = (int) ($i + 1);
+          $ex_ = (int) ($i + 1) as dynamic;
           if ($ew_ !== $i) {$i = $ex_;continue;}
           break;
         }
@@ -1500,7 +1504,7 @@ final class CamlinternalFormat {
                 $bprint_ignored_flag($buf, $ign_flag__0);
                 $buffer_add_char($buf, 99);
                 $fmt__0 = $fmt__1;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 1:
@@ -1509,7 +1513,7 @@ final class CamlinternalFormat {
                 $bprint_ignored_flag($buf, $ign_flag__0);
                 $buffer_add_char($buf, 67);
                 $fmt__0 = $fmt__2;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 2:
@@ -1520,7 +1524,7 @@ final class CamlinternalFormat {
                 $bprint_padding($buf, $pad);
                 $buffer_add_char($buf, 115);
                 $fmt__0 = $fmt__3;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 3:
@@ -1531,7 +1535,7 @@ final class CamlinternalFormat {
                 $bprint_padding($buf, $pad__0);
                 $buffer_add_char($buf, 83);
                 $fmt__0 = $fmt__4;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 4:
@@ -1541,7 +1545,7 @@ final class CamlinternalFormat {
                 $iconv = $fmt__0[1];
                 $bprint_int_fmt($buf, $ign_flag__0, $iconv, $pad__1, $prec);
                 $fmt__0 = $fmt__5;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 5:
@@ -1558,7 +1562,7 @@ final class CamlinternalFormat {
                   108
                 );
                 $fmt__0 = $fmt__6;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 6:
@@ -1575,7 +1579,7 @@ final class CamlinternalFormat {
                   110
                 );
                 $fmt__0 = $fmt__7;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 7:
@@ -1592,7 +1596,7 @@ final class CamlinternalFormat {
                   76
                 );
                 $fmt__0 = $fmt__8;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 8:
@@ -1608,7 +1612,7 @@ final class CamlinternalFormat {
                   $prec__3
                 );
                 $fmt__0 = $fmt__9;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 9:
@@ -1619,7 +1623,7 @@ final class CamlinternalFormat {
                 $bprint_padding($buf, $pad__6);
                 $buffer_add_char($buf, 66);
                 $fmt__0 = $fmt__10;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 10:
@@ -1654,7 +1658,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 37);
                 $buffer_add_char($buf, 125);
                 $fmt__0 = $fmt__14;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 14:
@@ -1669,7 +1673,7 @@ final class CamlinternalFormat {
                 $buffer_add_char($buf, 37);
                 $buffer_add_char($buf, 41);
                 $fmt__0 = $fmt__15;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 15:
@@ -1678,7 +1682,7 @@ final class CamlinternalFormat {
                 $bprint_ignored_flag($buf, $ign_flag__0);
                 $buffer_add_char($buf, 97);
                 $fmt__0 = $fmt__16;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 16:
@@ -1687,7 +1691,7 @@ final class CamlinternalFormat {
                 $bprint_ignored_flag($buf, $ign_flag__0);
                 $buffer_add_char($buf, 116);
                 $fmt__0 = $fmt__17;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 17:
@@ -1717,7 +1721,7 @@ final class CamlinternalFormat {
                 $bprint_ignored_flag($buf, $ign_flag__0);
                 $buffer_add_char($buf, 114);
                 $fmt__0 = $fmt__20;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 20:
@@ -1729,7 +1733,7 @@ final class CamlinternalFormat {
                 $bprint_pad_opt($buf, $width_opt);
                 $bprint_char_set($buf, $char_set);
                 $fmt__0 = $fmt__21;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 21:
@@ -1739,7 +1743,7 @@ final class CamlinternalFormat {
                 $bprint_ignored_flag($buf, $ign_flag__0);
                 $buffer_add_char($buf, $char_of_counter($counter));
                 $fmt__0 = $fmt__22;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 22:
@@ -1748,7 +1752,7 @@ final class CamlinternalFormat {
                 $bprint_ignored_flag($buf, $ign_flag__0);
                 $bprint_string_literal($buf, $cst_0c);
                 $fmt__0 = $fmt__23;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               case 23:
@@ -1757,27 +1761,27 @@ final class CamlinternalFormat {
                 $match = $param_format_of_ignored_format($ign, $rest);
                 $fmt__24 = $match[1];
                 $fmt__0 = $fmt__24;
-                $ign_flag__0 = 1;
+                $ign_flag__0 = 1 as dynamic;
                 $continue_label = "#";break;
               // FALLTHROUGH
               default:
                 $rest__0 = $fmt__0[3];
                 $arity = $fmt__0[1];
                 $et_ = $int_of_custom_arity->contents($arity);
-                $es_ = 1;
+                $es_ = 1 as dynamic;
                 if (! ($et_ < 1)) {
                   $i = $es_;
                   for (;;) {
                     $buffer_add_char($buf, 37);
                     $bprint_ignored_flag($buf, $ign_flag__0);
                     $buffer_add_char($buf, 63);
-                    $eu_ = (int) ($i + 1);
+                    $eu_ = (int) ($i + 1) as dynamic;
                     if ($et_ !== $i) {$i = $eu_;continue;}
                     break;
                   }
                 }
                 $fmt__0 = $rest__0;
-                $ign_flag__0 = 0;
+                $ign_flag__0 = 0 as dynamic;
                 $continue_label = "#";break;
               }
             if ($continue_label === "#") {continue;}
@@ -2349,31 +2353,31 @@ final class CamlinternalFormat {
           switch($match[0]) {
             // FALLTHROUGH
             case 10:
-              $switch__0 = 0;
+              $switch__0 = 0 as dynamic;
               break;
             // FALLTHROUGH
             case 11:
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 12:
-              $switch__0 = 2;
+              $switch__0 = 2 as dynamic;
               break;
             // FALLTHROUGH
             case 13:
-              $switch__0 = 3;
+              $switch__0 = 3 as dynamic;
               break;
             // FALLTHROUGH
             case 14:
-              $switch__0 = 4;
+              $switch__0 = 4 as dynamic;
               break;
             // FALLTHROUGH
             case 8:
-              $switch__0 = 5;
+              $switch__0 = 5 as dynamic;
               break;
             // FALLTHROUGH
             case 9:
-              $switch__0 = 6;
+              $switch__0 = 6 as dynamic;
               break;
             // FALLTHROUGH
             default:
@@ -2388,7 +2392,9 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 0:
             $dM_ = $ty1[1];
-            if ($is_int($match)) {$switch__1 = 1;}
+            if ($is_int($match)) {
+              $switch__1 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2397,50 +2403,52 @@ final class CamlinternalFormat {
                   return Vector{0, $trans->contents($dM_, $rest2)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__1 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__1 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__1 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__1 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__1 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__1 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__1 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__1 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__1 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__1 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__1 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__1 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__1 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__1 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__1 = 1;
+                  $switch__1 = 1 as dynamic;
                 }
             }
-            if ($switch__1) {$switch__0 = 7;}
+            if ($switch__1) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 1:
             $dN_ = $ty1[1];
-            if ($is_int($match)) {$switch__2 = 1;}
+            if ($is_int($match)) {
+              $switch__2 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2449,50 +2457,52 @@ final class CamlinternalFormat {
                   return Vector{1, $trans->contents($dN_, $rest2__0)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__2 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__2 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__2 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__2 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__2 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__2 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__2 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__2 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__2 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__2 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__2 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__2 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__2 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__2 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__2 = 1;
+                  $switch__2 = 1 as dynamic;
                 }
             }
-            if ($switch__2) {$switch__0 = 7;}
+            if ($switch__2) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 2:
             $dO_ = $ty1[1];
-            if ($is_int($match)) {$switch__3 = 1;}
+            if ($is_int($match)) {
+              $switch__3 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2501,50 +2511,52 @@ final class CamlinternalFormat {
                   return Vector{2, $trans->contents($dO_, $rest2__1)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__3 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__3 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__3 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__3 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__3 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__3 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__3 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__3 = 1;
+                  $switch__3 = 1 as dynamic;
                 }
             }
-            if ($switch__3) {$switch__0 = 7;}
+            if ($switch__3) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 3:
             $dP_ = $ty1[1];
-            if ($is_int($match)) {$switch__4 = 1;}
+            if ($is_int($match)) {
+              $switch__4 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2553,50 +2565,52 @@ final class CamlinternalFormat {
                   return Vector{3, $trans->contents($dP_, $rest2__2)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__4 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__4 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__4 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__4 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__4 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__4 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__4 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__4 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__4 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__4 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__4 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__4 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__4 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__4 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__4 = 1;
+                  $switch__4 = 1 as dynamic;
                 }
             }
-            if ($switch__4) {$switch__0 = 7;}
+            if ($switch__4) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 4:
             $dQ_ = $ty1[1];
-            if ($is_int($match)) {$switch__5 = 1;}
+            if ($is_int($match)) {
+              $switch__5 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2605,50 +2619,52 @@ final class CamlinternalFormat {
                   return Vector{4, $trans->contents($dQ_, $rest2__3)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__5 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__5 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__5 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__5 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__5 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__5 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__5 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__5 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__5 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__5 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__5 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__5 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__5 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__5 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__5 = 1;
+                  $switch__5 = 1 as dynamic;
                 }
             }
-            if ($switch__5) {$switch__0 = 7;}
+            if ($switch__5) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 5:
             $dR_ = $ty1[1];
-            if ($is_int($match)) {$switch__6 = 1;}
+            if ($is_int($match)) {
+              $switch__6 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2657,50 +2673,52 @@ final class CamlinternalFormat {
                   return Vector{5, $trans->contents($dR_, $rest2__4)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__6 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__6 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__6 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__6 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__6 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__6 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__6 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__6 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__6 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__6 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__6 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__6 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__6 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__6 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__6 = 1;
+                  $switch__6 = 1 as dynamic;
                 }
             }
-            if ($switch__6) {$switch__0 = 7;}
+            if ($switch__6) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 6:
             $dS_ = $ty1[1];
-            if ($is_int($match)) {$switch__7 = 1;}
+            if ($is_int($match)) {
+              $switch__7 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2709,50 +2727,52 @@ final class CamlinternalFormat {
                   return Vector{6, $trans->contents($dS_, $rest2__5)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__7 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__7 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__7 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__7 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__7 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__7 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__7 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__7 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__7 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__7 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__7 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__7 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__7 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__7 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__7 = 1;
+                  $switch__7 = 1 as dynamic;
                 }
             }
-            if ($switch__7) {$switch__0 = 7;}
+            if ($switch__7) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 7:
             $dT_ = $ty1[1];
-            if ($is_int($match)) {$switch__8 = 1;}
+            if ($is_int($match)) {
+              $switch__8 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2761,51 +2781,53 @@ final class CamlinternalFormat {
                   return Vector{7, $trans->contents($dT_, $rest2__6)};
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__8 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__8 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
-                  $switch__0 = 6;
-                  $switch__8 = 0;
+                  $switch__0 = 6 as dynamic;
+                  $switch__8 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__8 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__8 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__8 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__8 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__8 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__8 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__8 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__8 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__8 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__8 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__8 = 1;
+                  $switch__8 = 1 as dynamic;
                 }
             }
-            if ($switch__8) {$switch__0 = 7;}
+            if ($switch__8) {$switch__0 = 7 as dynamic;}
             break;
           // FALLTHROUGH
           case 8:
             $dU_ = $ty1[2];
             $dV_ = $ty1[1];
-            if ($is_int($match)) {$switch__9 = 1;}
+            if ($is_int($match)) {
+              $switch__9 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
@@ -2816,32 +2838,32 @@ final class CamlinternalFormat {
                   return Vector{8, $trans->contents($dV_, $ty2), $dW_};
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__9 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__9 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__9 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__9 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__9 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__9 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__9 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__9 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__9 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__9 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__9 = 1;
+                  $switch__9 = 1 as dynamic;
                 }
             }
             if ($switch__9) {
@@ -2855,13 +2877,15 @@ final class CamlinternalFormat {
             $dX_ = $ty1[3];
             $dY_ = $ty1[2];
             $dZ_ = $ty1[1];
-            if ($is_int($match)) {$switch__10 = 1;}
+            if ($is_int($match)) {
+              $switch__10 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
                 case 8:
-                  $switch__0 = 5;
-                  $switch__10 = 0;
+                  $switch__0 = 5 as dynamic;
+                  $switch__10 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 9:
@@ -2882,32 +2906,32 @@ final class CamlinternalFormat {
                   };
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__10 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__10 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__10 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__10 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__10 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__10 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__10 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__10 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
-                  $switch__0 = 4;
-                  $switch__10 = 0;
+                  $switch__0 = 4 as dynamic;
+                  $switch__10 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
-                  $switch__10 = 1;
+                  $switch__10 = 1 as dynamic;
                 }
             }
             if ($switch__10) {
@@ -2927,13 +2951,15 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 11:
             $d1_ = $ty1[1];
-            if ($is_int($match)) {$switch__11 = 1;}
+            if ($is_int($match)) {
+              $switch__11 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__11 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__11 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
@@ -2941,7 +2967,7 @@ final class CamlinternalFormat {
                   return Vector{11, $trans->contents($d1_, $rest2__10)};
                 // FALLTHROUGH
                 default:
-                  $switch__11 = 1;
+                  $switch__11 = 1 as dynamic;
                 }
             }
             if ($switch__11) {
@@ -2953,18 +2979,20 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 12:
             $d2_ = $ty1[1];
-            if ($is_int($match)) {$switch__12 = 1;}
+            if ($is_int($match)) {
+              $switch__12 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__12 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__12 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__12 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__12 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
@@ -2972,7 +3000,7 @@ final class CamlinternalFormat {
                   return Vector{12, $trans->contents($d2_, $rest2__11)};
                 // FALLTHROUGH
                 default:
-                  $switch__12 = 1;
+                  $switch__12 = 1 as dynamic;
                 }
             }
             if ($switch__12) {
@@ -2984,23 +3012,25 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 13:
             $d3_ = $ty1[1];
-            if ($is_int($match)) {$switch__13 = 1;}
+            if ($is_int($match)) {
+              $switch__13 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__13 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__13 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__13 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__13 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__13 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__13 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
@@ -3008,7 +3038,7 @@ final class CamlinternalFormat {
                   return Vector{13, $trans->contents($d3_, $rest2__12)};
                 // FALLTHROUGH
                 default:
-                  $switch__13 = 1;
+                  $switch__13 = 1 as dynamic;
                 }
             }
             if ($switch__13) {
@@ -3020,28 +3050,30 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           default:
             $d4_ = $ty1[1];
-            if ($is_int($match)) {$switch__14 = 1;}
+            if ($is_int($match)) {
+              $switch__14 = 1 as dynamic;
+            }
             else {
               switch($match[0]) {
                 // FALLTHROUGH
                 case 10:
-                  $switch__0 = 0;
-                  $switch__14 = 0;
+                  $switch__0 = 0 as dynamic;
+                  $switch__14 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 11:
-                  $switch__0 = 1;
-                  $switch__14 = 0;
+                  $switch__0 = 1 as dynamic;
+                  $switch__14 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 12:
-                  $switch__0 = 2;
-                  $switch__14 = 0;
+                  $switch__0 = 2 as dynamic;
+                  $switch__14 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 13:
-                  $switch__0 = 3;
-                  $switch__14 = 0;
+                  $switch__0 = 3 as dynamic;
+                  $switch__14 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 14:
@@ -3049,7 +3081,7 @@ final class CamlinternalFormat {
                   return Vector{14, $trans->contents($d4_, $rest2__13)};
                 // FALLTHROUGH
                 default:
-                  $switch__14 = 1;
+                  $switch__14 = 1 as dynamic;
                 }
             }
             if ($switch__14) {
@@ -3323,7 +3355,7 @@ final class CamlinternalFormat {
               $rest__18 = $fmtty__0[2];
               $ign = $fmtty__0[1];
               if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
+                $counter__0 = (int) ($counter + 1) as dynamic;
                 return $fmtty_of_ignored_format->contents(
                   $counter__0,
                   $ign,
@@ -3370,14 +3402,14 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 0:
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
+              $counter__0 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__0, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 1:
             if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1);
+              $counter__1 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__1, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
@@ -3387,7 +3419,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           default:
             if ($counter < 50) {
-              $counter__2 = (int) ($counter + 1);
+              $counter__2 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__2, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
@@ -3398,63 +3430,63 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 0:
             if ($counter < 50) {
-              $counter__3 = (int) ($counter + 1);
+              $counter__3 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__3, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 1:
             if ($counter < 50) {
-              $counter__4 = (int) ($counter + 1);
+              $counter__4 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__4, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 2:
             if ($counter < 50) {
-              $counter__5 = (int) ($counter + 1);
+              $counter__5 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__5, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 3:
             if ($counter < 50) {
-              $counter__6 = (int) ($counter + 1);
+              $counter__6 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__6, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 4:
             if ($counter < 50) {
-              $counter__7 = (int) ($counter + 1);
+              $counter__7 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__7, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 5:
             if ($counter < 50) {
-              $counter__8 = (int) ($counter + 1);
+              $counter__8 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__8, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 6:
             if ($counter < 50) {
-              $counter__9 = (int) ($counter + 1);
+              $counter__9 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__9, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 7:
             if ($counter < 50) {
-              $counter__10 = (int) ($counter + 1);
+              $counter__10 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__10, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           case 8:
             if ($counter < 50) {
-              $counter__11 = (int) ($counter + 1);
+              $counter__11 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__11, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
@@ -3466,14 +3498,14 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 10:
             if ($counter < 50) {
-              $counter__12 = (int) ($counter + 1);
+              $counter__12 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__12, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
           // FALLTHROUGH
           default:
             if ($counter < 50) {
-              $counter__13 = (int) ($counter + 1);
+              $counter__13 = (int) ($counter + 1) as dynamic;
               return $fmtty_of_fmt__0($counter__13, $fmt);
             }
             return $caml_trampoline_return($fmtty_of_fmt__0, varray[0,$fmt]);
@@ -4121,7 +4153,7 @@ final class CamlinternalFormat {
               $sub_fmtty__1 = $fmt[2];
               $pad_opt__0 = $fmt[1];
               $dF_ =
-                Vector{0, $call1($CamlinternalFormatBasics[2], $sub_fmtty1)};
+                Vector{0, $call1($CamlinternalFormatBasics[2], $sub_fmtty1)} as dynamic;
               if (
                 $caml_notequal(
                   Vector{
@@ -4495,7 +4527,7 @@ final class CamlinternalFormat {
               $sub2_fmtty__2 = $sub_fmtty[2];
               $sub1_fmtty__0 = $sub_fmtty[1];
               $da_ =
-                Vector{0, $call1($CamlinternalFormatBasics[2], $sub1_fmtty)};
+                Vector{0, $call1($CamlinternalFormatBasics[2], $sub1_fmtty)} as dynamic;
               if (
                 $caml_notequal(
                   Vector{
@@ -4509,7 +4541,7 @@ final class CamlinternalFormat {
               }
               $db_ =
                 Vector{0, $call1($CamlinternalFormatBasics[2], $sub2_fmtty__1)
-                };
+                } as dynamic;
               if (
                 $caml_notequal(
                   Vector{
@@ -4643,12 +4675,12 @@ final class CamlinternalFormat {
         // FALLTHROUGH
         default:
           if (0 < $len) {
-            if (43 === $caml_string_get($str, 0)) {$switch__1 = 1;}
+            if (43 === $caml_string_get($str, 0)) {$switch__1 = 1 as dynamic;}
             else {
-              if (45 === $caml_string_get($str, 0)) {$switch__1 = 1;}
+              if (45 === $caml_string_get($str, 0)) {$switch__1 = 1 as dynamic;}
               else {
-                if (32 === $caml_string_get($str, 0)) {$switch__1 = 1;}
-                else {$switch__0 = 0;$switch__1 = 0;}
+                if (32 === $caml_string_get($str, 0)) {$switch__1 = 1 as dynamic;}
+                else {$switch__0 = 0 as dynamic;$switch__1 = 0 as dynamic;}
               }
             }
             if ($switch__1) {
@@ -4663,17 +4695,17 @@ final class CamlinternalFormat {
                 (int)
                 ($len + -1)
               );
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
             }
           }
-          else {$switch__0 = 0;}
+          else {$switch__0 = 0 as dynamic;}
           if (! $switch__0) {
             if (1 < $len) {
               if (48 === $caml_string_get($str, 0)) {
-                if (120 === $caml_string_get($str, 1)) {$switch__3 = 1;}
+                if (120 === $caml_string_get($str, 1)) {$switch__3 = 1 as dynamic;}
                 else {
-                  if (88 === $caml_string_get($str, 1)) {$switch__3 = 1;}
-                  else {$switch__2 = 0;$switch__3 = 0;}
+                  if (88 === $caml_string_get($str, 1)) {$switch__3 = 1 as dynamic;}
+                  else {$switch__2 = 0 as dynamic;$switch__3 = 0 as dynamic;}
                 }
                 if ($switch__3) {
                   $caml_bytes_set($res, 1, $caml_string_get($str, 1));
@@ -4687,12 +4719,12 @@ final class CamlinternalFormat {
                     (int)
                     ($len + -2)
                   );
-                  $switch__2 = 1;
+                  $switch__2 = 1 as dynamic;
                 }
               }
-              else {$switch__2 = 0;}
+              else {$switch__2 = 0 as dynamic;}
             }
-            else {$switch__2 = 0;}
+            else {$switch__2 = 0 as dynamic;}
             if (! $switch__2) {
               $call5($String[6], $str, 0, $res, (int) ($width__0 - $len), $len
               );
@@ -4720,11 +4752,11 @@ final class CamlinternalFormat {
       }
       else {
         if (32 === $c) {
-          $switch__1 = 1;
+          $switch__1 = 1 as dynamic;
         }
         else {
           if (43 <= $c) {
-            $switcher = (int) ($c + -43);
+            $switcher = (int) ($c + -43) as dynamic;
             switch($switcher) {
               // FALLTHROUGH
               case 5:
@@ -4751,14 +4783,14 @@ final class CamlinternalFormat {
                     }
                   }
                 }
-                $switch__0 = 0;
-                $switch__1 = 0;
+                $switch__0 = 0 as dynamic;
+                $switch__1 = 0 as dynamic;
                 break;
               // FALLTHROUGH
               case 0:
               // FALLTHROUGH
               case 2:
-                $switch__1 = 1;
+                $switch__1 = 1 as dynamic;
                 break;
               // FALLTHROUGH
               case 1:
@@ -4766,16 +4798,16 @@ final class CamlinternalFormat {
               case 3:
               // FALLTHROUGH
               case 4:
-                $switch__0 = 1;
-                $switch__1 = 0;
+                $switch__0 = 1 as dynamic;
+                $switch__1 = 0 as dynamic;
                 break;
               // FALLTHROUGH
               default:
-                $switch__0 = 0;
-                $switch__1 = 0;
+                $switch__0 = 0 as dynamic;
+                $switch__1 = 0 as dynamic;
               }
           }
-          else {$switch__0 = 1;$switch__1 = 0;}
+          else {$switch__0 = 1 as dynamic;$switch__1 = 0 as dynamic;}
         }
         if ($switch__1) {
           if ($len < (int) ($prec__0 + 1)) {
@@ -4793,7 +4825,7 @@ final class CamlinternalFormat {
             );
             return $call1($Bytes[42], $res__0);
           }
-          $switch__0 = 1;
+          $switch__0 = 1 as dynamic;
         }
       }
       if (! $switch__0) {
@@ -5020,23 +5052,23 @@ final class CamlinternalFormat {
           switch((int) ($fconv + -17)) {
             // FALLTHROUGH
             case 2:
-              $switch__0 = 0;
+              $switch__0 = 0 as dynamic;
               break;
             // FALLTHROUGH
             case 0:
             // FALLTHROUGH
             case 3:
-              $sign = 43;
-              $switch__0 = 1;
+              $sign = 43 as dynamic;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             default:
-              $sign = 32;
-              $switch__0 = 1;
+              $sign = 32 as dynamic;
+              $switch__0 = 1 as dynamic;
             }
         }
-        else {$switch__0 = 0;}
-        if (! $switch__0) {$sign = 45;}
+        else {$switch__0 = 0 as dynamic;}
+        if (! $switch__0) {$sign = 45 as dynamic;}
         $str = $runtime["caml_hexstring_of_float"]($x, $prec, $sign);
         return 19 <= $fconv ? $call1($String[29], $str) : ($str);
       }
@@ -5056,7 +5088,7 @@ final class CamlinternalFormat {
             for (;;) {
               if ($i__0 === $len) {return 0;}
               $match = $caml_string_get($str__0, $i__0);
-              $c8_ = (int) ($match + -46);
+              $c8_ = (int) ($match + -46) as dynamic;
               $switch__0 =
                 23 < $unsigned_right_shift_32($c8_, 0)
                   ? 55 === $c8_ ? 1 : (0)
@@ -5064,7 +5096,7 @@ final class CamlinternalFormat {
                    ? 1
                    : (0));
               if ($switch__0) {return 1;}
-              $i__1 = (int) ($i__0 + 1);
+              $i__1 = (int) ($i__0 + 1) as dynamic;
               $i__0 = $i__1;
               continue;
             }
@@ -5522,7 +5554,7 @@ final class CamlinternalFormat {
             // FALLTHROUGH
             case 10:
               $fmt__1 = $fmt__0[1];
-              $acc__1 = Vector{7, $acc__0};
+              $acc__1 = Vector{7, $acc__0} as dynamic;
               $acc__0 = $acc__1;
               $fmt__0 = $fmt__1;
               $continue_label = "#";break;
@@ -5530,7 +5562,7 @@ final class CamlinternalFormat {
             case 11:
               $fmt__2 = $fmt__0[2];
               $str = $fmt__0[1];
-              $acc__2 = Vector{2, $acc__0, $str};
+              $acc__2 = Vector{2, $acc__0, $str} as dynamic;
               $acc__0 = $acc__2;
               $fmt__0 = $fmt__2;
               $continue_label = "#";break;
@@ -5538,7 +5570,7 @@ final class CamlinternalFormat {
             case 12:
               $fmt__3 = $fmt__0[2];
               $chr = $fmt__0[1];
-              $acc__3 = Vector{3, $acc__0, $chr};
+              $acc__3 = Vector{3, $acc__0, $chr} as dynamic;
               $acc__0 = $acc__3;
               $fmt__0 = $fmt__3;
               $continue_label = "#";break;
@@ -5599,7 +5631,7 @@ final class CamlinternalFormat {
             case 17:
               $fmt__4 = $fmt__0[2];
               $fmting_lit = $fmt__0[1];
-              $acc__4 = Vector{0, $acc__0, $fmting_lit};
+              $acc__4 = Vector{0, $acc__0, $fmting_lit} as dynamic;
               $acc__0 = $acc__4;
               $fmt__0 = $fmt__4;
               $continue_label = "#";break;
@@ -5624,7 +5656,7 @@ final class CamlinternalFormat {
                   };
                 $k__1 = $k__3($acc__0, $k__0, $rest__13);
                 $k__0 = $k__1;
-                $acc__0 = 0;
+                $acc__0 = 0 as dynamic;
                 $fmt__0 = $fmt__5;
                 $continue_label = "#";break;
               }
@@ -5645,7 +5677,7 @@ final class CamlinternalFormat {
                 };
               $k__2 = $k__4($acc__0, $k__0, $rest__14);
               $k__0 = $k__2;
-              $acc__0 = 0;
+              $acc__0 = 0 as dynamic;
               $fmt__0 = $fmt__6;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -5656,7 +5688,7 @@ final class CamlinternalFormat {
             // FALLTHROUGH
             case 20:
               $rest__15 = $fmt__0[3];
-              $new_acc = Vector{8, $acc__0, $cst_Printf_bad_conversion};
+              $new_acc = Vector{8, $acc__0, $cst_Printf_bad_conversion} as dynamic;
               return (dynamic $param) ==> {
                 return $make_printf->contents($k__0, $o, $new_acc, $rest__15);
               };
@@ -5679,7 +5711,7 @@ final class CamlinternalFormat {
               $rest__18 = $fmt__0[2];
               $ign = $fmt__0[1];
               if ($counter < 50) {
-                $counter__1 = (int) ($counter + 1);
+                $counter__1 = (int) ($counter + 1) as dynamic;
                 return $make_ignored_param__0->contents(
                   $counter__1,
                   $k__0,
@@ -5700,7 +5732,7 @@ final class CamlinternalFormat {
               $arity = $fmt__0[1];
               $c0_ = $call1($f, 0);
               if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
+                $counter__0 = (int) ($counter + 1) as dynamic;
                 return $make_custom__0->contents(
                   $counter__0,
                   $k__0,
@@ -5743,7 +5775,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 0:
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
+              $counter__0 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__0,
                 $k,
@@ -5759,7 +5791,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 1:
             if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1);
+              $counter__1 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__1,
                 $k,
@@ -5778,7 +5810,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           default:
             if ($counter < 50) {
-              $counter__2 = (int) ($counter + 1);
+              $counter__2 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__2,
                 $k,
@@ -5798,7 +5830,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 0:
             if ($counter < 50) {
-              $counter__3 = (int) ($counter + 1);
+              $counter__3 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__3,
                 $k,
@@ -5814,7 +5846,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 1:
             if ($counter < 50) {
-              $counter__4 = (int) ($counter + 1);
+              $counter__4 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__4,
                 $k,
@@ -5830,7 +5862,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 2:
             if ($counter < 50) {
-              $counter__5 = (int) ($counter + 1);
+              $counter__5 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__5,
                 $k,
@@ -5846,7 +5878,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 3:
             if ($counter < 50) {
-              $counter__6 = (int) ($counter + 1);
+              $counter__6 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__6,
                 $k,
@@ -5862,7 +5894,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 4:
             if ($counter < 50) {
-              $counter__7 = (int) ($counter + 1);
+              $counter__7 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__7,
                 $k,
@@ -5878,7 +5910,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 5:
             if ($counter < 50) {
-              $counter__8 = (int) ($counter + 1);
+              $counter__8 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__8,
                 $k,
@@ -5894,7 +5926,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 6:
             if ($counter < 50) {
-              $counter__9 = (int) ($counter + 1);
+              $counter__9 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__9,
                 $k,
@@ -5910,7 +5942,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 7:
             if ($counter < 50) {
-              $counter__10 = (int) ($counter + 1);
+              $counter__10 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__10,
                 $k,
@@ -5926,7 +5958,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 8:
             if ($counter < 50) {
-              $counter__11 = (int) ($counter + 1);
+              $counter__11 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__11,
                 $k,
@@ -5943,7 +5975,7 @@ final class CamlinternalFormat {
           case 9:
             $fmtty = $ign[2];
             if ($counter < 50) {
-              $counter__14 = (int) ($counter + 1);
+              $counter__14 = (int) ($counter + 1) as dynamic;
               return $make_from_fmtty__0->contents(
                 $counter__14,
                 $k,
@@ -5960,7 +5992,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           case 10:
             if ($counter < 50) {
-              $counter__12 = (int) ($counter + 1);
+              $counter__12 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__12,
                 $k,
@@ -5976,7 +6008,7 @@ final class CamlinternalFormat {
           // FALLTHROUGH
           default:
             if ($counter < 50) {
-              $counter__13 = (int) ($counter + 1);
+              $counter__13 = (int) ($counter + 1) as dynamic;
               return $make_invalid_arg->contents(
                 $counter__13,
                 $k,
@@ -6013,7 +6045,7 @@ final class CamlinternalFormat {
       $rest = null as dynamic;
       if ($is_int($fmtty)) {
         if ($counter < 50) {
-          $counter__0 = (int) ($counter + 1);
+          $counter__0 = (int) ($counter + 1) as dynamic;
           return $make_invalid_arg->contents($counter__0, $k, $o, $acc, $fmt);
         }
         return $caml_trampoline_return(
@@ -6124,7 +6156,7 @@ final class CamlinternalFormat {
       $counter__0 = null as dynamic;
       $cX_ = Vector{8, $acc, $cst_Printf_bad_conversion__0} as dynamic;
       if ($counter < 50) {
-        $counter__0 = (int) ($counter + 1);
+        $counter__0 = (int) ($counter + 1) as dynamic;
         return $make_printf__0($counter__0, $k, $o, $cX_, $fmt);
       }
       return $caml_trampoline_return(
@@ -6151,7 +6183,7 @@ final class CamlinternalFormat {
       }
       $cW_ = Vector{4, $acc, $f} as dynamic;
       if ($counter < 50) {
-        $counter__0 = (int) ($counter + 1);
+        $counter__0 = (int) ($counter + 1) as dynamic;
         return $make_printf__0($counter__0, $k, $o, $cW_, $rest);
       }
       return $caml_trampoline_return(
@@ -6560,7 +6592,7 @@ final class CamlinternalFormat {
             case 23:
               $rest__24 = $fmt__0[2];
               $ign = $fmt__0[1];
-              $b6_ = 0;
+              $b6_ = 0 as dynamic;
               return $make_ignored_param(
                 (dynamic $x, dynamic $param) ==> {return $call1($k__0, $x);},
                 $o,
@@ -6573,7 +6605,7 @@ final class CamlinternalFormat {
               $rest__25 = $fmt__0[3];
               $arity = $fmt__0[1];
               if ($counter < 50) {
-                $counter__0 = (int) ($counter + 1);
+                $counter__0 = (int) ($counter + 1) as dynamic;
                 return $fn_of_custom_arity__0->contents(
                   $counter__0,
                   $k__0,
@@ -6602,7 +6634,7 @@ final class CamlinternalFormat {
         return (dynamic $bG_) ==> {return $const__0($bF_, $bG_);};
       }
       if ($counter < 50) {
-        $counter__0 = (int) ($counter + 1);
+        $counter__0 = (int) ($counter + 1) as dynamic;
         return $make_iprintf__0($counter__0, $k, $o, $fmt);
       }
       return $caml_trampoline_return($make_iprintf__0, varray[0,$k,$o,$fmt]);
@@ -6893,7 +6925,7 @@ final class CamlinternalFormat {
           if ($i__0 === $len) {return $i__0;}
           $match = $caml_string_get($str, $i__0);
           if (9 !== $match) {if (32 !== $match) {return $i__0;}}
-          $i__1 = (int) ($i__0 + 1);
+          $i__1 = (int) ($i__0 + 1) as dynamic;
           $i__0 = $i__1;
           continue;
         }
@@ -6906,9 +6938,9 @@ final class CamlinternalFormat {
         for (;;) {
           if ($j__0 === $len) {return $j__0;}
           $match = $caml_string_get($str, $j__0);
-          $switcher = (int) ($match + -97);
+          $switcher = (int) ($match + -97) as dynamic;
           if (25 < $unsigned_right_shift_32($switcher, 0)) {return $j__0;}
-          $j__1 = (int) ($j__0 + 1);
+          $j__1 = (int) ($j__0 + 1) as dynamic;
           $j__0 = $j__1;
           continue;
         }
@@ -6923,7 +6955,11 @@ final class CamlinternalFormat {
           $match = $caml_string_get($str, $j__0);
           $switch__0 =
             48 <= $match ? 58 <= $match ? 0 : (1) : (45 === $match ? 1 : (0));
-          if ($switch__0) {$j__1 = (int) ($j__0 + 1);$j__0 = $j__1;continue;}
+          if ($switch__0) {
+            $j__1 = (int) ($j__0 + 1) as dynamic;
+            $j__0 = $j__1;
+            continue;
+          }
           return $j__0;
         }
       };
@@ -6932,7 +6968,9 @@ final class CamlinternalFormat {
       $box_name = $call3($String[4], $str, $wstart, (int) ($wend - $wstart));
       $nstart = $parse_spaces($wend);
       $nend = $parse_int($nstart, $nstart);
-      if ($nstart === $nend) {$indent = 0;}
+      if ($nstart === $nend) {
+        $indent = 0 as dynamic;
+      }
       else {
         try {
           $bv_ =
@@ -6957,19 +6995,22 @@ final class CamlinternalFormat {
           if ($caml_string_notequal($box_name, $cst_h)) {
             if ($caml_string_notequal($box_name, $cst_hov)) {
               if ($caml_string_notequal($box_name, $cst_hv)) {
-                if ($caml_string_notequal($box_name, $cst_v)) {$box_type = $invalid_box(0);$switch__0 = 1;}
-                else {$box_type = 1;$switch__0 = 1;}
+                if ($caml_string_notequal($box_name, $cst_v)) {
+                  $box_type = $invalid_box(0);
+                  $switch__0 = 1 as dynamic;
+                }
+                else {$box_type = 1 as dynamic;$switch__0 = 1 as dynamic;}
               }
-              else {$box_type = 2;$switch__0 = 1;}
+              else {$box_type = 2 as dynamic;$switch__0 = 1 as dynamic;}
             }
-            else {$box_type = 3;$switch__0 = 1;}
+            else {$box_type = 3 as dynamic;$switch__0 = 1 as dynamic;}
           }
-          else {$box_type = 0;$switch__0 = 1;}
+          else {$box_type = 0 as dynamic;$switch__0 = 1 as dynamic;}
         }
-        else {$switch__0 = 0;}
+        else {$switch__0 = 0 as dynamic;}
       }
-      else {$switch__0 = 0;}
-      if (! $switch__0) {$box_type = 4;}
+      else {$switch__0 = 0 as dynamic;}
+      if (! $switch__0) {$box_type = 4 as dynamic;}
       return Vector{0, $indent, $box_type};
     };
     $make_padding_fmt_ebb = (dynamic $pad, dynamic $fmt) ==> {
@@ -7037,7 +7078,7 @@ final class CamlinternalFormat {
         $flag = $legacy_behavior[1];
         $legacy_behavior__0 = $flag;
       }
-      else {$legacy_behavior__0 = 1;}
+      else {$legacy_behavior__0 = 1 as dynamic;}
       $invalid_format_message = (dynamic $str_ind, dynamic $msg) ==> {
         return $call3($failwith_message($x_), $str, $str_ind, $msg);
       };
@@ -7095,7 +7136,7 @@ final class CamlinternalFormat {
             $fmt_rest__0 = $match__1[1];
             return $add_literal($lit_start, $str_ind__0, $fmt_rest__0);
           }
-          $str_ind__1 = (int) ($str_ind__0 + 1);
+          $str_ind__1 = (int) ($str_ind__0 + 1) as dynamic;
           $str_ind__0 = $str_ind__1;
           continue;
         }
@@ -7140,38 +7181,38 @@ final class CamlinternalFormat {
               $unexpected_end_of_format($end_ind);
             }
             $match = $caml_string_get($str, $str_ind__0);
-            $switcher = (int) ($match + -32);
+            $switcher = (int) ($match + -32) as dynamic;
             if (! (16 < $unsigned_right_shift_32($switcher, 0))) {
               $continue_label = null;
               switch($switcher) {
                 // FALLTHROUGH
                 case 0:
                   $set_flag($str_ind__0, $space);
-                  $str_ind__1 = (int) ($str_ind__0 + 1);
+                  $str_ind__1 = (int) ($str_ind__0 + 1) as dynamic;
                   $str_ind__0 = $str_ind__1;
                   $continue_label = "#";break;
                 // FALLTHROUGH
                 case 3:
                   $set_flag($str_ind__0, $hash);
-                  $str_ind__2 = (int) ($str_ind__0 + 1);
+                  $str_ind__2 = (int) ($str_ind__0 + 1) as dynamic;
                   $str_ind__0 = $str_ind__2;
                   $continue_label = "#";break;
                 // FALLTHROUGH
                 case 11:
                   $set_flag($str_ind__0, $plus);
-                  $str_ind__3 = (int) ($str_ind__0 + 1);
+                  $str_ind__3 = (int) ($str_ind__0 + 1) as dynamic;
                   $str_ind__0 = $str_ind__3;
                   $continue_label = "#";break;
                 // FALLTHROUGH
                 case 13:
                   $set_flag($str_ind__0, $minus);
-                  $str_ind__4 = (int) ($str_ind__0 + 1);
+                  $str_ind__4 = (int) ($str_ind__0 + 1) as dynamic;
                   $str_ind__0 = $str_ind__4;
                   $continue_label = "#";break;
                 // FALLTHROUGH
                 case 16:
                   $set_flag($str_ind__0, $zero);
-                  $str_ind__5 = (int) ($str_ind__0 + 1);
+                  $str_ind__5 = (int) ($str_ind__0 + 1) as dynamic;
                   $str_ind__0 = $str_ind__5;
                   $continue_label = "#";break;
                 }
@@ -7504,15 +7545,17 @@ final class CamlinternalFormat {
           $ndec = $match[1];
           return Vector{0, $ndec};
         };
-        if (124 <= $symb) {$switch__0 = 0;}
+        if (124 <= $symb) {
+          $switch__0 = 0 as dynamic;
+        }
         else {
           switch($symb) {
             // FALLTHROUGH
             case 33:
               $match__5 = $parse($str_ind, $end_ind);
               $fmt_rest__5 = $match__5[1];
-              $fmt_result = Vector{0, Vector{10, $fmt_rest__5}};
-              $switch__0 = 1;
+              $fmt_result = Vector{0, Vector{10, $fmt_rest__5}} as dynamic;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 40:
@@ -7524,23 +7567,23 @@ final class CamlinternalFormat {
               $sub_fmt = $match__8[1];
               $sub_fmtty = $fmtty_of_fmt->contents($sub_fmt);
               if ($get_ign(0)) {
-                $ignored__2 = Vector{9, $get_pad_opt(95), $sub_fmtty};
-                $a3_ = Vector{0, Vector{23, $ignored__2, $fmt_rest__7}};
+                $ignored__2 = Vector{9, $get_pad_opt(95), $sub_fmtty} as dynamic;
+                $a3_ = Vector{0, Vector{23, $ignored__2, $fmt_rest__7}} as dynamic;
               }
               else {
                 $a3_ =
                   Vector{
                     0,
                     Vector{14, $get_pad_opt(40), $sub_fmtty, $fmt_rest__7}
-                  };
+                  } as dynamic;
               }
               $fmt_result = $a3_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 44:
               $fmt_result = $parse($str_ind, $end_ind);
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 67:
@@ -7551,20 +7594,22 @@ final class CamlinternalFormat {
                   ? Vector{0, Vector{23, 1, $fmt_rest__10}}
                   : (Vector{0, Vector{1, $fmt_rest__10}});
               $fmt_result = $a5_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 78:
               $match__15 = $parse($str_ind, $end_ind);
               $fmt_rest__14 = $match__15[1];
-              $counter__0 = 2;
+              $counter__0 = 2 as dynamic;
               if ($get_ign(0)) {
-                $ignored__6 = Vector{11, $counter__0};
-                $ba_ = Vector{0, Vector{23, $ignored__6, $fmt_rest__14}};
+                $ignored__6 = Vector{11, $counter__0} as dynamic;
+                $ba_ = Vector{0, Vector{23, $ignored__6, $fmt_rest__14}} as dynamic;
               }
-              else {$ba_ = Vector{0, Vector{21, $counter__0, $fmt_rest__14}};}
+              else {
+                $ba_ = Vector{0, Vector{21, $counter__0, $fmt_rest__14}} as dynamic;
+              }
               $fmt_result = $ba_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 83:
@@ -7572,17 +7617,17 @@ final class CamlinternalFormat {
               $match__16 = $parse($str_ind, $end_ind);
               $fmt_rest__15 = $match__16[1];
               if ($get_ign(0)) {
-                $ignored__7 = Vector{1, $get_padprec_opt(95)};
-                $bb_ = Vector{0, Vector{23, $ignored__7, $fmt_rest__15}};
+                $ignored__7 = Vector{1, $get_padprec_opt(95)} as dynamic;
+                $bb_ = Vector{0, Vector{23, $ignored__7, $fmt_rest__15}} as dynamic;
               }
               else {
                 $match__17 = $make_padding_fmt_ebb($pad__6, $fmt_rest__15);
                 $fmt_rest__16 = $match__17[2];
                 $pad__7 = $match__17[1];
-                $bb_ = Vector{0, Vector{3, $pad__7, $fmt_rest__16}};
+                $bb_ = Vector{0, Vector{3, $pad__7, $fmt_rest__16}} as dynamic;
               }
               $fmt_result = $bb_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 91:
@@ -7592,25 +7637,25 @@ final class CamlinternalFormat {
               $match__21 = $parse($next_ind, $end_ind);
               $fmt_rest__19 = $match__21[1];
               if ($get_ign(0)) {
-                $ignored__9 = Vector{10, $get_pad_opt(95), $char_set};
-                $bg_ = Vector{0, Vector{23, $ignored__9, $fmt_rest__19}};
+                $ignored__9 = Vector{10, $get_pad_opt(95), $char_set} as dynamic;
+                $bg_ = Vector{0, Vector{23, $ignored__9, $fmt_rest__19}} as dynamic;
               }
               else {
                 $bg_ =
                   Vector{
                     0,
                     Vector{20, $get_pad_opt(91), $char_set, $fmt_rest__19}
-                  };
+                  } as dynamic;
               }
               $fmt_result = $bg_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 97:
               $match__22 = $parse($str_ind, $end_ind);
               $fmt_rest__20 = $match__22[1];
-              $fmt_result = Vector{0, Vector{15, $fmt_rest__20}};
-              $switch__0 = 1;
+              $fmt_result = Vector{0, Vector{15, $fmt_rest__20}} as dynamic;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 99:
@@ -7640,7 +7685,7 @@ final class CamlinternalFormat {
               }
               else {$bi_ = $char_format($fmt_rest__21);}
               $fmt_result = $bi_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 114:
@@ -7651,7 +7696,7 @@ final class CamlinternalFormat {
                   ? Vector{0, Vector{23, 2, $fmt_rest__22}}
                   : (Vector{0, Vector{19, $fmt_rest__22}});
               $fmt_result = $bj_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 115:
@@ -7659,24 +7704,24 @@ final class CamlinternalFormat {
               $match__26 = $parse($str_ind, $end_ind);
               $fmt_rest__23 = $match__26[1];
               if ($get_ign(0)) {
-                $ignored__10 = Vector{0, $get_padprec_opt(95)};
-                $bk_ = Vector{0, Vector{23, $ignored__10, $fmt_rest__23}};
+                $ignored__10 = Vector{0, $get_padprec_opt(95)} as dynamic;
+                $bk_ = Vector{0, Vector{23, $ignored__10, $fmt_rest__23}} as dynamic;
               }
               else {
                 $match__27 = $make_padding_fmt_ebb($pad__9, $fmt_rest__23);
                 $fmt_rest__24 = $match__27[2];
                 $pad__10 = $match__27[1];
-                $bk_ = Vector{0, Vector{2, $pad__10, $fmt_rest__24}};
+                $bk_ = Vector{0, Vector{2, $pad__10, $fmt_rest__24}} as dynamic;
               }
               $fmt_result = $bk_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 116:
               $match__28 = $parse($str_ind, $end_ind);
               $fmt_rest__25 = $match__28[1];
-              $fmt_result = Vector{0, Vector{16, $fmt_rest__25}};
-              $switch__0 = 1;
+              $fmt_result = Vector{0, Vector{16, $fmt_rest__25}} as dynamic;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 123:
@@ -7688,18 +7733,18 @@ final class CamlinternalFormat {
               $fmt_rest__26 = $match__30[1];
               $sub_fmtty__0 = $fmtty_of_fmt->contents($sub_fmt__0);
               if ($get_ign(0)) {
-                $ignored__11 = Vector{8, $get_pad_opt(95), $sub_fmtty__0};
-                $bl_ = Vector{0, Vector{23, $ignored__11, $fmt_rest__26}};
+                $ignored__11 = Vector{8, $get_pad_opt(95), $sub_fmtty__0} as dynamic;
+                $bl_ = Vector{0, Vector{23, $ignored__11, $fmt_rest__26}} as dynamic;
               }
               else {
                 $bl_ =
                   Vector{
                     0,
                     Vector{13, $get_pad_opt(123), $sub_fmtty__0, $fmt_rest__26}
-                  };
+                  } as dynamic;
               }
               $fmt_result = $bl_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 66:
@@ -7709,17 +7754,17 @@ final class CamlinternalFormat {
               $match__9 = $parse($str_ind, $end_ind);
               $fmt_rest__8 = $match__9[1];
               if ($get_ign(0)) {
-                $ignored__3 = Vector{7, $get_padprec_opt(95)};
-                $a4_ = Vector{0, Vector{23, $ignored__3, $fmt_rest__8}};
+                $ignored__3 = Vector{7, $get_padprec_opt(95)} as dynamic;
+                $a4_ = Vector{0, Vector{23, $ignored__3, $fmt_rest__8}} as dynamic;
               }
               else {
                 $match__10 = $make_padding_fmt_ebb($pad__3, $fmt_rest__8);
                 $fmt_rest__9 = $match__10[2];
                 $pad__4 = $match__10[1];
-                $a4_ = Vector{0, Vector{9, $pad__4, $fmt_rest__9}};
+                $a4_ = Vector{0, Vector{9, $pad__4, $fmt_rest__9}} as dynamic;
               }
               $fmt_result = $a4_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 37:
@@ -7727,8 +7772,8 @@ final class CamlinternalFormat {
             case 64:
               $match__6 = $parse($str_ind, $end_ind);
               $fmt_rest__6 = $match__6[1];
-              $fmt_result = Vector{0, Vector{12, $symb, $fmt_rest__6}};
-              $switch__0 = 1;
+              $fmt_result = Vector{0, Vector{12, $symb, $fmt_rest__6}} as dynamic;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 76:
@@ -7736,22 +7781,25 @@ final class CamlinternalFormat {
             case 108:
             // FALLTHROUGH
             case 110:
-              if ($str_ind === $end_ind) {$switch__1 = 1;}
+              if ($str_ind === $end_ind) {$switch__1 = 1 as dynamic;
+              }
               else {
-                if ($is_int_base->contents($caml_string_get($str, $str_ind))) {$switch__0 = 0;$switch__1 = 0;}
-                else {$switch__1 = 1;}
+                if ($is_int_base->contents($caml_string_get($str, $str_ind))) {$switch__0 = 0 as dynamic;$switch__1 = 0 as dynamic;}
+                else {$switch__1 = 1 as dynamic;}
               }
               if ($switch__1) {
                 $match__14 = $parse($str_ind, $end_ind);
                 $fmt_rest__13 = $match__14[1];
                 $counter = $counter_of_char->contents($symb);
                 if ($get_ign(0)) {
-                  $ignored__5 = Vector{11, $counter};
-                  $a__ = Vector{0, Vector{23, $ignored__5, $fmt_rest__13}};
+                  $ignored__5 = Vector{11, $counter} as dynamic;
+                  $a__ = Vector{0, Vector{23, $ignored__5, $fmt_rest__13}} as dynamic;
                 }
-                else {$a__ = Vector{0, Vector{21, $counter, $fmt_rest__13}};}
+                else {
+                  $a__ = Vector{0, Vector{21, $counter, $fmt_rest__13}} as dynamic;
+                }
                 $fmt_result = $a__;
-                $switch__0 = 1;
+                $switch__0 = 1 as dynamic;
               }
               break;
             // FALLTHROUGH
@@ -7766,7 +7814,7 @@ final class CamlinternalFormat {
             case 95:
               $fmt_result =
                 $call3($failwith_message($K_), $str, $pct_ind, $symb);
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 88:
@@ -7794,8 +7842,8 @@ final class CamlinternalFormat {
               $match__18 = $parse($str_ind, $end_ind);
               $fmt_rest__17 = $match__18[1];
               if ($get_ign(0)) {
-                $ignored__8 = Vector{2, $iconv__2, $get_pad_opt(95)};
-                $be_ = Vector{0, Vector{23, $ignored__8, $fmt_rest__17}};
+                $ignored__8 = Vector{2, $iconv__2, $get_pad_opt(95)} as dynamic;
+                $be_ = Vector{0, Vector{23, $ignored__8, $fmt_rest__17}} as dynamic;
               }
               else {
                 $bf_ = $get_prec(0);
@@ -7808,10 +7856,10 @@ final class CamlinternalFormat {
                   Vector{
                     0,
                     Vector{4, $iconv__2, $pad__8, $prec__4, $fmt_rest__18}
-                  };
+                  } as dynamic;
               }
               $fmt_result = $be_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             case 69:
@@ -7842,8 +7890,8 @@ final class CamlinternalFormat {
               $fmt_rest__11 = $match__12[1];
               if ($get_ign(0)) {
                 $a7_ = $get_prec_opt(0);
-                $ignored__4 = Vector{6, $get_pad_opt(95), $a7_};
-                $a8_ = Vector{0, Vector{23, $ignored__4, $fmt_rest__11}};
+                $ignored__4 = Vector{6, $get_pad_opt(95), $a7_} as dynamic;
+                $a8_ = Vector{0, Vector{23, $ignored__4, $fmt_rest__11}} as dynamic;
               }
               else {
                 $a9_ = $get_prec(0);
@@ -7856,21 +7904,23 @@ final class CamlinternalFormat {
                   Vector{
                     0,
                     Vector{8, $fconv, $pad__5, $prec__3, $fmt_rest__12}
-                  };
+                  } as dynamic;
               }
               $fmt_result = $a8_;
-              $switch__0 = 1;
+              $switch__0 = 1 as dynamic;
               break;
             // FALLTHROUGH
             default:
-              $switch__0 = 0;
+              $switch__0 = 0 as dynamic;
             }
         }
         if (! $switch__0) {
           if (108 <= $symb) {
-            if (111 <= $symb) {$switch__2 = 0;}
+            if (111 <= $symb) {
+              $switch__2 = 0 as dynamic;
+            }
             else {
-              $switcher = (int) ($symb + -108);
+              $switcher = (int) ($symb + -108) as dynamic;
               switch($switcher) {
                 // FALLTHROUGH
                 case 0:
@@ -7890,8 +7940,8 @@ final class CamlinternalFormat {
                   $match = $parse((int) ($str_ind + 1), $end_ind);
                   $fmt_rest = $match[1];
                   if ($get_ign(0)) {
-                    $ignored = Vector{3, $iconv, $get_pad_opt(95)};
-                    $aQ_ = Vector{0, Vector{23, $ignored, $fmt_rest}};
+                    $ignored = Vector{3, $iconv, $get_pad_opt(95)} as dynamic;
+                    $aQ_ = Vector{0, Vector{23, $ignored, $fmt_rest}} as dynamic;
                   }
                   else {
                     $aS_ = $get_prec(0);
@@ -7902,15 +7952,15 @@ final class CamlinternalFormat {
                     $pad__0 = $match__0[1];
                     $aQ_ =
                       Vector{0, Vector{5, $iconv, $pad__0, $prec__0, $fmt_rest__0}
-                      };
+                      } as dynamic;
                   }
                   $aR_ = $aQ_;
-                  $switch__3 = 1;
+                  $switch__3 = 1 as dynamic;
                   break;
                 // FALLTHROUGH
                 case 1:
-                  $switch__2 = 0;
-                  $switch__3 = 0;
+                  $switch__2 = 0 as dynamic;
+                  $switch__3 = 0 as dynamic;
                   break;
                 // FALLTHROUGH
                 default:
@@ -7930,8 +7980,8 @@ final class CamlinternalFormat {
                   $match__1 = $parse((int) ($str_ind + 1), $end_ind);
                   $fmt_rest__1 = $match__1[1];
                   if ($get_ign(0)) {
-                    $ignored__0 = Vector{4, $iconv__0, $get_pad_opt(95)};
-                    $aW_ = Vector{0, Vector{23, $ignored__0, $fmt_rest__1}};
+                    $ignored__0 = Vector{4, $iconv__0, $get_pad_opt(95)} as dynamic;
+                    $aW_ = Vector{0, Vector{23, $ignored__0, $fmt_rest__1}} as dynamic;
                   }
                   else {
                     $aX_ = $get_prec(0);
@@ -7944,12 +7994,12 @@ final class CamlinternalFormat {
                       Vector{
                         0,
                         Vector{6, $iconv__0, $pad__1, $prec__1, $fmt_rest__2}
-                      };
+                      } as dynamic;
                   }
                   $aR_ = $aW_;
-                  $switch__3 = 1;
+                  $switch__3 = 1 as dynamic;
                 }
-              if ($switch__3) {$fmt_result = $aR_;$switch__2 = 1;}
+              if ($switch__3) {$fmt_result = $aR_;$switch__2 = 1 as dynamic;}
             }
           }
           else {
@@ -7970,8 +8020,8 @@ final class CamlinternalFormat {
               $match__3 = $parse((int) ($str_ind + 1), $end_ind);
               $fmt_rest__3 = $match__3[1];
               if ($get_ign(0)) {
-                $ignored__1 = Vector{5, $iconv__1, $get_pad_opt(95)};
-                $a1_ = Vector{0, Vector{23, $ignored__1, $fmt_rest__3}};
+                $ignored__1 = Vector{5, $iconv__1, $get_pad_opt(95)} as dynamic;
+                $a1_ = Vector{0, Vector{23, $ignored__1, $fmt_rest__3}} as dynamic;
               }
               else {
                 $a2_ = $get_prec(0);
@@ -7984,12 +8034,12 @@ final class CamlinternalFormat {
                   Vector{
                     0,
                     Vector{7, $iconv__1, $pad__2, $prec__2, $fmt_rest__4}
-                  };
+                  } as dynamic;
               }
               $fmt_result = $a1_;
-              $switch__2 = 1;
+              $switch__2 = 1 as dynamic;
             }
-            else {$switch__2 = 0;}
+            else {$switch__2 = 0 as dynamic;}
           }
           if (! $switch__2) {
             $fmt_result =
@@ -8121,7 +8171,7 @@ final class CamlinternalFormat {
         }
         else {
           if (42 <= $symb) {
-            $switcher = (int) ($symb + -42);
+            $switcher = (int) ($symb + -42) as dynamic;
             switch($switcher) {
               // FALLTHROUGH
               case 0:
@@ -8143,7 +8193,7 @@ final class CamlinternalFormat {
               // FALLTHROUGH
               case 3:
                 if ($legacy_behavior__0) {
-                  $aD_ = (int) ($str_ind + 1);
+                  $aD_ = (int) ($str_ind + 1) as dynamic;
                   $minus__0 = $minus ? $minus : (45 === $symb ? 1 : (0));
                   return $parse_literal($minus__0, $aD_);
                 }
@@ -8337,9 +8387,9 @@ final class CamlinternalFormat {
               Vector{
                 0,
                 Vector{0, (int) ($str_ind_3 + 1), Vector{1, $s, $size}}
-              };
+              } as dynamic;
           }
-          else {$aB_ = 0;}
+          else {$aB_ = 0 as dynamic;}
           $aA_ = $aB_;
         }
         catch(\Throwable $aC_) {
@@ -8349,7 +8399,7 @@ final class CamlinternalFormat {
               throw $caml_wrap_thrown_exception_reraise($aC_) as \Throwable;
             }
           }
-          $az_ = 0;
+          $az_ = 0 as dynamic;
           $aA_ = $az_;
         }
         if ($aA_) {
@@ -8411,7 +8461,7 @@ final class CamlinternalFormat {
           $str_ind_2 = $match__1[1];
           $str_ind_3 = $parse_spaces->contents($str_ind_2, $end_ind);
           $match__2 = $caml_string_get($str, $str_ind_3);
-          $switcher = (int) ($match__2 + -45);
+          $switcher = (int) ($match__2 + -45) as dynamic;
           if (12 < $unsigned_right_shift_32($switcher, 0)) {
             if (17 === $switcher) {
               $s =
@@ -8423,16 +8473,16 @@ final class CamlinternalFormat {
                   (int)
                   ((int) ($str_ind_3 - $str_ind) + 3)
                 );
-              $au_ = Vector{0, $s, $width, 0};
-              $av_ = (int) ($str_ind_3 + 1);
+              $au_ = Vector{0, $s, $width, 0} as dynamic;
+              $av_ = (int) ($str_ind_3 + 1) as dynamic;
               $next_ind = $av_;
               $formatting_lit__0 = $au_;
-              $switch__1 = 1;
+              $switch__1 = 1 as dynamic;
             }
-            else {$switch__1 = 0;}
+            else {$switch__1 = 0 as dynamic;}
           }
           else {
-            $switcher__0 = (int) ($switcher + -1);
+            $switcher__0 = (int) ($switcher + -1) as dynamic;
             if (1 < $unsigned_right_shift_32($switcher__0, 0)) {
               $match__3 = $parse_integer->contents($str_ind_3, $end_ind);
               $offset = $match__3[2];
@@ -8450,13 +8500,13 @@ final class CamlinternalFormat {
                   (int)
                   ((int) ($str_ind_5 - $str_ind) + 3)
                 );
-              $aw_ = Vector{0, $s__0, $width, $offset};
-              $ax_ = (int) ($str_ind_5 + 1);
+              $aw_ = Vector{0, $s__0, $width, $offset} as dynamic;
+              $ax_ = (int) ($str_ind_5 + 1) as dynamic;
               $next_ind = $ax_;
               $formatting_lit__0 = $aw_;
-              $switch__1 = 1;
+              $switch__1 = 1 as dynamic;
             }
-            else {$switch__1 = 0;}
+            else {$switch__1 = 0 as dynamic;}
           }
           if (! $switch__1) {
             throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
@@ -8512,15 +8562,15 @@ final class CamlinternalFormat {
             $fmt_rest__0 = $match__1[1];
             $match__2 = $parse($str_ind, (int) ($ind + 1));
             $sub_fmt = $match__2[1];
-            $sub_format__0 = Vector{0, $sub_fmt, $sub_str};
+            $sub_format__0 = Vector{0, $sub_fmt, $sub_str} as dynamic;
             if ($is_open_tag) {
-              $formatting__0 = Vector{0, $sub_format__0};
+              $formatting__0 = Vector{0, $sub_format__0} as dynamic;
             }
             else {
               $check_open_box->contents($sub_fmt);
-              $formatting__0 = Vector{1, $sub_format__0};
+              $formatting__0 = Vector{1, $sub_format__0} as dynamic;
             }
-            $aq_ = Vector{0, Vector{18, $formatting__0, $fmt_rest__0}};
+            $aq_ = Vector{0, Vector{18, $formatting__0, $fmt_rest__0}} as dynamic;
             return $aq_;
           }
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
@@ -8565,7 +8615,7 @@ final class CamlinternalFormat {
         $c = $caml_string_get($str, $str_ind);
         if (65 <= $c) {
           if (94 <= $c) {
-            $switcher = (int) ($c + -123);
+            $switcher = (int) ($c + -123) as dynamic;
             if (! (2 < $unsigned_right_shift_32($switcher, 0))) {
               switch($switcher) {
                 // FALLTHROUGH
@@ -8583,7 +8633,7 @@ final class CamlinternalFormat {
           }
           else {
             if (91 <= $c) {
-              $switcher__0 = (int) ($c + -91);
+              $switcher__0 = (int) ($c + -91) as dynamic;
               switch($switcher__0) {
                 // FALLTHROUGH
                 case 0:
@@ -8606,7 +8656,7 @@ final class CamlinternalFormat {
             return Vector{0, Vector{17, 3, $fmt_rest__2}};
           }
           if (32 <= $c) {
-            $switcher__1 = (int) ($c + -32);
+            $switcher__1 = (int) ($c + -32) as dynamic;
             switch($switcher__1) {
               // FALLTHROUGH
               case 0:
@@ -8664,7 +8714,7 @@ final class CamlinternalFormat {
         if (! $is_int($fmt) && 11 === $fmt[0]) {
           if ($is_int($fmt[2])) {
             $str = $fmt[1];
-            try {$open_box_of_string($str);$ao_ = 0;return $ao_;}
+            try {$open_box_of_string($str);$ao_ = 0 as dynamic;return $ao_;}
             catch(\Throwable $ap_) {
               $ap_ = $runtime["caml_wrap_exception"]($ap_);
               if ($ap_[1] === $Failure) {return 0;}
@@ -8692,7 +8742,7 @@ final class CamlinternalFormat {
             $i = $c__0;
             for (;;) {
               $add_in_char_set($char_set, $call1($Pervasives[17], $i));
-              $an_ = (int) ($i + 1);
+              $an_ = (int) ($i + 1) as dynamic;
               if ($c !== $i) {$i = $an_;continue;}
               break;
             }
@@ -8716,14 +8766,14 @@ final class CamlinternalFormat {
             $c = $caml_string_get($str, $str_ind__0);
             if (45 === $c) {
               $add_char(45);
-              $str_ind__1 = (int) ($str_ind__0 + 1);
+              $str_ind__1 = (int) ($str_ind__0 + 1) as dynamic;
               $str_ind__0 = $str_ind__1;
               continue;
             }
             if (93 === $c) {return (int) ($str_ind__0 + 1);}
-            $am_ = (int) ($str_ind__0 + 1);
+            $am_ = (int) ($str_ind__0 + 1) as dynamic;
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
+              $counter__0 = (int) ($counter + 1) as dynamic;
               return $parse_char_set_after_char__0->contents(
                 $counter__0,
                 $am_,
@@ -8754,22 +8804,26 @@ final class CamlinternalFormat {
             }
             $c__1 = $caml_string_get($str, $str_ind__0);
             if (46 <= $c__1) {
-              if (64 === $c__1) {$switch__0 = 0;}
+              if (64 === $c__1) {
+                $switch__0 = 0 as dynamic;
+              }
               else {
                 if (93 === $c__1) {
                   $add_char($c__0);
                   return (int) ($str_ind__0 + 1);
                 }
-                $switch__0 = 1;
+                $switch__0 = 1 as dynamic;
               }
             }
             else {
-              if (37 === $c__1) {$switch__0 = 0;}
+              if (37 === $c__1) {
+                $switch__0 = 0 as dynamic;
+              }
               else {
                 if (45 <= $c__1) {
-                  $al_ = (int) ($str_ind__0 + 1);
+                  $al_ = (int) ($str_ind__0 + 1) as dynamic;
                   if ($counter < 50) {
-                    $counter__0 = (int) ($counter + 1);
+                    $counter__0 = (int) ($counter + 1) as dynamic;
                     return $parse_char_set_after_minus->contents(
                       $counter__0,
                       $al_,
@@ -8782,15 +8836,15 @@ final class CamlinternalFormat {
                     varray[0,$al_,$end_ind,$c__0]
                   );
                 }
-                $switch__0 = 1;
+                $switch__0 = 1 as dynamic;
               }
             }
             if (! $switch__0) {
               if (37 === $c__0) {
                 $add_char($c__1);
-                $ak_ = (int) ($str_ind__0 + 1);
+                $ak_ = (int) ($str_ind__0 + 1) as dynamic;
                 if ($counter < 50) {
-                  $counter__1 = (int) ($counter + 1);
+                  $counter__1 = (int) ($counter + 1) as dynamic;
                   return $parse_char_set_content($counter__1, $ak_, $end_ind);
                 }
                 return $caml_trampoline_return(
@@ -8801,7 +8855,7 @@ final class CamlinternalFormat {
             }
             if (37 === $c__0) {$fail_single_percent($str_ind__0);}
             $add_char($c__0);
-            $str_ind__1 = (int) ($str_ind__0 + 1);
+            $str_ind__1 = (int) ($str_ind__0 + 1) as dynamic;
             $str_ind__0 = $str_ind__1;
             $c__0 = $c__1;
             continue;
@@ -8822,9 +8876,9 @@ final class CamlinternalFormat {
               if (64 !== $c__1) {return $fail_single_percent($str_ind);}
             }
             $add_range($c, $c__1);
-            $ai_ = (int) ($str_ind + 2);
+            $ai_ = (int) ($str_ind + 2) as dynamic;
             if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1);
+              $counter__1 = (int) ($counter + 1) as dynamic;
               return $parse_char_set_content($counter__1, $ai_, $end_ind);
             }
             return $caml_trampoline_return(
@@ -8840,7 +8894,7 @@ final class CamlinternalFormat {
           $add_range($c, $c__0);
           $aj_ = (int) ($str_ind + 1) as dynamic;
           if ($counter < 50) {
-            $counter__0 = (int) ($counter + 1);
+            $counter__0 = (int) ($counter + 1) as dynamic;
             return $parse_char_set_content($counter__0, $aj_, $end_ind);
           }
           return $caml_trampoline_return(
@@ -8863,12 +8917,12 @@ final class CamlinternalFormat {
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $match = $caml_string_get($str, $str_ind);
         if (94 === $match) {
-          $str_ind__0 = (int) ($str_ind + 1);
-          $reverse = 1;
+          $str_ind__0 = (int) ($str_ind + 1) as dynamic;
+          $reverse = 1 as dynamic;
           $str_ind__1 = $str_ind__0;
           $reverse__0 = $reverse;
         }
-        else {$ah_ = 0;$str_ind__1 = $str_ind;$reverse__0 = $ah_;}
+        else {$ah_ = 0 as dynamic;$str_ind__1 = $str_ind;$reverse__0 = $ah_;}
         $next_ind = $parse_char_set_start($str_ind__1, $end_ind);
         $char_set__0 = $freeze_char_set($char_set);
         $ag_ = $reverse__0 ? $rev_char_set($char_set__0) : ($char_set__0);
@@ -8880,7 +8934,7 @@ final class CamlinternalFormat {
         for (;;) {
           if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
           if (32 === $caml_string_get($str, $str_ind__0)) {
-            $str_ind__1 = (int) ($str_ind__0 + 1);
+            $str_ind__1 = (int) ($str_ind__0 + 1) as dynamic;
             $str_ind__0 = $str_ind__1;
             continue;
           }
@@ -8899,14 +8953,14 @@ final class CamlinternalFormat {
         for (;;) {
           if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
           $c = $caml_string_get($str, $str_ind__0);
-          $switcher = (int) ($c + -48);
+          $switcher = (int) ($c + -48) as dynamic;
           if (9 < $unsigned_right_shift_32($switcher, 0)) {return Vector{0, $str_ind__0, $acc__0};}
-          $acc__1 = (int) ((int) ($acc__0 * 10) + (int) ($c - 48));
+          $acc__1 = (int) ((int) ($acc__0 * 10) + (int) ($c - 48)) as dynamic;
           if ($Sys[13] < $acc__1) {
             $af_ = $Sys[13];
             return $call3($failwith_message($Q_), $str, $acc__1, $af_);
           }
-          $str_ind__1 = (int) ($str_ind__0 + 1);
+          $str_ind__1 = (int) ($str_ind__0 + 1) as dynamic;
           $str_ind__0 = $str_ind__1;
           $acc__0 = $acc__1;
           continue;
@@ -8929,7 +8983,7 @@ final class CamlinternalFormat {
           if (45 === $match) {
             if ((int) ($str_ind + 1) === $end_ind) {$unexpected_end_of_format($end_ind);}
             $c = $caml_string_get($str, (int) ($str_ind + 1));
-            $switcher = (int) ($c + -48);
+            $switcher = (int) ($c + -48) as dynamic;
             if (9 < $unsigned_right_shift_32($switcher, 0)) {
               return $expected_character((int) ($str_ind + 1), $cst_digit, $c);
             }
@@ -8972,7 +9026,7 @@ final class CamlinternalFormat {
             if (95 <= $match__0) {
               if (123 <= $match__0) {
                 if (! (126 <= $match__0)) {
-                  $switcher = (int) ($match__0 + -123);
+                  $switcher = (int) ($match__0 + -123) as dynamic;
                   $continue_label = null;
                   switch($switcher) {
                     // FALLTHROUGH
@@ -8984,7 +9038,7 @@ final class CamlinternalFormat {
                           $end_ind,
                           125
                         );
-                      $str_ind__2 = (int) ($sub_end + 2);
+                      $str_ind__2 = (int) ($sub_end + 2) as dynamic;
                       $str_ind__0 = $str_ind__2;
                       $continue_label = "#";break;
                     // FALLTHROUGH
@@ -9013,7 +9067,7 @@ final class CamlinternalFormat {
                         $end_ind,
                         41
                       );
-                    $str_ind__3 = (int) ($sub_end__0 + 2);
+                    $str_ind__3 = (int) ($sub_end__0 + 2) as dynamic;
                     $str_ind__0 = $str_ind__3;
                     continue;
                   }
@@ -9025,11 +9079,11 @@ final class CamlinternalFormat {
                         $end_ind,
                         125
                       );
-                    $str_ind__4 = (int) ($sub_end__1 + 2);
+                    $str_ind__4 = (int) ($sub_end__1 + 2) as dynamic;
                     $str_ind__0 = $str_ind__4;
                     continue;
                   }
-                  $str_ind__5 = (int) ($str_ind__0 + 3);
+                  $str_ind__5 = (int) ($str_ind__0 + 3) as dynamic;
                   $str_ind__0 = $str_ind__5;
                   continue;
                 }
@@ -9044,7 +9098,7 @@ final class CamlinternalFormat {
                     $end_ind,
                     41
                   );
-                $str_ind__6 = (int) ($sub_end__2 + 2);
+                $str_ind__6 = (int) ($sub_end__2 + 2) as dynamic;
                 $str_ind__0 = $str_ind__6;
                 continue;
               }
@@ -9057,11 +9111,11 @@ final class CamlinternalFormat {
                 );
               }
             }
-            $str_ind__1 = (int) ($str_ind__0 + 2);
+            $str_ind__1 = (int) ($str_ind__0 + 2) as dynamic;
             $str_ind__0 = $str_ind__1;
             continue;
           }
-          $str_ind__7 = (int) ($str_ind__0 + 1);
+          $str_ind__7 = (int) ($str_ind__0 + 1) as dynamic;
           $str_ind__0 = $str_ind__7;
           continue;
         }
@@ -9091,7 +9145,7 @@ final class CamlinternalFormat {
         $switcher = null as dynamic;
         if (108 <= $symb) {
           if (! (111 <= $symb)) {
-            $switcher = (int) ($symb + -108);
+            $switcher = (int) ($symb + -108) as dynamic;
             switch($switcher) {
               // FALLTHROUGH
               case 0:
@@ -9137,8 +9191,8 @@ final class CamlinternalFormat {
           if (0 === $plus__0) {
             if (0 === $hash__0) {
               if (0 === $space__0) {
-                $switcher = (int) ($symb + -88);
-                if (32 < $unsigned_right_shift_32($switcher, 0)) {$switch__0 = 1;}
+                $switcher = (int) ($symb + -88) as dynamic;
+                if (32 < $unsigned_right_shift_32($switcher, 0)) {$switch__0 = 1 as dynamic;}
                 else {
                   switch($switcher) {
                     // FALLTHROUGH
@@ -9161,14 +9215,14 @@ final class CamlinternalFormat {
                       return 6;
                     // FALLTHROUGH
                     default:
-                      $switch__0 = 1;
+                      $switch__0 = 1 as dynamic;
                     }
                 }
               }
               else {
                 if (100 === $symb) {return 2;}
                 if (105 === $symb) {return 5;}
-                $switch__0 = 1;
+                $switch__0 = 1 as dynamic;
               }
             }
             else {
@@ -9176,9 +9230,9 @@ final class CamlinternalFormat {
                 if (88 === $symb) {return 9;}
                 if (111 === $symb) {return 11;}
                 if (120 === $symb) {return 7;}
-                $switch__0 = 0;
+                $switch__0 = 0 as dynamic;
               }
-              else {$switch__0 = 0;}
+              else {$switch__0 = 0 as dynamic;}
             }
           }
           else {
@@ -9186,14 +9240,14 @@ final class CamlinternalFormat {
               if (0 === $space__0) {
                 if (100 === $symb) {return 1;}
                 if (105 === $symb) {return 4;}
-                $switch__0 = 1;
+                $switch__0 = 1 as dynamic;
               }
-              else {$switch__0 = 1;}
+              else {$switch__0 = 1 as dynamic;}
             }
-            else {$switch__0 = 0;}
+            else {$switch__0 = 0 as dynamic;}
           }
           if (! $switch__0) {
-            $switcher__0 = (int) ($symb + -88);
+            $switcher__0 = (int) ($symb + -88) as dynamic;
             if (! (32 < $unsigned_right_shift_32($switcher__0, 0))) {
               $continue_label = null;
               switch($switcher__0) {
@@ -9216,7 +9270,7 @@ final class CamlinternalFormat {
                 // FALLTHROUGH
                 case 29:
                   if ($legacy_behavior__0) {
-                    $hash__0 = 0;
+                    $hash__0 = 0 as dynamic;
                     $continue_label = "#";break;
                   }
                   return $incompatible_flag->contents(
@@ -9235,7 +9289,7 @@ final class CamlinternalFormat {
                       Vector{0, $Assert_failure, $U_}
                     ) as \Throwable;
             }
-            if ($legacy_behavior__0) {$space__0 = 0;continue;}
+            if ($legacy_behavior__0) {$space__0 = 0 as dynamic;continue;}
             return $incompatible_flag->contents(
               $pct_ind,
               $str_ind,
@@ -9244,7 +9298,7 @@ final class CamlinternalFormat {
             );
           }
           if (0 === $space__0) {
-            if ($legacy_behavior__0) {$plus__0 = 0;continue;}
+            if ($legacy_behavior__0) {$plus__0 = 0 as dynamic;continue;}
             return $incompatible_flag->contents(
               $pct_ind,
               $str_ind,
@@ -9252,7 +9306,7 @@ final class CamlinternalFormat {
               $cst__34
             );
           }
-          if ($legacy_behavior__0) {$space__0 = 0;continue;}
+          if ($legacy_behavior__0) {$space__0 = 0 as dynamic;continue;}
           return $incompatible_flag->contents($pct_ind, $str_ind, 32, $cst__35
           );
         }
@@ -9271,7 +9325,7 @@ final class CamlinternalFormat {
           if (0 === $plus__0) {
             if (0 === $space__0) {
               if (73 <= $symb) {
-                $switcher = (int) ($symb + -101);
+                $switcher = (int) ($symb + -101) as dynamic;
                 if (! (3 < $unsigned_right_shift_32($switcher, 0))) {
                   switch($switcher) {
                     // FALLTHROUGH
@@ -9291,7 +9345,7 @@ final class CamlinternalFormat {
               }
               else {
                 if (69 <= $symb) {
-                  $switcher__0 = (int) ($symb + -69);
+                  $switcher__0 = (int) ($symb + -69) as dynamic;
                   switch($switcher__0) {
                     // FALLTHROUGH
                     case 0:
@@ -9313,7 +9367,7 @@ final class CamlinternalFormat {
                     ) as \Throwable;
             }
             if (73 <= $symb) {
-              $switcher__1 = (int) ($symb + -101);
+              $switcher__1 = (int) ($symb + -101) as dynamic;
               if (! (3 < $unsigned_right_shift_32($switcher__1, 0))) {
                 switch($switcher__1) {
                   // FALLTHROUGH
@@ -9333,7 +9387,7 @@ final class CamlinternalFormat {
             }
             else {
               if (69 <= $symb) {
-                $switcher__2 = (int) ($symb + -69);
+                $switcher__2 = (int) ($symb + -69) as dynamic;
                 switch($switcher__2) {
                   // FALLTHROUGH
                   case 0:
@@ -9349,7 +9403,7 @@ final class CamlinternalFormat {
                   }
               }
             }
-            if ($legacy_behavior__0) {$space__0 = 0;continue;}
+            if ($legacy_behavior__0) {$space__0 = 0 as dynamic;continue;}
             return $incompatible_flag->contents(
               $pct_ind,
               $str_ind,
@@ -9359,7 +9413,7 @@ final class CamlinternalFormat {
           }
           if (0 === $space__0) {
             if (73 <= $symb) {
-              $switcher__3 = (int) ($symb + -101);
+              $switcher__3 = (int) ($symb + -101) as dynamic;
               if (! (3 < $unsigned_right_shift_32($switcher__3, 0))) {
                 switch($switcher__3) {
                   // FALLTHROUGH
@@ -9379,7 +9433,7 @@ final class CamlinternalFormat {
             }
             else {
               if (69 <= $symb) {
-                $switcher__4 = (int) ($symb + -69);
+                $switcher__4 = (int) ($symb + -69) as dynamic;
                 switch($switcher__4) {
                   // FALLTHROUGH
                   case 0:
@@ -9395,7 +9449,7 @@ final class CamlinternalFormat {
                   }
               }
             }
-            if ($legacy_behavior__0) {$plus__0 = 0;continue;}
+            if ($legacy_behavior__0) {$plus__0 = 0 as dynamic;continue;}
             return $incompatible_flag->contents(
               $pct_ind,
               $str_ind,
@@ -9403,7 +9457,7 @@ final class CamlinternalFormat {
               $cst__38
             );
           }
-          if ($legacy_behavior__0) {$space__0 = 0;continue;}
+          if ($legacy_behavior__0) {$space__0 = 0 as dynamic;continue;}
           return $incompatible_flag->contents($pct_ind, $str_ind, 32, $cst__39
           );
         }
@@ -9415,7 +9469,10 @@ final class CamlinternalFormat {
       $ac_ = null as dynamic;
       $match = $fmt_ebb_of_string(0, $str);
       $fmt = $match[1];
-      try {$ac_ = Vector{0, $type_format($fmt, $fmtty), $str};return $ac_;}
+      try {
+        $ac_ = Vector{0, $type_format($fmt, $fmtty), $str} as dynamic;
+        return $ac_;
+      }
       catch(\Throwable $ad_) {
         $ad_ = $runtime["caml_wrap_exception"]($ad_);
         if ($ad_ === $Type_mismatch) {
@@ -9434,7 +9491,7 @@ final class CamlinternalFormat {
       try {
         $Z_ =
           Vector{0, $type_format($fmt__0, $fmtty_of_fmt->contents($fmt)), $str
-          };
+          } as dynamic;
         return $Z_;
       }
       catch(\Throwable $aa_) {

@@ -113,7 +113,7 @@ final class Filename {
           }
           else {$at_ = $caml_string_get($s, $i);$call2($Buffer[10], $b, $at_);
           }
-          $as_ = (int) ($i + 1);
+          $as_ = (int) ($i + 1) as dynamic;
           if ($ar_ !== $i) {$i = $as_;continue;}
           break;
         }
@@ -138,7 +138,7 @@ final class Filename {
                 ((int) ($p - $n__0) + -1)
               );
             }
-            $n__1 = (int) ($n__0 + -1);
+            $n__1 = (int) ($n__0 + -1) as dynamic;
             $n__0 = $n__1;
             continue;
           }
@@ -151,7 +151,7 @@ final class Filename {
         for (;;) {
           if (0 <= $n__0) {
             if ($call2($is_dir_sep, $name, $n__0)) {
-              $n__1 = (int) ($n__0 + -1);
+              $n__1 = (int) ($n__0 + -1) as dynamic;
               $n__0 = $n__1;
               continue;
             }
@@ -172,7 +172,7 @@ final class Filename {
         for (;;) {
           if (0 <= $n__0) {
             if ($call2($is_dir_sep, $name, $n__0)) {
-              $n__1 = (int) ($n__0 + -1);
+              $n__1 = (int) ($n__0 + -1) as dynamic;
               $n__0 = $n__1;
               continue;
             }
@@ -187,7 +187,7 @@ final class Filename {
         for (;;) {
           if (0 <= $n__0) {
             if ($call2($is_dir_sep, $name, $n__0)) {return $intermediate_sep($n__0);}
-            $n__1 = (int) ($n__0 + -1);
+            $n__1 = (int) ($n__0 + -1) as dynamic;
             $n__0 = $n__1;
             continue;
           }
@@ -200,7 +200,7 @@ final class Filename {
         for (;;) {
           if (0 <= $n__0) {
             if ($call2($is_dir_sep, $name, $n__0)) {
-              $n__1 = (int) ($n__0 + -1);
+              $n__1 = (int) ($n__0 + -1) as dynamic;
               $n__0 = $n__1;
               continue;
             }
@@ -406,7 +406,7 @@ final class Filename {
           $j = $F_;
           for (;;) {
             $call2($Buffer[10], $b, 92);
-            $G_ = (int) ($j + 1);
+            $G_ = (int) ($j + 1) as dynamic;
             if ($n !== $j) {$j = $G_;continue;}
             break;
           }
@@ -425,9 +425,9 @@ final class Filename {
           if ($i__0 === $l) {return $call2($Buffer[10], $b, 34);}
           $c = $caml_string_get($s, $i__0);
           if (34 === $c) {
-            $D_ = 0;
+            $D_ = 0 as dynamic;
             if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1);
+              $counter__1 = (int) ($counter + 1) as dynamic;
               return $loop_bs->contents($counter__1, $D_, $i__0);
             }
             return $caml_trampoline_return(
@@ -436,9 +436,9 @@ final class Filename {
             );
           }
           if (92 === $c) {
-            $E_ = 0;
+            $E_ = 0 as dynamic;
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1);
+              $counter__0 = (int) ($counter + 1) as dynamic;
               return $loop_bs->contents($counter__0, $E_, $i__0);
             }
             return $caml_trampoline_return(
@@ -447,7 +447,7 @@ final class Filename {
             );
           }
           $call2($Buffer[10], $b, $c);
-          $i__1 = (int) ($i__0 + 1);
+          $i__1 = (int) ($i__0 + 1) as dynamic;
           $i__0 = $i__1;
           continue;
         }
@@ -470,23 +470,23 @@ final class Filename {
           if (34 === $match) {
             $add_bs((int) ((int) (2 * $n__0) + 1));
             $call2($Buffer[10], $b, 34);
-            $C_ = (int) ($i__0 + 1);
+            $C_ = (int) ($i__0 + 1) as dynamic;
             if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1);
+              $counter__1 = (int) ($counter + 1) as dynamic;
               return $loop__0($counter__1, $C_);
             }
             return $caml_trampoline_return($loop__0, varray[0,$C_]);
           }
           if (92 === $match) {
-            $i__1 = (int) ($i__0 + 1);
-            $n__1 = (int) ($n__0 + 1);
+            $i__1 = (int) ($i__0 + 1) as dynamic;
+            $n__1 = (int) ($n__0 + 1) as dynamic;
             $n__0 = $n__1;
             $i__0 = $i__1;
             continue;
           }
           $add_bs($n__0);
           if ($counter < 50) {
-            $counter__0 = (int) ($counter + 1);
+            $counter__0 = (int) ($counter + 1) as dynamic;
             return $loop__0($counter__0, $i__0);
           }
           return $caml_trampoline_return($loop__0, varray[0,$i__0]);
@@ -555,7 +555,7 @@ final class Filename {
         $quote__1 = $quote;
         $basename__2 = $basename;
         $dirname__2 = $dirname;
-        $switch__0 = 1;
+        $switch__0 = 1 as dynamic;
       }
       else {
         $f_ =
@@ -572,8 +572,8 @@ final class Filename {
             $quote__0,
             $basename__0,
             $dirname__0
-          };
-        $switch__0 = 0;
+          } as dynamic;
+        $switch__0 = 0 as dynamic;
       }
     }
     else {
@@ -591,8 +591,8 @@ final class Filename {
           $quote,
           $basename__1,
           $dirname__1
-        };
-      $switch__0 = 0;
+        } as dynamic;
+      $switch__0 = 0 as dynamic;
     }
     
     if (! $switch__0) {
@@ -642,7 +642,7 @@ final class Filename {
           if (0 <= $i__0) {
             if (! $is_dir_sep__1($name, $i__0)) {
               if (46 === $caml_string_get($name, $i__0)) {
-                $i__1 = (int) ($i__0 + -1);
+                $i__1 = (int) ($i__0 + -1) as dynamic;
                 $i__0 = $i__1;
                 continue;
               }
@@ -659,7 +659,7 @@ final class Filename {
           if (0 <= $i__0) {
             if (! $is_dir_sep__1($name, $i__0)) {
               if (46 === $caml_string_get($name, $i__0)) {return $check($i__0, (int) ($i__0 + -1));}
-              $i__1 = (int) ($i__0 + -1);
+              $i__1 = (int) ($i__0 + -1) as dynamic;
               $i__0 = $i__1;
               continue;
             }
@@ -752,7 +752,7 @@ final class Filename {
               if (1000 <= $counter__0) {
                 throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
               }
-              $counter__1 = (int) ($counter__0 + 1);
+              $counter__1 = (int) ($counter__0 + 1) as dynamic;
               $counter__0 = $counter__1;
               continue;
             }
@@ -779,7 +779,7 @@ final class Filename {
         $sth__0 = $q_[1];
         $perms = $sth__0;
       }
-      else {$perms = 384;}
+      else {$perms = 384 as dynamic;}
       if ($p_) {
         $sth__1 = $p_[1];
         $temp_dir = $sth__1;
@@ -803,7 +803,7 @@ final class Filename {
                   $perms,
                   $name
                 )
-              };
+              } as dynamic;
             return $r_;
           }
           catch(\Throwable $e) {
@@ -812,7 +812,7 @@ final class Filename {
               if (1000 <= $counter__0) {
                 throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
               }
-              $counter__1 = (int) ($counter__0 + 1);
+              $counter__1 = (int) ($counter__0 + 1) as dynamic;
               $counter__0 = $counter__1;
               continue;
             }

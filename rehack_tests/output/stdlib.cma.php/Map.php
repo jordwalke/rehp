@@ -92,12 +92,12 @@ final class Map {
           $h = $l[5];
           $hl = $h;
         }
-        else {$hl = 0;}
+        else {$hl = 0 as dynamic;}
         if ($r) {
           $h__0 = $r[5];
           $hr = $h__0;
         }
-        else {$hr = 0;}
+        else {$hr = 0 as dynamic;}
         if ((int) ($hr + 2) < $hl) {
           if ($l) {
             $lr = $l[4];
@@ -1068,7 +1068,7 @@ final class Map {
             $d = $m__0[3];
             $v = $m__0[2];
             $m__1 = $m__0[1];
-            $e__1 = Vector{0, $v, $d, $r, $e__0};
+            $e__1 = Vector{0, $v, $d, $r, $e__0} as dynamic;
             $m__0 = $m__1;
             $e__0 = $e__1;
             continue;
@@ -1207,7 +1207,7 @@ final class Map {
                 0,
                 Vector{0, $v, $d},
                 $bindings_aux->contents($accu__0, $r)
-              };
+              } as dynamic;
             $accu__0 = $accu__1;
             $param__0 = $param__1;
             continue;

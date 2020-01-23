@@ -38,11 +38,11 @@ final class Char {
       else {
         if (32 <= $c) {
           if (39 <= $c) {return $cst__0;}
-          $switch__0 = 1;
+          $switch__0 = 1 as dynamic;
         }
         else {
           if (14 <= $c) {
-            $switch__0 = 0;
+            $switch__0 = 0 as dynamic;
           }
           else {
             switch($c) {
@@ -60,7 +60,7 @@ final class Char {
                 return $cst_r;
               // FALLTHROUGH
               default:
-                $switch__0 = 0;
+                $switch__0 = 0 as dynamic;
               }
           }
         }

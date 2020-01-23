@@ -219,7 +219,7 @@ final class Buffer {
           if (1114111 < $u__0) {
             throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $c_}) as \Throwable;
           }
-          $u__1 = (int) ($u__0 + -65536);
+          $u__1 = (int) ($u__0 + -65536) as dynamic;
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
           $lo = 56320 | $u__1 & 1023;
           $pos = $b[2];
@@ -268,7 +268,7 @@ final class Buffer {
           if (1114111 < $u__0) {
             throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $e_}) as \Throwable;
           }
-          $u__1 = (int) ($u__0 + -65536);
+          $u__1 = (int) ($u__0 + -65536) as dynamic;
           $hi = 55296 | (int) $unsigned_right_shift_32($u__1, 10);
           $lo = 56320 | $u__1 & 1023;
           $pos = $b[2];
@@ -360,7 +360,7 @@ final class Buffer {
           if (0 === $n) {
             throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
-          $len__1 = (int) ($len__0 - $n);
+          $len__1 = (int) ($len__0 - $n) as dynamic;
           $len__0 = $len__1;
           continue;
         }
@@ -397,21 +397,21 @@ final class Buffer {
             throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
           }
           if ($caml_string_get($s, $i__0) === $opening) {
-            $i__1 = (int) ($i__0 + 1);
-            $k__1 = (int) ($k__0 + 1);
+            $i__1 = (int) ($i__0 + 1) as dynamic;
+            $k__1 = (int) ($k__0 + 1) as dynamic;
             $k__0 = $k__1;
             $i__0 = $i__1;
             continue;
           }
           if ($caml_string_get($s, $i__0) === $closing) {
             if (0 === $k__0) {return $i__0;}
-            $i__2 = (int) ($i__0 + 1);
-            $k__2 = (int) ($k__0 + -1);
+            $i__2 = (int) ($i__0 + 1) as dynamic;
+            $k__2 = (int) ($k__0 + -1) as dynamic;
             $k__0 = $k__2;
             $i__0 = $i__2;
             continue;
           }
-          $i__3 = (int) ($i__0 + 1);
+          $i__3 = (int) ($i__0 + 1) as dynamic;
           $i__0 = $i__3;
           continue;
         }
@@ -435,7 +435,11 @@ final class Buffer {
               : (58 <= $match
                ? 65 <= $match ? 1 : (0)
                : (48 <= $match ? 1 : (0)));
-          if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
+          if ($switch__0) {
+            $i__1 = (int) ($i__0 + 1) as dynamic;
+            $i__0 = $i__1;
+            continue;
+          }
           return $i__0;
         }
       };
@@ -488,36 +492,36 @@ final class Buffer {
             if (36 === $current) {
               if (92 === $previous__0) {
                 $add_char($b, $current);
-                $i__1 = (int) ($i__0 + 1);
-                $previous__0 = 32;
+                $i__1 = (int) ($i__0 + 1) as dynamic;
+                $previous__0 = 32 as dynamic;
                 $i__0 = $i__1;
                 continue;
               }
-              $j = (int) ($i__0 + 1);
+              $j = (int) ($i__0 + 1) as dynamic;
               $match = $find_ident($s, $j, $lim);
               $i__2 = $match[2];
               $ident = $match[1];
               $add_string($b, $call1($f, $ident));
-              $previous__0 = 32;
+              $previous__0 = 32 as dynamic;
               $i__0 = $i__2;
               continue;
             }
             if (92 === $previous__0) {
               $add_char($b, 92);
               $add_char($b, $current);
-              $i__3 = (int) ($i__0 + 1);
-              $previous__0 = 32;
+              $i__3 = (int) ($i__0 + 1) as dynamic;
+              $previous__0 = 32 as dynamic;
               $i__0 = $i__3;
               continue;
             }
             if (92 === $current) {
-              $i__4 = (int) ($i__0 + 1);
+              $i__4 = (int) ($i__0 + 1) as dynamic;
               $previous__0 = $current;
               $i__0 = $i__4;
               continue;
             }
             $add_char($b, $current);
-            $i__5 = (int) ($i__0 + 1);
+            $i__5 = (int) ($i__0 + 1) as dynamic;
             $previous__0 = $current;
             $i__0 = $i__5;
             continue;

@@ -65,7 +65,7 @@ final class CamlinternalOO {
         for (;;) {
           $aD_ = $runtime["caml_string_get"]($s, $i);
           $accu[1] = (int) ((int) (223 * $accu[1]) + $aD_);
-          $aE_ = (int) ($i + 1);
+          $aE_ = (int) ($i + 1) as dynamic;
           if ($aC_ !== $i) {$i = $aE_;continue;}
           break;
         }
@@ -124,10 +124,10 @@ final class CamlinternalOO {
       if (! ($ax_ < 0)) {
         $i = $aw_;
         for (;;) {
-          $az_ = (int) ((int) ($i * 2) + 3);
+          $az_ = (int) ((int) ($i * 2) + 3) as dynamic;
           $ay_ = $caml_check_bound($pub_labels, $i)[$i + 1];
           $caml_check_bound($methods, $az_)[$az_ + 1] = $ay_;
-          $aA_ = (int) ($i + 1);
+          $aA_ = (int) ($i + 1) as dynamic;
           if ($ax_ !== $i) {$i = $aA_;continue;}
           break;
         }
@@ -153,7 +153,7 @@ final class CamlinternalOO {
         $new_buck = $caml_make_vect($new_size, $dummy_met);
         $call5($Array[10], $array[2], 0, $new_buck, 0, $old_size);
         $array[2] = $new_buck;
-        $at_ = 0;
+        $at_ = 0 as dynamic;
       }
       else {$at_ = $as_;}
       return $at_;
@@ -254,7 +254,7 @@ final class CamlinternalOO {
           if ($aj_ !== $Not_found) {
             throw $caml_wrap_thrown_exception_reraise($aj_) as \Throwable;
           }
-          $ag_ = 1;
+          $ag_ = 1 as dynamic;
           $ah_ = $ag_;
         }
         $by_label[1] = $call3($Labs[4], $label, $ah_, $af_);
@@ -353,7 +353,7 @@ final class CamlinternalOO {
               $caml_check_bound($meths__0, $i__0)[$i__0 + 1]
             );
           $caml_check_bound($res, $i__0)[$i__0 + 1] = $N_;
-          $O_ = (int) ($i__0 + 1);
+          $O_ = (int) ($i__0 + 1) as dynamic;
           if ($H_ !== $i__0) {$i__0 = $O_;continue;}
           break;
         }
@@ -363,10 +363,10 @@ final class CamlinternalOO {
       if (! ($J_ < 0)) {
         $i = $I_;
         for (;;) {
-          $L_ = (int) ($i + $nmeths);
+          $L_ = (int) ($i + $nmeths) as dynamic;
           $K_ = $new_variable($table, $caml_check_bound($vals, $i)[$i + 1]);
           $caml_check_bound($res, $L_)[$L_ + 1] = $K_;
-          $M_ = (int) ($i + 1);
+          $M_ = (int) ($i + 1) as dynamic;
           if ($J_ !== $i) {$i = $M_;continue;}
           break;
         }
@@ -537,7 +537,7 @@ final class CamlinternalOO {
         for (;;) {
           $p_ = $r[1];
           $r[1] = Vector{0, $caml_check_bound($keys, $i)[$i + 1], $p_, 0};
-          $q_ = (int) ($i + 1);
+          $q_ = (int) ($i + 1) as dynamic;
           if ($n !== $i) {$i = $q_;continue;}
           break;
         }
@@ -573,7 +573,7 @@ final class CamlinternalOO {
               }
               $next = $get_next($tables__0);
               if ($next) {$tables__0 = $next;continue;}
-              $next__0 = Vector{0, $key, 0, 0};
+              $next__0 = Vector{0, $key, 0, 0} as dynamic;
               $set_next($tables__0, $next__0);
               return $build_path((int) ($i + -1), $keys, $next__0);
             }
@@ -692,14 +692,16 @@ final class CamlinternalOO {
       $j_ = null as dynamic;
       $switch__0 = null as dynamic;
       $n = $new_method($table);
-      if (0 === (int) ($n % 2)) {$switch__0 = 0;}
+      if (0 === (int) ($n % 2)) {
+        $switch__0 = 0 as dynamic;
+      }
       else {
         $j_ = $Sys[10];
         if (
           (int)
           (2 + $caml_div((int) ($caml_check_bound($table[2], 1)[2] * 16), $j_)) < $n
-        ) {$switch__0 = 0;}
-        else {$n__0 = $new_method($table);$switch__0 = 1;}
+        ) {$switch__0 = 0 as dynamic;}
+        else {$n__0 = $new_method($table);$switch__0 = 1 as dynamic;}
       }
       if (! $switch__0) {$n__0 = $n;}
       $caml_check_bound($table[2], $n__0)[$n__0 + 1] = 0;

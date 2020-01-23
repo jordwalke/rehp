@@ -64,12 +64,12 @@ final class Set {
           $h = $l[4];
           $hl = $h;
         }
-        else {$hl = 0;}
+        else {$hl = 0 as dynamic;}
         if ($r) {
           $h__0 = $r[4];
           $hr = $h__0;
         }
-        else {$hr = 0;}
+        else {$hr = 0 as dynamic;}
         $ae_ = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $v, $r, $ae_};
       };
@@ -98,12 +98,12 @@ final class Set {
           $h = $l[4];
           $hl = $h;
         }
-        else {$hl = 0;}
+        else {$hl = 0 as dynamic;}
         if ($r) {
           $h__0 = $r[4];
           $hr = $h__0;
         }
-        else {$hr = 0;}
+        else {$hr = 0 as dynamic;}
         if ((int) ($hr + 2) < $hl) {
           if ($l) {
             $lr = $l[3];
@@ -517,7 +517,7 @@ final class Set {
             $r = $s__0[3];
             $v = $s__0[2];
             $s__1 = $s__0[1];
-            $e__1 = Vector{0, $v, $r, $e__0};
+            $e__1 = Vector{0, $v, $r, $e__0} as dynamic;
             $s__0 = $s__1;
             $e__0 = $e__1;
             continue;
@@ -779,7 +779,7 @@ final class Set {
             $r = $param__0[3];
             $v = $param__0[2];
             $param__1 = $param__0[1];
-            $accu__1 = Vector{0, $v, $elements_aux->contents($accu__0, $r)};
+            $accu__1 = Vector{0, $v, $elements_aux->contents($accu__0, $r)} as dynamic;
             $accu__0 = $accu__1;
             $param__0 = $param__1;
             continue;
@@ -976,7 +976,7 @@ final class Set {
         $r_ = null as dynamic;
         $q_ = null as dynamic;
         if (0 === $l) {
-          $switch__0 = 0;
+          $switch__0 = 0 as dynamic;
         }
         else {
           $r_ = $max_elt($l);
@@ -984,7 +984,7 @@ final class Set {
         }
         if (! $switch__0) {
           if (0 === $r) {
-            $switch__1 = 0;
+            $switch__1 = 0 as dynamic;
           }
           else {
             $q_ = $min_elt($r);
