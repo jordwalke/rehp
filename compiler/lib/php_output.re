@@ -1186,7 +1186,12 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     switch (v) {
     | (
         EVar(i),
-        Some((EInt(_) | ENum(_) | EUn(ToInt, _) | ETag(_) | EStruct(_), pc)),
+        Some((
+          EVar(Id.S({name: "null"})) | EInt(_) | ENum(_) | EUn(ToInt, _) |
+          ETag(_) |
+          EStruct(_),
+          pc,
+        )),
       ) =>
       PP.non_breaking_space(f);
       PP.string(f, "as dynamic");
