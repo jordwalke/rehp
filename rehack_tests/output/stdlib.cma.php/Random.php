@@ -107,17 +107,17 @@ final class Random {
       return 0;
     };
     $full_init = (dynamic $s, dynamic $seed) ==> {
-      $accu = null;
-      $g_ = null;
-      $h_ = null;
-      $i = null;
-      $j = null;
-      $k = null;
-      $i_ = null;
-      $j_ = null;
-      $k_ = null;
-      $l_ = null;
-      $m_ = null;
+      $accu = null as dynamic;
+      $g_ = null as dynamic;
+      $h_ = null as dynamic;
+      $i = null as dynamic;
+      $j = null as dynamic;
+      $k = null as dynamic;
+      $i_ = null as dynamic;
+      $j_ = null as dynamic;
+      $k_ = null as dynamic;
+      $l_ = null as dynamic;
+      $m_ = null as dynamic;
       $combine = (dynamic $accu, dynamic $x) ==> {
         $q_ = $call1($Pervasives[21], $x);
         $r_ = $call2($Pervasives[16], $accu, $q_);
@@ -186,8 +186,8 @@ final class Random {
       return $newval30;
     };
     $intaux = (dynamic $s, dynamic $n) ==> {
-      $v = null;
-      $r = null;
+      $v = null as dynamic;
+      $r = null as dynamic;
       for (;;) {
         $r = $bits($s);
         $v = $caml_mod($r, $n);
@@ -202,10 +202,10 @@ final class Random {
       return $call1($Pervasives[1], $cst_Random_int);
     };
     $int32aux = (dynamic $s, dynamic $n) ==> {
-      $v = null;
-      $r = null;
-      $b2 = null;
-      $b1 = null;
+      $v = null as dynamic;
+      $r = null as dynamic;
+      $b2 = null as dynamic;
+      $b1 = null as dynamic;
       for (;;) {
         $b1 = $bits($s);
         $b2 = $left_shift_32($bits($s) & 1, 30);
@@ -228,11 +228,11 @@ final class Random {
         : ($int32aux($s, $bound));
     };
     $int64aux = (dynamic $s, dynamic $n) ==> {
-      $v = null;
-      $r = null;
-      $b3 = null;
-      $b2 = null;
-      $b1 = null;
+      $v = null as dynamic;
+      $r = null as dynamic;
+      $b3 = null as dynamic;
+      $b2 = null as dynamic;
+      $b1 = null as dynamic;
       for (;;) {
         $b1 = $caml_int64_of_int32($bits($s));
         $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);

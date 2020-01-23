@@ -60,8 +60,8 @@ final class Uchar {
         : ($u === 0 ? $call1($Pervasives[1], $err_no_pred) : ((int) ($u + -1)));
     };
     $is_valid = (dynamic $i) ==> {
-      $n_ = null;
-      $o_ = null;
+      $n_ = null as dynamic;
+      $o_ = null as dynamic;
       $l_ = 0 <= $i ? 1 : (0);
       $m_ = $l_ ? $i <= 55295 ? 1 : (0) : ($l_);
       if ($m_) {
@@ -81,7 +81,7 @@ final class Uchar {
     $is_char = (dynamic $u) ==> {return $u < 256 ? 1 : (0);};
     $of_char = (dynamic $c) ==> {return $c;};
     $to_char = (dynamic $u) ==> {
-      $j_ = null;
+      $j_ = null as dynamic;
       if (255 < $u) {
         $j_ = $err_not_latin1($u);
         return $call1($Pervasives[1], $j_);

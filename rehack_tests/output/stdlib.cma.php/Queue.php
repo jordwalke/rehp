@@ -34,14 +34,14 @@ final class Queue {
       return 0;
     };
     $peek = (dynamic $q) ==> {
-      $content = null;
+      $content = null as dynamic;
       $f_ = $q[2];
       if ($f_) {$content = $f_[1];return $content;}
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $take = (dynamic $q) ==> {
-      $d_ = null;
-      $e_ = null;
+      $d_ = null as dynamic;
+      $e_ = null as dynamic;
       $c_ = $q[2];
       if ($c_) {
         $d_ = $c_[1];
@@ -53,9 +53,9 @@ final class Queue {
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $copy = (dynamic $q_res, dynamic $prev, dynamic $cell) ==> {
-      $content = null;
-      $next = null;
-      $res = null;
+      $content = null as dynamic;
+      $next = null as dynamic;
+      $res = null as dynamic;
       $prev__0 = $prev;
       $cell__0 = $cell;
       for (;;) {
@@ -81,8 +81,8 @@ final class Queue {
     $is_empty = (dynamic $q) ==> {return 0 === $q[1] ? 1 : (0);};
     $length = (dynamic $q) ==> {return $q[1];};
     $iter = (dynamic $f, dynamic $cell) ==> {
-      $content = null;
-      $cell__1 = null;
+      $content = null as dynamic;
+      $cell__1 = null as dynamic;
       $cell__0 = $cell;
       for (;;) {
         if ($cell__0) {
@@ -97,9 +97,9 @@ final class Queue {
     };
     $iter__0 = (dynamic $f, dynamic $q) ==> {return $iter($f, $q[2]);};
     $fold = (dynamic $f, dynamic $accu, dynamic $cell) ==> {
-      $content = null;
-      $cell__1 = null;
-      $accu__1 = null;
+      $content = null as dynamic;
+      $cell__1 = null as dynamic;
+      $accu__1 = null as dynamic;
       $accu__0 = $accu;
       $cell__0 = $cell;
       for (;;) {
@@ -117,7 +117,7 @@ final class Queue {
     $fold__0 = (dynamic $f, dynamic $accu, dynamic $q) ==> {return $fold($f, $accu, $q[2]);
     };
     $transfer = (dynamic $q1, dynamic $q2) ==> {
-      $b_ = null;
+      $b_ = null as dynamic;
       $a_ = 0 < $q1[1] ? 1 : (0);
       if ($a_) {
         $b_ = $q2[3];

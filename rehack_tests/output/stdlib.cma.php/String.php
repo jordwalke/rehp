@@ -71,9 +71,9 @@ final class String_ {
       return $y <= $x ? $x : ($call1($Pervasives[1], $cst_String_concat));
     };
     $sum_lengths = (dynamic $acc, dynamic $seplen, dynamic $param) ==> {
-      $G_ = null;
-      $H_ = null;
-      $acc__1 = null;
+      $G_ = null as dynamic;
+      $H_ = null as dynamic;
+      $acc__1 = null as dynamic;
       $acc__0 = $acc;
       $param__0 = $param;
       for (;;) {
@@ -98,9 +98,9 @@ final class String_ {
     };
     $unsafe_blits = 
     (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) ==> {
-      $E_ = null;
-      $F_ = null;
-      $pos__1 = null;
+      $E_ = null as dynamic;
+      $F_ = null as dynamic;
+      $pos__1 = null as dynamic;
       $pos__0 = $pos;
       $param__0 = $param;
       for (;;) {
@@ -138,7 +138,7 @@ final class String_ {
       }
     };
     $concat = (dynamic $sep, dynamic $l) ==> {
-      $seplen = null;
+      $seplen = null as dynamic;
       if ($l) {
         $seplen = $caml_ml_string_length($sep);
         return $call1(
@@ -155,8 +155,8 @@ final class String_ {
       return $cst;
     };
     $iter = (dynamic $f, dynamic $s) ==> {
-      $i = null;
-      $D_ = null;
+      $i = null as dynamic;
+      $D_ = null as dynamic;
       $C_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
       $B_ = 0 as dynamic;
       if (! ($C_ < 0)) {
@@ -171,8 +171,8 @@ final class String_ {
       return 0;
     };
     $iteri = (dynamic $f, dynamic $s) ==> {
-      $i = null;
-      $A_ = null;
+      $i = null as dynamic;
+      $A_ = null as dynamic;
       $z_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
       $y_ = 0 as dynamic;
       if (! ($z_ < 0)) {
@@ -216,13 +216,13 @@ final class String_ {
       return $call1($bts, $call1($Bytes[19], $u_));
     };
     $escaped = (dynamic $s) ==> {
-      $s_ = null;
+      $s_ = null as dynamic;
       $needs_escape = (dynamic $i) ==> {
-        $match = null;
-        $t_ = null;
-        $i__1 = null;
-        $switch__0 = null;
-        $switch__1 = null;
+        $match = null as dynamic;
+        $t_ = null as dynamic;
+        $i__1 = null as dynamic;
+        $switch__0 = null as dynamic;
+        $switch__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if ($caml_ml_string_length($s) <= $i__0) {return 0;}
@@ -260,7 +260,7 @@ final class String_ {
       return $s;
     };
     $index_rec = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
-      $i__1 = null;
+      $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {
@@ -276,7 +276,7 @@ final class String_ {
       return $index_rec($s, $caml_ml_string_length($s), 0, $c);
     };
     $index_rec_opt = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
-      $i__1 = null;
+      $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {return 0;}
@@ -303,7 +303,7 @@ final class String_ {
       );
     };
     $rindex_rec = (dynamic $s, dynamic $i, dynamic $c) ==> {
-      $i__1 = null;
+      $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
@@ -325,7 +325,7 @@ final class String_ {
       return $call1($Pervasives[1], $cst_String_rindex_from_Bytes_rindex_from);
     };
     $rindex_rec_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
-      $i__1 = null;
+      $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
@@ -350,7 +350,7 @@ final class String_ {
       );
     };
     $contains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
-      $q_ = null;
+      $q_ = null as dynamic;
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {
         if (! ($l < $i)) {
@@ -371,7 +371,7 @@ final class String_ {
       return $contains_from($s, 0, $c);
     };
     $rcontains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
-      $o_ = null;
+      $o_ = null as dynamic;
       if (0 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {
           try {$rindex_rec($s, $i, $c);$o_ = 1;return $o_;}
@@ -407,9 +407,9 @@ final class String_ {
       return $runtime["caml_string_compare"]($x, $y);
     };
     $split_on_char = (dynamic $sep, dynamic $s) ==> {
-      $i = null;
-      $i_ = null;
-      $j_ = null;
+      $i = null as dynamic;
+      $i_ = null as dynamic;
+      $j_ = null as dynamic;
       $r = Vector{0, 0} as dynamic;
       $j = Vector{0, $caml_ml_string_length($s)} as dynamic;
       $g_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;

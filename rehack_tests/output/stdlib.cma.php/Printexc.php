@@ -210,9 +210,9 @@ final class Printexc {
       return $call3($Printf[4], $c_, $ae_, $ad_);
     };
     $fields = (dynamic $x) ==> {
-      $aa_ = null;
-      $ab_ = null;
-      $ac_ = null;
+      $aa_ = null as dynamic;
+      $ab_ = null as dynamic;
+      $ac_ = null as dynamic;
       $match = $x->count() - 1;
       if (2 < $unsigned_right_shift_32($match, 0)) {
         $aa_ = $other_fields->contents($x, 2);
@@ -234,25 +234,25 @@ final class Printexc {
     };
     $to_string = (dynamic $x) ==> {
       $conv = (dynamic $param) ==> {
-        $tl = null;
-        $hd = null;
-        $W_ = null;
-        $s = null;
-        $X_ = null;
-        $match = null;
-        $char__0 = null;
-        $line = null;
-        $file = null;
-        $match__0 = null;
-        $char__1 = null;
-        $line__0 = null;
-        $file__0 = null;
-        $match__1 = null;
-        $char__2 = null;
-        $line__1 = null;
-        $file__1 = null;
-        $constructor = null;
-        $Y_ = null;
+        $tl = null as dynamic;
+        $hd = null as dynamic;
+        $W_ = null as dynamic;
+        $s = null as dynamic;
+        $X_ = null as dynamic;
+        $match = null as dynamic;
+        $char__0 = null as dynamic;
+        $line = null as dynamic;
+        $file = null as dynamic;
+        $match__0 = null as dynamic;
+        $char__1 = null as dynamic;
+        $line__0 = null as dynamic;
+        $file__0 = null as dynamic;
+        $match__1 = null as dynamic;
+        $char__2 = null as dynamic;
+        $line__1 = null as dynamic;
+        $file__1 = null as dynamic;
+        $constructor = null as dynamic;
+        $Y_ = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -325,8 +325,8 @@ final class Printexc {
       return $conv($printers[1]);
     };
     $print = (dynamic $fct, dynamic $arg) ==> {
-      $V_ = null;
-      $U_ = null;
+      $V_ = null as dynamic;
+      $U_ = null as dynamic;
       try {$V_ = $call1($fct, $arg);return $V_;}
       catch(\Throwable $x) {
         $x = $runtime["caml_wrap_exception"]($x);
@@ -337,8 +337,8 @@ final class Printexc {
       }
     };
     $catch__0 = (dynamic $fct, dynamic $arg) ==> {
-      $T_ = null;
-      $S_ = null;
+      $T_ = null as dynamic;
+      $S_ = null as dynamic;
       try {$T_ = $call1($fct, $arg);return $T_;}
       catch(\Throwable $x) {
         $x = $runtime["caml_wrap_exception"]($x);
@@ -353,12 +353,12 @@ final class Printexc {
       return $R_;
     };
     $format_backtrace_slot = (dynamic $pos, dynamic $slot) ==> {
-      $K_ = null;
-      $L_ = null;
-      $M_ = null;
-      $N_ = null;
-      $O_ = null;
-      $P_ = null;
+      $K_ = null as dynamic;
+      $L_ = null as dynamic;
+      $M_ = null as dynamic;
+      $N_ = null as dynamic;
+      $O_ = null as dynamic;
+      $P_ = null as dynamic;
       $info = (dynamic $is_raise) ==> {
         return $is_raise
           ? 0 === $pos ? $cst_Raised_at : ($cst_Re_raised_at)
@@ -381,13 +381,13 @@ final class Printexc {
       return Vector{0, $call2($Printf[4], $i_, $Q_)};
     };
     $print_exception_backtrace = (dynamic $outchan, dynamic $backtrace) ==> {
-      $J_ = null;
-      $str = null;
-      $match = null;
-      $i = null;
-      $I_ = null;
-      $H_ = null;
-      $a = null;
+      $J_ = null as dynamic;
+      $str = null as dynamic;
+      $match = null as dynamic;
+      $i = null as dynamic;
+      $I_ = null as dynamic;
+      $H_ = null as dynamic;
+      $a = null as dynamic;
       if ($backtrace) {
         $a = $backtrace[1];
         $I_ = (int) ($a->count() - 1 + -1);
@@ -423,14 +423,14 @@ final class Printexc {
       );
     };
     $backtrace_to_string = (dynamic $backtrace) ==> {
-      $G_ = null;
-      $str = null;
-      $match = null;
-      $i = null;
-      $F_ = null;
-      $E_ = null;
-      $b = null;
-      $a = null;
+      $G_ = null as dynamic;
+      $str = null as dynamic;
+      $match = null as dynamic;
+      $i = null as dynamic;
+      $F_ = null as dynamic;
+      $E_ = null as dynamic;
+      $b = null as dynamic;
+      $a = null as dynamic;
       if ($backtrace) {
         $a = $backtrace[1];
         $b = $call1($Buffer[1], 1024);
@@ -466,9 +466,9 @@ final class Printexc {
         : (0);
     };
     $backtrace_slots = (dynamic $raw_backtrace) ==> {
-      $backtrace = null;
-      $usable_slot = null;
-      $exists_usable = null;
+      $backtrace = null as dynamic;
+      $usable_slot = null as dynamic;
+      $exists_usable = null as dynamic;
       $match = $convert_raw_backtrace($raw_backtrace);
       if ($match) {
         $backtrace = $match[1];
@@ -476,8 +476,8 @@ final class Printexc {
           (dynamic $param) ==> {return 0 === $param[0] ? 1 : (0);};
         $exists_usable =
           (dynamic $i) ==> {
-            $D_ = null;
-            $i__1 = null;
+            $D_ = null as dynamic;
+            $i__1 = null as dynamic;
             $i__0 = $i;
             for (;;) {
               if (-1 === $i__0) {return 0;}

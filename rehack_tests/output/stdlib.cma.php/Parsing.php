@@ -76,19 +76,19 @@ final class Parsing {
     $current_lookahead_fun = Vector{0, (dynamic $param) ==> {return 0;}} as dynamic;
     $yyparse = 
     (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) ==> {
-      $curr_char = null;
-      $v = null;
-      $i_ = null;
+      $curr_char = null as dynamic;
+      $v = null as dynamic;
+      $i_ = null as dynamic;
       $loop = (dynamic $cmd, dynamic $arg) ==> {
-        $match = null;
-        $arg__1 = null;
-        $k_ = null;
-        $l_ = null;
-        $arg__2 = null;
-        $cmd__1 = null;
-        $m_ = null;
-        $n_ = null;
-        $o_ = null;
+        $match = null as dynamic;
+        $arg__1 = null as dynamic;
+        $k_ = null as dynamic;
+        $l_ = null as dynamic;
+        $arg__2 = null as dynamic;
+        $cmd__1 = null as dynamic;
+        $m_ = null as dynamic;
+        $n_ = null as dynamic;
+        $o_ = null as dynamic;
         $cmd__0 = $cmd;
         $arg__0 = $arg;
         for (;;) {
@@ -176,7 +176,7 @@ final class Parsing {
         if ($exn[1] === $YYexit) {$v = $exn[2];return $v;}
         $current_lookahead_fun[1] =
           (dynamic $tok) ==> {
-            $j_ = null;
+            $j_ = null as dynamic;
             if ($call1($Obj[1], $tok)) {
               $j_ = $runtime["caml_obj_tag"]($tok);
               return $caml_check_bound($tables[3], $j_)[$j_ + 1] === $curr_char
@@ -196,12 +196,12 @@ final class Parsing {
     };
     $symbol_start_pos = (dynamic $param) ==> {
       $loop = (dynamic $i) ==> {
-        $e_ = null;
-        $st = null;
-        $f_ = null;
-        $en = null;
-        $i__1 = null;
-        $g_ = null;
+        $e_ = null as dynamic;
+        $st = null as dynamic;
+        $f_ = null as dynamic;
+        $en = null as dynamic;
+        $i__1 = null as dynamic;
+        $g_ = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if (0 < $i__0) {

@@ -591,8 +591,8 @@ final class CamlinternalFormat {
       return $call1($Bytes[6], $char_set);
     };
     $rev_char_set = (dynamic $char_set) ==> {
-      $eS_ = null;
-      $eT_ = null;
+      $eS_ = null as dynamic;
+      $eT_ = null as dynamic;
       $char_set__0 = $create_char_set(0);
       $i = 0 as dynamic;
       for (;;) {
@@ -609,37 +609,37 @@ final class CamlinternalFormat {
       return 0 !== ($caml_string_get($char_set, $str_ind) & $mask) ? 1 : (0);
     };
     $pad_of_pad_opt = (dynamic $pad_opt) ==> {
-      $width = null;
+      $width = null as dynamic;
       if ($pad_opt) {$width = $pad_opt[1];return Vector{0, 1, $width};}
       return 0;
     };
     $prec_of_prec_opt = (dynamic $prec_opt) ==> {
-      $ndec = null;
+      $ndec = null as dynamic;
       if ($prec_opt) {$ndec = $prec_opt[1];return Vector{0, $ndec};}
       return 0;
     };
     $param_format_of_ignored_format = (dynamic $ign, dynamic $fmt) ==> {
-      $counter = null;
-      $width_opt = null;
-      $char_set = null;
-      $pad_opt__8 = null;
-      $fmtty__0 = null;
-      $pad_opt__7 = null;
-      $fmtty = null;
-      $pad_opt__6 = null;
-      $eR_ = null;
-      $pad_opt__5 = null;
-      $prec_opt = null;
-      $iconv__2 = null;
-      $pad_opt__4 = null;
-      $iconv__1 = null;
-      $pad_opt__3 = null;
-      $iconv__0 = null;
-      $pad_opt__2 = null;
-      $iconv = null;
-      $pad_opt__1 = null;
-      $pad_opt__0 = null;
-      $pad_opt = null;
+      $counter = null as dynamic;
+      $width_opt = null as dynamic;
+      $char_set = null as dynamic;
+      $pad_opt__8 = null as dynamic;
+      $fmtty__0 = null as dynamic;
+      $pad_opt__7 = null as dynamic;
+      $fmtty = null as dynamic;
+      $pad_opt__6 = null as dynamic;
+      $eR_ = null as dynamic;
+      $pad_opt__5 = null as dynamic;
+      $prec_opt = null as dynamic;
+      $iconv__2 = null as dynamic;
+      $pad_opt__4 = null as dynamic;
+      $iconv__1 = null as dynamic;
+      $pad_opt__3 = null as dynamic;
+      $iconv__0 = null as dynamic;
+      $pad_opt__2 = null as dynamic;
+      $iconv = null as dynamic;
+      $pad_opt__1 = null as dynamic;
+      $pad_opt__0 = null as dynamic;
+      $pad_opt = null as dynamic;
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -738,9 +738,9 @@ final class CamlinternalFormat {
       return Vector{0, 0, $caml_create_bytes($init_size)};
     };
     $buffer_check_size = (dynamic $buf, dynamic $overhead) ==> {
-      $new_len = null;
-      $new_str = null;
-      $eQ_ = null;
+      $new_len = null as dynamic;
+      $new_str = null as dynamic;
+      $eQ_ = null as dynamic;
       $len = $runtime["caml_ml_bytes_length"]($buf[2]);
       $min_len = (int) ($buf[1] + $overhead) as dynamic;
       $eP_ = $len < $min_len ? 1 : (0);
@@ -872,12 +872,12 @@ final class CamlinternalFormat {
       $print_in = new Ref();
       $print_out = new Ref();
       $print_second = new Ref();
-      $ez_ = null;
+      $ez_ = null as dynamic;
       $print_start = (dynamic $set) ==> {
         $is_alone = (dynamic $c) ==> {
-          $eM_ = null;
-          $eN_ = null;
-          $eO_ = null;
+          $eM_ = null as dynamic;
+          $eN_ = null as dynamic;
+          $eO_ = null as dynamic;
           $after = $call1($Char[1], (int) ($c + 1));
           $before = $call1($Char[1], (int) ($c + -1));
           $eL_ = $is_in_char_set($set, $c);
@@ -907,9 +907,9 @@ final class CamlinternalFormat {
         return $buffer_add_char($buf, $c);
       };
       $print_out__0 = (dynamic $counter, dynamic $set, dynamic $i) ==> {
-        $eJ_ = null;
-        $i__1 = null;
-        $counter__0 = null;
+        $eJ_ = null as dynamic;
+        $i__1 = null as dynamic;
+        $counter__0 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           $eJ_ = $i__0 < 256 ? 1 : (0);
@@ -932,10 +932,10 @@ final class CamlinternalFormat {
         }
       };
       $print_first->contents = (dynamic $counter, dynamic $set, dynamic $i) ==> {
-        $switcher__0 = null;
-        $eI_ = null;
-        $counter__0 = null;
-        $counter__1 = null;
+        $switcher__0 = null as dynamic;
+        $eI_ = null as dynamic;
+        $counter__0 = null as dynamic;
+        $counter__1 = null as dynamic;
         $match = $call1($Pervasives[17], $i);
         $switcher = (int) ($match + -45) as dynamic;
         if (48 < $unsigned_right_shift_32($switcher, 0)) {
@@ -963,17 +963,17 @@ final class CamlinternalFormat {
         );
       };
       $print_second->contents = (dynamic $counter, dynamic $set, dynamic $i) ==> {
-        $counter__3 = null;
-        $counter__2 = null;
-        $counter__1 = null;
-        $counter__0 = null;
-        $eF_ = null;
-        $switcher__0 = null;
-        $eE_ = null;
-        $eD_ = null;
-        $eC_ = null;
-        $switcher = null;
-        $match = null;
+        $counter__3 = null as dynamic;
+        $counter__2 = null as dynamic;
+        $counter__1 = null as dynamic;
+        $counter__0 = null as dynamic;
+        $eF_ = null as dynamic;
+        $switcher__0 = null as dynamic;
+        $eE_ = null as dynamic;
+        $eD_ = null as dynamic;
+        $eC_ = null as dynamic;
+        $switcher = null as dynamic;
+        $match = null as dynamic;
         if ($is_in_char_set($set, $call1($Pervasives[17], $i))) {
           $match = $call1($Pervasives[17], $i);
           $switcher = (int) ($match + -45);
@@ -1034,10 +1034,10 @@ final class CamlinternalFormat {
       };
       $print_in->contents = 
       (dynamic $counter, dynamic $set, dynamic $i, dynamic $j) ==> {
-        $eA_ = null;
-        $eB_ = null;
-        $j__1 = null;
-        $counter__0 = null;
+        $eA_ = null as dynamic;
+        $eB_ = null as dynamic;
+        $j__1 = null as dynamic;
+        $counter__0 = null as dynamic;
         $j__0 = $j;
         for (;;) {
           if (256 !== $j__0) {
@@ -1087,7 +1087,7 @@ final class CamlinternalFormat {
       return $ign_flag ? $buffer_add_char($buf, 95) : ($ign_flag);
     };
     $bprint_pad_opt = (dynamic $buf, dynamic $pad_opt) ==> {
-      $width = null;
+      $width = null as dynamic;
       if ($pad_opt) {
         $width = $pad_opt[1];
         return $buffer_add_string($buf, $call1($Pervasives[21], $width));
@@ -1095,9 +1095,9 @@ final class CamlinternalFormat {
       return 0;
     };
     $bprint_padding = (dynamic $buf, dynamic $pad) ==> {
-      $padty__0 = null;
-      $padty = null;
-      $n = null;
+      $padty__0 = null as dynamic;
+      $padty = null as dynamic;
+      $n = null as dynamic;
       if ($is_int($pad)) {return 0;}
       else {
         if (0 === $pad[0]) {
@@ -1209,10 +1209,10 @@ final class CamlinternalFormat {
       return $buffer_add_char($buf, $char_of_fconv($fconv));
     };
     $string_of_formatting_lit = (dynamic $formatting_lit) ==> {
-      $ey_ = null;
-      $c = null;
-      $str__0 = null;
-      $str = null;
+      $ey_ = null as dynamic;
+      $c = null as dynamic;
+      $str__0 = null as dynamic;
+      $str = null as dynamic;
       if ($is_int($formatting_lit)) {
         switch($formatting_lit) {
           // FALLTHROUGH
@@ -1257,8 +1257,8 @@ final class CamlinternalFormat {
       }
     };
     $string_of_formatting_gen = (dynamic $formatting_gen) ==> {
-      $str = null;
-      $match = null;
+      $str = null as dynamic;
+      $match = null as dynamic;
       if (0 === $formatting_gen[0]) {
         $match = $formatting_gen[1];
         $str = $match[2];
@@ -1274,8 +1274,8 @@ final class CamlinternalFormat {
         : ($buffer_add_char($buf, $chr));
     };
     $bprint_string_literal = (dynamic $buf, dynamic $str) ==> {
-      $i = null;
-      $ex_ = null;
+      $i = null as dynamic;
+      $ex_ = null as dynamic;
       $ew_ = (int) ($caml_ml_string_length($str) + -1) as dynamic;
       $ev_ = 0 as dynamic;
       if (! ($ew_ < 0)) {
@@ -1290,23 +1290,23 @@ final class CamlinternalFormat {
       return 0;
     };
     $bprint_fmtty->contents = (dynamic $buf, dynamic $fmtty) ==> {
-      $fmtty__1 = null;
-      $fmtty__2 = null;
-      $fmtty__3 = null;
-      $fmtty__4 = null;
-      $fmtty__5 = null;
-      $fmtty__6 = null;
-      $fmtty__7 = null;
-      $fmtty__8 = null;
-      $fmtty__9 = null;
-      $sub_fmtty = null;
-      $fmtty__10 = null;
-      $sub_fmtty__0 = null;
-      $fmtty__11 = null;
-      $fmtty__12 = null;
-      $fmtty__13 = null;
-      $fmtty__14 = null;
-      $fmtty__15 = null;
+      $fmtty__1 = null as dynamic;
+      $fmtty__2 = null as dynamic;
+      $fmtty__3 = null as dynamic;
+      $fmtty__4 = null as dynamic;
+      $fmtty__5 = null as dynamic;
+      $fmtty__6 = null as dynamic;
+      $fmtty__7 = null as dynamic;
+      $fmtty__8 = null as dynamic;
+      $fmtty__9 = null as dynamic;
+      $sub_fmtty = null as dynamic;
+      $fmtty__10 = null as dynamic;
+      $sub_fmtty__0 = null as dynamic;
+      $fmtty__11 = null as dynamic;
+      $fmtty__12 = null as dynamic;
+      $fmtty__13 = null as dynamic;
+      $fmtty__14 = null as dynamic;
+      $fmtty__15 = null as dynamic;
       $fmtty__0 = $fmtty;
       for (;;) {
         if ($is_int($fmtty__0)) {return 0;}
@@ -1415,7 +1415,7 @@ final class CamlinternalFormat {
       }
     };
     $int_of_custom_arity->contents = (dynamic $param) ==> {
-      $x = null;
+      $x = null as dynamic;
       if ($param) {
         $x = $param[1];
         return (int) (1 + $int_of_custom_arity->contents($x));
@@ -1424,68 +1424,68 @@ final class CamlinternalFormat {
     };
     $bprint_fmt = (dynamic $buf, dynamic $fmt) ==> {
       $fmtiter = (dynamic $fmt, dynamic $ign_flag) ==> {
-        $fmt__1 = null;
-        $fmt__2 = null;
-        $fmt__3 = null;
-        $pad = null;
-        $fmt__4 = null;
-        $pad__0 = null;
-        $fmt__5 = null;
-        $prec = null;
-        $pad__1 = null;
-        $iconv = null;
-        $fmt__6 = null;
-        $prec__0 = null;
-        $pad__2 = null;
-        $iconv__0 = null;
-        $fmt__7 = null;
-        $prec__1 = null;
-        $pad__3 = null;
-        $iconv__1 = null;
-        $fmt__8 = null;
-        $prec__2 = null;
-        $pad__4 = null;
-        $iconv__2 = null;
-        $fmt__9 = null;
-        $prec__3 = null;
-        $pad__5 = null;
-        $fconv = null;
-        $fmt__10 = null;
-        $pad__6 = null;
-        $fmt__11 = null;
-        $fmt__12 = null;
-        $str = null;
-        $fmt__13 = null;
-        $chr = null;
-        $fmt__14 = null;
-        $fmtty = null;
-        $pad_opt = null;
-        $fmt__15 = null;
-        $fmtty__0 = null;
-        $pad_opt__0 = null;
-        $fmt__16 = null;
-        $fmt__17 = null;
-        $fmt__18 = null;
-        $fmting_lit = null;
-        $fmt__19 = null;
-        $fmting_gen = null;
-        $fmt__20 = null;
-        $fmt__21 = null;
-        $char_set = null;
-        $width_opt = null;
-        $fmt__22 = null;
-        $counter = null;
-        $fmt__23 = null;
-        $rest = null;
-        $ign = null;
-        $match = null;
-        $fmt__24 = null;
-        $rest__0 = null;
-        $arity = null;
-        $es_ = null;
-        $et_ = null;
-        $i = null;
-        $eu_ = null;
+        $fmt__1 = null as dynamic;
+        $fmt__2 = null as dynamic;
+        $fmt__3 = null as dynamic;
+        $pad = null as dynamic;
+        $fmt__4 = null as dynamic;
+        $pad__0 = null as dynamic;
+        $fmt__5 = null as dynamic;
+        $prec = null as dynamic;
+        $pad__1 = null as dynamic;
+        $iconv = null as dynamic;
+        $fmt__6 = null as dynamic;
+        $prec__0 = null as dynamic;
+        $pad__2 = null as dynamic;
+        $iconv__0 = null as dynamic;
+        $fmt__7 = null as dynamic;
+        $prec__1 = null as dynamic;
+        $pad__3 = null as dynamic;
+        $iconv__1 = null as dynamic;
+        $fmt__8 = null as dynamic;
+        $prec__2 = null as dynamic;
+        $pad__4 = null as dynamic;
+        $iconv__2 = null as dynamic;
+        $fmt__9 = null as dynamic;
+        $prec__3 = null as dynamic;
+        $pad__5 = null as dynamic;
+        $fconv = null as dynamic;
+        $fmt__10 = null as dynamic;
+        $pad__6 = null as dynamic;
+        $fmt__11 = null as dynamic;
+        $fmt__12 = null as dynamic;
+        $str = null as dynamic;
+        $fmt__13 = null as dynamic;
+        $chr = null as dynamic;
+        $fmt__14 = null as dynamic;
+        $fmtty = null as dynamic;
+        $pad_opt = null as dynamic;
+        $fmt__15 = null as dynamic;
+        $fmtty__0 = null as dynamic;
+        $pad_opt__0 = null as dynamic;
+        $fmt__16 = null as dynamic;
+        $fmt__17 = null as dynamic;
+        $fmt__18 = null as dynamic;
+        $fmting_lit = null as dynamic;
+        $fmt__19 = null as dynamic;
+        $fmting_gen = null as dynamic;
+        $fmt__20 = null as dynamic;
+        $fmt__21 = null as dynamic;
+        $char_set = null as dynamic;
+        $width_opt = null as dynamic;
+        $fmt__22 = null as dynamic;
+        $counter = null as dynamic;
+        $fmt__23 = null as dynamic;
+        $rest = null as dynamic;
+        $ign = null as dynamic;
+        $match = null as dynamic;
+        $fmt__24 = null as dynamic;
+        $rest__0 = null as dynamic;
+        $arity = null as dynamic;
+        $es_ = null as dynamic;
+        $et_ = null as dynamic;
+        $i = null as dynamic;
+        $eu_ = null as dynamic;
         $fmt__0 = $fmt;
         $ign_flag__0 = $ign_flag;
         for (;;) {
@@ -1792,24 +1792,24 @@ final class CamlinternalFormat {
       return $buffer_contents($buf);
     };
     $symm->contents = (dynamic $param) ==> {
-      $rest__13 = null;
-      $rest__12 = null;
-      $rest__11 = null;
-      $rest__10 = null;
-      $rest__9 = null;
-      $ty1 = null;
-      $ty2 = null;
-      $rest__8 = null;
-      $ty = null;
-      $rest__7 = null;
-      $rest__6 = null;
-      $rest__5 = null;
-      $rest__4 = null;
-      $rest__3 = null;
-      $rest__2 = null;
-      $rest__1 = null;
-      $rest__0 = null;
-      $rest = null;
+      $rest__13 = null as dynamic;
+      $rest__12 = null as dynamic;
+      $rest__11 = null as dynamic;
+      $rest__10 = null as dynamic;
+      $rest__9 = null as dynamic;
+      $ty1 = null as dynamic;
+      $ty2 = null as dynamic;
+      $rest__8 = null as dynamic;
+      $ty = null as dynamic;
+      $rest__7 = null as dynamic;
+      $rest__6 = null as dynamic;
+      $rest__5 = null as dynamic;
+      $rest__4 = null as dynamic;
+      $rest__3 = null as dynamic;
+      $rest__2 = null as dynamic;
+      $rest__1 = null as dynamic;
+      $rest__0 = null as dynamic;
+      $rest = null as dynamic;
       if ($is_int($param)) {return 0;}
       else {
         switch($param[0]) {
@@ -1880,128 +1880,128 @@ final class CamlinternalFormat {
       }
     };
     $fmtty_rel_det->contents = (dynamic $param) ==> {
-      $er_ = null;
-      $eq_ = null;
-      $ep_ = null;
-      $fa__13 = null;
-      $af__13 = null;
-      $ed__13 = null;
-      $de__13 = null;
-      $match__14 = null;
-      $rest__13 = null;
-      $eo_ = null;
-      $en_ = null;
-      $em_ = null;
-      $fa__12 = null;
-      $af__12 = null;
-      $ed__12 = null;
-      $de__12 = null;
-      $match__13 = null;
-      $rest__12 = null;
-      $el_ = null;
-      $fa__11 = null;
-      $af__11 = null;
-      $ed__11 = null;
-      $de__11 = null;
-      $match__12 = null;
-      $rest__11 = null;
-      $ek_ = null;
-      $fa__10 = null;
-      $af__10 = null;
-      $ed__10 = null;
-      $de__10 = null;
-      $match__11 = null;
-      $rest__10 = null;
-      $ej_ = null;
-      $fa__9 = null;
-      $af__9 = null;
-      $ed__9 = null;
-      $de__9 = null;
-      $match__10 = null;
-      $rest__9 = null;
-      $ei_ = null;
-      $eh_ = null;
-      $eg_ = null;
-      $ag = null;
-      $ga = null;
-      $dj = null;
-      $jd = null;
-      $match__9 = null;
-      $ty = null;
-      $fa__8 = null;
-      $af__8 = null;
-      $ed__8 = null;
-      $de__8 = null;
-      $match__8 = null;
-      $ty1 = null;
-      $ty2 = null;
-      $rest__8 = null;
-      $ef_ = null;
-      $fa__7 = null;
-      $af__7 = null;
-      $ed__7 = null;
-      $de__7 = null;
-      $match__7 = null;
-      $rest__7 = null;
-      $ee_ = null;
-      $fa__6 = null;
-      $af__6 = null;
-      $ed__6 = null;
-      $de__6 = null;
-      $match__6 = null;
-      $rest__6 = null;
-      $ed_ = null;
-      $fa__5 = null;
-      $af__5 = null;
-      $ed__5 = null;
-      $de__5 = null;
-      $match__5 = null;
-      $rest__5 = null;
-      $ec_ = null;
-      $fa__4 = null;
-      $af__4 = null;
-      $ed__4 = null;
-      $de__4 = null;
-      $match__4 = null;
-      $rest__4 = null;
-      $eb_ = null;
-      $fa__3 = null;
-      $af__3 = null;
-      $ed__3 = null;
-      $de__3 = null;
-      $match__3 = null;
-      $rest__3 = null;
-      $ea_ = null;
-      $fa__2 = null;
-      $af__2 = null;
-      $ed__2 = null;
-      $de__2 = null;
-      $match__2 = null;
-      $rest__2 = null;
-      $d__ = null;
-      $fa__1 = null;
-      $af__1 = null;
-      $ed__1 = null;
-      $de__1 = null;
-      $match__1 = null;
-      $rest__1 = null;
-      $d9_ = null;
-      $fa__0 = null;
-      $af__0 = null;
-      $ed__0 = null;
-      $de__0 = null;
-      $match__0 = null;
-      $rest__0 = null;
-      $d8_ = null;
-      $fa = null;
-      $af = null;
-      $ed = null;
-      $de = null;
-      $match = null;
-      $rest = null;
-      $d7_ = null;
-      $d6_ = null;
-      $d5_ = null;
+      $er_ = null as dynamic;
+      $eq_ = null as dynamic;
+      $ep_ = null as dynamic;
+      $fa__13 = null as dynamic;
+      $af__13 = null as dynamic;
+      $ed__13 = null as dynamic;
+      $de__13 = null as dynamic;
+      $match__14 = null as dynamic;
+      $rest__13 = null as dynamic;
+      $eo_ = null as dynamic;
+      $en_ = null as dynamic;
+      $em_ = null as dynamic;
+      $fa__12 = null as dynamic;
+      $af__12 = null as dynamic;
+      $ed__12 = null as dynamic;
+      $de__12 = null as dynamic;
+      $match__13 = null as dynamic;
+      $rest__12 = null as dynamic;
+      $el_ = null as dynamic;
+      $fa__11 = null as dynamic;
+      $af__11 = null as dynamic;
+      $ed__11 = null as dynamic;
+      $de__11 = null as dynamic;
+      $match__12 = null as dynamic;
+      $rest__11 = null as dynamic;
+      $ek_ = null as dynamic;
+      $fa__10 = null as dynamic;
+      $af__10 = null as dynamic;
+      $ed__10 = null as dynamic;
+      $de__10 = null as dynamic;
+      $match__11 = null as dynamic;
+      $rest__10 = null as dynamic;
+      $ej_ = null as dynamic;
+      $fa__9 = null as dynamic;
+      $af__9 = null as dynamic;
+      $ed__9 = null as dynamic;
+      $de__9 = null as dynamic;
+      $match__10 = null as dynamic;
+      $rest__9 = null as dynamic;
+      $ei_ = null as dynamic;
+      $eh_ = null as dynamic;
+      $eg_ = null as dynamic;
+      $ag = null as dynamic;
+      $ga = null as dynamic;
+      $dj = null as dynamic;
+      $jd = null as dynamic;
+      $match__9 = null as dynamic;
+      $ty = null as dynamic;
+      $fa__8 = null as dynamic;
+      $af__8 = null as dynamic;
+      $ed__8 = null as dynamic;
+      $de__8 = null as dynamic;
+      $match__8 = null as dynamic;
+      $ty1 = null as dynamic;
+      $ty2 = null as dynamic;
+      $rest__8 = null as dynamic;
+      $ef_ = null as dynamic;
+      $fa__7 = null as dynamic;
+      $af__7 = null as dynamic;
+      $ed__7 = null as dynamic;
+      $de__7 = null as dynamic;
+      $match__7 = null as dynamic;
+      $rest__7 = null as dynamic;
+      $ee_ = null as dynamic;
+      $fa__6 = null as dynamic;
+      $af__6 = null as dynamic;
+      $ed__6 = null as dynamic;
+      $de__6 = null as dynamic;
+      $match__6 = null as dynamic;
+      $rest__6 = null as dynamic;
+      $ed_ = null as dynamic;
+      $fa__5 = null as dynamic;
+      $af__5 = null as dynamic;
+      $ed__5 = null as dynamic;
+      $de__5 = null as dynamic;
+      $match__5 = null as dynamic;
+      $rest__5 = null as dynamic;
+      $ec_ = null as dynamic;
+      $fa__4 = null as dynamic;
+      $af__4 = null as dynamic;
+      $ed__4 = null as dynamic;
+      $de__4 = null as dynamic;
+      $match__4 = null as dynamic;
+      $rest__4 = null as dynamic;
+      $eb_ = null as dynamic;
+      $fa__3 = null as dynamic;
+      $af__3 = null as dynamic;
+      $ed__3 = null as dynamic;
+      $de__3 = null as dynamic;
+      $match__3 = null as dynamic;
+      $rest__3 = null as dynamic;
+      $ea_ = null as dynamic;
+      $fa__2 = null as dynamic;
+      $af__2 = null as dynamic;
+      $ed__2 = null as dynamic;
+      $de__2 = null as dynamic;
+      $match__2 = null as dynamic;
+      $rest__2 = null as dynamic;
+      $d__ = null as dynamic;
+      $fa__1 = null as dynamic;
+      $af__1 = null as dynamic;
+      $ed__1 = null as dynamic;
+      $de__1 = null as dynamic;
+      $match__1 = null as dynamic;
+      $rest__1 = null as dynamic;
+      $d9_ = null as dynamic;
+      $fa__0 = null as dynamic;
+      $af__0 = null as dynamic;
+      $ed__0 = null as dynamic;
+      $de__0 = null as dynamic;
+      $match__0 = null as dynamic;
+      $rest__0 = null as dynamic;
+      $d8_ = null as dynamic;
+      $fa = null as dynamic;
+      $af = null as dynamic;
+      $ed = null as dynamic;
+      $de = null as dynamic;
+      $match = null as dynamic;
+      $rest = null as dynamic;
+      $d7_ = null as dynamic;
+      $d6_ = null as dynamic;
+      $d5_ = null as dynamic;
       if ($is_int($param)) {
         $d5_ = (dynamic $param) ==> {return 0;};
         $d6_ = (dynamic $param) ==> {return 0;};
@@ -2287,62 +2287,62 @@ final class CamlinternalFormat {
       }
     };
     $trans->contents = (dynamic $ty1, dynamic $match) ==> {
-      $switch__14 = null;
-      $switch__13 = null;
-      $switch__12 = null;
-      $switch__11 = null;
-      $switch__10 = null;
-      $switch__9 = null;
-      $switch__8 = null;
-      $switch__7 = null;
-      $switch__6 = null;
-      $switch__5 = null;
-      $switch__4 = null;
-      $switch__3 = null;
-      $switch__2 = null;
-      $switch__1 = null;
-      $switch__0 = null;
-      $rest2__13 = null;
-      $d4_ = null;
-      $rest2__12 = null;
-      $d3_ = null;
-      $rest2__11 = null;
-      $d2_ = null;
-      $rest2__10 = null;
-      $d1_ = null;
-      $rest2__9 = null;
-      $d0_ = null;
-      $f2 = null;
-      $f4 = null;
-      $match__0 = null;
-      $ty = null;
-      $ty21 = null;
-      $ty22 = null;
-      $rest2__8 = null;
-      $dZ_ = null;
-      $dY_ = null;
-      $dX_ = null;
-      $dW_ = null;
-      $ty2 = null;
-      $rest2__7 = null;
-      $dV_ = null;
-      $dU_ = null;
-      $rest2__6 = null;
-      $dT_ = null;
-      $rest2__5 = null;
-      $dS_ = null;
-      $rest2__4 = null;
-      $dR_ = null;
-      $rest2__3 = null;
-      $dQ_ = null;
-      $rest2__2 = null;
-      $dP_ = null;
-      $rest2__1 = null;
-      $dO_ = null;
-      $rest2__0 = null;
-      $dN_ = null;
-      $rest2 = null;
-      $dM_ = null;
+      $switch__14 = null as dynamic;
+      $switch__13 = null as dynamic;
+      $switch__12 = null as dynamic;
+      $switch__11 = null as dynamic;
+      $switch__10 = null as dynamic;
+      $switch__9 = null as dynamic;
+      $switch__8 = null as dynamic;
+      $switch__7 = null as dynamic;
+      $switch__6 = null as dynamic;
+      $switch__5 = null as dynamic;
+      $switch__4 = null as dynamic;
+      $switch__3 = null as dynamic;
+      $switch__2 = null as dynamic;
+      $switch__1 = null as dynamic;
+      $switch__0 = null as dynamic;
+      $rest2__13 = null as dynamic;
+      $d4_ = null as dynamic;
+      $rest2__12 = null as dynamic;
+      $d3_ = null as dynamic;
+      $rest2__11 = null as dynamic;
+      $d2_ = null as dynamic;
+      $rest2__10 = null as dynamic;
+      $d1_ = null as dynamic;
+      $rest2__9 = null as dynamic;
+      $d0_ = null as dynamic;
+      $f2 = null as dynamic;
+      $f4 = null as dynamic;
+      $match__0 = null as dynamic;
+      $ty = null as dynamic;
+      $ty21 = null as dynamic;
+      $ty22 = null as dynamic;
+      $rest2__8 = null as dynamic;
+      $dZ_ = null as dynamic;
+      $dY_ = null as dynamic;
+      $dX_ = null as dynamic;
+      $dW_ = null as dynamic;
+      $ty2 = null as dynamic;
+      $rest2__7 = null as dynamic;
+      $dV_ = null as dynamic;
+      $dU_ = null as dynamic;
+      $rest2__6 = null as dynamic;
+      $dT_ = null as dynamic;
+      $rest2__5 = null as dynamic;
+      $dS_ = null as dynamic;
+      $rest2__4 = null as dynamic;
+      $dR_ = null as dynamic;
+      $rest2__3 = null as dynamic;
+      $dQ_ = null as dynamic;
+      $rest2__2 = null as dynamic;
+      $dP_ = null as dynamic;
+      $rest2__1 = null as dynamic;
+      $dO_ = null as dynamic;
+      $rest2__0 = null as dynamic;
+      $dN_ = null as dynamic;
+      $rest2 = null as dynamic;
+      $dM_ = null as dynamic;
       if ($is_int($ty1)) {
         if ($is_int($match)) {return 0;}
         else {
@@ -3092,7 +3092,7 @@ final class CamlinternalFormat {
         : (0 === $pad[0] ? $fmtty : (Vector{2, $fmtty}));
     };
     $fmtty_of_custom->contents = (dynamic $arity, dynamic $fmtty) ==> {
-      $arity__0 = null;
+      $arity__0 = null as dynamic;
       if ($arity) {
         $arity__0 = $arity[1];
         return Vector{12, $fmtty_of_custom->contents($arity__0, $fmtty)};
@@ -3100,62 +3100,62 @@ final class CamlinternalFormat {
       return $fmtty;
     };
     $fmtty_of_fmt__0 = (dynamic $counter, dynamic $fmtty) ==> {
-      $rest = null;
-      $rest__0 = null;
-      $rest__1 = null;
-      $pad = null;
-      $rest__2 = null;
-      $pad__0 = null;
-      $rest__3 = null;
-      $prec = null;
-      $pad__1 = null;
-      $ty_rest = null;
-      $prec_ty = null;
-      $rest__4 = null;
-      $prec__0 = null;
-      $pad__2 = null;
-      $ty_rest__0 = null;
-      $prec_ty__0 = null;
-      $rest__5 = null;
-      $prec__1 = null;
-      $pad__3 = null;
-      $ty_rest__1 = null;
-      $prec_ty__1 = null;
-      $rest__6 = null;
-      $prec__2 = null;
-      $pad__4 = null;
-      $ty_rest__2 = null;
-      $prec_ty__2 = null;
-      $rest__7 = null;
-      $prec__3 = null;
-      $pad__5 = null;
-      $ty_rest__3 = null;
-      $prec_ty__3 = null;
-      $rest__8 = null;
-      $pad__6 = null;
-      $fmtty__1 = null;
-      $fmtty__2 = null;
-      $fmtty__3 = null;
-      $rest__9 = null;
-      $ty = null;
-      $rest__10 = null;
-      $ty__0 = null;
-      $rest__11 = null;
-      $rest__12 = null;
-      $fmtty__4 = null;
-      $rest__13 = null;
-      $fmting_gen = null;
-      $dK_ = null;
-      $dL_ = null;
-      $rest__14 = null;
-      $rest__15 = null;
-      $rest__16 = null;
-      $rest__17 = null;
-      $rest__18 = null;
-      $ign = null;
-      $rest__19 = null;
-      $arity = null;
-      $counter__0 = null;
+      $rest = null as dynamic;
+      $rest__0 = null as dynamic;
+      $rest__1 = null as dynamic;
+      $pad = null as dynamic;
+      $rest__2 = null as dynamic;
+      $pad__0 = null as dynamic;
+      $rest__3 = null as dynamic;
+      $prec = null as dynamic;
+      $pad__1 = null as dynamic;
+      $ty_rest = null as dynamic;
+      $prec_ty = null as dynamic;
+      $rest__4 = null as dynamic;
+      $prec__0 = null as dynamic;
+      $pad__2 = null as dynamic;
+      $ty_rest__0 = null as dynamic;
+      $prec_ty__0 = null as dynamic;
+      $rest__5 = null as dynamic;
+      $prec__1 = null as dynamic;
+      $pad__3 = null as dynamic;
+      $ty_rest__1 = null as dynamic;
+      $prec_ty__1 = null as dynamic;
+      $rest__6 = null as dynamic;
+      $prec__2 = null as dynamic;
+      $pad__4 = null as dynamic;
+      $ty_rest__2 = null as dynamic;
+      $prec_ty__2 = null as dynamic;
+      $rest__7 = null as dynamic;
+      $prec__3 = null as dynamic;
+      $pad__5 = null as dynamic;
+      $ty_rest__3 = null as dynamic;
+      $prec_ty__3 = null as dynamic;
+      $rest__8 = null as dynamic;
+      $pad__6 = null as dynamic;
+      $fmtty__1 = null as dynamic;
+      $fmtty__2 = null as dynamic;
+      $fmtty__3 = null as dynamic;
+      $rest__9 = null as dynamic;
+      $ty = null as dynamic;
+      $rest__10 = null as dynamic;
+      $ty__0 = null as dynamic;
+      $rest__11 = null as dynamic;
+      $rest__12 = null as dynamic;
+      $fmtty__4 = null as dynamic;
+      $rest__13 = null as dynamic;
+      $fmting_gen = null as dynamic;
+      $dK_ = null as dynamic;
+      $dL_ = null as dynamic;
+      $rest__14 = null as dynamic;
+      $rest__15 = null as dynamic;
+      $rest__16 = null as dynamic;
+      $rest__17 = null as dynamic;
+      $rest__18 = null as dynamic;
+      $ign = null as dynamic;
+      $rest__19 = null as dynamic;
+      $arity = null as dynamic;
+      $counter__0 = null as dynamic;
       $fmtty__0 = $fmtty;
       for (;;) {
         if ($is_int($fmtty__0)) {return 0;}
@@ -3349,22 +3349,22 @@ final class CamlinternalFormat {
     };
     $fmtty_of_ignored_format->contents = 
     (dynamic $counter, dynamic $ign, dynamic $fmt) ==> {
-      $counter__13 = null;
-      $counter__12 = null;
-      $counter__11 = null;
-      $counter__10 = null;
-      $counter__9 = null;
-      $counter__8 = null;
-      $counter__7 = null;
-      $counter__6 = null;
-      $counter__5 = null;
-      $counter__4 = null;
-      $counter__3 = null;
-      $counter__2 = null;
-      $counter__1 = null;
-      $counter__0 = null;
-      $dJ_ = null;
-      $fmtty = null;
+      $counter__13 = null as dynamic;
+      $counter__12 = null as dynamic;
+      $counter__11 = null as dynamic;
+      $counter__10 = null as dynamic;
+      $counter__9 = null as dynamic;
+      $counter__8 = null as dynamic;
+      $counter__7 = null as dynamic;
+      $counter__6 = null as dynamic;
+      $counter__5 = null as dynamic;
+      $counter__4 = null as dynamic;
+      $counter__3 = null as dynamic;
+      $counter__2 = null as dynamic;
+      $counter__1 = null as dynamic;
+      $counter__0 = null as dynamic;
+      $dJ_ = null as dynamic;
+      $fmtty = null as dynamic;
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -3484,8 +3484,8 @@ final class CamlinternalFormat {
       return $caml_trampoline($fmtty_of_fmt__0(0, $fmtty));
     };
     $fmtty_of_formatting_gen->contents = (dynamic $formatting_gen) ==> {
-      $fmt = null;
-      $match = null;
+      $fmt = null as dynamic;
+      $match = null as dynamic;
       if (0 === $formatting_gen[0]) {
         $match = $formatting_gen[1];
         $fmt = $match[1];
@@ -3506,10 +3506,10 @@ final class CamlinternalFormat {
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
     $type_padding = (dynamic $pad, dynamic $match) ==> {
-      $padty__0 = null;
-      $rest = null;
-      $padty = null;
-      $w = null;
+      $padty__0 = null as dynamic;
+      $rest = null as dynamic;
+      $padty = null as dynamic;
+      $w = null as dynamic;
       if ($is_int($pad)) {
         return Vector{0, 0, $match};
       }
@@ -3528,11 +3528,11 @@ final class CamlinternalFormat {
       }
     };
     $type_padprec = (dynamic $pad, dynamic $prec, dynamic $fmtty) ==> {
-      $rest = null;
-      $pad__0 = null;
-      $dI_ = null;
-      $rest__0 = null;
-      $pad__1 = null;
+      $rest = null as dynamic;
+      $pad__0 = null as dynamic;
+      $dI_ = null as dynamic;
+      $rest__0 = null as dynamic;
+      $pad__1 = null as dynamic;
       $match = $type_padding($pad, $fmtty);
       if ($is_int($prec)) {
         if (0 === $prec) {
@@ -3554,7 +3554,7 @@ final class CamlinternalFormat {
       return Vector{0, $pad__2, Vector{0, $p}, $rest__1};
     };
     $type_format = (dynamic $fmt, dynamic $fmtty) ==> {
-      $fmt__0 = null;
+      $fmt__0 = null as dynamic;
       $dH_ = $type_format_gen->contents($fmt, $fmtty);
       if ($is_int($dH_[2])) {$fmt__0 = $dH_[1];return $fmt__0;}
       throw $caml_wrap_thrown_exception($Type_mismatch) as \Throwable;
@@ -3566,19 +3566,19 @@ final class CamlinternalFormat {
       return Vector{0, Vector{23, $ign, $fmt__0}, $fmtty__0};
     };
     $type_ignored_param = (dynamic $ign, dynamic $fmt, dynamic $fmtty) ==> {
-      $sub_fmtty__1 = null;
-      $fmt__1 = null;
-      $fmtty__1 = null;
-      $match__0 = null;
-      $dG_ = null;
-      $pad_opt__0 = null;
-      $sub_fmtty__0 = null;
-      $pad_opt = null;
-      $sub_fmtty = null;
-      $fmt__0 = null;
-      $fmtty__0 = null;
-      $match = null;
-      $fmtty_rest = null;
+      $sub_fmtty__1 = null as dynamic;
+      $fmt__1 = null as dynamic;
+      $fmtty__1 = null as dynamic;
+      $match__0 = null as dynamic;
+      $dG_ = null as dynamic;
+      $pad_opt__0 = null as dynamic;
+      $sub_fmtty__0 = null as dynamic;
+      $pad_opt = null as dynamic;
+      $sub_fmtty = null as dynamic;
+      $fmt__0 = null as dynamic;
+      $fmtty__0 = null as dynamic;
+      $match = null as dynamic;
+      $fmtty_rest = null as dynamic;
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -3667,15 +3667,15 @@ final class CamlinternalFormat {
     };
     $type_formatting_gen = 
     (dynamic $formatting_gen, dynamic $fmt0, dynamic $fmtty0) ==> {
-      $fmt3 = null;
-      $fmtty3 = null;
-      $match__1 = null;
-      $fmt2 = null;
-      $fmtty2 = null;
-      $match__0 = null;
-      $fmt1 = null;
-      $str = null;
-      $match = null;
+      $fmt3 = null as dynamic;
+      $fmtty3 = null as dynamic;
+      $match__1 = null as dynamic;
+      $fmt2 = null as dynamic;
+      $fmtty2 = null as dynamic;
+      $match__0 = null as dynamic;
+      $fmt1 = null as dynamic;
+      $str = null as dynamic;
+      $match = null as dynamic;
       if (0 === $formatting_gen[0]) {
         $match = $formatting_gen[1];
         $str = $match[2];
@@ -3708,171 +3708,171 @@ final class CamlinternalFormat {
       };
     };
     $type_format_gen->contents = (dynamic $fmt, dynamic $match) ==> {
-      $ign = null;
-      $rest = null;
-      $fmt__20 = null;
-      $fmtty__19 = null;
-      $match__20 = null;
-      $counter = null;
-      $fmt_rest__20 = null;
-      $fmtty_rest__15 = null;
-      $fmt__19 = null;
-      $fmtty__18 = null;
-      $match__19 = null;
-      $width_opt = null;
-      $char_set = null;
-      $fmt_rest__19 = null;
-      $fmtty_rest__14 = null;
-      $fmt__18 = null;
-      $fmtty__17 = null;
-      $match__18 = null;
-      $fmt_rest__18 = null;
-      $fmtty_rest__13 = null;
-      $formatting_gen = null;
-      $fmt_rest__17 = null;
-      $fmt__17 = null;
-      $fmtty__16 = null;
-      $match__17 = null;
-      $formatting_lit = null;
-      $fmt_rest__16 = null;
-      $fmt__16 = null;
-      $fmtty__15 = null;
-      $match__16 = null;
-      $fmt_rest__15 = null;
-      $fmtty_rest__12 = null;
-      $fmt__15 = null;
-      $fmtty__14 = null;
-      $match__15 = null;
-      $fmt_rest__14 = null;
-      $fmtty_rest__11 = null;
-      $fmt__14 = null;
-      $fmtty__13 = null;
-      $match__14 = null;
-      $dF_ = null;
-      $pad_opt__0 = null;
-      $sub_fmtty__1 = null;
-      $fmt_rest__13 = null;
-      $sub_fmtty1 = null;
-      $fmtty_rest__10 = null;
-      $fmt__13 = null;
-      $fmtty__12 = null;
-      $match__13 = null;
-      $pad_opt = null;
-      $sub_fmtty__0 = null;
-      $fmt_rest__12 = null;
-      $sub_fmtty = null;
-      $fmtty_rest__9 = null;
-      $fmt__12 = null;
-      $fmtty__11 = null;
-      $match__12 = null;
-      $chr = null;
-      $fmt_rest__11 = null;
-      $fmt__11 = null;
-      $fmtty__10 = null;
-      $match__11 = null;
-      $str = null;
-      $fmt_rest__10 = null;
-      $fmt__10 = null;
-      $fmtty__9 = null;
-      $match__10 = null;
-      $fmt_rest__9 = null;
-      $fmt__9 = null;
-      $fmtty__8 = null;
-      $match__9 = null;
-      $fmtty_rest__8 = null;
-      $dE_ = null;
-      $dD_ = null;
-      $dC_ = null;
-      $pad__6 = null;
-      $fmt_rest__8 = null;
-      $fmt__8 = null;
-      $fmtty__7 = null;
-      $match__8 = null;
-      $fmtty_rest__7 = null;
-      $dB_ = null;
-      $dA_ = null;
-      $dz_ = null;
-      $dy_ = null;
-      $fconv = null;
-      $pad__5 = null;
-      $prec__3 = null;
-      $fmt_rest__7 = null;
-      $fmt__7 = null;
-      $fmtty__6 = null;
-      $match__7 = null;
-      $fmtty_rest__6 = null;
-      $dx_ = null;
-      $dw_ = null;
-      $dv_ = null;
-      $du_ = null;
-      $iconv__2 = null;
-      $pad__4 = null;
-      $prec__2 = null;
-      $fmt_rest__6 = null;
-      $fmt__6 = null;
-      $fmtty__5 = null;
-      $match__6 = null;
-      $fmtty_rest__5 = null;
-      $dt_ = null;
-      $ds_ = null;
-      $dr_ = null;
-      $dq_ = null;
-      $iconv__1 = null;
-      $pad__3 = null;
-      $prec__1 = null;
-      $fmt_rest__5 = null;
-      $fmt__5 = null;
-      $fmtty__4 = null;
-      $match__5 = null;
-      $fmtty_rest__4 = null;
-      $dp_ = null;
-      $do_ = null;
-      $dn_ = null;
-      $dm_ = null;
-      $iconv__0 = null;
-      $pad__2 = null;
-      $prec__0 = null;
-      $fmt_rest__4 = null;
-      $fmt__4 = null;
-      $fmtty__3 = null;
-      $match__4 = null;
-      $fmtty_rest__3 = null;
-      $dl_ = null;
-      $dk_ = null;
-      $dj_ = null;
-      $di_ = null;
-      $iconv = null;
-      $pad__1 = null;
-      $prec = null;
-      $fmt_rest__3 = null;
-      $fmt__3 = null;
-      $fmtty__2 = null;
-      $match__3 = null;
-      $fmtty_rest__2 = null;
-      $dh_ = null;
-      $dg_ = null;
-      $df_ = null;
-      $pad__0 = null;
-      $fmt_rest__2 = null;
-      $fmt__2 = null;
-      $fmtty__1 = null;
-      $match__2 = null;
-      $fmtty_rest__1 = null;
-      $de_ = null;
-      $dd_ = null;
-      $dc_ = null;
-      $pad = null;
-      $fmt_rest__1 = null;
-      $fmt__1 = null;
-      $fmtty__0 = null;
-      $match__1 = null;
-      $fmt_rest__0 = null;
-      $fmtty_rest__0 = null;
-      $fmt__0 = null;
-      $fmtty = null;
-      $match__0 = null;
-      $fmt_rest = null;
-      $fmtty_rest = null;
+      $ign = null as dynamic;
+      $rest = null as dynamic;
+      $fmt__20 = null as dynamic;
+      $fmtty__19 = null as dynamic;
+      $match__20 = null as dynamic;
+      $counter = null as dynamic;
+      $fmt_rest__20 = null as dynamic;
+      $fmtty_rest__15 = null as dynamic;
+      $fmt__19 = null as dynamic;
+      $fmtty__18 = null as dynamic;
+      $match__19 = null as dynamic;
+      $width_opt = null as dynamic;
+      $char_set = null as dynamic;
+      $fmt_rest__19 = null as dynamic;
+      $fmtty_rest__14 = null as dynamic;
+      $fmt__18 = null as dynamic;
+      $fmtty__17 = null as dynamic;
+      $match__18 = null as dynamic;
+      $fmt_rest__18 = null as dynamic;
+      $fmtty_rest__13 = null as dynamic;
+      $formatting_gen = null as dynamic;
+      $fmt_rest__17 = null as dynamic;
+      $fmt__17 = null as dynamic;
+      $fmtty__16 = null as dynamic;
+      $match__17 = null as dynamic;
+      $formatting_lit = null as dynamic;
+      $fmt_rest__16 = null as dynamic;
+      $fmt__16 = null as dynamic;
+      $fmtty__15 = null as dynamic;
+      $match__16 = null as dynamic;
+      $fmt_rest__15 = null as dynamic;
+      $fmtty_rest__12 = null as dynamic;
+      $fmt__15 = null as dynamic;
+      $fmtty__14 = null as dynamic;
+      $match__15 = null as dynamic;
+      $fmt_rest__14 = null as dynamic;
+      $fmtty_rest__11 = null as dynamic;
+      $fmt__14 = null as dynamic;
+      $fmtty__13 = null as dynamic;
+      $match__14 = null as dynamic;
+      $dF_ = null as dynamic;
+      $pad_opt__0 = null as dynamic;
+      $sub_fmtty__1 = null as dynamic;
+      $fmt_rest__13 = null as dynamic;
+      $sub_fmtty1 = null as dynamic;
+      $fmtty_rest__10 = null as dynamic;
+      $fmt__13 = null as dynamic;
+      $fmtty__12 = null as dynamic;
+      $match__13 = null as dynamic;
+      $pad_opt = null as dynamic;
+      $sub_fmtty__0 = null as dynamic;
+      $fmt_rest__12 = null as dynamic;
+      $sub_fmtty = null as dynamic;
+      $fmtty_rest__9 = null as dynamic;
+      $fmt__12 = null as dynamic;
+      $fmtty__11 = null as dynamic;
+      $match__12 = null as dynamic;
+      $chr = null as dynamic;
+      $fmt_rest__11 = null as dynamic;
+      $fmt__11 = null as dynamic;
+      $fmtty__10 = null as dynamic;
+      $match__11 = null as dynamic;
+      $str = null as dynamic;
+      $fmt_rest__10 = null as dynamic;
+      $fmt__10 = null as dynamic;
+      $fmtty__9 = null as dynamic;
+      $match__10 = null as dynamic;
+      $fmt_rest__9 = null as dynamic;
+      $fmt__9 = null as dynamic;
+      $fmtty__8 = null as dynamic;
+      $match__9 = null as dynamic;
+      $fmtty_rest__8 = null as dynamic;
+      $dE_ = null as dynamic;
+      $dD_ = null as dynamic;
+      $dC_ = null as dynamic;
+      $pad__6 = null as dynamic;
+      $fmt_rest__8 = null as dynamic;
+      $fmt__8 = null as dynamic;
+      $fmtty__7 = null as dynamic;
+      $match__8 = null as dynamic;
+      $fmtty_rest__7 = null as dynamic;
+      $dB_ = null as dynamic;
+      $dA_ = null as dynamic;
+      $dz_ = null as dynamic;
+      $dy_ = null as dynamic;
+      $fconv = null as dynamic;
+      $pad__5 = null as dynamic;
+      $prec__3 = null as dynamic;
+      $fmt_rest__7 = null as dynamic;
+      $fmt__7 = null as dynamic;
+      $fmtty__6 = null as dynamic;
+      $match__7 = null as dynamic;
+      $fmtty_rest__6 = null as dynamic;
+      $dx_ = null as dynamic;
+      $dw_ = null as dynamic;
+      $dv_ = null as dynamic;
+      $du_ = null as dynamic;
+      $iconv__2 = null as dynamic;
+      $pad__4 = null as dynamic;
+      $prec__2 = null as dynamic;
+      $fmt_rest__6 = null as dynamic;
+      $fmt__6 = null as dynamic;
+      $fmtty__5 = null as dynamic;
+      $match__6 = null as dynamic;
+      $fmtty_rest__5 = null as dynamic;
+      $dt_ = null as dynamic;
+      $ds_ = null as dynamic;
+      $dr_ = null as dynamic;
+      $dq_ = null as dynamic;
+      $iconv__1 = null as dynamic;
+      $pad__3 = null as dynamic;
+      $prec__1 = null as dynamic;
+      $fmt_rest__5 = null as dynamic;
+      $fmt__5 = null as dynamic;
+      $fmtty__4 = null as dynamic;
+      $match__5 = null as dynamic;
+      $fmtty_rest__4 = null as dynamic;
+      $dp_ = null as dynamic;
+      $do_ = null as dynamic;
+      $dn_ = null as dynamic;
+      $dm_ = null as dynamic;
+      $iconv__0 = null as dynamic;
+      $pad__2 = null as dynamic;
+      $prec__0 = null as dynamic;
+      $fmt_rest__4 = null as dynamic;
+      $fmt__4 = null as dynamic;
+      $fmtty__3 = null as dynamic;
+      $match__4 = null as dynamic;
+      $fmtty_rest__3 = null as dynamic;
+      $dl_ = null as dynamic;
+      $dk_ = null as dynamic;
+      $dj_ = null as dynamic;
+      $di_ = null as dynamic;
+      $iconv = null as dynamic;
+      $pad__1 = null as dynamic;
+      $prec = null as dynamic;
+      $fmt_rest__3 = null as dynamic;
+      $fmt__3 = null as dynamic;
+      $fmtty__2 = null as dynamic;
+      $match__3 = null as dynamic;
+      $fmtty_rest__2 = null as dynamic;
+      $dh_ = null as dynamic;
+      $dg_ = null as dynamic;
+      $df_ = null as dynamic;
+      $pad__0 = null as dynamic;
+      $fmt_rest__2 = null as dynamic;
+      $fmt__2 = null as dynamic;
+      $fmtty__1 = null as dynamic;
+      $match__2 = null as dynamic;
+      $fmtty_rest__1 = null as dynamic;
+      $de_ = null as dynamic;
+      $dd_ = null as dynamic;
+      $dc_ = null as dynamic;
+      $pad = null as dynamic;
+      $fmt_rest__1 = null as dynamic;
+      $fmt__1 = null as dynamic;
+      $fmtty__0 = null as dynamic;
+      $match__1 = null as dynamic;
+      $fmt_rest__0 = null as dynamic;
+      $fmtty_rest__0 = null as dynamic;
+      $fmt__0 = null as dynamic;
+      $fmtty = null as dynamic;
+      $match__0 = null as dynamic;
+      $fmt_rest = null as dynamic;
+      $fmtty_rest = null as dynamic;
       if ($is_int($fmt)) {
         return Vector{0, 0, $match};
       }
@@ -4240,88 +4240,88 @@ final class CamlinternalFormat {
     };
     $type_ignored_format_substitution->contents = 
     (dynamic $sub_fmtty, dynamic $fmt, dynamic $match) ==> {
-      $sub_fmtty_rest__26 = null;
-      $fmt__13 = null;
-      $match__14 = null;
-      $sub_fmtty_rest__25 = null;
-      $fmtty_rest__12 = null;
-      $sub_fmtty_rest__24 = null;
-      $fmt__12 = null;
-      $match__13 = null;
-      $sub_fmtty_rest__23 = null;
-      $fmtty_rest__11 = null;
-      $sub_fmtty_rest__22 = null;
-      $fmt__11 = null;
-      $match__12 = null;
-      $sub_fmtty_rest__21 = null;
-      $fmtty_rest__10 = null;
-      $sub_fmtty_rest__20 = null;
-      $fmt__10 = null;
-      $match__11 = null;
-      $sub_fmtty_rest__19 = null;
-      $fmtty_rest__9 = null;
-      $sub_fmtty_rest__18 = null;
-      $fmt__9 = null;
-      $match__10 = null;
-      $f2 = null;
-      $f4 = null;
-      $match__9 = null;
-      $sub_fmtty__0 = null;
-      $db_ = null;
-      $da_ = null;
-      $sub1_fmtty__0 = null;
-      $sub2_fmtty__2 = null;
-      $sub_fmtty_rest__17 = null;
-      $sub1_fmtty = null;
-      $sub2_fmtty__1 = null;
-      $fmtty_rest__8 = null;
-      $sub_fmtty_rest__16 = null;
-      $fmt__8 = null;
-      $match__8 = null;
-      $sub2_fmtty__0 = null;
-      $sub_fmtty_rest__15 = null;
-      $sub2_fmtty = null;
-      $fmtty_rest__7 = null;
-      $sub_fmtty_rest__14 = null;
-      $fmt__7 = null;
-      $match__7 = null;
-      $sub_fmtty_rest__13 = null;
-      $fmtty_rest__6 = null;
-      $sub_fmtty_rest__12 = null;
-      $fmt__6 = null;
-      $match__6 = null;
-      $sub_fmtty_rest__11 = null;
-      $fmtty_rest__5 = null;
-      $sub_fmtty_rest__10 = null;
-      $fmt__5 = null;
-      $match__5 = null;
-      $sub_fmtty_rest__9 = null;
-      $fmtty_rest__4 = null;
-      $sub_fmtty_rest__8 = null;
-      $fmt__4 = null;
-      $match__4 = null;
-      $sub_fmtty_rest__7 = null;
-      $fmtty_rest__3 = null;
-      $sub_fmtty_rest__6 = null;
-      $fmt__3 = null;
-      $match__3 = null;
-      $sub_fmtty_rest__5 = null;
-      $fmtty_rest__2 = null;
-      $sub_fmtty_rest__4 = null;
-      $fmt__2 = null;
-      $match__2 = null;
-      $sub_fmtty_rest__3 = null;
-      $fmtty_rest__1 = null;
-      $sub_fmtty_rest__2 = null;
-      $fmt__1 = null;
-      $match__1 = null;
-      $sub_fmtty_rest__1 = null;
-      $fmtty_rest__0 = null;
-      $sub_fmtty_rest__0 = null;
-      $fmt__0 = null;
-      $match__0 = null;
-      $sub_fmtty_rest = null;
-      $fmtty_rest = null;
+      $sub_fmtty_rest__26 = null as dynamic;
+      $fmt__13 = null as dynamic;
+      $match__14 = null as dynamic;
+      $sub_fmtty_rest__25 = null as dynamic;
+      $fmtty_rest__12 = null as dynamic;
+      $sub_fmtty_rest__24 = null as dynamic;
+      $fmt__12 = null as dynamic;
+      $match__13 = null as dynamic;
+      $sub_fmtty_rest__23 = null as dynamic;
+      $fmtty_rest__11 = null as dynamic;
+      $sub_fmtty_rest__22 = null as dynamic;
+      $fmt__11 = null as dynamic;
+      $match__12 = null as dynamic;
+      $sub_fmtty_rest__21 = null as dynamic;
+      $fmtty_rest__10 = null as dynamic;
+      $sub_fmtty_rest__20 = null as dynamic;
+      $fmt__10 = null as dynamic;
+      $match__11 = null as dynamic;
+      $sub_fmtty_rest__19 = null as dynamic;
+      $fmtty_rest__9 = null as dynamic;
+      $sub_fmtty_rest__18 = null as dynamic;
+      $fmt__9 = null as dynamic;
+      $match__10 = null as dynamic;
+      $f2 = null as dynamic;
+      $f4 = null as dynamic;
+      $match__9 = null as dynamic;
+      $sub_fmtty__0 = null as dynamic;
+      $db_ = null as dynamic;
+      $da_ = null as dynamic;
+      $sub1_fmtty__0 = null as dynamic;
+      $sub2_fmtty__2 = null as dynamic;
+      $sub_fmtty_rest__17 = null as dynamic;
+      $sub1_fmtty = null as dynamic;
+      $sub2_fmtty__1 = null as dynamic;
+      $fmtty_rest__8 = null as dynamic;
+      $sub_fmtty_rest__16 = null as dynamic;
+      $fmt__8 = null as dynamic;
+      $match__8 = null as dynamic;
+      $sub2_fmtty__0 = null as dynamic;
+      $sub_fmtty_rest__15 = null as dynamic;
+      $sub2_fmtty = null as dynamic;
+      $fmtty_rest__7 = null as dynamic;
+      $sub_fmtty_rest__14 = null as dynamic;
+      $fmt__7 = null as dynamic;
+      $match__7 = null as dynamic;
+      $sub_fmtty_rest__13 = null as dynamic;
+      $fmtty_rest__6 = null as dynamic;
+      $sub_fmtty_rest__12 = null as dynamic;
+      $fmt__6 = null as dynamic;
+      $match__6 = null as dynamic;
+      $sub_fmtty_rest__11 = null as dynamic;
+      $fmtty_rest__5 = null as dynamic;
+      $sub_fmtty_rest__10 = null as dynamic;
+      $fmt__5 = null as dynamic;
+      $match__5 = null as dynamic;
+      $sub_fmtty_rest__9 = null as dynamic;
+      $fmtty_rest__4 = null as dynamic;
+      $sub_fmtty_rest__8 = null as dynamic;
+      $fmt__4 = null as dynamic;
+      $match__4 = null as dynamic;
+      $sub_fmtty_rest__7 = null as dynamic;
+      $fmtty_rest__3 = null as dynamic;
+      $sub_fmtty_rest__6 = null as dynamic;
+      $fmt__3 = null as dynamic;
+      $match__3 = null as dynamic;
+      $sub_fmtty_rest__5 = null as dynamic;
+      $fmtty_rest__2 = null as dynamic;
+      $sub_fmtty_rest__4 = null as dynamic;
+      $fmt__2 = null as dynamic;
+      $match__2 = null as dynamic;
+      $sub_fmtty_rest__3 = null as dynamic;
+      $fmtty_rest__1 = null as dynamic;
+      $sub_fmtty_rest__2 = null as dynamic;
+      $fmt__1 = null as dynamic;
+      $match__1 = null as dynamic;
+      $sub_fmtty_rest__1 = null as dynamic;
+      $fmtty_rest__0 = null as dynamic;
+      $sub_fmtty_rest__0 = null as dynamic;
+      $fmt__0 = null as dynamic;
+      $match__0 = null as dynamic;
+      $sub_fmtty_rest = null as dynamic;
+      $fmtty_rest = null as dynamic;
       if ($is_int($sub_fmtty)) {
         return Vector{0, 0, $type_format_gen->contents($fmt, $match)};
       }
@@ -4621,10 +4621,10 @@ final class CamlinternalFormat {
       return $type_format($fmt, $call1($CamlinternalFormatBasics[2], $c__));
     };
     $fix_padding = (dynamic $padty, dynamic $width, dynamic $str) ==> {
-      $switch__0 = null;
-      $switch__1 = null;
-      $switch__2 = null;
-      $switch__3 = null;
+      $switch__0 = null as dynamic;
+      $switch__1 = null as dynamic;
+      $switch__2 = null as dynamic;
+      $switch__3 = null as dynamic;
       $len = $caml_ml_string_length($str);
       $padty__0 = 0 <= $width ? $padty : (0);
       $width__0 = $call1($Pervasives[6], $width);
@@ -4702,13 +4702,13 @@ final class CamlinternalFormat {
       return $call1($Bytes[42], $res);
     };
     $fix_int_precision = (dynamic $prec, dynamic $str) ==> {
-      $res = null;
-      $res__0 = null;
-      $switcher = null;
-      $res__1 = null;
-      $switch__0 = null;
-      $switch__1 = null;
-      $switch__2 = null;
+      $res = null as dynamic;
+      $res__0 = null as dynamic;
+      $switcher = null as dynamic;
+      $res__1 = null as dynamic;
+      $switch__0 = null as dynamic;
+      $switch__1 = null as dynamic;
+      $switch__2 = null as dynamic;
       $prec__0 = $call1($Pervasives[6], $prec);
       $len = $caml_ml_string_length($str);
       $c = $caml_string_get($str, 0);
@@ -5009,12 +5009,12 @@ final class CamlinternalFormat {
       return $runtime["caml_int64_format"]($format_of_iconvL($iconv), $n);
     };
     $convert_float = (dynamic $fconv, dynamic $prec, dynamic $x) ==> {
-      $switch__0 = null;
-      $match = null;
-      $is_valid = null;
-      $len = null;
-      $str = null;
-      $sign = null;
+      $switch__0 = null as dynamic;
+      $match = null as dynamic;
+      $is_valid = null as dynamic;
+      $len = null as dynamic;
+      $str = null as dynamic;
+      $sign = null as dynamic;
       if (16 <= $fconv) {
         if (17 <= $fconv) {
           switch((int) ($fconv + -17)) {
@@ -5048,10 +5048,10 @@ final class CamlinternalFormat {
         $len = $caml_ml_string_length($str__0);
         $is_valid =
           (dynamic $i) ==> {
-            $match = null;
-            $c8_ = null;
-            $i__1 = null;
-            $switch__0 = null;
+            $match = null as dynamic;
+            $c8_ = null as dynamic;
+            $i__1 = null as dynamic;
+            $switch__0 = null as dynamic;
             $i__0 = $i;
             for (;;) {
               if ($i__0 === $len) {return 0;}
@@ -5094,12 +5094,12 @@ final class CamlinternalFormat {
     };
     $make_float_padding_precision = 
     (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt, dynamic $pad, dynamic $match, dynamic $fconv) ==> {
-      $p__1 = null;
-      $c7_ = null;
-      $p__0 = null;
-      $c6_ = null;
-      $c5_ = null;
-      $p = null;
+      $p__1 = null as dynamic;
+      $c7_ = null as dynamic;
+      $p__0 = null as dynamic;
+      $c6_ = null as dynamic;
+      $c5_ = null as dynamic;
+      $p = null as dynamic;
       if ($is_int($pad)) {
         if ($is_int($match)) {
           return 0 === $match
@@ -5180,12 +5180,12 @@ final class CamlinternalFormat {
     };
     $make_int_padding_precision = 
     (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt, dynamic $pad, dynamic $match, dynamic $trans, dynamic $iconv) ==> {
-      $p__1 = null;
-      $c4_ = null;
-      $p__0 = null;
-      $c3_ = null;
-      $c2_ = null;
-      $p = null;
+      $p__1 = null as dynamic;
+      $c4_ = null as dynamic;
+      $p__0 = null as dynamic;
+      $c3_ = null as dynamic;
+      $c2_ = null as dynamic;
+      $p = null as dynamic;
       if ($is_int($pad)) {
         if ($is_int($match)) {
           return 0 === $match
@@ -5276,9 +5276,9 @@ final class CamlinternalFormat {
     };
     $make_padding = 
     (dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt, dynamic $pad, dynamic $trans) ==> {
-      $padty__0 = null;
-      $padty = null;
-      $width = null;
+      $padty__0 = null as dynamic;
+      $padty = null as dynamic;
+      $width = null as dynamic;
       if ($is_int($pad)) {
         return (dynamic $x) ==> {
           $new_acc = Vector{4, $acc, $call1($trans, $x)} as dynamic;
@@ -5311,75 +5311,75 @@ final class CamlinternalFormat {
     };
     $make_printf__0 = 
     (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt) ==> {
-      $rest = null;
-      $rest__0 = null;
-      $rest__1 = null;
-      $pad = null;
-      $rest__2 = null;
-      $pad__0 = null;
-      $rest__3 = null;
-      $prec = null;
-      $pad__1 = null;
-      $iconv = null;
-      $rest__4 = null;
-      $prec__0 = null;
-      $pad__2 = null;
-      $iconv__0 = null;
-      $rest__5 = null;
-      $prec__1 = null;
-      $pad__3 = null;
-      $iconv__1 = null;
-      $rest__6 = null;
-      $prec__2 = null;
-      $pad__4 = null;
-      $iconv__2 = null;
-      $rest__7 = null;
-      $prec__3 = null;
-      $pad__5 = null;
-      $fconv = null;
-      $rest__8 = null;
-      $pad__6 = null;
-      $fmt__1 = null;
-      $acc__1 = null;
-      $fmt__2 = null;
-      $str = null;
-      $acc__2 = null;
-      $fmt__3 = null;
-      $chr = null;
-      $acc__3 = null;
-      $rest__9 = null;
-      $sub_fmtty = null;
-      $ty = null;
-      $rest__10 = null;
-      $fmtty = null;
-      $rest__11 = null;
-      $rest__12 = null;
-      $fmt__4 = null;
-      $fmting_lit = null;
-      $acc__4 = null;
-      $cZ_ = null;
-      $rest__13 = null;
-      $match = null;
-      $fmt__5 = null;
-      $k__1 = null;
-      $rest__14 = null;
-      $match__0 = null;
-      $fmt__6 = null;
-      $k__2 = null;
-      $rest__15 = null;
-      $new_acc = null;
-      $rest__16 = null;
-      $rest__17 = null;
-      $rest__18 = null;
-      $ign = null;
-      $rest__19 = null;
-      $f = null;
-      $arity = null;
-      $c0_ = null;
-      $k__3 = null;
-      $k__4 = null;
-      $counter__0 = null;
-      $counter__1 = null;
+      $rest = null as dynamic;
+      $rest__0 = null as dynamic;
+      $rest__1 = null as dynamic;
+      $pad = null as dynamic;
+      $rest__2 = null as dynamic;
+      $pad__0 = null as dynamic;
+      $rest__3 = null as dynamic;
+      $prec = null as dynamic;
+      $pad__1 = null as dynamic;
+      $iconv = null as dynamic;
+      $rest__4 = null as dynamic;
+      $prec__0 = null as dynamic;
+      $pad__2 = null as dynamic;
+      $iconv__0 = null as dynamic;
+      $rest__5 = null as dynamic;
+      $prec__1 = null as dynamic;
+      $pad__3 = null as dynamic;
+      $iconv__1 = null as dynamic;
+      $rest__6 = null as dynamic;
+      $prec__2 = null as dynamic;
+      $pad__4 = null as dynamic;
+      $iconv__2 = null as dynamic;
+      $rest__7 = null as dynamic;
+      $prec__3 = null as dynamic;
+      $pad__5 = null as dynamic;
+      $fconv = null as dynamic;
+      $rest__8 = null as dynamic;
+      $pad__6 = null as dynamic;
+      $fmt__1 = null as dynamic;
+      $acc__1 = null as dynamic;
+      $fmt__2 = null as dynamic;
+      $str = null as dynamic;
+      $acc__2 = null as dynamic;
+      $fmt__3 = null as dynamic;
+      $chr = null as dynamic;
+      $acc__3 = null as dynamic;
+      $rest__9 = null as dynamic;
+      $sub_fmtty = null as dynamic;
+      $ty = null as dynamic;
+      $rest__10 = null as dynamic;
+      $fmtty = null as dynamic;
+      $rest__11 = null as dynamic;
+      $rest__12 = null as dynamic;
+      $fmt__4 = null as dynamic;
+      $fmting_lit = null as dynamic;
+      $acc__4 = null as dynamic;
+      $cZ_ = null as dynamic;
+      $rest__13 = null as dynamic;
+      $match = null as dynamic;
+      $fmt__5 = null as dynamic;
+      $k__1 = null as dynamic;
+      $rest__14 = null as dynamic;
+      $match__0 = null as dynamic;
+      $fmt__6 = null as dynamic;
+      $k__2 = null as dynamic;
+      $rest__15 = null as dynamic;
+      $new_acc = null as dynamic;
+      $rest__16 = null as dynamic;
+      $rest__17 = null as dynamic;
+      $rest__18 = null as dynamic;
+      $ign = null as dynamic;
+      $rest__19 = null as dynamic;
+      $f = null as dynamic;
+      $arity = null as dynamic;
+      $c0_ = null as dynamic;
+      $k__3 = null as dynamic;
+      $k__4 = null as dynamic;
+      $counter__0 = null as dynamic;
+      $counter__1 = null as dynamic;
       $k__0 = $k;
       $acc__0 = $acc;
       $fmt__0 = $fmt;
@@ -5722,22 +5722,22 @@ final class CamlinternalFormat {
     };
     $make_ignored_param__0->contents = 
     (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $ign, dynamic $fmt) ==> {
-      $counter__14 = null;
-      $counter__13 = null;
-      $counter__12 = null;
-      $counter__11 = null;
-      $counter__10 = null;
-      $counter__9 = null;
-      $counter__8 = null;
-      $counter__7 = null;
-      $counter__6 = null;
-      $counter__5 = null;
-      $counter__4 = null;
-      $counter__3 = null;
-      $counter__2 = null;
-      $counter__1 = null;
-      $counter__0 = null;
-      $fmtty = null;
+      $counter__14 = null as dynamic;
+      $counter__13 = null as dynamic;
+      $counter__12 = null as dynamic;
+      $counter__11 = null as dynamic;
+      $counter__10 = null as dynamic;
+      $counter__9 = null as dynamic;
+      $counter__8 = null as dynamic;
+      $counter__7 = null as dynamic;
+      $counter__6 = null as dynamic;
+      $counter__5 = null as dynamic;
+      $counter__4 = null as dynamic;
+      $counter__3 = null as dynamic;
+      $counter__2 = null as dynamic;
+      $counter__1 = null as dynamic;
+      $counter__0 = null as dynamic;
+      $fmtty = null as dynamic;
       if ($is_int($ign)) {
         switch($ign) {
           // FALLTHROUGH
@@ -5994,23 +5994,23 @@ final class CamlinternalFormat {
     };
     $make_from_fmtty__0->contents = 
     (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $fmtty, dynamic $fmt) ==> {
-      $counter__0 = null;
-      $rest__11 = null;
-      $rest__10 = null;
-      $rest__9 = null;
-      $ty = null;
-      $ty1 = null;
-      $ty2 = null;
-      $rest__8 = null;
-      $rest__7 = null;
-      $rest__6 = null;
-      $rest__5 = null;
-      $rest__4 = null;
-      $rest__3 = null;
-      $rest__2 = null;
-      $rest__1 = null;
-      $rest__0 = null;
-      $rest = null;
+      $counter__0 = null as dynamic;
+      $rest__11 = null as dynamic;
+      $rest__10 = null as dynamic;
+      $rest__9 = null as dynamic;
+      $ty = null as dynamic;
+      $ty1 = null as dynamic;
+      $ty2 = null as dynamic;
+      $rest__8 = null as dynamic;
+      $rest__7 = null as dynamic;
+      $rest__6 = null as dynamic;
+      $rest__5 = null as dynamic;
+      $rest__4 = null as dynamic;
+      $rest__3 = null as dynamic;
+      $rest__2 = null as dynamic;
+      $rest__1 = null as dynamic;
+      $rest__0 = null as dynamic;
+      $rest = null as dynamic;
       if ($is_int($fmtty)) {
         if ($counter < 50) {
           $counter__0 = (int) ($counter + 1);
@@ -6121,7 +6121,7 @@ final class CamlinternalFormat {
     };
     $make_invalid_arg->contents = 
     (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $fmt) ==> {
-      $counter__0 = null;
+      $counter__0 = null as dynamic;
       $cX_ = Vector{8, $acc, $cst_Printf_bad_conversion__0} as dynamic;
       if ($counter < 50) {
         $counter__0 = (int) ($counter + 1);
@@ -6134,8 +6134,8 @@ final class CamlinternalFormat {
     };
     $make_custom__0->contents = 
     (dynamic $counter, dynamic $k, dynamic $o, dynamic $acc, dynamic $rest, dynamic $arity, dynamic $f) ==> {
-      $counter__0 = null;
-      $arity__0 = null;
+      $counter__0 = null as dynamic;
+      $arity__0 = null as dynamic;
       if ($arity) {
         $arity__0 = $arity[1];
         return (dynamic $x) ==> {
@@ -6184,21 +6184,21 @@ final class CamlinternalFormat {
     $const__0 = (dynamic $x, dynamic $param) ==> {return $x;};
     $fn_of_padding_precision = 
     (dynamic $k, dynamic $o, dynamic $fmt, dynamic $pad, dynamic $prec) ==> {
-      $cG_ = null;
-      $cF_ = null;
-      $cE_ = null;
-      $cD_ = null;
-      $cC_ = null;
-      $cB_ = null;
-      $cA_ = null;
-      $cz_ = null;
-      $cy_ = null;
-      $cx_ = null;
-      $cw_ = null;
-      $cv_ = null;
-      $cu_ = null;
-      $ct_ = null;
-      $cs_ = null;
+      $cG_ = null as dynamic;
+      $cF_ = null as dynamic;
+      $cE_ = null as dynamic;
+      $cD_ = null as dynamic;
+      $cC_ = null as dynamic;
+      $cB_ = null as dynamic;
+      $cA_ = null as dynamic;
+      $cz_ = null as dynamic;
+      $cy_ = null as dynamic;
+      $cx_ = null as dynamic;
+      $cw_ = null as dynamic;
+      $cv_ = null as dynamic;
+      $cu_ = null as dynamic;
+      $ct_ = null as dynamic;
+      $cs_ = null as dynamic;
       if ($is_int($pad)) {
         if ($is_int($prec)) {
           if (0 === $prec) {
@@ -6244,85 +6244,85 @@ final class CamlinternalFormat {
     };
     $make_iprintf__0 = 
     (dynamic $counter, dynamic $k, dynamic $o, dynamic $fmt) ==> {
-      $rest = null;
-      $bH_ = null;
-      $rest__0 = null;
-      $bI_ = null;
-      $bJ_ = null;
-      $rest__1 = null;
-      $bK_ = null;
-      $rest__2 = null;
-      $bL_ = null;
-      $rest__3 = null;
-      $bM_ = null;
-      $bN_ = null;
-      $bO_ = null;
-      $rest__4 = null;
-      $bP_ = null;
-      $rest__5 = null;
-      $bQ_ = null;
-      $rest__6 = null;
-      $bR_ = null;
-      $bS_ = null;
-      $rest__7 = null;
-      $prec = null;
-      $pad = null;
-      $rest__8 = null;
-      $prec__0 = null;
-      $pad__0 = null;
-      $rest__9 = null;
-      $prec__1 = null;
-      $pad__1 = null;
-      $rest__10 = null;
-      $prec__2 = null;
-      $pad__2 = null;
-      $rest__11 = null;
-      $prec__3 = null;
-      $pad__3 = null;
-      $bT_ = null;
-      $rest__12 = null;
-      $bU_ = null;
-      $rest__13 = null;
-      $bV_ = null;
-      $rest__14 = null;
-      $bW_ = null;
-      $bX_ = null;
-      $fmt__1 = null;
-      $fmt__2 = null;
-      $fmt__3 = null;
-      $rest__15 = null;
-      $bY_ = null;
-      $rest__16 = null;
-      $fmtty = null;
-      $rest__17 = null;
-      $bZ_ = null;
-      $b0_ = null;
-      $rest__18 = null;
-      $b1_ = null;
-      $fmt__4 = null;
-      $b2_ = null;
-      $rest__19 = null;
-      $match = null;
-      $fmt__5 = null;
-      $k__1 = null;
-      $rest__20 = null;
-      $match__0 = null;
-      $fmt__6 = null;
-      $k__2 = null;
-      $rest__21 = null;
-      $b3_ = null;
-      $rest__22 = null;
-      $b4_ = null;
-      $rest__23 = null;
-      $b5_ = null;
-      $rest__24 = null;
-      $ign = null;
-      $b6_ = null;
-      $rest__25 = null;
-      $arity = null;
-      $k__3 = null;
-      $k__4 = null;
-      $counter__0 = null;
+      $rest = null as dynamic;
+      $bH_ = null as dynamic;
+      $rest__0 = null as dynamic;
+      $bI_ = null as dynamic;
+      $bJ_ = null as dynamic;
+      $rest__1 = null as dynamic;
+      $bK_ = null as dynamic;
+      $rest__2 = null as dynamic;
+      $bL_ = null as dynamic;
+      $rest__3 = null as dynamic;
+      $bM_ = null as dynamic;
+      $bN_ = null as dynamic;
+      $bO_ = null as dynamic;
+      $rest__4 = null as dynamic;
+      $bP_ = null as dynamic;
+      $rest__5 = null as dynamic;
+      $bQ_ = null as dynamic;
+      $rest__6 = null as dynamic;
+      $bR_ = null as dynamic;
+      $bS_ = null as dynamic;
+      $rest__7 = null as dynamic;
+      $prec = null as dynamic;
+      $pad = null as dynamic;
+      $rest__8 = null as dynamic;
+      $prec__0 = null as dynamic;
+      $pad__0 = null as dynamic;
+      $rest__9 = null as dynamic;
+      $prec__1 = null as dynamic;
+      $pad__1 = null as dynamic;
+      $rest__10 = null as dynamic;
+      $prec__2 = null as dynamic;
+      $pad__2 = null as dynamic;
+      $rest__11 = null as dynamic;
+      $prec__3 = null as dynamic;
+      $pad__3 = null as dynamic;
+      $bT_ = null as dynamic;
+      $rest__12 = null as dynamic;
+      $bU_ = null as dynamic;
+      $rest__13 = null as dynamic;
+      $bV_ = null as dynamic;
+      $rest__14 = null as dynamic;
+      $bW_ = null as dynamic;
+      $bX_ = null as dynamic;
+      $fmt__1 = null as dynamic;
+      $fmt__2 = null as dynamic;
+      $fmt__3 = null as dynamic;
+      $rest__15 = null as dynamic;
+      $bY_ = null as dynamic;
+      $rest__16 = null as dynamic;
+      $fmtty = null as dynamic;
+      $rest__17 = null as dynamic;
+      $bZ_ = null as dynamic;
+      $b0_ = null as dynamic;
+      $rest__18 = null as dynamic;
+      $b1_ = null as dynamic;
+      $fmt__4 = null as dynamic;
+      $b2_ = null as dynamic;
+      $rest__19 = null as dynamic;
+      $match = null as dynamic;
+      $fmt__5 = null as dynamic;
+      $k__1 = null as dynamic;
+      $rest__20 = null as dynamic;
+      $match__0 = null as dynamic;
+      $fmt__6 = null as dynamic;
+      $k__2 = null as dynamic;
+      $rest__21 = null as dynamic;
+      $b3_ = null as dynamic;
+      $rest__22 = null as dynamic;
+      $b4_ = null as dynamic;
+      $rest__23 = null as dynamic;
+      $b5_ = null as dynamic;
+      $rest__24 = null as dynamic;
+      $ign = null as dynamic;
+      $b6_ = null as dynamic;
+      $rest__25 = null as dynamic;
+      $arity = null as dynamic;
+      $k__3 = null as dynamic;
+      $k__4 = null as dynamic;
+      $counter__0 = null as dynamic;
       $k__0 = $k;
       $fmt__0 = $fmt;
       for (;;) {
@@ -6593,9 +6593,9 @@ final class CamlinternalFormat {
     };
     $fn_of_custom_arity__0->contents = 
     (dynamic $counter, dynamic $k, dynamic $o, dynamic $fmt, dynamic $param) ==> {
-      $counter__0 = null;
-      $bF_ = null;
-      $arity = null;
+      $counter__0 = null as dynamic;
+      $bF_ = null as dynamic;
+      $arity = null as dynamic;
       if ($param) {
         $arity = $param[1];
         $bF_ = $fn_of_custom_arity->contents($k, $o, $fmt, $arity);
@@ -6617,22 +6617,22 @@ final class CamlinternalFormat {
       );
     };
     $output_acc->contents = (dynamic $o, dynamic $acc) ==> {
-      $fmting_lit = null;
-      $p = null;
-      $s = null;
-      $bD_ = null;
-      $bE_ = null;
-      $acc__1 = null;
-      $acc__2 = null;
-      $s__0 = null;
-      $p__0 = null;
-      $c = null;
-      $p__1 = null;
-      $f = null;
-      $p__2 = null;
-      $p__3 = null;
-      $msg = null;
-      $p__4 = null;
+      $fmting_lit = null as dynamic;
+      $p = null as dynamic;
+      $s = null as dynamic;
+      $bD_ = null as dynamic;
+      $bE_ = null as dynamic;
+      $acc__1 = null as dynamic;
+      $acc__2 = null as dynamic;
+      $s__0 = null as dynamic;
+      $p__0 = null as dynamic;
+      $c = null as dynamic;
+      $p__1 = null as dynamic;
+      $f = null as dynamic;
+      $p__2 = null as dynamic;
+      $p__3 = null as dynamic;
+      $msg = null as dynamic;
+      $p__4 = null as dynamic;
       $acc__0 = $acc;
       for (;;) {
         if ($is_int($acc__0)) {return 0;}
@@ -6699,22 +6699,22 @@ final class CamlinternalFormat {
       }
     };
     $bufput_acc->contents = (dynamic $b, dynamic $acc) ==> {
-      $fmting_lit = null;
-      $p = null;
-      $s = null;
-      $bB_ = null;
-      $bC_ = null;
-      $acc__1 = null;
-      $acc__2 = null;
-      $s__0 = null;
-      $p__0 = null;
-      $c = null;
-      $p__1 = null;
-      $f = null;
-      $p__2 = null;
-      $acc__3 = null;
-      $msg = null;
-      $p__3 = null;
+      $fmting_lit = null as dynamic;
+      $p = null as dynamic;
+      $s = null as dynamic;
+      $bB_ = null as dynamic;
+      $bC_ = null as dynamic;
+      $acc__1 = null as dynamic;
+      $acc__2 = null as dynamic;
+      $s__0 = null as dynamic;
+      $p__0 = null as dynamic;
+      $c = null as dynamic;
+      $p__1 = null as dynamic;
+      $f = null as dynamic;
+      $p__2 = null as dynamic;
+      $acc__3 = null as dynamic;
+      $msg = null as dynamic;
+      $p__3 = null as dynamic;
       $acc__0 = $acc;
       for (;;) {
         if ($is_int($acc__0)) {return 0;}
@@ -6781,23 +6781,23 @@ final class CamlinternalFormat {
       }
     };
     $strput_acc->contents = (dynamic $b, dynamic $acc) ==> {
-      $fmting_lit = null;
-      $p = null;
-      $s = null;
-      $by_ = null;
-      $bz_ = null;
-      $acc__1 = null;
-      $acc__2 = null;
-      $s__0 = null;
-      $p__0 = null;
-      $c = null;
-      $p__1 = null;
-      $f = null;
-      $p__2 = null;
-      $bA_ = null;
-      $acc__3 = null;
-      $msg = null;
-      $p__3 = null;
+      $fmting_lit = null as dynamic;
+      $p = null as dynamic;
+      $s = null as dynamic;
+      $by_ = null as dynamic;
+      $bz_ = null as dynamic;
+      $acc__1 = null as dynamic;
+      $acc__2 = null as dynamic;
+      $s__0 = null as dynamic;
+      $p__0 = null as dynamic;
+      $c = null as dynamic;
+      $p__1 = null as dynamic;
+      $f = null as dynamic;
+      $p__2 = null as dynamic;
+      $bA_ = null as dynamic;
+      $acc__3 = null as dynamic;
+      $msg = null as dynamic;
+      $p__3 = null as dynamic;
       $acc__0 = $acc;
       for (;;) {
         if ($is_int($acc__0)) {return 0;}
@@ -6875,19 +6875,19 @@ final class CamlinternalFormat {
       return $make_printf->contents($k, 0, 0, $fmt);
     };
     $open_box_of_string = (dynamic $str) ==> {
-      $switch__0 = null;
-      $bv_ = null;
-      $bu_ = null;
-      $box_type = null;
-      $indent = null;
+      $switch__0 = null as dynamic;
+      $bv_ = null as dynamic;
+      $bu_ = null as dynamic;
+      $box_type = null as dynamic;
+      $indent = null as dynamic;
       if ($runtime["caml_string_equal"]($str, $cst__23)) {return $v_;}
       $len = $caml_ml_string_length($str);
       $invalid_box = (dynamic $param) ==> {
         return $call1($failwith_message($w_), $str);
       };
       $parse_spaces = (dynamic $i) ==> {
-        $match = null;
-        $i__1 = null;
+        $match = null as dynamic;
+        $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $len) {return $i__0;}
@@ -6899,9 +6899,9 @@ final class CamlinternalFormat {
         }
       };
       $parse_lword = (dynamic $i, dynamic $j) ==> {
-        $match = null;
-        $switcher = null;
-        $j__1 = null;
+        $match = null as dynamic;
+        $switcher = null as dynamic;
+        $j__1 = null as dynamic;
         $j__0 = $j;
         for (;;) {
           if ($j__0 === $len) {return $j__0;}
@@ -6914,9 +6914,9 @@ final class CamlinternalFormat {
         }
       };
       $parse_int = (dynamic $i, dynamic $j) ==> {
-        $match = null;
-        $j__1 = null;
-        $switch__0 = null;
+        $match = null as dynamic;
+        $j__1 = null as dynamic;
+        $switch__0 = null as dynamic;
         $j__0 = $j;
         for (;;) {
           if ($j__0 === $len) {return $j__0;}
@@ -6973,9 +6973,9 @@ final class CamlinternalFormat {
       return Vector{0, $indent, $box_type};
     };
     $make_padding_fmt_ebb = (dynamic $pad, dynamic $fmt) ==> {
-      $s__0 = null;
-      $s = null;
-      $w = null;
+      $s__0 = null as dynamic;
+      $s = null as dynamic;
+      $w = null as dynamic;
       if ($is_int($pad)) {
         return Vector{0, 0, $fmt};
       }
@@ -6997,9 +6997,9 @@ final class CamlinternalFormat {
       return Vector{0, Vector{0, $p}, $fmt};
     };
     $make_padprec_fmt_ebb = (dynamic $pad, dynamic $prec, dynamic $fmt) ==> {
-      $w = null;
-      $s = null;
-      $s__0 = null;
+      $w = null as dynamic;
+      $s = null as dynamic;
+      $s__0 = null as dynamic;
       $match = $make_precision_fmt_ebb($prec, $fmt);
       $fmt__0 = $match[2];
       $prec__0 = $match[1];
@@ -7031,8 +7031,8 @@ final class CamlinternalFormat {
       $parse_positive = new Ref();
       $parse_spaces = new Ref();
       $search_subformat_end = new Ref();
-      $legacy_behavior__0 = null;
-      $flag = null;
+      $legacy_behavior__0 = null as dynamic;
+      $flag = null as dynamic;
       if ($legacy_behavior) {
         $flag = $legacy_behavior[1];
         $legacy_behavior__0 = $flag;
@@ -7072,12 +7072,12 @@ final class CamlinternalFormat {
       };
       $parse_literal = 
       (dynamic $lit_start, dynamic $str_ind, dynamic $end_ind) ==> {
-        $match = null;
-        $match__0 = null;
-        $fmt_rest = null;
-        $match__1 = null;
-        $fmt_rest__0 = null;
-        $str_ind__1 = null;
+        $match = null as dynamic;
+        $match__0 = null as dynamic;
+        $fmt_rest = null as dynamic;
+        $match__1 = null as dynamic;
+        $fmt_rest__0 = null as dynamic;
+        $str_ind__1 = null as dynamic;
         $str_ind__0 = $str_ind;
         for (;;) {
           if ($str_ind__0 === $end_ind) {
@@ -7116,7 +7116,7 @@ final class CamlinternalFormat {
         $bp_ = 0 as dynamic;
         $bq_ = 0 as dynamic;
         $set_flag = (dynamic $str_ind, dynamic $flag) ==> {
-          $bt_ = null;
+          $bt_ = null as dynamic;
           $br_ = $flag[1];
           $bs_ = $br_ ? 1 - $legacy_behavior__0 : ($br_);
           if ($bs_) {
@@ -7127,13 +7127,13 @@ final class CamlinternalFormat {
           return 0;
         };
         $read_flags = (dynamic $str_ind) ==> {
-          $match = null;
-          $switcher = null;
-          $str_ind__1 = null;
-          $str_ind__2 = null;
-          $str_ind__3 = null;
-          $str_ind__4 = null;
-          $str_ind__5 = null;
+          $match = null as dynamic;
+          $switcher = null as dynamic;
+          $str_ind__1 = null as dynamic;
+          $str_ind__2 = null as dynamic;
+          $str_ind__3 = null as dynamic;
+          $str_ind__4 = null as dynamic;
+          $str_ind__5 = null as dynamic;
           $str_ind__0 = $str_ind;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
@@ -7204,168 +7204,168 @@ final class CamlinternalFormat {
       };
       $parse_conversion = 
       (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign, dynamic $pad, dynamic $prec, dynamic $padprec, dynamic $symb) ==> {
-        $fmt_result = null;
-        $aE_ = null;
-        $plus__0 = null;
-        $aF_ = null;
-        $hash__0 = null;
-        $aG_ = null;
-        $space__0 = null;
-        $aH_ = null;
-        $aI_ = null;
-        $aJ_ = null;
-        $aK_ = null;
-        $aL_ = null;
-        $plus__1 = null;
-        $switcher = null;
-        $aN_ = null;
-        $aO_ = null;
-        $aP_ = null;
-        $iconv = null;
-        $match = null;
-        $fmt_rest = null;
-        $ignored = null;
-        $aQ_ = null;
-        $aR_ = null;
-        $aS_ = null;
-        $match__0 = null;
-        $fmt_rest__0 = null;
-        $prec__0 = null;
-        $pad__0 = null;
-        $aT_ = null;
-        $aU_ = null;
-        $aV_ = null;
-        $iconv__0 = null;
-        $match__1 = null;
-        $fmt_rest__1 = null;
-        $ignored__0 = null;
-        $aW_ = null;
-        $aX_ = null;
-        $match__2 = null;
-        $fmt_rest__2 = null;
-        $prec__1 = null;
-        $pad__1 = null;
-        $aY_ = null;
-        $aZ_ = null;
-        $a0_ = null;
-        $iconv__1 = null;
-        $match__3 = null;
-        $fmt_rest__3 = null;
-        $ignored__1 = null;
-        $a1_ = null;
-        $a2_ = null;
-        $match__4 = null;
-        $fmt_rest__4 = null;
-        $prec__2 = null;
-        $pad__2 = null;
-        $match__5 = null;
-        $fmt_rest__5 = null;
-        $match__6 = null;
-        $fmt_rest__6 = null;
-        $sub_end = null;
-        $match__7 = null;
-        $fmt_rest__7 = null;
-        $match__8 = null;
-        $sub_fmt = null;
-        $sub_fmtty = null;
-        $ignored__2 = null;
-        $a3_ = null;
-        $pad__3 = null;
-        $match__9 = null;
-        $fmt_rest__8 = null;
-        $ignored__3 = null;
-        $a4_ = null;
-        $match__10 = null;
-        $fmt_rest__9 = null;
-        $pad__4 = null;
-        $match__11 = null;
-        $fmt_rest__10 = null;
-        $a5_ = null;
-        $a6_ = null;
-        $fconv = null;
-        $match__12 = null;
-        $fmt_rest__11 = null;
-        $a7_ = null;
-        $ignored__4 = null;
-        $a8_ = null;
-        $a9_ = null;
-        $match__13 = null;
-        $fmt_rest__12 = null;
-        $prec__3 = null;
-        $pad__5 = null;
-        $match__14 = null;
-        $fmt_rest__13 = null;
-        $counter = null;
-        $ignored__5 = null;
-        $a__ = null;
-        $match__15 = null;
-        $fmt_rest__14 = null;
-        $counter__0 = null;
-        $ignored__6 = null;
-        $ba_ = null;
-        $pad__6 = null;
-        $match__16 = null;
-        $fmt_rest__15 = null;
-        $ignored__7 = null;
-        $bb_ = null;
-        $match__17 = null;
-        $fmt_rest__16 = null;
-        $pad__7 = null;
-        $bc_ = null;
-        $bd_ = null;
-        $iconv__2 = null;
-        $match__18 = null;
-        $fmt_rest__17 = null;
-        $ignored__8 = null;
-        $be_ = null;
-        $bf_ = null;
-        $match__19 = null;
-        $fmt_rest__18 = null;
-        $prec__4 = null;
-        $pad__8 = null;
-        $match__20 = null;
-        $char_set = null;
-        $next_ind = null;
-        $match__21 = null;
-        $fmt_rest__19 = null;
-        $ignored__9 = null;
-        $bg_ = null;
-        $match__22 = null;
-        $fmt_rest__20 = null;
-        $char_format = null;
-        $scan_format = null;
-        $match__23 = null;
-        $fmt_rest__21 = null;
-        $match__24 = null;
-        $bh_ = null;
-        $bi_ = null;
-        $match__25 = null;
-        $fmt_rest__22 = null;
-        $bj_ = null;
-        $pad__9 = null;
-        $match__26 = null;
-        $fmt_rest__23 = null;
-        $ignored__10 = null;
-        $bk_ = null;
-        $match__27 = null;
-        $fmt_rest__24 = null;
-        $pad__10 = null;
-        $match__28 = null;
-        $fmt_rest__25 = null;
-        $sub_end__0 = null;
-        $match__29 = null;
-        $sub_fmt__0 = null;
-        $match__30 = null;
-        $fmt_rest__26 = null;
-        $sub_fmtty__0 = null;
-        $ignored__11 = null;
-        $bl_ = null;
-        $switch__0 = null;
-        $switch__1 = null;
-        $switch__2 = null;
-        $switch__3 = null;
-        $switch__4 = null;
-        $switch__5 = null;
+        $fmt_result = null as dynamic;
+        $aE_ = null as dynamic;
+        $plus__0 = null as dynamic;
+        $aF_ = null as dynamic;
+        $hash__0 = null as dynamic;
+        $aG_ = null as dynamic;
+        $space__0 = null as dynamic;
+        $aH_ = null as dynamic;
+        $aI_ = null as dynamic;
+        $aJ_ = null as dynamic;
+        $aK_ = null as dynamic;
+        $aL_ = null as dynamic;
+        $plus__1 = null as dynamic;
+        $switcher = null as dynamic;
+        $aN_ = null as dynamic;
+        $aO_ = null as dynamic;
+        $aP_ = null as dynamic;
+        $iconv = null as dynamic;
+        $match = null as dynamic;
+        $fmt_rest = null as dynamic;
+        $ignored = null as dynamic;
+        $aQ_ = null as dynamic;
+        $aR_ = null as dynamic;
+        $aS_ = null as dynamic;
+        $match__0 = null as dynamic;
+        $fmt_rest__0 = null as dynamic;
+        $prec__0 = null as dynamic;
+        $pad__0 = null as dynamic;
+        $aT_ = null as dynamic;
+        $aU_ = null as dynamic;
+        $aV_ = null as dynamic;
+        $iconv__0 = null as dynamic;
+        $match__1 = null as dynamic;
+        $fmt_rest__1 = null as dynamic;
+        $ignored__0 = null as dynamic;
+        $aW_ = null as dynamic;
+        $aX_ = null as dynamic;
+        $match__2 = null as dynamic;
+        $fmt_rest__2 = null as dynamic;
+        $prec__1 = null as dynamic;
+        $pad__1 = null as dynamic;
+        $aY_ = null as dynamic;
+        $aZ_ = null as dynamic;
+        $a0_ = null as dynamic;
+        $iconv__1 = null as dynamic;
+        $match__3 = null as dynamic;
+        $fmt_rest__3 = null as dynamic;
+        $ignored__1 = null as dynamic;
+        $a1_ = null as dynamic;
+        $a2_ = null as dynamic;
+        $match__4 = null as dynamic;
+        $fmt_rest__4 = null as dynamic;
+        $prec__2 = null as dynamic;
+        $pad__2 = null as dynamic;
+        $match__5 = null as dynamic;
+        $fmt_rest__5 = null as dynamic;
+        $match__6 = null as dynamic;
+        $fmt_rest__6 = null as dynamic;
+        $sub_end = null as dynamic;
+        $match__7 = null as dynamic;
+        $fmt_rest__7 = null as dynamic;
+        $match__8 = null as dynamic;
+        $sub_fmt = null as dynamic;
+        $sub_fmtty = null as dynamic;
+        $ignored__2 = null as dynamic;
+        $a3_ = null as dynamic;
+        $pad__3 = null as dynamic;
+        $match__9 = null as dynamic;
+        $fmt_rest__8 = null as dynamic;
+        $ignored__3 = null as dynamic;
+        $a4_ = null as dynamic;
+        $match__10 = null as dynamic;
+        $fmt_rest__9 = null as dynamic;
+        $pad__4 = null as dynamic;
+        $match__11 = null as dynamic;
+        $fmt_rest__10 = null as dynamic;
+        $a5_ = null as dynamic;
+        $a6_ = null as dynamic;
+        $fconv = null as dynamic;
+        $match__12 = null as dynamic;
+        $fmt_rest__11 = null as dynamic;
+        $a7_ = null as dynamic;
+        $ignored__4 = null as dynamic;
+        $a8_ = null as dynamic;
+        $a9_ = null as dynamic;
+        $match__13 = null as dynamic;
+        $fmt_rest__12 = null as dynamic;
+        $prec__3 = null as dynamic;
+        $pad__5 = null as dynamic;
+        $match__14 = null as dynamic;
+        $fmt_rest__13 = null as dynamic;
+        $counter = null as dynamic;
+        $ignored__5 = null as dynamic;
+        $a__ = null as dynamic;
+        $match__15 = null as dynamic;
+        $fmt_rest__14 = null as dynamic;
+        $counter__0 = null as dynamic;
+        $ignored__6 = null as dynamic;
+        $ba_ = null as dynamic;
+        $pad__6 = null as dynamic;
+        $match__16 = null as dynamic;
+        $fmt_rest__15 = null as dynamic;
+        $ignored__7 = null as dynamic;
+        $bb_ = null as dynamic;
+        $match__17 = null as dynamic;
+        $fmt_rest__16 = null as dynamic;
+        $pad__7 = null as dynamic;
+        $bc_ = null as dynamic;
+        $bd_ = null as dynamic;
+        $iconv__2 = null as dynamic;
+        $match__18 = null as dynamic;
+        $fmt_rest__17 = null as dynamic;
+        $ignored__8 = null as dynamic;
+        $be_ = null as dynamic;
+        $bf_ = null as dynamic;
+        $match__19 = null as dynamic;
+        $fmt_rest__18 = null as dynamic;
+        $prec__4 = null as dynamic;
+        $pad__8 = null as dynamic;
+        $match__20 = null as dynamic;
+        $char_set = null as dynamic;
+        $next_ind = null as dynamic;
+        $match__21 = null as dynamic;
+        $fmt_rest__19 = null as dynamic;
+        $ignored__9 = null as dynamic;
+        $bg_ = null as dynamic;
+        $match__22 = null as dynamic;
+        $fmt_rest__20 = null as dynamic;
+        $char_format = null as dynamic;
+        $scan_format = null as dynamic;
+        $match__23 = null as dynamic;
+        $fmt_rest__21 = null as dynamic;
+        $match__24 = null as dynamic;
+        $bh_ = null as dynamic;
+        $bi_ = null as dynamic;
+        $match__25 = null as dynamic;
+        $fmt_rest__22 = null as dynamic;
+        $bj_ = null as dynamic;
+        $pad__9 = null as dynamic;
+        $match__26 = null as dynamic;
+        $fmt_rest__23 = null as dynamic;
+        $ignored__10 = null as dynamic;
+        $bk_ = null as dynamic;
+        $match__27 = null as dynamic;
+        $fmt_rest__24 = null as dynamic;
+        $pad__10 = null as dynamic;
+        $match__28 = null as dynamic;
+        $fmt_rest__25 = null as dynamic;
+        $sub_end__0 = null as dynamic;
+        $match__29 = null as dynamic;
+        $sub_fmt__0 = null as dynamic;
+        $match__30 = null as dynamic;
+        $fmt_rest__26 = null as dynamic;
+        $sub_fmtty__0 = null as dynamic;
+        $ignored__11 = null as dynamic;
+        $bl_ = null as dynamic;
+        $switch__0 = null as dynamic;
+        $switch__1 = null as dynamic;
+        $switch__2 = null as dynamic;
+        $switch__3 = null as dynamic;
+        $switch__4 = null as dynamic;
+        $switch__5 = null as dynamic;
         $plus_used = Vector{0, 0} as dynamic;
         $hash_used = Vector{0, 0} as dynamic;
         $space_used = Vector{0, 0} as dynamic;
@@ -7383,7 +7383,7 @@ final class CamlinternalFormat {
           return $padprec;
         };
         $get_int_pad = (dynamic $param) ==> {
-          $n = null;
+          $n = null as dynamic;
           $pad = $get_pad(0);
           $match = $get_prec(0);
           if ($is_int($match)) {if (0 === $match) {return $pad;}}
@@ -7416,7 +7416,7 @@ final class CamlinternalFormat {
           }
         };
         $check_no_0 = (dynamic $symb, dynamic $pad) ==> {
-          $width = null;
+          $width = null as dynamic;
           if ($is_int($pad)) {return $pad;}
           else {
             if (0 === $pad[0]) {
@@ -7446,9 +7446,9 @@ final class CamlinternalFormat {
           }
         };
         $opt_of_pad = (dynamic $c, dynamic $pad) ==> {
-          $width__1 = null;
-          $width__0 = null;
-          $width = null;
+          $width__1 = null as dynamic;
+          $width__0 = null as dynamic;
+          $width = null as dynamic;
           if ($is_int($pad)) {return 0;}
           else {
             if (0 === $pad[0]) {
@@ -8060,8 +8060,8 @@ final class CamlinternalFormat {
       };
       $parse_after_precision = 
       (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $minus, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign, dynamic $pad, dynamic $match) ==> {
-        $n__0 = null;
-        $n = null;
+        $n__0 = null as dynamic;
+        $n = null as dynamic;
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $parse_conv = (dynamic $padprec) ==> {
           return $parse_conversion(
@@ -8094,9 +8094,9 @@ final class CamlinternalFormat {
       };
       $parse_precision = 
       (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $minus, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign, dynamic $pad) ==> {
-        $minus__0 = null;
-        $aD_ = null;
-        $switcher = null;
+        $minus__0 = null as dynamic;
+        $aD_ = null as dynamic;
+        $switcher = null as dynamic;
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $parse_literal = (dynamic $minus, dynamic $str_ind) ==> {
           $match = $parse_positive->contents($str_ind, $end_ind, 0);
@@ -8201,9 +8201,9 @@ final class CamlinternalFormat {
       };
       $parse_padding->contents = 
       (dynamic $pct_ind, dynamic $str_ind, dynamic $end_ind, dynamic $zero, dynamic $minus, dynamic $plus, dynamic $hash, dynamic $space, dynamic $ign) ==> {
-        $new_ind = null;
-        $width = null;
-        $match__0 = null;
+        $new_ind = null as dynamic;
+        $width = null as dynamic;
+        $match__0 = null as dynamic;
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $padty = 0 === $zero
           ? 0 === $minus ? 1 : (0)
@@ -8293,22 +8293,22 @@ final class CamlinternalFormat {
           }
       };
       $parse_magic_size = (dynamic $str_ind, dynamic $end_ind) ==> {
-        $switch__0 = null;
-        $s = null;
-        $str_ind_3 = null;
-        $str_ind_2 = null;
-        $size = null;
-        $match__3 = null;
-        $aB_ = null;
-        $match__2 = null;
-        $str_ind_1 = null;
-        $fmt_rest = null;
-        $match__0 = null;
-        $next_ind = null;
-        $formatting_lit = null;
-        $match = null;
-        $aA_ = null;
-        $az_ = null;
+        $switch__0 = null as dynamic;
+        $s = null as dynamic;
+        $str_ind_3 = null as dynamic;
+        $str_ind_2 = null as dynamic;
+        $size = null as dynamic;
+        $match__3 = null as dynamic;
+        $aB_ = null as dynamic;
+        $match__2 = null as dynamic;
+        $str_ind_1 = null as dynamic;
+        $fmt_rest = null as dynamic;
+        $match__0 = null as dynamic;
+        $next_ind = null as dynamic;
+        $formatting_lit = null as dynamic;
+        $match = null as dynamic;
+        $aA_ = null as dynamic;
+        $az_ = null as dynamic;
         try {
           $str_ind_1 = $parse_spaces->contents($str_ind, $end_ind);
           $match__2 = $caml_string_get($str, $str_ind_1);
@@ -8365,31 +8365,31 @@ final class CamlinternalFormat {
         return Vector{0, Vector{17, $O_, $fmt_rest__0}};
       };
       $parse_good_break = (dynamic $str_ind, dynamic $end_ind) ==> {
-        $switch__1 = null;
-        $switch__0 = null;
-        $ax_ = null;
-        $aw_ = null;
-        $s__0 = null;
-        $str_ind_5 = null;
-        $str_ind_4 = null;
-        $offset = null;
-        $match__3 = null;
-        $switcher__0 = null;
-        $av_ = null;
-        $au_ = null;
-        $s = null;
-        $switcher = null;
-        $match__2 = null;
-        $str_ind_3 = null;
-        $str_ind_2 = null;
-        $width = null;
-        $match__1 = null;
-        $match__0 = null;
-        $str_ind_1 = null;
-        $at_ = null;
-        $as_ = null;
-        $next_ind = null;
-        $formatting_lit__0 = null;
+        $switch__1 = null as dynamic;
+        $switch__0 = null as dynamic;
+        $ax_ = null as dynamic;
+        $aw_ = null as dynamic;
+        $s__0 = null as dynamic;
+        $str_ind_5 = null as dynamic;
+        $str_ind_4 = null as dynamic;
+        $offset = null as dynamic;
+        $match__3 = null as dynamic;
+        $switcher__0 = null as dynamic;
+        $av_ = null as dynamic;
+        $au_ = null as dynamic;
+        $s = null as dynamic;
+        $switcher = null as dynamic;
+        $match__2 = null as dynamic;
+        $str_ind_3 = null as dynamic;
+        $str_ind_2 = null as dynamic;
+        $width = null as dynamic;
+        $match__1 = null as dynamic;
+        $match__0 = null as dynamic;
+        $str_ind_1 = null as dynamic;
+        $at_ = null as dynamic;
+        $as_ = null as dynamic;
+        $next_ind = null as dynamic;
+        $formatting_lit__0 = null as dynamic;
         try {
           $as_ = $str_ind === $end_ind ? 1 : (0);
           $at_ =
@@ -8477,19 +8477,19 @@ final class CamlinternalFormat {
         return Vector{0, Vector{17, $formatting_lit__0, $fmt_rest}};
       };
       $parse_tag = (dynamic $is_open_tag, dynamic $str_ind, dynamic $end_ind) ==> {
-        $aq_ = null;
-        $formatting__0 = null;
-        $sub_format__0 = null;
-        $sub_fmt = null;
-        $match__2 = null;
-        $fmt_rest__0 = null;
-        $match__1 = null;
-        $sub_str = null;
-        $ind = null;
-        $match__0 = null;
-        $formatting = null;
-        $fmt_rest = null;
-        $match = null;
+        $aq_ = null as dynamic;
+        $formatting__0 = null as dynamic;
+        $sub_format__0 = null as dynamic;
+        $sub_fmt = null as dynamic;
+        $match__2 = null as dynamic;
+        $fmt_rest__0 = null as dynamic;
+        $match__1 = null as dynamic;
+        $sub_str = null as dynamic;
+        $ind = null as dynamic;
+        $match__0 = null as dynamic;
+        $formatting = null as dynamic;
+        $fmt_rest = null as dynamic;
+        $match = null as dynamic;
         try {
           if ($str_ind === $end_ind) {
             throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
@@ -8538,29 +8538,29 @@ final class CamlinternalFormat {
         }
       };
       $parse_after_at->contents = (dynamic $str_ind, dynamic $end_ind) ==> {
-        $fmt_rest__9 = null;
-        $match__9 = null;
-        $fmt_rest__8 = null;
-        $match__8 = null;
-        $fmt_rest__7 = null;
-        $match__7 = null;
-        $fmt_rest__6 = null;
-        $match__6 = null;
-        $fmt_rest__5 = null;
-        $match__5 = null;
-        $fmt_rest__4 = null;
-        $match__4 = null;
-        $fmt_rest__3 = null;
-        $match__3 = null;
-        $switcher__1 = null;
-        $fmt_rest__2 = null;
-        $match__2 = null;
-        $fmt_rest__1 = null;
-        $match__1 = null;
-        $switcher__0 = null;
-        $fmt_rest__0 = null;
-        $match__0 = null;
-        $switcher = null;
+        $fmt_rest__9 = null as dynamic;
+        $match__9 = null as dynamic;
+        $fmt_rest__8 = null as dynamic;
+        $match__8 = null as dynamic;
+        $fmt_rest__7 = null as dynamic;
+        $match__7 = null as dynamic;
+        $fmt_rest__6 = null as dynamic;
+        $match__6 = null as dynamic;
+        $fmt_rest__5 = null as dynamic;
+        $match__5 = null as dynamic;
+        $fmt_rest__4 = null as dynamic;
+        $match__4 = null as dynamic;
+        $fmt_rest__3 = null as dynamic;
+        $match__3 = null as dynamic;
+        $switcher__1 = null as dynamic;
+        $fmt_rest__2 = null as dynamic;
+        $match__2 = null as dynamic;
+        $fmt_rest__1 = null as dynamic;
+        $match__1 = null as dynamic;
+        $switcher__0 = null as dynamic;
+        $fmt_rest__0 = null as dynamic;
+        $match__0 = null as dynamic;
+        $switcher = null as dynamic;
         if ($str_ind === $end_ind) {return $L_;}
         $c = $caml_string_get($str, $str_ind);
         if (65 <= $c) {
@@ -8659,8 +8659,8 @@ final class CamlinternalFormat {
         return Vector{0, Vector{17, Vector{2, $c}, $fmt_rest}};
       };
       $check_open_box->contents = (dynamic $fmt) ==> {
-        $ao_ = null;
-        $str = null;
+        $ao_ = null as dynamic;
+        $str = null as dynamic;
         if (! $is_int($fmt) && 11 === $fmt[0]) {
           if ($is_int($fmt[2])) {
             $str = $fmt[1];
@@ -8677,17 +8677,17 @@ final class CamlinternalFormat {
       $parse_char_set->contents = (dynamic $str_ind, dynamic $end_ind) ==> {
         $parse_char_set_after_char__0 = new Ref();
         $parse_char_set_after_minus = new Ref();
-        $ah_ = null;
-        $str_ind__1 = null;
-        $reverse__0 = null;
-        $str_ind__0 = null;
-        $reverse = null;
+        $ah_ = null as dynamic;
+        $str_ind__1 = null as dynamic;
+        $reverse__0 = null as dynamic;
+        $str_ind__0 = null as dynamic;
+        $reverse = null as dynamic;
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $char_set = $create_char_set(0);
         $add_char = (dynamic $c) ==> {return $add_in_char_set($char_set, $c);};
         $add_range = (dynamic $c__0, dynamic $c) ==> {
-          $an_ = null;
-          $i = null;
+          $an_ = null as dynamic;
+          $i = null as dynamic;
           if (! ($c < $c__0)) {
             $i = $c__0;
             for (;;) {
@@ -8704,10 +8704,10 @@ final class CamlinternalFormat {
         };
         $parse_char_set_content = 
         (dynamic $counter, dynamic $str_ind, dynamic $end_ind) ==> {
-          $c = null;
-          $str_ind__1 = null;
-          $am_ = null;
-          $counter__0 = null;
+          $c = null as dynamic;
+          $str_ind__1 = null as dynamic;
+          $am_ = null as dynamic;
+          $counter__0 = null as dynamic;
           $str_ind__0 = $str_ind;
           for (;;) {
             if ($str_ind__0 === $end_ind) {
@@ -8739,13 +8739,13 @@ final class CamlinternalFormat {
         };
         $parse_char_set_after_char__0->contents = 
         (dynamic $counter, dynamic $str_ind, dynamic $end_ind, dynamic $c) ==> {
-          $c__1 = null;
-          $ak_ = null;
-          $str_ind__1 = null;
-          $al_ = null;
-          $counter__0 = null;
-          $counter__1 = null;
-          $switch__0 = null;
+          $c__1 = null as dynamic;
+          $ak_ = null as dynamic;
+          $str_ind__1 = null as dynamic;
+          $al_ = null as dynamic;
+          $counter__0 = null as dynamic;
+          $counter__1 = null as dynamic;
+          $switch__0 = null as dynamic;
           $str_ind__0 = $str_ind;
           $c__0 = $c;
           for (;;) {
@@ -8809,10 +8809,10 @@ final class CamlinternalFormat {
         };
         $parse_char_set_after_minus->contents = 
         (dynamic $counter, dynamic $str_ind, dynamic $end_ind, dynamic $c) ==> {
-          $counter__1 = null;
-          $counter__0 = null;
-          $ai_ = null;
-          $c__1 = null;
+          $counter__1 = null as dynamic;
+          $counter__0 = null as dynamic;
+          $ai_ = null as dynamic;
+          $c__1 = null as dynamic;
           if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
           $c__0 = $caml_string_get($str, $str_ind);
           if (37 === $c__0) {
@@ -8875,7 +8875,7 @@ final class CamlinternalFormat {
         return Vector{0, $next_ind, $ag_};
       };
       $parse_spaces->contents = (dynamic $str_ind, dynamic $end_ind) ==> {
-        $str_ind__1 = null;
+        $str_ind__1 = null as dynamic;
         $str_ind__0 = $str_ind;
         for (;;) {
           if ($str_ind__0 === $end_ind) {$unexpected_end_of_format($end_ind);}
@@ -8889,11 +8889,11 @@ final class CamlinternalFormat {
       };
       $parse_positive->contents = 
       (dynamic $str_ind, dynamic $end_ind, dynamic $acc) ==> {
-        $c = null;
-        $switcher = null;
-        $acc__1 = null;
-        $af_ = null;
-        $str_ind__1 = null;
+        $c = null as dynamic;
+        $switcher = null as dynamic;
+        $acc__1 = null as dynamic;
+        $af_ = null as dynamic;
+        $str_ind__1 = null as dynamic;
         $str_ind__0 = $str_ind;
         $acc__0 = $acc;
         for (;;) {
@@ -8913,11 +8913,11 @@ final class CamlinternalFormat {
         }
       };
       $parse_integer->contents = (dynamic $str_ind, dynamic $end_ind) ==> {
-        $next_ind = null;
-        $n = null;
-        $match__0 = null;
-        $switcher = null;
-        $c = null;
+        $next_ind = null as dynamic;
+        $n = null as dynamic;
+        $match__0 = null as dynamic;
+        $switcher = null as dynamic;
+        $c = null as dynamic;
         if ($str_ind === $end_ind) {$unexpected_end_of_format($end_ind);}
         $match = $caml_string_get($str, $str_ind);
         if (48 <= $match) {
@@ -8944,21 +8944,21 @@ final class CamlinternalFormat {
       };
       $search_subformat_end->contents = 
       (dynamic $str_ind, dynamic $end_ind, dynamic $c) ==> {
-        $match = null;
-        $match__0 = null;
-        $str_ind__1 = null;
-        $switcher = null;
-        $sub_end = null;
-        $str_ind__2 = null;
-        $match__1 = null;
-        $sub_end__0 = null;
-        $str_ind__3 = null;
-        $sub_end__1 = null;
-        $str_ind__4 = null;
-        $str_ind__5 = null;
-        $sub_end__2 = null;
-        $str_ind__6 = null;
-        $str_ind__7 = null;
+        $match = null as dynamic;
+        $match__0 = null as dynamic;
+        $str_ind__1 = null as dynamic;
+        $switcher = null as dynamic;
+        $sub_end = null as dynamic;
+        $str_ind__2 = null as dynamic;
+        $match__1 = null as dynamic;
+        $sub_end__0 = null as dynamic;
+        $str_ind__3 = null as dynamic;
+        $sub_end__1 = null as dynamic;
+        $str_ind__4 = null as dynamic;
+        $str_ind__5 = null as dynamic;
+        $sub_end__2 = null as dynamic;
+        $str_ind__6 = null as dynamic;
+        $str_ind__7 = null as dynamic;
         $str_ind__0 = $str_ind;
         for (;;) {
           if ($str_ind__0 === $end_ind) {
@@ -9088,7 +9088,7 @@ final class CamlinternalFormat {
         return 0;
       };
       $counter_of_char->contents = (dynamic $symb) ==> {
-        $switcher = null;
+        $switcher = null as dynamic;
         if (108 <= $symb) {
           if (! (111 <= $symb)) {
             $switcher = (int) ($symb + -108);
@@ -9127,9 +9127,9 @@ final class CamlinternalFormat {
       };
       $compute_int_conv->contents = 
       (dynamic $pct_ind, dynamic $str_ind, dynamic $plus, dynamic $hash, dynamic $space, dynamic $symb) ==> {
-        $switcher = null;
-        $switcher__0 = null;
-        $switch__0 = null;
+        $switcher = null as dynamic;
+        $switcher__0 = null as dynamic;
+        $switch__0 = null as dynamic;
         $plus__0 = $plus;
         $hash__0 = $hash;
         $space__0 = $space;
@@ -9259,12 +9259,12 @@ final class CamlinternalFormat {
       };
       $compute_float_conv->contents = 
       (dynamic $pct_ind, dynamic $str_ind, dynamic $plus, dynamic $space, dynamic $symb) ==> {
-        $switcher = null;
-        $switcher__0 = null;
-        $switcher__1 = null;
-        $switcher__2 = null;
-        $switcher__3 = null;
-        $switcher__4 = null;
+        $switcher = null as dynamic;
+        $switcher__0 = null as dynamic;
+        $switcher__1 = null as dynamic;
+        $switcher__2 = null as dynamic;
+        $switcher__3 = null as dynamic;
+        $switcher__4 = null as dynamic;
         $plus__0 = $plus;
         $space__0 = $space;
         for (;;) {
@@ -9411,8 +9411,8 @@ final class CamlinternalFormat {
       return $parse(0, $caml_ml_string_length($str));
     };
     $format_of_string_fmtty = (dynamic $str, dynamic $fmtty) ==> {
-      $ab_ = null;
-      $ac_ = null;
+      $ab_ = null as dynamic;
+      $ac_ = null as dynamic;
       $match = $fmt_ebb_of_string(0, $str);
       $fmt = $match[1];
       try {$ac_ = Vector{0, $type_format($fmt, $fmtty), $str};return $ac_;}
@@ -9426,7 +9426,7 @@ final class CamlinternalFormat {
       }
     };
     $format_of_string_format = (dynamic $str, dynamic $param) ==> {
-      $Z_ = null;
+      $Z_ = null as dynamic;
       $str__0 = $param[2];
       $fmt = $param[1];
       $match = $fmt_ebb_of_string(0, $str);

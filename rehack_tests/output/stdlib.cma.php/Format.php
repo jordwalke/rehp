@@ -55,14 +55,14 @@ final class Format {
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
     $peek_queue = (dynamic $param) ==> {
-      $x = null;
+      $x = null as dynamic;
       $cw_ = $param[2];
       if ($cw_) {$x = $cw_[1];return $x;}
       throw $caml_wrap_thrown_exception($Empty_queue) as \Throwable;
     };
     $take_queue = (dynamic $q) ==> {
-      $x = null;
-      $tl = null;
+      $x = null as dynamic;
+      $tl = null as dynamic;
       $cv_ = $q[2];
       if ($cv_) {
         $x = $cv_[1];
@@ -111,11 +111,11 @@ final class Format {
       return $pp_output_spaces($state, $width);
     };
     $pp_force_break_line = (dynamic $state) ==> {
-      $match = null;
-      $width = null;
-      $bl_ty = null;
-      $ct_ = null;
-      $cu_ = null;
+      $match = null as dynamic;
+      $width = null as dynamic;
+      $bl_ty = null as dynamic;
+      $ct_ = null as dynamic;
+      $cu_ = null as dynamic;
       $cs_ = $state[2];
       if ($cs_) {
         $match = $cs_[1];
@@ -142,50 +142,50 @@ final class Format {
       return 0;
     };
     $format_pp_token = (dynamic $state, dynamic $size, dynamic $param) ==> {
-      $marker__0 = null;
-      $tag_name__0 = null;
-      $tbox = null;
-      $bl_type = null;
-      $offset__0 = null;
-      $insertion_point__0 = null;
-      $off__1 = null;
-      $ty__0 = null;
-      $cq_ = null;
-      $offset = null;
-      $tab = null;
-      $x__0 = null;
-      $x = null;
-      $cp_ = null;
-      $find = null;
-      $tabs__0 = null;
-      $match__2 = null;
-      $co_ = null;
-      $insertion_point = null;
-      $n__0 = null;
-      $off__0 = null;
-      $ty = null;
-      $width__0 = null;
-      $match__1 = null;
-      $cn_ = null;
-      $n = null;
-      $off = null;
-      $s = null;
-      $marker = null;
-      $tag_name = null;
-      $tags = null;
-      $cm_ = null;
-      $cl_ = null;
-      $width = null;
-      $match__0 = null;
-      $ck_ = null;
-      $ls__0 = null;
-      $cj_ = null;
-      $ls = null;
-      $ci_ = null;
-      $add_tab = null;
-      $tabs = null;
-      $match = null;
-      $ch_ = null;
+      $marker__0 = null as dynamic;
+      $tag_name__0 = null as dynamic;
+      $tbox = null as dynamic;
+      $bl_type = null as dynamic;
+      $offset__0 = null as dynamic;
+      $insertion_point__0 = null as dynamic;
+      $off__1 = null as dynamic;
+      $ty__0 = null as dynamic;
+      $cq_ = null as dynamic;
+      $offset = null as dynamic;
+      $tab = null as dynamic;
+      $x__0 = null as dynamic;
+      $x = null as dynamic;
+      $cp_ = null as dynamic;
+      $find = null as dynamic;
+      $tabs__0 = null as dynamic;
+      $match__2 = null as dynamic;
+      $co_ = null as dynamic;
+      $insertion_point = null as dynamic;
+      $n__0 = null as dynamic;
+      $off__0 = null as dynamic;
+      $ty = null as dynamic;
+      $width__0 = null as dynamic;
+      $match__1 = null as dynamic;
+      $cn_ = null as dynamic;
+      $n = null as dynamic;
+      $off = null as dynamic;
+      $s = null as dynamic;
+      $marker = null as dynamic;
+      $tag_name = null as dynamic;
+      $tags = null as dynamic;
+      $cm_ = null as dynamic;
+      $cl_ = null as dynamic;
+      $width = null as dynamic;
+      $match__0 = null as dynamic;
+      $ck_ = null as dynamic;
+      $ls__0 = null as dynamic;
+      $cj_ = null as dynamic;
+      $ls = null as dynamic;
+      $ci_ = null as dynamic;
+      $add_tab = null as dynamic;
+      $tabs = null as dynamic;
+      $match = null as dynamic;
+      $ch_ = null as dynamic;
       if ($is_int($param)) {
         switch($param) {
           // FALLTHROUGH
@@ -196,8 +196,8 @@ final class Format {
               $tabs = $match[1];
               $add_tab =
                 (dynamic $n, dynamic $ls) ==> {
-                  $x = null;
-                  $l = null;
+                  $x = null as dynamic;
+                  $l = null as dynamic;
                   if ($ls) {
                     $l = $ls[2];
                     $x = $ls[1];
@@ -308,8 +308,8 @@ final class Format {
               $tabs__0 = $match__2[1];
               $find =
                 (dynamic $n, dynamic $param) ==> {
-                  $l = null;
-                  $x = null;
+                  $l = null as dynamic;
+                  $x = null as dynamic;
                   $param__0 = $param;
                   for (;;) {
                     if ($param__0) {
@@ -369,14 +369,14 @@ final class Format {
       }
     };
     $advance_loop = (dynamic $state) ==> {
-      $size__0 = null;
-      $cg_ = null;
-      $cf_ = null;
-      $ce_ = null;
-      $tok = null;
-      $len = null;
-      $size = null;
-      $match = null;
+      $size__0 = null as dynamic;
+      $cg_ = null as dynamic;
+      $cf_ = null as dynamic;
+      $ce_ = null as dynamic;
+      $tok = null as dynamic;
+      $len = null as dynamic;
+      $size = null as dynamic;
+      $match = null as dynamic;
       for (;;) {
         $match = $peek_queue($state[28]);
         $size = $match[1];
@@ -399,7 +399,7 @@ final class Format {
       }
     };
     $advance_left = (dynamic $state) ==> {
-      $cc_ = null;
+      $cc_ = null as dynamic;
       try {$cc_ = $advance_loop($state);return $cc_;}
       catch(\Throwable $cd_) {
         $cd_ = $runtime["caml_wrap_exception"]($cd_);
@@ -430,15 +430,15 @@ final class Format {
       return 0;
     };
     $set_size = (dynamic $state, dynamic $ty) ==> {
-      $match = null;
-      $queue_elem = null;
-      $left_tot = null;
-      $size = null;
-      $t = null;
-      $tok = null;
-      $b__ = null;
-      $ca_ = null;
-      $cb_ = null;
+      $match = null as dynamic;
+      $queue_elem = null as dynamic;
+      $left_tot = null as dynamic;
+      $size = null as dynamic;
+      $t = null as dynamic;
+      $tok = null as dynamic;
+      $b__ = null as dynamic;
+      $ca_ = null as dynamic;
+      $cb_ = null as dynamic;
       $b9_ = $state[1];
       if ($b9_) {
         $match = $b9_[1];
@@ -484,7 +484,7 @@ final class Format {
       return 0;
     };
     $pp_open_box_gen = (dynamic $state, dynamic $indent, dynamic $br_ty) ==> {
-      $elem = null;
+      $elem = null as dynamic;
       $state[14] = (int) ($state[14] + 1);
       if ($state[14] < $state[15]) {
         $elem =
@@ -498,7 +498,7 @@ final class Format {
       return $pp_open_box_gen($state, 0, 3);
     };
     $pp_close_box = (dynamic $state, dynamic $param) ==> {
-      $b7_ = null;
+      $b7_ = null as dynamic;
       $b6_ = 1 < $state[14] ? 1 : (0);
       if ($b6_) {
         if ($state[14] < $state[15]) {
@@ -523,10 +523,10 @@ final class Format {
         : ($b5_);
     };
     $pp_close_tag = (dynamic $state, dynamic $param) ==> {
-      $b4_ = null;
-      $tag_name = null;
-      $tags = null;
-      $b3_ = null;
+      $b4_ = null as dynamic;
+      $tag_name = null as dynamic;
+      $tags = null as dynamic;
+      $b3_ = null as dynamic;
       if ($state[23]) {$pp_enqueue($state, Vector{0, 0, 5, 0});}
       $b2_ = $state[22];
       if ($b2_) {
@@ -658,7 +658,7 @@ final class Format {
         : ($bX_);
     };
     $pp_print_break = (dynamic $state, dynamic $width, dynamic $offset) ==> {
-      $elem = null;
+      $elem = null as dynamic;
       $bW_ = $state[14] < $state[15] ? 1 : (0);
       if ($bW_) {
         $elem =
@@ -680,7 +680,7 @@ final class Format {
       return $pp_print_break($state, 0, 0);
     };
     $pp_open_tbox = (dynamic $state, dynamic $param) ==> {
-      $elem = null;
+      $elem = null as dynamic;
       $state[14] = (int) ($state[14] + 1);
       $bV_ = $state[14] < $state[15] ? 1 : (0);
       if ($bV_) {
@@ -690,9 +690,9 @@ final class Format {
       return $bV_;
     };
     $pp_close_tbox = (dynamic $state, dynamic $param) ==> {
-      $bT_ = null;
-      $elem = null;
-      $bU_ = null;
+      $bT_ = null as dynamic;
+      $elem = null as dynamic;
+      $bU_ = null as dynamic;
       $bS_ = 1 < $state[14] ? 1 : (0);
       if ($bS_) {
         $bT_ = $state[14] < $state[15] ? 1 : (0);
@@ -708,7 +708,7 @@ final class Format {
       return $bU_;
     };
     $pp_print_tbreak = (dynamic $state, dynamic $width, dynamic $offset) ==> {
-      $elem = null;
+      $elem = null as dynamic;
       $bR_ = $state[14] < $state[15] ? 1 : (0);
       if ($bR_) {
         $elem =
@@ -727,7 +727,7 @@ final class Format {
       return $pp_print_tbreak($state, 0, 0);
     };
     $pp_set_tab = (dynamic $state, dynamic $param) ==> {
-      $elem = null;
+      $elem = null as dynamic;
       $bQ_ = $state[14] < $state[15] ? 1 : (0);
       if ($bQ_) {
         $elem = $make_queue_elem(0, 0, 0);
@@ -736,7 +736,7 @@ final class Format {
       return $bQ_;
     };
     $pp_set_max_boxes = (dynamic $state, dynamic $n) ==> {
-      $bP_ = null;
+      $bP_ = null as dynamic;
       $bO_ = 1 < $n ? 1 : (0);
       if ($bO_) {
         $state[15] = $n;
@@ -758,7 +758,7 @@ final class Format {
     };
     $pp_limit = (dynamic $n) ==> {return $n < 1000000010 ? $n : (1000000009);};
     $pp_set_min_space_left = (dynamic $state, dynamic $n) ==> {
-      $n__0 = null;
+      $n__0 = null as dynamic;
       $bN_ = 1 <= $n ? 1 : (0);
       if ($bN_) {
         $n__0 = $pp_limit($n);
@@ -774,9 +774,9 @@ final class Format {
     $pp_get_max_indent = (dynamic $state, dynamic $param) ==> {return $state[8];
     };
     $pp_set_margin = (dynamic $state, dynamic $n) ==> {
-      $n__0 = null;
-      $new_max_indent = null;
-      $bM_ = null;
+      $n__0 = null as dynamic;
+      $new_max_indent = null as dynamic;
+      $bM_ = null as dynamic;
       $bL_ = 1 <= $n ? 1 : (0);
       if ($bL_) {
         $n__0 = $pp_limit($n);
@@ -837,8 +837,8 @@ final class Format {
     };
     $blank_line = $call2($String[1], 80, 32);
     $display_blanks = (dynamic $state, dynamic $n) ==> {
-      $bK_ = null;
-      $n__1 = null;
+      $bK_ = null as dynamic;
+      $n__1 = null as dynamic;
       $n__0 = $n;
       for (;;) {
         $bK_ = 0 < $n__0 ? 1 : (0);
@@ -1144,11 +1144,11 @@ final class Format {
     };
     $pp_print_list = 
     (dynamic $opt, dynamic $pp_v, dynamic $ppf, dynamic $param) ==> {
-      $sth = null;
-      $pp_sep = null;
-      $av_ = null;
-      $aw_ = null;
-      $opt__1 = null;
+      $sth = null as dynamic;
+      $pp_sep = null as dynamic;
+      $av_ = null as dynamic;
+      $aw_ = null as dynamic;
+      $opt__1 = null as dynamic;
       $opt__0 = $opt;
       $param__0 = $param;
       for (;;) {
@@ -1174,8 +1174,8 @@ final class Format {
       }
     };
     $pp_print_text = (dynamic $ppf, dynamic $s) ==> {
-      $match = null;
-      $au_ = null;
+      $match = null as dynamic;
+      $au_ = null as dynamic;
       $len = $caml_ml_string_length($s);
       $left = Vector{0, 0} as dynamic;
       $right = Vector{0, 0} as dynamic;
@@ -1219,9 +1219,9 @@ final class Format {
         : ($call1($Buffer[2], $buf));
     };
     $output_formatting_lit = (dynamic $ppf, dynamic $fmting_lit) ==> {
-      $c = null;
-      $width = null;
-      $offset = null;
+      $c = null as dynamic;
+      $width = null as dynamic;
+      $offset = null as dynamic;
       if ($is_int($fmting_lit)) {
         switch($fmting_lit) {
           // FALLTHROUGH
@@ -1266,64 +1266,64 @@ final class Format {
       }
     };
     $output_acc->contents = (dynamic $ppf, dynamic $acc) ==> {
-      $switch__8 = null;
-      $switch__7 = null;
-      $switch__6 = null;
-      $switch__5 = null;
-      $switch__4 = null;
-      $switch__3 = null;
-      $switch__2 = null;
-      $switch__1 = null;
-      $switch__0 = null;
-      $p__6 = null;
-      $msg = null;
-      $p__5 = null;
-      $p__4 = null;
-      $f__0 = null;
-      $at_ = null;
-      $as_ = null;
-      $ar_ = null;
-      $aq_ = null;
-      $ap_ = null;
-      $ao_ = null;
-      $an_ = null;
-      $am_ = null;
-      $al_ = null;
-      $ak_ = null;
-      $aj_ = null;
-      $ai_ = null;
-      $c__0 = null;
-      $size__0 = null;
-      $p__3 = null;
-      $ah_ = null;
-      $ag_ = null;
-      $af_ = null;
-      $ae_ = null;
-      $c = null;
-      $p__2 = null;
-      $ad_ = null;
-      $ac_ = null;
-      $s__0 = null;
-      $size = null;
-      $p__1 = null;
-      $ab_ = null;
-      $aa_ = null;
-      $Z_ = null;
-      $Y_ = null;
-      $s = null;
-      $p__0 = null;
-      $X_ = null;
-      $W_ = null;
-      $indent = null;
-      $bty = null;
-      $match = null;
-      $V_ = null;
-      $acc__1 = null;
-      $acc__0 = null;
-      $U_ = null;
-      $T_ = null;
-      $p = null;
-      $f = null;
+      $switch__8 = null as dynamic;
+      $switch__7 = null as dynamic;
+      $switch__6 = null as dynamic;
+      $switch__5 = null as dynamic;
+      $switch__4 = null as dynamic;
+      $switch__3 = null as dynamic;
+      $switch__2 = null as dynamic;
+      $switch__1 = null as dynamic;
+      $switch__0 = null as dynamic;
+      $p__6 = null as dynamic;
+      $msg = null as dynamic;
+      $p__5 = null as dynamic;
+      $p__4 = null as dynamic;
+      $f__0 = null as dynamic;
+      $at_ = null as dynamic;
+      $as_ = null as dynamic;
+      $ar_ = null as dynamic;
+      $aq_ = null as dynamic;
+      $ap_ = null as dynamic;
+      $ao_ = null as dynamic;
+      $an_ = null as dynamic;
+      $am_ = null as dynamic;
+      $al_ = null as dynamic;
+      $ak_ = null as dynamic;
+      $aj_ = null as dynamic;
+      $ai_ = null as dynamic;
+      $c__0 = null as dynamic;
+      $size__0 = null as dynamic;
+      $p__3 = null as dynamic;
+      $ah_ = null as dynamic;
+      $ag_ = null as dynamic;
+      $af_ = null as dynamic;
+      $ae_ = null as dynamic;
+      $c = null as dynamic;
+      $p__2 = null as dynamic;
+      $ad_ = null as dynamic;
+      $ac_ = null as dynamic;
+      $s__0 = null as dynamic;
+      $size = null as dynamic;
+      $p__1 = null as dynamic;
+      $ab_ = null as dynamic;
+      $aa_ = null as dynamic;
+      $Z_ = null as dynamic;
+      $Y_ = null as dynamic;
+      $s = null as dynamic;
+      $p__0 = null as dynamic;
+      $X_ = null as dynamic;
+      $W_ = null as dynamic;
+      $indent = null as dynamic;
+      $bty = null as dynamic;
+      $match = null as dynamic;
+      $V_ = null as dynamic;
+      $acc__1 = null as dynamic;
+      $acc__0 = null as dynamic;
+      $U_ = null as dynamic;
+      $T_ = null as dynamic;
+      $p = null as dynamic;
+      $f = null as dynamic;
       if ($is_int($acc)) {return 0;}
       else {
         switch($acc[0]) {
@@ -1527,68 +1527,68 @@ final class Format {
         }
     };
     $strput_acc->contents = (dynamic $ppf, dynamic $acc) ==> {
-      $switch__8 = null;
-      $switch__7 = null;
-      $switch__6 = null;
-      $switch__5 = null;
-      $switch__4 = null;
-      $switch__3 = null;
-      $switch__2 = null;
-      $switch__1 = null;
-      $switch__0 = null;
-      $p__6 = null;
-      $msg = null;
-      $p__5 = null;
-      $p__4 = null;
-      $size__1 = null;
-      $f__1 = null;
-      $S_ = null;
-      $f__0 = null;
-      $R_ = null;
-      $Q_ = null;
-      $P_ = null;
-      $O_ = null;
-      $N_ = null;
-      $M_ = null;
-      $L_ = null;
-      $K_ = null;
-      $J_ = null;
-      $I_ = null;
-      $H_ = null;
-      $G_ = null;
-      $F_ = null;
-      $c__0 = null;
-      $size__0 = null;
-      $p__3 = null;
-      $E_ = null;
-      $D_ = null;
-      $C_ = null;
-      $B_ = null;
-      $c = null;
-      $p__2 = null;
-      $A_ = null;
-      $z_ = null;
-      $s__0 = null;
-      $size = null;
-      $p__1 = null;
-      $y_ = null;
-      $x_ = null;
-      $w_ = null;
-      $v_ = null;
-      $s = null;
-      $p__0 = null;
-      $u_ = null;
-      $t_ = null;
-      $indent = null;
-      $bty = null;
-      $match = null;
-      $s_ = null;
-      $acc__1 = null;
-      $acc__0 = null;
-      $r_ = null;
-      $q_ = null;
-      $p = null;
-      $f = null;
+      $switch__8 = null as dynamic;
+      $switch__7 = null as dynamic;
+      $switch__6 = null as dynamic;
+      $switch__5 = null as dynamic;
+      $switch__4 = null as dynamic;
+      $switch__3 = null as dynamic;
+      $switch__2 = null as dynamic;
+      $switch__1 = null as dynamic;
+      $switch__0 = null as dynamic;
+      $p__6 = null as dynamic;
+      $msg = null as dynamic;
+      $p__5 = null as dynamic;
+      $p__4 = null as dynamic;
+      $size__1 = null as dynamic;
+      $f__1 = null as dynamic;
+      $S_ = null as dynamic;
+      $f__0 = null as dynamic;
+      $R_ = null as dynamic;
+      $Q_ = null as dynamic;
+      $P_ = null as dynamic;
+      $O_ = null as dynamic;
+      $N_ = null as dynamic;
+      $M_ = null as dynamic;
+      $L_ = null as dynamic;
+      $K_ = null as dynamic;
+      $J_ = null as dynamic;
+      $I_ = null as dynamic;
+      $H_ = null as dynamic;
+      $G_ = null as dynamic;
+      $F_ = null as dynamic;
+      $c__0 = null as dynamic;
+      $size__0 = null as dynamic;
+      $p__3 = null as dynamic;
+      $E_ = null as dynamic;
+      $D_ = null as dynamic;
+      $C_ = null as dynamic;
+      $B_ = null as dynamic;
+      $c = null as dynamic;
+      $p__2 = null as dynamic;
+      $A_ = null as dynamic;
+      $z_ = null as dynamic;
+      $s__0 = null as dynamic;
+      $size = null as dynamic;
+      $p__1 = null as dynamic;
+      $y_ = null as dynamic;
+      $x_ = null as dynamic;
+      $w_ = null as dynamic;
+      $v_ = null as dynamic;
+      $s = null as dynamic;
+      $p__0 = null as dynamic;
+      $u_ = null as dynamic;
+      $t_ = null as dynamic;
+      $indent = null as dynamic;
+      $bty = null as dynamic;
+      $match = null as dynamic;
+      $s_ = null as dynamic;
+      $acc__1 = null as dynamic;
+      $acc__0 = null as dynamic;
+      $r_ = null as dynamic;
+      $q_ = null as dynamic;
+      $p = null as dynamic;
+      $f = null as dynamic;
       if ($is_int($acc)) {return 0;}
       else {
         switch($acc[0]) {

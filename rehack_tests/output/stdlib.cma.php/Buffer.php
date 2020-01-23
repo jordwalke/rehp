@@ -106,7 +106,7 @@ final class Buffer {
       return 0;
     };
     $resize = (dynamic $b, dynamic $more) ==> {
-      $new_buffer = null;
+      $new_buffer = null as dynamic;
       $len = $b[3];
       $new_len = Vector{0, $len} as dynamic;
       for (;;) {
@@ -133,9 +133,9 @@ final class Buffer {
       return 0;
     };
     $add_utf_8_uchar = (dynamic $b, dynamic $u) ==> {
-      $pos = null;
-      $pos__0 = null;
-      $pos__1 = null;
+      $pos = null as dynamic;
+      $pos__0 = null as dynamic;
+      $pos__1 = null as dynamic;
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (127 < $u__0) {
@@ -208,11 +208,11 @@ final class Buffer {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
     };
     $add_utf_16be_uchar = (dynamic $b, dynamic $u) ==> {
-      $u__1 = null;
-      $hi = null;
-      $lo = null;
-      $pos = null;
-      $pos__0 = null;
+      $u__1 = null as dynamic;
+      $hi = null as dynamic;
+      $lo = null as dynamic;
+      $pos = null as dynamic;
+      $pos__0 = null as dynamic;
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
@@ -257,11 +257,11 @@ final class Buffer {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
     };
     $add_utf_16le_uchar = (dynamic $b, dynamic $u) ==> {
-      $u__1 = null;
-      $hi = null;
-      $lo = null;
-      $pos = null;
-      $pos__0 = null;
+      $u__1 = null as dynamic;
+      $hi = null as dynamic;
+      $lo = null as dynamic;
+      $pos = null as dynamic;
+      $pos__0 = null as dynamic;
       $u__0 = $call1($Uchar[10], $u);
       if (0 <= $u__0) {
         if (65535 < $u__0) {
@@ -308,8 +308,8 @@ final class Buffer {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
     };
     $add_substring = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) ==> {
-      $m_ = null;
-      $n_ = null;
+      $m_ = null as dynamic;
+      $n_ = null as dynamic;
       $l_ = $offset < 0 ? 1 : (0);
       if ($l_) {
         $m_ = $l_;
@@ -348,9 +348,9 @@ final class Buffer {
       return $add_subbytes($b, $bs[1], 0, $bs[2]);
     };
     $add_channel_rec = (dynamic $b, dynamic $ic, dynamic $len) ==> {
-      $k_ = null;
-      $n = null;
-      $len__1 = null;
+      $k_ = null as dynamic;
+      $n = null as dynamic;
+      $len__1 = null as dynamic;
       $len__0 = $len;
       for (;;) {
         $k_ = 0 < $len__0 ? 1 : (0);
@@ -385,11 +385,11 @@ final class Buffer {
     $advance_to_closing = 
     (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) ==> {
       $advance = (dynamic $k, dynamic $i, dynamic $lim) ==> {
-        $i__1 = null;
-        $k__1 = null;
-        $i__2 = null;
-        $k__2 = null;
-        $i__3 = null;
+        $i__1 = null as dynamic;
+        $k__1 = null as dynamic;
+        $i__2 = null as dynamic;
+        $k__2 = null as dynamic;
+        $i__3 = null as dynamic;
         $k__0 = $k;
         $i__0 = $i;
         for (;;) {
@@ -420,9 +420,9 @@ final class Buffer {
     };
     $advance_to_non_alpha = (dynamic $s, dynamic $start) ==> {
       $advance = (dynamic $i, dynamic $lim) ==> {
-        $match = null;
-        $i__1 = null;
-        $switch__0 = null;
+        $match = null as dynamic;
+        $i__1 = null as dynamic;
+        $switch__0 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if ($lim <= $i__0) {return $lim;}
@@ -442,7 +442,7 @@ final class Buffer {
       return $advance($start, $caml_ml_string_length($s));
     };
     $find_ident = (dynamic $s, dynamic $start, dynamic $lim) ==> {
-      $stop__0 = null;
+      $stop__0 = null as dynamic;
       if ($lim <= $start) {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
@@ -470,16 +470,16 @@ final class Buffer {
     $add_substitute = (dynamic $b, dynamic $f, dynamic $s) ==> {
       $lim = $caml_ml_string_length($s);
       $subst = (dynamic $previous, dynamic $i) ==> {
-        $current = null;
-        $i__1 = null;
-        $j = null;
-        $match = null;
-        $i__2 = null;
-        $ident = null;
-        $i__3 = null;
-        $i__4 = null;
-        $i__5 = null;
-        $h_ = null;
+        $current = null as dynamic;
+        $i__1 = null as dynamic;
+        $j = null as dynamic;
+        $match = null as dynamic;
+        $i__2 = null as dynamic;
+        $ident = null as dynamic;
+        $i__3 = null as dynamic;
+        $i__4 = null as dynamic;
+        $i__5 = null as dynamic;
+        $h_ = null as dynamic;
         $previous__0 = $previous;
         $i__0 = $i;
         for (;;) {

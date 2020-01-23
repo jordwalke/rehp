@@ -41,8 +41,8 @@ final class Complex {
       };
     };
     $div = (dynamic $x, dynamic $y) ==> {
-      $d = null;
-      $r = null;
+      $d = null as dynamic;
+      $r = null as dynamic;
       if ($Math->abs($y[2]) <= $Math->abs($y[1])) {
         $r = $y[2] / $y[1];
         $d = $y[1] + $r * $y[2];
@@ -63,7 +63,7 @@ final class Complex {
     $inv = (dynamic $x) ==> {return $div($one, $x);};
     $norm2 = (dynamic $x) ==> {return $x[1] * $x[1] + $x[2] * $x[2];};
     $norm = (dynamic $x) ==> {
-      $q = null;
+      $q = null as dynamic;
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);
       if ($r == 0) {return $i;}
@@ -77,9 +77,9 @@ final class Complex {
       return Vector{254, $Math->cos($a) * $n, $Math->sin($a) * $n};
     };
     $sqrt = (dynamic $x) ==> {
-      $q__0 = null;
-      $w = null;
-      $q = null;
+      $q__0 = null as dynamic;
+      $w = null as dynamic;
+      $q = null as dynamic;
       if ($x[1] == 0) {if ($x[2] == 0) {return $a_;}}
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);

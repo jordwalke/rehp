@@ -12,30 +12,30 @@ final class Filename {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    $temp_dir_name = null;
-    $temp_dir_name__0 = null;
-    $dirname__2 = null;
-    $basename__2 = null;
-    $quote__1 = null;
-    $temp_dir_name__1 = null;
-    $check_suffix__1 = null;
-    $is_implicit__1 = null;
-    $is_relative__1 = null;
-    $is_dir_sep__1 = null;
-    $dir_sep__2 = null;
-    $parent_dir_name__2 = null;
-    $current_dir_name__2 = null;
-    $f_ = null;
-    $g_ = null;
-    $h_ = null;
-    $i_ = null;
-    $j_ = null;
-    $k_ = null;
-    $l_ = null;
-    $m_ = null;
-    $n_ = null;
-    $o_ = null;
-    $switch__0 = null;
+    $temp_dir_name = null as dynamic;
+    $temp_dir_name__0 = null as dynamic;
+    $dirname__2 = null as dynamic;
+    $basename__2 = null as dynamic;
+    $quote__1 = null as dynamic;
+    $temp_dir_name__1 = null as dynamic;
+    $check_suffix__1 = null as dynamic;
+    $is_implicit__1 = null as dynamic;
+    $is_relative__1 = null as dynamic;
+    $is_dir_sep__1 = null as dynamic;
+    $dir_sep__2 = null as dynamic;
+    $parent_dir_name__2 = null as dynamic;
+    $current_dir_name__2 = null as dynamic;
+    $f_ = null as dynamic;
+    $g_ = null as dynamic;
+    $h_ = null as dynamic;
+    $i_ = null as dynamic;
+    $j_ = null as dynamic;
+    $k_ = null as dynamic;
+    $l_ = null as dynamic;
+    $m_ = null as dynamic;
+    $n_ = null as dynamic;
+    $o_ = null as dynamic;
+    $switch__0 = null as dynamic;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -97,9 +97,9 @@ final class Filename {
       $string("%s%06x%s")
     } as dynamic;
     $generic_quote = (dynamic $quotequote, dynamic $s) ==> {
-      $i = null;
-      $as_ = null;
-      $at_ = null;
+      $i = null as dynamic;
+      $as_ = null as dynamic;
+      $at_ = null as dynamic;
       $l = $caml_ml_string_length($s);
       $b = $call1($Buffer[1], (int) ($l + 20));
       $call2($Buffer[10], $b, 39);
@@ -124,7 +124,7 @@ final class Filename {
     $generic_basename = 
     (dynamic $is_dir_sep, dynamic $current_dir_name, dynamic $name) ==> {
       $find_beg = (dynamic $n, dynamic $p) ==> {
-        $n__1 = null;
+        $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
           if (0 <= $n__0) {
@@ -146,7 +146,7 @@ final class Filename {
         }
       };
       $find_end = (dynamic $n) ==> {
-        $n__1 = null;
+        $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
           if (0 <= $n__0) {
@@ -167,7 +167,7 @@ final class Filename {
     $generic_dirname = 
     (dynamic $is_dir_sep, dynamic $current_dir_name, dynamic $name) ==> {
       $intermediate_sep = (dynamic $n) ==> {
-        $n__1 = null;
+        $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
           if (0 <= $n__0) {
@@ -182,7 +182,7 @@ final class Filename {
         }
       };
       $base = (dynamic $n) ==> {
-        $n__1 = null;
+        $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
           if (0 <= $n__0) {
@@ -195,7 +195,7 @@ final class Filename {
         }
       };
       $trailing_sep = (dynamic $n) ==> {
-        $n__1 = null;
+        $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
           if (0 <= $n__0) {
@@ -222,10 +222,10 @@ final class Filename {
       return $ap_;
     };
     $is_implicit = (dynamic $n) ==> {
-      $ak_ = null;
-      $al_ = null;
-      $am_ = null;
-      $an_ = null;
+      $ak_ = null as dynamic;
+      $al_ = null as dynamic;
+      $am_ = null as dynamic;
+      $an_ = null as dynamic;
       $aj_ = $is_relative($n);
       if ($aj_) {
         $ak_ = $caml_ml_string_length($n) < 2 ? 1 : (0);
@@ -281,8 +281,8 @@ final class Filename {
       return $generic_dirname($is_dir_sep, $current_dir_name, $ad_);
     };
     $is_dir_sep__0 = (dynamic $s, dynamic $i) ==> {
-      $ab_ = null;
-      $ac_ = null;
+      $ab_ = null as dynamic;
+      $ac_ = null as dynamic;
       $c = $caml_string_get($s, $i);
       $aa_ = 47 === $c ? 1 : (0);
       if ($aa_) {
@@ -295,10 +295,10 @@ final class Filename {
       return $ab_;
     };
     $is_relative__0 = (dynamic $n) ==> {
-      $W_ = null;
-      $X_ = null;
-      $Y_ = null;
-      $Z_ = null;
+      $W_ = null as dynamic;
+      $X_ = null as dynamic;
+      $Y_ = null as dynamic;
+      $Z_ = null as dynamic;
       $U_ = $caml_ml_string_length($n) < 1 ? 1 : (0);
       $V_ = $U_ ? $U_ : (47 !== $caml_string_get($n, 0) ? 1 : (0));
       if ($V_) {
@@ -314,14 +314,14 @@ final class Filename {
       return $Z_;
     };
     $is_implicit__0 = (dynamic $n) ==> {
-      $M_ = null;
-      $N_ = null;
-      $O_ = null;
-      $P_ = null;
-      $Q_ = null;
-      $R_ = null;
-      $S_ = null;
-      $T_ = null;
+      $M_ = null as dynamic;
+      $N_ = null as dynamic;
+      $O_ = null as dynamic;
+      $P_ = null as dynamic;
+      $Q_ = null as dynamic;
+      $R_ = null as dynamic;
+      $S_ = null as dynamic;
+      $T_ = null as dynamic;
       $L_ = $is_relative__0($n);
       if ($L_) {
         $M_ = $caml_ml_string_length($n) < 2 ? 1 : (0);
@@ -362,9 +362,9 @@ final class Filename {
       return $T_;
     };
     $check_suffix__0 = (dynamic $name, dynamic $suff) ==> {
-      $s = null;
-      $J_ = null;
-      $K_ = null;
+      $s = null as dynamic;
+      $J_ = null as dynamic;
+      $K_ = null as dynamic;
       $I_ = $caml_ml_string_length($suff) <= $caml_ml_string_length($name)
         ? 1
         : (0);
@@ -399,8 +399,8 @@ final class Filename {
       $b = $call1($Buffer[1], (int) ($l + 20));
       $call2($Buffer[10], $b, 34);
       $add_bs = (dynamic $n) ==> {
-        $j = null;
-        $G_ = null;
+        $j = null as dynamic;
+        $G_ = null as dynamic;
         $F_ = 1 as dynamic;
         if (! ($n < 1)) {
           $j = $F_;
@@ -414,12 +414,12 @@ final class Filename {
         return 0;
       };
       $loop__0 = (dynamic $counter, dynamic $i) ==> {
-        $c = null;
-        $D_ = null;
-        $E_ = null;
-        $i__1 = null;
-        $counter__0 = null;
-        $counter__1 = null;
+        $c = null as dynamic;
+        $D_ = null as dynamic;
+        $E_ = null as dynamic;
+        $i__1 = null as dynamic;
+        $counter__0 = null as dynamic;
+        $counter__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $l) {return $call2($Buffer[10], $b, 34);}
@@ -453,12 +453,12 @@ final class Filename {
         }
       };
       $loop_bs->contents = (dynamic $counter, dynamic $n, dynamic $i) ==> {
-        $match = null;
-        $C_ = null;
-        $i__1 = null;
-        $n__1 = null;
-        $counter__0 = null;
-        $counter__1 = null;
+        $match = null as dynamic;
+        $C_ = null as dynamic;
+        $i__1 = null as dynamic;
+        $n__1 = null as dynamic;
+        $counter__0 = null as dynamic;
+        $counter__1 = null as dynamic;
         $n__0 = $n;
         $i__0 = $i;
         for (;;) {
@@ -497,8 +497,8 @@ final class Filename {
       return $call1($Buffer[2], $b);
     };
     $has_drive = (dynamic $s) ==> {
-      $A_ = null;
-      $B_ = null;
+      $A_ = null as dynamic;
+      $B_ = null as dynamic;
       $is_letter = (dynamic $param) ==> {
         $switch__0 = 91 <= $param
           ? 25 < $unsigned_right_shift_32((int) ($param + -97), 0) ? 0 : (1)
@@ -514,7 +514,7 @@ final class Filename {
       return $B_;
     };
     $drive_and_path = (dynamic $s) ==> {
-      $y_ = null;
+      $y_ = null as dynamic;
       if ($has_drive($s)) {
         $y_ =
           $call3($String[4], $s, 2, (int) ($caml_ml_string_length($s) + -2));
@@ -617,7 +617,7 @@ final class Filename {
     }
     
     $concat = (dynamic $dirname, dynamic $filename) ==> {
-      $v_ = null;
+      $v_ = null as dynamic;
       $l = $caml_ml_string_length($dirname);
       if (0 !== $l) {
         if (! $is_dir_sep__1($dirname, (int) ($l + -1))) {
@@ -636,7 +636,7 @@ final class Filename {
     };
     $extension_len = (dynamic $name) ==> {
       $check = (dynamic $i0, dynamic $i) ==> {
-        $i__1 = null;
+        $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if (0 <= $i__0) {
@@ -653,7 +653,7 @@ final class Filename {
         }
       };
       $search_dot = (dynamic $i) ==> {
-        $i__1 = null;
+        $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if (0 <= $i__0) {
@@ -727,16 +727,16 @@ final class Filename {
       return $current_temp_dir_name[1];
     };
     $temp_file = (dynamic $opt, dynamic $prefix, dynamic $suffix) ==> {
-      $temp_dir = null;
-      $sth = null;
+      $temp_dir = null as dynamic;
+      $sth = null as dynamic;
       if ($opt) {
         $sth = $opt[1];
         $temp_dir = $sth;
       }
       else {$temp_dir = $current_temp_dir_name[1];}
       $try_name = (dynamic $counter) ==> {
-        $name = null;
-        $counter__1 = null;
+        $name = null as dynamic;
+        $counter__1 = null as dynamic;
         $counter__0 = $counter;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
@@ -764,12 +764,12 @@ final class Filename {
     };
     $open_temp_file = 
     (dynamic $opt, dynamic $q_, dynamic $p_, dynamic $prefix, dynamic $suffix) ==> {
-      $temp_dir = null;
-      $sth__1 = null;
-      $perms = null;
-      $sth__0 = null;
-      $mode = null;
-      $sth = null;
+      $temp_dir = null as dynamic;
+      $sth__1 = null as dynamic;
+      $perms = null as dynamic;
+      $sth__0 = null as dynamic;
+      $mode = null as dynamic;
+      $sth = null as dynamic;
       if ($opt) {
         $sth = $opt[1];
         $mode = $sth;
@@ -786,9 +786,9 @@ final class Filename {
       }
       else {$temp_dir = $current_temp_dir_name[1];}
       $try_name = (dynamic $counter) ==> {
-        $name = null;
-        $counter__1 = null;
-        $r_ = null;
+        $name = null as dynamic;
+        $counter__1 = null as dynamic;
+        $r_ = null as dynamic;
         $counter__0 = $counter;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);

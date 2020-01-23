@@ -49,7 +49,7 @@ final class Marshal {
       return (int) (20 + $data_size($buff, $ofs));
     };
     $from_bytes = (dynamic $buff, dynamic $ofs) ==> {
-      $len = null;
+      $len = null as dynamic;
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {
           $len = $caml_marshal_data_size($buff, $ofs);

@@ -12,10 +12,10 @@ final class Hashtbl {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    $a_ = null;
-    $params = null;
-    $e_ = null;
-    $f_ = null;
+    $a_ = null as dynamic;
+    $params = null as dynamic;
+    $e_ = null as dynamic;
+    $f_ = null as dynamic;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -84,7 +84,7 @@ final class Hashtbl {
     $b_ = (dynamic $ap_) ==> {return $call1($Random[11][2], 0);};
     $prng = Vector{246, $b_} as dynamic;
     $power_2_above = (dynamic $x, dynamic $n) ==> {
-      $x__1 = null;
+      $x__1 = null as dynamic;
       $x__0 = $x;
       for (;;) {
         if ($n <= $x__0) {return $x__0;}
@@ -95,11 +95,11 @@ final class Hashtbl {
       }
     };
     $create = (dynamic $opt, dynamic $initial_size) ==> {
-      $seed = null;
-      $ao_ = null;
-      $an_ = null;
-      $random = null;
-      $sth = null;
+      $seed = null as dynamic;
+      $ao_ = null as dynamic;
+      $an_ = null as dynamic;
+      $random = null as dynamic;
+      $sth = null as dynamic;
       if ($opt) {
         $sth = $opt[1];
         $random = $sth;
@@ -118,8 +118,8 @@ final class Hashtbl {
       return Vector{0, 0, $caml_make_vect($s, 0), $seed, $s};
     };
     $clear = (dynamic $h) ==> {
-      $am_ = null;
-      $i = null;
+      $am_ = null as dynamic;
+      $i = null as dynamic;
       $h[1] = 0;
       $len = $h[2]->count() - 1;
       $al_ = (int) ($len + -1) as dynamic;
@@ -147,21 +147,21 @@ final class Hashtbl {
       return $clear($h);
     };
     $copy_bucketlist = (dynamic $param) ==> {
-      $r = null;
-      $loop = null;
-      $next = null;
-      $data = null;
-      $key = null;
+      $r = null as dynamic;
+      $loop = null as dynamic;
+      $next = null as dynamic;
+      $data = null as dynamic;
+      $key = null as dynamic;
       if ($param) {
         $key = $param[1];
         $data = $param[2];
         $next = $param[3];
         $loop =
           (dynamic $prec, dynamic $param) ==> {
-            $key = null;
-            $data = null;
-            $next = null;
-            $r = null;
+            $key = null as dynamic;
+            $data = null as dynamic;
+            $next = null as dynamic;
+            $r = null as dynamic;
             $prec__0 = $prec;
             $param__0 = $param;
             for (;;) {
@@ -197,21 +197,21 @@ final class Hashtbl {
     };
     $length = (dynamic $h) ==> {return $h[1];};
     $resize = (dynamic $indexfun, dynamic $h) ==> {
-      $ndata = null;
-      $ndata_tail = null;
-      $inplace = null;
-      $insert_bucket = null;
-      $Z_ = null;
-      $aa_ = null;
-      $ab_ = null;
-      $ac_ = null;
-      $ad_ = null;
-      $ae_ = null;
-      $i = null;
-      $match = null;
-      $af_ = null;
-      $i__0 = null;
-      $ag_ = null;
+      $ndata = null as dynamic;
+      $ndata_tail = null as dynamic;
+      $inplace = null as dynamic;
+      $insert_bucket = null as dynamic;
+      $Z_ = null as dynamic;
+      $aa_ = null as dynamic;
+      $ab_ = null as dynamic;
+      $ac_ = null as dynamic;
+      $ad_ = null as dynamic;
+      $ae_ = null as dynamic;
+      $i = null as dynamic;
+      $match = null as dynamic;
+      $af_ = null as dynamic;
+      $i__0 = null as dynamic;
+      $ag_ = null as dynamic;
       $odata = $h[2];
       $osize = $odata->count() - 1;
       $nsize = (int) ($osize * 2) as dynamic;
@@ -223,12 +223,12 @@ final class Hashtbl {
         $h[2] = $ndata;
         $insert_bucket =
           (dynamic $cell) ==> {
-            $key = null;
-            $data = null;
-            $next = null;
-            $cell__1 = null;
-            $nidx = null;
-            $match = null;
+            $key = null as dynamic;
+            $data = null as dynamic;
+            $next = null as dynamic;
+            $cell__1 = null as dynamic;
+            $nidx = null as dynamic;
+            $match = null as dynamic;
             $cell__0 = $cell;
             for (;;) {
               if ($cell__0) {
@@ -300,8 +300,8 @@ final class Hashtbl {
     };
     $remove_bucket = 
     (dynamic $h, dynamic $i, dynamic $key, dynamic $prec, dynamic $c) ==> {
-      $k = null;
-      $next = null;
+      $k = null as dynamic;
+      $next = null as dynamic;
       $prec__0 = $prec;
       $c__0 = $c;
       for (;;) {
@@ -332,9 +332,9 @@ final class Hashtbl {
       );
     };
     $find_rec = (dynamic $key, dynamic $param) ==> {
-      $k = null;
-      $data = null;
-      $next = null;
+      $k = null as dynamic;
+      $data = null as dynamic;
+      $next = null as dynamic;
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -349,15 +349,15 @@ final class Hashtbl {
       }
     };
     $find = (dynamic $h, dynamic $key) ==> {
-      $k1 = null;
-      $d1 = null;
-      $next1 = null;
-      $k2 = null;
-      $d2 = null;
-      $next2 = null;
-      $k3 = null;
-      $d3 = null;
-      $next3 = null;
+      $k1 = null as dynamic;
+      $d1 = null as dynamic;
+      $next1 = null as dynamic;
+      $k2 = null as dynamic;
+      $d2 = null as dynamic;
+      $next2 = null as dynamic;
+      $k3 = null as dynamic;
+      $d3 = null as dynamic;
+      $next3 = null as dynamic;
       $W_ = $key_index($h, $key);
       $match = $caml_check_bound($h[2], $W_)[$W_ + 1];
       if ($match) {
@@ -385,9 +385,9 @@ final class Hashtbl {
       throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
     };
     $find_rec_opt = (dynamic $key, dynamic $param) ==> {
-      $k = null;
-      $data = null;
-      $next = null;
+      $k = null as dynamic;
+      $data = null as dynamic;
+      $next = null as dynamic;
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -402,15 +402,15 @@ final class Hashtbl {
       }
     };
     $find_opt = (dynamic $h, dynamic $key) ==> {
-      $k1 = null;
-      $d1 = null;
-      $next1 = null;
-      $k2 = null;
-      $d2 = null;
-      $next2 = null;
-      $k3 = null;
-      $d3 = null;
-      $next3 = null;
+      $k1 = null as dynamic;
+      $d1 = null as dynamic;
+      $next1 = null as dynamic;
+      $k2 = null as dynamic;
+      $d2 = null as dynamic;
+      $next2 = null as dynamic;
+      $k3 = null as dynamic;
+      $d3 = null as dynamic;
+      $next3 = null as dynamic;
       $V_ = $key_index($h, $key);
       $match = $caml_check_bound($h[2], $V_)[$V_ + 1];
       if ($match) {
@@ -440,9 +440,9 @@ final class Hashtbl {
     $find_all = (dynamic $h, dynamic $key) ==> {
       $find_in_bucket = new Ref();
       $find_in_bucket->contents = (dynamic $param) ==> {
-        $k = null;
-        $data = null;
-        $next = null;
+        $k = null as dynamic;
+        $data = null as dynamic;
+        $next = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -462,8 +462,8 @@ final class Hashtbl {
       return $find_in_bucket->contents($caml_check_bound($h[2], $U_)[$U_ + 1]);
     };
     $replace_bucket = (dynamic $key, dynamic $data, dynamic $param) ==> {
-      $k = null;
-      $next = null;
+      $k = null as dynamic;
+      $next = null as dynamic;
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -481,8 +481,8 @@ final class Hashtbl {
       }
     };
     $replace = (dynamic $h, dynamic $key, dynamic $data) ==> {
-      $S_ = null;
-      $T_ = null;
+      $S_ = null as dynamic;
+      $T_ = null as dynamic;
       $i = $key_index($h, $key);
       $l = $caml_check_bound($h[2], $i)[$i + 1];
       $R_ = $replace_bucket($key, $data, $l);
@@ -498,9 +498,9 @@ final class Hashtbl {
     };
     $mem = (dynamic $h, dynamic $key) ==> {
       $mem_in_bucket = (dynamic $param) ==> {
-        $k = null;
-        $next = null;
-        $Q_ = null;
+        $k = null as dynamic;
+        $next = null as dynamic;
+        $Q_ = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -518,17 +518,17 @@ final class Hashtbl {
       return $mem_in_bucket($caml_check_bound($h[2], $P_)[$P_ + 1]);
     };
     $iter = (dynamic $f, dynamic $h) ==> {
-      $d = null;
-      $K_ = null;
-      $L_ = null;
-      $M_ = null;
-      $N_ = null;
-      $i = null;
-      $O_ = null;
+      $d = null as dynamic;
+      $K_ = null as dynamic;
+      $L_ = null as dynamic;
+      $M_ = null as dynamic;
+      $N_ = null as dynamic;
+      $i = null as dynamic;
+      $O_ = null as dynamic;
       $do_bucket = (dynamic $param) ==> {
-        $key = null;
-        $data = null;
-        $param__1 = null;
+        $key = null as dynamic;
+        $data = null as dynamic;
+        $param__1 = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -572,11 +572,11 @@ final class Hashtbl {
     };
     $filter_map_inplace_bucket = 
     (dynamic $f, dynamic $h, dynamic $i, dynamic $prec, dynamic $slot) ==> {
-      $key = null;
-      $data = null;
-      $next = null;
-      $match = null;
-      $data__0 = null;
+      $key = null as dynamic;
+      $data = null as dynamic;
+      $next = null as dynamic;
+      $match = null as dynamic;
+      $data__0 = null as dynamic;
       $prec__0 = $prec;
       $slot__0 = $slot;
       for (;;) {
@@ -606,11 +606,11 @@ final class Hashtbl {
       }
     };
     $filter_map_inplace = (dynamic $f, dynamic $h) ==> {
-      $G_ = null;
-      $H_ = null;
-      $I_ = null;
-      $i = null;
-      $J_ = null;
+      $G_ = null as dynamic;
+      $H_ = null as dynamic;
+      $I_ = null as dynamic;
+      $i = null as dynamic;
+      $J_ = null as dynamic;
       $d = $h[2];
       $old_trav = $ongoing_traversal($h);
       if (1 - $old_trav) {$flip_ongoing_traversal($h);}
@@ -645,19 +645,19 @@ final class Hashtbl {
       }
     };
     $fold = (dynamic $f, dynamic $h, dynamic $init) ==> {
-      $d = null;
-      $accu = null;
-      $B_ = null;
-      $C_ = null;
-      $D_ = null;
-      $i = null;
-      $E_ = null;
-      $F_ = null;
+      $d = null as dynamic;
+      $accu = null as dynamic;
+      $B_ = null as dynamic;
+      $C_ = null as dynamic;
+      $D_ = null as dynamic;
+      $i = null as dynamic;
+      $E_ = null as dynamic;
+      $F_ = null as dynamic;
       $do_bucket = (dynamic $b, dynamic $accu) ==> {
-        $key = null;
-        $data = null;
-        $b__1 = null;
-        $accu__1 = null;
+        $key = null as dynamic;
+        $data = null as dynamic;
+        $b__1 = null as dynamic;
+        $accu__1 = null as dynamic;
         $b__0 = $b;
         $accu__0 = $accu;
         for (;;) {
@@ -704,8 +704,8 @@ final class Hashtbl {
       }
     };
     $bucket_length = (dynamic $accu, dynamic $param) ==> {
-      $param__1 = null;
-      $accu__1 = null;
+      $param__1 = null as dynamic;
+      $accu__1 = null as dynamic;
       $accu__0 = $accu;
       $param__0 = $param;
       for (;;) {
@@ -752,8 +752,8 @@ final class Hashtbl {
       };
       $remove_bucket = 
       (dynamic $h, dynamic $i, dynamic $key, dynamic $prec, dynamic $c) ==> {
-        $k = null;
-        $next = null;
+        $k = null as dynamic;
+        $next = null as dynamic;
         $prec__0 = $prec;
         $c__0 = $c;
         for (;;) {
@@ -784,9 +784,9 @@ final class Hashtbl {
         );
       };
       $find_rec = (dynamic $key, dynamic $param) ==> {
-        $k = null;
-        $data = null;
-        $next = null;
+        $k = null as dynamic;
+        $data = null as dynamic;
+        $next = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -801,15 +801,15 @@ final class Hashtbl {
         }
       };
       $find = (dynamic $h, dynamic $key) ==> {
-        $k1 = null;
-        $d1 = null;
-        $next1 = null;
-        $k2 = null;
-        $d2 = null;
-        $next2 = null;
-        $k3 = null;
-        $d3 = null;
-        $next3 = null;
+        $k1 = null as dynamic;
+        $d1 = null as dynamic;
+        $next1 = null as dynamic;
+        $k2 = null as dynamic;
+        $d2 = null as dynamic;
+        $next2 = null as dynamic;
+        $k3 = null as dynamic;
+        $d3 = null as dynamic;
+        $next3 = null as dynamic;
         $s_ = $key_index($h, $key);
         $match = $caml_check_bound($h[2], $s_)[$s_ + 1];
         if ($match) {
@@ -837,9 +837,9 @@ final class Hashtbl {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
       $find_rec_opt = (dynamic $key, dynamic $param) ==> {
-        $k = null;
-        $data = null;
-        $next = null;
+        $k = null as dynamic;
+        $data = null as dynamic;
+        $next = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -854,15 +854,15 @@ final class Hashtbl {
         }
       };
       $find_opt = (dynamic $h, dynamic $key) ==> {
-        $k1 = null;
-        $d1 = null;
-        $next1 = null;
-        $k2 = null;
-        $d2 = null;
-        $next2 = null;
-        $k3 = null;
-        $d3 = null;
-        $next3 = null;
+        $k1 = null as dynamic;
+        $d1 = null as dynamic;
+        $next1 = null as dynamic;
+        $k2 = null as dynamic;
+        $d2 = null as dynamic;
+        $next2 = null as dynamic;
+        $k3 = null as dynamic;
+        $d3 = null as dynamic;
+        $next3 = null as dynamic;
         $r_ = $key_index($h, $key);
         $match = $caml_check_bound($h[2], $r_)[$r_ + 1];
         if ($match) {
@@ -892,9 +892,9 @@ final class Hashtbl {
       $find_all = (dynamic $h, dynamic $key) ==> {
         $find_in_bucket = new Ref();
         $find_in_bucket->contents = (dynamic $param) ==> {
-          $k = null;
-          $d = null;
-          $next = null;
+          $k = null as dynamic;
+          $d = null as dynamic;
+          $next = null as dynamic;
           $param__0 = $param;
           for (;;) {
             if ($param__0) {
@@ -916,8 +916,8 @@ final class Hashtbl {
         );
       };
       $replace_bucket = (dynamic $key, dynamic $data, dynamic $param) ==> {
-        $k = null;
-        $next = null;
+        $k = null as dynamic;
+        $next = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -935,8 +935,8 @@ final class Hashtbl {
         }
       };
       $replace = (dynamic $h, dynamic $key, dynamic $data) ==> {
-        $o_ = null;
-        $p_ = null;
+        $o_ = null as dynamic;
+        $p_ = null as dynamic;
         $i = $key_index($h, $key);
         $l = $caml_check_bound($h[2], $i)[$i + 1];
         $n_ = $replace_bucket($key, $data, $l);
@@ -952,9 +952,9 @@ final class Hashtbl {
       };
       $mem = (dynamic $h, dynamic $key) ==> {
         $mem_in_bucket = (dynamic $param) ==> {
-          $k = null;
-          $next = null;
-          $m_ = null;
+          $k = null as dynamic;
+          $next = null as dynamic;
+          $m_ = null as dynamic;
           $param__0 = $param;
           for (;;) {
             if ($param__0) {

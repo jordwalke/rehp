@@ -48,14 +48,14 @@ final class Stream {
     $Failure = Vector{248, $cst_Stream_Failure, $caml_fresh_oo_id(0)} as dynamic;
     $Error = Vector{248, $cst_Stream_Error, $caml_fresh_oo_id(0)} as dynamic;
     $count = (dynamic $param) ==> {
-      $count = null;
-      $match = null;
+      $count = null as dynamic;
+      $match = null as dynamic;
       if ($param) {$match = $param[1];$count = $match[1];return $count;}
       return 0;
     };
     $data = (dynamic $param) ==> {
-      $data = null;
-      $match = null;
+      $data = null as dynamic;
+      $match = null as dynamic;
       if ($param) {$match = $param[1];$data = $match[2];return $data;}
       return 0;
     };
@@ -66,22 +66,22 @@ final class Stream {
       return 0;
     };
     $get_data->contents = (dynamic $count, dynamic $d) ==> {
-      $d2 = null;
-      $d1 = null;
-      $match = null;
-      $d11 = null;
-      $a = null;
-      $f = null;
-      $q_ = null;
-      $d__1 = null;
-      $r_ = null;
-      $s_ = null;
-      $t_ = null;
-      $a__0 = null;
-      $match__0 = null;
-      $a__1 = null;
-      $b = null;
-      $r = null;
+      $d2 = null as dynamic;
+      $d1 = null as dynamic;
+      $match = null as dynamic;
+      $d11 = null as dynamic;
+      $a = null as dynamic;
+      $f = null as dynamic;
+      $q_ = null as dynamic;
+      $d__1 = null as dynamic;
+      $r_ = null as dynamic;
+      $s_ = null as dynamic;
+      $t_ = null as dynamic;
+      $a__0 = null as dynamic;
+      $match__0 = null as dynamic;
+      $a__1 = null as dynamic;
+      $b = null as dynamic;
+      $r = null as dynamic;
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
@@ -151,18 +151,18 @@ final class Stream {
       }
     };
     $peek_data = (dynamic $s) ==> {
-      $b = null;
-      $x = null;
-      $a__1 = null;
-      $p_ = null;
-      $o_ = null;
-      $n_ = null;
-      $m_ = null;
-      $f = null;
-      $a__0 = null;
-      $d = null;
-      $a = null;
-      $l_ = null;
+      $b = null as dynamic;
+      $x = null as dynamic;
+      $a__1 = null as dynamic;
+      $p_ = null as dynamic;
+      $o_ = null as dynamic;
+      $n_ = null as dynamic;
+      $m_ = null as dynamic;
+      $f = null as dynamic;
+      $a__0 = null as dynamic;
+      $d = null as dynamic;
+      $a = null as dynamic;
+      $l_ = null as dynamic;
       for (;;) {
         $l_ = $s[2];
         if ($is_int($l_)) {return 0;}
@@ -217,16 +217,16 @@ final class Stream {
       }
     };
     $peek = (dynamic $param) ==> {
-      $s = null;
+      $s = null as dynamic;
       if ($param) {$s = $param[1];return $peek_data($s);}
       return 0;
     };
     $junk_data = (dynamic $s) ==> {
-      $b = null;
-      $k_ = null;
-      $d = null;
-      $match = null;
-      $j_ = null;
+      $b = null as dynamic;
+      $k_ = null as dynamic;
+      $d = null as dynamic;
+      $match = null as dynamic;
+      $j_ = null as dynamic;
       for (;;) {
         $j_ = $s[2];
         if (! $is_int($j_)) {
@@ -256,17 +256,17 @@ final class Stream {
       }
     };
     $junk = (dynamic $param) ==> {
-      $data = null;
+      $data = null as dynamic;
       if ($param) {$data = $param[1];return $junk_data($data);}
       return 0;
     };
     $nget_data->contents = (dynamic $n, dynamic $s) ==> {
-      $al = null;
-      $d = null;
-      $k = null;
-      $match__0 = null;
-      $a = null;
-      $match = null;
+      $al = null as dynamic;
+      $d = null as dynamic;
+      $k = null as dynamic;
+      $match__0 = null as dynamic;
+      $a = null as dynamic;
+      $match = null as dynamic;
       if (0 < $n) {
         $match = $peek_data($s);
         if ($match) {
@@ -298,12 +298,12 @@ final class Stream {
       return $al;
     };
     $npeek = (dynamic $n, dynamic $param) ==> {
-      $d = null;
+      $d = null as dynamic;
       if ($param) {$d = $param[1];return $npeek_data($n, $d);}
       return 0;
     };
     $next = (dynamic $s) ==> {
-      $a = null;
+      $a = null as dynamic;
       $match = $peek($s);
       if ($match) {$a = $match[1];$junk($s);return $a;}
       throw $caml_wrap_thrown_exception($Failure) as \Throwable;
@@ -315,8 +315,8 @@ final class Stream {
     };
     $iter = (dynamic $f, dynamic $strm) ==> {
       $do_rec = (dynamic $param) ==> {
-        $a = null;
-        $match = null;
+        $a = null as dynamic;
+        $match = null as dynamic;
         for (;;) {
           $match = $peek($strm);
           if ($match) {$a = $match[1];$junk($strm);$call1($f, $a);continue;}
@@ -457,10 +457,10 @@ final class Stream {
       return $call1($Pervasives[35], 0);
     };
     $dump_data->contents = (dynamic $f, dynamic $param) ==> {
-      $d1 = null;
-      $d2 = null;
-      $a = null;
-      $d = null;
+      $d1 = null as dynamic;
+      $d2 = null as dynamic;
+      $a = null as dynamic;
+      $d = null as dynamic;
       if ($is_int($param)) {
         return $call1($Pervasives[30], $cst_Sempty);
       }

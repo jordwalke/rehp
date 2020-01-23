@@ -32,7 +32,7 @@ final class Int32 {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
     $of_string_opt = (dynamic $s) ==> {
-      $a_ = null;
+      $a_ = null as dynamic;
       try {$a_ = Vector{0, $runtime["caml_int_of_string"]($s)};return $a_;}
       catch(\Throwable $b_) {
         $b_ = $runtime["caml_wrap_exception"]($b_);

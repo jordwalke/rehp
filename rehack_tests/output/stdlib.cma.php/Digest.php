@@ -53,7 +53,7 @@ final class Digest {
       return $substring($call1($Bytes[42], $b), $ofs, $len);
     };
     $file = (dynamic $filename) ==> {
-      $d = null;
+      $d = null as dynamic;
       $ic = $call1($Pervasives[68], $filename);
       try {$d = $runtime["caml_md5_chan"]($ic, -1);}
       catch(\Throwable $e) {
@@ -73,8 +73,8 @@ final class Digest {
       return (int) ($n + $e_);
     };
     $to_hex = (dynamic $d) ==> {
-      $d_ = null;
-      $x = null;
+      $d_ = null as dynamic;
+      $x = null as dynamic;
       if (16 !== $caml_ml_string_length($d)) {
         $call1($Pervasives[1], $cst_Digest_to_hex);
       }
@@ -100,13 +100,13 @@ final class Digest {
       }
     };
     $from_hex = (dynamic $s) ==> {
-      $b_ = null;
-      $a_ = null;
+      $b_ = null as dynamic;
+      $a_ = null as dynamic;
       if (32 !== $caml_ml_string_length($s)) {
         $call1($Pervasives[1], $cst_Digest_from_hex);
       }
       $digit = (dynamic $c) ==> {
-        $switcher = null;
+        $switcher = null as dynamic;
         if (65 <= $c) {
           if (97 <= $c) {
             if (! (103 <= $c)) {return (int) ((int) ($c - 97) + 10);}

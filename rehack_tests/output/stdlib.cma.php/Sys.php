@@ -35,7 +35,7 @@ final class Sys {
     $word_size = 32 as dynamic;
     $int_size = 32 as dynamic;
     $getenv_opt = (dynamic $s) ==> {
-      $d_ = null;
+      $d_ = null as dynamic;
       try {$d_ = Vector{0, $runtime["caml_sys_getenv"]($s)};return $d_;}
       catch(\Throwable $e_) {
         $e_ = $runtime["caml_wrap_exception"]($e_);

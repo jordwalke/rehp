@@ -29,8 +29,8 @@ final class Char {
       return $call1($Pervasives[1], $cst_Char_chr);
     };
     $escaped = (dynamic $c) ==> {
-      $switch__0 = null;
-      $s__0 = null;
+      $switch__0 = null as dynamic;
+      $s__0 = null as dynamic;
       if (40 <= $c) {
         if (92 === $c) {return $cst;}
         $switch__0 = 127 <= $c ? 0 : (1);
@@ -78,8 +78,8 @@ final class Char {
       return $s;
     };
     $lowercase = (dynamic $c) ==> {
-      $switch__1 = null;
-      $switch__2 = null;
+      $switch__1 = null as dynamic;
+      $switch__2 = null as dynamic;
       $switch__0 = 65 <= $c ? 90 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 192 <= $c ? 214 < $c ? 0 : (1) : (0);
@@ -91,8 +91,8 @@ final class Char {
       return (int) ($c + 32);
     };
     $uppercase = (dynamic $c) ==> {
-      $switch__1 = null;
-      $switch__2 = null;
+      $switch__1 = null as dynamic;
+      $switch__2 = null as dynamic;
       $switch__0 = 97 <= $c ? 122 < $c ? 0 : (1) : (0);
       if (! $switch__0) {
         $switch__1 = 224 <= $c ? 246 < $c ? 0 : (1) : (0);

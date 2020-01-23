@@ -31,7 +31,7 @@ final class Lexing {
     $Pervasives = Pervasives::get();
     $Sys = Sys::get();
     $engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
-      $z_ = null;
+      $z_ = null as dynamic;
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -42,7 +42,7 @@ final class Lexing {
       return $result;
     };
     $new_engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
-      $y_ = null;
+      $y_ = null as dynamic;
       $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -53,16 +53,16 @@ final class Lexing {
       return $result;
     };
     $lex_refill = (dynamic $read_fun, dynamic $aux_buffer, dynamic $lexbuf) ==> {
-      $n = null;
-      $s = null;
-      $t = null;
-      $v_ = null;
-      $w_ = null;
-      $i = null;
-      $v = null;
-      $x_ = null;
-      $newlen = null;
-      $newbuf = null;
+      $n = null as dynamic;
+      $s = null as dynamic;
+      $t = null as dynamic;
+      $v_ = null as dynamic;
+      $w_ = null as dynamic;
+      $i = null as dynamic;
+      $v = null as dynamic;
+      $x_ = null as dynamic;
+      $newlen = null as dynamic;
+      $newbuf = null as dynamic;
       $read = $call2(
         $read_fun,
         $aux_buffer,
@@ -203,7 +203,7 @@ final class Lexing {
       return $call3($Bytes[8], $lexbuf[2], $i1, $len);
     };
     $sub_lexeme_opt = (dynamic $lexbuf, dynamic $i1, dynamic $i2) ==> {
-      $len = null;
+      $len = null as dynamic;
       if (0 <= $i1) {
         $len = (int) ($i2 - $i1);
         return Vector{0, $call3($Bytes[8], $lexbuf[2], $i1, $len)};

@@ -52,10 +52,10 @@ final class Obj {
     $out_of_heap_tag = 1001 as dynamic;
     $unaligned_tag = 1002 as dynamic;
     $extension_constructor = (dynamic $x) ==> {
-      $switch__1 = null;
-      $switch__0 = null;
-      $name = null;
-      $slot = null;
+      $switch__1 = null as dynamic;
+      $switch__0 = null as dynamic;
+      $name = null as dynamic;
+      $slot = null as dynamic;
       if ($is_block($x)) {
         if ($caml_obj_tag($x) !== 248) {
           if (1 <= $x->count() - 1) {

@@ -19,10 +19,10 @@ final class Sort {
     $cst_Sort_array = $runtime["caml_new_string"]("Sort.array");
     $Invalid_argument = Invalid_argument::get();
     $merge->contents = (dynamic $order, dynamic $l1, dynamic $l2) ==> {
-      $h2 = null;
-      $t2 = null;
-      $h1 = null;
-      $t1 = null;
+      $h2 = null as dynamic;
+      $t2 = null as dynamic;
+      $h1 = null as dynamic;
+      $t1 = null as dynamic;
       if ($l1) {
         $t1 = $l1[2];
         $h1 = $l1[1];
@@ -40,12 +40,12 @@ final class Sort {
     $list = (dynamic $order, dynamic $l) ==> {
       $initlist = new Ref();$merge2 = new Ref();
       $initlist->contents = (dynamic $param) ==> {
-        $l_ = null;
-        $k_ = null;
-        $e2 = null;
-        $rest = null;
-        $j_ = null;
-        $i_ = null;
+        $l_ = null as dynamic;
+        $k_ = null as dynamic;
+        $e2 = null as dynamic;
+        $rest = null as dynamic;
+        $j_ = null as dynamic;
+        $i_ = null as dynamic;
         if ($param) {
           $i_ = $param[2];
           $j_ = $param[1];
@@ -64,11 +64,11 @@ final class Sort {
         return 0;
       };
       $merge2->contents = (dynamic $x) ==> {
-        $h_ = null;
-        $l1 = null;
-        $l2 = null;
-        $rest = null;
-        $g_ = null;
+        $h_ = null as dynamic;
+        $l1 = null as dynamic;
+        $l2 = null as dynamic;
+        $rest = null as dynamic;
+        $g_ = null as dynamic;
         if ($x) {
           $g_ = $x[2];
           if ($g_) {
@@ -82,8 +82,8 @@ final class Sort {
         return $x;
       };
       $mergeall = (dynamic $llist) ==> {
-        $llist__1 = null;
-        $l = null;
+        $llist__1 = null as dynamic;
+        $l = null as dynamic;
         $llist__0 = $llist;
         for (;;) {
           if ($llist__0) {
@@ -108,20 +108,20 @@ final class Sort {
     };
     $array = (dynamic $cmp, dynamic $arr) ==> {
       $qsort = new Ref();
-      $i = null;
-      $val_i = null;
-      $j = null;
-      $c_ = null;
+      $i = null as dynamic;
+      $val_i = null as dynamic;
+      $j = null as dynamic;
+      $c_ = null as dynamic;
       $qsort->contents = (dynamic $lo, dynamic $hi) ==> {
-        $d_ = null;
-        $mid = null;
-        $pivot = null;
-        $i = null;
-        $j = null;
-        $e_ = null;
-        $f_ = null;
-        $lo__1 = null;
-        $hi__1 = null;
+        $d_ = null as dynamic;
+        $mid = null as dynamic;
+        $pivot = null as dynamic;
+        $i = null as dynamic;
+        $j = null as dynamic;
+        $e_ = null as dynamic;
+        $f_ = null as dynamic;
+        $lo__1 = null as dynamic;
+        $hi__1 = null as dynamic;
         $lo__0 = $lo;
         $hi__0 = $hi;
         for (;;) {

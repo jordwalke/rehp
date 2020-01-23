@@ -38,7 +38,7 @@ final class Int64 {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
     $of_string_opt = (dynamic $s) ==> {
-      $e_ = null;
+      $e_ = null as dynamic;
       try {$e_ = Vector{0, $runtime["caml_int64_of_string"]($s)};return $e_;}
       catch(\Throwable $f_) {
         $f_ = $runtime["caml_wrap_exception"]($f_);
