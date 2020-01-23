@@ -31,6 +31,7 @@ final class Lexing {
     $Pervasives = Pervasives::get();
     $Sys = Sys::get();
     $engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
+      $z_ = null;
       $result = $runtime["caml_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -41,6 +42,7 @@ final class Lexing {
       return $result;
     };
     $new_engine = (dynamic $tbl, dynamic $state, dynamic $buf) ==> {
+      $y_ = null;
       $result = $runtime["caml_new_lex_engine"]($tbl, $state, $buf);
       if (0 <= $result) {
         $buf[11] = $buf[12];
@@ -51,13 +53,23 @@ final class Lexing {
       return $result;
     };
     $lex_refill = (dynamic $read_fun, dynamic $aux_buffer, dynamic $lexbuf) ==> {
+      $n = null;
+      $s = null;
+      $t = null;
+      $v_ = null;
+      $w_ = null;
+      $i = null;
+      $v = null;
+      $x_ = null;
+      $newlen = null;
+      $newbuf = null;
       $read = $call2(
         $read_fun,
         $aux_buffer,
         $caml_ml_bytes_length($aux_buffer)
       );
       if (0 < $read) {$n = $read;}
-      else {$lexbuf[9] = 1;$n = 0 as dynamic;}
+      else {$lexbuf[9] = 1;$n = 0;}
       if ($caml_ml_bytes_length($lexbuf[2]) < (int) ($lexbuf[3] + $n)) {
         if (
           (int)
@@ -74,12 +86,13 @@ final class Lexing {
           );
         }
         else {
-          $newlen = $call2(
-            $Pervasives[4],
-            (int)
-            (2 * $caml_ml_bytes_length($lexbuf[2])),
-            $Sys[13]
-          );
+          $newlen =
+            $call2(
+              $Pervasives[4],
+              (int)
+              (2 * $caml_ml_bytes_length($lexbuf[2])),
+              $Sys[13]
+            );
           if ($newlen < (int) ((int) ($lexbuf[3] - $lexbuf[5]) + $n)) {
             $call1($Pervasives[2], $cst_Lexing_lex_refill_cannot_grow_buffer);
           }
@@ -102,8 +115,8 @@ final class Lexing {
         $lexbuf[7] = (int) ($lexbuf[7] - $s);
         $lexbuf[3] = (int) ($lexbuf[3] - $s);
         $t = $lexbuf[10];
-        $w_ = (int) ($t->count() - 1 + -1) as dynamic;
-        $v_ = 0 as dynamic;
+        $w_ = (int) ($t->count() - 1 + -1);
+        $v_ = 0;
         if (! ($w_ < 0)) {
           $i = $v_;
           for (;;) {
@@ -111,7 +124,7 @@ final class Lexing {
             if (0 <= $v) {
               $caml_check_bound($t, $i)[$i + 1] = (int) ($v - $s);
             }
-            $x_ = (int) ($i + 1) as dynamic;
+            $x_ = (int) ($i + 1);
             if ($w_ !== $i) {$i = $x_;continue;}
             break;
           }
@@ -190,8 +203,9 @@ final class Lexing {
       return $call3($Bytes[8], $lexbuf[2], $i1, $len);
     };
     $sub_lexeme_opt = (dynamic $lexbuf, dynamic $i1, dynamic $i2) ==> {
+      $len = null;
       if (0 <= $i1) {
-        $len = (int) ($i2 - $i1) as dynamic;
+        $len = (int) ($i2 - $i1);
         return Vector{0, $call3($Bytes[8], $lexbuf[2], $i1, $len)};
       }
       return 0;

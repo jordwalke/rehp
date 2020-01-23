@@ -12,6 +12,9 @@ final class BytesLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $Bytes = Bytes::get();
     $make = $Bytes[1];
     $init = $Bytes[2];

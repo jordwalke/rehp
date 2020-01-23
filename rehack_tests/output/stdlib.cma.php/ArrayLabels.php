@@ -12,6 +12,9 @@ final class ArrayLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $Array = Array_::get();
     $make_float = $Array[1];
     $init = $Array[2];

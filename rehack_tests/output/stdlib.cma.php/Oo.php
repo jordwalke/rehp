@@ -12,6 +12,9 @@ final class Oo {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $CamlinternalOO = CamlinternalOO::get();
     $copy = $CamlinternalOO[22];
     $new_method = $CamlinternalOO[1];

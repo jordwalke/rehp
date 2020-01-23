@@ -76,16 +76,24 @@ final class Parsing {
     $current_lookahead_fun = Vector{0, (dynamic $param) ==> {return 0;}} as dynamic;
     $yyparse = 
     (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) ==> {
+      $curr_char = null;
+      $v = null;
+      $i_ = null;
       $loop = (dynamic $cmd, dynamic $arg) ==> {
+        $match = null;
+        $arg__1 = null;
+        $k_ = null;
+        $l_ = null;
+        $arg__2 = null;
+        $cmd__1 = null;
+        $m_ = null;
+        $n_ = null;
+        $o_ = null;
         $cmd__0 = $cmd;
         $arg__0 = $arg;
         for (;;) {
-          $match = $runtime["caml_parse_engine"](
-            $tables,
-            $env,
-            $cmd__0,
-            $arg__0
-          );
+          $match =
+            $runtime["caml_parse_engine"]($tables, $env, $cmd__0, $arg__0);
           $continue_label = null;
           switch($match) {
             // FALLTHROUGH
@@ -93,7 +101,7 @@ final class Parsing {
               $arg__1 = $call1($lexer, $lexbuf);
               $env[9] = $lexbuf[11];
               $env[10] = $lexbuf[12];
-              $cmd__0 = 1 as dynamic;
+              $cmd__0 = 1;
               $arg__0 = $arg__1;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -102,22 +110,22 @@ final class Parsing {
             // FALLTHROUGH
             case 2:
               $grow_stacks(0);
-              $cmd__0 = 2 as dynamic;
-              $arg__0 = 0 as dynamic;
+              $cmd__0 = 2;
+              $arg__0 = 0;
               $continue_label = "#";break;
             // FALLTHROUGH
             case 3:
               $grow_stacks(0);
-              $cmd__0 = 3 as dynamic;
-              $arg__0 = 0 as dynamic;
+              $cmd__0 = 3;
+              $arg__0 = 0;
               $continue_label = "#";break;
             // FALLTHROUGH
             case 4:
               try {
                 $m_ = $env[13];
-                $n_ = $call1($caml_check_bound($tables[1], $m_)[$m_ + 1], $env
-                );
-                $o_ = 4 as dynamic;
+                $n_ =
+                  $call1($caml_check_bound($tables[1], $m_)[$m_ + 1], $env);
+                $o_ = 4;
                 $cmd__1 = $o_;
                 $arg__2 = $n_;
               }
@@ -126,8 +134,8 @@ final class Parsing {
                 if ($p_ !== $Parse_error) {
                   throw $caml_wrap_thrown_exception_reraise($p_) as \Throwable;
                 }
-                $k_ = 0 as dynamic;
-                $l_ = 5 as dynamic;
+                $k_ = 0;
+                $l_ = 5;
                 $cmd__1 = $l_;
                 $arg__2 = $k_;
               }
@@ -137,8 +145,8 @@ final class Parsing {
             // FALLTHROUGH
             default:
               $call1($tables[14], $cst_syntax_error);
-              $cmd__0 = 5 as dynamic;
-              $arg__0 = 0 as dynamic;
+              $cmd__0 = 5;
+              $arg__0 = 0;
               $continue_label = "#";break;
             }
           if ($continue_label === "#") {continue;}
@@ -168,6 +176,7 @@ final class Parsing {
         if ($exn[1] === $YYexit) {$v = $exn[2];return $v;}
         $current_lookahead_fun[1] =
           (dynamic $tok) ==> {
+            $j_ = null;
             if ($call1($Obj[1], $tok)) {
               $j_ = $runtime["caml_obj_tag"]($tok);
               return $caml_check_bound($tables[3], $j_)[$j_ + 1] === $curr_char
@@ -187,15 +196,21 @@ final class Parsing {
     };
     $symbol_start_pos = (dynamic $param) ==> {
       $loop = (dynamic $i) ==> {
+        $e_ = null;
+        $st = null;
+        $f_ = null;
+        $en = null;
+        $i__1 = null;
+        $g_ = null;
         $i__0 = $i;
         for (;;) {
           if (0 < $i__0) {
-            $e_ = (int) ((int) ($env[11] - $i__0) + 1) as dynamic;
+            $e_ = (int) ((int) ($env[11] - $i__0) + 1);
             $st = $caml_check_bound($env[3], $e_)[$e_ + 1];
-            $f_ = (int) ((int) ($env[11] - $i__0) + 1) as dynamic;
+            $f_ = (int) ((int) ($env[11] - $i__0) + 1);
             $en = $caml_check_bound($env[4], $f_)[$f_ + 1];
             if ($runtime["caml_notequal"]($st, $en)) {return $st;}
-            $i__1 = (int) ($i__0 + -1) as dynamic;
+            $i__1 = (int) ($i__0 + -1);
             $i__0 = $i__1;
             continue;
           }

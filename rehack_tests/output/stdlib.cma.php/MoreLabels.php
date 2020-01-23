@@ -12,6 +12,9 @@ final class MoreLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $Set = Set::get();
     $Map = Map::get();
     $Hashtbl = Hashtbl::get();

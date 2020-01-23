@@ -12,6 +12,9 @@ final class ListLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $List = List_::get();
     $length = $List[1];
     $compare_lengths = $List[2];

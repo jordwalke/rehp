@@ -12,6 +12,9 @@ final class StdLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $StdLabels = Vector{0, 0, 0, 0, 0} as dynamic;
     
     return($StdLabels);

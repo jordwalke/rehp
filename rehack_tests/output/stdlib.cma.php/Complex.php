@@ -12,6 +12,9 @@ final class Complex {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $zero = Vector{254, 0, 0} as dynamic;
     $one = Vector{254, 1, 0} as dynamic;
     $i = Vector{254, 0, 1} as dynamic;
@@ -38,6 +41,8 @@ final class Complex {
       };
     };
     $div = (dynamic $x, dynamic $y) ==> {
+      $d = null;
+      $r = null;
       if ($Math->abs($y[2]) <= $Math->abs($y[1])) {
         $r = $y[2] / $y[1];
         $d = $y[1] + $r * $y[2];
@@ -58,6 +63,7 @@ final class Complex {
     $inv = (dynamic $x) ==> {return $div($one, $x);};
     $norm2 = (dynamic $x) ==> {return $x[1] * $x[1] + $x[2] * $x[2];};
     $norm = (dynamic $x) ==> {
+      $q = null;
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);
       if ($r == 0) {return $i;}
@@ -71,18 +77,23 @@ final class Complex {
       return Vector{254, $Math->cos($a) * $n, $Math->sin($a) * $n};
     };
     $sqrt = (dynamic $x) ==> {
+      $q__0 = null;
+      $w = null;
+      $q = null;
       if ($x[1] == 0) {if ($x[2] == 0) {return $a_;}}
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);
       if ($i <= $r) {
         $q = $i / $r;
-        $w = $Math->sqrt($r) *
-          $Math->sqrt(0.5 * (1 + $Math->sqrt(1 + $q * $q)));
+        $w =
+          $Math->sqrt($r) *
+            $Math->sqrt(0.5 * (1 + $Math->sqrt(1 + $q * $q)));
       }
       else {
         $q__0 = $r / $i;
-        $w = $Math->sqrt($i) *
-          $Math->sqrt(0.5 * ($q__0 + $Math->sqrt(1 + $q__0 * $q__0)));
+        $w =
+          $Math->sqrt($i) *
+            $Math->sqrt(0.5 * ($q__0 + $Math->sqrt(1 + $q__0 * $q__0)));
       }
       if (0 <= $x[1]) {return Vector{254, $w, 0.5 * $x[2] / $w};}
       $w__0 = 0 <= $x[2] ? $w : (- $w);

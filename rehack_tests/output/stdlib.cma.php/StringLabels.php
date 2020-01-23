@@ -12,6 +12,9 @@ final class StringLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $String = String_::get();
     $make = $String[1];
     $init = $String[2];

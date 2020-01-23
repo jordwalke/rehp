@@ -61,6 +61,8 @@ final class Bytes {
       return $s;
     };
     $init = (dynamic $n, dynamic $f) ==> {
+      $i = null;
+      $O_ = null;
       $s = $caml_create_bytes($n);
       $N_ = (int) ($n + -1) as dynamic;
       $M_ = 0 as dynamic;
@@ -68,7 +70,7 @@ final class Bytes {
         $i = $M_;
         for (;;) {
           $caml_bytes_unsafe_set($s, $i, $call1($f, $i));
-          $O_ = (int) ($i + 1) as dynamic;
+          $O_ = (int) ($i + 1);
           if ($N_ !== $i) {$i = $O_;continue;}
           break;
         }
@@ -85,6 +87,7 @@ final class Bytes {
     $to_string = (dynamic $b) ==> {return $copy($b);};
     $of_string = (dynamic $s) ==> {return $copy($s);};
     $sub = (dynamic $s, dynamic $ofs, dynamic $len) ==> {
+      $r = null;
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {
@@ -108,19 +111,19 @@ final class Bytes {
       return $switch__0 ? $call1($Pervasives[1], $cst_Bytes_extend) : ($c);
     };
     $extend = (dynamic $s, dynamic $left, dynamic $right) ==> {
+      $srcoff = null;
+      $dstoff = null;
+      $srcoff__0 = null;
+      $J_ = null;
+      $K_ = null;
       $len = $symbol($symbol($caml_ml_bytes_length($s), $left), $right);
       $r = $caml_create_bytes($len);
       if (0 <= $left) {
-        $srcoff = 0 as dynamic;
+        $srcoff = 0;
         $srcoff__0 = $srcoff;
         $dstoff = $left;
       }
-      else {
-        $J_ = 0 as dynamic;
-        $K_ = (int) - $left as dynamic;
-        $srcoff__0 = $K_;
-        $dstoff = $J_;
-      }
+      else {$J_ = 0;$K_ = (int) - $left;$srcoff__0 = $K_;$dstoff = $J_;}
       $cpylen = $call2(
         $Pervasives[4],
         (int)
@@ -179,13 +182,15 @@ final class Bytes {
       return $call1($Pervasives[1], $cst_String_blit_Bytes_blit_string);
     };
     $iter = (dynamic $f, dynamic $a) ==> {
+      $i = null;
+      $I_ = null;
       $H_ = (int) ($caml_ml_bytes_length($a) + -1) as dynamic;
       $G_ = 0 as dynamic;
       if (! ($H_ < 0)) {
         $i = $G_;
         for (;;) {
           $call1($f, $caml_bytes_unsafe_get($a, $i));
-          $I_ = (int) ($i + 1) as dynamic;
+          $I_ = (int) ($i + 1);
           if ($H_ !== $i) {$i = $I_;continue;}
           break;
         }
@@ -193,13 +198,15 @@ final class Bytes {
       return 0;
     };
     $iteri = (dynamic $f, dynamic $a) ==> {
+      $i = null;
+      $F_ = null;
       $E_ = (int) ($caml_ml_bytes_length($a) + -1) as dynamic;
       $D_ = 0 as dynamic;
       if (! ($E_ < 0)) {
         $i = $D_;
         for (;;) {
           $call2($f, $i, $caml_bytes_unsafe_get($a, $i));
-          $F_ = (int) ($i + 1) as dynamic;
+          $F_ = (int) ($i + 1);
           if ($E_ !== $i) {$i = $F_;continue;}
           break;
         }
@@ -210,6 +217,9 @@ final class Bytes {
       return $y <= $x ? $x : ($call1($Pervasives[1], $cst_Bytes_concat));
     };
     $sum_lengths = (dynamic $acc, dynamic $seplen, dynamic $param) ==> {
+      $B_ = null;
+      $C_ = null;
+      $acc__1 = null;
       $acc__0 = $acc;
       $param__0 = $param;
       for (;;) {
@@ -217,11 +227,12 @@ final class Bytes {
           $B_ = $param__0[2];
           $C_ = $param__0[1];
           if ($B_) {
-            $acc__1 = $ensure_ge(
-              (int)
-              ((int) ($caml_ml_bytes_length($C_) + $seplen) + $acc__0),
-              $acc__0
-            );
+            $acc__1 =
+              $ensure_ge(
+                (int)
+                ((int) ($caml_ml_bytes_length($C_) + $seplen) + $acc__0),
+                $acc__0
+              );
             $acc__0 = $acc__1;
             $param__0 = $B_;
             continue;
@@ -233,6 +244,9 @@ final class Bytes {
     };
     $unsafe_blits = 
     (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) ==> {
+      $z_ = null;
+      $A_ = null;
+      $pos__1 = null;
       $pos__0 = $pos;
       $param__0 = $param;
       for (;;) {
@@ -250,8 +264,9 @@ final class Bytes {
               ($pos__0 + $caml_ml_bytes_length($A_)),
               $seplen
             );
-            $pos__1 = (int)
-            ((int) ($pos__0 + $caml_ml_bytes_length($A_)) + $seplen) as dynamic;
+            $pos__1 =
+              (int)
+              ((int) ($pos__0 + $caml_ml_bytes_length($A_)) + $seplen);
             $pos__0 = $pos__1;
             $param__0 = $z_;
             continue;
@@ -263,6 +278,7 @@ final class Bytes {
       }
     };
     $concat = (dynamic $sep, dynamic $l) ==> {
+      $seplen = null;
       if ($l) {
         $seplen = $caml_ml_bytes_length($sep);
         return $unsafe_blits(
@@ -291,13 +307,14 @@ final class Bytes {
       return $switch__0 ? 1 : (0);
     };
     $trim = (dynamic $s) ==> {
+      $j = null;
       $len = $caml_ml_bytes_length($s);
       $i = Vector{0, 0} as dynamic;
       for (;;) {
         if ($i[1] < $len) {
           if ($is_space($caml_bytes_unsafe_get($s, $i[1]))) {$i[1] += 1;continue;}
         }
-        $j = Vector{0, (int) ($len + -1)} as dynamic;
+        $j = Vector{0, (int) ($len + -1)};
         for (;;) {
           if ($i[1] <= $j[1]) {
             if ($is_space($caml_bytes_unsafe_get($s, $j[1]))) {$j[1] += -1;continue;}
@@ -309,6 +326,17 @@ final class Bytes {
       }
     };
     $escaped = (dynamic $s) ==> {
+      $i = null;
+      $c = null;
+      $u_ = null;
+      $i__0 = null;
+      $match = null;
+      $v_ = null;
+      $w_ = null;
+      $x_ = null;
+      $switch__0 = null;
+      $switch__1 = null;
+      $switch__2 = null;
       $n = Vector{0, 0} as dynamic;
       $r_ = (int) ($caml_ml_bytes_length($s) + -1) as dynamic;
       $q_ = 0 as dynamic;
@@ -317,37 +345,36 @@ final class Bytes {
         for (;;) {
           $match = $caml_bytes_unsafe_get($s, $i__0);
           if (32 <= $match) {
-            $v_ = (int) ($match + -34) as dynamic;
+            $v_ = (int) ($match + -34);
             if (58 < $unsigned_right_shift_32($v_, 0)) {
               if (93 <= $v_) {
-                $switch__0 = 0 as dynamic;
-                $switch__1 = 0 as dynamic;
+                $switch__0 = 0;
+                $switch__1 = 0;
               }
-              else {$switch__1 = 1 as dynamic;}
+              else {$switch__1 = 1;}
             }
             else {
-              if (56 < $unsigned_right_shift_32((int) ($v_ + -1), 0)) {$switch__0 = 1 as dynamic;$switch__1 = 0 as dynamic;}
-              else {$switch__1 = 1 as dynamic;}
+              if (56 < $unsigned_right_shift_32((int) ($v_ + -1), 0)) {$switch__0 = 1;$switch__1 = 0;}
+              else {$switch__1 = 1;}
             }
-            if ($switch__1) {$w_ = 1 as dynamic;$switch__0 = 2 as dynamic;}
+            if ($switch__1) {$w_ = 1;$switch__0 = 2;}
           }
           else {
-            $switch__0 = 11 <= $match
-              ? 13 === $match ? 1 : (0)
-              : (8 <= $match ? 1 : (0));
+            $switch__0 =
+              11 <= $match ? 13 === $match ? 1 : (0) : (8 <= $match ? 1 : (0));
           }
           switch($switch__0) {
             // FALLTHROUGH
             case 0:
-              $w_ = 4 as dynamic;
+              $w_ = 4;
               break;
             // FALLTHROUGH
             case 1:
-              $w_ = 2 as dynamic;
+              $w_ = 2;
               break;
             }
           $n[1] = (int) ($n[1] + $w_);
-          $x_ = (int) ($i__0 + 1) as dynamic;
+          $x_ = (int) ($i__0 + 1);
           if ($r_ !== $i__0) {$i__0 = $x_;continue;}
           break;
         }
@@ -370,7 +397,7 @@ final class Bytes {
             }
             else {
               if (14 <= $c) {
-                $switch__2 = 0 as dynamic;
+                $switch__2 = 0;
               }
               else {
                 switch($c) {
@@ -379,32 +406,32 @@ final class Bytes {
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 98);
-                    $switch__2 = 3 as dynamic;
+                    $switch__2 = 3;
                     break;
                   // FALLTHROUGH
                   case 9:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 116);
-                    $switch__2 = 3 as dynamic;
+                    $switch__2 = 3;
                     break;
                   // FALLTHROUGH
                   case 10:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 110);
-                    $switch__2 = 3 as dynamic;
+                    $switch__2 = 3;
                     break;
                   // FALLTHROUGH
                   case 13:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
                     $n[1] += 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 114);
-                    $switch__2 = 3 as dynamic;
+                    $switch__2 = 3;
                     break;
                   // FALLTHROUGH
                   default:
-                    $switch__2 = 0 as dynamic;
+                    $switch__2 = 0;
                   }
               }
             }
@@ -447,7 +474,7 @@ final class Bytes {
               break;
             }
           $n[1] += 1;
-          $u_ = (int) ($i + 1) as dynamic;
+          $u_ = (int) ($i + 1);
           if ($t_ !== $i) {$i = $u_;continue;}
           break;
         }
@@ -455,6 +482,8 @@ final class Bytes {
       return $s__0;
     };
     $map = (dynamic $f, dynamic $s) ==> {
+      $i = null;
+      $p_ = null;
       $l = $caml_ml_bytes_length($s);
       if (0 === $l) {return $s;}
       $r = $caml_create_bytes($l);
@@ -468,7 +497,7 @@ final class Bytes {
             $i,
             $call1($f, $caml_bytes_unsafe_get($s, $i))
           );
-          $p_ = (int) ($i + 1) as dynamic;
+          $p_ = (int) ($i + 1);
           if ($o_ !== $i) {$i = $p_;continue;}
           break;
         }
@@ -476,6 +505,8 @@ final class Bytes {
       return $r;
     };
     $mapi = (dynamic $f, dynamic $s) ==> {
+      $i = null;
+      $m_ = null;
       $l = $caml_ml_bytes_length($s);
       if (0 === $l) {return $s;}
       $r = $caml_create_bytes($l);
@@ -489,7 +520,7 @@ final class Bytes {
             $i,
             $call2($f, $i, $caml_bytes_unsafe_get($s, $i))
           );
-          $m_ = (int) ($i + 1) as dynamic;
+          $m_ = (int) ($i + 1);
           if ($l_ !== $i) {$i = $m_;continue;}
           break;
         }
@@ -507,13 +538,14 @@ final class Bytes {
     $capitalize_ascii = (dynamic $s) ==> {return $apply1($Char[6], $s);};
     $uncapitalize_ascii = (dynamic $s) ==> {return $apply1($Char[5], $s);};
     $index_rec = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-        $i__1 = (int) ($i__0 + 1) as dynamic;
+        $i__1 = (int) ($i__0 + 1);
         $i__0 = $i__1;
         continue;
       }
@@ -522,11 +554,12 @@ final class Bytes {
       return $index_rec($s, $caml_ml_bytes_length($s), 0, $c);
     };
     $index_rec_opt = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {return 0;}
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-        $i__1 = (int) ($i__0 + 1) as dynamic;
+        $i__1 = (int) ($i__0 + 1);
         $i__0 = $i__1;
         continue;
       }
@@ -548,11 +581,12 @@ final class Bytes {
       );
     };
     $rindex_rec = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-          $i__1 = (int) ($i__0 + -1) as dynamic;
+          $i__1 = (int) ($i__0 + -1);
           $i__0 = $i__1;
           continue;
         }
@@ -569,11 +603,12 @@ final class Bytes {
       return $call1($Pervasives[1], $cst_String_rindex_from_Bytes_rindex_from);
     };
     $rindex_rec_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-          $i__1 = (int) ($i__0 + -1) as dynamic;
+          $i__1 = (int) ($i__0 + -1);
           $i__0 = $i__1;
           continue;
         }
@@ -593,10 +628,11 @@ final class Bytes {
       );
     };
     $contains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $i_ = null;
       $l = $caml_ml_bytes_length($s);
       if (0 <= $i) {
         if (! ($l < $i)) {
-          try {$index_rec($s, $l, $i, $c);$i_ = 1 as dynamic;return $i_;}
+          try {$index_rec($s, $l, $i, $c);$i_ = 1;return $i_;}
           catch(\Throwable $j_) {
             $j_ = $runtime["caml_wrap_exception"]($j_);
             if ($j_ === $Not_found) {return 0;}
@@ -613,9 +649,10 @@ final class Bytes {
       return $contains_from($s, 0, $c);
     };
     $rcontains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $g_ = null;
       if (0 <= $i) {
         if (! ($caml_ml_bytes_length($s) <= $i)) {
-          try {$rindex_rec($s, $i, $c);$g_ = 1 as dynamic;return $g_;}
+          try {$rindex_rec($s, $i, $c);$g_ = 1;return $g_;}
           catch(\Throwable $h_) {
             $h_ = $runtime["caml_wrap_exception"]($h_);
             if ($h_ === $Not_found) {return 0;}

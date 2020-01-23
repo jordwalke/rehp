@@ -107,6 +107,17 @@ final class Random {
       return 0;
     };
     $full_init = (dynamic $s, dynamic $seed) ==> {
+      $accu = null;
+      $g_ = null;
+      $h_ = null;
+      $i = null;
+      $j = null;
+      $k = null;
+      $i_ = null;
+      $j_ = null;
+      $k_ = null;
+      $l_ = null;
+      $m_ = null;
       $combine = (dynamic $accu, dynamic $x) ==> {
         $q_ = $call1($Pervasives[21], $x);
         $r_ = $call2($Pervasives[16], $accu, $q_);
@@ -124,22 +135,22 @@ final class Random {
       $i__0 = 0 as dynamic;
       for (;;) {
         $caml_check_bound($s[1], $i__0)[$i__0 + 1] = $i__0;
-        $m_ = (int) ($i__0 + 1) as dynamic;
+        $m_ = (int) ($i__0 + 1);
         if (54 !== $i__0) {$i__0 = $m_;continue;}
-        $accu = Vector{0, $cst_x} as dynamic;
-        $h_ = (int) (54 + $call2($Pervasives[5], 55, $l)) as dynamic;
-        $g_ = 0 as dynamic;
+        $accu = Vector{0, $cst_x};
+        $h_ = (int) (54 + $call2($Pervasives[5], 55, $l));
+        $g_ = 0;
         if (! ($h_ < 0)) {
           $i = $g_;
           for (;;) {
-            $j = (int) ($i % 55) as dynamic;
+            $j = (int) ($i % 55);
             $k = $caml_mod($i, $l);
             $i_ = $caml_check_bound($seed__0, $k)[$k + 1];
             $accu[1] = $combine($accu[1], $i_);
             $j_ = $extract($accu[1]);
             $k_ = ($caml_check_bound($s[1], $j)[$j + 1] ^ $j_) & 1073741823;
             $caml_check_bound($s[1], $j)[$j + 1] = $k_;
-            $l_ = (int) ($i + 1) as dynamic;
+            $l_ = (int) ($i + 1);
             if ($h_ !== $i) {$i = $l_;continue;}
             break;
           }
@@ -175,6 +186,8 @@ final class Random {
       return $newval30;
     };
     $intaux = (dynamic $s, dynamic $n) ==> {
+      $v = null;
+      $r = null;
       for (;;) {
         $r = $bits($s);
         $v = $caml_mod($r, $n);
@@ -189,6 +202,10 @@ final class Random {
       return $call1($Pervasives[1], $cst_Random_int);
     };
     $int32aux = (dynamic $s, dynamic $n) ==> {
+      $v = null;
+      $r = null;
+      $b2 = null;
+      $b1 = null;
       for (;;) {
         $b1 = $bits($s);
         $b2 = $left_shift_32($bits($s) & 1, 30);
@@ -211,6 +228,11 @@ final class Random {
         : ($int32aux($s, $bound));
     };
     $int64aux = (dynamic $s, dynamic $n) ==> {
+      $v = null;
+      $r = null;
+      $b3 = null;
+      $b2 = null;
+      $b1 = null;
       for (;;) {
         $b1 = $caml_int64_of_int32($bits($s));
         $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);

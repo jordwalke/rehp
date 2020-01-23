@@ -53,6 +53,7 @@ final class Digest {
       return $substring($call1($Bytes[42], $b), $ofs, $len);
     };
     $file = (dynamic $filename) ==> {
+      $d = null;
       $ic = $call1($Pervasives[68], $filename);
       try {$d = $runtime["caml_md5_chan"]($ic, -1);}
       catch(\Throwable $e) {
@@ -72,6 +73,8 @@ final class Digest {
       return (int) ($n + $e_);
     };
     $to_hex = (dynamic $d) ==> {
+      $d_ = null;
+      $x = null;
       if (16 !== $caml_ml_string_length($d)) {
         $call1($Pervasives[1], $cst_Digest_to_hex);
       }
@@ -91,16 +94,19 @@ final class Digest {
           ((int) ($i * 2) + 1),
           $char_hex($x & 15)
         );
-        $d_ = (int) ($i + 1) as dynamic;
+        $d_ = (int) ($i + 1);
         if (15 !== $i) {$i = $d_;continue;}
         return $call1($Bytes[42], $result);
       }
     };
     $from_hex = (dynamic $s) ==> {
+      $b_ = null;
+      $a_ = null;
       if (32 !== $caml_ml_string_length($s)) {
         $call1($Pervasives[1], $cst_Digest_from_hex);
       }
       $digit = (dynamic $c) ==> {
+        $switcher = null;
         if (65 <= $c) {
           if (97 <= $c) {
             if (! (103 <= $c)) {return (int) ((int) ($c - 97) + 10);}
@@ -108,7 +114,7 @@ final class Digest {
           else {if (! (71 <= $c)) {return (int) ((int) ($c - 65) + 10);}}
         }
         else {
-          $switcher = (int) ($c + -48) as dynamic;
+          $switcher = (int) ($c + -48);
           if (! (9 < $unsigned_right_shift_32($switcher, 0))) {return (int) ($c - 48);}
         }
         throw $caml_wrap_thrown_exception(
@@ -125,7 +131,7 @@ final class Digest {
       for (;;) {
         $a_ = $byte__0((int) (2 * $i));
         $runtime["caml_bytes_set"]($result, $i, $call1($Char[1], $a_));
-        $b_ = (int) ($i + 1) as dynamic;
+        $b_ = (int) ($i + 1);
         if (15 !== $i) {$i = $b_;continue;}
         return $call1($Bytes[42], $result);
       }

@@ -125,7 +125,8 @@ final class Pervasives {
     };
     $string_of_int = (dynamic $n) ==> {return $string("" . $n);};
     $int_of_string_opt = (dynamic $s) ==> {
-      try {$ay_ = Vector{0, $caml_int_of_string($s)} as dynamic;return $ay_;}
+      $ay_ = null;
+      try {$ay_ = Vector{0, $caml_int_of_string($s)};return $ay_;}
       catch(\Throwable $az_) {
         $az_ = $runtime["caml_wrap_exception"]($az_);
         if ($az_[1] === $Failure) {return 0;}
@@ -135,18 +136,16 @@ final class Pervasives {
     $valid_float_lexem = (dynamic $s) ==> {
       $l = $caml_ml_string_length($s);
       $loop = (dynamic $i) ==> {
+        $match = null;
+        $i__1 = null;
+        $switch__0 = null;
         $i__0 = $i;
         for (;;) {
           if ($l <= $i__0) {return $symbol($s, $cst);}
           $match = $runtime["caml_string_get"]($s, $i__0);
-          $switch__0 = 48 <= $match
-            ? 58 <= $match ? 0 : (1)
-            : (45 === $match ? 1 : (0));
-          if ($switch__0) {
-            $i__1 = (int) ($i__0 + 1) as dynamic;
-            $i__0 = $i__1;
-            continue;
-          }
+          $switch__0 =
+            48 <= $match ? 58 <= $match ? 0 : (1) : (45 === $match ? 1 : (0));
+          if ($switch__0) {$i__1 = (int) ($i__0 + 1);$i__0 = $i__1;continue;}
           return $s;
         }
       };
@@ -156,8 +155,8 @@ final class Pervasives {
       return $valid_float_lexem($runtime["caml_format_float"]($cst_12g, $f));
     };
     $float_of_string_opt = (dynamic $s) ==> {
-      try {$aw_ = Vector{0, $caml_float_of_string($s)} as dynamic;return $aw_;
-      }
+      $aw_ = null;
+      try {$aw_ = Vector{0, $caml_float_of_string($s)};return $aw_;}
       catch(\Throwable $ax_) {
         $ax_ = $runtime["caml_wrap_exception"]($ax_);
         if ($ax_[1] === $Failure) {return 0;}
@@ -165,6 +164,8 @@ final class Pervasives {
       }
     };
     $symbol__0->contents = (dynamic $l1, dynamic $l2) ==> {
+      $hd = null;
+      $tl = null;
       if ($l1) {
         $tl = $l1[2];
         $hd = $l1[1];
@@ -186,6 +187,8 @@ final class Pervasives {
     };
     $flush_all = (dynamic $param) ==> {
       $iter = (dynamic $param) ==> {
+        $l = null;
+        $a = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -236,6 +239,7 @@ final class Pervasives {
       return $caml_ml_close_channel($oc);
     };
     $close_out_noerr = (dynamic $oc) ==> {
+      $as_ = null;
       try {$caml_ml_flush($oc);}catch(\Throwable $au_) {}
       try {$as_ = $caml_ml_close_channel($oc);return $as_;}
       catch(\Throwable $at_) {return 0;}
@@ -257,6 +261,9 @@ final class Pervasives {
     };
     $unsafe_really_input = 
     (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) ==> {
+      $r = null;
+      $len__1 = null;
+      $ofs__1 = null;
       $ofs__0 = $ofs;
       $len__0 = $len;
       for (;;) {
@@ -265,8 +272,8 @@ final class Pervasives {
           if (0 === $r) {
             throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
           }
-          $len__1 = (int) ($len__0 - $r) as dynamic;
-          $ofs__1 = (int) ($ofs__0 + $r) as dynamic;
+          $len__1 = (int) ($len__0 - $r);
+          $ofs__1 = (int) ($ofs__0 + $r);
           $ofs__0 = $ofs__1;
           $len__0 = $len__1;
           continue;
@@ -289,6 +296,10 @@ final class Pervasives {
     };
     $input_line = (dynamic $chan) ==> {
       $build_result = (dynamic $buf, dynamic $pos, dynamic $param) ==> {
+        $param__1 = null;
+        $hd = null;
+        $len = null;
+        $pos__1 = null;
         $pos__0 = $pos;
         $param__0 = $param;
         for (;;) {
@@ -304,7 +315,7 @@ final class Pervasives {
               ($pos__0 - $len),
               $len
             );
-            $pos__1 = (int) ($pos__0 - $len) as dynamic;
+            $pos__1 = (int) ($pos__0 - $len);
             $pos__0 = $pos__1;
             $param__0 = $param__1;
             continue;
@@ -313,6 +324,12 @@ final class Pervasives {
         }
       };
       $scan = (dynamic $accu, dynamic $len) ==> {
+        $n = null;
+        $res = null;
+        $len__1 = null;
+        $beg = null;
+        $len__2 = null;
+        $accu__1 = null;
         $accu__0 = $accu;
         $len__0 = $len;
         for (;;) {
@@ -332,7 +349,7 @@ final class Pervasives {
             $caml_ml_input($chan, $res, 0, (int) ($n + -1));
             $caml_ml_input_char($chan);
             if ($accu__0) {
-              $len__1 = (int) ((int) ($len__0 + $n) + -1) as dynamic;
+              $len__1 = (int) ((int) ($len__0 + $n) + -1);
               return $build_result(
                 $caml_create_bytes($len__1),
                 $len__1,
@@ -343,8 +360,8 @@ final class Pervasives {
           }
           $beg = $caml_create_bytes((int) - $n);
           $caml_ml_input($chan, $beg, 0, (int) - $n);
-          $len__2 = (int) ($len__0 - $n) as dynamic;
-          $accu__1 = Vector{0, $beg, $accu__0} as dynamic;
+          $len__2 = (int) ($len__0 - $n);
+          $accu__1 = Vector{0, $beg, $accu__0};
           $accu__0 = $accu__1;
           $len__0 = $len__2;
           continue;
@@ -353,6 +370,7 @@ final class Pervasives {
       return $scan(0, 0);
     };
     $close_in_noerr = (dynamic $ic) ==> {
+      $aq_ = null;
       try {$aq_ = $caml_ml_close_channel($ic);return $aq_;}
       catch(\Throwable $ar_) {return 0;}
     };

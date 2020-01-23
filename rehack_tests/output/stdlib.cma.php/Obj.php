@@ -52,26 +52,27 @@ final class Obj {
     $out_of_heap_tag = 1001 as dynamic;
     $unaligned_tag = 1002 as dynamic;
     $extension_constructor = (dynamic $x) ==> {
+      $switch__1 = null;
+      $switch__0 = null;
+      $name = null;
+      $slot = null;
       if ($is_block($x)) {
         if ($caml_obj_tag($x) !== 248) {
           if (1 <= $x->count() - 1) {
             $slot = $x[1];
-            $switch__0 = 1 as dynamic;
+            $switch__0 = 1;
           }
-          else {$switch__0 = 0 as dynamic;}
+          else {$switch__0 = 0;}
         }
-        else {$switch__0 = 0 as dynamic;}
+        else {$switch__0 = 0;}
       }
-      else {$switch__0 = 0 as dynamic;}
+      else {$switch__0 = 0;}
       if (! $switch__0) {$slot = $x;}
       if ($is_block($slot)) {
-        if ($caml_obj_tag($slot) === 248) {
-          $name = $slot[1];
-          $switch__1 = 1 as dynamic;
-        }
-        else {$switch__1 = 0 as dynamic;}
+        if ($caml_obj_tag($slot) === 248) {$name = $slot[1];$switch__1 = 1;}
+        else {$switch__1 = 0;}
       }
-      else {$switch__1 = 0 as dynamic;}
+      else {$switch__1 = 0;}
       if (! $switch__1) {
         $name = $call1($Pervasives[1], $cst_Obj_extension_constructor__0);
       }

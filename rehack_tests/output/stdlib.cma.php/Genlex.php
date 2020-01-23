@@ -50,6 +50,7 @@ final class Genlex {
       return 0;
     };
     $store = (dynamic $c) ==> {
+      $newbuffer = null;
       if ($runtime["caml_ml_bytes_length"]($buffer[1]) <= $bufpos[1]) {
         $newbuffer = $caml_create_bytes((int) (2 * $bufpos[1]));
         $call5($Bytes[11], $buffer[1], 0, $newbuffer, 0, $bufpos[1]);
@@ -77,6 +78,7 @@ final class Genlex {
       };
       $call2($List[15], $a_, $keywords);
       $ident_or_keyword = (dynamic $id) ==> {
+        $C_ = null;
         try {$C_ = $call2($Hashtbl[6], $kwd_table, $id);return $C_;}
         catch(\Throwable $D_) {
           $D_ = $runtime["caml_wrap_exception"]($D_);
@@ -85,6 +87,8 @@ final class Genlex {
         }
       };
       $keyword_or_error = (dynamic $c) ==> {
+        $z_ = null;
+        $A_ = null;
         $s = $call2($String[1], 1, $c);
         try {$A_ = $call2($Hashtbl[6], $kwd_table, $s);return $A_;}
         catch(\Throwable $B_) {
@@ -97,17 +101,22 @@ final class Genlex {
         }
       };
       $end_exponent_part = (dynamic $strm) ==> {
+        $switcher = null;
+        $y_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
             $y_ = $match[1];
-            $switcher = (int) ($y_ + -48) as dynamic;
+            $switcher = (int) ($y_ + -48);
             if (! (9 < $unsigned_right_shift_32($switcher, 0))) {$call1($Stream[12], $strm);$store($y_);continue;}
           }
           return Vector{0, Vector{3, $caml_float_of_string($get_string(0))}};
         }
       };
       $exponent_part = (dynamic $strm) ==> {
+        $x_ = null;
+        $switch__0 = null;
         $match = $call1($Stream[11], $strm);
         if ($match) {
           $x_ = $match[1];
@@ -121,17 +130,22 @@ final class Genlex {
         return $end_exponent_part($strm);
       };
       $decimal_part = (dynamic $strm) ==> {
+        $switcher__0 = null;
+        $switcher = null;
+        $w_ = null;
+        $v_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
             $v_ = $match[1];
-            $w_ = (int) ($v_ + -69) as dynamic;
+            $w_ = (int) ($v_ + -69);
             if (32 < $unsigned_right_shift_32($w_, 0)) {
-              $switcher = (int) ($w_ + 21) as dynamic;
+              $switcher = (int) ($w_ + 21);
               if (! (9 < $unsigned_right_shift_32($switcher, 0))) {$call1($Stream[12], $strm);$store($v_);continue;}
             }
             else {
-              $switcher__0 = (int) ($w_ + -1) as dynamic;
+              $switcher__0 = (int) ($w_ + -1);
               if (30 < $unsigned_right_shift_32($switcher__0, 0)) {
                 $call1($Stream[12], $strm);
                 $store(69);
@@ -143,6 +157,9 @@ final class Genlex {
         }
       };
       $number = (dynamic $strm) ==> {
+        $switch__0 = null;
+        $u_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
@@ -175,15 +192,20 @@ final class Genlex {
         }
       };
       $ident2 = (dynamic $strm) ==> {
+        $switch__0 = null;
+        $t_ = null;
+        $s_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
             $s_ = $match[1];
             if (94 <= $s_) {
-              $t_ = (int) ($s_ + -95) as dynamic;
-              $switch__0 = 30 < $unsigned_right_shift_32($t_, 0)
-                ? 32 <= $t_ ? 1 : (0)
-                : (29 === $t_ ? 0 : (1));
+              $t_ = (int) ($s_ + -95);
+              $switch__0 =
+                30 < $unsigned_right_shift_32($t_, 0)
+                  ? 32 <= $t_ ? 1 : (0)
+                  : (29 === $t_ ? 0 : (1));
             }
             else {
               if (65 <= $s_) {
@@ -222,14 +244,14 @@ final class Genlex {
                     case 30:
                     // FALLTHROUGH
                     case 31:
-                      $switch__0 = 0 as dynamic;
+                      $switch__0 = 0;
                       break;
                     // FALLTHROUGH
                     default:
-                      $switch__0 = 1 as dynamic;
+                      $switch__0 = 1;
                     }
                 }
-                else {$switch__0 = 1 as dynamic;}
+                else {$switch__0 = 1;}
               }
             }
             if (! $switch__0) {
@@ -242,10 +264,12 @@ final class Genlex {
         }
       };
       $neg_number = (dynamic $strm) ==> {
+        $r_ = null;
+        $switcher = null;
         $match = $call1($Stream[11], $strm);
         if ($match) {
           $r_ = $match[1];
-          $switcher = (int) ($r_ + -48) as dynamic;
+          $switcher = (int) ($r_ + -48);
           if (! (9 < $unsigned_right_shift_32($switcher, 0))) {
             $call1($Stream[12], $strm);
             $reset_buffer(0);
@@ -259,20 +283,28 @@ final class Genlex {
         return $ident2($strm);
       };
       $ident = (dynamic $strm) ==> {
+        $switch__0 = null;
+        $q_ = null;
+        $p_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
             $p_ = $match[1];
             if (91 <= $p_) {
-              $q_ = (int) ($p_ + -95) as dynamic;
-              $switch__0 = 27 < $unsigned_right_shift_32($q_, 0)
-                ? 97 <= $q_ ? 0 : (1)
-                : (1 === $q_ ? 1 : (0));
+              $q_ = (int) ($p_ + -95);
+              $switch__0 =
+                27 < $unsigned_right_shift_32($q_, 0)
+                  ? 97 <= $q_ ? 0 : (1)
+                  : (1 === $q_ ? 1 : (0));
             }
             else {
-              $switch__0 = 48 <= $p_
-                ? 6 < $unsigned_right_shift_32((int) ($p_ + -58), 0) ? 0 : (1)
-                : (39 === $p_ ? 0 : (1));
+              $switch__0 =
+                48 <= $p_
+                  ? 6 < $unsigned_right_shift_32((int) ($p_ + -58), 0)
+                   ? 0
+                   : (1)
+                  : (39 === $p_ ? 0 : (1));
             }
             if (! $switch__0) {
               $call1($Stream[12], $strm);
@@ -284,23 +316,31 @@ final class Genlex {
         }
       };
       $next_token__0 = (dynamic $counter, dynamic $strm) ==> {
+        $switch__0 = null;
+        $counter__0 = null;
+        $n_ = null;
+        $match__0 = null;
+        $c = null;
+        $switcher = null;
+        $m_ = null;
+        $l_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
             $l_ = $match[1];
             if (124 <= $l_) {
-              $switch__0 = 127 <= $l_
-                ? 192 <= $l_ ? 1 : (0)
-                : (125 === $l_ ? 0 : (2));
+              $switch__0 =
+                127 <= $l_ ? 192 <= $l_ ? 1 : (0) : (125 === $l_ ? 0 : (2));
             }
             else {
-              $m_ = (int) ($l_ + -65) as dynamic;
+              $m_ = (int) ($l_ + -65);
               if (57 < $unsigned_right_shift_32($m_, 0)) {
                 if (58 <= $m_) {
-                  $switch__0 = 0 as dynamic;
+                  $switch__0 = 0;
                 }
                 else {
-                  $switcher = (int) ($m_ + 65) as dynamic;
+                  $switcher = (int) ($m_ + 65);
                   $continue_label = null;
                   switch($switcher) {
                     // FALLTHROUGH
@@ -335,7 +375,7 @@ final class Genlex {
                     case 40:
                       $call1($Stream[12], $strm);
                       if ($counter < 50) {
-                        $counter__0 = (int) ($counter + 1) as dynamic;
+                        $counter__0 = (int) ($counter + 1);
                         return $maybe_comment->contents($counter__0, $strm);
                       }
                       return $caml_trampoline_return(
@@ -412,33 +452,33 @@ final class Genlex {
                     case 63:
                     // FALLTHROUGH
                     case 64:
-                      $switch__0 = 2 as dynamic;
+                      $switch__0 = 2;
                       break;
                     // FALLTHROUGH
                     default:
-                      $switch__0 = 0 as dynamic;
+                      $switch__0 = 0;
                     }
                   if ($continue_label === "#") {continue;}
                 }
               }
               else {
-                $n_ = (int) ($m_ + -26) as dynamic;
-                if (5 < $unsigned_right_shift_32($n_, 0)) {$switch__0 = 1 as dynamic;}
+                $n_ = (int) ($m_ + -26);
+                if (5 < $unsigned_right_shift_32($n_, 0)) {$switch__0 = 1;}
                 else {
                   switch($n_) {
                     // FALLTHROUGH
                     case 4:
-                      $switch__0 = 1 as dynamic;
+                      $switch__0 = 1;
                       break;
                     // FALLTHROUGH
                     case 1:
                     // FALLTHROUGH
                     case 3:
-                      $switch__0 = 2 as dynamic;
+                      $switch__0 = 2;
                       break;
                     // FALLTHROUGH
                     default:
-                      $switch__0 = 0 as dynamic;
+                      $switch__0 = 0;
                     }
                 }
               }
@@ -466,13 +506,14 @@ final class Genlex {
         }
       };
       $maybe_comment->contents = (dynamic $counter, dynamic $strm) ==> {
+        $counter__0 = null;
         $match = $call1($Stream[11], $strm);
         if ($match) {
           if (42 === $match[1]) {
             $call1($Stream[12], $strm);
             $comment->contents($strm);
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1) as dynamic;
+              $counter__0 = (int) ($counter + 1);
               return $next_token__0($counter__0, $strm);
             }
             return $caml_trampoline_return($next_token__0, varray[0,$strm]);
@@ -484,6 +525,9 @@ final class Genlex {
         return $caml_trampoline($next_token__0(0, $strm));
       };
       $string->contents = (dynamic $strm) ==> {
+        $c = null;
+        $j_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
@@ -515,6 +559,8 @@ final class Genlex {
         }
       };
       $char__0->contents = (dynamic $strm) ==> {
+        $g_ = null;
+        $h_ = null;
         $match = $call1($Stream[11], $strm);
         if ($match) {
           $g_ = $match[1];
@@ -537,11 +583,19 @@ final class Genlex {
         throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
       $escape->contents = (dynamic $strm) ==> {
+        $d_ = null;
+        $switcher = null;
+        $match__0 = null;
+        $e_ = null;
+        $switcher__0 = null;
+        $match__1 = null;
+        $f_ = null;
+        $switcher__1 = null;
         $match = $call1($Stream[11], $strm);
         if ($match) {
           $d_ = $match[1];
           if (58 <= $d_) {
-            $switcher = (int) ($d_ + -110) as dynamic;
+            $switcher = (int) ($d_ + -110);
             if (! (6 < $unsigned_right_shift_32($switcher, 0))) {
               switch($switcher) {
                 // FALLTHROUGH
@@ -565,13 +619,13 @@ final class Genlex {
               $match__0 = $call1($Stream[11], $strm);
               if ($match__0) {
                 $e_ = $match__0[1];
-                $switcher__0 = (int) ($e_ + -48) as dynamic;
+                $switcher__0 = (int) ($e_ + -48);
                 if (! (9 < $unsigned_right_shift_32($switcher__0, 0))) {
                   $call1($Stream[12], $strm);
                   $match__1 = $call1($Stream[11], $strm);
                   if ($match__1) {
                     $f_ = $match__1[1];
-                    $switcher__1 = (int) ($f_ + -48) as dynamic;
+                    $switcher__1 = (int) ($f_ + -48);
                     if (! (9 < $unsigned_right_shift_32($switcher__1, 0))) {
                       $call1($Stream[12], $strm);
                       return $call1(
@@ -600,17 +654,21 @@ final class Genlex {
         throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
       $comment__0 = (dynamic $counter, dynamic $strm) ==> {
+        $counter__1 = null;
+        $counter__0 = null;
+        $switcher = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
-            $switcher = (int) ($match[1] + -40) as dynamic;
+            $switcher = (int) ($match[1] + -40);
             if (! (2 < $unsigned_right_shift_32($switcher, 0))) {
               switch($switcher) {
                 // FALLTHROUGH
                 case 0:
                   $call1($Stream[12], $strm);
                   if ($counter < 50) {
-                    $counter__1 = (int) ($counter + 1) as dynamic;
+                    $counter__1 = (int) ($counter + 1);
                     return $maybe_nested_comment->contents($counter__1, $strm);
                   }
                   return $caml_trampoline_return(
@@ -623,7 +681,7 @@ final class Genlex {
                 default:
                   $call1($Stream[12], $strm);
                   if ($counter < 50) {
-                    $counter__0 = (int) ($counter + 1) as dynamic;
+                    $counter__0 = (int) ($counter + 1);
                     return $maybe_end_comment->contents($counter__0, $strm);
                   }
                   return $caml_trampoline_return(
@@ -639,20 +697,22 @@ final class Genlex {
         }
       };
       $maybe_nested_comment->contents = (dynamic $counter, dynamic $strm) ==> {
+        $counter__0 = null;
+        $counter__1 = null;
         $match = $call1($Stream[11], $strm);
         if ($match) {
           if (42 === $match[1]) {
             $call1($Stream[12], $strm);
             $comment->contents($strm);
             if ($counter < 50) {
-              $counter__1 = (int) ($counter + 1) as dynamic;
+              $counter__1 = (int) ($counter + 1);
               return $comment__0($counter__1, $strm);
             }
             return $caml_trampoline_return($comment__0, varray[0,$strm]);
           }
           $call1($Stream[12], $strm);
           if ($counter < 50) {
-            $counter__0 = (int) ($counter + 1) as dynamic;
+            $counter__0 = (int) ($counter + 1);
             return $comment__0($counter__0, $strm);
           }
           return $caml_trampoline_return($comment__0, varray[0,$strm]);
@@ -660,6 +720,9 @@ final class Genlex {
         throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
       $maybe_end_comment->contents = (dynamic $counter, dynamic $strm) ==> {
+        $counter__0 = null;
+        $c_ = null;
+        $match = null;
         for (;;) {
           $match = $call1($Stream[11], $strm);
           if ($match) {
@@ -668,7 +731,7 @@ final class Genlex {
             if (42 === $c_) {$call1($Stream[12], $strm);continue;}
             $call1($Stream[12], $strm);
             if ($counter < 50) {
-              $counter__0 = (int) ($counter + 1) as dynamic;
+              $counter__0 = (int) ($counter + 1);
               return $comment__0($counter__0, $strm);
             }
             return $caml_trampoline_return($comment__0, varray[0,$strm]);

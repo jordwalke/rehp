@@ -50,6 +50,7 @@ final class Map {
       $union = new Ref();
       $update = new Ref();
       $height = (dynamic $param) ==> {
+        $h = null;
         if ($param) {$h = $param[5];return $h;}
         return 0;
       };
@@ -63,16 +64,40 @@ final class Map {
         return Vector{0, 0, $x, $d, 0, 1};
       };
       $bal = (dynamic $l, dynamic $x, dynamic $d, dynamic $r) ==> {
+        $L_ = null;
+        $rll = null;
+        $rlv = null;
+        $rld = null;
+        $rlr = null;
+        $K_ = null;
+        $rl = null;
+        $rv = null;
+        $rd = null;
+        $rr = null;
+        $J_ = null;
+        $lrl = null;
+        $lrv = null;
+        $lrd = null;
+        $lrr = null;
+        $I_ = null;
+        $ll = null;
+        $lv = null;
+        $ld = null;
+        $lr = null;
+        $hr = null;
+        $h__0 = null;
+        $hl = null;
+        $h = null;
         if ($l) {
           $h = $l[5];
           $hl = $h;
         }
-        else {$hl = 0 as dynamic;}
+        else {$hl = 0;}
         if ($r) {
           $h__0 = $r[5];
           $hr = $h__0;
         }
-        else {$hr = 0 as dynamic;}
+        else {$hr = 0;}
         if ((int) ($hr + 2) < $hl) {
           if ($l) {
             $lr = $l[4];
@@ -123,6 +148,14 @@ final class Map {
       $empty = 0 as dynamic;
       $is_empty = (dynamic $param) ==> {return $param ? 0 : (1);};
       $add->contents = (dynamic $x, dynamic $data, dynamic $m) ==> {
+        $ll = null;
+        $rr = null;
+        $c = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
+        $h = null;
         if ($m) {
           $h = $m[5];
           $r = $m[4];
@@ -143,6 +176,12 @@ final class Map {
         return Vector{0, 0, $x, $data, 0, 1};
       };
       $find = (dynamic $x, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
+        $c = null;
+        $param__1 = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -160,6 +199,10 @@ final class Map {
         }
       };
       $find_first_aux = (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -182,6 +225,10 @@ final class Map {
         }
       };
       $find_first = (dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -198,6 +245,10 @@ final class Map {
       };
       $find_first_opt_aux = 
       (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -220,6 +271,10 @@ final class Map {
         }
       };
       $find_first_opt = (dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -235,6 +290,10 @@ final class Map {
         }
       };
       $find_last_aux = (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -257,6 +316,10 @@ final class Map {
         }
       };
       $find_last = (dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -273,6 +336,10 @@ final class Map {
       };
       $find_last_opt_aux = 
       (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $v0__0 = $v0;
         $d0__0 = $d0;
         $param__0 = $param;
@@ -295,6 +362,10 @@ final class Map {
         }
       };
       $find_last_opt = (dynamic $f, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -310,6 +381,12 @@ final class Map {
         }
       };
       $find_opt = (dynamic $x, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
+        $c = null;
+        $param__1 = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -327,6 +404,12 @@ final class Map {
         }
       };
       $mem = (dynamic $x, dynamic $param) ==> {
+        $r = null;
+        $v = null;
+        $l = null;
+        $c = null;
+        $H_ = null;
+        $param__1 = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -344,6 +427,9 @@ final class Map {
         }
       };
       $min_binding = (dynamic $param) ==> {
+        $G_ = null;
+        $d = null;
+        $v = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -357,6 +443,9 @@ final class Map {
         }
       };
       $min_binding_opt = (dynamic $param) ==> {
+        $F_ = null;
+        $d = null;
+        $v = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -370,6 +459,9 @@ final class Map {
         }
       };
       $max_binding = (dynamic $param) ==> {
+        $C_ = null;
+        $D_ = null;
+        $E_ = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -383,6 +475,9 @@ final class Map {
         }
       };
       $max_binding_opt = (dynamic $param) ==> {
+        $z_ = null;
+        $A_ = null;
+        $B_ = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -396,6 +491,11 @@ final class Map {
         }
       };
       $remove_min_binding->contents = (dynamic $param) ==> {
+        $r__0 = null;
+        $v = null;
+        $d = null;
+        $r = null;
+        $y_ = null;
         if ($param) {
           $y_ = $param[1];
           if ($y_) {
@@ -410,6 +510,9 @@ final class Map {
         return $call1($Pervasives[1], $cst_Map_remove_min_elt);
       };
       $f_ = (dynamic $t, dynamic $match) ==> {
+        $x = null;
+        $d = null;
+        $match__0 = null;
         if ($t) {
           if ($match) {
             $match__0 = $min_binding($match);
@@ -422,6 +525,13 @@ final class Map {
         return $match;
       };
       $remove->contents = (dynamic $x, dynamic $m) ==> {
+        $ll = null;
+        $rr = null;
+        $c = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
         if ($m) {
           $r = $m[4];
           $d = $m[3];
@@ -439,6 +549,17 @@ final class Map {
         return 0;
       };
       $update->contents = (dynamic $x, dynamic $f, dynamic $m) ==> {
+        $data__0 = null;
+        $ll = null;
+        $rr = null;
+        $data = null;
+        $match = null;
+        $c = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
+        $h = null;
         if ($m) {
           $h = $m[5];
           $r = $m[4];
@@ -469,6 +590,10 @@ final class Map {
         return 0;
       };
       $iter->contents = (dynamic $f, dynamic $param) ==> {
+        $param__1 = null;
+        $d = null;
+        $v = null;
+        $l = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -485,6 +610,14 @@ final class Map {
         }
       };
       $map->contents = (dynamic $f, dynamic $param) ==> {
+        $r__0 = null;
+        $d__0 = null;
+        $l__0 = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
+        $h = null;
         if ($param) {
           $h = $param[5];
           $r = $param[4];
@@ -499,6 +632,14 @@ final class Map {
         return 0;
       };
       $mapi->contents = (dynamic $f, dynamic $param) ==> {
+        $r__0 = null;
+        $d__0 = null;
+        $l__0 = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
+        $h = null;
         if ($param) {
           $h = $param[5];
           $r = $param[4];
@@ -513,6 +654,11 @@ final class Map {
         return 0;
       };
       $fold->contents = (dynamic $f, dynamic $m, dynamic $accu) ==> {
+        $m__1 = null;
+        $d = null;
+        $v = null;
+        $l = null;
+        $accu__1 = null;
         $m__0 = $m;
         $accu__0 = $accu;
         for (;;) {
@@ -530,6 +676,13 @@ final class Map {
         }
       };
       $for_all->contents = (dynamic $p, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
+        $v_ = null;
+        $w_ = null;
+        $x_ = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -550,6 +703,13 @@ final class Map {
         }
       };
       $exists->contents = (dynamic $p, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $l = null;
+        $s_ = null;
+        $t_ = null;
+        $u_ = null;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -572,6 +732,10 @@ final class Map {
         }
       };
       $add_min_binding->contents = (dynamic $k, dynamic $x, dynamic $param) ==> {
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
         if ($param) {
           $r = $param[4];
           $d = $param[3];
@@ -582,6 +746,10 @@ final class Map {
         return $singleton($k, $x);
       };
       $add_max_binding->contents = (dynamic $k, dynamic $x, dynamic $param) ==> {
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
         if ($param) {
           $r = $param[4];
           $d = $param[3];
@@ -592,6 +760,16 @@ final class Map {
         return $singleton($k, $x);
       };
       $join->contents = (dynamic $l, dynamic $v, dynamic $d, dynamic $r) ==> {
+        $ll = null;
+        $lv = null;
+        $ld = null;
+        $lr = null;
+        $lh = null;
+        $rl = null;
+        $rv = null;
+        $rd = null;
+        $rr = null;
+        $rh = null;
         if ($l) {
           if ($r) {
             $rh = $r[5];
@@ -615,6 +793,9 @@ final class Map {
         return $add_min_binding->contents($v, $d, $r);
       };
       $concat = (dynamic $t, dynamic $match) ==> {
+        $x = null;
+        $d = null;
+        $match__0 = null;
         if ($t) {
           if ($match) {
             $match__0 = $min_binding($match);
@@ -632,10 +813,24 @@ final class Map {
         return $match;
       };
       $concat_or_join = (dynamic $t1, dynamic $v, dynamic $d, dynamic $t2) ==> {
+        $d__0 = null;
         if ($d) {$d__0 = $d[1];return $join->contents($t1, $v, $d__0, $t2);}
         return $concat($t1, $t2);
       };
       $split->contents = (dynamic $x, dynamic $param) ==> {
+        $ll = null;
+        $pres__0 = null;
+        $rl = null;
+        $match__0 = null;
+        $lr = null;
+        $pres = null;
+        $rr = null;
+        $match = null;
+        $c = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
         if ($param) {
           $r = $param[4];
           $d = $param[3];
@@ -659,6 +854,27 @@ final class Map {
         return $a_;
       };
       $merge->contents = (dynamic $f, dynamic $s1, dynamic $s2) ==> {
+        $r_ = null;
+        $q_ = null;
+        $l1__0 = null;
+        $d1__0 = null;
+        $r1__0 = null;
+        $match__0 = null;
+        $l2__0 = null;
+        $v2 = null;
+        $d2__0 = null;
+        $r2__0 = null;
+        $p_ = null;
+        $o_ = null;
+        $l2 = null;
+        $d2 = null;
+        $r2 = null;
+        $match = null;
+        $l1 = null;
+        $v1 = null;
+        $d1 = null;
+        $r1 = null;
+        $h1 = null;
         if ($s1) {
           $h1 = $s1[5];
           $r1 = $s1[4];
@@ -702,6 +918,31 @@ final class Map {
         throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
       };
       $union->contents = (dynamic $f, dynamic $s1, dynamic $s2) ==> {
+        $s = null;
+        $d1__1 = null;
+        $r__0 = null;
+        $l__0 = null;
+        $l1__0 = null;
+        $d1__0 = null;
+        $r1__0 = null;
+        $match__0 = null;
+        $d2__1 = null;
+        $r = null;
+        $l = null;
+        $l2__0 = null;
+        $d2__0 = null;
+        $r2__0 = null;
+        $match = null;
+        $l1 = null;
+        $v1 = null;
+        $d1 = null;
+        $r1 = null;
+        $h1 = null;
+        $l2 = null;
+        $v2 = null;
+        $d2 = null;
+        $r2 = null;
+        $h2 = null;
         if ($s1) {
           if ($s2) {
             $h2 = $s2[5];
@@ -755,6 +996,13 @@ final class Map {
         return $s;
       };
       $filter->contents = (dynamic $p, dynamic $m) ==> {
+        $r__0 = null;
+        $pvd = null;
+        $l__0 = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
         if ($m) {
           $r = $m[4];
           $d = $m[3];
@@ -772,6 +1020,19 @@ final class Map {
         return 0;
       };
       $partition->contents = (dynamic $p, dynamic $param) ==> {
+        $n_ = null;
+        $m_ = null;
+        $rt = null;
+        $rf = null;
+        $match__0 = null;
+        $pvd = null;
+        $lt = null;
+        $lf = null;
+        $match = null;
+        $l = null;
+        $v = null;
+        $d = null;
+        $r = null;
         if ($param) {
           $r = $param[4];
           $d = $param[3];
@@ -794,6 +1055,11 @@ final class Map {
         return $c_;
       };
       $cons_enum = (dynamic $m, dynamic $e) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $m__1 = null;
+        $e__1 = null;
         $m__0 = $m;
         $e__0 = $e;
         for (;;) {
@@ -802,7 +1068,7 @@ final class Map {
             $d = $m__0[3];
             $v = $m__0[2];
             $m__1 = $m__0[1];
-            $e__1 = Vector{0, $v, $d, $r, $e__0} as dynamic;
+            $e__1 = Vector{0, $v, $d, $r, $e__0};
             $m__0 = $m__1;
             $e__0 = $e__1;
             continue;
@@ -812,6 +1078,18 @@ final class Map {
       };
       $compare = (dynamic $cmp, dynamic $m1, dynamic $m2) ==> {
         $compare_aux = (dynamic $e1, dynamic $e2) ==> {
+          $e2__1 = null;
+          $r2 = null;
+          $d2 = null;
+          $v2 = null;
+          $e1__1 = null;
+          $r1 = null;
+          $d1 = null;
+          $v1 = null;
+          $c = null;
+          $c__0 = null;
+          $e2__2 = null;
+          $e1__2 = null;
           $e1__0 = $e1;
           $e2__0 = $e2;
           for (;;) {
@@ -849,6 +1127,19 @@ final class Map {
       };
       $equal = (dynamic $cmp, dynamic $m1, dynamic $m2) ==> {
         $equal_aux = (dynamic $e1, dynamic $e2) ==> {
+          $e2__1 = null;
+          $r2 = null;
+          $d2 = null;
+          $v2 = null;
+          $e1__1 = null;
+          $r1 = null;
+          $d1 = null;
+          $v1 = null;
+          $i_ = null;
+          $j_ = null;
+          $e2__2 = null;
+          $e1__2 = null;
+          $k_ = null;
           $e1__0 = $e1;
           $e2__0 = $e2;
           for (;;) {
@@ -886,6 +1177,9 @@ final class Map {
         return $equal_aux($cons_enum($m1, 0), $h_);
       };
       $cardinal->contents = (dynamic $param) ==> {
+        $g_ = null;
+        $l = null;
+        $r = null;
         if ($param) {
           $r = $param[4];
           $l = $param[1];
@@ -895,6 +1189,11 @@ final class Map {
         return 0;
       };
       $bindings_aux->contents = (dynamic $accu, dynamic $param) ==> {
+        $r = null;
+        $d = null;
+        $v = null;
+        $param__1 = null;
+        $accu__1 = null;
         $accu__0 = $accu;
         $param__0 = $param;
         for (;;) {
@@ -903,11 +1202,12 @@ final class Map {
             $d = $param__0[3];
             $v = $param__0[2];
             $param__1 = $param__0[1];
-            $accu__1 = Vector{
-              0,
-              Vector{0, $v, $d},
-              $bindings_aux->contents($accu__0, $r)
-            } as dynamic;
+            $accu__1 =
+              Vector{
+                0,
+                Vector{0, $v, $d},
+                $bindings_aux->contents($accu__0, $r)
+              };
             $accu__0 = $accu__1;
             $param__0 = $param__1;
             continue;

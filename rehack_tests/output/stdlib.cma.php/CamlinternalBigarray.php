@@ -12,6 +12,9 @@ final class CamlinternalBigarray {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    
+    ;
+    
     $CamlinternalBigarray = Vector{0} as dynamic;
     
     return($CamlinternalBigarray);

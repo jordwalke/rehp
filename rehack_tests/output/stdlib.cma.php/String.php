@@ -71,6 +71,9 @@ final class String_ {
       return $y <= $x ? $x : ($call1($Pervasives[1], $cst_String_concat));
     };
     $sum_lengths = (dynamic $acc, dynamic $seplen, dynamic $param) ==> {
+      $G_ = null;
+      $H_ = null;
+      $acc__1 = null;
       $acc__0 = $acc;
       $param__0 = $param;
       for (;;) {
@@ -78,11 +81,12 @@ final class String_ {
           $G_ = $param__0[2];
           $H_ = $param__0[1];
           if ($G_) {
-            $acc__1 = $ensure_ge(
-              (int)
-              ((int) ($caml_ml_string_length($H_) + $seplen) + $acc__0),
-              $acc__0
-            );
+            $acc__1 =
+              $ensure_ge(
+                (int)
+                ((int) ($caml_ml_string_length($H_) + $seplen) + $acc__0),
+                $acc__0
+              );
             $acc__0 = $acc__1;
             $param__0 = $G_;
             continue;
@@ -94,6 +98,9 @@ final class String_ {
     };
     $unsafe_blits = 
     (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) ==> {
+      $E_ = null;
+      $F_ = null;
+      $pos__1 = null;
       $pos__0 = $pos;
       $param__0 = $param;
       for (;;) {
@@ -116,8 +123,9 @@ final class String_ {
               ($pos__0 + $caml_ml_string_length($F_)),
               $seplen
             );
-            $pos__1 = (int)
-            ((int) ($pos__0 + $caml_ml_string_length($F_)) + $seplen) as dynamic;
+            $pos__1 =
+              (int)
+              ((int) ($pos__0 + $caml_ml_string_length($F_)) + $seplen);
             $pos__0 = $pos__1;
             $param__0 = $E_;
             continue;
@@ -130,6 +138,7 @@ final class String_ {
       }
     };
     $concat = (dynamic $sep, dynamic $l) ==> {
+      $seplen = null;
       if ($l) {
         $seplen = $caml_ml_string_length($sep);
         return $call1(
@@ -146,13 +155,15 @@ final class String_ {
       return $cst;
     };
     $iter = (dynamic $f, dynamic $s) ==> {
+      $i = null;
+      $D_ = null;
       $C_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
       $B_ = 0 as dynamic;
       if (! ($C_ < 0)) {
         $i = $B_;
         for (;;) {
           $call1($f, $caml_bytes_unsafe_get($s, $i));
-          $D_ = (int) ($i + 1) as dynamic;
+          $D_ = (int) ($i + 1);
           if ($C_ !== $i) {$i = $D_;continue;}
           break;
         }
@@ -160,13 +171,15 @@ final class String_ {
       return 0;
     };
     $iteri = (dynamic $f, dynamic $s) ==> {
+      $i = null;
+      $A_ = null;
       $z_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
       $y_ = 0 as dynamic;
       if (! ($z_ < 0)) {
         $i = $y_;
         for (;;) {
           $call2($f, $i, $caml_bytes_unsafe_get($s, $i));
-          $A_ = (int) ($i + 1) as dynamic;
+          $A_ = (int) ($i + 1);
           if ($z_ !== $i) {$i = $A_;continue;}
           break;
         }
@@ -203,34 +216,39 @@ final class String_ {
       return $call1($bts, $call1($Bytes[19], $u_));
     };
     $escaped = (dynamic $s) ==> {
+      $s_ = null;
       $needs_escape = (dynamic $i) ==> {
+        $match = null;
+        $t_ = null;
+        $i__1 = null;
+        $switch__0 = null;
+        $switch__1 = null;
         $i__0 = $i;
         for (;;) {
           if ($caml_ml_string_length($s) <= $i__0) {return 0;}
           $match = $caml_bytes_unsafe_get($s, $i__0);
           if (32 <= $match) {
-            $t_ = (int) ($match + -34) as dynamic;
+            $t_ = (int) ($match + -34);
             if (58 < $unsigned_right_shift_32($t_, 0)) {
               if (93 <= $t_) {
-                $switch__0 = 0 as dynamic;
-                $switch__1 = 0 as dynamic;
+                $switch__0 = 0;
+                $switch__1 = 0;
               }
-              else {$switch__1 = 1 as dynamic;}
+              else {$switch__1 = 1;}
             }
             else {
-              if (56 < $unsigned_right_shift_32((int) ($t_ + -1), 0)) {$switch__0 = 1 as dynamic;$switch__1 = 0 as dynamic;}
-              else {$switch__1 = 1 as dynamic;}
+              if (56 < $unsigned_right_shift_32((int) ($t_ + -1), 0)) {$switch__0 = 1;$switch__1 = 0;}
+              else {$switch__1 = 1;}
             }
             if ($switch__1) {
-              $i__1 = (int) ($i__0 + 1) as dynamic;
+              $i__1 = (int) ($i__0 + 1);
               $i__0 = $i__1;
               continue;
             }
           }
           else {
-            $switch__0 = 11 <= $match
-              ? 13 === $match ? 1 : (0)
-              : (8 <= $match ? 1 : (0));
+            $switch__0 =
+              11 <= $match ? 13 === $match ? 1 : (0) : (8 <= $match ? 1 : (0));
           }
           return $switch__0 ? 1 : (1);
         }
@@ -242,13 +260,14 @@ final class String_ {
       return $s;
     };
     $index_rec = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-        $i__1 = (int) ($i__0 + 1) as dynamic;
+        $i__1 = (int) ($i__0 + 1);
         $i__0 = $i__1;
         continue;
       }
@@ -257,11 +276,12 @@ final class String_ {
       return $index_rec($s, $caml_ml_string_length($s), 0, $c);
     };
     $index_rec_opt = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if ($lim <= $i__0) {return 0;}
         if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-        $i__1 = (int) ($i__0 + 1) as dynamic;
+        $i__1 = (int) ($i__0 + 1);
         $i__0 = $i__1;
         continue;
       }
@@ -283,11 +303,12 @@ final class String_ {
       );
     };
     $rindex_rec = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return $i__0;}
-          $i__1 = (int) ($i__0 + -1) as dynamic;
+          $i__1 = (int) ($i__0 + -1);
           $i__0 = $i__1;
           continue;
         }
@@ -304,11 +325,12 @@ final class String_ {
       return $call1($Pervasives[1], $cst_String_rindex_from_Bytes_rindex_from);
     };
     $rindex_rec_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $i__1 = null;
       $i__0 = $i;
       for (;;) {
         if (0 <= $i__0) {
           if ($caml_bytes_unsafe_get($s, $i__0) === $c) {return Vector{0, $i__0};}
-          $i__1 = (int) ($i__0 + -1) as dynamic;
+          $i__1 = (int) ($i__0 + -1);
           $i__0 = $i__1;
           continue;
         }
@@ -328,10 +350,11 @@ final class String_ {
       );
     };
     $contains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $q_ = null;
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {
         if (! ($l < $i)) {
-          try {$index_rec($s, $l, $i, $c);$q_ = 1 as dynamic;return $q_;}
+          try {$index_rec($s, $l, $i, $c);$q_ = 1;return $q_;}
           catch(\Throwable $r_) {
             $r_ = $runtime["caml_wrap_exception"]($r_);
             if ($r_ === $Not_found) {return 0;}
@@ -348,9 +371,10 @@ final class String_ {
       return $contains_from($s, 0, $c);
     };
     $rcontains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+      $o_ = null;
       if (0 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {
-          try {$rindex_rec($s, $i, $c);$o_ = 1 as dynamic;return $o_;}
+          try {$rindex_rec($s, $i, $c);$o_ = 1;return $o_;}
           catch(\Throwable $p_) {
             $p_ = $runtime["caml_wrap_exception"]($p_);
             if ($p_ === $Not_found) {return 0;}
@@ -383,6 +407,9 @@ final class String_ {
       return $runtime["caml_string_compare"]($x, $y);
     };
     $split_on_char = (dynamic $sep, dynamic $s) ==> {
+      $i = null;
+      $i_ = null;
+      $j_ = null;
       $r = Vector{0, 0} as dynamic;
       $j = Vector{0, $caml_ml_string_length($s)} as dynamic;
       $g_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
@@ -399,7 +426,7 @@ final class String_ {
               };
             $j[1] = $i;
           }
-          $j_ = (int) ($i + -1) as dynamic;
+          $j_ = (int) ($i + -1);
           if (0 !== $i) {$i = $j_;continue;}
           break;
         }
