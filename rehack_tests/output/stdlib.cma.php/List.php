@@ -860,6 +860,7 @@ final class List_ {
         for (;;) {
           if ($l1__0) {
             if ($l2__0) {
+              // WHY IS THIS NOT AS DYNAMIC
               $t2 = $l2__0[2];
               $h2 = $l2__0[1];
               $t1 = $l1__0[2];

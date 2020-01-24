@@ -1024,7 +1024,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     if (!isLambda) {
       PP.string(f, "{");
     } else {
-      PP.string(f, "==> {");
+      PP.string(f, ": dynamic ==> {");
     };
     PP.start_group(f, 2);
     PP.break(f);
