@@ -146,11 +146,11 @@ final class Strings {
     
     $call1($Pervasives[34], $k_);
     
-    $createIntFromString = (dynamic $ss) ==> {
+    $createIntFromString = (dynamic $ss) : dynamic ==> {
       return $caml_int_of_string($ss);
     };
     $myFunction = 
-    (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) ==> {
+    (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) : dynamic ==> {
       $call1(
         $Pervasives[30],
         $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope

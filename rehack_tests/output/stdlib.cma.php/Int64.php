@@ -26,18 +26,24 @@ final class Int64 {
     $c_ = Vector{255, 0, 0, 0} as dynamic;
     $b_ = Vector{255, 1, 0, 0} as dynamic;
     $a_ = Vector{255, 1, 0, 0} as dynamic;
-    $succ = (dynamic $n) ==> {return $runtime["caml_int64_add"]($n, $a_);};
-    $pred = (dynamic $n) ==> {return $runtime["caml_int64_sub"]($n, $b_);};
-    $abs = (dynamic $n) ==> {
+    $succ = (dynamic $n) : dynamic ==> {
+      return $runtime["caml_int64_add"]($n, $a_);
+    };
+    $pred = (dynamic $n) : dynamic ==> {
+      return $runtime["caml_int64_sub"]($n, $b_);
+    };
+    $abs = (dynamic $n) : dynamic ==> {
       return $runtime["caml_greaterequal"]($n, $c_)
         ? $n
         : ($runtime["caml_int64_neg"]($n));
     };
-    $lognot = (dynamic $n) ==> {return $runtime["caml_int64_xor"]($n, $d_);};
-    $to_string = (dynamic $n) ==> {
+    $lognot = (dynamic $n) : dynamic ==> {
+      return $runtime["caml_int64_xor"]($n, $d_);
+    };
+    $to_string = (dynamic $n) : dynamic ==> {
       return $runtime["caml_int64_format"]($cst_d, $n);
     };
-    $of_string_opt = (dynamic $s) ==> {
+    $of_string_opt = (dynamic $s) : dynamic ==> {
       $e_ = null as dynamic;
       try {
         $e_ = Vector{0, $runtime["caml_int64_of_string"]($s)} as dynamic;
@@ -49,10 +55,10 @@ final class Int64 {
         throw $caml_wrap_thrown_exception_reraise($f_) as \Throwable;
       }
     };
-    $compare = (dynamic $x, dynamic $y) ==> {
+    $compare = (dynamic $x, dynamic $y) : dynamic ==> {
       return $runtime["caml_int64_compare"]($x, $y);
     };
-    $equal = (dynamic $x, dynamic $y) ==> {
+    $equal = (dynamic $x, dynamic $y) : dynamic ==> {
       return 0 === $compare($x, $y) ? 1 : (0);
     };
     $Int64 = Vector{

@@ -19,15 +19,15 @@ final class Complex {
     $one = Vector{254, 1, 0} as dynamic;
     $i = Vector{254, 0, 1} as dynamic;
     $a_ = Vector{254, 0, 0} as dynamic;
-    $add = (dynamic $x, dynamic $y) ==> {
+    $add = (dynamic $x, dynamic $y) : dynamic ==> {
       return Vector{254, $x[1] + $y[1], $x[2] + $y[2]};
     };
-    $sub = (dynamic $x, dynamic $y) ==> {
+    $sub = (dynamic $x, dynamic $y) : dynamic ==> {
       return Vector{254, $x[1] - $y[1], $x[2] - $y[2]};
     };
-    $neg = (dynamic $x) ==> {return Vector{254, - $x[1], - $x[2]};};
-    $conj = (dynamic $x) ==> {return Vector{254, $x[1], - $x[2]};};
-    $mul = (dynamic $x, dynamic $y) ==> {
+    $neg = (dynamic $x) : dynamic ==> {return Vector{254, - $x[1], - $x[2]};};
+    $conj = (dynamic $x) : dynamic ==> {return Vector{254, $x[1], - $x[2]};};
+    $mul = (dynamic $x, dynamic $y) : dynamic ==> {
       return Vector{
         254,
         $x[1] *
@@ -40,7 +40,7 @@ final class Complex {
             $y[1]
       };
     };
-    $div = (dynamic $x, dynamic $y) ==> {
+    $div = (dynamic $x, dynamic $y) : dynamic ==> {
       $d = null as dynamic;
       $r = null as dynamic;
       if ($Math->abs($y[2]) <= $Math->abs($y[1])) {
@@ -60,9 +60,11 @@ final class Complex {
         ($r__0 * $x[2] - $x[1]) / $d__0
       };
     };
-    $inv = (dynamic $x) ==> {return $div($one, $x);};
-    $norm2 = (dynamic $x) ==> {return $x[1] * $x[1] + $x[2] * $x[2];};
-    $norm = (dynamic $x) ==> {
+    $inv = (dynamic $x) : dynamic ==> {return $div($one, $x);};
+    $norm2 = (dynamic $x) : dynamic ==> {
+      return $x[1] * $x[1] + $x[2] * $x[2];
+    };
+    $norm = (dynamic $x) : dynamic ==> {
       $q = null as dynamic;
       $r = $Math->abs($x[1]);
       $i = $Math->abs($x[2]);
@@ -72,11 +74,11 @@ final class Complex {
       $q__0 = $r / $i;
       return $i * $Math->sqrt(1 + $q__0 * $q__0);
     };
-    $arg = (dynamic $x) ==> {return $Math->atan2($x[2], $x[1]);};
-    $polar = (dynamic $n, dynamic $a) ==> {
+    $arg = (dynamic $x) : dynamic ==> {return $Math->atan2($x[2], $x[1]);};
+    $polar = (dynamic $n, dynamic $a) : dynamic ==> {
       return Vector{254, $Math->cos($a) * $n, $Math->sin($a) * $n};
     };
-    $sqrt = (dynamic $x) ==> {
+    $sqrt = (dynamic $x) : dynamic ==> {
       $q__0 = null as dynamic;
       $w = null as dynamic;
       $q = null as dynamic;
@@ -99,15 +101,17 @@ final class Complex {
       $w__0 = 0 <= $x[2] ? $w : (- $w);
       return Vector{254, 0.5 * $i / $w, $w__0};
     };
-    $exp = (dynamic $x) ==> {
+    $exp = (dynamic $x) : dynamic ==> {
       $e = $Math->exp($x[1]);
       return Vector{254, $e * $Math->cos($x[2]), $e * $Math->sin($x[2])};
     };
-    $log = (dynamic $x) ==> {
+    $log = (dynamic $x) : dynamic ==> {
       $b_ = $Math->atan2($x[2], $x[1]);
       return Vector{254, $Math->log($norm($x)), $b_};
     };
-    $pow = (dynamic $x, dynamic $y) ==> {return $exp($mul($y, $log($x)));};
+    $pow = (dynamic $x, dynamic $y) : dynamic ==> {
+      return $exp($mul($y, $log($x)));
+    };
     $Complex = Vector{
       0,
       $zero,

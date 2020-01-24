@@ -22,19 +22,19 @@ final class Nativeint {
     $zero = 0 as dynamic;
     $one = 1 as dynamic;
     $minus_one = -1 as dynamic;
-    $succ = (dynamic $n) ==> {return (int) ($n + 1);};
-    $pred = (dynamic $n) ==> {return (int) ($n - 1);};
-    $abs = (dynamic $n) ==> {
+    $succ = (dynamic $n) : dynamic ==> {return (int) ($n + 1);};
+    $pred = (dynamic $n) : dynamic ==> {return (int) ($n - 1);};
+    $abs = (dynamic $n) : dynamic ==> {
       return $runtime["caml_greaterequal"]($n, 0) ? $n : ((int) - $n);
     };
     $size = $Sys[10];
     $min_int = $left_shift_32(1, (int) ($size + -1));
     $max_int = (int) ($min_int - 1) as dynamic;
-    $lognot = (dynamic $n) ==> {return $n ^ -1;};
-    $to_string = (dynamic $n) ==> {
+    $lognot = (dynamic $n) : dynamic ==> {return $n ^ -1;};
+    $to_string = (dynamic $n) : dynamic ==> {
       return $runtime["caml_format_int"]($cst_d, $n);
     };
-    $of_string_opt = (dynamic $s) ==> {
+    $of_string_opt = (dynamic $s) : dynamic ==> {
       $a_ = null as dynamic;
       try {
         $a_ = Vector{0, $runtime["caml_int_of_string"]($s)} as dynamic;
@@ -46,10 +46,10 @@ final class Nativeint {
         throw $caml_wrap_thrown_exception_reraise($b_) as \Throwable;
       }
     };
-    $compare = (dynamic $x, dynamic $y) ==> {
+    $compare = (dynamic $x, dynamic $y) : dynamic ==> {
       return $runtime["caml_int_compare"]($x, $y);
     };
-    $equal = (dynamic $x, dynamic $y) ==> {
+    $equal = (dynamic $x, dynamic $y) : dynamic ==> {
       return 0 === $compare($x, $y) ? 1 : (0);
     };
     $Nativeint = Vector{

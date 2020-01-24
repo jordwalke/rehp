@@ -21,17 +21,17 @@ final class Obj {
     $cst_Obj_extension_constructor = $string("Obj.extension_constructor");
     $Pervasives = Pervasives::get();
     $Marshal = Marshal::get();
-    $is_block = (dynamic $a) ==> {return 1 - $is_int($a);};
-    $double_field = (dynamic $x, dynamic $i) ==> {
+    $is_block = (dynamic $a) : dynamic ==> {return 1 - $is_int($a);};
+    $double_field = (dynamic $x, dynamic $i) : dynamic ==> {
       return $runtime["caml_array_get"]($x, $i);
     };
-    $set_double_field = (dynamic $x, dynamic $i, dynamic $v) ==> {
+    $set_double_field = (dynamic $x, dynamic $i, dynamic $v) : dynamic ==> {
       return $runtime["caml_array_set"]($x, $i, $v);
     };
-    $marshal = (dynamic $obj) ==> {
+    $marshal = (dynamic $obj) : dynamic ==> {
       return $runtime["caml_output_value_to_string"]($obj, 0);
     };
-    $unmarshal = (dynamic $str, dynamic $pos) ==> {
+    $unmarshal = (dynamic $str, dynamic $pos) : dynamic ==> {
       $L_ = (int) ($pos + $call2($Marshal[8], $str, $pos)) as dynamic;
       return Vector{0, $call2($Marshal[4], $str, $pos), $L_};
     };
@@ -51,7 +51,7 @@ final class Obj {
     $int_tag = 1000 as dynamic;
     $out_of_heap_tag = 1001 as dynamic;
     $unaligned_tag = 1002 as dynamic;
-    $extension_constructor = (dynamic $x) ==> {
+    $extension_constructor = (dynamic $x) : dynamic ==> {
       $switch__1 = null as dynamic;
       $switch__0 = null as dynamic;
       $name = null as dynamic;
@@ -83,35 +83,45 @@ final class Obj {
         ? $slot
         : ($call1($Pervasives[1], $cst_Obj_extension_constructor));
     };
-    $extension_name = (dynamic $slot) ==> {return $slot[1];};
-    $extension_id = (dynamic $slot) ==> {return $slot[2];};
-    $length = (dynamic $x) ==> {return (int) ($x->count() - 1 + -2);};
-    $a_ = (dynamic $K_, dynamic $J_) ==> {
+    $extension_name = (dynamic $slot) : dynamic ==> {return $slot[1];};
+    $extension_id = (dynamic $slot) : dynamic ==> {return $slot[2];};
+    $length = (dynamic $x) : dynamic ==> {
+      return (int) ($x->count() - 1 + -2);
+    };
+    $a_ = (dynamic $K_, dynamic $J_) : dynamic ==> {
       return $runtime["caml_ephe_blit_data"]($K_, $J_);
     };
-    $b_ = (dynamic $I_) ==> {return $runtime["caml_ephe_check_data"]($I_);};
-    $c_ = (dynamic $H_) ==> {return $runtime["caml_ephe_unset_data"]($H_);};
-    $d_ = (dynamic $G_, dynamic $F_) ==> {
+    $b_ = (dynamic $I_) : dynamic ==> {
+      return $runtime["caml_ephe_check_data"]($I_);
+    };
+    $c_ = (dynamic $H_) : dynamic ==> {
+      return $runtime["caml_ephe_unset_data"]($H_);
+    };
+    $d_ = (dynamic $G_, dynamic $F_) : dynamic ==> {
       return $runtime["caml_ephe_set_data"]($G_, $F_);
     };
-    $e_ = (dynamic $E_) ==> {return $runtime["caml_ephe_get_data_copy"]($E_);};
-    $f_ = (dynamic $D_) ==> {return $runtime["caml_ephe_get_data"]($D_);};
-    $g_ = (dynamic $C_, dynamic $B_, dynamic $A_, dynamic $z_, dynamic $y_) ==> {
+    $e_ = (dynamic $E_) : dynamic ==> {
+      return $runtime["caml_ephe_get_data_copy"]($E_);
+    };
+    $f_ = (dynamic $D_) : dynamic ==> {
+      return $runtime["caml_ephe_get_data"]($D_);
+    };
+    $g_ = (dynamic $C_, dynamic $B_, dynamic $A_, dynamic $z_, dynamic $y_) : dynamic ==> {
       return $runtime["caml_ephe_blit_key"]($C_, $B_, $A_, $z_, $y_);
     };
-    $h_ = (dynamic $x_, dynamic $w_) ==> {
+    $h_ = (dynamic $x_, dynamic $w_) : dynamic ==> {
       return $runtime["caml_ephe_check_key"]($x_, $w_);
     };
-    $i_ = (dynamic $v_, dynamic $u_) ==> {
+    $i_ = (dynamic $v_, dynamic $u_) : dynamic ==> {
       return $runtime["caml_ephe_unset_key"]($v_, $u_);
     };
-    $j_ = (dynamic $t_, dynamic $s_, dynamic $r_) ==> {
+    $j_ = (dynamic $t_, dynamic $s_, dynamic $r_) : dynamic ==> {
       return $runtime["caml_ephe_set_key"]($t_, $s_, $r_);
     };
-    $k_ = (dynamic $q_, dynamic $p_) ==> {
+    $k_ = (dynamic $q_, dynamic $p_) : dynamic ==> {
       return $runtime["caml_ephe_get_key_copy"]($q_, $p_);
     };
-    $l_ = (dynamic $o_, dynamic $n_) ==> {
+    $l_ = (dynamic $o_, dynamic $n_) : dynamic ==> {
       return $runtime["caml_ephe_get_key"]($o_, $n_);
     };
     $Obj = Vector{
@@ -143,7 +153,9 @@ final class Obj {
       $unmarshal,
       Vector{
         0,
-        (dynamic $m_) ==> {return $runtime["caml_ephe_create"]($m_);},
+        (dynamic $m_) : dynamic ==> {
+          return $runtime["caml_ephe_create"]($m_);
+        },
         $length,
         $l_,
         $k_,

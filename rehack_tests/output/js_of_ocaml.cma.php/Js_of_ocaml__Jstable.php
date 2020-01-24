@@ -20,91 +20,93 @@ final class Js_of_ocaml__Jstable {
     $Pervasives = Pervasives::get();
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $List = List_::get();
-    $a_ = (dynamic $x) ==> {
+    $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 944440446, 270), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
-    $obj = ((dynamic $t0, dynamic $param) ==> {return $t0->Object;})($b_, $a_);
-    $create = (dynamic $param) ==> {
+    $obj = ((dynamic $t0, dynamic $param) : dynamic ==> {return $t0->Object;})($b_, $a_);
+    $create = (dynamic $param) : dynamic ==> {
       $z_ = 0 as dynamic;
-      return ((dynamic $t1, dynamic $param) ==> {return new $t1();})($obj, $z_);
+      return ((dynamic $t1, dynamic $param) : dynamic ==> {return new $t1();})($obj, $z_);
     };
-    $add = (dynamic $t, dynamic $k, dynamic $v) ==> {
-      $w_ = (dynamic $x) ==> {
+    $add = (dynamic $t, dynamic $k, dynamic $v) : dynamic ==> {
+      $w_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -942667500, 271), $x);
       };
       $x_ = "_";
       $y_ = 0 as dynamic;
       $t[
-         ((dynamic $t3, dynamic $t2, dynamic $param) ==> {return $t3->concat($t2);
+         ((dynamic $t3, dynamic $t2, dynamic $param) : dynamic ==> {return $t3->concat($t2);
           })($k, $x_, $w_)
        ] = $v;
       return $y_;
     };
-    $remove = (dynamic $t, dynamic $k) ==> {
-      $t_ = (dynamic $x) ==> {
+    $remove = (dynamic $t, dynamic $k) : dynamic ==> {
+      $t_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -942667500, 272), $x);
       };
       $u_ = "_";
       $v_ = 0 as dynamic;
       unset(
         $t[
-           ((dynamic $t5, dynamic $t4, dynamic $param) ==> {return $t5->concat($t4);
+           ((dynamic $t5, dynamic $t4, dynamic $param) : dynamic ==> {return $t5->concat($t4);
             })($k, $u_, $t_)
          ]
       );
       return $v_;
     };
-    $find = (dynamic $t, dynamic $k) ==> {
-      $r_ = (dynamic $x) ==> {
+    $find = (dynamic $t, dynamic $k) : dynamic ==> {
+      $r_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -942667500, 273), $x);
       };
       $s_ = "_";
       return $t[
-         ((dynamic $t7, dynamic $t6, dynamic $param) ==> {return $t7->concat($t6);
+         ((dynamic $t7, dynamic $t6, dynamic $param) : dynamic ==> {return $t7->concat($t6);
           })($k, $s_, $r_)
        ];
     };
-    $keys = (dynamic $t) ==> {
-      $c_ = (dynamic $x) ==> {
+    $keys = (dynamic $t) : dynamic ==> {
+      $c_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -955850252, 274), $x);
       };
-      $d_ = (dynamic $x) ==> {
+      $d_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 944440446, 275), $x);
       };
       $e_ = $Js_of_ocaml_Js[50][1];
-      $f_ = ((dynamic $t13, dynamic $param) ==> {return $t13->Object;})($e_, $d_);
-      $key_array = ((dynamic $t15, dynamic $t14, dynamic $param) ==> {return $t15->keys($t14);
+      $f_ = ((dynamic $t13, dynamic $param) : dynamic ==> {
+         return $t13->Object;
+       })($e_, $d_);
+      $key_array = ((dynamic $t15, dynamic $t14, dynamic $param) : dynamic ==> {return $t15->keys($t14);
        })($f_, $t, $c_);
       $res = Vector{0, 0} as dynamic;
       $g_ = 0 as dynamic;
-      $h_ = (dynamic $x) ==> {
+      $h_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 520590566, 276), $x);
       };
       $i_ = (int)
-      (((dynamic $t12, dynamic $param) ==> {return $t12->length;})($key_array, $h_) + -1) as dynamic;
+      (((dynamic $t12, dynamic $param) : dynamic ==> {return $t12->length;})($key_array, $h_) + -1) as dynamic;
       if (! ($i_ < 0)) {
         $i = $g_;
         for (;;) {
-          $j_ = (dynamic $param) ==> {
+          $j_ = (dynamic $param) : dynamic ==> {
             return $call1($Pervasives[2], $cst_Jstable_keys);
           };
           $k_ = $call2($Js_of_ocaml_Js[16], $key_array, $i);
           $key = $call2($Js_of_ocaml_Js[6][8], $k_, $j_);
           $l_ = $res[1];
-          $m_ = (dynamic $x) ==> {
+          $m_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -488115631, 277), $x);
           };
-          $n_ = (dynamic $x) ==> {
+          $n_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, 520590566, 278), $x);
           };
           $o_ = (int)
-          (((dynamic $t8, dynamic $param) ==> {return $t8->length;})($key, $n_) + -1) as dynamic;
+          (((dynamic $t8, dynamic $param) : dynamic ==> {return $t8->length;})($key, $n_) + -1) as dynamic;
           $p_ = 0 as dynamic;
           $res[1] =
             Vector{
               0,
-              ((dynamic $t11, dynamic $t9, dynamic $t10, dynamic $param) ==> {return $t11->substring($t9, $t10);
+              ((dynamic $t11, dynamic $t9, dynamic $t10, dynamic $param) : dynamic ==> {return $t11->substring($t9, $t10);
                })($key, $p_, $o_, $m_),
               $l_
             };

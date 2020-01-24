@@ -126,36 +126,36 @@ final class Js_of_ocaml__Url {
       $string("hash"),
       $string("assign")
     } as dynamic;
-    $split = (dynamic $c, dynamic $s) ==> {
-      $cn_ = (dynamic $x) ==> {
+    $split = (dynamic $c, dynamic $s) : dynamic ==> {
+      $cn_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 24046298, 234), $x);
       };
       $co_ = $call2($String[1], 1, $c)->toString();
-      $cp_ = ((dynamic $t1, dynamic $t0, dynamic $param) ==> {return $t1->split($t0);
+      $cp_ = ((dynamic $t1, dynamic $t0, dynamic $param) : dynamic ==> {return $t1->split($t0);
        })($s, $co_, $cn_);
       return $call1($Js_of_ocaml_Js[20], $cp_);
     };
-    $split_2 = (dynamic $c, dynamic $s) ==> {
-      $cf_ = (dynamic $x) ==> {
+    $split_2 = (dynamic $c, dynamic $s) : dynamic ==> {
+      $cf_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -524334903, 235), $x);
       };
       $cg_ = $call2($String[1], 1, $c)->toString();
-      $index = ((dynamic $t8, dynamic $t7, dynamic $param) ==> {return $t8->indexOf($t7);
+      $index = ((dynamic $t8, dynamic $t7, dynamic $param) : dynamic ==> {return $t8->indexOf($t7);
        })($s, $cg_, $cf_);
       if (0 <= $index) {
-        $ch_ = (dynamic $x) ==> {
+        $ch_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -303194578, 236), $x);
         };
         $ci_ = (int) ($index + 1) as dynamic;
-        $cj_ = ((dynamic $t6, dynamic $t5, dynamic $param) ==> {return $t6->slice($t5);
+        $cj_ = ((dynamic $t6, dynamic $t5, dynamic $param) : dynamic ==> {return $t6->slice($t5);
          })($s, $ci_, $ch_);
-        $ck_ = (dynamic $x) ==> {
+        $ck_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -20462510, 237), $x);
         };
         $cl_ = 0 as dynamic;
         $cm_ = Vector{
           0,
-          ((dynamic $t4, dynamic $t2, dynamic $t3, dynamic $param) ==> {return $t4->slice($t2, $t3);
+          ((dynamic $t4, dynamic $t2, dynamic $t3, dynamic $param) : dynamic ==> {return $t4->slice($t2, $t3);
            })($s, $cl_, $index, $ck_),
           $cj_
         } as dynamic;
@@ -168,14 +168,14 @@ final class Js_of_ocaml__Url {
       $cst_Js_of_ocaml_Url_Local_exn,
       $caml_fresh_oo_id(0)
     } as dynamic;
-    $interrupt = (dynamic $param) ==> {
+    $interrupt = (dynamic $param) : dynamic ==> {
       throw $caml_wrap_thrown_exception($Local_exn) as \Throwable;
     };
     $plus_re = $call1($Js_of_ocaml_Regexp[5], $cst);
-    $escape_plus = (dynamic $s) ==> {
+    $escape_plus = (dynamic $s) : dynamic ==> {
       return $call3($Js_of_ocaml_Regexp[12], $plus_re, $s, $cst_2B);
     };
-    $unescape_plus = (dynamic $s) ==> {
+    $unescape_plus = (dynamic $s) : dynamic ==> {
       return $call3($Js_of_ocaml_Regexp[12], $plus_re, $s, $cst__0);
     };
     $b_ = 0 as dynamic;
@@ -183,31 +183,33 @@ final class Js_of_ocaml__Url {
     $d_ = "\\+";
     $e_ = $Js_of_ocaml_Js[11];
     $plus_re_js_string = (
-     (dynamic $t11, dynamic $t9, dynamic $t10, dynamic $param) ==> {return new $t11($t9, $t10);
+     (dynamic $t11, dynamic $t9, dynamic $t10, dynamic $param) : dynamic ==> {return new $t11($t9, $t10);
      })($e_, $d_, $c_, $b_);
-    $unescape_plus_js_string = (dynamic $s) ==> {
-      $cb_ = (dynamic $x) ==> {
+    $unescape_plus_js_string = (dynamic $s) : dynamic ==> {
+      $cb_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 180472028, 238), $x);
       };
       $cc_ = 0 as dynamic;
-      (((dynamic $t16, dynamic $t15, dynamic $param) ==> {$t16->lastIndex = $t15;return 0;
+      (((dynamic $t16, dynamic $t15, dynamic $param) : dynamic ==> {
+          $t16->lastIndex = $t15;
+          return 0;
         })($plus_re_js_string, $cc_, $cb_));
-      $cd_ = (dynamic $x) ==> {
+      $cd_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 724060212, 239), $x);
       };
       $ce_ = " ";
-      return ((dynamic $t14, dynamic $t12, dynamic $t13, dynamic $param) ==> {return $t14->replace($t12, $t13);
+      return ((dynamic $t14, dynamic $t12, dynamic $t13, dynamic $param) : dynamic ==> {return $t14->replace($t12, $t13);
        })($s, $plus_re_js_string, $ce_, $cd_);
     };
-    $urldecode_js_string_string = (dynamic $s) ==> {
+    $urldecode_js_string_string = (dynamic $s) : dynamic ==> {
       $ca_ = $unescape_plus_js_string($s);
       return $caml_js_to_byte_string($call1($Js_of_ocaml_Js[42], $ca_));
     };
-    $urldecode = (dynamic $s) ==> {
+    $urldecode = (dynamic $s) : dynamic ==> {
       $b__ = $caml_jsbytes_of_string($unescape_plus($s));
       return $caml_js_to_byte_string($call1($Js_of_ocaml_Js[42], $b__));
     };
-    $urlencode = (dynamic $opt, dynamic $s) ==> {
+    $urlencode = (dynamic $opt, dynamic $s) : dynamic ==> {
       if ($opt) {
         $sth = $opt[1];
         $with_plus = $sth;
@@ -228,12 +230,14 @@ final class Js_of_ocaml__Url {
       $cst_Js_of_ocaml_Url_Not_an_http_protocol,
       $caml_fresh_oo_id(0)
     } as dynamic;
-    $is_secure = (dynamic $prot_string) ==> {
-      $b9_ = (dynamic $x) ==> {
+    $is_secure = (dynamic $prot_string) : dynamic ==> {
+      $b9_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 946097238, 240), $x);
       };
       $match = $caml_js_to_byte_string(
-        ((dynamic $t17, dynamic $param) ==> {return $t17->toLowerCase();})($prot_string, $b9_)
+        ((dynamic $t17, dynamic $param) : dynamic ==> {
+           return $t17->toLowerCase();
+         })($prot_string, $b9_)
       );
       if ($caml_string_notequal($match, $cst_file)) {
         if ($caml_string_notequal($match, $cst_file__0)) {
@@ -259,10 +263,10 @@ final class Js_of_ocaml__Url {
     };
     $default_http_port = 80 as dynamic;
     $default_https_port = 443 as dynamic;
-    $path_of_path_string = (dynamic $s) ==> {
+    $path_of_path_string = (dynamic $s) : dynamic ==> {
       $aux = new Ref();
       $l = $runtime["caml_ml_string_length"]($s);
-      $aux->contents = (dynamic $i) ==> {
+      $aux->contents = (dynamic $i) : dynamic ==> {
         try {$b7_ = $call3($String[18], $s, $i, 47);$j = $b7_;}
         catch(\Throwable $b8_) {
           $b8_ = $runtime["caml_wrap_exception"]($b8_);
@@ -286,8 +290,8 @@ final class Js_of_ocaml__Url {
       }
       return $a;
     };
-    $encode_arguments = (dynamic $l) ==> {
-      $b1_ = (dynamic $param) ==> {
+    $encode_arguments = (dynamic $l) : dynamic ==> {
+      $b1_ = (dynamic $param) : dynamic ==> {
         $v = $param[2];
         $n = $param[1];
         $b3_ = $urlencode(0, $v);
@@ -298,22 +302,26 @@ final class Js_of_ocaml__Url {
       $b2_ = $call2($List[17], $b1_, $l);
       return $call2($String[7], $cst__4, $b2_);
     };
-    $decode_arguments_js_string = (dynamic $s) ==> {
+    $decode_arguments_js_string = (dynamic $s) : dynamic ==> {
       $aux = new Ref();
       $arr = $split(38, $s);
-      $bS_ = (dynamic $x) ==> {
+      $bS_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 520590566, 241), $x);
       };
-      $len = ((dynamic $t18, dynamic $param) ==> {return $t18->length;})($arr, $bS_);
-      $name_value_split = (dynamic $s) ==> {return $split_2(61, $s);};
-      $aux->contents = (dynamic $acc, dynamic $idx) ==> {
+      $len = ((dynamic $t18, dynamic $param) : dynamic ==> {
+         return $t18->length;
+       })($arr, $bS_);
+      $name_value_split = (dynamic $s) : dynamic ==> {
+        return $split_2(61, $s);
+      };
+      $aux->contents = (dynamic $acc, dynamic $idx) : dynamic ==> {
         $idx__0 = $idx;
         for (;;) {
           if (0 <= $idx__0) {
             try {
               $bT_ = (int) ($idx__0 + -1) as dynamic;
-              $bU_ = (dynamic $s) ==> {
-                $bY_ = (dynamic $param) ==> {
+              $bU_ = (dynamic $s) : dynamic ==> {
+                $bY_ = (dynamic $param) : dynamic ==> {
                   $y = $param[2];
                   $x = $param[1];
                   $b0_ = $urldecode_js_string_string($y);
@@ -348,7 +356,7 @@ final class Js_of_ocaml__Url {
       };
       return $aux->contents(0, (int) ($len + -1));
     };
-    $decode_arguments = (dynamic $s) ==> {
+    $decode_arguments = (dynamic $s) : dynamic ==> {
       return $decode_arguments_js_string($caml_jsbytes_of_string($s));
     };
     $g_ = 0 as dynamic;
@@ -356,40 +364,48 @@ final class Js_of_ocaml__Url {
       $cst_Hh_Tt_Tt_Pp_Ss_0_9a_zA_Z_0_9a_zA_Z_0_9A_Fa_f_0_9
     );
     $i_ = $Js_of_ocaml_Js[10];
-    $url_re = ((dynamic $t20, dynamic $t19, dynamic $param) ==> {return new $t20($t19);
+    $url_re = ((dynamic $t20, dynamic $t19, dynamic $param) : dynamic ==> {return new $t20($t19);
      })($i_, $h_, $g_);
     $j_ = 0 as dynamic;
     $k_ = $caml_jsbytes_of_string($cst_Ff_Ii_Ll_Ee);
     $l_ = $Js_of_ocaml_Js[10];
-    $file_re = ((dynamic $t22, dynamic $t21, dynamic $param) ==> {return new $t22($t21);
+    $file_re = ((dynamic $t22, dynamic $t21, dynamic $param) : dynamic ==> {return new $t22($t21);
      })($l_, $k_, $j_);
-    $url_of_js_string = (dynamic $s) ==> {
-      $bo_ = (dynamic $handle) ==> {
+    $url_of_js_string = (dynamic $s) : dynamic ==> {
+      $bo_ = (dynamic $handle) : dynamic ==> {
         $res = $call1($Js_of_ocaml_Js[21], $handle);
         $bD_ = $call2($Js_of_ocaml_Js[16], $res, 1);
         $ssl = $is_secure($call2($Js_of_ocaml_Js[6][8], $bD_, $interrupt));
-        $port_of_string = (dynamic $s) ==> {
+        $port_of_string = (dynamic $s) : dynamic ==> {
           return $caml_string_notequal($s, $cst__5)
             ? $caml_int_of_string($s)
             : ($ssl ? 443 : (80));
         };
-        $bE_ = (dynamic $param) ==> {return $caml_jsbytes_of_string($cst__6);};
+        $bE_ = (dynamic $param) : dynamic ==> {
+          return $caml_jsbytes_of_string($cst__6);
+        };
         $bF_ = $call2($Js_of_ocaml_Js[16], $res, 6);
         $path_str = $urldecode_js_string_string(
           $call2($Js_of_ocaml_Js[6][8], $bF_, $bE_)
         );
-        $bG_ = (dynamic $param) ==> {return $caml_jsbytes_of_string($cst__7);};
+        $bG_ = (dynamic $param) : dynamic ==> {
+          return $caml_jsbytes_of_string($cst__7);
+        };
         $bH_ = $call2($Js_of_ocaml_Js[16], $res, 10);
         $bI_ = $urldecode_js_string_string(
           $call2($Js_of_ocaml_Js[6][8], $bH_, $bG_)
         );
-        $bJ_ = (dynamic $param) ==> {return $caml_jsbytes_of_string($cst__8);};
+        $bJ_ = (dynamic $param) : dynamic ==> {
+          return $caml_jsbytes_of_string($cst__8);
+        };
         $bK_ = $call2($Js_of_ocaml_Js[16], $res, 8);
         $bL_ = $decode_arguments_js_string(
           $call2($Js_of_ocaml_Js[6][8], $bK_, $bJ_)
         );
         $bM_ = $path_of_path_string($path_str);
-        $bN_ = (dynamic $param) ==> {return $caml_jsbytes_of_string($cst__9);};
+        $bN_ = (dynamic $param) : dynamic ==> {
+          return $caml_jsbytes_of_string($cst__9);
+        };
         $bO_ = $call2($Js_of_ocaml_Js[16], $res, 4);
         $bP_ = $port_of_string(
           $caml_js_to_byte_string($call2($Js_of_ocaml_Js[6][8], $bO_, $bN_))
@@ -409,21 +425,21 @@ final class Js_of_ocaml__Url {
         $bR_ = $ssl ? Vector{1, $url} : (Vector{0, $url});
         return Vector{0, $bR_};
       };
-      $bp_ = (dynamic $param) ==> {
-        $bs_ = (dynamic $handle) ==> {
+      $bp_ = (dynamic $param) : dynamic ==> {
+        $bs_ = (dynamic $handle) : dynamic ==> {
           $res = $call1($Js_of_ocaml_Js[21], $handle);
           $bw_ = $call2($Js_of_ocaml_Js[16], $res, 2);
           $path_str = $urldecode_js_string_string(
             $call2($Js_of_ocaml_Js[6][8], $bw_, $interrupt)
           );
-          $bx_ = (dynamic $param) ==> {
+          $bx_ = (dynamic $param) : dynamic ==> {
             return $caml_jsbytes_of_string($cst__10);
           };
           $by_ = $call2($Js_of_ocaml_Js[16], $res, 6);
           $bz_ = $caml_js_to_byte_string(
             $call2($Js_of_ocaml_Js[6][8], $by_, $bx_)
           );
-          $bA_ = (dynamic $param) ==> {
+          $bA_ = (dynamic $param) : dynamic ==> {
             return $caml_jsbytes_of_string($cst__11);
           };
           $bB_ = $call2($Js_of_ocaml_Js[16], $res, 4);
@@ -439,25 +455,25 @@ final class Js_of_ocaml__Url {
             }
           };
         };
-        $bt_ = (dynamic $param) ==> {return 0;};
-        $bu_ = (dynamic $x) ==> {
+        $bt_ = (dynamic $param) : dynamic ==> {return 0;};
+        $bu_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -1021447279, 242), $x);
         };
-        $bv_ = ((dynamic $t26, dynamic $t25, dynamic $param) ==> {return $t26->exec($t25);
+        $bv_ = ((dynamic $t26, dynamic $t25, dynamic $param) : dynamic ==> {return $t26->exec($t25);
          })($file_re, $s, $bu_);
         return $call3($Js_of_ocaml_Js[5][7], $bv_, $bt_, $bs_);
       };
-      $bq_ = (dynamic $x) ==> {
+      $bq_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -1021447279, 243), $x);
       };
-      $br_ = ((dynamic $t24, dynamic $t23, dynamic $param) ==> {return $t24->exec($t23);
+      $br_ = ((dynamic $t24, dynamic $t23, dynamic $param) : dynamic ==> {return $t24->exec($t23);
        })($url_re, $s, $bq_);
       return $call3($Js_of_ocaml_Js[5][7], $br_, $bp_, $bo_);
     };
-    $url_of_string = (dynamic $s) ==> {
+    $url_of_string = (dynamic $s) : dynamic ==> {
       return $url_of_js_string($caml_jsbytes_of_string($s));
     };
-    $string_of_url = (dynamic $param) ==> {
+    $string_of_url = (dynamic $param) : dynamic ==> {
       switch($param[0]) {
         // FALLTHROUGH
         case 0:
@@ -478,7 +494,7 @@ final class Js_of_ocaml__Url {
           }
           else {$aP_ = $cst__19;}
           $aQ_ = $call2($Pervasives[16], $aP_, $aN_);
-          $aR_ = (dynamic $x) ==> {return $urlencode(0, $x);};
+          $aR_ = (dynamic $x) : dynamic ==> {return $urlencode(0, $x);};
           $aS_ = $call2($List[17], $aR_, $path);
           $aT_ = $call2($String[7], $cst__15, $aS_);
           $aU_ = $call2($Pervasives[16], $aT_, $aQ_);
@@ -511,7 +527,7 @@ final class Js_of_ocaml__Url {
           }
           else {$a4_ = $cst__28;}
           $a5_ = $call2($Pervasives[16], $a4_, $a2_);
-          $a6_ = (dynamic $x) ==> {return $urlencode(0, $x);};
+          $a6_ = (dynamic $x) : dynamic ==> {return $urlencode(0, $x);};
           $a7_ = $call2($List[17], $a6_, $path__0);
           $a8_ = $call2($String[7], $cst__24, $a7_);
           $a9_ = $call2($Pervasives[16], $a8_, $a5_);
@@ -542,32 +558,36 @@ final class Js_of_ocaml__Url {
           }
           else {$bi_ = $cst__34;}
           $bj_ = $call2($Pervasives[16], $bi_, $bg_);
-          $bk_ = (dynamic $x) ==> {return $urlencode(0, $x);};
+          $bk_ = (dynamic $x) : dynamic ==> {return $urlencode(0, $x);};
           $bl_ = $call2($List[17], $bk_, $path__1);
           $bm_ = $call2($String[7], $cst__33, $bl_);
           $bn_ = $call2($Pervasives[16], $bm_, $bj_);
           return $call2($Pervasives[16], $cst_file__1, $bn_);
         }
     };
-    $m_ = (dynamic $x) ==> {
+    $m_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -448369099, 244), $x);
     };
     $n_ = $Js_of_ocaml_Dom_html[8];
-    $o_ = ((dynamic $t42, dynamic $param) ==> {return $t42->location;})($n_, $m_);
+    $o_ = ((dynamic $t42, dynamic $param) : dynamic ==> {
+       return $t42->location;
+     })($n_, $m_);
     $p_ = $call1($Js_of_ocaml_Js[6][2], $o_);
     
     if ($call1($Js_of_ocaml_Js[6][5], $p_)) {
-      $q_ = (dynamic $x) ==> {
+      $q_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -448369099, 245), $x);
       };
       $r_ = $Js_of_ocaml_Dom_html[8];
-      $l = ((dynamic $t41, dynamic $param) ==> {return $t41->location;})($r_, $q_);
+      $l = ((dynamic $t41, dynamic $param) : dynamic ==> {
+         return $t41->location;
+       })($r_, $q_);
     }
     else {
       $empty = "";
       $I_ = Vector{0, 0, 0, 0} as dynamic;
       $J_ = 
-      (dynamic $self, dynamic $href, dynamic $protocol, dynamic $host, dynamic $hostname, dynamic $port, dynamic $pathname, dynamic $search, dynamic $hash, dynamic $origin, dynamic $reload, dynamic $replace, dynamic $assign) ==> {
+      (dynamic $self, dynamic $href, dynamic $protocol, dynamic $host, dynamic $hostname, dynamic $port, dynamic $pathname, dynamic $search, dynamic $hash, dynamic $origin, dynamic $reload, dynamic $replace, dynamic $assign) : dynamic ==> {
         if (! $I_[1]) {
           $ai_ = $call1($CamlinternalOO[16], $shared);
           $aj_ = $call2($CamlinternalOO[3], $ai_, $cst__37);
@@ -584,54 +604,57 @@ final class Js_of_ocaml__Url {
           $au_ = $ak_[10];
           $av_ = $ak_[11];
           $aw_ = $ak_[12];
-          $ax_ = (dynamic $self_1) ==> {
+          $ax_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $call1($env[2], $env[1]);
           };
-          $ay_ = (dynamic $self_1) ==> {
+          $ay_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $call1($env[3], $env[1]);
           };
-          $az_ = (dynamic $self_1) ==> {
+          $az_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $call1($env[4], $env[1]);
           };
-          $aA_ = (dynamic $self_1) ==> {
+          $aA_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[5];
           };
-          $aB_ = (dynamic $self_1) ==> {
+          $aB_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[6];
           };
-          $aC_ = (dynamic $self_1) ==> {
+          $aC_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[7];
           };
-          $aD_ = (dynamic $self_1) ==> {
+          $aD_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[8];
           };
-          $aE_ = (dynamic $self_1) ==> {
+          $aE_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[9];
           };
-          $aF_ = (dynamic $self_1) ==> {
+          $aF_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[10];
           };
-          $aG_ = (dynamic $self_1) ==> {
+          $aG_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[11];
           };
-          $aH_ = (dynamic $self_1) ==> {
+          $aH_ = (dynamic $self_1) : dynamic ==> {
             $env = $self_1[$aj_ + 1];
             return $env[12];
           };
           $aI_ = Vector{
             0,
             $as_,
-            (dynamic $self_1) ==> {$env = $self_1[$aj_ + 1];return $env[13];},
+            (dynamic $self_1) : dynamic ==> {
+              $env = $self_1[$aj_ + 1];
+              return $env[13];
+            },
             $ao_,
             $aH_,
             $au_,
@@ -656,7 +679,7 @@ final class Js_of_ocaml__Url {
             $ax_
           } as dynamic;
           $call2($CamlinternalOO[11], $ai_, $aI_);
-          $aJ_ = (dynamic $aK_) ==> {
+          $aJ_ = (dynamic $aK_) : dynamic ==> {
             $aL_ = $call2($CamlinternalOO[24], 0, $ai_);
             $aL_[$aj_ + 1] = $aK_;
             return $aL_;
@@ -684,12 +707,12 @@ final class Js_of_ocaml__Url {
           }
         );
       };
-      $K_ = (dynamic $param, dynamic $ah_) ==> {return 0;};
-      $L_ = (dynamic $param, dynamic $ag_) ==> {return 0;};
-      $M_ = (dynamic $param) ==> {return 0;};
+      $K_ = (dynamic $param, dynamic $ah_) : dynamic ==> {return 0;};
+      $L_ = (dynamic $param, dynamic $ag_) : dynamic ==> {return 0;};
+      $M_ = (dynamic $param) : dynamic ==> {return 0;};
       $N_ = $Js_of_ocaml_Js[3];
       $l = (
-       (dynamic $t29, dynamic $t30, dynamic $t31, dynamic $t32, dynamic $t33, dynamic $t34, dynamic $t35, dynamic $t36, dynamic $t37, dynamic $t38, dynamic $t39, dynamic $t40, dynamic $param) ==> {
+       (dynamic $t29, dynamic $t30, dynamic $t31, dynamic $t32, dynamic $t33, dynamic $t34, dynamic $t35, dynamic $t36, dynamic $t37, dynamic $t38, dynamic $t39, dynamic $t40, dynamic $param) : dynamic ==> {
          return darray[
           "href"=>$t29,
           "protocol"=>$t30,
@@ -720,29 +743,31 @@ final class Js_of_ocaml__Url {
       );
     }
     
-    $s_ = (dynamic $x) ==> {
+    $s_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -757983821, 246), $x);
     };
     $host = $urldecode_js_string_string(
-      ((dynamic $t43, dynamic $param) ==> {return $t43->hostname;})($l, $s_)
+      ((dynamic $t43, dynamic $param) : dynamic ==> {return $t43->hostname;})($l, $s_)
     );
-    $t_ = (dynamic $x) ==> {
+    $t_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 6510168, 247), $x);
     };
     $protocol = $urldecode_js_string_string(
-      ((dynamic $t44, dynamic $param) ==> {return $t44->protocol;})($l, $t_)
+      ((dynamic $t44, dynamic $param) : dynamic ==> {return $t44->protocol;})($l, $t_)
     );
     $u_ = 0 as dynamic;
-    $port = ((dynamic $param) ==> {
+    $port = ((dynamic $param) : dynamic ==> {
        try {
-         $ad_ = (dynamic $x) ==> {
+         $ad_ = (dynamic $x) : dynamic ==> {
            return $call1($caml_get_public_method($x, -899906687, 248), $x);
          };
          $ae_ = Vector{
            0,
            $caml_int_of_string(
              $caml_js_to_byte_string(
-               ((dynamic $t45, dynamic $param) ==> {return $t45->port;})($l, $ad_)
+               ((dynamic $t45, dynamic $param) : dynamic ==> {
+                  return $t45->port;
+                })($l, $ad_)
              )
            )
          } as dynamic;
@@ -754,97 +779,103 @@ final class Js_of_ocaml__Url {
          throw $caml_wrap_thrown_exception_reraise($af_) as \Throwable;
        }
      })($u_);
-    $v_ = (dynamic $x) ==> {
+    $v_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -742027664, 249), $x);
     };
     $path_string = $urldecode_js_string_string(
-      ((dynamic $t46, dynamic $param) ==> {return $t46->pathname;})($l, $v_)
+      ((dynamic $t46, dynamic $param) : dynamic ==> {return $t46->pathname;})($l, $v_)
     );
     $path = $path_of_path_string($path_string);
     $w_ = "?";
-    $x_ = (dynamic $x) ==> {
+    $x_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 930445673, 250), $x);
     };
     $y_ = 0 as dynamic;
-    $z_ = (dynamic $x) ==> {
+    $z_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -487088280, 251), $x);
     };
-    $A_ = ((dynamic $t51, dynamic $param) ==> {return $t51->search;})($l, $z_);
+    $A_ = ((dynamic $t51, dynamic $param) : dynamic ==> {return $t51->search;})($l, $z_);
     
     if (
-      ((dynamic $t53, dynamic $t52, dynamic $param) ==> {return $t53->charAt($t52);
+      ((dynamic $t53, dynamic $t52, dynamic $param) : dynamic ==> {return $t53->charAt($t52);
        })($A_, $y_, $x_) === $w_
     ) {
-      $B_ = (dynamic $x) ==> {
+      $B_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -303194578, 252), $x);
       };
       $C_ = 1 as dynamic;
-      $D_ = (dynamic $x) ==> {
+      $D_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -487088280, 253), $x);
       };
-      $E_ = ((dynamic $t48, dynamic $param) ==> {return $t48->search;})($l, $D_);
-      $F_ = ((dynamic $t50, dynamic $t49, dynamic $param) ==> {return $t50->slice($t49);
+      $E_ = ((dynamic $t48, dynamic $param) : dynamic ==> {
+         return $t48->search;
+       })($l, $D_);
+      $F_ = ((dynamic $t50, dynamic $t49, dynamic $param) : dynamic ==> {return $t50->slice($t49);
        })($E_, $C_, $B_);
     }
     else {
-      $H_ = (dynamic $x) ==> {
+      $H_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -487088280, 260), $x);
       };
-      $F_ = ((dynamic $t47, dynamic $param) ==> {return $t47->search;})($l, $H_);
+      $F_ = ((dynamic $t47, dynamic $param) : dynamic ==> {
+         return $t47->search;
+       })($l, $H_);
     }
     
     $arguments__0 = $decode_arguments_js_string($F_);
-    $get_fragment = (dynamic $param) ==> {
-      $T_ = (dynamic $res) ==> {
+    $get_fragment = (dynamic $param) : dynamic ==> {
+      $T_ = (dynamic $res) : dynamic ==> {
         $res__0 = $call1($Js_of_ocaml_Js[21], $res);
         return $runtime["caml_js_to_string"]($res__0[1]);
       };
-      $U_ = (dynamic $param) ==> {return $cst__36;};
-      $V_ = (dynamic $x) ==> {
+      $U_ = (dynamic $param) : dynamic ==> {return $cst__36;};
+      $V_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -16084858, 254), $x);
       };
       $W_ = 0 as dynamic;
       $X_ = "#(.*)";
       $Y_ = $Js_of_ocaml_Js[10];
-      $Z_ = ((dynamic $t56, dynamic $t55, dynamic $param) ==> {return new $t56($t55);
+      $Z_ = ((dynamic $t56, dynamic $t55, dynamic $param) : dynamic ==> {return new $t56($t55);
        })($Y_, $X_, $W_);
-      $aa_ = (dynamic $x) ==> {
+      $aa_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -988476949, 255), $x);
       };
-      $ab_ = ((dynamic $t54, dynamic $param) ==> {return $t54->href;})($l, $aa_);
-      $ac_ = ((dynamic $t58, dynamic $t57, dynamic $param) ==> {return $t58->match($t57);
+      $ab_ = ((dynamic $t54, dynamic $param) : dynamic ==> {
+         return $t54->href;
+       })($l, $aa_);
+      $ac_ = ((dynamic $t58, dynamic $t57, dynamic $param) : dynamic ==> {return $t58->match($t57);
        })($ab_, $Z_, $V_);
       return $call3($Js_of_ocaml_Js[5][7], $ac_, $U_, $T_);
     };
-    $set_fragment = (dynamic $s) ==> {
-      $R_ = (dynamic $x) ==> {
+    $set_fragment = (dynamic $s) : dynamic ==> {
+      $R_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -989319218, 256), $x);
       };
       $S_ = $caml_jsbytes_of_string($urlencode(0, $s));
-      return ((dynamic $t60, dynamic $t59, dynamic $param) ==> {$t60->hash = $t59;return 0;
+      return ((dynamic $t60, dynamic $t59, dynamic $param) : dynamic ==> {$t60->hash = $t59;return 0;
        })($l, $S_, $R_);
     };
-    $get = (dynamic $param) ==> {
-      $Q_ = (dynamic $x) ==> {
+    $get = (dynamic $param) : dynamic ==> {
+      $Q_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -988476949, 257), $x);
       };
       return $url_of_js_string(
-        ((dynamic $t61, dynamic $param) ==> {return $t61->href;})($l, $Q_)
+        ((dynamic $t61, dynamic $param) : dynamic ==> {return $t61->href;})($l, $Q_)
       );
     };
-    $set = (dynamic $u) ==> {
-      $O_ = (dynamic $x) ==> {
+    $set = (dynamic $u) : dynamic ==> {
+      $O_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -988476949, 258), $x);
       };
       $P_ = $caml_jsbytes_of_string($string_of_url($u));
-      return ((dynamic $t63, dynamic $t62, dynamic $param) ==> {$t63->href = $t62;return 0;
+      return ((dynamic $t63, dynamic $t62, dynamic $param) : dynamic ==> {$t63->href = $t62;return 0;
        })($l, $P_, $O_);
     };
-    $G_ = (dynamic $x) ==> {
+    $G_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -988476949, 259), $x);
     };
     $as_string = $urldecode_js_string_string(
-      ((dynamic $t64, dynamic $param) ==> {return $t64->href;})($l, $G_)
+      ((dynamic $t64, dynamic $param) : dynamic ==> {return $t64->href;})($l, $G_)
     );
     $Js_of_ocaml_Url = Vector{
       0,

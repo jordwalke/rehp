@@ -18,15 +18,15 @@ final class Stack {
     $cst_Stack_Empty = $runtime["caml_new_string"]("Stack.Empty");
     $List = List_::get();
     $Empty = Vector{248, $cst_Stack_Empty, $runtime["caml_fresh_oo_id"](0)} as dynamic;
-    $create = (dynamic $param) ==> {return Vector{0, 0, 0};};
-    $clear = (dynamic $s) ==> {$s[1] = 0;$s[2] = 0;return 0;};
-    $copy = (dynamic $s) ==> {return Vector{0, $s[1], $s[2]};};
-    $push = (dynamic $x, dynamic $s) ==> {
+    $create = (dynamic $param) : dynamic ==> {return Vector{0, 0, 0};};
+    $clear = (dynamic $s) : dynamic ==> {$s[1] = 0;$s[2] = 0;return 0;};
+    $copy = (dynamic $s) : dynamic ==> {return Vector{0, $s[1], $s[2]};};
+    $push = (dynamic $x, dynamic $s) : dynamic ==> {
       $s[1] = Vector{0, $x, $s[1]};
       $s[2] = (int) ($s[2] + 1);
       return 0;
     };
-    $pop = (dynamic $s) ==> {
+    $pop = (dynamic $s) : dynamic ==> {
       $tl = null as dynamic;
       $hd = null as dynamic;
       $b_ = $s[1];
@@ -39,18 +39,18 @@ final class Stack {
       }
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $top = (dynamic $s) ==> {
+    $top = (dynamic $s) : dynamic ==> {
       $hd = null as dynamic;
       $a_ = $s[1];
       if ($a_) {$hd = $a_[1];return $hd;}
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $is_empty = (dynamic $s) ==> {return 0 === $s[1] ? 1 : (0);};
-    $length = (dynamic $s) ==> {return $s[2];};
-    $iter = (dynamic $f, dynamic $s) ==> {
+    $is_empty = (dynamic $s) : dynamic ==> {return 0 === $s[1] ? 1 : (0);};
+    $length = (dynamic $s) : dynamic ==> {return $s[2];};
+    $iter = (dynamic $f, dynamic $s) : dynamic ==> {
       return $call2($List[15], $f, $s[1]);
     };
-    $fold = (dynamic $f, dynamic $acc, dynamic $s) ==> {
+    $fold = (dynamic $f, dynamic $acc, dynamic $s) : dynamic ==> {
       return $call3($List[20], $f, $acc, $s[1]);
     };
     $Stack = Vector{

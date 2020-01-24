@@ -47,25 +47,25 @@ final class Stream {
     $c_ = Vector{0, $string("stream.ml"), 82, 12} as dynamic;
     $Failure = Vector{248, $cst_Stream_Failure, $caml_fresh_oo_id(0)} as dynamic;
     $Error = Vector{248, $cst_Stream_Error, $caml_fresh_oo_id(0)} as dynamic;
-    $count = (dynamic $param) ==> {
+    $count = (dynamic $param) : dynamic ==> {
       $count = null as dynamic;
       $match = null as dynamic;
       if ($param) {$match = $param[1];$count = $match[1];return $count;}
       return 0;
     };
-    $data = (dynamic $param) ==> {
+    $data = (dynamic $param) : dynamic ==> {
       $data = null as dynamic;
       $match = null as dynamic;
       if ($param) {$match = $param[1];$data = $match[2];return $data;}
       return 0;
     };
-    $fill_buff = (dynamic $b) ==> {
+    $fill_buff = (dynamic $b) : dynamic ==> {
       $b[3] =
         $call4($Pervasives[72], $b[1], $b[2], 0, $caml_ml_bytes_length($b[2]));
       $b[4] = 0;
       return 0;
     };
-    $get_data->contents = (dynamic $count, dynamic $d) ==> {
+    $get_data->contents = (dynamic $count, dynamic $d) : dynamic ==> {
       $d2 = null as dynamic;
       $d1 = null as dynamic;
       $match = null as dynamic;
@@ -150,7 +150,7 @@ final class Stream {
         return $d__0;
       }
     };
-    $peek_data = (dynamic $s) ==> {
+    $peek_data = (dynamic $s) : dynamic ==> {
       $b = null as dynamic;
       $x = null as dynamic;
       $a__1 = null as dynamic;
@@ -216,12 +216,12 @@ final class Stream {
         }
       }
     };
-    $peek = (dynamic $param) ==> {
+    $peek = (dynamic $param) : dynamic ==> {
       $s = null as dynamic;
       if ($param) {$s = $param[1];return $peek_data($s);}
       return 0;
     };
-    $junk_data = (dynamic $s) ==> {
+    $junk_data = (dynamic $s) : dynamic ==> {
       $b = null as dynamic;
       $k_ = null as dynamic;
       $d = null as dynamic;
@@ -255,12 +255,12 @@ final class Stream {
         return 0;
       }
     };
-    $junk = (dynamic $param) ==> {
+    $junk = (dynamic $param) : dynamic ==> {
       $data = null as dynamic;
       if ($param) {$data = $param[1];return $junk_data($data);}
       return 0;
     };
-    $nget_data->contents = (dynamic $n, dynamic $s) ==> {
+    $nget_data->contents = (dynamic $n, dynamic $s) : dynamic ==> {
       $al = null as dynamic;
       $d = null as dynamic;
       $k = null as dynamic;
@@ -288,7 +288,7 @@ final class Stream {
       }
       return Vector{0, 0, $s[2], 0};
     };
-    $npeek_data = (dynamic $n, dynamic $s) ==> {
+    $npeek_data = (dynamic $n, dynamic $s) : dynamic ==> {
       $match = $nget_data->contents($n, $s);
       $len = $match[3];
       $d = $match[2];
@@ -297,24 +297,24 @@ final class Stream {
       $s[2] = $d;
       return $al;
     };
-    $npeek = (dynamic $n, dynamic $param) ==> {
+    $npeek = (dynamic $n, dynamic $param) : dynamic ==> {
       $d = null as dynamic;
       if ($param) {$d = $param[1];return $npeek_data($n, $d);}
       return 0;
     };
-    $next = (dynamic $s) ==> {
+    $next = (dynamic $s) : dynamic ==> {
       $a = null as dynamic;
       $match = $peek($s);
       if ($match) {$a = $match[1];$junk($s);return $a;}
       throw $caml_wrap_thrown_exception($Failure) as \Throwable;
     };
-    $empty = (dynamic $s) ==> {
+    $empty = (dynamic $s) : dynamic ==> {
       $match = $peek($s);
       if ($match) {throw $caml_wrap_thrown_exception($Failure) as \Throwable;}
       return 0;
     };
-    $iter = (dynamic $f, dynamic $strm) ==> {
-      $do_rec = (dynamic $param) ==> {
+    $iter = (dynamic $f, dynamic $strm) : dynamic ==> {
+      $do_rec = (dynamic $param) : dynamic ==> {
         $a = null as dynamic;
         $match = null as dynamic;
         for (;;) {
@@ -325,18 +325,18 @@ final class Stream {
       };
       return $do_rec(0);
     };
-    $from = (dynamic $f) ==> {
+    $from = (dynamic $f) : dynamic ==> {
       return Vector{0, Vector{0, 0, Vector{3, Vector{0, 0, $f}}}};
     };
-    $of_list = (dynamic $l) ==> {
+    $of_list = (dynamic $l) : dynamic ==> {
       $h_ = 0 as dynamic;
-      $i_ = (dynamic $x, dynamic $l) ==> {return Vector{0, $x, $l};};
+      $i_ = (dynamic $x, dynamic $l) : dynamic ==> {return Vector{0, $x, $l};};
       return Vector{0, Vector{0, 0, $call3($List[21], $i_, $l, $h_)}};
     };
-    $of_string = (dynamic $s) ==> {
+    $of_string = (dynamic $s) : dynamic ==> {
       $count = Vector{0, 0} as dynamic;
       return $from(
-        (dynamic $param) ==> {
+        (dynamic $param) : dynamic ==> {
           $c = $count[1];
           if ($c < $runtime["caml_ml_string_length"]($s)) {
             $count[1] += 1;
@@ -346,10 +346,10 @@ final class Stream {
         }
       );
     };
-    $of_bytes = (dynamic $s) ==> {
+    $of_bytes = (dynamic $s) : dynamic ==> {
       $count = Vector{0, 0} as dynamic;
       return $from(
-        (dynamic $param) ==> {
+        (dynamic $param) : dynamic ==> {
           $c = $count[1];
           if ($c < $caml_ml_bytes_length($s)) {
             $count[1] += 1;
@@ -359,7 +359,7 @@ final class Stream {
         }
       );
     };
-    $of_channel = (dynamic $ic) ==> {
+    $of_channel = (dynamic $ic) : dynamic ==> {
       return Vector{
         0,
         Vector{
@@ -369,17 +369,17 @@ final class Stream {
         }
       };
     };
-    $iapp = (dynamic $i, dynamic $s) ==> {
+    $iapp = (dynamic $i, dynamic $s) : dynamic ==> {
       $g_ = $data($s);
       return Vector{0, Vector{0, 0, Vector{1, $data($i), $g_}}};
     };
-    $icons = (dynamic $i, dynamic $s) ==> {
+    $icons = (dynamic $i, dynamic $s) : dynamic ==> {
       return Vector{0, Vector{0, 0, Vector{0, $i, $data($s)}}};
     };
-    $ising = (dynamic $i) ==> {
+    $ising = (dynamic $i) : dynamic ==> {
       return Vector{0, Vector{0, 0, Vector{0, $i, 0}}};
     };
-    $lapp = (dynamic $f, dynamic $s) ==> {
+    $lapp = (dynamic $f, dynamic $s) : dynamic ==> {
       return Vector{
         0,
         Vector{
@@ -389,7 +389,7 @@ final class Stream {
             2,
             Vector{
               246,
-              (dynamic $param) ==> {
+              (dynamic $param) : dynamic ==> {
                 $f_ = $data($s);
                 return Vector{1, $data($call1($f, 0)), $f_};
               }
@@ -398,7 +398,7 @@ final class Stream {
         }
       };
     };
-    $lcons = (dynamic $f, dynamic $s) ==> {
+    $lcons = (dynamic $f, dynamic $s) : dynamic ==> {
       return Vector{
         0,
         Vector{
@@ -408,7 +408,7 @@ final class Stream {
             2,
             Vector{
               246,
-              (dynamic $param) ==> {
+              (dynamic $param) : dynamic ==> {
                 $e_ = $data($s);
                 return Vector{0, $call1($f, 0), $e_};
               }
@@ -417,7 +417,7 @@ final class Stream {
         }
       };
     };
-    $lsing = (dynamic $f) ==> {
+    $lsing = (dynamic $f) : dynamic ==> {
       return Vector{
         0,
         Vector{
@@ -427,14 +427,16 @@ final class Stream {
             2,
             Vector{
               246,
-              (dynamic $param) ==> {return Vector{0, $call1($f, 0), 0};}
+              (dynamic $param) : dynamic ==> {
+                return Vector{0, $call1($f, 0), 0};
+              }
             }
           }
         }
       };
     };
     $sempty = 0 as dynamic;
-    $slazy = (dynamic $f) ==> {
+    $slazy = (dynamic $f) : dynamic ==> {
       return Vector{
         0,
         Vector{
@@ -442,12 +444,15 @@ final class Stream {
           0,
           Vector{
             2,
-            Vector{246, (dynamic $param) ==> {return $data($call1($f, 0));}}
+            Vector{
+              246,
+              (dynamic $param) : dynamic ==> {return $data($call1($f, 0));}
+            }
           }
         }
       };
     };
-    $dump = (dynamic $f, dynamic $s) ==> {
+    $dump = (dynamic $f, dynamic $s) : dynamic ==> {
       $call1($Pervasives[30], $cst_count);
       $d_ = $count($s);
       $call1($Pervasives[32], $d_);
@@ -456,7 +461,7 @@ final class Stream {
       $call1($Pervasives[30], $cst);
       return $call1($Pervasives[35], 0);
     };
-    $dump_data->contents = (dynamic $f, dynamic $param) ==> {
+    $dump_data->contents = (dynamic $f, dynamic $param) : dynamic ==> {
       $d1 = null as dynamic;
       $d2 = null as dynamic;
       $a = null as dynamic;

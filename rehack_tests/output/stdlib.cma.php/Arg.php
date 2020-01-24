@@ -176,7 +176,7 @@ final class Arg {
     $Bad = Vector{248, $cst_Arg_Bad, $caml_fresh_oo_id(0)} as dynamic;
     $Help = Vector{248, $cst_Arg_Help, $caml_fresh_oo_id(0)} as dynamic;
     $Stop = Vector{248, $cst_Arg_Stop, $caml_fresh_oo_id(0)} as dynamic;
-    $assoc3 = (dynamic $x, dynamic $l) ==> {
+    $assoc3 = (dynamic $x, dynamic $l) : dynamic ==> {
       $t = null as dynamic;
       $match = null as dynamic;
       $y2 = null as dynamic;
@@ -195,7 +195,7 @@ final class Arg {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
-    $split = (dynamic $s) ==> {
+    $split = (dynamic $s) : dynamic ==> {
       $i = $call2($String[14], $s, 61);
       $len = $caml_ml_string_length($s);
       $aH_ = $call3(
@@ -209,7 +209,7 @@ final class Arg {
       return Vector{0, $call3($String[4], $s, 0, $i), $aH_};
     };
     $make_symlist = 
-    (dynamic $prefix, dynamic $sep, dynamic $suffix, dynamic $l) ==> {
+    (dynamic $prefix, dynamic $sep, dynamic $suffix, dynamic $l) : dynamic ==> {
       $aF_ = null as dynamic;
       $aE_ = null as dynamic;
       $aD_ = null as dynamic;
@@ -220,7 +220,7 @@ final class Arg {
         $h = $l[1];
         $aD_ = $call2($Pervasives[16], $prefix, $h);
         $aE_ =
-          (dynamic $x, dynamic $y) ==> {
+          (dynamic $x, dynamic $y) : dynamic ==> {
             $aG_ = $call2($Pervasives[16], $sep, $y);
             return $call2($Pervasives[16], $x, $aG_);
           };
@@ -229,7 +229,7 @@ final class Arg {
       }
       return $cst_none;
     };
-    $print_spec = (dynamic $buf, dynamic $param) ==> {
+    $print_spec = (dynamic $buf, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $aC_ = null as dynamic;
       $doc = $param[3];
@@ -246,10 +246,10 @@ final class Arg {
       }
       return $aB_;
     };
-    $help_action = (dynamic $param) ==> {
+    $help_action = (dynamic $param) : dynamic ==> {
       throw $caml_wrap_thrown_exception(Vector{0, $Stop, $c_}) as \Throwable;
     };
-    $add_help = (dynamic $speclist) ==> {
+    $add_help = (dynamic $speclist) : dynamic ==> {
       $ay_ = null as dynamic;
       $ax_ = null as dynamic;
       $add2 = null as dynamic;
@@ -297,24 +297,24 @@ final class Arg {
       $aw_ = $call2($Pervasives[25], $au_, $add2);
       return $call2($Pervasives[25], $speclist, $aw_);
     };
-    $usage_b = (dynamic $buf, dynamic $speclist, dynamic $errmsg) ==> {
+    $usage_b = (dynamic $buf, dynamic $speclist, dynamic $errmsg) : dynamic ==> {
       $call3($Printf[5], $buf, $d_, $errmsg);
       $aq_ = $add_help($speclist);
-      $ar_ = (dynamic $as_) ==> {return $print_spec($buf, $as_);};
+      $ar_ = (dynamic $as_) : dynamic ==> {return $print_spec($buf, $as_);};
       return $call2($List[15], $ar_, $aq_);
     };
-    $usage_string = (dynamic $speclist, dynamic $errmsg) ==> {
+    $usage_string = (dynamic $speclist, dynamic $errmsg) : dynamic ==> {
       $b = $call1($Buffer[1], 200);
       $usage_b($b, $speclist, $errmsg);
       return $call1($Buffer[2], $b);
     };
-    $usage = (dynamic $speclist, dynamic $errmsg) ==> {
+    $usage = (dynamic $speclist, dynamic $errmsg) : dynamic ==> {
       $ap_ = $usage_string($speclist, $errmsg);
       return $call2($Printf[3], $e_, $ap_);
     };
     $current = Vector{0, 0} as dynamic;
     $f_ = 0 as dynamic;
-    $bool_of_string_opt = (dynamic $x) ==> {
+    $bool_of_string_opt = (dynamic $x) : dynamic ==> {
       $an_ = null as dynamic;
       try {
         $an_ = Vector{0, $call1($Pervasives[19], $x)} as dynamic;
@@ -326,7 +326,7 @@ final class Arg {
         throw $caml_wrap_thrown_exception_reraise($ao_) as \Throwable;
       }
     };
-    $int_of_string_opt = (dynamic $x) ==> {
+    $int_of_string_opt = (dynamic $x) : dynamic ==> {
       $al_ = null as dynamic;
       try {
         $al_ = Vector{0, $runtime["caml_int_of_string"]($x)} as dynamic;
@@ -338,7 +338,7 @@ final class Arg {
         throw $caml_wrap_thrown_exception_reraise($am_) as \Throwable;
       }
     };
-    $float_of_string_opt = (dynamic $x) ==> {
+    $float_of_string_opt = (dynamic $x) : dynamic ==> {
       $aj_ = null as dynamic;
       try {
         $aj_ = Vector{0, $runtime["caml_float_of_string"]($x)} as dynamic;
@@ -351,7 +351,7 @@ final class Arg {
       }
     };
     $parse_and_expand_argv_dynamic_aux = 
-    (dynamic $allow_expand, dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) ==> {
+    (dynamic $allow_expand, dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) : dynamic ==> {
       $m = null as dynamic;
       $e = null as dynamic;
       $aa_ = null as dynamic;
@@ -375,7 +375,7 @@ final class Arg {
       $no_arg__0 = null as dynamic;
       $switch__0 = null as dynamic;
       $initpos = $current[1];
-      $convert_error = (dynamic $error) ==> {
+      $convert_error = (dynamic $error) : dynamic ==> {
         $ai_ = null as dynamic;
         $expected = null as dynamic;
         $arg = null as dynamic;
@@ -458,8 +458,8 @@ final class Arg {
                   $follow__0 = $follow;
                 }
                 $no_arg__0 =
-                  (dynamic $s, dynamic $follow) ==> {
-                    $no_arg = (dynamic $param) ==> {
+                  (dynamic $s, dynamic $follow) : dynamic ==> {
+                    $no_arg = (dynamic $param) : dynamic ==> {
                       $arg = null as dynamic;
                       if ($follow) {
                         $arg = $follow[1];
@@ -473,8 +473,8 @@ final class Arg {
                   };
                 $no_arg = $no_arg__0($s, $follow__0);
                 $get_arg__0 =
-                  (dynamic $s, dynamic $follow) ==> {
-                    $get_arg = (dynamic $param) ==> {
+                  (dynamic $s, dynamic $follow) : dynamic ==> {
+                    $get_arg = (dynamic $param) : dynamic ==> {
                       $af_ = null as dynamic;
                       $arg = null as dynamic;
                       if ($follow) {$arg = $follow[1];return $arg;}
@@ -490,8 +490,8 @@ final class Arg {
                   };
                 $get_arg = $get_arg__0($s, $follow__0);
                 $consume_arg__0 =
-                  (dynamic $follow) ==> {
-                    $consume_arg = (dynamic $param) ==> {
+                  (dynamic $follow) : dynamic ==> {
+                    $consume_arg = (dynamic $param) : dynamic ==> {
                       if ($follow) {return 0;}
                       $current[1] += 1;
                       return 0;
@@ -501,8 +501,8 @@ final class Arg {
                 $consume_arg = $consume_arg__0($follow__0);
                 $treat_action__0 =
                   
-                  (dynamic $s, dynamic $no_arg, dynamic $get_arg, dynamic $consume_arg) ==> {
-                    $treat_action->contents = (dynamic $param) ==> {
+                  (dynamic $s, dynamic $no_arg, dynamic $get_arg, dynamic $consume_arg) : dynamic ==> {
+                    $treat_action->contents = (dynamic $param) : dynamic ==> {
                       $after = null as dynamic;
                       $before = null as dynamic;
                       $newarg = null as dynamic;
@@ -737,7 +737,7 @@ final class Arg {
       }
     };
     $parse_and_expand_argv_dynamic = 
-    (dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) ==> {
+    (dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) : dynamic ==> {
       return $parse_and_expand_argv_dynamic_aux(
         1,
         $current,
@@ -748,7 +748,7 @@ final class Arg {
       );
     };
     $parse_argv_dynamic = 
-    (dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) ==> {
+    (dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) : dynamic ==> {
       $current__0 = null as dynamic;
       $sth = null as dynamic;
       if ($opt) {
@@ -766,7 +766,7 @@ final class Arg {
       );
     };
     $parse_argv = 
-    (dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) ==> {
+    (dynamic $opt, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) : dynamic ==> {
       $current__0 = null as dynamic;
       $sth = null as dynamic;
       if ($opt) {
@@ -782,7 +782,7 @@ final class Arg {
         $errmsg
       );
     };
-    $parse = (dynamic $l, dynamic $f, dynamic $msg) ==> {
+    $parse = (dynamic $l, dynamic $f, dynamic $msg) : dynamic ==> {
       $Z_ = null as dynamic;
       $msg__1 = null as dynamic;
       $msg__0 = null as dynamic;
@@ -802,7 +802,7 @@ final class Arg {
         throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
       }
     };
-    $parse_dynamic = (dynamic $l, dynamic $f, dynamic $msg) ==> {
+    $parse_dynamic = (dynamic $l, dynamic $f, dynamic $msg) : dynamic ==> {
       $Y_ = null as dynamic;
       $msg__1 = null as dynamic;
       $msg__0 = null as dynamic;
@@ -822,7 +822,7 @@ final class Arg {
         throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
       }
     };
-    $parse_expand = (dynamic $l, dynamic $f, dynamic $msg) ==> {
+    $parse_expand = (dynamic $l, dynamic $f, dynamic $msg) : dynamic ==> {
       $X_ = null as dynamic;
       $current = null as dynamic;
       $spec = null as dynamic;
@@ -851,11 +851,11 @@ final class Arg {
         throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
       }
     };
-    $second_word = (dynamic $s) ==> {
+    $second_word = (dynamic $s) : dynamic ==> {
       $n = null as dynamic;
       $n__0 = null as dynamic;
       $len = $caml_ml_string_length($s);
-      $loop = (dynamic $n) ==> {
+      $loop = (dynamic $n) : dynamic ==> {
         $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
@@ -884,7 +884,7 @@ final class Arg {
       }
       return $loop((int) ($n__0 + 1));
     };
-    $max_arg_len = (dynamic $cur, dynamic $param) ==> {
+    $max_arg_len = (dynamic $cur, dynamic $param) : dynamic ==> {
       $doc = $param[3];
       $spec = $param[2];
       $kwd = $param[1];
@@ -894,15 +894,15 @@ final class Arg {
       $U_ = (int) ($caml_ml_string_length($kwd) + $second_word($doc)) as dynamic;
       return $call2($Pervasives[5], $cur, $U_);
     };
-    $replace_leading_tab = (dynamic $s) ==> {
+    $replace_leading_tab = (dynamic $s) : dynamic ==> {
       $seen = Vector{0, 0} as dynamic;
-      $T_ = (dynamic $c) ==> {
+      $T_ = (dynamic $c) : dynamic ==> {
         if (9 === $c) {if (! $seen[1]) {$seen[1] = 1;return 32;}}
         return $c;
       };
       return $call2($String[10], $T_, $s);
     };
-    $add_padding = (dynamic $len, dynamic $ksd) ==> {
+    $add_padding = (dynamic $len, dynamic $ksd) : dynamic ==> {
       $msg = null as dynamic;
       $cutcol = null as dynamic;
       $kwd_len = null as dynamic;
@@ -955,7 +955,7 @@ final class Arg {
       }
       return $ksd;
     };
-    $align = (dynamic $opt, dynamic $speclist) ==> {
+    $align = (dynamic $opt, dynamic $speclist) : dynamic ==> {
       $limit = null as dynamic;
       $sth = null as dynamic;
       if ($opt) {
@@ -966,10 +966,10 @@ final class Arg {
       $completed = $add_help($speclist);
       $len = $call3($List[20], $max_arg_len, 0, $completed);
       $len__0 = $call2($Pervasives[4], $len, $limit);
-      $K_ = (dynamic $L_) ==> {return $add_padding($len__0, $L_);};
+      $K_ = (dynamic $L_) : dynamic ==> {return $add_padding($len__0, $L_);};
       return $call2($List[17], $K_, $completed);
     };
-    $trim_cr = (dynamic $s) ==> {
+    $trim_cr = (dynamic $s) : dynamic ==> {
       $len = $caml_ml_string_length($s);
       if (0 < $len) {
         if (13 === $caml_string_get($s, (int) ($len + -1))) {
@@ -978,18 +978,18 @@ final class Arg {
       }
       return $s;
     };
-    $read_aux = (dynamic $trim, dynamic $sep, dynamic $file) ==> {
+    $read_aux = (dynamic $trim, dynamic $sep, dynamic $file) : dynamic ==> {
       $read = new Ref();
       $ic = $call1($Pervasives[68], $file);
       $buf = $call1($Buffer[1], 200);
       $words = Vector{0, 0} as dynamic;
-      $stash = (dynamic $param) ==> {
+      $stash = (dynamic $param) : dynamic ==> {
         $word = $call1($Buffer[2], $buf);
         $word__0 = $trim ? $trim_cr($word) : ($word);
         $words[1] = Vector{0, $word__0, $words[1]};
         return $call1($Buffer[8], $buf);
       };
-      $read->contents = (dynamic $param) ==> {
+      $read->contents = (dynamic $param) : dynamic ==> {
         $I_ = null as dynamic;
         $c = null as dynamic;
         $H_ = null as dynamic;
@@ -1018,22 +1018,26 @@ final class Arg {
     };
     $s_ = 10 as dynamic;
     $t_ = 1 as dynamic;
-    $read_arg = (dynamic $F_) ==> {return $read_aux($t_, $s_, $F_);};
+    $read_arg = (dynamic $F_) : dynamic ==> {return $read_aux($t_, $s_, $F_);};
     $u_ = 0 as dynamic;
     $v_ = 0 as dynamic;
-    $read_arg0 = (dynamic $E_) ==> {return $read_aux($v_, $u_, $E_);};
-    $write_aux = (dynamic $sep, dynamic $file, dynamic $args) ==> {
+    $read_arg0 = (dynamic $E_) : dynamic ==> {
+      return $read_aux($v_, $u_, $E_);
+    };
+    $write_aux = (dynamic $sep, dynamic $file, dynamic $args) : dynamic ==> {
       $oc = $call1($Pervasives[49], $file);
-      $D_ = (dynamic $s) ==> {return $call4($Printf[1], $oc, $w_, $s, $sep);};
+      $D_ = (dynamic $s) : dynamic ==> {
+        return $call4($Printf[1], $oc, $w_, $s, $sep);
+      };
       $call2($Array[13], $D_, $args);
       return $call1($Pervasives[64], $oc);
     };
     $x_ = 10 as dynamic;
-    $write_arg = (dynamic $B_, dynamic $C_) ==> {
+    $write_arg = (dynamic $B_, dynamic $C_) : dynamic ==> {
       return $write_aux($x_, $B_, $C_);
     };
     $y_ = 0 as dynamic;
-    $write_arg0 = (dynamic $z_, dynamic $A_) ==> {
+    $write_arg0 = (dynamic $z_, dynamic $A_) : dynamic ==> {
       return $write_aux($y_, $z_, $A_);
     };
     $Arg = Vector{

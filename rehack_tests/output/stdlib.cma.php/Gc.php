@@ -159,7 +159,7 @@ final class Gc {
       },
       $string("heap_chunks: %d\n")
     } as dynamic;
-    $print_stat = (dynamic $c) ==> {
+    $print_stat = (dynamic $c) : dynamic ==> {
       $st = $runtime["caml_gc_stat"](0);
       $call3($Printf[1], $c, $a_, $st[4]);
       $call3($Printf[1], $c, $b_, $st[5]);
@@ -182,24 +182,26 @@ final class Gc {
       $call3($Printf[1], $c, $s_, $st[11]);
       return $call3($Printf[1], $c, $t_, $st[7]);
     };
-    $allocated_bytes = (dynamic $param) ==> {
+    $allocated_bytes = (dynamic $param) : dynamic ==> {
       $match = $runtime["caml_gc_counters"](0);
       $ma = $match[3];
       $pro = $match[2];
       $mi = $match[1];
       return ($mi + $ma - $pro) * (int) ($Sys[10] / 8);
     };
-    $create_alarm = (dynamic $f) ==> {return Vector{0, 1};};
-    $delete_alarm = (dynamic $a) ==> {$a[1] = 0;return 0;};
-    $u_ = (dynamic $A_) ==> {return $runtime["caml_final_release"]($A_);};
-    $v_ = (dynamic $z_, dynamic $y_) ==> {
+    $create_alarm = (dynamic $f) : dynamic ==> {return Vector{0, 1};};
+    $delete_alarm = (dynamic $a) : dynamic ==> {$a[1] = 0;return 0;};
+    $u_ = (dynamic $A_) : dynamic ==> {
+      return $runtime["caml_final_release"]($A_);
+    };
+    $v_ = (dynamic $z_, dynamic $y_) : dynamic ==> {
       return $runtime["caml_final_register_called_without_value"]($z_, $y_);
     };
     $Gc = Vector{
       0,
       $print_stat,
       $allocated_bytes,
-      (dynamic $x_, dynamic $w_) ==> {
+      (dynamic $x_, dynamic $w_) : dynamic ==> {
         return $runtime["caml_final_register"]($x_, $w_);
       },
       $v_,

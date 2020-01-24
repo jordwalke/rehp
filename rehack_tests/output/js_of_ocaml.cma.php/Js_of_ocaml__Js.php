@@ -29,31 +29,33 @@ final class Js_of_ocaml__Js {
     $Unsafe = Vector{0, $global} as dynamic;
     $null__0 = null;
     $undefined__0 = undefined;
-    $return__0 = (dynamic $S_) ==> {return $S_;};
-    $map = (dynamic $x, dynamic $f) ==> {
+    $return__0 = (dynamic $S_) : dynamic ==> {return $S_;};
+    $map = (dynamic $x, dynamic $f) : dynamic ==> {
       return $x == $null__0 ? $null__0 : ($return__0($call1($f, $x)));
     };
-    $bind = (dynamic $x, dynamic $f) ==> {
+    $bind = (dynamic $x, dynamic $f) : dynamic ==> {
       return $x == $null__0 ? $null__0 : ($call1($f, $x));
     };
-    $test = (dynamic $x) ==> {return 1 - ($x == $null__0 ? 1 : (0));};
-    $iter = (dynamic $x, dynamic $f) ==> {
+    $test = (dynamic $x) : dynamic ==> {
+      return 1 - ($x == $null__0 ? 1 : (0));
+    };
+    $iter = (dynamic $x, dynamic $f) : dynamic ==> {
       $R_ = 1 - ($x == $null__0 ? 1 : (0));
       return $R_ ? $call1($f, $x) : ($R_);
     };
-    $case__0 = (dynamic $x, dynamic $f, dynamic $g) ==> {
+    $case__0 = (dynamic $x, dynamic $f, dynamic $g) : dynamic ==> {
       return $x == $null__0 ? $call1($f, 0) : ($call1($g, $x));
     };
-    $get = (dynamic $x, dynamic $f) ==> {
+    $get = (dynamic $x, dynamic $f) : dynamic ==> {
       return $x == $null__0 ? $call1($f, 0) : ($x);
     };
-    $option = (dynamic $x) ==> {
+    $option = (dynamic $x) : dynamic ==> {
       if ($x) {$x__0 = $x[1];return $return__0($x__0);}
       return $null__0;
     };
-    $to_option = (dynamic $x) ==> {
-      $Q_ = (dynamic $x) ==> {return Vector{0, $x};};
-      return $case__0($x, (dynamic $param) ==> {return 0;}, $Q_);
+    $to_option = (dynamic $x) : dynamic ==> {
+      $Q_ = (dynamic $x) : dynamic ==> {return Vector{0, $x};};
+      return $case__0($x, (dynamic $param) : dynamic ==> {return 0;}, $Q_);
     };
     $Opt = Vector{
       0,
@@ -68,33 +70,35 @@ final class Js_of_ocaml__Js {
       $option,
       $to_option
     } as dynamic;
-    $return__1 = (dynamic $P_) ==> {return $P_;};
-    $map__0 = (dynamic $x, dynamic $f) ==> {
+    $return__1 = (dynamic $P_) : dynamic ==> {return $P_;};
+    $map__0 = (dynamic $x, dynamic $f) : dynamic ==> {
       return $x === $undefined__0
         ? $undefined__0
         : ($return__1($call1($f, $x)));
     };
-    $bind__0 = (dynamic $x, dynamic $f) ==> {
+    $bind__0 = (dynamic $x, dynamic $f) : dynamic ==> {
       return $x === $undefined__0 ? $undefined__0 : ($call1($f, $x));
     };
-    $test__0 = (dynamic $x) ==> {return $x !== $undefined__0 ? 1 : (0);};
-    $iter__0 = (dynamic $x, dynamic $f) ==> {
+    $test__0 = (dynamic $x) : dynamic ==> {
+      return $x !== $undefined__0 ? 1 : (0);
+    };
+    $iter__0 = (dynamic $x, dynamic $f) : dynamic ==> {
       $O_ = $x !== $undefined__0 ? 1 : (0);
       return $O_ ? $call1($f, $x) : ($O_);
     };
-    $case__1 = (dynamic $x, dynamic $f, dynamic $g) ==> {
+    $case__1 = (dynamic $x, dynamic $f, dynamic $g) : dynamic ==> {
       return $x === $undefined__0 ? $call1($f, 0) : ($call1($g, $x));
     };
-    $get__0 = (dynamic $x, dynamic $f) ==> {
+    $get__0 = (dynamic $x, dynamic $f) : dynamic ==> {
       return $x === $undefined__0 ? $call1($f, 0) : ($x);
     };
-    $option__0 = (dynamic $x) ==> {
+    $option__0 = (dynamic $x) : dynamic ==> {
       if ($x) {$x__0 = $x[1];return $return__1($x__0);}
       return $undefined__0;
     };
-    $to_option__0 = (dynamic $x) ==> {
-      $N_ = (dynamic $x) ==> {return Vector{0, $x};};
-      return $case__1($x, (dynamic $param) ==> {return 0;}, $N_);
+    $to_option__0 = (dynamic $x) : dynamic ==> {
+      $N_ = (dynamic $x) : dynamic ==> {return Vector{0, $x};};
+      return $case__1($x, (dynamic $param) : dynamic ==> {return 0;}, $N_);
     };
     $Optdef = Vector{
       0,
@@ -109,167 +113,194 @@ final class Js_of_ocaml__Js {
       $option__0,
       $to_option__0
     } as dynamic;
-    $coerce = (dynamic $x, dynamic $f, dynamic $g) ==> {
-      $M_ = (dynamic $param) ==> {return $call1($g, $x);};
+    $coerce = (dynamic $x, dynamic $f, dynamic $g) : dynamic ==> {
+      $M_ = (dynamic $param) : dynamic ==> {return $call1($g, $x);};
       return $get($call1($f, $x), $M_);
     };
-    $coerce_opt = (dynamic $x, dynamic $f, dynamic $g) ==> {
-      $L_ = (dynamic $param) ==> {return $call1($g, $x);};
+    $coerce_opt = (dynamic $x, dynamic $f, dynamic $g) : dynamic ==> {
+      $L_ = (dynamic $param) : dynamic ==> {return $call1($g, $x);};
       return $get($bind($x, $f), $L_);
     };
     $true__0 = true;
     $false__0 = false;
-    $a_ = (dynamic $x) ==> {
+    $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 876326544, 1), $x);
     };
-    $string_constr = ((dynamic $t0, dynamic $param) ==> {return $t0->String;})($global, $a_);
-    $b_ = (dynamic $x) ==> {
+    $string_constr = ((dynamic $t0, dynamic $param) : dynamic ==> {
+       return $t0->String;
+     })($global, $a_);
+    $b_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 595393896, 2), $x);
     };
-    $regExp = ((dynamic $t1, dynamic $param) ==> {return $t1->RegExp;})($global, $b_);
-    $c_ = (dynamic $x) ==> {
+    $regExp = ((dynamic $t1, dynamic $param) : dynamic ==> {
+       return $t1->RegExp;
+     })($global, $b_);
+    $c_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 944440446, 3), $x);
     };
-    $object_constructor = ((dynamic $t2, dynamic $param) ==> {return $t2->Object;
+    $object_constructor = ((dynamic $t2, dynamic $param) : dynamic ==> {
+       return $t2->Object;
      })($global, $c_);
-    $object_keys = (dynamic $o) ==> {
-      $K_ = (dynamic $x) ==> {
+    $object_keys = (dynamic $o) : dynamic ==> {
+      $K_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -955850252, 4), $x);
       };
-      return ((dynamic $t4, dynamic $t3, dynamic $param) ==> {return $t4->keys($t3);
+      return ((dynamic $t4, dynamic $t3, dynamic $param) : dynamic ==> {return $t4->keys($t3);
        })($object_constructor, $o, $K_);
     };
-    $d_ = (dynamic $x) ==> {
+    $d_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 883172538, 5), $x);
     };
-    $array_constructor = ((dynamic $t5, dynamic $param) ==> {return $t5->Array;
+    $array_constructor = ((dynamic $t5, dynamic $param) : dynamic ==> {
+       return $t5->Array;
      })($global, $d_);
-    $array_get = (dynamic $J_, dynamic $I_) ==> {return $J_[$I_];};
-    $array_set = (dynamic $H_, dynamic $G_, dynamic $F_) ==> {$H_[$G_] = $F_;return 0;
+    $array_get = (dynamic $J_, dynamic $I_) : dynamic ==> {return $J_[$I_];};
+    $array_set = (dynamic $H_, dynamic $G_, dynamic $F_) : dynamic ==> {
+      $H_[$G_] = $F_;
+      return 0;
     };
-    $array_map_poly = (dynamic $a, dynamic $cb) ==> {
-      $E_ = (dynamic $x) ==> {
+    $array_map_poly = (dynamic $a, dynamic $cb) : dynamic ==> {
+      $E_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 5442204, 6), $x);
       };
-      return ((dynamic $t7, dynamic $t6, dynamic $param) ==> {return $t7->map($t6);
+      return ((dynamic $t7, dynamic $t6, dynamic $param) : dynamic ==> {return $t7->map($t6);
        })($a, $cb, $E_);
     };
-    $array_map = (dynamic $f, dynamic $a) ==> {
+    $array_map = (dynamic $f, dynamic $a) : dynamic ==> {
       return $array_map_poly(
         $a,
         $caml_js_wrap_callback(
-          (dynamic $x, dynamic $idx, dynamic $param) ==> {return $call1($f, $x);
+          (dynamic $x, dynamic $idx, dynamic $param) : dynamic ==> {return $call1($f, $x);
           }
         )
       );
     };
-    $array_mapi = (dynamic $f, dynamic $a) ==> {
+    $array_mapi = (dynamic $f, dynamic $a) : dynamic ==> {
       return $array_map_poly(
         $a,
         $caml_js_wrap_callback(
-          (dynamic $x, dynamic $idx, dynamic $param) ==> {return $call2($f, $idx, $x);
+          (dynamic $x, dynamic $idx, dynamic $param) : dynamic ==> {
+            return $call2($f, $idx, $x);
           }
         )
       );
     };
-    $str_array = (dynamic $D_) ==> {return $D_;};
-    $match_result = (dynamic $C_) ==> {return $C_;};
-    $e_ = (dynamic $x) ==> {
+    $str_array = (dynamic $D_) : dynamic ==> {return $D_;};
+    $match_result = (dynamic $C_) : dynamic ==> {return $C_;};
+    $e_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -531784147, 7), $x);
     };
-    $date_constr = ((dynamic $t8, dynamic $param) ==> {return $t8->Date;})($global, $e_);
-    $f_ = (dynamic $x) ==> {
+    $date_constr = ((dynamic $t8, dynamic $param) : dynamic ==> {
+       return $t8->Date;
+     })($global, $e_);
+    $f_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -431978041, 8), $x);
     };
-    $math = ((dynamic $t9, dynamic $param) ==> {return $t9->Math;})($global, $f_);
+    $math = ((dynamic $t9, dynamic $param) : dynamic ==> {return $t9->Math;})($global, $f_);
     $Error = Vector{
       248,
       $cst_Js_of_ocaml_Js_Error,
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
-    $g_ = (dynamic $x) ==> {
+    $g_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 37651177, 9), $x);
     };
-    $error_constr = ((dynamic $t10, dynamic $param) ==> {return $t10->Error;})($global, $g_);
+    $error_constr = ((dynamic $t10, dynamic $param) : dynamic ==> {
+       return $t10->Error;
+     })($global, $g_);
     
     $call2($Callback[2], $cst_jsError, Vector{0, $Error, darray[]});
     
     $raise_js_error = (function($exn) {throw $exn;});
-    $h_ = (dynamic $x) ==> {
+    $h_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -465951225, 10), $x);
     };
-    $JSON = ((dynamic $t11, dynamic $param) ==> {return $t11->JSON;})($global, $h_);
-    $decodeURI = (dynamic $s) ==> {
-      $B_ = (dynamic $x) ==> {
+    $JSON = ((dynamic $t11, dynamic $param) : dynamic ==> {return $t11->JSON;})($global, $h_);
+    $decodeURI = (dynamic $s) : dynamic ==> {
+      $B_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -994878754, 11), $x);
       };
-      return ((dynamic $t12, dynamic $param) ==> {return $t12->decodeURI;})($global, $B_)($s);
+      return ((dynamic $t12, dynamic $param) : dynamic ==> {
+         return $t12->decodeURI;
+       })($global, $B_)($s);
     };
-    $decodeURIComponent = (dynamic $s) ==> {
-      $A_ = (dynamic $x) ==> {
+    $decodeURIComponent = (dynamic $s) : dynamic ==> {
+      $A_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 751577599, 12), $x);
       };
-      return ((dynamic $t13, dynamic $param) ==> {
+      return ((dynamic $t13, dynamic $param) : dynamic ==> {
          return $t13->decodeURIComponent;
        })($global, $A_)($s);
     };
-    $encodeURI = (dynamic $s) ==> {
-      $z_ = (dynamic $x) ==> {
+    $encodeURI = (dynamic $s) : dynamic ==> {
+      $z_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 443205366, 13), $x);
       };
-      return ((dynamic $t14, dynamic $param) ==> {return $t14->encodeURI;})($global, $z_)($s);
+      return ((dynamic $t14, dynamic $param) : dynamic ==> {
+         return $t14->encodeURI;
+       })($global, $z_)($s);
     };
-    $encodeURIComponent = (dynamic $s) ==> {
-      $y_ = (dynamic $x) ==> {
+    $encodeURIComponent = (dynamic $s) : dynamic ==> {
+      $y_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -641565977, 14), $x);
       };
-      return ((dynamic $t15, dynamic $param) ==> {
+      return ((dynamic $t15, dynamic $param) : dynamic ==> {
          return $t15->encodeURIComponent;
        })($global, $y_)($s);
     };
-    $escape = (dynamic $s) ==> {
-      $x_ = (dynamic $x) ==> {
+    $escape = (dynamic $s) : dynamic ==> {
+      $x_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -623230079, 15), $x);
       };
-      return ((dynamic $t16, dynamic $param) ==> {return $t16->escape;})($global, $x_)($s);
+      return ((dynamic $t16, dynamic $param) : dynamic ==> {
+         return $t16->escape;
+       })($global, $x_)($s);
     };
-    $unescape = (dynamic $s) ==> {
-      $w_ = (dynamic $x) ==> {
+    $unescape = (dynamic $s) : dynamic ==> {
+      $w_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -585010534, 16), $x);
       };
-      return ((dynamic $t17, dynamic $param) ==> {return $t17->unescape;})($global, $w_)($s);
+      return ((dynamic $t17, dynamic $param) : dynamic ==> {
+         return $t17->unescape;
+       })($global, $w_)($s);
     };
-    $isNaN = (dynamic $i) ==> {
-      $v_ = (dynamic $x) ==> {
+    $isNaN = (dynamic $i) : dynamic ==> {
+      $v_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -1051592975, 17), $x);
       };
       return (int)
-      ((dynamic $t18, dynamic $param) ==> {return $t18->isNaN;})($global, $v_)($i);
+      ((dynamic $t18, dynamic $param) : dynamic ==> {return $t18->isNaN;})($global, $v_)($i);
     };
-    $parseInt = (dynamic $s) ==> {
-      $u_ = (dynamic $x) ==> {
+    $parseInt = (dynamic $s) : dynamic ==> {
+      $u_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -697166212, 18), $x);
       };
-      $s__0 = ((dynamic $t19, dynamic $param) ==> {return $t19->parseInt;})($global, $u_)($s);
+      $s__0 = ((dynamic $t19, dynamic $param) : dynamic ==> {
+         return $t19->parseInt;
+       })($global, $u_)($s);
       return $isNaN($s__0) ? $call1($Pervasives[2], $cst_parseInt) : ($s__0);
     };
-    $parseFloat = (dynamic $s) ==> {
-      $t_ = (dynamic $x) ==> {
+    $parseFloat = (dynamic $s) : dynamic ==> {
+      $t_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 746065001, 19), $x);
       };
-      $s__0 = ((dynamic $t20, dynamic $param) ==> {return $t20->parseFloat;})($global, $t_)($s);
+      $s__0 = ((dynamic $t20, dynamic $param) : dynamic ==> {
+         return $t20->parseFloat;
+       })($global, $t_)($s);
       return $isNaN($s__0) ? $call1($Pervasives[2], $cst_parseFloat) : ($s__0);
     };
-    $i_ = (dynamic $param) ==> {
+    $i_ = (dynamic $param) : dynamic ==> {
       if ($param[1] === $Error) {
         $e = $param[2];
-        $s_ = (dynamic $x) ==> {
+        $s_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 946786476, 20), $x);
         };
         return Vector{
           0,
           $caml_js_to_string(
-            ((dynamic $t21, dynamic $param) ==> {return $t21->toString();})($e, $s_)
+            ((dynamic $t21, dynamic $param) : dynamic ==> {
+               return $t21->toString();
+             })($e, $s_)
           )
         };
       }
@@ -278,53 +309,58 @@ final class Js_of_ocaml__Js {
     
     $call1($Printexc[8], $i_);
     
-    $j_ = (dynamic $e) ==> {
+    $j_ = (dynamic $e) : dynamic ==> {
       if (instance_of($e, $array_constructor)) {return 0;}
-      $r_ = (dynamic $x) ==> {
+      $r_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 946786476, 21), $x);
       };
       return Vector{
         0,
         $caml_js_to_string(
-          ((dynamic $t22, dynamic $param) ==> {return $t22->toString();})($e, $r_)
+          ((dynamic $t22, dynamic $param) : dynamic ==> {
+             return $t22->toString();
+           })($e, $r_)
         )
       };
     };
     
     $call1($Printexc[8], $j_);
     
-    $string_of_error = (dynamic $e) ==> {
-      $q_ = (dynamic $x) ==> {
+    $string_of_error = (dynamic $e) : dynamic ==> {
+      $q_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 946786476, 22), $x);
       };
       return $caml_js_to_string(
-        ((dynamic $t23, dynamic $param) ==> {return $t23->toString();})($e, $q_)
+        ((dynamic $t23, dynamic $param) : dynamic ==> {
+           return $t23->toString();
+         })($e, $q_)
       );
     };
-    $export_js = (dynamic $field, dynamic $x) ==> {
+    $export_js = (dynamic $field, dynamic $x) : dynamic ==> {
       $runtime["caml_js_export_var"](0)[$field] = $x;
       return 0;
     };
-    $export__0 = (dynamic $field, dynamic $x) ==> {
+    $export__0 = (dynamic $field, dynamic $x) : dynamic ==> {
       return $export_js($field->toString(), $x);
     };
-    $export_all = (dynamic $obj) ==> {
+    $export_all = (dynamic $obj) : dynamic ==> {
       $keys = $object_keys($obj);
-      $n_ = (dynamic $x) ==> {
+      $n_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -994170454, 23), $x);
       };
       $o_ = $caml_js_wrap_callback(
-        (dynamic $key, dynamic $param, dynamic $p_) ==> {return $export_js($key, $obj[$key]);
+        (dynamic $key, dynamic $param, dynamic $p_) : dynamic ==> {
+          return $export_js($key, $obj[$key]);
         }
       );
-      return ((dynamic $t25, dynamic $t24, dynamic $param) ==> {return $t25->forEach($t24);
+      return ((dynamic $t25, dynamic $t24, dynamic $param) : dynamic ==> {return $t25->forEach($t24);
        })($keys, $o_, $n_);
     };
-    $k_ = (dynamic $m_) ==> {return $m_;};
+    $k_ = (dynamic $m_) : dynamic ==> {return $m_;};
     $Js_of_ocaml_Js = Vector{
       0,
       $null__0,
-      (dynamic $l_) ==> {return $l_;},
+      (dynamic $l_) : dynamic ==> {return $l_;},
       $undefined__0,
       $k_,
       $Opt,

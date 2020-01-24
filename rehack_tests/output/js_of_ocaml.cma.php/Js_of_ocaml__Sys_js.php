@@ -20,34 +20,36 @@ final class Js_of_ocaml__Sys_js {
     $cst__0 = $string("+");
     $Pervasives = Pervasives::get();
     $Js_of_ocaml_Lib_version = Js_of_ocaml__Lib_version::get();
-    $update_file = (dynamic $name, dynamic $content) ==> {
+    $update_file = (dynamic $name, dynamic $content) : dynamic ==> {
       $oc = $call1($Pervasives[48], $name);
       $call2($Pervasives[54], $oc, $content);
       return $call1($Pervasives[64], $oc);
     };
-    $set_channel_flusher = (dynamic $out_channel, dynamic $f) ==> {
+    $set_channel_flusher = (dynamic $out_channel, dynamic $f) : dynamic ==> {
       $f__0 = $caml_js_wrap_callback(
-        (dynamic $s) ==> {
+        (dynamic $s) : dynamic ==> {
           return $call1($f, $runtime["caml_js_to_byte_string"]($s));
         }
       );
       return $runtime["caml_ml_set_channel_output"]($out_channel, $f__0);
     };
-    $set_channel_filler = (dynamic $in_channel, dynamic $f) ==> {
+    $set_channel_filler = (dynamic $in_channel, dynamic $f) : dynamic ==> {
       $f__0 = $caml_js_wrap_callback($f);
       return $runtime["caml_ml_set_channel_refill"]($in_channel, $f__0);
     };
-    $mount = (dynamic $path, dynamic $f) ==> {
+    $mount = (dynamic $path, dynamic $f) : dynamic ==> {
       return $runtime["caml_mount_autoload"](
         $path,
         $caml_js_wrap_callback(
-          (dynamic $prefix, dynamic $path) ==> {
+          (dynamic $prefix, dynamic $path) : dynamic ==> {
             return $call2($f, $prefix, $path);
           }
         )
       );
     };
-    $unmount = (dynamic $path) ==> {return $runtime["caml_unmount"]($path);};
+    $unmount = (dynamic $path) : dynamic ==> {
+      return $runtime["caml_unmount"]($path);
+    };
     
     if ($runtime["caml_string_equal"]($Js_of_ocaml_Lib_version[2], $cst)) {$js_of_ocaml_version = $Js_of_ocaml_Lib_version[1];}
     else {
@@ -59,15 +61,19 @@ final class Js_of_ocaml__Sys_js {
       );
     }
     
-    $a_ = (dynamic $g_, dynamic $f_) ==> {
+    $a_ = (dynamic $g_, dynamic $f_) : dynamic ==> {
       return $runtime["caml_create_file"]($g_, $f_);
     };
-    $b_ = (dynamic $e_) ==> {return $runtime["caml_read_file_content"]($e_);};
+    $b_ = (dynamic $e_) : dynamic ==> {
+      return $runtime["caml_read_file_content"]($e_);
+    };
     $Js_of_ocaml_Sys_js = Vector{
       0,
       $set_channel_flusher,
       $set_channel_filler,
-      (dynamic $d_) ==> {return $runtime["caml_list_mount_point"]($d_);},
+      (dynamic $d_) : dynamic ==> {
+        return $runtime["caml_list_mount_point"]($d_);
+      },
       $unmount,
       $mount,
       $b_,

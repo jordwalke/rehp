@@ -136,307 +136,391 @@ final class Js_of_ocaml__Dom_svg {
       $cst_Js_of_ocaml_Dom_svg_SVGError,
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
-    $createElement = (dynamic $doc, dynamic $name) ==> {
-      $q_ = (dynamic $x) ==> {
+    $createElement = (dynamic $doc, dynamic $name) : dynamic ==> {
+      $q_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -387984539, 288), $x);
       };
       $r_ = $name->toString();
-      return ((dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) ==> {return $t2->createElementNS($t0, $t1);
+      return ((dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) : dynamic ==> {return $t2->createElementNS($t0, $t1);
        })($doc, $xmlns, $r_, $q_);
     };
-    $unsafeCreateElement = (dynamic $doc, dynamic $name) ==> {
+    $unsafeCreateElement = (dynamic $doc, dynamic $name) : dynamic ==> {
       return $createElement($doc, $name);
     };
-    $createA = (dynamic $doc) ==> {return $unsafeCreateElement($doc, $cst_a);};
-    $createAltGlyph = (dynamic $doc) ==> {
+    $createA = (dynamic $doc) : dynamic ==> {
+      return $unsafeCreateElement($doc, $cst_a);
+    };
+    $createAltGlyph = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_altglyph);
     };
-    $createAltGlyphDef = (dynamic $doc) ==> {
+    $createAltGlyphDef = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_altglyphdef);
     };
-    $createAltGlyphItem = (dynamic $doc) ==> {
+    $createAltGlyphItem = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_altglyphitem);
     };
-    $createAnimate = (dynamic $doc) ==> {
+    $createAnimate = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_animate);
     };
-    $createAnimateColor = (dynamic $doc) ==> {
+    $createAnimateColor = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_animatecolor);
     };
-    $createAnimateMotion = (dynamic $doc) ==> {
+    $createAnimateMotion = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_animatemotion);
     };
-    $createAnimateTransform = (dynamic $doc) ==> {
+    $createAnimateTransform = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_animatetransform);
     };
-    $createCircle = (dynamic $doc) ==> {
+    $createCircle = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_circle);
     };
-    $createClipPath = (dynamic $doc) ==> {
+    $createClipPath = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_clippath);
     };
-    $createCursor = (dynamic $doc) ==> {
+    $createCursor = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_cursor);
     };
-    $createDefs = (dynamic $doc) ==> {
+    $createDefs = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_defs);
     };
-    $createDesc = (dynamic $doc) ==> {
+    $createDesc = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_desc);
     };
-    $createEllipse = (dynamic $doc) ==> {
+    $createEllipse = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_ellipse);
     };
-    $createFilter = (dynamic $doc) ==> {
+    $createFilter = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_filter);
     };
-    $createFont = (dynamic $doc) ==> {
+    $createFont = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_font);
     };
-    $createFontFace = (dynamic $doc) ==> {
+    $createFontFace = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_font_face);
     };
-    $createFontFaceFormat = (dynamic $doc) ==> {
+    $createFontFaceFormat = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_font_face_format);
     };
-    $createFontFaceName = (dynamic $doc) ==> {
+    $createFontFaceName = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_font_face_name);
     };
-    $createFontFaceSrc = (dynamic $doc) ==> {
+    $createFontFaceSrc = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_font_face_src);
     };
-    $createFontFaceUri = (dynamic $doc) ==> {
+    $createFontFaceUri = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_font_face_uri);
     };
-    $createForeignObject = (dynamic $doc) ==> {
+    $createForeignObject = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_foreignobject);
     };
-    $createG = (dynamic $doc) ==> {return $unsafeCreateElement($doc, $cst_g);};
-    $createGlyph = (dynamic $doc) ==> {
+    $createG = (dynamic $doc) : dynamic ==> {
+      return $unsafeCreateElement($doc, $cst_g);
+    };
+    $createGlyph = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_glyph);
     };
-    $createGlyphRef = (dynamic $doc) ==> {
+    $createGlyphRef = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_glyphref);
     };
-    $createhkern = (dynamic $doc) ==> {
+    $createhkern = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_hkern);
     };
-    $createImage = (dynamic $doc) ==> {
+    $createImage = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_image);
     };
-    $createLineElement = (dynamic $doc) ==> {
+    $createLineElement = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_line);
     };
-    $createLinearElement = (dynamic $doc) ==> {
+    $createLinearElement = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_lineargradient);
     };
-    $createMask = (dynamic $doc) ==> {
+    $createMask = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_mask);
     };
-    $createMetaData = (dynamic $doc) ==> {
+    $createMetaData = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_metadata);
     };
-    $createMissingGlyph = (dynamic $doc) ==> {
+    $createMissingGlyph = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_missing_glyph);
     };
-    $createMPath = (dynamic $doc) ==> {
+    $createMPath = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_mpath);
     };
-    $createPath = (dynamic $doc) ==> {
+    $createPath = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_path);
     };
-    $createPattern = (dynamic $doc) ==> {
+    $createPattern = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_pattern);
     };
-    $createPolygon = (dynamic $doc) ==> {
+    $createPolygon = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_polygon);
     };
-    $createPolyline = (dynamic $doc) ==> {
+    $createPolyline = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_polyline);
     };
-    $createRadialgradient = (dynamic $doc) ==> {
+    $createRadialgradient = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_radialgradient);
     };
-    $createRect = (dynamic $doc) ==> {
+    $createRect = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_rect);
     };
-    $createScript = (dynamic $doc) ==> {
+    $createScript = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_script);
     };
-    $createSet = (dynamic $doc) ==> {
+    $createSet = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_set);
     };
-    $createStop = (dynamic $doc) ==> {
+    $createStop = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_stop);
     };
-    $createStyle = (dynamic $doc) ==> {
+    $createStyle = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_style);
     };
-    $createSvg = (dynamic $doc) ==> {
+    $createSvg = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_svg);
     };
-    $createSwitch = (dynamic $doc) ==> {
+    $createSwitch = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_switch);
     };
-    $createSymbol = (dynamic $doc) ==> {
+    $createSymbol = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_symbol);
     };
-    $createTextElement = (dynamic $doc) ==> {
+    $createTextElement = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_text);
     };
-    $createTextpath = (dynamic $doc) ==> {
+    $createTextpath = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_textpath);
     };
-    $createTitle = (dynamic $doc) ==> {
+    $createTitle = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_title);
     };
-    $createTref = (dynamic $doc) ==> {
+    $createTref = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_tref);
     };
-    $createTspan = (dynamic $doc) ==> {
+    $createTspan = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_tspan);
     };
-    $createUse = (dynamic $doc) ==> {
+    $createUse = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_use);
     };
-    $createView = (dynamic $doc) ==> {
+    $createView = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_view);
     };
-    $createvkern = (dynamic $doc) ==> {
+    $createvkern = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_vkern);
     };
-    $a_ = (dynamic $x) ==> {
+    $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 946564599, 289), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
-    $svg_element = ((dynamic $t3, dynamic $param) ==> {return $t3->SVGElement;
+    $svg_element = ((dynamic $t3, dynamic $param) : dynamic ==> {
+       return $t3->SVGElement;
      })($b_, $a_);
-    $c_ = (dynamic $x) ==> {
+    $c_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 454225691, 290), $x);
     };
     $d_ = $Js_of_ocaml_Js[50][1];
-    $document = ((dynamic $t4, dynamic $param) ==> {return $t4->document;})($d_, $c_);
-    $getElementById = (dynamic $id) ==> {
-      $i_ = (dynamic $e) ==> {
+    $document = ((dynamic $t4, dynamic $param) : dynamic ==> {
+       return $t4->document;
+     })($d_, $c_);
+    $getElementById = (dynamic $id) : dynamic ==> {
+      $i_ = (dynamic $e) : dynamic ==> {
         if (instance_of($e, $svg_element)) {return $e;}
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
-      $j_ = (dynamic $param) ==> {
+      $j_ = (dynamic $param) : dynamic ==> {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
-      $k_ = (dynamic $x) ==> {
+      $k_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 291), $x);
       };
       $l_ = $id->toString();
-      $m_ = (dynamic $x) ==> {
+      $m_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 454225691, 292), $x);
       };
       $n_ = $Js_of_ocaml_Js[50][1];
-      $o_ = ((dynamic $t5, dynamic $param) ==> {return $t5->document;})($n_, $m_);
-      $p_ = ((dynamic $t7, dynamic $t6, dynamic $param) ==> {return $t7->getElementById($t6);
+      $o_ = ((dynamic $t5, dynamic $param) : dynamic ==> {
+         return $t5->document;
+       })($n_, $m_);
+      $p_ = ((dynamic $t7, dynamic $t6, dynamic $param) : dynamic ==> {
+         return $t7->getElementById($t6);
        })($o_, $l_, $k_);
       return $call3($Js_of_ocaml_Js[5][7], $p_, $j_, $i_);
     };
-    $element = (dynamic $e) ==> {
+    $element = (dynamic $e) : dynamic ==> {
       return instance_of($e, $svg_element)
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $unsafeCoerce = (dynamic $e, dynamic $tag) ==> {
+    $unsafeCoerce = (dynamic $e, dynamic $tag) : dynamic ==> {
       $e_ = $tag->toString();
-      $f_ = (dynamic $x) ==> {
+      $f_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 946097238, 293), $x);
       };
-      $g_ = (dynamic $x) ==> {
+      $g_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 578170309, 294), $x);
       };
-      $h_ = ((dynamic $t8, dynamic $param) ==> {return $t8->tagName;})($e, $g_);
-      return ((dynamic $t9, dynamic $param) ==> {return $t9->toLowerCase();})($h_, $f_) === $e_
+      $h_ = ((dynamic $t8, dynamic $param) : dynamic ==> {
+         return $t8->tagName;
+       })($e, $g_);
+      return ((dynamic $t9, dynamic $param) : dynamic ==> {
+          return $t9->toLowerCase();
+        })($h_, $f_) === $e_
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $a = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_a__0);};
-    $altGlyph = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_altglyph__0);};
-    $altGlyphDef = (dynamic $e) ==> {
+    $a = (dynamic $e) : dynamic ==> {return $unsafeCoerce($e, $cst_a__0);};
+    $altGlyph = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_altglyph__0);
+    };
+    $altGlyphDef = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_altglyphdef__0);
     };
-    $altGlyphItem = (dynamic $e) ==> {
+    $altGlyphItem = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_altglyphitem__0);
     };
-    $animate = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_animate__0);};
-    $animateColor = (dynamic $e) ==> {
+    $animate = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_animate__0);
+    };
+    $animateColor = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_animatecolor__0);
     };
-    $animateMotion = (dynamic $e) ==> {
+    $animateMotion = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_animatemotion__0);
     };
-    $animateTransform = (dynamic $e) ==> {
+    $animateTransform = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_animatetransform__0);
     };
-    $circle = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_circle__0);};
-    $clipPath = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_clippath__0);};
-    $cursor = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_cursor__0);};
-    $defs = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_defs__0);};
-    $desc = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_desc__0);};
-    $ellipse = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_ellipse__0);};
-    $filter = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_filter__0);};
-    $font = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_font__0);};
-    $fontFace = (dynamic $e) ==> {
+    $circle = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_circle__0);
+    };
+    $clipPath = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_clippath__0);
+    };
+    $cursor = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_cursor__0);
+    };
+    $defs = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_defs__0);
+    };
+    $desc = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_desc__0);
+    };
+    $ellipse = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_ellipse__0);
+    };
+    $filter = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_filter__0);
+    };
+    $font = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_font__0);
+    };
+    $fontFace = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_font_face__0);
     };
-    $fontFaceFormat = (dynamic $e) ==> {
+    $fontFaceFormat = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_font_face_format__0);
     };
-    $fontFaceName = (dynamic $e) ==> {
+    $fontFaceName = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_font_face_name__0);
     };
-    $fontFaceSrc = (dynamic $e) ==> {
+    $fontFaceSrc = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_font_face_src__0);
     };
-    $fontFaceUri = (dynamic $e) ==> {
+    $fontFaceUri = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_font_face_uri__0);
     };
-    $foreignObject = (dynamic $e) ==> {
+    $foreignObject = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_foreignobject__0);
     };
-    $g = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_g__0);};
-    $glyph = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_glyph__0);};
-    $glyphRef = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_glyphref__0);};
-    $hkern = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_hkern__0);};
-    $image = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_image__0);};
-    $lineElement = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_line__0);};
-    $linearElement = (dynamic $e) ==> {
+    $g = (dynamic $e) : dynamic ==> {return $unsafeCoerce($e, $cst_g__0);};
+    $glyph = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_glyph__0);
+    };
+    $glyphRef = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_glyphref__0);
+    };
+    $hkern = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_hkern__0);
+    };
+    $image = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_image__0);
+    };
+    $lineElement = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_line__0);
+    };
+    $linearElement = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_lineargradient__0);
     };
-    $mask = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_mask__0);};
-    $metaData = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_metadata__0);};
-    $missingGlyph = (dynamic $e) ==> {
+    $mask = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_mask__0);
+    };
+    $metaData = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_metadata__0);
+    };
+    $missingGlyph = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_missing_glyph__0);
     };
-    $mPath = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_mpath__0);};
-    $path = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_path__0);};
-    $pattern = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_pattern__0);};
-    $polygon = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_polygon__0);};
-    $polyline = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_polyline__0);};
-    $radialgradient = (dynamic $e) ==> {
+    $mPath = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_mpath__0);
+    };
+    $path = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_path__0);
+    };
+    $pattern = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_pattern__0);
+    };
+    $polygon = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_polygon__0);
+    };
+    $polyline = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_polyline__0);
+    };
+    $radialgradient = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($e, $cst_radialgradient__0);
     };
-    $rect = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_rect__0);};
-    $script = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_script__0);};
-    $set = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_set__0);};
-    $stop = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_stop__0);};
-    $style = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_style__0);};
-    $svg = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_svg__0);};
-    $switch__0 = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_switch__0);};
-    $symbol = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_symbol__0);};
-    $textElement = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_text__0);};
-    $textpath = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_textpath__0);};
-    $title = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_title__0);};
-    $tref = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_tref__0);};
-    $tspan = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_tspan__0);};
-    $use = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_use__0);};
-    $view = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_view__0);};
-    $vkern = (dynamic $e) ==> {return $unsafeCoerce($e, $cst_vkern__0);};
+    $rect = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_rect__0);
+    };
+    $script = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_script__0);
+    };
+    $set = (dynamic $e) : dynamic ==> {return $unsafeCoerce($e, $cst_set__0);};
+    $stop = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_stop__0);
+    };
+    $style = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_style__0);
+    };
+    $svg = (dynamic $e) : dynamic ==> {return $unsafeCoerce($e, $cst_svg__0);};
+    $switch__0 = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_switch__0);
+    };
+    $symbol = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_symbol__0);
+    };
+    $textElement = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_text__0);
+    };
+    $textpath = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_textpath__0);
+    };
+    $title = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_title__0);
+    };
+    $tref = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_tref__0);
+    };
+    $tspan = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_tspan__0);
+    };
+    $use = (dynamic $e) : dynamic ==> {return $unsafeCoerce($e, $cst_use__0);};
+    $view = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_view__0);
+    };
+    $vkern = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($e, $cst_vkern__0);
+    };
     $Js_of_ocaml_Dom_svg = Vector{
       0,
       $xmlns,

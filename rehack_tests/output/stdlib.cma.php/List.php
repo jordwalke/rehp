@@ -50,7 +50,7 @@ final class List_ {
     $Assert_failure = Assert_failure::get();
     $c_ = Vector{0, 0, 0} as dynamic;
     $d_ = Vector{0, $string("list.ml"), 262, 11} as dynamic;
-    $length_aux = (dynamic $len, dynamic $param) ==> {
+    $length_aux = (dynamic $len, dynamic $param) : dynamic ==> {
       $param__1 = null as dynamic;
       $len__1 = null as dynamic;
       $len__0 = $len;
@@ -66,23 +66,23 @@ final class List_ {
         return $len__0;
       }
     };
-    $length = (dynamic $l) ==> {return $length_aux(0, $l);};
-    $cons = (dynamic $a, dynamic $l) ==> {return Vector{0, $a, $l};};
-    $hd = (dynamic $param) ==> {
+    $length = (dynamic $l) : dynamic ==> {return $length_aux(0, $l);};
+    $cons = (dynamic $a, dynamic $l) : dynamic ==> {return Vector{0, $a, $l};};
+    $hd = (dynamic $param) : dynamic ==> {
       $a = null as dynamic;
       if ($param) {$a = $param[1];return $a;}
       return $call1($Pervasives[2], $cst_hd);
     };
-    $tl = (dynamic $param) ==> {
+    $tl = (dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       if ($param) {$l = $param[2];return $l;}
       return $call1($Pervasives[2], $cst_tl);
     };
-    $nth = (dynamic $l, dynamic $n) ==> {
+    $nth = (dynamic $l, dynamic $n) : dynamic ==> {
       $nth_aux = null as dynamic;
       if (0 <= $n) {
         $nth_aux =
-          (dynamic $l, dynamic $n) ==> {
+          (dynamic $l, dynamic $n) : dynamic ==> {
             $l__1 = null as dynamic;
             $a = null as dynamic;
             $n__1 = null as dynamic;
@@ -105,11 +105,11 @@ final class List_ {
       }
       return $call1($Pervasives[1], $cst_List_nth);
     };
-    $nth_opt = (dynamic $l, dynamic $n) ==> {
+    $nth_opt = (dynamic $l, dynamic $n) : dynamic ==> {
       $nth_aux = null as dynamic;
       if (0 <= $n) {
         $nth_aux =
-          (dynamic $l, dynamic $n) ==> {
+          (dynamic $l, dynamic $n) : dynamic ==> {
             $l__1 = null as dynamic;
             $a = null as dynamic;
             $n__1 = null as dynamic;
@@ -133,7 +133,7 @@ final class List_ {
       return $call1($Pervasives[1], $cst_List_nth__0);
     };
     $append = $Pervasives[25];
-    $rev_append = (dynamic $l1, dynamic $l2) ==> {
+    $rev_append = (dynamic $l1, dynamic $l2) : dynamic ==> {
       $l1__1 = null as dynamic;
       $a = null as dynamic;
       $l2__1 = null as dynamic;
@@ -151,8 +151,8 @@ final class List_ {
         return $l2__0;
       }
     };
-    $rev = (dynamic $l) ==> {return $rev_append($l, 0);};
-    $init_tailrec_aux = (dynamic $acc, dynamic $i, dynamic $n, dynamic $f) ==> {
+    $rev = (dynamic $l) : dynamic ==> {return $rev_append($l, 0);};
+    $init_tailrec_aux = (dynamic $acc, dynamic $i, dynamic $n, dynamic $f) : dynamic ==> {
       $i__1 = null as dynamic;
       $acc__1 = null as dynamic;
       $acc__0 = $acc;
@@ -166,19 +166,19 @@ final class List_ {
         continue;
       }
     };
-    $init_aux->contents = (dynamic $i, dynamic $n, dynamic $f) ==> {
+    $init_aux->contents = (dynamic $i, dynamic $n, dynamic $f) : dynamic ==> {
       if ($n <= $i) {return 0;}
       $r = $call1($f, $i);
       return Vector{0, $r, $init_aux->contents((int) ($i + 1), $n, $f)};
     };
-    $init = (dynamic $len, dynamic $f) ==> {
+    $init = (dynamic $len, dynamic $f) : dynamic ==> {
       return 0 <= $len
         ? 10000 < $len
          ? $rev($init_tailrec_aux(0, 0, $len, $f))
          : ($init_aux->contents(0, $len, $f))
         : ($call1($Pervasives[1], $cst_List_init));
     };
-    $flatten->contents = (dynamic $param) ==> {
+    $flatten->contents = (dynamic $param) : dynamic ==> {
       $B_ = null as dynamic;
       $l = null as dynamic;
       $r = null as dynamic;
@@ -190,7 +190,7 @@ final class List_ {
       }
       return 0;
     };
-    $map->contents = (dynamic $f, dynamic $param) ==> {
+    $map->contents = (dynamic $f, dynamic $param) : dynamic ==> {
       $r = null as dynamic;
       $a = null as dynamic;
       $l = null as dynamic;
@@ -202,7 +202,7 @@ final class List_ {
       }
       return 0;
     };
-    $a_->contents = (dynamic $i, dynamic $f, dynamic $param) ==> {
+    $a_->contents = (dynamic $i, dynamic $f, dynamic $param) : dynamic ==> {
       $r = null as dynamic;
       $a = null as dynamic;
       $l = null as dynamic;
@@ -214,9 +214,11 @@ final class List_ {
       }
       return 0;
     };
-    $mapi = (dynamic $f, dynamic $l) ==> {return $a_->contents(0, $f, $l);};
-    $rev_map = (dynamic $f, dynamic $l) ==> {
-      $rmap_f = (dynamic $accu, dynamic $param) ==> {
+    $mapi = (dynamic $f, dynamic $l) : dynamic ==> {
+      return $a_->contents(0, $f, $l);
+    };
+    $rev_map = (dynamic $f, dynamic $l) : dynamic ==> {
+      $rmap_f = (dynamic $accu, dynamic $param) : dynamic ==> {
         $param__1 = null as dynamic;
         $a = null as dynamic;
         $accu__1 = null as dynamic;
@@ -236,7 +238,7 @@ final class List_ {
       };
       return $rmap_f(0, $l);
     };
-    $iter = (dynamic $f, dynamic $param) ==> {
+    $iter = (dynamic $f, dynamic $param) : dynamic ==> {
       $param__1 = null as dynamic;
       $a = null as dynamic;
       $param__0 = $param;
@@ -251,7 +253,7 @@ final class List_ {
         return 0;
       }
     };
-    $b_ = (dynamic $i, dynamic $f, dynamic $param) ==> {
+    $b_ = (dynamic $i, dynamic $f, dynamic $param) : dynamic ==> {
       $param__1 = null as dynamic;
       $a = null as dynamic;
       $i__1 = null as dynamic;
@@ -270,8 +272,8 @@ final class List_ {
         return 0;
       }
     };
-    $iteri = (dynamic $f, dynamic $l) ==> {return $b_(0, $f, $l);};
-    $fold_left = (dynamic $f, dynamic $accu, dynamic $l) ==> {
+    $iteri = (dynamic $f, dynamic $l) : dynamic ==> {return $b_(0, $f, $l);};
+    $fold_left = (dynamic $f, dynamic $accu, dynamic $l) : dynamic ==> {
       $l__1 = null as dynamic;
       $a = null as dynamic;
       $accu__1 = null as dynamic;
@@ -289,7 +291,7 @@ final class List_ {
         return $accu__0;
       }
     };
-    $fold_right->contents = (dynamic $f, dynamic $l, dynamic $accu) ==> {
+    $fold_right->contents = (dynamic $f, dynamic $l, dynamic $accu) : dynamic ==> {
       $a = null as dynamic;
       $l__0 = null as dynamic;
       if ($l) {
@@ -299,7 +301,7 @@ final class List_ {
       }
       return $accu;
     };
-    $map2->contents = (dynamic $f, dynamic $l1, dynamic $l2) ==> {
+    $map2->contents = (dynamic $f, dynamic $l1, dynamic $l2) : dynamic ==> {
       $r = null as dynamic;
       $a1 = null as dynamic;
       $l1__0 = null as dynamic;
@@ -318,8 +320,8 @@ final class List_ {
       else {if (! $l2) {return 0;}}
       return $call1($Pervasives[1], $cst_List_map2);
     };
-    $rev_map2 = (dynamic $f, dynamic $l1, dynamic $l2) ==> {
-      $rmap2_f = (dynamic $accu, dynamic $l1, dynamic $l2) ==> {
+    $rev_map2 = (dynamic $f, dynamic $l1, dynamic $l2) : dynamic ==> {
+      $rmap2_f = (dynamic $accu, dynamic $l1, dynamic $l2) : dynamic ==> {
         $l2__1 = null as dynamic;
         $a2 = null as dynamic;
         $l1__1 = null as dynamic;
@@ -348,7 +350,7 @@ final class List_ {
       };
       return $rmap2_f(0, $l1, $l2);
     };
-    $iter2 = (dynamic $f, dynamic $l1, dynamic $l2) ==> {
+    $iter2 = (dynamic $f, dynamic $l1, dynamic $l2) : dynamic ==> {
       $l2__1 = null as dynamic;
       $a2 = null as dynamic;
       $l1__1 = null as dynamic;
@@ -372,7 +374,7 @@ final class List_ {
         return $call1($Pervasives[1], $cst_List_iter2);
       }
     };
-    $fold_left2 = (dynamic $f, dynamic $accu, dynamic $l1, dynamic $l2) ==> {
+    $fold_left2 = (dynamic $f, dynamic $accu, dynamic $l1, dynamic $l2) : dynamic ==> {
       $l2__1 = null as dynamic;
       $a2 = null as dynamic;
       $l1__1 = null as dynamic;
@@ -400,7 +402,7 @@ final class List_ {
       }
     };
     $fold_right2->contents = 
-    (dynamic $f, dynamic $l1, dynamic $l2, dynamic $accu) ==> {
+    (dynamic $f, dynamic $l1, dynamic $l2, dynamic $accu) : dynamic ==> {
       $a1 = null as dynamic;
       $l1__0 = null as dynamic;
       $a2 = null as dynamic;
@@ -422,7 +424,7 @@ final class List_ {
       else {if (! $l2) {return $accu;}}
       return $call1($Pervasives[1], $cst_List_fold_right2);
     };
-    $for_all = (dynamic $p, dynamic $param) ==> {
+    $for_all = (dynamic $p, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $a = null as dynamic;
       $A_ = null as dynamic;
@@ -438,7 +440,7 @@ final class List_ {
         return 1;
       }
     };
-    $exists = (dynamic $p, dynamic $param) ==> {
+    $exists = (dynamic $p, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $a = null as dynamic;
       $z_ = null as dynamic;
@@ -455,7 +457,7 @@ final class List_ {
         return 0;
       }
     };
-    $for_all2 = (dynamic $p, dynamic $l1, dynamic $l2) ==> {
+    $for_all2 = (dynamic $p, dynamic $l1, dynamic $l2) : dynamic ==> {
       $l2__1 = null as dynamic;
       $a2 = null as dynamic;
       $l1__1 = null as dynamic;
@@ -479,7 +481,7 @@ final class List_ {
         return $call1($Pervasives[1], $cst_List_for_all2);
       }
     };
-    $exists2 = (dynamic $p, dynamic $l1, dynamic $l2) ==> {
+    $exists2 = (dynamic $p, dynamic $l1, dynamic $l2) : dynamic ==> {
       $l2__1 = null as dynamic;
       $a2 = null as dynamic;
       $l1__1 = null as dynamic;
@@ -505,7 +507,7 @@ final class List_ {
         return $call1($Pervasives[1], $cst_List_exists2);
       }
     };
-    $mem = (dynamic $x, dynamic $param) ==> {
+    $mem = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $a = null as dynamic;
       $w_ = null as dynamic;
@@ -522,7 +524,7 @@ final class List_ {
         return 0;
       }
     };
-    $memq = (dynamic $x, dynamic $param) ==> {
+    $memq = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $a = null as dynamic;
       $v_ = null as dynamic;
@@ -539,7 +541,7 @@ final class List_ {
         return 0;
       }
     };
-    $assoc = (dynamic $x, dynamic $param) ==> {
+    $assoc = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $match = null as dynamic;
       $b = null as dynamic;
@@ -558,7 +560,7 @@ final class List_ {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
-    $assoc_opt = (dynamic $x, dynamic $param) ==> {
+    $assoc_opt = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $match = null as dynamic;
       $b = null as dynamic;
@@ -577,7 +579,7 @@ final class List_ {
         return 0;
       }
     };
-    $assq = (dynamic $x, dynamic $param) ==> {
+    $assq = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $match = null as dynamic;
       $b = null as dynamic;
@@ -596,7 +598,7 @@ final class List_ {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
-    $assq_opt = (dynamic $x, dynamic $param) ==> {
+    $assq_opt = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $match = null as dynamic;
       $b = null as dynamic;
@@ -615,7 +617,7 @@ final class List_ {
         return 0;
       }
     };
-    $mem_assoc = (dynamic $x, dynamic $param) ==> {
+    $mem_assoc = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $match = null as dynamic;
       $a = null as dynamic;
@@ -634,7 +636,7 @@ final class List_ {
         return 0;
       }
     };
-    $mem_assq = (dynamic $x, dynamic $param) ==> {
+    $mem_assq = (dynamic $x, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $match = null as dynamic;
       $a = null as dynamic;
@@ -653,7 +655,7 @@ final class List_ {
         return 0;
       }
     };
-    $remove_assoc->contents = (dynamic $x, dynamic $param) ==> {
+    $remove_assoc->contents = (dynamic $x, dynamic $param) : dynamic ==> {
       $a = null as dynamic;
       $pair = null as dynamic;
       $l = null as dynamic;
@@ -667,7 +669,7 @@ final class List_ {
       }
       return 0;
     };
-    $remove_assq->contents = (dynamic $x, dynamic $param) ==> {
+    $remove_assq->contents = (dynamic $x, dynamic $param) : dynamic ==> {
       $a = null as dynamic;
       $pair = null as dynamic;
       $l = null as dynamic;
@@ -681,7 +683,7 @@ final class List_ {
       }
       return 0;
     };
-    $find = (dynamic $p, dynamic $param) ==> {
+    $find = (dynamic $p, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $x = null as dynamic;
       $param__0 = $param;
@@ -696,7 +698,7 @@ final class List_ {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
-    $find_opt = (dynamic $p, dynamic $param) ==> {
+    $find_opt = (dynamic $p, dynamic $param) : dynamic ==> {
       $l = null as dynamic;
       $x = null as dynamic;
       $param__0 = $param;
@@ -711,8 +713,8 @@ final class List_ {
         return 0;
       }
     };
-    $find_all = (dynamic $p) ==> {
-      $find = (dynamic $accu, dynamic $param) ==> {
+    $find_all = (dynamic $p) : dynamic ==> {
+      $find = (dynamic $accu, dynamic $param) : dynamic ==> {
         $l = null as dynamic;
         $x = null as dynamic;
         $accu__1 = null as dynamic;
@@ -735,10 +737,10 @@ final class List_ {
         }
       };
       $r_ = 0 as dynamic;
-      return (dynamic $s_) ==> {return $find($r_, $s_);};
+      return (dynamic $s_) : dynamic ==> {return $find($r_, $s_);};
     };
-    $partition = (dynamic $p, dynamic $l) ==> {
-      $part = (dynamic $yes, dynamic $no, dynamic $param) ==> {
+    $partition = (dynamic $p, dynamic $l) : dynamic ==> {
+      $part = (dynamic $yes, dynamic $no, dynamic $param) : dynamic ==> {
         $l = null as dynamic;
         $x = null as dynamic;
         $yes__1 = null as dynamic;
@@ -768,7 +770,7 @@ final class List_ {
       };
       return $part(0, 0, $l);
     };
-    $split->contents = (dynamic $param) ==> {
+    $split->contents = (dynamic $param) : dynamic ==> {
       $rx = null as dynamic;
       $ry = null as dynamic;
       $match__0 = null as dynamic;
@@ -788,7 +790,7 @@ final class List_ {
       }
       return $c_;
     };
-    $combine->contents = (dynamic $l1, dynamic $l2) ==> {
+    $combine->contents = (dynamic $l1, dynamic $l2) : dynamic ==> {
       $a1 = null as dynamic;
       $l1__0 = null as dynamic;
       $a2 = null as dynamic;
@@ -809,7 +811,7 @@ final class List_ {
       else {if (! $l2) {return 0;}}
       return $call1($Pervasives[1], $cst_List_combine);
     };
-    $merge->contents = (dynamic $cmp, dynamic $l1, dynamic $match) ==> {
+    $merge->contents = (dynamic $cmp, dynamic $l1, dynamic $match) : dynamic ==> {
       $h1 = null as dynamic;
       $t1 = null as dynamic;
       $h2 = null as dynamic;
@@ -828,7 +830,7 @@ final class List_ {
       }
       return $match;
     };
-    $chop = (dynamic $k, dynamic $l) ==> {
+    $chop = (dynamic $k, dynamic $l) : dynamic ==> {
       $l__1 = null as dynamic;
       $k__1 = null as dynamic;
       $k__0 = $k;
@@ -845,9 +847,9 @@ final class List_ {
         throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
       }
     };
-    $stable_sort = (dynamic $cmp, dynamic $l) ==> {
+    $stable_sort = (dynamic $cmp, dynamic $l) : dynamic ==> {
       $rev_sort = new Ref();
-      $rev_merge = (dynamic $l1, dynamic $l2, dynamic $accu) ==> {
+      $rev_merge = (dynamic $l1, dynamic $l2, dynamic $accu) : dynamic ==> {
         $t2 = null as dynamic;
         $h2 = null as dynamic;
         $t1 = null as dynamic;
@@ -860,7 +862,6 @@ final class List_ {
         for (;;) {
           if ($l1__0) {
             if ($l2__0) {
-              // WHY IS THIS NOT AS DYNAMIC
               $t2 = $l2__0[2];
               $h2 = $l2__0[1];
               $t1 = $l1__0[2];
@@ -881,7 +882,7 @@ final class List_ {
           return $rev_append($l2__0, $accu__0);
         }
       };
-      $rev_merge_rev = (dynamic $l1, dynamic $l2, dynamic $accu) ==> {
+      $rev_merge_rev = (dynamic $l1, dynamic $l2, dynamic $accu) : dynamic ==> {
         $t2 = null as dynamic;
         $h2 = null as dynamic;
         $t1 = null as dynamic;
@@ -914,7 +915,7 @@ final class List_ {
           return $rev_append($l2__0, $accu__0);
         }
       };
-      $sort = (dynamic $n, dynamic $l) ==> {
+      $sort = (dynamic $n, dynamic $l) : dynamic ==> {
         $x1__0 = null as dynamic;
         $x2__0 = null as dynamic;
         $x3 = null as dynamic;
@@ -968,7 +969,7 @@ final class List_ {
         $s2 = $rev_sort->contents($n2, $l2);
         return $rev_merge_rev($s1, $s2, 0);
       };
-      $rev_sort->contents = (dynamic $n, dynamic $l) ==> {
+      $rev_sort->contents = (dynamic $n, dynamic $l) : dynamic ==> {
         $x1__0 = null as dynamic;
         $x2__0 = null as dynamic;
         $x3 = null as dynamic;
@@ -1025,9 +1026,9 @@ final class List_ {
       $len = $length($l);
       return 2 <= $len ? $sort($len, $l) : ($l);
     };
-    $sort_uniq = (dynamic $cmp, dynamic $l) ==> {
+    $sort_uniq = (dynamic $cmp, dynamic $l) : dynamic ==> {
       $rev_sort = new Ref();
-      $rev_merge = (dynamic $l1, dynamic $l2, dynamic $accu) ==> {
+      $rev_merge = (dynamic $l1, dynamic $l2, dynamic $accu) : dynamic ==> {
         $t2 = null as dynamic;
         $h2 = null as dynamic;
         $t1 = null as dynamic;
@@ -1070,7 +1071,7 @@ final class List_ {
           return $rev_append($l2__0, $accu__0);
         }
       };
-      $rev_merge_rev = (dynamic $l1, dynamic $l2, dynamic $accu) ==> {
+      $rev_merge_rev = (dynamic $l1, dynamic $l2, dynamic $accu) : dynamic ==> {
         $t2 = null as dynamic;
         $h2 = null as dynamic;
         $t1 = null as dynamic;
@@ -1113,7 +1114,7 @@ final class List_ {
           return $rev_append($l2__0, $accu__0);
         }
       };
-      $sort = (dynamic $n, dynamic $l) ==> {
+      $sort = (dynamic $n, dynamic $l) : dynamic ==> {
         $c__5 = null as dynamic;
         $c__4 = null as dynamic;
         $c__3 = null as dynamic;
@@ -1211,7 +1212,7 @@ final class List_ {
         $s2 = $rev_sort->contents($n2, $l2);
         return $rev_merge_rev($s1, $s2, 0);
       };
-      $rev_sort->contents = (dynamic $n, dynamic $l) ==> {
+      $rev_sort->contents = (dynamic $n, dynamic $l) : dynamic ==> {
         $c__5 = null as dynamic;
         $c__4 = null as dynamic;
         $c__3 = null as dynamic;
@@ -1312,7 +1313,7 @@ final class List_ {
       $len = $length($l);
       return 2 <= $len ? $sort($len, $l) : ($l);
     };
-    $compare_lengths = (dynamic $l1, dynamic $l2) ==> {
+    $compare_lengths = (dynamic $l1, dynamic $l2) : dynamic ==> {
       $l2__1 = null as dynamic;
       $l1__1 = null as dynamic;
       $l1__0 = $l1;
@@ -1331,7 +1332,7 @@ final class List_ {
         return $l2__0 ? -1 : (0);
       }
     };
-    $compare_length_with = (dynamic $l, dynamic $n) ==> {
+    $compare_length_with = (dynamic $l, dynamic $n) : dynamic ==> {
       $l__1 = null as dynamic;
       $n__1 = null as dynamic;
       $l__0 = $l;

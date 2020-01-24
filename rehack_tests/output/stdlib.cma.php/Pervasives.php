@@ -75,21 +75,21 @@ final class Pervasives {
     $d_ = Vector{255, 16777215, 16777215, 32751} as dynamic;
     $e_ = Vector{255, 0, 0, 16} as dynamic;
     $f_ = Vector{255, 0, 0, 15536} as dynamic;
-    $failwith = (dynamic $s) ==> {
+    $failwith = (dynamic $s) : dynamic ==> {
       throw $caml_wrap_thrown_exception(Vector{0, $Failure, $s}) as \Throwable;
     };
-    $invalid_arg = (dynamic $s) ==> {
+    $invalid_arg = (dynamic $s) : dynamic ==> {
       throw $caml_wrap_thrown_exception(Vector{0, $Invalid_argument, $s}) as \Throwable;
     };
     $Exit = Vector{248, $cst_Pervasives_Exit, $runtime["caml_fresh_oo_id"](0)} as dynamic;
-    $min = (dynamic $x, dynamic $y) ==> {
+    $min = (dynamic $x, dynamic $y) : dynamic ==> {
       return $runtime["caml_lessequal"]($x, $y) ? $x : ($y);
     };
-    $max = (dynamic $x, dynamic $y) ==> {
+    $max = (dynamic $x, dynamic $y) : dynamic ==> {
       return $runtime["caml_greaterequal"]($x, $y) ? $x : ($y);
     };
-    $abs = (dynamic $x) ==> {return 0 <= $x ? $x : ((int) - $x);};
-    $lnot = (dynamic $x) ==> {return $x ^ -1;};
+    $abs = (dynamic $x) : dynamic ==> {return 0 <= $x ? $x : ((int) - $x);};
+    $lnot = (dynamic $x) : dynamic ==> {return $x ^ -1;};
     $infinity = $caml_int64_float_of_bits($a_);
     $neg_infinity = $caml_int64_float_of_bits($b_);
     $nan = $caml_int64_float_of_bits($c_);
@@ -98,7 +98,7 @@ final class Pervasives {
     $epsilon_float = $caml_int64_float_of_bits($f_);
     $max_int = 2147483647 as dynamic;
     $min_int = -2147483648 as dynamic;
-    $symbol = (dynamic $s1, dynamic $s2) ==> {
+    $symbol = (dynamic $s1, dynamic $s2) : dynamic ==> {
       $l1 = $caml_ml_string_length($s1);
       $l2 = $caml_ml_string_length($s2);
       $s = $caml_create_bytes((int) ($l1 + $l2));
@@ -106,25 +106,27 @@ final class Pervasives {
       $caml_blit_string($s2, 0, $s, $l1, $l2);
       return $s;
     };
-    $char_of_int = (dynamic $n) ==> {
+    $char_of_int = (dynamic $n) : dynamic ==> {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $invalid_arg($cst_char_of_int);
     };
-    $string_of_bool = (dynamic $b) ==> {return $b ? $cst_true : ($cst_false);};
-    $bool_of_string = (dynamic $param) ==> {
+    $string_of_bool = (dynamic $b) : dynamic ==> {
+      return $b ? $cst_true : ($cst_false);
+    };
+    $bool_of_string = (dynamic $param) : dynamic ==> {
       return $caml_string_notequal($param, $cst_false__0)
         ? $caml_string_notequal($param, $cst_true__0)
          ? $invalid_arg($cst_bool_of_string)
          : (1)
         : (0);
     };
-    $bool_of_string_opt = (dynamic $param) ==> {
+    $bool_of_string_opt = (dynamic $param) : dynamic ==> {
       return $caml_string_notequal($param, $cst_false__1)
         ? $caml_string_notequal($param, $cst_true__1) ? 0 : ($g_)
         : ($h_);
     };
-    $string_of_int = (dynamic $n) ==> {return $string("" . $n);};
-    $int_of_string_opt = (dynamic $s) ==> {
+    $string_of_int = (dynamic $n) : dynamic ==> {return $string("" . $n);};
+    $int_of_string_opt = (dynamic $s) : dynamic ==> {
       $ay_ = null as dynamic;
       try {$ay_ = Vector{0, $caml_int_of_string($s)} as dynamic;return $ay_;}
       catch(\Throwable $az_) {
@@ -133,9 +135,9 @@ final class Pervasives {
         throw $caml_wrap_thrown_exception_reraise($az_) as \Throwable;
       }
     };
-    $valid_float_lexem = (dynamic $s) ==> {
+    $valid_float_lexem = (dynamic $s) : dynamic ==> {
       $l = $caml_ml_string_length($s);
-      $loop = (dynamic $i) ==> {
+      $loop = (dynamic $i) : dynamic ==> {
         $match = null as dynamic;
         $i__1 = null as dynamic;
         $switch__0 = null as dynamic;
@@ -155,10 +157,10 @@ final class Pervasives {
       };
       return $loop(0);
     };
-    $string_of_float = (dynamic $f) ==> {
+    $string_of_float = (dynamic $f) : dynamic ==> {
       return $valid_float_lexem($runtime["caml_format_float"]($cst_12g, $f));
     };
-    $float_of_string_opt = (dynamic $s) ==> {
+    $float_of_string_opt = (dynamic $s) : dynamic ==> {
       $aw_ = null as dynamic;
       try {$aw_ = Vector{0, $caml_float_of_string($s)} as dynamic;return $aw_;
       }
@@ -168,7 +170,7 @@ final class Pervasives {
         throw $caml_wrap_thrown_exception_reraise($ax_) as \Throwable;
       }
     };
-    $symbol__0->contents = (dynamic $l1, dynamic $l2) ==> {
+    $symbol__0->contents = (dynamic $l1, dynamic $l2) : dynamic ==> {
       $hd = null as dynamic;
       $tl = null as dynamic;
       if ($l1) {
@@ -181,17 +183,19 @@ final class Pervasives {
     $stdin = $caml_ml_open_descriptor_in(0);
     $stdout = $caml_ml_open_descriptor_out(1);
     $stderr = $caml_ml_open_descriptor_out(2);
-    $open_out_gen = (dynamic $mode, dynamic $perm, dynamic $name) ==> {
+    $open_out_gen = (dynamic $mode, dynamic $perm, dynamic $name) : dynamic ==> {
       $c = $caml_ml_open_descriptor_out($caml_sys_open($name, $mode, $perm));
       $caml_ml_set_channel_name($c, $name);
       return $c;
     };
-    $open_out = (dynamic $name) ==> {return $open_out_gen($i_, 438, $name);};
-    $open_out_bin = (dynamic $name) ==> {
+    $open_out = (dynamic $name) : dynamic ==> {
+      return $open_out_gen($i_, 438, $name);
+    };
+    $open_out_bin = (dynamic $name) : dynamic ==> {
       return $open_out_gen($j_, 438, $name);
     };
-    $flush_all = (dynamic $param) ==> {
-      $iter = (dynamic $param) ==> {
+    $flush_all = (dynamic $param) : dynamic ==> {
+      $iter = (dynamic $param) : dynamic ==> {
         $l = null as dynamic;
         $a = null as dynamic;
         $param__0 = $param;
@@ -214,13 +218,13 @@ final class Pervasives {
       };
       return $iter($runtime["caml_ml_out_channels_list"](0));
     };
-    $output_bytes = (dynamic $oc, dynamic $s) ==> {
+    $output_bytes = (dynamic $oc, dynamic $s) : dynamic ==> {
       return $caml_ml_output_bytes($oc, $s, 0, $caml_ml_bytes_length($s));
     };
-    $output_string = (dynamic $oc, dynamic $s) ==> {
+    $output_string = (dynamic $oc, dynamic $s) : dynamic ==> {
       return $caml_ml_output($oc, $s, 0, $caml_ml_string_length($s));
     };
-    $output = (dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) ==> {
+    $output = (dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) : dynamic ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {return $caml_ml_output_bytes($oc, $s, $ofs, $len);}
@@ -228,7 +232,7 @@ final class Pervasives {
       }
       return $invalid_arg($cst_output);
     };
-    $output_substring = (dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) ==> {
+    $output_substring = (dynamic $oc, dynamic $s, dynamic $ofs, dynamic $len) : dynamic ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_string_length($s) - $len) < $ofs)) {return $caml_ml_output($oc, $s, $ofs, $len);}
@@ -236,27 +240,31 @@ final class Pervasives {
       }
       return $invalid_arg($cst_output_substring);
     };
-    $output_value = (dynamic $chan, dynamic $v) ==> {
+    $output_value = (dynamic $chan, dynamic $v) : dynamic ==> {
       return $runtime["caml_output_value"]($chan, $v, 0);
     };
-    $close_out = (dynamic $oc) ==> {
+    $close_out = (dynamic $oc) : dynamic ==> {
       $caml_ml_flush($oc);
       return $caml_ml_close_channel($oc);
     };
-    $close_out_noerr = (dynamic $oc) ==> {
+    $close_out_noerr = (dynamic $oc) : dynamic ==> {
       $as_ = null as dynamic;
       try {$caml_ml_flush($oc);}catch(\Throwable $au_) {}
       try {$as_ = $caml_ml_close_channel($oc);return $as_;}
       catch(\Throwable $at_) {return 0;}
     };
-    $open_in_gen = (dynamic $mode, dynamic $perm, dynamic $name) ==> {
+    $open_in_gen = (dynamic $mode, dynamic $perm, dynamic $name) : dynamic ==> {
       $c = $caml_ml_open_descriptor_in($caml_sys_open($name, $mode, $perm));
       $caml_ml_set_channel_name($c, $name);
       return $c;
     };
-    $open_in = (dynamic $name) ==> {return $open_in_gen($k_, 0, $name);};
-    $open_in_bin = (dynamic $name) ==> {return $open_in_gen($l_, 0, $name);};
-    $input = (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) ==> {
+    $open_in = (dynamic $name) : dynamic ==> {
+      return $open_in_gen($k_, 0, $name);
+    };
+    $open_in_bin = (dynamic $name) : dynamic ==> {
+      return $open_in_gen($l_, 0, $name);
+    };
+    $input = (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) : dynamic ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {return $caml_ml_input($ic, $s, $ofs, $len);}
@@ -265,7 +273,7 @@ final class Pervasives {
       return $invalid_arg($cst_input);
     };
     $unsafe_really_input = 
-    (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) ==> {
+    (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) : dynamic ==> {
       $r = null as dynamic;
       $len__1 = null as dynamic;
       $ofs__1 = null as dynamic;
@@ -286,7 +294,7 @@ final class Pervasives {
         return 0;
       }
     };
-    $really_input = (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) ==> {
+    $really_input = (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) : dynamic ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($s) - $len) < $ofs)) {return $unsafe_really_input($ic, $s, $ofs, $len);}
@@ -294,13 +302,13 @@ final class Pervasives {
       }
       return $invalid_arg($cst_really_input);
     };
-    $really_input_string = (dynamic $ic, dynamic $len) ==> {
+    $really_input_string = (dynamic $ic, dynamic $len) : dynamic ==> {
       $s = $caml_create_bytes($len);
       $really_input($ic, $s, 0, $len);
       return $s;
     };
-    $input_line = (dynamic $chan) ==> {
-      $build_result = (dynamic $buf, dynamic $pos, dynamic $param) ==> {
+    $input_line = (dynamic $chan) : dynamic ==> {
+      $build_result = (dynamic $buf, dynamic $pos, dynamic $param) : dynamic ==> {
         $param__1 = null as dynamic;
         $hd = null as dynamic;
         $len = null as dynamic;
@@ -328,7 +336,7 @@ final class Pervasives {
           return $buf;
         }
       };
-      $scan = (dynamic $accu, dynamic $len) ==> {
+      $scan = (dynamic $accu, dynamic $len) : dynamic ==> {
         $n = null as dynamic;
         $res = null as dynamic;
         $len__1 = null as dynamic;
@@ -374,65 +382,80 @@ final class Pervasives {
       };
       return $scan(0, 0);
     };
-    $close_in_noerr = (dynamic $ic) ==> {
+    $close_in_noerr = (dynamic $ic) : dynamic ==> {
       $aq_ = null as dynamic;
       try {$aq_ = $caml_ml_close_channel($ic);return $aq_;}
       catch(\Throwable $ar_) {return 0;}
     };
-    $print_char = (dynamic $c) ==> {return $caml_ml_output_char($stdout, $c);};
-    $print_string = (dynamic $s) ==> {return $output_string($stdout, $s);};
-    $print_bytes = (dynamic $s) ==> {return $output_bytes($stdout, $s);};
-    $print_int = (dynamic $i) ==> {
+    $print_char = (dynamic $c) : dynamic ==> {
+      return $caml_ml_output_char($stdout, $c);
+    };
+    $print_string = (dynamic $s) : dynamic ==> {
+      return $output_string($stdout, $s);
+    };
+    $print_bytes = (dynamic $s) : dynamic ==> {
+      return $output_bytes($stdout, $s);
+    };
+    $print_int = (dynamic $i) : dynamic ==> {
       return $output_string($stdout, $string_of_int($i));
     };
-    $print_float = (dynamic $f) ==> {
+    $print_float = (dynamic $f) : dynamic ==> {
       return $output_string($stdout, $string_of_float($f));
     };
-    $print_endline = (dynamic $s) ==> {
+    $print_endline = (dynamic $s) : dynamic ==> {
       $output_string($stdout, $s);
       $caml_ml_output_char($stdout, 10);
       return $caml_ml_flush($stdout);
     };
-    $print_newline = (dynamic $param) ==> {
+    $print_newline = (dynamic $param) : dynamic ==> {
       $caml_ml_output_char($stdout, 10);
       return $caml_ml_flush($stdout);
     };
-    $prerr_char = (dynamic $c) ==> {return $caml_ml_output_char($stderr, $c);};
-    $prerr_string = (dynamic $s) ==> {return $output_string($stderr, $s);};
-    $prerr_bytes = (dynamic $s) ==> {return $output_bytes($stderr, $s);};
-    $prerr_int = (dynamic $i) ==> {
+    $prerr_char = (dynamic $c) : dynamic ==> {
+      return $caml_ml_output_char($stderr, $c);
+    };
+    $prerr_string = (dynamic $s) : dynamic ==> {
+      return $output_string($stderr, $s);
+    };
+    $prerr_bytes = (dynamic $s) : dynamic ==> {
+      return $output_bytes($stderr, $s);
+    };
+    $prerr_int = (dynamic $i) : dynamic ==> {
       return $output_string($stderr, $string_of_int($i));
     };
-    $prerr_float = (dynamic $f) ==> {
+    $prerr_float = (dynamic $f) : dynamic ==> {
       return $output_string($stderr, $string_of_float($f));
     };
-    $prerr_endline = (dynamic $s) ==> {
+    $prerr_endline = (dynamic $s) : dynamic ==> {
       $output_string($stderr, $s);
       $caml_ml_output_char($stderr, 10);
       return $caml_ml_flush($stderr);
     };
-    $prerr_newline = (dynamic $param) ==> {
+    $prerr_newline = (dynamic $param) : dynamic ==> {
       $caml_ml_output_char($stderr, 10);
       return $caml_ml_flush($stderr);
     };
-    $read_line = (dynamic $param) ==> {
+    $read_line = (dynamic $param) : dynamic ==> {
       $caml_ml_flush($stdout);
       return $input_line($stdin);
     };
-    $read_int = (dynamic $param) ==> {
+    $read_int = (dynamic $param) : dynamic ==> {
       return $caml_int_of_string($read_line(0));
     };
-    $read_int_opt = (dynamic $param) ==> {
+    $read_int_opt = (dynamic $param) : dynamic ==> {
       return $int_of_string_opt($read_line(0));
     };
-    $read_float = (dynamic $param) ==> {
+    $read_float = (dynamic $param) : dynamic ==> {
       return $caml_float_of_string($read_line(0));
     };
-    $read_float_opt = (dynamic $param) ==> {
+    $read_float_opt = (dynamic $param) : dynamic ==> {
       return $float_of_string_opt($read_line(0));
     };
-    $string_of_format = (dynamic $param) ==> {$str = $param[2];return $str;};
-    $symbol__1 = (dynamic $param, dynamic $ao_) ==> {
+    $string_of_format = (dynamic $param) : dynamic ==> {
+      $str = $param[2];
+      return $str;
+    };
+    $symbol__1 = (dynamic $param, dynamic $ao_) : dynamic ==> {
       $str2 = $ao_[2];
       $fmt2 = $ao_[1];
       $str1 = $param[2];
@@ -445,27 +468,37 @@ final class Pervasives {
       };
     };
     $exit_function = Vector{0, $flush_all} as dynamic;
-    $at_exit = (dynamic $f) ==> {
+    $at_exit = (dynamic $f) : dynamic ==> {
       $g = $exit_function[1];
       $exit_function[1] =
-        (dynamic $param) ==> {$call1($f, 0);return $call1($g, 0);};
+        (dynamic $param) : dynamic ==> {$call1($f, 0);return $call1($g, 0);};
       return 0;
     };
-    $do_at_exit = (dynamic $param) ==> {return $call1($exit_function[1], 0);};
-    $exit = (dynamic $retcode) ==> {
+    $do_at_exit = (dynamic $param) : dynamic ==> {
+      return $call1($exit_function[1], 0);
+    };
+    $exit = (dynamic $retcode) : dynamic ==> {
       $do_at_exit(0);
       return $runtime["caml_sys_exit"]($retcode);
     };
-    $m_ = (dynamic $an_) ==> {return $caml_ml_channel_size_64($an_);};
-    $n_ = (dynamic $am_) ==> {return $runtime["caml_ml_pos_in_64"]($am_);};
-    $o_ = (dynamic $al_, dynamic $ak_) ==> {
+    $m_ = (dynamic $an_) : dynamic ==> {
+      return $caml_ml_channel_size_64($an_);
+    };
+    $n_ = (dynamic $am_) : dynamic ==> {
+      return $runtime["caml_ml_pos_in_64"]($am_);
+    };
+    $o_ = (dynamic $al_, dynamic $ak_) : dynamic ==> {
       return $runtime["caml_ml_seek_in_64"]($al_, $ak_);
     };
-    $p_ = (dynamic $aj_) ==> {return $caml_ml_channel_size_64($aj_);};
-    $q_ = (dynamic $ai_) ==> {return $runtime["caml_ml_pos_out_64"]($ai_);};
+    $p_ = (dynamic $aj_) : dynamic ==> {
+      return $caml_ml_channel_size_64($aj_);
+    };
+    $q_ = (dynamic $ai_) : dynamic ==> {
+      return $runtime["caml_ml_pos_out_64"]($ai_);
+    };
     $r_ = Vector{
       0,
-      (dynamic $ah_, dynamic $ag_) ==> {
+      (dynamic $ah_, dynamic $ag_) : dynamic ==> {
         return $runtime["caml_ml_seek_out_64"]($ah_, $ag_);
       },
       $q_,
@@ -474,34 +507,42 @@ final class Pervasives {
       $n_,
       $m_
     } as dynamic;
-    $s_ = (dynamic $af_, dynamic $ae_) ==> {
+    $s_ = (dynamic $af_, dynamic $ae_) : dynamic ==> {
       return $caml_ml_set_binary_mode($af_, $ae_);
     };
-    $t_ = (dynamic $ad_) ==> {return $caml_ml_close_channel($ad_);};
-    $u_ = (dynamic $ac_) ==> {return $caml_ml_channel_size($ac_);};
-    $v_ = (dynamic $ab_) ==> {return $runtime["caml_ml_pos_in"]($ab_);};
-    $w_ = (dynamic $aa_, dynamic $Z_) ==> {
+    $t_ = (dynamic $ad_) : dynamic ==> {return $caml_ml_close_channel($ad_);};
+    $u_ = (dynamic $ac_) : dynamic ==> {return $caml_ml_channel_size($ac_);};
+    $v_ = (dynamic $ab_) : dynamic ==> {
+      return $runtime["caml_ml_pos_in"]($ab_);
+    };
+    $w_ = (dynamic $aa_, dynamic $Z_) : dynamic ==> {
       return $runtime["caml_ml_seek_in"]($aa_, $Z_);
     };
-    $x_ = (dynamic $Y_) ==> {return $runtime["caml_input_value"]($Y_);};
-    $y_ = (dynamic $X_) ==> {return $runtime["caml_ml_input_int"]($X_);};
-    $z_ = (dynamic $W_) ==> {return $caml_ml_input_char($W_);};
-    $A_ = (dynamic $V_) ==> {return $caml_ml_input_char($V_);};
-    $B_ = (dynamic $U_, dynamic $T_) ==> {
+    $x_ = (dynamic $Y_) : dynamic ==> {
+      return $runtime["caml_input_value"]($Y_);
+    };
+    $y_ = (dynamic $X_) : dynamic ==> {
+      return $runtime["caml_ml_input_int"]($X_);
+    };
+    $z_ = (dynamic $W_) : dynamic ==> {return $caml_ml_input_char($W_);};
+    $A_ = (dynamic $V_) : dynamic ==> {return $caml_ml_input_char($V_);};
+    $B_ = (dynamic $U_, dynamic $T_) : dynamic ==> {
       return $caml_ml_set_binary_mode($U_, $T_);
     };
-    $C_ = (dynamic $S_) ==> {return $caml_ml_channel_size($S_);};
-    $D_ = (dynamic $R_) ==> {return $runtime["caml_ml_pos_out"]($R_);};
-    $E_ = (dynamic $Q_, dynamic $P_) ==> {
+    $C_ = (dynamic $S_) : dynamic ==> {return $caml_ml_channel_size($S_);};
+    $D_ = (dynamic $R_) : dynamic ==> {
+      return $runtime["caml_ml_pos_out"]($R_);
+    };
+    $E_ = (dynamic $Q_, dynamic $P_) : dynamic ==> {
       return $runtime["caml_ml_seek_out"]($Q_, $P_);
     };
-    $F_ = (dynamic $O_, dynamic $N_) ==> {
+    $F_ = (dynamic $O_, dynamic $N_) : dynamic ==> {
       return $runtime["caml_ml_output_int"]($O_, $N_);
     };
-    $G_ = (dynamic $M_, dynamic $L_) ==> {
+    $G_ = (dynamic $M_, dynamic $L_) : dynamic ==> {
       return $caml_ml_output_char($M_, $L_);
     };
-    $H_ = (dynamic $K_, dynamic $J_) ==> {
+    $H_ = (dynamic $K_, dynamic $J_) : dynamic ==> {
       return $caml_ml_output_char($K_, $J_);
     };
     $Pervasives = Vector{
@@ -556,7 +597,7 @@ final class Pervasives {
       $open_out,
       $open_out_bin,
       $open_out_gen,
-      (dynamic $I_) ==> {return $caml_ml_flush($I_);},
+      (dynamic $I_) : dynamic ==> {return $caml_ml_flush($I_);},
       $flush_all,
       $H_,
       $output_string,

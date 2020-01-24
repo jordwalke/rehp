@@ -26,14 +26,14 @@ final class Uchar {
     $err_no_pred = $string("U+0000 has no predecessor");
     $err_no_succ = $string("U+10FFFF has no successor");
     $Pervasives = Pervasives::get();
-    $err_not_sv = (dynamic $i) ==> {
+    $err_not_sv = (dynamic $i) : dynamic ==> {
       return $call2(
         $Pervasives[16],
         $caml_format_int($cst_X, $i),
         $cst_is_not_an_Unicode_scalar_value
       );
     };
-    $err_not_latin1 = (dynamic $u) ==> {
+    $err_not_latin1 = (dynamic $u) : dynamic ==> {
       $p_ = $call2(
         $Pervasives[16],
         $caml_format_int($cst_04X, $u),
@@ -47,19 +47,19 @@ final class Uchar {
     $hi_bound = 57344 as dynamic;
     $bom = 65279 as dynamic;
     $rep = 65533 as dynamic;
-    $succ = (dynamic $u) ==> {
+    $succ = (dynamic $u) : dynamic ==> {
       return $u === 55295
         ? $hi_bound
         : ($u === 1114111
          ? $call1($Pervasives[1], $err_no_succ)
          : ((int) ($u + 1)));
     };
-    $pred = (dynamic $u) ==> {
+    $pred = (dynamic $u) : dynamic ==> {
       return $u === 57344
         ? $lo_bound
         : ($u === 0 ? $call1($Pervasives[1], $err_no_pred) : ((int) ($u + -1)));
     };
-    $is_valid = (dynamic $i) ==> {
+    $is_valid = (dynamic $i) : dynamic ==> {
       $n_ = null as dynamic;
       $o_ = null as dynamic;
       $l_ = 0 <= $i ? 1 : (0);
@@ -73,14 +73,14 @@ final class Uchar {
       }
       return $n_;
     };
-    $of_int = (dynamic $i) ==> {
+    $of_int = (dynamic $i) : dynamic ==> {
       if ($is_valid($i)) {return $i;}
       $k_ = $err_not_sv($i);
       return $call1($Pervasives[1], $k_);
     };
-    $is_char = (dynamic $u) ==> {return $u < 256 ? 1 : (0);};
-    $of_char = (dynamic $c) ==> {return $c;};
-    $to_char = (dynamic $u) ==> {
+    $is_char = (dynamic $u) : dynamic ==> {return $u < 256 ? 1 : (0);};
+    $of_char = (dynamic $c) : dynamic ==> {return $c;};
+    $to_char = (dynamic $u) : dynamic ==> {
       $j_ = null as dynamic;
       if (255 < $u) {
         $j_ = $err_not_latin1($u);
@@ -88,13 +88,15 @@ final class Uchar {
       }
       return $u;
     };
-    $unsafe_to_char = (dynamic $i_) ==> {return $i_;};
-    $equal = (dynamic $h_, dynamic $g_) ==> {return $h_ === $g_ ? 1 : (0);};
-    $compare = (dynamic $f_, dynamic $e_) ==> {
+    $unsafe_to_char = (dynamic $i_) : dynamic ==> {return $i_;};
+    $equal = (dynamic $h_, dynamic $g_) : dynamic ==> {
+      return $h_ === $g_ ? 1 : (0);
+    };
+    $compare = (dynamic $f_, dynamic $e_) : dynamic ==> {
       return $runtime["caml_int_compare"]($f_, $e_);
     };
-    $hash = (dynamic $d_) ==> {return $d_;};
-    $a_ = (dynamic $c_) ==> {return $c_;};
+    $hash = (dynamic $d_) : dynamic ==> {return $d_;};
+    $a_ = (dynamic $c_) : dynamic ==> {return $c_;};
     $Uchar = Vector{
       0,
       $min,
@@ -105,7 +107,7 @@ final class Uchar {
       $pred,
       $is_valid,
       $of_int,
-      (dynamic $b_) ==> {return $b_;},
+      (dynamic $b_) : dynamic ==> {return $b_;},
       $a_,
       $is_char,
       $of_char,

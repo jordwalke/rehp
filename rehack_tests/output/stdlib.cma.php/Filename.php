@@ -96,7 +96,7 @@ final class Filename {
       Vector{2, 0, Vector{4, 6, Vector{0, 2, 6}, 0, Vector{2, 0, 0}}},
       $string("%s%06x%s")
     } as dynamic;
-    $generic_quote = (dynamic $quotequote, dynamic $s) ==> {
+    $generic_quote = (dynamic $quotequote, dynamic $s) : dynamic ==> {
       $i = null as dynamic;
       $as_ = null as dynamic;
       $at_ = null as dynamic;
@@ -122,8 +122,8 @@ final class Filename {
       return $call1($Buffer[2], $b);
     };
     $generic_basename = 
-    (dynamic $is_dir_sep, dynamic $current_dir_name, dynamic $name) ==> {
-      $find_beg = (dynamic $n, dynamic $p) ==> {
+    (dynamic $is_dir_sep, dynamic $current_dir_name, dynamic $name) : dynamic ==> {
+      $find_beg = (dynamic $n, dynamic $p) : dynamic ==> {
         $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
@@ -145,7 +145,7 @@ final class Filename {
           return $call3($String[4], $name, 0, $p);
         }
       };
-      $find_end = (dynamic $n) ==> {
+      $find_end = (dynamic $n) : dynamic ==> {
         $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
@@ -165,8 +165,8 @@ final class Filename {
         : ($find_end((int) ($caml_ml_string_length($name) + -1)));
     };
     $generic_dirname = 
-    (dynamic $is_dir_sep, dynamic $current_dir_name, dynamic $name) ==> {
-      $intermediate_sep = (dynamic $n) ==> {
+    (dynamic $is_dir_sep, dynamic $current_dir_name, dynamic $name) : dynamic ==> {
+      $intermediate_sep = (dynamic $n) : dynamic ==> {
         $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
@@ -181,7 +181,7 @@ final class Filename {
           return $call3($String[4], $name, 0, 1);
         }
       };
-      $base = (dynamic $n) ==> {
+      $base = (dynamic $n) : dynamic ==> {
         $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
@@ -194,7 +194,7 @@ final class Filename {
           return $current_dir_name;
         }
       };
-      $trailing_sep = (dynamic $n) ==> {
+      $trailing_sep = (dynamic $n) : dynamic ==> {
         $n__1 = null as dynamic;
         $n__0 = $n;
         for (;;) {
@@ -213,15 +213,15 @@ final class Filename {
         ? $current_dir_name
         : ($trailing_sep((int) ($caml_ml_string_length($name) + -1)));
     };
-    $is_dir_sep = (dynamic $s, dynamic $i) ==> {
+    $is_dir_sep = (dynamic $s, dynamic $i) : dynamic ==> {
       return 47 === $caml_string_get($s, $i) ? 1 : (0);
     };
-    $is_relative = (dynamic $n) ==> {
+    $is_relative = (dynamic $n) : dynamic ==> {
       $ao_ = $caml_ml_string_length($n) < 1 ? 1 : (0);
       $ap_ = $ao_ ? $ao_ : (47 !== $caml_string_get($n, 0) ? 1 : (0));
       return $ap_;
     };
-    $is_implicit = (dynamic $n) ==> {
+    $is_implicit = (dynamic $n) : dynamic ==> {
       $ak_ = null as dynamic;
       $al_ = null as dynamic;
       $am_ = null as dynamic;
@@ -245,7 +245,7 @@ final class Filename {
       else {$an_ = $aj_;}
       return $an_;
     };
-    $check_suffix = (dynamic $name, dynamic $suff) ==> {
+    $check_suffix = (dynamic $name, dynamic $suff) : dynamic ==> {
       $ah_ = $caml_ml_string_length($suff) <= $caml_ml_string_length($name)
         ? 1
         : (0);
@@ -273,14 +273,16 @@ final class Filename {
       $temp_dir_name = $cst_tmp;
     }
     
-    $quote = (dynamic $af_) ==> {return $generic_quote($cst__3, $af_);};
-    $basename = (dynamic $ae_) ==> {
+    $quote = (dynamic $af_) : dynamic ==> {
+      return $generic_quote($cst__3, $af_);
+    };
+    $basename = (dynamic $ae_) : dynamic ==> {
       return $generic_basename($is_dir_sep, $current_dir_name, $ae_);
     };
-    $dirname = (dynamic $ad_) ==> {
+    $dirname = (dynamic $ad_) : dynamic ==> {
       return $generic_dirname($is_dir_sep, $current_dir_name, $ad_);
     };
-    $is_dir_sep__0 = (dynamic $s, dynamic $i) ==> {
+    $is_dir_sep__0 = (dynamic $s, dynamic $i) : dynamic ==> {
       $ab_ = null as dynamic;
       $ac_ = null as dynamic;
       $c = $caml_string_get($s, $i);
@@ -294,7 +296,7 @@ final class Filename {
       }
       return $ab_;
     };
-    $is_relative__0 = (dynamic $n) ==> {
+    $is_relative__0 = (dynamic $n) : dynamic ==> {
       $W_ = null as dynamic;
       $X_ = null as dynamic;
       $Y_ = null as dynamic;
@@ -313,7 +315,7 @@ final class Filename {
       else {$Z_ = $V_;}
       return $Z_;
     };
-    $is_implicit__0 = (dynamic $n) ==> {
+    $is_implicit__0 = (dynamic $n) : dynamic ==> {
       $M_ = null as dynamic;
       $N_ = null as dynamic;
       $O_ = null as dynamic;
@@ -361,7 +363,7 @@ final class Filename {
       else {$T_ = $L_;}
       return $T_;
     };
-    $check_suffix__0 = (dynamic $name, dynamic $suff) ==> {
+    $check_suffix__0 = (dynamic $name, dynamic $suff) : dynamic ==> {
       $s = null as dynamic;
       $J_ = null as dynamic;
       $K_ = null as dynamic;
@@ -393,12 +395,12 @@ final class Filename {
       $temp_dir_name__0 = $cst__8;
     }
     
-    $quote__0 = (dynamic $s) ==> {
+    $quote__0 = (dynamic $s) : dynamic ==> {
       $loop_bs = new Ref();
       $l = $caml_ml_string_length($s);
       $b = $call1($Buffer[1], (int) ($l + 20));
       $call2($Buffer[10], $b, 34);
-      $add_bs = (dynamic $n) ==> {
+      $add_bs = (dynamic $n) : dynamic ==> {
         $j = null as dynamic;
         $G_ = null as dynamic;
         $F_ = 1 as dynamic;
@@ -413,7 +415,7 @@ final class Filename {
         }
         return 0;
       };
-      $loop__0 = (dynamic $counter, dynamic $i) ==> {
+      $loop__0 = (dynamic $counter, dynamic $i) : dynamic ==> {
         $c = null as dynamic;
         $D_ = null as dynamic;
         $E_ = null as dynamic;
@@ -452,7 +454,7 @@ final class Filename {
           continue;
         }
       };
-      $loop_bs->contents = (dynamic $counter, dynamic $n, dynamic $i) ==> {
+      $loop_bs->contents = (dynamic $counter, dynamic $n, dynamic $i) : dynamic ==> {
         $match = null as dynamic;
         $C_ = null as dynamic;
         $i__1 = null as dynamic;
@@ -492,14 +494,16 @@ final class Filename {
           return $caml_trampoline_return($loop__0, varray[0,$i__0]);
         }
       };
-      $loop = (dynamic $i) ==> {return $caml_trampoline($loop__0(0, $i));};
+      $loop = (dynamic $i) : dynamic ==> {
+        return $caml_trampoline($loop__0(0, $i));
+      };
       $loop(0);
       return $call1($Buffer[2], $b);
     };
-    $has_drive = (dynamic $s) ==> {
+    $has_drive = (dynamic $s) : dynamic ==> {
       $A_ = null as dynamic;
       $B_ = null as dynamic;
-      $is_letter = (dynamic $param) ==> {
+      $is_letter = (dynamic $param) : dynamic ==> {
         $switch__0 = 91 <= $param
           ? 25 < $unsigned_right_shift_32((int) ($param + -97), 0) ? 0 : (1)
           : (65 <= $param ? 1 : (0));
@@ -513,7 +517,7 @@ final class Filename {
       else {$B_ = $z_;}
       return $B_;
     };
-    $drive_and_path = (dynamic $s) ==> {
+    $drive_and_path = (dynamic $s) : dynamic ==> {
       $y_ = null as dynamic;
       if ($has_drive($s)) {
         $y_ =
@@ -522,22 +526,22 @@ final class Filename {
       }
       return Vector{0, $cst__9, $s};
     };
-    $dirname__0 = (dynamic $s) ==> {
+    $dirname__0 = (dynamic $s) : dynamic ==> {
       $match = $drive_and_path($s);
       $path = $match[2];
       $drive = $match[1];
       $dir = $generic_dirname($is_dir_sep__0, $current_dir_name__0, $path);
       return $call2($Pervasives[16], $drive, $dir);
     };
-    $basename__0 = (dynamic $s) ==> {
+    $basename__0 = (dynamic $s) : dynamic ==> {
       $match = $drive_and_path($s);
       $path = $match[2];
       return $generic_basename($is_dir_sep__0, $current_dir_name__0, $path);
     };
-    $basename__1 = (dynamic $x_) ==> {
+    $basename__1 = (dynamic $x_) : dynamic ==> {
       return $generic_basename($is_dir_sep__0, $current_dir_name__1, $x_);
     };
-    $dirname__1 = (dynamic $w_) ==> {
+    $dirname__1 = (dynamic $w_) : dynamic ==> {
       return $generic_dirname($is_dir_sep__0, $current_dir_name__1, $w_);
     };
     $a_ = $Sys[5];
@@ -616,7 +620,7 @@ final class Filename {
       $dirname__2 = $g_;
     }
     
-    $concat = (dynamic $dirname, dynamic $filename) ==> {
+    $concat = (dynamic $dirname, dynamic $filename) : dynamic ==> {
       $v_ = null as dynamic;
       $l = $caml_ml_string_length($dirname);
       if (0 !== $l) {
@@ -627,15 +631,15 @@ final class Filename {
       }
       return $call2($Pervasives[16], $dirname, $filename);
     };
-    $chop_suffix = (dynamic $name, dynamic $suff) ==> {
+    $chop_suffix = (dynamic $name, dynamic $suff) : dynamic ==> {
       $n = (int)
       ($caml_ml_string_length($name) - $caml_ml_string_length($suff)) as dynamic;
       return 0 <= $n
         ? $call3($String[4], $name, 0, $n)
         : ($call1($Pervasives[1], $cst_Filename_chop_suffix));
     };
-    $extension_len = (dynamic $name) ==> {
-      $check = (dynamic $i0, dynamic $i) ==> {
+    $extension_len = (dynamic $name) : dynamic ==> {
+      $check = (dynamic $i0, dynamic $i) : dynamic ==> {
         $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
@@ -652,7 +656,7 @@ final class Filename {
           return 0;
         }
       };
-      $search_dot = (dynamic $i) ==> {
+      $search_dot = (dynamic $i) : dynamic ==> {
         $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
@@ -669,7 +673,7 @@ final class Filename {
       };
       return $search_dot((int) ($caml_ml_string_length($name) + -1));
     };
-    $extension = (dynamic $name) ==> {
+    $extension = (dynamic $name) : dynamic ==> {
       $l = $extension_len($name);
       return 0 === $l
         ? $cst__10
@@ -681,7 +685,7 @@ final class Filename {
          $l
        ));
     };
-    $chop_extension = (dynamic $name) ==> {
+    $chop_extension = (dynamic $name) : dynamic ==> {
       $l = $extension_len($name);
       return 0 === $l
         ? $call1($Pervasives[1], $cst_Filename_chop_extension)
@@ -693,7 +697,7 @@ final class Filename {
          ($caml_ml_string_length($name) - $l)
        ));
     };
-    $remove_extension = (dynamic $name) ==> {
+    $remove_extension = (dynamic $name) : dynamic ==> {
       $l = $extension_len($name);
       return 0 === $l
         ? $name
@@ -705,9 +709,9 @@ final class Filename {
          ($caml_ml_string_length($name) - $l)
        ));
     };
-    $b_ = (dynamic $u_) ==> {return $call1($Random[11][2], 0);};
+    $b_ = (dynamic $u_) : dynamic ==> {return $call1($Random[11][2], 0);};
     $prng = Vector{246, $b_} as dynamic;
-    $temp_file_name = (dynamic $temp_dir, dynamic $prefix, dynamic $suffix) ==> {
+    $temp_file_name = (dynamic $temp_dir, dynamic $prefix, dynamic $suffix) : dynamic ==> {
       $s_ = $runtime["caml_obj_tag"]($prng);
       $t_ = 250 === $s_
         ? $b_
@@ -719,14 +723,14 @@ final class Filename {
       );
     };
     $current_temp_dir_name = Vector{0, $temp_dir_name__1} as dynamic;
-    $set_temp_dir_name = (dynamic $s) ==> {
+    $set_temp_dir_name = (dynamic $s) : dynamic ==> {
       $current_temp_dir_name[1] = $s;
       return 0;
     };
-    $get_temp_dir_name = (dynamic $param) ==> {
+    $get_temp_dir_name = (dynamic $param) : dynamic ==> {
       return $current_temp_dir_name[1];
     };
-    $temp_file = (dynamic $opt, dynamic $prefix, dynamic $suffix) ==> {
+    $temp_file = (dynamic $opt, dynamic $prefix, dynamic $suffix) : dynamic ==> {
       $temp_dir = null as dynamic;
       $sth = null as dynamic;
       if ($opt) {
@@ -734,7 +738,7 @@ final class Filename {
         $temp_dir = $sth;
       }
       else {$temp_dir = $current_temp_dir_name[1];}
-      $try_name = (dynamic $counter) ==> {
+      $try_name = (dynamic $counter) : dynamic ==> {
         $name = null as dynamic;
         $counter__1 = null as dynamic;
         $counter__0 = $counter;
@@ -763,7 +767,7 @@ final class Filename {
       return $try_name(0);
     };
     $open_temp_file = 
-    (dynamic $opt, dynamic $q_, dynamic $p_, dynamic $prefix, dynamic $suffix) ==> {
+    (dynamic $opt, dynamic $q_, dynamic $p_, dynamic $prefix, dynamic $suffix) : dynamic ==> {
       $temp_dir = null as dynamic;
       $sth__1 = null as dynamic;
       $perms = null as dynamic;
@@ -785,7 +789,7 @@ final class Filename {
         $temp_dir = $sth__1;
       }
       else {$temp_dir = $current_temp_dir_name[1];}
-      $try_name = (dynamic $counter) ==> {
+      $try_name = (dynamic $counter) : dynamic ==> {
         $name = null as dynamic;
         $counter__1 = null as dynamic;
         $r_ = null as dynamic;

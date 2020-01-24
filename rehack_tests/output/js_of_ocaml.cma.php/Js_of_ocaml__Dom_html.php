@@ -613,143 +613,160 @@ final class Js_of_ocaml__Dom_html {
     $addEventListener = $Js_of_ocaml_Dom[15];
     $removeEventListener = $Js_of_ocaml_Dom[16];
     $d = "2d";
-    $location_origin = (dynamic $loc) ==> {
-      $de_ = (dynamic $o) ==> {return $o;};
-      $df_ = (dynamic $param) ==> {
-        $di_ = (dynamic $x) ==> {
+    $location_origin = (dynamic $loc) : dynamic ==> {
+      $de_ = (dynamic $o) : dynamic ==> {return $o;};
+      $df_ = (dynamic $param) : dynamic ==> {
+        $di_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 6510168, 67), $x);
         };
-        $protocol = ((dynamic $t13, dynamic $param) ==> {return $t13->protocol;
+        $protocol = ((dynamic $t13, dynamic $param) : dynamic ==> {
+           return $t13->protocol;
          })($loc, $di_);
-        $dj_ = (dynamic $x) ==> {
+        $dj_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -757983821, 68), $x);
         };
-        $hostname = ((dynamic $t12, dynamic $param) ==> {return $t12->hostname;
+        $hostname = ((dynamic $t12, dynamic $param) : dynamic ==> {
+           return $t12->hostname;
          })($loc, $dj_);
-        $dk_ = (dynamic $x) ==> {
+        $dk_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -899906687, 69), $x);
         };
-        $port = ((dynamic $t11, dynamic $param) ==> {return $t11->port;})($loc, $dk_);
-        $dl_ = (dynamic $x) ==> {
+        $port = ((dynamic $t11, dynamic $param) : dynamic ==> {
+           return $t11->port;
+         })($loc, $dk_);
+        $dl_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 520590566, 70), $x);
         };
         if (
           0 ===
-            ((dynamic $t9, dynamic $param) ==> {return $t9->length;})($protocol, $dl_)
+            ((dynamic $t9, dynamic $param) : dynamic ==> {return $t9->length;})($protocol, $dl_)
         ) {
-          $dm_ = (dynamic $x) ==> {
+          $dm_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, 520590566, 71), $x);
           };
           if (
             0 ===
-              ((dynamic $t10, dynamic $param) ==> {return $t10->length;})($hostname, $dm_)
+              ((dynamic $t10, dynamic $param) : dynamic ==> {
+                 return $t10->length;
+               })($hostname, $dm_)
           ) {return "";}
         }
-        $dn_ = (dynamic $x) ==> {
+        $dn_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -491534073, 72), $x);
         };
         $do_ = "//";
-        $origin = ((dynamic $t8, dynamic $t6, dynamic $t7, dynamic $param) ==> {return $t8->concat($t6, $t7);
+        $origin = ((dynamic $t8, dynamic $t6, dynamic $t7, dynamic $param) : dynamic ==> {return $t8->concat($t6, $t7);
          })($protocol, $do_, $hostname, $dn_);
-        $dp_ = (dynamic $x) ==> {
+        $dp_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 520590566, 73), $x);
         };
         if (
           0 <
-            ((dynamic $t5, dynamic $param) ==> {return $t5->length;})($port, $dp_)
+            ((dynamic $t5, dynamic $param) : dynamic ==> {return $t5->length;})($port, $dp_)
         ) {
-          $dq_ = (dynamic $x) ==> {
+          $dq_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -491534073, 74), $x);
           };
-          $dr_ = (dynamic $x) ==> {
+          $dr_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -899906687, 75), $x);
           };
-          $ds_ = ((dynamic $t1, dynamic $param) ==> {return $t1->port;})($loc, $dr_);
+          $ds_ = ((dynamic $t1, dynamic $param) : dynamic ==> {
+             return $t1->port;
+           })($loc, $dr_);
           $dt_ = ":";
-          return ((dynamic $t4, dynamic $t2, dynamic $t3, dynamic $param) ==> {return $t4->concat($t2, $t3);
+          return ((dynamic $t4, dynamic $t2, dynamic $t3, dynamic $param) : dynamic ==> {return $t4->concat($t2, $t3);
            })($origin, $dt_, $ds_, $dq_);
         }
         return $origin;
       };
-      $dg_ = (dynamic $x) ==> {
+      $dg_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -889120282, 76), $x);
       };
-      $dh_ = ((dynamic $t0, dynamic $param) ==> {return $t0->origin;})($loc, $dg_);
+      $dh_ = ((dynamic $t0, dynamic $param) : dynamic ==> {
+         return $t0->origin;
+       })($loc, $dg_);
       return $call3($Js_of_ocaml_Js[6][7], $dh_, $df_, $de_);
     };
     $window = $Js_of_ocaml_Js[50][1];
-    $a_ = (dynamic $x) ==> {
+    $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 454225691, 77), $x);
     };
-    $document = ((dynamic $t14, dynamic $param) ==> {return $t14->document;})($window, $a_);
-    $getElementById = (dynamic $id) ==> {
-      $c__ = (dynamic $pnode) ==> {return $pnode;};
-      $da_ = (dynamic $param) ==> {
+    $document = ((dynamic $t14, dynamic $param) : dynamic ==> {
+       return $t14->document;
+     })($window, $a_);
+    $getElementById = (dynamic $id) : dynamic ==> {
+      $c__ = (dynamic $pnode) : dynamic ==> {return $pnode;};
+      $da_ = (dynamic $param) : dynamic ==> {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
-      $db_ = (dynamic $x) ==> {
+      $db_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 78), $x);
       };
       $dc_ = $id->toString();
-      $dd_ = ((dynamic $t16, dynamic $t15, dynamic $param) ==> {return $t16->getElementById($t15);
+      $dd_ = ((dynamic $t16, dynamic $t15, dynamic $param) : dynamic ==> {
+         return $t16->getElementById($t15);
        })($document, $dc_, $db_);
       return $call3($Js_of_ocaml_Js[5][7], $dd_, $da_, $c__);
     };
-    $getElementById_exn = (dynamic $id) ==> {
-      $c4_ = (dynamic $pnode) ==> {return $pnode;};
-      $c5_ = (dynamic $param) ==> {
+    $getElementById_exn = (dynamic $id) : dynamic ==> {
+      $c4_ = (dynamic $pnode) : dynamic ==> {return $pnode;};
+      $c5_ = (dynamic $param) : dynamic ==> {
         $c9_ = $call2($Printf[4], $b_, $id);
         return $call1($Pervasives[2], $c9_);
       };
-      $c6_ = (dynamic $x) ==> {
+      $c6_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 79), $x);
       };
       $c7_ = $id->toString();
-      $c8_ = ((dynamic $t18, dynamic $t17, dynamic $param) ==> {return $t18->getElementById($t17);
+      $c8_ = ((dynamic $t18, dynamic $t17, dynamic $param) : dynamic ==> {
+         return $t18->getElementById($t17);
        })($document, $c7_, $c6_);
       return $call3($Js_of_ocaml_Js[5][7], $c8_, $c5_, $c4_);
     };
-    $getElementById_opt = (dynamic $id) ==> {
-      $c1_ = (dynamic $x) ==> {
+    $getElementById_opt = (dynamic $id) : dynamic ==> {
+      $c1_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 80), $x);
       };
       $c2_ = $id->toString();
-      $c3_ = ((dynamic $t20, dynamic $t19, dynamic $param) ==> {return $t20->getElementById($t19);
+      $c3_ = ((dynamic $t20, dynamic $t19, dynamic $param) : dynamic ==> {
+         return $t20->getElementById($t19);
        })($document, $c2_, $c1_);
       return $call1($Js_of_ocaml_Js[5][10], $c3_);
     };
-    $getElementById_coerce = (dynamic $id, dynamic $coerce) ==> {
-      $cV_ = (dynamic $e) ==> {
+    $getElementById_coerce = (dynamic $id, dynamic $coerce) : dynamic ==> {
+      $cV_ = (dynamic $e) : dynamic ==> {
         $c0_ = $call1($coerce, $e);
         return $call1($Js_of_ocaml_Js[5][10], $c0_);
       };
-      $cW_ = (dynamic $param) ==> {return 0;};
-      $cX_ = (dynamic $x) ==> {
+      $cW_ = (dynamic $param) : dynamic ==> {return 0;};
+      $cX_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 81), $x);
       };
       $cY_ = $id->toString();
-      $cZ_ = ((dynamic $t22, dynamic $t21, dynamic $param) ==> {return $t22->getElementById($t21);
+      $cZ_ = ((dynamic $t22, dynamic $t21, dynamic $param) : dynamic ==> {
+         return $t22->getElementById($t21);
        })($document, $cY_, $cX_);
       return $call3($Js_of_ocaml_Js[5][7], $cZ_, $cW_, $cV_);
     };
-    $opt_iter = (dynamic $x, dynamic $f) ==> {
+    $opt_iter = (dynamic $x, dynamic $f) : dynamic ==> {
       if ($x) {$v = $x[1];return $call1($f, $v);}
       return 0;
     };
-    $createElement = (dynamic $doc, dynamic $name) ==> {
-      $cT_ = (dynamic $x) ==> {
+    $createElement = (dynamic $doc, dynamic $name) : dynamic ==> {
+      $cT_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -292059360, 82), $x);
       };
       $cU_ = $name->toString();
-      return ((dynamic $t24, dynamic $t23, dynamic $param) ==> {return $t24->createElement($t23);
+      return ((dynamic $t24, dynamic $t23, dynamic $param) : dynamic ==> {
+         return $t24->createElement($t23);
        })($doc, $cU_, $cT_);
     };
-    $unsafeCreateElement = (dynamic $doc, dynamic $name) ==> {
+    $unsafeCreateElement = (dynamic $doc, dynamic $name) : dynamic ==> {
       return $createElement($doc, $name);
     };
     $createElementSyntax = Vector{0, 785140586} as dynamic;
     $unsafeCreateElementEx = 
-    (dynamic $type, dynamic $name, dynamic $doc, dynamic $elt) ==> {
+    (dynamic $type, dynamic $name, dynamic $doc, dynamic $elt) : dynamic ==> {
       for (;;) {
         if (0 === $type) {
           if (0 === $name) {return $createElement($doc, $elt);}
@@ -757,31 +774,36 @@ final class Js_of_ocaml__Dom_html {
         $ck_ = $createElementSyntax[1];
         if (785140586 === $ck_) {
           try {
-            $cn_ = (dynamic $x) ==> {
+            $cn_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, -292059360, 83), $x);
             };
             $co_ = "<input name=\"x\">";
-            $el = ((dynamic $t51, dynamic $t50, dynamic $param) ==> {return $t51->createElement($t50);
+            $el = ((dynamic $t51, dynamic $t50, dynamic $param) : dynamic ==> {
+               return $t51->createElement($t50);
              })($document, $co_, $cn_);
             $cp_ = "input";
-            $cq_ = (dynamic $x) ==> {
+            $cq_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, 946097238, 84), $x);
             };
-            $cr_ = (dynamic $x) ==> {
+            $cr_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, 578170309, 85), $x);
             };
-            $cs_ = ((dynamic $t47, dynamic $param) ==> {return $t47->tagName;})($el, $cr_);
-            $ct_ = ((dynamic $t48, dynamic $param) ==> {
+            $cs_ = ((dynamic $t47, dynamic $param) : dynamic ==> {
+               return $t47->tagName;
+             })($el, $cr_);
+            $ct_ = ((dynamic $t48, dynamic $param) : dynamic ==> {
                 return $t48->toLowerCase();
               })($cs_, $cq_) === $cp_
               ? 1
               : (0);
             if ($ct_) {
               $cu_ = "x";
-              $cv_ = (dynamic $x) ==> {
+              $cv_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, -922783157, 86), $x);
               };
-              $cw_ = ((dynamic $t49, dynamic $param) ==> {return $t49->name;})($el, $cv_) === $cu_
+              $cw_ = ((dynamic $t49, dynamic $param) : dynamic ==> {
+                  return $t49->name;
+                })($el, $cv_) === $cu_
                 ? 1
                 : (0);
             }
@@ -796,25 +818,27 @@ final class Js_of_ocaml__Dom_html {
         if (982028505 <= $ck_) {
           $cx_ = 0 as dynamic;
           $cy_ = $Js_of_ocaml_Js[14];
-          $a = ((dynamic $t46, dynamic $param) ==> {return new $t46();})($cy_, $cx_);
-          $cz_ = (dynamic $x) ==> {
+          $a = ((dynamic $t46, dynamic $param) : dynamic ==> {
+             return new $t46();
+           })($cy_, $cx_);
+          $cz_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -231927987, 87), $x);
           };
           $cA_ = $elt->toString();
           $cB_ = "<";
-          (((dynamic $t45, dynamic $t43, dynamic $t44, dynamic $param) ==> {return $t45->push($t43, $t44);
+          (((dynamic $t45, dynamic $t43, dynamic $t44, dynamic $param) : dynamic ==> {return $t45->push($t43, $t44);
             })($a, $cB_, $cA_, $cz_));
           $opt_iter(
             $type,
-            (dynamic $t) ==> {
-              $cO_ = (dynamic $x) ==> {
+            (dynamic $t) : dynamic ==> {
+              $cO_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, -231927986, 88), $x);
               };
               $cP_ = "\"";
               $cQ_ = $caml_js_html_escape($t);
               $cR_ = " type=\"";
               ((
-                (dynamic $t42, dynamic $t39, dynamic $t40, dynamic $t41, dynamic $param) ==> {
+                (dynamic $t42, dynamic $t39, dynamic $t40, dynamic $t41, dynamic $param) : dynamic ==> {
                   return $t42->push($t39, $t40, $t41);
                 })($a, $cR_, $cQ_, $cP_, $cO_));
               return 0;
@@ -822,263 +846,304 @@ final class Js_of_ocaml__Dom_html {
           );
           $opt_iter(
             $name,
-            (dynamic $n) ==> {
-              $cK_ = (dynamic $x) ==> {
+            (dynamic $n) : dynamic ==> {
+              $cK_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, -231927986, 89), $x);
               };
               $cL_ = "\"";
               $cM_ = $caml_js_html_escape($n);
               $cN_ = " name=\"";
               ((
-                (dynamic $t38, dynamic $t35, dynamic $t36, dynamic $t37, dynamic $param) ==> {
+                (dynamic $t38, dynamic $t35, dynamic $t36, dynamic $t37, dynamic $param) : dynamic ==> {
                   return $t38->push($t35, $t36, $t37);
                 })($a, $cN_, $cM_, $cL_, $cK_));
               return 0;
             }
           );
-          $cC_ = (dynamic $x) ==> {
+          $cC_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -899608102, 90), $x);
           };
           $cD_ = ">";
-          (((dynamic $t34, dynamic $t33, dynamic $param) ==> {return $t34->push($t33);
+          (((dynamic $t34, dynamic $t33, dynamic $param) : dynamic ==> {return $t34->push($t33);
             })($a, $cD_, $cC_));
-          $cE_ = (dynamic $x) ==> {
+          $cE_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -292059360, 91), $x);
           };
-          $cF_ = (dynamic $x) ==> {
+          $cF_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -966446102, 92), $x);
           };
           $cG_ = "";
-          $cH_ = ((dynamic $t30, dynamic $t29, dynamic $param) ==> {return $t30->join($t29);
+          $cH_ = ((dynamic $t30, dynamic $t29, dynamic $param) : dynamic ==> {return $t30->join($t29);
            })($a, $cG_, $cF_);
-          return ((dynamic $t32, dynamic $t31, dynamic $param) ==> {return $t32->createElement($t31);
+          return ((dynamic $t32, dynamic $t31, dynamic $param) : dynamic ==> {
+             return $t32->createElement($t31);
            })($doc, $cH_, $cE_);
         }
         $res = $createElement($doc, $elt);
         $opt_iter(
           $type,
-          (dynamic $t) ==> {
-            $cJ_ = (dynamic $x) ==> {
+          (dynamic $t) : dynamic ==> {
+            $cJ_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, 1707673, 93), $x);
             };
-            return ((dynamic $t28, dynamic $t27, dynamic $param) ==> {$t28->type = $t27;return 0;
+            return ((dynamic $t28, dynamic $t27, dynamic $param) : dynamic ==> {$t28->type = $t27;return 0;
              })($res, $t, $cJ_);
           }
         );
         $opt_iter(
           $name,
-          (dynamic $n) ==> {
-            $cI_ = (dynamic $x) ==> {
+          (dynamic $n) : dynamic ==> {
+            $cI_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, -922783157, 94), $x);
             };
-            return ((dynamic $t26, dynamic $t25, dynamic $param) ==> {$t26->name = $t25;return 0;
+            return ((dynamic $t26, dynamic $t25, dynamic $param) : dynamic ==> {$t26->name = $t25;return 0;
              })($res, $n, $cI_);
           }
         );
         return $res;
       }
     };
-    $createHtml = (dynamic $doc) ==> {
+    $createHtml = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_html);
     };
-    $createHead = (dynamic $doc) ==> {
+    $createHead = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_head);
     };
-    $createLink = (dynamic $doc) ==> {
+    $createLink = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_link);
     };
-    $createTitle = (dynamic $doc) ==> {
+    $createTitle = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_title);
     };
-    $createMeta = (dynamic $doc) ==> {
+    $createMeta = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_meta);
     };
-    $createBase = (dynamic $doc) ==> {
+    $createBase = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_base);
     };
-    $createStyle = (dynamic $doc) ==> {
+    $createStyle = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_style);
     };
-    $createBody = (dynamic $doc) ==> {
+    $createBody = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_body);
     };
-    $createForm = (dynamic $doc) ==> {
+    $createForm = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_form);
     };
-    $createOptgroup = (dynamic $doc) ==> {
+    $createOptgroup = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_optgroup);
     };
-    $createOption = (dynamic $doc) ==> {
+    $createOption = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_option);
     };
-    $createSelect = (dynamic $type, dynamic $name, dynamic $doc) ==> {
+    $createSelect = (dynamic $type, dynamic $name, dynamic $doc) : dynamic ==> {
       return $unsafeCreateElementEx($type, $name, $doc, $cst_select__0);
     };
-    $createInput = (dynamic $type, dynamic $name, dynamic $doc) ==> {
+    $createInput = (dynamic $type, dynamic $name, dynamic $doc) : dynamic ==> {
       return $unsafeCreateElementEx($type, $name, $doc, $cst_input__0);
     };
-    $createTextarea = (dynamic $type, dynamic $name, dynamic $doc) ==> {
+    $createTextarea = (dynamic $type, dynamic $name, dynamic $doc) : dynamic ==> {
       return $unsafeCreateElementEx($type, $name, $doc, $cst_textarea);
     };
-    $createButton = (dynamic $type, dynamic $name, dynamic $doc) ==> {
+    $createButton = (dynamic $type, dynamic $name, dynamic $doc) : dynamic ==> {
       return $unsafeCreateElementEx($type, $name, $doc, $cst_button);
     };
-    $createLabel = (dynamic $doc) ==> {
+    $createLabel = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_label);
     };
-    $createFieldset = (dynamic $doc) ==> {
+    $createFieldset = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_fieldset);
     };
-    $createLegend = (dynamic $doc) ==> {
+    $createLegend = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_legend);
     };
-    $createUl = (dynamic $doc) ==> {
+    $createUl = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_ul);
     };
-    $createOl = (dynamic $doc) ==> {
+    $createOl = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_ol);
     };
-    $createDl = (dynamic $doc) ==> {
+    $createDl = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_dl);
     };
-    $createLi = (dynamic $doc) ==> {
+    $createLi = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_li);
     };
-    $createDiv = (dynamic $doc) ==> {
+    $createDiv = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_div);
     };
-    $createEmbed = (dynamic $doc) ==> {
+    $createEmbed = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_embed);
     };
-    $createP = (dynamic $doc) ==> {return $unsafeCreateElement($doc, $cst_p);};
-    $createH1 = (dynamic $doc) ==> {
+    $createP = (dynamic $doc) : dynamic ==> {
+      return $unsafeCreateElement($doc, $cst_p);
+    };
+    $createH1 = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_h1);
     };
-    $createH2 = (dynamic $doc) ==> {
+    $createH2 = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_h2);
     };
-    $createH3 = (dynamic $doc) ==> {
+    $createH3 = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_h3);
     };
-    $createH4 = (dynamic $doc) ==> {
+    $createH4 = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_h4);
     };
-    $createH5 = (dynamic $doc) ==> {
+    $createH5 = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_h5);
     };
-    $createH6 = (dynamic $doc) ==> {
+    $createH6 = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_h6);
     };
-    $createQ = (dynamic $doc) ==> {return $unsafeCreateElement($doc, $cst_q);};
-    $createBlockquote = (dynamic $doc) ==> {
+    $createQ = (dynamic $doc) : dynamic ==> {
+      return $unsafeCreateElement($doc, $cst_q);
+    };
+    $createBlockquote = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_blockquote);
     };
-    $createPre = (dynamic $doc) ==> {
+    $createPre = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_pre);
     };
-    $createBr = (dynamic $doc) ==> {
+    $createBr = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_br);
     };
-    $createHr = (dynamic $doc) ==> {
+    $createHr = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_hr);
     };
-    $createIns = (dynamic $doc) ==> {
+    $createIns = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_ins);
     };
-    $createDel = (dynamic $doc) ==> {
+    $createDel = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_del);
     };
-    $createA = (dynamic $doc) ==> {return $unsafeCreateElement($doc, $cst_a);};
-    $createImg = (dynamic $doc) ==> {
+    $createA = (dynamic $doc) : dynamic ==> {
+      return $unsafeCreateElement($doc, $cst_a);
+    };
+    $createImg = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_img);
     };
-    $createObject = (dynamic $doc) ==> {
+    $createObject = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_object);
     };
-    $createParam = (dynamic $doc) ==> {
+    $createParam = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_param);
     };
-    $createMap = (dynamic $doc) ==> {
+    $createMap = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_map);
     };
-    $createArea = (dynamic $doc) ==> {
+    $createArea = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_area);
     };
-    $createScript = (dynamic $doc) ==> {
+    $createScript = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_script);
     };
-    $createTable = (dynamic $doc) ==> {
+    $createTable = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_table);
     };
-    $createCaption = (dynamic $doc) ==> {
+    $createCaption = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_caption);
     };
-    $createCol = (dynamic $doc) ==> {
+    $createCol = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_col);
     };
-    $createColgroup = (dynamic $doc) ==> {
+    $createColgroup = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_colgroup);
     };
-    $createThead = (dynamic $doc) ==> {
+    $createThead = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_thead);
     };
-    $createTfoot = (dynamic $doc) ==> {
+    $createTfoot = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_tfoot);
     };
-    $createTbody = (dynamic $doc) ==> {
+    $createTbody = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_tbody);
     };
-    $createTr = (dynamic $doc) ==> {
+    $createTr = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_tr);
     };
-    $createTh = (dynamic $doc) ==> {
+    $createTh = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_th);
     };
-    $createTd = (dynamic $doc) ==> {
+    $createTd = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_td);
     };
-    $createSub = (dynamic $doc) ==> {return $createElement($doc, $cst_sub);};
-    $createSup = (dynamic $doc) ==> {return $createElement($doc, $cst_sup);};
-    $createSpan = (dynamic $doc) ==> {return $createElement($doc, $cst_span);};
-    $createTt = (dynamic $doc) ==> {return $createElement($doc, $cst_tt);};
-    $createI = (dynamic $doc) ==> {return $createElement($doc, $cst_i);};
-    $createB = (dynamic $doc) ==> {return $createElement($doc, $cst_b);};
-    $createBig = (dynamic $doc) ==> {return $createElement($doc, $cst_big);};
-    $createSmall = (dynamic $doc) ==> {
+    $createSub = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_sub);
+    };
+    $createSup = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_sup);
+    };
+    $createSpan = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_span);
+    };
+    $createTt = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_tt);
+    };
+    $createI = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_i);
+    };
+    $createB = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_b);
+    };
+    $createBig = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_big);
+    };
+    $createSmall = (dynamic $doc) : dynamic ==> {
       return $createElement($doc, $cst_small);
     };
-    $createEm = (dynamic $doc) ==> {return $createElement($doc, $cst_em);};
-    $createStrong = (dynamic $doc) ==> {
+    $createEm = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_em);
+    };
+    $createStrong = (dynamic $doc) : dynamic ==> {
       return $createElement($doc, $cst_strong);
     };
-    $createCite = (dynamic $doc) ==> {return $createElement($doc, $cst_cite);};
-    $createDfn = (dynamic $doc) ==> {return $createElement($doc, $cst_dfn);};
-    $createCode = (dynamic $doc) ==> {return $createElement($doc, $cst_code);};
-    $createSamp = (dynamic $doc) ==> {return $createElement($doc, $cst_samp);};
-    $createKbd = (dynamic $doc) ==> {return $createElement($doc, $cst_kbd);};
-    $createVar = (dynamic $doc) ==> {return $createElement($doc, $cst_var);};
-    $createAbbr = (dynamic $doc) ==> {return $createElement($doc, $cst_abbr);};
-    $createDd = (dynamic $doc) ==> {return $createElement($doc, $cst_dd);};
-    $createDt = (dynamic $doc) ==> {return $createElement($doc, $cst_dt);};
-    $createNoscript = (dynamic $doc) ==> {
+    $createCite = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_cite);
+    };
+    $createDfn = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_dfn);
+    };
+    $createCode = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_code);
+    };
+    $createSamp = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_samp);
+    };
+    $createKbd = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_kbd);
+    };
+    $createVar = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_var);
+    };
+    $createAbbr = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_abbr);
+    };
+    $createDd = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_dd);
+    };
+    $createDt = (dynamic $doc) : dynamic ==> {
+      return $createElement($doc, $cst_dt);
+    };
+    $createNoscript = (dynamic $doc) : dynamic ==> {
       return $createElement($doc, $cst_noscript);
     };
-    $createAddress = (dynamic $doc) ==> {
+    $createAddress = (dynamic $doc) : dynamic ==> {
       return $createElement($doc, $cst_address);
     };
-    $createFrameset = (dynamic $doc) ==> {
+    $createFrameset = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_frameset);
     };
-    $createFrame = (dynamic $doc) ==> {
+    $createFrame = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_frame);
     };
-    $createIframe = (dynamic $doc) ==> {
+    $createIframe = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_iframe);
     };
-    $createAudio = (dynamic $doc) ==> {
+    $createAudio = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_audio);
     };
-    $createVideo = (dynamic $doc) ==> {
+    $createVideo = (dynamic $doc) : dynamic ==> {
       return $unsafeCreateElement($doc, $cst_video);
     };
     $Canvas_not_available = Vector{
@@ -1086,118 +1151,196 @@ final class Js_of_ocaml__Dom_html {
       $cst_Js_of_ocaml_Dom_html_Canvas_not_available,
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
-    $createCanvas = (dynamic $doc) ==> {
+    $createCanvas = (dynamic $doc) : dynamic ==> {
       $c = $unsafeCreateElement($doc, $cst_canvas);
-      $ci_ = (dynamic $x) ==> {
+      $ci_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -388424711, 95), $x);
       };
-      $cj_ = ((dynamic $t52, dynamic $param) ==> {return $t52->getContext;})($c, $ci_);
+      $cj_ = ((dynamic $t52, dynamic $param) : dynamic ==> {
+         return $t52->getContext;
+       })($c, $ci_);
       if (1 - $call1($Js_of_ocaml_Js[5][5], $cj_)) {
         throw $caml_wrap_thrown_exception($Canvas_not_available) as \Throwable;
       }
       return $c;
     };
-    $c_ = (dynamic $x) ==> {
+    $c_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -29132142, 96), $x);
     };
     $d_ = $Js_of_ocaml_Js[50][1];
-    $html_element = ((dynamic $t53, dynamic $param) ==> {
+    $html_element = ((dynamic $t53, dynamic $param) : dynamic ==> {
        return $t53->HTMLElement;
      })($d_, $c_);
     $e_ = $Js_of_ocaml_Js[3];
     $element = $call1($Js_of_ocaml_Js[4], $html_element) === $e_
-      ? (dynamic $e) ==> {
+      ? (dynamic $e) : dynamic ==> {
        $cf_ = $Js_of_ocaml_Js[3];
-       $cg_ = (dynamic $x) ==> {
+       $cg_ = (dynamic $x) : dynamic ==> {
          return $call1($caml_get_public_method($x, 746263041, 97), $x);
        };
-       $ch_ = ((dynamic $t54, dynamic $param) ==> {return $t54->innerHTML;})($e, $cg_);
+       $ch_ = ((dynamic $t54, dynamic $param) : dynamic ==> {
+          return $t54->innerHTML;
+        })($e, $cg_);
        return $call1($Js_of_ocaml_Js[4], $ch_) === $cf_
          ? $Js_of_ocaml_Js[1]
          : ($call1($Js_of_ocaml_Js[2], $e));
      }
-      : ((dynamic $e) ==> {
+      : ((dynamic $e) : dynamic ==> {
        return instance_of($e, $html_element)
          ? $call1($Js_of_ocaml_Js[2], $e)
          : ($Js_of_ocaml_Js[1]);
      });
-    $unsafeCoerce = (dynamic $tag, dynamic $e) ==> {
+    $unsafeCoerce = (dynamic $tag, dynamic $e) : dynamic ==> {
       $cb_ = $tag->toString();
-      $cc_ = (dynamic $x) ==> {
+      $cc_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 946097238, 98), $x);
       };
-      $cd_ = (dynamic $x) ==> {
+      $cd_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 578170309, 99), $x);
       };
-      $ce_ = ((dynamic $t55, dynamic $param) ==> {return $t55->tagName;})($e, $cd_);
-      return ((dynamic $t56, dynamic $param) ==> {return $t56->toLowerCase();})($ce_, $cc_) === $cb_
+      $ce_ = ((dynamic $t55, dynamic $param) : dynamic ==> {
+         return $t55->tagName;
+       })($e, $cd_);
+      return ((dynamic $t56, dynamic $param) : dynamic ==> {
+          return $t56->toLowerCase();
+        })($ce_, $cc_) === $cb_
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $a = (dynamic $e) ==> {return $unsafeCoerce($cst_a__0, $e);};
-    $area = (dynamic $e) ==> {return $unsafeCoerce($cst_area__0, $e);};
-    $base = (dynamic $e) ==> {return $unsafeCoerce($cst_base__0, $e);};
-    $blockquote = (dynamic $e) ==> {
+    $a = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_a__0, $e);};
+    $area = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_area__0, $e);
+    };
+    $base = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_base__0, $e);
+    };
+    $blockquote = (dynamic $e) : dynamic ==> {
       return $unsafeCoerce($cst_blockquote__0, $e);
     };
-    $body = (dynamic $e) ==> {return $unsafeCoerce($cst_body__0, $e);};
-    $br = (dynamic $e) ==> {return $unsafeCoerce($cst_br__0, $e);};
-    $button = (dynamic $e) ==> {return $unsafeCoerce($cst_button__0, $e);};
-    $canvas = (dynamic $e) ==> {return $unsafeCoerce($cst_canvas__0, $e);};
-    $caption = (dynamic $e) ==> {return $unsafeCoerce($cst_caption__0, $e);};
-    $col = (dynamic $e) ==> {return $unsafeCoerce($cst_col__0, $e);};
-    $colgroup = (dynamic $e) ==> {return $unsafeCoerce($cst_colgroup__0, $e);};
-    $del = (dynamic $e) ==> {return $unsafeCoerce($cst_del__0, $e);};
-    $div = (dynamic $e) ==> {return $unsafeCoerce($cst_div__0, $e);};
-    $dl = (dynamic $e) ==> {return $unsafeCoerce($cst_dl__0, $e);};
-    $fieldset = (dynamic $e) ==> {return $unsafeCoerce($cst_fieldset__0, $e);};
-    $embed = (dynamic $e) ==> {return $unsafeCoerce($cst_embed__0, $e);};
-    $form = (dynamic $e) ==> {return $unsafeCoerce($cst_form__0, $e);};
-    $frameset = (dynamic $e) ==> {return $unsafeCoerce($cst_frameset__0, $e);};
-    $frame = (dynamic $e) ==> {return $unsafeCoerce($cst_frame__0, $e);};
-    $h1 = (dynamic $e) ==> {return $unsafeCoerce($cst_h1__0, $e);};
-    $h2 = (dynamic $e) ==> {return $unsafeCoerce($cst_h2__0, $e);};
-    $h3 = (dynamic $e) ==> {return $unsafeCoerce($cst_h3__0, $e);};
-    $h4 = (dynamic $e) ==> {return $unsafeCoerce($cst_h4__0, $e);};
-    $h5 = (dynamic $e) ==> {return $unsafeCoerce($cst_h5__0, $e);};
-    $h6 = (dynamic $e) ==> {return $unsafeCoerce($cst_h6__0, $e);};
-    $head = (dynamic $e) ==> {return $unsafeCoerce($cst_head__0, $e);};
-    $hr = (dynamic $e) ==> {return $unsafeCoerce($cst_hr__0, $e);};
-    $html = (dynamic $e) ==> {return $unsafeCoerce($cst_html__0, $e);};
-    $iframe = (dynamic $e) ==> {return $unsafeCoerce($cst_iframe__0, $e);};
-    $img = (dynamic $e) ==> {return $unsafeCoerce($cst_img__0, $e);};
-    $input__0 = (dynamic $e) ==> {return $unsafeCoerce($cst_input__1, $e);};
-    $ins = (dynamic $e) ==> {return $unsafeCoerce($cst_ins__0, $e);};
-    $label = (dynamic $e) ==> {return $unsafeCoerce($cst_label__0, $e);};
-    $legend = (dynamic $e) ==> {return $unsafeCoerce($cst_legend__0, $e);};
-    $li = (dynamic $e) ==> {return $unsafeCoerce($cst_li__0, $e);};
-    $link = (dynamic $e) ==> {return $unsafeCoerce($cst_link__0, $e);};
-    $map = (dynamic $e) ==> {return $unsafeCoerce($cst_map__0, $e);};
-    $meta = (dynamic $e) ==> {return $unsafeCoerce($cst_meta__0, $e);};
-    $object = (dynamic $e) ==> {return $unsafeCoerce($cst_object__0, $e);};
-    $ol = (dynamic $e) ==> {return $unsafeCoerce($cst_ol__0, $e);};
-    $optgroup = (dynamic $e) ==> {return $unsafeCoerce($cst_optgroup__0, $e);};
-    $option = (dynamic $e) ==> {return $unsafeCoerce($cst_option__0, $e);};
-    $p = (dynamic $e) ==> {return $unsafeCoerce($cst_p__0, $e);};
-    $param = (dynamic $e) ==> {return $unsafeCoerce($cst_param__0, $e);};
-    $pre = (dynamic $e) ==> {return $unsafeCoerce($cst_pre__0, $e);};
-    $q = (dynamic $e) ==> {return $unsafeCoerce($cst_q__0, $e);};
-    $script = (dynamic $e) ==> {return $unsafeCoerce($cst_script__0, $e);};
-    $select__0 = (dynamic $e) ==> {return $unsafeCoerce($cst_select__1, $e);};
-    $style = (dynamic $e) ==> {return $unsafeCoerce($cst_style__0, $e);};
-    $table = (dynamic $e) ==> {return $unsafeCoerce($cst_table__0, $e);};
-    $tbody = (dynamic $e) ==> {return $unsafeCoerce($cst_tbody__0, $e);};
-    $td = (dynamic $e) ==> {return $unsafeCoerce($cst_td__0, $e);};
-    $textarea = (dynamic $e) ==> {return $unsafeCoerce($cst_textarea__0, $e);};
-    $tfoot = (dynamic $e) ==> {return $unsafeCoerce($cst_tfoot__0, $e);};
-    $th = (dynamic $e) ==> {return $unsafeCoerce($cst_th__0, $e);};
-    $thead = (dynamic $e) ==> {return $unsafeCoerce($cst_thead__0, $e);};
-    $title = (dynamic $e) ==> {return $unsafeCoerce($cst_title__0, $e);};
-    $tr = (dynamic $e) ==> {return $unsafeCoerce($cst_tr__0, $e);};
-    $ul = (dynamic $e) ==> {return $unsafeCoerce($cst_ul__0, $e);};
-    $audio = (dynamic $e) ==> {return $unsafeCoerce($cst_audio__0, $e);};
-    $video = (dynamic $e) ==> {return $unsafeCoerce($cst_video__0, $e);};
-    $unsafeCoerceEvent = (dynamic $constr, dynamic $ev) ==> {
+    $body = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_body__0, $e);
+    };
+    $br = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_br__0, $e);};
+    $button = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_button__0, $e);
+    };
+    $canvas = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_canvas__0, $e);
+    };
+    $caption = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_caption__0, $e);
+    };
+    $col = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_col__0, $e);};
+    $colgroup = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_colgroup__0, $e);
+    };
+    $del = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_del__0, $e);};
+    $div = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_div__0, $e);};
+    $dl = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_dl__0, $e);};
+    $fieldset = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_fieldset__0, $e);
+    };
+    $embed = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_embed__0, $e);
+    };
+    $form = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_form__0, $e);
+    };
+    $frameset = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_frameset__0, $e);
+    };
+    $frame = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_frame__0, $e);
+    };
+    $h1 = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_h1__0, $e);};
+    $h2 = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_h2__0, $e);};
+    $h3 = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_h3__0, $e);};
+    $h4 = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_h4__0, $e);};
+    $h5 = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_h5__0, $e);};
+    $h6 = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_h6__0, $e);};
+    $head = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_head__0, $e);
+    };
+    $hr = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_hr__0, $e);};
+    $html = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_html__0, $e);
+    };
+    $iframe = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_iframe__0, $e);
+    };
+    $img = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_img__0, $e);};
+    $input__0 = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_input__1, $e);
+    };
+    $ins = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_ins__0, $e);};
+    $label = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_label__0, $e);
+    };
+    $legend = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_legend__0, $e);
+    };
+    $li = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_li__0, $e);};
+    $link = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_link__0, $e);
+    };
+    $map = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_map__0, $e);};
+    $meta = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_meta__0, $e);
+    };
+    $object = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_object__0, $e);
+    };
+    $ol = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_ol__0, $e);};
+    $optgroup = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_optgroup__0, $e);
+    };
+    $option = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_option__0, $e);
+    };
+    $p = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_p__0, $e);};
+    $param = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_param__0, $e);
+    };
+    $pre = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_pre__0, $e);};
+    $q = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_q__0, $e);};
+    $script = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_script__0, $e);
+    };
+    $select__0 = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_select__1, $e);
+    };
+    $style = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_style__0, $e);
+    };
+    $table = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_table__0, $e);
+    };
+    $tbody = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_tbody__0, $e);
+    };
+    $td = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_td__0, $e);};
+    $textarea = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_textarea__0, $e);
+    };
+    $tfoot = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_tfoot__0, $e);
+    };
+    $th = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_th__0, $e);};
+    $thead = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_thead__0, $e);
+    };
+    $title = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_title__0, $e);
+    };
+    $tr = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_tr__0, $e);};
+    $ul = (dynamic $e) : dynamic ==> {return $unsafeCoerce($cst_ul__0, $e);};
+    $audio = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_audio__0, $e);
+    };
+    $video = (dynamic $e) : dynamic ==> {
+      return $unsafeCoerce($cst_video__0, $e);
+    };
+    $unsafeCoerceEvent = (dynamic $constr, dynamic $ev) : dynamic ==> {
       $ca_ = $Js_of_ocaml_Js[3];
       if ($call1($Js_of_ocaml_Js[4], $constr) !== $ca_) {
         if (instance_of($ev, $constr)) {
@@ -1206,198 +1349,242 @@ final class Js_of_ocaml__Dom_html {
       }
       return $Js_of_ocaml_Js[1];
     };
-    $mouseEvent = (dynamic $ev) ==> {
-      $b9_ = (dynamic $x) ==> {
+    $mouseEvent = (dynamic $ev) : dynamic ==> {
+      $b9_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -590574348, 100), $x);
       };
       $b__ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        ((dynamic $t57, dynamic $param) ==> {return $t57->MouseEvent;})($b__, $b9_),
+        ((dynamic $t57, dynamic $param) : dynamic ==> {
+           return $t57->MouseEvent;
+         })($b__, $b9_),
         $ev
       );
     };
-    $keyboardEvent = (dynamic $ev) ==> {
-      $b7_ = (dynamic $x) ==> {
+    $keyboardEvent = (dynamic $ev) : dynamic ==> {
+      $b7_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -807764460, 101), $x);
       };
       $b8_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        ((dynamic $t58, dynamic $param) ==> {return $t58->KeyboardEvent;})($b8_, $b7_),
+        ((dynamic $t58, dynamic $param) : dynamic ==> {
+           return $t58->KeyboardEvent;
+         })($b8_, $b7_),
         $ev
       );
     };
-    $wheelEvent = (dynamic $ev) ==> {
-      $b5_ = (dynamic $x) ==> {
+    $wheelEvent = (dynamic $ev) : dynamic ==> {
+      $b5_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 239551166, 102), $x);
       };
       $b6_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        ((dynamic $t59, dynamic $param) ==> {return $t59->WheelEvent;})($b6_, $b5_),
+        ((dynamic $t59, dynamic $param) : dynamic ==> {
+           return $t59->WheelEvent;
+         })($b6_, $b5_),
         $ev
       );
     };
-    $mouseScrollEvent = (dynamic $ev) ==> {
-      $b3_ = (dynamic $x) ==> {
+    $mouseScrollEvent = (dynamic $ev) : dynamic ==> {
+      $b3_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -31722201, 103), $x);
       };
       $b4_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        ((dynamic $t60, dynamic $param) ==> {return $t60->MouseScrollEvent;})($b4_, $b3_),
+        ((dynamic $t60, dynamic $param) : dynamic ==> {
+           return $t60->MouseScrollEvent;
+         })($b4_, $b3_),
         $ev
       );
     };
-    $popStateEvent = (dynamic $ev) ==> {
-      $b1_ = (dynamic $x) ==> {
+    $popStateEvent = (dynamic $ev) : dynamic ==> {
+      $b1_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -903494309, 104), $x);
       };
       $b2_ = $Js_of_ocaml_Js[50][1];
       return $unsafeCoerceEvent(
-        ((dynamic $t61, dynamic $param) ==> {return $t61->PopStateEvent;})($b2_, $b1_),
+        ((dynamic $t61, dynamic $param) : dynamic ==> {
+           return $t61->PopStateEvent;
+         })($b2_, $b1_),
         $ev
       );
     };
     $eventTarget = $Js_of_ocaml_Dom[13];
-    $eventRelatedTarget = (dynamic $e) ==> {
-      $bR_ = (dynamic $param) ==> {
-        $bU_ = (dynamic $x) ==> {
+    $eventRelatedTarget = (dynamic $e) : dynamic ==> {
+      $bR_ = (dynamic $param) : dynamic ==> {
+        $bU_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 1707673, 105), $x);
         };
         $match = $caml_js_to_string(
-          ((dynamic $t65, dynamic $param) ==> {return $t65->type;})($e, $bU_)
+          ((dynamic $t65, dynamic $param) : dynamic ==> {return $t65->type;})($e, $bU_)
         );
         if ($caml_string_notequal($match, $cst_mouseout__0)) {
           if ($caml_string_notequal($match, $cst_mouseover__0)) {return $Js_of_ocaml_Js[1];}
-          $bV_ = (dynamic $param) ==> {
+          $bV_ = (dynamic $param) : dynamic ==> {
             throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
           };
-          $bW_ = (dynamic $x) ==> {
+          $bW_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, 513086066, 106), $x);
           };
-          $bX_ = ((dynamic $t63, dynamic $param) ==> {
+          $bX_ = ((dynamic $t63, dynamic $param) : dynamic ==> {
              return $t63->fromElement;
            })($e, $bW_);
           return $call2($Js_of_ocaml_Js[6][8], $bX_, $bV_);
         }
-        $bY_ = (dynamic $param) ==> {
+        $bY_ = (dynamic $param) : dynamic ==> {
           throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $g_}) as \Throwable;
         };
-        $bZ_ = (dynamic $x) ==> {
+        $bZ_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 904455809, 107), $x);
         };
-        $b0_ = ((dynamic $t64, dynamic $param) ==> {return $t64->toElement;})($e, $bZ_);
+        $b0_ = ((dynamic $t64, dynamic $param) : dynamic ==> {
+           return $t64->toElement;
+         })($e, $bZ_);
         return $call2($Js_of_ocaml_Js[6][8], $b0_, $bY_);
       };
-      $bS_ = (dynamic $x) ==> {
+      $bS_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -629591140, 108), $x);
       };
-      $bT_ = ((dynamic $t62, dynamic $param) ==> {return $t62->relatedTarget;})($e, $bS_);
+      $bT_ = ((dynamic $t62, dynamic $param) : dynamic ==> {
+         return $t62->relatedTarget;
+       })($e, $bS_);
       return $call2($Js_of_ocaml_Js[6][8], $bT_, $bR_);
     };
-    $eventAbsolutePosition = (dynamic $e) ==> {
-      $bE_ = (dynamic $x) ==> {
+    $eventAbsolutePosition = (dynamic $e) : dynamic ==> {
+      $bE_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -1055163742, 109), $x);
       };
-      $body = ((dynamic $t73, dynamic $param) ==> {return $t73->body;})($document, $bE_);
-      $bF_ = (dynamic $x) ==> {
+      $body = ((dynamic $t73, dynamic $param) : dynamic ==> {
+         return $t73->body;
+       })($document, $bE_);
+      $bF_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1068552417, 110), $x);
       };
-      $html = ((dynamic $t72, dynamic $param) ==> {
+      $html = ((dynamic $t72, dynamic $param) : dynamic ==> {
          return $t72->documentElement;
        })($document, $bF_);
-      $bG_ = (dynamic $x) ==> {
+      $bG_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1040845960, 111), $x);
       };
-      $bH_ = ((dynamic $t71, dynamic $param) ==> {return $t71->scrollTop;})($html, $bG_);
-      $bI_ = (dynamic $x) ==> {
+      $bH_ = ((dynamic $t71, dynamic $param) : dynamic ==> {
+         return $t71->scrollTop;
+       })($html, $bG_);
+      $bI_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1040845960, 112), $x);
       };
-      $bJ_ = ((dynamic $t70, dynamic $param) ==> {return $t70->scrollTop;})($body, $bI_);
-      $bK_ = (dynamic $x) ==> {
+      $bJ_ = ((dynamic $t70, dynamic $param) : dynamic ==> {
+         return $t70->scrollTop;
+       })($body, $bI_);
+      $bK_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -75417682, 113), $x);
       };
       $bL_ = (int)
       ((int)
-       (((dynamic $t69, dynamic $param) ==> {return $t69->clientY;})($e, $bK_) + $bJ_) +
+       (((dynamic $t69, dynamic $param) : dynamic ==> {return $t69->clientY;})($e, $bK_) + $bJ_) +
          $bH_) as dynamic;
-      $bM_ = (dynamic $x) ==> {
+      $bM_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 91199156, 114), $x);
       };
-      $bN_ = ((dynamic $t68, dynamic $param) ==> {return $t68->scrollLeft;})($html, $bM_);
-      $bO_ = (dynamic $x) ==> {
+      $bN_ = ((dynamic $t68, dynamic $param) : dynamic ==> {
+         return $t68->scrollLeft;
+       })($html, $bM_);
+      $bO_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 91199156, 115), $x);
       };
-      $bP_ = ((dynamic $t67, dynamic $param) ==> {return $t67->scrollLeft;})($body, $bO_);
-      $bQ_ = (dynamic $x) ==> {
+      $bP_ = ((dynamic $t67, dynamic $param) : dynamic ==> {
+         return $t67->scrollLeft;
+       })($body, $bO_);
+      $bQ_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -75417683, 116), $x);
       };
       return Vector{
         0,
         (int)
         ((int)
-         (((dynamic $t66, dynamic $param) ==> {return $t66->clientX;})($e, $bQ_) + $bP_) +
+         (((dynamic $t66, dynamic $param) : dynamic ==> {
+             return $t66->clientX;
+           })($e, $bQ_) + $bP_) +
            $bN_),
         $bL_
       };
     };
-    $eventAbsolutePosition__0 = (dynamic $e) ==> {
-      $bw_ = (dynamic $x) ==> {
-        $bA_ = (dynamic $y) ==> {return Vector{0, $x, $y};};
-        $bB_ = (dynamic $param) ==> {return $eventAbsolutePosition($e);};
-        $bC_ = (dynamic $x) ==> {
+    $eventAbsolutePosition__0 = (dynamic $e) : dynamic ==> {
+      $bw_ = (dynamic $x) : dynamic ==> {
+        $bA_ = (dynamic $y) : dynamic ==> {return Vector{0, $x, $y};};
+        $bB_ = (dynamic $param) : dynamic ==> {
+          return $eventAbsolutePosition($e);
+        };
+        $bC_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 1028467498, 117), $x);
         };
-        $bD_ = ((dynamic $t75, dynamic $param) ==> {return $t75->pageY;})($e, $bC_);
+        $bD_ = ((dynamic $t75, dynamic $param) : dynamic ==> {
+           return $t75->pageY;
+         })($e, $bC_);
         return $call3($Js_of_ocaml_Js[6][7], $bD_, $bB_, $bA_);
       };
-      $bx_ = (dynamic $param) ==> {return $eventAbsolutePosition($e);};
-      $by_ = (dynamic $x) ==> {
+      $bx_ = (dynamic $param) : dynamic ==> {
+        return $eventAbsolutePosition($e);
+      };
+      $by_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1028467497, 118), $x);
       };
-      $bz_ = ((dynamic $t74, dynamic $param) ==> {return $t74->pageX;})($e, $by_);
+      $bz_ = ((dynamic $t74, dynamic $param) : dynamic ==> {
+         return $t74->pageX;
+       })($e, $by_);
       return $call3($Js_of_ocaml_Js[6][7], $bz_, $bx_, $bw_);
     };
-    $elementClientPosition = (dynamic $e) ==> {
-      $bi_ = (dynamic $x) ==> {
+    $elementClientPosition = (dynamic $e) : dynamic ==> {
+      $bi_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 718768073, 119), $x);
       };
-      $r = ((dynamic $t84, dynamic $param) ==> {
+      $r = ((dynamic $t84, dynamic $param) : dynamic ==> {
          return $t84->getBoundingClientRect();
        })($e, $bi_);
-      $bj_ = (dynamic $x) ==> {
+      $bj_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -1055163742, 120), $x);
       };
-      $body = ((dynamic $t83, dynamic $param) ==> {return $t83->body;})($document, $bj_);
-      $bk_ = (dynamic $x) ==> {
+      $body = ((dynamic $t83, dynamic $param) : dynamic ==> {
+         return $t83->body;
+       })($document, $bj_);
+      $bk_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1068552417, 121), $x);
       };
-      $html = ((dynamic $t82, dynamic $param) ==> {
+      $html = ((dynamic $t82, dynamic $param) : dynamic ==> {
          return $t82->documentElement;
        })($document, $bk_);
-      $bl_ = (dynamic $x) ==> {
+      $bl_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -939682550, 122), $x);
       };
-      $bm_ = ((dynamic $t81, dynamic $param) ==> {return $t81->clientTop;})($html, $bl_);
-      $bn_ = (dynamic $x) ==> {
+      $bm_ = ((dynamic $t81, dynamic $param) : dynamic ==> {
+         return $t81->clientTop;
+       })($html, $bl_);
+      $bn_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -939682550, 123), $x);
       };
-      $bo_ = ((dynamic $t80, dynamic $param) ==> {return $t80->clientTop;})($body, $bn_);
-      $bp_ = (dynamic $x) ==> {
+      $bo_ = ((dynamic $t80, dynamic $param) : dynamic ==> {
+         return $t80->clientTop;
+       })($body, $bn_);
+      $bp_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 5793429, 124), $x);
       };
       $bq_ = (int)
       ((int)
        ((int)
-        ((dynamic $t79, dynamic $param) ==> {return $t79->top;})($r, $bp_) - $bo_) -
+        ((dynamic $t79, dynamic $param) : dynamic ==> {return $t79->top;})($r, $bp_) - $bo_) -
          $bm_) as dynamic;
-      $br_ = (dynamic $x) ==> {
+      $br_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 814972914, 125), $x);
       };
-      $bs_ = ((dynamic $t78, dynamic $param) ==> {return $t78->clientLeft;})($html, $br_);
-      $bt_ = (dynamic $x) ==> {
+      $bs_ = ((dynamic $t78, dynamic $param) : dynamic ==> {
+         return $t78->clientLeft;
+       })($html, $br_);
+      $bt_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 814972914, 126), $x);
       };
-      $bu_ = ((dynamic $t77, dynamic $param) ==> {return $t77->clientLeft;})($body, $bt_);
-      $bv_ = (dynamic $x) ==> {
+      $bu_ = ((dynamic $t77, dynamic $param) : dynamic ==> {
+         return $t77->clientLeft;
+       })($body, $bt_);
+      $bv_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -944764921, 127), $x);
       };
       return Vector{
@@ -1405,52 +1592,62 @@ final class Js_of_ocaml__Dom_html {
         (int)
         ((int)
          ((int)
-          ((dynamic $t76, dynamic $param) ==> {return $t76->left;})($r, $bv_) - $bu_) -
+          ((dynamic $t76, dynamic $param) : dynamic ==> {return $t76->left;})($r, $bv_) - $bu_) -
            $bs_),
         $bq_
       };
     };
-    $getDocumentScroll = (dynamic $param) ==> {
-      $a__ = (dynamic $x) ==> {
+    $getDocumentScroll = (dynamic $param) : dynamic ==> {
+      $a__ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -1055163742, 128), $x);
       };
-      $body = ((dynamic $t90, dynamic $param) ==> {return $t90->body;})($document, $a__);
-      $ba_ = (dynamic $x) ==> {
+      $body = ((dynamic $t90, dynamic $param) : dynamic ==> {
+         return $t90->body;
+       })($document, $a__);
+      $ba_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1068552417, 129), $x);
       };
-      $html = ((dynamic $t89, dynamic $param) ==> {
+      $html = ((dynamic $t89, dynamic $param) : dynamic ==> {
          return $t89->documentElement;
        })($document, $ba_);
-      $bb_ = (dynamic $x) ==> {
+      $bb_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1040845960, 130), $x);
       };
-      $bc_ = ((dynamic $t88, dynamic $param) ==> {return $t88->scrollTop;})($html, $bb_);
-      $bd_ = (dynamic $x) ==> {
+      $bc_ = ((dynamic $t88, dynamic $param) : dynamic ==> {
+         return $t88->scrollTop;
+       })($html, $bb_);
+      $bd_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 1040845960, 131), $x);
       };
       $be_ = (int)
-      (((dynamic $t87, dynamic $param) ==> {return $t87->scrollTop;})($body, $bd_) + $bc_) as dynamic;
-      $bf_ = (dynamic $x) ==> {
+      (((dynamic $t87, dynamic $param) : dynamic ==> {return $t87->scrollTop;})($body, $bd_) + $bc_) as dynamic;
+      $bf_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 91199156, 132), $x);
       };
-      $bg_ = ((dynamic $t86, dynamic $param) ==> {return $t86->scrollLeft;})($html, $bf_);
-      $bh_ = (dynamic $x) ==> {
+      $bg_ = ((dynamic $t86, dynamic $param) : dynamic ==> {
+         return $t86->scrollLeft;
+       })($html, $bf_);
+      $bh_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 91199156, 133), $x);
       };
       return Vector{
         0,
         (int)
-        (((dynamic $t85, dynamic $param) ==> {return $t85->scrollLeft;})($body, $bh_) + $bg_),
+        (((dynamic $t85, dynamic $param) : dynamic ==> {
+            return $t85->scrollLeft;
+          })($body, $bh_) + $bg_),
         $be_
       };
     };
-    $buttonPressed = (dynamic $ev) ==> {
-      $a5_ = (dynamic $x) ==> {return $x;};
-      $a6_ = (dynamic $param) ==> {
-        $a9_ = (dynamic $x) ==> {
+    $buttonPressed = (dynamic $ev) : dynamic ==> {
+      $a5_ = (dynamic $x) : dynamic ==> {return $x;};
+      $a6_ = (dynamic $param) : dynamic ==> {
+        $a9_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -639606286, 134), $x);
         };
-        $match = ((dynamic $t92, dynamic $param) ==> {return $t92->button;})($ev, $a9_);
+        $match = ((dynamic $t92, dynamic $param) : dynamic ==> {
+           return $t92->button;
+         })($ev, $a9_);
         $switcher = (int) ($match + -1) as dynamic;
         if (! (3 < $unsigned_right_shift_32($switcher, 0))) {
           switch($switcher) {
@@ -1469,24 +1666,26 @@ final class Js_of_ocaml__Dom_html {
         }
         return 0;
       };
-      $a7_ = (dynamic $x) ==> {
+      $a7_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -910345251, 135), $x);
       };
-      $a8_ = ((dynamic $t91, dynamic $param) ==> {return $t91->which;})($ev, $a7_);
+      $a8_ = ((dynamic $t91, dynamic $param) : dynamic ==> {
+         return $t91->which;
+       })($ev, $a7_);
       return $call3($Js_of_ocaml_Js[6][7], $a8_, $a6_, $a5_);
     };
-    $hasMousewheelEvents = (dynamic $param) ==> {
+    $hasMousewheelEvents = (dynamic $param) : dynamic ==> {
       $d = $createDiv($document);
-      $a2_ = (dynamic $x) ==> {
+      $a2_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 524300314, 136), $x);
       };
       $a3_ = "return;";
       $a4_ = "onmousewheel";
-      (((dynamic $t95, dynamic $t93, dynamic $t94, dynamic $param) ==> {return $t95->setAttribute($t93, $t94);
+      (((dynamic $t95, dynamic $t93, dynamic $t94, dynamic $param) : dynamic ==> {return $t95->setAttribute($t93, $t94);
         })($d, $a4_, $a3_, $a2_));
       return typeof($d->onmousewheel) === "function" ? 1 : (0);
     };
-    $addMousewheelEventListener = (dynamic $e, dynamic $h, dynamic $capt) ==> {
+    $addMousewheelEventListener = (dynamic $e, dynamic $h, dynamic $capt) : dynamic ==> {
       return $hasMousewheelEvents(0)
         ? $call4(
          $addEventListener,
@@ -1494,28 +1693,29 @@ final class Js_of_ocaml__Dom_html {
          $mousewheel,
          $call1(
            $handler,
-           (dynamic $e) ==> {
-             $aR_ = (dynamic $param) ==> {return 0;};
-             $aS_ = (dynamic $x) ==> {
+           (dynamic $e) : dynamic ==> {
+             $aR_ = (dynamic $param) : dynamic ==> {return 0;};
+             $aS_ = (dynamic $x) : dynamic ==> {
                return $call1($caml_get_public_method($x, -95379365, 137), $x);
              };
-             $aT_ = ((dynamic $t101, dynamic $param) ==> {
+             $aT_ = ((dynamic $t101, dynamic $param) : dynamic ==> {
                 return $t101->wheelDeltaX;
               })($e, $aS_);
              $dx = (int)
              ((int) - $call2($Js_of_ocaml_Js[6][8], $aT_, $aR_) / 40) as dynamic;
-             $aU_ = (dynamic $param) ==> {
-               $aX_ = (dynamic $x) ==> {
+             $aU_ = (dynamic $param) : dynamic ==> {
+               $aX_ = (dynamic $x) : dynamic ==> {
                  return $call1($caml_get_public_method($x, 644780381, 138), $x
                  );
                };
-               return ((dynamic $t100, dynamic $param) ==> {return $t100->wheelDelta;
+               return ((dynamic $t100, dynamic $param) : dynamic ==> {
+                  return $t100->wheelDelta;
                 })($e, $aX_);
              };
-             $aV_ = (dynamic $x) ==> {
+             $aV_ = (dynamic $x) : dynamic ==> {
                return $call1($caml_get_public_method($x, -95379364, 139), $x);
              };
-             $aW_ = ((dynamic $t99, dynamic $param) ==> {
+             $aW_ = ((dynamic $t99, dynamic $param) : dynamic ==> {
                 return $t99->wheelDeltaY;
               })($e, $aV_);
              $dy = (int)
@@ -1531,21 +1731,26 @@ final class Js_of_ocaml__Dom_html {
          $DOMMouseScroll,
          $call1(
            $handler,
-           (dynamic $e) ==> {
-             $aY_ = (dynamic $x) ==> {
+           (dynamic $e) : dynamic ==> {
+             $aY_ = (dynamic $x) : dynamic ==> {
                return $call1($caml_get_public_method($x, -266378607, 140), $x);
              };
-             $d = ((dynamic $t98, dynamic $param) ==> {return $t98->detail;})($e, $aY_);
-             $aZ_ = (dynamic $x) ==> {
+             $d = ((dynamic $t98, dynamic $param) : dynamic ==> {
+                return $t98->detail;
+              })($e, $aY_);
+             $aZ_ = (dynamic $x) : dynamic ==> {
                return $call1($caml_get_public_method($x, -66775139, 141), $x);
              };
-             $a0_ = ((dynamic $t97, dynamic $param) ==> {return $t97->HORIZONTAL;
+             $a0_ = ((dynamic $t97, dynamic $param) : dynamic ==> {
+                return $t97->HORIZONTAL;
               })($e, $aZ_);
-             $a1_ = (dynamic $x) ==> {
+             $a1_ = (dynamic $x) : dynamic ==> {
                return $call1($caml_get_public_method($x, -1065804639, 142), $x
                );
              };
-             return ((dynamic $t96, dynamic $param) ==> {return $t96->axis;})($e, $a1_) === $a0_
+             return ((dynamic $t96, dynamic $param) : dynamic ==> {
+                 return $t96->axis;
+               })($e, $a1_) === $a0_
                ? $call3($h, $e, $d, 0)
                : ($call3($h, $e, 0, $d));
            }
@@ -1553,7 +1758,7 @@ final class Js_of_ocaml__Dom_html {
          $capt
        ));
     };
-    $try_code = (dynamic $v) ==> {
+    $try_code = (dynamic $v) : dynamic ==> {
       $match = $caml_js_to_string($v);
       $switch__0 = $caml_string_compare($match, $cst_KeyH);
       if (0 <= $switch__0) {
@@ -1755,7 +1960,7 @@ final class Js_of_ocaml__Dom_html {
       }
       return 0;
     };
-    $try_key_code_left = (dynamic $param) ==> {
+    $try_key_code_left = (dynamic $param) : dynamic ==> {
       if (19 <= $param) {
         if (91 === $param) {return 88;}
       }
@@ -1777,7 +1982,7 @@ final class Js_of_ocaml__Dom_html {
       }
       return 0;
     };
-    $try_key_code_right = (dynamic $param) ==> {
+    $try_key_code_right = (dynamic $param) : dynamic ==> {
       if (19 <= $param) {
         if (91 === $param) {return 89;}
       }
@@ -1799,7 +2004,7 @@ final class Js_of_ocaml__Dom_html {
       }
       return 0;
     };
-    $try_key_code_numpad = (dynamic $param) ==> {
+    $try_key_code_numpad = (dynamic $param) : dynamic ==> {
       if (47 <= $param) {
         $switcher = (int) ($param + -96) as dynamic;
         if (! (15 < $unsigned_right_shift_32($switcher, 0))) {
@@ -1899,7 +2104,7 @@ final class Js_of_ocaml__Dom_html {
       }
       return 0;
     };
-    $try_key_code_normal = (dynamic $param) ==> {
+    $try_key_code_normal = (dynamic $param) : dynamic ==> {
       $switcher = (int) ($param + -8) as dynamic;
       if (! (214 < $unsigned_right_shift_32($switcher, 0))) {
         $aQ_ = $switcher;
@@ -2151,72 +2356,80 @@ final class Js_of_ocaml__Dom_html {
       }
       return 0;
     };
-    $make_unidentified = (dynamic $param) ==> {return 0;};
-    $try_next = (dynamic $value, dynamic $f, dynamic $v) ==> {
+    $make_unidentified = (dynamic $param) : dynamic ==> {return 0;};
+    $try_next = (dynamic $value, dynamic $f, dynamic $v) : dynamic ==> {
       return 0 === $v
         ? $call3($Js_of_ocaml_Js[6][7], $value, $make_unidentified, $f)
         : ($v);
     };
-    $run_next = (dynamic $value, dynamic $f, dynamic $v) ==> {
+    $run_next = (dynamic $value, dynamic $f, dynamic $v) : dynamic ==> {
       return 0 === $v ? $call1($f, $value) : ($v);
     };
-    $get_key_code = (dynamic $evt) ==> {
-      $aP_ = (dynamic $x) ==> {
+    $get_key_code = (dynamic $evt) : dynamic ==> {
+      $aP_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 463348332, 143), $x);
       };
-      return ((dynamic $t102, dynamic $param) ==> {return $t102->keyCode;})($evt, $aP_);
+      return ((dynamic $t102, dynamic $param) : dynamic ==> {
+         return $t102->keyCode;
+       })($evt, $aP_);
     };
-    $try_key_location = (dynamic $evt) ==> {
-      $aI_ = (dynamic $x) ==> {
+    $try_key_location = (dynamic $evt) : dynamic ==> {
+      $aI_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -448369099, 144), $x);
       };
-      $match = ((dynamic $t103, dynamic $param) ==> {return $t103->location;})($evt, $aI_);
+      $match = ((dynamic $t103, dynamic $param) : dynamic ==> {
+         return $t103->location;
+       })($evt, $aI_);
       $switcher = (int) ($match + -1) as dynamic;
       if (2 < $unsigned_right_shift_32($switcher, 0)) {return $make_unidentified;}
       switch($switcher) {
         // FALLTHROUGH
         case 0:
           $aJ_ = $get_key_code($evt);
-          return (dynamic $aN_) ==> {
+          return (dynamic $aN_) : dynamic ==> {
             return $run_next($aJ_, $try_key_code_left, $aN_);
           };
         // FALLTHROUGH
         case 1:
           $aK_ = $get_key_code($evt);
-          return (dynamic $aM_) ==> {
+          return (dynamic $aM_) : dynamic ==> {
             return $run_next($aK_, $try_key_code_right, $aM_);
           };
         // FALLTHROUGH
         default:
           $aL_ = $get_key_code($evt);
-          return (dynamic $aO_) ==> {
+          return (dynamic $aO_) : dynamic ==> {
             return $run_next($aL_, $try_key_code_numpad, $aO_);
           };
         }
     };
-    $symbol = (dynamic $x, dynamic $f) ==> {return $call1($f, $x);};
-    $of_event = (dynamic $evt) ==> {
+    $symbol = (dynamic $x, dynamic $f) : dynamic ==> {return $call1($f, $x);};
+    $of_event = (dynamic $evt) : dynamic ==> {
       $aB_ = $get_key_code($evt);
-      $aC_ = (dynamic $aH_) ==> {
+      $aC_ = (dynamic $aH_) : dynamic ==> {
         return $run_next($aB_, $try_key_code_normal, $aH_);
       };
       $aD_ = $try_key_location($evt);
-      $aE_ = (dynamic $x) ==> {
+      $aE_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -1044074195, 145), $x);
       };
-      $aF_ = ((dynamic $t104, dynamic $param) ==> {return $t104->code;})($evt, $aE_);
+      $aF_ = ((dynamic $t104, dynamic $param) : dynamic ==> {
+         return $t104->code;
+       })($evt, $aE_);
       return $symbol(
         $symbol(
           $symbol(
             0,
-            (dynamic $aG_) ==> {return $try_next($aF_, $try_code, $aG_);}
+            (dynamic $aG_) : dynamic ==> {
+              return $try_next($aF_, $try_code, $aG_);
+            }
           ),
           $aD_
         ),
         $aC_
       );
     };
-    $char_of_int = (dynamic $value) ==> {
+    $char_of_int = (dynamic $value) : dynamic ==> {
       if (0 < $value) {
         try {
           $az_ = Vector{0, $call1($Uchar[8], $value)} as dynamic;
@@ -2226,50 +2439,61 @@ final class Js_of_ocaml__Dom_html {
       }
       return 0;
     };
-    $empty_string = (dynamic $param) ==> {return "";};
-    $none = (dynamic $param) ==> {return 0;};
-    $of_event__0 = (dynamic $evt) ==> {
-      $as_ = (dynamic $x) ==> {
+    $empty_string = (dynamic $param) : dynamic ==> {return "";};
+    $none = (dynamic $param) : dynamic ==> {return 0;};
+    $of_event__0 = (dynamic $evt) : dynamic ==> {
+      $as_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 5343647, 146), $x);
       };
-      $at_ = ((dynamic $t109, dynamic $param) ==> {return $t109->key;})($evt, $as_);
+      $at_ = ((dynamic $t109, dynamic $param) : dynamic ==> {
+         return $t109->key;
+       })($evt, $as_);
       $key = $call2($Js_of_ocaml_Js[6][8], $at_, $empty_string);
-      $au_ = (dynamic $x) ==> {
+      $au_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 520590566, 147), $x);
       };
-      $match = ((dynamic $t108, dynamic $param) ==> {return $t108->length;})($key, $au_);
+      $match = ((dynamic $t108, dynamic $param) : dynamic ==> {
+         return $t108->length;
+       })($key, $au_);
       if (0 === $match) {
-        $av_ = (dynamic $x) ==> {
+        $av_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 472145699, 148), $x);
         };
-        $aw_ = ((dynamic $t105, dynamic $param) ==> {return $t105->charCode;})($evt, $av_);
+        $aw_ = ((dynamic $t105, dynamic $param) : dynamic ==> {
+           return $t105->charCode;
+         })($evt, $av_);
         return $call3($Js_of_ocaml_Js[6][7], $aw_, $none, $char_of_int);
       }
       if (1 === $match) {
-        $ax_ = (dynamic $x) ==> {
+        $ax_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 894756598, 149), $x);
         };
         $ay_ = 0 as dynamic;
         return $char_of_int(
           (int)
-          ((dynamic $t107, dynamic $t106, dynamic $param) ==> {return $t107->charCodeAt($t106);
+          ((dynamic $t107, dynamic $t106, dynamic $param) : dynamic ==> {
+             return $t107->charCodeAt($t106);
            })($key, $ay_, $ax_)
         );
       }
       return 0;
     };
-    $element__0 = (dynamic $ar_) ==> {return $ar_;};
-    $other = (dynamic $e) ==> {return Vector{61, $e};};
-    $tagged = (dynamic $e) ==> {
-      $ao_ = (dynamic $x) ==> {
+    $element__0 = (dynamic $ar_) : dynamic ==> {return $ar_;};
+    $other = (dynamic $e) : dynamic ==> {return Vector{61, $e};};
+    $tagged = (dynamic $e) : dynamic ==> {
+      $ao_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 946097238, 150), $x);
       };
-      $ap_ = (dynamic $x) ==> {
+      $ap_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 578170309, 151), $x);
       };
-      $aq_ = ((dynamic $t110, dynamic $param) ==> {return $t110->tagName;})($e, $ap_);
+      $aq_ = ((dynamic $t110, dynamic $param) : dynamic ==> {
+         return $t110->tagName;
+       })($e, $ap_);
       $tag = $runtime["caml_js_to_byte_string"](
-        ((dynamic $t111, dynamic $param) ==> {return $t111->toLowerCase();})($aq_, $ao_)
+        ((dynamic $t111, dynamic $param) : dynamic ==> {
+           return $t111->toLowerCase();
+         })($aq_, $ao_)
       );
       if (0 === $runtime["caml_ml_string_length"]($tag)) {return $other($e);}
       $match = $runtime["caml_bytes_unsafe_get"]($tag, 0);
@@ -2453,22 +2677,22 @@ final class Js_of_ocaml__Dom_html {
       }
       return $other($e);
     };
-    $opt_tagged = (dynamic $e) ==> {
-      $am_ = (dynamic $e) ==> {return Vector{0, $tagged($e)};};
-      $an_ = (dynamic $param) ==> {return 0;};
+    $opt_tagged = (dynamic $e) : dynamic ==> {
+      $am_ = (dynamic $e) : dynamic ==> {return Vector{0, $tagged($e)};};
+      $an_ = (dynamic $param) : dynamic ==> {return 0;};
       return $call3($Js_of_ocaml_Js[5][7], $e, $an_, $am_);
     };
-    $taggedEvent = (dynamic $ev) ==> {
-      $X_ = (dynamic $ev) ==> {return Vector{0, $ev};};
-      $Y_ = (dynamic $param) ==> {
-        $aa_ = (dynamic $ev) ==> {return Vector{1, $ev};};
-        $ab_ = (dynamic $param) ==> {
-          $ad_ = (dynamic $ev) ==> {return Vector{2, $ev};};
-          $ae_ = (dynamic $param) ==> {
-            $ag_ = (dynamic $ev) ==> {return Vector{3, $ev};};
-            $ah_ = (dynamic $param) ==> {
-              $aj_ = (dynamic $ev) ==> {return Vector{4, $ev};};
-              $ak_ = (dynamic $param) ==> {return Vector{5, $ev};};
+    $taggedEvent = (dynamic $ev) : dynamic ==> {
+      $X_ = (dynamic $ev) : dynamic ==> {return Vector{0, $ev};};
+      $Y_ = (dynamic $param) : dynamic ==> {
+        $aa_ = (dynamic $ev) : dynamic ==> {return Vector{1, $ev};};
+        $ab_ = (dynamic $param) : dynamic ==> {
+          $ad_ = (dynamic $ev) : dynamic ==> {return Vector{2, $ev};};
+          $ae_ = (dynamic $param) : dynamic ==> {
+            $ag_ = (dynamic $ev) : dynamic ==> {return Vector{3, $ev};};
+            $ah_ = (dynamic $param) : dynamic ==> {
+              $aj_ = (dynamic $ev) : dynamic ==> {return Vector{4, $ev};};
+              $ak_ = (dynamic $param) : dynamic ==> {return Vector{5, $ev};};
               $al_ = $popStateEvent($ev);
               return $call3($Js_of_ocaml_Js[5][7], $al_, $ak_, $aj_);
             };
@@ -2484,118 +2708,125 @@ final class Js_of_ocaml__Dom_html {
       $Z_ = $mouseEvent($ev);
       return $call3($Js_of_ocaml_Js[5][7], $Z_, $Y_, $X_);
     };
-    $opt_taggedEvent = (dynamic $ev) ==> {
-      $V_ = (dynamic $ev) ==> {return Vector{0, $taggedEvent($ev)};};
-      $W_ = (dynamic $param) ==> {return 0;};
+    $opt_taggedEvent = (dynamic $ev) : dynamic ==> {
+      $V_ = (dynamic $ev) : dynamic ==> {return Vector{0, $taggedEvent($ev)};};
+      $W_ = (dynamic $param) : dynamic ==> {return 0;};
       return $call3($Js_of_ocaml_Js[5][7], $ev, $W_, $V_);
     };
-    $stopPropagation = (dynamic $ev) ==> {
-      $O_ = (dynamic $param) ==> {
-        $U_ = (dynamic $x) ==> {
+    $stopPropagation = (dynamic $ev) : dynamic ==> {
+      $O_ = (dynamic $param) : dynamic ==> {
+        $U_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 189842539, 152), $x);
         };
-        return ((dynamic $t115, dynamic $param) ==> {
+        return ((dynamic $t115, dynamic $param) : dynamic ==> {
            return $t115->stopPropagation();
          })($ev, $U_);
       };
-      $P_ = (dynamic $param) ==> {
-        $S_ = (dynamic $x) ==> {
+      $P_ = (dynamic $param) : dynamic ==> {
+        $S_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 320837798, 153), $x);
         };
         $T_ = $Js_of_ocaml_Js[7];
-        return ((dynamic $t114, dynamic $t113, dynamic $param) ==> {$t114->cancelBubble = $t113;return 0;
+        return ((dynamic $t114, dynamic $t113, dynamic $param) : dynamic ==> {
+           $t114->cancelBubble = $t113;
+           return 0;
          })($ev, $T_, $S_);
       };
-      $Q_ = (dynamic $x) ==> {
+      $Q_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 544309738, 154), $x);
       };
-      $R_ = ((dynamic $t112, dynamic $param) ==> {
+      $R_ = ((dynamic $t112, dynamic $param) : dynamic ==> {
          return $t112->stopPropagation;
        })($ev, $Q_);
       return $call3($Js_of_ocaml_Js[6][7], $R_, $P_, $O_);
     };
     $requestAnimationFrame = $runtime["caml_js_pure_expr"](
-      (dynamic $param) ==> {
+      (dynamic $param) : dynamic ==> {
         $w_ = 0 as dynamic;
-        $x_ = (dynamic $x) ==> {
+        $x_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 497949938, 155), $x);
         };
         $y_ = Vector{
           0,
-          ((dynamic $t125, dynamic $param) ==> {
+          ((dynamic $t125, dynamic $param) : dynamic ==> {
              return $t125->msRequestAnimationFrame;
            })($window, $x_),
           $w_
         } as dynamic;
-        $z_ = (dynamic $x) ==> {
+        $z_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -153781943, 156), $x);
         };
         $A_ = Vector{
           0,
-          ((dynamic $t124, dynamic $param) ==> {
+          ((dynamic $t124, dynamic $param) : dynamic ==> {
              return $t124->oRequestAnimationFrame;
            })($window, $z_),
           $y_
         } as dynamic;
-        $B_ = (dynamic $x) ==> {
+        $B_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -151539242, 157), $x);
         };
         $C_ = Vector{
           0,
-          ((dynamic $t123, dynamic $param) ==> {
+          ((dynamic $t123, dynamic $param) : dynamic ==> {
              return $t123->webkitRequestAnimationFrame;
            })($window, $B_),
           $A_
         } as dynamic;
-        $D_ = (dynamic $x) ==> {
+        $D_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -769448896, 158), $x);
         };
         $E_ = Vector{
           0,
-          ((dynamic $t122, dynamic $param) ==> {
+          ((dynamic $t122, dynamic $param) : dynamic ==> {
              return $t122->mozRequestAnimationFrame;
            })($window, $D_),
           $C_
         } as dynamic;
-        $F_ = (dynamic $x) ==> {
+        $F_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 240126520, 159), $x);
         };
         $l = Vector{
           0,
-          ((dynamic $t121, dynamic $param) ==> {
+          ((dynamic $t121, dynamic $param) : dynamic ==> {
              return $t121->requestAnimationFrame;
            })($window, $F_),
           $E_
         } as dynamic;
         try {
-          $G_ = (dynamic $c) ==> {return $call1($Js_of_ocaml_Js[6][5], $c);};
+          $G_ = (dynamic $c) : dynamic ==> {
+            return $call1($Js_of_ocaml_Js[6][5], $c);
+          };
           $req = $call2($List[33], $G_, $l);
-          $H_ = (dynamic $callback) ==> {return $req($callback);};
+          $H_ = (dynamic $callback) : dynamic ==> {return $req($callback);};
           return $H_;
         }
         catch(\Throwable $I_) {
           $I_ = $runtime["caml_wrap_exception"]($I_);
           if ($I_ === $Not_found) {
-            $now = (dynamic $param) ==> {
-              $K_ = (dynamic $x) ==> {
+            $now = (dynamic $param) : dynamic ==> {
+              $K_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, 528448451, 160), $x);
               };
               $L_ = 0 as dynamic;
               $M_ = $Js_of_ocaml_Js[22];
-              $N_ = ((dynamic $t119, dynamic $param) ==> {return new $t119();})($M_, $L_);
-              return ((dynamic $t120, dynamic $param) ==> {return $t120->getTime();
+              $N_ = ((dynamic $t119, dynamic $param) : dynamic ==> {
+                 return new $t119();
+               })($M_, $L_);
+              return ((dynamic $t120, dynamic $param) : dynamic ==> {
+                 return $t120->getTime();
                })($N_, $K_);
             };
             $last = Vector{0, $now(0)} as dynamic;
-            return (dynamic $callback) ==> {
+            return (dynamic $callback) : dynamic ==> {
               $t = $now(0);
               $dt = $last[1] + 16.6666666666666679 - $t;
               $dt__0 = $dt < 0 ? 0 : ($dt);
               $last[1] = $t;
-              $J_ = (dynamic $x) ==> {
+              $J_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, 735461151, 161), $x);
               };
-              (((dynamic $t118, dynamic $t116, dynamic $t117, dynamic $param) ==> {return $t118->setTimeout($t116, $t117);
+              (((dynamic $t118, dynamic $t116, dynamic $t117, dynamic $param) : dynamic ==> {return $t118->setTimeout($t116, $t117);
                 })($window, $callback, $dt__0, $J_));
               return 0;
             };
@@ -2604,38 +2835,46 @@ final class Js_of_ocaml__Dom_html {
         }
       }
     );
-    $hasPushState = (dynamic $param) ==> {
-      $s_ = (dynamic $x) ==> {
+    $hasPushState = (dynamic $param) : dynamic ==> {
+      $s_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -936976937, 162), $x);
       };
-      $t_ = (dynamic $x) ==> {
+      $t_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -465095340, 163), $x);
       };
-      $u_ = ((dynamic $t126, dynamic $param) ==> {return $t126->history;})($window, $t_);
-      $v_ = ((dynamic $t127, dynamic $param) ==> {return $t127->pushState;})($u_, $s_);
+      $u_ = ((dynamic $t126, dynamic $param) : dynamic ==> {
+         return $t126->history;
+       })($window, $t_);
+      $v_ = ((dynamic $t127, dynamic $param) : dynamic ==> {
+         return $t127->pushState;
+       })($u_, $s_);
       return $call1($Js_of_ocaml_Js[6][5], $v_);
     };
-    $hasPlaceholder = (dynamic $param) ==> {
+    $hasPlaceholder = (dynamic $param) : dynamic ==> {
       $i = $createInput(0, 0, $document);
-      $q_ = (dynamic $x) ==> {
+      $q_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 989033331, 164), $x);
       };
-      $r_ = ((dynamic $t128, dynamic $param) ==> {return $t128->placeholder;})($i, $q_);
+      $r_ = ((dynamic $t128, dynamic $param) : dynamic ==> {
+         return $t128->placeholder;
+       })($i, $q_);
       return $call1($Js_of_ocaml_Js[6][5], $r_);
     };
-    $hasRequired = (dynamic $param) ==> {
+    $hasRequired = (dynamic $param) : dynamic ==> {
       $i = $createInput(0, 0, $document);
-      $o_ = (dynamic $x) ==> {
+      $o_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 845320543, 165), $x);
       };
-      $p_ = ((dynamic $t129, dynamic $param) ==> {return $t129->required;})($i, $o_);
+      $p_ = ((dynamic $t129, dynamic $param) : dynamic ==> {
+         return $t129->required;
+       })($i, $o_);
       return $call1($Js_of_ocaml_Js[6][5], $p_);
     };
     $overflow_limit = 2147483000 as dynamic;
-    $setTimeout = (dynamic $callback, dynamic $d) ==> {
+    $setTimeout = (dynamic $callback, dynamic $d) : dynamic ==> {
       $loop = new Ref();
       $id = Vector{0, 0} as dynamic;
-      $loop->contents = (dynamic $step, dynamic $param) ==> {
+      $loop->contents = (dynamic $step, dynamic $param) : dynamic ==> {
         if (2147483000 < $step) {
           $k_ = $step - 2147483000;
           $step__0 = $overflow_limit;
@@ -2645,15 +2884,17 @@ final class Js_of_ocaml__Dom_html {
         }
         $cb = $remain == 0
           ? $callback
-          : ((dynamic $n_) ==> {return $loop->contents($remain, $n_);});
-        $l_ = (dynamic $x) ==> {
+          : ((dynamic $n_) : dynamic ==> {
+           return $loop->contents($remain, $n_);
+         });
+        $l_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 735461151, 166), $x);
         };
         $m_ = $runtime["caml_js_wrap_callback"]($cb);
         $id[1] =
           Vector{
             0,
-            ((dynamic $t132, dynamic $t130, dynamic $t131, dynamic $param) ==> {return $t132->setTimeout($t130, $t131);
+            ((dynamic $t132, dynamic $t130, dynamic $t131, dynamic $param) : dynamic ==> {return $t132->setTimeout($t130, $t131);
              })($window, $m_, $step__0, $l_)
           };
         return 0;
@@ -2661,20 +2902,23 @@ final class Js_of_ocaml__Dom_html {
       $loop->contents($d, 0);
       return $id;
     };
-    $clearTimeout = (dynamic $id) ==> {
+    $clearTimeout = (dynamic $id) : dynamic ==> {
       $i_ = $id[1];
       if ($i_) {
         $x = $i_[1];
         $id[1] = 0;
-        $j_ = (dynamic $x) ==> {
+        $j_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, 880135316, 167), $x);
         };
-        return ((dynamic $t134, dynamic $t133, dynamic $param) ==> {return $t134->clearTimeout($t133);
+        return ((dynamic $t134, dynamic $t133, dynamic $param) : dynamic ==> {
+           return $t134->clearTimeout($t133);
          })($window, $x, $j_);
       }
       return 0;
     };
-    $js_array_of_collection = (dynamic $c) ==> {return [].slice->call($c);};
+    $js_array_of_collection = (dynamic $c) : dynamic ==> {
+      return [].slice->call($c);
+    };
     $Js_of_ocaml_Dom_html = Vector{
       0,
       $d,
@@ -2864,7 +3108,9 @@ final class Js_of_ocaml__Dom_html {
       $clearTimeout,
       $js_array_of_collection,
       $requestAnimationFrame,
-      (dynamic $h_) ==> {return $runtime["caml_js_html_entities"]($h_);},
+      (dynamic $h_) : dynamic ==> {
+        return $runtime["caml_js_html_entities"]($h_);
+      },
       $onIE,
       $hasPushState,
       $hasPlaceholder,

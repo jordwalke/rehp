@@ -34,7 +34,7 @@ final class Sys {
     $big_endian = 0 as dynamic;
     $word_size = 32 as dynamic;
     $int_size = 32 as dynamic;
-    $getenv_opt = (dynamic $s) ==> {
+    $getenv_opt = (dynamic $s) : dynamic ==> {
       $d_ = null as dynamic;
       try {
         $d_ = Vector{0, $runtime["caml_sys_getenv"]($s)} as dynamic;
@@ -47,7 +47,8 @@ final class Sys {
       }
     };
     $interactive = Vector{0, 0} as dynamic;
-    $set_signal = (dynamic $sig_num, dynamic $sig_beh) ==> {return 0;};
+    $set_signal = (dynamic $sig_num, dynamic $sig_beh) : dynamic ==> {return 0;
+    };
     $Break = Vector{248, $cst_Sys_Break, $runtime["caml_fresh_oo_id"](0)} as dynamic;
     $sigabrt = -1 as dynamic;
     $sigalrm = -2 as dynamic;
@@ -77,20 +78,20 @@ final class Sys {
     $sigurg = -26 as dynamic;
     $sigxcpu = -27 as dynamic;
     $sigxfsz = -28 as dynamic;
-    $catch_break = (dynamic $on) ==> {
+    $catch_break = (dynamic $on) : dynamic ==> {
       return $on
         ? $set_signal(
          $sigint,
          Vector{
            0,
-           (dynamic $param) ==> {
+           (dynamic $param) : dynamic ==> {
              throw $caml_wrap_thrown_exception($Break) as \Throwable;
            }
          }
        )
         : ($set_signal($sigint, 0));
     };
-    $a_ = (dynamic $c_) ==> {
+    $a_ = (dynamic $c_) : dynamic ==> {
       return $runtime["caml_ml_runtime_warnings_enabled"]($c_);
     };
     $Sys = Vector{
@@ -141,7 +142,7 @@ final class Sys {
       $Break,
       $catch_break,
       $ocaml_version,
-      (dynamic $b_) ==> {
+      (dynamic $b_) : dynamic ==> {
         return $runtime["caml_ml_enable_runtime_warnings"]($b_);
       },
       $a_

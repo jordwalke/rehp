@@ -25,7 +25,7 @@ final class Marshal {
     $Bytes = Bytes::get();
     $Pervasives = Pervasives::get();
     $to_buffer = 
-    (dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags) ==> {
+    (dynamic $buff, dynamic $ofs, dynamic $len, dynamic $v, dynamic $flags) : dynamic ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($caml_ml_bytes_length($buff) - $len) < $ofs)) {
@@ -39,16 +39,16 @@ final class Marshal {
       );
     };
     $header_size = 20 as dynamic;
-    $data_size = (dynamic $buff, dynamic $ofs) ==> {
+    $data_size = (dynamic $buff, dynamic $ofs) : dynamic ==> {
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {return $caml_marshal_data_size($buff, $ofs);}
       }
       return $call1($Pervasives[1], $cst_Marshal_data_size);
     };
-    $total_size = (dynamic $buff, dynamic $ofs) ==> {
+    $total_size = (dynamic $buff, dynamic $ofs) : dynamic ==> {
       return (int) (20 + $data_size($buff, $ofs));
     };
-    $from_bytes = (dynamic $buff, dynamic $ofs) ==> {
+    $from_bytes = (dynamic $buff, dynamic $ofs) : dynamic ==> {
       $len = null as dynamic;
       if (0 <= $ofs) {
         if (! ((int) ($caml_ml_bytes_length($buff) - 20) < $ofs)) {
@@ -61,13 +61,15 @@ final class Marshal {
       }
       return $call1($Pervasives[1], $cst_Marshal_from_bytes);
     };
-    $from_string = (dynamic $buff, dynamic $ofs) ==> {
+    $from_string = (dynamic $buff, dynamic $ofs) : dynamic ==> {
       return $from_bytes($call1($Bytes[43], $buff), $ofs);
     };
-    $a_ = (dynamic $e_) ==> {return $runtime["caml_input_value"]($e_);};
+    $a_ = (dynamic $e_) : dynamic ==> {
+      return $runtime["caml_input_value"]($e_);
+    };
     $Marshal = Vector{
       0,
-      (dynamic $d_, dynamic $c_, dynamic $b_) ==> {
+      (dynamic $d_, dynamic $c_, dynamic $b_) : dynamic ==> {
         return $runtime["caml_output_value"]($d_, $c_, $b_);
       },
       $to_buffer,

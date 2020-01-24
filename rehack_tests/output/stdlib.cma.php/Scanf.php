@@ -220,7 +220,7 @@ final class Scanf {
       $string("illegal escape character %C")
     } as dynamic;
     $null_char = 0 as dynamic;
-    $next_char = (dynamic $ib) ==> {
+    $next_char = (dynamic $ib) : dynamic ==> {
       $c = null as dynamic;
       try {
         $c = $call1($ib[7], 0);
@@ -241,20 +241,25 @@ final class Scanf {
         throw $caml_wrap_thrown_exception_reraise($bH_) as \Throwable;
       }
     };
-    $peek_char = (dynamic $ib) ==> {
+    $peek_char = (dynamic $ib) : dynamic ==> {
       return $ib[3] ? $ib[2] : ($next_char($ib));
     };
-    $checked_peek_char = (dynamic $ib) ==> {
+    $checked_peek_char = (dynamic $ib) : dynamic ==> {
       $c = $peek_char($ib);
       if ($ib[1]) {
         throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
       }
       return $c;
     };
-    $end_of_input = (dynamic $ib) ==> {$peek_char($ib);return $ib[1];};
-    $eof = (dynamic $ib) ==> {return $ib[1];};
-    $beginning_of_input = (dynamic $ib) ==> {return 0 === $ib[4] ? 1 : (0);};
-    $name_of_input = (dynamic $ib) ==> {
+    $end_of_input = (dynamic $ib) : dynamic ==> {
+      $peek_char($ib);
+      return $ib[1];
+    };
+    $eof = (dynamic $ib) : dynamic ==> {return $ib[1];};
+    $beginning_of_input = (dynamic $ib) : dynamic ==> {
+      return 0 === $ib[4] ? 1 : (0);
+    };
+    $name_of_input = (dynamic $ib) : dynamic ==> {
       $fname = null as dynamic;
       $bG_ = $ib[9];
       if ($is_int($bG_)) {
@@ -268,33 +273,38 @@ final class Scanf {
         return $fname;
       }
     };
-    $char_count = (dynamic $ib) ==> {
+    $char_count = (dynamic $ib) : dynamic ==> {
       return $ib[3] ? (int) ($ib[4] + -1) : ($ib[4]);
     };
-    $line_count = (dynamic $ib) ==> {return $ib[5];};
-    $reset_token = (dynamic $ib) ==> {return $call1($Buffer[9], $ib[8]);};
-    $invalidate_current_char = (dynamic $ib) ==> {$ib[3] = 0;return 0;};
-    $token_string = (dynamic $ib) ==> {
+    $line_count = (dynamic $ib) : dynamic ==> {return $ib[5];};
+    $reset_token = (dynamic $ib) : dynamic ==> {
+      return $call1($Buffer[9], $ib[8]);
+    };
+    $invalidate_current_char = (dynamic $ib) : dynamic ==> {
+      $ib[3] = 0;
+      return 0;
+    };
+    $token_string = (dynamic $ib) : dynamic ==> {
       $token_buffer = $ib[8];
       $tok = $call1($Buffer[2], $token_buffer);
       $call1($Buffer[8], $token_buffer);
       $ib[6] = (int) ($ib[6] + 1);
       return $tok;
     };
-    $token_count = (dynamic $ib) ==> {return $ib[6];};
-    $skip_char = (dynamic $width, dynamic $ib) ==> {
+    $token_count = (dynamic $ib) : dynamic ==> {return $ib[6];};
+    $skip_char = (dynamic $width, dynamic $ib) : dynamic ==> {
       $invalidate_current_char($ib);
       return $width;
     };
-    $ignore_char = (dynamic $width, dynamic $ib) ==> {
+    $ignore_char = (dynamic $width, dynamic $ib) : dynamic ==> {
       return $skip_char((int) ($width + -1), $ib);
     };
-    $store_char = (dynamic $width, dynamic $ib, dynamic $c) ==> {
+    $store_char = (dynamic $width, dynamic $ib, dynamic $c) : dynamic ==> {
       $call2($Buffer[10], $ib[8], $c);
       return $ignore_char($width, $ib);
     };
     $default_token_buffer_size = 1024 as dynamic;
-    $create = (dynamic $iname, dynamic $next) ==> {
+    $create = (dynamic $iname, dynamic $next) : dynamic ==> {
       return Vector{
         0,
         0,
@@ -308,10 +318,10 @@ final class Scanf {
         $iname
       };
     };
-    $from_string = (dynamic $s) ==> {
+    $from_string = (dynamic $s) : dynamic ==> {
       $i = Vector{0, 0} as dynamic;
       $len = $caml_ml_string_length($s);
-      $next = (dynamic $param) ==> {
+      $next = (dynamic $param) : dynamic ==> {
         if ($len <= $i[1]) {
           throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
         }
@@ -322,21 +332,21 @@ final class Scanf {
       return $create(1, $next);
     };
     $a_ = 0 as dynamic;
-    $from_function = (dynamic $bF_) ==> {return $create($a_, $bF_);};
+    $from_function = (dynamic $bF_) : dynamic ==> {return $create($a_, $bF_);};
     $len = 1024 as dynamic;
-    $scan_close_at_end = (dynamic $ic) ==> {
+    $scan_close_at_end = (dynamic $ic) : dynamic ==> {
       $call1($Pervasives[81], $ic);
       throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
     };
-    $scan_raise_at_end = (dynamic $ic) ==> {
+    $scan_raise_at_end = (dynamic $ic) : dynamic ==> {
       throw $caml_wrap_thrown_exception($End_of_file) as \Throwable;
     };
-    $from_ic = (dynamic $scan_close_ic, dynamic $iname, dynamic $ic) ==> {
+    $from_ic = (dynamic $scan_close_ic, dynamic $iname, dynamic $ic) : dynamic ==> {
       $buf = $runtime["caml_create_bytes"](1024);
       $i = Vector{0, 0} as dynamic;
       $lim = Vector{0, 0} as dynamic;
       $eof = Vector{0, 0} as dynamic;
-      $next = (dynamic $param) ==> {
+      $next = (dynamic $param) : dynamic ==> {
         $c = null as dynamic;
         if ($i[1] < $lim[1]) {
           $c = $caml_bytes_get($buf, $i[1]);
@@ -353,10 +363,10 @@ final class Scanf {
       };
       return $create($iname, $next);
     };
-    $from_ic_close_at_end = (dynamic $bD_, dynamic $bE_) ==> {
+    $from_ic_close_at_end = (dynamic $bD_, dynamic $bE_) : dynamic ==> {
       return $from_ic($scan_close_at_end, $bD_, $bE_);
     };
-    $from_ic_raise_at_end = (dynamic $bB_, dynamic $bC_) ==> {
+    $from_ic_raise_at_end = (dynamic $bB_, dynamic $bC_) : dynamic ==> {
       return $from_ic($scan_raise_at_end, $bB_, $bC_);
     };
     $stdin = $from_ic(
@@ -364,7 +374,7 @@ final class Scanf {
       Vector{1, $cst, $Pervasives[26]},
       $Pervasives[26]
     );
-    $open_in_file = (dynamic $open_in, dynamic $fname) ==> {
+    $open_in_file = (dynamic $open_in, dynamic $fname) : dynamic ==> {
       $ic = null as dynamic;
       if ($caml_string_notequal($fname, $cst__0)) {
         $ic = $call1($open_in, $fname);
@@ -373,13 +383,15 @@ final class Scanf {
       return $stdin;
     };
     $b_ = $Pervasives[67];
-    $open_in = (dynamic $bA_) ==> {return $open_in_file($b_, $bA_);};
+    $open_in = (dynamic $bA_) : dynamic ==> {return $open_in_file($b_, $bA_);};
     $c_ = $Pervasives[68];
-    $open_in_bin = (dynamic $bz_) ==> {return $open_in_file($c_, $bz_);};
-    $from_channel = (dynamic $ic) ==> {
+    $open_in_bin = (dynamic $bz_) : dynamic ==> {
+      return $open_in_file($c_, $bz_);
+    };
+    $from_channel = (dynamic $ic) : dynamic ==> {
       return $from_ic_raise_at_end(Vector{0, $ic}, $ic);
     };
-    $close_in = (dynamic $ib) ==> {
+    $close_in = (dynamic $ib) : dynamic ==> {
       $ic = null as dynamic;
       $ic__0 = null as dynamic;
       $by_ = $ib[9];
@@ -394,7 +406,7 @@ final class Scanf {
       }
     };
     $memo = Vector{0, 0} as dynamic;
-    $memo_from_ic = (dynamic $scan_close_ic, dynamic $ic) ==> {
+    $memo_from_ic = (dynamic $scan_close_ic, dynamic $ic) : dynamic ==> {
       $bw_ = null as dynamic;
       $ib = null as dynamic;
       try {$bw_ = $call2($List[40], $ic, $memo[1]);return $bw_;}
@@ -408,7 +420,7 @@ final class Scanf {
         throw $caml_wrap_thrown_exception_reraise($bx_) as \Throwable;
       }
     };
-    $memo_from_channel = (dynamic $bv_) ==> {
+    $memo_from_channel = (dynamic $bv_) : dynamic ==> {
       return $memo_from_ic($scan_raise_at_end, $bv_);
     };
     $Scan_failure = Vector{
@@ -416,31 +428,31 @@ final class Scanf {
       $cst_Scanf_Scan_failure,
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
-    $bad_input = (dynamic $s) ==> {
+    $bad_input = (dynamic $s) : dynamic ==> {
       throw $caml_wrap_thrown_exception(Vector{0, $Scan_failure, $s}) as \Throwable;
     };
-    $bad_input_escape = (dynamic $c) ==> {
+    $bad_input_escape = (dynamic $c) : dynamic ==> {
       return $bad_input($call2($Printf[4], $d_, $c));
     };
-    $bad_token_length = (dynamic $message) ==> {
+    $bad_token_length = (dynamic $message) : dynamic ==> {
       return $bad_input($call2($Printf[4], $e_, $message));
     };
-    $bad_end_of_input = (dynamic $message) ==> {
+    $bad_end_of_input = (dynamic $message) : dynamic ==> {
       return $bad_input($call2($Printf[4], $f_, $message));
     };
-    $bad_float = (dynamic $param) ==> {
+    $bad_float = (dynamic $param) : dynamic ==> {
       return $bad_input($cst_no_dot_or_exponent_part_found_in_float_token);
     };
-    $bad_hex_float = (dynamic $param) ==> {
+    $bad_hex_float = (dynamic $param) : dynamic ==> {
       return $bad_input($cst_not_a_valid_float_in_hexadecimal_notation);
     };
-    $character_mismatch_err = (dynamic $c, dynamic $ci) ==> {
+    $character_mismatch_err = (dynamic $c, dynamic $ci) : dynamic ==> {
       return $call3($Printf[4], $g_, $c, $ci);
     };
-    $character_mismatch = (dynamic $c, dynamic $ci) ==> {
+    $character_mismatch = (dynamic $c, dynamic $ci) : dynamic ==> {
       return $bad_input($character_mismatch_err($c, $ci));
     };
-    $skip_whites = (dynamic $ib) ==> {
+    $skip_whites = (dynamic $ib) : dynamic ==> {
       $switch__0 = null as dynamic;
       $bu_ = null as dynamic;
       $bt_ = null as dynamic;
@@ -460,13 +472,13 @@ final class Scanf {
         return $bt_;
       }
     };
-    $check_this_char = (dynamic $ib, dynamic $c) ==> {
+    $check_this_char = (dynamic $ib, dynamic $c) : dynamic ==> {
       $ci = $checked_peek_char($ib);
       return $ci === $c
         ? $invalidate_current_char($ib)
         : ($character_mismatch($c, $ci));
     };
-    $check_newline = (dynamic $ib) ==> {
+    $check_newline = (dynamic $ib) : dynamic ==> {
       $ci = $checked_peek_char($ib);
       if (10 === $ci) {return $invalidate_current_char($ib);}
       if (13 === $ci) {
@@ -475,15 +487,15 @@ final class Scanf {
       }
       return $character_mismatch(10, $ci);
     };
-    $check_char = (dynamic $ib, dynamic $c) ==> {
+    $check_char = (dynamic $ib, dynamic $c) : dynamic ==> {
       return 10 === $c
         ? $check_newline($ib)
         : (32 === $c ? $skip_whites($ib) : ($check_this_char($ib, $c)));
     };
-    $token_char = (dynamic $ib) ==> {
+    $token_char = (dynamic $ib) : dynamic ==> {
       return $caml_string_get($token_string($ib), 0);
     };
-    $token_bool = (dynamic $ib) ==> {
+    $token_bool = (dynamic $ib) : dynamic ==> {
       $s = $token_string($ib);
       return $caml_string_notequal($s, $cst_false)
         ? $caml_string_notequal($s, $cst_true)
@@ -491,7 +503,7 @@ final class Scanf {
          : (1)
         : (0);
     };
-    $integer_conversion_of_char = (dynamic $param) ==> {
+    $integer_conversion_of_char = (dynamic $param) : dynamic ==> {
       $switcher = (int) ($param + -88) as dynamic;
       if (! (32 < $unsigned_right_shift_32($switcher, 0))) {
         switch($switcher) {
@@ -519,7 +531,7 @@ final class Scanf {
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $i_}) as \Throwable;
     };
-    $token_int_literal = (dynamic $conv, dynamic $ib) ==> {
+    $token_int_literal = (dynamic $conv, dynamic $ib) : dynamic ==> {
       $bs_ = null as dynamic;
       $br_ = null as dynamic;
       $bq_ = null as dynamic;
@@ -558,22 +570,22 @@ final class Scanf {
       }
       return $tok;
     };
-    $token_int = (dynamic $conv, dynamic $ib) ==> {
+    $token_int = (dynamic $conv, dynamic $ib) : dynamic ==> {
       return $caml_int_of_string($token_int_literal($conv, $ib));
     };
-    $token_float = (dynamic $ib) ==> {
+    $token_float = (dynamic $ib) : dynamic ==> {
       return $runtime["caml_float_of_string"]($token_string($ib));
     };
-    $token_nativeint = (dynamic $conv, dynamic $ib) ==> {
+    $token_nativeint = (dynamic $conv, dynamic $ib) : dynamic ==> {
       return $caml_int_of_string($token_int_literal($conv, $ib));
     };
-    $token_int32 = (dynamic $conv, dynamic $ib) ==> {
+    $token_int32 = (dynamic $conv, dynamic $ib) : dynamic ==> {
       return $caml_int_of_string($token_int_literal($conv, $ib));
     };
-    $token_int64 = (dynamic $conv, dynamic $ib) ==> {
+    $token_int64 = (dynamic $conv, dynamic $ib) : dynamic ==> {
       return $runtime["caml_int64_of_string"]($token_int_literal($conv, $ib));
     };
-    $scan_decimal_digit_star = (dynamic $width, dynamic $ib) ==> {
+    $scan_decimal_digit_star = (dynamic $width, dynamic $ib) : dynamic ==> {
       $c = null as dynamic;
       $width__1 = null as dynamic;
       $width__2 = null as dynamic;
@@ -599,7 +611,7 @@ final class Scanf {
         return $width__0;
       }
     };
-    $scan_decimal_digit_plus = (dynamic $width, dynamic $ib) ==> {
+    $scan_decimal_digit_plus = (dynamic $width, dynamic $ib) : dynamic ==> {
       if (0 === $width) {return $bad_token_length($cst_decimal_digits);}
       $c = $checked_peek_char($ib);
       $switcher = (int) ($c + -48) as dynamic;
@@ -608,8 +620,8 @@ final class Scanf {
       $width__0 = $store_char($width, $ib, $c);
       return $scan_decimal_digit_star($width__0, $ib);
     };
-    $scan_digit_star = (dynamic $digitp, dynamic $width, dynamic $ib) ==> {
-      $scan_digits = (dynamic $width, dynamic $ib) ==> {
+    $scan_digit_star = (dynamic $digitp, dynamic $width, dynamic $ib) : dynamic ==> {
+      $scan_digits = (dynamic $width, dynamic $ib) : dynamic ==> {
         $c = null as dynamic;
         $width__1 = null as dynamic;
         $width__2 = null as dynamic;
@@ -634,7 +646,7 @@ final class Scanf {
       return $scan_digits($width, $ib);
     };
     $scan_digit_plus = 
-    (dynamic $basis, dynamic $digitp, dynamic $width, dynamic $ib) ==> {
+    (dynamic $basis, dynamic $digitp, dynamic $width, dynamic $ib) : dynamic ==> {
       $width__0 = null as dynamic;
       if (0 === $width) {return $bad_token_length($cst_digits);}
       $c = $checked_peek_char($ib);
@@ -644,31 +656,31 @@ final class Scanf {
       }
       return $bad_input($call3($Printf[4], $k_, $c, $basis));
     };
-    $is_binary_digit = (dynamic $param) ==> {
+    $is_binary_digit = (dynamic $param) : dynamic ==> {
       $switcher = (int) ($param + -48) as dynamic;
       return 1 < $unsigned_right_shift_32($switcher, 0) ? 0 : (1);
     };
-    $scan_binary_int = (dynamic $bn_, dynamic $bo_) ==> {
+    $scan_binary_int = (dynamic $bn_, dynamic $bo_) : dynamic ==> {
       return $scan_digit_plus($cst_binary, $is_binary_digit, $bn_, $bo_);
     };
-    $is_octal_digit = (dynamic $param) ==> {
+    $is_octal_digit = (dynamic $param) : dynamic ==> {
       $switcher = (int) ($param + -48) as dynamic;
       return 7 < $unsigned_right_shift_32($switcher, 0) ? 0 : (1);
     };
-    $scan_octal_int = (dynamic $bl_, dynamic $bm_) ==> {
+    $scan_octal_int = (dynamic $bl_, dynamic $bm_) : dynamic ==> {
       return $scan_digit_plus($cst_octal, $is_octal_digit, $bl_, $bm_);
     };
-    $is_hexa_digit = (dynamic $param) ==> {
+    $is_hexa_digit = (dynamic $param) : dynamic ==> {
       $bk_ = (int) ($param + -48) as dynamic;
       $switch__0 = 22 < $unsigned_right_shift_32($bk_, 0)
         ? 5 < $unsigned_right_shift_32((int) ($bk_ + -49), 0) ? 0 : (1)
         : (6 < $unsigned_right_shift_32((int) ($bk_ + -10), 0) ? 1 : (0));
       return $switch__0 ? 1 : (0);
     };
-    $scan_hexadecimal_int = (dynamic $bi_, dynamic $bj_) ==> {
+    $scan_hexadecimal_int = (dynamic $bi_, dynamic $bj_) : dynamic ==> {
       return $scan_digit_plus($cst_hexadecimal, $is_hexa_digit, $bi_, $bj_);
     };
-    $scan_sign = (dynamic $width, dynamic $ib) ==> {
+    $scan_sign = (dynamic $width, dynamic $ib) : dynamic ==> {
       $c = $checked_peek_char($ib);
       $switcher = (int) ($c + -43) as dynamic;
       if (! (2 < $unsigned_right_shift_32($switcher, 0))) {
@@ -685,11 +697,11 @@ final class Scanf {
       }
       return $width;
     };
-    $scan_optionally_signed_decimal_int = (dynamic $width, dynamic $ib) ==> {
+    $scan_optionally_signed_decimal_int = (dynamic $width, dynamic $ib) : dynamic ==> {
       $width__0 = $scan_sign($width, $ib);
       return $scan_decimal_digit_plus($width__0, $ib);
     };
-    $scan_unsigned_int = (dynamic $width, dynamic $ib) ==> {
+    $scan_unsigned_int = (dynamic $width, dynamic $ib) : dynamic ==> {
       $width__0 = null as dynamic;
       $c__0 = null as dynamic;
       $switch__0 = null as dynamic;
@@ -722,11 +734,11 @@ final class Scanf {
       }
       return $scan_decimal_digit_plus($width, $ib);
     };
-    $scan_optionally_signed_int = (dynamic $width, dynamic $ib) ==> {
+    $scan_optionally_signed_int = (dynamic $width, dynamic $ib) : dynamic ==> {
       $width__0 = $scan_sign($width, $ib);
       return $scan_unsigned_int($width__0, $ib);
     };
-    $scan_int_conversion = (dynamic $conv, dynamic $width, dynamic $ib) ==> {
+    $scan_int_conversion = (dynamic $conv, dynamic $width, dynamic $ib) : dynamic ==> {
       switch($conv) {
         // FALLTHROUGH
         case 0:
@@ -748,7 +760,7 @@ final class Scanf {
           return $scan_hexadecimal_int($width, $ib);
         }
     };
-    $scan_fractional_part = (dynamic $width, dynamic $ib) ==> {
+    $scan_fractional_part = (dynamic $width, dynamic $ib) : dynamic ==> {
       if (0 === $width) {return $width;}
       $c = $peek_char($ib);
       if ($eof($ib)) {return $width;}
@@ -757,7 +769,7 @@ final class Scanf {
         ? $width
         : ($scan_decimal_digit_star($store_char($width, $ib, $c), $ib));
     };
-    $scan_exponent_part = (dynamic $width, dynamic $ib) ==> {
+    $scan_exponent_part = (dynamic $width, dynamic $ib) : dynamic ==> {
       if (0 === $width) {return $width;}
       $c = $peek_char($ib);
       if ($eof($ib)) {return $width;}
@@ -767,11 +779,11 @@ final class Scanf {
         $ib
       );
     };
-    $scan_integer_part = (dynamic $width, dynamic $ib) ==> {
+    $scan_integer_part = (dynamic $width, dynamic $ib) : dynamic ==> {
       $width__0 = $scan_sign($width, $ib);
       return $scan_decimal_digit_star($width__0, $ib);
     };
-    $scan_float = (dynamic $width, dynamic $precision, dynamic $ib) ==> {
+    $scan_float = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
       $width__1 = null as dynamic;
       $precision__0 = null as dynamic;
       $width__2 = null as dynamic;
@@ -792,12 +804,12 @@ final class Scanf {
       return Vector{0, $scan_exponent_part($width__0, $ib), $precision};
     };
     $check_case_insensitive_string = 
-    (dynamic $width, dynamic $ib, dynamic $error, dynamic $str) ==> {
+    (dynamic $width, dynamic $ib, dynamic $error, dynamic $str) : dynamic ==> {
       $i = null as dynamic;
       $c = null as dynamic;
       $bg_ = null as dynamic;
       $bh_ = null as dynamic;
-      $lowercase = (dynamic $c) ==> {
+      $lowercase = (dynamic $c) : dynamic ==> {
         $switcher = (int) ($c + -65) as dynamic;
         return 25 < $unsigned_right_shift_32($switcher, 0)
           ? $c
@@ -822,7 +834,7 @@ final class Scanf {
       }
       return $width__0[1];
     };
-    $scan_hex_float = (dynamic $width, dynamic $precision, dynamic $ib) ==> {
+    $scan_hex_float = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
       $switcher = null as dynamic;
       $width__1 = null as dynamic;
       $a6_ = null as dynamic;
@@ -982,7 +994,7 @@ final class Scanf {
       }
       return $bad_hex_float(0);
     };
-    $scan_caml_float_rest = (dynamic $width, dynamic $precision, dynamic $ib) ==> {
+    $scan_caml_float_rest = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
       $width__1 = null as dynamic;
       $precision__0 = null as dynamic;
       $width_precision = null as dynamic;
@@ -1014,7 +1026,7 @@ final class Scanf {
       }
       return $bad_float(0);
     };
-    $scan_caml_float = (dynamic $width, dynamic $precision, dynamic $ib) ==> {
+    $scan_caml_float = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
       $width__1 = null as dynamic;
       $aO_ = null as dynamic;
       $aP_ = null as dynamic;
@@ -1147,8 +1159,8 @@ final class Scanf {
       }
       return $bad_float(0);
     };
-    $scan_string = (dynamic $stp, dynamic $width, dynamic $ib) ==> {
-      $loop = (dynamic $width) ==> {
+    $scan_string = (dynamic $stp, dynamic $width, dynamic $ib) : dynamic ==> {
+      $loop = (dynamic $width) : dynamic ==> {
         $c = null as dynamic;
         $c__0 = null as dynamic;
         $width__1 = null as dynamic;
@@ -1180,10 +1192,10 @@ final class Scanf {
       };
       return $loop($width);
     };
-    $scan_char = (dynamic $width, dynamic $ib) ==> {
+    $scan_char = (dynamic $width, dynamic $ib) : dynamic ==> {
       return $store_char($width, $ib, $checked_peek_char($ib));
     };
-    $char_for_backslash = (dynamic $c) ==> {
+    $char_for_backslash = (dynamic $c) : dynamic ==> {
       $switcher = null as dynamic;
       if (110 <= $c) {
         if (! (117 <= $c)) {
@@ -1204,8 +1216,10 @@ final class Scanf {
       else {if (98 === $c) {return 8;}}
       return $c;
     };
-    $decimal_value_of_char = (dynamic $c) ==> {return (int) ($c - 48);};
-    $char_for_decimal_code = (dynamic $c0, dynamic $c1, dynamic $c2) ==> {
+    $decimal_value_of_char = (dynamic $c) : dynamic ==> {
+      return (int) ($c - 48);
+    };
+    $char_for_decimal_code = (dynamic $c0, dynamic $c1, dynamic $c2) : dynamic ==> {
       $aH_ = $decimal_value_of_char($c2);
       $aI_ = (int) (10 * $decimal_value_of_char($c1)) as dynamic;
       $c = (int)
@@ -1213,29 +1227,29 @@ final class Scanf {
       if (0 <= $c) {if (! (255 < $c)) {return $call1($Pervasives[17], $c);}}
       return $bad_input($call4($Printf[4], $l_, $c0, $c1, $c2));
     };
-    $hexadecimal_value_of_char = (dynamic $d) ==> {
+    $hexadecimal_value_of_char = (dynamic $d) : dynamic ==> {
       return 97 <= $d
         ? (int) ($d + -87)
         : (65 <= $d ? (int) ($d + -55) : ((int) ($d - 48)));
     };
-    $char_for_hexadecimal_code = (dynamic $c1, dynamic $c2) ==> {
+    $char_for_hexadecimal_code = (dynamic $c1, dynamic $c2) : dynamic ==> {
       $aG_ = $hexadecimal_value_of_char($c2);
       $c = (int) ((int) (16 * $hexadecimal_value_of_char($c1)) + $aG_) as dynamic;
       if (0 <= $c) {if (! (255 < $c)) {return $call1($Pervasives[17], $c);}}
       return $bad_input($call3($Printf[4], $m_, $c1, $c2));
     };
-    $check_next_char = (dynamic $message, dynamic $width, dynamic $ib) ==> {
+    $check_next_char = (dynamic $message, dynamic $width, dynamic $ib) : dynamic ==> {
       if (0 === $width) {return $bad_token_length($message);}
       $c = $peek_char($ib);
       return $eof($ib) ? $bad_end_of_input($message) : ($c);
     };
-    $check_next_char_for_char = (dynamic $aE_, dynamic $aF_) ==> {
+    $check_next_char_for_char = (dynamic $aE_, dynamic $aF_) : dynamic ==> {
       return $check_next_char($cst_a_Char, $aE_, $aF_);
     };
-    $check_next_char_for_string = (dynamic $aC_, dynamic $aD_) ==> {
+    $check_next_char_for_string = (dynamic $aC_, dynamic $aD_) : dynamic ==> {
       return $check_next_char($cst_a_String, $aC_, $aD_);
     };
-    $scan_backslash_char = (dynamic $width, dynamic $ib) ==> {
+    $scan_backslash_char = (dynamic $width, dynamic $ib) : dynamic ==> {
       $switcher = null as dynamic;
       $get_digit = null as dynamic;
       $c1 = null as dynamic;
@@ -1254,7 +1268,7 @@ final class Scanf {
               // FALLTHROUGH
               case 28:
                 $get_digit =
-                  (dynamic $param) ==> {
+                  (dynamic $param) : dynamic ==> {
                     $c = $next_char($ib);
                     $aB_ = (int) ($c + -48) as dynamic;
                     $switch__0 = 22 < $unsigned_right_shift_32($aB_, 0)
@@ -1295,7 +1309,7 @@ final class Scanf {
         else {
           if (48 <= $c) {
             $get_digit__0 =
-              (dynamic $param) ==> {
+              (dynamic $param) : dynamic ==> {
                 $c = $next_char($ib);
                 $switcher = (int) ($c + -48) as dynamic;
                 return 9 < $unsigned_right_shift_32($switcher, 0)
@@ -1319,20 +1333,20 @@ final class Scanf {
         ? $store_char($width, $ib, $char_for_backslash($c))
         : ($bad_input_escape($c));
     };
-    $scan_caml_char = (dynamic $width, dynamic $ib) ==> {
-      $find_stop = (dynamic $width) ==> {
+    $scan_caml_char = (dynamic $width, dynamic $ib) : dynamic ==> {
+      $find_stop = (dynamic $width) : dynamic ==> {
         $c = $check_next_char_for_char($width, $ib);
         return 39 === $c
           ? $ignore_char($width, $ib)
           : ($character_mismatch(39, $c));
       };
-      $find_char = (dynamic $width) ==> {
+      $find_char = (dynamic $width) : dynamic ==> {
         $c = $check_next_char_for_char($width, $ib);
         return 92 === $c
           ? $find_stop($scan_backslash_char($ignore_char($width, $ib), $ib))
           : ($find_stop($store_char($width, $ib, $c)));
       };
-      $find_start = (dynamic $width) ==> {
+      $find_start = (dynamic $width) : dynamic ==> {
         $c = $checked_peek_char($ib);
         return 39 === $c
           ? $find_char($ignore_char($width, $ib))
@@ -1340,11 +1354,11 @@ final class Scanf {
       };
       return $find_start($width);
     };
-    $scan_caml_string = (dynamic $width, dynamic $ib) ==> {
+    $scan_caml_string = (dynamic $width, dynamic $ib) : dynamic ==> {
       $scan_backslash = new Ref();
       $skip_newline = new Ref();
       $skip_spaces = new Ref();
-      $find_stop__0 = (dynamic $counter, dynamic $width) ==> {
+      $find_stop__0 = (dynamic $counter, dynamic $width) : dynamic ==> {
         $c = null as dynamic;
         $aA_ = null as dynamic;
         $width__1 = null as dynamic;
@@ -1369,7 +1383,7 @@ final class Scanf {
           continue;
         }
       };
-      $scan_backslash->contents = (dynamic $counter, dynamic $width) ==> {
+      $scan_backslash->contents = (dynamic $counter, dynamic $width) : dynamic ==> {
         $ax_ = null as dynamic;
         $ay_ = null as dynamic;
         $counter__0 = null as dynamic;
@@ -1405,7 +1419,7 @@ final class Scanf {
         }
         return $caml_trampoline_return($find_stop__0, varray[0,$az_]);
       };
-      $skip_newline->contents = (dynamic $counter, dynamic $width) ==> {
+      $skip_newline->contents = (dynamic $counter, dynamic $width) : dynamic ==> {
         $av_ = null as dynamic;
         $counter__0 = null as dynamic;
         $counter__1 = null as dynamic;
@@ -1428,7 +1442,7 @@ final class Scanf {
         }
         return $caml_trampoline_return($find_stop__0, varray[0,$aw_]);
       };
-      $skip_spaces->contents = (dynamic $counter, dynamic $width) ==> {
+      $skip_spaces->contents = (dynamic $counter, dynamic $width) : dynamic ==> {
         $match = null as dynamic;
         $width__1 = null as dynamic;
         $counter__0 = null as dynamic;
@@ -1447,10 +1461,10 @@ final class Scanf {
           return $caml_trampoline_return($find_stop__0, varray[0,$width__0]);
         }
       };
-      $find_stop = (dynamic $width) ==> {
+      $find_stop = (dynamic $width) : dynamic ==> {
         return $caml_trampoline($find_stop__0(0, $width));
       };
-      $find_start = (dynamic $width) ==> {
+      $find_start = (dynamic $width) : dynamic ==> {
         $c = $checked_peek_char($ib);
         return 34 === $c
           ? $find_stop($ignore_char($width, $ib))
@@ -1458,7 +1472,7 @@ final class Scanf {
       };
       return $find_start($width);
     };
-    $scan_bool = (dynamic $ib) ==> {
+    $scan_bool = (dynamic $ib) : dynamic ==> {
       $c = $checked_peek_char($ib);
       $m = 102 === $c
         ? 5
@@ -1466,11 +1480,11 @@ final class Scanf {
       return $scan_string(0, $m, $ib);
     };
     $scan_chars_in_char_set = 
-    (dynamic $char_set, dynamic $scan_indic, dynamic $width, dynamic $ib) ==> {
+    (dynamic $char_set, dynamic $scan_indic, dynamic $width, dynamic $ib) : dynamic ==> {
       $c = null as dynamic;
       $aq_ = null as dynamic;
       $ci = null as dynamic;
-      $scan_chars = (dynamic $i, dynamic $stp) ==> {
+      $scan_chars = (dynamic $i, dynamic $stp) : dynamic ==> {
         $c = null as dynamic;
         $ar_ = null as dynamic;
         $as_ = null as dynamic;
@@ -1513,7 +1527,7 @@ final class Scanf {
       }
       return $scan_chars($width, -1);
     };
-    $scanf_bad_input = (dynamic $ib, dynamic $x) ==> {
+    $scanf_bad_input = (dynamic $ib, dynamic $x) : dynamic ==> {
       $s = null as dynamic;
       if ($x[1] === $Scan_failure) {$s = $x[2];}
       else {
@@ -1525,7 +1539,7 @@ final class Scanf {
       $i = $char_count($ib);
       return $bad_input($call3($Printf[4], $o_, $i, $s));
     };
-    $get_counter = (dynamic $ib, dynamic $counter) ==> {
+    $get_counter = (dynamic $ib, dynamic $counter) : dynamic ==> {
       switch($counter) {
         // FALLTHROUGH
         case 0:
@@ -1538,12 +1552,12 @@ final class Scanf {
           return $token_count($ib);
         }
     };
-    $width_of_pad_opt = (dynamic $pad_opt) ==> {
+    $width_of_pad_opt = (dynamic $pad_opt) : dynamic ==> {
       $width = null as dynamic;
       if ($pad_opt) {$width = $pad_opt[1];return $width;}
       return $Pervasives[7];
     };
-    $stopper_of_formatting_lit = (dynamic $fmting) ==> {
+    $stopper_of_formatting_lit = (dynamic $fmting) : dynamic ==> {
       if (6 === $fmting) {return $p_;}
       $str = $call1($CamlinternalFormat[17], $fmting);
       $stp = $caml_string_get($str, 1);
@@ -1556,7 +1570,7 @@ final class Scanf {
       );
       return Vector{0, $stp, $sub_str};
     };
-    $take_format_readers__0 = (dynamic $counter, dynamic $k, dynamic $fmt) ==> {
+    $take_format_readers__0 = (dynamic $counter, dynamic $k, dynamic $fmt) : dynamic ==> {
       $fmt__1 = null as dynamic;
       $fmt__2 = null as dynamic;
       $fmt__3 = null as dynamic;
@@ -1729,8 +1743,8 @@ final class Scanf {
             // FALLTHROUGH
             case 19:
               $fmt_rest = $fmt__0[1];
-              return (dynamic $reader) ==> {
-                $new_k = (dynamic $readers_rest) ==> {
+              return (dynamic $reader) : dynamic ==> {
+                $new_k = (dynamic $readers_rest) : dynamic ==> {
                   return $call1($k, Vector{0, $reader, $readers_rest});
                 };
                 return $take_format_readers->contents($new_k, $fmt_rest);
@@ -1778,7 +1792,7 @@ final class Scanf {
       }
     };
     $take_fmtty_format_readers__0->contents = 
-    (dynamic $counter, dynamic $k, dynamic $fmtty, dynamic $fmt) ==> {
+    (dynamic $counter, dynamic $k, dynamic $fmtty, dynamic $fmt) : dynamic ==> {
       $fmtty__1 = null as dynamic;
       $fmtty__2 = null as dynamic;
       $fmtty__3 = null as dynamic;
@@ -1888,8 +1902,8 @@ final class Scanf {
             // FALLTHROUGH
             case 13:
               $fmt_rest = $fmtty__0[1];
-              return (dynamic $reader) ==> {
-                $new_k = (dynamic $readers_rest) ==> {
+              return (dynamic $reader) : dynamic ==> {
+                $new_k = (dynamic $readers_rest) : dynamic ==> {
                   return $call1($k, Vector{0, $reader, $readers_rest});
                 };
                 return $take_fmtty_format_readers->contents(
@@ -1901,8 +1915,8 @@ final class Scanf {
             // FALLTHROUGH
             default:
               $fmt_rest__0 = $fmtty__0[1];
-              return (dynamic $reader) ==> {
-                $new_k = (dynamic $readers_rest) ==> {
+              return (dynamic $reader) : dynamic ==> {
+                $new_k = (dynamic $readers_rest) : dynamic ==> {
                   return $call1($k, Vector{0, $reader, $readers_rest});
                 };
                 return $take_fmtty_format_readers->contents(
@@ -1917,7 +1931,7 @@ final class Scanf {
       }
     };
     $take_ignored_format_readers->contents = 
-    (dynamic $counter, dynamic $k, dynamic $ign, dynamic $fmt) ==> {
+    (dynamic $counter, dynamic $k, dynamic $ign, dynamic $fmt) : dynamic ==> {
       $counter__14 = null as dynamic;
       $counter__13 = null as dynamic;
       $counter__12 = null as dynamic;
@@ -1958,8 +1972,8 @@ final class Scanf {
             );
           // FALLTHROUGH
           case 2:
-            return (dynamic $reader) ==> {
-              $new_k = (dynamic $readers_rest) ==> {
+            return (dynamic $reader) : dynamic ==> {
+              $new_k = (dynamic $readers_rest) : dynamic ==> {
                 return $call1($k, Vector{0, $reader, $readers_rest});
               };
               return $take_format_readers->contents($new_k, $fmt);
@@ -2107,17 +2121,17 @@ final class Scanf {
           }
       }
     };
-    $take_format_readers->contents = (dynamic $k, dynamic $fmt) ==> {
+    $take_format_readers->contents = (dynamic $k, dynamic $fmt) : dynamic ==> {
       return $caml_trampoline($take_format_readers__0(0, $k, $fmt));
     };
     $take_fmtty_format_readers->contents = 
-    (dynamic $k, dynamic $fmtty, dynamic $fmt) ==> {
+    (dynamic $k, dynamic $fmtty, dynamic $fmt) : dynamic ==> {
       return $caml_trampoline(
         $take_fmtty_format_readers__0->contents(0, $k, $fmtty, $fmt)
       );
     };
     $pad_prec_scanf = 
-    (dynamic $ib, dynamic $fmt, dynamic $readers, dynamic $pad, dynamic $prec, dynamic $scan, dynamic $token) ==> {
+    (dynamic $ib, dynamic $fmt, dynamic $readers, dynamic $pad, dynamic $prec, dynamic $scan, dynamic $token) : dynamic ==> {
       $x__2 = null as dynamic;
       $p__0 = null as dynamic;
       $x__1 = null as dynamic;
@@ -2165,7 +2179,7 @@ final class Scanf {
         return $call1($Pervasives[1], $cst_scanf_bad_conversion__2);
       }
     };
-    $make_scanf->contents = (dynamic $ib, dynamic $fmt, dynamic $readers) ==> {
+    $make_scanf->contents = (dynamic $ib, dynamic $fmt, dynamic $readers) : dynamic ==> {
       $rest = null as dynamic;
       $c = null as dynamic;
       $rest__0 = null as dynamic;
@@ -2340,7 +2354,7 @@ final class Scanf {
                     $str = $match[2];
                     $stp = $match[1];
                     $scan__0 =
-                      (dynamic $width, dynamic $param, dynamic $ib) ==> {
+                      (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
                         return $scan_string(Vector{0, $stp}, $width, $ib);
                       };
                     $str_rest = Vector{11, $str, $rest__1} as dynamic;
@@ -2361,7 +2375,8 @@ final class Scanf {
                       $match__0 = $M_[1];
                       $fmt__1 = $match__0[1];
                       $scan__1 =
-                        (dynamic $width, dynamic $param, dynamic $ib) ==> {return $scan_string($q_, $width, $ib);
+                        (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                          return $scan_string($q_, $width, $ib);
                         };
                       return $pad_prec_scanf(
                         $ib,
@@ -2377,7 +2392,8 @@ final class Scanf {
                     $match__1 = $M_[1];
                     $fmt__2 = $match__1[1];
                     $scan__2 =
-                      (dynamic $width, dynamic $param, dynamic $ib) ==> {return $scan_string($r_, $width, $ib);
+                      (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                        return $scan_string($r_, $width, $ib);
                       };
                     return $pad_prec_scanf(
                       $ib,
@@ -2391,7 +2407,8 @@ final class Scanf {
                   }
               }
               $scan =
-                (dynamic $width, dynamic $param, dynamic $ib) ==> {return $scan_string(0, $width, $ib);
+                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                  return $scan_string(0, $width, $ib);
                 };
               return $pad_prec_scanf(
                 $ib,
@@ -2407,7 +2424,8 @@ final class Scanf {
               $rest__4 = $fmt__0[2];
               $pad = $fmt__0[1];
               $scan__3 =
-                (dynamic $width, dynamic $param, dynamic $ib) ==> {return $scan_caml_string($width, $ib);
+                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                  return $scan_caml_string($width, $ib);
                 };
               return $pad_prec_scanf(
                 $ib,
@@ -2429,7 +2447,7 @@ final class Scanf {
                   $call1($CamlinternalFormat[16], $iconv)
                 );
               $scan__4 =
-                (dynamic $width, dynamic $param, dynamic $ib) ==> {
+                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
                   return $scan_int_conversion($c__1, $width, $ib);
                 };
               return $pad_prec_scanf(
@@ -2439,7 +2457,7 @@ final class Scanf {
                 $pad__0,
                 $prec,
                 $scan__4,
-                (dynamic $ak_) ==> {return $token_int($c__1, $ak_);}
+                (dynamic $ak_) : dynamic ==> {return $token_int($c__1, $ak_);}
               );
             // FALLTHROUGH
             case 5:
@@ -2452,7 +2470,7 @@ final class Scanf {
                   $call1($CamlinternalFormat[16], $iconv__0)
                 );
               $scan__5 =
-                (dynamic $width, dynamic $param, dynamic $ib) ==> {
+                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
                   return $scan_int_conversion($c__2, $width, $ib);
                 };
               return $pad_prec_scanf(
@@ -2462,7 +2480,9 @@ final class Scanf {
                 $pad__1,
                 $prec__0,
                 $scan__5,
-                (dynamic $aj_) ==> {return $token_int32($c__2, $aj_);}
+                (dynamic $aj_) : dynamic ==> {
+                  return $token_int32($c__2, $aj_);
+                }
               );
             // FALLTHROUGH
             case 6:
@@ -2475,7 +2495,7 @@ final class Scanf {
                   $call1($CamlinternalFormat[16], $iconv__1)
                 );
               $scan__6 =
-                (dynamic $width, dynamic $param, dynamic $ib) ==> {
+                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
                   return $scan_int_conversion($c__3, $width, $ib);
                 };
               return $pad_prec_scanf(
@@ -2485,7 +2505,9 @@ final class Scanf {
                 $pad__2,
                 $prec__1,
                 $scan__6,
-                (dynamic $ai_) ==> {return $token_nativeint($c__3, $ai_);}
+                (dynamic $ai_) : dynamic ==> {
+                  return $token_nativeint($c__3, $ai_);
+                }
               );
             // FALLTHROUGH
             case 7:
@@ -2498,7 +2520,7 @@ final class Scanf {
                   $call1($CamlinternalFormat[16], $iconv__2)
                 );
               $scan__7 =
-                (dynamic $width, dynamic $param, dynamic $ib) ==> {
+                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
                   return $scan_int_conversion($c__4, $width, $ib);
                 };
               return $pad_prec_scanf(
@@ -2508,7 +2530,9 @@ final class Scanf {
                 $pad__3,
                 $prec__2,
                 $scan__7,
-                (dynamic $ah_) ==> {return $token_int64($c__4, $ah_);}
+                (dynamic $ah_) : dynamic ==> {
+                  return $token_int64($c__4, $ah_);
+                }
               );
             // FALLTHROUGH
             case 8:
@@ -2558,7 +2582,7 @@ final class Scanf {
               $rest__12 = $fmt__0[2];
               $pad__7 = $fmt__0[1];
               $scan__8 =
-                (dynamic $param, dynamic $ag_, dynamic $ib) ==> {return $scan_bool($ib);
+                (dynamic $param, dynamic $ag_, dynamic $ib) : dynamic ==> {return $scan_bool($ib);
                 };
               return $pad_prec_scanf(
                 $ib,
@@ -2581,7 +2605,8 @@ final class Scanf {
             case 11:
               $fmt__3 = $fmt__0[2];
               $str__0 = $fmt__0[1];
-              $O_ = (dynamic $af_) ==> {return $check_char($ib, $af_);};
+              $O_ =
+                (dynamic $af_) : dynamic ==> {return $check_char($ib, $af_);};
               $call2($String[8], $O_, $str__0);
               $fmt__0 = $fmt__3;
               $continue_label = "#";break;
@@ -2669,7 +2694,8 @@ final class Scanf {
               $fmt__11 = $fmt__0[2];
               $formatting_lit = $fmt__0[1];
               $Y_ = $call1($CamlinternalFormat[17], $formatting_lit);
-              $Z_ = (dynamic $ae_) ==> {return $check_char($ib, $ae_);};
+              $Z_ =
+                (dynamic $ae_) : dynamic ==> {return $check_char($ib, $ae_);};
               $call2($String[8], $Z_, $Y_);
               $fmt__0 = $fmt__11;
               $continue_label = "#";break;
@@ -2785,10 +2811,10 @@ final class Scanf {
         }
       }
     };
-    $kscanf = (dynamic $ib, dynamic $ef, dynamic $param) ==> {
+    $kscanf = (dynamic $ib, dynamic $ef, dynamic $param) : dynamic ==> {
       $str = $param[2];
       $fmt = $param[1];
-      $apply = (dynamic $f, dynamic $args) ==> {
+      $apply = (dynamic $f, dynamic $args) : dynamic ==> {
         $args__1 = null as dynamic;
         $x = null as dynamic;
         $f__1 = null as dynamic;
@@ -2806,7 +2832,7 @@ final class Scanf {
           return $f__0;
         }
       };
-      $k = (dynamic $readers, dynamic $f) ==> {
+      $k = (dynamic $readers, dynamic $f) : dynamic ==> {
         $switch__0 = null as dynamic;
         $J_ = null as dynamic;
         $I_ = null as dynamic;
@@ -2857,19 +2883,19 @@ final class Scanf {
       };
       return $take_format_readers->contents($k, $fmt);
     };
-    $bscanf = (dynamic $ib, dynamic $fmt) ==> {
+    $bscanf = (dynamic $ib, dynamic $fmt) : dynamic ==> {
       return $kscanf($ib, $scanf_bad_input, $fmt);
     };
-    $ksscanf = (dynamic $s, dynamic $ef, dynamic $fmt) ==> {
+    $ksscanf = (dynamic $s, dynamic $ef, dynamic $fmt) : dynamic ==> {
       return $kscanf($from_string($s), $ef, $fmt);
     };
-    $sscanf = (dynamic $s, dynamic $fmt) ==> {
+    $sscanf = (dynamic $s, dynamic $fmt) : dynamic ==> {
       return $kscanf($from_string($s), $scanf_bad_input, $fmt);
     };
-    $scanf = (dynamic $fmt) ==> {
+    $scanf = (dynamic $fmt) : dynamic ==> {
       return $kscanf($stdin, $scanf_bad_input, $fmt);
     };
-    $bscanf_format = (dynamic $ib, dynamic $format, dynamic $f) ==> {
+    $bscanf_format = (dynamic $ib, dynamic $format, dynamic $f) : dynamic ==> {
       $B_ = null as dynamic;
       $fmt = null as dynamic;
       $A_ = null as dynamic;
@@ -2888,10 +2914,10 @@ final class Scanf {
       }
       return $call1($f, $fmt);
     };
-    $sscanf_format = (dynamic $s, dynamic $format, dynamic $f) ==> {
+    $sscanf_format = (dynamic $s, dynamic $format, dynamic $f) : dynamic ==> {
       return $bscanf_format($from_string($s), $format, $f);
     };
-    $string_to_String = (dynamic $s) ==> {
+    $string_to_String = (dynamic $s) : dynamic ==> {
       $i = null as dynamic;
       $c = null as dynamic;
       $z_ = null as dynamic;
@@ -2914,19 +2940,19 @@ final class Scanf {
       $call2($Buffer[10], $b, 34);
       return $call1($Buffer[2], $b);
     };
-    $format_from_string = (dynamic $s, dynamic $fmt) ==> {
-      $w_ = (dynamic $x) ==> {return $x;};
+    $format_from_string = (dynamic $s, dynamic $fmt) : dynamic ==> {
+      $w_ = (dynamic $x) : dynamic ==> {return $x;};
       return $sscanf_format($string_to_String($s), $fmt, $w_);
     };
-    $unescaped = (dynamic $s) ==> {
-      $u_ = (dynamic $x) ==> {return $x;};
+    $unescaped = (dynamic $s) : dynamic ==> {
+      $u_ = (dynamic $x) : dynamic ==> {return $x;};
       $v_ = $call2($Pervasives[16], $s, $cst__2);
       return $call1($sscanf($call2($Pervasives[16], $cst__3, $v_), $t_), $u_);
     };
-    $kfscanf = (dynamic $ic, dynamic $ef, dynamic $fmt) ==> {
+    $kfscanf = (dynamic $ic, dynamic $ef, dynamic $fmt) : dynamic ==> {
       return $kscanf($memo_from_channel($ic), $ef, $fmt);
     };
-    $fscanf = (dynamic $ic, dynamic $fmt) ==> {
+    $fscanf = (dynamic $ic, dynamic $fmt) : dynamic ==> {
       return $kscanf($memo_from_channel($ic), $scanf_bad_input, $fmt);
     };
     $Scanf = Vector{

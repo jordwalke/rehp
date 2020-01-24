@@ -28,10 +28,10 @@ final class CamlinternalLazy {
       $cst_CamlinternalLazy_Undefined,
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
-    $raise_undefined = (dynamic $param) ==> {
+    $raise_undefined = (dynamic $param) : dynamic ==> {
       throw $caml_wrap_thrown_exception($Undefined) as \Throwable;
     };
-    $force_lazy_block = (dynamic $blk) ==> {
+    $force_lazy_block = (dynamic $blk) : dynamic ==> {
       $result = null as dynamic;
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
@@ -44,13 +44,13 @@ final class CamlinternalLazy {
       catch(\Throwable $e) {
         $e = $runtime["caml_wrap_exception"]($e);
         $blk[1] =
-          (dynamic $param) ==> {
+          (dynamic $param) : dynamic ==> {
             throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
           };
         throw $caml_wrap_thrown_exception_reraise($e) as \Throwable;
       }
     };
-    $force_val_lazy_block = (dynamic $blk) ==> {
+    $force_val_lazy_block = (dynamic $blk) : dynamic ==> {
       $closure = $blk[1];
       $blk[1] = $raise_undefined;
       $result = $call1($closure, 0);
@@ -58,13 +58,13 @@ final class CamlinternalLazy {
       $caml_obj_set_tag($blk, $Obj[10]);
       return $result;
     };
-    $force = (dynamic $lzv) ==> {
+    $force = (dynamic $lzv) : dynamic ==> {
       $t = $caml_obj_tag($lzv);
       return $t === $Obj[10]
         ? $lzv[1]
         : ($t !== $Obj[6] ? $lzv : ($force_lazy_block($lzv)));
     };
-    $force_val = (dynamic $lzv) ==> {
+    $force_val = (dynamic $lzv) : dynamic ==> {
       $t = $caml_obj_tag($lzv);
       return $t === $Obj[10]
         ? $lzv[1]

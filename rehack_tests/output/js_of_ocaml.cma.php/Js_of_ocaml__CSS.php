@@ -959,7 +959,7 @@ final class Js_of_ocaml__CSS {
     $bD_ = Vector{0, 245, 245, 245} as dynamic;
     $bE_ = Vector{0, 255, 255, 0} as dynamic;
     $bF_ = Vector{0, 154, 205, 50} as dynamic;
-    $string_of_name = (dynamic $param) ==> {
+    $string_of_name = (dynamic $param) : dynamic ==> {
       $c3_ = $param;
       if (74 <= $c3_) {
         if (111 <= $c3_) {
@@ -1417,7 +1417,7 @@ final class Js_of_ocaml__CSS {
           return $cst_darkslategray;
         }
     };
-    $name_of_string = (dynamic $s) ==> {
+    $name_of_string = (dynamic $s) : dynamic ==> {
       $switch__0 = $caml_string_compare($s, $cst_lightgrey__0);
       if (0 <= $switch__0) {
         if (! (0 < $switch__0)) {return 73;}
@@ -1648,7 +1648,7 @@ final class Js_of_ocaml__CSS {
               }
             ) as \Throwable;
     };
-    $rgb_of_name = (dynamic $param) ==> {
+    $rgb_of_name = (dynamic $param) : dynamic ==> {
       $c2_ = $param;
       if (74 <= $c2_) {
         if (111 <= $c2_) {
@@ -2106,15 +2106,15 @@ final class Js_of_ocaml__CSS {
           return $K_;
         }
     };
-    $rgb = (dynamic $a, dynamic $r, dynamic $g, dynamic $b) ==> {
+    $rgb = (dynamic $a, dynamic $r, dynamic $g, dynamic $b) : dynamic ==> {
       if ($a) {$a__0 = $a[1];return Vector{3, Vector{0, $r, $g, $b, $a__0}};}
       return Vector{1, Vector{0, $r, $g, $b}};
     };
-    $hsl = (dynamic $a, dynamic $h, dynamic $s, dynamic $l) ==> {
+    $hsl = (dynamic $a, dynamic $h, dynamic $s, dynamic $l) : dynamic ==> {
       if ($a) {$a__0 = $a[1];return Vector{6, Vector{0, $h, $s, $l, $a__0}};}
       return Vector{5, Vector{0, $h, $s, $l}};
     };
-    $string_of_t = (dynamic $param) ==> {
+    $string_of_t = (dynamic $param) : dynamic ==> {
       switch($param[0]) {
         // FALLTHROUGH
         case 0:
@@ -2167,11 +2167,11 @@ final class Js_of_ocaml__CSS {
           return $call5($Printf[4], $bL_, $h__0, $s__0, $l__0, $a__1);
         }
     };
-    $hex_of_rgb = (dynamic $param) ==> {
+    $hex_of_rgb = (dynamic $param) : dynamic ==> {
       $blue = $param[3];
       $green = $param[2];
       $red = $param[1];
-      $in_range = (dynamic $i) ==> {
+      $in_range = (dynamic $i) : dynamic ==> {
         $cZ_ = $i < 0 ? 1 : (0);
         $c0_ = $cZ_ ? $cZ_ : (255 < $i ? 1 : (0));
         if ($c0_) {
@@ -2191,84 +2191,84 @@ final class Js_of_ocaml__CSS {
       $in_range($blue);
       return $call4($Printf[4], $bM_, $red, $green, $blue);
     };
-    $js_t_of_js_string = (dynamic $s) ==> {
+    $js_t_of_js_string = (dynamic $s) : dynamic ==> {
       $cB_ = 0 as dynamic;
       $cC_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d);
       $cD_ = $Js_of_ocaml_Js[10];
-      $rgb_re = ((dynamic $t23, dynamic $t22, dynamic $param) ==> {return new $t23($t22);
+      $rgb_re = ((dynamic $t23, dynamic $t22, dynamic $param) : dynamic ==> {return new $t23($t22);
        })($cD_, $cC_, $cB_);
       $cE_ = 0 as dynamic;
       $cF_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d__0);
       $cG_ = $Js_of_ocaml_Js[10];
-      $rgb_pct_re = ((dynamic $t21, dynamic $t20, dynamic $param) ==> {return new $t21($t20);
+      $rgb_pct_re = ((dynamic $t21, dynamic $t20, dynamic $param) : dynamic ==> {return new $t21($t20);
        })($cG_, $cF_, $cE_);
       $cH_ = 0 as dynamic;
       $cI_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d);
       $cJ_ = $Js_of_ocaml_Js[10];
-      $rgba_re = ((dynamic $t19, dynamic $t18, dynamic $param) ==> {return new $t19($t18);
+      $rgba_re = ((dynamic $t19, dynamic $t18, dynamic $param) : dynamic ==> {return new $t19($t18);
        })($cJ_, $cI_, $cH_);
       $cK_ = 0 as dynamic;
       $cL_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d__0);
       $cM_ = $Js_of_ocaml_Js[10];
-      $rgba_pct_re = ((dynamic $t17, dynamic $t16, dynamic $param) ==> {return new $t17($t16);
+      $rgba_pct_re = ((dynamic $t17, dynamic $t16, dynamic $param) : dynamic ==> {return new $t17($t16);
        })($cM_, $cL_, $cK_);
       $cN_ = 0 as dynamic;
       $cO_ = $caml_jsbytes_of_string($cst_hsl_s_d_s_d_s_d);
       $cP_ = $Js_of_ocaml_Js[10];
-      $hsl_re = ((dynamic $t15, dynamic $t14, dynamic $param) ==> {return new $t15($t14);
+      $hsl_re = ((dynamic $t15, dynamic $t14, dynamic $param) : dynamic ==> {return new $t15($t14);
        })($cP_, $cO_, $cN_);
       $cQ_ = 0 as dynamic;
       $cR_ = $caml_jsbytes_of_string($cst_hsla_s_d_s_d_s_d_d_d);
       $cS_ = $Js_of_ocaml_Js[10];
-      $hsla_re = ((dynamic $t13, dynamic $t12, dynamic $param) ==> {return new $t13($t12);
+      $hsla_re = ((dynamic $t13, dynamic $t12, dynamic $param) : dynamic ==> {return new $t13($t12);
        })($cS_, $cR_, $cQ_);
-      $cT_ = (dynamic $x) ==> {
+      $cT_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -856045486, 282), $x);
       };
       if (
         !
         (int)
-        ((dynamic $t1, dynamic $t0, dynamic $param) ==> {return $t1->test($t0);
+        ((dynamic $t1, dynamic $t0, dynamic $param) : dynamic ==> {return $t1->test($t0);
          })($rgb_re, $s, $cT_)
       ) {
-        $cU_ = (dynamic $x) ==> {
+        $cU_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -856045486, 283), $x);
         };
         if (
           !
           (int)
-          ((dynamic $t3, dynamic $t2, dynamic $param) ==> {return $t3->test($t2);
+          ((dynamic $t3, dynamic $t2, dynamic $param) : dynamic ==> {return $t3->test($t2);
            })($rgba_re, $s, $cU_)
         ) {
-          $cV_ = (dynamic $x) ==> {
+          $cV_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -856045486, 284), $x);
           };
           if (
             !
             (int)
-            ((dynamic $t5, dynamic $t4, dynamic $param) ==> {return $t5->test($t4);
+            ((dynamic $t5, dynamic $t4, dynamic $param) : dynamic ==> {return $t5->test($t4);
              })($rgb_pct_re, $s, $cV_)
           ) {
-            $cW_ = (dynamic $x) ==> {
+            $cW_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, -856045486, 285), $x);
             };
             if (
               !
               (int)
-              ((dynamic $t7, dynamic $t6, dynamic $param) ==> {return $t7->test($t6);
+              ((dynamic $t7, dynamic $t6, dynamic $param) : dynamic ==> {return $t7->test($t6);
                })($rgba_pct_re, $s, $cW_)
             ) {
-              $cX_ = (dynamic $x) ==> {
+              $cX_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, -856045486, 286), $x
                 );
               };
               if (
                 !
                 (int)
-                ((dynamic $t9, dynamic $t8, dynamic $param) ==> {return $t9->test($t8);
+                ((dynamic $t9, dynamic $t8, dynamic $param) : dynamic ==> {return $t9->test($t8);
                  })($hsl_re, $s, $cX_)
               ) {
-                $cY_ = (dynamic $x) ==> {
+                $cY_ = (dynamic $x) : dynamic ==> {
                   return $call1(
                     $caml_get_public_method($x, -856045486, 287),
                     $x
@@ -2277,7 +2277,7 @@ final class Js_of_ocaml__CSS {
                 if (
                   !
                   (int)
-                  ((dynamic $t11, dynamic $t10, dynamic $param) ==> {return $t11->test($t10);
+                  ((dynamic $t11, dynamic $t10, dynamic $param) : dynamic ==> {return $t11->test($t10);
                    })($hsla_re, $s, $cY_)
                 ) {
                   if ($call2($List[31], $caml_js_to_string($s), $bN_)) {return $s;}
@@ -2300,18 +2300,20 @@ final class Js_of_ocaml__CSS {
       }
       return $s;
     };
-    $name = (dynamic $cn) ==> {return $string_of_name($cn)->toString();};
-    $js = (dynamic $c) ==> {
+    $name = (dynamic $cn) : dynamic ==> {
+      return $string_of_name($cn)->toString();
+    };
+    $js = (dynamic $c) : dynamic ==> {
       if (0 === $c[0]) {$n = $c[1];return $name($n);}
       return $string_of_t($c)->toString();
     };
-    $ml = (dynamic $c) ==> {
+    $ml = (dynamic $c) : dynamic ==> {
       $s = $caml_js_to_string($c);
       try {$cr_ = Vector{0, $name_of_string($s)} as dynamic;return $cr_;}
       catch(\Throwable $cs_) {
         $cs_ = $runtime["caml_wrap_exception"]($cs_);
         if ($cs_[1] === $Invalid_argument) {
-          $fail = (dynamic $param) ==> {
+          $fail = (dynamic $param) : dynamic ==> {
             throw $caml_wrap_thrown_exception(
                     Vector{
                       0,
@@ -2323,7 +2325,7 @@ final class Js_of_ocaml__CSS {
           $re_rgb = $call1($Js_of_ocaml_Regexp[1], $cst_rgba_d_d_d_d_d);
           $re_rgb_pct = $call1($Js_of_ocaml_Regexp[1], $cst_rgba_d_d_d_d_d__0);
           $re_hsl = $call1($Js_of_ocaml_Regexp[1], $cst_hsla_d_d_d_d_d);
-          $i_of_s_o = (dynamic $param) ==> {
+          $i_of_s_o = (dynamic $param) : dynamic ==> {
             if ($param) {
               $i = $param[1];
               try {$cz_ = $runtime["caml_int_of_string"]($i);return $cz_;}
@@ -2349,7 +2351,7 @@ final class Js_of_ocaml__CSS {
             }
             return $fail(0);
           };
-          $f_of_s = (dynamic $f) ==> {
+          $f_of_s = (dynamic $f) : dynamic ==> {
             try {$cv_ = $caml_float_of_string($f);return $cv_;}
             catch(\Throwable $cw_) {
               $cw_ = $runtime["caml_wrap_exception"]($cw_);
@@ -2473,7 +2475,7 @@ final class Js_of_ocaml__CSS {
         throw $caml_wrap_thrown_exception_reraise($cs_) as \Throwable;
       }
     };
-    $string_of_t__0 = (dynamic $param) ==> {
+    $string_of_t__0 = (dynamic $param) : dynamic ==> {
       if ($is_int($param)) {return $cst_0;}
       else {
         switch($param[0]) {
@@ -2536,11 +2538,13 @@ final class Js_of_ocaml__CSS {
           }
       }
     };
-    $js__0 = (dynamic $t) ==> {return $string_of_t__0($t)->toString();};
-    $ml__0 = (dynamic $t) ==> {
+    $js__0 = (dynamic $t) : dynamic ==> {
+      return $string_of_t__0($t)->toString();
+    };
+    $ml__0 = (dynamic $t) : dynamic ==> {
       $s = $caml_js_to_string($t);
       if ($runtime["caml_string_equal"]($s, $cst_0__0)) {return 0;}
-      $fail = (dynamic $param) ==> {
+      $fail = (dynamic $param) : dynamic ==> {
         throw $caml_wrap_thrown_exception(
                 Vector{
                   0,
@@ -2603,7 +2607,7 @@ final class Js_of_ocaml__CSS {
       return $fail(0);
     };
     $Length = Vector{0, $string_of_t__0, $js__0, $ml__0} as dynamic;
-    $string_of_t__1 = (dynamic $param) ==> {
+    $string_of_t__1 = (dynamic $param) : dynamic ==> {
       switch($param[0]) {
         // FALLTHROUGH
         case 0:
@@ -2623,11 +2627,13 @@ final class Js_of_ocaml__CSS {
           return $call3($Printf[4], $b5_, $f__2, $cst_turns);
         }
     };
-    $js__1 = (dynamic $t) ==> {return $string_of_t__1($t)->toString();};
-    $ml__1 = (dynamic $j) ==> {
+    $js__1 = (dynamic $t) : dynamic ==> {
+      return $string_of_t__1($t)->toString();
+    };
+    $ml__1 = (dynamic $j) : dynamic ==> {
       $s = $caml_js_to_string($j);
       $re = $call1($Js_of_ocaml_Regexp[1], $cst_d_d_deg_grad_rad_turns);
-      $fail = (dynamic $param) ==> {
+      $fail = (dynamic $param) : dynamic ==> {
         throw $caml_wrap_thrown_exception(
                 Vector{
                   0,

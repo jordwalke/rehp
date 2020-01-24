@@ -17,9 +17,14 @@ final class Queue {
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $cst_Queue_Empty = $runtime["caml_new_string"]("Queue.Empty");
     $Empty = Vector{248, $cst_Queue_Empty, $runtime["caml_fresh_oo_id"](0)} as dynamic;
-    $create = (dynamic $param) ==> {return Vector{0, 0, 0, 0};};
-    $clear = (dynamic $q) ==> {$q[1] = 0;$q[2] = 0;$q[3] = 0;return 0;};
-    $add = (dynamic $x, dynamic $q) ==> {
+    $create = (dynamic $param) : dynamic ==> {return Vector{0, 0, 0, 0};};
+    $clear = (dynamic $q) : dynamic ==> {
+      $q[1] = 0;
+      $q[2] = 0;
+      $q[3] = 0;
+      return 0;
+    };
+    $add = (dynamic $x, dynamic $q) : dynamic ==> {
       $cell = Vector{0, $x, 0} as dynamic;
       $g_ = $q[3];
       if ($g_) {
@@ -33,13 +38,13 @@ final class Queue {
       $q[3] = $cell;
       return 0;
     };
-    $peek = (dynamic $q) ==> {
+    $peek = (dynamic $q) : dynamic ==> {
       $content = null as dynamic;
       $f_ = $q[2];
       if ($f_) {$content = $f_[1];return $content;}
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $take = (dynamic $q) ==> {
+    $take = (dynamic $q) : dynamic ==> {
       $d_ = null as dynamic;
       $e_ = null as dynamic;
       $c_ = $q[2];
@@ -52,7 +57,7 @@ final class Queue {
       }
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
-    $copy = (dynamic $q_res, dynamic $prev, dynamic $cell) ==> {
+    $copy = (dynamic $q_res, dynamic $prev, dynamic $cell) : dynamic ==> {
       $content = null as dynamic;
       $next = null as dynamic;
       $res = null as dynamic;
@@ -75,12 +80,12 @@ final class Queue {
         return $q_res;
       }
     };
-    $copy__0 = (dynamic $q) ==> {
+    $copy__0 = (dynamic $q) : dynamic ==> {
       return $copy(Vector{0, $q[1], 0, 0}, 0, $q[2]);
     };
-    $is_empty = (dynamic $q) ==> {return 0 === $q[1] ? 1 : (0);};
-    $length = (dynamic $q) ==> {return $q[1];};
-    $iter = (dynamic $f, dynamic $cell) ==> {
+    $is_empty = (dynamic $q) : dynamic ==> {return 0 === $q[1] ? 1 : (0);};
+    $length = (dynamic $q) : dynamic ==> {return $q[1];};
+    $iter = (dynamic $f, dynamic $cell) : dynamic ==> {
       $content = null as dynamic;
       $cell__1 = null as dynamic;
       $cell__0 = $cell;
@@ -95,8 +100,10 @@ final class Queue {
         return 0;
       }
     };
-    $iter__0 = (dynamic $f, dynamic $q) ==> {return $iter($f, $q[2]);};
-    $fold = (dynamic $f, dynamic $accu, dynamic $cell) ==> {
+    $iter__0 = (dynamic $f, dynamic $q) : dynamic ==> {
+      return $iter($f, $q[2]);
+    };
+    $fold = (dynamic $f, dynamic $accu, dynamic $cell) : dynamic ==> {
       $content = null as dynamic;
       $cell__1 = null as dynamic;
       $accu__1 = null as dynamic;
@@ -114,9 +121,10 @@ final class Queue {
         return $accu__0;
       }
     };
-    $fold__0 = (dynamic $f, dynamic $accu, dynamic $q) ==> {return $fold($f, $accu, $q[2]);
+    $fold__0 = (dynamic $f, dynamic $accu, dynamic $q) : dynamic ==> {
+      return $fold($f, $accu, $q[2]);
     };
-    $transfer = (dynamic $q1, dynamic $q2) ==> {
+    $transfer = (dynamic $q1, dynamic $q2) : dynamic ==> {
       $b_ = null as dynamic;
       $a_ = 0 < $q1[1] ? 1 : (0);
       if ($a_) {

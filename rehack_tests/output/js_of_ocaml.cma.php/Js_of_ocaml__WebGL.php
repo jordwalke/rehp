@@ -47,34 +47,36 @@ final class Js_of_ocaml__WebGL {
       $webglcontextrestored,
       $webglcontextcreationerror
     } as dynamic;
-    $getContext = (dynamic $c) ==> {
-      $e_ = (dynamic $x) ==> {
+    $getContext = (dynamic $c) : dynamic ==> {
+      $e_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -388424711, 212), $x);
       };
       $f_ = "webgl";
-      $ctx = ((dynamic $t3, dynamic $t2, dynamic $param) ==> {return $t3->getContext($t2);
+      $ctx = ((dynamic $t3, dynamic $t2, dynamic $param) : dynamic ==> {
+         return $t3->getContext($t2);
        })($c, $f_, $e_);
       if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $g_ = (dynamic $x) ==> {
+      $g_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -388424711, 213), $x);
       };
       $h_ = "experimental-webgl";
-      return ((dynamic $t1, dynamic $t0, dynamic $param) ==> {return $t1->getContext($t0);
+      return ((dynamic $t1, dynamic $t0, dynamic $param) : dynamic ==> {
+         return $t1->getContext($t0);
        })($c, $h_, $g_);
     };
-    $getContextWithAttributes = (dynamic $c, dynamic $attribs) ==> {
-      $a_ = (dynamic $x) ==> {
+    $getContextWithAttributes = (dynamic $c, dynamic $attribs) : dynamic ==> {
+      $a_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -719364538, 214), $x);
       };
       $b_ = "webgl";
-      $ctx = ((dynamic $t9, dynamic $t7, dynamic $t8, dynamic $param) ==> {return $t9->getContext($t7, $t8);
+      $ctx = ((dynamic $t9, dynamic $t7, dynamic $t8, dynamic $param) : dynamic ==> {return $t9->getContext($t7, $t8);
        })($c, $b_, $attribs, $a_);
       if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
-      $c_ = (dynamic $x) ==> {
+      $c_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -719364538, 215), $x);
       };
       $d_ = "experimental-webgl";
-      return ((dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) ==> {return $t6->getContext($t4, $t5);
+      return ((dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) : dynamic ==> {return $t6->getContext($t4, $t5);
        })($c, $d_, $attribs, $c_);
     };
     $Js_of_ocaml_WebGL = Vector{

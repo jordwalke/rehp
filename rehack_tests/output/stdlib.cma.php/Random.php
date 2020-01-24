@@ -98,15 +98,15 @@ final class Random {
       409934019,
       801085050
     } as dynamic;
-    $new_state = (dynamic $param) ==> {
+    $new_state = (dynamic $param) : dynamic ==> {
       return Vector{0, $runtime["caml_make_vect"](55, 0), 0};
     };
-    $assign = (dynamic $st1, dynamic $st2) ==> {
+    $assign = (dynamic $st1, dynamic $st2) : dynamic ==> {
       $call5($Array[10], $st2[1], 0, $st1[1], 0, 55);
       $st1[2] = $st2[2];
       return 0;
     };
-    $full_init = (dynamic $s, dynamic $seed) ==> {
+    $full_init = (dynamic $s, dynamic $seed) : dynamic ==> {
       $accu = null as dynamic;
       $g_ = null as dynamic;
       $h_ = null as dynamic;
@@ -118,12 +118,12 @@ final class Random {
       $k_ = null as dynamic;
       $l_ = null as dynamic;
       $m_ = null as dynamic;
-      $combine = (dynamic $accu, dynamic $x) ==> {
+      $combine = (dynamic $accu, dynamic $x) : dynamic ==> {
         $q_ = $call1($Pervasives[21], $x);
         $r_ = $call2($Pervasives[16], $accu, $q_);
         return $call1($Digest[3], $r_);
       };
-      $extract = (dynamic $d) ==> {
+      $extract = (dynamic $d) : dynamic ==> {
         $n_ = $left_shift_32($caml_string_get($d, 3), 24);
         $o_ = $left_shift_32($caml_string_get($d, 2), 16);
         $p_ = $left_shift_32($caml_string_get($d, 1), 8);
@@ -159,20 +159,20 @@ final class Random {
         return 0;
       }
     };
-    $make = (dynamic $seed) ==> {
+    $make = (dynamic $seed) : dynamic ==> {
       $result = $new_state(0);
       $full_init($result, $seed);
       return $result;
     };
-    $make_self_init = (dynamic $param) ==> {
+    $make_self_init = (dynamic $param) : dynamic ==> {
       return $make($caml_sys_random_seed(0));
     };
-    $copy = (dynamic $s) ==> {
+    $copy = (dynamic $s) : dynamic ==> {
       $result = $new_state(0);
       $assign($result, $s);
       return $result;
     };
-    $bits = (dynamic $s) ==> {
+    $bits = (dynamic $s) : dynamic ==> {
       $s[2] = (int) ((int) ($s[2] + 1) % 55);
       $d_ = $s[2];
       $curval = $caml_check_bound($s[1], $d_)[$d_ + 1];
@@ -185,7 +185,7 @@ final class Random {
       $caml_check_bound($s[1], $f_)[$f_ + 1] = $newval30;
       return $newval30;
     };
-    $intaux = (dynamic $s, dynamic $n) ==> {
+    $intaux = (dynamic $s, dynamic $n) : dynamic ==> {
       $v = null as dynamic;
       $r = null as dynamic;
       for (;;) {
@@ -195,13 +195,13 @@ final class Random {
         return $v;
       }
     };
-    $int__0 = (dynamic $s, dynamic $bound) ==> {
+    $int__0 = (dynamic $s, dynamic $bound) : dynamic ==> {
       if (! (1073741823 < $bound)) {
         if (0 < $bound) {return $intaux($s, $bound);}
       }
       return $call1($Pervasives[1], $cst_Random_int);
     };
-    $int32aux = (dynamic $s, dynamic $n) ==> {
+    $int32aux = (dynamic $s, dynamic $n) : dynamic ==> {
       $v = null as dynamic;
       $r = null as dynamic;
       $b2 = null as dynamic;
@@ -222,12 +222,12 @@ final class Random {
         return $v;
       }
     };
-    $int32 = (dynamic $s, dynamic $bound) ==> {
+    $int32 = (dynamic $s, dynamic $bound) : dynamic ==> {
       return $caml_lessequal($bound, 0)
         ? $call1($Pervasives[1], $cst_Random_int32)
         : ($int32aux($s, $bound));
     };
-    $int64aux = (dynamic $s, dynamic $n) ==> {
+    $int64aux = (dynamic $s, dynamic $n) : dynamic ==> {
       $v = null as dynamic;
       $r = null as dynamic;
       $b3 = null as dynamic;
@@ -248,48 +248,60 @@ final class Random {
         return $v;
       }
     };
-    $int64 = (dynamic $s, dynamic $bound) ==> {
+    $int64 = (dynamic $s, dynamic $bound) : dynamic ==> {
       return $caml_lessequal($bound, $b_)
         ? $call1($Pervasives[1], $cst_Random_int64)
         : ($int64aux($s, $bound));
     };
     $nativeint = 32 === $Nativeint[7]
-      ? (dynamic $s, dynamic $bound) ==> {return $int32($s, $bound);}
-      : ((dynamic $s, dynamic $bound) ==> {
+      ? (dynamic $s, dynamic $bound) : dynamic ==> {
+       return $int32($s, $bound);
+     }
+      : ((dynamic $s, dynamic $bound) : dynamic ==> {
        return $runtime["caml_int64_to_int32"](
          $int64($s, $caml_int64_of_int32($bound))
        );
      });
-    $rawfloat = (dynamic $s) ==> {
+    $rawfloat = (dynamic $s) : dynamic ==> {
       $r1 = $bits($s);
       $r2 = $bits($s);
       return ($r1 / 1073741824 + $r2) / 1073741824;
     };
-    $float__0 = (dynamic $s, dynamic $bound) ==> {
+    $float__0 = (dynamic $s, dynamic $bound) : dynamic ==> {
       return $rawfloat($s) * $bound;
     };
-    $bool = (dynamic $s) ==> {return 0 === ($bits($s) & 1) ? 1 : (0);};
+    $bool = (dynamic $s) : dynamic ==> {
+      return 0 === ($bits($s) & 1) ? 1 : (0);
+    };
     $default__0 = Vector{0, $c_->toVector(), 0} as dynamic;
-    $bits__0 = (dynamic $param) ==> {return $bits($default__0);};
-    $int__1 = (dynamic $bound) ==> {return $int__0($default__0, $bound);};
-    $int32__0 = (dynamic $bound) ==> {return $int32($default__0, $bound);};
-    $nativeint__0 = (dynamic $bound) ==> {
+    $bits__0 = (dynamic $param) : dynamic ==> {return $bits($default__0);};
+    $int__1 = (dynamic $bound) : dynamic ==> {
+      return $int__0($default__0, $bound);
+    };
+    $int32__0 = (dynamic $bound) : dynamic ==> {
+      return $int32($default__0, $bound);
+    };
+    $nativeint__0 = (dynamic $bound) : dynamic ==> {
       return $nativeint($default__0, $bound);
     };
-    $int64__0 = (dynamic $bound) ==> {return $int64($default__0, $bound);};
-    $float__1 = (dynamic $scale) ==> {return $float__0($default__0, $scale);};
-    $bool__0 = (dynamic $param) ==> {return $bool($default__0);};
-    $full_init__0 = (dynamic $seed) ==> {
+    $int64__0 = (dynamic $bound) : dynamic ==> {
+      return $int64($default__0, $bound);
+    };
+    $float__1 = (dynamic $scale) : dynamic ==> {
+      return $float__0($default__0, $scale);
+    };
+    $bool__0 = (dynamic $param) : dynamic ==> {return $bool($default__0);};
+    $full_init__0 = (dynamic $seed) : dynamic ==> {
       return $full_init($default__0, $seed);
     };
-    $init = (dynamic $seed) ==> {
+    $init = (dynamic $seed) : dynamic ==> {
       return $full_init($default__0, Vector{0, $seed});
     };
-    $self_init = (dynamic $param) ==> {
+    $self_init = (dynamic $param) : dynamic ==> {
       return $full_init__0($caml_sys_random_seed(0));
     };
-    $get_state = (dynamic $param) ==> {return $copy($default__0);};
-    $set_state = (dynamic $s) ==> {return $assign($default__0, $s);};
+    $get_state = (dynamic $param) : dynamic ==> {return $copy($default__0);};
+    $set_state = (dynamic $s) : dynamic ==> {return $assign($default__0, $s);};
     $Random = Vector{
       0,
       $init,

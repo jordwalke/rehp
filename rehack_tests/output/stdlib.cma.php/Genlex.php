@@ -44,12 +44,12 @@ final class Genlex {
     $initial_buffer = $caml_create_bytes(32);
     $buffer = Vector{0, $initial_buffer} as dynamic;
     $bufpos = Vector{0, 0} as dynamic;
-    $reset_buffer = (dynamic $param) ==> {
+    $reset_buffer = (dynamic $param) : dynamic ==> {
       $buffer[1] = $initial_buffer;
       $bufpos[1] = 0;
       return 0;
     };
-    $store = (dynamic $c) ==> {
+    $store = (dynamic $c) : dynamic ==> {
       $newbuffer = null as dynamic;
       if ($runtime["caml_ml_bytes_length"]($buffer[1]) <= $bufpos[1]) {
         $newbuffer = $caml_create_bytes((int) (2 * $bufpos[1]));
@@ -60,12 +60,12 @@ final class Genlex {
       $bufpos[1] += 1;
       return 0;
     };
-    $get_string = (dynamic $param) ==> {
+    $get_string = (dynamic $param) : dynamic ==> {
       $s = $call3($Bytes[8], $buffer[1], 0, $bufpos[1]);
       $buffer[1] = $initial_buffer;
       return $s;
     };
-    $make_lexer = (dynamic $keywords) ==> {
+    $make_lexer = (dynamic $keywords) : dynamic ==> {
       $char__0 = new Ref();
       $comment = new Ref();
       $escape = new Ref();
@@ -73,11 +73,11 @@ final class Genlex {
       $maybe_end_comment = new Ref();
       $maybe_nested_comment = new Ref();
       $kwd_table = $call2($Hashtbl[1], 0, 17);
-      $a_ = (dynamic $s) ==> {
+      $a_ = (dynamic $s) : dynamic ==> {
         return $call3($Hashtbl[5], $kwd_table, $s, Vector{0, $s});
       };
       $call2($List[15], $a_, $keywords);
-      $ident_or_keyword = (dynamic $id) ==> {
+      $ident_or_keyword = (dynamic $id) : dynamic ==> {
         $C_ = null as dynamic;
         try {$C_ = $call2($Hashtbl[6], $kwd_table, $id);return $C_;}
         catch(\Throwable $D_) {
@@ -86,7 +86,7 @@ final class Genlex {
           throw $caml_wrap_thrown_exception_reraise($D_) as \Throwable;
         }
       };
-      $keyword_or_error = (dynamic $c) ==> {
+      $keyword_or_error = (dynamic $c) : dynamic ==> {
         $z_ = null as dynamic;
         $A_ = null as dynamic;
         $s = $call2($String[1], 1, $c);
@@ -100,7 +100,7 @@ final class Genlex {
           throw $caml_wrap_thrown_exception_reraise($B_) as \Throwable;
         }
       };
-      $end_exponent_part = (dynamic $strm) ==> {
+      $end_exponent_part = (dynamic $strm) : dynamic ==> {
         $switcher = null as dynamic;
         $y_ = null as dynamic;
         $match = null as dynamic;
@@ -114,7 +114,7 @@ final class Genlex {
           return Vector{0, Vector{3, $caml_float_of_string($get_string(0))}};
         }
       };
-      $exponent_part = (dynamic $strm) ==> {
+      $exponent_part = (dynamic $strm) : dynamic ==> {
         $x_ = null as dynamic;
         $switch__0 = null as dynamic;
         $match = $call1($Stream[11], $strm);
@@ -129,7 +129,7 @@ final class Genlex {
         }
         return $end_exponent_part($strm);
       };
-      $decimal_part = (dynamic $strm) ==> {
+      $decimal_part = (dynamic $strm) : dynamic ==> {
         $switcher__0 = null as dynamic;
         $switcher = null as dynamic;
         $w_ = null as dynamic;
@@ -156,7 +156,7 @@ final class Genlex {
           return Vector{0, Vector{3, $caml_float_of_string($get_string(0))}};
         }
       };
-      $number = (dynamic $strm) ==> {
+      $number = (dynamic $strm) : dynamic ==> {
         $switch__0 = null as dynamic;
         $u_ = null as dynamic;
         $match = null as dynamic;
@@ -191,7 +191,7 @@ final class Genlex {
           };
         }
       };
-      $ident2 = (dynamic $strm) ==> {
+      $ident2 = (dynamic $strm) : dynamic ==> {
         $switch__0 = null as dynamic;
         $t_ = null as dynamic;
         $s_ = null as dynamic;
@@ -263,7 +263,7 @@ final class Genlex {
           return Vector{0, $ident_or_keyword($get_string(0))};
         }
       };
-      $neg_number = (dynamic $strm) ==> {
+      $neg_number = (dynamic $strm) : dynamic ==> {
         $r_ = null as dynamic;
         $switcher = null as dynamic;
         $match = $call1($Stream[11], $strm);
@@ -282,7 +282,7 @@ final class Genlex {
         $store(45);
         return $ident2($strm);
       };
-      $ident = (dynamic $strm) ==> {
+      $ident = (dynamic $strm) : dynamic ==> {
         $switch__0 = null as dynamic;
         $q_ = null as dynamic;
         $p_ = null as dynamic;
@@ -315,7 +315,7 @@ final class Genlex {
           return Vector{0, $ident_or_keyword($get_string(0))};
         }
       };
-      $next_token__0 = (dynamic $counter, dynamic $strm) ==> {
+      $next_token__0 = (dynamic $counter, dynamic $strm) : dynamic ==> {
         $switch__0 = null as dynamic;
         $counter__0 = null as dynamic;
         $n_ = null as dynamic;
@@ -505,7 +505,7 @@ final class Genlex {
           return 0;
         }
       };
-      $maybe_comment->contents = (dynamic $counter, dynamic $strm) ==> {
+      $maybe_comment->contents = (dynamic $counter, dynamic $strm) : dynamic ==> {
         $counter__0 = null as dynamic;
         $match = $call1($Stream[11], $strm);
         if ($match) {
@@ -521,10 +521,10 @@ final class Genlex {
         }
         return Vector{0, $keyword_or_error(40)};
       };
-      $next_token = (dynamic $strm) ==> {
+      $next_token = (dynamic $strm) : dynamic ==> {
         return $caml_trampoline($next_token__0(0, $strm));
       };
-      $string->contents = (dynamic $strm) ==> {
+      $string->contents = (dynamic $strm) : dynamic ==> {
         $c = null as dynamic;
         $j_ = null as dynamic;
         $match = null as dynamic;
@@ -558,7 +558,7 @@ final class Genlex {
           throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
         }
       };
-      $char__0->contents = (dynamic $strm) ==> {
+      $char__0->contents = (dynamic $strm) : dynamic ==> {
         $g_ = null as dynamic;
         $h_ = null as dynamic;
         $match = $call1($Stream[11], $strm);
@@ -582,7 +582,7 @@ final class Genlex {
         }
         throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
-      $escape->contents = (dynamic $strm) ==> {
+      $escape->contents = (dynamic $strm) : dynamic ==> {
         $d_ = null as dynamic;
         $switcher = null as dynamic;
         $match__0 = null as dynamic;
@@ -653,7 +653,7 @@ final class Genlex {
         }
         throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
-      $comment__0 = (dynamic $counter, dynamic $strm) ==> {
+      $comment__0 = (dynamic $counter, dynamic $strm) : dynamic ==> {
         $counter__1 = null as dynamic;
         $counter__0 = null as dynamic;
         $switcher = null as dynamic;
@@ -696,7 +696,7 @@ final class Genlex {
           throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
         }
       };
-      $maybe_nested_comment->contents = (dynamic $counter, dynamic $strm) ==> {
+      $maybe_nested_comment->contents = (dynamic $counter, dynamic $strm) : dynamic ==> {
         $counter__0 = null as dynamic;
         $counter__1 = null as dynamic;
         $match = $call1($Stream[11], $strm);
@@ -719,7 +719,7 @@ final class Genlex {
         }
         throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
       };
-      $maybe_end_comment->contents = (dynamic $counter, dynamic $strm) ==> {
+      $maybe_end_comment->contents = (dynamic $counter, dynamic $strm) : dynamic ==> {
         $counter__0 = null as dynamic;
         $c_ = null as dynamic;
         $match = null as dynamic;
@@ -739,11 +739,11 @@ final class Genlex {
           throw $caml_wrap_thrown_exception($Stream[1]) as \Throwable;
         }
       };
-      $comment->contents = (dynamic $strm) ==> {
+      $comment->contents = (dynamic $strm) : dynamic ==> {
         return $caml_trampoline($comment__0(0, $strm));
       };
-      return (dynamic $input) ==> {
-        $b_ = (dynamic $count) ==> {return $next_token($input);};
+      return (dynamic $input) : dynamic ==> {
+        $b_ = (dynamic $count) : dynamic ==> {return $next_token($input);};
         return $call1($Stream[3], $b_);
       };
     };

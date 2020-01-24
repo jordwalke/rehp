@@ -14,7 +14,7 @@ final class CamlinternalFormatBasics {
     $concat_fmt = new Ref();$concat_fmtty = new Ref();$erase_rel = new Ref();
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $is_int = $runtime["is_int"];
-    $erase_rel->contents = (dynamic $param) ==> {
+    $erase_rel->contents = (dynamic $param) : dynamic ==> {
       $rest__13 = null as dynamic;
       $rest__12 = null as dynamic;
       $rest__11 = null as dynamic;
@@ -100,7 +100,7 @@ final class CamlinternalFormatBasics {
           }
       }
     };
-    $concat_fmtty->contents = (dynamic $fmtty1, dynamic $fmtty2) ==> {
+    $concat_fmtty->contents = (dynamic $fmtty1, dynamic $fmtty2) : dynamic ==> {
       $rest__13 = null as dynamic;
       $rest__12 = null as dynamic;
       $rest__11 = null as dynamic;
@@ -193,7 +193,7 @@ final class CamlinternalFormatBasics {
           }
       }
     };
-    $concat_fmt->contents = (dynamic $fmt1, dynamic $fmt2) ==> {
+    $concat_fmt->contents = (dynamic $fmt1, dynamic $fmt2) : dynamic ==> {
       $arity = null as dynamic;
       $f = null as dynamic;
       $rest__23 = null as dynamic;

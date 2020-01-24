@@ -17,19 +17,19 @@ final class Lazy {
     $CamlinternalLazy = CamlinternalLazy::get();
     $Undefined = $CamlinternalLazy[1];
     $force_val = $CamlinternalLazy[5];
-    $from_fun = (dynamic $f) ==> {
+    $from_fun = (dynamic $f) : dynamic ==> {
       $x = $runtime["caml_obj_block"]($Obj[6], 1);
       $x[1] = $f;
       return $x;
     };
-    $from_val = (dynamic $v) ==> {
+    $from_val = (dynamic $v) : dynamic ==> {
       $t = $caml_obj_tag($v);
       if ($t !== $Obj[10]) {
         if ($t !== $Obj[6]) {if ($t !== $Obj[14]) {return $v;}}
       }
       return $runtime["caml_lazy_make_forward"]($v);
     };
-    $is_val = (dynamic $l) ==> {
+    $is_val = (dynamic $l) : dynamic ==> {
       return $caml_obj_tag($l) !== $Obj[6] ? 1 : (0);
     };
     $Lazy = Vector{

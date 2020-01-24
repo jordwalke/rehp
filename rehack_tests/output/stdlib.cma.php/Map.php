@@ -28,7 +28,7 @@ final class Map {
     $a_ = Vector{0, 0, 0, 0} as dynamic;
     $b_ = Vector{0, $string("map.ml"), 393, 10} as dynamic;
     $c_ = Vector{0, 0, 0} as dynamic;
-    $Make = (dynamic $Ord) ==> {
+    $Make = (dynamic $Ord) : dynamic ==> {
       $add = new Ref();
       $add_max_binding = new Ref();
       $add_min_binding = new Ref();
@@ -49,21 +49,21 @@ final class Map {
       $split = new Ref();
       $union = new Ref();
       $update = new Ref();
-      $height = (dynamic $param) ==> {
+      $height = (dynamic $param) : dynamic ==> {
         $h = null as dynamic;
         if ($param) {$h = $param[5];return $h;}
         return 0;
       };
-      $create = (dynamic $l, dynamic $x, dynamic $d, dynamic $r) ==> {
+      $create = (dynamic $l, dynamic $x, dynamic $d, dynamic $r) : dynamic ==> {
         $hl = $height($l);
         $hr = $height($r);
         $N_ = $hr <= $hl ? (int) ($hl + 1) : ((int) ($hr + 1));
         return Vector{0, $l, $x, $d, $r, $N_};
       };
-      $singleton = (dynamic $x, dynamic $d) ==> {
+      $singleton = (dynamic $x, dynamic $d) : dynamic ==> {
         return Vector{0, 0, $x, $d, 0, 1};
       };
-      $bal = (dynamic $l, dynamic $x, dynamic $d, dynamic $r) ==> {
+      $bal = (dynamic $l, dynamic $x, dynamic $d, dynamic $r) : dynamic ==> {
         $L_ = null as dynamic;
         $rll = null as dynamic;
         $rlv = null as dynamic;
@@ -146,8 +146,8 @@ final class Map {
         return Vector{0, $l, $x, $d, $r, $M_};
       };
       $empty = 0 as dynamic;
-      $is_empty = (dynamic $param) ==> {return $param ? 0 : (1);};
-      $add->contents = (dynamic $x, dynamic $data, dynamic $m) ==> {
+      $is_empty = (dynamic $param) : dynamic ==> {return $param ? 0 : (1);};
+      $add->contents = (dynamic $x, dynamic $data, dynamic $m) : dynamic ==> {
         $ll = null as dynamic;
         $rr = null as dynamic;
         $c = null as dynamic;
@@ -175,7 +175,7 @@ final class Map {
         }
         return Vector{0, 0, $x, $data, 0, 1};
       };
-      $find = (dynamic $x, dynamic $param) ==> {
+      $find = (dynamic $x, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -198,7 +198,7 @@ final class Map {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $find_first_aux = (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+      $find_first_aux = (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -224,7 +224,7 @@ final class Map {
           return Vector{0, $v0__0, $d0__0};
         }
       };
-      $find_first = (dynamic $f, dynamic $param) ==> {
+      $find_first = (dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -244,7 +244,7 @@ final class Map {
         }
       };
       $find_first_opt_aux = 
-      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -270,7 +270,7 @@ final class Map {
           return Vector{0, Vector{0, $v0__0, $d0__0}};
         }
       };
-      $find_first_opt = (dynamic $f, dynamic $param) ==> {
+      $find_first_opt = (dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -289,7 +289,7 @@ final class Map {
           return 0;
         }
       };
-      $find_last_aux = (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+      $find_last_aux = (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -315,7 +315,7 @@ final class Map {
           return Vector{0, $v0__0, $d0__0};
         }
       };
-      $find_last = (dynamic $f, dynamic $param) ==> {
+      $find_last = (dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -335,7 +335,7 @@ final class Map {
         }
       };
       $find_last_opt_aux = 
-      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) ==> {
+      (dynamic $v0, dynamic $d0, dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -361,7 +361,7 @@ final class Map {
           return Vector{0, Vector{0, $v0__0, $d0__0}};
         }
       };
-      $find_last_opt = (dynamic $f, dynamic $param) ==> {
+      $find_last_opt = (dynamic $f, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -380,7 +380,7 @@ final class Map {
           return 0;
         }
       };
-      $find_opt = (dynamic $x, dynamic $param) ==> {
+      $find_opt = (dynamic $x, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -403,7 +403,7 @@ final class Map {
           return 0;
         }
       };
-      $mem = (dynamic $x, dynamic $param) ==> {
+      $mem = (dynamic $x, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $v = null as dynamic;
         $l = null as dynamic;
@@ -426,7 +426,7 @@ final class Map {
           return 0;
         }
       };
-      $min_binding = (dynamic $param) ==> {
+      $min_binding = (dynamic $param) : dynamic ==> {
         $G_ = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -442,7 +442,7 @@ final class Map {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $min_binding_opt = (dynamic $param) ==> {
+      $min_binding_opt = (dynamic $param) : dynamic ==> {
         $F_ = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -458,7 +458,7 @@ final class Map {
           return 0;
         }
       };
-      $max_binding = (dynamic $param) ==> {
+      $max_binding = (dynamic $param) : dynamic ==> {
         $C_ = null as dynamic;
         $D_ = null as dynamic;
         $E_ = null as dynamic;
@@ -474,7 +474,7 @@ final class Map {
           throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
         }
       };
-      $max_binding_opt = (dynamic $param) ==> {
+      $max_binding_opt = (dynamic $param) : dynamic ==> {
         $z_ = null as dynamic;
         $A_ = null as dynamic;
         $B_ = null as dynamic;
@@ -490,7 +490,7 @@ final class Map {
           return 0;
         }
       };
-      $remove_min_binding->contents = (dynamic $param) ==> {
+      $remove_min_binding->contents = (dynamic $param) : dynamic ==> {
         $r__0 = null as dynamic;
         $v = null as dynamic;
         $d = null as dynamic;
@@ -509,7 +509,7 @@ final class Map {
         }
         return $call1($Pervasives[1], $cst_Map_remove_min_elt);
       };
-      $f_ = (dynamic $t, dynamic $match) ==> {
+      $f_ = (dynamic $t, dynamic $match) : dynamic ==> {
         $x = null as dynamic;
         $d = null as dynamic;
         $match__0 = null as dynamic;
@@ -524,7 +524,7 @@ final class Map {
         }
         return $match;
       };
-      $remove->contents = (dynamic $x, dynamic $m) ==> {
+      $remove->contents = (dynamic $x, dynamic $m) : dynamic ==> {
         $ll = null as dynamic;
         $rr = null as dynamic;
         $c = null as dynamic;
@@ -548,7 +548,7 @@ final class Map {
         }
         return 0;
       };
-      $update->contents = (dynamic $x, dynamic $f, dynamic $m) ==> {
+      $update->contents = (dynamic $x, dynamic $f, dynamic $m) : dynamic ==> {
         $data__0 = null as dynamic;
         $ll = null as dynamic;
         $rr = null as dynamic;
@@ -589,7 +589,7 @@ final class Map {
         }
         return 0;
       };
-      $iter->contents = (dynamic $f, dynamic $param) ==> {
+      $iter->contents = (dynamic $f, dynamic $param) : dynamic ==> {
         $param__1 = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -609,7 +609,7 @@ final class Map {
           return 0;
         }
       };
-      $map->contents = (dynamic $f, dynamic $param) ==> {
+      $map->contents = (dynamic $f, dynamic $param) : dynamic ==> {
         $r__0 = null as dynamic;
         $d__0 = null as dynamic;
         $l__0 = null as dynamic;
@@ -631,7 +631,7 @@ final class Map {
         }
         return 0;
       };
-      $mapi->contents = (dynamic $f, dynamic $param) ==> {
+      $mapi->contents = (dynamic $f, dynamic $param) : dynamic ==> {
         $r__0 = null as dynamic;
         $d__0 = null as dynamic;
         $l__0 = null as dynamic;
@@ -653,7 +653,7 @@ final class Map {
         }
         return 0;
       };
-      $fold->contents = (dynamic $f, dynamic $m, dynamic $accu) ==> {
+      $fold->contents = (dynamic $f, dynamic $m, dynamic $accu) : dynamic ==> {
         $m__1 = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -675,7 +675,7 @@ final class Map {
           return $accu__0;
         }
       };
-      $for_all->contents = (dynamic $p, dynamic $param) ==> {
+      $for_all->contents = (dynamic $p, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -702,7 +702,7 @@ final class Map {
           return 1;
         }
       };
-      $exists->contents = (dynamic $p, dynamic $param) ==> {
+      $exists->contents = (dynamic $p, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -731,7 +731,7 @@ final class Map {
           return 0;
         }
       };
-      $add_min_binding->contents = (dynamic $k, dynamic $x, dynamic $param) ==> {
+      $add_min_binding->contents = (dynamic $k, dynamic $x, dynamic $param) : dynamic ==> {
         $l = null as dynamic;
         $v = null as dynamic;
         $d = null as dynamic;
@@ -745,7 +745,7 @@ final class Map {
         }
         return $singleton($k, $x);
       };
-      $add_max_binding->contents = (dynamic $k, dynamic $x, dynamic $param) ==> {
+      $add_max_binding->contents = (dynamic $k, dynamic $x, dynamic $param) : dynamic ==> {
         $l = null as dynamic;
         $v = null as dynamic;
         $d = null as dynamic;
@@ -759,7 +759,7 @@ final class Map {
         }
         return $singleton($k, $x);
       };
-      $join->contents = (dynamic $l, dynamic $v, dynamic $d, dynamic $r) ==> {
+      $join->contents = (dynamic $l, dynamic $v, dynamic $d, dynamic $r) : dynamic ==> {
         $ll = null as dynamic;
         $lv = null as dynamic;
         $ld = null as dynamic;
@@ -792,7 +792,7 @@ final class Map {
         }
         return $add_min_binding->contents($v, $d, $r);
       };
-      $concat = (dynamic $t, dynamic $match) ==> {
+      $concat = (dynamic $t, dynamic $match) : dynamic ==> {
         $x = null as dynamic;
         $d = null as dynamic;
         $match__0 = null as dynamic;
@@ -812,12 +812,12 @@ final class Map {
         }
         return $match;
       };
-      $concat_or_join = (dynamic $t1, dynamic $v, dynamic $d, dynamic $t2) ==> {
+      $concat_or_join = (dynamic $t1, dynamic $v, dynamic $d, dynamic $t2) : dynamic ==> {
         $d__0 = null as dynamic;
         if ($d) {$d__0 = $d[1];return $join->contents($t1, $v, $d__0, $t2);}
         return $concat($t1, $t2);
       };
-      $split->contents = (dynamic $x, dynamic $param) ==> {
+      $split->contents = (dynamic $x, dynamic $param) : dynamic ==> {
         $ll = null as dynamic;
         $pres__0 = null as dynamic;
         $rl = null as dynamic;
@@ -853,7 +853,7 @@ final class Map {
         }
         return $a_;
       };
-      $merge->contents = (dynamic $f, dynamic $s1, dynamic $s2) ==> {
+      $merge->contents = (dynamic $f, dynamic $s1, dynamic $s2) : dynamic ==> {
         $r_ = null as dynamic;
         $q_ = null as dynamic;
         $l1__0 = null as dynamic;
@@ -917,7 +917,7 @@ final class Map {
         }
         throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
       };
-      $union->contents = (dynamic $f, dynamic $s1, dynamic $s2) ==> {
+      $union->contents = (dynamic $f, dynamic $s1, dynamic $s2) : dynamic ==> {
         $s = null as dynamic;
         $d1__1 = null as dynamic;
         $r__0 = null as dynamic;
@@ -995,7 +995,7 @@ final class Map {
         else {$s = $s2;}
         return $s;
       };
-      $filter->contents = (dynamic $p, dynamic $m) ==> {
+      $filter->contents = (dynamic $p, dynamic $m) : dynamic ==> {
         $r__0 = null as dynamic;
         $pvd = null as dynamic;
         $l__0 = null as dynamic;
@@ -1019,7 +1019,7 @@ final class Map {
         }
         return 0;
       };
-      $partition->contents = (dynamic $p, dynamic $param) ==> {
+      $partition->contents = (dynamic $p, dynamic $param) : dynamic ==> {
         $n_ = null as dynamic;
         $m_ = null as dynamic;
         $rt = null as dynamic;
@@ -1054,7 +1054,7 @@ final class Map {
         }
         return $c_;
       };
-      $cons_enum = (dynamic $m, dynamic $e) ==> {
+      $cons_enum = (dynamic $m, dynamic $e) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -1076,8 +1076,8 @@ final class Map {
           return $e__0;
         }
       };
-      $compare = (dynamic $cmp, dynamic $m1, dynamic $m2) ==> {
-        $compare_aux = (dynamic $e1, dynamic $e2) ==> {
+      $compare = (dynamic $cmp, dynamic $m1, dynamic $m2) : dynamic ==> {
+        $compare_aux = (dynamic $e1, dynamic $e2) : dynamic ==> {
           $e2__1 = null as dynamic;
           $r2 = null as dynamic;
           $d2 = null as dynamic;
@@ -1125,8 +1125,8 @@ final class Map {
         $l_ = $cons_enum($m2, 0);
         return $compare_aux($cons_enum($m1, 0), $l_);
       };
-      $equal = (dynamic $cmp, dynamic $m1, dynamic $m2) ==> {
-        $equal_aux = (dynamic $e1, dynamic $e2) ==> {
+      $equal = (dynamic $cmp, dynamic $m1, dynamic $m2) : dynamic ==> {
+        $equal_aux = (dynamic $e1, dynamic $e2) : dynamic ==> {
           $e2__1 = null as dynamic;
           $r2 = null as dynamic;
           $d2 = null as dynamic;
@@ -1176,7 +1176,7 @@ final class Map {
         $h_ = $cons_enum($m2, 0);
         return $equal_aux($cons_enum($m1, 0), $h_);
       };
-      $cardinal->contents = (dynamic $param) ==> {
+      $cardinal->contents = (dynamic $param) : dynamic ==> {
         $g_ = null as dynamic;
         $l = null as dynamic;
         $r = null as dynamic;
@@ -1188,7 +1188,7 @@ final class Map {
         }
         return 0;
       };
-      $bindings_aux->contents = (dynamic $accu, dynamic $param) ==> {
+      $bindings_aux->contents = (dynamic $accu, dynamic $param) : dynamic ==> {
         $r = null as dynamic;
         $d = null as dynamic;
         $v = null as dynamic;
@@ -1215,7 +1215,9 @@ final class Map {
           return $accu__0;
         }
       };
-      $bindings = (dynamic $s) ==> {return $bindings_aux->contents(0, $s);};
+      $bindings = (dynamic $s) : dynamic ==> {
+        return $bindings_aux->contents(0, $s);
+      };
       return Vector{
         0,
         $height,
@@ -1271,7 +1273,7 @@ final class Map {
     };
     $Map = Vector{
       0,
-      (dynamic $d_) ==> {
+      (dynamic $d_) : dynamic ==> {
         $e_ = $Make($d_);
         return Vector{
           0,

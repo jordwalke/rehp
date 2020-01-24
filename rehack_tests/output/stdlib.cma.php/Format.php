@@ -39,9 +39,9 @@ final class Format {
     $Not_found = Not_found::get();
     $b_ = Vector{3, 0, 3} as dynamic;
     $a_ = Vector{0, $string("")} as dynamic;
-    $make_queue = (dynamic $param) ==> {return Vector{0, 0, 0};};
-    $clear_queue = (dynamic $q) ==> {$q[1] = 0;$q[2] = 0;return 0;};
-    $add_queue = (dynamic $x, dynamic $q) ==> {
+    $make_queue = (dynamic $param) : dynamic ==> {return Vector{0, 0, 0};};
+    $clear_queue = (dynamic $q) : dynamic ==> {$q[1] = 0;$q[2] = 0;return 0;};
+    $add_queue = (dynamic $x, dynamic $q) : dynamic ==> {
       $c = Vector{0, $x, 0} as dynamic;
       $cx_ = $q[1];
       if ($cx_) {$q[1] = $c;$cx_[2] = $c;return 0;}
@@ -54,13 +54,13 @@ final class Format {
       $cst_Format_Empty_queue,
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
-    $peek_queue = (dynamic $param) ==> {
+    $peek_queue = (dynamic $param) : dynamic ==> {
       $x = null as dynamic;
       $cw_ = $param[2];
       if ($cw_) {$x = $cw_[1];return $x;}
       throw $caml_wrap_thrown_exception($Empty_queue) as \Throwable;
     };
-    $take_queue = (dynamic $q) ==> {
+    $take_queue = (dynamic $q) : dynamic ==> {
       $x = null as dynamic;
       $tl = null as dynamic;
       $cv_ = $q[2];
@@ -73,28 +73,30 @@ final class Format {
       }
       throw $caml_wrap_thrown_exception($Empty_queue) as \Throwable;
     };
-    $pp_enqueue = (dynamic $state, dynamic $token) ==> {
+    $pp_enqueue = (dynamic $state, dynamic $token) : dynamic ==> {
       $len = $token[3];
       $state[13] = (int) ($state[13] + $len);
       return $add_queue($token, $state[28]);
     };
-    $pp_clear_queue = (dynamic $state) ==> {
+    $pp_clear_queue = (dynamic $state) : dynamic ==> {
       $state[12] = 1;
       $state[13] = 1;
       return $clear_queue($state[28]);
     };
     $pp_infinity = 1000000010 as dynamic;
-    $pp_output_string = (dynamic $state, dynamic $s) ==> {
+    $pp_output_string = (dynamic $state, dynamic $s) : dynamic ==> {
       return $call3($state[17], $s, 0, $caml_ml_string_length($s));
     };
-    $pp_output_newline = (dynamic $state) ==> {return $call1($state[19], 0);};
-    $pp_output_spaces = (dynamic $state, dynamic $n) ==> {
+    $pp_output_newline = (dynamic $state) : dynamic ==> {
+      return $call1($state[19], 0);
+    };
+    $pp_output_spaces = (dynamic $state, dynamic $n) : dynamic ==> {
       return $call1($state[20], $n);
     };
-    $pp_output_indent = (dynamic $state, dynamic $n) ==> {
+    $pp_output_indent = (dynamic $state, dynamic $n) : dynamic ==> {
       return $call1($state[21], $n);
     };
-    $break_new_line = (dynamic $state, dynamic $offset, dynamic $width) ==> {
+    $break_new_line = (dynamic $state, dynamic $offset, dynamic $width) : dynamic ==> {
       $pp_output_newline($state);
       $state[11] = 1;
       $indent = (int) ((int) ($state[6] - $width) + $offset) as dynamic;
@@ -103,14 +105,14 @@ final class Format {
       $state[9] = (int) ($state[6] - $state[10]);
       return $pp_output_indent($state, $state[10]);
     };
-    $break_line = (dynamic $state, dynamic $width) ==> {
+    $break_line = (dynamic $state, dynamic $width) : dynamic ==> {
       return $break_new_line($state, 0, $width);
     };
-    $break_same_line = (dynamic $state, dynamic $width) ==> {
+    $break_same_line = (dynamic $state, dynamic $width) : dynamic ==> {
       $state[9] = (int) ($state[9] - $width);
       return $pp_output_spaces($state, $width);
     };
-    $pp_force_break_line = (dynamic $state) ==> {
+    $pp_force_break_line = (dynamic $state) : dynamic ==> {
       $match = null as dynamic;
       $width = null as dynamic;
       $bl_ty = null as dynamic;
@@ -133,7 +135,7 @@ final class Format {
       }
       return $pp_output_newline($state);
     };
-    $pp_skip_token = (dynamic $state) ==> {
+    $pp_skip_token = (dynamic $state) : dynamic ==> {
       $match = $take_queue($state[28]);
       $size = $match[1];
       $len = $match[3];
@@ -141,7 +143,7 @@ final class Format {
       $state[9] = (int) ($state[9] + $size);
       return 0;
     };
-    $format_pp_token = (dynamic $state, dynamic $size, dynamic $param) ==> {
+    $format_pp_token = (dynamic $state, dynamic $size, dynamic $param) : dynamic ==> {
       $marker__0 = null as dynamic;
       $tag_name__0 = null as dynamic;
       $tbox = null as dynamic;
@@ -195,7 +197,7 @@ final class Format {
               $match = $ch_[1];
               $tabs = $match[1];
               $add_tab =
-                (dynamic $n, dynamic $ls) ==> {
+                (dynamic $n, dynamic $ls) : dynamic ==> {
                   $x = null as dynamic;
                   $l = null as dynamic;
                   if ($ls) {
@@ -307,7 +309,7 @@ final class Format {
               $match__2 = $co_[1];
               $tabs__0 = $match__2[1];
               $find =
-                (dynamic $n, dynamic $param) ==> {
+                (dynamic $n, dynamic $param) : dynamic ==> {
                   $l = null as dynamic;
                   $x = null as dynamic;
                   $param__0 = $param;
@@ -368,7 +370,7 @@ final class Format {
           }
       }
     };
-    $advance_loop = (dynamic $state) ==> {
+    $advance_loop = (dynamic $state) : dynamic ==> {
       $size__0 = null as dynamic;
       $cg_ = null as dynamic;
       $cf_ = null as dynamic;
@@ -398,7 +400,7 @@ final class Format {
         return $cg_;
       }
     };
-    $advance_left = (dynamic $state) ==> {
+    $advance_left = (dynamic $state) : dynamic ==> {
       $cc_ = null as dynamic;
       try {$cc_ = $advance_loop($state);return $cc_;}
       catch(\Throwable $cd_) {
@@ -407,29 +409,30 @@ final class Format {
         throw $caml_wrap_thrown_exception_reraise($cd_) as \Throwable;
       }
     };
-    $enqueue_advance = (dynamic $state, dynamic $tok) ==> {
+    $enqueue_advance = (dynamic $state, dynamic $tok) : dynamic ==> {
       $pp_enqueue($state, $tok);
       return $advance_left($state);
     };
-    $make_queue_elem = (dynamic $size, dynamic $tok, dynamic $len) ==> {return Vector{0, $size, $tok, $len};
+    $make_queue_elem = (dynamic $size, dynamic $tok, dynamic $len) : dynamic ==> {
+      return Vector{0, $size, $tok, $len};
     };
-    $enqueue_string_as = (dynamic $state, dynamic $size, dynamic $s) ==> {
+    $enqueue_string_as = (dynamic $state, dynamic $size, dynamic $s) : dynamic ==> {
       return $enqueue_advance(
         $state,
         $make_queue_elem($size, Vector{0, $s}, $size)
       );
     };
-    $enqueue_string = (dynamic $state, dynamic $s) ==> {
+    $enqueue_string = (dynamic $state, dynamic $s) : dynamic ==> {
       $len = $caml_ml_string_length($s);
       return $enqueue_string_as($state, $len, $s);
     };
     $q_elem = $make_queue_elem(-1, $a_, 0);
     $scan_stack_bottom = Vector{0, Vector{0, -1, $q_elem}, 0} as dynamic;
-    $clear_scan_stack = (dynamic $state) ==> {
+    $clear_scan_stack = (dynamic $state) : dynamic ==> {
       $state[1] = $scan_stack_bottom;
       return 0;
     };
-    $set_size = (dynamic $state, dynamic $ty) ==> {
+    $set_size = (dynamic $state, dynamic $ty) : dynamic ==> {
       $match = null as dynamic;
       $queue_elem = null as dynamic;
       $left_tot = null as dynamic;
@@ -477,13 +480,13 @@ final class Format {
       }
       return 0;
     };
-    $scan_push = (dynamic $state, dynamic $b, dynamic $tok) ==> {
+    $scan_push = (dynamic $state, dynamic $b, dynamic $tok) : dynamic ==> {
       $pp_enqueue($state, $tok);
       if ($b) {$set_size($state, 1);}
       $state[1] = Vector{0, Vector{0, $state[13], $tok}, $state[1]};
       return 0;
     };
-    $pp_open_box_gen = (dynamic $state, dynamic $indent, dynamic $br_ty) ==> {
+    $pp_open_box_gen = (dynamic $state, dynamic $indent, dynamic $br_ty) : dynamic ==> {
       $elem = null as dynamic;
       $state[14] = (int) ($state[14] + 1);
       if ($state[14] < $state[15]) {
@@ -494,10 +497,10 @@ final class Format {
       $b8_ = $state[14] === $state[15] ? 1 : (0);
       return $b8_ ? $enqueue_string($state, $state[16]) : ($b8_);
     };
-    $pp_open_sys_box = (dynamic $state) ==> {
+    $pp_open_sys_box = (dynamic $state) : dynamic ==> {
       return $pp_open_box_gen($state, 0, 3);
     };
-    $pp_close_box = (dynamic $state, dynamic $param) ==> {
+    $pp_close_box = (dynamic $state, dynamic $param) : dynamic ==> {
       $b7_ = null as dynamic;
       $b6_ = 1 < $state[14] ? 1 : (0);
       if ($b6_) {
@@ -512,7 +515,7 @@ final class Format {
       else {$b7_ = $b6_;}
       return $b7_;
     };
-    $pp_open_tag = (dynamic $state, dynamic $tag_name) ==> {
+    $pp_open_tag = (dynamic $state, dynamic $tag_name) : dynamic ==> {
       if ($state[22]) {
         $state[4] = Vector{0, $tag_name, $state[4]};
         $call1($state[26], $tag_name);
@@ -522,7 +525,7 @@ final class Format {
         ? $pp_enqueue($state, Vector{0, 0, Vector{5, $tag_name}, 0})
         : ($b5_);
     };
-    $pp_close_tag = (dynamic $state, dynamic $param) ==> {
+    $pp_close_tag = (dynamic $state, dynamic $param) : dynamic ==> {
       $b4_ = null as dynamic;
       $tag_name = null as dynamic;
       $tags = null as dynamic;
@@ -543,26 +546,28 @@ final class Format {
       else {$b4_ = $b2_;}
       return $b4_;
     };
-    $pp_set_print_tags = (dynamic $state, dynamic $b) ==> {
+    $pp_set_print_tags = (dynamic $state, dynamic $b) : dynamic ==> {
       $state[22] = $b;
       return 0;
     };
-    $pp_set_mark_tags = (dynamic $state, dynamic $b) ==> {
+    $pp_set_mark_tags = (dynamic $state, dynamic $b) : dynamic ==> {
       $state[23] = $b;
       return 0;
     };
-    $pp_get_print_tags = (dynamic $state, dynamic $param) ==> {return $state[22];
+    $pp_get_print_tags = (dynamic $state, dynamic $param) : dynamic ==> {
+      return $state[22];
     };
-    $pp_get_mark_tags = (dynamic $state, dynamic $param) ==> {return $state[23];
+    $pp_get_mark_tags = (dynamic $state, dynamic $param) : dynamic ==> {
+      return $state[23];
     };
-    $pp_set_tags = (dynamic $state, dynamic $b) ==> {
+    $pp_set_tags = (dynamic $state, dynamic $b) : dynamic ==> {
       $pp_set_print_tags($state, $b);
       return $pp_set_mark_tags($state, $b);
     };
-    $pp_get_formatter_tag_functions = (dynamic $state, dynamic $param) ==> {
+    $pp_get_formatter_tag_functions = (dynamic $state, dynamic $param) : dynamic ==> {
       return Vector{0, $state[24], $state[25], $state[26], $state[27]};
     };
-    $pp_set_formatter_tag_functions = (dynamic $state, dynamic $param) ==> {
+    $pp_set_formatter_tag_functions = (dynamic $state, dynamic $param) : dynamic ==> {
       $pct = $param[4];
       $pot = $param[3];
       $mct = $param[2];
@@ -573,7 +578,7 @@ final class Format {
       $state[27] = $pct;
       return 0;
     };
-    $pp_rinit = (dynamic $state) ==> {
+    $pp_rinit = (dynamic $state) : dynamic ==> {
       $pp_clear_queue($state);
       $clear_scan_stack($state);
       $state[2] = 0;
@@ -585,12 +590,12 @@ final class Format {
       $state[9] = $state[6];
       return $pp_open_sys_box($state);
     };
-    $clear_tag_stack = (dynamic $state) ==> {
+    $clear_tag_stack = (dynamic $state) : dynamic ==> {
       $b0_ = $state[4];
-      $b1_ = (dynamic $param) ==> {return $pp_close_tag($state, 0);};
+      $b1_ = (dynamic $param) : dynamic ==> {return $pp_close_tag($state, 0);};
       return $call2($List[15], $b1_, $b0_);
     };
-    $pp_flush_queue = (dynamic $state, dynamic $b) ==> {
+    $pp_flush_queue = (dynamic $state, dynamic $b) : dynamic ==> {
       $clear_tag_stack($state);
       for (;;) {
         if (1 < $state[14]) {$pp_close_box($state, 0);continue;}
@@ -600,64 +605,64 @@ final class Format {
         return $pp_rinit($state);
       }
     };
-    $pp_print_as_size = (dynamic $state, dynamic $size, dynamic $s) ==> {
+    $pp_print_as_size = (dynamic $state, dynamic $size, dynamic $s) : dynamic ==> {
       $bZ_ = $state[14] < $state[15] ? 1 : (0);
       return $bZ_ ? $enqueue_string_as($state, $size, $s) : ($bZ_);
     };
-    $pp_print_as = (dynamic $state, dynamic $isize, dynamic $s) ==> {
+    $pp_print_as = (dynamic $state, dynamic $isize, dynamic $s) : dynamic ==> {
       return $pp_print_as_size($state, $isize, $s);
     };
-    $pp_print_string = (dynamic $state, dynamic $s) ==> {
+    $pp_print_string = (dynamic $state, dynamic $s) : dynamic ==> {
       return $pp_print_as($state, $caml_ml_string_length($s), $s);
     };
-    $pp_print_int = (dynamic $state, dynamic $i) ==> {
+    $pp_print_int = (dynamic $state, dynamic $i) : dynamic ==> {
       return $pp_print_string($state, $call1($Pervasives[21], $i));
     };
-    $pp_print_float = (dynamic $state, dynamic $f) ==> {
+    $pp_print_float = (dynamic $state, dynamic $f) : dynamic ==> {
       return $pp_print_string($state, $call1($Pervasives[23], $f));
     };
-    $pp_print_bool = (dynamic $state, dynamic $b) ==> {
+    $pp_print_bool = (dynamic $state, dynamic $b) : dynamic ==> {
       return $pp_print_string($state, $call1($Pervasives[18], $b));
     };
-    $pp_print_char = (dynamic $state, dynamic $c) ==> {
+    $pp_print_char = (dynamic $state, dynamic $c) : dynamic ==> {
       return $pp_print_as($state, 1, $call2($String[1], 1, $c));
     };
-    $pp_open_hbox = (dynamic $state, dynamic $param) ==> {
+    $pp_open_hbox = (dynamic $state, dynamic $param) : dynamic ==> {
       return $pp_open_box_gen($state, 0, 0);
     };
-    $pp_open_vbox = (dynamic $state, dynamic $indent) ==> {
+    $pp_open_vbox = (dynamic $state, dynamic $indent) : dynamic ==> {
       return $pp_open_box_gen($state, $indent, 1);
     };
-    $pp_open_hvbox = (dynamic $state, dynamic $indent) ==> {
+    $pp_open_hvbox = (dynamic $state, dynamic $indent) : dynamic ==> {
       return $pp_open_box_gen($state, $indent, 2);
     };
-    $pp_open_hovbox = (dynamic $state, dynamic $indent) ==> {
+    $pp_open_hovbox = (dynamic $state, dynamic $indent) : dynamic ==> {
       return $pp_open_box_gen($state, $indent, 3);
     };
-    $pp_open_box = (dynamic $state, dynamic $indent) ==> {
+    $pp_open_box = (dynamic $state, dynamic $indent) : dynamic ==> {
       return $pp_open_box_gen($state, $indent, 4);
     };
-    $pp_print_newline = (dynamic $state, dynamic $param) ==> {
+    $pp_print_newline = (dynamic $state, dynamic $param) : dynamic ==> {
       $pp_flush_queue($state, 1);
       return $call1($state[18], 0);
     };
-    $pp_print_flush = (dynamic $state, dynamic $param) ==> {
+    $pp_print_flush = (dynamic $state, dynamic $param) : dynamic ==> {
       $pp_flush_queue($state, 0);
       return $call1($state[18], 0);
     };
-    $pp_force_newline = (dynamic $state, dynamic $param) ==> {
+    $pp_force_newline = (dynamic $state, dynamic $param) : dynamic ==> {
       $bY_ = $state[14] < $state[15] ? 1 : (0);
       return $bY_
         ? $enqueue_advance($state, $make_queue_elem(0, 3, 0))
         : ($bY_);
     };
-    $pp_print_if_newline = (dynamic $state, dynamic $param) ==> {
+    $pp_print_if_newline = (dynamic $state, dynamic $param) : dynamic ==> {
       $bX_ = $state[14] < $state[15] ? 1 : (0);
       return $bX_
         ? $enqueue_advance($state, $make_queue_elem(0, 4, 0))
         : ($bX_);
     };
-    $pp_print_break = (dynamic $state, dynamic $width, dynamic $offset) ==> {
+    $pp_print_break = (dynamic $state, dynamic $width, dynamic $offset) : dynamic ==> {
       $elem = null as dynamic;
       $bW_ = $state[14] < $state[15] ? 1 : (0);
       if ($bW_) {
@@ -673,13 +678,13 @@ final class Format {
       }
       return $bW_;
     };
-    $pp_print_space = (dynamic $state, dynamic $param) ==> {
+    $pp_print_space = (dynamic $state, dynamic $param) : dynamic ==> {
       return $pp_print_break($state, 1, 0);
     };
-    $pp_print_cut = (dynamic $state, dynamic $param) ==> {
+    $pp_print_cut = (dynamic $state, dynamic $param) : dynamic ==> {
       return $pp_print_break($state, 0, 0);
     };
-    $pp_open_tbox = (dynamic $state, dynamic $param) ==> {
+    $pp_open_tbox = (dynamic $state, dynamic $param) : dynamic ==> {
       $elem = null as dynamic;
       $state[14] = (int) ($state[14] + 1);
       $bV_ = $state[14] < $state[15] ? 1 : (0);
@@ -689,7 +694,7 @@ final class Format {
       }
       return $bV_;
     };
-    $pp_close_tbox = (dynamic $state, dynamic $param) ==> {
+    $pp_close_tbox = (dynamic $state, dynamic $param) : dynamic ==> {
       $bT_ = null as dynamic;
       $elem = null as dynamic;
       $bU_ = null as dynamic;
@@ -707,7 +712,7 @@ final class Format {
       else {$bU_ = $bS_;}
       return $bU_;
     };
-    $pp_print_tbreak = (dynamic $state, dynamic $width, dynamic $offset) ==> {
+    $pp_print_tbreak = (dynamic $state, dynamic $width, dynamic $offset) : dynamic ==> {
       $elem = null as dynamic;
       $bR_ = $state[14] < $state[15] ? 1 : (0);
       if ($bR_) {
@@ -723,10 +728,10 @@ final class Format {
       }
       return $bR_;
     };
-    $pp_print_tab = (dynamic $state, dynamic $param) ==> {
+    $pp_print_tab = (dynamic $state, dynamic $param) : dynamic ==> {
       return $pp_print_tbreak($state, 0, 0);
     };
-    $pp_set_tab = (dynamic $state, dynamic $param) ==> {
+    $pp_set_tab = (dynamic $state, dynamic $param) : dynamic ==> {
       $elem = null as dynamic;
       $bQ_ = $state[14] < $state[15] ? 1 : (0);
       if ($bQ_) {
@@ -735,7 +740,7 @@ final class Format {
       }
       return $bQ_;
     };
-    $pp_set_max_boxes = (dynamic $state, dynamic $n) ==> {
+    $pp_set_max_boxes = (dynamic $state, dynamic $n) : dynamic ==> {
       $bP_ = null as dynamic;
       $bO_ = 1 < $n ? 1 : (0);
       if ($bO_) {
@@ -745,19 +750,23 @@ final class Format {
       else {$bP_ = $bO_;}
       return $bP_;
     };
-    $pp_get_max_boxes = (dynamic $state, dynamic $param) ==> {return $state[15];
+    $pp_get_max_boxes = (dynamic $state, dynamic $param) : dynamic ==> {
+      return $state[15];
     };
-    $pp_over_max_boxes = (dynamic $state, dynamic $param) ==> {
+    $pp_over_max_boxes = (dynamic $state, dynamic $param) : dynamic ==> {
       return $state[14] === $state[15] ? 1 : (0);
     };
-    $pp_set_ellipsis_text = (dynamic $state, dynamic $s) ==> {
+    $pp_set_ellipsis_text = (dynamic $state, dynamic $s) : dynamic ==> {
       $state[16] = $s;
       return 0;
     };
-    $pp_get_ellipsis_text = (dynamic $state, dynamic $param) ==> {return $state[16];
+    $pp_get_ellipsis_text = (dynamic $state, dynamic $param) : dynamic ==> {
+      return $state[16];
     };
-    $pp_limit = (dynamic $n) ==> {return $n < 1000000010 ? $n : (1000000009);};
-    $pp_set_min_space_left = (dynamic $state, dynamic $n) ==> {
+    $pp_limit = (dynamic $n) : dynamic ==> {
+      return $n < 1000000010 ? $n : (1000000009);
+    };
+    $pp_set_min_space_left = (dynamic $state, dynamic $n) : dynamic ==> {
       $n__0 = null as dynamic;
       $bN_ = 1 <= $n ? 1 : (0);
       if ($bN_) {
@@ -768,12 +777,13 @@ final class Format {
       }
       return $bN_;
     };
-    $pp_set_max_indent = (dynamic $state, dynamic $n) ==> {
+    $pp_set_max_indent = (dynamic $state, dynamic $n) : dynamic ==> {
       return $pp_set_min_space_left($state, (int) ($state[6] - $n));
     };
-    $pp_get_max_indent = (dynamic $state, dynamic $param) ==> {return $state[8];
+    $pp_get_max_indent = (dynamic $state, dynamic $param) : dynamic ==> {
+      return $state[8];
     };
-    $pp_set_margin = (dynamic $state, dynamic $n) ==> {
+    $pp_set_margin = (dynamic $state, dynamic $n) : dynamic ==> {
       $n__0 = null as dynamic;
       $new_max_indent = null as dynamic;
       $bM_ = null as dynamic;
@@ -799,8 +809,10 @@ final class Format {
       }
       return $bL_;
     };
-    $pp_get_margin = (dynamic $state, dynamic $param) ==> {return $state[6];};
-    $pp_set_formatter_out_functions = (dynamic $state, dynamic $param) ==> {
+    $pp_get_margin = (dynamic $state, dynamic $param) : dynamic ==> {
+      return $state[6];
+    };
+    $pp_set_formatter_out_functions = (dynamic $state, dynamic $param) : dynamic ==> {
       $j = $param[5];
       $i = $param[4];
       $h = $param[3];
@@ -813,7 +825,7 @@ final class Format {
       $state[21] = $j;
       return 0;
     };
-    $pp_get_formatter_out_functions = (dynamic $state, dynamic $param) ==> {
+    $pp_get_formatter_out_functions = (dynamic $state, dynamic $param) : dynamic ==> {
       return Vector{
         0,
         $state[17],
@@ -824,19 +836,19 @@ final class Format {
       };
     };
     $pp_set_formatter_output_functions = 
-    (dynamic $state, dynamic $f, dynamic $g) ==> {
+    (dynamic $state, dynamic $f, dynamic $g) : dynamic ==> {
       $state[17] = $f;
       $state[18] = $g;
       return 0;
     };
-    $pp_get_formatter_output_functions = (dynamic $state, dynamic $param) ==> {
+    $pp_get_formatter_output_functions = (dynamic $state, dynamic $param) : dynamic ==> {
       return Vector{0, $state[17], $state[18]};
     };
-    $display_newline = (dynamic $state, dynamic $param) ==> {
+    $display_newline = (dynamic $state, dynamic $param) : dynamic ==> {
       return $call3($state[17], $cst, 0, 1);
     };
     $blank_line = $call2($String[1], 80, 32);
-    $display_blanks = (dynamic $state, dynamic $n) ==> {
+    $display_blanks = (dynamic $state, dynamic $n) : dynamic ==> {
       $bK_ = null as dynamic;
       $n__1 = null as dynamic;
       $n__0 = $n;
@@ -854,28 +866,30 @@ final class Format {
         return $bK_;
       }
     };
-    $pp_set_formatter_out_channel = (dynamic $state, dynamic $oc) ==> {
+    $pp_set_formatter_out_channel = (dynamic $state, dynamic $oc) : dynamic ==> {
       $state[17] = $call1($Pervasives[57], $oc);
       $state[18] =
-        (dynamic $param) ==> {return $call1($Pervasives[51], $oc);};
+        (dynamic $param) : dynamic ==> {return $call1($Pervasives[51], $oc);};
       $state[19] =
-        (dynamic $bJ_) ==> {return $display_newline($state, $bJ_);};
-      $state[20] = (dynamic $bI_) ==> {return $display_blanks($state, $bI_);};
-      $state[21] = (dynamic $bH_) ==> {return $display_blanks($state, $bH_);};
+        (dynamic $bJ_) : dynamic ==> {return $display_newline($state, $bJ_);};
+      $state[20] =
+        (dynamic $bI_) : dynamic ==> {return $display_blanks($state, $bI_);};
+      $state[21] =
+        (dynamic $bH_) : dynamic ==> {return $display_blanks($state, $bH_);};
       return 0;
     };
-    $default_pp_mark_open_tag = (dynamic $s) ==> {
+    $default_pp_mark_open_tag = (dynamic $s) : dynamic ==> {
       $bG_ = $call2($Pervasives[16], $s, $cst__0);
       return $call2($Pervasives[16], $cst__1, $bG_);
     };
-    $default_pp_mark_close_tag = (dynamic $s) ==> {
+    $default_pp_mark_close_tag = (dynamic $s) : dynamic ==> {
       $bF_ = $call2($Pervasives[16], $s, $cst__2);
       return $call2($Pervasives[16], $cst__3, $bF_);
     };
-    $default_pp_print_open_tag = (dynamic $bE_) ==> {return 0;};
-    $default_pp_print_close_tag = (dynamic $bD_) ==> {return 0;};
+    $default_pp_print_open_tag = (dynamic $bE_) : dynamic ==> {return 0;};
+    $default_pp_print_close_tag = (dynamic $bD_) : dynamic ==> {return 0;};
     $pp_make_formatter = 
-    (dynamic $f, dynamic $g, dynamic $h, dynamic $i, dynamic $j) ==> {
+    (dynamic $f, dynamic $g, dynamic $h, dynamic $i, dynamic $j) : dynamic ==> {
       $pp_queue = $make_queue(0);
       $sys_tok = $make_queue_elem(-1, $b_, 0);
       $add_queue($sys_tok, $pp_queue);
@@ -912,7 +926,7 @@ final class Format {
         $pp_queue
       };
     };
-    $formatter_of_out_functions = (dynamic $out_funs) ==> {
+    $formatter_of_out_functions = (dynamic $out_funs) : dynamic ==> {
       return $pp_make_formatter(
         $out_funs[1],
         $out_funs[2],
@@ -921,229 +935,243 @@ final class Format {
         $out_funs[5]
       );
     };
-    $make_formatter = (dynamic $output, dynamic $flush) ==> {
-      $bv_ = (dynamic $bC_) ==> {return 0;};
-      $bw_ = (dynamic $bB_) ==> {return 0;};
+    $make_formatter = (dynamic $output, dynamic $flush) : dynamic ==> {
+      $bv_ = (dynamic $bC_) : dynamic ==> {return 0;};
+      $bw_ = (dynamic $bB_) : dynamic ==> {return 0;};
       $ppf = $pp_make_formatter(
         $output,
         $flush,
-        (dynamic $bA_) ==> {return 0;},
+        (dynamic $bA_) : dynamic ==> {return 0;},
         $bw_,
         $bv_
       );
-      $ppf[19] = (dynamic $bz_) ==> {return $display_newline($ppf, $bz_);};
-      $ppf[20] = (dynamic $by_) ==> {return $display_blanks($ppf, $by_);};
-      $ppf[21] = (dynamic $bx_) ==> {return $display_blanks($ppf, $bx_);};
+      $ppf[19] =
+        (dynamic $bz_) : dynamic ==> {return $display_newline($ppf, $bz_);};
+      $ppf[20] =
+        (dynamic $by_) : dynamic ==> {return $display_blanks($ppf, $by_);};
+      $ppf[21] =
+        (dynamic $bx_) : dynamic ==> {return $display_blanks($ppf, $bx_);};
       return $ppf;
     };
-    $formatter_of_out_channel = (dynamic $oc) ==> {
-      $bu_ = (dynamic $param) ==> {return $call1($Pervasives[51], $oc);};
+    $formatter_of_out_channel = (dynamic $oc) : dynamic ==> {
+      $bu_ = (dynamic $param) : dynamic ==> {
+        return $call1($Pervasives[51], $oc);
+      };
       return $make_formatter($call1($Pervasives[57], $oc), $bu_);
     };
-    $formatter_of_buffer = (dynamic $b) ==> {
-      $bs_ = (dynamic $bt_) ==> {return 0;};
+    $formatter_of_buffer = (dynamic $b) : dynamic ==> {
+      $bs_ = (dynamic $bt_) : dynamic ==> {return 0;};
       return $make_formatter($call1($Buffer[16], $b), $bs_);
     };
     $pp_buffer_size = 512 as dynamic;
-    $pp_make_buffer = (dynamic $param) ==> {
+    $pp_make_buffer = (dynamic $param) : dynamic ==> {
       return $call1($Buffer[1], $pp_buffer_size);
     };
     $stdbuf = $pp_make_buffer(0);
     $std_formatter = $formatter_of_out_channel($Pervasives[27]);
     $err_formatter = $formatter_of_out_channel($Pervasives[28]);
     $str_formatter = $formatter_of_buffer($stdbuf);
-    $flush_buffer_formatter = (dynamic $buf, dynamic $ppf) ==> {
+    $flush_buffer_formatter = (dynamic $buf, dynamic $ppf) : dynamic ==> {
       $pp_flush_queue($ppf, 0);
       $s = $call1($Buffer[2], $buf);
       $call1($Buffer[9], $buf);
       return $s;
     };
-    $flush_str_formatter = (dynamic $param) ==> {
+    $flush_str_formatter = (dynamic $param) : dynamic ==> {
       return $flush_buffer_formatter($stdbuf, $str_formatter);
     };
-    $make_symbolic_output_buffer = (dynamic $param) ==> {return Vector{0, 0};};
-    $clear_symbolic_output_buffer = (dynamic $sob) ==> {$sob[1] = 0;return 0;};
-    $get_symbolic_output_buffer = (dynamic $sob) ==> {
+    $make_symbolic_output_buffer = (dynamic $param) : dynamic ==> {
+      return Vector{0, 0};
+    };
+    $clear_symbolic_output_buffer = (dynamic $sob) : dynamic ==> {
+      $sob[1] = 0;
+      return 0;
+    };
+    $get_symbolic_output_buffer = (dynamic $sob) : dynamic ==> {
       return $call1($List[9], $sob[1]);
     };
-    $flush_symbolic_output_buffer = (dynamic $sob) ==> {
+    $flush_symbolic_output_buffer = (dynamic $sob) : dynamic ==> {
       $items = $get_symbolic_output_buffer($sob);
       $clear_symbolic_output_buffer($sob);
       return $items;
     };
-    $add_symbolic_output_item = (dynamic $sob, dynamic $item) ==> {
+    $add_symbolic_output_item = (dynamic $sob, dynamic $item) : dynamic ==> {
       $sob[1] = Vector{0, $item, $sob[1]};
       return 0;
     };
-    $formatter_of_symbolic_output_buffer = (dynamic $sob) ==> {
-      $symbolic_flush = (dynamic $sob, dynamic $param) ==> {
+    $formatter_of_symbolic_output_buffer = (dynamic $sob) : dynamic ==> {
+      $symbolic_flush = (dynamic $sob, dynamic $param) : dynamic ==> {
         return $add_symbolic_output_item($sob, 0);
       };
-      $symbolic_newline = (dynamic $sob, dynamic $param) ==> {
+      $symbolic_newline = (dynamic $sob, dynamic $param) : dynamic ==> {
         return $add_symbolic_output_item($sob, 1);
       };
-      $symbolic_string = (dynamic $sob, dynamic $s, dynamic $i, dynamic $n) ==> {
+      $symbolic_string = (dynamic $sob, dynamic $s, dynamic $i, dynamic $n) : dynamic ==> {
         return $add_symbolic_output_item(
           $sob,
           Vector{0, $call3($String[4], $s, $i, $n)}
         );
       };
-      $symbolic_spaces = (dynamic $sob, dynamic $n) ==> {
+      $symbolic_spaces = (dynamic $sob, dynamic $n) : dynamic ==> {
         return $add_symbolic_output_item($sob, Vector{1, $n});
       };
-      $symbolic_indent = (dynamic $sob, dynamic $n) ==> {
+      $symbolic_indent = (dynamic $sob, dynamic $n) : dynamic ==> {
         return $add_symbolic_output_item($sob, Vector{2, $n});
       };
-      $f = (dynamic $bp_, dynamic $bq_, dynamic $br_) ==> {
+      $f = (dynamic $bp_, dynamic $bq_, dynamic $br_) : dynamic ==> {
         return $symbolic_string($sob, $bp_, $bq_, $br_);
       };
-      $g = (dynamic $bo_) ==> {return $symbolic_flush($sob, $bo_);};
-      $h = (dynamic $bn_) ==> {return $symbolic_newline($sob, $bn_);};
-      $i = (dynamic $bm_) ==> {return $symbolic_spaces($sob, $bm_);};
-      $j = (dynamic $bl_) ==> {return $symbolic_indent($sob, $bl_);};
+      $g = (dynamic $bo_) : dynamic ==> {return $symbolic_flush($sob, $bo_);};
+      $h = (dynamic $bn_) : dynamic ==> {
+        return $symbolic_newline($sob, $bn_);
+      };
+      $i = (dynamic $bm_) : dynamic ==> {return $symbolic_spaces($sob, $bm_);};
+      $j = (dynamic $bl_) : dynamic ==> {return $symbolic_indent($sob, $bl_);};
       return $pp_make_formatter($f, $g, $h, $i, $j);
     };
-    $open_hbox = (dynamic $bk_) ==> {
+    $open_hbox = (dynamic $bk_) : dynamic ==> {
       return $pp_open_hbox($std_formatter, $bk_);
     };
-    $open_vbox = (dynamic $bj_) ==> {
+    $open_vbox = (dynamic $bj_) : dynamic ==> {
       return $pp_open_vbox($std_formatter, $bj_);
     };
-    $open_hvbox = (dynamic $bi_) ==> {
+    $open_hvbox = (dynamic $bi_) : dynamic ==> {
       return $pp_open_hvbox($std_formatter, $bi_);
     };
-    $open_hovbox = (dynamic $bh_) ==> {
+    $open_hovbox = (dynamic $bh_) : dynamic ==> {
       return $pp_open_hovbox($std_formatter, $bh_);
     };
-    $open_box = (dynamic $bg_) ==> {
+    $open_box = (dynamic $bg_) : dynamic ==> {
       return $pp_open_box($std_formatter, $bg_);
     };
-    $close_box = (dynamic $bf_) ==> {
+    $close_box = (dynamic $bf_) : dynamic ==> {
       return $pp_close_box($std_formatter, $bf_);
     };
-    $open_tag = (dynamic $be_) ==> {
+    $open_tag = (dynamic $be_) : dynamic ==> {
       return $pp_open_tag($std_formatter, $be_);
     };
-    $close_tag = (dynamic $bd_) ==> {
+    $close_tag = (dynamic $bd_) : dynamic ==> {
       return $pp_close_tag($std_formatter, $bd_);
     };
-    $print_as = (dynamic $bb_, dynamic $bc_) ==> {
+    $print_as = (dynamic $bb_, dynamic $bc_) : dynamic ==> {
       return $pp_print_as($std_formatter, $bb_, $bc_);
     };
-    $print_string = (dynamic $ba_) ==> {
+    $print_string = (dynamic $ba_) : dynamic ==> {
       return $pp_print_string($std_formatter, $ba_);
     };
-    $print_int = (dynamic $a__) ==> {
+    $print_int = (dynamic $a__) : dynamic ==> {
       return $pp_print_int($std_formatter, $a__);
     };
-    $print_float = (dynamic $a9_) ==> {
+    $print_float = (dynamic $a9_) : dynamic ==> {
       return $pp_print_float($std_formatter, $a9_);
     };
-    $print_char = (dynamic $a8_) ==> {
+    $print_char = (dynamic $a8_) : dynamic ==> {
       return $pp_print_char($std_formatter, $a8_);
     };
-    $print_bool = (dynamic $a7_) ==> {
+    $print_bool = (dynamic $a7_) : dynamic ==> {
       return $pp_print_bool($std_formatter, $a7_);
     };
-    $print_break = (dynamic $a5_, dynamic $a6_) ==> {
+    $print_break = (dynamic $a5_, dynamic $a6_) : dynamic ==> {
       return $pp_print_break($std_formatter, $a5_, $a6_);
     };
-    $print_cut = (dynamic $a4_) ==> {
+    $print_cut = (dynamic $a4_) : dynamic ==> {
       return $pp_print_cut($std_formatter, $a4_);
     };
-    $print_space = (dynamic $a3_) ==> {
+    $print_space = (dynamic $a3_) : dynamic ==> {
       return $pp_print_space($std_formatter, $a3_);
     };
-    $force_newline = (dynamic $a2_) ==> {
+    $force_newline = (dynamic $a2_) : dynamic ==> {
       return $pp_force_newline($std_formatter, $a2_);
     };
-    $print_flush = (dynamic $a1_) ==> {
+    $print_flush = (dynamic $a1_) : dynamic ==> {
       return $pp_print_flush($std_formatter, $a1_);
     };
-    $print_newline = (dynamic $a0_) ==> {
+    $print_newline = (dynamic $a0_) : dynamic ==> {
       return $pp_print_newline($std_formatter, $a0_);
     };
-    $print_if_newline = (dynamic $aZ_) ==> {
+    $print_if_newline = (dynamic $aZ_) : dynamic ==> {
       return $pp_print_if_newline($std_formatter, $aZ_);
     };
-    $open_tbox = (dynamic $aY_) ==> {
+    $open_tbox = (dynamic $aY_) : dynamic ==> {
       return $pp_open_tbox($std_formatter, $aY_);
     };
-    $close_tbox = (dynamic $aX_) ==> {
+    $close_tbox = (dynamic $aX_) : dynamic ==> {
       return $pp_close_tbox($std_formatter, $aX_);
     };
-    $print_tbreak = (dynamic $aV_, dynamic $aW_) ==> {
+    $print_tbreak = (dynamic $aV_, dynamic $aW_) : dynamic ==> {
       return $pp_print_tbreak($std_formatter, $aV_, $aW_);
     };
-    $set_tab = (dynamic $aU_) ==> {return $pp_set_tab($std_formatter, $aU_);};
-    $print_tab = (dynamic $aT_) ==> {
+    $set_tab = (dynamic $aU_) : dynamic ==> {
+      return $pp_set_tab($std_formatter, $aU_);
+    };
+    $print_tab = (dynamic $aT_) : dynamic ==> {
       return $pp_print_tab($std_formatter, $aT_);
     };
-    $set_margin = (dynamic $aS_) ==> {
+    $set_margin = (dynamic $aS_) : dynamic ==> {
       return $pp_set_margin($std_formatter, $aS_);
     };
-    $get_margin = (dynamic $aR_) ==> {
+    $get_margin = (dynamic $aR_) : dynamic ==> {
       return $pp_get_margin($std_formatter, $aR_);
     };
-    $set_max_indent = (dynamic $aQ_) ==> {
+    $set_max_indent = (dynamic $aQ_) : dynamic ==> {
       return $pp_set_max_indent($std_formatter, $aQ_);
     };
-    $get_max_indent = (dynamic $aP_) ==> {
+    $get_max_indent = (dynamic $aP_) : dynamic ==> {
       return $pp_get_max_indent($std_formatter, $aP_);
     };
-    $set_max_boxes = (dynamic $aO_) ==> {
+    $set_max_boxes = (dynamic $aO_) : dynamic ==> {
       return $pp_set_max_boxes($std_formatter, $aO_);
     };
-    $get_max_boxes = (dynamic $aN_) ==> {
+    $get_max_boxes = (dynamic $aN_) : dynamic ==> {
       return $pp_get_max_boxes($std_formatter, $aN_);
     };
-    $over_max_boxes = (dynamic $aM_) ==> {
+    $over_max_boxes = (dynamic $aM_) : dynamic ==> {
       return $pp_over_max_boxes($std_formatter, $aM_);
     };
-    $set_ellipsis_text = (dynamic $aL_) ==> {
+    $set_ellipsis_text = (dynamic $aL_) : dynamic ==> {
       return $pp_set_ellipsis_text($std_formatter, $aL_);
     };
-    $get_ellipsis_text = (dynamic $aK_) ==> {
+    $get_ellipsis_text = (dynamic $aK_) : dynamic ==> {
       return $pp_get_ellipsis_text($std_formatter, $aK_);
     };
-    $set_formatter_out_channel = (dynamic $aJ_) ==> {
+    $set_formatter_out_channel = (dynamic $aJ_) : dynamic ==> {
       return $pp_set_formatter_out_channel($std_formatter, $aJ_);
     };
-    $set_formatter_out_functions = (dynamic $aI_) ==> {
+    $set_formatter_out_functions = (dynamic $aI_) : dynamic ==> {
       return $pp_set_formatter_out_functions($std_formatter, $aI_);
     };
-    $get_formatter_out_functions = (dynamic $aH_) ==> {
+    $get_formatter_out_functions = (dynamic $aH_) : dynamic ==> {
       return $pp_get_formatter_out_functions($std_formatter, $aH_);
     };
-    $set_formatter_output_functions = (dynamic $aF_, dynamic $aG_) ==> {
+    $set_formatter_output_functions = (dynamic $aF_, dynamic $aG_) : dynamic ==> {
       return $pp_set_formatter_output_functions($std_formatter, $aF_, $aG_);
     };
-    $get_formatter_output_functions = (dynamic $aE_) ==> {
+    $get_formatter_output_functions = (dynamic $aE_) : dynamic ==> {
       return $pp_get_formatter_output_functions($std_formatter, $aE_);
     };
-    $set_formatter_tag_functions = (dynamic $aD_) ==> {
+    $set_formatter_tag_functions = (dynamic $aD_) : dynamic ==> {
       return $pp_set_formatter_tag_functions($std_formatter, $aD_);
     };
-    $get_formatter_tag_functions = (dynamic $aC_) ==> {
+    $get_formatter_tag_functions = (dynamic $aC_) : dynamic ==> {
       return $pp_get_formatter_tag_functions($std_formatter, $aC_);
     };
-    $set_print_tags = (dynamic $aB_) ==> {
+    $set_print_tags = (dynamic $aB_) : dynamic ==> {
       return $pp_set_print_tags($std_formatter, $aB_);
     };
-    $get_print_tags = (dynamic $aA_) ==> {
+    $get_print_tags = (dynamic $aA_) : dynamic ==> {
       return $pp_get_print_tags($std_formatter, $aA_);
     };
-    $set_mark_tags = (dynamic $az_) ==> {
+    $set_mark_tags = (dynamic $az_) : dynamic ==> {
       return $pp_set_mark_tags($std_formatter, $az_);
     };
-    $get_mark_tags = (dynamic $ay_) ==> {
+    $get_mark_tags = (dynamic $ay_) : dynamic ==> {
       return $pp_get_mark_tags($std_formatter, $ay_);
     };
-    $set_tags = (dynamic $ax_) ==> {
+    $set_tags = (dynamic $ax_) : dynamic ==> {
       return $pp_set_tags($std_formatter, $ax_);
     };
     $pp_print_list = 
-    (dynamic $opt, dynamic $pp_v, dynamic $ppf, dynamic $param) ==> {
+    (dynamic $opt, dynamic $pp_v, dynamic $ppf, dynamic $param) : dynamic ==> {
       $sth = null as dynamic;
       $pp_sep = null as dynamic;
       $av_ = null as dynamic;
@@ -1173,13 +1201,13 @@ final class Format {
         return 0;
       }
     };
-    $pp_print_text = (dynamic $ppf, dynamic $s) ==> {
+    $pp_print_text = (dynamic $ppf, dynamic $s) : dynamic ==> {
       $match = null as dynamic;
       $au_ = null as dynamic;
       $len = $caml_ml_string_length($s);
       $left = Vector{0, 0} as dynamic;
       $right = Vector{0, 0} as dynamic;
-      $flush = (dynamic $param) ==> {
+      $flush = (dynamic $param) : dynamic ==> {
         $pp_print_string(
           $ppf,
           $call3($String[4], $s, $left[1], (int) ($right[1] - $left[1]))
@@ -1208,7 +1236,7 @@ final class Format {
         return $au_ ? $flush(0) : ($au_);
       }
     };
-    $compute_tag = (dynamic $output, dynamic $tag_acc) ==> {
+    $compute_tag = (dynamic $output, dynamic $tag_acc) : dynamic ==> {
       $buf = $call1($Buffer[1], 16);
       $ppf = $formatter_of_buffer($buf);
       $call2($output, $ppf, $tag_acc);
@@ -1218,7 +1246,7 @@ final class Format {
         ? $call3($Buffer[4], $buf, 1, (int) ($len + -2))
         : ($call1($Buffer[2], $buf));
     };
-    $output_formatting_lit = (dynamic $ppf, dynamic $fmting_lit) ==> {
+    $output_formatting_lit = (dynamic $ppf, dynamic $fmting_lit) : dynamic ==> {
       $c = null as dynamic;
       $width = null as dynamic;
       $offset = null as dynamic;
@@ -1265,7 +1293,7 @@ final class Format {
           }
       }
     };
-    $output_acc->contents = (dynamic $ppf, dynamic $acc) ==> {
+    $output_acc->contents = (dynamic $ppf, dynamic $acc) : dynamic ==> {
       $switch__8 = null as dynamic;
       $switch__7 = null as dynamic;
       $switch__6 = null as dynamic;
@@ -1542,7 +1570,7 @@ final class Format {
           return $pp_print_char($ppf, $c);
         }
     };
-    $strput_acc->contents = (dynamic $ppf, dynamic $acc) ==> {
+    $strput_acc->contents = (dynamic $ppf, dynamic $acc) : dynamic ==> {
       $switch__8 = null as dynamic;
       $switch__7 = null as dynamic;
       $switch__6 = null as dynamic;
@@ -1833,74 +1861,74 @@ final class Format {
           return $pp_print_char($ppf, $c);
         }
     };
-    $kfprintf = (dynamic $k, dynamic $ppf, dynamic $param) ==> {
+    $kfprintf = (dynamic $k, dynamic $ppf, dynamic $param) : dynamic ==> {
       $fmt = $param[1];
       $o_ = 0 as dynamic;
-      $p_ = (dynamic $ppf, dynamic $acc) ==> {
+      $p_ = (dynamic $ppf, dynamic $acc) : dynamic ==> {
         $output_acc->contents($ppf, $acc);
         return $call1($k, $ppf);
       };
       return $call4($CamlinternalFormat[7], $p_, $ppf, $o_, $fmt);
     };
-    $ikfprintf = (dynamic $k, dynamic $ppf, dynamic $param) ==> {
+    $ikfprintf = (dynamic $k, dynamic $ppf, dynamic $param) : dynamic ==> {
       $fmt = $param[1];
       return $call3($CamlinternalFormat[8], $k, $ppf, $fmt);
     };
-    $fprintf = (dynamic $ppf) ==> {
-      $l_ = (dynamic $n_) ==> {return 0;};
-      return (dynamic $m_) ==> {return $kfprintf($l_, $ppf, $m_);};
+    $fprintf = (dynamic $ppf) : dynamic ==> {
+      $l_ = (dynamic $n_) : dynamic ==> {return 0;};
+      return (dynamic $m_) : dynamic ==> {return $kfprintf($l_, $ppf, $m_);};
     };
-    $ifprintf = (dynamic $ppf) ==> {
-      $i_ = (dynamic $k_) ==> {return 0;};
-      return (dynamic $j_) ==> {return $ikfprintf($i_, $ppf, $j_);};
+    $ifprintf = (dynamic $ppf) : dynamic ==> {
+      $i_ = (dynamic $k_) : dynamic ==> {return 0;};
+      return (dynamic $j_) : dynamic ==> {return $ikfprintf($i_, $ppf, $j_);};
     };
-    $printf = (dynamic $fmt) ==> {
+    $printf = (dynamic $fmt) : dynamic ==> {
       return $call1($fprintf($std_formatter), $fmt);
     };
-    $eprintf = (dynamic $fmt) ==> {
+    $eprintf = (dynamic $fmt) : dynamic ==> {
       return $call1($fprintf($err_formatter), $fmt);
     };
-    $ksprintf = (dynamic $k, dynamic $param) ==> {
+    $ksprintf = (dynamic $k, dynamic $param) : dynamic ==> {
       $fmt = $param[1];
       $b = $pp_make_buffer(0);
       $ppf = $formatter_of_buffer($b);
-      $k__0 = (dynamic $param, dynamic $acc) ==> {
+      $k__0 = (dynamic $param, dynamic $acc) : dynamic ==> {
         $strput_acc->contents($ppf, $acc);
         return $call1($k, $flush_buffer_formatter($b, $ppf));
       };
       return $call4($CamlinternalFormat[7], $k__0, 0, 0, $fmt);
     };
-    $sprintf = (dynamic $fmt) ==> {
-      return $ksprintf((dynamic $s) ==> {return $s;}, $fmt);
+    $sprintf = (dynamic $fmt) : dynamic ==> {
+      return $ksprintf((dynamic $s) : dynamic ==> {return $s;}, $fmt);
     };
-    $kasprintf = (dynamic $k, dynamic $param) ==> {
+    $kasprintf = (dynamic $k, dynamic $param) : dynamic ==> {
       $fmt = $param[1];
       $b = $pp_make_buffer(0);
       $ppf = $formatter_of_buffer($b);
-      $k__0 = (dynamic $ppf, dynamic $acc) ==> {
+      $k__0 = (dynamic $ppf, dynamic $acc) : dynamic ==> {
         $output_acc->contents($ppf, $acc);
         return $call1($k, $flush_buffer_formatter($b, $ppf));
       };
       return $call4($CamlinternalFormat[7], $k__0, $ppf, 0, $fmt);
     };
-    $asprintf = (dynamic $fmt) ==> {
-      return $kasprintf((dynamic $s) ==> {return $s;}, $fmt);
+    $asprintf = (dynamic $fmt) : dynamic ==> {
+      return $kasprintf((dynamic $s) : dynamic ==> {return $s;}, $fmt);
     };
     
     $call1($Pervasives[88], $print_flush);
     
     $pp_set_all_formatter_output_functions = 
-    (dynamic $state, dynamic $f, dynamic $g, dynamic $h, dynamic $i) ==> {
+    (dynamic $state, dynamic $f, dynamic $g, dynamic $h, dynamic $i) : dynamic ==> {
       $pp_set_formatter_output_functions($state, $f, $g);
       $state[19] = $h;
       $state[20] = $i;
       return 0;
     };
-    $pp_get_all_formatter_output_functions = (dynamic $state, dynamic $param) ==> {
+    $pp_get_all_formatter_output_functions = (dynamic $state, dynamic $param) : dynamic ==> {
       return Vector{0, $state[17], $state[18], $state[19], $state[20]};
     };
     $set_all_formatter_output_functions = 
-    (dynamic $e_, dynamic $f_, dynamic $g_, dynamic $h_) ==> {
+    (dynamic $e_, dynamic $f_, dynamic $g_, dynamic $h_) : dynamic ==> {
       return $pp_set_all_formatter_output_functions(
         $std_formatter,
         $e_,
@@ -1909,12 +1937,12 @@ final class Format {
         $h_
       );
     };
-    $get_all_formatter_output_functions = (dynamic $d_) ==> {
+    $get_all_formatter_output_functions = (dynamic $d_) : dynamic ==> {
       return $pp_get_all_formatter_output_functions($std_formatter, $d_);
     };
-    $bprintf = (dynamic $b, dynamic $param) ==> {
+    $bprintf = (dynamic $b, dynamic $param) : dynamic ==> {
       $fmt = $param[1];
-      $k = (dynamic $ppf, dynamic $acc) ==> {
+      $k = (dynamic $ppf, dynamic $acc) : dynamic ==> {
         $output_acc->contents($ppf, $acc);
         return $pp_flush_queue($ppf, 0);
       };

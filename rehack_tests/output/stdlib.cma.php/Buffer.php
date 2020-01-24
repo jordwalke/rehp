@@ -50,15 +50,19 @@ final class Buffer {
     $c_ = Vector{0, $string("buffer.ml"), 138, 8} as dynamic;
     $b_ = Vector{0, $string("buffer.ml"), 84, 19} as dynamic;
     $a_ = Vector{0, $string("buffer.ml"), 117, 8} as dynamic;
-    $create = (dynamic $n) ==> {
+    $create = (dynamic $n) : dynamic ==> {
       $n__0 = 1 <= $n ? $n : (1);
       $n__1 = $Sys[13] < $n__0 ? $Sys[13] : ($n__0);
       $s = $caml_create_bytes($n__1);
       return Vector{0, $s, 0, $n__1, $s};
     };
-    $contents = (dynamic $b) ==> {return $call3($Bytes[8], $b[1], 0, $b[2]);};
-    $to_bytes = (dynamic $b) ==> {return $call3($Bytes[7], $b[1], 0, $b[2]);};
-    $sub = (dynamic $b, dynamic $ofs, dynamic $len) ==> {
+    $contents = (dynamic $b) : dynamic ==> {
+      return $call3($Bytes[8], $b[1], 0, $b[2]);
+    };
+    $to_bytes = (dynamic $b) : dynamic ==> {
+      return $call3($Bytes[7], $b[1], 0, $b[2]);
+    };
+    $sub = (dynamic $b, dynamic $ofs, dynamic $len) : dynamic ==> {
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($b[2] - $len) < $ofs)) {
@@ -69,7 +73,7 @@ final class Buffer {
       return $call1($Pervasives[1], $cst_Buffer_sub);
     };
     $blit = 
-    (dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) ==> {
+    (dynamic $src, dynamic $srcoff, dynamic $dst, dynamic $dstoff, dynamic $len) : dynamic ==> {
       if (0 <= $len) {
         if (0 <= $srcoff) {
           if (! ((int) ($src[2] - $len) < $srcoff)) {
@@ -89,7 +93,7 @@ final class Buffer {
       }
       return $call1($Pervasives[1], $cst_Buffer_blit);
     };
-    $nth = (dynamic $b, dynamic $ofs) ==> {
+    $nth = (dynamic $b, dynamic $ofs) : dynamic ==> {
       if (0 <= $ofs) {
         if (! ($b[2] <= $ofs)) {
           return $runtime["caml_bytes_unsafe_get"]($b[1], $ofs);
@@ -97,15 +101,15 @@ final class Buffer {
       }
       return $call1($Pervasives[1], $cst_Buffer_nth);
     };
-    $length = (dynamic $b) ==> {return $b[2];};
-    $clear = (dynamic $b) ==> {$b[2] = 0;return 0;};
-    $reset = (dynamic $b) ==> {
+    $length = (dynamic $b) : dynamic ==> {return $b[2];};
+    $clear = (dynamic $b) : dynamic ==> {$b[2] = 0;return 0;};
+    $reset = (dynamic $b) : dynamic ==> {
       $b[2] = 0;
       $b[1] = $b[4];
       $b[3] = $caml_ml_bytes_length($b[1]);
       return 0;
     };
-    $resize = (dynamic $b, dynamic $more) ==> {
+    $resize = (dynamic $b, dynamic $more) : dynamic ==> {
       $new_buffer = null as dynamic;
       $len = $b[3];
       $new_len = Vector{0, $len} as dynamic;
@@ -125,14 +129,14 @@ final class Buffer {
         return 0;
       }
     };
-    $add_char = (dynamic $b, dynamic $c) ==> {
+    $add_char = (dynamic $b, dynamic $c) : dynamic ==> {
       $pos = $b[2];
       if ($b[3] <= $pos) {$resize($b, 1);}
       $caml_bytes_unsafe_set($b[1], $pos, $c);
       $b[2] = (int) ($pos + 1);
       return 0;
     };
-    $add_utf_8_uchar = (dynamic $b, dynamic $u) ==> {
+    $add_utf_8_uchar = (dynamic $b, dynamic $u) : dynamic ==> {
       $pos = null as dynamic;
       $pos__0 = null as dynamic;
       $pos__1 = null as dynamic;
@@ -207,7 +211,7 @@ final class Buffer {
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
     };
-    $add_utf_16be_uchar = (dynamic $b, dynamic $u) ==> {
+    $add_utf_16be_uchar = (dynamic $b, dynamic $u) : dynamic ==> {
       $u__1 = null as dynamic;
       $hi = null as dynamic;
       $lo = null as dynamic;
@@ -256,7 +260,7 @@ final class Buffer {
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $d_}) as \Throwable;
     };
-    $add_utf_16le_uchar = (dynamic $b, dynamic $u) ==> {
+    $add_utf_16le_uchar = (dynamic $b, dynamic $u) : dynamic ==> {
       $u__1 = null as dynamic;
       $hi = null as dynamic;
       $lo = null as dynamic;
@@ -307,7 +311,7 @@ final class Buffer {
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
     };
-    $add_substring = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) ==> {
+    $add_substring = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) : dynamic ==> {
       $m_ = null as dynamic;
       $n_ = null as dynamic;
       $l_ = $offset < 0 ? 1 : (0);
@@ -330,10 +334,10 @@ final class Buffer {
       $b[2] = $new_position;
       return 0;
     };
-    $add_subbytes = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) ==> {
+    $add_subbytes = (dynamic $b, dynamic $s, dynamic $offset, dynamic $len) : dynamic ==> {
       return $add_substring($b, $call1($Bytes[42], $s), $offset, $len);
     };
-    $add_string = (dynamic $b, dynamic $s) ==> {
+    $add_string = (dynamic $b, dynamic $s) : dynamic ==> {
       $len = $caml_ml_string_length($s);
       $new_position = (int) ($b[2] + $len) as dynamic;
       if ($b[3] < $new_position) {$resize($b, $len);}
@@ -341,13 +345,13 @@ final class Buffer {
       $b[2] = $new_position;
       return 0;
     };
-    $add_bytes = (dynamic $b, dynamic $s) ==> {
+    $add_bytes = (dynamic $b, dynamic $s) : dynamic ==> {
       return $add_string($b, $call1($Bytes[42], $s));
     };
-    $add_buffer = (dynamic $b, dynamic $bs) ==> {
+    $add_buffer = (dynamic $b, dynamic $bs) : dynamic ==> {
       return $add_subbytes($b, $bs[1], 0, $bs[2]);
     };
-    $add_channel_rec = (dynamic $b, dynamic $ic, dynamic $len) ==> {
+    $add_channel_rec = (dynamic $b, dynamic $ic, dynamic $len) : dynamic ==> {
       $k_ = null as dynamic;
       $n = null as dynamic;
       $len__1 = null as dynamic;
@@ -367,24 +371,24 @@ final class Buffer {
         return $k_;
       }
     };
-    $add_channel = (dynamic $b, dynamic $ic, dynamic $len) ==> {
+    $add_channel = (dynamic $b, dynamic $ic, dynamic $len) : dynamic ==> {
       $i_ = $len < 0 ? 1 : (0);
       $j_ = $i_ ? $i_ : ($Sys[13] < $len ? 1 : (0));
       if ($j_) {$call1($Pervasives[1], $cst_Buffer_add_channel);}
       if ($b[3] < (int) ($b[2] + $len)) {$resize($b, $len);}
       return $add_channel_rec($b, $ic, $len);
     };
-    $output_buffer = (dynamic $oc, dynamic $b) ==> {
+    $output_buffer = (dynamic $oc, dynamic $b) : dynamic ==> {
       return $call4($Pervasives[56], $oc, $b[1], 0, $b[2]);
     };
-    $closing = (dynamic $param) ==> {
+    $closing = (dynamic $param) : dynamic ==> {
       if (40 === $param) {return 41;}
       if (123 === $param) {return 125;}
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $g_}) as \Throwable;
     };
     $advance_to_closing = 
-    (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) ==> {
-      $advance = (dynamic $k, dynamic $i, dynamic $lim) ==> {
+    (dynamic $opening, dynamic $closing, dynamic $k, dynamic $s, dynamic $start) : dynamic ==> {
+      $advance = (dynamic $k, dynamic $i, dynamic $lim) : dynamic ==> {
         $i__1 = null as dynamic;
         $k__1 = null as dynamic;
         $i__2 = null as dynamic;
@@ -418,8 +422,8 @@ final class Buffer {
       };
       return $advance($k, $start, $caml_ml_string_length($s));
     };
-    $advance_to_non_alpha = (dynamic $s, dynamic $start) ==> {
-      $advance = (dynamic $i, dynamic $lim) ==> {
+    $advance_to_non_alpha = (dynamic $s, dynamic $start) : dynamic ==> {
+      $advance = (dynamic $i, dynamic $lim) : dynamic ==> {
         $match = null as dynamic;
         $i__1 = null as dynamic;
         $switch__0 = null as dynamic;
@@ -445,7 +449,7 @@ final class Buffer {
       };
       return $advance($start, $caml_ml_string_length($s));
     };
-    $find_ident = (dynamic $s, dynamic $start, dynamic $lim) ==> {
+    $find_ident = (dynamic $s, dynamic $start, dynamic $lim) : dynamic ==> {
       $stop__0 = null as dynamic;
       if ($lim <= $start) {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
@@ -471,9 +475,9 @@ final class Buffer {
         ($stop + 1)
       };
     };
-    $add_substitute = (dynamic $b, dynamic $f, dynamic $s) ==> {
+    $add_substitute = (dynamic $b, dynamic $f, dynamic $s) : dynamic ==> {
       $lim = $caml_ml_string_length($s);
-      $subst = (dynamic $previous, dynamic $i) ==> {
+      $subst = (dynamic $previous, dynamic $i) : dynamic ==> {
         $current = null as dynamic;
         $i__1 = null as dynamic;
         $j = null as dynamic;
@@ -532,7 +536,7 @@ final class Buffer {
       };
       return $subst(32, 0);
     };
-    $truncate = (dynamic $b, dynamic $len) ==> {
+    $truncate = (dynamic $b, dynamic $len) : dynamic ==> {
       if (0 <= $len) {if (! ($length($b) < $len)) {$b[2] = $len;return 0;}}
       return $call1($Pervasives[1], $cst_Buffer_truncate);
     };

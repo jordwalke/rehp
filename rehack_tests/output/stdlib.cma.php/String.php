@@ -51,26 +51,26 @@ final class String_ {
     $Pervasives = Pervasives::get();
     $bts = $Bytes[42];
     $bos = $Bytes[43];
-    $make = (dynamic $n, dynamic $c) ==> {
+    $make = (dynamic $n, dynamic $c) : dynamic ==> {
       return $call1($bts, $call2($Bytes[1], $n, $c));
     };
-    $init = (dynamic $n, dynamic $f) ==> {
+    $init = (dynamic $n, dynamic $f) : dynamic ==> {
       return $call1($bts, $call2($Bytes[2], $n, $f));
     };
-    $copy = (dynamic $s) ==> {
+    $copy = (dynamic $s) : dynamic ==> {
       $J_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[4], $J_));
     };
-    $sub = (dynamic $s, dynamic $ofs, dynamic $len) ==> {
+    $sub = (dynamic $s, dynamic $ofs, dynamic $len) : dynamic ==> {
       $I_ = $call1($bos, $s);
       return $call1($bts, $call3($Bytes[7], $I_, $ofs, $len));
     };
     $fill = $Bytes[10];
     $blit = $Bytes[12];
-    $ensure_ge = (dynamic $x, dynamic $y) ==> {
+    $ensure_ge = (dynamic $x, dynamic $y) : dynamic ==> {
       return $y <= $x ? $x : ($call1($Pervasives[1], $cst_String_concat));
     };
-    $sum_lengths = (dynamic $acc, dynamic $seplen, dynamic $param) ==> {
+    $sum_lengths = (dynamic $acc, dynamic $seplen, dynamic $param) : dynamic ==> {
       $G_ = null as dynamic;
       $H_ = null as dynamic;
       $acc__1 = null as dynamic;
@@ -97,7 +97,7 @@ final class String_ {
       }
     };
     $unsafe_blits = 
-    (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) ==> {
+    (dynamic $dst, dynamic $pos, dynamic $sep, dynamic $seplen, dynamic $param) : dynamic ==> {
       $E_ = null as dynamic;
       $F_ = null as dynamic;
       $pos__1 = null as dynamic;
@@ -137,7 +137,7 @@ final class String_ {
         return $dst;
       }
     };
-    $concat = (dynamic $sep, dynamic $l) ==> {
+    $concat = (dynamic $sep, dynamic $l) : dynamic ==> {
       $seplen = null as dynamic;
       if ($l) {
         $seplen = $caml_ml_string_length($sep);
@@ -154,7 +154,7 @@ final class String_ {
       }
       return $cst;
     };
-    $iter = (dynamic $f, dynamic $s) ==> {
+    $iter = (dynamic $f, dynamic $s) : dynamic ==> {
       $i = null as dynamic;
       $D_ = null as dynamic;
       $C_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
@@ -170,7 +170,7 @@ final class String_ {
       }
       return 0;
     };
-    $iteri = (dynamic $f, dynamic $s) ==> {
+    $iteri = (dynamic $f, dynamic $s) : dynamic ==> {
       $i = null as dynamic;
       $A_ = null as dynamic;
       $z_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
@@ -186,22 +186,22 @@ final class String_ {
       }
       return 0;
     };
-    $map = (dynamic $f, dynamic $s) ==> {
+    $map = (dynamic $f, dynamic $s) : dynamic ==> {
       $x_ = $call1($bos, $s);
       return $call1($bts, $call2($Bytes[17], $f, $x_));
     };
-    $mapi = (dynamic $f, dynamic $s) ==> {
+    $mapi = (dynamic $f, dynamic $s) : dynamic ==> {
       $w_ = $call1($bos, $s);
       return $call1($bts, $call2($Bytes[18], $f, $w_));
     };
-    $is_space = (dynamic $param) ==> {
+    $is_space = (dynamic $param) : dynamic ==> {
       $v_ = (int) ($param + -9) as dynamic;
       $switch__0 = 4 < $unsigned_right_shift_32($v_, 0)
         ? 23 === $v_ ? 1 : (0)
         : (2 === $v_ ? 0 : (1));
       return $switch__0 ? 1 : (0);
     };
-    $trim = (dynamic $s) ==> {
+    $trim = (dynamic $s) : dynamic ==> {
       if ($caml_string_equal($s, $cst__0)) {return $s;}
       if (! $is_space($caml_bytes_unsafe_get($s, 0))) {
         if (
@@ -215,9 +215,9 @@ final class String_ {
       $u_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[19], $u_));
     };
-    $escaped = (dynamic $s) ==> {
+    $escaped = (dynamic $s) : dynamic ==> {
       $s_ = null as dynamic;
-      $needs_escape = (dynamic $i) ==> {
+      $needs_escape = (dynamic $i) : dynamic ==> {
         $match = null as dynamic;
         $t_ = null as dynamic;
         $i__1 = null as dynamic;
@@ -259,7 +259,7 @@ final class String_ {
       }
       return $s;
     };
-    $index_rec = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
+    $index_rec = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) : dynamic ==> {
       $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
@@ -272,10 +272,10 @@ final class String_ {
         continue;
       }
     };
-    $index = (dynamic $s, dynamic $c) ==> {
+    $index = (dynamic $s, dynamic $c) : dynamic ==> {
       return $index_rec($s, $caml_ml_string_length($s), 0, $c);
     };
-    $index_rec_opt = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) ==> {
+    $index_rec_opt = (dynamic $s, dynamic $lim, dynamic $i, dynamic $c) : dynamic ==> {
       $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
@@ -286,15 +286,15 @@ final class String_ {
         continue;
       }
     };
-    $index_opt = (dynamic $s, dynamic $c) ==> {
+    $index_opt = (dynamic $s, dynamic $c) : dynamic ==> {
       return $index_rec_opt($s, $caml_ml_string_length($s), 0, $c);
     };
-    $index_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $index_from = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {if (! ($l < $i)) {return $index_rec($s, $l, $i, $c);}}
       return $call1($Pervasives[1], $cst_String_index_from_Bytes_index_from);
     };
-    $index_from_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $index_from_opt = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {if (! ($l < $i)) {return $index_rec_opt($s, $l, $i, $c);}}
       return $call1(
@@ -302,7 +302,7 @@ final class String_ {
         $cst_String_index_from_opt_Bytes_index_from_opt
       );
     };
-    $rindex_rec = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $rindex_rec = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
@@ -315,16 +315,16 @@ final class String_ {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       }
     };
-    $rindex = (dynamic $s, dynamic $c) ==> {
+    $rindex = (dynamic $s, dynamic $c) : dynamic ==> {
       return $rindex_rec($s, (int) ($caml_ml_string_length($s) + -1), $c);
     };
-    $rindex_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $rindex_from = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       if (-1 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {return $rindex_rec($s, $i, $c);}
       }
       return $call1($Pervasives[1], $cst_String_rindex_from_Bytes_rindex_from);
     };
-    $rindex_rec_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $rindex_rec_opt = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       $i__1 = null as dynamic;
       $i__0 = $i;
       for (;;) {
@@ -337,10 +337,10 @@ final class String_ {
         return 0;
       }
     };
-    $rindex_opt = (dynamic $s, dynamic $c) ==> {
+    $rindex_opt = (dynamic $s, dynamic $c) : dynamic ==> {
       return $rindex_rec_opt($s, (int) ($caml_ml_string_length($s) + -1), $c);
     };
-    $rindex_from_opt = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $rindex_from_opt = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       if (-1 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {return $rindex_rec_opt($s, $i, $c);}
       }
@@ -349,7 +349,7 @@ final class String_ {
         $cst_String_rindex_from_opt_Bytes_rindex_from_opt
       );
     };
-    $contains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $contains_from = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       $q_ = null as dynamic;
       $l = $caml_ml_string_length($s);
       if (0 <= $i) {
@@ -367,10 +367,10 @@ final class String_ {
         $cst_String_contains_from_Bytes_contains_from
       );
     };
-    $contains = (dynamic $s, dynamic $c) ==> {
+    $contains = (dynamic $s, dynamic $c) : dynamic ==> {
       return $contains_from($s, 0, $c);
     };
-    $rcontains_from = (dynamic $s, dynamic $i, dynamic $c) ==> {
+    $rcontains_from = (dynamic $s, dynamic $i, dynamic $c) : dynamic ==> {
       $o_ = null as dynamic;
       if (0 <= $i) {
         if (! ($caml_ml_string_length($s) <= $i)) {
@@ -387,26 +387,26 @@ final class String_ {
         $cst_String_rcontains_from_Bytes_rcontains_from
       );
     };
-    $uppercase_ascii = (dynamic $s) ==> {
+    $uppercase_ascii = (dynamic $s) : dynamic ==> {
       $n_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[36], $n_));
     };
-    $lowercase_ascii = (dynamic $s) ==> {
+    $lowercase_ascii = (dynamic $s) : dynamic ==> {
       $m_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[37], $m_));
     };
-    $capitalize_ascii = (dynamic $s) ==> {
+    $capitalize_ascii = (dynamic $s) : dynamic ==> {
       $l_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[38], $l_));
     };
-    $uncapitalize_ascii = (dynamic $s) ==> {
+    $uncapitalize_ascii = (dynamic $s) : dynamic ==> {
       $k_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[39], $k_));
     };
-    $compare = (dynamic $x, dynamic $y) ==> {
+    $compare = (dynamic $x, dynamic $y) : dynamic ==> {
       return $runtime["caml_string_compare"]($x, $y);
     };
-    $split_on_char = (dynamic $sep, dynamic $s) ==> {
+    $split_on_char = (dynamic $sep, dynamic $s) : dynamic ==> {
       $i = null as dynamic;
       $i_ = null as dynamic;
       $j_ = null as dynamic;
@@ -434,19 +434,19 @@ final class String_ {
       $h_ = $r[1];
       return Vector{0, $sub($s, 0, $j[1]), $h_};
     };
-    $uppercase = (dynamic $s) ==> {
+    $uppercase = (dynamic $s) : dynamic ==> {
       $f_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[32], $f_));
     };
-    $lowercase = (dynamic $s) ==> {
+    $lowercase = (dynamic $s) : dynamic ==> {
       $e_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[33], $e_));
     };
-    $capitalize = (dynamic $s) ==> {
+    $capitalize = (dynamic $s) : dynamic ==> {
       $d_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[34], $d_));
     };
-    $uncapitalize = (dynamic $s) ==> {
+    $uncapitalize = (dynamic $s) : dynamic ==> {
       $c_ = $call1($bos, $s);
       return $call1($bts, $call1($Bytes[35], $c_));
     };
@@ -485,7 +485,9 @@ final class String_ {
       $capitalize_ascii,
       $uncapitalize_ascii,
       $compare,
-      (dynamic $b_, dynamic $a_) ==> {return $caml_string_equal($b_, $a_);},
+      (dynamic $b_, dynamic $a_) : dynamic ==> {
+        return $caml_string_equal($b_, $a_);
+      },
       $split_on_char
     } as dynamic;
     

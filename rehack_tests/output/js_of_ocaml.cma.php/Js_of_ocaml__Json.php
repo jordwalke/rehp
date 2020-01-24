@@ -17,35 +17,35 @@ final class Js_of_ocaml__Json {
     $string = $runtime["caml_new_string"];
     $dummy_string = $string("");
     $json = $runtime["caml_json"](0);
-    $reviver = (dynamic $this__0, dynamic $key, dynamic $value) ==> {
+    $reviver = (dynamic $this__0, dynamic $key, dynamic $value) : dynamic ==> {
       return typeof($value) == typeof("foo")
         ? $runtime["caml_js_to_byte_string"]($value)
         : ($value);
     };
     $input_reviver = $runtime["caml_js_wrap_meth_callback"]($reviver);
-    $unsafe_input = (dynamic $s) ==> {
-      $c_ = (dynamic $x) ==> {
+    $unsafe_input = (dynamic $s) : dynamic ==> {
+      $c_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -309814068, 279), $x);
       };
-      return ((dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) ==> {return $t2->parse($t0, $t1);
+      return ((dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) : dynamic ==> {return $t2->parse($t0, $t1);
        })($json, $s, $input_reviver, $c_);
     };
-    $a_ = (dynamic $x) ==> {
+    $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 398798074, 280), $x);
     };
-    $mlString_constr = ((dynamic $t3, dynamic $param) ==> {
+    $mlString_constr = ((dynamic $t3, dynamic $param) : dynamic ==> {
        return $t3->constructor;
      })($dummy_string, $a_);
-    $output_reviver = (dynamic $key, dynamic $value) ==> {
+    $output_reviver = (dynamic $key, dynamic $value) : dynamic ==> {
       return instance_of($value, $mlString_constr)
         ? $runtime["caml_jsbytes_of_string"]($value)
         : ($value);
     };
-    $output = (dynamic $obj) ==> {
-      $b_ = (dynamic $x) ==> {
+    $output = (dynamic $obj) : dynamic ==> {
+      $b_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 215522356, 281), $x);
       };
-      return ((dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) ==> {return $t6->stringify($t4, $t5);
+      return ((dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) : dynamic ==> {return $t6->stringify($t4, $t5);
        })($json, $obj, $output_reviver, $b_);
     };
     $Js_of_ocaml_Json = Vector{0, $output, $unsafe_input} as dynamic;

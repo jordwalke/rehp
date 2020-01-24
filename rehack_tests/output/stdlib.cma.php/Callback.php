@@ -14,10 +14,10 @@ final class Callback {
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_register_named_value = $runtime["caml_register_named_value"];
     $Obj = Obj::get();
-    $register = (dynamic $name, dynamic $v) ==> {
+    $register = (dynamic $name, dynamic $v) : dynamic ==> {
       return $caml_register_named_value($name, $v);
     };
-    $register_exception = (dynamic $name, dynamic $exn) ==> {
+    $register_exception = (dynamic $name, dynamic $exn) : dynamic ==> {
       $slot = $runtime["caml_obj_tag"]($exn) === $Obj[8] ? $exn : ($exn[1]);
       return $caml_register_named_value($name, $slot);
     };

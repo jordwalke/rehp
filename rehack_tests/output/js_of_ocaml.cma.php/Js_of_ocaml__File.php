@@ -36,12 +36,14 @@ final class Js_of_ocaml__File {
     $Js_of_ocaml_Dom = Js_of_ocaml__Dom::get();
     $c_ = Vector{0, $string__0("transparent")} as dynamic;
     $d_ = Vector{0, $string__0("native")} as dynamic;
-    $a_ = (dynamic $x) ==> {
+    $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -553417380, 62), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
-    $blob_constr = ((dynamic $t0, dynamic $param) ==> {return $t0->Blob;})($b_, $a_);
-    $filter_map->contents = (dynamic $f, dynamic $param) ==> {
+    $blob_constr = ((dynamic $t0, dynamic $param) : dynamic ==> {
+       return $t0->Blob;
+     })($b_, $a_);
+    $filter_map->contents = (dynamic $f, dynamic $param) : dynamic ==> {
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -58,7 +60,7 @@ final class Js_of_ocaml__File {
         return 0;
       }
     };
-    $make_blob_options = (dynamic $contentType, dynamic $endings) ==> {
+    $make_blob_options = (dynamic $contentType, dynamic $endings) : dynamic ==> {
       $r_ = 0 as dynamic;
       if ($endings) {
         $s_ = 116179762 <= $endings[1] ? $c_ : ($d_);
@@ -71,7 +73,7 @@ final class Js_of_ocaml__File {
         Vector{0, Vector{0, $cst_endings, $t_}, $r_}
       } as dynamic;
       $options = $filter_map->contents(
-        (dynamic $param) ==> {
+        (dynamic $param) : dynamic ==> {
           $v = $param[2];
           $name = $param[1];
           if ($v) {
@@ -86,18 +88,18 @@ final class Js_of_ocaml__File {
         ? $runtime["caml_js_object"]($call1($Array[12], $options))
         : ($Js_of_ocaml_Js[3]);
     };
-    $blob_raw = (dynamic $contentType, dynamic $endings, dynamic $a) ==> {
+    $blob_raw = (dynamic $contentType, dynamic $endings, dynamic $a) : dynamic ==> {
       $options = $make_blob_options($contentType, $endings);
       $p_ = 0 as dynamic;
       $q_ = $runtime["caml_js_from_array"]($a);
-      return ((dynamic $t3, dynamic $t1, dynamic $t2, dynamic $param) ==> {return new $t3($t1, $t2);
+      return ((dynamic $t3, dynamic $t1, dynamic $t2, dynamic $param) : dynamic ==> {return new $t3($t1, $t2);
        })($blob_constr, $q_, $options, $p_);
     };
-    $blob_from_string = (dynamic $contentType, dynamic $endings, dynamic $s) ==> {
+    $blob_from_string = (dynamic $contentType, dynamic $endings, dynamic $s) : dynamic ==> {
       return $blob_raw($contentType, $endings, Vector{0, $s->toString()});
     };
-    $blob_from_any = (dynamic $contentType, dynamic $endings, dynamic $l) ==> {
-      $n_ = (dynamic $param) ==> {
+    $blob_from_any = (dynamic $contentType, dynamic $endings, dynamic $l) : dynamic ==> {
+      $n_ = (dynamic $param) : dynamic ==> {
         $o_ = $param[1];
         if (155580615 === $o_) {$s = $param[2];return $s;}
         if (486041214 <= $o_) {
@@ -112,17 +114,19 @@ final class Js_of_ocaml__File {
       $l__0 = $call2($List[17], $n_, $l);
       return $blob_raw($contentType, $endings, $call1($Array[12], $l__0));
     };
-    $filename = (dynamic $file) ==> {
-      $j_ = (dynamic $x) ==> {
+    $filename = (dynamic $file) : dynamic ==> {
+      $j_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -922783157, 63), $x);
       };
-      $k_ = ((dynamic $t5, dynamic $param) ==> {return $t5->name;})($file, $j_);
+      $k_ = ((dynamic $t5, dynamic $param) : dynamic ==> {return $t5->name;})($file, $j_);
       $match = $call1($Js_of_ocaml_Js[6][10], $k_);
       if ($match) {$name = $match[1];return $name;}
-      $l_ = (dynamic $x) ==> {
+      $l_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -498902297, 64), $x);
       };
-      $m_ = ((dynamic $t4, dynamic $param) ==> {return $t4->fileName;})($file, $l_);
+      $m_ = ((dynamic $t4, dynamic $param) : dynamic ==> {
+         return $t4->fileName;
+       })($file, $l_);
       $match__0 = $call1($Js_of_ocaml_Js[6][10], $m_);
       if ($match__0) {$name__0 = $match__0[1];return $name__0;}
       return $call1(
@@ -130,27 +134,29 @@ final class Js_of_ocaml__File {
         $cst_can_t_retrieve_file_name_not_implemented
       );
     };
-    $e_ = (dynamic $x) ==> {
+    $e_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 1012572826, 65), $x);
     };
     $f_ = $Js_of_ocaml_Js[50][1];
-    $doc_constr = ((dynamic $t6, dynamic $param) ==> {return $t6->Document;})($f_, $e_);
-    $document = (dynamic $e) ==> {
+    $doc_constr = ((dynamic $t6, dynamic $param) : dynamic ==> {
+       return $t6->Document;
+     })($f_, $e_);
+    $document = (dynamic $e) : dynamic ==> {
       return instance_of($e, $doc_constr)
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $blob = (dynamic $e) ==> {
+    $blob = (dynamic $e) : dynamic ==> {
       return instance_of($e, $blob_constr)
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $string = (dynamic $e) ==> {
+    $string = (dynamic $e) : dynamic ==> {
       return $runtime["caml_equal"](typeof($e), "string")
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
     };
-    $arrayBuffer = (dynamic $e) ==> {
+    $arrayBuffer = (dynamic $e) : dynamic ==> {
       return instance_of($e, $Js_of_ocaml_Typed_array[1])
         ? $call1($Js_of_ocaml_Js[2], $e)
         : ($Js_of_ocaml_Js[1]);
@@ -170,11 +176,13 @@ final class Js_of_ocaml__File {
       $load,
       $loadend
     } as dynamic;
-    $g_ = (dynamic $x) ==> {
+    $g_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 642825758, 66), $x);
     };
     $h_ = $Js_of_ocaml_Js[50][1];
-    $fileReader = ((dynamic $t7, dynamic $param) ==> {return $t7->FileReader;})($h_, $g_);
+    $fileReader = ((dynamic $t7, dynamic $param) : dynamic ==> {
+       return $t7->FileReader;
+     })($h_, $g_);
     $addEventListener = $Js_of_ocaml_Dom[15];
     $Js_of_ocaml_File = Vector{
       0,
@@ -184,7 +192,7 @@ final class Js_of_ocaml__File {
         0,
         $document,
         $blob,
-        (dynamic $i_) ==> {return $i_;},
+        (dynamic $i_) : dynamic ==> {return $i_;},
         $string,
         $arrayBuffer
       },

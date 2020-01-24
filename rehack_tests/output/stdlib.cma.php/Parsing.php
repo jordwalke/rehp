@@ -50,7 +50,7 @@ final class Parsing {
       0,
       0
     } as dynamic;
-    $grow_stacks = (dynamic $param) ==> {
+    $grow_stacks = (dynamic $param) : dynamic ==> {
       $oldsize = $env[5];
       $newsize = (int) ($oldsize * 2) as dynamic;
       $new_s = $caml_make_vect($newsize, 0);
@@ -68,18 +68,21 @@ final class Parsing {
       $env[5] = $newsize;
       return 0;
     };
-    $clear_parser = (dynamic $param) ==> {
+    $clear_parser = (dynamic $param) : dynamic ==> {
       $call4($Array[9], $env[2], 0, $env[5], 0);
       $env[8] = 0;
       return 0;
     };
-    $current_lookahead_fun = Vector{0, (dynamic $param) ==> {return 0;}} as dynamic;
+    $current_lookahead_fun = Vector{
+      0,
+      (dynamic $param) : dynamic ==> {return 0;}
+    } as dynamic;
     $yyparse = 
-    (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) ==> {
+    (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) : dynamic ==> {
       $curr_char = null as dynamic;
       $v = null as dynamic;
       $i_ = null as dynamic;
-      $loop = (dynamic $cmd, dynamic $arg) ==> {
+      $loop = (dynamic $cmd, dynamic $arg) : dynamic ==> {
         $match = null as dynamic;
         $arg__1 = null as dynamic;
         $k_ = null as dynamic;
@@ -175,7 +178,7 @@ final class Parsing {
         $env[16] = $init_errflag;
         if ($exn[1] === $YYexit) {$v = $exn[2];return $v;}
         $current_lookahead_fun[1] =
-          (dynamic $tok) ==> {
+          (dynamic $tok) : dynamic ==> {
             $j_ = null as dynamic;
             if ($call1($Obj[1], $tok)) {
               $j_ = $runtime["caml_obj_tag"]($tok);
@@ -190,12 +193,12 @@ final class Parsing {
         throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
       }
     };
-    $peek_val = (dynamic $env, dynamic $n) ==> {
+    $peek_val = (dynamic $env, dynamic $n) : dynamic ==> {
       $h_ = (int) ($env[11] - $n) as dynamic;
       return $caml_check_bound($env[2], $h_)[$h_ + 1];
     };
-    $symbol_start_pos = (dynamic $param) ==> {
-      $loop = (dynamic $i) ==> {
+    $symbol_start_pos = (dynamic $param) : dynamic ==> {
+      $loop = (dynamic $i) : dynamic ==> {
         $e_ = null as dynamic;
         $st = null as dynamic;
         $f_ = null as dynamic;
@@ -220,26 +223,30 @@ final class Parsing {
       };
       return $loop($env[12]);
     };
-    $symbol_end_pos = (dynamic $param) ==> {
+    $symbol_end_pos = (dynamic $param) : dynamic ==> {
       $d_ = $env[11];
       return $caml_check_bound($env[4], $d_)[$d_ + 1];
     };
-    $rhs_start_pos = (dynamic $n) ==> {
+    $rhs_start_pos = (dynamic $n) : dynamic ==> {
       $c_ = (int) ($env[11] - (int) ($env[12] - $n)) as dynamic;
       return $caml_check_bound($env[3], $c_)[$c_ + 1];
     };
-    $rhs_end_pos = (dynamic $n) ==> {
+    $rhs_end_pos = (dynamic $n) : dynamic ==> {
       $b_ = (int) ($env[11] - (int) ($env[12] - $n)) as dynamic;
       return $caml_check_bound($env[4], $b_)[$b_ + 1];
     };
-    $symbol_start = (dynamic $param) ==> {return $symbol_start_pos(0)[4];};
-    $symbol_end = (dynamic $param) ==> {return $symbol_end_pos(0)[4];};
-    $rhs_start = (dynamic $n) ==> {return $rhs_start_pos($n)[4];};
-    $rhs_end = (dynamic $n) ==> {return $rhs_end_pos($n)[4];};
-    $is_current_lookahead = (dynamic $tok) ==> {
+    $symbol_start = (dynamic $param) : dynamic ==> {
+      return $symbol_start_pos(0)[4];
+    };
+    $symbol_end = (dynamic $param) : dynamic ==> {
+      return $symbol_end_pos(0)[4];
+    };
+    $rhs_start = (dynamic $n) : dynamic ==> {return $rhs_start_pos($n)[4];};
+    $rhs_end = (dynamic $n) : dynamic ==> {return $rhs_end_pos($n)[4];};
+    $is_current_lookahead = (dynamic $tok) : dynamic ==> {
       return $call1($current_lookahead_fun[1], $tok);
     };
-    $parse_error = (dynamic $param) ==> {return 0;};
+    $parse_error = (dynamic $param) : dynamic ==> {return 0;};
     $Parsing = Vector{
       0,
       $symbol_start,
@@ -252,7 +259,9 @@ final class Parsing {
       $rhs_end_pos,
       $clear_parser,
       $Parse_error,
-      (dynamic $a_) ==> {return $runtime["caml_set_parser_trace"]($a_);},
+      (dynamic $a_) : dynamic ==> {
+        return $runtime["caml_set_parser_trace"]($a_);
+      },
       $YYexit,
       $yyparse,
       $peek_val,

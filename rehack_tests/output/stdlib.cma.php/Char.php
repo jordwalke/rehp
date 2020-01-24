@@ -24,11 +24,11 @@ final class Char {
     $cst_r = $string("\\r");
     $cst_Char_chr = $string("Char.chr");
     $Pervasives = Pervasives::get();
-    $chr = (dynamic $n) ==> {
+    $chr = (dynamic $n) : dynamic ==> {
       if (0 <= $n) {if (! (255 < $n)) {return $n;}}
       return $call1($Pervasives[1], $cst_Char_chr);
     };
-    $escaped = (dynamic $c) ==> {
+    $escaped = (dynamic $c) : dynamic ==> {
       $switch__0 = null as dynamic;
       $s__0 = null as dynamic;
       if (40 <= $c) {
@@ -77,7 +77,7 @@ final class Char {
       $caml_bytes_unsafe_set($s, 3, (int) (48 + (int) ($c % 10)));
       return $s;
     };
-    $lowercase = (dynamic $c) ==> {
+    $lowercase = (dynamic $c) : dynamic ==> {
       $switch__1 = null as dynamic;
       $switch__2 = null as dynamic;
       $switch__0 = 65 <= $c ? 90 < $c ? 0 : (1) : (0);
@@ -90,7 +90,7 @@ final class Char {
       }
       return (int) ($c + 32);
     };
-    $uppercase = (dynamic $c) ==> {
+    $uppercase = (dynamic $c) : dynamic ==> {
       $switch__1 = null as dynamic;
       $switch__2 = null as dynamic;
       $switch__0 = 97 <= $c ? 122 < $c ? 0 : (1) : (0);
@@ -103,16 +103,18 @@ final class Char {
       }
       return (int) ($c + -32);
     };
-    $lowercase_ascii = (dynamic $c) ==> {
+    $lowercase_ascii = (dynamic $c) : dynamic ==> {
       if (65 <= $c) {if (! (90 < $c)) {return (int) ($c + 32);}}
       return $c;
     };
-    $uppercase_ascii = (dynamic $c) ==> {
+    $uppercase_ascii = (dynamic $c) : dynamic ==> {
       if (97 <= $c) {if (! (122 < $c)) {return (int) ($c + -32);}}
       return $c;
     };
-    $compare = (dynamic $c1, dynamic $c2) ==> {return (int) ($c1 - $c2);};
-    $equal = (dynamic $c1, dynamic $c2) ==> {
+    $compare = (dynamic $c1, dynamic $c2) : dynamic ==> {
+      return (int) ($c1 - $c2);
+    };
+    $equal = (dynamic $c1, dynamic $c2) : dynamic ==> {
       return 0 === $compare($c1, $c2) ? 1 : (0);
     };
     $Char = Vector{
