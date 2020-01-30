@@ -1804,37 +1804,37 @@ function js_t_of_js_string(s) {
   var hsla_re = function(t13, t12, param) {return new t13(t12);}(cS_, cR_, cQ_
   );
   function cT_(x) {
-    return call1(caml_get_public_method(x, -856045486, 282), x);
+    return call1(caml_get_public_method(x, -856045486, 289), x);
   }
   if (! (function(t1, t0, param) {return t1.test(t0);}(rgb_re, s, cT_) | 0)) {
     var cU_ = function(x) {
-      return call1(caml_get_public_method(x, -856045486, 283), x);
+      return call1(caml_get_public_method(x, -856045486, 290), x);
     };
     if (! (function(t3, t2, param) {return t3.test(t2);}(rgba_re, s, cU_) | 0)
     ) {
       var cV_ = function(x) {
-        return call1(caml_get_public_method(x, -856045486, 284), x);
+        return call1(caml_get_public_method(x, -856045486, 291), x);
       };
       if (
       !
       (function(t5, t4, param) {return t5.test(t4);}(rgb_pct_re, s, cV_) | 0)
       ) {
         var cW_ = function(x) {
-          return call1(caml_get_public_method(x, -856045486, 285), x);
+          return call1(caml_get_public_method(x, -856045486, 292), x);
         };
         if (
         !
         (function(t7, t6, param) {return t7.test(t6);}(rgba_pct_re, s, cW_) | 0)
         ) {
           var cX_ = function(x) {
-            return call1(caml_get_public_method(x, -856045486, 286), x);
+            return call1(caml_get_public_method(x, -856045486, 293), x);
           };
           if (
           !
           (function(t9, t8, param) {return t9.test(t8);}(hsl_re, s, cX_) | 0)
           ) {
             var cY_ = function(x) {
-              return call1(caml_get_public_method(x, -856045486, 287), x);
+              return call1(caml_get_public_method(x, -856045486, 294), x);
             };
             if (
             !

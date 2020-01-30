@@ -17,7 +17,7 @@ function call1(f, a0) {
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 
 function a_(x) {
-  return call1(runtime["caml_get_public_method"](x, -492394744, 211), x);
+  return call1(runtime["caml_get_public_method"](x, -492394744, 218), x);
 }
 
 var b_ = Js_of_ocaml_Js[50][1];

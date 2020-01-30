@@ -21,7 +21,7 @@ final class Js_of_ocaml__Jstable {
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $List = List_::get();
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 944440446, 270), $x);
+      return $call1($caml_get_public_method($x, 944440446, 277), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $obj = ((dynamic $t0, dynamic $param) : dynamic ==> {return $t0->Object;})($b_, $a_);
@@ -31,7 +31,7 @@ final class Js_of_ocaml__Jstable {
     };
     $add = (dynamic $t, dynamic $k, dynamic $v) : dynamic ==> {
       $w_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -942667500, 271), $x);
+        return $call1($caml_get_public_method($x, -942667500, 278), $x);
       };
       $x_ = "_";
       $y_ = 0 as dynamic;
@@ -43,7 +43,7 @@ final class Js_of_ocaml__Jstable {
     };
     $remove = (dynamic $t, dynamic $k) : dynamic ==> {
       $t_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -942667500, 272), $x);
+        return $call1($caml_get_public_method($x, -942667500, 279), $x);
       };
       $u_ = "_";
       $v_ = 0 as dynamic;
@@ -57,7 +57,7 @@ final class Js_of_ocaml__Jstable {
     };
     $find = (dynamic $t, dynamic $k) : dynamic ==> {
       $r_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -942667500, 273), $x);
+        return $call1($caml_get_public_method($x, -942667500, 280), $x);
       };
       $s_ = "_";
       return $t[
@@ -67,10 +67,10 @@ final class Js_of_ocaml__Jstable {
     };
     $keys = (dynamic $t) : dynamic ==> {
       $c_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -955850252, 274), $x);
+        return $call1($caml_get_public_method($x, -955850252, 281), $x);
       };
       $d_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 944440446, 275), $x);
+        return $call1($caml_get_public_method($x, 944440446, 282), $x);
       };
       $e_ = $Js_of_ocaml_Js[50][1];
       $f_ = ((dynamic $t13, dynamic $param) : dynamic ==> {
@@ -81,7 +81,7 @@ final class Js_of_ocaml__Jstable {
       $res = Vector{0, 0} as dynamic;
       $g_ = 0 as dynamic;
       $h_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 520590566, 276), $x);
+        return $call1($caml_get_public_method($x, 520590566, 283), $x);
       };
       $i_ = (int)
       (((dynamic $t12, dynamic $param) : dynamic ==> {return $t12->length;})($key_array, $h_) + -1) as dynamic;
@@ -95,10 +95,10 @@ final class Js_of_ocaml__Jstable {
           $key = $call2($Js_of_ocaml_Js[6][8], $k_, $j_);
           $l_ = $res[1];
           $m_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, -488115631, 277), $x);
+            return $call1($caml_get_public_method($x, -488115631, 284), $x);
           };
           $n_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, 520590566, 278), $x);
+            return $call1($caml_get_public_method($x, 520590566, 285), $x);
           };
           $o_ = (int)
           (((dynamic $t8, dynamic $param) : dynamic ==> {return $t8->length;})($key, $n_) + -1) as dynamic;

@@ -9,7 +9,7 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-var Js_of_ocaml = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var Js_of_ocaml = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 module.exports = Js_of_ocaml;
 
@@ -37,6 +37,7 @@ module.exports = Js_of_ocaml;
   WebSockets: any,
   Worker: any,
   XmlHttpRequest: any,
+  Import: any,
 }*/
 /** @type {{
   CSS: any,
@@ -62,6 +63,7 @@ module.exports = Js_of_ocaml;
   WebSockets: any,
   Worker: any,
   XmlHttpRequest: any,
+  Import: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.CSS = module.exports[1];
@@ -87,5 +89,6 @@ module.exports.WebGL = module.exports[20];
 module.exports.WebSockets = module.exports[21];
 module.exports.Worker = module.exports[22];
 module.exports.XmlHttpRequest = module.exports[23];
+module.exports.Import = module.exports[24];
 
 /* Hashing disabled */

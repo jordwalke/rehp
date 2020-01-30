@@ -33,10 +33,10 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-function call4(f, a0, a1, a2, a3) {
-  return f.length === 4 ?
-    f(a0, a1, a2, a3) :
-    runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
+function call6(f, a0, a1, a2, a3, a4, a5) {
+  return f.length === 6 ?
+    f(a0, a1, a2, a3, a4, a5) :
+    runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4,a5]);
 }
 
 var cst_a__1 = string("a");
@@ -427,12 +427,22 @@ var cst_canplaythrough = string("canplaythrough");
 var cst_durationchange = string("durationchange");
 var cst_emptied = string("emptied");
 var cst_ended = string("ended");
+var cst_gotpointercapture = string("gotpointercapture");
 var cst_loadeddata = string("loadeddata");
 var cst_loadedmetadata = string("loadedmetadata");
 var cst_loadstart = string("loadstart");
+var cst_lostpointercapture = string("lostpointercapture");
 var cst_pause = string("pause");
 var cst_play = string("play");
 var cst_playing = string("playing");
+var cst_pointerenter = string("pointerenter");
+var cst_pointercancel = string("pointercancel");
+var cst_pointerdown = string("pointerdown");
+var cst_pointerleave = string("pointerleave");
+var cst_pointermove = string("pointermove");
+var cst_pointerout = string("pointerout");
+var cst_pointerover = string("pointerover");
+var cst_pointerup = string("pointerup");
 var cst_ratechange = string("ratechange");
 var cst_seeked = string("seeked");
 var cst_seeking = string("seeking");
@@ -446,13 +456,14 @@ var cst_Js_of_ocaml_Dom_html_Canvas_not_available = string(
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 var List = require("../stdlib.cma.js/List.js");
 var Not_found = require("../runtime/Not_found.js");
+var Js_of_ocaml_Import = require("./Js_of_ocaml__Import.js");
 var Uchar = require("../stdlib.cma.js/Uchar.js");
 var Assert_failure = require("../runtime/Assert_failure.js");
 var Printf = require("../stdlib.cma.js/Printf.js");
 var Pervasives = require("../stdlib.cma.js/Pervasives.js");
 var Js_of_ocaml_Dom = require("./Js_of_ocaml__Dom.js");
-var g_ = [0,string("lib/js_of_ocaml/dom_html.ml"),2704,58];
-var f_ = [0,string("lib/js_of_ocaml/dom_html.ml"),2703,61];
+var g_ = [0,string("lib/js_of_ocaml/dom_html.ml"),2792,58];
+var f_ = [0,string("lib/js_of_ocaml/dom_html.ml"),2791,61];
 var b_ = [
   0,
   [11,string("getElementById_exn: "),[3,0,[11,string(" not found"),0]]],
@@ -522,12 +533,22 @@ var canplaythrough = call1(Js_of_ocaml_Dom[14][1], cst_canplaythrough);
 var durationchange = call1(Js_of_ocaml_Dom[14][1], cst_durationchange);
 var emptied = call1(Js_of_ocaml_Dom[14][1], cst_emptied);
 var ended = call1(Js_of_ocaml_Dom[14][1], cst_ended);
+var gotpointercapture = call1(Js_of_ocaml_Dom[14][1], cst_gotpointercapture);
 var loadeddata = call1(Js_of_ocaml_Dom[14][1], cst_loadeddata);
 var loadedmetadata = call1(Js_of_ocaml_Dom[14][1], cst_loadedmetadata);
 var loadstart = call1(Js_of_ocaml_Dom[14][1], cst_loadstart);
+var lostpointercapture = call1(Js_of_ocaml_Dom[14][1], cst_lostpointercapture);
 var pause = call1(Js_of_ocaml_Dom[14][1], cst_pause);
 var play = call1(Js_of_ocaml_Dom[14][1], cst_play);
 var playing = call1(Js_of_ocaml_Dom[14][1], cst_playing);
+var pointerenter = call1(Js_of_ocaml_Dom[14][1], cst_pointerenter);
+var pointercancel = call1(Js_of_ocaml_Dom[14][1], cst_pointercancel);
+var pointerdown = call1(Js_of_ocaml_Dom[14][1], cst_pointerdown);
+var pointerleave = call1(Js_of_ocaml_Dom[14][1], cst_pointerleave);
+var pointermove = call1(Js_of_ocaml_Dom[14][1], cst_pointermove);
+var pointerout = call1(Js_of_ocaml_Dom[14][1], cst_pointerout);
+var pointerover = call1(Js_of_ocaml_Dom[14][1], cst_pointerover);
+var pointerup = call1(Js_of_ocaml_Dom[14][1], cst_pointerup);
 var ratechange = call1(Js_of_ocaml_Dom[14][1], cst_ratechange);
 var seeked = call1(Js_of_ocaml_Dom[14][1], cst_seeked);
 var seeking = call1(Js_of_ocaml_Dom[14][1], cst_seeking);
@@ -597,12 +618,22 @@ var Event = [
   durationchange,
   emptied,
   ended,
+  gotpointercapture,
   loadeddata,
   loadedmetadata,
   loadstart,
+  lostpointercapture,
   pause,
   play,
   playing,
+  pointerenter,
+  pointercancel,
+  pointerdown,
+  pointerleave,
+  pointermove,
+  pointerout,
+  pointerover,
+  pointerup,
   ratechange,
   seeked,
   seeking,
@@ -612,57 +643,65 @@ var Event = [
   waiting,
   make
 ];
-var addEventListener = Js_of_ocaml_Dom[15];
-var removeEventListener = Js_of_ocaml_Dom[16];
+var addEventListener = Js_of_ocaml_Dom[16];
+var addEventListenerWithOptions = Js_of_ocaml_Dom[15];
+var removeEventListener = Js_of_ocaml_Dom[17];
+var createCustomEvent = Js_of_ocaml_Dom[19];
 var d = "2d";
 
 function location_origin(loc) {
   function de_(o) {return o;}
   function df_(param) {
-    function di_(x) {return call1(caml_get_public_method(x, 6510168, 67), x);}
+    function di_(x) {return call1(caml_get_public_method(x, 6510168, 74), x);}
     var protocol = function(t13, param) {return t13.protocol;}(loc, di_);
     function dj_(x) {
-      return call1(caml_get_public_method(x, -757983821, 68), x);
+      return call1(caml_get_public_method(x, -757983821, 75), x);
     }
     var hostname = function(t12, param) {return t12.hostname;}(loc, dj_);
     function dk_(x) {
-      return call1(caml_get_public_method(x, -899906687, 69), x);
+      return call1(caml_get_public_method(x, -899906687, 76), x);
     }
     var port = function(t11, param) {return t11.port;}(loc, dk_);
-    function dl_(x) {
-      return call1(caml_get_public_method(x, 520590566, 70), x);
+    var dl_ = 0;
+    function dm_(x) {
+      return call1(caml_get_public_method(x, 520590566, 77), x);
     }
-    if (0 === function(t9, param) {return t9.length;}(protocol, dl_)) {
-      var dm_ = function(x) {
-        return call1(caml_get_public_method(x, 520590566, 71), x);
+    var dn_ = function(t9, param) {return t9.length;}(protocol, dm_);
+    if (call2(Js_of_ocaml_Import[8], dn_, dl_)) {
+      var do_ = 0;
+      var dp_ = function(x) {
+        return call1(caml_get_public_method(x, 520590566, 78), x);
       };
-      if (0 === function(t10, param) {return t10.length;}(hostname, dm_)) {return "";}
+      var dq_ = function(t10, param) {return t10.length;}(hostname, dp_);
+      if (call2(Js_of_ocaml_Import[8], dq_, do_)) {return "";}
     }
-    function dn_(x) {
-      return call1(caml_get_public_method(x, -491534073, 72), x);
+    function dr_(x) {
+      return call1(caml_get_public_method(x, -491534073, 79), x);
     }
-    var do_ = "//";
-    var origin = function(t8, t6, t7, param) {return t8.concat(t6, t7);}(protocol, do_, hostname, dn_
+    var ds_ = "//";
+    var origin = function(t8, t6, t7, param) {return t8.concat(t6, t7);}(protocol, ds_, hostname, dr_
     );
-    function dp_(x) {
-      return call1(caml_get_public_method(x, 520590566, 73), x);
+    var dt_ = 0;
+    function du_(x) {
+      return call1(caml_get_public_method(x, 520590566, 80), x);
     }
-    if (0 < function(t5, param) {return t5.length;}(port, dp_)) {
-      var dq_ = function(x) {
-        return call1(caml_get_public_method(x, -491534073, 74), x);
+    var dv_ = function(t5, param) {return t5.length;}(port, du_);
+    if (call2(Js_of_ocaml_Import[9], dv_, dt_)) {
+      var dw_ = function(x) {
+        return call1(caml_get_public_method(x, -491534073, 81), x);
       };
-      var dr_ = function(x) {
-        return call1(caml_get_public_method(x, -899906687, 75), x);
+      var dx_ = function(x) {
+        return call1(caml_get_public_method(x, -899906687, 82), x);
       };
-      var ds_ = function(t1, param) {return t1.port;}(loc, dr_);
-      var dt_ = ":";
-      return function(t4, t2, t3, param) {return t4.concat(t2, t3);}(origin, dt_, ds_, dq_
+      var dy_ = function(t1, param) {return t1.port;}(loc, dx_);
+      var dz_ = ":";
+      return function(t4, t2, t3, param) {return t4.concat(t2, t3);}(origin, dz_, dy_, dw_
       );
     }
     return origin;
   }
   function dg_(x) {
-    return call1(caml_get_public_method(x, -889120282, 76), x);
+    return call1(caml_get_public_method(x, -889120282, 83), x);
   }
   var dh_ = function(t0, param) {return t0.origin;}(loc, dg_);
   return call3(Js_of_ocaml_Js[6][7], dh_, df_, de_);
@@ -670,7 +709,7 @@ function location_origin(loc) {
 
 var window = Js_of_ocaml_Js[50][1];
 
-function a_(x) {return call1(caml_get_public_method(x, 454225691, 77), x);}
+function a_(x) {return call1(caml_get_public_method(x, 454225691, 84), x);}
 
 var document = function(t14, param) {return t14.document;}(window, a_);
 
@@ -678,7 +717,7 @@ function getElementById(id) {
   function c__(pnode) {return pnode;}
   function da_(param) {throw caml_wrap_thrown_exception(Not_found);}
   function db_(x) {
-    return call1(caml_get_public_method(x, -332188296, 78), x);
+    return call1(caml_get_public_method(x, -332188296, 85), x);
   }
   var dc_ = id.toString();
   var dd_ = function(t16, t15, param) {return t16.getElementById(t15);}(document, dc_, db_
@@ -693,7 +732,7 @@ function getElementById_exn(id) {
     return call1(Pervasives[2], c9_);
   }
   function c6_(x) {
-    return call1(caml_get_public_method(x, -332188296, 79), x);
+    return call1(caml_get_public_method(x, -332188296, 86), x);
   }
   var c7_ = id.toString();
   var c8_ = function(t18, t17, param) {return t18.getElementById(t17);}(document, c7_, c6_
@@ -703,7 +742,7 @@ function getElementById_exn(id) {
 
 function getElementById_opt(id) {
   function c1_(x) {
-    return call1(caml_get_public_method(x, -332188296, 80), x);
+    return call1(caml_get_public_method(x, -332188296, 87), x);
   }
   var c2_ = id.toString();
   var c3_ = function(t20, t19, param) {return t20.getElementById(t19);}(document, c2_, c1_
@@ -718,7 +757,7 @@ function getElementById_coerce(id, coerce) {
   }
   function cW_(param) {return 0;}
   function cX_(x) {
-    return call1(caml_get_public_method(x, -332188296, 81), x);
+    return call1(caml_get_public_method(x, -332188296, 88), x);
   }
   var cY_ = id.toString();
   var cZ_ = function(t22, t21, param) {return t22.getElementById(t21);}(document, cY_, cX_
@@ -730,7 +769,7 @@ function opt_iter(x, f) {if (x) {var v = x[1];return call1(f, v);}return 0;}
 
 function createElement(doc, name) {
   function cT_(x) {
-    return call1(caml_get_public_method(x, -292059360, 82), x);
+    return call1(caml_get_public_method(x, -292059360, 89), x);
   }
   var cU_ = name.toString();
   return function(t24, t23, param) {return t24.createElement(t23);}(doc, cU_, cT_
@@ -748,17 +787,17 @@ function unsafeCreateElementEx(type, name, doc, elt) {
     if (785140586 === ck_) {
       try {
         var cn_ = function(x) {
-          return call1(caml_get_public_method(x, -292059360, 83), x);
+          return call1(caml_get_public_method(x, -292059360, 90), x);
         };
         var co_ = '<input name="x">';
         var el = function(t51, t50, param) {return t51.createElement(t50);}(document, co_, cn_
         );
         var cp_ = "input";
         var cq_ = function(x) {
-          return call1(caml_get_public_method(x, 946097238, 84), x);
+          return call1(caml_get_public_method(x, 946097238, 91), x);
         };
         var cr_ = function(x) {
-          return call1(caml_get_public_method(x, 578170309, 85), x);
+          return call1(caml_get_public_method(x, 578170309, 92), x);
         };
         var cs_ = function(t47, param) {return t47.tagName;}(el, cr_);
         var ct_ = function(t48, param) {return t48.toLowerCase();}(cs_, cq_) === cp_ ?
@@ -767,7 +806,7 @@ function unsafeCreateElementEx(type, name, doc, elt) {
         if (ct_) {
           var cu_ = "x";
           var cv_ = function(x) {
-            return call1(caml_get_public_method(x, -922783157, 86), x);
+            return call1(caml_get_public_method(x, -922783157, 93), x);
           };
           var cw_ = function(t49, param) {return t49.name;}(el, cv_) === cu_ ?
             1 :
@@ -786,7 +825,7 @@ function unsafeCreateElementEx(type, name, doc, elt) {
       var cy_ = Js_of_ocaml_Js[14];
       var a = function(t46, param) {return new t46();}(cy_, cx_);
       var cz_ = function(x) {
-        return call1(caml_get_public_method(x, -231927987, 87), x);
+        return call1(caml_get_public_method(x, -231927987, 94), x);
       };
       var cA_ = elt.toString();
       var cB_ = "<";
@@ -796,7 +835,7 @@ function unsafeCreateElementEx(type, name, doc, elt) {
         type,
         function(t) {
           function cO_(x) {
-            return call1(caml_get_public_method(x, -231927986, 88), x);
+            return call1(caml_get_public_method(x, -231927986, 95), x);
           }
           var cP_ = '"';
           var cQ_ = caml_js_html_escape(t);
@@ -811,7 +850,7 @@ function unsafeCreateElementEx(type, name, doc, elt) {
         name,
         function(n) {
           function cK_(x) {
-            return call1(caml_get_public_method(x, -231927986, 89), x);
+            return call1(caml_get_public_method(x, -231927986, 96), x);
           }
           var cL_ = '"';
           var cM_ = caml_js_html_escape(n);
@@ -823,15 +862,15 @@ function unsafeCreateElementEx(type, name, doc, elt) {
         }
       );
       var cC_ = function(x) {
-        return call1(caml_get_public_method(x, -899608102, 90), x);
+        return call1(caml_get_public_method(x, -899608102, 97), x);
       };
       var cD_ = ">";
       (function(t34, t33, param) {return t34.push(t33);}(a, cD_, cC_));
       var cE_ = function(x) {
-        return call1(caml_get_public_method(x, -292059360, 91), x);
+        return call1(caml_get_public_method(x, -292059360, 98), x);
       };
       var cF_ = function(x) {
-        return call1(caml_get_public_method(x, -966446102, 92), x);
+        return call1(caml_get_public_method(x, -966446102, 99), x);
       };
       var cG_ = "";
       var cH_ = function(t30, t29, param) {return t30.join(t29);}(a, cG_, cF_);
@@ -843,7 +882,7 @@ function unsafeCreateElementEx(type, name, doc, elt) {
       type,
       function(t) {
         function cJ_(x) {
-          return call1(caml_get_public_method(x, 1707673, 93), x);
+          return call1(caml_get_public_method(x, 1707673, 100), x);
         }
         return function(t28, t27, param) {t28.type = t27;return 0;}(res, t, cJ_
         );
@@ -853,7 +892,7 @@ function unsafeCreateElementEx(type, name, doc, elt) {
       name,
       function(n) {
         function cI_(x) {
-          return call1(caml_get_public_method(x, -922783157, 94), x);
+          return call1(caml_get_public_method(x, -922783157, 101), x);
         }
         return function(t26, t25, param) {t26.name = t25;return 0;}(res, n, cI_
         );
@@ -1044,7 +1083,7 @@ var Canvas_not_available = [
 function createCanvas(doc) {
   var c = unsafeCreateElement(doc, cst_canvas);
   function ci_(x) {
-    return call1(caml_get_public_method(x, -388424711, 95), x);
+    return call1(caml_get_public_method(x, -388424711, 102), x);
   }
   var cj_ = function(t52, param) {return t52.getContext;}(c, ci_);
   if (1 - call1(Js_of_ocaml_Js[5][5], cj_)) {
@@ -1053,7 +1092,7 @@ function createCanvas(doc) {
   return c;
 }
 
-function c_(x) {return call1(caml_get_public_method(x, -29132142, 96), x);}
+function c_(x) {return call1(caml_get_public_method(x, -29132142, 103), x);}
 
 var d_ = Js_of_ocaml_Js[50][1];
 var html_element = function(t53, param) {return t53.HTMLElement;}(d_, c_);
@@ -1062,7 +1101,7 @@ var element = call1(Js_of_ocaml_Js[4], html_element) === e_ ?
   function(e) {
    var cf_ = Js_of_ocaml_Js[3];
    function cg_(x) {
-     return call1(caml_get_public_method(x, 746263041, 97), x);
+     return call1(caml_get_public_method(x, 746263041, 104), x);
    }
    var ch_ = function(t54, param) {return t54.innerHTML;}(e, cg_);
    return call1(Js_of_ocaml_Js[4], ch_) === cf_ ?
@@ -1077,8 +1116,12 @@ var element = call1(Js_of_ocaml_Js[4], html_element) === e_ ?
 
 function unsafeCoerce(tag, e) {
   var cb_ = tag.toString();
-  function cc_(x) {return call1(caml_get_public_method(x, 946097238, 98), x);}
-  function cd_(x) {return call1(caml_get_public_method(x, 578170309, 99), x);}
+  function cc_(x) {
+    return call1(caml_get_public_method(x, 946097238, 105), x);
+  }
+  function cd_(x) {
+    return call1(caml_get_public_method(x, 578170309, 106), x);
+  }
   var ce_ = function(t55, param) {return t55.tagName;}(e, cd_);
   return function(t56, param) {return t56.toLowerCase();}(ce_, cc_) === cb_ ?
     call1(Js_of_ocaml_Js[2], e) :
@@ -1217,7 +1260,7 @@ function unsafeCoerceEvent(constr, ev) {
 
 function mouseEvent(ev) {
   function b9_(x) {
-    return call1(caml_get_public_method(x, -590574348, 100), x);
+    return call1(caml_get_public_method(x, -590574348, 107), x);
   }
   var b__ = Js_of_ocaml_Js[50][1];
   return unsafeCoerceEvent(
@@ -1228,7 +1271,7 @@ function mouseEvent(ev) {
 
 function keyboardEvent(ev) {
   function b7_(x) {
-    return call1(caml_get_public_method(x, -807764460, 101), x);
+    return call1(caml_get_public_method(x, -807764460, 108), x);
   }
   var b8_ = Js_of_ocaml_Js[50][1];
   return unsafeCoerceEvent(
@@ -1239,7 +1282,7 @@ function keyboardEvent(ev) {
 
 function wheelEvent(ev) {
   function b5_(x) {
-    return call1(caml_get_public_method(x, 239551166, 102), x);
+    return call1(caml_get_public_method(x, 239551166, 109), x);
   }
   var b6_ = Js_of_ocaml_Js[50][1];
   return unsafeCoerceEvent(
@@ -1250,7 +1293,7 @@ function wheelEvent(ev) {
 
 function mouseScrollEvent(ev) {
   function b3_(x) {
-    return call1(caml_get_public_method(x, -31722201, 103), x);
+    return call1(caml_get_public_method(x, -31722201, 110), x);
   }
   var b4_ = Js_of_ocaml_Js[50][1];
   return unsafeCoerceEvent(
@@ -1261,7 +1304,7 @@ function mouseScrollEvent(ev) {
 
 function popStateEvent(ev) {
   function b1_(x) {
-    return call1(caml_get_public_method(x, -903494309, 104), x);
+    return call1(caml_get_public_method(x, -903494309, 111), x);
   }
   var b2_ = Js_of_ocaml_Js[50][1];
   return unsafeCoerceEvent(
@@ -1275,7 +1318,7 @@ var eventTarget = Js_of_ocaml_Dom[13];
 function eventRelatedTarget(e) {
   function bR_(param) {
     function bU_(x) {
-      return call1(caml_get_public_method(x, 1707673, 105), x);
+      return call1(caml_get_public_method(x, 1707673, 112), x);
     }
     var match = caml_js_to_string(
       function(t65, param) {return t65.type;}(e, bU_)
@@ -1286,7 +1329,7 @@ function eventRelatedTarget(e) {
         throw caml_wrap_thrown_exception([0,Assert_failure,f_]);
       };
       var bW_ = function(x) {
-        return call1(caml_get_public_method(x, 513086066, 106), x);
+        return call1(caml_get_public_method(x, 513086066, 113), x);
       };
       var bX_ = function(t63, param) {return t63.fromElement;}(e, bW_);
       return call2(Js_of_ocaml_Js[6][8], bX_, bV_);
@@ -1295,13 +1338,13 @@ function eventRelatedTarget(e) {
       throw caml_wrap_thrown_exception([0,Assert_failure,g_]);
     }
     function bZ_(x) {
-      return call1(caml_get_public_method(x, 904455809, 107), x);
+      return call1(caml_get_public_method(x, 904455809, 114), x);
     }
     var b0_ = function(t64, param) {return t64.toElement;}(e, bZ_);
     return call2(Js_of_ocaml_Js[6][8], b0_, bY_);
   }
   function bS_(x) {
-    return call1(caml_get_public_method(x, -629591140, 108), x);
+    return call1(caml_get_public_method(x, -629591140, 115), x);
   }
   var bT_ = function(t62, param) {return t62.relatedTarget;}(e, bS_);
   return call2(Js_of_ocaml_Js[6][8], bT_, bR_);
@@ -1309,31 +1352,31 @@ function eventRelatedTarget(e) {
 
 function eventAbsolutePosition(e) {
   function bE_(x) {
-    return call1(caml_get_public_method(x, -1055163742, 109), x);
+    return call1(caml_get_public_method(x, -1055163742, 116), x);
   }
   var body = function(t73, param) {return t73.body;}(document, bE_);
   function bF_(x) {
-    return call1(caml_get_public_method(x, 1068552417, 110), x);
+    return call1(caml_get_public_method(x, 1068552417, 117), x);
   }
   var html = function(t72, param) {return t72.documentElement;}(document, bF_);
   function bG_(x) {
-    return call1(caml_get_public_method(x, 1040845960, 111), x);
+    return call1(caml_get_public_method(x, 1040845960, 118), x);
   }
   var bH_ = function(t71, param) {return t71.scrollTop;}(html, bG_);
   function bI_(x) {
-    return call1(caml_get_public_method(x, 1040845960, 112), x);
+    return call1(caml_get_public_method(x, 1040845960, 119), x);
   }
   var bJ_ = function(t70, param) {return t70.scrollTop;}(body, bI_);
   function bK_(x) {
-    return call1(caml_get_public_method(x, -75417682, 113), x);
+    return call1(caml_get_public_method(x, -75417682, 120), x);
   }
   var bL_ = (function(t69, param) {return t69.clientY;}(e, bK_) + bJ_ | 0) + bH_ | 0;
-  function bM_(x) {return call1(caml_get_public_method(x, 91199156, 114), x);}
+  function bM_(x) {return call1(caml_get_public_method(x, 91199156, 121), x);}
   var bN_ = function(t68, param) {return t68.scrollLeft;}(html, bM_);
-  function bO_(x) {return call1(caml_get_public_method(x, 91199156, 115), x);}
+  function bO_(x) {return call1(caml_get_public_method(x, 91199156, 122), x);}
   var bP_ = function(t67, param) {return t67.scrollLeft;}(body, bO_);
   function bQ_(x) {
-    return call1(caml_get_public_method(x, -75417683, 116), x);
+    return call1(caml_get_public_method(x, -75417683, 123), x);
   }
   return [
     0,
@@ -1347,14 +1390,14 @@ function eventAbsolutePosition__0(e) {
     function bA_(y) {return [0,x,y];}
     function bB_(param) {return eventAbsolutePosition(e);}
     function bC_(x) {
-      return call1(caml_get_public_method(x, 1028467498, 117), x);
+      return call1(caml_get_public_method(x, 1028467498, 124), x);
     }
     var bD_ = function(t75, param) {return t75.pageY;}(e, bC_);
     return call3(Js_of_ocaml_Js[6][7], bD_, bB_, bA_);
   }
   function bx_(param) {return eventAbsolutePosition(e);}
   function by_(x) {
-    return call1(caml_get_public_method(x, 1028467497, 118), x);
+    return call1(caml_get_public_method(x, 1028467497, 125), x);
   }
   var bz_ = function(t74, param) {return t74.pageX;}(e, by_);
   return call3(Js_of_ocaml_Js[6][7], bz_, bx_, bw_);
@@ -1362,37 +1405,37 @@ function eventAbsolutePosition__0(e) {
 
 function elementClientPosition(e) {
   function bi_(x) {
-    return call1(caml_get_public_method(x, 718768073, 119), x);
+    return call1(caml_get_public_method(x, 718768073, 126), x);
   }
   var r = function(t84, param) {return t84.getBoundingClientRect();}(e, bi_);
   function bj_(x) {
-    return call1(caml_get_public_method(x, -1055163742, 120), x);
+    return call1(caml_get_public_method(x, -1055163742, 127), x);
   }
   var body = function(t83, param) {return t83.body;}(document, bj_);
   function bk_(x) {
-    return call1(caml_get_public_method(x, 1068552417, 121), x);
+    return call1(caml_get_public_method(x, 1068552417, 128), x);
   }
   var html = function(t82, param) {return t82.documentElement;}(document, bk_);
   function bl_(x) {
-    return call1(caml_get_public_method(x, -939682550, 122), x);
+    return call1(caml_get_public_method(x, -939682550, 129), x);
   }
   var bm_ = function(t81, param) {return t81.clientTop;}(html, bl_);
   function bn_(x) {
-    return call1(caml_get_public_method(x, -939682550, 123), x);
+    return call1(caml_get_public_method(x, -939682550, 130), x);
   }
   var bo_ = function(t80, param) {return t80.clientTop;}(body, bn_);
-  function bp_(x) {return call1(caml_get_public_method(x, 5793429, 124), x);}
+  function bp_(x) {return call1(caml_get_public_method(x, 5793429, 131), x);}
   var bq_ = ((function(t79, param) {return t79.top;}(r, bp_) | 0) - bo_ | 0) - bm_ | 0;
   function br_(x) {
-    return call1(caml_get_public_method(x, 814972914, 125), x);
+    return call1(caml_get_public_method(x, 814972914, 132), x);
   }
   var bs_ = function(t78, param) {return t78.clientLeft;}(html, br_);
   function bt_(x) {
-    return call1(caml_get_public_method(x, 814972914, 126), x);
+    return call1(caml_get_public_method(x, 814972914, 133), x);
   }
   var bu_ = function(t77, param) {return t77.clientLeft;}(body, bt_);
   function bv_(x) {
-    return call1(caml_get_public_method(x, -944764921, 127), x);
+    return call1(caml_get_public_method(x, -944764921, 134), x);
   }
   return [
     0,
@@ -1403,24 +1446,24 @@ function elementClientPosition(e) {
 
 function getDocumentScroll(param) {
   function a__(x) {
-    return call1(caml_get_public_method(x, -1055163742, 128), x);
+    return call1(caml_get_public_method(x, -1055163742, 135), x);
   }
   var body = function(t90, param) {return t90.body;}(document, a__);
   function ba_(x) {
-    return call1(caml_get_public_method(x, 1068552417, 129), x);
+    return call1(caml_get_public_method(x, 1068552417, 136), x);
   }
   var html = function(t89, param) {return t89.documentElement;}(document, ba_);
   function bb_(x) {
-    return call1(caml_get_public_method(x, 1040845960, 130), x);
+    return call1(caml_get_public_method(x, 1040845960, 137), x);
   }
   var bc_ = function(t88, param) {return t88.scrollTop;}(html, bb_);
   function bd_(x) {
-    return call1(caml_get_public_method(x, 1040845960, 131), x);
+    return call1(caml_get_public_method(x, 1040845960, 138), x);
   }
   var be_ = function(t87, param) {return t87.scrollTop;}(body, bd_) + bc_ | 0;
-  function bf_(x) {return call1(caml_get_public_method(x, 91199156, 132), x);}
+  function bf_(x) {return call1(caml_get_public_method(x, 91199156, 139), x);}
   var bg_ = function(t86, param) {return t86.scrollLeft;}(html, bf_);
-  function bh_(x) {return call1(caml_get_public_method(x, 91199156, 133), x);}
+  function bh_(x) {return call1(caml_get_public_method(x, 91199156, 140), x);}
   return [
     0,
     function(t85, param) {return t85.scrollLeft;}(body, bh_) + bg_ | 0,
@@ -1432,7 +1475,7 @@ function buttonPressed(ev) {
   function a5_(x) {return x;}
   function a6_(param) {
     function a9_(x) {
-      return call1(caml_get_public_method(x, -639606286, 134), x);
+      return call1(caml_get_public_method(x, -639606286, 141), x);
     }
     var match = function(t92, param) {return t92.button;}(ev, a9_);
     var switcher = match + -1 | 0;
@@ -1449,7 +1492,7 @@ function buttonPressed(ev) {
     return 0;
   }
   function a7_(x) {
-    return call1(caml_get_public_method(x, -910345251, 135), x);
+    return call1(caml_get_public_method(x, -910345251, 142), x);
   }
   var a8_ = function(t91, param) {return t91.which;}(ev, a7_);
   return call3(Js_of_ocaml_Js[6][7], a8_, a6_, a5_);
@@ -1458,7 +1501,7 @@ function buttonPressed(ev) {
 function hasMousewheelEvents(param) {
   var d = createDiv(document);
   function a2_(x) {
-    return call1(caml_get_public_method(x, 524300314, 136), x);
+    return call1(caml_get_public_method(x, 524300314, 143), x);
   }
   var a3_ = "return;";
   var a4_ = "onmousewheel";
@@ -1467,62 +1510,70 @@ function hasMousewheelEvents(param) {
   return typeof d.onmousewheel === "function" ? 1 : 0;
 }
 
-function addMousewheelEventListener(e, h, capt) {
+function addMousewheelEventListenerWithOptions(e, capture, once, passive, h) {
   return hasMousewheelEvents(0) ?
-    call4(
-     addEventListener,
+    call6(
+     addEventListenerWithOptions,
      e,
      mousewheel,
+     capture,
+     once,
+     passive,
      call1(
        handler,
        function(e) {
          function aR_(param) {return 0;}
          function aS_(x) {
-           return call1(caml_get_public_method(x, -95379365, 137), x);
+           return call1(caml_get_public_method(x, -95379365, 144), x);
          }
          var aT_ = function(t101, param) {return t101.wheelDeltaX;}(e, aS_);
          var dx = (- call2(Js_of_ocaml_Js[6][8], aT_, aR_) | 0) / 40 | 0;
          function aU_(param) {
            function aX_(x) {
-             return call1(caml_get_public_method(x, 644780381, 138), x);
+             return call1(caml_get_public_method(x, 644780381, 145), x);
            }
            return function(t100, param) {return t100.wheelDelta;}(e, aX_);
          }
          function aV_(x) {
-           return call1(caml_get_public_method(x, -95379364, 139), x);
+           return call1(caml_get_public_method(x, -95379364, 146), x);
          }
          var aW_ = function(t99, param) {return t99.wheelDeltaY;}(e, aV_);
          var dy = (- call2(Js_of_ocaml_Js[6][8], aW_, aU_) | 0) / 40 | 0;
          return call3(h, e, dx, dy);
        }
-     ),
-     capt
+     )
    ) :
-    call4(
-     addEventListener,
+    call6(
+     addEventListenerWithOptions,
      e,
      DOMMouseScroll,
+     capture,
+     once,
+     passive,
      call1(
        handler,
        function(e) {
          function aY_(x) {
-           return call1(caml_get_public_method(x, -266378607, 140), x);
+           return call1(caml_get_public_method(x, -266378607, 147), x);
          }
          var d = function(t98, param) {return t98.detail;}(e, aY_);
          function aZ_(x) {
-           return call1(caml_get_public_method(x, -66775139, 141), x);
+           return call1(caml_get_public_method(x, -66775139, 148), x);
          }
          var a0_ = function(t97, param) {return t97.HORIZONTAL;}(e, aZ_);
          function a1_(x) {
-           return call1(caml_get_public_method(x, -1065804639, 142), x);
+           return call1(caml_get_public_method(x, -1065804639, 149), x);
          }
          return function(t96, param) {return t96.axis;}(e, a1_) === a0_ ?
            call3(h, e, d, 0) :
            call3(h, e, 0, d);
        }
-     ),
-     capt
+     )
    );
+}
+
+function addMousewheelEventListener(e, h, capt) {
+  return addMousewheelEventListenerWithOptions(e, [0,capt], 0, 0, h);
 }
 
 function try_code(v) {
@@ -2002,14 +2053,14 @@ function run_next(value, f, v) {return 0 === v ? call1(f, value) : v;}
 
 function get_key_code(evt) {
   function aP_(x) {
-    return call1(caml_get_public_method(x, 463348332, 143), x);
+    return call1(caml_get_public_method(x, 463348332, 150), x);
   }
   return function(t102, param) {return t102.keyCode;}(evt, aP_);
 }
 
 function try_key_location(evt) {
   function aI_(x) {
-    return call1(caml_get_public_method(x, -448369099, 144), x);
+    return call1(caml_get_public_method(x, -448369099, 151), x);
   }
   var match = function(t103, param) {return t103.location;}(evt, aI_);
   var switcher = match + -1 | 0;
@@ -2034,7 +2085,7 @@ function of_event(evt) {
   function aC_(aH_) {return run_next(aB_, try_key_code_normal, aH_);}
   var aD_ = try_key_location(evt);
   function aE_(x) {
-    return call1(caml_get_public_method(x, -1044074195, 145), x);
+    return call1(caml_get_public_method(x, -1044074195, 152), x);
   }
   var aF_ = function(t104, param) {return t104.code;}(evt, aE_);
   return symbol(
@@ -2047,7 +2098,7 @@ function of_event(evt) {
 }
 
 function char_of_int(value) {
-  if (0 < value) {
+  if (call2(Js_of_ocaml_Import[5], 0, value)) {
     try {var az_ = [0,call1(Uchar[8], value)];return az_;}
     catch(aA_) {return 0;}
   }
@@ -2059,23 +2110,23 @@ function empty_string(param) {return "";}
 function none(param) {return 0;}
 
 function of_event__0(evt) {
-  function as_(x) {return call1(caml_get_public_method(x, 5343647, 146), x);}
+  function as_(x) {return call1(caml_get_public_method(x, 5343647, 153), x);}
   var at_ = function(t109, param) {return t109.key;}(evt, as_);
   var key = call2(Js_of_ocaml_Js[6][8], at_, empty_string);
   function au_(x) {
-    return call1(caml_get_public_method(x, 520590566, 147), x);
+    return call1(caml_get_public_method(x, 520590566, 154), x);
   }
   var match = function(t108, param) {return t108.length;}(key, au_);
   if (0 === match) {
     var av_ = function(x) {
-      return call1(caml_get_public_method(x, 472145699, 148), x);
+      return call1(caml_get_public_method(x, 472145699, 155), x);
     };
     var aw_ = function(t105, param) {return t105.charCode;}(evt, av_);
     return call3(Js_of_ocaml_Js[6][7], aw_, none, char_of_int);
   }
   if (1 === match) {
     var ax_ = function(x) {
-      return call1(caml_get_public_method(x, 894756598, 149), x);
+      return call1(caml_get_public_method(x, 894756598, 156), x);
     };
     var ay_ = 0;
     return char_of_int(
@@ -2092,16 +2143,16 @@ function other(e) {return [61,e];}
 
 function tagged(e) {
   function ao_(x) {
-    return call1(caml_get_public_method(x, 946097238, 150), x);
+    return call1(caml_get_public_method(x, 946097238, 157), x);
   }
   function ap_(x) {
-    return call1(caml_get_public_method(x, 578170309, 151), x);
+    return call1(caml_get_public_method(x, 578170309, 158), x);
   }
   var aq_ = function(t110, param) {return t110.tagName;}(e, ap_);
   var tag = runtime["caml_js_to_byte_string"](
     function(t111, param) {return t111.toLowerCase();}(aq_, ao_)
   );
-  if (0 === runtime["caml_ml_string_length"](tag)) {return other(e);}
+  if (call2(Js_of_ocaml_Import[8], runtime["caml_ml_string_length"](tag), 0)) {return other(e);}
   var match = runtime["caml_bytes_unsafe_get"](tag, 0);
   var switcher = match + -97 | 0;
   if (! (21 < switcher >>> 0)) {
@@ -2275,19 +2326,19 @@ function opt_taggedEvent(ev) {
 function stopPropagation(ev) {
   function O_(param) {
     function U_(x) {
-      return call1(caml_get_public_method(x, 189842539, 152), x);
+      return call1(caml_get_public_method(x, 189842539, 159), x);
     }
     return function(t115, param) {return t115.stopPropagation();}(ev, U_);
   }
   function P_(param) {
     function S_(x) {
-      return call1(caml_get_public_method(x, 320837798, 153), x);
+      return call1(caml_get_public_method(x, 320837798, 160), x);
     }
     var T_ = Js_of_ocaml_Js[7];
     return function(t114, t113, param) {t114.cancelBubble = t113;return 0;}(ev, T_, S_
     );
   }
-  function Q_(x) {return call1(caml_get_public_method(x, 544309738, 154), x);}
+  function Q_(x) {return call1(caml_get_public_method(x, 544309738, 161), x);}
   var R_ = function(t112, param) {return t112.stopPropagation;}(ev, Q_);
   return call3(Js_of_ocaml_Js[6][7], R_, P_, O_);
 }
@@ -2296,7 +2347,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
   function(param) {
     var w_ = 0;
     function x_(x) {
-      return call1(caml_get_public_method(x, 497949938, 155), x);
+      return call1(caml_get_public_method(x, 497949938, 162), x);
     }
     var y_ = [
       0,
@@ -2304,7 +2355,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
       w_
     ];
     function z_(x) {
-      return call1(caml_get_public_method(x, -153781943, 156), x);
+      return call1(caml_get_public_method(x, -153781943, 163), x);
     }
     var A_ = [
       0,
@@ -2312,7 +2363,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
       y_
     ];
     function B_(x) {
-      return call1(caml_get_public_method(x, -151539242, 157), x);
+      return call1(caml_get_public_method(x, -151539242, 164), x);
     }
     var C_ = [
       0,
@@ -2321,7 +2372,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
       A_
     ];
     function D_(x) {
-      return call1(caml_get_public_method(x, -769448896, 158), x);
+      return call1(caml_get_public_method(x, -769448896, 165), x);
     }
     var E_ = [
       0,
@@ -2330,7 +2381,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
       C_
     ];
     function F_(x) {
-      return call1(caml_get_public_method(x, 240126520, 159), x);
+      return call1(caml_get_public_method(x, 240126520, 166), x);
     }
     var l = [
       0,
@@ -2348,7 +2399,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
       if (I_ === Not_found) {
         var now = function(param) {
           function K_(x) {
-            return call1(caml_get_public_method(x, 528448451, 160), x);
+            return call1(caml_get_public_method(x, 528448451, 167), x);
           }
           var L_ = 0;
           var M_ = Js_of_ocaml_Js[22];
@@ -2362,7 +2413,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
           var dt__0 = dt < 0 ? 0 : dt;
           last[1] = t;
           function J_(x) {
-            return call1(caml_get_public_method(x, 735461151, 161), x);
+            return call1(caml_get_public_method(x, 735461151, 168), x);
           }
           (function(t118, t116, t117, param) {
              return t118.setTimeout(t116, t117);
@@ -2378,10 +2429,10 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
 
 function hasPushState(param) {
   function s_(x) {
-    return call1(caml_get_public_method(x, -936976937, 162), x);
+    return call1(caml_get_public_method(x, -936976937, 169), x);
   }
   function t_(x) {
-    return call1(caml_get_public_method(x, -465095340, 163), x);
+    return call1(caml_get_public_method(x, -465095340, 170), x);
   }
   var u_ = function(t126, param) {return t126.history;}(window, t_);
   var v_ = function(t127, param) {return t127.pushState;}(u_, s_);
@@ -2390,14 +2441,14 @@ function hasPushState(param) {
 
 function hasPlaceholder(param) {
   var i = createInput(0, 0, document);
-  function q_(x) {return call1(caml_get_public_method(x, 989033331, 164), x);}
+  function q_(x) {return call1(caml_get_public_method(x, 989033331, 171), x);}
   var r_ = function(t128, param) {return t128.placeholder;}(i, q_);
   return call1(Js_of_ocaml_Js[6][5], r_);
 }
 
 function hasRequired(param) {
   var i = createInput(0, 0, document);
-  function o_(x) {return call1(caml_get_public_method(x, 845320543, 165), x);}
+  function o_(x) {return call1(caml_get_public_method(x, 845320543, 172), x);}
   var p_ = function(t129, param) {return t129.required;}(i, o_);
   return call1(Js_of_ocaml_Js[6][5], p_);
 }
@@ -2415,7 +2466,7 @@ function setTimeout(callback, d) {
     else {var remain__0 = 0;var step__0 = step;var remain = remain__0;}
     var cb = remain == 0 ? callback : function(n_) {return loop(remain, n_);};
     function l_(x) {
-      return call1(caml_get_public_method(x, 735461151, 166), x);
+      return call1(caml_get_public_method(x, 735461151, 173), x);
     }
     var m_ = runtime["caml_js_wrap_callback"](cb);
     id[1] =
@@ -2438,7 +2489,7 @@ function clearTimeout(id) {
     var x = i_[1];
     id[1] = 0;
     var j_ = function(x) {
-      return call1(caml_get_public_method(x, 880135316, 167), x);
+      return call1(caml_get_public_method(x, 880135316, 174), x);
     };
     return function(t134, t133, param) {return t134.clearTimeout(t133);}(window, x, j_
     );
@@ -2465,9 +2516,12 @@ var Js_of_ocaml_Dom_html = [
   eventTarget,
   eventRelatedTarget,
   Event,
+  addEventListenerWithOptions,
   addEventListener,
   removeEventListener,
+  addMousewheelEventListenerWithOptions,
   addMousewheelEventListener,
+  createCustomEvent,
   buttonPressed,
   eventAbsolutePosition__0,
   elementClientPosition,
@@ -2662,9 +2716,12 @@ module.exports = Js_of_ocaml_Dom_html;
   eventTarget: any,
   eventRelatedTarget: (e: any) => any,
   Event: any,
+  addEventListenerWithOptions: any,
   addEventListener: any,
   removeEventListener: any,
+  addMousewheelEventListenerWithOptions: (e: any, capture: any, once: any, passive: any, h: any) => any,
   addMousewheelEventListener: (e: any, h: any, capt: any) => any,
+  createCustomEvent: any,
   buttonPressed: (ev: any) => any,
   eventAbsolutePosition: (e: any) => any,
   elementClientPosition: (e: any) => any,
@@ -2783,9 +2840,12 @@ module.exports = Js_of_ocaml_Dom_html;
   eventTarget: any,
   eventRelatedTarget: (e: any) => any,
   Event: any,
+  addEventListenerWithOptions: any,
   addEventListener: any,
   removeEventListener: any,
+  addMousewheelEventListenerWithOptions: (e: any, capture: any, once: any, passive: any, h: any) => any,
   addMousewheelEventListener: (e: any, h: any, capt: any) => any,
+  createCustomEvent: any,
   buttonPressed: (ev: any) => any,
   eventAbsolutePosition: (e: any) => any,
   elementClientPosition: (e: any) => any,
@@ -2904,109 +2964,112 @@ module.exports.invoke_handler = module.exports[12];
 module.exports.eventTarget = module.exports[13];
 module.exports.eventRelatedTarget = module.exports[14];
 module.exports.Event = module.exports[15];
-module.exports.addEventListener = module.exports[16];
-module.exports.removeEventListener = module.exports[17];
-module.exports.addMousewheelEventListener = module.exports[18];
-module.exports.buttonPressed = module.exports[19];
-module.exports.eventAbsolutePosition = module.exports[20];
-module.exports.elementClientPosition = module.exports[21];
-module.exports.getDocumentScroll = module.exports[22];
-module.exports.createHtml = module.exports[25];
-module.exports.createHead = module.exports[26];
-module.exports.createLink = module.exports[27];
-module.exports.createTitle = module.exports[28];
-module.exports.createMeta = module.exports[29];
-module.exports.createBase = module.exports[30];
-module.exports.createStyle = module.exports[31];
-module.exports.createBody = module.exports[32];
-module.exports.createForm = module.exports[33];
-module.exports.createOptgroup = module.exports[34];
-module.exports.createOption = module.exports[35];
-module.exports.createSelect = module.exports[36];
-module.exports.createInput = module.exports[37];
-module.exports.createTextarea = module.exports[38];
-module.exports.createButton = module.exports[39];
-module.exports.createLabel = module.exports[40];
-module.exports.createFieldset = module.exports[41];
-module.exports.createLegend = module.exports[42];
-module.exports.createUl = module.exports[43];
-module.exports.createOl = module.exports[44];
-module.exports.createDl = module.exports[45];
-module.exports.createLi = module.exports[46];
-module.exports.createDiv = module.exports[47];
-module.exports.createEmbed = module.exports[48];
-module.exports.createP = module.exports[49];
-module.exports.createH1 = module.exports[50];
-module.exports.createH2 = module.exports[51];
-module.exports.createH3 = module.exports[52];
-module.exports.createH4 = module.exports[53];
-module.exports.createH5 = module.exports[54];
-module.exports.createH6 = module.exports[55];
-module.exports.createQ = module.exports[56];
-module.exports.createBlockquote = module.exports[57];
-module.exports.createPre = module.exports[58];
-module.exports.createBr = module.exports[59];
-module.exports.createHr = module.exports[60];
-module.exports.createIns = module.exports[61];
-module.exports.createDel = module.exports[62];
-module.exports.createA = module.exports[63];
-module.exports.createImg = module.exports[64];
-module.exports.createObject = module.exports[65];
-module.exports.createParam = module.exports[66];
-module.exports.createMap = module.exports[67];
-module.exports.createArea = module.exports[68];
-module.exports.createScript = module.exports[69];
-module.exports.createTable = module.exports[70];
-module.exports.createCaption = module.exports[71];
-module.exports.createCol = module.exports[72];
-module.exports.createColgroup = module.exports[73];
-module.exports.createThead = module.exports[74];
-module.exports.createTfoot = module.exports[75];
-module.exports.createTbody = module.exports[76];
-module.exports.createTr = module.exports[77];
-module.exports.createTh = module.exports[78];
-module.exports.createTd = module.exports[79];
-module.exports.createSub = module.exports[80];
-module.exports.createSup = module.exports[81];
-module.exports.createSpan = module.exports[82];
-module.exports.createTt = module.exports[83];
-module.exports.createI = module.exports[84];
-module.exports.createB = module.exports[85];
-module.exports.createBig = module.exports[86];
-module.exports.createSmall = module.exports[87];
-module.exports.createEm = module.exports[88];
-module.exports.createStrong = module.exports[89];
-module.exports.createCite = module.exports[90];
-module.exports.createDfn = module.exports[91];
-module.exports.createCode = module.exports[92];
-module.exports.createSamp = module.exports[93];
-module.exports.createKbd = module.exports[94];
-module.exports.createVar = module.exports[95];
-module.exports.createAbbr = module.exports[96];
-module.exports.createDd = module.exports[97];
-module.exports.createDt = module.exports[98];
-module.exports.createNoscript = module.exports[99];
-module.exports.createAddress = module.exports[100];
-module.exports.createFrameset = module.exports[101];
-module.exports.createFrame = module.exports[102];
-module.exports.createIframe = module.exports[103];
-module.exports.createAudio = module.exports[104];
-module.exports.createVideo = module.exports[105];
-module.exports.Canvas_not_available = module.exports[106];
-module.exports.createCanvas = module.exports[107];
-module.exports.element = module.exports[108];
-module.exports.tagged = module.exports[109];
-module.exports.opt_tagged = module.exports[110];
-module.exports.taggedEvent = module.exports[111];
-module.exports.opt_taggedEvent = module.exports[112];
-module.exports.stopPropagation = module.exports[113];
-module.exports.setTimeout = module.exports[115];
-module.exports.clearTimeout = module.exports[116];
-module.exports.js_array_of_collection = module.exports[117];
-module.exports.requestAnimationFrame = module.exports[118];
-module.exports.onIE = module.exports[120];
-module.exports.hasPushState = module.exports[121];
-module.exports.hasPlaceholder = module.exports[122];
-module.exports.hasRequired = module.exports[123];
+module.exports.addEventListenerWithOptions = module.exports[16];
+module.exports.addEventListener = module.exports[17];
+module.exports.removeEventListener = module.exports[18];
+module.exports.addMousewheelEventListenerWithOptions = module.exports[19];
+module.exports.addMousewheelEventListener = module.exports[20];
+module.exports.createCustomEvent = module.exports[21];
+module.exports.buttonPressed = module.exports[22];
+module.exports.eventAbsolutePosition = module.exports[23];
+module.exports.elementClientPosition = module.exports[24];
+module.exports.getDocumentScroll = module.exports[25];
+module.exports.createHtml = module.exports[28];
+module.exports.createHead = module.exports[29];
+module.exports.createLink = module.exports[30];
+module.exports.createTitle = module.exports[31];
+module.exports.createMeta = module.exports[32];
+module.exports.createBase = module.exports[33];
+module.exports.createStyle = module.exports[34];
+module.exports.createBody = module.exports[35];
+module.exports.createForm = module.exports[36];
+module.exports.createOptgroup = module.exports[37];
+module.exports.createOption = module.exports[38];
+module.exports.createSelect = module.exports[39];
+module.exports.createInput = module.exports[40];
+module.exports.createTextarea = module.exports[41];
+module.exports.createButton = module.exports[42];
+module.exports.createLabel = module.exports[43];
+module.exports.createFieldset = module.exports[44];
+module.exports.createLegend = module.exports[45];
+module.exports.createUl = module.exports[46];
+module.exports.createOl = module.exports[47];
+module.exports.createDl = module.exports[48];
+module.exports.createLi = module.exports[49];
+module.exports.createDiv = module.exports[50];
+module.exports.createEmbed = module.exports[51];
+module.exports.createP = module.exports[52];
+module.exports.createH1 = module.exports[53];
+module.exports.createH2 = module.exports[54];
+module.exports.createH3 = module.exports[55];
+module.exports.createH4 = module.exports[56];
+module.exports.createH5 = module.exports[57];
+module.exports.createH6 = module.exports[58];
+module.exports.createQ = module.exports[59];
+module.exports.createBlockquote = module.exports[60];
+module.exports.createPre = module.exports[61];
+module.exports.createBr = module.exports[62];
+module.exports.createHr = module.exports[63];
+module.exports.createIns = module.exports[64];
+module.exports.createDel = module.exports[65];
+module.exports.createA = module.exports[66];
+module.exports.createImg = module.exports[67];
+module.exports.createObject = module.exports[68];
+module.exports.createParam = module.exports[69];
+module.exports.createMap = module.exports[70];
+module.exports.createArea = module.exports[71];
+module.exports.createScript = module.exports[72];
+module.exports.createTable = module.exports[73];
+module.exports.createCaption = module.exports[74];
+module.exports.createCol = module.exports[75];
+module.exports.createColgroup = module.exports[76];
+module.exports.createThead = module.exports[77];
+module.exports.createTfoot = module.exports[78];
+module.exports.createTbody = module.exports[79];
+module.exports.createTr = module.exports[80];
+module.exports.createTh = module.exports[81];
+module.exports.createTd = module.exports[82];
+module.exports.createSub = module.exports[83];
+module.exports.createSup = module.exports[84];
+module.exports.createSpan = module.exports[85];
+module.exports.createTt = module.exports[86];
+module.exports.createI = module.exports[87];
+module.exports.createB = module.exports[88];
+module.exports.createBig = module.exports[89];
+module.exports.createSmall = module.exports[90];
+module.exports.createEm = module.exports[91];
+module.exports.createStrong = module.exports[92];
+module.exports.createCite = module.exports[93];
+module.exports.createDfn = module.exports[94];
+module.exports.createCode = module.exports[95];
+module.exports.createSamp = module.exports[96];
+module.exports.createKbd = module.exports[97];
+module.exports.createVar = module.exports[98];
+module.exports.createAbbr = module.exports[99];
+module.exports.createDd = module.exports[100];
+module.exports.createDt = module.exports[101];
+module.exports.createNoscript = module.exports[102];
+module.exports.createAddress = module.exports[103];
+module.exports.createFrameset = module.exports[104];
+module.exports.createFrame = module.exports[105];
+module.exports.createIframe = module.exports[106];
+module.exports.createAudio = module.exports[107];
+module.exports.createVideo = module.exports[108];
+module.exports.Canvas_not_available = module.exports[109];
+module.exports.createCanvas = module.exports[110];
+module.exports.element = module.exports[111];
+module.exports.tagged = module.exports[112];
+module.exports.opt_tagged = module.exports[113];
+module.exports.taggedEvent = module.exports[114];
+module.exports.opt_taggedEvent = module.exports[115];
+module.exports.stopPropagation = module.exports[116];
+module.exports.setTimeout = module.exports[118];
+module.exports.clearTimeout = module.exports[119];
+module.exports.js_array_of_collection = module.exports[120];
+module.exports.requestAnimationFrame = module.exports[121];
+module.exports.onIE = module.exports[123];
+module.exports.hasPushState = module.exports[124];
+module.exports.hasPlaceholder = module.exports[125];
+module.exports.hasRequired = module.exports[126];
 
 /* Hashing disabled */

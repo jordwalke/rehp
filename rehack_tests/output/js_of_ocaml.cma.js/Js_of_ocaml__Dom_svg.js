@@ -143,7 +143,7 @@ var SVGError = [
 
 function createElement(doc, name) {
   function q_(x) {
-    return call1(caml_get_public_method(x, -387984539, 288), x);
+    return call1(caml_get_public_method(x, -387984539, 295), x);
   }
   var r_ = name.toString();
   return function(t2, t0, t1, param) {return t2.createElementNS(t0, t1);}(doc, xmlns, r_, q_
@@ -286,12 +286,12 @@ function createView(doc) {return unsafeCreateElement(doc, cst_view);}
 
 function createvkern(doc) {return unsafeCreateElement(doc, cst_vkern);}
 
-function a_(x) {return call1(caml_get_public_method(x, 946564599, 289), x);}
+function a_(x) {return call1(caml_get_public_method(x, 946564599, 296), x);}
 
 var b_ = Js_of_ocaml_Js[50][1];
 var svg_element = function(t3, param) {return t3.SVGElement;}(b_, a_);
 
-function c_(x) {return call1(caml_get_public_method(x, 454225691, 290), x);}
+function c_(x) {return call1(caml_get_public_method(x, 454225691, 297), x);}
 
 var d_ = Js_of_ocaml_Js[50][1];
 var document = function(t4, param) {return t4.document;}(d_, c_);
@@ -303,10 +303,10 @@ function getElementById(id) {
   }
   function j_(param) {throw caml_wrap_thrown_exception(Not_found);}
   function k_(x) {
-    return call1(caml_get_public_method(x, -332188296, 291), x);
+    return call1(caml_get_public_method(x, -332188296, 298), x);
   }
   var l_ = id.toString();
-  function m_(x) {return call1(caml_get_public_method(x, 454225691, 292), x);}
+  function m_(x) {return call1(caml_get_public_method(x, 454225691, 299), x);}
   var n_ = Js_of_ocaml_Js[50][1];
   var o_ = function(t5, param) {return t5.document;}(n_, m_);
   var p_ = function(t7, t6, param) {return t7.getElementById(t6);}(o_, l_, k_);
@@ -321,8 +321,8 @@ function element(e) {
 
 function unsafeCoerce(e, tag) {
   var e_ = tag.toString();
-  function f_(x) {return call1(caml_get_public_method(x, 946097238, 293), x);}
-  function g_(x) {return call1(caml_get_public_method(x, 578170309, 294), x);}
+  function f_(x) {return call1(caml_get_public_method(x, 946097238, 300), x);}
+  function g_(x) {return call1(caml_get_public_method(x, 578170309, 301), x);}
   var h_ = function(t8, param) {return t8.tagName;}(e, g_);
   return function(t9, param) {return t9.toLowerCase();}(h_, f_) === e_ ?
     call1(Js_of_ocaml_Js[2], e) :

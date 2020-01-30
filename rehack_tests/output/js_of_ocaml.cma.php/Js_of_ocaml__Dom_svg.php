@@ -138,7 +138,7 @@ final class Js_of_ocaml__Dom_svg {
     } as dynamic;
     $createElement = (dynamic $doc, dynamic $name) : dynamic ==> {
       $q_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -387984539, 288), $x);
+        return $call1($caml_get_public_method($x, -387984539, 295), $x);
       };
       $r_ = $name->toString();
       return ((dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) : dynamic ==> {return $t2->createElementNS($t0, $t1);
@@ -310,14 +310,14 @@ final class Js_of_ocaml__Dom_svg {
       return $unsafeCreateElement($doc, $cst_vkern);
     };
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 946564599, 289), $x);
+      return $call1($caml_get_public_method($x, 946564599, 296), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $svg_element = ((dynamic $t3, dynamic $param) : dynamic ==> {
        return $t3->SVGElement;
      })($b_, $a_);
     $c_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 454225691, 290), $x);
+      return $call1($caml_get_public_method($x, 454225691, 297), $x);
     };
     $d_ = $Js_of_ocaml_Js[50][1];
     $document = ((dynamic $t4, dynamic $param) : dynamic ==> {
@@ -332,11 +332,11 @@ final class Js_of_ocaml__Dom_svg {
         throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
       };
       $k_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -332188296, 291), $x);
+        return $call1($caml_get_public_method($x, -332188296, 298), $x);
       };
       $l_ = $id->toString();
       $m_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 454225691, 292), $x);
+        return $call1($caml_get_public_method($x, 454225691, 299), $x);
       };
       $n_ = $Js_of_ocaml_Js[50][1];
       $o_ = ((dynamic $t5, dynamic $param) : dynamic ==> {
@@ -355,10 +355,10 @@ final class Js_of_ocaml__Dom_svg {
     $unsafeCoerce = (dynamic $e, dynamic $tag) : dynamic ==> {
       $e_ = $tag->toString();
       $f_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 946097238, 293), $x);
+        return $call1($caml_get_public_method($x, 946097238, 300), $x);
       };
       $g_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 578170309, 294), $x);
+        return $call1($caml_get_public_method($x, 578170309, 301), $x);
       };
       $h_ = ((dynamic $t8, dynamic $param) : dynamic ==> {
          return $t8->tagName;

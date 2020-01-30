@@ -27,9 +27,9 @@ final class Js_of_ocaml__Dom_events {
         return ! ! $call2($cb, $n, $e);
       };
       $c_ = $call1($Js_of_ocaml_Dom_html[11], $b_);
-      return $call4($Js_of_ocaml_Dom_html[16], $target, $typ, $c_, $a_);
+      return $call4($Js_of_ocaml_Dom_html[17], $target, $typ, $c_, $a_);
     };
-    $stop_listen = $Js_of_ocaml_Dom_html[17];
+    $stop_listen = $Js_of_ocaml_Dom_html[18];
     $Js_of_ocaml_Dom_events = Vector{
       0,
       $Js_of_ocaml_Dom_html[15],

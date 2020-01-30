@@ -16,7 +16,7 @@ final class Js_of_ocaml__WebSockets {
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $a_ = (dynamic $x) : dynamic ==> {
       return $call1(
-        $runtime["caml_get_public_method"]($x, -492394744, 211),
+        $runtime["caml_get_public_method"]($x, -492394744, 218),
         $x
       );
     };

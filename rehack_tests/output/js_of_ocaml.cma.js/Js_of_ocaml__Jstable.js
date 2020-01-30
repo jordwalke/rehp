@@ -25,7 +25,7 @@ var Pervasives = require("../stdlib.cma.js/Pervasives.js");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 var List = require("../stdlib.cma.js/List.js");
 
-function a_(x) {return call1(caml_get_public_method(x, 944440446, 270), x);}
+function a_(x) {return call1(caml_get_public_method(x, 944440446, 277), x);}
 
 var b_ = Js_of_ocaml_Js[50][1];
 var obj = function(t0, param) {return t0.Object;}(b_, a_);
@@ -37,7 +37,7 @@ function create(param) {
 
 function add(t, k, v) {
   function w_(x) {
-    return call1(caml_get_public_method(x, -942667500, 271), x);
+    return call1(caml_get_public_method(x, -942667500, 278), x);
   }
   var x_ = "_";
   var y_ = 0;
@@ -47,7 +47,7 @@ function add(t, k, v) {
 
 function remove(t, k) {
   function t_(x) {
-    return call1(caml_get_public_method(x, -942667500, 272), x);
+    return call1(caml_get_public_method(x, -942667500, 279), x);
   }
   var u_ = "_";
   var v_ = 0;
@@ -57,7 +57,7 @@ function remove(t, k) {
 
 function find(t, k) {
   function r_(x) {
-    return call1(caml_get_public_method(x, -942667500, 273), x);
+    return call1(caml_get_public_method(x, -942667500, 280), x);
   }
   var s_ = "_";
   return t[function(t7, t6, param) {return t7.concat(t6);}(k, s_, r_)];
@@ -65,15 +65,15 @@ function find(t, k) {
 
 function keys(t) {
   function c_(x) {
-    return call1(caml_get_public_method(x, -955850252, 274), x);
+    return call1(caml_get_public_method(x, -955850252, 281), x);
   }
-  function d_(x) {return call1(caml_get_public_method(x, 944440446, 275), x);}
+  function d_(x) {return call1(caml_get_public_method(x, 944440446, 282), x);}
   var e_ = Js_of_ocaml_Js[50][1];
   var f_ = function(t13, param) {return t13.Object;}(e_, d_);
   var key_array = function(t15, t14, param) {return t15.keys(t14);}(f_, t, c_);
   var res = [0,0];
   var g_ = 0;
-  function h_(x) {return call1(caml_get_public_method(x, 520590566, 276), x);}
+  function h_(x) {return call1(caml_get_public_method(x, 520590566, 283), x);}
   var i_ = function(t12, param) {return t12.length;}(key_array, h_) + -1 | 0;
   if (! (i_ < 0)) {
     var i = g_;
@@ -85,10 +85,10 @@ function keys(t) {
       var key = call2(Js_of_ocaml_Js[6][8], k_, j_);
       var l_ = res[1];
       var m_ = function(x) {
-        return call1(caml_get_public_method(x, -488115631, 277), x);
+        return call1(caml_get_public_method(x, -488115631, 284), x);
       };
       var n_ = function(x) {
-        return call1(caml_get_public_method(x, 520590566, 278), x);
+        return call1(caml_get_public_method(x, 520590566, 285), x);
       };
       var o_ = function(t8, param) {return t8.length;}(key, n_) + -1 | 0;
       var p_ = 0;

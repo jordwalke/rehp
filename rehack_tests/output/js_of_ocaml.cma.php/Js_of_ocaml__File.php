@@ -37,7 +37,7 @@ final class Js_of_ocaml__File {
     $c_ = Vector{0, $string__0("transparent")} as dynamic;
     $d_ = Vector{0, $string__0("native")} as dynamic;
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -553417380, 62), $x);
+      return $call1($caml_get_public_method($x, -553417380, 69), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $blob_constr = ((dynamic $t0, dynamic $param) : dynamic ==> {
@@ -116,13 +116,13 @@ final class Js_of_ocaml__File {
     };
     $filename = (dynamic $file) : dynamic ==> {
       $j_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -922783157, 63), $x);
+        return $call1($caml_get_public_method($x, -922783157, 70), $x);
       };
       $k_ = ((dynamic $t5, dynamic $param) : dynamic ==> {return $t5->name;})($file, $j_);
       $match = $call1($Js_of_ocaml_Js[6][10], $k_);
       if ($match) {$name = $match[1];return $name;}
       $l_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -498902297, 64), $x);
+        return $call1($caml_get_public_method($x, -498902297, 71), $x);
       };
       $m_ = ((dynamic $t4, dynamic $param) : dynamic ==> {
          return $t4->fileName;
@@ -135,7 +135,7 @@ final class Js_of_ocaml__File {
       );
     };
     $e_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 1012572826, 65), $x);
+      return $call1($caml_get_public_method($x, 1012572826, 72), $x);
     };
     $f_ = $Js_of_ocaml_Js[50][1];
     $doc_constr = ((dynamic $t6, dynamic $param) : dynamic ==> {
@@ -177,13 +177,13 @@ final class Js_of_ocaml__File {
       $loadend
     } as dynamic;
     $g_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 642825758, 66), $x);
+      return $call1($caml_get_public_method($x, 642825758, 73), $x);
     };
     $h_ = $Js_of_ocaml_Js[50][1];
     $fileReader = ((dynamic $t7, dynamic $param) : dynamic ==> {
        return $t7->FileReader;
      })($h_, $g_);
-    $addEventListener = $Js_of_ocaml_Dom[15];
+    $addEventListener = $Js_of_ocaml_Dom[16];
     $Js_of_ocaml_File = Vector{
       0,
       $blob_from_string,

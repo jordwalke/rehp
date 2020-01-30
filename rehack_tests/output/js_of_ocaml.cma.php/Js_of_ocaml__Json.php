@@ -25,13 +25,13 @@ final class Js_of_ocaml__Json {
     $input_reviver = $runtime["caml_js_wrap_meth_callback"]($reviver);
     $unsafe_input = (dynamic $s) : dynamic ==> {
       $c_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -309814068, 279), $x);
+        return $call1($caml_get_public_method($x, -309814068, 286), $x);
       };
       return ((dynamic $t2, dynamic $t0, dynamic $t1, dynamic $param) : dynamic ==> {return $t2->parse($t0, $t1);
        })($json, $s, $input_reviver, $c_);
     };
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 398798074, 280), $x);
+      return $call1($caml_get_public_method($x, 398798074, 287), $x);
     };
     $mlString_constr = ((dynamic $t3, dynamic $param) : dynamic ==> {
        return $t3->constructor;
@@ -43,7 +43,7 @@ final class Js_of_ocaml__Json {
     };
     $output = (dynamic $obj) : dynamic ==> {
       $b_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 215522356, 281), $x);
+        return $call1($caml_get_public_method($x, 215522356, 288), $x);
       };
       return ((dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) : dynamic ==> {return $t6->stringify($t4, $t5);
        })($json, $obj, $output_reviver, $b_);

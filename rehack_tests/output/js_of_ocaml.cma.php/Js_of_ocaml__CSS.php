@@ -2223,7 +2223,7 @@ final class Js_of_ocaml__CSS {
       $hsla_re = ((dynamic $t13, dynamic $t12, dynamic $param) : dynamic ==> {return new $t13($t12);
        })($cS_, $cR_, $cQ_);
       $cT_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -856045486, 282), $x);
+        return $call1($caml_get_public_method($x, -856045486, 289), $x);
       };
       if (
         !
@@ -2232,7 +2232,7 @@ final class Js_of_ocaml__CSS {
          })($rgb_re, $s, $cT_)
       ) {
         $cU_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, -856045486, 283), $x);
+          return $call1($caml_get_public_method($x, -856045486, 290), $x);
         };
         if (
           !
@@ -2241,7 +2241,7 @@ final class Js_of_ocaml__CSS {
            })($rgba_re, $s, $cU_)
         ) {
           $cV_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, -856045486, 284), $x);
+            return $call1($caml_get_public_method($x, -856045486, 291), $x);
           };
           if (
             !
@@ -2250,7 +2250,7 @@ final class Js_of_ocaml__CSS {
              })($rgb_pct_re, $s, $cV_)
           ) {
             $cW_ = (dynamic $x) : dynamic ==> {
-              return $call1($caml_get_public_method($x, -856045486, 285), $x);
+              return $call1($caml_get_public_method($x, -856045486, 292), $x);
             };
             if (
               !
@@ -2259,7 +2259,7 @@ final class Js_of_ocaml__CSS {
                })($rgba_pct_re, $s, $cW_)
             ) {
               $cX_ = (dynamic $x) : dynamic ==> {
-                return $call1($caml_get_public_method($x, -856045486, 286), $x
+                return $call1($caml_get_public_method($x, -856045486, 293), $x
                 );
               };
               if (
@@ -2270,7 +2270,7 @@ final class Js_of_ocaml__CSS {
               ) {
                 $cY_ = (dynamic $x) : dynamic ==> {
                   return $call1(
-                    $caml_get_public_method($x, -856045486, 287),
+                    $caml_get_public_method($x, -856045486, 294),
                     $x
                   );
                 };

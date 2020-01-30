@@ -30,15 +30,15 @@ final class Js_of_ocaml__WebGL {
      "preferLowPowerToHighPerformance"=>$Js_of_ocaml_Js[8],
      "failIfMajorPerformanceCaveat"=>$Js_of_ocaml_Js[8]];
     $webglcontextlost = $call1(
-      $Js_of_ocaml_Dom_html[15][73],
+      $Js_of_ocaml_Dom_html[15][83],
       $cst_webglcontextlost
     );
     $webglcontextrestored = $call1(
-      $Js_of_ocaml_Dom_html[15][73],
+      $Js_of_ocaml_Dom_html[15][83],
       $cst_webglcontextrestored
     );
     $webglcontextcreationerror = $call1(
-      $Js_of_ocaml_Dom_html[15][73],
+      $Js_of_ocaml_Dom_html[15][83],
       $cst_webglcontextcreationerror
     );
     $Event = Vector{
@@ -49,7 +49,7 @@ final class Js_of_ocaml__WebGL {
     } as dynamic;
     $getContext = (dynamic $c) : dynamic ==> {
       $e_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -388424711, 212), $x);
+        return $call1($caml_get_public_method($x, -388424711, 219), $x);
       };
       $f_ = "webgl";
       $ctx = ((dynamic $t3, dynamic $t2, dynamic $param) : dynamic ==> {
@@ -57,7 +57,7 @@ final class Js_of_ocaml__WebGL {
        })($c, $f_, $e_);
       if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
       $g_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -388424711, 213), $x);
+        return $call1($caml_get_public_method($x, -388424711, 220), $x);
       };
       $h_ = "experimental-webgl";
       return ((dynamic $t1, dynamic $t0, dynamic $param) : dynamic ==> {
@@ -66,14 +66,14 @@ final class Js_of_ocaml__WebGL {
     };
     $getContextWithAttributes = (dynamic $c, dynamic $attribs) : dynamic ==> {
       $a_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -719364538, 214), $x);
+        return $call1($caml_get_public_method($x, -719364538, 221), $x);
       };
       $b_ = "webgl";
       $ctx = ((dynamic $t9, dynamic $t7, dynamic $t8, dynamic $param) : dynamic ==> {return $t9->getContext($t7, $t8);
        })($c, $b_, $attribs, $a_);
       if ($call1($Js_of_ocaml_Js[5][5], $ctx)) {return $ctx;}
       $c_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -719364538, 215), $x);
+        return $call1($caml_get_public_method($x, -719364538, 222), $x);
       };
       $d_ = "experimental-webgl";
       return ((dynamic $t6, dynamic $t4, dynamic $t5, dynamic $param) : dynamic ==> {return $t6->getContext($t4, $t5);

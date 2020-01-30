@@ -19,7 +19,7 @@ final class Js_of_ocaml__EventSource {
     $withCredentials = (dynamic $b) : dynamic ==> {
       $init = darray[];
       $e_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -893090218, 295), $x);
+        return $call1($caml_get_public_method($x, -893090218, 302), $x);
       };
       $f_ = ! ! $b;
       (((dynamic $t1, dynamic $t0, dynamic $param) : dynamic ==> {
@@ -29,20 +29,20 @@ final class Js_of_ocaml__EventSource {
       return $init;
     };
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -809811338, 296), $x);
+      return $call1($caml_get_public_method($x, -809811338, 303), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $eventSource = ((dynamic $t2, dynamic $param) : dynamic ==> {
        return $t2->EventSource;
      })($b_, $a_);
     $c_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -809811338, 297), $x);
+      return $call1($caml_get_public_method($x, -809811338, 304), $x);
     };
     $d_ = $Js_of_ocaml_Js[50][1];
     $eventSource_options = ((dynamic $t3, dynamic $param) : dynamic ==> {
        return $t3->EventSource;
      })($d_, $c_);
-    $addEventListener = $Js_of_ocaml_Dom[15];
+    $addEventListener = $Js_of_ocaml_Dom[16];
     $Js_of_ocaml_EventSource = Vector{
       0,
       $withCredentials,

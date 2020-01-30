@@ -51,11 +51,11 @@ var Event = [
 
 function create(param) {
   function b_(x) {
-    return call1(caml_get_public_method(x, -1035517745, 201), x);
+    return call1(caml_get_public_method(x, -1035517745, 208), x);
   }
   var c_ = Js_of_ocaml_Js[50][1];
   var xmlHttpRequest = function(t8, param) {return t8.XMLHttpRequest;}(c_, b_);
-  function d_(x) {return call1(caml_get_public_method(x, -5445583, 202), x);}
+  function d_(x) {return call1(caml_get_public_method(x, -5445583, 209), x);}
   var e_ = Js_of_ocaml_Js[50][1];
   var activeXObject = function(t7, param) {return t7.activeXObject;}(e_, d_);
   try {

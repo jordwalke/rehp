@@ -19,14 +19,14 @@ var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 
 function empty_position_options(param) {return {};}
 
-function a_(x) {return call1(caml_get_public_method(x, 82957527, 298), x);}
+function a_(x) {return call1(caml_get_public_method(x, 82957527, 305), x);}
 
 var b_ = Js_of_ocaml_Js[50][1];
 var x = function(t1, param) {return t1.navigator;}(b_, a_);
 
 if (call1(Js_of_ocaml_Js[6][5], x)) {
   var c_ = function(x) {
-    return call1(caml_get_public_method(x, 315713478, 299), x);
+    return call1(caml_get_public_method(x, 315713478, 306), x);
   };
   var geolocation = function(t0, param) {return t0.geolocation;}(x, c_);
 }

@@ -17,63 +17,63 @@ final class Js_of_ocaml__Typed_array {
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 135830874, 52), $x);
+      return $call1($caml_get_public_method($x, 135830874, 59), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $arrayBuffer = ((dynamic $t0, dynamic $param) : dynamic ==> {
        return $t0->ArrayBuffer;
      })($b_, $a_);
     $c_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 177821713, 53), $x);
+      return $call1($caml_get_public_method($x, 177821713, 60), $x);
     };
     $d_ = $Js_of_ocaml_Js[50][1];
     $int8Array = ((dynamic $t1, dynamic $param) : dynamic ==> {
        return $t1->Int8Array;
      })($d_, $c_);
     $e_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 946312858, 54), $x);
+      return $call1($caml_get_public_method($x, 946312858, 61), $x);
     };
     $f_ = $Js_of_ocaml_Js[50][1];
     $uint8Array = ((dynamic $t2, dynamic $param) : dynamic ==> {
        return $t2->Uint8Array;
      })($f_, $e_);
     $g_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -67443548, 55), $x);
+      return $call1($caml_get_public_method($x, -67443548, 62), $x);
     };
     $h_ = $Js_of_ocaml_Js[50][1];
     $int16Array = ((dynamic $t3, dynamic $param) : dynamic ==> {
        return $t3->Int16Array;
      })($h_, $g_);
     $i_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -492610053, 56), $x);
+      return $call1($caml_get_public_method($x, -492610053, 63), $x);
     };
     $j_ = $Js_of_ocaml_Js[50][1];
     $uint16Array = ((dynamic $t4, dynamic $param) : dynamic ==> {
        return $t4->Uint16Array;
      })($j_, $i_);
     $k_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 901275818, 57), $x);
+      return $call1($caml_get_public_method($x, 901275818, 64), $x);
     };
     $l_ = $Js_of_ocaml_Js[50][1];
     $int32Array = ((dynamic $t5, dynamic $param) : dynamic ==> {
        return $t5->Int32Array;
      })($l_, $k_);
     $m_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 476109313, 58), $x);
+      return $call1($caml_get_public_method($x, 476109313, 65), $x);
     };
     $n_ = $Js_of_ocaml_Js[50][1];
     $uint32Array = ((dynamic $t6, dynamic $param) : dynamic ==> {
        return $t6->Uint32Array;
      })($n_, $m_);
     $o_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -225061539, 59), $x);
+      return $call1($caml_get_public_method($x, -225061539, 66), $x);
     };
     $p_ = $Js_of_ocaml_Js[50][1];
     $float32Array = ((dynamic $t7, dynamic $param) : dynamic ==> {
        return $t7->Float32Array;
      })($p_, $o_);
     $q_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 1007481438, 60), $x);
+      return $call1($caml_get_public_method($x, 1007481438, 67), $x);
     };
     $r_ = $Js_of_ocaml_Js[50][1];
     $float64Array = ((dynamic $t8, dynamic $param) : dynamic ==> {
@@ -85,7 +85,7 @@ final class Js_of_ocaml__Typed_array {
     $get = (dynamic $a, dynamic $i) : dynamic ==> {return $a[$i];};
     $unsafe_get = (dynamic $a, dynamic $i) : dynamic ==> {return $a[$i];};
     $s_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 789234990, 61), $x);
+      return $call1($caml_get_public_method($x, 789234990, 68), $x);
     };
     $t_ = $Js_of_ocaml_Js[50][1];
     $dataView = ((dynamic $t9, dynamic $param) : dynamic ==> {

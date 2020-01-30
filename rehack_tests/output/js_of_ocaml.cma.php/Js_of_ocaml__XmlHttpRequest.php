@@ -49,14 +49,14 @@ final class Js_of_ocaml__XmlHttpRequest {
     } as dynamic;
     $create = (dynamic $param) : dynamic ==> {
       $b_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -1035517745, 201), $x);
+        return $call1($caml_get_public_method($x, -1035517745, 208), $x);
       };
       $c_ = $Js_of_ocaml_Js[50][1];
       $xmlHttpRequest = ((dynamic $t8, dynamic $param) : dynamic ==> {
          return $t8->XMLHttpRequest;
        })($c_, $b_);
       $d_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -5445583, 202), $x);
+        return $call1($caml_get_public_method($x, -5445583, 209), $x);
       };
       $e_ = $Js_of_ocaml_Js[50][1];
       $activeXObject = ((dynamic $t7, dynamic $param) : dynamic ==> {

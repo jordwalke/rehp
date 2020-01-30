@@ -20,7 +20,7 @@ final class Js_of_ocaml__MutationObserver {
       return darray[];
     };
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -412262690, 261), $x);
+      return $call1($caml_get_public_method($x, -412262690, 268), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $mutationObserver = ((dynamic $t0, dynamic $param) : dynamic ==> {
@@ -44,7 +44,7 @@ final class Js_of_ocaml__MutationObserver {
         $child_list,
         (dynamic $v) : dynamic ==> {
           $m_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, -749670374, 262), $x);
+            return $call1($caml_get_public_method($x, -749670374, 269), $x);
           };
           return ((dynamic $t17, dynamic $t16, dynamic $param) : dynamic ==> {
              $t17->childList = $t16;
@@ -56,7 +56,7 @@ final class Js_of_ocaml__MutationObserver {
         $attributes,
         (dynamic $v) : dynamic ==> {
           $l_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, 393324759, 263), $x);
+            return $call1($caml_get_public_method($x, 393324759, 270), $x);
           };
           return ((dynamic $t15, dynamic $t14, dynamic $param) : dynamic ==> {
              $t15->attributes = $t14;
@@ -68,7 +68,7 @@ final class Js_of_ocaml__MutationObserver {
         $character_data,
         (dynamic $v) : dynamic ==> {
           $k_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, 995092083, 264), $x);
+            return $call1($caml_get_public_method($x, 995092083, 271), $x);
           };
           return ((dynamic $t13, dynamic $t12, dynamic $param) : dynamic ==> {
              $t13->characterData = $t12;
@@ -80,7 +80,7 @@ final class Js_of_ocaml__MutationObserver {
         $subtree,
         (dynamic $v) : dynamic ==> {
           $j_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, 808321758, 265), $x);
+            return $call1($caml_get_public_method($x, 808321758, 272), $x);
           };
           return ((dynamic $t11, dynamic $t10, dynamic $param) : dynamic ==> {
              $t11->subtree = $t10;
@@ -92,7 +92,7 @@ final class Js_of_ocaml__MutationObserver {
         $attribute_old_value,
         (dynamic $v) : dynamic ==> {
           $i_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, 226312582, 266), $x);
+            return $call1($caml_get_public_method($x, 226312582, 273), $x);
           };
           return ((dynamic $t9, dynamic $t8, dynamic $param) : dynamic ==> {
              $t9->attributeOldValue = $t8;
@@ -104,7 +104,7 @@ final class Js_of_ocaml__MutationObserver {
         $character_data_old_value,
         (dynamic $v) : dynamic ==> {
           $h_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, 994928349, 267), $x);
+            return $call1($caml_get_public_method($x, 994928349, 274), $x);
           };
           return ((dynamic $t7, dynamic $t6, dynamic $param) : dynamic ==> {
              $t7->characterDataOldValue = $t6;
@@ -116,7 +116,7 @@ final class Js_of_ocaml__MutationObserver {
         $attribute_filter,
         (dynamic $l) : dynamic ==> {
           $f_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, -116981516, 268), $x);
+            return $call1($caml_get_public_method($x, -116981516, 275), $x);
           };
           $g_ = $runtime["caml_js_from_array"]($call1($Array[12], $l));
           return ((dynamic $t5, dynamic $t4, dynamic $param) : dynamic ==> {
@@ -126,7 +126,7 @@ final class Js_of_ocaml__MutationObserver {
         }
       );
       $e_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 821429468, 269), $x);
+        return $call1($caml_get_public_method($x, 821429468, 276), $x);
       };
       (((dynamic $t3, dynamic $t1, dynamic $t2, dynamic $param) : dynamic ==> {return $t3->observe($t1, $t2);
         })($obs, $node, $cfg, $e_));

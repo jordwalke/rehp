@@ -57,7 +57,7 @@ final class MyLib {
     $foo = "foo";
     $bar = "bar";
     $baz = "baz";
-    $testFunctionCalls = (dynamic $o) ==> {
+    $testFunctionCalls = (dynamic $o) : dynamic ==> {
       $withArgsResult = $o($foo);
       $callResult = $o();
       $callResult1 = $o("passThis");
@@ -74,7 +74,7 @@ final class MyLib {
         $callResult4
       };
     };
-    $testMethodCalls = (dynamic $o) ==> {
+    $testMethodCalls = (dynamic $o) : dynamic ==> {
       $withArgsResult = $o->yourMethod($foo);
       $sendResult = $o->myMethod();
       $sendResult1 = $o->myMethod($foo);
@@ -89,85 +89,89 @@ final class MyLib {
         $sendResult3
       };
     };
-    $testPartialFunctionCalls = (dynamic $o) ==> {
-      $s_ = (dynamic $Q_, dynamic $P_) ==> {return $Q_($P_);};
-      $callResult1 = (dynamic $O_) ==> {return $s_($o, $O_);};
+    $testPartialFunctionCalls = (dynamic $o) : dynamic ==> {
+      $s_ = (dynamic $Q_, dynamic $P_) : dynamic ==> {return $Q_($P_);};
+      $callResult1 = (dynamic $O_) : dynamic ==> {return $s_($o, $O_);};
       $t_ = "passThis";
-      $u_ = (dynamic $N_, dynamic $M_, dynamic $L_) ==> {return $N_($M_, $L_);
+      $u_ = (dynamic $N_, dynamic $M_, dynamic $L_) : dynamic ==> {return $N_($M_, $L_);
       };
-      $callResult2 = (dynamic $K_) ==> {return $u_($o, $t_, $K_);};
+      $callResult2 = (dynamic $K_) : dynamic ==> {return $u_($o, $t_, $K_);};
       $v_ = "passThis";
-      $w_ = (dynamic $J_, dynamic $I_, dynamic $H_, dynamic $G_) ==> {return $J_($I_, $H_, $G_);
+      $w_ = (dynamic $J_, dynamic $I_, dynamic $H_, dynamic $G_) : dynamic ==> {return $J_($I_, $H_, $G_);
       };
-      $callResult3 = (dynamic $F_) ==> {return $w_($o, $v_, $bar, $F_);};
+      $callResult3 = (dynamic $F_) : dynamic ==> {
+        return $w_($o, $v_, $bar, $F_);
+      };
       $x_ = "passThis";
-      $y_ = (dynamic $E_, dynamic $D_, dynamic $C_, dynamic $B_, dynamic $A_) ==> {return $E_($D_, $C_, $B_, $A_);
+      $y_ = (dynamic $E_, dynamic $D_, dynamic $C_, dynamic $B_, dynamic $A_) : dynamic ==> {return $E_($D_, $C_, $B_, $A_);
       };
-      $callResult4 = (dynamic $z_) ==> {return $y_($o, $x_, $baz, $baz, $z_);};
+      $callResult4 = (dynamic $z_) : dynamic ==> {
+        return $y_($o, $x_, $baz, $baz, $z_);
+      };
       return Vector{0, $callResult1, $callResult2, $callResult3, $callResult4};
     };
-    $testPartialMethodCalls = (dynamic $o) ==> {
-      $a_ = (dynamic $r_, dynamic $q_, dynamic $p_) ==> {
+    $testPartialMethodCalls = (dynamic $o) : dynamic ==> {
+      $a_ = (dynamic $r_, dynamic $q_, dynamic $p_) : dynamic ==> {
         return $runtime["caml_js_meth_call1"]($r_, $q_, $p_);
       };
-      $sendResult1 = (dynamic $o_) ==> {
+      $sendResult1 = (dynamic $o_) : dynamic ==> {
         return $a_($o, $cst_myPartiallyAppliedMethod, $o_);
       };
-      $b_ = (dynamic $n_, dynamic $m_, dynamic $l_, dynamic $k_) ==> {
+      $b_ = (dynamic $n_, dynamic $m_, dynamic $l_, dynamic $k_) : dynamic ==> {
         return $runtime["caml_js_meth_call2"]($n_, $m_, $l_, $k_);
       };
-      $sendResult2 = (dynamic $j_) ==> {
+      $sendResult2 = (dynamic $j_) : dynamic ==> {
         return $b_($o, $cst_myPartiallyAppliedMethod__0, $foo, $j_);
       };
-      $c_ = (dynamic $i_, dynamic $h_, dynamic $g_, dynamic $f_, dynamic $e_) ==> {
+      $c_ = (dynamic $i_, dynamic $h_, dynamic $g_, dynamic $f_, dynamic $e_) : dynamic ==> {
         return $runtime["caml_js_meth_call3"]($i_, $h_, $g_, $f_, $e_);
       };
-      $sendResult3 = (dynamic $d_) ==> {
+      $sendResult3 = (dynamic $d_) : dynamic ==> {
         return $c_($o, $cst_myPartiallyAppliedMethod__1, $bar, $foo, $d_);
       };
       return Vector{0, $sendResult1, $sendResult2, $sendResult3};
     };
     $x = $call1($MyLib_MyLibUtility[1], 0);
-    $genThisShouldBeAsyncTransformed2 = (dynamic $input, dynamic $cb) ==> {
+    $genThisShouldBeAsyncTransformed2 = (dynamic $input, dynamic $cb) : dynamic ==> {
       return $call1($cb, (int) ($input + 1));
     };
-    $call = (dynamic $param) ==> {
+    $call = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading;
     };
-    $genCall = (dynamic $cb) ==> {
+    $genCall = (dynamic $cb) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__0;
     };
-    $syncCall = (dynamic $param) ==> {
+    $syncCall = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__1;
     };
-    $getExports = (dynamic $param) ==> {
+    $getExports = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__2;
     };
-    $callRehackFunction = (dynamic $param) ==> {
+    $callRehackFunction = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__3;
     };
-    $genCallFunctionWithArgs = (dynamic $param) ==> {
+    $genCallFunctionWithArgs = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__4;
     };
-    $genCallName = (dynamic $param) ==> {
+    $genCallName = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__5;
     };
-    $syncCallName = (dynamic $param) ==> {
+    $syncCallName = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__6;
     };
-    $syncCallFunctionWithArgs = (dynamic $param) ==> {
+    $syncCallFunctionWithArgs = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__7;
     };
-    $get = (dynamic $param) ==> {
+    $get = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_php_leading__8;
     };
-    $get__0 = (dynamic $param) ==> {
+    $get__0 = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_two_php_leading;
     };
-    $construct = (dynamic $param) ==> {
+    $construct = (dynamic $param) : dynamic ==> {
       return $cst_this_should_be_exported_with_three_php_leading;
     };
-    $genThisShouldBeAsyncTransformed1 = (dynamic $cb) ==> {
+    $genThisShouldBeAsyncTransformed1 = (dynamic $cb) : dynamic ==> {
       return $call1($cb, 100);
     };
     $MyLib = Vector{
@@ -253,4 +257,4 @@ final class MyLib {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 86060652964 debug-data: 35154437477 primitives: 314532832*/
+/*____hashes flags: 1314811087 bytecode: 86060652964 debug-data: 33024299741 primitives: 314532832*/

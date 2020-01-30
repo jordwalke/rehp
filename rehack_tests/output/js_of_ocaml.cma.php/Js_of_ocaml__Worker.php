@@ -29,7 +29,7 @@ final class Js_of_ocaml__Worker {
     $Pervasives = Pervasives::get();
     $Array = Array_::get();
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -324422083, 203), $x);
+      return $call1($caml_get_public_method($x, -324422083, 210), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $worker = ((dynamic $t0, dynamic $param) : dynamic ==> {
@@ -44,7 +44,7 @@ final class Js_of_ocaml__Worker {
     $import_scripts = (dynamic $scripts) : dynamic ==> {
       $o_ = $Js_of_ocaml_Js[3];
       $p_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 815769891, 204), $x);
+        return $call1($caml_get_public_method($x, 815769891, 211), $x);
       };
       $q_ = $Js_of_ocaml_Js[50][1];
       if (
@@ -56,7 +56,7 @@ final class Js_of_ocaml__Worker {
       $s_ = (dynamic $s) : dynamic ==> {return $s->toString();};
       $t_ = $call2($Array[15], $s_, $r_);
       $u_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 815769891, 205), $x);
+        return $call1($caml_get_public_method($x, 815769891, 212), $x);
       };
       $v_ = $Js_of_ocaml_Js[50][1];
       return $runtime["caml_js_fun_call"](
@@ -69,7 +69,7 @@ final class Js_of_ocaml__Worker {
     $set_onmessage = (dynamic $handler) : dynamic ==> {
       $h_ = $Js_of_ocaml_Js[3];
       $i_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 610977416, 206), $x);
+        return $call1($caml_get_public_method($x, 610977416, 213), $x);
       };
       $j_ = $Js_of_ocaml_Js[50][1];
       if (
@@ -77,7 +77,7 @@ final class Js_of_ocaml__Worker {
       ) {$call1($Pervasives[1], $cst_Worker_onmessage_is_undefined);}
       $js_handler = (dynamic $ev) : dynamic ==> {
         $n_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, -1033677270, 207), $x);
+          return $call1($caml_get_public_method($x, -1033677270, 214), $x);
         };
         return $call1(
           $handler,
@@ -85,7 +85,7 @@ final class Js_of_ocaml__Worker {
         );
       };
       $k_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 610977416, 208), $x);
+        return $call1($caml_get_public_method($x, 610977416, 215), $x);
       };
       $l_ = $runtime["caml_js_wrap_callback"]($js_handler);
       $m_ = $Js_of_ocaml_Js[50][1];
@@ -97,7 +97,7 @@ final class Js_of_ocaml__Worker {
     $post_message = (dynamic $msg) : dynamic ==> {
       $c_ = $Js_of_ocaml_Js[3];
       $d_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -699849401, 209), $x);
+        return $call1($caml_get_public_method($x, -699849401, 216), $x);
       };
       $e_ = $Js_of_ocaml_Js[50][1];
       if (
@@ -106,7 +106,7 @@ final class Js_of_ocaml__Worker {
          })($e_, $d_) === $c_
       ) {$call1($Pervasives[1], $cst_Worker_onmessage_is_undefined__0);}
       $f_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -699849401, 210), $x);
+        return $call1($caml_get_public_method($x, -699849401, 217), $x);
       };
       $g_ = $Js_of_ocaml_Js[50][1];
       return ((dynamic $t10, dynamic $t9, dynamic $param) : dynamic ==> {

@@ -482,40 +482,40 @@ function options__2(param) {
 
 var PluralRules = [0,object_options,options__2];
 
-function n_(x) {return call1(caml_get_public_method(x, -475689828, 300), x);}
+function n_(x) {return call1(caml_get_public_method(x, -475689828, 307), x);}
 
 var o_ = Js_of_ocaml_Js[50][1];
 var intl = function(t33, param) {return t33.Intl;}(o_, n_);
 
-function p_(x) {return call1(caml_get_public_method(x, -438302079, 301), x);}
+function p_(x) {return call1(caml_get_public_method(x, -438302079, 308), x);}
 
-function q_(x) {return call1(caml_get_public_method(x, -475689828, 302), x);}
+function q_(x) {return call1(caml_get_public_method(x, -475689828, 309), x);}
 
 var r_ = Js_of_ocaml_Js[50][1];
 var s_ = function(t34, param) {return t34.Intl;}(r_, q_);
 var collator_constr = function(t35, param) {return t35.Collator;}(s_, p_);
 
-function t_(x) {return call1(caml_get_public_method(x, 568382385, 303), x);}
+function t_(x) {return call1(caml_get_public_method(x, 568382385, 310), x);}
 
-function u_(x) {return call1(caml_get_public_method(x, -475689828, 304), x);}
+function u_(x) {return call1(caml_get_public_method(x, -475689828, 311), x);}
 
 var v_ = Js_of_ocaml_Js[50][1];
 var w_ = function(t36, param) {return t36.Intl;}(v_, u_);
 var dateTimeFormat_constr = function(t37, param) {return t37.DateTimeFormat;}(w_, t_
 );
 
-function x_(x) {return call1(caml_get_public_method(x, 941696479, 305), x);}
+function x_(x) {return call1(caml_get_public_method(x, 941696479, 312), x);}
 
-function y_(x) {return call1(caml_get_public_method(x, -475689828, 306), x);}
+function y_(x) {return call1(caml_get_public_method(x, -475689828, 313), x);}
 
 var z_ = Js_of_ocaml_Js[50][1];
 var A_ = function(t38, param) {return t38.Intl;}(z_, y_);
 var numberFormat_constr = function(t39, param) {return t39.NumberFormat;}(A_, x_
 );
 
-function B_(x) {return call1(caml_get_public_method(x, 544366260, 307), x);}
+function B_(x) {return call1(caml_get_public_method(x, 544366260, 314), x);}
 
-function C_(x) {return call1(caml_get_public_method(x, -475689828, 308), x);}
+function C_(x) {return call1(caml_get_public_method(x, -475689828, 315), x);}
 
 var D_ = Js_of_ocaml_Js[50][1];
 var E_ = function(t40, param) {return t40.Intl;}(D_, C_);

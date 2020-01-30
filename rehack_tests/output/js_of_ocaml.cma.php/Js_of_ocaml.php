@@ -36,6 +36,7 @@ final class Js_of_ocaml {
       0,
       0,
       0,
+      0,
       0
     } as dynamic;
     

@@ -136,7 +136,7 @@ var a_ = [
 ];
 
 function split(c, s) {
-  function cn_(x) {return call1(caml_get_public_method(x, 24046298, 234), x);}
+  function cn_(x) {return call1(caml_get_public_method(x, 24046298, 241), x);}
   var co_ = call2(String[1], 1, c).toString();
   var cp_ = function(t1, t0, param) {return t1.split(t0);}(s, co_, cn_);
   return call1(Js_of_ocaml_Js[20], cp_);
@@ -144,18 +144,18 @@ function split(c, s) {
 
 function split_2(c, s) {
   function cf_(x) {
-    return call1(caml_get_public_method(x, -524334903, 235), x);
+    return call1(caml_get_public_method(x, -524334903, 242), x);
   }
   var cg_ = call2(String[1], 1, c).toString();
   var index = function(t8, t7, param) {return t8.indexOf(t7);}(s, cg_, cf_);
   if (0 <= index) {
     var ch_ = function(x) {
-      return call1(caml_get_public_method(x, -303194578, 236), x);
+      return call1(caml_get_public_method(x, -303194578, 243), x);
     };
     var ci_ = index + 1 | 0;
     var cj_ = function(t6, t5, param) {return t6.slice(t5);}(s, ci_, ch_);
     var ck_ = function(x) {
-      return call1(caml_get_public_method(x, -20462510, 237), x);
+      return call1(caml_get_public_method(x, -20462510, 244), x);
     };
     var cl_ = 0;
     var cm_ = [
@@ -193,13 +193,13 @@ var plus_re_js_string = function(t11, t9, t10, param) {return new t11(t9, t10);
 
 function unescape_plus_js_string(s) {
   function cb_(x) {
-    return call1(caml_get_public_method(x, 180472028, 238), x);
+    return call1(caml_get_public_method(x, 180472028, 245), x);
   }
   var cc_ = 0;
   (function(t16, t15, param) {t16.lastIndex = t15;return 0;}(plus_re_js_string, cc_, cb_
    ));
   function cd_(x) {
-    return call1(caml_get_public_method(x, 724060212, 239), x);
+    return call1(caml_get_public_method(x, 724060212, 246), x);
   }
   var ce_ = " ";
   return function(t14, t12, t13, param) {return t14.replace(t12, t13);}(s, plus_re_js_string, ce_, cd_
@@ -241,7 +241,7 @@ var Not_an_http_protocol = [
 
 function is_secure(prot_string) {
   function b9_(x) {
-    return call1(caml_get_public_method(x, 946097238, 240), x);
+    return call1(caml_get_public_method(x, 946097238, 247), x);
   }
   var match = caml_js_to_byte_string(
     function(t17, param) {return t17.toLowerCase();}(prot_string, b9_)
@@ -308,7 +308,7 @@ function encode_arguments(l) {
 function decode_arguments_js_string(s) {
   var arr = split(38, s);
   function bS_(x) {
-    return call1(caml_get_public_method(x, 520590566, 241), x);
+    return call1(caml_get_public_method(x, 520590566, 248), x);
   }
   var len = function(t18, param) {return t18.length;}(arr, bS_);
   function name_value_split(s) {return split_2(61, s);}
@@ -427,14 +427,14 @@ function url_of_js_string(s) {
     }
     function bt_(param) {return 0;}
     function bu_(x) {
-      return call1(caml_get_public_method(x, -1021447279, 242), x);
+      return call1(caml_get_public_method(x, -1021447279, 249), x);
     }
     var bv_ = function(t26, t25, param) {return t26.exec(t25);}(file_re, s, bu_
     );
     return call3(Js_of_ocaml_Js[5][7], bv_, bt_, bs_);
   }
   function bq_(x) {
-    return call1(caml_get_public_method(x, -1021447279, 243), x);
+    return call1(caml_get_public_method(x, -1021447279, 250), x);
   }
   var br_ = function(t24, t23, param) {return t24.exec(t23);}(url_re, s, bq_);
   return call3(Js_of_ocaml_Js[5][7], br_, bp_, bo_);
@@ -534,7 +534,7 @@ function string_of_url(param) {
     }
 }
 
-function m_(x) {return call1(caml_get_public_method(x, -448369099, 244), x);}
+function m_(x) {return call1(caml_get_public_method(x, -448369099, 251), x);}
 
 var n_ = Js_of_ocaml_Dom_html[8];
 var o_ = function(t42, param) {return t42.location;}(n_, m_);
@@ -542,7 +542,7 @@ var p_ = call1(Js_of_ocaml_Js[6][2], o_);
 
 if (call1(Js_of_ocaml_Js[6][5], p_)) {
   var q_ = function(x) {
-    return call1(caml_get_public_method(x, -448369099, 245), x);
+    return call1(caml_get_public_method(x, -448369099, 252), x);
   };
   var r_ = Js_of_ocaml_Dom_html[8];
   var l = function(t41, param) {return t41.location;}(r_, q_);
@@ -666,13 +666,13 @@ else {
   );
 }
 
-function s_(x) {return call1(caml_get_public_method(x, -757983821, 246), x);}
+function s_(x) {return call1(caml_get_public_method(x, -757983821, 253), x);}
 
 var host = urldecode_js_string_string(
   function(t43, param) {return t43.hostname;}(l, s_)
 );
 
-function t_(x) {return call1(caml_get_public_method(x, 6510168, 247), x);}
+function t_(x) {return call1(caml_get_public_method(x, 6510168, 254), x);}
 
 var protocol = urldecode_js_string_string(
   function(t44, param) {return t44.protocol;}(l, t_)
@@ -681,7 +681,7 @@ var u_ = 0;
 var port = function(param) {
   try {
     var ad_ = function(x) {
-      return call1(caml_get_public_method(x, -899906687, 248), x);
+      return call1(caml_get_public_method(x, -899906687, 255), x);
     };
     var ae_ = [
       0,
@@ -700,7 +700,7 @@ var port = function(param) {
 }(u_
 );
 
-function v_(x) {return call1(caml_get_public_method(x, -742027664, 249), x);}
+function v_(x) {return call1(caml_get_public_method(x, -742027664, 256), x);}
 
 var path_string = urldecode_js_string_string(
   function(t46, param) {return t46.pathname;}(l, v_)
@@ -708,28 +708,28 @@ var path_string = urldecode_js_string_string(
 var path = path_of_path_string(path_string);
 var w_ = "?";
 
-function x_(x) {return call1(caml_get_public_method(x, 930445673, 250), x);}
+function x_(x) {return call1(caml_get_public_method(x, 930445673, 257), x);}
 
 var y_ = 0;
 
-function z_(x) {return call1(caml_get_public_method(x, -487088280, 251), x);}
+function z_(x) {return call1(caml_get_public_method(x, -487088280, 258), x);}
 
 var A_ = function(t51, param) {return t51.search;}(l, z_);
 
 if (function(t53, t52, param) {return t53.charAt(t52);}(A_, y_, x_) === w_) {
   var B_ = function(x) {
-    return call1(caml_get_public_method(x, -303194578, 252), x);
+    return call1(caml_get_public_method(x, -303194578, 259), x);
   };
   var C_ = 1;
   var D_ = function(x) {
-    return call1(caml_get_public_method(x, -487088280, 253), x);
+    return call1(caml_get_public_method(x, -487088280, 260), x);
   };
   var E_ = function(t48, param) {return t48.search;}(l, D_);
   var F_ = function(t50, t49, param) {return t50.slice(t49);}(E_, C_, B_);
 }
 else {
   var H_ = function(x) {
-    return call1(caml_get_public_method(x, -487088280, 260), x);
+    return call1(caml_get_public_method(x, -487088280, 267), x);
   };
   var F_ = function(t47, param) {return t47.search;}(l, H_);
 }
@@ -742,13 +742,13 @@ function get_fragment(param) {
     return runtime["caml_js_to_string"](res__0[1]);
   }
   function U_(param) {return cst__36;}
-  function V_(x) {return call1(caml_get_public_method(x, -16084858, 254), x);}
+  function V_(x) {return call1(caml_get_public_method(x, -16084858, 261), x);}
   var W_ = 0;
   var X_ = "#(.*)";
   var Y_ = Js_of_ocaml_Js[10];
   var Z_ = function(t56, t55, param) {return new t56(t55);}(Y_, X_, W_);
   function aa_(x) {
-    return call1(caml_get_public_method(x, -988476949, 255), x);
+    return call1(caml_get_public_method(x, -988476949, 262), x);
   }
   var ab_ = function(t54, param) {return t54.href;}(l, aa_);
   var ac_ = function(t58, t57, param) {return t58.match(t57);}(ab_, Z_, V_);
@@ -757,7 +757,7 @@ function get_fragment(param) {
 
 function set_fragment(s) {
   function R_(x) {
-    return call1(caml_get_public_method(x, -989319218, 256), x);
+    return call1(caml_get_public_method(x, -989319218, 263), x);
   }
   var S_ = caml_jsbytes_of_string(urlencode(0, s));
   return function(t60, t59, param) {t60.hash = t59;return 0;}(l, S_, R_);
@@ -765,20 +765,20 @@ function set_fragment(s) {
 
 function get(param) {
   function Q_(x) {
-    return call1(caml_get_public_method(x, -988476949, 257), x);
+    return call1(caml_get_public_method(x, -988476949, 264), x);
   }
   return url_of_js_string(function(t61, param) {return t61.href;}(l, Q_));
 }
 
 function set(u) {
   function O_(x) {
-    return call1(caml_get_public_method(x, -988476949, 258), x);
+    return call1(caml_get_public_method(x, -988476949, 265), x);
   }
   var P_ = caml_jsbytes_of_string(string_of_url(u));
   return function(t63, t62, param) {t63.href = t62;return 0;}(l, P_, O_);
 }
 
-function G_(x) {return call1(caml_get_public_method(x, -988476949, 259), x);}
+function G_(x) {return call1(caml_get_public_method(x, -988476949, 266), x);}
 
 var as_string = urldecode_js_string_string(
   function(t64, param) {return t64.href;}(l, G_)

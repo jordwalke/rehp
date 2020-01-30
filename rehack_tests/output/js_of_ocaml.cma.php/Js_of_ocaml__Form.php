@@ -36,14 +36,14 @@ final class Js_of_ocaml__Form {
     $f_ = Vector{0, $string("lib/js_of_ocaml/form.ml"), 170, 58} as dynamic;
     $e_ = Vector{0, 1} as dynamic;
     $a_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -137852659, 168), $x);
+      return $call1($caml_get_public_method($x, -137852659, 175), $x);
     };
     $b_ = $Js_of_ocaml_Js[50][1];
     $formData = ((dynamic $t0, dynamic $param) : dynamic ==> {
        return $t0->FormData;
      })($b_, $a_);
     $c_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -137852659, 169), $x);
+      return $call1($caml_get_public_method($x, -137852659, 176), $x);
     };
     $d_ = $Js_of_ocaml_Js[50][1];
     $formData_form = ((dynamic $t1, dynamic $param) : dynamic ==> {
@@ -68,10 +68,10 @@ final class Js_of_ocaml__Form {
     };
     $have_content = (dynamic $elt) : dynamic ==> {
       $at_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 520590566, 170), $x);
+        return $call1($caml_get_public_method($x, 520590566, 177), $x);
       };
       $au_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, -922783157, 171), $x);
+        return $call1($caml_get_public_method($x, -922783157, 178), $x);
       };
       $av_ = ((dynamic $t2, dynamic $param) : dynamic ==> {return $t2->name;})($elt, $au_);
       $aw_ = 0 <
@@ -80,7 +80,7 @@ final class Js_of_ocaml__Form {
         : (0);
       if ($aw_) {
         $ax_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, -66829956, 172), $x);
+          return $call1($caml_get_public_method($x, -66829956, 179), $x);
         };
         $ay_ = 1 -
           (int)
@@ -92,14 +92,14 @@ final class Js_of_ocaml__Form {
     $get_textarea_val = (dynamic $elt) : dynamic ==> {
       if ($have_content($elt)) {
         $aq_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, -922783157, 173), $x);
+          return $call1($caml_get_public_method($x, -922783157, 180), $x);
         };
         $name = $caml_js_to_string(
           ((dynamic $t6, dynamic $param) : dynamic ==> {return $t6->name;})($elt, $aq_)
         );
         $ar_ = 0 as dynamic;
         $as_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 834174833, 174), $x);
+          return $call1($caml_get_public_method($x, 834174833, 181), $x);
         };
         return Vector{
           0,
@@ -122,13 +122,13 @@ final class Js_of_ocaml__Form {
     $get_select_val = (dynamic $elt) : dynamic ==> {
       if ($have_content($elt)) {
         $aa_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, -922783157, 175), $x);
+          return $call1($caml_get_public_method($x, -922783157, 182), $x);
         };
         $name = $caml_js_to_string(
           ((dynamic $t16, dynamic $param) : dynamic ==> {return $t16->name;})($elt, $aa_)
         );
         $ab_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 445440528, 176), $x);
+          return $call1($caml_get_public_method($x, 445440528, 183), $x);
         };
         if (
           (int)
@@ -138,10 +138,10 @@ final class Js_of_ocaml__Form {
         ) {
           $ac_ = (dynamic $i) : dynamic ==> {
             $am_ = (dynamic $x) : dynamic ==> {
-              return $call1($caml_get_public_method($x, -977287917, 177), $x);
+              return $call1($caml_get_public_method($x, -977287917, 184), $x);
             };
             $an_ = (dynamic $x) : dynamic ==> {
-              return $call1($caml_get_public_method($x, -536988834, 178), $x);
+              return $call1($caml_get_public_method($x, -536988834, 185), $x);
             };
             $ao_ = ((dynamic $t12, dynamic $param) : dynamic ==> {
                return $t12->options;
@@ -151,10 +151,10 @@ final class Js_of_ocaml__Form {
             return $call1($Js_of_ocaml_Js[5][10], $ap_);
           };
           $ad_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, 520590566, 179), $x);
+            return $call1($caml_get_public_method($x, 520590566, 186), $x);
           };
           $ae_ = (dynamic $x) : dynamic ==> {
-            return $call1($caml_get_public_method($x, -536988834, 180), $x);
+            return $call1($caml_get_public_method($x, -536988834, 187), $x);
           };
           $af_ = ((dynamic $t10, dynamic $param) : dynamic ==> {
              return $t10->options;
@@ -170,7 +170,7 @@ final class Js_of_ocaml__Form {
                 $e = $param[1];
                 $ak_ = (dynamic $x) : dynamic ==> {
                   return $call1(
-                    $caml_get_public_method($x, 829237851, 181),
+                    $caml_get_public_method($x, 829237851, 188),
                     $x
                   );
                 };
@@ -182,7 +182,7 @@ final class Js_of_ocaml__Form {
                 ) {
                   $al_ = (dynamic $x) : dynamic ==> {
                     return $call1(
-                      $caml_get_public_method($x, 834174833, 182),
+                      $caml_get_public_method($x, 834174833, 189),
                       $x
                     );
                   };
@@ -210,7 +210,7 @@ final class Js_of_ocaml__Form {
         }
         $ai_ = 0 as dynamic;
         $aj_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 834174833, 183), $x);
+          return $call1($caml_get_public_method($x, 834174833, 190), $x);
         };
         return Vector{
           0,
@@ -238,22 +238,22 @@ final class Js_of_ocaml__Form {
       else {$get = 0 as dynamic;}
       if ($have_content($elt)) {
         $G_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, -922783157, 184), $x);
+          return $call1($caml_get_public_method($x, -922783157, 191), $x);
         };
         $name = $caml_js_to_string(
           ((dynamic $t29, dynamic $param) : dynamic ==> {return $t29->name;})($elt, $G_)
         );
         $H_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 834174833, 185), $x);
+          return $call1($caml_get_public_method($x, 834174833, 192), $x);
         };
         $value = ((dynamic $t28, dynamic $param) : dynamic ==> {
            return $t28->value;
          })($elt, $H_);
         $I_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 946097238, 186), $x);
+          return $call1($caml_get_public_method($x, 946097238, 193), $x);
         };
         $J_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 1707673, 187), $x);
+          return $call1($caml_get_public_method($x, 1707673, 194), $x);
         };
         $K_ = ((dynamic $t26, dynamic $param) : dynamic ==> {
            return $t26->type;
@@ -273,7 +273,7 @@ final class Js_of_ocaml__Form {
               };
             }
             $M_ = (dynamic $x) : dynamic ==> {
-              return $call1($caml_get_public_method($x, 10018423, 189), $x);
+              return $call1($caml_get_public_method($x, 10018423, 196), $x);
             };
             $N_ = ((dynamic $t25, dynamic $param) : dynamic ==> {
                return $t25->files;
@@ -282,7 +282,7 @@ final class Js_of_ocaml__Form {
             if ($match__0) {
               $list = $match__0[1];
               $O_ = (dynamic $x) : dynamic ==> {
-                return $call1($caml_get_public_method($x, 520590566, 190), $x);
+                return $call1($caml_get_public_method($x, 520590566, 197), $x);
               };
               if (
                 0 ===
@@ -297,7 +297,7 @@ final class Js_of_ocaml__Form {
                 };
               }
               $P_ = (dynamic $x) : dynamic ==> {
-                return $call1($caml_get_public_method($x, 445440528, 191), $x);
+                return $call1($caml_get_public_method($x, 445440528, 198), $x);
               };
               $Q_ = ((dynamic $t23, dynamic $param) : dynamic ==> {
                  return $t23->multiple;
@@ -308,7 +308,7 @@ final class Js_of_ocaml__Form {
                   $U_ = (dynamic $i) : dynamic ==> {
                     $Z_ = (dynamic $x) : dynamic ==> {
                       return $call1(
-                        $caml_get_public_method($x, -977287917, 193),
+                        $caml_get_public_method($x, -977287917, 200),
                         $x
                       );
                     };
@@ -317,7 +317,7 @@ final class Js_of_ocaml__Form {
                   };
                   $V_ = (dynamic $x) : dynamic ==> {
                     return $call1(
-                      $caml_get_public_method($x, 520590566, 194),
+                      $caml_get_public_method($x, 520590566, 201),
                       $x
                     );
                   };
@@ -343,7 +343,7 @@ final class Js_of_ocaml__Form {
                 }
               }
               $R_ = (dynamic $x) : dynamic ==> {
-                return $call1($caml_get_public_method($x, -977287917, 192), $x
+                return $call1($caml_get_public_method($x, -977287917, 199), $x
                 );
               };
               $S_ = 0 as dynamic;
@@ -393,7 +393,7 @@ final class Js_of_ocaml__Form {
           }
         }
         $L_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 321172263, 188), $x);
+          return $call1($caml_get_public_method($x, 321172263, 195), $x);
         };
         return (int)
          ((dynamic $t17, dynamic $param) : dynamic ==> {return $t17->checked;})($elt, $L_)
@@ -404,10 +404,10 @@ final class Js_of_ocaml__Form {
     };
     $form_elements = (dynamic $get, dynamic $form) : dynamic ==> {
       $v_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 520590566, 195), $x);
+        return $call1($caml_get_public_method($x, 520590566, 202), $x);
       };
       $w_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 63190583, 196), $x);
+        return $call1($caml_get_public_method($x, 63190583, 203), $x);
       };
       $x_ = ((dynamic $t33, dynamic $param) : dynamic ==> {
          return $t33->elements;
@@ -417,10 +417,10 @@ final class Js_of_ocaml__Form {
        })($x_, $v_);
       $y_ = (dynamic $i) : dynamic ==> {
         $C_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, -977287917, 197), $x);
+          return $call1($caml_get_public_method($x, -977287917, 204), $x);
         };
         $D_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 63190583, 198), $x);
+          return $call1($caml_get_public_method($x, 63190583, 205), $x);
         };
         $E_ = ((dynamic $t30, dynamic $param) : dynamic ==> {
            return $t30->elements;
@@ -434,7 +434,7 @@ final class Js_of_ocaml__Form {
       $A_ = (dynamic $param) : dynamic ==> {
         if ($param) {
           $v = $param[1];
-          $match = $call1($Js_of_ocaml_Dom_html[109], $v);
+          $match = $call1($Js_of_ocaml_Dom_html[112], $v);
           switch($match[0]) {
             // FALLTHROUGH
             case 31:
@@ -471,7 +471,7 @@ final class Js_of_ocaml__Form {
       if (781515420 <= $p_[1]) {
         $file = $p_[2];
         $r_ = (dynamic $x) : dynamic ==> {
-          return $call1($caml_get_public_method($x, 494108962, 199), $x);
+          return $call1($caml_get_public_method($x, 494108962, 206), $x);
         };
         $s_ = $q_->toString();
         return ((dynamic $t40, dynamic $t38, dynamic $t39, dynamic $param) : dynamic ==> {return $t40->append($t38, $t39);
@@ -479,7 +479,7 @@ final class Js_of_ocaml__Form {
       }
       $s = $p_[2];
       $t_ = (dynamic $x) : dynamic ==> {
-        return $call1($caml_get_public_method($x, 265544154, 200), $x);
+        return $call1($caml_get_public_method($x, 265544154, 207), $x);
       };
       $u_ = $q_->toString();
       return ((dynamic $t37, dynamic $t35, dynamic $t36, dynamic $param) : dynamic ==> {return $t37->append($t35, $t36);

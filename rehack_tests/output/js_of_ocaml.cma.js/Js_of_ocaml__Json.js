@@ -29,13 +29,13 @@ var input_reviver = runtime["caml_js_wrap_meth_callback"](reviver);
 
 function unsafe_input(s) {
   function c_(x) {
-    return call1(caml_get_public_method(x, -309814068, 279), x);
+    return call1(caml_get_public_method(x, -309814068, 286), x);
   }
   return function(t2, t0, t1, param) {return t2.parse(t0, t1);}(json, s, input_reviver, c_
   );
 }
 
-function a_(x) {return call1(caml_get_public_method(x, 398798074, 280), x);}
+function a_(x) {return call1(caml_get_public_method(x, 398798074, 287), x);}
 
 var mlString_constr = function(t3, param) {return t3.constructor;}(dummy_string, a_
 );
@@ -47,7 +47,7 @@ function output_reviver(key, value) {
 }
 
 function output(obj) {
-  function b_(x) {return call1(caml_get_public_method(x, 215522356, 281), x);}
+  function b_(x) {return call1(caml_get_public_method(x, 215522356, 288), x);}
   return function(t6, t4, t5, param) {return t6.stringify(t4, t5);}(json, obj, output_reviver, b_
   );
 }

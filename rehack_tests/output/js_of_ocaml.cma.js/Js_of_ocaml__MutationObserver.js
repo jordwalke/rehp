@@ -20,7 +20,7 @@ var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 
 function empty_mutation_observer_init(param) {return {};}
 
-function a_(x) {return call1(caml_get_public_method(x, -412262690, 261), x);}
+function a_(x) {return call1(caml_get_public_method(x, -412262690, 268), x);}
 
 var b_ = Js_of_ocaml_Js[50][1];
 var mutationObserver = function(t0, param) {return t0.MutationObserver;}(b_, a_
@@ -44,7 +44,7 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
     child_list,
     function(v) {
       function m_(x) {
-        return call1(caml_get_public_method(x, -749670374, 262), x);
+        return call1(caml_get_public_method(x, -749670374, 269), x);
       }
       return function(t17, t16, param) {t17.childList = t16;return 0;}(cfg, v, m_
       );
@@ -54,7 +54,7 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
     attributes,
     function(v) {
       function l_(x) {
-        return call1(caml_get_public_method(x, 393324759, 263), x);
+        return call1(caml_get_public_method(x, 393324759, 270), x);
       }
       return function(t15, t14, param) {t15.attributes = t14;return 0;}(cfg, v, l_
       );
@@ -64,7 +64,7 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
     character_data,
     function(v) {
       function k_(x) {
-        return call1(caml_get_public_method(x, 995092083, 264), x);
+        return call1(caml_get_public_method(x, 995092083, 271), x);
       }
       return function(t13, t12, param) {t13.characterData = t12;return 0;}(cfg, v, k_
       );
@@ -74,7 +74,7 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
     subtree,
     function(v) {
       function j_(x) {
-        return call1(caml_get_public_method(x, 808321758, 265), x);
+        return call1(caml_get_public_method(x, 808321758, 272), x);
       }
       return function(t11, t10, param) {t11.subtree = t10;return 0;}(cfg, v, j_
       );
@@ -84,7 +84,7 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
     attribute_old_value,
     function(v) {
       function i_(x) {
-        return call1(caml_get_public_method(x, 226312582, 266), x);
+        return call1(caml_get_public_method(x, 226312582, 273), x);
       }
       return function(t9, t8, param) {t9.attributeOldValue = t8;return 0;}(cfg, v, i_
       );
@@ -94,7 +94,7 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
     character_data_old_value,
     function(v) {
       function h_(x) {
-        return call1(caml_get_public_method(x, 994928349, 267), x);
+        return call1(caml_get_public_method(x, 994928349, 274), x);
       }
       return function(t7, t6, param) {t7.characterDataOldValue = t6;return 0;}(cfg, v, h_
       );
@@ -104,14 +104,14 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
     attribute_filter,
     function(l) {
       function f_(x) {
-        return call1(caml_get_public_method(x, -116981516, 268), x);
+        return call1(caml_get_public_method(x, -116981516, 275), x);
       }
       var g_ = runtime["caml_js_from_array"](call1(Array[12], l));
       return function(t5, t4, param) {t5.attributeFilter = t4;return 0;}(cfg, g_, f_
       );
     }
   );
-  function e_(x) {return call1(caml_get_public_method(x, 821429468, 269), x);}
+  function e_(x) {return call1(caml_get_public_method(x, 821429468, 276), x);}
   (function(t3, t1, t2, param) {return t3.observe(t1, t2);}(obs, node, cfg, e_
    ));
   return obs;

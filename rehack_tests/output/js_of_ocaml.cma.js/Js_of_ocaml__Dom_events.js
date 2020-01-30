@@ -35,10 +35,10 @@ function listen(opt, target, typ, cb) {
   var a_ = ! ! capture;
   function b_(n, e) {return ! ! call2(cb, n, e);}
   var c_ = call1(Js_of_ocaml_Dom_html[11], b_);
-  return call4(Js_of_ocaml_Dom_html[16], target, typ, c_, a_);
+  return call4(Js_of_ocaml_Dom_html[17], target, typ, c_, a_);
 }
 
-var stop_listen = Js_of_ocaml_Dom_html[17];
+var stop_listen = Js_of_ocaml_Dom_html[18];
 var Js_of_ocaml_Dom_events = [0,Js_of_ocaml_Dom_html[15],listen,stop_listen];
 
 module.exports = Js_of_ocaml_Dom_events;

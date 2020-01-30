@@ -40,7 +40,7 @@ var Js_of_ocaml_Dom = require("./Js_of_ocaml__Dom.js");
 var c_ = [0,string__0("transparent")];
 var d_ = [0,string__0("native")];
 
-function a_(x) {return call1(caml_get_public_method(x, -553417380, 62), x);}
+function a_(x) {return call1(caml_get_public_method(x, -553417380, 69), x);}
 
 var b_ = Js_of_ocaml_Js[50][1];
 var blob_constr = function(t0, param) {return t0.Blob;}(b_, a_);
@@ -112,18 +112,18 @@ function blob_from_any(contentType, endings, l) {
 }
 
 function filename(file) {
-  function j_(x) {return call1(caml_get_public_method(x, -922783157, 63), x);}
+  function j_(x) {return call1(caml_get_public_method(x, -922783157, 70), x);}
   var k_ = function(t5, param) {return t5.name;}(file, j_);
   var match = call1(Js_of_ocaml_Js[6][10], k_);
   if (match) {var name = match[1];return name;}
-  function l_(x) {return call1(caml_get_public_method(x, -498902297, 64), x);}
+  function l_(x) {return call1(caml_get_public_method(x, -498902297, 71), x);}
   var m_ = function(t4, param) {return t4.fileName;}(file, l_);
   var match__0 = call1(Js_of_ocaml_Js[6][10], m_);
   if (match__0) {var name__0 = match__0[1];return name__0;}
   return call1(Pervasives[2], cst_can_t_retrieve_file_name_not_implemented);
 }
 
-function e_(x) {return call1(caml_get_public_method(x, 1012572826, 65), x);}
+function e_(x) {return call1(caml_get_public_method(x, 1012572826, 72), x);}
 
 var f_ = Js_of_ocaml_Js[50][1];
 var doc_constr = function(t6, param) {return t6.Document;}(f_, e_);
@@ -160,11 +160,11 @@ var load = call1(Js_of_ocaml_Dom[14][1], cst_load);
 var loadend = call1(Js_of_ocaml_Dom[14][1], cst_loadend);
 var ReaderEvent = [0,loadstart,progress,abort,error,load,loadend];
 
-function g_(x) {return call1(caml_get_public_method(x, 642825758, 66), x);}
+function g_(x) {return call1(caml_get_public_method(x, 642825758, 73), x);}
 
 var h_ = Js_of_ocaml_Js[50][1];
 var fileReader = function(t7, param) {return t7.FileReader;}(h_, g_);
-var addEventListener = Js_of_ocaml_Dom[15];
+var addEventListener = Js_of_ocaml_Dom[16];
 var Js_of_ocaml_File = [
   0,
   blob_from_string,

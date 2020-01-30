@@ -14,7 +14,7 @@ final class MyLib__MyLibUtility {
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $Random = Random::get();
-    $thisIsAUtilityFunction = (dynamic $param) ==> {
+    $thisIsAUtilityFunction = (dynamic $param) : dynamic ==> {
       return $call1($Random[5], 100);
     };
     $MyLib_MyLibUtility = Vector{0, $thisIsAUtilityFunction} as dynamic;
@@ -27,4 +27,4 @@ final class MyLib__MyLibUtility {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 10023863734 debug-data: 2237659785 primitives: 1058613066*/
+/*____hashes flags: 1314811087 bytecode: 10023863734 debug-data: 3698642437 primitives: 1058613066*/

@@ -587,15 +587,15 @@ final class Js_of_ocaml__Intl {
     };
     $PluralRules = Vector{0, $object_options, $options__2} as dynamic;
     $n_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -475689828, 300), $x);
+      return $call1($caml_get_public_method($x, -475689828, 307), $x);
     };
     $o_ = $Js_of_ocaml_Js[50][1];
     $intl = ((dynamic $t33, dynamic $param) : dynamic ==> {return $t33->Intl;})($o_, $n_);
     $p_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -438302079, 301), $x);
+      return $call1($caml_get_public_method($x, -438302079, 308), $x);
     };
     $q_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -475689828, 302), $x);
+      return $call1($caml_get_public_method($x, -475689828, 309), $x);
     };
     $r_ = $Js_of_ocaml_Js[50][1];
     $s_ = ((dynamic $t34, dynamic $param) : dynamic ==> {return $t34->Intl;})($r_, $q_);
@@ -603,10 +603,10 @@ final class Js_of_ocaml__Intl {
        return $t35->Collator;
      })($s_, $p_);
     $t_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 568382385, 303), $x);
+      return $call1($caml_get_public_method($x, 568382385, 310), $x);
     };
     $u_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -475689828, 304), $x);
+      return $call1($caml_get_public_method($x, -475689828, 311), $x);
     };
     $v_ = $Js_of_ocaml_Js[50][1];
     $w_ = ((dynamic $t36, dynamic $param) : dynamic ==> {return $t36->Intl;})($v_, $u_);
@@ -614,10 +614,10 @@ final class Js_of_ocaml__Intl {
        return $t37->DateTimeFormat;
      })($w_, $t_);
     $x_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 941696479, 305), $x);
+      return $call1($caml_get_public_method($x, 941696479, 312), $x);
     };
     $y_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -475689828, 306), $x);
+      return $call1($caml_get_public_method($x, -475689828, 313), $x);
     };
     $z_ = $Js_of_ocaml_Js[50][1];
     $A_ = ((dynamic $t38, dynamic $param) : dynamic ==> {return $t38->Intl;})($z_, $y_);
@@ -625,10 +625,10 @@ final class Js_of_ocaml__Intl {
        return $t39->NumberFormat;
      })($A_, $x_);
     $B_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, 544366260, 307), $x);
+      return $call1($caml_get_public_method($x, 544366260, 314), $x);
     };
     $C_ = (dynamic $x) : dynamic ==> {
-      return $call1($caml_get_public_method($x, -475689828, 308), $x);
+      return $call1($caml_get_public_method($x, -475689828, 315), $x);
     };
     $D_ = $Js_of_ocaml_Js[50][1];
     $E_ = ((dynamic $t40, dynamic $param) : dynamic ==> {return $t40->Intl;})($D_, $C_);

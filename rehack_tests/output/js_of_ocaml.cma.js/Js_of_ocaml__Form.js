@@ -38,12 +38,12 @@ var Array = require("../stdlib.cma.js/Array.js");
 var f_ = [0,string("lib/js_of_ocaml/form.ml"),170,58];
 var e_ = [0,1];
 
-function a_(x) {return call1(caml_get_public_method(x, -137852659, 168), x);}
+function a_(x) {return call1(caml_get_public_method(x, -137852659, 175), x);}
 
 var b_ = Js_of_ocaml_Js[50][1];
 var formData = function(t0, param) {return t0.FormData;}(b_, a_);
 
-function c_(x) {return call1(caml_get_public_method(x, -137852659, 169), x);}
+function c_(x) {return call1(caml_get_public_method(x, -137852659, 176), x);}
 
 var d_ = Js_of_ocaml_Js[50][1];
 var formData_form = function(t1, param) {return t1.FormData;}(d_, c_);
@@ -65,16 +65,16 @@ function filter_map(f, param) {
 
 function have_content(elt) {
   function at_(x) {
-    return call1(caml_get_public_method(x, 520590566, 170), x);
+    return call1(caml_get_public_method(x, 520590566, 177), x);
   }
   function au_(x) {
-    return call1(caml_get_public_method(x, -922783157, 171), x);
+    return call1(caml_get_public_method(x, -922783157, 178), x);
   }
   var av_ = function(t2, param) {return t2.name;}(elt, au_);
   var aw_ = 0 < function(t3, param) {return t3.length;}(av_, at_) ? 1 : 0;
   if (aw_) {
     var ax_ = function(x) {
-      return call1(caml_get_public_method(x, -66829956, 172), x);
+      return call1(caml_get_public_method(x, -66829956, 179), x);
     };
     var ay_ = 1 - (function(t4, param) {return t4.disabled;}(elt, ax_) | 0);
   }
@@ -85,14 +85,14 @@ function have_content(elt) {
 function get_textarea_val(elt) {
   if (have_content(elt)) {
     var aq_ = function(x) {
-      return call1(caml_get_public_method(x, -922783157, 173), x);
+      return call1(caml_get_public_method(x, -922783157, 180), x);
     };
     var name = caml_js_to_string(
       function(t6, param) {return t6.name;}(elt, aq_)
     );
     var ar_ = 0;
     var as_ = function(x) {
-      return call1(caml_get_public_method(x, 834174833, 174), x);
+      return call1(caml_get_public_method(x, 834174833, 181), x);
     };
     return [
       0,
@@ -106,21 +106,21 @@ function get_textarea_val(elt) {
 function get_select_val(elt) {
   if (have_content(elt)) {
     var aa_ = function(x) {
-      return call1(caml_get_public_method(x, -922783157, 175), x);
+      return call1(caml_get_public_method(x, -922783157, 182), x);
     };
     var name = caml_js_to_string(
       function(t16, param) {return t16.name;}(elt, aa_)
     );
     var ab_ = function(x) {
-      return call1(caml_get_public_method(x, 445440528, 176), x);
+      return call1(caml_get_public_method(x, 445440528, 183), x);
     };
     if (function(t15, param) {return t15.multiple;}(elt, ab_) | 0) {
       var ac_ = function(i) {
         function am_(x) {
-          return call1(caml_get_public_method(x, -977287917, 177), x);
+          return call1(caml_get_public_method(x, -977287917, 184), x);
         }
         function an_(x) {
-          return call1(caml_get_public_method(x, -536988834, 178), x);
+          return call1(caml_get_public_method(x, -536988834, 185), x);
         }
         var ao_ = function(t12, param) {return t12.options;}(elt, an_);
         var ap_ = function(t14, t13, param) {return t14.item(t13);}(ao_, i, am_
@@ -128,10 +128,10 @@ function get_select_val(elt) {
         return call1(Js_of_ocaml_Js[5][10], ap_);
       };
       var ad_ = function(x) {
-        return call1(caml_get_public_method(x, 520590566, 179), x);
+        return call1(caml_get_public_method(x, 520590566, 186), x);
       };
       var ae_ = function(x) {
-        return call1(caml_get_public_method(x, -536988834, 180), x);
+        return call1(caml_get_public_method(x, -536988834, 187), x);
       };
       var af_ = function(t10, param) {return t10.options;}(elt, ae_);
       var ag_ = function(t11, param) {return t11.length;}(af_, ad_);
@@ -142,11 +142,11 @@ function get_select_val(elt) {
           if (param) {
             var e = param[1];
             var ak_ = function(x) {
-              return call1(caml_get_public_method(x, 829237851, 181), x);
+              return call1(caml_get_public_method(x, 829237851, 188), x);
             };
             if (function(t9, param) {return t9.selected;}(e, ak_) | 0) {
               var al_ = function(x) {
-                return call1(caml_get_public_method(x, 834174833, 182), x);
+                return call1(caml_get_public_method(x, 834174833, 189), x);
               };
               return [
                 0,
@@ -167,7 +167,7 @@ function get_select_val(elt) {
     }
     var ai_ = 0;
     var aj_ = function(x) {
-      return call1(caml_get_public_method(x, 834174833, 183), x);
+      return call1(caml_get_public_method(x, 834174833, 190), x);
     };
     return [
       0,
@@ -186,20 +186,20 @@ function get_input_val(opt, elt) {
   else var get = 0;
   if (have_content(elt)) {
     var G_ = function(x) {
-      return call1(caml_get_public_method(x, -922783157, 184), x);
+      return call1(caml_get_public_method(x, -922783157, 191), x);
     };
     var name = caml_js_to_string(
       function(t29, param) {return t29.name;}(elt, G_)
     );
     var H_ = function(x) {
-      return call1(caml_get_public_method(x, 834174833, 185), x);
+      return call1(caml_get_public_method(x, 834174833, 192), x);
     };
     var value = function(t28, param) {return t28.value;}(elt, H_);
     var I_ = function(x) {
-      return call1(caml_get_public_method(x, 946097238, 186), x);
+      return call1(caml_get_public_method(x, 946097238, 193), x);
     };
     var J_ = function(x) {
-      return call1(caml_get_public_method(x, 1707673, 187), x);
+      return call1(caml_get_public_method(x, 1707673, 194), x);
     };
     var K_ = function(t26, param) {return t26.type;}(elt, J_);
     var match = runtime["caml_js_to_byte_string"](
@@ -209,18 +209,18 @@ function get_input_val(opt, elt) {
       if (! caml_string_notequal(match, cst_file)) {
         if (get) {return [0,[0,name,[0,-976970511,value]],0];}
         var M_ = function(x) {
-          return call1(caml_get_public_method(x, 10018423, 189), x);
+          return call1(caml_get_public_method(x, 10018423, 196), x);
         };
         var N_ = function(t25, param) {return t25.files;}(elt, M_);
         var match__0 = call1(Js_of_ocaml_Js[6][10], N_);
         if (match__0) {
           var list = match__0[1];
           var O_ = function(x) {
-            return call1(caml_get_public_method(x, 520590566, 190), x);
+            return call1(caml_get_public_method(x, 520590566, 197), x);
           };
           if (0 === function(t24, param) {return t24.length;}(list, O_)) {return [0,[0,name,[0,-976970511,""]],0];}
           var P_ = function(x) {
-            return call1(caml_get_public_method(x, 445440528, 191), x);
+            return call1(caml_get_public_method(x, 445440528, 198), x);
           };
           var Q_ = function(t23, param) {return t23.multiple;}(elt, P_);
           var match__1 = call1(Js_of_ocaml_Js[6][10], Q_);
@@ -228,13 +228,13 @@ function get_input_val(opt, elt) {
             if (0 !== match__1[1]) {
               var U_ = function(i) {
                 function Z_(x) {
-                  return call1(caml_get_public_method(x, -977287917, 193), x);
+                  return call1(caml_get_public_method(x, -977287917, 200), x);
                 }
                 return function(t22, t21, param) {return t22.item(t21);}(list, i, Z_
                 );
               };
               var V_ = function(x) {
-                return call1(caml_get_public_method(x, 520590566, 194), x);
+                return call1(caml_get_public_method(x, 520590566, 201), x);
               };
               var W_ = function(t20, param) {return t20.length;}(list, V_);
               var X_ = call2(Array[2], W_, U_);
@@ -253,7 +253,7 @@ function get_input_val(opt, elt) {
             }
           }
           var R_ = function(x) {
-            return call1(caml_get_public_method(x, -977287917, 192), x);
+            return call1(caml_get_public_method(x, -977287917, 199), x);
           };
           var S_ = 0;
           var T_ = function(t19, t18, param) {return t19.item(t18);}(list, S_, R_
@@ -285,7 +285,7 @@ function get_input_val(opt, elt) {
       if (switch__0) {return [0,[0,name,[0,-976970511,value]],0];}
     }
     var L_ = function(x) {
-      return call1(caml_get_public_method(x, 321172263, 188), x);
+      return call1(caml_get_public_method(x, 321172263, 195), x);
     };
     return function(t17, param) {return t17.checked;}(elt, L_) | 0 ?
       [0,[0,name,[0,-976970511,value]],0] :
@@ -295,16 +295,16 @@ function get_input_val(opt, elt) {
 }
 
 function form_elements(get, form) {
-  function v_(x) {return call1(caml_get_public_method(x, 520590566, 195), x);}
-  function w_(x) {return call1(caml_get_public_method(x, 63190583, 196), x);}
+  function v_(x) {return call1(caml_get_public_method(x, 520590566, 202), x);}
+  function w_(x) {return call1(caml_get_public_method(x, 63190583, 203), x);}
   var x_ = function(t33, param) {return t33.elements;}(form, w_);
   var length = function(t34, param) {return t34.length;}(x_, v_);
   function y_(i) {
     function C_(x) {
-      return call1(caml_get_public_method(x, -977287917, 197), x);
+      return call1(caml_get_public_method(x, -977287917, 204), x);
     }
     function D_(x) {
-      return call1(caml_get_public_method(x, 63190583, 198), x);
+      return call1(caml_get_public_method(x, 63190583, 205), x);
     }
     var E_ = function(t30, param) {return t30.elements;}(form, D_);
     var F_ = function(t32, t31, param) {return t32.item(t31);}(E_, i, C_);
@@ -315,7 +315,7 @@ function form_elements(get, form) {
   function A_(param) {
     if (param) {
       var v = param[1];
-      var match = call1(Js_of_ocaml_Dom_html[109], v);
+      var match = call1(Js_of_ocaml_Dom_html[112], v);
       switch (match[0]) {
         case 31:
           var v__0 = match[1];
@@ -348,14 +348,14 @@ function append(form_contents, form_elt) {
   if (781515420 <= p_[1]) {
     var file = p_[2];
     var r_ = function(x) {
-      return call1(caml_get_public_method(x, 494108962, 199), x);
+      return call1(caml_get_public_method(x, 494108962, 206), x);
     };
     var s_ = q_.toString();
     return function(t40, t38, t39, param) {return t40.append(t38, t39);}(f, s_, file, r_
     );
   }
   var s = p_[2];
-  function t_(x) {return call1(caml_get_public_method(x, 265544154, 200), x);}
+  function t_(x) {return call1(caml_get_public_method(x, 265544154, 207), x);}
   var u_ = q_.toString();
   return function(t37, t35, t36, param) {return t37.append(t35, t36);}(f, u_, s, t_
   );
