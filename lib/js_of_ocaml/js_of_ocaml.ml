@@ -40,3 +40,4 @@ module WebGL = WebGL
 module WebSockets = WebSockets
 module Worker = Worker
 module XmlHttpRequest = XmlHttpRequest
+module Import = Import

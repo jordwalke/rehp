@@ -255,10 +255,10 @@ class type cssStyleDeclaration =
 
 (** {2 Events} *)
 
+type (-'a, -'b) event_listener = ('a, 'b) Dom.event_listener
 (** The type of event listener functions.  The first type parameter
       ['a] is the type of the target object; the second parameter
       ['b] is the type of the event object. *)
-type (-'a, -'b) event_listener = ('a, 'b) Dom.event_listener
 
 type mouse_button =
   | No_button
@@ -269,6 +269,18 @@ type mouse_button =
 class type event =
   object
     inherit [element] Dom.event
+  end
+
+and ['a] customEvent =
+  object
+    inherit [element, 'a] Dom.customEvent
+  end
+
+and focusEvent =
+  object
+    inherit event
+
+    method relatedTarget : element t opt optdef readonly_prop
   end
 
 and mouseEvent =
@@ -489,6 +501,28 @@ and eventTarget =
       ('self t, animationEvent t) event_listener writeonly_prop
 
     method onanimationcancel : ('self t, animationEvent t) event_listener writeonly_prop
+
+    method ongotpointercapture : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onlostpointercapture : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerenter : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointercancel : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerdown : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerleave : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointermove : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerout : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerover : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerup : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method dispatchEvent : event t -> bool t meth
   end
 
 and popStateEvent =
@@ -496,6 +530,31 @@ and popStateEvent =
     inherit event
 
     method state : Js.Unsafe.any readonly_prop
+  end
+
+and pointerEvent =
+  object
+    inherit mouseEvent
+
+    method pointerId : int Js.readonly_prop
+
+    method width : float Js.readonly_prop
+
+    method height : float Js.readonly_prop
+
+    method pressure : float Js.readonly_prop
+
+    method tangentialPressure : float Js.readonly_prop
+
+    method tiltX : int Js.readonly_prop
+
+    method tiltY : int Js.readonly_prop
+
+    method twist : int Js.readonly_prop
+
+    method pointerType : Js.js_string Js.t Js.readonly_prop
+
+    method isPrimary : bool Js.t Js.readonly_prop
   end
 
 and storageEvent =
@@ -599,8 +658,8 @@ and element =
 
     method classList : tokenList t readonly_prop
 
-    (* Not supported by IE9 by default. Add +classList.js to the
-       Js_of_ocaml command line for compatibility *)
+    method closest : js_string t -> element t opt meth
+
     method style : cssStyleDeclaration t prop
 
     method innerHTML : js_string t prop
@@ -915,9 +974,9 @@ class type inputElement =
 
     method oninput : ('self t, event t) event_listener prop
 
-    method onblur : ('self t, event t) event_listener prop
+    method onblur : ('self t, focusEvent t) event_listener prop
 
-    method onfocus : ('self t, event t) event_listener prop
+    method onfocus : ('self t, focusEvent t) event_listener prop
   end
 
 class type textAreaElement =
@@ -968,9 +1027,9 @@ class type textAreaElement =
 
     method oninput : ('self t, event t) event_listener prop
 
-    method onblur : ('self t, event t) event_listener prop
+    method onblur : ('self t, focusEvent t) event_listener prop
 
-    method onfocus : ('self t, event t) event_listener prop
+    method onfocus : ('self t, focusEvent t) event_listener prop
   end
 
 class type buttonElement =
@@ -1554,8 +1613,7 @@ and canvasRenderingContext2D =
     method createPattern_fromCanvas :
       canvasElement t -> js_string t -> canvasPattern t meth
 
-    method createPattern_fromVideo :
-      videoElement t -> js_string t -> canvasPattern t meth
+    method createPattern_fromVideo : videoElement t -> js_string t -> canvasPattern t meth
 
     method lineWidth : float prop
 
@@ -1589,8 +1647,7 @@ and canvasRenderingContext2D =
 
     method quadraticCurveTo : float -> float -> float -> float -> unit meth
 
-    method bezierCurveTo :
-      float -> float -> float -> float -> float -> float -> unit meth
+    method bezierCurveTo : float -> float -> float -> float -> float -> float -> unit meth
 
     method arcTo : float -> float -> float -> float -> float -> unit meth
 
@@ -1936,8 +1993,8 @@ class type history =
     method replaceState : 'a. 'a -> js_string t -> js_string t opt -> unit meth
   end
 
-(** Undo manager *)
 class type undoManager = object end
+(** Undo manager *)
 
 (** Navigator information *)
 class type navigator =
@@ -2107,9 +2164,9 @@ class type window =
 
     method onbeforeunload : (window t, event t) event_listener prop
 
-    method onblur : (window t, event t) event_listener prop
+    method onblur : (window t, focusEvent t) event_listener prop
 
-    method onfocus : (window t, event t) event_listener prop
+    method onfocus : (window t, focusEvent t) event_listener prop
 
     method onresize : (window t, event t) event_listener prop
 
@@ -2124,6 +2181,8 @@ class type window =
     method onoffline : (window t, event t) event_listener writeonly_prop
 
     method _URL : _URL t readonly_prop
+
+    method devicePixelRatio : float readonly_prop
   end
 
 val window : window t
@@ -2274,9 +2333,9 @@ module Event : sig
 
   val scroll : event t typ
 
-  val focus : event t typ
+  val focus : focusEvent t typ
 
-  val blur : event t typ
+  val blur : focusEvent t typ
 
   val load : event t typ
 
@@ -2334,17 +2393,37 @@ module Event : sig
 
   val ended : mediaEvent t typ
 
+  val gotpointercapture : pointerEvent t typ
+
   val loadeddata : mediaEvent t typ
 
   val loadedmetadata : mediaEvent t typ
 
   val loadstart : mediaEvent t typ
 
+  val lostpointercapture : pointerEvent t typ
+
   val pause : mediaEvent t typ
 
   val play : mediaEvent t typ
 
   val playing : mediaEvent t typ
+
+  val pointerenter : pointerEvent t typ
+
+  val pointercancel : pointerEvent t typ
+
+  val pointerdown : pointerEvent t typ
+
+  val pointerleave : pointerEvent t typ
+
+  val pointermove : pointerEvent t typ
+
+  val pointerout : pointerEvent t typ
+
+  val pointerover : pointerEvent t typ
+
+  val pointerup : pointerEvent t typ
 
   val ratechange : mediaEvent t typ
 
@@ -2365,6 +2444,18 @@ end
 
 type event_listener_id = Dom.event_listener_id
 
+val addEventListenerWithOptions :
+     (#eventTarget t as 'a)
+  -> 'b Event.typ
+  -> ?capture:bool t
+  -> ?once:bool t
+  -> ?passive:bool t
+  -> ('a, 'b) event_listener
+  -> event_listener_id
+(** Add an event listener.  This function matches the
+      option-object variant of the [addEventListener] DOM method,
+      except that it returns an id for removing the listener. *)
+
 val addEventListener :
      (#eventTarget t as 'a)
   -> 'b Event.typ
@@ -2372,20 +2463,41 @@ val addEventListener :
   -> bool t
   -> event_listener_id
 (** Add an event listener.  This function matches the
-      [addEventListener] DOM method, except that it returns
-      an id for removing the listener. *)
+      useCapture boolean variant of the [addEventListener] DOM method,
+      except that it returns an id for removing the listener. *)
 
 val removeEventListener : event_listener_id -> unit
 (** Remove the given event listener. *)
+
+val addMousewheelEventListenerWithOptions :
+     (#eventTarget t as 'a)
+  -> ?capture:bool t
+  -> ?once:bool t
+  -> ?passive:bool t
+  -> (mouseEvent t -> dx:int -> dy:int -> bool t)
+  -> event_listener_id
+(** Add a mousewheel event listener with option-object variant of the
+      [addEventListener] DOM method.  The callback is provided the
+      event and the numbers of ticks the mouse wheel moved.  Positive
+      means down / right. *)
 
 val addMousewheelEventListener :
      (#eventTarget t as 'a)
   -> (mouseEvent t -> dx:int -> dy:int -> bool t)
   -> bool t
   -> event_listener_id
-(** Add a mousewheel event listener.  The callback is provided the
+(** Add a mousewheel event listener with the useCapture boolean variant
+      of the [addEventListener] DOM method.  The callback is provided the
       event and the numbers of ticks the mouse wheel moved.  Positive
       means down / right. *)
+
+val createCustomEvent :
+     ?bubbles:bool
+  -> ?cancelable:bool
+  -> ?detail:'a
+  -> 'a #customEvent Js.t Event.typ
+  -> 'a customEvent Js.t
+(** See [Dom.createCustomEvent] *)
 
 (****)
 
