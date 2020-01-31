@@ -209,6 +209,7 @@ final class Strings {
     }
     
     $myRefCell = Vector{0, 0} as dynamic;
+    $myRefCellContents = $myRefCell[1];
     $one__0 = Vector{0, $r_} as dynamic;
     $two = Vector{0, $s_} as dynamic;
     $t_ = $call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
@@ -252,7 +253,7 @@ final class Strings {
       $myFunction,
       $o_,
       $myRefCell,
-      0,
+      $myRefCellContents,
       $one__0,
       $two,
       $n,

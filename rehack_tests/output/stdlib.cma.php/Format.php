@@ -2086,143 +2086,284 @@ final class Format {
   public static function pp_open_box(dynamic $state, dynamic $indent): dynamic {
     return static::syncCall(__FUNCTION__, 1, $state, $indent);
   }
+  public static function open_box(dynamic $indent): dynamic {
+    return static::syncCall(__FUNCTION__, 2, $indent);
+  }
   public static function pp_close_box(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 3, $state, $param);
+  }
+  public static function close_box(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 4, $param);
   }
   public static function pp_open_hbox(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 5, $state, $param);
   }
+  public static function open_hbox(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 6, $param);
+  }
   public static function pp_open_vbox(dynamic $state, dynamic $indent): dynamic {
     return static::syncCall(__FUNCTION__, 7, $state, $indent);
+  }
+  public static function open_vbox(dynamic $indent): dynamic {
+    return static::syncCall(__FUNCTION__, 8, $indent);
   }
   public static function pp_open_hvbox(dynamic $state, dynamic $indent): dynamic {
     return static::syncCall(__FUNCTION__, 9, $state, $indent);
   }
+  public static function open_hvbox(dynamic $indent): dynamic {
+    return static::syncCall(__FUNCTION__, 10, $indent);
+  }
   public static function pp_open_hovbox(dynamic $state, dynamic $indent): dynamic {
     return static::syncCall(__FUNCTION__, 11, $state, $indent);
+  }
+  public static function open_hovbox(dynamic $indent): dynamic {
+    return static::syncCall(__FUNCTION__, 12, $indent);
   }
   public static function pp_print_string(dynamic $state, dynamic $s): dynamic {
     return static::syncCall(__FUNCTION__, 13, $state, $s);
   }
+  public static function print_string(dynamic $s): dynamic {
+    return static::syncCall(__FUNCTION__, 14, $s);
+  }
   public static function pp_print_as(dynamic $state, dynamic $isize, dynamic $s): dynamic {
     return static::syncCall(__FUNCTION__, 15, $state, $isize, $s);
+  }
+  public static function print_as(dynamic $isize, dynamic $s): dynamic {
+    return static::syncCall(__FUNCTION__, 16, $isize, $s);
   }
   public static function pp_print_int(dynamic $state, dynamic $i): dynamic {
     return static::syncCall(__FUNCTION__, 17, $state, $i);
   }
+  public static function print_int(dynamic $i): dynamic {
+    return static::syncCall(__FUNCTION__, 18, $i);
+  }
   public static function pp_print_float(dynamic $state, dynamic $f): dynamic {
     return static::syncCall(__FUNCTION__, 19, $state, $f);
+  }
+  public static function print_float(dynamic $f): dynamic {
+    return static::syncCall(__FUNCTION__, 20, $f);
   }
   public static function pp_print_char(dynamic $state, dynamic $c): dynamic {
     return static::syncCall(__FUNCTION__, 21, $state, $c);
   }
+  public static function print_char(dynamic $c): dynamic {
+    return static::syncCall(__FUNCTION__, 22, $c);
+  }
   public static function pp_print_bool(dynamic $state, dynamic $b): dynamic {
     return static::syncCall(__FUNCTION__, 23, $state, $b);
+  }
+  public static function print_bool(dynamic $b): dynamic {
+    return static::syncCall(__FUNCTION__, 24, $b);
   }
   public static function pp_print_space(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 25, $state, $param);
   }
+  public static function print_space(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 26, $param);
+  }
   public static function pp_print_cut(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 27, $state, $param);
+  }
+  public static function print_cut(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 28, $param);
   }
   public static function pp_print_break(dynamic $state, dynamic $width, dynamic $offset): dynamic {
     return static::syncCall(__FUNCTION__, 29, $state, $width, $offset);
   }
+  public static function print_break(dynamic $width, dynamic $offset): dynamic {
+    return static::syncCall(__FUNCTION__, 30, $width, $offset);
+  }
   public static function pp_force_newline(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 31, $state, $param);
+  }
+  public static function force_newline(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 32, $param);
   }
   public static function pp_print_if_newline(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 33, $state, $param);
   }
+  public static function print_if_newline(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 34, $param);
+  }
   public static function pp_print_flush(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 35, $state, $param);
+  }
+  public static function print_flush(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 36, $param);
   }
   public static function pp_print_newline(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 37, $state, $param);
   }
+  public static function print_newline(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 38, $param);
+  }
   public static function pp_set_margin(dynamic $state, dynamic $n): dynamic {
     return static::syncCall(__FUNCTION__, 39, $state, $n);
+  }
+  public static function set_margin(dynamic $n): dynamic {
+    return static::syncCall(__FUNCTION__, 40, $n);
   }
   public static function pp_get_margin(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 41, $state, $param);
   }
+  public static function get_margin(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 42, $param);
+  }
   public static function pp_set_max_indent(dynamic $state, dynamic $n): dynamic {
     return static::syncCall(__FUNCTION__, 43, $state, $n);
+  }
+  public static function set_max_indent(dynamic $n): dynamic {
+    return static::syncCall(__FUNCTION__, 44, $n);
   }
   public static function pp_get_max_indent(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 45, $state, $param);
   }
+  public static function get_max_indent(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 46, $param);
+  }
   public static function pp_set_max_boxes(dynamic $state, dynamic $n): dynamic {
     return static::syncCall(__FUNCTION__, 47, $state, $n);
+  }
+  public static function set_max_boxes(dynamic $n): dynamic {
+    return static::syncCall(__FUNCTION__, 48, $n);
   }
   public static function pp_get_max_boxes(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 49, $state, $param);
   }
+  public static function get_max_boxes(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 50, $param);
+  }
   public static function pp_over_max_boxes(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 51, $state, $param);
+  }
+  public static function over_max_boxes(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 52, $param);
   }
   public static function pp_open_tbox(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 53, $state, $param);
   }
+  public static function open_tbox(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 54, $param);
+  }
   public static function pp_close_tbox(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 55, $state, $param);
+  }
+  public static function close_tbox(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 56, $param);
   }
   public static function pp_set_tab(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 57, $state, $param);
   }
+  public static function set_tab(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 58, $param);
+  }
   public static function pp_print_tab(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 59, $state, $param);
+  }
+  public static function print_tab(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 60, $param);
   }
   public static function pp_print_tbreak(dynamic $state, dynamic $width, dynamic $offset): dynamic {
     return static::syncCall(__FUNCTION__, 61, $state, $width, $offset);
   }
+  public static function print_tbreak(dynamic $width, dynamic $offset): dynamic {
+    return static::syncCall(__FUNCTION__, 62, $width, $offset);
+  }
   public static function pp_set_ellipsis_text(dynamic $state, dynamic $s): dynamic {
     return static::syncCall(__FUNCTION__, 63, $state, $s);
+  }
+  public static function set_ellipsis_text(dynamic $s): dynamic {
+    return static::syncCall(__FUNCTION__, 64, $s);
   }
   public static function pp_get_ellipsis_text(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 65, $state, $param);
   }
+  public static function get_ellipsis_text(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 66, $param);
+  }
   public static function pp_open_tag(dynamic $state, dynamic $tag_name): dynamic {
     return static::syncCall(__FUNCTION__, 67, $state, $tag_name);
+  }
+  public static function open_tag(dynamic $tag_name): dynamic {
+    return static::syncCall(__FUNCTION__, 68, $tag_name);
   }
   public static function pp_close_tag(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 69, $state, $param);
   }
+  public static function close_tag(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 70, $param);
+  }
   public static function pp_set_tags(dynamic $state, dynamic $b): dynamic {
     return static::syncCall(__FUNCTION__, 71, $state, $b);
+  }
+  public static function set_tags(dynamic $b): dynamic {
+    return static::syncCall(__FUNCTION__, 72, $b);
   }
   public static function pp_set_print_tags(dynamic $state, dynamic $b): dynamic {
     return static::syncCall(__FUNCTION__, 73, $state, $b);
   }
+  public static function set_print_tags(dynamic $b): dynamic {
+    return static::syncCall(__FUNCTION__, 74, $b);
+  }
   public static function pp_set_mark_tags(dynamic $state, dynamic $b): dynamic {
     return static::syncCall(__FUNCTION__, 75, $state, $b);
+  }
+  public static function set_mark_tags(dynamic $b): dynamic {
+    return static::syncCall(__FUNCTION__, 76, $b);
   }
   public static function pp_get_print_tags(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 77, $state, $param);
   }
+  public static function get_print_tags(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 78, $param);
+  }
   public static function pp_get_mark_tags(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 79, $state, $param);
+  }
+  public static function get_mark_tags(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 80, $param);
   }
   public static function pp_set_formatter_out_channel(dynamic $state, dynamic $oc): dynamic {
     return static::syncCall(__FUNCTION__, 81, $state, $oc);
   }
+  public static function set_formatter_out_channel(dynamic $oc): dynamic {
+    return static::syncCall(__FUNCTION__, 82, $oc);
+  }
   public static function pp_set_formatter_output_functions(dynamic $state, dynamic $f, dynamic $g): dynamic {
     return static::syncCall(__FUNCTION__, 83, $state, $f, $g);
+  }
+  public static function set_formatter_output_functions(dynamic $f, dynamic $g): dynamic {
+    return static::syncCall(__FUNCTION__, 84, $f, $g);
   }
   public static function pp_get_formatter_output_functions(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 85, $state, $param);
   }
+  public static function get_formatter_output_functions(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 86, $param);
+  }
   public static function pp_set_formatter_out_functions(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 87, $state, $param);
+  }
+  public static function set_formatter_out_functions(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 88, $param);
   }
   public static function pp_get_formatter_out_functions(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 89, $state, $param);
   }
+  public static function get_formatter_out_functions(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 90, $param);
+  }
   public static function pp_set_formatter_tag_functions(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 91, $state, $param);
   }
+  public static function set_formatter_tag_functions(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 92, $param);
+  }
   public static function pp_get_formatter_tag_functions(dynamic $state, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 93, $state, $param);
+  }
+  public static function get_formatter_tag_functions(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 94, $param);
   }
   public static function formatter_of_out_channel(dynamic $oc): dynamic {
     return static::syncCall(__FUNCTION__, 95, $oc);
@@ -2295,6 +2436,12 @@ final class Format {
   }
   public static function bprintf(dynamic $b, dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 122, $b, $param);
+  }
+  public static function set_all_formatter_output_functions(dynamic $f, dynamic $g, dynamic $h, dynamic $i): dynamic {
+    return static::syncCall(__FUNCTION__, 124, $f, $g, $h, $i);
+  }
+  public static function get_all_formatter_output_functions(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 125, $param);
   }
   public static function pp_set_all_formatter_output_functions(dynamic $state, dynamic $f, dynamic $g, dynamic $h, dynamic $i): dynamic {
     return static::syncCall(__FUNCTION__, 126, $state, $f, $g, $h, $i);

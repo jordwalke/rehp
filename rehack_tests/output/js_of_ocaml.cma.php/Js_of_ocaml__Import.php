@@ -154,41 +154,36 @@ final class Js_of_ocaml__Import {
       $compare__1,
       $equal__1
     } as dynamic;
+    $symbol__5 = $Int_replace_polymorphic_compare[1];
+    $symbol__6 = $Int_replace_polymorphic_compare[2];
+    $symbol__7 = $Int_replace_polymorphic_compare[3];
+    $symbol__8 = $Int_replace_polymorphic_compare[4];
+    $symbol__9 = $Int_replace_polymorphic_compare[5];
+    $symbol__10 = $Int_replace_polymorphic_compare[6];
+    $compare__2 = $Int_replace_polymorphic_compare[7];
+    $equal__2 = $Int_replace_polymorphic_compare[8];
+    $max__0 = $Int_replace_polymorphic_compare[9];
+    $min__0 = $Int_replace_polymorphic_compare[10];
     $Js_of_ocaml_Import = Vector{
       0,
       $Poly,
       $Int_replace_polymorphic_compare,
       $String__0,
       $Char__0,
-      $symbol,
-      $symbol__0,
-      $symbol__1,
-      $symbol__2,
-      $symbol__3,
-      $symbol__4,
-      $compare,
-      $equal,
-      $max,
-      $min
+      $symbol__5,
+      $symbol__6,
+      $symbol__7,
+      $symbol__8,
+      $symbol__9,
+      $symbol__10,
+      $compare__2,
+      $equal__2,
+      $max__0,
+      $min__0
     } as dynamic;
     
     return($Js_of_ocaml_Import);
 
-  }
-  public static function symbol(dynamic $x, dynamic $y): dynamic {
-    return static::syncCall(__FUNCTION__, 5, $x, $y);
-  }
-  public static function compare(dynamic $x, dynamic $y): dynamic {
-    return static::syncCall(__FUNCTION__, 11, $x, $y);
-  }
-  public static function equal(dynamic $x, dynamic $y): dynamic {
-    return static::syncCall(__FUNCTION__, 12, $x, $y);
-  }
-  public static function max(dynamic $x, dynamic $y): dynamic {
-    return static::syncCall(__FUNCTION__, 13, $x, $y);
-  }
-  public static function min(dynamic $x, dynamic $y): dynamic {
-    return static::syncCall(__FUNCTION__, 14, $x, $y);
   }
 
 }

@@ -142,22 +142,32 @@ var Char__0 = [
   compare__1,
   equal__1
 ];
+var symbol__5 = Int_replace_polymorphic_compare[1];
+var symbol__6 = Int_replace_polymorphic_compare[2];
+var symbol__7 = Int_replace_polymorphic_compare[3];
+var symbol__8 = Int_replace_polymorphic_compare[4];
+var symbol__9 = Int_replace_polymorphic_compare[5];
+var symbol__10 = Int_replace_polymorphic_compare[6];
+var compare__2 = Int_replace_polymorphic_compare[7];
+var equal__2 = Int_replace_polymorphic_compare[8];
+var max__0 = Int_replace_polymorphic_compare[9];
+var min__0 = Int_replace_polymorphic_compare[10];
 var Js_of_ocaml_Import = [
   0,
   Poly,
   Int_replace_polymorphic_compare,
   String__0,
   Char__0,
-  symbol,
-  symbol__0,
-  symbol__1,
-  symbol__2,
-  symbol__3,
-  symbol__4,
-  compare,
-  equal,
-  max,
-  min
+  symbol__5,
+  symbol__6,
+  symbol__7,
+  symbol__8,
+  symbol__9,
+  symbol__10,
+  compare__2,
+  equal__2,
+  max__0,
+  min__0
 ];
 
 module.exports = Js_of_ocaml_Import;
@@ -167,22 +177,22 @@ module.exports = Js_of_ocaml_Import;
   Int_replace_polymorphic_compare: any,
   String: any,
   Char: any,
-  symbol: (x: any, y: any) => any,
-  compare: (x: any, y: any) => any,
-  equal: (x: any, y: any) => any,
-  max: (x: any, y: any) => any,
-  min: (x: any, y: any) => any,
+  symbol: any,
+  compare: any,
+  equal: any,
+  max: any,
+  min: any,
 }*/
 /** @type {{
   Poly: any,
   Int_replace_polymorphic_compare: any,
   String: any,
   Char: any,
-  symbol: (x: any, y: any) => any,
-  compare: (x: any, y: any) => any,
-  equal: (x: any, y: any) => any,
-  max: (x: any, y: any) => any,
-  min: (x: any, y: any) => any,
+  symbol: any,
+  compare: any,
+  equal: any,
+  max: any,
+  min: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.Poly = module.exports[1];

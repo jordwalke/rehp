@@ -64,25 +64,25 @@ var defaultGlobalConsole = makeStandardChannelsConsole(
 );
 var currentGlobalConsole = [0,defaultGlobalConsole];
 
-function log(a) {return call1(defaultGlobalConsole[1], a);}
+function log(a) {return call1(currentGlobalConsole[1][1], a);}
 
-function out(a) {return call1(defaultGlobalConsole[2], a);}
+function out(a) {return call1(currentGlobalConsole[1][2], a);}
 
-function debug(a) {return call1(defaultGlobalConsole[5], a);}
+function debug(a) {return call1(currentGlobalConsole[1][5], a);}
 
-function warn(a) {return call1(defaultGlobalConsole[3], a);}
+function warn(a) {return call1(currentGlobalConsole[1][3], a);}
 
-function error(a) {return call1(defaultGlobalConsole[4], a);}
+function error(a) {return call1(currentGlobalConsole[1][4], a);}
 
-function log__0(a) {call1(defaultGlobalConsole[1], a);return a;}
+function log__0(a) {call1(currentGlobalConsole[1][1], a);return a;}
 
-function out__0(a) {call1(defaultGlobalConsole[2], a);return a;}
+function out__0(a) {call1(currentGlobalConsole[1][2], a);return a;}
 
-function debug__0(a) {call1(defaultGlobalConsole[5], a);return a;}
+function debug__0(a) {call1(currentGlobalConsole[1][5], a);return a;}
 
-function warn__0(a) {call1(defaultGlobalConsole[3], a);return a;}
+function warn__0(a) {call1(currentGlobalConsole[1][3], a);return a;}
 
-function error__0(a) {call1(defaultGlobalConsole[4], a);return a;}
+function error__0(a) {call1(currentGlobalConsole[1][4], a);return a;}
 
 var Console = [
   0,

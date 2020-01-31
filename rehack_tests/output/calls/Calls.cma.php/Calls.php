@@ -246,6 +246,9 @@ SomeUtilityClass::foo($cst_me, $cst_fix)
   public static function reexportCallMake2Array(dynamic $unnamed1, dynamic $unnamed2): dynamic {
     return static::syncCall(__FUNCTION__, 26, $unnamed1, $unnamed2);
   }
+  public static function partiallyCallMake2Array(dynamic $unnamed1): dynamic {
+    return static::syncCall(__FUNCTION__, 27, $unnamed1);
+  }
   public static function closeOverMake2Array(dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 29, $param);
   }

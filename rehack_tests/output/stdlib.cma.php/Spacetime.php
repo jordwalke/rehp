@@ -31,7 +31,7 @@ final class Spacetime {
       if ($caml_spacetime_enabled(0)) {
         $channel = $call1($Pervasives[48], $path);
         $t = Vector{0, $channel, 0} as dynamic;
-        $caml_spacetime_only_works_for_native_code($channel);
+        $caml_spacetime_only_works_for_native_code($t[1]);
         return $t;
       }
       return Vector{0, $Pervasives[27], 1};

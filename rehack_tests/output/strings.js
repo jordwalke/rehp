@@ -196,6 +196,7 @@ else call1(
 );
 
 var myRefCell = [0,0];
+var myRefCellContents = myRefCell[1];
 var one__0 = [0,r_];
 var two = [0,s_];
 var t_ = call1(Pervasives[18], runtime["caml_equal"](one__0, two));
@@ -239,7 +240,7 @@ var Strings = [
   myFunction,
   o_,
   myRefCell,
-  0,
+  myRefCellContents,
   one__0,
   two,
   n,

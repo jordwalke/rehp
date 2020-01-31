@@ -54,38 +54,38 @@ final class Console {
     );
     $currentGlobalConsole = Vector{0, $defaultGlobalConsole} as dynamic;
     $log = (dynamic $a) : dynamic ==> {
-      return $call1($defaultGlobalConsole[1], $a);
+      return $call1($currentGlobalConsole[1][1], $a);
     };
     $out = (dynamic $a) : dynamic ==> {
-      return $call1($defaultGlobalConsole[2], $a);
+      return $call1($currentGlobalConsole[1][2], $a);
     };
     $debug = (dynamic $a) : dynamic ==> {
-      return $call1($defaultGlobalConsole[5], $a);
+      return $call1($currentGlobalConsole[1][5], $a);
     };
     $warn = (dynamic $a) : dynamic ==> {
-      return $call1($defaultGlobalConsole[3], $a);
+      return $call1($currentGlobalConsole[1][3], $a);
     };
     $error = (dynamic $a) : dynamic ==> {
-      return $call1($defaultGlobalConsole[4], $a);
+      return $call1($currentGlobalConsole[1][4], $a);
     };
     $log__0 = (dynamic $a) : dynamic ==> {
-      $call1($defaultGlobalConsole[1], $a);
+      $call1($currentGlobalConsole[1][1], $a);
       return $a;
     };
     $out__0 = (dynamic $a) : dynamic ==> {
-      $call1($defaultGlobalConsole[2], $a);
+      $call1($currentGlobalConsole[1][2], $a);
       return $a;
     };
     $debug__0 = (dynamic $a) : dynamic ==> {
-      $call1($defaultGlobalConsole[5], $a);
+      $call1($currentGlobalConsole[1][5], $a);
       return $a;
     };
     $warn__0 = (dynamic $a) : dynamic ==> {
-      $call1($defaultGlobalConsole[3], $a);
+      $call1($currentGlobalConsole[1][3], $a);
       return $a;
     };
     $error__0 = (dynamic $a) : dynamic ==> {
-      $call1($defaultGlobalConsole[4], $a);
+      $call1($currentGlobalConsole[1][4], $a);
       return $a;
     };
     $Console = Vector{
