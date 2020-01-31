@@ -437,7 +437,7 @@ let f_once debug_data_for_errors (pc, blocks, free_pc) =
             ( x
             , Prim
                 ( Extern "%caml_js_expanded_raw_macro"
-                , Pc (String expandedText) :: expandedArgs ) )
+                , Pc (String expandedText) :: List.rev expandedArgs ) )
           :: loop addr r
       | Let
           ( x
