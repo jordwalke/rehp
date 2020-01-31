@@ -22,17 +22,6 @@ open Stdlib
 open Code
 open Flow
 
-let the_block_of info x =
-  match the_def_of info x with
-  | Some (Block (_, itms, _)) -> Some itms
-  | Some _ | None -> None
-
-(* TODO: There's a better implementation of this in specialize.ml *)
-let the_arity_of info x =
-  match the_def_of info (Pv x) with
-  | Some (Closure (params, _)) -> Pc (Int (Int32.of_int (List.length params)))
-  | None | Some _ -> Pc (Int (Int32.of_int 0))
-
 (* Could add Pc (IString (Var.to_string v)); to get the string name of
  * the identifier, but the names aren't registered correctly at this
  * point in the compiler. TODO: Implement that without using new
@@ -44,10 +33,73 @@ let readable_name v =
   | None -> Pc (Int (Int32.of_int (-1)))
   | Some s -> Pc (IString s)
 
+let readable_name_str v =
+  match Var.orig_string_name_debug v with
+  | None -> ""
+  | Some s -> s
+
+let warn fmt = Format.ksprintf (fun s -> if not !quiet then Format.eprintf "%s%!" s) fmt
+
+(* This should be kept in sync with Specialize.function_cardinality. It is a
+ * mirror of that logic for determining arity, but computes a debug-worthy set
+ * of suitable argument names.  The exact names should not be relied upon
+ * except for improving readability. *)
+let rec function_arg_names info x acc =
+  get_approx
+    info
+    (fun x ->
+      match info.info_defs.(Var.idx x) with
+      | Expr (Closure (l, _)) ->
+          Some (List.map ~f:(fun v -> Var.orig_string_name_debug v) l)
+      (* If this is an already inlined extern closure wrapping primitive,
+       * return that primitive's arity *)
+      | Expr (Prim (Extern "%closure", [Pc (IString prim)])) -> (
+        try Some (List.init (Primitive.registered_arity prim) (fun i -> None))
+        with Not_found -> None)
+      | Expr (Apply (f, l, _)) -> (
+          if List.mem f ~set:acc
+          then None
+          else
+            match function_arg_names info f (f :: acc) with
+            | Some names ->
+                let llen = List.length l in
+                let diff = List.length names - llen in
+                if diff > 0
+                then (
+                  let _taken, rest = List.take llen names in
+                  if diff <> List.length rest
+                  then print_string "diff length not same as rest length";
+                  Some rest)
+                else None
+            | None -> None)
+      | _ -> None)
+    None
+    (fun u v ->
+      match u, v with
+      | Some n, Some m when List.length n == List.length m -> v
+      | _ -> None)
+    x
+
+let the_block_of info x =
+  match the_def_of info x with
+  | Some (Block (_, itms, _)) -> Some itms
+  | Some _ | None -> None
+
+(* TODO: There's a better implementation of this in specialize.ml *)
+let the_arity_of info x =
+  match Specialize.function_cardinality info x [] with
+  | None -> 0
+  | Some a -> a
+
+let arity_arg i = Pc (Int (Int32.of_int i))
+
 let argument_names_of info x =
-  match the_def_of info (Pv x) with
-  | Some (Closure (params, _)) -> List.map ~f:(fun v -> readable_name v) params
-  | None | Some _ -> []
+  match function_arg_names info x [] with
+  | None -> []
+  | Some l ->
+      List.map l ~f:(function
+          | None -> Pc (Int (Int32.of_int (-1)))
+          | Some s -> Pc (IString s))
 
 let specialize_instr addr info i rem =
   match i with
@@ -67,6 +119,8 @@ let specialize_instr addr info i rem =
        | None -> i
        | Some block_items ->
            let f v =
+             let arity = the_arity_of info v in
+             let arg_names = argument_names_of info v in
              (* Original name of identifier in scope *)
              (* Identifier in scope *)
              (* Not a great idea to include the identifier reference
@@ -77,9 +131,17 @@ let specialize_instr addr info i rem =
              (* Pv v; *)
              (* Arity if function *)
              readable_name v
-             :: the_arity_of info v
-             :: (* Argument names if function with arity *)
-                argument_names_of info v
+             :: arity_arg arity
+             ::
+             (if arity <> List.length arg_names
+             then (
+               (* Should warn in this case - but at least have a fallback *)
+               warn
+                 "Please report this issue to rehp(warn): Function arity != match \
+                  length of argument names for %s"
+                 (readable_name_str v);
+               List.init arity (fun i -> Pc (Int (Int32.of_int (-1)))))
+             else arg_names)
            in
            let prim_block_items =
              List.map (Array.to_list block_items) ~f |> List.concat

@@ -18,4 +18,5 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+val function_cardinality: Flow.info -> Code.Var.t -> Code.Var.t list -> int option
 val f : Flow.info -> Code.program -> Code.program
