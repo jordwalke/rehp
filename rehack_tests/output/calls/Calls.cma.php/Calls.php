@@ -138,32 +138,32 @@ final class Calls {
       return Vector{0, $tmp, $c_};
     };
     $d_ = $runtime["side_effect"](0);
-    $resultMake2ArraySideEffect = varray[$d_, $runtime["side_effect"](0)];
-    $resultMake2Array = varray[$cst_two, $cst_two__0];
+    $resultMake2ArraySideEffect = varray[$runtime["side_effect"](0), $d_];
+    $resultMake2Array = varray[$cst_two__0, $cst_two];
     $wrapMake2Array = (dynamic $x, dynamic $y) : dynamic ==> {
-      return (varray[$y, $x]);
+      return (varray[$x, $y]);
     };
     $reexportCallMake2Array = (dynamic $m_, dynamic $l_) : dynamic ==> {
-      return (varray[$l_, $m_]);
+      return (varray[$m_, $l_]);
     };
     $e_ = (dynamic $k_, dynamic $j_) : dynamic ==> {
-      return (varray[$j_, $k_]);
+      return (varray[$k_, $j_]);
     };
     $partiallyCallMake2Array = (dynamic $i_) : dynamic ==> {
       return $e_($cst_hi, $i_);
     };
     $overCallMake2Array = $call1(varray[0, 0], 0);
     $closeOverMake2Array = (dynamic $param) : dynamic ==> {
-      return (varray[$cst_bye, $cst_hi__0]);
+      return (varray[$cst_hi__0, $cst_bye]);
     };
     $make1Array = (dynamic $h_) : dynamic ==> {return (varray[$h_]);};
     $make2Array = (dynamic $g_, dynamic $f_) : dynamic ==> {
-      return (varray[$f_, $g_]);
+      return (varray[$g_, $f_]);
     };
     $ReexportedMacros = Vector{0, $make1Array, $make2Array} as dynamic;
     $callsAFunctionWithSuppression = (dynamic $param) : dynamic ==> {
       return (// HH_IGNORE blah blah
-SomeUtilityClass::foo($cst_me, $cst_fix)
+SomeUtilityClass::foo($cst_fix, $cst_me)
       );
     };
     $Calls = Vector{

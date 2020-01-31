@@ -128,30 +128,30 @@ function closeOverMake1ArrayDouble(param) {
 }
 
 var d_ = runtime["side_effect"](0);
-var resultMake2ArraySideEffect = new Array(d_, runtime["side_effect"](0));
-var resultMake2Array = new Array(cst_two, cst_two__0);
+var resultMake2ArraySideEffect = new Array(runtime["side_effect"](0), d_);
+var resultMake2Array = new Array(cst_two__0, cst_two);
 
-function wrapMake2Array(x, y) {return (new Array(y, x));}
+function wrapMake2Array(x, y) {return (new Array(x, y));}
 
-function reexportCallMake2Array(m_, l_) {return (new Array(l_, m_));}
+function reexportCallMake2Array(m_, l_) {return (new Array(m_, l_));}
 
-function e_(k_, j_) {return (new Array(j_, k_));}
+function e_(k_, j_) {return (new Array(k_, j_));}
 
 function partiallyCallMake2Array(i_) {return e_(cst_hi, i_);}
 
 var overCallMake2Array = call1(new Array(0, 0), 0);
 
-function closeOverMake2Array(param) {return (new Array(cst_bye, cst_hi__0));}
+function closeOverMake2Array(param) {return (new Array(cst_hi__0, cst_bye));}
 
 function make1Array(h_) {return (new Array(h_));}
 
-function make2Array(g_, f_) {return (new Array(f_, g_));}
+function make2Array(g_, f_) {return (new Array(g_, f_));}
 
 var ReexportedMacros = [0,make1Array,make2Array];
 
 function callsAFunctionWithSuppression(param) {
   return (// FLOW_FIXME blah blah
-console.log(cst_me, cst_fix));
+console.log(cst_fix, cst_me));
 }
 
 var Calls = [
