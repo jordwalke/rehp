@@ -19,4 +19,4 @@ final class MyLib__ {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 4096869352 debug-data: 2290383497 primitives: 1058613066*/
+/*____hashes flags: 1314811087 bytecode: 4096869352 debug-data: 48878940 primitives: 1058613066*/

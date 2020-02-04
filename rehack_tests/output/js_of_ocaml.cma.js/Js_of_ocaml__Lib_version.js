@@ -11,7 +11,7 @@
 var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
 var s = string("3.3.0");
-var git_version = string("9cd6d4af8");
+var git_version = string("f2b4532b7");
 var Js_of_ocaml_Lib_version = [0,s,git_version];
 
 module.exports = Js_of_ocaml_Lib_version;
