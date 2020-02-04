@@ -126,15 +126,39 @@ end = struct
     + Hashtbl.hash_param 256 256 block.branch
 
   let hash_unit_folder (key : string * string) value cur =
+    print_endline ("module_name:" ^ value.module_name);
+    print_endline ("fname:" ^ value.fname);
+    print_endline("  source=" ^
+      match value.source with None -> ":0" | Some(source) -> ":" ^ source
+    );
+    print_endline("  crc=" ^
+      match value.crc with None -> ":0" | Some(crc) -> ":" ^ crc
+    );
+    print_endline("  paths=");
+    List.iter ~f:(fun path-> print_endline ("    " ^ path)) value.paths;
     cur + Hashtbl.hash_param 256 256 key + Hashtbl.hash_param 256 256 value
 
-  let hash_event_folder (key : int) value cur =
-    cur + key + Hashtbl.hash_param 256 256 value
+  let hash_event_folder (key : int) (debug_event, ml_unit) cur =
+    (try
+      let str = Marshal.to_string(Obj.magic(debug_event)) [Marshal.No_sharing] in
+      let hasJwalke = Stdlib.String.find_substring "jwalke" str 0 in
+      print_endline("jwalke located at " ^ string_of_int(hasJwalke));
+    with Not_found -> ());
+    print_endline("event loc " ^ debug_event.ev_loc.Location.loc_start.Lexing.pos_fname);
+    (* print_endline ("Hashing event " ^ string_of_int key); *)
+    cur + key + Hashtbl.hash_param 256 256 debug_event
 
   (* Computing a Digest of the bytes themselves might be a lot faster. *)
   (* Hashes only the events  *)
   let hash_data {events_by_pc; units} =
-    Hashtbl.fold hash_unit_folder units 0 + Hashtbl.fold hash_event_folder events_by_pc 0
+    print_endline("\ncomputing:");
+    let ret_units = Hashtbl.fold hash_unit_folder units 0 in
+    let ret_events = Hashtbl.fold hash_event_folder events_by_pc 0 in
+    print_endline(
+      "\nhashed_data:" ^
+        string_of_int (ret_units + ret_events) ^ " = " ^ string_of_int ret_units ^ " + " ^ string_of_int ret_events
+    );
+    ret_events
 
   let relocate_event orig ev = ev.ev_pos <- (orig + ev.ev_pos) / 4
 
@@ -144,11 +168,23 @@ end = struct
 
   let find_ml_in_paths paths name =
     let uname = String.uncapitalize_ascii name in
-    try Some (Fs.find_in_path paths (uname ^ ".ml"))
+    try Some (
+      let ret =
+        Fs.find_in_path paths (uname ^ ".ml") in
+      print_endline ("FOUND module uname in paths: " ^ ret ^ "(module uname=" ^ uname ^ ")");
+      ret
+    )
     with Not_found -> (
-      try Some (Fs.find_in_path paths (name ^ ".ml")) with Not_found -> None)
+      try Some (
+        let ret = Fs.find_in_path paths (name ^ ".ml") in
+        print_endline ("FOUND module name in paths: " ^ ret ^ "(module name=" ^ name ^ ")");
+        ret
+      ) with Not_found ->
+        print_endline ("Found NERFin'");
+        None)
 
   let read_event_list =
+    print_endline("======= Reading event list ==========");
     let read_paths ic : string list = input_value ic in
     fun {events_by_pc; units} ~crcs ~includes ~orig ic ->
       let crcs =
@@ -166,11 +202,22 @@ end = struct
           let unit =
             try Hashtbl.find units (ev_module, pos_fname)
             with Not_found ->
+              print_endline ("\nSearching for module " ^ ev_module ^ "  pos_fname " ^ pos_fname);
               let crc = try Hashtbl.find crcs ev_module with Not_found -> None in
               let source =
-                try Some (Fs.find_in_path paths pos_fname)
+                try 
+                  let found_in_fs_paths = Fs.find_in_path paths pos_fname in
+                  print_endline(
+                    "FOUND pos_fname in paths: " ^ found_in_fs_paths ^ "(pos_fname=" ^ pos_fname ^ ")"
+                  );
+                  Some (found_in_fs_paths)
                 with Not_found -> (
-                  try Some (Fs.find_in_path paths (Filename.basename pos_fname))
+                  try
+                    let found_in_fs_paths_basename = Fs.find_in_path paths (Filename.basename pos_fname) in
+                    print_endline(
+                      "FOUND pos_fname basename in paths: " ^ found_in_fs_paths_basename ^ "(pos_fname=" ^ pos_fname ^ ")"
+                    );
+                    Some (found_in_fs_paths_basename)
                   with Not_found -> find_ml_in_paths paths ev_module)
               in
               if debug_sourcemap ()
@@ -190,6 +237,8 @@ end = struct
           Hashtbl.add events_by_pc ev.ev_pos (ev, unit);
           ())
 
+  (* Finds the absolute path to a source file for whichever previously registered
+   * project relative path matches the pos_fname argument *)
   let find_source {units; _} pos_fname =
     let set =
       Hashtbl.fold
@@ -200,6 +249,12 @@ end = struct
             | None -> acc
             | Some src -> StringSet.add src acc
           else acc)
+        (* Defined as:
+            units : (string * string, ml_unit) Hashtbl.t *)
+        (* Populated via:
+            pos_fname is usually project-relative file path.
+            u.source is usually absolute path to source (in build directory).
+            Hashtbl.add units (ev_module, pos_fname) u; *)
         units
         StringSet.empty
     in
@@ -625,6 +680,7 @@ module State = struct
 
   let pi_of_loc debug location =
     let pos = location.Location.loc_start in
+    (* Debug.find_source only pays attention to debug.units *)
     let src = Debug.find_source debug pos.Lexing.pos_fname in
     { Parse_info.name = Some pos.Lexing.pos_fname
     ; src
@@ -646,6 +702,8 @@ module State = struct
     | _ -> assert false
 
   let name_vars st debug pc =
+    (* Debug.find doesn't even pay attention to the ml module in each entry of
+     * debug.events_by_pc, and doesn't pay attention to debug.units  *)
     let l, summary = Debug.find debug pc in
     name_rec debug 0 l st.stack summary
 
