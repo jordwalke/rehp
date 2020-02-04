@@ -71,7 +71,8 @@ let compute_hashes
             ))
           )
        ) *)
-      "debug-data: " ^ string_of_int (Parse_bytecode.Debug.hash_data bc.debug)
+      "debug-data: "
+      ^ string_of_int (Parse_bytecode.Debug.hash_data_for_change_detection bc.debug)
     ; "primitives: "
       ^ string_of_int (Hashtbl.hash_param 256 256 (Array.of_list primitives)) ]
     (* This will be needed to know when to recompile arity optimizations
@@ -132,7 +133,6 @@ let remove_last lst =
   match List.rev lst with
   | [] -> []
   | hd :: tl -> List.rev tl
-
 
 let rec relativizeRelativePathsImp from p =
   match from, p with
@@ -208,10 +208,7 @@ let get_potential_dependency_outputs ?ext dir =
           in
           List.rev_map matching_suffix ~f:(fun (file_name, base_name) ->
               { Dependency_outputs.relative_dir_from_project = full_sibling_dir
-              ; relative_dir_from_output =
-                  relativizeRelativePaths
-                    dir
-                    full_sibling_dir
+              ; relative_dir_from_output = relativizeRelativePaths dir full_sibling_dir
               ; normalized_compilation_unit =
                   Parse_bytecode.normalize_module_name base_name
               ; filename = file_name })
@@ -628,10 +625,14 @@ let f
 
 let main = Cmdliner.Term.(pure f $ CompileArg.options), CompileArg.info
 
-let print_file_error msg name line col = (
-  Format.eprintf "\nFile \"%s\", line %d, characters %d-%d:\n" name (line + 1) col (col + 2);
+let print_file_error msg name line col =
+  Format.eprintf
+    "\nFile \"%s\", line %d, characters %d-%d:\n"
+    name
+    (line + 1)
+    col
+    (col + 2);
   Format.eprintf "Error: %s\n\n" msg
-)
 
 let _ =
   Timer.init Sys.time;
@@ -641,7 +642,8 @@ let _ =
   (* TODO: Print this in a way that is parseable by refmterr *)
   | Raw_macro.UserError (msg, opt_loc) ->
       (match opt_loc with
-      | Some {Parse_info.name=Some name; line; col} -> print_file_error msg name line col
+      | Some {Parse_info.name = Some name; line; col} ->
+          print_file_error msg name line col
       | _ -> Format.eprintf "Error: %s\n" msg);
       exit 1
   | (Match_failure _ | Assert_failure _ | Not_found) as exc ->
