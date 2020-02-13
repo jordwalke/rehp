@@ -14,7 +14,7 @@ final class Js_of_ocaml__Lib_version {
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $string = $runtime["caml_new_string"];
     $s = $string("3.3.0");
-    $git_version = $string("f2b4532b7");
+    $git_version = $string("74ce7b056");
     $Js_of_ocaml_Lib_version = Vector{0, $s, $git_version} as dynamic;
     
     return($Js_of_ocaml_Lib_version);

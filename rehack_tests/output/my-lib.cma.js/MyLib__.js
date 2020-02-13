@@ -22,4 +22,4 @@ module.exports = MyLib;
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.MyLibUtility = module.exports[1];
 
-/*____hashes flags: 589793685 bytecode: 4096869352 debug-data: 48878940 primitives: 1058613066*/
+/*____hashes flags: 589793685 bytecode: 4096869352 debug-data: 495304789 primitives: 1058613066*/

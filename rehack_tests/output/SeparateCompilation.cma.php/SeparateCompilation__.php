@@ -19,4 +19,4 @@ final class SeparateCompilation__ {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 4208011095 debug-data: 139027605 primitives: 1058613066*/
+/*____hashes flags: 1314811087 bytecode: 4208011095 debug-data: 633736565 primitives: 1058613066*/

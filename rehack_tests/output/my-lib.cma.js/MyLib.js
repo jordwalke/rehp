@@ -266,4 +266,4 @@ module.exports.get = module.exports[20];
 module.exports.construct = module.exports[22];
 module.exports.genThisShouldBeAsyncTransformed1 = module.exports[23];
 
-/*____hashes flags: 589793685 bytecode: 86060652964 debug-data: 31402685896 primitives: 314532832*/
+/*____hashes flags: 589793685 bytecode: 86060652964 debug-data: 22114087654 primitives: 314532832*/
