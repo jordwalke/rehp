@@ -125,8 +125,33 @@ end = struct
         block.body
     + Hashtbl.hash_param 256 256 block.branch
 
+  (*
+   * - ev.ev_stacksize and ev.ev_compenv.ce_stack are used to extract text
+   * names.
+   * - ev.ev_typenv is used to extract location information (for source
+   * maps etc).  For computing a changed debugdata hash, looking at
+   * stacksize/ce_stack is sufficient to detect changes in naming identifiers,
+   * but not enough to detect changes to location. So incremental
+   * compilation/hashing cannot work with source maps which require precise
+   * names and locations. The reason is that taking into account locations
+   * requires taking into account the type env in the hash which changes too
+   * much to be useful for incremental hashing. Files would change their
+   * debugdata hashes too often.
+   *
+   * See Debug.find which does:
+   *
+   *  ( Ocaml_compiler.Ident.table_contents ev.ev_stacksize ev.ev_compenv.ce_stack
+   *  , ev.ev_typenv )
+   *)
   let hash_event_folder (key : int) (debug_event, ml_unit) cur =
-    cur + key + Hashtbl.hash_param 256 256 debug_event
+    cur
+    + key
+    + Hashtbl.hash_param
+        256
+        256
+        (Ocaml_compiler.IdentUtilities.table_contents_names_for_hashing
+           debug_event.ev_stacksize
+           debug_event.ev_compenv.ce_stack)
 
   (* Computing a Digest of the bytes themselves might be a lot faster. *)
   (* Hashes only the events because units includes absolute paths that change

@@ -219,7 +219,7 @@ module Symtable = struct
 end
 [@@if ocaml_version >= (4, 8, 0)]
 
-module Ident = struct
+module Ident_ = struct
   (* Copied from ocaml/typing/ident.ml *)
   type 'a tbl' =
     | Empty
@@ -232,17 +232,43 @@ module Ident = struct
 
   type 'a tbl = 'a Ident.tbl
 
+end
+
+(* Extensions utilities used only for jsoo *)
+module IdentUtilities = struct
+  (* Used for computing a hash of all the identifiers in a debugevent,
+   * to compute hashes, and detect the need for recompilation. We must
+   * exclude parts of the idents that are proned to change without original
+   * sources being changed (stamp for example) *)
   let rec table_contents_rec sz t rem =
     match t with
-    | Empty -> rem
+    | Ident_.Empty -> rem
+    | Node (l, v, r, _) ->
+        table_contents_rec
+          sz
+          l
+          (Ident.name v.ident :: table_contents_rec sz r rem)
+
+  let table_contents_names_for_hashing sz (t : 'a Ident_.tbl) =
+    List.sort
+      ~cmp:(fun (i) (j) -> compare i j)
+      (table_contents_rec sz (Obj.magic (t : 'a Ident_.tbl) : 'a Ident_.tbl') [])
+end
+
+module Ident = struct
+  include Ident_
+
+  let rec table_contents_rec sz t rem =
+    match t with
+    | Ident_.Empty -> rem
     | Node (l, v, r, _) ->
         table_contents_rec
           sz
           l
           ((sz - v.data, Ident.name v.ident, v.ident) :: table_contents_rec sz r rem)
 
-  let table_contents sz (t : 'a tbl) =
+  let table_contents sz (t : 'a Ident_.tbl) =
     List.sort
       ~cmp:(fun (i, _, _) (j, _, _) -> compare i j)
-      (table_contents_rec sz (Obj.magic (t : 'a tbl) : 'a tbl') [])
+      (table_contents_rec sz (Obj.magic (t : 'a Ident_.tbl) : 'a Ident_.tbl') [])
 end
