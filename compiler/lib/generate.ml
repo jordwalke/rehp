@@ -281,12 +281,13 @@ module Ctx = struct
   type t =
     { mutable blocks : block Addr.Map.t
     ; live : int array
+    ; mutable module_export_metadatas : Module_export_metadata.t list
     ; share : Share.t
     ; debug : Parse_bytecode.Debug.data
     ; exported_runtime : Code.Var.t option }
 
   let initial ~exported_runtime blocks live share debug =
-    {blocks; live; share; debug; exported_runtime}
+    {module_export_metadatas = []; blocks; live; share; debug; exported_runtime}
 end
 
 let var x = J.EVar (Id.V x)
@@ -984,6 +985,62 @@ let register_tern_prim name f =
           f cx cy cz loc, or_p mutator_p (or_p px (or_p py pz)), queue
       | _ -> assert false)
 
+let rec take ?(so_far=[]) n lst =
+  if n < 0 then raise (Invalid_argument "take passed negative")
+  else (
+    if n == 0 then (List.rev(so_far), lst)
+    else match lst with
+    | Pc (IString hd) :: tl -> take ~so_far:(Some hd :: so_far) (n - 1) tl
+    | Pc (Int (int32_name)) :: tl when Int32.to_int int32_name == -1 ->
+        take ~so_far:(None :: so_far) (n - 1) tl
+    | _ ->
+      raise (Invalid_argument
+        ("Malformed metadata in compiled module (problem with args) - " ^
+         "metadata must be of the form (string(export-name)|-1) arity list(string-arg-names)")
+      )
+  )
+
+let rec module_metadata so_far ?(so_far_len = List.length so_far) lst = match lst with
+| [] -> List.rev so_far
+| hd :: Pc (Int (int32_arity)) :: rest -> (
+  let name =
+    match hd with
+    | Pc (Int (int32_name)) when Int32.to_int int32_name == -1 -> None
+    | Pc (IString name) -> Some(name)
+    | _ -> 
+      raise (Invalid_argument
+        ("Malformed metadata in compiled module - name field is not string and not -1 - " ^
+        "metadata must be of the form (string(export-name)|-1) arity list(string-arg-names)")
+      )
+  in
+  let arity_n = Int32.to_int int32_arity in
+  let (taken, untaken) = take arity_n rest in
+  let module_export_metadata = {
+    Module_export_metadata.original_name = name;
+    export_index = so_far_len + 1;
+    arity = arity_n;
+    arg_names = taken;
+  } in
+  module_metadata (module_export_metadata::so_far) ~so_far_len:(so_far_len + 1) untaken 
+)
+| _ -> 
+  raise (Invalid_argument
+    ("Malformed metadata in compiled module. " ^
+    "metadata must be of the form (string(export-name)|-1) arity list(string-arg-names)")
+  )
+
+let register_module_loader name f =
+  register_prim name `Mutator (fun l queue ctx loc ->
+      match l with
+      | x :: y :: z :: rest ->
+          let (px, cx), queue = access_queue' ~ctx queue x in
+          let (py, cy), queue = access_queue' ~ctx queue y in
+          let (pz, cz), queue = access_queue' ~ctx queue z in
+          let module_md = module_metadata [] rest in
+          ctx.Ctx.module_export_metadatas <- module_md;
+          f ctx cx cy cz module_md loc, or_p mutator_p (or_p px (or_p py pz)), queue
+      | _ -> assert false)
+
 let register_un_math_prim name prim =
   register_un_prim name `Pure (fun cx loc ->
       J.ECall (J.EDot (s_var "Math", prim), [cx], loc))
@@ -991,7 +1048,6 @@ let register_un_math_prim name prim =
 let register_bin_math_prim name prim =
   register_bin_prim name `Pure (fun cx cy loc ->
       J.ECall (J.EDot (s_var "Math", prim), [cx; cy], loc))
-
 let _ =
   register_un_prim_ctx "%caml_format_int_special" `Pure (fun ctx cx loc ->
       let p = Share.get_prim (runtime_fun ctx) "caml_new_string" ctx.Ctx.share in
@@ -1001,6 +1057,42 @@ let _ =
    * int_to_string.
    *)
       J.ECall (p, [J.EBin (J.Plus, str_js "", cx)], loc));
+  register_module_loader "%caml_register_global_module_metadata" (fun ctx cx cy cz md loc ->
+    let runtime_var_getter () =
+      Share.get_prim (runtime_fun ctx) "caml_register_global" ctx.Ctx.share in
+    match Backend.Current.custom_module_registration ()  with
+    | None -> 
+      J.ECall ((runtime_var_getter()), [cx; cy; cz], loc)
+    | Some reg -> (
+      match reg runtime_var_getter cy md  with
+      | None -> J.ECall ( runtime_var_getter (), [cx], loc)
+      | Some expr ->expr
+    )
+  );
+  
+  (* The version that has been optimized by inline_js.ml *)
+  register_module_loader "%caml_register_global_module" (fun ctx cx cy cz md loc ->
+    let runtime_var_getter () =
+      Share.get_prim (runtime_fun ctx) "caml_register_global" ctx.Ctx.share in
+      J.ECall ((runtime_var_getter()), [cx; cy; cz], loc)
+  );
+  
+  register_un_prim_ctx "%caml_load_global_module" `Pure (fun ctx cx loc ->
+    let runtime_var_getter () =
+      Share.get_prim (runtime_fun ctx) "caml_load_global_module" ctx.Ctx.share in
+    match cx with
+    | (J.EStr (normalized_module_name, encoding)) ->
+      (match Backend.Current.custom_module_loader ()  with
+      | None -> 
+        J.ECall ((runtime_var_getter()), [cx;], loc)
+      | Some loader -> (
+        match loader runtime_var_getter normalized_module_name  with
+        | None -> J.ECall ( runtime_var_getter (), [cx], loc)
+        | Some expr -> expr
+      ))
+    | _ -> J.ECall ((runtime_var_getter()), [cx;], loc)
+  );
+
   register_un_prim "polymorphic_log" `Mutable (fun cx loc ->
       J.ECall (s_var "polymorphic_log", [cx], loc));
   register_bin_prim "caml_array_unsafe_get" `Mutable (fun cx cy _ ->
@@ -1230,13 +1322,39 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
             let (px, cx), queue = access_queue' ~ctx queue x in
             let (py, cy), queue = access_queue' ~ctx queue y in
             J.EArrAccess (cx, plus_int cy one), or_p mutable_p (or_p px py), queue
-        | Extern "caml_js_var", [Pc (String nm | IString nm)]
-         |Extern "caml_js_raw_expr", [Pc (String nm | IString nm)] ->
-            ERaw nm, const_p, queue
+        | Extern "caml_js_var", [Pc (String nm | IString nm)] ->
+            ERaw [Rehp.RawText nm] , const_p, queue
+        (* The fact that caml_js_raw_expr has "registered arity" is likely
+         * going to be a problem here *)
+        | Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: l
+        | Extern "caml_js_raw_expr", Pc (String m | IString m) :: ([] as l)->
+            let args, prop, queue =
+              List.fold_right
+                ~f:(fun x (args, prop, queue) ->
+                  let (prop', cx), queue = access_queue' ~ctx queue x in
+                  cx :: args, or_p prop prop', queue)
+                l
+                ~init:([], mutator_p, queue)
+            in
+            let be = Backend.Current.compiler_backend_flag() in
+            let macro_data = Raw_macro.extract ~forBackend:be ("raw-macro:" ^ m) in
+            let node_list = Raw_macro.parseNodeList macro_data in
+            let arg_len = List.length args in
+            let cb = (function
+              | Raw_macro.Raw r -> Rehp.RawText r
+              | Raw_macro.Node (s, _) -> (match int_of_string_opt s with
+                | Some i ->
+                    if (i - 1) < arg_len then RawSubstitution (List.nth args (i - 1))
+                    else (
+                      Raw_macro.raiseMacroCallIndexNotSupported i arg_len macro_data
+                    )
+                | None -> Raw_macro.raiseMacroUnsupportedTag s macro_data))
+            in
+            Rehp.ERaw (Raw_macro.flattenNodeList cb node_list), prop, queue
         | Extern ("caml_js_expr" | "caml_pure_js_expr"), [Pc (String nm | IString nm)]
           -> (
           try
-            let e = Rehp.ERaw nm in
+            let e = Rehp.ERaw ([Rehp.RawText(nm)]) in
             e, const_p, queue
           with Parse_js.Parsing_error pi ->
             failwith
@@ -2082,4 +2200,4 @@ let f ((pc, blocks, _) as p) ~exported_runtime live_vars debug =
   let ctx = Ctx.initial ~exported_runtime blocks live_vars share debug in
   let p = compile_program ctx pc in
   if times () then Format.eprintf "  code gen.: %a@." Timer.print t';
-  p
+  (p, ctx.module_export_metadatas)

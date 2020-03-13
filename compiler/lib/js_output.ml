@@ -252,7 +252,7 @@ module Make(D : sig
   let rec need_paren l e =
     match e with
     (* Who knows what the raw expression could hold! *)
-      ERaw s -> true
+      ERaw _ -> true
     | ESeq (e, _) ->
       l <= 0 && need_paren 0 e
     | ECond (e, _, _) ->
@@ -323,11 +323,13 @@ module Make(D : sig
 
   let rec expression l f e =
     match e with
-      ERaw s ->
-      (* Non breaking space because what if this is on the rhs of a return? *)
-      PP.non_breaking_space f;
-      PP.string f s;
-      PP.non_breaking_space f;
+    | ERaw segments  ->
+      List.iter segments  ~f:(fun itm ->
+        match itm with
+        | RawText (s) -> PP.string f s
+        (* TODO: Get the right precedence ranking here *)
+        | RawSubstitution e  -> expression 1 f e
+      )
     | EVar v ->
       ident f v
     | ESeq (e1, e2) ->
@@ -365,7 +367,7 @@ module Make(D : sig
       output_debug_info f loc;
       PP.start_group f 0;
       expression 15 f e;
-      if el == [] then 
+      if el == [] then
         PP.string f "()"
       else (
         PP.string f "(";
@@ -925,6 +927,21 @@ module Make(D : sig
           PP.string f "}";
           last_semi();
           PP.end_group f
+        (* Because raw macros can have newlines in them, we should always make
+         * sure a return has a guarding paren immediately after it *)
+        | Some (ERaw segs) ->
+          PP.start_group f 0;
+          PP.string f "return";
+          PP.non_breaking_space f;
+          PP.string f "(";
+          PP.start_group f 2;
+          PP.break f;
+          expression 1 f (ERaw segs);
+          PP.end_group f;
+          PP.break f;
+          PP.string f ")";
+          last_semi();
+          PP.end_group f
         | Some e ->
           PP.start_group f 0;
           PP.string f "return";
@@ -1092,7 +1109,7 @@ module Make(D : sig
     | [s]    -> source_element f ?skip_last_semi s
     | s :: r -> begin
       source_element f s;
-      (match spaced, s, r with 
+      (match spaced, s, r with
       (* Break after every source element except when it's between 2 vars *)
       | (false, _, _)
       | (
@@ -1126,9 +1143,9 @@ let need_space a b =
   (* https://github.com/ocsigen/js_of_ocaml/issues/507 *)
   (a = '-' && b = '-')
 
-(* js_output must be responsible for printing any footer portion of the
- * custom_header because the source maps must be the final item in the file.  *)
-let program f ?custom_header ?source_map p =
+(* Returns function that prints source maps so that caller can first print a
+ * footer. *)
+let program f ?source_map p =
   let smo = match source_map with
     | None -> None
     | Some (_,sm) -> Some sm in
@@ -1137,13 +1154,10 @@ let program f ?custom_header ?source_map p =
     end) in
   PP.set_needed_space_function f need_space;
   PP.start_group f 0; O.program f p; PP.end_group f; PP.newline f;
-   match custom_header with
-   | None -> ()
-   | Some (_hd, _indent, ft) -> begin
-     PP.newline f;
-     PP.string f (Printf.sprintf "%s" ft);
-   end;
-  (match source_map with
+ (* Returns the function that prints source maps after everything else is done *)
+ (* This is so that whoever calls js_output has an opportunity to print footers first *)
+ (fun () ->
+   (match source_map with
    | None -> ()
    | Some (out_file,sm) ->
      let sm = { sm with Source_map.sources = List.rev sm.Source_map.sources;
@@ -1204,3 +1218,4 @@ let program f ?custom_header ?source_map p =
     let total_s = PP.total f in
     Format.eprintf "total size : %s@." (size total_s);
   end
+ )

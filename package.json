@@ -21,12 +21,13 @@
   "devDependencies": {
     "@opam/ocamlformat": "0.11.0",
     "@opam/merlin": "*",
+    "@reason-native/console": "*",
     "ocaml": " ~ 4.6.0",
     "@opam/ppx_expect": "*"
   },
   "resolutions": {
     "@opam/merlin-extend": "0.4",
-    "@opam/reason": "let-def/reason:reason.opam#bd07255b6674c3dfae8edb037b6865f8490abaff"
+    "@opam/reason": "facebook/reason:reason.opam#8f71db0b88c31842d866d46a18b71a1ce1709567"
   },
   "optDependencies": {},
   "esy": {
@@ -34,8 +35,9 @@
       [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-ppx,js_of_ocaml-lwt,js_of_ocaml-ppx_deriving_json"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/my-lib/MyLib.cma"],
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/SeparateCompilation/SeparateCompilation.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"],
-      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/calls/calls.bc"]
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/calls/Calls.cma"]
     ],
     "build": [
       [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-lwt"]

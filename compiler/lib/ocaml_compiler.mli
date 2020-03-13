@@ -41,3 +41,7 @@ module Ident : sig
 
   val table_contents : int -> int Ident.tbl -> (int * string * Ident.t) list
 end
+
+module IdentUtilities : sig
+  val table_contents_names_for_hashing : int -> int Ident.tbl -> string list
+end

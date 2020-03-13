@@ -1,1272 +1,1810 @@
-<?hh
+<?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 /**
  * Runtime.php
+ * This is missing a few primitives that need to be replaced with
+ * your release of Hack and set of libraries.
  */
-
 namespace Rehack;
 
-final class Runtime {
-  <<__Memoize>>
-  public static function get() {
-    $global_object = \Rehack\GlobalObject::get();
-    /*
-     * Soon, these will replace the `global_data->ModuleName`
-     * pattern in the load() function.
-     */
+use namespace HH\Lib\{Math, Str};
 
-    self::load($global_object);
-    $memoized = $global_object->jsoo_runtime;
-    return $memoized;
+/**
+ * Some base modules that were never compilation units, however they show up
+ * as compilation unit dependencies. Make some stub classes just so that when
+ * our templates try to make sure they're initialized, nothing will fail. The
+ * return values of `get` aren't even used. This is only even called because
+ * our templates call `get` for each thing that looks like a module dependency.
+ * See parse_bytecode.ml for a list of these.
+ */
+
+abstract final class Out_of_memory {
+  public static function get(): mixed {
+    return GlobalData::get()['Out_of_memory'];
   }
+}
+abstract final class Sys_error {
+  public static function get(): mixed {
+    return GlobalData::get()['Sys_error'];
+  }
+}
+abstract final class Failure {
+  public static function get(): mixed {
+    return GlobalData::get()['Failure'];
+  }
+}
+abstract final class Invalid_argument {
+  public static function get(): mixed {
+    return GlobalData::get()['Invalid_argument'];
+  }
+}
+abstract final class End_of_file {
+  public static function get(): mixed {
+    return GlobalData::get()['End_of_file'];
+  }
+}
+abstract final class Division_by_zero {
+  public static function get(): mixed {
+    return GlobalData::get()['Division_by_zero'];
+  }
+}
+abstract final class Not_found {
+  public static function get(): mixed {
+    return GlobalData::get()['Not_found'];
+  }
+}
+abstract final class Match_failure {
+  public static function get(): mixed {
+    return GlobalData::get()['Match_failure'];
+  }
+}
+abstract final class Stack_overflow {
+  public static function get(): mixed {
+    return GlobalData::get()['Stack_overflow'];
+  }
+}
+abstract final class Sys_blocked_io {
+  public static function get(): mixed {
+    return GlobalData::get()['Sys_blocked_io'];
+  }
+}
+abstract final class Assert_failure {
+  public static function get(): mixed {
+    return GlobalData::get()['Assert_failure'];
+  }
+}
+abstract final class Undefined_recursive_module {
+  public static function get(): mixed {
+    return GlobalData::get()['Undefined_recursive_module'];
+  }
+}
 
-  /**
-   * Performs module load operation. May have side effects.
-   */
-  private static function load($joo_global_object) {
-    $G=$joo_global_object;
-    $Object = $joo_global_object->Object;
-    $Func = $joo_global_object->Func;
-    $ObjectLiteral = $joo_global_object->ObjectLiteral;
-    $ArrayLiteral = $joo_global_object->ArrayLiteral;
-    $Array = $joo_global_object->Array;
-    $RegExp = $joo_global_object->RegExp;
-    $String = $joo_global_object->String;
-    $Math = $joo_global_object->Math;
-    $plus = $joo_global_object->plus;
-    $eqEq = $joo_global_object->eqEq;
-    $eqEqEq = $joo_global_object->eqEqEq;
-    $typeof = $joo_global_object->typeof;
-    $Date = $joo_global_object->Date;
-    $Boolean = $joo_global_object->Boolean;
-    $Number = $joo_global_object->Number;
-    $unsigned_right_shift_32 = $joo_global_object->unsigned_right_shift_32;
-    $left_shift_32 = $joo_global_object->left_shift_32;
-    $right_shift_32 = $joo_global_object->right_shift_32;
-    $max_int = $joo_global_object->max_int;
-    $min_int = $joo_global_object->min_int;
-    $NaN = $joo_global_object->NaN;
-    $Infinity = $joo_global_object->Infinity;
-    $require = $joo_global_object->require;
-    $module = $joo_global_object->module;
-    
 
-    
-    
-$String = $joo_global_object->String;
-    
-    
-    
-    
-$caml_wrap_thrown_exception = function($e) use($String, $caml_global_data) {
-  if ($e instanceof RehpExceptionBox) {
+// An OCaml string is an object with three fields:
+// - tag 't'
+// - length 'l'
+// - contents 'c'
+//
+// The contents of the string can be either a JavaScript array or
+// a JavaScript string. The length of this string can be less than the
+// length of the OCaml string. In this case, remaining bytes are
+// assumed to be zeroes. Arrays are mutable but consumes more memory
+// than strings. A common pattern is to start from an empty string and
+// progressively fill it from the start. Partial strings makes it
+// possible to implement this efficiently.
+//
+// When converting to and from UTF-8 byte arrays, we keep track of whether the
+// string is composed only of ASCII characters.
+//
+// The string tag can thus take the following values:
+//   full string     BYTE | UNKNOWN:      0  \
+//                   BYTE | ASCII:        9  |  All of these & 6 equals zero
+//                   BYTE | NOT_ASCII:    8  /
+//   string prefix   PARTIAL:             2  \  & 6 for these is the identity.
+//   array           ARRAY:               4  /
+//
+// One can use bit masking to discriminate these different cases:
+//   known_encoding(x) = x&8
+//   is_ascii(x) =       x&1
+//   kind(x) =           x&6
+
+final class MlBytes {
+  public function __construct(
+    public int $t,
+    public Vector<int> $a,
+    public string $c,
+    public int $l,
+  ) {
+  }
+  // TODO: remove this and fix the fatal from
+  // compiled code that is assuming it exists
+  public function count(): int {
+    return 0;
+  }
+  public function toString(): string {
+    return caml_to_js_string($this);
+  }
+}
+
+function caml_jsbytes_of_string(MlBytes $s): string {
+  if (($s->t & 6) !== 0) {
+    caml_convert_string_to_bytes($s);
+  }
+  return $s->c;
+}
+
+function caml_ml_flush(int $chanid): int {
+  $chan = Channel::get($chanid);
+  if ($chan->opened === null) {
+    caml_raise_sys_error("Cannot flush a closed channel");
+  }
+  $buffer = $chan->buffer;
+  if ($buffer === null || $buffer === "") {
+    return 0;
+  }
+  if ($chan->fd !== null) {
+    $output = ChannelInfo::get($chan->fd as int)?->output;
+    if ($output !== null) {
+      $output($chanid, $buffer);
+    }
+  }
+  $chan->buffer = "";
+  return 0;
+}
+
+// Returns -1 if not found.
+function php_last_index_of(string $php_str, string $find): int {
+  $index = PHP\mb_strrpos($php_str, $find);
+  return ($index === false) ? -1 : $index;
+}
+
+function caml_ml_output_bytes(
+  int $chanid,
+  MlBytes $buffer,
+  int $offset,
+  int $len,
+): int {
+  $chan = Channel::get($chanid);
+  if ($chan->opened === null) {
+    caml_raise_sys_error("Cannot output to a closed channel");
+  }
+  if ($offset === 0 && caml_ml_bytes_length($buffer) === $len) {
+    $string = $buffer;
+  } else {
+    $string = caml_create_bytes($len);
+    caml_blit_bytes($buffer, $offset, $string, 0, $len);
+  }
+  $phpStr = caml_jsbytes_of_string($string);
+  $id = php_last_index_of($phpStr, "\n");
+  if ($id < 0) {
+    $chan->buffer = $chan->buffer.$phpStr;
+  } else {
+    $chan->buffer = $chan->buffer.PHP\mb_substr($phpStr, 0, $id + 1);
+    caml_ml_flush($chanid);
+    $chan->buffer = $chan->buffer.PHP\mb_substr($phpStr, $id + 1);
+  }
+  return 0;
+}
+
+function caml_ml_output(
+  int $chanid,
+  MlBytes $buffer,
+  int $offset,
+  int $len,
+): int {
+  return caml_ml_output_bytes($chanid, $buffer, $offset, $len);
+}
+
+function caml_ml_output_char(int $chanid, int $c): int {
+  // TODO: Check that chr() is the same as fromCharCode
+  $s = caml_new_string(PHP\chr($c));
+  caml_ml_output($chanid, $s, 0, 1);
+  return 0;
+}
+
+
+function php_str_from_char_codes(KeyedContainer<int, int> $codes): string {
+  $ret = '';
+  foreach ($codes as $code) {
+    $ret .= PHP\chr($code);
+  }
+  return $ret;
+}
+
+/**
+ * Converts from Rehp's representation of arrays (which happen to be vectors
+ * with v[0] set to 0) into raw platform's default representation of arrays
+ * (varrays).
+ */
+function raw_array_sub<T>(Vector<T> $a, int $i, int $l): varray<T> {
+  $b = varray[];
+  for ($j = 0; $j < $l; $j++) {
+    $b[] = $a[$i + $j];
+  }
+  return $b;
+}
+
+/**
+ * Creates a new caml array from an existing caml array, but a subsequence of
+ * it.
+ */
+function caml_array_sub(Vector<mixed> $a, int $i, int $len): Vector<mixed> {
+  // Should be length $len + 1
+  $b = varray[];
+  $b[] = 0;
+  for ($j = 0; $j < $len; $j++) {
+    $b[] = $a[$j + $i];
+  }
+  return Vector::fromItems($b);
+}
+
+function caml_array_append(
+  Vector<mixed> $a1,
+  Vector<mixed> $a2,
+): Vector<mixed> {
+  $len1 = C\count($a1);
+  $len2 = C\count($a2);
+  $a = Vector {0};
+  $a->reserve($len1 + $len2 - 1);
+  for ($i = 1; $i < $len1; $i++) {
+    $a[] = $a1[$i];
+  }
+  for ($i = 1; $i < $len2; $i++) {
+    $a[] = $a2[$i];
+  }
+  return $a;
+}
+
+/**
+ * Takes a platform default array representation and returns a subsequence of
+ * it.
+ */
+function array_sub<T>(varray<T> $a, int $i, int $l): varray<T> {
+  $b = varray[];
+  for ($j = 0; $j < $l; $j++) {
+    $b[] = $a[$i + $j];
+  }
+  return $b;
+}
+
+/**
+ * Accepts a Hack varray or Vector, and outputs a new Hack Vector that has the
+ * `$x` argument prepended at position zero of that new Vector, and then copies
+ * the remaining items from `$a` into that new vector.
+ * Typically called like `raw_array_cons($hack_array, 0)` in order to turn
+ * a Hack array into a Rehp Vector array.
+ */
+function raw_array_cons<T>(KeyedContainer<int, T> $a, mixed $x): Vector<mixed> {
+  $l = C\count($a);
+  $b = varray[]; // length ($l + 1);
+  $b[] = $x;
+  for ($i = 1; $i <= $l; $i++) {
+    $b[] = $a[$i - 1];
+  }
+  // This creates a Rehp Array, but should be kept in sync with how
+  // Rehp Arrays are created in caml_make_vect
+  return Vector::fromItems($b);
+}
+
+function caml_array_bound_error(): void {
+  caml_invalid_argument("index out of bounds");
+}
+
+
+function caml_check_bound(Vector<mixed> $array, int $index): Vector<mixed> {
+  if (unsigned_right_shift_32($index, 0) >= C\count($array) - 1) {
+    caml_array_bound_error();
+  }
+  return $array;
+}
+
+
+/**
+ * Converts from a Rehp array(which is a Hack Vector with index 0 set to 0) to
+ * a Hack array.
+ */
+function caml_js_from_array<T>(Vector<T> $a): varray<T> {
+  return raw_array_sub($a, 1, C\count($a) - 1);
+}
+
+/**
+ * Converts from a Hack array (or Hack Vector) to a Rehp array (which is
+ * represented by a Hack vector with index 0 set to 0). This function is a
+ * little unique in that it is liberal with its input (accepting either a Hack
+ * Vector, or a Hack varray). In most other cases we only support Hack varrays
+ * converting back and forth to Reason arrays (which are represented by Hack
+ * Vector with the 0 index set to 0).
+ */
+function caml_js_to_array<T>(KeyedContainer<int, T> $a): Vector<mixed> {
+  return raw_array_cons($a, 0);
+}
+
+
+/**
+ * Converts from an MlString's ->a field (which is a character Vector), into a Hack string.
+ */
+function caml_subarray_to_string(Vector<int> $a, int $i, int $len): string {
+  if ($i === 0 && $len <= 4096 && $len === C\count($a)) {
+    return php_str_from_char_codes($a);
+  }
+  $s = "";
+  while (0 < $len) {
+    $s = $s.
+      php_str_from_char_codes(
+        raw_array_sub($a, $i, Math\min(varray[$len, 1024]) ?? 0),
+      );
+    $i += 1024;
+    $len -= 1024;
+  }
+  return $s;
+}
+
+// Assumes not full string "BYTES" Converts to BYTE of unknown classification,
+// which in the case of PHP means ascii.
+function caml_convert_string_to_bytes(MlBytes $s): void {
+  if ($s->t === 2) {
+    $s->c = $s->c.Str\repeat("\0", $s->l - Str\length($s->c));
+  } else {
+    // Then it must be array (type 4)
+    $s->c = caml_subarray_to_string($s->a, 0, Str\length($s->c));
+  }
+  $s->t = 9;
+}
+
+// Returns false if contains some char code that is > 127 That would include
+// nonascii JS characters like <fire>, but also Their compile-time-escaped forms
+// like \xf0\x9f\x94\xa5 Because the escaped hex forms would include at least
+// one character that is > 127.
+// In PHP, the following two strings are identical bit for bit:
+// - "Reason is on \xf0\x9f\x94\xa5"
+// - "Reason is on <fire>"
+//
+function caml_is_ascii(string $s): bool {
+  return PHP\mb_check_encoding($s, 'ASCII');
+}
+
+
+function caml_to_js_string(MlBytes $s): string {
+  switch ($s->t) {
+    case 9:
+      return $s->c;
+    case 8:
+      return caml_utf16_of_utf8($s->c);
+    case 0:
+    default:
+      if ($s->t != 0) {
+        caml_convert_string_to_bytes($s);
+      }
+      if (caml_is_ascii($s->c)) {
+        $s->t = 9;
+        return $s->c;
+      }
+      $s->t = 8;
+      return caml_utf16_of_utf8($s->c);
+  }
+}
+
+
+function caml_bytes_unsafe_get(MlBytes $s, int $i): int {
+  switch ($s->t & 6) {
+    case 0:
+      // TODO: Test that this is the same as charCodeAt
+      return PHP\ord($s->c[$i]) | 0;
+    case 4:
+      // 'c' is an array.
+      return $s->a[$i];
+    default:
+      // Partial(2) (will fall through).
+      if ($i >= Str\length($s->c)) {
+        // I wonder if this should throw an exception.
+        return 0;
+      }
+      return PHP\ord($s->c[$i]) | 0;
+  }
+}
+
+// caml_utf8_of_utf16 is really "convert from platform string to convenient
+// representation" where "convenient representation" is a form of string that
+// will allow us to efficiently perform all of the ocaml string operations with
+// high degree of compatibility. For JS backends, that means converting the
+// string to a string of characters each not exceeding \x7f.
+// In PHP, the convenient representation is the default PHP string!
+// That's because indexing into PHP strings is already as if the strings were
+// broken up into characters not exceeding \x7f. This is commonly referred to
+// as "UTF-8 raw bytes" string APIS. Reason/OCaml string APIs already match.
+function caml_utf8_of_utf16(string $s): string {
+  return $s;
+}
+function caml_utf16_of_utf8(string $s): string {
+  return $s;
+}
+
+function caml_js_to_string(string $s): MlBytes {
+  if (!($s is string)) {
+    throw new \ErrorException("caml_js_to_string called with non-string");
+  }
+  $tag = 9 /* BYTES | ASCII */;
+  if (!caml_is_ascii($s)) {
+    $tag = 8 /* BYTES | NOT_ASCII */;
+    $s = caml_utf8_of_utf16($s);
+  }
+  return new MlBytes($tag, Vector {}, $s, Str\length($s));
+}
+
+
+function caml_new_string(string $s): MlBytes {
+  return new MlBytes(0, Vector {}, $s, Str\length($s));
+}
+
+function caml_ml_string_length(MlBytes $s): int {
+  return $s->l;
+}
+
+function caml_raise_with_string(mixed $tag, string $msg): noreturn {
+  caml_raise_with_arg($tag, caml_new_string($msg));
+}
+
+function caml_raise_with_arg(mixed $tag, mixed $arg): noreturn {
+  throw caml_wrap_thrown_exception(varray[0, $tag, $arg]);
+}
+
+function caml_wrap_thrown_exception(mixed $e): RehpExceptionBox {
+  if ($e is RehpExceptionBox) {
     return $e;
   }
-  // Check for __isArrayLike because some exceptions are manually constructed in stubs
-  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
+  // Check for is_array because some exceptions are manually constructed in stubs
+  if ($e is Vector<_> || \is_array($e)) {
     return new RehpExceptionBox($e);
   }
   // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
   // map it to Stack_overflow.
 
   // Wrap Error in Js.Error exception
-  if($e instanceof \Exception) { // && $caml_named_value("phpError"))
-    // return [0,caml_named_value("phpError"),e];
-    return new RehpExceptionBox(R(0, $String->new("phpError"), $e), $e->getCode(), $e);
+  if ($e is \Exception) {
+    return new RehpExceptionBox(Vector {0, "phpError", $e}, $e->getCode(), $e);
   }
   //fallback: wrapped in Failure
-  // Again, with proper stubs this will refer to the actual Failure - always
-  // kept in sync.
-  return new RehpExceptionBox(R(0, $caml_global_data->Failure, $e));
-};
-    
-    
-    
-    
-  $ObjectLiteral = $joo_global_object->ObjectLiteral;
-    
-    
-    
-    
-  $Error = $ObjectLiteral(darray[
-     // Define to return a PHP exception subclass.
-    "new" => function($payload) {
-       return new \ErrorException($payload->__php_str);
-    }
-  ]);
-    
-    
-    
-    
-$Func=$joo_global_object->Func;
-    
-    
-    
-    
-$caml_js_to_string = $Func(
-  function($s) use ($Error,$MlBytes,$String,$caml_is_ascii,$eqEqEq,$typeof) {
-    if (PHP\is_string($s)) {
-      $s=$String->new($s);
-    }
-    if (!$eqEqEq($typeof($s), $String->new("string"))) {
-      throw $Error->new(
-              $String->new("caml_js_to_string called with non-string")
-            );
-    }
-    $tag = 9;
-    if (! $caml_is_ascii($s)) {($tag = 8) || true ? $s = $s : ($s = $s);}
-    return $MlBytes->new($tag, $s, $s->length);
-  }
-);
-    
-    
-    
-    
-$caml_arity_test = function($f) {
-  $php_f = ($f instanceof Func) ? $f->fun : $f;
-  if (is_object($php_f) && ($php_f instanceof \Closure)) {
-    return (new \ReflectionFunction($php_f))->getNumberOfRequiredParameters();
-  } else {
-    throw new \ErrorException("Passed non closure to rehack_arity");
-  }
-};
-    
-    
-    
-    
-  $caml_call_gen=function(
-    (function(mixed...): mixed) $f,
-    varray<mixed> $args,
-  ): mixed
-  use($raw_array_sub, $caml_arity_test) {
-    $n = caml_arity_test($f);
-    $argsLen = C\count($args);
-    $d = $n - $argsLen;
+  return new RehpExceptionBox(Vector {0, Failure::get(), $e});
+}
 
-    if ($d === 0) {
-      return $f(...$args);
-    } else if ($d < 0) {
-      return $caml_call_gen(
-        /* HH_IGNORE_ERROR[4110] $f must return a function here */
-        $f(...$raw_array_sub($args, 0, $n)),
-        $raw_array_sub($args, $n, $argsLen - $n),
-      );
-    } else {
-      return function(mixed $x) use ($f, $args) {
-        $args[] = $x;
-        return $caml_call_gen($f, $args);
-      };
-    }
-  }
-    
-    
-    
-    
- $caml_call6=function(
-   (function(mixed...): mixed) $f,
-   dynamic $a1,
-   dynamic $a2,
-   dynamic $a3,
-   dynamic $a4,
-   dynamic $a5,
-   dynamic $a6,
- ): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-   return $caml_arity_test($f) === 6
-     ? $f($a1, $a2, $a3, $a4, $a5, $a6)
-     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6]);
- }
-    
-    
-    
-    
-  $isFinite = function($value) {
-   $value = to_number($value);
-   return !($value === \INF || $value === -\INF || PHP\is_nan($value));
-  };
-    
-    
-    
-    
-  $isNaN = function($value) {
-   return PHP\is_nan(to_number($value));
-  };
-    
-    
-    
-    
-  $eval = function($str){throw new \ErrorException("Eval not supported");};
-    
-    
-    
-    
-  $NaN=\NAN;
-    
-    
-    
-    
-  $is_in = function($key, $val) {
-   return isset($val[$key]);
-  };
-    
-    
-    
-    
- $caml_call4=function(
-   (function(mixed...): mixed) $f,
-   dynamic $a1,
-   dynamic $a2,
-   dynamic $a3,
-   dynamic $a4,
- ): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-   return $caml_arity_test($f) === 4
-     ? $f($a1, $a2, $a3, $a4)
-     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4]);
- }
-    
-    
-    
-    
-$caml_wrap_exception = function($e) use($String, $caml_global_data) {
-  if ($e instanceof RehpExceptionBox) {
+
+function caml_invalid_argument(string $msg): noreturn {
+  caml_raise_with_string(Invalid_argument::get(), $msg);
+}
+
+
+function caml_raise_sys_error(string $msg): noreturn {
+  caml_raise_with_string(Sys_error::get(), $msg);
+}
+
+function caml_string_bound_error(): noreturn {
+  caml_invalid_argument("index out of bounds");
+}
+
+
+function caml_wrap_exception(mixed $e): mixed {
+  if ($e is RehpExceptionBox) {
     return $e->contents;
   }
   // Check for __isArrayLike because some exceptions are manually constructed in stubs
-  if ($e instanceof R || $e instanceof V || isset($e->__isArrayLike)) {
+  if ($e is Vector<_> || \is_array($e)) {
     return $e;
   }
   // Stack overflows cannot be caught reliably in PHP it seems. Cannot easily
   // map it to Stack_overflow.
   // Wrap Error in Js.Error exception
-  if($e instanceof \Throwable) { // && $caml_named_value("phpError"))
+  if ($e is \Throwable) { // && $caml_named_value("phpError"))
     // return [0,caml_named_value("phpError"),e];
-    return R(0, $String->new("phpError"), $e);
+    return Vector {0, "phpError", $e};
   }
   //fallback: wrapped in Failure
   // Again, with proper stubs this will refer to the actual Failure - always
   // kept in sync.
-  return R(0, $caml_global_data->Failure, $e);
-};
-    
-    
-    
-    
-$ArrayLiteral=$joo_global_object->ArrayLiteral;
-    
-    
-    
-    
-  $caml_js_wrap_callback = $Func(
-    function($f) use ($Array,$ArrayLiteral,$Func,$caml_call_gen) {
-      print("WARNING: caml_js_wrap_callback is not yet tested");
-      return $Func(
-        function() use ($Array,$ArrayLiteral,$caml_call_gen,$f) {
-          $arguments=\func_get_args();
-          if (PHP\count($arguments) > 0) {
-            return $caml_call_gen($f, $Array->new($arguments));
-          } else {
-            return $caml_call_gen($f, $ArrayLiteral(NULL));
-          }
-        }
-      );
-    }
-  );
-    
-    
-    
-    
-  $caml_js_wrap_callback_arguments = $Func(
-    function($f) use ($Func, $caml_js_wrap_callback) {
-      print("WARNING: caml_js_wrap_callback_arguments is not yet tested");
-      return $Func(
-        function() use ($caml_js_wrap_callback, $f) {
-          $arguments=\func_get_args();
-          return $caml_js_wrap_callback($f)($arguments);
-        }
-      );
-    }
-  );
-    
-    
-    
-    
-    $caml_js_html_entities = function() {
-      throw new \Exception(
-        'caml_js_html_entities is not supported in PHP backend'
-      );
-    };
-    
-    
-    
-    
- $caml_call8=function(
-   (function(mixed...): mixed) $f,
-   dynamic $a1,
-   dynamic $a2,
-   dynamic $a3,
-   dynamic $a4,
-   dynamic $a5,
-   dynamic $a6,
-   dynamic $a7,
-   dynamic $a8,
- ): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-   return $caml_arity_test($f) === 8
-     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8)
-     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8]);
- }
-    
-    
-    
-    
-$polymorphic_log=$joo_global_object->polymorphic_log;
-    
-    
-    
-    
-    $right_shift_32 = function(int $a, int $b): int {
-      if (\PHP_INT_SIZE === 8) {
-        // 64 bit.
-        $a_normalized = ($a << 32) >> 32;
-      } else {
-        // Size four means 32bit
-        $a_normalized = $a;
-      }
-      return $a_normalized >> $b;
-    };
-    
-    
-    
-    
- $caml_call7=function(
-   (function(mixed...): mixed) $f,
-   dynamic $a1,
-   dynamic $a2,
-   dynamic $a3,
-   dynamic $a4,
-   dynamic $a5,
-   dynamic $a6,
-   dynamic $a7,
- ): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-   return $caml_arity_test($f) === 7
-     ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7)
-     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7]);
- }
-    
-    
-    
-    
-    $parseInt = function($str, $base) {
-      print('oh hi markk');
-      return PHP\intval($str, $base);
-    };
-    
-    
-    
-    
- $caml_call5=function(
-   (function(mixed...): mixed) $f,
-   dynamic $a1,
-   dynamic $a2,
-   dynamic $a3,
-   dynamic $a4,
-   dynamic $a5,
- ): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-   return $caml_arity_test($f) === 5
-     ? $f($a1, $a2, $a3, $a4, $a5)
-     : $caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5]);
- }
-    
-    
-    
-    
-  $caml_call2=function(
-   (function(mixed...): mixed) $f,
-   dynamic $a1,
-   dynamic $a2,
- ): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-   return $caml_arity_test($f) === 2
-     ? $f($a1, $a2)
-     : $caml_call_gen($f, varray[$a1, $a2]);
- }
-    
-    
-    
-    
-    $caml_js_wrap_meth_callback_arguments = $Func(
-      function($f) use (
-        $ArrayLiteral,
-        $Func,
-        $caml_call_gen,
-        $joo_global_object
-      ) {
-        print("WARNING: caml_js_wrap_meth_callback_arguments is not yet tested");
-        return $Func(
-          function() use ($ArrayLiteral, $caml_call_gen, $f, $joo_global_object) {
-            return $caml_call_gen(
-              $f,
-              $ArrayLiteral(
-                varray[
-                  $joo_global_object->context,
-                  $ArrayLiteral(\func_get_args())
-                ]
-              )
-            );
-          }
-        );
-      }
-    );
-    
-    
-    
-    
-    $caml_js_wrap_callback_strict = $Func(
-      function($arity, $f) use (
-        $Func,
-        $Math,
-        $ArrayLiteral,
-        $caml_call_gen
-      ) {
-        print("WARNING: caml_js_wrap_callback_strict is not yet tested");
-        return $Func(
-          function() use (
-            $Math,
-            $ArrayLiteral,
-            $arity,
-            $caml_call_gen,
-            $f
-          ) {
-            $func_args = \func_get_args();
-            $n = PHP\count($func_args);
-            if ($n !== $arity) {
-              $func_args = PHP\array_slice($func_args, 0, $Math->min($n, $arity));
-            }
-            return $caml_call_gen($f, $ArrayLiteral($func_args));
-          }
-        );
-      }
-    );
-    
-    
-    
-    
-    $caml_js_wrap_meth_callback = $Func(
-      function($f) use (
-        $ArrayLiteral,
-        $Func,
-        $caml_call_gen,
-        $raw_array_cons,
-        $joo_global_object
-      ) {
-        print("WARNING: caml_js_wrap_meth_callback is not yet tested");
-        return $Func(
-          function() use (
-            $caml_call_gen,
-            $f,
-            $joo_global_object,
-            $raw_array_cons,
-            $ArrayLiteral
-          ) {
-            return $caml_call_gen(
-              $f,
-              $raw_array_cons(
-                $ArrayLiteral(\func_get_args()),
-                $joo_global_object->context
-              )
-            );
-          }
-        );
-      }
-    );
-    
-    
-    
-    
-  $SyntaxError = $ObjectLiteral(darray[
-     // Define to return a PHP exception subclass.
-    "new" => function($payload) {
-       return new \ErrorException('SyntaxError: ' .$payload->__php_str);
-    }
-  ]);
-    
-    
-    
-    
-    $unsigned_right_shift_32 = function(int $a, int $b): int {
-      if ($b >= 32 || $b < -32) {
-        $m = (int)($b / 32);
-        $b = $b - ($m * 32);
-      }
-      if ($b < 0) {
-        $b = 32 + $b;
-      }
-      if ($b === 0) {
-        return (($a >> 1) & 0x7fffffff) * 2 + (($a >> $b) & 1);
-      }
-      if ($a < 0) {
-        $a = ($a >> 1);
-        $a &= 2147483647;
-        $a |= 0x40000000;
-        $a = ($a >> ($b - 1));
-      } else {
-        $a = ($a >> $b);
-      }
-      return $a;
-    };
-    
-    
-    
-    
-  $is_int=$joo_global_object->is_int;
-    
-    
-    
-    
-$caml_wrap_thrown_exception_traceless = $caml_wrap_thrown_exception;
-    
-    
-    
-    
-    $left_shift_32 = (int $a, int $b): int {
-      $shifted = $a << $b;
-      if (\PHP_INT_SIZE === 8) {
-        // 64 bit.
-        return ($shifted << 32) >> 32;
-      } else {
-        // Size four means 32bit
-        return $shifted;
-      }
-    };
-    
-    
-    
-    
-$RegExp=$joo_global_object->RegExp;
-    
-    
-    
-    
-    $caml_js_wrap_meth_callback_unsafe = $Func(
-      function($f) use (
-        $ArrayLiteral,
-        $Func,
-        $joo_global_object,
-        $raw_array_cons
-      ) {
-        print("WARNING: caml_js_wrap_meth_callback_unsafe is not yet tested");
-        return $Func(
-          function() use (
-            $ArrayLiteral,
-            $f,
-            $joo_global_object,
-            $raw_array_cons
-          ) {
-            $f->apply(
-              varray[],
-              $raw_array_cons(
-                $ArrayLiteral(\func_get_args()),
-                $joo_global_object->context
-              )
-            );
-          }
-        );
-      }
-    );
-    
-    
-    
-    
- $caml_call3=function(
-   (function(mixed...): mixed) $f,
-   dynamic $a1,
-   dynamic $a2,
-   dynamic $a3,
- ): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-   return $caml_arity_test($f) === 3
-     ? $f($a1, $a2, $a3)
-     : $caml_call_gen($f, varray[$a1, $a2, $a3]);
- }
-    
-    
-    
-    
-  $caml_update_dummy = function($x, $y) {
-    if(PHP\is_callable($y)) {
-      $x->fun = $y;
-      return 0;
-    }
-    if(isset($y->fun)) {
-      $x->fun = $y->fun;
-      return 0;
-    }
-    $i = $y->length;
-    while ($i--) $x[$i] = $y[$i];
+  return Vector {0, Failure::get(), $e};
+}
+
+
+function caml_create_bytes(int $len): MlBytes {
+  if ($len < 0) {
+    caml_invalid_argument("Bytes.create");
+  }
+  return new MlBytes($len ? 2 : (9), Vector {}, "", $len);
+}
+
+function right_shift_32(int $a, int $b): int {
+  if (\PHP_INT_SIZE === 8) {
+    // 64 bit.
+    $a_normalized = ($a << 32) >> 32;
+  } else {
+    // Size four means 32bit
+    $a_normalized = $a;
+  }
+  return $a_normalized >> $b;
+}
+
+
+// Bit shifters: To emulate 32 bits on 64 bit platforms, we shift off any
+// leading 32 bits.
+// See also:
+// https://stackoverflow.com/a/25587827
+// https://stackoverflow.com/questions/6303241/find-windows-32-or-64-bit-using-php
+function left_shift_32(int $a, int $b): int {
+  $shifted = $a << $b;
+  if (\PHP_INT_SIZE === 8) {
+    // 64 bit.
+    return ($shifted << 32) >> 32;
+  } else {
+    // Size four means 32bit
+    return $shifted;
+  }
+}
+
+
+// >>> Unsigned shift right:
+// https://stackoverflow.com/a/43359819
+// Then the >> operator could be derived from this by preserving the sign.
+function unsigned_right_shift_32(int $a, int $b): int {
+  if ($b >= 32 || $b < -32) {
+    $m = (int)($b / 32);
+    $b = $b - ($m * 32);
+  }
+  if ($b < 0) {
+    $b = 32 + $b;
+  }
+  if ($b === 0) {
+    return (($a >> 1) & 0x7fffffff) * 2 + (($a >> $b) & 1);
+  }
+  if ($a < 0) {
+    $a = ($a >> 1);
+    $a &= 2147483647;
+    $a |= 0x40000000;
+    $a = ($a >> ($b - 1));
+  } else {
+    $a = ($a >> $b);
+  }
+  return $a;
+}
+
+function caml_bytes_get(MlBytes $s, int $i): int {
+  if (unsigned_right_shift_32($i, 0) >= $s->l) {
+    caml_string_bound_error();
+  }
+  return caml_bytes_unsafe_get($s, $i);
+}
+
+function caml_ml_bytes_length(MlBytes $s): int {
+  return $s->l;
+}
+
+/**
+ * Actually converts to a vector (name inherited from JS backend).
+ */
+function caml_convert_string_to_array(MlBytes $s): Vector<int> {
+  $a = Vector {};
+  $b = $s->c;
+  $l = Str\length($b);
+  $i = 0;
+  for (; $i < $l; $i++) {
+    // TODO: Test that this is the same as charCodeAt
+    $a[] = PHP\ord($b[$i]);
+  }
+  for ($l = $s->l; $i < $l; $i++) {
+    $a[] = 0;
+  }
+  $s->a = $a;
+  $s->t = 4;
+  return $a;
+}
+
+// Doesn't this need to reset the ->l property?
+function caml_blit_bytes(
+  MlBytes $s1,
+  int $i1,
+  MlBytes $s2,
+  int $i2,
+  int $len,
+): int {
+  if ($len === 0) {
     return 0;
-  };
-    
-    
-    
-    
-$caml_wrap_thrown_exception_reraise = $caml_wrap_thrown_exception;
-    
-    
-    
-    
-    $caml_alloc_dummy_function = $Func(
-      function($size, $arity) use (
-        $ArrayLiteral,
-        $Func,
-        $joo_global_object
-      ) {
-        print("WARNING: caml_alloc_dummy_function is not yet tested");
-        $f = new Ref();
-        $f->contents = $Func(
-          function() use ($ArrayLiteral, $f, $joo_global_object) {
-            return $f->contents
-              ->fun
-              ->apply(
-                $joo_global_object->context,
-                $ArrayLiteral(\func_get_args())
-              );
-          }
+  }
+  if (
+    $i2 === 0 &&
+    ($len >= $s2->l || ($s2->t === 2 && $len >= Str\length($s2->c)))
+  ) {
+    // Array
+    $s2->c = $s1->t === 4
+      ? caml_subarray_to_string($s1->a, $i1, $len)
+      : (
+          $i1 === 0 && Str\length($s1->c) === $len
+            ? $s1->c
+            : (Str\slice($s1->c, $i1, $len))
         );
-        $f->contents->length = $arity;
-        return $f->contents;
+    $s2->t = Str\length($s2->c) === $s2->l ? 0 : 2;
+  } else {
+    // Partial
+    if ($s2->t === 2 && $i2 === Str\length($s2->c)) {
+      $s2->c = $s2->c.
+        (
+          $s1->t === 4
+            ? caml_subarray_to_string($s1->a, $i1, $len)
+            : (
+                $i1 === 0 && Str\length($s1->c) === $len
+                  ? $s1->c
+                  : (Str\slice($s1->c, $i1, $len))
+              )
+        );
+      $s2->t = Str\length($s2->c) === $s2->l ? 0 : 2;
+    } else {
+      if ($s2->t !== 4) {
+        caml_convert_string_to_array($s2);
       }
-    );
-    
-    
-    
-    
-    $caml_js_wrap_meth_callback_strict = $Func(
-      function($arity, $f) use (
-        $ArrayLiteral,
-        $Func,
-        $caml_call_gen,
-        $joo_global_object
-      ) {
-        print("WARNING: caml_js_wrap_meth_callback_strict is not yet tested");
-        return $Func(
-          function() use (
-            $ArrayLiteral,
-            $arity,
-            $caml_call_gen,
-            $f,
-            $joo_global_object
-          ) {
-            $func_args = \func_get_args();
-            $n = PHP\count($func_args);
-            $args = varray[$joo_global_object->context];
-            if ($n === $arity) {
-              $args = PHP\array_merge($args, $func_args);
+      // Array
+      if ($s1->t === 4) {
+        if ($i2 <= $i1) {
+          for ($i = 0; $i < $len; $i++) {
+            $s2->a[$i2 + $i] = $s1->a[$i1 + $i];
+          }
+        } else {
+          for ($i = $len - 1; $i >= 0; $i--) {
+            $s2->a[$i2 + $i] = $s1->a[$i1 + $i];
+          }
+        }
+      } else {
+        $l = Math\min(varray[$len, Str\length($s1->c) - $i1]) ?? 0;
+        for ($i = 0; $i < $l; $i++) {
+          $s2->a[$i2 + $i] = PHP\ord($s1->c[$i1 + $i]);
+        }
+        for (; $i < $len; $i++) {
+          $s2->a[$i2 + $i] = 0;
+        }
+      }
+    }
+  }
+  return 0;
+}
+
+
+function caml_blit_string(
+  MlBytes $s1,
+  int $i1,
+  MlBytes $s2,
+  int $i2,
+  int $len,
+): int {
+  return caml_blit_bytes($s1, $i1, $s2, $i2, $len);
+}
+
+
+function caml_fill_bytes(MlBytes $s, int $i, int $l, int $c): int {
+  if ($l > 0) {
+    if ($i === 0 && ($l >= $s->l || ($s->t === 2 && $l >= Str\length($s->c)))) {
+      if ($c === 0) {
+        $s->c = "";
+        $s->t = 2;
+      } else {
+        $s->c = Str\repeat(PHP\chr($c), $l);
+        $s->t = $l === $s->l ? 0 : (2);
+      }
+    } else {
+      if ($s->t !== 4) {
+        caml_convert_string_to_array($s);
+      }
+      for ($l += $i; $i < $l; $i++) {
+        $s->a[$i] = $c;
+      }
+    }
+  }
+  return 0;
+}
+
+
+function js_print_stdout(string $s): void {
+  print("Rehack", $s);
+}
+
+function js_print_stderr(string $s): void {
+  print("Rehack", $s);
+}
+
+// Note: This is all one dependency.
+function caml_sys_open_internal(
+  int $idx,
+  (function(int, string): mixed) $output,
+  MlFakeFile $file,
+  ?ChannelInfoFlags $flags,
+): int {
+  $flags = $flags ?? new ChannelInfoFlags();
+  $info = new ChannelInfo(
+    $file,
+    $flags->append ? $file->length() : 0,
+    $flags,
+    $output,
+  );
+  ChannelInfo::set($idx, $info);
+  return $idx;
+}
+
+//Provides: native_warn
+//ForBackend: php
+function native_warn(dynamic $s): void {
+  print 'Rehack::warn' && print ($s is MlBytes ? $s->c : $s) && print "\n";
+}
+
+//Provides: native_error
+//ForBackend: php
+function native_error(dynamic $s): void {
+  print 'Rehack::mustfix' && print ($s is MlBytes ? $s->c : $s) && print "\n";
+}
+
+//Provides: native_debug
+//ForBackend: php
+function native_debug(dynamic $s): void {
+  print 'Rehack::debug' && print ($s is MlBytes ? $s->c : $s) && print "\n";
+}
+
+//Provides: native_log
+//ForBackend: php
+function native_log(dynamic $s): void {
+  print 'Rehack::info' && print ($s is MlBytes ? $s->c : $s) && print "\n";
+}
+
+//Provides: native_out
+//ForBackend: php
+function native_out(dynamic $s): void {
+  print 'Rehack::info' && print ($s is MlBytes ? $s->c : $s);
+}
+
+// Version of named flags only used by stubs. Compiled output will
+// use numeric versions of flags in a list.
+final class ChannelInfoFlags {
+  public bool $rdonly = false;
+  public bool $wronly = false;
+  public bool $append = false;
+  public bool $create = false;
+  public bool $truncate = false;
+  public int $excl = 1;
+  public bool $binary = false;
+  public bool $text = false;
+  public bool $nonblock = false;
+}
+
+final class ChannelInfo {
+  public static darray<int, ChannelInfo> $fds = darray[];
+  public static int $fdLastIdx = 0;
+
+  public static function get(int $id): ?ChannelInfo {
+    return self::$fds[$id];
+  }
+  public static function set(int $id, ChannelInfo $val): void {
+    if (self::$fdLastIdx === 0 || $id > self::$fdLastIdx) {
+      self::$fdLastIdx = $id;
+    }
+    self::$fds[$id] = $val;
+  }
+  public function __construct(
+    public MlFakeFile $file,
+    public int $offset,
+    public ChannelInfoFlags $flags,
+    public (function(int, string): mixed) $output,
+  ) {
+  }
+}
+
+
+// @Provides caml_ml_channels
+final class Channel {
+  public static darray<int, Channel> $channels = darray[];
+
+  public ?MlFakeFile $file = null;
+  public ?int $offset = null;
+  public ?int $fd = null;
+  public ?bool $opened = null;
+  public ?bool $out = null;
+  public ?string $buffer = null;
+  public ?darray<arraykey, mixed> $refill = null;
+
+  public static function get(int $id): Channel {
+    return self::$channels[$id];
+  }
+  public static function set(int $id, Channel $val): void {
+    self::$channels[$id] = $val;
+  }
+}
+
+
+final class OOCounter {
+  public static int $lastID = 0;
+
+  public static function freshID(): int {
+    self::$lastID = self::$lastID + 1;
+    return self::$lastID;
+  }
+}
+
+function caml_fresh_oo_id(mixed $_unit): int {
+  return OOCounter::freshID();
+}
+
+function math_pow(float $num, float $exp): float {
+  // $num = to_number($num);
+  // $exp = to_number($exp);
+  if (
+    PHP\is_nan(\PHPism_FIXME::coerceToFloat($num)) ||
+    PHP\is_nan(\PHPism_FIXME::coerceToFloat($exp))
+  ) {
+    return \NAN;
+  }
+  return $num ** $exp;
+}
+
+function caml_int64_float_of_bits(Vector<mixed> $x): float {
+  $x = tuple($x[0], $x[1] as int, $x[2] as int, $x[3] as int);
+  $NaN = \NAN;
+  $Infinity = \INF;
+  $exp = right_shift_32($x[3] & 32767, 4);
+  if ($exp === 2047) {
+    if (($x[1] | $x[2] | $x[3] & 15) === 0) {
+      return $x[3] & 32768 ? -$Infinity : $Infinity;
+    } else {
+      return $NaN;
+    }
+  }
+  $k = 2 ** -24;
+  $res = ($x[1] * $k + $x[2]) * $k + ($x[3] & 15);
+  if ($exp > 0) {
+    $res = $res + 16;
+    $res *= 2 ** ($exp - 1027);
+  } else {
+    $res *= 2 ** -1026;
+  }
+  if ($x[3] & 32768) {
+    $res = -$res;
+  }
+  return (float)$res;
+}
+
+
+function caml_std_output(int $chanid, string $s): int {
+  $chan = Channel::get($chanid);
+  $str = caml_new_string($s);
+  $slen = caml_ml_string_length($str);
+  $chan->file?->write(\nullthrows($chan->offset), $str, 0, $slen);
+  $chan->offset = $chan->offset ?? 0 + $slen;
+  return 0;
+}
+
+final class MlFakeFile {
+  public function __construct(public MlBytes $data) {}
+  public function truncate(int $len): void {
+    $old = $this->data;
+    $this->data = caml_create_bytes($len | 0);
+    caml_blit_bytes($old, 0, $this->data, 0, $len);
+  }
+  public function length(): int {
+    return caml_ml_bytes_length($this->data);
+  }
+  public function write(int $offset, MlBytes $buf, int $pos, int $len): int {
+    $clen = $this->length();
+    if ($offset + $len >= $clen) {
+      $new_str = caml_create_bytes($offset + $len);
+      $old_data = $this->data;
+      $this->data = $new_str;
+      caml_blit_bytes($old_data, 0, $this->data, 0, $clen);
+    }
+    caml_blit_bytes($buf, $pos, $this->data, $offset, $len);
+    return 0;
+  }
+  public function read(int $offset, MlBytes $buf, int $pos, int $len): int {
+    caml_blit_bytes($this->data, $offset, $buf, $pos, $len);
+    return 0;
+  }
+  public function readOne(int $offset): int {
+    return caml_bytes_get($this->data, $offset);
+  }
+  public function close(): void {
+  }
+}
+
+final class Env {
+  <<__Memoize>>
+  public static function get(): Map<string, string> {
+    return Map {};
+  }
+}
+
+final class GlobalData {
+  <<__Memoize>>
+  public static function get(): Map<arraykey, mixed> {
+    return Map {};
+  }
+}
+
+function caml_get_global_data(): Map<arraykey, mixed> {
+  return GlobalData::get();
+}
+
+function caml_register_global(int $n, mixed $v, ?string $name_opt): void {
+  $caml_global_data = GlobalData::get();
+  $caml_global_data[$n + 1] = $v;
+  if ($name_opt !== null) {
+    $caml_global_data[$name_opt] = $v;
+  }
+}
+
+
+function caml_ml_open_descriptor_out(int $fd): mixed {
+  $info = ChannelInfo::get($fd);
+  if ($info?->flags?->rdonly ?? false) {
+    caml_raise_sys_error("fd ".$fd." is readonly");
+  }
+  $channel = new Channel();
+  $channel->file = $info?->file;
+  $channel->offset = $info?->offset;
+  $channel->fd = $fd;
+  $channel->opened = true;
+  $channel->out = true;
+  $channel->buffer = "";
+  Channel::set($channel->fd, $channel);
+  return $channel->fd;
+}
+
+
+function caml_arity_test(mixed $f): int {
+  if (PHP\is_object($f) && ($f is \Closure)) {
+    return (new \ReflectionFunction($f))->getNumberOfParameters();
+  } else {
+    throw new \ErrorException("Passed non closure to rehack_arity");
+  }
+}
+
+function caml_ml_open_descriptor_in(int $fd): int {
+  $info = ChannelInfo::get($fd);
+  if ($info?->flags?->wronly ?? false) {
+    caml_raise_sys_error("fd ".$fd." is writeonly");
+  }
+  $channel = new Channel();
+  $channel->file = $info?->file;
+  $channel->offset = $info?->offset;
+  $channel->fd = $fd;
+  $channel->opened = true;
+  $channel->out = false;
+  $channel->refill = darray[];
+  return $channel->fd;
+}
+
+/**
+ * Float madness in php:
+ *
+ * This is true:
+ *   1e3==1000
+ * but this is false:
+ *   1e3===1000
+ *
+ * The same is not true in JS.
+ */
+function caml_obj_tag(nonnull $x): num {
+  if ($x is Vector<_>) {
+    return $x[0] as num;
+  } else if (\is_array($x)) {
+    return $x[0] as num;
+  } else if ($x is MlBytes) {
+    return 252;
+  } else {
+    return 1000;
+  }
+}
+
+function caml_parse_digit(int $c): int {
+  if ($c >= 48 && $c <= 57) {
+    return $c - 48;
+  }
+  if ($c >= 65 && $c <= 90) {
+    return $c - 55;
+  }
+  if ($c >= 97 && $c <= 122) {
+    return $c - 87;
+  }
+  return -1;
+}
+
+function caml_string_unsafe_get(MlBytes $s, int $i): int {
+  switch ($s->t & 6) {
+    case 4:
+      return $s->a[$i];
+    case 0:
+      return PHP\ord($s->c[$i]);
+    default:
+      if ($i >= Str\length($s->c)) {
+        return 0;
+      }
+      return PHP\ord($s->c[$i]);
+  }
+}
+
+function caml_parse_sign_and_base(MlBytes $s): (int, int, int) {
+  $i = 0;
+  $len = caml_ml_string_length($s);
+  $base = 10;
+  $sign = 1;
+  if ($len > 0) {
+    switch (caml_string_unsafe_get($s, $i)) {
+      case 45:
+        $i++;
+        $sign = -1;
+        break;
+      case 43:
+        $i++;
+        $sign = 1;
+        break;
+    }
+  }
+  if ($i + 1 < $len && caml_string_unsafe_get($s, $i) === 48) {
+    switch (caml_string_unsafe_get($s, $i + 1)) {
+      case 120:
+      // FALLTHROUGH
+      case 88:
+        $base = 16;
+        $i = $i + 2;
+        break;
+      case 111:
+      // FALLTHROUGH
+      case 79:
+        $base = 8;
+        $i = $i + 2;
+        break;
+      case 98:
+      // FALLTHROUGH
+      case 66:
+        $base = 2;
+        $i = $i + 2;
+        break;
+    }
+  }
+  return tuple($i, $sign, $base);
+}
+
+
+function caml_int_of_string(MlBytes $s): int {
+  $r = caml_parse_sign_and_base($s);
+  $i = $r[0];
+  $sign = $r[1];
+  $base = $r[2];
+  $len = caml_ml_string_length($s);
+  $threshold = unsigned_right_shift_32(-1, 0);
+  $c = $i < $len ? caml_string_unsafe_get($s, $i) : (0);
+  $d = caml_parse_digit($c);
+  if ($d < 0 || $d >= $base) {
+    caml_failwith("int_of_string");
+  }
+  $res = $d;
+  for ($i++; $i < $len; $i++) {
+    $c = caml_string_unsafe_get($s, $i);
+    if ($c === 95) {
+      continue;
+    }
+    $d = caml_parse_digit($c);
+    if ($d < 0 || $d >= $base) {
+      break;
+    }
+    $res = $base * $res + $d;
+    if ($res > $threshold) {
+      caml_failwith("int_of_string");
+    }
+  }
+  if ($i !== $len) {
+    caml_failwith("int_of_string");
+  }
+  $res = $sign * $res;
+  if ($base === 10 && (($res | 0) !== $res)) {
+    caml_failwith("int_of_string res=$res base=$base");
+  }
+  return $res | 0;
+}
+
+function caml_failwith(string $msg): noreturn {
+  caml_raise_with_string(Failure::get(), $msg);
+}
+
+function caml_string_equal(MlBytes $s1, MlBytes $s2): int {
+  if ($s1 === $s2) {
+    return 1;
+  }
+  if ($s1->t & 6) {
+    caml_convert_string_to_bytes($s1);
+  }
+  if ($s2->t & 6) {
+    caml_convert_string_to_bytes($s2);
+  }
+  return ($s1->c === $s2->c) ? 1 : 0;
+}
+
+function caml_string_get(MlBytes $s, int $i): int {
+  if (unsigned_right_shift_32($i, 0) >= $s->l) {
+    caml_string_bound_error();
+  }
+  return caml_string_unsafe_get($s, $i);
+}
+
+function caml_utf8_length(string $s): int {
+  return \utf8_strlen($s);
+}
+
+function caml_string_compare(MlBytes $s1, MlBytes $s2): int {
+  if ($s1->t & 6) {
+    caml_convert_string_to_bytes($s1);
+  }
+  if ($s2->t & 6) {
+    caml_convert_string_to_bytes($s2);
+  }
+  return $s1->c < $s2->c ? -1 : ($s1->c > $s2->c ? 1 : 0);
+}
+
+function caml_int64_compare(mixed $x, mixed $y): int {
+  throw new \ErrorException("caml_int64_compare not yet implemented");
+}
+
+function caml_int_compare(int $a, int $b): int {
+  if ($a < $b) {
+    return -1;
+  }
+  if ($a === $b) {
+    return 0;
+  }
+  return 1;
+}
+
+function caml_compare_val(mixed $a, mixed $b, bool $total): num {
+  if ($a === null || $b === null) {
+    return $a === $b ? 0 : ($a === null ? -1 : 1);
+  }
+  $stack = varray[];
+  for (; ; ) {
+    if (!($total && $a === $b)) {
+      // This if block copied from the MlBytes section below.
+      if ($a is string) {
+        if ($b is string) {
+          if ($a !== $b) {
+            $x = $a < $b ? -1 : 1;
+            if ($x !== 0) {
+              return $x;
+            }
+          }
+        } else {
+          return 1;
+        }
+      } else if ($a is MlBytes) {
+        if ($b is MlBytes) {
+          if ($a !== $b) {
+            $x = caml_string_compare($a, $b);
+            if ($x !== 0) {
+              return $x;
+            }
+          }
+        } else {
+          return 1;
+        }
+      } else {
+        if ($a is Vector<_>) {
+          if ($a[0] === ($a[0] as int | 0)) {
+            $ta = $a[0] as int;
+            if ($ta === 254) {
+              $ta = 0;
+            }
+            if ($ta === 250) {
+              $a = $a[1];
+              continue;
             } else {
-              for ($i = 1; $i < $n && $i <= $arity; $i++) {
-                $args[$i] = $func_args[$i];
+              if ($b is Vector<_> && $b[0] === ($b[0] as int | 0)) {
+                $tb = $b[0] as int;
+                if ($tb === 254) {
+                  $tb = 0;
+                }
+                if ($tb === 250) {
+                  $b = $b[1];
+                  continue;
+                } else {
+                  if ($ta !== $tb) {
+                    return $ta < $tb ? -1 : 1;
+                  } else {
+                    switch ($ta) {
+                      case 248: {
+                        $x = caml_int_compare($a[2] as int, $b[2] as int);
+                        if ($x !== 0) {
+                          return $x;
+                        }
+                        break;
+                      }
+                      case 251: {
+                        caml_invalid_argument("equal: abstract value");
+                      }
+                      case 255: {
+                        $x = caml_int64_compare($a, $b);
+                        if ($x !== 0) {
+                          return $x;
+                        }
+                        break;
+                      }
+                      default:
+                        if ($a->count() !== $b->count()) {
+                          return $a->count() < $b->count() ? -1 : 1;
+                        }
+                        if ($a->count() > 1) {
+                          $stack[] = $a;
+                          $stack[] = $b;
+                          $stack[] = 1;
+                        }
+                    }
+                  }
+                }
+              } else {
+                return 1;
               }
             }
-            return $caml_call_gen($f, $ArrayLiteral($args));
           }
-        );
+        } else {
+          if (
+            $b is string ||
+            $b is MlBytes ||
+            ($b !== null && ($b is Vector<_> && $b[0] === ($b[0] as int | 0)))
+          ) {
+            return -1;
+          } else {
+            /* HH_FIXME[4101] Comparable needs a parameter */
+            if (!($a is num) && $a !== null && $a && $a is Comparable) {
+              /* HH_FIXME[4110] Not sure how to ensure that $b is the same type as $a */
+              $cmp = $a->compare($b, $total);
+              if ($cmp != 0) {
+                return $cmp ? 1 : 0;
+              }
+            } else {
+              if (PHP\is_callable($a)) {
+                caml_invalid_argument("compare: functional value");
+              } else {
+                $a = $a as num;
+                $b = $b as num;
+                if ($a < $b) {
+                  return -1;
+                }
+                if ($a > $b) {
+                  return 1;
+                }
+                if ($a != $b) {
+                  if (!$total) {
+                    return \NAN;
+                  }
+                  if ($a == $a) {
+                    return 1;
+                  }
+                  if ($b == $b) {
+                    return -1;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-    );
-    
-    
-    
-    
-  $caml_call1=function((function(mixed...): mixed) $f, dynamic $a1): dynamic
-  use($caml_arity_test, $caml_call_gen) {
-    return $caml_arity_test($f) === 1 ? $f($a1) : $caml_call_gen($f, varray[$a1]);
+    }
+    if (PHP\count($stack) === 0) {
+      return 0;
+    }
+    $i = PHP\array_pop(inout $stack);
+    $b = PHP\array_pop(inout $stack);
+    $a = PHP\array_pop(inout $stack);
+    if ($i + 1 < PHP\count($a)) {
+      $stack[] = $a;
+      $stack[] = $b;
+      $stack[] = $i + 1;
+    }
+    $a = $a[$i];
+    $b = $b[$i];
   }
-    
-    
-    $joo_global_object->jsoo_runtime =
-      $ObjectLiteral(
-        darray[
-         "caml_ephe_check_data"=>$caml_ephe_check_data,
-         "caml_ephe_unset_data"=>$caml_ephe_unset_data,
-         "caml_ephe_set_data"=>$caml_ephe_set_data,
-         "caml_ephe_get_data_copy"=>$caml_ephe_get_data_copy,
-         "caml_ephe_get_data"=>$caml_ephe_get_data,
-         "caml_ephe_blit_data"=>$caml_ephe_blit_data,
-         "caml_ephe_unset_key"=>$caml_ephe_unset_key,
-         "caml_ephe_set_key"=>$caml_ephe_set_key,
-         "caml_ephe_check_key"=>$caml_ephe_check_key,
-         "caml_ephe_get_key_copy"=>$caml_ephe_get_key_copy,
-         "caml_ephe_get_key"=>$caml_ephe_get_key,
-         "caml_ephe_blit_key"=>$caml_ephe_blit_key,
-         "caml_ephe_create"=>$caml_ephe_create,
-         "caml_weak_blit"=>$caml_weak_blit,
-         "caml_weak_check"=>$caml_weak_check,
-         "caml_weak_get_copy"=>$caml_weak_get_copy,
-         "caml_weak_get"=>$caml_weak_get,
-         "caml_weak_set"=>$caml_weak_set,
-         "caml_weak_create"=>$caml_weak_create,
-         "caml_ephe_data_offset"=>$caml_ephe_data_offset,
-         "caml_ephe_key_offset"=>$caml_ephe_key_offset,
-         "caml_hash_mix_bigstring"=>$caml_hash_mix_bigstring,
-         "bigstring_of_array_buffer"=>$bigstring_of_array_buffer,
-         "bigstring_to_array_buffer"=>$bigstring_to_array_buffer,
-         "bigstring_find"=>$bigstring_find,
-         "bigstring_memcmp_stub"=>$bigstring_memcmp_stub,
-         "bigstring_blit_stub"=>$bigstring_blit_stub,
-         "caml_blit_string_to_bigstring"=>$caml_blit_string_to_bigstring,
-         "bigstring_blit_bytes_bigstring_stub"=>
-         $bigstring_blit_bytes_bigstring_stub,
-         "bigstring_blit_string_bigstring_stub"=>
-         $bigstring_blit_string_bigstring_stub,
-         "caml_blit_bigstring_to_string"=>$caml_blit_bigstring_to_string,
-         "bigstring_blit_bigstring_string_stub"=>
-         $bigstring_blit_bigstring_string_stub,
-         "bigstring_blit_bigstring_bytes_stub"=>
-         $bigstring_blit_bigstring_bytes_stub,
-         "bigstring_destroy_stub"=>$bigstring_destroy_stub,
-         "bigstring_alloc"=>$bigstring_alloc,
-         "caml_json"=>$caml_json,
-         "JSON"=>$JSON,
-         "caml_gc_get"=>$caml_gc_get,
-         "caml_gc_set"=>$caml_gc_set,
-         "caml_gc_stat"=>$caml_gc_stat,
-         "caml_gc_quick_stat"=>$caml_gc_quick_stat,
-         "caml_gc_counters"=>$caml_gc_counters,
-         "caml_gc_compaction"=>$caml_gc_compaction,
-         "caml_gc_full_major"=>$caml_gc_full_major,
-         "caml_gc_major"=>$caml_gc_major,
-         "caml_gc_minor"=>$caml_gc_minor,
-         "caml_CamlinternalMod_update_mod"=>$caml_CamlinternalMod_update_mod,
-         "caml_CamlinternalMod_init_mod"=>$caml_CamlinternalMod_init_mod,
-         "eval"=>$eval,
-         "caml_js_export_var"=>$caml_js_export_var,
-         "caml_js_object"=>$caml_js_object,
-         "caml_pure_js_expr"=>$caml_pure_js_expr,
-         "caml_js_raw_expr"=>$caml_js_raw_expr,
-         "caml_js_expr"=>$caml_js_expr,
-         "caml_js_eval_string"=>$caml_js_eval_string,
-         "caml_js_to_byte_string"=>$caml_js_to_byte_string,
-         "caml_js_equals"=>$caml_js_equals,
-         "caml_js_wrap_meth_callback_unsafe"=>
-         $caml_js_wrap_meth_callback_unsafe,
-         "caml_js_wrap_meth_callback_strict"=>
-         $caml_js_wrap_meth_callback_strict,
-         "caml_js_wrap_meth_callback_arguments"=>
-         $caml_js_wrap_meth_callback_arguments,
-         "caml_js_wrap_meth_callback"=>$caml_js_wrap_meth_callback,
-         "caml_js_wrap_callback_strict"=>$caml_js_wrap_callback_strict,
-         "caml_js_wrap_callback_arguments"=>$caml_js_wrap_callback_arguments,
-         "caml_js_wrap_callback"=>$caml_js_wrap_callback,
-         "caml_ojs_new_arr"=>$caml_ojs_new_arr,
-         "caml_js_new"=>$caml_js_new,
-         "caml_js_meth_call3"=>$caml_js_meth_call3,
-         "caml_js_meth_call2"=>$caml_js_meth_call2,
-         "caml_js_meth_call1"=>$caml_js_meth_call1,
-         "caml_js_meth_call0"=>$caml_js_meth_call0,
-         "caml_js_meth_call"=>$caml_js_meth_call,
-         "caml_js_fun_call4"=>$caml_js_fun_call4,
-         "caml_js_fun_call3"=>$caml_js_fun_call3,
-         "caml_js_fun_call2"=>$caml_js_fun_call2,
-         "caml_js_fun_call1"=>$caml_js_fun_call1,
-         "caml_js_fun_call0"=>$caml_js_fun_call0,
-         "caml_js_fun_call"=>$caml_js_fun_call,
-         "caml_js_call"=>$caml_js_call,
-         "caml_js_var"=>$caml_js_var,
-         "caml_js_to_array"=>$caml_js_to_array,
-         "caml_js_from_array"=>$caml_js_from_array,
-         "caml_js_from_string"=>$caml_js_from_string,
-         "caml_js_to_float"=>$caml_js_to_float,
-         "caml_js_from_float"=>$caml_js_from_float,
-         "caml_js_to_bool"=>$caml_js_to_bool,
-         "caml_js_from_bool"=>$caml_js_from_bool,
-         "js_print_stderr"=>$js_print_stderr,
-         "js_print_stdout"=>$js_print_stdout,
-         "caml_trampoline_return"=>$caml_trampoline_return,
-         "caml_trampoline"=>$caml_trampoline,
-         "caml_js_get_console"=>$caml_js_get_console,
-         "caml_js_html_entities"=>$caml_js_html_entities,
-         "caml_js_html_escape"=>$caml_js_html_escape,
-         "caml_js_on_ie"=>$caml_js_on_ie,
-         "caml_js_typeof"=>$caml_js_typeof,
-         "caml_js_instanceof"=>$caml_js_instanceof,
-         "caml_js_set"=>$caml_js_set,
-         "caml_js_property_set"=>$caml_js_property_set,
-         "caml_js_dict_set"=>$caml_js_dict_set,
-         "caml_js_get"=>$caml_js_get,
-         "caml_js_property_get"=>$caml_js_property_get,
-         "caml_js_dict_get"=>$caml_js_dict_get,
-         "caml_js_delete"=>$caml_js_delete,
-         "caml_js_pure_expr"=>$caml_js_pure_expr,
-         "MlNodeFile"=>$MlNodeFile,
-         "MlNodeDevice"=>$MlNodeDevice,
-         "fs_node_supported"=>$fs_node_supported,
-         "MlFakeFile"=>$MlFakeFile,
-         "MlFakeDevice"=>$MlFakeDevice,
-         "caml_read_file_content"=>$caml_read_file_content,
-         "caml_create_file"=>$caml_create_file,
-         "caml_fs_init"=>$caml_fs_init,
-         "caml_create_file_extern"=>$caml_create_file_extern,
-         "caml_ba_map_file_bytecode"=>$caml_ba_map_file_bytecode,
-         "caml_ba_map_file"=>$caml_ba_map_file,
-         "caml_sys_rename"=>$caml_sys_rename,
-         "caml_sys_is_directory"=>$caml_sys_is_directory,
-         "caml_sys_remove"=>$caml_sys_remove,
-         "caml_sys_read_directory"=>$caml_sys_read_directory,
-         "caml_sys_file_exists"=>$caml_sys_file_exists,
-         "caml_raise_not_a_dir"=>$caml_raise_not_a_dir,
-         "caml_raise_no_such_file"=>$caml_raise_no_such_file,
-         "caml_sys_chdir"=>$caml_sys_chdir,
-         "caml_sys_getcwd"=>$caml_sys_getcwd,
-         "caml_unmount"=>$caml_unmount,
-         "caml_mount_autoload"=>$caml_mount_autoload,
-         "resolve_fs_device"=>$resolve_fs_device,
-         "caml_list_mount_point"=>$caml_list_mount_point,
-         "jsoo_mount_point"=>$jsoo_mount_point,
-         "caml_make_path"=>$caml_make_path,
-         "MlFile"=>$MlFile,
-         "caml_root"=>$caml_root,
-         "caml_current_dir"=>$caml_current_dir,
-         "caml_ml_output_int"=>$caml_ml_output_int,
-         "caml_ml_pos_out_64"=>$caml_ml_pos_out_64,
-         "caml_ml_pos_out"=>$caml_ml_pos_out,
-         "caml_ml_seek_out_64"=>$caml_ml_seek_out_64,
-         "caml_ml_seek_out"=>$caml_ml_seek_out,
-         "caml_output_value"=>$caml_output_value,
-         "caml_ml_output_char"=>$caml_ml_output_char,
-         "caml_ml_output"=>$caml_ml_output,
-         "caml_ml_output_bytes"=>$caml_ml_output_bytes,
-         "caml_ml_flush"=>$caml_ml_flush,
-         "caml_ml_input_scan_line"=>$caml_ml_input_scan_line,
-         "caml_ml_pos_in_64"=>$caml_ml_pos_in_64,
-         "caml_ml_pos_in"=>$caml_ml_pos_in,
-         "caml_ml_seek_in_64"=>$caml_ml_seek_in_64,
-         "caml_ml_seek_in"=>$caml_ml_seek_in,
-         "caml_ml_input_int"=>$caml_ml_input_int,
-         "caml_ml_input_char"=>$caml_ml_input_char,
-         "caml_input_value"=>$caml_input_value,
-         "caml_ml_input"=>$caml_ml_input,
-         "caml_ml_may_refill_input"=>$caml_ml_may_refill_input,
-         "caml_ml_refill_input"=>$caml_ml_refill_input,
-         "caml_ml_set_channel_refill"=>$caml_ml_set_channel_refill,
-         "caml_ml_set_channel_output"=>$caml_ml_set_channel_output,
-         "caml_ml_channel_size_64"=>$caml_ml_channel_size_64,
-         "caml_ml_channel_size"=>$caml_ml_channel_size,
-         "caml_ml_close_channel"=>$caml_ml_close_channel,
-         "caml_ml_set_binary_mode"=>$caml_ml_set_binary_mode,
-         "caml_ml_open_descriptor_in"=>$caml_ml_open_descriptor_in,
-         "caml_ml_open_descriptor_out"=>$caml_ml_open_descriptor_out,
-         "caml_ml_out_channels_list"=>$caml_ml_out_channels_list,
-         "caml_ml_channels"=>$caml_ml_channels,
-         "caml_ml_set_channel_name"=>$caml_ml_set_channel_name,
-         "caml_sys_open"=>$caml_sys_open,
-         "caml_std_output"=>$caml_std_output,
-         "caml_sys_close"=>$caml_sys_close,
-         "right_shift_32"=>$right_shift_32,
-         "unsigned_right_shift_32"=>$unsigned_right_shift_32,
-         "left_shift_32"=>$left_shift_32,
-         "is_in"=>$is_in,
-         "isFinite"=>$isFinite,
-         "isNaN"=>$isNaN,
-         "SyntaxError"=>$SyntaxError,
-         "Error"=>$Error,
-         "ObjectLiteral"=>$ObjectLiteral,
-         "NaN"=>$NaN,
-         "is_int"=>$is_int,
-         "polymorphic_log"=>$polymorphic_log,
-         "Func"=>$Func,
-         "RegExp"=>$RegExp,
-         "ArrayLiteral"=>$ArrayLiteral,
-         "caml_is_js"=>$caml_is_js,
-         "caml_spacetime_only_works_for_native_code"=>
-         $caml_spacetime_only_works_for_native_code,
-         "caml_register_channel_for_spacetime"=>
-         $caml_register_channel_for_spacetime,
-         "caml_spacetime_enabled"=>$caml_spacetime_enabled,
-         "caml_sys_isatty"=>$caml_sys_isatty,
-         "caml_runtime_parameters"=>$caml_runtime_parameters,
-         "caml_runtime_variant"=>$caml_runtime_variant,
-         "caml_ml_runtime_warnings_enabled"=>$caml_ml_runtime_warnings_enabled,
-         "caml_ml_enable_runtime_warnings"=>$caml_ml_enable_runtime_warnings,
-         "caml_runtime_warnings"=>$caml_runtime_warnings,
-         "caml_list_of_js_array"=>$caml_list_of_js_array,
-         "caml_int64_bswap"=>$caml_int64_bswap,
-         "caml_int32_bswap"=>$caml_int32_bswap,
-         "caml_bswap16"=>$caml_bswap16,
-         "caml_convert_raw_backtrace_slot"=>$caml_convert_raw_backtrace_slot,
-         "caml_install_signal_handler"=>$caml_install_signal_handler,
-         "caml_fresh_oo_id"=>$caml_fresh_oo_id,
-         "caml_set_oo_id"=>$caml_set_oo_id,
-         "caml_oo_last_id"=>$caml_oo_last_id,
-         "unix_inet_addr_of_string"=>$unix_inet_addr_of_string,
-         "caml_sys_get_argv"=>$caml_sys_get_argv,
-         "caml_sys_exit"=>$caml_sys_exit,
-         "caml_sys_getenv"=>$caml_sys_getenv,
-         "caml_set_static_env"=>$caml_set_static_env,
-         "caml_get_current_callstack"=>$caml_get_current_callstack,
-         "caml_restore_raw_backtrace"=>$caml_restore_raw_backtrace,
-         "caml_raw_backtrace_slot"=>$caml_raw_backtrace_slot,
-         "caml_raw_backtrace_next_slot"=>$caml_raw_backtrace_next_slot,
-         "caml_raw_backtrace_length"=>$caml_raw_backtrace_length,
-         "caml_convert_raw_backtrace"=>$caml_convert_raw_backtrace,
-         "caml_record_backtrace"=>$caml_record_backtrace,
-         "caml_get_exception_raw_backtrace"=>$caml_get_exception_raw_backtrace,
-         "caml_get_exception_backtrace"=>$caml_get_exception_backtrace,
-         "caml_backtrace_status"=>$caml_backtrace_status,
-         "caml_final_release"=>$caml_final_release,
-         "caml_final_register_called_without_value"=>
-         $caml_final_register_called_without_value,
-         "caml_final_register"=>$caml_final_register,
-         "caml_get_public_method"=>$caml_get_public_method,
-         "caml_array_blit"=>$caml_array_blit,
-         "caml_array_concat"=>$caml_array_concat,
-         "caml_array_append"=>$caml_array_append,
-         "caml_array_sub"=>$caml_array_sub,
-         "caml_sys_system_command"=>$caml_sys_system_command,
-         "caml_sys_const_ostype_win32"=>$caml_sys_const_ostype_win32,
-         "caml_sys_const_ostype_unix"=>$caml_sys_const_ostype_unix,
-         "caml_sys_const_ostype_cygwin"=>$caml_sys_const_ostype_cygwin,
-         "caml_sys_const_max_wosize"=>$caml_sys_const_max_wosize,
-         "caml_sys_const_int_size"=>$caml_sys_const_int_size,
-         "caml_sys_const_word_size"=>$caml_sys_const_word_size,
-         "caml_sys_const_big_endian"=>$caml_sys_const_big_endian,
-         "caml_sys_random_seed"=>$caml_sys_random_seed,
-         "caml_sys_const_backend_type"=>$caml_sys_const_backend_type,
-         "caml_sys_get_config"=>$caml_sys_get_config,
-         "caml_sys_time"=>$caml_sys_time,
-         "caml_hash"=>$caml_hash,
-         "caml_hash_mix_string"=>$caml_hash_mix_string,
-         "caml_hash_mix_string_arr"=>$caml_hash_mix_string_arr,
-         "caml_hash_mix_string_str"=>$caml_hash_mix_string_str,
-         "caml_hash_mix_int64"=>$caml_hash_mix_int64,
-         "caml_hash_mix_float"=>$caml_hash_mix_float,
-         "caml_hash_mix_final"=>$caml_hash_mix_final,
-         "caml_hash_mix_int"=>$caml_hash_mix_int,
-         "caml_hash_univ_param"=>$caml_hash_univ_param,
-         "caml_format_float"=>$caml_format_float,
-         "caml_format_int"=>$caml_format_int,
-         "caml_finish_formatting"=>$caml_finish_formatting,
-         "caml_parse_format"=>$caml_parse_format,
-         "caml_is_printable"=>$caml_is_printable,
-         "caml_float_of_string"=>$caml_float_of_string,
-         "parseInt"=>$parseInt,
-         "caml_int_of_string"=>$caml_int_of_string,
-         "caml_parse_digit"=>$caml_parse_digit,
-         "caml_parse_sign_and_base"=>$caml_parse_sign_and_base,
-         "caml_lessthan"=>$caml_lessthan,
-         "caml_lessequal"=>$caml_lessequal,
-         "caml_greaterthan"=>$caml_greaterthan,
-         "caml_greaterequal"=>$caml_greaterequal,
-         "caml_notequal"=>$caml_notequal,
-         "caml_equal"=>$caml_equal,
-         "caml_int_compare"=>$caml_int_compare,
-         "caml_compare"=>$caml_compare,
-         "caml_compare_val"=>$caml_compare_val,
-         "caml_floatarray_create"=>$caml_floatarray_create,
-         "caml_make_float_vect"=>$caml_make_float_vect,
-         "caml_make_vect"=>$caml_make_vect,
-         "caml_check_bound"=>$caml_check_bound,
-         "caml_array_get"=>$caml_array_get,
-         "caml_array_set"=>$caml_array_set,
-         "caml_mod"=>$caml_mod,
-         "caml_div"=>$caml_div,
-         "caml_mul"=>$caml_mul,
-         "caml_lazy_make_forward"=>$caml_lazy_make_forward,
-         "caml_obj_truncate"=>$caml_obj_truncate,
-         "caml_obj_dup"=>$caml_obj_dup,
-         "caml_obj_block"=>$caml_obj_block,
-         "caml_obj_set_tag"=>$caml_obj_set_tag,
-         "caml_obj_tag"=>$caml_obj_tag,
-         "caml_obj_is_block"=>$caml_obj_is_block,
-         "caml_update_dummy"=>$caml_update_dummy,
-         "caml_array_bound_error"=>$caml_array_bound_error,
-         "caml_raise_not_found"=>$caml_raise_not_found,
-         "caml_raise_zero_divide"=>$caml_raise_zero_divide,
-         "caml_raise_end_of_file"=>$caml_raise_end_of_file,
-         "caml_invalid_argument"=>$caml_invalid_argument,
-         "caml_alloc_dummy_function"=>$caml_alloc_dummy_function,
-         "caml_js_error_of_exception"=>$caml_js_error_of_exception,
-         "caml_failwith"=>$caml_failwith,
-         "caml_raise_sys_error"=>$caml_raise_sys_error,
-         "caml_raise_with_string"=>$caml_raise_with_string,
-         "caml_raise_with_arg"=>$caml_raise_with_arg,
-         "caml_raise_constant"=>$caml_raise_constant,
-         "caml_wrap_thrown_exception_traceless"=>
-         $caml_wrap_thrown_exception_traceless,
-         "caml_wrap_thrown_exception_reraise"=>
-         $caml_wrap_thrown_exception_reraise,
-         "caml_wrap_thrown_exception"=>$caml_wrap_thrown_exception,
-         "caml_wrap_exception"=>$caml_wrap_exception,
-         "String"=>$String,
-         "caml_return_exn_constant"=>$caml_return_exn_constant,
-         "caml_get_global_data"=>$caml_get_global_data,
-         "caml_register_global"=>$caml_register_global,
-         "caml_global_data"=>$caml_global_data,
-         "caml_named_value"=>$caml_named_value,
-         "caml_register_named_value"=>$caml_register_named_value,
-         "caml_named_values"=>$caml_named_values,
-         "caml_call8"=>$caml_call8,
-         "caml_call7"=>$caml_call7,
-         "caml_call6"=>$caml_call6,
-         "caml_call5"=>$caml_call5,
-         "caml_call4"=>$caml_call4,
-         "caml_call3"=>$caml_call3,
-         "caml_call2"=>$caml_call2,
-         "caml_call1"=>$caml_call1,
-         "caml_call_gen"=>$caml_call_gen,
-         "caml_arity_test"=>$caml_arity_test,
-         "raw_array_append_one"=>$raw_array_append_one,
-         "raw_array_cons"=>$raw_array_cons,
-         "raw_array_copy"=>$raw_array_copy,
-         "raw_array_sub"=>$raw_array_sub,
-         "win_handle_fd"=>$win_handle_fd,
-         "win_cleanup"=>$win_cleanup,
-         "win_startup"=>$win_startup,
-         "unix_mktime"=>$unix_mktime,
-         "unix_localtime"=>$unix_localtime,
-         "unix_gmtime"=>$unix_gmtime,
-         "unix_time"=>$unix_time,
-         "unix_gettimeofday"=>$unix_gettimeofday,
-         "caml_ba_reshape"=>$caml_ba_reshape,
-         "caml_ba_slice"=>$caml_ba_slice,
-         "caml_ba_sub"=>$caml_ba_sub,
-         "caml_ba_fill"=>$caml_ba_fill,
-         "caml_ba_blit"=>$caml_ba_blit,
-         "caml_ba_set_3"=>$caml_ba_set_3,
-         "caml_ba_set_2"=>$caml_ba_set_2,
-         "caml_ba_set_1"=>$caml_ba_set_1,
-         "caml_ba_uint8_set64"=>$caml_ba_uint8_set64,
-         "caml_ba_uint8_set32"=>$caml_ba_uint8_set32,
-         "caml_ba_uint8_set16"=>$caml_ba_uint8_set16,
-         "caml_ba_set_generic"=>$caml_ba_set_generic,
-         "caml_ba_get_3"=>$caml_ba_get_3,
-         "caml_ba_get_2"=>$caml_ba_get_2,
-         "caml_ba_get_1"=>$caml_ba_get_1,
-         "caml_ba_uint8_get64"=>$caml_ba_uint8_get64,
-         "caml_ba_uint8_get32"=>$caml_ba_uint8_get32,
-         "caml_ba_uint8_get16"=>$caml_ba_uint8_get16,
-         "caml_ba_get_generic"=>$caml_ba_get_generic,
-         "caml_ba_dim_3"=>$caml_ba_dim_3,
-         "caml_ba_dim_2"=>$caml_ba_dim_2,
-         "caml_ba_dim_1"=>$caml_ba_dim_1,
-         "caml_ba_dim"=>$caml_ba_dim,
-         "caml_ba_num_dims"=>$caml_ba_num_dims,
-         "caml_ba_layout"=>$caml_ba_layout,
-         "caml_ba_kind"=>$caml_ba_kind,
-         "caml_ba_change_layout"=>$caml_ba_change_layout,
-         "caml_ba_create"=>$caml_ba_create,
-         "caml_ba_create_from"=>$caml_ba_create_from,
-         "caml_ba_views"=>$caml_ba_views,
-         "caml_ba_get_size"=>$caml_ba_get_size,
-         "caml_ba_init_views"=>$caml_ba_init_views,
-         "caml_ba_init"=>$caml_ba_init,
-         "caml_set_parser_trace"=>$caml_set_parser_trace,
-         "caml_parse_engine"=>$caml_parse_engine,
-         "caml_new_lex_engine"=>$caml_new_lex_engine,
-         "caml_lex_engine"=>$caml_lex_engine,
-         "caml_lex_array"=>$caml_lex_array,
-         "caml_output_value_to_buffer"=>$caml_output_value_to_buffer,
-         "caml_output_value_to_bytes"=>$caml_output_value_to_bytes,
-         "caml_output_value_to_string"=>$caml_output_value_to_string,
-         "caml_output_val"=>$caml_output_val,
-         "caml_marshal_data_size"=>$caml_marshal_data_size,
-         "caml_input_value_from_reader"=>$caml_input_value_from_reader,
-         "caml_input_value_from_bytes"=>$caml_input_value_from_bytes,
-         "caml_input_value_from_string"=>$caml_input_value_from_string,
-         "caml_float_of_bytes"=>$caml_float_of_bytes,
-         "BigStringReader"=>$BigStringReader,
-         "MlBytesReader"=>$MlBytesReader,
-         "caml_marshal_constants"=>$caml_marshal_constants,
-         "caml_md5_string"=>$caml_md5_string,
-         "caml_md5_chan"=>$caml_md5_chan,
-         "caml_int64_to_bytes"=>$caml_int64_to_bytes,
-         "caml_int64_of_bytes"=>$caml_int64_of_bytes,
-         "caml_int64_of_string"=>$caml_int64_of_string,
-         "caml_int64_format"=>$caml_int64_format,
-         "caml_int64_of_float"=>$caml_int64_of_float,
-         "caml_int64_to_float"=>$caml_int64_to_float,
-         "caml_int64_to_int32"=>$caml_int64_to_int32,
-         "caml_int64_of_int32"=>$caml_int64_of_int32,
-         "caml_int64_mod"=>$caml_int64_mod,
-         "caml_int64_div"=>$caml_int64_div,
-         "caml_int64_udivmod"=>$caml_int64_udivmod,
-         "caml_int64_lsr1"=>$caml_int64_lsr1,
-         "caml_int64_lsl1"=>$caml_int64_lsl1,
-         "caml_int64_shift_right"=>$caml_int64_shift_right,
-         "caml_int64_shift_right_unsigned"=>$caml_int64_shift_right_unsigned,
-         "caml_int64_shift_left"=>$caml_int64_shift_left,
-         "caml_int64_xor"=>$caml_int64_xor,
-         "caml_int64_or"=>$caml_int64_or,
-         "caml_int64_and"=>$caml_int64_and,
-         "caml_int64_is_minus_one"=>$caml_int64_is_minus_one,
-         "caml_int64_is_min_int"=>$caml_int64_is_min_int,
-         "caml_int64_is_negative"=>$caml_int64_is_negative,
-         "caml_int64_is_zero"=>$caml_int64_is_zero,
-         "caml_int64_mul"=>$caml_int64_mul,
-         "caml_int64_sub"=>$caml_int64_sub,
-         "caml_int64_add"=>$caml_int64_add,
-         "caml_int64_neg"=>$caml_int64_neg,
-         "caml_int64_compare"=>$caml_int64_compare,
-         "caml_int64_ult"=>$caml_int64_ult,
-         "caml_int64_ucompare"=>$caml_int64_ucompare,
-         "caml_int64_offset"=>$caml_int64_offset,
-         "caml_tanh_float"=>$caml_tanh_float,
-         "caml_sinh_float"=>$caml_sinh_float,
-         "caml_cosh_float"=>$caml_cosh_float,
-         "caml_log10_float"=>$caml_log10_float,
-         "caml_hypot_float"=>$caml_hypot_float,
-         "caml_log1p_float"=>$caml_log1p_float,
-         "caml_expm1_float"=>$caml_expm1_float,
-         "caml_copysign_float"=>$caml_copysign_float,
-         "caml_float_compare"=>$caml_float_compare,
-         "caml_frexp_float"=>$caml_frexp_float,
-         "caml_ldexp_float"=>$caml_ldexp_float,
-         "caml_modf_float"=>$caml_modf_float,
-         "caml_classify_float"=>$caml_classify_float,
-         "caml_int32_float_of_bits"=>$caml_int32_float_of_bits,
-         "caml_int64_float_of_bits"=>$caml_int64_float_of_bits,
-         "caml_hexstring_of_float"=>$caml_hexstring_of_float,
-         "caml_int32_bits_of_float"=>$caml_int32_bits_of_float,
-         "caml_int64_bits_of_float"=>$caml_int64_bits_of_float,
-         "jsoo_floor_log2"=>$jsoo_floor_log2,
-         "caml_bytes_of_string"=>$caml_bytes_of_string,
-         "caml_string_of_bytes"=>$caml_string_of_bytes,
-         "caml_ml_bytes_length"=>$caml_ml_bytes_length,
-         "caml_ml_string_length"=>$caml_ml_string_length,
-         "caml_blit_string"=>$caml_blit_string,
-         "caml_blit_bytes"=>$caml_blit_bytes,
-         "caml_fill_string"=>$caml_fill_string,
-         "caml_fill_bytes"=>$caml_fill_bytes,
-         "caml_bytes_greaterthan"=>$caml_bytes_greaterthan,
-         "caml_string_greaterthan"=>$caml_string_greaterthan,
-         "caml_bytes_greaterequal"=>$caml_bytes_greaterequal,
-         "caml_string_greaterequal"=>$caml_string_greaterequal,
-         "caml_bytes_lessthan"=>$caml_bytes_lessthan,
-         "caml_string_lessthan"=>$caml_string_lessthan,
-         "caml_bytes_lessequal"=>$caml_bytes_lessequal,
-         "caml_string_lessequal"=>$caml_string_lessequal,
-         "caml_bytes_notequal"=>$caml_bytes_notequal,
-         "caml_string_notequal"=>$caml_string_notequal,
-         "caml_bytes_equal"=>$caml_bytes_equal,
-         "caml_string_equal"=>$caml_string_equal,
-         "caml_bytes_compare"=>$caml_bytes_compare,
-         "caml_string_compare"=>$caml_string_compare,
-         "caml_string_of_array"=>$caml_string_of_array,
-         "caml_new_string"=>$caml_new_string,
-         "caml_new_string_impl"=>$caml_new_string_impl,
-         "caml_create_bytes"=>$caml_create_bytes,
-         "caml_create_string"=>$caml_create_string,
-         "caml_js_to_string"=>$caml_js_to_string,
-         "caml_jsbytes_of_string"=>$caml_jsbytes_of_string,
-         "caml_array_of_string"=>$caml_array_of_string,
-         "caml_convert_string_to_array"=>$caml_convert_string_to_array,
-         "caml_convert_string_to_bytes"=>$caml_convert_string_to_bytes,
-         "MlBytes"=>$MlBytes,
-         "caml_bytes_set"=>$caml_bytes_set,
-         "caml_string_set64"=>$caml_string_set64,
-         "caml_bytes_set64"=>$caml_bytes_set64,
-         "caml_string_set32"=>$caml_string_set32,
-         "caml_bytes_set32"=>$caml_bytes_set32,
-         "caml_string_set16"=>$caml_string_set16,
-         "caml_bytes_set16"=>$caml_bytes_set16,
-         "caml_string_set"=>$caml_string_set,
-         "caml_bytes_get"=>$caml_bytes_get,
-         "caml_bytes_get64"=>$caml_bytes_get64,
-         "caml_string_get64"=>$caml_string_get64,
-         "caml_bytes_get32"=>$caml_bytes_get32,
-         "caml_string_get32"=>$caml_string_get32,
-         "caml_bytes_get16"=>$caml_bytes_get16,
-         "caml_string_get16"=>$caml_string_get16,
-         "caml_string_get"=>$caml_string_get,
-         "caml_string_bound_error"=>$caml_string_bound_error,
-         "caml_string_unsafe_set"=>$caml_string_unsafe_set,
-         "caml_bytes_unsafe_set"=>$caml_bytes_unsafe_set,
-         "caml_bytes_unsafe_get"=>$caml_bytes_unsafe_get,
-         "caml_string_unsafe_get"=>$caml_string_unsafe_get,
-         "caml_to_js_string"=>$caml_to_js_string,
-         "caml_is_ascii"=>$caml_is_ascii,
-         "caml_utf16_of_utf8"=>$caml_utf16_of_utf8,
-         "caml_utf8_of_utf16"=>$caml_utf8_of_utf16,
-         "caml_subarray_to_string"=>$caml_subarray_to_string,
-         "caml_str_repeat"=>$caml_str_repeat]
-      );
-    
-    
-    
-    $caml_fs_init();
-    
-    $caml_register_global(
+}
+
+function caml_compare(mixed $a, mixed $b): num {
+  return caml_compare_val($a, $b, true);
+}
+
+
+function caml_equal(mixed $x, mixed $y): int {
+  return caml_compare_val($x, $y, false) === 0 ? 1 : 0;
+}
+
+function caml_notequal(mixed $x, mixed $y): int {
+  return (caml_compare_val($x, $y, false) != 0) ? 1 : 0;
+}
+
+function caml_greaterequal(mixed $x, mixed $y): int {
+  return (caml_compare_val($x, $y, false) >= 0) ? 1 : 0;
+}
+
+function caml_greaterthan(mixed $x, mixed $y): int {
+  return (caml_compare_val($x, $y, false) > 0) ? 1 : 0;
+}
+
+function caml_lessequal(mixed $x, mixed $y): int {
+  return (caml_compare_val($x, $y, false) <= 0) ? 1 : 0;
+}
+
+function caml_lessthan(mixed $x, mixed $y): int {
+  return (caml_compare_val($x, $y, false) < 0) ? 1 : 0;
+}
+
+function caml_call_gen(dynamic $f, varray<mixed> $args): mixed {
+  $n = caml_arity_test($f);
+  $argsLen = C\count($args);
+  $d = $n - $argsLen;
+
+  if ($d === 0) {
+    return $f(...$args);
+  } else if ($d < 0) {
+    return caml_call_gen(
+      $f(...array_sub($args, 0, $n)),
+      array_sub($args, $n, $argsLen - $n),
+    );
+  } else {
+    return function(mixed $x) use ($f, $args) {
+      $args[] = $x;
+      return caml_call_gen($f, $args);
+    };
+  }
+}
+
+function caml_call1(dynamic $f, dynamic $a1): dynamic {
+  return caml_arity_test($f) === 1 ? $f($a1) : caml_call_gen($f, varray[$a1]);
+}
+function caml_call2(dynamic $f, dynamic $a1, dynamic $a2): dynamic {
+  return caml_arity_test($f) === 2
+    ? $f($a1, $a2)
+    : caml_call_gen($f, varray[$a1, $a2]);
+}
+
+function caml_call3(
+  dynamic $f,
+  dynamic $a1,
+  dynamic $a2,
+  dynamic $a3,
+): dynamic {
+  return caml_arity_test($f) === 3
+    ? $f($a1, $a2, $a3)
+    : caml_call_gen($f, varray[$a1, $a2, $a3]);
+}
+
+function caml_call4(
+  dynamic $f,
+  dynamic $a1,
+  dynamic $a2,
+  dynamic $a3,
+  dynamic $a4,
+): dynamic {
+  return caml_arity_test($f) === 4
+    ? $f($a1, $a2, $a3, $a4)
+    : caml_call_gen($f, varray[$a1, $a2, $a3, $a4]);
+}
+function caml_call5(
+  dynamic $f,
+  dynamic $a1,
+  dynamic $a2,
+  dynamic $a3,
+  dynamic $a4,
+  dynamic $a5,
+): dynamic {
+  return caml_arity_test($f) === 5
+    ? $f($a1, $a2, $a3, $a4, $a5)
+    : caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5]);
+}
+function caml_call6(
+  dynamic $f,
+  dynamic $a1,
+  dynamic $a2,
+  dynamic $a3,
+  dynamic $a4,
+  dynamic $a5,
+  dynamic $a6,
+): dynamic {
+  return caml_arity_test($f) === 6
+    ? $f($a1, $a2, $a3, $a4, $a5, $a6)
+    : caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6]);
+}
+function caml_call7(
+  dynamic $f,
+  dynamic $a1,
+  dynamic $a2,
+  dynamic $a3,
+  dynamic $a4,
+  dynamic $a5,
+  dynamic $a6,
+  dynamic $a7,
+): dynamic {
+  return caml_arity_test($f) === 7
+    ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7)
+    : caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7]);
+}
+function caml_call8(
+  dynamic $f,
+  dynamic $a1,
+  dynamic $a2,
+  dynamic $a3,
+  dynamic $a4,
+  dynamic $a5,
+  dynamic $a6,
+  dynamic $a7,
+  dynamic $a8,
+): dynamic {
+  return caml_arity_test($f) === 8
+    ? $f($a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8)
+    : caml_call_gen($f, varray[$a1, $a2, $a3, $a4, $a5, $a6, $a7, $a8]);
+}
+
+
+function is_int(mixed $x): bool {
+  return $x is int;
+}
+
+function caml_sys_get_argv(mixed $_unit): Vector<mixed> {
+  $main = caml_new_string("a.out");
+  $args2 = Vector {0, $main};
+  return Vector {0, $main, $args2};
+}
+
+function caml_sys_get_config(mixed $_unit): Vector<mixed> {
+  return Vector {0, caml_new_string("Unix"), 32, 0};
+}
+
+function caml_sys_const_backend_type(mixed $_unit): Vector<mixed> {
+  return Vector {0, caml_new_string("js_of_ocaml")};
+}
+
+function caml_sys_const_ostype_unix(mixed $_unit): int {
+  return 1;
+}
+
+function caml_sys_const_ostype_win32(mixed $_unit): int {
+  return 0;
+}
+
+function caml_sys_const_ostype_cygwin(mixed $_unit): int {
+  return 0;
+}
+
+function caml_sys_const_max_wosize(mixed $_unit): int {
+  return (int)(2147483647 / 4);
+}
+
+function caml_set_static_env(string $_k, string $_v): int {
+  throw new \ErrorException("caml_set_static_env not yet implemented");
+  return 0;
+}
+
+function caml_raise_constant(mixed $tag): noreturn {
+  throw caml_wrap_thrown_exception($tag);
+}
+
+function caml_raise_not_found(mixed $_unit): noreturn {
+  $caml_global_data = GlobalData::get();
+  caml_raise_constant($caml_global_data['Not_found']);
+}
+
+function caml_raise_zero_divide(): void {
+  $caml_global_data = GlobalData::get();
+  caml_raise_constant($caml_global_data['Division_by_zero']);
+}
+
+/**
+ * Mod math. Negative iff first number negative. Throws specific catchable
+ * error if y is zero.
+ */
+function caml_mod(int $x, int $y): int {
+  if ($y === 0) {
+    caml_raise_zero_divide();
+  }
+  ;
+  return $x % $y;
+}
+
+function caml_sys_getenv(mixed $_name): noreturn {
+  caml_raise_not_found(0);
+}
+
+// TODO: use Vec\fill here after switching to vecs
+function caml_make_vect(int $len, mixed $init): Vector<mixed> {
+  $v = varray[];
+  $v[] = 0;
+  for ($i = 1; $i < $len + 1; $i++) {
+    $v[] = $init;
+  }
+  return Vector::fromItems($v);
+}
+
+final class Ref {
+  public mixed $contents = null;
+  public function contents(mixed ...$args): dynamic {
+    $contents = $this->contents as dynamic;
+    return $contents(...$args);
+  }
+}
+
+interface Comparable<T> {
+  public function compare(T $other, bool $total): bool;
+}
+
+// A class that wraps thrown objects in something that implement Throwable
+// because PHP will have it no other way.
+final class RehpExceptionBox extends \Exception {
+  public function __construct(
+    public mixed $contents,
+    int $code = 0,
+    ?\Exception $chained = null,
+  ) {
+    parent::__construct("RehpExceptionBox", $code, $chained);
+  }
+}
+
+type RuntimeT = shape(
+  "null" => mixed,
+  "caml_js_from_array" => dynamic,
+  "caml_js_to_array" => dynamic,
+  "caml_call1" => dynamic,
+  "caml_call2" => dynamic,
+  "caml_call3" => dynamic,
+  "caml_call4" => dynamic,
+  "caml_call5" => dynamic,
+  "caml_call6" => dynamic,
+  "caml_call7" => dynamic,
+  "caml_call8" => dynamic,
+  "caml_sys_get_config" => dynamic,
+  "caml_sys_const_backend_type" => dynamic,
+  "caml_sys_const_ostype_unix" => dynamic,
+  "caml_sys_const_ostype_win32" => dynamic,
+  "caml_sys_const_ostype_cygwin" => dynamic,
+  "caml_sys_const_max_wosize" => dynamic,
+  "caml_set_static_env" => dynamic,
+  "caml_raise_constant" => dynamic,
+  "caml_raise_not_found" => dynamic,
+  "caml_sys_getenv" => dynamic,
+  "caml_sys_get_argv" => dynamic,
+  "caml_arity_test" => dynamic,
+  "caml_blit_bytes" => dynamic,
+  "caml_blit_string" => dynamic,
+  "caml_bytes_unsafe_get" => dynamic,
+  "caml_call_gen" => dynamic,
+  "caml_create_bytes" => dynamic,
+  "caml_equal" => dynamic,
+  "caml_fill_bytes" => dynamic,
+  "caml_fresh_oo_id" => dynamic,
+  "caml_get_global_data" => dynamic,
+  "caml_int64_float_of_bits" => dynamic,
+  "caml_int_of_string" => dynamic,
+  "caml_js_to_string" => dynamic,
+  "caml_ml_bytes_length" => dynamic,
+  "caml_ml_flush" => dynamic,
+  "caml_ml_open_descriptor_in" => dynamic,
+  "caml_ml_open_descriptor_out" => dynamic,
+  "caml_ml_output" => dynamic,
+  "caml_ml_output_char" => dynamic,
+  "caml_ml_string_length" => dynamic,
+  "caml_new_string" => dynamic,
+  "caml_obj_tag" => dynamic,
+  "caml_register_global" => dynamic,
+  "caml_string_equal" => dynamic,
+  "caml_string_get" => dynamic,
+  "caml_utf8_length" => dynamic,
+  "caml_wrap_exception" => dynamic,
+  "caml_wrap_thrown_exception" => dynamic,
+  "is_int" => dynamic,
+  "left_shift_32" => dynamic,
+  "native_debug" => dynamic,
+  "native_error" => dynamic,
+  "native_log" => dynamic,
+  "native_out" => dynamic,
+  "native_warn" => dynamic,
+  "right_shift_32" => dynamic,
+  "unsigned_right_shift_32" => dynamic,
+  "caml_array_sub" => dynamic,
+  "caml_array_append" => dynamic,
+  "caml_bytes_unsafe_set" => mixed,
+  "caml_check_boun" => mixed,
+  "caml_check_bound" => mixed,
+  "caml_compare" => mixed,
+  "caml_float_of_string" => mixed,
+  "caml_notequal" => dynamic,
+  "caml_greaterequal" => dynamic,
+  "caml_greaterthan" => dynamic,
+  "caml_hash" => mixed,
+  "caml_int64_compare" => mixed,
+  "caml_int64_of_int32" => mixed,
+  "caml_int64_or" => mixed,
+  "caml_int64_shift_left" => mixed,
+  "caml_int64_sub" => mixed,
+  "caml_int_compare" => mixed,
+  "caml_lessequal" => dynamic,
+  "caml_lessthan" => dynamic,
+  "caml_make_vect" => dynamic,
+  "caml_marshal_data_size" => mixed,
+  "caml_md5_string" => mixed,
+  "caml_ml_channel_size" => mixed,
+  "caml_ml_channel_size_64" => mixed,
+  "caml_ml_close_channel" => mixed,
+  "caml_ml_input" => mixed,
+  "caml_ml_input_char" => mixed,
+  "caml_ml_output_bytes" => mixed,
+  "caml_ml_set_binary_mode" => mixed,
+  "caml_ml_set_channel_name" => mixed,
+  "caml_mod" => mixed,
+  "caml_obj_set_tag" => mixed,
+  "caml_string_notequal" => mixed,
+  "caml_sys_open" => mixed,
+  "caml_sys_random_seed" => mixed,
+);
+
+abstract final class Runtime {
+  /**
+   * Memoized module getter.
+   */
+  <<__Memoize>>
+  public static function get(): RuntimeT {
+    caml_sys_open_internal(
       0,
-      Vector{248, $caml_new_string("Out_of_memory"), 0},
-      "Out_of_memory"
+      fun('\\Rehack\\caml_std_output'),
+      new MlFakeFile(caml_create_bytes(0)),
+      null,
     );
-    
-    $caml_register_global(
+    caml_sys_open_internal(
       1,
-      Vector{248, $caml_new_string("Sys_error"), -1},
-      "Sys_error"
+      function(int $_chan_id, string $s): void {
+        js_print_stdout($s);
+      },
+      new MlFakeFile(caml_create_bytes(0)),
+      null,
     );
-    
-    $caml_register_global(
+    caml_sys_open_internal(
       2,
-      Vector{248, $caml_new_string("Failure"), -2},
-      "Failure"
-    );
-    
-    $caml_register_global(
-      3,
-      Vector{248, $caml_new_string("Invalid_argument"), -3},
-      "Invalid_argument"
-    );
-    
-    $caml_register_global(
-      4,
-      Vector{248, $caml_new_string("End_of_file"), -4},
-      "End_of_file"
-    );
-    
-    $caml_register_global(
-      5,
-      Vector{248, $caml_new_string("Division_by_zero"), -5},
-      "Division_by_zero"
-    );
-    
-    $caml_register_global(
-      6,
-      Vector{248, $caml_new_string("Not_found"), -6},
-      "Not_found"
-    );
-    
-    $caml_register_global(
-      7,
-      Vector{248, $caml_new_string("Match_failure"), -7},
-      "Match_failure"
-    );
-    
-    $caml_register_global(
-      8,
-      Vector{248, $caml_new_string("Stack_overflow"), -8},
-      "Stack_overflow"
-    );
-    
-    $caml_register_global(
-      9,
-      Vector{248, $caml_new_string("Sys_blocked_io"), -9},
-      "Sys_blocked_io"
-    );
-    
-    $caml_register_global(
-      10,
-      Vector{248, $caml_new_string("Assert_failure"), -10},
-      "Assert_failure"
-    );
-    
-    $caml_register_global(
-      11,
-      Vector{248, $caml_new_string("Undefined_recursive_module"), -11},
-      "Undefined_recursive_module"
+      function(int $_chan_id, string $s): void {
+        js_print_stderr($s);
+      },
+      new MlFakeFile(caml_create_bytes(0)),
+      null,
     );
 
+    $register_global = vec[
+      "Out_of_memory",
+      "Sys_error",
+      "Failure",
+      "Invalid_argument",
+      "End_of_file",
+      "Division_by_zero",
+      "Not_found",
+      "Match_failure",
+      "Stack_overflow",
+      "Sys_blocked_io",
+      "Assert_failure",
+      "Undefined_recursive_module",
+    ];
+    foreach ($register_global as $i => $s) {
+      caml_register_global($i, Vector {248, caml_new_string($s), -1 * $i}, $s);
+    }
+    return shape(
+      "null" => null,
+      "caml_js_from_array" => fun('\\Rehack\\caml_js_from_array') as dynamic,
+      "caml_js_to_array" => fun('\\Rehack\\caml_js_to_array') as dynamic,
+      "caml_call1" => fun('\\Rehack\\caml_call1') as dynamic,
+      "caml_call2" => fun('\\Rehack\\caml_call2') as dynamic,
+      "caml_call3" => fun('\\Rehack\\caml_call3') as dynamic,
+      "caml_call4" => fun('\\Rehack\\caml_call4') as dynamic,
+      "caml_call5" => fun('\\Rehack\\caml_call5') as dynamic,
+      "caml_call6" => fun('\\Rehack\\caml_call6') as dynamic,
+      "caml_call7" => fun('\\Rehack\\caml_call7') as dynamic,
+      "caml_call8" => fun('\\Rehack\\caml_call8') as dynamic,
+      "caml_sys_get_config" => fun('\\Rehack\\caml_sys_get_config') as dynamic,
+      "caml_sys_const_backend_type" =>
+        fun('\\Rehack\\caml_sys_const_backend_type') as dynamic,
+      "caml_sys_const_ostype_unix" =>
+        fun('\\Rehack\\caml_sys_const_ostype_unix') as dynamic,
+      "caml_sys_const_ostype_win32" =>
+        fun('\\Rehack\\caml_sys_const_ostype_win32') as dynamic,
+      "caml_sys_const_ostype_cygwin" =>
+        fun('\\Rehack\\caml_sys_const_ostype_cygwin') as dynamic,
+      "caml_sys_const_max_wosize" => fun('\\Rehack\\caml_sys_const_max_wosize')
+        as dynamic,
+      "caml_set_static_env" => fun('\\Rehack\\caml_set_static_env') as dynamic,
+      "caml_raise_constant" => fun('\\Rehack\\caml_raise_constant') as dynamic,
+      "caml_raise_not_found" => fun('\\Rehack\\caml_raise_not_found')
+        as dynamic,
+      "caml_sys_getenv" => fun('\\Rehack\\caml_sys_getenv') as dynamic,
+      "caml_sys_get_argv" => fun('\\Rehack\\caml_sys_get_argv') as dynamic,
+      "caml_arity_test" => fun('\\Rehack\\caml_arity_test') as dynamic,
+      "caml_blit_bytes" => fun('\\Rehack\\caml_blit_bytes') as dynamic,
+      "caml_blit_string" => fun('\\Rehack\\caml_blit_string') as dynamic,
+      "caml_bytes_unsafe_get" => fun('\\Rehack\\caml_bytes_unsafe_get')
+        as dynamic,
+      "caml_call_gen" => fun('\\Rehack\\caml_call_gen') as dynamic,
+      "caml_create_bytes" => fun('\\Rehack\\caml_create_bytes') as dynamic,
+      "caml_equal" => fun('\\Rehack\\caml_equal') as dynamic,
+      "caml_fill_bytes" => fun('\\Rehack\\caml_fill_bytes') as dynamic,
+      "caml_fresh_oo_id" => fun('\\Rehack\\caml_fresh_oo_id') as dynamic,
+      "caml_get_global_data" => fun('\\Rehack\\caml_get_global_data')
+        as dynamic,
+      "caml_int64_float_of_bits" => fun('\\Rehack\\caml_int64_float_of_bits')
+        as dynamic,
+      "caml_int_of_string" => fun('\\Rehack\\caml_int_of_string') as dynamic,
+      "caml_js_to_string" => fun('\\Rehack\\caml_js_to_string') as dynamic,
+      "caml_ml_bytes_length" => fun('\\Rehack\\caml_ml_bytes_length')
+        as dynamic,
+      "caml_ml_flush" => fun('\\Rehack\\caml_ml_flush') as dynamic,
+      "caml_ml_open_descriptor_in" =>
+        fun('\\Rehack\\caml_ml_open_descriptor_in') as dynamic,
+      "caml_ml_open_descriptor_out" =>
+        fun('\\Rehack\\caml_ml_open_descriptor_out') as dynamic,
+      "caml_ml_output" => fun('\\Rehack\\caml_ml_output') as dynamic,
+      "caml_ml_output_char" => fun('\\Rehack\\caml_ml_output_char') as dynamic,
+      "caml_ml_string_length" => fun('\\Rehack\\caml_ml_string_length')
+        as dynamic,
+      "caml_new_string" => fun('\\Rehack\\caml_new_string') as dynamic,
+      "caml_obj_tag" => fun('\\Rehack\\caml_obj_tag') as dynamic,
+      "caml_register_global" => fun('\\Rehack\\caml_register_global')
+        as dynamic,
+      "caml_string_equal" => fun('\\Rehack\\caml_string_equal') as dynamic,
+      "caml_string_get" => fun('\\Rehack\\caml_string_get') as dynamic,
+      "caml_utf8_length" => fun('\\Rehack\\caml_utf8_length') as dynamic,
+      "caml_wrap_exception" => fun('\\Rehack\\caml_wrap_exception') as dynamic,
+      "caml_wrap_thrown_exception" =>
+        fun('\\Rehack\\caml_wrap_thrown_exception') as dynamic,
+      "is_int" => fun('\\Rehack\\is_int') as dynamic,
+      "left_shift_32" => fun('\\Rehack\\left_shift_32') as dynamic,
+      "native_debug" => fun('\\Rehack\\native_debug') as dynamic,
+      "native_error" => fun('\\Rehack\\native_error') as dynamic,
+      "native_log" => fun('\\Rehack\\native_log') as dynamic,
+      "native_out" => fun('\\Rehack\\native_out') as dynamic,
+      "native_warn" => fun('\\Rehack\\native_warn') as dynamic,
+      "right_shift_32" => fun('\\Rehack\\right_shift_32') as dynamic,
+      "unsigned_right_shift_32" => fun('\\Rehack\\unsigned_right_shift_32')
+        as dynamic,
+      "caml_array_sub" => fun('\\Rehack\\caml_array_sub') as dynamic,
+      "caml_array_append" => fun('\\Rehack\\caml_array_append') as dynamic,
+      "caml_bytes_unsafe_set" => null,
+      "caml_check_boun" => null,
+      "caml_check_bound" => fun('\\Rehack\\caml_check_bound') as dynamic,
+      "caml_compare" => fun('\\Rehack\\caml_compare') as dynamic,
+      "caml_float_of_string" => null,
+      "caml_notequal" => fun('\\Rehack\\caml_notequal') as dynamic,
+      "caml_greaterequal" => fun('\\Rehack\\caml_greaterequal') as dynamic,
+      "caml_greaterthan" => fun('\\Rehack\\caml_greaterthan') as dynamic,
+      "caml_hash" => null,
+      "caml_int64_compare" => null,
+      "caml_int64_of_int32" => null,
+      "caml_int64_or" => null,
+      "caml_int64_shift_left" => null,
+      "caml_int64_sub" => null,
+      "caml_int_compare" => null,
+      "caml_lessequal" => fun('\\Rehack\\caml_lessequal') as dynamic,
+      "caml_lessthan" => fun('\\Rehack\\caml_lessthan') as dynamic,
+      "caml_make_vect" => fun('\\Rehack\\caml_make_vect') as dynamic,
+      "caml_marshal_data_size" => null,
+      "caml_md5_string" => null,
+      "caml_ml_channel_size" => null,
+      "caml_ml_channel_size_64" => null,
+      "caml_ml_close_channel" => null,
+      "caml_ml_input" => null,
+      "caml_ml_input_char" => null,
+      "caml_ml_output_bytes" => null,
+      "caml_ml_set_binary_mode" => null,
+      "caml_ml_set_channel_name" => null,
+      "caml_mod" => fun('\\Rehack\\caml_mod') as dynamic,
+      "caml_obj_set_tag" => null,
+      "caml_string_notequal" => null,
+      "caml_sys_open" => null,
+      "caml_sys_random_seed" => null,
+    );
+
+  }
+}
+
+final class GlobalObject {
+  public function __construct(public RuntimeT $jsoo_runtime) {}
+
+  <<__Memoize>>
+  public static function get(): GlobalObject {
+    return new GlobalObject(Runtime::get());
   }
 }

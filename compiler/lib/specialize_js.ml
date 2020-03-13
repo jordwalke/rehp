@@ -22,8 +22,139 @@ open Stdlib
 open Code
 open Flow
 
-let specialize_instr info i rem =
+(* Could add Pc (IString (Var.to_string v)); to get the string name of
+ * the identifier, but the names aren't registered correctly at this
+ * point in the compiler. TODO: Implement that without using new
+ * orig_string_name_debug function.
+ *)
+(* A Pc of -1 indicate the name is not readable *)
+let readable_name v =
+  match Var.orig_string_name_debug v with
+  | None -> Pc (Int (Int32.of_int (-1)))
+  | Some s -> Pc (IString s)
+
+let readable_name_str v =
+  match Var.orig_string_name_debug v with
+  | None -> ""
+  | Some s -> s
+
+let warn fmt = Format.ksprintf (fun s -> if not !quiet then Format.eprintf "%s%!" s) fmt
+
+(* This should be kept in sync with Specialize.function_cardinality. It is a
+ * mirror of that logic for determining arity, but computes a debug-worthy set
+ * of suitable argument names.  The exact names should not be relied upon
+ * except for improving readability. *)
+let rec function_arg_names info x acc =
+  get_approx
+    info
+    (fun x ->
+      match info.info_defs.(Var.idx x) with
+      | Expr (Closure (l, _)) ->
+          Some (List.map ~f:(fun v -> Var.orig_string_name_debug v) l)
+      (* If this is an already inlined extern closure wrapping primitive,
+       * return that primitive's arity *)
+      | Expr (Prim (Extern "%closure", [Pc (IString prim)])) -> (
+        try Some (List.init (Primitive.registered_arity prim) (fun i -> None))
+        with Not_found -> None)
+      | Expr (Apply (f, l, _)) -> (
+          if List.mem f ~set:acc
+          then None
+          else
+            match function_arg_names info f (f :: acc) with
+            | Some names ->
+                let llen = List.length l in
+                let diff = List.length names - llen in
+                if diff > 0
+                then (
+                  let _taken, rest = List.take llen names in
+                  if diff <> List.length rest
+                  then print_string "diff length not same as rest length";
+                  Some rest)
+                else None
+            | None -> None)
+      | _ -> None)
+    None
+    (fun u v ->
+      match u, v with
+      | Some n, Some m when List.length n == List.length m -> v
+      | _ -> None)
+    x
+
+let the_block_of info x =
+  match the_def_of info x with
+  | Some (Block (_, itms, _)) -> Some itms
+  | Some _ | None -> None
+
+(* TODO: There's a better implementation of this in specialize.ml *)
+let the_arity_of info x =
+  match Specialize.function_cardinality info x [] with
+  | None -> 0
+  | Some a -> a
+
+let arity_arg i = Pc (Int (Int32.of_int i))
+
+let argument_names_of info x =
+  match function_arg_names info x [] with
+  | None -> []
+  | Some l ->
+      List.map l ~f:(function
+          | None -> Pc (Int (Int32.of_int (-1)))
+          | Some s -> Pc (IString s))
+
+let specialize_instr addr info i rem =
   match i with
+  (* TODO: Enable this for caml_js_raw_expr *)
+  (* | Let (x, Prim (Extern "caml_js_raw_expr", y :: rest)) -> *)
+  (*     (match the_string_of info y with *)
+  (*     | Some s -> Let (x, Prim (Extern "caml_js_raw_expr", Pc (String s) :: rest)) *)
+  (*     | _ -> i) *)
+  (*     :: rem *)
+  | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) ->
+      (let the_metadata_of info x =
+         match the_block_of info x with
+         | Some blk -> Some blk
+         | _ -> None
+       in
+       match the_metadata_of info modul with
+       | None -> i
+       | Some block_items ->
+           let f v =
+             let arity = the_arity_of info v in
+             let arg_names = argument_names_of info v in
+             (* Original name of identifier in scope *)
+             (* Identifier in scope *)
+             (* Not a great idea to include the identifier reference
+              * itself as it will cause there to not be inlinine of
+              * those constant functions. Inlining them is good, and we
+              * can still recover their string original name as we do in
+              * argument_names_of *)
+             (* Pv v; *)
+             (* Arity if function *)
+             readable_name v
+             :: arity_arg arity
+             ::
+             (if arity <> List.length arg_names
+             then (
+               (* Should warn in this case - but at least have a fallback *)
+               warn
+                 "Please report this issue to rehp(warn): Function arity != match \
+                  length of argument names for %s"
+                 (readable_name_str v);
+               List.init arity (fun i -> Pc (Int (Int32.of_int (-1)))))
+             else arg_names)
+           in
+           let prim_block_items =
+             List.map (Array.to_list block_items) ~f |> List.concat
+           in
+           let md_call =
+             Prim
+               ( Extern "%caml_register_global_module_metadata"
+               , ind :: modul :: name :: prim_block_items )
+           in
+           (* Shouldn't we need to update the defs for all of these? *)
+           (* Flow.update_def info x md_call; *)
+           Let (x, md_call))
+      :: rem
   | Let (x, Prim (Extern "caml_format_int", [y; z])) ->
       (match the_string_of info y with
       (* Specializes calls to format_int when format string is "%d". Allows
@@ -45,17 +176,27 @@ let specialize_instr info i rem =
       | Some i -> Let (x, Constant (String (Int32.to_string i)))
       | None -> i)
       :: rem
+  (* Finds local string references for raw expressions *)
   | Let
       ( x
       , Prim
           ( Extern
-              (("caml_js_var" | "caml_js_raw_expr" | "caml_js_expr" | "caml_pure_js_expr")
+              (("caml_js_raw_expr" | "caml_js_var" | "caml_js_expr" | "caml_pure_js_expr")
               as prim)
           , [y] ) ) ->
       (match the_string_of info y with
       | Some s -> Let (x, Prim (Extern prim, [Pc (String s)]))
       | _ -> i)
       :: rem
+  | Let (x, Prim (Extern "caml_js_raw_expr", y :: rest)) ->
+      (match the_string_of info y with
+      | Some s -> Let (x, Prim (Extern "%caml_js_opt_raw_expr", Pc (String s) :: rest))
+      | _ -> i)
+      :: rem
+  (* Avoid registering named values if none of the stubs ever try to consume
+     it. Named values are ways to expose named data to C code, and linked
+     stubs play the role of the C code. This optimization was disabled in
+     linker.ml anyways, but keeping it here *)
   | Let (x, Prim (Extern ("caml_register_named_value" as prim), [y; z])) ->
       (match the_string_of info y with
       | Some s when Primitive.need_named_value s ->
@@ -197,7 +338,7 @@ let specialize_instr info i rem =
       :: rem
   | _ -> i :: rem
 
-let rec specialize_instrs info checks l =
+let rec specialize_instrs addr info checks l =
   match l with
   | [] -> []
   | i :: r -> (
@@ -217,12 +358,12 @@ let rec specialize_instrs info checks l =
         if List.mem (y, idx) ~set:checks
         then
           Let (x, Prim (Extern "caml_array_unsafe_get", [y; z]))
-          :: specialize_instrs info checks r
+          :: specialize_instrs addr info checks r
         else
           let y' = Code.Var.fresh () in
           Let (y', Prim (Extern "caml_check_bound", [y; z]))
           :: Let (x, Prim (Extern "caml_array_unsafe_get", [Pv y'; z]))
-          :: specialize_instrs info ((y, idx) :: checks) r
+          :: specialize_instrs addr info ((y, idx) :: checks) r
     | Let (x, Prim (Extern "caml_array_set", [y; z; t]))
      |Let (x, Prim (Extern "caml_array_set_float", [y; z; t]))
      |Let (x, Prim (Extern "caml_array_set_addr", [y; z; t])) ->
@@ -234,32 +375,70 @@ let rec specialize_instrs info checks l =
         if List.mem (y, idx) ~set:checks
         then
           Let (x, Prim (Extern "caml_array_unsafe_set", [y; z; t]))
-          :: specialize_instrs info checks r
+          :: specialize_instrs addr info checks r
         else
           let y' = Code.Var.fresh () in
           Let (y', Prim (Extern "caml_check_bound", [y; z]))
           :: Let (x, Prim (Extern "caml_array_unsafe_set", [Pv y'; z; t]))
-          :: specialize_instrs info ((y, idx) :: checks) r
-    | _ -> specialize_instr info i (specialize_instrs info checks r))
+          :: specialize_instrs addr info ((y, idx) :: checks) r
+    | _ -> specialize_instr addr info i (specialize_instrs addr info checks r))
 
 let specialize_all_instrs info (pc, blocks, free_pc) =
   let blocks =
-    Addr.Map.map
-      (fun block -> {block with Code.body = specialize_instrs info [] block.body})
+    Addr.Map.mapi
+      (fun addr block ->
+        {block with Code.body = specialize_instrs addr info [] block.body})
       blocks
   in
   pc, blocks, free_pc
 
 (****)
 
+(* Used purely to extract useful locations for error messages *)
+(* let source_location_for_error debug ?after pc = *)
+(*   match Parse_bytecode.Debug.find_loc debug ?after pc with *)
+
 let f info p = specialize_all_instrs info p
 
-let f_once (pc, blocks, free_pc) =
-  let rec loop l =
+(* This is called from the driver before any Flow information is computed. *)
+let f_once debug_data_for_errors (pc, blocks, free_pc) =
+  let rec loop addr l =
     match l with
     | [] -> []
     | i :: r -> (
       match i with
+      (* Arguably this should only be done in f_once (the round that only
+       * happens once) since the purpose of this is to expand arguments, and
+       * there will never be a case where some other compiler stage might
+       * create a new raw macro that should be expanded or re-expanded.
+       *)
+      | Let (x, Prim (Extern nm, args)) when Raw_macro.is nm ->
+          let loc =
+            match
+              ( Parse_bytecode.Debug.find_loc debug_data_for_errors addr
+              , Code.Var.get_loc x )
+            with
+            | Some pi, None | None, Some pi | Some _, Some pi -> Some pi
+            | _ -> None
+          in
+          let be = Backend.Current.compiler_backend_flag () in
+          let macro_data = Raw_macro.extract ~forBackend:be ?loc nm in
+          let node_list =
+            Raw_macro.evalContainers
+              (Raw_macro.parseNodeList macro_data)
+              (String.equal be)
+          in
+          let expandedArgs, mappedNodeList =
+            Raw_macro.expandIntoMultipleArguments macro_data args node_list
+          in
+          let expandedText = Raw_macro.printNodeList mappedNodeList in
+          (* Turn into special % primitive so that none of the inlining optimizations apply *)
+          Let
+            ( x
+            , Prim
+                ( Extern "%caml_js_expanded_raw_macro"
+                , Pc (String expandedText) :: List.rev expandedArgs ) )
+          :: loop addr r
       | Let
           ( x
           , ( (Prim (Extern "caml_js_delete", [_; _]) as p)
@@ -271,10 +450,12 @@ let f_once (pc, blocks, free_pc) =
                      | "caml_js_set" )
                  , [_; _; _] ) as p) ) ) ->
           let x' = Code.Var.fork x in
-          Let (x, Constant (Int 0l)) :: Let (x', p) :: loop r
-      | _ -> i :: loop r)
+          Let (x, Constant (Int 0l)) :: Let (x', p) :: loop addr r
+      | _ -> i :: loop addr r)
   in
   let blocks =
-    Addr.Map.map (fun block -> {block with Code.body = loop block.body}) blocks
+    Addr.Map.mapi
+      (fun addr block -> {block with Code.body = loop addr block.body})
+      blocks
   in
   pc, blocks, free_pc

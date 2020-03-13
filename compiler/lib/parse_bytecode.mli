@@ -30,6 +30,10 @@ module Debug : sig
   val is_empty : data -> bool
 
   val paths : data -> units:StringSet.t -> StringSet.t
+
+  val hash_data_for_change_detection : data -> int
+  (** Computes a hash of debug data for the sake of detecting changes
+     to inputs that may affect compilation outputs. *)
 end
 
 type one =
@@ -70,3 +74,5 @@ val from_string : string array -> string -> Code.program * Debug.data
 val predefined_exceptions : unit -> Code.program
 
 val normalize_module_name : string -> string
+
+val denormalize_module_name : string -> string

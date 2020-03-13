@@ -58,6 +58,8 @@ module Var : sig
 
   val to_string : ?origin:t -> t -> string
 
+  val orig_string_name_debug : t -> string option
+
   val fresh : unit -> t
 
   val fresh_n : string -> t
@@ -197,6 +199,8 @@ type block =
   ; branch : last }
 
 type program = Addr.t * block Addr.Map.t * Addr.t
+
+val hash_program : program -> int
 
 type xinstr =
   | Instr of instr

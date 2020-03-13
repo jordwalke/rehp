@@ -77,8 +77,11 @@ and unop =
   | DecrB
 and arguments = list(expression)
 and property_name_and_value_list = list((Id.property_name, expression))
+and raw_segment =
+  | RawText(string)
+  | RawSubstitution(expression)
 and expression =
-  | ERaw(string)
+  | ERaw(list(raw_segment))
   | ECond(expression, expression, expression)
   | EBin(binop, expression, expression)
   | EUn(unop, expression)

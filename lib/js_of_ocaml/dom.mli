@@ -203,14 +203,14 @@ class type characterData =
     method replaceData : int -> int -> js_string t -> unit meth
   end
 
-(** Specification of [Comment] objects *)
 class type comment = characterData
+(** Specification of [Comment] objects *)
 
-(** Specification of [Text] objects. *)
 class type text = characterData
+(** Specification of [Text] objects. *)
 
-(** Specification of [DocumentFragment] objects. *)
 class type documentFragment = node
+(** Specification of [DocumentFragment] objects. *)
 
 (** Specification of [Document] objects. *)
 class type ['element] document =
@@ -287,10 +287,10 @@ end
 
 (** {2 Events} *)
 
+type (-'a, -'b) event_listener
 (** The type of event listener functions.  The first type parameter
       ['a] is the type of the target object; the second parameter
       ['b] is the type of the event object. *)
-type (-'a, -'b) event_listener
 
 class type ['a] event =
   object
@@ -302,6 +302,13 @@ class type ['a] event =
 
     (* Legacy methods *)
     method srcElement : 'a t opt readonly_prop
+  end
+
+class type ['a, 'b] customEvent =
+  object
+    inherit ['a] event
+
+    method detail : 'b Js.opt Js.readonly_prop
   end
 
 (** {2 Event handlers} *)
@@ -334,6 +341,18 @@ module Event : sig
   val make : string -> 'a typ
 end
 
+val addEventListenerWithOptions :
+     (< .. > t as 'a)
+  -> 'b Event.typ
+  -> ?capture:bool t
+  -> ?once:bool t
+  -> ?passive:bool t
+  -> ('a, 'b) event_listener
+  -> event_listener_id
+(** Add an event listener.  This function matches the
+      option-object variant of the [addEventListener] DOM method,
+      except that it returns an id for removing the listener. *)
+
 val addEventListener :
      (< .. > t as 'a)
   -> 'b Event.typ
@@ -341,8 +360,8 @@ val addEventListener :
   -> bool t
   -> event_listener_id
 (** Add an event listener.  This function matches the
-      [addEventListener] DOM method, except that it returns
-      an id for removing the listener. *)
+      useCapture boolean variant of the [addEventListener] DOM method,
+      except that it returns an id for removing the listener. *)
 
 val removeEventListener : event_listener_id -> unit
 (** Remove the given event listener. *)
@@ -350,6 +369,14 @@ val removeEventListener : event_listener_id -> unit
 val preventDefault : 'a #event Js.t -> unit
 (** Call this to prevent the default handler for the event.
     To stop propagation of the event, call {!Dom_html.stopPropagation}. *)
+
+val createCustomEvent :
+     ?bubbles:bool
+  -> ?cancelable:bool
+  -> ?detail:'b
+  -> ('a, 'b) #customEvent Js.t Event.typ
+  -> ('a, 'b) customEvent Js.t
+(** Create a custom event of given type. *)
 
 (** {2 Other DOM objects} *)
 

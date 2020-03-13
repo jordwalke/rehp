@@ -1,4 +1,0 @@
-/**
- * @providesModule Failure
- */
-module.exports = {};

@@ -409,7 +409,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     | [i] =>
       PP.string(f, "dynamic");
       PP.non_breaking_space(f);
-      ident(f, i)
+      ident(f, i);
     | [i, ...r] =>
       PP.string(f, "dynamic");
       PP.non_breaking_space(f);
@@ -579,6 +579,11 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     switch (e) {
     | ERaw(_) => true
     | ENULL => false
+    /*
+     * Major hack. We use ERaw to inject a return in a place that only expects
+     * an expression. (In php backend module exporting code).
+     */
+    | ECall(ERaw([RawText("return")]), _, _) => false
     | ECond(e, _, _) => l <= 2 && need_paren(3, e)
     /*
      * Instanceof is just a function call now.
@@ -591,6 +596,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       let (out, lft, _rght) = op_prec(op);
       l <= out && need_paren(lft, e);
     | EArrLen(e) /* Since EArrLen is just expanded to a EDot */
+    | ECall(ERaw(_) as e, _, _)
     | ECall(e, _, _)
     | EAccess(e, _)
     | EStructAccess(e, _)
@@ -662,11 +668,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
 
   let rec expression = (l, f, e) =>
     switch (e) {
-    | ERaw(s) =>
-      /* Non breaking space because what if this is on the rhs of a return? */
-      PP.non_breaking_space(f);
-      PP.string(f, s);
-      PP.non_breaking_space(f);
+    | ERaw(segments) =>
+      Stdlib.List.iter(segments, ~f=itm =>
+        switch (itm) {
+        | RawText(s) => PP.string(f, s)
+        /* TODO: Get the right precedence ranking here */
+        | RawSubstitution(e) => expression(1, f, e)
+        }
+      )
     | ENULL => PP.string(f, "null")
     | EVar(v) => ident(f, v)
     /* JS:  (e1, e2)
@@ -1015,7 +1024,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
     if (!isLambda) {
       PP.string(f, "{");
     } else {
-      PP.string(f, " ==> {");
+      PP.string(f, ": dynamic ==> {");
     };
     PP.start_group(f, 2);
     PP.break(f);
@@ -1152,7 +1161,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.break(f);
       elements_as_args(f, r);
     }
-  and variable_declaration = (f, v) =>
+  and variable_declaration = (f, v) => {
     switch (v) {
     | (EVar(i), None) => ident(f, i)
     | (e, None) => expression(1, f, e)
@@ -1173,10 +1182,25 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.non_breaking_space(f);
       expression(1, f, e2);
       PP.end_group(f);
-    }
+    };
+    switch (v) {
+    | (
+        EVar(i),
+        Some((
+          EVar(Id.S({name: "null"})) | EInt(_) | ENum(_) | EUn(ToInt, _) |
+          ETag(_) |
+          EStruct(_),
+          pc,
+        )),
+      ) =>
+      PP.non_breaking_space(f);
+      PP.string(f, "as dynamic");
+    | _ => ()
+    };
+  }
   and variable_declaration_list_aux = (~separator, f, l) =>
     switch (l) {
-    | [] => assert(false)
+    | [] => ()
     | [d] => variable_declaration(f, d)
     | [d, ...r] =>
       variable_declaration(f, d);
@@ -1184,63 +1208,14 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       PP.break(f);
       variable_declaration_list_aux(~separator, f, r);
     }
-  and variable_declaration_list = (~separator, close, f) =>
-    fun
-    | [] => ()
-    | [(EVar(i), None)] => {
-        PP.start_group(f, 0);
-        ident(f, i);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-      }
-    | [(e, None)] => {
-        PP.start_group(f, 0);
-        expression(1, f, e);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-      }
-    | [(EVar(i), Some((e, pc)))] => {
-        PP.start_group(f, 0);
-        output_debug_info(f, pc);
-        ident(f, i);
-        PP.non_breaking_space(f);
-        PP.string(f, "=");
-        PP.non_breaking_space(f);
-        PP.start_group(f, 0);
-        expression(1, f, e);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-        PP.end_group(f);
-      }
-    | [(e1, Some((e2, pc)))] => {
-        PP.start_group(f, 0);
-        output_debug_info(f, pc);
-        expression(1, f, e1);
-        PP.non_breaking_space(f);
-        PP.string(f, "=");
-        PP.non_breaking_space(f);
-        PP.start_group(f, 0);
-        expression(1, f, e2);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-        PP.end_group(f);
-      }
-    | l => {
-        PP.start_group(f, 0);
-        variable_declaration_list_aux(~separator, f, l);
-        if (close) {
-          PP.string(f, ";");
-        };
-        PP.end_group(f);
-      }
+  and variable_declaration_list = (~separator, close, f, decls) => {
+    PP.start_group(f, 0);
+    variable_declaration_list_aux(~separator, f, decls);
+    if (close && decls !== []) {
+      PP.string(f, ";");
+    };
+    PP.end_group(f);
+  }
   and opt_expression = (l, f, e) =>
     switch (e) {
     | None => ()
@@ -1272,6 +1247,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       last_semi();
     | Global_statement(id) => global_statement(f, id)
     | Expression_statement(EVar(_)) => last_semi()
+
     | Expression_statement(e) =>
       /* Parentheses are required when the expression
          starts syntactically with "{" or "function" */
@@ -1285,6 +1261,24 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       } else {
         PP.start_group(f, 0);
         expression(0, f, e);
+        /**
+         * For Hack, we want expression statements that are essentially
+         * variable declarations to have an "as dynamic" attached to them.
+         */
+        (
+          switch (e) {
+          | EBin(
+              Eq,
+              EVar(_),
+              EVar(Id.S({name: "null"})) | EInt(_) | ENum(_) | EUn(ToInt, _) |
+              ETag(_) |
+              EStruct(_),
+            ) =>
+            PP.non_breaking_space(f);
+            PP.string(f, "as dynamic");
+          | _ => ()
+          }
+        );
         last_semi();
         PP.end_group(f);
       }
@@ -1469,6 +1463,22 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       | None =>
         PP.string(f, "return");
         last_semi();
+      /* PHP doesn't have "automatic semicolon insertion", but still, it looks
+       * much better with parens guarding returned expressions which might
+       * start with a newline. */
+      | Some(ERaw(segs)) =>
+        PP.start_group(f, 0);
+        PP.string(f, "return");
+        PP.non_breaking_space(f);
+        PP.string(f, "(");
+        PP.start_group(f, 2);
+        PP.break(f);
+        expression(1, f, ERaw(segs));
+        PP.end_group(f);
+        PP.break(f);
+        PP.string(f, ")");
+        last_semi();
+        PP.end_group(f);
       | Some(e) =>
         PP.start_group(f, 0);
         PP.string(f, "return");
@@ -1677,7 +1687,7 @@ let need_space = (a, b) =>
   || a == '-'
   && b == '-';
 
-let program = (f, ~custom_header=?, ~source_map=?, p) => {
+let program = (f, ~source_map=?, p) => {
   let smo =
     switch (source_map) {
     | None => None
@@ -1692,10 +1702,6 @@ let program = (f, ~custom_header=?, ~source_map=?, p) => {
   O.program(f, p);
   PP.end_group(f);
   PP.newline(f);
-  switch (custom_header) {
-  | None => ()
-  | Some((_hd, _indent, ft)) => PP.string(f, Printf.sprintf("%s", ft))
-  };
   switch (source_map) {
   | None => ()
   | Some((out_file, sm)) =>

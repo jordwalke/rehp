@@ -67,11 +67,11 @@ let specialize_js = ((p, info)) => {
   Specialize_js.f(info, p);
 };
 
-let specialize_js_once = p => {
+let specialize_js_once = (debug_data, p) => {
   if (debug()) {
     Format.eprintf("Specialize js once...@.");
   };
-  Specialize_js.f_once(p);
+  Specialize_js.f_once(debug_data, p);
 };
 
 let specialize' = ((p, info)) => {
@@ -321,7 +321,7 @@ let placeRuntimeVarAtTop = (~runtimeVarName, idents, rehp) =>
   | Some(runtimeName) =>
     let mainRuntimeVar = (
       Id.V(runtimeName),
-      Some((Rehp.EDot(globalVar, "jsoo_runtime"), Loc.N)),
+      Some((Backend.Current.runtime_module_var(), Loc.N)),
     );
     /* let freeVars = */
     /*   List.fold_left(StringSet.elements(idents), ~init=[], ~f=(soFar, id) => */
@@ -339,20 +339,29 @@ let getFree = rehp => {
   (rehp, free);
 };
 
-let augmentWithLinkInfoSeparate = (~runtimeAccessesAreThrough, rehp) => {
+let augmentWithLinkInfoSeparate =
+    (~runtimeAccessesAreThrough, (rehp, module_export_metadatas)) => {
   let (rehp, free) = getFree(rehp);
   (
-    placeRuntimeVarAtTop(
-      ~runtimeVarName=runtimeAccessesAreThrough,
-      free,
-      rehp,
+    (
+      placeRuntimeVarAtTop(
+        ~runtimeVarName=runtimeAccessesAreThrough,
+        free,
+        rehp,
+      ),
+      module_export_metadatas,
     ),
     None,
   );
 };
 
 let augmentWithLinkInfoStandalone =
-    (~linkall, ~shouldExportRuntime, ~runtimeAccessesAreThrough, rehp) => {
+    (
+      ~linkall,
+      ~shouldExportRuntime,
+      ~runtimeAccessesAreThrough,
+      (rehp, module_export_metadatas),
+    ) => {
   let t = Timer.make();
   if (times()) {
     Format.eprintf("Start Linking...@.");
@@ -443,10 +452,13 @@ let augmentWithLinkInfoStandalone =
       rehp;
     };
   (
-    placeRuntimeVarAtTop(
-      ~runtimeVarName=runtimeAccessesAreThrough,
-      missing,
-      rehp,
+    (
+      placeRuntimeVarAtTop(
+        ~runtimeVarName=runtimeAccessesAreThrough,
+        missing,
+        rehp,
+      ),
+      module_export_metadatas,
     ),
     Some(linkinfos),
   );
@@ -457,7 +469,7 @@ let augmentWithLinkInfoStandalone =
  * Module loaders and static type checkers should do a better job of detecting
  * undefined modules/variables.
  */
-let check = ((rehp, linkinfos)) => {
+let check = (((rehp, module_export_metadatas), linkinfos)) => {
   let t = Timer.make();
   if (times()) {
     Format.eprintf("Start Checks...@.");
@@ -497,10 +509,10 @@ let check = ((rehp, linkinfos)) => {
   if (times()) {
     Format.eprintf("  checks: %a@.", Timer.print, t);
   };
-  (rehp, linkinfos);
+  ((rehp, module_export_metadatas), linkinfos);
 };
 
-let coloring = ((rehp, linkinfos)) => {
+let coloring = (((rehp, module_export_metadatas), linkinfos)) => {
   let t = Timer.make();
   if (times()) {
     Format.eprintf("Start Coloring...@.");
@@ -514,7 +526,7 @@ let coloring = ((rehp, linkinfos)) => {
   if (times()) {
     Format.eprintf("  coloring: %a@.", Timer.print, t);
   };
-  (rehp, linkinfos);
+  ((rehp, module_export_metadatas), linkinfos);
 };
 
 let pack = rehp => {
@@ -572,7 +584,7 @@ let post_pack_optimizations = js => {
   };
 };
 
-let pack = rehp => {
+let pack = ((rehp, module_export_metadatas)) => {
   let t = Timer.make();
   if (times()) {
     Format.eprintf("Start Optimizing rehp...@.");
@@ -582,7 +594,7 @@ let pack = rehp => {
   if (times()) {
     Format.eprintf("  optimizing: %a@.", Timer.print, t);
   };
-  rehp;
+  (rehp, module_export_metadatas);
 };
 
 let configure = (formatter, p) => {
@@ -624,7 +636,7 @@ let f =
       : augmentWithLinkInfoSeparate;
 
   configure(formatter)
-  >> specialize_js_once
+  >> specialize_js_once(d)
   >> profile
   >> print
   >> Generate_closure.f
@@ -642,7 +654,7 @@ let f =
   >> coloring
   >> check
   /* Print the transformed target langauge and include any linked stubs  */
-  >> outputter(formatter, ~custom_header, ~source_map?, ());
+  >> outputter(formatter, ~custom_header, ~source_map?);
 };
 
 let profiles = [(1, o1), (2, o2), (3, o3)];

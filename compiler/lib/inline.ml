@@ -237,6 +237,13 @@ let inline closures live_vars outer_optimizable pc (blocks, free_pc) =
                   (* Format.eprintf "Do not inline because inner:%b outer:%b@." f_has_handler outer_has_handler; *)
                   i :: rem, state)
         | Let (x, Closure (l, (pc, []))) -> (
+            (* Detect if the closure's body is just a simple call to an extern
+             * with the exact same argument count/forwarding The Closure l
+             * arguments above are the arguments applied to the Closure.  The
+             * body args are the args defined by the external binding (in the
+             * declared type) They are tracked all the way through compilation
+             * into byte code - that arity is entirely specified by the type.
+             * "%closure" is a special extern to designate inlined closure. *)
             let block = Addr.Map.find pc blocks in
             match block with
             | { body = [Let (y, Prim (Extern prim, args))]
@@ -247,7 +254,7 @@ let inline closures live_vars outer_optimizable pc (blocks, free_pc) =
                 (* If the variable assigned the result of an extern call is the one
                 returned. *)
                 if Code.Var.compare y y' = 0
-                   && Primitive.has_arity prim len
+                   && Primitive.has_registered_arity prim len
                    (* If the args of the lambda are forwarded to the extern *)
                    && args_equal l args
                 then Let (x, Prim (Extern "%closure", [Pc (IString prim)])) :: rem, state

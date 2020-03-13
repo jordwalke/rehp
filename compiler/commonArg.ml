@@ -31,6 +31,8 @@ type t =
   ; quiet : bool
   ; implicit_ext : string option
   ; custom_header : string option
+  ; hide_compilation_summary : bool
+  ; async_compilation_summary : bool
   ; use_hashing : bool }
 
 let debug =
@@ -82,13 +84,29 @@ let custom_header =
     "Provide a custom header for the generated compiler output, useful for making the \
      script an executable file with #!/usr/bin/env node or integrating with module \
      loaders. Certain strings will be replaced with the names of relevant compilation \
-     units. ____CompilationUnitName and ____compilationUnitName \
-     /*____CompilationOutput*/ ____ForEachDependencyCompilationUnitName and \
-     ____forEachDependencyCompilationUnitName. Also, /*____hashes*/ will be replaced \
-     with a comment /*____hashes compiler:x inputs:y bytecode:hash2*/ which will be \
-     used to avoid recompiling in some cases."
+     units.____CompilationUnitName____compilationUnitName \
+     /*____CompilationOutput*/____ForEachDependencyCompilationUnitName____forEachDependencyCompilationUnitNameThe \
+     comment /*____hashes*/ will be replaced with a commentlike /*____hashes flags:y \
+     bytecode:hash2 debug-data:hash3 primitives:hash4*/This is used to speed up \
+     incremental recompilation times for .cmasand requires that you supply the \
+     --keep-unit-names flag.The comment /*____CompilationSummary*/ will be replaced \
+     withbackend specific named 'exports'"
   in
   Arg.(value & opt (some string) None & info ["custom-header"] ~doc)
+
+let hide_compilation_summary =
+  let doc =
+    "Enables hiding of /*____CompilationSummary*/ replacement inthe custom header (if \
+     /*____CompilationSummary*/ is present in the first place)."
+  in
+  Arg.(value & flag & info ["hide-compilation-summary"] ~doc)
+
+let async_compilation_summary =
+  let doc =
+    "Enables backend specific async transforms of /*____CompilationSummary*/ in the custom header (if \
+     /*____CompilationSummary*/ is present in the first place)."
+  in
+  Arg.(value & flag & info ["async-compilation-summary"] ~doc)
 
 let use_hashing =
   let doc = "If enabled, then avoids rebuilds via hashing of inputs." in
@@ -115,6 +133,8 @@ let t =
            implicit_ext
            use_hashing
            c_header
+           hide_compilation_summary
+           async_compilation_summary
            ->
         let enable = if pretty then "pretty" :: enable else enable in
         let enable = if prettiestJs then "prettiest-js" :: enable else enable in
@@ -130,6 +150,8 @@ let t =
         ; quiet
         ; implicit_ext
         ; custom_header = c_header
+        ; hide_compilation_summary
+        ; async_compilation_summary
         ; use_hashing })
     $ debug
     $ enable
@@ -141,7 +163,9 @@ let t =
     $ is_quiet
     $ implicit_ext
     $ use_hashing
-    $ custom_header)
+    $ custom_header
+    $ hide_compilation_summary
+    $ async_compilation_summary)
 
 let on_off on off t =
   List.iter ~f:on t.enable;

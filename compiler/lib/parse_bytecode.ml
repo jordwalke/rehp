@@ -38,6 +38,16 @@ let normalize_module_name s =
   | "list" -> "list_"
   | _ -> s
 
+let denormalize_module_name s =
+  match s with
+  | "String_" -> "String"
+  | "string_" -> "string"
+  | "Array_" -> "Array"
+  | "array_" -> "array"
+  | "List_" -> "List"
+  | "list_" -> "list"
+  | _ -> s
+
 let predefined_exceptions =
   [ 0, "Out_of_memory"
   ; 1, "Sys_error"
@@ -88,6 +98,8 @@ module Debug : sig
   val fold : data -> (Code.Addr.t -> Instruct.debug_event -> 'a -> 'a) -> 'a -> 'a
 
   val paths : data -> units:StringSet.t -> StringSet.t
+
+  val hash_data_for_change_detection : data -> int
 end = struct
   open Instruct
 
@@ -102,12 +114,58 @@ end = struct
     { events_by_pc : (int, debug_event * ml_unit) Hashtbl.t
     ; units : (string * string, ml_unit) Hashtbl.t }
 
+  (* Because OCaml's built in Hashtb hash only traverses to a certain depth
+   * we have to do some outside traversal to get a complete hash. *)
+  let hash_block block =
+    Hashtbl.hash_param 256 256 block.params
+    + Hashtbl.hash_param 256 256 block.handler
+    + List.fold_left
+        ~init:0
+        ~f:(fun cur itm -> cur + Hashtbl.hash_param 256 256 itm)
+        block.body
+    + Hashtbl.hash_param 256 256 block.branch
+
+  (*
+   * - ev.ev_stacksize and ev.ev_compenv.ce_stack are used to extract text
+   * names.
+   * - ev.ev_typenv is used to extract location information (for source
+   * maps etc).  For computing a changed debugdata hash, looking at
+   * stacksize/ce_stack is sufficient to detect changes in naming identifiers,
+   * but not enough to detect changes to location. So incremental
+   * compilation/hashing cannot work with source maps which require precise
+   * names and locations. The reason is that taking into account locations
+   * requires taking into account the type env in the hash which changes too
+   * much to be useful for incremental hashing. Files would change their
+   * debugdata hashes too often.
+   *
+   * See Debug.find which does:
+   *
+   *  ( Ocaml_compiler.Ident.table_contents ev.ev_stacksize ev.ev_compenv.ce_stack
+   *  , ev.ev_typenv )
+   *)
+  let hash_event_folder (key : int) (debug_event, ml_unit) cur =
+    cur
+    + key
+    + Hashtbl.hash_param
+        256
+        256
+        (Ocaml_compiler.IdentUtilities.table_contents_names_for_hashing
+           debug_event.ev_stacksize
+           debug_event.ev_compenv.ce_stack)
+
+  (* Computing a Digest of the bytes themselves might be a lot faster. *)
+  (* Hashes only the events because units includes absolute paths that change
+   * across hosts. *)
+  let hash_data_for_change_detection {events_by_pc; units} =
+    Hashtbl.fold hash_event_folder events_by_pc 0
+
   let relocate_event orig ev = ev.ev_pos <- (orig + ev.ev_pos) / 4
 
   let create () = {events_by_pc = Hashtbl.create 17; units = Hashtbl.create 17}
 
   let is_empty t = Hashtbl.length t.events_by_pc = 0
 
+  (* TODO: Search for other extensions such as .re as well *)
   let find_ml_in_paths paths name =
     let uname = String.uncapitalize_ascii name in
     try Some (Fs.find_in_path paths (uname ^ ".ml"))
@@ -156,6 +214,8 @@ end = struct
           Hashtbl.add events_by_pc ev.ev_pos (ev, unit);
           ())
 
+  (* Finds the absolute path to a source file for whichever previously registered
+   * project relative path matches the pos_fname argument *)
   let find_source {units; _} pos_fname =
     let set =
       Hashtbl.fold
@@ -166,6 +226,12 @@ end = struct
             | None -> acc
             | Some src -> StringSet.add src acc
           else acc)
+        (* Defined as:
+            units : (string * string, ml_unit) Hashtbl.t *)
+        (* Populated via:
+            pos_fname is usually project-relative file path.
+            u.source is usually absolute path to source (in build directory).
+            Hashtbl.add units (ev_module, pos_fname) u; *)
         units
         StringSet.empty
     in
@@ -591,6 +657,7 @@ module State = struct
 
   let pi_of_loc debug location =
     let pos = location.Location.loc_start in
+    (* Debug.find_source only pays attention to debug.units *)
     let src = Debug.find_source debug pos.Lexing.pos_fname in
     { Parse_info.name = Some pos.Lexing.pos_fname
     ; src
@@ -612,6 +679,8 @@ module State = struct
     | _ -> assert false
 
   let name_vars st debug pc =
+    (* Debug.find doesn't even pay attention to the ml module in each entry of
+     * debug.events_by_pc, and doesn't pay attention to debug.units *)
     let l, summary = Debug.find debug pc in
     name_rec debug 0 l st.stack summary
 
@@ -642,22 +711,38 @@ let access_global g i =
       g.vars.(i) <- Some x;
       x
 
-let register_global ?(force = false) g i rem =
+let register_global ?(definitely_not_module = false) ?(force = false) g i rem =
   if force || g.is_exported.(i)
-  then
-    let args =
-      match g.named_value.(i) with
-      | None -> []
-      | Some name ->
-          Code.Var.name (access_global g i) name;
-          [Pc (IString (normalize_module_name name))]
-    in
-    Let
-      ( Var.fresh ()
-      , Prim
-          ( Extern "caml_register_global"
-          , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
-    :: rem
+  then (
+    match g.named_value.(i) with
+    | None ->
+        let args = [] in
+        Let
+          ( Var.fresh ()
+          , Prim
+              ( Extern "caml_register_global"
+              , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
+        :: rem
+    | Some name ->
+        (* This is the place where each module is registered in separate
+           compilation mode. In exe mode, nothing is exported so this code path
+           is never hit. I have never observed this code path hit for anything
+           other than the main module of each separately compiled module.
+           Exception: In exe mode predefined_exceptions hits this case.  Likely need to
+           make sure registering predefined exceptions are not "exported". *)
+        Code.Var.name (access_global g i) name;
+        let args = [Pc (IString (normalize_module_name name))] in
+        Let
+          ( Var.fresh ()
+          , Prim
+              ( Extern
+                  (if (* Unless this is marked as definitely not a module, it's almost
+                     certainly a "module" *)
+                      definitely_not_module
+                  then "caml_register_global"
+                  else "caml_register_global_module")
+              , Pc (Int (Int32.of_int i)) :: Pv (access_global g i) :: args ) )
+        :: rem)
   else rem
 
 let get_global state instrs i =
@@ -2132,8 +2217,14 @@ let from_exe
   let body =
     List.fold_left predefined_exceptions ~init:[] ~f:(fun body (i, name) ->
         globals.named_value.(i) <- Some name;
-        let body = register_global ~force:true globals i body in
+        (* Need to mark is_exported false before registering globals.  Sadly,
+         * that's not enough to distinguish them as non modules because of the
+         * force=true arg. Needed to add another arg for definitely_not_module.
+         *)
         globals.is_exported.(i) <- false;
+        let body =
+          register_global ~definitely_not_module:true ~force:true globals i body
+        in
         body)
   in
   let body =
@@ -2338,24 +2429,27 @@ let from_compilation_units ~includes:_ ~toplevel ~debug ~debug_data l =
         | Some x when globals.is_const.(i) -> (
           match globals.named_value.(i) with
           | None ->
-              let l = register_global globals i l in
               let cst = globals.constants.(i) in
-              (match cst, Code.Var.get_name x with
-              | (String str | IString str), None ->
-                  Code.Var.name x (Printf.sprintf "cst_%s" str)
-              | _ -> ());
+              let l =
+                match cst, Code.Var.get_name x with
+                | (String str | IString str), None ->
+                    let l = register_global globals i l in
+                    Code.Var.name x (Printf.sprintf "cst_%s" str);
+                    l
+                | _ -> register_global globals i l
+              in
               Let (x, Constant cst) :: l
           | Some name ->
-            (* TODO: This is where you would inject an operation for module
-               loading that should incorporate with the module template. *)
+              (* This is where we inject an operation for module
+               loading that should incorporate the module template. *)
               Var.name x name;
               (* Currently, global data is a very loose dictionary registry
                  so it's appropriate to force this to be a dictionary *)
               Let
                 ( x
                 , Prim
-                    ( Extern "caml_js_dict_get"
-                    , [Pv gdata; Pc (IString (normalize_module_name name))] ) )
+                    ( Extern "%caml_load_global_module"
+                    , [Pc (IString (normalize_module_name name))] ) )
               :: l)
         | _ -> l)
   in

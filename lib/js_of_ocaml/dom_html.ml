@@ -19,6 +19,7 @@
  *)
 
 open Js
+open! Import
 
 external caml_js_on_ie : unit -> bool t = "caml_js_on_ie"
 
@@ -266,6 +267,18 @@ class type event =
     inherit [element] Dom.event
   end
 
+and ['a] customEvent =
+  object
+    inherit [element, 'a] Dom.customEvent
+  end
+
+and focusEvent =
+  object
+    inherit event
+
+    method relatedTarget : element t opt optdef readonly_prop
+  end
+
 and mouseEvent =
   object
     inherit event
@@ -477,6 +490,28 @@ and eventTarget =
       ('self t, animationEvent t) event_listener writeonly_prop
 
     method onanimationcancel : ('self t, animationEvent t) event_listener writeonly_prop
+
+    method ongotpointercapture : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onlostpointercapture : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerenter : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointercancel : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerdown : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerleave : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointermove : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerout : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerover : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method onpointerup : ('self t, pointerEvent t) event_listener writeonly_prop
+
+    method dispatchEvent : event t -> bool t meth
   end
 
 and popStateEvent =
@@ -484,6 +519,31 @@ and popStateEvent =
     inherit event
 
     method state : Js.Unsafe.any readonly_prop
+  end
+
+and pointerEvent =
+  object
+    inherit mouseEvent
+
+    method pointerId : int Js.readonly_prop
+
+    method width : float Js.readonly_prop
+
+    method height : float Js.readonly_prop
+
+    method pressure : float Js.readonly_prop
+
+    method tangentialPressure : float Js.readonly_prop
+
+    method tiltX : int Js.readonly_prop
+
+    method tiltY : int Js.readonly_prop
+
+    method twist : int Js.readonly_prop
+
+    method pointerType : Js.js_string Js.t Js.readonly_prop
+
+    method isPrimary : bool Js.t Js.readonly_prop
   end
 
 and storageEvent =
@@ -582,6 +642,8 @@ and element =
     method className : js_string t prop
 
     method classList : tokenList t readonly_prop
+
+    method closest : js_string t -> element t opt meth
 
     method style : cssStyleDeclaration t prop
 
@@ -783,17 +845,37 @@ module Event = struct
 
   let ended = Dom.Event.make "ended"
 
+  let gotpointercapture = Dom.Event.make "gotpointercapture"
+
   let loadeddata = Dom.Event.make "loadeddata"
 
   let loadedmetadata = Dom.Event.make "loadedmetadata"
 
   let loadstart = Dom.Event.make "loadstart"
 
+  let lostpointercapture = Dom.Event.make "lostpointercapture"
+
   let pause = Dom.Event.make "pause"
 
   let play = Dom.Event.make "play"
 
   let playing = Dom.Event.make "playing"
+
+  let pointerenter = Dom.Event.make "pointerenter"
+
+  let pointercancel = Dom.Event.make "pointercancel"
+
+  let pointerdown = Dom.Event.make "pointerdown"
+
+  let pointerleave = Dom.Event.make "pointerleave"
+
+  let pointermove = Dom.Event.make "pointermove"
+
+  let pointerout = Dom.Event.make "pointerout"
+
+  let pointerover = Dom.Event.make "pointerover"
+
+  let pointerup = Dom.Event.make "pointerup"
 
   let ratechange = Dom.Event.make "ratechange"
 
@@ -816,7 +898,11 @@ type event_listener_id = Dom.event_listener_id
 
 let addEventListener = Dom.addEventListener
 
+let addEventListenerWithOptions = Dom.addEventListenerWithOptions
+
 let removeEventListener = Dom.removeEventListener
+
+let createCustomEvent = Dom.createCustomEvent
 
 class type ['node] collection =
   object
@@ -1051,9 +1137,9 @@ class type inputElement =
 
     method oninput : ('self t, event t) event_listener prop
 
-    method onblur : ('self t, event t) event_listener prop
+    method onblur : ('self t, focusEvent t) event_listener prop
 
-    method onfocus : ('self t, event t) event_listener prop
+    method onfocus : ('self t, focusEvent t) event_listener prop
   end
 
 class type textAreaElement =
@@ -1100,9 +1186,9 @@ class type textAreaElement =
 
     method oninput : ('self t, event t) event_listener prop
 
-    method onblur : ('self t, event t) event_listener prop
+    method onblur : ('self t, focusEvent t) event_listener prop
 
-    method onfocus : ('self t, event t) event_listener prop
+    method onfocus : ('self t, focusEvent t) event_listener prop
   end
 
 class type buttonElement =
@@ -1683,8 +1769,7 @@ and canvasRenderingContext2D =
     method createPattern_fromCanvas :
       canvasElement t -> js_string t -> canvasPattern t meth
 
-    method createPattern_fromVideo :
-      videoElement t -> js_string t -> canvasPattern t meth
+    method createPattern_fromVideo : videoElement t -> js_string t -> canvasPattern t meth
 
     method lineWidth : float prop
 
@@ -1718,8 +1803,7 @@ and canvasRenderingContext2D =
 
     method quadraticCurveTo : float -> float -> float -> float -> unit meth
 
-    method bezierCurveTo :
-      float -> float -> float -> float -> float -> float -> unit meth
+    method bezierCurveTo : float -> float -> float -> float -> float -> float -> unit meth
 
     method arcTo : float -> float -> float -> float -> float -> unit meth
 
@@ -2027,8 +2111,7 @@ let location_origin (loc : location t) =
       then Js.string ""
       else
         let origin = protocol##concat_2 (Js.string "//") hostname in
-        if port##.length > 0 then origin##concat_2 (Js.string ":") loc##.port else origin
-      )
+        if port##.length > 0 then origin##concat_2 (Js.string ":") loc##.port else origin)
     (fun o -> o)
 
 class type history =
@@ -2210,9 +2293,9 @@ class type window =
 
     method onbeforeunload : (window t, event t) event_listener prop
 
-    method onblur : (window t, event t) event_listener prop
+    method onblur : (window t, focusEvent t) event_listener prop
 
-    method onfocus : (window t, event t) event_listener prop
+    method onfocus : (window t, focusEvent t) event_listener prop
 
     method onresize : (window t, event t) event_listener prop
 
@@ -2227,6 +2310,8 @@ class type window =
     method onoffline : (window t, event t) event_listener writeonly_prop
 
     method _URL : _URL t readonly_prop
+
+    method devicePixelRatio : float readonly_prop
   end
 
 let window : window t = Js.Unsafe.global
@@ -2320,7 +2405,10 @@ class type iFrameElement =
 
 (*XXX Should provide creation functions a la lablgtk... *)
 
-let opt_iter x f = match x with None -> () | Some v -> f v
+let opt_iter x f =
+  match x with
+  | None -> ()
+  | Some v -> f v
 
 let createElement (doc : document t) name = doc##createElement (Js.string name)
 
@@ -2329,7 +2417,7 @@ let unsafeCreateElement doc name = Js.Unsafe.coerce (createElement doc name)
 let createElementSyntax = ref `Unknown
 
 let rec unsafeCreateElementEx ?_type ?name doc elt =
-  if _type = None && name = None
+  if Poly.(_type = None) && Poly.(name = None)
   then Js.Unsafe.coerce (createElement doc elt)
   else
     match !createElementSyntax with
@@ -2342,9 +2430,9 @@ let rec unsafeCreateElementEx ?_type ?name doc elt =
         let a = new%js Js.array_empty in
         ignore (a##push_2 (Js.string "<") (Js.string elt));
         opt_iter _type (fun t ->
-            ignore (a##push_3 (Js.string " type=\"") (html_escape t) (Js.string "\"")) );
+            ignore (a##push_3 (Js.string " type=\"") (html_escape t) (Js.string "\"")));
         opt_iter name (fun n ->
-            ignore (a##push_3 (Js.string " name=\"") (html_escape n) (Js.string "\"")) );
+            ignore (a##push_3 (Js.string " name=\"") (html_escape n) (Js.string "\"")));
         ignore (a##push (Js.string ">"));
         Js.Unsafe.coerce (doc##createElement (a##join (Js.string "")))
     | `Unknown ->
@@ -2702,7 +2790,7 @@ let eventRelatedTarget (e : #mouseEvent t) =
       match Js.to_string e##._type with
       | "mouseover" -> Optdef.get e##.fromElement (fun () -> assert false)
       | "mouseout" -> Optdef.get e##.toElement (fun () -> assert false)
-      | _ -> Js.null )
+      | _ -> Js.null)
 
 let eventAbsolutePosition' (e : #mouseEvent t) =
   let body = document##.body in
@@ -2736,7 +2824,7 @@ let buttonPressed (ev : #mouseEvent Js.t) =
       | 1 -> Left_button
       | 2 -> Right_button
       | 4 -> Middle_button
-      | _ -> No_button )
+      | _ -> No_button)
     (fun x -> x)
 
 let hasMousewheelEvents () =
@@ -2744,27 +2832,34 @@ let hasMousewheelEvents () =
   d##setAttribute (Js.string "onmousewheel") (Js.string "return;");
   Js.typeof (Js.Unsafe.get d (Js.string "onmousewheel")) == Js.string "function"
 
-let addMousewheelEventListener e h capt =
+let addMousewheelEventListenerWithOptions e ?capture ?once ?passive h =
   if hasMousewheelEvents ()
   then
-    addEventListener
+    addEventListenerWithOptions
+      ?capture
+      ?once
+      ?passive
       e
       Event.mousewheel
       (handler (fun (e : mousewheelEvent t) ->
            let dx = -Optdef.get e##.wheelDeltaX (fun () -> 0) / 40 in
            let dy = -Optdef.get e##.wheelDeltaY (fun () -> e##.wheelDelta) / 40 in
-           h (e :> mouseEvent t) ~dx ~dy ))
-      capt
+           h (e :> mouseEvent t) ~dx ~dy))
   else
-    addEventListener
+    addEventListenerWithOptions
+      ?capture
+      ?once
+      ?passive
       e
       Event._DOMMouseScroll
       (handler (fun (e : mouseScrollEvent t) ->
            let d = e##.detail in
            if e##.axis == e##._HORIZONTAL_AXIS
            then h (e :> mouseEvent t) ~dx:d ~dy:0
-           else h (e :> mouseEvent t) ~dx:0 ~dy:d ))
-      capt
+           else h (e :> mouseEvent t) ~dx:0 ~dy:d))
+
+let addMousewheelEventListener e h capt =
+  addMousewheelEventListenerWithOptions ~capture:capt e h
 
 (*****)
 
@@ -3182,7 +3277,9 @@ module Keyboard_code = struct
     | Unidentified -> Optdef.case value make_unidentified f
     | v -> v
 
-  let run_next value f = function Unidentified -> f value | v -> v
+  let run_next value f = function
+    | Unidentified -> f value
+    | v -> v
 
   let get_key_code evt = evt##.keyCode
 
@@ -3299,105 +3396,117 @@ let tagged (e : #element t) =
   else
     match String.unsafe_get tag 0 with
     | 'a' -> (
-      match tag with
-      | "a" -> A (Js.Unsafe.coerce e)
-      | "area" -> Area (Js.Unsafe.coerce e)
-      | "audio" -> Audio (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "a" -> A (Js.Unsafe.coerce e)
+        | "area" -> Area (Js.Unsafe.coerce e)
+        | "audio" -> Audio (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'b' -> (
-      match tag with
-      | "base" -> Base (Js.Unsafe.coerce e)
-      | "blockquote" -> Blockquote (Js.Unsafe.coerce e)
-      | "body" -> Body (Js.Unsafe.coerce e)
-      | "br" -> Br (Js.Unsafe.coerce e)
-      | "button" -> Button (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "base" -> Base (Js.Unsafe.coerce e)
+        | "blockquote" -> Blockquote (Js.Unsafe.coerce e)
+        | "body" -> Body (Js.Unsafe.coerce e)
+        | "br" -> Br (Js.Unsafe.coerce e)
+        | "button" -> Button (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'c' -> (
-      match tag with
-      | "canvas" -> Canvas (Js.Unsafe.coerce e)
-      | "caption" -> Caption (Js.Unsafe.coerce e)
-      | "col" -> Col (Js.Unsafe.coerce e)
-      | "colgroup" -> Colgroup (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "canvas" -> Canvas (Js.Unsafe.coerce e)
+        | "caption" -> Caption (Js.Unsafe.coerce e)
+        | "col" -> Col (Js.Unsafe.coerce e)
+        | "colgroup" -> Colgroup (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'd' -> (
-      match tag with
-      | "del" -> Del (Js.Unsafe.coerce e)
-      | "div" -> Div (Js.Unsafe.coerce e)
-      | "dl" -> Dl (Js.Unsafe.coerce e)
-      | _ -> other e )
-    | 'e' -> ( match tag with "embed" -> Embed (Js.Unsafe.coerce e) | _ -> other e )
+        match tag with
+        | "del" -> Del (Js.Unsafe.coerce e)
+        | "div" -> Div (Js.Unsafe.coerce e)
+        | "dl" -> Dl (Js.Unsafe.coerce e)
+        | _ -> other e)
+    | 'e' -> (
+        match tag with
+        | "embed" -> Embed (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'f' -> (
-      match tag with
-      | "fieldset" -> Fieldset (Js.Unsafe.coerce e)
-      | "form" -> Form (Js.Unsafe.coerce e)
-      | "frameset" -> Frameset (Js.Unsafe.coerce e)
-      | "frame" -> Frame (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "fieldset" -> Fieldset (Js.Unsafe.coerce e)
+        | "form" -> Form (Js.Unsafe.coerce e)
+        | "frameset" -> Frameset (Js.Unsafe.coerce e)
+        | "frame" -> Frame (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'h' -> (
-      match tag with
-      | "h1" -> H1 (Js.Unsafe.coerce e)
-      | "h2" -> H2 (Js.Unsafe.coerce e)
-      | "h3" -> H3 (Js.Unsafe.coerce e)
-      | "h4" -> H4 (Js.Unsafe.coerce e)
-      | "h5" -> H5 (Js.Unsafe.coerce e)
-      | "h6" -> H6 (Js.Unsafe.coerce e)
-      | "head" -> Head (Js.Unsafe.coerce e)
-      | "hr" -> Hr (Js.Unsafe.coerce e)
-      | "html" -> Html (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "h1" -> H1 (Js.Unsafe.coerce e)
+        | "h2" -> H2 (Js.Unsafe.coerce e)
+        | "h3" -> H3 (Js.Unsafe.coerce e)
+        | "h4" -> H4 (Js.Unsafe.coerce e)
+        | "h5" -> H5 (Js.Unsafe.coerce e)
+        | "h6" -> H6 (Js.Unsafe.coerce e)
+        | "head" -> Head (Js.Unsafe.coerce e)
+        | "hr" -> Hr (Js.Unsafe.coerce e)
+        | "html" -> Html (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'i' -> (
-      match tag with
-      | "iframe" -> Iframe (Js.Unsafe.coerce e)
-      | "img" -> Img (Js.Unsafe.coerce e)
-      | "input" -> Input (Js.Unsafe.coerce e)
-      | "ins" -> Ins (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "iframe" -> Iframe (Js.Unsafe.coerce e)
+        | "img" -> Img (Js.Unsafe.coerce e)
+        | "input" -> Input (Js.Unsafe.coerce e)
+        | "ins" -> Ins (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'l' -> (
-      match tag with
-      | "label" -> Label (Js.Unsafe.coerce e)
-      | "legend" -> Legend (Js.Unsafe.coerce e)
-      | "li" -> Li (Js.Unsafe.coerce e)
-      | "link" -> Link (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "label" -> Label (Js.Unsafe.coerce e)
+        | "legend" -> Legend (Js.Unsafe.coerce e)
+        | "li" -> Li (Js.Unsafe.coerce e)
+        | "link" -> Link (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'm' -> (
-      match tag with
-      | "map" -> Map (Js.Unsafe.coerce e)
-      | "meta" -> Meta (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "map" -> Map (Js.Unsafe.coerce e)
+        | "meta" -> Meta (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'o' -> (
-      match tag with
-      | "object" -> Object (Js.Unsafe.coerce e)
-      | "ol" -> Ol (Js.Unsafe.coerce e)
-      | "optgroup" -> Optgroup (Js.Unsafe.coerce e)
-      | "option" -> Option (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "object" -> Object (Js.Unsafe.coerce e)
+        | "ol" -> Ol (Js.Unsafe.coerce e)
+        | "optgroup" -> Optgroup (Js.Unsafe.coerce e)
+        | "option" -> Option (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 'p' -> (
-      match tag with
-      | "p" -> P (Js.Unsafe.coerce e)
-      | "param" -> Param (Js.Unsafe.coerce e)
-      | "pre" -> Pre (Js.Unsafe.coerce e)
-      | _ -> other e )
-    | 'q' -> ( match tag with "q" -> Q (Js.Unsafe.coerce e) | _ -> other e )
+        match tag with
+        | "p" -> P (Js.Unsafe.coerce e)
+        | "param" -> Param (Js.Unsafe.coerce e)
+        | "pre" -> Pre (Js.Unsafe.coerce e)
+        | _ -> other e)
+    | 'q' -> (
+        match tag with
+        | "q" -> Q (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 's' -> (
-      match tag with
-      | "script" -> Script (Js.Unsafe.coerce e)
-      | "select" -> Select (Js.Unsafe.coerce e)
-      | "style" -> Style (Js.Unsafe.coerce e)
-      | _ -> other e )
+        match tag with
+        | "script" -> Script (Js.Unsafe.coerce e)
+        | "select" -> Select (Js.Unsafe.coerce e)
+        | "style" -> Style (Js.Unsafe.coerce e)
+        | _ -> other e)
     | 't' -> (
-      match tag with
-      | "table" -> Table (Js.Unsafe.coerce e)
-      | "tbody" -> Tbody (Js.Unsafe.coerce e)
-      | "td" -> Td (Js.Unsafe.coerce e)
-      | "textarea" -> Textarea (Js.Unsafe.coerce e)
-      | "tfoot" -> Tfoot (Js.Unsafe.coerce e)
-      | "th" -> Th (Js.Unsafe.coerce e)
-      | "thead" -> Thead (Js.Unsafe.coerce e)
-      | "title" -> Title (Js.Unsafe.coerce e)
-      | "tr" -> Tr (Js.Unsafe.coerce e)
-      | _ -> other e )
-    | 'u' -> ( match tag with "ul" -> Ul (Js.Unsafe.coerce e) | _ -> other e )
-    | 'v' -> ( match tag with "video" -> Video (Js.Unsafe.coerce e) | _ -> other e )
+        match tag with
+        | "table" -> Table (Js.Unsafe.coerce e)
+        | "tbody" -> Tbody (Js.Unsafe.coerce e)
+        | "td" -> Td (Js.Unsafe.coerce e)
+        | "textarea" -> Textarea (Js.Unsafe.coerce e)
+        | "tfoot" -> Tfoot (Js.Unsafe.coerce e)
+        | "th" -> Th (Js.Unsafe.coerce e)
+        | "thead" -> Thead (Js.Unsafe.coerce e)
+        | "title" -> Title (Js.Unsafe.coerce e)
+        | "tr" -> Tr (Js.Unsafe.coerce e)
+        | _ -> other e)
+    | 'u' -> (
+        match tag with
+        | "ul" -> Ul (Js.Unsafe.coerce e)
+        | _ -> other e)
+    | 'v' -> (
+        match tag with
+        | "video" -> Video (Js.Unsafe.coerce e)
+        | _ -> other e)
     | _ -> other e
 
 let opt_tagged e = Opt.case e (fun () -> None) (fun e -> Some (tagged e))
@@ -3426,10 +3535,10 @@ let taggedEvent (ev : #event Js.t) =
                   Js.Opt.case
                     (CoerceTo.popStateEvent ev)
                     (fun () -> OtherEvent (ev :> event t))
-                    (fun ev -> PopStateEvent ev) )
-                (fun ev -> MouseScrollEvent ev) )
-            (fun ev -> MousewheelEvent ev) )
-        (fun ev -> KeyboardEvent ev) )
+                    (fun ev -> PopStateEvent ev))
+                (fun ev -> MouseScrollEvent ev))
+            (fun ev -> MousewheelEvent ev))
+        (fun ev -> KeyboardEvent ev))
     (fun ev -> MouseEvent ev)
 
 let opt_taggedEvent ev = Opt.case ev (fun () -> None) (fun ev -> Some (taggedEvent ev))
@@ -3449,20 +3558,21 @@ let _requestAnimationFrame : (unit -> unit) Js.callback -> unit =
         ; w##.mozRequestAnimationFrame
         ; w##.webkitRequestAnimationFrame
         ; w##.oRequestAnimationFrame
-        ; w##.msRequestAnimationFrame ]
+        ; w##.msRequestAnimationFrame
+        ]
       in
       try
         let req = List.find (fun c -> Js.Optdef.test c) l in
-        fun callback -> Js.Unsafe.fun_call req [|Js.Unsafe.inject callback|]
+        fun callback -> Js.Unsafe.fun_call req [| Js.Unsafe.inject callback |]
       with Not_found ->
         let now () = (new%js Js.date_now)##getTime in
         let last = ref (now ()) in
         fun callback ->
           let t = now () in
           let dt = !last +. (1000. /. 60.) -. t in
-          let dt = if dt < 0. then 0. else dt in
+          let dt = if Poly.(dt < 0.) then 0. else dt in
           last := t;
-          ignore (window##setTimeout callback dt) )
+          ignore (window##setTimeout callback dt))
 
 (****)
 
@@ -3486,12 +3596,13 @@ let setTimeout callback d : timeout_id_safe =
   let id = ref None in
   let rec loop d () =
     let step, remain =
-      if d > overflow_limit then overflow_limit, d -. overflow_limit else d, 0.
+      if Poly.(d > overflow_limit) then overflow_limit, d -. overflow_limit else d, 0.
     in
-    let cb = if remain = 0. then callback else loop remain in
+    let cb = if Poly.(remain = 0.) then callback else loop remain in
     id := Some (window##setTimeout (Js.wrap_callback cb) step)
   in
-  loop d (); id
+  loop d ();
+  id
 
 let clearTimeout (id : timeout_id_safe) =
   match !id with
@@ -3500,6 +3611,6 @@ let clearTimeout (id : timeout_id_safe) =
       id := None;
       window##clearTimeout x
 
-let js_array_of_collection (c : #element collection Js.t) :
-    #element Js.t Js.js_array Js.t =
-  Js.Unsafe.(meth_call (js_expr "[].slice") "call" [|inject c|])
+let js_array_of_collection (c : #element collection Js.t) : #element Js.t Js.js_array Js.t
+    =
+  Js.Unsafe.(meth_call (js_expr "[].slice") "call" [| inject c |])

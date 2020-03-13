@@ -19,6 +19,7 @@
  *)
 
 open Js
+open! Import
 
 class type ['node] nodeList =
   object
@@ -263,7 +264,7 @@ let nodeType e =
 
 module CoerceTo = struct
   let cast (e : #node Js.t) t =
-    if e##.nodeType = t then Js.some (Js.Unsafe.coerce e) else Js.null
+    if e##.nodeType == t then Js.some (Js.Unsafe.coerce e) else Js.null
 
   let element e : element Js.t Js.opt = cast e ELEMENT
 
@@ -275,10 +276,10 @@ module CoerceTo = struct
   let attr e : attr Js.t Js.opt = cast e ATTRIBUTE
 end
 
+type ('a, 'b) event_listener = ('a, 'b -> bool t) meth_callback opt
 (** The type of event listener functions.  The first type parameter
       ['a] is the type of the target object; the second parameter
       ['b] is the type of the event object. *)
-type ('a, 'b) event_listener = ('a, 'b -> bool t) meth_callback opt
 
 class type ['a] event =
   object
@@ -290,6 +291,13 @@ class type ['a] event =
 
     (* Legacy methods *)
     method srcElement : 'a t opt readonly_prop
+  end
+
+class type ['a, 'b] customEvent =
+  object
+    inherit ['a] event
+
+    method detail : 'b Js.opt Js.readonly_prop
   end
 
 let no_handler : ('a, 'b) event_listener = Js.null
@@ -307,11 +315,11 @@ let handler f =
            let e = window_event () in
            let res = f e in
            if not (Js.to_bool res) then e##.returnValue := res;
-           res )
+           res)
          else
            let res = f e in
            if not (Js.to_bool res) then (Js.Unsafe.coerce e)##preventDefault;
-           res ))
+           res))
 
 let full_handler f =
   Js.some
@@ -322,14 +330,14 @@ let full_handler f =
            let e = window_event () in
            let res = f this e in
            if not (Js.to_bool res) then e##.returnValue := res;
-           res )
+           res)
          else
            let res = f this e in
            if not (Js.to_bool res) then (Js.Unsafe.coerce e)##preventDefault;
-           res ))
+           res))
 
 let invoke_handler (f : ('a, 'b) event_listener) (this : 'a) (event : 'b) : bool t =
-  Js.Unsafe.call f this [|Js.Unsafe.inject event|]
+  Js.Unsafe.call f this [| Js.Unsafe.inject event |]
 
 let eventTarget (e : (< .. > as 'a) #event t) : 'a t =
   let target =
@@ -352,7 +360,16 @@ end
 
 type event_listener_id = unit -> unit
 
-let addEventListener (e : (< .. > as 'a) t) typ h capt =
+class type event_listener_options =
+  object
+    method capture : bool t writeonly_prop
+
+    method once : bool t writeonly_prop
+
+    method passive : bool t writeonly_prop
+  end
+
+let addEventListenerWithOptions (e : (< .. > as 'a) t) typ ?capture ?once ?passive h =
   if (Js.Unsafe.coerce e)##.addEventListener == Js.undefined
   then
     let ev = (Js.string "on")##concat typ in
@@ -360,8 +377,20 @@ let addEventListener (e : (< .. > as 'a) t) typ h capt =
     let () = (Js.Unsafe.coerce e)##attachEvent ev callback in
     fun () -> (Js.Unsafe.coerce e)##detachEvent ev callback
   else
-    let () = (Js.Unsafe.coerce e)##addEventListener typ h capt in
-    fun () -> (Js.Unsafe.coerce e)##removeEventListener typ h capt
+    let opts : event_listener_options t = Js.Unsafe.obj [||] in
+    let iter t f =
+      match t with
+      | None -> ()
+      | Some b -> f b
+    in
+    iter capture (fun b -> opts##.capture := b);
+    iter once (fun b -> opts##.once := b);
+    iter passive (fun b -> opts##.passive := b);
+    let () = (Js.Unsafe.coerce e)##addEventListener typ h opts in
+    fun () -> (Js.Unsafe.coerce e)##removeEventListener typ h opts
+
+let addEventListener (e : (< .. > as 'a) t) typ h capt =
+  addEventListenerWithOptions e typ ~capture:capt h
 
 let removeEventListener id = id ()
 
@@ -369,6 +398,24 @@ let preventDefault ev =
   if Js.Optdef.test (Js.Unsafe.coerce ev)##.preventDefault (* IE hack *)
   then (Js.Unsafe.coerce ev)##preventDefault
   else (Js.Unsafe.coerce ev)##.returnValue := Js.bool false
+
+let createCustomEvent ?bubbles ?cancelable ?detail typ =
+  let opt_iter f = function
+    | None -> ()
+    | Some x -> f x
+  in
+  let opts = Unsafe.obj [||] in
+  opt_iter (fun x -> opts##.bubbles := bool x) bubbles;
+  opt_iter (fun x -> opts##.cancelable := bool x) cancelable;
+  opt_iter (fun x -> opts##.detail := some x) detail;
+  let constr :
+      (   ('a, 'b) #customEvent Js.t Event.typ
+       -> < detail : 'b opt prop > t
+       -> ('a, 'b) customEvent t)
+      constr =
+    Unsafe.global##._CustomEvent
+  in
+  new%js constr typ opts
 
 (* IE < 9 *)
 

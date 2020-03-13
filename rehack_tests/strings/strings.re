@@ -90,6 +90,8 @@ if (i === 20) {
   failwith("Did not properly catch conversion from string to int");
 };
 
+let myRefCell = {contents: 0};
+let myRefCellContents = myRefCell.contents;
 let one = {contents: [1, 2, 3, 4]};
 let two = {contents: [1, 2, 3, 4]};
 

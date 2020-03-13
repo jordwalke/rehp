@@ -74,5 +74,34 @@ let testPartialMethodCalls = (o: t('anything)) => {
   (sendResult1, sendResult2, sendResult3);
 };
 
-
 let x = MyLibUtility.thisIsAUtilityFunction();
+
+let genThisShouldBeAsyncTransformed2 = (input, cb) => {
+  cb(input + 1);
+};
+
+/**
+ * References to prior values aren't going to get re-exported in the summary
+ * because their names are lost at bytecode compilation time. (I verified in
+ * bytecode parser).
+ */
+let thisWontAppearInSummary = genThisShouldBeAsyncTransformed2;
+
+let get = () => "this should be exported with (php)leading '_'";
+let call = () => "this should be exported with (php)leading '_'";
+let genCall = cb => "this should be exported with (php)leading '_'";
+let syncCall = () => "this should be exported with (php)leading '_'";
+let getExports = () => "this should be exported with (php)leading '_'";
+let callRehackFunction = () => "this should be exported with (php)leading '_'";
+let genCallFunctionWithArgs = () => "this should be exported with (php)leading '_'";
+let genCallName = () => "this should be exported with (php)leading '_'";
+let syncCallName = () => "this should be exported with (php)leading '_'";
+let syncCallFunctionWithArgs = () => "this should be exported with (php)leading '_'";
+let get = () => "this should be exported with (php)leading '_'";
+let _get = () => "this should be exported with two (php)leading '_'";
+let _construct = () => "this should be exported with three (php)leading '_'";
+
+let genThisShouldBeAsyncTransformed1 = cb => {
+  cb(100);
+};
+

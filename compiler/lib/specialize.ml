@@ -27,8 +27,10 @@ let rec function_cardinality info x acc =
     (fun x ->
       match info.info_defs.(Var.idx x) with
       | Expr (Closure (l, _)) -> Some (List.length l)
+      (* If this is an already inlined extern closure wrapping primitive,
+       * return that primitive's arity *)
       | Expr (Prim (Extern "%closure", [Pc (IString prim)])) -> (
-        try Some (Primitive.arity prim) with Not_found -> None)
+        try Some (Primitive.registered_arity prim) with Not_found -> None)
       | Expr (Apply (f, l, _)) -> (
           if List.mem f ~set:acc
           then None

@@ -39,6 +39,8 @@ val reset : t -> unit
 
 val to_string : t -> ?origin:int -> int -> string
 
+val orig_string_name_debug : t -> int -> string option
+
 val name : t -> int -> string -> unit
 
 val get_name : t -> int -> string option

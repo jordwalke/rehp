@@ -89,7 +89,7 @@ caml_sys_open_internal(2,js_print_stderr, new MlFakeFile(caml_create_bytes(0)));
 // ocaml Channels
 
 //Provides: caml_ml_set_channel_name
-function caml_ml_set_channel_name() {
+function caml_ml_set_channel_name(_ignore, _ignore2) {
   return 0
 }
 
@@ -98,7 +98,7 @@ var caml_ml_channels = new Array();
 
 //Provides: caml_ml_out_channels_list
 //Requires: caml_ml_channels
-function caml_ml_out_channels_list () {
+function caml_ml_out_channels_list (_unit) {
   var l = 0;
   for(var c = 0; c < caml_ml_channels.length; c++){
     if(caml_ml_channels[c] && caml_ml_channels[c].opened && caml_ml_channels[c].out)

@@ -25,15 +25,13 @@
 module type Js_output_sig = sig
   val program :
     Pretty_print.t ->
-      ?custom_header: (string * int * string) ->
       ?source_map:(string option * Source_map.t) ->
       Javascript.program ->
-    unit
+      (unit -> unit)
 end
-let jsPrinter =
+    
+let program  f ?source_map p =
   if Config.Flag.prettiestJs() then
-    (module Js_output_format_like_upstream : Js_output_sig)
+    Js_output_format_like_upstream.program f ?source_map p
   else
-    (module Js_output : Js_output_sig)
-
-include (val jsPrinter)
+    Js_output.program f ?source_map p

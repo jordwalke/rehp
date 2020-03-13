@@ -9,11 +9,9 @@ module Expand = {
    * There is one instance of a hardcoded JS expression value in the jsoo
    * library, which needs to be special cased when converting to PHP.
    */
-  let raw = s =>
-    Php.ERaw(
-      String.compare(s, "(function (exn) { throw exn })") === 0
-        ? "(function($exn) {throw $exn;})" : s,
-    );
+  let rawText = s =>
+    String.compare(s, "(function (exn) { throw exn })") === 0
+      ? "(function($exn) {throw $exn;})" : s;
 };
 
 let indent = {contents: 0};
@@ -121,6 +119,9 @@ let ident = (~ref=false, _input, i): Id.t =>
     Id.S({name: identStr(~ref, id), var: None, loc: N})
   | Id.V(_) => assert(false)
   };
+
+let nullExprLoc =
+  Some((Php.EVar(Id.S({name: "null", var: None, loc: Loc.N})), Loc.N));
 
 exception Unsupported_statement;
 
@@ -498,10 +499,7 @@ let rec foldVars =
         let (out, initMapped) =
           optAppendOutput(curOut, mapper(curInput), eo);
         let out = {...out, dec: addOne(out.dec, id)};
-        let input = {
-          ...curInput,
-          vars: addOne(curInput.vars, id),
-        };
+        let input = {...curInput, vars: addOne(curInput.vars, id)};
         let next = [(Php.EVar(identMapped), initMapped), ...curRevMappeds];
         foldVars(mapper, out, input, next, tl);
       }
@@ -538,7 +536,24 @@ let rec expression = (input: input, x) =>
     let (e2Out, e2Mapped) = expression(input, e2);
     let joined = outAppend(e1Out, e2Out);
     (joined, Expand.seq(e1Mapped, e2Mapped));
-  | Rehp.ERaw(s) => (emptyOutput, Expand.raw(s))
+  | Rehp.ERaw(segments) =>
+    let (out, mapped) =
+      List.fold_left(
+        segments, ~init=(emptyOutput, []), ~f=((curOut, curMapped), segment) =>
+        switch (segment) {
+        | Rehp.RawText(s) => (
+            curOut,
+            [Php.RawText(Expand.rawText(s)), ...curMapped],
+          )
+        | Rehp.RawSubstitution(e) =>
+          let (nextOut, nextMapped) = expression(input, e);
+          (
+            outAppend(nextOut, curOut),
+            [Php.RawSubstitution(nextMapped), ...curMapped],
+          );
+        }
+      );
+    (out, Php.ERaw(mapped));
   | Rehp.ECond(e1, e2, e3) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);
@@ -639,7 +654,7 @@ let rec expression = (input: input, x) =>
 
     (
       out,
-      EFun((
+      ELam((
         idopt,
         paramIdentList,
         bodyMap,
@@ -967,6 +982,13 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
   ({...outs, free_labels}, Php.Statement_list(li));
 }
 
+and nullifyInitializers = (revSoFar, lst) =>
+  switch (lst) {
+  | [] => Some(List.rev_map(~f=((e, none)) => (e, nullExprLoc), revSoFar))
+  | [(_, None) as hd, ...tl] => nullifyInitializers([hd, ...revSoFar], tl)
+  | [(_, Some(_)), ...tl] => None
+  }
+
 /* and statement = (input, x) => statementFolder(emptyOutput, input, x) */
 and statement = (curOut, input: input, x) => {
   let (out, mapped) =
@@ -986,6 +1008,11 @@ and statement = (curOut, input: input, x) => {
       indent.contents = indent.contents + 2;
       /* print_newline(); */
       let (out, mappedResults) = foldVars(initialiser, curOut, input, [], l);
+      let mappedResults =
+        switch (nullifyInitializers([], mappedResults)) {
+        | None => mappedResults
+        | Some(nulled) => nulled
+        };
       let ret = (out, Php.Variable_statement(mappedResults));
       indent.contents = indent.contents - 2;
       /* print_string(String.make(indent.contents, ' ') ++ "</vars>"); */
@@ -1063,10 +1090,7 @@ and statement = (curOut, input: input, x) => {
       | Left(_) => continueWithAugmentedScope(input, x)
       | Right((id, _eopt)) =>
         let addedVars = useOneVar(id);
-        let augmentedInput = {
-          ...input,
-          vars: append(input.vars, addedVars),
-        };
+        let augmentedInput = {...input, vars: append(input.vars, addedVars)};
         let (out, res) = continueWithAugmentedScope(augmentedInput, x);
         let out = {...out, dec: append(out.dec, addedVars)};
         (out, res);

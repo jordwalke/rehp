@@ -104,6 +104,37 @@ module List = struct
   let is_empty = function
     | [] -> true
     | _ -> false
+
+  (* Init functions Copied from stdlib, for greater compiler version compat *)
+  let rec init_tailrec_aux acc i n f =
+    if i >= n then acc
+    else init_tailrec_aux (f i :: acc) (i+1) n f
+
+  let rec init_aux i n f =
+    if i >= n then []
+    else
+      let r = f i in
+      r :: init_aux (i+1) n f
+
+  let init len f =
+    if len < 0 then invalid_arg "List.init" else
+    if len > 10_000 then rev (init_tailrec_aux [] 0 len f)
+    else init_aux 0 len f
+    let rec init_tailrec_aux acc i n f =
+      if i >= n then acc
+      else init_tailrec_aux (f i :: acc) (i+1) n f
+
+  let rec init_aux i n f =
+    if i >= n then []
+    else
+      let r = f i in
+      r :: init_aux (i+1) n f
+
+  let init len f =
+    if len < 0 then invalid_arg "List.init" else
+    if len > 10_000 then rev (init_tailrec_aux [] 0 len f)
+    else init_aux 0 len f
+
 end
 
 module Option = struct
@@ -207,6 +238,12 @@ module String = struct
   let equal (a : string) (b : string) = a = b [@@ocaml.warning "-32"]
 
   include StringLabels
+
+
+  let rec list_car ch = match ch with
+    | "" -> []
+    | ch -> (String.get ch 0 ) :: (list_car (String.sub ch 1 ( (String.length ch)-1) ) )  ;;
+
 
   let equal (a : string) (b : string) = Poly.(a = b)
 
@@ -356,6 +393,35 @@ module String = struct
     done;
     if not !found then raise Not_found;
     !i
+
+
+  let num_leading_char char str =
+    if String.equal str "" then 0
+    else
+      let len = String.length str in
+      if String.get str 0 != char then 0
+      else (
+        let first_non = ref(-1) in
+        for i = 0 to len - 1 do
+          if !first_non == -1 && String.get str i != char then (
+            first_non := i
+          )
+        done;
+        if !first_non == -1 then len - 1 else !first_non
+      )
+
+  let trim_leading_char char str =
+    let len = String.length str in
+    let num_leading = num_leading_char char str in
+    if num_leading == 0 then
+      str else
+    sub str ~pos:num_leading ~len:(len - num_leading)
+
+  let to_char_list s = List.init (String.length s) (String.get s)
+
+  let from_char_list (lst: char list) =
+    let arr = Array.of_list lst in
+    String.init (Array.length arr) (Array.get arr)
 end
 
 module Int = struct

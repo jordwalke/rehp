@@ -65,6 +65,8 @@ module Var : sig
 
   val to_string : ?origin:t -> t -> string
 
+  val orig_string_name_debug : t -> string option
+
   val fresh : unit -> t
 
   val fresh_n : string -> t
@@ -149,6 +151,8 @@ end = struct
     VarPrinter.reset printer
 
   let to_string ?origin i = VarPrinter.to_string printer ?origin i
+
+  let orig_string_name_debug i = VarPrinter.orig_string_name_debug printer i
 
   let print f x = Format.fprintf f "v%d" x
 
@@ -309,6 +313,26 @@ type block =
   ; branch : last }
 
 type program = Addr.t * block Addr.Map.t * Addr.t
+
+(* Because OCaml's built in Hashtb hash only traverses to a certain depth
+ * we have to do some outside traversal to get a complete hash. *)
+
+let hash_block block =
+  Hashtbl.hash_param 256 256 block.params
+  + Hashtbl.hash_param 256 256 block.handler
+  + List.fold_left
+      ~init:0
+      ~f:(fun cur itm -> cur + Hashtbl.hash_param 256 256 itm)
+      block.body
+  + Hashtbl.hash_param 256 256 block.branch
+
+let addr_map_folder key (value : block) cur = cur + key + hash_block value
+
+(* Computing a Digest of the bytes themselves might be a lot faster. *)
+(* TODO: Time this *)
+let hash_program (program : program) =
+  let addr1, block_map, addr2 = program in
+  addr1 + addr2 + Addr.Map.fold addr_map_folder block_map 0
 
 (****)
 
