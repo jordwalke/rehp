@@ -1,12 +1,15 @@
 (* -*- tuareg -*- *)
 open Jbuild_plugin.V1
-let git_version =
-  if not (try Sys.is_directory ".git" with _ -> false)
+let git_version = "no-git-version-"
+(* Disable git version checking because it can cause problems when
+   being used as a "pin" - where there is a .git directory due to
+   a shallow checkout, but it isn't an actual git repository. *)
+(*  if not (try Sys.is_directory ".git" with _ -> false)
   then ""
   else
     match run_and_read_lines "git log -n1 --pretty=format:%h" with
     | version :: _ -> version
-    | [] -> ""
+    | [] -> "" *)
 
 let version =
   let ic = open_in "VERSION" in
@@ -26,3 +29,4 @@ let () = send @@ Printf.sprintf {|
   (action (with-stdout-to %%{targets}
            (echo "let s = \"%s\"\nlet git_version = \"%s\""))))
 |} version git_version
+
