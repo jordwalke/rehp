@@ -5,7 +5,8 @@
   (ppx_runtime_libraries js_of_ocaml.deriving)
   (kind ppx_deriver)
   (libraries ppx_deriving.api compiler-libs ppx_tools)
-  (preprocess (action (run %{lib:ppx_tools:rewriter} %{lib:ppx_tools:ppx_metaquot} %{input-file}))))
+  ; .exe is needed for windows.
+  (preprocess (action (run %{lib:ppx_tools:rewriter.exe} %{lib:ppx_tools:ppx_metaquot.exe} %{input-file}))))
 
 (rule
   (targets ppx_deriving_json.ml)
