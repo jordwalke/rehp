@@ -1,11 +1,12 @@
 <?hh // strict
 // Copyright 2004-present Facebook. All Rights Reserved.
 
+
 /**
+ *
  * Runtime.php
- * This is missing a few primitives that need to be replaced with
- * your release of Hack and set of libraries.
  */
+
 namespace Rehack;
 
 use namespace HH\Lib\{Math, Str};
@@ -332,7 +333,7 @@ function caml_subarray_to_string(Vector<int> $a, int $i, int $len): string {
   while (0 < $len) {
     $s = $s.
       php_str_from_char_codes(
-        raw_array_sub($a, $i, Math\min(varray[$len, 1024]) ?? 0),
+        raw_array_sub($a, $i, Math\minva($len, 1024) ?? 0),
       );
     $i += 1024;
     $len -= 1024;
@@ -651,7 +652,7 @@ function caml_blit_bytes(
           }
         }
       } else {
-        $l = Math\min(varray[$len, Str\length($s1->c) - $i1]) ?? 0;
+        $l = Math\minva($len, Str\length($s1->c) - $i1) ?? 0;
         for ($i = 0; $i < $l; $i++) {
           $s2->a[$i2 + $i] = PHP\ord($s1->c[$i1 + $i]);
         }
@@ -1037,6 +1038,9 @@ function caml_parse_sign_and_base(MlBytes $s): (int, int, int) {
         $i++;
         $sign = 1;
         break;
+      /* added due to nonexhaustive switch */
+      default:
+        break;
     }
   }
   if ($i + 1 < $len && caml_string_unsafe_get($s, $i) === 48) {
@@ -1250,8 +1254,7 @@ function caml_compare_val(mixed $a, mixed $b, bool $total): num {
           ) {
             return -1;
           } else {
-            /* HH_FIXME[4101] Comparable needs a parameter */
-            if (!($a is num) && $a !== null && $a && $a is Comparable) {
+            if (!($a is num) && $a !== null && $a && $a is Comparable<_>) {
               /* HH_FIXME[4110] Not sure how to ensure that $b is the same type as $a */
               $cmp = $a->compare($b, $total);
               if ($cmp != 0) {
@@ -1292,12 +1295,16 @@ function caml_compare_val(mixed $a, mixed $b, bool $total): num {
     $i = PHP\array_pop(inout $stack);
     $b = PHP\array_pop(inout $stack);
     $a = PHP\array_pop(inout $stack);
+    /* HH_FIXME[4110] Exposed by typing PHP\array_pop */
     if ($i + 1 < PHP\count($a)) {
       $stack[] = $a;
       $stack[] = $b;
+      /* HH_FIXME[4110] Exposed by typing PHP\array_pop */
       $stack[] = $i + 1;
     }
+    /* HH_FIXME[4063] Exposed by typing PHP\array_pop */
     $a = $a[$i];
+    /* HH_FIXME[4063] Exposed by typing PHP\array_pop */
     $b = $b[$i];
   }
 }
@@ -1474,7 +1481,6 @@ function caml_sys_const_max_wosize(mixed $_unit): int {
 
 function caml_set_static_env(string $_k, string $_v): int {
   throw new \ErrorException("caml_set_static_env not yet implemented");
-  return 0;
 }
 
 function caml_raise_constant(mixed $tag): noreturn {
@@ -1517,6 +1523,14 @@ function caml_make_vect(int $len, mixed $init): Vector<mixed> {
   return Vector::fromItems($v);
 }
 
+function caml_bytes_of_string(MlBytes $s): MlBytes {
+  return $s;
+}
+
+function caml_string_of_bytes(MlBytes $s): MlBytes {
+  return $s;
+}
+
 final class Ref {
   public mixed $contents = null;
   public function contents(mixed ...$args): dynamic {
@@ -1542,9 +1556,22 @@ final class RehpExceptionBox extends \Exception {
 }
 
 type RuntimeT = shape(
-  "null" => mixed,
-  "caml_js_from_array" => dynamic,
-  "caml_js_to_array" => dynamic,
+  "caml_arity_test" => dynamic,
+  "caml_array_append" => dynamic,
+  "caml_array_blit" => mixed,
+  "caml_array_concat" => mixed,
+  "caml_array_get" => mixed,
+  "caml_array_set" => mixed,
+  "caml_array_sub" => dynamic,
+  "caml_blit_bytes" => dynamic,
+  "caml_blit_string" => dynamic,
+  "caml_bytes_compare" => mixed,
+  "caml_bytes_equal" => mixed,
+  "caml_bytes_get" => dynamic,
+  "caml_bytes_of_string" => dynamic,
+  "caml_bytes_set" => mixed,
+  "caml_bytes_unsafe_get" => dynamic,
+  "caml_bytes_unsafe_set" => mixed,
   "caml_call1" => dynamic,
   "caml_call2" => dynamic,
   "caml_call3" => dynamic,
@@ -1553,45 +1580,127 @@ type RuntimeT = shape(
   "caml_call6" => dynamic,
   "caml_call7" => dynamic,
   "caml_call8" => dynamic,
-  "caml_sys_get_config" => dynamic,
-  "caml_sys_const_backend_type" => dynamic,
-  "caml_sys_const_ostype_unix" => dynamic,
-  "caml_sys_const_ostype_win32" => dynamic,
-  "caml_sys_const_ostype_cygwin" => dynamic,
-  "caml_sys_const_max_wosize" => dynamic,
-  "caml_set_static_env" => dynamic,
-  "caml_raise_constant" => dynamic,
-  "caml_raise_not_found" => dynamic,
-  "caml_sys_getenv" => dynamic,
-  "caml_sys_get_argv" => dynamic,
-  "caml_arity_test" => dynamic,
-  "caml_blit_bytes" => dynamic,
-  "caml_blit_string" => dynamic,
-  "caml_bytes_unsafe_get" => dynamic,
   "caml_call_gen" => dynamic,
+  "caml_check_bound" => dynamic,
+  "caml_compare" => dynamic,
   "caml_create_bytes" => dynamic,
+  "caml_ephe_blit_data" => mixed,
+  "caml_ephe_blit_key" => mixed,
+  "caml_ephe_check_data" => mixed,
+  "caml_ephe_check_key" => mixed,
+  "caml_ephe_create" => mixed,
+  "caml_ephe_get_data" => mixed,
+  "caml_ephe_get_data_copy" => mixed,
+  "caml_ephe_get_key" => mixed,
+  "caml_ephe_get_key_copy" => mixed,
+  "caml_ephe_set_data" => mixed,
+  "caml_ephe_set_key" => mixed,
+  "caml_ephe_unset_data" => mixed,
+  "caml_ephe_unset_key" => mixed,
   "caml_equal" => dynamic,
   "caml_fill_bytes" => dynamic,
+  "caml_float_compare" => mixed,
+  "caml_float_of_string" => mixed,
+  "caml_format_float" => mixed,
+  "caml_format_int" => mixed,
   "caml_fresh_oo_id" => dynamic,
   "caml_get_global_data" => dynamic,
+  "caml_greaterequal" => dynamic,
+  "caml_greaterthan" => dynamic,
+  "caml_hash" => mixed,
+  "caml_hash_univ_param" => null,
+  "caml_input_value" => mixed,
+  "caml_input_value_from_bytes" => mixed,
+  "caml_int64_add" => mixed,
+  "caml_int64_compare" => dynamic,
   "caml_int64_float_of_bits" => dynamic,
+  "caml_int64_format" => mixed,
+  "caml_int64_mod" => mixed,
+  "caml_int64_neg" => mixed,
+  "caml_int64_of_int32" => mixed,
+  "caml_int64_of_string" => mixed,
+  "caml_int64_or" => mixed,
+  "caml_int64_shift_left" => mixed,
+  "caml_int64_sub" => mixed,
+  "caml_int64_to_int32" => mixed,
+  "caml_int64_xor" => mixed,
+  "caml_int_compare" => dynamic,
   "caml_int_of_string" => dynamic,
+  "caml_js_from_array" => dynamic,
+  "caml_js_to_array" => dynamic,
   "caml_js_to_string" => dynamic,
+  "caml_lessequal" => dynamic,
+  "caml_lessthan" => dynamic,
+  "caml_make_float_vect" => mixed,
+  "caml_make_vect" => dynamic,
+  "caml_marshal_data_size" => mixed,
+  "caml_md5_chan" => mixed,
+  "caml_md5_string" => mixed,
   "caml_ml_bytes_length" => dynamic,
+  "caml_ml_channel_size" => mixed,
+  "caml_ml_channel_size_64" => mixed,
+  "caml_ml_close_channel" => mixed,
+  "caml_ml_enable_runtime_warnings" => mixed,
   "caml_ml_flush" => dynamic,
+  "caml_ml_input" => mixed,
+  "caml_ml_input_char" => mixed,
+  "caml_ml_input_int" => mixed,
+  "caml_ml_input_scan_line" => mixed,
   "caml_ml_open_descriptor_in" => dynamic,
   "caml_ml_open_descriptor_out" => dynamic,
+  "caml_ml_out_channels_list" => mixed,
   "caml_ml_output" => dynamic,
+  "caml_ml_output_bytes" => dynamic,
   "caml_ml_output_char" => dynamic,
+  "caml_ml_output_int" => mixed,
+  "caml_ml_pos_in" => mixed,
+  "caml_ml_pos_in_64" => mixed,
+  "caml_ml_pos_out" => mixed,
+  "caml_ml_pos_out_64" => mixed,
+  "caml_ml_runtime_warnings_enabled" => mixed,
+  "caml_ml_seek_in" => mixed,
+  "caml_ml_seek_in_64" => mixed,
+  "caml_ml_seek_out" => mixed,
+  "caml_ml_seek_out_64" => mixed,
+  "caml_ml_set_binary_mode" => mixed,
+  "caml_ml_set_channel_name" => mixed,
   "caml_ml_string_length" => dynamic,
+  "caml_mod" => dynamic,
+  "caml_mul" => mixed,
   "caml_new_string" => dynamic,
+  "caml_notequal" => dynamic,
+  "caml_obj_set_tag" => mixed,
   "caml_obj_tag" => dynamic,
-  "caml_register_global" => dynamic,
+  "caml_output_value" => mixed,
+  "caml_output_value_to_buffer" => mixed,
+  "caml_output_value_to_bytes" => mixed,
+  "caml_raise_constant" => mixed,
+  "caml_raise_not_found" => mixed,
+  "caml_register_global" => mixed,
+  "caml_set_static_env" => mixed,
+  "caml_string_compare" => dynamic,
   "caml_string_equal" => dynamic,
   "caml_string_get" => dynamic,
+  "caml_string_notequal" => mixed,
+  "caml_string_of_bytes" => dynamic,
+  "caml_string_unsafe_get" => dynamic,
+  "caml_sys_const_backend_type" => dynamic,
+  "caml_sys_const_max_wosize" => dynamic,
+  "caml_sys_const_ostype_cygwin" => dynamic,
+  "caml_sys_const_ostype_unix" => dynamic,
+  "caml_sys_const_ostype_win32" => dynamic,
+  "caml_sys_exit" => mixed,
+  "caml_sys_get_argv" => dynamic,
+  "caml_sys_get_config" => dynamic,
+  "caml_sys_getenv" => dynamic,
+  "caml_sys_open" => mixed,
+  "caml_sys_random_seed" => mixed,
+  "caml_trampoline" => mixed,
+  "caml_trampoline_return" => mixed,
   "caml_utf8_length" => dynamic,
   "caml_wrap_exception" => dynamic,
   "caml_wrap_thrown_exception" => dynamic,
+  "caml_wrap_thrown_exception_reraise" => dynamic,
   "is_int" => dynamic,
   "left_shift_32" => dynamic,
   "native_debug" => dynamic,
@@ -1599,43 +1708,9 @@ type RuntimeT = shape(
   "native_log" => dynamic,
   "native_out" => dynamic,
   "native_warn" => dynamic,
+  "null" => mixed,
   "right_shift_32" => dynamic,
   "unsigned_right_shift_32" => dynamic,
-  "caml_array_sub" => dynamic,
-  "caml_array_append" => dynamic,
-  "caml_bytes_unsafe_set" => mixed,
-  "caml_check_boun" => mixed,
-  "caml_check_bound" => mixed,
-  "caml_compare" => mixed,
-  "caml_float_of_string" => mixed,
-  "caml_notequal" => dynamic,
-  "caml_greaterequal" => dynamic,
-  "caml_greaterthan" => dynamic,
-  "caml_hash" => mixed,
-  "caml_int64_compare" => mixed,
-  "caml_int64_of_int32" => mixed,
-  "caml_int64_or" => mixed,
-  "caml_int64_shift_left" => mixed,
-  "caml_int64_sub" => mixed,
-  "caml_int_compare" => mixed,
-  "caml_lessequal" => dynamic,
-  "caml_lessthan" => dynamic,
-  "caml_make_vect" => dynamic,
-  "caml_marshal_data_size" => mixed,
-  "caml_md5_string" => mixed,
-  "caml_ml_channel_size" => mixed,
-  "caml_ml_channel_size_64" => mixed,
-  "caml_ml_close_channel" => mixed,
-  "caml_ml_input" => mixed,
-  "caml_ml_input_char" => mixed,
-  "caml_ml_output_bytes" => mixed,
-  "caml_ml_set_binary_mode" => mixed,
-  "caml_ml_set_channel_name" => mixed,
-  "caml_mod" => mixed,
-  "caml_obj_set_tag" => mixed,
-  "caml_string_notequal" => mixed,
-  "caml_sys_open" => mixed,
-  "caml_sys_random_seed" => mixed,
 );
 
 abstract final class Runtime {
@@ -1685,9 +1760,24 @@ abstract final class Runtime {
       caml_register_global($i, Vector {248, caml_new_string($s), -1 * $i}, $s);
     }
     return shape(
-      "null" => null,
-      "caml_js_from_array" => fun('\\Rehack\\caml_js_from_array') as dynamic,
-      "caml_js_to_array" => fun('\\Rehack\\caml_js_to_array') as dynamic,
+      "caml_arity_test" => fun('\\Rehack\\caml_arity_test') as dynamic,
+      "caml_array_append" => fun('\\Rehack\\caml_array_append') as dynamic,
+      "caml_array_blit" => null,
+      "caml_array_concat" => null,
+      "caml_array_get" => null,
+      "caml_array_set" => null,
+      "caml_array_sub" => fun('\\Rehack\\caml_array_sub') as dynamic,
+      "caml_blit_bytes" => fun('\\Rehack\\caml_blit_bytes') as dynamic,
+      "caml_blit_string" => fun('\\Rehack\\caml_blit_string') as dynamic,
+      "caml_bytes_compare" => null,
+      "caml_bytes_equal" => null,
+      "caml_bytes_get" => fun('\\Rehack\\caml_bytes_get') as dynamic,
+      "caml_bytes_of_string" => fun('\\Rehack\\caml_bytes_of_string')
+        as dynamic,
+      "caml_bytes_set" => null,
+      "caml_bytes_unsafe_get" => fun('\\Rehack\\caml_bytes_unsafe_get')
+        as dynamic,
+      "caml_bytes_unsafe_set" => null,
       "caml_call1" => fun('\\Rehack\\caml_call1') as dynamic,
       "caml_call2" => fun('\\Rehack\\caml_call2') as dynamic,
       "caml_call3" => fun('\\Rehack\\caml_call3') as dynamic,
@@ -1696,59 +1786,145 @@ abstract final class Runtime {
       "caml_call6" => fun('\\Rehack\\caml_call6') as dynamic,
       "caml_call7" => fun('\\Rehack\\caml_call7') as dynamic,
       "caml_call8" => fun('\\Rehack\\caml_call8') as dynamic,
-      "caml_sys_get_config" => fun('\\Rehack\\caml_sys_get_config') as dynamic,
-      "caml_sys_const_backend_type" =>
-        fun('\\Rehack\\caml_sys_const_backend_type') as dynamic,
-      "caml_sys_const_ostype_unix" =>
-        fun('\\Rehack\\caml_sys_const_ostype_unix') as dynamic,
-      "caml_sys_const_ostype_win32" =>
-        fun('\\Rehack\\caml_sys_const_ostype_win32') as dynamic,
-      "caml_sys_const_ostype_cygwin" =>
-        fun('\\Rehack\\caml_sys_const_ostype_cygwin') as dynamic,
-      "caml_sys_const_max_wosize" => fun('\\Rehack\\caml_sys_const_max_wosize')
-        as dynamic,
-      "caml_set_static_env" => fun('\\Rehack\\caml_set_static_env') as dynamic,
-      "caml_raise_constant" => fun('\\Rehack\\caml_raise_constant') as dynamic,
-      "caml_raise_not_found" => fun('\\Rehack\\caml_raise_not_found')
-        as dynamic,
-      "caml_sys_getenv" => fun('\\Rehack\\caml_sys_getenv') as dynamic,
-      "caml_sys_get_argv" => fun('\\Rehack\\caml_sys_get_argv') as dynamic,
-      "caml_arity_test" => fun('\\Rehack\\caml_arity_test') as dynamic,
-      "caml_blit_bytes" => fun('\\Rehack\\caml_blit_bytes') as dynamic,
-      "caml_blit_string" => fun('\\Rehack\\caml_blit_string') as dynamic,
-      "caml_bytes_unsafe_get" => fun('\\Rehack\\caml_bytes_unsafe_get')
-        as dynamic,
       "caml_call_gen" => fun('\\Rehack\\caml_call_gen') as dynamic,
+      "caml_check_bound" => fun('\\Rehack\\caml_check_bound') as dynamic,
+      "caml_compare" => fun('\\Rehack\\caml_compare') as dynamic,
       "caml_create_bytes" => fun('\\Rehack\\caml_create_bytes') as dynamic,
+      "caml_ephe_blit_data" => null,
+      "caml_ephe_blit_key" => null,
+      "caml_ephe_check_data" => null,
+      "caml_ephe_check_key" => null,
+      "caml_ephe_create" => null,
+      "caml_ephe_get_data" => null,
+      "caml_ephe_get_data_copy" => null,
+      "caml_ephe_get_key" => null,
+      "caml_ephe_get_key_copy" => null,
+      "caml_ephe_set_data" => null,
+      "caml_ephe_set_key" => null,
+      "caml_ephe_unset_data" => null,
+      "caml_ephe_unset_key" => null,
       "caml_equal" => fun('\\Rehack\\caml_equal') as dynamic,
       "caml_fill_bytes" => fun('\\Rehack\\caml_fill_bytes') as dynamic,
+      "caml_float_compare" => null,
+      "caml_float_of_string" => null,
+      "caml_format_float" => null,
+      "caml_format_int" => null,
       "caml_fresh_oo_id" => fun('\\Rehack\\caml_fresh_oo_id') as dynamic,
       "caml_get_global_data" => fun('\\Rehack\\caml_get_global_data')
         as dynamic,
+      "caml_greaterequal" => fun('\\Rehack\\caml_greaterequal') as dynamic,
+      "caml_greaterthan" => fun('\\Rehack\\caml_greaterthan') as dynamic,
+      "caml_hash" => null,
+      "caml_hash_univ_param" => null,
+      "caml_input_value" => null,
+      "caml_input_value_from_bytes" => null,
+      "caml_int64_add" => null,
+      "caml_int64_compare" => fun('\\Rehack\\caml_int64_compare') as dynamic,
       "caml_int64_float_of_bits" => fun('\\Rehack\\caml_int64_float_of_bits')
         as dynamic,
+      "caml_int64_format" => null,
+      "caml_int64_mod" => null,
+      "caml_int64_neg" => null,
+      "caml_int64_of_int32" => null,
+      "caml_int64_of_string" => null,
+      "caml_int64_or" => null,
+      "caml_int64_shift_left" => null,
+      "caml_int64_sub" => null,
+      "caml_int64_to_int32" => null,
+      "caml_int64_xor" => null,
+      "caml_int_compare" => fun('\\Rehack\\caml_int_compare') as dynamic,
       "caml_int_of_string" => fun('\\Rehack\\caml_int_of_string') as dynamic,
+      "caml_js_from_array" => fun('\\Rehack\\caml_js_from_array') as dynamic,
+      "caml_js_to_array" => fun('\\Rehack\\caml_js_to_array') as dynamic,
       "caml_js_to_string" => fun('\\Rehack\\caml_js_to_string') as dynamic,
+      "caml_lessequal" => fun('\\Rehack\\caml_lessequal') as dynamic,
+      "caml_lessthan" => fun('\\Rehack\\caml_lessthan') as dynamic,
+      "caml_make_float_vect" => null,
+      "caml_make_vect" => fun('\\Rehack\\caml_make_vect') as dynamic,
+      "caml_marshal_data_size" => null,
+      "caml_md5_chan" => null,
+      "caml_md5_string" => null,
       "caml_ml_bytes_length" => fun('\\Rehack\\caml_ml_bytes_length')
         as dynamic,
+      "caml_ml_channel_size" => null,
+      "caml_ml_channel_size_64" => null,
+      "caml_ml_close_channel" => null,
+      "caml_ml_enable_runtime_warnings" => null,
       "caml_ml_flush" => fun('\\Rehack\\caml_ml_flush') as dynamic,
+      "caml_ml_input" => null,
+      "caml_ml_input_char" => null,
+      "caml_ml_input_int" => null,
+      "caml_ml_input_scan_line" => null,
       "caml_ml_open_descriptor_in" =>
         fun('\\Rehack\\caml_ml_open_descriptor_in') as dynamic,
       "caml_ml_open_descriptor_out" =>
         fun('\\Rehack\\caml_ml_open_descriptor_out') as dynamic,
+      "caml_ml_out_channels_list" => null,
       "caml_ml_output" => fun('\\Rehack\\caml_ml_output') as dynamic,
+      "caml_ml_output_bytes" => fun('\\Rehack\\caml_ml_output_bytes')
+        as dynamic,
       "caml_ml_output_char" => fun('\\Rehack\\caml_ml_output_char') as dynamic,
+      "caml_ml_output_int" => null,
+      "caml_ml_pos_in" => null,
+      "caml_ml_pos_in_64" => null,
+      "caml_ml_pos_out" => null,
+      "caml_ml_pos_out_64" => null,
+      "caml_ml_runtime_warnings_enabled" => null,
+      "caml_ml_seek_in" => null,
+      "caml_ml_seek_in_64" => null,
+      "caml_ml_seek_out" => null,
+      "caml_ml_seek_out_64" => null,
+      "caml_ml_set_binary_mode" => null,
+      "caml_ml_set_channel_name" => null,
       "caml_ml_string_length" => fun('\\Rehack\\caml_ml_string_length')
         as dynamic,
+      "caml_mod" => fun('\\Rehack\\caml_mod') as dynamic,
+      "caml_mul" => null,
       "caml_new_string" => fun('\\Rehack\\caml_new_string') as dynamic,
+      "caml_notequal" => fun('\\Rehack\\caml_notequal') as dynamic,
+      "caml_obj_set_tag" => null,
       "caml_obj_tag" => fun('\\Rehack\\caml_obj_tag') as dynamic,
+      "caml_output_value" => null,
+      "caml_output_value_to_buffer" => null,
+      "caml_output_value_to_bytes" => null,
+      "caml_raise_constant" => fun('\\Rehack\\caml_raise_constant') as dynamic,
+      "caml_raise_not_found" => fun('\\Rehack\\caml_raise_not_found')
+        as dynamic,
       "caml_register_global" => fun('\\Rehack\\caml_register_global')
         as dynamic,
+      "caml_set_static_env" => fun('\\Rehack\\caml_set_static_env') as dynamic,
+      "caml_string_compare" => fun('\\Rehack\\caml_string_compare') as dynamic,
       "caml_string_equal" => fun('\\Rehack\\caml_string_equal') as dynamic,
       "caml_string_get" => fun('\\Rehack\\caml_string_get') as dynamic,
+      "caml_string_notequal" => null,
+      "caml_string_of_bytes" => fun('\\Rehack\\caml_string_of_bytes')
+        as dynamic,
+      "caml_string_unsafe_get" => fun('\\Rehack\\caml_string_unsafe_get')
+        as dynamic,
+      "caml_sys_const_backend_type" =>
+        fun('\\Rehack\\caml_sys_const_backend_type') as dynamic,
+      "caml_sys_const_max_wosize" => fun('\\Rehack\\caml_sys_const_max_wosize')
+        as dynamic,
+      "caml_sys_const_ostype_cygwin" =>
+        fun('\\Rehack\\caml_sys_const_ostype_cygwin') as dynamic,
+      "caml_sys_const_ostype_unix" =>
+        fun('\\Rehack\\caml_sys_const_ostype_unix') as dynamic,
+      "caml_sys_const_ostype_win32" =>
+        fun('\\Rehack\\caml_sys_const_ostype_win32') as dynamic,
+      "caml_sys_exit" => null,
+      "caml_sys_get_argv" => fun('\\Rehack\\caml_sys_get_argv') as dynamic,
+      "caml_sys_get_config" => fun('\\Rehack\\caml_sys_get_config') as dynamic,
+      "caml_sys_getenv" => fun('\\Rehack\\caml_sys_getenv') as dynamic,
+      "caml_sys_open" => null,
+      "caml_sys_random_seed" => null,
+      "caml_trampoline" => null,
+      "caml_trampoline_return" => null,
       "caml_utf8_length" => fun('\\Rehack\\caml_utf8_length') as dynamic,
       "caml_wrap_exception" => fun('\\Rehack\\caml_wrap_exception') as dynamic,
       "caml_wrap_thrown_exception" =>
+        fun('\\Rehack\\caml_wrap_thrown_exception') as dynamic,
+      // TODO: Actually implement exception chaining with special primitive
+      "caml_wrap_thrown_exception_reraise" =>
         fun('\\Rehack\\caml_wrap_thrown_exception') as dynamic,
       "is_int" => fun('\\Rehack\\is_int') as dynamic,
       "left_shift_32" => fun('\\Rehack\\left_shift_32') as dynamic,
@@ -1757,44 +1933,10 @@ abstract final class Runtime {
       "native_log" => fun('\\Rehack\\native_log') as dynamic,
       "native_out" => fun('\\Rehack\\native_out') as dynamic,
       "native_warn" => fun('\\Rehack\\native_warn') as dynamic,
+      "null" => null,
       "right_shift_32" => fun('\\Rehack\\right_shift_32') as dynamic,
       "unsigned_right_shift_32" => fun('\\Rehack\\unsigned_right_shift_32')
         as dynamic,
-      "caml_array_sub" => fun('\\Rehack\\caml_array_sub') as dynamic,
-      "caml_array_append" => fun('\\Rehack\\caml_array_append') as dynamic,
-      "caml_bytes_unsafe_set" => null,
-      "caml_check_boun" => null,
-      "caml_check_bound" => fun('\\Rehack\\caml_check_bound') as dynamic,
-      "caml_compare" => fun('\\Rehack\\caml_compare') as dynamic,
-      "caml_float_of_string" => null,
-      "caml_notequal" => fun('\\Rehack\\caml_notequal') as dynamic,
-      "caml_greaterequal" => fun('\\Rehack\\caml_greaterequal') as dynamic,
-      "caml_greaterthan" => fun('\\Rehack\\caml_greaterthan') as dynamic,
-      "caml_hash" => null,
-      "caml_int64_compare" => null,
-      "caml_int64_of_int32" => null,
-      "caml_int64_or" => null,
-      "caml_int64_shift_left" => null,
-      "caml_int64_sub" => null,
-      "caml_int_compare" => null,
-      "caml_lessequal" => fun('\\Rehack\\caml_lessequal') as dynamic,
-      "caml_lessthan" => fun('\\Rehack\\caml_lessthan') as dynamic,
-      "caml_make_vect" => fun('\\Rehack\\caml_make_vect') as dynamic,
-      "caml_marshal_data_size" => null,
-      "caml_md5_string" => null,
-      "caml_ml_channel_size" => null,
-      "caml_ml_channel_size_64" => null,
-      "caml_ml_close_channel" => null,
-      "caml_ml_input" => null,
-      "caml_ml_input_char" => null,
-      "caml_ml_output_bytes" => null,
-      "caml_ml_set_binary_mode" => null,
-      "caml_ml_set_channel_name" => null,
-      "caml_mod" => fun('\\Rehack\\caml_mod') as dynamic,
-      "caml_obj_set_tag" => null,
-      "caml_string_notequal" => null,
-      "caml_sys_open" => null,
-      "caml_sys_random_seed" => null,
     );
 
   }
