@@ -6210,7 +6210,7 @@ function withState(inst, state) {
 }
 
 function newSelf(replacer, subreplacer) {
-  var self = [];
+  var self = [0,0,0];
   function dR_(extractor, e, inst) {
     var dV_ = call1(extractor, e);
     var nextState = call2(inst[5][2], inst, dV_);
@@ -6397,7 +6397,7 @@ function control(param, controlledState) {
 }
 
 function create(param) {
-  var root = [];
+  var root = [0,0];
   var dM_ = 0;
   caml_update_dummy(
     root,
@@ -6975,7 +6975,7 @@ for (; ; ) {
     var endSeconds = caml_sys_time(0);
     log(symbol(bo_, string_of_int((endSeconds - startSeconds) * 1e3 | 0)));
     var f = caml_alloc_dummy_function(1, 2);
-    var z = [];
+    var z = [0];
     caml_update_dummy(f, function(x, y) {return 1;});
     caml_update_dummy(z, [0,[0,f,bp_]]);
     if (z) {
