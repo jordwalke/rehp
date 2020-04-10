@@ -13,7 +13,9 @@ final class Calls {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
+    $call2 = $runtime["caml_call2"];
     $string = $runtime["caml_new_string"];
+    $caml_update_dummy = $runtime["caml_update_dummy"];
     $cst_me = $string("me");
     $cst_fix = $string("fix");
     $cst_bye = $string("bye");
@@ -26,6 +28,8 @@ final class Calls {
     $cst_two = $string("two");
     $cst_two__0 = $string("two");
     $cst_hi = $string("hi");
+    $cst_Second_Part_Of_Tuple = $string("Second Part Of Tuple:");
+    $Pervasives = Pervasives::get();
     $c_ = Vector{0, 100, 0} as dynamic;
     $a_ = Vector{0, 100, 0} as dynamic;
     $foo = "foo";
@@ -64,55 +68,55 @@ final class Calls {
       };
     };
     $testPartialFunctionCalls = (dynamic $s) : dynamic ==> {
-      $J_ = (dynamic $ah_, dynamic $ag_) : dynamic ==> {return $ah_($ag_);};
-      $callResult1 = (dynamic $af_) : dynamic ==> {return $J_($s, $af_);};
-      $K_ = "passThis";
-      $L_ = (dynamic $ae_, dynamic $ad_, dynamic $ac_) : dynamic ==> {return $ae_($ad_, $ac_);
+      $M_ = (dynamic $ak_, dynamic $aj_) : dynamic ==> {return $ak_($aj_);};
+      $callResult1 = (dynamic $ai_) : dynamic ==> {return $M_($s, $ai_);};
+      $N_ = "passThis";
+      $O_ = (dynamic $ah_, dynamic $ag_, dynamic $af_) : dynamic ==> {return $ah_($ag_, $af_);
       };
-      $callResult2 = (dynamic $ab_) : dynamic ==> {return $L_($s, $K_, $ab_);};
-      $M_ = "passThis";
-      $N_ = (dynamic $aa_, dynamic $Z_, dynamic $Y_, dynamic $X_) : dynamic ==> {return $aa_($Z_, $Y_, $X_);
+      $callResult2 = (dynamic $ae_) : dynamic ==> {return $O_($s, $N_, $ae_);};
+      $P_ = "passThis";
+      $Q_ = (dynamic $ad_, dynamic $ac_, dynamic $ab_, dynamic $aa_) : dynamic ==> {return $ad_($ac_, $ab_, $aa_);
       };
-      $callResult3 = (dynamic $W_) : dynamic ==> {
-        return $N_($s, $M_, $bar, $W_);
+      $callResult3 = (dynamic $Z_) : dynamic ==> {
+        return $Q_($s, $P_, $bar, $Z_);
       };
-      $O_ = "passThis";
-      $P_ = (dynamic $V_, dynamic $U_, dynamic $T_, dynamic $S_, dynamic $R_) : dynamic ==> {return $V_($U_, $T_, $S_, $R_);
+      $R_ = "passThis";
+      $S_ = (dynamic $Y_, dynamic $X_, dynamic $W_, dynamic $V_, dynamic $U_) : dynamic ==> {return $Y_($X_, $W_, $V_, $U_);
       };
-      $callResult4 = (dynamic $Q_) : dynamic ==> {
-        return $P_($s, $O_, $baz, $baz, $Q_);
+      $callResult4 = (dynamic $T_) : dynamic ==> {
+        return $S_($s, $R_, $baz, $baz, $T_);
       };
       return Vector{0, $callResult1, $callResult2, $callResult3, $callResult4};
     };
     $testPartialMethodCalls = (dynamic $o) : dynamic ==> {
-      $r_ = (dynamic $I_, dynamic $H_, dynamic $G_) : dynamic ==> {
-        return $runtime["caml_js_meth_call1"]($I_, $H_, $G_);
+      $u_ = (dynamic $L_, dynamic $K_, dynamic $J_) : dynamic ==> {
+        return $runtime["caml_js_meth_call1"]($L_, $K_, $J_);
       };
-      $sendResult1 = (dynamic $F_) : dynamic ==> {
-        return $r_($o, $cst_myPartiallyAppliedMethod, $F_);
+      $sendResult1 = (dynamic $I_) : dynamic ==> {
+        return $u_($o, $cst_myPartiallyAppliedMethod, $I_);
       };
-      $s_ = (dynamic $E_, dynamic $D_, dynamic $C_, dynamic $B_) : dynamic ==> {
-        return $runtime["caml_js_meth_call2"]($E_, $D_, $C_, $B_);
+      $v_ = (dynamic $H_, dynamic $G_, dynamic $F_, dynamic $E_) : dynamic ==> {
+        return $runtime["caml_js_meth_call2"]($H_, $G_, $F_, $E_);
       };
-      $sendResult2 = (dynamic $A_) : dynamic ==> {
-        return $s_($o, $cst_myPartiallyAppliedMethod__0, $foo, $A_);
+      $sendResult2 = (dynamic $D_) : dynamic ==> {
+        return $v_($o, $cst_myPartiallyAppliedMethod__0, $foo, $D_);
       };
-      $t_ = (dynamic $z_, dynamic $y_, dynamic $x_, dynamic $w_, dynamic $v_) : dynamic ==> {
-        return $runtime["caml_js_meth_call3"]($z_, $y_, $x_, $w_, $v_);
+      $w_ = (dynamic $C_, dynamic $B_, dynamic $A_, dynamic $z_, dynamic $y_) : dynamic ==> {
+        return $runtime["caml_js_meth_call3"]($C_, $B_, $A_, $z_, $y_);
       };
-      $sendResult3 = (dynamic $u_) : dynamic ==> {
-        return $t_($o, $cst_myPartiallyAppliedMethod__1, $bar, $foo, $u_);
+      $sendResult3 = (dynamic $x_) : dynamic ==> {
+        return $w_($o, $cst_myPartiallyAppliedMethod__1, $bar, $foo, $x_);
       };
       return Vector{0, $sendResult1, $sendResult2, $sendResult3};
     };
     $resultMake1Array = varray[$cst_one];
     $resultMake1ArraySideEffect = varray[$runtime["side_effect"](0)];
     $wrapMake1Array = (dynamic $x) : dynamic ==> {return (varray[$x]);};
-    $reexportCallMake1Array = (dynamic $q_) : dynamic ==> {
-      return (varray[$q_]);
+    $reexportCallMake1Array = (dynamic $t_) : dynamic ==> {
+      return (varray[$t_]);
     };
-    $partiallyCallMake1Array = (dynamic $p_) : dynamic ==> {
-      return (varray[$p_]);
+    $partiallyCallMake1Array = (dynamic $s_) : dynamic ==> {
+      return (varray[$s_]);
     };
     $overCallMake1Array = $call1(varray[0], 0);
     $closeOverMake1Array = (dynamic $param) : dynamic ==> {
@@ -126,11 +130,11 @@ final class Calls {
     $wrapMake1ArrayDouble = (dynamic $x) : dynamic ==> {
       return (varray[$x, $x]);
     };
-    $reexportCallMake1ArrayDouble = (dynamic $o_) : dynamic ==> {
-      return (varray[$o_, $o_]);
+    $reexportCallMake1ArrayDouble = (dynamic $r_) : dynamic ==> {
+      return (varray[$r_, $r_]);
     };
-    $partiallyCallMake1ArrayDouble = (dynamic $n_) : dynamic ==> {
-      return (varray[$n_, $n_]);
+    $partiallyCallMake1ArrayDouble = (dynamic $q_) : dynamic ==> {
+      return (varray[$q_, $q_]);
     };
     $overCallMake1ArrayDouble = $call1(varray[0, 0], 0);
     $closeOverMake1ArrayDouble = (dynamic $param) : dynamic ==> {
@@ -143,22 +147,22 @@ final class Calls {
     $wrapMake2Array = (dynamic $x, dynamic $y) : dynamic ==> {
       return (varray[$x, $y]);
     };
-    $reexportCallMake2Array = (dynamic $m_, dynamic $l_) : dynamic ==> {
-      return (varray[$m_, $l_]);
+    $reexportCallMake2Array = (dynamic $p_, dynamic $o_) : dynamic ==> {
+      return (varray[$p_, $o_]);
     };
-    $e_ = (dynamic $k_, dynamic $j_) : dynamic ==> {
-      return (varray[$k_, $j_]);
+    $e_ = (dynamic $n_, dynamic $m_) : dynamic ==> {
+      return (varray[$n_, $m_]);
     };
-    $partiallyCallMake2Array = (dynamic $i_) : dynamic ==> {
-      return $e_($cst_hi, $i_);
+    $partiallyCallMake2Array = (dynamic $l_) : dynamic ==> {
+      return $e_($cst_hi, $l_);
     };
     $overCallMake2Array = $call1(varray[0, 0], 0);
     $closeOverMake2Array = (dynamic $param) : dynamic ==> {
       return (varray[$cst_hi__0, $cst_bye]);
     };
-    $make1Array = (dynamic $h_) : dynamic ==> {return (varray[$h_]);};
-    $make2Array = (dynamic $g_, dynamic $f_) : dynamic ==> {
-      return (varray[$g_, $f_]);
+    $make1Array = (dynamic $k_) : dynamic ==> {return (varray[$k_]);};
+    $make2Array = (dynamic $j_, dynamic $i_) : dynamic ==> {
+      return (varray[$j_, $i_]);
     };
     $ReexportedMacros = Vector{0, $make1Array, $make2Array} as dynamic;
     $callsAFunctionWithSuppression = (dynamic $param) : dynamic ==> {
@@ -166,6 +170,24 @@ final class Calls {
 SomeUtilityClass::foo($cst_fix, $cst_me)
       );
     };
+    $f = $runtime["caml_alloc_dummy_function"](1, 2);
+    $z = varray[];
+    
+    $caml_update_dummy($f, (dynamic $x, dynamic $y) : dynamic ==> {return 1;});
+    
+    $caml_update_dummy($z, Vector{0, Vector{0, $f, $cst_Second_Part_Of_Tuple}}
+    );
+    
+    if ($z) {
+      $match = $z[1];
+      $str = $match[2];
+      $f__0 = $match[1];
+      $f_ = $call2($f__0, 0, 0);
+      $g_ = $call1($Pervasives[21], $f_);
+      $h_ = $call2($Pervasives[16], $str, $g_);
+      $call1($Pervasives[30], $h_);
+    }
+    
     $Calls = Vector{
       0,
       $foo,
@@ -198,7 +220,9 @@ SomeUtilityClass::foo($cst_fix, $cst_me)
       $overCallMake2Array,
       $closeOverMake2Array,
       $ReexportedMacros,
-      $callsAFunctionWithSuppression
+      $callsAFunctionWithSuppression,
+      $f,
+      $z
     } as dynamic;
     
     return($Calls);

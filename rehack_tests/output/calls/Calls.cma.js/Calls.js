@@ -10,9 +10,14 @@
 
 var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
+var caml_update_dummy = runtime["caml_update_dummy"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
+function call2(f, a0, a1) {
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
 var cst_me = string("me");
@@ -27,6 +32,8 @@ var cst_one_double = string("one-double");
 var cst_two = string("two");
 var cst_two__0 = string("two");
 var cst_hi = string("hi");
+var cst_Second_Part_Of_Tuple = string("Second Part Of Tuple:");
+var Pervasives = require("Pervasives.js");
 var c_ = [0,100,0];
 var a_ = [0,100,0];
 var foo = "foo";
@@ -61,34 +68,34 @@ function testMethodCalls(o) {
 }
 
 function testPartialFunctionCalls(s) {
-  function J_(ah_, ag_) {return ah_(ag_);}
-  function callResult1(af_) {return J_(s, af_);}
-  var K_ = "passThis";
-  function L_(ae_, ad_, ac_) {return ae_(ad_, ac_);}
-  function callResult2(ab_) {return L_(s, K_, ab_);}
-  var M_ = "passThis";
-  function N_(aa_, Z_, Y_, X_) {return aa_(Z_, Y_, X_);}
-  function callResult3(W_) {return N_(s, M_, bar, W_);}
-  var O_ = "passThis";
-  function P_(V_, U_, T_, S_, R_) {return V_(U_, T_, S_, R_);}
-  function callResult4(Q_) {return P_(s, O_, baz, baz, Q_);}
+  function M_(ak_, aj_) {return ak_(aj_);}
+  function callResult1(ai_) {return M_(s, ai_);}
+  var N_ = "passThis";
+  function O_(ah_, ag_, af_) {return ah_(ag_, af_);}
+  function callResult2(ae_) {return O_(s, N_, ae_);}
+  var P_ = "passThis";
+  function Q_(ad_, ac_, ab_, aa_) {return ad_(ac_, ab_, aa_);}
+  function callResult3(Z_) {return Q_(s, P_, bar, Z_);}
+  var R_ = "passThis";
+  function S_(Y_, X_, W_, V_, U_) {return Y_(X_, W_, V_, U_);}
+  function callResult4(T_) {return S_(s, R_, baz, baz, T_);}
   return [0,callResult1,callResult2,callResult3,callResult4];
 }
 
 function testPartialMethodCalls(o) {
-  function r_(I_, H_, G_) {return runtime["caml_js_meth_call1"](I_, H_, G_);}
-  function sendResult1(F_) {return r_(o, cst_myPartiallyAppliedMethod, F_);}
-  function s_(E_, D_, C_, B_) {
-    return runtime["caml_js_meth_call2"](E_, D_, C_, B_);
+  function u_(L_, K_, J_) {return runtime["caml_js_meth_call1"](L_, K_, J_);}
+  function sendResult1(I_) {return u_(o, cst_myPartiallyAppliedMethod, I_);}
+  function v_(H_, G_, F_, E_) {
+    return runtime["caml_js_meth_call2"](H_, G_, F_, E_);
   }
-  function sendResult2(A_) {
-    return s_(o, cst_myPartiallyAppliedMethod__0, foo, A_);
+  function sendResult2(D_) {
+    return v_(o, cst_myPartiallyAppliedMethod__0, foo, D_);
   }
-  function t_(z_, y_, x_, w_, v_) {
-    return runtime["caml_js_meth_call3"](z_, y_, x_, w_, v_);
+  function w_(C_, B_, A_, z_, y_) {
+    return runtime["caml_js_meth_call3"](C_, B_, A_, z_, y_);
   }
-  function sendResult3(u_) {
-    return t_(o, cst_myPartiallyAppliedMethod__1, bar, foo, u_);
+  function sendResult3(x_) {
+    return w_(o, cst_myPartiallyAppliedMethod__1, bar, foo, x_);
   }
   return [0,sendResult1,sendResult2,sendResult3];
 }
@@ -98,9 +105,9 @@ var resultMake1ArraySideEffect = new Array(runtime["side_effect"](0));
 
 function wrapMake1Array(x) {return (new Array(x));}
 
-function reexportCallMake1Array(q_) {return (new Array(q_));}
+function reexportCallMake1Array(t_) {return (new Array(t_));}
 
-function partiallyCallMake1Array(p_) {return (new Array(p_));}
+function partiallyCallMake1Array(s_) {return (new Array(s_));}
 
 var overCallMake1Array = call1(new Array(0), 0);
 
@@ -116,9 +123,9 @@ var resultMake1ArrayDoubleSideEffect = new Array(b_, b_);
 
 function wrapMake1ArrayDouble(x) {return (new Array(x, x));}
 
-function reexportCallMake1ArrayDouble(o_) {return (new Array(o_, o_));}
+function reexportCallMake1ArrayDouble(r_) {return (new Array(r_, r_));}
 
-function partiallyCallMake1ArrayDouble(n_) {return (new Array(n_, n_));}
+function partiallyCallMake1ArrayDouble(q_) {return (new Array(q_, q_));}
 
 var overCallMake1ArrayDouble = call1(new Array(0, 0), 0);
 
@@ -133,25 +140,42 @@ var resultMake2Array = new Array(cst_two__0, cst_two);
 
 function wrapMake2Array(x, y) {return (new Array(x, y));}
 
-function reexportCallMake2Array(m_, l_) {return (new Array(m_, l_));}
+function reexportCallMake2Array(p_, o_) {return (new Array(p_, o_));}
 
-function e_(k_, j_) {return (new Array(k_, j_));}
+function e_(n_, m_) {return (new Array(n_, m_));}
 
-function partiallyCallMake2Array(i_) {return e_(cst_hi, i_);}
+function partiallyCallMake2Array(l_) {return e_(cst_hi, l_);}
 
 var overCallMake2Array = call1(new Array(0, 0), 0);
 
 function closeOverMake2Array(param) {return (new Array(cst_hi__0, cst_bye));}
 
-function make1Array(h_) {return (new Array(h_));}
+function make1Array(k_) {return (new Array(k_));}
 
-function make2Array(g_, f_) {return (new Array(g_, f_));}
+function make2Array(j_, i_) {return (new Array(j_, i_));}
 
 var ReexportedMacros = [0,make1Array,make2Array];
 
 function callsAFunctionWithSuppression(param) {
   return (// FLOW_FIXME blah blah
 console.log(cst_fix, cst_me));
+}
+
+var f = runtime["caml_alloc_dummy_function"](1, 2);
+var z = [];
+
+caml_update_dummy(f, function(x, y) {return 1;});
+
+caml_update_dummy(z, [0,[0,f,cst_Second_Part_Of_Tuple]]);
+
+if (z) {
+  var match = z[1];
+  var str = match[2];
+  var f__0 = match[1];
+  var f_ = call2(f__0, 0, 0);
+  var g_ = call1(Pervasives[21], f_);
+  var h_ = call2(Pervasives[16], str, g_);
+  call1(Pervasives[30], h_);
 }
 
 var Calls = [
@@ -186,7 +210,9 @@ var Calls = [
   overCallMake2Array,
   closeOverMake2Array,
   ReexportedMacros,
-  callsAFunctionWithSuppression
+  callsAFunctionWithSuppression,
+  f,
+  z
 ];
 
 module.exports = Calls;
@@ -223,6 +249,8 @@ module.exports = Calls;
   closeOverMake2Array: (param: any) => any,
   ReexportedMacros: any,
   callsAFunctionWithSuppression: (param: any) => any,
+  f: any,
+  z: any,
 }*/
 /** @type {{
   foo: any,
@@ -256,6 +284,8 @@ module.exports = Calls;
   closeOverMake2Array: (param: any) => any,
   ReexportedMacros: any,
   callsAFunctionWithSuppression: (param: any) => any,
+  f: any,
+  z: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.foo = module.exports[1];
@@ -289,5 +319,7 @@ module.exports.overCallMake2Array = module.exports[28];
 module.exports.closeOverMake2Array = module.exports[29];
 module.exports.ReexportedMacros = module.exports[30];
 module.exports.callsAFunctionWithSuppression = module.exports[31];
+module.exports.f = module.exports[32];
+module.exports.z = module.exports[33];
 
 /* Hashing disabled */
