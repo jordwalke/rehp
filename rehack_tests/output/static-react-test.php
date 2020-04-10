@@ -1229,7 +1229,7 @@ function main() {
     };
   };
   $newSelf = (dynamic $replacer, dynamic $subreplacer) : dynamic ==> {
-    $self = varray[];
+    $self = Vector{} as dynamic;
     $dR_ = (dynamic $extractor, dynamic $e, dynamic $inst) : dynamic ==> {
       $dV_ = $call1($extractor, $e);
       $nextState = $call2($inst[5][2], $inst, $dV_);
@@ -1458,7 +1458,7 @@ function main() {
     };
   };
   $create = (dynamic $param) : dynamic ==> {
-    $root = varray[];
+    $root = Vector{} as dynamic;
     $dM_ = 0 as dynamic;
     $caml_update_dummy(
       $root,
@@ -2131,7 +2131,7 @@ function main() {
         )
       );
       $f = $runtime["caml_alloc_dummy_function"](1, 2);
-      $z = varray[];
+      $z = Vector{} as dynamic;
       $caml_update_dummy(
         $f,
         (dynamic $x, dynamic $y) : dynamic ==> {return 1;}

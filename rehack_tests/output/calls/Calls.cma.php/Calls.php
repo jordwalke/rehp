@@ -171,7 +171,7 @@ SomeUtilityClass::foo($cst_fix, $cst_me)
       );
     };
     $f = $runtime["caml_alloc_dummy_function"](1, 2);
-    $z = varray[];
+    $z = Vector{} as dynamic;
     
     $caml_update_dummy($f, (dynamic $x, dynamic $y) : dynamic ==> {return 1;});
     
