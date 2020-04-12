@@ -104,18 +104,34 @@ let file_needs_update use_hashing hashes_comment file =
     (* File exists, and we are to use hashing *)
     not (file_contains_hashes hashes_comment file)
 
-(* Ensures a directory exists. Will fail if path is a non-dir file.
-   Containing directory must already exist. *)
-let ensure_dir dir =
-  let exists = Sys.file_exists dir in
-  if exists
-  then (
-    if not (Sys.is_directory dir)
-    then
-      raise
-        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")))
-  else Unix.mkdir dir 0o777
+let normalize_seps s =
+  if not (String.equal Filename.dir_sep "/") then
+    String.split ~sep:Filename.dir_sep s |> String.concat ~sep:"/"
+  else s
 
+let remove_last_normalized_sep s =
+  let len = String.length s in
+  if not(String.is_empty s) && (String.get s (len - 1) == '/') then
+    String.sub s ~pos:0 ~len:(len - 1)
+  else s
+
+
+(* Ensures a directory exists. Will fail if path is a non-dir file.
+   Containing directory must already exist.
+   Sys.is_directory fails if the path doesn't exist.
+   But on windows Sys.file_exists fails if it is an existing directory!
+*)
+let ensure_dir dir =
+  let normalized_dir = normalize_seps dir in
+  let dir = remove_last_normalized_sep normalized_dir in
+  let dir_exists = try Sys.is_directory dir with
+  | Sys_error(_) -> false in
+  if not dir_exists then (
+    (if Sys.file_exists dir then
+      raise (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")));
+    (* TODO: Drop the dependency on Unix *)
+    Unix.mkdir dir 0o755
+  )
 let dir_contents dir =
   let exists = Sys.file_exists dir in
   if exists
@@ -157,23 +173,26 @@ let rec relativizeRelativePathsImp from p =
  * relativizeRelativePaths "./foo/bar/baz.js" "./foo/bar/baz2.js" == "./baz2.js"
  *)
 let relativizeRelativePaths from p =
-  match String.find_substring "./" from 0, String.find_substring "./" from 0 with
-  | exception Not_found ->
-      raise (Sys_error ("Paths not both relative " ^ from ^ ", " ^ p))
-  | 0, 0 ->
-      let from = String.sub ~pos:2 ~len:(String.length from - 2) from in
-      let p = String.sub ~pos:2 ~len:(String.length p - 2) p in
-      let res =
-        String.concat
-          ~sep:"/"
-          (relativizeRelativePathsImp
-             (String.split_char ~sep:'/' from)
-             (String.split_char ~sep:'/' p))
-      in
-      if String.length res > 1 && res.[0] == '.' && res.[1] == '.'
-      then res
-      else "./" ^ res
-  | _, _ -> raise (Sys_error ("Paths not both relative " ^ from ^ ", " ^ p))
+  let from = normalize_seps from in
+  let p = normalize_seps p in
+  if String.equal from p then "./" else
+    match String.find_substring "./" from 0, String.find_substring "./" from 0 with
+    | exception Not_found ->
+        raise (Sys_error ("Paths not both relative " ^ from ^ ", " ^ p))
+    | 0, 0 ->
+        let from = String.sub ~pos:2 ~len:(String.length from - 2) from in
+        let p = String.sub ~pos:2 ~len:(String.length p - 2) p in
+        let res =
+          String.concat
+            ~sep:"/"
+            (relativizeRelativePathsImp
+               (String.split_char ~sep:'/' from)
+               (String.split_char ~sep:'/' p))
+        in
+        if String.length res > 1 && res.[0] == '.' && res.[1] == '.'
+        then res
+        else "./" ^ res
+    | _, _ -> raise (Sys_error ("Paths not both relative(other) " ^ from ^ ", " ^ p))
 
 (* Intentionally don't return the contents of the dir because they are stale at this point.
  * We will append the expected dependencies to the returned list. *)
@@ -184,6 +203,8 @@ let get_potential_dependency_outputs ?ext dir =
       let backend_ext = Backend.Current.extension () in
       let dot_backend_ext = "." ^ backend_ext in
       let full_sibling_dir = Filename.concat parent_dir sibling_dir in
+      let full_sibling_dir = normalize_seps full_sibling_dir in
+      let dir = normalize_seps dir in
       if (not (String.equal full_sibling_dir dir)) && Sys.is_directory full_sibling_dir
       then
         let sibling_dir_contents = dir_contents full_sibling_dir in
@@ -574,10 +595,12 @@ let f
               | `Stdout, false -> `Name (gen_unit_filepath ?ext:implicit_ext "./" cmo)
               | `Name x, false ->
                   `Name (gen_unit_filepath ?ext:implicit_ext (Filename.dirname x) cmo)
-              | `Name x, true
-                when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
+              | `Name x, true ->
+                (* when String.length x > 0 && Char.equal x.[String.length x - 1] '/' -> *)
+                (* when String.length x > 0 && Char.equal x.[String.length x - 1] '/' -> *)
                   `Name (gen_unit_filepath ?ext:implicit_ext x cmo)
-              | `Stdout, true | `Name _, true ->
+              (* | `Stdout, true | `Name _, true -> *)
+              | `Stdout, true ->
                   failwith "use [-o dirname/] or remove [--keep-unit-names]"
             in
             let t1 = Timer.make () in

@@ -357,7 +357,12 @@ let custom_module_loader = () =>
         switch (found) {
         | [] => name ++ ".js"
         | [hd, ...tl] =>
-          Filename.concat(hd.relative_dir_from_output, hd.filename)
+          let len = String.length(hd.relative_dir_from_output);
+          switch (hd.relative_dir_from_output.[len - 1]) {
+          | '/'
+          | '\\' => hd.relative_dir_from_output ++ hd.filename
+          | _ => hd.relative_dir_from_output ++ "/" ++ hd.filename
+          };
         };
       Some(
         Rehp.ECall(
