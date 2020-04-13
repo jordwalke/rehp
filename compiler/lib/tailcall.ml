@@ -68,7 +68,10 @@ let fold_children blocks pc f accu =
   | Return _ | Raise _ | Stop -> accu
   | Branch (pc', _) | Poptrap ((pc', _), _) -> f pc' accu
   | Pushtrap (_, _, (pc1, _), pcs) -> f pc1 (Addr.Set.fold f pcs accu)
-  | Cond (_, _, (pc1, _), (pc2, _)) -> accu >> f pc1 >> f pc2
+  | Cond (_, (pc1, _), (pc2, _)) ->
+      let accu = f pc1 accu in
+      let accu = f pc2 accu in
+      accu
   | Switch (_, a1, a2) ->
       let accu = Array.fold_right a1 ~init:accu ~f:(fun (pc, _) accu -> f pc accu) in
       let accu = Array.fold_right a2 ~init:accu ~f:(fun (pc, _) accu -> f pc accu) in
@@ -91,7 +94,7 @@ let rec traverse f pc visited blocks =
     visited, blocks
   else visited, blocks
 
-let f ((pc, blocks, free_pc) as p) =
+let f p =
   let t = Timer.make () in
   let blocks =
     fold_closures
@@ -102,7 +105,7 @@ let f ((pc, blocks, free_pc) as p) =
             let _, blocks = traverse (f, params, pc, args) pc Addr.Set.empty blocks in
             blocks
         | _ -> blocks)
-      blocks
+      p.blocks
   in
   if times () then Format.eprintf "  tail calls: %a@." Timer.print t;
-  pc, blocks, free_pc
+  { p with blocks }

@@ -134,7 +134,7 @@ module Share = struct
       ?(alias_strings = false)
       ?(alias_prims = false)
       ?(alias_apply = true)
-      (_, blocks, _) : t =
+      { blocks; _ } : t =
     let count =
       Addr.Map.fold
         (fun _ block share ->
@@ -342,7 +342,7 @@ let runtime_fun ctx name =
 
 let str_js s = J.EStr (s, `Bytes)
 
-let unsigned ~ctx x =
+let unsigned' ~ctx x =
   if_prim_supplied
     "unsigned_right_shift_32"
     ~if_supplied:(fun ~pretty_name ->
@@ -355,6 +355,15 @@ let unsigned ~ctx x =
       in
       J.ECall (p, [ x; int 0 ], Loc.N))
     ~fallback:(fun () -> J.EBin (J.Lsr, x, int 0))
+
+let unsigned ~ctx x =
+  let pos_int32 =
+    match x with
+    | J.EInt num -> ( try Int32.of_int num >= 0l with _ -> false)
+    | _ -> false
+  in
+  if pos_int32 then x else unsigned' ~ctx x
+
 
 let arity_test ~ctx x =
   if_prim_supplied
@@ -578,29 +587,33 @@ let protect_preds st pc = Hashtbl.replace st.preds pc (get_preds st pc + 1000000
 
 let unprotect_preds st pc = Hashtbl.replace st.preds pc (get_preds st pc - 1000000)
 
-let ( >> ) x f = f x
-
 (* This as to be kept in sync with the way we build conditionals
    and switches! *)
 
 module DTree = struct
+  type cond =
+    | IsTrue
+    | CEq of int32
+    | CLt of int32
+    | CLe of int32
+
   type 'a t =
-    | If of Code.cond * 'a t * 'a t
+    | If of cond * 'a t * 'a t
     | Switch of (int list * 'a t) array
     | Branch of 'a
     | Empty
 
   let normalize a =
     a
-    >> Array.to_list
-    >> List.stable_sort ~cmp:(fun (cont1, _) (cont2, _) -> compare cont1 cont2)
-    >> list_group fst snd
-    >> List.map ~f:(fun (cont1, l1) -> cont1, List.flatten l1)
-    >> List.stable_sort ~cmp:(fun (_, l1) (_, l2) ->
+    |> Array.to_list
+    |> List.stable_sort ~cmp:(fun (cont1, _) (cont2, _) -> compare cont1 cont2)
+    |> list_group fst snd
+    |> List.map ~f:(fun (cont1, l1) -> cont1, List.flatten l1)
+    |> List.stable_sort ~cmp:(fun (_, l1) (_, l2) ->
            compare (List.length l1) (List.length l2))
-    >> Array.of_list
+    |> Array.of_list
 
-  let build_if cond b1 b2 = If (cond, Branch b1, Branch b2)
+  let build_if b1 b2 = If (IsTrue, Branch b1, Branch b2)
 
   let build_switch (a : cont array) : 'a t =
     let m = Config.Param.switch_max_case () in
@@ -653,14 +666,18 @@ module DTree = struct
             let range1 = snd ai.(h) and range2 = snd ai.(succ h) in
             match range1, range2 with
             | [], _ | _, [] -> assert false
-            | _, lower_bound2 :: _ -> If (Code.CLe (Int32.of_int lower_bound2), b2, b1))
+            | _, lower_bound2 :: _ -> If (CLe (Int32.of_int lower_bound2), b2, b1))
+        
     in
     let len = Array.length ai in
     if len = 0 then Empty else loop 0 (len - 1)
 
   let rec fold_cont f b acc =
     match b with
-    | If (_, b1, b2) -> acc >> fold_cont f b1 >> fold_cont f b2
+    | If (_, b1, b2) ->
+      let acc = fold_cont f b1 acc in
+      let acc = fold_cont f b2 acc in
+      acc
     | Switch a -> Array.fold_left a ~init:acc ~f:(fun acc (_, b) -> fold_cont f b acc)
     | Branch (pc, _) -> f pc acc
     | Empty -> acc
@@ -686,12 +703,16 @@ let fold_children blocks pc f accu =
   match block.branch with
   | Return _ | Raise _ | Stop -> accu
   | Branch (pc', _) | Poptrap ((pc', _), _) -> f pc' accu
-  | Pushtrap ((pc1, _), _, (pc2, _), _) -> accu >> f pc1 >> f pc2
-  | Cond (cond, _, cont1, cont2) ->
-      DTree.fold_cont f (DTree.build_if cond cont1 cont2) accu
+  | Pushtrap ((pc1, _), _, (pc2, _), _) ->
+    let accu = f pc1 accu in
+    let accu = f pc2 accu in
+    accu
+  | Cond (_, cont1, cont2) -> DTree.fold_cont f (DTree.build_if cont1 cont2) accu
   | Switch (_, a1, a2) ->
       let a1 = DTree.build_switch a1 and a2 = DTree.build_switch a2 in
-      accu >> DTree.fold_cont f a1 >> DTree.fold_cont f a2
+      let accu = DTree.fold_cont f a1 accu in
+      let accu = DTree.fold_cont f a2 accu in
+      accu
 
 let rec build_graph st pc anc =
   if not (Addr.Set.mem pc st.visited_blocks)
@@ -1255,7 +1276,6 @@ let throw_statement ctx cx k loc =
 
 let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
   match e with
-  | Const i -> (int32 i, const_p, queue), []
   | Apply (x, l, true) ->
       let (px, cx), queue = access_queue queue x in
       let args, prop, queue =
@@ -1547,7 +1567,7 @@ and translate_instr ctx expr_queue loc instr =
          num : number of occurrence
          size_c * n < size_v * n + size_v + 1 + size_c
       *)
-      | n, (Const _ | Constant (Int _ | Float _)) ->
+      | n, (Constant (Int _ | Float _)) ->
           enqueue expr_queue prop x ce loc n instrs
       | _ ->
           flush_queue
@@ -1797,7 +1817,7 @@ and colapse_frontier st new_frontier interm =
     let switch =
       if Array.length cases > 2
       then Code.Switch (x, cases, [||])
-      else Code.Cond (IsTrue, x, cases.(1), cases.(0))
+      else Code.Cond (x, cases.(1), cases.(0))
     in
     st.blocks <-
       Addr.Map.add
@@ -1844,9 +1864,6 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
           | IsTrue -> cx
           | CEq n -> J.EBin (J.EqEqEq, int32 n, cx)
           | CLt n -> J.EBin (J.Lt, int32 n, cx)
-          | CUlt n ->
-              let n' = if n < 0l then unsigned ~ctx:st.ctx (int32 n) else int32 n in
-              J.EBin (J.Lt, n', unsigned ~ctx:st.ctx cx)
           | CLe n -> J.EBin (J.Le, int32 n, cx)
         in
         ( never1 && never2
@@ -1916,7 +1933,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
     | Pushtrap _ -> assert false
     | Poptrap (cont, _) ->
         flush_all queue (compile_branch st [] cont None backs frontier interm)
-    | Cond (cond, x, c1, c2) ->
+    | Cond (x, c1, c2) ->
         let (_px, cx), queue = access_queue queue x in
         let b =
           compile_decision_tree
@@ -1929,7 +1946,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             succs
             loc
             cx
-            (DTree.build_if cond c1 c2)
+            (DTree.build_if c1 c2)
         in
         flush_all queue b
     | Switch (x, [||], a2) ->
@@ -2186,10 +2203,10 @@ let compile_program ctx pc =
   if debug () then Format.eprintf "@.@.";
   res
 
-let f ((pc, blocks, _) as p) ~exported_runtime live_vars debug =
+let f (p : Code.program) ~exported_runtime ~live_vars debug =
   let t' = Timer.make () in
   let share = Share.get ~alias_prims:(exported_runtime != None) p in
-  let ctx = Ctx.initial ~exported_runtime blocks live_vars share debug in
-  let p = compile_program ctx pc in
+  let ctx = Ctx.initial ~exported_runtime p.blocks live_vars share debug in
+  let p = compile_program ctx p.start in
   if times () then Format.eprintf "  code gen.: %a@." Timer.print t';
   p, ctx.module_export_metadatas

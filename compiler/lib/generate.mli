@@ -21,6 +21,6 @@
 val f :
      Code.program
   -> exported_runtime:Code.Var.t option
-  -> int array
+  -> live_vars:int array
   -> Parse_bytecode.Debug.data
   -> Rehp.program * Module_export_metadata.t list

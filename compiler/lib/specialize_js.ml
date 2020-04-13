@@ -383,14 +383,14 @@ let rec specialize_instrs addr info checks l =
           :: specialize_instrs addr info ((y, idx) :: checks) r
     | _ -> specialize_instr addr info i (specialize_instrs addr info checks r))
 
-let specialize_all_instrs info (pc, blocks, free_pc) =
+let specialize_all_instrs info p =
   let blocks =
     Addr.Map.mapi
       (fun addr block ->
         {block with Code.body = specialize_instrs addr info [] block.body})
-      blocks
+      p.blocks
   in
-  pc, blocks, free_pc
+  { p with blocks }
 
 (****)
 
@@ -401,7 +401,7 @@ let specialize_all_instrs info (pc, blocks, free_pc) =
 let f info p = specialize_all_instrs info p
 
 (* This is called from the driver before any Flow information is computed. *)
-let f_once debug_data_for_errors (pc, blocks, free_pc) =
+let f_once debug_data_for_errors p =
   let rec loop addr l =
     match l with
     | [] -> []
@@ -457,6 +457,6 @@ let f_once debug_data_for_errors (pc, blocks, free_pc) =
   let blocks =
     Addr.Map.mapi
       (fun addr block -> {block with Code.body = loop addr block.body})
-      blocks
+      p.blocks
   in
-  pc, blocks, free_pc
+  { p with blocks }

@@ -112,7 +112,7 @@ let phi = p => {
 
 let print = p => {
   if (debug()) {
-    Code.print_program((_, _) => "", p);
+    Code.Print.program((_, _) => "", p);
   };
   p;
 };
@@ -189,7 +189,7 @@ let generate = (d, ~accessRuntimeThrough, (p, live_vars)) => {
   if (times()) {
     Format.eprintf("Start Generation...@.");
   };
-  Generate.f(p, ~exported_runtime=accessRuntimeThrough, live_vars, d);
+  Generate.f(p, ~exported_runtime=accessRuntimeThrough, ~live_vars, d);
 };
 
 let git_version = () => "temporarily-disabled-git-version";

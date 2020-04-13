@@ -23,7 +23,7 @@ open Code
 
 let optimizable blocks pc _ =
   Code.traverse
-    Code.fold_children
+    { fold = Code.fold_children }
     (fun pc acc ->
       if not acc
       then acc
@@ -64,7 +64,7 @@ let rec follow_branch_rec seen blocks = function
 
 let follow_branch = follow_branch_rec Addr.Set.empty
 
-let get_closures (_, blocks, _) =
+let get_closures { blocks; _ } =
   Addr.Map.fold
     (fun _ block closures ->
       List.fold_left block.body ~init:closures ~f:(fun closures i ->
@@ -92,8 +92,6 @@ let rewrite_block (pc', handler) pc blocks =
   in
   Addr.Map.add pc block blocks
 
-let ( >> ) x f = f x
-
 (* Skip try body *)
 let fold_children blocks pc f accu =
   let block = Addr.Map.find pc blocks in
@@ -101,14 +99,22 @@ let fold_children blocks pc f accu =
   | Return _ | Raise _ | Stop -> accu
   | Branch (pc', _) | Poptrap ((pc', _), _) -> f pc' accu
   | Pushtrap (_, _, (pc1, _), pcs) -> f pc1 (Addr.Set.fold f pcs accu)
-  | Cond (_, _, (pc1, _), (pc2, _)) -> accu >> f pc1 >> f pc2
+  | Cond (_, (pc1, _), (pc2, _)) ->
+      let accu = f pc1 accu in
+      let accu = f pc2 accu in
+      accu
   | Switch (_, a1, a2) ->
       let accu = Array.fold_right a1 ~init:accu ~f:(fun (pc, _) accu -> f pc accu) in
       let accu = Array.fold_right a2 ~init:accu ~f:(fun (pc, _) accu -> f pc accu) in
       accu
 
 let rewrite_closure blocks cont_pc clos_pc handler =
-  Code.traverse fold_children (rewrite_block (cont_pc, handler)) clos_pc blocks blocks
+  Code.traverse
+    { fold = fold_children }
+    (rewrite_block (cont_pc, handler))
+    clos_pc
+    blocks
+    blocks
 
 (****)
 
@@ -150,7 +156,6 @@ let simple blocks cont mapping =
     | `Empty, Return ret -> `Alias (map_var mapping ret)
     | `Ok (x, exp), Return ret when Code.Var.compare x (find_mapping mapping ret) = 0 -> (
         match exp with
-        | Const _ -> `Exp exp
         | Constant (Float _ | Int64 _ | Int _ | IString _) -> `Exp exp
         | Apply (f, args, true) ->
             `Exp (Apply (map_var mapping f, List.map args ~f:(map_var mapping), true))
@@ -275,7 +280,7 @@ let inline closures live_vars outer_optimizable pc (blocks, free_pc) =
 
 let times = Debug.find "times"
 
-let f ((pc, blocks, free_pc) as p) live_vars =
+let f p live_vars =
   Code.invariant p;
   let t = Timer.make () in
   let closures = get_closures p in
@@ -291,14 +296,14 @@ let f ((pc, blocks, free_pc) as p) live_vars =
               b
         in
         Code.traverse
-          Code.fold_children
+          { fold = Code.fold_children }
           (inline closures live_vars outer_optimizable)
           pc
           blocks
           (blocks, free_pc))
-      (blocks, free_pc)
+      (p.blocks, p.free_pc)
   in
   if times () then Format.eprintf "  inlining: %a@." Timer.print t;
-  let p = pc, blocks, free_pc in
+  let p = { p with blocks; free_pc } in
   Code.invariant p;
   p
