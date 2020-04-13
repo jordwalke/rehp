@@ -99,6 +99,7 @@ final class Runtime {
          "caml_js_fun_call"=>$caml_js_fun_call,
          "caml_js_call"=>$caml_js_call,
          "caml_js_var"=>$caml_js_var,
+         "caml_js_nullable"=>$caml_js_nullable,
          "caml_js_to_array"=>$caml_js_to_array,
          "caml_js_from_array"=>$caml_js_from_array,
          "caml_js_from_string"=>$caml_js_from_string,

@@ -599,8 +599,9 @@ let rec expression = (input: input, x) =>
   | Rehp.ENew(e1, None) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     (e1Out, Php.ENew(e1Mapped, None));
-  | Rehp.EVar(Id.S({name: "null", _})) => (emptyOutput, Php.EArr([]))
+  | Rehp.EVar(Id.S({name: "null", _})) => (emptyOutput, Php.ENULL)
   /* Undefined is NULL */
+  /* TODO: Come up with suitable alternative for PHP */
   | Rehp.EVar(Id.S({name: "undefined", _})) => (emptyOutput, Php.ENULL)
   | Rehp.EVar(v) =>
     let out = {...emptyOutput, use: useOneVar(v)};
